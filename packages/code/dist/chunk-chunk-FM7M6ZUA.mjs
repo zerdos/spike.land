@@ -3438,14 +3438,14 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   }, []);
   (0, import_react3.useEffect)(() => {
     const intervalHandler2 = setInterval(() => {
-      if (dragRef.current !== null) {
-        if (dragRef.current.clientWidth > window.innerWidth) {
-          const newScale = scaleRange - 1;
+      if (iRef.current !== null) {
+        if (iRef.current.clientWidth > window.innerWidth) {
+          const newScale = Math.floor(scaleRange * window.innerWidth / iRef.current.clientWidth - 0.5);
           changeScaleRange(newScale);
           changeMaxScaleRange(newScale);
         }
       }
-    }, 1e3 / 60);
+    }, 1e3 / 6);
     return () => clearInterval(intervalHandler2);
   }, [scaleRange]);
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
@@ -3642,11 +3642,11 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         `,
                               children: /* @__PURE__ */ jsx(Phone, {})
                             }
-                          ) : size === 768 ? /* @__PURE__ */ jsx(
+                          ) : size === 1024 ? /* @__PURE__ */ jsx(
                             "span",
                             {
                               css: css`
-                        color: ${width === 768 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        color: ${width === 1024 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `,
                               children: /* @__PURE__ */ jsx(Tablet, {})
                             }
@@ -3654,7 +3654,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                             "span",
                             {
                               css: css`
-                        color: ${width === 1920 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        color: ${width === 1366 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                       `,
                               children: /* @__PURE__ */ jsx(Tv, {})
                             }
