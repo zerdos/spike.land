@@ -51,7 +51,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   root = document.getElementById(codeSpace + "-css");
   if (!root) {
-    document.getElementById("root").innerHTML = `<div id="${codeSpace}-css"></>`;
+    document.getElementById("root").innerHTML = `<div style="height: 100%" id="${codeSpace}-css"></>`;
     root = document.getElementById(codeSpace + "-css");
   }
   if (!r) {

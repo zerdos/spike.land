@@ -36,7 +36,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
   root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
 
   if (!root) {
-    document.getElementById("root")!.innerHTML = `<div id="${codeSpace}-css"></>`;
+    document.getElementById("root")!.innerHTML = `<div style="height: 100%" id="${codeSpace}-css"></>`;
     root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
   }
   if (!r) {
