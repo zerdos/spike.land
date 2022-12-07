@@ -7,7 +7,7 @@ import { Rnd } from "react-rnd";
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
 import { prettierJs } from "./prettierEsm";
-import { runner } from "./runner";
+import * as Runner from "./runner";
 import { mST, onSessionUpdate } from "./session";
 
 const mod = {
@@ -167,7 +167,7 @@ async function onModChange(_code: string, codeSpace: string) {
 
   const counter = ++mod.counter;
   mod.code = code;
-  runner({ code, counter, codeSpace });
+  Runner.runner({ code, counter, codeSpace });
 }
 let startedM = 0;
 async function setMonaco(container: HTMLDivElement, codeSpace: string) {
