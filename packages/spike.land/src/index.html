@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
@@ -8,97 +9,102 @@
   <title>Instant React Editor</title>
 
   <script type="importmap"></script>
-<style>
-  html,
-  body {
-    overflow: auto;
-    margin: 0;
-    height: 100%;
-    --webkit-overflow-scrolling: touch;  
-    overscroll-behavior-x: none;
-  }
+  <style>
+    html,
+    body {
+      overflow: auto;
+      margin: 0;
+      height: 100%;
+      --webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+    }
 
-  q {
+    q {
       display: none;
-  }
-  
-
-  @media screen and (prefers-color-scheme: dark) {
-    body {
-      background-color: #121212;;
-      color: hsl(210, 10%, 62%);
-      --text-color-normal: hsl(210, 10%, 62%);
-    --text-color-light: hsl(210, 15%, 35%);
-    --text-color-richer: hsl(210, 50%, 72%);
-    --text-color-highlight: hsl(25, 70%, 45%);
     }
-  }
 
 
-  @media screen and (prefers-color-scheme: light) {
-    body {
-      background-color: white;
-      color: black;
-      --text-color-normal: #0a244d;
-      --text-color-light: #8cabd9;
+    @media screen and (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        ;
+        color: hsl(210, 10%, 62%);
+        --text-color-normal: hsl(210, 10%, 62%);
+        --text-color-light: hsl(210, 15%, 35%);
+        --text-color-richer: hsl(210, 50%, 72%);
+        --text-color-highlight: hsl(25, 70%, 45%);
+      }
     }
-  }
-  /**reset*/
 
-  
-   </style>
-<style>
-  .console-log-div {
-    border: 1px solid gray;
-    padding: 5px 10px;
-    display: none;
-    border-radius: 5px;
-    width: 95% !important;
-    background-color: #efefef;
-  }
+
+    @media screen and (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+        --text-color-normal: #0a244d;
+        --text-color-light: #8cabd9;
+      }
+    }
+
+    /**reset*/
+  </style>
+  <style>
+    .console-log-div {
+      border: 1px solid gray;
+      padding: 5px 10px;
+      display: none;
+      border-radius: 5px;
+      width: 95% !important;
+      background-color: #efefef;
+    }
   </style>
 </head>
-   
-   
+
+
 <body>
-  <fieldset id="console-log-div" class="console-log-div" style="font-family: monospace; margin-top: 20px; margin-left: 10px; margin-right: 10px; white-space: pre; border: 1px solid black; border-radius: 5px; padding: 5px 10px;"><legend>console output</legend><div id="console-log-text"></div></fieldset>
-<root/>
-  
-<script type="module">
-import { hydrate, md5 } from "./hydrate.mjs";
-import load from "./load.mjs";
+  <fieldset id="console-log-div" class="console-log-div"
+    style="font-family: monospace; margin-top: 20px; margin-left: 10px; margin-right: 10px; white-space: pre; border: 1px solid black; border-radius: 5px; padding: 5px 10px;">
+    <legend>console output</legend>
+    <div id="console-log-text"></div>
+  </fieldset>
+  <root />
 
-const paths = location.pathname.split("/");
-const codeSpace = paths[2];
+  <script type="module">
+    import { hydrate, md5 } from "./hydrate.mjs";
+    import load from "./load.mjs";
 
-const rootEl = document.getElementById(`root`);
+    const paths = location.pathname.split("/");
+    const codeSpace = paths[2];
 
-if (location.pathname !== `/live/${codeSpace}`) {
-  const bc = new BroadcastChannel(location.origin);
-  hydrate(codeSpace);
-  bc.onmessage = async (event) => {
-    if (event.data.codeSpace === codeSpace) {
-      const { html, css, transpiled, i } = event.data.sess;
- //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
+    const rootEl = document.getElementById(`root`);
 
-//      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-      await hydrate(codeSpace, event.data.sess);
+    if (location.pathname !== `/live/${codeSpace}`) {
+      const bc = new BroadcastChannel(location.origin);
+      hydrate(codeSpace);
+      bc.onmessage = async (event) => {
+        if (event.data.codeSpace === codeSpace) {
+          const { html, css, transpiled, i } = event.data.sess;
+          //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
+
+          //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
+          await hydrate(codeSpace, event.data.sess);
+        }
+      };
+    } else {
+      load();
     }
-  };
-} else {
-  load();
-}
-</script>
+  </script>
 
-<script type="module">
-setTimeout(() => navigator && navigator.serviceWorker &&  navigator.serviceWorker.register("/sw.js", {
+  <script type="module">
+    setTimeout(() => navigator && navigator.serviceWorker && navigator.serviceWorker.register("/sw.js", {
       scope: "/",
       type: "classic",
-    }).then(current=>navigator.serviceWorker.getRegistrations()
-          .then(r=>r.filter(sw=>sw!==current)
-          .forEach(sw=>sw.unregister())))
-)
-</script>
+    }).then(current => navigator.serviceWorker.getRegistrations()
+      .then(r => r.filter(sw => sw !== current)
+        .forEach(sw => sw.unregister())))
+    )
+  </script>
 
 </body>
+
 </html>
