@@ -3387,8 +3387,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const [delay, setDelay] = (0, import_react3.useState)(1);
   const scale = Math.sqrt(scaleRange / 100);
   const setWidth = /* @__PURE__ */ __name((width2) => {
-    changeScaleRange(Math.floor(100 * Math.sqrt(innerWidth / width2)));
-    changeMaxScaleRange(Math.floor(100 * Math.sqrt(innerWidth / width2)));
+    changeScaleRange(Math.floor(100 * (innerWidth / width2)));
+    changeMaxScaleRange(Math.floor(100 * (innerWidth / width2)));
     setWidthB(width2);
   }, "setWidth");
   (0, import_react3.useEffect)(() => {
