@@ -3440,12 +3440,12 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     const intervalHandler2 = setInterval(() => {
       if (iRef.current !== null) {
         if (iRef.current.clientWidth > window.innerWidth) {
-          const newScale = Math.floor(scaleRange * window.innerWidth / iRef.current.clientWidth - 0.5);
+          const newScale = scaleRange + Math.floor(window.innerWidth / width);
           changeScaleRange(newScale);
           changeMaxScaleRange(newScale);
         }
       }
-    }, 1e3 / 6);
+    }, 1e3);
     return () => clearInterval(intervalHandler2);
   }, [scaleRange]);
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;

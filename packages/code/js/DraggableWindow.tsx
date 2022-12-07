@@ -156,12 +156,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
       if (iRef.current !== null) {
         if (iRef.current.clientWidth > window.innerWidth) {
-          const newScale = Math.floor(scaleRange * window.innerWidth / iRef.current.clientWidth - 0.5);
+          const newScale = scaleRange + Math.floor(window.innerWidth / width);
           changeScaleRange(newScale);
           changeMaxScaleRange(newScale);
         }
       }
-    }, 1000 / 6);
+    }, 1000);
     return () => clearInterval(intervalHandler);
   }, [scaleRange]);
 
