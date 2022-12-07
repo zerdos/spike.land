@@ -1,17 +1,15 @@
 import {
-  require_emotion_react_cjs
-} from "./chunk-chunk-RNJNNLQS.mjs";
-import "./chunk-chunk-OH444ZSQ.mjs";
-import "./chunk-chunk-ZL6L5B7C.mjs";
+  emotion_react_browser_esm_exports
+} from "./chunk-chunk-TJMFR74C.mjs";
+import "./chunk-chunk-YJ6EJ55D.mjs";
+import "./chunk-chunk-URQXE74X.mjs";
 import "./chunk-chunk-UX3KX3KY.mjs";
 import {
-  __toESM,
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";
 
 // js/emotion.ts
 init_define_process();
-var import_react = __toESM(require_emotion_react_cjs(), 1);
 var {
   __unsafe_useEmotionCache,
   CacheProvider,
@@ -26,8 +24,7 @@ var {
   useTheme,
   withEmotionCache,
   withTheme
-} = import_react.default;
-var emotion_default = import_react.default;
+} = emotion_react_browser_esm_exports;
 export {
   CacheProvider,
   ClassNames,
@@ -37,7 +34,6 @@ export {
   __unsafe_useEmotionCache,
   createElement,
   css,
-  emotion_default as default,
   jsx,
   keyframes,
   useTheme,

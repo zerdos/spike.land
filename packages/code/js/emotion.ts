@@ -1,4 +1,4 @@
-import EmotionReact from "@emotion/react";
+import * as EmotionReact from "@emotion/react";
 
 // import * as EA from "@emotion/react";
 
@@ -21,4 +21,4 @@ export const {
   // @ts-ignore
 } = EmotionReact;
 
-export default EmotionReact;
+// export default EmotionReact;

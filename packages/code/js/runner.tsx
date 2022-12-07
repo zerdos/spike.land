@@ -1,6 +1,6 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
-import debounce from "lodash.debounce";
 import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
@@ -56,12 +56,6 @@ export const esmTransform = async (code: string) => {
 };
 Object.assign(globalThis, { transform, build, toUmd });
 
-const debouncedSync = debounce(patchSync, 200, {
-  leading: true,
-  trailing: true,
-  maxWait: 800,
-});
-
 let counterMax = mST().i;
 const IIFE = {};
 
@@ -100,50 +94,54 @@ export const umdTransform = async (code: string) => {
 //   umdTransform,
 // });
 
+const mutex = new Mutex();
+
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
   counter: number;
 }) {
   if (counter <= counterMax) return;
-
   counterMax = counter;
+  await mutex.runExclusive(async () => {
+    if (counter < counterMax) return;
 
-  // Console.log({ i, counter });
+    // Console.log({ i, counter });
 
-  // mod.i = counter;
+    // mod.i = counter;
 
-  // if (code === mST().code) return;
-  // if (mod.i > counter) return;
+    // if (code === mST().code) return;
+    // if (mod.i > counter) return;
 
-  // session.changes.push(changes);
-  // esbuildEsmTransform = esbuildEsmTransform ||
-  //   (await import("./esbuildEsm.ts")).transform;
+    // session.changes.push(changes);
+    // esbuildEsmTransform = esbuildEsmTransform ||
+    //   (await import("./esbuildEsm.ts")).transform;
 
-  try {
-    // const ab = new AbortController();
-    // const pp = await buildT(codeSpace, counter, ab.signal);
-    // if (!pp) return;
-    const transpiledCode = await esmTransform(code);
+    try {
+      // const ab = new AbortController();
+      // const pp = await buildT(codeSpace, counter, ab.signal);
+      // if (!pp) return;
+      const transpiledCode = await esmTransform(code);
 
-    const { html, css } = await render(transpiledCode, codeSpace);
+      const { html, css } = await render(transpiledCode, codeSpace);
 
-    console.log({ html, css });
+      console.log({ html, css });
 
-    if (!html || !css) {
-      return;
+      if (!html || !css) {
+        return;
+      }
+
+      patchSync({
+        ...mST(),
+        code,
+        i: counter,
+        transpiled: transpiledCode,
+        html,
+        css,
+      });
+    } catch (error) {
+      console.error({ error });
+    } finally {
     }
-
-    debouncedSync({
-      ...mST(),
-      code,
-      i: counter,
-      transpiled: transpiledCode,
-      html,
-      css,
-    });
-  } catch (error) {
-    console.error({ error });
-  } finally {
-  }
+  });
 }
