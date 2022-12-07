@@ -17,7 +17,7 @@ const sizes = [10, 25, 50, 75, 100];
 
 type DraggableWindowProps = {
   // OnRestore: (() => void);
-  children: JSX.Element;
+  // children: JSX.Element;
   room: string;
 };
 

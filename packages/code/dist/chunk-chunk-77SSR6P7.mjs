@@ -13,6 +13,10 @@ import {
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";
 
+// js/icons.tsx
+init_define_process();
+var import_react3 = __toESM(require_emotion_react_cjs(), 1);
+
 // ../../.yarn/__virtual__/react-icons-virtual-252d5562a0/0/global/cache/react-icons-npm-4.7.1-27c284b383-9.zip/node_modules/react-icons/md/index.esm.js
 init_define_process();
 
@@ -135,8 +139,6 @@ function MdShare(props) {
 __name(MdShare, "MdShare");
 
 // js/icons.tsx
-init_define_process();
-var import_react3 = __toESM(require_emotion_react_cjs(), 1);
 var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
 var Wrap = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
   "span",

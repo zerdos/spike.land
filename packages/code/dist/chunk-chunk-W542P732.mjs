@@ -1,10 +1,17 @@
 import {
-  AutoUpdateApp,
-  Editor
-} from "./chunk-chunk-QVKM4RZM.mjs";
+  Fab,
+  MdFullscreen,
+  Phone,
+  Share,
+  Tablet,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tv
+} from "./chunk-chunk-77SSR6P7.mjs";
 import {
+  Editor,
   wait
-} from "./chunk-chunk-NBK6NTLB.mjs";
+} from "./chunk-chunk-MMDZBSVG.mjs";
 import {
   require_emotion_react_cjs
 } from "./chunk-chunk-RNJNNLQS.mjs";
@@ -19,6 +26,10 @@ import {
   startSession
 } from "./chunk-chunk-OOGKLUN3.mjs";
 import {
+  MotionConfig,
+  motion
+} from "./chunk-chunk-W7USNXUE.mjs";
+import {
   require_emotion_react_jsx_runtime_cjs
 } from "./chunk-chunk-NFYMKIWC.mjs";
 import {
@@ -27,9 +38,6 @@ import {
 import {
   require_client
 } from "./chunk-chunk-FFMS35Y7.mjs";
-import {
-  require_react_dom
-} from "./chunk-chunk-M3XF32XQ.mjs";
 import {
   require_react
 } from "./chunk-chunk-UX3KX3KY.mjs";
@@ -3348,187 +3356,352 @@ var adapter_core_default = adapter;
 
 // js/renderPreviewWindow.tsx
 init_define_process();
-var import_react = __toESM(require_react(), 1);
+var import_react4 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
+var import_react5 = __toESM(require_emotion_react_cjs(), 1);
 
-// ../../.yarn/__virtual__/react-reverse-portal-virtual-1d0f51ed61/0/global/cache/react-reverse-portal-npm-2.1.1-e50ec91de3-9.zip/node_modules/react-reverse-portal/dist/web/index.js
+// js/DraggableWindow.tsx
 init_define_process();
-var React = __toESM(require_react());
-var ReactDOM = __toESM(require_react_dom());
-var __extends = function() {
-  var extendStatics = /* @__PURE__ */ __name(function(d, b) {
-    extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-      d2.__proto__ = b2;
-    } || function(d2, b2) {
-      for (var p in b2)
-        if (b2.hasOwnProperty(p))
-          d2[p] = b2[p];
-    };
-    return extendStatics(d, b);
-  }, "extendStatics");
-  return function(d, b) {
-    extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    __name(__, "__");
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-var ELEMENT_TYPE_HTML = "html";
-var ELEMENT_TYPE_SVG = "svg";
-var SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-var validateElementType = /* @__PURE__ */ __name(function(domElement, elementType) {
-  if (elementType === ELEMENT_TYPE_HTML) {
-    return domElement instanceof HTMLElement;
-  }
-  if (elementType === ELEMENT_TYPE_SVG) {
-    return domElement instanceof SVGElement;
-  }
-  throw new Error('Unrecognized element type "' + elementType + '" for validateElementType.');
-}, "validateElementType");
-var createPortalNode = /* @__PURE__ */ __name(function(elementType, options) {
-  var initialProps = {};
-  var parent;
-  var lastPlaceholder;
-  var element;
-  if (elementType === ELEMENT_TYPE_HTML) {
-    element = document.createElement("div");
-  } else if (elementType === ELEMENT_TYPE_SVG) {
-    element = document.createElementNS(SVG_NAMESPACE, "g");
-  } else {
-    throw new Error('Invalid element type "' + elementType + '" for createPortalNode: must be "html" or "svg".');
-  }
-  if (options && typeof options === "object") {
-    for (var _i = 0, _a = Object.entries(options.attributes); _i < _a.length; _i++) {
-      var _b = _a[_i], key = _b[0], value = _b[1];
-      element.setAttribute(key, value);
-    }
-  }
-  var portalNode = {
-    element,
-    elementType,
-    setPortalProps: function(props) {
-      initialProps = props;
-    },
-    getInitialPortalProps: function() {
-      return initialProps;
-    },
-    mount: function(newParent, newPlaceholder) {
-      if (newPlaceholder === lastPlaceholder) {
-        return;
+var import_react2 = __toESM(require_emotion_react_cjs(), 1);
+var import_react3 = __toESM(require_react(), 1);
+
+// js/Qr.lazy.tsx
+init_define_process();
+var import_react = __toESM(require_react(), 1);
+var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-SBJULXFO.mjs"));
+var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "qr" }), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LQR, { url }) }), "QRButton");
+
+// js/DraggableWindow.tsx
+var import_jsx_runtime2 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var breakPoints = [680, 768, 1920];
+var breakPointHeights = [1137, 1024, 1080];
+var sizes = [10, 25, 50, 75, 100];
+var DraggableWindow = /* @__PURE__ */ __name(({
+  room
+}) => {
+  const [scaleRange, changeScaleRange] = (0, import_react3.useState)(100);
+  const iRef = (0, import_react3.useRef)(null);
+  const startPositions = { bottom: 0, right: 0 };
+  const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
+  const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
+  const [height2, setHeight] = (0, import_react3.useState)(window.innerHeight * devicePixelRatio);
+  const scale = scaleRange / 100;
+  (0, import_react3.useEffect)(() => {
+    if (!iRef.current)
+      return;
+    const reveal = /* @__PURE__ */ __name(async () => {
+      await wait(100);
+      if (window.innerWidth / devicePixelRatio < 600) {
+        changeScaleRange(50);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
       }
-      portalNode.unmount();
-      if (newParent !== parent) {
-        if (!validateElementType(newParent, elementType)) {
-          throw new Error('Invalid element type for portal: "' + elementType + '" portalNodes must be used with ' + elementType + " elements, but OutPortal is within <" + newParent.tagName + ">.");
-        }
+      if (window.innerWidth / devicePixelRatio < 1200) {
+        changeScaleRange(100);
+        setWidth(breakPoints[0]);
+        setHeight(breakPointHeights[0]);
+      } else if (window.innerWidth / devicePixelRatio < 1800) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(50);
+      } else if (window.innerWidth / devicePixelRatio < 2500) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(75);
+      } else if (window.innerWidth / devicePixelRatio > 2500) {
+        setWidth(breakPoints[1]);
+        setHeight(breakPointHeights[1]);
+        changeScaleRange(100);
       }
-      newParent.replaceChild(portalNode.element, newPlaceholder);
-      parent = newParent;
-      lastPlaceholder = newPlaceholder;
-    },
-    unmount: function(expectedPlaceholder) {
-      if (expectedPlaceholder && expectedPlaceholder !== lastPlaceholder) {
-        return;
-      }
-      if (parent && lastPlaceholder) {
-        parent.replaceChild(lastPlaceholder, portalNode.element);
-        parent = void 0;
-        lastPlaceholder = void 0;
-      }
-    }
-  };
-  return portalNode;
-}, "createPortalNode");
-var InPortal = function(_super) {
-  __extends(InPortal2, _super);
-  function InPortal2(props) {
-    var _this = _super.call(this, props) || this;
-    _this.addPropsChannel = function() {
-      Object.assign(_this.props.node, {
-        setPortalProps: function(props2) {
-          _this.setState({ nodeProps: props2 });
-        }
+      setPositions({
+        bottom: 20,
+        right: 20
       });
-    };
-    _this.state = {
-      nodeProps: _this.props.node.getInitialPortalProps()
-    };
-    return _this;
-  }
-  __name(InPortal2, "InPortal");
-  InPortal2.prototype.componentDidMount = function() {
-    this.addPropsChannel();
-  };
-  InPortal2.prototype.componentDidUpdate = function() {
-    this.addPropsChannel();
-  };
-  InPortal2.prototype.render = function() {
-    var _this = this;
-    var _a = this.props, children = _a.children, node = _a.node;
-    return ReactDOM.createPortal(React.Children.map(children, function(child) {
-      if (!React.isValidElement(child))
-        return child;
-      return React.cloneElement(child, _this.state.nodeProps);
-    }), node.element);
-  };
-  return InPortal2;
-}(React.PureComponent);
-var OutPortal = function(_super) {
-  __extends(OutPortal2, _super);
-  function OutPortal2(props) {
-    var _this = _super.call(this, props) || this;
-    _this.placeholderNode = React.createRef();
-    _this.passPropsThroughPortal();
-    return _this;
-  }
-  __name(OutPortal2, "OutPortal");
-  OutPortal2.prototype.passPropsThroughPortal = function() {
-    var propsForTarget = Object.assign({}, this.props, { node: void 0 });
-    this.props.node.setPortalProps(propsForTarget);
-  };
-  OutPortal2.prototype.componentDidMount = function() {
-    var node = this.props.node;
-    this.currentPortalNode = node;
-    var placeholder = this.placeholderNode.current;
-    var parent = placeholder.parentNode;
-    node.mount(parent, placeholder);
-    this.passPropsThroughPortal();
-  };
-  OutPortal2.prototype.componentDidUpdate = function() {
-    var node = this.props.node;
-    if (this.currentPortalNode && node !== this.currentPortalNode) {
-      this.currentPortalNode.unmount(this.placeholderNode.current);
-      this.currentPortalNode.setPortalProps({});
-      this.currentPortalNode = node;
+    }, "reveal");
+    reveal();
+  }, [iRef, iRef.current]);
+  const bgColor = window.getComputedStyle(
+    document.body,
+    null
+  ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
+  const [bg, setBG] = (0, import_react3.useState)(bgColor);
+  const [r, g, b, a] = bg;
+  const rgba = /* @__PURE__ */ __name((r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`, "rgba");
+  (0, import_react3.useEffect)(() => {
+    const intervalHandler2 = setInterval(() => {
+      const bgColor2 = window.getComputedStyle(
+        document.body,
+        null
+      ).getPropertyValue("background-color").slice(4, -1).split(",").slice(0, 4).map((x) => Number(x) || 0);
+      if (JSON.stringify(bg) !== JSON.stringify(bgColor2))
+        setBG(bgColor2);
+    }, 1e3 / 2);
+    return () => clearInterval(intervalHandler2);
+  }, []);
+  const delay = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
+  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
+  const type = sessionStorage && sessionStorage.getItem("type") || "spring";
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    motion.div,
+    {
+      initial: {
+        top: 0,
+        padding: 0,
+        right: 0,
+        borderRadius: 0
+      },
+      animate: {
+        top: bottom,
+        padding: 8,
+        right,
+        borderRadius: 16
+      },
+      css: import_react2.css`
+            touch-action: pinch-zoom;
+            background-color: ${rgba(r | 96, g | 66, b || 160, a || 0.3)};
+            backdrop-filter: blur(15px);
+            z-index: 10;
+
+            position: fixed;
+          `,
+      drag: true,
+      dragMomentum: false,
+      dragConstraints: {
+        left: -innerWidth,
+        right: width - 20 - width / 6,
+        bottom: innerHeight
+      },
+      dragElastic: 0.5,
+      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex" }, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+          "div",
+          {
+            style: {
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                motion.div,
+                {
+                  css: import_react2.css`
+              overflow: hidden;
+              display:flex;
+              justify-content: space-evenly;`,
+                  initial: { height: "0px", width: "0%", opacity: 0 },
+                  animate: {
+                    height: "42px",
+                    width: "100%",
+                    opacity: 1
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    ToggleButtonGroup,
+                    {
+                      value: scaleRange,
+                      size: "small",
+                      exclusive: true,
+                      onChange: (_e, newScale) => {
+                        newScale && changeScaleRange(newScale);
+                      },
+                      children: sizes.map((size, ind) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        ToggleButton,
+                        {
+                          value: size,
+                          children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+                            "span",
+                            {
+                              css: import_react2.css`
+                       color: ${size === scaleRange ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                       `,
+                              children: [
+                                size,
+                                "%"
+                              ]
+                            }
+                          )
+                        },
+                        ind
+                      ))
+                    }
+                  )
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                motion.div,
+                {
+                  initial: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    borderRadius: 0
+                  },
+                  animate: {
+                    width: width * scale / devicePixelRatio,
+                    height: height2 * scale / devicePixelRatio,
+                    borderRadius: 8
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    motion.iframe,
+                    {
+                      ref: iRef,
+                      frameBorder: 0,
+                      initial: {
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        backgroundColor: rgba(r, g, b, 0),
+                        scale: 1
+                      },
+                      animate: {
+                        backgroundColor: rgba(r, g, b, 0.7),
+                        transformOrigin: "0px 0px",
+                        width: width / devicePixelRatio,
+                        height: height2 / devicePixelRatio,
+                        scale: scaleRange / 100
+                      },
+                      css: import_react2.css`
+                  position: relative;
+                  overflow: auto;    
+              `,
+                      src: `${location.origin}/live/${room}/`,
+                      suppressHydrationWarning: true,
+                      seamless: true
+                    }
+                  )
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                motion.div,
+                {
+                  css: import_react2.css`
+              overflow: hidden;
+              display:flex;
+              justify-content: space-evenly;`,
+                  initial: { height: "0", width: "0", opacity: 0 },
+                  animate: {
+                    height: "42px",
+                    width: "100%",
+                    opacity: 1
+                  },
+                  children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    ToggleButtonGroup,
+                    {
+                      value: width,
+                      size: "small",
+                      exclusive: true,
+                      onChange: (_e, newSize) => {
+                        if (newSize) {
+                          setHeight(
+                            breakPointHeights[breakPoints.indexOf(newSize)]
+                          );
+                          setWidth(newSize);
+                        }
+                      },
+                      children: breakPoints.map((size, ind) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        ToggleButton,
+                        {
+                          value: size,
+                          children: size === 680 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                            "span",
+                            {
+                              css: import_react2.css`
+                        color: ${width === 680 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        `,
+                              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Phone, {})
+                            }
+                          ) : size === 768 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                            "span",
+                            {
+                              css: import_react2.css`
+                        color: ${width === 768 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        `,
+                              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Tablet, {})
+                            }
+                          ) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                            "span",
+                            {
+                              css: import_react2.css`
+                        color: ${width === 1920 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                      `,
+                              children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Tv, {})
+                            }
+                          )
+                        },
+                        ind
+                      ))
+                    }
+                  )
+                }
+              )
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          motion.div,
+          {
+            initial: { height: 0, width: 0, opacity: 0 },
+            animate: { height: "100%", width: "88px", opacity: 1 },
+            children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+              "div",
+              {
+                css: import_react2.css`
+              padding: 16px;
+              display: flex;
+              overflow: "hidden";
+              align-items: center;          
+              flex-direction: column;
+              `,
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    Fab,
+                    {
+                      onClick: () => {
+                        document.querySelector("#root")?.requestFullscreen();
+                      },
+                      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                        "span",
+                        {
+                          css: import_react2.css`
+                font-size: 20pt;
+              `,
+                          children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MdFullscreen, {}, "fs")
+                        }
+                      )
+                    },
+                    "fullscreen"
+                  ),
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    QRButton,
+                    {
+                      url: location.origin + `/live/${room}/public`
+                    }
+                  ),
+                  false,
+                  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+                    Fab,
+                    {
+                      onClick: () => open(`/live/${room}/public`),
+                      children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(Share, {})
+                    },
+                    "Share"
+                  )
+                ]
+              }
+            )
+          }
+        )
+      ] })
     }
-    var placeholder = this.placeholderNode.current;
-    var parent = placeholder.parentNode;
-    node.mount(parent, placeholder);
-    this.passPropsThroughPortal();
-  };
-  OutPortal2.prototype.componentWillUnmount = function() {
-    var node = this.props.node;
-    node.unmount(this.placeholderNode.current);
-    node.setPortalProps({});
-  };
-  OutPortal2.prototype.render = function() {
-    return React.createElement("div", { ref: this.placeholderNode });
-  };
-  return OutPortal2;
-}(React.PureComponent);
-var createHtmlPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_HTML);
-var createSvgPortalNode = createPortalNode.bind(null, ELEMENT_TYPE_SVG);
+  ) });
+}, "DraggableWindow");
+var DraggableWindow_default = DraggableWindow;
 
 // js/renderPreviewWindow.tsx
-var import_react2 = __toESM(require_emotion_react_cjs(), 1);
-var import_jsx_runtime = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
-var DraggableWindowLazy = (0, import_react.lazy)(() => import("./chunk-DraggableWindow-OKHMPEIT.mjs"));
-var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+var import_jsx_runtime3 = __toESM(require_emotion_react_jsx_runtime_cjs(), 1);
+var RainbowContainer = /* @__PURE__ */ __name(({ children }) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
   "div",
   {
-    css: import_react2.css`
+    css: import_react5.css`
 height: 100%;
 width: 100%;
 background-blend-mode: overlay;
@@ -3575,31 +3748,15 @@ background:  repeating-radial-gradient(circle at bottom left,
   }
 ), "RainbowContainer");
 var AppToRender = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
-  const portalNode = (0, import_react.useMemo)(() => createHtmlPortalNode({
-    attributes: {
-      style: "height: 100%"
-    }
-  }), []);
-  const onlyApp = location.pathname.endsWith("public") || location.pathname.endsWith("hydrated");
-  const devTools = !onlyApp;
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InPortal, { node: portalNode, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AutoUpdateApp, { codeSpace: codeSpace2 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-      import_react.Suspense,
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(RainbowContainer, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_react4.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      Editor,
       {
-        fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, { node: portalNode }),
-        children: devTools ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RainbowContainer, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_react.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-            Editor,
-            {
-              codeSpace: codeSpace2
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DraggableWindowLazy, { room: codeSpace2, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, { node: portalNode }) })
-        ] }) }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { height: 100 + "%" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OutPortal, { node: portalNode }) })
+        codeSpace: codeSpace2
       }
-    )
-  ] });
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(DraggableWindow_default, { room: codeSpace2 })
+  ] }) });
 }, "AppToRender");
 var singleton = { started: false };
 var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2, dry }) => {
@@ -3610,7 +3767,7 @@ var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2, dry }
   div.style.height = "100%";
   const root = (0, import_client.createRoot)(div);
   root.render(
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AppToRender, { codeSpace: codeSpace2 }) })
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_react4.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(AppToRender, { codeSpace: codeSpace2 }) })
   );
 }, "renderPreviewWindow");
 
