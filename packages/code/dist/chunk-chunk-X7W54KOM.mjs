@@ -3383,9 +3383,14 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const dragRef = (0, import_react3.useRef)(null);
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
-  const [width, setWidth] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
+  const [width, setWidthB] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
   const [delay, setDelay] = (0, import_react3.useState)(1);
   const scale = Math.sqrt(scaleRange / 100);
+  const setWidth = /* @__PURE__ */ __name((width2) => {
+    changeScaleRange(Math.floor(100 * (width2 * width2 / innerWidth / innerWidth)));
+    changeMaxScaleRange(Math.floor(100 * (width2 * width2 / innerWidth / innerWidth)));
+    setWidthB(width2);
+  }, "setWidth");
   (0, import_react3.useEffect)(() => {
     if (!iRef.current)
       return;
@@ -3394,21 +3399,16 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     const reveal = /* @__PURE__ */ __name(async () => {
       await wait(1e3);
       if (window.innerWidth / devicePixelRatio < 600) {
-        changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
       }
       if (window.innerWidth / devicePixelRatio < 1200) {
-        changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
-        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio < 2500) {
         setWidth(breakPoints[1]);
-        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[1]);
-        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       }
       setPositions({
         bottom: 20,
@@ -3614,7 +3614,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       exclusive: true,
                       onChange: (_e, newSize) => {
                         if (newSize) {
-                          changeMaxScaleRange(Math.floor(100 * newSize / innerWidth));
                           setWidth(newSize);
                         }
                       },
