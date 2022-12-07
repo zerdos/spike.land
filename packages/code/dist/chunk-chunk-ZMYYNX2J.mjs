@@ -3533,13 +3533,11 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 {
                   initial: {
                     width: window.innerWidth,
-                    height: window.innerHeight,
-                    borderRadius: 0
+                    height: window.innerHeight
                   },
                   animate: {
                     width: width * scale / devicePixelRatio,
-                    height: height2 * scale / devicePixelRatio,
-                    borderRadius: 8
+                    height: height2 * scale / devicePixelRatio
                   },
                   children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
                     motion.iframe,
