@@ -29711,12 +29711,12 @@ console.log = (mess, ...args) => {
   data[md5(sess.html)] = sess.html;
   data[md5(sess.css)] = sess.css;
   logs.push({
-    args: [`<b>` + mess + `</b>`, ...args],
+    args: [mess, ...args],
     sess: {
       code: md5(sess.code)
     }
   });
-  OriginalLog(`<b>` + mess + `</b>`, ...args);
+  OriginalLog(mess, ...args);
 };
 var esmTransform = /* @__PURE__ */ __name(async (code) => {
   const transpiled = await initAndTransform(code, {
