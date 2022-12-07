@@ -3394,21 +3394,21 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     const reveal = /* @__PURE__ */ __name(async () => {
       await wait(1e3);
       if (window.innerWidth / devicePixelRatio < 600) {
-        changeScaleRange(50);
+        changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
       }
       if (window.innerWidth / devicePixelRatio < 1200) {
-        changeScaleRange(100);
+        changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
-        changeScaleRange(50);
+        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio < 2500) {
         setWidth(breakPoints[1]);
-        changeScaleRange(75);
+        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[1]);
-        changeScaleRange(100);
+        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       }
       setPositions({
         bottom: 20,
@@ -3436,18 +3436,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
     }, 1e3 / 2);
     return () => clearInterval(intervalHandler2);
   }, []);
-  (0, import_react3.useEffect)(() => {
-    const intervalHandler2 = setInterval(() => {
-      if (iRef.current !== null) {
-        if (iRef.current.clientWidth > window.innerWidth) {
-          const newScale = scaleRange + Math.floor(window.innerWidth / width);
-          changeScaleRange(newScale);
-          changeMaxScaleRange(newScale);
-        }
-      }
-    }, 1e3);
-    return () => clearInterval(intervalHandler2);
-  }, [scaleRange]);
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return /* @__PURE__ */ jsx(MotionConfig, { transition: { delay, type, duration }, children: /* @__PURE__ */ jsx(
@@ -3626,8 +3614,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       exclusive: true,
                       onChange: (_e, newSize) => {
                         if (newSize) {
-                          changeMaxScaleRange(100);
-                          setWidth(newSize);
+                          changeMaxScaleRange(Math.floor(100 * newSize / innerWidth));
+                          setWidth(Math.floor(100 * newSize / innerWidth));
                         }
                       },
                       children: breakPoints.map((size, ind) => /* @__PURE__ */ jsx(

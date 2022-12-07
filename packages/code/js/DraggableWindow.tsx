@@ -84,29 +84,29 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       // });
 
       if (window.innerWidth / devicePixelRatio < 600) {
-        changeScaleRange(50);
+        changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
         // setHeight(breakPointHeights[0]);
       }
 
       if (window.innerWidth / devicePixelRatio < 1200) {
-        changeScaleRange(100);
+        changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
         // setHeight(breakPointHeights[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
         // setHeight(breakPointHeights[1]);
 
-        changeScaleRange(50);
+        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio < 2500) {
         setWidth(breakPoints[1]);
+        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
         // setHeight(breakPointHeights[1]);
-
-        changeScaleRange(75);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[1]);
         // setHeight(breakPointHeights[1]);
-        changeScaleRange(100);
+        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
+        // changeScaleRange(100);
       }
 
       setPositions({
@@ -150,20 +150,20 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
-  useEffect(() => {
-    const intervalHandler = setInterval(() => {
-      // setCSS(mST().css);
+  // useEffect(() => {
+  //   const intervalHandler = setInterval(() => {
+  //     // setCSS(mST().css);
 
-      if (iRef.current !== null) {
-        if (iRef.current.clientWidth > window.innerWidth) {
-          const newScale = scaleRange + Math.floor(window.innerWidth / width);
-          changeScaleRange(newScale);
-          changeMaxScaleRange(newScale);
-        }
-      }
-    }, 1000);
-    return () => clearInterval(intervalHandler);
-  }, [scaleRange]);
+  //     if (iRef.current !== null) {
+  //       if (iRef.current.clientWidth > window.innerWidth) {
+  //         const newScale = scaleRange + Math.floor(window.innerWidth / width);
+  //         changeScaleRange(newScale);
+  //         changeMaxScaleRange(newScale);
+  //       }
+  //     }
+  //   }, 1000);
+  //   return () => clearInterval(intervalHandler);
+  // }, [scaleRange]);
 
   // const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
 
@@ -342,8 +342,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     // setHeight(
                     //   // breakPointHeights[breakPoints.indexOf(newSize)],
                     // );
-                    changeMaxScaleRange(100);
-                    setWidth(newSize);
+                    changeMaxScaleRange(Math.floor(100 * newSize / innerWidth));
+                    setWidth(Math.floor(100 * newSize / innerWidth));
                   }
                 }}
               >
