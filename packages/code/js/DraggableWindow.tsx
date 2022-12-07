@@ -34,7 +34,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [maxScaleRange, changeMaxScaleRange] = useState(100);
 
   const [isVisible, setVisible] = useState(false);
-  const iRef = useRef(null);
+  const iRef = useRef<HTMLIFrameElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
   // globalThis.zBodyRef = zBodyRef;
 
@@ -154,14 +154,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     const intervalHandler = setInterval(() => {
       // setCSS(mST().css);
 
-      if (dragRef.current !== null) {
-        if (dragRef.current.clientWidth > window.innerWidth) {
-          const newScale = scaleRange - 1;
+      if (iRef.current !== null) {
+        if (iRef.current.clientWidth > window.innerWidth) {
+          const newScale = Math.floor(scaleRange * window.innerWidth / iRef.current.clientWidth - 0.5);
           changeScaleRange(newScale);
           changeMaxScaleRange(newScale);
         }
       }
-    }, 1000 / 60);
+    }, 1000 / 6);
     return () => clearInterval(intervalHandler);
   }, [scaleRange]);
 
@@ -366,12 +366,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                           <Phone />
                         </span>
                       )
-                      : (size === 768
+                      : (size === 1024
                         ? (
                           <span
                             css={css`
                         color: ${
-                              width === 768
+                              width === 1024
                                 ? "var(--text-color-highlight)"
                                 : "var(--text-color-normal)"
                             };
@@ -384,7 +384,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                           <span
                             css={css`
                         color: ${
-                              width === 1920
+                              width === 1366
                                 ? "var(--text-color-highlight)"
                                 : "var(--text-color-normal)"
                             };
