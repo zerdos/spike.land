@@ -232,47 +232,34 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
 
-            <motion.div
+            <motion.iframe
+              ref={iRef}
+              frameBorder={0}
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
-                // Opacity: isFullScreen ? 1 : 0.7,
+                backgroundColor: rgba(r, g, b, 0),
+                scale: 1,
               }}
               animate={{
+                backgroundColor: rgba(r, g, b, 0.7),
                 width: width * scale / devicePixelRatio,
                 height: height * scale / devicePixelRatio,
-                // Opacity: isFullScreen ? 1 : 0.7,
+                scale: scaleRange / 100,
               }}
-            >
-              <motion.iframe
-                ref={iRef}
-                frameBorder={0}
-                initial={{
-                  width: window.innerWidth,
-                  height: window.innerHeight,
-                  backgroundColor: rgba(r, g, b, 0),
-                  scale: 1,
-                }}
-                animate={{
-                  backgroundColor: rgba(r, g, b, 0.7),
-                  transformOrigin: "0px 0px",
-                  width: width / devicePixelRatio,
-                  height: height / devicePixelRatio,
-                  scale: scaleRange / 100,
-                }}
-                // ref={zBodyRef}
-                // id={"z-body"}
-                // data-test-id="z-body"
-                css={css`
+              // ref={zBodyRef}
+              // id={"z-body"}
+              // data-test-id="z-body"
+              css={css`
+                transform-origin: "0px 0px";
                   border-radius: 8px;
                   position: relative;
                   overflow: overlay;   
               `}
-                src={`${location.origin}/live/${room}/`}
-                suppressHydrationWarning={true}
-                seamless={true}
-              />
-            </motion.div>
+              src={`${location.origin}/live/${room}/`}
+              suppressHydrationWarning={true}
+              seamless={true}
+            />
             <motion.div
               css={css`
               overflow: hidden;
