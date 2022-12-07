@@ -29263,8 +29263,7 @@ async function appFactory(transpiled = "") {
       });
       eCaches2[hash].compat = void 0;
       console.log(`i: ${mstI}: `);
-      let mod5;
-      const App = (await import(createJsBlob(trp))).default();
+      const App = (await import(createJsBlob(trp))).default;
       apps2[hash] = ({ appId }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { height: 100 + "%" }, id: appId, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.CacheProvider, { value: eCaches2[hash], children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}) }, hash) }, hash);
     } catch (error) {
       if (error instanceof SyntaxError) {
