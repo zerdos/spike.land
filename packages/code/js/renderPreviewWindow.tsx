@@ -97,9 +97,10 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  const div: HTMLDivElement = document.querySelector(`#root`)!;
-  div.style.height = "100%";
-  const root = createRoot(div);
+  const rootEl: HTMLDivElement = document.querySelector(`#${codeSpace}-css`)!;
+  //  const div =  document.createElement("div")
+  rootEl.style.height = "100%";
+  const root = createRoot(rootEl);
 
   // (createCache as unknown as {default: typeof createCache}).default
 
@@ -108,4 +109,8 @@ export const renderPreviewWindow = (
       <AppToRender codeSpace={codeSpace} />
     </StrictMode>,
   );
+
+  // setTimeout(() => {
+
+  // }, 500);
 };

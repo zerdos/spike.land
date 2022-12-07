@@ -7,10 +7,11 @@ import { QRButton } from "./Qr.lazy";
 
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
+import { md5, mST } from "session";
 import { Phone, Share, Tablet, Tv } from "./icons";
 import { wait } from "./wait";
 
-const breakPoints = [680, 768, 1920];
+const breakPoints = [640, 1024, 1366];
 // const breakPointHeights = [1137, 1024, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
@@ -29,13 +30,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   },
 ) => {
   const [scaleRange, changeScaleRange] = useState(100);
+
+  const [maxScaleRange, changeMaxScaleRange] = useState(100);
+
+  const [isVisible, setVisible] = useState(false);
   const iRef = useRef(null);
+  const dragRef = useRef<HTMLDivElement>(null);
   // globalThis.zBodyRef = zBodyRef;
 
   const startPositions = { bottom: 0, right: 0 };
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
+  const [delay, setDelay] = useState(1);
   // const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = Math.sqrt(scaleRange / 100);
@@ -66,10 +73,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     if (!iRef.current) return;
+    if (!dragRef.current) return;
 
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = async () => {
-      await wait(100);
+      await wait(1000);
       // setPositions({
       //   bottom: -50 * devicePixelRatio,
       //   right: -90 * devicePixelRatio,
@@ -105,6 +113,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         bottom: 20,
         right: 20,
       });
+      setDelay(0);
     };
 
     reveal();
@@ -141,19 +150,35 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
+  useEffect(() => {
+    const intervalHandler = setInterval(() => {
+      // setCSS(mST().css);
+
+      if (dragRef.current !== null) {
+        if (dragRef.current.clientWidth > window.innerWidth) {
+          const newScale = scaleRange - 1;
+          changeScaleRange(newScale);
+          changeMaxScaleRange(newScale);
+        }
+      }
+    }, 1000 / 60);
+    return () => clearInterval(intervalHandler);
+  }, [scaleRange]);
+
   // const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
 
   // useEffect(() => {
   //   setClients([...Object.keys(sendChannel.rtcConns)]);
   // }, [sendChannel.webRtcArray.length, setClients]);
 
-  const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 0;
-  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 0.8;
+  // const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || del;
+  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
+        ref={dragRef}
         initial={{
           top: 0,
           padding: 0,
@@ -171,7 +196,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             background-color: ${rgba(r | 96, g | 66, b || 160, a || .3)};
             backdrop-filter: blur(15px);
             z-index: 10;
-
             position: fixed;
           `}
         drag={true}
@@ -211,7 +235,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   newScale && changeScaleRange(newScale);
                 }}
               >
-                {sizes.map((size, ind) => (
+                {[...(sizes.filter(x => x < maxScaleRange)), maxScaleRange].map((size, ind) => (
                   <ToggleButton
                     key={ind}
                     value={size}
@@ -241,18 +265,42 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 width: width * scale,
               }}
             >
+              {delay == 1
+                ? (
+                  <motion.div
+                    css={css`
+                position: absolute;
+                  top:0;
+                  z-index: 6;
+                  left:0;
+                  height: ${window.innerHeight}px;
+                  width: ${window.innerWidth}px;
+              `}
+                    initial={{
+                      opacity: 1,
+                    }}
+                    animate={{
+                      opacity: `${isVisible ? 0 : 1}`,
+                    }}
+                    dangerouslySetInnerHTML={{ __html: mST().html.split(md5(mST().transpiled)).join(`css`) }}
+                  />
+                )
+                : null}
               <motion.iframe
-                layout="preserve-aspect"
+                layout="size"
                 ref={iRef}
+                onLoad={() => requestAnimationFrame(() => setVisible(true))}
                 frameBorder={0}
                 initial={{
                   width: window.innerWidth,
+                  opacity: 0,
                   height: window.innerHeight,
                   backgroundColor: rgba(r, g, b, 0),
                   transform: `scale(1,1)`,
                 }}
                 animate={{
                   width: width,
+                  opacity: `${isVisible ? 1 : 0}`,
                   backgroundColor: rgba(r, g, b, 0.7),
                   height: window.innerHeight * 0.4,
                   transform: `scale(${scale},${scale})`,
@@ -262,9 +310,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 // id={"z-body"}
                 // data-test-id="z-body"
                 css={css`
+                
                   border-radius: 8px;
-                  position: relative;
-                  overflow: overlay;   
+               
+                  
+                  z-index: 7;
               `}
                 src={`${location.origin}/live/${room}/`}
                 suppressHydrationWarning={true}
@@ -292,6 +342,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     // setHeight(
                     //   // breakPointHeights[breakPoints.indexOf(newSize)],
                     // );
+                    changeMaxScaleRange(100);
                     setWidth(newSize);
                   }
                 }}
