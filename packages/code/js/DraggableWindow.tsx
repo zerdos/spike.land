@@ -343,7 +343,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     //   // breakPointHeights[breakPoints.indexOf(newSize)],
                     // );
                     changeMaxScaleRange(Math.floor(100 * newSize / innerWidth));
-                    setWidth(Math.floor(100 * newSize / innerWidth));
+                    setWidth(newSize);
                   }
                 }}
               >

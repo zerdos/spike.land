@@ -3615,7 +3615,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       onChange: (_e, newSize) => {
                         if (newSize) {
                           changeMaxScaleRange(Math.floor(100 * newSize / innerWidth));
-                          setWidth(Math.floor(100 * newSize / innerWidth));
+                          setWidth(newSize);
                         }
                       },
                       children: breakPoints.map((size, ind) => /* @__PURE__ */ jsx(
