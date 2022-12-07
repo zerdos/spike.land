@@ -1573,6 +1573,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:18.11.11"],\
           ["@types/popmotion", null],\
           ["@types/prettier", "npm:2.7.1"],\
+          ["@types/prismjs", "npm:1.26.0"],\
           ["@types/react", "npm:18.0.26"],\
           ["@types/react-dom", "npm:18.0.9"],\
           ["@types/uuid", "npm:9.0.0"],\
@@ -1585,6 +1586,7 @@ const RAW_RUNTIME_STATE =
           ["avl", "npm:1.5.3"],\
           ["axios", "npm:1.2.1"],\
           ["comlink", "npm:4.3.1"],\
+          ["console-log-div", "npm:0.6.3"],\
           ["core-js", "npm:3.26.1"],\
           ["csstype", "npm:3.1.1"],\
           ["es-module-shims", "npm:1.6.2"],\
@@ -1606,6 +1608,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:5.5.0"],\
           ["popmotion", "npm:11.0.5"],\
           ["prettier", "npm:2.8.0"],\
+          ["prismjs", "npm:1.29.0"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:6.9.9"],\
           ["react", "npm:18.2.0"],\
@@ -1647,6 +1650,7 @@ const RAW_RUNTIME_STATE =
           ["@types/lodash.throttle", "npm:4.1.7"],\
           ["@types/node", "npm:18.11.11"],\
           ["@types/prettier", "npm:2.7.1"],\
+          ["@types/prismjs", "npm:1.26.0"],\
           ["@types/react", "npm:18.0.26"],\
           ["@types/react-dom", "npm:18.0.9"],\
           ["@types/uuid", "npm:9.0.0"],\
@@ -1659,6 +1663,7 @@ const RAW_RUNTIME_STATE =
           ["avl", "npm:1.5.3"],\
           ["axios", "npm:1.2.1"],\
           ["comlink", "npm:4.3.1"],\
+          ["console-log-div", "npm:0.6.3"],\
           ["core-js", "npm:3.26.1"],\
           ["csstype", "npm:3.1.1"],\
           ["es-module-shims", "npm:1.6.2"],\
@@ -1680,6 +1685,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:5.5.0"],\
           ["popmotion", "npm:11.0.5"],\
           ["prettier", "npm:2.8.0"],\
+          ["prismjs", "npm:1.29.0"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:6.9.9"],\
           ["react", "npm:18.2.0"],\
@@ -1980,6 +1986,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-prettier-npm-2.7.1-d46ada27e6-9.zip/node_modules/@types/prettier/",\
         "packageDependencies": [\
           ["@types/prettier", "npm:2.7.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/prismjs", [\
+      ["npm:1.26.0", {\
+        "packageLocation": "./.yarn/global/cache/@types-prismjs-npm-1.26.0-e89ec94ae4-9.zip/node_modules/@types/prismjs/",\
+        "packageDependencies": [\
+          ["@types/prismjs", "npm:1.26.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3471,6 +3486,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/console-control-strings-npm-1.1.0-e3160e5275-9.zip/node_modules/console-control-strings/",\
         "packageDependencies": [\
           ["console-control-strings", "npm:1.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["console-log-div", [\
+      ["npm:0.6.3", {\
+        "packageLocation": "./.yarn/global/cache/console-log-div-npm-0.6.3-93f129d00c-9.zip/node_modules/console-log-div/",\
+        "packageDependencies": [\
+          ["console-log-div", "npm:0.6.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7187,6 +7211,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["pretty-ms", "npm:8.0.0"],\
           ["parse-ms", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["prismjs", [\
+      ["npm:1.29.0", {\
+        "packageLocation": "./.yarn/global/cache/prismjs-npm-1.29.0-6faa5b04b8-9.zip/node_modules/prismjs/",\
+        "packageDependencies": [\
+          ["prismjs", "npm:1.29.0"]\
         ],\
         "linkType": "HARD"\
       }]\
