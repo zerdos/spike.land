@@ -1,4 +1,4 @@
-import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
+import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-π";
 
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
