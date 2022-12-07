@@ -236,13 +236,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               initial={{
                 width: window.innerWidth,
                 height: window.innerHeight,
-                borderRadius: 0,
                 // Opacity: isFullScreen ? 1 : 0.7,
               }}
               animate={{
                 width: width * scale / devicePixelRatio,
                 height: height * scale / devicePixelRatio,
-                borderRadius: 8,
                 // Opacity: isFullScreen ? 1 : 0.7,
               }}
             >
