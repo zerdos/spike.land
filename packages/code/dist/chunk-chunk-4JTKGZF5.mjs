@@ -3621,11 +3621,11 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                         ToggleButton,
                         {
                           value: size,
-                          children: size === 680 ? /* @__PURE__ */ jsx(
+                          children: size === 640 ? /* @__PURE__ */ jsx(
                             "span",
                             {
                               css: css`
-                        color: ${width === 680 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        color: ${width === 640 ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `,
                               children: /* @__PURE__ */ jsx(Phone, {})
                             }
