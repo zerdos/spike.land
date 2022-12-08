@@ -432,21 +432,13 @@ const api: ExportedHandler<CodeEnv> = {
               const filePath = getFilePath(fileName);
               headers.append("ASSET_PATH", filePath);
               headers.append("ASSET_HASH", ASSET_HASH);
-              let status = kvResp.status;
               if (fileName === filePath) {
                 headers.append(
                   "Cache-Control",
                   "public, max-age=604800, immutable",
                 );
-              } else {
-                headers.append(
-                  "Location",
-                  kvResp.url,
-                );
-                status = 307;
               }
-
-              response = new Response(kvResp.body, { ...kvResp, status, headers });
+              response = new Response(kvResp.body, { ...kvResp  , headers });
               if (fileName === filePath) {
                 await cache.put(cacheKey, response.clone());
               }
