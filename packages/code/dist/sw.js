@@ -4834,18 +4834,6 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           if (!resp.ok)
             return resp;
           resp = new Response(resp.body, resp);
-          const contentHash = resp.headers.get("content_hash");
-          if (contentHash) {
-            const { memoryCache } = self;
-            let body = await memoryCache.getItem(contentHash);
-            if (body === null) {
-              body = await resp.text();
-              await memoryCache.setItem(contentHash, body);
-            } else {
-              controller.abort();
-            }
-            return new Response(body, resp);
-          }
           return resp;
         }
         const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") || isChunk ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`fileCache`);
@@ -4861,6 +4849,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
         if (response)
           return response;
         try {
+          request = new Request(request.url, request);
           response = await fetch(request);
           response = new Response(response.body, response);
           if (!response.ok || !response.body)
