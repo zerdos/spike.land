@@ -27,10 +27,8 @@ const api: ExportedHandler<CodeEnv> = {
     env,
   ) => {
     let request = new Request(req.url, req);
-    if (r) {
-      if (request.cf?.asOrganization?.startsWith("YANDEX")) {
-        return new Response(null, { status: 401, statusText: "no robots" });
-      }
+    if (request.cf?.asOrganization?.startsWith("YANDEX")) {
+      return new Response(null, { status: 401, statusText: "no robots" });
     }
 
     return handleErrors(request, async () => {
@@ -329,7 +327,7 @@ const api: ExportedHandler<CodeEnv> = {
                 ASSET_HASH,
               },
             });
-          case "reverse.json":
+          case "reverseMap.json":
             return new Response(JSON.stringify(reverseMap), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
