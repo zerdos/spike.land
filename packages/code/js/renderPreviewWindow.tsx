@@ -98,8 +98,9 @@ export const renderPreviewWindow = (
   singleton.started = true;
 
   const rootEl: HTMLDivElement = document.querySelector(`#${codeSpace}-css`)!;
+  document.querySelector(`#root`)?.querySelector("div")!.firstElementChild;
   //  const div =  document.createElement("div")
-  rootEl.style.height = "100%";
+  rootEl!.style!.height = "100%";
   const root = createRoot(rootEl);
 
   // (createCache as unknown as {default: typeof createCache}).default

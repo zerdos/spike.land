@@ -1338,7 +1338,7 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild: "npm:0.16.1"
     miniflare: "npm:^2.11.0"
-    typescript: "npm:^4.9.3"
+    typescript: "npm:^4.9.4"
     wrangler: "npm:2.6.1"
   languageName: unknown
   linkType: soft
@@ -1369,7 +1369,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.45.1"
     "@typescript-eslint/parser": "npm:^5.45.1"
     "@yarnpkg/sdks": "npm:3.0.0-rc.32"
-    ace-builds: "npm:1.13.1"
+    ace-builds: "npm:1.13.2"
     async-mutex: "npm:^0.4.0"
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
@@ -1396,7 +1396,7 @@ __metadata:
     monaco-editor: "npm:0.35.0-dev.20221207"
     p-map: "npm:5.5.0"
     popmotion: "npm:11.0.5"
-    prettier: "npm:2.8.0"
+    prettier: "npm:2.8.1"
     prismjs: "npm:^1.29.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:^6.9.9"
@@ -1408,7 +1408,7 @@ __metadata:
     react-reverse-portal: "npm:2.1.1"
     react-rnd: "npm:^10.3.7"
     tslib: "npm:^2.4.1"
-    typescript: "npm:^4.9.3"
+    typescript: "npm:^4.9.4"
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
     webrtc-adapter: "npm:^8.2.0"
@@ -2019,10 +2019,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.13.1":
-  version: 1.13.1
-  resolution: "ace-builds@npm:1.13.1"
-  checksum: 692d2d65884f5d0ceaee5ecf0332d287c5ef5dcc0e32c526f2955d9ec8b236ce7577b0b7640ce721f7c5f56500ca953610132929918084a15d58906c19ee2f25
+"ace-builds@npm:1.13.2":
+  version: 1.13.2
+  resolution: "ace-builds@npm:1.13.2"
+  checksum: 1b17f2cda8d882b04f88126970bed5d90882c47f64fe967b6d211858456981602b865d900f5ecac3a5b8b66577b7c1df64eb7cbc4da585b4cb96490a7e20929e
   languageName: node
   linkType: hard
 
@@ -6235,7 +6235,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     playwright: "npm:1.28.1"
     react: "npm:^18.2.0"
-    typescript: "npm:^4.9.3"
+    typescript: "npm:^4.9.4"
     xo: "npm:^0.53.1"
   languageName: unknown
   linkType: soft
@@ -6319,7 +6319,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"
-    typescript: "npm:^4.9.3"
+    typescript: "npm:^4.9.4"
   languageName: unknown
   linkType: soft
 
@@ -6943,7 +6943,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.0, prettier@npm:^2.7.1":
+"prettier@npm:2.8.1":
+  version: 2.8.1
+  resolution: "prettier@npm:2.8.1"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 06a74a0f7aa5877a3912aeeeae3558014b10e438d945f88bd313222e75e7282eb7f41299d204353ec7d00b208377ddc36ffe4c7d2151f0502e783139b934d66d
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.7.1":
   version: 2.8.0
   resolution: "prettier@npm:2.8.0"
   bin:
@@ -8327,6 +8336,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:^4.9.4":
+  version: 4.9.4
+  resolution: "typescript@npm:4.9.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: b142d5e50785d0e5055771e4d9e712b01be58985ff29be3d3acc64f0fddd5fd8ade8b28583ba502f2565783c23bd5b509c5abcc1a93a2d7d4f05b8e4ee731fc9
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>":
   version: 4.9.3
   resolution: "typescript@patch:typescript@npm%3A4.9.3#optional!builtin<compat/typescript>::version=4.9.3&hash=d73830"
@@ -8334,6 +8353,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 06fd518bc55d054127b39aa7ad11551fd132bb7a8395913ed84fd5caf715455393d622e884ccb4fcf962d4eb5182600009c096b82ec516e8fadd09bf2150bb93
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
+  version: 4.9.4
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=d73830"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: b53b083cf90883c6c73d66ce2e8b39115f06a642dfc538085c32e030687cf9872c5ea8720c5f361d4d2d14a8af946bb5423e0bf6b472b11f776e020ba6332ced
   languageName: node
   linkType: hard
 
