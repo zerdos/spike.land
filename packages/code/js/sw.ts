@@ -41,6 +41,11 @@ const getCacheName = () =>
   fetch(location.origin + "/files.json").then((resp) => {
     if (!resp.ok) return;
 
+    // Object.keys(files).map(async x=>{
+
+    // let req = new Request(`${location.origin}/${files[x]}`, )
+    // let response =await  fetch(req);
+
     const assetHash = resp.headers.get("asset_hash");
     if (assetHash === null) return;
     if (cacheName === assetHash) return;
@@ -71,20 +76,20 @@ self.addEventListener("fetch", function(event) {
         let resp = await fetch(req);
         if (!resp.ok) return resp;
         resp = new Response(resp.body, resp);
-        const contentHash = resp.headers.get("content_hash");
-        if (contentHash) {
-          const { memoryCache } = self;
+        // const contentHash = resp.headers.get("content_hash");
+        // if (contentHash) {
+        //   const { memoryCache } = self;
 
-          let body = await memoryCache.getItem<string>(contentHash);
-          if (body === null) {
-            body = await resp.text();
+        //   let body = await memoryCache.getItem<string>(contentHash);
+        //   if (body === null) {
+        //     body = await resp.text();
 
-            await memoryCache.setItem(contentHash, body);
-          } else {
-            controller.abort();
-          }
-          return new Response(body, resp);
-        }
+        //     await memoryCache.setItem(contentHash, body);
+        //   } else {
+        //     controller.abort();
+        //   }
+        //   return new Response(body, resp);
+        // }
         return resp;
       }
 
@@ -116,6 +121,7 @@ self.addEventListener("fetch", function(event) {
       if (response) return response;
 
       try {
+        request = new Request(request.url, request);
         response = await fetch(request);
 
         response = new Response(response.body, response);

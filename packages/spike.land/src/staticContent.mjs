@@ -9,7 +9,7 @@ export { files };
 let reverseMap = {};
 
 Object.keys(files).forEach((file) => reverseMap = { ...reverseMap, [files[file]]: file });
-
+export { reverseMap };
 export { ASSET_MANIFEST };
 export const getFilePath = (file) => reverseMap[file] ? file : files[file];
 export const ASSET_HASH = md5(ASSET_MANIFEST);

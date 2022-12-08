@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "@spike.land/code/package.json";
-import { ASSET_HASH, ASSET_MANIFEST, files, getFilePath } from "./staticContent.mjs";
+import { ASSET_HASH, ASSET_MANIFEST, files, getFilePath, reverseMap } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
@@ -27,8 +27,10 @@ const api: ExportedHandler<CodeEnv> = {
     env,
   ) => {
     let request = new Request(req.url, req);
-    if (request.cf?.asOrganization?.startsWith("YANDEX")) {
-      return new Response(null, { status: 401, statusText: "no robots" });
+    if (r) {
+      if (request.cf?.asOrganization?.startsWith("YANDEX")) {
+        return new Response(null, { status: 401, statusText: "no robots" });
+      }
     }
 
     return handleErrors(request, async () => {
@@ -321,6 +323,14 @@ const api: ExportedHandler<CodeEnv> = {
             });
           case "files.json":
             return new Response(JSON.stringify(files), {
+              headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+                "Cache-Control": "no-cache",
+                ASSET_HASH,
+              },
+            });
+          case "reverse.json":
+            return new Response(JSON.stringify(reverseMap), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
