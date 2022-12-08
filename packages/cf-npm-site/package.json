@@ -9,7 +9,7 @@
     "access": "public"
   },
   "dependencies": {
-    "esbuild": "0.16.1"
+    "esbuild": "0.16.2"
   },
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
