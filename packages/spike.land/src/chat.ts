@@ -438,7 +438,7 @@ const api: ExportedHandler<CodeEnv> = {
                   "public, max-age=604800, immutable",
                 );
               }
-              response = new Response(kvResp.body, { ...kvResp  , headers });
+              response = new Response(kvResp.body, { ...kvResp, headers });
               if (fileName === filePath) {
                 await cache.put(cacheKey, response.clone());
               }
