@@ -191,7 +191,7 @@ p2pcf.on("msg", (peer, data) => {
 
 // Broadcast a message via data channel to all peers
 globalThis.broadcast = (msg: string) => {
-  var enc = new TextEncoder();
+  var enc = new TextEncoder("utf-8");
 
   p2pcf.broadcast(enc.encode(msg));
 };

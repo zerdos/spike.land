@@ -6787,7 +6787,7 @@ p2pcf.on("msg", (peer, data) => {
   console.log(peer.id, msg);
 });
 globalThis.broadcast = (msg) => {
-  var enc = new TextEncoder();
+  var enc = new TextEncoder("utf-8");
   p2pcf.broadcast(enc.encode(msg));
 };
 var run = /* @__PURE__ */ __name(async (startState) => {
