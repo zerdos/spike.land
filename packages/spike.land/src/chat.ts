@@ -105,7 +105,7 @@ const api: ExportedHandler<CodeEnv> = {
           headers.set("Access-Control-Allow-Origin", "*");
           response = new Response(response.body, { ...response, headers });
 
-          await cache.put(cacheKey, response.clone());
+          // await cache.put(cacheKey, response.clone());
           return response;
         }
         // ) {
