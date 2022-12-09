@@ -39,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
     "@yarnpkg/sdks": "3.0.0-rc.32",
+    "cypress": "12.0.2",
     "dprint": "^0.33.0",
     "esbuild": "^0.16.3",
     "eslint": "^8.29.0",
@@ -46,9 +47,6 @@
     "playwright": "1.28.1",
     "typescript": "4.9.4",
     "xo": "^0.53.1"
-  },
-  "resolutions": {
-    "wrangler/esbuild": "0.15.11"
   },
   "packageManager": "yarn@4.0.0-rc.32",
   "dependencies": {

@@ -6640,6 +6640,8 @@ var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2, dry }
     rootEl.setAttribute("id", `${codeSpace2}-css`);
     document.getElementById(`root`)?.appendChild(rootEl);
   }
+  if (rootEl === null)
+    return;
   rootEl.style.height = "100%";
   const root = (0, import_client.createRoot)(rootEl);
   root.render(
