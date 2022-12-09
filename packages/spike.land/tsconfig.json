@@ -6,16 +6,20 @@
     "downlevelIteration": true,
     "strict": true,
     "noEmit": false,
+    "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
-    "target": "esnext",
     "resolveJsonModule": true,
-    "module": "esnext",
-    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["ES2020.String", "es2021", "ES2022.Error"],
     "types": ["@cloudflare/workers-types"]
   },
   "include": [
-    "src/*",
-    "../code/*"
+    "src/*"
   ]
 }

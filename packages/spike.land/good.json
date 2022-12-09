@@ -161,7 +161,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 24768,
+      "bytes": 24767,
       "imports": [
         {
           "path": "src/handleErrors.ts",
