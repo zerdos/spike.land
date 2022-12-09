@@ -19,7 +19,6 @@ const esbuildExternal = [
 ];
 const mods: { [key: string]: string } = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
-export const imap = importMap;
 
 const api: ExportedHandler<CodeEnv> = {
   fetch: async (
@@ -343,7 +342,7 @@ const api: ExportedHandler<CodeEnv> = {
               },
             });
           case "importmap.json":
-            return new Response(getImportMapStr(url.origin), {
+            return new Response(JSON.stringify(importMap), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",

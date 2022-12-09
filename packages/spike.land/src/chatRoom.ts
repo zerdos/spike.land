@@ -11,7 +11,6 @@ import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import AVLTree from "avl";
-import { imap } from "./chat";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 // import { ASSET_HASH, files } from "./staticContent.mjs";
@@ -777,15 +776,15 @@ export class Code {
 
 function importMapReplace(codeInp: string, origin: string) {
   const items = Object.keys(
-    imap.imports,
-  ) as (keyof typeof imap.imports)[];
+    importMap.imports,
+  ) as (keyof typeof importMap.imports)[];
   let returnStr = codeInp;
 
-  items.map((lib: keyof typeof imap.imports) => {
-    const uri = (new URL(imap.imports[lib], origin)).toString();
+  items.map((lib: keyof typeof importMap.imports) => {
+    const uri = importMap.imports[lib];
     returnStr = returnStr.replaceAll(
-      ` from "${lib}"`,
-      ` from "${urix}"`,
+      ` from "${String(lib)}"`,
+      ` from "${String(uri)}"`,
     ).replaceAll(
       ` from "./`,
       ` from "https://${origin}/live/`,
