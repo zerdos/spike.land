@@ -9,7 +9,7 @@ import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
 import { md5, mST } from "session";
 import { Phone, Share, Tablet, Tv } from "./icons";
-import { wait } from "./wait";
+// import { wait } from "./wait";
 
 const breakPoints = [640, 1024, 1366];
 // const breakPointHeights = [1137, 1024, 1080];
@@ -246,24 +246,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   newScale && changeScaleRange(newScale);
                 }}
               >
-                {[...(sizes.filter(x => x < maxScaleRange)), maxScaleRange].map((size, ind) => (
-                  <ToggleButton
-                    key={ind}
-                    value={size}
-                  >
-                    <span
-                      css={css`
-                       color: ${
-                        size === scaleRange
-                          ? "var(--text-color-highlight)"
-                          : "var(--text-color-normal)"
-                      };
-                       `}
+                {Array.from(new Set([...(sizes.filter(x => x < maxScaleRange)), scaleRange, maxScaleRange]).values())
+                  .sort().map((size, ind) => (
+                    <ToggleButton
+                      key={ind}
+                      value={size}
                     >
-                      {size}%
-                    </span>
-                  </ToggleButton>
-                ))}
+                      <span
+                        css={css`
+                       color: ${
+                          size === scaleRange
+                            ? "var(--text-color-highlight)"
+                            : "var(--text-color-normal)"
+                        };
+                       `}
+                      >
+                        {size}%
+                      </span>
+                    </ToggleButton>
+                  ))}
               </ToggleButtonGroup>
             </motion.div>
             <motion.div

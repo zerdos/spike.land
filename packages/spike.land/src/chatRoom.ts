@@ -437,7 +437,7 @@ export class Code {
           const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
             .replace(
               `<script type="importmap"></script>`,
-              `<script type="importmap">${JSON.stringify(importMap.import)}</script>`,
+              `<script type="importmap">${JSON.stringify(importMap)}</script>`,
             )
             .replace(
               `<div id="root"></div>`,
@@ -498,9 +498,6 @@ export class Code {
           if (request.headers.get("Upgrade") != "websocket") {
             return new Response("expected websocket", { status: 400 });
           }
-
-          // eslint-disable-next-line no-var
-          var WebSocketPair: WebSocketPair;
 
           const pair = new WebSocketPair();
 
@@ -784,13 +781,13 @@ function importMapReplace(codeInp: string, origin: string) {
     const uri = importMap.imports[lib].slice(1);
     returnStr = returnStr.replaceAll(
       ` from "${String(lib)}"`,
-      ` from "https://${origin}/${String(uri)}"`,
+      ` from "${origin}/${String(uri)}"`,
     ).replaceAll(
       ` from "./`,
-      ` from "https://${origin}/live/`,
+      ` from "${origin}/live/`,
     ).replaceAll(
       ` from "/`,
-      ` from "https://${origin}/`,
+      ` from "${origin}/`,
     );
   });
 
