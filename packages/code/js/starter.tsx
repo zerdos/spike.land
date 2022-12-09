@@ -16,7 +16,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const mutex = new Mutex();
 
-if (location.pathname.includes(`/live/${codeSpace}/hydrated`)) {
+if (location.pathname.includes(`/live/${codeSpace}/worker`)) {
   runInWorker(codeSpace, document.getElementById("root") as HTMLDivElement);
 }
 
@@ -171,24 +171,26 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     const div = await moveToWorker(nameSpace, document.getElementById("root")!);
     if (!div) return;
 
-    // const w = await MainThread.upgradeElement(
-    //   div,
-    //   "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
-    // );
-    // if (w === null) throw new Error("No worker");
-    // worker = w;
+    const w = await MainThread.upgradeElement(
+      div,
+      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
+    );
+    if (w === null) throw new Error("No worker");
+    worker = w;
   });
 }
 
-// const bc = new BroadcastChannel(location.origin);
+const bc = new BroadcastChannel(location.origin);
 
-// bc.onmessage = (event) => {
-// const nameSpace = location.pathname.slice(1).split("/")[1];
+bc.onmessage = (event) => {
+  const nameSpace = location.pathname.slice(1).split("/")[1];
 
-// if (event.data.codeSpace === nameSpace) {
-// if (location.href.indexOf("/hydrated") !== -1) {
-// runInWorker(nameSpace, parent);
-// } else {
+  if (event.data.codeSpace === nameSpace) {
+    if (location.href.indexOf("/worker") !== -1) {
+      runInWorker(nameSpace, document.getElementById("root") as HTMLDivElement);
+    }
+  }
+};
 // let iframe = document.createElement("iframe");
 // iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 

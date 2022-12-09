@@ -78,7 +78,7 @@
 
     const rootEl = document.getElementById(`root`);
 
-    if (location.pathname !== `/live/${codeSpace}`) {
+    if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
       const bc = new BroadcastChannel(location.origin);
       hydrate(codeSpace);
       bc.onmessage = async (event) => {
@@ -90,6 +90,8 @@
           await hydrate(codeSpace, event.data.sess);
         }
       };
+    } else if (location.pathname.endsWith('worker')){
+      load();
     } else {
       load();
     }

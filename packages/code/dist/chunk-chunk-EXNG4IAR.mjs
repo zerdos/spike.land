@@ -2152,10 +2152,10 @@ var require_parser_babel = __commonJS({
         });
       });
       var Ys = b((Rd, Ga) => {
-        var bc = Math.ceil, Cc = Math.floor;
+        var bc2 = Math.ceil, Cc = Math.floor;
         Ga.exports = function(l) {
           var u = +l;
-          return u !== u || u === 0 ? 0 : (u > 0 ? Cc : bc)(u);
+          return u !== u || u === 0 ? 0 : (u > 0 ? Cc : bc2)(u);
         };
       });
       var Xa = b((jd, Ja) => {
@@ -10554,10 +10554,10 @@ var require_standalone = __commonJS({
         Ms.exports = { EXISTS: dn, PROPER: Ac, CONFIGURABLE: Sc };
       });
       var Gs = Ne((A0, Hs) => {
-        var xc = Qe(), $s = pt(), bc = ht(), Vs = vr(), Tc = Dr(), Bc = Cr(), Ws = Os(), Nc = Rs().CONFIGURABLE, wc = Ws.get, _c = Ws.enforce, Pc = String(String).split("String");
+        var xc = Qe(), $s = pt(), bc2 = ht(), Vs = vr(), Tc = Dr(), Bc = Cr(), Ws = Os(), Nc = Rs().CONFIGURABLE, wc = Ws.get, _c = Ws.enforce, Pc = String(String).split("String");
         (Hs.exports = function(e, n, t, s) {
           var a = s ? !!s.unsafe : false, r = s ? !!s.enumerable : false, u = s ? !!s.noTargetGet : false, i = s && s.name !== void 0 ? s.name : n, l;
-          if ($s(t) && (String(i).slice(0, 7) === "Symbol(" && (i = "[" + String(i).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!bc(t, "name") || Nc && t.name !== i) && Vs(t, "name", i), l = _c(t), l.source || (l.source = Pc.join(typeof i == "string" ? i : ""))), e === xc) {
+          if ($s(t) && (String(i).slice(0, 7) === "Symbol(" && (i = "[" + String(i).replace(/^Symbol\(([^)]*)\)/, "$1") + "]"), (!bc2(t, "name") || Nc && t.name !== i) && Vs(t, "name", i), l = _c(t), l.source || (l.source = Pc.join(typeof i == "string" ? i : ""))), e === xc) {
             r ? e[n] = t : Tc(n, t);
             return;
           } else
@@ -29222,7 +29222,7 @@ __name(wait, "wait");
 // js/starter.tsx
 var codeSpace2 = location.pathname.slice(1).split("/")[1];
 var mutex = new Mutex();
-if (location.pathname.includes(`/live/${codeSpace2}/hydrated`)) {
+if (location.pathname.includes(`/live/${codeSpace2}/worker`)) {
   runInWorker(codeSpace2, document.getElementById("root"));
 }
 var worker;
@@ -29248,9 +29248,25 @@ async function runInWorker(nameSpace, _parent) {
     const div = await moveToWorker(nameSpace, document.getElementById("root"));
     if (!div)
       return;
+    const w = await MainThread.upgradeElement(
+      div,
+      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs"
+    );
+    if (w === null)
+      throw new Error("No worker");
+    worker = w;
   });
 }
 __name(runInWorker, "runInWorker");
+var bc = new BroadcastChannel(location.origin);
+bc.onmessage = (event) => {
+  const nameSpace = location.pathname.slice(1).split("/")[1];
+  if (event.data.codeSpace === nameSpace) {
+    if (location.href.indexOf("/worker") !== -1) {
+      runInWorker(nameSpace, document.getElementById("root"));
+    }
+  }
+};
 async function moveToWorker(nameSpace, parent) {
   const { i } = nameSpace === codeSpace2 ? mST() : (await import(`${location.origin}/live/${codeSpace2}/mST.mjs`)).mST;
   const div = parent?.getElementsByTagName("div")[0];

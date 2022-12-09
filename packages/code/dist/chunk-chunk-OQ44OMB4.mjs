@@ -11,7 +11,7 @@ import {
 import {
   Editor,
   wait
-} from "./chunk-chunk-H3HJB2KZ.mjs";
+} from "./chunk-chunk-EXNG4IAR.mjs";
 import {
   css
 } from "./chunk-chunk-LRLKPUSO.mjs";
@@ -3387,8 +3387,8 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const [delay, _setDelay] = (0, import_react3.useState)(0);
   const scale = scaleRange / 100;
   const setWidth = /* @__PURE__ */ __name((width2) => {
-    changeScaleRange(Math.floor(100 * window.innerWidth / width2) - 20);
-    changeMaxScaleRange(Math.floor(100 * window.innerWidth / width2));
+    changeScaleRange(Math.max(100, Math.floor(100 * window.innerWidth / width2) - 20));
+    changeMaxScaleRange(Math.max(120, Math.floor(100 * window.innerWidth / width2)));
     setWidthB(width2);
   }, "setWidth");
   (0, import_react3.useEffect)(() => {
