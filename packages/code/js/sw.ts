@@ -76,20 +76,21 @@ self.addEventListener("fetch", function(event) {
         let resp = await fetch(req);
         if (!resp.ok) return resp;
         resp = new Response(resp.body, resp);
-        // const contentHash = resp.headers.get("content_hash");
-        // if (contentHash) {
-        //   const { memoryCache } = self;
+        const contentHash = resp.headers.has("content_hash") ? resp.headers.get("content_hash") : null;
+        if (contentHash) {
+          const { memoryCache } = self;
 
-        //   let body = await memoryCache.getItem<string>(contentHash);
-        //   if (body === null) {
-        //     body = await resp.text();
+          let body = await memoryCache.getItem<string>(contentHash);
+          if (body === null) {
+            body = await resp.text();
 
-        //     await memoryCache.setItem(contentHash, body);
-        //   } else {
-        //     controller.abort();
-        //   }
-        //   return new Response(body, resp);
-        // }
+            event.waitUntil(memoryCache.setItem(contentHash, body));
+          } else {
+            controller.abort();
+          }
+          resp = new Response(body, resp);
+        }
+
         return resp;
       }
 
