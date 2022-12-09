@@ -64,7 +64,7 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "js",
     "target": "esnext",
-    "module": "CommonJS",
+    "module": "ESNext",
      "lib": ["esnext", "DOM","WebWorker", "DOM.Iterable","ES2020.SharedMemory", "ES2018.AsyncGenerator"]
   },
   "include": [
