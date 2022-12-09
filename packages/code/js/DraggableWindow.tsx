@@ -281,6 +281,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     css={css`
                 position: absolute;
                   top:0;
+                  opacity: 0;
                   z-index: 6;
                   left:0;
                   height: ${window.innerHeight}px;
