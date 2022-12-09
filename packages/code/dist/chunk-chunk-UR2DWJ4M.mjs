@@ -6783,8 +6783,12 @@ p2pcf.on("peerconnect", (peer) => {
 p2pcf.on("peerclose", (peer) => {
 });
 p2pcf.on("msg", (peer, data) => {
-  console.log(peer, data);
+  console.log(peer.id, data);
 });
+globalThis.broadcast = (msg) => {
+  var enc = new TextEncoder();
+  p2pcf.broadcast(enc.encode(msg));
+};
 var run = /* @__PURE__ */ __name(async (startState) => {
   const { mST: mst, dry, address } = startState;
   startSession(codeSpace, {

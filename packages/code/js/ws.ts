@@ -183,12 +183,16 @@ p2pcf.on("peerclose", peer => {
 });
 
 p2pcf.on("msg", (peer, data) => {
-  console.log(peer, data);
+  console.log(peer.id, data);
   // Received data from peer (data is an ArrayBuffer)
 });
 
 // Broadcast a message via data channel to all peers
-// p2pcf.broadcast(new ArrayBuffer(...))
+globalThis.broadcast = (msg: string) => {
+  var enc = new TextEncoder();
+
+  p2pcf.broadcast(enc.encode(msg));
+};
 
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
