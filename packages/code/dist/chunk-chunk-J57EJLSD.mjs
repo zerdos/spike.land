@@ -6766,7 +6766,9 @@ sendChannel.vidElement.playsInline = true;
 sendChannel.vidElement.autoplay = true;
 Object.assign(globalThis, { sendChannel, mST });
 var codeSpace = location.pathname.slice(1).split("/")[1];
-var p2pcf = new P2PCF(user, codeSpace, {
+var client_id = user;
+var room_id = codeSpace;
+var p2pcf = new P2PCF(client_id, room_id, {
   workerUrl: "https://p2pcf.zed-vision.workers.dev",
   rtcPeerConnectionOptions: {},
   rtcPeerConnectionProprietaryConstraints: {},
