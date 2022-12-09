@@ -1,11 +1,7 @@
-import localForage from "localforage";
 // import { importMapReplace } from "./esbuildEsm";
+import { chain } from "lodash";
 import { transform } from "./esmTransform";
 export type {};
-
-interface MyServiceWorkerScope extends ServiceWorkerGlobalScope {
-  memoryCache: LocalForage;
-}
 
 declare const self: MyServiceWorkerScope;
 
@@ -24,10 +20,6 @@ self.addEventListener("activate", () => {
 //     }, delay);
 //   });
 // }
-
-self.memoryCache = self.memoryCache || localForage.createInstance({
-  name: "memoryCache",
-});
 
 let lastChecked = 0;
 let npmCache: Cache | null;
@@ -60,10 +52,10 @@ self.addEventListener("fetch", function(event) {
       let url = new URL(event.request.url);
 
       let isChunk = url.pathname.includes("chunk-");
-      if (files && files[url.pathname.slice(1)]) {
-        isChunk = true;
-        url = new URL(files[url.pathname.slice(1)], url.origin);
-      }
+      // if (files && files[url.pathname.slice(1)]) {
+      //   isChunk = true;
+      //   url = new URL(files[url.pathname.slice(1)], url.origin);
+      // }
       if (
         url.pathname.indexOf("/live/") !== -1
       ) {
@@ -78,18 +70,23 @@ self.addEventListener("fetch", function(event) {
         resp = new Response(resp.body, resp);
         const contentHash = resp.headers.has("content_hash") ? resp.headers.get("content_hash") : null;
         if (contentHash) {
-          const { memoryCache } = self;
+          chunkCache = chunkCache || await caches.open("chunks");
 
-          let body = await memoryCache.getItem<string>(contentHash);
-          if (body === null) {
-            body = await resp.text();
+          let cacheKey = new Request(new URL("/" + contentHash, url).toString());
 
-            event.waitUntil(memoryCache.setItem(contentHash, body));
-          } else {
+          let cachedResp = await chunkCache.match(cacheKey);
+          if (cachedResp) {
             controller.abort();
+            return cachedResp;
           }
-          resp = new Response(body, resp);
+
+          cachedResp = new Response(await resp.blob(), resp);
+
+          event.waitUntil(chunkCache.put(cacheKey, cachedResp.clone()));
+          return cachedResp;
         }
+
+        resp = new Response(resp.body, resp);
 
         return resp;
       }
@@ -101,6 +98,7 @@ self.addEventListener("fetch", function(event) {
         ? (chunkCache = chunkCache || await caches.open("chunks"))
         : (fileCache = fileCache || await caches.open(`fileCache`));
 
+      if (url.pathname.length < 2) return fetch(event.request);
       // if (Date.now() - lastChecked > 40_000) {
       // lastChecked = Date./now();
       // setTimeout(() => getCacheName());
@@ -126,7 +124,7 @@ self.addEventListener("fetch", function(event) {
         response = await fetch(request);
 
         response = new Response(response.body, response);
-        if (!response.ok || !response.body) return response;
+        if (response.status === 307 || !response.ok || !response.body) return response;
 
         if (
           url.pathname.indexOf(".ts") !== -1 && url.pathname.indexOf(".d.ts") === -1

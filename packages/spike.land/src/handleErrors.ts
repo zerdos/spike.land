@@ -17,7 +17,7 @@ export async function handleErrors(
         console.log({ error: err.stack, message: err.message });
       }
 
-      let pair = new WebSocketPair();
+      const pair = new WebSocketPair();
       pair[1].accept();
       pair[1].send(JSON.stringify({ error: stack }));
       pair[1].close(1011, "Uncaught exception during session setup");
