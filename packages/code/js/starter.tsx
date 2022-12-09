@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-// import * as MainThread from "@ampproject/worker-dom";
+import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
@@ -171,7 +171,7 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
     const div = await moveToWorker(nameSpace, document.getElementById("root")!);
     if (!div) return;
 
-    const w = await MainThread.upgradeElement(
+    const w = await upgradeElement(
       div,
       "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
     );
