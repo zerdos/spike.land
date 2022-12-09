@@ -1,9 +1,9 @@
 import {
   require_react_error_boundary_umd
-} from "./chunk-chunk-VSR6Z5WK.mjs";
+} from "./chunk-chunk-76NN7VBW.mjs";
 import {
   require_react
-} from "./chunk-chunk-UX3KX3KY.mjs";
+} from "./chunk-chunk-FCWF5IZB.mjs";
 import {
   __commonJS,
   __name,
@@ -11,9 +11,9 @@ import {
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";
 
-// ../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js
+// ../../node_modules/is-callable/index.js
 var require_is_callable = __commonJS({
-  "../../.yarn/global/cache/is-callable-npm-1.2.7-808a303e61-9.zip/node_modules/is-callable/index.js"(exports, module) {
+  "../../node_modules/is-callable/index.js"(exports, module) {
     "use strict";
     init_define_process();
     var fnToStr = Function.prototype.toString;

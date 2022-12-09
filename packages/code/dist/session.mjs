@@ -10,7 +10,7 @@ import {
   patchSync,
   resetCSS,
   startSession
-} from "./chunk-chunk-OOGKLUN3.mjs";
+} from "./chunk-chunk-YPGGBUFE.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";

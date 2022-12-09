@@ -39,9 +39,9 @@
     }
   });
 
-  // ../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js
+  // ../../node_modules/localforage/dist/localforage.js
   var require_localforage = __commonJS({
-    "../../.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-9.zip/node_modules/localforage/dist/localforage.js"(exports, module) {
+    "../../node_modules/localforage/dist/localforage.js"(exports, module) {
       init_define_process();
       (function(f) {
         if (typeof exports === "object" && typeof module !== "undefined") {
@@ -2274,9 +2274,9 @@
     }
   });
 
-  // ../../.yarn/global/cache/esbuild-wasm-npm-0.16.3-5aee402a85-9.zip/node_modules/esbuild-wasm/lib/browser.js
+  // ../../node_modules/esbuild-wasm/lib/browser.js
   var require_browser = __commonJS({
-    "../../.yarn/global/cache/esbuild-wasm-npm-0.16.3-5aee402a85-9.zip/node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
+    "../../node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
       init_define_process();
       ((module2) => {
         "use strict";
