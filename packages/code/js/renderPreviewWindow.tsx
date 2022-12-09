@@ -97,9 +97,15 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  const rootEl: HTMLDivElement = document.querySelector(`#${codeSpace}-css`)!;
-  document.querySelector(`#root`)?.querySelector("div")!.firstElementChild;
-  //  const div =  document.createElement("div")
+  let rootEl: HTMLDivElement | null = document.querySelector(`#${codeSpace}-css`)
+    || document.getElementById(`code-main-css`)
+    || document.querySelector(`#root`)?.querySelector("div")!.firstElementChild;
+  if (!rootEl) {
+    rootEl = document.createElement("div");
+    rootEl.setAttribute("id", `${codeSpace}-css`);
+    document.getElementById(`root`)?.appendChild(rootEl);
+  }
+  //
   rootEl!.style!.height = "100%";
   const root = createRoot(rootEl);
 

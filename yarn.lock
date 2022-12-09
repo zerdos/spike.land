@@ -1344,6 +1344,7 @@ __metadata:
     lodash.throttle: "npm:4.1.1"
     monaco-editor: "npm:0.35.0-dev.20221207"
     p-map: "npm:5.5.0"
+    p2pcf: "npm:^1.3.11"
     popmotion: "npm:11.0.5"
     prettier: "npm:2.8.1"
     prismjs: "npm:^1.29.0"
@@ -2171,6 +2172,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-buffer-to-hex@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "array-buffer-to-hex@npm:1.0.0"
+  checksum: e92801569d82df6f276f4420916e1c2b518ea0e8554c2e68b92359eefbff42b93b71ecca2a23e50effdb89c29dcac937fb11e1a031281f009d2abb908b0f70d0
+  languageName: node
+  linkType: hard
+
 "array-find-index@npm:^1.0.1":
   version: 1.0.2
   resolution: "array-find-index@npm:1.0.2"
@@ -2372,6 +2380,13 @@ __metadata:
   version: 1.0.2
   resolution: "balanced-match@npm:1.0.2"
   checksum: 9ca7fca1845f06edbd8478e209a2e8eed5bb148a021719e77affeaf0c61e45af20279e4540a9f11942acc27c078fc132ff0ebc9c16a403033cff5af3d8199f40
+  languageName: node
+  linkType: hard
+
+"base64-arraybuffer@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "base64-arraybuffer@npm:1.0.2"
+  checksum: 5a21e7245643dcdbd83b05e2c78bf893047307f9d4e69dd85dc7868047afd02251f0d77d2b8f2df33d6bec0e370ee636310c6ed1ae54220a75a5ffab7bd0582e
   languageName: node
   linkType: hard
 
@@ -2952,6 +2967,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"convert-hex@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "convert-hex@npm:0.1.0"
+  checksum: 1e1bd7eb8b7152515e228b109e064cdbedaa76bd04b3c58d6d875a97f318c832c700d045ab582dd80049b0319823fa38f7fa1fe36f2ce8a3e1b7f230d01b7843
+  languageName: node
+  linkType: hard
+
 "convert-source-map@npm:^1.5.0":
   version: 1.9.0
   resolution: "convert-source-map@npm:1.9.0"
@@ -3341,6 +3363,13 @@ __metadata:
   version: 2.0.3
   resolution: "err-code@npm:2.0.3"
   checksum: 12244d58c3eeb73a5ebf633ff615b2366cedaccfea3c2b4d6a3295f6440661052e9574c71f89d6dc8a5466e3d84be0b1994e2a4017ab10e1f037f8be1ca89a37
+  languageName: node
+  linkType: hard
+
+"err-code@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "err-code@npm:3.0.1"
+  checksum: d304dbbeac919b3e5ea495d2de4afea5e55638107402a41d83f771b1d253dec5836d4b5a9f921b8f3eef77531ebb9c4f98929edfdf5dab6440683e32ebc47244
   languageName: node
   linkType: hard
 
@@ -4237,6 +4266,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"events@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "events@npm:3.3.0"
+  checksum: ef0af671f7bdc20f14274c77925c3e47a4df7991563ee1827dff577f66a9ed1a5b63d9adab8bc5949a16a1341883abdaf9df7a1841f8d5d2fc65ab4f5570b32b
+  languageName: node
+  linkType: hard
+
 "execa@npm:^5.1.1":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
@@ -4562,6 +4598,13 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     wide-align: "npm:^1.1.5"
   checksum: 4fc68f770dba9962a326918f33f58f2458eddea08442c2d716238357e4291dee4223a812ce11084b54f928d607e4dfb6f380ba28d435b2721de94a22d5600669
+  languageName: node
+  linkType: hard
+
+"get-browser-rtc@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "get-browser-rtc@npm:1.1.0"
+  checksum: 4c7185f227757f621fd404b5be22854513dc190397a1997e7be9642b75489135b949669e1f1d32994663a4824a9f67732592c0ea03dcb3b3e1444fb30d9d21a7
   languageName: node
   linkType: hard
 
@@ -6685,6 +6728,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p2pcf@npm:^1.3.11":
+  version: 1.3.11
+  resolution: "p2pcf@npm:1.3.11"
+  dependencies:
+    array-buffer-to-hex: "npm:^1.0.0"
+    base64-arraybuffer: "npm:^1.0.2"
+    convert-hex: "npm:^0.1.0"
+    events: "npm:^3.3.0"
+    get-browser-rtc: "npm:^1.1.0"
+    tiny-simple-peer: "npm:^10.1.1"
+  checksum: 6000e922f585bfde18fe555fe3c45ecb75f00c5db7c1155fb3165772f9cb683a5fc4d6d5cf7edf5b45a256b2bdd104dc31049dd89d72880ece6f609b34e2ce20
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -7003,7 +7060,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"queue-microtask@npm:^1.2.2":
+"queue-microtask@npm:^1.2.2, queue-microtask@npm:^1.2.3":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: 84624bee6c25c9d9776242ce0dcc3e15f703d897f4b7d982f32ef4d88c51048507a0999d9ff038ec46f65901655460b69240e414da1cebc2d723987ec81cbae8
@@ -7021,6 +7078,13 @@ __metadata:
   version: 6.1.1
   resolution: "quick-lru@npm:6.1.1"
   checksum: 905b489bd7c561438ea643cbee0cc14a4e8716781a522be37f530590903c215b2c314fcfa249290f293395d53d4d1207c922d6693c33a90d1ee247c8f1d94502
+  languageName: node
+  linkType: hard
+
+"random-string@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "random-string@npm:0.2.0"
+  checksum: bedef9e91b33fc921c436dc7623ad9d7104ffdf00ad92d7f54f12028a905c92f28b346c13e0a74b43941fa8b7a8f709805964c2ec623408a1a44e69fcb4e85f7
   languageName: node
   linkType: hard
 
@@ -8106,6 +8170,20 @@ __metadata:
   version: 1.0.0
   resolution: "time-zone@npm:1.0.0"
   checksum: 05f6c7b26cb99359c425062d839cc35be94d0044111990de8b61a740ad178086be68477e572e83519e3f4dd39556e4697a46d636cc596acd1fa246fcebcbf2a9
+  languageName: node
+  linkType: hard
+
+"tiny-simple-peer@npm:^10.1.1":
+  version: 10.1.1
+  resolution: "tiny-simple-peer@npm:10.1.1"
+  dependencies:
+    debug: "npm:^4.3.2"
+    err-code: "npm:^3.0.1"
+    events: "npm:^3.3.0"
+    get-browser-rtc: "npm:^1.1.0"
+    queue-microtask: "npm:^1.2.3"
+    random-string: "npm:^0.2.0"
+  checksum: 375ac1ee18cee3d5a24cad91b3e5176876da38c4ce0ac8d7a7aae6d8f399176d0c02d77a4756e9c5876715b83c7c3cec4a459a4aa2ad71ccbe2ebda8f37901ef
   languageName: node
   linkType: hard
 
