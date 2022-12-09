@@ -5,7 +5,7 @@ import HTML from "./index.html";
 import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
 import importMap from "@spike.land/code/js/importmap.json";
 import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
-import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { applyPatch, hashCode,WebSocketPair, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import AVLTree from "avl";
 import { imap } from "./chat";
@@ -435,7 +435,7 @@ export class Code {
           const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
             .replace(
               `<script type="importmap"></script>`,
-              `<script type="importmap">${JSON.stringify({ imports: { ...files, ...importMap.imports } })}</script>`,
+              `<script type="importmap">${JSON.stringify(importMap.import)}</script>`,
             )
             .replace(
               `<div id="root"></div>`,
