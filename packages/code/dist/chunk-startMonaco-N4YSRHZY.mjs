@@ -42732,7 +42732,9 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
       }
     }
   };
+  const testModel = globalThis.testModel = globalThis.testModel || createModel(model.getValue(), "typescript", Uri.parse(`${originToUse}/live/${codeSpace}/test.tsx`));
   model.onDidChangeContent((ev) => {
+    testModel.applyEdits(ev.changes);
     console.log({ version: model.getVersionId(), ev });
     mod2.silent == false && onChange(model.getValue());
   });
