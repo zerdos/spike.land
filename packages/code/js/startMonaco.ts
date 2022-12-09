@@ -77,9 +77,9 @@ const lib = [
   "esnext.string",
   "esnext.weakref",
   "scripthost",
-  "webworker",
-  "webworker.importscripts",
-  "webworker.iterable",
+  // "webworker",
+  // "webworker.importscripts",
+  // "webworker.iterable",
 ];
 
 const monacoContribution = async (

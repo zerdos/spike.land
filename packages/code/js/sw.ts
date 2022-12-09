@@ -37,22 +37,22 @@ let fileCache: Cache | null;
 let cacheName = "default";
 let files: { [k: string]: string } = {};
 const assets: { [assetHash: string]: Promise<typeof files> } = {};
-const getCacheName = () =>
-  fetch(location.origin + "/files.json").then((resp) => {
-    if (!resp.ok) return;
+// const getCacheName = () =>
+//   fetch(location.origin + "/files.json").then((resp) => {
+//     if (!resp.ok) return;
 
-    // Object.keys(files).map(async x=>{
+//     // Object.keys(files).map(async x=>{
 
-    // let req = new Request(`${location.origin}/${files[x]}`, )
-    // let response =await  fetch(req);
+//     // let req = new Request(`${location.origin}/${files[x]}`, )
+//     // let response =await  fetch(req);
 
-    const assetHash = resp.headers.get("asset_hash");
-    if (assetHash === null) return;
-    if (cacheName === assetHash) return;
-    cacheName = assetHash;
-    Object.assign(assets, { [assetHash]: resp.json() });
-    assets[assetHash].then((f) => files = f);
-  });
+//     const assetHash = resp.headers.get("asset_hash");
+//     if (assetHash === null) return;
+//     if (cacheName === assetHash) return;
+//     cacheName = assetHash;
+//     Object.assign(assets, { [assetHash]: resp.json() });
+//     assets[assetHash].then((f) => files = f);
+//   });
 
 self.addEventListener("fetch", function(event) {
   return event.respondWith(
@@ -100,10 +100,10 @@ self.addEventListener("fetch", function(event) {
         ? (chunkCache = chunkCache || await caches.open("chunks"))
         : (fileCache = fileCache || await caches.open(`fileCache`));
 
-      if (Date.now() - lastChecked > 40_000) {
-        lastChecked = Date.now();
-        setTimeout(() => getCacheName());
-      }
+      // if (Date.now() - lastChecked > 40_000) {
+      // lastChecked = Date./now();
+      // setTimeout(() => getCacheName());
+      // }
 
       // if (
       //   url.origin !== location.origin

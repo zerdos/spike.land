@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "@spike.land/code/package.json";
-import { ASSET_HASH, ASSET_MANIFEST, getFilePath } from "./staticContent.mjs";
+import { ASSET_HASH, ASSET_MANIFEST, files, reverseMap } from "./staticContent.mjs";
 // import imap from "@spike.land/code/js/importmap.json";
 import importMap from "@spike.land/code/js/importmap.json";
 import { md5 } from "@spike.land/code/js/session";
@@ -17,7 +17,7 @@ const mods = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 export const imap = importMap;
 const api = {
-    fetch: async (req, env, ctx) => {
+    fetch: async (req, env) => {
         let request = new Request(req.url, req);
         if (request.cf?.asOrganization?.startsWith("YANDEX")) {
             return new Response(null, { status: 401, statusText: "no robots" });
@@ -232,7 +232,15 @@ const api = {
                             },
                         });
                     case "files.json":
-                        return new Response(ASSET_MANIFEST, {
+                        return new Response(JSON.stringify(files), {
+                            headers: {
+                                "Content-Type": "application/json;charset=UTF-8",
+                                "Cache-Control": "no-cache",
+                                ASSET_HASH,
+                            },
+                        });
+                    case "reverseMap.json":
+                        return new Response(JSON.stringify(reverseMap), {
                             headers: {
                                 "Content-Type": "application/json;charset=UTF-8",
                                 "Cache-Control": "no-cache",
@@ -282,7 +290,7 @@ const api = {
                         try {
                             const kvResp = await getAssetFromKV({
                                 request,
-                                waitUntil: async (prom) => await prom
+                                waitUntil: async (prom) => await prom,
                             }, {
                                 cacheControl: (isChunk(url.href)
                                     ? {
@@ -298,20 +306,37 @@ const api = {
                                 ASSET_NAMESPACE: env.__STATIC_CONTENT,
                                 ASSET_MANIFEST,
                             });
-                            if (!kvResp.ok)
-                                throw new Error("no kv, try something else");
-                            const headers = new Headers(kvResp.headers);
-                            const fileName = url.pathname.slice(1);
-                            const filePath = getFilePath(fileName);
-                            headers.append("ASSET_PATH", filePath);
-                            headers.append("ASSET_HASH", ASSET_HASH);
-                            if (fileName === filePath) {
-                                headers.append("Cache-Control", "public, max-age=604800, immutable");
-                            }
-                            response = new Response(kvResp.body, { ...kvResp, headers });
-                            if (fileName === filePath) {
+                            if (!kvResp || kvResp.status !== 200) {
+                                const req = new Request(`${u.origin}/npm:/${u.pathname}?bundle`, request);
+                                response = await (fetch(req));
+                                if (!response.ok)
+                                    return response;
+                                const newHeaders = new Headers(response.headers);
+                                newHeaders.append(`Location`, req.url),
+                                    response = new Response(response.body, {
+                                        ...response,
+                                        status: 307,
+                                        headers: newHeaders,
+                                    });
+                                const cache = caches.default;
                                 await cache.put(cacheKey, response.clone());
+                                return response;
                             }
+                            // const headers = new Headers(kvResp.headers);
+                            // const fileName = url.pathname.slice(1);
+                            // const filePath = getFilePath(fileName);
+                            // headers.append("ASSET_PATH", filePath);
+                            // headers.append("ASSET_HASH", ASSET_HASH);
+                            // if (fileName === filePath) {
+                            //   headers.append(
+                            //     "Cache-Control",
+                            //     "public, max-age=604800, immutable",
+                            //   );
+                            // }
+                            // response = new Response(kvResp.body, { ...kvResp, headers });
+                            // if (fileName === filePath) {
+                            //   await cache.put(cacheKey, response.clone());
+                            // }
                             return response;
                         }
                         catch {

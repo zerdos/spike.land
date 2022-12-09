@@ -4,7 +4,7 @@ import HTML from "./index.html";
 
 // import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
 
-import * as CF from "@cloudflare/workers-types";
+// import * as CF from "@cloudflare/workers-types";
 
 import importMap from "@spike.land/code/js/importmap.json";
 import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
@@ -17,9 +17,6 @@ import IIFE from "./iife.html";
 // import { ASSET_HASH, files } from "./staticContent.mjs";
 // import { CodeRateLimiter } from "./rateLimiter";
 
-// eslint-disable-next-line no-var
-var Response: CF.Response;
-
 interface WebsocketSession {
   name: string;
   webSocket: WebSocket;
@@ -28,8 +25,8 @@ interface WebsocketSession {
 }
 
 export class Code {
-  state: CF.DurableObjectState;
-  kv: CF.DurableObjectStorage;
+  state: DurableObjectState;
+  kv: DurableObjectStorage;
   codeSpace: string;
   sess: ICodeSession | null;
   sessionStarted: boolean;
@@ -504,9 +501,9 @@ export class Code {
           }
 
           // eslint-disable-next-line no-var
-          var WebSocketPair: CF.WebSocketPair;
+          var WebSocketPair: WebSocketPair;
 
-          const pair = new (WebSocketPair as unknown as CF.WebSocketPair)();
+          const pair = new WebSocketPair();
 
           await this.handleSession(pair[1]);
 
@@ -788,7 +785,7 @@ function importMapReplace(codeInp: string, origin: string) {
     const uri = (new URL(imap.imports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
-      ` from "${uri}"`,
+      ` from "${urix}"`,
     ).replaceAll(
       ` from "./`,
       ` from "https://${origin}/live/`,
