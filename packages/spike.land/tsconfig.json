@@ -7,12 +7,12 @@
     "strict": true,
     "noEmit": false,
     "outDir": "dist",
-    "target": "esnext",
+    "target": "ES2020",
     "resolveJsonModule": true,
-    "module": "esnext",
+    "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node",
-    "lib": ["esnext"],
+    "lib": ["ES2020", "ES2020.String", "ESNext.Symbol","DOM", "DOM.Iterable","ESNext"],
     "types": ["@cloudflare/workers-types"]
   },
   "include": [
