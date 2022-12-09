@@ -81,7 +81,7 @@ const api: ExportedHandler<CodeEnv> = {
       }
 
       const handleFetchApi = async (path: string[]): Promise<Response> => {
-        const newUrl = new URL(path.join("/"), url.origin).toString();
+        const newUrl = new URL(path.join("/"), url.origin);
         request = new Request(newUrl, request);
 
         const cacheKey = new Request(request.url);
@@ -92,12 +92,12 @@ const api: ExportedHandler<CodeEnv> = {
           return response;
         }
 
-        if (newUrl.includes(":z:")) {
+        if (newUrl.pathname.includes(":z:")) {
           const reqHeaders = new Headers(request.headers);
-          const newUrl = atob(url.pathname.slice(4));
-          reqHeaders.set("Referer", newUrl);
+          const next = atob(newUrl.path name.slice(4));
+          reqHeaders.set("Referer", next);
 
-          request = new Request(newUrl, { ...request, headers: reqHeaders });
+          request = new Request(next, { ...request, headers: reqHeaders });
           response = await fetch(request);
           if (!response.ok) return response;
 
