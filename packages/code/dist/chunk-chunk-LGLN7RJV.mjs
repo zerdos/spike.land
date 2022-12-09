@@ -3384,7 +3384,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidthB] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
-  const [delay, setDelay] = (0, import_react3.useState)(1);
+  const [delay, setDelay] = (0, import_react3.useState)(0);
   const scale = Math.sqrt(scaleRange / 100);
   const setWidth = /* @__PURE__ */ __name((width2) => {
     changeScaleRange(Math.floor(100 * window.innerWidth / width2));
@@ -3396,7 +3396,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
       return;
     if (!dragRef.current)
       return;
-    const reveal = /* @__PURE__ */ __name(async () => {
+    const reveal = /* @__PURE__ */ __name(() => {
       if (window.innerWidth / devicePixelRatio < 600) {
         setWidth(breakPoints[0]);
       }
@@ -3413,7 +3413,6 @@ var DraggableWindow = /* @__PURE__ */ __name(({
         bottom: 20,
         right: 20
       });
-      setDelay(0);
     }, "reveal");
     reveal();
   }, [iRef, iRef.current]);
