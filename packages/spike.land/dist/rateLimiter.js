@@ -1,11 +1,14 @@
-import { handleErrors } from "./handleErrors";
-export class CodeRateLimiter {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CodeRateLimiter = void 0;
+const handleErrors_1 = require("./handleErrors");
+class CodeRateLimiter {
     nextAllowedTime = 0;
     // Our protocol is: POST when the IP performs an action, or GET to simply read the current limit.
     // Either way, the result is the number of seconds to wait before allowing the IP to perform its
     // next action.
     async fetch(request) {
-        return await handleErrors(request, async () => {
+        return await (0, handleErrors_1.handleErrors)(request, async () => {
             const now = Date.now() / 1000;
             this.nextAllowedTime = Math.max(now, this.nextAllowedTime);
             if (request.method == "POST") {
@@ -22,3 +25,5 @@ export class CodeRateLimiter {
         });
     }
 }
+exports.CodeRateLimiter = CodeRateLimiter;
+//# sourceMappingURL=rateLimiter.js.map

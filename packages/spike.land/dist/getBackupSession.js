@@ -1,4 +1,7 @@
-export function getBackupSession() {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getBackupSession = void 0;
+function getBackupSession() {
     return {
         "i": 3734,
         "transpiled": "import { jsx as jsX } from \"@emotion/react\";\nimport { css } from \"@emotion/react\";\nimport { motion } from \"framer-motion\";\nexport default () => /* @__PURE__ */ jsX(\"header\", {\n  css: css`\n      background-color: gre;\n      min-height: 100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      font-size: calc(10px + 2vmin);\n      color: white;\n      text-align: center;\n      overflow: hidden;\n    `\n}, /* @__PURE__ */ jsX(motion.div, {\n  animate: { rotate: 360 },\n  transition: {\n    repeat: 0,\n    duration: 2,\n    repeatType: \"loop\"\n  }\n}, /* @__PURE__ */ jsX(\"div\", {\n  css: css`\n          font-size: calc(10px + 20vmin);\n        `\n}, \"\\u{1F525}\"), \"-------------------\"), /* @__PURE__ */ jsX(\"p\", null, \"Hey!Try to modify \", /* @__PURE__ */ jsX(\"code\", null, \"this\"), \" page.\"), /* @__PURE__ */ jsX(\"a\", {\n  css: css`\n        color: #61dafb;\n      `,\n  href: \"./edit\"\n}, \"Open the editor.\"));\n",
@@ -7,3 +10,5 @@ export function getBackupSession() {
         "css": ".css-34wkbp {\n  background-color: gre;\n  min-height: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-direction: column;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  -webkit-justify-content: center;\n  justify-content: center;\n  font-size: calc(10px + 2vmin);\n  color: white;\n  text-align: center;\n  overflow: hidden;\n}\n.css-15plvkc {\n  font-size: calc(10px + 20vmin);\n}\n.css-1v5q1ar {\n  color: #61dafb;\n}\n",
     };
 }
+exports.getBackupSession = getBackupSession;
+//# sourceMappingURL=getBackupSession.js.map

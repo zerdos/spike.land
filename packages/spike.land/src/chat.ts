@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "@spike.land/code/package.json";
-import { ASSET_HASH, ASSET_MANIFEST, files, getFilePath, reverseMap } from "./staticContent.mjs";
+import { ASSET_HASH, ASSET_MANIFEST, files, reverseMap } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
@@ -408,8 +408,8 @@ const api: ExportedHandler<CodeEnv> = {
               );
 
               if (!kvResp || kvResp.status !== 200) {
-                const req = new Request(`${u.origin}/npm:/${u.pathname}?bundle`, request);
-                response = await (fetch(req));
+                const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
+                response = await fetch(req);
                 if (!response.ok) return response;
 
                 const newHeaders = new Headers(response.headers);

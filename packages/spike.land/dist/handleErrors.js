@@ -1,4 +1,7 @@
-export async function handleErrors(request, func) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.handleErrors = void 0;
+async function handleErrors(request, func) {
     try {
         return await func();
     }
@@ -28,3 +31,5 @@ export async function handleErrors(request, func) {
         }
     }
 }
+exports.handleErrors = handleErrors;
+//# sourceMappingURL=handleErrors.js.map

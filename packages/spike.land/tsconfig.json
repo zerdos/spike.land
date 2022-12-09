@@ -17,8 +17,11 @@
     "target": "ESNext",
     "module": "CommonJS",
     "lib": ["ES2020.String", "es2021", "ES2022.Error"],
-    "types": ["@cloudflare/workers-types"]
+    "typeRoots": ["@cloudflare/workers-types"],
+
+    
   },
+  
   "include": [
     "src/*"
   ]

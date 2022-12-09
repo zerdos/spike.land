@@ -1,5 +1,8 @@
+"use strict";
 // RateLimiterClient implements rate limiting logic on the caller's side.
-export class RateLimiterClient {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.wait = exports.RateLimiterClient = void 0;
+class RateLimiterClient {
     getLimiterStub;
     reportError;
     nextAllowedTime = 0;
@@ -70,10 +73,13 @@ export class RateLimiterClient {
         }
     }
 }
-export async function wait(delay) {
+exports.RateLimiterClient = RateLimiterClient;
+async function wait(delay) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(delay);
         }, delay);
     });
 }
+exports.wait = wait;
+//# sourceMappingURL=rateLimiterClient.js.map

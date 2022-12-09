@@ -22,7 +22,7 @@
     "wrangler": "2.6.1"
   },
   "dependencies": {
-    "@spike.land/code": "*",
+    "@spike.land/code": "0.9.2",
     "avl": "^1.5.3",
     "miniflare": "^2.11.0"
   },
