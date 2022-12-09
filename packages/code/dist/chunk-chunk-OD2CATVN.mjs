@@ -6783,7 +6783,8 @@ p2pcf.on("peerconnect", (peer) => {
 p2pcf.on("peerclose", (peer) => {
 });
 p2pcf.on("msg", (peer, data) => {
-  console.log(peer.id, data);
+  const msg = new TextDecoder().decode(data);
+  console.log(peer.id, msg);
 });
 globalThis.broadcast = (msg) => {
   var enc = new TextEncoder();

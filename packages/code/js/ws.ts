@@ -183,7 +183,9 @@ p2pcf.on("peerclose", peer => {
 });
 
 p2pcf.on("msg", (peer, data) => {
-  console.log(peer.id, data);
+  const msg = new TextDecoder().decode(data);
+  console.log(peer.id, msg);
+
   // Received data from peer (data is an ArrayBuffer)
 });
 
