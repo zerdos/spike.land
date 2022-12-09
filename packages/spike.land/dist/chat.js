@@ -1,11 +1,15 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getImportMapStr = void 0;
+const tslib_1 = require("tslib");
+const kv_asset_handler_1 = require("@cloudflare/kv-asset-handler");
 // import {join} from "./rtc.mjs"
-import packages from "@spike.land/code/package.json";
-import { ASSET_HASH, ASSET_MANIFEST, files, reverseMap } from "./staticContent.mjs";
+const package_json_1 = tslib_1.__importDefault(require("@spike.land/code/package.json"));
+const staticContent_mjs_1 = require("./staticContent.mjs");
 // import imap from "@spike.land/code/js/importmap.json";
-import importMap from "@spike.land/code/js/importmap.json";
-import { md5 } from "@spike.land/code/js/session";
-import { handleErrors } from "./handleErrors";
+const importmap_json_1 = tslib_1.__importDefault(require("@spike.land/code/js/importmap.json"));
+const session_1 = require("@spike.land/code/js/session");
+const handleErrors_1 = require("./handleErrors");
 const esbuildExternal = [
     "monaco-editor",
     // "react/jsx-runtime",
@@ -15,14 +19,13 @@ const esbuildExternal = [
 ];
 const mods = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
-export const imap = importMap;
 const api = {
     fetch: async (req, env) => {
         let request = new Request(req.url, req);
         if (request.cf?.asOrganization?.startsWith("YANDEX")) {
             return new Response(null, { status: 401, statusText: "no robots" });
         }
-        return handleErrors(request, async () => {
+        return (0, handleErrors_1.handleErrors)(request, async () => {
             console.log(`handling request: ${request.url}`);
             // We have received an HTTP request! Parse the URL and route the request.
             const u = new URL(request.url);
@@ -42,7 +45,7 @@ const api = {
             if (!path[0]) {
                 const utcSecs = Math.floor(Math.floor(Date.now() / 1000 / 7200));
                 console.log({ asOrganization: request.cf?.asOrganization });
-                const start = md5((request.cf?.asOrganization || "default") + utcSecs + `
+                const start = (0, session_1.md5)((request.cf?.asOrganization || "default") + utcSecs + `
         and reset every 2 hours
         time`);
                 // Serve our HTML at the root path.
@@ -52,7 +55,7 @@ const api = {
                         "Location": `${u.origin}/live/${start}/`,
                         "Content-Type": "text/html;charset=UTF-8",
                         "Cache-Control": "no-cache",
-                        ASSET_HASH: ASSET_HASH,
+                        ASSET_HASH: staticContent_mjs_1.ASSET_HASH,
                     },
                 });
             }
@@ -232,34 +235,34 @@ const api = {
                             },
                         });
                     case "files.json":
-                        return new Response(JSON.stringify(files), {
+                        return new Response(JSON.stringify(staticContent_mjs_1.files), {
                             headers: {
                                 "Content-Type": "application/json;charset=UTF-8",
                                 "Cache-Control": "no-cache",
-                                ASSET_HASH,
+                                ASSET_HASH: staticContent_mjs_1.ASSET_HASH,
                             },
                         });
                     case "reverseMap.json":
-                        return new Response(JSON.stringify(reverseMap), {
+                        return new Response(JSON.stringify(staticContent_mjs_1.reverseMap), {
                             headers: {
                                 "Content-Type": "application/json;charset=UTF-8",
                                 "Cache-Control": "no-cache",
-                                ASSET_HASH,
+                                ASSET_HASH: staticContent_mjs_1.ASSET_HASH,
                             },
                         });
                     case "packages.json":
-                        return new Response(JSON.stringify(packages), {
+                        return new Response(JSON.stringify(package_json_1.default), {
                             headers: {
                                 "Content-Type": "application/json;charset=UTF-8",
                                 "Cache-Control": "no-cache",
                             },
                         });
                     case "importmap.json":
-                        return new Response(getImportMapStr(url.origin), {
+                        return new Response(JSON.stringify(importmap_json_1.default), {
                             headers: {
                                 "Content-Type": "application/json;charset=UTF-8",
                                 "Cache-Control": "no-cache",
-                                ASSET_HASH,
+                                ASSET_HASH: staticContent_mjs_1.ASSET_HASH,
                             },
                         });
                     case "api":
@@ -288,7 +291,7 @@ const api = {
                     }
                     default:
                         try {
-                            const kvResp = await getAssetFromKV({
+                            const kvResp = await (0, kv_asset_handler_1.getAssetFromKV)({
                                 request,
                                 waitUntil: async (prom) => await prom,
                             }, {
@@ -304,11 +307,11 @@ const api = {
                                         bypassCache: true,
                                     }),
                                 ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                                ASSET_MANIFEST,
+                                ASSET_MANIFEST: staticContent_mjs_1.ASSET_MANIFEST,
                             });
                             if (!kvResp || kvResp.status !== 200) {
-                                const req = new Request(`${u.origin}/npm:/${u.pathname}?bundle`, request);
-                                response = await (fetch(req));
+                                const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
+                                response = await fetch(req);
                                 if (!response.ok)
                                     return response;
                                 const newHeaders = new Headers(response.headers);
@@ -394,11 +397,13 @@ function isChunk(link) {
     const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
     return link.includes("chunk-") || chunkRegExp.test(link);
 }
-export const getImportMapStr = (orig) => {
+const getImportMapStr = (orig) => {
     const importmapImport = { ...imap.imports };
     for (const [key, value] of Object.entries(imap.imports)) {
         importmapImport[key] = orig + "/" + value;
     }
     return JSON.stringify({ imports: importmapImport });
 };
-export default api;
+exports.getImportMapStr = getImportMapStr;
+exports.default = api;
+//# sourceMappingURL=chat.js.map

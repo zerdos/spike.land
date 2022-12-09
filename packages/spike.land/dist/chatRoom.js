@@ -1,24 +1,27 @@
-import { handleErrors } from "./handleErrors";
-import HTML from "./index.html";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Code = void 0;
+const tslib_1 = require("tslib");
+const handleErrors_1 = require("./handleErrors");
+const index_html_1 = tslib_1.__importDefault(require("./index.html"));
 // import { RateLimiterClient } from "./rateLimiterClient";
 // import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
 // import * as CF from "@cloudflare/workers-types";
-import importMap from "@spike.land/code/js/importmap.json";
-import { resetCSS } from "@spike.land/code/js/session";
-import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
-import AVLTree from "avl";
-import { imap } from "./chat";
-import IIFE from "./iife.html";
-export class Code {
+const importmap_json_1 = tslib_1.__importDefault(require("@spike.land/code/js/importmap.json"));
+const session_1 = require("@spike.land/code/js/session");
+const session_2 = require("@spike.land/code/js/session");
+const avl_1 = tslib_1.__importDefault(require("avl"));
+const iife_html_1 = tslib_1.__importDefault(require("./iife.html"));
+class Code {
     env;
     state;
     kv;
     codeSpace;
     sess;
     sessionStarted;
-    user = md5(self.crypto.randomUUID());
+    user = (0, session_2.md5)(self.crypto.randomUUID());
     address;
-    users = new AVLTree((a, b) => a === b ? 0 : a < b ? 1 : -1, true);
+    users = new avl_1.default((a, b) => a === b ? 0 : a < b ? 1 : -1, true);
     waiting = [];
     sessions;
     constructor(state, env) {
@@ -61,11 +64,11 @@ export class Code {
         this.wait();
         this.codeSpace = url.searchParams.get("room") || "code-main";
         if (!this.sessionStarted) {
-            startSession(this.codeSpace, { state, name: this.codeSpace }, url.origin);
+            (0, session_2.startSession)(this.codeSpace, { state, name: this.codeSpace }, url.origin);
             this.sessionStarted = true;
         }
-        return handleErrors(request, async () => {
-            const { code, transpiled, css, html, i } = mST();
+        return (0, handleErrors_1.handleErrors)(request, async () => {
+            const { code, transpiled, css, html, i } = (0, session_2.mST)();
             const path = url.pathname.slice(1).split("/");
             if (path.length === 0)
                 path.push("");
@@ -77,7 +80,7 @@ export class Code {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Cache-Control": "no-cache",
-                            content_hash: md5(code),
+                            content_hash: (0, session_2.md5)(code),
                             "Content-Type": "application/javascript; charset=UTF-8",
                         },
                     });
@@ -92,7 +95,7 @@ export class Code {
                                 headers: {
                                     "Access-Control-Allow-Origin": "*",
                                     "Cache-Control": "no-cache",
-                                    content_hash: md5(session),
+                                    content_hash: (0, session_2.md5)(session),
                                     "Content-Type": "application/json; charset=UTF-8",
                                 },
                             });
@@ -108,13 +111,13 @@ export class Code {
                             });
                         }
                     }
-                    const body = JSON.stringify(mST());
+                    const body = JSON.stringify((0, session_2.mST)());
                     return new Response(body, {
                         status: 200,
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Cache-Control": "no-cache",
-                            content_hash: md5(body),
+                            content_hash: (0, session_2.md5)(body),
                             "Content-Type": "application/json; charset=UTF-8",
                         },
                     });
@@ -183,7 +186,7 @@ export class Code {
                     });
                 }
                 case "hashCodeSession":
-                    return new Response(hashCode().toString(), {
+                    return new Response((0, session_2.hashCode)().toString(), {
                         status: 200,
                         headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -193,19 +196,19 @@ export class Code {
                     });
                 case "mST.mjs": {
                     const body = `
-          export const mST=${JSON.stringify(mST())};
+          export const mST=${JSON.stringify((0, session_2.mST)())};
           export const codeSpace="${this.codeSpace}";
           export const address="${this.address}";
           export const importmapReplaced=${JSON.stringify({
-                        js: importMapReplace(mST().transpiled, url.origin),
+                        js: importMapReplace((0, session_2.mST)().transpiled, url.origin),
                     })}`;
-                    const content_hash = md5(body);
+                    const content_hash = (0, session_2.md5)(body);
                     return new Response(`
-              export const mST=${JSON.stringify(mST())};
+              export const mST=${JSON.stringify((0, session_2.mST)())};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
               export const importmapReplaced=${JSON.stringify({
-                        js: importMapReplace(mST().transpiled, url.origin),
+                        js: importMapReplace((0, session_2.mST)().transpiled, url.origin),
                     })}`, {
                         status: 200,
                         headers: {
@@ -218,8 +221,8 @@ export class Code {
                 }
                 case "mST":
                     return new Response(JSON.stringify({
-                        mST: mST(),
-                        hashCode: hashCode(),
+                        mST: (0, session_2.mST)(),
+                        hashCode: (0, session_2.hashCode)(),
                     }), {
                         status: 200,
                         headers: {
@@ -286,7 +289,7 @@ export class Code {
                             "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
                             "Access-Control-Allow-Origin": "*",
                             "Cache-Control": "no-cache",
-                            content_hash: md5(src),
+                            content_hash: (0, session_2.md5)(src),
                             "Content-Type": "application/javascript; charset=UTF-8",
                         },
                     });
@@ -294,19 +297,19 @@ export class Code {
                 case "index.mjs":
                 case "index.js":
                 case "js": {
-                    const i = path[1] || mST().i;
-                    if (i > mST().i) {
+                    const i = path[1] || (0, session_2.mST)().i;
+                    if (i > (0, session_2.mST)().i) {
                         const started = Date.now() / 1000;
                         const body = await new Promise((res, reject) => this.wait(() => {
                             const now = Date.now() / 1000;
-                            if (mST().i < Number(i) && started - now < 3000) {
+                            if ((0, session_2.mST)().i < Number(i) && started - now < 3000) {
                                 return false;
                             }
-                            if (mST().i < Number(i) && started - now >= 3000) {
+                            if ((0, session_2.mST)().i < Number(i) && started - now >= 3000) {
                                 reject(null);
                                 return false;
                             }
-                            res(mST().transpiled);
+                            res((0, session_2.mST)().transpiled);
                             return true;
                         }));
                         const trp = importMapReplace(body, url.origin);
@@ -316,20 +319,20 @@ export class Code {
                                 "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
                                 "Access-Control-Allow-Origin": "*",
                                 "Cache-Control": "no-cache",
-                                content_hash: md5(trp),
+                                content_hash: (0, session_2.md5)(trp),
                                 "Content-Type": "application/javascript; charset=UTF-8",
                             },
                         });
                     }
-                    if (i < mST().i) {
+                    if (i < (0, session_2.mST)().i) {
                         const trp = importMapReplace(transpiled, url.origin);
                         return new Response(trp, {
                             status: 307,
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
-                                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST().i}`,
+                                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${(0, session_2.mST)().i}`,
                                 "Cache-Control": "no-cache",
-                                content_hash: md5(trp),
+                                content_hash: (0, session_2.md5)(trp),
                                 "Content-Type": "application/javascript; charset=UTF-8",
                             },
                         });
@@ -339,7 +342,7 @@ export class Code {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Cache-Control": "no-cache",
-                            content_hash: md5(trp),
+                            content_hash: (0, session_2.md5)(trp),
                             "Content-Type": "application/javascript; charset=UTF-8",
                         },
                     });
@@ -370,9 +373,9 @@ export class Code {
                 case "hydrated":
                 case "dehydrated":
                 case "public": {
-                    const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
-                        .replace(`<script type="importmap"></script>`, `<script type="importmap">${JSON.stringify(importMap.import)}</script>`)
-                        .replace(`<div id="root"></div>`, `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`);
+                    const respText = index_html_1.default.replace("/**reset*/", session_1.resetCSS + css.split((0, session_2.md5)(transpiled)).join(`css`))
+                        .replace(`<script type="importmap"></script>`, `<script type="importmap">${JSON.stringify(importmap_json_1.default.import)}</script>`)
+                        .replace(`<div id="root"></div>`, `<div id="root" data-i="${i}" style="height: 100%;">${html.split((0, session_2.md5)(transpiled)).join(`css`)}</div>`);
                     // const Etag = request.headers.get("Etag");
                     // const newEtag = await sha256(respText);
                     const headers = new Headers();
@@ -388,7 +391,7 @@ export class Code {
                     //   });
                     // }
                     headers.set("Content-Type", "text/html; charset=UTF-8");
-                    headers.set("content_hash", md5(respText));
+                    headers.set("content_hash", (0, session_2.md5)(respText));
                     // headers.set("Etag", newEtag)
                     // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
                     return new Response(respText, {
@@ -397,8 +400,8 @@ export class Code {
                     });
                 }
                 case "iife": {
-                    const startState = mST();
-                    const html = IIFE.replace(`/** startState **/`, `Object.assign(window,${JSON.stringify({
+                    const startState = (0, session_2.mST)();
+                    const html = iife_html_1.default.replace(`/** startState **/`, `Object.assign(window,${JSON.stringify({
                         startState,
                         codeSpace: this.codeSpace,
                         address: this.address,
@@ -494,8 +497,8 @@ export class Code {
                         }
                     });
                     if (data.hashCode) {
-                        if (data?.hashCode !== hashCode()) {
-                            const patch = makePatchFrom(data.hashCode, mST());
+                        if (data?.hashCode !== (0, session_2.hashCode)()) {
+                            const patch = (0, session_2.makePatchFrom)(data.hashCode, (0, session_2.mST)());
                             if (patch) {
                                 return respondWith({ ...patch });
                             }
@@ -512,7 +515,7 @@ export class Code {
                     : null;
                 return respondWith({
                     ...(rtcConnUser ? { name: rtcConnUser } : {}),
-                    hashCode: hashCode(),
+                    hashCode: (0, session_2.hashCode)(),
                     users: this.users.keys(),
                 });
             }
@@ -536,7 +539,7 @@ export class Code {
         if (data.timestamp && !data.patch) {
             return respondWith({
                 timestamp: Date.now(),
-                hashCode: hashCode(),
+                hashCode: (0, session_2.hashCode)(),
             });
         }
         try {
@@ -557,18 +560,18 @@ export class Code {
                     const patch = data.patch;
                     const newHash = data.newHash;
                     const oldHash = data.oldHash;
-                    if (oldHash !== hashCode()) {
-                        return respondWith({ hashCode: hashCode() });
+                    if (oldHash !== (0, session_2.hashCode)()) {
+                        return respondWith({ hashCode: (0, session_2.hashCode)() });
                     }
                     try {
-                        await applyPatch({ newHash, oldHash, patch });
+                        await (0, session_2.applyPatch)({ newHash, oldHash, patch });
                         this.wait();
                     }
                     catch (err) {
                         console.error({ err });
                         return respondWith({ err });
                     }
-                    if (newHash === hashCode()) {
+                    if (newHash === (0, session_2.hashCode)()) {
                         try {
                             this.wait();
                             this.broadcast(data);
@@ -578,14 +581,14 @@ export class Code {
                                 "msg": "broadcast issue",
                             });
                         }
-                        await this.kv.put("session", { ...mST() });
+                        await this.kv.put("session", { ...(0, session_2.mST)() });
                         await this.kv.put(String(newHash), JSON.stringify({
                             oldHash,
                             patch,
                         }));
                     }
                     return respondWith({
-                        hashCode: hashCode(),
+                        hashCode: (0, session_2.hashCode)(),
                     });
                 }
             }
@@ -634,12 +637,13 @@ export class Code {
         });
     }
 }
+exports.Code = Code;
 function importMapReplace(codeInp, origin) {
-    const items = Object.keys(imap.imports);
+    const items = Object.keys(importmap_json_1.default.imports);
     let returnStr = codeInp;
     items.map((lib) => {
-        const uri = (new URL(imap.imports[lib], origin)).toString();
-        returnStr = returnStr.replaceAll(` from "${lib}"`, ` from "${uri}"`).replaceAll(` from "./`, ` from "https://${origin}/live/`).replaceAll(` from "/`, ` from "https://${origin}/`);
+        const uri = importmap_json_1.default.imports[lib].slice(1);
+        returnStr = returnStr.replaceAll(` from "${String(lib)}"`, ` from "https://${origin}/${String(uri)}"`).replaceAll(` from "./`, ` from "https://${origin}/live/`).replaceAll(` from "/`, ` from "https://${origin}/`);
     });
     returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
         if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
@@ -655,3 +659,4 @@ function importMapReplace(codeInp, origin) {
     }).join(";");
     return returnStr;
 }
+//# sourceMappingURL=chatRoom.js.map

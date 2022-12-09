@@ -1,4 +1,6 @@
-export default {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
     async fetch(request, env) {
         const url = new URL(request.url);
         const key = url.pathname.slice(1);
@@ -32,3 +34,4 @@ export default {
         }
     },
 };
+//# sourceMappingURL=r2bucket.js.map

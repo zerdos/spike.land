@@ -29,6 +29,7 @@
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20221111.1",
     "@emotion/react": "^11.10.5",
     "@playwright/test": "1.28.1",
     "@types/eslint": "^8.4.10",
