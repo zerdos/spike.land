@@ -1,19 +1,19 @@
 import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
 // import { RateLimiterClient } from "./rateLimiterClient";
-import IIFE from "./iife.html";
-// import {a} from "./staticContent.mjs"
+// import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
+// import * as CF from "@cloudflare/workers-types";
+import importMap from "@spike.land/code/js/importmap.json";
 import { resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
-// import importMap from "@spike.land/code/js/importmap.json";
 import AVLTree from "avl";
 import { imap } from "./chat";
+import IIFE from "./iife.html";
 export class Code {
     env;
     state;
     kv;
     codeSpace;
-    i = 0;
     sess;
     sessionStarted;
     user = md5(self.crypto.randomUUID());
@@ -25,7 +25,6 @@ export class Code {
         this.env = env;
         this.kv = state.storage;
         this.state = state;
-        this.users.insert(this.user);
         this.sessionStarted = false;
         this.sessions = [];
         this.sess = null;
@@ -249,7 +248,6 @@ export class Code {
                     });
                 case "render.tsx": {
                     const codeSpace = this.codeSpace;
-                    const k = hashCode();
                     const src = importMapReplace(`import {createRoot} from "react-dom/client"
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
@@ -293,6 +291,7 @@ export class Code {
                         },
                     });
                 }
+                case "index.mjs":
                 case "index.js":
                 case "js": {
                     const i = path[1] || mST().i;
@@ -310,34 +309,37 @@ export class Code {
                             res(mST().transpiled);
                             return true;
                         }));
-                        return new Response(body, {
+                        const trp = importMapReplace(body, url.origin);
+                        return new Response(trp, {
                             status: 200,
                             headers: {
                                 "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
                                 "Access-Control-Allow-Origin": "*",
                                 "Cache-Control": "no-cache",
-                                content_hash: md5(body),
+                                content_hash: md5(trp),
                                 "Content-Type": "application/javascript; charset=UTF-8",
                             },
                         });
                     }
                     if (i < mST().i) {
-                        return new Response(transpiled, {
+                        const trp = importMapReplace(transpiled, url.origin);
+                        return new Response(trp, {
                             status: 307,
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
-                                "Location": `${url.origin}/live/${this.codeSpace}/index.js/${mST().i}`,
+                                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST().i}`,
                                 "Cache-Control": "no-cache",
-                                content_hash: md5(transpiled),
+                                content_hash: md5(trp),
                                 "Content-Type": "application/javascript; charset=UTF-8",
                             },
                         });
                     }
-                    return new Response(transpiled, {
+                    const trp = importMapReplace(transpiled, url.origin);
+                    return new Response(trp, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Cache-Control": "no-cache",
-                            content_hash: md5(transpiled),
+                            content_hash: md5(trp),
                             "Content-Type": "application/javascript; charset=UTF-8",
                         },
                     });
@@ -368,7 +370,9 @@ export class Code {
                 case "hydrated":
                 case "dehydrated":
                 case "public": {
-                    const respText = HTML.replace("/**reset*/", resetCSS).replace(`<root/>`, `<div id="root" data-i="${i}" style="height: 100%;"><style>${mST().css}</style>${mST().html}</div>`);
+                    const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
+                        .replace(`<script type="importmap"></script>`, `<script type="importmap">${JSON.stringify(importMap.import)}</script>`)
+                        .replace(`<div id="root"></div>`, `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`);
                     // const Etag = request.headers.get("Etag");
                     // const newEtag = await sha256(respText);
                     const headers = new Headers();
@@ -412,7 +416,8 @@ export class Code {
                     if (request.headers.get("Upgrade") != "websocket") {
                         return new Response("expected websocket", { status: 400 });
                     }
-                    // eslint-disable-next-line no-undef
+                    // eslint-disable-next-line no-var
+                    var WebSocketPair;
                     const pair = new WebSocketPair();
                     await this.handleSession(pair[1]);
                     return new Response(null, { status: 101, webSocket: pair[0] });
@@ -461,7 +466,6 @@ export class Code {
             return;
         }
         const { name } = session;
-        session.webSocket.send(JSON.stringify({ i: ++this.i, hashCode: hashCode(), name: this.user }));
         // session.lastSeen = Date.now();
         const respondWith = (obj) => session.webSocket.send(JSON.stringify(obj));
         let data;
@@ -493,7 +497,7 @@ export class Code {
                         if (data?.hashCode !== hashCode()) {
                             const patch = makePatchFrom(data.hashCode, mST());
                             if (patch) {
-                                return respondWith({ ...patch, i: this.i++, name: this.user });
+                                return respondWith({ ...patch });
                             }
                         }
                     }
@@ -509,8 +513,7 @@ export class Code {
                 return respondWith({
                     ...(rtcConnUser ? { name: rtcConnUser } : {}),
                     hashCode: hashCode(),
-                    name: this.user,
-                    i: ++this.i,
+                    users: this.users.keys(),
                 });
             }
             return respondWith({
@@ -531,9 +534,8 @@ export class Code {
             return;
         }
         if (data.timestamp && !data.patch) {
-            return this.broadcast({
-                i: ++this.i,
-                name: this.user,
+            return respondWith({
+                timestamp: Date.now(),
                 hashCode: hashCode(),
             });
         }
@@ -549,17 +551,14 @@ export class Code {
                 if (data.target
                     && data.type
                     && ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)) {
-                    return this.user2user(data.target, data);
+                    return this.user2user(data.target, { ...data, name });
                 }
-                if (data.i && data.i < this.i)
-                    return;
-                this.i = data.i;
                 if (data.patch && data.oldHash && data.newHash) {
                     const patch = data.patch;
                     const newHash = data.newHash;
                     const oldHash = data.oldHash;
                     if (oldHash !== hashCode()) {
-                        return this.broadcast({ hashCode: hashCode(), i: ++this.i, name: this.user });
+                        return respondWith({ hashCode: hashCode() });
                     }
                     try {
                         await applyPatch({ newHash, oldHash, patch });
@@ -571,6 +570,7 @@ export class Code {
                     }
                     if (newHash === hashCode()) {
                         try {
+                            this.wait();
                             this.broadcast(data);
                         }
                         catch {
@@ -622,11 +622,7 @@ export class Code {
     }
     broadcast(msg) {
         const message = JSON.stringify(msg);
-        const me = this.users.find(this.user);
-        const left = me?.left;
-        const right = me?.right;
-        const parent = me?.parent;
-        this.sessions.filter((s) => s.name && s.name in [left, right, parent]).map((s) => {
+        this.sessions.filter((s) => s.name).map((s) => {
             try {
                 s.webSocket.send(message);
             }
@@ -643,7 +639,19 @@ function importMapReplace(codeInp, origin) {
     let returnStr = codeInp;
     items.map((lib) => {
         const uri = (new URL(imap.imports[lib], origin)).toString();
-        returnStr = returnStr.replaceAll(` from "${lib}"`, ` from "${uri}"`).replaceAll(` from './`, ` from 'https://${origin}/live/`);
+        returnStr = returnStr.replaceAll(` from "${lib}"`, ` from "${uri}"`).replaceAll(` from "./`, ` from "https://${origin}/live/`).replaceAll(` from "/`, ` from "https://${origin}/`);
     });
+    returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
+        if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+            return x.replaceAll(` "`, ` "${origin}/npm:/`);
+        }
+        if (x.startsWith("import") && x.includes(origin)) {
+            const u = new URL(x.split(`"`)[1]);
+            if (u && u.pathname.indexOf(".") === -1) {
+                return x.slice(0, -1) + `/index.js"`;
+            }
+        }
+        return x;
+    }).join(";");
     return returnStr;
 }

@@ -4796,25 +4796,10 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
   self.memoryCache = self.memoryCache || import_localforage.default.createInstance({
     name: "memoryCache"
   });
-  var lastChecked = 0;
   var npmCache;
   var chunkCache;
   var fileCache;
-  var cacheName = "default";
   var files = {};
-  var assets = {};
-  var getCacheName = /* @__PURE__ */ __name(() => fetch(location.origin + "/files.json").then((resp) => {
-    if (!resp.ok)
-      return;
-    const assetHash = resp.headers.get("asset_hash");
-    if (assetHash === null)
-      return;
-    if (cacheName === assetHash)
-      return;
-    cacheName = assetHash;
-    Object.assign(assets, { [assetHash]: resp.json() });
-    assets[assetHash].then((f) => files = f);
-  }), "getCacheName");
   self.addEventListener("fetch", function(event) {
     return event.respondWith(
       (async () => {
@@ -4837,10 +4822,6 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
           return resp;
         }
         const myCache = url.pathname.includes("npm:/v") ? npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)) : url.pathname.includes("chunk-") || isChunk ? chunkCache = chunkCache || await caches.open("chunks") : fileCache = fileCache || await caches.open(`fileCache`);
-        if (Date.now() - lastChecked > 4e4) {
-          lastChecked = Date.now();
-          setTimeout(() => getCacheName());
-        }
         let request = event.request;
         const cacheKey = new Request(
           url

@@ -42549,10 +42549,7 @@ var lib = [
   "esnext.promise",
   "esnext.string",
   "esnext.weakref",
-  "scripthost",
-  "webworker",
-  "webworker.importscripts",
-  "webworker.iterable"
+  "scripthost"
 ];
 var monacoContribution = /* @__PURE__ */ __name(async (code) => {
   languages.typescript.typescriptDefaults.setCompilerOptions({

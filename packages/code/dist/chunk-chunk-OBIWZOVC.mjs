@@ -29937,7 +29937,7 @@ async function setMonaco(container, codeSpace3) {
   link.setAttribute("rel", "stylesheet");
   link.href = location.origin + "/Editor.css";
   document.head.append(link);
-  const { startMonaco } = await import("./chunk-startMonaco-VUHL62J6.mjs");
+  const { startMonaco } = await import("./chunk-startMonaco-56EE3KFX.mjs");
   return await startMonaco({
     container,
     codeSpace: codeSpace3,
