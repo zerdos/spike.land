@@ -18,8 +18,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^18.11.11",
-    "esbuild": "0.16.2"
+    "@types/node": "^18.11.12",
+    "esbuild": "0.16.3"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
 }
