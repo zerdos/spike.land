@@ -1287,8 +1287,8 @@ __metadata:
     avl: "npm:^1.5.3"
     esbuild: "npm:0.16.3"
     miniflare: "npm:^2.11.0"
-    typescript: "npm:4.9.3"
-    wrangler: "npm:2.6.1"
+    typescript: "npm:4.9.4"
+    wrangler: "npm:2.6.2"
   languageName: unknown
   linkType: soft
 
@@ -6197,7 +6197,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     playwright: "npm:1.28.1"
     react: "npm:^18.2.0"
-    typescript: "npm:4.9.3"
+    typescript: "npm:4.9.4"
     xo: "npm:^0.53.1"
   languageName: unknown
   linkType: soft
@@ -8279,17 +8279,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.3":
-  version: 4.9.3
-  resolution: "typescript@npm:4.9.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: b0aafee5d6427b67fc557c46a6e9c093586444db463fde7a19ffc4eecc31889246210ff679f8384769dc99fca975bba5ac17411816855bb2d8a549e4fe442cc7
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^4.9.3, typescript@npm:^4.9.4":
+"typescript@npm:4.9.4, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
   bin:
@@ -8299,17 +8289,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.9.3#optional!builtin<compat/typescript>":
-  version: 4.9.3
-  resolution: "typescript@patch:typescript@npm%3A4.9.3#optional!builtin<compat/typescript>::version=4.9.3&hash=d73830"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 06fd518bc55d054127b39aa7ad11551fd132bb7a8395913ed84fd5caf715455393d622e884ccb4fcf962d4eb5182600009c096b82ec516e8fadd09bf2150bb93
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
   version: 4.9.4
   resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=d73830"
   bin:
@@ -8517,9 +8497,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.6.1":
-  version: 2.6.1
-  resolution: "wrangler@npm:2.6.1"
+"wrangler@npm:2.6.2":
+  version: 2.6.2
+  resolution: "wrangler@npm:2.6.2"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -8543,7 +8523,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 96611fed1267a875f388070fff858b488887274f57dcfc2026a66b9c48627bbf9b3ec187b088c06ddb3c377c020991977c68b54a9d0c610e2df7bdb471c5cb5f
+  checksum: 0d1ae834df2994bd2c845b58f61e364e87feea9f66b2e88ceef6503041db025c99c54620f4acc470e014aa073cb31dbd65aa9f410e7f4d411a9784ecb42ada6f
   languageName: node
   linkType: hard
 
