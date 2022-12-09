@@ -84,6 +84,23 @@ const api: ExportedHandler<CodeEnv> = {
         const newUrl = new URL(path.join("/"), url.origin);
         request = new Request(newUrl, request);
 
+        if (newUrl.pathname.includes(":z:")) {
+          const reqHeaders = new Headers(request.headers);
+          const next = atob(newUrl.pathname.slice(4));
+          reqHeaders.set("Referer", next);
+
+          request = new Request(next, { ...request, headers: reqHeaders });
+          let resp = await fetch(request);
+          if (!resp.ok) return resp;
+
+          const headers = new Headers(resp.headers);
+          headers.set("Access-Control-Allow-Origin", "*");
+          resp = new Response(resp.body, { ...resp, headers });
+
+          // await cache.put(cacheKey, response.clone());
+          return resp;
+        }
+
         const cacheKey = new Request(request.url);
         const cache = caches.default;
 
@@ -92,22 +109,6 @@ const api: ExportedHandler<CodeEnv> = {
           return response;
         }
 
-        if (newUrl.pathname.includes(":z:")) {
-          const reqHeaders = new Headers(request.headers);
-          const next = atob(newUrl.pathname.slice(4));
-          reqHeaders.set("Referer", next);
-
-          request = new Request(next, { ...request, headers: reqHeaders });
-          response = await fetch(request);
-          if (!response.ok) return response;
-
-          const headers = new Headers(response.headers);
-          headers.set("Access-Control-Allow-Origin", "*");
-          response = new Response(response.body, { ...response, headers });
-
-          // await cache.put(cacheKey, response.clone());
-          return response;
-        }
         // ) {
 
         if (
