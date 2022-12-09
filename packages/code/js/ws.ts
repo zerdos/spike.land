@@ -114,7 +114,7 @@ Object.assign(globalThis, { sendChannel, mST });
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const p2pcf = new P2PCF(user, codeSpace, {
   // Worker URL (optional) - if left out, will use a public worker
-  workerUrl: "https://signal.spike.land",
+  workerUrl: "https://p2pcf.zed-vision.workers.dev",
 
   // STUN ICE servers (optional)
   // If left out, will use public STUN from Google + Twilio

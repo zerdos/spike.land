@@ -6767,7 +6767,7 @@ sendChannel.vidElement.autoplay = true;
 Object.assign(globalThis, { sendChannel, mST });
 var codeSpace = location.pathname.slice(1).split("/")[1];
 var p2pcf = new P2PCF(user, codeSpace, {
-  workerUrl: "https://signal.spike.land",
+  workerUrl: "https://p2pcf.zed-vision.workers.dev",
   rtcPeerConnectionOptions: {},
   rtcPeerConnectionProprietaryConstraints: {},
   sdpTransform: (sdp2) => sdp2
