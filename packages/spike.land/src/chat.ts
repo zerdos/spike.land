@@ -126,7 +126,7 @@ const api: ExportedHandler<CodeEnv> = {
           const searchParams = (isJs
             ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
             : "");
-          const esmUrl = "https://esm.sh/" + packageName + searchParams;
+          const esmUrl = "https://esm.sh/*" + packageName + searchParams;
 
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           response = await fetch(request);
