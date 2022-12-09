@@ -113,7 +113,7 @@ Object.assign(globalThis, { sendChannel, mST });
 // }
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const client_id = user;
-const room_id = location.origin + "live/" + codeSpace;
+const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
 
 const p2pcf = new P2PCF(client_id, room_id, {
   // Worker URL (optional) - if left out, will use a public worker
