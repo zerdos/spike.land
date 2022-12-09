@@ -92,7 +92,7 @@ const AppToRender: FC<
 const singleton = { started: false };
 
 export const renderPreviewWindow = (
-  { codeSpace, dry }: { codeSpace: string; dry: boolean },
+  { codeSpace }: { codeSpace: string; dry: boolean },
 ) => {
   if (singleton.started) return;
   singleton.started = true;
