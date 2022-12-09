@@ -247,7 +247,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
               >
                 {Array.from(new Set([...(sizes.filter(x => x < maxScaleRange)), scaleRange, maxScaleRange]).values())
-                  .sort().map((size, ind) => (
+                  .sort((a, b) => a - b).map((size, ind) => (
                     <ToggleButton
                       key={ind}
                       value={size}
