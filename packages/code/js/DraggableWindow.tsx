@@ -42,13 +42,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, setDelay] = useState(0);
+  const [delay, _setDelay] = useState(0);
   // const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
   const setWidth = (width: number) => {
-    changeScaleRange(Math.floor(100 * window.innerWidth / width));
+    changeScaleRange(Math.floor(100 * window.innerWidth / width) - 20);
     changeMaxScaleRange(Math.floor(100 * window.innerWidth / width));
 
     // changeMaxScaleRange(Math.floor(100 * Math.sqrt(1 - (innerWidth / (width + 40)))));
