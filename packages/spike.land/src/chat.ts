@@ -426,21 +426,21 @@ const api: ExportedHandler<CodeEnv> = {
                 return response;
               }
 
-              // const headers = new Headers(kvResp.headers);
-              // const fileName = url.pathname.slice(1);
-              // const filePath = getFilePath(fileName);
-              // headers.append("ASSET_PATH", filePath);
-              // headers.append("ASSET_HASH", ASSET_HASH);
-              // if (fileName === filePath) {
-              //   headers.append(
-              //     "Cache-Control",
-              //     "public, max-age=604800, immutable",
-              //   );
-              // }
-              // response = new Response(kvResp.body, { ...kvResp, headers });
-              // if (fileName === filePath) {
-              //   await cache.put(cacheKey, response.clone());
-              // }
+              const headers = new Headers(kvResp.headers);
+              const fileName = url.pathname.slice(1);
+              const filePath = getFilePath(fileName);
+              headers.append("ASSET_PATH", filePath);
+              headers.append("ASSET_HASH", ASSET_HASH);
+              if (fileName === filePath) {
+                headers.append(
+                  "Cache-Control",
+                  "public, max-age=604800, immutable",
+                );
+              }
+              response = new Response(kvResp.body, { ...kvResp, headers });
+              if (fileName === filePath) {
+                await cache.put(cacheKey, response.clone());
+              }
 
               return response;
             } catch {
@@ -512,9 +512,9 @@ function isChunk(link: string) {
 }
 
 export const getImportMapStr = (orig: string) => {
-  const importmapImport: { [k: string]: string } = { ...imap.imports };
+  const importmapImport: { [k: string]: string } = { ...importMap.imports };
 
-  for (const [key, value] of Object.entries(imap.imports)) {
+  for (const [key, value] of Object.entries(importMap.imports)) {
     importmapImport[key] = orig + "/" + value;
   }
 
