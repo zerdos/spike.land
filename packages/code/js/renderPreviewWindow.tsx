@@ -106,7 +106,8 @@ export const renderPreviewWindow = (
     document.getElementById(`root`)?.appendChild(rootEl);
   }
   //
-  rootEl!.style!.height = "100%";
+  if (rootEl === null) return;
+  rootEl.style.height = "100%";
   const root = createRoot(rootEl);
 
   // (createCache as unknown as {default: typeof createCache}).default
