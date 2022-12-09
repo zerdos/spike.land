@@ -400,7 +400,7 @@ async function startMonacoPristine(
   // const memoryCache = localForage.createInstance({
   //   name: "model-" + codeSpace,
   // });
-
+  myEditor.onDidBlurEditorText(() => console.log("blur"));
   const mod = {
     getValue: () => model.getValue(),
     silent: false,

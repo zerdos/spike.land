@@ -42699,6 +42699,7 @@ async function startMonacoPristine({ code, container, codeSpace, onChange }) {
   });
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   setTimeout(() => extraStuff(code, uri, languages.typescript), 1e3);
+  myEditor.onDidBlurEditorText(() => console.log("blur"));
   const mod2 = {
     getValue: () => model.getValue(),
     silent: false,
