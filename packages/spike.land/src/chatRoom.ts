@@ -18,7 +18,7 @@ import IIFE from "./iife.html";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 // eslint-disable-next-line no-var
-var Response = CF.Response;
+var Response: CF.Response;
 
 interface WebsocketSession {
   name: string;
