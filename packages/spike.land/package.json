@@ -23,7 +23,7 @@
   "dependencies": {
     "@cloudflare/workers-types": "4.20221111.1",
     "@spike.land/code": "*",
-    "avl": "1.5.3",
+    "avl": "^1.5.3",
     "miniflare": "^2.11.0"
   },
   "publishConfig": {

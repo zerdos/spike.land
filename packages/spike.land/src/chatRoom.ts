@@ -2,6 +2,7 @@ import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
 // import { RateLimiterClient } from "./rateLimiterClient";
 
+import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
 import importMap from "@spike.land/code/js/importmap.json";
 import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
@@ -10,7 +11,7 @@ import AVLTree from "avl";
 import { imap } from "./chat";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
-import { ASSET_HASH, files } from "./staticContent.mjs";
+// import { ASSET_HASH, files } from "./staticContent.mjs";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -774,7 +775,6 @@ function importMapReplace(codeInp: string, origin: string) {
     imap.imports,
   ) as (keyof typeof imap.imports)[];
   let returnStr = codeInp;
-  ASSET_HASH;
 
   items.map((lib: keyof typeof imap.imports) => {
     const uri = (new URL(imap.imports[lib], origin)).toString();

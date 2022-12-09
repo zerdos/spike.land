@@ -1335,7 +1335,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.2.0"
     "@cloudflare/workers-types": "npm:4.20221111.1"
     "@spike.land/code": "npm:*"
-    avl: "npm:1.5.3"
+    avl: "npm:^1.5.3"
     esbuild: "npm:0.16.3"
     miniflare: "npm:^2.11.0"
     typescript: "npm:^4.9.4"
@@ -2517,7 +2517,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"avl@npm:1.5.3":
+"avl@npm:1.5.3, avl@npm:^1.5.3":
   version: 1.5.3
   resolution: "avl@npm:1.5.3"
   checksum: 626613592e7b3e7c70812a344c45aadbb556973b1f3a415b3e6be9d4e18b749cf2c80737ffc442427f78ba6462c4e61761a5da4433ef59b0436adfd6feae99de
