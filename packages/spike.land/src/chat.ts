@@ -11,11 +11,14 @@ import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 
 const esbuildExternal = [
+  ...Object.keys(importMap.imports),
   "monaco-editor",
+  "react",
+  "react-dom",
   // "react/jsx-runtime",
   // "react/jsx-dev-runtime",
-  "@mui/material",
-  "framer-motion",
+  // "@mui/material",
+  // "framer-motion",
 ];
 const mods: { [key: string]: string } = {};
 esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
