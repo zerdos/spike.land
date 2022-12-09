@@ -781,10 +781,10 @@ function importMapReplace(codeInp: string, origin: string) {
   let returnStr = codeInp;
 
   items.map((lib: keyof typeof importMap.imports) => {
-    const uri = importMap.imports[lib];
+    const uri = importMap.imports[lib].slice(1);
     returnStr = returnStr.replaceAll(
       ` from "${String(lib)}"`,
-      ` from "${String(uri)}"`,
+      ` from "https://${origin}/${String(uri)}"`,
     ).replaceAll(
       ` from "./`,
       ` from "https://${origin}/live/`,
