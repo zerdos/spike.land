@@ -121,7 +121,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20221111.1":
+"@cloudflare/workers-types@npm:4.20221111.1, @cloudflare/workers-types@npm:^4.20221111.1":
   version: 4.20221111.1
   resolution: "@cloudflare/workers-types@npm:4.20221111.1"
   checksum: 51212c79e4e400faf7de14eea0bb344afc586f89891863a12e27785f7b680044307598ea1e8e4f5ba5f5d7a043aca9ed9d8dea484d76b5b707ea1ac459be6bc3
@@ -6340,6 +6340,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
+    "@cloudflare/workers-types": "npm:^4.20221111.1"
     "@emotion/react": "npm:^11.10.5"
     "@playwright/test": "npm:1.28.1"
     "@types/eslint": "npm:^8.4.10"
