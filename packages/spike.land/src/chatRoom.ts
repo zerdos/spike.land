@@ -2,10 +2,13 @@ import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
 // import { RateLimiterClient } from "./rateLimiterClient";
 
-import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
+// import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
+
+import * as CF from "@cloudflare/workers-types";
+
 import importMap from "@spike.land/code/js/importmap.json";
 import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
-import { applyPatch, hashCode,WebSocketPair, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import AVLTree from "avl";
 import { imap } from "./chat";
@@ -13,6 +16,9 @@ import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 // import { ASSET_HASH, files } from "./staticContent.mjs";
 // import { CodeRateLimiter } from "./rateLimiter";
+
+// eslint-disable-next-line no-var
+var Response = CF.Response;
 
 interface WebsocketSession {
   name: string;
@@ -22,8 +28,8 @@ interface WebsocketSession {
 }
 
 export class Code {
-  state: DurableObjectState;
-  kv: DurableObjectStorage;
+  state: CF.DurableObjectState;
+  kv: CF.DurableObjectStorage;
   codeSpace: string;
   sess: ICodeSession | null;
   sessionStarted: boolean;
@@ -497,8 +503,10 @@ export class Code {
             return new Response("expected websocket", { status: 400 });
           }
 
-          // eslint-disable-next-line no-undef
-          const pair = new WebSocketPair();
+          // eslint-disable-next-line no-var
+          var WebSocketPair: CF.WebSocketPair;
+
+          const pair = new (WebSocketPair as unknown as CF.WebSocketPair)();
 
           await this.handleSession(pair[1]);
 
