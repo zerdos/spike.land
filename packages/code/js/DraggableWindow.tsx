@@ -42,7 +42,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, setDelay] = useState(1);
+  const [delay, setDelay] = useState(0);
   // const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = Math.sqrt(scaleRange / 100);
@@ -85,7 +85,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     if (!dragRef.current) return;
 
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
-    const reveal = async () => {
+    const reveal = () => {
       // await wait(300);
       // setPositions({
       //   bottom: -50 * devicePixelRatio,
@@ -122,7 +122,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         bottom: 20,
         right: 20,
       });
-      setDelay(0);
+      // setDelay(0);
     };
 
     reveal();
