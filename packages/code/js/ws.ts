@@ -5,6 +5,7 @@
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 import debounce from "lodash.debounce";
+import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
 
@@ -37,7 +38,6 @@ users.insert(user);
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
 let bc: BroadcastChannel;
 
-let codeSpace: string;
 let _hash = "";
 
 // let address: string;
@@ -111,6 +111,84 @@ Object.assign(globalThis, { sendChannel, mST });
 // join()
 
 // }
+const codeSpace = location.pathname.slice(1).split("/")[1];
+const p2pcf = new P2PCF(user, codeSpace, {
+  // Worker URL (optional) - if left out, will use a public worker
+  workerUrl: "https://signal.spike.land",
+
+  // STUN ICE servers (optional)
+  // If left out, will use public STUN from Google + Twilio
+  // stunIceServers: { ... },
+
+  // TURN ICE servers (optional)
+  // If left out, will use openrelay public TURN servers from metered.ca
+  // turnIceServers: { ... },
+
+  // Network change poll interval (milliseconds, optional, default: 15000, 15 seconds)
+  // Interval to poll STUN for network changes + reconnect
+  // networkChangePollIntervalMs: ...,
+
+  // State expiration interval (milliseconds, optional, default: 120000, 2 minutes)
+  // Timeout interval for peers during polling
+  // stateExpirationIntervalMs: ...,
+
+  // State heartbeat interval (milliseconds, optional, default: 30000, 30 seconds)
+  // Time before expiration to heartbeat
+  // stateHeartbeatWindowMs: ...,
+
+  // Fast polling rate (milliseconds, optional, default: 750)
+  // Polling rate during state transitions
+  // fastPollingRateMs: ...,
+
+  // Slow polling rate (milliseconds, optional, default: 1500, 1.5 seconds)
+  // Polling rate when state is idle
+  // slowPollingRateMs: ...,
+
+  // Options to pass to RTCPeerConnection constructor (optional)
+  rtcPeerConnectionOptions: {},
+
+  // Proprietary constraints to pass to RTCPeerConnection constructor (optional)
+  rtcPeerConnectionProprietaryConstraints: {},
+
+  // SDP transform function (optional)
+  sdpTransform: sdp => sdp,
+});
+
+p2pcf.start();
+
+p2pcf.on("peerconnect", peer => {
+  // New peer connected
+
+  // Peer is an instance of simple-peer (https://github.com/feross/simple-peer)
+  //
+  // The peer has two custom fields:
+  // - id (a per session unique id)
+  // - client_id (which was passed to their P2PCF constructor)
+
+  console.log("New peer:", peer.id, peer.client_id);
+
+  peer.on("track", (track, stream) => {
+    // New media track + stream from peer
+  });
+
+  // Add a media stream to the peer to start sending it
+  // peer.addStream(new MediaStream(...))
+});
+
+p2pcf.on("peerclose", peer => {
+  // Peer has disconnected
+});
+
+p2pcf.on("msg", (peer, data) => {
+  console.log(peer, data);
+  // Received data from peer (data is an ArrayBuffer)
+});
+
+// Broadcast a message via data channel to all peers
+// p2pcf.broadcast(new ArrayBuffer(...))
+
+// To send a message via data channel to just one peer:
+// p2pcf.send(peer, new ArrayBuffer(...))
 
 export const run = async (startState: {
   mST: ICodeSession;
@@ -119,7 +197,7 @@ export const run = async (startState: {
   address: string;
 }) => {
   const { mST: mst, dry, address } = startState;
-  codeSpace = startState.codeSpace;
+  // codeSpace = startState.codeSpace;
 
   startSession(codeSpace, {
     name: user,
