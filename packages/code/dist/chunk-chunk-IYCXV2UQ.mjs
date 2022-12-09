@@ -29053,7 +29053,7 @@ var unpkgPathPlugin = {
         };
       }
       return {
-        path: `${location.origin}/npm:/${args.path}`,
+        path: `${location.origin}/npm:/*${args.path}`,
         namespace: "http-url"
       };
     });
@@ -29188,7 +29188,7 @@ function importMapReplace(codeInp) {
   });
   returnStr = returnStr.split(";").map((x2) => x2.trim()).map((x2) => {
     if (x2.startsWith("import") && x2.indexOf(`'https://`) === -1) {
-      return x2.replace(` '`, ` '${location.origin}/npm:/`);
+      return x2.replace(` '`, ` '${location.origin}/npm:/*`);
     }
     if (!x2.includes("/npm:/") && x2.startsWith("import") && x2.includes(location.origin)) {
       const u2 = new URL(x2.split(`'`)[1]);

@@ -21,7 +21,7 @@ const esbuildExternal = [
   // "framer-motion",
 ];
 const mods: { [key: string]: string } = {};
-esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
+esbuildExternal.map((packageName) => mods[packageName] = `npm:/*${packageName}`);
 
 const api: ExportedHandler<CodeEnv> = {
   fetch: async (
@@ -144,7 +144,7 @@ const api: ExportedHandler<CodeEnv> = {
               "location",
               redirectUrl.replace(
                 "esm.sh/",
-                u.hostname + "/npm:/",
+                u.hostname + "/npm:/*",
               ),
             );
 
