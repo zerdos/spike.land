@@ -6630,7 +6630,7 @@ var AppToRender = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
   ] }) });
 }, "AppToRender");
 var singleton = { started: false };
-var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2, dry }) => {
+var renderPreviewWindow = /* @__PURE__ */ __name(({ codeSpace: codeSpace2 }) => {
   if (singleton.started)
     return;
   singleton.started = true;

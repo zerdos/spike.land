@@ -149,7 +149,7 @@ const api: ExportedHandler<CodeEnv> = {
             );
 
             response = new Response(
-              (await response.text()).replace("esm.sh/", u.hostname + "/npm:/"),
+              importMapReplace((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), u.origin),
               {
                 ...response,
                 headers,
@@ -515,3 +515,34 @@ export const getImportMapStr = (orig: string) => {
 };
 
 export default api;
+
+function importMapReplace(codeInp: string, origin: string) {
+  const items = Object.keys(
+    importMap.imports,
+  ) as (keyof typeof importMap.imports)[];
+  let returnStr = codeInp;
+
+  items.map((lib: keyof typeof importMap.imports) => {
+    const uri = importMap.imports[lib].slice(1);
+    returnStr = returnStr.replaceAll(
+      `"${String(lib)}"`,
+      `"${origin}/${String(uri)}"`,
+    );
+  });
+
+  returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
+    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+      return x.replaceAll(` "`, ` "${origin}/npm:/`);
+    }
+
+    if (x.startsWith("import") && x.includes(origin)) {
+      const u = new URL(x.split(`"`)[1]);
+      if (u && u.pathname.indexOf(".") === -1) {
+        return x.slice(0, -1) + `/index.js"`;
+      }
+    }
+    return x;
+  }).join(";");
+
+  return returnStr;
+}
