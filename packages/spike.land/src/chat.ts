@@ -94,7 +94,7 @@ const api: ExportedHandler<CodeEnv> = {
 
         if (newUrl.pathname.includes(":z:")) {
           const reqHeaders = new Headers(request.headers);
-          const next = atob(newUrl.path name.slice(4));
+          const next = atob(newUrl.pathname.slice(4));
           reqHeaders.set("Referer", next);
 
           request = new Request(next, { ...request, headers: reqHeaders });
