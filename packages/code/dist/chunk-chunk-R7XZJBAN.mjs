@@ -3501,7 +3501,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                       onChange: (_e, newScale) => {
                         newScale && changeScaleRange(newScale);
                       },
-                      children: [...sizes.filter((x) => x < maxScaleRange), maxScaleRange].map((size, ind) => /* @__PURE__ */ jsx(
+                      children: Array.from((/* @__PURE__ */ new Set([...sizes.filter((x) => x < maxScaleRange), scaleRange, maxScaleRange])).values()).sort().map((size, ind) => /* @__PURE__ */ jsx(
                         ToggleButton,
                         {
                           value: size,

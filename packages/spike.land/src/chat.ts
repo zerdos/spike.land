@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "@spike.land/code/package.json";
-import { ASSET_HASH, ASSET_MANIFEST, files, reverseMap } from "./staticContent.mjs";
+import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
 
@@ -326,14 +326,6 @@ const api: ExportedHandler<CodeEnv> = {
                 ASSET_HASH,
               },
             });
-          case "reverseMap.json":
-            return new Response(JSON.stringify(reverseMap), {
-              headers: {
-                "Content-Type": "application/json;charset=UTF-8",
-                "Cache-Control": "no-cache",
-                ASSET_HASH,
-              },
-            });
           case "packages.json":
             return new Response(JSON.stringify(packages), {
               headers: {
@@ -385,7 +377,7 @@ const api: ExportedHandler<CodeEnv> = {
           }
           default:
             try {
-              const kvResp = await getAssetFromKV(
+              return await getAssetFromKV(
                 {
                   request,
                   waitUntil: async (prom) => await prom,
@@ -406,48 +398,23 @@ const api: ExportedHandler<CodeEnv> = {
                   ASSET_MANIFEST,
                 },
               );
-
-              if (!kvResp || kvResp.status !== 200) {
-                const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
-                response = await fetch(req);
-                if (!response.ok) return response;
-
-                const newHeaders = new Headers(response.headers);
-
-                newHeaders.append(`Location`, req.url),
-                  response = new Response(response.body, {
-                    ...response,
-                    status: 307,
-
-                    headers: newHeaders,
-                  });
-                const cache = caches.default;
-                await cache.put(cacheKey, response.clone());
-                return response;
-              }
-
-              const headers = new Headers(kvResp.headers);
-              const fileName = url.pathname.slice(1);
-              const filePath = getFilePath(fileName);
-              headers.append("ASSET_PATH", filePath);
-              headers.append("ASSET_HASH", ASSET_HASH);
-              if (fileName === filePath) {
-                headers.append(
-                  "Cache-Control",
-                  "public, max-age=604800, immutable",
-                );
-              }
-              response = new Response(kvResp.body, { ...kvResp, headers });
-              if (fileName === filePath) {
-                await cache.put(cacheKey, response.clone());
-              }
-
-              return response;
             } catch {
-              return fetch(
-                new URL(url.pathname.slice(1), url.origin + "/node_modules/")
-                  .toString(),
-              );
+              const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
+              response = await fetch(req);
+              if (!response.ok) return response;
+
+              const newHeaders = new Headers(response.headers);
+
+              newHeaders.append(`Location`, req.url),
+                response = new Response(response.body, {
+                  ...response,
+                  status: 307,
+
+                  headers: newHeaders,
+                });
+              const cache = caches.default;
+              await cache.put(cacheKey, response.clone());
+              return response;
             }
         }
       };
@@ -457,6 +424,29 @@ const api: ExportedHandler<CodeEnv> = {
   },
 };
 
+async function handleFileEvent(request: Request, ASSET_NAMESPACE: KVNamespace) {
+  try {
+    const ev = { request, waitUntil: async (prom: Promise<void>) => await prom };
+    // Add logic to decide whether to serve an asset or run your original Worker code
+    return await getAssetFromKV(ev, {
+      ASSET_NAMESPACE,
+      ASSET_MANIFEST,
+    });
+  } catch (e) {
+    let pathname = new URL(request.url).pathname;
+    return new Response(
+      `"${pathname}" not found. 
+    
+    ASSET_NAMESPACE: ${ASSET_NAMESPACE}
+    ASSET_MANIFEST: 
+    ${ASSET_MANIFEST}`,
+      {
+        status: 404,
+        statusText: "not found",
+      },
+    );
+  }
+}
 async function handleApiRequest(
   path: string[],
   request: Request,
