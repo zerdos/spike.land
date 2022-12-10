@@ -4,10 +4,11 @@
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
   // js/sharedWorker.ts
-  mod = {};
-  counters = {};
-  idToPortMap = {};
-  bc = new BroadcastChannel(location.origin);
+  globalThis.mod = globalThis.mod || {};
+  globalThis.counters = globalThis.counters || {};
+  globalThis.idToPortMap = globalThis.idToPortMap || {};
+  globalThis.bc = globalThis.bc || new BroadcastChannel(location.origin);
+  var { mod, counters, idToPortMap, bc } = globalThis;
   async function onMessage({ name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }) {
     if (!counters[codeSpace])
       counters[codeSpace] = i;
