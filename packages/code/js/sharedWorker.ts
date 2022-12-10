@@ -38,6 +38,7 @@ const onMessage = async (event: MessageEvent) => {
     if (!mod[codeSpace] || (mod[codeSpace].readyState !== 1)) {
       await reconnect();
     }
+
     const obj: { [k: string]: unknown } = {
       name,
       target,
@@ -80,17 +81,11 @@ self.addEventListener("connect", (e) => {
     bc.addEventListener("message", (ev) => onMessage(ev));
   }
   const port = e.ports[0];
-  port.addEventListener("message", (ev) => onMessage(ev));
-  port.onmessage = (e) => {
-    const data: Data = e.data;
+  port.addEventListener("message", (ev) => {
+    const data: Data = ev.data;
     // Collect port information in the map
     idToPortMap[data.name] = port;
 
-    // Forward this message to the ws connection.
-    onMessage(e);
-  };
-
-  // We need this to notify the newly connected context to know
-  // the current state of WS connection.
-  // port.postMessage({ state: ws.readyState, type: "WSState"});
+    onMessage(ev);
+  });
 });

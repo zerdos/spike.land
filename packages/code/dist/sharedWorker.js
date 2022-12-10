@@ -53,11 +53,10 @@
       bc.addEventListener("message", (ev) => onMessage(ev));
     }
     const port = e.ports[0];
-    port.addEventListener("message", (ev) => onMessage(ev));
-    port.onmessage = (e2) => {
-      const data = e2.data;
+    port.addEventListener("message", (ev) => {
+      const data = ev.data;
       idToPortMap[data.name] = port;
-      onMessage(e2);
-    };
+      onMessage(ev);
+    });
   });
 })();

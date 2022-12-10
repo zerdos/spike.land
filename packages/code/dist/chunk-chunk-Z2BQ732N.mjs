@@ -6794,7 +6794,6 @@ globalThis.broadcast = (msg) => {
   var enc = new TextEncoder("utf-8");
   p2pcf.broadcast(enc.encode(msg));
 };
-var sharedWorker = new SharedWorker(`${location.origin}/sharedWorker.js`);
 var ws = {
   send: (message) => {
     sharedWorker.port.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
