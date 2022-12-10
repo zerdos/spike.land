@@ -101,9 +101,16 @@ const api: ExportedHandler<CodeEnv> = {
         if (
           path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
         ) {
+          if (u.toString().includes(".d.ts")) {
+            const dtsUrl = u.toString().replace(u.origin + "/npm:", "https://esm.sh");
+            request = new Request(dtsUrl, request);
+            response = await fetch(request);
+            if (!response.ok) return response;
+            await cache.put(cacheKey, response.clone());
+            return response;
+          }
           const isJs = u.toString().includes(".js")
-            || u.toString().includes(".mjs")
-            || u.toString().includes(".d.ts");
+            || u.toString().includes(".mjs");
 
           const packageName = u.toString().replace(
             u.origin + "/npm:",
