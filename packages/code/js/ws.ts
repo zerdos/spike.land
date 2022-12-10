@@ -245,7 +245,7 @@ export const run = async (startState: {
     if (
       event.data.codeSpace === codeSpace && event.data.name
     ) {
-      processData({ data: event.data }, "ws", { hashCode: hashCode() });
+      processData(event.data, "ws", { hashCode: hashCode() });
     }
 
     if (
