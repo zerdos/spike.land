@@ -456,7 +456,7 @@ async function processData(
   source: "ws" | "rtc",
   conn: { hashCode: string },
 ) {
-  console.log(source, data.oldHash, data.newHash, data.name);
+  console.log(`source; ${source}, newHash: ${data.newHash}, i: ${data.i} ---current:   ${mST().i}`);
 
   if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
     wsLastHashCode = data.newHash;
