@@ -5,6 +5,7 @@
 
   // js/sharedWorker.ts
   var mod = {};
+  var counters = {};
   var reconnect = /* @__PURE__ */ __name((codeSpace, name, hashCode) => new Promise(async (resolve) => {
     if (isPromise(mod[codeSpace])) {
       return resolve(await mod[codeSpace]);
@@ -28,7 +29,12 @@
       resolve(ws);
     });
   }), "reconnect");
-  var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, users, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
+  var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
+    if (!counters[codeSpace])
+      counters[codeSpace] = i;
+    if (counters[codeSpace] >= i)
+      return;
+    counters[codeSpace] = i;
     if (codeSpace && name && (hashCode || newHash)) {
       if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
         await reconnect(codeSpace, name, hashCode ? hashCode : newHash);
