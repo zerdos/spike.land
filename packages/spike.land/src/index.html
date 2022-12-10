@@ -48,26 +48,10 @@
 
     /**reset*/
   </style>
-  <style>
-    .console-log-div {
-      border: 1px solid gray;
-      padding: 5px 10px;
-      display: none;
-      border-radius: 5px;
-      width: 95% !important;
-      background-color: #efefef;
-    }
-  </style>
 </head>
 
 
 <body>
-  <fieldset id="console-log-div" class="console-log-div"
-    style="font-family: monospace; margin-top: 20px; margin-left: 10px; margin-right: 10px; white-space: pre; border: 1px solid black; border-radius: 5px; padding: 5px 10px;">
-    <legend>console output</legend>
-    <div id="console-log-text"></div>
-  </fieldset>
-
   <div id="root"></div>
   <script type="module">
     import { hydrate, md5 } from "./hydrate.mjs";
