@@ -36,7 +36,7 @@ const reconnect = (codeSpace: string, name: string, hashCode: string) =>
     );
 
     ws.addEventListener("open", () => {
-      ws.send(JSON.stringify({ name, hashCode }));
+      ws.send(JSON.stringify({ name, hashCode: hashCode }));
 
       ws.addEventListener(
         "message",
@@ -54,8 +54,10 @@ const reconnect = (codeSpace: string, name: string, hashCode: string) =>
 const onMessage = async (
   { name, codeSpace, target, type, patch, users, address, hashCode, newHash, oldHash, candidate, offer, answer }: Data,
 ) => {
-  if (codeSpace && name && hashCode) {
-    if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) await reconnect(codeSpace, name, hashCode);
+  if (codeSpace && name && (hashCode || newHash)) {
+    if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
+      await reconnect(codeSpace, name, hashCode ? hashCode : newHash);
+    }
 
     const obj: { [k: string]: unknown } = {
       name,
