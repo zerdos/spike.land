@@ -327,6 +327,7 @@ async function syncWS() {
   try {
     if (ws) {
       if (wsLastHashCode === hashCode()) {
+        console.log("WS is up to date with us.");
         return;
       }
 
@@ -346,7 +347,8 @@ async function syncWS() {
         // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
-
+      console.log("SYNC!!");
+      console.log({ ...message, name: user, i: sess.i });
       ws.send({ ...message, name: user, i: sess.i });
     }
   } catch (error) {
@@ -454,8 +456,12 @@ async function processData(
   source: "ws" | "rtc",
   conn: { hashCode: string },
 ) {
-  console.log(source, data.name, data.oldHash, data.newHash);
+  console.log(source, data.oldHash, data.newHash, data.name);
 
+  if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
+    wsLastHashCode = data.newHash;
+    return;
+  }
   // MySession.addEvent(data);
 
   if (source === "ws" && data.timestamp) {
@@ -468,10 +474,6 @@ async function processData(
 
   if (source === "ws" && (data.hashCode || data.newHash)) {
     wsLastHashCode = data.hashCode || data.newHash;
-  }
-
-  if (source === "ws" && (data.hashCode)) {
-    wsLastHashCode = data.hashCode;
   }
 
   if (source === "rtc" && data.hashCode || data.newHash) {
@@ -555,12 +557,6 @@ async function processData(
     }
 
     // console.//log("error -sending on sendChannel");
-
-    return;
-  }
-
-  if (data.patch && data.name === user) {
-    wsLastHashCode = data.newHash;
 
     return;
   }
