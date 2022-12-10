@@ -14,15 +14,17 @@ type Data = {
   patch?: Delta[];
   address?: string;
   users?: string[];
+  i: number;
   hashCode?: string;
   candidate?: string;
   answer?: string;
   offer?: string;
-  newHash?: string;
+  newHash: string;
   oldHash?: string;
 };
 
 // Create a broadcast channel to notify about state changes
+const counters: { [codeSpace: string]: number } = {};
 
 const reconnect = (codeSpace: string, name: string, hashCode: string) =>
   new Promise(async (resolve) => {
@@ -52,8 +54,12 @@ const reconnect = (codeSpace: string, name: string, hashCode: string) =>
   });
 
 const onMessage = async (
-  { name, codeSpace, target, type, patch, users, address, hashCode, newHash, oldHash, candidate, offer, answer }: Data,
+  { name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }:
+    Data,
 ) => {
+  if (!counters[codeSpace]) counters[codeSpace] = i;
+  if (counters[codeSpace] >= i) return;
+  counters[codeSpace] = i;
   if (codeSpace && name && (hashCode || newHash)) {
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
       await reconnect(codeSpace, name, hashCode ? hashCode : newHash);

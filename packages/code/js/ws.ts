@@ -323,12 +323,6 @@ const debouncedSyncRTC = debounce(syncRTC, 100, {
   maxWait: 500,
 });
 
-const debouncedSyncWs = debounce(syncWS, 1200, {
-  trailing: true,
-  leading: true,
-  maxWait: 2500,
-});
-
 async function syncWS() {
   try {
     if (ws) {
@@ -353,7 +347,7 @@ async function syncWS() {
         return;
       }
 
-      ws.send({ ...message, name: user });
+      ws.send({ ...message, name: user, i: sess.i });
     }
   } catch (error) {
     // console.error("error 2", { e: error });
