@@ -114,7 +114,7 @@ const api: ExportedHandler<CodeEnv> = {
           const searchParams = `?bundle`;
           const esmUrl = "https://esm.sh/*" + packageName + searchParams;
 
-          request = new Request(esmUrl, { ...request, redirect: "follow" });
+          request = new Request(esmUrl, { ...request });
           response = await fetch(request);
           if (!response.ok) {
             return response;
