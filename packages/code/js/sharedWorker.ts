@@ -22,24 +22,15 @@ type Data = {
   oldHash?: string;
 };
 
-const self = globalThis as unknown as SharedWorkerGlobalScope & {
-  mod: Mod;
-  counters: Counters;
-  idToPortMap: PortMap;
-  bc: BroadcastChannel;
-};
+mod = {};
+counters = {};
+idToPortMap = {};
+bc = new BroadcastChannel(location.origin);
 
-self.mod = self.mod || {};
-self.counters = self.counters || {};
-self.idToPortMap = self.idToPortMap || {};
-self.bc = self.bc || new BroadcastChannel(location.origin);
-
-const { counters, mod, idToPortMap, bc } = self;
-
-const onMessage = async (
+async function onMessage(
   { name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }:
     Data,
-) => {
+) {
   if (!counters[codeSpace]) counters[codeSpace] = i;
   if (counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
@@ -66,9 +57,9 @@ const onMessage = async (
     Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
     mod[codeSpace].send(JSON.stringify(obj));
   }
-};
+}
 
-self.addEventListener("connect", ({ ports }) => {
+self.onconnect = ({ ports }) => {
   console.log("connected");
   bc.onmessage = ({ data }) => onMessage(data);
 
@@ -76,7 +67,7 @@ self.addEventListener("connect", ({ ports }) => {
     idToPortMap[data.name] = ports[0];
     onMessage(data);
   };
-});
+};
 
 function isPromise(p: unknown | Promise<unknown>) {
   if (typeof p === "object" && p !== null && (typeof (p as unknown as Promise<unknown>).then) === "function") {
