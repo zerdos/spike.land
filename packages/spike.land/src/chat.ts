@@ -117,12 +117,13 @@ const api: ExportedHandler<CodeEnv> = {
           request = new Request(esmUrl, { ...request });
           response = await fetch(request);
           if (response.headers.has("location")) {
-            request = new Request(response.headers.get("location")!, request);
+            request = new Request(response.headers.get("location")!, response);
             response = await fetch(request);
           }
           if (!response.ok) {
             return response;
           }
+          response = new Response(response.body, response);
 
           if (response?.status === 307 || response.headers.has("location")) {
             const redirectUrl = response.headers.get("location")!;
