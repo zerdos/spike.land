@@ -102,7 +102,8 @@ const api: ExportedHandler<CodeEnv> = {
           path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
         ) {
           const isJs = u.toString().includes(".js")
-            || u.toString().includes(".mjs");
+            || u.toString().includes(".mjs")
+            || u.toString().includes(".d.ts");
 
           const packageName = u.toString().replace(
             u.origin + "/npm:",
@@ -112,20 +113,15 @@ const api: ExportedHandler<CodeEnv> = {
             "",
           );
           const searchParams = `?bundle`;
-          const esmUrl = "https://esm.sh/*" + packageName + searchParams;
+          const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/*" + packageName + searchParams;
 
-          request = new Request(esmUrl, { ...request });
+          request = new Request(esmUrl, { ...request, redirect: "follow" });
           response = await fetch(request);
-          if (response.headers.has("location")) {
-            request = new Request(response.headers.get("location")!, response);
-            response = await fetch(request);
-          }
           if (!response.ok) {
             return response;
           }
-          response = new Response(response.body, response);
 
-          if (response?.status === 307 || response.headers.has("location")) {
+          if (response.headers.has("location")) {
             const redirectUrl = response.headers.get("location")!;
 
             request = new Request(redirectUrl, request);
@@ -180,7 +176,7 @@ const api: ExportedHandler<CodeEnv> = {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
-                "Cache-Control": "public, max-age=604800, immutable",
+                "Cache-Control": "no-cache",
                 "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
                 "Content-Type": response.headers.get("Content-Type")!,
               },
