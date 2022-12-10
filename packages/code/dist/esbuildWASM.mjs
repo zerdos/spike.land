@@ -6,7 +6,7 @@ import {
 init_define_process();
 
 // ../../node_modules/esbuild-wasm/esbuild.wasm
-var esbuild_default = "./chunk-esbuild-APPOARAE.wasm";
+var esbuild_default = "./chunk-esbuild-RWRO3JDI.wasm";
 export {
   esbuild_default as wasmFile
 };
