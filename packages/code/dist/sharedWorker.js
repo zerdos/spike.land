@@ -4,6 +4,7 @@
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
   // js/sharedWorker.ts
+  var self = globalThis;
   self.mod = self.mod || {};
   self.counters = self.counters || {};
   self.idToPortMap = self.idToPortMap || {};
