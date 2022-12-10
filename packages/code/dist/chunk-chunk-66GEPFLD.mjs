@@ -6776,7 +6776,6 @@ var p2pcf = new P2PCF(client_id, room_id, {
   rtcPeerConnectionProprietaryConstraints: {},
   sdpTransform: (sdp2) => sdp2
 });
-p2pcf.start();
 p2pcf.on("peerconnect", (peer) => {
   console.log("New peer:", peer.id, peer.client_id);
   peer.on("track", (track, stream) => {
