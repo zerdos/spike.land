@@ -5,28 +5,29 @@
 
   // js/sharedWorker.ts
   var mod = {};
-  var onMessage = /* @__PURE__ */ __name(async (event) => {
-    if (event.data.codeSpace && event.data.name && event.data.hashCode) {
-      const { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer } = event.data;
-      const reconnect = /* @__PURE__ */ __name(async () => mod[codeSpace] = await new Promise((_res) => {
+  var onMessage = /* @__PURE__ */ __name(async (data) => {
+    if (data.codeSpace && data.name && data.hashCode) {
+      const { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer } = data;
+      const reconnect = /* @__PURE__ */ __name(async (codeSpace2, name2, hashCode2) => new Promise((_res) => {
         const ws = new WebSocket(
-          `wss://${location.host}/live/` + codeSpace + "/websocket"
+          `wss://${location.host}/live/` + codeSpace2 + "/websocket"
         );
         ws.addEventListener("open", () => {
-          _res(ws);
-          ws.send(JSON.stringify({ name, hashCode }));
+          ws.send(JSON.stringify({ name: name2, hashCode: hashCode2 }));
           ws.addEventListener(
             "message",
             (ev) => {
-              const mess = { codeSpace, ...JSON.parse(ev.data) };
+              const mess = { codeSpace: codeSpace2, ...JSON.parse(ev.data) };
               console.log({ mess });
               bc.postMessage(mess);
             }
           );
+          mod[codeSpace2] = ws;
+          _res(ws);
         });
       }), "reconnect");
       if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
-        await reconnect();
+        await reconnect(codeSpace, name, hashCode);
       }
       const obj = {
         name,
@@ -57,8 +58,7 @@
     port.addEventListener("message", (ev) => {
       const data = ev.data;
       idToPortMap[data.name] = port;
-      onMessage(ev);
+      onMessage(data);
     });
-    onMessage(e.data);
   });
 })();

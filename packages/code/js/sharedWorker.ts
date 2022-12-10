@@ -6,22 +6,35 @@ declare const self: SharedWorkerGlobalScope;
 
 const mod: { [codeSpace: string]: WebSocket } = {};
 
+type Data = {
+  name: string;
+  codeSpace?: string;
+  target?: string;
+  type?: "new-ice-candidate" | "video-offer" | "video-answer";
+  patch?: Delta[];
+  address?: string;
+  hashCode?: string;
+  candidate?: string;
+  answer?: string;
+  offer?: string;
+  newHash?: string;
+  oldHash?: string;
+};
+
 // Create a broadcast channel to notify about state changes
 
-const onMessage = async (event: MessageEvent) => {
-  if (event.data.codeSpace && event.data.name && event.data.hashCode) {
+const onMessage = async (data: Data) => {
+  if (data.codeSpace && data.name && data.hashCode) {
     const { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer } =
-      event.data;
+      data;
 
-    const reconnect = async () =>
-      mod[codeSpace] = await new Promise((_res) => {
+    const reconnect = async (codeSpace: string, name: string, hashCode: string) =>
+      new Promise((_res) => {
         const ws = new WebSocket(
           `wss://${location.host}/live/` + codeSpace + "/websocket",
         );
 
         ws.addEventListener("open", () => {
-          _res(ws);
-
           ws.send(JSON.stringify({ name, hashCode }));
 
           ws.addEventListener(
@@ -32,11 +45,13 @@ const onMessage = async (event: MessageEvent) => {
               bc.postMessage(mess);
             },
           );
+          mod[codeSpace] = ws;
+          _res(ws);
         });
       });
 
     if (!mod[codeSpace] || (mod[codeSpace].readyState !== 1)) {
-      await reconnect();
+      await reconnect(codeSpace, name, hashCode);
     }
 
     const obj: { [k: string]: unknown } = {
@@ -57,21 +72,6 @@ const onMessage = async (event: MessageEvent) => {
   }
 };
 
-type Data = {
-  name: string;
-  codeSpace?: string;
-  target?: string;
-  type?: "new-ice-candidate" | "video-offer" | "video-answer";
-  patch?: Delta[];
-  address?: string;
-  hashCode?: string;
-  candidate?: string;
-  answer?: string;
-  offer?: string;
-  newHash?: string;
-  oldHash?: string;
-};
-
 const idToPortMap: { [name: string]: MessagePort } = {};
 
 let bc: BroadcastChannel;
@@ -87,7 +87,6 @@ self.addEventListener("connect", (e) => {
     // Collect port information in the map
     idToPortMap[data.name] = port;
 
-    onMessage(ev);
+    onMessage(data);
   });
-  onMessage(e.data);
 });
