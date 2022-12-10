@@ -52,7 +52,7 @@
     console.log("connected");
     if (!bc) {
       bc = new BroadcastChannel(location.origin);
-      bc.addEventListener("message", (ev) => onMessage(ev));
+      bc.addEventListener("message", (ev) => onMessage(ev.data));
     }
     const port = e.ports[0];
     port.addEventListener("message", (ev) => {
