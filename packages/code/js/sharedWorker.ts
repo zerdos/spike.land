@@ -8,7 +8,7 @@ const mod: { [codeSpace: string]: WebSocket } = {};
 
 type Data = {
   name: string;
-  codeSpace?: string;
+  codeSpace: string;
   target?: string;
   type?: "new-ice-candidate" | "video-offer" | "video-answer";
   patch?: Delta[];
@@ -23,13 +23,17 @@ type Data = {
 
 // Create a broadcast channel to notify about state changes
 
-const onMessage = async (data: Data) => {
-  if (data.codeSpace && data.name && data.hashCode) {
-    const { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer } =
-      data;
+const onMessage = async (
+  { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer }: Data,
+) => {
+  if (codeSpace && name && hashCode) {
+    const reconnect = (codeSpace: string, name: string, hashCode: string) =>
+      new Promise(async (resolve) => {
+        if (isPromise(mod[codeSpace])) {
+          return resolve(await mod[codeSpace]);
+        }
+        if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
 
-    const reconnect = async (codeSpace: string, name: string, hashCode: string) =>
-      new Promise((_res) => {
         const ws = new WebSocket(
           `wss://${location.host}/live/` + codeSpace + "/websocket",
         );
@@ -46,30 +50,31 @@ const onMessage = async (data: Data) => {
             },
           );
           mod[codeSpace] = ws;
-          _res(ws);
+          resolve(ws);
         });
       });
 
-    if (!mod[codeSpace] || (mod[codeSpace].readyState !== 1)) {
-      await reconnect(codeSpace, name, hashCode);
-    }
+    if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) await reconnect(codeSpace, name, hashCode);
 
-    const obj: { [k: string]: unknown } = {
-      name,
-      target,
-      type,
-      patch,
-      address,
-      hashCode,
-      newHash,
-      oldHash,
-      candidate,
-      offer,
-      answer,
-    };
-    Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
-    mod[codeSpace].send(JSON.stringify(obj));
+    await reconnect(codeSpace, name, hashCode);
   }
+
+  const obj: { [k: string]: unknown } = {
+    name,
+    target,
+    type,
+    patch,
+    address,
+    hashCode,
+    newHash,
+    oldHash,
+    candidate,
+    offer,
+    answer,
+  };
+
+  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
+  mod[codeSpace].send(JSON.stringify(obj));
 };
 
 const idToPortMap: { [name: string]: MessagePort } = {};
@@ -82,11 +87,16 @@ self.addEventListener("connect", (e) => {
     bc.addEventListener("message", (ev) => onMessage(ev.data));
   }
   const port = e.ports[0];
-  port.addEventListener("message", (ev) => {
-    const data: Data = ev.data;
-    // Collect port information in the map
+  port.onmessage = ({ data }: { data: Data }) => {
     idToPortMap[data.name] = port;
-
     onMessage(data);
-  });
+  };
 });
+
+function isPromise(p: unknown | Promise<unknown>) {
+  if (typeof p === "object" && p !== null && (typeof (p as unknown as Promise<unknown>).then) === "function") {
+    return true;
+  }
+
+  return false;
+}

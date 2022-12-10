@@ -5,10 +5,14 @@
 
   // js/sharedWorker.ts
   var mod = {};
-  var onMessage = /* @__PURE__ */ __name(async (data) => {
-    if (data.codeSpace && data.name && data.hashCode) {
-      const { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer } = data;
-      const reconnect = /* @__PURE__ */ __name(async (codeSpace2, name2, hashCode2) => new Promise((_res) => {
+  var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
+    if (codeSpace && name && hashCode) {
+      const reconnect = /* @__PURE__ */ __name((codeSpace2, name2, hashCode2) => new Promise(async (resolve) => {
+        if (isPromise(mod[codeSpace2])) {
+          return resolve(await mod[codeSpace2]);
+        }
+        if (mod[codeSpace2] && mod[codeSpace2].readyState !== 1)
+          delete mod[codeSpace2];
         const ws = new WebSocket(
           `wss://${location.host}/live/` + codeSpace2 + "/websocket"
         );
@@ -23,28 +27,28 @@
             }
           );
           mod[codeSpace2] = ws;
-          _res(ws);
+          resolve(ws);
         });
       }), "reconnect");
-      if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
+      if (!mod[codeSpace] || mod[codeSpace].readyState !== 1)
         await reconnect(codeSpace, name, hashCode);
-      }
-      const obj = {
-        name,
-        target,
-        type,
-        patch,
-        address,
-        hashCode,
-        newHash,
-        oldHash,
-        candidate,
-        offer,
-        answer
-      };
-      Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
-      mod[codeSpace].send(JSON.stringify(obj));
+      await reconnect(codeSpace, name, hashCode);
     }
+    const obj = {
+      name,
+      target,
+      type,
+      patch,
+      address,
+      hashCode,
+      newHash,
+      oldHash,
+      candidate,
+      offer,
+      answer
+    };
+    Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
+    mod[codeSpace].send(JSON.stringify(obj));
   }, "onMessage");
   var idToPortMap = {};
   var bc;
@@ -55,10 +59,16 @@
       bc.addEventListener("message", (ev) => onMessage(ev.data));
     }
     const port = e.ports[0];
-    port.addEventListener("message", (ev) => {
-      const data = ev.data;
+    port.onmessage = ({ data }) => {
       idToPortMap[data.name] = port;
       onMessage(data);
-    });
+    };
   });
+  function isPromise(p) {
+    if (typeof p === "object" && p !== null && typeof p.then === "function") {
+      return true;
+    }
+    return false;
+  }
+  __name(isPromise, "isPromise");
 })();
