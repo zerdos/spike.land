@@ -76,7 +76,6 @@
     "avl": "1.5.3",
     "axios": "^1.2.1",
     "comlink": "4.3.1",
-    "console-log-div": "^0.6.3",
     "core-js": "^3.26.1",
     "csstype": "3.1.1",
     "es-module-shims": "1.6.2",

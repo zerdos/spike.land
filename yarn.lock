@@ -1353,7 +1353,6 @@ __metadata:
     avl: "npm:1.5.3"
     axios: "npm:^1.2.1"
     comlink: "npm:4.3.1"
-    console-log-div: "npm:^0.6.3"
     core-js: "npm:^3.26.1"
     csstype: "npm:3.1.1"
     es-module-shims: "npm:1.6.2"
@@ -3181,13 +3180,6 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: d286ffd439aac97472557325e6aa4cc3a2eefe495a70a9640b89508880db4bba1bd1b29bb011608c23033d884c84cac8da95c8f12ca0ec69ccc70d6d5f39c618
-  languageName: node
-  linkType: hard
-
-"console-log-div@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "console-log-div@npm:0.6.3"
-  checksum: 3f1101bccd51f6fde6cf9c28ce52af2fd5297faa87a4fe36425d16b50ff97d1d6d4d5d9025f5b0cfa4cb796fdfc4d2b2f8f763c011b171d712ca6cab3222bd17
   languageName: node
   linkType: hard
 
