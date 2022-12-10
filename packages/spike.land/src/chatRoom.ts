@@ -679,8 +679,7 @@ export class Code {
           }
 
           try {
-            await applyPatch({ newHash, oldHash, patch });
-            this.wait();
+            applyPatch({ newHash, oldHash, patch });
           } catch (err) {
             console.error({ err });
             return respondWith({ err });
@@ -688,7 +687,6 @@ export class Code {
 
           if (newHash === hashCode()) {
             try {
-              this.wait();
               this.broadcast(data);
             } catch {
               return respondWith({
