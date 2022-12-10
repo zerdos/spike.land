@@ -243,7 +243,7 @@ export const run = async (startState: {
       return;
     }
     if (
-      event.data.codeSpace === codeSpace
+      event.data.codeSpace === codeSpace && event.data.name
     ) {
       processData({ data: event.data }, "ws", { hashCode: hashCode() });
     }
@@ -460,7 +460,7 @@ async function processData(
   source: "ws" | "rtc",
   conn: { hashCode: string },
 ) {
-  // console.//log("ws", data.name, data.oldHash, data.newHash);
+  console.log(source, data.name, data.oldHash, data.newHash);
 
   // MySession.addEvent(data);
 
@@ -472,8 +472,8 @@ async function processData(
     conn.hashCode = data.hashCode || data.newHash;
   }
 
-  if (source === "ws" && data.hashCode) {
-    wsLastHashCode = data.hashCode;
+  if (source === "ws" && (data.hashCode || data.newHash)) {
+    wsLastHashCode = data.hashCode || data.newHash;
   }
 
   if (source === "ws" && (data.hashCode)) {
