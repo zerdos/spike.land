@@ -270,7 +270,7 @@ export const run = async (startState: {
     ) {
       const messageData = makePatch(event.data.sess);
       if (messageData) {
-        await applyPatch(messageData);
+        applyPatch(messageData);
       }
     }
   };
@@ -544,7 +544,7 @@ async function processData(
       return;
     }
 
-    await applyPatch(data);
+    applyPatch(data);
 
     if (data.newHash === hashCode()) {
       if (sendChannel) {

@@ -65,7 +65,7 @@ export function initSession(room: string, u: IUserJSON) {
 type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
 type IApplyPatch = (
   prop: CodePatch,
-) => Promise<void>;
+) => void;
 
 type ICodeSess = {
   hashOfState: () => string;
@@ -258,47 +258,47 @@ export class CodeSession implements ICodeSess {
   // 	)=>{
   // 		return 0;
   // 	}
-  applyPatch = async ({
+  applyPatch = ({
     oldHash,
     newHash,
     patch,
   }: CodePatch) => {
     if (!(oldHash && newHash && patch.length)) return;
-    const codeSpace = this.room || "";
+    // const codeSpace = this.room || "";
     hashStore[hashCode()] = this.session.get("state");
     let maybeOldRec = hashStore[oldHash];
-    try {
-      if (!maybeOldRec) {
-        // console.log(Object.keys(hashStore));
-        const resp = await fetch(
-          `/live/${codeSpace}/mST`,
-        );
-        if (resp.ok) {
-          const s: { hashCode: string; mST: ICodeSession } = await resp.json();
+    // try {
+    //   if (!maybeOldRec) {
+    //     // console.log(Object.keys(hashStore));
+    //     const resp = await fetch(
+    //       `/live/${codeSpace}/mST`,
+    //     );
+    //     if (resp.ok) {
+    //       const s: { hashCode: string; mST: ICodeSession } = await resp.json();
 
-          // HashStore[Number(s.hashCode)] =
+    //       // HashStore[Number(s.hashCode)] =
 
-          const serverRecord = this.session.get("state").merge(
-            JSON.parse(string_(s.mST)),
-          );
-          hashStore[md5(serverRecord.transpiled)] = serverRecord;
-        } else {
-          const { mST } = await import(
-            `/live/${this.room}/mst.mjs?${Date.now()}`
-          );
-          const latestRec = this.session.get("state").merge(
-            JSON.parse(string_(mST)),
-          );
-          hashStore[md5(latestRec.transpiled)] = latestRec;
-        }
-      }
+    //       const serverRecord = this.session.get("state").merge(
+    //         JSON.parse(string_(s.mST)),
+    //       );
+    //       hashStore[md5(serverRecord.transpiled)] = serverRecord;
+    //     } else {
+    //       const { mST } = await import(
+    //         `/live/${this.room}/mst.mjs?${Date.now()}`
+    //       );
+    //       const latestRec = this.session.get("state").merge(
+    //         JSON.parse(string_(mST)),
+    //       );
+    //       hashStore[md5(latestRec.transpiled)] = latestRec;
+    //     }
+    //   }
 
-      maybeOldRec = hashStore[oldHash];
-      if (!maybeOldRec) throw new Error(`cant find old record: ${oldHash}`);
-    } catch (err) {
-      console.error({ err });
-      throw new Error("oldHash not found");
-    }
+    // maybeOldRec = hashStore[oldHash];
+    if (!maybeOldRec) throw new Error(`cant find old record: ${oldHash}`);
+    // } catch (err) {
+    //   console.error({ err });
+    //   throw new Error("oldHash not found");
+    // }
     const oldString = string_(maybeOldRec.toJSON());
 
     const applied = aPatch(oldString, patch);
@@ -410,8 +410,8 @@ function string_(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const applyPatch: IApplyPatch = async (x) => {
-  await session?.applyPatch(x);
+export const applyPatch: IApplyPatch = (x) => {
+  session?.applyPatch(x);
   session?.update();
 };
 
