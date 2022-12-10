@@ -48,6 +48,7 @@
   var idToPortMap = {};
   var bc;
   self.addEventListener("connect", (e) => {
+    console.log("connected");
     if (!bc) {
       bc = new BroadcastChannel(location.origin);
       bc.addEventListener("message", (ev) => onMessage(ev));
