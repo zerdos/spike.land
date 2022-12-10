@@ -22,7 +22,7 @@ type Data = {
   oldHash?: string;
 };
 
-declare const self: SharedWorkerGlobalScope & {
+const self = globalThis as unknown as SharedWorkerGlobalScope & {
   mod: Mod;
   counters: Counters;
   idToPortMap: PortMap;
