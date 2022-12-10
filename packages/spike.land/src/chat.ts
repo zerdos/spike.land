@@ -103,7 +103,7 @@ const api: ExportedHandler<CodeEnv> = {
         ) {
           if (u.toString().includes(".d.ts")) {
             const dtsUrl = u.toString().replace(u.origin + "/npm:", "https://esm.sh");
-            request = new Request(dtsUrl, request);
+            request = new Request(dtsUrl, { ...request, redirect: "follow" });
             response = await fetch(request);
             if (!response.ok) return response;
             await cache.put(cacheKey, response.clone());
