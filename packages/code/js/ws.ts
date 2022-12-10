@@ -200,7 +200,7 @@ globalThis.broadcast = (msg: string) => {
 
 const ws = {
   send: (message: object) => {
-    sharedWorker.port.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
+    globalThis.sharedWorker.port.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
   },
 };
 
@@ -213,7 +213,7 @@ export const run = async (startState: {
   const { mST: mst, dry, address } = startState;
   // codeSpace = startState.codeSpace;
 
-  sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
+  globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {
     name: user,
