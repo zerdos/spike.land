@@ -5,50 +5,50 @@
 
   // js/sharedWorker.ts
   var mod = {};
+  var reconnect = /* @__PURE__ */ __name((codeSpace, name, hashCode) => new Promise(async (resolve) => {
+    if (isPromise(mod[codeSpace])) {
+      return resolve(await mod[codeSpace]);
+    }
+    if (mod[codeSpace] && mod[codeSpace].readyState !== 1)
+      delete mod[codeSpace];
+    const ws = new WebSocket(
+      `wss://${location.host}/live/` + codeSpace + "/websocket"
+    );
+    ws.addEventListener("open", () => {
+      ws.send(JSON.stringify({ name, hashCode }));
+      ws.addEventListener(
+        "message",
+        (ev) => {
+          const mess = { codeSpace, ...JSON.parse(ev.data) };
+          console.log({ mess });
+          bc.postMessage(mess);
+        }
+      );
+      mod[codeSpace] = ws;
+      resolve(ws);
+    });
+  }), "reconnect");
   var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
     if (codeSpace && name && hashCode) {
-      const reconnect = /* @__PURE__ */ __name((codeSpace2, name2, hashCode2) => new Promise(async (resolve) => {
-        if (isPromise(mod[codeSpace2])) {
-          return resolve(await mod[codeSpace2]);
-        }
-        if (mod[codeSpace2] && mod[codeSpace2].readyState !== 1)
-          delete mod[codeSpace2];
-        const ws = new WebSocket(
-          `wss://${location.host}/live/` + codeSpace2 + "/websocket"
-        );
-        ws.addEventListener("open", () => {
-          ws.send(JSON.stringify({ name: name2, hashCode: hashCode2 }));
-          ws.addEventListener(
-            "message",
-            (ev) => {
-              const mess = { codeSpace: codeSpace2, ...JSON.parse(ev.data) };
-              console.log({ mess });
-              bc.postMessage(mess);
-            }
-          );
-          mod[codeSpace2] = ws;
-          resolve(ws);
-        });
-      }), "reconnect");
       if (!mod[codeSpace] || mod[codeSpace].readyState !== 1)
         await reconnect(codeSpace, name, hashCode);
-      await reconnect(codeSpace, name, hashCode);
+      const obj = {
+        name,
+        target,
+        type,
+        patch,
+        address,
+        users,
+        hashCode,
+        newHash,
+        oldHash,
+        candidate,
+        offer,
+        answer
+      };
+      Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
+      mod[codeSpace].send(JSON.stringify(obj));
     }
-    const obj = {
-      name,
-      target,
-      type,
-      patch,
-      address,
-      hashCode,
-      newHash,
-      oldHash,
-      candidate,
-      offer,
-      answer
-    };
-    Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
-    mod[codeSpace].send(JSON.stringify(obj));
   }, "onMessage");
   var idToPortMap = {};
   var bc;
