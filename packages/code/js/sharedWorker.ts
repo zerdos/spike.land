@@ -52,7 +52,7 @@ const reconnect = (codeSpace: string, name: string, hashCode: string) =>
   });
 
 const onMessage = async (
-  { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer }: Data,
+  { name, codeSpace, target, type, patch, users, address, hashCode, newHash, oldHash, candidate, offer, answer }: Data,
 ) => {
   if (codeSpace && name && hashCode) {
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) await reconnect(codeSpace, name, hashCode);
