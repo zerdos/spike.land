@@ -57,10 +57,13 @@
     import { hydrate, md5 } from "./hydrate.mjs?ASSET_HASH";
     import load from "./load.mjs?ASSET_HASH";
 
+    globalThis.sharedWorker = new SharedWorker("/sharedWorker.js?ASSET_HASH");
+
     const paths = location.pathname.split("/");
     const codeSpace = paths[2];
 
     const rootEl = document.getElementById(`root`);
+
 
     if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
       const bc = new BroadcastChannel(location.origin);

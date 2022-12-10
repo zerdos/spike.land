@@ -6,6 +6,7 @@ import ear from "@emotion/react";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 
 declare global {
+  var sharedWorker: SharedWorker;
   const apps: { [key: string]: FC<{ appId: string }> };
   const eCaches: { [key: string]: EmotionCache };
   const emotionReact: typeof ear;

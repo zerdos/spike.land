@@ -198,8 +198,6 @@ globalThis.broadcast = (msg: string) => {
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
 
-const sharedWorker = new SharedWorker(`${location.origin}/sharedWorker.js`);
-
 const ws = {
   send: (message: object) => {
     sharedWorker.port.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
