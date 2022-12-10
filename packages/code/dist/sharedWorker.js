@@ -5,7 +5,6 @@
 
   // js/sharedWorker.ts
   var mod = {};
-  var bc = new BroadcastChannel(location.origin);
   var onMessage = /* @__PURE__ */ __name(async (event) => {
     if (event.data.codeSpace && event.data.name && event.data.hashCode) {
       const { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer } = event.data;
@@ -46,10 +45,15 @@
       mod[codeSpace].send(JSON.stringify(obj));
     }
   }, "onMessage");
-  bc.onmessage = (event) => onMessage(event);
   var idToPortMap = {};
+  var bc;
   self.addEventListener("connect", (e) => {
+    if (!bc) {
+      bc = new BroadcastChannel(location.origin);
+      bc.addEventListener("message", (ev) => onMessage(ev));
+    }
     const port = e.ports[0];
+    port.addEventListener("message", (ev) => onMessage(ev));
     port.onmessage = (e2) => {
       const data = e2.data;
       idToPortMap[data.name] = port;

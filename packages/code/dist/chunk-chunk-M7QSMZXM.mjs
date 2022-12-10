@@ -6797,7 +6797,7 @@ globalThis.broadcast = (msg) => {
 var sharedWorker = new SharedWorker(`${location.origin}/sharedWorker.js`);
 var ws = {
   send: (message) => {
-    bc.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
+    sharedWorker.port.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
   }
 };
 var run = /* @__PURE__ */ __name(async (startState) => {
