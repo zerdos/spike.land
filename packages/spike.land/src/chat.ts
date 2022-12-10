@@ -10,19 +10,6 @@ import { md5 } from "@spike.land/code/js/session";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 
-const esbuildExternal = [
-  ...Object.keys(importMap.imports),
-  "monaco-editor",
-  "react",
-  "react-dom",
-  // "react/jsx-runtime",
-  // "react/jsx-dev-runtime",
-  // "@mui/material",
-  // "framer-motion",
-];
-const mods: { [key: string]: string } = {};
-esbuildExternal.map((packageName) => mods[packageName] = `npm:/*${packageName}`);
-
 const api: ExportedHandler<CodeEnv> = {
   fetch: async (
     req,
@@ -124,9 +111,7 @@ const api: ExportedHandler<CodeEnv> = {
             u.origin + "/node_modules",
             "",
           );
-          const searchParams = (isJs
-            ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
-            : "");
+          const searchParams = `?bundle`;
           const esmUrl = "https://esm.sh/*" + packageName + searchParams;
 
           request = new Request(esmUrl, { ...request, redirect: "follow" });
@@ -145,7 +130,7 @@ const api: ExportedHandler<CodeEnv> = {
               "location",
               redirectUrl.replace(
                 "esm.sh/",
-                u.hostname + "/npm:/*",
+                u.hostname + "/npm:/",
               ),
             );
 

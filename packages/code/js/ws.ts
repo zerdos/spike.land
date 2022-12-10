@@ -117,7 +117,7 @@ const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
 
 const p2pcf = new P2PCF(client_id, room_id, {
   // Worker URL (optional) - if left out, will use a public worker
-  workerUrl: "https://p2pcf.zed-vision.workers.dev",
+  workerUrl: "https://signal.spike.land",
 
   // STUN ICE servers (optional)
   // If left out, will use public STUN from Google + Twilio
