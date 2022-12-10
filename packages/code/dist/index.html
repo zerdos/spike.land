@@ -158,7 +158,7 @@ if (location.pathname.endsWith("dehydrated")) {
   const  bc =new  BroadcastChannel(location.origin);
 
     bc.onmessage = (event) => {
-      if (event.data.codeSpace === codeSpace) {
+      if (event.data.codeSpace === codeSpace && event.data.sess) {
         const { html, css } = event.data.sess;
         document.getElementById(`root-${codeSpace}`).innerHTML = `<style>${css}</style>${html}`;
       }

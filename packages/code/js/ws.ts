@@ -27,7 +27,6 @@ const users = new AVLTree(
 );
 
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
-
 const user = md5(((self && self.crypto && self.crypto.randomUUID
   && self.crypto.randomUUID()) || (uidV4())).slice(
     0,
@@ -45,9 +44,9 @@ let wsLastHashCode = "";
 let webRTCLastSeenHashCode = "";
 let lastSeenTimestamp = 0;
 let lastSeenNow = 0;
-let ws: WebSocket | null = null;
-let sendWS: (message: string) => void;
-let rejoined = false;
+
+// let sendWS: (message: string) => void;
+// let rejoined = false;
 const tracks: {
   [key: string]: {
     track: MediaStreamTrack;
@@ -199,6 +198,14 @@ globalThis.broadcast = (msg: string) => {
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
 
+const sharedWorker = new SharedWorker(`${location.origin}/sharedWorker.js`);
+// sharedWorker.port.postMessage("yo");
+const ws = {
+  send: (message: object) => {
+    bc.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
+  },
+};
+
 export const run = async (startState: {
   mST: ICodeSession;
   codeSpace: string;
@@ -207,6 +214,8 @@ export const run = async (startState: {
 }) => {
   const { mST: mst, dry, address } = startState;
   // codeSpace = startState.codeSpace;
+
+  sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {
     name: user,
@@ -227,13 +236,18 @@ export const run = async (startState: {
 
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
-  await join();
+  // await join();
   console.log("broadcastChannel");
   bc = new BroadcastChannel(location.origin);
   bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
+    }
+    if (
+      event.data.codeSpace === codeSpace
+    ) {
+      processData({ data: event.data }, "ws", { hashCode: hashCode() });
     }
 
     if (
@@ -245,7 +259,7 @@ export const run = async (startState: {
     if (
       event.data.codeSpace === codeSpace && event.data.address && !address
     ) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws.send({ codeSpace, address: event.data.address });
     }
 
     if (event.data.ignoreUser) {
@@ -254,7 +268,7 @@ export const run = async (startState: {
     }
 
     if (
-      event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
+      event.data.codeSpace === codeSpace && event.data.sess && event.data.sess.code !== mST().code
     ) {
       const messageData = makePatch(event.data.sess);
       if (messageData) {
@@ -289,19 +303,19 @@ export const run = async (startState: {
   // await startIpfs(codeSpace);
 };
 
-let intervalHandler: NodeJS.Timer;
+// let intervalHandler: NodeJS.Timer;
 
-async function rejoin() {
-  if (!rejoined || ws === null) {
-    ws = null;
+// async function rejoin() {
+//   if (!rejoined || ws === null) {
+//     ws = null;
 
-    const newWs = await join();
+//     const newWs = await join();
 
-    return newWs;
-  }
+//     return newWs;
+//   }
 
-  return ws;
-}
+//   return ws;
+// }
 
 const ignoreUsers: string[] = [];
 
@@ -341,11 +355,7 @@ async function syncWS() {
         return;
       }
 
-      const messageString = JSON.stringify({ ...message, name: user });
-      sendWS(messageString);
-    } else {
-      rejoined = false;
-      await rejoin();
+      ws.send({ ...message, name: user });
     }
   } catch (error) {
     // console.error("error 2", { e: error });
@@ -431,93 +441,6 @@ async function syncRTC() {
   } catch (error) {
     // console.error("Error sending RTC...", { e: error });
   }
-}
-
-export async function join() {
-  if (ws !== null) {
-    return ws;
-  }
-
-  rejoined = true;
-
-  // console.//log("WS connect!");
-  if (location.origin.includes("localhost")) {
-    return;
-  }
-
-  const wsConnection = new WebSocket(
-    `wss://${location.host}/live/` + codeSpace + "/websocket",
-  );
-  rejoined = false;
-
-  wsConnection.addEventListener("open", () => {
-    // console.//log("NEW WS CONNECTION");
-    ws = wsConnection;
-    wsConnection.onclose = () => rejoin();
-    const mess = (data: string) => {
-      try {
-        if (ws?.readyState === ws?.OPEN) ws && ws?.send && ws?.send(data);
-        else {
-          rejoin();
-        }
-      } catch {
-        ws = null;
-        rejoined = false;
-
-        rejoin();
-      }
-    };
-
-    sendWS = mess;
-    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
-    ws.addEventListener(
-      "message",
-      (message) => processWsMessage(message, "ws", extendedWS),
-    );
-    // If (delta) {
-    // if (delta !== deltaSent) {
-    // deltaSent = delta;
-    // ws?.send(JSON.stringify({
-    // type: "delta",
-    // }));
-    // }
-    // return;
-    // }
-    if (intervalHandler) {
-      clearInterval(intervalHandler);
-    }
-
-    intervalHandler = setInterval(() => {
-      const now = Date.now();
-      const diff = now - lastSeenNow;
-
-      if (diff > 40_000) {
-        try {
-          if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
-              JSON.stringify({
-                name: user,
-                timestamp: lastSeenTimestamp + diff,
-              }),
-            );
-            return;
-          }
-
-          rejoined = false;
-          rejoin();
-        } catch {
-          rejoined = false;
-          rejoin();
-        }
-      }
-    }, 30_000);
-
-    // Send user info message.
-    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode() }));
-    return wsConnection;
-  });
-
-  return wsConnection;
 }
 
 const h: Record<number, number> = {};
@@ -682,12 +605,12 @@ async function processData(
       if (event.candidate) {
         // log("*** Outgoing ICE candidate: " + event.candidate);
 
-        ws?.send(JSON.stringify({
+        ws.send({
           type: "new-ice-candidate",
           target,
           name: user,
           candidate: event.candidate.toJSON(),
-        }));
+        });
       }
     };
 
@@ -841,12 +764,12 @@ async function processData(
         // Send the offer to the remote peer.
 
         // log("---> Sending the offer to the remote peer");
-        ws?.send(JSON.stringify({
+        ws.send({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription,
-        }));
+        });
       } catch {
         // log(
         //   "*** The following error occurred while handling the negotiationneeded event:",
@@ -927,12 +850,12 @@ async function processData(
       answer,
     );
 
-    ws?.send(JSON.stringify({
+    ws.send({
       target,
       name: user,
       type: "video-answer",
       answer,
-    }));
+    });
   }
 }
 

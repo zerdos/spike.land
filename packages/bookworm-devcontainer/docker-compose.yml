@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   devcontainer:
-    image: devimages/bookworm-devcontainer:latest
+    build: .
     tmpfs:
       - /home/$USER/tmpfs:exec
     shm_size: 4gb

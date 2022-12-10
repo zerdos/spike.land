@@ -1,9 +1,8 @@
 // import { importMapReplace } from "./esbuildEsm";
-import { chain } from "lodash";
 import { transform } from "./esmTransform";
 export type {};
 
-declare const self: MyServiceWorkerScope;
+declare const self: ServiceWorker;
 
 self.addEventListener("activate", () => {
   // const bc = new BroadcastChannel(location.origin);

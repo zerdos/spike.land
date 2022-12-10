@@ -6281,7 +6281,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const [r, g, b, a] = bg;
   const rgba = /* @__PURE__ */ __name((r2, g2, b2, a2) => `rgba(${r2},${g2},${b2},${a2})`, "rgba");
   (0, import_react3.useEffect)(() => {
-    const intervalHandler2 = setInterval(() => {
+    const intervalHandler = setInterval(() => {
       const bgColor2 = window.getComputedStyle(
         document.body,
         null
@@ -6289,7 +6289,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
       if (JSON.stringify(bg) !== JSON.stringify(bgColor2))
         setBG(bgColor2);
     }, 1e3 / 2);
-    return () => clearInterval(intervalHandler2);
+    return () => clearInterval(intervalHandler);
   }, []);
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
@@ -6739,9 +6739,6 @@ var wsLastHashCode = "";
 var webRTCLastSeenHashCode = "";
 var lastSeenTimestamp = 0;
 var lastSeenNow = 0;
-var ws = null;
-var sendWS;
-var rejoined = false;
 var tracks = {};
 var sendChannel = {
   localStream: null,
@@ -6797,8 +6794,15 @@ globalThis.broadcast = (msg) => {
   var enc = new TextEncoder("utf-8");
   p2pcf.broadcast(enc.encode(msg));
 };
+var sharedWorker = new SharedWorker(`${location.origin}/sharedWorker.js`);
+var ws = {
+  send: (message) => {
+    bc.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
+  }
+};
 var run = /* @__PURE__ */ __name(async (startState) => {
   const { mST: mst, dry, address } = startState;
+  sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
   startSession(codeSpace, {
     name: user,
     state: mst
@@ -6806,7 +6810,6 @@ var run = /* @__PURE__ */ __name(async (startState) => {
   if (location.pathname === `/live/${codeSpace}`) {
     renderPreviewWindow({ codeSpace, dry: !!dry });
   }
-  await join();
   console.log("broadcastChannel");
   bc = new BroadcastChannel(location.origin);
   bc.postMessage({ user, type: "suggestNeighborsRequest" });
@@ -6814,15 +6817,18 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
     }
+    if (event.data.codeSpace === codeSpace) {
+      processData({ data: event.data }, "ws", { hashCode: hashCode() });
+    }
     if (event.data.user !== user && event.data.type === "suggestNeighborsRequest") {
     }
     if (event.data.codeSpace === codeSpace && event.data.address && !address) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+      ws.send({ codeSpace, address: event.data.address });
     }
     if (event.data.ignoreUser) {
       !ignoreUsers.includes(event.data.ignoreUser) && ignoreUsers.push(event.data.ignoreUser);
     }
-    if (event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code) {
+    if (event.data.codeSpace === codeSpace && event.data.sess && event.data.sess.code !== mST().code) {
       const messageData = makePatch(event.data.sess);
       if (messageData) {
         await applyPatch(messageData);
@@ -6848,16 +6854,6 @@ var run = /* @__PURE__ */ __name(async (startState) => {
     "broadcast"
   );
 }, "run");
-var intervalHandler;
-async function rejoin() {
-  if (!rejoined || ws === null) {
-    ws = null;
-    const newWs = await join();
-    return newWs;
-  }
-  return ws;
-}
-__name(rejoin, "rejoin");
 var ignoreUsers = [];
 var debouncedSyncRTC = (0, import_lodash.default)(syncRTC, 100, {
   trailing: true,
@@ -6886,11 +6882,7 @@ async function syncWS() {
       if (message.newHash !== hashCode()) {
         return;
       }
-      const messageString = JSON.stringify({ ...message, name: user });
-      sendWS(messageString);
-    } else {
-      rejoined = false;
-      await rejoin();
+      ws.send({ ...message, name: user });
     }
   } catch (error) {
   }
@@ -6949,71 +6941,6 @@ async function syncRTC() {
   }
 }
 __name(syncRTC, "syncRTC");
-async function join() {
-  if (ws !== null) {
-    return ws;
-  }
-  rejoined = true;
-  if (location.origin.includes("localhost")) {
-    return;
-  }
-  const wsConnection = new WebSocket(
-    `wss://${location.host}/live/` + codeSpace + "/websocket"
-  );
-  rejoined = false;
-  wsConnection.addEventListener("open", () => {
-    ws = wsConnection;
-    wsConnection.onclose = () => rejoin();
-    const mess = /* @__PURE__ */ __name((data) => {
-      try {
-        if (ws?.readyState === ws?.OPEN)
-          ws && ws?.send && ws?.send(data);
-        else {
-          rejoin();
-        }
-      } catch {
-        ws = null;
-        rejoined = false;
-        rejoin();
-      }
-    }, "mess");
-    sendWS = mess;
-    const extendedWS = Object.assign(wsConnection, { hashCode: hashCode() });
-    ws.addEventListener(
-      "message",
-      (message) => processWsMessage(message, "ws", extendedWS)
-    );
-    if (intervalHandler) {
-      clearInterval(intervalHandler);
-    }
-    intervalHandler = setInterval(() => {
-      const now = Date.now();
-      const diff = now - lastSeenNow;
-      if (diff > 4e4) {
-        try {
-          if (wsConnection.readyState === wsConnection.OPEN) {
-            wsConnection?.send(
-              JSON.stringify({
-                name: user,
-                timestamp: lastSeenTimestamp + diff
-              })
-            );
-            return;
-          }
-          rejoined = false;
-          rejoin();
-        } catch {
-          rejoined = false;
-          rejoin();
-        }
-      }
-    }, 3e4);
-    wsConnection.send(JSON.stringify({ name: user, hashCode: hashCode() }));
-    return wsConnection;
-  });
-  return wsConnection;
-}
-__name(join, "join");
 var h = {};
 async function processWsMessage(event, source, conn) {
   lastSeenNow = Date.now();
@@ -7114,12 +7041,12 @@ async function processData(data, source, conn) {
     );
     rtcConns[target].onicecandidate = (event) => {
       if (event.candidate) {
-        ws?.send(JSON.stringify({
+        ws.send({
           type: "new-ice-candidate",
           target,
           name: user,
           candidate: event.candidate.toJSON()
-        }));
+        });
       }
     };
     rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
@@ -7209,12 +7136,12 @@ async function processData(data, source, conn) {
           return;
         }
         await rtcConns[target].setLocalDescription(offer);
-        ws?.send(JSON.stringify({
+        ws.send({
           target,
           name: user,
           type: "video-offer",
           offer: rtcConns[target].localDescription
-        }));
+        });
       } catch {
       }
     }
@@ -7254,12 +7181,12 @@ async function processData(data, source, conn) {
     await rtcConns[target].setLocalDescription(
       answer
     );
-    ws?.send(JSON.stringify({
+    ws.send({
       target,
       name: user,
       type: "video-answer",
       answer
-    }));
+    });
   }
   __name(handleChatOffer, "handleChatOffer");
 }
@@ -7280,6 +7207,5 @@ __name(handleNewICECandidateMessage, "handleNewICECandidateMessage");
 
 export {
   sendChannel,
-  run,
-  join
+  run
 };
