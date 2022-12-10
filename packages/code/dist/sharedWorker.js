@@ -28,7 +28,7 @@
       resolve(ws);
     });
   }), "reconnect");
-  var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
+  var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, users, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
     if (codeSpace && name && hashCode) {
       if (!mod[codeSpace] || mod[codeSpace].readyState !== 1)
         await reconnect(codeSpace, name, hashCode);
