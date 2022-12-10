@@ -13,6 +13,7 @@ type Data = {
   type?: "new-ice-candidate" | "video-offer" | "video-answer";
   patch?: Delta[];
   address?: string;
+  users?: string[];
   hashCode?: string;
   candidate?: string;
   answer?: string;
@@ -23,58 +24,57 @@ type Data = {
 
 // Create a broadcast channel to notify about state changes
 
+const reconnect = (codeSpace: string, name: string, hashCode: string) =>
+  new Promise(async (resolve) => {
+    if (isPromise(mod[codeSpace])) {
+      return resolve(await mod[codeSpace]);
+    }
+    if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
+
+    const ws = new WebSocket(
+      `wss://${location.host}/live/` + codeSpace + "/websocket",
+    );
+
+    ws.addEventListener("open", () => {
+      ws.send(JSON.stringify({ name, hashCode }));
+
+      ws.addEventListener(
+        "message",
+        (ev) => {
+          const mess = { codeSpace, ...(JSON.parse(ev.data)) };
+          console.log({ mess });
+          bc.postMessage(mess);
+        },
+      );
+      mod[codeSpace] = ws;
+      resolve(ws);
+    });
+  });
+
 const onMessage = async (
   { name, codeSpace, target, type, patch, address, hashCode, newHash, oldHash, candidate, offer, answer }: Data,
 ) => {
   if (codeSpace && name && hashCode) {
-    const reconnect = (codeSpace: string, name: string, hashCode: string) =>
-      new Promise(async (resolve) => {
-        if (isPromise(mod[codeSpace])) {
-          return resolve(await mod[codeSpace]);
-        }
-        if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
-
-        const ws = new WebSocket(
-          `wss://${location.host}/live/` + codeSpace + "/websocket",
-        );
-
-        ws.addEventListener("open", () => {
-          ws.send(JSON.stringify({ name, hashCode }));
-
-          ws.addEventListener(
-            "message",
-            (ev) => {
-              const mess = { codeSpace, ...(JSON.parse(ev.data)) };
-              console.log({ mess });
-              bc.postMessage(mess);
-            },
-          );
-          mod[codeSpace] = ws;
-          resolve(ws);
-        });
-      });
-
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) await reconnect(codeSpace, name, hashCode);
 
-    await reconnect(codeSpace, name, hashCode);
+    const obj: { [k: string]: unknown } = {
+      name,
+      target,
+      type,
+      patch,
+      address,
+      users,
+      hashCode,
+      newHash,
+      oldHash,
+      candidate,
+      offer,
+      answer,
+    };
+
+    Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
+    mod[codeSpace].send(JSON.stringify(obj));
   }
-
-  const obj: { [k: string]: unknown } = {
-    name,
-    target,
-    type,
-    patch,
-    address,
-    hashCode,
-    newHash,
-    oldHash,
-    candidate,
-    offer,
-    answer,
-  };
-
-  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
-  mod[codeSpace].send(JSON.stringify(obj));
 };
 
 const idToPortMap: { [name: string]: MessagePort } = {};
