@@ -213,7 +213,6 @@ export const run = async (startState: {
   const { mST: mst, dry, address } = startState;
   // codeSpace = startState.codeSpace;
 
-  globalThis.sharedWorker.port.start();
   globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {

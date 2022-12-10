@@ -58,7 +58,7 @@
     import load from "./load.mjs?ASSET_HASH";
 
     globalThis.sharedWorker = new SharedWorker("/sharedWorker.js?ASSET_HASH");
-
+    globalThis.sharedWorker.port.start();
     const paths = location.pathname.split("/");
     const codeSpace = paths[2];
 
