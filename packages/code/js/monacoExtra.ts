@@ -117,19 +117,17 @@ export function extraStuff(
             }
 
             retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
-              resp.headers.has("location")
+              resp.status === 307
                 ? fetch(resp.headers.get("location")!)
                 : resp
             ).then((x) => {
-              retMod.url = (x.headers.has("x-dts") ? x.headers.get("x-dts") : x.headers.get("x-typescript-types"))
-                || "";
-
-              retMod.url.length
-                && fetch(retMod.url, { redirect: "follow" }).then((resp) =>
-                  resp.status === 307 || resp.redirected
-                    ? fetch(retMod.url = resp.url)
-                    : resp
-                ).then((resp) => resp.text());
+              retMod.url = x.headers.get("x-dts")!;
+              console.log(retMod.url);
+              return fetch(retMod.url).then((resp) =>
+                resp.status === 307 || resp.redirected
+                  ? fetch(retMod.url = resp.url)
+                  : resp
+              ).then((resp) => resp.text());
             }).catch(() => "")) || "";
 
             return retMod;
