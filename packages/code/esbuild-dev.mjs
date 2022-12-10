@@ -165,7 +165,7 @@ const build = (
   await rm("js/monaco-workers", { recursive: true, force: true });
   await cp("./index.html", "./dist/index.html");
   await cp("./tsconfig.json", "./dist/tsconfig.json");
-  await cp("./dist/favicons/favicon.ico", "./dist/favicon.ico");
+  await cp("./dist/favicons/favicon.ico", "./distπw/favicon.ico");
 
   await cp("./js/via", "./dist", { recursive: true, force: true });
   await cp(
