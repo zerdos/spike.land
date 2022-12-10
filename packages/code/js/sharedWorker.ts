@@ -22,11 +22,12 @@ type Data = {
   oldHash?: string;
 };
 
-mod = {};
-counters = {};
-idToPortMap = {};
-bc = new BroadcastChannel(location.origin);
+globalThis.mod = globalThis.mod || {};
+globalThis.counters = globalThis.counters || {};
+globalThis.idToPortMap = globalThis.idToPortMap || {};
+globalThis.bc = globalThis.bc || new BroadcastChannel(location.origin);
 
+const { mod, counters, idToPortMap, bc } = globalThis;
 async function onMessage(
   { name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }:
     Data,
