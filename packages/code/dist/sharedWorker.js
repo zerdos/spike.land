@@ -9,6 +9,7 @@
   globalThis.idToPortMap = globalThis.idToPortMap || {};
   globalThis.bc = globalThis.bc || new BroadcastChannel(location.origin);
   var { mod, counters, idToPortMap, bc } = globalThis;
+  bc.onmessage = ({ data }) => onMessage(data);
   async function onMessage({ name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }) {
     if (!counters[codeSpace])
       counters[codeSpace] = i;
@@ -40,7 +41,6 @@
   __name(onMessage, "onMessage");
   self.onconnect = ({ ports }) => {
     console.log("connected");
-    bc.onmessage = ({ data }) => onMessage(data);
     ports[0].onmessage = ({ data }) => {
       idToPortMap[data.name] = ports[0];
       onMessage(data);
