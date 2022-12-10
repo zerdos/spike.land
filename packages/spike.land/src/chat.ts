@@ -116,6 +116,10 @@ const api: ExportedHandler<CodeEnv> = {
 
           request = new Request(esmUrl, { ...request });
           response = await fetch(request);
+          if (response.headers.has("location")) {
+            request = new Request(response.headers.get("location")!, request);
+            response = await fetch(request);
+          }
           if (!response.ok) {
             return response;
           }
