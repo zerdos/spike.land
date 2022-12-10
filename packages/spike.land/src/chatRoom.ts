@@ -13,7 +13,7 @@ import type { Delta } from "@spike.land/code/js/session";
 import AVLTree from "avl";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
-// import { ASSET_HASH, files } from "./staticContent.mjs";
+import { ASSET_HASH } from "./staticContent.mjs";
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -443,7 +443,7 @@ export class Code {
             .replace(
               `<div id="root"></div>`,
               `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-            );
+            ).split("ASSET_HASH").join(ASSET_HASH);
 
           // const Etag = request.headers.get("Etag");
           // const newEtag = await sha256(respText);
@@ -577,13 +577,15 @@ export class Code {
 
     let data: {
       name?: string;
-      timestamp?: number;
       codeSpace?: string;
       target?: string;
       type?: "new-ice-candidate" | "video-offer" | "video-answer";
       patch?: Delta[];
       address?: string;
       hashCode?: string;
+      candidate?: string;
+      answer?: string;
+      offer?: string;
       newHash?: string;
       oldHash?: string;
     };
@@ -644,25 +646,7 @@ export class Code {
     }
 
     if (data.codeSpace && data.address && !this.address) {
-      try {
-        this.broadcast(data);
-      } catch {
-        return respondWith({
-          "msg": "broadcast issue",
-        });
-      }
-
-      this.address = data.address;
-      await this.kv.put("address", data.address);
-
-      return;
-    }
-
-    if (data.timestamp && !data.patch) {
-      return respondWith({
-        timestamp: Date.now(),
-        hashCode: hashCode(),
-      });
+      return this.broadcast(data);
     }
 
     try {

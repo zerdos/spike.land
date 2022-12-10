@@ -210,6 +210,7 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "js/sw.ts",
+      "js/sharedWorker.ts",
     ],
     bundle: true,
     define,
