@@ -59,5 +59,6 @@
       idToPortMap[data.name] = port;
       onMessage(ev);
     });
+    onMessage(e.data);
   });
 })();

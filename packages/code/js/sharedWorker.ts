@@ -89,4 +89,5 @@ self.addEventListener("connect", (e) => {
 
     onMessage(ev);
   });
+  onMessage(e.data);
 });
