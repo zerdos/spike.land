@@ -7,7 +7,6 @@ declare const self: SharedWorkerGlobalScope;
 const mod: { [codeSpace: string]: WebSocket } = {};
 
 // Create a broadcast channel to notify about state changes
-const bc = new BroadcastChannel(location.origin);
 
 const onMessage = async (event: MessageEvent) => {
   if (event.data.codeSpace && event.data.name && event.data.hashCode) {
@@ -71,12 +70,17 @@ type Data = {
   newHash?: string;
   oldHash?: string;
 };
-bc.onmessage = (event) => onMessage(event);
 
 const idToPortMap: { [name: string]: MessagePort } = {};
 
+let bc: BroadcastChannel;
 self.addEventListener("connect", (e) => {
+  if (!bc) {
+    bc = new BroadcastChannel(location.origin);
+    bc.addEventListener("message", (ev) => onMessage(ev));
+  }
   const port = e.ports[0];
+  port.addEventListener("message", (ev) => onMessage(ev));
   port.onmessage = (e) => {
     const data: Data = e.data;
     // Collect port information in the map

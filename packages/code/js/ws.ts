@@ -199,10 +199,10 @@ globalThis.broadcast = (msg: string) => {
 // p2pcf.send(peer, new ArrayBuffer(...))
 
 const sharedWorker = new SharedWorker(`${location.origin}/sharedWorker.js`);
-// sharedWorker.port.postMessage("yo");
+
 const ws = {
   send: (message: object) => {
-    bc.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
+    sharedWorker.port.postMessage({ codeSpace, name: user, hashCode: hashCode(), ...message, sess: mST() });
   },
 };
 
