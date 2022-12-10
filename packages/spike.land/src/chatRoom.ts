@@ -10,10 +10,13 @@ import importMap from "@spike.land/code/js/importmap.json";
 import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
+import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
+
+const mutex = new Mutex();
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -583,6 +586,7 @@ export class Code {
       patch?: Delta[];
       address?: string;
       hashCode?: string;
+      i: number;
       candidate?: string;
       answer?: string;
       offer?: string;
@@ -645,82 +649,86 @@ export class Code {
       });
     }
 
-    if (data.codeSpace && data.address && !this.address) {
-      return this.broadcast(data);
-    }
-
-    try {
-      // if (
-      //   !data.type && limiter.checkLimit()
-      // ) {
-      //   return respondWith({
-      //     error: "Your IP is being rate-limited, please try again later.",
-      //   });
-      // }
+    if (data.i <= mST().i) return;
+    mutex.runExclusive(async () => {
+      if (data.i <= mST().i) return;
+      if (data.codeSpace && data.address && !this.address) {
+        return this.broadcast(data);
+      }
 
       try {
-        if (
-          data.target
-          && data.type
-          && ["new-ice-candidate", "video-offer", "video-answer"].includes(
-            data.type,
-          )
-        ) {
-          return this.user2user(data.target, { ...data, name });
-        }
+        // if (
+        //   !data.type && limiter.checkLimit()
+        // ) {
+        //   return respondWith({
+        //     error: "Your IP is being rate-limited, please try again later.",
+        //   });
+        // }
 
-        if (data.patch && data.oldHash && data.newHash) {
-          const patch = data.patch;
-          const newHash = data.newHash;
-          const oldHash = data.oldHash;
-
-          if (oldHash !== hashCode()) {
-            return respondWith({ hashCode: hashCode() });
+        try {
+          if (
+            data.target
+            && data.type
+            && ["new-ice-candidate", "video-offer", "video-answer"].includes(
+              data.type,
+            )
+          ) {
+            return this.user2user(data.target, { ...data, name });
           }
 
-          try {
-            applyPatch({ newHash, oldHash, patch });
-          } catch (err) {
-            console.error({ err });
-            return respondWith({ err });
-          }
+          if (data.patch && data.oldHash && data.newHash) {
+            const patch = data.patch;
+            const newHash = data.newHash;
+            const oldHash = data.oldHash;
 
-          if (newHash === hashCode()) {
-            try {
-              this.broadcast(data);
-            } catch {
-              return respondWith({
-                "msg": "broadcast issue",
-              });
+            if (oldHash !== hashCode()) {
+              return respondWith({ hashCode: hashCode() });
             }
 
-            await this.kv.put<ICodeSession>("session", { ...mST() });
-            await this.kv.put(
-              String(newHash),
-              JSON.stringify({
-                oldHash,
-                patch,
-              }),
-            );
+            try {
+              applyPatch({ newHash, oldHash, patch });
+            } catch (err) {
+              console.error({ err });
+              return respondWith({ err });
+            }
+
+            if (newHash === hashCode()) {
+              try {
+                this.broadcast(data);
+              } catch {
+                return respondWith({
+                  "msg": "broadcast issue",
+                });
+              }
+
+              await this.kv.put<ICodeSession>("session", { ...mST() });
+              await this.kv.put(
+                String(newHash),
+                JSON.stringify({
+                  oldHash,
+                  patch,
+                }),
+              );
+            }
+            return respondWith({
+              hashCode: hashCode(),
+            });
           }
+        } catch (exp) {
+          console.error({ exp });
           return respondWith({
-            hashCode: hashCode(),
+            error: "unknown error - e1",
+            exp: exp || {},
           });
         }
       } catch (exp) {
         console.error({ exp });
         return respondWith({
-          error: "unknown error - e1",
+          error: "unknown error - e2",
           exp: exp || {},
         });
       }
-    } catch (exp) {
-      console.error({ exp });
-      return respondWith({
-        error: "unknown error - e2",
-        exp: exp || {},
-      });
-    }
+    });
   }
 
   user2user(to: string, msg: unknown | string) {
