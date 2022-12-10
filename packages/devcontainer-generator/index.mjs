@@ -4,11 +4,11 @@ import { readFile } from "fs/promises";
 // versions.json
 var node = {
   lts: "18.12.1",
-  current: "19.0.1 ",
+  current: "19.2.0",
 };
 var deno = "1.27.2";
 var git = "2.38.1";
-var cypress = "11.0.1";
+var cypress = "12.0.2";
 var yarn = "1.22.19";
 var dotnet3 = "3.1.417";
 var dotnet5 = "5.0.406";
