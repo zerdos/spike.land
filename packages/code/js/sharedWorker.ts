@@ -2,10 +2,9 @@ import type { Delta } from "textDiff";
 
 export type {};
 
-declare const self: SharedWorkerGlobalScope;
-
-const mod: { [codeSpace: string]: WebSocket } = {};
-
+type Mod = { [codeSpace: string]: WebSocket };
+type Counters = { [codeSpace: string]: number };
+type PortMap = { [name: string]: MessagePort };
 type Data = {
   name: string;
   codeSpace: string;
@@ -23,35 +22,19 @@ type Data = {
   oldHash?: string;
 };
 
-// Create a broadcast channel to notify about state changes
-const counters: { [codeSpace: string]: number } = {};
+declare const self: SharedWorkerGlobalScope & {
+  mod: Mod;
+  counters: Counters;
+  idToPortMap: PortMap;
+  bc: BroadcastChannel;
+};
 
-const reconnect = (codeSpace: string, name: string, hashCode: string) =>
-  new Promise(async (resolve) => {
-    if (isPromise(mod[codeSpace])) {
-      return resolve(await mod[codeSpace]);
-    }
-    if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
+self.mod = self.mod || {};
+self.counters = self.counters || {};
+self.idToPortMap = self.idToPortMap || {};
+self.bc = self.bc || new BroadcastChannel(location.origin);
 
-    const ws = new WebSocket(
-      `wss://${location.host}/live/` + codeSpace + "/websocket",
-    );
-
-    ws.addEventListener("open", () => {
-      ws.send(JSON.stringify({ name, hashCode: hashCode }));
-
-      ws.addEventListener(
-        "message",
-        (ev) => {
-          const mess = { codeSpace, ...(JSON.parse(ev.data)) };
-          console.log({ mess });
-          bc.postMessage(mess);
-        },
-      );
-      mod[codeSpace] = ws;
-      resolve(ws);
-    });
-  });
+const { counters, mod, idToPortMap, bc } = self;
 
 const onMessage = async (
   { name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }:
@@ -85,18 +68,12 @@ const onMessage = async (
   }
 };
 
-const idToPortMap: { [name: string]: MessagePort } = {};
-
-let bc: BroadcastChannel;
-self.addEventListener("connect", (e) => {
+self.addEventListener("connect", ({ ports }) => {
   console.log("connected");
-  if (!bc) {
-    bc = new BroadcastChannel(location.origin);
-    bc.addEventListener("message", (ev) => onMessage(ev.data));
-  }
-  const port = e.ports[0];
-  port.onmessage = ({ data }: { data: Data }) => {
-    idToPortMap[data.name] = port;
+  bc.onmessage = ({ data }) => onMessage(data);
+
+  ports[0].onmessage = ({ data }: { data: Data }) => {
+    idToPortMap[data.name] = ports[0];
     onMessage(data);
   };
 });
@@ -107,4 +84,32 @@ function isPromise(p: unknown | Promise<unknown>) {
   }
 
   return false;
+}
+
+function reconnect(codeSpace: string, name: string, hashCode: string) {
+  return new Promise(async (resolve) => {
+    if (isPromise(mod[codeSpace])) {
+      return resolve(await mod[codeSpace]);
+    }
+    if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
+
+    const ws = new WebSocket(
+      `wss://${location.host}/live/` + codeSpace + "/websocket",
+    );
+
+    ws.addEventListener("open", () => {
+      ws.send(JSON.stringify({ name, hashCode: hashCode }));
+
+      ws.addEventListener(
+        "message",
+        (ev) => {
+          const mess = { codeSpace, ...(JSON.parse(ev.data)) };
+          console.log({ mess });
+          bc.postMessage(mess);
+        },
+      );
+      mod[codeSpace] = ws;
+      resolve(ws);
+    });
+  });
 }
