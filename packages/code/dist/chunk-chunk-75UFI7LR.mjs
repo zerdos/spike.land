@@ -6223,7 +6223,8 @@ var LQR = (0, import_react.lazy)(() => import("./chunk-Qr-QJQVIHYE.mjs"));
 var QRButton = /* @__PURE__ */ __name(({ url }) => /* @__PURE__ */ jsx(import_react.Suspense, { fallback: /* @__PURE__ */ jsx("div", { children: "qr" }), children: /* @__PURE__ */ jsx(LQR, { url }) }), "QRButton");
 
 // js/DraggableWindow.tsx
-var breakPoints = [640, 1024, 1366];
+var breakPoints = [750, 1024, 1920];
+var breakPointHeights = [1335, 1366, 1080];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = /* @__PURE__ */ __name(({
   room
@@ -6237,11 +6238,15 @@ var DraggableWindow = /* @__PURE__ */ __name(({
   const [{ bottom, right }, setPositions] = (0, import_react3.useState)(startPositions);
   const [width, setWidthB] = (0, import_react3.useState)(window.innerWidth * devicePixelRatio);
   const [delay, _setDelay] = (0, import_react3.useState)(0);
+  const [height2, setHeight] = (0, import_react3.useState)(window.innerHeight * devicePixelRatio);
   const scale = scaleRange / 100;
   const setWidth = /* @__PURE__ */ __name((width2) => {
-    changeScaleRange(Math.max(100, Math.floor(100 * window.innerWidth / width2) - 20));
-    changeMaxScaleRange(Math.max(120, Math.floor(100 * window.innerWidth / width2)));
+    const breakPoint = breakPoints.findIndex((x) => x === width2);
+    const height3 = breakPointHeights[breakPoint];
+    changeScaleRange(Math.max(100, Math.floor(window.innerHeight / height3) - 10));
+    changeMaxScaleRange(Math.max(100, Math.floor(40 * window.innerHeight / height3)));
     setWidthB(width2);
+    setHeight(height3);
   }, "setWidth");
   (0, import_react3.useEffect)(() => {
     if (!iRef.current)
@@ -6379,10 +6384,11 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                 {
                   layout: "size",
                   initial: {
-                    height: window.innerHeight * scale
+                    height: window.innerHeight * scale,
+                    width: window.innerWidth * scale
                   },
                   animate: {
-                    height: 0.4 * window.innerHeight * scale,
+                    height: height2 * scale,
                     width: width * scale
                   },
                   children: [
@@ -6426,7 +6432,7 @@ var DraggableWindow = /* @__PURE__ */ __name(({
                           width,
                           opacity: `${isVisible ? 1 : 0}`,
                           backgroundColor: rgba(r, g, b, 0.7),
-                          height: window.innerHeight * 0.4,
+                          height: height2,
                           transform: `scale(${scale},${scale})`,
                           transformOrigin: "top left"
                         },

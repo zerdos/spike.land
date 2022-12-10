@@ -82,13 +82,13 @@
   </script>
 
   <script type="module">
-    setTimeout(() => navigator && navigator.serviceWorker && navigator.serviceWorker.register("/sw.js", {
-      scope: "/",
-      type: "classic",
-    }).then(current => navigator.serviceWorker.getRegistrations()
-      .then(r => r.filter(sw => sw !== current)
-        .forEach(sw => sw.unregister())))
-    )
+    import {Workbox} from '/node_modules/workbox-window@6.5.4/build/workbox-window.prod.mjs';
+
+if ('serviceWorker' in navigator) {
+  const wb = new Workbox('/sw.js');
+
+  wb.register();
+}
   </script>
 
 </body>

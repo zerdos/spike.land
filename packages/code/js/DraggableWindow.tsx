@@ -11,8 +11,8 @@ import { md5, mST } from "session";
 import { Phone, Share, Tablet, Tv } from "./icons";
 // import { wait } from "./wait";
 
-const breakPoints = [640, 1024, 1366];
-// const breakPointHeights = [1137, 1024, 1080];
+const breakPoints = [750, 1024, 1920];
+const breakPointHeights = [1335, 1366, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
@@ -43,17 +43,20 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
   const [delay, _setDelay] = useState(0);
-  // const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
   const setWidth = (width: number) => {
-    changeScaleRange(Math.max(100, Math.floor(100 * window.innerWidth / width) - 20));
-    changeMaxScaleRange(Math.max(120, Math.floor(100 * window.innerWidth / width)));
+    const breakPoint = breakPoints.findIndex(x => x === width);
+    const height = breakPointHeights[breakPoint];
+    changeScaleRange(Math.max(100, Math.floor(window.innerHeight / height) - 10));
+    changeMaxScaleRange(Math.max(100, Math.floor(40 * window.innerHeight / height)));
 
     // changeMaxScaleRange(Math.floor(100 * Math.sqrt(1 - (innerWidth / (width + 40)))));
     // changeMaxScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
     setWidthB(width);
+    setHeight(height);
   };
 
   // UseEffect(()=> {
@@ -269,9 +272,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               layout="size"
               initial={{
                 height: window.innerHeight * scale,
+                width: window.innerWidth * scale,
               }}
               animate={{
-                height: 0.4 * window.innerHeight * scale,
+                height: height * scale,
                 width: width * scale,
               }}
             >
@@ -312,9 +316,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
                 animate={{
                   width: width,
+
                   opacity: `${isVisible ? 1 : 0}`,
                   backgroundColor: rgba(r, g, b, 0.7),
-                  height: window.innerHeight * 0.4,
+                  height: height,
                   transform: `scale(${scale},${scale})`,
                   transformOrigin: "top left",
                 }}
