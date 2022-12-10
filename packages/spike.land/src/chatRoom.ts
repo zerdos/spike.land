@@ -432,6 +432,7 @@ export class Code {
         }
         case "":
         case "hydrated":
+        case "worker":
         case "dehydrated":
         case "public": {
           const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
