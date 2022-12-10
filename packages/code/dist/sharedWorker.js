@@ -4,13 +4,11 @@
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
   // js/sharedWorker.ts
-  var self = globalThis;
-  self.mod = self.mod || {};
-  self.counters = self.counters || {};
-  self.idToPortMap = self.idToPortMap || {};
-  self.bc = self.bc || new BroadcastChannel(location.origin);
-  var { counters, mod, idToPortMap, bc } = self;
-  var onMessage = /* @__PURE__ */ __name(async ({ name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }) => {
+  mod = {};
+  counters = {};
+  idToPortMap = {};
+  bc = new BroadcastChannel(location.origin);
+  async function onMessage({ name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }) {
     if (!counters[codeSpace])
       counters[codeSpace] = i;
     if (counters[codeSpace] >= i)
@@ -37,15 +35,16 @@
       Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
       mod[codeSpace].send(JSON.stringify(obj));
     }
-  }, "onMessage");
-  self.addEventListener("connect", ({ ports }) => {
+  }
+  __name(onMessage, "onMessage");
+  self.onconnect = ({ ports }) => {
     console.log("connected");
     bc.onmessage = ({ data }) => onMessage(data);
     ports[0].onmessage = ({ data }) => {
       idToPortMap[data.name] = ports[0];
       onMessage(data);
     };
-  });
+  };
   function isPromise(p) {
     if (typeof p === "object" && p !== null && typeof p.then === "function") {
       return true;
