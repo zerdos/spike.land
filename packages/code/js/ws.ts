@@ -197,10 +197,11 @@ globalThis.broadcast = (msg: string) => {
 
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
+bc = new BroadcastChannel(location.origin);
 
 const ws = {
   send: (message: object) => {
-    globalThis.sharedWorker.port.postMessage({ codeSpace, name: user, ...message, sess: mST() });
+    bc.postMessage({ codeSpace, name: user, ...message, sess: mST() });
   },
 };
 
@@ -236,7 +237,6 @@ export const run = async (startState: {
 
   // await join();
   console.log("broadcastChannel");
-  bc = new BroadcastChannel(location.origin);
   bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
