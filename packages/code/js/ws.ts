@@ -157,7 +157,7 @@ const p2pcf = new P2PCF(client_id, room_id, {
   sdpTransform: sdp => sdp,
 });
 
-p2pcf.start();
+// p2pcf.start();
 
 p2pcf.on("peerconnect", peer => {
   // New peer connected
