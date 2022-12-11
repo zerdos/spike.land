@@ -7,7 +7,7 @@ import HTML from "./index.html";
 // import * as CF from "@cloudflare/workers-types";
 
 import importMap from "@spike.land/code/js/importmap.json";
-import { ICodeSession, resetCSS } from "@spike.land/code/js/session";
+import { CodePatch, ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
@@ -674,6 +674,11 @@ export class Code {
             )
           ) {
             return this.user2user(data.target, { ...data, name });
+          }
+
+          applyPatch(data as CodePatch);
+          if (hashCode() === data.newHash) {
+            return this.broadcast(data);
           }
 
           if (data.patch && data.oldHash && data.newHash) {

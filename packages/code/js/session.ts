@@ -62,7 +62,7 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
+export type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
 type IApplyPatch = (
   prop: CodePatch,
 ) => void;
