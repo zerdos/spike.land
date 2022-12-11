@@ -7,28 +7,28 @@ import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
 import { toUmd } from "./toUmd";
 
-globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)
+// globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)
 
-const OriginalLog = globalThis.ol; // (message?: any, ...optionalParams: any[])=> void = globalThis.ol
+// const OriginalLog = globalThis.ol; // (message?: any, ...optionalParams: any[])=> void = globalThis.ol
 
-const data: { [key: string]: string } = {};
-const logs = [];
-globalThis.logs = logs;
+// const data: { [key: string]: string } = {};
+// const logs = [];
+// globalThis.logs = logs;
 
-console.log = (mess, ...args) => {
-  const sess = mST();
-  data[md5(sess.code)] = sess.code;
-  data[md5(sess.html)] = sess.html;
-  data[md5(sess.css)] = sess.css;
+// console.log = (mess, ...args) => {
+//   const sess = mST();
+//   data[md5(sess.code)] = sess.code;
+//   data[md5(sess.html)] = sess.html;
+//   data[md5(sess.css)] = sess.css;
 
-  logs.push({
-    args: [mess, ...args],
-    sess: {
-      code: md5(sess.code),
-    },
-  });
-  OriginalLog(mess, ...args);
-};
+//   logs.push({
+//     args: [mess, ...args],
+//     sess: {
+//       code: md5(sess.code),
+//     },
+//   });
+//   OriginalLog(mess, ...args);
+// };
 
 export const esmTransform = async (code: string) => {
   const transpiled = await transform(code, {
