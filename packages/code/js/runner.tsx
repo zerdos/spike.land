@@ -1,6 +1,7 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
+import { syncWS } from "ws";
 import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
 import { md5, mST, patchSync } from "./session";
@@ -138,6 +139,7 @@ export async function runner({ code, counter, codeSpace }: {
         html,
         css,
       });
+      syncWS();
     } catch (error) {
       console.error({ error });
     } finally {

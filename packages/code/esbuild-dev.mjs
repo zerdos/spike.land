@@ -224,7 +224,7 @@ const build = (
     keepNames: true,
     treeShaking: true,
     platform: "browser",
-    format: "iife",
+    format: "esm",
     outdir: "dist",
   });
 

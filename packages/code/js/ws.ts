@@ -237,7 +237,7 @@ export const run = async (startState: {
 
   // await join();
   console.log("broadcastChannel");
-  bc.postMessage({ user, type: "suggestNeighborsRequest" });
+  // bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {
       return;
@@ -275,27 +275,27 @@ export const run = async (startState: {
     }
   };
 
-  onSessionUpdate(
-    () => {
-      syncWS();
-      debouncedSyncRTC();
+  // onSessionUpdate(
+  //   () => {
+  //     syncWS();
+  //     debouncedSyncRTC();
 
-      const sess = mST();
+  //     const sess = mST();
 
-      const hash = md5(JSON.stringify(sess));
-      if (hash === _hash) return;
-      _hash = hash;
+  //     const hash = md5(JSON.stringify(sess));
+  //     if (hash === _hash) return;
+  //     _hash = hash;
 
-      bc.postMessage({
-        ignoreUser: user,
-        sess,
-        codeSpace,
+  //     // bc.postMessage({
+  //     //   ignoreUser: user,
+  //     //   sess,
+  //     //   codeSpace,
 
-        address,
-      });
-    },
-    "broadcast",
-  );
+  //     //   address,
+  //     // });
+  //   },
+  //   "broadcast",
+  // );
 
   // const { startIpfs } = await import("./startIpfs");
   // await startIpfs(codeSpace);
@@ -323,7 +323,7 @@ const debouncedSyncRTC = debounce(syncRTC, 100, {
   maxWait: 500,
 });
 
-async function syncWS() {
+export function syncWS() {
   try {
     if (ws) {
       if (wsLastHashCode === hashCode()) {
@@ -334,7 +334,7 @@ async function syncWS() {
       const sess = mST();
       // console.//log({ wsLastHashCode });
 
-      const message = await makePatchFrom(
+      const message = makePatchFrom(
         wsLastHashCode,
         sess,
       );
