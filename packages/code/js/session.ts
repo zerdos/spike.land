@@ -308,41 +308,41 @@ export class CodeSession implements ICodeSess {
     );
 
     const newRecord = this.session.get("state").merge(newRec);
-    if (newRecord.i < this.session.get("state").i) {
-      throw new Error("never going back!");
-    }
-    if (
-      newRecord.code !== this.session.get("state").code
-      && newRecord.i <= this.session.get("state").i
-    ) throw new Error("Code update without I update error");
+    // if (newRecord.i < this.session.get("state").i) {
+    //   throw new Error("never going back!");
+    // }
+    // if (
+    //   newRecord.code !== this.session.get("state").code
+    //   && newRecord.i <= this.session.get("state").i
+    // ) throw new Error("Code update without I update error");
 
-    const codeHash = md5(newRecord.code);
+    // const codeHash = md5(newRecord.code);
 
-    if (newRecord.transpiled.slice(0, 12) !== "/*" + codeHash + "*/") {
-      console.error(
-        `missing: ${codeHash}, transpiled`,
-        newRecord.transpiled.slice(0, 12),
-      );
-      throw new Error("transpiled	hack issue");
-    }
+    // if (newRecord.transpiled.slice(0, 12) !== "/*" + codeHash + "*/") {
+    //   console.error(
+    //     `missing: ${codeHash}, transpiled`,
+    //     newRecord.transpiled.slice(0, 12),
+    //   );
+    //   throw new Error("transpiled	hack issue");
+    // }
 
-    if (newRecord.code.length < 5) {
-      throw new Error("code deleted?");
-    }
+    // if (newRecord.code.length < 5) {
+    //   throw new Error("code deleted?");
+    // }
 
-    const transHash = md5(newRecord.transpiled);
-    if (newRecord.html.indexOf(transHash) === -1) {
-      console.error(`missing from html: ${transHash}
-      ${newRecord.html}
-      
-      `);
-      throw new Error(`render hack issue missing: ${transHash}.`);
-    }
+    // const transHash = md5(newRecord.transpiled);
+    // if (newRecord.html.indexOf(transHash) === -1) {
+    //   console.error(`missing from html: ${transHash}
+    //   ${newRecord.html}
 
-    if (newRecord.css.indexOf(transHash) === -1) {
-      console.error(`missing from css: ${transHash}`);
-      throw new Error(`render hack issue missing: ${transHash}.`);
-    }
+    //   `);
+    //   throw new Error(`render hack issue missing: ${transHash}.`);
+    // }
+
+    // if (newRecord.css.indexOf(transHash) === -1) {
+    //   console.error(`missing from css: ${transHash}`);
+    //   throw new Error(`render hack issue missing: ${transHash}.`);
+    // }
 
     const newHashCheck = md5(newRecord.get("transpiled"));
 
