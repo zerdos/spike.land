@@ -349,6 +349,7 @@ export class CodeSession implements ICodeSess {
     if (newHashCheck === newHash) {
       this.session = this.session.set("state", newRecord);
       //  Console.error("WRONG update");
+      hashStore[newHash] = this.session.get("state");
     } else {
       throw new Error("Wrong patch");
     }
@@ -409,6 +410,8 @@ function string_(s: ICodeSession) {
   const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
 }
+
+export const applyPatchSync: IApplyPatch = (x) => session?.applyPatch(x);
 
 export const applyPatch: IApplyPatch = (x) => {
   session?.applyPatch(x);

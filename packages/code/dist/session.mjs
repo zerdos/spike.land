@@ -1,6 +1,7 @@
 import {
   CodeSession,
   applyPatch,
+  applyPatchSync,
   hashCode,
   initSession,
   mST,
@@ -10,7 +11,7 @@ import {
   patchSync,
   resetCSS,
   startSession
-} from "./chunk-chunk-ANHQM5YG.mjs";
+} from "./chunk-chunk-SUWNWMVY.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
@@ -18,6 +19,7 @@ import "./chunk-chunk-A3E5PINE.mjs";
 export {
   CodeSession,
   applyPatch,
+  applyPatchSync,
   hashCode,
   initSession,
   mST,

@@ -8,7 +8,7 @@ import HTML from "./index.html";
 
 import importMap from "@spike.land/code/js/importmap.json";
 import { CodePatch, ICodeSession, resetCSS } from "@spike.land/code/js/session";
-import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -676,7 +676,7 @@ export class Code {
             return this.user2user(data.target, { ...data, name });
           }
 
-          applyPatch(data as CodePatch);
+          applyPatchSync(data as CodePatch);
           if (hashCode() === data.newHash) {
             return this.broadcast(data);
           }
@@ -691,7 +691,7 @@ export class Code {
             }
 
             try {
-              applyPatch({ newHash, oldHash, patch });
+              applyPatchSync({ newHash, oldHash, patch });
             } catch (err) {
               console.error({ err });
               return respondWith({ err });
