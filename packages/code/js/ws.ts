@@ -200,8 +200,14 @@ globalThis.broadcast = (msg: string) => {
 bc = new BroadcastChannel(location.origin);
 
 const ws = {
+  sharedWorker: new SharedWorker("/sharedWorker.js?ASSET_HASH"),
+  started: false,
   send: (message: object) => {
-    bc.postMessage({ codeSpace, name: user, ...message, sess: mST() });
+    if (!ws.started) {
+      ws.sharedWorker.port.start();
+      ws.started = true;
+    }
+    ws.sharedWorker.port.postMessage({ codeSpace, name: user, ...message, sess: mST() });
   },
 };
 
@@ -214,7 +220,7 @@ export const run = async (startState: {
   const { mST: mst, dry, address } = startState;
   // codeSpace = startState.codeSpace;
   wsLastHashCode = md5(mst.transpiled);
-  globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
+  // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {
     name: user,

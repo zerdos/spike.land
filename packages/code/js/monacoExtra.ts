@@ -157,7 +157,6 @@ export function extraStuff(
         lib.content,
         lib.filePath,
       );
-      // bc.postMessage({ ...lib, type: "set-mock" });
     });
 
     typescript.typescriptDefaults
