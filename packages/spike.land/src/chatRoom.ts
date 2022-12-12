@@ -7,7 +7,7 @@ import HTML from "./index.html";
 // import * as CF from "@cloudflare/workers-types";
 
 import importMap from "@spike.land/code/js/importmap.json";
-import { CodePatch, ICodeSession, resetCSS } from "@spike.land/code/js/session";
+import { CodePatch, CodeSession, ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
@@ -29,9 +29,10 @@ export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
   codeSpace: string;
+  mutex: Mutex;
   sess: ICodeSession | null;
   sessionStarted: boolean;
-  session: CodeSession;
+  session: CodeSession | null = null;
   user = md5(self.crypto.randomUUID());
   address: string;
   users = new AVLTree(
@@ -40,7 +41,6 @@ export class Code {
   );
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
-  mutex = new Mutex();
   i = 0;
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
@@ -52,6 +52,7 @@ export class Code {
     this.env = env;
     this.codeSpace = "";
     this.address = "";
+    this.mutex = new Mutex();
 
     this.state.blockConcurrencyWhile(async () => {
       // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
@@ -678,9 +679,15 @@ export class Code {
             return this.user2user(data.target, { ...data, name });
           }
           if (data.i <= mST().i) return;
-          const newHash = this.session.applyPatch(data);
+
+          const newHash = this.session!.applyPatch({
+            newHash: data.newHash!,
+            oldHash: data.oldHash!,
+            patch: data.patch!,
+          });
           if (newHash === data.newHash) {
-            await this.kv.put<ICodeSession>("session", { ...this.session.session.get("state").toJSON() });
+            this.broadcast(data);
+            await this.kv.put<ICodeSession>("session", { ...this.session!.session.get("state").toJSON() });
             await this.kv.put(
               String(newHash),
               JSON.stringify({
@@ -688,7 +695,7 @@ export class Code {
                 patch: data,
               }),
             );
-            return this.broadcast(data);
+            return;
           }
           if (data.patch && data.oldHash && data.newHash) {
             const patch = data.patch;
