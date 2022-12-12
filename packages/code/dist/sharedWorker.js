@@ -769,6 +769,8 @@ async function onMessage({
 }) {
   if (sess && newHash)
     hashStore[newHash] = sess;
+  if (sess && hashCode)
+    hashStore[hashCode] = sess;
   if (!counters[codeSpace])
     counters[codeSpace] = i;
   if (counters[codeSpace] >= i)
