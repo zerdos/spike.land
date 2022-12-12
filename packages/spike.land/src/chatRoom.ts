@@ -31,6 +31,7 @@ export class Code {
   codeSpace: string;
   sess: ICodeSession | null;
   sessionStarted: boolean;
+  session: CodeSession;
   user = md5(self.crypto.randomUUID());
   address: string;
   users = new AVLTree(
@@ -85,8 +86,8 @@ export class Code {
 
     this.codeSpace = url.searchParams.get("room") || "code-main";
 
-    if (!this.sessionStarted) {
-      startSession(
+    if (!this.session) {
+      this.session = startSession(
         this.codeSpace,
         { state, name: this.codeSpace },
         url.origin,
@@ -661,7 +662,7 @@ export class Code {
         // if (
         //   !data.type && limiter.checkLimit()
         // ) {
-        //   return respondWith({
+        //   return respondWith({ if ( if (data.i <= mST().i) return;data.i <= mST().i) return;
         //     error: "Your IP is being rate-limited, please try again later.",
         //   });
         // }
@@ -676,6 +677,7 @@ export class Code {
           ) {
             return this.user2user(data.target, { ...data, name });
           }
+          if (data.i <= mST().i) return;
 
           const newHash = applyPatchSync(data as CodePatch);
           if (newHash === data.newHash) {
