@@ -371,7 +371,7 @@ export function syncWS(sess: ICodeSession) {
         return;
       }
 
-      if (message.newHash !== hashCode()) {
+      if (message.newHash !== md5(sess.transpiled)) {
         // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
