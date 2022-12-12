@@ -24,6 +24,7 @@ async function onMessage({ name, codeSpace, target, type, patch, users, i, addre
       type,
       patch,
       address,
+      i,
       users,
       hashCode,
       newHash,

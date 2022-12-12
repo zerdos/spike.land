@@ -54,6 +54,7 @@ async function onMessage(
       type,
       patch,
       address,
+      i,
       users,
       hashCode,
       newHash,
