@@ -5,13 +5,12 @@ export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
   counters: Counters;
-  idToPortMap: PortMap;
+  connections: MessagePort[];
   bc: BroadcastChannel;
 };
 
 type Mod = { [codeSpace: string]: WebSocket };
 type Counters = { [codeSpace: string]: number };
-type PortMap = { [name: string]: MessagePort };
 type Data = {
   name: string;
   codeSpace: string;
@@ -32,10 +31,9 @@ type Data = {
 
 self.mod = self.mod || {};
 self.counters = self.counters || {};
-self.idToPortMap = self.idToPortMap || {};
-self.bc = self.bc || new BroadcastChannel(location.origin);
+self.connections = self.connections || [];
 
-const { mod, counters, idToPortMap, bc } = self;
+const { mod, counters } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(
@@ -88,9 +86,8 @@ async function onMessage(
 }
 
 self.onconnect = ({ ports }) => {
-  console.log("connected");
-
   ports[0].onmessage = ({ data }: { data: Data }) => onMessage(data);
+  self.connections.push(ports[0]);
 };
 
 function isPromise(p: unknown | Promise<unknown>) {
@@ -125,7 +122,7 @@ function reconnect(codeSpace: string, name: string, hashCode: string) {
           }
 
           console.log({ mess });
-          bc.postMessage(mess);
+          self.connections.map(conn => conn.postMessage(mess));
         },
       );
       mod[codeSpace] = ws;

@@ -748,9 +748,8 @@ var import_fast_diff = __toESM(require_diff(), 1);
 var hashStore = {};
 self.mod = self.mod || {};
 self.counters = self.counters || {};
-self.idToPortMap = self.idToPortMap || {};
-self.bc = self.bc || new BroadcastChannel(location.origin);
-var { mod, counters, idToPortMap, bc } = self;
+self.connections = self.connections || [];
+var { mod, counters } = self;
 async function onMessage({
   name,
   codeSpace,
@@ -800,8 +799,8 @@ async function onMessage({
 }
 __name(onMessage, "onMessage");
 self.onconnect = ({ ports }) => {
-  console.log("connected");
   ports[0].onmessage = ({ data }) => onMessage(data);
+  self.connections.push(ports[0]);
 };
 function isPromise(p) {
   if (typeof p === "object" && p !== null && typeof p.then === "function") {
@@ -831,7 +830,7 @@ function reconnect(codeSpace, name, hashCode) {
             Object.assign(mess, { sess: hashStore[hash] });
           }
           console.log({ mess });
-          bc.postMessage(mess);
+          self.connections.map((conn) => conn.postMessage(mess));
         }
       );
       mod[codeSpace] = ws;
