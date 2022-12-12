@@ -16,7 +16,6 @@ import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
 
-const mutex = new Mutex();
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -40,6 +39,7 @@ export class Code {
   );
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
+  mutex = new Mutex();
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -650,7 +650,7 @@ export class Code {
     }
 
     if (data.i <= mST().i) return;
-    mutex.runExclusive(async () => {
+    await this.mutex.runExclusive(async () => {
       if (data.i <= mST().i) return;
       if (data.codeSpace && data.address && !this.address) {
         return this.broadcast(data);
@@ -676,11 +676,18 @@ export class Code {
             return this.user2user(data.target, { ...data, name });
           }
 
-          applyPatchSync(data as CodePatch);
-          if (hashCode() === data.newHash) {
-            return this.broadcast(data);
+          const newHash = applyPatchSync(data as CodePatch);
+          if (newHash === data.newHash) {
+            await this.kv.put<ICodeSession>("session", { ...mST() });
+            await this.kv.put(
+              String(newHash),
+              JSON.stringify({
+                oldHash: data,
+                patch: data,
+              }),
+            );
+            returnthis.broadcast(data);
           }
-
           if (data.patch && data.oldHash && data.newHash) {
             const patch = data.patch;
             const newHash = data.newHash;
