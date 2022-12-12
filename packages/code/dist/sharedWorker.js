@@ -751,7 +751,6 @@ self.counters = self.counters || {};
 self.idToPortMap = self.idToPortMap || {};
 self.bc = self.bc || new BroadcastChannel(location.origin);
 var { mod, counters, idToPortMap, bc } = self;
-bc.onmessage = ({ data }) => onMessage(data);
 async function onMessage({
   name,
   codeSpace,
@@ -802,10 +801,7 @@ async function onMessage({
 __name(onMessage, "onMessage");
 self.onconnect = ({ ports }) => {
   console.log("connected");
-  ports[0].onmessage = ({ data }) => {
-    idToPortMap[data.name] = ports[0];
-    onMessage(data);
-  };
+  ports[0].onmessage = ({ data }) => onMessage(data);
 };
 function isPromise(p) {
   if (typeof p === "object" && p !== null && typeof p.then === "function") {
