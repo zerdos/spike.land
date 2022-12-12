@@ -1,5 +1,6 @@
+import { CodeSession } from "session";
 import type { Delta } from "textDiff";
-
+const hashStore: { [hash: string]: CodeSession } = {};
 export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
@@ -22,6 +23,7 @@ type Data = {
   i: number;
   hashCode?: string;
   candidate?: string;
+  sess: CodeSession;
   answer?: string;
   offer?: string;
   newHash: string;
@@ -37,9 +39,25 @@ const { mod, counters, idToPortMap, bc } = self;
 bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(
-  { name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }:
-    Data,
+  {
+    name,
+    codeSpace,
+    target,
+    type,
+    patch,
+    users,
+    i,
+    address,
+    hashCode,
+    newHash,
+    oldHash,
+    candidate,
+    offer,
+    answer,
+    sess,
+  }: Data,
 ) {
+  if (sess && newHash) hashStore[newHash] = sess;
   if (!counters[codeSpace]) counters[codeSpace] = i;
   if (counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
@@ -104,6 +122,11 @@ function reconnect(codeSpace: string, name: string, hashCode: string) {
         "message",
         (ev) => {
           const mess = { codeSpace, ...(JSON.parse(ev.data)) };
+          const hash = mess.newHash || mess.hashCode;
+          if (hash && hashStore[hash]) {
+            Object.assign(mess, { sess: hashStore[hash] });
+          }
+
           console.log({ mess });
           bc.postMessage(mess);
         },
