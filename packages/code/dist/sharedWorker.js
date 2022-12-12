@@ -819,12 +819,12 @@ function reconnect(codeSpace, name, hashCode) {
     }
     if (mod[codeSpace] && mod[codeSpace].readyState !== 1)
       delete mod[codeSpace];
-    const ws = new WebSocket(
+    mod[codeSpace] = new WebSocket(
       `wss://${location.host}/live/` + codeSpace + "/websocket"
     );
-    ws.addEventListener("open", () => {
-      ws.send(JSON.stringify({ name, hashCode }));
-      ws.addEventListener(
+    mod[codeSpace].addEventListener("open", () => {
+      mod[codeSpace].send(JSON.stringify({ name, hashCode }));
+      mod[codeSpace].addEventListener(
         "message",
         (ev) => {
           const mess = { codeSpace, ...JSON.parse(ev.data) };
@@ -836,8 +836,7 @@ function reconnect(codeSpace, name, hashCode) {
           self.connections.map((conn) => conn.postMessage(mess));
         }
       );
-      mod[codeSpace] = ws;
-      resolve(ws);
+      resolve(mod[codeSpace]);
     });
   });
 }
