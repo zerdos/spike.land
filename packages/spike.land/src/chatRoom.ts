@@ -686,7 +686,7 @@ export class Code {
                 patch: data,
               }),
             );
-            returnthis.broadcast(data);
+            return this.broadcast(data);
           }
           if (data.patch && data.oldHash && data.newHash) {
             const patch = data.patch;

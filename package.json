@@ -38,7 +38,7 @@
     "@types/xo": "^0.39.5",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
-    "@yarnpkg/sdks": "3.0.0-rc.32",
+    "@yarnpkg/sdks": "3.0.0-rc.33",
     "cypress": "12.0.2",
     "dprint": "^0.33.0",
     "esbuild": "^0.16.4",
@@ -48,7 +48,7 @@
     "typescript": "4.9.4",
     "xo": "^0.53.1"
   },
-  "packageManager": "yarn@4.0.0-rc.32",
+  "packageManager": "yarn@4.0.0-rc.33",
   "dependencies": {
     "react": "^18.2.0"
   }
