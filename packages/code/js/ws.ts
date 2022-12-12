@@ -349,7 +349,9 @@ const debouncedSyncRTC = debounce(syncRTC, 100, {
 
 export function syncWS(sess: ICodeSession) {
   try {
+    console.log("alive1");
     if (ws) {
+      console.log("alive2");
       if (wsLastHashCode === hashCode()) {
         console.log("WS is up to date with us.");
         return;
@@ -357,11 +359,12 @@ export function syncWS(sess: ICodeSession) {
 
       // const sess = mST();
       // console.//log({ wsLastHashCode });
-
+      console.log("alive3");
       const message = makePatchFrom(
         wsLastHashCode,
         sess,
       );
+      console.log("alive4");
 
       if (!message) {
         return;
@@ -371,10 +374,12 @@ export function syncWS(sess: ICodeSession) {
         // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
+      console.log("alive5");
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
       ws.send({ ...message, name: user, i: sess.i, sess });
+      console.log("alive6");
     }
   } catch (error) {
     // console.error("error 2", { e: error });
