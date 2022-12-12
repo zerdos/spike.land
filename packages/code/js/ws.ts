@@ -200,10 +200,11 @@ globalThis.broadcast = (msg: string) => {
 bc = new BroadcastChannel(location.origin);
 
 const ws = {
-  sharedWorker: new SharedWorker("/sharedWorker.js?" + globalThis.assetHash),
+  sharedWorker: SharedWorker,
   started: false,
   send: (message: object) => {
     if (!ws.started) {
+      ws.sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
       ws.sharedWorker.port.start();
       ws.started = true;
     }
