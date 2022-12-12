@@ -213,13 +213,14 @@ setTimeout(() => {
   sharedWorker.port.start();
   messagePort = sharedWorker.port;
 
-  messagePort.postMessage({ codeSpace, name: user });
-
   messagePort.onmessage = ({ data }) => {
     console.log("ONMESSAGE", { data });
 
     processData(data, "ws");
   };
+  setTimeout(() => {
+    messagePort.postMessage({ codeSpace, name: user });
+  });
 });
 
 const ws = {
