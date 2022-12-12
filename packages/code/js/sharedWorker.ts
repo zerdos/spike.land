@@ -90,7 +90,7 @@ async function onMessage(
 self.onconnect = ({ ports }) => {
   ports[0].onmessage = ({ data }: { data: Data }) => onMessage(data);
   self.connections.push(ports[0]);
-  console.log("onconnect", self.connections.length);
+  console.log("onconnect", self.connections.length, Object.keys(mod));
 };
 
 function isPromise(p: unknown | Promise<unknown>) {
