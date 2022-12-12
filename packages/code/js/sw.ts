@@ -2,7 +2,7 @@
 import { transform } from "./esmTransform";
 export type {};
 
-declare const self: ServiceWorker;
+declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
   // const bc = new BroadcastChannel(location.origin);
