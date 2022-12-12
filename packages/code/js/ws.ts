@@ -355,7 +355,7 @@ export function syncWS() {
       }
       console.log("SYNC!!");
       console.log({ ...message, name: user, i: sess.i });
-      ws.send({ ...message, name: user, i: sess.i });
+      ws.send({ ...message, name: user, i: sess.i, sess });
     }
   } catch (error) {
     // console.error("error 2", { e: error });
