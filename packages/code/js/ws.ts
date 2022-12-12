@@ -7,7 +7,16 @@ import AVLTree from "avl";
 import debounce from "lodash.debounce";
 import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
-import { applyPatch, hashCode, makePatch, makePatchFrom, mST, onSessionUpdate, startSession } from "./session";
+import {
+  applyPatch,
+  CodeSession,
+  hashCode,
+  makePatch,
+  makePatchFrom,
+  mST,
+  onSessionUpdate,
+  startSession,
+} from "./session";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 
@@ -205,9 +214,15 @@ const ws = {
       const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
       sharedWorker.port.start();
       messagePort = sharedWorker.port;
-      sharedWorker.port.onmessage = ({ data }) => processData(data, "ws");
+      sharedWorker.port.onmessage = ({ data }) => {
+        console.log("ONMESSAGE", { data });
+
+        processData(data, "ws");
+      };
     }
-    messagePort.postMessage({ codeSpace, name: user, ...message, sess: mST() });
+    const messageData = { codeSpace, name: user, ...message, sess: mST() };
+    console.log("POST MESSAGE", { messageData });
+    messagePort.postMessage(messageData);
   },
 };
 
@@ -329,7 +344,7 @@ const debouncedSyncRTC = debounce(syncRTC, 100, {
   maxWait: 500,
 });
 
-export function syncWS() {
+export function syncWS(sess: ICodeSession) {
   try {
     if (ws) {
       if (wsLastHashCode === hashCode()) {
@@ -337,7 +352,7 @@ export function syncWS() {
         return;
       }
 
-      const sess = mST();
+      // const sess = mST();
       // console.//log({ wsLastHashCode });
 
       const message = makePatchFrom(
@@ -353,8 +368,8 @@ export function syncWS() {
         // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
-      console.log("SYNC!!");
-      console.log({ ...message, name: user, i: sess.i });
+      // console.log("SYNC!!");
+      // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
       ws.send({ ...message, name: user, i: sess.i, sess });
     }
