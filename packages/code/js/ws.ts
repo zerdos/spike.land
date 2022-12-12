@@ -208,23 +208,29 @@ p2pcf.on("msg", (peer, data) => {
 // p2pcf.send(peer, new ArrayBuffer(...))
 // bc = new BroadcastChannel(location.origin);
 let messagePort: MessagePort;
+console.log("Yoooo0");
 setTimeout(() => {
+  console.log("Yoooo1");
   const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
   sharedWorker.port.start();
   messagePort = sharedWorker.port;
 
+  console.log("Yoooo2");
   messagePort.onmessage = ({ data }) => {
     console.log("ONMESSAGE", { data });
 
     processData(data, "ws");
   };
   setTimeout(() => {
+    console.log("Yoooo3");
     messagePort.postMessage({ codeSpace, name: user });
+    console.log("Yoooo4");
   });
 });
 
 const ws = {
   send: (message: object) => {
+    console.log("Yoooo7");
     const messageData = { codeSpace, name: user, ...message, sess: mST() };
     console.log("POST MESSAGE", { messageData });
     messagePort.postMessage(messageData);
