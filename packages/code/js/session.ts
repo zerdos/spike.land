@@ -396,16 +396,16 @@ export function mST(p?: Delta[]) {
   return { i, transpiled, code, html, css };
 }
 
-function addOrigin(s: ICodeSession, originString: string) {
-  const { i, transpiled, code, html, css } = s;
+// function addOrigin(s: ICodeSession, originString: string) {
+//   const { i, transpiled, code, html, css } = s;
 
-  const mst = { i, transpiled, code, html, css };
+//   const mst = { i, transpiled, code, html, css };
 
-  // mst.code = mst.code.replace("from '/live", `from './`);
-  // mst.code = mst.code.replace("from './", `from '${originString}/live/`);
+//   // mst.code = mst.code.replace("from '/live", `from './`);
+//   // mst.code = mst.code.replace("from './", `from '${originString}/live/`);
 
-  return mst;
-}
+//   return mst;
+// }
 
 function string_(s: ICodeSession) {
   const { i, transpiled, code, html, css } = s;
@@ -436,12 +436,12 @@ export const makePatch = (
 export const startSession = (
   room: string,
   u: IUserJSON,
-  originString: string,
+  // originString: string,
 ): CodeSession =>
   session
   || new CodeSession(room, {
     name: u.name,
-    state: addOrigin(u.state, originString),
+    state: u.state,
   });
 
 function createPatch(oldCode: string, newCode: string) {
