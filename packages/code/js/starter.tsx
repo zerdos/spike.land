@@ -180,17 +180,17 @@ export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
   });
 }
 
-const bc = new BroadcastChannel(location.origin);
+// const bc = new BroadcastChannel(location.origin);
 
-bc.onmessage = (event) => {
-  const nameSpace = location.pathname.slice(1).split("/")[1];
+// bc.onmessage = (event) => {
+//   const nameSpace = location.pathname.slice(1).split("/")[1];
 
-  if (event.data.codeSpace === nameSpace) {
-    if (location.href.indexOf("/worker") !== -1) {
-      runInWorker(nameSpace, document.getElementById("root") as HTMLDivElement);
-    }
-  }
-};
+//   if (event.data.codeSpace === nameSpace) {
+//     if (location.href.indexOf("/worker") !== -1) {
+//       runInWorker(nameSpace, document.getElementById("root") as HTMLDivElement);
+//     }
+//   }
+// };
 // let iframe = document.createElement("iframe");
 // iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 

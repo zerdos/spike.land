@@ -198,15 +198,15 @@ p2pcf.on("msg", (peer, data) => {
 });
 
 // Broadcast a message via data channel to all peers
-globalThis.broadcast = (msg: string) => {
-  var enc = new TextEncoder("utf-8");
+// globalThis.broadcast = (msg: string) => {
+// var enc = new TextEncoder("utf-8");
 
-  p2pcf.broadcast(enc.encode(msg));
-};
+// p2pcf.broadcast(enc.encode(msg));
+// };
 
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
-bc = new BroadcastChannel(location.origin);
+// bc = new BroadcastChannel(location.origin);
 let messagePort: MessagePort;
 setTimeout(() => {
   const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
@@ -262,7 +262,7 @@ export const run = async (startState: {
   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
   // await join();
-  console.log("broadcastChannel");
+  // console.log("broadcastChannel");
   // bc.postMessage({ user, type: "suggestNeighborsRequest" });
   bc.onmessage = async (event) => {
     if (event.data.ignoreUser && event.data.ignoreUser === user) {

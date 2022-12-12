@@ -6,7 +6,7 @@ declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
   counters: Counters;
   connections: MessagePort[];
-  bc: BroadcastChannel;
+  // bc: BroadcastChannel;
 };
 
 type Mod = { [codeSpace: string]: WebSocket };
