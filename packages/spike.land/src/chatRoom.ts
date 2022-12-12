@@ -678,10 +678,9 @@ export class Code {
             return this.user2user(data.target, { ...data, name });
           }
           if (data.i <= mST().i) return;
-
-          const newHash = applyPatchSync(data as CodePatch);
+          const newHash = this.session.applyPatch(data);
           if (newHash === data.newHash) {
-            await this.kv.put<ICodeSession>("session", { ...mST() });
+            await this.kv.put<ICodeSession>("session", { ...this.session.session.get("state").toJSON() });
             await this.kv.put(
               String(newHash),
               JSON.stringify({
