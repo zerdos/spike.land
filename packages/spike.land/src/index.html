@@ -68,6 +68,7 @@
     if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
       const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
       bc.port.start()
+      bc.port.postMessage({codeSpace, name: codeSpace});
       hydrate(codeSpace);
       bc.port.onmessage = async (event) => {
         if (event.data.codeSpace === codeSpace && event.data.sess) {
