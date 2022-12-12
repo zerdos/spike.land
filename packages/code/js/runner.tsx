@@ -130,16 +130,21 @@ export async function runner({ code, counter, codeSpace }: {
       if (!html || !css) {
         return;
       }
+      console.log("still alive1");
       const sess = {
         ...mST(),
         code,
+        codeSpace,
         i: counter,
         transpiled: transpiledCode,
         html,
         css,
       };
+      console.log("still alive2");
       patchSync(sess);
+      console.log("still alive3");
       syncWS(sess);
+      console.log("still alive4");
     } catch (error) {
       console.error({ error });
     } finally {
