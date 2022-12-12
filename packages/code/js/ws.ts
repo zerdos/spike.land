@@ -454,22 +454,21 @@ async function processWsMessage(
 async function processData(
   data: any,
   source: "ws" | "rtc",
-  conn: { hashCode: string },
 ) {
-  console.log(`source; ${source}, newHash: ${data.newHash}, i: ${data.i} ---current:   ${mST().i}`);
+  console.log(`source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST().i}`);
 
   if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
-    wsLastHashCode = data.newHash;
+    wsLastHashCode = data.newHash || data.hashCode;
     return;
   }
   // MySession.addEvent(data);
 
-  if (source === "ws" && data.timestamp) {
+  if (source === "ws") {
     lastSeenNow = Date.now();
     lastSeenTimestamp = data.timestamp;
   }
-  if (data.hashCode || data.newHash && conn) {
-    conn.hashCode = data.hashCode || data.newHash;
+  if (data.hashCode || data.newHash) {
+    wsLastHashCode = data.hashCode || data.newHash;
   }
 
   if (source === "ws" && (data.hashCode || data.newHash)) {
