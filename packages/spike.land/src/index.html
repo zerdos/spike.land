@@ -66,9 +66,10 @@
 
 
     if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
-      const bc = new BroadcastChannel(location.origin);
+      const bc = new SharedWorker("/sharedWorker.js");
+      bc.port.start()
       hydrate(codeSpace);
-      bc.onmessage = async (event) => {
+      bc.port.onmessage = async (event) => {
         if (event.data.codeSpace === codeSpace && event.data.sess) {
           const { html, css, transpiled, i } = event.data.sess;
           //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
