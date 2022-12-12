@@ -803,7 +803,7 @@ __name(onMessage, "onMessage");
 self.onconnect = ({ ports }) => {
   ports[0].onmessage = ({ data }) => onMessage(data);
   self.connections.push(ports[0]);
-  console.log("onconnect", self.connections.length);
+  console.log("onconnect", self.connections.length, Object.keys(mod));
 };
 function isPromise(p) {
   if (typeof p === "object" && p !== null && typeof p.then === "function") {
