@@ -10,15 +10,6 @@ const staticContent_mjs_1 = require("./staticContent.mjs");
 const importmap_json_1 = tslib_1.__importDefault(require("@spike.land/code/js/importmap.json"));
 const session_1 = require("@spike.land/code/js/session");
 const handleErrors_1 = require("./handleErrors");
-const esbuildExternal = [
-    "monaco-editor",
-    // "react/jsx-runtime",
-    // "react/jsx-dev-runtime",
-    "@mui/material",
-    "framer-motion",
-];
-const mods = {};
-esbuildExternal.map((packageName) => mods[packageName] = `npm:/${packageName}`);
 const api = {
     fetch: async (req, env) => {
         let request = new Request(req.url, req);
@@ -60,48 +51,56 @@ const api = {
                 });
             }
             const handleFetchApi = async (path) => {
-                const newUrl = new URL(path.join("/"), url.origin).toString();
+                const newUrl = new URL(path.join("/"), url.origin);
                 request = new Request(newUrl, request);
+                if (newUrl.pathname.includes(":z:")) {
+                    const reqHeaders = new Headers(request.headers);
+                    const next = atob(newUrl.pathname.slice(4));
+                    reqHeaders.set("Referer", next);
+                    request = new Request(next, { ...request, headers: reqHeaders });
+                    let resp = await fetch(request);
+                    if (!resp.ok)
+                        return resp;
+                    const headers = new Headers(resp.headers);
+                    headers.set("Access-Control-Allow-Origin", "*");
+                    resp = new Response(resp.body, { ...resp, headers });
+                    // await cache.put(cacheKey, response.clone());
+                    return resp;
+                }
                 const cacheKey = new Request(request.url);
                 const cache = caches.default;
                 let response = await cache.match(cacheKey);
                 if (response) {
                     return response;
                 }
-                if (newUrl.includes(":z:")) {
-                    const reqHeaders = new Headers(request.headers);
-                    const newUrl = atob(url.href.slice(3));
-                    reqHeaders.set("Referer", newUrl);
-                    request = new Request(newUrl, { ...request, headers: reqHeaders });
-                    response = await fetch(request);
-                    if (!response.ok)
-                        return response;
-                    const headers = new Headers(response.headers);
-                    headers.set("Access-Control-Allow-Origin", "*");
-                    response = new Response(response.body, { ...response, headers });
-                    await cache.put(cacheKey, response.clone());
-                    return response;
-                }
                 // ) {
                 if (path[0].startsWith("npm:") || path[0].startsWith("node_modules/")) {
+                    if (u.toString().includes(".d.ts")) {
+                        const dtsUrl = u.toString().replace(u.origin + "/npm:", "https://esm.sh");
+                        request = new Request(dtsUrl, { ...request, redirect: "follow" });
+                        response = await fetch(request);
+                        response = new Response(response.body, response);
+                        if (!response.ok)
+                            return response;
+                        await cache.put(cacheKey, response.clone());
+                        return response;
+                    }
                     const isJs = u.toString().includes(".js")
                         || u.toString().includes(".mjs");
                     const packageName = u.toString().replace(u.origin + "/npm:", "").replace(u.origin + "/node_modules", "");
-                    const searchParams = (isJs
-                        ? `?bundle&external=${esbuildExternal.filter((p) => p !== packageName).join(",")} `
-                        : "");
-                    const esmUrl = "https://esm.sh/" + packageName + searchParams;
+                    const searchParams = `?bundle`;
+                    const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/*" + packageName + searchParams;
                     request = new Request(esmUrl, { ...request, redirect: "follow" });
                     response = await fetch(request);
                     if (!response.ok) {
                         return response;
                     }
-                    if (response?.status === 307 || response.headers.has("location")) {
+                    if (response.headers.has("location")) {
                         const redirectUrl = response.headers.get("location");
                         request = new Request(redirectUrl, request);
                         const headers = new Headers(response.headers);
                         headers.set("location", redirectUrl.replace("esm.sh/", u.hostname + "/npm:/"));
-                        response = new Response((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), {
+                        response = new Response(importMapReplace((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), u.origin), {
                             ...response,
                             headers,
                         });
@@ -129,7 +128,7 @@ const api = {
                         status: 200,
                         headers: {
                             "Access-Control-Allow-Origin": "*",
-                            "Cache-Control": "public, max-age=604800, immutable",
+                            "Cache-Control": "no-cache",
                             "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
                             "Content-Type": response.headers.get("Content-Type"),
                         },
@@ -242,14 +241,6 @@ const api = {
                                 ASSET_HASH: staticContent_mjs_1.ASSET_HASH,
                             },
                         });
-                    case "reverseMap.json":
-                        return new Response(JSON.stringify(staticContent_mjs_1.reverseMap), {
-                            headers: {
-                                "Content-Type": "application/json;charset=UTF-8",
-                                "Cache-Control": "no-cache",
-                                ASSET_HASH: staticContent_mjs_1.ASSET_HASH,
-                            },
-                        });
                     case "packages.json":
                         return new Response(JSON.stringify(package_json_1.default), {
                             headers: {
@@ -273,7 +264,7 @@ const api = {
                         const u = new URL(request.url, "https://cloudflare-ipfs.com");
                         const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
                         const resp = await fetch(new1.toString());
-                        if (resp.ok)
+                        if (!resp.ok)
                             return resp;
                         const new2 = new URL(u.pathname, "https://ipfs.io");
                         const resp2 = await fetch(new2.toString());
@@ -291,7 +282,7 @@ const api = {
                     }
                     default:
                         try {
-                            const kvResp = await (0, kv_asset_handler_1.getAssetFromKV)({
+                            return await (0, kv_asset_handler_1.getAssetFromKV)({
                                 request,
                                 waitUntil: async (prom) => await prom,
                             }, {
@@ -309,42 +300,22 @@ const api = {
                                 ASSET_NAMESPACE: env.__STATIC_CONTENT,
                                 ASSET_MANIFEST: staticContent_mjs_1.ASSET_MANIFEST,
                             });
-                            if (!kvResp || kvResp.status !== 200) {
-                                const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
-                                response = await fetch(req);
-                                if (!response.ok)
-                                    return response;
-                                const newHeaders = new Headers(response.headers);
-                                newHeaders.append(`Location`, req.url),
-                                    response = new Response(response.body, {
-                                        ...response,
-                                        status: 307,
-                                        headers: newHeaders,
-                                    });
-                                const cache = caches.default;
-                                await cache.put(cacheKey, response.clone());
-                                return response;
-                            }
-                            // const headers = new Headers(kvResp.headers);
-                            // const fileName = url.pathname.slice(1);
-                            // const filePath = getFilePath(fileName);
-                            // headers.append("ASSET_PATH", filePath);
-                            // headers.append("ASSET_HASH", ASSET_HASH);
-                            // if (fileName === filePath) {
-                            //   headers.append(
-                            //     "Cache-Control",
-                            //     "public, max-age=604800, immutable",
-                            //   );
-                            // }
-                            // response = new Response(kvResp.body, { ...kvResp, headers });
-                            // if (fileName === filePath) {
-                            //   await cache.put(cacheKey, response.clone());
-                            // }
-                            return response;
                         }
                         catch {
-                            return fetch(new URL(url.pathname.slice(1), url.origin + "/node_modules/")
-                                .toString());
+                            const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
+                            response = await fetch(req);
+                            if (!response.ok)
+                                return response;
+                            const newHeaders = new Headers(response.headers);
+                            newHeaders.append(`Location`, req.url),
+                                response = new Response(response.body, {
+                                    ...response,
+                                    status: 307,
+                                    headers: newHeaders,
+                                });
+                            const cache = caches.default;
+                            await cache.put(cacheKey, response.clone());
+                            return response;
                         }
                 }
             };
@@ -352,6 +323,27 @@ const api = {
         });
     },
 };
+async function handleFileEvent(request, ASSET_NAMESPACE) {
+    try {
+        const ev = { request, waitUntil: async (prom) => await prom };
+        // Add logic to decide whether to serve an asset or run your original Worker code
+        return await (0, kv_asset_handler_1.getAssetFromKV)(ev, {
+            ASSET_NAMESPACE,
+            ASSET_MANIFEST: staticContent_mjs_1.ASSET_MANIFEST,
+        });
+    }
+    catch (e) {
+        let pathname = new URL(request.url).pathname;
+        return new Response(`"${pathname}" not found. 
+    
+    ASSET_NAMESPACE: ${ASSET_NAMESPACE}
+    ASSET_MANIFEST: 
+    ${staticContent_mjs_1.ASSET_MANIFEST}`, {
+            status: 404,
+            statusText: "not found",
+        });
+    }
+}
 async function handleApiRequest(path, request, env) {
     // We've received at API request. Route the request based on the path.
     switch (path[0]) {
@@ -398,12 +390,33 @@ function isChunk(link) {
     return link.includes("chunk-") || chunkRegExp.test(link);
 }
 const getImportMapStr = (orig) => {
-    const importmapImport = { ...imap.imports };
-    for (const [key, value] of Object.entries(imap.imports)) {
+    const importmapImport = { ...importmap_json_1.default.imports };
+    for (const [key, value] of Object.entries(importmap_json_1.default.imports)) {
         importmapImport[key] = orig + "/" + value;
     }
     return JSON.stringify({ imports: importmapImport });
 };
 exports.getImportMapStr = getImportMapStr;
 exports.default = api;
+function importMapReplace(codeInp, origin) {
+    const items = Object.keys(importmap_json_1.default.imports);
+    let returnStr = codeInp;
+    items.map((lib) => {
+        const uri = importmap_json_1.default.imports[lib].slice(1);
+        returnStr = returnStr.replaceAll(`"${String(lib)}"`, `"${origin}/${String(uri)}"`);
+    });
+    returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
+        if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+            return x.replaceAll(` "`, ` "${origin}/npm:/`);
+        }
+        if (x.startsWith("import") && x.includes(origin)) {
+            const u = new URL(x.split(`"`)[1]);
+            if (u && u.pathname.indexOf(".") === -1) {
+                return x.slice(0, -1) + `/index.js"`;
+            }
+        }
+        return x;
+    }).join(";");
+    return returnStr;
+}
 //# sourceMappingURL=chat.js.map
