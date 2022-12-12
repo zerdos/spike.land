@@ -130,16 +130,16 @@ export async function runner({ code, counter, codeSpace }: {
       if (!html || !css) {
         return;
       }
-
-      patchSync({
+      const sess = {
         ...mST(),
         code,
         i: counter,
         transpiled: transpiledCode,
         html,
         css,
-      });
-      syncWS();
+      };
+      patchSync(sess);
+      syncWS(sess);
     } catch (error) {
       console.error({ error });
     } finally {
