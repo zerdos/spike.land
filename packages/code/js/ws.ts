@@ -9,12 +9,12 @@ import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import {
   applyPatch,
-  CodeSession,
+  // CodeSession,
   hashCode,
   makePatch,
   makePatchFrom,
   mST,
-  onSessionUpdate,
+  // onSessionUpdate,
   startSession,
 } from "./session";
 
@@ -44,15 +44,15 @@ const user = md5(((self && self.crypto && self.crypto.randomUUID
 
 users.insert(user);
 const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
-let bc: BroadcastChannel;
+// let bc: BroadcastChannel;
 
-let _hash = "";
+// let _hash = "";
 
 // let address: string;
 let wsLastHashCode = "";
 let webRTCLastSeenHashCode = "";
-let lastSeenTimestamp = 0;
-let lastSeenNow = 0;
+// let lastSeenTimestamp = 0;
+// let lastSeenNow = 0;
 
 // let sendWS: (message: string) => void;
 // let rejoined = false;
@@ -390,7 +390,7 @@ export function syncWS(sess: ICodeSession) {
       console.log("alive6");
     }
   } catch (error) {
-    // console.error("error 2", { e: error });
+    console.error("error 2", { e: error });
   }
 }
 async function stopVideo() {
