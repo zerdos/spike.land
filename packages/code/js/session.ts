@@ -353,6 +353,7 @@ export class CodeSession implements ICodeSess {
     } else {
       throw new Error("Wrong patch");
     }
+    return newHash;
   };
 
   json() {
