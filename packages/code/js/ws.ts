@@ -208,14 +208,16 @@ globalThis.broadcast = (msg: string) => {
 // p2pcf.send(peer, new ArrayBuffer(...))
 bc = new BroadcastChannel(location.origin);
 let messagePort: MessagePort;
-const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
-sharedWorker.port.start();
-messagePort = sharedWorker.port;
-messagePort.postMessage({ codeSpace, name: user });
+
 const ws = {
   send: (message: object) => {
     if (!messagePort) {
-      sharedWorker.port.onmessage = ({ data }) => {
+      const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
+      sharedWorker.port.start();
+      messagePort = sharedWorker.port;
+      messagePort.postMessage({ codeSpace, name: user });
+
+      messagePort.onmessage = ({ data }) => {
         console.log("ONMESSAGE", { data });
 
         processData(data, "ws");
