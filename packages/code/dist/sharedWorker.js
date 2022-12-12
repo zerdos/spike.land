@@ -2,11 +2,11 @@ var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
 // js/sharedWorker.ts
-globalThis.mod = globalThis.mod || {};
-globalThis.counters = globalThis.counters || {};
-globalThis.idToPortMap = globalThis.idToPortMap || {};
-globalThis.bc = globalThis.bc || new BroadcastChannel(location.origin);
-var { mod, counters, idToPortMap, bc } = globalThis;
+self.mod = self.mod || {};
+self.counters = self.counters || {};
+self.idToPortMap = self.idToPortMap || {};
+self.bc = self.bc || new BroadcastChannel(location.origin);
+var { mod, counters, idToPortMap, bc } = self;
 bc.onmessage = ({ data }) => onMessage(data);
 async function onMessage({ name, codeSpace, target, type, patch, users, i, address, hashCode, newHash, oldHash, candidate, offer, answer }) {
   if (!counters[codeSpace])

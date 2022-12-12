@@ -1,6 +1,12 @@
 import type { Delta } from "textDiff";
 
 export type {};
+declare const self: SharedWorkerGlobalScope & {
+  mod: Mod;
+  counters: Counters;
+  idToPortMap: PortMap;
+  bc: BroadcastChannel;
+};
 
 type Mod = { [codeSpace: string]: WebSocket };
 type Counters = { [codeSpace: string]: number };
@@ -22,12 +28,12 @@ type Data = {
   oldHash?: string;
 };
 
-globalThis.mod = globalThis.mod || {};
-globalThis.counters = globalThis.counters || {};
-globalThis.idToPortMap = globalThis.idToPortMap || {};
-globalThis.bc = globalThis.bc || new BroadcastChannel(location.origin);
+self.mod = self.mod || {};
+self.counters = self.counters || {};
+self.idToPortMap = self.idToPortMap || {};
+self.bc = self.bc || new BroadcastChannel(location.origin);
 
-const { mod, counters, idToPortMap, bc } = globalThis;
+const { mod, counters, idToPortMap, bc } = self;
 bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(

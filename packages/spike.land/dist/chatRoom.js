@@ -10,8 +10,10 @@ const index_html_1 = tslib_1.__importDefault(require("./index.html"));
 const importmap_json_1 = tslib_1.__importDefault(require("@spike.land/code/js/importmap.json"));
 const session_1 = require("@spike.land/code/js/session");
 const session_2 = require("@spike.land/code/js/session");
+const async_mutex_1 = require("async-mutex");
 const avl_1 = tslib_1.__importDefault(require("avl"));
 const iife_html_1 = tslib_1.__importDefault(require("./iife.html"));
+const staticContent_mjs_1 = require("./staticContent.mjs");
 class Code {
     env;
     state;
@@ -24,6 +26,7 @@ class Code {
     users = new avl_1.default((a, b) => a === b ? 0 : a < b ? 1 : -1, true);
     waiting = [];
     sessions;
+    mutex = new async_mutex_1.Mutex();
     constructor(state, env) {
         this.env = env;
         this.kv = state.storage;
@@ -371,11 +374,12 @@ class Code {
                 }
                 case "":
                 case "hydrated":
+                case "worker":
                 case "dehydrated":
                 case "public": {
                     const respText = index_html_1.default.replace("/**reset*/", session_1.resetCSS + css.split((0, session_2.md5)(transpiled)).join(`css`))
-                        .replace(`<script type="importmap"></script>`, `<script type="importmap">${JSON.stringify(importmap_json_1.default.import)}</script>`)
-                        .replace(`<div id="root"></div>`, `<div id="root" data-i="${i}" style="height: 100%;">${html.split((0, session_2.md5)(transpiled)).join(`css`)}</div>`);
+                        .replace(`<script type="importmap"></script>`, `<script type="importmap">${JSON.stringify(importmap_json_1.default)}</script>`)
+                        .replace(`<div id="root"></div>`, `<div id="root" data-i="${i}" style="height: 100%;">${html.split((0, session_2.md5)(transpiled)).join(`css`)}</div>`).split("ASSET_HASH").join(staticContent_mjs_1.ASSET_HASH);
                     // const Etag = request.headers.get("Etag");
                     // const newEtag = await sha256(respText);
                     const headers = new Headers();
@@ -419,8 +423,6 @@ class Code {
                     if (request.headers.get("Upgrade") != "websocket") {
                         return new Response("expected websocket", { status: 400 });
                     }
-                    // eslint-disable-next-line no-var
-                    var WebSocketPair;
                     const pair = new WebSocketPair();
                     await this.handleSession(pair[1]);
                     return new Response(null, { status: 101, webSocket: pair[0] });
@@ -523,90 +525,87 @@ class Code {
                 msg: "no-name-no-party",
             });
         }
-        if (data.codeSpace && data.address && !this.address) {
-            try {
-                this.broadcast(data);
-            }
-            catch {
-                return respondWith({
-                    "msg": "broadcast issue",
-                });
-            }
-            this.address = data.address;
-            await this.kv.put("address", data.address);
+        if (data.i <= (0, session_2.mST)().i)
             return;
-        }
-        if (data.timestamp && !data.patch) {
-            return respondWith({
-                timestamp: Date.now(),
-                hashCode: (0, session_2.hashCode)(),
-            });
-        }
-        try {
-            // if (
-            //   !data.type && limiter.checkLimit()
-            // ) {
-            //   return respondWith({
-            //     error: "Your IP is being rate-limited, please try again later.",
-            //   });
-            // }
+        await this.mutex.runExclusive(async () => {
+            if (data.i <= (0, session_2.mST)().i)
+                return;
+            if (data.codeSpace && data.address && !this.address) {
+                return this.broadcast(data);
+            }
             try {
-                if (data.target
-                    && data.type
-                    && ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)) {
-                    return this.user2user(data.target, { ...data, name });
-                }
-                if (data.patch && data.oldHash && data.newHash) {
-                    const patch = data.patch;
-                    const newHash = data.newHash;
-                    const oldHash = data.oldHash;
-                    if (oldHash !== (0, session_2.hashCode)()) {
-                        return respondWith({ hashCode: (0, session_2.hashCode)() });
+                // if (
+                //   !data.type && limiter.checkLimit()
+                // ) {
+                //   return respondWith({
+                //     error: "Your IP is being rate-limited, please try again later.",
+                //   });
+                // }
+                try {
+                    if (data.target
+                        && data.type
+                        && ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)) {
+                        return this.user2user(data.target, { ...data, name });
                     }
-                    try {
-                        await (0, session_2.applyPatch)({ newHash, oldHash, patch });
-                        this.wait();
-                    }
-                    catch (err) {
-                        console.error({ err });
-                        return respondWith({ err });
-                    }
-                    if (newHash === (0, session_2.hashCode)()) {
-                        try {
-                            this.wait();
-                            this.broadcast(data);
-                        }
-                        catch {
-                            return respondWith({
-                                "msg": "broadcast issue",
-                            });
-                        }
+                    const newHash = (0, session_2.applyPatchSync)(data);
+                    if (newHash === data.newHash) {
                         await this.kv.put("session", { ...(0, session_2.mST)() });
                         await this.kv.put(String(newHash), JSON.stringify({
-                            oldHash,
-                            patch,
+                            oldHash: data,
+                            patch: data,
                         }));
+                        return this.broadcast(data);
                     }
+                    if (data.patch && data.oldHash && data.newHash) {
+                        const patch = data.patch;
+                        const newHash = data.newHash;
+                        const oldHash = data.oldHash;
+                        if (oldHash !== (0, session_2.hashCode)()) {
+                            return respondWith({ hashCode: (0, session_2.hashCode)() });
+                        }
+                        try {
+                            (0, session_2.applyPatchSync)({ newHash, oldHash, patch });
+                        }
+                        catch (err) {
+                            console.error({ err });
+                            return respondWith({ err });
+                        }
+                        if (newHash === (0, session_2.hashCode)()) {
+                            try {
+                                this.broadcast(data);
+                            }
+                            catch {
+                                return respondWith({
+                                    "msg": "broadcast issue",
+                                });
+                            }
+                            await this.kv.put("session", { ...(0, session_2.mST)() });
+                            await this.kv.put(String(newHash), JSON.stringify({
+                                oldHash,
+                                patch,
+                            }));
+                        }
+                        return respondWith({
+                            hashCode: (0, session_2.hashCode)(),
+                        });
+                    }
+                }
+                catch (exp) {
+                    console.error({ exp });
                     return respondWith({
-                        hashCode: (0, session_2.hashCode)(),
+                        error: "unknown error - e1",
+                        exp: exp || {},
                     });
                 }
             }
             catch (exp) {
                 console.error({ exp });
                 return respondWith({
-                    error: "unknown error - e1",
+                    error: "unknown error - e2",
                     exp: exp || {},
                 });
             }
-        }
-        catch (exp) {
-            console.error({ exp });
-            return respondWith({
-                error: "unknown error - e2",
-                exp: exp || {},
-            });
-        }
+        });
     }
     user2user(to, msg) {
         const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
@@ -643,7 +642,7 @@ function importMapReplace(codeInp, origin) {
     let returnStr = codeInp;
     items.map((lib) => {
         const uri = importmap_json_1.default.imports[lib].slice(1);
-        returnStr = returnStr.replaceAll(` from "${String(lib)}"`, ` from "https://${origin}/${String(uri)}"`).replaceAll(` from "./`, ` from "https://${origin}/live/`).replaceAll(` from "/`, ` from "https://${origin}/`);
+        returnStr = returnStr.replaceAll(` from "${String(lib)}"`, ` from "${origin}/${String(uri)}"`).replaceAll(` from "./`, ` from "${origin}/live/`).replaceAll(` from "/`, ` from "${origin}/`);
     });
     returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
         if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
