@@ -152,7 +152,7 @@ export const build = async (codeSpace: string, i: number, signal: AbortSignal, b
       // "./reactDom.mjs",
     ],
 
-    tsconfig: "./tsconfig.json",
+    tsconfig: "./tsconfig_dist.json",
     plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
   };
   let b;
