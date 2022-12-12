@@ -200,7 +200,7 @@ globalThis.broadcast = (msg: string) => {
 bc = new BroadcastChannel(location.origin);
 
 const ws = {
-  sharedWorker: new SharedWorker("/sharedWorker.js?ASSET_HASH"),
+  sharedWorker: new SharedWorker("/sharedWorker.js?" + globalThis.assetHash),
   started: false,
   send: (message: object) => {
     if (!ws.started) {
