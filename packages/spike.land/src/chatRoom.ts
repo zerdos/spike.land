@@ -40,6 +40,7 @@ export class Code {
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
   mutex = new Mutex();
+  i = 0;
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -648,10 +649,10 @@ export class Code {
         msg: "no-name-no-party",
       });
     }
+    this.i = data.i;
 
-    if (data.i <= mST().i) return;
     await this.mutex.runExclusive(async () => {
-      if (data.i <= mST().i) return;
+      if (data.i < this.i) return;
       if (data.codeSpace && data.address && !this.address) {
         return this.broadcast(data);
       }
