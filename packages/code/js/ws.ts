@@ -4,14 +4,14 @@
 
 // import 'css-paint-polyfill
 import AVLTree from "avl";
-import debounce from "lodash.debounce";
+// import debounce from "lodash.debounce";
 import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import {
   applyPatch,
   // CodeSession,
   hashCode,
-  makePatch,
+  // makePatch,
   makePatchFrom,
   mST,
   // onSessionUpdate,
@@ -50,7 +50,7 @@ const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnect
 
 // let address: string;
 let wsLastHashCode = "";
-let webRTCLastSeenHashCode = "";
+// let webRTCLastSeenHashCode = "";
 // let lastSeenTimestamp = 0;
 // let lastSeenNow = 0;
 
@@ -179,6 +179,8 @@ p2pcf.on("peerconnect", peer => {
   console.log("New peer:", peer.id, peer.client_id);
 
   peer.on("track", (track, stream) => {
+    console.log("TRck");
+    console.log(track, stream);
     // New media track + stream from peer
   });
 
@@ -187,7 +189,8 @@ p2pcf.on("peerconnect", peer => {
 });
 
 p2pcf.on("peerclose", peer => {
-  // Peer has disconnected
+  console.log("peerclose", peer);
+  // Peer has isconnected
 });
 
 p2pcf.on("msg", (peer, data) => {
@@ -243,7 +246,7 @@ export const run = async (startState: {
   dry: boolean;
   address: string;
 }) => {
-  const { mST: mst, dry, address } = startState;
+  const { mST: mst, dry } = startState;
   // codeSpace = startState.codeSpace;
   wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
@@ -251,7 +254,8 @@ export const run = async (startState: {
   startSession(codeSpace, {
     name: user,
     state: mst,
-  }, location.origin);
+  });
+  // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
     renderPreviewWindow({ codeSpace, dry: !!dry });
   }
@@ -349,11 +353,11 @@ export const run = async (startState: {
 
 const ignoreUsers: string[] = [];
 
-const debouncedSyncRTC = debounce(syncRTC, 100, {
-  trailing: true,
-  leading: true,
-  maxWait: 500,
-});
+// const debouncedSyncRTC = debounce(syncRTC, 100, {
+//   trailing: true,
+//   leading: true,
+//   maxWait: 500,
+// });
 
 export function syncWS(sess: ICodeSession) {
   try {
@@ -449,44 +453,44 @@ async function startVideo() {
   );
 }
 
-async function syncRTC() {
-  try {
-    if (Object.keys(rtcConns).length > 0) {
-      if (webRTCLastSeenHashCode === hashCode()) {
-        return;
-      }
+// async function syncRTC() {
+//   try {
+//     if (Object.keys(rtcConns).length > 0) {
+//       if (webRTCLastSeenHashCode === hashCode()) {
+//         return;
+//       }
 
-      const sess = mST();
-      // console.//log({ wsLastHashCode });
+//       const sess = mST();
+//       // console.//log({ wsLastHashCode });
 
-      const message = webRTCLastSeenHashCode
-        ? makePatchFrom(
-          webRTCLastSeenHashCode,
-          sess,
-        )
-        : makePatch(sess);
-      if (message !== null && message.patch) {
-        // console.//log("sendRTC");
-        sendChannel.send(message);
-      }
-    }
-  } catch (error) {
-    // console.error("Error sending RTC...", { e: error });
-  }
-}
+//       const message = webRTCLastSeenHashCode
+//         ? makePatchFrom(
+//           webRTCLastSeenHashCode,
+//           sess,
+//         )
+//         : makePatch(sess);
+//       if (message !== null && message.patch) {
+//         // console.//log("sendRTC");
+//         sendChannel.send(message);
+//       }
+//     }
+//   } catch (error) {
+//     // console.error("Error sending RTC...", { e: error });
+//   }
+// }
 
 const h: Record<number, number> = {};
 
 async function processWsMessage(
   event: { data: string },
   source: "ws" | "rtc",
-  conn: { hashCode: string },
+  // conn: { hashCode: string },
 ) {
-  lastSeenNow = Date.now();
+  // lastSeenNow = Date.now();
 
   const data = JSON.parse(event.data);
 
-  processData(data, source, conn);
+  processData(data, source);
 }
 
 async function processData(
@@ -501,10 +505,10 @@ async function processData(
   }
   // MySession.addEvent(data);
 
-  if (source === "ws") {
-    lastSeenNow = Date.now();
-    lastSeenTimestamp = data.timestamp;
-  }
+  // if (source === "ws") {
+  //   lastSeenNow = Date.now();
+  //   lastSeenTimestamp = data.timestamp;
+  // }
   if (data.hashCode || data.newHash) {
     wsLastHashCode = data.hashCode || data.newHash;
   }
@@ -514,7 +518,7 @@ async function processData(
   }
 
   if (source === "rtc" && data.hashCode || data.newHash) {
-    webRTCLastSeenHashCode = data.hashCode || data.newHash;
+    // webRTCLastSeenHashCode = data.hashCode || data.newHash;
   }
 
   if (ignoreUsers.includes(data.name)) {
@@ -703,7 +707,7 @@ async function processData(
           processWsMessage(
             message,
             "rtc",
-            Object.assign(rtc, { hashCode: hashCode() }),
+            // Object.assign(rtc, { hashCode: hashCode() }),
             // respond: (msg)=>{},
             // broadcast: ()=>{}
           ),

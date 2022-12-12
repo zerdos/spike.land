@@ -7,7 +7,7 @@ import HTML from "./index.html";
 // import * as CF from "@cloudflare/workers-types";
 
 import importMap from "@spike.land/code/js/importmap.json";
-import { CodePatch, CodeSession, ICodeSession, resetCSS } from "@spike.land/code/js/session";
+import { CodeSession, ICodeSession, resetCSS } from "@spike.land/code/js/session";
 import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
@@ -91,7 +91,7 @@ export class Code {
       this.session = startSession(
         this.codeSpace,
         { state, name: this.codeSpace },
-        url.origin,
+        // url.origin,
       );
       this.sessionStarted = true;
     }
