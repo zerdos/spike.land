@@ -356,6 +356,7 @@ export function syncWS() {
       }
       console.log("SYNC!!");
       console.log({ ...message, name: user, i: sess.i });
+      wsLastHashCode = message.newHash;
       ws.send({ ...message, name: user, i: sess.i, sess });
     }
   } catch (error) {
