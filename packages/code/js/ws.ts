@@ -264,42 +264,42 @@ export const run = async (startState: {
   // await join();
   // console.log("broadcastChannel");
   // bc.postMessage({ user, type: "suggestNeighborsRequest" });
-  bc.onmessage = async (event) => {
-    if (event.data.ignoreUser && event.data.ignoreUser === user) {
-      return;
-    }
-    if (
-      event.data.codeSpace === codeSpace && event.data.name
-    ) {
-      processData(event.data, "ws", { hashCode: hashCode() });
-    }
+  // bc.onmessage = async (event) => {
+  //   if (event.data.ignoreUser && event.data.ignoreUser === user) {
+  //     return;
+  //   }
+  //   if (
+  //     event.data.codeSpace === codeSpace && event.data.name
+  //   ) {
+  //     processData(event.data, "ws", { hashCode: hashCode() });
+  //   }
 
-    if (
-      event.data.user !== user
-      && event.data.type === "suggestNeighborsRequest"
-    ) {
-    }
+  //   if (
+  //     event.data.user !== user
+  //     && event.data.type === "suggestNeighborsRequest"
+  //   ) {
+  //   }
 
-    if (
-      event.data.codeSpace === codeSpace && event.data.address && !address
-    ) {
-      ws.send({ codeSpace, address: event.data.address });
-    }
+  //   if (
+  //     event.data.codeSpace === codeSpace && event.data.address && !address
+  //   ) {
+  //     ws.send({ codeSpace, address: event.data.address });
+  //   }
 
-    if (event.data.ignoreUser) {
-      !ignoreUsers.includes(event.data.ignoreUser)
-        && ignoreUsers.push(event.data.ignoreUser);
-    }
+  //   if (event.data.ignoreUser) {
+  //     !ignoreUsers.includes(event.data.ignoreUser)
+  //       && ignoreUsers.push(event.data.ignoreUser);
+  //   }
 
-    if (
-      event.data.codeSpace === codeSpace && event.data.sess && event.data.sess.code !== mST().code
-    ) {
-      const messageData = makePatch(event.data.sess);
-      if (messageData) {
-        applyPatch(messageData);
-      }
-    }
-  };
+  //   if (
+  //     event.data.codeSpace === codeSpace && event.data.sess && event.data.sess.code !== mST().code
+  //   ) {
+  //     const messageData = makePatch(event.data.sess);
+  //     if (messageData) {
+  //       applyPatch(messageData);
+  //     }
+  //   }
+  // };
 
   // onSessionUpdate(
   //   () => {
