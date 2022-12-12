@@ -119,28 +119,28 @@ export const LoadRoom: FC<{ room: string; children: ReactNode }> = ({
   );
 
   useEffect(() => {
-    const bc = new BroadcastChannel(location.origin);
+    // const bc = new BroadcastChannel(location.origin);
 
-    bc.onmessage = async (event) => {
-      if (
-        event.data.roomName === room
-        && event.data.sess.transpiled !== transpiled
-      ) {
-        const { transpiled, css, html } = event.data.sess;
-        const hashCode = event.data.hashCode as number;
+    // bc.onmessage = async (event) => {
+    //   if (
+    //     event.data.roomName === room
+    //     && event.data.sess.transpiled !== transpiled
+    //   ) {
+    //     const { transpiled, css, html } = event.data.sess;
+    //     const hashCode = event.data.hashCode as number;
 
-        if (apps[hashCode]) {
-          setState((h) => ({ ...h, hashCode }));
-          return;
-        }
+    //     if (apps[hashCode]) {
+    //       setState((h) => ({ ...h, hashCode }));
+    //       return;
+    //     }
 
-        const App = await getApp(transpiled);
+    //     const App = await getApp(transpiled);
 
-        setApps((a) => ({ ...a, [hashCode]: App }));
+    //     setApps((a) => ({ ...a, [hashCode]: App }));
 
-        setState((h) => ({ ...h, hashCode, App }));
-      }
-    };
+    //     setState((h) => ({ ...h, hashCode, App }));
+    //   }
+    // };
   }, []);
 
   if (!hashCode) return <></>;
