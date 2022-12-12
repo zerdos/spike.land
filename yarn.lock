@@ -1348,7 +1348,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^5.46.0"
     "@typescript-eslint/parser": "npm:^5.46.0"
     "@yarnpkg/sdks": "npm:3.0.0-rc.33"
-    ace-builds: "npm:1.13.2"
+    ace-builds: "npm:1.14.0"
     async-mutex: "npm:^0.4.0"
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
@@ -1365,7 +1365,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.6.19"
+    framer-motion: "npm:7.7.2"
     immutable: "npm:^4.1.0"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
@@ -2021,10 +2021,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.13.2":
-  version: 1.13.2
-  resolution: "ace-builds@npm:1.13.2"
-  checksum: 1b17f2cda8d882b04f88126970bed5d90882c47f64fe967b6d211858456981602b865d900f5ecac3a5b8b66577b7c1df64eb7cbc4da585b4cb96490a7e20929e
+"ace-builds@npm:1.14.0":
+  version: 1.14.0
+  resolution: "ace-builds@npm:1.14.0"
+  checksum: 08a4cb951a39d7a8ed1c4744371ab986fb0eecbb0b704b16eb952684ffb81cc901519f68a5d729970d96c3fca72815358ad24ff222ab3aa659b3e5954ee48acc
   languageName: node
   linkType: hard
 
@@ -4905,15 +4905,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.6.19":
-  version: 7.6.19
-  resolution: "framer-motion@npm:7.6.19"
+"framer-motion@npm:7.7.2":
+  version: 7.7.2
+  resolution: "framer-motion@npm:7.7.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:10.13.1"
-    framesync: "npm:6.1.2"
     hey-listen: "npm:^1.0.8"
-    style-value-types: "npm:5.1.2"
     tslib: "npm:2.4.0"
   peerDependencies:
     react: ^18.0.0
@@ -4921,7 +4919,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 220e5400c3bd688ed0924527cf8c3c6f1d08eb6c0249ea74231c0f9e212d35a4fcb9443d18c07a2ca04b1c84043a8dc467a5314fb33dca1eb464c6b394dc664c
+  checksum: 192745b3d85e7793a3ad3dc85837b6cb5ac5eef791c367eea9b028fd1f9df58db8e568e77e3c3c5f5f5a6cdd8ac06f9d13218f8d68e7e458c002f94192e11b4b
   languageName: node
   linkType: hard
 
@@ -6930,7 +6928,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.9"
     esbuild: "npm:0.16.4"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:7.6.19"
+    framer-motion: "npm:7.7.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"
