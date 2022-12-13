@@ -59,7 +59,7 @@ async function onMessage(
     sess,
   }: Data,
 ) {
-  console.log("onMessage", { codeSpace, name });
+  console.log("onMessage", { codeSpace, name, sess, newHash, hashCode, patch });
   if (sess && newHash) hashStore[newHash] = sess;
   if (sess && hashCode) hashStore[hashCode] = sess;
 
@@ -69,7 +69,7 @@ async function onMessage(
   if (codeSpace && name && type === "handshake") {
     if (names[codeSpace]) return;
     names[codeSpace] = name;
-    if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
+    if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].OPEN) {
       blockedMessages[codeSpace] = [];
       reconnect(codeSpace, name);
     }

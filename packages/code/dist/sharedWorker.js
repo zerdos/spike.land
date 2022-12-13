@@ -769,7 +769,7 @@ async function onMessage({
   answer,
   sess
 }) {
-  console.log("onMessage", { codeSpace, name });
+  console.log("onMessage", { codeSpace, name, sess, newHash, hashCode, patch });
   if (sess && newHash)
     hashStore[newHash] = sess;
   if (sess && hashCode)
