@@ -68,7 +68,7 @@ async function onMessage(port: MessagePort, {
   else if (i && counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
   if (codeSpace && name && type === "handshake") {
-    self.connections[codeSpace] = self.connections[codeSpace] = [];
+    self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);
 
     console.log("onconnect", self.connections[codeSpace].length, Object.keys(self.connections));
