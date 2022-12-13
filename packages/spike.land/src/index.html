@@ -67,7 +67,9 @@
 
     if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
       const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
-      bc.port.onmessage = async (event) => {
+      globalThis.messagePort = bc.port;
+   
+      bc.port.addEventListener("message", async (event) => {
         if (event.data.type==="onconnect"){
           bc.port.postMessage({codeSpace, name: codeSpace});
         } else
@@ -78,7 +80,7 @@
           //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
           await hydrate(codeSpace, event.data.sess);
         }
-      };
+      });
       bc.port.start()
      
       hydrate(codeSpace);
