@@ -241,6 +241,7 @@ export const run = async (startState: {
     messagePort.addEventListener("message", function(ev) {
       console.log("ONMESSAGE", { data: ev.data });
       if (ev.data.type === "onconnect") {
+        console.log("POST ONCONNECT", { codeSpace, name: user });
         messagePort.postMessage({ codeSpace, name: user });
       } else {
         processData(ev.data, "ws");
