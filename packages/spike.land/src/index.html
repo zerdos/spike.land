@@ -83,12 +83,12 @@
           //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
           //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-          await hydrate(codeSpace, event.data.sess);
+          await hydrate(codeSpace, event.data.i,  event.data.sess);
         }
       });
       bc.port.start()
      
-      hydrate(codeSpace);
+      hydrate(codeSpace, +document.getElementById("root").getAttribute("data-i") );
    
     } else if (location.pathname.endsWith('worker')){
       load();
