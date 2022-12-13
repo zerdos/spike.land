@@ -74,18 +74,18 @@
   ));
       // messagePort = bc.port;
    
-      bc.port.addEventListener("message", async (event) => {
+      bc.port.onmessage =(event) => {
         if (event.data.type==="onconnect"){
           bc.port.postMessage({codeSpace, name,  type: 'handshake'});
         } else
         if (event.data.codeSpace === codeSpace && event.data.sess) {
-          const { html, css, transpiled, i } = event.data.sess;
+          // const { html, css, transpiled, i } = event.data.sess;
           //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
           //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-          await hydrate(codeSpace, event.data.i,  event.data.sess);
+          hydrate(codeSpace, event.data.i,  event.data.sess);
         }
-      });
+      };
       bc.port.start()
      
       hydrate(codeSpace, +document.getElementById("root").getAttribute("data-i") );
