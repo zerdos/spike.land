@@ -144,7 +144,9 @@ const monacoContribution = async (
   //   typescript: ts
   // })(code));
 
-  return code;
+  return code.split(";").map(x =>
+    x.slice(0, 6) === "import" ? x.replace(`from '/live/`, `from '${originToUse}live/`) : x
+  ).join(";");
 };
 
 self.MonacoEnvironment = {
