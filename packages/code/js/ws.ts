@@ -215,18 +215,17 @@ console.log("Yoooo0");
 // setTimeout(() => {
 console.log("Yoooo1");
 const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
-sharedWorker.port.onmessage;
 messagePort = sharedWorker.port;
 
 console.log("Yoooo2");
-messagePort.onmessage = (ev) => {
+messagePort.addEventListener("message", function(ev) {
   console.log("ONMESSAGE", { data: ev.data });
   if (ev.data.type === "onconnect") {
     messagePort.postMessage({ codeSpace, name: user });
   } else {
     processData(ev.data, "ws");
   }
-};
+});
 sharedWorker.port.start();
 
 // setTimeout(() => {

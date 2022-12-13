@@ -67,10 +67,10 @@
 
     if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
       const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
-      bc.port.start()
-      bc.port.postMessage({codeSpace, name: codeSpace});
-      hydrate(codeSpace);
       bc.port.onmessage = async (event) => {
+        if (event.data.type==="onconnect"){
+          bc.port.postMessage({codeSpace, name: codeSpace});
+        } else
         if (event.data.codeSpace === codeSpace && event.data.sess) {
           const { html, css, transpiled, i } = event.data.sess;
           //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
@@ -79,6 +79,10 @@
           await hydrate(codeSpace, event.data.sess);
         }
       };
+      bc.port.start()
+     
+      hydrate(codeSpace);
+   
     } else if (location.pathname.endsWith('worker')){
       load();
     } else {
