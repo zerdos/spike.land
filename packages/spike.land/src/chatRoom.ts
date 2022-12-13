@@ -808,7 +808,7 @@ function importMapReplace(codeInp: string, origin: string) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
 
-    if (x.startsWith("import") && x.includes(origin)) {
+    if (!x.includes("/npm:/") && x.startsWith("import") && x.includes(origin)) {
       const u = new URL(x.split(`"`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
         return x.slice(0, -1) + `/index.js"`;
