@@ -70,8 +70,10 @@ async function onMessage(
     if (names[codeSpace]) return;
     names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].OPEN) {
-      blockedMessages[codeSpace] = [];
-      reconnect(codeSpace, name);
+      blockedMessages[codeSpace] = blockedMessages[codeSpace] || [];
+      if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].CONNECTING) {
+        reconnect(codeSpace, name);
+      }
     }
 
     const obj: { [k: string]: unknown } = {
