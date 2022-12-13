@@ -5,7 +5,7 @@ import { hashCode, mST } from "./session";
 
 let fetchCache: Cache = {
   match: (req: Request) =>
-    caches.open("fetchCache").then(fc => {
+    caches.open("fetchCache").then((fc) => {
       fetchCache = fc;
       return fc.match(req);
     }),
@@ -14,7 +14,9 @@ let fetchCache: Cache = {
 const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
 
-export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin = (importmapReplace) => ({
+export const fetchPlugin: (
+  importmapReplace: (code: string) => string,
+) => Plugin = (importmapReplace) => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -60,7 +62,9 @@ export const fetchPlugin: (importmapReplace: (code: string) => string) => Plugin
       import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
     
       document.body.innerHTML = ${
-          JSON.stringify(`<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`)
+          JSON.stringify(
+            `<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`,
+          )
         };
 
   let rootEl = document.getElementById("root");

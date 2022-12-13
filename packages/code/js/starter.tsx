@@ -35,7 +35,7 @@ export const createIframe = async (cs: string, counter: number) => {
       let MST: ICodeSession;
       if (cs === codeSpace) MST = mST();
       else {
-        MST = await fetch(`/live/${cs}/session.json`).then(x => x.json() as Promise<ICodeSession>);
+        MST = await fetch(`/live/${cs}/session.json`).then((x) => x.json() as Promise<ICodeSession>);
       }
 
       if (signal.aborted) return;

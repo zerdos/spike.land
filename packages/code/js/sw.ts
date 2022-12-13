@@ -67,11 +67,15 @@ self.addEventListener("fetch", function(event) {
         let resp = await fetch(req);
         if (!resp.ok) return resp;
         resp = new Response(resp.body, resp);
-        const contentHash = resp.headers.has("content_hash") ? resp.headers.get("content_hash") : null;
+        const contentHash = resp.headers.has("content_hash")
+          ? resp.headers.get("content_hash")
+          : null;
         if (contentHash) {
           chunkCache = chunkCache || await caches.open("chunks");
 
-          let cacheKey = new Request(new URL("/" + contentHash, url).toString());
+          let cacheKey = new Request(
+            new URL("/" + contentHash, url).toString(),
+          );
 
           let cachedResp = await chunkCache.match(cacheKey);
           if (cachedResp) {
@@ -123,15 +127,23 @@ self.addEventListener("fetch", function(event) {
         response = await fetch(request);
 
         response = new Response(response.body, response);
-        if (response.status === 307 || !response.ok || !response.body) return response;
+        if (response.status === 307 || !response.ok || !response.body) {
+          return response;
+        }
 
         if (
-          url.pathname.indexOf(".ts") !== -1 && url.pathname.indexOf(".d.ts") === -1
+          url.pathname.indexOf(".ts") !== -1
+          && url.pathname.indexOf(".d.ts") === -1
           && url.pathname.indexOf(".tsx") === -1
         ) {
-          const transformed =
-            (await transform(await response.text(), { format: "esm", loader: "ts", target: "es2022" })).code;
-          if (typeof transformed !== "string") return new Response("500 transpile error", { status: 500 });
+          const transformed = (await transform(await response.text(), {
+            format: "esm",
+            loader: "ts",
+            target: "es2022",
+          })).code;
+          if (typeof transformed !== "string") {
+            return new Response("500 transpile error", { status: 500 });
+          }
 
           response = new Response(transformed, {
             ...response,

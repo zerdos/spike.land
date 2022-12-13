@@ -144,8 +144,10 @@ const monacoContribution = async (
   //   typescript: ts
   // })(code));
 
-  return code.split(";\n").map(x =>
-    x.slice(0, 6) === "import" ? x.replace(`from '/live/`, `from '${originToUse}/live/`) : x
+  return code.split(";\n").map((x) =>
+    x.slice(0, 6) === "import"
+      ? x.replace(`from '/live/`, `from '${originToUse}/live/`)
+      : x
   ).join(";\n");
 };
 
@@ -457,7 +459,11 @@ async function startMonacoPristine(
   // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
   // viewState: myEditor.saveViewState()};
   const testModel: editor.ITextModel = globalThis.testModel = globalThis.testModel
-    || createModel(model.getValue(), "typescript", Uri.parse(`${originToUse}/live/${codeSpace}/test.tsx`));
+    || createModel(
+      model.getValue(),
+      "typescript",
+      Uri.parse(`${originToUse}/live/${codeSpace}/test.tsx`),
+    );
   model.onDidChangeContent((ev) => {
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
