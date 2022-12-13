@@ -64,7 +64,7 @@ async function onMessage(
   if (sess && hashCode) hashStore[hashCode] = sess;
 
   if (!counters[codeSpace]) counters[codeSpace] = i;
-  if (counters[codeSpace] >= i) return;
+  if (counters[codeSpace] > i) return;
   counters[codeSpace] = i;
   if (codeSpace && name && type === "handshake") {
     if (names[codeSpace]) return;

@@ -776,7 +776,7 @@ async function onMessage({
     hashStore[hashCode] = sess;
   if (!counters[codeSpace])
     counters[codeSpace] = i;
-  if (counters[codeSpace] >= i)
+  if (counters[codeSpace] > i)
     return;
   counters[codeSpace] = i;
   if (codeSpace && name && type === "handshake") {
