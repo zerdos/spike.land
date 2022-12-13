@@ -261,7 +261,7 @@ function importMapReplace(codeInp: string) {
     );
   });
 
-  returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
+  returnStr = returnStr.split(";\n").map(x => x.trim()).map(x => {
     if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
       return x.replace(` '`, ` '${location.origin}/npm:/`);
     }
@@ -272,7 +272,7 @@ function importMapReplace(codeInp: string) {
       }
     }
     return x;
-  }).join(";");
+  }).join(";\n");
 
   return returnStr;
 }
