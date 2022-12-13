@@ -2,6 +2,8 @@ import { CodeSession } from "session";
 import type { Delta } from "textDiff";
 const hashStore: { [hash: string]: CodeSession } = {};
 const names: { [codeSpace: string]: string } = {};
+const blockedMessages: { [codeSpace: string]: string[] } = {};
+
 export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
@@ -68,6 +70,7 @@ async function onMessage(
     if (names[codeSpace]) return;
     names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
+      blockedMessages[codeSpace] = [];
       reconnect(codeSpace, name);
     }
 
@@ -88,7 +91,11 @@ async function onMessage(
     };
 
     Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
-    mod[codeSpace].send(JSON.stringify(obj));
+    if (mod[codeSpace].OPEN) {
+      mod[codeSpace].send(JSON.stringify(obj));
+    } else {
+      blockedMessages[codeSpace].push(JSON.stringify(obj));
+    }
   }
 }
 
@@ -127,6 +134,10 @@ function reconnect(codeSpace: string, name: string) {
   );
   websocket.onopen = () => {
     websocket.send(JSON.stringify({ name }));
+    while (blockedMessages[codeSpace].length) {
+      const message = blockedMessages[codeSpace].pop()!;
+      websocket.send(message);
+    }
   };
 
   return mod[codeSpace];

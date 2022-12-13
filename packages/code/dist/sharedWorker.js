@@ -747,6 +747,7 @@ var import_fast_diff = __toESM(require_diff(), 1);
 // js/sharedWorker.ts
 var hashStore = {};
 var names = {};
+var blockedMessages = {};
 self.mod = self.mod || {};
 self.counters = self.counters || {};
 self.connections = self.connections || [];
@@ -783,6 +784,7 @@ async function onMessage({
       return;
     names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
+      blockedMessages[codeSpace] = [];
       reconnect(codeSpace, name);
     }
     const obj = {
@@ -801,7 +803,11 @@ async function onMessage({
       answer
     };
     Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
-    mod[codeSpace].send(JSON.stringify(obj));
+    if (mod[codeSpace].OPEN) {
+      mod[codeSpace].send(JSON.stringify(obj));
+    } else {
+      blockedMessages[codeSpace].push(JSON.stringify(obj));
+    }
   }
 }
 __name(onMessage, "onMessage");
@@ -833,6 +839,10 @@ function reconnect(codeSpace, name) {
   );
   websocket.onopen = () => {
     websocket.send(JSON.stringify({ name }));
+    while (blockedMessages[codeSpace].length) {
+      const message = blockedMessages[codeSpace].pop();
+      websocket.send(message);
+    }
   };
   return mod[codeSpace];
 }
