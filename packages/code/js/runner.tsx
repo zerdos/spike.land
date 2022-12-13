@@ -141,7 +141,7 @@ export async function runner({ code, counter, codeSpace }: {
         css,
       };
       console.log("still alive2");
-      patchSync(sess);
+      // patchSync(sess);
       console.log("still alive3");
       syncWS(sess);
       console.log("still alive4");

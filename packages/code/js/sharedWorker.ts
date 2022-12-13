@@ -143,6 +143,7 @@ function reconnect(codeSpace: string, name: string) {
       });
     },
   );
+
   blockedMessages[codeSpace].push(JSON.stringify({ name }));
   websocket.onopen = () => {
     let i = 0;
