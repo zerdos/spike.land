@@ -212,27 +212,27 @@ p2pcf.on("msg", (peer, data) => {
 // bc = new BroadcastChannel(location.origin);
 let messagePort: MessagePort;
 console.log("Yoooo0");
-// setTimeout(() => {
-console.log("Yoooo1");
-const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
-messagePort = sharedWorker.port;
+requestAnimationFrame(() => {
+  // console.log("Yoooo1");
+  // const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
+  // messagePort = sharedWorker.port;
 
-console.log("Yoooo2");
-messagePort.addEventListener("message", function(ev) {
-  console.log("ONMESSAGE", { data: ev.data });
-  if (ev.data.type === "onconnect") {
-    messagePort.postMessage({ codeSpace, name: user });
-  } else {
+  // console.log("Yoooo2");
+  globalThis.messagePort.addEventListener("message", function(ev) {
+    //   console.log("ONMESSAGE", { data: ev.data });
+    //   if (ev.data.type === "onconnect") {
+    //     messagePort.postMessage({ codeSpace, name: user });
+    //   } else {
     processData(ev.data, "ws");
-  }
+    //   }
+  });
+  // sharedWorker.port.start();
+
+  // setTimeout(() => {
+  // console.log("Yoooo3");
+
+  // console.log("Yoooo4");
 });
-sharedWorker.port.start();
-
-// setTimeout(() => {
-console.log("Yoooo3");
-
-console.log("Yoooo4");
-// });
 // });
 
 const ws = {
@@ -240,7 +240,7 @@ const ws = {
     console.log("Yoooo7");
     const messageData = { codeSpace, name: user, ...message, sess: mST() };
     console.log("POST MESSAGE", { messageData });
-    messagePort.postMessage(messageData);
+    globalThis.messagePort.postMessage(messageData);
   },
 };
 
