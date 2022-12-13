@@ -137,6 +137,7 @@ export class CodeSession implements ICodeSess {
       ...user,
       state: savedState ? savedState : JSON.parse(string_(user.state)),
     })();
+    hashStore[md5(user.state.transpiled)] = this.session.get("state");
   }
 
   hashOfState = () => {
