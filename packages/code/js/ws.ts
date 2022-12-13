@@ -236,11 +236,10 @@ export const run = async (startState: {
     // console.log("Yoooo1");
     const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
     messagePort = sharedWorker.port;
-  
+
     // console.log("Yoooo2");
     messagePort.addEventListener("message", function(ev) {
       console.log("ONMESSAGE", { data: ev.data });
-      wsLastHashCode = md5(mST().transpiled);
       if (ev.data.type === "onconnect") {
         messagePort.postMessage({ codeSpace, name: user });
       } else {
@@ -248,10 +247,10 @@ export const run = async (startState: {
       }
     });
     sharedWorker.port.start();
-  
+
     // setTimeout(() => {
     // console.log("Yoooo3");
-  
+
     // console.log("Yoooo4");
   });
   wsLastHashCode = md5(mst.transpiled);
