@@ -220,6 +220,7 @@ requestAnimationFrame(() => {
   // console.log("Yoooo2");
   messagePort.addEventListener("message", function(ev) {
     console.log("ONMESSAGE", { data: ev.data });
+    wsLastHashCode = hashCode();
     if (ev.data.type === "onconnect") {
       messagePort.postMessage({ codeSpace, name: user });
     } else {
