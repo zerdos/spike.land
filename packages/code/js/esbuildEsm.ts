@@ -42,9 +42,11 @@ export const initAndTransform = async (
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
+  const transformed2 = await transform(importMapReplace(prettierJs(transformed.code)!));
+
   // : transformed.code; // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(code)}*/` + importMapReplace(prettierJs(transformed.code)) };
+  const res = { code: `/*${md5(code)}*/` + transformed2.code };
   return res;
 };
 
