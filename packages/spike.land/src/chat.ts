@@ -204,7 +204,7 @@ const api: ExportedHandler<CodeEnv> = {
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           let resp = await fetch(request);
 
-          if (resp !== null && !resp.ok || resp.status === 307) {
+          if (resp !== null && !resp.ok || resp.status === 307 || resp.status === 302) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
               request = new Request(redirectUrl, {
@@ -255,7 +255,7 @@ const api: ExportedHandler<CodeEnv> = {
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           let resp = await fetch(request);
 
-          if (resp !== null && !resp.ok || resp.status === 307) {
+          if (resp !== null && !resp.ok || resp.status === 307 || resp.status === 302) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
               request = new Request(
