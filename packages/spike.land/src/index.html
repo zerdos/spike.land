@@ -55,9 +55,8 @@
 <body>
   <div id="root"></div>
   <script type="module">
-    import { hydrate, md5 } from "./hydrate.mjs?ASSET_HASH";
+    import { hydrate, md5, ab2str } from "./hydrate.mjs?ASSET_HASH";
     import load from "./load.mjs?ASSET_HASH";
-
 
     globalThis.assetHash = "ASSET_HASH";
     const paths = location.pathname.split("/");
@@ -78,13 +77,13 @@
       bc.port.addEventListener("message", async (event) => {
         if (event.data.type==="onconnect"){
           bc.port.postMessage({codeSpace, name,  type: 'handshake'});
-        } else
-        if (event.data.codeSpace === codeSpace && event.data.sess) {
-          const { html, css, transpiled, i } = event.data.sess;
+        } else {
+          const data = JSON.parse(ab2str(event.data))
+//          const { html, css, transpiled, i } = event.data.sess;
           //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
           //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-          await hydrate(codeSpace, event.data.sess);
+          await hydrate(data.codeSpace, data.sess);
         }
       });
       bc.port.start()

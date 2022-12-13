@@ -24,9 +24,8 @@ import {
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import { renderPreviewWindow } from "renderPreviewWindow";
-import { ab2str, sab2str } from "sab";
-import isBuffer from "util/support/isBufferBrowser";
 import { md5 } from "./md5"; // import { wait } from "wait";
+import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait.js";
@@ -236,7 +235,7 @@ export const run = async (startState: {
   const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
 
   // console.log("Yoooo2");
-  sharedWorker.port.onmessage = (ev) => {
+  sharedWorker.port.onmessage = async (ev) => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
       messagePort = sharedWorker.port;
@@ -249,10 +248,15 @@ export const run = async (startState: {
         messagePort.postMessage(messageData);
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
-      if (isBuffer(ev.data)) {
-        console.log("IS BUFFI");
-        processData(JSON.parse(ab2str(ev.data)), "ws");
+      // if (isBuffer(ev.data)) {
+      // console.log("IS BUFFI");
+      try {
+        await processData(JSON.parse(ab2str(ev.data)), "w s");
+        console.log("its a buffer");
+      } catch (err) {
+        console.error("not a buff", { err, data: ev.data });
       }
+      // }
     }
   };
   sharedWorker.port.start();
