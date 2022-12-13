@@ -75,29 +75,29 @@ async function onMessage(
         reconnect(codeSpace, name);
       }
     }
+  }
 
-    const obj: { [k: string]: unknown } = {
-      name,
-      target,
-      type,
-      patch,
-      address,
-      i,
-      users,
-      hashCode,
-      newHash,
-      oldHash,
-      candidate,
-      offer,
-      answer,
-    };
+  const obj: { [k: string]: unknown } = {
+    name,
+    target,
+    type,
+    patch,
+    address,
+    i,
+    users,
+    hashCode,
+    newHash,
+    oldHash,
+    candidate,
+    offer,
+    answer,
+  };
 
-    Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
-    if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
-      mod[codeSpace].send(JSON.stringify(obj));
-    } else {
-      blockedMessages[codeSpace].push(JSON.stringify(obj));
-    }
+  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
+  if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
+    mod[codeSpace].send(JSON.stringify(obj));
+  } else {
+    blockedMessages[codeSpace].push(JSON.stringify(obj));
   }
 }
 

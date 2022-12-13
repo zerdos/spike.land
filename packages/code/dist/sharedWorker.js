@@ -789,27 +789,27 @@ async function onMessage({
         reconnect(codeSpace, name);
       }
     }
-    const obj = {
-      name,
-      target,
-      type,
-      patch,
-      address,
-      i,
-      users,
-      hashCode,
-      newHash,
-      oldHash,
-      candidate,
-      offer,
-      answer
-    };
-    Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
-    if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
-      mod[codeSpace].send(JSON.stringify(obj));
-    } else {
-      blockedMessages[codeSpace].push(JSON.stringify(obj));
-    }
+  }
+  const obj = {
+    name,
+    target,
+    type,
+    patch,
+    address,
+    i,
+    users,
+    hashCode,
+    newHash,
+    oldHash,
+    candidate,
+    offer,
+    answer
+  };
+  Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
+  if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
+    mod[codeSpace].send(JSON.stringify(obj));
+  } else {
+    blockedMessages[codeSpace].push(JSON.stringify(obj));
   }
 }
 __name(onMessage, "onMessage");
