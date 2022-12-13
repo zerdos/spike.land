@@ -38,7 +38,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   }
   let App;
   const rt = document.getElementById("root");
-  if (sess) {
+  if (sess && sess.i && sess.html && sess.transpiled) {
     const { i: i2, css, html, transpiled } = sess;
     rt?.setAttribute("data-i", String(i2));
     rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
