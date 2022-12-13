@@ -20,14 +20,14 @@ self.addEventListener("activate", () => {
 //   });
 // }
 
-let lastChecked = 0;
+// let lastChecked = 0;
 let npmCache: Cache | null;
 
 let chunkCache: Cache | null;
 let fileCache: Cache | null;
-let cacheName = "default";
-let files: { [k: string]: string } = {};
-const assets: { [assetHash: string]: Promise<typeof files> } = {};
+// let cacheName = "default";
+// let files: { [k: string]: string } = {};
+// const assets: { [assetHash: string]: Promise<typeof files> } = {};
 // const getCacheName = () =>
 //   fetch(location.origin + "/files.json").then((resp) => {
 //     if (!resp.ok) return;

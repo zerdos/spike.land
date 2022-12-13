@@ -265,7 +265,7 @@ function importMapReplace(codeInp: string) {
     if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
       return x.replace(` '`, ` '${location.origin}/npm:/`);
     }
-    if (!x.includes("/npm:/") && x.startsWith("import") && x.includes(location.origin)) {
+    if (x.indexOf("/npm:/") !== -1 && x.startsWith("import") && x.indexOf(location.origin) !== -1) {
       const u = new URL(x.split(`'`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
         return x.slice(0, -1) + `/index.js'`;
