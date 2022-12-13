@@ -24,7 +24,7 @@ import {
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 import { renderPreviewWindow } from "renderPreviewWindow";
-import { sab2str } from "sab";
+import { ab2str, sab2str } from "sab";
 import { isBuffer } from "util/support/isBufferBrowser";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import type { ICodeSession } from "./session";
@@ -249,7 +249,8 @@ export const run = async (startState: {
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
       if (isBuffer(ev.data)) {
-        processData(JSON.parse(sab2str(ev.data)), "ws");
+        console.log("IS BUFFI");
+        processData(JSON.parse(ab2str(ev.data)), "ws");
       }
     }
   };
