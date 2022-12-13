@@ -783,9 +783,11 @@ async function onMessage({
     if (names[codeSpace])
       return;
     names[codeSpace] = name;
-    if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
-      blockedMessages[codeSpace] = [];
-      reconnect(codeSpace, name);
+    if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].OPEN) {
+      blockedMessages[codeSpace] = blockedMessages[codeSpace] || [];
+      if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].CONNECTING) {
+        reconnect(codeSpace, name);
+      }
     }
     const obj = {
       name,
