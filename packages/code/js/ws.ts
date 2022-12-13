@@ -372,10 +372,10 @@ export function syncWS(sess: ICodeSession) {
     console.log("alive1");
     if (ws) {
       console.log("alive2");
-      if (wsLastHashCode === hashCode()) {
-        console.log("WS is up to date with us.");
-        return;
-      }
+      // if (wsLastHashCode === hashCode()) {
+      //   console.log("WS is up to date with us.");
+      //   return;
+      // }
 
       // const sess = mST();
       // console.//log({ wsLastHashCode });
@@ -398,6 +398,7 @@ export function syncWS(sess: ICodeSession) {
       // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
       ws.send({ ...message, name: user, i: sess.i, sess });
+      applyPatch(message);
       console.log("alive6");
     }
   } catch (error) {
