@@ -145,7 +145,7 @@ const monacoContribution = async (
   // })(code));
 
   return code.split(";\n").map(x =>
-    x.slice(0, 6) === "import" ? x.replace(`from '/live/`, `from '${originToUse}live/`) : x
+    x.slice(0, 6) === "import" ? x.replace(`from '/live/`, `from '${originToUse}/live/`) : x
   ).join(";\n");
 };
 
