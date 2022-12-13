@@ -138,18 +138,19 @@ function reconnect(codeSpace: string, name: string) {
       }
 
       const str = JSON.stringify(mess);
-      var bufView = new Uint16Array(str.length);
-      for (var i = 0, strLen = str.length; i < strLen; i++) {
-        bufView[i] = str.charCodeAt(i);
-      }
+      // var bufView = new Uint16Array(str.length);
+      // for (var i = 0, strLen = str.length; i < strLen; i++) {
+      //   bufView[i] = str.charCodeAt(i);
+      // }
       // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
+      // var j = 0;
+      // while (Atomics.load(bufView, j++) < str.length) {
 
-      while (Atomics.load(bufView, 0) === 0) {
-        console.log({ mess });
-      }
+      // }
       self.connections[codeSpace] = self.connections[codeSpace].map(conn => {
         try {
-          conn.postMessage(bufView, [bufView]);
+          const ab = str2ab(str);
+          conn.postMessage(ab, [ab]);
           return conn;
         } catch (err) {
           console.error("can't post message connection");
