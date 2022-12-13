@@ -261,12 +261,13 @@ function importMapReplace(codeInp: string) {
     );
   });
 
+  console.log("importmapReplace fn");
   returnStr = returnStr.split(";\n").map(x => x.trim()).map(x => {
     if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
       return x.replace(` '`, ` '${location.origin}/npm:/`);
     }
     if (x.indexOf("/npm:/") !== -1 && x.startsWith("import") && x.indexOf(location.origin) !== -1) {
-      const u = new URL(x.split(`'`)[1]);
+      let u = new URL(x.split(`'`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
         return x.slice(0, -1) + `/index.js'`;
       }
