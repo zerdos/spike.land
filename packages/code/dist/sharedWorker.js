@@ -731,15 +731,6 @@ init_define_process();
 
 // js/sab.ts
 init_define_process();
-function str2sab(str) {
-  var buf = new SharedArrayBuffer(str.length * 2);
-  var bufView = new Uint16Array(buf);
-  for (var i = 0, strLen = str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i);
-  }
-  return buf;
-}
-__name(str2sab, "str2sab");
 
 // js/session.ts
 init_define_process();
@@ -853,11 +844,17 @@ function reconnect(codeSpace, name) {
       if (hash && hashStore[hash]) {
         mess.sess = hashStore[hash];
       }
-      const sab = str2sab(JSON.stringify(mess));
-      console.log({ mess });
+      const str = JSON.stringify(mess);
+      var bufView = new Uint16Array(str.length);
+      for (var i = 0, strLen = str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+      }
+      while (Atomics.load(bufView, 0) === 0) {
+        console.log({ mess });
+      }
       self.connections[codeSpace] = self.connections[codeSpace].map((conn) => {
         try {
-          conn.postMessage(sab, [sab]);
+          conn.postMessage(bufView, [bufView]);
           return conn;
         } catch (err) {
           console.error("can't post message connection");

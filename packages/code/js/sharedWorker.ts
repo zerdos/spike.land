@@ -1,4 +1,4 @@
-import { str2sab } from "sab";
+import { str2ab } from "sab";
 import { CodeSession } from "session";
 import type { Delta } from "textDiff";
 const hashStore: { [hash: string]: CodeSession } = {};
@@ -136,11 +136,20 @@ function reconnect(codeSpace: string, name: string) {
 
         // Object.assign(mess, { sess: hashStore[hash] });
       }
-      const sab = str2sab(JSON.stringify(mess));
-      console.log({ mess });
+
+      const str = JSON.stringify(mess);
+      var bufView = new Uint16Array(str.length);
+      for (var i = 0, strLen = str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+      }
+      // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
+
+      while (Atomics.load(bufView, 0) === 0) {
+        console.log({ mess });
+      }
       self.connections[codeSpace] = self.connections[codeSpace].map(conn => {
         try {
-          conn.postMessage(sab, [sab]);
+          conn.postMessage(bufView, [bufView]);
           return conn;
         } catch (err) {
           console.error("can't post message connection");
