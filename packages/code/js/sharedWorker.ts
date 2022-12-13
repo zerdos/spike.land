@@ -68,7 +68,7 @@ async function onMessage(
     if (names[codeSpace]) return;
     names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
-      await reconnect(codeSpace, name);
+      reconnect(codeSpace, name);
     }
 
     const obj: { [k: string]: unknown } = {
@@ -99,44 +99,35 @@ self.onconnect = ({ ports }) => {
   console.log("onconnect", self.connections.length, Object.keys(mod));
 };
 
-function isPromise(p: unknown | Promise<unknown>) {
-  if (typeof p === "object" && p !== null && (typeof (p as unknown as Promise<unknown>).then) === "function") {
-    return true;
-  }
-
-  return false;
-}
-
 function reconnect(codeSpace: string, name: string) {
-  return new Promise(async (resolve) => {
-    if (isPromise(mod[codeSpace])) {
-      return resolve(await mod[codeSpace]);
-    }
-    if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
+  // return new Promise(async (resolve) => {
+  // if (isPromise(mod[codeSpace])) {
+  // return resolve(await mod[codeSpace]);
+  // }
+  if (mod[codeSpace]) return mod[codeSpace];
+  // if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
 
-    mod[codeSpace] = new WebSocket(
-      `wss://${location.host}/live/` + codeSpace + "/websocket",
-    );
+  const websocket = new WebSocket(
+    `wss://${location.host}/live/` + codeSpace + "/websocket",
+  );
+  mod[codeSpace] = websocket;
+  websocket.addEventListener(
+    "message",
+    (ev) => {
+      const mess = { codeSpace, ...(JSON.parse(ev.data)) };
+      mess.name = names[codeSpace];
+      const hash = mess.newHash || mess.hashCode;
+      if (hash && hashStore[hash]) {
+        Object.assign(mess, { sess: hashStore[hash] });
+      }
 
-    mod[codeSpace].addEventListener("open", () => {
-      mod[codeSpace].send(JSON.stringify({ name }));
+      console.log({ mess });
+      self.connections.map(conn => conn.postMessage(mess));
+    },
+  );
+  websocket.onopen = () => {
+    websocket.send(JSON.stringify({ name }));
+  };
 
-      mod[codeSpace].addEventListener(
-        "message",
-        (ev) => {
-          const mess = { codeSpace, ...(JSON.parse(ev.data)) };
-          mess.name = names[codeSpace];
-          const hash = mess.newHash || mess.hashCode;
-          if (hash && hashStore[hash]) {
-            Object.assign(mess, { sess: hashStore[hash] });
-          }
-
-          console.log({ mess });
-          self.connections.map(conn => conn.postMessage(mess));
-        },
-      );
-
-      resolve(mod[codeSpace]);
-    });
-  });
+  return mod[codeSpace];
 }
