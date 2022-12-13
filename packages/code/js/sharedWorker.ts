@@ -1,3 +1,4 @@
+import { str2sab } from "sab";
 import { CodeSession } from "session";
 import type { Delta } from "textDiff";
 const hashStore: { [hash: string]: CodeSession } = {};
@@ -8,7 +9,7 @@ export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
   counters: Counters;
-  connections: MessagePort[];
+  connections: { [codeSpaces: string]: MessagePort[] };
   names: {};
   // bc: BroadcastChannel;
 };
@@ -35,30 +36,28 @@ type Data = {
 
 self.mod = self.mod || {};
 self.counters = self.counters || {};
-self.connections = self.connections || [];
+self.connections = self.connections || {};
 
 const { mod, counters } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
 
-async function onMessage(
-  {
-    name,
-    codeSpace,
-    target,
-    type,
-    patch,
-    users,
-    i,
-    address,
-    hashCode,
-    newHash,
-    oldHash,
-    candidate,
-    offer,
-    answer,
-    sess,
-  }: Data,
-) {
+async function onMessage(port: MessagePort, {
+  name,
+  codeSpace,
+  target,
+  type,
+  patch,
+  users,
+  i,
+  address,
+  hashCode,
+  newHash,
+  oldHash,
+  candidate,
+  offer,
+  answer,
+  sess,
+}: Data) {
   console.log("onMessage", { codeSpace, name, sess, oldHash, newHash, hashCode, patch });
   const hash = newHash || hashCode;
   if (sess && hash) hashStore[hash] = sess;
@@ -69,6 +68,10 @@ async function onMessage(
   else if (i && counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
   if (codeSpace && name && type === "handshake") {
+    self.connections[codeSpace] = self.connections[codeSpace] = [];
+    self.connections[codeSpace].push(port);
+
+    console.log("onconnect", self.connections[codeSpace].length, Object.keys(self.connections));
     if (names[codeSpace]) return;
     names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].OPEN) {
@@ -102,12 +105,10 @@ async function onMessage(
     blockedMessages[codeSpace].push(JSON.stringify(obj));
   }
 }
-
+let iii = 0;
 self.onconnect = ({ ports }) => {
-  ports[0].postMessage({ type: "onconnect", connections: self.connections.length });
-  ports[0].onmessage = ({ data }: { data: Data }) => onMessage(data);
-  self.connections.push(ports[0]);
-  console.log("onconnect", self.connections.length, Object.keys(mod));
+  ports[0].postMessage({ type: "onconnect", connections: ++iii });
+  ports[0].onmessage = ({ data }: { data: Data }) => onMessage(ports[0], data);
 };
 
 function reconnect(codeSpace: string, name: string) {
@@ -125,18 +126,21 @@ function reconnect(codeSpace: string, name: string) {
   websocket.addEventListener(
     "message",
     (ev) => {
-      const mess = { codeSpace, ...(JSON.parse(ev.data)) };
+      const patch = JSON.parse(ev.data);
+
+      const mess = { codeSpace, ...patch };
       mess.name = names[codeSpace];
-      const hash = mess.newHash || mess.hashCode;
+      const hash = patch.newHash || patch.hashCode;
       if (hash && hashStore[hash]) {
         mess.sess = hashStore[hash];
+
         // Object.assign(mess, { sess: hashStore[hash] });
       }
-
+      const sab = str2sab(JSON.stringify(mess));
       console.log({ mess });
-      self.connections = self.connections.map(conn => {
+      self.connections[codeSpace] = self.connections[codeSpace].map(conn => {
         try {
-          conn.postMessage(mess);
+          conn.postMessage(sab, [sab]);
           return conn;
         } catch (err) {
           console.error("can't post message connection");

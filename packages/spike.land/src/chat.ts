@@ -82,6 +82,7 @@ const api: ExportedHandler<CodeEnv> = {
 
           const headers = new Headers(resp.headers);
           headers.set("Access-Control-Allow-Origin", "*");
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
           resp = new Response(resp.body, { ...resp, headers });
 
           // await cache.put(cacheKey, response.clone());
@@ -184,6 +185,7 @@ const api: ExportedHandler<CodeEnv> = {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
                 "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
                 "Content-Type": response.headers.get("Content-Type")!,
@@ -236,6 +238,7 @@ const api: ExportedHandler<CodeEnv> = {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "public, max-age=604800, immutable",
                 "Content-Type": resp.headers.get("Content-Type")!,
               },
@@ -290,6 +293,7 @@ const api: ExportedHandler<CodeEnv> = {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "public, max-age=604800, immutable",
                 "Content-Type": resp.headers.get("Content-Type")!,
               },
@@ -375,7 +379,7 @@ const api: ExportedHandler<CodeEnv> = {
           }
           default:
             try {
-              return await getAssetFromKV(
+              let kvResp = await getAssetFromKV(
                 {
                   request,
                   waitUntil: async (prom) => await prom,
@@ -396,6 +400,11 @@ const api: ExportedHandler<CodeEnv> = {
                   ASSET_MANIFEST,
                 },
               );
+              kvResp = new Response(kvResp.body, kvResp);
+              const headers = new Headers(kvResp.headers);
+              headers.append("Cross-Origin-Embedder-Policy", "require-corp");
+              kvResp = new Response(kvResp.body, { ...kvResp, headers });
+              return kvResp;
             } catch {
               const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
               response = await fetch(req);
@@ -458,7 +467,7 @@ async function handleApiRequest(
         if (request.method === "POST") {
           const id = env.CODE.newUniqueId();
           return new Response(id.toString(), {
-            headers: { "Access-Control-Allow-Origin": "*" },
+            headers: { "Access-Control-Allow-Origin": "*", "Cross-Origin-Embedder-Policy": "require-corp" },
           });
         } else {
           return new Response("Method not allowed", { status: 405 });
