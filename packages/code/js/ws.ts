@@ -212,28 +212,7 @@ p2pcf.on("msg", (peer, data) => {
 // bc = new BroadcastChannel(location.origin);
 let messagePort: MessagePort;
 console.log("Yoooo0");
-requestAnimationFrame(() => {
-  // console.log("Yoooo1");
-  const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
-  messagePort = sharedWorker.port;
 
-  // console.log("Yoooo2");
-  messagePort.addEventListener("message", function(ev) {
-    console.log("ONMESSAGE", { data: ev.data });
-    wsLastHashCode = hashCode();
-    if (ev.data.type === "onconnect") {
-      messagePort.postMessage({ codeSpace, name: user });
-    } else {
-      processData(ev.data, "ws");
-    }
-  });
-  sharedWorker.port.start();
-
-  // setTimeout(() => {
-  // console.log("Yoooo3");
-
-  // console.log("Yoooo4");
-});
 // });
 
 const ws = {
@@ -253,6 +232,28 @@ export const run = async (startState: {
 }) => {
   const { mST: mst, dry } = startState;
   // codeSpace = startState.codeSpace;
+  requestAnimationFrame(() => {
+    // console.log("Yoooo1");
+    const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
+    messagePort = sharedWorker.port;
+  
+    // console.log("Yoooo2");
+    messagePort.addEventListener("message", function(ev) {
+      console.log("ONMESSAGE", { data: ev.data });
+      wsLastHashCode = md5(mST().transpiled);
+      if (ev.data.type === "onconnect") {
+        messagePort.postMessage({ codeSpace, name: user });
+      } else {
+        processData(ev.data, "ws");
+      }
+    });
+    sharedWorker.port.start();
+  
+    // setTimeout(() => {
+    // console.log("Yoooo3");
+  
+    // console.log("Yoooo4");
+  });
   wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
