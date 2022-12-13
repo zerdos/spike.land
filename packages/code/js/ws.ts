@@ -216,12 +216,7 @@ console.log("Yoooo0");
 // });
 
 const ws = {
-  send: (message: object) => {
-    // console.log("Yoooo7");
-    const messageData = { codeSpace, name: user, ...message, sess: mST() };
-    console.log("POST MESSAGE", { messageData });
-    messagePort.postMessage(messageData);
-  },
+  send: (mess: object) => console.log("JUST A STUB", { mess }),
 };
 
 export const run = async (startState: {
@@ -237,17 +232,22 @@ export const run = async (startState: {
   const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
 
   // console.log("Yoooo2");
-  sharedWorker.port.addEventListener("message", (ev) => {
+  sharedWorker.port.onmessage = (ev) => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
       messagePort = sharedWorker.port;
       console.log("POST ONCONNECT", { codeSpace, name: user });
       // messagePort = this;
-      messagePort.postMessage({ codeSpace, type: "handshake", name: user });
+      ws.send = (message: object) => {
+        // console.log("Yoooo7");
+        const messageData = { codeSpace, name: user, ...message, sess: mST() };
+        console.log("POST MESSAGE", { messageData });
+        messagePort.postMessage(messageData);
+      }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
       processData(ev.data, "ws");
     }
-  });
+  };
   sharedWorker.port.start();
 
   // setTimeout(() => {
