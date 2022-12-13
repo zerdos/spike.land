@@ -248,7 +248,7 @@ export const run = async (startState: {
         messagePort.postMessage(messageData);
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
-      if (utilSupport.isBuffer(ev.data)) {
+      if (utilSupport.default(ev.data)) {
         console.log("IS BUFFI");
         processData(JSON.parse(ab2str(ev.data)), "ws");
       }
