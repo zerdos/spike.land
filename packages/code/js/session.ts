@@ -187,8 +187,9 @@ export class CodeSession implements ICodeSess {
 
     const newRec = oldRec.merge(s);
     const newString = string_(newRec.toJSON()).split(md5(newRec.get("transpiled"))).join("css");
-    const newHash = md5(newRec.toJS().transpiled);
-    hashStore[newHash] = newRec;
+    const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
+    const newHash = md5(newNewRecord.get("transpiled"));
+    hashStore[newHash] = newNewRecord;
 
     const patch = createPatch(oldString, newString);
     return {
