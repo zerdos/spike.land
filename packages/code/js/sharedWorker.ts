@@ -134,13 +134,15 @@ function reconnect(codeSpace: string, name: string) {
       }
 
       console.log({ mess });
-      self.connections.map(conn => {
+      self.connections = self.connections.map(conn => {
         try {
           conn.postMessage(mess);
+          return conn;
         } catch (err) {
           console.error("can't post message connection");
+          return null;
         }
-      });
+      }).filter(x => x !== null) as MessagePort[];
     },
   );
 
