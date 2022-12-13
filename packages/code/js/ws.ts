@@ -235,14 +235,15 @@ export const run = async (startState: {
   requestAnimationFrame(() => {
     // console.log("Yoooo1");
     const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
-    messagePort = sharedWorker.port;
+    // messagePort = shareWorker.port;
 
     // console.log("Yoooo2");
     messagePort.addEventListener("message", function(ev) {
       console.log("ONMESSAGE", { data: ev.data });
       if (ev.data.type === "onconnect") {
         console.log("POST ONCONNECT", { codeSpace, name: user });
-        messagePort.postMessage({ codeSpace, name: user });
+        messagePort = this;
+        this.postMessage({ codeSpace, name: user });
       } else {
         processData(ev.data, "ws");
       }
