@@ -422,29 +422,29 @@ const api: ExportedHandler<CodeEnv> = {
   },
 };
 
-async function handleFileEvent(request: Request, ASSET_NAMESPACE: KVNamespace) {
-  try {
-    const ev = { request, waitUntil: async (prom: Promise<void>) => await prom };
-    // Add logic to decide whether to serve an asset or run your original Worker code
-    return await getAssetFromKV(ev, {
-      ASSET_NAMESPACE,
-      ASSET_MANIFEST,
-    });
-  } catch (e) {
-    const pathname = new URL(request.url).pathname;
-    return new Response(
-      `"${pathname}" not found. 
-    
-    ASSET_NAMESPACE: ${ASSET_NAMESPACE}
-    ASSET_MANIFEST: 
-    ${ASSET_MANIFEST}`,
-      {
-        status: 404,
-        statusText: "not found",
-      },
-    );
-  }
-}
+// async function handleFileEvent(request: Request, ASSET_NAMESPACE: KVNamespace) {
+//   try {
+//     const ev = { request, waitUntil: async (prom: Promise<void>) => await prom };
+//     // Add logic to decide whether to serve an asset or run your original Worker code
+//     return await getAssetFromKV(ev, {
+//       ASSET_NAMESPACE,
+//       ASSET_MANIFEST,
+//     });
+//   } catch (e) {
+//     const pathname = new URL(request.url).pathname;
+//     return new Response(
+//       `"${pathname}" not found.
+
+//     ASSET_NAMESPACE: ${ASSET_NAMESPACE}
+//     ASSET_MANIFEST:
+//     ${ASSET_MANIFEST}`,
+//       {
+//         status: 404,
+//         statusText: "not found",
+//       },
+//     );
+//   }
+// }
 async function handleApiRequest(
   path: string[],
   request: Request,
