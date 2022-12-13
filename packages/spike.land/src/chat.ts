@@ -120,8 +120,8 @@ const api: ExportedHandler<CodeEnv> = {
             u.origin + "/node_modules",
             "",
           );
-          const searchParams = `?bundle`;
-          const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/*" + packageName + searchParams;
+
+          const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/*" + packageName;
 
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           response = await fetch(request);
