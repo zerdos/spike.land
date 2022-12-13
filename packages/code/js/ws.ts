@@ -11,6 +11,7 @@ import {
   applyPatch,
   // CodeSession,
   hashCode,
+  makePatch,
   // makePatch,
   makePatchFrom,
   mST,
@@ -379,8 +380,7 @@ export function syncWS(sess: ICodeSession) {
       // const sess = mST();
       // console.//log({ wsLastHashCode });
       console.log("alive3");
-      const message = makePatchFrom(
-        wsLastHashCode,
+      const message = makePatch(
         sess,
       );
       console.log("alive4");
