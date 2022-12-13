@@ -72,7 +72,7 @@
     0,
     8,
   ));
-      globalThis.messagePort = bc.port;
+      // messagePort = bc.port;
    
       bc.port.addEventListener("message", async (event) => {
         if (event.data.type==="onconnect"){

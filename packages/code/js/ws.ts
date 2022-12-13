@@ -217,7 +217,7 @@ console.log("Yoooo0");
 
 const ws = {
   send: (message: object) => {
-    console.log("Yoooo7");
+    // console.log("Yoooo7");
     const messageData = { codeSpace, name: user, ...message, sess: mST() };
     console.log("POST MESSAGE", { messageData });
     messagePort.postMessage(messageData);
@@ -235,14 +235,14 @@ export const run = async (startState: {
   requestAnimationFrame(() => {
     // console.log("Yoooo1");
     const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
-    // messagePort = shareWorker.port;
 
     // console.log("Yoooo2");
     sharedWorker.port.addEventListener("message", function(ev) {
       console.log("ONMESSAGE", { data: ev.data });
       if (ev.data.type === "onconnect") {
+        messagePort = sharedWorker.port;
         console.log("POST ONCONNECT", { codeSpace, name: user });
-        messagePort = this;
+        // messagePort = this;
         this.postMessage({ codeSpace, type: "handshake", name: user });
       } else {
         processData(ev.data, "ws");
