@@ -511,6 +511,10 @@ async function processData(
     wsLastHashCode = data.newHash || data.hashCode;
     return;
   }
+  if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
+    wsLastHashCode = data.newHash || data.hashCode;
+    return;
+  }
   // MySession.addEvent(data);
 
   // if (source === "ws") {

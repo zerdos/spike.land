@@ -21,7 +21,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
   let App;
   const rt = document.getElementById("root")!;
 
-  if (sess) {
+  if (sess && sess.i && sess.html && sess.transpiled) {
     const { i, css, html, transpiled } = sess;
     rt?.setAttribute("data-i", String(i));
     rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
