@@ -680,23 +680,23 @@ export class Code {
           }
           if (data.i <= mST().i) return;
 
-          const newHash = this.session!.applyPatch({
-            newHash: data.newHash!,
-            oldHash: data.oldHash!,
-            patch: data.patch!,
-          });
-          if (newHash === data.newHash) {
-            this.broadcast(data);
-            await this.kv.put<ICodeSession>("session", { ...this.session!.session.get("state").toJSON() });
-            await this.kv.put(
-              String(newHash),
-              JSON.stringify({
-                oldHash: data,
-                patch: data,
-              }),
-            );
-            return;
-          }
+          // const newHash = this.session!.applyPatch({
+          //   newHash: data.newHash!,
+          //   oldHash: data.oldHash!,
+          //   patch: data.patch!,
+          // });
+          // if (newHash === data.newHash) {
+          //   this.broadcast(data);
+          //   await this.kv.put<ICodeSession>("session", { ...this.session!.session.get("state").toJSON() });
+          //   await this.kv.put(
+          //     String(newHash),
+          //     JSON.stringify({
+          //       oldHash: data,
+          //       patch: data,
+          //     }),
+          //   );
+          //   return;
+          // }
           if (data.patch && data.oldHash && data.newHash) {
             const patch = data.patch;
             const newHash = data.newHash;
