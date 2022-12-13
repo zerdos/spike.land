@@ -134,7 +134,13 @@ function reconnect(codeSpace: string, name: string) {
       }
 
       console.log({ mess });
-      self.connections.map(conn => conn.postMessage(mess));
+      self.connections.map(conn => {
+        try {
+          conn.postMessage(mess);
+        } catch (err) {
+          console.error("can't post message connection");
+        }
+      });
     },
   );
   blockedMessages[codeSpace].push(JSON.stringify({ name }));

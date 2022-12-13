@@ -839,7 +839,13 @@ function reconnect(codeSpace, name) {
         mess.sess = hashStore[hash];
       }
       console.log({ mess });
-      self.connections.map((conn) => conn.postMessage(mess));
+      self.connections.map((conn) => {
+        try {
+          conn.postMessage(mess);
+        } catch (err) {
+          console.error("can't post message connection");
+        }
+      });
     }
   );
   blockedMessages[codeSpace].push(JSON.stringify({ name }));
