@@ -781,7 +781,15 @@ async function onMessage(port, {
   answer,
   sess
 }) {
-  console.log("onMessage", { codeSpace, name, sess, oldHash, newHash, hashCode, patch });
+  console.log("onMessage", {
+    codeSpace,
+    name,
+    sess,
+    oldHash,
+    newHash,
+    hashCode,
+    patch
+  });
   const hash = newHash || hashCode;
   if (sess && hash)
     hashStore[hash] = sess;
@@ -797,7 +805,11 @@ async function onMessage(port, {
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);
-    console.log("onconnect", self.connections[codeSpace].length, Object.keys(self.connections));
+    console.log(
+      "onconnect",
+      self.connections[codeSpace].length,
+      Object.keys(self.connections)
+    );
     if (!names[codeSpace]) {
       names[codeSpace] = name;
     }

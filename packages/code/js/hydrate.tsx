@@ -25,18 +25,25 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
   if (sess && sess.i && sess.html && sess.transpiled) {
     const { i, css, html, transpiled } = sess;
     rt?.setAttribute("data-i", String(i));
-    rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
+    rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(
+      `css`,
+    );
   }
   const i = rt?.getAttribute("data-i") || 1;
   lastI = +i;
 
-  App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
+  App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`))
+    .default;
 
-  root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
+  root = document.getElementById(
+    codeSpace + "-css",
+  ) as unknown as HTMLDivElement;
 
   if (!root) {
     document.getElementById("root")!.innerHTML = `<div style="height: 100%" id="${codeSpace}-css"></>`;
-    root = document.getElementById(codeSpace + "-css") as unknown as HTMLDivElement;
+    root = document.getElementById(
+      codeSpace + "-css",
+    ) as unknown as HTMLDivElement;
   }
   if (!r) {
     r = createRoot(root);

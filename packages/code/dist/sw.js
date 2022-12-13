@@ -2527,18 +2527,20 @@ var mod = {
   initialize: () => {
     if (mod.init !== false)
       return mod.init;
-    return fetch(`${location.origin}/files.json`).then((f) => f.json()).then((k) => {
-      const wasmURL = new URL(
-        k[Object.keys(k).find(
-          (i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1
-        )],
-        location.origin
-      ).toString();
-      mod.init = (0, import_esbuild_wasm.initialize)({
-        wasmURL
-      }).then(() => mod.init = true);
-      return mod.init;
-    });
+    return fetch(`${location.origin}/files.json`).then((f) => f.json()).then(
+      (k) => {
+        const wasmURL = new URL(
+          k[Object.keys(k).find(
+            (i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1
+          )],
+          location.origin
+        ).toString();
+        mod.init = (0, import_esbuild_wasm.initialize)({
+          wasmURL
+        }).then(() => mod.init = true);
+        return mod.init;
+      }
+    );
   }
 };
 var transform = /* @__PURE__ */ __name(async (code, opts) => {
@@ -2572,7 +2574,9 @@ self.addEventListener("fetch", function(event) {
         const contentHash = resp.headers.has("content_hash") ? resp.headers.get("content_hash") : null;
         if (contentHash) {
           chunkCache = chunkCache || await caches.open("chunks");
-          let cacheKey2 = new Request(new URL("/" + contentHash, url).toString());
+          let cacheKey2 = new Request(
+            new URL("/" + contentHash, url).toString()
+          );
           let cachedResp = await chunkCache.match(cacheKey2);
           if (cachedResp) {
             controller.abort();
@@ -2599,12 +2603,18 @@ self.addEventListener("fetch", function(event) {
         request = new Request(request.url, request);
         response = await fetch(request);
         response = new Response(response.body, response);
-        if (response.status === 307 || !response.ok || !response.body)
+        if (response.status === 307 || !response.ok || !response.body) {
           return response;
+        }
         if (url.pathname.indexOf(".ts") !== -1 && url.pathname.indexOf(".d.ts") === -1 && url.pathname.indexOf(".tsx") === -1) {
-          const transformed = (await transform(await response.text(), { format: "esm", loader: "ts", target: "es2022" })).code;
-          if (typeof transformed !== "string")
+          const transformed = (await transform(await response.text(), {
+            format: "esm",
+            loader: "ts",
+            target: "es2022"
+          })).code;
+          if (typeof transformed !== "string") {
             return new Response("500 transpile error", { status: 500 });
+          }
           response = new Response(transformed, {
             ...response,
             status: 200,

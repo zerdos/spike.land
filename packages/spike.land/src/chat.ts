@@ -103,7 +103,10 @@ const api: ExportedHandler<CodeEnv> = {
           path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
         ) {
           if (u.toString().includes(".d.ts")) {
-            const dtsUrl = u.toString().replace(u.origin + "/npm:", "https://esm.sh");
+            const dtsUrl = u.toString().replace(
+              u.origin + "/npm:",
+              "https://esm.sh",
+            );
             request = new Request(dtsUrl, { ...request, redirect: "follow" });
             response = await fetch(request);
             response = new Response(response.body, response);
@@ -122,7 +125,9 @@ const api: ExportedHandler<CodeEnv> = {
             "",
           );
 
-          const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/" + packageName + "?bundle";
+          const esmUrl = isJs
+            ? "https://esm.sh/" + packageName
+            : "https://esm.sh/" + packageName + "?bundle";
 
           request = new Request(esmUrl, { redirect: "follow" });
           response = await fetch(request);
@@ -145,7 +150,13 @@ const api: ExportedHandler<CodeEnv> = {
             );
 
             response = new Response(
-              importMapReplace((await response.text()).replace("esm.sh/", u.hostname + "/npm:/"), u.origin),
+              importMapReplace(
+                (await response.text()).replace(
+                  "esm.sh/",
+                  u.hostname + "/npm:/",
+                ),
+                u.origin,
+              ),
               {
                 ...response,
                 headers,
@@ -206,7 +217,10 @@ const api: ExportedHandler<CodeEnv> = {
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           let resp = await fetch(request);
 
-          if (resp !== null && !resp.ok || resp.status === 307 || resp.status === 302) {
+          if (
+            resp !== null && !resp.ok || resp.status === 307
+            || resp.status === 302
+          ) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
               request = new Request(redirectUrl, {
@@ -258,7 +272,10 @@ const api: ExportedHandler<CodeEnv> = {
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           let resp = await fetch(request);
 
-          if (resp !== null && !resp.ok || resp.status === 307 || resp.status === 302) {
+          if (
+            resp !== null && !resp.ok || resp.status === 307
+            || resp.status === 302
+          ) {
             const redirectUrl = resp.headers.get("location");
             if (redirectUrl) {
               request = new Request(
@@ -467,7 +484,10 @@ async function handleApiRequest(
         if (request.method === "POST") {
           const id = env.CODE.newUniqueId();
           return new Response(id.toString(), {
-            headers: { "Access-Control-Allow-Origin": "*", "Cross-Origin-Embedder-Policy": "require-corp" },
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+            },
           });
         } else {
           return new Response("Method not allowed", { status: 405 });
@@ -534,7 +554,7 @@ function importMapReplace(codeInp: string, origin: string) {
     );
   });
 
-  returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
+  returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }

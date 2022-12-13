@@ -11,20 +11,22 @@ const mod = {
   initialize: () => {
     if (mod.init !== false) return mod.init;
 
-    return fetch(`${location.origin}/files.json`).then(f => f.json()).then(k => {
-      const wasmURL = new URL(
-        k[
-          Object.keys(k).find(i =>
-            i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1
-          ) as unknown as keyof typeof k
-        ],
-        location.origin,
-      ).toString();
-      mod.init = initialize({
-        wasmURL,
-      }).then(() => mod.init = true) as Promise<void>;
-      return mod.init;
-    });
+    return fetch(`${location.origin}/files.json`).then((f) => f.json()).then(
+      (k) => {
+        const wasmURL = new URL(
+          k[
+            Object.keys(k).find((i) =>
+              i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1
+            ) as unknown as keyof typeof k
+          ],
+          location.origin,
+        ).toString();
+        mod.init = initialize({
+          wasmURL,
+        }).then(() => mod.init = true) as Promise<void>;
+        return mod.init;
+      },
+    );
   },
 };
 
@@ -42,7 +44,9 @@ export const initAndTransform = async (
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
-  const transformed2 = await transform(importMapReplace(prettierJs(transformed.code)!));
+  const transformed2 = await transform(
+    importMapReplace(prettierJs(transformed.code)!),
+  );
 
   // : transformed.code; // .split("dataset").join("attributes");
 
@@ -99,7 +103,12 @@ const define = {
 // };
 
 let skipImportmapReplaceNames = false;
-export const build = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
+export const build = async (
+  codeSpace: string,
+  i: number,
+  signal: AbortSignal,
+  bundle = false,
+) => {
   const initFinished = mod.initialize();
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
@@ -166,7 +175,12 @@ export const build = async (codeSpace: string, i: number, signal: AbortSignal, b
   return false;
 };
 
-export const buildT = async (codeSpace: string, i: number, signal: AbortSignal, bundle = false) => {
+export const buildT = async (
+  codeSpace: string,
+  i: number,
+  signal: AbortSignal,
+  bundle = false,
+) => {
   // if (lastBuild) {
   // lastBuild = await lastBuild.rebuild();
   //
@@ -262,11 +276,14 @@ function importMapReplace(codeInp: string) {
   });
 
   console.log("importmapReplace fn");
-  returnStr = returnStr.split(";\n").map(x => x.trim()).map(x => {
+  returnStr = returnStr.split(";\n").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
       return x.replace(` '`, ` '${location.origin}/npm:/`);
     }
-    if (x.indexOf("/npm:/") === -1 && x.startsWith("import") && x.indexOf(location.origin) !== -1) {
+    if (
+      x.indexOf("/npm:/") === -1 && x.startsWith("import")
+      && x.indexOf(location.origin) !== -1
+    ) {
       let u = new URL(x.split(`'`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
         return x.slice(0, -1) + `/index.js'`;

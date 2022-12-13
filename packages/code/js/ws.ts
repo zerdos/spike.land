@@ -165,12 +165,12 @@ const p2pcf = new P2PCF(client_id, room_id, {
   rtcPeerConnectionProprietaryConstraints: {},
 
   // SDP transform function (optional)
-  sdpTransform: sdp => sdp,
+  sdpTransform: (sdp) => sdp,
 });
 
 // p2pcf.start();
 
-p2pcf.on("peerconnect", peer => {
+p2pcf.on("peerconnect", (peer) => {
   // New peer connected
 
   // Peer is an instance of simple-peer (https://github.com/feross/simple-peer)
@@ -191,7 +191,7 @@ p2pcf.on("peerconnect", peer => {
   // peer.addStream(new MediaStream(...))
 });
 
-p2pcf.on("peerclose", peer => {
+p2pcf.on("peerclose", (peer) => {
   console.log("peerclose", peer);
   // Peer has isconnected
 });
@@ -232,7 +232,9 @@ export const run = async (startState: {
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {
   // console.log("Yoooo1");
-  const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
+  const sharedWorker = new SharedWorker(
+    "/sharedWorker.js?" + globalThis.assetHash,
+  );
 
   // console.log("Yoooo2");
   sharedWorker.port.onmessage = async (ev) => {
@@ -515,7 +517,9 @@ async function processData(
   data: any,
   source: "ws" | "rtc",
 ) {
-  console.log(`source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST().i}`);
+  console.log(
+    `source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST().i}`,
+  );
 
   if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
     wsLastHashCode = data.newHash || data.hashCode;

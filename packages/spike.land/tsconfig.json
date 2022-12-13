@@ -17,11 +17,9 @@
     "target": "ESNext",
     "module": "CommonJS",
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types"],
-
-    
+    "types": ["@cloudflare/workers-types"]
   },
-  
+
   "include": [
     "src/*"
   ]

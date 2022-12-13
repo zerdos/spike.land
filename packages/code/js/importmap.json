@@ -12,6 +12,5 @@
     "react-error-boundary": "/reactMod.mjs",
     "hydrate.mjs": "/hydrate.mjs",
     "load.mjs": "/load.mjs"
-
   }
 }

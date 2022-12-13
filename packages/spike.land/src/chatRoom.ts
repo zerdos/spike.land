@@ -459,7 +459,10 @@ export class Code {
         case "worker":
         case "dehydrated":
         case "public": {
-          const respText = HTML.replace("/**reset*/", resetCSS + css.split(md5(transpiled)).join(`css`))
+          const respText = HTML.replace(
+            "/**reset*/",
+            resetCSS + css.split(md5(transpiled)).join(`css`),
+          )
             .replace(
               `<script type="importmap"></script>`,
               `<script type="importmap">${JSON.stringify(importMap)}</script>`,
@@ -825,12 +828,15 @@ function importMapReplace(codeInp: string, origin: string) {
     );
   });
 
-  returnStr = returnStr.split(";").map(x => x.trim()).map(x => {
+  returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
 
-    if (!x.includes("/npm:/") && x.startsWith("import") && x.includes(origin) && !x.includes("/index.js")) {
+    if (
+      !x.includes("/npm:/") && x.startsWith("import") && x.includes(origin)
+      && !x.includes("/index.js")
+    ) {
       const u = new URL(x.split(`"`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
         return x.slice(0, -1) + `/index.js"`;

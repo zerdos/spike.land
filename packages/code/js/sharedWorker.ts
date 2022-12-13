@@ -58,7 +58,15 @@ async function onMessage(port: MessagePort, {
   answer,
   sess,
 }: Data) {
-  console.log("onMessage", { codeSpace, name, sess, oldHash, newHash, hashCode, patch });
+  console.log("onMessage", {
+    codeSpace,
+    name,
+    sess,
+    oldHash,
+    newHash,
+    hashCode,
+    patch,
+  });
   const hash = newHash || hashCode;
   if (sess && hash) hashStore[hash] = sess;
   if (sess && newHash) hashStore[newHash] = sess;
@@ -71,13 +79,20 @@ async function onMessage(port: MessagePort, {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);
 
-    console.log("onconnect", self.connections[codeSpace].length, Object.keys(self.connections));
+    console.log(
+      "onconnect",
+      self.connections[codeSpace].length,
+      Object.keys(self.connections),
+    );
     if (!names[codeSpace]) {
       names[codeSpace] = name;
     }
     if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].OPEN) {
       blockedMessages[codeSpace] = blockedMessages[codeSpace] || [];
-      if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].CONNECTING) {
+      if (
+        !mod[codeSpace]
+        || mod[codeSpace].readyState !== mod[codeSpace].CONNECTING
+      ) {
         reconnect(codeSpace, name);
       }
     }
@@ -99,7 +114,7 @@ async function onMessage(port: MessagePort, {
     answer,
   };
 
-  Object.keys(obj).forEach(key => !obj[key] && delete obj[key]);
+  Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
   if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
     mod[codeSpace].send(JSON.stringify(obj));
   } else {
@@ -148,7 +163,7 @@ function reconnect(codeSpace: string, name: string) {
       // while (Atomics.load(bufView, j++) < str.length) {
 
       // }
-      self.connections[codeSpace] = self.connections[codeSpace].map(conn => {
+      self.connections[codeSpace] = self.connections[codeSpace].map((conn) => {
         try {
           const ab = str2ab(str);
           conn.postMessage(ab, [ab]);
@@ -157,7 +172,7 @@ function reconnect(codeSpace: string, name: string) {
           console.error("can't post message connection");
           return null;
         }
-      }).filter(x => x !== null) as MessagePort[];
+      }).filter((x) => x !== null) as MessagePort[];
     },
   );
 

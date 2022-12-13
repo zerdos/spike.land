@@ -48,10 +48,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
 
   const setWidth = (width: number) => {
-    const breakPoint = breakPoints.findIndex(x => x === width);
+    const breakPoint = breakPoints.findIndex((x) => x === width);
     const height = breakPointHeights[breakPoint];
-    changeScaleRange(Math.max(100, Math.floor(window.innerHeight / height) - 10));
-    changeMaxScaleRange(Math.max(100, Math.floor(40 * window.innerHeight / height)));
+    changeScaleRange(
+      Math.max(100, Math.floor(window.innerHeight / height) - 10),
+    );
+    changeMaxScaleRange(
+      Math.max(100, Math.floor(40 * window.innerHeight / height)),
+    );
 
     // changeMaxScaleRange(Math.floor(100 * Math.sqrt(1 - (innerWidth / (width + 40)))));
     // changeMaxScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
@@ -247,7 +251,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   newScale && changeScaleRange(newScale);
                 }}
               >
-                {Array.from(new Set([...(sizes.filter(x => x < maxScaleRange)), scaleRange, maxScaleRange]).values())
+                {Array.from(new Set([
+                  ...(sizes.filter((x) => x < maxScaleRange)),
+                  scaleRange,
+                  maxScaleRange,
+                ]).values())
                   .sort((a, b) => a - b).map((size, ind) => (
                     <ToggleButton
                       key={ind}
@@ -297,7 +305,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     animate={{
                       opacity: `${isVisible ? 0 : 1}`,
                     }}
-                    dangerouslySetInnerHTML={{ __html: mST().html.split(md5(mST().transpiled)).join(`css`) }}
+                    dangerouslySetInnerHTML={{
+                      __html: mST().html.split(md5(mST().transpiled)).join(
+                        `css`,
+                      ),
+                    }}
                   />
                 )
                 : null}
