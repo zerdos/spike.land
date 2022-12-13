@@ -181,6 +181,7 @@ async function setMonaco(container: HTMLDivElement, codeSpace: string) {
   return await startMonaco({
     container,
     codeSpace,
+    i: mST().i,
     code: mST().code,
     onChange: (code) => onModChange(code, codeSpace),
   });
