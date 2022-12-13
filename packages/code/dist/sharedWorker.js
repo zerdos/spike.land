@@ -803,7 +803,7 @@ async function onMessage({
       answer
     };
     Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
-    if (mod[codeSpace].OPEN) {
+    if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
       mod[codeSpace].send(JSON.stringify(obj));
     } else {
       blockedMessages[codeSpace].push(JSON.stringify(obj));
