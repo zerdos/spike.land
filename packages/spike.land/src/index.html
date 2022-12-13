@@ -66,12 +66,17 @@
 
 
     if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
-      const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
+      const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");]
+      const name = md5(((self && self.crypto && self.crypto.randomUUID
+  && self.crypto.randomUUID()) || (uidV4())).slice(
+    0,
+    8,
+  ));
       globalThis.messagePort = bc.port;
    
       bc.port.addEventListener("message", async (event) => {
         if (event.data.type==="onconnect"){
-          bc.port.postMessage({codeSpace, name: codeSpace});
+          bc.port.postMessage({codeSpace, name,  type: 'handshake'});
         } else
         if (event.data.codeSpace === codeSpace && event.data.sess) {
           const { html, css, transpiled, i } = event.data.sess;
