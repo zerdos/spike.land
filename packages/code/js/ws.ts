@@ -232,29 +232,29 @@ export const run = async (startState: {
 }) => {
   const { mST: mst, dry } = startState;
   // codeSpace = startState.codeSpace;
-  requestAnimationFrame(() => {
-    // console.log("Yoooo1");
-    const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
+  // requestAnimationFrame(() => {
+  // console.log("Yoooo1");
+  const sharedWorker = new SharedWorker("/sharedWorker.js?" + globalThis.assetHash);
 
-    // console.log("Yoooo2");
-    sharedWorker.port.addEventListener("message", function(ev) {
-      console.log("ONMESSAGE", { data: ev.data });
-      if (ev.data.type === "onconnect") {
-        messagePort = sharedWorker.port;
-        console.log("POST ONCONNECT", { codeSpace, name: user });
-        // messagePort = this;
-        this.postMessage({ codeSpace, type: "handshake", name: user });
-      } else {
-        processData(ev.data, "ws");
-      }
-    });
-    sharedWorker.port.start();
-
-    // setTimeout(() => {
-    // console.log("Yoooo3");
-
-    // console.log("Yoooo4");
+  // console.log("Yoooo2");
+  sharedWorker.port.addEventListener("message", (ev) => {
+    console.log("ONMESSAGE", { data: ev.data });
+    if (ev.data.type === "onconnect") {
+      messagePort = sharedWorker.port;
+      console.log("POST ONCONNECT", { codeSpace, name: user });
+      // messagePort = this;
+      messagePort.postMessage({ codeSpace, type: "handshake", name: user });
+    } else {
+      processData(ev.data, "ws");
+    }
   });
+  sharedWorker.port.start();
+
+  // setTimeout(() => {
+  // console.log("Yoooo3");
+
+  // console.log("Yoooo4");
+  // });
   wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
