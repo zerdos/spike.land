@@ -125,6 +125,7 @@ function reconnect(codeSpace: string, name: string) {
         "message",
         (ev) => {
           const mess = { codeSpace, ...(JSON.parse(ev.data)) };
+          mess.name = names[codeSpace];
           const hash = mess.newHash || mess.hashCode;
           if (hash && hashStore[hash]) {
             Object.assign(mess, { sess: hashStore[hash] });
