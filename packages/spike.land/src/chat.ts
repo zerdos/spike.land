@@ -114,14 +114,14 @@ const api: ExportedHandler<CodeEnv> = {
             || u.toString().includes(".mjs");
 
           const packageName = u.toString().replace(
-            u.origin + "/npm:",
+            u.origin + "/npm:/",
             "",
           ).replace(
             u.origin + "/node_modules",
             "",
           );
 
-          const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/*" + packageName;
+          const esmUrl = isJs ? "https://esm.sh/" + packageName : "https://esm.sh/*" + packageName + "?bundle";
 
           request = new Request(esmUrl, { ...request, redirect: "follow" });
           response = await fetch(request);
