@@ -3,11 +3,9 @@ import { build as esbuildBuild, type BuildOptions, initialize, transform, type T
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
-
+import { prettierJs } from "./prettierEsm";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
-import { prettierJs } from "prettierEsm";
-import { mST } from "./session";
 const mod = {
   init: false as (boolean | Promise<void>),
   initialize: () => {
@@ -31,22 +29,22 @@ const mod = {
 };
 
 export const initAndTransform = async (
-  c: string,
+  code: string,
   opts: TransformOptions,
 ) => {
-  const code = prettierJs(c)!;
+  // const code = prettierJs(c)!;
   const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
 
-  const transformed = await transform(importMapReplace(code), {
+  const transformed = await transform(code, {
     ...opts,
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
   // : transformed.code; // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(c)}*/` + transformed.code + `/*${mST().i}*/` };
+  const res = { code: `/*${md5(code)}*/` + importMapReplace(prettierJs(transformed.code)) };
   return res;
 };
 

@@ -1,4 +1,6 @@
-import parserBabel from "prettier/parser-babel";
+// import parserBabel from "prettier/parser-babel";
+import parserTypescript from "prettier/parser-typescript";
+
 import { format } from "prettier/standalone";
 // import parserHtml from "prettier/parser-html";
 // import parserPostcss from "prettier/parser-postcss";
@@ -12,6 +14,7 @@ export const prettierJs = (code: string) => {
       bracketSpacing: true,
       embeddedLanguageFormatting: "auto",
       insertPragma: false,
+
       bracketSameLine: true,
       jsxSingleQuote: false,
       htmlWhitespaceSensitivity: "strict",
@@ -25,8 +28,8 @@ export const prettierJs = (code: string) => {
       tabWidth: 2,
       trailingComma: "all",
       useTabs: false,
-      parser: "babel-ts",
-      plugins: [parserBabel /// parserHtml, parserPostcss
+      parser: "typescript",
+      plugins: [parserTypescript /// parserHtml, parserPostcss
       ],
     });
     // return lastSuccessful = current;
