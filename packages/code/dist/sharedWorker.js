@@ -769,14 +769,17 @@ async function onMessage({
   answer,
   sess
 }) {
-  console.log("onMessage", { codeSpace, name, sess, newHash, hashCode, patch });
+  console.log("onMessage", { codeSpace, name, sess, oldHash, newHash, hashCode, patch });
+  const hash = newHash || hashCode;
+  if (sess && hash)
+    hashStore[hash] = sess;
   if (sess && newHash)
     hashStore[newHash] = sess;
   if (sess && hashCode)
     hashStore[hashCode] = sess;
-  if (!counters[codeSpace])
+  if (i && !counters[codeSpace])
     counters[codeSpace] = i;
-  if (counters[codeSpace] > i)
+  else if (i && counters[codeSpace] >= i)
     return;
   counters[codeSpace] = i;
   if (codeSpace && name && type === "handshake") {
@@ -833,17 +836,17 @@ function reconnect(codeSpace, name) {
       mess.name = names[codeSpace];
       const hash = mess.newHash || mess.hashCode;
       if (hash && hashStore[hash]) {
-        Object.assign(mess, { sess: hashStore[hash] });
+        mess.sess = hashStore[hash];
       }
       console.log({ mess });
       self.connections.map((conn) => conn.postMessage(mess));
     }
   );
+  blockedMessages[codeSpace].push(JSON.stringify({ name }));
   websocket.onopen = () => {
-    websocket.send(JSON.stringify({ name }));
-    while (blockedMessages[codeSpace].length) {
-      const message = blockedMessages[codeSpace].pop();
-      websocket.send(message);
+    let i = 0;
+    while (i <= blockedMessages[codeSpace].length) {
+      websocket.send(blockedMessages[codeSpace][i++]);
     }
   };
   return mod[codeSpace];
