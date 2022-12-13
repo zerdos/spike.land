@@ -798,9 +798,9 @@ async function onMessage(port, {
     self.connections[codeSpace] = self.connections[codeSpace] = [];
     self.connections[codeSpace].push(port);
     console.log("onconnect", self.connections[codeSpace].length, Object.keys(self.connections));
-    if (names[codeSpace])
-      return;
-    names[codeSpace] = name;
+    if (!names[codeSpace]) {
+      names[codeSpace] = name;
+    }
     if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].OPEN) {
       blockedMessages[codeSpace] = blockedMessages[codeSpace] || [];
       if (!mod[codeSpace] || mod[codeSpace].readyState !== mod[codeSpace].CONNECTING) {
