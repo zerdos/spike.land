@@ -108,6 +108,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               content_hash: md5(code),
               "Content-Type": "application/javascript; charset=UTF-8",
@@ -124,6 +125,7 @@ export class Code {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
+                  "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
                   content_hash: md5(session),
                   "Content-Type": "application/json; charset=UTF-8",
@@ -136,6 +138,7 @@ export class Code {
                   status: 404,
                   headers: {
                     "Access-Control-Allow-Origin": "*",
+                    "Cross-Origin-Embedder-Policy": "require-corp",
                     "Cache-Control": "no-cache",
                     "Content-Type": "application/json; charset=UTF-8",
                   },
@@ -148,6 +151,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               content_hash: md5(body),
               "Content-Type": "application/json; charset=UTF-8",
@@ -198,6 +202,7 @@ export class Code {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
@@ -208,6 +213,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
@@ -220,6 +226,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
@@ -230,6 +237,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
@@ -261,6 +269,7 @@ export class Code {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
                 content_hash: content_hash,
                 "Content-Type": "application/javascript; charset=UTF-8",
@@ -278,6 +287,7 @@ export class Code {
               status: 200,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
                 "Content-Type": "application/json; charset=UTF-8",
               },
@@ -288,6 +298,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
@@ -297,6 +308,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "application/javascript; charset=UTF-8",
             },
@@ -344,6 +356,7 @@ export class Code {
             headers: {
               "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
 
               content_hash: md5(src),
@@ -379,6 +392,7 @@ export class Code {
               headers: {
                 "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -392,6 +406,7 @@ export class Code {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
                 "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST().i}`,
                 "Cache-Control": "no-cache",
 
@@ -404,6 +419,7 @@ export class Code {
           return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
 
               content_hash: md5(trp),
@@ -417,6 +433,7 @@ export class Code {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cache-Control": "no-cache",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Content-Type": "text/html; charset=UTF-8",
             },
           });
@@ -431,6 +448,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "application/json; charset=UTF-8",
             },
@@ -455,6 +473,9 @@ export class Code {
           // const newEtag = await sha256(respText);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
+
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.set("Cross-Origin-Opener-Policy", "same-origin");
           headers.set(
             "Cache-Control",
             "no-cache",
@@ -496,6 +517,7 @@ export class Code {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
               "Content-Type": "text/html; charset=UTF-8",
             },

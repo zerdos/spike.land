@@ -2,7 +2,7 @@ import {
   run,
   sendChannel,
   syncWS
-} from "./chunk-chunk-CPZAFDNI.mjs";
+} from "./chunk-chunk-DWLBWQ6W.mjs";
 import "./chunk-chunk-S7IISJSO.mjs";
 import "./chunk-chunk-AIF5T3IG.mjs";
 import "./chunk-chunk-KJNWZ244.mjs";

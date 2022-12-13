@@ -729,6 +729,18 @@ var require_diff = __commonJS({
 // js/sharedWorker.ts
 init_define_process();
 
+// js/sab.ts
+init_define_process();
+function str2sab(str) {
+  var buf = new SharedArrayBuffer(str.length * 2);
+  var bufView = new Uint16Array(buf);
+  for (var i = 0, strLen = str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
+}
+__name(str2sab, "str2sab");
+
 // js/session.ts
 init_define_process();
 var import_lodash = __toESM(require_lodash(), 1);
@@ -750,9 +762,9 @@ var names = {};
 var blockedMessages = {};
 self.mod = self.mod || {};
 self.counters = self.counters || {};
-self.connections = self.connections || [];
+self.connections = self.connections || {};
 var { mod, counters } = self;
-async function onMessage({
+async function onMessage(port, {
   name,
   codeSpace,
   target,
@@ -783,6 +795,9 @@ async function onMessage({
     return;
   counters[codeSpace] = i;
   if (codeSpace && name && type === "handshake") {
+    self.connections[codeSpace] = self.connections[codeSpace] = [];
+    self.connections[codeSpace].push(port);
+    console.log("onconnect", self.connections[codeSpace].length, Object.keys(self.connections));
     if (names[codeSpace])
       return;
     names[codeSpace] = name;
@@ -816,11 +831,10 @@ async function onMessage({
   }
 }
 __name(onMessage, "onMessage");
+var iii = 0;
 self.onconnect = ({ ports }) => {
-  ports[0].postMessage({ type: "onconnect", connections: self.connections.length });
-  ports[0].onmessage = ({ data }) => onMessage(data);
-  self.connections.push(ports[0]);
-  console.log("onconnect", self.connections.length, Object.keys(mod));
+  ports[0].postMessage({ type: "onconnect", connections: ++iii });
+  ports[0].onmessage = ({ data }) => onMessage(ports[0], data);
 };
 function reconnect(codeSpace, name) {
   if (mod[codeSpace])
@@ -832,16 +846,18 @@ function reconnect(codeSpace, name) {
   websocket.addEventListener(
     "message",
     (ev) => {
-      const mess = { codeSpace, ...JSON.parse(ev.data) };
+      const patch = JSON.parse(ev.data);
+      const mess = { codeSpace, ...patch };
       mess.name = names[codeSpace];
-      const hash = mess.newHash || mess.hashCode;
+      const hash = patch.newHash || patch.hashCode;
       if (hash && hashStore[hash]) {
         mess.sess = hashStore[hash];
       }
+      const sab = str2sab(JSON.stringify(mess));
       console.log({ mess });
-      self.connections = self.connections.map((conn) => {
+      self.connections[codeSpace] = self.connections[codeSpace].map((conn) => {
         try {
-          conn.postMessage(mess);
+          conn.postMessage(sab, [sab]);
           return conn;
         } catch (err) {
           console.error("can't post message connection");
