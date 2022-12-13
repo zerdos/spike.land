@@ -29,7 +29,7 @@ var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1)
 var r;
 var root;
 var lastI;
-var hydrate = /* @__PURE__ */ __name(async (codeSpace, i, sess) => {
+var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   if (sess?.i && sess.i === lastI)
     return;
   if (r) {
@@ -43,6 +43,8 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, i, sess) => {
     rt?.setAttribute("data-i", String(i2));
     rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(`css`);
   }
+  const i = rt?.getAttribute("data-i") || 1;
+  lastI = +i;
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`)).default;
   root = document.getElementById(codeSpace + "-css");
   if (!root) {
