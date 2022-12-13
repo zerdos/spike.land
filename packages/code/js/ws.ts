@@ -219,7 +219,7 @@ requestAnimationFrame(() => {
 
   // console.log("Yoooo2");
   messagePort.addEventListener("message", function(ev) {
-    //   console.log("ONMESSAGE", { data: ev.data });
+    console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
       messagePort.postMessage({ codeSpace, name: user });
     } else {
