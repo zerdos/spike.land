@@ -55,15 +55,16 @@ async function onMessage(
     sess,
   }: Data,
 ) {
+  console.log("onMessage", { codeSpace, name });
   if (sess && newHash) hashStore[newHash] = sess;
   if (sess && hashCode) hashStore[hashCode] = sess;
 
   if (!counters[codeSpace]) counters[codeSpace] = i;
   if (counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
-  if (codeSpace && name && (hashCode || newHash)) {
+  if (codeSpace && name) {
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
-      await reconnect(codeSpace, name, hashCode ? hashCode : newHash);
+      await reconnect(codeSpace, name);
     }
 
     const obj: { [k: string]: unknown } = {
@@ -102,7 +103,7 @@ function isPromise(p: unknown | Promise<unknown>) {
   return false;
 }
 
-function reconnect(codeSpace: string, name: string, hashCode: string) {
+function reconnect(codeSpace: string, name: string) {
   return new Promise(async (resolve) => {
     if (isPromise(mod[codeSpace])) {
       return resolve(await mod[codeSpace]);
@@ -114,7 +115,7 @@ function reconnect(codeSpace: string, name: string, hashCode: string) {
     );
 
     mod[codeSpace].addEventListener("open", () => {
-      mod[codeSpace].send(JSON.stringify({ name, hashCode: hashCode }));
+      mod[codeSpace].send(JSON.stringify({ name }));
 
       mod[codeSpace].addEventListener(
         "message",

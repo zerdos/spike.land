@@ -767,6 +767,7 @@ async function onMessage({
   answer,
   sess
 }) {
+  console.log("onMessage", { codeSpace, name });
   if (sess && newHash)
     hashStore[newHash] = sess;
   if (sess && hashCode)
@@ -776,9 +777,9 @@ async function onMessage({
   if (counters[codeSpace] >= i)
     return;
   counters[codeSpace] = i;
-  if (codeSpace && name && (hashCode || newHash)) {
+  if (codeSpace && name) {
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
-      await reconnect(codeSpace, name, hashCode ? hashCode : newHash);
+      await reconnect(codeSpace, name);
     }
     const obj = {
       name,
@@ -813,7 +814,7 @@ function isPromise(p) {
   return false;
 }
 __name(isPromise, "isPromise");
-function reconnect(codeSpace, name, hashCode) {
+function reconnect(codeSpace, name) {
   return new Promise(async (resolve) => {
     if (isPromise(mod[codeSpace])) {
       return resolve(await mod[codeSpace]);
@@ -824,7 +825,7 @@ function reconnect(codeSpace, name, hashCode) {
       `wss://${location.host}/live/` + codeSpace + "/websocket"
     );
     mod[codeSpace].addEventListener("open", () => {
-      mod[codeSpace].send(JSON.stringify({ name, hashCode }));
+      mod[codeSpace].send(JSON.stringify({ name }));
       mod[codeSpace].addEventListener(
         "message",
         (ev) => {

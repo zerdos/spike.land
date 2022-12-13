@@ -238,7 +238,7 @@ export const run = async (startState: {
     // messagePort = shareWorker.port;
 
     // console.log("Yoooo2");
-    messagePort.addEventListener("message", function(ev) {
+    sharedWorker.port.addEventListener("message", function(ev) {
       console.log("ONMESSAGE", { data: ev.data });
       if (ev.data.type === "onconnect") {
         console.log("POST ONCONNECT", { codeSpace, name: user });
