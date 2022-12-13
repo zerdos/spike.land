@@ -1,4 +1,7 @@
 import {
+  ab2str
+} from "./chunk-chunk-3LGVA7LC.mjs";
+import {
   jsx,
   jsxs
 } from "./chunk-chunk-Y3K3LM36.mjs";
@@ -68,6 +71,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
   }
 }, "hydrate");
 export {
+  ab2str,
   hydrate,
   md5
 };

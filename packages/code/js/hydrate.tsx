@@ -2,6 +2,7 @@ import type { Root } from "react-dom/client";
 
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
+export { ab2str } from "sab";
 import type { ICodeSession } from "session";
 import { md5 } from "./md5";
 
