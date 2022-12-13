@@ -243,7 +243,7 @@ export const run = async (startState: {
       if (ev.data.type === "onconnect") {
         console.log("POST ONCONNECT", { codeSpace, name: user });
         messagePort = this;
-        this.postMessage({ codeSpace, name: user });
+        this.postMessage({ codeSpace, type: 'handshake', name: user });
       } else {
         processData(ev.data, "ws");
       }
