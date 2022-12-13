@@ -746,6 +746,7 @@ var import_fast_diff = __toESM(require_diff(), 1);
 
 // js/sharedWorker.ts
 var hashStore = {};
+var names = {};
 self.mod = self.mod || {};
 self.counters = self.counters || {};
 self.connections = self.connections || [];
@@ -777,7 +778,10 @@ async function onMessage({
   if (counters[codeSpace] >= i)
     return;
   counters[codeSpace] = i;
-  if (codeSpace && name) {
+  if (codeSpace && name && type === "handshake") {
+    if (names[codeSpace])
+      return;
+    names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
       await reconnect(codeSpace, name);
     }

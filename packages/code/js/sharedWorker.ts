@@ -1,11 +1,13 @@
 import { CodeSession } from "session";
 import type { Delta } from "textDiff";
 const hashStore: { [hash: string]: CodeSession } = {};
+const names: { [codeSpace: string]: string } = {};
 export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
   counters: Counters;
   connections: MessagePort[];
+  names: {};
   // bc: BroadcastChannel;
 };
 
@@ -15,7 +17,7 @@ type Data = {
   name: string;
   codeSpace: string;
   target?: string;
-  type?: "new-ice-candidate" | "video-offer" | "video-answer";
+  type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake";
   patch?: Delta[];
   address?: string;
   users?: string[];
@@ -62,7 +64,9 @@ async function onMessage(
   if (!counters[codeSpace]) counters[codeSpace] = i;
   if (counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
-  if (codeSpace && name) {
+  if (codeSpace && name && type === "handshake") {
+    if (names[codeSpace]) return;
+    names[codeSpace] = name;
     if (!mod[codeSpace] || mod[codeSpace].readyState !== 1) {
       await reconnect(codeSpace, name);
     }
