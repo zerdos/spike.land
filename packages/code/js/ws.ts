@@ -430,12 +430,19 @@ export const syncStorage = async (
   console.log("alive6");
 };
 
-export const syncDb = (oldSession: ICodeSession, newSession: ICodeSession, message: {
+export const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: {
   oldHash: string;
   newHash: any;
   reversePatch: Delta[];
   patch: Delta[];
-}) => syncStorage(codeHistory.setItem, codeHistory.getItem, oldSession, newSession, message);
+}) =>
+  await syncStorage(
+    (key: string, value: unknown) => codeHistory.setItem(key, value),
+    (key: string) => codeHistory.getItem(key),
+    oldSession,
+    newSession,
+    message,
+  );
 // const hashOfOldSession = md5(oldSession.transpiled);
 // let historyHead = await codeHistory.getItem("head");
 // if (!historyHead) {
