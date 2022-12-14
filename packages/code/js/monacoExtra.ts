@@ -140,8 +140,8 @@ export function extraStuff(
       console.log(`Aga-Insert: ${m.mod}`);
 
       await addExtraModels(
-        m.content,
-        m.url,
+        m.content.split("/npm:/").join("/node_modules/"),
+        m.url.split("/npm:/").join("/node_modules/"),
       );
 
       return {
@@ -223,8 +223,8 @@ export function extraStuff(
   const extraLib = xxxsetExtraLibs();
   extraLib.map((lib) => {
     addExtraLib(
-      lib.content,
-      lib.filePath,
+      lib.content.split("/npm:/").join("/node_modules/"),
+      lib.filePath.split("/npm:/").join("/node_modules/"),
     );
   });
 
