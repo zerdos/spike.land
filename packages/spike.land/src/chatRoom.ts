@@ -117,8 +117,10 @@ export class Code {
         case "session.json":
         case "session": {
           if (path[1]) {
-            const session = await this.kv.get<string>(path[1]);
+            let session = await this.kv.get<string | object>(path[1]);
             if (session) {
+              if (typeof session !== "string") session = JSON.stringify(session);
+
               // const { i, transpiled, code, html, css } = session;
 
               return new Response(session, {
