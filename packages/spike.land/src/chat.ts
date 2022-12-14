@@ -572,7 +572,8 @@ function importMapReplace(codeInp: string, origin: string) {
   ).map((x) => {
     if (
       (x.startsWith("import") || (x.startsWith("export") !== (x.indexOf("declare") !== -1)))
-      && x.indexOf("declare type ") === -1 && x.indexOf(`"https://`) === -1 && x.indexOf(`".`) === -1
+      && x.indexOf("declare type ") === -1 && x.indexOf("export interface") === -1 && x.indexOf(`"https://`) === -1
+      && x.indexOf(`".`) === -1
     ) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
