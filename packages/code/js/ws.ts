@@ -18,6 +18,7 @@ import {
   mST,
   // onSessionUpdate,
   startSession,
+  syncStorage,
 } from "./session";
 
 import localForage from "localforage";
@@ -385,50 +386,6 @@ const ignoreUsers: string[] = [];
 //   leading: true,
 //   maxWait: 500,
 // });
-
-type SetItem<T> = (key: string, value: T, callback?: (err: any, value: T) => void) => Promise<T>;
-
-type GetItem<T> = (key: string, callback?: (err: any, value: T | null) => void) => Promise<T | null>;
-
-export const syncStorage = async (
-  setItem: SetItem<unknown>,
-  getItem: GetItem<unknown>,
-  oldSession: ICodeSession,
-  newSession: ICodeSession,
-  message: {
-    oldHash: string;
-    newHash: any;
-    reversePatch: Delta[];
-    patch: Delta[];
-  },
-) => {
-  const hashOfOldSession = md5(oldSession.transpiled);
-  let historyHead = await getItem("head");
-  if (!historyHead) {
-    await setItem(hashOfOldSession, oldSession);
-    await setItem("head", hashOfOldSession);
-    historyHead = hashOfOldSession;
-  }
-
-  await setItem(message.newHash, {
-    ...newSession,
-    oldHash: message.oldHash,
-    reversePatch: message.reversePatch,
-  });
-  const oldNode =
-    await (getItem as unknown as GetItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>)(
-      message.oldHash,
-    );
-  if (!oldNode) throw Error("corrupt storage");
-  await setItem(message.oldHash, {
-    oldHash: oldNode.oldHash ? oldNode.oldHash : null,
-    reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
-    newHash: message.newHash,
-    patch: message.patch,
-  });
-  await setItem("head", message.newHash);
-  console.log("alive6");
-};
 
 export const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: {
   oldHash: string;

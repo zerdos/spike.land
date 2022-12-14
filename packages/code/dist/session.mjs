@@ -10,8 +10,9 @@ import {
   onSessionUpdate,
   patchSync,
   resetCSS,
-  startSession
-} from "./chunk-chunk-ASBNRPPH.mjs";
+  startSession,
+  syncStorage
+} from "./chunk-chunk-RFXKPLH4.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
@@ -29,5 +30,6 @@ export {
   onSessionUpdate,
   patchSync,
   resetCSS,
-  startSession
+  startSession,
+  syncStorage
 };
