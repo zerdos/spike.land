@@ -14,6 +14,7 @@ const mod = {
   codeSpace: "",
   waitForDiv: async (md5hash: string) => {
     if (mod.md5hash !== md5hash) return "";
+    if (mod.wait > 256) return "";
 
     // if (!mod.res?.innerHTML) await waitForFlush();
 
@@ -31,7 +32,6 @@ const mod = {
       html?.includes(md5hash) && mod.res?.firstElementChild?.innerHTML !== ""
     ) return html;
 
-    mod.wait = mod.wait * 2;
     return await (mod.waitForDiv as unknown as (
       md5hash: string,
     ) => Promise<string>)(md5hash);

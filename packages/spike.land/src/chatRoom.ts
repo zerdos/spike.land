@@ -612,6 +612,7 @@ export class Code {
       target?: string;
       type?: "new-ice-candidate" | "video-offer" | "video-answer";
       patch?: Delta[];
+      reversePatch: Delta[];
       address?: string;
       hashCode?: string;
       i: number;
@@ -726,13 +727,14 @@ export class Code {
             const patch = data.patch;
             const newHash = data.newHash;
             const oldHash = data.oldHash;
+            const reversePatch = data.reversePatch;
 
             if (oldHash !== hashCode()) {
               return respondWith({ hashCode: hashCode() });
             }
 
             try {
-              applyPatchSync({ newHash, oldHash, patch });
+              applyPatchSync({ newHash, oldHash, patch, reversePatch });
             } catch (err) {
               console.error({ err });
               return respondWith({ err });

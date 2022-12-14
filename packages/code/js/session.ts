@@ -62,7 +62,7 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-export type CodePatch = { oldHash: string; newHash: string; patch: Delta[] };
+export type CodePatch = { oldHash: string; newHash: string; patch: Delta[]; reversePatch: Delta[] };
 type IApplyPatch = (
   prop: CodePatch,
 ) => void;
@@ -194,9 +194,11 @@ export class CodeSession implements ICodeSess {
     hashStore[newHash] = newNewRecord;
 
     const patch = createPatch(oldString, newString);
+    const reversePatch = createPatch(newString, oldString);
     return {
       oldHash: usedOldHash,
       newHash,
+      reversePatch,
       patch,
     };
   };
