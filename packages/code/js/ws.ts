@@ -9,6 +9,7 @@ import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import {
   applyPatch,
+  type CodePatch,
   type Delta,
   // CodeSession,
   hashCode,
@@ -387,12 +388,7 @@ const ignoreUsers: string[] = [];
 //   maxWait: 500,
 // });
 
-export const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: {
-  oldHash: string;
-  newHash: any;
-  reversePatch: Delta[];
-  patch: Delta[];
-}) =>
+const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
   await syncStorage(
     async (key: string, value: unknown) => await codeHistory.setItem(key, value),
     async (key: string) => await codeHistory.getItem(key),
