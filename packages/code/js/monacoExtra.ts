@@ -1,6 +1,7 @@
 import "core-js/stable/string/replace-all";
 import type { languages, Uri } from "monaco-editor";
 
+const replaceMaps: { [key: string]: string } = {};
 export function extraStuff(
   code: string,
   uri: Uri,
@@ -70,11 +71,9 @@ export function extraStuff(
 
           let extraModelUrl = (new URL(extraModel, location.origin)).toString();
 
-          const extraModelContent = await fetch(extraModelUrl).then((resp) =>
-            resp.status === 307 ? fetch(resp.headers.get("location")!) : resp
-          ).then((res) => {
-            extraModelUrl = res.url;
-            return res.text();
+          const extraModelContent = await fetch(extraModelUrl, { redirect: "follow" }).then((resp) => {
+            extraModelUrl = resp.url;
+            return resp.text();
           });
 
           if (extraModelUrl !== extraModel) {
@@ -96,7 +95,7 @@ export function extraStuff(
       return;
     }
   };
-  const replaceMaps: { [key: string]: string } = {};
+
   const ATA = async () => {
     console.log("ATA");
     const mappings = (await Promise.all(
@@ -116,27 +115,23 @@ export function extraStuff(
               return retMod;
             }
 
-            retMod.content = (await fetch("/npm:/" + mod).then((resp) =>
-              resp.status === 307
-                ? fetch(resp.headers.get("location")!)
-                : resp
-            ).then((x) => {
-              retMod.url = x.headers.get("x-dts")!;
-              console.log(retMod.url);
+            retMod.content = (await fetch("/npm:/" + mod, { redirect: "follow" }).then(resp => {
+              // (resp.status === 307 || resp.status === 302)
+              // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
+              // : resp
+              // ).then((x) => {
+              retMod.url = resp.headers.get("x-dts")!;
 
-              return retMod.url === "NO_DTS"
-                ? ""
-                : fetch(retMod.url).then((resp) =>
-                  resp.status === 307 || resp.redirected
-                    ? fetch(retMod.url = resp.url)
-                    : resp
-                ).then((resp) => resp.text());
+              return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then(resp => {
+                retMod.url = resp.url;
+                return resp.text();
+              });
             }).catch(() => "")) || "";
 
             return retMod;
           },
         ),
-    )).filter((m) => m.mod && m.content).map(async (m) => {
+    )).filter(m => m.mod && m.content && m.content.trim().length > 1).map(async (m) => {
       console.log(`Aga-Insert: ${m.mod}`);
 
       await addExtraModels(
@@ -211,10 +206,7 @@ export function extraStuff(
         filePath: url,
         content: dtsRemoved,
       };
-    }).map(x => ({
-      filePath: x.filePath.split("/npm:/").join("/node_modules/"),
-      content: x.content.split("/npm:/").join("/node_modules/"),
-    }));
+    }).filter(x => x.content.length);
 
     console.log({ extraLibs });
 

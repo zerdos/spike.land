@@ -568,7 +568,10 @@ function importMapReplace(codeInp: string, origin: string) {
   });
 
   returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
-    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+    if (
+      (x.startsWith("import") || (x.startsWith("export") !== (x.indexOf("declare") !== -1)))
+      && x.indexOf("declare type ") === -1 && x.indexOf(`"https://`) === -1 && x.indexOf(`".`) === -1
+    ) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
     }
 
@@ -579,7 +582,7 @@ function importMapReplace(codeInp: string, origin: string) {
       }
     }
     return x;
-  }).join(";");
+  }).join(";\n");
 
   return returnStr;
 }
