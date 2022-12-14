@@ -123,11 +123,14 @@ export function extraStuff(
             ).then((x) => {
               retMod.url = x.headers.get("x-dts")!;
               console.log(retMod.url);
-              return fetch(retMod.url).then((resp) =>
-                resp.status === 307 || resp.redirected
-                  ? fetch(retMod.url = resp.url)
-                  : resp
-              ).then((resp) => resp.text());
+
+              return retMod.url === "NO_DTS"
+                ? ""
+                : fetch(retMod.url).then((resp) =>
+                  resp.status === 307 || resp.redirected
+                    ? fetch(retMod.url = resp.url)
+                    : resp
+                ).then((resp) => resp.text());
             }).catch(() => "")) || "";
 
             return retMod;
