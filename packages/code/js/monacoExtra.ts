@@ -127,7 +127,7 @@ export function extraStuff(
               return retMod;
             }
 
-            retMod.content = (await fetch("/npm:/" + mod, { redirect: "follow" }).then(resp => {
+            retMod.content = (await fetch("/npm:/*" + mod + "?bundle", { redirect: "follow" }).then(resp => {
               // (resp.status === 307 || resp.status === 302)
               // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
               // : resp
@@ -205,9 +205,9 @@ export function extraStuff(
       const content = replaceMappings(extraModelCache[filePath], replaceMaps)
         .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
 
-      const fileDirRemoved = replaceAll(content, fileDir, "./");
+      // const fileDirRemoved = replaceAll(content, fileDir, "./");
       const linksRemoved = replaceAll(
-        fileDirRemoved,
+        content,
         location.origin + "/node_modules/",
         "",
       );
@@ -231,7 +231,7 @@ export function extraStuff(
       let urlString = replaceAll(newURl.toString(), "@types/", "");
       // urlString = urlString.indexOf("@")===-1? urlString:
       urlString = urlString.replace("/index", "");
-      urlString = urlString.replace(location.origin, "");
+      // urlString = urlString.replace(location.origin, "");
       // urlString = replaceAll(urlString, "/index", "");
 
       // const newnewURl = replaceAll(newURl.toString(), "/index.d.ts", ".d.ts");
