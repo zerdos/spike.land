@@ -68,7 +68,10 @@ export function extraStuff(
 
           if (extraModelCache[extraModel]) continue;
 
-          let extraModelUrl = (new URL(extraModel, location.origin)).toString();
+          let extraModelUrl = (new URL(extraModel, url)).toString();
+          if (!extraModelUrl.endsWith(".d.ts")) {
+            extraModelUrl += "/index.d.ts";
+          }
 
           const extraModelContent = await fetch(extraModelUrl, { redirect: "follow" }).then((resp) => {
             extraModelUrl = resp.url;
@@ -205,7 +208,10 @@ export function extraStuff(
         filePath: url,
         content: dtsRemoved,
       };
-    }).filter(x => x.content.length);
+    }).filter(x => x.content.length).map(x => ({
+      content: x.content.split(`declare module "${location.origin}/npm:/`).join(`declare module "`),
+      filePath: x.filePath,
+    }));
 
     console.log({ extraLibs });
 
