@@ -458,16 +458,11 @@ async function startMonacoPristine(
 
   // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
   // viewState: myEditor.saveViewState()};
-  const testModel: editor.ITextModel = globalThis.testModel = globalThis.testModel
-    || createModel(
-      model.getValue(),
-      "typescript",
-      Uri.parse(`${originToUse}/live/${codeSpace}/test.tsx`),
-    );
+
   model.onDidChangeContent((ev) => {
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
-    testModel.applyEdits(ev.changes);
+
     console.log({ version: model.getVersionId(), ev });
     mod.silent == false && onChange(model.getValue());
   });

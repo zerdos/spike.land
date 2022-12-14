@@ -843,8 +843,6 @@ function importMapReplace(codeInp: string, origin: string) {
     );
   });
 
-  returnStr = returnStr.split(`declare module "${origin}/npm:/`).join(`declare module "`);
-
   returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
     if ((x.startsWith("import") || x.startsWith("export")) && x.indexOf(`"https://`) === -1) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);

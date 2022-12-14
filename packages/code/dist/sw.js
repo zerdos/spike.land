@@ -30,9 +30,9 @@ var init_define_process = __esm({
   }
 });
 
-// ../../node_modules/esbuild-wasm/lib/browser.js
+// node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
-  "../../node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
+  "node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
     init_define_process();
     ((module2) => {
       "use strict";

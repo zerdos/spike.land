@@ -1,7 +1,7 @@
 import {
   require_react_dom
-} from "./chunk-chunk-NWRVLYEP.mjs";
-import "./chunk-chunk-FCWF5IZB.mjs";
+} from "./chunk-chunk-3VTVDFXV.mjs";
+import "./chunk-chunk-WOINJVTR.mjs";
 import {
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";

@@ -30,9 +30,9 @@ var init_define_process = __esm({
   }
 });
 
-// ../../node_modules/lodash.debounce/index.js
+// node_modules/lodash.debounce/index.js
 var require_lodash = __commonJS({
-  "../../node_modules/lodash.debounce/index.js"(exports, module) {
+  "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
     var FUNC_ERROR_TEXT = "Expected a function";
     var NAN = 0 / 0;
@@ -178,9 +178,9 @@ var require_lodash = __commonJS({
   }
 });
 
-// ../../node_modules/fast-diff/diff.js
+// node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
-  "../../node_modules/fast-diff/diff.js"(exports, module) {
+  "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
