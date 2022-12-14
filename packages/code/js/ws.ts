@@ -437,8 +437,8 @@ export const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession,
   patch: Delta[];
 }) =>
   await syncStorage(
-    (key: string, value: unknown) => codeHistory.setItem(key, value),
-    (key: string) => codeHistory.getItem(key),
+    async (key: string, value: unknown) => await codeHistory.setItem(key, value),
+    async (key: string) => await codeHistory.getItem(key),
     oldSession,
     newSession,
     message,
