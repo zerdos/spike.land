@@ -7,7 +7,7 @@ import HTML from "./index.html";
 // import * as CF from "@cloudflare/workers-types";
 
 import importMap from "@spike.land/code/js/importmap.json";
-import { CodeSession, ICodeSession, resetCSS } from "@spike.land/code/js/session";
+import { CodePatch, CodeSession, ICodeSession, resetCSS, syncStorage } from "@spike.land/code/js/session";
 import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
@@ -706,6 +706,8 @@ export class Code {
           }
           if (data.i <= mST().i) return;
 
+          const oldSession = mST();
+
           // const newHash = this.session!.applyPatch({
           //   newHash: data.newHash!,
           //   oldHash: data.oldHash!,
@@ -748,15 +750,24 @@ export class Code {
                   "msg": "broadcast issue",
                 });
               }
-
+              const newSession = mST();
+              const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
+                await syncStorage(
+                  async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
+                  async (key: string) => await this.kv.get(key),
+                  oldSession,
+                  newSession,
+                  message,
+                );
+              await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
               await this.kv.put<ICodeSession>("session", { ...mST() });
-              await this.kv.put(
-                String(newHash),
-                JSON.stringify({
-                  oldHash,
-                  patch,
-                }),
-              );
+              // await this.kv.put(
+              //   String(newHash),
+              //   JSON.stringify({
+              //     oldHash,
+              //     patch,
+              //   }),
+              // );
             }
             return respondWith({
               hashCode: hashCode(),

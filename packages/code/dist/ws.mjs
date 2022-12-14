@@ -1,9 +1,8 @@
 import {
   run,
   sendChannel,
-  syncDb,
   syncWS
-} from "./chunk-chunk-4YENIAU4.mjs";
+} from "./chunk-chunk-RCAHV3WR.mjs";
 import "./chunk-chunk-QCPQM4VV.mjs";
 import "./chunk-chunk-AIF5T3IG.mjs";
 import "./chunk-chunk-KJNWZ244.mjs";
@@ -23,6 +22,5 @@ import "./chunk-chunk-A3E5PINE.mjs";
 export {
   run,
   sendChannel,
-  syncDb,
   syncWS
 };
