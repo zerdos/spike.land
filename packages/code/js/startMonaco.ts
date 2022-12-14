@@ -71,12 +71,6 @@ const lib = [
   "es5",
   "es6",
   "esnext",
-  "esnext.full",
-  "esnext.intl",
-  "esnext.promise",
-  "esnext.string",
-  "esnext.weakref",
-  "scripthost",
   // "webworker",
   // "webworker.importscripts",
   // "webworker.iterable",
@@ -89,9 +83,9 @@ const monacoContribution = async (
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: languages.typescript.ScriptTarget.ES2016,
+    target: languages.typescript.ScriptTarget.ESNext,
 
-    importHelpers: false,
+    importHelpers: true,
 
     lib,
     allowJs: true,
@@ -109,10 +103,9 @@ const monacoContribution = async (
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     moduleSpecifierCompletion: 2,
     declaration: true,
-    module: languages.typescript.ModuleKind.CommonJS,
+    module: languages.typescript.ModuleKind.ESNext,
     noEmitOnError: true,
-    sourceMap: true,
-    mapRoot: originToUse + "/src/sourcemaps",
+    sourceMap: false,
     maxNodeModuleJsDepth: 10,
     rootDir: originToUse,
     paths: {
@@ -124,17 +117,11 @@ const monacoContribution = async (
       [originToUse + "/*"]: [originToUse + "/*"],
       [originToUse + "^/*"]: [originToUse + "/*"],
     },
-    typeRoots: [
-      originToUse + "/@types/",
-      originToUse + "/unpkg/@types/",
-      originToUse + "/",
-      originToUse + "/unpkg:/",
-    ],
 
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
-    include: [originToUse + "/node_modules"],
+    include: [originToUse + "/node_modules/**/*"],
   });
 
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
