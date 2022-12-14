@@ -228,7 +228,7 @@ async function startMonacoPristine(
       const codeSpace = match[0].split("/live/").pop();
       const extraModel = new URL(
         "/live/" + codeSpace + "/index.tsx",
-        location.origin,
+        originToUse,
       ).toString();
 
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
