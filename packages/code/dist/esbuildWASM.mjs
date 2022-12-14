@@ -6,7 +6,7 @@ import {
 init_define_process();
 
 // ../../node_modules/esbuild-wasm/esbuild.wasm
-var esbuild_default = "./chunk-esbuild-EN6LJXAY.wasm";
+var esbuild_default = "./chunk-esbuild-KNRSII6T.wasm";
 export {
   esbuild_default as wasmFile
 };

@@ -9,15 +9,18 @@ import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import {
   applyPatch,
+  type Delta,
   // CodeSession,
   hashCode,
   makePatch,
   // makePatch,
-  makePatchFrom,
+  // makePatchFrom,
   mST,
   // onSessionUpdate,
   startSession,
 } from "./session";
+
+import localForage from "localforage";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 
@@ -125,6 +128,10 @@ Object.assign(globalThis, { sendChannel, mST });
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const client_id = user;
 const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
+
+const codeHistory = localForage.createInstance({
+  name: location.origin + `/live/${codeSpace}`,
+});
 
 const p2pcf = new P2PCF(client_id, room_id, {
   // Worker URL (optional) - if left out, will use a public worker
@@ -253,7 +260,7 @@ export const run = async (startState: {
       // if (isBuffer(ev.data)) {
       // console.log("IS BUFFI");
       try {
-        await processData(JSON.parse(ab2str(ev.data)), "w s");
+        await processData(JSON.parse(ab2str(ev.data)), "ws");
         console.log("its a buffer");
       } catch (err) {
         console.error("not a buff", { err, data: ev.data });
@@ -379,11 +386,45 @@ const ignoreUsers: string[] = [];
 //   maxWait: 500,
 // });
 
-export function syncWS(sess: ICodeSession) {
+export const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: {
+  oldHash: string;
+  newHash: any;
+  reversePatch: Delta[];
+  patch: Delta[];
+}) => {
+  const hashOfOldSession = md5(oldSession.transpiled);
+  let historyHead = await codeHistory.getItem("head");
+  if (!historyHead) {
+    await codeHistory.setItem(hashOfOldSession, oldSession);
+    await codeHistory.setItem("head", hashOfOldSession);
+    historyHead = hashOfOldSession;
+  }
+
+  await codeHistory.setItem(message.newHash, {
+    ...newSession,
+    oldHash: message.oldHash,
+    reversePatch: message.reversePatch,
+  });
+  const oldNode = await codeHistory.getItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>(
+    message.oldHash,
+  );
+  if (!oldNode) throw Error("corrupt storage");
+  await codeHistory.setItem(message.oldHash, {
+    oldHash: oldNode.oldHash ? oldNode.oldHash : null,
+    reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
+    newHash: message.newHash,
+    patch: message.patch,
+  });
+  await codeHistory.setItem("head", message.newHash);
+  console.log("alive6");
+};
+
+export async function syncWS(newSession: ICodeSession) {
   try {
+    const oldSession = mST();
+
     console.log("alive1");
     if (ws) {
-      console.log("alive2");
       // if (wsLastHashCode === hashCode()) {
       //   console.log("WS is up to date with us.");
       //   return;
@@ -393,7 +434,7 @@ export function syncWS(sess: ICodeSession) {
       // console.//log({ wsLastHashCode });
       console.log("alive3");
       const message = makePatch(
-        sess,
+        newSession,
       );
       console.log("alive4");
 
@@ -401,7 +442,7 @@ export function syncWS(sess: ICodeSession) {
         return;
       }
 
-      if (message.newHash !== md5(sess.transpiled)) {
+      if (message.newHash !== md5(newSession.transpiled)) {
         // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
@@ -409,9 +450,17 @@ export function syncWS(sess: ICodeSession) {
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
-      ws.send({ ...message, name: user, i: sess.i, sess });
+      ws.send({
+        newHash: message.newHash,
+        oldHash: message.oldHash,
+        patch: message.patch,
+        reversePatch: message.reversePatch,
+        name: user,
+        i: newSession.i,
+        sess: newSession,
+      });
       applyPatch(message);
-      console.log("alive6");
+      await syncDb(oldSession, newSession, message);
     }
   } catch (error) {
     console.error("error 2", { e: error });
@@ -613,7 +662,10 @@ async function processData(
       return;
     }
 
+    const oldSession = mST();
     applyPatch(data);
+    const newSession = mST();
+    await syncDb(oldSession, newSession, data);
 
     if (data.newHash === hashCode()) {
       if (sendChannel) {

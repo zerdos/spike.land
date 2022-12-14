@@ -4,7 +4,7 @@ import type { TransformOptions } from "esbuild-wasm";
 import { syncWS } from "ws";
 import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
-import { md5, mST, patchSync } from "./session";
+import { md5, mST } from "./session";
 import { toUmd } from "./toUmd";
 
 // globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)

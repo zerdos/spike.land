@@ -22,6 +22,7 @@ type Data = {
   target?: string;
   type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake";
   patch?: Delta[];
+  reversePatch?: Delta[];
   address?: string;
   users?: string[];
   i: number;
@@ -47,6 +48,7 @@ async function onMessage(port: MessagePort, {
   target,
   type,
   patch,
+  reversePatch,
   users,
   i,
   address,
@@ -66,6 +68,7 @@ async function onMessage(port: MessagePort, {
     newHash,
     hashCode,
     patch,
+    reversePatch,
   });
   const hash = newHash || hashCode;
   if (sess && hash) hashStore[hash] = sess;
@@ -103,6 +106,7 @@ async function onMessage(port: MessagePort, {
     target,
     type,
     patch,
+    reversePatch,
     address,
     i,
     users,

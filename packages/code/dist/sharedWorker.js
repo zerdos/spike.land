@@ -770,6 +770,7 @@ async function onMessage(port, {
   target,
   type,
   patch,
+  reversePatch,
   users,
   i,
   address,
@@ -788,7 +789,8 @@ async function onMessage(port, {
     oldHash,
     newHash,
     hashCode,
-    patch
+    patch,
+    reversePatch
   });
   const hash = newHash || hashCode;
   if (sess && hash)
@@ -825,6 +827,7 @@ async function onMessage(port, {
     target,
     type,
     patch,
+    reversePatch,
     address,
     i,
     users,

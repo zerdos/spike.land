@@ -1,6 +1,6 @@
 import {
   es_exports
-} from "./chunk-chunk-6V23ATP3.mjs";
+} from "./chunk-chunk-DMBSA7G5.mjs";
 import "./chunk-chunk-FCWF5IZB.mjs";
 import {
   init_define_process
