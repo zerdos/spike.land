@@ -229,6 +229,9 @@ export function extraStuff(
       const newURl = new URL("/node_modules/" + rest.join("/"), fullUrl.origin);
 
       let urlString = replaceAll(newURl.toString(), "@types/", "");
+      // urlString = urlString.indexOf("@")===-1? urlString:
+      urlString = urlString.replace("/index", "");
+      urlString = urlString.replace(location.origin, "");
       // urlString = replaceAll(urlString, "/index", "");
 
       // const newnewURl = replaceAll(newURl.toString(), "/index.d.ts", ".d.ts");
