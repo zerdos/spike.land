@@ -211,7 +211,11 @@ export function extraStuff(
         filePath: url,
         content: dtsRemoved,
       };
-    });
+    }).map(x => ({
+      filePath: x.filePath.split("/npm:/").join("/node_modules/"),
+      content: x.content.split("/npm:/").join("/node_modules/"),
+    }));
+
     console.log({ extraLibs });
 
     setExtraLibs(
@@ -223,8 +227,8 @@ export function extraStuff(
   const extraLib = xxxsetExtraLibs();
   extraLib.map((lib) => {
     addExtraLib(
-      lib.content.split("/npm:/").join("/node_modules/"),
-      lib.filePath.split("/npm:/").join("/node_modules/"),
+      lib.content,
+      lib.filePath,
     );
   });
 
