@@ -111,6 +111,19 @@ const api: ExportedHandler<CodeEnv> = {
             response = await fetch(request);
             response = new Response(response.body, response);
             if (!response.ok) return response;
+            response = new Response(
+              importMapReplace(
+                (await response.text()).replace(
+                  "esm.sh/",
+                  u.hostname + "/npm:/",
+                ),
+                u.origin,
+              ),
+              {
+                ...response,
+              },
+            );
+
             await cache.put(cacheKey, response.clone());
             return response;
           }
