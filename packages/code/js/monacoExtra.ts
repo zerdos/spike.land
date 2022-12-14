@@ -1,11 +1,10 @@
-import "core-js/stable/string/replace-all";
-import type { languages, Uri } from "monaco-editor";
+import type * as monaco from "monaco-editor";
 
 const replaceMaps: { [key: string]: string } = {};
 export function extraStuff(
   code: string,
-  uri: Uri,
-  typescript: typeof languages.typescript,
+  uri: monaco.Uri,
+  typescript: typeof monaco.languages.typescript,
 ) {
   const getTsWorker = () => typescript.getTypeScriptWorker();
   const addExtraLib = (content: string, filePath: string) =>
@@ -101,7 +100,7 @@ export function extraStuff(
     const mappings = (await Promise.all(
       (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(
         uri.toString(),
-      )).map((x) => {
+      )).map(x => {
         //   console.log(x.messageText);
         return x.messageText;
       }).filter((x) =>
