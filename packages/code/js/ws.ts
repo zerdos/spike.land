@@ -386,38 +386,82 @@ const ignoreUsers: string[] = [];
 //   maxWait: 500,
 // });
 
-export const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: {
-  oldHash: string;
-  newHash: any;
-  reversePatch: Delta[];
-  patch: Delta[];
-}) => {
+type SetItem<T> = (key: string, value: T, callback?: (err: any, value: T) => void) => Promise<T>;
+
+type GetItem<T> = (key: string, callback?: (err: any, value: T | null) => void) => Promise<T | null>;
+
+export const syncStorage = async (
+  setItem: SetItem<unknown>,
+  getItem: GetItem<unknown>,
+  oldSession: ICodeSession,
+  newSession: ICodeSession,
+  message: {
+    oldHash: string;
+    newHash: any;
+    reversePatch: Delta[];
+    patch: Delta[];
+  },
+) => {
   const hashOfOldSession = md5(oldSession.transpiled);
-  let historyHead = await codeHistory.getItem("head");
+  let historyHead = await getItem("head");
   if (!historyHead) {
-    await codeHistory.setItem(hashOfOldSession, oldSession);
-    await codeHistory.setItem("head", hashOfOldSession);
+    await setItem(hashOfOldSession, oldSession);
+    await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
 
-  await codeHistory.setItem(message.newHash, {
+  await setItem(message.newHash, {
     ...newSession,
     oldHash: message.oldHash,
     reversePatch: message.reversePatch,
   });
-  const oldNode = await codeHistory.getItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>(
-    message.oldHash,
-  );
+  const oldNode =
+    await (getItem as unknown as GetItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>)(
+      message.oldHash,
+    );
   if (!oldNode) throw Error("corrupt storage");
-  await codeHistory.setItem(message.oldHash, {
+  await setItem(message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
     reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
     newHash: message.newHash,
     patch: message.patch,
   });
-  await codeHistory.setItem("head", message.newHash);
+  await setItem("head", message.newHash);
   console.log("alive6");
 };
+
+export const syncDb = (oldSession: ICodeSession, newSession: ICodeSession, message: {
+  oldHash: string;
+  newHash: any;
+  reversePatch: Delta[];
+  patch: Delta[];
+}) => syncStorage(codeHistory.setItem, codeHistory.getItem, oldSession, newSession, message);
+// const hashOfOldSession = md5(oldSession.transpiled);
+// let historyHead = await codeHistory.getItem("head");
+// if (!historyHead) {
+//   await codeHistory.setItem(hashOfOldSession, oldSession);
+//   await codeHistory.setItem("head", hashOfOldSession);
+//   historyHead = hashOfOldSession;
+// }
+
+// await codeHistory.setItem(message.newHash, {
+//   ...newSession,
+//   oldHash: message.oldHash,
+//   reversePatch: message.reversePatch,
+// });
+// const oldNode = await codeHistory.getItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>(
+//   message.oldHash,
+// );
+// if (!oldNode) throw Error("corrupt storage");
+// await codeHistory.setItem(message.oldHash, {
+//   oldHash: oldNode.oldHash ? oldNode.oldHash : null,
+//   reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
+//   newHash: message.newHash,
+//   patch: message.patch,
+// });
+// await codeHistory.setItem("head", message.newHash);
+// console.log("alive6");
+// };
 
 export async function syncWS(newSession: ICodeSession) {
   try {
