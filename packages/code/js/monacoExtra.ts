@@ -34,13 +34,23 @@ export function extraStuff(
       const ggParent = (new URL("../../..", url)).toString();
 
       let replaced = removeComments(code);
-      replaced = replaceAll(replaced, ` from '../../`, ` from '${ggParent}`);
-      replaced = replaceAll(replaced, ` from "../../`, ` from "${ggParent}`);
+      replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
+      replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
+      replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
+      replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
+
+      replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
+      replaced = replaceAll(replaced, `import("../../`, ` import('${gParent}`);
+      replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
+      replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
+
+      replaced = replaceAll(replaced, ` from '../../../`, ` from '${ggParent}`);
+      replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
       replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
       replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
       replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
-      replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
       replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+      replaced = replaceAll(replaced, ` from './`, ` from "${baSe}`);
       replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
       extraModelCache[url] = replaced;
 
@@ -201,16 +211,35 @@ export function extraStuff(
         location.origin + "/node_modules/",
         "",
       );
-      const indexDtsRemoved = replaceAll(linksRemoved, "/index.d.ts", "");
-      const dtsRemoved = replaceAll(indexDtsRemoved, ".d.ts", "");
+      const otherLinksRemoved = replaceAll(
+        linksRemoved,
+        location.origin + "/npm:/v99/",
+        "",
+      );
+      //  const indexDtsRemoved = replaceAll(otherLinksRemoved, "/index.d.ts", "");
+      let dtsRemoved = replaceAll(otherLinksRemoved, ".d.ts", "");
+      dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
+      dtsRemoved = replaceAll(dtsRemoved, "/index", "");
+      const fullUrl = new URL(url);
+      const paths = url.indexOf("node_modules") !== -1
+        ? ["", ...fullUrl.pathname.split("/")]
+        : fullUrl.pathname.split("/");
+      const [__, _np, _v99, ...rest] = paths;
 
+      const newURl = new URL("/node_modules/" + rest.join("/"), fullUrl.origin);
+
+      let urlString = replaceAll(newURl.toString(), "@types/", "/");
+      // urlString = replaceAll(urlString, "/index", "");
+
+      // const newnewURl = replaceAll(newURl.toString(), "/index.d.ts", ".d.ts");
+      // const dtsRemovedURL = replaceAll(newnewURl, ".d.ts", "");
       return {
-        filePath: url,
+        filePath: urlString,
         content: dtsRemoved,
       };
     }).filter(x => x.content.length).map(x => ({
-      content: x.content.split(`declare module "${location.origin}/npm:/`).join(`declare module "`),
       filePath: x.filePath,
+      content: x.content.split(`declare module "${location.origin}/npm:/`).join(`declare module "`),
     }));
 
     console.log({ extraLibs });
