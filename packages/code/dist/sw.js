@@ -2601,9 +2601,9 @@ self.addEventListener("fetch", function(event) {
         return response;
       try {
         request = new Request(request.url, request);
-        response = await fetch(request);
+        response = await fetch(request, { redirect: "follow" });
         response = new Response(response.body, response);
-        if (response.status === 307 || !response.ok || !response.body) {
+        if (response.status === 307 || response.status === 302 || !response.ok || !response.body) {
           return response;
         }
         if (url.pathname.indexOf(".ts") !== -1 && url.pathname.indexOf(".d.ts") === -1 && url.pathname.indexOf(".tsx") === -1) {
