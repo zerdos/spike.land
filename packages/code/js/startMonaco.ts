@@ -377,16 +377,16 @@ async function startMonacoPristine(
       enabled: true,
     },
     // bracketPairGuides: {
-    //   bracketPairs: true,
-    //   bracketPairsHorizontal : true,
-    //   highlightActiveBracketPair: true,
-    //   indentation: true,
-    //   highlightActiveIndentation:  'always'
+    // bracketPairs: true,
+    // bracketPairsHorizontal : true,
+    // highlightActiveBracketPair: true,
+    ///  indentation: true,
+    // highlightActiveIndentation:  'always'
     // },
     codeLens: true,
     "semanticHighlighting.enabled": true,
     dragAndDrop: true,
-    codeActionsOnSaveTimeout: 300,
+    codeActionsOnSaveTimeout: 100,
     dropIntoEditor: { enabled: true },
     // GotoLocation: true,]]
     mouseStyle: "default",
