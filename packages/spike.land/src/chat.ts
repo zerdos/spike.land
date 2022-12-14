@@ -113,10 +113,7 @@ const api: ExportedHandler<CodeEnv> = {
             if (!response.ok) return response;
             response = new Response(
               importMapReplace(
-                (await response.text()).replace(
-                  "esm.sh/",
-                  u.hostname + "/npm:/",
-                ),
+                (await response.text()).split("esm.sh/").join(u.hostname + "/npm:/"),
                 u.origin,
               ),
               {
@@ -130,11 +127,13 @@ const api: ExportedHandler<CodeEnv> = {
           const isJs = u.toString().includes(".js")
             || u.toString().includes(".mjs");
 
-          const packageName = u.toString().replace(
+          const packageName = u.toString().split(
             u.origin + "/npm:/",
+          ).join(
             "",
-          ).replace(
+          ).split(
             u.origin + "/node_modules",
+          ).join(
             "",
           );
 
@@ -164,8 +163,9 @@ const api: ExportedHandler<CodeEnv> = {
 
             response = new Response(
               importMapReplace(
-                (await response.text()).replace(
+                (await response.text()).split(
                   "esm.sh/",
+                ).join(
                   u.hostname + "/npm:/",
                 ),
                 u.origin,
