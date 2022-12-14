@@ -157,8 +157,8 @@ export function extraStuff(
     const extraLib = xxxsetExtraLibs();
     extraLib.map((lib) => {
       addExtraLib(
-        lib.content,
-        lib.filePath,
+        lib.content.split("/npm:/").join("/node_modules/"),
+        lib.filePath.split("/npm:/").join("/node_modules/"),
       );
     });
 
