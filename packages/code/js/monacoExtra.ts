@@ -127,7 +127,7 @@ export function extraStuff(
               return retMod;
             }
 
-            retMod.content = (await fetch("/npm:/*" + mod + "?bundle", { redirect: "follow" }).then(resp => {
+            retMod.content = (await fetch("/npm:/" + mod + "?bundle", { redirect: "follow" }).then(resp => {
               // (resp.status === 307 || resp.status === 302)
               // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
               // : resp
