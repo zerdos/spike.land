@@ -843,6 +843,8 @@ function importMapReplace(codeInp: string, origin: string) {
     );
   });
 
+  returnStr = returnStr.split(`declare module "https://esm.sh/`).join(`declare module "`);
+
   returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
       return x.replaceAll(` "`, ` "${origin}/npm:/`);
