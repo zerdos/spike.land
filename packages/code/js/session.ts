@@ -2,7 +2,7 @@ import { Record } from "immutable";
 import debounce from "lodash.debounce";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
-
+export { dealWithMissing } from "./monacoExtra";
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 // Import * as Immutable from "immutable"
@@ -432,7 +432,7 @@ export function mST(p?: Delta[]) {
   // If (originStr) return addOrigin(session.json().state, originStr);
   const sessAsJs = session.session.get("state").toJSON();
 
-  const { i, transpiled, code, html, css } = p
+  const { i, transpiled, code, html, css }: ICodeSession = p
     ? JSON.parse(
       aPatch(
         string_(

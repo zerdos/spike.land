@@ -7,7 +7,14 @@ import HTML from "./index.html";
 // import * as CF from "@cloudflare/workers-types";
 
 import importMap from "@spike.land/code/js/importmap.json";
-import { CodePatch, CodeSession, ICodeSession, resetCSS, syncStorage } from "@spike.land/code/js/session";
+import {
+  CodePatch,
+  CodeSession,
+  dealWithMissing,
+  ICodeSession,
+  resetCSS,
+  syncStorage,
+} from "@spike.land/code/js/session";
 import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
@@ -225,6 +232,26 @@ export class Code {
           const list = await this.kv.list();
 
           return new Response(JSON.stringify({ ...list }), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
+        case "ata": {
+          // const code = await this.kv.list();c
+          const code = mST().code;
+          const deps = code.split(";\n").filter(x => x.startsWith("import") || x.startsWith("export")).map(s =>
+            s.split(`'`)[1]
+          ).filter(x => !(x.startsWith("https")));
+
+          if (!deps.includes("@emotion/react/jsx-runtime")) deps.push("@emotion/react/jsx-runtime");
+          console.log({ deps });
+          const res = await Promise.all(deps.map(x => dealWithMissing(x, url.origin)));
+          return new Response(JSON.stringify(res), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
