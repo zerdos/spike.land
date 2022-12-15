@@ -197,7 +197,7 @@ const api: ExportedHandler<CodeEnv> = {
           const regex4 = /from"\//gm;
           const regex5 = /import"\//gm;
 
-          if (isText) {
+          if (isText && esmUrl.indexOf(".d.ts") !== -1) {
             const url = response.url;
             const baSe = (new URL(".", url)).toString();
             const parent = (new URL("..", url)).toString();
