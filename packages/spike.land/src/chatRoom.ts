@@ -256,27 +256,27 @@ export class Code {
             deps.map(x => dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.url).then(() => m))),
           )).filter(x => x.content.trim().length);
 
-          const extraLib = JSON.stringify(xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin)).map(
-            x => {
-              let { filePath, content } = x;
-              mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
-              mappings.map(x => content = content.split(x.url).join(x.mod));
-              filePath = filePath.split(url.origin).join("");
-              content = content.split(url.origin).join("");
-              return { filePath, content };
-            },
+          const extraLib = JSON.stringify(
+            xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin).map(
+              x => {
+                let { filePath, content } = x;
+                mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
+                mappings.map(x => content = content.split(x.url).join(x.mod));
+                filePath = filePath.split(url.origin).join("");
+                content = content.split(url.origin).join("");
+                return { filePath, content };
+              },
+            ),
           );
 
-          const resp = JSON.stringify(extraLib);
-
-          return new Response(resp, {
+          return new Response(extraLib, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
-              "content_hash": md5(resp),
-              "Etag": md5(resp),
+              "content_hash": md5(extraLib),
+              "Etag": md5(extraLib),
               "Content-Type": "application/json; charset=UTF-8",
             },
           });
