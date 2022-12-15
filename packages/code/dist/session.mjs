@@ -12,7 +12,10 @@ import {
   resetCSS,
   startSession,
   syncStorage
-} from "./chunk-chunk-AXLWBJKV.mjs";
+} from "./chunk-chunk-YVZDVSV7.mjs";
+import {
+  dealWithMissing
+} from "./chunk-chunk-QDSTG5JS.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
@@ -21,6 +24,7 @@ export {
   CodeSession,
   applyPatch,
   applyPatchSync,
+  dealWithMissing,
   hashCode,
   initSession,
   mST,

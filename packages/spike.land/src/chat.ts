@@ -16,7 +16,7 @@ const api: ExportedHandler<CodeEnv> = {
     env,
   ) => {
     let request = new Request(req.url, req);
-    if (request.cf?.asOrganization?.startsWith("YANDEX")) {
+    if (request.cf && request.cf.asOrganization && request.cf.asOrganization?.startsWith("YANDEX")) {
       return new Response(null, { status: 401, statusText: "no robots" });
     }
 
@@ -100,7 +100,8 @@ const api: ExportedHandler<CodeEnv> = {
         // ) {
 
         if (
-          path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
+          path[0]
+            && path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
         ) {
           // if (u.toString().includes(".d.ts")) {
           //   const dtsUrl = u.toString().replace(
@@ -248,7 +249,7 @@ const api: ExportedHandler<CodeEnv> = {
           return response;
         }
 
-        if (path[0].startsWith("unpkg:")) {
+        if (path[0] && path[0].startsWith("unpkg:")) {
           const esmUrl = u.toString().replace(
             u.origin + "/unpkg:",
             "https://unpkg.com/",
@@ -304,7 +305,7 @@ const api: ExportedHandler<CodeEnv> = {
           return responseToCache;
         }
 
-        if (path[0].startsWith("node_modules")) {
+        if (path[0] && path[0].startsWith("node_modules")) {
           const esmUrl = u.toString().replace(
             u.origin + "/node_modules/",
             "https://unpkg.com/",

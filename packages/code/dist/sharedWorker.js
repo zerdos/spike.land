@@ -752,6 +752,9 @@ var cache = globalThis.md5cache = globalThis.md5cache || /* @__PURE__ */ new Map
 // js/getResetCss.ts
 init_define_process();
 
+// js/monacoExtra.ts
+init_define_process();
+
 // js/textDiff.ts
 init_define_process();
 var import_fast_diff = __toESM(require_diff(), 1);

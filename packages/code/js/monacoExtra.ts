@@ -1,6 +1,82 @@
 import type * as monaco from "monaco-editor";
 
 const replaceMaps: { [key: string]: string } = {};
+
+const extraModelCache: { [key: string]: string } = {};
+const extraModels: { [key: string]: string[] } = {};
+
+const addExtraModels = async (code: string, url: string) => {
+  if (extraModels[url]) return;
+  extraModels[url] = [];
+
+  extraModelCache[url] = code;
+
+  const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
+
+  const models = code.matchAll(regex);
+
+  const arr = [...Array.from(models)];
+  const ret = Promise.all(arr.map(async (match) => {
+    const dts = match[0].indexOf(".d.ts");
+    // if (!match[0].includes("spike.land")) return;
+    if (dts === -1) return;
+    let extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
+    //            .toString();
+    if (extraModels[url].includes(extraModel)) return;
+
+    extraModels[url].push(extraModel);
+
+    if (extraModels[extraModel]) return;
+
+    if (extraModelCache[extraModel]) return;
+
+    // let extraModelUrl = (new URL(extraModel, url)).toString();
+    // if (!extraModelUrl.endsWith(".d.ts")) {
+    // extraModelUrl += "/index.d.ts";
+    // }
+    let extraModelUrl = extraModel;
+    return fetch(extraModel, { redirect: "follow" }).then(resp => {
+      extraModelUrl = resp.url;
+      return resp.text().then(async (co) => {
+        if (extraModelUrl !== extraModel) {
+          extraModelCache[url] = replaceAll(
+            extraModelCache[url],
+            extraModel,
+            extraModelUrl,
+          );
+        }
+        extraModelCache[extraModelUrl] = co;
+        return await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
+      });
+    });
+  })) as unknown as Promise<void>;
+
+  return ret;
+};
+
+export const dealWithMissing = async (mod: string, origin: string) => {
+  console.log(`missing: ${mod}`);
+  const retMod = { url: "", mod: mod, content: "" };
+  if (mod && mod.indexOf("https://") !== -1) {
+    return retMod;
+  }
+
+  retMod.content = (await fetch(origin + "/npm:/" + mod + "", { redirect: "follow" }).then(resp => {
+    // (resp.status === 307 || resp.status === 302)
+    // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
+    // : resp
+    // ).then((x) => {
+    retMod.url = resp.headers.get("x-dts")!;
+
+    return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then(resp => {
+      retMod.url = resp.url;
+      return resp.text();
+    });
+  }).catch(() => "")) || "";
+
+  return retMod;
+};
+
 export function extraStuff(
   code: string,
   uri: monaco.Uri,
@@ -13,93 +89,8 @@ export function extraStuff(
     content: string;
     filePath?: string | undefined;
   }[]) => typescript.typescriptDefaults.setExtraLibs(libs);
-  const extraModelCache: { [key: string]: string } = {};
-  const extraModels: { [key: string]: string[] } = {};
 
   Object.assign(globalThis, { extraModels, extraModelCache });
-
-  const addExtraModels = async (code: string, url: string) => {
-    if (extraModels[url]) return;
-    extraModels[url] = [];
-
-    // languages.typescript.typescriptDefaults.addExtraLib(
-    //   url,
-    //   code,
-    // );
-
-    // const baSe = (new URL(".", url)).toString();
-    // const parent = (new URL("..", url)).toString();
-    // const gParent = (new URL("../..", url)).toString();
-    // const ggParent = (new URL("../../..", url)).toString();
-
-    // let replaced = removeComments(code);
-    // replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
-    // replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
-    // replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
-    // replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
-
-    // replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
-    // replaced = replaceAll(replaced, `import("../../`, ` import('${gParent}`);
-    // replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
-    // replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
-
-    // replaced = replaceAll(replaced, ` from '../../../`, ` from '${ggParent}`);
-    // replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
-    // replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
-    // replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
-    // replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
-    // replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
-    // replaced = replaceAll(replaced, ` from './`, ` from "${baSe}`);
-    // replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
-    extraModelCache[url] = code;
-
-    const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
-
-    const models = code.matchAll(regex);
-    // Console.log("load more models", replaced, models);
-
-    //    console.log("***** EXTRA MODELS *****");
-
-    //    console.log("***** EXTRA MODELS *****");
-
-    const arr = [...Array.from(models)];
-    const ret = Promise.all(arr.map(async (match) => {
-      const dts = match[0].indexOf(".d.ts");
-      // if (!match[0].includes("spike.land")) return;
-      if (dts === -1) return;
-      let extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
-      //            .toString();
-      if (extraModels[url].includes(extraModel)) return;
-
-      extraModels[url].push(extraModel);
-
-      if (extraModels[extraModel]) return;
-
-      if (extraModelCache[extraModel]) return;
-
-      // let extraModelUrl = (new URL(extraModel, url)).toString();
-      // if (!extraModelUrl.endsWith(".d.ts")) {
-      // extraModelUrl += "/index.d.ts";
-      // }
-      let extraModelUrl = extraModel;
-      return fetch(extraModel, { redirect: "follow" }).then(resp => {
-        extraModelUrl = resp.url;
-        return resp.text().then(async (co) => {
-          if (extraModelUrl !== extraModel) {
-            extraModelCache[url] = replaceAll(
-              extraModelCache[url],
-              extraModel,
-              extraModelUrl,
-            );
-          }
-          extraModelCache[extraModelUrl] = co;
-          return await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
-        });
-      });
-    })) as unknown as Promise<void>;
-
-    return ret;
-  };
 
   const ATA = async () => {
     console.log("ATA");
@@ -113,29 +104,8 @@ export function extraStuff(
         typeof x === "string"
         && x.includes(" or its corresponding type declarations.")
       )
-        .map((x) => typeof x === "string" && x.split!("'")[1]).map(
-          async (mod) => {
-            const retMod = { url: "", mod: mod, content: "" };
-            if (mod && mod.startsWith("https://")) {
-              return retMod;
-            }
-
-            retMod.content = (await fetch("/npm:/" + mod + "", { redirect: "follow" }).then(resp => {
-              // (resp.status === 307 || resp.status === 302)
-              // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
-              // : resp
-              // ).then((x) => {
-              retMod.url = resp.headers.get("x-dts")!;
-
-              return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then(resp => {
-                retMod.url = resp.url;
-                return resp.text();
-              });
-            }).catch(() => "")) || "";
-
-            return retMod;
-          },
-        ),
+        .map((x) => typeof x === "string" && x.split!("'")[1]).filter(x => typeof x === "string").map(x => x as string)
+        .map((mod: string) => dealWithMissing(mod, location.origin)),
     )).filter(m => m.mod && m.content && m.content.trim().length > 1).map(async (m) => {
       console.log(`Aga-Insert: ${m.mod}`);
 
@@ -283,6 +253,6 @@ function removeComments(str: string) {
   /\/\*.*?\*\//gi;
   // Takes a string of code, not an actual function.
   return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
-    x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
+    x && x.trim() && !(x.trim().slice(0, 2) === "//") || x.indexOf("reference") !== -1
   ).join(`\n`);
 }
