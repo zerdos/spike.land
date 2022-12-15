@@ -7977,7 +7977,7 @@ var Code = class {
           });
         }
         case "ata": {
-          const [root, ...deps] = [];
+          const [root, ...deps] = path;
 
           
           const code2 = mST().code;
