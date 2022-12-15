@@ -69,7 +69,7 @@ export const dealWithMissing = async (mod: string, origin: string) => {
     return retMod;
   }
 
-  retMod.content = (await fetch(origin + "/npm:/" + mod + "?bundle", { redirect: "follow" }).then(resp => {
+  return fetch(origin + "/npm:/" + mod + "?bundle", { redirect: "follow" }).then(resp => {
     // (resp.status === 307 || resp.status === 302)
     // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
     // : resp
@@ -79,11 +79,9 @@ export const dealWithMissing = async (mod: string, origin: string) => {
     if (retMod.url.indexOf("spike.land") === -1) return;
     return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then(resp => {
       retMod.url = resp.url;
-      return resp.text().then(x => retMod.content = x);
-    });
-  }).catch(() => "")) || "";
-
-  return retMod;
+      return resp.text().then(x => retMod.content = x).then(() => retMod)
+    })
+  });
 };
 
 export const xxxsetExtraLibs = (maps: {
