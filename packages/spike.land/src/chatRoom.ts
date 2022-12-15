@@ -244,13 +244,16 @@ export class Code {
           });
         }
         case "ata": {
+          let [_ata, ...deps] = path;
           // const code = await this.kv.list();c
           const code = mST().code;
-          const deps = code.split(";\n").filter(x => x.startsWith("import") || x.startsWith("export")).map(s =>
-            s.split("'")[1]
-          ).filter(x => x && !(x.startsWith("https")));
+          if (deps.length === 0) {
+            deps = code.split(";\n").filter(x => x.startsWith("import") || x.startsWith("export")).map(s =>
+              s.split("'")[1]
+            ).filter(x => x && !(x.startsWith("https")));
 
-          deps.push("@emotion/react/jsx-runtime");
+            deps.push("@emotion/react/jsx-runtime");
+          }
           console.log({ deps });
           const mappings = (await Promise.all(
             deps.map(x =>
