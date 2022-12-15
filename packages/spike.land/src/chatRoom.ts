@@ -274,7 +274,7 @@ export class Code {
                 let { filePath, content } = x;
                 // mappings.map(x => filePath ===x.mod? x.mod+'/index.d.ts': filePath);
 
-                mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
+                // mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
 
                 mappings.map(x => content = content.split(x.url).join(x.mod));
                 filePath = filePath.split(url.origin).join("");
