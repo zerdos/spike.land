@@ -69,8 +69,8 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-YVZDVSV7.mjs": {
-      "bytes": 191549,
+    "../code/dist/chunk-chunk-VYOUPR6X.mjs": {
+      "bytes": 195135,
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-I52D4BQZ.mjs",
@@ -82,24 +82,11 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-QDSTG5JS.mjs": {
-      "bytes": 6210,
-      "imports": [
-        {
-          "path": "../code/dist/chunk-chunk-A3E5PINE.mjs",
-          "kind": "import-statement"
-        }
-      ]
-    },
     "../code/dist/session.mjs": {
-      "bytes": 607,
+      "bytes": 636,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-YVZDVSV7.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../code/dist/chunk-chunk-QDSTG5JS.mjs",
+          "path": "../code/dist/chunk-chunk-VYOUPR6X.mjs",
           "kind": "import-statement"
         },
         {
@@ -135,7 +122,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 20642,
+      "bytes": 20772,
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -194,7 +181,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 28711,
+      "bytes": 30755,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -319,7 +306,7 @@
           "bytesInOutput": 8851
         },
         "src/chat.ts": {
-          "bytesInOutput": 15567
+          "bytesInOutput": 15257
         },
         "../code/package.json": {
           "bytesInOutput": 4684
@@ -330,11 +317,8 @@
         "../code/dist/chunk-chunk-I52D4BQZ.mjs": {
           "bytesInOutput": 5581
         },
-        "../code/dist/chunk-chunk-YVZDVSV7.mjs": {
-          "bytesInOutput": 190524
-        },
-        "../code/dist/chunk-chunk-QDSTG5JS.mjs": {
-          "bytesInOutput": 6067
+        "../code/dist/chunk-chunk-VYOUPR6X.mjs": {
+          "bytesInOutput": 194032
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -361,7 +345,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 22682
+          "bytesInOutput": 24629
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -376,7 +360,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 325253
+      "bytes": 324289
     }
   }
 }

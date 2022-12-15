@@ -7977,13 +7977,18 @@ var Code = class {
           });
         }
         case "ata": {
+          const [root, ...deps] = [];
+
+          
           const code2 = mST().code;
-          const deps = code2.split(";\n").filter((x) => x.startsWith("import") || x.startsWith("export")).map(
+          if (debs.length===0){
+          deps = code2.split(";\n").filter((x) => x.startsWith("import") || x.startsWith("export")).map(
             (s) => s.split(`'`)[1]
           ).filter((x) => !x.startsWith("https"));
           if (!deps.includes("@emotion/react/jsx-runtime"))
             deps.push("@emotion/react/jsx-runtime");
           console.log({ deps });
+          }
           const res = await Promise.all(deps.map((x) => dealWithMissing(x, url.origin)));
           return new Response(JSON.stringify(res), {
             status: 200,
