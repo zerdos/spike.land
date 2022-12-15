@@ -246,10 +246,10 @@ export class Code {
         }
         case "yay": {
           initAta();
-          await addExtraModels(code, url.origin + `/live/` + this.codeSpace + "index.d.ts");
-          const rees = JSON.stringify(xxxsetExtraLibs([], url.origin));
+          await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
+          const rees = JSON.stringify(xxxsetExtra  Libs([], url.origin));
 
-          return new Response(JSON.stringify(rees), {
+          return new Response(rees, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
