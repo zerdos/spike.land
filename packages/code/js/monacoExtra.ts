@@ -64,21 +64,21 @@ export const addExtraModels = async (code: string, url: string) => {
 export const dealWithMissing = async (mod: string, origin: string) => {
   console.log(`missing: ${mod}`);
 
-  const retMod = { url: "", mod, content: "" };
+  const retMod = { url: origin + "/node_modules/" + mod + "/index.d.ts", mod, content: "" };
   if (mod && mod.indexOf("https://") !== -1) {
     return retMod;
   }
 
-  return fetch(origin + "/npm:/" + mod + "?bundle", { redirect: "follow" }).then(resp => {
+  return fetch(origin + "/npm:/" + mod, { redirect: "follow" }).then(resp => {
     // (resp.status === 307 || resp.status === 302)
     // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
     // : resp
     // ).then((x) => {
     retMod.url = resp.headers.get("x-dts")!;
 
-    if (retMod.url.indexOf("spike.land") === -1) return retMod;
+    // if (retMod.url.indexOf("spike.land") === -1) return retMod;
     return retMod.url === "NO_DTS" ? retMod : fetch(retMod.url, { redirect: "follow" }).then(resp => {
-      retMod.url = resp.url;
+      // retMod.url = resp.url;
       return resp.text().then(x => retMod.content = x).then(() => retMod);
     });
   });
