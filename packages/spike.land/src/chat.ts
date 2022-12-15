@@ -205,8 +205,8 @@ const api: ExportedHandler<CodeEnv> = {
             const gParent = (new URL("../..", url)).toString();
             const ggParent = (new URL("../../..", url)).toString();
 
-            let replaced = removeComments(bodyStr);
-            replaced = replaceAll(replaced, ` from '../../../`, ` from '${ggParent}`);
+            // let replaced = removeComments(bodyStr);
+            let replaced = replaceAll(bodyStr, ` from '../../../`, ` from '${ggParent}`);
             replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
             replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
             replaced = replaceAll(replaced, `import("../../`, ` import("${gParent}`);
