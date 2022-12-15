@@ -264,6 +264,10 @@ export class Code {
                 mappings.map(x => content = content.split(x.url).join(x.mod));
                 filePath = filePath.split(url.origin).join("");
                 content = content.split(url.origin).join("");
+                if (filePath.startsWith("/npm:")) {
+                  const [_, _npm, _v, ...rest] = filePath.split("/");
+                  filePath = rest.join("/");
+                }
                 return { filePath, content };
               },
             ),
