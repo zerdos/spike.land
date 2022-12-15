@@ -64,7 +64,7 @@ export const addExtraModels = async (code: string, url: string) => {
 export const dealWithMissing = async (mod: string, origin: string) => {
   console.log(`missing: ${mod}`);
 
-  const retMod = { url: "", mod: mod, content: "" };
+  const retMod = { url: "", mod, content: "" };
   if (mod && mod.indexOf("https://") !== -1) {
     return retMod;
   }
@@ -79,7 +79,7 @@ export const dealWithMissing = async (mod: string, origin: string) => {
     if (retMod.url.indexOf("spike.land") === -1) return;
     return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then(resp => {
       retMod.url = resp.url;
-      return resp.text();
+      return resp.text().then(x => retMod.content = x);
     });
   }).catch(() => "")) || "";
 
