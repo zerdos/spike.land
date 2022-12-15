@@ -225,9 +225,10 @@ async function startMonacoPristine(
       );
     }
 
-    fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x =>
-      languages.typescript.typescriptDefaults.setExtraLibs(x)
-    ).then(() =>
+    fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x => {
+      console.log({ x });
+      languages.typescript.typescriptDefaults.setExtraLibs(x);
+    }).then(() =>
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
           noSuggestionDiagnostics: false,
