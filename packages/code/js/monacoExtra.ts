@@ -74,10 +74,10 @@ export const dealWithMissing = async (mod: string, origin: string) => {
     // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
     // : resp
     // ).then((x) => {
-    retMod.url = resp.headers.get("x-dts")!;
+    const dtsUrl = resp.headers.get("x-dts")!;
 
     // if (retMod.url.indexOf("spike.land") === -1) return retMod;
-    return retMod.url === "NO_DTS" ? retMod : fetch(retMod.url, { redirect: "follow" }).then(resp => {
+    return dtsUrl === "NO_DTS" ? retMod : fetch(dtsUrl, { redirect: "follow" }).then(resp => {
       // retMod.url = resp.url;
       return resp.text().then(x => retMod.content = x).then(() => retMod);
     });
