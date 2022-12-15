@@ -250,28 +250,55 @@ export class Code {
             s.split("'")[1]
           ).filter(x => x && !(x.startsWith("https")));
 
-          if (!deps.includes("@emotion/react/jsx-runtime")) deps.push("@emotion/react/jsx-runtime");
+          deps.push("@emotion/react/jsx-runtime");
           console.log({ deps });
           const mappings = (await Promise.all(
-            deps.map(x => dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.url).then(() => m))),
-          )).filter(x => x.content.trim().length);
+            deps.map(x =>
+              dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.mod + "/index.d.ts").then(() => m))
+            ),
+          )).filter(x => x.content.trim().length && x.content !== "content");
 
-          const extraLib = JSON.stringify(
-            xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin).map(
+          const fpaths: string[] = [];
+          const extraLib = JSON.stringify([
+            ...(xxxsetExtraLibs(mappings, url.origin).filter(x => x.content && x.content !== "content").map(
               x => {
                 let { filePath, content } = x;
+                // mappings.map(x => filePath ===x.mod? x.mod+'/index.d.ts': filePath);
+
                 mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
+
                 mappings.map(x => content = content.split(x.url).join(x.mod));
                 filePath = filePath.split(url.origin).join("");
+
                 content = content.split(url.origin).join("");
                 if (filePath.startsWith("/npm:")) {
                   const [_, _npm, _v, ...rest] = filePath.split("/");
+                  const filePrefix = [_, _npm, _v].join("/") + "/";
+                  if (!fpaths.includes(filePrefix)) fpaths.push(filePrefix);
                   filePath = rest.join("/");
                 }
+                if (!filePath.endsWith(".d.ts")) filePath = filePath + "/index.d.ts";
+
                 return { filePath, content };
               },
-            ),
-          );
+            ).map(x => {
+              let content = x.content;
+              fpaths.map(x => content = content.split(x).join(""));
+
+              return {
+                filePath: x.filePath,
+                content,
+              };
+            })),
+            {
+              filePath: "@emotion/react/jsx-runtime.d.ts",
+              content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
+            },
+            {
+              filePath: "@emotion/react/jsx-dev-runtime.d.ts",
+              content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
+            },
+          ]);
 
           return new Response(extraLib, {
             status: 200,
