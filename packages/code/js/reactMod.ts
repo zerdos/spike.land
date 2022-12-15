@@ -1,6 +1,6 @@
-import isCallable from "is-callable";
-import React from "react";
-import { ErrorBoundary } from "react-error-boundary";
+// import isCallable from "is-callable";
+import * as React from "react";
+// import { ErrorBoundary } from "react-error-boundary";
 export const {
   Children,
   Component,
@@ -9,7 +9,7 @@ export const {
   PureComponent,
   StrictMode,
   Suspense,
-
+  useState,
   cloneElement,
   createContext,
   createElement,
@@ -37,22 +37,22 @@ export const {
   version,
 } = React;
 
-const originalUseState = React.useState;
+// const originalUseState = React.useState;
 
-export function useState<S>(
-  initialState: (() => S) | S,
-) {
-  if ((globalThis as unknown as { workerDom: boolean }).workerDom) {
-    const [state, setState] = originalUseState(initialState);
-    const delayedSetState = (updates: (() => S) | S) =>
-      setTimeout(() => isCallable(updates) ? setState(() => updates()) : setState(updates));
-    return [state, delayedSetState];
-  }
+// export function useState<S>(
+//   initialState: (() => S) | S,
+// ) {
+//   if ((globalThis as unknown as { workerDom: boolean }).workerDom) {
+//     const [state, setState] = originalUseState(initialState);
+//     // const delayedSetState = (updates: (() => S) | S) =>
+//       // setTimeout(() => isCallable(updates) ? setState(() => updates()) : setState(updates));
+//     return [state, delayedSetState];
+//   }
 
-  return originalUseState(initialState);
-}
-export { ErrorBoundary };
+//   return originalUseState(initialState);
+// }
+// export { ErrorBoundary };
 
-Object.assign(React, { useState });
+// Object.assign(React, { useState });
 
 export default React;
