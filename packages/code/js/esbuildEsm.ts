@@ -278,7 +278,7 @@ function importMapReplace(codeInp: string) {
   console.log("importmapReplace fn");
   returnStr = returnStr.split(";\n").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
-      return x.replace(` '`, ` '${location.origin}/npm:/`);
+      return x.replace(` '`, ` '${location.origin}/npm:/*`);
     }
     if (
       x.indexOf("/npm:/") === -1 && x.startsWith("import")
