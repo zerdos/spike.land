@@ -244,6 +244,23 @@ export class Code {
             },
           });
         }
+        case "yay": {
+          initAta();
+          await addExtraModels(code, url.origin + `/live/` + this.codeSpace + "index.d.ts");
+          const rees = JSON.stringify(xxxsetExtraLibs({}, url.origin));
+
+          return new Response(JSON.stringify(rees), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "content_hash": md5(rees),
+              "Etag": md5(rees),
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
         case "ata": {
           let [_ata, ...deps] = path;
           initAta();
