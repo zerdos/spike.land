@@ -102,28 +102,28 @@ const api: ExportedHandler<CodeEnv> = {
         if (
           path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
         ) {
-          if (u.toString().includes(".d.ts")) {
-            const dtsUrl = u.toString().replace(
-              u.origin + "/npm:",
-              "https://esm.sh",
-            );
-            request = new Request(dtsUrl, { ...request, redirect: "follow" });
-            response = await fetch(request);
-            response = new Response(response.body, response);
-            if (!response.ok) return response;
-            response = new Response(
-              importMapReplace(
-                (await response.text()).split("esm.sh/").join(u.hostname + "/npm:/"),
-                u.origin,
-              ),
-              {
-                ...response,
-              },
-            );
+          // if (u.toString().includes(".d.ts")) {
+          //   const dtsUrl = u.toString().replace(
+          //     u.origin + "/npm:",
+          //     "https://esm.sh",
+          //   );
+          //   request = new Request(dtsUrl, { ...request, redirect: "follow" });
+          //   response = await fetch(request);
+          //   response = new Response(response.body, response);
+          //   if (!response.ok) return response;
+          //   response = new Response(
+          //     importMapReplace(
+          //       (await response.text()).split("esm.sh/").join(u.hostname + "/npm:/"),
+          //       u.origin
+          //     ),
+          //     {
+          //       ...response,
+          //     },
+          //   );
 
-            await cache.put(cacheKey, response.clone());
-            return response;
-          }
+          //   await cache.put(cacheKey, response.clone());
+          //   return response;
+          // }
           const isJs = u.toString().includes(".js")
             || u.toString().includes(".mjs");
 
@@ -147,45 +147,45 @@ const api: ExportedHandler<CodeEnv> = {
             return response;
           }
 
-          if (response.headers.has("location")) {
-            const redirectUrl = response.headers.get("location")!;
+          // if (response.headers.has("location")) {
+          //   const redirectUrl = response.headers.get("location")!;
 
-            request = new Request(redirectUrl, request);
+          //   request = new Request(redirectUrl, request);
 
-            const headers = new Headers(response.headers);
-            headers.set(
-              "location",
-              redirectUrl.replace(
-                "esm.sh/",
-                u.hostname + "/npm:/",
-              ),
-            );
+          //   const headers = new Headers(response.headers);
+          //   headers.set(
+          //     "location",
+          //     redirectUrl.replace(
+          //       "esm.sh/",
+          //       u.hostname + "/npm:/",
+          //     ),
+          //   );
 
-            response = new Response(
-              importMapReplace(
-                (await response.text()).split(
-                  "esm.sh/",
-                ).join(
-                  u.hostname + "/npm:/",
-                ),
-                u.origin,
-              ),
-              {
-                ...response,
-                headers,
-              },
-            );
+          //   response = new Response(
+          //     importMapReplace(
+          //       (await response.text()).split(
+          //         "esm.sh/",
+          //       ).join(
+          //         u.hostname + "/npm:/",
+          //       ),
+          //       u.origin,
+          //     ),
+          //     {
+          //       ...response,
+          //       headers,
+          //     },
+          //   );
 
-            await cache.put(cacheKey, response.clone());
-            return response;
-          }
+          //   await cache.put(cacheKey, response.clone());
+          //   return response;
+          // }
 
           const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
 
           const isText = !!response?.headers?.get("Content-Type")?.includes(
             "charset",
           );
-          const bodyStr = await (isText ? response.text() : null);
+          let bodyStr = await (isText ? response.text() : null);
           if (!bodyStr) {
             throw new Error("empty body");
           }
@@ -196,6 +196,33 @@ const api: ExportedHandler<CodeEnv> = {
 
           const regex4 = /from"\//gm;
           const regex5 = /import"\//gm;
+
+          if (isText) {
+            const url = response.url;
+            const baSe = (new URL(".", url)).toString();
+            const parent = (new URL("..", url)).toString();
+            const gParent = (new URL("../..", url)).toString();
+            const ggParent = (new URL("../../..", url)).toString();
+
+            let replaced = removeComments(bodyStr);
+            replaced = replaceAll(replaced, ` from '../../../`, ` from '${ggParent}`);
+            replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
+            replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
+            replaced = replaceAll(replaced, `import("../../`, ` import("${gParent}`);
+            replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
+            replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
+            replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
+            replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
+            replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
+            replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
+
+            replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
+            replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
+            replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
+            replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
+            replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+            bodyStr = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
+          }
 
           response = new Response(
             isText
@@ -553,39 +580,17 @@ export const getImportMapStr = (orig: string) => {
 
 export default api;
 
-function importMapReplace(codeInp: string, origin: string) {
-  const items = Object.keys(
-    importMap.imports,
-  ) as (keyof typeof importMap.imports)[];
-  let returnStr = codeInp;
+function replaceAll(input: string, search: string, replace: string) {
+  return input.split(search).join(replace);
+}
 
-  items.map((lib: keyof typeof importMap.imports) => {
-    const uri = importMap.imports[lib].slice(1);
-    returnStr = returnStr.replaceAll(
-      `"${String(lib)}"`,
-      `"${origin}/${String(uri)}"`,
-    );
-  });
+function removeComments(str: string) {
+  const code = str.split("\n").map(x => x.trim()).filter(x => x.slice(0, 2) !== "//" || x.indexOf("reference") !== -1)
+    .join("\n");
+  const regex = /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm;
 
-  returnStr = returnStr.split(`declare module "https://esm.sh/`).join(`declare module "`).split(";").map((x) =>
-    x.trim()
-  ).map((x) => {
-    if (
-      (x.startsWith("import") || (x.startsWith("export") !== (x.indexOf("declare") !== -1)))
-      && x.indexOf("declare type ") === -1 && x.indexOf("export interface") === -1 && x.indexOf(`"https://`) === -1
-      && x.indexOf(`".`) === -1
-    ) {
-      return x.replaceAll(` "`, ` "${origin}/npm:/`);
-    }
-
-    if (x.startsWith("import") && x.includes(origin)) {
-      const u = new URL(x.split(`"`)[1]);
-      if (u && u.pathname.indexOf(".") === -1) {
-        return x.slice(0, -1) + `/index.js"`;
-      }
-    }
-    return x;
-  }).join(";\n");
-
-  return returnStr;
+  // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
+  // /\/\*.*?\*\//gi;
+  // Takes a string of code, not an actual function.
+  return code.replaceAll(regex, ``);
 }

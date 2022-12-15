@@ -19,75 +19,72 @@ export function extraStuff(
   Object.assign(globalThis, { extraModels, extraModelCache });
 
   const addExtraModels = async (code: string, url: string) => {
-    try {
-      if (extraModels[url]) return;
-      extraModels[url] = [];
+    if (extraModels[url]) return;
+    extraModels[url] = [];
 
-      // languages.typescript.typescriptDefaults.addExtraLib(
-      //   url,
-      //   code,
-      // );
+    // languages.typescript.typescriptDefaults.addExtraLib(
+    //   url,
+    //   code,
+    // );
 
-      const baSe = (new URL(".", url)).toString();
-      const parent = (new URL("..", url)).toString();
-      const gParent = (new URL("../..", url)).toString();
-      const ggParent = (new URL("../../..", url)).toString();
+    // const baSe = (new URL(".", url)).toString();
+    // const parent = (new URL("..", url)).toString();
+    // const gParent = (new URL("../..", url)).toString();
+    // const ggParent = (new URL("../../..", url)).toString();
 
-      let replaced = removeComments(code);
-      replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
-      replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
-      replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
-      replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
+    // let replaced = removeComments(code);
+    // replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
+    // replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
+    // replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
+    // replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
 
-      replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
-      replaced = replaceAll(replaced, `import("../../`, ` import('${gParent}`);
-      replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
-      replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
+    // replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
+    // replaced = replaceAll(replaced, `import("../../`, ` import('${gParent}`);
+    // replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
+    // replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
 
-      replaced = replaceAll(replaced, ` from '../../../`, ` from '${ggParent}`);
-      replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
-      replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
-      replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
-      replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
-      replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
-      replaced = replaceAll(replaced, ` from './`, ` from "${baSe}`);
-      replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
-      extraModelCache[url] = replaced;
+    // replaced = replaceAll(replaced, ` from '../../../`, ` from '${ggParent}`);
+    // replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
+    // replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
+    // replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
+    // replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
+    // replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
+    // replaced = replaceAll(replaced, ` from './`, ` from "${baSe}`);
+    // replaced = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
+    extraModelCache[url] = code;
 
-      const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
+    const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
 
-      const models = replaced.matchAll(regex);
-      // Console.log("load more models", replaced, models);
+    const models = code.matchAll(regex);
+    // Console.log("load more models", replaced, models);
 
-      for (const match of models) {
-        //    console.log("***** EXTRA MODELS *****");
+    //    console.log("***** EXTRA MODELS *****");
 
-        //    console.log("***** EXTRA MODELS *****");
-        try {
-          const dts = match[0].indexOf(".d.ts");
-          if (!match[0].includes("spike.land")) continue;
-          if (dts === -1) continue;
+    //    console.log("***** EXTRA MODELS *****");
 
-          const extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
-          //            .toString();
-          if (extraModels[url].includes(extraModel)) continue;
+    const arr = [...Array.from(models)];
+    const ret = Promise.all(arr.map(async (match) => {
+      const dts = match[0].indexOf(".d.ts");
+      // if (!match[0].includes("spike.land")) return;
+      if (dts === -1) return;
+      let extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
+      //            .toString();
+      if (extraModels[url].includes(extraModel)) return;
 
-          extraModels[url].push(extraModel);
+      extraModels[url].push(extraModel);
 
-          if (extraModels[extraModel]) continue;
+      if (extraModels[extraModel]) return;
 
-          if (extraModelCache[extraModel]) continue;
+      if (extraModelCache[extraModel]) return;
 
-          let extraModelUrl = (new URL(extraModel, url)).toString();
-          if (!extraModelUrl.endsWith(".d.ts")) {
-            extraModelUrl += "/index.d.ts";
-          }
-
-          const extraModelContent = await fetch(extraModelUrl, { redirect: "follow" }).then((resp) => {
-            extraModelUrl = resp.url;
-            return resp.text();
-          });
-
+      // let extraModelUrl = (new URL(extraModel, url)).toString();
+      // if (!extraModelUrl.endsWith(".d.ts")) {
+      // extraModelUrl += "/index.d.ts";
+      // }
+      let extraModelUrl = extraModel;
+      return fetch(extraModel, { redirect: "follow" }).then(resp => {
+        extraModelUrl = resp.url;
+        return resp.text().then(async (co) => {
           if (extraModelUrl !== extraModel) {
             extraModelCache[url] = replaceAll(
               extraModelCache[url],
@@ -95,17 +92,13 @@ export function extraStuff(
               extraModelUrl,
             );
           }
-          extraModelCache[extraModelUrl] = extraModelContent;
+          extraModelCache[extraModelUrl] = co;
+          return await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
+        });
+      });
+    })) as unknown as Promise<void>;
 
-          await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
-        } catch (err) {
-          console.error("Error in add extra models", code, url, { err });
-        }
-      }
-    } catch (err) {
-      console.log("error in extra lib  mining", url, { err });
-      return;
-    }
+    return ret;
   };
 
   const ATA = async () => {
@@ -127,7 +120,7 @@ export function extraStuff(
               return retMod;
             }
 
-            retMod.content = (await fetch("/npm:/" + mod + "?bundle", { redirect: "follow" }).then(resp => {
+            retMod.content = (await fetch("/npm:/" + mod + "", { redirect: "follow" }).then(resp => {
               // (resp.status === 307 || resp.status === 302)
               // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
               // : resp
@@ -146,14 +139,12 @@ export function extraStuff(
     )).filter(m => m.mod && m.content && m.content.trim().length > 1).map(async (m) => {
       console.log(`Aga-Insert: ${m.mod}`);
 
-      await addExtraModels(
+      return addExtraModels(
         m.content,
         m.url,
-      );
-
-      return {
+      ).then(() => ({
         [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url,
-      };
+      }));
     });
 
     const maps = await Promise.all(mappings);
