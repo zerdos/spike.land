@@ -2,7 +2,8 @@ import { Record } from "immutable";
 import debounce from "lodash.debounce";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
-export { addExtraModels, dealWithMissing, xxxsetExtraLibs } from "./monacoExtra";
+
+export { addExtraModels, dealWithMissing, initAta, xxxsetExtraLibs } from "./monacoExtra";
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 // Import * as Immutable from "immutable"

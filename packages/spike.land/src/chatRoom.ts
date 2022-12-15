@@ -13,6 +13,7 @@ import {
   CodeSession,
   dealWithMissing,
   ICodeSession,
+  initAta,
   resetCSS,
   syncStorage,
   xxxsetExtraLibs,
@@ -245,6 +246,7 @@ export class Code {
         }
         case "ata": {
           let [_ata, ...deps] = path;
+          initAta();
           // const code = await this.kv.list();c
           const code = mST().code;
           if (deps.length === 0) {

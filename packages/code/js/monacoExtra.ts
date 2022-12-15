@@ -1,10 +1,16 @@
 import type * as monaco from "monaco-editor";
 
-const replaceMaps: { [key: string]: string } = {};
+let replaceMaps: { [key: string]: string } = {};
 
-const extraModelCache: { [key: string]: string } = {};
-const extraModels: { [key: string]: string[] } = {};
+let extraModelCache: { [key: string]: string } = {};
+let extraModels: { [key: string]: string[] } = {};
 
+export const initAta = () => {
+  replaceMaps = {};
+
+  extraModelCache = {};
+  extraModels = {};
+};
 export const addExtraModels = async (code: string, url: string) => {
   if (extraModels[url]) return;
   extraModels[url] = [];
@@ -57,6 +63,7 @@ export const addExtraModels = async (code: string, url: string) => {
 
 export const dealWithMissing = async (mod: string, origin: string) => {
   console.log(`missing: ${mod}`);
+
   const retMod = { url: "", mod: mod, content: "" };
   if (mod && mod.indexOf("https://") !== -1) {
     return retMod;
