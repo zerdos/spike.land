@@ -7,7 +7,7 @@ import "monaco-editor/esm/vs/basic-languages/typescript/typescript";
 import "monaco-editor/esm/vs/language/typescript/tsMode";
 import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 
-import * as w from "./monacoExtra";
+// import * as w from "./monacoExtra";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 
 const { createModel } = editor;
@@ -224,6 +224,17 @@ async function startMonacoPristine(
         mUri,
       );
     }
+
+    fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x =>
+      languages.typescript.typescriptDefaults.setExtraLibs(x)
+    ).then(() =>
+      languages.typescript.typescriptDefaults
+        .setDiagnosticsOptions({
+          noSuggestionDiagnostics: false,
+          noSemanticValidation: false,
+          noSyntaxValidation: false,
+        })
+    );
   };
 
   setTimeout(() => addExtraM(), 500);
@@ -383,7 +394,7 @@ async function startMonacoPristine(
   // }
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
 
-  setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
+  // setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
   // const memoryCache = localForage.createInstance({
   //   name: "model-" + codeSpace,
