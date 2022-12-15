@@ -587,7 +587,9 @@ function replaceAll(input: string, search: string, replace: string) {
 
 function removeComments(str: string) {
   const code = str.split("\n").map(x => x.trim()).filter(x => x.slice(0, 2) !== "//" || x.indexOf("reference") !== -1)
-    .join("\n");
+    .join("\n").split(";").map(x => x.trim()).filter(x => x.slice(0, 2) !== "//" || x.indexOf("reference") !== -1).join(
+      ";/n",
+    );
   const regex = /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm;
 
   // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
