@@ -16,7 +16,7 @@ const api: ExportedHandler<CodeEnv> = {
     env,
   ) => {
     let request = new Request(req.url, req);
-    if (request.cf && request.cf.asOrganization && request.cf.asOrganization?.startsWith("YANDEX")) {
+    if (request.cf && request.cf.asOrganization && request.cf.asOrganization.startsWith("YANDEX")) {
       return new Response(null, { status: 401, statusText: "no robots" });
     }
 
