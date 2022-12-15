@@ -227,7 +227,12 @@ async function startMonacoPristine(
 
     fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x => {
       console.log({ x });
-      languages.typescript.typescriptDefaults.setExtraLibs(x);
+      languages.typescript.typescriptDefaults.setExtraLibs(
+        x.map((x: { filePath: string; content: string }) => ({
+          content: x.content,
+          filePath: originToUse + "/node_modules/" + x.filePath,
+        })),
+      );
     }).then(() =>
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
