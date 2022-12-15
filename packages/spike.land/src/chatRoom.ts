@@ -252,11 +252,14 @@ export class Code {
 
           if (!deps.includes("@emotion/react/jsx-runtime")) deps.push("@emotion/react/jsx-runtime");
           console.log({ deps });
-          const mappings = await Promise.all(
+          const mappings = (await Promise.all(
             deps.map(x => dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.url).then(() => m))),
-          );
+          )).filter(x => x.content.trim().length);
 
-          const extraLib = xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin);
+          let extraLib = JSON.stringify(xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin));
+
+          mappings.map(x => extraLib = extraLib.split(x.url).join(x.mod));
+          extraLib = extraLib.split(url.origin).join("");
 
           const resp = JSON.stringify(extraLib);
 
