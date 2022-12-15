@@ -276,7 +276,7 @@ async function startMonacoPristine(
       /**
        * Prevent quick suggestions when a snippet is active. Defaults to true.
        */
-      snippetsPreventQuickSuggestions: false,
+      snippetsPreventQuickSuggestions: true,
       /**
        * Favors words that appear close to the cursor.
        */
@@ -300,7 +300,7 @@ async function startMonacoPristine(
       /**
        * Configures the mode of the preview.
        */
-      previewMode: ,
+      previewMode: "subwordSmart",
       /**
        * Show details inline with the label. Defaults to true.
        */
@@ -343,7 +343,7 @@ async function startMonacoPristine(
       /**
        * Show folder-suggestions.
        */
-      showFolders: true,
+      showFolders: false,
       /**
        * Show typeParameter-suggestions.
        */
@@ -365,7 +365,16 @@ async function startMonacoPristine(
     automaticLayout: true,
 
     useShadowDOM: false,
+    contextmenu: true,
+    // dimension: true,
 
+    experimental: {
+      stickyScroll: {
+        enabled: true,
+      },
+    },
+    linkedEditing: true,
+    stablePeek: true,
     roundedSelection: true,
     //  Editing: true,
     bracketPairColorization: {
