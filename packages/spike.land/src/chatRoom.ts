@@ -247,7 +247,7 @@ export class Code {
         case "yay": {
           initAta();
           await addExtraModels(code, url.origin + `/live/` + this.codeSpace + "index.d.ts");
-          const rees = JSON.stringify(xxxsetExtraLibs({}, url.origin));
+          const rees = JSON.stringify(xxxsetExtraLibs([], url.origin));
 
           return new Response(JSON.stringify(rees), {
             status: 200,
