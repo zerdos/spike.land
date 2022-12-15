@@ -259,7 +259,7 @@ export class Code {
           console.log({ deps });
           const mappings = (await Promise.all(
             deps.map(x =>
-              dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.mod + "/index.d.ts").then(() => m))
+              dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, x + "/index.d.ts").then(() => m))
             ),
           )).filter(x => x.content.trim().length && x.content !== "content");
 
