@@ -1,11 +1,7 @@
 // import localForage from "localforage";
 
-import "monaco-editor/esm/vs/editor/editor.all";
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
-import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript";
-import "monaco-editor/esm/vs/language/typescript/tsMode";
-import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
+import * as monaco from "monaco-editor";
+const { editor, languages, Uri } = monaco;
 
 // import * as w from "./monacoExtra";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
@@ -304,7 +300,7 @@ async function startMonacoPristine(
       /**
        * Configures the mode of the preview.
        */
-      previewMode: "subwordSmart",
+      previewMode: ,
       /**
        * Show details inline with the label. Defaults to true.
        */
