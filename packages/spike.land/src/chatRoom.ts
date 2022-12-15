@@ -8,12 +8,14 @@ import HTML from "./index.html";
 
 import importMap from "@spike.land/code/js/importmap.json";
 import {
+  addExtraModels,
   CodePatch,
   CodeSession,
   dealWithMissing,
   ICodeSession,
   resetCSS,
   syncStorage,
+  xxxsetExtraLibs,
 } from "@spike.land/code/js/session";
 import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
@@ -245,18 +247,27 @@ export class Code {
           // const code = await this.kv.list();c
           const code = mST().code;
           const deps = code.split(";\n").filter(x => x.startsWith("import") || x.startsWith("export")).map(s =>
-            s.split(`'`)[1]
-          ).filter(x => !(x.startsWith("https")));
+            s.split("'")[1]
+          ).filter(x => x && !(x.startsWith("https")));
 
           if (!deps.includes("@emotion/react/jsx-runtime")) deps.push("@emotion/react/jsx-runtime");
           console.log({ deps });
-          const res = await Promise.all(deps.map(x => dealWithMissing(x, url.origin)));
-          return new Response(JSON.stringify(res), {
+          const mappings = await Promise.all(
+            deps.map(x => dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.url).then(() => m))),
+          );
+
+          const extraLib = xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin);
+
+          const resp = JSON.stringify(extraLib);
+
+          return new Response(resp, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
+              "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
+              "content_hash": md5(resp),
+              "Etag": md5(resp),
               "Content-Type": "application/json; charset=UTF-8",
             },
           });

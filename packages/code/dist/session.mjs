@@ -14,14 +14,17 @@ import {
   syncStorage
 } from "./chunk-chunk-YVZDVSV7.mjs";
 import {
-  dealWithMissing
-} from "./chunk-chunk-QDSTG5JS.mjs";
+  addExtraModels,
+  dealWithMissing,
+  xxxsetExtraLibs
+} from "./chunk-chunk-MMAFC4L4.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
 import "./chunk-chunk-A3E5PINE.mjs";
 export {
   CodeSession,
+  addExtraModels,
   applyPatch,
   applyPatchSync,
   dealWithMissing,
@@ -35,5 +38,6 @@ export {
   patchSync,
   resetCSS,
   startSession,
-  syncStorage
+  syncStorage,
+  xxxsetExtraLibs
 };
