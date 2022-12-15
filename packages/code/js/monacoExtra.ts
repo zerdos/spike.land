@@ -35,6 +35,7 @@ export const addExtraModels = async (code: string, url: string) => {
     // extraModelUrl += "/index.d.ts";
     // }
     let extraModelUrl = extraModel;
+    if (extraModel.indexOf("spike.land") === -1) return;
     return fetch(extraModel, { redirect: "follow" }).then(resp => {
       extraModelUrl = resp.url;
       return resp.text().then(async (co) => {
@@ -68,6 +69,7 @@ export const dealWithMissing = async (mod: string, origin: string) => {
     // ).then((x) => {
     retMod.url = resp.headers.get("x-dts")!;
 
+    if (retMod.url.indexOf("spike.land") === -1) return;
     return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then(resp => {
       retMod.url = resp.url;
       return resp.text();
