@@ -256,10 +256,16 @@ export class Code {
             deps.map(x => dealWithMissing(x, url.origin).then(m => addExtraModels(m.content, m.url).then(() => m))),
           )).filter(x => x.content.trim().length);
 
-          let extraLib = JSON.stringify(xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin));
-
-          mappings.map(x => extraLib = extraLib.split(x.url).join(x.mod));
-          extraLib = extraLib.split(url.origin).join("");
+          const extraLib = JSON.stringify(xxxsetExtraLibs(mappings.filter(x => x.content && x.url), url.origin)).map(
+            x => {
+              let { filePath, content } = x;
+              mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
+              mappings.map(x => content = content.split(x.url).join(x.mod));
+              filePath = filePath.split(url.origin).join("");
+              content = content.split(url.origin).join("");
+              return { filePath, content };
+            },
+          );
 
           const resp = JSON.stringify(extraLib);
 
