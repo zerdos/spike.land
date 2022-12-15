@@ -150,7 +150,7 @@ export const Editor: FC<
         left: false,
       }}
       defaultSize={{
-        width: "640px",
+        width: "800px",
         height: "100vh",
       }}
     >
