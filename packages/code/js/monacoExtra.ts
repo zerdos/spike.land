@@ -5,7 +5,7 @@ const replaceMaps: { [key: string]: string } = {};
 const extraModelCache: { [key: string]: string } = {};
 const extraModels: { [key: string]: string[] } = {};
 
-const addExtraModels = async (code: string, url: string) => {
+export const addExtraModels = async (code: string, url: string) => {
   if (extraModels[url]) return;
   extraModels[url] = [];
 
@@ -77,14 +77,79 @@ export const dealWithMissing = async (mod: string, origin: string) => {
   return retMod;
 };
 
+export const xxxsetExtraLibs = (maps: {
+  [x: string]: string;
+}[], origin: string) => {
+  maps.forEach((m) => Object.assign(replaceMaps, m));
+
+  console.log({ replaceMaps });
+  // replaceMaps["/node_modules/"] = "/npm:/v99/";
+
+  const versionNumbers = /@\d+.\d+.\d+/gm;
+
+  const types = /\/types\//gm;
+
+  const extraLibs = Object.keys(extraModelCache).map((filePath) => {
+    let url = replaceMappings(filePath, replaceMaps).replaceAll(
+      versionNumbers,
+      ``,
+    ).replaceAll(types, `/`);
+
+    // const fileDir = (new URL(".", url)).toString();
+
+    const content = replaceMappings(extraModelCache[filePath], replaceMaps)
+      .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+
+    // const fileDirRemoved = replaceAll(content, fileDir, "./");
+    const linksRemoved = replaceAll(
+      content,
+      origin + "/node_modules/",
+      "/xxx/xxx/",
+    );
+
+    //  const indexDtsRemoved = replaceAll(otherLinksRemoved, "/index.d.ts", "");
+    let dtsRemoved = replaceAll(linksRemoved, ".d.ts", "");
+    dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
+    dtsRemoved = replaceAll(dtsRemoved, "/index", "");
+    // url = replaceAll(
+    //   url,
+    //   origin + "/node_modules/",
+    //   "/xxx/xxx/",
+    // );
+
+    // const paths =  new URL(url, origin).pathname.split("/")
+    // const [__, _np, _v99, ...rest] = paths;
+
+    // const newURl = new URL("/node_modules/" + rest.join("/"), origin);
+    // const newURl = new URL("/node_modules/" + rest.join("/"), dtsRemoved);
+
+    // let urlString = replaceAll(newURl.toString(), "@types/", "");
+    // urlString = urlString.indexOf("@")===-1? urlString:
+    // urlString = urlString.replace("/index", "");
+    // urlString = urlString.replace(location.origin, "");
+    // urlString = replaceAll(urlString, "/index", "");
+
+    // const newnewURl = replaceAll(newURl.toString(), "/index.d.ts", ".d.ts");
+    // const dtsRemovedURL = replaceAll(newnewURl, ".d.ts", "");
+    return {
+      filePath: url,
+      content: dtsRemoved,
+    };
+  }).filter(x => x.content.length).map(x => ({
+    filePath: x.filePath,
+    content: x.content.split(`declare module "${origin}/npm:/`).join(`declare module "`),
+  }));
+
+  return extraLibs;
+};
+
 export function extraStuff(
   code: string,
   uri: monaco.Uri,
   typescript: typeof monaco.languages.typescript,
 ) {
   const getTsWorker = () => typescript.getTypeScriptWorker();
-  const addExtraLib = (content: string, filePath: string) =>
-    typescript.typescriptDefaults.addExtraLib(content, filePath);
+
   const setExtraLibs = (libs: {
     content: string;
     filePath?: string | undefined;
@@ -118,17 +183,10 @@ export function extraStuff(
     });
 
     const maps = await Promise.all(mappings);
-    maps.forEach((m) => Object.assign(replaceMaps, m));
 
-    console.log({ replaceMaps });
-
-    const extraLib = xxxsetExtraLibs();
-    extraLib.map((lib) => {
-      addExtraLib(
-        lib.content,
-        lib.filePath,
-      );
-    });
+    const extraLib = xxxsetExtraLibs(maps, location.origin);
+    console.log({ extraLib });
+    setExtraLibs(extraLib);
 
     typescript.typescriptDefaults
       .setDiagnosticsOptions({
@@ -148,79 +206,13 @@ export function extraStuff(
     //   && localStorage.setItem(codeSpace, JSON.stringify(extraLibsForSave));
   };
 
-  const xxxsetExtraLibs = () => {
-    // replaceMaps["/node_modules/"] = "/npm:/v99/";
-
-    const versionNumbers = /@\d+.\d+.\d+/gm;
-
-    const types = /\/types\//gm;
-
-    const extraLibs = Object.keys(extraModelCache).map((filePath) => {
-      const url = replaceMappings(filePath, replaceMaps).replaceAll(
-        versionNumbers,
-        ``,
-      ).replaceAll(types, `/`);
-
-      const fileDir = (new URL(".", url)).toString();
-
-      const content = replaceMappings(extraModelCache[filePath], replaceMaps)
-        .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
-
-      // const fileDirRemoved = replaceAll(content, fileDir, "./");
-      const linksRemoved = replaceAll(
-        content,
-        location.origin + "/node_modules/",
-        "",
-      );
-      const otherLinksRemoved = replaceAll(
-        linksRemoved,
-        location.origin + "/npm:/v99/",
-        "",
-      );
-      //  const indexDtsRemoved = replaceAll(otherLinksRemoved, "/index.d.ts", "");
-      let dtsRemoved = replaceAll(otherLinksRemoved, ".d.ts", "");
-      dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
-      dtsRemoved = replaceAll(dtsRemoved, "/index", "");
-      const fullUrl = new URL(url);
-      const paths = url.indexOf("node_modules") !== -1
-        ? ["", ...fullUrl.pathname.split("/")]
-        : fullUrl.pathname.split("/");
-      const [__, _np, _v99, ...rest] = paths;
-
-      const newURl = new URL("/node_modules/" + rest.join("/"), fullUrl.origin);
-
-      let urlString = replaceAll(newURl.toString(), "@types/", "");
-      // urlString = urlString.indexOf("@")===-1? urlString:
-      urlString = urlString.replace("/index", "");
-      // urlString = urlString.replace(location.origin, "");
-      // urlString = replaceAll(urlString, "/index", "");
-
-      // const newnewURl = replaceAll(newURl.toString(), "/index.d.ts", ".d.ts");
-      // const dtsRemovedURL = replaceAll(newnewURl, ".d.ts", "");
-      return {
-        filePath: urlString,
-        content: dtsRemoved,
-      };
-    }).filter(x => x.content.length).map(x => ({
-      filePath: x.filePath,
-      content: x.content.split(`declare module "${location.origin}/npm:/`).join(`declare module "`),
-    }));
-
-    console.log({ extraLibs });
-
-    setExtraLibs(
-      extraLibs,
-    );
-    return extraLibs;
-  };
-
-  const extraLib = xxxsetExtraLibs();
-  extraLib.map((lib) => {
-    addExtraLib(
-      lib.content,
-      lib.filePath,
-    );
-  });
+  // const extraLib = xxxsetExtraLibs();
+  // extraLib.map((lib) => {
+  //   addExtraLib(
+  //     lib.content,
+  //     lib.filePath,
+  //   );
+  // });
 
   const mod = {
     //   editor,
@@ -244,15 +236,4 @@ function replaceMappings(input: string, maps: { [key: string]: string }) {
   let result = input;
   Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
   return result;
-}
-
-function removeComments(str: string) {
-  const regex = /\/\*.*?\*\//gi;
-
-  // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
-  /\/\*.*?\*\//gi;
-  // Takes a string of code, not an actual function.
-  return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
-    x && x.trim() && !(x.trim().slice(0, 2) === "//") || x.indexOf("reference") !== -1
-  ).join(`\n`);
 }
