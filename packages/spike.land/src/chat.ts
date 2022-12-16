@@ -163,11 +163,7 @@ const api: ExportedHandler<CodeEnv> = {
 
           response = new Response(
             importMapReplace(
-              (await response.text()).split(
-                "esm.sh/",
-              ).join(
-                u.hostname + "/npm:/",
-              ),
+              await response.text(),
               u.origin,
               response.url,
             ),
