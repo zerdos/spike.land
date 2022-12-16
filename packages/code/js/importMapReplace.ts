@@ -21,7 +21,7 @@ export function importMapReplace(codeInp: string, origin: string) {
   console.log("importmapReplace fn");
   returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
-      return x.replace(` "`, ` "${origin}/npm:/*`);
+      return x.replace(`"`, `"${origin}/npm:/*`);
     }
     if (
       x.indexOf("/npm:/") === -1 && x.startsWith("import")
