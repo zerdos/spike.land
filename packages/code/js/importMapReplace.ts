@@ -42,8 +42,8 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
   });
 
   console.log("importmapReplace fn");
-  returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
-    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+  returnStr = returnStr.split(";").map((x) => {
+    if (x.indexOf("import") !== -1 && x.indexOf(`"https://`) === -1) {
       const slices = x.replace(`from"`, `from "`).split(`"`);
       slices[1] = origin + "/npm:/*" + slices[1] + "?bundle&target=es2020&keep-names=true&dev=true";
       return slices.join(`"`);
@@ -58,7 +58,7 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
       }
     }
     return x;
-  }).join(";\n");
+  }).join(";");
 
   return returnStr;
 }
