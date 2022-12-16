@@ -139,9 +139,7 @@ const api: ExportedHandler<CodeEnv> = {
             "",
           );
 
-          const esmUrl = isJs
-            ? "https://esm.sh/" + packageName
-            : "https://esm.sh/" + packageName + "?bundle";
+          const esmUrl = packageName;
 
           request = new Request(esmUrl, { redirect: "follow" });
           response = await fetch(request);
@@ -188,7 +186,7 @@ const api: ExportedHandler<CodeEnv> = {
           const isText = !!response?.headers?.get("Content-Type")?.includes(
             "charset",
           );
-          let bodyStr = await (isText ? response.text() : response.blob());
+          const bodyStr = await (isText ? response.text() : response.blob());
 
           // if (isText && response.url.indexOf(".d.ts") !== -1) {
 
