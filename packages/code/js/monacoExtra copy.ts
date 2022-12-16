@@ -266,13 +266,13 @@ function replaceMappings(input: string, maps: { [key: string]: string }) {
   return result;
 }
 
-function removeComments(str: string) {
-  const regex = /\/\*.*?\*\//gi;
+// function removeComments(str: string) {
+//   const regex = /\/\*.*?\*\//gi;
 
-  // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
-  /\/\*.*?\*\//gi;
-  // Takes a string of code, not an actual function.
-  return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
-    x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
-  ).join(`\n`);
-}
+//   // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
+//   /\/\*.*?\*\//gi;
+//   // Takes a string of code, not an actual function.
+//   return str.replaceAll(regex, ``).split(`\n`).filter((x) =>
+//     x && x.trim() && (!x.trim().startsWith("//") || x.includes("reference"))
+//   ).join(`\n`);
+// }
