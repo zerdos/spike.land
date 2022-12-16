@@ -14,9 +14,11 @@ export const prettierJs = (code: string) => {
       bracketSpacing: true,
       embeddedLanguageFormatting: "auto",
       insertPragma: false,
+      // bracketSpacing: true,
 
       bracketSameLine: true,
       jsxSingleQuote: false,
+
       htmlWhitespaceSensitivity: "strict",
       printWidth: 90,
       proseWrap: "preserve",
@@ -24,10 +26,11 @@ export const prettierJs = (code: string) => {
       requirePragma: false,
       semi: true,
 
-      singleQuote: true,
+      singleQuote: false,
+
       tabWidth: 2,
       trailingComma: "all",
-      useTabs: false,
+      useTabs: true,
       parser: "typescript",
       plugins: [parserTypescript /// parserHtml, parserPostcss
       ],
