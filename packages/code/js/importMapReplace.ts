@@ -2,7 +2,7 @@
 import imap from "./importmap.json";
 
 const importMapImports = imap.imports;
-export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
+export function importMapReplace(codeInp: string, origin: string, relativeUrl: string) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
   // }
@@ -44,6 +44,7 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
   console.log("importmapReplace fn");
   returnStr = returnStr.split(";").map(x => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
     Y.split("\n").map(x => {
+      if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`"https://`) === -1) {
         const slices = x.split(`"`);
         slices[1] = origin + "/npm:/*" + slices[1] + "?bundle&target=es2020&keep-names=true&dev=true";
@@ -52,7 +53,7 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
       if (x.indexOf("/node_process.js") !== -1) {
         const slices = x.split(`"`);
         const oldUrl = new URL(slices[1]);
-        slices[1] = new URL("/npm:" + oldUrl.pathname, origin).toString();
+        slices[1] = new URL("/npm:" + oldUrl.pathname, relativeUrl).toString();
 
         return slices.join(`"`);
       }
