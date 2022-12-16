@@ -132,7 +132,7 @@ const api: ExportedHandler<CodeEnv> = {
           const packageName = u.toString().split(
             u.origin + "/npm:/",
           ).join(
-            "",
+            "https://esm.sh/",
           ).split(
             u.origin + "/node_modules",
           ).join(
