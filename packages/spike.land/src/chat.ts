@@ -72,23 +72,23 @@ const api: ExportedHandler<CodeEnv> = {
         const newUrl = new URL(path.join("/"), url.origin);
         request = new Request(newUrl, request);
 
-        if (newUrl.pathname.includes(":z:")) {
-          const reqHeaders = new Headers(request.headers);
-          const next = atob(newUrl.pathname.slice(4));
-          reqHeaders.set("Referer", next);
+        // if (newUrl.pathname.includes(":z:")) {
+        //   const reqHeaders = new Headers(request.headers);
+        //   const next = atob(newUrl.pathname.slice(4));
+        //   reqHeaders.set("Referer", next);
 
-          request = new Request(next, { ...request, headers: reqHeaders });
-          let resp = await fetch(request);
-          if (!resp.ok) return resp;
+        //   request = new Request(next, { ...request, headers: reqHeaders });
+        //   let resp = await fetch(request);
+        //   if (!resp.ok) return resp;
 
-          const headers = new Headers(resp.headers);
-          headers.set("Access-Control-Allow-Origin", "*");
-          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-          resp = new Response(resp.body, { ...resp, headers });
+        //   const headers = new Headers(resp.headers);
+        //   headers.set("Access-Control-Allow-Origin", "*");
+        //   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+        //   resp = new Response(resp.body, { ...resp, headers });
 
-          // await cache.put(cacheKey, response.clone());
-          return resp;
-        }
+        //   // await cache.put(cacheKey, response.clone());
+        //   return resp;
+        // }
 
         const cacheKey = new Request(request.url);
         const cache = caches.default;
@@ -99,15 +99,14 @@ const api: ExportedHandler<CodeEnv> = {
         }
 
         // ) {
-        Referer:
-        https:
+        // Referer:
+        // https:
         // testing.spike.land/npm:/v99/@emotion/serialize@1.1.1/es2015/serialize.js?bundle&target=es2020&keep-names=true&dev=true
 
         if (
-          request.headers.get("Referer")?.indexOf("npm:/") !== -1 || path[0].startsWith("çv99") || (
-            path[0]
-              && path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
-          )
+          path[0]
+          && (request.headers.get("Referer")?.indexOf("npm:/") !== -1 || path[0].startsWith("v99")
+            || path[0].startsWith("npm:") || path[0].startsWith("node_modules/"))
         ) {
           // if (u.toString().includes(".d.ts")) {
           //   const dtsUrl = u.toString().replace(
@@ -186,7 +185,7 @@ const api: ExportedHandler<CodeEnv> = {
           //   return response;
           // }
 
-          const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
+          // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
 
           const isText = !!response?.headers?.get("Content-Type")?.includes(
             "charset",
@@ -212,7 +211,7 @@ const api: ExportedHandler<CodeEnv> = {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
-                "x-DTS": xTs.replace("esm.sh/", u.host + "/npm:/"),
+                "x-DTS": (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
                 "Content-Type": response.headers.get("Content-Type")!,
               },
             },
@@ -222,119 +221,119 @@ const api: ExportedHandler<CodeEnv> = {
           return response;
         }
 
-        if (path[0] && path[0].startsWith("unpkg:")) {
-          const esmUrl = u.toString().replace(
-            u.origin + "/unpkg:",
-            "https://unpkg.com/",
-          );
+        // if (path[0] && path[0].startsWith("unpkg:")) {
+        //   const esmUrl = u.toString().replace(
+        //     u.origin + "/unpkg:",
+        //     "https://unpkg.com/",
+        //   );
 
-          request = new Request(esmUrl, { ...request, redirect: "follow" });
-          let resp = await fetch(request);
+        //   request = new Request(esmUrl, { ...request, redirect: "follow" });
+        //   let resp = await fetch(request);
 
-          if (
-            resp !== null && !resp.ok || resp.status === 307
-            || resp.status === 302
-          ) {
-            const redirectUrl = resp.headers.get("location");
-            if (redirectUrl) {
-              request = new Request(redirectUrl, {
-                ...request,
-                redirect: "follow",
-              });
-              resp = await fetch(request);
-            }
-            if (resp !== null && !resp.ok) return resp;
-          }
+        //   if (
+        //     resp !== null && !resp.ok || resp.status === 307
+        //     || resp.status === 302
+        //   ) {
+        //     const redirectUrl = resp.headers.get("location");
+        //     if (redirectUrl) {
+        //       request = new Request(redirectUrl, {
+        //         ...request,
+        //         redirect: "follow",
+        //       });
+        //       resp = await fetch(request);
+        //     }
+        //     if (resp !== null && !resp.ok) return resp;
+        //   }
 
-          const isText = !!resp?.headers?.get("Content-Type")?.includes(
-            "charset",
-          );
-          const bodyStr = await (isText ? resp.text() : null);
-          const regex = /https:\/\/unpkg.com\//gm;
-          const regex2 = / from "\//gm;
-          if (!bodyStr) throw new Error("empty body");
+        //   const isText = !!resp?.headers?.get("Content-Type")?.includes(
+        //     "charset",
+        //   );
+        //   const bodyStr = await (isText ? resp.text() : null);
+        //   const regex = /https:\/\/unpkg.com\//gm;
+        //   const regex2 = / from "\//gm;
+        //   if (!bodyStr) throw new Error("empty body");
 
-          const responseToCache = new Response(
-            `
-              // ${request.url}
-              `
-              + bodyStr
-              ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
-                .replaceAll(regex2, " from \"/unpkg:")
-              : await resp.blob(),
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "public, max-age=604800, immutable",
-                "Content-Type": resp.headers.get("Content-Type")!,
-              },
-            },
-          );
-          if (responseToCache.ok) {
-            await cache.put(cacheKey, responseToCache.clone());
-          }
-          return responseToCache;
-        }
+        //   const responseToCache = new Response(
+        //     `
+        //       // ${request.url}
+        //       `
+        //       + bodyStr
+        //       ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
+        //         .replaceAll(regex2, " from \"/unpkg:")
+        //       : await resp.blob(),
+        //     {
+        //       status: 200,
+        //       headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "public, max-age=604800, immutable",
+        //         "Content-Type": resp.headers.get("Content-Type")!,
+        //       },
+        //     },
+        //   );
+        //   if (responseToCache.ok) {
+        //     await cache.put(cacheKey, responseToCache.clone());
+        //   }
+        //   return responseToCache;
+        // }
 
-        if (path[0] && path[0].startsWith("node_modules")) {
-          const esmUrl = u.toString().replace(
-            u.origin + "/node_modules/",
-            "https://unpkg.com/",
-          );
-          request = new Request(esmUrl, { ...request, redirect: "follow" });
-          let resp = await fetch(request);
+        // if (path[0] && path[0].startsWith("node_modules")) {
+        //   const esmUrl = u.toString().replace(
+        //     u.origin + "/node_modules/",
+        //     "https://unpkg.com/",
+        //   );
+        //   request = new Request(esmUrl, { ...request, redirect: "follow" });
+        //   let resp = await fetch(request);
 
-          if (
-            resp !== null && !resp.ok || resp.status === 307
-            || resp.status === 302
-          ) {
-            const redirectUrl = resp.headers.get("location");
-            if (redirectUrl) {
-              request = new Request(
-                new URL(redirectUrl, `https://unpkg.com`).toString(),
-                {
-                  ...request,
-                  redirect: "follow",
-                },
-              );
-              resp = await fetch(request);
-            }
-            if (resp !== null && !resp.ok) return resp;
-          }
+        //   if (
+        //     resp !== null && !resp.ok || resp.status === 307
+        //     || resp.status === 302
+        //   ) {
+        //     const redirectUrl = resp.headers.get("location");
+        //     if (redirectUrl) {
+        //       request = new Request(
+        //         new URL(redirectUrl, `https://unpkg.com`).toString(),
+        //         {
+        //           ...request,
+        //           redirect: "follow",
+        //         },
+        //       );
+        //       resp = await fetch(request);
+        //     }
+        //     if (resp !== null && !resp.ok) return resp;
+        //   }
 
-          const isText = !!resp?.headers?.get("Content-Type")?.includes(
-            "charset",
-          );
-          const bodyStr = await (isText ? resp.text() : null);
-          const regex = /https:\/\/unpkg.com\//gm;
-          const regex2 = / from "\//gm;
-          if (!bodyStr) throw new Error("empty body");
+        //   const isText = !!resp?.headers?.get("Content-Type")?.includes(
+        //     "charset",
+        //   );
+        //   const bodyStr = await (isText ? resp.text() : null);
+        //   const regex = /https:\/\/unpkg.com\//gm;
+        //   const regex2 = / from "\//gm;
+        //   if (!bodyStr) throw new Error("empty body");
 
-          const responseToCache = new Response(
-            `
-              // ${request.url}
-              `
-              + bodyStr
-              ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
-                .replaceAll(regex2, " from \"/node_modules/")
-              : await resp.blob(),
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "public, max-age=604800, immutable",
-                "Content-Type": resp.headers.get("Content-Type")!,
-              },
-            },
-          );
-          if (responseToCache.ok) {
-            await cache.put(cacheKey, responseToCache.clone());
-          }
-          return responseToCache;
-        }
+        //   const responseToCache = new Response(
+        //     `
+        //       // ${request.url}
+        //       `
+        //       + bodyStr
+        //       ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
+        //         .replaceAll(regex2, " from \"/node_modules/")
+        //       : await resp.blob(),
+        //     {
+        //       status: 200,
+        //       headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "public, max-age=604800, immutable",
+        //         "Content-Type": resp.headers.get("Content-Type")!,
+        //       },
+        //     },
+        //   );
+        //   if (responseToCache.ok) {
+        //     await cache.put(cacheKey, responseToCache.clone());
+        //   }
+        //   return responseToCache;
+        // }
 
         switch (path[0]) {
           case "ping":
