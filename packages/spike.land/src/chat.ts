@@ -99,9 +99,12 @@ const api: ExportedHandler<CodeEnv> = {
         }
 
         // ) {
+        Referer:
+        https:
+        // testing.spike.land/npm:/v99/@emotion/serialize@1.1.1/es2015/serialize.js?bundle&target=es2020&keep-names=true&dev=true
 
         if (
-          request.headers.get("referer")?.indexOf("/npm:/") !== -1 || (
+          request.headers.get("Referer")?.indexOf("npm:/") !== -1 || path[0].startsWith("çv99") || (
             path[0]
               && path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
           )
