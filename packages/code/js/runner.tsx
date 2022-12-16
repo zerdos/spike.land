@@ -127,7 +127,7 @@ export async function runner({ code, counter, codeSpace }: {
 
       console.log({ html, css });
 
-      if (!html || !css) {
+      if (!html) {
         return;
       }
       console.log("still alive1");
