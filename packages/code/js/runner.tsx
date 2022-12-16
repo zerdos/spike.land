@@ -4,6 +4,7 @@ import type { TransformOptions } from "esbuild-wasm";
 import { syncWS } from "ws";
 import { build, transform } from "./esbuildEsm";
 import { render } from "./renderToString";
+import type { ICodeSession } from "./session";
 import { md5, mST } from "./session";
 import { toUmd } from "./toUmd";
 
@@ -95,6 +96,7 @@ export const umdTransform = async (code: string) => {
 // });
 
 const mutex = new Mutex();
+let sess: ICodeSession;
 
 let controller = new AbortController();
 export async function runner({ code, counter, codeSpace }: {
@@ -126,14 +128,16 @@ export async function runner({ code, counter, codeSpace }: {
       // if (!pp) return;
       const transpiledCode = await esmTransform(code);
 
-      const prematureSess = {
+      sess = {
         ...mST(),
         code,
-        codeSpace,
+        // codeSpace,
         i: counter,
         transpiled: transpiledCode!,
       };
-      await syncWS(prematureSess);
+      setTimeout(() => {
+        syncWS(sess);
+      }, 300);
       console.log("still alive2");
       // patchSync(sess);
       console.log("still alive3");
@@ -148,10 +152,10 @@ export async function runner({ code, counter, codeSpace }: {
         return;
       }
       console.log("still alive1");
-      const sess = {
+      sess = {
         ...mST(),
         code,
-        codeSpace,
+        // codeSpace,
         i: counter,
         transpiled: transpiledCode,
         html,
@@ -160,7 +164,7 @@ export async function runner({ code, counter, codeSpace }: {
       console.log("still alive2");
       // patchSync(sess);
       console.log("still alive3");
-      syncWS(sess);
+      // syncWS(sess);
       console.log("still alive4");
     } catch (error) {
       console.error({ error });

@@ -2,6 +2,7 @@ import { Record } from "immutable";
 import debounce from "lodash.debounce";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
+export { importMapReplace } from "./importMapReplace";
 
 export { addExtraModels, dealWithMissing, initAta, xxxsetExtraLibs } from "./monacoExtra";
 import type { Delta } from "./textDiff";

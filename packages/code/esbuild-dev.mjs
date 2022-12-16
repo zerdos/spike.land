@@ -68,7 +68,9 @@ const buildOptions = {
   target,
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
-
+  loader: {
+    ".ttf": "file",
+  },
   external: ["./mST", "/npm:*"],
   legalComments: "none",
 };
