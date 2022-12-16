@@ -282,7 +282,7 @@ export class Code {
           const code = mST().code;
           if (deps.length === 0) {
             deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-              s => s.split("'")[1],
+              s => s.split(`"`)[1],
             ).filter(x => x && !(x.startsWith("https")));
 
             deps.push("@emotion/react/jsx-runtime");
