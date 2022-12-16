@@ -38,7 +38,7 @@ export const initAndTransform = async (
 
   if (initFinished !== true) await (initFinished);
 
-  const transformed = await transform(importMapReplace(code), {
+  const transformed = await transform(importMapReplace(code, location.origin), {
     ...opts,
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
@@ -249,7 +249,7 @@ export const buildT = async (
 
 export { initAndTransform as transform };
 
-function importMapReplace(codeInp: string) {
+wfunction importMapReplace(codeInp: string, origin: string) {
   if (skipImportmapReplaceNames) return codeInp;
   const items = Object.keys(
     importMapImports,
@@ -257,16 +257,16 @@ function importMapReplace(codeInp: string) {
   let returnStr = codeInp;
 
   items.map((lib: keyof typeof importMapImports) => {
-    const uri = (new URL(importMapImports[lib], location.origin)).toString();
+    const uri = (new URL(importMapImports[lib], origin)).toString();
     returnStr = returnStr.replaceAll(
       ` from "${lib}"`,
       ` from "${uri}"`,
     ).replaceAll(
       ` from "./`,
-      ` from "${location.origin}/live/`,
+      ` from "${origin}/live/`,
     ).replaceAll(
       ` from "/`,
-      ` from "${location.origin}/`,
+      ` from "${origin}/`,
     );
   });
 
@@ -277,7 +277,7 @@ function importMapReplace(codeInp: string) {
     }
     if (
       x.indexOf("/npm:/") === -1 && x.startsWith("import")
-      && x.indexOf(location.origin) !== -1
+      && x.indexOf(origin) !== -1
     ) {
       let u = new URL(x.split(`"`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
