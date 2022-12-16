@@ -431,12 +431,12 @@ const api: ExportedHandler<CodeEnv> = {
                 },
               );
 
-              const isText = kvResp?.headers?.get("Content-Type")?.includes(
-                "charset",
-              );
+              // const isText = kvResp?.headers?.get("Content-Type")?.includes(
+              //   "charset",
+              // );
 
               kvResp = new Response(
-               kvResp.body,
+                kvResp.body,
                 kvResp,
               );
               const headers = new Headers(kvResp.headers);
