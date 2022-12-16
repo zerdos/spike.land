@@ -175,7 +175,7 @@ async function setMonaco(container: HTMLDivElement, codeSpace: string) {
   startedM = 1;
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
-  link.href = location.origin + "/Editor.css";
+  link.href = location.origin + "/npm:/monaco-editor/min/vs/editor/editor.main.css";
   document.head.append(link);
   const { startMonaco } = await import("./startMonaco");
   return await startMonaco({
