@@ -124,14 +124,14 @@ export async function runner({ code, counter, codeSpace }: {
       // const ab = new AbortController();
       // const pp = await buildT(codeSpace, counter, ab.signal);
       // if (!pp) return;
-      const transpiledCode = await build(code, counter, controller.signal);
+      const transpiledCode = await esmTransform(code);
 
       const prematureSess = {
         ...mST(),
         code,
         codeSpace,
         i: counter,
-        transpiled: transpiledCode,
+        transpiled: transpiledCode!,
       };
       await syncWS(prematureSess);
       console.log("still alive2");
