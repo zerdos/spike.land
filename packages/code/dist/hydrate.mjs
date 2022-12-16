@@ -2,25 +2,12 @@ import {
   ab2str
 } from "./chunk-chunk-3LGVA7LC.mjs";
 import {
-  jsx,
-  jsxs
-} from "./chunk-chunk-JCFFDELF.mjs";
-import "./chunk-chunk-IUZYA32I.mjs";
-import "./chunk-chunk-6WNVMO5F.mjs";
-import "./chunk-chunk-QZAQGZXD.mjs";
-import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
 import {
-  require_client
-} from "./chunk-chunk-EBBCSVKI.mjs";
-import "./chunk-chunk-3VTVDFXV.mjs";
-import {
-  require_react
-} from "./chunk-chunk-WOINJVTR.mjs";
-import {
   __commonJS,
   __name,
+  __require,
   __toESM,
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";
@@ -30,7 +17,7 @@ var require_react_error_boundary_umd = __commonJS({
   "node_modules/react-error-boundary/dist/react-error-boundary.umd.js"(exports, module) {
     init_define_process();
     (function(global, factory) {
-      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require_react()) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.ReactErrorBoundary = {}, global.React));
+      typeof exports === "object" && typeof module !== "undefined" ? factory(exports, __require("react")) : typeof define === "function" && define.amd ? define(["exports", "react"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global.ReactErrorBoundary = {}, global.React));
     })(exports, function(exports2, React) {
       "use strict";
       function _interopNamespace(e) {
@@ -175,8 +162,9 @@ var require_react_error_boundary_umd = __commonJS({
 
 // js/hydrate.tsx
 init_define_process();
-var import_client = __toESM(require_client(), 1);
 var import_react_error_boundary = __toESM(require_react_error_boundary_umd(), 1);
+import { createRoot } from "react-dom/client";
+import { jsx, jsxs } from "@emotion/react/jsx-runtime";
 var r;
 var root;
 var lastI;
@@ -209,7 +197,7 @@ var hydrate = /* @__PURE__ */ __name(async (codeSpace, sess) => {
     );
   }
   if (!r) {
-    r = (0, import_client.createRoot)(root);
+    r = createRoot(root);
     r.render(
       /* @__PURE__ */ jsx(
         import_react_error_boundary.ErrorBoundary,

@@ -1,14 +1,10 @@
 import {
-  require_react
-} from "./chunk-chunk-WOINJVTR.mjs";
-import {
-  __toESM,
   init_define_process
 } from "./chunk-chunk-A3E5PINE.mjs";
 
 // js/reactMod.ts
 init_define_process();
-var React = __toESM(require_react(), 1);
+import * as React from "react";
 var {
   Children,
   Component,
