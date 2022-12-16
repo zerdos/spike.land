@@ -1,6 +1,6 @@
 import {
   init_define_process
-} from "./chunk-chunk-MD2AOK3Y.mjs";
+} from "./chunk-chunk-A3E5PINE.mjs";
 
 // js/esbuildWASM.ts
 init_define_process();

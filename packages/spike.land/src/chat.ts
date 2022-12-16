@@ -436,7 +436,7 @@ const api: ExportedHandler<CodeEnv> = {
               );
 
               kvResp = new Response(
-                isText ? importMapReplace(await kvResp.text(), url.origin, url.origin) : kvResp.body,
+               kvResp.body,
                 kvResp,
               );
               const headers = new Headers(kvResp.headers);
