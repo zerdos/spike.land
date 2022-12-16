@@ -176,7 +176,7 @@ export function extraStuff(
         typeof x === "string"
         && x.includes(" or its corresponding type declarations.")
       )
-        .map((x) => typeof x === "string" && x.split!("'")[1]).filter(x => typeof x === "string").map(x => x as string)
+        .map((x) => typeof x === "string" && x.split!("\"")[1]).filter(x => typeof x === "string").map(x => x as string)
         .map((mod: string) => dealWithMissing(mod, location.origin)),
     )).filter(m => m.mod && m.content && m.content.trim().length > 1).map(async (m) => {
       console.log(`Aga-Insert: ${m.mod}`);

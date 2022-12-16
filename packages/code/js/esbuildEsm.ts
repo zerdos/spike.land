@@ -264,13 +264,13 @@ function importMapReplace(codeInp: string) {
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], location.origin)).toString();
     returnStr = returnStr.replaceAll(
-      ` from '${lib}'`,
-      ` from '${uri}'`,
+      ` from "${lib}"`,
+      ` from "${uri}"`,
     ).replaceAll(
-      ` from './`,
-      ` from '${location.origin}/live/`,
+      ` from "./`,
+      ` from "${location.origin}/live/`,
     ).replaceAll(
-      ` from '/`,
+      ` from "|/`,
       ` from '${location.origin}/`,
     );
   });
