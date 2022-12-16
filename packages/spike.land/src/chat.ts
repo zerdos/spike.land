@@ -171,6 +171,7 @@ const api: ExportedHandler<CodeEnv> = {
                 u.hostname + "/npm:/",
               ),
               u.origin,
+              response.url,
             ),
             {
               ...response,
@@ -192,40 +193,9 @@ const api: ExportedHandler<CodeEnv> = {
             throw new Error("empty body");
           }
 
-          const regex = /https:\/\/esm.sh\//gm;
-          const regex2 = / from "\//gm;
-          const regex3 = /import "\//gm;
+          // if (isText && response.url.indexOf(".d.ts") !== -1) {
 
-          const regex4 = /from"\//gm;
-          const regex5 = /import"\//gm;
-
-          if (isText && response.url.indexOf(".d.ts") !== -1) {
-            const url = response.url;
-            const baSe = (new URL(".", url)).toString();
-            const parent = (new URL("..", url)).toString();
-            const gParent = (new URL("../..", url)).toString();
-            const ggParent = (new URL("../../..", url)).toString();
-
-            let replaced = replaceAll(bodyStr, `from"`, `from "`);
-
-            replaced = replaceAll(bodyStr, ` from '../../../`, ` from '${ggParent}`);
-            replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
-            replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
-            replaced = replaceAll(replaced, `import("../../`, ` import("${gParent}`);
-            replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
-            replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
-            replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
-            replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
-            replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
-            replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
-
-            replaced = replaceAll(replaced, ` from '../../`, ` from '${gParent}`);
-            replaced = replaceAll(replaced, ` from "../../`, ` from "${gParent}`);
-            replaced = replaceAll(replaced, ` from '../`, ` from '${parent}`);
-            replaced = replaceAll(replaced, ` from './`, ` from '${baSe}`);
-            replaced = replaceAll(replaced, ` from "../`, ` from "${parent}`);
-            bodyStr = replaceAll(replaced, ` from "./`, ` from "${baSe}`);
-          }
+          // }
 
           response = new Response(
             isText
@@ -460,7 +430,12 @@ const api: ExportedHandler<CodeEnv> = {
                   ASSET_MANIFEST,
                 },
               );
-              kvResp = new Response(kvResp.body, kvResp);
+
+              const isText = kvResp?.headers?.get("Content-Type")?.includes(
+                "charset",
+              );
+
+              kvResp = new Response(isText ? importMapReplace(await kvResp.text(), url.origin) : kvResp.body, kvResp);
               const headers = new Headers(kvResp.headers);
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });

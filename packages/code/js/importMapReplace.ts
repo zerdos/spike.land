@@ -2,15 +2,32 @@
 import imap from "./importmap.json";
 
 const importMapImports = imap.imports;
-export function importMapReplace(codeInp: string, origin: string) {
+export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
   // }
+
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
   let returnStr = codeInp;
 
+  const url = relativeUrl || origin;
+  const baSe = (new URL(".", url)).toString();
+  const parent = (new URL("..", url)).toString();
+  const gParent = (new URL("../..", url)).toString();
+  const ggParent = (new URL("../../..", url)).toString();
+
+  returnStr = replaceAll(returnStr, `from"`, `from "`);
+
+  returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
+  returnStr = replaceAll(returnStr, `import("../../../`, ` import("${ggParent}`);
+  returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
+  returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
+  returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
+  returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
+  returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
+  returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], origin)).toString();
     returnStr = replaceAll(returnStr, `from"`, `from "`);
