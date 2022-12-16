@@ -263,6 +263,7 @@ const build = (
       // "js/motion.ts",
       "js/ws.ts",
       "js/reactMod.ts",
+
       // "js/Editor.tsx",
       // "js/motion.ts",
       // "js/reactDom.ts",
@@ -282,6 +283,7 @@ const build = (
     [ // "react",
       "react-dom",
       "react-dom/",
+      "react-icons",
       "react-error-boundary",
       "@emotion/react",
       "@emotion/",

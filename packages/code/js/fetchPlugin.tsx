@@ -15,7 +15,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: (
-  importmapReplace: (code: string, origin: string) => string,
+  importmapReplace: (code: string, origin: string, relativeUrl: string) => string,
 ) => Plugin = (importmapReplace) => ({
   name: "http",
   setup(build) {
@@ -130,7 +130,7 @@ export const fetchPlugin: (
       if (req.url.indexOf(".tsx")) {
         const contents = await esmTransform(await response.text());
         return {
-          contents: importmapReplace(contents, location.origin),
+          contents: importmapReplace(contents, location.origin, args.path),
         };
       }
 
