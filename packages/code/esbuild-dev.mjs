@@ -290,6 +290,10 @@ const build = (
       "react-is",
       "framer-motion",
       "react",
+      "prop-types",
+      "tslib",
+      :
+      'prettier',
       "react/",
     ],
     false,
