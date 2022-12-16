@@ -25,7 +25,7 @@ export function importMapReplace(codeInp: string, origin: string) {
     );
   });
 
-  console.log("importmapReplace fn");
+  console.g("importmapReplace fn");
   returnStr = returnStr.split(";\n").map((x) => x.trim()).map((x) => {
     if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
       return x.replace(` "`, ` "${origin}/npm:/*`);
