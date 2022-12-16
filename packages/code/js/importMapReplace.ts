@@ -13,16 +13,9 @@ export function importMapReplace(codeInp: string, origin: string) {
 
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], origin)).toString();
-    returnStr = returnStr.replaceAll(
-      ` from "${lib}"`,
-      ` from "${uri}"`,
-    ).replaceAll(
-      ` from "./`,
-      ` from "${origin}/live/`,
-    ).replaceAll(
-      ` from "/`,
-      ` from "${origin}/`,
-    );
+    returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    returnStr = replaceAll(returnStr, ` from "./`, ` from "${origin}/live/`);
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
 
   console.log("importmapReplace fn");
@@ -43,4 +36,7 @@ export function importMapReplace(codeInp: string, origin: string) {
   }).join(";\n");
 
   return returnStr;
+}
+function replaceAll(input: string, search: string, replace: string) {
+  return input.split(search).join(replace);
 }
