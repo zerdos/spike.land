@@ -286,6 +286,7 @@ const build = (
       "@emotion/react",
       "@emotion/",
       "react*",
+      "react-is",
       "framer-motion",
       "react",
       "react/",
