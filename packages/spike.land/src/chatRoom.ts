@@ -258,7 +258,7 @@ export class Code {
 
             deps.push("@emotion/react/jsx-runtime");
           }
-          new Set9();
+          deps = [...(new Set(deps))];
           const rees = JSON.stringify(deps);
 
           // const rees = JSON.stringify(xxxsetExtra([], url.origin));
