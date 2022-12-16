@@ -50,7 +50,10 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
         slices[1] = origin + "/npm:/*" + slices[1] + "?bundle&target=es2020&keep-names=true&dev=true";
         return slices.join(`"`);
       }
-      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1) {
+      if (
+        x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1
+        || x.indexOf("@babel/runtime") !== -1
+      ) {
         const slices = x.split(`"`);
         const oldUrl = new URL(slices[1]);
         slices[1] = origin + "/npm:" + oldUrl.pathname;

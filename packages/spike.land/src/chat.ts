@@ -101,8 +101,10 @@ const api: ExportedHandler<CodeEnv> = {
         // ) {
 
         if (
-          path[0]
-            && path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
+          request.headers.get("referer")?.indexOf("/npm:/") !== -1 || (
+            path[0]
+              && path[0].startsWith("npm:") || path[0].startsWith("node_modules/")
+          )
         ) {
           // if (u.toString().includes(".d.ts")) {
           //   const dtsUrl = u.toString().replace(
@@ -130,11 +132,15 @@ const api: ExportedHandler<CodeEnv> = {
             || u.toString().includes(".mjs");
 
           const packageName = u.toString().split(
-            u.origin + "/npm:/",
+            u.origin,
           ).join(
-            "https://esm.sh/",
+            "https://esm.sh",
           ).split(
-            u.origin + "/node_modules",
+            "/node_modules",
+          ).join(
+            "",
+          ).split(
+            "/npm:",
           ).join(
             "",
           );
