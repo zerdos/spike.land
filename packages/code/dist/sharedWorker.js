@@ -752,6 +752,30 @@ var cache = globalThis.md5cache = globalThis.md5cache || /* @__PURE__ */ new Map
 // js/getResetCss.ts
 init_define_process();
 
+// js/importMapReplace.ts
+init_define_process();
+
+// js/importmap.json
+var importmap_default = {
+  imports: {
+    "framer-motion": "/motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/cache": "/emotionCache.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    react: "/reactMod.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom": "/reactDom.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
+    "react-error-boundary": "/reactMod.mjs",
+    "hydrate.mjs": "/hydrate.mjs",
+    "load.mjs": "/load.mjs"
+  }
+};
+
+// js/importMapReplace.ts
+var importMapImports = importmap_default.imports;
+
 // js/monacoExtra.ts
 init_define_process();
 

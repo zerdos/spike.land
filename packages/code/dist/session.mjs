@@ -5,6 +5,7 @@ import {
   applyPatchSync,
   dealWithMissing,
   hashCode,
+  importMapReplace,
   initAta,
   initSession,
   mST,
@@ -16,7 +17,7 @@ import {
   startSession,
   syncStorage,
   xxxsetExtraLibs
-} from "./chunk-chunk-WTSIQZUO.mjs";
+} from "./chunk-chunk-VMXAPWE6.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
@@ -28,6 +29,7 @@ export {
   applyPatchSync,
   dealWithMissing,
   hashCode,
+  importMapReplace,
   initAta,
   initSession,
   mST,

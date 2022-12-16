@@ -1,7 +1,9 @@
 import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
+//
+// import { imports as importMapImports } from "./importmap.json";
 
 import { fetchPlugin } from "./fetchPlugin";
-import { imports as importMapImports } from "./importmap.json";
+import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
@@ -97,7 +99,7 @@ const define = {
 //   }),
 // };
 
-let skipImportmapReplaceNames = false;
+export let skipImportmapReplaceNames = false;
 export const build = async (
   codeSpace: string,
   i: number,
@@ -248,44 +250,3 @@ export const buildT = async (
 };
 
 export { initAndTransform as transform };
-
-wfunction importMapReplace(codeInp: string, origin: string) {
-  if (skipImportmapReplaceNames) return codeInp;
-  const items = Object.keys(
-    importMapImports,
-  ) as (keyof typeof importMapImports)[];
-  let returnStr = codeInp;
-
-  items.map((lib: keyof typeof importMapImports) => {
-    const uri = (new URL(importMapImports[lib], origin)).toString();
-    returnStr = returnStr.replaceAll(
-      ` from "${lib}"`,
-      ` from "${uri}"`,
-    ).replaceAll(
-      ` from "./`,
-      ` from "${origin}/live/`,
-    ).replaceAll(
-      ` from "/`,
-      ` from "${origin}/`,
-    );
-  });
-
-  console.log("importmapReplace fn");
-  returnStr = returnStr.split(";\n").map((x) => x.trim()).map((x) => {
-    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
-      return x.replace(` "`, ` "${location.origin}/npm:/*`);
-    }
-    if (
-      x.indexOf("/npm:/") === -1 && x.startsWith("import")
-      && x.indexOf(origin) !== -1
-    ) {
-      let u = new URL(x.split(`"`)[1]);
-      if (u && u.pathname.indexOf(".") === -1) {
-        return x.slice(0, -1) + `/index.js"`;
-      }
-    }
-    return x;
-  }).join(";\n");
-
-  return returnStr;
-}

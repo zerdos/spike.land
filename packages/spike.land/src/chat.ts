@@ -4,6 +4,7 @@ import packages from "@spike.land/code/package.json";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/js/importmap.json";
+import { importMapReplace } from "@spike.land/code/js/session";
 
 import importMap from "@spike.land/code/js/importmap.json";
 import { md5 } from "@spike.land/code/js/session";
@@ -227,11 +228,16 @@ const api: ExportedHandler<CodeEnv> = {
 
           response = new Response(
             isText
-              ? bodyStr.replaceAll(regex, u.origin + "/npm:/")
-                .replaceAll(regex2, " from \"/npm:/")
-                .replaceAll(regex3, "import \"/npm:/")
-                .replaceAll(regex4, " from \"/npm:/")
-                .replaceAll(regex5, "import \"/npm:/")
+              ? importMapReplace(
+                removeComments(
+                  bodyStr.replaceAll(regex, u.origin + "/npm:/")
+                    .replaceAll(regex2, " from \"/npm:/")
+                    .replaceAll(regex3, "import \"/npm:/")
+                    .replaceAll(regex4, " from \"/npm:/")
+                    .replaceAll(regex5, "import \"/npm:/"),
+                ),
+                url.origin,
+              )
               : await response.blob(),
             {
               status: 200,
