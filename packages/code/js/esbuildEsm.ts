@@ -3,7 +3,6 @@ import { build as esbuildBuild, type BuildOptions, initialize, transform, type T
 import { fetchPlugin } from "./fetchPlugin";
 import { imports as importMapImports } from "./importmap.json";
 import { md5 } from "./md5";
-import { prettierJs } from "./prettierEsm";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
 const mod = {
@@ -39,18 +38,14 @@ export const initAndTransform = async (
 
   if (initFinished !== true) await (initFinished);
 
-  const transformed = await transform(code, {
+  const transformed = await transform(importMapReplace(code), {
     ...opts,
     define: { ...define, ...(opts?.define ? opts.define : {}) },
   });
 
-  const transformed2 = await transform(
-    importMapReplace(prettierJs(transformed.code)!),
-  );
-
   // : transformed.code; // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(code)}*/` + transformed2.code };
+  const res = { code: `/*${md5(code)}*/` + transformed.code };
   return res;
 };
 
@@ -270,23 +265,23 @@ function importMapReplace(codeInp: string) {
       ` from "./`,
       ` from "${location.origin}/live/`,
     ).replaceAll(
-      ` from "|/`,
-      ` from '${location.origin}/`,
+      ` from "/`,
+      ` from "${location.origin}/`,
     );
   });
 
   console.log("importmapReplace fn");
   returnStr = returnStr.split(";\n").map((x) => x.trim()).map((x) => {
-    if (x.startsWith("import") && x.indexOf(`'https://`) === -1) {
-      return x.replace(` '`, ` '${location.origin}/npm:/*`);
+    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+      return x.replace(` "`, ` "${location.origin}/npm:/*`);
     }
     if (
       x.indexOf("/npm:/") === -1 && x.startsWith("import")
       && x.indexOf(location.origin) !== -1
     ) {
-      let u = new URL(x.split(`'`)[1]);
+      let u = new URL(x.split(`"`)[1]);
       if (u && u.pathname.indexOf(".") === -1) {
-        return x.slice(0, -1) + `/index.js'`;
+        return x.slice(0, -1) + `/index.js"`;
       }
     }
     return x;
