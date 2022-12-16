@@ -123,6 +123,18 @@ export async function runner({ code, counter, codeSpace }: {
       // if (!pp) return;
       const transpiledCode = await esmTransform(code);
 
+      const prematureSess = {
+        ...mST(),
+        code,
+        codeSpace,
+        i: counter,
+        transpiled: transpiledCode,
+      };
+      console.log("still alive2");
+      // patchSync(sess);
+      console.log("still alive3");
+      syncWS(prematureSess);
+
       const { html, css } = await render(transpiledCode, codeSpace);
 
       console.log({ html, css });
