@@ -682,7 +682,7 @@ function md5FULL(inputString) {
 }
 __name(md5FULL, "md5FULL");
 
-// ../code/dist/chunk-chunk-YVZDVSV7.mjs
+// ../code/dist/chunk-chunk-WTSIQZUO.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -4931,8 +4931,8 @@ function toJS(value) {
   return result;
 }
 __name(toJS, "toJS");
-var Set = /* @__PURE__ */ function(SetCollection2) {
-  function Set2(value) {
+var Set2 = /* @__PURE__ */ function(SetCollection2) {
+  function Set22(value) {
     return value === void 0 || value === null ? emptySet() : isSet(value) && !isOrdered(value) ? value : emptySet().withMutations(function(set3) {
       var iter = SetCollection2(value);
       assertNotInfinite(iter.size);
@@ -4941,41 +4941,41 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
       });
     });
   }
-  __name(Set2, "Set");
+  __name(Set22, "Set");
   if (SetCollection2)
-    Set2.__proto__ = SetCollection2;
-  Set2.prototype = Object.create(SetCollection2 && SetCollection2.prototype);
-  Set2.prototype.constructor = Set2;
-  Set2.of = /* @__PURE__ */ __name(function of() {
+    Set22.__proto__ = SetCollection2;
+  Set22.prototype = Object.create(SetCollection2 && SetCollection2.prototype);
+  Set22.prototype.constructor = Set22;
+  Set22.of = /* @__PURE__ */ __name(function of() {
     return this(arguments);
   }, "of");
-  Set2.fromKeys = /* @__PURE__ */ __name(function fromKeys(value) {
+  Set22.fromKeys = /* @__PURE__ */ __name(function fromKeys(value) {
     return this(KeyedCollection(value).keySeq());
   }, "fromKeys");
-  Set2.intersect = /* @__PURE__ */ __name(function intersect(sets) {
+  Set22.intersect = /* @__PURE__ */ __name(function intersect(sets) {
     sets = Collection(sets).toArray();
-    return sets.length ? SetPrototype.intersect.apply(Set2(sets.pop()), sets) : emptySet();
+    return sets.length ? SetPrototype.intersect.apply(Set22(sets.pop()), sets) : emptySet();
   }, "intersect");
-  Set2.union = /* @__PURE__ */ __name(function union(sets) {
+  Set22.union = /* @__PURE__ */ __name(function union(sets) {
     sets = Collection(sets).toArray();
-    return sets.length ? SetPrototype.union.apply(Set2(sets.pop()), sets) : emptySet();
+    return sets.length ? SetPrototype.union.apply(Set22(sets.pop()), sets) : emptySet();
   }, "union");
-  Set2.prototype.toString = /* @__PURE__ */ __name(function toString5() {
+  Set22.prototype.toString = /* @__PURE__ */ __name(function toString5() {
     return this.__toString("Set {", "}");
   }, "toString");
-  Set2.prototype.has = /* @__PURE__ */ __name(function has5(value) {
+  Set22.prototype.has = /* @__PURE__ */ __name(function has5(value) {
     return this._map.has(value);
   }, "has");
-  Set2.prototype.add = /* @__PURE__ */ __name(function add(value) {
+  Set22.prototype.add = /* @__PURE__ */ __name(function add(value) {
     return updateSet(this, this._map.set(value, value));
   }, "add");
-  Set2.prototype.remove = /* @__PURE__ */ __name(function remove3(value) {
+  Set22.prototype.remove = /* @__PURE__ */ __name(function remove3(value) {
     return updateSet(this, this._map.remove(value));
   }, "remove");
-  Set2.prototype.clear = /* @__PURE__ */ __name(function clear2() {
+  Set22.prototype.clear = /* @__PURE__ */ __name(function clear2() {
     return updateSet(this, this._map.clear());
   }, "clear");
-  Set2.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
+  Set22.prototype.map = /* @__PURE__ */ __name(function map2(mapper, context) {
     var this$1$1 = this;
     var didChanges = false;
     var newMap = updateSet(
@@ -4991,7 +4991,7 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
     );
     return didChanges ? newMap : this;
   }, "map");
-  Set2.prototype.union = /* @__PURE__ */ __name(function union() {
+  Set22.prototype.union = /* @__PURE__ */ __name(function union() {
     var iters = [], len = arguments.length;
     while (len--)
       iters[len] = arguments[len];
@@ -5012,7 +5012,7 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
       }
     });
   }, "union");
-  Set2.prototype.intersect = /* @__PURE__ */ __name(function intersect() {
+  Set22.prototype.intersect = /* @__PURE__ */ __name(function intersect() {
     var iters = [], len = arguments.length;
     while (len--)
       iters[len] = arguments[len];
@@ -5036,7 +5036,7 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
       });
     });
   }, "intersect");
-  Set2.prototype.subtract = /* @__PURE__ */ __name(function subtract() {
+  Set22.prototype.subtract = /* @__PURE__ */ __name(function subtract() {
     var iters = [], len = arguments.length;
     while (len--)
       iters[len] = arguments[len];
@@ -5060,25 +5060,25 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
       });
     });
   }, "subtract");
-  Set2.prototype.sort = /* @__PURE__ */ __name(function sort22(comparator) {
+  Set22.prototype.sort = /* @__PURE__ */ __name(function sort22(comparator) {
     return OrderedSet(sortFactory(this, comparator));
   }, "sort");
-  Set2.prototype.sortBy = /* @__PURE__ */ __name(function sortBy2(mapper, comparator) {
+  Set22.prototype.sortBy = /* @__PURE__ */ __name(function sortBy2(mapper, comparator) {
     return OrderedSet(sortFactory(this, comparator, mapper));
   }, "sortBy");
-  Set2.prototype.wasAltered = /* @__PURE__ */ __name(function wasAltered3() {
+  Set22.prototype.wasAltered = /* @__PURE__ */ __name(function wasAltered3() {
     return this._map.wasAltered();
   }, "wasAltered");
-  Set2.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
+  Set22.prototype.__iterate = /* @__PURE__ */ __name(function __iterate2(fn, reverse3) {
     var this$1$1 = this;
     return this._map.__iterate(function(k) {
       return fn(k, k, this$1$1);
     }, reverse3);
   }, "__iterate");
-  Set2.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
+  Set22.prototype.__iterator = /* @__PURE__ */ __name(function __iterator2(type, reverse3) {
     return this._map.__iterator(type, reverse3);
   }, "__iterator");
-  Set2.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
+  Set22.prototype.__ensureOwner = /* @__PURE__ */ __name(function __ensureOwner2(ownerID) {
     if (ownerID === this.__ownerID) {
       return this;
     }
@@ -5093,10 +5093,10 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
     }
     return this.__make(newMap, ownerID);
   }, "__ensureOwner");
-  return Set2;
+  return Set22;
 }(SetCollection);
-Set.isSet = isSet;
-var SetPrototype = Set.prototype;
+Set2.isSet = isSet;
+var SetPrototype = Set2.prototype;
 SetPrototype[IS_SET_SYMBOL] = true;
 SetPrototype[DELETE] = SetPrototype.remove;
 SetPrototype.merge = SetPrototype.concat = SetPrototype.union;
@@ -5307,7 +5307,7 @@ mixin(Collection, {
     return OrderedSet(isKeyed(this) ? this.valueSeq() : this);
   }, "toOrderedSet"),
   toSet: /* @__PURE__ */ __name(function toSet() {
-    return Set(isKeyed(this) ? this.valueSeq() : this);
+    return Set2(isKeyed(this) ? this.valueSeq() : this);
   }, "toSet"),
   toSetSeq: /* @__PURE__ */ __name(function toSetSeq() {
     return new ToSetSequence(this);
@@ -5814,7 +5814,7 @@ function hashMerge(a, b) {
   return a ^ b + 2654435769 + (a << 6) + (a >> 2) | 0;
 }
 __name(hashMerge, "hashMerge");
-var OrderedSet = /* @__PURE__ */ function(Set2) {
+var OrderedSet = /* @__PURE__ */ function(Set22) {
   function OrderedSet2(value) {
     return value === void 0 || value === null ? emptyOrderedSet() : isOrderedSet(value) ? value : emptyOrderedSet().withMutations(function(set3) {
       var iter = SetCollection(value);
@@ -5825,9 +5825,9 @@ var OrderedSet = /* @__PURE__ */ function(Set2) {
     });
   }
   __name(OrderedSet2, "OrderedSet");
-  if (Set2)
-    OrderedSet2.__proto__ = Set2;
-  OrderedSet2.prototype = Object.create(Set2 && Set2.prototype);
+  if (Set22)
+    OrderedSet2.__proto__ = Set22;
+  OrderedSet2.prototype = Object.create(Set22 && Set22.prototype);
   OrderedSet2.prototype.constructor = OrderedSet2;
   OrderedSet2.of = /* @__PURE__ */ __name(function of() {
     return this(arguments);
@@ -5839,7 +5839,7 @@ var OrderedSet = /* @__PURE__ */ function(Set2) {
     return this.__toString("OrderedSet {", "}");
   }, "toString");
   return OrderedSet2;
-}(Set);
+}(Set2);
 OrderedSet.isOrderedSet = isOrderedSet;
 var OrderedSetPrototype = OrderedSet.prototype;
 OrderedSetPrototype[IS_ORDERED_SYMBOL] = true;
@@ -6129,6 +6129,107 @@ overflow-wrap: break-word;
 -webkit-user-drag: element;
 }`;
 init_define_process();
+var replaceMaps = {};
+var extraModelCache = {};
+var extraModels = {};
+var initAta = /* @__PURE__ */ __name(() => {
+  replaceMaps = {};
+  extraModelCache = {};
+  extraModels = {};
+}, "initAta");
+var addExtraModels = /* @__PURE__ */ __name(async (code, url) => {
+  if (extraModels[url])
+    return;
+  extraModels[url] = [];
+  extraModelCache[url] = code;
+  const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
+  const models = code.matchAll(regex);
+  const arr = [...Array.from(models)];
+  const ret = Promise.all(arr.map(async (match) => {
+    const dts = match[0].indexOf(".d.ts");
+    if (dts === -1)
+      return;
+    let extraModel = match[0].slice(0, dts + 5);
+    if (extraModels[url].includes(extraModel))
+      return;
+    extraModels[url].push(extraModel);
+    if (extraModels[extraModel])
+      return;
+    if (extraModelCache[extraModel])
+      return;
+    let extraModelUrl = extraModel;
+    if (extraModel.indexOf("spike.land") === -1)
+      return;
+    return fetch(extraModel, { redirect: "follow" }).then((resp) => {
+      extraModelUrl = resp.url;
+      return resp.text().then(async (co) => {
+        if (extraModelUrl !== extraModel) {
+          extraModelCache[url] = replaceAll(
+            extraModelCache[url],
+            extraModel,
+            extraModelUrl
+          );
+        }
+        extraModelCache[extraModelUrl] = co;
+        return await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
+      });
+    });
+  }));
+  return ret;
+}, "addExtraModels");
+var dealWithMissing = /* @__PURE__ */ __name(async (mod, origin) => {
+  console.log(`missing: ${mod}`);
+  const retMod = { url: origin + "/node_modules/" + mod + "/index.d.ts", mod, content: "" };
+  if (mod && mod.indexOf("https://") !== -1) {
+    return retMod;
+  }
+  return fetch(origin + "/npm:/" + mod, { redirect: "follow" }).then((resp) => {
+    const dtsUrl = resp.headers.get("x-dts");
+    return dtsUrl === "NO_DTS" ? retMod : fetch(dtsUrl, { redirect: "follow" }).then((resp2) => {
+      return resp2.text().then((x) => retMod.content = x).then(() => retMod);
+    });
+  });
+}, "dealWithMissing");
+var xxxsetExtraLibs = /* @__PURE__ */ __name((maps, origin) => {
+  maps.forEach((m) => Object.assign(replaceMaps, m));
+  console.log({ replaceMaps });
+  const versionNumbers = /@\d+.\d+.\d+/gm;
+  const types = /\/types\//gm;
+  const extraLibs = Object.keys(extraModelCache).map((filePath) => {
+    let url = replaceMappings(filePath, replaceMaps).replaceAll(
+      versionNumbers,
+      ``
+    ).replaceAll(types, `/`);
+    const content = replaceMappings(extraModelCache[filePath], replaceMaps).replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+    const linksRemoved = replaceAll(
+      content,
+      origin + "/node_modules/",
+      "/xxx/xxx/"
+    );
+    let dtsRemoved = replaceAll(linksRemoved, ".d.ts", "");
+    dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
+    dtsRemoved = replaceAll(dtsRemoved, "/index", "");
+    return {
+      filePath: url,
+      content: dtsRemoved
+    };
+  }).filter((x) => x.content.length).map((x) => ({
+    filePath: x.filePath,
+    content: x.content.split(`declare module "${origin}/npm:/`).join(`declare module "`)
+  }));
+  return extraLibs;
+}, "xxxsetExtraLibs");
+function replaceAll(input, search, replace) {
+  return input.split(search).join(replace);
+}
+__name(replaceAll, "replaceAll");
+function replaceMappings(input, maps) {
+  let result = input;
+  Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
+  return result;
+}
+__name(replaceMappings, "replaceMappings");
+init_define_process();
 var import_fast_diff = __toESM2(require_diff(), 1);
 function createDelta(original, revision) {
   const result = (0, import_fast_diff.default)(original, revision);
@@ -6387,173 +6488,6 @@ function createPatch(oldCode, newCode) {
 }
 __name(createPatch, "createPatch");
 
-// ../code/dist/chunk-chunk-QDSTG5JS.mjs
-init_define_process();
-var replaceMaps = {};
-var extraModelCache = {};
-var extraModels = {};
-var addExtraModels = /* @__PURE__ */ __name(async (code, url) => {
-  if (extraModels[url])
-    return;
-  extraModels[url] = [];
-  extraModelCache[url] = code;
-  const regex = /((https:\/\/)+[^\s.]+\.[\w][^\s]+)/gm;
-  const models = code.matchAll(regex);
-  const arr = [...Array.from(models)];
-  const ret = Promise.all(arr.map(async (match) => {
-    const dts = match[0].indexOf(".d.ts");
-    if (dts === -1)
-      return;
-    let extraModel = match[0].slice(0, dts + 5);
-    if (extraModels[url].includes(extraModel))
-      return;
-    extraModels[url].push(extraModel);
-    if (extraModels[extraModel])
-      return;
-    if (extraModelCache[extraModel])
-      return;
-    let extraModelUrl = extraModel;
-    return fetch(extraModel, { redirect: "follow" }).then((resp) => {
-      extraModelUrl = resp.url;
-      return resp.text().then(async (co) => {
-        if (extraModelUrl !== extraModel) {
-          extraModelCache[url] = replaceAll(
-            extraModelCache[url],
-            extraModel,
-            extraModelUrl
-          );
-        }
-        extraModelCache[extraModelUrl] = co;
-        return await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
-      });
-    });
-  }));
-  return ret;
-}, "addExtraModels");
-var dealWithMissing = /* @__PURE__ */ __name(async (mod, origin) => {
-  console.log(`missing: ${mod}`);
-  const retMod = { url: "", mod, content: "" };
-  if (mod && mod.indexOf("https://") !== -1) {
-    return retMod;
-  }
-  retMod.content = await fetch(origin + "/npm:/" + mod, { redirect: "follow" }).then((resp) => {
-    retMod.url = resp.headers.get("x-dts");
-    return retMod.url === "NO_DTS" ? "" : fetch(retMod.url, { redirect: "follow" }).then((resp2) => {
-      retMod.url = resp2.url;
-      return resp2.text();
-    });
-  }).catch(() => "") || "";
-  return retMod;
-}, "dealWithMissing");
-function extraStuff(code, uri, typescript) {
-  const getTsWorker = /* @__PURE__ */ __name(() => typescript.getTypeScriptWorker(), "getTsWorker");
-  const addExtraLib = /* @__PURE__ */ __name((content, filePath) => typescript.typescriptDefaults.addExtraLib(content, filePath), "addExtraLib");
-  const setExtraLibs = /* @__PURE__ */ __name((libs) => typescript.typescriptDefaults.setExtraLibs(libs), "setExtraLibs");
-  Object.assign(globalThis, { extraModels, extraModelCache });
-  const ATA = /* @__PURE__ */ __name(async () => {
-    console.log("ATA");
-    const mappings = (await Promise.all(
-      (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(
-        uri.toString()
-      )).map((x) => {
-        return x.messageText;
-      }).filter(
-        (x) => typeof x === "string" && x.includes(" or its corresponding type declarations.")
-      ).map((x) => typeof x === "string" && x.split("'")[1]).filter((x) => typeof x === "string").map((x) => x).map((mod2) => dealWithMissing(mod2, location.origin))
-    )).filter((m) => m.mod && m.content && m.content.trim().length > 1).map(async (m) => {
-      console.log(`Aga-Insert: ${m.mod}`);
-      return addExtraModels(
-        m.content,
-        m.url
-      ).then(() => ({
-        [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url
-      }));
-    });
-    const maps = await Promise.all(mappings);
-    maps.forEach((m) => Object.assign(replaceMaps, m));
-    console.log({ replaceMaps });
-    const extraLib2 = xxxsetExtraLibs();
-    extraLib2.map((lib) => {
-      addExtraLib(
-        lib.content,
-        lib.filePath
-      );
-    });
-    typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
-  }, "ATA");
-  const xxxsetExtraLibs = /* @__PURE__ */ __name(() => {
-    const versionNumbers = /@\d+.\d+.\d+/gm;
-    const types = /\/types\//gm;
-    const extraLibs = Object.keys(extraModelCache).map((filePath) => {
-      const url = replaceMappings(filePath, replaceMaps).replaceAll(
-        versionNumbers,
-        ``
-      ).replaceAll(types, `/`);
-      const fileDir = new URL(".", url).toString();
-      const content = replaceMappings(extraModelCache[filePath], replaceMaps).replaceAll(versionNumbers, ``).replaceAll(types, `/`);
-      const linksRemoved = replaceAll(
-        content,
-        location.origin + "/node_modules/",
-        ""
-      );
-      const otherLinksRemoved = replaceAll(
-        linksRemoved,
-        location.origin + "/npm:/v99/",
-        ""
-      );
-      let dtsRemoved = replaceAll(otherLinksRemoved, ".d.ts", "");
-      dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
-      dtsRemoved = replaceAll(dtsRemoved, "/index", "");
-      const fullUrl = new URL(url);
-      const paths = url.indexOf("node_modules") !== -1 ? ["", ...fullUrl.pathname.split("/")] : fullUrl.pathname.split("/");
-      const [__, _np, _v99, ...rest2] = paths;
-      const newURl = new URL("/node_modules/" + rest2.join("/"), fullUrl.origin);
-      let urlString = replaceAll(newURl.toString(), "@types/", "");
-      urlString = urlString.replace("/index", "");
-      return {
-        filePath: urlString,
-        content: dtsRemoved
-      };
-    }).filter((x) => x.content.length).map((x) => ({
-      filePath: x.filePath,
-      content: x.content.split(`declare module "${location.origin}/npm:/`).join(`declare module "`)
-    }));
-    console.log({ extraLibs });
-    setExtraLibs(
-      extraLibs
-    );
-    return extraLibs;
-  }, "xxxsetExtraLibs");
-  const extraLib = xxxsetExtraLibs();
-  extraLib.map((lib) => {
-    addExtraLib(
-      lib.content,
-      lib.filePath
-    );
-  });
-  const mod = {
-    ATA,
-    silent: false,
-    code
-  };
-  setTimeout(() => mod.ATA(), 2e3);
-}
-__name(extraStuff, "extraStuff");
-function replaceAll(input, search, replace) {
-  return input.split(search).join(replace);
-}
-__name(replaceAll, "replaceAll");
-function replaceMappings(input, maps) {
-  let result = input;
-  Object.keys(maps).map((x) => result = replaceAll(result, maps[x], x));
-  return result;
-}
-__name(replaceMappings, "replaceMappings");
-
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
@@ -6697,8 +6631,7 @@ var api = {
             const parent = new URL("..", url2).toString();
             const gParent = new URL("../..", url2).toString();
             const ggParent = new URL("../../..", url2).toString();
-            let replaced = removeComments(bodyStr);
-            replaced = replaceAll2(replaced, ` from '../../../`, ` from '${ggParent}`);
+            let replaced = replaceAll2(bodyStr, ` from '../../../`, ` from '${ggParent}`);
             replaced = replaceAll2(replaced, ` from "../../../`, ` from "${ggParent}`);
             replaced = replaceAll2(replaced, `import("../../../`, ` import("${ggParent}`);
             replaced = replaceAll2(replaced, `import("../../`, ` import("${gParent}`);
@@ -6979,11 +6912,6 @@ function isChunk(link) {
 var chat_default = api;
 function replaceAll2(input, search, replace) {
   return input.split(search).join(replace);
-}
-function removeComments(str) {
-  const code = str.split("\n").map((x) => x.trim()).filter((x) => x.slice(0, 2) !== "//" || x.indexOf("reference") !== -1).join("\n");
-  const regex = /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm;
-  return code.replaceAll(regex, ``);
 }
 
 // src/index.html
@@ -7976,26 +7904,94 @@ var Code = class {
             }
           });
         }
-        case "ata": {
-          const [root, ...deps] = path;
-
-          
+        case "yay": {
+          initAta();
+          initAta();
           const code2 = mST().code;
-          if (debs.length===0){
-          deps = code2.split(";\n").filter((x) => x.startsWith("import") || x.startsWith("export")).map(
-            (s) => s.split(`'`)[1]
-          ).filter((x) => !x.startsWith("https"));
-          if (!deps.includes("@emotion/react/jsx-runtime"))
+          let [_ata, ...deps] = path;
+          if (deps.length === 0) {
+            deps = code2.split(";").map((x) => x.trim()).filter((x) => x.startsWith("import") || x.startsWith("export")).map(
+              (s) => s.split("'")[1]
+            ).filter((x) => x && !x.startsWith("https"));
             deps.push("@emotion/react/jsx-runtime");
-          console.log({ deps });
           }
-          const res = await Promise.all(deps.map((x) => dealWithMissing(x, url.origin)));
-          return new Response(JSON.stringify(res), {
+          deps = [...new Set(deps)];
+          const rees = JSON.stringify(deps);
+          return new Response(rees, {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
+              "content_hash": md5(rees),
+              "Etag": md5(rees),
+              "Content-Type": "application/json; charset=UTF-8"
+            }
+          });
+        }
+        case "ata": {
+          let [_ata, ...deps] = path;
+          initAta();
+          const code2 = mST().code;
+          if (deps.length === 0) {
+            deps = code2.split(";").map((x) => x.trim()).filter((x) => x.startsWith("import") || x.startsWith("export")).map(
+              (s) => s.split("'")[1]
+            ).filter((x) => x && !x.startsWith("https"));
+            deps.push("@emotion/react/jsx-runtime");
+          }
+          deps = [...new Set(deps)];
+          console.log({ deps });
+          const mappings = (await Promise.all(
+            deps.map(
+              (x) => dealWithMissing(x, url.origin).then(
+                (m) => m.content && m.content.trim().length > 0 ? addExtraModels(m.content, x + "/index.d.ts").then(() => m) : m
+              )
+            )
+          )).filter((x) => x.content.trim().length && x.content !== "content");
+          const fpaths = [];
+          const extraLib = JSON.stringify([
+            ...xxxsetExtraLibs(mappings, url.origin).filter((x) => x.content && x.content !== "content").map(
+              (x) => {
+                let { filePath, content } = x;
+                mappings.map((x2) => content = content.split(x2.url).join(x2.mod));
+                filePath = filePath.split(url.origin).join("");
+                content = content.split(url.origin).join("");
+                if (filePath.startsWith("/npm:")) {
+                  const [_, _npm, _v, ...rest2] = filePath.split("/");
+                  const filePrefix = [_, _npm, _v].join("/") + "/";
+                  if (!fpaths.includes(filePrefix))
+                    fpaths.push(filePrefix);
+                  filePath = rest2.join("/");
+                }
+                if (!filePath.endsWith(".d.ts"))
+                  filePath = filePath + "/index.d.ts";
+                return { filePath, content };
+              }
+            ).map((x) => {
+              let content = x.content;
+              fpaths.map((x2) => content = content.split(x2).join(""));
+              return {
+                filePath: x.filePath,
+                content
+              };
+            }),
+            {
+              filePath: "@emotion/react/jsx-runtime.d.ts",
+              content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`
+            },
+            {
+              filePath: "@emotion/react/jsx-dev-runtime.d.ts",
+              content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`
+            }
+          ]);
+          return new Response(extraLib, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
+              "content_hash": md5(extraLib),
+              "Etag": md5(extraLib),
               "Content-Type": "application/json; charset=UTF-8"
             }
           });
