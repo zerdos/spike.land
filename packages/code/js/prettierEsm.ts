@@ -1,7 +1,7 @@
 // import parserBabel from "prettier/parser-babel";
 import parserTypescript from "prettier/parser-typescript";
 
-import { format } from "prettier/standalone";
+import prettier from "prettier/standalone";
 // import parserHtml from "prettier/parser-html";
 // import parserPostcss from "prettier/parser-postcss";
 
@@ -9,7 +9,7 @@ import { format } from "prettier/standalone";
 
 export const prettierJs = (code: string) => {
   try {
-    return format(code, {
+    return prettier.format(code, {
       arrowParens: "always",
       bracketSpacing: true,
       embeddedLanguageFormatting: "auto",
