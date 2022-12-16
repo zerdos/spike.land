@@ -96,6 +96,7 @@ export const umdTransform = async (code: string) => {
 
 const mutex = new Mutex();
 
+let controller = new AbortController();
 export async function runner({ code, counter, codeSpace }: {
   code: string;
   codeSpace: string;
@@ -103,9 +104,11 @@ export async function runner({ code, counter, codeSpace }: {
 }) {
   if (counter <= counterMax) return;
   counterMax = counter;
+  controller.abort();
+
   await mutex.runExclusive(async () => {
     if (counter < counterMax) return;
-
+    controller = new AbortController();
     // Console.log({ i, counter });
 
     // mod.i = counter;
@@ -135,7 +138,9 @@ export async function runner({ code, counter, codeSpace }: {
       console.log("still alive3");
       syncWS(prematureSess);
 
-      const { html, css } = await render(transpiledCode, codeSpace);
+      const built = await build(code, counter, controller.signal);
+      if (!built) return;
+      const { html, css } = await render(built, codeSpace);
 
       console.log({ html, css });
 
@@ -148,7 +153,7 @@ export async function runner({ code, counter, codeSpace }: {
         code,
         codeSpace,
         i: counter,
-        transpiled: transpiledCode,
+        transpiled: built,
         html,
         css,
       };

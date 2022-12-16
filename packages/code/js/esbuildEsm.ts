@@ -170,7 +170,7 @@ export const build = async (
   ) {
     console.log(b.outputFiles);
 
-    return b.outputFiles![0].contents;
+    return b.outputFiles![0].text;
   }
   return false;
 };
