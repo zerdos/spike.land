@@ -292,8 +292,9 @@ const build = (
       "react",
       "prop-types",
       "tslib",
-      :
-      'prettier',
+      "monaco-editor",
+      "ace-builds",
+      "prettier",
       "react/",
     ],
     false,
