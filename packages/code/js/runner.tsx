@@ -138,9 +138,9 @@ export async function runner({ code, counter, codeSpace }: {
       // patchSync(sess);
       console.log("still alive3");
 
-      const built = await build(code, counter, controller.signal);
-      if (!built) return;
-      const { html, css } = await render(built, codeSpace);
+      // const built = await build(code, counter, controller.signal);
+      // if (!built) return;
+      const { html, css } = await render(transpiledCode, codeSpace);
 
       console.log({ html, css });
 
@@ -153,7 +153,7 @@ export async function runner({ code, counter, codeSpace }: {
         code,
         codeSpace,
         i: counter,
-        transpiled: built,
+        transpiled: transpiledCode,
         html,
         css,
       };
