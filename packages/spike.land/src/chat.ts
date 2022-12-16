@@ -229,13 +229,12 @@ const api: ExportedHandler<CodeEnv> = {
           response = new Response(
             isText
               ? importMapReplace(
-                removeComments(
-                  bodyStr.replaceAll(regex, u.origin + "/npm:/")
-                    .replaceAll(regex2, " from \"/npm:/")
-                    .replaceAll(regex3, "import \"/npm:/")
-                    .replaceAll(regex4, " from \"/npm:/")
-                    .replaceAll(regex5, "import \"/npm:/"),
-                ),
+                // removeComments(
+                bodyStr.replaceAll(regex, u.origin + "/npm:/")
+                  .replaceAll(regex2, " from \"/npm:/")
+                  .replaceAll(regex3, "import \"/npm:/")
+                  .replaceAll(regex4, " from \"/npm:/")
+                  .replaceAll(regex5, "import \"/npm:/"),
                 url.origin,
               )
               : await response.blob(),
