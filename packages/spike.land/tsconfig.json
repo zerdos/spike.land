@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "target": "ESNext",
     "module": "CommonJS",
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "Set"],
     "types": ["@cloudflare/workers-types"]
   },
 
