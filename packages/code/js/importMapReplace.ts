@@ -19,12 +19,17 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
   const ggParent = (new URL("../../..", url)).toString();
 
   returnStr = replaceAll(returnStr, `from"`, `from "`);
+  returnStr = replaceAll(returnStr, `import"`, `import "`);
 
   returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
   returnStr = replaceAll(returnStr, `import("../../../`, ` import("${ggParent}`);
   returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
   returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
   returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
+  returnStr = replaceAll(returnStr, `import "../../../`, ` import "${ggParent}`);
+  returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
+  returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
+  returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
   returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
   returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
   returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
