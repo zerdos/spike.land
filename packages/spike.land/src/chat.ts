@@ -150,35 +150,35 @@ const api: ExportedHandler<CodeEnv> = {
           }
 
           // if (response.headers.has("location")) {
-          //   const redirectUrl = response.headers.get("location")!;
+          const redirectUrl = response.headers.get("location") || response.url;
 
-          //   request = new Request(redirectUrl, request);
+          // request = new Request(redirectUrl, request);
 
-          //   const headers = new Headers(response.headers);
-          //   headers.set(
-          //     "location",
-          //     redirectUrl.replace(
-          //       "esm.sh/",
-          //       u.hostname + "/npm:/",
-          //     ),
-          //   );
+          const headers = new Headers(response.headers);
+          headers.set(
+            "location",
+            redirectUrl.replace(
+              "esm.sh/",
+              u.hostname + "/npm:/",
+            ),
+          );
 
-          //   response = new Response(
-          //     importMapReplace(
-          //       (await response.text()).split(
-          //         "esm.sh/",
-          //       ).join(
-          //         u.hostname + "/npm:/",
-          //       ),
-          //       u.origin,
-          //     ),
-          //     {
-          //       ...response,
-          //       headers,
-          //     },
-          //   );
+          response = new Response(
+            importMapReplace(
+              (await response.text()).split(
+                "esm.sh/",
+              ).join(
+                u.hostname + "/npm:/",
+              ),
+              u.origin,
+            ),
+            {
+              ...response,
+              headers,
+            },
+          );
 
-          //   await cache.put(cacheKey, response.clone());
+          await cache.put(cacheKey, response.clone());
           //   return response;
           // }
 
