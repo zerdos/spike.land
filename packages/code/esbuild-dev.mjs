@@ -285,6 +285,7 @@ const build = (
       "react-error-boundary",
       "@emotion/react",
       "@emotion/",
+      "react*",
       "framer-motion",
       "react",
       "react/",
