@@ -43,8 +43,8 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
 
   console.log("importmapReplace fn");
   returnStr = returnStr.split(";").map(x => x.indexOf("import") !== -1 ? x.trim() : x).map((x) => {
-    if (x.startsWith("import ") && x.indexOf(`"https://`) === -1) {
-      const slices = x.replace(`from"`, `from "`).split(`"`);
+    if (x.startsWith("import") && x.indexOf(`"https://`) === -1) {
+      const slices = x.split(`"`);
       slices[1] = origin + "/npm:/*" + slices[1] + "?bundle&target=es2020&keep-names=true&dev=true";
       return slices.join(`"`);
     }

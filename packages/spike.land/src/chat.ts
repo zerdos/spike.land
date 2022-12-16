@@ -188,23 +188,21 @@ const api: ExportedHandler<CodeEnv> = {
           const isText = !!response?.headers?.get("Content-Type")?.includes(
             "charset",
           );
-          let bodyStr = await (isText ? response.text() : null);
-          if (!bodyStr) {
-            throw new Error("empty body");
-          }
+          let bodyStr = await (isText ? response.text() : response.blob());
 
           // if (isText && response.url.indexOf(".d.ts") !== -1) {
 
           // }
 
           response = new Response(
-            isText
+            typeof bodyStr === "string"
               ? importMapReplace(
                 // removeComments(
                 bodyStr,
                 url.origin,
+                url.origin,
               )
-              : await response.blob(),
+              : bodyStr,
             {
               status: 200,
               headers: {
@@ -435,7 +433,10 @@ const api: ExportedHandler<CodeEnv> = {
                 "charset",
               );
 
-              kvResp = new Response(isText ? importMapReplace(await kvResp.text(), url.origin) : kvResp.body, kvResp);
+              kvResp = new Response(
+                isText ? importMapReplace(await kvResp.text(), url.origin, url.origin) : kvResp.body,
+                kvResp,
+              );
               const headers = new Headers(kvResp.headers);
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
