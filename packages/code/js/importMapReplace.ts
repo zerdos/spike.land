@@ -52,7 +52,7 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl) {
       if (x.indexOf("/node_process.js") !== -1) {
         const slices = x.split(`"`);
         const oldUrl = new URL(slices[1]);
-        slices[1] = new URL(oldUrl.pathname, oldUrl.origin + "/npm:").toString();
+        slices[1] = new URL("/npm:" + oldUrl.pathname, origin).toString();
 
         return slices.join(`"`);
       }
