@@ -70,7 +70,7 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
     }).join("\n")
   ).join(";");
 
-  return returnStr.split("https://esm.sh").join(origin + "/npm:");
+  return returnStr.split("https://esm.sh").join(origin + "/npm:").split("npm:/npm:").join("npm:");
 }
 function replaceAll(input: string, search: string, replace: string) {
   return input.split(search).join(replace);
