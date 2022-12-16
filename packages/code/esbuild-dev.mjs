@@ -282,6 +282,7 @@ const build = (
     [ // "react",
       "react-dom",
       "react-dom/",
+      "react-error-boundary",
       "@emotion/react",
       "@emotion/",
       "framer-motion",
