@@ -246,8 +246,22 @@ export class Code {
         }
         case "yay": {
           initAta();
-          await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
-          const rees = JSON.stringify(xxxsetExtra  Libs([], url.origin));
+          // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
+          initAta();
+          // const code = await this.kv.list();c
+          const code = mST().code;
+          let [_ata, ...deps] = path;
+          if (deps.length === 0) {
+            deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+              s => s.split("'")[1],
+            ).filter(x => x && !(x.startsWith("https")));
+
+            deps.push("@emotion/react/jsx-runtime");
+          }
+          me
+          const rees = JSON.stringify(deps);
+
+          // const rees = JSON.stringify(xxxsetExtra([], url.origin));
 
           return new Response(rees, {
             status: 200,
