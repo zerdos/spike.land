@@ -5,7 +5,6 @@ import HTML from "./index.html";
 // import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
 
 // import * as CF from "@cloudflare/workers-types";
-
 import importMap from "@spike.land/code/js/importmap.json";
 import {
   addExtraModels,
@@ -22,6 +21,7 @@ import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from 
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
+import pMap from "p-map";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
@@ -317,12 +317,17 @@ export class Code {
             deps.push("@emotion/react/jsx-dev-runtime");
           }
           deps = [...(new Set(deps))];
+          const mapper = (dep) =>
+            dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m));
+          // pMap()
+          const result = await pMap(deps, mapper, { concurrency: 2 });
 
-          const starters = await Promise.all(
-            deps.map(dep =>
-              dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
-            ),
-          );
+          // const starters = await Promise.all(
+          //   deps.map(dep =>
+          //     dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
+          //   ),
+          // );
+          result
 
           const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin)).split("esm.sh").join(url.host);
 

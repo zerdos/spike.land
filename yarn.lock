@@ -1303,6 +1303,7 @@ __metadata:
     avl: "npm:^1.5.3"
     esbuild: "npm:0.16.7"
     miniflare: "npm:^2.11.0"
+    p-map: "npm:^5.5.0"
     typescript: "npm:4.9.4"
     wrangler: "npm:2.6.2"
   languageName: unknown
