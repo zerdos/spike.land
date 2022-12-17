@@ -319,7 +319,7 @@ export class Code {
           }
           deps = [...(new Set(deps))];
           const mapper = (dep: string) =>
-            dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m));
+            dealWithMissing(dep, url.origin).then((m) => addExtraModels(prettierJs(m.content), m.url).then(() => m));
           // pMap()
           const starters = await pMap(deps, mapper, { concurrency: 2 });
 
