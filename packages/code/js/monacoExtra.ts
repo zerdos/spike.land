@@ -70,8 +70,8 @@ export const dealWithMissing = async (mod: string, origin: string) => ({
   content: prettierJs(
     await fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
       async (resp) => {
-        const xt = resp.headers.get("x-typescript-types");
-        const res = await resp.text();
+        const xt = resp.headers.get("x-typescript-types")!;
+        const res = await fetch(xt, { redirect: "follow" }).then(resp => resp.text());
 
         return res;
         // const extraModelCache[url] =
