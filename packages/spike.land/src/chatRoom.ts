@@ -332,11 +332,11 @@ export class Code {
               };
             })),
             {
-              filePath: "@emotion/react/jsx-runtime.d.ts",
+              filePath: "@emotion/react/jsx-runtime/index.d.ts",
               content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
             },
             {
-              filePath: "@emotion/react/jsx-dev-runtime.d.ts",
+              filePath: "@emotion/react/jsx-dev-runtime/index.d.ts",
               content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
             },
           ]);

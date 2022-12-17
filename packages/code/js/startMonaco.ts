@@ -95,7 +95,6 @@ const monacoContribution = async (
     noFallthroughCasesInSwitch: true,
     resolveJsonModule: true,
 
-    "composite": true,
     isolatedModules: true,
     noEmit: true,
     allowNonTsExtensions: true,
@@ -111,7 +110,7 @@ const monacoContribution = async (
     rootDir: originToUse + "/",
     paths: {},
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSXDev,
+    jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [originToUse + "/"],
   });
