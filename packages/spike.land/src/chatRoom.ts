@@ -122,7 +122,7 @@ export class Code {
             s => s.split(`"`)[1],
           ).filter(x => x && !(x.startsWith("https")));
         }
-        deps = ["@emotion/react/jsx-runtime", ...(new Set(deps))];
+        deps = ["@emotion/react/jsx-runtime", "@types/react/global.d.ts", ...(new Set(deps))];
         const mapper = (dep: string) =>
           dealWithMissing(dep, "https://esm.sh").then((m) =>
             addExtraModels(prettierJs(m.content), m.url).then(() => m)
