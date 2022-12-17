@@ -320,14 +320,14 @@ export class Code {
           const mapper = (dep) =>
             dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m));
           // pMap()
-          const result = await pMap(deps, mapper, { concurrency: 2 });
+          const starters = await pMap(deps, mapper, { concurrency: 2 });
 
           // const starters = await Promise.all(
           //   deps.map(dep =>
           //     dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
           //   ),
           // );
-          result
+          // result/;
 
           const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin)).split("esm.sh").join(url.host);
 
