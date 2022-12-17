@@ -63,9 +63,9 @@ export const addExtraModels = async (code: string, url: string) => {
 };
 
 export const dealWithMissing = async (mod: string, origin: string) => ({
-  url: origin + "/node_modules/" + mod + (mod.indexOf("@") !== -1 && mod.split("/").length > 2)
-    ? ".d.yt"
-    : "/index.d.ts",
+  url: origin + "/node_modules/" + mod + (mod.indexOf("@") !== -1 && mod.split("/").length > 2
+    ? ".d.ys"
+    : "/index.d.ts"),
   mod,
   content: prettierJs(
     await fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
