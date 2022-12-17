@@ -43,7 +43,7 @@ export const addExtraModels = async (code: string, url: string) => {
     // extraModelUrl += "/index.d.ts";
     // }
     let extraModelUrl = extraModel;
-    if (extraModel.indexOf("spike.land") === -1 && extraModel.indexOf("esm.sh") === -1) return;
+    // if (extraModel.indexOf("spike.land") === -1 && extraModel.indexOf("esm.sh") === -1) return;
     return await fetch(extraModel, { redirect: "follow" }).then(resp => {
       extraModelUrl = resp.url;
       return resp.text().then(async (co) => {
