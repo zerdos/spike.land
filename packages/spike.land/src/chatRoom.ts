@@ -286,6 +286,7 @@ export class Code {
             ).filter(x => x && !(x.startsWith("https")));
 
             deps.push("@emotion/react/jsx-runtime");
+            deps.push("@emotion/react/jsx-dev-runtime");
           }
           deps = [...(new Set(deps))];
           console.log({ deps });
