@@ -27,7 +27,7 @@ export const addExtraModels = async (code: string, url: string) => {
   const ret = Promise.all(arr.map(async (match) => {
     const dts = match[0].indexOf(".d.ts");
     // if (!match[0].includes("spike.land")) return;
-    if (dts === -1) return;
+    // if (dts === -1) return;
     let extraModel = match[0].slice(0, dts + 5); // (new URL(match[0].slice(7).slice(0, -1)))
     //            .toString();
     if (extraModels[url].includes(extraModel)) return;
