@@ -324,7 +324,7 @@ export class Code {
             ),
           );
 
-          const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin)).split("esm.sh").join("spike.land");
+          const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin)).split("esm.sh").join(url.host);
 
           // console.log({ deps });
           // const mappings = (await Promise.all(
