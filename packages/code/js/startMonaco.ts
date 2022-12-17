@@ -220,7 +220,7 @@ async function startMonacoPristine(
       );
     }
 
-    const globalUrl = `${originToUse}node_modules/@types/react/global.d.ts`;
+    const globalUrl = `${originToUse}/node_modules/@types/react/global.d.ts`;
 
     const globalDTS = await fetch(globalUrl).then(resp => resp.text());
 
