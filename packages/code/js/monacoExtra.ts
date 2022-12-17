@@ -63,9 +63,9 @@ export const addExtraModels = async (code: string, url: string) => {
 
 export const dealWithMissing = async (mod: string, origin: string) =>
   (async (url: string) => ({
-    url,
+    url: origin + "/node_modules/" + mod + "/index.d.ts",
     mod,
-    content: await fetch(url, { redirect: "follow" }).then(
+    content: await fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
       (resp) => {
         const xt = resp.headers.get("x-typescript-types");
         const res = `
