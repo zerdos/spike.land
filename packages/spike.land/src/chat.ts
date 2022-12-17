@@ -425,10 +425,11 @@ const api: ExportedHandler<CodeEnv> = {
                 });
               }
 
+              const xt = response.headers.get("x-typescript-types");
               response = new Response(
                 `
-              export * from "${xTs}";
-              export { default } from "${xTs}";
+              export * from "${xt}";
+              export { default } from "${xt}";
               `,
                 {
                   headers: {
