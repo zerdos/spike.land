@@ -13,11 +13,12 @@ import {
   makePatchFrom,
   onSessionUpdate,
   patchSync,
+  prettierJs,
   resetCSS,
   startSession,
   syncStorage,
   xxxsetExtraLibs
-} from "./chunk-chunk-WEU62NKT.mjs";
+} from "./chunk-chunk-U44Y2LYT.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
@@ -38,6 +39,7 @@ export {
   md5,
   onSessionUpdate,
   patchSync,
+  prettierJs,
   resetCSS,
   startSession,
   syncStorage,
