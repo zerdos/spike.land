@@ -3,7 +3,7 @@ import { prettierJs } from "prettierEsm";
 import imap from "./importmap.json";
 
 const importMapImports = imap.imports;
-export function importMapReplace(codeInpN: string, origin: string, relativeUrl: string) {
+export function importMapReplace(codeInpN: string, origin: string, relativeUrl: string, importmapRep = true) {
   const codeInp = prettierJs(codeInpN);
 
   // if (skipImportmapReplaceNames) {
@@ -37,10 +37,11 @@ export function importMapReplace(codeInpN: string, origin: string, relativeUrl: 
   returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
   returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
   returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
+
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], origin)).toString();
     returnStr = replaceAll(returnStr, `from"`, `from "`);
-    returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    if (importmapRep) returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
     returnStr = replaceAll(returnStr, ` from "./`, ` from "${origin}/live/`);
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
