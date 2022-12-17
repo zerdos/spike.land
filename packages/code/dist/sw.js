@@ -2601,7 +2601,9 @@ self.addEventListener("fetch", function(event) {
         return response;
       try {
         request = new Request(request.url, request);
-        response = await fetch(request, { redirect: "follow" });
+        response = await fetch(request);
+        if (!response.ok)
+          return response;
         response = new Response(response.body, response);
         if (response.status === 307 || response.status === 302 || !response.ok || !response.body) {
           return response;
