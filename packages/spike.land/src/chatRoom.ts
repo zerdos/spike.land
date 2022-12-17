@@ -13,6 +13,7 @@ import {
   dealWithMissing,
   ICodeSession,
   initAta,
+  prettierJs,
   resetCSS,
   syncStorage,
   xxxsetExtraLibs,
@@ -279,7 +280,7 @@ export class Code {
           let [, ...deps] = path;
           initAta();
           // const code = await this.kv.list();c
-          const code = mST().code;
+          const code = prettierJs(mST().code);
           if (deps.length === 0) {
             deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
               s => s.split(`"`)[1],
@@ -317,7 +318,7 @@ export class Code {
             deps.push("@emotion/react/jsx-dev-runtime");
           }
           deps = [...(new Set(deps))];
-          const mapper = (dep) =>
+          const mapper = (dep: string) =>
             dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m));
           // pMap()
           const starters = await pMap(deps, mapper, { concurrency: 2 });
@@ -327,7 +328,6 @@ export class Code {
           //     dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
           //   ),
           // );
-          // result/;
 
           const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin)).split("esm.sh").join(url.host);
 
