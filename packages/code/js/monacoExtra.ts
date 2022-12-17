@@ -65,15 +65,19 @@ export const dealWithMissing = async (mod: string, origin: string) =>
   (async (url: string) => ({
     url,
     mod,
-    content: await fetch(url).then(
-      async (resp) => {
-        const content = await resp.text();
+    content: await fetch(url, { redirect: "follow" }).then(
+      (resp) => {
+        const xt = resp.headers.get("x-typescript-types");
+        const res = `
+        export * from "${xt}";
+        export { default } from "${xt}";
+        `;
 
-        return content;
+        return res;
         // const extraModelCache[url] =
       },
     ),
-  }))(`${origin}/${mod}/index.d.ts`);
+  }))(`${origin}/${mod}`);
 
 export const xxxsetExtraLibs = (maps: {
   [x: string]: string;

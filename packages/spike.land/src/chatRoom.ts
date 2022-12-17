@@ -320,7 +320,7 @@ export class Code {
 
           const starters = await Promise.all(
             deps.map(dep =>
-              dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
+              dealWithMissing(dep, "https://esm.sh").then((m) => addExtraModels(m.content, m.url).then(() => m))
             ),
           );
 
