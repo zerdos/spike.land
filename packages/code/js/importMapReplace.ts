@@ -1,8 +1,11 @@
 // import { skipImportmapReplaceNames } from "./esbuildEsm";
+import { prettierJs } from "prettierEsm";
 import imap from "./importmap.json";
 
 const importMapImports = imap.imports;
-export function importMapReplace(codeInp: string, origin: string, relativeUrl: string) {
+export function importMapReplace(codeInpN: string, origin: string, relativeUrl: string) {
+  const codeInp = prettierJs(codeInpN);
+
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
   // }
@@ -18,7 +21,8 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
   const gParent = (new URL("../..", url)).toString();
   const ggParent = (new URL("../../..", url)).toString();
 
-  returnStr = replaceAll(returnStr, `from"`, `from "`);
+  // returnStr = replaceAll(returnStr, `from"`, `from "}`);
+  returnStr = replaceAll(returnStr, `reference path="./`, `reference path="${baSe}`);
   returnStr = replaceAll(returnStr, `import"`, `import "`);
 
   returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
@@ -73,9 +77,14 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
     }).join("\n")
   ).join(";");
 
-  return returnStr.split("https://esm.sh").join(origin + "/npm:").split("npm:/npm:").join("npm:").split("npm:/*/").join(
-    "npm:/",
-  );
+  if (relativeUrl.indexOf("esm.sh") === -1) {
+    returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:").split("npm:/npm:").join("npm:").split(
+      "npm:/*/",
+    ).join(
+      "npm:/",
+    );
+  }
+  return prettierJs(returnStr);
 }
 function replaceAll(input: string, search: string, replace: string) {
   return input.split(search).join(replace);
