@@ -289,130 +289,12 @@ const api: ExportedHandler<CodeEnv> = {
               })
             );
           }
-          default:
-            try {
-              const referer = request.headers.get("Referer");
-              if (
-                path[0]
-                && ((referer && referer.indexOf("npm:/") !== -1) || path[0].startsWith("v9") || path[0].startsWith("v1")
-                  || path[0].startsWith("npm:") || path[0].startsWith("node_modules/"))
-              ) {
-                // if (u.toString().includes(".d.ts")) {
-                //   const dtsUrl = u.toString().replace(
-                //     u.origin + "/npm:",
-                //     "https://esm.sh",
-                //   );
-                //   request = new Request(dtsUrl, { ...request, redirect: "follow" });
-                //   response = await fetch(request);
-                // let response= new Response(JSON.stringify({ env, accept,path  }), {
-                //   headers: {
-                //     "Content-Type": "text/html;charset=UTF-8",
-                //     "Cache-Control": "no-cache",
-                //   },
-                // });
-                // return response;
-                // response = new Response(path[0], response);
-
-                //   if (!response.ok) return response;
-                //   response = new Response(
-                //     importMapReplace(
-                //       (await response.text()).split("esm.sh/").join(u.hostname + "/npm:/"),
-                //       u.origin
-                //     ),
-                //     {
-                //       ...response,
-                //     },
-                //   );
-
-                //   await cache.put(cacheKey, response.clone());
-                //   return response;
-                // }
-                // const isJs = u.toString().includes(".js")
-                //   || u.toString().includes(".mjs");
-
-                const packageName = u.toString().split(
-                  u.origin,
-                ).join(
-                  "https://esm.sh",
-                ).split(
-                  "/node_modules",
-                ).join(
-                  "",
-                ).split(
-                  "/npm:",
-                ).join(
-                  "",
-                );
-
-                const esmUrl = packageName;
-
-                request = new Request(esmUrl, { redirect: "follow" });
-                response = await fetch(request);
-                if (!response.ok) {
-                  return response;
-                }
-
-                // if (response.headers.has("location")) {
-                const redirectUrl = response.headers.get("location") || response.url;
-
-                // request = new Request(redirectUrl, request);
-
-                const headers = new Headers(response.headers);
-                headers.set(
-                  "location",
-                  redirectUrl.replace(
-                    "esm.sh/",
-                    u.hostname + "/npm:/",
-                  ),
-                );
-                headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-
-                headers.set(
-                  "x-DTS",
-                  (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
-                );
-
-                //   return response;
-                // }
-
-                // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
-
-                const isText = !!response?.headers?.get("Content-Type")?.includes(
-                  "charset",
-                );
-                const bodyStr =
-                  (isText ? importMapReplace(await response.text(), u.origin, response.url) : await response.blob());
-
-                response = new Response(
-                  bodyStr,
-                  {
-                    ...response,
-                    status: 200,
-                    headers,
-                  },
-                );
-
-                // if (isText && response.url.indexOf(".d.ts") !== -1) {
-
-                // }
-
-                // response = new Response(
-                //   bodyStr,
-                //   {
-                //     status: 200,
-                //     headers: {
-                //       "Access-Control-Allow-Origin": "*",
-                //       "Cross-Origin-Embedder-Policy": "require-corp",
-                //       "Cache-Control": "no-cache",
-                //       "x-DTS": (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
-                //       "Content-Type": response.headers.get("Content-Type")!,
-                //     },
-                //   },
-                // );
-
-                await cache.put(cacheKey, response.clone());
-                return response;
-              }
+          default: {
+            const file = url.href.slice(1);
+            if (files[file]) {
+              const kvCacheKey = new Request(request.url.replace(file, files[file]));
+              response = await cache.match(kvCacheKey);
+              if (response) return response;
 
               let kvResp = await getAssetFromKV(
                 {
@@ -447,25 +329,134 @@ const api: ExportedHandler<CodeEnv> = {
               const headers = new Headers(kvResp.headers);
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
+              cache.put(kvCacheKey, kvResp.clone());
               return kvResp;
-            } catch {
-              const req = new Request(`${u.origin}/npm:${u.pathname}`, request);
-              response = await fetch(req);
-              if (!response.ok) return response;
+            }
 
-              const newHeaders = new Headers(response.headers);
+            // const referer = request.headers.get("Referer");
+            // if (
+            //   path[0]
+            //   && ((referer && referer.indexOf("npm:/") !== -1) || path[0].startsWith("v9") || path[0].startsWith("v1")
+            //     || path[0].startsWith("npm:") || path[0].startsWith("node_modules/"))
+            // ) {
+            // if (u.toString().includes(".d.ts")) {
+            //   const dtsUrl = u.toString().replace(
+            //     u.origin + "/npm:",
+            //     "https://esm.sh",
+            //   );
+            //   request = new Request(dtsUrl, { ...request, redirect: "follow" });
+            //   response = await fetch(request);
+            // let response= new Response(JSON.stringify({ env, accept,path  }), {
+            //   headers: {
+            //     "Content-Type": "text/html;charset=UTF-8",
+            //     "Cache-Control": "no-cache",
+            //   },
+            // });
+            // return response;
+            // response = new Response(path[0], response);
 
-              newHeaders.append(`Location`, req.url),
-                response = new Response(response.body, {
-                  ...response,
-                  status: 307,
+            //   if (!response.ok) return response;
+            //   response = new Response(
+            //     importMapReplace(
+            //       (await response.text()).split("esm.sh/").join(u.hostname + "/npm:/"),
+            //       u.origin
+            //     ),
+            //     {
+            //       ...response,
+            //     },
+            //   );
 
-                  headers: newHeaders,
-                });
-              const cache = caches.default;
-              await cache.put(cacheKey, response.clone());
+            //   await cache.put(cacheKey, response.clone());
+            //   return response;
+            // }
+            // const isJs = u.toString().includes(".js")
+            //   || u.toString().includes(".mjs");
+
+            const packageName = u.toString().split(
+              u.origin,
+            ).join(
+              "https://esm.sh",
+            ).split(
+              "/node_modules",
+            ).join(
+              "",
+            ).split(
+              "/npm:",
+            ).join(
+              "",
+            );
+
+            const esmUrl = packageName;
+
+            request = new Request(esmUrl, { redirect: "follow" });
+            response = await fetch(request);
+            if (!response.ok) {
               return response;
             }
+
+            // if (response.headers.has("location")) {
+            const redirectUrl = response.headers.get("location") || response.url;
+
+            // request = new Request(redirectUrl, request);
+
+            const headers = new Headers(response.headers);
+            headers.set(
+              "location",
+              redirectUrl.replace(
+                "esm.sh/",
+                u.hostname + "/npm:/",
+              ),
+            );
+            headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+
+            headers.set(
+              "x-DTS",
+              (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
+            );
+
+            //   return response;
+            // }
+
+            // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
+
+            const isText = !!response?.headers?.get("Content-Type")?.includes(
+              "charset",
+            );
+            const bodyStr =
+              (isText ? importMapReplace(await response.text(), u.origin, response.url) : await response.blob());
+
+            response = new Response(
+              bodyStr,
+              {
+                ...response,
+                status: 200,
+                headers,
+              },
+            );
+
+            // if (isText && response.url.indexOf(".d.ts") !== -1) {
+
+            // }
+
+            // response = new Response(
+            //   bodyStr,
+            //   {
+            //     status: 200,
+            //     headers: {
+            //       "Access-Control-Allow-Origin": "*",
+            //       "Cross-Origin-Embedder-Policy": "require-corp",
+            //       "Cache-Control": "no-cache",
+            //       "x-DTS": (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
+            //       "Content-Type": response.headers.get("Content-Type")!,
+            //     },
+            //   },
+            // );
+
+            await cache.put(cacheKey, response.clone());
+            return response;
+            // }
+            // }
+          }
         }
       };
 
