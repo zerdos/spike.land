@@ -91,7 +91,7 @@ const api: ExportedHandler<CodeEnv> = {
         // }
 
         const cacheKey = new Request(request.url);
-        const cache = caches.default;
+        const cache = await caches.open(newUrl.origin);
 
         let response = await cache.match(cacheKey);
         if (response) {
