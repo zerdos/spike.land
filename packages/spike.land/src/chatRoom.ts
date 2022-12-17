@@ -112,6 +112,45 @@ export class Code {
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
+      const ATA = async () => {
+        let [, ...deps] = path;
+        initAta();
+        // const code = await this.kv.list();c
+        const code = mST().code;
+        if (deps.length === 0) {
+          deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+            s => s.split(`"`)[1],
+          ).filter(x => x && !(x.startsWith("https")));
+        }
+        deps = ["@emotion/react/jsx-runtime", ...(new Set(deps))];
+        const mapper = (dep: string) =>
+          dealWithMissing(dep, "https://esm.sh").then((m) =>
+            addExtraModels(prettierJs(m.content), m.url).then(() => m)
+          );
+
+        const starters = await pMap(deps, mapper, { concurrency: 2 });
+
+        let extraLibs = xxxsetExtraLibs(starters, "https://esm.sh");
+        extraLibs = extraLibs.map(x => ({
+          content: x.content.split("esm.sh").join(url.host),
+          filePath: x.filePath.replace("https://esm.sh/", "/"),
+        }));
+
+        const extraLib = JSON.stringify(extraLibs);
+
+        return new Response(extraLib, {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
+            "content_hash": md5(extraLib),
+            "Etag": md5(extraLib),
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      };
+
       switch (path[0]) {
         case "code":
         case "index.tsx":
@@ -305,103 +344,7 @@ export class Code {
           });
         }
         case "ata": {
-          let [, ...deps] = path;
-          initAta();
-          // const code = await this.kv.list();c
-          const code = mST().code;
-          if (deps.length === 0) {
-            deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-              s => s.split(`"`)[1],
-            ).filter(x => x && !(x.startsWith("https")));
-
-            deps.push("@emotion/react/jsx-runtime");
-            deps.push("@emotion/react/jsx-dev-runtime");
-          }
-          deps = [...(new Set(deps))];
-          const mapper = (dep: string) =>
-            dealWithMissing(dep, "https://esm.sh").then((m) =>
-              addExtraModels(prettierJs(m.content), m.url).then(() => m)
-            );
-          // pMap()
-          const starters = await pMap(deps, mapper, { concurrency: 2 });
-
-          // const starters = await Promise.all(
-          //   deps.map(dep =>
-          //     dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
-          //   ),
-          // );
-
-          let extraLibs = xxxsetExtraLibs(starters, "https://esm.sh");
-          extraLibs = extraLibs.map(x => ({
-            content: x.content.split("esm.sh").join(url.host),
-            filePath: x.filePath.replace("https://esm.sh/", "/"),
-          }));
-
-          const extraLib = JSON.stringify(extraLibs);
-          // console.log({ deps });
-          // const mappings = (await Promise.all(
-          //   deps.map(x =>
-          //     dealWithMissing(x, url.origin).then(m =>
-          //       (m.content && m.content.trim().length > 0)
-          //         ? addExtraModels(m.content, x + "/index.d.ts").then(() => m)
-          //         : m
-          //     )
-          //   ),
-          // )).filter(x => x.content.trim().length && x.content !== "content");
-
-          // const fpaths: string[] = [];
-          // const extraLib = JSON.stringify([
-          //   ...(xxxsetExtraLibs(mappings, url.origin).filter(x => x.content && x.content !== "content").map(
-          //     x => {
-          //       let { filePath, content } = x;
-          //       // mappings.map(x => filePath ===x.mod? x.mod+'/index.d.ts': filePath);
-
-          //       // mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
-
-          //       deps.map(mod => content = content.split( `${url.origin}/node_modules/${mod}/index.d.ts`).join(mod));
-          //       filePath = filePath.split(url.origin).join("");
-
-          //       content = content.split(url.origin).join("");
-          //       if (filePath.startsWith("/npm:")) {
-          //         const [_, _npm, _v, ...rest] = filePath.split("/");
-          //         const filePrefix = [_, _npm, _v].join("/") + "/";
-          //         if (!fpaths.includes(filePrefix)) fpaths.push(filePrefix);
-          //         filePath = rest.join("/");
-          //       }
-          //       if (!filePath.endsWith(".d.ts")) filePath = filePath + "/index.d.ts";
-
-          //       return { filePath, content };
-          //     },
-          //   ).map(x => {
-          //     let content = x.content;
-          //     fpaths.map(x => content = content.split(x).join(""));
-
-          //     return {
-          //       filePath: x.filePath,
-          //       content,
-          //     };
-          //   })),
-          //   {
-          //     filePath: "@emotion/react/jsx-runtime/index.d.ts",
-          //     content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
-          //   },
-          //   {
-          //     filePath: "@emotion/react/jsx-dev-runtime/index.d.ts",
-          //     content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
-          //   },
-          // ]);
-
-          return new Response(extraLib, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
-              "content_hash": md5(extraLib),
-              "Etag": md5(extraLib),
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
+          return ATA();
         }
         case "hashCodeSession":
           return new Response(hashCode().toString(), {
