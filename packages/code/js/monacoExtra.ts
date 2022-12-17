@@ -101,6 +101,7 @@ export const xxxsetExtraLibs = (maps: {
       versionNumbers,
       ``,
     ).replaceAll(types, `/`);
+    url = url.replace("@types/", "");
 
     // const fileDir = (new URL(".", url)).toString();
 

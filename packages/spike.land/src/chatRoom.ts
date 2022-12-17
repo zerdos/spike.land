@@ -245,12 +245,12 @@ export class Code {
           });
         }
         case "yay": {
-          initAta();
+          // initAta();
           // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
           initAta();
           // const code = await this.kv.list();c
           const code = mST().code;
-          let [_ata, ...deps] = path;
+          let [, ...deps] = path;
           if (deps.length === 0) {
             deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
               s => s.split("'")[1],
@@ -276,7 +276,7 @@ export class Code {
           });
         }
         case "ata": {
-          let [_ata, ...deps] = path;
+          let [, ...deps] = path;
           initAta();
           // const code = await this.kv.list();c
           const code = mST().code;
