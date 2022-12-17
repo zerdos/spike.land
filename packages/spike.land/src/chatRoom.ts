@@ -290,7 +290,7 @@ export class Code {
           // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
           initAta();
 
-          await addExtraModels(importMapReplace(mST().code, url.origin, url.origin), url.toString());
+          await addExtraModels(importMapReplace(mST().code, url.origin, url.origin, false), url.toString());
           // const code = await this.kv.list();c
           // const code = mST().code;
           // let [, ...deps] = path;
