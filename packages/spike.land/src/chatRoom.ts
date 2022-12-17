@@ -275,7 +275,7 @@ export class Code {
             },
           });
         }
-        case "ata": {
+        case "ataStart": {
           let [, ...deps] = path;
           initAta();
           // const code = await this.kv.list();c
@@ -290,57 +290,94 @@ export class Code {
           }
           deps = [...(new Set(deps))];
           console.log({ deps });
-          const mappings = (await Promise.all(
-            deps.map(x =>
-              dealWithMissing(x, url.origin).then(m =>
-                (m.content && m.content.trim().length > 0)
-                  ? addExtraModels(m.content, x + "/index.d.ts").then(() => m)
-                  : m
-              )
+          const rees = JSON.stringify(deps);
+          return new Response(rees, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "content_hash": md5(rees),
+              "Etag": md5(rees),
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
+        case "ata": {
+          let [, ...deps] = path;
+          initAta();
+          // const code = await this.kv.list();c
+          const code = mST().code;
+          if (deps.length === 0) {
+            deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+              s => s.split(`"`)[1],
+            ).filter(x => x && !(x.startsWith("https")));
+
+            deps.push("@emotion/react/jsx-runtime");
+            deps.push("@emotion/react/jsx-dev-runtime");
+          }
+          deps = [...(new Set(deps))];
+
+          const starters = await Promise.all(
+            deps.map(dep =>
+              dealWithMissing(dep, url.origin).then((m) => addExtraModels(m.content, m.url).then(() => m))
             ),
-          )).filter(x => x.content.trim().length && x.content !== "content");
+          );
 
-          const fpaths: string[] = [];
-          const extraLib = JSON.stringify([
-            ...(xxxsetExtraLibs(mappings, url.origin).filter(x => x.content && x.content !== "content").map(
-              x => {
-                let { filePath, content } = x;
-                // mappings.map(x => filePath ===x.mod? x.mod+'/index.d.ts': filePath);
+          const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin));
 
-                // mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
+          // console.log({ deps });
+          // const mappings = (await Promise.all(
+          //   deps.map(x =>
+          //     dealWithMissing(x, url.origin).then(m =>
+          //       (m.content && m.content.trim().length > 0)
+          //         ? addExtraModels(m.content, x + "/index.d.ts").then(() => m)
+          //         : m
+          //     )
+          //   ),
+          // )).filter(x => x.content.trim().length && x.content !== "content");
 
-                mappings.map(x => content = content.split(x.url).join(x.mod));
-                filePath = filePath.split(url.origin).join("");
+          // const fpaths: string[] = [];
+          // const extraLib = JSON.stringify([
+          //   ...(xxxsetExtraLibs(mappings, url.origin).filter(x => x.content && x.content !== "content").map(
+          //     x => {
+          //       let { filePath, content } = x;
+          //       // mappings.map(x => filePath ===x.mod? x.mod+'/index.d.ts': filePath);
 
-                content = content.split(url.origin).join("");
-                if (filePath.startsWith("/npm:")) {
-                  const [_, _npm, _v, ...rest] = filePath.split("/");
-                  const filePrefix = [_, _npm, _v].join("/") + "/";
-                  if (!fpaths.includes(filePrefix)) fpaths.push(filePrefix);
-                  filePath = rest.join("/");
-                }
-                if (!filePath.endsWith(".d.ts")) filePath = filePath + "/index.d.ts";
+          //       // mappings.map(x => filePath = filePath.split(x.url).join(x.mod));
 
-                return { filePath, content };
-              },
-            ).map(x => {
-              let content = x.content;
-              fpaths.map(x => content = content.split(x).join(""));
+          //       deps.map(mod => content = content.split( `${url.origin}/node_modules/${mod}/index.d.ts`).join(mod));
+          //       filePath = filePath.split(url.origin).join("");
 
-              return {
-                filePath: x.filePath,
-                content,
-              };
-            })),
-            {
-              filePath: "@emotion/react/jsx-runtime/index.d.ts",
-              content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
-            },
-            {
-              filePath: "@emotion/react/jsx-dev-runtime/index.d.ts",
-              content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
-            },
-          ]);
+          //       content = content.split(url.origin).join("");
+          //       if (filePath.startsWith("/npm:")) {
+          //         const [_, _npm, _v, ...rest] = filePath.split("/");
+          //         const filePrefix = [_, _npm, _v].join("/") + "/";
+          //         if (!fpaths.includes(filePrefix)) fpaths.push(filePrefix);
+          //         filePath = rest.join("/");
+          //       }
+          //       if (!filePath.endsWith(".d.ts")) filePath = filePath + "/index.d.ts";
+
+          //       return { filePath, content };
+          //     },
+          //   ).map(x => {
+          //     let content = x.content;
+          //     fpaths.map(x => content = content.split(x).join(""));
+
+          //     return {
+          //       filePath: x.filePath,
+          //       content,
+          //     };
+          //   })),
+          //   {
+          //     filePath: "@emotion/react/jsx-runtime/index.d.ts",
+          //     content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
+          //   },
+          //   {
+          //     filePath: "@emotion/react/jsx-dev-runtime/index.d.ts",
+          //     content: `export { EmotionJSX as JSX } from '@emotion/react/jsx-namespace'`,
+          //   },
+          // ]);
 
           return new Response(extraLib, {
             status: 200,

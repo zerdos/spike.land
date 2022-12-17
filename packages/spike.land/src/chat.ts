@@ -375,6 +375,8 @@ const api: ExportedHandler<CodeEnv> = {
             // const isJs = u.toString().includes(".js")
             //   || u.toString().includes(".mjs");
 
+            const isDTS = u.pathname.endsWith("/index.d.ts") && u.pathname.indexOf("/npm:/") === -1;
+
             const packageName = u.toString().split(
               u.origin,
             ).join(
@@ -387,7 +389,7 @@ const api: ExportedHandler<CodeEnv> = {
               "/npm:",
             ).join(
               "",
-            );
+            ).replace("/index.d.ts", "");
 
             const esmUrl = packageName;
 
@@ -412,21 +414,45 @@ const api: ExportedHandler<CodeEnv> = {
             );
             headers.set("Cross-Origin-Embedder-Policy", "require-corp");
 
+            const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
+            if (isDTS) {
+              if (xTs === "NO_DTS") {
+                return new Response(JSON.stringify({ error: "NO_DTS" }), {
+                  headers: {
+                    "Content-Type": "application/json;charset=UTF-8",
+                    "Cache-Control": "no-cache",
+                  },
+                });
+              }
+
+              response = new Response(
+                `
+              export * from "${xTs}";
+              export { default } from "${xTs}";
+              `,
+                {
+                  headers: {
+                    "content-type": "application/javascript; charset=utf-8",
+                    "Cache-Control": "no-cache",
+                  },
+                },
+              );
+            }
+
             headers.set(
               "x-DTS",
-              (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
+              xTs,
             );
 
             //   return response;
             // }
 
-            // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
-
             const isText = !!response?.headers?.get("Content-Type")?.includes(
               "charset",
             );
-            const bodyStr =
-              (isText ? importMapReplace(await response.text(), u.origin, response.url) : await response.blob());
+            const bodyStr = (isText
+              ? importMapReplace(await response.text(), u.origin, isDTS ? xTs : response.url)
+              : await response.blob());
 
             response = new Response(
               bodyStr,

@@ -61,28 +61,19 @@ export const addExtraModels = async (code: string, url: string) => {
   return ret;
 };
 
-export const dealWithMissing = async (mod: string, origin: string) => {
-  console.log(`missing: ${mod}`);
+export const dealWithMissing = async (mod: string, origin: string) =>
+  (async (url: string) => ({
+    url,
+    mod,
+    content: await fetch(url).then(
+      async (resp) => {
+        const content = await resp.text();
 
-  const retMod = { url: origin + "/node_modules/" + mod + "/index.d.ts", mod, content: "" };
-  if (mod && mod.indexOf("https://") !== -1) {
-    return retMod;
-  }
-
-  return fetch(origin + "/npm:/" + mod, { redirect: "follow" }).then(resp => {
-    // (resp.status === 307 || resp.status === 302)
-    // ? fetch(resp.headers.get("location")!, {redirect: "follow"})
-    // : resp
-    // ).then((x) => {
-    const dtsUrl = resp.headers.get("x-dts")!;
-
-    // if (retMod.url.indexOf("spike.land") === -1) return retMod;
-    return dtsUrl === "NO_DTS" ? retMod : fetch(dtsUrl, { redirect: "follow" }).then(resp => {
-      // retMod.url = resp.url;
-      return resp.text().then(x => retMod.content = x).then(() => retMod);
-    });
-  });
-};
+        return content;
+        // const extraModelCache[url] =
+      },
+    ),
+  }))(`${origin}/${mod}/index.d.ts`);
 
 export const xxxsetExtraLibs = (maps: {
   [x: string]: string;
@@ -92,33 +83,33 @@ export const xxxsetExtraLibs = (maps: {
   console.log({ replaceMaps });
   // replaceMaps["/node_modules/"] = "/npm:/v99/";
 
-  const versionNumbers = /@\d+.\d+.\d+/gm;
+  // const versionNumbers = /@(\^)?\d+.\d+.\d+/gm;
 
-  const types = /\/types\//gm;
+  // const types = /\/types\//gm;
 
   const extraLibs = Object.keys(extraModelCache).map((filePath) => {
-    let url = replaceMappings(filePath, replaceMaps).replaceAll(
-      versionNumbers,
-      ``,
-    ).replaceAll(types, `/`);
-    url = url.replace("@types/", "");
+    // let url = replaceMappings(filePath, replaceMaps).replaceAll(
+    // versionNumbers,
+    // ``,
+    // ).replaceAll(types, `/`);
+    // url = url.replace("@types/", "");
 
     // const fileDir = (new URL(".", url)).toString();
 
-    const content = replaceMappings(extraModelCache[filePath], replaceMaps)
-      .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
+    const content = replaceMappings(extraModelCache[filePath], replaceMaps);
+    // .replaceAll(versionNumbers, ``).replaceAll(types, `/`);
 
     // const fileDirRemoved = replaceAll(content, fileDir, "./");
-    const linksRemoved = replaceAll(
-      content,
-      origin + "/node_modules/",
-      "/xxx/xxx/",
-    );
+    // const linksRemoved = replaceAll(
+    //   content,
+    //   origin + "/mode_modules/",
+    //   "/xxx/xxx/",
+    // );
 
     //  const indexDtsRemoved = replaceAll(otherLinksRemoved, "/index.d.ts", "");
-    let dtsRemoved = replaceAll(linksRemoved, ".d.ts", "");
-    dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
-    dtsRemoved = replaceAll(dtsRemoved, "/index", "");
+    // let dtsRemoved = replaceAll(linksRemoved, ".d.ts", "");
+    // dtsRemoved = replaceAll(dtsRemoved, "@types/", "");
+    // dtsRemoved = replaceAll(dtsRemoved, "/index", "");
     // url = replaceAll(
     //   url,
     //   origin + "/node_modules/",
@@ -140,8 +131,8 @@ export const xxxsetExtraLibs = (maps: {
     // const newnewURl = replaceAll(newURl.toString(), "/index.d.ts", ".d.ts");
     // const dtsRemovedURL = replaceAll(newnewURl, ".d.ts", "");
     return {
-      filePath: url,
-      content: dtsRemoved,
+      filePath: filePath,
+      content: content,
     };
   }).filter(x => x.content.length).map(x => ({
     filePath: x.filePath,
@@ -179,14 +170,14 @@ export function extraStuff(
       )
         .map((x) => typeof x === "string" && x.split!("\"")[1]).filter(x => typeof x === "string").map(x => x as string)
         .map((mod: string) => dealWithMissing(mod, location.origin)),
-    )).filter(m => m.mod && m.content && m.content.trim().length > 1).map(async (m) => {
-      console.log(`Aga-Insert: ${m.mod}`);
+    )).filter(m => m.content && m.content.trim().length > 1).map(async (m) => {
+      console.log(`Aga-Insert: ${m.url}`);
 
       return addExtraModels(
         m.content,
         m.url,
       ).then(() => ({
-        [location.origin + `/node_modules/${m.mod}/index.d.ts`]: m.url,
+        [m.url]: m.url,
       }));
     });
 

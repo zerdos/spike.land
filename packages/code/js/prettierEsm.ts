@@ -38,7 +38,8 @@ export const prettierJs = (code: string) => {
     // return lastSuccessful = current;
   } catch (error) {
     console.error("prettier error"), console.error({ err: error });
-    return null;
+
+    return code;
   }
 };
 
