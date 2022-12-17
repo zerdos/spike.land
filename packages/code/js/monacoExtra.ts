@@ -70,20 +70,17 @@ export const dealWithMissing = async (mod: string, origin: string) => ({
       : "/index.d.ts"),
   mod,
   content: prettierJs(
-    await (mod === "@emotion/react/jsx-runtime" 
+    await (mod === "@emotion/react/jsx-runtime"
       ? fetch("https://esm.sh/v99/@emotion/react@11.10.5/types/jsx-runtime.d.ts").then(x => x.text())
-      
-      : 
-      mod === "@types/react/global.d.ts"? 
-      fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
-        async (resp) => {
-          const xt = resp.headers.get("x-typescript-types")!;
-          const res = await fetch(xt, { redirect: "follow" }).then(resp => resp.text());
+      : mod === "@types/react/global.d.ts"
+      ? fetch("https://esm.sh/v99/@types/react/global.d.ts").then(x => x.text())
+      : fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(async (resp) => {
+        const xt = resp.headers.get("x-typescript-types")!;
+        const res = await fetch(xt, { redirect: "follow" }).then(resp => resp.text());
 
-          return res;
-          // const extraModelCache[url] =
-        },
-      )),
+        return res;
+        // const extraModelCache[url] =
+      })),
   ),
 });
 
