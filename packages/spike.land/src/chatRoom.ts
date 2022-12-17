@@ -319,7 +319,9 @@ export class Code {
           }
           deps = [...(new Set(deps))];
           const mapper = (dep: string) =>
-            dealWithMissing(dep, url.origin).then((m) => addExtraModels(prettierJs(m.content), m.url).then(() => m));
+            dealWithMissing(dep, "https://esm.sh").then((m) =>
+              addExtraModels(prettierJs(m.content), m.url).then(() => m)
+            );
           // pMap()
           const starters = await pMap(deps, mapper, { concurrency: 2 });
 
@@ -329,8 +331,13 @@ export class Code {
           //   ),
           // );
 
-          const extraLib = JSON.stringify(xxxsetExtraLibs(starters, url.origin)).split("esm.sh").join(url.host);
+          let extraLibs = xxxsetExtraLibs(starters, "https://esm.sh");
+          extraLibs = extraLibs.map(x => ({
+            content: x.content.split("esm.sh").join(url.host),
+            filePath: x.filePath.replace("https://esm.sh/", "/"),
+          }));
 
+          const extraLib = JSON.stringify(extraLibs);
           // console.log({ deps });
           // const mappings = (await Promise.all(
           //   deps.map(x =>

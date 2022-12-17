@@ -225,7 +225,7 @@ async function startMonacoPristine(
       languages.typescript.typescriptDefaults.setExtraLibs(
         x.map((x: { filePath: string; content: string }) => ({
           content: x.content,
-          filePath: originToUse + "/node_modules/" + x.filePath,
+          filePath: originToUse+'/'+ x.filePath,
         })),
       );
     }).then(() =>
