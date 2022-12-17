@@ -290,7 +290,7 @@ const api: ExportedHandler<CodeEnv> = {
             );
           }
           default: {
-            const file = url.href.slice(1);
+            const file = newUrl.pathname.slice(1);
             if (files[file]) {
               const kvCacheKey = new Request(request.url.replace(file, files[file]));
               response = await cache.match(kvCacheKey);
