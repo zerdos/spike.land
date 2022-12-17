@@ -15,11 +15,7 @@ const mod = {
     return fetch(`${location.origin}/files.json`).then((f) => f.json()).then(
       (k) => {
         const wasmURL = new URL(
-          k[
-            Object.keys(k).find((i) =>
-              i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1
-            ) as unknown as keyof typeof k
-          ],
+          Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1) as string,
           location.origin,
         ).toString();
         mod.init = initialize({
