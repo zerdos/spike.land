@@ -12,6 +12,7 @@ import {
   CodeSession,
   dealWithMissing,
   ICodeSession,
+  importMapReplace,
   initAta,
   prettierJs,
   resetCSS,
@@ -289,7 +290,7 @@ export class Code {
           // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
           initAta();
 
-          await addExtraModels(importMapReplace(mST().code, url.origin), url.toString());
+          await addExtraModels(importMapReplace(mST().code, url.origin, url.origin), url.toString());
           // const code = await this.kv.list();c
           // const code = mST().code;
           // let [, ...deps] = path;
@@ -365,7 +366,7 @@ export class Code {
           export const address="${this.address}";
           export const importmapReplaced=${
             JSON.stringify({
-              js: importMapReplace(mST().transpiled, url.origin),
+              js: importMapReplace(mST().transpiled, url.origin, url.origin),
             })
           }`;
 
@@ -378,7 +379,7 @@ export class Code {
               export const address="${this.address}";
               export const importmapReplaced=${
               JSON.stringify({
-                js: importMapReplace(mST().transpiled, url.origin),
+                js: importMapReplace(mST().transpiled, url.origin, url.origin),
               })
             }`,
             {
@@ -467,6 +468,7 @@ export class Code {
         </CacheProvider>
         </ErrorBoundary>);`,
             url.origin,
+            url.origin,
           );
           return new Response(src, {
             headers: {
@@ -502,7 +504,7 @@ export class Code {
                 return true;
               })
             );
-            const trp = importMapReplace(body, url.origin);
+            const trp = importMapReplace(body, url.origin, url.origin);
             return new Response(trp, {
               status: 200,
               headers: {
@@ -517,7 +519,7 @@ export class Code {
             });
           }
           if (i < mST().i) {
-            const trp = importMapReplace(transpiled, url.origin);
+            const trp = importMapReplace(transpiled, url.origin, url.origin);
             return new Response(trp, {
               status: 307,
               headers: {
@@ -531,7 +533,7 @@ export class Code {
               },
             });
           }
-          const trp = importMapReplace(transpiled, url.origin);
+          const trp = importMapReplace(transpiled, url.origin, url.origin);
           return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -937,42 +939,43 @@ export class Code {
   }
 }
 
-function importMapReplace(codeInp: string, origin: string) {
-  const items = Object.keys(
-    importMap.imports,
-  ) as (keyof typeof importMap.imports)[];
-  let returnStr = codeInp;
+// function importMapReplace(codeInp: string, origin: string, skipImap: false) {
+//  if (skipImap ===false){
+//   const items = Object.keys(
+//     importMap.imports,
+//   ) as (keyof typeof importMap.imports)[];
+//   let returnStr = codeInp;
 
-  items.map((lib: keyof typeof importMap.imports) => {
-    const uri = importMap.imports[lib].slice(1);
-    returnStr = returnStr.replaceAll(
-      ` from "${String(lib)}"`,
-      ` from "${origin}/${String(uri)}"`,
-    ).replaceAll(
-      ` from "./`,
-      ` from "${origin}/live/`,
-    ).replaceAll(
-      ` from "/`,
-      ` from "${origin}/`,
-    );
-  });
+//   items.map((lib: keyof typeof importMap.imports) => {
+//     const uri = importMap.imports[lib].slice(1);
+//     returnStr = returnStr.replaceAll(
+//       ` from "${String(lib)}"`,
+//       ` from "${origin}/${String(uri)}"`,
+//     ).replaceAll(
+//       ` from "./`,
+//       ` from "${origin}/live/`,
+//     ).replaceAll(
+//       ` from "/`,
+//       ` from "${origin}/`,
+//     );
+//   });}
 
-  returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
-    if ((x.startsWith("import") || x.startsWith("export")) && x.indexOf(`"https://`) === -1) {
-      return x.replaceAll(` "`, ` "${origin}/npm:/`);
-    }
+//   returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
+//     if ((x.startsWith("import") || x.startsWith("export")) && x.indexOf(`"https://`) === -1) {
+//       return x.replaceAll(` "`, ` "${origin}/npm:/`);
+//     }
 
-    if (
-      !x.includes("/npm:/") && x.startsWith("import") && x.includes(origin)
-      && !x.includes("/index.js")
-    ) {
-      const u = new URL(x.split(`"`)[1]);
-      if (u && u.pathname.indexOf(".") === -1) {
-        return x.slice(0, -1) + `/index.js"`;
-      }
-    }
-    return x;
-  }).join(";");
+//     if (
+//       !x.includes("/npm:/") && x.startsWith("import") && x.includes(origin)
+//       && !x.includes("/index.js")
+//     ) {
+//       const u = new URL(x.split(`"`)[1]);
+//       if (u && u.pathname.indexOf(".") === -1) {
+//         return x.slice(0, -1) + `/index.js"`;
+//       }
+//     }
+//     return x;
+//   }).join(";");
 
-  return returnStr;
-}
+//   return returnStr;
+// }
