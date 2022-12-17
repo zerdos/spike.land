@@ -2631,8 +2631,8 @@ self.addEventListener("fetch", function(event) {
           event.waitUntil(myCache.put(cacheKey, response.clone()));
         }
         return response;
-      } catch {
-        return new Response("oh no!", {
+      } catch (err) {
+        return new Response("oh no! " + JSON.stringify({ err }), {
           status: 500,
           statusText: `Could not fetch:  ${request.url}`
         });
