@@ -318,6 +318,8 @@ const api: ExportedHandler<CodeEnv> = {
                 },
               );
 
+              if (!kvResp.ok) return kvResp;
+
               // const isText = kvResp?.headers?.get("Content-Type")?.includes(
               //   "charset",
               // );
@@ -326,6 +328,7 @@ const api: ExportedHandler<CodeEnv> = {
                 kvResp.body,
                 kvResp,
               );
+
               const headers = new Headers(kvResp.headers);
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
