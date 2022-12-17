@@ -288,20 +288,22 @@ export class Code {
           // initAta();
           // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
           initAta();
+
+          await addExtraModels(importMapReplace(mST().code, url.origin), url.toString());
           // const code = await this.kv.list();c
-          const code = mST().code;
-          let [, ...deps] = path;
-          if (deps.length === 0) {
-            deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-              s => s.split("'")[1],
-            ).filter(x => x && !(x.startsWith("https")));
+          // const code = mST().code;
+          // let [, ...deps] = path;
+          // if (deps.length === 0) {
+          //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+          //     s => s.split("'")[1],
+          //   ).filter(x => x && !(x.startsWith("https")));
 
-            deps.push("@emotion/react/jsx-runtime");
-          }
-          deps = [...(new Set(deps))];
-          const rees = JSON.stringify(deps);
+          //   deps.push("@emotion/react/jsx-runtime");
+          // }
+          // deps = [...(new Set(deps))];
+          // const rees = JSON.stringify(deps);
 
-          // const rees = JSON.stringify(xxxsetExtra([], url.origin));
+          const rees = JSON.stringify(xxxsetExtraLibs([], url.origin));
 
           return new Response(rees, {
             status: 200,
