@@ -42,7 +42,7 @@ export const addExtraModels = async (code: string, url: string) => {
     // }
     let extraModelUrl = extraModel;
     if (extraModel.indexOf("spike.land") === -1 && extraModel.indexOf("esm.sh") === -1) return;
-    return fetch(extraModel, { redirect: "follow" }).then(resp => {
+    return await fetch(extraModel, { redirect: "follow" }).then(resp => {
       extraModelUrl = resp.url;
       return resp.text().then(async (co) => {
         if (extraModelUrl !== extraModel) {
@@ -61,23 +61,22 @@ export const addExtraModels = async (code: string, url: string) => {
   return ret;
 };
 
-export const dealWithMissing = async (mod: string, origin: string) =>
-  (async (url: string) => ({
-    url: origin + "/node_modules/" + mod + "/index.d.ts",
-    mod,
-    content: await fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
-      (resp) => {
-        const xt = resp.headers.get("x-typescript-types");
-        const res = `
+export const dealWithMissing = async (mod: string, origin: string) => ({
+  url: origin + "/node_modules/" + mod + "/index.d.ts",
+  mod,
+  content: await fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
+    (resp) => {
+      const xt = resp.headers.get("x-typescript-types");
+      const res = `
         export * from "${xt}";
         export { default } from "${xt}";
         `;
 
-        return res;
-        // const extraModelCache[url] =
-      },
-    ),
-  }))(`${origin}/${mod}`);
+      return res;
+      // const extraModelCache[url] =
+    },
+  ),
+});
 
 export const xxxsetExtraLibs = (maps: {
   [x: string]: string;
