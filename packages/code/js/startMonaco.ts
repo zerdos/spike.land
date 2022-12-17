@@ -220,13 +220,23 @@ async function startMonacoPristine(
       );
     }
 
+    const globalUrl = `${originToUse}node_modules/@types/react/global.d.ts`;
+
+    const globalDTS = await fetch(globalUrl).then(resp => resp.text());
+
     fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x => {
       console.log({ x });
       languages.typescript.typescriptDefaults.setExtraLibs(
-        x.map((x: { filePath: string; content: string }) => ({
-          content: x.content,
-          filePath: originToUse + "/" + x.filePath,
-        })),
+        [
+          ...x.map((x: { filePath: string; content: string }) => ({
+            content: x.content,
+            filePath: originToUse + "/" + x.filePath,
+          })),
+          {
+            filePath: globalUrl,
+            content: globalDTS,
+          },
+        ],
       );
     }).then(() =>
       languages.typescript.typescriptDefaults
