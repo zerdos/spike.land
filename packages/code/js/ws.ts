@@ -458,6 +458,7 @@ export async function syncWS(newSession: ICodeSession) {
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
+      applyPatch(message);
       ws.send({
         newHash: message.newHash,
         oldHash: message.oldHash,
@@ -467,7 +468,7 @@ export async function syncWS(newSession: ICodeSession) {
         i: newSession.i,
         sess: newSession,
       });
-      applyPatch(message);
+
       await syncDb(oldSession, newSession, message);
     }
   } catch (error) {
