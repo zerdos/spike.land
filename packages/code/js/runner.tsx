@@ -109,10 +109,10 @@ export async function runner({ code, counter, codeSpace }: {
   if (counter <= counterMax) return;
   if (!rpcProvider) {
     rpcProvider = new RpcProvider(
-      (message, transfer) => window.postMessage(message, location.origin),
+      (message, transfer) => iRef.current.contentWindow.postMessage(message, transfer),
     );
 
-    window.onmessage = e => rpcProvider.dispatch(e.data);
+    iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
   }
   counterMax = counter;
   controller.abort();
