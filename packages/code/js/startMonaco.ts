@@ -115,7 +115,7 @@ const monacoContribution = async (
     include: [originToUse + "/"],
   });
 
-  const worker = new Worker("/ata.worker.js?"+ globalThis.assetHash),
+  const worker = new Worker("/ata.worker.js?" + globalThis.assetHash),
     rpcProvider = new RpcProvider(
       (message, transfer) => worker.postMessage(message, transfer),
     );

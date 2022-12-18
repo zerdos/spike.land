@@ -94,10 +94,12 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
         const message = makePatch(
           newSt,
         );
+        if (!message) return;
         port.postMessage({
           newHash: message.newHash,
           oldHash: message.oldHash,
           patch: message.patch,
+          codeSpace,
           reversePatch: message.reversePatch,
           name: (message.oldHash + message.newHash).slice(4, 12),
           i: sess!.i,

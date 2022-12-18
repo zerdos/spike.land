@@ -1,6 +1,6 @@
 import { RpcProvider } from "worker-rpc";
 
-import {run} from "./ata";
+import { run } from "./ata";
 
 const rpcProvider = new RpcProvider(
   (message, transfer) => postMessage(message, transfer),

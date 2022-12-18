@@ -170,7 +170,7 @@ async function onMessage(port: MessagePort, {
   if (mod[codeSpace] && mod[codeSpace].readyState === mod[codeSpace].OPEN) {
     mod[codeSpace].send(JSON.stringify(obj));
   } else {
-    blockedMessages[codeSpace] =  [...blockedMessages[codeSpace], JSON.stringify(obj)];
+    blockedMessages[codeSpace] = [...(blockedMessages[codeSpace] || []), JSON.stringify(obj)];
   }
 }
 let iii = 0;
