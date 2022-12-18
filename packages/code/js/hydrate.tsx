@@ -32,13 +32,14 @@ const user = md5((self && self.crypto && self.crypto.randomUUID
 const rpcProvider = new RpcProvider(
   (message, transfer) => window.postMessage(message, location.origin, transfer),
 );
-
-window.onmessage = e => rpcProvider.dispatch(e.data);
-
-rpcProvider.registerRpcHandler("render", (transformed: string) => render(transformed));
-
-async function render(transpiled: string) {
-  const appId = md5(transpiled);
+const BC = new BroadcastChannel(location.href);
+let controller = new AbortController();
+BC.onmessage = async (e) => {
+  controller.abort();
+  controller = new AbortController();
+  const data = e.data;
+  render(data.transpiled);
+  const appId = md5(data.transpiled);
   const App = await (appFactory(transpiled));
   const rootDiv = document.createElement("div");
   divs[appId] = rootDiv;
@@ -47,12 +48,20 @@ async function render(transpiled: string) {
 
   while (true) {
     await wait(50);
+    if (controller.signal.aborted) return;
     const html = rootDiv.innerHTML;
     const css = mineFromCaches(globalThis.eCaches[appId]);
     if (html) {
-      return { html, css };
+      return BC.postMessage({ ...data, html, css });
     }
   }
+};
+
+window.onmessage = e => rpcProvider.dispatch(e.data);
+
+rpcProvider.registerRpcHandler("render", (transformed: string) => render(transformed));
+
+async function render(transpiled: string) {
 }
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
