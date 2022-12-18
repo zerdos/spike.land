@@ -155,7 +155,7 @@ export async function runner({ code, counter, codeSpace }: {
       // if (!pp) return;
       const transpiledCode = await esmTransform(code);
 
-      BC.postMessage({ counter, transpiledCode, code });
+      BC.postMessage({ counter, i: counter, transpiled, code });
 
       // console.log("still alive2");
       // // patchSync(sess);
