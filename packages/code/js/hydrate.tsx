@@ -40,7 +40,7 @@ BC.onmessage = async (e) => {
   const data = e.data;
   render(data.transpiled);
   const appId = md5(data.transpiled);
-  const App = await (appFactory(transpiled));
+  const App = await (appFactory(data.transpiled));
   const rootDiv = document.createElement("div");
   divs[appId] = rootDiv;
   const root = createRoot(rootDiv);
