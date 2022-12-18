@@ -38,21 +38,22 @@ BC.onmessage = async (e) => {
   controller.abort();
   controller = new AbortController();
   const data = e.data;
-  render(data.transpiled);
+  // render(data.transpiled);
   const appId = md5(data.transpiled);
   const App = await (appFactory(data.transpiled));
-  const rootDiv = document.createElement("div");
-  divs[appId] = rootDiv;
-  const root = createRoot(rootDiv);
-  root.render(<App appId={appId}></App>);
+  // const rootDiv = document.createElement("div");
+  // divs[appId] = rootDiv;
+  // const root = createRoot(rootDiv);
+  r!.render(<App appId={appId}></App>);
 
   while (true) {
     await wait(50);
     if (controller.signal.aborted) return;
-    const html = rootDiv.innerHTML;
-    const css = mineFromCaches(globalThis.eCaches[appId]);
-    if (html) {
-      return BC.postMessage({ ...data, html, css });
+    const html = root.innerHTML;
+
+    if (html.indexOf(appId)) {
+      const css = mineFromCaches(globalThis.eCaches[appId]);
+      BC.postMessage({ ...data, html, css });
     }
   }
 };
