@@ -18,7 +18,7 @@ export { md5 };
 let counterMax = 0;
 const divs = {};
 let r: Root | null;
-let root: HTMLDivElement;
+let root: HTMLElement;
 let lastI: number;
 let session: CodeSession;
 
@@ -44,9 +44,10 @@ BC.onmessage = async (e) => {
   // divs[appId] = rootDiv;
   // const root = createRoot(rootDiv);
   if (!r) {
-    r = createRoot(root);
+    root = document.getElementById("root")!;
+    r = createRoot(document.getElementById("root")!);
   }
-  r!.render(<App appId={appId}></App>);
+  r.render(<App appId={appId}></App>);
 
   while (true) {
     await wait(50);
