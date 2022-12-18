@@ -43,6 +43,9 @@ BC.onmessage = async (e) => {
   // const rootDiv = document.createElement("div");
   // divs[appId] = rootDiv;
   // const root = createRoot(rootDiv);
+  if (!r) {
+    r = createRoot(root);
+  }
   r!.render(<App appId={appId}></App>);
 
   while (true) {
