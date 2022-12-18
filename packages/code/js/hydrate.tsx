@@ -17,6 +17,7 @@ import { makePatch, startSession } from "./session";
 
 export { md5 };
 
+let counterMax = 0;
 const divs = {};
 let r: Root | null;
 let root: HTMLDivElement;
@@ -35,6 +36,8 @@ const rpcProvider = new RpcProvider(
 const BC = new BroadcastChannel(location.href);
 let controller = new AbortController();
 BC.onmessage = async (e) => {
+  if (e.data.counter <= counterMax) return;
+  counterMax = e.data.counter;
   controller.abort();
   controller = new AbortController();
   const data = e.data;
@@ -79,6 +82,8 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
     });
   }
 
+  if (sess && sess.i <= counterMax) return;
+  counterMax = sess!.i;
   // requestAnimationFrame(async () => {
   let App;
   const rt = document.getElementById("root")!;
