@@ -1,5 +1,3 @@
-
-
 import { appFactory } from "starter";
 
 import type { Root } from "react-dom/client";
@@ -34,6 +32,7 @@ const BC = new BroadcastChannel(location.href);
 let controller = new AbortController();
 BC.onmessage = async (e) => {
   if (e.data.counter <= counterMax) return;
+  if (e.data.html) return;
   counterMax = e.data.counter;
   controller.abort();
   controller = new AbortController();
@@ -57,8 +56,6 @@ BC.onmessage = async (e) => {
     }
   }
 };
-
-
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
   if (sess?.i && sess.i === lastI) return;
@@ -134,18 +131,18 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
           newSt,
         );
         if (!message) return;
-        port.postMessage({
-          newHash: message.newHash,
-          oldHash: message.oldHash,
-          patch: message.patch,
-          codeSpace,
-          reversePatch: message.reversePatch,
-          name: (message.oldHash + message.newHash).slice(4, 12),
-          i: sess!.i,
-          sess: newSt,
-        });
+        // port.postMessage({
+        //   newHash: message.newHash,
+        //   oldHash: message.oldHash,
+        //   patch: message.patch,
+        //   codeSpace,
+        //   reversePatch: message.reversePatch,
+        //   name: (message.oldHash + message.newHash).slice(4, 12),
+        //   i: sess!.i,
+        //   sess: newSt,
+        // });
 
-        console.log({ html, css });
+        // console.log({ html, css });
       });
     }
   }
