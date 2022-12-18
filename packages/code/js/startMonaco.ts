@@ -443,7 +443,7 @@ async function startMonacoPristine(
 
     automaticLayout: true,
 
-    useShadowDOM: false,
+    useShadowDOM: true,
     contextmenu: true,
     // dimension: true,
 
