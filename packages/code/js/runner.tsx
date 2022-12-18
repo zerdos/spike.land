@@ -89,6 +89,7 @@ export const umdTransform = async (code: string) => {
   return transpiled.code;
 };
 
+const BC = new BroadcastChannel(location.href + "/");
 // Object.assign(globalThis, {
 //   _toUmd: () => toUmd(mST().code, codeSpace),
 //   toUmd,
@@ -96,9 +97,26 @@ export const umdTransform = async (code: string) => {
 //   IIFE,
 //   umdTransform,
 // });
-let rpcProvider;
+// let rpcProvider;
 const mutex = new Mutex();
 let sess: ICodeSession;
+let lastCode;
+
+BC.onmessage = ({ data }) => {
+  if (data.counter !== counterMax) return;
+
+  const sess = {
+    ...mST(),
+    // code,
+    ...data,
+    // codeSpace,
+    // i: counter,
+    // transpiled: transpiledCode!,
+    // html,
+    // css,
+  };
+  syncWS(sess);
+};
 
 let controller = new AbortController();
 export async function runner({ code, counter, codeSpace }: {
@@ -137,20 +155,7 @@ export async function runner({ code, counter, codeSpace }: {
       // if (!pp) return;
       const transpiledCode = await esmTransform(code);
 
-      rpcProvider
-        .rpc("render", transpiledCode)
-        .then(({ html, css }) => {
-          sess = {
-            ...mST(),
-            code,
-            // codeSpace,
-            i: counter,
-            transpiled: transpiledCode!,
-            html,
-            css,
-          };
-          syncWS(sess);
-        });
+      BC.postMessage({ counter, transpiledCode, code });
 
       // console.log("still alive2");
       // // patchSync(sess);
