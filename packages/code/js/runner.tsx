@@ -135,8 +135,8 @@ export async function runner({ code, counter, codeSpace }: {
         i: counter,
         transpiled: transpiledCode!,
       };
-      await syncWS(sess)
-          
+      await syncWS(sess);
+
       // console.log("still alive2");
       // // patchSync(sess);
       // console.log("still alive3");
