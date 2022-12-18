@@ -104,6 +104,7 @@ let lastCode;
 
 BC.onmessage = ({ data }) => {
   if (data.counter !== counterMax) return;
+  counterMax--;
   if (!data.html) return;
   const sess = {
     ...mST(),
