@@ -4,7 +4,7 @@ import type { TransformOptions } from "esbuild-wasm";
 import { syncWS } from "ws";
 import { build, transform } from "./esbuildEsm";
 
-import { RpcProvider } from "worker-rpc";
+// import { RpcProvider } from "worker-rpc";
 
 import type { ICodeSession } from "./session";
 import { md5, mST } from "./session";
@@ -125,13 +125,13 @@ export async function runner({ code, counter, codeSpace }: {
   counter: number;
 }) {
   if (counter <= counterMax) return;
-  if (!rpcProvider) {
-    rpcProvider = new RpcProvider(
-      (message, transfer) => iRef.current.contentWindow.postMessage(message, transfer),
-    );
+  // if (!rpcProvider) {
+  // rpcProvider = new RpcProvider(
+  // (message, transfer) => iRef.current.contentWindow.postMessage(message, transfer),
+  // );
 
-    iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
-  }
+  // iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
+  // }
   counterMax = counter;
   controller.abort();
 
