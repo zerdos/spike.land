@@ -59,10 +59,6 @@ BC.onmessage = async (e) => {
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
   if (sess?.i && sess.i === lastI) return;
-  if (r) {
-    r.unmount();
-    r = null;
-  }
 
   if (sess && sess.transpiled) {
     session = startSession(codeSpace, {
@@ -74,6 +70,10 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
   if (sess && sess.i <= counterMax) return;
   // requestAnimationFrame(async () => {
   let App;
+  if (r) {
+    r.unmount();
+    r = null;
+  }
   const rt = document.getElementById("root")!;
 
   if (sess && sess.i && sess.html && sess.transpiled) {
