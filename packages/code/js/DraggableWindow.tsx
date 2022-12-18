@@ -38,8 +38,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const dragRef = useRef<HTMLDivElement>(null);
   globalThis.iRef = iRef;
 
-  iRef.current!.contentWindow?.postMessage;
-
   const startPositions = { bottom: 0, right: 0 };
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
