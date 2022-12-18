@@ -97,7 +97,7 @@ export const umdTransform = async (code: string) => {
 //   umdTransform,
 // });
 
-rpcProvider = new RpcProvider(
+const rpcProvider = new RpcProvider(
   (message, transfer) => globalThis.iRef.current.contentWindow.postMessage(message, transfer),
 );
 
