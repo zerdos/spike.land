@@ -112,7 +112,7 @@ export async function runner({ code, counter, codeSpace }: {
       (message, transfer) => window.postMessage(message, location.origin),
     );
 
-    globalThis.iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
+    window.onmessage = e => rpcProvider.dispatch(e.data);
   }
   counterMax = counter;
   controller.abort();
