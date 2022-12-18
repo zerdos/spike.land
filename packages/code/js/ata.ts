@@ -5,14 +5,11 @@ export async function run(code: string, originToUse: string) {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
 
-  const url = new URL(originToUse);
-  const h = url.host;
-
   console.log(
     await ata(
       `import * as JSX from "@emotion/react/jsx-runtime";
       import "@emotion/react/types/css-prop";
-
+      
       ` + code,
       originToUse,
     ),
@@ -29,8 +26,8 @@ export async function run(code: string, originToUse: string) {
         ref: impRes[t].ref,
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
-            `https://${h}/` + x,
-          ).join(impRes[x].ref).split(`${h}/v99/`).join(`${h}/`).split(
+            "https://esm.sh/" + x,
+          ).join(impRes[x].ref).split("esm.sh/v99/").join("esm.sh/").split(
             "/@types/",
           ).join("/").split("/types/").join(
             "/",
@@ -38,7 +35,7 @@ export async function run(code: string, originToUse: string) {
             versionNumbers,
             ``,
           ),
-        url: impRes[t].url!.split(`${h}/v99/`).join(`${h}/`).split(
+        url: impRes[t].url!.split("esm.sh/v99/").join("esm.sh/").split(
           "/@types/",
         ).join("/").split("/types/").join("/")
           .replaceAll(
@@ -51,9 +48,9 @@ export async function run(code: string, originToUse: string) {
 
   Object.keys(impRes).map((x) =>
     impRes[x] = {
-      url: impRes[x].url!.replace(`esm.sh`, h + "/node_modules"),
+      url: impRes[x].url!.replace("esm.sh", location.host + "/node_modules"),
       ref: impRes[x].ref,
-      content: impRes[x].content.split(`esm.sh`).join(h),
+      content: impRes[x].content.split("esm.sh").join(location.host),
     }
   );
 
@@ -67,7 +64,7 @@ export async function run(code: string, originToUse: string) {
 
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
-    //  const detective = (await import("https://${h}/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
+    //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
     let res = tsx(code);
 
     const refParts = code.split(`/// <reference path="`);
@@ -87,7 +84,7 @@ export async function run(code: string, originToUse: string) {
         ? new URL(r, baseUrl).toString()
         : r.indexOf("https://") !== -1
         ? r
-        : await fetch(`https://${h}/${r}`, { redirect: "follow" }).then(
+        : await fetch(`https://esm.sh/${r}`, { redirect: "follow" }).then(
           (res) => res.headers.get("x-typescript-types"),
         );
 
