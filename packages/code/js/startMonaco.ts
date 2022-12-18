@@ -451,7 +451,10 @@ async function startMonacoPristine(
   //   globalThis[codeSpace].viewState && myEditor.restoreViewState(globalThis[codeSpace].viewState);
   // }
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
-  await addExtraM();
+  setTimeout(() => {
+    addExtraM();
+  }, 500);
+
   // setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 
   // const memoryCache = localForage.createInstance({
