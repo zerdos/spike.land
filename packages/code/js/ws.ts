@@ -427,9 +427,12 @@ const syncDb = async (
 // await codeHistory.setItem("head", message.newHash);
 // console.log("alive6");
 // };
+let controller = new AbortController();
 
 export async function syncWS(newSession: ICodeSession) {
   try {
+    controller.abort();
+    controller = new AbortController();
     const oldSession = mST();
 
     console.log("alive1");
@@ -455,11 +458,14 @@ export async function syncWS(newSession: ICodeSession) {
         // console.error("NEW hash is not even hashCode", hashCode());
         return;
       }
+
       console.log("alive5");
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
+      await wait(120);
       if (message.oldHash === message.newHash) return;
+      if (controller.signal.aborted) return;
       applyPatch(message);
       ws.send({
         newHash: message.newHash,
