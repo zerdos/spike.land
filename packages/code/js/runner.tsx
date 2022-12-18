@@ -135,37 +135,36 @@ export async function runner({ code, counter, codeSpace }: {
         i: counter,
         transpiled: transpiledCode!,
       };
-      setTimeout(() => {
-        syncWS(sess);
-      }, 300);
-      console.log("still alive2");
-      // patchSync(sess);
-      console.log("still alive3");
+      await syncWS(sess)
+          
+      // console.log("still alive2");
+      // // patchSync(sess);
+      // console.log("still alive3");
 
       // const built = await build(code, counter, controller.signal);
       // if (!built) return;
-      const { html, css } = await render(transpiledCode, codeSpace);
+      // const { html, css } = await render(transpiledCode, codeSpace);
+      //
+      // console.log({ html, css });
 
-      console.log({ html, css });
-
-      if (!html) {
-        return;
-      }
-      console.log("still alive1");
-      sess = {
-        ...mST(),
-        code,
-        // codeSpace,
-        i: counter,
-        transpiled: transpiledCode,
-        html,
-        css,
-      };
-      console.log("still alive2");
-      // patchSync(sess);
-      console.log("still alive3");
-      // syncWS(sess);
-      console.log("still alive4");
+      // if (!html) {
+      // return;
+      // }
+      // console.log("still alive1");
+      // // sess = {
+      // //   ...mST(),
+      // //   code,
+      // //   // codeSpace,
+      // //   i: counter,
+      // //   transpiled: transpiledCode,
+      // //   html,
+      // //   css,
+      // // };
+      // console.log("still alive2");
+      // // patchSync(sess);
+      // console.log("still alive3");
+      // // syncWS(sess);
+      // console.log("still alive4");
     } catch (error) {
       console.error({ error });
     } finally {

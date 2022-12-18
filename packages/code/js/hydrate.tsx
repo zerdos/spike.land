@@ -1,23 +1,42 @@
 import type { Root } from "react-dom/client";
 
+import type { EmotionCache } from "@emotion/cache";
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
 export { ab2str } from "sab";
-import type { ICodeSession } from "session";
+import type { CodeSession, ICodeSession } from "session";
 import { md5 } from "./md5";
+import { makePatch, startSession } from "./session";
 
 export { md5 };
 
 let r: Root | null;
 let root: HTMLDivElement;
 let lastI: number;
+let session: CodeSession;
 
-export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
+const user = md5((self && self.crypto && self.crypto.randomUUID
+  && self.crypto.randomUUID()).slice(
+    0,
+    8,
+  ));
+
+export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
   if (sess?.i && sess.i === lastI) return;
   if (r) {
     r.unmount();
     r = null;
   }
+
+  if (sess && sess.transpiled) {
+    session = startSession(codeSpace, {
+      name: user,
+      state: sess,
+    });
+  }
+
   // requestAnimationFrame(async () => {
   let App;
   const rt = document.getElementById("root")!;
@@ -46,6 +65,11 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
     ) as unknown as HTMLDivElement;
   }
   if (!r) {
+    const cache = createCache({
+      key: sess?.transpiled ? md5(sess?.transpiled) : "css",
+      speedy: false,
+    });
+    cache.compat = undefined;
     r = createRoot(root);
     r.render(
       <ErrorBoundary
@@ -56,8 +80,55 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession) => {
           </div>
         )}
       >
-        <App />
+        <CacheProvider key={cache.key} value={cache}>
+          <App />
+        </CacheProvider>
       </ErrorBoundary>,
     );
+    if (sess && sess.transpiled) {
+      requestAnimationFrame(() => {
+        const html = root.innerHTML;
+        const css = mineFromCaches(cache);
+        // const fromState = sess;
+        const newSt = { ...sess, html, css };
+        const message = makePatch(
+          newSt,
+        );
+        port.postMessage({
+          newHash: message.newHash,
+          oldHash: message.oldHash,
+          patch: message.patch,
+          reversePatch: message.reversePatch,
+          name: (message.oldHash + message.newHash).slice(4, 12),
+          i: sess!.i,
+          sess: newSt,
+        });
+
+        console.log({ html, css });
+      });
+    }
   }
 };
+
+function mineFromCaches(cache: EmotionCache) {
+  const key = cache.key;
+  try {
+    return Array.from(
+      document.querySelectorAll(`style[data-emotion="${cache.key}"]`),
+    ).map((x) => x.textContent).join(
+      "\n",
+    );
+  } catch {
+    // const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
+    return Array.from(document.styleSheets).map((x) => {
+      try {
+        return x.cssRules[0] as CSSPageRule;
+      } catch {
+        return null;
+      }
+    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1)
+      .map((x) => x!.cssText)
+      // .filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)
+      .join("\n");
+  }
+}

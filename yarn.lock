@@ -1421,6 +1421,7 @@ __metadata:
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
     webrtc-adapter: "npm:^8.2.0"
+    worker-rpc: "npm:^0.2.0"
   peerDependencies:
     "@motionone/dom": "*"
     fast-glob: "*"
@@ -7051,6 +7052,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"microevent.ts@npm:~0.2.1":
+  version: 0.2.1
+  resolution: "microevent.ts@npm:0.2.1"
+  checksum: 216fbcf8d41e33b7d1027f843f9a13fd97f015601d71eacd5aea95f7873ec3f1be2fc8b1fc6d0ec9ec42413232ce5ce9eb6dbd30bfd18b20166bdc4015668a8f
+  languageName: node
+  linkType: hard
+
 "micromatch@npm:^4.0.2, micromatch@npm:^4.0.4, micromatch@npm:^4.0.5":
   version: 4.0.5
   resolution: "micromatch@npm:4.0.5"
@@ -7374,6 +7382,7 @@ __metadata:
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.0"
     react: "npm:^18.2.0"
+    react-rnd: "npm:^10.4.0"
     typescript: "npm:4.9.4"
     util: "npm:^0.12.5"
     utils: "npm:^0.3.1"
@@ -9789,11 +9798,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.5.5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
   version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=d73830"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e7321aeb1e2c0e3c19599808707208e2b730de8d17a5624f0a7297b9a1ffa39974edd4a819108b3b635bc00171476ddfa339e04d928a03ce8d8c6944cb8ec008
+  checksum: b53b083cf90883c6c73d66ce2e8b39115f06a642dfc538085c32e030687cf9872c5ea8720c5f361d4d2d14a8af946bb5423e0bf6b472b11f776e020ba6332ced
   languageName: node
   linkType: hard
 
@@ -10096,6 +10105,15 @@ __metadata:
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 17267cdb6baa9d5452b0998531adafd2df52a25159f27cbb754b2fdcff4af8808019efe4c0a2bcc5ceb63becb30df07c792c0125ad21991266aefadb940df74a
+  languageName: node
+  linkType: hard
+
+"worker-rpc@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "worker-rpc@npm:0.2.0"
+  dependencies:
+    microevent.ts: "npm:~0.2.1"
+  checksum: 4e73e774dcc8d456836858eeed4bd8e0fd83097fc17ffaa516b32e10a1853cea2d321658b894a5d42e1d8d9c8a78fa2c634c19af1fb15e9d6aa1c28cad64e06e
   languageName: node
   linkType: hard
 

@@ -44,7 +44,7 @@ export const addExtraModels = async (code: string, url: string) => {
     // }
     let extraModelUrl = extraModel;
     // if (extraModel.indexOf("spike.land") === -1 && extraModel.indexOf("esm.sh") === -1) return;
-    return await fetch(extraModel, { redirect: "follow" }).then(resp => {
+    return await fetch(extraModel, { redirect: "follow" }).then((resp) => {
       extraModelUrl = resp.url;
       return resp.text().then(async (co) => {
         if (extraModelUrl !== extraModel) {
@@ -55,7 +55,10 @@ export const addExtraModels = async (code: string, url: string) => {
           );
         }
         extraModelCache[extraModelUrl] = co;
-        return await addExtraModels(extraModelCache[extraModelUrl], extraModelUrl);
+        return await addExtraModels(
+          extraModelCache[extraModelUrl],
+          extraModelUrl,
+        );
       });
     });
   })) as unknown as Promise<void>;
@@ -66,13 +69,16 @@ export const addExtraModels = async (code: string, url: string) => {
 export const dealWithMissing = async (mod: string, origin: string) => ({
   url: mod == "@types/react/global.d.ts"
     ? origin + "/node_modules/react/global.d.ts"
-    : origin + "/node_modules/" + mod + (mod.indexOf("@") !== -1 && mod.split("/").length > 2
-      ? ".d.ts"
-      : "/index.d.ts"),
+    : origin + "/node_modules/" + mod
+      + (mod.indexOf("@") !== -1 && mod.split("/").length > 2
+        ? ".d.ts"
+        : "/index.d.ts"),
   mod,
   content: prettierJs(
     await (mod === "@emotion/react/jsx-runtime"
-      ? fetch("https://esm.sh/v99/@emotion/react@11.10.5/types/jsx-runtime.d.ts").then(async x =>
+      ? fetch(
+        "https://esm.sh/v99/@emotion/react@11.10.5/types/jsx-runtime.d.ts",
+      ).then(async (x) =>
         importMapReplace(
           await x.text(),
           "https://esm.sh",
@@ -80,17 +86,23 @@ export const dealWithMissing = async (mod: string, origin: string) => ({
         )
       )
       : mod === "@types/react/global.d.ts"
-      ? fetch("https://esm.sh/v99/@types/react/global.d.ts").then(async x =>
-        importMapReplace(await x.text(), "https://esm.sh", "https://esm.sh/v99/@types/react/global.d.ts")
+      ? fetch("https://esm.sh/v99/@types/react/global.d.ts").then(async (x) =>
+        importMapReplace(
+          await x.text(),
+          "https://esm.sh",
+          "https://esm.sh/v99/@types/react/global.d.ts",
+        )
       )
-      : fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(async (resp) => {
-        const xt = resp.headers.get("x-typescript-types")!;
-        const res = await fetch(xt, { redirect: "follow" }).then(resp => resp.text());
+      : fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
+        async (resp) => {
+          const xt = resp.headers.get("x-typescript-types")!;
+          const res = await fetch(xt, { redirect: "follow" }).then((resp) => resp.text());
 
-        return importMapReplace(res, "https://esm.sh", xt);
+          return importMapReplace(res, "https://esm.sh", xt);
 
-        // const extraModelCache[url] =
-      })),
+          // const extraModelCache[url] =
+        },
+      )),
   ),
 });
 
@@ -153,9 +165,11 @@ export const xxxsetExtraLibs = (maps: {
       filePath: filePath,
       content: content,
     };
-  }).filter(x => x.content.length).map(x => ({
+  }).filter((x) => x.content.length).map((x) => ({
     filePath: x.filePath,
-    content: x.content.split(`declare module "${origin}/npm:/`).join(`declare module "`),
+    content: x.content.split(`declare module "${origin}/npm:/`).join(
+      `declare module "`,
+    ),
   }));
 
   return extraLibs;
@@ -180,25 +194,29 @@ export function extraStuff(
     const mappings = (await Promise.all(
       (await (await (await getTsWorker())(uri)).getSemanticDiagnostics(
         uri.toString(),
-      )).map(x => {
+      )).map((x) => {
         //   console.log(x.messageText);
         return x.messageText;
       }).filter((x) =>
         typeof x === "string"
         && x.includes(" or its corresponding type declarations.")
       )
-        .map((x) => typeof x === "string" && x.split!("\"")[1]).filter(x => typeof x === "string").map(x => x as string)
+        .map((x) => typeof x === "string" && x.split!("\"")[1]).filter((x) => typeof x === "string").map((x) =>
+          x as string
+        )
         .map((mod: string) => dealWithMissing(mod, location.origin)),
-    )).filter(m => m.content && m.content.trim().length > 1).map(async (m) => {
-      console.log(`Aga-Insert: ${m.url}`);
+    )).filter((m) => m.content && m.content.trim().length > 1).map(
+      async (m) => {
+        console.log(`Aga-Insert: ${m.url}`);
 
-      return addExtraModels(
-        m.content,
-        m.url,
-      ).then(() => ({
-        [m.url]: m.url,
-      }));
-    });
+        return addExtraModels(
+          m.content,
+          m.url,
+        ).then(() => ({
+          [m.url]: m.url,
+        }));
+      },
+    );
 
     const maps = await Promise.all(mappings);
 

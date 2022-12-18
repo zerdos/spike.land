@@ -129,7 +129,10 @@ self.addEventListener("fetch", function(event) {
         if (!response.ok) return response;
 
         // response = new Response(response.body, response);
-        if (response.status === 307 || response.status === 302 || !response.ok || !response.body) {
+        if (
+          response.status === 307 || response.status === 302 || !response.ok
+          || !response.body
+        ) {
           return response;
         }
 

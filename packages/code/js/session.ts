@@ -62,9 +62,16 @@ export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 
-type SetItem<T> = (key: string, value: T, callback?: (err: any, value: T) => void) => Promise<T>;
+type SetItem<T> = (
+  key: string,
+  value: T,
+  callback?: (err: any, value: T) => void,
+) => Promise<T>;
 
-type GetItem<T> = (key: string, callback?: (err: any, value: T | null) => void) => Promise<T | null>;
+type GetItem<T> = (
+  key: string,
+  callback?: (err: any, value: T | null) => void,
+) => Promise<T | null>;
 
 export const syncStorage = async (
   setItem: SetItem<unknown>,
@@ -91,10 +98,11 @@ export const syncStorage = async (
     oldHash: message.oldHash,
     reversePatch: message.reversePatch,
   });
-  const oldNode =
-    await (getItem as unknown as GetItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>)(
-      message.oldHash,
-    );
+  const oldNode = await (getItem as unknown as GetItem<
+    { oldHash: string; reversePatch?: typeof message.reversePatch }
+  >)(
+    message.oldHash,
+  );
   if (!oldNode) throw Error("corrupt storage");
   await setItem(message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
@@ -105,7 +113,12 @@ export const syncStorage = async (
   await setItem("head", message.newHash);
 };
 
-export type CodePatch = { oldHash: string; newHash: string; patch: Delta[]; reversePatch: Delta[] };
+export type CodePatch = {
+  oldHash: string;
+  newHash: string;
+  patch: Delta[];
+  reversePatch: Delta[];
+};
 type IApplyPatch = (
   prop: CodePatch,
 ) => void;

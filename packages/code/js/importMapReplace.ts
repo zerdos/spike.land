@@ -2,7 +2,12 @@
 import imap from "./importmap.json";
 
 const importMapImports = imap.imports;
-export function importMapReplace(codeInp: string, origin: string, relativeUrl: string, importmapRep = true) {
+export function importMapReplace(
+  codeInp: string,
+  origin: string,
+  relativeUrl: string,
+  importmapRep = true,
+) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
   // }
@@ -19,15 +24,27 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
   const ggParent = (new URL("../../..", url)).toString();
 
   // returnStr = replaceAll(returnStr, `from"`, `from "}`);
-  returnStr = replaceAll(returnStr, `reference path="./`, `reference path="${baSe}`);
+  returnStr = replaceAll(
+    returnStr,
+    `reference path="./`,
+    `reference path="${baSe}`,
+  );
   returnStr = replaceAll(returnStr, `import"`, `import "`);
 
   returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
-  returnStr = replaceAll(returnStr, `import("../../../`, ` import("${ggParent}`);
+  returnStr = replaceAll(
+    returnStr,
+    `import("../../../`,
+    ` import("${ggParent}`,
+  );
   returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
   returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
   returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
-  returnStr = replaceAll(returnStr, `import "../../../`, ` import "${ggParent}`);
+  returnStr = replaceAll(
+    returnStr,
+    `import "../../../`,
+    ` import "${ggParent}`,
+  );
   returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
   returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
   returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
@@ -38,22 +55,29 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], origin)).toString();
     returnStr = replaceAll(returnStr, `from"`, `from "`);
-    if (importmapRep) returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    if (importmapRep) {
+      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
     returnStr = replaceAll(returnStr, ` from "./`, ` from "${origin}/live/`);
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
 
   console.log("importmapReplace fn");
-  returnStr = returnStr.split(";").map(x => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
-    Y.split("\n").map(x => {
+  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
+    Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`"https://`) === -1) {
+      if (
+        x.startsWith("import") && x.indexOf(`"`) !== -1
+        && x.indexOf(`"https://`) === -1
+      ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/npm:/*" + slices[1] + "?bundle&target=es2020&keep-names=true&dev=true";
+        slices[1] = origin + "/npm:/*" + slices[1]
+          + "?bundle&target=es2020&keep-names=true&dev=true";
         return slices.join(`"`);
       }
       if (
-        x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1
+        x.indexOf("/node_process.js") !== -1
+        || x.indexOf("/node_buffer.js") !== -1
         || x.indexOf("@babel/runtime") !== -1
       ) {
         const slices = x.split(`"`);
@@ -76,11 +100,12 @@ export function importMapReplace(codeInp: string, origin: string, relativeUrl: s
   ).join(";");
 
   if (relativeUrl.indexOf("esm.sh") === -1) {
-    returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:").split("npm:/npm:").join("npm:").split(
-      "npm:/*/",
-    ).join(
-      "npm:/",
-    );
+    returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:")
+      .split("npm:/npm:").join("npm:").split(
+        "npm:/*/",
+      ).join(
+        "npm:/",
+      );
   }
   return returnStr;
 }

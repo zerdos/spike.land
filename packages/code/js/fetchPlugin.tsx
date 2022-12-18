@@ -15,7 +15,11 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: (
-  importmapReplace: (code: string, origin: string, relativeUrl: string) => string,
+  importmapReplace: (
+    code: string,
+    origin: string,
+    relativeUrl: string,
+  ) => string,
 ) => Plugin = (importmapReplace) => ({
   name: "http",
   setup(build) {

@@ -36,11 +36,19 @@ export function extraStuff(
       // let replaced = removeComments(code);
       let replaced = replaceAll(code, ` from '../../../`, ` from '${ggParent}`);
       replaced = replaceAll(replaced, ` from "../../../`, ` from "${ggParent}`);
-      replaced = replaceAll(replaced, `import("../../../`, ` import("${ggParent}`);
+      replaced = replaceAll(
+        replaced,
+        `import("../../../`,
+        ` import("${ggParent}`,
+      );
       replaced = replaceAll(replaced, `import("../../`, ` import("${gParent}`);
       replaced = replaceAll(replaced, `import("../`, ` import("${parent}`);
       replaced = replaceAll(replaced, `import("./`, ` import("${baSe}`);
-      replaced = replaceAll(replaced, `import('../../../`, ` import('${ggParent}`);
+      replaced = replaceAll(
+        replaced,
+        `import('../../../`,
+        ` import('${ggParent}`,
+      );
       replaced = replaceAll(replaced, `import('../../`, ` import('${gParent}`);
       replaced = replaceAll(replaced, `import('../`, ` import('${parent}`);
       replaced = replaceAll(replaced, `import('./`, ` import('${baSe}`);
@@ -217,7 +225,7 @@ export function extraStuff(
         filePath: url,
         content: dtsRemoved,
       };
-    }).filter(x => x.content.length);
+    }).filter((x) => x.content.length);
     console.log({ extraLibs });
     extraLibs.push({
       content: `// Put this in your global types.ts

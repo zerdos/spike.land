@@ -1,7 +1,9 @@
-import tsdetective from "../vendor/ts-detective.mjs";
+import { tsx } from "../vendor/ts-detective.mjs";
 
 export async function run(code: string, originToUse: string) {
-  const impRes: { [ref: string]: { url: string | null; content: string; ref: string } } = {};
+  const impRes: {
+    [ref: string]: { url: string | null; content: string; ref: string };
+  } = {};
 
   console.log(
     await ata(
@@ -18,19 +20,24 @@ export async function run(code: string, originToUse: string) {
   // let url = replaceMappings(filePath, replaceMaps).replaceAll(
   // versionNumbers,
   // ``,
-  Object.keys(impRes).filter(x => !(impRes[x].ref).startsWith(".") && !(impRes[x].ref).startsWith("https")).map(x =>
-    Object.keys(impRes).map(t =>
+  Object.keys(impRes).filter((x) => !(impRes[x].ref).startsWith(".") && !(impRes[x].ref).startsWith("https")).map((x) =>
+    Object.keys(impRes).map((t) =>
       impRes[t] = {
         ref: impRes[t].ref,
-        content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/").join("/").split(
-          "https://esm.sh/" + x,
-        ).join(impRes[x].ref).split("esm.sh/v99/").join("esm.sh/").split("/@types/").join("/").split("/types/").join(
-          "/",
-        ).replaceAll(
-          versionNumbers,
-          ``,
-        ),
-        url: impRes[t].url!.split("esm.sh/v99/").join("esm.sh/").split("/@types/").join("/").split("/types/").join("/")
+        content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
+          .join("/").split(
+            "https://esm.sh/" + x,
+          ).join(impRes[x].ref).split("esm.sh/v99/").join("esm.sh/").split(
+            "/@types/",
+          ).join("/").split("/types/").join(
+            "/",
+          ).replaceAll(
+            versionNumbers,
+            ``,
+          ),
+        url: impRes[t].url!.split("esm.sh/v99/").join("esm.sh/").split(
+          "/@types/",
+        ).join("/").split("/types/").join("/")
           .replaceAll(
             versionNumbers,
             ``,
@@ -39,7 +46,7 @@ export async function run(code: string, originToUse: string) {
     )
   );
 
-  Object.keys(impRes).map(x =>
+  Object.keys(impRes).map((x) =>
     impRes[x] = {
       url: impRes[x].url!.replace("esm.sh", location.host + "/node_modules"),
       ref: impRes[x].ref,
@@ -47,8 +54,8 @@ export async function run(code: string, originToUse: string) {
     }
   );
 
-  const extraLibs = Object.keys(impRes).filter(x => impRes[x].content.length && impRes[x].url)
-    .map(x => ({
+  const extraLibs = Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
+    .map((x) => ({
       filePath: impRes[x].url!,
       content: impRes[x].content,
     }));
@@ -56,15 +63,16 @@ export async function run(code: string, originToUse: string) {
   return extraLibs;
 
   async function ata(code: string, baseUrl: string) {
+    // const { tsx } = await import(`${location.origin}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-    let res = tsdetective(code, { jsx: true, mixedImports: true });
+    let res = tsx(code);
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
       const [, ...refs] = refParts;
       res = [
         ...res,
-        ...refs.map(r => r.split(`"`)[0]).map(r => (r.startsWith(".") || r.startsWith("https:/")) ? r : `./` + r),
+        ...refs.map((r) => r.split(`"`)[0]).map((r) => (r.startsWith(".") || r.startsWith("https:/")) ? r : `./` + r),
       ];
     }
 
@@ -76,7 +84,9 @@ export async function run(code: string, originToUse: string) {
         ? new URL(r, baseUrl).toString()
         : r.indexOf("https://") !== -1
         ? r
-        : await fetch(`https://esm.sh/${r}`, { redirect: "follow" }).then(res => res.headers.get("x-typescript-types"));
+        : await fetch(`https://esm.sh/${r}`, { redirect: "follow" }).then(
+          (res) => res.headers.get("x-typescript-types"),
+        );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
       if (impRes[newBase!]) {
@@ -93,10 +103,11 @@ export async function run(code: string, originToUse: string) {
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
-      impRes[newBase].content = await fetch(newBase, { redirect: "follow" }).then(dtsRes => {
-        impRes[newBase!].url = dtsRes.url;
-        return dtsRes.text();
-      });
+      impRes[newBase].content = await fetch(newBase, { redirect: "follow" })
+        .then((dtsRes) => {
+          impRes[newBase!].url = dtsRes.url;
+          return dtsRes.text();
+        });
 
       if (impRes[newBase].content.length > 0) {
         await ata(impRes[newBase].content, impRes[newBase].url!);

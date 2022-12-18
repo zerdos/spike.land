@@ -83,7 +83,7 @@
           //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
           //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-          await hydrate(data.codeSpace, data.sess);
+          await hydrate(data.codeSpace, data.sess, bc.port);
         }
       });
       bc.port.start()
