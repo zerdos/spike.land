@@ -1,12 +1,9 @@
 import {
   CodeSession,
-  addExtraModels,
   applyPatch,
   applyPatchSync,
-  dealWithMissing,
   hashCode,
   importMapReplace,
-  initAta,
   initSession,
   mST,
   makePatch,
@@ -16,22 +13,18 @@ import {
   prettierJs,
   resetCSS,
   startSession,
-  syncStorage,
-  xxxsetExtraLibs
-} from "./chunk-chunk-EXH6B5SK.mjs";
+  syncStorage
+} from "./chunk-chunk-R3NRXUS2.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
 import "./chunk-chunk-A3E5PINE.mjs";
 export {
   CodeSession,
-  addExtraModels,
   applyPatch,
   applyPatchSync,
-  dealWithMissing,
   hashCode,
   importMapReplace,
-  initAta,
   initSession,
   mST,
   makePatch,
@@ -42,6 +35,5 @@ export {
   prettierJs,
   resetCSS,
   startSession,
-  syncStorage,
-  xxxsetExtraLibs
+  syncStorage
 };

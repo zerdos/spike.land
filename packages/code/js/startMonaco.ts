@@ -2,7 +2,6 @@
 
 import * as monaco from "monaco-editor";
 const { editor, languages, Uri } = monaco;
-import { tsx } from "../vendor/ts-detective.mjs";
 
 // import * as w from "./monacoExtra";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
@@ -12,41 +11,6 @@ const create = editor.create;
 const originToUse = window.origin.includes("spike")
   ? location.origin
   : "https://testing.spike.land/";
-
-const impRes: { [ref: string]: { url: string | null; content: string } } = {};
-
-async function ata(code: string, baseUrl: string) {
-  //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-  const res = tsx(code);
-
-  console.log(res);
-
-  return await Promise.all(res.map(async (r: string) => {
-    if (impRes[r]) return true;
-
-    let newBase = (r.slice(0, 1) === ".")
-      ? new URL(r, baseUrl).toString()
-      : r.indexOf("https://") !== -1
-      ? r
-      : await fetch(`https://esm.sh/${r}`, { redirect: "follow" }).then(res => res.headers.get("x-typescript-types"));
-
-    if (newBase === null) return;
-    if (newBase.indexOf(location.origin) !== -1) return true;
-    console.log("processing: " + r);
-
-    impRes[r] = { url: newBase || "", content: "" };
-
-    if (newBase) {
-      impRes[r].content = await fetch(newBase, { redirect: "follow" }).then(dtsRes => {
-        impRes[r].url = dtsRes.url;
-        return dtsRes.text();
-      });
-    }
-
-    if (impRes[r].content.length > 0) await ata(impRes[r].content, impRes[r].url!);
-    return true;
-  }));
-}
 
 // Object.assign(globalThis, { setupTypeAcquisition });
 const lib = [
@@ -269,14 +233,6 @@ async function startMonacoPristine(
     console.log("******");
     console.log("******");
 
-    console.log(
-      await ata(
-        `import * as JSX from "@emotion/react/jsx-runtime";
-    ` + code,
-        originToUse,
-      ),
-    );
-
     console.log("******");
     console.log("******");
     console.log("******");
@@ -293,28 +249,11 @@ async function startMonacoPristine(
     console.log("******");
     console.log("******");
 
-    const compilerOptions = languages.typescript.typescriptDefaults.getCompilerOptions();
-
-    Object.keys(impRes).map(x =>
-      impRes[x] = {
-        url: impRes[x].url!.replace("esm.sh", location.host),
-        content: impRes[x].content.split("esm.sh").join(location.host),
-      }
-    );
-    Object.keys(impRes).filter(x => !x.startsWith(".") && impRes[x].content.length && !x.startsWith("https")).map(x =>
-      compilerOptions.paths = { ...compilerOptions.paths, [`/node_modules/${x}/index.d.ts`]: [impRes[x].url!] }
-    );
-
-    const extraLibs = Object.keys(impRes).filter(x => impRes[x].content.length && impRes[x].url)
-      .map(x => ({ filePath: impRes[x].url!, content: impRes[x].content }));
+    const { run } = await import("./ata");
 
     languages.typescript.typescriptDefaults.setExtraLibs(
-      extraLibs,
+      await run(code, originToUse),
     );
-
-    console.log({ extraLibs, paths: compilerOptions.paths });
-
-    languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
     languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({

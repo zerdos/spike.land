@@ -1,11 +1,8 @@
 // import { skipImportmapReplaceNames } from "./esbuildEsm";
-import { prettierJs } from "prettierEsm";
 import imap from "./importmap.json";
 
 const importMapImports = imap.imports;
-export function importMapReplace(codeInpN: string, origin: string, relativeUrl: string, importmapRep = true) {
-  const codeInp = prettierJs(codeInpN);
-
+export function importMapReplace(codeInp: string, origin: string, relativeUrl: string, importmapRep = true) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
   // }
@@ -85,7 +82,7 @@ export function importMapReplace(codeInpN: string, origin: string, relativeUrl: 
       "npm:/",
     );
   }
-  return prettierJs(returnStr);
+  return returnStr;
 }
 function replaceAll(input: string, search: string, replace: string) {
   return input.split(search).join(replace);

@@ -50768,11 +50768,6 @@ init_define_process();
 // js/importMapReplace.ts
 init_define_process();
 
-// js/prettierEsm.ts
-init_define_process();
-var import_parser_typescript = __toESM(require_parser_typescript(), 1);
-var import_standalone = __toESM(require_standalone(), 1);
-
 // js/importmap.json
 var importmap_default = {
   imports: {
@@ -50794,8 +50789,10 @@ var importmap_default = {
 // js/importMapReplace.ts
 var importMapImports = importmap_default.imports;
 
-// js/monacoExtra.ts
+// js/prettierEsm.ts
 init_define_process();
+var import_parser_typescript = __toESM(require_parser_typescript(), 1);
+var import_standalone = __toESM(require_standalone(), 1);
 
 // js/textDiff.ts
 init_define_process();
