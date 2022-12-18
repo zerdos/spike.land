@@ -3,7 +3,6 @@ import debounce from "lodash.debounce";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
 export { importMapReplace } from "./importMapReplace";
-export { prettierJs } from "./prettierEsm";
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 // Import * as Immutable from "immutable"

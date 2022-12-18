@@ -10,11 +10,10 @@ import {
   makePatchFrom,
   onSessionUpdate,
   patchSync,
-  prettierJs,
   resetCSS,
   startSession,
   syncStorage
-} from "./chunk-chunk-R3NRXUS2.mjs";
+} from "./chunk-chunk-RJ5Q77R7.mjs";
 import {
   md5
 } from "./chunk-chunk-I52D4BQZ.mjs";
@@ -32,7 +31,6 @@ export {
   md5,
   onSessionUpdate,
   patchSync,
-  prettierJs,
   resetCSS,
   startSession,
   syncStorage
