@@ -121,30 +121,30 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
         </CacheProvider>
       </ErrorBoundary>,
     );
-    if (sess && sess.transpiled) {
-      requestAnimationFrame(() => {
-        const html = root.innerHTML;
-        const css = mineFromCaches(cache);
-        // const fromState = sess;
-        const newSt = { ...sess, html, css };
-        const message = makePatch(
-          newSt,
-        );
-        if (!message) return;
-        // port.postMessage({
-        //   newHash: message.newHash,
-        //   oldHash: message.oldHash,
-        //   patch: message.patch,
-        //   codeSpace,
-        //   reversePatch: message.reversePatch,
-        //   name: (message.oldHash + message.newHash).slice(4, 12),
-        //   i: sess!.i,
-        //   sess: newSt,
-        // });
+    // if (sess && sess.transpiled) {
+    // requestAnimationFrame(() => {
+    // const html = root.innerHTML;
+    // const css = mineFromCaches(cache);
+    // // const fromState = sess;
+    // const newSt = { ...sess, html, css };
+    // const message = makePatch(
+    //   newSt,
+    // );
+    // if (!message) return;
+    // port.postMessage({
+    //   newHash: message.newHash,
+    //   oldHash: message.oldHash,
+    //   patch: message.patch,
+    //   codeSpace,
+    //   reversePatch: message.reversePatch,
+    //   name: (message.oldHash + message.newHash).slice(4, 12),
+    //   i: sess!.i,
+    //   sess: newSt,
+    // });
 
-        // console.log({ html, css });
-      });
-    }
+    // console.log({ html, css });
+    // });
+    // }
   }
 };
 
