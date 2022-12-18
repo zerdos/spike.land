@@ -9,17 +9,18 @@ import HTML from "./index.html";
 // import * as CF from "@cloudflare/workers-types";
 import importMap from "@spike.land/code/js/importmap.json";
 import {
-  addExtraModels,
+  // addExtraModels,
   CodePatch,
   CodeSession,
-  dealWithMissing,
+  // dealWithMissing,
   ICodeSession,
   importMapReplace,
-  initAta,
-  prettierJs,
+  // initAta,
+  // prettierJs,
   resetCSS,
+  // run,
   syncStorage,
-  xxxsetExtraLibs,
+  // xxxsetExtraLibs,
 } from "@spike.land/code/js/session";
 import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
@@ -115,44 +116,44 @@ export class Code {
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
-      const ATA = async () => {
-        let [, ...deps] = path;
-        initAta();
-        // const code = await this.kv.list();c
-        const code = mST().code;
-        if (deps.length === 0) {
-          deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-            s => s.split(`"`)[1],
-          ).filter(x => x && !(x.startsWith("https")));
-        }
-        deps = ["@emotion/react/jsx-runtime", "@types/react/global.d.ts", ...(new Set(deps))];
-        const mapper = (dep: string) =>
-          dealWithMissing(dep, "https://esm.sh").then((m) =>
-            addExtraModels(prettierJs(m.content), m.url).then(() => m)
-          );
+      // const ATA = async () => {
+      //   let [, ...deps] = path;
+      //   initAta();
+      //   // const code = await this.kv.list();c
+      //   const code = mST().code;
+      //   if (deps.length === 0) {
+      //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+      //       s => s.split(`"`)[1],
+      //     ).filter(x => x && !(x.startsWith("https")));
+      //   }
+      //   deps = ["@emotion/react/jsx-runtime", "@types/react/global.d.ts", ...(new Set(deps))];
+      //   // const mapper = (dep: string) =>
+      //   //   dealWithMissing(dep, "https://esm.sh").then((m) =>
+      //   //     addExtraModels(prettierJs(m.content), m.url).then(() => m)
+      //   //   );
 
-        const starters = await pMap(deps, mapper, { concurrency: 2 });
+      //   const starters = await pMap(deps, mapper, { concurrency: 2 });
 
-        let extraLibs = xxxsetExtraLibs(starters, "https://esm.sh");
-        extraLibs = extraLibs.map(x => ({
-          content: x.content.split("esm.sh").join(url.host),
-          filePath: x.filePath.replace("https://esm.sh/", "/"),
-        }));
+      //   let extraLibs = xxxsetExtraLibs(starters, "https://esm.sh");
+      //   extraLibs = extraLibs.map(x => ({
+      //     content: x.content.split("esm.sh").join(url.host),
+      //     filePath: x.filePath.replace("https://esm.sh/", "/"),
+      //   }));
 
-        const extraLib = JSON.stringify(extraLibs);
+      //   const extraLib = JSON.stringify(extraLibs);
 
-        return new Response(extraLib, {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
-            "content_hash": md5(extraLib),
-            "Etag": md5(extraLib),
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-        });
-      };
+      //   return new Response(extraLib, {
+      //     status: 200,
+      //     headers: {
+      //       "Access-Control-Allow-Origin": "*",
+      //       "Cross-Origin-Embedder-Policy": "require-corp",
+      //       "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
+      //       "content_hash": md5(extraLib),
+      //       "Etag": md5(extraLib),
+      //       "Content-Type": "application/json; charset=UTF-8",
+      //     },
+      //   });
+      // };
 
       switch (path[0]) {
         case "code":
@@ -287,81 +288,81 @@ export class Code {
             },
           });
         }
-        case "yay": {
-          // const deps = detective(mST().code);
-          // initAta();
-          // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
-          // initAta();
+        // case "yay": {
+        //   // const deps = detective(mST().code);
+        //   // initAta();
+        //   // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
+        //   // initAta();
 
-          // await addExtraModels(importMapReplace(mST().code, url.origin, url.origin, false), url.toString());
-          // const code = await this.kv.list();c
-          // const code = mST().code;
-          // let [, ...deps] = path;
-          // if (deps.length === 0) {
-          //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-          //     s => s.split("'")[1],
-          //   ).filter(x => x && !(x.startsWith("https")));
+        //   // await addExtraModels(importMapReplace(mST().code, url.origin, url.origin, false), url.toString());
+        //   // const code = await this.kv.list();c
+        //   // const code = mST().code;
+        //   // let [, ...deps] = path;
+        //   // if (deps.length === 0) {
+        //   //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+        //   //     s => s.split("'")[1],
+        //   //   ).filter(x => x && !(x.startsWith("https")));
 
-          //   deps.push("@emotion/react/jsx-runtime");
-          // }
-          // deps = [...(new Set(deps))];
-          // const rees = JSON.stringify(deps);
+        //   //   deps.push("@emotion/react/jsx-runtime");
+        //   // }
+        //   // deps = [...(new Set(deps))];
+        //   // const rees = JSON.stringify(deps);
 
-          const rees = JSON.stringify(deps);
+        //   const rees = JSON.stringify(await run(mST().code, url.origin));
 
-          return new Response(rees, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "content_hash": md5(rees),
-              "Etag": md5(rees),
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "ataStart": {
-          let [, ...deps] = path;
-          initAta();
-          // const code = await this.kv.list();c
-          const code = prettierJs(mST().code);
-          if (deps.length === 0) {
-            deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-              s => s.split(`"`)[1],
-            ).filter(x => x && !(x.startsWith("https")));
+        //   return new Response(rees, {
+        //     status: 200,
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //       "Cross-Origin-Embedder-Policy": "require-corp",
+        //       "Cache-Control": "no-cache",
+        //       "content_hash": md5(rees),
+        //       "Etag": md5(rees),
+        //       "Content-Type": "application/json; charset=UTF-8",
+        //     },
+        //   });
+        // }
+        // case "ataStart": {
+        //   let [, ...deps] = path;
+        //   initAta();
+        //   // const code = await this.kv.list();c
+        //   const code = prettierJs(mST().code);
+        //   if (deps.length === 0) {
+        //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
+        //       s => s.split(`"`)[1],
+        //     ).filter(x => x && !(x.startsWith("https")));
 
-            deps.push("@emotion/react/jsx-runtime");
-            deps.push("@emotion/react/jsx-dev-runtime");
-          }
-          deps = [...(new Set(deps))];
-          console.log({ deps });
-          const rees = JSON.stringify(deps);
-          return new Response(rees, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "content_hash": md5(rees),
-              "Etag": md5(rees),
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "ata": {
-          return ATA();
-        }
-        case "hashCodeSession":
-          return new Response(hashCode().toString(), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
+        //     deps.push("@emotion/react/jsx-runtime");
+        //     deps.push("@emotion/react/jsx-dev-runtime");
+        //   }
+        //   deps = [...(new Set(deps))];
+        //   console.log({ deps });
+        //   const rees = JSON.stringify(deps);
+        //   return new Response(rees, {
+        //     status: 200,
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //       "Cross-Origin-Embedder-Policy": "require-corp",
+        //       "Cache-Control": "no-cache",
+        //       "content_hash": md5(rees),
+        //       "Etag": md5(rees),
+        //       "Content-Type": "application/json; charset=UTF-8",
+        //     },
+        //   });
+        // }
+        // case "ata": {
+        //   return ATA();
+        // }
+        // case "hashCodeSession":
+        //   return new Response(hashCode().toString(), {
+        //     status: 200,
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //       "Cross-Origin-Embedder-Policy": "require-corp",
+        //       "Cache-Control": "no-cache",
+        //       "Content-Type": "application/json; charset=UTF-8",
+        //     },
+        //   });
         case "mST.mjs": {
           const body = `
           export const mST=${JSON.stringify(mST())};
