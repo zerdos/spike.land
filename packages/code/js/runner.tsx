@@ -97,12 +97,11 @@ export const umdTransform = async (code: string) => {
 //   umdTransform,
 // });
 
-const worker = new Worker("/ata.worker.js?" + globalThis.assetHash),
-  rpcProvider = new RpcProvider(
-    (message, transfer) => worker.postMessage(message, transfer),
-  );
+rpcProvider = new RpcProvider(
+  (message, transfer) => globalThis.iRef.current.contentWindow.postMessage(message, transfer),
+);
 
-worker.onmessage = e => rpcProvider.dispatch(e.data);
+globalThis.iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
 
 const mutex = new Mutex();
 let sess: ICodeSession;

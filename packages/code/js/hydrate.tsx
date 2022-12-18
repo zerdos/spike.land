@@ -1,7 +1,6 @@
 import { RpcProvider } from "worker-rpc";
 
 import { appFactory } from "starter";
-import { run } from "./ata";
 
 import type { Root } from "react-dom/client";
 

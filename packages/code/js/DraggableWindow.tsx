@@ -36,7 +36,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [isVisible, setVisible] = useState(false);
   const iRef = useRef<HTMLIFrameElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
-  // globalThis.zBodyRef = zBodyRef;
+  globalThis.iRef = iRef;
+
+  iRef.current!.contentWindow?.postMessage;
 
   const startPositions = { bottom: 0, right: 0 };
 
