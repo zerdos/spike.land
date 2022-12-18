@@ -39,6 +39,7 @@ const define = {
   "isJest": JSON.stringify(false),
   "process.env.version": "\"1.1.1\"",
   global: "globalThis",
+
   "WORKER_DOM_DEBUG": JSON.stringify(false),
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
@@ -222,7 +223,6 @@ const build = (
     minifyIdentifiers: false, // ! isDevelopment,
     minifySyntax: false, // ! isDevelopment,
     ignoreAnnotations: false,
-
     keepNames: true,
     treeShaking: true,
     platform: "browser",
