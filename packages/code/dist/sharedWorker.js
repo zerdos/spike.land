@@ -50814,6 +50814,8 @@ async function onMessage(port, {
   codeSpace,
   target,
   type,
+  code,
+  baseUrl,
   patch,
   reversePatch,
   users,
@@ -50849,6 +50851,8 @@ async function onMessage(port, {
   else if (i && counters[codeSpace] >= i)
     return;
   counters[codeSpace] = i;
+  if (codeSpace && type === "ata") {
+  }
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);

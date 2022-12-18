@@ -1,6 +1,7 @@
 import { str2ab } from "sab";
 import { CodeSession } from "session";
 import type { Delta } from "textDiff";
+
 const hashStore: { [hash: string]: CodeSession } = {};
 const names: { [codeSpace: string]: string } = {};
 const blockedMessages: { [codeSpace: string]: string[] } = {};
@@ -14,13 +15,48 @@ declare const self: SharedWorkerGlobalScope & {
   // bc: BroadcastChannel;
 };
 
+// async function ata(code: string, baseUrl: string) {
+//   const window = self;
+
+// (function(){
+
+//   if ("performance" in window == false) {
+//       window.performance = {};
+//   }
+
+//   Date.now = (Date.now || function () {  // thanks IE8
+// 	  return new Date().getTime();
+//   });
+
+//   if ("now" in window.performance == false){
+
+//     var nowOffset = Date.now();
+
+//     if (performance.timing && performance.timing.navigationStart){
+//       nowOffset = performance.timing.navigationStart
+//     }
+
+//     window.performance.now = function now(){
+//       return Date.now() - nowOffset;
+//     }
+//   }
+
+// })();
+//   const detective =  (await import("../vendor/ts-detective.mjs")).default
+
+//   const res= detective(code)
+//   return resizeBy;
+// }
+
 type Mod = { [codeSpace: string]: WebSocket };
 type Counters = { [codeSpace: string]: number };
 type Data = {
   name: string;
   codeSpace: string;
   target?: string;
-  type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake";
+  code: string;
+  baseUrl: string;
+  type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "ata";
   patch?: Delta[];
   reversePatch?: Delta[];
   address?: string;
@@ -47,6 +83,8 @@ async function onMessage(port: MessagePort, {
   codeSpace,
   target,
   type,
+  code,
+  baseUrl,
   patch,
   reversePatch,
   users,
@@ -78,6 +116,10 @@ async function onMessage(port: MessagePort, {
   if (i && !counters[codeSpace]) counters[codeSpace] = i;
   else if (i && counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
+  if (codeSpace && type === "ata") {
+    // const resp = await ata(code, baseUrl);
+    // port.postMessage(resp);
+  }
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);

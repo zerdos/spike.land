@@ -81,6 +81,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/parser@npm:^7.0.0":
+  version: 7.20.5
+  resolution: "@babel/parser@npm:7.20.5"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: c40fed9e76e84c95b39b23ac0f93434a5bffae18dae53ff0f2605b7b1723eaf7102a1426a4445de7e557df9e0f5d2e2ddbc89252ac35ece659c813b664758ba8
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-syntax-jsx@npm:^7.17.12":
   version: 7.18.6
   resolution: "@babel/plugin-syntax-jsx@npm:7.18.6"
@@ -101,7 +110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.18.6":
+"@babel/types@npm:^7.18.6, @babel/types@npm:^7.8.3":
   version: 7.20.5
   resolution: "@babel/types@npm:7.20.5"
   dependencies:
@@ -1329,9 +1338,12 @@ __metadata:
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:^0.4.0"
     avl: "npm:^1.5.3"
+    detective-typescript: "npm:^9.0.0"
     esbuild: "npm:0.16.8"
     miniflare: "npm:^2.11.0"
     p-map: "npm:^5.5.0"
+    path: "npm:^0.12.7"
+    path-browserify: "npm:^1.0.1"
     typescript: "npm:4.9.4"
     wrangler: "npm:2.6.2"
   languageName: unknown
@@ -1371,6 +1383,7 @@ __metadata:
     comlink: "npm:4.3.1"
     core-js: "npm:^3.26.1"
     csstype: "npm:3.1.1"
+    detective-typescript: "npm:^9.0.0"
     es-module-shims: "npm:1.6.2"
     esbuild: "npm:0.16.8"
     esbuild-plugin-alias: "npm:0.2.1"
@@ -1966,7 +1979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.46.1":
+"@typescript-eslint/typescript-estree@npm:5.46.1, @typescript-eslint/typescript-estree@npm:^5.13.0":
   version: 5.46.1
   resolution: "@typescript-eslint/typescript-estree@npm:5.46.1"
   dependencies:
@@ -2569,6 +2582,13 @@ __metadata:
   version: 1.0.0
   resolution: "assert-plus@npm:1.0.0"
   checksum: 38cb6f1d545a2cc3b1c30101324720ae0a659c071615b49274b423d8ca7efaecebc85c128d6dc35a46e4d7c6077385783cb46a1901896e3b7f10f619c7111057
+  languageName: node
+  linkType: hard
+
+"ast-module-types@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "ast-module-types@npm:3.0.0"
+  checksum: 3f9fa14ca5e7a5be012842ff8129c7f642889deac36437ba62a17f2460ece63cdcc9a7d3ba235e635110e4d35e6fbe5d23c87953020ce1d2a65cad4b8917fd67
   languageName: node
   linkType: hard
 
@@ -3749,6 +3769,18 @@ __metadata:
   version: 2.0.3
   resolution: "dequal@npm:2.0.3"
   checksum: 7a633ec0ba78bc08ba217b762b15157d2ec99edb50a82124df2c341255b1943217215872888981cc6a6ee02406ab1b09783f5b51b7db8d8f8f1284092f379aad
+  languageName: node
+  linkType: hard
+
+"detective-typescript@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "detective-typescript@npm:9.0.0"
+  dependencies:
+    "@typescript-eslint/typescript-estree": "npm:^5.13.0"
+    ast-module-types: "npm:^3.0.0"
+    node-source-walk: "npm:^5.0.0"
+    typescript: "npm:^4.5.5"
+  checksum: af8d12b752ab3892ff29b802ee85f0b6a27111b7de803829614840c1ffc1de17174351e9513108846d5b9cab6fa2512f8a934a28cfa5703e1a6edcc3acc504fa
   languageName: node
   linkType: hard
 
@@ -5901,6 +5933,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"inherits@npm:2.0.3":
+  version: 2.0.3
+  resolution: "inherits@npm:2.0.3"
+  checksum: e29e5e9b9fd21e3fdf5e138c99b7328965c14e59abb31dcaec6eb81744597c52ad3b2ac3bf0fc73e1c397883f077bb52fbd98724ad5a49b4750f3de594f74c2f
+  languageName: node
+  linkType: hard
+
 "ini@npm:2.0.0":
   version: 2.0.0
   resolution: "ini@npm:2.0.0"
@@ -7332,6 +7371,7 @@ __metadata:
     esbuild: "npm:^0.16.8"
     eslint: "npm:^8.30.0"
     eslint-plugin-react: "npm:^7.31.11"
+    path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.0"
     react: "npm:^18.2.0"
     typescript: "npm:4.9.4"
@@ -7448,6 +7488,15 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 986e171f91cedd913800b4f272f9c22258a15bc8f44d2426630dc68d98281614004d4da1a8aec7a70a6171056425a95828cd68d8433b89d0e16ed973507ecccf
+  languageName: node
+  linkType: hard
+
+"node-source-walk@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "node-source-walk@npm:5.0.0"
+  dependencies:
+    "@babel/parser": "npm:^7.0.0"
+  checksum: f0f5be65b82baf194958a38bf3abfc7ac954759d5974001d4b27aa566c3eb376a18c466d45d5c627e6c950caa9939ca52f1a9d09e45c6d681302795a8b9d365c
   languageName: node
   linkType: hard
 
@@ -7930,6 +7979,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"path-browserify@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "path-browserify@npm:1.0.1"
+  checksum: d650fba4e7cace87cc15f39961022111ad983ab7a5fc215a02f3537732bc8a4410941bbd973ca066cacffdf54ffff68b486344f3791f565da157e29fc907b643
+  languageName: node
+  linkType: hard
+
 "path-exists@npm:^4.0.0":
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
@@ -7997,6 +8053,16 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: 6a9330ad8d96f31e929feb414cde2959078379ba5a48c9e3eab34f280d7850eec6a0fa3ed5be9150e9e4d7df5139c1ae92f891b18167528553a11382d8f54183
+  languageName: node
+  linkType: hard
+
+"path@npm:^0.12.7":
+  version: 0.12.7
+  resolution: "path@npm:0.12.7"
+  dependencies:
+    process: "npm:^0.11.1"
+    util: "npm:^0.10.3"
+  checksum: 17e60158ee1bfe7948e72f68aafe45687656044c357b94536fe73c0f7f0ab24a1ab69f5d765dc41622cd747e872b4e90b019d2ea73efdbbb4dbd105e21b2141a
   languageName: node
   linkType: hard
 
@@ -8158,6 +8224,13 @@ __metadata:
   version: 1.29.0
   resolution: "prismjs@npm:1.29.0"
   checksum: 9d15875f071a2495c3ca75e77c6e1149229e073262e960655c41c85a2cd9b76ac45b698c79570ffb76cdf388d8c19d8cbcc49bbbed175c36401e153708fde7d7
+  languageName: node
+  linkType: hard
+
+"process@npm:^0.11.1":
+  version: 0.11.10
+  resolution: "process@npm:0.11.10"
+  checksum: e21687b0b8fe1c6812ea43858aa5c1234e05dc6b2c366b280c850fd09d644100cbcf2f3784feec4bc6f57002a465e7eea2901acf1462ffc94ba9ac98f105ede5
   languageName: node
   linkType: hard
 
@@ -9704,7 +9777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.4, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
+"typescript@npm:4.9.4, typescript@npm:^4.5.5, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
   bin:
@@ -9714,7 +9787,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.5.5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
   version: 4.9.4
   resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"
   bin:
@@ -9819,6 +9892,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 6a88ed8344d07f2324b304ee36def365d967953b5a9c15baa3213eb3909e86a7da1ee70a4c2133e80c23d6c1987590e9c3c57d874e20a124f9e41620b462fa57
+  languageName: node
+  linkType: hard
+
+"util@npm:^0.10.3":
+  version: 0.10.4
+  resolution: "util@npm:0.10.4"
+  dependencies:
+    inherits: "npm:2.0.3"
+  checksum: 9eb0fd78344eaefbf067784e47b022c6e464bc35191a885fc0c38852dd5a002bed90cdf1f6b171d9ca52d585a118d8e8b77f8f48060e82f7419f936a68d4a4d5
   languageName: node
   linkType: hard
 

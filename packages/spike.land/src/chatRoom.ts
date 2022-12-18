@@ -1,5 +1,7 @@
 import { handleErrors } from "./handleErrors";
 import HTML from "./index.html";
+
+// import detective from 'detective-typescript';
 // import { RateLimiterClient } from "./rateLimiterClient";
 
 // import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
@@ -286,11 +288,12 @@ export class Code {
           });
         }
         case "yay": {
+          // const deps = detective(mST().code);
           // initAta();
           // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
-          initAta();
+          // initAta();
 
-          await addExtraModels(importMapReplace(mST().code, url.origin, url.origin, false), url.toString());
+          // await addExtraModels(importMapReplace(mST().code, url.origin, url.origin, false), url.toString());
           // const code = await this.kv.list();c
           // const code = mST().code;
           // let [, ...deps] = path;
@@ -304,7 +307,7 @@ export class Code {
           // deps = [...(new Set(deps))];
           // const rees = JSON.stringify(deps);
 
-          const rees = JSON.stringify(xxxsetExtraLibs([], url.origin));
+          const rees = JSON.stringify(deps);
 
           return new Response(rees, {
             status: 200,

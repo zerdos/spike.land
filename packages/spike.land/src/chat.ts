@@ -452,7 +452,9 @@ const api: ExportedHandler<CodeEnv> = {
               "charset",
             );
             const bodyStr = (isText
-              ? importMapReplace(await response.text(), u.origin, isDTS ? xTs : response.url)
+              ? importMapReplace(await response.text(), u.origin, isDTS ? xTs : response.url).split("esm.sh").join(
+                url.host,
+              )
               : await response.blob());
 
             response = new Response(

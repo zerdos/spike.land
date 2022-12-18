@@ -49,6 +49,7 @@ self.addEventListener("fetch", function(event) {
   return event.respondWith(
     (async () => {
       let url = new URL(event.request.url);
+      if (url.origin.indexOf("spike.land") === -1) return fetch(event.request);
 
       let isChunk = url.pathname.includes("chunk-");
       // if (files && files[url.pathname.slice(1)]) {
