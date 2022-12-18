@@ -96,13 +96,7 @@ export const umdTransform = async (code: string) => {
 //   IIFE,
 //   umdTransform,
 // });
-
-const rpcProvider = new RpcProvider(
-  (message, transfer) => globalThis.iRef.current.contentWindow.postMessage(message, transfer),
-);
-
-globalThis.iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
-
+let rpcProvider;
 const mutex = new Mutex();
 let sess: ICodeSession;
 
@@ -113,6 +107,13 @@ export async function runner({ code, counter, codeSpace }: {
   counter: number;
 }) {
   if (counter <= counterMax) return;
+  if (!rpcProvider) {
+    rpcProvider = new RpcProvider(
+      (message, transfer) => globalThis.iRef.current.contentWindow.postMessage(message, transfer),
+    );
+
+    globalThis.iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
+  }
   counterMax = counter;
   controller.abort();
 
