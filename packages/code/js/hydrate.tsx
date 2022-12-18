@@ -1,3 +1,8 @@
+import { RpcProvider } from "worker-rpc";
+
+import { appFactory } from "starter";
+import { run } from "./ata";
+
 import type { Root } from "react-dom/client";
 
 import type { EmotionCache } from "@emotion/cache";
@@ -7,11 +12,13 @@ import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
 export { ab2str } from "sab";
 import type { CodeSession, ICodeSession } from "session";
+import { wait } from "wait";
 import { md5 } from "./md5";
 import { makePatch, startSession } from "./session";
 
 export { md5 };
 
+const divs = {};
 let r: Root | null;
 let root: HTMLDivElement;
 let lastI: number;
@@ -22,6 +29,32 @@ const user = md5((self && self.crypto && self.crypto.randomUUID
     0,
     8,
   ));
+
+const rpcProvider = new RpcProvider(
+  (message, transfer) => postMessage(message, transfer),
+);
+
+onmessage = e => rpcProvider.dispatch(e.data);
+
+rpcProvider.registerRpcHandler("ata", (transformed) => render(transformed));
+
+async function render(transpiled: string) {
+  const appId = md5(transpiled);
+  const App = await (appFactory(transpiled));
+  const rootDiv = document.createElement("div");
+  divs[appId] = rootDiv;
+  const root = createRoot(rootDiv);
+  root.render(<App appId={appId}></App>);
+
+  while (true) {
+    await wait(50);
+    const html = rootDiv.innerHTML;
+    const css = mineFromCaches(globalThis.eCaches[appId]);
+    if (html) {
+      return { html, css };
+    }
+  }
+}
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
   if (sess?.i && sess.i === lastI) return;
