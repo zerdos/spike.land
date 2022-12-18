@@ -30,10 +30,10 @@ const user = md5((self && self.crypto && self.crypto.randomUUID
   ));
 
 const rpcProvider = new RpcProvider(
-  (message, transfer) => postMessage(message, transfer),
+  (message, transfer) => window.postMessage(message, location.origin, transfer),
 );
 
-onmessage = e => rpcProvider.dispatch(e.data);
+window.onmessage = e => rpcProvider.dispatch(e.data);
 
 rpcProvider.registerRpcHandler("render", (transformed: string) => render(transformed));
 
