@@ -97,6 +97,13 @@ export const umdTransform = async (code: string) => {
 //   umdTransform,
 // });
 
+const worker = new Worker("/ata.worker.js?" + globalThis.assetHash),
+  rpcProvider = new RpcProvider(
+    (message, transfer) => worker.postMessage(message, transfer),
+  );
+
+worker.onmessage = e => rpcProvider.dispatch(e.data);
+
 const mutex = new Mutex();
 let sess: ICodeSession;
 
@@ -130,14 +137,20 @@ export async function runner({ code, counter, codeSpace }: {
       // if (!pp) return;
       const transpiledCode = await esmTransform(code);
 
-      sess = {
-        ...mST(),
-        code,
-        // codeSpace,
-        i: counter,
-        transpiled: transpiledCode!,
-      };
-      await syncWS(sess);
+      rpcProvider
+        .rpc("render", transpiledCode)
+        .then(({ html, css }) => {
+          sess = {
+            ...mST(),
+            code,
+            // codeSpace,
+            i: counter,
+            transpiled: transpiledCode!,
+            html,
+            css,
+          };
+          syncWS(sess);
+        });
 
       // console.log("still alive2");
       // // patchSync(sess);

@@ -36,7 +36,7 @@ const rpcProvider = new RpcProvider(
 
 onmessage = e => rpcProvider.dispatch(e.data);
 
-rpcProvider.registerRpcHandler("ata", (transformed) => render(transformed));
+rpcProvider.registerRpcHandler("render", (transformed) => render(transformed));
 
 async function render(transpiled: string) {
   const appId = md5(transpiled);
