@@ -3,7 +3,9 @@ import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
 import { syncWS } from "ws";
 import { build, transform } from "./esbuildEsm";
-import { render } from "./renderToString";
+
+import { RpcProvider } from "worker-rpc";
+
 import type { ICodeSession } from "./session";
 import { md5, mST } from "./session";
 import { toUmd } from "./toUmd";
