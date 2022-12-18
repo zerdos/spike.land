@@ -1,4 +1,4 @@
-import { RpcProvider } from "worker-rpc";
+
 
 import { appFactory } from "starter";
 
@@ -30,9 +30,6 @@ const user = md5((self && self.crypto && self.crypto.randomUUID
     8,
   ));
 
-const rpcProvider = new RpcProvider(
-  (message, transfer) => window.postMessage(message, location.origin, transfer),
-);
 const BC = new BroadcastChannel(location.href);
 let controller = new AbortController();
 BC.onmessage = async (e) => {
@@ -61,12 +58,7 @@ BC.onmessage = async (e) => {
   }
 };
 
-window.onmessage = e => rpcProvider.dispatch(e.data);
 
-rpcProvider.registerRpcHandler("render", (transformed: string) => render(transformed));
-
-async function render(transpiled: string) {
-}
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
   if (sess?.i && sess.i === lastI) return;
@@ -83,7 +75,6 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
   }
 
   if (sess && sess.i <= counterMax) return;
-  counterMax = sess!.i;
   // requestAnimationFrame(async () => {
   let App;
   const rt = document.getElementById("root")!;
@@ -97,6 +88,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
   }
   const i = rt?.getAttribute("data-i") || 1;
   lastI = +i;
+  counterMax = lastI;
 
   App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`))
     .default;
