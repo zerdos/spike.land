@@ -113,11 +113,11 @@ const monacoContribution = async (
   // Const {typescript} = languages;
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl: originToUse + "/",
+    baseUrl: originToUse,
     target: languages.typescript.ScriptTarget.ESNext,
 
     importHelpers: true,
-    types: ["@emotion/core", "@emotion/react/types/css-prop"],
+    typeRoots: ["/v99/@types", "/v99"],
     lib,
     allowJs: true,
     skipLibCheck: false,
