@@ -256,6 +256,7 @@ export const run = async (startState: {
         // console.log("Yoooo7");
         const messageData = { codeSpace, name: user, ...message, sess: mST() };
         console.log("POST MESSAGE", { messageData });
+        if (messageData.oldHash === messageData.newHash) return;
         messagePort.postMessage(messageData);
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
@@ -458,6 +459,7 @@ export async function syncWS(newSession: ICodeSession) {
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
       wsLastHashCode = message.newHash;
+      if (message.oldHash === message.newHash) return;
       applyPatch(message);
       ws.send({
         newHash: message.newHash,
