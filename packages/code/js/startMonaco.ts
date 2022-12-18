@@ -319,19 +319,32 @@ async function startMonacoPristine(
     // );
   };
 
+  // const container = document.getElementById('container');
+  const shadowRoot = container.attachShadow({
+    mode: "closed",
+  });
+
+  const innerContainer = document.createElement("div");
+  shadowRoot.appendChild(innerContainer);
+  innerContainer.style.width = "800px";
+  innerContainer.style.height = "600px";
+
+  const innerStyle = document.createElement("style");
+  innerStyle.innerText = "@import \"/node_modules/monaco-editor/min/vs/editor/editor.main.css\";";
+  shadowRoot.appendChild(innerStyle);
   // const innerContainer = document.createElement("div");
 
   // innerContainer.style.width = "100%";
   // innerContainer.style.display = "block";
   // innerContainer.style.height = "100%";
 
-  // const target = shadowRoot.appendChild(innerContainer);
+  const target = shadowRoot.appendChild(innerContainer);
 
   // const innerStyle = document.createElement("style");
   // innerStyle.innerText = `@import "/Editor.css";`;
   // shadowRoot.appendChild(innerStyle);
   //
-  const target = container;
+  // const target = container;
 
   const myEditor = create(target, {
     model,
