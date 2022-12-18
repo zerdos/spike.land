@@ -2,6 +2,7 @@
 
 import * as monaco from "monaco-editor";
 const { editor, languages, Uri } = monaco;
+import { RpcProvider } from "worker-rpc";
 
 // import * as w from "./monacoExtra";
 import { getWorkerUrl } from "./monacoWorkers.mjs";
@@ -113,6 +114,25 @@ const monacoContribution = async (
     allowUmdGlobalAccess: false,
     include: [originToUse + "/"],
   });
+
+  const worker = new Worker("/ata.worker.js?"+ globalThis.assetHash),
+    rpcProvider = new RpcProvider(
+      (message, transfer) => worker.postMessage(message, transfer),
+    );
+
+  worker.onmessage = e => rpcProvider.dispatch(e.data);
+
+  rpcProvider
+    .rpc("ata", { code, origin })
+    .then(result => {
+      languages.typescript.typescriptDefaults.setExtraLibs(result);
+      languages.typescript.typescriptDefaults
+        .setDiagnosticsOptions({
+          noSuggestionDiagnostics: false,
+          noSemanticValidation: false,
+          noSyntaxValidation: false,
+        });
+    });
 
   languages.typescript.typescriptDefaults.setEagerModelSync(true);
   // })();
@@ -228,6 +248,7 @@ async function startMonacoPristine(
     // const sharedWorker = new SharedWorker(
     //   "/sharedWorker.js?" + globalThis.assetHash,
     // );
+
     console.log("******");
     console.log("******");
     console.log("******");
@@ -238,9 +259,30 @@ async function startMonacoPristine(
     console.log("******");
     console.log("******");
     console.log("******");
-    // sharedWorker.port.addEventListener("message", (e)=>{
-    console.log("******");
-    console.log("******");
+
+    // sharedWorker.port.addEventListener("message", (e) => {
+    //   if (e.data.type !== "ata") return;
+
+    //   console.log("******");
+    //   console.log("******");
+    //   console.log({ data: e.data.extraLibs });
+
+    //   console.log("******");
+    //   console.log("******");
+
+    //   languages.typescript.typescriptDefaults.setExtraLibs(e.data.extraLibs);
+    //   languages.typescript.typescriptDefaults
+    //     .setDiagnosticsOptions({
+    //       noSuggestionDiagnostics: false,
+    //       noSemanticValidation: false,
+    //       noSyntaxValidation: false,
+    //     });
+    // });
+
+    // sharedWorker.port.start();
+
+    // sharedWorker.port.postMessage({ code, baseUrl: originToUse, type: "ata" });
+
     console.log("******");
     console.log("******");
     // console.log(e.data)});
@@ -249,18 +291,8 @@ async function startMonacoPristine(
     console.log("******");
     console.log("******");
 
-    const { run } = await import("./ata");
+    // const { run } = await import("./ata");
 
-    languages.typescript.typescriptDefaults.setExtraLibs(
-      await run(code, originToUse),
-    );
-
-    languages.typescript.typescriptDefaults
-      .setDiagnosticsOptions({
-        noSuggestionDiagnostics: false,
-        noSemanticValidation: false,
-        noSyntaxValidation: false,
-      });
     // sharedWorker.port.start()
     // sharedWorker.port.postMessage({type: "ata", code, codeSpace, baseUrl: originToUse})
     // fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x => {

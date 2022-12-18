@@ -56,7 +56,12 @@ type Data = {
   target?: string;
   code: string;
   baseUrl: string;
-  type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "ata";
+  type?:
+    | "new-ice-candidate"
+    | "video-offer"
+    | "video-answer"
+    | "handshake"
+    | "ata";
   patch?: Delta[];
   reversePatch?: Delta[];
   address?: string;
@@ -116,9 +121,10 @@ async function onMessage(port: MessagePort, {
   if (i && !counters[codeSpace]) counters[codeSpace] = i;
   else if (i && counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
-  if (codeSpace && type === "ata") {
-    // const resp = await ata(code, baseUrl);
-    // port.postMessage(resp);
+  if (type === "ata" && code && baseUrl) {
+    return import("./ata").then(({ run }) => run(code, baseUrl)).then(extraLibs =>
+      port.postMessage({ type: "ata", extraLibs })
+    );
   }
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
@@ -161,10 +167,10 @@ async function onMessage(port: MessagePort, {
   };
 
   Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
-  if (mod[codeSpace].readyState === mod[codeSpace].OPEN) {
+  if (mod[codeSpace] && mod[codeSpace].readyState === mod[codeSpace].OPEN) {
     mod[codeSpace].send(JSON.stringify(obj));
   } else {
-    blockedMessages[codeSpace].push(JSON.stringify(obj));
+    blockedMessages[codeSpace] =  [...blockedMessages[codeSpace], JSON.stringify(obj)];
   }
 }
 let iii = 0;

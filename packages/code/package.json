@@ -106,7 +106,8 @@
     "util": "^0.12.5",
     "utils": "^0.3.1",
     "uuid": "^9.0.0",
-    "webrtc-adapter": "^8.2.0"
+    "webrtc-adapter": "^8.2.0",
+    "worker-rpc": "^0.2.0"
   },
   "devDependencies": {
     "@libp2p/interfaces": "3.0.6",

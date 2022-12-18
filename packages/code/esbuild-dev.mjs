@@ -214,6 +214,7 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "js/sw.ts",
+      "js/ata.worker.ts",
       "js/sharedWorker.ts",
     ],
     bundle: true,
@@ -281,6 +282,7 @@ const build = (
       "js/jsx.mjs",
     ],
     [ // "react",
+      "react-rnd",
       // "react-dom",
       // "react-dom/",
       // "react-icons",

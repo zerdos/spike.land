@@ -388,7 +388,11 @@ const ignoreUsers: string[] = [];
 //   maxWait: 500,
 // });
 
-const syncDb = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
+const syncDb = async (
+  oldSession: ICodeSession,
+  newSession: ICodeSession,
+  message: CodePatch,
+) =>
   await syncStorage(
     async (key: string, value: unknown) => await codeHistory.setItem(key, value),
     async (key: string) => await codeHistory.getItem(key),
