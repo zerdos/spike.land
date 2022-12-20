@@ -162,7 +162,8 @@ var require_dist = __commonJS({
       cacheControl: defaultCacheControl,
       defaultMimeType: "text/plain",
       defaultDocument: "index.html",
-      pathIsEncoded: false
+      pathIsEncoded: false,
+      defaultETag: "strong"
     };
     function assignOptions(options) {
       return Object.assign({}, getAssetFromKVDefaultOptions, options);
@@ -249,14 +250,17 @@ var require_dist = __commonJS({
             return defaultCacheControl;
         }
       })();
-      const formatETag = (entityId = pathKey, validatorType = "strong") => {
+      const formatETag = (entityId = pathKey, validatorType = options.defaultETag) => {
         if (!entityId) {
           return "";
         }
         switch (validatorType) {
           case "weak":
             if (!entityId.startsWith("W/")) {
-              return `W/${entityId}`;
+              if (entityId.startsWith(`"`) && entityId.endsWith(`"`)) {
+                return `W/${entityId}`;
+              }
+              return `W/"${entityId}"`;
             }
             return entityId;
           case "strong":
@@ -314,9 +318,9 @@ var require_dist = __commonJS({
         response = new Response(body);
         if (shouldEdgeCache) {
           response.headers.set("Accept-Ranges", "bytes");
-          response.headers.set("Content-Length", body.length);
+          response.headers.set("Content-Length", String(body.byteLength));
           if (!response.headers.has("etag")) {
-            response.headers.set("etag", formatETag(pathKey, "strong"));
+            response.headers.set("etag", formatETag(pathKey));
           }
           response.headers.set("Cache-Control", `max-age=${options.cacheControl.edgeTTL}`);
           event.waitUntil(cache.put(cacheKey, response.clone()));
@@ -325,7 +329,7 @@ var require_dist = __commonJS({
       }
       response.headers.set("Content-Type", mimeType);
       if (response.status === 304) {
-        let etag = formatETag(response.headers.get("etag"), "strong");
+        let etag = formatETag(response.headers.get("etag"));
         let ifNoneMatch = cacheKey.headers.get("if-none-match");
         let proxyCacheStatus = response.headers.get("CF-Cache-Status");
         if (etag) {
@@ -435,9 +439,9 @@ var package_default = {
     "detective-typescript": "^9.0.0",
     "es-module-shims": "1.6.2",
     "esbuild-plugin-external-global": "1.0.1",
-    "esbuild-wasm": "0.16.9",
+    "esbuild-wasm": "0.16.10",
     "fast-diff": "1.2.0",
-    "framer-motion": "7.10.2",
+    "framer-motion": "7.10.3",
     immutable: "^4.1.0",
     "is-callable": "1.2.7",
     localforage: "^1.10.0",
@@ -456,7 +460,7 @@ var package_default = {
     "react-icons": "4.7.1",
     "react-qrious": "2.5.6",
     "react-reverse-portal": "2.1.1",
-    "react-rnd": "^10.4.0",
+    "react-rnd": "^10.4.1",
     util: "^0.12.5",
     utils: "^0.3.1",
     uuid: "^9.0.0",
@@ -464,7 +468,7 @@ var package_default = {
     "worker-rpc": "^0.2.0"
   },
   devDependencies: {
-    "@libp2p/interfaces": "3.0.6",
+    "@libp2p/interfaces": "3.1.0",
     "@motionone/dom": "10.15.3",
     "@types/eslint": "^8.4.10",
     "@types/hoist-non-react-statics": "^3.3.1",
@@ -477,10 +481,10 @@ var package_default = {
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
     "@types/uuid": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "@yarnpkg/sdks": "3.0.0-rc.33",
-    esbuild: "0.16.9",
+    esbuild: "0.16.10",
     "esbuild-plugin-alias": "0.2.1",
     eslint: "^8.30.0",
     "eslint-plugin-react": "^7.31.11",

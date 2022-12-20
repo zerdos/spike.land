@@ -583,7 +583,7 @@ export class Code {
         case "public": {
           const respText = HTML.replace(
             "/**reset*/",
-            resetCSS + css.split(md5(transpiled)).join(`css`),
+            resetCSS,
           )
             .replace(
               `<script type="importmap"></script>`,
@@ -591,7 +591,7 @@ export class Code {
             )
             .replace(
               `<div id="root"></div>`,
-              `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
+              `<div id="root" data-i="${i}" style="height: 100%;"><style>${css}</style>${html}</div>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
           // const Etag = request.headers.get("Etag");

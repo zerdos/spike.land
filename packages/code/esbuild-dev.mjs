@@ -67,6 +67,9 @@ const define = {
 const buildOptions = {
   define,
   target,
+  alias: {
+    "react-rnd": "/npm:/*react-rnd@10.3.7",
+  },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
   loader: {
@@ -283,8 +286,10 @@ const build = (
       // "js/emotionJsxRuntime.ts",
       "js/jsx.mjs",
     ],
-    [ // "react",
-      "react-rnd",
+    [
+      "/npm:/*",
+      // "react",
+      //  "react-rnd",
       // "react-dom",
       // "react-dom/",
       // "react-icons",
