@@ -99,12 +99,10 @@ const BC = new BroadcastChannel(location.href + "/");
 // });
 // let rpcProvider;
 const mutex = new Mutex();
-let sess: ICodeSession;
-let lastCode;
 
 BC.onmessage = ({ data }) => {
   if (data.counter !== counterMax) return;
-  counterMax--;
+
   if (!data.html) return;
   const sess = {
     ...mST(),
@@ -136,9 +134,9 @@ export async function runner({ code, counter, codeSpace }: {
   counterMax = counter;
   controller.abort();
 
+  controller = new AbortController();
+
   await mutex.runExclusive(async () => {
-    if (counter < counterMax) return;
-    controller = new AbortController();
     // Console.log({ i, counter });
 
     // mod.i = counter;
@@ -155,7 +153,7 @@ export async function runner({ code, counter, codeSpace }: {
       // const pp = await buildT(codeSpace, counter, ab.signal);
       // if (!pp) return;
       const transpiled = await esmTransform(code);
-
+      if (controller.signal.aborted) return;
       BC.postMessage({ counter, i: counter, transpiled, code });
 
       // console.log("still alive2");
