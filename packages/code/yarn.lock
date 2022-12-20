@@ -828,7 +828,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:7.10.2"
+    framer-motion: "npm:7.10.3"
     immutable: "npm:^4.1.0"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
@@ -3120,9 +3120,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:7.10.2":
-  version: 7.10.2
-  resolution: "framer-motion@npm:7.10.2"
+"framer-motion@npm:7.10.3":
+  version: 7.10.3
+  resolution: "framer-motion@npm:7.10.3"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
@@ -3134,7 +3134,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 6812f0c42b2afa80e0d2a9f4c9b6f999712b113457037e5fbdf35dd4b1da61df95da99ca6400e2511edbb297bc16aa58b22682d7bdd054f357b9d1a975493305
+  checksum: c149a36dd740aa591f042676c53b9a97b0ce904e55cee499235b0dd3acaf9a20b0a80c9570f71b3619c65d498aec3bf01408fef49cb45ce85e6f0c78ecf7c755
   languageName: node
   linkType: hard
 

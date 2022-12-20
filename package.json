@@ -36,12 +36,12 @@
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
     "@types/xo": "^0.39.5",
-    "@typescript-eslint/eslint-plugin": "^5.46.1",
-    "@typescript-eslint/parser": "^5.46.1",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "@yarnpkg/sdks": "3.0.0-rc.33",
     "cypress": "12.1.0",
-    "dprint": "^0.33.0",
-    "esbuild": "^0.16.9",
+    "dprint": "^0.34.0",
+    "esbuild": "^0.16.10",
     "eslint": "^8.30.0",
     "eslint-plugin-react": "^7.31.11",
     "playwright": "1.29.0",
@@ -52,7 +52,7 @@
   "dependencies": {
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
-    "react-rnd": "^10.4.0",
+    "react-rnd": "^10.4.1",
     "util": "^0.12.5",
     "utils": "^0.3.1"
   }
