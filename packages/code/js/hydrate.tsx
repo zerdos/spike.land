@@ -30,38 +30,40 @@ const user = md5((self && self.crypto && self.crypto.randomUUID
 
 const BC = new BroadcastChannel(location.href);
 let controller = new AbortController();
-BC.onmessage = async (e) => {
-  if (e.data.html) return;
-  if (e.data.counter <= counterMax) return;
-  counterMax = e.data.counter;
-  controller.abort();
-  controller = new AbortController();
-  const data = e.data;
-  // render(data.transpiled);
-  const appId = md5(data.transpiled);
-  const App = await (appFactory(data.transpiled));
-  // const rootDiv = document.createElement("div");
-  // divs[appId] = rootDiv;
-  // const root = createRoot(rootDiv);
-  if (!r) {
-    root = document.getElementById("root")!;
-    r = createRoot(document.getElementById("root")!);
-  }
-  r.render(<App appId={appId}></App>);
-
-  while (true) {
-    await wait(50);
-    if (controller.signal.aborted) return;
-    const html = root.innerHTML;
-
-    if (html.indexOf(appId)) {
-      const css = mineFromCaches(globalThis.eCaches[appId]);
-      BC.postMessage({ ...data, html, css });
-    }
-  }
-};
 
 export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
+  BC.onmessage = async (e) => {
+    if (e.data.html) return;
+    if (e.data.codeSpace !== codeSpace) return;
+    if (e.data.counter <= counterMax) return;
+    counterMax = e.data.counter;
+    controller.abort();
+    controller = new AbortController();
+    const data = e.data;
+    // render(data.transpiled);
+    const appId = md5(data.transpiled);
+    const App = await (appFactory(data.transpiled));
+    // const rootDiv = document.createElement("div");
+    // divs[appId] = rootDiv;
+    // const root = createRoot(rootDiv);
+    if (!r) {
+      root = document.getElementById("root")!;
+      r = createRoot(document.getElementById("root")!);
+    }
+    r.render(<App appId={appId}></App>);
+
+    while (true) {
+      await wait(50);
+      if (controller.signal.aborted) return;
+      const html = root.innerHTML;
+
+      if (html.indexOf(appId)) {
+        const css = mineFromCaches(globalThis.eCaches[appId]);
+        BC.postMessage({ ...data, html, css });
+      }
+    }
+  };
+
   if (sess?.i && sess.i === lastI) return;
 
   if (sess && sess.transpiled) {
