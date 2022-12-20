@@ -103,10 +103,12 @@ const mutex = new Mutex();
 
 BC.onmessage = async ({ data }) => {
   if (!data.html) return;
+  if (data.counter === mST().i) return;
 
   if (data.counter !== counterMax) return;
 
   // counterMax--;
+
   const sess = {
     ...mST(),
     // code,
