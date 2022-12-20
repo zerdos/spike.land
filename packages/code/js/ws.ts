@@ -33,7 +33,7 @@ import { md5 } from "./md5"; // import { wait } from "wait";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
-import { wait } from "./wait.js";
+import { wait } from "./wait";
 // import { isBuffer } from "util";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'

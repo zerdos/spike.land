@@ -34,7 +34,7 @@
       "imports": []
     },
     "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-      "bytes": 11622,
+      "bytes": 11802,
       "imports": [
         {
           "path": "../../node_modules/mime/index.js",
@@ -47,7 +47,7 @@
       ]
     },
     "../code/package.json": {
-      "bytes": 4849,
+      "bytes": 4851,
       "imports": []
     },
     "../code/dist/chunk-chunk-A3E5PINE.mjs": {
@@ -295,13 +295,13 @@
           "bytesInOutput": 1240
         },
         "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-          "bytesInOutput": 8848
+          "bytesInOutput": 9010
         },
         "src/chat.ts": {
           "bytesInOutput": 9494
         },
         "../code/package.json": {
-          "bytesInOutput": 4750
+          "bytesInOutput": 4752
         },
         "../code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
@@ -349,7 +349,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 314844
+      "bytes": 315008
     }
   }
 }
