@@ -9,6 +9,7 @@
     "react/jsx-runtime": "/jsx.mjs",
     "react-dom": "/reactDom.mjs",
     "react-dom/client": "/reactDomClient.mjs",
+    "react-error-boundary": "/*react-error-boundary",
     "hydrate.mjs": "/hydrate.mjs",
     "load.mjs": "/load.mjs",
     "react-rnd": "/*react-rnd@10.3.7"
