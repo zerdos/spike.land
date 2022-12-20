@@ -31,8 +31,8 @@ const user = md5((self && self.crypto && self.crypto.randomUUID
 const BC = new BroadcastChannel(location.href);
 let controller = new AbortController();
 BC.onmessage = async (e) => {
-  if (e.data.counter <= counterMax) return;
   if (e.data.html) return;
+  if (e.data.counter <= counterMax) return;
   counterMax = e.data.counter;
   controller.abort();
   controller = new AbortController();
