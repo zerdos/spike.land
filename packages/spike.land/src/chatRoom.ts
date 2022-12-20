@@ -591,7 +591,7 @@ export class Code {
             )
             .replace(
               `<div id="root"></div>`,
-              `<div id="root" data-i="${i}" style="height: 100%;"><style>${css}</style>${html}</div>`,
+              `<div id="root" data-i="${i}" style="height: 100%;"><div id="root-${this.codeSpace}" style="height: 100%;"><style>${css}</style>${html}</div></div>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
           // const Etag = request.headers.get("Etag");
