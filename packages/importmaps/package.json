@@ -7,7 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/react-dom": "18.0.9",
-    "esbuild": "0.16.9",
+    "esbuild": "0.16.10",
     "esbuild-plugin-import-map": "2.1.0",
     "serve": "14.1.2",
     "typescript": "^4.9.4"
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
-    "framer-motion": "7.10.2",
+    "framer-motion": "7.10.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },

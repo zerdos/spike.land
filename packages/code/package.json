@@ -83,7 +83,7 @@
     "esbuild-plugin-external-global": "1.0.1",
     "esbuild-wasm": "0.16.10",
     "fast-diff": "1.2.0",
-    "framer-motion": "7.10.2",
+    "framer-motion": "7.10.3",
     "immutable": "^4.1.0",
     "is-callable": "1.2.7",
     "localforage": "^1.10.0",
