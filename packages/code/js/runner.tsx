@@ -1,6 +1,7 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
+import { wait } from "wait";
 import { syncWS } from "ws";
 import { build, transform } from "./esbuildEsm";
 
@@ -100,11 +101,12 @@ const BC = new BroadcastChannel(location.href + "/");
 // let rpcProvider;
 const mutex = new Mutex();
 
-BC.onmessage = ({ data }) => {
+BC.onmessage = async ({ data }) => {
+  if (!data.html) return;
+
   if (data.counter !== counterMax) return;
 
-  if (!data.html) return;
-  counterMax--;
+  // counterMax--;
   const sess = {
     ...mST(),
     // code,
@@ -115,6 +117,10 @@ BC.onmessage = ({ data }) => {
     // html,
     // css,
   };
+
+  await wait(100);
+  if (data.counter !== counterMax) return;
+
   syncWS(sess);
 };
 
