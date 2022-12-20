@@ -188,6 +188,7 @@ const build = (
     minifySyntax: true, // ! isDevelopment,
     ignoreAnnotations: false,
     keepNames: true,
+
     platform: "browser",
     outExtension: { ".js": ".workerJs.js" },
     format: "iife",
@@ -218,6 +219,7 @@ const build = (
       "js/sharedWorker.ts",
     ],
     bundle: true,
+
     define,
     minify: false, // ! isDevelopment,
     minifyWhitespace: false, // ! isDevelopment,

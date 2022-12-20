@@ -327,11 +327,10 @@ async function startMonacoPristine(
   const innerContainer = document.createElement("div");
   shadowRoot.appendChild(innerContainer);
   innerContainer.style.width = "100%";
-  innerContainer.style.display = "block";
   innerContainer.style.height = "100%";
 
   const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import "/Editor.css";`;
+  innerStyle.innerText = `@import "${originToUse}/node_modules/monaco-editor/min/vs/editor/editor.main.css";`;
   shadowRoot.appendChild(innerStyle);
   // const innerContainer = document.createElement("div");
 
@@ -339,15 +338,13 @@ async function startMonacoPristine(
   // innerContainer.style.display = "block";
   // innerContainer.style.height = "100%";
 
-  const target = shadowRoot.appendChild(innerContainer);
-
   // const innerStyle = document.createElement("style");
   // innerStyle.innerText = `@import "/Editor.css";`;
   // shadowRoot.appendChild(innerStyle);
   //
   // const target = container;
 
-  const myEditor = create(target, {
+  const myEditor = create(innerContainer, {
     model,
     scrollbar: {
       scrollByPage: false,
