@@ -915,7 +915,7 @@ export class Code {
           if (md5(newSess) === newHash) {
             patchSync(newSess);
           } else {
-            return respondWith({ hashCode: hashCode() });
+            return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
           }
 
           // try {

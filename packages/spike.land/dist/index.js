@@ -8213,7 +8213,7 @@ var Code = class {
           if (md5(newSess) === newHash) {
             patchSync(newSess);
           } else {
-            return respondWith({ hashCode: hashCode3() });
+            return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
           }
           try {
             this.broadcast(data);
