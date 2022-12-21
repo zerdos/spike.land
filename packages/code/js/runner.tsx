@@ -3,7 +3,6 @@ import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
 import { wait } from "wait";
 import { syncWS } from "ws";
-import { build, transform } from "./esbuildEsm";
 
 // import { RpcProvider } from "worker-rpc";
 
@@ -34,7 +33,10 @@ import { toUmd } from "./toUmd";
 //   OriginalLog(mess, ...args);
 // };
 
+let transform;
 export const esmTransform = async (code: string) => {
+  transform = transform || (await import(`./esbuildEsm`)).transform;
+
   const transpiled = await transform(code, {
     loader: "tsx",
     format: "esm",
@@ -58,7 +60,7 @@ export const esmTransform = async (code: string) => {
 
   return transpiled.code;
 };
-Object.assign(globalThis, { transform, build, toUmd });
+// Object.assign(globalThis, { transform, build, toUmd });
 
 let counterMax = mST().i;
 const IIFE = {};

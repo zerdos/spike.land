@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FTWF2WCW.mjs": {
-      "bytes": 201478,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-CXJBFON6.mjs": {
+      "bytes": 201439,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs",
@@ -73,7 +73,7 @@
       "bytes": 519,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FTWF2WCW.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-CXJBFON6.mjs",
           "kind": "import-statement"
         },
         {
@@ -97,7 +97,7 @@
       ]
     },
     "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
-      "bytes": 540,
+      "bytes": 501,
       "imports": []
     },
     "src/handleErrors.ts": {
@@ -306,14 +306,14 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FTWF2WCW.mjs": {
-          "bytesInOutput": 200135
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-CXJBFON6.mjs": {
+          "bytesInOutput": 200096
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json": {
-          "bytesInOutput": 562
+          "bytesInOutput": 523
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 840
@@ -349,7 +349,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 316331
+      "bytes": 316253
     }
   }
 }

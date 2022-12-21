@@ -537,7 +537,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-FTWF2WCW.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-CXJBFON6.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6142,8 +6142,7 @@ var importmap_default = {
     "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
     "hydrate.mjs": "/hydrate.mjs",
-    "load.mjs": "/load.mjs",
-    "react-rnd": "/*react-rnd@10.3.7"
+    "load.mjs": "/load.mjs"
   }
 };
 var importMapImports = importmap_default.imports;
@@ -6509,8 +6508,7 @@ var importmap_default2 = {
     "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
     "hydrate.mjs": "/hydrate.mjs",
-    "load.mjs": "/load.mjs",
-    "react-rnd": "/*react-rnd@10.3.7"
+    "load.mjs": "/load.mjs"
   }
 };
 
