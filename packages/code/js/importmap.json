@@ -11,7 +11,6 @@
     "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
     "hydrate.mjs": "/hydrate.mjs",
-    "load.mjs": "/load.mjs",
-    "react-rnd": "/*react-rnd@10.3.7"
+    "load.mjs": "/load.mjs"
   }
 }

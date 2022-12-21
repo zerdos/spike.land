@@ -376,9 +376,10 @@ export async function appFactory(
   transpiled = "",
 ): Promise<FC<{ appId: string }>> {
   // }
+
   const { transpiled: mstTranspiled, i: mstI } = mST();
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
-
+  if (transpiled) console.log({ transpiled });
   const hash = md5(trp);
 
   if (!apps[hash] || !eCaches[hash]) {

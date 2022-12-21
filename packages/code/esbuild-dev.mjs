@@ -67,9 +67,9 @@ const define = {
 const buildOptions = {
   define,
   target,
-  alias: {
-    "react-rnd": "/npm:/*react-rnd@10.3.7",
-  },
+  // alias: {
+  //   "react-rnd": "/npm:/*react-rnd@10.3.7",
+  // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
   loader: {
