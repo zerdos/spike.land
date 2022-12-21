@@ -110,6 +110,6 @@ export function importMapReplace(
   return returnStr;
 }
 function replaceAll(inp: string, search: string, replace: string) {
-  if (!input) return input;
+  if (!inp) return inp;
   return inp.split(search).join(replace);
 }
