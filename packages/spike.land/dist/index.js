@@ -537,7 +537,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-UZUG4WS3.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-7AUORB6W.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6227,8 +6227,8 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
 }
 __name(importMapReplace, "importMapReplace");
 function replaceAll(inp, search, replace) {
-  if (!input)
-    return input;
+  if (!inp)
+    return inp;
   return inp.split(search).join(replace);
 }
 __name(replaceAll, "replaceAll");
