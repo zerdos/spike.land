@@ -592,6 +592,55 @@ export class Code {
             .replace(
               `<div id="root"></div>`,
               `<div id="root" data-i="${i}" style="height: 100%;">
+              <iframe
+              frameBorder="0"
+              src="/live/${this.codeSpace}/iframe" /></div>`,
+            ).split("ASSET_HASH").join(ASSET_HASH);
+
+          // const Etag = request.headers.get("Etag");
+          // const newEtag = await sha256(respText);
+          const headers = new Headers();
+          headers.set("Access-Control-Allow-Origin", "*");
+
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.set("Cross-Origin-Opener-Policy", "same-origin");
+          headers.set(
+            "Cache-Control",
+            "no-cache",
+          );
+
+          // headers.set('Etag', newEtag);
+
+          // if (Etag === newEtag) {
+          //   // headers.set('CF-Cache-Status', 'HIT');
+          //   return new Response(null, {
+          //     status: 304,
+          //     statusText: "Not modified",
+          //     headers,
+          //   });
+          // }
+
+          headers.set("Content-Type", "text/html; charset=UTF-8");
+          headers.set("content_hash", md5(respText));
+          // headers.set("Etag", newEtag)
+          // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
+          return new Response(respText, {
+            status: 200,
+            headers,
+          });
+        }
+        case "iframe": {
+          const respText = HTML.replace(
+            "/**reset*/",
+            resetCSS,
+          )
+            .replace(
+              `<script type="importmap"></script>`,
+              `<script type="importmap">${JSON.stringify(importMap)}</script>`,
+            )
+            .replace(
+              `<div id="root"></div>`,
+              `<div id="root" data-i="${i}" style="height: 100%;">
               <style>${css}</style>
               <div style="height: 100%;">
                 ${html}
