@@ -168,7 +168,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 34457,
+      "bytes": 34253,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -302,7 +302,7 @@
           "bytesInOutput": 1506
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs": {
-          "bytesInOutput": 200160
+          "bytesInOutput": 200181
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -329,7 +329,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 21819
+          "bytesInOutput": 21627
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -344,7 +344,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 317552
+      "bytes": 317381
     }
   }
 }
