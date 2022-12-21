@@ -462,7 +462,7 @@ export async function syncWS(newSession: ICodeSession) {
       console.log("alive5");
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
-      wsLastHashCode = message.newHash;
+      // wsLastHashCode = message.newHash;
       await wait(120);
       if (message.oldHash === message.newHash) return;
       if (controller.signal.aborted) return;
