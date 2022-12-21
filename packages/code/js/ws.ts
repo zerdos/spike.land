@@ -458,6 +458,14 @@ export async function syncWS(newSession: ICodeSession) {
       const message = makePatch(
         newSession,
       );
+
+      const nnn = mST(message?.patch);
+
+      if (md5(nnn.transpiled) !== message?.newHash) {
+        console.log("SESS IS NOT OK");
+        return;
+      }
+
       console.log("alive4");
 
       if (!message) {
@@ -477,6 +485,10 @@ export async function syncWS(newSession: ICodeSession) {
       if (message.oldHash === message.newHash) return;
       if (controller.signal.aborted) return;
       applyPatch(message);
+      if (md5(mST(message.reversePatch).transpiled) !== message.oldHash) {
+        console.log("SESS IS NOT OK at all");
+        return;
+      }
       ws.send({
         newHash: message.newHash,
         oldHash: message.oldHash,
