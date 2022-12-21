@@ -212,7 +212,17 @@ function reconnect(codeSpace: string, name: string) {
       const hash = patch.newHash || patch.hashCode;
       if (hash && head && hash !== head) {
         const next = await db.getItem(hash);
-        if (next) return mod[codeSpace].send(JSON.stringify({ ...mess, ...next }));
+        if (next) {
+          return mod[codeSpace].send(
+            JSON.stringify({
+              oldHash: next.oldHash,
+              newHash: next.newHash,
+              patch: next.pach,
+              reversePatch: next.reversePatch,
+              name: next.name,
+            }),
+          );
+        }
       }
       if (hash && hashStore[hash]) {
         mess.sess = hashStore[hash];
