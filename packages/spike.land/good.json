@@ -168,7 +168,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 34334,
+      "bytes": 34385,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -329,7 +329,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 21425
+          "bytesInOutput": 21475
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -344,7 +344,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 317176
+      "bytes": 317226
     }
   }
 }
