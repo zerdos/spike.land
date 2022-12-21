@@ -6,9 +6,9 @@ import { syncWS } from "ws";
 
 // import { RpcProvider } from "worker-rpc";
 
-import type { ICodeSession } from "./session";
-import { md5, mST } from "./session";
-import { toUmd } from "./toUmd";
+// import type { ICodeSession } from "./session";
+import { mST } from "./session";
+// import { toUmd } from "./toUmd";
 
 // globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)
 
@@ -63,34 +63,34 @@ export const esmTransform = async (code: string) => {
 // Object.assign(globalThis, { transform, build, toUmd });
 
 let counterMax = mST().i;
-const IIFE = {};
+// const IIFE = {};
 
-export const umdTransform = async (code: string) => {
-  const transpiled = await transform(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        module: "ESNext",
-        jsxFragmentFactory: "Fragment",
-        useDefineForClassFields: false,
-        jsxImportSource: "@emotion/react",
-      },
-    },
-    target: "es2021",
-  } as unknown as TransformOptions);
+// export const umdTransform = async (code: string) => {
+//   const transpiled = await transform(code, {
+//     loader: "tsx",
+//     format: "esm",
+//     treeShaking: true,
+//     platform: "browser",
+//     minify: false,
+//     globalName: md5(code),
+//     keepNames: true,
+//     tsconfigRaw: {
+//       compilerOptions: {
+//         jsx: "react-jsx",
+//         module: "ESNext",
+//         jsxFragmentFactory: "Fragment",
+//         useDefineForClassFields: false,
+//         jsxImportSource: "@emotion/react",
+//       },
+//     },
+//     target: "es2021",
+//   } as unknown as TransformOptions);
 
-  Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
-  // apps[md5(transpiled.code)] = require(md5(code));
+//   Object.assign(IIFE, { [md5(transpiled.code)]: md5(code) });
+//   // apps[md5(transpiled.code)] = require(md5(code));
 
-  return transpiled.code;
-};
+//   return transpiled.code;
+// };
 
 const BC = new BroadcastChannel(location.href + "/");
 // Object.assign(globalThis, {

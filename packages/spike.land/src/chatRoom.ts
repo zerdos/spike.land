@@ -26,7 +26,7 @@ import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from 
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
-import pMap from "p-map";
+// import pMap from "p-map";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";

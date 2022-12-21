@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-NZZRCOMT.mjs": {
-      "bytes": 201503,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs": {
+      "bytes": 201482,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs",
@@ -73,7 +73,7 @@
       "bytes": 519,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-NZZRCOMT.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs",
           "kind": "import-statement"
         },
         {
@@ -168,7 +168,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 34454,
+      "bytes": 34457,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -197,11 +197,6 @@
         {
           "path": "../../.yarn/global/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js",
           "kind": "import-statement"
-        },
-        {
-          "path": "p-map",
-          "kind": "import-statement",
-          "external": true
         },
         {
           "path": "./env",
@@ -306,7 +301,7 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-NZZRCOMT.mjs": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs": {
           "bytesInOutput": 200160
         },
         "src/staticContent.mjs": {
