@@ -99,7 +99,7 @@ export const renderPreviewWindow = (
 
   let rootEl: HTMLDivElement | null = document.querySelector(`#${codeSpace}-css`)
     || document.getElementById(`code-main-css`)
-    || document.querySelector(`#root`)?.querySelector("div")?.firstElementChild;
+    || document.querySelector(`#root`)?.querySelector("div");
   if (!rootEl) {
     rootEl = document.createElement("div");
     rootEl.setAttribute("id", `${codeSpace}-css`);
