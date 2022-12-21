@@ -211,17 +211,21 @@ function reconnect(codeSpace: string, name: string) {
 
       const hash = patch.newHash || patch.hashCode;
       if (hash && head && hash !== head) {
-        const next = await db.getItem(hash);
-        if (next) {
-          return mod[codeSpace].send(
-            JSON.stringify({
-              oldHash: next.oldHash,
-              newHash: next.newHash,
-              patch: next.pach,
-              reversePatch: next.reversePatch,
-              name: next.name,
-            }),
-          );
+        const old = await db.getItem(hash);
+
+        if (old) {
+          const next = await db.getItem(old.newHash);
+          if (next) {
+            return mod[codeSpace].send(
+              JSON.stringify({
+                oldHash: next.oldHash,
+                newHash: next.newHash,
+                patch: next.pach,
+                reversePatch: next.reversePatch,
+                name: next.name,
+              }),
+            );
+          }
         }
       }
       if (hash && hashStore[hash]) {
