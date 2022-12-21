@@ -8013,6 +8013,35 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" data-i="${i}" style="height: 100%;">
+              <iframe
+              frameBorder="0"
+              src="/live/${this.codeSpace}/iframe" /></div>`
+          ).split("ASSET_HASH").join(ASSET_HASH);
+          const headers = new Headers();
+          headers.set("Access-Control-Allow-Origin", "*");
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.set("Cross-Origin-Opener-Policy", "same-origin");
+          headers.set(
+            "Cache-Control",
+            "no-cache"
+          );
+          headers.set("Content-Type", "text/html; charset=UTF-8");
+          headers.set("content_hash", md5(respText));
+          return new Response(respText, {
+            status: 200,
+            headers
+          });
+        }
+        case "iframe": {
+          const respText = src_default.replace(
+            "/**reset*/",
+            resetCSS
+          ).replace(
+            `<script type="importmap"><\/script>`,
+            `<script type="importmap">${JSON.stringify(importmap_default2)}<\/script>`
+          ).replace(
+            `<div id="root"></div>`,
+            `<div id="root" data-i="${i}" style="height: 100%;">
               <style>${css}</style>
               <div style="height: 100%;">
                 ${html}
