@@ -221,7 +221,17 @@ function reconnect(codeSpace: string, name: string) {
   const websocket = new WebSocket(
     `wss://${location.host}/live/` + codeSpace + "/websocket",
   );
-  mod[codeSpace] = websocket;
+  mod[codeSpace] = {
+    ...websocket,
+    send: (msg: string) => {
+      blockedMessages[codeSpace] = [...(blockedMessages[codeSpace]), msg];
+
+      while (websocket.readyState === websocket.OPEN && blockedMessages[codeSpace].length) {
+        const mess = blockedMessages[codeSpace].shift();
+        if (mess) websocket.send(mess);
+      }
+    },
+  };
   websocket.addEventListener(
     "message",
     async (ev) => {
@@ -284,9 +294,8 @@ function reconnect(codeSpace: string, name: string) {
 
   blockedMessages[codeSpace].push(JSON.stringify({ name }));
   websocket.onopen = () => {
-    let i = 0;
-    while (i <= blockedMessages[codeSpace].length) {
-      const mess = blockedMessages[codeSpace][i++];
+    while (websocket.readyState === websocket.OPEN && blockedMessages[codeSpace].length) {
+      const mess = blockedMessages[codeSpace].shift();
       if (mess) websocket.send(mess);
     }
   };
