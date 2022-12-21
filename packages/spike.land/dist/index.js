@@ -537,7 +537,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-KC2EGVGX.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6345,35 +6345,37 @@ var CodeSession = class {
         patch
       };
     };
-    this.patchSync = (sess) => {
-      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-        throw new Error("Code update without I update error");
-      sess.i;
-      if (sess.i < this.session.get("state").i) {
-        console.log("never going back!");
-        sess.i = this.session.get("state").i + 1;
-      }
-      if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-        throw new Error("Code update without I update error");
-      if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
-        console.error(
-          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
-        );
-        throw new Error("transpiled	hack issue");
-      }
-      if (sess.code.length < 5) {
-        throw new Error("code deleted?");
-      }
-      if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
-        console.error(`missing md5trans from html: ${md5(sess.transpiled)}
+    this.patchSync = (sess, force = false) => {
+      if (!force) {
+        if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+          throw new Error("Code update without I update error");
+        sess.i;
+        if (sess.i < this.session.get("state").i) {
+          console.log("never going back!");
+          sess.i = this.session.get("state").i + 1;
+        }
+        if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
+          throw new Error("Code update without I update error");
+        if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
+          console.error(
+            `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
+          );
+          throw new Error("transpiled	hack issue");
+        }
+        if (sess.code.length < 5) {
+          throw new Error("code deleted?");
+        }
+        if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
+          console.error(`missing md5trans from html: ${md5(sess.transpiled)}
       ${sess.html.slice(0, 64)}
       
       `);
-        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-      }
-      if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
-        console.error(`missing from css: ${md5(sess.transpiled)}`);
-        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+          throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+        }
+        if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
+          console.error(`missing from css: ${md5(sess.transpiled)}`);
+          throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+        }
       }
       const oldHash = md5(this.session.get("state").transpiled);
       this.session = this.session.set(
@@ -6491,7 +6493,7 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
-var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i: mST().i + 1 }), "patchSync");
+var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess }), "patchSync");
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -8223,16 +8225,15 @@ var Code = class {
               "msg": "broadcast issue"
             });
           }
-          const newSession = newSess;
-          const syncKV = async (oldSession2, newSession2, message) => await syncStorage(
+          const syncKV = async (oldSession2, newSess2, message) => await syncStorage(
             async (key, value) => await this.kv.put(key, value),
             async (key) => await this.kv.get(key),
             oldSession2,
-            newSession2,
+            newSess2,
             message
           );
-          await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
-          await this.kv.put("session", { ...mST() });
+          await this.kv.put("session", newSess);
+          syncKV(oldSession, newSess, { newHash, oldHash, patch, reversePatch });
           return respondWith({
             hashCode: hashCode3()
           });

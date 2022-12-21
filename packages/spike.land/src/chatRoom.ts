@@ -934,17 +934,18 @@ export class Code {
               "msg": "broadcast issue",
             });
           }
-          const newSession = newSess;
-          const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
+
+          const syncKV = async (oldSession: ICodeSession, newSess: ICodeSession, message: CodePatch) =>
             await syncStorage(
               async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
               async (key: string) => await this.kv.get(key),
               oldSession,
-              newSession,
+              newSess,
               message,
             );
-          await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
-          await this.kv.put<ICodeSession>("session", { ...mST() });
+          await this.kv.put<ICodeSession>("session", newSess);
+          syncKV(oldSession, newSess, { newHash, oldHash, patch, reversePatch });
+
           // await this.kv.put(
           //   String(newHash),
           //   JSON.stringify({

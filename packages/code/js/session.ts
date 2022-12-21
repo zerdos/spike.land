@@ -80,7 +80,7 @@ export const syncStorage = async (
   newSession: ICodeSession,
   message: {
     oldHash: string;
-    newHash: any;
+    newHash: string;
     reversePatch: Delta[];
     patch: Delta[];
   },
@@ -259,44 +259,46 @@ export class CodeSession implements ICodeSess {
     };
   };
 
-  patchSync = (sess: ICodeSession) => {
-    if (
-      sess.code !== this.session.get("state").code
-      && sess.i <= this.session.get("state").i
-    ) throw new Error("Code update without I update error");
-    sess.i;
-    if (sess.i < this.session.get("state").i) {
-      console.log("never going back!");
-      sess.i = this.session.get("state").i + 1;
-      // return;
-    }
-    if (
-      sess.code !== this.session.get("state").code
-      && sess.i <= this.session.get("state").i
-    ) throw new Error("Code update without I update error");
+  patchSync = (sess: ICodeSession, force = false) => {
+    if (!force) {
+      if (
+        sess.code !== this.session.get("state").code
+        && sess.i <= this.session.get("state").i
+      ) throw new Error("Code update without I update error");
+      sess.i;
+      if (sess.i < this.session.get("state").i) {
+        console.log("never going back!");
+        sess.i = this.session.get("state").i + 1;
+        // return;
+      }
+      if (
+        sess.code !== this.session.get("state").code
+        && sess.i <= this.session.get("state").i
+      ) throw new Error("Code update without I update error");
 
-    if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
-      console.error(
-        `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`,
-      );
-      throw new Error("transpiled	hack issue");
-    }
+      if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
+        console.error(
+          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`,
+        );
+        throw new Error("transpiled	hack issue");
+      }
 
-    if (sess.code.length < 5) {
-      throw new Error("code deleted?");
-    }
+      if (sess.code.length < 5) {
+        throw new Error("code deleted?");
+      }
 
-    if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
-      console.error(`missing md5trans from html: ${md5(sess.transpiled)}
+      if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
+        console.error(`missing md5trans from html: ${md5(sess.transpiled)}
       ${sess.html.slice(0, 64)}
       
       `);
-      throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-    }
+        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+      }
 
-    if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
-      console.error(`missing from css: ${md5(sess.transpiled)}`);
-      throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+      if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
+        console.error(`missing from css: ${md5(sess.transpiled)}`);
+        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+      }
     }
 
     const oldHash = md5(this.session.get("state").transpiled);
@@ -510,6 +512,6 @@ function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
 }
 
-export const patchSync = (sess: ICodeSession) => session?.patchSync({ ...sess, i: mST().i + 1 });
+export const patchSync = (sess: ICodeSession) => session?.patchSync({ ...sess });
 
 export { type Delta } from "./textDiff";
