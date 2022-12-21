@@ -1,3 +1,4 @@
+import localForage from "localforage";
 import { str2ab } from "sab";
 import { CodeSession } from "session";
 import type { Delta } from "textDiff";
@@ -10,6 +11,7 @@ export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
   counters: Counters;
+  dbs: { [codeSpaces: string]: LocalForage };
   connections: { [codeSpaces: string]: MessagePort[] };
   names: {};
   // bc: BroadcastChannel;
@@ -79,6 +81,7 @@ type Data = {
 self.mod = self.mod || {};
 self.counters = self.counters || {};
 self.connections = self.connections || {};
+self.dbs = self.dbs || {};
 
 const { mod, counters } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
@@ -129,6 +132,9 @@ async function onMessage(port: MessagePort, {
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);
+    self.dbs[codeSpace] = localForage.createInstance({
+      name: location.origin + `/live/${codeSpace}`,
+    });
 
     console.log(
       "onconnect",
@@ -193,12 +199,18 @@ function reconnect(codeSpace: string, name: string) {
   mod[codeSpace] = websocket;
   websocket.addEventListener(
     "message",
-    (ev) => {
+    async (ev) => {
       const patch = JSON.parse(ev.data);
+      const dbs = self.dbs[codeSpace];
+      const head = await dbs.getItem("head");
 
       const mess = { codeSpace, ...patch };
       mess.name = names[codeSpace];
       const hash = patch.newHash || patch.hashCode;
+      if (hash !== head) {
+        const next = await dbs.getItem(hash);
+        if (next) return mod[codeSpace].send(JSON.stringify({ ...mess, ...next }));
+      }
       if (hash && hashStore[hash]) {
         mess.sess = hashStore[hash];
 
