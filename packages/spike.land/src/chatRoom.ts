@@ -22,7 +22,7 @@ import {
   syncStorage,
   // xxxsetExtraLibs,
 } from "@spike.land/code/js/session";
-import { applyPatchSync, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -858,115 +858,115 @@ export class Code {
     }
     this.i = data.i;
 
-    await this.mutex.runExclusive(async () => {
-      if (data.i < this.i) return;
-      if (data.codeSpace && data.address && !this.address) {
-        return this.broadcast(data);
-      }
+    // await this.mutex.runExclusive(async () => {
+    if (data.i < this.i) return;
+    if (data.codeSpace && data.address && !this.address) {
+      return this.broadcast(data);
+    }
+
+    try {
+      // if (
+      //   !data.type && limiter.checkLimit()
+      // ) {
+      //   return respondWith({ if ( if (data.i <= mST().i) return;data.i <= mST().i) return;
+      //     error: "Your IP is being rate-limited, please try again later.",
+      //   });
+      // }
 
       try {
-        // if (
-        //   !data.type && limiter.checkLimit()
-        // ) {
-        //   return respondWith({ if ( if (data.i <= mST().i) return;data.i <= mST().i) return;
-        //     error: "Your IP is being rate-limited, please try again later.",
-        //   });
+        if (
+          data.target
+          && data.type
+          && ["new-ice-candidate", "video-offer", "video-answer"].includes(
+            data.type,
+          )
+        ) {
+          return this.user2user(data.target, { ...data, name });
+        }
+        if (data.i <= mST().i) return;
+
+        const oldSession = mST();
+
+        // const newHash = this.session!.applyPatch({
+        //   newHash: data.newHash!,
+        //   oldHash: data.oldHash!,
+        //   patch: data.patch!,
+        // });
+        // if (newHash === data.newHash) {
+        //   this.broadcast(data);
+        //   await this.kv.put<ICodeSession>("session", { ...this.session!.session.get("state").toJSON() });
+        //   await this.kv.put(
+        //     String(newHash),
+        //     JSON.stringify({
+        //       oldHash: data,
+        //       patch: data,
+        //     }),
+        //   );
+        //   return;
         // }
+        if (data.patch && data.oldHash && data.newHash) {
+          const patch = data.patch;
+          const newHash = data.newHash;
+          const oldHash = data.oldHash;
+          const reversePatch = data.reversePatch;
 
-        try {
-          if (
-            data.target
-            && data.type
-            && ["new-ice-candidate", "video-offer", "video-answer"].includes(
-              data.type,
-            )
-          ) {
-            return this.user2user(data.target, { ...data, name });
+          if (oldHash !== hashCode()) {
+            return respondWith({ hashCode: hashCode() });
           }
-          if (data.i <= mST().i) return;
 
-          const oldSession = mST();
+          try {
+            await applyPatch({ newHash, oldHash, patch, reversePatch });
+          } catch (err) {
+            console.error({ err });
+            return respondWith({ err });
+          }
 
-          // const newHash = this.session!.applyPatch({
-          //   newHash: data.newHash!,
-          //   oldHash: data.oldHash!,
-          //   patch: data.patch!,
-          // });
-          // if (newHash === data.newHash) {
-          //   this.broadcast(data);
-          //   await this.kv.put<ICodeSession>("session", { ...this.session!.session.get("state").toJSON() });
-          //   await this.kv.put(
-          //     String(newHash),
-          //     JSON.stringify({
-          //       oldHash: data,
-          //       patch: data,
-          //     }),
-          //   );
-          //   return;
-          // }
-          if (data.patch && data.oldHash && data.newHash) {
-            const patch = data.patch;
-            const newHash = data.newHash;
-            const oldHash = data.oldHash;
-            const reversePatch = data.reversePatch;
-
-            if (oldHash !== hashCode()) {
-              return respondWith({ hashCode: hashCode() });
-            }
-
+          if (newHash === hashCode()) {
             try {
-              applyPatchSync({ newHash, oldHash, patch, reversePatch });
-            } catch (err) {
-              console.error({ err });
-              return respondWith({ err });
+              this.broadcast(data);
+            } catch {
+              respondWith({
+                "msg": "broadcast issue",
+              });
             }
-
-            if (newHash === hashCode()) {
-              try {
-                this.broadcast(data);
-              } catch {
-                return respondWith({
-                  "msg": "broadcast issue",
-                });
-              }
-              const newSession = mST();
-              const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
-                await syncStorage(
-                  async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
-                  async (key: string) => await this.kv.get(key),
-                  oldSession,
-                  newSession,
-                  message,
-                );
-              await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
-              await this.kv.put<ICodeSession>("session", { ...mST() });
-              // await this.kv.put(
-              //   String(newHash),
-              //   JSON.stringify({
-              //     oldHash,
-              //     patch,
-              //   }),
-              // );
-            }
-            return respondWith({
-              hashCode: hashCode(),
-            });
+            const newSession = mST();
+            const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
+              await syncStorage(
+                async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
+                async (key: string) => await this.kv.get(key),
+                oldSession,
+                newSession,
+                message,
+              );
+            await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
+            await this.kv.put<ICodeSession>("session", { ...mST() });
+            // await this.kv.put(
+            //   String(newHash),
+            //   JSON.stringify({
+            //     oldHash,
+            //     patch,
+            //   }),
+            // );
           }
-        } catch (exp) {
-          console.error({ exp });
           return respondWith({
-            error: "unknown error - e1",
-            exp: exp || {},
+            hashCode: hashCode(),
           });
         }
       } catch (exp) {
         console.error({ exp });
         return respondWith({
-          error: "unknown error - e2",
+          error: "unknown error - e1",
           exp: exp || {},
         });
       }
-    });
+    } catch (exp) {
+      console.error({ exp });
+      return respondWith({
+        error: "unknown error - e2",
+        exp: exp || {},
+      });
+    }
+    // });
   }
 
   user2user(to: string, msg: unknown | string) {
@@ -1012,7 +1012,7 @@ export class Code {
 //     returnStr = returnStr.replaceAll(
 //       ` from "${String(lib)}"`,
 //       ` from "${origin}/${String(uri)}"`,
-//     ).replaceAll(
+//     ).replaceAll
 //       ` from "./`,
 //       ` from "${origin}/live/`,
 //     ).replaceAll(

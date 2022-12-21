@@ -6482,7 +6482,10 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-var applyPatchSync = /* @__PURE__ */ __name((x) => session?.applyPatch(x), "applyPatchSync");
+var applyPatch2 = /* @__PURE__ */ __name((x) => {
+  session?.applyPatch(x);
+  session?.update();
+}, "applyPatch");
 var makePatchFrom = /* @__PURE__ */ __name((n, st, update8) => session.createPatchFromHashCode(n, st, update8), "makePatchFrom");
 var startSession = /* @__PURE__ */ __name((room, u) => session || new CodeSession(room, {
   name: u.name,
@@ -8189,74 +8192,72 @@ var Code = class {
       });
     }
     this.i = data.i;
-    await this.mutex.runExclusive(async () => {
-      if (data.i < this.i)
-        return;
-      if (data.codeSpace && data.address && !this.address) {
-        return this.broadcast(data);
-      }
+    if (data.i < this.i)
+      return;
+    if (data.codeSpace && data.address && !this.address) {
+      return this.broadcast(data);
+    }
+    try {
       try {
-        try {
-          if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(
-            data.type
-          )) {
-            return this.user2user(data.target, { ...data, name });
+        if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(
+          data.type
+        )) {
+          return this.user2user(data.target, { ...data, name });
+        }
+        if (data.i <= mST().i)
+          return;
+        const oldSession = mST();
+        if (data.patch && data.oldHash && data.newHash) {
+          const patch = data.patch;
+          const newHash = data.newHash;
+          const oldHash = data.oldHash;
+          const reversePatch = data.reversePatch;
+          if (oldHash !== hashCode3()) {
+            return respondWith({ hashCode: hashCode3() });
           }
-          if (data.i <= mST().i)
-            return;
-          const oldSession = mST();
-          if (data.patch && data.oldHash && data.newHash) {
-            const patch = data.patch;
-            const newHash = data.newHash;
-            const oldHash = data.oldHash;
-            const reversePatch = data.reversePatch;
-            if (oldHash !== hashCode3()) {
-              return respondWith({ hashCode: hashCode3() });
-            }
+          try {
+            await applyPatch2({ newHash, oldHash, patch, reversePatch });
+          } catch (err) {
+            console.error({ err });
+            return respondWith({ err });
+          }
+          if (newHash === hashCode3()) {
             try {
-              applyPatchSync({ newHash, oldHash, patch, reversePatch });
-            } catch (err) {
-              console.error({ err });
-              return respondWith({ err });
+              this.broadcast(data);
+            } catch {
+              respondWith({
+                "msg": "broadcast issue"
+              });
             }
-            if (newHash === hashCode3()) {
-              try {
-                this.broadcast(data);
-              } catch {
-                return respondWith({
-                  "msg": "broadcast issue"
-                });
-              }
-              const newSession = mST();
-              const syncKV = async (oldSession2, newSession2, message) => await syncStorage(
-                async (key, value) => await this.kv.put(key, value),
-                async (key) => await this.kv.get(key),
-                oldSession2,
-                newSession2,
-                message
-              );
-              await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
-              await this.kv.put("session", { ...mST() });
-            }
-            return respondWith({
-              hashCode: hashCode3()
-            });
+            const newSession = mST();
+            const syncKV = async (oldSession2, newSession2, message) => await syncStorage(
+              async (key, value) => await this.kv.put(key, value),
+              async (key) => await this.kv.get(key),
+              oldSession2,
+              newSession2,
+              message
+            );
+            await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
+            await this.kv.put("session", { ...mST() });
           }
-        } catch (exp) {
-          console.error({ exp });
           return respondWith({
-            error: "unknown error - e1",
-            exp: exp || {}
+            hashCode: hashCode3()
           });
         }
       } catch (exp) {
         console.error({ exp });
         return respondWith({
-          error: "unknown error - e2",
+          error: "unknown error - e1",
           exp: exp || {}
         });
       }
-    });
+    } catch (exp) {
+      console.error({ exp });
+      return respondWith({
+        error: "unknown error - e2",
+        exp: exp || {}
+      });
+    }
   }
   user2user(to, msg) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
