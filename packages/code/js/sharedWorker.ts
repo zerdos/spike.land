@@ -219,8 +219,8 @@ function reconnect(codeSpace: string, name: string) {
             return mod[codeSpace].send(
               JSON.stringify({
                 oldHash: next.oldHash,
-                newHash: next.newHash,
-                patch: next.pach,
+                newHash: old.newHash,
+                patch: old.pach,
                 reversePatch: next.reversePatch,
                 name: names[codeSpace],
               }),
