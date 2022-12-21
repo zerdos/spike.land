@@ -16,7 +16,7 @@ export function importMapReplace(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
   let returnStr = codeInp;
-
+  if (!returnStr) return returnStr;
   const url = relativeUrl || origin;
   const baSe = (new URL(".", url)).toString();
   const parent = (new URL("..", url)).toString();

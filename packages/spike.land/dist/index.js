@@ -537,7 +537,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-7AUORB6W.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-NZZRCOMT.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6151,6 +6151,8 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
     importMapImports
   );
   let returnStr = codeInp;
+  if (!returnStr)
+    return returnStr;
   const url = relativeUrl || origin;
   const baSe = new URL(".", url).toString();
   const parent = new URL("..", url).toString();
