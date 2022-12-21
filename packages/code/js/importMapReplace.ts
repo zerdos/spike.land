@@ -109,6 +109,7 @@ export function importMapReplace(
   }
   return returnStr;
 }
-function replaceAll(input: string, search: string, replace: string) {
-  return input.split(search).join(replace);
+function replaceAll(inp: string, search: string, replace: string) {
+  if (!input) return input;
+  return inp.split(search).join(replace);
 }
