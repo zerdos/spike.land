@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs": {
-      "bytes": 201482,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-KC2EGVGX.mjs": {
+      "bytes": 201561,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs",
@@ -73,7 +73,7 @@
       "bytes": 519,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-KC2EGVGX.mjs",
           "kind": "import-statement"
         },
         {
@@ -168,7 +168,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 34432,
+      "bytes": 34376,
       "imports": [
         {
           "path": "src/handleErrors.ts",
@@ -301,8 +301,8 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-MYHHNLEY.mjs": {
-          "bytesInOutput": 200178
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-KC2EGVGX.mjs": {
+          "bytesInOutput": 200257
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -329,7 +329,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 21523
+          "bytesInOutput": 21465
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -344,7 +344,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 317274
+      "bytes": 317295
     }
   }
 }
