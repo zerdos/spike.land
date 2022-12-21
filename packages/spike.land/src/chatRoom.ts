@@ -596,7 +596,7 @@ export class Code {
               height="100%"
               width="100%"
               frameBorder="0"
-              src="/live/${this.codeSpace}/iframe" /></div>`,
+              src="/live/${this.codeSpace}/iframe"></iframe></div>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
           // const Etag = request.headers.get("Etag");
