@@ -37,10 +37,10 @@ export const initAndTransform = async (
   if (initFinished !== true) await (initFinished);
 
   const ttCode = importMapReplace(
-    await transform(code, {
+    (await transform(code, {
       ...opts,
       define: { ...define, ...(opts?.define ? opts.define : {}) },
-    }).code,
+    })).code,
     location.origin,
     location.origin,
   );
