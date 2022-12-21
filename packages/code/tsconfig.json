@@ -72,6 +72,7 @@
       "DOM.Iterable",
       "ES2018.AsyncGenerator",
       "ES2020.SharedMemory",
+      "ESNext.Promise",
       "ES2022.String"
     ]
   },
