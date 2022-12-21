@@ -106,16 +106,16 @@ async function onMessage(port: MessagePort, {
   answer,
   sess,
 }: Data) {
-  console.log("onMessage", {
-    codeSpace,
-    name,
-    sess,
-    oldHash,
-    newHash,
-    hashCode,
-    patch,
-    reversePatch,
-  });
+  // console.log("onMessage", {
+  //   codeSpace,
+  //   name,
+  //   sess,
+  //   oldHash,
+  //   newHash,
+  //   hashCode,
+  //   patch,
+  //   reversePatch,
+  // });
   const hash = newHash || hashCode;
   if (sess && hash) hashStore[hash] = sess;
   if (sess && newHash) hashStore[newHash] = sess;
@@ -228,6 +228,7 @@ function reconnect(codeSpace: string, name: string) {
 
       while (websocket.readyState === websocket.OPEN && blockedMessages[codeSpace].length) {
         const mess = blockedMessages[codeSpace].shift();
+        console.log({ mess });
         if (mess) websocket.send(mess);
       }
     },
