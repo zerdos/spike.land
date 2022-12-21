@@ -912,7 +912,7 @@ export class Code {
           const reversePatch = data.reversePatch;
 
           const newSess = mST(patch);
-          if (md5(newSess) === newHash) {
+          if (md5(newSess.transpiled) === newHash) {
             patchSync(newSess);
           } else {
             return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
