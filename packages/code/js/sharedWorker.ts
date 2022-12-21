@@ -210,7 +210,7 @@ function reconnect(codeSpace: string, name: string) {
       const head = await db.getItem("head");
 
       const hash = patch.newHash || patch.hashCode;
-      if (hash && hash !== head) {
+      if (hash && head && hash !== head) {
         const next = await db.getItem(hash);
         if (next) return mod[codeSpace].send(JSON.stringify({ ...mess, ...next }));
       }
@@ -247,7 +247,8 @@ function reconnect(codeSpace: string, name: string) {
   websocket.onopen = () => {
     let i = 0;
     while (i <= blockedMessages[codeSpace].length) {
-      websocket.send(blockedMessages[codeSpace][i++]);
+      const mess = blockedMessages[codeSpace][i++];
+      if (mess) websocket.send(mess);
     }
   };
 
