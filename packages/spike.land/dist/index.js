@@ -8013,11 +8013,13 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" data-i="${i}" style="height: 100%;">
+              <div
+              height="100%">
               <iframe
               height="100%"
               width="100%"
               frameBorder="0"
-              src="/live/${this.codeSpace}/iframe"></iframe></div>`
+              src="/live/${this.codeSpace}/iframe"></iframe></div></div>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
