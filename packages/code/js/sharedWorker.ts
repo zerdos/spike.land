@@ -222,7 +222,7 @@ function reconnect(codeSpace: string, name: string) {
                 newHash: next.newHash,
                 patch: next.pach,
                 reversePatch: next.reversePatch,
-                name: next.name,
+                name: names[codeSpace],
               }),
             );
           }
