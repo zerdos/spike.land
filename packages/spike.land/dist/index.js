@@ -8203,15 +8203,16 @@ var Code = class {
         }
         if (data.i <= mST().i)
           return;
-        const oldSession = mST();
         if (data.patch && data.oldHash && data.newHash) {
           const patch = data.patch;
           const newHash = data.newHash;
           const oldHash = data.oldHash;
           const reversePatch = data.reversePatch;
+          const oldSession = mST();
           const newSess = mST(patch);
           if (md5(newSess.transpiled) === newHash) {
             patchSync(newSess);
+            this.sess = newSess;
           } else {
             return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
           }
@@ -8222,7 +8223,7 @@ var Code = class {
               "msg": "broadcast issue"
             });
           }
-          const newSession = mST();
+          const newSession = newSess;
           const syncKV = async (oldSession2, newSession2, message) => await syncStorage(
             async (key, value) => await this.kv.put(key, value),
             async (key) => await this.kv.get(key),

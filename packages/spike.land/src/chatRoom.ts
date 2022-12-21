@@ -886,8 +886,6 @@ export class Code {
         }
         if (data.i <= mST().i) return;
 
-        const oldSession = mST();
-
         // const newHash = this.session!.applyPatch({
         //   newHash: data.newHash!,
         //   oldHash: data.oldHash!,
@@ -911,9 +909,11 @@ export class Code {
           const oldHash = data.oldHash;
           const reversePatch = data.reversePatch;
 
+          const oldSession = mST();
           const newSess = mST(patch);
           if (md5(newSess.transpiled) === newHash) {
             patchSync(newSess);
+            this.sess = newSess;
           } else {
             return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
           }
@@ -934,7 +934,7 @@ export class Code {
               "msg": "broadcast issue",
             });
           }
-          const newSession = mST();
+          const newSession = newSess;
           const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
             await syncStorage(
               async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
