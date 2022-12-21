@@ -8013,8 +8013,7 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" data-i="${i}" style="height: 100%;">
-              <div
-              height="100%">
+              <div  style="height: 100%;">
               <iframe
               height="100%"
               width="100%"
