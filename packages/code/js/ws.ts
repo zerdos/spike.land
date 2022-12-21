@@ -237,7 +237,17 @@ export const run = async (startState: {
   dry: boolean;
   address: string;
 }) => {
-  const { mST: mst, dry } = startState;
+  const codeHistory = localForage.createInstance({
+    name: location.origin + `/live/${codeSpace}`,
+  });
+  // const db = self.dbs[codeSpace];
+  const head = await codeHistory.getItem<string>("head");
+  let hST: ICodeSession | null = null;
+  if (head) {
+    hST = await codeHistory.getItem<ICodeSession>(head);
+  }
+  const mst = ({ ...startState, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mST;
+
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {
   // console.log("Yoooo1");
@@ -287,7 +297,7 @@ export const run = async (startState: {
   });
   // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
-    renderPreviewWindow({ codeSpace, dry: !!dry });
+    renderPreviewWindow({ codeSpace, dry: false });
   }
 
   // await appFactory(mst.transpiled, codeSpace, dry);
