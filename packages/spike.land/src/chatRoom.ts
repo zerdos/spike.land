@@ -15,6 +15,7 @@ import {
   // dealWithMissing,
   ICodeSession,
   importMapReplace,
+  patchSync,
   // initAta,
   // prettierJs,
   resetCSS,
@@ -910,44 +911,48 @@ export class Code {
           const oldHash = data.oldHash;
           const reversePatch = data.reversePatch;
 
-          if (oldHash !== hashCode()) {
+          const newSess = mST(patch);
+          if (md5(newSess) === newHash) {
+            patchSync(newSess);
+          } else {
             return respondWith({ hashCode: hashCode() });
           }
 
-          try {
-            await applyPatch({ newHash, oldHash, patch, reversePatch });
-          } catch (err) {
-            console.error({ err });
-            return respondWith({ err });
-          }
+          // try {
 
-          if (newHash === hashCode()) {
-            try {
-              this.broadcast(data);
-            } catch {
-              respondWith({
-                "msg": "broadcast issue",
-              });
-            }
-            const newSession = mST();
-            const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
-              await syncStorage(
-                async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
-                async (key: string) => await this.kv.get(key),
-                oldSession,
-                newSession,
-                message,
-              );
-            await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
-            await this.kv.put<ICodeSession>("session", { ...mST() });
-            // await this.kv.put(
-            //   String(newHash),
-            //   JSON.stringify({
-            //     oldHash,
-            //     patch,
-            //   }),
-            // );
+          //  // await applyPatch({ newHash, oldHash, patch, reversePatch });
+          // } catch (err) {
+          //   console.error({ err });
+          //   return respondWith({ err });
+          // }
+
+          // if (newHash === hashCode()) {
+          try {
+            this.broadcast(data);
+          } catch {
+            respondWith({
+              "msg": "broadcast issue",
+            });
           }
+          const newSession = mST();
+          const syncKV = async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) =>
+            await syncStorage(
+              async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
+              async (key: string) => await this.kv.get(key),
+              oldSession,
+              newSession,
+              message,
+            );
+          await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
+          await this.kv.put<ICodeSession>("session", { ...mST() });
+          // await this.kv.put(
+          //   String(newHash),
+          //   JSON.stringify({
+          //     oldHash,
+          //     patch,
+          //   }),
+          // );
+          // }
           return respondWith({
             hashCode: hashCode(),
           });

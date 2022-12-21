@@ -6482,10 +6482,6 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-var applyPatch2 = /* @__PURE__ */ __name((x) => {
-  session?.applyPatch(x);
-  session?.update();
-}, "applyPatch");
 var makePatchFrom = /* @__PURE__ */ __name((n, st, update8) => session.createPatchFromHashCode(n, st, update8), "makePatchFrom");
 var startSession = /* @__PURE__ */ __name((room, u) => session || new CodeSession(room, {
   name: u.name,
@@ -6495,6 +6491,7 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
+var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess, i: mST().i + 1 }), "patchSync");
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -8212,34 +8209,29 @@ var Code = class {
           const newHash = data.newHash;
           const oldHash = data.oldHash;
           const reversePatch = data.reversePatch;
-          if (oldHash !== hashCode3()) {
+          const newSess = mST(patch);
+          if (md5(newSess) === newHash) {
+            patchSync(newSess);
+          } else {
             return respondWith({ hashCode: hashCode3() });
           }
           try {
-            await applyPatch2({ newHash, oldHash, patch, reversePatch });
-          } catch (err) {
-            console.error({ err });
-            return respondWith({ err });
+            this.broadcast(data);
+          } catch {
+            respondWith({
+              "msg": "broadcast issue"
+            });
           }
-          if (newHash === hashCode3()) {
-            try {
-              this.broadcast(data);
-            } catch {
-              respondWith({
-                "msg": "broadcast issue"
-              });
-            }
-            const newSession = mST();
-            const syncKV = async (oldSession2, newSession2, message) => await syncStorage(
-              async (key, value) => await this.kv.put(key, value),
-              async (key) => await this.kv.get(key),
-              oldSession2,
-              newSession2,
-              message
-            );
-            await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
-            await this.kv.put("session", { ...mST() });
-          }
+          const newSession = mST();
+          const syncKV = async (oldSession2, newSession2, message) => await syncStorage(
+            async (key, value) => await this.kv.put(key, value),
+            async (key) => await this.kv.get(key),
+            oldSession2,
+            newSession2,
+            message
+          );
+          await syncKV(oldSession, newSession, { newHash, oldHash, patch, reversePatch });
+          await this.kv.put("session", { ...mST() });
           return respondWith({
             hashCode: hashCode3()
           });
