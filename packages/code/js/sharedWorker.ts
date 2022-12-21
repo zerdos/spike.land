@@ -174,7 +174,31 @@ async function onMessage(port: MessagePort, {
   };
 
   Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
+
   if (mod[codeSpace] && mod[codeSpace].readyState === mod[codeSpace].OPEN) {
+    const db = self.dbs[codeSpace];
+    if (db) {
+      const hash = await db.getItem<string>("wsHash");
+      if (hash && obj.oldHash && hash !== obj.oldHash) {
+        const old = await db.getItem(hash);
+
+        if (old) {
+          const next = await db.getItem(old.newHash);
+          if (next) {
+            return mod[codeSpace].send(
+              JSON.stringify({
+                oldHash: hash,
+                newHash: old.newHash,
+                patch: old.patch,
+                reversePatch: next.reversePatch,
+                name: names[codeSpace],
+              }),
+            );
+          }
+        }
+      }
+    }
+
     mod[codeSpace].send(JSON.stringify(obj));
   } else {
     blockedMessages[codeSpace] = [...(blockedMessages[codeSpace] || []), JSON.stringify(obj)];
@@ -211,6 +235,7 @@ function reconnect(codeSpace: string, name: string) {
 
       const hash = patch.newHash || patch.hashCode;
       if (hash && head && hash !== head) {
+        await db.setItem("wsHash", hash);
         const old = await db.getItem(hash);
 
         if (old) {
@@ -220,7 +245,7 @@ function reconnect(codeSpace: string, name: string) {
               JSON.stringify({
                 oldHash: hash,
                 newHash: old.newHash,
-                patch: old.pach,
+                patch: old.patch,
                 reversePatch: next.reversePatch,
                 name: names[codeSpace],
               }),
