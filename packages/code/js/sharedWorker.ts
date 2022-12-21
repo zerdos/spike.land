@@ -132,7 +132,8 @@ async function onMessage(port: MessagePort, {
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);
-    self.dbs[codeSpace] = localForage.createInstance({
+
+    self.dbs[codeSpace] = self.dbs[codeSpace] || localForage.createInstance({
       name: location.origin + `/live/${codeSpace}`,
     });
 
@@ -201,14 +202,16 @@ function reconnect(codeSpace: string, name: string) {
     "message",
     async (ev) => {
       const patch = JSON.parse(ev.data);
-      const dbs = self.dbs[codeSpace];
-      const head = await dbs.getItem("head");
 
       const mess = { codeSpace, ...patch };
       mess.name = names[codeSpace];
+
+      const db = self.dbs[codeSpace];
+      const head = await db.getItem("head");
+
       const hash = patch.newHash || patch.hashCode;
-      if (hash !== head) {
-        const next = await dbs.getItem(hash);
+      if (hash && hash !== head) {
+        const next = await db.getItem(hash);
         if (next) return mod[codeSpace].send(JSON.stringify({ ...mess, ...next }));
       }
       if (hash && hashStore[hash]) {
