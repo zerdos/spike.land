@@ -26,7 +26,7 @@
     "target": "es2022",
     "module": "ESNext",
     "lib": ["ESNext"],
-    "types": []
+    "types": ["@isomorphic-git/lightning-fs"]
   },
   "exclude": [
     ".git",

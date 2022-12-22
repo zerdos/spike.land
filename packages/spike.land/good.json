@@ -47,7 +47,7 @@
       ]
     },
     "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
-      "bytes": 4850,
+      "bytes": 4896,
       "imports": []
     },
     "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
@@ -296,7 +296,7 @@
           "bytesInOutput": 9494
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
-          "bytesInOutput": 4751
+          "bytesInOutput": 4797
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
@@ -344,7 +344,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 317294
+      "bytes": 317340
     }
   }
 }

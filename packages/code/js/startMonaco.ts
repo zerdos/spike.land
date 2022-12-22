@@ -170,7 +170,7 @@ export const startMonaco = async (
 //  editor.getEditors().map((x) => x.dispose());
 
 // const returnValue = await startMonacoPristine({ code, container, codeSpace, onChange });
-// mod[name] = returnValue;
+// mod[name] = returnValue;xp
 
 async function startMonacoPristine(
   { code, container, codeSpace, onChange }: {
@@ -563,7 +563,13 @@ async function startMonacoPristine(
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
 
     console.log({ version: model.getVersionId(), ev });
-    mod.silent == false && onChange(model.getValue());
+    const val = model.getValue();
+    fs.promises.unlink(`/live/${codeSpace}/index.tsx`).then(() =>
+      fs.writeFile(`/live/${codeSpace}/index.tsx`, val, { mode: 755, encoding: "utf8" }, (err) => {
+        console.error({ err });
+      })
+    );
+    mod.silent == false && onChange(val);
   });
 
   return mod;

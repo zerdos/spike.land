@@ -427,6 +427,7 @@ var package_default = {
     "@emotion/cache": "11.10.5",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
+    "@isomorphic-git/lightning-fs": "^4.6.0",
     "@mui/material": "5.11.1",
     "ace-builds": "1.14.0",
     "async-mutex": "^0.4.0",

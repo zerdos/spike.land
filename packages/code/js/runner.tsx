@@ -34,6 +34,8 @@ import { mST } from "./session";
 // };
 
 let transform;
+// const codeSpace = location.pathname.slice(1).split("/")[1];
+
 export const esmTransform = async (code: string) => {
   transform = transform || (await import(`./esbuildEsm`)).transform;
 
