@@ -28,12 +28,15 @@ import localForage from "localforage";
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-import { renderPreviewWindow } from "renderPreviewWindow";
 import { md5 } from "./md5"; // import { wait } from "wait";
+import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait";
+
+import FS from "@isomorphic-git/lightning-fs";
+
 // import { isBuffer } from "util";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
@@ -128,6 +131,7 @@ Object.assign(globalThis, { sendChannel, mST });
 
 // }
 const codeSpace = location.pathname.slice(1).split("/")[1];
+
 // const client_id = user;
 // const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
 
@@ -237,6 +241,23 @@ export const run = async (startState: {
   dry: boolean;
   address: string;
 }) => {
+  globalThis.fs = new FS(location.origin);
+  const fs = globalThis.fs.promises;
+  const root = await fs.readdir("/");
+
+  console.log({ root });
+
+  if (!root.includes("live")) await fs.mkdir("/live");
+  const live = await fs.readdir("/live");
+  if (!live.includes(codeSpace)) await fs.mkdir("/live/" + codeSpace);
+
+  // const liveStat =  await fs.stat('/live');
+  // if (!liveStat.isDirectory())
+  // else console.log("dir already exists")
+  const cs = await fs.readdir(`/live/${codeSpace}`);
+  if (!cs.includes("index.tsx")) await fs.writeFile(`/live/${codeSpace}/index.tsx`, startState.mST.code);
+
+  console.log({ fs });
   const codeHistory = localForage.createInstance({
     name: location.origin + `/live/${codeSpace}`,
   });

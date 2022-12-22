@@ -3,10 +3,13 @@ import EmotionReact from "@emotion/react";
 import type { FC } from "react";
 import type {} from "react-dom";
 import ear from "@emotion/react";
+import FS from "@isomorphic-git/lightning-fs";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 
 declare global {
   var sharedWorker: SharedWorker;
+  var fs: FS;
+
   var assetHash: string;
   const apps: { [key: string]: FC<{ appId: string }> };
   const eCaches: { [key: string]: EmotionCache };
