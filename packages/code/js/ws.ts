@@ -285,7 +285,7 @@ export const run = async (startState: {
   import { ErrorBoundary } from "${location.origin}/reactMod.mjs";
   import App from "${location.origin}/live/${codeSpace}/index.tsx"
         
-          export default App;
+
           export const render =(rootEl)=>{
        
       const root = createRoot(rootEl);

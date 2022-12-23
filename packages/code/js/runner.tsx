@@ -173,9 +173,9 @@ export async function runner({ code, counter, codeSpace }: {
     BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     try {
-      const bundle = await buildT(codeSpace, controller.signal, true) as string;
-      if (controller.signal.aborted) return;
-      fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
+      await buildT(codeSpace, controller.signal, true) as string;
+
+      // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
     } catch {
       console.error("bundle failed");
     }
