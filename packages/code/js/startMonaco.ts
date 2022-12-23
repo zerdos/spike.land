@@ -132,9 +132,9 @@ const monacoContribution = async (
           noSemanticValidation: false,
           noSyntaxValidation: false,
         });
+      languages.typescript.typescriptDefaults.setEagerModelSync(true);
     });
 
-  languages.typescript.typescriptDefaults.setEagerModelSync(true);
   // })();
 
   // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
