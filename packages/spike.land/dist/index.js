@@ -539,7 +539,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-KUYN65OA.mjs
+// ../code/dist/chunk-chunk-4SYWJKMO.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6133,6 +6133,7 @@ overflow-wrap: break-word;
 init_define_process();
 var importmap_default = {
   imports: {
+    "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
@@ -6504,6 +6505,7 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/js/importmap.json
 var importmap_default2 = {
   imports: {
+    "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
