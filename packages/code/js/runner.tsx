@@ -168,7 +168,14 @@ export async function runner({ code, counter, codeSpace }: {
       // if (!pp) return;
       await wait(100);
       const transpiled = await buildT(codeSpace, controller.signal, false) as string;
-      fs.promises.writeFile(`/live/${codeSpace}/index.js`, transpiled);
+
+      try {
+        const bundle = await buildT(codeSpace, controller.signal, true) as string;
+
+        fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
+      } catch {
+        console.error("bundle failed");
+      }
 
       if (controller.signal.aborted) return;
       BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
