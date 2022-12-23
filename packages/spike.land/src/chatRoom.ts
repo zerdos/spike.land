@@ -404,12 +404,9 @@ export class Code {
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
           import App from "${url.origin}/live/${codeSpace}/index.js"
-          
-          document.body.innerHTML = '<div id="root"></div>';
-
-      let rootEl = document.getElementById("root");
-
-      rootEl.innerHTML="";
+        
+          export default App;
+          export const render =(rootEl)=>{
        
       const root = createRoot(rootEl);
       
@@ -431,7 +428,9 @@ export class Code {
         <CacheProvider value={cache}>
           <App />
         </CacheProvider>
-        </ErrorBoundary>);`,
+        </ErrorBoundary>)
+        }
+        ;`,
             url.origin,
             url.origin,
           );
