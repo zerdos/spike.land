@@ -403,7 +403,7 @@ export class Code {
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
+          import App from "${url.origin}/live/${codeSpace}/index.js"
           
           document.body.innerHTML = '<div id="root"></div>';
 

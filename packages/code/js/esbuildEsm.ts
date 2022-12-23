@@ -174,7 +174,7 @@ export const build = async (
 
 export const buildT = async (
   codeSpace: string,
-  i: number,
+  // i: number,
   signal: AbortSignal,
   bundle = false,
 ) => {
@@ -221,10 +221,11 @@ export const buildT = async (
     minifyWhitespace: false,
     splitting: false,
     incremental: true,
+    jsxImportSource: "@emotion/react",
     format: "esm",
     // external: Object.keys(importMapImports),
     entryPoints: [
-      `./live/${codeSpace}/index.tsx?i=${i}`,
+      `./live/${codeSpace}/index.tsx`,
       // `./render.tsx?i=${i}`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",
@@ -244,7 +245,7 @@ export const buildT = async (
   ) {
     console.log(b.outputFiles);
 
-    return b.outputFiles![0].text;
+    return importMapReplace(b.outputFiles![0].text, location.origin, location.origin);
   }
   return false;
 };

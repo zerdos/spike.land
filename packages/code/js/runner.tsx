@@ -3,6 +3,7 @@ import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
 import { wait } from "wait";
 import { syncWS } from "ws";
+import { buildT } from "./esbuildEsm";
 
 // import { RpcProvider } from "worker-rpc";
 
@@ -166,7 +167,9 @@ export async function runner({ code, counter, codeSpace }: {
       // const pp = await buildT(codeSpace, counter, ab.signal);
       // if (!pp) return;
       await wait(100);
-      const transpiled = await esmTransform(code);
+      const transpiled = await buildT(codeSpace, controller.signal, false) as string;
+      fs.promises.writeFile(`/live/${codeSpace}/index.js`, transpiled);
+
       if (controller.signal.aborted) return;
       BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 

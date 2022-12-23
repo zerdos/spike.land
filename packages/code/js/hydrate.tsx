@@ -93,7 +93,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
   lastI = +i;
   counterMax = lastI;
 
-  App = (await import(`${location.origin}/live/${codeSpace}/index.js/${i}`))
+  App = (await import(`${location.origin}/live/${codeSpace}/index.js`))
     .default;
 
   root = document.getElementById(

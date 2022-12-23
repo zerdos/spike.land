@@ -71,8 +71,7 @@ export function importMapReplace(
         && x.indexOf(`"https://`) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/npm:/*" + slices[1]
-          + "?bundle&target=es2020&keep-names=true&dev=true";
+        slices[1] = origin + "/npm:/*" + slices[1];
         return slices.join(`"`);
       }
       if (

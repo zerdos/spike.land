@@ -1,4 +1,4 @@
-import * as fm from "framer-motion";
+import fm from "/npm:/*framer-motion?bundle=true&dev=true";
 
 export const { createDomMotionComponent, motion } = fm; // ./render/dom/motion.mjs';
 export const { m } = fm; // ./render/dom/motion-minimal.mjs';

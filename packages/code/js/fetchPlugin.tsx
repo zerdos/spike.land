@@ -1,7 +1,5 @@
 import type { Plugin } from "esbuild-wasm";
-import { esmTransform } from "runner";
-
-import { hashCode, mST } from "./session";
+import { esmTransform } from "./runner";
 
 let fetchCache: Cache = {
   match: (req: Request) =>
@@ -55,74 +53,82 @@ export const fetchPlugin: (
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
     build.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
-      if (args.path.indexOf("render.tsx") !== -1) {
-        const contents = await esmTransform(`
-      import {hydrateRoot} from "react-dom/client"
-      import { CacheProvider } from "@emotion/react";
-      import createCache from "@emotion/cache";
-      import {StrictMode} from "react";
-      import { ErrorBoundary } from "react-error-boundary";
-    
-      import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
-    
-      document.body.innerHTML = ${
-          JSON.stringify(
-            `<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`,
-          )
-        };
+      const fs = globalThis.fs;
+      const contents = await fs.promises.readFile("/live/" + args.path.split("/live/").pop()!, { encoding: "utf8" });
+      console.log({ contents });
+      const code = await esmTransform(contents as string);
+      console.log({ code });
+      // if (file) {
+      //   return new Response(file);
+      // }
 
-  let rootEl = document.getElementById("root");
+      //       if (args.path.indexOf("render.tsx") !== -1) {
 
-  const codeSpace="${codeSpace}"
-    const cache = createCache({
-      key: "${hashCode()}",
-      container: rootEl,
-      speedy: false
-    });
-  
-   cache.compat = undefined;
+      //         const contents = await (`
+      //       import {hydrateRoot} from "react-dom/client"
+      //       import { CacheProvider } from "@emotion/react";
+      //       import createCache from "@emotion/cache";
+      //       import {StrictMode} from "react";
+      //       import { ErrorBoundary } from "react-error-boundary";
 
-   const bc = new BroadcastChannel(location.origin);
+      //       import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
 
+      //       document.body.innerHTML = ${
+      //           JSON.stringify(
+      //             `<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`,
+      //           )
+      //         };
 
-   bc.onmessage = async (event) => {
-     if (
-      event.data.codeSpace === codeSpace)
-{
-      const App = (await("${location.origin}/live/${codeSpace}/index.js/"+event.data.i)).default;
+      //   let rootEl = document.getElementById("root");
 
-      hydrateRoot(rootEl, <StrictMode><ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div role="alert">
-            <div>Oh n o</div>
-            <pre>{error.message}</pre>
-          </div>
-        )}>
-        <CacheProvider value={cache}>
-          <App />
-        </CacheProvider>
-        </ErrorBoundary></StrictMode>);
-        }
-  }
- 
-  
-   hydrateRoot(rootEl, <StrictMode><ErrorBoundary
-    fallbackRender={({ error }) => (
-      <div role="alert">
-        <div>Oh n o</div>
-        <pre>{error.message}</pre>
-      </div>
-    )}>
-    <CacheProvider value={cache}>
-      <App />
-    </CacheProvider>
-    </ErrorBoundary></StrictMode>);
-      `);
-        return {
-          contents,
-        };
-      }
-      return null;
+      //   const codeSpace="${codeSpace}"
+      //     const cache = createCache({
+      //       key: "${hashCode()}",
+      //       container: rootEl,
+      //       speedy: false
+      //     });
+
+      //    cache.compat = undefined;
+
+      //    const bc = new BroadcastChannel(location.origin);
+
+      //    bc.onmessage = async (event) => {
+      //      if (
+      //       event.data.codeSpace === codeSpace)
+      // {
+      //       const App = (await("${location.origin}/live/${codeSpace}/index.js/"+event.data.i)).default;
+
+      //       hydrateRoot(rootEl, <StrictMode><ErrorBoundary
+      //         fallbackRender={({ error }) => (
+      //           <div role="alert">
+      //             <div>Oh n o</div>
+      //             <pre>{error.message}</pre>
+      //           </div>
+      //         )}>
+      //         <CacheProvider value={cache}>
+      //           <App />
+      //         </CacheProvider>
+      //         </ErrorBoundary></StrictMode>);
+      //         }
+      //   }
+
+      //    hydrateRoot(rootEl, <StrictMode><ErrorBoundary
+      //     fallbackRender={({ error }) => (
+      //       <div role="alert">
+      //         <div>Oh n o</div>
+      //         <pre>{error.message}</pre>
+      //       </div>
+      //     )}>
+      //     <CacheProvider value={cache}>
+      //       <App />
+      //     </CacheProvider>
+      //     </ErrorBoundary></StrictMode>);
+      //       `);
+      return {
+        contents: code,
+      };
+      // }
+      // return null;
     });
 
     build.onLoad({ filter: /.*/ }, async (args) => {

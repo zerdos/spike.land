@@ -1,10 +1,13 @@
 // import { importMapReplace } from "./esbuildEsm";
 import { transform } from "./esmTransform";
 export type {};
+import FS from "@isomorphic-git/lightning-fs";
 
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
+  globalThis.fs = new FS(location.origin);
+
   // const bc = new BroadcastChannel(location.origin);
 
   // bc.onmessage(ev => {
@@ -50,6 +53,23 @@ self.addEventListener("fetch", function(event) {
     (async () => {
       let url = new URL(event.request.url);
       if (url.origin.indexOf("spike.land") === -1) return fetch(event.request);
+
+      const fs = globalThis.fs;
+
+      if (url.pathname.startsWith("/live")) {
+        try {
+          const file = await fs.promises.readFile(url.pathname);
+          if (file) {
+            return new Response(file, {
+              headers: {
+                "content-type": "application/javascript; charset=utf-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          }
+        } catch {
+        }
+      }
 
       let isChunk = url.pathname.includes("chunk-");
       // if (files && files[url.pathname.slice(1)]) {

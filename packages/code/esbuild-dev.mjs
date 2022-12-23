@@ -222,7 +222,9 @@ const build = (
       "js/sharedWorker.ts",
     ],
     bundle: true,
-
+    alias: {
+      path: "path-browserify",
+    },
     define,
     minify: false, // ! isDevelopment,
     minifyWhitespace: false, // ! isDevelopment,
@@ -266,12 +268,12 @@ const build = (
       // "js/prettierWorker.mjs",
       "js/reactMod.ts",
       "js/Editor.tsx",
-      "js/motion.ts",
+      // "js/motion.ts",
       "js/ws.ts",
       "js/reactMod.ts",
 
       // "js/Editor.tsx",
-      "js/motion.ts",
+      // "js/motion.ts",
       "js/reactDom.ts",
       "js/hydrate.tsx",
       "js/reactDomClient.ts",

@@ -1,6 +1,5 @@
 {
   "imports": {
-    "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
