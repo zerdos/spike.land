@@ -21,7 +21,6 @@ import {
   resetCSS,
   // run,
   syncStorage,
-  // xxxsetExtraLibs,
 } from "@spike.land/code/js/session";
 import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
@@ -116,45 +115,6 @@ export class Code {
       const { code, transpiled, css, html, i } = mST();
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
-
-      // const ATA = async () => {
-      //   let [, ...deps] = path;
-      //   initAta();
-      //   // const code = await this.kv.list();c
-      //   const code = mST().code;
-      //   if (deps.length === 0) {
-      //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-      //       s => s.split(`"`)[1],
-      //     ).filter(x => x && !(x.startsWith("https")));
-      //   }
-      //   deps = ["@emotion/react/jsx-runtime", "@types/react/global.d.ts", ...(new Set(deps))];
-      //   // const mapper = (dep: string) =>
-      //   //   dealWithMissing(dep, "https://esm.sh").then((m) =>
-      //   //     addExtraModels(prettierJs(m.content), m.url).then(() => m)
-      //   //   );
-
-      //   const starters = await pMap(deps, mapper, { concurrency: 2 });
-
-      //   let extraLibs = xxxsetExtraLibs(starters, "https://esm.sh");
-      //   extraLibs = extraLibs.map(x => ({
-      //     content: x.content.split("esm.sh").join(url.host),
-      //     filePath: x.filePath.replace("https://esm.sh/", "/"),
-      //   }));
-
-      //   const extraLib = JSON.stringify(extraLibs);
-
-      //   return new Response(extraLib, {
-      //     status: 200,
-      //     headers: {
-      //       "Access-Control-Allow-Origin": "*",
-      //       "Cross-Origin-Embedder-Policy": "require-corp",
-      //       "Cache-Control": "max-age=604800, stale-while-revalidate=86400",
-      //       "content_hash": md5(extraLib),
-      //       "Etag": md5(extraLib),
-      //       "Content-Type": "application/json; charset=UTF-8",
-      //     },
-      //   });
-      // };
 
       switch (path[0]) {
         case "code":
@@ -307,18 +267,18 @@ export class Code {
         //   //   deps.push("@emotion/react/jsx-runtime");
         //   // }
         //   // deps = [...(new Set(deps))];
-        //   // const rees = JSON.stringify(deps);
+        //   // const res = JSON.stringify(deps);
 
-        //   const rees = JSON.stringify(await run(mST().code, url.origin));
+        //   const res = JSON.stringify(await run(mST().code, url.origin));
 
-        //   return new Response(rees, {
+        //   return new Response(res, {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
         //       "Cross-Origin-Embedder-Policy": "require-corp",
         //       "Cache-Control": "no-cache",
-        //       "content_hash": md5(rees),
-        //       "Etag": md5(rees),
+        //       "content_hash": md5(res),
+        //       "Etag": md5(res),
         //       "Content-Type": "application/json; charset=UTF-8",
         //     },
         //   });
@@ -338,15 +298,15 @@ export class Code {
         //   }
         //   deps = [...(new Set(deps))];
         //   console.log({ deps });
-        //   const rees = JSON.stringify(deps);
-        //   return new Response(rees, {
+        //   const res = JSON.stringify(deps);
+        //   return new Response(res, {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
         //       "Cross-Origin-Embedder-Policy": "require-corp",
         //       "Cache-Control": "no-cache",
-        //       "content_hash": md5(rees),
-        //       "Etag": md5(rees),
+        //       "content_hash": md5(res),
+        //       "Etag": md5(res),
         //       "Content-Type": "application/json; charset=UTF-8",
         //     },
         //   });

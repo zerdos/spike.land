@@ -28,13 +28,17 @@
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
+  "resolutions": {
+    "wrangler/esbuild": "^0.16.10"
+  },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@emotion/react": "^11.10.5",
+    "@isomorphic-git/lightning-fs": "^4.6.0",
     "@playwright/test": "1.29.1",
     "@types/eslint": "^8.4.10",
     "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.9",
+    "@types/react-dom": "18.0.10",
     "@types/xo": "^0.39.5",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
@@ -44,16 +48,14 @@
     "esbuild": "^0.16.10",
     "eslint": "^8.30.0",
     "eslint-plugin-react": "^7.31.11",
+    "monaco-editor": "^0.34.1",
+    "path-browserify": "^1.0.1",
     "playwright": "1.29.1",
+    "react": "^18.2.0",
     "typescript": "4.9.4",
+    "util": "^0.12.5",
+    "utils": "^0.3.1",
     "xo": "^0.53.1"
   },
-  "packageManager": "yarn@4.0.0-rc.33",
-  "dependencies": {
-    "@isomorphic-git/lightning-fs": "^4.6.0",
-    "path-browserify": "^1.0.1",
-    "react": "^18.2.0",
-    "util": "^0.12.5",
-    "utils": "^0.3.1"
-  }
+  "packageManager": "yarn@4.0.0-rc.34"
 }

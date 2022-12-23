@@ -10,6 +10,7 @@ import adapter from "webrtc-adapter";
 import {
   applyPatch,
   type CodePatch,
+  type Delta,
   // type Delta,
   // CodeSession,
   hashCode,
@@ -227,12 +228,29 @@ const codeHistory = localForage.createInstance({
 // p2pcf.send(peer, new ArrayBuffer(...))
 // bc = new BroadcastChannel(location.origin);
 let messagePort: MessagePort;
-// console.log("Yoooo0");
+// console.log("Yo 0");
 
 // });
 
 const ws = {
-  send: (mess: object) => console.log("JUST A STUB", { mess }),
+  send: (
+    mess: {
+      oldHash?: string;
+      newHash?: string;
+      name?: string;
+      i?: number;
+      code?: string;
+      transpiled?: string;
+      sess?: ICodeSession;
+      type?: string;
+      target?: string;
+      candidate?: RTCIceCandidateInit;
+      answer?: RTCSessionDescriptionInit;
+      offer?: RTCSessionDescription;
+      reversePatch?: Delta[];
+      patch?: Delta[];
+    },
+  ) => console.log("JUST A STUB", { mess }),
 };
 
 export const run = async (startState: {
@@ -271,28 +289,23 @@ export const run = async (startState: {
 
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {
-  // console.log("Yoooo1");
   const sharedWorker = new SharedWorker(
     "/sharedWorker.js?" + globalThis.assetHash,
   );
 
-  // console.log("Yoooo2");
   sharedWorker.port.onmessage = async (ev) => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
       messagePort = sharedWorker.port;
       console.log("POST ONCONNECT", { codeSpace, name: user });
       // messagePort = this;
-      ws.send = (message: object) => {
-        // console.log("Yoooo7");
+      ws.send = (message: { oldHash?: string; newHash?: string; reversePatch?: Delta[]; patch?: Delta[] }) => {
         const messageData = { codeSpace, name: user, ...message, sess: mST() };
         console.log("POST MESSAGE", { messageData });
         if (messageData.oldHash && messageData.oldHash === messageData.newHash) return;
         messagePort.postMessage(messageData);
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
-      // if (isBuffer(ev.data)) {
-      // console.log("IS BUFFI");
       try {
         await processData(JSON.parse(ab2str(ev.data)), "ws");
         console.log("its a buffer");
@@ -305,9 +318,6 @@ export const run = async (startState: {
   sharedWorker.port.start();
 
   // setTimeout(() => {
-  // console.log("Yoooo3");
-
-  // console.log("Yoooo4");
   // });
   wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
@@ -935,7 +945,7 @@ async function processData(
           target,
           name: user,
           type: "video-offer",
-          offer: rtcConns[target].localDescription,
+          offer: rtcConns[target].localDescription!,
         });
       } catch {
         // log(
@@ -1021,7 +1031,7 @@ async function processData(
       target,
       name: user,
       type: "video-answer",
-      answer,
+      answer: answer!,
     });
   }
 }

@@ -81,7 +81,6 @@
     "js/importmap.json",
     "package.json",
     "esbuild-dev.mjs",
-    "js/..prettierJs.ts"
   ],
   "exclude": [".yarn", "dist", "../worker-dom/src"]
 }

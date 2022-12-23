@@ -1373,7 +1373,7 @@ __metadata:
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:^1.26.0"
     "@types/react": "npm:18.0.26"
-    "@types/react-dom": "npm:18.0.9"
+    "@types/react-dom": "npm:18.0.10"
     "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.0"
     "@typescript-eslint/parser": "npm:^5.47.0"
@@ -1396,8 +1396,8 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:8.0.1"
-    immutable: "npm:^4.1.0"
+    framer-motion: "npm:8.0.2"
+    immutable: "npm:^4.2.1"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
     lodash.debounce: "npm:4.0.8"
@@ -1696,12 +1696,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.9":
-  version: 18.0.9
-  resolution: "@types/react-dom@npm:18.0.9"
+"@types/react-dom@npm:18.0.10":
+  version: 18.0.10
+  resolution: "@types/react-dom@npm:18.0.10"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 0fb1a4cc5215dd032ad0051c3365be8c9b36637ea36854f5b1cce84e858cbde67b08a74229032dac6e522ecd3181f1d5cccd264ff12f926c21c8a7cccac8d525
+  checksum: 2c191e8dbe394e0690f8e5caacdb5ef710491478a95ceefc97cc8697e6e7e02c6a2fc3562b37791f92a4c08a6a82dd9dc57d42e8f98bce5f7e7110965845c068
   languageName: node
   linkType: hard
 
@@ -3906,118 +3906,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-android-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-android-64@npm:0.14.51"
-  conditions: os=android & cpu=x64
-  languageName: node
-  linkType: hard
-
-"esbuild-android-arm64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-android-arm64@npm:0.14.51"
-  conditions: os=android & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"esbuild-darwin-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-darwin-64@npm:0.14.51"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
-"esbuild-darwin-arm64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-darwin-arm64@npm:0.14.51"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"esbuild-freebsd-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-freebsd-64@npm:0.14.51"
-  conditions: os=freebsd & cpu=x64
-  languageName: node
-  linkType: hard
-
-"esbuild-freebsd-arm64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-freebsd-arm64@npm:0.14.51"
-  conditions: os=freebsd & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-32@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-32@npm:0.14.51"
-  conditions: os=linux & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-64@npm:0.14.51"
-  conditions: os=linux & cpu=x64
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-arm64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-arm64@npm:0.14.51"
-  conditions: os=linux & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-arm@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-arm@npm:0.14.51"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-mips64le@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-mips64le@npm:0.14.51"
-  conditions: os=linux & cpu=mips64el
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-ppc64le@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-ppc64le@npm:0.14.51"
-  conditions: os=linux & cpu=ppc64
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-riscv64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-riscv64@npm:0.14.51"
-  conditions: os=linux & cpu=riscv64
-  languageName: node
-  linkType: hard
-
-"esbuild-linux-s390x@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-linux-s390x@npm:0.14.51"
-  conditions: os=linux & cpu=s390x
-  languageName: node
-  linkType: hard
-
-"esbuild-netbsd-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-netbsd-64@npm:0.14.51"
-  conditions: os=netbsd & cpu=x64
-  languageName: node
-  linkType: hard
-
-"esbuild-openbsd-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-openbsd-64@npm:0.14.51"
-  conditions: os=openbsd & cpu=x64
-  languageName: node
-  linkType: hard
-
 "esbuild-plugin-alias@npm:0.2.1":
   version: 0.2.1
   resolution: "esbuild-plugin-alias@npm:0.2.1"
@@ -4039,13 +3927,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-sunos-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-sunos-64@npm:0.14.51"
-  conditions: os=sunos & cpu=x64
-  languageName: node
-  linkType: hard
-
 "esbuild-wasm@npm:0.16.10":
   version: 0.16.10
   resolution: "esbuild-wasm@npm:0.16.10"
@@ -4055,108 +3936,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-windows-32@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-windows-32@npm:0.14.51"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"esbuild-windows-64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-windows-64@npm:0.14.51"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
-"esbuild-windows-arm64@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild-windows-arm64@npm:0.14.51"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "esbuild-worker@workspace:packages/esbuild-worker":
   version: 0.0.0-use.local
   resolution: "esbuild-worker@workspace:packages/esbuild-worker"
   dependencies:
     "@cloudflare/workers-types": "npm:4.20221111.1"
     "@types/react": "npm:18.0.26"
-    "@types/react-dom": "npm:18.0.9"
+    "@types/react-dom": "npm:18.0.10"
     esbuild: "npm:0.16.10"
   languageName: unknown
   linkType: soft
-
-"esbuild@npm:0.14.51":
-  version: 0.14.51
-  resolution: "esbuild@npm:0.14.51"
-  dependencies:
-    esbuild-android-64: "npm:0.14.51"
-    esbuild-android-arm64: "npm:0.14.51"
-    esbuild-darwin-64: "npm:0.14.51"
-    esbuild-darwin-arm64: "npm:0.14.51"
-    esbuild-freebsd-64: "npm:0.14.51"
-    esbuild-freebsd-arm64: "npm:0.14.51"
-    esbuild-linux-32: "npm:0.14.51"
-    esbuild-linux-64: "npm:0.14.51"
-    esbuild-linux-arm: "npm:0.14.51"
-    esbuild-linux-arm64: "npm:0.14.51"
-    esbuild-linux-mips64le: "npm:0.14.51"
-    esbuild-linux-ppc64le: "npm:0.14.51"
-    esbuild-linux-riscv64: "npm:0.14.51"
-    esbuild-linux-s390x: "npm:0.14.51"
-    esbuild-netbsd-64: "npm:0.14.51"
-    esbuild-openbsd-64: "npm:0.14.51"
-    esbuild-sunos-64: "npm:0.14.51"
-    esbuild-windows-32: "npm:0.14.51"
-    esbuild-windows-64: "npm:0.14.51"
-    esbuild-windows-arm64: "npm:0.14.51"
-  dependenciesMeta:
-    esbuild-android-64:
-      optional: true
-    esbuild-android-arm64:
-      optional: true
-    esbuild-darwin-64:
-      optional: true
-    esbuild-darwin-arm64:
-      optional: true
-    esbuild-freebsd-64:
-      optional: true
-    esbuild-freebsd-arm64:
-      optional: true
-    esbuild-linux-32:
-      optional: true
-    esbuild-linux-64:
-      optional: true
-    esbuild-linux-arm:
-      optional: true
-    esbuild-linux-arm64:
-      optional: true
-    esbuild-linux-mips64le:
-      optional: true
-    esbuild-linux-ppc64le:
-      optional: true
-    esbuild-linux-riscv64:
-      optional: true
-    esbuild-linux-s390x:
-      optional: true
-    esbuild-netbsd-64:
-      optional: true
-    esbuild-openbsd-64:
-      optional: true
-    esbuild-sunos-64:
-      optional: true
-    esbuild-windows-32:
-      optional: true
-    esbuild-windows-64:
-      optional: true
-    esbuild-windows-arm64:
-      optional: true
-  bin:
-    esbuild: bin/esbuild
-  checksum: b32a13fe3b0ba5c80524a15871d023eb27c9750c8f1f110e9f92f541a4f7dc925b2dbfcb06831c671f71461a75a6e29f06e2b5dc955855e12cca01aa6cb2ac5d
-  languageName: node
-  linkType: hard
 
 "esbuild@npm:0.16.10, esbuild@npm:^0.16.10":
   version: 0.16.10
@@ -5106,9 +4895,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:8.0.1":
-  version: 8.0.1
-  resolution: "framer-motion@npm:8.0.1"
+"framer-motion@npm:8.0.2":
+  version: 8.0.2
+  resolution: "framer-motion@npm:8.0.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
@@ -5120,7 +4909,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: ebd3ba5b52e2c25add4d5de06c325bf50ce65b3a6d0f0dbd08ce18b038b23d2bd071d6f4dcbbc6c19c7188e35ecd39dc0e54638cc141cc19f946e70eab9bebff
+  checksum: de2ebe8dd4a3840f1d7415549976b7a9624f7a5ec0485aa61b64826c2c6ea2c53763c80325c9af2a01dc168de5a542f47b3e0c6839106ec2dd39df960596e41a
   languageName: node
   linkType: hard
 
@@ -5684,10 +5473,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutable@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "immutable@npm:4.1.0"
-  checksum: 73b16013a6e7592cf8757d717a14a53016b1c6b1d0c683c74dbfe6fdfd44ca3dcceb7efab34d0ed226f189d9e7b4d3d65ec03c3a892dad839f45209f54e474b3
+"immutable@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "immutable@npm:4.2.1"
+  checksum: b55e8fac040c970b9dbc0283ace7ba71b3001d80a017c5034740651b45ecd9b49001b71badf66458144ac6cfe76170ae30ae8b0853aba1cfea9db7f2059bcc00
   languageName: node
   linkType: hard
 
@@ -7202,7 +6991,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.1":
+"monaco-editor@npm:0.34.1, monaco-editor@npm:^0.34.1":
   version: 0.34.1
   resolution: "monaco-editor@npm:0.34.1"
   checksum: 97e36072f880b61113919eb02b155a7895dc6db0dc6da8953a5f2ecc6f50795f10aff87ebf8c3bc59c0927604aa66ccb93bb90a3ea2695b79736639f91adde23
@@ -7219,7 +7008,7 @@ __metadata:
     "@playwright/test": "npm:1.29.1"
     "@types/eslint": "npm:^8.4.10"
     "@types/react": "npm:18.0.26"
-    "@types/react-dom": "npm:18.0.9"
+    "@types/react-dom": "npm:18.0.10"
     "@types/xo": "npm:^0.39.5"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.0"
     "@typescript-eslint/parser": "npm:^5.47.0"
@@ -7229,6 +7018,7 @@ __metadata:
     esbuild: "npm:^0.16.10"
     eslint: "npm:^8.30.0"
     eslint-plugin-react: "npm:^7.31.11"
+    monaco-editor: "npm:^0.34.1"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.1"
     react: "npm:^18.2.0"
@@ -7311,10 +7101,10 @@ __metadata:
   resolution: "new@workspace:packages/importmaps"
   dependencies:
     "@emotion/react": "npm:11.10.5"
-    "@types/react-dom": "npm:18.0.9"
+    "@types/react-dom": "npm:18.0.10"
     esbuild: "npm:0.16.10"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:8.0.1"
+    framer-motion: "npm:8.0.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"

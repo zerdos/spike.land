@@ -6,7 +6,7 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "@types/react-dom": "18.0.9",
+    "@types/react-dom": "18.0.10",
     "esbuild": "0.16.10",
     "esbuild-plugin-import-map": "2.1.0",
     "serve": "14.1.2",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
-    "framer-motion": "8.0.1",
+    "framer-motion": "8.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
