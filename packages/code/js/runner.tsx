@@ -1,5 +1,5 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
-import { Mutex } from "async-mutex";
+// import { Mutex } from "async-mutex";
 import type { TransformOptions } from "esbuild-wasm";
 import { wait } from "wait";
 import { syncWS } from "ws";
@@ -104,7 +104,7 @@ const BC = new BroadcastChannel(location.href + "/");
 //   umdTransform,
 // });
 // let rpcProvider;
-const mutex = new Mutex();
+// const mutex = new Mutex();
 
 BC.onmessage = async ({ data }) => {
   if (!data.html) return;
@@ -150,67 +150,67 @@ export async function runner({ code, counter, codeSpace }: {
 
   controller = new AbortController();
 
-  await mutex.runExclusive(async () => {
-    // Console.log({ i, counter });
+  // await mutex.runExclusive(async () => {
+  // Console.log({ i, counter });
 
-    // mod.i = counter;
+  // mod.i = counter;
 
-    // if (code === mST().code) return;
-    // if (mod.i > counter) return;
+  // if (code === mST().code) return;
+  // if (mod.i > counter) return;
 
-    // session.changes.push(changes);
-    // esbuildEsmTransform = esbuildEsmTransform ||
-    //   (await import("./esbuildEsm.ts")).transform;
+  // session.changes.push(changes);
+  // esbuildEsmTransform = esbuildEsmTransform ||
+  //   (await import("./esbuildEsm.ts")).transform;
+
+  try {
+    // const ab = new AbortController();
+    // const pp = await buildT(codeSpace, counter, ab.signal);
+    // if (!pp) return;
+    await wait(100);
+    const transpiled = esmTransform(code);
+
+    if (controller.signal.aborted) return;
+    BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     try {
-      // const ab = new AbortController();
-      // const pp = await buildT(codeSpace, counter, ab.signal);
-      // if (!pp) return;
-      await wait(100);
-      const transpiled = esmTransform(code);
-
+      const bundle = await buildT(codeSpace, controller.signal, true) as string;
       if (controller.signal.aborted) return;
-      BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
-
-      try {
-        const bundle = await buildT(codeSpace, controller.signal, true) as string;
-        if (controller.signal.aborted) return;
-        fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
-      } catch {
-        console.error("bundle failed");
-      }
-
-      // console.log("still alive2");
-      // // patchSync(sess);
-      // console.log("still alive3");
-
-      // const built = await build(code, counter, controller.signal);
-      // if (!built) return;
-      // const { html, css } = await render(transpiledCode, codeSpace);
-      //
-      // console.log({ html, css });
-
-      // if (!html) {
-      // return;
-      // }
-      // console.log("still alive1");
-      // // sess = {
-      // //   ...mST(),
-      // //   code,
-      // //   // codeSpace,
-      // //   i: counter,
-      // //   transpiled: transpiledCode,
-      // //   html,
-      // //   css,
-      // // };
-      // console.log("still alive2");
-      // // patchSync(sess);
-      // console.log("still alive3");
-      // // syncWS(sess);
-      // console.log("still alive4");
-    } catch (error) {
-      console.error({ error });
-    } finally {
+      fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
+    } catch {
+      console.error("bundle failed");
     }
-  });
+
+    // console.log("still alive2");
+    // // patchSync(sess);
+    // console.log("still alive3");
+
+    // const built = await build(code, counter, controller.signal);
+    // if (!built) return;
+    // const { html, css } = await render(transpiledCode, codeSpace);
+    //
+    // console.log({ html, css });
+
+    // if (!html) {
+    // return;
+    // }
+    // console.log("still alive1");
+    // // sess = {
+    // //   ...mST(),
+    // //   code,
+    // //   // codeSpace,
+    // //   i: counter,
+    // //   transpiled: transpiledCode,
+    // //   html,
+    // //   css,
+    // // };
+    // console.log("still alive2");
+    // // patchSync(sess);
+    // console.log("still alive3");
+    // // syncWS(sess);
+    // console.log("still alive4");
+  } catch (error) {
+    console.error({ error });
+  } finally {
+  }
+  // });
 }
