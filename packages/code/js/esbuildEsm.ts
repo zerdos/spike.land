@@ -265,7 +265,9 @@ export const buildT = async (
 
       if (signal.aborted) return;
       if (cs.includes(file) && file.indexOf("chunk") === -1) await fs.promises.unlink(f.path);
-      if (file?.indexOf("chunk") === -1 || !cs.includes(file)) await fs.promises.writeFile(f.path, f.text);
+      if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
+        await fs.promises.writeFile(f.path, importMapReplace(f.text, location.origin, f.path));
+      }
     });
 
     return b.outputFiles![0].text;
