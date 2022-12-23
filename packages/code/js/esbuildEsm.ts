@@ -6,6 +6,7 @@ import {
   transform,
   type TransformOptions,
 } from "esbuild-wasm";
+import impMap from "./importmap.json";
 //
 // import { imports as importMapImports } from "./importmap.json";
 
@@ -227,6 +228,7 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
+    external: Object.keys(impMap.imports),
     splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",
