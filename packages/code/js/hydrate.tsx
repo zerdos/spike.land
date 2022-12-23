@@ -1,163 +1,160 @@
-import { appFactory } from "starter";
-
 import type { Root } from "react-dom/client";
+import uidV4 from "./uidV4.mjs";
 
 import type { EmotionCache } from "@emotion/cache";
-import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
 import { createRoot } from "react-dom/client";
-import { ErrorBoundary } from "react-error-boundary";
-export { ab2str } from "sab";
+import { ab2str } from "sab";
 import type { CodeSession, ICodeSession } from "session";
 import { wait } from "wait";
 import { md5 } from "./md5";
-import { makePatch, startSession } from "./session";
+import { startSession } from "./session";
 
 export { md5 };
+
+import load from "./load";
+
+globalThis.assetHash = "ASSET_HASH";
+const paths = location.pathname.split("/");
+const codeSpace = paths[2];
+
+if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
+  const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
+  const name = md5(((self && self.crypto && self.crypto.randomUUID
+    && self.crypto.randomUUID()) || (uidV4())).slice(
+      0,
+      8,
+    ));
+  // messagePort = bc.port;
+
+  bc.port.addEventListener("message", async (event) => {
+    if (event.data.type === "onconnect") {
+      bc.port.postMessage({ codeSpace, name, type: "handshake" });
+    } else {
+      const data = JSON.parse(ab2str(event.data));
+      //          const { html, css, transpiled, i } = event.data.sess;
+      //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
+
+      const { render } = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`));
+      //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
+      render;
+      await hydrate(data.codeSpace, data.sess, bc.port);
+    }
+  });
+  bc.port.start();
+
+  if (!location.pathname.endsWith("worker")) {
+    const { appFactory } = await import("./starter");
+
+    const BC = new BroadcastChannel(location.href);
+    BC.onmessage = async (e) => {
+      if (e.data.html) return;
+      if (e.data.codeSpace !== codeSpace) return;
+      if (e.data.counter <= counterMax) return;
+      counterMax = e.data.counter;
+      controller.abort();
+      controller = new AbortController();
+      const data = e.data;
+      // render(data.transpiled);
+      const appId = md5(data.transpiled);
+      if (hashToRendered === appId) return;
+      const App = await (appFactory(data.transpiled));
+      // const rootDiv = document.createElement("div");
+      // divs[appId] = rootDiv;
+      // const root = createRoot(rootDiv);
+      if (!r) {
+        root = document.getElementById("root")!;
+        r = createRoot(document.getElementById("root")!);
+      }
+      r.render(<App appId={appId}></App>);
+
+      while (true) {
+        await wait(50);
+        if (controller.signal.aborted) return;
+        const html = root.innerHTML;
+
+        if (html.indexOf(appId)) {
+          const css = mineFromCaches(globalThis.eCaches[appId]);
+          BC.postMessage({ ...data, html, css });
+        }
+      }
+    };
+  } else {
+  }
+  // hydrate(codeSpace);
+} else if (location.pathname.endsWith(`/live/${codeSpace}`)) {
+  load();
+} else {
+  const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
+  bc.port.addEventListener("message", async (event) => {
+    if (event.data.type === "onconnect") {
+      bc.port.postMessage({ codeSpace, name, type: "handshake" });
+    } else {
+      // const data = JSON.parse(ab2str(event.data))
+      //          const { html, css, transpiled, i } = event.data.sess;
+      //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
+
+      const { render } = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`));
+      //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
+      render(document.getElementById("root"));
+    }
+  });
+  // load();
+}
 
 let counterMax = 0;
 let hashToRendered = "";
 const divs = {};
 let r: Root | null;
 let root: HTMLElement;
-let lastI: number;
-let session: CodeSession;
 
-const user = md5((self && self.crypto && self.crypto.randomUUID
-  && self.crypto.randomUUID()).slice(
-    0,
-    8,
-  ));
-
-const BC = new BroadcastChannel(location.href);
 let controller = new AbortController();
 
-export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: MessagePort) => {
-  BC.onmessage = async (e) => {
-    if (e.data.html) return;
-    if (e.data.codeSpace !== codeSpace) return;
-    if (e.data.counter <= counterMax) return;
-    counterMax = e.data.counter;
-    controller.abort();
-    controller = new AbortController();
-    const data = e.data;
-    // render(data.transpiled);
-    const appId = md5(data.transpiled);
-    if (hashToRendered === appId) return;
-    const App = await (appFactory(data.transpiled));
-    // const rootDiv = document.createElement("div");
-    // divs[appId] = rootDiv;
-    // const root = createRoot(rootDiv);
-    if (!r) {
-      root = document.getElementById("root")!;
-      r = createRoot(document.getElementById("root")!);
-    }
-    r.render(<App appId={appId}></App>);
+async function hydrate(codeSpace: string, sess?: ICodeSession, port?: MessagePort) {
+  // if (sess?.i && sess.i === lastI) return;
+  // if (sess && md5(sess.transpiled) === hashToRendered) return;
 
-    while (true) {
-      await wait(50);
-      if (controller.signal.aborted) return;
-      const html = root.innerHTML;
+  // if (sess && sess.transpiled) {
+  //   hashToRendered = md5(sess.transpiled);
+  //   session = startSession(codeSpace, {
+  //     name: user,
+  //     state: sess,
+  //   });
+  // }
 
-      if (html.indexOf(appId)) {
-        const css = mineFromCaches(globalThis.eCaches[appId]);
-        BC.postMessage({ ...data, html, css });
-      }
-    }
-  };
-
-  if (sess?.i && sess.i === lastI) return;
-  if (sess && md5(sess.transpiled) === hashToRendered) return;
-
-  if (sess && sess.transpiled) {
-    hashToRendered = md5(sess.transpiled);
-    session = startSession(codeSpace, {
-      name: user,
-      state: sess,
-    });
-  }
-
-  if (sess && sess.i <= counterMax) return;
+  // if (sess && sess.i <= counterMax) return;
   // requestAnimationFrame(async () => {
-  let App;
-  if (r) {
-    r.unmount();
-    r = null;
-  }
-  const rt = document.getElementById("root")!;
 
-  if (sess && sess.i && sess.html && sess.transpiled) {
-    const { i, css, html, transpiled } = sess;
-    rt?.setAttribute("data-i", String(i));
-    rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(
-      `css`,
-    );
-  }
-  const i = rt?.getAttribute("data-i") || 1;
-  lastI = +i;
-  counterMax = lastI;
+  // if (r) {
+  //   r.unmount();
+  //   r = null;
+  // }
+  // const rt = document.getElementById("root")!;
 
-  App = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`))
-    .default;
+  // if (sess && sess.i && sess.html && sess.transpiled) {
+  //   const { i, css, html, transpiled } = sess;
+  //   rt?.setAttribute("data-i", String(i));
+  //   rt.innerHTML = `<style>${css}</style>${html}`.split(md5(transpiled)).join(
+  //     `css`,
+  //   );
+  // }
+  // const i = rt?.getAttribute("data-i") || 1;
+  // lastI = +i;
+  // counterMax = lastI;
 
-  root = document.getElementById(
-    codeSpace + "-css",
-  ) as unknown as HTMLDivElement;
+  // const {default: App, render} = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`));
 
-  if (!root) {
-    document.getElementById("root")!.innerHTML = `<div style="height: 100%" id="${codeSpace}-css"></>`;
-    root = document.getElementById(
-      codeSpace + "-css",
-    ) as unknown as HTMLDivElement;
-  }
-  if (!r) {
-    const cache = createCache({
-      key: sess?.transpiled ? md5(sess?.transpiled) : "css",
-      speedy: false,
-    });
-    cache.compat = undefined;
-    r = createRoot(root);
-    r.render(
-      <ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div role="alert">
-            <div>Oh, no!!!</div>
-            <pre>{error.message}</pre>
-          </div>
-        )}
-      >
-        <CacheProvider key={cache.key} value={cache}>
-          <App />
-        </CacheProvider>
-      </ErrorBoundary>,
-    );
-    hashToRendered = cache.key;
-    // if (sess && sess.transpiled) {
-    // requestAnimationFrame(() => {
-    // const html = root.innerHTML;
-    // const css = mineFromCaches(cache);
-    // // const fromState = sess;
-    // const newSt = { ...sess, html, css };
-    // const message = makePatch(
-    //   newSt,
-    // );
-    // if (!message) return;
-    // port.postMessage({
-    //   newHash: message.newHash,
-    //   oldHash: message.oldHash,
-    //   patch: message.patch,
-    //   codeSpace,
-    //   reversePatch: message.reversePatch,
-    //   name: (message.oldHash + message.newHash).slice(4, 12),
-    //   i: sess!.i,
-    //   sess: newSt,
-    // });
+  // root = document.getElementById(
+  //   codeSpace + "-css",
+  // ) as unknown as HTMLDivElement;
 
-    // console.log({ html, css });
-    // });
-    // }
-  }
-};
+  // if (!root) {
+  //   document.getElementById("root")!.innerHTML = `<div style="height: 100%" id="${codeSpace}-css"></>`;
+  //   root = document.getElementById(
+  //     codeSpace + "-css",
+  //   ) as unknown as HTMLDivElement;
+  // }
+  // if (render) return render(root);
+}
 
 function mineFromCaches(cache: EmotionCache) {
   const key = cache.key;

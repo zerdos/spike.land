@@ -22,7 +22,7 @@ export const unpkgPathPlugin = {
       }
 
       return {
-        path: `${location.origin}/*${args.path}`,
+        path: `${location.origin}/*${args.path}?bundle`,
         namespace: "http-url",
       };
     });

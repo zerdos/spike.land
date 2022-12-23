@@ -9,7 +9,7 @@ let fetchCache: Cache = {
     }),
 } as unknown as Cache;
 
-const codeSpace = location.pathname.slice(1).split("/")[1];
+// const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: (

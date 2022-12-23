@@ -6813,7 +6813,77 @@ function isChunk(link) {
 var chat_default = api;
 
 // src/index.html
-var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <script type="module">\n    import { hydrate, md5, ab2str } from "./hydrate.mjs?ASSET_HASH";\n    import load from "./load.mjs?ASSET_HASH";\n\n    globalThis.assetHash = "ASSET_HASH";\n    const paths = location.pathname.split("/");\n    const codeSpace = paths[2];\n\n    const rootEl = document.getElementById(`root`);\n\n\n    if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {\n      const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");\n      const name = md5(((self && self.crypto && self.crypto.randomUUID\n  && self.crypto.randomUUID()) || (uidV4())).slice(\n    0,\n    8,\n  ));\n      // messagePort = bc.port;\n   \n      bc.port.addEventListener("message", async (event) => {\n        if (event.data.type==="onconnect"){\n          bc.port.postMessage({codeSpace, name,  type: \'handshake\'});\n        } else {\n          const data = JSON.parse(ab2str(event.data))\n//          const { html, css, transpiled, i } = event.data.sess;\n          //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));\n\n          //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,\n          await hydrate(data.codeSpace, data.sess, bc.port);\n        }\n      });\n      bc.port.start()\n     \n      hydrate(codeSpace);\n   \n    } else if (location.pathname.endsWith(\'worker\')){\n      load();\n    } else {\n      load();\n    }\n  <\/script>\n\n  <script type="module">\n    import {Workbox} from \'/npm:/workbox-window\';\n\nif (\'serviceWorker\' in navigator) {\n  const wb = new Workbox(\'/sw.js\');\n\n  wb.register();\n}\n  <\/script>\n\n</body>\n\n</html>';
+var src_default = `<!DOCTYPE html>
+<html lang="en">
+
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">
+  <base href="/">
+  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
+  <title>Instant React Editor</title>
+
+  <script type="importmap"><\/script>
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      margin: 0;
+      height: 100%;
+      --webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+    }
+
+    q {
+      display: none;
+    }
+
+
+    @media screen and (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        ;
+        color: hsl(210, 10%, 62%);
+        --text-color-normal: hsl(210, 10%, 62%);
+        --text-color-light: hsl(210, 15%, 35%);
+        --text-color-richer: hsl(210, 50%, 72%);
+        --text-color-highlight: hsl(25, 70%, 45%);
+      }
+    }
+
+
+    @media screen and (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+        --text-color-normal: #0a244d;
+        --text-color-light: #8cabd9;
+      }
+    }
+
+    /**reset*/
+  </style>
+</head>
+
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="./hydrate.mjs"><\/script>
+
+  <script type="module">
+    import {Workbox} from '/npm:/workbox-window';
+
+if ('serviceWorker' in navigator) {
+  const wb = new Workbox('/sw.js');
+
+  wb.register();
+}
+  <\/script>
+
+</body>
+
+</html>`;
 
 // ../../node_modules/async-mutex/index.mjs
 var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
@@ -8045,12 +8115,13 @@ var Code = class {
             `<script type="importmap">${JSON.stringify(importmap_default2)}<\/script>`
           ).replace(
             `<div id="root"></div>`,
-            `<div id="root" data-i="${i}" style="height: 100%;">
-              <style>${css}</style>
-              <div style="height: 100%;">
+            `<style>${css}</style><div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
-              </div>`
+              <script type="module">
+              import("${url.origin}/live/${this.codeSpace}/index.js").then({render}=> render && render(document.getElementById("root")));
+             
+              <\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
