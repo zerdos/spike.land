@@ -167,7 +167,7 @@ export async function runner({ code, counter, codeSpace }: {
       // const pp = await buildT(codeSpace, counter, ab.signal);
       // if (!pp) return;
       await wait(100);
-      const transpiled = await buildT(codeSpace, controller.signal, false) as string;
+      const transpiled = esmTransform(code);
 
       if (controller.signal.aborted) return;
       BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
