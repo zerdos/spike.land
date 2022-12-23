@@ -275,6 +275,46 @@ export const run = async (startState: {
   const cs = await fs.readdir(`/live/${codeSpace}`);
   if (!cs.includes("index.tsx")) await fs.writeFile(`/live/${codeSpace}/index.tsx`, startState.mST.code);
 
+  if (!cs.includes("render.tsx")) {
+    await fs.writeFile(
+      `/live/${codeSpace}/render.tsx`,
+      `
+  import {createRoot} from "${location.origin}/reactDomClient.mjs"
+  import { CacheProvider } from "${location.origin}/emotion.mjs";
+  import createCache from "${location.origin}/emotionCache.mjs";
+  import { ErrorBoundary } from "${location.origin}/reactMod.mjs";
+  import App from "${location.origin}/live/${codeSpace}/index.tsx"
+        
+          export default App;
+          export const render =(rootEl)=>{
+       
+      const root = createRoot(rootEl);
+      
+        const cache = createCache({
+          key: "z",
+          container: rootEl,
+          speedy: false
+        });
+      
+       cache.compat = undefined;
+      
+      root.render(<ErrorBoundary
+        fallbackRender={({ error }) => (
+          <div role="alert">
+            <div>Oh no</div>
+            <pre>{error.message}</pre>
+          </div>
+        )}>
+        <CacheProvider value={cache}>
+          <App />
+        </CacheProvider>
+        </ErrorBoundary>)
+        }
+        ;
+  `,
+    );
+  }
+
   console.log({ fs });
   const codeHistory = localForage.createInstance({
     name: location.origin + `/live/${codeSpace}`,
