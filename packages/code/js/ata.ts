@@ -76,7 +76,6 @@ export async function run(code: string, originToUse: string) {
       ];
     }
 
-    console.log(res);
     res = [...new Set(res)];
 
     return await Promise.all(res.map(async (r: string) => {

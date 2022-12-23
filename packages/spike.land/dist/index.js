@@ -451,6 +451,7 @@ var package_default = {
     "monaco-editor": "0.34.1",
     "p-map": "5.5.0",
     p2pcf: "^1.3.11",
+    "path-browserify": "^1.0.1",
     prettier: "2.8.1",
     prismjs: "^1.29.0",
     qrious: "4.0.2",
@@ -538,7 +539,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-KC2EGVGX.mjs
+// ../code/dist/chunk-chunk-KUYN65OA.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6132,7 +6133,6 @@ overflow-wrap: break-word;
 init_define_process();
 var importmap_default = {
   imports: {
-    "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
@@ -6201,7 +6201,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
         return x;
       if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`"https://`) === -1) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/npm:/*" + slices[1] + "?bundle&target=es2020&keep-names=true&dev=true";
+        slices[1] = origin + "/npm:/*" + slices[1];
         return slices.join(`"`);
       }
       if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
@@ -6504,7 +6504,6 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/js/importmap.json
 var importmap_default2 = {
   imports: {
-    "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
@@ -7875,7 +7874,7 @@ var Code = class {
           import { CacheProvider } from "@emotion/react";
           import createCache from "@emotion/cache";
           import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js/${i}"
+          import App from "${url.origin}/live/${codeSpace}/index.js"
           
           document.body.innerHTML = '<div id="root"></div>';
 

@@ -180,10 +180,12 @@ async function onMessage(port: MessagePort, {
     if (db) {
       const hash = await db.getItem<string>("wsHash");
       if (hash && obj.oldHash && hash !== obj.oldHash) {
-        const old = await db.getItem(hash);
+        const old = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(hash);
 
         if (old) {
-          const next = await db.getItem(old.newHash);
+          const next = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(
+            old.newHash,
+          );
           if (next) {
             return mod[codeSpace].send(
               JSON.stringify({
@@ -247,10 +249,12 @@ function reconnect(codeSpace: string, name: string) {
       const hash = patch.newHash || patch.hashCode;
       if (hash && head && hash !== head) {
         await db.setItem("wsHash", hash);
-        const old = await db.getItem(hash);
+        const old = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(hash);
 
         if (old) {
-          const next = await db.getItem(old.newHash);
+          const next = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(
+            old.newHash,
+          );
           if (next) {
             return mod[codeSpace].send(
               JSON.stringify({

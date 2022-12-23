@@ -564,12 +564,10 @@ async function startMonacoPristine(
 
     console.log({ version: model.getVersionId(), ev });
     const val = model.getValue();
+    mod.silent = false;
     fs.promises.unlink(`/live/${codeSpace}/index.tsx`).then(() =>
-      fs.writeFile(`/live/${codeSpace}/index.tsx`, val, { mode: 755, encoding: "utf8" }, (err) => {
-        console.error({ err });
-      })
-    );
-    mod.silent == false && onChange(val);
+      fs.promises.writeFile(`/live/${codeSpace}/index.tsx`, val)
+    ).then(() => onChange(val));
   });
 
   return mod;
