@@ -16,6 +16,7 @@ import { makePatch, startSession } from "./session";
 export { md5 };
 
 let counterMax = 0;
+let hashToRendered = "";
 const divs = {};
 let r: Root | null;
 let root: HTMLElement;
@@ -42,6 +43,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
     const data = e.data;
     // render(data.transpiled);
     const appId = md5(data.transpiled);
+    if (hashToRendered === appId) return;
     const App = await (appFactory(data.transpiled));
     // const rootDiv = document.createElement("div");
     // divs[appId] = rootDiv;
@@ -65,8 +67,10 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
   };
 
   if (sess?.i && sess.i === lastI) return;
+  if (sess && md5(sess.transpiled) === hashToRendered) return;
 
   if (sess && sess.transpiled) {
+    hashToRendered = md5(sess.transpiled);
     session = startSession(codeSpace, {
       name: user,
       state: sess,
@@ -93,7 +97,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
   lastI = +i;
   counterMax = lastI;
 
-  App = (await import(`${location.origin}/live/${codeSpace}/index.js`))
+  App = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`))
     .default;
 
   root = document.getElementById(
@@ -127,6 +131,7 @@ export const hydrate = async (codeSpace: string, sess?: ICodeSession, port: Mess
         </CacheProvider>
       </ErrorBoundary>,
     );
+    hashToRendered = cache.key;
     // if (sess && sess.transpiled) {
     // requestAnimationFrame(() => {
     // const html = root.innerHTML;
