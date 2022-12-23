@@ -173,7 +173,11 @@ export async function runner({ code, counter, codeSpace }: {
     BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     try {
-      await buildT(codeSpace, controller.signal, true) as string;
+      await fs.promises.unlink(`/live/${codeSpace}/index.tsx`);
+
+      await fs.promises.writeFile(`/live/${codeSpace}/index.tsx`, code);
+
+      await buildT(codeSpace, controller.signal, true);
 
       // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
     } catch {

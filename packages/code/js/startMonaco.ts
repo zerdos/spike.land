@@ -222,7 +222,7 @@ async function startMonacoPristine(
     // Console.log("load more models", replaced, models);
 
     for (const match of models) {
-      console.log("***** EXTRA MODELS *****");
+      // console.log("***** EXTRA MODELS *****");
       //
       const codeSpace = match[0].split("/live/").pop();
       const extraModel = new URL(
@@ -249,16 +249,16 @@ async function startMonacoPristine(
     //   "/sharedWorker.js?" + globalThis.assetHash,
     // );
 
-    console.log("******");
-    console.log("******");
-    console.log("******");
-    console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
 
-    console.log("******");
-    console.log("******");
-    console.log("******");
-    console.log("******");
-    console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
 
     // sharedWorker.port.addEventListener("message", (e) => {
     //   if (e.data.type !== "ata") return;
@@ -283,13 +283,13 @@ async function startMonacoPristine(
 
     // sharedWorker.port.postMessage({ code, baseUrl: originToUse, type: "ata" });
 
-    console.log("******");
-    console.log("******");
+    // console.log("******");
+    // console.log("******");
     // console.log(e.data)});
-    console.log("******");
-    console.log("******");
-    console.log("******");
-    console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
+    // console.log("******");
 
     // const { run } = await import("./ata");
 
@@ -565,9 +565,7 @@ async function startMonacoPristine(
     console.log({ version: model.getVersionId(), ev });
     const val = model.getValue();
     mod.silent = false;
-    fs.promises.unlink(`/live/${codeSpace}/index.tsx`).then(() =>
-      fs.promises.writeFile(`/live/${codeSpace}/index.tsx`, val)
-    ).then(() => onChange(val));
+    onChange(val);
   });
 
   return mod;

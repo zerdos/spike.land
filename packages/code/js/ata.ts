@@ -5,15 +5,15 @@ export async function run(code: string, originToUse: string) {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
 
-  console.log(
-    await ata(
-      `import * as JSX from "@emotion/react/jsx-runtime";
+  // console.log(
+  await ata(
+    `import * as JSX from "@emotion/react/jsx-runtime";
       import "@emotion/react/types/css-prop";
       
       ` + code,
-      originToUse,
-    ),
+    originToUse,
   );
+  // );
 
   const versionNumbers = /@(\^)?\d+.\d+.\d+/gm;
 
@@ -98,7 +98,7 @@ export async function run(code: string, originToUse: string) {
       if (newBase.indexOf(location.origin) !== -1) {
         return true;
       }
-      console.log("processing: " + r);
+      // console.log("processing: " + r);
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
