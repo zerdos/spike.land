@@ -1,4 +1,11 @@
-import { build as esbuildBuild, type BuildOptions, initialize, transform, type TransformOptions } from "esbuild-wasm";
+import {
+  build as esbuildBuild,
+  type BuildOptions,
+  type BuildResult,
+  initialize,
+  transform,
+  type TransformOptions,
+} from "esbuild-wasm";
 //
 // import { imports as importMapImports } from "./importmap.json";
 
@@ -212,19 +219,21 @@ export const buildT = async (
     write: false,
     metafile: true,
     target: "es2022",
-    outdir: `./`,
+    outdir: `./live/${codeSpace}`,
     treeShaking: true,
     minify: false,
+
     define: define,
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
-    splitting: false,
+    splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",
     format: "esm",
     // external: Object.keys(importMapImports),
     entryPoints: [
+      `./live/${codeSpace}/index.tsx`,
       `./live/${codeSpace}/render.tsx`,
       // `./render.tsx?i=${i}`,
       // "./reactDomClient.mjs",
@@ -239,13 +248,27 @@ export const buildT = async (
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
   };
-  let b;
+  let b: BuildResult;
   if (
     !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
   ) {
     console.log(b.outputFiles);
 
-    return importMapReplace(b.outputFiles![0].text, location.origin, location.origin);
+    const cs = await fs.promises.readdir(`/live/${codeSpace}`);
+
+    cs.filter(x => x.indexOf("chunk") !== -1).map(chunk =>
+      b.outputFiles?.find(x => x.path.indexOf(chunk) !== -1) || fs.promises.unlink(`/live/${codeSpace}/${chunk}`)
+    );
+
+    b.outputFiles?.map(async (f) => {
+      const file = f.path.split("/").pop()!;
+
+      if (signal.aborted) return;
+      if (cs.includes(file) && file.indexOf("chunk") === -1) await fs.promises.unlink(f.path);
+      if (file?.indexOf("chunk") === -1 || !cs.includes(file)) await fs.promises.writeFile(f.path, f.text);
+    });
+
+    return b.outputFiles![0].text;
   }
   return false;
 };
