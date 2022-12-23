@@ -8121,7 +8121,7 @@ var Code = class {
               </div>
               <script type="module">
               const root = document.getElementById("root");
-              import("${url.origin}/live/${this.codeSpace}/index.js").then(({render})=> render && render(root));
+              import("${url.origin}/live/${this.codeSpace}/index.js?refresh=${Math.random()}").then(({render})=> render && render(root));
               <\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();

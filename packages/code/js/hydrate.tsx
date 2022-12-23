@@ -84,7 +84,7 @@ if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("w
 } else if (location.pathname.endsWith(`/live/${codeSpace}`)) {
   load();
 } else {
-  const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
+  const bc = new SharedWorker("/sharedWorker.js");
   bc.port.addEventListener("message", async (event) => {
     if (event.data.type === "onconnect") {
       bc.port.postMessage({ codeSpace, name, type: "handshake" });
