@@ -603,12 +603,13 @@ export class Code {
             )
             .replace(
               `<div id="root"></div>`,
-              `<style>${css}</style><div id="root" data-i="${i}" style="height: 100%;">
+              `<style>${css}</style>
+              <div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
               <script type="module">
-              import("${url.origin}/live/${this.codeSpace}/index.js").then({render}=> render && render(document.getElementById("root")));
-             
+              const root = document.getElementById("root");
+              import("${url.origin}/live/${this.codeSpace}/index.js").then(({render})=> render && render(root));
               </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
