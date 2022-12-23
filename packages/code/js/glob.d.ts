@@ -11,8 +11,8 @@ declare global {
   var fs: FS;
 
   var assetHash: string;
-  const apps: { [key: string]: FC<{ appId: string }> };
-  const eCaches: { [key: string]: EmotionCache };
+  var apps: { [key: string]: FC<{ appId: string }> };
+  var eCaches: { [key: string]: EmotionCache };
   const emotionReact: typeof ear;
 
   const workerDom: boolean;

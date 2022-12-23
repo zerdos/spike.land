@@ -54,48 +54,7 @@
 
 <body>
   <div id="root"></div>
-  <script type="module">
-    import { hydrate, md5, ab2str } from "./hydrate.mjs?ASSET_HASH";
-    import load from "./load.mjs?ASSET_HASH";
-
-    globalThis.assetHash = "ASSET_HASH";
-    const paths = location.pathname.split("/");
-    const codeSpace = paths[2];
-
-    const rootEl = document.getElementById(`root`);
-
-
-    if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
-      const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
-      const name = md5(((self && self.crypto && self.crypto.randomUUID
-  && self.crypto.randomUUID()) || (uidV4())).slice(
-    0,
-    8,
-  ));
-      // messagePort = bc.port;
-   
-      bc.port.addEventListener("message", async (event) => {
-        if (event.data.type==="onconnect"){
-          bc.port.postMessage({codeSpace, name,  type: 'handshake'});
-        } else {
-          const data = JSON.parse(ab2str(event.data))
-//          const { html, css, transpiled, i } = event.data.sess;
-          //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
-
-          //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
-          await hydrate(data.codeSpace, data.sess, bc.port);
-        }
-      });
-      bc.port.start()
-     
-      hydrate(codeSpace);
-   
-    } else if (location.pathname.endsWith('worker')){
-      load();
-    } else {
-      load();
-    }
-  </script>
+  <script type="module" src="./hydrate.mjs"></script>
 
   <script type="module">
     import {Workbox} from '/npm:/workbox-window';

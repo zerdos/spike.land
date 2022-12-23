@@ -273,7 +273,7 @@ const build = (
       "js/reactMod.ts",
 
       // "js/Editor.tsx",
-      // "js/motion.ts",
+      "js/motion.ts",
       "js/reactDom.ts",
       "js/hydrate.tsx",
       "js/reactDomClient.ts",

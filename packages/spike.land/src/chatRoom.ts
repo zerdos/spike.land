@@ -603,12 +603,13 @@ export class Code {
             )
             .replace(
               `<div id="root"></div>`,
-              `<div id="root" data-i="${i}" style="height: 100%;">
-              <style>${css}</style>
-              <div style="height: 100%;">
+              `<style>${css}</style><div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
-              </div>`,
+              <script type="module">
+              import("${url.origin}/live/${this.codeSpace}/index.js").then({render}=> render && render(document.getElementById("root")));
+             
+              </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
           // const Etag = request.headers.get("Etag");
