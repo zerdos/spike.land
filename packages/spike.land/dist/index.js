@@ -543,7 +543,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-RBUXSTNX.mjs
+// ../code/dist/chunk-chunk-TWRA4GXR.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6216,7 +6216,6 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
     if (importmapRep) {
       returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
     }
-    returnStr = replaceAll(returnStr, ` from "./`, ` from "${origin}/live/`);
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
