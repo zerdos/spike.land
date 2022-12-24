@@ -68,14 +68,14 @@ export async function run(code: string, originToUse: string) {
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-    let res = tsx(importMapReplace(code, location.origin, baseUrl, false));
+    let res = tsx(code);
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
       const [, ...refs] = refParts;
       res = [
         ...res,
-        ...refs.map((r) => r.split(`"`)[0]).map((r) =>
+        ...refs.map((r) => r.split(`"`)[1]).map((r) =>
           (r.startsWith(".") || r.startsWith("https:/")) ? r : new URL(`./` + r, baseUrl).toString()
         ),
       ];
@@ -89,7 +89,7 @@ export async function run(code: string, originToUse: string) {
         : r.indexOf("https://") !== -1
         ? r
         : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
-          (res) => res.headers.get("x-dts"),
+          (res) => res.headers.get("x-typescript-types"),
         );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
@@ -111,7 +111,7 @@ export async function run(code: string, originToUse: string) {
         .then((dtsRes) => {
           const u = new URL(dtsRes.url, origin);
           impRes[newBase!].url = u.toString();
-          return dtsRes.text().then(z => importMapReplace(z, u.toString(), origin, false));
+          return dtsRes.text();
         });
 
       if (impRes[newBase].content.length > 0) {
