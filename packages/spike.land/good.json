@@ -105,7 +105,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 21077,
+      "bytes": 21034,
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -289,7 +289,7 @@
           "bytesInOutput": 9010
         },
         "src/chat.ts": {
-          "bytesInOutput": 9806
+          "bytesInOutput": 9618
         },
         "../code/package.json": {
           "bytesInOutput": 5020
@@ -340,7 +340,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 315550
+      "bytes": 315362
     }
   }
 }

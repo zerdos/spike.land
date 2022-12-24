@@ -6761,7 +6761,7 @@ var api = {
               )
             );
             headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-            const xTs = response.headers.get("x-typescript-types")?.replace("esm.sh", url.host) || "NO_DTS";
+            const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
             if (isDTS) {
               if (xTs === "NO_DTS") {
                 return new Response(JSON.stringify({ error: "NO_DTS" }), {
@@ -6771,7 +6771,7 @@ var api = {
                   }
                 });
               }
-              const xt = response.headers.get("x-typescript-types").replace("esm.sh", url.host);
+              const xt = response.headers.get("x-typescript-types");
               response = new Response(
                 `
               export * from "${xt}";
@@ -6785,11 +6785,6 @@ var api = {
                 }
               );
             }
-            headers.set(
-              "x-dts",
-              xTs
-            );
-            headers.delete("x-typescript-types");
             const isText = !!response?.headers?.get("Content-Type")?.includes(
               "charset"
             );
