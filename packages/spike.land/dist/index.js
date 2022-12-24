@@ -546,7 +546,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-H3MTWYOE.mjs
+// ../code/dist/chunk-chunk-ZFMHYQT7.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6176,10 +6176,18 @@ var importmap_default = {
 };
 var importMapImports = importmap_default.imports;
 function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
+  let returnStr = replaceAll(codeInp, `from"`, `from "`);
   const items = Object.keys(
     importMapImports
   );
-  let returnStr = codeInp.split("/::").join(origin);
+  items.map((lib) => {
+    const uri = new URL(importMapImports[lib], origin).toString();
+    if (importmapRep) {
+      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
+  });
+  returnStr.split("/::").join(origin);
   if (!returnStr)
     return returnStr;
   const url = relativeUrl || origin;
@@ -6213,14 +6221,6 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
   returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
   returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
   returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
-  items.map((lib) => {
-    const uri = new URL(importMapImports[lib], origin).toString();
-    returnStr = replaceAll(returnStr, `from"`, `from "`);
-    if (importmapRep) {
-      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
-    }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
-  });
   let oldUrl;
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
     (Y) => Y.split("\n").map((x) => {
