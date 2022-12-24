@@ -109,8 +109,9 @@ export async function run(code: string, originToUse: string) {
 
       impRes[newBase].content = await fetch(newBase, { redirect: "follow" })
         .then((dtsRes) => {
-          impRes[newBase!].url = dtsRes.url;
-          return dtsRes.text().then(z => importMapReplace(z, dtsRes.url.replace("https://esm.sh", origin), origin));
+          const u = new URL(dtsRes.url, origin);
+          impRes[newBase!].url = u.toString();
+          return dtsRes.text().then(z => importMapReplace(z, u.toString(), origin));
         });
 
       if (impRes[newBase].content.length > 0) {
