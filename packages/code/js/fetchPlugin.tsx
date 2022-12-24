@@ -54,7 +54,6 @@ export const fetchPlugin: (
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
-    console.log({ code });
     build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
       console.log({ args });
 
