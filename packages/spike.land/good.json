@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-WLHFMLPX.mjs": {
-      "bytes": 201882,
+    "../code/dist/chunk-chunk-RBUXSTNX.mjs": {
+      "bytes": 201897,
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-A3E5PINE.mjs",
@@ -73,7 +73,7 @@
       "bytes": 519,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-WLHFMLPX.mjs",
+          "path": "../code/dist/chunk-chunk-RBUXSTNX.mjs",
           "kind": "import-statement"
         },
         {
@@ -297,8 +297,8 @@
         "../code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
         },
-        "../code/dist/chunk-chunk-WLHFMLPX.mjs": {
-          "bytesInOutput": 200749
+        "../code/dist/chunk-chunk-RBUXSTNX.mjs": {
+          "bytesInOutput": 200764
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -340,7 +340,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 315017
+      "bytes": 315032
     }
   }
 }

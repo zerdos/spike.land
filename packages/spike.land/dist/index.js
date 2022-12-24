@@ -543,7 +543,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-WLHFMLPX.mjs
+// ../code/dist/chunk-chunk-RBUXSTNX.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6243,7 +6243,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
       return x;
     }).join("\n")
   ).join(";");
-  if (relativeUrl.indexOf("esm.sh") === -1) {
+  if (relativeUrl && relativeUrl.indexOf("esm.sh") === -1) {
     returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:").split("npm:/npm:").join("npm:").split(
       "npm:/*/"
     ).join(
