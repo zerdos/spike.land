@@ -3,13 +3,13 @@ import { esmTransform } from "./runner";
 
 import { readFile } from "./fs";
 
-let fetchCache: Cache = {
-  match: (req: Request) =>
-    caches.open("fetchCache").then((fc) => {
-      fetchCache = fc;
-      return fc.match(req);
-    }),
-} as unknown as Cache;
+// let fetchCache: Cache = {
+//   match: (req: Request) =>
+//     caches.open("fetchCache").then((fc) => {
+//       fetchCache = fc;
+//       return fc.match(req);
+//     }),
+// } as unknown as Cache;
 
 // const codeSpace = location.pathname.slice(1).split("/")[1];
 // import type * as esbuild from "esbuild-wasm";
@@ -54,11 +54,15 @@ export const fetchPlugin: (
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
+    console.log({ code });
     build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
+      console.log({ args });
+
       const lastPart = args.path.split("/live/").pop();
       const file = await readFile(`/live/${lastPart}`);
       const code = await esmTransform(file as string);
       console.log({ code });
+
       // if (file) {
       //   return new Response(file);
       // }
@@ -163,13 +167,14 @@ export const fetchPlugin: (
 });
 
 async function getRequest(req: Request) {
-  let response = await fetchCache.match(req);
-  if (response) return response;
+  console.log({ getReq: req });
+  // let response = await fetchCache.match(req);
+  // if (response) return response;
 
-  response = await fetch(req);
+  let response = await fetch(req);
   if (!response || !response.ok) return response;
   response = new Response(response.body, response);
 
-  await fetchCache.put(req, response.clone());
+  // await fetchCache.put(req, response.clone());
   return response;
 }
