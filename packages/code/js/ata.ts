@@ -86,7 +86,7 @@ export async function run(code: string, originToUse: string) {
         : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
           (res) =>
             res.headers.get("x-typescript-types")?.replace("esm.sh", location.host)
-            || res.headers.get("x-DTS")?.replace("esm.sh", location.host),
+            || res.headers.get("x-dts")?.replace("esm.sh", location.host),
         );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
@@ -94,7 +94,7 @@ export async function run(code: string, originToUse: string) {
         return true;
       }
 
-      if (newBase === null) {
+      if (!newBase) {
         return;
       }
       if (newBase.indexOf(location.origin) !== -1) {
