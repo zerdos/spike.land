@@ -68,7 +68,7 @@ export async function run(code: string, originToUse: string) {
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-    let res = tsx(importMapReplace(code, location.origin, baseUrl));
+    let res = tsx(importMapReplace(code, location.origin, baseUrl, false));
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
@@ -111,7 +111,7 @@ export async function run(code: string, originToUse: string) {
         .then((dtsRes) => {
           const u = new URL(dtsRes.url, origin);
           impRes[newBase!].url = u.toString();
-          return dtsRes.text().then(z => importMapReplace(z, u.toString(), origin));
+          return dtsRes.text().then(z => importMapReplace(z, u.toString(), origin, false));
         });
 
       if (impRes[newBase].content.length > 0) {
