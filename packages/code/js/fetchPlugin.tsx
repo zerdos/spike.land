@@ -58,7 +58,9 @@ export const fetchPlugin: (
       console.log({ args });
 
       const lastPart = args.path.split("/live/").pop();
-      const resp = fetch(`${location.origin}/live/${lastPart}`);
+      const file = await readFile(`/live/${lastPart}`);
+      const code = await esmTransform(file as string);
+      console.log({ code });
 
       // if (file) {
       //   return new Response(file);
@@ -127,8 +129,7 @@ export const fetchPlugin: (
       //     </ErrorBoundary></StrictMode>);
       //       `);
       return {
-        contents: resp,
-        loader: "tsx",
+        contents: code,
       };
       // }
       // return null;
