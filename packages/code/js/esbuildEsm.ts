@@ -196,13 +196,6 @@ export const buildT = async (
 
   if (initFinished !== true) await (initFinished);
   // skipImportmapReplaceNames = true;
-
-  const codeSpaces = await fs.promises.readdir(`/live/`);
-  const entryP =
-    (codeSpaces.map(codeSpace => [`./live/${codeSpace}/index.tsx`, `./live/${codeSpace}/render.tsx`]).flat());
-
-  console.log({ entryP });
-
   const defaultOpts: BuildOptions = {
     bundle,
     resolveExtensions: [
@@ -227,7 +220,7 @@ export const buildT = async (
     write: false,
     metafile: true,
     target: "es2022",
-    outdir: "./dist",
+    outdir: `./live/${codeSpace}`,
     treeShaking: true,
     minify: false,
 
@@ -235,22 +228,24 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
+    external: Object.keys(impMap.imports),
     splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",
     format: "esm",
     // external: Object.keys(importMapImports),
-    entryPoints:
-      (codeSpaces.map(codeSpace => [`./live/${codeSpace}/index.tsx`, `./live/${codeSpace}/render.tsx`]).flat()),
-    // `./render.tsx?i=${i}`,
-    // "./reactDomClient.mjs",
-    // "./emotion.mjs",
-    // "./motion.mjs",
-    // "./emotionCache.mjs",
-    // "./emotionStyled.mjs",
-    // "./reactMod.mjs",
-    // "./reactDom.mjs",
-    // ],
+    entryPoints: [
+      `./live/${codeSpace}/index.tsx`,
+      `./live/${codeSpace}/render.tsx`,
+      // `./render.tsx?i=${i}`,
+      // "./reactDomClient.mjs",
+      // "./emotion.mjs",
+      // "./motion.mjs",
+      // "./emotionCache.mjs",
+      // "./emotionStyled.mjs",
+      // "./reactMod.mjs",
+      // "./reactDom.mjs",
+    ],
 
     tsconfig: "./tsconfig.json",
     plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
@@ -261,21 +256,19 @@ export const buildT = async (
   ) {
     console.log(b.outputFiles);
 
-    // const cs = await fs.promises.readdir(`/live/${codeSpace}`);
+    const cs = await fs.promises.readdir(`/live/${codeSpace}`);
 
-    // cs.filter(x => x.indexOf("chunk") !== -1).map(chunk =>
-    // b.outputFiles?.find(x => x.path.indexOf(chunk) !== -1) || fs.promises.unlink(`/live/${codeSpace}/${chunk}`)
-    // );
-    1;
+    cs.filter(x => x.indexOf("chunk") !== -1).map(chunk =>
+      b.outputFiles?.find(x => x.path.indexOf(chunk) !== -1) || fs.promises.unlink(`/live/${codeSpace}/${chunk}`)
+    );
+
     b.outputFiles?.map(async (f) => {
-      const content = importMapReplace(f.text, location.origin, location.origin + f.path);
+      const file = f.path.split("/").pop()!;
 
-      try {
-        await fs.promises.writeFile(f.path, content);
-      } catch {
-        if (f.path.indexOf("chunk") === 1) return true;
-        await fs.promises.unlink(f.path);
-        await fs.promises.writeFile(f.path, content);
+      if (signal.aborted) return;
+      if (cs.includes(file) && file.indexOf("chunk") === -1) await fs.promises.unlink(f.path);
+      if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
+        await fs.promises.writeFile(f.path, importMapReplace(f.text, location.origin, location.origin + f.path));
       }
     });
 

@@ -129,7 +129,7 @@ const monacoContribution = async (
   worker.onmessage = e => rpcProvider.dispatch(e.data);
 
   rpcProvider
-    .rpc("ata", { code, origin })
+    .rpc("ata", { code, originToUse })
     .then(result => {
       languages.typescript.typescriptDefaults.setExtraLibs(result);
       languages.typescript.typescriptDefaults

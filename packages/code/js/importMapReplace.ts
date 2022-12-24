@@ -15,7 +15,7 @@ export function importMapReplace(
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
-  let returnStr = codeInp.split("::origin::").join(origin);
+  let returnStr = codeInp.split("/::").join(origin);
   if (!returnStr) return returnStr;
   const url = relativeUrl || origin;
   const baSe = (new URL(".", url)).toString();

@@ -1,18 +1,16 @@
 import FS from "@isomorphic-git/lightning-fs";
-import * as Comlink from "comlink";
+// import FS from "@isomorphic-git/lightning-fs";
 
-let _fs: FS.PromisifiedFS;
-async function init() {
-  const worker = new SharedWorker("/fs.worker.js");
+// import { fs } from 'memfs';
 
-  /**
-   * SharedWorkers communicate via the `postMessage` function in their `port` property.
-   * Therefore you must use the SharedWorker's `port` property when calling `Comlink.wrap`.
-   */
-  _fs = Comlink.wrap(worker.port);
+globalThis.fs = new FS(location.origin);
+const p = globalThis.fs.promises;
 
-  return _fs;
-}
-init();
+// const readdir = globalThis.fs.readdir;
 
-export const fs = async () => (_fs || await init());
+export const readdir = (filePath: string) => p.readdir(filePath);
+export const writeFile = (filePath: string, content: string) => p.writeFile(filePath, content);
+export const readfile = (filePath: string) => p.readFile(filePath);
+export const stat = (filePath: string) => p.stat(filePath);
+export const unlink = (filepath: string) => p.unlink(filepath);
+export const mkdir = (filePath: string) => p.mkdir(filePath);
