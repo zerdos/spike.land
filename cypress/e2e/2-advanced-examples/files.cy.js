@@ -49,7 +49,7 @@ context("Files", () => {
   });
 
   it("cy.readFile() - read file contents", () => {
-    // https://on.cypress.io/readfile
+    // https://on.cypress.io/readFile
 
     // You can read a file and yield its contents
     // The filePath is relative to your project's root.

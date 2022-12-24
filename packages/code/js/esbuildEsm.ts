@@ -6,6 +6,7 @@ import {
   transform,
   type TransformOptions,
 } from "esbuild-wasm";
+import { readdir, unlink, writeFile } from "./fs";
 import impMap from "./importmap.json";
 //
 // import { imports as importMapImports } from "./importmap.json";
@@ -256,19 +257,19 @@ export const buildT = async (
   ) {
     console.log(b.outputFiles);
 
-    const cs = await fs.promises.readdir(`/live/${codeSpace}`);
+    const cs = await readdir(`/live/${codeSpace}`);
 
     cs.filter(x => x.indexOf("chunk") !== -1).map(chunk =>
-      b.outputFiles?.find(x => x.path.indexOf(chunk) !== -1) || fs.promises.unlink(`/live/${codeSpace}/${chunk}`)
+      b.outputFiles?.find(x => x.path.indexOf(chunk) !== -1) || unlink(`/live/${codeSpace}/${chunk}`)
     );
 
     b.outputFiles?.map(async (f) => {
       const file = f.path.split("/").pop()!;
 
       if (signal.aborted) return;
-      if (cs.includes(file) && file.indexOf("chunk") === -1) await fs.promises.unlink(f.path);
+      if (cs.includes(file) && file.indexOf("chunk") === -1) await unlink(f.path);
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
-        await fs.promises.writeFile(f.path, f.contents);
+        await writeFile(f.path, f.contents);
       }
     });
 

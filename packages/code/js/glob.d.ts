@@ -8,7 +8,6 @@ import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 
 declare global {
   var sharedWorker: SharedWorker;
-  var fs: FS;
 
   var assetHash: string;
   var apps: { [key: string]: FC<{ appId: string }> };

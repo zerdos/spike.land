@@ -271,7 +271,7 @@ export const run = async () => {
   // if (!liveStat.isDirectory())
   // else console.log("dir already exists")
   const cs = await fs.readdir(`/live/${codeSpace}`);
-  // const code = awat fs.promises.readfile(`/live/${codeSpace}/index.tsx`)
+  // const code = awat fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
   const mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
   if (!cs.includes("index.tsx")) {
     await fs.writeFile(
