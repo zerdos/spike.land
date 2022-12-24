@@ -546,7 +546,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-ZFMHYQT7.mjs
+// ../code/dist/chunk-chunk-MM57R33X.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6241,7 +6241,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
         }
         return slices.join(`"`);
       }
-      if (x.indexOf("/npm:/") === -1 && x.startsWith("import") && x.indexOf(origin) !== -1) {
+      if (x.indexOf("/npm:/") === -1 && x.startsWith("import") && x.indexOf(origin) === -1) {
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
@@ -6256,13 +6256,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
       return x;
     }).join("\n")
   ).join(";");
-  if (relativeUrl && relativeUrl.indexOf("esm.sh") === -1) {
-    returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:").split("npm:/npm:").join("npm:").split(
-      "npm:/*/"
-    ).join(
-      "npm:/"
-    );
-  }
+  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
   return returnStr;
 }
 __name(importMapReplace, "importMapReplace");

@@ -28,6 +28,7 @@ import localForage from "localforage";
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
+import { esmTransform } from "runner";
 import * as fs from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import { prettierJs } from "./prettierEsm";
@@ -270,7 +271,7 @@ export const run = async () => {
   if (!live.includes(codeSpace)) await fs.mkdir("/live/" + codeSpace);
 
   // if (!liveStat.isDirectory())
-  // else console.log("dir already exists")
+  // else console.log("dir already )(exists")
   const cs = await fs.readdir(`/live/${codeSpace}`);
   // const code = awat fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
   const mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
@@ -293,7 +294,7 @@ import { createRoot } from "react-dom/client";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import ErrorBoundary from "react-error-boundary";
-import App from "${location.origin}/live/${codeSpace}";
+import App from "/live/${codeSpace}/index.tsx";
 
 export default App;
 
