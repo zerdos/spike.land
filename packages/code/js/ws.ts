@@ -1,4 +1,3 @@
-// Import "core-js/full";
 // Object.assign(globalThis, require("buffer/"));
 // Object.assign(globalThis, require("stream-browserify"));
 
@@ -29,7 +28,7 @@ import localForage from "localforage";
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-import { fs } from "./fs";
+import * as fs from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
@@ -252,25 +251,34 @@ const ws = {
   ) => console.log("JUST A STUB", { mess }),
 };
 
-export const run = async (startState: {
-  mST: ICodeSession;
-  codeSpace: string;
-  dry: boolean;
-  address: string;
-}) => {
+export const run = async () => {
+  // const { readdir, mkdir, writeFile } = fs.promises;
   const root = await fs.readdir("/");
+  console.log("******************");
 
+  console.log("******************");
+  console.log("******************");
+  console.log("******************");
   console.log({ root });
+  console.log("******************");
+  console.log("******************");
+  console.log("******************");
 
   if (!root.includes("live")) await fs.mkdir("/live");
   const live = await fs.readdir("/live");
   if (!live.includes(codeSpace)) await fs.mkdir("/live/" + codeSpace);
 
-  // const liveStat =  await fs.stat('/live');
   // if (!liveStat.isDirectory())
   // else console.log("dir already exists")
   const cs = await fs.readdir(`/live/${codeSpace}`);
-  if (!cs.includes("index.tsx")) await fs.writeFile(`/live/${codeSpace}/index.tsx`, startState.mST.code);
+  // const code = awat fs.promises.readfile(`/live/${codeSpace}/index.tsx`)
+  const mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
+  if (!cs.includes("index.tsx")) {
+    await fs.writeFile(
+      `/live/${codeSpace}/index.tsx`,
+      mst.code,
+    );
+  }
 
   if (!cs.includes("render.tsx")) {
     await fs.writeFile(
@@ -322,7 +330,7 @@ export const run = async (startState: {
   if (head) {
     hST = await codeHistory.getItem<ICodeSession>(head);
   }
-  const mst = ({ ...startState, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mST;
+  // const mst = ({ ...x, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mSTπhy
 
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {

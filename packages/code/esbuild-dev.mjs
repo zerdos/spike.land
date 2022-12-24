@@ -237,11 +237,12 @@ const build = (
       "js/sw.ts",
       "js/ata.worker.ts",
       "js/sharedWorker.ts",
-      "js/fs.worker.ts",
+      // "js/fs.worker.ts",
     ],
     bundle: true,
     alias: {
       path: "path-browserify",
+      stream: "stream-browserify",
     },
     define,
     minify: false, // ! isDevelopment,
@@ -288,7 +289,6 @@ const build = (
       "js/hydrate.tsx",
       "js/reactDomClient.ts",
       "js/esbuildWASM.ts",
-      "js/load.ts",
       "js/emotion.ts",
       "js/emotionCache.ts",
       "js/emotionStyled.mjs",
@@ -296,24 +296,6 @@ const build = (
       "js/jsx.mjs",
     ],
   );
-
-  const origin = "::origin::";
-  buildOptions.alias = {
-    "framer-motion": origin + "/motion.mjs",
-    "react-dom/client": origin + "/reactDomClient.mjs",
-
-    "react/jsx-runtime": origin + "/jsx.mjs",
-    "@emotion/react/jsx-runtime": origin + "/emotionJsxRuntime.mjs",
-    "@emotion/react": origin + "/emotion.mjs",
-    "@emotion/cache": origin + "/emotionCache.mjs",
-    "@emotion/styled": origin + "/emotionStyled.mjs",
-
-    "react": origin + "/reactMod.mjs",
-    "react-dom": origin + "/reactDom.mjs",
-
-    "react-error-boundary": origin + "/reactMod.mjs",
-    "hydrate.mjs": origin + "/hydrate.mjs",
-  };
 
   await build(
     [
@@ -340,9 +322,7 @@ const build = (
       // "js/jsx.mjs",
     ],
     [
-      ...Object.keys(impMap.imports),
       // "/npm:/*",
-      "::origin::",
       // "react",
       //  "react-rnd",
       // "react-dom",

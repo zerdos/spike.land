@@ -541,8 +541,8 @@ export class Code {
               `<div id="root"></div>`,
               `<div id="root" data-i="${i}" style="height: 100%;">
               </div>
-              <script type="module" src="./hydrate.mjs"></script>`,
-            ).split("ASSET_HASH").join(ASSET_HASH);
+              <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+            );
 
           // const Etag = request.headers.get("Etag");
           // const newEtag = await sha256(respText);
@@ -583,7 +583,8 @@ export class Code {
           )
             .replace(
               `<div id="root"></div>`,
-              `<div id="root" data-i="${i}" style="height: 100%;">
+              `<style>${css}</style>
+              <div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
               <script type="module">

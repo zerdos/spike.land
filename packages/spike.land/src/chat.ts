@@ -380,7 +380,7 @@ const api: ExportedHandler<CodeEnv> = {
             // const isJs = u.toString().includes(".js")
             //   || u.toString().includes(".mjs");
 
-            const isDTS = u.pathname.endsWith("/index.d.ts") && u.pathname.indexOf("/npm:/") === -1;
+            const isDTS = u.pathname.endsWith(".d.ts");
 
             const packageName = u.toString().split(
               u.origin,
@@ -414,7 +414,7 @@ const api: ExportedHandler<CodeEnv> = {
               "location",
               redirectUrl.replace(
                 "esm.sh/",
-                u.hostname + "/npm:/",
+                u.hostname + "/",
               ),
             );
             headers.set("Cross-Origin-Embedder-Policy", "require-corp");

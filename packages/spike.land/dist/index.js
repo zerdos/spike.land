@@ -429,13 +429,14 @@ var package_default = {
     "@emotion/styled": "11.10.5",
     "@isomorphic-git/lightning-fs": "^4.6.0",
     "@mui/material": "5.11.1",
+    "@yarnpkg/fslib": "^3.0.0-rc.34",
     "ace-builds": "1.14.0",
+    assert: "^2.0.0",
     "async-mutex": "^0.4.0",
     ava: "^5.1.0",
     avl: "1.5.3",
     axios: "^1.2.1",
     comlink: "^4.3.1",
-    "core-js": "^3.26.1",
     csstype: "3.1.1",
     "detective-typescript": "^9.0.0",
     "es-module-shims": "1.6.2",
@@ -448,6 +449,7 @@ var package_default = {
     localforage: "^1.10.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
+    memfs: "^3.4.12",
     "monaco-editor": "0.34.1",
     "p-map": "5.5.0",
     p2pcf: "^1.3.11",
@@ -463,10 +465,12 @@ var package_default = {
     "react-qrious": "2.5.6",
     "react-reverse-portal": "2.1.1",
     "react-rnd": "^10.4.1",
+    stream: "^0.0.2",
     util: "^0.12.5",
     utils: "^0.3.1",
     uuid: "^9.0.0",
     "webrtc-adapter": "^8.2.0",
+    "workbox-window": "^6.5.4",
     "worker-rpc": "^0.2.0"
   },
   devDependencies: {
@@ -539,9 +543,9 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-XURHPJD2.mjs
+// ../code/dist/chunk-chunk-42UVDBN3.mjs
 var require_lodash = __commonJS2({
-  "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
+  "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
     var FUNC_ERROR_TEXT = "Expected a function";
     var NAN = 0 / 0;
@@ -687,7 +691,7 @@ var require_lodash = __commonJS2({
   }
 });
 var require_diff = __commonJS2({
-  "../../.yarn/global/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
+  "node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
@@ -2352,6 +2356,20 @@ function groupByFactory(collection, grouper, context) {
   }).asImmutable();
 }
 __name(groupByFactory, "groupByFactory");
+function partitionFactory(collection, predicate, context) {
+  var isKeyedIter = isKeyed(collection);
+  var groups = [[], []];
+  collection.__iterate(function(v, k) {
+    groups[predicate.call(context, v, k, collection) ? 1 : 0].push(
+      isKeyedIter ? [k, v] : v
+    );
+  });
+  var coerce = collectionClass(collection);
+  return groups.map(function(arr) {
+    return reify(collection, coerce(arr));
+  });
+}
+__name(partitionFactory, "partitionFactory");
 function sliceFactory(collection, begin, end, useKeys) {
   var originalSize = collection.size;
   if (wholeSlice(begin, end, originalSize)) {
@@ -4863,9 +4881,13 @@ var Set = /* @__PURE__ */ function(SetCollection2) {
     }
     return this.withMutations(function(set3) {
       for (var ii = 0; ii < iters.length; ii++) {
-        SetCollection2(iters[ii]).forEach(function(value) {
-          return set3.add(value);
-        });
+        if (typeof iters[ii] === "string") {
+          set3.add(iters[ii]);
+        } else {
+          SetCollection2(iters[ii]).forEach(function(value) {
+            return set3.add(value);
+          });
+        }
       }
     });
   }, "union");
@@ -5215,6 +5237,9 @@ mixin(Collection, {
   filter: /* @__PURE__ */ __name(function filter(predicate, context) {
     return reify(this, filterFactory(this, predicate, context, true));
   }, "filter"),
+  partition: /* @__PURE__ */ __name(function partition(predicate, context) {
+    return partitionFactory(this, predicate, context);
+  }, "partition"),
   find: /* @__PURE__ */ __name(function find(predicate, context, notSetValue) {
     var entry = this.findEntry(predicate, context);
     return entry ? entry[1] : notSetValue;
@@ -6133,15 +6158,15 @@ overflow-wrap: break-word;
 init_define_process();
 var importmap_default = {
   imports: {
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
     "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
     react: "/reactMod.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
     "react-dom": "/reactDom.mjs",
-    "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
     "hydrate.mjs": "/hydrate.mjs"
   }
@@ -6151,7 +6176,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
   const items = Object.keys(
     importMapImports
   );
-  let returnStr = codeInp.split("::origin::").join(origin);
+  let returnStr = codeInp.split("/::").join(origin);
   if (!returnStr)
     return returnStr;
   const url = relativeUrl || origin;
@@ -6503,15 +6528,15 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/js/importmap.json
 var importmap_default2 = {
   imports: {
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
     "framer-motion": "/motion.mjs",
     "@emotion/react": "/emotion.mjs",
     "@emotion/cache": "/emotionCache.mjs",
     "@emotion/styled": "/emotionStyled.mjs",
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
     react: "/reactMod.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
     "react-dom": "/reactDom.mjs",
-    "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
     "hydrate.mjs": "/hydrate.mjs"
   }
@@ -6693,7 +6718,7 @@ var api = {
               cache.put(kvCacheKey, kvResp.clone());
               return kvResp;
             }
-            const isDTS = u.pathname.endsWith("/index.d.ts") && u.pathname.indexOf("/npm:/") === -1;
+            const isDTS = u.pathname.endsWith(".d.ts");
             const packageName = u.toString().split(
               u.origin
             ).join(
@@ -6719,7 +6744,7 @@ var api = {
               "location",
               redirectUrl.replace(
                 "esm.sh/",
-                u.hostname + "/npm:/"
+                u.hostname + "/"
               )
             );
             headers.set("Cross-Origin-Embedder-Policy", "require-corp");
@@ -7544,76 +7569,7 @@ var AVLTree = class {
 AVLTree.default = AVLTree;
 
 // src/index.html
-var src_default = `<!DOCTYPE html>
-<html lang="en">
-
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">
-  <base href="/">
-  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
-  <title>Instant React Editor</title>
-
-  <script type="importmap"><\/script>
-  <style>
-    html,
-    body {
-      overflow: hidden;
-      margin: 0;
-      height: 100%;
-      --webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: none;
-    }
-
-    q {
-      display: none;
-    }
-
-
-    @media screen and (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        ;
-        color: hsl(210, 10%, 62%);
-        --text-color-normal: hsl(210, 10%, 62%);
-        --text-color-light: hsl(210, 15%, 35%);
-        --text-color-richer: hsl(210, 50%, 72%);
-        --text-color-highlight: hsl(25, 70%, 45%);
-      }
-    }
-
-
-    @media screen and (prefers-color-scheme: light) {
-      body {
-        background-color: white;
-        color: black;
-        --text-color-normal: #0a244d;
-        --text-color-light: #8cabd9;
-      }
-    }
-
-    /**reset*/
-  </style>
-</head>
-
-
-<body>
-  <div id="root"></div>
-
-  <script type="module">
-    import {Workbox} from '/*workbox-window?bundle';
-
-if ('serviceWorker' in navigator) {
-  const wb = new Workbox('/sw.js');
-
-  wb.register();
-}
-  <\/script>
-
-</body>
-
-</html>`;
+var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <\/script>\n\n</body>\n\n</html>';
 
 // src/iife.html
 var iife_default = `
@@ -8084,8 +8040,8 @@ var Code = class {
             `<div id="root"></div>`,
             `<div id="root" data-i="${i}" style="height: 100%;">
               </div>
-              <script type="module" src="./hydrate.mjs"><\/script>`
-          ).split("ASSET_HASH").join(ASSET_HASH);
+              <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`
+          );
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set("Cross-Origin-Embedder-Policy", "require-corp");
@@ -8107,7 +8063,8 @@ var Code = class {
             resetCSS
           ).replace(
             `<div id="root"></div>`,
-            `<div id="root" data-i="${i}" style="height: 100%;">
+            `<style>${css}</style>
+              <div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
               <script type="module">

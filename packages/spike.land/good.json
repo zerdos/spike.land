@@ -47,7 +47,7 @@
       ]
     },
     "../code/package.json": {
-      "bytes": 4931,
+      "bytes": 5047,
       "imports": []
     },
     "../code/dist/chunk-chunk-A3E5PINE.mjs": {
@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-XURHPJD2.mjs": {
-      "bytes": 201476,
+    "../code/dist/chunk-chunk-42UVDBN3.mjs": {
+      "bytes": 201883,
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-A3E5PINE.mjs",
@@ -73,7 +73,7 @@
       "bytes": 519,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-XURHPJD2.mjs",
+          "path": "../code/dist/chunk-chunk-42UVDBN3.mjs",
           "kind": "import-statement"
         },
         {
@@ -97,7 +97,7 @@
       ]
     },
     "../code/js/importmap.json": {
-      "bytes": 472,
+      "bytes": 475,
       "imports": []
     },
     "src/handleErrors.ts": {
@@ -105,7 +105,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 21018,
+      "bytes": 20968,
       "imports": [
         {
           "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -160,7 +160,7 @@
       ]
     },
     "src/index.html": {
-      "bytes": 1504,
+      "bytes": 1332,
       "imports": []
     },
     "src/iife.html": {
@@ -168,7 +168,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 32017,
+      "bytes": 32041,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
@@ -289,16 +289,16 @@
           "bytesInOutput": 9010
         },
         "src/chat.ts": {
-          "bytesInOutput": 9749
+          "bytesInOutput": 9699
         },
         "../code/package.json": {
-          "bytesInOutput": 4832
+          "bytesInOutput": 4942
         },
         "../code/dist/chunk-chunk-A3E5PINE.mjs": {
           "bytesInOutput": 1506
         },
-        "../code/dist/chunk-chunk-XURHPJD2.mjs": {
-          "bytesInOutput": 200172
+        "../code/dist/chunk-chunk-42UVDBN3.mjs": {
+          "bytesInOutput": 200750
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -319,13 +319,13 @@
           "bytesInOutput": 11149
         },
         "src/index.html": {
-          "bytesInOutput": 1528
+          "bytesInOutput": 1416
         },
         "src/iife.html": {
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 21117
+          "bytesInOutput": 21141
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -340,7 +340,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 314468
+      "bytes": 315018
     }
   }
 }

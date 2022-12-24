@@ -52,11 +52,10 @@ export const fetchPlugin: (
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
-    build.onLoad({ filter: /.*.tsx.*/ }, async (args) => {
-      const fs = globalThis.fs;
-      const contents = await fs.promises.readFile("/live/" + args.path.split("/live/").pop()!, { encoding: "utf8" });
-      console.log({ contents });
-      const code = await esmTransform(contents as string);
+    build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
+      const lastPart = args.path.split("/live/").pop();
+      const file = await fs.promises.readFile(`/live/${lastPart}`);
+      const code = await esmTransform(file as string);
       console.log({ code });
       // if (file) {
       //   return new Response(file);

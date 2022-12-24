@@ -173,11 +173,15 @@ export async function runner({ code, counter, codeSpace }: {
     BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     try {
+      console.log({ transpiled });
+
       await fs.promises.unlink(`/live/${codeSpace}/index.tsx`);
 
-      await fs.promises.writeFile(`/live/${codeSpace}/index.tsx`, code);
+      await fs.promises.writeFile(`/live/${codeSpace}/index.tsx`, transpiled);
 
-      await buildT(codeSpace, controller.signal, true);
+      await fs.promises.writeFile(`/live/${codeSpace}/render.js`, transpiled);
+
+      await buildT(codeSpace, controller.signal, false);
 
       // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
     } catch {
@@ -202,7 +206,7 @@ export async function runner({ code, counter, codeSpace }: {
     // //   ...mST(),
     // //   code,
     // //   // codeSpace,
-    // //   i: counter,
+    // //   i: counter,.
     // //   transpiled: transpiledCode,
     // //   html,
     // //   css,

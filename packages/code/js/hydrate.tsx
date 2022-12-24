@@ -4,16 +4,23 @@ import uidV4 from "./uidV4.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { createRoot } from "react-dom/client";
 import { ab2str } from "sab";
-import type { CodeSession, ICodeSession } from "session";
+import type { ICodeSession } from "session";
 import { wait } from "wait";
 import { md5 } from "./md5";
-import { startSession } from "./session";
 
 export { md5 };
 
-import load from "./load";
+import { run } from "./ws";
 
-globalThis.assetHash = "ASSET_HASH";
+import { Workbox } from "workbox-window";
+
+if ("serviceWorker" in navigator) {
+  const wb = new Workbox("/sw.js");
+
+  wb.register();
+}
+
+globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
@@ -81,8 +88,9 @@ if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("w
   } else {
   }
   // hydrate(codeSpace);
-} else if (location.pathname.endsWith(`/live/${codeSpace}`)) {
-  load();
+}
+if (location.pathname.endsWith(`/live/${codeSpace}`)) {
+  run();
 } else {
   const bc = new SharedWorker("/sharedWorker.js");
   bc.port.addEventListener("message", async (event) => {

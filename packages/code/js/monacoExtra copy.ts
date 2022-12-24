@@ -1,4 +1,3 @@
-import "core-js/stable/string/replace-all";
 import type { languages, Uri } from "monaco-editor";
 
 export function extraStuff(
