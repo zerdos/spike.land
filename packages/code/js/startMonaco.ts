@@ -1,12 +1,18 @@
+import "monaco-editor/esm/vs/editor/editor.all";
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
+import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript";
+import "monaco-editor/esm/vs/language/typescript/tsMode";
+import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
+
+import { getWorkerUrl } from "./monacoWorkers.mjs";
+
 // import localForage from "localforage";
 
-import * as monaco from "monaco-editor";
-const { editor, languages, Uri } = monaco;
+// const { editor, languages, Uri } = monaco;
 import { RpcProvider } from "worker-rpc";
 
 // import * as w from "./monacoExtra";
-import { getWorkerUrl } from "./monacoWorkers.mjs";
-
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = window.origin.includes("spike")

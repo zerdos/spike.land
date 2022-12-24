@@ -54,10 +54,9 @@
 
 <body>
   <div id="root"></div>
-  <script type="module" src="./hydrate.mjs"></script>
 
   <script type="module">
-    import {Workbox} from '/npm:/workbox-window';
+    import {Workbox} from '/*workbox-window?bundle';
 
 if ('serviceWorker' in navigator) {
   const wb = new Workbox('/sw.js');

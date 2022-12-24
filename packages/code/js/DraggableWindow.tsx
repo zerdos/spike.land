@@ -347,7 +347,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   
                   z-index: 7;
               `}
-                src={`${location.origin}/live/${room}/`}
+                src={`${location.origin}/live/${room}/iframe`}
                 suppressHydrationWarning={true}
                 seamless={true}
               />

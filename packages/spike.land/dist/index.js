@@ -434,7 +434,7 @@ var package_default = {
     ava: "^5.1.0",
     avl: "1.5.3",
     axios: "^1.2.1",
-    comlink: "4.3.1",
+    comlink: "^4.3.1",
     "core-js": "^3.26.1",
     csstype: "3.1.1",
     "detective-typescript": "^9.0.0",
@@ -539,7 +539,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-7LGG5D3T.mjs
+// ../code/dist/chunk-chunk-XURHPJD2.mjs
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6143,8 +6143,7 @@ var importmap_default = {
     "react-dom": "/reactDom.mjs",
     "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
-    "hydrate.mjs": "/hydrate.mjs",
-    "load.mjs": "/load.mjs"
+    "hydrate.mjs": "/hydrate.mjs"
   }
 };
 var importMapImports = importmap_default.imports;
@@ -6152,7 +6151,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
   const items = Object.keys(
     importMapImports
   );
-  let returnStr = codeInp;
+  let returnStr = codeInp.split("::origin::").join(origin);
   if (!returnStr)
     return returnStr;
   const url = relativeUrl || origin;
@@ -6195,7 +6194,6 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
     returnStr = replaceAll(returnStr, ` from "./`, ` from "${origin}/live/`);
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
-  console.log("importmapReplace fn");
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
     (Y) => Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1)
@@ -6515,8 +6513,7 @@ var importmap_default2 = {
     "react-dom": "/reactDom.mjs",
     "react-dom/client": "/reactDomClient.mjs",
     "react-error-boundary": "/reactMod.mjs",
-    "hydrate.mjs": "/hydrate.mjs",
-    "load.mjs": "/load.mjs"
+    "hydrate.mjs": "/hydrate.mjs"
   }
 };
 
@@ -6682,8 +6679,12 @@ var api = {
               );
               if (!kvResp.ok)
                 return kvResp;
+              const isText2 = !!kvResp?.headers?.get("Content-Type")?.includes(
+                "charset"
+              );
+              const kvRespCloned = kvResp.clone();
               kvResp = new Response(
-                kvResp.body,
+                isText2 ? importMapReplace(await kvRespCloned.text(), url.origin, request.url) : kvResp.body,
                 kvResp
               );
               const headers2 = new Headers(kvResp.headers);
@@ -6813,79 +6814,6 @@ function isChunk(link) {
   return link.includes("chunk-") || chunkRegExp.test(link);
 }
 var chat_default = api;
-
-// src/index.html
-var src_default = `<!DOCTYPE html>
-<html lang="en">
-
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">
-  <base href="/">
-  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
-  <title>Instant React Editor</title>
-
-  <script type="importmap"><\/script>
-  <style>
-    html,
-    body {
-      overflow: hidden;
-      margin: 0;
-      height: 100%;
-      --webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: none;
-    }
-
-    q {
-      display: none;
-    }
-
-
-    @media screen and (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        ;
-        color: hsl(210, 10%, 62%);
-        --text-color-normal: hsl(210, 10%, 62%);
-        --text-color-light: hsl(210, 15%, 35%);
-        --text-color-richer: hsl(210, 50%, 72%);
-        --text-color-highlight: hsl(25, 70%, 45%);
-      }
-    }
-
-
-    @media screen and (prefers-color-scheme: light) {
-      body {
-        background-color: white;
-        color: black;
-        --text-color-normal: #0a244d;
-        --text-color-light: #8cabd9;
-      }
-    }
-
-    /**reset*/
-  </style>
-</head>
-
-
-<body>
-  <div id="root"></div>
-  <script type="module" src="./hydrate.mjs"><\/script>
-
-  <script type="module">
-    import {Workbox} from '/npm:/workbox-window';
-
-if ('serviceWorker' in navigator) {
-  const wb = new Workbox('/sw.js');
-
-  wb.register();
-}
-  <\/script>
-
-</body>
-
-</html>`;
 
 // ../../node_modules/async-mutex/index.mjs
 var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
@@ -7615,6 +7543,78 @@ var AVLTree = class {
 };
 AVLTree.default = AVLTree;
 
+// src/index.html
+var src_default = `<!DOCTYPE html>
+<html lang="en">
+
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">
+  <base href="/">
+  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
+  <title>Instant React Editor</title>
+
+  <script type="importmap"><\/script>
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      margin: 0;
+      height: 100%;
+      --webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+    }
+
+    q {
+      display: none;
+    }
+
+
+    @media screen and (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        ;
+        color: hsl(210, 10%, 62%);
+        --text-color-normal: hsl(210, 10%, 62%);
+        --text-color-light: hsl(210, 15%, 35%);
+        --text-color-richer: hsl(210, 50%, 72%);
+        --text-color-highlight: hsl(25, 70%, 45%);
+      }
+    }
+
+
+    @media screen and (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+        --text-color-normal: #0a244d;
+        --text-color-light: #8cabd9;
+      }
+    }
+
+    /**reset*/
+  </style>
+</head>
+
+
+<body>
+  <div id="root"></div>
+
+  <script type="module">
+    import {Workbox} from '/*workbox-window?bundle';
+
+if ('serviceWorker' in navigator) {
+  const wb = new Workbox('/sw.js');
+
+  wb.register();
+}
+  <\/script>
+
+</body>
+
+</html>`;
+
 // src/iife.html
 var iife_default = `
 <!DOCTYPE html>
@@ -8081,17 +8081,10 @@ var Code = class {
             "/**reset*/",
             resetCSS
           ).replace(
-            `<script type="importmap"><\/script>`,
-            `<script type="importmap">${JSON.stringify(importmap_default2)}<\/script>`
-          ).replace(
             `<div id="root"></div>`,
             `<div id="root" data-i="${i}" style="height: 100%;">
-              <div  style="height: 100%;">
-              <iframe
-              height="100%"
-              width="100%"
-              frameBorder="0"
-              src="/live/${this.codeSpace}/iframe"></iframe></div></div>`
+              </div>
+              <script type="module" src="./hydrate.mjs"><\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
@@ -8113,12 +8106,8 @@ var Code = class {
             "/**reset*/",
             resetCSS
           ).replace(
-            `<script type="importmap"><\/script>`,
-            `<script type="importmap">${JSON.stringify(importmap_default2)}<\/script>`
-          ).replace(
             `<div id="root"></div>`,
-            `<style>${css}</style>
-              <div id="root" data-i="${i}" style="height: 100%;">
+            `<div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
               <script type="module">

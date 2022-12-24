@@ -25,18 +25,17 @@ import {
 
 import localForage from "localforage";
 
-// Import * as FS from '@isomorphic-git/lightning-fs';
+// Import * as FS from '@isomorphic/-git/lightning-fs';
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
+import { fs } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait";
-
-import FS from "@isomorphic-git/lightning-fs";
 
 // import { isBuffer } from "util";
 
@@ -259,8 +258,6 @@ export const run = async (startState: {
   dry: boolean;
   address: string;
 }) => {
-  globalThis.fs = new FS(location.origin);
-  const fs = globalThis.fs.promises;
   const root = await fs.readdir("/");
 
   console.log({ root });

@@ -1,13 +1,3 @@
-import { handleErrors } from "./handleErrors";
-import HTML from "./index.html";
-
-// import detective from 'detective-typescript';
-// import { RateLimiterClient } from "./rateLimiterClient";
-
-// import type { DurableObjectState, DurableObjectStorage } from "@cloudflare/workers-types";
-
-// import * as CF from "@cloudflare/workers-types";
-import importMap from "@spike.land/code/js/importmap.json";
 import {
   // addExtraModels,
   CodePatch,
@@ -22,10 +12,12 @@ import {
   // run,
   syncStorage,
 } from "@spike.land/code/js/session";
-import { applyPatch, hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
+import { handleErrors } from "./handleErrors";
+import HTML from "./index.html";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
@@ -546,18 +538,10 @@ export class Code {
             resetCSS,
           )
             .replace(
-              `<script type="importmap"></script>`,
-              `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-            )
-            .replace(
               `<div id="root"></div>`,
               `<div id="root" data-i="${i}" style="height: 100%;">
-              <div  style="height: 100%;">
-              <iframe
-              height="100%"
-              width="100%"
-              frameBorder="0"
-              src="/live/${this.codeSpace}/iframe"></iframe></div></div>`,
+              </div>
+              <script type="module" src="./hydrate.mjs"></script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
           // const Etag = request.headers.get("Etag");
@@ -598,13 +582,8 @@ export class Code {
             resetCSS,
           )
             .replace(
-              `<script type="importmap"></script>`,
-              `<script type="importmap">${JSON.stringify(importMap)}</script>`,
-            )
-            .replace(
               `<div id="root"></div>`,
-              `<style>${css}</style>
-              <div id="root" data-i="${i}" style="height: 100%;">
+              `<div id="root" data-i="${i}" style="height: 100%;">
                 ${html}
               </div>
               <script type="module">

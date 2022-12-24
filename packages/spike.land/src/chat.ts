@@ -324,11 +324,16 @@ const api: ExportedHandler<CodeEnv> = {
               //   "charset",
               // );
 
-              kvResp = new Response(
-                kvResp.body,
-                kvResp,
+              const isText = !!kvResp?.headers?.get("Content-Type")?.includes(
+                "charset",
               );
 
+              const kvRespCloned = kvResp.clone();
+
+              kvResp = new Response(
+                isText ? importMapReplace(await kvRespCloned.text(), url.origin, request.url) : kvResp.body,
+                kvResp,
+              );
               const headers = new Headers(kvResp.headers);
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });

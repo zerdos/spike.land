@@ -3,6 +3,7 @@
 // import postcssNested from "postcss-nested"
 import esbuild from "esbuild";
 import { cp, rm } from "node:fs/promises";
+// import impMap from "./importMaps.json" assert {type: "json"};
 
 import { resolve } from "node:path";
 // import open from "open";
@@ -13,6 +14,22 @@ import { resolve } from "node:path";
 import { env, exit } from "process";
 import { NIL } from "uuid";
 // import { wait } from "./js/wait.mjs";
+
+const impMap = {
+  "imports": {
+    "framer-motion": "/motion.mjs",
+    "@emotion/react": "/emotion.mjs",
+    "@emotion/cache": "/emotionCache.mjs",
+    "@emotion/styled": "/emotionStyled.mjs",
+    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+    "react": "/reactMod.mjs",
+    "react/jsx-runtime": "/jsx.mjs",
+    "react-dom": "/reactDom.mjs",
+    "react-dom/client": "/reactDomClient.mjs",
+    "react-error-boundary": "/reactMod.mjs",
+    "hydrate.mjs": "/hydrate.mjs",
+  },
+};
 
 // await esbuild.initialize();
 const environment = env.NODE_ENV === "production"
@@ -220,6 +237,7 @@ const build = (
       "js/sw.ts",
       "js/ata.worker.ts",
       "js/sharedWorker.ts",
+      "js/fs.worker.ts",
     ],
     bundle: true,
     alias: {
@@ -264,32 +282,67 @@ const build = (
 
   await build(
     [
-      "js/session.ts",
-      // "js/prettierWorker.mjs",
       "js/reactMod.ts",
-      "js/Editor.tsx",
-      // "js/motion.ts",
-      "js/ws.ts",
-      "js/reactMod.ts",
-
-      // "js/Editor.tsx",
       "js/motion.ts",
       "js/reactDom.ts",
       "js/hydrate.tsx",
       "js/reactDomClient.ts",
       "js/esbuildWASM.ts",
-
       "js/load.ts",
       "js/emotion.ts",
       "js/emotionCache.ts",
       "js/emotionStyled.mjs",
       "js/emotionJsxRuntime.mjs",
-      // "js/emotion.ts",
-      // "js/emotionJsxRuntime.ts",
       "js/jsx.mjs",
     ],
+  );
+
+  const origin = "::origin::";
+  buildOptions.alias = {
+    "framer-motion": origin + "/motion.mjs",
+    "react-dom/client": origin + "/reactDomClient.mjs",
+
+    "react/jsx-runtime": origin + "/jsx.mjs",
+    "@emotion/react/jsx-runtime": origin + "/emotionJsxRuntime.mjs",
+    "@emotion/react": origin + "/emotion.mjs",
+    "@emotion/cache": origin + "/emotionCache.mjs",
+    "@emotion/styled": origin + "/emotionStyled.mjs",
+
+    "react": origin + "/reactMod.mjs",
+    "react-dom": origin + "/reactDom.mjs",
+
+    "react-error-boundary": origin + "/reactMod.mjs",
+    "hydrate.mjs": origin + "/hydrate.mjs",
+  };
+
+  await build(
     [
-      "/npm:/*",
+      "js/session.ts",
+      // "js/prettierWorker.mjs",
+      // "js/reactMod.ts",
+      "js/Editor.tsx",
+      // "js/motion.ts",
+      // "js/reactMod.ts",
+
+      // "js/Editor.tsx",
+      // "js/motion.ts",
+
+      // "js/reactDom.ts",
+      "js/hydrate.tsx",
+      // "js/reactDomClient.ts",
+      "js/esbuildWASM.ts",
+      // "js/emotion.ts",
+      // "js/emotionCache.ts",
+      // "js/emotionStyled.mjs",
+      // "js/emotionJsxRuntime.mjs",
+      // "js/emotion.ts",
+      // "js/emotionJsxRuntime.ts",
+      // "js/jsx.mjs",
+    ],
+    [
+      ...Object.keys(impMap.imports),
+      // "/npm:/*",
+      "::origin::",
       // "react",
       //  "react-rnd",
       // "react-dom",
