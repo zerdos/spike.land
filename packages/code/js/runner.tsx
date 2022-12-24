@@ -181,7 +181,7 @@ export async function runner({ code, counter, codeSpace }: {
 
       await fs.promises.writeFile(`/live/${codeSpace}/render.js`, transpiled);
 
-      await buildT(codeSpace, controller.signal, false);
+      await buildT(codeSpace, controller.signal, true);
 
       // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
     } catch {
