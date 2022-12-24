@@ -288,43 +288,42 @@ export const run = async () => {
   {
     await fs.writeFile(
       `/live/${codeSpace}/render.tsx`,
-      prettierJs(`
-  import {createRoot} from "react-dom/client"
-  import { CacheProvider } from "@emotion/react";
-  import createCache from "@emotion/cache";
-  import { ErrorBoundary } from "react-error-boundary";
-  import App from "/live/${codeSpace}"
-        
+      `
+import { createRoot } from "react-dom/client";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import ErrorBoundary from "react-error-boundary";
+import App from "${location.origin}/live/${codeSpace}";
 
-    export const render =(rootEl)=>{
-       
-      const root = createRoot(rootEl);
-      
-        const cache = createCache({
-          key: "z",
-          container: rootEl,
-          speedy: false
-        });
-      
-       cache.compat = undefined;
-      
-      return root.render(<ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div role="alert">
-            <div>Oh no</div>
-            <pre>{error.message}</pre>
-          </div>
-        )}>
-        <CacheProvider value={cache}>
-          <App />
-        </CacheProvider>
-        </ErrorBoundary>)
-        }
-        ;
-  `),
+export default App;
+
+export const render = (rootEl: HTMLDivElement) => {
+	const root = createRoot(rootEl);
+
+	const cache = createCache({
+		key: "z",
+		container: rootEl,
+		speedy: false,
+	});
+
+	cache.compat = undefined;
+
+	return root.render(
+		<ErrorBoundary
+			fallbackRender={<div role="alert">
+				<div>Oh no</div>
+				<pre>Error</pre>
+			</div>
+			}>
+			<CacheProvider value={cache}>
+				<App />
+			</CacheProvider>
+		</ErrorBoundary>
+	);
+};
+  `,
     );
   }
-
   console.log({ fs });
   const codeHistory = localForage.createInstance({
     name: location.origin + `/live/${codeSpace}`,
