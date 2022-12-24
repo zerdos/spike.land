@@ -291,9 +291,6 @@ export const run = async () => {
       `/live/${codeSpace}/render.tsx`,
       `
 import { createRoot } from "react-dom/client";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import ErrorBoundary from "react-error-boundary";
 import App from "/live/${codeSpace}/index.tsx";
 
 export default App;
@@ -301,26 +298,8 @@ export default App;
 export const render = (rootEl: HTMLDivElement) => {
 	const root = createRoot(rootEl);
 
-	const cache = createCache({
-		key: "z",
-		container: rootEl,
-		speedy: false,
-	});
 
-	cache.compat = undefined;
-
-	return root.render(
-		<ErrorBoundary
-			fallbackRender={<div role="alert">
-				<div>Oh no</div>
-				<pre>Error</pre>
-			</div>
-			}>
-			<CacheProvider value={cache}>
-				<App />
-			</CacheProvider>
-		</ErrorBoundary>
-	);
+	return root.render(<App />);
 };
   `,
     );
