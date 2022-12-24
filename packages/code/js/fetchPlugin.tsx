@@ -1,5 +1,4 @@
 import type { Plugin } from "esbuild-wasm";
-import { esmTransform } from "./runner";
 
 import { readFile } from "./fs";
 
@@ -20,7 +19,7 @@ export const fetchPlugin: (
     origin: string,
     relativeUrl: string,
   ) => string,
-) => Plugin = (importmapReplace) => ({
+) => Plugin = () => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -142,9 +141,8 @@ export const fetchPlugin: (
       let response = await getRequest(req);
 
       if (req.url.indexOf(".tsx")) {
-        const contents = await esmTransform(await response.text());
         return {
-          contents: importmapReplace(contents, location.origin, args.path),
+          contents: await response.text(),
         };
       }
 
