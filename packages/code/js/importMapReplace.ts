@@ -97,7 +97,7 @@ export function importMapReplace(
     }).join("\n")
   ).join(";");
 
-  if (relativeUrl.indexOf("esm.sh") === -1) {
+  if (relativeUrl && relativeUrl.indexOf("esm.sh") === -1) {
     returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:")
       .split("npm:/npm:").join("npm:").split(
         "npm:/*/",
