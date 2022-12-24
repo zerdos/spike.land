@@ -1,13 +1,13 @@
 import type { FC } from "react";
 
-import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
+// import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 import createCache from "./emotionCache";
 import { build } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { hashCode, type ICodeSession, mST, onSessionUpdate, resetCSS } from "./session";
+import { type ICodeSession, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
 
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
@@ -16,9 +16,9 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const mutex = new Mutex();
 
-if (location.pathname.includes(`/live/${codeSpace}/worker`)) {
-  runInWorker(codeSpace, document.getElementById("root") as HTMLDivElement);
-}
+// if (location.pathname.includes(`/live/${codeSpace}/worker`)) {
+//   runInWorker(codeSpace, document.getElementById("root") as HTMLDivElement);
+// }
 
 export const createIframe = async (cs: string, counter: number) => {
   await mutex.runExclusive(async () => {
@@ -150,35 +150,35 @@ let worker: { terminate: () => void };
 let lastH = "";
 let lastSuccessful = "";
 
-export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
-  if (worker) worker.terminate();
-  lastH = hashCode();
-  console.log(`last hash: ${lastH}`);
-  await mutex.runExclusive(async () => {
-    const current = hashCode();
-    if (lastH !== hashCode()) {
-      console.log(`skipping old build hash: ${lastH}`);
-      return;
-    }
+// export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
+//   if (worker) worker.terminate();
+//   lastH = hashCode();
+//   console.log(`last hash: ${lastH}`);
+//   await mutex.runExclusive(async () => {
+//     const current = hashCode();
+//     if (lastH !== hashCode()) {
+//       console.log(`skipping old build hash: ${lastH}`);
+//       return;
+//     }
 
-    if (current === lastSuccessful) {
-      console.log(
-        `skipping build since it is the latest successful: ${current}`,
-      );
-      return;
-    }
+//     if (current === lastSuccessful) {
+//       console.log(
+//         `skipping build since it is the latest successful: ${current}`,
+//       );
+//       return;
+//     }
 
-    const div = await moveToWorker(nameSpace, document.getElementById("root")!);
-    if (!div) return;
+//     const div = await moveToWorker(nameSpace, document.getElementById("root")!);
+//     if (!div) return;
 
-    const w = await upgradeElement(
-      div,
-      "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
-    );
-    if (w === null) throw new Error("No worker");
-    worker = w;
-  });
-}
+//     const w = await upgradeElement(
+//       div,
+//       "/node_modules/@ampproject/worker-dom@0.34.0/dist/worker/worker.mjs",
+//     );
+//     if (w === null) throw new Error("No worker");
+//     worker = w;
+//   });
+// }
 
 // const bc = new BroadcastChannel(location.origin);
 
