@@ -81,10 +81,10 @@ export function importMapReplace(
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
+          slices[1] = origin + "/npm:" + oldUrl.pathname;
         } catch {
           console.error("URL ERR", slices[1]);
         }
-        slices[1] = origin + "/npm:" + oldUrl.pathname;
 
         return slices.join(`"`);
       }
@@ -95,12 +95,11 @@ export function importMapReplace(
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
+          if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
+            slices[1] += `/index.js"`;
+          }
         } catch {
           console.error("URL ERR", slices[1]);
-        }
-
-        if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
-          slices[1] += `/index.js"`;
         }
 
         return slices.join(`"`);
