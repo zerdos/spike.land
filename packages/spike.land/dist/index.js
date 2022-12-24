@@ -543,7 +543,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-TR2EJ57P.mjs
+// ../code/dist/chunk-chunk-LV4M3R6L.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6218,6 +6218,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
     }
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
+  let oldUrl;
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
     (Y) => Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1)
@@ -6229,13 +6230,21 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
       }
       if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
         const slices = x.split(`"`);
-        const oldUrl = new URL(slices[1]);
+        try {
+          oldUrl = new URL(slices[1]);
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
         slices[1] = origin + "/npm:" + oldUrl.pathname;
         return slices.join(`"`);
       }
       if (x.indexOf("/npm:/") === -1 && x.startsWith("import") && x.indexOf(origin) !== -1) {
         const slices = x.split(`"`);
-        const oldUrl = new URL(slices[1]);
+        try {
+          oldUrl = new URL(slices[1]);
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
         if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
           slices[1] += `/index.js"`;
         }
