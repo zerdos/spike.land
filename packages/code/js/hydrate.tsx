@@ -24,8 +24,12 @@ globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
+if (location.pathname === `/live/${codeSpace}`) {
+  run();
+}
+
 if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
-  const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH");
+  const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH=" + assetHash);
   const name = md5(((self && self.crypto && self.crypto.randomUUID
     && self.crypto.randomUUID()) || (uidV4())).slice(
       0,
@@ -90,7 +94,7 @@ if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("w
   // hydrate(codeSpace);
 }
 if (location.pathname.endsWith(`/live/${codeSpace}`)) {
-  run();
+  // run();
 } else {
   const bc = new SharedWorker("/sharedWorker.js");
   bc.port.addEventListener("message", async (event) => {
