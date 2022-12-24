@@ -58,8 +58,8 @@ export const fetchPlugin: (
       console.log({ args });
 
       const lastPart = args.path.split("/live/").pop();
-      const file = await readFile(`/live/${lastPart}`);
-      const code = await esmTransform(file as string);
+      const code = await readFile(`/live/${lastPart}`);
+      // const code/`` = await esmTransform(file as string);
       console.log({ code });
 
       // if (file) {
