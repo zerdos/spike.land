@@ -92,7 +92,7 @@ export function importMapReplace(
       }
       if (
         x.indexOf("/npm:/") === -1 && x.startsWith("import")
-        && x.indexOf(origin) !== -1
+        && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
         try {
@@ -110,14 +110,8 @@ export function importMapReplace(
     }).join("\n")
   ).join(";");
 
-  if (relativeUrl && relativeUrl.indexOf("esm.sh") === -1) {
-    returnStr = returnStr.split("https://esm.sh").join(relativeUrl + "/npm:")
-      .split("npm:/npm:").join("npm:").split(
-        "npm:/*/",
-      ).join(
-        "npm:/",
-      );
-  }
+  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+
   return returnStr;
 }
 function replaceAll(inp: string, search: string, replace: string) {

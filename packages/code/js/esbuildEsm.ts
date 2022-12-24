@@ -236,7 +236,6 @@ export const buildT = async (
     format: "esm",
     // external: Object.keys(importMapImports),
     entryPoints: [
-      `./live/${codeSpace}/index.tsx`,
       `./live/${codeSpace}/render.tsx`,
       // `./render.tsx?i=${i}`,
       // "./reactDomClient.mjs",
