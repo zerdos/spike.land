@@ -12,10 +12,21 @@ export function importMapReplace(
   //   return codeInp;
   // }
 
+  let returnStr = replaceAll(codeInp, `from"`, `from "`);
+
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
-  let returnStr = codeInp.split("/::").join(origin);
+
+  items.map((lib: keyof typeof importMapImports) => {
+    const uri = (new URL(importMapImports[lib], origin)).toString();
+    if (importmapRep) {
+      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
+  });
+
+  returnStr.split("/::").join(origin);
   if (!returnStr) return returnStr;
   const url = relativeUrl || origin;
   const baSe = (new URL(".", url)).toString();
@@ -52,22 +63,12 @@ export function importMapReplace(
   returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
   returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
 
-  items.map((lib: keyof typeof importMapImports) => {
-    const uri = (new URL(importMapImports[lib], origin)).toString();
-    returnStr = replaceAll(returnStr, `from"`, `from "`);
-    if (importmapRep) {
-      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
-    }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
-  });
-
   let oldUrl: URL;
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
     Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
-        x.startsWith("import") && x.indexOf(`"`) !== -1
-        && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
+        x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
         slices[1] = origin + "/npm:/*" + slices[1];
