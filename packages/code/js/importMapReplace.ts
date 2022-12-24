@@ -87,10 +87,16 @@ export function importMapReplace(
         x.indexOf("/npm:/") === -1 && x.startsWith("import")
         && x.indexOf(origin) !== -1
       ) {
-        let u = new URL(x.split(`"`)[1]);
+        const slices = x.split(`"`);
+        const oldUrl = new URL(slices[1]);
+        slices[1] = origin + "/npm:" + oldUrl.pathname;
+
+        let u = new URL(oldUrl);
         if (u && u.pathname.indexOf(".") === -1) {
-          return x.slice(0, -1) + `/index.js"`;
+          return slices[1] += `/index.js"`;
         }
+
+        return slices.join(`"`);
       }
       return x;
     }).join("\n")
