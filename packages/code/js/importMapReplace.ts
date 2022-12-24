@@ -90,9 +90,8 @@ export function importMapReplace(
         const slices = x.split(`"`);
         const oldUrl = new URL(slices[1]);
 
-        let u = new URL(oldUrl);
-        if (u && u.pathname.indexOf(".") === -1) {
-          return slices[1] += `/index.js"`;
+        if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
+          slices[1] += `/index.js"`;
         }
 
         return slices.join(`"`);
