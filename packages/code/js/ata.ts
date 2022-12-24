@@ -89,7 +89,7 @@ export async function run(code: string, originToUse: string) {
         : r.indexOf("https://") !== -1
         ? r
         : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
-          (res) => res.headers.get("x-typescript-types"),
+          (res) => res.headers.get("x-dts"),
         );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
