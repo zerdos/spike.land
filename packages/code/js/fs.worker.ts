@@ -13,7 +13,7 @@
 // const oo = {
 //   readdir: (filePath: string) => p.readdir(filePath).then(x => x.values),
 //   writeFile: (filePath: string, content: string) => p.writeFile(filePath, content),
-//   readfile: (filePath: string) => p.readFile(filePath),
+//   readFile: (filePath: string) => p.readFile(filePath),
 //   stat: (filePath: string) => p.stat(filePath),
 //   unlink: (filepath: string) => p.unlink(filepath),
 //   mkdir: (filePath: string) => p.mkdir(filePath),

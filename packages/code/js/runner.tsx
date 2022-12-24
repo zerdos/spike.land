@@ -8,6 +8,7 @@ import { buildT } from "./esbuildEsm";
 // import { RpcProvider } from "worker-rpc";
 
 // import type { ICodeSession } from "./session";
+import { unlink, writeFile } from "./fs";
 import { mST } from "./session";
 // import { toUmd } from "./toUmd";
 
@@ -175,11 +176,11 @@ export async function runner({ code, counter, codeSpace }: {
     try {
       console.log({ transpiled });
 
-      await fs.promises.unlink(`/live/${codeSpace}/index.tsx`);
+      await unlink(`/live/${codeSpace}/index.tsx`);
 
-      await fs.promises.writeFile(`/live/${codeSpace}/index.tsx`, transpiled);
+      await writeFile(`/live/${codeSpace}/index.tsx`, transpiled);
 
-      await fs.promises.writeFile(`/live/${codeSpace}/render.js`, transpiled);
+      await writeFile(`/live/${codeSpace}/render.js`, transpiled);
 
       await buildT(codeSpace, controller.signal, true);
 

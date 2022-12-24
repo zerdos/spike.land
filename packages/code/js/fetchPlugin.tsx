@@ -1,6 +1,8 @@
 import type { Plugin } from "esbuild-wasm";
 import { esmTransform } from "./runner";
 
+import { readFile } from "./fs";
+
 let fetchCache: Cache = {
   match: (req: Request) =>
     caches.open("fetchCache").then((fc) => {
@@ -54,7 +56,7 @@ export const fetchPlugin: (
     // would probably need to be more complex.
     build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
       const lastPart = args.path.split("/live/").pop();
-      const file = await fs.promises.readFile(`/live/${lastPart}`);
+      const file = await readFile(`/live/${lastPart}`);
       const code = await esmTransform(file as string);
       console.log({ code });
       // if (file) {
