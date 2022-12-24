@@ -58,7 +58,6 @@ export function importMapReplace(
     if (importmapRep) {
       returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
     }
-    returnStr = replaceAll(returnStr, ` from "./`, ` from "${origin}/live/`);
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
 
