@@ -47,7 +47,7 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
-const define = {
+const makeEnv = (environment) => ({
   "process.env.NODE_ENV": `"${environment}"`,
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
@@ -61,16 +61,29 @@ const define = {
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
+    version: "v19.3.0",
+    versions: {
+      node: "v19.3.0",
+    },
+    cwd: JSON.stringify(() => "/"),
+
     env: {
       NODE_ENV: `${environment}`,
+      version: "v19.3.0",
+      cwd: JSON.stringify(() => "/"),
       browser: true,
+      isWebworker: true,
       NODE_DEBUG: false,
       DEBUG: false,
       isBrowser: true,
+      versions: {
+        node: "v19.3.0",
+      },
     },
     browser: true,
   }),
-};
+});
+const define = makeEnv(environment);
 // Const plugins = [inlineWorkerPlugin()];
 
 // [postcss({
@@ -243,14 +256,15 @@ const build = (
     alias: {
       path: "path-browserify",
       stream: "stream-browserify",
+      os: "os-browserify",
     },
-    define,
-    minify: false, // ! isDevelopment,
-    minifyWhitespace: false, // ! isDevelopment,
-    minifyIdentifiers: false, // ! isDevelopment,
-    minifySyntax: false, // ! isDevelopment,
+    define: makeEnv("production"),
+    minify: true,
+    mangleQuoted: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
     ignoreAnnotations: false,
-    keepNames: true,
+    keepNames: false,
     treeShaking: true,
     platform: "browser",
     format: "esm",

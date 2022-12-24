@@ -437,6 +437,7 @@ var package_default = {
     avl: "1.5.3",
     axios: "^1.2.1",
     comlink: "^4.3.1",
+    constants: "^0.0.2",
     csstype: "3.1.1",
     "detective-typescript": "^9.0.0",
     "es-module-shims": "1.6.2",
@@ -450,7 +451,9 @@ var package_default = {
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
     memfs: "^3.4.12",
+    module: "^1.2.5",
     "monaco-editor": "0.34.1",
+    "os-browserify": "^0.3.0",
     "p-map": "5.5.0",
     p2pcf: "^1.3.11",
     "path-browserify": "^1.0.1",
@@ -510,7 +513,7 @@ var package_default = {
   }
 };
 
-// ../code/dist/chunk-chunk-A3E5PINE.mjs
+// ../code/dist/chunk-chunk-JLPTXNJM.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -539,11 +542,11 @@ var __toESM2 = (mod, isNodeMode, target) => (target = mod != null ? __create2(__
 var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
-    define_process_default = { env: { NODE_ENV: "development", browser: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true }, browser: true };
+    define_process_default = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
   }
 });
 
-// ../code/dist/chunk-chunk-AJZ2OWYH.mjs
+// ../code/dist/chunk-chunk-H3MTWYOE.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
