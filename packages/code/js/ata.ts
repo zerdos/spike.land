@@ -26,8 +26,8 @@ export async function run(code: string, originToUse: string) {
         ref: impRes[t].ref,
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
-            "https://esm.sh/" + x,
-          ).join(impRes[x].ref).split("esm.sh/v99/").join("esm.sh/").split(
+            location.origin + "/" + x,
+          ).join(impRes[x].ref).split("/v99/").join("/").split(
             "/@types/",
           ).join("/").split("/types/").join(
             "/",
@@ -35,7 +35,7 @@ export async function run(code: string, originToUse: string) {
             versionNumbers,
             ``,
           ),
-        url: impRes[t].url!.split("esm.sh/v99/").join("esm.sh/").split(
+        url: impRes[t].url!.split("/v99/").join("/").split(
           "/@types/",
         ).join("/").split("/types/").join("/")
           .replaceAll(
@@ -48,7 +48,7 @@ export async function run(code: string, originToUse: string) {
 
   Object.keys(impRes).map((x) =>
     impRes[x] = {
-      url: impRes[x].url!.replace("esm.sh", location.host + "/node_modules"),
+      url: impRes[x].url!.replace("esm.sh", location.host),
       ref: impRes[x].ref,
       content: impRes[x].content.split("esm.sh").join(location.host),
     }
@@ -84,7 +84,7 @@ export async function run(code: string, originToUse: string) {
         : r.indexOf("https://") !== -1
         ? r
         : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
-          (res) => res.headers.get("x-typescript-types"),
+          (res) => res.headers.get("x-typescript-types") || res.headers.get("x-DTS"),
         );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
