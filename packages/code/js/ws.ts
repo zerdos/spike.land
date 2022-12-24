@@ -280,18 +280,22 @@ export const run = async () => {
     );
   }
 
-  if (!cs.includes("render.tsx")) {
+  if (cs.includes("render.tsx")) {
+    await fs.unlink(`/live/${codeSpace}/render.tsx`);
+  }
+
+  {
     await fs.writeFile(
       `/live/${codeSpace}/render.tsx`,
       `
-  import {createRoot} from "${location.origin}/reactDomClient.mjs"
-  import { CacheProvider } from "${location.origin}/emotion.mjs";
-  import createCache from "${location.origin}/emotionCache.mjs";
-  import { ErrorBoundary } from "${location.origin}/reactMod.mjs";
-  import App from "${location.origin}/live/${codeSpace}/index.tsx"
+  import {createRoot} from "react-dom/client"
+  import { CacheProvider } from "@emotion/react";
+  import createCache from "@emotion/cache";
+  import { ErrorBoundary } from "react-error-boundary";
+  import App from "/live/${codeSpace}"
         
 
-          export const render =(rootEl)=>{
+    export const render =(rootEl)=>{
        
       const root = createRoot(rootEl);
       
@@ -303,7 +307,7 @@ export const run = async () => {
       
        cache.compat = undefined;
       
-      root.render(<ErrorBoundary
+      return root.render(<ErrorBoundary
         fallbackRender={({ error }) => (
           <div role="alert">
             <div>Oh no</div>
