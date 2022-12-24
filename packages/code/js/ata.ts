@@ -1,3 +1,4 @@
+import { importMapReplace } from "importMapReplace.js";
 import { tsx } from "../vendor/ts-detective.mjs";
 
 export async function run(code: string, originToUse: string) {
@@ -67,7 +68,7 @@ export async function run(code: string, originToUse: string) {
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-    let res = tsx(code);
+    let res = tsx(importMapReplace(code, location.origin, baseUrl));
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
