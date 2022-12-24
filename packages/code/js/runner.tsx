@@ -3,7 +3,7 @@
 import type { TransformOptions } from "esbuild-wasm";
 import { wait } from "wait";
 import { syncWS } from "ws";
-import { buildT } from "./esbuildEsm";
+import { buildT, transform } from "./esbuildEsm";
 
 // import { RpcProvider } from "worker-rpc";
 
@@ -35,11 +35,10 @@ import { mST } from "./session";
 //   OriginalLog(mess, ...args);
 // };
 
-let transform;
 // const codeSpace = location.pathname.slice(1).split("/")[1];
 
 export const esmTransform = async (code: string) => {
-  transform = transform || (await import(`./esbuildEsm`)).transform;
+  // transform = transform || (await import(`./esbuildEsm`)).transform;
 
   const transpiled = await transform(code, {
     loader: "tsx",
@@ -178,9 +177,7 @@ export async function runner({ code, counter, codeSpace }: {
 
       await unlink(`/live/${codeSpace}/index.tsx`);
 
-      await writeFile(`/live/${codeSpace}/index.tsx`, transpiled);
-
-      await writeFile(`/live/${codeSpace}/render.js`, transpiled);
+      await writeFile(`/live/${codeSpace}/index.tsx`, code);
 
       await buildT(codeSpace, controller.signal, true);
 
