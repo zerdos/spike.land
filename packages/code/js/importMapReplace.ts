@@ -72,7 +72,7 @@ export function importMapReplace(
         && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/npm:/*" + slices[1] + "?bundle=1&format=es2022";
+        slices[1] = origin + "/npm:/" + slices[1] + "?bundle&external:react&format=es2022";
         return slices.join(`"`);
       }
       if (
