@@ -61,6 +61,7 @@ export function importMapReplace(
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
 
+  let oldUrl: URL;
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
     Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
@@ -78,7 +79,11 @@ export function importMapReplace(
         || x.indexOf("@babel/runtime") !== -1
       ) {
         const slices = x.split(`"`);
-        const oldUrl = new URL(slices[1]);
+        try {
+          oldUrl = new URL(slices[1]);
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
         slices[1] = origin + "/npm:" + oldUrl.pathname;
 
         return slices.join(`"`);
@@ -88,7 +93,11 @@ export function importMapReplace(
         && x.indexOf(origin) !== -1
       ) {
         const slices = x.split(`"`);
-        const oldUrl = new URL(slices[1]);
+        try {
+          oldUrl = new URL(slices[1]);
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
 
         if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
           slices[1] += `/index.js"`;
