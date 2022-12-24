@@ -543,7 +543,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-OHMU7CHT.mjs
+// ../code/dist/chunk-chunk-M5BC4HKN.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6222,7 +6222,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
     (Y) => Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1)
         return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1) {
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1) {
         const slices = x.split(`"`);
         slices[1] = origin + "/npm:/*" + slices[1];
         return slices.join(`"`);
@@ -6236,7 +6236,6 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
       if (x.indexOf("/npm:/") === -1 && x.startsWith("import") && x.indexOf(origin) !== -1) {
         const slices = x.split(`"`);
         const oldUrl = new URL(slices[1]);
-        slices[1] = origin + "/npm:" + oldUrl.pathname;
         let u = new URL(oldUrl);
         if (u && u.pathname.indexOf(".") === -1) {
           return slices[1] += `/index.js"`;

@@ -66,7 +66,7 @@ export function importMapReplace(
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
         x.startsWith("import") && x.indexOf(`"`) !== -1
-        && x.indexOf(`https://`) === -1
+        && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
         slices[1] = origin + "/npm:/*" + slices[1];
@@ -89,7 +89,6 @@ export function importMapReplace(
       ) {
         const slices = x.split(`"`);
         const oldUrl = new URL(slices[1]);
-        slices[1] = origin + "/npm:" + oldUrl.pathname;
 
         let u = new URL(oldUrl);
         if (u && u.pathname.indexOf(".") === -1) {
