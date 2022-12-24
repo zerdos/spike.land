@@ -129,6 +129,7 @@ export const fetchPlugin: (
       //       `);
       return {
         contents: code,
+        loader: "tsx",
       };
       // }
       // return null;
