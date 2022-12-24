@@ -546,7 +546,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-AFZ5PM2K.mjs
+// ../code/dist/chunk-chunk-ZMYF5FL4.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6228,7 +6228,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
         return x;
       if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/npm:/" + slices[1] + "?bundle&external:react&format=es2022";
+        slices[1] = origin + "/" + slices[1] + "?dev&format=es2022";
         return slices.join(`"`);
       }
       if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
