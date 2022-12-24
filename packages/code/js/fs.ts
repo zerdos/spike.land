@@ -10,7 +10,7 @@ const p = fs.promises;
 
 export const readdir = (filePath: string) => p.readdir(filePath);
 export const writeFile = (filePath: string, content: string | Uint8Array) => p.writeFile(filePath, content);
-export const readFile = (filePath: string) => p.readFile(filePath);
+export const readFile = (filePath: string) => p.readFile(filePath, { encoding: "utf8" });
 export const stat = (filePath: string) => p.stat(filePath);
 export const unlink = (filepath: string) => p.unlink(filepath);
 export const mkdir = (filePath: string) => p.mkdir(filePath);
