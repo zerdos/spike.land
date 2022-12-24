@@ -125,8 +125,8 @@ async function onMessage(port: MessagePort, {
   else if (i && counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
   if (type === "ata" && code && baseUrl) {
-    return import("./ata").then(({ run }) => run(code, baseUrl)).then(extraLibs =>
-      port.postMessage({ type: "ata", extraLibs })
+    return import("./ata").then(({ run }) => run(code, baseUrl)).then(
+      (extraLibs) => port.postMessage({ type: "ata", extraLibs }),
     );
   }
   if (codeSpace && name && type === "handshake") {
@@ -180,10 +180,24 @@ async function onMessage(port: MessagePort, {
     if (db) {
       const hash = await db.getItem<string>("wsHash");
       if (hash && obj.oldHash && hash !== obj.oldHash) {
-        const old = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(hash);
+        const old = await db.getItem<
+          {
+            newHash: string;
+            oldHash: string;
+            patch: Delta[];
+            reversePatch: Delta[];
+          }
+        >(hash);
 
         if (old) {
-          const next = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(
+          const next = await db.getItem<
+            {
+              newHash: string;
+              oldHash: string;
+              patch: Delta[];
+              reversePatch: Delta[];
+            }
+          >(
             old.newHash,
           );
           if (next) {
@@ -203,7 +217,10 @@ async function onMessage(port: MessagePort, {
 
     mod[codeSpace].send(JSON.stringify(obj));
   } else {
-    blockedMessages[codeSpace] = [...(blockedMessages[codeSpace] || []), JSON.stringify(obj)];
+    blockedMessages[codeSpace] = [
+      ...(blockedMessages[codeSpace] || []),
+      JSON.stringify(obj),
+    ];
   }
 }
 let iii = 0;
@@ -228,7 +245,10 @@ function reconnect(codeSpace: string, name: string) {
     send: (msg: string) => {
       blockedMessages[codeSpace] = [...(blockedMessages[codeSpace]), msg];
 
-      while (websocket.readyState === websocket.OPEN && blockedMessages[codeSpace].length) {
+      while (
+        websocket.readyState === websocket.OPEN
+        && blockedMessages[codeSpace].length
+      ) {
         const mess = blockedMessages[codeSpace].shift();
         console.log({ mess });
         if (mess) websocket.send(mess);
@@ -249,10 +269,24 @@ function reconnect(codeSpace: string, name: string) {
       const hash = patch.newHash || patch.hashCode;
       if (hash && head && hash !== head) {
         await db.setItem("wsHash", hash);
-        const old = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(hash);
+        const old = await db.getItem<
+          {
+            newHash: string;
+            oldHash: string;
+            patch: Delta[];
+            reversePatch: Delta[];
+          }
+        >(hash);
 
         if (old) {
-          const next = await db.getItem<{ newHash: string; oldHash: string; patch: Delta[]; reversePatch: Delta[] }>(
+          const next = await db.getItem<
+            {
+              newHash: string;
+              oldHash: string;
+              patch: Delta[];
+              reversePatch: Delta[];
+            }
+          >(
             old.newHash,
           );
           if (next) {
@@ -299,7 +333,10 @@ function reconnect(codeSpace: string, name: string) {
 
   blockedMessages[codeSpace].push(JSON.stringify({ name }));
   websocket.onopen = () => {
-    while (websocket.readyState === websocket.OPEN && blockedMessages[codeSpace].length) {
+    while (
+      websocket.readyState === websocket.OPEN
+      && blockedMessages[codeSpace].length
+    ) {
       const mess = blockedMessages[codeSpace].shift();
       if (mess) websocket.send(mess);
     }

@@ -24,7 +24,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    mkdir(filepath: string, options: FS.MKDirOptions | undefined, cb: (err: Error) => void): void;
+    mkdir(
+      filepath: string,
+      options: FS.MKDirOptions | undefined,
+      cb: (err: Error) => void,
+    ): void;
 
     /**
      * Remove directory
@@ -42,7 +46,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    readdir(filepath: string, options: undefined, cb: (err: Error, files: string[]) => void): void;
+    readdir(
+      filepath: string,
+      options: undefined,
+      cb: (err: Error, files: string[]) => void,
+    ): void;
 
     writeFile(
       filepath: string,
@@ -51,8 +59,16 @@ declare module "@isomorphic-git/lightning-fs" {
       cb: (err: Error) => void,
     ): void;
 
-    readFile(filepath: string, options: "utf8" | { encoding: "utf8" }, cb: (err: Error, data: string) => void): void;
-    readFile(filepath: string, options: {} | void, cb: (err: Error, data: Uint8Array) => void): void;
+    readFile(
+      filepath: string,
+      options: "utf8" | { encoding: "utf8" },
+      cb: (err: Error, data: string) => void,
+    ): void;
+    readFile(
+      filepath: string,
+      options: {} | void,
+      cb: (err: Error, data: Uint8Array) => void,
+    ): void;
 
     /**
      * Delete a file
@@ -60,7 +76,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    unlink(filepath: string, options: undefined, cb: (err: Error) => void): void;
+    unlink(
+      filepath: string,
+      options: undefined,
+      cb: (err: Error) => void,
+    ): void;
 
     /**
      * Rename a file or directory
@@ -68,7 +88,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param newFilepath
      * @param cb
      */
-    rename(oldFilepath: string, newFilepath: string, cb: (err: Error) => void): void;
+    rename(
+      oldFilepath: string,
+      newFilepath: string,
+      cb: (err: Error) => void,
+    ): void;
 
     /**
      * The result is a Stat object similar to the one used by Node but with fewer and slightly different properties and methods.
@@ -76,7 +100,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    stat(filepath: string, options: undefined, cb: (err: Error, stats: FS.Stats) => void): void;
+    stat(
+      filepath: string,
+      options: undefined,
+      cb: (err: Error, stats: FS.Stats) => void,
+    ): void;
 
     /** x
      * Like fs.stat except that paths to symlinks return the symlink stats not the file stats of the symlink's target.
@@ -84,7 +112,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    lstat(filepath: string, options: undefined, cb: (err: Error, stats: FS.Stats) => void): void;
+    lstat(
+      filepath: string,
+      options: undefined,
+      cb: (err: Error, stats: FS.Stats) => void,
+    ): void;
 
     /**
      * Create a symlink at filepath that points to target.
@@ -100,7 +132,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    readlink(filepath: string, options: undefined, cb: (err: Error, linkString: string) => void): void;
+    readlink(
+      filepath: string,
+      options: undefined,
+      cb: (err: Error, linkString: string) => void,
+    ): void;
 
     /**
      * Create or change the stat data for a file backed by HTTP. Size is fetched with a HEAD request. Useful when using an HTTP backend without urlauto set, as then files will only be readable if they have stat data. Note that stat data is made automatically from the file /.superblock.txt if found on the server. /.superblock.txt can be generated or updated with the included [standalone script](https://github.com/isomorphic-git/lightning-fs/blob/main/src/superblocktxt.js).
@@ -108,7 +144,11 @@ declare module "@isomorphic-git/lightning-fs" {
      * @param options
      * @param cb
      */
-    backFile(filepath: string, options: FS.BackFileOptions | undefined, cb: (err: Error) => void): void;
+    backFile(
+      filepath: string,
+      options: FS.BackFileOptions | undefined,
+      cb: (err: Error) => void,
+    ): void;
 
     /**
      * Returns the size of a file or directory in bytes.
@@ -151,9 +191,16 @@ declare module "@isomorphic-git/lightning-fs" {
        */
       readdir(filepath: string, options?: undefined): Promise<string[]>;
 
-      writeFile(filepath: string, data: Uint8Array | string, options?: FS.WriteFileOptions | string): Promise<void>;
+      writeFile(
+        filepath: string,
+        data: Uint8Array | string,
+        options?: FS.WriteFileOptions | string,
+      ): Promise<void>;
 
-      readFile(filepath: string, options: "utf8" | { encoding: "utf8" }): Promise<string>;
+      readFile(
+        filepath: string,
+        options: "utf8" | { encoding: "utf8" },
+      ): Promise<string>;
       readFile(filepath: string, options?: {}): Promise<Uint8Array>;
 
       /**

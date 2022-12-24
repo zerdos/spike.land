@@ -75,7 +75,9 @@ export async function run(code: string, originToUse: string) {
       res = [
         ...res,
         ...refs.map((r) => r.split(`"`)[1]).map((r) =>
-          (r.startsWith(".") || r.startsWith("https:/")) ? r : new URL(`./` + r, baseUrl).toString()
+          (r.startsWith(".") || r.startsWith("https:/"))
+            ? r
+            : new URL(`./` + r, baseUrl).toString()
         ),
       ];
     }
