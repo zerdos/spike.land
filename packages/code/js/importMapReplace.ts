@@ -68,7 +68,8 @@ export function importMapReplace(
     Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
-        x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
+        x.startsWith("import") && x.indexOf(`"`) !== -1
+        && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
         slices[1] = origin + "/npm:/*" + slices[1];

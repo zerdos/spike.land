@@ -80,7 +80,7 @@
     "js",
     "js/importmap.json",
     "package.json",
-    "esbuild-dev.mjs",
+    "esbuild-dev.mjs"
   ],
   "exclude": [".yarn", "dist", "../worker-dom/src"]
 }

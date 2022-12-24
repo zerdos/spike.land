@@ -28,7 +28,10 @@ if (location.pathname === `/live/${codeSpace}`) {
   run();
 }
 
-if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("worker")) {
+if (
+  location.pathname !== `/live/${codeSpace}`
+  && !location.pathname.endsWith("worker")
+) {
   const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH=" + assetHash);
   const name = md5(((self && self.crypto && self.crypto.randomUUID
     && self.crypto.randomUUID()) || (uidV4())).slice(
@@ -45,7 +48,9 @@ if (location.pathname !== `/live/${codeSpace}` && !location.pathname.endsWith("w
       //          const { html, css, transpiled, i } = event.data.sess;
       //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
-      const { render } = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`));
+      const { render } = (await import(
+        `${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`
+      ));
       //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
       render;
       await hydrate(data.codeSpace, data.sess, bc.port);
@@ -105,7 +110,9 @@ if (location.pathname.endsWith(`/live/${codeSpace}`)) {
       //          const { html, css, transpiled, i } = event.data.sess;
       //     unmountComponentAtNode(document.getElementById(codeSpace+"-css"));
 
-      const { render } = (await import(`${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`));
+      const { render } = (await import(
+        `${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`
+      ));
       //      document.body = `<div id="root" data-i="${i}" style="height: 100%;">${html.split(md5(transpiled)).join(`css`)}</div>`,
       render(document.getElementById("root"));
     }
@@ -121,7 +128,11 @@ let root: HTMLElement;
 
 let controller = new AbortController();
 
-async function hydrate(codeSpace: string, sess?: ICodeSession, port?: MessagePort) {
+async function hydrate(
+  codeSpace: string,
+  sess?: ICodeSession,
+  port?: MessagePort,
+) {
   // if (sess?.i && sess.i === lastI) return;
   // if (sess && md5(sess.transpiled) === hashToRendered) return;
 

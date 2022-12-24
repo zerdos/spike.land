@@ -348,10 +348,19 @@ export const render = (rootEl: HTMLDivElement) => {
       messagePort = sharedWorker.port;
       console.log("POST ONCONNECT", { codeSpace, name: user });
       // messagePort = this;
-      ws.send = (message: { oldHash?: string; newHash?: string; reversePatch?: Delta[]; patch?: Delta[] }) => {
+      ws.send = (
+        message: {
+          oldHash?: string;
+          newHash?: string;
+          reversePatch?: Delta[];
+          patch?: Delta[];
+        },
+      ) => {
         const messageData = { codeSpace, name: user, ...message, sess: mST() };
         console.log("POST MESSAGE", { messageData });
-        if (messageData.oldHash && messageData.oldHash === messageData.newHash) return;
+        if (
+          messageData.oldHash && messageData.oldHash === messageData.newHash
+        ) return;
         messagePort.postMessage(messageData);
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
