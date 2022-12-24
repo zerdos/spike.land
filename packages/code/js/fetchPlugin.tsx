@@ -1,5 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
 import { importMapReplace } from "importMapReplace";
+import { esmTransform } from "runner";
 
 import { readFile } from "./fs";
 
@@ -129,8 +130,7 @@ export const fetchPlugin: (
       //     </ErrorBoundary></StrictMode>);
       //       `);
       return {
-        contents: importMapReplace(code, location.origin, location.origin),
-        loader: "tsx",
+        contents: await esmTransform(code)
       };
       // }
       // return null;
