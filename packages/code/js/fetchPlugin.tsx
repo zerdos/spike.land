@@ -130,7 +130,7 @@ export const fetchPlugin: (
       //     </ErrorBoundary></StrictMode>);
       //       `);
       return {
-        contents: await esmTransform(code)
+        contents: await esmTransform(code),
       };
       // }
       // return null;
