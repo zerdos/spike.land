@@ -30,6 +30,7 @@ import localForage from "localforage";
 
 import * as fs from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
+import { prettierJs } from "./prettierEsm";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
@@ -287,7 +288,7 @@ export const run = async () => {
   {
     await fs.writeFile(
       `/live/${codeSpace}/render.tsx`,
-      `
+      prettierJs(`
   import {createRoot} from "react-dom/client"
   import { CacheProvider } from "@emotion/react";
   import createCache from "@emotion/cache";
@@ -320,7 +321,7 @@ export const run = async () => {
         </ErrorBoundary>)
         }
         ;
-  `,
+  `),
     );
   }
 
