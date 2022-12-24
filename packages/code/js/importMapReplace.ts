@@ -13,11 +13,12 @@ export function importMapReplace(
   // }
 
   let returnStr = replaceAll(codeInp, `from"`, `from "`);
+ 
 
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
-
+  
   items.map((lib: keyof typeof importMapImports) => {
     const uri = (new URL(importMapImports[lib], origin)).toString();
     if (importmapRep) {
@@ -25,6 +26,8 @@ export function importMapReplace(
     }
     returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
+
+
 
   returnStr.split("/::").join(origin);
   if (!returnStr) return returnStr;
@@ -63,6 +66,7 @@ export function importMapReplace(
   returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
   returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
 
+  
   let oldUrl: URL;
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
     Y.split("\n").map((x) => {
