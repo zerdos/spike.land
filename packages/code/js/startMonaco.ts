@@ -472,6 +472,11 @@ async function startMonacoPristine(
     },
     linkedEditing: true,
     stablePeek: true,
+    experimental: {
+      stickyScroll: {
+        enabled: true,
+      },
+    },
     roundedSelection: true,
     //  Editing: true,
     bracketPairColorization: {
