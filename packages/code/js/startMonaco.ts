@@ -460,7 +460,8 @@ async function startMonacoPristine(
 
     automaticLayout: true,
 
-    useShadowDOM: true,
+    useShadowDOM: false,
+
     contextmenu: true,
     // dimension: true,
 
