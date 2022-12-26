@@ -88,7 +88,7 @@ const monacoContribution = async (
     target: languages.typescript.ScriptTarget.ESNext,
 
     importHelpers: true,
-    typeRoots: ["/v99/@types", "/v99"],
+    typeRoots: ["/v99/@types", "/v99", "/v100/@types", "/v100"],
     lib,
     allowJs: true,
     skipLibCheck: false,
@@ -472,11 +472,7 @@ async function startMonacoPristine(
     },
     linkedEditing: true,
     stablePeek: true,
-    experimental: {
-      stickyScroll: {
-        enabled: true,
-      },
-    },
+
     roundedSelection: true,
     //  Editing: true,
     bracketPairColorization: {
