@@ -1,5 +1,4 @@
 import { tsx } from "../vendor/ts-detective.mjs";
-
 import { prettierJs } from "./prettierEsm";
 
 export async function run(code: string, originToUse: string) {
@@ -32,6 +31,8 @@ export async function run(code: string, originToUse: string) {
           .join("/").split(
             "https://esm.sh/" + x,
           ).join(impRes[x].ref).split("esm.sh/v99/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
+            "esm.sh/v101/",
+          ).join("esm.sh/").split(
             "/@types/",
           ).join("/").split("/types/").join(
             "/",
@@ -40,6 +41,8 @@ export async function run(code: string, originToUse: string) {
             ``,
           ),
         url: impRes[t].url!.split("esm.sh/v99/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
+          "esm.sh/v101/",
+        ).join("esm.sh/").split(
           "/@types/",
         ).join("/").split("/types/").join("/")
           .replaceAll(
@@ -76,10 +79,8 @@ export async function run(code: string, originToUse: string) {
       const [, ...refs] = refParts;
       res = [
         ...res,
-        ...refs.map((r) => r.split(`"`)[1]).map((r) =>
-          (r.startsWith(".") || r.startsWith("https:/"))
-            ? r
-            : new URL(`./` + r, baseUrl).toString()
+        ...refs.map((r) => r.split(`"`)[0]).map((r) =>
+          (r.startsWith(".") || r.startsWith("https:/")) ? r : new URL(`./` + r, baseUrl).toString()
         ),
       ];
     }
@@ -92,7 +93,7 @@ export async function run(code: string, originToUse: string) {
         : r.indexOf("https://") !== -1
         ? r
         : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
-          (res) => res.headers.get("x-typescript-types") || res.headers.get("x-dts"),
+          (res) => res.headers.get("x-typescript-types"),
         );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
@@ -114,7 +115,7 @@ export async function run(code: string, originToUse: string) {
         .then((dtsRes) => {
           const u = new URL(dtsRes.url, origin);
           impRes[newBase!].url = u.toString();
-          return dtsRes.text();
+          return dtsRes.text(); // .then(z => importMapReplace(z, u.toString(), origin, false));
         });
 
       if (impRes[newBase].content.length > 0) {
