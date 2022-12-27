@@ -124,11 +124,11 @@ async function onMessage(port: MessagePort, {
   if (i && !counters[codeSpace]) counters[codeSpace] = i;
   else if (i && counters[codeSpace] >= i) return;
   counters[codeSpace] = i;
-  if (type === "ata" && code && baseUrl) {
-    return import("./ata").then(({ run }) => run(code, baseUrl)).then(
-      (extraLibs) => port.postMessage({ type: "ata", extraLibs }),
-    );
-  }
+  // if (type === "ata" && code && baseUrl) {
+  //   return import("./ata").then(({ run }) => run(code, baseUrl)).then(
+  //     (extraLibs) => port.postMessage({ type: "ata", extraLibs }),
+  //   );
+  // }
   if (codeSpace && name && type === "handshake") {
     self.connections[codeSpace] = self.connections[codeSpace] || [];
     self.connections[codeSpace].push(port);

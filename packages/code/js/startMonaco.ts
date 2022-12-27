@@ -131,7 +131,19 @@ const monacoContribution = async (
   rpcProvider
     .rpc("ata", { code, originToUse })
     .then((result) => {
-      languages.typescript.typescriptDefaults.setExtraLibs(result);
+      console.log({ result });
+      languages.typescript.typescriptDefaults.setExtraLibs([...result, {
+        filePath: originToUse + "/node_modules/@emotion/react/jsx-runtime.d.ts",
+        content: `import {} from 'react'
+      import { Interpolation } from '@emotion/serialize'
+      import { Theme } from '.'
+      
+      declare module 'react' {
+        interface Attributes {
+          css?: Interpolation<Theme>
+        }
+      }export { EmotionJSX as JSX } from "${originToUse} /node_modules/@emotion/react/jsx-namespace.d.ts";`,
+      }]);
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
           noSuggestionDiagnostics: false,
@@ -326,18 +338,18 @@ async function startMonacoPristine(
   };
 
   // const container = document.getElementById('container');
-  const shadowRoot = container.attachShadow({
-    mode: "closed",
-  });
+  // const shadowRoot = container.attachShadow({
+  //   mode: "closed",
+  // });
 
-  const innerContainer = document.createElement("div");
-  shadowRoot.appendChild(innerContainer);
-  innerContainer.style.width = "100%";
-  innerContainer.style.height = "100%";
+  // const innerContainer = document.createElement("div");
+  // container.appendChild(innerContainer);
+  // innerContainer.style.width = "100%";
+  // innerContainer.style.height = "100%";
 
-  const innerStyle = document.createElement("style");
-  innerStyle.innerText = `@import "${originToUse}/node_modules/monaco-editor/min/vs/editor/editor.main.css";`;
-  shadowRoot.appendChild(innerStyle);
+  // const innerStyle = document.createElement("style");
+  // innerStyle.innerText = `@import "${originToUse}/node_modules/monaco-editor/min/vs/editor/editor.main.css";`;
+  // shadowRoot.appendChild(innerStyle);
   // const innerContainer = document.createElement("div");
 
   // innerContainer.style.width = "100%";
@@ -350,7 +362,7 @@ async function startMonacoPristine(
   //
   // const target = container;
 
-  const myEditor = create(innerContainer, {
+  const myEditor = create(container, {
     model,
     scrollbar: {
       scrollByPage: false,
