@@ -121,16 +121,20 @@ const monacoContribution = async (
     include: [originToUse + "/"],
   });
 
-  const worker = new Worker("/ata.worker.js?" + globalThis.assetHash),
-    rpcProvider = new RpcProvider(
-      (message, transfer) => worker.postMessage(message, transfer),
-    );
+  const worker = new Worker("/ata.worker.js?" + globalThis.assetHash);
+  const dispatcher: RpcProvider.Dispatcher = (m, t) => worker.postMessage(m, t as StructuredSerializeOptions);
+
+  const rpcProvider = new RpcProvider(dispatcher, 20_000);
 
   worker.onmessage = (e) => rpcProvider.dispatch(e.data);
 
   rpcProvider
     .rpc("ata", { code, originToUse })
-    .then((result) => {
+    .then((r) => {
+      const result = r as unknown as {
+        content: string;
+        filePath?: string | undefined;
+      }[];
       console.log({ result });
       languages.typescript.typescriptDefaults.setExtraLibs([...result, {
         filePath: originToUse + "/node_modules/@emotion/react/jsx-runtime.d.ts",
