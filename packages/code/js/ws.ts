@@ -303,7 +303,7 @@ export const render = async (rootEl: HTMLDivElement) => {
 	const root = createRoot(rootEl);
 
   
-  BCbundle.onmessage =   location.reload()
+  BCbundle.onmessage =  ()=>  location.reload()
   
 
 	return root.render(<App />);
