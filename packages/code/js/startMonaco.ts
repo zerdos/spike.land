@@ -88,7 +88,7 @@ const monacoContribution = async (
     target: languages.typescript.ScriptTarget.ESNext,
 
     importHelpers: true,
-    typeRoots: ["/v99/@types", "/v99", "/v100/@types", "/v100"],
+    typeRoots: ["/v102/@types", "/v102", "/v100/@types", "/v100"],
     lib,
     allowJs: true,
     skipLibCheck: false,
@@ -587,9 +587,10 @@ async function startMonacoPristine(
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
 
     console.log({ version: model.getVersionId(), ev });
-    const val = model.getValue();
+
+    mod.silent = true;
+    onChange(model.getValue());
     mod.silent = false;
-    onChange(val);
   });
 
   return mod;

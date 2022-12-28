@@ -1,12 +1,12 @@
 // import { importMapReplace } from "./esbuildEsm";
 import { transform } from "./esmTransform";
 export type {};
-import FS from "@isomorphic-git/lightning-fs";
+import { fs } from "./fs";
 
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
-  globalThis.fs = new FS(location.origin);
+  // globalThis.fs = new FS(location.origin);
 
   // const bc = new BroadcastChannel(location.origin);
 
@@ -54,7 +54,7 @@ self.addEventListener("fetch", function(event) {
       let url = new URL(event.request.url);
       if (url.origin.indexOf("spike.land") === -1) return fetch(event.request);
 
-      const fs = globalThis.fs;
+      // const fs = globalThis.fs;
 
       if (url.pathname.startsWith("/live")) {
         try {

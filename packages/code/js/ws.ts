@@ -28,10 +28,10 @@ import localForage from "localforage";
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
-import { esmTransform } from "runner";
+// import { esmTransform } from "runner";
 import * as fs from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
-import { prettierJs } from "./prettierEsm";
+// import { prettierJs } from "./prettierEsm";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
@@ -273,7 +273,7 @@ export const run = async () => {
   // if (!liveStat.isDirectory())
   // else console.log("dir already )(exists")
   const cs = await fs.readdir(`/live/${codeSpace}`);
-  // const code = awat fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
+  // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
   const mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
   if (!cs.includes("index.tsx")) {
     await fs.writeFile(
@@ -281,15 +281,16 @@ export const run = async () => {
       mst.code,
     );
   }
-
+  mst.code = await fs.readFile(
+    `/live/${codeSpace}/index.tsx`,
+  );
   if (cs.includes("render.tsx")) {
     await fs.unlink(`/live/${codeSpace}/render.tsx`);
   }
 
-  {
-    await fs.writeFile(
-      `/live/${codeSpace}/render.tsx`,
-      `
+  await fs.writeFile(
+    `/live/${codeSpace}/render.tsx`,
+    `
 import { createRoot } from "react-dom/client";
 import App from "/live/${codeSpace}/index.tsx";
 
@@ -302,8 +303,8 @@ export const render = (rootEl: HTMLDivElement) => {
 	return root.render(<App />);
 };
   `,
-    );
-  }
+  );
+
   console.log({ fs });
   const codeHistory = localForage.createInstance({
     name: location.origin + `/live/${codeSpace}`,
@@ -551,6 +552,7 @@ export async function syncWS(newSession: ICodeSession) {
       // console.log({ ...message, name: user, i: sess.i });
       // wsLastHashCode = message.newHash;
       await wait(120);
+
       if (message.oldHash === message.newHash) return;
       if (controller.signal.aborted) return;
       applyPatch(message);
