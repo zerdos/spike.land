@@ -546,7 +546,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-3JPBXMRY.mjs
+// ../code/dist/chunk-chunk-VMB4UW2D.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6246,7 +6246,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
         try {
           oldUrl = new URL(slices[1]);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
-            slices[1] += `/index.js"`;
+            slices[1] += "/index.js";
           }
         } catch {
           console.error("URL ERR", slices[1]);
