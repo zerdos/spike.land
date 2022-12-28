@@ -293,7 +293,7 @@ export const run = async () => {
     `
 import { createRoot } from "react-dom/client";
 
-import App from "${location.origin}/live/${codeSpace}/index.js";
+import App from "/live/${codeSpace}/index.js";
 
 export default App;
 
