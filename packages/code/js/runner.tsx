@@ -10,6 +10,7 @@ import { buildT, transform } from "./esbuildEsm";
 // import type { ICodeSession } from "./session";
 import { unlink, writeFile } from "./fs";
 import { mST } from "./session";
+
 // import { toUmd } from "./toUmd";
 
 // globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)
@@ -168,6 +169,7 @@ export async function runner({ code, counter, codeSpace }: {
     // if (!pp) return;
     await wait(100);
     const transpiled = await esmTransform(code);
+    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
 
     if (controller.signal.aborted) return;
     BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });

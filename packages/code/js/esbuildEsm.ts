@@ -109,77 +109,77 @@ const define = {
 // };
 
 export let skipImportmapReplaceNames = false;
-export const build = async (
-  codeSpace: string,
-  i: number,
-  signal: AbortSignal,
-  bundle = false,
-) => {
-  const initFinished = mod.initialize();
-  // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
+// export const build = async (
+//   codeSpace: string,
+//   i: number,
+//   signal: AbortSignal,
+//   bundle = false,
+// ) => {
+//   const initFinished = mod.initialize();
+//   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
-  if (initFinished !== true) await (initFinished);
-  // skipImportmapReplaceNames = true;
-  const defaultOpts: BuildOptions = {
-    bundle,
-    resolveExtensions: [
-      ".tsx",
-      ".ts",
-      ".jsx",
-      ".js",
-      ".d.ts",
-      ".css",
-      ".json",
-      ".mjs",
-      ".js",
-      ".wasm",
-      ".ttf",
-    ],
-    loader: {
-      ".js": "tsx",
-      ".tsx": "tsx",
-      ".css": "css",
-      ".ttf": "dataurl",
-    },
-    write: false,
-    metafile: true,
-    target: "es2022",
-    outdir: `./`,
-    treeShaking: true,
-    minify: false,
-    define: define,
-    minifyIdentifiers: false,
-    minifySyntax: false,
-    minifyWhitespace: false,
-    splitting: false,
-    incremental: true,
-    format: "esm",
-    // external: Object.keys(importMapImports),
-    entryPoints: [
-      `./live/${codeSpace}/index.tsx?i=${i}`,
-      // `./render.tsx?i=${i}`,
-      // "./reactDomClient.mjs",
-      // "./emotion.mjs",
-      // "./motion.mjs",
-      // "./emotionCache.mjs",
-      // "./emotionStyled.mjs",
-      // "./reactMod.mjs",
-      // "./reactDom.mjs",
-    ],
+//   if (initFinished !== true) await (initFinished);
+//   // skipImportmapReplaceNames = true;
+//   const defaultOpts: BuildOptions = {
+//     bundle,
+//     resolveExtensions: [
+//       ".tsx",
+//       ".ts",
+//       ".jsx",
+//       ".js",
+//       ".d.ts",
+//       ".css",
+//       ".json",
+//       ".mjs",
+//       ".js",
+//       ".wasm",
+//       ".ttf",
+//     ],
+//     loader: {
+//       ".js": "tsx",
+//       ".tsx": "tsx",
+//       ".css": "css",
+//       ".ttf": "dataurl",
+//     },
+//     write: false,
+//     metafile: true,
+//     target: "es2022",
+//     outdir: `./`,
+//     treeShaking: true,
+//     minify: false,
+//     define: define,
+//     minifyIdentifiers: false,
+//     minifySyntax: false,
+//     minifyWhitespace: false,
+//     splitting: true,
+//     incremental: true,
+//     format: "esm",
+//     // external: Object.keys(importMapImports),
+//     entryPoints: [
+//       `./live/${codeSpace}/index.tsx?i=${i}`,
+//       // `./render.tsx?i=${i}`,
+//       // "./reactDomClient.mjs",
+//       // "./emotion.mjs",
+//       // "./motion.mjs",
+//       // "./emotionCache.mjs",
+//       // "./emotionStyled.mjs",
+//       // "./reactMod.mjs",
+//       // "./reactDom.mjs",
+//     ],
 
-    tsconfig: "./tsconfig_dist.json",
-    plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
-  };
-  let b;
-  if (
-    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
-  ) {
-    console.log(b.outputFiles);
+//     tsconfig: "./tsconfig_dist.json",
+//     plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
+//   };
+//   let b;
+//   if (
+//     !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
+//   ) {
+//     console.log(b.outputFiles);
 
-    return b.outputFiles![0].text;
-  }
-  return false;
-};
+//     return b.outputFiles![0].text;
+//   }
+//   return false;
+// };
 
 export const buildT = async (
   codeSpace: string,
@@ -229,7 +229,7 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
-    external: Object.keys(impMap.imports),
+    external: [...Object.keys(impMap.imports), ...Object.values(impMap.imports), `/live/${codeSpace}/index.js`],
     splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",
@@ -237,7 +237,7 @@ export const buildT = async (
     // external: Object.keys(importMapImports),
     entryPoints: [
       `./live/${codeSpace}/render.tsx`,
-      // `./render.tsx?i=${i}`,
+      // `./live/${codeSpace}/index.tsx`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",
       // "./motion.mjs",

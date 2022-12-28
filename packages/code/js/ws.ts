@@ -292,11 +292,11 @@ export const run = async () => {
     `/live/${codeSpace}/render.tsx`,
     `
 import { createRoot } from "react-dom/client";
-import App from "/live/${codeSpace}/index.tsx";
+import App from "/live/${codeSpace}/index.js";
 
 export default App;
 
-export const render = (rootEl: HTMLDivElement) => {
+export const render = async (rootEl: HTMLDivElement) => {
 	const root = createRoot(rootEl);
 
 

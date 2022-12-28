@@ -5,7 +5,7 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 import createCache from "./emotionCache";
-import { build } from "./esbuildEsm";
+import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { type ICodeSession, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
@@ -133,7 +133,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       requestAnimationFrame(() =>
         !signal.aborted
-        && build(cs, counter, signal, false).then((x) => x && setIframe(createJsBlob(x)))
+        && buildT(cs, signal, true).then((x) => x && setIframe(createJsBlob(x)))
       );
       res(iframe);
       return iframe;
