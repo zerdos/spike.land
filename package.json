@@ -45,7 +45,7 @@
     "@yarnpkg/sdks": "3.0.0-rc.34",
     "cypress": "12.2.0",
     "dprint": "^0.34.1",
-    "esbuild": "^0.16.11",
+    "esbuild": "^0.16.12",
     "eslint": "^8.30.0",
     "eslint-plugin-react": "^7.31.11",
     "monaco-editor": "^0.34.1",
