@@ -546,7 +546,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-ZMYF5FL4.mjs
+// ../code/dist/chunk-chunk-3JPBXMRY.mjs
 var require_lodash = __commonJS2({
   "node_modules/lodash.debounce/index.js"(exports, module) {
     init_define_process();
@@ -6241,7 +6241,7 @@ function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true) {
         }
         return slices.join(`"`);
       }
-      if (x.indexOf("/npm:/") === -1 && x.startsWith("import") && x.indexOf(origin) === -1) {
+      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
@@ -8072,7 +8072,12 @@ var Code = class {
               </div>
               <script type="module">
               const root = document.getElementById("root");
-              import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              const load = ()=>import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              try{
+                load();
+              }catch{
+                import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
+              }
               <\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();

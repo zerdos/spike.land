@@ -303,6 +303,7 @@ const build = (
       "js/motion.ts",
       "js/reactDom.ts",
       "js/hydrate.tsx",
+      "js/render.tsx",
       "js/reactDomClient.ts",
       "js/esbuildWASM.ts",
       "js/emotion.ts",

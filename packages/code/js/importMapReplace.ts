@@ -92,7 +92,6 @@ export function importMapReplace(
       }
       if (
         x.indexOf("/npm:/") === -1 && x.startsWith("import")
-        && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
         try {

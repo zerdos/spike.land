@@ -589,7 +589,12 @@ export class Code {
               </div>
               <script type="module">
               const root = document.getElementById("root");
-              import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              const load = ()=>import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              try{
+                load();
+              }catch{
+                import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
+              }
               </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
