@@ -30,7 +30,7 @@ export async function run(code: string, originToUse: string) {
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
             "https://esm.sh/" + x,
-          ).join(impRes[x].ref).split("esm.sh/v99/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
+          ).join(impRes[x].ref).split("esm.sh/v102/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
             "esm.sh/v101/",
           ).join("esm.sh/").split(
             "/@types/",
@@ -40,7 +40,7 @@ export async function run(code: string, originToUse: string) {
             versionNumbers,
             ``,
           ),
-        url: impRes[t].url!.split("esm.sh/v99/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
+        url: impRes[t].url!.split("esm.sh/v102/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
           "esm.sh/v101/",
         ).join("esm.sh/").split(
           "/@types/",

@@ -194,7 +194,7 @@ export function extraStuff(
   };
 
   const xxxsetExtraLibs = () => {
-    // replaceMaps["/node_modules/"] = "/npm:/v99/";
+    // replaceMaps["/node_modules/"] = "/npm:/v102/";
 
     const versionNumbers = /@\d+.\d+.\d+/gm;
 

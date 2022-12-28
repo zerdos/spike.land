@@ -77,20 +77,20 @@ export const dealWithMissing = async (mod: string, origin: string) => ({
   content: prettierJs(
     await (mod === "@emotion/react/jsx-runtime"
       ? fetch(
-        "https://esm.sh/v99/@emotion/react@11.10.5/types/jsx-runtime.d.ts",
+        "https://esm.sh/v102/@emotion/react@11.10.5/types/jsx-runtime.d.ts",
       ).then(async (x) =>
         importMapReplace(
           await x.text(),
           "https://esm.sh",
-          "https://esm.sh/v99/@emotion/react@11.10.5/types/jsx-runtime.d.ts",
+          "https://esm.sh/v102/@emotion/react@11.10.5/types/jsx-runtime.d.ts",
         )
       )
       : mod === "@types/react/global.d.ts"
-      ? fetch("https://esm.sh/v99/@types/react/global.d.ts").then(async (x) =>
+      ? fetch("https://esm.sh/v102/@types/react/global.d.ts").then(async (x) =>
         importMapReplace(
           await x.text(),
           "https://esm.sh",
-          "https://esm.sh/v99/@types/react/global.d.ts",
+          "https://esm.sh/v102/@types/react/global.d.ts",
         )
       )
       : fetch("https://esm.sh/" + mod, { redirect: "follow" }).then(
@@ -112,7 +112,7 @@ export const xxxsetExtraLibs = (maps: {
   maps.forEach((m) => Object.assign(replaceMaps, m));
 
   console.log({ replaceMaps });
-  // replaceMaps["/node_modules/"] = "/npm:/v99/";
+  // replaceMaps["/node_modules/"] = "/npm:/v102/";
 
   // const versionNumbers = /@(\^)?\d+.\d+.\d+/gm;
 
@@ -148,7 +148,7 @@ export const xxxsetExtraLibs = (maps: {
     // );
 
     // const paths =  new URL(url, origin).pathname.split("/")
-    // const [__, _np, _v99, ...rest] = paths;
+    // const [__, _np, _v102, ...rest] = paths;
 
     // const newURl = new URL("/node_modules/" + rest.join("/"), origin);
     // const newURl = new URL("/node_modules/" + rest.join("/"), dtsRemoved);

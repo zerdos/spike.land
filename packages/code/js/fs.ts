@@ -3,7 +3,7 @@ import FS from "@isomorphic-git/lightning-fs";
 
 // import { fs } from 'memfs';
 
-const fs = new FS(location.origin);
+export const fs = new FS(location.origin);
 const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
