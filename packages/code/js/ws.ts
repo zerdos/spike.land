@@ -292,7 +292,8 @@ export const run = async () => {
     `/live/${codeSpace}/render.tsx`,
     `
 import { createRoot } from "react-dom/client";
-import App from "/live/${codeSpace}/index.js";
+
+import App from "${location.origin}/live/${codeSpace}/index.js";
 
 export default App;
 
@@ -303,7 +304,7 @@ export const render = async (rootEl: HTMLDivElement) => {
 
   
 
-  BCbundle.onmessage = import("${location.origin}/live/${codeSpace}/render.js?refresh=${Math.random()}").then(M=> root.render(<M.default />)'
+  BCbundle.onmessage = import("${location.origin}/live/${codeSpace}/render.js?refresh=${Math.random()}").then((M)=> root.render(<M.default />))
 
 	return root.render(<App />);
 };
