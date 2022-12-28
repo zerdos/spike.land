@@ -589,7 +589,9 @@ export class Code {
               </div>
               <script type="module">
               const root = document.getElementById("root");
-              const load = ()=>import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              const load = async ()=>{
+                import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              ]
               const run = async()=>{
               try{
                 await load();

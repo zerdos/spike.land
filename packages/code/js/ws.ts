@@ -296,9 +296,14 @@ import App from "/live/${codeSpace}/index.js";
 
 export default App;
 
+const BCbundle = new BroadcastChannel("${location.origin}/live/${codeSpace}/bundle");
+
 export const render = async (rootEl: HTMLDivElement) => {
 	const root = createRoot(rootEl);
 
+  
+
+  BCbundle.onmessage = import("${location.origin}/live/${codeSpace}/render.js?refresh=${Math.random()}").then(M=> root.render(<M.default />)'
 
 	return root.render(<App />);
 };

@@ -97,6 +97,7 @@ let counterMax = mST().i;
 // };
 
 const BC = new BroadcastChannel(location.href + "/");
+const BCbundle = new BroadcastChannel(location.href + "/bundle");
 // Object.assign(globalThis, {
 //   _toUmd: () => toUmd(mST().code, codeSpace),
 //   toUmd,
@@ -182,6 +183,7 @@ export async function runner({ code, counter, codeSpace }: {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
 
       await buildT(codeSpace, controller.signal, true);
+      BCbundle.postMessage({ counterMax });
 
       // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
     } catch {
