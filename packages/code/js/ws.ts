@@ -303,8 +303,8 @@ export const render = async (rootEl: HTMLDivElement) => {
 	const root = createRoot(rootEl);
 
   
-
-  BCbundle.onmessage = import("${location.origin}/live/${codeSpace}/index.js?refresh=" + Math.random()).then((M)=> root.render(<M.default />))
+  BCbundle.onmessage =   location.reload()
+  
 
 	return root.render(<App />);
 };
