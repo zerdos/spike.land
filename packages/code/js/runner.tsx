@@ -160,7 +160,7 @@ export async function runner({ code, counter, codeSpace }: {
   // if (mod.i > counter) return;
 
   // session.changes.push(changes);false
-  // esbuildEsmTransform = esbuildEsmTransform ||
+  // esxildEsmTransform = esbuildEsmTransform ||
   //   (await import("./esbuildEsm.ts")).transform;
 
   try {
