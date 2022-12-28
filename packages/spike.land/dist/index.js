@@ -8073,11 +8073,14 @@ var Code = class {
               <script type="module">
               const root = document.getElementById("root");
               const load = ()=>import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+              const run = async()=>{
               try{
-                load();
+                await load();
               }catch{
                 import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
               }
+            }
+              run();
               <\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();
