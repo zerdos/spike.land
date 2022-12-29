@@ -138,7 +138,7 @@ export const Editor: FC<
     <Rnd
       enableResizing={true}
       disableDragging={true}
-      minWidth={640}
+      minWidth={800}
       minHeight={"100vh"}
       bounds={"body"}
       allowAnyClick={true}
