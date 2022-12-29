@@ -302,8 +302,8 @@ const BCbundle = new BroadcastChannel("${location.origin}/live/${codeSpace}/bund
 export const render = async (rootEl: HTMLDivElement) => {
 	const root = createRoot(rootEl);
 
-  
-  BCbundle.onmessage =  ()=>  location.reload()
+  if(location.href.indexOf('/iframe')!==-1)
+  BCbundle.onmessage =  ()=> location.reload()
   
 
 	return root.render(<App />);
