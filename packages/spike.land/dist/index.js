@@ -12813,7 +12813,7 @@ var package_default = {
     "lodash.throttle": "4.1.1",
     memfs: "^3.4.12",
     module: "^1.2.5",
-    "monaco-editor": "0.34.1",
+    "monaco-editor": "0.35.0-dev.20221228",
     "os-browserify": "^0.3.0",
     "p-map": "5.5.0",
     p2pcf: "^1.3.11",

@@ -1579,7 +1579,7 @@ __metadata:
     lodash.throttle: "npm:4.1.1"
     memfs: "npm:^3.4.12"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.34.1"
+    monaco-editor: "npm:0.35.0-dev.20221228"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
     p2pcf: "npm:^1.3.11"
@@ -8071,10 +8071,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.34.1, monaco-editor@npm:^0.34.1":
-  version: 0.34.1
-  resolution: "monaco-editor@npm:0.34.1"
-  checksum: 97e36072f880b61113919eb02b155a7895dc6db0dc6da8953a5f2ecc6f50795f10aff87ebf8c3bc59c0927604aa66ccb93bb90a3ea2695b79736639f91adde23
+"monaco-editor@npm:0.35.0-dev.20221228":
+  version: 0.35.0-dev.20221228
+  resolution: "monaco-editor@npm:0.35.0-dev.20221228"
+  checksum: ce05664b3cbc3a4f47d617551ae74691fe26a18037517fd2f829486e266ae1dd96f1a692d46be5b5b23ee00639511d124903b853bbc1c2f8e0136f4048e9cd74
   languageName: node
   linkType: hard
 
@@ -8098,7 +8098,7 @@ __metadata:
     esbuild: "npm:^0.16.12"
     eslint: "npm:^8.30.0"
     eslint-plugin-react: "npm:^7.31.11"
-    monaco-editor: "npm:^0.34.1"
+    monaco-editor: "npm:0.35.0-dev.20221228"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.1"
     react: "npm:^18.2.0"
