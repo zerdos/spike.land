@@ -1,4 +1,4 @@
-importScripts("prettierEsm.mjs");
+import { prettierJs } from "./prettierEsm";
 
 import { RpcProvider } from "worker-rpc";
 

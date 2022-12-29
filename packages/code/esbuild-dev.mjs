@@ -252,7 +252,7 @@ const build = (
     entryPoints: [
       "js/sw.ts",
       "js/ata.worker.ts",
-      "js/prettierEsm.ts",
+      // "js/prettierEsm.ts",
       "js/prettier.worker.ts",
       "js/sharedWorker.ts",
       // "js/fs.worker.ts",
