@@ -1,15 +1,10 @@
-import "monaco-editor/esm/vs/editor/editor.all";
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
-import "monaco-editor/esm/vs/language/typescript/monaco.contribution";
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript";
-import "monaco-editor/esm/vs/language/typescript/tsMode";
-import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
+import * as monaco from "monaco-editor";
 
 import { getWorkerUrl } from "./monacoWorkers.mjs";
 
 // import localForage from "localforage";
 
-// const { editor, languages, Uri } = monaco;
+const { editor, languages, Uri } = monaco;
 import { RpcProvider } from "worker-rpc";
 
 // import * as w from "./monacoExtra";
@@ -137,7 +132,7 @@ const monacoContribution = async (
       }[];
       console.log({ result });
       languages.typescript.typescriptDefaults.setExtraLibs([...result, {
-        filePath: originToUse + "/node_modules/@emotion/react/jsx-runtime.d.ts",
+        filePath: originToUse + "@emotion/react/jsx-runtime.d.ts",
         content: `import {} from 'react'
       import { Interpolation } from '@emotion/serialize'
       import { Theme } from '.'
@@ -146,7 +141,8 @@ const monacoContribution = async (
         interface Attributes {
           css?: Interpolation<Theme>
         }
-      }export { EmotionJSX as JSX } from "${originToUse} /node_modules/@emotion/react/jsx-namespace.d.ts";`,
+      }
+      export { EmotionJSX as JSX } from "./jsx-namespace";`,
       }]);
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
