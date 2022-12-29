@@ -95,9 +95,9 @@ export function importMapReplace(
       ) {
         const slices = x.split(`"`);
         try {
-          oldUrl = new URL(slices[1]);
+          oldUrl = new URL(slices[1], origin);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
-            slices[1] += "/index.js";
+            slices[1] += oldUrl.toString() + "/index.js";
           }
         } catch {
           console.error("URL ERR", slices[1]);

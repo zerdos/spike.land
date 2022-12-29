@@ -12874,7 +12874,7 @@ var package_default = {
   }
 };
 
-// ../code/dist/chunk-chunk-3J43HHNS.mjs
+// ../code/dist/chunk-chunk-ARBJL7XU.mjs
 init_chunk_chunk_YOPVWBKX();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
@@ -21061,9 +21061,9 @@ function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true) {
       if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
         const slices = x.split(`"`);
         try {
-          oldUrl = new URL(slices[1]);
+          oldUrl = new URL(slices[1], origin2);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1) {
-            slices[1] += "/index.js";
+            slices[1] += oldUrl.toString() + "/index.js";
           }
         } catch {
           console.error("URL ERR", slices[1]);
