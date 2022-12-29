@@ -92,6 +92,7 @@
     "localforage": "^1.10.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
+    "logrocket": "^3.0.1",
     "memfs": "^3.4.12",
     "module": "^1.2.5",
     "monaco-editor": "0.35.0-dev.20221228",

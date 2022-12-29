@@ -1577,6 +1577,7 @@ __metadata:
     localforage: "npm:^1.10.0"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
+    logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.12"
     module: "npm:^1.2.5"
     monaco-editor: "npm:0.35.0-dev.20221228"
@@ -7479,6 +7480,13 @@ __metadata:
     slice-ansi: "npm:^4.0.0"
     wrap-ansi: "npm:^6.2.0"
   checksum: b508aeb81f60fab087e44f9eb8591a22b791caa3df8363da9b171518f36406151a9590db573acbb7eeb8b49874944d3bf844d5dee734f810ad8b5a3c5eadbabf
+  languageName: node
+  linkType: hard
+
+"logrocket@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "logrocket@npm:3.0.1"
+  checksum: 981820c5d21f71535b256b244d75a1d9e3d2e6cbdb19b4cd162ee14c5320a056976b80fe6231526f26e9bea29fe6e221061dd39814bc97ae404a7efeb0704ca4
   languageName: node
   linkType: hard
 
