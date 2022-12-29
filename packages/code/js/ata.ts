@@ -24,6 +24,12 @@ export async function run(code: string, originToUse: string) {
   // let url = replaceMappings(filePath, replaceMaps).replaceAll(
   // versionNumbers,
   // ``,
+
+  const vNumbers = /\/(v)[0-9]+\//gm;
+  const subst = `\/`;
+
+  // The substituted value will be contained in the result variable
+
   Object.keys(impRes).filter((x) => !(impRes[x].ref).startsWith(".") && !(impRes[x].ref).startsWith("https")).map((x) =>
     Object.keys(impRes).map((t) =>
       impRes[t] = {
@@ -31,9 +37,7 @@ export async function run(code: string, originToUse: string) {
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
             "https://esm.sh/" + x,
-          ).join(impRes[x].ref).split("esm.sh/v102/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
-            "esm.sh/v101/",
-          ).join("esm.sh/").split(
+          ).join(impRes[x].ref).replace(vNumbers, subst).split(
             "/@types/",
           ).join("/").split("/types/").join(
             "/",
@@ -41,9 +45,7 @@ export async function run(code: string, originToUse: string) {
             versionNumbers,
             ``,
           ),
-        url: impRes[t].url!.split("esm.sh/v102/").join("esm.sh/").split("esm.sh/v100/").join("esm.sh/").split(
-          "esm.sh/v101/",
-        ).join("esm.sh/").split(
+        url: impRes[t].url!.replace(vNumbers, subst).split(
           "/@types/",
         ).join("/").split("/types/").join("/")
           .replaceAll(

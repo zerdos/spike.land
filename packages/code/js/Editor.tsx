@@ -9,6 +9,7 @@ import { isMobile } from "./isMobile.mjs";
 import { prettier } from "./prettier";
 import * as Runner from "./runner";
 import { mST, onSessionUpdate } from "./session";
+import "monaco-editor/min/vs/editor/editor.main.css";
 
 const mod = {
   getValue: async () => "",
@@ -175,8 +176,7 @@ async function setMonaco(container: HTMLDivElement, codeSpace: string) {
   startedM = 1;
   const link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
-  link.href = location.origin
-    + "/node_modules/monaco-editor/min/vs/editor/editor.main.css";
+  link.href = origin + "/Editor.css";
   document.head.append(link);
   const { startMonaco } = await import("./startMonaco");
   return await startMonaco({
