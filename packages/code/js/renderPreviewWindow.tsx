@@ -109,6 +109,7 @@ export const renderPreviewWindow = (
   //
   if (rootEl === null) return;
   rootEl.style.height = "100%";
+  rootEl.innerHTML = ``;
   const root = createRoot(rootEl);
 
   // (createCache as unknown as {default: typeof createCache}).default
