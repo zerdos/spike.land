@@ -1,6 +1,6 @@
 import { RpcProvider } from "worker-rpc";
 
-const worker = new Worker("/prettier.worker.js?" + globalThis.assetHash),
+const worker = new Worker("/prettier.worker.js"),
   rpcProvider = new RpcProvider(
     (message, transfer) => worker.postMessage(message, transfer as any),
   );
