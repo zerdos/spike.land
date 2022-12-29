@@ -55,7 +55,7 @@ export async function run(code: string, originToUse: string) {
 
   Object.keys(impRes).map((x) =>
     impRes[x] = {
-      url: impRes[x].url!.replace("esm.sh", location.host + "/node_modules"),
+      url: impRes[x].url!.replace("esm.sh", location.host),
       ref: impRes[x].ref,
       content: impRes[x].content.split("esm.sh").join(location.host),
     }
