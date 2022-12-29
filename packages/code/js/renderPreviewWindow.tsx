@@ -74,7 +74,8 @@ const AppToRender: FC<
   //       style: "height: 100%",
   //     },
   //   }), []);
-  // const onlyApp = location.pathname.endsWith("public")
+  const sp = new URLSearchParams(location.search);
+  const onlyEdit = sp.has("edit");
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
 
@@ -84,7 +85,7 @@ const AppToRender: FC<
         <Editor
           codeSpace={codeSpace}
         />
-        <DraggableWindow room={codeSpace} />
+        {onlyEdit ? null : <DraggableWindow room={codeSpace} />}
       </Fragment>
     </RainbowContainer>
   );
