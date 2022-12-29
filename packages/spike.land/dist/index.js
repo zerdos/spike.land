@@ -22981,13 +22981,14 @@ var Code = class {
               </div>
               <script type="module">
               const root = document.getElementById("root");
-              const load =  ()=> import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
               
               const run = async()=>{
               try{
               await  import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
             
               }catch{
+                const load =  ()=> import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
+             
                 await load();
           
               }
