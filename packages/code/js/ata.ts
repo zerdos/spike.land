@@ -8,7 +8,8 @@ export async function run(code: string, originToUse: string) {
 
   console.log(
     await ata(
-      `import * as JSX from "@emotion/react/jsx-runtime";
+      `/** @jsx jsx */
+      import { jsx } from '@emotion/react'
       import "@emotion/react/types/css-prop";
       import "@types/react/global.d.ts";
 
