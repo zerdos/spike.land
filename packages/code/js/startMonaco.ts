@@ -131,19 +131,7 @@ const monacoContribution = async (
         filePath?: string | undefined;
       }[];
       console.log({ result });
-      languages.typescript.typescriptDefaults.setExtraLibs([...result, {
-        filePath: originToUse + "@emotion/react/jsx-runtime.d.ts",
-        content: `import {} from 'react'
-      import { Interpolation } from '@emotion/serialize'
-      import { Theme } from '.'
-      
-      declare module 'react' {
-        interface Attributes {
-          css?: Interpolation<Theme>
-        }
-      }
-      export { EmotionJSX as JSX } from "./jsx-namespace";`,
-      }]);
+      languages.typescript.typescriptDefaults.setExtraLibs(result);
       languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
           noSuggestionDiagnostics: false,

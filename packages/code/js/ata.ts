@@ -61,11 +61,30 @@ export async function run(code: string, originToUse: string) {
     }
   );
 
-  const extraLibs = Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
-    .map((x) => ({
-      filePath: impRes[x].url!,
-      content: impRes[x].content,
-    }));
+  const extras = [{
+    filePath: location.origin + "/@emotion/react/css-prop.d.ts",
+    content: `import {} from 'react'
+  import { Interpolation } from '@emotion/serialize'
+  import { Theme } from '.'
+  
+  declare module 'react' {
+    interface Attributes {
+      css?: Interpolation<Theme>
+    }
+  }`,
+  }, {
+    filePath: location.origin + "/@emotion/react/jsx-runtime.d.ts",
+    content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+  }];
+
+  const extraLibs = [
+    ...Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
+      .map((x) => ({
+        filePath: impRes[x].url!,
+        content: impRes[x].content,
+      })),
+    ...extras,
+  ];
 
   return [...new Set(extraLibs.map(x => x.filePath))].map(y => extraLibs.find(p => p.filePath === y));
 
