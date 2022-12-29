@@ -163,11 +163,12 @@ const monacoContribution = async (
   //   typescript: ts
   // })(code));
 
-  return code.split(";\n").map((x) =>
-    x.slice(0, 6) === "import"
-      ? x.replace(`from '/live/`, `from '${originToUse}/live/`)
-      : x
-  ).join(";\n");
+  // return code.split(";\n").map((x) =>
+  // x.slice(0, 6) === "import"
+  // ? x.replace(`from '/live/`, `from '${originToUse}/live/`)
+  // : x
+  // ).join(";\n");
+  return code;
 };
 
 self.MonacoEnvironment = {
