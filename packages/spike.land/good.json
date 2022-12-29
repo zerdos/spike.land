@@ -47,7 +47,7 @@
       ]
     },
     "../code/package.json": {
-      "bytes": 5221,
+      "bytes": 5234,
       "imports": []
     },
     "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
@@ -324,7 +324,7 @@
           "bytesInOutput": 9618
         },
         "../code/package.json": {
-          "bytesInOutput": 5112
+          "bytesInOutput": 5125
         },
         "../code/dist/chunk-chunk-Z36OFMHS.mjs": {
           "bytesInOutput": 339392
@@ -369,7 +369,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 944733
+      "bytes": 944746
     }
   }
 }
