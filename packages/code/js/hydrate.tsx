@@ -14,6 +14,9 @@ import { run } from "./ws";
 
 import { Workbox } from "workbox-window";
 
+import LogRocket from "logrocket";
+LogRocket.init("7bmflb/spikeland");
+
 if ("serviceWorker" in navigator) {
   const wb = new Workbox("/sw.js");
 
