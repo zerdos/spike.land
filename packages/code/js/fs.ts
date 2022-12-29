@@ -1,9 +1,24 @@
+// import FS from "@isomorphic-git/lightning-fs";
 import FS from "@isomorphic-git/lightning-fs";
+import * as memFS from "memfs";
+
+// export const fs = new FS('fakeFS', {db: null});\
+
 // import FS from "@isomorphic-git/lightning-fs";
 
-// import { fs } from 'memfs';
+let fsProb: FS | typeof memFS.fs;
+try {
+  if (typeof indexedDB === "undefined") fsProb = memFS.fs;
+  else {
+    // const FS = (await import("@isomorphic-git/lightning-fs")).default
+    fsProb = new FS("fakeFS");
+  }
+} catch {
+  fsProb = memFS.fs;
+}
 
-export const fs = new FS(location.origin);
+export const fs = fsProb;
+
 const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;

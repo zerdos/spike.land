@@ -1,6 +1,6 @@
 import * as esbuild from "esbuild-wasm";
 
-export const unpkgPathPlugin = {
+export const unpkgPathPlugin = (origin: string) => ({
   name: "unpkg-path-plugin",
   setup(build: esbuild.PluginBuild) {
     // handle rel paths in module :  includes ./ || ../
@@ -14,7 +14,7 @@ export const unpkgPathPlugin = {
     });
 
     build.onResolve({ filter: /^\[a-z]+\// }, (args: any) => {
-      if (args.path.indexOf(location.origin) !== -1) {
+      if (args.path.indexOf(origin) !== -1) {
         return {
           namespace: "http-url",
           path: args.path,
@@ -22,9 +22,9 @@ export const unpkgPathPlugin = {
       }
 
       return {
-        path: `${location.origin}/*${args.path}?bundle?target=es2022&format=esm`,
+        path: `${origin}/*${args.path}?bundle?target=es2022&format=esm`,
         namespace: "http-url",
       };
     });
   },
-};
+});

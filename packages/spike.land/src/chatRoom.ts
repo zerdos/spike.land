@@ -2,6 +2,7 @@ import {
   // addExtraModels,
   CodePatch,
   CodeSession,
+  esmTransform,
   // dealWithMissing,
   ICodeSession,
   importMapReplace,
@@ -12,12 +13,11 @@ import {
   // run,
   syncStorage,
 } from "@spike.land/code/js/session";
-import { hashCode, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
+import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
 import type { Delta } from "@spike.land/code/js/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { handleErrors } from "./handleErrors";
-import HTML from "./index.html";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
@@ -121,6 +121,22 @@ export class Code {
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
+
+        case "index.trans.js": {
+          const trp = await esmTransform(mST().code, url.origin);
+          return new Response(trp, {
+            status: 200,
+            headers: {
+              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+
+              content_hash: md5(trp),
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
         case "session.json":
         case "session": {
           if (path[1]) {
@@ -593,9 +609,11 @@ export class Code {
               
               const run = async()=>{
               try{
-                await load();
+              await  import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
+            
               }catch{
-                import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
+                await load();
+          
               }
             }
               run();

@@ -1,9 +1,9 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
-import type { TransformOptions } from "esbuild-wasm";
 import { wait } from "wait";
 import { syncWS } from "ws";
-import { buildT, transform } from "./esbuildEsm";
+import { buildT } from "./esbuildEsm";
+import { esmTransform } from "./esmTran";
 
 // import { RpcProvider } from "worker-rpc";
 
@@ -11,62 +11,10 @@ import { buildT, transform } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
 import { mST } from "./session";
 
-// import { toUmd } from "./toUmd";
-
-// globalThis.ol = globalThis.ol || console.log; // || (message, ...optionalParams)=>console.log(message, ...optionalParams)
-
-// const OriginalLog = globalThis.ol; // (message?: any, ...optionalParams: any[])=> void = globalThis.ol
-
-// const data: { [key: string]: string } = {};
-// const logs = [];
-// globalThis.logs = logs;
-
-// console.log = (mess, ...args) => {
-//   const sess = mST();
-//   data[md5(sess.code)] = sess.code;
-//   data[md5(sess.html)] = sess.html;
-//   data[md5(sess.css)] = sess.css;
-
-//   logs.push({
-//     args: [mess, ...args],
-//     sess: {
-//       code: md5(sess.code),
-//     },
-//   });
-//   OriginalLog(mess, ...args);
-// };
-
-// const codeSpace = location.pathname.slice(1).split("/")[1];
-
-export const esmTransform = async (code: string) => {
-  // transform = transform || (await import(`./esbuildEsm`)).transform;
-
-  const transpiled = await transform(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    //   globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        useDefineForClassFields: false,
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react",
-      },
-    },
-    target: "es2022",
-  } as unknown as TransformOptions);
-
-  // apps[md5(transpiled.code)] = require(md5(code));
-
-  return transpiled.code;
-};
 // Object.assign(globalThis, { transform, build, toUmd });
 
 let counterMax = mST().i;
+const origin = location.origin;
 // const IIFE = {};
 
 // export const umdTransform = async (code: string) => {
@@ -169,7 +117,7 @@ export async function runner({ code, counter, codeSpace }: {
     // const pp = await buildT(codeSpace, counter, ab.signal);
     // if (!pp) return;
     await wait(100);
-    const transpiled = await esmTransform(code);
+    const transpiled = await esmTransform(code, origin);
     await writeFile(`/live/${codeSpace}/index.js`, transpiled);
 
     if (controller.signal.aborted) return;
@@ -182,7 +130,7 @@ export async function runner({ code, counter, codeSpace }: {
 
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
 
-      await buildT(codeSpace, controller.signal, true);
+      await buildT(codeSpace, location.origin, controller.signal, true);
       BCbundle.postMessage({ counterMax });
 
       // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);

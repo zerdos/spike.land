@@ -24,7 +24,7 @@
     "./js/mockedMap.json": "./js/mockedMap.json"
   },
   "scripts": {
-    "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/ --format=esm --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
+    "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
     "typecheck": "yarn tsc",
     "clean": "rm -rf .tsBuildInfo js/vendor dist js/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
