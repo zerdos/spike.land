@@ -57,7 +57,7 @@ export async function run(code: string, originToUse: string) {
     impRes[x] = {
       url: impRes[x].url!.replace("esm.sh", location.host),
       ref: impRes[x].ref,
-      content: impRes[x].content.split("esm.sh").join(location.host),
+      content: impRes[x].content.split("https://esm.sh").join("").split(`esm.sh`).join(""),
     }
   );
 
