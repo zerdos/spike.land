@@ -1,6 +1,6 @@
 import { importMapReplace } from "importMapReplace";
 import type * as monaco from "monaco-editor";
-import { prettierJs } from "prettierEsm";
+import { prettier } from "prettier";
 
 let replaceMaps: { [key: string]: string } = {};
 
@@ -74,7 +74,7 @@ export const dealWithMissing = async (mod: string, origin: string) => ({
         ? ".d.ts"
         : "/index.d.ts"),
   mod,
-  content: prettierJs(
+  content: await prettier(
     await (mod === "@emotion/react/jsx-runtime"
       ? fetch(
         "https://esm.sh/v102/@emotion/react@11.10.5/types/jsx-runtime.d.ts",
