@@ -6,7 +6,7 @@ import { Rnd } from "react-rnd";
 
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
-import { prettierJs } from "./prettierEsm";
+import { prettier } from "./prettier";
 import * as Runner from "./runner";
 import { mST, onSessionUpdate } from "./session";
 
@@ -160,10 +160,10 @@ export const Editor: FC<
 };
 
 async function onModChange(_code: string, codeSpace: string) {
-  const code = prettierJs(_code);
+  const code = await prettier(_code);
   if (!code) return;
 
-  if (code === prettierJs(mod.code)) return;
+  if (code === await prettier(mod.code)) return;
 
   const counter = ++mod.counter;
   mod.code = code;
