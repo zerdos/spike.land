@@ -556,6 +556,7 @@ export class Code {
             .replace(
               `<div id="root"></div>`,
               `<div id="root" data-i="${i}" style="height: 100%;">
+              <iframe src="${url.origin}/live/${this.codeSpace}/iframe" border="0" frameBorder={0} height="100%" width="100%"></iframe>
               </div>
               <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
             );
