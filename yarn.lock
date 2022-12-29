@@ -1557,7 +1557,6 @@ __metadata:
     async-mutex: "npm:^0.4.0"
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
-    axios: "npm:^1.2.1"
     comlink: "npm:^4.3.1"
     constants: "npm:^0.0.2"
     csstype: "npm:3.1.1"
@@ -1580,7 +1579,7 @@ __metadata:
     logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.12"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20221228"
+    monaco-editor: "npm:0.35.0-dev.20221229"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
     p2pcf: "npm:^1.3.11"
@@ -2963,17 +2962,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "axios@npm:1.2.1"
-  dependencies:
-    follow-redirects: "npm:^1.15.0"
-    form-data: "npm:^4.0.0"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: cd68dc519d7dbb3e2a0fd0788409fa633c1f6e36deb9e1069f04e8d38678c0ef0113db527589ae8f48ad448600ff9e4893c84e78bd9759fb719cfa82ee105167
-  languageName: node
-  linkType: hard
-
 "babel-plugin-macros@npm:^3.1.0":
   version: 3.1.0
   resolution: "babel-plugin-macros@npm:3.1.0"
@@ -3646,7 +3634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.6, combined-stream@npm:^1.0.8, combined-stream@npm:~1.0.6":
+"combined-stream@npm:^1.0.6, combined-stream@npm:~1.0.6":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -5487,16 +5475,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.15.0":
-  version: 1.15.2
-  resolution: "follow-redirects@npm:1.15.2"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 930171f8b81bf00e9368df4b17f3b835934762d51192632af53a51a8a608d5510a1ffbc6da5761dce9996cdbd750740490ca844320e5ff11cdaf2329a5a69647
-  languageName: node
-  linkType: hard
-
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -5533,17 +5511,6 @@ __metadata:
   version: 0.6.1
   resolution: "forever-agent@npm:0.6.1"
   checksum: b426cf45f0bdea79970a4320cb550b84d0bcd0530d544e0424456f44272a19641a000ea921f8e58dba5511b71f94d95c80692e3d13ce5f0b766f18426430efd5
-  languageName: node
-  linkType: hard
-
-"form-data@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "form-data@npm:4.0.0"
-  dependencies:
-    asynckit: "npm:^0.4.0"
-    combined-stream: "npm:^1.0.8"
-    mime-types: "npm:^2.1.12"
-  checksum: de37c5684d843842d2cc2bc44a975d9fecdf1df30d061c90b62fc0caeeeeb45794bceaba7aa52ee5eae8ede01ba44215b26c58f41cf64271c513787b7241fce4
   languageName: node
   linkType: hard
 
@@ -8079,10 +8046,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221228":
-  version: 0.35.0-dev.20221228
-  resolution: "monaco-editor@npm:0.35.0-dev.20221228"
-  checksum: ce05664b3cbc3a4f47d617551ae74691fe26a18037517fd2f829486e266ae1dd96f1a692d46be5b5b23ee00639511d124903b853bbc1c2f8e0136f4048e9cd74
+"monaco-editor@npm:0.35.0-dev.20221229":
+  version: 0.35.0-dev.20221229
+  resolution: "monaco-editor@npm:0.35.0-dev.20221229"
+  checksum: 309ef0104bdf1cfaa10c929a8f19268963b065502de0cd871bd0aa15f6fadd9dc0b4ae2441ef754a65d21e239383ff3a753b78923eefc826899f8b6ecbf43370
   languageName: node
   linkType: hard
 
@@ -8106,7 +8073,7 @@ __metadata:
     esbuild: "npm:^0.16.12"
     eslint: "npm:^8.30.0"
     eslint-plugin-react: "npm:^7.31.11"
-    monaco-editor: "npm:0.35.0-dev.20221228"
+    monaco-editor: "npm:0.35.0-dev.20221229"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.1"
     react: "npm:^18.2.0"
@@ -9173,13 +9140,6 @@ __metadata:
   version: 1.0.0
   resolution: "proxy-from-env@npm:1.0.0"
   checksum: d0ecd7fab1f1f556514574efbb3ee03d2a31913a61f24b323280212d73830f4c7fa16b93248168b4c3932b302b48cad46c0a4088831ea5423fb9d390493d15d3
-  languageName: node
-  linkType: hard
-
-"proxy-from-env@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "proxy-from-env@npm:1.1.0"
-  checksum: 0bba2ef7c8374b384e94e4477764e53df66fcdfa7d19e2c4a063cb39eea979c139ce13981970223665422e72b7d149609a927046e2e40ab340b84d91af082591
   languageName: node
   linkType: hard
 
