@@ -67,7 +67,7 @@ export async function run(code: string, originToUse: string) {
       content: impRes[x].content,
     }));
 
-  return extraLibs;
+  return [...new Set(extraLibs.map(x => x.filePath))].map(y => extraLibs.find(p => p.filePath === y));
 
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
