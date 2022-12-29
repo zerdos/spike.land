@@ -133,7 +133,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       requestAnimationFrame(() =>
         !signal.aborted
-        && buildT(cs, signal, true).then((x) => x && setIframe(createJsBlob(x)))
+        && buildT(cs, location.origin, signal, true).then((x) => x && setIframe(createJsBlob(x)))
       );
       res(iframe);
       return iframe;
@@ -220,7 +220,7 @@ async function moveToWorker(nameSpace: string, parent: HTMLElement) {
   div.style.height = "100%";
   const cont = new AbortController();
 
-  const js = await build(codeSpace, i, cont.signal, false);
+  const js = await buildT(codeSpace, location.origin, cont.signal, false);
 
   if (!js) return false;
   const src = createJsBlob(js);

@@ -1,21 +1,26 @@
 import { Record } from "immutable";
 import debounce from "lodash.debounce";
+import HTML from "./index.html";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
 export { importMapReplace } from "./importMapReplace";
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
+export { esmTransform } from "./esmTran";
+
 // Import * as Immutable from "immutable"
 
 type IUsername = string;
+
+export { HTML };
 
 export { md5 };
 
 export type ICodeSession = {
   code: string;
   i: number;
-  transpiled: string;
   html: string;
+  transpiled: string;
   css: string;
 };
 
@@ -216,28 +221,28 @@ export class CodeSession implements ICodeSess {
     let oldRec = hashStore[oldHash];
     let usedOldHash = oldHash;
 
-    if (!oldRec) {
-      fetch(
-        `/live/${this.room}/mST`,
-      ).then(async (resp) => {
-        if (!resp.ok) {
-          console.error(location.origin + " is NOT OK", await resp.text());
-          throw new Error(location.origin + " is NOT OK");
-        }
+    // if (!oldRec) {
+    //   fetch(
+    //     `/live/${this.room}/mST`,
+    //   ).then(async (resp) => {
+    //     if (!resp.ok) {
+    //       console.error(location.origin + " is NOT OK", await resp.text());
+    //       throw new Error(location.origin + " is NOT OK");
+    //     }
 
-        const { mST } = await resp.json();
-        const hashC = md5(mST.transpiled);
-        if (updateHash) {
-          updateHash(hashC);
-        }
+    //     const { mST } = await resp.json();
+    //     const hashC = md5(mST.transpiled);
+    //     if (updateHash) {
+    //       updateHash(hashC);
+    //     }
 
-        hashStore[hashC] = this.session.get("state").merge(mST);
+    //     hashStore[hashC] = this.session.get("state").merge(mST);
 
-        oldRec = hashStore[hashC];
-        this.createPatchFromHashCode(hashC, state, updateHash);
-      });
-      return null;
-    }
+    //     oldRec = hashStore[hashC];
+    //     this.createPatchFromHashCode(hashC, state, updateHash);
+    //   });
+    //   return null;
+    // }
 
     const oldString = string_(oldRec.toJSON());
 
@@ -499,6 +504,7 @@ export const makePatch = (
 
 export const startSession = (
   room: string,
+  // origin: string,
   u: IUserJSON,
   // originString: string,
 ): CodeSession =>

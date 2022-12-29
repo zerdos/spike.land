@@ -1,6 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
+import { esmTransform } from "esmTran";
 import { importMapReplace } from "importMapReplace";
-import { esmTransform } from "runner";
 
 import { readFile } from "./fs";
 
@@ -21,6 +21,7 @@ export const fetchPlugin: (
     origin: string,
     relativeUrl: string,
   ) => string,
+  origin: string,
 ) => Plugin = () => ({
   name: "http",
   setup(build) {
@@ -130,7 +131,7 @@ export const fetchPlugin: (
       //     </ErrorBoundary></StrictMode>);
       //       `);
       return {
-        contents: await esmTransform(code),
+        contents: await esmTransform(code, origin),
       };
       // }
       // return null;

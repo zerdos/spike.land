@@ -104,6 +104,7 @@ const buildOptions = {
   platform: "browser",
   loader: {
     ".ttf": "file",
+    ".html": "text",
   },
   external: ["./mST", "/npm:*"],
   legalComments: "none",
@@ -170,6 +171,7 @@ const build = (
       ".css",
       ".json",
       ".mjs",
+      ".html",
       ".js",
       ".wasm",
       ".workerJs.js",
@@ -184,6 +186,7 @@ const build = (
       ".jsx": "tsx",
       ".js": "ts",
       ".ts": "ts",
+      ".html": "text",
       ".cjs": "ts",
       ".mjs": "tsx",
       ".css": "css",

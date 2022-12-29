@@ -6,7 +6,7 @@ import {
   transform,
   type TransformOptions,
 } from "esbuild-wasm";
-import { readdir, unlink, writeFile } from "./fs";
+
 import impMap from "./importmap.json";
 //
 // import { imports as importMapImports } from "./importmap.json";
@@ -18,14 +18,14 @@ import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
 const mod = {
   init: false as (boolean | Promise<void>),
-  initialize: () => {
+  initialize: (origin: string) => {
     if (mod.init !== false) return mod.init;
 
-    return fetch(`${location.origin}/files.json`).then((f) => f.json()).then(
+    return fetch(`${origin}/files.json`).then((f) => f.json()).then(
       (k) => {
         const wasmURL = new URL(
           Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1) as string,
-          location.origin,
+          origin,
         ).toString();
         mod.init = initialize({
           wasmURL,
@@ -39,9 +39,10 @@ const mod = {
 export const initAndTransform = async (
   code: string,
   opts: TransformOptions,
+  origin: string,
 ) => {
   // const code = prettierJs(c)!;
-  const initFinished = mod.initialize();
+  const initFinished = mod.initialize(origin);
 
   if (initFinished !== true) await (initFinished);
 
@@ -50,8 +51,8 @@ export const initAndTransform = async (
       ...opts,
       define: { ...define, ...(opts?.define ? opts.define : {}) },
     })).code,
-    location.origin,
-    location.origin,
+    origin,
+    origin,
   );
 
   // : transformed.code; // .split("dataset").join("attributes");
@@ -183,7 +184,7 @@ export let skipImportmapReplaceNames = false;
 
 export const buildT = async (
   codeSpace: string,
-  // i: number,
+  origin: string,
   signal: AbortSignal,
   bundle = false,
 ) => {
@@ -192,7 +193,7 @@ export const buildT = async (
   //
   // return lastBuild.outputFiles![0].contents;
   // }
-  const initFinished = mod.initialize();
+  const initFinished = mod.initialize(origin);
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
   if (initFinished !== true) await (initFinished);
@@ -229,7 +230,7 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
-    external: [...Object.keys(impMap.imports), ...Object.values(impMap.imports), `/live/${codeSpace}/index.js`],
+    external: [...Object.keys(impMap.imports), ...Object.values(impMap.imports), ``],
     splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",
@@ -248,7 +249,7 @@ export const buildT = async (
     ],
 
     tsconfig: "./tsconfig.json",
-    plugins: [unpkgPathPlugin, fetchPlugin(importMapReplace)],
+    plugins: [unpkgPathPlugin(origin), fetchPlugin(importMapReplace, origin)],
   };
   let b: BuildResult;
   if (
@@ -256,6 +257,7 @@ export const buildT = async (
   ) {
     console.log(b.outputFiles);
 
+    const { readdir, unlink, writeFile } = await import("./fs");
     const cs = await readdir(`/live/${codeSpace}`);
 
     cs.filter((x) => x.indexOf("chunk") !== -1).map((chunk) =>

@@ -47,7 +47,7 @@
       ]
     },
     "../code/package.json": {
-      "bytes": 5129,
+      "bytes": 5221,
       "imports": []
     },
     "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-VMB4UW2D.mjs": {
-      "bytes": 201911,
+    "../code/dist/chunk-chunk-YOPVWBKX.mjs": {
+      "bytes": 442441,
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
@@ -69,11 +69,45 @@
         }
       ]
     },
-    "../code/dist/session.mjs": {
-      "bytes": 519,
+    "../code/dist/chunk-fs-KDUHC2IA.mjs": {
+      "bytes": 231,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-VMB4UW2D.mjs",
+          "path": "../code/dist/chunk-chunk-YOPVWBKX.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "../code/dist/chunk-chunk-3J43HHNS.mjs": {
+      "bytes": 344690,
+      "imports": [
+        {
+          "path": "../code/dist/chunk-chunk-YOPVWBKX.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-fs-KDUHC2IA.mjs",
+          "kind": "dynamic-import"
+        }
+      ]
+    },
+    "../code/dist/session.mjs": {
+      "bytes": 624,
+      "imports": [
+        {
+          "path": "../code/dist/chunk-chunk-3J43HHNS.mjs",
+          "kind": "import-statement"
+        },
+        {
+          "path": "../code/dist/chunk-chunk-YOPVWBKX.mjs",
           "kind": "import-statement"
         },
         {
@@ -159,16 +193,12 @@
         }
       ]
     },
-    "src/index.html": {
-      "bytes": 1332,
-      "imports": []
-    },
     "src/iife.html": {
       "bytes": 2207,
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 32363,
+      "bytes": 32956,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
@@ -188,10 +218,6 @@
         },
         {
           "path": "src/handleErrors.ts",
-          "kind": "import-statement"
-        },
-        {
-          "path": "src/index.html",
           "kind": "import-statement"
         },
         {
@@ -288,17 +314,23 @@
         "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
           "bytesInOutput": 9010
         },
+        "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
+          "bytesInOutput": 2565
+        },
+        "../code/dist/chunk-chunk-YOPVWBKX.mjs": {
+          "bytesInOutput": 489568
+        },
         "src/chat.ts": {
           "bytesInOutput": 9618
         },
         "../code/package.json": {
-          "bytesInOutput": 5020
+          "bytesInOutput": 5112
         },
-        "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
-          "bytesInOutput": 1627
+        "../code/dist/chunk-chunk-3J43HHNS.mjs": {
+          "bytesInOutput": 339320
         },
-        "../code/dist/chunk-chunk-VMB4UW2D.mjs": {
-          "bytesInOutput": 200778
+        "../code/dist/session.mjs": {
+          "bytesInOutput": 58
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -318,17 +350,14 @@
         "../../node_modules/avl/src/index.js": {
           "bytesInOutput": 11149
         },
-        "src/index.html": {
-          "bytesInOutput": 1416
-        },
         "src/iife.html": {
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 21463
+          "bytesInOutput": 22061
         },
         "src/index.ts": {
-          "bytesInOutput": 33
+          "bytesInOutput": 32
         },
         "src/rateLimiter.ts": {
           "bytesInOutput": 439
@@ -340,7 +369,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 315486
+      "bytes": 944420
     }
   }
 }

@@ -29,7 +29,7 @@ let hash1 = "";
 let hash2;
 
 test("Then we can start it", () => {
-  startSession("z", { name: "z", state: state1 }, "");
+  startSession("z", { name: "z", state: state1 });
   hash1 = md5(state1.transpiled);
 });
 
@@ -45,7 +45,7 @@ test("It remembers", () => {
 test("wont start a new session", () => {
   const hash1 = hashCode();
 
-  startSession("z", { name: "z", state: state2 }, "");
+  startSession("z", { name: "z", state: state2 });
 
   assert.is(hashCode(), md5(mST().transpiled));
 });
