@@ -29,7 +29,7 @@ import localForage from "localforage";
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 // import { esmTransform } from "runner";
-import * as fs from "./fs";
+import { mkdir, readdir, readFile, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -255,40 +255,31 @@ const ws = {
 
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
-  const root = await fs.readdir("/");
-  console.log("******************");
+  const root = (await readdir("/"));
 
-  console.log("******************");
-  console.log("******************");
-  console.log("******************");
-  console.log({ root });
-  console.log("******************");
-  console.log("******************");
-  console.log("******************");
-
-  if (!root.includes("live")) await fs.mkdir("/live");
-  const live = await fs.readdir("/live");
-  if (!live.includes(codeSpace)) await fs.mkdir("/live/" + codeSpace);
+  if (!root.includes("live")) await mkdir("/live");
+  const live = await readdir("/live");
+  if (!live.includes(codeSpace)) await mkdir("/live/" + codeSpace);
 
   // if (!liveStat.isDirectory())
   // else console.log("dir already )(exists")
-  const cs = await fs.readdir(`/live/${codeSpace}`);
+  const cs = await readdir(`/live/${codeSpace}`);
   // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
   const mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
   if (!cs.includes("index.tsx")) {
-    await fs.writeFile(
+    await writeFile(
       `/live/${codeSpace}/index.tsx`,
       mst.code,
     );
   }
-  mst.code = await fs.readFile(
+  mst.code = await readFile(
     `/live/${codeSpace}/index.tsx`,
   );
   if (cs.includes("render.tsx")) {
-    await fs.unlink(`/live/${codeSpace}/render.tsx`);
+    await unlink(`/live/${codeSpace}/render.tsx`);
   }
 
-  await fs.writeFile(
+  await writeFile(
     `/live/${codeSpace}/render.tsx`,
     `
 import { createRoot } from "react-dom/client";
@@ -311,7 +302,6 @@ export const render = async (rootEl: HTMLDivElement) => {
   `,
   );
 
-  console.log({ fs });
   const codeHistory = localForage.createInstance({
     name: location.origin + `/live/${codeSpace}`,
   });

@@ -23,7 +23,7 @@ const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
 
-export const readdir = (filePath: string) => p.readdir(filePath);
+export const readdir = (filePath: string) => p.readdir(filePath).then(x => x.map(d => d.toString()));
 export const writeFile = (filePath: string, content: string | Uint8Array) => p.writeFile(filePath, content);
 export const readFile = (filePath: string) => p.readFile(filePath, { encoding: "utf8" });
 export const stat = (filePath: string) => p.stat(filePath);
