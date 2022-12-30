@@ -6681,13 +6681,13 @@ __metadata:
   linkType: hard
 
 "json5@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "json5@npm:1.0.1"
+  version: 1.0.2
+  resolution: "json5@npm:1.0.2"
   dependencies:
     minimist: "npm:^1.2.0"
   bin:
     json5: lib/cli.js
-  checksum: fd9492140ea8a1ec338c96e8527e940c9464ca3c7ef8fbf00b8bbbac1c6e60d612bf6640885e8a9108c3b71dc913f9a07a628df36f462853ea8c59bbce192e32
+  checksum: 26cc8c0cba94bd7faddd8aaad59e5270d552c04ea2a271f4c610d075f638d666c4168213062341c577597a2b973554262972ccb6637cd071d73595886133c5a0
   languageName: node
   linkType: hard
 
@@ -7678,7 +7678,7 @@ __metadata:
 "monaco-editor@npm:0.35.0-dev.20221230":
   version: 0.35.0-dev.20221230
   resolution: "monaco-editor@npm:0.35.0-dev.20221230"
-  checksum: 23b586af9d00b2c184de61ad6bba838065970d0ca8fa88f226205e256139bbfd6b2079ef34b56d0479d9461dc5c7bc6073a37182927066387338194331d012fe
+  checksum: a8ee45ecb7b118c5f4483fe90d7cab71b31ab6f6c81b6290ca766e835cd49e8eda3040514d9cfb8fade35fe2cc96992c71d9deda4c68a6ae3bb5ed78763d7431
   languageName: node
   linkType: hard
 
@@ -7696,7 +7696,6 @@ __metadata:
     "@types/xo": "npm:^0.39.5"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.1"
     "@typescript-eslint/parser": "npm:^5.47.1"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.34"
     cypress: "npm:12.2.0"
     dprint: "npm:^0.34.1"
     esbuild: "npm:^0.16.12"
@@ -10539,11 +10538,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.5.5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
   version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=d73830"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e7321aeb1e2c0e3c19599808707208e2b730de8d17a5624f0a7297b9a1ffa39974edd4a819108b3b635bc00171476ddfa339e04d928a03ce8d8c6944cb8ec008
+  checksum: b53b083cf90883c6c73d66ce2e8b39115f06a642dfc538085c32e030687cf9872c5ea8720c5f361d4d2d14a8af946bb5423e0bf6b472b11f776e020ba6332ced
   languageName: node
   linkType: hard
 

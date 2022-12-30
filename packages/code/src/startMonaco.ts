@@ -137,6 +137,10 @@ const monacoContribution = async (
       languages.typescript.typescriptDefaults.setEagerModelSync(true);
     });
 
+  monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+    diagnosticCodesToIgnore: [2691],
+  });
+
   // })();
 
   // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({

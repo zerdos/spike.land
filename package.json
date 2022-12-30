@@ -42,7 +42,6 @@
     "@types/xo": "^0.39.5",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
-    "@yarnpkg/sdks": "3.0.0-rc.34",
     "cypress": "12.2.0",
     "dprint": "^0.34.1",
     "esbuild": "^0.16.12",
@@ -56,6 +55,5 @@
     "util": "^0.12.5",
     "utils": "^0.3.1",
     "xo": "^0.53.1"
-  },
-  "packageManager": "yarn@4.0.0-rc.34"
+  }
 }
