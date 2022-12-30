@@ -227,6 +227,7 @@ export const buildT = async (
     minify: false,
 
     define: define,
+
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
