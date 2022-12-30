@@ -41,7 +41,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, _setDelay] = useState(2);
+  const [delay, _setDelay] = useState(1);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
