@@ -82,7 +82,7 @@ const AppToRender: FC<
   useEffect(() => {
     setTimeout(() => {
       if (hideRest) setHideRest(false);
-    }, 1000);
+    }, 2000);
   });
 
   //   || location.pathname.endsWith("hydrated");
