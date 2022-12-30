@@ -115,5 +115,5 @@ importmap.json5
 .yarn/install-state.gz
 .DS_Store
 **/.DS_Store
-packages/code/js/.DS_Store
-packages/code/js/.DS_Store
+packages/code/src/.DS_Store
+packages/code/src/.DS_Store

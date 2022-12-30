@@ -12,9 +12,9 @@ import {
   resetCSS,
   // run,
   syncStorage,
-} from "@spike.land/code/js/session";
-import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/js/session";
-import type { Delta } from "@spike.land/code/js/session";
+} from "@spike.land/code/src/session";
+import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/src/session";
+import type { Delta } from "@spike.land/code/src/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { handleErrors } from "./handleErrors";

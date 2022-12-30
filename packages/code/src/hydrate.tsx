@@ -3,10 +3,10 @@ import uidV4 from "./uidV4.mjs";
 
 import type { EmotionCache } from "@emotion/cache";
 import { createRoot } from "react-dom/client";
-import { ab2str } from "sab";
-import type { ICodeSession } from "session";
-import { wait } from "wait";
 import { md5 } from "./md5";
+import { ab2str } from "./sab";
+import type { ICodeSession } from "./session";
+import { wait } from "./wait";
 
 export { md5 };
 

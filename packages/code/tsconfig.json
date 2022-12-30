@@ -76,8 +76,8 @@
     ]
   },
   "include": [
-    "js",
-    "js/importmap.json",
+    "src",
+    "src/importmap.json",
     "package.json",
     "esbuild-dev.mjs"
   ],

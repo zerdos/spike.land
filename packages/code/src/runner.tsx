@@ -1,9 +1,9 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
-import { wait } from "wait";
-import { syncWS } from "ws";
 import { buildT } from "./esbuildEsm";
 import { esmTransform } from "./esmTran";
+import { wait } from "./wait";
+import { syncWS } from "./ws";
 
 // import { RpcProvider } from "worker-rpc";
 

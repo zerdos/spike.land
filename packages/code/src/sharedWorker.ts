@@ -1,7 +1,7 @@
 import localForage from "localforage";
-import { str2ab } from "sab";
-import { CodeSession } from "session";
 import type { Delta } from "textDiff";
+import { str2ab } from "./sab";
+import { CodeSession } from "./session";
 
 const hashStore: { [hash: string]: CodeSession } = {};
 const names: { [codeSpace: string]: string } = {};

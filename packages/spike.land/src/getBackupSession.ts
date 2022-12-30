@@ -1,4 +1,4 @@
-import { ICodeSession } from "@spike.land/code/js/session";
+import { ICodeSession } from "@spike.land/code/src/session";
 
 export function getBackupSession() {
   return {

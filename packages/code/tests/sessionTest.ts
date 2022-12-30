@@ -1,7 +1,7 @@
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 
-import { applyPatch, hashCode, makePatch, md5, mST, startSession } from "../js/session";
+import { applyPatch, hashCode, makePatch, md5, mST, startSession } from "../src/session";
 
 const state1 = {
   code: "export default () => <h1>Hello</h1>",
