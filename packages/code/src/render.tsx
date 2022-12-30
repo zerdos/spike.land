@@ -3,11 +3,7 @@ import type { FC } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 
 import { wait } from "./wait";
-export const render = async (rootEl: HTMLDivElement, codeSpace: string) => {
-  const App: FC<{}> = (await import(
-    `${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`
-  )).default;
-
+export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
   const root = hydrateRoot(rootEl, <App />);
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
