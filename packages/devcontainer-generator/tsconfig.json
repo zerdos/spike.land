@@ -3,7 +3,7 @@
     "target": "es2022",
     "lib": ["es2022", "DOM"],
     "resolveJsonModule": true,
-    "module": "commonjs",
+    "module": "ESNext",
     "declaration": true,
     "esModuleInterop": true,
     "sourceMap": true,

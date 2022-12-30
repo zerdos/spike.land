@@ -55,7 +55,7 @@
     "composite": true,
 
     "removeComments": true,
-    "module": "CommonJS",
+    "module": "ESNext",
     "incremental": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": false, /* Skip type checking of declaration files. */
