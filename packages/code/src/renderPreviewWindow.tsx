@@ -1,7 +1,6 @@
 import type { FC } from "react";
-import { Fragment, StrictMode, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
-import { hydrateRoot } from "react-dom/client";
 // import { AutoUpdateApp } from "./starter";
 
 import { css } from "@emotion/react";
@@ -120,7 +119,7 @@ export const renderPreviewWindow = (
 
   // (createCache as unknown as {default: typeof createCache}).default
 
-  hydrateRoot(rootEl, <AppToRender codeSpace={codeSpace} />);
+  hydrateRoot(rootEl!, <AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
 
   // }, 500);

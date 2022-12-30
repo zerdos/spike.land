@@ -14277,7 +14277,7 @@ var package_default = {
   }
 };
 
-// ../code/dist/chunk-chunk-XJIZE7B6.mjs
+// ../code/dist/chunk-chunk-J4XJ72M4.mjs
 init_chunk_chunk_6MQOVGCJ();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
@@ -22512,7 +22512,6 @@ function applyPatch(original, delta) {
 }
 __name(applyPatch, "applyPatch");
 init_define_process();
-var import_esbuild_wasm2 = __toESM2(require_browser4(), 1);
 init_define_process();
 var import_esbuild_wasm = __toESM2(require_browser4(), 1);
 init_define_process();
@@ -22526,7 +22525,6 @@ async function getRequest(req) {
 }
 __name(getRequest, "getRequest");
 init_define_process();
-var esbuild = __toESM2(require_browser4(), 1);
 var mod = {
   init: false,
   initialize: (origin2) => {

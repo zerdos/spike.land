@@ -91,8 +91,6 @@ async function onMessage(port: MessagePort, {
   codeSpace,
   target,
   type,
-  code,
-  baseUrl,
   patch,
   reversePatch,
   users,
