@@ -97,6 +97,14 @@ const define = makeEnv(environment);
 const buildOptions = {
   define,
   target,
+  alias: {
+    path: "path-browserify",
+    buffer: "buffer-browserify",
+    events: "events-browserify",
+    stream: "stream-browserify",
+    os: "os-browserify",
+    assert: "assert-browserify",
+  },
   // alias: {
   //   "react-rnd": "/npm:/*react-rnd@10.3.7",
   // },
@@ -258,11 +266,6 @@ const build = (
       // "js/fs.worker.ts",
     ],
     bundle: true,
-    alias: {
-      path: "path-browserify",
-      stream: "stream-browserify",
-      os: "os-browserify",
-    },
     define, // makeEnv("production"),
     minify: false,
     mangleQuoted: false,
