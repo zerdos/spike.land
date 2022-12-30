@@ -146,6 +146,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
         if (signal.aborted) return;
         await syncWS({ ...mST(), html, css, code, transpiled, i: counter }, signal);
 
+        const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+        BC.postMessage({ html, css, code, transpiled, i: counter });
         await buildT(codeSpace, location.origin, signal, true);
         BCbundle.postMessage({ counterMax });
       }
