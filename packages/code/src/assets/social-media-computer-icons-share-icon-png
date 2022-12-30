@@ -20,7 +20,7 @@
 <link href="/css/v4/base.css" rel="stylesheet" type="text/css" />
 <link href="/css/v4/imgbin.css" rel="stylesheet" type="text/css" />
 <link rel="canonical" href="https://imgbin.com/png/sa4pcJBU/social-media-computer-icons-share-icon-png-" />
-<script src="/js/h.js"></script>
+<script src="/src/h.js"></script>
 <script src="//dsh7ky7308k4b.cloudfront.net/publishers/imgbincom_new.min.js"></script>
 </head>
 <body>
@@ -1005,7 +1005,7 @@ Log back into your account...
 </div>
 </div>
 </div>
-<script src="/js/f.js"></script>
+<script src="/src/f.js"></script>
 <script>$(".image_like_button").click(function() { $(".trigger_reg").click(); }); $(".thumbnail_like").click(function() { $(".trigger_reg").click(); }); $(".image_download_button").click(function() { $(".trigger_reg").click(); }); $(".mobile_reg").click(function() { $(".trigger_reg").click(); }); $(".mobile_log").click(function() { $(".trigger_log").click(); });</script>
 <script src="//m.servedby-buysellads.com/monetization.js"></script>
 <script>

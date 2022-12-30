@@ -1,4 +1,4 @@
-// Import {swClient} from "./js/ws";
+// Import {swClient} from "./src/ws";
 
 // swClient();
 

@@ -13,7 +13,7 @@ import { resolve } from "node:path";
 // const rmAsync = promisify(fs.rm);
 import { env, exit } from "process";
 import { NIL } from "uuid";
-// import { wait } from "./js/wait.mjs";
+// import { wait } from "./src/wait.mjs";
 
 const impMap = {
   "imports": {
@@ -209,12 +209,12 @@ const build = (
   });
 
 (async () => {
-  await rm("js/monaco-workers", { recursive: true, force: true });
-  await cp("./index.html", "./dist/index.html");
+  await rm("src/monaco-workers", { recursive: true, force: true });
+  await cp("./src/index.html", "./dist/index.html");
   await cp("./tsconfig.json", "./dist/tsconfig_dist.json");
   await cp("./dist/favicons/favicon.ico", "./dist/favicon.ico");
 
-  await cp("./js/via", "./dist", { recursive: true, force: true });
+  await cp("./src/via", "./dist", { recursive: true, force: true });
   await cp(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
@@ -237,33 +237,33 @@ const build = (
     outExtension: { ".js": ".workerJs.js" },
     format: "iife",
     outbase: "monaco-editor/esm/vs",
-    outdir: "./js/monaco-workers",
+    outdir: "./src/monaco-workers",
   });
-  // await build(["js/react-jsx-runtime.ts"], [], false, "iife");
+  // await build(["src/react-jsx-runtime.ts"], [], false, "iife");
 
-  // await build(["js/mWorker.mjs"], [], false, "iife");
+  // await build(["src/mWorker.mjs"], [], false, "iife");
 
   // await build([
-  //   "js/reactMod.ts",
-  //   "js/jsx.mjs"
+  //   "src/reactMod.ts",
+  //   "src/jsx.mjs"
   // ], []);
   // console.log("done");
 
   // await build([
-  //   "js/reactMod.ts",
-  //   "js/reactDom.ts",
-  //   "js/reactDomClient.ts"
+  //   "src/reactMod.ts",
+  //   "src/reactDom.ts",
+  //   "src/reactDomClient.ts"
   // ], []);
   // console.log("done");
   await esbuild.build({
     ...buildOptions,
     entryPoints: [
-      "js/sw.ts",
-      "js/ata.worker.ts",
-      // "js/prettierEsm.ts",
-      "js/prettier.worker.ts",
-      "js/sharedWorker.ts",
-      // "js/fs.worker.ts",
+      "src/sw.ts",
+      "src/ata.worker.ts",
+      // "src/prettierEsm.ts",
+      "src/prettier.worker.ts",
+      "src/sharedWorker.ts",
+      // "src/fs.worker.ts",
     ],
     bundle: true,
     define, // makeEnv("production"),
@@ -281,15 +281,15 @@ const build = (
 
   buildOptions.plugins = [
     // aliasPlugin({
-    //    "stream": resolve("./js/stream.mjs"),
-    //  "buffer": resolve("./js/buffer/index.ts"),
-    // "@emotion/react": resolve("./js/emotion.ts"),
-    // "@emotion/react/jsx-runtime": resolve("./js/emotionJsxRuntime.ts"),
-    // "@emotion/react/jsx-dev-runtime": resolve("./js/emotionJsxRuntime.ts"),
-    // "@emotion/cache": resolve("./js/emotionCache.ts"),
-    // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
+    //    "stream": resolve("./src/stream.mjs"),
+    //  "buffer": resolve("./src/buffer/index.ts"),
+    // "@emotion/react": resolve("./src/emotion.ts"),
+    // "@emotion/react/jsx-runtime": resolve("./src/emotionJsxRuntime.ts"),
+    // "@emotion/react/jsx-dev-runtime": resolve("./src/emotionJsxRuntime.ts"),
+    // "@emotion/cache": resolve("./src/emotionCache.ts"),
+    // "@emotion/styled": resolve("./src/emotionStyled.mjs"),
 
-    // "@emotion/styled": resolve("./js/emotionStyled.mjs"),
+    // "@emotion/styled": resolve("./src/emotionStyled.mjs"),
     // // "./mui": resolve("./dist/mui.mjs"),
     // "react": resolve("./dist/reactMod.mjs"),
     // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
@@ -298,51 +298,51 @@ const build = (
     // "react-dom/client": resolve("./dist/reactDomClient.mjs"),
     // "react-dom": resolve("./dist/reactMod.mjs"),
     // "react-dom/client": resolve("./dist/reactMod.mjs"),
-    // "framer-motion": resolve("./js/motion.ts"),
-    // "react/jsx-dev-runtime": resolve("./js/jsx.mjs"),
+    // "framer-motion": resolve("./src/motion.ts"),
+    // "react/jsx-dev-runtime": resolve("./src/jsx.mjs"),
     // }),
   ];
 
   await build(
     [
-      "js/reactMod.ts",
-      "js/motion.ts",
-      "js/reactDom.ts",
-      "js/hydrate.tsx",
-      "js/render.tsx",
-      "js/reactDomClient.ts",
-      "js/esbuildWASM.ts",
-      "js/emotion.ts",
-      "js/emotionCache.ts",
-      "js/emotionStyled.mjs",
-      "js/emotionJsxRuntime.mjs",
-      "js/jsx.mjs",
+      "src/reactMod.ts",
+      "src/motion.ts",
+      "src/reactDom.ts",
+      "src/hydrate.tsx",
+      "src/render.tsx",
+      "src/reactDomClient.ts",
+      "src/esbuildWASM.ts",
+      "src/emotion.ts",
+      "src/emotionCache.ts",
+      "src/emotionStyled.mjs",
+      "src/emotionJsxRuntime.mjs",
+      "src/jsx.mjs",
     ],
   );
 
   await build(
     [
-      "js/session.ts",
-      // "js/prettierWorker.mjs",
-      // "js/reactMod.ts",
-      "js/Editor.tsx",
-      // "js/motion.ts",
-      // "js/reactMod.ts",
+      "src/session.ts",
+      // "src/prettierWorker.mjs",
+      // "src/reactMod.ts",
+      "src/Editor.tsx",
+      // "src/motion.ts",
+      // "src/reactMod.ts",
 
-      // "js/Editor.tsx",
-      // "js/motion.ts",
+      // "src/Editor.tsx",
+      // "src/motion.ts",
 
-      // "js/reactDom.ts",
-      "js/hydrate.tsx",
-      // "js/reactDomClient.ts",
-      "js/esbuildWASM.ts",
-      // "js/emotion.ts",
-      // "js/emotionCache.ts",
-      // "js/emotionStyled.mjs",
-      // "js/emotionJsxRuntime.mjs",
-      // "js/emotion.ts",
-      // "js/emotionJsxRuntime.ts",
-      // "js/jsx.mjs",
+      // "src/reactDom.ts",
+      "src/hydrate.tsx",
+      // "src/reactDomClient.ts",
+      "src/esbuildWASM.ts",
+      // "src/emotion.ts",
+      // "src/emotionCache.ts",
+      // "src/emotionStyled.mjs",
+      // "src/emotionJsxRuntime.mjs",
+      // "src/emotion.ts",
+      // "src/emotionJsxRuntime.ts",
+      // "src/jsx.mjs",
     ],
     [
       // "/npm:/*",
@@ -373,7 +373,7 @@ const build = (
 
   // await build(
   //   [
-  //     // "js/session.ts",
+  //     // "src/session.ts",
   //   // ],
   //   [ // "react",
   //     //  "react-dom", "react-dom/client"//, "@emotion/react", "@emotion/react/jsx-runtime", "framer-motion"

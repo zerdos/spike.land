@@ -11,32 +11,32 @@
   ],
   "exports": {
     "./package.json": "./package.json",
-    "./js/starter.ts": "./js/starter.ts",
-    "./js/rtc.ts": "./js/rtc.ts",
-    "./js/session": {
+    "./src/starter.ts": "./src/starter.ts",
+    "./src/rtc.ts": "./src/rtc.ts",
+    "./src/session": {
       "import": "./dist/session.mjs",
       "node": "./dist/session.js"
     },
-    "./js/textDiff": "./js/textDiff.ts",
-    "./js/esbuildEsm": "./js/esbuildEsm.ts",
-    "./js/binary": "./js/binary.ts",
-    "./js/importmap.json": "./js/importmap.json",
-    "./js/mockedMap.json": "./js/mockedMap.json"
+    "./src/textDiff": "./src/textDiff.ts",
+    "./src/esbuildEsm": "./src/esbuildEsm.ts",
+    "./src/binary": "./src/binary.ts",
+    "./src/importmap.json": "./src/importmap.json",
+    "./src/mockedMap.json": "./src/mockedMap.json"
   },
   "scripts": {
     "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
     "typecheck": "yarn tsc",
-    "clean": "rm -rf .tsBuildInfo js/vendor dist js/monaco-workers && yarn favicons",
-    "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
+    "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
+    "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
     "push": "cd ../../.. && yarn push",
-    "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
-    "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
-    "build:framer-motion": "yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
+    "build:preact": "esbuild --bundle src/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
+    "build:orbit-db": "esbuild --bundle src/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
+    "build:framer-motion": "yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist js/monaco-workers && yarn favicons && yarn es:build",
+    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
-    "favicons": "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
+    "favicons": "cp -af src/assets/ ./dist && mkdir -p  ./dist/assets && cp src/assets/synthwave.webp   ./dist/assets/",
     "sw": "echo ok"
   },
   "keywords": [

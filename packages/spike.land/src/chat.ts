@@ -3,11 +3,11 @@ import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import packages from "@spike.land/code/package.json";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-// import imap from "@spike.land/code/js/importmap.json";
-import { importMapReplace } from "@spike.land/code/js/session";
+// import imap from "@spike.land/code/src/importmap.json";
+import { importMapReplace } from "@spike.land/code/src/session";
 
-import importMap from "@spike.land/code/js/importmap.json";
-import { md5 } from "@spike.land/code/js/session";
+import importMap from "@spike.land/code/src/importmap.json";
+import { md5 } from "@spike.land/code/src/session";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 

@@ -411,10 +411,10 @@ var init_chunk_chunk_JLPTXNJM = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-P5RVJTDY.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs
 var require_just_once, require_text_min, require_browser, require_just_debounce_it, require_path, require_errors, require_CacheFS, require_idb_keyval_cjs, require_IdbBackend, require_HttpBackend, require_Mutex, require_Mutex2, require_DefaultBackend, require_Stat, require_PromisifiedFS, require_src, require_constants, require_getBigInt, require_Stats, require_shams, require_shams2, require_has_symbols, require_implementation, require_function_bind, require_src2, require_get_intrinsic, require_call_bind, require_callBound, require_is_arguments, require_is_generator_function, require_is_callable, require_for_each, require_available_typed_arrays, require_gopd, require_is_typed_array, require_which_typed_array, require_types2, require_isBufferBrowser, require_inherits_browser, require_util, require_errors2, require_assertion_error, require_es6_object_assign, require_isArguments, require_implementation2, require_object_keys, require_has_property_descriptors, require_define_properties, require_implementation3, require_polyfill, require_shim, require_object_is, require_implementation4, require_polyfill2, require_shim2, require_is_nan, require_comparisons, require_assert, require_b64, require_buffer_ieee754, require_buffer_browserify, require_buffer, require_errors3, require_encoding, require_Dirent, require_path_browserify, require_setImmediate, require_process, require_events, require_node, require_setTimeoutUnref, require_stream_browser, require_util2, require_buffer_list, require_destroy, require_errors_browser, require_state, require_browser2, require_stream_writable, require_stream_duplex, require_safe_buffer, require_string_decoder, require_end_of_stream, require_async_iterator, require_from_browser, require_stream_readable, require_stream_transform, require_stream_passthrough, require_pipeline, require_stream_browserify, require_promises, require_correctPath, require_volume, require_lists, require_lib, fs_exports, import_lightning_fs, memFS, fsProb, fs2, p, readdir, writeFile, readFile, stat, unlink, mkdir;
-var init_chunk_chunk_P5RVJTDY = __esm({
-  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-P5RVJTDY.mjs"() {
+var init_chunk_chunk_QN5ZUII4 = __esm({
+  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs"() {
     "use strict";
     init_chunk_chunk_JLPTXNJM();
     require_just_once = __commonJS2({
@@ -13981,32 +13981,32 @@ var package_default = {
   ],
   exports: {
     "./package.json": "./package.json",
-    "./js/starter.ts": "./js/starter.ts",
-    "./js/rtc.ts": "./js/rtc.ts",
-    "./js/session": {
+    "./src/starter.ts": "./src/starter.ts",
+    "./src/rtc.ts": "./src/rtc.ts",
+    "./src/session": {
       import: "./dist/session.mjs",
       node: "./dist/session.js"
     },
-    "./js/textDiff": "./js/textDiff.ts",
-    "./js/esbuildEsm": "./js/esbuildEsm.ts",
-    "./js/binary": "./js/binary.ts",
-    "./js/importmap.json": "./js/importmap.json",
-    "./js/mockedMap.json": "./js/mockedMap.json"
+    "./src/textDiff": "./src/textDiff.ts",
+    "./src/esbuildEsm": "./src/esbuildEsm.ts",
+    "./src/binary": "./src/binary.ts",
+    "./src/importmap.json": "./src/importmap.json",
+    "./src/mockedMap.json": "./src/mockedMap.json"
   },
   scripts: {
     test: "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
     typecheck: "yarn tsc",
-    clean: "rm -rf .tsBuildInfo js/vendor dist js/monaco-workers && yarn favicons",
-    "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./js/sw.js && yarn sw",
+    clean: "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
+    "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
     start: "cd ../../.. && yarn start",
     push: "cd ../../.. && yarn push",
-    "build:preact": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
-    "build:orbit-db": "esbuild --bundle js/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
-    "build:framer-motion": 'yarn esbuild --bundle js/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs',
+    "build:preact": "esbuild --bundle src/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
+    "build:orbit-db": "esbuild --bundle src/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
+    "build:framer-motion": 'yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs',
     prebuild: "yarn test || echo FAILED",
-    build: "rm -rf dist js/monaco-workers && yarn favicons && yarn es:build",
+    build: "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build",
     "es:build": "yarn test && node esbuild-dev.mjs",
-    favicons: "cp -af js/assets/ ./dist && mkdir -p  ./dist/assets && cp js/assets/synthwave.webp   ./dist/assets/",
+    favicons: "cp -af src/assets/ ./dist && mkdir -p  ./dist/assets && cp src/assets/synthwave.webp   ./dist/assets/",
     sw: "echo ok"
   },
   keywords: [
@@ -14128,8 +14128,8 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-74NQUY47.mjs
-init_chunk_chunk_P5RVJTDY();
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-SYOUEAWI.mjs
+init_chunk_chunk_QN5ZUII4();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
@@ -22014,7 +22014,7 @@ function setProp(prototype, name) {
 }
 __name(setProp, "setProp");
 var import_lodash = __toESM2(require_lodash(), 1);
-var js_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <script type="module">\n    import LogRocket from "/logrocket";\n\n    LogRocket.init("7bmflb/spikeland");\n  <\/script>\n\n</body>\n\n</html>';
+var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <script type="module">\n    import LogRocket from "/logrocket";\n\n    LogRocket.init("7bmflb/spikeland");\n  <\/script>\n\n</body>\n\n</html>';
 init_define_process();
 var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
 function md5FULL(inputString) {
@@ -22673,7 +22673,7 @@ __name(createPatch, "createPatch");
 var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess }), "patchSync");
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs
-init_chunk_chunk_P5RVJTDY();
+init_chunk_chunk_QN5ZUII4();
 init_chunk_chunk_JLPTXNJM();
 
 // src/staticContent.mjs
@@ -22681,7 +22681,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 var ASSET_HASH = md5(ASSET_MANIFEST);
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/js/importmap.json
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json
 var importmap_default2 = {
   imports: {
     "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
@@ -24196,7 +24196,7 @@ var Code = class {
         case "worker":
         case "dehydrated":
         case "public": {
-          const respText = js_default.replace(
+          const respText = src_default.replace(
             "/**reset*/",
             resetCSS
           ).replace(
@@ -24224,7 +24224,7 @@ var Code = class {
           });
         }
         case "iframe": {
-          const respText = js_default.replace(
+          const respText = src_default.replace(
             "/**reset*/",
             resetCSS
           ).replace(
@@ -24535,11 +24535,11 @@ var r2bucket_default = {
 };
 
 // src/index.ts
-var src_default = chat_default;
+var src_default2 = chat_default;
 export {
   Code,
   CodeRateLimiter,
   r2bucket_default as R2,
   Users,
-  src_default as default
+  src_default2 as default
 };

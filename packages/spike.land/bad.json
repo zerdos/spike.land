@@ -58,7 +58,7 @@
       "bytes": 27285,
       "imports": []
     },
-    "../../packages/code/js/textDiff.ts": {
+    "../../packages/code/src/textDiff.ts": {
       "bytes": 848,
       "imports": [
         {
@@ -67,7 +67,7 @@
         }
       ]
     },
-    "../../packages/code/js/session.ts": {
+    "../../packages/code/src/session.ts": {
       "bytes": 7409,
       "imports": [
         {
@@ -75,7 +75,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/js/textDiff.ts",
+          "path": "../../packages/code/src/textDiff.ts",
           "kind": "import-statement"
         }
       ]
@@ -104,7 +104,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../packages/code/js/session.ts",
+          "path": "../../packages/code/src/session.ts",
           "kind": "import-statement"
         },
         {
@@ -192,10 +192,10 @@
         "../../.yarn/global/cache/immutable-npm-4.1.0-f6635927b8-9.zip/node_modules/immutable/dist/immutable.es.js": {
           "bytesInOutput": 137809
         },
-        "../../packages/code/js/textDiff.ts": {
+        "../../packages/code/src/textDiff.ts": {
           "bytesInOutput": 693
         },
-        "../../packages/code/js/session.ts": {
+        "../../packages/code/src/session.ts": {
           "bytesInOutput": 4561
         },
         "src/getBackupSession.ts": {
