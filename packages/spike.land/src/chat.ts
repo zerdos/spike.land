@@ -415,7 +415,7 @@ const api: ExportedHandler<CodeEnv> = {
               request = new Request(new URL(newUrl.pathname, "https://raw.githubusercontent.com/").toString());
               response = await fetch(request);
 
-              return response;
+              if (!response.ok) return response;
             }
 
             // if (response.headers.has("location")) {

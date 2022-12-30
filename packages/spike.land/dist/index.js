@@ -22880,7 +22880,8 @@ var api = {
             if (!response.ok) {
               request = new Request(new URL(newUrl.pathname, "https://raw.githubusercontent.com/").toString());
               response = await fetch(request);
-              return response;
+              if (!response.ok)
+                return response;
             }
             const redirectUrl = response.headers.get("location") || response.url;
             const headers = new Headers(response.headers);
