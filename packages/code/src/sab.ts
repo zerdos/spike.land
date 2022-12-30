@@ -1,6 +1,6 @@
 export function sab2str(buf: SharedArrayBuffer) {
   const array = new Uint16Array(buf);
-  return String.fromCharCode.apply(null, array);
+  return String.fromCharCode.apply(null, array as unknown as number[]);
 }
 
 export function str2sab(str: string) {

@@ -1,5 +1,5 @@
-import { md5 } from "md5";
-import { appFactory } from "starter";
+import { md5 } from "./md5";
+import { appFactory } from "./starter";
 
 import type { EmotionCache } from "@emotion/cache";
 import { StrictMode } from "react";
