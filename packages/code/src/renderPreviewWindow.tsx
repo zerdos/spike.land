@@ -82,7 +82,7 @@ const AppToRender: FC<
   useEffect(() => {
     setTimeout(() => {
       if (hideRest) setHideRest(false);
-    }, 3000);
+    }, 1000);
   });
 
   //   || location.pathname.endsWith("hydrated");
@@ -121,7 +121,6 @@ export const renderPreviewWindow = (
   // (createCache as unknown as {default: typeof createCache}).default
 
   hydrateRoot(rootEl, <AppToRender codeSpace={codeSpace} />);
-
   // setTimeout(() => {
 
   // }, 500);
