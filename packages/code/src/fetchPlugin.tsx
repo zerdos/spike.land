@@ -131,7 +131,7 @@ export const fetchPlugin: (
       //     </ErrorBoundary></StrictMode>);
       //       `);
       return {
-        contents: importMapReplace(await esmTransform(code, origin), origin, origin),
+        contents: await esmTransform(importMapReplace(code, origin, origin), origin),
       };
       // }
       // return null;
