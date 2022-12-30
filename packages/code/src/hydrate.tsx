@@ -1,13 +1,13 @@
-import type { Root } from "react-dom/client";
+// import type { Root } from "react-dom/client";
 // import uidV4 from "./uidV4.mjs";
 
-import type { EmotionCache } from "@emotion/cache";
+// import type { EmotionCache } from "@emotion/cache";
 // import { createRoot } from "react-dom/client";
 import { md5 } from "./md5";
 // import { render } from "./render";
 // import { ab2str } from "./sab";
 // import type { ICodeSession } from "./session";
-import { wait } from "./wait";
+// import { wait } from "./wait";
 
 export { md5 };
 

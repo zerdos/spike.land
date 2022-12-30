@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { unmountComponentAtNode } from "react-dom";
+// import { unmountComponentAtNode } from "react-dom";
 import { createRoot, hydrateRoot } from "react-dom/client";
 
 import { wait } from "./wait";
@@ -7,20 +7,15 @@ export const render = async (rootEl: HTMLDivElement, codeSpace: string) => {
   const App: FC<{}> = (await import(
     `${location.origin}/live/${codeSpace}/index.js?refresh=${Math.random()}`
   )).default;
-  // const root = createRoot(rootEl);
-  hydrateRoot(rootEl, <App />);
+
+  const root = hydrateRoot(rootEl, <App />);
+
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   BC.onmessage = async ({ data }) => {
-    unmountComponentAtNode(rootEl);
-    document.getElementById(`root`)!.innerHTML = `<style>${data.css}</style>
-  <div id="${codeSpace}-css" style="height: 100%;">
-  ${data.html}
-  </div>`;
     const App: FC<{}> = (await import(
       `${location.origin}/live/${codeSpace}/index.js?refresh=` + data.i
     )).default;
-
-    hydrateRoot(document.getElementById(`${codeSpace}-css`)!, <App />);
+    root.render(<App />);
   };
   return hydrateRoot(rootEl, <App />);
 };
