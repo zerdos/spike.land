@@ -79,7 +79,7 @@ const BCbundle = new BroadcastChannel(location.href + "/bundle");
 //   syncWS(sess);
 // };
 
-let iframe;
+let iframe: HTMLIFrameElement;
 export async function runner({ code, counter, codeSpace, signal }: {
   code: string;
   codeSpace: string;
@@ -127,8 +127,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
     }
 
     if (iframe) {
-      document.removeChild(iframe);
-      iframe = null;
+      iframe.remove();
     }
     iframe = document.createElement("iframe");
     iframe.style.opacity = "0";
@@ -150,12 +149,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
         await buildT(codeSpace, location.origin, signal, true);
         BCbundle.postMessage({ counterMax });
       }
-    });
+    }, { once: true });
 
     if (signal.aborted) return;
     document.body.appendChild(iframe);
 
-    // BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
+    // BC .postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     // console.log("still alive2");
     // // patchSync(sess);
