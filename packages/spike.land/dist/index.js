@@ -22878,6 +22878,8 @@ var api = {
             request = new Request(esmUrl, { redirect: "follow" });
             response = await fetch(request);
             if (!response.ok) {
+              request = new Request(new URL(req.url, "https://raw.githubusercontent.com").toString(), req);
+              response = await fetch(request);
               return response;
             }
             const redirectUrl = response.headers.get("location") || response.url;
