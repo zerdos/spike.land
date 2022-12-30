@@ -292,9 +292,14 @@ const BCbundle = new BroadcastChannel("${location.origin}/live/${codeSpace}/bund
 
 export const render = async (rootEl: HTMLDivElement) => {
 	// const root = createRoot(rootEl);
+  const root =hydrateRoot(rootEl ,<App />);
 
   if(location.href.indexOf('/iframe')!==-1)
-  BCbundle.onmessage =  ()=> location.reload()
+  BCbundle.onmessage = async({data})=> {
+    const {counterMax} = data;
+    const App: FC<{}> = (await import("${location.origin}/live/${codeSpace}/bundle?refresh=" + counterMax)).default;
+    root.render(<App />);
+  }
   
 
 	return hydrateRoot(rootEl ,<App />);
