@@ -560,7 +560,9 @@ export class Code {
               `<div id="root" data-i="${i}" style="height: 100%;">
                   <style>${css}</style>
                   <div id="${this.codeSpace}-css" style="height: 100%;">
+                  <div id="css" style="height: 100%;">
                   ${html}
+                  </div>
                   </div>
               </div>
               <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
@@ -671,7 +673,7 @@ export class Code {
 
               import {render} from "${url.origin}/render.mjs";
               import App from "${url.origin}/live/${this.codeSpace}/index.js";
-              
+
               const rootEl = document.getElementById("${this.codeSpace}-css");
               
               render(rootEl, App, "${this.codeSpace}");          
