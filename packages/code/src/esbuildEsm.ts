@@ -235,7 +235,7 @@ export const buildT = async (
       ...Object.values(impMap.imports),
       ``,
     ],
-    splitting: true,
+    splitting: false,
     incremental: true,
     jsxImportSource: "@emotion/react",
     format: "esm",
