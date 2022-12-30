@@ -82,8 +82,8 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-O7W3SZUW.mjs": {
-      "bytes": 344993,
+    "../code/dist/chunk-chunk-XBVV3E2F.mjs": {
+      "bytes": 344861,
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-6MQOVGCJ.mjs",
@@ -103,7 +103,7 @@
       "bytes": 626,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-O7W3SZUW.mjs",
+          "path": "../code/dist/chunk-chunk-XBVV3E2F.mjs",
           "kind": "import-statement"
         },
         {
@@ -326,7 +326,7 @@
         "../code/package.json": {
           "bytesInOutput": 5272
         },
-        "../code/dist/chunk-chunk-O7W3SZUW.mjs": {
+        "../code/dist/chunk-chunk-XBVV3E2F.mjs": {
           "bytesInOutput": 339421
         },
         "../code/dist/session.mjs": {
