@@ -311,7 +311,7 @@ export const render = async (rootEl: HTMLDivElement) => {
   if (head) {
     hST = await codeHistory.getItem<ICodeSession>(head);
   }
-  // const mst = ({ ...x, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mSTπhy
+  // const mst = ({ ...x, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mST;
 
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {

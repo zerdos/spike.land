@@ -8,7 +8,7 @@ import { QRButton } from "./Qr.lazy";
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
 import { Phone, Share, Tablet, Tv } from "./icons";
-import { md5, mST } from "./session";
+import { mST } from "./session";
 // import { wait } from "./wait";
 
 const breakPoints = [750, 1024, 1920];
