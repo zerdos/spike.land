@@ -275,37 +275,6 @@ export const run = async () => {
   mst.code = await readFile(
     `/live/${codeSpace}/index.tsx`,
   );
-  if (cs.includes("render.tsx")) {
-    await unlink(`/live/${codeSpace}/render.tsx`);
-  }
-
-  await writeFile(
-    `/live/${codeSpace}/render.tsx`,
-    `
-import { hydrateRoot } from "react-dom/client";
-
-import App from "/live/${codeSpace}/index.js";
-
-export default App;
-
-const BCbundle = new BroadcastChannel("${location.origin}/live/${codeSpace}/bundle");
-
-export const render = async (rootEl: HTMLDivElement) => {
-	// const root = createRoot(rootEl);
-  const root =hydrateRoot(rootEl ,<App />);
-
-  if(location.href.indexOf('/iframe')!==-1)
-  BCbundle.onmessage = async({data})=> {
-    const {counterMax} = data;
-    const App: FC<{}> = (await import("${location.origin}/live/${codeSpace}/bundle?refresh=" + counterMax)).default;
-    root.render(<App />);
-  }
-  
-
-	return hydrateRoot(rootEl ,<App />);
-};
-  `,
-  );
 
   const codeHistory = localForage.createInstance({
     name: location.origin + `/live/${codeSpace}`,

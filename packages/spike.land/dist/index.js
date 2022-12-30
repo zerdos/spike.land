@@ -14277,7 +14277,7 @@ var package_default = {
   }
 };
 
-// ../code/dist/chunk-chunk-J4XJ72M4.mjs
+// ../code/dist/chunk-chunk-N2UIMRI6.mjs
 init_chunk_chunk_6MQOVGCJ();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
@@ -24435,20 +24435,13 @@ var Code = class {
               </div>
               </div>
               <script type="module">
-              const root = document.getElementById("${this.codeSpace}-css");
+
+              import {render} from "${url.origin}/render.mjs";
+              import App from "${url.origin}/live/${this.codeSpace}/index.js";
+              const rootEl = document.getElementById("${this.codeSpace}-css");
               
-              const run = async()=>{
-              try{
-              await  import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
-            
-              }catch{
-                const load =  ()=> import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
-             
-                await load();
+              render(rootEl, App, "${this.codeSpace}");          
           
-              }
-            }
-              run();
               <\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
           const headers = new Headers();

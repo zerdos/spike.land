@@ -668,20 +668,13 @@ export class Code {
               </div>
               </div>
               <script type="module">
-              const root = document.getElementById("${this.codeSpace}-css");
+
+              import {render} from "${url.origin}/render.mjs";
+              import App from "${url.origin}/live/${this.codeSpace}/index.js";
+              const rootEl = document.getElementById("${this.codeSpace}-css");
               
-              const run = async()=>{
-              try{
-              await  import("${url.origin}/render.mjs?refresh=${Math.random()}").then(({render})=>render(root, "${this.codeSpace}"));
-            
-              }catch{
-                const load =  ()=> import("${url.origin}/live/${this.codeSpace}/render.js?refresh=${Math.random()}").then(({render})=> render && render(root));
-             
-                await load();
+              render(rootEl, App, "${this.codeSpace}");          
           
-              }
-            }
-              run();
               </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
 
