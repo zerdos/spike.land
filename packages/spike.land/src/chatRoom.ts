@@ -971,20 +971,22 @@ export class Code {
             });
           }
 
-          const syncKV = async (
+          await this.kv.put<ICodeSession>("session", newSess);
+
+          const syncKV = (
             oldSession: ICodeSession,
             newSess: ICodeSession,
             message: CodePatch,
           ) =>
-            await syncStorage(
-              async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
-              async (key: string) => await this.kv.get(key),
+            syncStorage(
+              (key: string, value: unknown) => this.kv.put(key, value) as unknown as Promise<unknown>,
+              (key: string) => this.kv.get(key),
               oldSession,
               newSess,
               message,
             );
-          await this.kv.put<ICodeSession>("session", newSess);
-          syncKV(oldSession, newSess, {
+
+          await syncKV(oldSession, newSess, {
             newHash,
             oldHash,
             patch,
