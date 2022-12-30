@@ -82,8 +82,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-SYOUEAWI.mjs": {
-      "bytes": 345346,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs": {
+      "bytes": 345370,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs",
@@ -103,7 +103,7 @@
       "bytes": 626,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-SYOUEAWI.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs",
           "kind": "import-statement"
         },
         {
@@ -139,7 +139,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 21039,
+      "bytes": 21286,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -198,7 +198,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 33200,
+      "bytes": 33383,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
@@ -321,12 +321,12 @@
           "bytesInOutput": 539696
         },
         "src/chat.ts": {
-          "bytesInOutput": 9618
+          "bytesInOutput": 9778
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
           "bytesInOutput": 5271
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-SYOUEAWI.mjs": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs": {
           "bytesInOutput": 339700
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
@@ -354,7 +354,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 22304
+          "bytesInOutput": 22420
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -369,7 +369,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 996675
+      "bytes": 996951
     }
   }
 }

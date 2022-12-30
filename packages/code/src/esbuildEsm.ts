@@ -230,7 +230,11 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
-    external: [...Object.keys(impMap.imports), ...Object.values(impMap.imports), ``],
+    external: [
+      ...Object.keys(impMap.imports),
+      ...Object.values(impMap.imports),
+      ``,
+    ],
     splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",

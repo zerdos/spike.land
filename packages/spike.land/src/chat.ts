@@ -17,7 +17,10 @@ const api: ExportedHandler<CodeEnv> = {
     env,
   ) => {
     let request = new Request(req.url, req);
-    if (request.cf && request.cf.asOrganization && request.cf.asOrganization.startsWith("YANDEX")) {
+    if (
+      request.cf && request.cf.asOrganization
+      && request.cf.asOrganization.startsWith("YANDEX")
+    ) {
       return new Response(null, { status: 401, statusText: "no robots" });
     }
 
@@ -292,7 +295,9 @@ const api: ExportedHandler<CodeEnv> = {
           default: {
             const file = newUrl.pathname.slice(1);
             if (files[file]) {
-              const kvCacheKey = new Request(request.url.replace(file, files[file]));
+              const kvCacheKey = new Request(
+                request.url.replace(file, files[file]),
+              );
               response = await cache.match(kvCacheKey);
               if (response) return response;
 
@@ -331,7 +336,13 @@ const api: ExportedHandler<CodeEnv> = {
               const kvRespCloned = kvResp.clone();
 
               kvResp = new Response(
-                isText ? importMapReplace(await kvRespCloned.text(), url.origin, request.url) : kvResp.body,
+                isText
+                  ? importMapReplace(
+                    await kvRespCloned.text(),
+                    url.origin,
+                    request.url,
+                  )
+                  : kvResp.body,
                 kvResp,
               );
               const headers = new Headers(kvResp.headers);
@@ -405,7 +416,8 @@ const api: ExportedHandler<CodeEnv> = {
             }
 
             // if (response.headers.has("location")) {
-            const redirectUrl = response.headers.get("location") || response.url;
+            const redirectUrl = response.headers.get("location")
+              || response.url;
 
             // request = new Request(redirectUrl, request);
 
@@ -459,7 +471,11 @@ const api: ExportedHandler<CodeEnv> = {
               "charset",
             );
             const bodyStr = (isText
-              ? importMapReplace(await response.text(), u.origin, isDTS ? xTs : response.url).split("esm.sh").join(
+              ? importMapReplace(
+                await response.text(),
+                u.origin,
+                isDTS ? xTs : response.url,
+              ).split("esm.sh").join(
                 url.host,
               )
               : await response.blob());

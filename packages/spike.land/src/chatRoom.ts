@@ -142,7 +142,9 @@ export class Code {
           if (path[1]) {
             let session = await this.kv.get<string | object>(path[1]);
             if (session) {
-              if (typeof session !== "string") session = JSON.stringify(session);
+              if (typeof session !== "string") {
+                session = JSON.stringify(session);
+              }
 
               // const { i, transpiled, code, html, css } = session;
 
@@ -887,7 +889,10 @@ export class Code {
             patchSync(newSess);
             this.sess = newSess;
           } else {
-            return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
+            return respondWith({
+              hashCode: md5(mST().transpiled),
+              wrong: md5(mST(data.patch).transpiled),
+            });
           }
 
           // try {
@@ -907,7 +912,11 @@ export class Code {
             });
           }
 
-          const syncKV = async (oldSession: ICodeSession, newSess: ICodeSession, message: CodePatch) =>
+          const syncKV = async (
+            oldSession: ICodeSession,
+            newSess: ICodeSession,
+            message: CodePatch,
+          ) =>
             await syncStorage(
               async (key: string, value: unknown) => await this.kv.put(key, value) as unknown as Promise<unknown>,
               async (key: string) => await this.kv.get(key),
@@ -916,7 +925,12 @@ export class Code {
               message,
             );
           await this.kv.put<ICodeSession>("session", newSess);
-          syncKV(oldSession, newSess, { newHash, oldHash, patch, reversePatch });
+          syncKV(oldSession, newSess, {
+            newHash,
+            oldHash,
+            patch,
+            reversePatch,
+          });
 
           // await this.kv.put(
           //   String(newHash),

@@ -27,7 +27,10 @@ globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
-if (location.pathname === `/live/${codeSpace}` || location.pathname === `/live/${codeSpace}/`) {
+if (
+  location.pathname === `/live/${codeSpace}`
+  || location.pathname === `/live/${codeSpace}/`
+) {
   run();
 }
 

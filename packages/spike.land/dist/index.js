@@ -14128,7 +14128,7 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-SYOUEAWI.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs
 init_chunk_chunk_QN5ZUII4();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
@@ -22835,7 +22835,9 @@ var api = {
           default: {
             const file = newUrl.pathname.slice(1);
             if (files[file]) {
-              const kvCacheKey = new Request(request.url.replace(file, files[file]));
+              const kvCacheKey = new Request(
+                request.url.replace(file, files[file])
+              );
               response = await cache.match(kvCacheKey);
               if (response)
                 return response;
@@ -22865,7 +22867,11 @@ var api = {
               );
               const kvRespCloned = kvResp.clone();
               kvResp = new Response(
-                isText2 ? importMapReplace(await kvRespCloned.text(), url.origin, request.url) : kvResp.body,
+                isText2 ? importMapReplace(
+                  await kvRespCloned.text(),
+                  url.origin,
+                  request.url
+                ) : kvResp.body,
                 kvResp
               );
               const headers2 = new Headers(kvResp.headers);
@@ -22931,7 +22937,11 @@ var api = {
             const isText = !!response?.headers?.get("Content-Type")?.includes(
               "charset"
             );
-            const bodyStr = isText ? importMapReplace(await response.text(), u.origin, isDTS ? xTs : response.url).split("esm.sh").join(
+            const bodyStr = isText ? importMapReplace(
+              await response.text(),
+              u.origin,
+              isDTS ? xTs : response.url
+            ).split("esm.sh").join(
               url.host
             ) : await response.blob();
             response = new Response(
@@ -23915,8 +23925,9 @@ var Code = class {
           if (path[1]) {
             let session2 = await this.kv.get(path[1]);
             if (session2) {
-              if (typeof session2 !== "string")
+              if (typeof session2 !== "string") {
                 session2 = JSON.stringify(session2);
+              }
               return new Response(session2, {
                 status: 200,
                 headers: {
@@ -24413,7 +24424,10 @@ var Code = class {
             patchSync(newSess);
             this.sess = newSess;
           } else {
-            return respondWith({ hashCode: md5(mST().transpiled), wrong: md5(mST(data.patch).transpiled) });
+            return respondWith({
+              hashCode: md5(mST().transpiled),
+              wrong: md5(mST(data.patch).transpiled)
+            });
           }
           try {
             this.broadcast(data);
@@ -24430,7 +24444,12 @@ var Code = class {
             message
           );
           await this.kv.put("session", newSess);
-          syncKV(oldSession, newSess, { newHash, oldHash, patch, reversePatch });
+          syncKV(oldSession, newSess, {
+            newHash,
+            oldHash,
+            patch,
+            reversePatch
+          });
           return respondWith({
             hashCode: hashCode3()
           });
