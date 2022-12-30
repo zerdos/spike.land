@@ -19,13 +19,13 @@ const sizes = [10, 25, 50, 75, 100];
 type DraggableWindowProps = {
   // OnRestore: (() => void);
   // children: JSX.Element;
-  room: string;
+  codeSpace: string;
 };
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // OnRestore,
-    room,
+    codeSpace,
     // HashCode,
   },
 ) => {
@@ -34,7 +34,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [maxScaleRange, changeMaxScaleRange] = useState(100);
 
   const [isVisible, setVisible] = useState(false);
-  const iRef = useRef<HTMLIFrameElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
   // globalThis.iRef = iRef;
 
@@ -42,7 +41,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, _setDelay] = useState(0);
+  const [delay, _setDelay] = useState(2);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
@@ -74,7 +73,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   //  const terminalRef =  useRef(null);
 
-  //  useEffect(() => {
+  //  useEffect(() =
   //   if (!terminalRef?.current) return;
 
   // terminal.open(terminalRef.current)
@@ -90,7 +89,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //  }, [terminalRef]);
 
   useEffect(() => {
-    if (!iRef.current) return;
     if (!dragRef.current) return;
 
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
@@ -189,7 +187,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //   setClients([...Object.keys(sendChannel.rtcConns)]);
   // }, [sendChannel.webRtcArray.length, setClients]);
 
-  // const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || del;
+  // const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 5;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
@@ -289,65 +287,33 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 width: width * scale,
               }}
             >
-              {delay == 1
-                ? (
-                  <motion.div
-                    css={css`
-                position: absolute;
-                  top:0;
-                  opacity: 0;
-                  z-index: 6;
-                  left:0;
-                  height: ${window.innerHeight}px;
-                  width: ${window.innerWidth}px;
-              `}
-                    initial={{
-                      opacity: 1,
-                    }}
-                    animate={{
-                      opacity: `${isVisible ? 0 : 1}`,
-                    }}
-                    dangerouslySetInnerHTML={{
-                      __html: mST().html.split(md5(mST().transpiled)).join(
-                        `css`,
-                      ),
-                    }}
-                  />
-                )
+              {!isVisible
+                ? <div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />
                 : null}
               <motion.iframe
-                layout="size"
-                ref={iRef}
-                onLoad={() => requestAnimationFrame(() => setVisible(true))}
                 frameBorder={0}
+                onLoad={() => setVisible(true)}
                 initial={{
                   width: window.innerWidth,
-                  opacity: 0,
                   transformOrigin: "top left",
                   height: window.innerHeight,
                   backgroundColor: rgba(r, g, b, 0),
                   transform: `scale(1,1)`,
+                  borderRadius: 0,
                 }}
                 animate={{
                   width: width,
-
-                  opacity: `${isVisible ? 1 : 0}`,
                   backgroundColor: rgba(r, g, b, 0.7),
                   height: height,
                   transform: `scale(${scale},${scale})`,
                   transformOrigin: "top left",
+                  borderRadius: 8,
                 }}
                 // ref={zBodyRef}
                 // id={"z-body"}
                 // data-test-id="z-body"
-                css={css`
-                
-                  border-radius: 8px;
-               
-                  
-                  z-index: 7;
-              `}
-                src={`${location.origin}/live/${room}/iframe`}
+
+                src={`${location.origin}/live/${codeSpace}/iframe`}
                 suppressHydrationWarning={true}
                 seamless={true}
               />
@@ -459,13 +425,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </Fab>
 
               <QRButton
-                url={location.origin + `/live/${room}/public`}
+                url={location.origin + `/live/${codeSpace}/public`}
               />
 
               {
                 /* <Fab
                 key="video"
-                onClick={() => open(`/live/${room}/public`)}
+                onClick={() => open(`/live/${codeSpace}/public`)}
               >
                 <Share />
               </Fab> */
@@ -498,7 +464,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               )}
               <Fab
                 key="Share"
-                onClick={() => open(`/live/${room}/public`)}
+                onClick={() => open(`/live/${codeSpace}/public`)}
               >
                 <Share />
               </Fab>

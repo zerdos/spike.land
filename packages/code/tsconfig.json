@@ -6,7 +6,6 @@
 
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true,
     "downlevelIteration": true,
 
     "noEmit": true,
@@ -37,7 +36,6 @@
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "resolveJsonModule": true,
     "importHelpers": true,
-
     "moduleResolution": "node",
     // "noEmit": true,
 
@@ -57,13 +55,12 @@
 
     "removeComments": true,
     "preserveValueImports": true,
+    "module": "CommonJS",
     "incremental": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "baseUrl": "js",
     "target": "esnext",
-    "module": "ESNext",
     "lib": [
       "esnext",
       "DOM",

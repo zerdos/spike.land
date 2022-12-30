@@ -1,23 +1,23 @@
-import { tsx } from "../vendor/ts-detective.mjs";
+import { tsx } from "detective-typescript";
 import { prettier } from "./prettier";
 
-export async function run(code: string, originToUse: string) {
+export async function run({ code, originToUse }: { code: string; originToUse: string }) {
   const impRes: {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
 
-  console.log(
-    await ata(
-      `/** @jsx jsx */
+  // console.log(
+  await ata(
+    `/** @jsx jsx */
       import { jsx } from '@emotion/react'
       import "@emotion/react/types/css-prop";
       import "@types/react/global.d.ts";
 
       
       ` + code,
-      originToUse,
-    ),
+    originToUse,
   );
+  // );
 
   const versionNumbers = /@(\^)?\d+.\d+.\d+/gm;
 
@@ -133,7 +133,7 @@ export async function run(code: string, originToUse: string) {
       if (newBase.indexOf(location.origin) !== -1) {
         return true;
       }
-      console.log("processing: " + r);
+      // console.log("processing: " + r);
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 

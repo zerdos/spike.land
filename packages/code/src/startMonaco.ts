@@ -243,110 +243,7 @@ async function startMonacoPristine(
         mUri,
       );
     }
-
-    // const globalUrl = `${originToUse}/node_modules/@types/react/global.d.ts`;
-
-    // const globalDTS = await fetch(globalUrl).then(resp => resp.text());
-
-    // const sharedWorker = new SharedWorker(
-    //   "/sharedWorker.js?" + globalThis.assetHash,
-    // );
-
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-
-    // sharedWorker.port.addEventListener("message", (e) => {
-    //   if (e.data.type !== "ata") return;
-
-    //   console.log("******");
-    //   console.log("******");
-    //   console.log({ data: e.data.extraLibs });
-
-    //   console.log("******");
-    //   console.log("******");
-
-    //   languages.typescript.typescriptDefaults.setExtraLibs(e.data.extraLibs);
-    //   languages.typescript.typescriptDefaults
-    //     .setDiagnosticsOptions({
-    //       noSuggestionDiagnostics: false,
-    //       noSemanticValidation: false,
-    //       noSyntaxValidation: false,
-    //     });
-    // });
-
-    // sharedWorker.port.start();
-
-    // sharedWorker.port.postMessage({ code, baseUrl: originToUse, type: "ata" });
-
-    // console.log("******");
-    // console.log("******");
-    // console.log(e.data)});
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-    // console.log("******");
-
-    // const { run } = await import("./ata");
-
-    // sharedWorker.port.start()
-    // sharedWorker.port.postMessage({type: "ata", code, codeSpace, baseUrl: originToUse})
-    // fetch(`${location.origin}/live/${codeSpace}/ata`).then(x => x.json()).then(x => {
-    //   console.log({ x });
-    //   languages.typescript.typescriptDefaults.setExtraLibs(
-    //     [
-    //       ...x.map((x: { filePath: string; content: string }) => ({
-    //         content: x.content,
-    //         filePath: originToUse + "/" + x.filePath,
-    //       })),
-    //       // {
-    //       //   filePath: globalUrl,
-    //       //   content: globalDTS,
-    //       // },
-    //     ],
-    //   );
-    // }).then(() =>
-    //   languages.typescript.typescriptDefaults
-    //     .setDiagnosticsOptions({
-    //       noSuggestionDiagnostics: false,
-    //       noSemanticValidation: false,
-    //       noSyntaxValidation: false,
-    //     })
-    // );
   };
-
-  // const container = document.getElementById('container');
-  // const shadowRoot = container.attachShadow({
-  //   mode: "closed",
-  // });
-
-  // const innerContainer = document.createElement("div");
-  // container.appendChild(innerContainer);
-  // innerContainer.style.width = "100%";
-  // innerContainer.style.height = "100%";
-
-  // const innerStyle = document.createElement("style");
-  // innerStyle.innerText = `@import "${originToUse}/node_modules/monaco-editor/min/vs/editor/editor.main.css";`;
-  // shadowRoot.appendChild(innerStyle);
-  // const innerContainer = document.createElement("div");
-
-  // innerContainer.style.width = "100%";
-  // innerContainer.style.display = "block";
-  // innerContainer.style.height = "100%";
-
-  // const innerStyle = document.createElement("style");
-  // innerStyle.innerText = `@import "/Editor.css";`;
-  // shadowRoot.appendChild(innerStyle);
-  //
-  // const target = container;
-
   const myEditor = create(container, {
     model,
     scrollbar: {
@@ -365,7 +262,7 @@ async function startMonacoPristine(
       /**
        * Enable graceful matching. Defaults to true.
        */
-      filterGraceful: false,
+      filterGraceful: true,
       /**
        * Prevent quick suggestions when a snippet is active. Defaults to true.
        */
@@ -460,14 +357,6 @@ async function startMonacoPristine(
     useShadowDOM: false,
 
     contextmenu: true,
-    // dimension: true,
-
-    experimental: {
-      stickyScroll: {
-        enabled: true,
-      },
-    },
-    linkedEditing: true,
     stablePeek: true,
 
     roundedSelection: true,
