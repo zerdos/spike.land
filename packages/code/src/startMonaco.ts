@@ -133,13 +133,10 @@ const monacoContribution = async (
           noSuggestionDiagnostics: false,
           noSemanticValidation: false,
           noSyntaxValidation: false,
+          diagnosticCodesToIgnore: [2691],
         });
       languages.typescript.typescriptDefaults.setEagerModelSync(true);
     });
-
-  monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-    diagnosticCodesToIgnore: [2691],
-  });
 
   // })();
 
@@ -206,6 +203,7 @@ async function startMonacoPristine(
       noSuggestionDiagnostics: true,
       noSemanticValidation: true,
       noSyntaxValidation: true,
+      diagnosticCodesToIgnore: [2691],
     });
 
   // startMonaco.
