@@ -7,7 +7,7 @@ import { Rnd } from "react-rnd";
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
 import { prettier } from "./prettier";
-import * as Runner from "./runner";
+import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import "monaco-editor/min/vs/editor/editor.main.css";
 
@@ -160,15 +160,20 @@ export const Editor: FC<
   );
 };
 
+let controller = new AbortController();
 async function onModChange(_code: string, codeSpace: string) {
+  controller.abort();
+  controller = new AbortController();
   const code = await prettier(_code);
   if (!code) return;
 
   if (code === await prettier(mod.code)) return;
 
+  if (controller.signal.aborted) return;
   const counter = ++mod.counter;
   mod.code = code;
-  Runner.runner({ code, counter, codeSpace });
+
+  runner({ code, counter, codeSpace, signal: controller.signal });
 }
 let startedM = 0;
 async function setMonaco(container: HTMLDivElement, codeSpace: string) {

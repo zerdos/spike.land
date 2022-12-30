@@ -81,11 +81,11 @@ BC.onmessage = async ({ data }) => {
   syncWS(sess);
 };
 
-let controller = new AbortController();
-export async function runner({ code, counter, codeSpace }: {
+export async function runner({ code, counter, codeSpace, signal }: {
   code: string;
   codeSpace: string;
   counter: number;
+  signal: AbortSignal;
 }) {
   if (counter <= counterMax) return;
   // if (!rpcProvider) {
@@ -96,9 +96,6 @@ export async function runner({ code, counter, codeSpace }: {
   // iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
   // }
   counterMax = counter;
-  controller.abort();
-
-  controller = new AbortController();
 
   // await mutex.runExclusive(async () => {
   // Console.log({ i, counter });
@@ -116,11 +113,10 @@ export async function runner({ code, counter, codeSpace }: {
     // const ab = new AbortController();
     // const pp = await buildT(codeSpace, counter, ab.signal);
     // if (!pp) return;
-    await wait(100);
-    const transpiled = await esmTransform(code, origin);
-    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
 
-    if (controller.signal.aborted) return;
+    const transpiled = await esmTransform(code, origin);
+    if (signal.aborted) return;
+    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     try {
@@ -130,7 +126,7 @@ export async function runner({ code, counter, codeSpace }: {
 
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
 
-      await buildT(codeSpace, location.origin, controller.signal, true);
+      await buildT(codeSpace, location.origin, signal, true);
       BCbundle.postMessage({ counterMax });
 
       // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
