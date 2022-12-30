@@ -157,13 +157,12 @@ self.addEventListener("fetch", function(event) {
         }
 
         if (
-          url.pathname.indexOf(".ts") !== -1
+          (url.pathname.indexOf(".ts") !== -1 || url.pathname.indexOf(".tsx") !== -1)
           && url.pathname.indexOf(".d.ts") === -1
-          && url.pathname.indexOf(".tsx") === -1
         ) {
           const transformed = (await transform(await response.text(), {
             format: "esm",
-            loader: "ts",
+            loader: "tsx",
             target: "es2022",
           })).code;
           if (typeof transformed !== "string") {

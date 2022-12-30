@@ -139,7 +139,7 @@
       "imports": []
     },
     "src/chat.ts": {
-      "bytes": 21446,
+      "bytes": 21464,
       "imports": [
         {
           "path": "../../.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
@@ -321,7 +321,7 @@
           "bytesInOutput": 538848
         },
         "src/chat.ts": {
-          "bytesInOutput": 9937
+          "bytesInOutput": 9971
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
           "bytesInOutput": 5272
@@ -369,7 +369,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 996058
+      "bytes": 996092
     }
   }
 }
