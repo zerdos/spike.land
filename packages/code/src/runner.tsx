@@ -79,6 +79,7 @@ const BCbundle = new BroadcastChannel(location.href + "/bundle");
 //   syncWS(sess);
 // };
 
+let iframe;
 export async function runner({ code, counter, codeSpace, signal }: {
   code: string;
   codeSpace: string;
@@ -125,7 +126,11 @@ export async function runner({ code, counter, codeSpace, signal }: {
       await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     }
 
-    const iframe = document.createElement("iframe");
+    if (iframe) {
+      document.removeChild(iframe);
+      iframe = null;
+    }
+    iframe = document.createElement("iframe");
     iframe.style.opacity = "0";
     iframe.style.height = "1px";
     iframe.style.width = "1px";
@@ -139,9 +144,6 @@ export async function runner({ code, counter, codeSpace, signal }: {
       const { html, css } = data;
 
       if (html) {
-        if (signal.aborted) return;
-        document.body.removeChild(iframe);
-
         if (signal.aborted) return;
         await syncWS({ ...mST(), html, css, code, transpiled, i: counter }, signal);
 
