@@ -24626,15 +24626,15 @@ var Code = class {
               "msg": "broadcast issue"
             });
           }
-          const syncKV = async (oldSession2, newSess2, message) => await syncStorage(
-            async (key, value) => await this.kv.put(key, value),
-            async (key) => await this.kv.get(key),
+          await this.kv.put("session", newSess);
+          const syncKV = (oldSession2, newSess2, message) => syncStorage(
+            (key, value) => this.kv.put(key, value),
+            (key) => this.kv.get(key),
             oldSession2,
             newSess2,
             message
           );
-          await this.kv.put("session", newSess);
-          syncKV(oldSession, newSess, {
+          await syncKV(oldSession, newSess, {
             newHash,
             oldHash,
             patch,
