@@ -1,7 +1,7 @@
 // import { importMapReplace } from "./esbuildEsm";
 import { transform } from "./esmTransform";
 export type {};
-import { fs } from "./fs";
+import { readFile } from "./fs";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -58,7 +58,7 @@ self.addEventListener("fetch", function(event) {
 
       if (url.pathname.startsWith("/live")) {
         try {
-          const file = await fs.promises.readFile(url.pathname);
+          const file = await readFile(url.pathname);
           if (file) {
             return new Response(file, {
               headers: {

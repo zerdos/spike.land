@@ -14082,7 +14082,7 @@ var package_default = {
     "@types/node": "^18.11.18",
     "@types/prettier": "2.7.2",
     "@types/prismjs": "^1.26.0",
-    "@types/react": "18.0.26",
+    "@types/react": "^18.0.26",
     "@types/react-dom": "18.0.10",
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
@@ -14108,7 +14108,7 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-5ETE7QHD.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-Y3JKWVPI.mjs
 init_chunk_chunk_PAPX2IDE();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
@@ -21994,7 +21994,7 @@ function setProp(prototype, name) {
 }
 __name(setProp, "setProp");
 var import_lodash = __toESM2(require_lodash(), 1);
-var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <script type="module">\n    import LogRocket from "/logrocket";\n\n    LogRocket.init("7bmflb/spikeland");\n  <\/script>\n\n</body>\n\n</html>';
+var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <!-- <script type="module">\n    import LogRocket from "/logrocket";\n\n    LogRocket.init("7bmflb/spikeland");\n  <\/script> -->\n\n</body>\n\n</html>';
 init_define_process();
 var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
 function md5FULL(inputString) {
@@ -24193,9 +24193,10 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" data-i="${i}" style="height: 100%;">
-              <div id="${this.codeSpace}-css" style="height: 100%;">
-              <iframe src="${url.origin}/live/${this.codeSpace}/iframe" border="0" frameBorder={0} height="100%" width="100%"></iframe>
-              <div>
+                  <style>${css}</style>
+                  <div id="${this.codeSpace}-css" style="height: 100%;">
+                  ${html}
+                  </div>
               </div>
               <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`
           );

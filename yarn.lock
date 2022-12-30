@@ -1382,7 +1382,7 @@ __metadata:
     "@types/node": "npm:^18.11.18"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:^1.26.0"
-    "@types/react": "npm:18.0.26"
+    "@types/react": "npm:^18.0.26"
     "@types/react-dom": "npm:18.0.10"
     "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.1"
@@ -1744,7 +1744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.26":
+"@types/react@npm:*, @types/react@npm:18.0.26, @types/react@npm:^18.0.26":
   version: 18.0.26
   resolution: "@types/react@npm:18.0.26"
   dependencies:
@@ -7678,7 +7678,7 @@ __metadata:
 "monaco-editor@npm:0.35.0-dev.20221230":
   version: 0.35.0-dev.20221230
   resolution: "monaco-editor@npm:0.35.0-dev.20221230"
-  checksum: a8ee45ecb7b118c5f4483fe90d7cab71b31ab6f6c81b6290ca766e835cd49e8eda3040514d9cfb8fade35fe2cc96992c71d9deda4c68a6ae3bb5ed78763d7431
+  checksum: 23b586af9d00b2c184de61ad6bba838065970d0ca8fa88f226205e256139bbfd6b2079ef34b56d0479d9461dc5c7bc6073a37182927066387338194331d012fe
   languageName: node
   linkType: hard
 
@@ -7691,7 +7691,7 @@ __metadata:
     "@isomorphic-git/lightning-fs": "npm:^4.6.0"
     "@playwright/test": "npm:1.29.1"
     "@types/eslint": "npm:^8.4.10"
-    "@types/react": "npm:18.0.26"
+    "@types/react": "npm:^18.0.26"
     "@types/react-dom": "npm:18.0.10"
     "@types/xo": "npm:^0.39.5"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.1"

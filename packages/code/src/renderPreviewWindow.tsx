@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import { Fragment, StrictMode } from "react";
+import { Fragment, StrictMode, useEffect, useState } from "react";
 
-import { createRoot } from "react-dom/client";
+import { hydrateRoot } from "react-dom/client";
 // import { AutoUpdateApp } from "./starter";
 
 import { css } from "@emotion/react";
@@ -10,6 +10,7 @@ import { css } from "@emotion/react";
 
 import DraggableWindow from "./DraggableWindow";
 import { Editor } from "./Editor";
+import { hydrateRoot } from "./reactDomClient";
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
@@ -76,18 +77,30 @@ const AppToRender: FC<
   //   }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
+  const [hideRest, setHideRest] = useState(!onlyEdit);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (hideRest) setHideRest(false);
+    }, 3000);
+  });
+
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
 
   return (
-    <RainbowContainer>
-      <Fragment>
-        <Editor
-          codeSpace={codeSpace}
-        />
-        {onlyEdit ? null : <DraggableWindow room={codeSpace} />}
-      </Fragment>
-    </RainbowContainer>
+    <>
+      {onlyEdit ? null : <DraggableWindow codeSpace={codeSpace} />}
+      {hideRest ? null : (
+        <RainbowContainer>
+          <Fragment>
+            <Editor
+              codeSpace={codeSpace}
+            />
+          </Fragment>
+        </RainbowContainer>
+      )}
+    </>
   );
 };
 const singleton = { started: false };
@@ -98,27 +111,16 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  let rootEl: HTMLDivElement | null = document.querySelector(`#${codeSpace}-css`)
-    || document.getElementById(`code-main-css`)
-    || document.querySelector(`#root`)?.querySelector("div");
-  if (!rootEl) {
-    rootEl = document.createElement("div");
-    rootEl.setAttribute("id", `${codeSpace}-css`);
-    document.getElementById(`root`)?.appendChild(rootEl);
-  }
+  let rootEl: HTMLDivElement | null = document.querySelector(`#${codeSpace}-css`);
   //
-  if (rootEl === null) return;
-  rootEl.style.height = "100%";
-  rootEl.innerHTML = ``;
-  const root = createRoot(rootEl);
+  // if (rootEl === null) return;
+  // rootEl.style.height = "100%";
+  // rootEl.innerHTML = ``;
+  // const root = createRoot(rootEl);
 
   // (createCache as unknown as {default: typeof createCache}).default
 
-  root.render(
-    <StrictMode>
-      <AppToRender codeSpace={codeSpace} />
-    </StrictMode>,
-  );
+  hydrateRoot(rootEl, <AppToRender codeSpace={codeSpace} />);
 
   // setTimeout(() => {
 
