@@ -8,4 +8,7 @@ const rpcProvider = new RpcProvider(
 
 onmessage = (e) => rpcProvider.dispatch(e.data);
 
-rpcProvider.registerRpcHandler("prettierJs", (code: string) => prettierJs(code));
+rpcProvider.registerRpcHandler(
+  "prettierJs",
+  (code: string) => prettierJs(code),
+);

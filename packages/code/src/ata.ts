@@ -60,7 +60,9 @@ export async function run(code: string, originToUse: string) {
     impRes[x] = {
       url: impRes[x].url!.replace("esm.sh", location.host),
       ref: impRes[x].ref,
-      content: impRes[x].content.split("https://esm.sh").join("").split(`esm.sh`).join(""),
+      content: impRes[x].content.split("https://esm.sh").join("").split(
+        `esm.sh`,
+      ).join(""),
     }
   );
 
@@ -89,7 +91,7 @@ export async function run(code: string, originToUse: string) {
     ...extras,
   ];
 
-  return [...new Set(extraLibs.map(x => x.filePath))].map(y => extraLibs.find(p => p.filePath === y));
+  return [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y));
 
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
@@ -102,7 +104,9 @@ export async function run(code: string, originToUse: string) {
       res = [
         ...res,
         ...refs.map((r) => r.split(`"`)[0]).map((r) =>
-          (r.startsWith(".") || r.startsWith("https:/")) ? r : new URL(`./` + r, baseUrl).toString()
+          (r.startsWith(".") || r.startsWith("https:/"))
+            ? r
+            : new URL(`./` + r, baseUrl).toString()
         ),
       ];
     }
