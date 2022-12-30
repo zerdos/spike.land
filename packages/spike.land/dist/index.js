@@ -363,7 +363,7 @@ var require_dist = __commonJS({
 });
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs
-var __create2, __defProp2, __getOwnPropDesc2, __getOwnPropNames2, __getProtoOf2, __hasOwnProp2, __name, __require2, __esm2, __commonJS2, __export, __copyProps2, __toESM2, define_process_default, init_define_process;
+var __create2, __defProp2, __getOwnPropDesc2, __getOwnPropNames2, __getProtoOf2, __hasOwnProp2, __name, __require2, __esm2, __commonJS2, __copyProps2, __toESM2, define_process_default, init_define_process;
 var init_chunk_chunk_JLPTXNJM = __esm({
   "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs"() {
     "use strict";
@@ -387,10 +387,6 @@ var init_chunk_chunk_JLPTXNJM = __esm({
     __commonJS2 = (cb, mod2) => function __require22() {
       return mod2 || (0, cb[__getOwnPropNames2(cb)[0]])((mod2 = { exports: {} }).exports, mod2), mod2.exports;
     };
-    __export = (target, all) => {
-      for (var name in all)
-        __defProp2(target, name, { get: all[name], enumerable: true });
-    };
     __copyProps2 = (to, from, except, desc) => {
       if (from && typeof from === "object" || typeof from === "function") {
         for (let key of __getOwnPropNames2(from))
@@ -411,10 +407,10 @@ var init_chunk_chunk_JLPTXNJM = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs
-var require_just_once, require_text_min, require_browser, require_just_debounce_it, require_path, require_errors, require_CacheFS, require_idb_keyval_cjs, require_IdbBackend, require_HttpBackend, require_Mutex, require_Mutex2, require_DefaultBackend, require_Stat, require_PromisifiedFS, require_src, require_constants, require_getBigInt, require_Stats, require_shams, require_shams2, require_has_symbols, require_implementation, require_function_bind, require_src2, require_get_intrinsic, require_call_bind, require_callBound, require_is_arguments, require_is_generator_function, require_is_callable, require_for_each, require_available_typed_arrays, require_gopd, require_is_typed_array, require_which_typed_array, require_types2, require_isBufferBrowser, require_inherits_browser, require_util, require_errors2, require_assertion_error, require_es6_object_assign, require_isArguments, require_implementation2, require_object_keys, require_has_property_descriptors, require_define_properties, require_implementation3, require_polyfill, require_shim, require_object_is, require_implementation4, require_polyfill2, require_shim2, require_is_nan, require_comparisons, require_assert, require_b64, require_buffer_ieee754, require_buffer_browserify, require_buffer, require_errors3, require_encoding, require_Dirent, require_path_browserify, require_setImmediate, require_process, require_events, require_node, require_setTimeoutUnref, require_stream_browser, require_util2, require_buffer_list, require_destroy, require_errors_browser, require_state, require_browser2, require_stream_writable, require_stream_duplex, require_safe_buffer, require_string_decoder, require_end_of_stream, require_async_iterator, require_from_browser, require_stream_readable, require_stream_transform, require_stream_passthrough, require_pipeline, require_stream_browserify, require_promises, require_correctPath, require_volume, require_lists, require_lib, fs_exports, import_lightning_fs, memFS, fsProb, fs2, p, readdir, writeFile, readFile, stat, unlink, mkdir;
-var init_chunk_chunk_QN5ZUII4 = __esm({
-  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs"() {
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs
+var require_just_once, require_text_min, require_browser, require_just_debounce_it, require_path, require_errors, require_CacheFS, require_idb_keyval_cjs, require_IdbBackend, require_HttpBackend, require_Mutex, require_Mutex2, require_DefaultBackend, require_Stat, require_PromisifiedFS, require_src, require_constants, require_getBigInt, require_Stats, require_shams, require_shams2, require_has_symbols, require_implementation, require_function_bind, require_src2, require_get_intrinsic, require_call_bind, require_callBound, require_is_arguments, require_is_generator_function, require_is_callable, require_for_each, require_available_typed_arrays, require_gopd, require_is_typed_array, require_which_typed_array, require_types2, require_isBufferBrowser, require_inherits_browser, require_util, require_errors2, require_assertion_error, require_es6_object_assign, require_isArguments, require_implementation2, require_object_keys, require_has_property_descriptors, require_define_properties, require_implementation3, require_polyfill, require_shim, require_object_is, require_implementation4, require_polyfill2, require_shim2, require_is_nan, require_comparisons, require_assert, require_b64, require_buffer_ieee754, require_buffer_browserify, require_buffer, require_errors3, require_encoding, require_Dirent, require_path_browserify, require_setImmediate, require_process, require_events, require_node, require_setTimeoutUnref, require_stream_browser, require_util2, require_buffer_list, require_destroy, require_errors_browser, require_state, require_browser2, require_stream_writable, require_stream_duplex, require_safe_buffer, require_string_decoder, require_end_of_stream, require_async_iterator, require_from_browser, require_stream_readable, require_stream_transform, require_stream_passthrough, require_pipeline, require_stream_browserify, require_promises, require_correctPath, require_volume, require_lists, require_lib, import_lightning_fs, memFS, fsProb, fs2, p;
+var init_chunk_chunk_PAPX2IDE = __esm({
+  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs"() {
     "use strict";
     init_chunk_chunk_JLPTXNJM();
     require_just_once = __commonJS2({
@@ -13931,16 +13927,6 @@ var init_chunk_chunk_QN5ZUII4 = __esm({
         module.exports.semantic = true;
       }
     });
-    fs_exports = {};
-    __export(fs_exports, {
-      fs: () => fs2,
-      mkdir: () => mkdir,
-      readFile: () => readFile,
-      readdir: () => readdir,
-      stat: () => stat,
-      unlink: () => unlink,
-      writeFile: () => writeFile
-    });
     init_define_process();
     import_lightning_fs = __toESM2(require_src(), 1);
     memFS = __toESM2(require_lib(), 1);
@@ -13955,12 +13941,6 @@ var init_chunk_chunk_QN5ZUII4 = __esm({
     }
     fs2 = fsProb;
     p = fs2.promises;
-    readdir = /* @__PURE__ */ __name((filePath) => p.readdir(filePath), "readdir");
-    writeFile = /* @__PURE__ */ __name((filePath, content) => p.writeFile(filePath, content), "writeFile");
-    readFile = /* @__PURE__ */ __name((filePath) => p.readFile(filePath, { encoding: "utf8" }), "readFile");
-    stat = /* @__PURE__ */ __name((filePath) => p.stat(filePath), "stat");
-    unlink = /* @__PURE__ */ __name((filepath) => p.unlink(filepath), "unlink");
-    mkdir = /* @__PURE__ */ __name((filePath) => p.mkdir(filePath), "mkdir");
   }
 });
 
@@ -14128,8 +14108,8 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs
-init_chunk_chunk_QN5ZUII4();
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-5ETE7QHD.mjs
+init_chunk_chunk_PAPX2IDE();
 init_chunk_chunk_JLPTXNJM();
 var require_lodash = __commonJS2({
   "../../.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/index.js"(exports, module) {
@@ -14832,7 +14812,7 @@ var require_browser3 = __commonJS2({
       var __getOwnPropDesc3 = Object.getOwnPropertyDescriptor;
       var __getOwnPropNames3 = Object.getOwnPropertyNames;
       var __hasOwnProp3 = Object.prototype.hasOwnProperty;
-      var __export2 = /* @__PURE__ */ __name((target, all) => {
+      var __export = /* @__PURE__ */ __name((target, all) => {
         for (var name in all)
           __defProp3(target, name, { get: all[name], enumerable: true });
       }, "__export");
@@ -14866,7 +14846,7 @@ var require_browser3 = __commonJS2({
         });
       }, "__async");
       var browser_exports = {};
-      __export2(browser_exports, {
+      __export(browser_exports, {
         analyzeMetafile: () => analyzeMetafile,
         analyzeMetafileSync: () => analyzeMetafileSync,
         build: () => build,
@@ -22673,7 +22653,7 @@ __name(createPatch, "createPatch");
 var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess }), "patchSync");
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs
-init_chunk_chunk_QN5ZUII4();
+init_chunk_chunk_PAPX2IDE();
 init_chunk_chunk_JLPTXNJM();
 
 // src/staticContent.mjs

@@ -60,8 +60,8 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs": {
-      "bytes": 494370,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs": {
+      "bytes": 494170,
       "imports": [
         {
           "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs",
@@ -69,11 +69,11 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-fs-PXXGRJD6.mjs": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-fs-7NJX4RKQ.mjs": {
       "bytes": 231,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs",
           "kind": "import-statement"
         },
         {
@@ -82,11 +82,11 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-5ETE7QHD.mjs": {
       "bytes": 345370,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs",
           "kind": "import-statement"
         },
         {
@@ -94,7 +94,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-fs-PXXGRJD6.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-fs-7NJX4RKQ.mjs",
           "kind": "dynamic-import"
         }
       ]
@@ -103,11 +103,11 @@
       "bytes": 626,
       "imports": [
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-5ETE7QHD.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs",
           "kind": "import-statement"
         },
         {
@@ -315,10 +315,10 @@
           "bytesInOutput": 9085
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs": {
-          "bytesInOutput": 2633
+          "bytesInOutput": 2482
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-QN5ZUII4.mjs": {
-          "bytesInOutput": 539696
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-PAPX2IDE.mjs": {
+          "bytesInOutput": 538848
         },
         "src/chat.ts": {
           "bytesInOutput": 9778
@@ -326,8 +326,8 @@
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
           "bytesInOutput": 5271
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-DEXPIAFX.mjs": {
-          "bytesInOutput": 339700
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-5ETE7QHD.mjs": {
+          "bytesInOutput": 339698
         },
         "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
           "bytesInOutput": 58
@@ -369,7 +369,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 996951
+      "bytes": 995950
     }
   }
 }

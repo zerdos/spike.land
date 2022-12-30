@@ -236,7 +236,7 @@ async function startMonacoPristine(
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
       const content = await fetch(extraModel).then((res) => res.text());
-
+      console.log(`adding extra models: ${mUri.toString()}`, { content });
       editor.getModel(mUri) || createModel(
         content,
         "typescript",
