@@ -22980,7 +22980,7 @@ var api = {
             );
           }
           default: {
-            const file = newUrl.pathname.startsWith("/assets/") ? newUrl.pathname.slice(8) : newUrl.pathname.slice(1);
+            const file = newUrl.pathname.slice(0, 7) === "/assets/" ? newUrl.pathname.slice(8) : newUrl.pathname.slice(1);
             if (files[file]) {
               const kvCacheKey = new Request(
                 request.url.replace(file, files[file])
