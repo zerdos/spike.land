@@ -62,7 +62,6 @@ export const fetchPlugin: (
       const lastPart = args.path.split("/live/").pop();
       const code = await readFile(`/live/${lastPart}`) as string;
       // const code/`` = await esmTransform(file as string);
-      console.log({ code });
 
       // if (file) {
       //   return new Response(file);
@@ -130,8 +129,10 @@ export const fetchPlugin: (
       //     </CacheProvider>
       //     </ErrorBoundary></StrictMode>);
       //       `);
+      const contents = await esmTransform(importMapReplace(code, origin, origin), origin);
+      console.log({ contents });
       return {
-        contents: await esmTransform(importMapReplace(code, origin, origin), origin),
+        contents: contents,
       };
       // }
       // return null;
