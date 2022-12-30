@@ -282,7 +282,7 @@ export const run = async () => {
   await writeFile(
     `/live/${codeSpace}/render.tsx`,
     `
-import { createRoot } from "react-dom/client";
+import { hydrateRoot } from "react-dom/client";
 
 import App from "/live/${codeSpace}/index.js";
 
@@ -291,13 +291,13 @@ export default App;
 const BCbundle = new BroadcastChannel("${location.origin}/live/${codeSpace}/bundle");
 
 export const render = async (rootEl: HTMLDivElement) => {
-	const root = createRoot(rootEl);
+	// const root = createRoot(rootEl);
 
   if(location.href.indexOf('/iframe')!==-1)
   BCbundle.onmessage =  ()=> location.reload()
   
 
-	return root.render(<App />);
+	return hydrateRoot(rootEl ,<App />);
 };
   `,
   );
@@ -503,12 +503,16 @@ const syncDb = async (
 // await codeHistory.setItem("head", message.newHash);
 // console.log("alive6");
 // };
-let controller = new AbortController();
+// let controller = new AbortController();
 
-export async function syncWS(newSession: ICodeSession) {
+export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
   try {
-    controller.abort();
-    controller = new AbortController();
+    console.log("SYNC!!");
+    console.log("SYNC!!");
+    console.log("SYNC!!");
+    console.log({ newSession });
+    // controller.abort();
+    // controller = new AbortController();
     const oldSession = mST();
 
     console.log("alive1");
@@ -550,7 +554,7 @@ export async function syncWS(newSession: ICodeSession) {
       await wait(120);
 
       if (message.oldHash === message.newHash) return;
-      if (controller.signal.aborted) return;
+      if (signal.aborted) return;
       applyPatch(message);
       if (md5(mST(message.reversePatch).transpiled) !== message.oldHash) {
         console.log("SESS IS NOT OK at all");
