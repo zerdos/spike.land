@@ -24385,18 +24385,57 @@ var Code = class {
             headers
           });
         }
+        case "prerender": {
+          const respText = src_default.replace(
+            "/**reset*/",
+            resetCSS
+          ).replace(
+            `<div id="root"></div>`,
+            `   
+          <div id="root"></div>
+          <script type="module">
+          import App from "${url.origin}/live/${this.codeSpace}/index.js"
+              
+              import {prerender} from "${url.origin}/render.mjs"
+              
+              
+             const res = prerender(App).then(res=>window.parent.postMessage(res))
+
+            //  console.log({res});
+            
+              <\/script>`
+          ).split("ASSET_HASH").join(ASSET_HASH);
+          const headers = new Headers();
+          headers.set("Access-Control-Allow-Origin", "*");
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.set("Cross-Origin-Opener-Policy", "same-origin");
+          headers.set(
+            "Cache-Control",
+            "no-cache"
+          );
+          headers.set("Content-Type", "text/html; charset=UTF-8");
+          headers.set("content_hash", md5(respText));
+          return new Response(respText, {
+            status: 200,
+            headers
+          });
+        }
         case "iframe": {
           const respText = src_default.replace(
             "/**reset*/",
             resetCSS
           ).replace(
             `<div id="root"></div>`,
-            `<style>${css}</style>
+            `
               <div id="root" data-i="${i}" style="height: 100%;">
+
+              <style>${css}</style>
+              <div id="${this.codeSpace}-css" style="height: 100%;">
                 ${html}
               </div>
+              </div>
               <script type="module">
-              const root = document.getElementById("root");
+              const root = document.getElementById("${this.codeSpace}-css");
               
               const run = async()=>{
               try{

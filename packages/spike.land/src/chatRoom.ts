@@ -598,6 +598,60 @@ export class Code {
             headers,
           });
         }
+        case "prerender": {
+          const respText = HTML.replace(
+            "/**reset*/",
+            resetCSS,
+          )
+            .replace(
+              `<div id="root"></div>`,
+              `   
+          <div id="root"></div>
+          <script type="module">
+          import App from "${url.origin}/live/${this.codeSpace}/index.js"
+              
+              import {prerender} from "${url.origin}/render.mjs"
+              
+              
+             const res = prerender(App).then(res=>window.parent.postMessage(res))
+
+            //  console.log({res});
+            
+              </script>`,
+            ).split("ASSET_HASH").join(ASSET_HASH);
+
+          // const Etag = request.headers.get("Etag");
+          // const newEtag = await sha256(respText);
+          const headers = new Headers();
+          headers.set("Access-Control-Allow-Origin", "*");
+
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.set("Cross-Origin-Opener-Policy", "same-origin");
+          headers.set(
+            "Cache-Control",
+            "no-cache",
+          );
+
+          // headers.set('Etag', newEtag);
+
+          // if (Etag === newEtag) {
+          //   // headers.set('CF-Cache-Status', 'HIT');
+          //   return new Response(null, {
+          //     status: 304,
+          //     statusText: "Not modified",
+          //     headers,
+          //   });
+          // }
+
+          headers.set("Content-Type", "text/html; charset=UTF-8");
+          headers.set("content_hash", md5(respText));
+          // headers.set("Etag", newEtag)
+          // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
+          return new Response(respText, {
+            status: 200,
+            headers,
+          });
+        }
         case "iframe": {
           const respText = HTML.replace(
             "/**reset*/",
@@ -605,12 +659,16 @@ export class Code {
           )
             .replace(
               `<div id="root"></div>`,
-              `<style>${css}</style>
+              `
               <div id="root" data-i="${i}" style="height: 100%;">
+
+              <style>${css}</style>
+              <div id="${this.codeSpace}-css" style="height: 100%;">
                 ${html}
               </div>
+              </div>
               <script type="module">
-              const root = document.getElementById("root");
+              const root = document.getElementById("${this.codeSpace}-css");
               
               const run = async()=>{
               try{

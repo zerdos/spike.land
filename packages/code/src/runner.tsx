@@ -2,7 +2,6 @@
 // import { Mutex } from "async-mutex";
 import { buildT } from "./esbuildEsm";
 import { esmTransform } from "./esmTran";
-import { wait } from "./wait";
 import { syncWS } from "./ws";
 
 // import { RpcProvider } from "worker-rpc";
@@ -44,7 +43,6 @@ const origin = location.origin;
 //   return transpiled.code;
 // };
 
-const BC = new BroadcastChannel(location.href + "/");
 const BCbundle = new BroadcastChannel(location.href + "/bundle");
 // Object.assign(globalThis, {
 //   _toUmd: () => toUmd(mST().code, codeSpace),
@@ -56,30 +54,30 @@ const BCbundle = new BroadcastChannel(location.href + "/bundle");
 // let rpcProvider;
 // const mutex = new Mutex();
 
-BC.onmessage = async ({ data }) => {
-  if (!data.html) return;
-  if (data.counter === mST().i) return;
+// BC.onmessage = async ({ data }) => {
+//   if (!data.html) return;
+//   if (data.counter === mST().i) return;
 
-  if (data.counter !== counterMax) return;
+//   if (data.counter !== counterMax) return;
 
-  // counterMax--;
+//   // counterMax--;
 
-  const sess = {
-    ...mST(),
-    // code,
-    ...data,
-    // codeSpace,
-    // i: counter,
-    // transpiled: transpiledCode!,
-    // html,
-    // css,
-  };
+//   const sess = {
+//     ...mST(),
+//     // code,
+//     ...data,
+//     // codeSpace,
+//     // i: counter,
+//     // transpiled: transpiledCode!,
+//     // html,
+//     // css,
+//   };
 
-  await wait(100);
-  if (data.counter !== counterMax) return;
+//   await wait(100);
+//   if (data.counter !== counterMax) return;
 
-  syncWS(sess);
-};
+//   syncWS(sess);
+// };
 
 export async function runner({ code, counter, codeSpace, signal }: {
   code: string;
@@ -116,23 +114,46 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     const transpiled = await esmTransform(code, origin);
     if (signal.aborted) return;
-    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-    BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     try {
-      console.log({ transpiled });
-
-      await unlink(`/live/${codeSpace}/index.tsx`);
-
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-
-      await buildT(codeSpace, location.origin, signal, true);
-      BCbundle.postMessage({ counterMax });
-
-      // fs.promises.writeFile(`/live/${codeSpace}/index.js`, bundle);
+      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     } catch {
-      console.error("bundle failed");
+      await unlink(`/live/${codeSpace}/index.tsx`);
+      await unlink(`/live/${codeSpace}/index.js`);
+      await writeFile(`/live/${codeSpace}/index.tsx`, code);
+      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     }
+
+    const iframe = document.createElement("iframe");
+    iframe.style.opacity = "0";
+    iframe.style.height = "1px";
+    iframe.style.width = "1px";
+    iframe.style.position = "absolute";
+
+    iframe.src = `${origin}/live/${codeSpace}/prerender`;
+
+    window.addEventListener("message", async (e) => {
+      const data = e.data; // hare are data sent by other window postMessage method
+
+      const { html, css } = data;
+
+      if (html) {
+        if (signal.aborted) return;
+        document.body.removeChild(iframe);
+
+        if (signal.aborted) return;
+        await syncWS({ ...mST(), html, css, code, transpiled, i: counter }, signal);
+
+        await buildT(codeSpace, location.origin, signal, true);
+        BCbundle.postMessage({ counterMax });
+      }
+    });
+
+    if (signal.aborted) return;
+    document.body.appendChild(iframe);
+
+    // BC.postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
     // console.log("still alive2");
     // // patchSync(sess);
