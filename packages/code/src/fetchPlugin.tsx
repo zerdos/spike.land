@@ -129,7 +129,7 @@ export const fetchPlugin: (
       //     </CacheProvider>
       //     </ErrorBoundary></StrictMode>);
       //       `);
-      const contents = await esmTransform(importMapReplace(code, origin, origin), origin);
+      const contents = await esmTransform(code, origin);
       console.log({ contents });
       return {
         contents: contents,
