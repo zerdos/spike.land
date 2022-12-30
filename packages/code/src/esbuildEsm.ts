@@ -239,7 +239,7 @@ export const buildT = async (
     incremental: true,
     jsxImportSource: "@emotion/react",
     format: "esm",
-    // external: Object.keys(importMapImports),
+    external: [Object.keys(impMap.imports).map(x => impMap.imports[x])],
     entryPoints: [
       `./live/${codeSpace}/index.tsx`,
       // `./live/${codeSpace}/index.tsx`,
