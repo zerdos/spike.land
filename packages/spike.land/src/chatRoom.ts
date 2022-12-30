@@ -671,6 +671,7 @@ export class Code {
 
               import {render} from "${url.origin}/render.mjs";
               import App from "${url.origin}/live/${this.codeSpace}/index.js";
+              
               const rootEl = document.getElementById("${this.codeSpace}-css");
               
               render(rootEl, App, "${this.codeSpace}");          

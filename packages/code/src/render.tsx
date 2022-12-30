@@ -1,8 +1,8 @@
 import type { FC } from "react";
 // import { unmountComponentAtNode } from "react-dom";
 import { createRoot, hydrateRoot } from "react-dom/client";
-
 import { wait } from "./wait";
+
 export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
   const root = hydrateRoot(rootEl, <App />);
 
@@ -13,7 +13,7 @@ export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string)
     )).default;
     root.render(<App />);
   };
-  return hydrateRoot(rootEl, <App />);
+  return root;
 };
 
 export const prerender = async (App: FC) => {
