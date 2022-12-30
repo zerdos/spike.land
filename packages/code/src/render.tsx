@@ -8,9 +8,9 @@ export const render = async (rootEl: HTMLDivElement, codeSpace: string) => {
   // const root = createRoot(rootEl);
   hydrateRoot(rootEl, <App />);
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-  BC.onmessage = async () => {
+  BC.onmessage = async ({ data }) => {
     const App: FC<{}> = (await import(
-      `${location.origin}/live/${codeSpace}/index.js?refresh=` + Math.random()
+      `${location.origin}/live/${codeSpace}/index.js?refresh=` + data.i
     )).default;
     hydrateRoot(rootEl, <App />);
   };
