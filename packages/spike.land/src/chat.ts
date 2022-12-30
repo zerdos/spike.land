@@ -412,7 +412,7 @@ const api: ExportedHandler<CodeEnv> = {
             request = new Request(esmUrl, { redirect: "follow" });
             response = await fetch(request);
             if (!response.ok) {
-              request = new Request(new URL(req.url, "https://raw.githubusercontent.com").toString(), req);
+              request = new Request(new URL(newUrl.pathname, "https://raw.githubusercontent.com/").toString());
               response = await fetch(request);
 
               return response;
