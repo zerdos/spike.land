@@ -22,7 +22,7 @@ new_classes = ["Users"] # Array of new classes
 
 
 
-[[build.upload.rules]]
+[[rules]]
 type = "CompiledWasm"
 globs = ["**/*.wasm"]
 
