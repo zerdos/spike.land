@@ -166,13 +166,13 @@ async function onModChange(_code: string, codeSpace: string) {
   controller = new AbortController();
   const code = await prettier(_code);
   if (!code) return;
-
+  if (controller.signal.aborted) return;
   if (code === await prettier(mod.code)) return;
 
   if (controller.signal.aborted) return;
   const counter = ++mod.counter;
   mod.code = code;
-
+  if (controller.signal.aborted) return;
   runner({ code, counter, codeSpace, signal: controller.signal });
 }
 let startedM = 0;
