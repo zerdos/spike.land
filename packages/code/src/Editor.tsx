@@ -170,15 +170,12 @@ async function onModChange(_code: string, codeSpace: string) {
     // room.abort();
     room = new AbortController();
     const mySyg = room.signal;
-    const myAb = room.abort;
     await wait(Math.random() * 3000);
     if (mySyg.aborted) return;
-    myAb();
   }
   room = new AbortController();
-  const abort = room.abort;
   setTimeout(() => {
-    abort();
+    room.abort();
   }, 3000);
   controller.abort();
   controller = new AbortController();
