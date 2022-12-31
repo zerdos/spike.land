@@ -163,8 +163,18 @@ export const Editor: FC<
 
 // let room = new AbortController();
 let controller = new AbortController();
+controller.abort();
 // room.abort();
 async function onModChange(_code: string, codeSpace: string) {
+  if (!controller.signal.aborted) {
+    const oldctr = controller;
+    controller = new AbortController();
+    const mySig = controller.signal;
+
+    await wait(300);
+    oldctr.abort();
+    if (mySig.aborted) return;
+  }
   controller.abort();
   controller = new AbortController();
   const signal = controller.signal;
