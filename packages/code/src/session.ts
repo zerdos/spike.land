@@ -509,6 +509,6 @@ function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
 }
 
-export const patchSync = (sess: ICodeSession) => session?.patchSync({ ...sess });
+export const patchSync = (sess: ICodeSession, force = true) => session?.patchSync(sess, force);
 
 export { type Delta } from "./textDiff";

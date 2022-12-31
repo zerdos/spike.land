@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-ELYJVPXE.mjs
+// ../code/dist/chunk-chunk-ZDW4J6DV.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8922,10 +8922,6 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-var applyPatch2 = /* @__PURE__ */ __name((x) => {
-  session?.applyPatch(x);
-  session?.update();
-}, "applyPatch");
 var makePatchFrom = /* @__PURE__ */ __name((n, st) => session.createPatchFromHashCode(n, st), "makePatchFrom");
 var startSession = /* @__PURE__ */ __name((room, u) => session || new CodeSession(room, {
   name: u.name,
@@ -8935,6 +8931,7 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
+var patchSync = /* @__PURE__ */ __name((sess, force = true) => session?.patchSync(sess, force), "patchSync");
 
 // ../code/dist/chunk-chunk-6MQOVGCJ.mjs
 var require_just_once = __commonJS2({
@@ -24423,16 +24420,9 @@ var Code = class {
           try {
             const patch2 = data.patch;
             const newHash2 = data.newHash;
-            const oldHash2 = data.oldHash;
-            const reversePatch2 = data.reversePatch;
             newSess = mST(patch2);
             if (md5(newSess.transpiled) === newHash2) {
-              applyPatch2({
-                oldHash: oldHash2,
-                newHash: newHash2,
-                patch: patch2,
-                reversePatch: reversePatch2
-              });
+              patchSync(newSess);
               this.sess = newSess;
             } else {
               return respondWith({

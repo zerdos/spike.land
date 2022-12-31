@@ -1,5 +1,5 @@
 import {
-  applyPatch,
+  // applyPatch,
   // addExtraModels,
   CodePatch,
   CodeSession,
@@ -13,7 +13,7 @@ import {
   // run,
   syncStorage,
 } from "@spike.land/code/src/session";
-import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/src/session";
+import { hashCode, HTML, makePatchFrom, md5, mST, patchSync, startSession } from "@spike.land/code/src/session";
 import type { Delta } from "@spike.land/code/src/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -945,18 +945,18 @@ export class Code {
           try {
             const patch = data.patch;
             const newHash = data.newHash;
-            const oldHash = data.oldHash;
-            const reversePatch = data.reversePatch;
+            // const oldHash = data.oldHash;
+            // const reversePatch = data.reversePatch;
 
             newSess = mST(patch);
             if (md5(newSess.transpiled) === newHash) {
-              // patchSync(newSess);
-              applyPatch({
-                oldHash,
-                newHash,
-                patch,
-                reversePatch,
-              });
+              patchSync(newSess);
+              // applyPatch({
+              //   oldHash,
+              //   newHash,
+              //   patch,
+              //   reversePatch,
+              // });
 
               this.sess = newSess;
             } else {
