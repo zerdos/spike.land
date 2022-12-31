@@ -135,7 +135,7 @@ export const Editor: FC<
     if (!c || code === c || signal.aborted) return;
     changeContent((x: typeof mySession) => ({
       ...x,
-      i,
+      i: counter,
       code: c,
     }));
     runner({ code: c, counter, codeSpace, signal });
