@@ -68,13 +68,13 @@ export function initSession(room: string, u: IUserJSON) {
 }
 
 type SetItem<T> = (
-  key: string,
+  key: string | number,
   value: T,
   callback?: (err: any, value: T) => void,
 ) => Promise<T>;
 
 type GetItem<T> = (
-  key: string,
+  key: string | number,
   callback?: (err: any, value: T | null) => void,
 ) => Promise<T | null>;
 
@@ -93,12 +93,12 @@ export const syncStorage = async (
   const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
-    await setItem("#" + hashOfOldSession, oldSession);
+    await setItem(hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
 
-  await setItem("#" + message.newHash, {
+  await setItem(message.newHash, {
     ...newSession,
     oldHash: message.oldHash,
     reversePatch: message.reversePatch,
@@ -109,7 +109,7 @@ export const syncStorage = async (
     "#" + message.oldHash,
   );
   if (!oldNode) throw Error("corrupt storage");
-  await setItem("#" + message.oldHash, {
+  await setItem(message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
     reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
     newHash: message.newHash,

@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-I7PUVTO7.mjs
+// ../code/dist/chunk-chunk-EW65326E.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8731,11 +8731,11 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
   const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
-    await setItem("#" + hashOfOldSession, oldSession);
+    await setItem(hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
-  await setItem("#" + message.newHash, {
+  await setItem(message.newHash, {
     ...newSession,
     oldHash: message.oldHash,
     reversePatch: message.reversePatch
@@ -8745,7 +8745,7 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
   );
   if (!oldNode)
     throw Error("corrupt storage");
-  await setItem("#" + message.oldHash, {
+  await setItem(message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
     reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
     newHash: message.newHash,
