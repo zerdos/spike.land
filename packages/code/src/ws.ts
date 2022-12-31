@@ -553,15 +553,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       // const newSS = mST(codeSpace);
 
-      ws.send({
-        newHash: message.newHash,
-        oldHash: message.oldHash,
-        patch: message.patch,
-        reversePatch: message.reversePatch,
-        name: user,
-        i: newSession.i,
-        sess: newSession,
-      });
+      ws.send(message);
 
       await syncDb(oldSession, newSession, message);
 
