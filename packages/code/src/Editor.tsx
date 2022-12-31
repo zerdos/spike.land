@@ -14,7 +14,6 @@ import { mST, onSessionUpdate } from "./session";
 let startedM = 0;
 let startedAce = 0;
 
-const mst = mST();
 export const Editor: FC<
   {
     codeSpace: string;
@@ -22,6 +21,7 @@ export const Editor: FC<
 > = (
   { codeSpace },
 ) => {
+  const mst = mST();
   const ref = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
 
