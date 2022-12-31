@@ -29,8 +29,12 @@ async function send(codeSpace: string, msg: object) {
     mod[codeSpace].send(msg);
   }
 
-  await wait(200);
+  await wait(500);
   if (!mod[codeSpace] || !mod[codeSpace].isOpen()) reconnect(codeSpace);
+
+  if (mod[codeSpace]) {
+    mod[codeSpace].send();
+  }
 }
 
 // async function ata(code: string, baseUrl: string) {
@@ -71,7 +75,7 @@ type Mod = {
     socket: WebSocket;
     blockedMessages: object[];
     isOpen: () => boolean;
-    send: (message: object) => void;
+    send: (message?: object) => void;
   };
 };
 type Counters = { [codeSpace: string]: number };
@@ -256,8 +260,8 @@ function reconnect(codeSpace: string) {
       blockedMessages: [],
       socket: websocket,
       isOpen: () => w.socket.readyState === WebSocket.OPEN,
-      send: (msg: object) => {
-        w.blockedMessages.push(msg);
+      send: (msg?: object) => {
+        if (msg) w.blockedMessages.push(msg);
 
         while (
           w.isOpen()
@@ -270,7 +274,7 @@ function reconnect(codeSpace: string) {
       },
     };
 
-    w.send({ name });
+    w.send();
   };
 
   websocket.onmessage = async (ev) => {
