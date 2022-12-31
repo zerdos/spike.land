@@ -8922,6 +8922,10 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
+var applyPatch2 = /* @__PURE__ */ __name((x) => {
+  session?.applyPatch(x);
+  session?.update();
+}, "applyPatch");
 var makePatchFrom = /* @__PURE__ */ __name((n, st) => session.createPatchFromHashCode(n, st), "makePatchFrom");
 var startSession = /* @__PURE__ */ __name((room, u) => session || new CodeSession(room, {
   name: u.name,
@@ -8931,7 +8935,6 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
-var patchSync = /* @__PURE__ */ __name((sess) => session?.patchSync({ ...sess }), "patchSync");
 
 // ../code/dist/chunk-chunk-6MQOVGCJ.mjs
 var require_just_once = __commonJS2({
@@ -24420,9 +24423,16 @@ var Code = class {
           try {
             const patch2 = data.patch;
             const newHash2 = data.newHash;
+            const oldHash2 = data.oldHash;
+            const reversePatch2 = data.reversePatch;
             newSess = mST(patch2);
             if (md5(newSess.transpiled) === newHash2) {
-              patchSync(newSess);
+              applyPatch2({
+                oldHash: oldHash2,
+                newHash: newHash2,
+                patch: patch2,
+                reversePatch: reversePatch2
+              });
               this.sess = newSess;
             } else {
               return respondWith({

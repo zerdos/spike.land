@@ -1,4 +1,5 @@
 import {
+  applyPatch,
   // addExtraModels,
   CodePatch,
   CodeSession,
@@ -6,7 +7,6 @@ import {
   // dealWithMissing,
   ICodeSession,
   importMapReplace,
-  patchSync,
   // initAta,
   // prettierJs,
   resetCSS,
@@ -945,12 +945,19 @@ export class Code {
           try {
             const patch = data.patch;
             const newHash = data.newHash;
-            // const oldHash = data.oldHash;
-            // const reversePatch = data.reversePatch;
+            const oldHash = data.oldHash;
+            const reversePatch = data.reversePatch;
 
             newSess = mST(patch);
             if (md5(newSess.transpiled) === newHash) {
-              patchSync(newSess);
+              // patchSync(newSess);
+              applyPatch({
+                oldHash,
+                newHash,
+                patch,
+                reversePatch,
+              });
+
               this.sess = newSess;
             } else {
               return respondWith({
