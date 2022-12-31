@@ -24001,7 +24001,7 @@ var Code = class {
                   </div>
                   </div>
               </div>
-              <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`
+              <script type="module" src="/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`
           );
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
