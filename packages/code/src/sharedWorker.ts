@@ -236,6 +236,7 @@ async function onMessage(port: MessagePort, {
 }
 let iii = 0;
 self.onconnect = ({ ports }) => {
+  console.log("ON CONNECT");
   ports[0].postMessage({ type: "onconnect", connections: ++iii });
   ports[0].onmessage = ({ data }: { data: Data }) => onMessage(ports[0], data);
 };
