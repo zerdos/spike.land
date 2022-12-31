@@ -783,6 +783,7 @@ export class Code {
       //   blockedMessages: [] as string[],
     };
     this.sessions.push(session);
+    webSocket.send(JSON.stringify({ hashCode: hashCode(this.codeSpace), users: this.users.keys() }));
 
     // this.sessions.forEach((otherSession) => {
     // if (otherSession.name) {
@@ -868,7 +869,7 @@ export class Code {
     }
 
     if (data.type == "handshake" && data.hashCode !== hashCode(this.codeSpace)) {
-      const HEAD = await this.kv.get<string>("head")!;
+      const HEAD = hashCode(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get<CodePatch>(commit);

@@ -24134,6 +24134,7 @@ var Code = class {
       webSocket
     };
     this.sessions.push(session);
+    webSocket.send(JSON.stringify({ hashCode: hashCode3(this.codeSpace), users: this.users.keys() }));
     webSocket.addEventListener(
       "message",
       (msg) => this.processWsMessage(msg, session)
@@ -24171,7 +24172,7 @@ var Code = class {
       session.name = data.name;
     }
     if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
-      const HEAD = await this.kv.get("head");
+      const HEAD = hashCode3(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get(commit);
