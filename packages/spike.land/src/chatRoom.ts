@@ -75,6 +75,7 @@ export class Code {
     this.kv = state.storage;
     this.state = state;
 
+    this.head = "";
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;

@@ -450,7 +450,7 @@ export class CodeSession implements ICodeSess {
     this.session = user;
   }
 }
-export const hashKEY = (codeSpace: string) => sessions[codeSpace].session.hashCode();
+export const hashKEY = (codeSpace: string) => sessions[codeSpace].session.get("state").hashCode();
 export const hashCode = (codeSpace: string) => md5(mST(codeSpace).transpiled);
 export function mST(codeSpace: string, p?: Delta[]) {
   // If (originStr) return addOrigin(session.json().state, originStr);
