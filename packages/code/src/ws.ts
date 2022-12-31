@@ -299,6 +299,8 @@ export const run = async () => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
       messagePort = sharedWorker.port;
+      sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
+
       console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: hashCode(codeSpace) });
       // messagePort = this;
       ws.send = (
@@ -334,7 +336,6 @@ export const run = async () => {
     state: mst,
   });
   sharedWorker.port.start();
-  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
 
   // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
