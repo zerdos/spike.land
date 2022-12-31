@@ -580,7 +580,7 @@ export class Code {
                   </div>
                   </div>
               </div>
-              <script type="module" src="./hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+              <script type="module" src="/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
             );
 
           // const Etag = request.headers.get("Etag");
