@@ -14,8 +14,7 @@ import { mST, onSessionUpdate } from "./session";
 let startedM = 0;
 let startedAce = 0;
 
-let controller = new AbortController();
-
+const mst = mST();
 export const Editor: FC<
   {
     codeSpace: string;
@@ -27,12 +26,13 @@ export const Editor: FC<
   const engine = isMobile() ? "ace" : "monaco";
 
   const [
-    { i, code, started, setValue },
+    { i, code, started, setValue, controller },
     changeContent,
   ] = useState({
-    code: mST().code,
-    i: mST().i,
+    code: mst.code,
+    i: mst.i,
     started: false,
+    controller: new AbortController(),
     setValue: (_code: string) => null,
   });
 
@@ -51,7 +51,7 @@ export const Editor: FC<
 
       const { setValue } = await (engine === "monaco"
         ? setMonaco(container, codeSpace)
-        : setAce(container, codeSpace)) as { setValue: (code: string) => null };
+        : setAce(container)) as { setValue: (code: string) => null };
 
       changeContent(x => ({ ...x, started: true, code, setValue }));
     };
@@ -84,12 +84,13 @@ export const Editor: FC<
     if (!code) return;
 
     if (i !== mST().i) return;
-    setValue(code);
+
     changeContent((x) => ({
       ...x,
       i,
       code,
     }));
+    setValue(code);
   }, "editor");
 
   const EditorNode = (
@@ -113,28 +114,26 @@ export const Editor: FC<
     `}
     />
   );
-  const onModChange = async (_code: string, codeSpace: string) => {
+  const onChange = async (_code: string) => {
     console.log(_code);
-
-    controller.abort();
-    controller = new AbortController();
-    const signal = controller.signal;
 
     const c = await prettier(_code);
 
-    const counter = i + 1;
-
-    if (signal.aborted) return;
-    if (!c || code === c || signal.aborted) return;
+    if (c == code) return;
+    controller.abort();
 
     changeContent((x) => ({
       ...x,
-      i: counter,
+      i: i + 1,
       code: c,
+      controller: new AbortController(),
     }));
-
-    await runner({ code: c, counter, codeSpace, signal });
   };
+
+  useEffect(() => {
+    runner({ code, counter: i, codeSpace, signal: controller.signal });
+    return () => controller.abort();
+  }, [code, i, codeSpace, controller]);
 
   if (engine === "ace") return EditorNode;
 
@@ -175,18 +174,18 @@ export const Editor: FC<
       codeSpace,
       i,
       code,
-      onChange: (code) => onModChange(code, codeSpace),
+      onChange,
     });
   }
 
-  async function setAce(container: HTMLDivElement, codeSpace: string) {
+  async function setAce(container: HTMLDivElement) {
     if (startedAce) return;
     startedAce = 1;
     const { startAce } = await import("./startAce");
 
     return await startAce(
-      mST().code,
-      (code) => onModChange(code, codeSpace),
+      code,
+      onChange,
       container,
     );
   }
