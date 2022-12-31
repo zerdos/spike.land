@@ -832,7 +832,7 @@ export class Code {
       name?: string;
       codeSpace?: string;
       target?: string;
-      type?: "new-ice-candidate" | "video-offer" | "video-answer";
+      type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake";
       patch?: Delta[];
       reversePatch: Delta[];
       address?: string;
@@ -917,6 +917,24 @@ export class Code {
       // }
 
       try {
+        if (data.type == "handshake" && data.hashCode !== hashCode(this.codeSpace)) {
+          const HEAD = hashCode(this.codeSpace);
+          let commit = data.hashCode;
+          while (commit && commit !== HEAD) {
+            const oldNode = await this.kv.get<CodePatch>(commit);
+            const newNode = await this.kv.get<CodePatch>(oldNode!.newHash);
+            respondWith({
+              oldHash: commit,
+              newHash: oldNode!.newHash,
+              patch: oldNode!.patch,
+              reversePatch: newNode!.reversePatch,
+            });
+            commit = newNode?.newHash;
+          }
+          // const oldNode =  await this.kv.get<CodePatch>(commit);
+          // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
+        }
+
         if (
           data.target
           && data.type
