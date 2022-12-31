@@ -262,7 +262,7 @@ export const run = async () => {
   const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
 
   const sharedWorker = new SharedWorker(
-    "/sharedWorker.js?" + shHash,
+    "/sharedWorker.js?ree=" + shHash,
   );
 
   sharedWorker.port.onmessage = async (ev) => {
