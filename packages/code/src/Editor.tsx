@@ -163,16 +163,23 @@ export const Editor: FC<
 
 let room = new AbortController();
 let controller = new AbortController();
-room.abort();
+// room.abort();
 async function onModChange(_code: string, codeSpace: string) {
-  if (!room.signal.aborted) {
-    room.abort();
+  let roomSignal = room.signal;
+  if (!roomSignal.aborted) {
+    // room.abort();
     room = new AbortController();
+    const mySyg = room.signal;
+    const myAb = room.abort;
     await wait(Math.random() * 3000);
-    if (room.signal.aborted) return;
-    room.abort();
+    if (mySyg.aborted) return;
+    myAb();
   }
   room = new AbortController();
+  const abort = room.abort;
+  setTimeout(() => {
+    abort();
+  }, 3000);
   controller.abort();
   controller = new AbortController();
   const code = await prettier(_code);
