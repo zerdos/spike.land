@@ -270,12 +270,12 @@ export const run = async () => {
     if (ev.data.type === "onconnect") {
       messagePort = sharedWorker.port;
 
-      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: hashCode(codeSpace) });
+      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: head || hash });
       // messagePort = this;
       ws.send = (
         message,
       ) => {
-        const messageData = { name: user, ...message, sess: mST(codeSpace), codeSpace, hashCode:head || hash   };
+        const messageData = { name: user, ...message, sess: mST(codeSpace), codeSpace, hashCode: head || hash };
         console.log("POST MESSAGE", { messageData });
         if (
           messageData.oldHash && messageData.oldHash === messageData.newHash
