@@ -78,26 +78,39 @@ export class Code {
       // }
       this.address = await this.kv.get<string>("address") || "";
       this.sess = session;
+      this.codeSpace = session.codeSpace || "";
+      if (this.sess.codeSpace) {
+        this.session = startSession(
+          this.codeSpace,
+          { state: session, name: this.user },
+          // url.origin,
+        );
+      }
       this.sessionStarted = false;
     });
   }
   wait = (x?: () => boolean) => {
-    this.waiting = this.waiting.filter((x) => !x());
+    this.waiting = this.waiting.filter((x) => !x()) || [];
     if (x && !x()) this.waiting.push(x);
   };
 
   async fetch(request: Request) {
-    const state = this.sess!;
     const url = new URL(request.url);
 
     this.wait();
 
-    this.codeSpace = url.searchParams.get("room") || "code-main";
+    // let sess = this.sess;
+    if (!this.codeSpace) {
+      this.codeSpace = url.searchParams.get("room") || "code-main";
 
-    if (!this.session) {
+      this.codeSpace = url.searchParams.get("room") || "code-main";
+      this.sess!.codeSpace = this.codeSpace;
+
+      await this.kv.put("session", this.sess!);
+
       this.session = startSession(
         this.codeSpace,
-        { state, name: this.codeSpace },
+        { state: this.sess!, name: this.codeSpace },
         // url.origin,
       );
       this.sessionStarted = true;
