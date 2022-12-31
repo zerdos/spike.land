@@ -285,12 +285,17 @@ export const run = async () => {
         messagePort.postMessage(messageData);
       };
     } else {
+      let data;
       try {
-        const data = JSON.parse(ab2str(ev.data));
+        data = JSON.parse(ab2str(ev.data));
+      } catch (err) {
+        console.error("not a buff", { err, data: ev.data });
+      }
+      try {
         await processData(data, "ws");
         console.log("its a buffer", { data });
       } catch (err) {
-        console.error("not a buff", { err, data: ev.data });
+        console.error("process error", { err, data: ev.data });
       }
       // }
     }
@@ -455,14 +460,15 @@ export const run = async () => {
 
 const ignoreUsers: string[] = [];
 
-const syncDb = async (
+const { getItem, setItem } = codeHistory;
+const syncDb = (
   oldSession: ICodeSession,
   newSession: ICodeSession,
   message: CodePatch,
 ) =>
-  await syncStorage(
-    async (k: string | number, value) => await codeHistory.setItem(String(k), value),
-    async (key: string | number) => await codeHistory.getItem(String(key)),
+  syncStorage(
+    setItem,
+    getItem,
     oldSession,
     newSession,
     message,

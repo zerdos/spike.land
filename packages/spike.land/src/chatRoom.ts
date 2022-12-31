@@ -51,7 +51,7 @@ export class Code {
     (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
     true,
   );
-  head: number | string;
+  head: "";
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
   i = 0;
