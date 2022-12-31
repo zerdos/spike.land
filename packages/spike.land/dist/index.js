@@ -24215,9 +24215,6 @@ var Code = class {
         msg: "no-name-no-party"
       });
     }
-    this.i = data.i;
-    if (data.i < this.i)
-      return;
     if (data.codeSpace && data.address && !this.address) {
       return this.broadcast(data);
     }
@@ -24227,11 +24224,6 @@ var Code = class {
           data.type
         )) {
           return this.user2user(data.target, { ...data, name });
-        }
-        if (data.i <= mST(this.codeSpace).i) {
-          return respondWith({
-            error: `data.i <= mST(this.codeSpace).i`
-          });
         }
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = mST(this.codeSpace);
@@ -24247,8 +24239,8 @@ var Code = class {
             });
           }
           try {
-            const newHash2 = data.newHash;
-            if (md5(newSess.transpiled) === newHash2) {
+            const newHash = data.newHash;
+            if (md5(newSess.transpiled) === newHash) {
               if (this.session === null) {
                 return respondWith({
                   error: "this.session is null!"
@@ -24276,22 +24268,29 @@ var Code = class {
               "msg": "broadcast issue"
             });
           }
-          await this.kv.put("session", newSess);
-          const syncKV = (oldSession2, newSess2, message) => syncStorage(
-            (key, value) => this.kv.put(key, value),
-            (key) => this.kv.get(key),
-            oldSession2,
-            newSess2,
-            message
-          );
-          const { newHash, oldHash, patch, reversePatch } = data;
-          await syncKV(oldSession, newSess, {
-            newHash,
-            oldHash,
-            codeSpace: this.codeSpace,
-            patch,
-            reversePatch
-          });
+          try {
+            await this.kv.put("session", newSess);
+            const syncKV = (oldSession2, newSess2, message) => syncStorage(
+              (key, value) => this.kv.put(key, value),
+              (key) => this.kv.get(key),
+              oldSession2,
+              newSess2,
+              message
+            );
+            const { newHash, oldHash, patch, reversePatch } = data;
+            await syncKV(oldSession, newSess, {
+              newHash,
+              oldHash,
+              codeSpace: this.codeSpace,
+              patch,
+              reversePatch
+            });
+          } catch (err) {
+            return respondWith({
+              error: "Saving it its really hard",
+              exp: err || {}
+            });
+          }
           return respondWith({
             hashCode: hashCode3(this.codeSpace)
           });

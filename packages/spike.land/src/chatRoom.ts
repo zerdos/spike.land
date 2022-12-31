@@ -899,10 +899,10 @@ export class Code {
         msg: "no-name-no-party",
       });
     }
-    this.i = data.i;
+    // this.i = data.i;
 
     // await this.mutex.runExclusive(async () => {
-    if (data.i < this.i) return;
+    // if (data.i < this.i) return;
     if (data.codeSpace && data.address && !this.address) {
       return this.broadcast(data);
     }
@@ -927,11 +927,11 @@ export class Code {
           return this.user2user(data.target, { ...data, name });
         }
 
-        if (data.i <= mST(this.codeSpace).i) {
-          return respondWith({
-            error: `data.i <= mST(this.codeSpace).i`,
-          });
-        }
+        // if (data.i <= mST(this.codeSpace).i) {
+        //   return respondWith({
+        //     error: `data.i <= mST(this.codeSpace).i`,
+        //   });
+        // }
 
         // const newHash = this.session!.applyPatch({
         //   newHash: data.newHash!,
@@ -1017,30 +1017,37 @@ export class Code {
             });
           }
 
-          await this.kv.put<ICodeSession>("session", newSess);
+          try {
+            await this.kv.put<ICodeSession>("session", newSess);
 
-          const syncKV = (
-            oldSession: ICodeSession,
-            newSess: ICodeSession,
-            message: CodePatch,
-          ) =>
-            syncStorage(
-              (key: string, value: unknown) => this.kv.put(key, value) as unknown as Promise<unknown>,
-              (key: string) => this.kv.get(key),
-              oldSession,
-              newSess,
-              message,
-            );
+            const syncKV = (
+              oldSession: ICodeSession,
+              newSess: ICodeSession,
+              message: CodePatch,
+            ) =>
+              syncStorage(
+                (key: string, value: unknown) => this.kv.put(key, value) as unknown as Promise<unknown>,
+                (key: string) => this.kv.get(key),
+                oldSession,
+                newSess,
+                message,
+              );
 
-          const { newHash, oldHash, patch, reversePatch } = data;
+            const { newHash, oldHash, patch, reversePatch } = data;
 
-          await syncKV(oldSession, newSess, {
-            newHash,
-            oldHash,
-            codeSpace: this.codeSpace,
-            patch,
-            reversePatch,
-          });
+            await syncKV(oldSession, newSess, {
+              newHash,
+              oldHash,
+              codeSpace: this.codeSpace,
+              patch,
+              reversePatch,
+            });
+          } catch (err) {
+            return respondWith({
+              error: "Saving it its really hard",
+              exp: err || {},
+            });
+          }
 
           // await this.kv.put(
           //   String(newHash),
