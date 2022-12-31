@@ -16,7 +16,7 @@ import {
   // makePatch,
   // makePatchFrom,
   mST,
-  // onSessionUpdate,
+  //  onSessionUpdate,
   startSession,
   syncStorage,
 } from "./session";
@@ -315,8 +315,9 @@ export const run = async () => {
       }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
     } else {
       try {
-        await processData(JSON.parse(ab2str(ev.data)), "ws");
-        console.log("its a buffer");
+        const data = JSON.parse(ab2str(ev.data));
+        await processData(data, "ws");
+        console.log("its a buffer", { data });
       } catch (err) {
         console.error("not a buff", { err, data: ev.data });
       }
@@ -389,6 +390,7 @@ export const run = async () => {
   //     }
   //   }
   // };
+  // setTimeout(() => {
 
   // onSessionUpdate(
   //   () => {
@@ -410,6 +412,7 @@ export const run = async () => {
   //   },
   //   "broadcast",
   // );
+  // }, timeout);
 
   // const { startIpfs } = await import("./startIpfs");
   // await startIpfs(codeSpace);
@@ -517,7 +520,6 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       // console.log("SYNC!!");
       // console.log({ ...message, name: user, i: sess.i });
       // wsLastHashCode = message.newHash;
-      await wait(120);
 
       if (message.oldHash === message.newHash) return;
       if (signal.aborted) return;
@@ -642,6 +644,7 @@ async function processData(
   data: any,
   source: "ws" | "rtc",
 ) {
+  console.table(data);
   console.log(
     `source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST(codeSpace).i}`,
   );
@@ -739,9 +742,15 @@ async function processData(
     }
 
     const oldSession = mST(codeSpace);
-    applyPatch(data);
+    applyPatch(data), codeSpace;
+
     const newSession = mST(codeSpace);
+
     await syncDb(oldSession, newSession, data);
+    //  await writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
+    await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
+
+    await writeFile("/live/" + codeSpace + "/index.js", newSession.transpiled);
 
     if (data.newHash === hashCode(codeSpace)) {
       if (sendChannel) {
