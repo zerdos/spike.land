@@ -166,6 +166,7 @@ let controller = new AbortController();
 controller.abort();
 // room.abort();
 async function onModChange(_code: string, codeSpace: string) {
+  console.log(_code);
   if (!controller.signal.aborted) {
     const oldctr = controller;
     controller = new AbortController();
