@@ -324,8 +324,6 @@ export const run = async () => {
       // }
     }
   };
-  sharedWorker.port.start();
-  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
   // setTimeout(() => {
   // });
   wsLastHashCode = md5(mst.transpiled);
@@ -335,6 +333,9 @@ export const run = async () => {
     name: user,
     state: mst,
   });
+  sharedWorker.port.start();
+  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
+
   // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
     renderPreviewWindow({ codeSpace, dry: false });
