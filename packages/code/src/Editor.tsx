@@ -121,11 +121,13 @@ export const Editor: FC<
     />
   );
   const onChange = async (_code: string) => {
+    if (code === _code) return;
     console.log(_code);
 
+    const ccc = await prettier(code);
     const c = await prettier(_code);
 
-    if (c == code) return;
+    if (c === ccc) return;
     controller.abort();
 
     changeContent((x) => ({
