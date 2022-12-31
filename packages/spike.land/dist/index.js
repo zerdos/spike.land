@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-TZJEAKGX.mjs
+// ../code/dist/chunk-chunk-6SGCXNPV.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8829,12 +8829,10 @@ var CodeSession = class {
         this.session.get("state").merge(sess)
       );
       const newHash = md5(this.session.get("state").transpiled);
-      if (newHash !== oldHash) {
-        queueMicrotask(() => {
-          this.createPatchFromHashCode(oldHash, mST(this.room));
-          this.update();
-        });
+      if (newHash !== oldHash && force !== true) {
+        this.update();
       }
+      return this.session;
     };
     this.applyPatch = ({
       oldHash,
@@ -24407,20 +24405,26 @@ var Code = class {
         )) {
           return this.user2user(data.target, { ...data, name });
         }
-        if (data.i <= mST(this.codeSpace).i)
-          return;
+        if (data.i <= mST(this.codeSpace).i) {
+          return respondWith({
+            error: `data.i <= mST(this.codeSpace).i`
+          });
+        }
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = mST(this.codeSpace);
-          let newSess = oldSession;
+          const newSess = mST(this.codeSpace, data.patch);
           if (md5(oldSession.transpiled) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`
             });
           }
+          if (md5(newSess.transpiled) !== data.newHash) {
+            return respondWith({
+              error: `new hashes not matching`
+            });
+          }
           try {
-            const patch2 = data.patch;
             const newHash2 = data.newHash;
-            newSess = mST(this.codeSpace, patch2);
             if (md5(newSess.transpiled) === newHash2) {
               if (this.session === null) {
                 return respondWith({
