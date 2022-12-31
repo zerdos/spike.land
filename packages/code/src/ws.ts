@@ -299,7 +299,7 @@ export const run = async () => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
       messagePort = sharedWorker.port;
-      console.log("POST ONCONNECT", { codeSpace, name: user });
+      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: hashCode(codeSpace) });
       // messagePort = this;
       ws.send = (
         message,
@@ -311,7 +311,7 @@ export const run = async () => {
         ) return;
         messagePort.postMessage(messageData);
       };
-      messagePort.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
+
       ws.send({ type: "handshake" });
     } else {
       try {
@@ -325,7 +325,7 @@ export const run = async () => {
     }
   };
   sharedWorker.port.start();
-
+  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
   // setTimeout(() => {
   // });
   wsLastHashCode = md5(mst.transpiled);
