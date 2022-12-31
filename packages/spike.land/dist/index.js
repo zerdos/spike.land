@@ -8931,7 +8931,6 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
-var patchSync = /* @__PURE__ */ __name((sess, force = true) => session?.patchSync(sess, force), "patchSync");
 
 // ../code/dist/chunk-chunk-6MQOVGCJ.mjs
 var require_just_once = __commonJS2({
@@ -24422,7 +24421,12 @@ var Code = class {
             const newHash2 = data.newHash;
             newSess = mST(patch2);
             if (md5(newSess.transpiled) === newHash2) {
-              patchSync(newSess);
+              if (this.session === null) {
+                return respondWith({
+                  error: "this.session is null!"
+                });
+              }
+              this.session.patchSync(newSess);
               this.sess = newSess;
             } else {
               return respondWith({

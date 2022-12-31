@@ -177,7 +177,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 35740,
+      "bytes": 35908,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
@@ -303,7 +303,7 @@
           "bytesInOutput": 2026
         },
         "../code/dist/chunk-chunk-ZDW4J6DV.mjs": {
-          "bytesInOutput": 333417
+          "bytesInOutput": 333307
         },
         "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
           "bytesInOutput": 482416
@@ -330,7 +330,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 23925
+          "bytesInOutput": 24103
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -345,7 +345,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 932850
+      "bytes": 932918
     }
   }
 }

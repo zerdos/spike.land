@@ -13,7 +13,7 @@ import {
   // run,
   syncStorage,
 } from "@spike.land/code/src/session";
-import { hashCode, HTML, makePatchFrom, md5, mST, patchSync, startSession } from "@spike.land/code/src/session";
+import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/src/session";
 import type { Delta } from "@spike.land/code/src/session";
 import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -950,7 +950,12 @@ export class Code {
 
             newSess = mST(patch);
             if (md5(newSess.transpiled) === newHash) {
-              patchSync(newSess);
+              if (this.session === null) {
+                return respondWith({
+                  error: "this.session is null!",
+                });
+              }
+              this.session.patchSync(newSess);
               // applyPatch({
               //   oldHash,
               //   newHash,
