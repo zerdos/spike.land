@@ -22,7 +22,7 @@ declare const self: SharedWorkerGlobalScope & {
 
 async function send(codeSpace: string, msg: object) {
   if (!mod[codeSpace]) {
-    await reconnect(codeSpace);
+    reconnect(codeSpace);
   }
 
   if (mod[codeSpace]) {
@@ -248,12 +248,22 @@ function reconnect(codeSpace: string) {
   // return resolve(await mod[codeSpace]);
   // }
 
-  if (mod[codeSpace] && mod[codeSpace].isOpen()) return mod[codeSpace];
+  if (mod[codeSpace]) return mod[codeSpace];
   // if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
 
-  const websocket = new WebSocket(
+  let websocket = new WebSocket(
     `wss://${location.host}/live/` + codeSpace + "/websocket",
   );
+
+  const fixit = () => {
+    websocket = new WebSocket(
+      `wss://${location.host}/live/` + codeSpace + "/websocket",
+    );
+    websocket.onopen = () => {
+      mod[codeSpace].socket = websocket;
+      mod[codeSpace].send();
+    };
+  };
 
   websocket.onopen = () => {
     const w: typeof mod[0] = mod[codeSpace] = {
@@ -262,6 +272,14 @@ function reconnect(codeSpace: string) {
       isOpen: () => w.socket.readyState === WebSocket.OPEN,
       send: (msg?: object) => {
         if (msg) w.blockedMessages.push(msg);
+        const ctr = new AbortController();
+
+        if (!w.isOpen()) {
+          setTimeout(() => {
+            if (ctr.signal.aborted) return;
+            if (!w.isOpen()) fixit();
+          }, 600);
+        }
 
         while (
           w.isOpen()
