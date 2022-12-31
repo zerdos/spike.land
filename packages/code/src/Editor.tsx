@@ -10,6 +10,7 @@ import { prettier } from "./prettier";
 import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import "monaco-editor/min/vs/editor/editor.main.css";
+import { wait } from "./wait.js";
 
 const mod = {
   getValue: async () => "",
@@ -160,8 +161,13 @@ export const Editor: FC<
   );
 };
 
+let room = new AbortController();
 let controller = new AbortController();
+
 async function onModChange(_code: string, codeSpace: string) {
+  room.abort();
+  room = new AbortController();
+  await wait(Math.random() * 1000);
   controller.abort();
   controller = new AbortController();
   const code = await prettier(_code);
