@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-F5VMNZ53.mjs
+// ../code/dist/chunk-chunk-I7PUVTO7.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8728,10 +8728,10 @@ function initSession(room, u) {
 }
 __name(initSession, "initSession");
 var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, newSession, message) => {
-  const hashOfOldSession = "#" + Record(oldSession)().hashCode();
+  const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
-    await setItem(hashOfOldSession, oldSession);
+    await setItem("#" + hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }

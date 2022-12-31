@@ -90,10 +90,10 @@ export const syncStorage = async (
     patch: Delta[];
   },
 ) => {
-  const hashOfOldSession = "#" + Record(oldSession)().hashCode();
+  const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
-    await setItem(hashOfOldSession, oldSession);
+    await setItem("#" + hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
