@@ -7,7 +7,7 @@ import { Mutex } from "async-mutex";
 import createCache from "./emotionCache";
 import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { type ICodeSession, mST, onSessionUpdate, resetCSS } from "./session";
+import { hashCode, type ICodeSession, mST, onSessionUpdate, resetCSS } from "./session";
 import { wait } from "./wait";
 
 const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
@@ -384,7 +384,7 @@ export async function appFactory(
   const { transpiled: mstTranspiled, i: mstI } = mST(codeSpace);
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   if (transpiled) console.log({ transpiled });
-  const hash = md5(trp);
+  const hash = hashCode(codeSpace);
 
   if (!apps[hash] || !eCaches[hash]) {
     try {

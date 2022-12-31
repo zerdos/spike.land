@@ -139,7 +139,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     iframe.src = `${origin}/live/${codeSpace}/prerender`;
 
-    const responseListener = async (e) => {
+    const responseListener = async (e: MessageEvent) => {
       const data = e.data; // hare are data sent by other window postMessage method
 
       const { html, css } = data;
