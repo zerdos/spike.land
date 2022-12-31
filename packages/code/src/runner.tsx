@@ -12,7 +12,6 @@ import { mST } from "./session";
 
 // Object.assign(globalThis, { transform, build, toUmd });
 
-let counterMax = mST().i;
 const origin = location.origin;
 // const IIFE = {};
 
@@ -78,7 +77,7 @@ const origin = location.origin;
 
 //   syncWS(sess);
 // };
-
+let counterMax = 0;
 let iframe: HTMLIFrameElement;
 export async function runner({ code, counter, codeSpace, signal }: {
   code: string;
@@ -147,7 +146,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
       if (html) {
         if (signal.aborted) return;
-        await syncWS({ ...mST(), html, css, code, transpiled, i: counter }, signal);
+        await syncWS({ ...mST(codeSpace), html, css, code, transpiled, i: counter }, signal);
 
         // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
         // BC.postMessage({ html, css, code, transpiled, i: counter });

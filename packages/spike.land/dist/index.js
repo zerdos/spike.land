@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-ZDW4J6DV.mjs
+// ../code/dist/chunk-chunk-TZJEAKGX.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8753,10 +8753,10 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
   });
   await setItem("head", message.newHash);
 }, "syncStorage");
-var session = null;
+var sessions = {};
 var hashStore = {};
 var CodeSession = class {
-  constructor(room, user) {
+  constructor(codeSpace, user) {
     this.cb = {};
     this.hashCodeSession = 0;
     this.created = new Date().toISOString();
@@ -8786,6 +8786,7 @@ var CodeSession = class {
       return {
         oldHash: usedOldHash,
         newHash,
+        codeSpace: newRec.get("codeSpace"),
         reversePatch,
         patch
       };
@@ -8830,7 +8831,7 @@ var CodeSession = class {
       const newHash = md5(this.session.get("state").transpiled);
       if (newHash !== oldHash) {
         queueMicrotask(() => {
-          this.createPatchFromHashCode(oldHash, mST());
+          this.createPatchFromHashCode(oldHash, mST(this.room));
           this.update();
         });
       }
@@ -8842,7 +8843,7 @@ var CodeSession = class {
     }) => {
       if (!(oldHash && newHash && patch.length))
         return;
-      hashStore[hashCode3()] = this.session.get("state");
+      hashStore[hashCode3(this.room)] = this.session.get("state");
       let maybeOldRec = hashStore[oldHash];
       if (!maybeOldRec)
         throw new Error(`cant find old record: ${oldHash}`);
@@ -8862,12 +8863,12 @@ var CodeSession = class {
       }
       return newHash;
     };
-    session = this;
-    this.room = room;
+    sessions[codeSpace] = this;
+    this.room = codeSpace;
     const savedState = null;
-    this.session = initSession(room, {
+    this.session = initSession(codeSpace, {
       ...user,
-      state: savedState ? savedState : JSON.parse(string_(user.state))
+      state: savedState ? savedState : JSON.parse(string_({ ...user.state, codeSpace }))
     })();
     hashStore[md5(user.state.transpiled)] = this.session.get("state");
   }
@@ -8894,18 +8895,9 @@ var CodeSession = class {
   }
 };
 __name(CodeSession, "CodeSession");
-var hashCode3 = /* @__PURE__ */ __name(() => md5(mST().transpiled), "hashCode");
-function mST(p2) {
-  if (!session) {
-    return {
-      i: 0,
-      transpiled: "",
-      code: "",
-      html: "",
-      css: ""
-    };
-  }
-  const sessAsJs = session.session.get("state").toJSON();
+var hashCode3 = /* @__PURE__ */ __name((codeSpace) => md5(mST(codeSpace).transpiled), "hashCode");
+function mST(codeSpace, p2) {
+  const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
   const { i, transpiled, code, html, css } = p2 ? JSON.parse(
     applyPatch(
       string_(
@@ -8914,7 +8906,7 @@ function mST(p2) {
       p2
     )
   ) : sessAsJs;
-  return { i, transpiled, code, html, css };
+  return { i, transpiled, code, html, css, codeSpace };
 }
 __name(mST, "mST");
 function string_(s) {
@@ -8922,11 +8914,11 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-var makePatchFrom = /* @__PURE__ */ __name((n, st) => session.createPatchFromHashCode(n, st), "makePatchFrom");
-var startSession = /* @__PURE__ */ __name((room, u) => session || new CodeSession(room, {
+var makePatchFrom = /* @__PURE__ */ __name((n, st) => sessions[st.codeSpace].createPatchFromHashCode(n, st), "makePatchFrom");
+var startSession = /* @__PURE__ */ __name((codeSpace, u) => sessions[codeSpace] || (sessions[codeSpace] = new CodeSession(codeSpace, {
   name: u.name,
-  state: u.state
-}), "startSession");
+  state: { ...u.state, codeSpace }
+})), "startSession");
 function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
@@ -23804,13 +23796,13 @@ var Code = class {
     this.address = "";
     this.mutex = new Mutex();
     this.state.blockConcurrencyWhile(async () => {
-      const session2 = await this.kv.get("session") || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
+      const session = await this.kv.get("session") || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
         "session.json"
       ).then((x) => x.json());
-      if (!session2)
+      if (!session)
         throw Error("cant get the starter session");
       this.address = await this.kv.get("address") || "";
-      this.sess = session2;
+      this.sess = session;
       this.sessionStarted = false;
     });
   }
@@ -23848,7 +23840,7 @@ var Code = class {
       this.sessionStarted = true;
     }
     return handleErrors(request, async () => {
-      const { code, transpiled, css, html, i } = mST();
+      const { code, transpiled, css, html, i } = mST(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0)
         path.push("");
@@ -23866,7 +23858,7 @@ var Code = class {
             }
           });
         case "index.trans.js": {
-          const trp = await esmTransform(mST().code, url.origin);
+          const trp = await esmTransform(mST(this.codeSpace).code, url.origin);
           return new Response(trp, {
             status: 200,
             headers: {
@@ -23882,18 +23874,18 @@ var Code = class {
         case "session.json":
         case "session": {
           if (path[1]) {
-            let session2 = await this.kv.get(path[1]);
-            if (session2) {
-              if (typeof session2 !== "string") {
-                session2 = JSON.stringify(session2);
+            let session = await this.kv.get(path[1]);
+            if (session) {
+              if (typeof session !== "string") {
+                session = JSON.stringify(session);
               }
-              return new Response(session2, {
+              return new Response(session, {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
-                  content_hash: md5(session2),
+                  content_hash: md5(session),
                   "Content-Type": "application/json; charset=UTF-8"
                 }
               });
@@ -23912,7 +23904,7 @@ var Code = class {
               );
             }
           }
-          const body = JSON.stringify(mST());
+          const body = JSON.stringify(mST(this.codeSpace));
           return new Response(body, {
             status: 200,
             headers: {
@@ -23965,20 +23957,20 @@ var Code = class {
         }
         case "mST.mjs": {
           const body = `
-          export const mST=${JSON.stringify(mST())};
+          export const mST=${JSON.stringify(mST(this.codeSpace))};
           export const codeSpace="${this.codeSpace}";
           export const address="${this.address}";
           export const importmapReplaced=${JSON.stringify({
-            js: importMapReplace(mST().transpiled, url.origin, url.origin)
+            js: importMapReplace(mST(this.codeSpace).transpiled, url.origin, url.origin)
           })}`;
           const content_hash = md5(body);
           return new Response(
             `
-              export const mST=${JSON.stringify(mST())};
+              export const mST=${JSON.stringify(mST(this.codeSpace))};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
               export const importmapReplaced=${JSON.stringify({
-              js: importMapReplace(mST().transpiled, url.origin, url.origin)
+              js: importMapReplace(mST(this.codeSpace).transpiled, url.origin, url.origin)
             })}`,
             {
               status: 200,
@@ -23995,8 +23987,8 @@ var Code = class {
         case "mST":
           return new Response(
             JSON.stringify({
-              mST: mST(),
-              hashCode: hashCode3()
+              mST: mST(this.codeSpace),
+              hashCode: hashCode3(this.codeSpace)
             }),
             {
               status: 200,
@@ -24080,20 +24072,20 @@ var Code = class {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i2 = path[1] || mST().i;
-          if (i2 > mST().i) {
+          const i2 = path[1] || mST(this.codeSpace).i;
+          if (i2 > mST(this.codeSpace).i) {
             const started = Date.now() / 1e3;
             const body = await new Promise(
               (res, reject) => this.wait(() => {
                 const now = Date.now() / 1e3;
-                if (mST().i < Number(i2) && started - now < 3e3) {
+                if (mST(this.codeSpace).i < Number(i2) && started - now < 3e3) {
                   return false;
                 }
-                if (mST().i < Number(i2) && started - now >= 3e3) {
+                if (mST(this.codeSpace).i < Number(i2) && started - now >= 3e3) {
                   reject(null);
                   return false;
                 }
-                res(mST().transpiled);
+                res(mST(this.codeSpace).transpiled);
                 return true;
               })
             );
@@ -24110,14 +24102,14 @@ var Code = class {
               }
             });
           }
-          if (i2 < mST().i) {
+          if (i2 < mST(this.codeSpace).i) {
             const trp2 = importMapReplace(transpiled, url.origin, url.origin);
             return new Response(trp2, {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST().i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST(this.codeSpace).i}`,
                 "Cache-Control": "no-cache",
                 content_hash: md5(trp2),
                 "Content-Type": "application/javascript; charset=UTF-8"
@@ -24272,7 +24264,7 @@ var Code = class {
           });
         }
         case "iife": {
-          const startState = mST();
+          const startState = mST(this.codeSpace);
           const html2 = iife_default.replace(
             `/** startState **/`,
             `Object.assign(window,${JSON.stringify({
@@ -24306,16 +24298,16 @@ var Code = class {
   }
   async handleSession(webSocket) {
     webSocket.accept();
-    const session2 = {
+    const session = {
       name: "",
       quit: false,
       webSocket,
       blockedMessages: []
     };
-    this.sessions.push(session2);
+    this.sessions.push(session);
     this.sessions.forEach((otherSession) => {
       if (otherSession.name) {
-        session2.blockedMessages.push(
+        session.blockedMessages.push(
           JSON.stringify({ name: otherSession.name })
         );
       }
@@ -24324,29 +24316,29 @@ var Code = class {
     const backlog = [...storage.values()];
     backlog.reverse();
     backlog.forEach((value) => {
-      session2.blockedMessages.push(
+      session.blockedMessages.push(
         typeof value === "string" ? value : JSON.stringify(value)
       );
     });
     webSocket.addEventListener(
       "message",
-      (msg) => this.processWsMessage(msg, session2)
+      (msg) => this.processWsMessage(msg, session)
     );
     const closeOrErrorHandler = () => {
-      session2.quit = true;
-      this.users.remove(session2.name);
+      session.quit = true;
+      this.users.remove(session.name);
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
-  async processWsMessage(msg, session2) {
-    if (session2.quit) {
-      this.users.remove(session2.name);
-      session2.webSocket.close(1011, "WebSocket broken.");
+  async processWsMessage(msg, session) {
+    if (session.quit) {
+      this.users.remove(session.name);
+      session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
-    const { name } = session2;
-    const respondWith = (obj) => session2.webSocket.send(JSON.stringify(obj));
+    const { name } = session;
+    const respondWith = (obj) => session.webSocket.send(JSON.stringify(obj));
     let data;
     try {
       data = typeof msg.data === "string" ? JSON.parse(msg.data) : JSON.parse(new TextDecoder().decode(msg.data));
@@ -24358,20 +24350,20 @@ var Code = class {
     }
     if (!name) {
       if (data.name) {
-        session2.name = data.name;
+        session.name = data.name;
         try {
           this.sessions.map((otherSession) => {
-            if (otherSession === session2)
+            if (otherSession === session)
               return;
             if (otherSession.name === data.name) {
               otherSession.name = "";
-              otherSession.blockedMessages.map((m) => session2.webSocket.send(m));
+              otherSession.blockedMessages.map((m) => session.webSocket.send(m));
               otherSession.blockedMessages = [];
             }
           });
           if (data.hashCode) {
-            if (data?.hashCode !== hashCode3()) {
-              const patch = makePatchFrom(data.hashCode, mST());
+            if (data?.hashCode !== hashCode3(this.codeSpace)) {
+              const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
               if (patch) {
                 return respondWith({ ...patch });
               }
@@ -24385,7 +24377,7 @@ var Code = class {
         const rtcConnUser = usersNum > 2 ? userNode.parent?.key || userNode.left?.key || userNode.right?.key : null;
         return respondWith({
           ...rtcConnUser ? { name: rtcConnUser } : {},
-          hashCode: hashCode3(),
+          hashCode: hashCode3(this.codeSpace),
           users: this.users.keys()
         });
       }
@@ -24406,10 +24398,10 @@ var Code = class {
         )) {
           return this.user2user(data.target, { ...data, name });
         }
-        if (data.i <= mST().i)
+        if (data.i <= mST(this.codeSpace).i)
           return;
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = mST();
+          const oldSession = mST(this.codeSpace);
           let newSess = oldSession;
           if (md5(oldSession.transpiled) !== data.oldHash) {
             return respondWith({
@@ -24419,7 +24411,7 @@ var Code = class {
           try {
             const patch2 = data.patch;
             const newHash2 = data.newHash;
-            newSess = mST(patch2);
+            newSess = mST(this.codeSpace, patch2);
             if (md5(newSess.transpiled) === newHash2) {
               if (this.session === null) {
                 return respondWith({
@@ -24430,8 +24422,8 @@ var Code = class {
               this.sess = newSess;
             } else {
               return respondWith({
-                hashCode: md5(mST().transpiled),
-                wrong: md5(mST(data.patch).transpiled)
+                hashCode: md5(mST(this.codeSpace).transpiled),
+                wrong: md5(mST(this.codeSpace, data.patch).transpiled)
               });
             }
           } catch (exp) {
@@ -24460,11 +24452,12 @@ var Code = class {
           await syncKV(oldSession, newSess, {
             newHash,
             oldHash,
+            codeSpace: this.codeSpace,
             patch,
             reversePatch
           });
           return respondWith({
-            hashCode: hashCode3()
+            hashCode: hashCode3(this.codeSpace)
           });
         }
       } catch (exp) {
@@ -24484,7 +24477,7 @@ var Code = class {
   }
   user2user(to, msg) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.sessions.filter((session2) => session2.name === to).map((s) => {
+    this.sessions.filter((session) => session.name === to).map((s) => {
       try {
         s.webSocket.send(message);
       } catch {

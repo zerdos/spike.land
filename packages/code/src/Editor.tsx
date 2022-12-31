@@ -21,7 +21,7 @@ export const Editor: FC<
 > = (
   { codeSpace },
 ) => {
-  const mst = mST();
+  const mst = mST(codeSpace);
   const ref = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
 
@@ -35,6 +35,26 @@ export const Editor: FC<
     controller: new AbortController(),
     setValue: (_code: string) => null,
   });
+
+  onSessionUpdate(
+    async () => {
+      const { i } = mST(codeSpace);
+      const code = await prettier(mST(codeSpace).code);
+
+      if (!code) return;
+
+      if (i !== mST(codeSpace).i) return;
+
+      changeContent((x) => ({
+        ...x,
+        i,
+        code,
+      }));
+      setValue(code);
+    },
+    codeSpace,
+    "editor",
+  );
 
   useEffect(() => {
     if (started) return;
@@ -76,22 +96,6 @@ export const Editor: FC<
   //   },
   //   [onChange, myCode, changeContent],
   // );
-
-  onSessionUpdate(async () => {
-    const { i } = mST();
-    const code = await prettier(mST().code);
-
-    if (!code) return;
-
-    if (i !== mST().i) return;
-
-    changeContent((x) => ({
-      ...x,
-      i,
-      code,
-    }));
-    setValue(code);
-  }, "editor");
 
   const EditorNode = (
     <div
