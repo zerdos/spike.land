@@ -96,13 +96,13 @@ type Data = {
   address?: string;
   users?: string[];
   i: number;
-  hashCode?: string;
+  hashCode?: number;
   candidate?: string;
   sess: CodeSession;
   answer?: string;
   offer?: string;
-  newHash: string;
-  oldHash?: string;
+  newHash: number;
+  oldHash?: number;
 };
 
 self.mod = self.mod || {};
@@ -146,7 +146,7 @@ async function onMessage(port: MessagePort, {
   if (!self.name && name) self.name = name;
 
   const hash = newHash || hashCode;
-  hashCodes[codeSpace] = hash || "";
+  hashCodes[codeSpace] = hash || 0;
   if (sess && hash) hashStore[hash] = sess;
   if (sess && newHash) hashStore[newHash] = sess;
   if (sess && hashCode) hashStore[hashCode] = sess;
@@ -208,7 +208,7 @@ async function onMessage(port: MessagePort, {
           patch: Delta[];
           reversePatch: Delta[];
         }
-      >(hash);
+      >("#" + hash);
 
       if (old) {
         const next = await db.getItem<
@@ -219,7 +219,7 @@ async function onMessage(port: MessagePort, {
             reversePatch: Delta[];
           }
         >(
-          old.newHash,
+          "#" + old.newHash,
         );
         if (next) {
           return send(codeSpace, {
