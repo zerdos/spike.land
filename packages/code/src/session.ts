@@ -90,14 +90,14 @@ export const syncStorage = async (
     patch: Delta[];
   },
 ) => {
-  const setItem = (k, v) => _setItem(String(k), v);
+  const setItem = (k, v) => _setItem("#" + String(k), v);
 
   const getItem = (k: number) =>
-    _getItem(String(k)) as unknown as GetItem<
+    _getItem("#" + String(k)) as unknown as GetItem<
       { oldHash: number; reversePatch?: typeof message.reversePatch }
     >;
   const hashOfOldSession = Record(oldSession)().hashCode();
-  let historyHead = (await _getItem("head")) as unknown as number;
+  let historyHead = (await getItem("head")) as unknown as number;
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
