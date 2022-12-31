@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-4J4VKEZ3.mjs
+// ../code/dist/chunk-chunk-IKILCUN2.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8899,7 +8899,7 @@ var CodeSession = class {
   }
 };
 __name(CodeSession, "CodeSession");
-var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.hashCode(), "hashKEY");
+var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.get("state").hashCode(), "hashKEY");
 var hashCode3 = /* @__PURE__ */ __name((codeSpace) => md5(mST(codeSpace).transpiled), "hashCode");
 function mST(codeSpace, p2) {
   const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
@@ -23620,6 +23620,7 @@ var Code = class {
     this.env = env;
     this.kv = state.storage;
     this.state = state;
+    this.head = "";
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;
