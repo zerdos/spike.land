@@ -490,8 +490,8 @@ export const makePatchFrom = (
 ) => (session!).createPatchFromHashCode(n, st);
 export const makePatch = (
   st: ICodeSession,
-  update?: (h: string) => void,
-) => makePatchFrom(md5(mST().transpiled), st, update);
+  // update?: (h: string) => void,
+) => makePatchFrom(md5(mST().transpiled), st);
 
 export const startSession = (
   room: string,

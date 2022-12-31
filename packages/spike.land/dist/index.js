@@ -559,7 +559,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-H6YFGASB.mjs
+// ../code/dist/chunk-chunk-ELYJVPXE.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8769,7 +8769,7 @@ var CodeSession = class {
       hashStore[hashCode4] = state;
       return hashCode4;
     };
-    this.createPatchFromHashCode = (oldHash, state, updateHash) => {
+    this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_(state));
       hashStore[md5(this.session.get("state").transpiled)] = this.session.get(
         "state"
@@ -8925,7 +8925,7 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-var makePatchFrom = /* @__PURE__ */ __name((n, st, update8) => session.createPatchFromHashCode(n, st, update8), "makePatchFrom");
+var makePatchFrom = /* @__PURE__ */ __name((n, st) => session.createPatchFromHashCode(n, st), "makePatchFrom");
 var startSession = /* @__PURE__ */ __name((room, u) => session || new CodeSession(room, {
   name: u.name,
   state: u.state
