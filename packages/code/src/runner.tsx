@@ -148,8 +148,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
         const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
         BC.postMessage({ html, css, code, transpiled, i: counter });
-        await buildT(codeSpace, location.origin, signal, true);
-        BCbundle.postMessage({ counterMax });
+        // await buildT(codeSpace, location.origin, signal, true);
+        // BCbundle.postMessage({ counterMax });
       }
     }, { once: true });
 

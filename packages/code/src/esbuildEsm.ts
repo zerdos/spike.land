@@ -231,7 +231,6 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
-    external: Object.values(impMap.imports).map(x => "http-url:" + origin + x),
     splitting: false,
     incremental: true,
     jsxImportSource: "@emotion/react",
