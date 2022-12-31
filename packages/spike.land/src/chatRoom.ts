@@ -969,7 +969,7 @@ export class Code {
                   error: "this.session is null!",
                 });
               }
-              this.session.patchSync(newSess);
+              this.session.patchSync(newSess, true);
               // applyPatch({
               //   oldHash,
               //   newHash,
