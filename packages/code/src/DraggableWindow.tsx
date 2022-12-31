@@ -288,7 +288,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               }}
             >
               {!isVisible
-                ? <div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST().html }} />
+                ? <div style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: mST(codeSpace).html }} />
                 : null}
               <motion.iframe
                 frameBorder={0}
