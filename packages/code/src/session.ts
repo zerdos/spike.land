@@ -480,7 +480,7 @@ export function mST(codeSpace: string, p?: Delta[]) {
 //   return mst;
 // }
 
-function string_(s: ICodeSession) {
+export function string_(s: ICodeSession) {
   const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
 }
