@@ -933,20 +933,36 @@ export class Code {
         //   return;
         // }
         if (data.patch && data.oldHash && data.newHash) {
-          const patch = data.patch;
-          const newHash = data.newHash;
-          const oldHash = data.oldHash;
-          const reversePatch = data.reversePatch;
-
           const oldSession = mST();
-          const newSess = mST(patch);
-          if (md5(newSess.transpiled) === newHash) {
-            patchSync(newSess);
-            this.sess = newSess;
-          } else {
+          let newSess = oldSession;
+
+          if (md5(oldSession.transpiled) !== data.oldHash) {
             return respondWith({
-              hashCode: md5(mST().transpiled),
-              wrong: md5(mST(data.patch).transpiled),
+              error: `old hashes not matching`,
+            });
+          }
+
+          try {
+            const patch = data.patch;
+            const newHash = data.newHash;
+            // const oldHash = data.oldHash;
+            // const reversePatch = data.reversePatch;
+
+            newSess = mST(patch);
+            if (md5(newSess.transpiled) === newHash) {
+              patchSync(newSess);
+              this.sess = newSess;
+            } else {
+              return respondWith({
+                hashCode: md5(mST().transpiled),
+                wrong: md5(mST(data.patch).transpiled),
+              });
+            }
+          } catch (exp) {
+            const err = exp || {};
+            return respondWith({
+              error: "unknown error- in patching" + JSON.stringify({ err }),
+              exp: exp || {},
             });
           }
 
@@ -981,6 +997,8 @@ export class Code {
               newSess,
               message,
             );
+
+          const { newHash, oldHash, patch, reversePatch } = data;
 
           await syncKV(oldSession, newSess, {
             newHash,
