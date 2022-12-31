@@ -521,7 +521,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       if (message.oldHash === message.newHash) return;
       if (signal.aborted) return;
-      applyPatch(message);
+      applyPatch({ ...message, codeSpace });
       if (md5(mST(newSession.codeSpace, message.reversePatch).transpiled) !== message.oldHash) {
         console.log("SESS IS NOT OK at all");
         return;
