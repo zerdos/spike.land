@@ -1,5 +1,4 @@
 import { Record } from "immutable";
-import debounce from "lodash.debounce";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
@@ -145,14 +144,6 @@ const hashStore: { [key: string]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
   session: IUser;
   update() {
-    return debounce(() => this.updateNonDebounced(), 200, {
-      maxWait: 500,
-      trailing: true,
-      leading: false,
-    })();
-  }
-
-  updateNonDebounced() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
         x();
