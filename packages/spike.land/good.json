@@ -60,6 +60,15 @@
         }
       ]
     },
+    "../code/dist/chunk-chunk-66YROMOV.mjs": {
+      "bytes": 340421,
+      "imports": [
+        {
+          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
+          "kind": "import-statement"
+        }
+      ]
+    },
     "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
       "bytes": 488403,
       "imports": [
@@ -69,41 +78,11 @@
         }
       ]
     },
-    "../code/dist/chunk-fs-MEJNVPTT.mjs": {
-      "bytes": 231,
-      "imports": [
-        {
-          "path": "../code/dist/chunk-chunk-6MQOVGCJ.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
-          "kind": "import-statement"
-        }
-      ]
-    },
-    "../code/dist/chunk-chunk-ATG34M7V.mjs": {
-      "bytes": 344851,
-      "imports": [
-        {
-          "path": "../code/dist/chunk-chunk-6MQOVGCJ.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../code/dist/chunk-fs-MEJNVPTT.mjs",
-          "kind": "dynamic-import"
-        }
-      ]
-    },
     "../code/dist/session.mjs": {
       "bytes": 626,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-ATG34M7V.mjs",
+          "path": "../code/dist/chunk-chunk-66YROMOV.mjs",
           "kind": "import-statement"
         },
         {
@@ -314,23 +293,20 @@
         "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
           "bytesInOutput": 9010
         },
-        "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
-          "bytesInOutput": 2414
-        },
-        "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
-          "bytesInOutput": 538927
-        },
         "src/chat.ts": {
           "bytesInOutput": 10043
         },
         "../code/package.json": {
           "bytesInOutput": 5272
         },
-        "../code/dist/chunk-chunk-ATG34M7V.mjs": {
-          "bytesInOutput": 339421
+        "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
+          "bytesInOutput": 2026
         },
-        "../code/dist/session.mjs": {
-          "bytesInOutput": 58
+        "../code/dist/chunk-chunk-66YROMOV.mjs": {
+          "bytesInOutput": 339100
+        },
+        "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
+          "bytesInOutput": 482416
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -369,7 +345,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 995734
+      "bytes": 938308
     }
   }
 }
