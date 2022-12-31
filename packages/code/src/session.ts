@@ -106,7 +106,7 @@ export const syncStorage = async (
   const oldNode = await (getItem as unknown as GetItem<
     { oldHash: number; reversePatch?: typeof message.reversePatch }
   >)(
-    "#" + message.oldHash,
+    message.oldHash,
   );
   if (!oldNode) throw Error("corrupt storage");
   await setItem(message.oldHash, {

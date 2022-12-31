@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-D5L7CBWE.mjs
+// ../code/dist/chunk-chunk-EZ44CG4J.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8741,7 +8741,7 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
     reversePatch: message.reversePatch
   });
   const oldNode = await getItem(
-    "#" + message.oldHash
+    message.oldHash
   );
   if (!oldNode)
     throw Error("corrupt storage");
