@@ -277,15 +277,13 @@ export const run = async () => {
       ws.send = (
         message,
       ) => {
-        const messageData = { name: user, ...message, sess: mST(codeSpace), codeSpace, hashCode: head || hash };
+        const messageData = { name: user, ...message, codeSpace, hashCode: hashKEY(codeSpace) };
         console.log("POST MESSAGE", { messageData });
         if (
           messageData.oldHash && messageData.oldHash === messageData.newHash
         ) return;
         messagePort.postMessage(messageData);
       };
-
-      ws.send({ type: "handshake" });
     } else {
       try {
         const data = JSON.parse(ab2str(ev.data));
@@ -360,6 +358,8 @@ export const run = async () => {
   if (location.pathname === `/live/${codeSpace}`) {
     renderPreviewWindow({ codeSpace, dry: false });
   }
+
+  ws.send({ type: "handshake" });
 
   // await appFactory(mst.transpiled, codeSpace, dry);
 
