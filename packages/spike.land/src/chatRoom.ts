@@ -5,6 +5,7 @@ import {
   CodePatch,
   CodeSession,
   esmTransform,
+  hashKEY,
   // dealWithMissing,
   ICodeSession,
   importMapReplace,
@@ -843,7 +844,7 @@ export class Code {
       patch?: Delta[];
       reversePatch: Delta[];
       address?: string;
-      hashCode?: string;
+      hashCode?: number;
       i: number;
       candidate?: string;
       answer?: string;
@@ -875,11 +876,11 @@ export class Code {
     }
 
     if (data.type == "fetch") {
-      const HEAD = hashCode(this.codeSpace);
+      const HEAD = hashKEY(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
-        const oldNode = await this.kv.get<CodePatch>(commit, { allowConcurrency: true });
-        const newNode = await this.kv.get<CodePatch>(oldNode!.newHash, { allowConcurrency: true });
+        const oldNode = await this.kv.get<CodePatch>("" + commit, { allowConcurrency: true });
+        const newNode = await this.kv.get<CodePatch>("" + oldNode!.newHash, { allowConcurrency: true });
         respondWith({
           oldHash: commit,
           newHash: oldNode!.newHash,
@@ -1062,8 +1063,8 @@ export class Code {
             const { newHash, oldHash, patch, reversePatch } = data;
 
             await syncKV(oldSession, newSess, {
-              newHash,
-              oldHash,
+              newHash: +newHash,
+              oldHash: +oldHash,
               codeSpace: this.codeSpace,
               patch,
               reversePatch,
@@ -1084,7 +1085,7 @@ export class Code {
           // );
           // }
           return respondWith({
-            hashCode: hashCode(this.codeSpace),
+            hashCode: hashKEY(this.codeSpace),
           });
         }
       } catch (exp) {

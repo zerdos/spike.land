@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-KZ5USE2S.mjs
+// ../code/dist/chunk-chunk-YTR2722D.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8735,17 +8735,17 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
     await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
-  await setItem(message.newHash, {
+  await setItem("" + message.newHash, {
     ...newSession,
     oldHash: message.oldHash,
     reversePatch: message.reversePatch
   });
   const oldNode = await getItem(
-    message.oldHash
+    "" + message.oldHash
   );
   if (!oldNode)
     throw Error("corrupt storage");
-  await setItem(message.oldHash, {
+  await setItem("" + message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
     reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
     newHash: message.newHash,
@@ -8768,7 +8768,7 @@ var CodeSession = class {
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_(state));
-      hashStore[md5(this.session.get("state").transpiled)] = this.session.get(
+      hashStore[hashKEY(this.room)] = this.session.get(
         "state"
       );
       let oldRec = hashStore[oldHash];
@@ -8779,7 +8779,7 @@ var CodeSession = class {
         md5(newRec.get("transpiled"))
       ).join("css");
       const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
-      const newHash = md5(newNewRecord.get("transpiled"));
+      const newHash = newNewRecord.hashCode();
       hashStore[newHash] = newNewRecord;
       const patch = createPatch(oldString, newString);
       const reversePatch = createPatch(newString, oldString);
@@ -8852,7 +8852,7 @@ var CodeSession = class {
         newState
       );
       const newRecord = this.session.get("state").merge(newRec);
-      const newHashCheck = md5(newRecord.get("transpiled"));
+      const newHashCheck = newRecord.hashCode();
       if (newHashCheck === newHash) {
         this.session = this.session.set("state", newRecord);
         hashStore[newHash] = this.session.get("state");
@@ -8893,6 +8893,7 @@ var CodeSession = class {
   }
 };
 __name(CodeSession, "CodeSession");
+var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.hashCode(), "hashKEY");
 var hashCode3 = /* @__PURE__ */ __name((codeSpace) => md5(mST(codeSpace).transpiled), "hashCode");
 function mST(codeSpace, p2) {
   const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
@@ -24175,11 +24176,11 @@ var Code = class {
       session.name = name;
     }
     if (data.type == "fetch") {
-      const HEAD = hashCode3(this.codeSpace);
+      const HEAD = hashKEY(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
-        const oldNode = await this.kv.get(commit, { allowConcurrency: true });
-        const newNode = await this.kv.get(oldNode.newHash, { allowConcurrency: true });
+        const oldNode = await this.kv.get("" + commit, { allowConcurrency: true });
+        const newNode = await this.kv.get("" + oldNode.newHash, { allowConcurrency: true });
         respondWith({
           oldHash: commit,
           newHash: oldNode.newHash,
@@ -24252,8 +24253,8 @@ var Code = class {
             );
             const { newHash, oldHash, patch, reversePatch } = data;
             await syncKV(oldSession, newSess, {
-              newHash,
-              oldHash,
+              newHash: +newHash,
+              oldHash: +oldHash,
               codeSpace: this.codeSpace,
               patch,
               reversePatch

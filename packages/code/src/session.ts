@@ -84,8 +84,8 @@ export const syncStorage = async (
   oldSession: ICodeSession,
   newSession: ICodeSession,
   message: {
-    oldHash: string;
-    newHash: string;
+    oldHash: number;
+    newHash: number;
     reversePatch: Delta[];
     patch: Delta[];
   },
@@ -98,18 +98,18 @@ export const syncStorage = async (
     historyHead = hashOfOldSession;
   }
 
-  await setItem(message.newHash, {
+  await setItem("" + message.newHash, {
     ...newSession,
     oldHash: message.oldHash,
     reversePatch: message.reversePatch,
   });
   const oldNode = await (getItem as unknown as GetItem<
-    { oldHash: string; reversePatch?: typeof message.reversePatch }
+    { oldHash: number; reversePatch?: typeof message.reversePatch }
   >)(
-    message.oldHash,
+    "" + message.oldHash,
   );
   if (!oldNode) throw Error("corrupt storage");
-  await setItem(message.oldHash, {
+  await setItem("" + message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
     reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
     newHash: message.newHash,
@@ -119,8 +119,8 @@ export const syncStorage = async (
 };
 
 export type CodePatch = {
-  oldHash: string;
-  newHash: string;
+  oldHash: number;
+  newHash: number;
   patch: Delta[];
   codeSpace: string;
   reversePatch: Delta[];
@@ -134,7 +134,7 @@ type ICodeSess = {
   hashOfState: () => string;
   applyPatch: IApplyPatch;
   createPatchFromHashCode: (
-    c: string,
+    c: number,
     st: ICodeSession,
     updateHash?: (h: string) => void,
   ) => CodePatch | null;
@@ -203,13 +203,13 @@ export class CodeSession implements ICodeSess {
   };
 
   createPatchFromHashCode = (
-    oldHash: string,
+    oldHash: number,
     state: ICodeSession,
     // updateHash?: (h: string) => void,
   ) => {
     const s = JSON.parse(string_(state));
 
-    hashStore[md5(this.session.get("state").transpiled)] = this.session.get(
+    hashStore[hashKEY(this.room)] = this.session.get(
       "state",
     );
     let oldRec = hashStore[oldHash];
@@ -245,7 +245,7 @@ export class CodeSession implements ICodeSess {
       md5(newRec.get("transpiled")),
     ).join("css");
     const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
-    const newHash = md5(newNewRecord.get("transpiled"));
+    const newHash = newNewRecord.hashCode();
     hashStore[newHash] = newNewRecord;
 
     const patch = createPatch(oldString, newString);
@@ -409,7 +409,7 @@ export class CodeSession implements ICodeSess {
     //   throw new Error(`render hack issue missing: ${transHash}.`);
     // }
 
-    const newHashCheck = md5(newRecord.get("transpiled"));
+    const newHashCheck = newRecord.hashCode();
 
     if (newHashCheck === newHash) {
       this.session = this.session.set("state", newRecord);
@@ -432,7 +432,7 @@ export class CodeSession implements ICodeSess {
     this.session = user;
   }
 }
-
+export const hashKEY = (codeSpace: string) => sessions[codeSpace].session.hashCode();
 export const hashCode = (codeSpace: string) => md5(mST(codeSpace).transpiled);
 export function mST(codeSpace: string, p?: Delta[]) {
   // If (originStr) return addOrigin(session.json().state, originStr);
@@ -480,14 +480,14 @@ export const onSessionUpdate = (
   codeSpace: string,
 ) => sessions[codeSpace].onUpdate(fn, regId);
 export const makePatchFrom = (
-  n: string,
+  n: number,
   st: ICodeSession,
   // update?: (h: string) => void,
 ) => sessions[st.codeSpace].createPatchFromHashCode(n, st);
 export const makePatch = (
   st: ICodeSession,
   // update?: (h: string) => void,
-) => makePatchFrom(md5(mST(st.codeSpace).transpiled), st);
+) => makePatchFrom(hashKEY(st.codeSpace), st);
 
 export const startSession = (
   codeSpace: string,

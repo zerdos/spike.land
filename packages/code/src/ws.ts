@@ -232,8 +232,8 @@ let messagePort: MessagePort;
 // });
 
 type MessageProps = Partial<{
-  oldHash?: string;
-  newHash?: string;
+  oldHash?: number;
+  newHash?: number;
   name?: string;
   codeSpace: string;
   i?: number;
@@ -346,7 +346,7 @@ export const run = async () => {
 
   // setTimeout(() => {
   // });
-  wsLastHashCode = md5(mst.transpiled);
+  // wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {
@@ -516,23 +516,16 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
         newSession,
       );
 
-      const nnn = mST(newSession.codeSpace, message?.patch);
-
-      if (md5(nnn.transpiled) !== message?.newHash) {
-        console.log("SESS IS NOT OK");
-        return;
-      }
-
       console.log("alive4");
 
       if (!message) {
         return;
       }
 
-      if (message.newHash !== md5(newSession.transpiled)) {
-        // console.error("NEW hash is not even hashCode", hashCode());
-        return;
-      }
+      // if (message.newHash !== md5() {
+      // console.error("NEW hash is not even hashCode", hashCode());
+      // return;
+      // }
 
       console.log("alive5");
       // console.log("SYNC!!");
@@ -545,12 +538,8 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       const oldSession = mST(codeSpace);
       applyPatch(message, codeSpace);
 
-      const newSS = mST(codeSpace);
+      // const newSS = mST(codeSpace);
 
-      if (md5(mST(newSS.codeSpace, message.reversePatch).transpiled) !== message.oldHash) {
-        console.log("SESS IS NOT OK at all");
-        return;
-      }
       ws.send({
         newHash: message.newHash,
         oldHash: message.oldHash,
