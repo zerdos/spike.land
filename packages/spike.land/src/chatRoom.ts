@@ -16,7 +16,7 @@ import {
   // run,
   syncStorage,
 } from "@spike.land/code/src/session";
-import { hashCode, HTML, md5, mST, startSession } from "@spike.land/code/src/session";
+import { HTML, md5, mST, startSession } from "@spike.land/code/src/session";
 import type { Delta } from "@spike.land/code/src/session";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -222,7 +222,7 @@ export class Code {
 
         //   let deltaDiffs: Diff[][];
 
-        //   if (!delta || delta.hashCode !== hashCode()) {
+        //   if (!delta || delta.hashCode !== hashKEY()) {
         //     deltaDiffs = [];
         //   } else {
         //     deltaDiffs = delta.delta;
@@ -342,7 +342,7 @@ export class Code {
         //   return ATA();
         // }
         // case "hashCodeSession":
-        //   return new Response(hashCode().toString(), {
+        //   return new Response(hashKEY().toString(), {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
@@ -390,7 +390,7 @@ export class Code {
           return new Response(
             JSON.stringify({
               mST: mST(this.codeSpace),
-              hashCode: hashCode(this.codeSpace),
+              hashCode: hashKEY(this.codeSpace),
             }),
             {
               status: 200,
@@ -788,7 +788,7 @@ export class Code {
     this.sessions.push(session);
     this.sessions = this.sessions.filter(x => !x.quit);
     const users = this.sessions.filter(x => x.name).map(x => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashCode(this.codeSpace), users }));
+    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), users }));
 
     // this.sessions.forEach((otherSession) => {
     // if (otherSession.name) {
@@ -904,7 +904,7 @@ export class Code {
     // });
 
     //   if (data.hashCode) {
-    //     if (data?.hashCode !== hashCode(this.codeSpace)) {
+    //     if (data?.hashCode !== hashKEY(this.codeSpace)) {
     //       const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
     //       if (patch) {
     //         return respondWith({ ...patch });
@@ -923,7 +923,7 @@ export class Code {
     //   : null;
     // // return respondWith({
     //   ...(rtcConnUser ? { name: rtcConnUser } : {}),
-    //   hashCode: hashCode(this.codeSpace),
+    //   hashCode: hashKEY(this.codeSpace),
     //   users: this.users.keys(),
     // });
 
@@ -1034,7 +1034,7 @@ export class Code {
           //   return respondWith({ err });
           // }
 
-          // if (newHash === hashCode()) {
+          // if (newHash === hashKEY()) {
           try {
             this.broadcast(data);
           } catch {

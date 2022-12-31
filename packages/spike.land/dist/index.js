@@ -23819,7 +23819,7 @@ var Code = class {
           return new Response(
             JSON.stringify({
               mST: mST(this.codeSpace),
-              hashCode: hashCode3(this.codeSpace)
+              hashCode: hashKEY(this.codeSpace)
             }),
             {
               status: 200,
@@ -24138,7 +24138,7 @@ var Code = class {
     this.sessions.push(session);
     this.sessions = this.sessions.filter((x) => !x.quit);
     const users = this.sessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashCode3(this.codeSpace), users }));
+    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), users }));
     webSocket.addEventListener(
       "message",
       (msg) => this.processWsMessage(msg, session)
@@ -24266,7 +24266,7 @@ var Code = class {
             });
           }
           return respondWith({
-            hashCode: hashCode3(this.codeSpace)
+            hashCode: hashKEY(this.codeSpace)
           });
         }
       } catch (exp) {

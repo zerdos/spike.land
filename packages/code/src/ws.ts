@@ -11,7 +11,7 @@ import {
   type Delta,
   // type Delta,
   // CodeSession,
-  hashCode,
+  hashKEY,
   makePatch,
   // makePatch,
   // makePatchFrom,
@@ -60,7 +60,7 @@ const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnect
 // let _hash = "";
 
 // let address: string;
-let wsLastHashCode = "";
+let wsLastHashCode = 0;
 // let webRTCLastSeenHashCode = "";
 // let lastSeenTimestamp = 0;
 // let lastSeenNow = 0;
@@ -346,7 +346,7 @@ export const run = async () => {
 
   // setTimeout(() => {
   // });
-  // wsLastHashCode = md5(mst.transpiled);
+  wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {
@@ -380,7 +380,7 @@ export const run = async () => {
   //   if (
   //     event.data.codeSpace === codeSpace && event.data.name
   //   ) {
-  //     processData(event.data, "ws", { hashCode: hashCode() });
+  //     processData(event.data, "ws", { hashCode: hashKEY() });
   //   }
 
   //   if (
@@ -504,7 +504,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
     // console.log("alive1");
     if (ws) {
-      // if (wsLastHashCode === hashCode()) {
+      // if (wsLastHashCode === hashKEY()) {
       //   console.log("WS is up to date with us.");
       //   return;
       // }
@@ -516,6 +516,8 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
         newSession,
       );
 
+      const nnn = mST(newSession.codeSpace, message?.patch);
+
       console.log("alive4");
 
       if (!message) {
@@ -523,7 +525,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       }
 
       // if (message.newHash !== md5() {
-      // console.error("NEW hash is not even hashCode", hashCode());
+      // console.error("NEW hash is not even hashCode", hashKEY());
       // return;
       // }
 
@@ -615,7 +617,7 @@ async function startVideo() {
 // async function syncRTC() {
 //   try {
 //     if (Object.keys(rtcConns).length > 0) {
-//       if (webRTCLastSeenHashCode === hashCode()) {
+//       if (webRTCLastSeenHashCode === hashKEY()) {
 //         return;
 //       }
 
@@ -691,7 +693,7 @@ async function processData(
     return;
   }
 
-  if (data.newHash === hashCode(codeSpace)) {
+  if (data.newHash === hashKEY(codeSpace)) {
     return;
   }
 
@@ -703,7 +705,7 @@ async function processData(
     h[data.oldHash] = data.newHash;
   }
 
-  if (data.newHash === hashCode(codeSpace)) {
+  if (data.newHash === hashKEY(codeSpace)) {
     return;
   }
 
@@ -748,8 +750,8 @@ async function processData(
     }
   })();
 
-  if (data.patch && data.name !== user && data.oldHash == hashCode(codeSpace)) {
-    if (data.newHash === hashCode(codeSpace)) {
+  if (data.patch && data.name !== user && data.oldHash == hashKEY(codeSpace)) {
+    if (data.newHash === hashKEY(codeSpace)) {
       return;
     }
 
@@ -762,7 +764,7 @@ async function processData(
     await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
     await writeFile("/live/" + codeSpace + "/index.js", newSession.transpiled);
 
-    // if (data.newHash === hashCode(codeSpace)) {
+    // if (data.newHash === hashKEY(codeSpace)) {
     // if (sendChannel) {
     //   sendChannel.send({ hashCode: data.newHash });
     // }
@@ -779,7 +781,7 @@ async function processData(
     return;
   }
 
-  if (wsLastHashCode !== hashCode(codeSpace)) {
+  if (wsLastHashCode !== hashKEY(codeSpace)) {
     // Const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
     // const state = await resp.json();
 
@@ -880,7 +882,7 @@ async function processData(
           processWsMessage(
             message,
             "rtc",
-            // Object.assign(rtc, { hashCode: hashCode() }),
+            // Object.assign(rtc, { hashCode: hashKEY() }),
             // respond: (msg)=>{},
             // broadcast: ()=>{}
           ),
@@ -916,7 +918,7 @@ async function processData(
     // if (data && data.newHash) {
     // webRTCLastSeenHashCode = data.newHash;
     // }
-    // const extendedRTC = Object.assign(rtc, {hashCode: hashCode()})
+    // const extendedRTC = Object.assign(rtc, {hashCode: hashKEY()})
     // return processWsMessage(message, "rtc", extendedRTC);
     // });
 
