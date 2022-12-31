@@ -1394,11 +1394,8 @@ __metadata:
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
     buffer-browserify: "npm:^0.2.5"
-    comlink: "npm:^4.3.1"
-    constants: "npm:^0.0.2"
     csstype: "npm:3.1.1"
     detective-typescript: "npm:^9.0.0"
-    es-module-shims: "npm:1.6.2"
     esbuild: "npm:0.16.12"
     esbuild-plugin-alias: "npm:0.2.1"
     esbuild-plugin-external-global: "npm:1.0.1"
@@ -1558,16 +1555,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^8.4.10":
-  version: 8.4.10
-  resolution: "@types/eslint@npm:8.4.10"
-  dependencies:
-    "@types/estree": "npm:*"
-    "@types/json-schema": "npm:*"
-  checksum: 459bcef9a9b7994668c32f853285bea5004dfce293511cf4a9596bdd00ee345a978e96bb82c773c2b03c486847f17194c2fcf36900ee3532549fecd7680f5fc1
-  languageName: node
-  linkType: hard
-
 "@types/eslint@npm:^7.2.13":
   version: 7.29.0
   resolution: "@types/eslint@npm:7.29.0"
@@ -1575,6 +1562,16 @@ __metadata:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
   checksum: 0bc6a3a99cc02f13a5c21b618d750a793288fa98bf00604f56222de1ef32cbe5129f57e5e9ebd6e041c8a341d7cfbddb584393a457dc6e8a4809c3c7eedbce8d
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:^8.4.10":
+  version: 8.4.10
+  resolution: "@types/eslint@npm:8.4.10"
+  dependencies:
+    "@types/estree": "npm:*"
+    "@types/json-schema": "npm:*"
+  checksum: 459bcef9a9b7994668c32f853285bea5004dfce293511cf4a9596bdd00ee345a978e96bb82c773c2b03c486847f17194c2fcf36900ee3532549fecd7680f5fc1
   languageName: node
   linkType: hard
 
@@ -1788,15 +1785,6 @@ __metadata:
   version: 9.0.0
   resolution: "@types/uuid@npm:9.0.0"
   checksum: f834b8b23d48e80d79aad515934815b720e5d1646742804af99afad1df406467d4f5089893bca06ef67d41ebb58edfeb583dae47211b8d7eefdb666cf7ae93a7
-  languageName: node
-  linkType: hard
-
-"@types/xo@npm:^0.39.5":
-  version: 0.39.5
-  resolution: "@types/xo@npm:0.39.5"
-  dependencies:
-    "@types/eslint": "npm:*"
-  checksum: cbe5e183ac17f51ba3acceba8b5bb74517b8ff53b1b186e9b5977348f72239c9b21faf177ce7c26f70640992b3773cd6e022b137e6f19b41d684d6d8656a9025
   languageName: node
   linkType: hard
 
@@ -3341,13 +3329,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"comlink@npm:^4.3.1":
-  version: 4.3.1
-  resolution: "comlink@npm:4.3.1"
-  checksum: 2d2a95940e6ed8698e13ce836fdb34c93d5e8f2a7d48befb6dab3e87fac97fc5ea16f6d0899db71259aba56884264501777980f8f0e21784175bd9dd6d208f5c
-  languageName: node
-  linkType: hard
-
 "commander@npm:^5.1.0":
   version: 5.1.0
   resolution: "commander@npm:5.1.0"
@@ -3450,13 +3431,6 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: d286ffd439aac97472557325e6aa4cc3a2eefe495a70a9640b89508880db4bba1bd1b29bb011608c23033d884c84cac8da95c8f12ca0ec69ccc70d6d5f39c618
-  languageName: node
-  linkType: hard
-
-"constants@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "constants@npm:0.0.2"
-  checksum: bd711a310dc4d8dfcc1a8e1ade6e233ff52c95e12d7160fcd13eec22ecc4c6d6f9e429de4faa923ea256b04a61a119e160048b59b9b202769581f318c40f3829
   languageName: node
   linkType: hard
 
@@ -4054,13 +4028,6 @@ __metadata:
     string.prototype.trimstart: "npm:^1.0.6"
     unbox-primitive: "npm:^1.0.2"
   checksum: f3c8503dbbd916281c207ab47bba41b8be0bc4fad0c3efe1d2450bd53e363d6f7cff96a2b37f22328ffe7d708601830836db05336d40d847dbb90fca6348e981
-  languageName: node
-  linkType: hard
-
-"es-module-shims@npm:1.6.2":
-  version: 1.6.2
-  resolution: "es-module-shims@npm:1.6.2"
-  checksum: 5a27bb134e43580e14a9e8feaae745818f2778ed9af26d396f91c2093aa046e8da59bb174d63d0fc7d3e0be199f19adb253153125b4494e3c02070353413f5f2
   languageName: node
   linkType: hard
 
@@ -7650,7 +7617,6 @@ __metadata:
     "@types/eslint": "npm:^8.4.10"
     "@types/react": "npm:^18.0.26"
     "@types/react-dom": "npm:18.0.10"
-    "@types/xo": "npm:^0.39.5"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.1"
     "@typescript-eslint/parser": "npm:^5.47.1"
     cypress: "npm:12.2.0"

@@ -1,9 +1,3 @@
-// Import { createJsBlob } from "starter";
-// import {comlink} from "comlink"
-// import { hashCode } from "session";
-// import comlinkUmd from "comlink/dist/umd/comlink.js"
-// Import { string } from "prop-types";
-
 import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 
@@ -20,7 +14,6 @@ const imp: { [key: string]: string } = { ...importmap.imports };
 const importMasRes: { [k: string]: string } = {};
 Object.keys(imp).map((k) => Object.assign(importMasRes, { [k]: location.origin + imp[k] }));
 
-// import "es-module-shims";
 // Import { m } from "framer-motion";
 
 const mod = {
