@@ -28,7 +28,7 @@ import localForage from "localforage";
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 // import { esmTransform } from "runner";
-import { mkdir, readdir, readFile, writeFile } from "./fs";
+import { mkdir, readdir, readFile, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -257,6 +257,7 @@ const ws = {
 
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
+  fetch(`${origin}/live/${codeSpace}/session/head`);
   const root = (await readdir("/"));
 
   if (!root.includes("live")) await mkdir("/live");
@@ -267,27 +268,38 @@ export const run = async () => {
   // else console.log("dir already )(exists")
   const cs = await readdir(`/live/${codeSpace}`);
   // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
-  const mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
+  let mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
+  const head = await codeHistory.getItem<string>("head");
+  let hST: ICodeSession | null = null;
+  if (head) {
+    hST = await codeHistory.getItem<ICodeSession>(head)!;
+  }
+
+  if (hST && hST.i > mst.i) mst = hST!;
+
   if (!cs.includes("index.tsx")) {
     await writeFile(
       `/live/${codeSpace}/index.tsx`,
       mst.code,
     );
+  } else if (
+    mst.code !== await readFile(
+      `/live/${codeSpace}/index.tsx`,
+    )
+  ) {
+    await unlink(
+      `/live/${codeSpace}/index.tsx`,
+    );
+    await writeFile(
+      `/live/${codeSpace}/index.tsx`,
+      mst.code,
+    );
   }
-  mst.code = await readFile(
-    `/live/${codeSpace}/index.tsx`,
-  );
 
   // const codeHistory = localForage.createInstance({
   //   name: location.origin + `/live/${codeSpace}`,
   // });
   // const db = self.dbs[codeSpace];
-  // const head = await codeHistory.getItem<string>("head");
-  // let hST: ICodeSession | null = null;
-  // if (head) {
-  //   hST = await codeHistory.getItem<ICodeSession>(head);
-  // }
-  // const mst = ({ ...x, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mST;
 
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {
