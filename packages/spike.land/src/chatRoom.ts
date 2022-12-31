@@ -1,5 +1,6 @@
 import {
   // applyPatch,
+  // applyPatch,
   // addExtraModels,
   CodePatch,
   CodeSession,
@@ -7,13 +8,14 @@ import {
   // dealWithMissing,
   ICodeSession,
   importMapReplace,
+  patchSync,
   // initAta,
   // prettierJs,
   resetCSS,
   // run,
   syncStorage,
 } from "@spike.land/code/src/session";
-import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/src/session";
+import { hashCode, HTML, md5, mST, startSession } from "@spike.land/code/src/session";
 import type { Delta } from "@spike.land/code/src/session";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -29,7 +31,7 @@ interface WebsocketSession {
   name: string;
   webSocket: WebSocket;
   quit?: boolean;
-  blockedMessages: string[];
+  // blockedMessages: string[];
 }
 
 export class Code {
@@ -778,26 +780,26 @@ export class Code {
       name: "",
       quit: false,
       webSocket,
-      blockedMessages: [] as string[],
+      //   blockedMessages: [] as string[],
     };
     this.sessions.push(session);
 
-    this.sessions.forEach((otherSession) => {
-      if (otherSession.name) {
-        session.blockedMessages.push(
-          JSON.stringify({ name: otherSession.name }),
-        );
-      }
-    });
+    // this.sessions.forEach((otherSession) => {
+    // if (otherSession.name) {
+    // session.blockedMessages.push(
+    //   JSON.stringify({ name: otherSession.name }),
+    // );
+    //   }
+    // });
 
-    const storage = await this.kv.list({ reverse: true, limit: 100 });
-    const backlog = [...storage.values()];
-    backlog.reverse();
-    backlog.forEach((value) => {
-      session.blockedMessages.push(
-        typeof value === "string" ? value : JSON.stringify(value),
-      );
-    });
+    // const storage = await this.kv.list({ reverse: true, limit: 100 });
+    // const backlog = [...storage.values()];
+    // backlog.reverse();
+    // backlog.forEach((value) => {
+    // session.blockedMessages.push(
+    // typeof value === "string" ? value : JSON.stringify(value),
+    // );
+    // });
 
     webSocket.addEventListener(
       "message",
@@ -856,56 +858,75 @@ export class Code {
     }
 
     if (!name) {
-      if (data.name) {
-        session.name = data.name;
-
-        try {
-          this.sessions.map((otherSession) => {
-            if (otherSession === session) return;
-
-            if (otherSession.name === data.name) {
-              otherSession.name = "";
-              otherSession.blockedMessages.map((m) => session.webSocket.send(m));
-              otherSession.blockedMessages = [];
-            }
-          });
-
-          if (data.hashCode) {
-            if (data?.hashCode !== hashCode(this.codeSpace)) {
-              const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
-              if (patch) {
-                return respondWith({ ...patch });
-              }
-            }
-          }
-        } catch (e) {
-          respondWith({ error: "error while checked blocked messages" });
-        }
-
-        const userNode = this.users.insert(data.name);
-
-        const usersNum = this.users.keys().length;
-        const rtcConnUser = usersNum > 2
-          ? (userNode.parent?.key || userNode.left?.key || userNode.right?.key)
-          : null;
+      if (!data.name) {
         return respondWith({
-          ...(rtcConnUser ? { name: rtcConnUser } : {}),
-          hashCode: hashCode(this.codeSpace),
-          users: this.users.keys(),
+          msg: "no-name-no-party",
         });
       }
 
-      return respondWith({
-        msg: "no-name-no-party",
-      });
+      session.name = data.name;
     }
+
+    if (data.type == "handshake" && data.hashCode !== hashCode(this.codeSpace)) {
+      const HEAD = hashCode(this.codeSpace);
+      let commit = data.hashCode;
+      while (commit && commit !== HEAD) {
+        const oldNode = await this.kv.get<CodePatch>(commit);
+        const newNode = await this.kv.get<CodePatch>(oldNode!.newHash);
+        respondWith({
+          oldHash: commit,
+          newHash: oldNode!.newHash,
+          patch: oldNode!.patch,
+          reversePatch: newNode!.reversePatch,
+        });
+        commit = newNode?.newHash;
+      }
+      // const oldNode =  await this.kv.get<CodePatch>(commit);
+      // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
+    }
+    // try {
+    // this.sessions.map((otherSession) => {
+    //   if (otherSession === session) return;
+
+    //   if (otherSession.name === data.name) {
+    //     otherSession.name = "";
+    //     otherSession.blockedMessages.map((m) => session.webSocket.send(m));
+    //     otherSession.blockedMessages = [];
+    //   }
+    // });
+
+    //   if (data.hashCode) {
+    //     if (data?.hashCode !== hashCode(this.codeSpace)) {
+    //       const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
+    //       if (patch) {
+    //         return respondWith({ ...patch });
+    //       }
+    //     }
+    //   }
+    // } catch (e) {
+    //   respondWith({ error: "error while checked blocked messages" });
+    // }
+
+    // const userNode = this.users.insert(data.name);
+
+    // const usersNum = this.users.keys().length;
+    // const rtcConnUser = usersNum > 2
+    //   ? (userNode.parent?.key || userNode.left?.key || userNode.right?.key)
+    //   : null;
+    // // return respondWith({
+    //   ...(rtcConnUser ? { name: rtcConnUser } : {}),
+    //   hashCode: hashCode(this.codeSpace),
+    //   users: this.users.keys(),
+    // });
+
+    // }
     // this.i = data.i;
 
     // await this.mutex.runExclusive(async () => {
     // if (data.i < this.i) return;
-    if (data.codeSpace && data.address && !this.address) {
-      return this.broadcast(data);
-    }
+    // if (data.codeSpace && data.address && !this.address) {
+    //   return this.broadcast(data);
+    // }
 
     try {
       // if (
@@ -917,24 +938,6 @@ export class Code {
       // }
 
       try {
-        if (data.type == "handshake" && data.hashCode !== hashCode(this.codeSpace)) {
-          const HEAD = hashCode(this.codeSpace);
-          let commit = data.hashCode;
-          while (commit && commit !== HEAD) {
-            const oldNode = await this.kv.get<CodePatch>(commit);
-            const newNode = await this.kv.get<CodePatch>(oldNode!.newHash);
-            respondWith({
-              oldHash: commit,
-              newHash: oldNode!.newHash,
-              patch: oldNode!.patch,
-              reversePatch: newNode!.reversePatch,
-            });
-            commit = newNode?.newHash;
-          }
-          // const oldNode =  await this.kv.get<CodePatch>(commit);
-          // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
-        }
-
         if (
           data.target
           && data.type
@@ -995,13 +998,10 @@ export class Code {
                   error: "this.session is null!",
                 });
               }
-              this.session.patchSync(newSess, true);
-              // applyPatch({
-              //   oldHash,
-              //   newHash,
-              //   patch,
-              //   reversePatch,
-              // });
+              // this.session.patchSync(newSess, true);
+              patchSync(
+                newSess,
+              );
 
               this.sess = newSess;
             } else {
@@ -1121,7 +1121,7 @@ export class Code {
       } catch (err) {
         s.quit = true;
         this.users.remove(s.name);
-        s.blockedMessages.push(message);
+        // s.blockedMessages.push(message);
       }
     });
   }
