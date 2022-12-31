@@ -136,7 +136,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
 
 const codeHistory = localForage.createInstance({
-  name: location.origin + `/live/${codeSpace}`,
+  name: `/live/${codeSpace}`,
 });
 
 // const p2pcf = new P2PCF(client_id, room_id, {
