@@ -139,6 +139,7 @@ export const Editor: FC<
   };
 
   useEffect(() => {
+    if (i <= mST(codeSpace).i) return;
     runner({ code, counter: i, codeSpace, signal: controller.signal });
     return () => controller.abort();
   }, [code, i, codeSpace, controller.signal]);
