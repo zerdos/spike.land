@@ -306,13 +306,14 @@ export class CodeSession implements ICodeSess {
       this.session.get("state").merge(sess),
     );
     const newHash = md5(this.session.get("state").transpiled);
-    if (newHash !== oldHash) {
+    if (newHash !== oldHash && force !== true) {
       // console.log({ sess });\
-      queueMicrotask(() => {
-        this.createPatchFromHashCode(oldHash, mST(this.room));
-        this.update();
-      });
+      // queueMicrotask(() => {
+      // this.createPatchFromHashCode(oldHash, mST(this.room));
+      this.update();
+      // });
     }
+    return this.session;
   };
 
   // reverse = ({oldHash,

@@ -15,7 +15,7 @@ import {
 } from "@spike.land/code/src/session";
 import { hashCode, HTML, makePatchFrom, md5, mST, startSession } from "@spike.land/code/src/session";
 import type { Delta } from "@spike.land/code/src/session";
-import { Mutex } from "async-mutex";
+// import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
@@ -36,7 +36,7 @@ export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
   codeSpace: string;
-  mutex: Mutex;
+  // mutex: Mutex;
   sess: ICodeSession | null;
   sessionStarted: boolean;
   session: CodeSession | null = null;
@@ -59,7 +59,7 @@ export class Code {
     this.env = env;
     this.codeSpace = "";
     this.address = "";
-    this.mutex = new Mutex();
+    // this.mutex = new Mutex();
 
     this.state.blockConcurrencyWhile(async () => {
       // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
@@ -926,7 +926,12 @@ export class Code {
         ) {
           return this.user2user(data.target, { ...data, name });
         }
-        if (data.i <= mST(this.codeSpace).i) return;
+
+        if (data.i <= mST(this.codeSpace).i) {
+          return respondWith({
+            error: `data.i <= mST(this.codeSpace).i`,
+          });
+        }
 
         // const newHash = this.session!.applyPatch({
         //   newHash: data.newHash!,
@@ -947,7 +952,7 @@ export class Code {
         // }
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = mST(this.codeSpace);
-          let newSess = oldSession;
+          const newSess = mST(this.codeSpace, data.patch);
 
           if (md5(oldSession.transpiled) !== data.oldHash) {
             return respondWith({
@@ -955,14 +960,17 @@ export class Code {
             });
           }
 
-          try {
-            const patch = data.patch;
+          if (md5(newSess.transpiled) !== data.newHash) {
+            return respondWith({
+              error: `new hashes not matching`,
+            });
+          }
 
+          try {
             const newHash = data.newHash;
             // const oldHash = data.oldHash;
             // const reversePatch = data.reversePatch;
 
-            newSess = mST(this.codeSpace, patch);
             if (md5(newSess.transpiled) === newHash) {
               if (this.session === null) {
                 return respondWith({
