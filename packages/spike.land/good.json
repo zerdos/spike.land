@@ -155,10 +155,6 @@
         }
       ]
     },
-    "../../node_modules/async-mutex/index.mjs": {
-      "bytes": 8858,
-      "imports": []
-    },
     "../../node_modules/avl/src/utils.js": {
       "bytes": 3081,
       "imports": []
@@ -177,7 +173,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 37059,
+      "bytes": 37068,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
@@ -185,10 +181,6 @@
         },
         {
           "path": "../code/dist/session.mjs",
-          "kind": "import-statement"
-        },
-        {
-          "path": "../../node_modules/async-mutex/index.mjs",
           "kind": "import-statement"
         },
         {
@@ -306,7 +298,7 @@
           "bytesInOutput": 333357
         },
         "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
-          "bytesInOutput": 482416
+          "bytesInOutput": 482412
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -316,9 +308,6 @@
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 840
-        },
-        "../../node_modules/async-mutex/index.mjs": {
-          "bytesInOutput": 4887
         },
         "../../node_modules/avl/src/utils.js": {
           "bytesInOutput": 2081
@@ -330,7 +319,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 25039
+          "bytesInOutput": 25000
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -345,7 +334,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 933904
+      "bytes": 928929
     }
   }
 }
