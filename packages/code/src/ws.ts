@@ -346,7 +346,7 @@ export const run = async () => {
 
   // setTimeout(() => {
   // });
-  wsLastHashCode = md5(mst.transpiled);
+  // wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
   startSession(codeSpace, {
