@@ -554,7 +554,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       // const newSS = mST(codeSpace);
 
-      ws.send(message);
+      sharedWorker.port.postMessage(message);
 
       await syncDb(oldSession, newSession, message);
 
