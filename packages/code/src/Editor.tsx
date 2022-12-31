@@ -10,21 +10,12 @@ import { prettier } from "./prettier";
 import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
 import "monaco-editor/min/vs/editor/editor.main.css";
-import { wait } from "./wait.js";
-
-const mod = {
-  getValue: async () => "",
-
-  setValue: async (code: string) => {
-    if (code.length < 10) console.log(code);
-  },
-  getErrors: async () => [] as string[],
-  code: "",
-  counter: 0,
-  codeToSet: "",
-};
 
 // Export type IStandaloneCodeEditor = editor.Ist;
+let startedM = 0;
+let startedAce = 0;
+
+let controller = new AbortController();
 
 export const Editor: FC<
   {
@@ -34,82 +25,79 @@ export const Editor: FC<
   { codeSpace },
 ) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { i, code } = mST();
   const engine = isMobile() ? "ace" : "monaco";
 
   const [
     mySession,
     changeContent,
   ] = useState({
-    myCode: code,
-    counter: i,
+    code: mST().code,
+    i: mST().i,
     started: false,
-
-    onChange(_cb: () => void) {},
+    setValue: (_code: string) => null,
   });
 
-  mod.counter = mST().i;
-
   const {
-    myCode,
+    code,
+    i,
     started,
     // getValue,
-    onChange,
+    setValue,
   } = mySession;
-
-  mod.code = myCode;
 
   useEffect(() => {
     if (started) return;
+    const _code = code;
 
-    if (!ref?.current || started) {
-      return;
-    }
+    const start = async () => {
+      const code = await prettier(_code);
+      if (!ref?.current || started) {
+        return;
+      }
 
-    const container = ref?.current;
-    if (container === null) return;
+      const container = ref?.current;
+      if (container === null) return;
 
-    (engine === "monaco"
-      ? setMonaco(container, codeSpace)
-      : setAce(container, codeSpace)).then((res) => Object.assign(mod, { setValue: res?.setValue })).then(() =>
-        changeContent((x: typeof mySession) => ({ ...x, started: true }))
-      );
+      const { setValue } = await (engine === "monaco"
+        ? setMonaco(container, codeSpace)
+        : setAce(container, codeSpace)) as { setValue: (code: string) => null };
+
+      changeContent(x => ({ ...x, started: true, code, setValue }));
+    };
+    start();
   }, [started, ref.current]);
 
   // UseInsertionEffect(()=>{
 
   // })
-  useEffect(
-    () => {
-      mod.getErrors().then(console.log);
-      onChange(() =>
-        mod.getValue().then(() =>
-          changeContent((x: typeof mySession) => ({
-            ...x,
-            counter: mod.counter,
-            myCode: mod.code,
-          }))
-        )
-      );
-    },
-    [onChange, myCode, changeContent],
-  );
+  // useEffect(
+  //   () => {
+  //     // mod.getErrors().then(console.log);
+  //     onChange(() =>
+  //       mod.getValue().then(() =>
+  //         changeContent((x: typeof mySession) => ({
+  //           ...x,
+  //           counter: mod.counter,
+  //           myCode: mod.code,
+  //         }))
+  //       )
+  //     );
+  //   },
+  //   [onChange, myCode, changeContent],
+  // );
 
   onSessionUpdate(async () => {
-    if (mod.counter >= mST().i) {
-      return;
-    }
+    const { i } = mST();
+    const code = await prettier(mST().code);
 
-    const { i, code } = mST();
     if (!code) return;
-    mod.setValue(code);
-    mod.code = code;
-    mod.counter = i;
 
+    if (i !== mST().i) return;
+    setValue(code);
     changeContent((x: typeof mySession) => ({
       ...x,
-      counter: i,
-      myCode: code,
+      i,
+      code,
     }));
   }, "editor");
 
@@ -134,6 +122,7 @@ export const Editor: FC<
     `}
     />
   );
+
   if (engine === "ace") return EditorNode;
 
   return (
@@ -159,63 +148,56 @@ export const Editor: FC<
       {EditorNode}
     </Rnd>
   );
+
+  async function onModChange(_code: string, codeSpace: string) {
+    // console.log(_code);
+
+    controller.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+    const counter = i + 1;
+    const c = await prettier(_code);
+
+    if (signal.aborted) return;
+    if (!c || code === c || signal.aborted) return;
+    changeContent((x: typeof mySession) => ({
+      ...x,
+      i,
+      code: c,
+    }));
+    runner({ code: c, counter, codeSpace, signal });
+  }
+
+  async function setMonaco(container: HTMLDivElement, codeSpace: string) {
+    if (startedM) return;
+    startedM = 1;
+    const link = document.createElement("link");
+    link.setAttribute("rel", "stylesheet");
+    link.href = origin + "/Editor.css";
+    document.head.append(link);
+    const { startMonaco } = await import("./startMonaco");
+    return await startMonaco({
+      container,
+      codeSpace,
+      i: mST().i,
+      code: mST().code,
+      onChange: (code) => onModChange(code, codeSpace),
+    });
+  }
+
+  async function setAce(container: HTMLDivElement, codeSpace: string) {
+    if (startedAce) return;
+    startedAce = 1;
+    const { startAce } = await import("./startAce");
+
+    return await startAce(
+      mST().code,
+      (code) => onModChange(code, codeSpace),
+      container,
+    );
+  }
 };
 
 // let room = new AbortController();
-let controller = new AbortController();
-controller.abort();
+
 // room.abort();
-async function onModChange(_code: string, codeSpace: string) {
-  console.log(_code);
-  if (!controller.signal.aborted) {
-    const oldctr = controller;
-    controller = new AbortController();
-    const mySig = controller.signal;
-
-    await wait(300);
-    oldctr.abort();
-    if (mySig.aborted) return;
-  }
-  controller.abort();
-  controller = new AbortController();
-  const signal = controller.signal;
-  const code = await prettier(_code);
-  if (!code) return;
-  if (signal.aborted) return;
-  if (code === await prettier(mod.code)) return;
-
-  if (signal.aborted) return;
-  const counter = ++mod.counter;
-  mod.code = code;
-  if (signal.aborted) return;
-  runner({ code, counter, codeSpace, signal });
-}
-let startedM = 0;
-async function setMonaco(container: HTMLDivElement, codeSpace: string) {
-  if (startedM) return;
-  startedM = 1;
-  const link = document.createElement("link");
-  link.setAttribute("rel", "stylesheet");
-  link.href = origin + "/Editor.css";
-  document.head.append(link);
-  const { startMonaco } = await import("./startMonaco");
-  return await startMonaco({
-    container,
-    codeSpace,
-    i: mST().i,
-    code: mST().code,
-    onChange: (code) => onModChange(code, codeSpace),
-  });
-}
-let startedAce = 0;
-async function setAce(container: HTMLDivElement, codeSpace: string) {
-  if (startedAce) return;
-  startedAce = 1;
-  const { startAce } = await import("./startAce");
-
-  return await startAce(
-    mST().code,
-    (code) => onModChange(code, codeSpace),
-    container,
-  );
-}

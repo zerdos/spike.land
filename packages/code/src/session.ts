@@ -202,7 +202,7 @@ export class CodeSession implements ICodeSess {
   createPatchFromHashCode = (
     oldHash: string,
     state: ICodeSession,
-    updateHash?: (h: string) => void,
+    // updateHash?: (h: string) => void,
   ) => {
     const s = JSON.parse(string_(state));
 
@@ -486,8 +486,8 @@ export const onSessionUpdate = (
 export const makePatchFrom = (
   n: string,
   st: ICodeSession,
-  update?: (h: string) => void,
-) => (session!).createPatchFromHashCode(n, st, update);
+  // update?: (h: string) => void,
+) => (session!).createPatchFromHashCode(n, st);
 export const makePatch = (
   st: ICodeSession,
   update?: (h: string) => void,
