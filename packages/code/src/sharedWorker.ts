@@ -27,7 +27,7 @@ async function send(codeSpace: string, msg: object, name: string) {
   }
 
   await wait(200);
-  if (mod[codeSpace].isOpen()) reconnect(codeSpace, name);
+  if (!mod[codeSpace] || !mod[codeSpace].isOpen()) reconnect(codeSpace, name);
 }
 
 // async function ata(code: string, baseUrl: string) {
@@ -243,25 +243,25 @@ function reconnect(codeSpace: string, name: string) {
   );
 
   websocket.onopen = () => {
-    mod[codeSpace] = {
+    const w: typeof mod[0] = mod[codeSpace] = {
       blockedMessages: [],
       socket: websocket,
-      isOpen: () => mod[codeSpace].socket.readyState === WebSocket.OPEN,
+      isOpen: () => w.socket.readyState === WebSocket.OPEN,
       send: (msg: object) => {
-        mod[codeSpace].blockedMessages.push(msg);
+        w.blockedMessages.push(msg);
 
         while (
-          mod[codeSpace].isOpen()
-          && mod[codeSpace].blockedMessages.length
+          w.isOpen()
+          && w.blockedMessages.length
         ) {
-          const mess = mod[codeSpace].blockedMessages.shift();
+          const mess = w.blockedMessages.shift();
           console.log({ mess });
-          if (mess) mod[codeSpace].socket.send(JSON.stringify(mess));
+          if (mess) w.socket.send(JSON.stringify(mess));
         }
       },
     };
 
-    mod[codeSpace].send({ name });
+    w.send({ name });
   };
 
   websocket.onmessage = async (ev) => {
