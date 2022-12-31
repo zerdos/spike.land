@@ -24171,7 +24171,7 @@ var Code = class {
       session.name = data.name;
     }
     if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
-      const HEAD = hashCode3(this.codeSpace);
+      const HEAD = await this.kv.get("head");
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get(commit);

@@ -173,7 +173,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 38017,
+      "bytes": 38027,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
