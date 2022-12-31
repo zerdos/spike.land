@@ -184,7 +184,7 @@ async function onModChange(_code: string, codeSpace: string) {
   if (signal.aborted) return;
   if (code === await prettier(mod.code)) return;
 
-  if (controller.signal.aborted) return;
+  if (signal.aborted) return;
   const counter = ++mod.counter;
   mod.code = code;
   if (signal.aborted) return;

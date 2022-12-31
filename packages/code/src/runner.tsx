@@ -86,6 +86,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
   counter: number;
   signal: AbortSignal;
 }) {
+  console.log({ counter });
   if (counter <= counterMax) return;
   // if (!rpcProvider) {
   // rpcProvider = new RpcProvider(
