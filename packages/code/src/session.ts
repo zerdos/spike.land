@@ -92,7 +92,7 @@ export const syncStorage = async (
 ) => {
   const setItem = (k, v) => _setItem(String(k), v);
 
-  const getItem = (k) => _get(String(k));
+  const getItem = (k) => _getItem(String(k));
   const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
