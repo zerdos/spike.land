@@ -23803,6 +23803,13 @@ var Code = class {
         throw Error("cant get the starter session");
       this.address = await this.kv.get("address") || "";
       this.sess = session;
+      this.codeSpace = session.codeSpace || "";
+      if (this.sess.codeSpace) {
+        this.session = startSession(
+          this.codeSpace,
+          { state: session, name: this.user }
+        );
+      }
       this.sessionStarted = false;
     });
   }
@@ -23823,19 +23830,21 @@ var Code = class {
   sessions;
   i = 0;
   wait = (x) => {
-    this.waiting = this.waiting.filter((x2) => !x2());
+    this.waiting = this.waiting.filter((x2) => !x2()) || [];
     if (x && !x())
       this.waiting.push(x);
   };
   async fetch(request) {
-    const state = this.sess;
     const url = new URL(request.url);
     this.wait();
-    this.codeSpace = url.searchParams.get("room") || "code-main";
-    if (!this.session) {
+    if (!this.codeSpace) {
+      this.codeSpace = url.searchParams.get("room") || "code-main";
+      this.codeSpace = url.searchParams.get("room") || "code-main";
+      this.sess.codeSpace = this.codeSpace;
+      await this.kv.put("session", this.sess);
       this.session = startSession(
         this.codeSpace,
-        { state, name: this.codeSpace }
+        { state: this.sess, name: this.codeSpace }
       );
       this.sessionStarted = true;
     }
