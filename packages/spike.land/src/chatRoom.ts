@@ -55,6 +55,7 @@ export class Code {
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
+
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;
@@ -65,7 +66,7 @@ export class Code {
 
     this.state.blockConcurrencyWhile(async () => {
       // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
-      const session = await this.kv.get<ICodeSession>("session")
+      const session = await this.kv.get<ICodeSession>("session", { allowConcurrency: true })
         || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
           "session.json",
         ).then((x) => x.json());
@@ -78,7 +79,7 @@ export class Code {
       //   session.html = s.html;
       //   session.css = s.css;
       // }
-      this.address = await this.kv.get<string>("address") || "";
+      this.address = await this.kv.get<string>("address", { allowConcurrency: true }) || "";
       this.sess = session;
       this.codeSpace = session.codeSpace || "";
       if (this.sess.codeSpace) {
@@ -108,7 +109,7 @@ export class Code {
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.sess!.codeSpace = this.codeSpace;
 
-      await this.kv.put("session", this.sess!);
+      await this.kv.put("session", this.sess!, { allowConcurrency: true });
 
       this.session = startSession(
         this.codeSpace,
@@ -155,7 +156,7 @@ export class Code {
         case "session.json":
         case "session": {
           if (path[1]) {
-            let session = await this.kv.get<string | object>(path[1]);
+            let session = await this.kv.get<string | object>(path[1], { allowConcurrency: true });
             if (session) {
               if (typeof session !== "string") {
                 session = JSON.stringify(session);
@@ -262,7 +263,7 @@ export class Code {
           });
         }
         case "list": {
-          const list = await this.kv.list();
+          const list = await this.kv.list({ allowConcurrency: true });
 
           return new Response(JSON.stringify({ ...list }), {
             status: 200,
@@ -549,6 +550,7 @@ export class Code {
           const hashCode = String(Number(path[1]));
           const patch = await this.kv.get<{ patch: string; oldHash: number }>(
             hashCode,
+            { allowConcurrency: true },
           );
 
           return new Response(JSON.stringify(patch || {}), {
@@ -837,7 +839,7 @@ export class Code {
       name?: string;
       codeSpace?: string;
       target?: string;
-      type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake";
+      type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "fetch";
       patch?: Delta[];
       reversePatch: Delta[];
       address?: string;
@@ -872,12 +874,12 @@ export class Code {
       session.name = name;
     }
 
-    if (data.type == "handshake" && data.hashCode !== hashCode(this.codeSpace)) {
+    if (data.type == "fetch") {
       const HEAD = hashCode(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
-        const oldNode = await this.kv.get<CodePatch>(commit);
-        const newNode = await this.kv.get<CodePatch>(oldNode!.newHash);
+        const oldNode = await this.kv.get<CodePatch>(commit, { allowConcurrency: true });
+        const newNode = await this.kv.get<CodePatch>(oldNode!.newHash, { allowConcurrency: true });
         respondWith({
           oldHash: commit,
           newHash: oldNode!.newHash,
@@ -1041,16 +1043,17 @@ export class Code {
           }
 
           try {
-            await this.kv.put<ICodeSession>("session", newSess);
+            await this.kv.put<ICodeSession>("session", newSess, { allowConcurrency: true });
 
-            const syncKV = (
+            const syncKV = async (
               oldSession: ICodeSession,
               newSess: ICodeSession,
               message: CodePatch,
             ) =>
-              syncStorage(
-                (key: string, value: unknown) => this.kv.put(key, value) as unknown as Promise<unknown>,
-                (key: string) => this.kv.get(key),
+              await syncStorage(
+                async (key: string, value: unknown) =>
+                  await this.kv.put(key, value, { allowConcurrency: true }) as unknown as Promise<unknown>,
+                async (key: string) => await this.kv.get(key, { allowConcurrency: true }),
                 oldSession,
                 newSess,
                 message,

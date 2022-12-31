@@ -23618,12 +23618,12 @@ var Code = class {
     this.codeSpace = "";
     this.address = "";
     this.state.blockConcurrencyWhile(async () => {
-      const session = await this.kv.get("session") || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
+      const session = await this.kv.get("session", { allowConcurrency: true }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
         "session.json"
       ).then((x) => x.json());
       if (!session)
         throw Error("cant get the starter session");
-      this.address = await this.kv.get("address") || "";
+      this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
       this.sess = session;
       this.codeSpace = session.codeSpace || "";
       if (this.sess.codeSpace) {
@@ -23662,7 +23662,7 @@ var Code = class {
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.sess.codeSpace = this.codeSpace;
-      await this.kv.put("session", this.sess);
+      await this.kv.put("session", this.sess, { allowConcurrency: true });
       this.session = startSession(
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
@@ -23704,7 +23704,7 @@ var Code = class {
         case "session.json":
         case "session": {
           if (path[1]) {
-            let session = await this.kv.get(path[1]);
+            let session = await this.kv.get(path[1], { allowConcurrency: true });
             if (session) {
               if (typeof session !== "string") {
                 session = JSON.stringify(session);
@@ -23774,7 +23774,7 @@ var Code = class {
           });
         }
         case "list": {
-          const list = await this.kv.list();
+          const list = await this.kv.list({ allowConcurrency: true });
           return new Response(JSON.stringify({ ...list }), {
             status: 200,
             headers: {
@@ -23971,7 +23971,8 @@ var Code = class {
         case "hashCode": {
           const hashCode4 = String(Number(path[1]));
           const patch = await this.kv.get(
-            hashCode4
+            hashCode4,
+            { allowConcurrency: true }
           );
           return new Response(JSON.stringify(patch || {}), {
             status: 200,
@@ -24173,12 +24174,12 @@ var Code = class {
       this.sessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
       session.name = name;
     }
-    if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
+    if (data.type == "fetch") {
       const HEAD = hashCode3(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
-        const oldNode = await this.kv.get(commit);
-        const newNode = await this.kv.get(oldNode.newHash);
+        const oldNode = await this.kv.get(commit, { allowConcurrency: true });
+        const newNode = await this.kv.get(oldNode.newHash, { allowConcurrency: true });
         respondWith({
           oldHash: commit,
           newHash: oldNode.newHash,
@@ -24241,10 +24242,10 @@ var Code = class {
             });
           }
           try {
-            await this.kv.put("session", newSess);
-            const syncKV = (oldSession2, newSess2, message) => syncStorage(
-              (key, value) => this.kv.put(key, value),
-              (key) => this.kv.get(key),
+            await this.kv.put("session", newSess, { allowConcurrency: true });
+            const syncKV = async (oldSession2, newSess2, message) => await syncStorage(
+              async (key, value) => await this.kv.put(key, value, { allowConcurrency: true }),
+              async (key) => await this.kv.get(key, { allowConcurrency: true }),
               oldSession2,
               newSess2,
               message
