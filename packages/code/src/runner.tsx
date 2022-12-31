@@ -1,6 +1,6 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
-import { buildT } from "./esbuildEsm";
+// import { buildT } from "./esbuildEsm";
 import { esmTransform } from "./esmTran";
 import { syncWS } from "./ws";
 
@@ -95,6 +95,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
   // iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
   // }
   counterMax = counter;
+  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
   // await mutex.runExclusive(async () => {
   // Console.log({ i, counter });
@@ -126,6 +127,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
       await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     }
 
+    BC.postMessage({ i: counter });
     if (iframe) {
       iframe.remove();
     }
@@ -146,8 +148,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
         if (signal.aborted) return;
         await syncWS({ ...mST(), html, css, code, transpiled, i: counter }, signal);
 
-        const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-        BC.postMessage({ html, css, code, transpiled, i: counter });
+        // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+        // BC.postMessage({ html, css, code, transpiled, i: counter });
         // await buildT(codeSpace, location.origin, signal, true);
         // BCbundle.postMessage({ counterMax });
       }
