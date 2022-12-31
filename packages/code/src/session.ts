@@ -92,9 +92,12 @@ export const syncStorage = async (
 ) => {
   const setItem = (k, v) => _setItem(String(k), v);
 
-  const getItem = (k) => _getItem(String(k));
+  const getItem = (k: number) =>
+    _getItem(String(k)) as unknown as GetItem<
+      { oldHash: number; reversePatch?: typeof message.reversePatch }
+    >;
   const hashOfOldSession = Record(oldSession)().hashCode();
-  let historyHead = await getItem("head");
+  let historyHead = (await _getItem("head")) as unknown as number;
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
@@ -111,13 +114,9 @@ export const syncStorage = async (
   //   newHash: message.newHash,
   //   patch: message.patch,
   // });
-  const oldNode = await (getItem as unknown as GetItem<
-    { oldHash: number; reversePatch?: typeof message.reversePatch }
-  >)(
-    message.oldHash,
-  );
+  const oldNode = (await getItem(historyHead)) as unknown as CodePatch;
   // if (!oldNode) throw Error("corrupt storage");
-  await setItem(message.oldHash, {
+  await setItem(historyHead, {
     i: oldSession.i,
     newHash: message.newHash,
     patch: message.patch,

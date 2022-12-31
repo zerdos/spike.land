@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-3UNVCTI6.mjs
+// ../code/dist/chunk-chunk-BEI3DEEW.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8731,7 +8731,7 @@ var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, 
   const setItem = /* @__PURE__ */ __name((k, v) => _setItem(String(k), v), "setItem");
   const getItem = /* @__PURE__ */ __name((k) => _getItem(String(k)), "getItem");
   const hashOfOldSession = Record(oldSession)().hashCode();
-  let historyHead = await getItem("head");
+  let historyHead = await _getItem("head");
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
@@ -8742,10 +8742,8 @@ var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, 
     oldHash: message.oldHash,
     reversePatch: message.reversePatch
   });
-  const oldNode = await getItem(
-    message.oldHash
-  );
-  await setItem(message.oldHash, {
+  const oldNode = await getItem(historyHead);
+  await setItem(historyHead, {
     i: oldSession.i,
     newHash: message.newHash,
     patch: message.patch,
