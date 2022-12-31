@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-BEI3DEEW.mjs
+// ../code/dist/chunk-chunk-4J4VKEZ3.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8744,10 +8744,10 @@ var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, 
   });
   const oldNode = await getItem(historyHead);
   await setItem(historyHead, {
-    i: oldSession.i,
     newHash: message.newHash,
     patch: message.patch,
     ...oldNode ? {
+      i: oldNode.i,
       oldHash: oldNode.oldHash,
       reversePatch: oldNode.reversePatch
     } : {

@@ -21,6 +21,8 @@ import {
   syncStorage,
 } from "./session";
 
+import { Mutex } from "async-mutex";
+
 import localForage from "localforage";
 
 // Import * as FS from '@isomorphic/-git/lightning-fs';
@@ -493,6 +495,7 @@ const syncDb = async (
 // };
 // let controller = new AbortController();
 
+const mutex = new Mutex();
 export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
   try {
     // console.log("SYNC!!");
@@ -516,8 +519,6 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
         newSession,
       );
 
-      const nnn = mST(newSession.codeSpace, message?.patch);
-
       console.log("alive4");
 
       if (!message) {
@@ -538,6 +539,10 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       if (signal.aborted) return;
 
       const oldSession = mST(codeSpace);
+
+      await mutex.waitForUnlock();
+      mutex.acquire();
+
       applyPatch(message, codeSpace);
 
       // const newSS = mST(codeSpace);
@@ -553,6 +558,8 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       });
 
       await syncDb(oldSession, newSession, message);
+
+      mutex.release();
     }
   } catch (error) {
     console.error("error 2", { e: error });

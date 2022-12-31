@@ -117,12 +117,12 @@ export const syncStorage = async (
   const oldNode = (await getItem(historyHead)) as unknown as CodePatch;
   // if (!oldNode) throw Error("corrupt storage");
   await setItem(historyHead, {
-    i: oldSession.i,
     newHash: message.newHash,
     patch: message.patch,
 
     ...(oldNode
       ? {
+        i: oldNode.i,
         oldHash: oldNode.oldHash,
         reversePatch: oldNode.reversePatch,
       }
