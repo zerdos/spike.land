@@ -326,7 +326,7 @@ function reconnect(codeSpace: string) {
           patch: Delta[];
           reversePatch: Delta[];
         }
-      >(hash);
+      >("#" + hash);
 
       if (old) {
         const next = await db.getItem<
@@ -337,7 +337,7 @@ function reconnect(codeSpace: string) {
             reversePatch: Delta[];
           }
         >(
-          old.newHash,
+          "#" + old.newHash,
         );
         if (next) {
           return mod[codeSpace].send(
