@@ -131,7 +131,7 @@ type IApplyPatch = (
 ) => void;
 
 type ICodeSess = {
-  hashOfState: () => string;
+  hashOfState: () => number;
   applyPatch: IApplyPatch;
   createPatchFromHashCode: (
     c: number,
@@ -192,12 +192,12 @@ export class CodeSession implements ICodeSess {
       ...user,
       state: savedState ? savedState : JSON.parse(string_({ ...user.state, codeSpace })),
     })();
-    hashStore[md5(user.state.transpiled)] = this.session.get("state");
+    hashStore[hashKEY(codeSpace)] = this.session.get("state");
   }
 
   hashOfState = () => {
     const state = this.session.get("state");
-    const hashCode = md5(state.transpiled);
+    const hashCode = state.hashCode();
     hashStore[hashCode] = state;
     return hashCode;
   };
@@ -301,12 +301,12 @@ export class CodeSession implements ICodeSess {
       }
     }
 
-    const oldHash = md5(this.session.get("state").transpiled);
+    const oldHash = this.session.get("state").hashCode();
     this.session = this.session.set(
       "state",
       this.session.get("state").merge(sess),
     );
-    const newHash = md5(this.session.get("state").transpiled);
+    const newHash = this.session.get("state").hashCode();
     if (newHash !== oldHash && force !== true) {
       // console.log({ sess });\
       // queueMicrotask(() => {
