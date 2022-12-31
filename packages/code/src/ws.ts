@@ -312,6 +312,7 @@ export const run = async () => {
         messagePort.postMessage(messageData);
       };
       messagePort.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
+      ws.send({ type: "handshake" });
     } else {
       try {
         const data = JSON.parse(ab2str(ev.data));
