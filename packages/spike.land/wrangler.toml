@@ -30,6 +30,7 @@ bucket = "../../packages/code/dist" # Add the directory with your static assets
 
 [env.testing]
 name = "testing-spike-land"
+usage_model = "unbound"
 
 
 [[env.testing.migrations]]
