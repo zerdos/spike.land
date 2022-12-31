@@ -28,7 +28,7 @@ import localForage from "localforage";
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 // import { esmTransform } from "runner";
-import { mkdir, readdir, readFile, unlink, writeFile } from "./fs";
+import { mkdir, readdir, readFile, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -275,15 +275,15 @@ export const run = async () => {
     `/live/${codeSpace}/index.tsx`,
   );
 
-  const codeHistory = localForage.createInstance({
-    name: location.origin + `/live/${codeSpace}`,
-  });
+  // const codeHistory = localForage.createInstance({
+  //   name: location.origin + `/live/${codeSpace}`,
+  // });
   // const db = self.dbs[codeSpace];
-  const head = await codeHistory.getItem<string>("head");
-  let hST: ICodeSession | null = null;
-  if (head) {
-    hST = await codeHistory.getItem<ICodeSession>(head);
-  }
+  // const head = await codeHistory.getItem<string>("head");
+  // let hST: ICodeSession | null = null;
+  // if (head) {
+  //   hST = await codeHistory.getItem<ICodeSession>(head);
+  // }
   // const mst = ({ ...x, mST: { ...startState.mST, ...(hST ? hST : {}) } }).mST;
 
   // codeSpace = startState.codeSpace;
