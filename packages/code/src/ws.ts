@@ -459,8 +459,8 @@ const syncDb = async (
   message: CodePatch,
 ) =>
   await syncStorage(
-    async (k: string | number, value) => await codeHistory.setItem("#" + String(k), value),
-    async (key: string | number) => await codeHistory.getItem("#" + String(key)),
+    async (k: string | number, value) => await codeHistory.setItem(String(k), value),
+    async (key: string | number) => await codeHistory.getItem(String(key)),
     oldSession,
     newSession,
     message,
