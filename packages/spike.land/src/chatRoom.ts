@@ -868,7 +868,7 @@ export class Code {
     }
 
     if (data.type == "handshake" && data.hashCode !== hashCode(this.codeSpace)) {
-      const HEAD = hashCode(this.codeSpace);
+      const HEAD = await this.kv.get<string>("head")!;
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get<CodePatch>(commit);
