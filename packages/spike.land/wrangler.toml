@@ -27,6 +27,9 @@ new_classes = ["Users"] # Array of new classes
 [site]
 bucket = "../../packages/code/dist" # Add the directory with your static assets
 
+[[build.upload.rules]]
+type = "CompiledWasm"
+globs = ["dist/**/*.wasm"]
 
 [env.testing]
 name = "testing-spike-land"
