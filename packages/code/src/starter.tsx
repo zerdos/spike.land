@@ -33,7 +33,7 @@ export const createIframe = async (cs: string, counter: number) => {
       modz[cs] = counter;
 
       let MST: ICodeSession;
-      if (cs === codeSpace) MST = mST();
+      if (cs === codeSpace) MST = mST(codeSpace);
       else {
         MST = await fetch(`/live/${cs}/session.json`).then((x) => x.json() as Promise<ICodeSession>);
       }
@@ -214,7 +214,7 @@ let lastSuccessful = "";
 
 async function moveToWorker(nameSpace: string, parent: HTMLElement) {
   const { i } = nameSpace === codeSpace
-    ? mST()
+    ? mST(codeSpace)
     : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = parent?.getElementsByTagName("div")[0]!;
   div.style.height = "100%";
@@ -236,9 +236,13 @@ const myApps: { [key: string]: FC } = {};
 const myAppCounters: { [key: string]: number } = {};
 let controller: AbortController;
 
-onSessionUpdate(() => {
-  if (controller) controller.abort();
-}, "abort");
+onSessionUpdate(
+  () => {
+    if (controller) controller.abort();
+  },
+  codeSpace,
+  "abort",
+);
 
 export { md5 };
 
@@ -377,7 +381,7 @@ export async function appFactory(
 ): Promise<FC<{ appId: string }>> {
   // }
 
-  const { transpiled: mstTranspiled, i: mstI } = mST();
+  const { transpiled: mstTranspiled, i: mstI } = mST(codeSpace);
   const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
   if (transpiled) console.log({ transpiled });
   const hash = md5(trp);

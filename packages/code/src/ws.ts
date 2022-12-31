@@ -306,7 +306,7 @@ export const run = async () => {
           patch?: Delta[];
         },
       ) => {
-        const messageData = { codeSpace, name: user, ...message, sess: mST() };
+        const messageData = { codeSpace, name: user, ...message, sess: mST(codeSpace) };
         console.log("POST MESSAGE", { messageData });
         if (
           messageData.oldHash && messageData.oldHash === messageData.newHash
@@ -479,7 +479,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
     console.log({ newSession });
     // controller.abort();
     // controller = new AbortController();
-    const oldSession = mST();
+    const oldSession = mST(newSession.codeSpace);
 
     console.log("alive1");
     if (ws) {
@@ -495,7 +495,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
         newSession,
       );
 
-      const nnn = mST(message?.patch);
+      const nnn = mST(newSession.codeSpace, message?.patch);
 
       if (md5(nnn.transpiled) !== message?.newHash) {
         console.log("SESS IS NOT OK");
@@ -522,7 +522,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       if (message.oldHash === message.newHash) return;
       if (signal.aborted) return;
       applyPatch(message);
-      if (md5(mST(message.reversePatch).transpiled) !== message.oldHash) {
+      if (md5(mST(newSession.codeSpace, message.reversePatch).transpiled) !== message.oldHash) {
         console.log("SESS IS NOT OK at all");
         return;
       }
@@ -643,14 +643,14 @@ async function processData(
   source: "ws" | "rtc",
 ) {
   console.log(
-    `source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST().i}`,
+    `source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST(codeSpace).i}`,
   );
 
-  if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
+  if (source === "ws" && data.i && data.i <= mST(codeSpace).i && data.newHash) {
     wsLastHashCode = data.newHash || data.hashCode;
     return;
   }
-  if (source === "ws" && data.i && data.i <= mST().i && data.newHash) {
+  if (source === "ws" && data.i && data.i <= mST(codeSpace).i && data.newHash) {
     wsLastHashCode = data.newHash || data.hashCode;
     return;
   }
@@ -676,7 +676,7 @@ async function processData(
     return;
   }
 
-  if (data.newHash === hashCode()) {
+  if (data.newHash === hashCode(codeSpace)) {
     return;
   }
 
@@ -688,7 +688,7 @@ async function processData(
     h[data.oldHash] = data.newHash;
   }
 
-  if (data.newHash === hashCode()) {
+  if (data.newHash === hashCode(codeSpace)) {
     return;
   }
 
@@ -734,16 +734,16 @@ async function processData(
   })();
 
   if (data.patch && data.name !== user) {
-    if (data.newHash === hashCode()) {
+    if (data.newHash === hashCode(codeSpace)) {
       return;
     }
 
-    const oldSession = mST();
+    const oldSession = mST(codeSpace);
     applyPatch(data);
-    const newSession = mST();
+    const newSession = mST(codeSpace);
     await syncDb(oldSession, newSession, data);
 
-    if (data.newHash === hashCode()) {
+    if (data.newHash === hashCode(codeSpace)) {
       if (sendChannel) {
         sendChannel.send({ hashCode: data.newHash });
       }
@@ -760,7 +760,7 @@ async function processData(
     return;
   }
 
-  if (wsLastHashCode !== hashCode()) {
+  if (wsLastHashCode !== hashCode(codeSpace)) {
     // Const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
     // const state = await resp.json();
 

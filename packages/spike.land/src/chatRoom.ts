@@ -104,7 +104,7 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
-      const { code, transpiled, css, html, i } = mST();
+      const { code, transpiled, css, html, i } = mST(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
@@ -123,7 +123,7 @@ export class Code {
           });
 
         case "index.trans.js": {
-          const trp = await esmTransform(mST().code, url.origin);
+          const trp = await esmTransform(mST(this.codeSpace).code, url.origin);
           return new Response(trp, {
             status: 200,
             headers: {
@@ -173,7 +173,7 @@ export class Code {
               );
             }
           }
-          const body = JSON.stringify(mST());
+          const body = JSON.stringify(mST(this.codeSpace));
           return new Response(body, {
             status: 200,
             headers: {
@@ -186,7 +186,7 @@ export class Code {
           });
         }
         // case "prettier": {
-        //   return new Response(prettier(mST().code), {
+        //   return new Response(prettier(mST(this.codeSpace).code), {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
@@ -260,14 +260,14 @@ export class Code {
           });
         }
         // case "yay": {
-        //   // const deps = detective(mST().code);
+        //   // const deps = detective(mST(this.codeSpace).code);
         //   // initAta();
         //   // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
         //   // initAta();
 
-        //   // await addExtraModels(importMapReplace(mST().code, url.origin, url.origin, false), url.toString());
+        //   // await addExtraModels(importMapReplace(mST(this.codeSpace).code, url.origin, url.origin, false), url.toString());
         //   // const code = await this.kv.list();c
-        //   // const code = mST().code;
+        //   // const code = mST(this.codeSpace).code;
         //   // let [, ...deps] = path;
         //   // if (deps.length === 0) {
         //   //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
@@ -279,7 +279,7 @@ export class Code {
         //   // deps = [...(new Set(deps))];
         //   // const res = JSON.stringify(deps);
 
-        //   const res = JSON.stringify(await run(mST().code, url.origin));
+        //   const res = JSON.stringify(await run(mST(this.codeSpace).code, url.origin));
 
         //   return new Response(res, {
         //     status: 200,
@@ -297,7 +297,7 @@ export class Code {
         //   let [, ...deps] = path;
         //   initAta();
         //   // const code = await this.kv.list();c
-        //   const code = prettierJs(mST().code);
+        //   const code = prettierJs(mST(this.codeSpace).code);
         //   if (deps.length === 0) {
         //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
         //       s => s.split(`"`)[1],
@@ -336,12 +336,12 @@ export class Code {
         //   });
         case "mST.mjs": {
           const body = `
-          export const mST=${JSON.stringify(mST())};
+          export const mST=${JSON.stringify(mST(this.codeSpace))};
           export const codeSpace="${this.codeSpace}";
           export const address="${this.address}";
           export const importmapReplaced=${
             JSON.stringify({
-              js: importMapReplace(mST().transpiled, url.origin, url.origin),
+              js: importMapReplace(mST(this.codeSpace).transpiled, url.origin, url.origin),
             })
           }`;
 
@@ -349,12 +349,12 @@ export class Code {
 
           return new Response(
             `
-              export const mST=${JSON.stringify(mST())};
+              export const mST=${JSON.stringify(mST(this.codeSpace))};
               export const codeSpace="${this.codeSpace}";
               export const address="${this.address}";
               export const importmapReplaced=${
               JSON.stringify({
-                js: importMapReplace(mST().transpiled, url.origin, url.origin),
+                js: importMapReplace(mST(this.codeSpace).transpiled, url.origin, url.origin),
               })
             }`,
             {
@@ -372,8 +372,8 @@ export class Code {
         case "mST":
           return new Response(
             JSON.stringify({
-              mST: mST(),
-              hashCode: hashCode(),
+              mST: mST(this.codeSpace),
+              hashCode: hashCode(this.codeSpace),
             }),
             {
               status: 200,
@@ -459,22 +459,22 @@ export class Code {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i = path[1] || mST().i;
-          if (i > mST().i) {
+          const i = path[1] || mST(this.codeSpace).i;
+          if (i > mST(this.codeSpace).i) {
             const started = Date.now() / 1000;
             const body = await new Promise<string>((res, reject) =>
               this.wait(() => {
                 const now = Date.now() / 1000;
 
-                if (mST().i < Number(i) && started - now < 3000) {
+                if (mST(this.codeSpace).i < Number(i) && started - now < 3000) {
                   return false;
                 }
-                if (mST().i < Number(i) && started - now >= 3000) {
+                if (mST(this.codeSpace).i < Number(i) && started - now >= 3000) {
                   reject(null);
                   return false;
                 }
 
-                res(mST().transpiled);
+                res(mST(this.codeSpace).transpiled);
                 return true;
               })
             );
@@ -492,14 +492,14 @@ export class Code {
               },
             });
           }
-          if (i < mST().i) {
+          if (i < mST(this.codeSpace).i) {
             const trp = importMapReplace(transpiled, url.origin, url.origin);
             return new Response(trp, {
               status: 307,
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST().i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST(this.codeSpace).i}`,
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -714,7 +714,7 @@ export class Code {
           });
         }
         case "iife": {
-          const startState = mST();
+          const startState = mST(this.codeSpace);
           const html = IIFE.replace(
             `/** startState **/`,
             `Object.assign(window,${
@@ -858,8 +858,8 @@ export class Code {
           });
 
           if (data.hashCode) {
-            if (data?.hashCode !== hashCode()) {
-              const patch = makePatchFrom(data.hashCode, mST());
+            if (data?.hashCode !== hashCode(this.codeSpace)) {
+              const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
               if (patch) {
                 return respondWith({ ...patch });
               }
@@ -877,7 +877,7 @@ export class Code {
           : null;
         return respondWith({
           ...(rtcConnUser ? { name: rtcConnUser } : {}),
-          hashCode: hashCode(),
+          hashCode: hashCode(this.codeSpace),
           users: this.users.keys(),
         });
       }
@@ -898,7 +898,7 @@ export class Code {
       // if (
       //   !data.type && limiter.checkLimit()
       // ) {
-      //   return respondWith({ if ( if (data.i <= mST().i) return;data.i <= mST().i) return;
+      //   return respondWith({ if ( if (data.i <= mST(this.codeSpace).i) return;data.i <= mST(this.codeSpace).i) return;
       //     error: "Your IP is being rate-limited, please try again later.",
       //   });
       // }
@@ -913,7 +913,7 @@ export class Code {
         ) {
           return this.user2user(data.target, { ...data, name });
         }
-        if (data.i <= mST().i) return;
+        if (data.i <= mST(this.codeSpace).i) return;
 
         // const newHash = this.session!.applyPatch({
         //   newHash: data.newHash!,
@@ -933,7 +933,7 @@ export class Code {
         //   return;
         // }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = mST();
+          const oldSession = mST(this.codeSpace);
           let newSess = oldSession;
 
           if (md5(oldSession.transpiled) !== data.oldHash) {
@@ -948,7 +948,7 @@ export class Code {
             // const oldHash = data.oldHash;
             // const reversePatch = data.reversePatch;
 
-            newSess = mST(patch);
+            newSess = mST(this.codeSpace, patch);
             if (md5(newSess.transpiled) === newHash) {
               if (this.session === null) {
                 return respondWith({
@@ -966,8 +966,8 @@ export class Code {
               this.sess = newSess;
             } else {
               return respondWith({
-                hashCode: md5(mST().transpiled),
-                wrong: md5(mST(data.patch).transpiled),
+                hashCode: md5(mST(this.codeSpace).transpiled),
+                wrong: md5(mST(this.codeSpace, data.patch).transpiled),
               });
             }
           } catch (exp) {
@@ -1015,6 +1015,7 @@ export class Code {
           await syncKV(oldSession, newSess, {
             newHash,
             oldHash,
+            codeSpace: this.codeSpace,
             patch,
             reversePatch,
           });
@@ -1028,7 +1029,7 @@ export class Code {
           // );
           // }
           return respondWith({
-            hashCode: hashCode(),
+            hashCode: hashCode(this.codeSpace),
           });
         }
       } catch (exp) {

@@ -7,12 +7,14 @@ const state1 = {
   code: "export default () => <h1>Hello</h1>",
   transpiled: "//ffcbbaae",
   i: 33,
+  codeSpace: "z",
   css: "",
   html: "<h1 id=\"1c86ccc0\"></h1>",
 };
 const state2 = {
   code: "export default () => <h1>World</h1>",
   transpiled: "//ffcbbaae",
+  codeSpace: "z",
   i: 33,
   css: "",
   html: "<h1 id=\"1c86ccc0\"></h1>",
@@ -21,6 +23,7 @@ const state3 = {
   code: "export default () => <h1>World</h1>",
   transpiled: "//ffcbbaae",
   i: 34,
+  codeSpace: "z",
   css: "",
   html: "<h1 id=\"1c86ccc0\"></h1>",
 };
@@ -38,16 +41,16 @@ test("It remembers", () => {
 
   //     const state2 = {code:"yoo", transpiled: "", i:33, css: "", html:""};
   //     makePatch(state2);
-  assert.is(hashCode(), md5(mST().transpiled));
+  assert.is(hashCode("z"), md5(mST("z").transpiled));
   // //    assert.is(hashCode(),0);
 });
 
 test("wont start a new session", () => {
-  const hash1 = hashCode();
+  const hash1 = hashCode("z");
 
   startSession("z", { name: "z", state: state2 });
 
-  assert.is(hashCode(), md5(mST().transpiled));
+  assert.is(hashCode("z"), md5(mST("z").transpiled));
 });
 
 // test("do nothing if code change without the i", async () => {

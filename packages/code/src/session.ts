@@ -18,6 +18,7 @@ export { md5 };
 export type ICodeSession = {
   code: string;
   i: number;
+  codeSpace: string;
   html: string;
   transpiled: string;
   css: string;
@@ -121,6 +122,7 @@ export type CodePatch = {
   oldHash: string;
   newHash: string;
   patch: Delta[];
+  codeSpace: string;
   reversePatch: Delta[];
 };
 type IApplyPatch = (
@@ -138,7 +140,7 @@ type ICodeSess = {
   json: () => IUserJSON;
 };
 
-let session: CodeSession | null = null;
+const sessions: { [codeSpace: string]: CodeSession } = {};
 
 const hashStore: { [key: string]: Record<ICodeSession> } = {};
 export class CodeSession implements ICodeSess {
@@ -162,9 +164,9 @@ export class CodeSession implements ICodeSess {
   hashCodeSession = 0;
   room: string;
   created: string = new Date().toISOString();
-  constructor(room: string, user: IUserJSON) {
-    session = this;
-    this.room = room;
+  constructor(codeSpace: string, user: IUserJSON) {
+    sessions[codeSpace] = this;
+    this.room = codeSpace;
     const savedState: ICodeSession | null = null;
 
     // If (user.state.code === "" && room) {
@@ -185,9 +187,9 @@ export class CodeSession implements ICodeSess {
     // }
     // }
 
-    this.session = initSession(room, {
+    this.session = initSession(codeSpace, {
       ...user,
-      state: savedState ? savedState : JSON.parse(string_(user.state)),
+      state: savedState ? savedState : JSON.parse(string_({ ...user.state, codeSpace })),
     })();
     hashStore[md5(user.state.transpiled)] = this.session.get("state");
   }
@@ -250,6 +252,7 @@ export class CodeSession implements ICodeSess {
     return {
       oldHash: usedOldHash,
       newHash,
+      codeSpace: newRec.get("codeSpace"),
       reversePatch,
       patch,
     };
@@ -306,7 +309,7 @@ export class CodeSession implements ICodeSess {
     if (newHash !== oldHash) {
       // console.log({ sess });\
       queueMicrotask(() => {
-        this.createPatchFromHashCode(oldHash, mST());
+        this.createPatchFromHashCode(oldHash, mST(this.room));
         this.update();
       });
     }
@@ -325,7 +328,7 @@ export class CodeSession implements ICodeSess {
   }: CodePatch) => {
     if (!(oldHash && newHash && patch.length)) return;
     // const codeSpace = this.room || "";
-    hashStore[hashCode()] = this.session.get("state");
+    hashStore[hashCode(this.room)] = this.session.get("state");
     let maybeOldRec = hashStore[oldHash];
     // try {
     //   if (!maybeOldRec) {
@@ -428,20 +431,10 @@ export class CodeSession implements ICodeSess {
   }
 }
 
-export const hashCode = () => md5(mST().transpiled);
-export function mST(p?: Delta[]) {
-  if (!session) {
-    return {
-      i: 0,
-      transpiled: "",
-      code: "",
-      html: "",
-      css: "",
-    };
-  }
-
+export const hashCode = (codeSpace: string) => md5(mST(codeSpace).transpiled);
+export function mST(codeSpace: string, p?: Delta[]) {
   // If (originStr) return addOrigin(session.json().state, originStr);
-  const sessAsJs = session.session.get("state").toJSON();
+  const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
 
   const { i, transpiled, code, html, css }: ICodeSession = p
     ? JSON.parse(
@@ -453,7 +446,7 @@ export function mST(p?: Delta[]) {
       ),
     )
     : sessAsJs;
-  return { i, transpiled, code, html, css };
+  return { i, transpiled, code, html, css, codeSpace };
 }
 
 // function addOrigin(s: ICodeSession, originString: string) {
@@ -472,43 +465,43 @@ function string_(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const applyPatchSync: IApplyPatch = (x) => session?.applyPatch(x);
+export const applyPatchSync: IApplyPatch = (x) => sessions[x.codeSpace].applyPatch(x);
 
 export const applyPatch: IApplyPatch = (x) => {
-  session?.applyPatch(x);
-  session?.update();
+  sessions[x.codeSpace].applyPatch(x);
+  sessions[x.codeSpace].update();
 };
 
 export const onSessionUpdate = (
   fn: () => void,
   regId = "default",
-) => session?.onUpdate(fn, regId);
+  codeSpace: string,
+) => sessions[codeSpace].onUpdate(fn, regId);
 export const makePatchFrom = (
   n: string,
   st: ICodeSession,
   // update?: (h: string) => void,
-) => (session!).createPatchFromHashCode(n, st);
+) => sessions[st.codeSpace].createPatchFromHashCode(n, st);
 export const makePatch = (
   st: ICodeSession,
   // update?: (h: string) => void,
-) => makePatchFrom(md5(mST().transpiled), st);
+) => makePatchFrom(md5(mST(st.codeSpace).transpiled), st);
 
 export const startSession = (
-  room: string,
+  codeSpace: string,
   // origin: string,
   u: IUserJSON,
   // originString: string,
 ): CodeSession =>
-  session
-  || new CodeSession(room, {
+  sessions[codeSpace] || (sessions[codeSpace] = new CodeSession(codeSpace, {
     name: u.name,
-    state: u.state,
-  });
+    state: { ...u.state, codeSpace },
+  }));
 
 function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
 }
 
-export const patchSync = (sess: ICodeSession, force = true) => session?.patchSync(sess, force);
+export const patchSync = (sess: ICodeSession, force = true) => sessions[sess.codeSpace].patchSync(sess, force);
 
 export { type Delta } from "./textDiff";
