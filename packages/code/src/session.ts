@@ -90,7 +90,7 @@ export const syncStorage = async (
     patch: Delta[];
   },
 ) => {
-  const hashOfOldSession = md5(oldSession.transpiled);
+  const hashOfOldSession = "#" + Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
@@ -98,7 +98,7 @@ export const syncStorage = async (
     historyHead = hashOfOldSession;
   }
 
-  await setItem("" + message.newHash, {
+  await setItem("#" + message.newHash, {
     ...newSession,
     oldHash: message.oldHash,
     reversePatch: message.reversePatch,
@@ -106,10 +106,10 @@ export const syncStorage = async (
   const oldNode = await (getItem as unknown as GetItem<
     { oldHash: number; reversePatch?: typeof message.reversePatch }
   >)(
-    "" + message.oldHash,
+    "#" + message.oldHash,
   );
   if (!oldNode) throw Error("corrupt storage");
-  await setItem("" + message.oldHash, {
+  await setItem("#" + message.oldHash, {
     oldHash: oldNode.oldHash ? oldNode.oldHash : null,
     reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
     newHash: message.newHash,
