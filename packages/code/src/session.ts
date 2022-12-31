@@ -106,17 +106,21 @@ export const syncStorage = async (
     oldHash: message.oldHash,
     reversePatch: message.reversePatch,
   });
+  // await setItem(message.oldHash, {
+  //   ...oldSession,
+  //   newHash: message.newHash,
+  //   patch: message.patch,
+  // });
   const oldNode = await (getItem as unknown as GetItem<
     { oldHash: number; reversePatch?: typeof message.reversePatch }
   >)(
     message.oldHash,
   );
-  if (!oldNode) throw Error("corrupt storage");
+  // if (!oldNode) throw Error("corrupt storage");
   await setItem(message.oldHash, {
-    oldHash: oldNode.oldHash ? oldNode.oldHash : 0,
-    reversePatch: oldNode.reversePatch,
     newHash: message.newHash,
     patch: message.patch,
+    ...(oldNode ? { oldHash: oldNode.oldHash, reversePatch: oldNode.reversePatch } : { ...oldSession }),
   });
   await setItem("head", message.newHash);
 };
