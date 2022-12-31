@@ -139,12 +139,13 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     iframe.src = `${origin}/live/${codeSpace}/prerender`;
 
-    window.addEventListener("message", async (e) => {
+    const responseListener = async (e) => {
       const data = e.data; // hare are data sent by other window postMessage method
 
       const { html, css } = data;
 
       if (html) {
+        window.removeEventListener("message", responseListener);
         if (signal.aborted) return;
         await syncWS({ ...mST(codeSpace), html, css, code, transpiled, i: counter }, signal);
 
@@ -153,9 +154,10 @@ export async function runner({ code, counter, codeSpace, signal }: {
         // await buildT(codeSpace, location.origin, signal, true);
         // BCbundle.postMessage({ counterMax });
       }
-    }, { once: true });
+    };
 
-    if (signal.aborted) return;
+    window.addEventListener("message", responseListener);
+
     document.body.appendChild(iframe);
 
     // BC .postMessage({ counter, i: counter, transpiled, codeSpace, code });
