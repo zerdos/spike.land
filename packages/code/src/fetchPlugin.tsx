@@ -1,6 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
+import { Loader } from "esbuild-wasm";
 import { esmTransform } from "./esmTran";
-import { importMapReplace } from "./importMapReplace";
 
 import { readFile } from "./fs";
 
@@ -153,16 +153,18 @@ export const fetchPlugin: (
       if (args.namespace === "ttf") {
         let contents = await response.arrayBuffer();
         response = new Response(contents, response);
+
+        const z = new Uint8Array(contents, 1, 4);
         return {
-          contents: response,
-          loader: "dataurl",
+          contents: z,
+          loader: "dataurl" as Loader,
         };
       }
 
       let contents = await response.text();
       response = new Response(contents, response);
 
-      return { contents: response };
+      return { contents };
     });
   },
 });

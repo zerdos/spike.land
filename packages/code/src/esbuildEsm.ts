@@ -7,7 +7,7 @@ import {
   type TransformOptions,
 } from "esbuild-wasm";
 
-import impMap from "./importmap.json";
+// import impMap from "./importmap.json";
 //
 // import { imports as importMapImports } from "./importmap.json";
 
