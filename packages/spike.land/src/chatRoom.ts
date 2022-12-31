@@ -9,6 +9,8 @@ import {
   // dealWithMissing,
   ICodeSession,
   importMapReplace,
+  makePatch,
+  makePatchFrom,
   patchSync,
   // initAta,
   // prettierJs,
@@ -49,9 +51,25 @@ export class Code {
     (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
     true,
   );
+  head: number | string;
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
   i = 0;
+
+  syncKV(
+    oldSession: ICodeSession,
+    newSess: ICodeSession,
+    message: CodePatch,
+  ) {
+    (async () =>
+      await syncStorage(
+        async (key, v) => (await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
+        async (key) => await this.kv.get(key, { allowConcurrency: true }),
+        oldSession,
+        newSess,
+        message,
+      ))();
+  }
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
@@ -63,6 +81,7 @@ export class Code {
     this.env = env;
     this.codeSpace = "";
     this.address = "";
+
     // this.mutex = new Mutex();
 
     this.state.blockConcurrencyWhile(async () => {
@@ -80,7 +99,13 @@ export class Code {
       //   session.html = s.html;
       //   session.css = s.css;
       // }
+
+      this.head = await this.kv.get("head") || "";
+      // if ( (head+1) !== Number(head)+1 ) {
+      //   head =
+      // }
       this.address = await this.kv.get<string>("address", { allowConcurrency: true }) || "";
+
       this.sess = session;
       this.codeSpace = session.codeSpace || "";
       if (this.sess.codeSpace) {
@@ -118,6 +143,19 @@ export class Code {
         // url.origin,
       );
       this.sessionStarted = true;
+    }
+
+    if (typeof this.head !== "number") {
+      const headVals = await this.kv.get(this.head);
+      if (headVals) {
+        const oldSession = mST(this.codeSpace, headVals.reversePatch);
+        const newSession = mST(this.codeSpace);
+
+        patchSync(oldSession, true);
+        const message = makePatch(newSession);
+        patchSync(newSession, true);
+        await this.syncKV(oldSession, newSession, message);
+      }
     }
 
     return handleErrors(request, async () => {
@@ -1045,19 +1083,6 @@ export class Code {
 
           try {
             await this.kv.put<ICodeSession>("session", newSess, { allowConcurrency: true });
-
-            const syncKV = async (
-              oldSession: ICodeSession,
-              newSess: ICodeSession,
-              message: CodePatch,
-            ) =>
-              await syncStorage(
-                async (key, v) => (await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
-                async (key) => await this.kv.get(key, { allowConcurrency: true }),
-                oldSession,
-                newSess,
-                message,
-              );
 
             const { newHash, oldHash, patch, reversePatch } = data;
 

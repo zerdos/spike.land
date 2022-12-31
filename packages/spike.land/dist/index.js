@@ -8919,6 +8919,8 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
+var makePatchFrom = /* @__PURE__ */ __name((n, st) => sessions[st.codeSpace].createPatchFromHashCode(n, st), "makePatchFrom");
+var makePatch = /* @__PURE__ */ __name((st) => makePatchFrom(hashKEY(st.codeSpace), st), "makePatch");
 var startSession = /* @__PURE__ */ __name((codeSpace, u) => sessions[codeSpace] || (sessions[codeSpace] = new CodeSession(codeSpace, {
   name: u.name,
   state: { ...u.state, codeSpace }
@@ -23630,6 +23632,7 @@ var Code = class {
       ).then((x) => x.json());
       if (!session)
         throw Error("cant get the starter session");
+      this.head = await this.kv.get("head") || "";
       this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
       this.sess = session;
       this.codeSpace = session.codeSpace || "";
@@ -23654,9 +23657,19 @@ var Code = class {
     (a, b) => a === b ? 0 : a < b ? 1 : -1,
     true
   );
+  head;
   waiting = [];
   sessions;
   i = 0;
+  syncKV(oldSession, newSess, message) {
+    (async () => await syncStorage(
+      async (key, v) => await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true }),
+      async (key) => await this.kv.get(key, { allowConcurrency: true }),
+      oldSession,
+      newSess,
+      message
+    ))();
+  }
   wait = (x) => {
     this.waiting = this.waiting.filter((x2) => !x2()) || [];
     if (x && !x())
@@ -23675,6 +23688,17 @@ var Code = class {
         { state: this.sess, name: this.codeSpace }
       );
       this.sessionStarted = true;
+    }
+    if (typeof this.head !== "number") {
+      const headVals = await this.kv.get(this.head);
+      if (headVals) {
+        const oldSession = mST(this.codeSpace, headVals.reversePatch);
+        const newSession = mST(this.codeSpace);
+        patchSync(oldSession, true);
+        const message = makePatch(newSession);
+        patchSync(newSession, true);
+        await this.syncKV(oldSession, newSession, message);
+      }
     }
     return handleErrors(request, async () => {
       const { code, transpiled, css, html, i } = mST(this.codeSpace);
@@ -24250,13 +24274,6 @@ var Code = class {
           }
           try {
             await this.kv.put("session", newSess, { allowConcurrency: true });
-            const syncKV = async (oldSession2, newSess2, message) => await syncStorage(
-              async (key, v) => await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true }),
-              async (key) => await this.kv.get(key, { allowConcurrency: true }),
-              oldSession2,
-              newSess2,
-              message
-            );
             const { newHash, oldHash, patch, reversePatch } = data;
             await syncKV(oldSession, newSess, {
               newHash: +newHash,
