@@ -161,34 +161,23 @@ export const Editor: FC<
   );
 };
 
-let room = new AbortController();
+// let room = new AbortController();
 let controller = new AbortController();
 // room.abort();
 async function onModChange(_code: string, codeSpace: string) {
-  let roomSignal = room.signal;
-  if (!roomSignal.aborted) {
-    room.abort();
-    room = new AbortController();
-    roomSignal = room.signal;
-    const mySyg = room.signal;
-    await wait(Math.random() * 3000);
-    if (mySyg.aborted) return;
-  }
-
   controller.abort();
   controller = new AbortController();
+  const signal = controller.signal;
   const code = await prettier(_code);
   if (!code) return;
-  if (controller.signal.aborted) return;
+  if (signal.aborted) return;
   if (code === await prettier(mod.code)) return;
 
   if (controller.signal.aborted) return;
   const counter = ++mod.counter;
   mod.code = code;
-  if (controller.signal.aborted) return;
-  if (roomSignal.aborted) return;
-  room.abort();
-  runner({ code, counter, codeSpace, signal: controller.signal });
+  if (signal.aborted) return;
+  runner({ code, counter, codeSpace, signal });
 }
 let startedM = 0;
 async function setMonaco(container: HTMLDivElement, codeSpace: string) {
