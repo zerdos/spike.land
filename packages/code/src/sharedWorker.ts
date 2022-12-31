@@ -14,13 +14,15 @@ declare const self: SharedWorkerGlobalScope & {
   counters: Counters;
   dbs: { [codeSpaces: string]: LocalForage };
   connections: { [codeSpaces: string]: MessagePort[] };
+  hashCodes: { [codeSpaces: string]: string };
+
   names: {};
   // bc: BroadcastChannel;
 };
 
-async function send(codeSpace: string, msg: object, name: string) {
+async function send(codeSpace: string, msg: object) {
   if (!mod[codeSpace]) {
-    await reconnect(codeSpace, name);
+    await reconnect(codeSpace);
   }
 
   if (mod[codeSpace]) {
@@ -28,7 +30,7 @@ async function send(codeSpace: string, msg: object, name: string) {
   }
 
   await wait(200);
-  if (!mod[codeSpace] || !mod[codeSpace].isOpen()) reconnect(codeSpace, name);
+  if (!mod[codeSpace] || !mod[codeSpace].isOpen()) reconnect(codeSpace);
 }
 
 // async function ata(code: string, baseUrl: string) {
@@ -67,7 +69,6 @@ async function send(codeSpace: string, msg: object, name: string) {
 type Mod = {
   [codeSpace: string]: {
     socket: WebSocket;
-    name: string;
     blockedMessages: object[];
     isOpen: () => boolean;
     send: (message: object) => void;
@@ -103,9 +104,11 @@ type Data = {
 self.mod = self.mod || {};
 self.counters = self.counters || {};
 self.connections = self.connections || {};
+self.hashCodes = self.hashCodes || {};
+
 self.dbs = self.dbs || {};
 
-const { mod, counters } = self;
+const { mod, counters, hashCodes, connections, dbs } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(port: MessagePort, {
@@ -136,7 +139,10 @@ async function onMessage(port: MessagePort, {
   //   patch,
   //   reversePatch,
   // });
+  if (!self.name && name) self.name = name;
+
   const hash = newHash || hashCode;
+  hashCodes[codeSpace] = hash || "";
   if (sess && hash) hashStore[hash] = sess;
   if (sess && newHash) hashStore[newHash] = sess;
   if (sess && hashCode) hashStore[hashCode] = sess;
@@ -150,21 +156,22 @@ async function onMessage(port: MessagePort, {
   //   );
   // }
   if (codeSpace && name && type === "handshake") {
-    self.connections[codeSpace] = self.connections[codeSpace] || [];
-    self.connections[codeSpace].push(port);
+    connections[codeSpace] = connections[codeSpace] || [];
+    connections[codeSpace].push(port);
 
-    self.dbs[codeSpace] = self.dbs[codeSpace] || localForage.createInstance({
+    dbs[codeSpace] = dbs[codeSpace] || localForage.createInstance({
       name: location.origin + `/live/${codeSpace}`,
     });
 
     console.log(
       "onconnect",
-      self.connections[codeSpace].length,
-      Object.keys(self.connections),
+      connections[codeSpace].length,
+      Object.keys(connections),
     );
     if (!names[codeSpace]) {
       names[codeSpace] = name;
     }
+    send(codeSpace, { type: "handshake", hashCode: hashCodes[codeSpace] || hashCode });
   }
 
   const obj: { [k: string]: unknown } = {
@@ -186,7 +193,7 @@ async function onMessage(port: MessagePort, {
 
   Object.keys(obj).forEach((key) => !obj[key] && delete obj[key]);
 
-  const db = self.dbs[codeSpace];
+  const db = dbs[codeSpace];
   if (db) {
     const hash = await db.getItem<string>("wsHash");
     if (hash && obj.oldHash && hash !== obj.oldHash) {
@@ -217,13 +224,11 @@ async function onMessage(port: MessagePort, {
             patch: old.patch,
             reversePatch: next.reversePatch,
             name: names[codeSpace],
-          }, names[codeSpace]);
+          });
         }
       }
     }
   }
-
-  send(codeSpace, obj, name);
 }
 let iii = 0;
 self.onconnect = ({ ports }) => {
@@ -231,7 +236,9 @@ self.onconnect = ({ ports }) => {
   ports[0].onmessage = ({ data }: { data: Data }) => onMessage(ports[0], data);
 };
 
-function reconnect(codeSpace: string, name: string) {
+function reconnect(codeSpace: string) {
+  const { name } = self;
+
   // return new Promise(async (resolve) => {
   // if (isPromise(mod[codeSpace])) {
   // return resolve(await mod[codeSpace]);
@@ -248,7 +255,6 @@ function reconnect(codeSpace: string, name: string) {
     const w: typeof mod[0] = mod[codeSpace] = {
       blockedMessages: [],
       socket: websocket,
-      name,
       isOpen: () => w.socket.readyState === WebSocket.OPEN,
       send: (msg: object) => {
         w.blockedMessages.push(msg);
@@ -259,24 +265,35 @@ function reconnect(codeSpace: string, name: string) {
         ) {
           const mess = w.blockedMessages.shift();
           console.log({ mess });
-          if (mess) w.socket.send(JSON.stringify({ ...mess, name: w.name }));
+          if (mess) w.socket.send(JSON.stringify({ ...mess, name }));
         }
       },
     };
 
-    w.send({ name: w.name });
+    w.send({ name });
   };
 
   websocket.onmessage = async (ev) => {
-    const patch = JSON.parse(ev.data);
+    connections[codeSpace] = connections[codeSpace].map(conn => {
+      try {
+        const ab = str2ab(ev.data);
+        conn.postMessage(ab, [ab]);
+        return conn;
+      } catch (err) {
+        console.error("can't post message connection");
+        return null;
+      }
+    }).filter((x) => x !== null) as MessagePort[];
 
-    const mess = { codeSpace, ...patch };
+    const message = JSON.parse(ev.data);
+
+    const mess = { codeSpace, ...message };
     mess.name = names[codeSpace];
 
-    const db = self.dbs[codeSpace];
-    const head = await db.getItem("head");
+    const db = dbs[codeSpace];
+    const head = await db.getItem<string>("head");
 
-    const hash = patch.newHash || patch.hashCode;
+    const hash = message.newHash || message.hashCode;
     if (hash && head && hash !== head) {
       await db.setItem("wsHash", hash);
       const old = await db.getItem<
@@ -327,16 +344,6 @@ function reconnect(codeSpace: string, name: string) {
     // while (Atomics.load(bufView, j++) < str.length) {
 
     // }
-    self.connections[codeSpace] = self.connections[codeSpace].map(conn => {
-      try {
-        const ab = str2ab(ev.data);
-        conn.postMessage(ab, [ab]);
-        return conn;
-      } catch (err) {
-        console.error("can't post message connection");
-        return null;
-      }
-    }).filter((x) => x !== null) as MessagePort[];
   };
 
   return mod[codeSpace];

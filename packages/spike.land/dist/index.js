@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-6SGCXNPV.mjs
+// ../code/dist/chunk-chunk-OEUXLQB4.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8912,7 +8912,6 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-var makePatchFrom = /* @__PURE__ */ __name((n, st) => sessions[st.codeSpace].createPatchFromHashCode(n, st), "makePatchFrom");
 var startSession = /* @__PURE__ */ __name((codeSpace, u) => sessions[codeSpace] || (sessions[codeSpace] = new CodeSession(codeSpace, {
   name: u.name,
   state: { ...u.state, codeSpace }
@@ -8921,6 +8920,7 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
+var patchSync = /* @__PURE__ */ __name((sess, force = true) => sessions[sess.codeSpace].patchSync(sess, force), "patchSync");
 
 // ../code/dist/chunk-chunk-6MQOVGCJ.mjs
 var require_just_once = __commonJS2({
@@ -24131,25 +24131,9 @@ var Code = class {
     const session = {
       name: "",
       quit: false,
-      webSocket,
-      blockedMessages: []
+      webSocket
     };
     this.sessions.push(session);
-    this.sessions.forEach((otherSession) => {
-      if (otherSession.name) {
-        session.blockedMessages.push(
-          JSON.stringify({ name: otherSession.name })
-        );
-      }
-    });
-    const storage = await this.kv.list({ reverse: true, limit: 100 });
-    const backlog = [...storage.values()];
-    backlog.reverse();
-    backlog.forEach((value) => {
-      session.blockedMessages.push(
-        typeof value === "string" ? value : JSON.stringify(value)
-      );
-    });
     webSocket.addEventListener(
       "message",
       (msg) => this.processWsMessage(msg, session)
@@ -24179,62 +24163,30 @@ var Code = class {
       });
     }
     if (!name) {
-      if (data.name) {
-        session.name = data.name;
-        try {
-          this.sessions.map((otherSession) => {
-            if (otherSession === session)
-              return;
-            if (otherSession.name === data.name) {
-              otherSession.name = "";
-              otherSession.blockedMessages.map((m) => session.webSocket.send(m));
-              otherSession.blockedMessages = [];
-            }
-          });
-          if (data.hashCode) {
-            if (data?.hashCode !== hashCode3(this.codeSpace)) {
-              const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
-              if (patch) {
-                return respondWith({ ...patch });
-              }
-            }
-          }
-        } catch (e) {
-          respondWith({ error: "error while checked blocked messages" });
-        }
-        const userNode = this.users.insert(data.name);
-        const usersNum = this.users.keys().length;
-        const rtcConnUser = usersNum > 2 ? userNode.parent?.key || userNode.left?.key || userNode.right?.key : null;
+      if (!data.name) {
         return respondWith({
-          ...rtcConnUser ? { name: rtcConnUser } : {},
-          hashCode: hashCode3(this.codeSpace),
-          users: this.users.keys()
+          msg: "no-name-no-party"
         });
       }
-      return respondWith({
-        msg: "no-name-no-party"
-      });
+      session.name = data.name;
     }
-    if (data.codeSpace && data.address && !this.address) {
-      return this.broadcast(data);
+    if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
+      const HEAD = hashCode3(this.codeSpace);
+      let commit = data.hashCode;
+      while (commit && commit !== HEAD) {
+        const oldNode = await this.kv.get(commit);
+        const newNode = await this.kv.get(oldNode.newHash);
+        respondWith({
+          oldHash: commit,
+          newHash: oldNode.newHash,
+          patch: oldNode.patch,
+          reversePatch: newNode.reversePatch
+        });
+        commit = newNode?.newHash;
+      }
     }
     try {
       try {
-        if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
-          const HEAD = hashCode3(this.codeSpace);
-          let commit = data.hashCode;
-          while (commit && commit !== HEAD) {
-            const oldNode = await this.kv.get(commit);
-            const newNode = await this.kv.get(oldNode.newHash);
-            respondWith({
-              oldHash: commit,
-              newHash: oldNode.newHash,
-              patch: oldNode.patch,
-              reversePatch: newNode.reversePatch
-            });
-            commit = newNode?.newHash;
-          }
-        }
         if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(
           data.type
         )) {
@@ -24261,7 +24213,9 @@ var Code = class {
                   error: "this.session is null!"
                 });
               }
-              this.session.patchSync(newSess, true);
+              patchSync(
+                newSess
+              );
               this.sess = newSess;
             } else {
               return respondWith({
@@ -24344,7 +24298,6 @@ var Code = class {
       } catch (err) {
         s.quit = true;
         this.users.remove(s.name);
-        s.blockedMessages.push(message);
       }
     });
   }

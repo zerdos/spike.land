@@ -127,6 +127,7 @@ export type CodePatch = {
 };
 type IApplyPatch = (
   prop: CodePatch,
+  codeSpace: string,
 ) => void;
 
 type ICodeSess = {
@@ -466,11 +467,11 @@ function string_(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const applyPatchSync: IApplyPatch = (x) => sessions[x.codeSpace].applyPatch(x);
+export const applyPatchSync: IApplyPatch = (x, codeSpace: string) => sessions[codeSpace].applyPatch(x);
 
-export const applyPatch: IApplyPatch = (x) => {
-  sessions[x.codeSpace].applyPatch(x);
-  sessions[x.codeSpace].update();
+export const applyPatch: IApplyPatch = (x, codeSpace: string) => {
+  sessions[codeSpace].applyPatch(x);
+  sessions[codeSpace].update();
 };
 
 export const onSessionUpdate = (

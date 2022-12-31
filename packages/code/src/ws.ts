@@ -476,15 +476,14 @@ const syncDb = async (
 
 export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
   try {
-    console.log("SYNC!!");
-    console.log("SYNC!!");
-    console.log("SYNC!!");
+    // console.log("SYNC!!");
+    // console.log("SYNC!!");
+    // console.log("SYNC!!");
     console.log({ newSession });
     // controller.abort();
     // controller = new AbortController();
-    const oldSession = mST(newSession.codeSpace);
 
-    console.log("alive1");
+    // console.log("alive1");
     if (ws) {
       // if (wsLastHashCode === hashCode()) {
       //   console.log("WS is up to date with us.");
@@ -523,8 +522,13 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       if (message.oldHash === message.newHash) return;
       if (signal.aborted) return;
-      applyPatch({ ...message, codeSpace });
-      if (md5(mST(newSession.codeSpace, message.reversePatch).transpiled) !== message.oldHash) {
+
+      const oldSession = mST(codeSpace);
+      applyPatch(message, codeSpace);
+
+      const newSS = mST(codeSpace);
+
+      if (md5(mST(newSS.codeSpace, message.reversePatch).transpiled) !== message.oldHash) {
         console.log("SESS IS NOT OK at all");
         return;
       }
@@ -736,29 +740,27 @@ async function processData(
     }
   })();
 
-  if (data.patch && data.name !== user) {
+  if (data.patch && data.name !== user && data.oldHash == hashCode(codeSpace)) {
     if (data.newHash === hashCode(codeSpace)) {
       return;
     }
 
     const oldSession = mST(codeSpace);
-    applyPatch(data), codeSpace;
-
+    applyPatch(data, codeSpace);
     const newSession = mST(codeSpace);
 
     await syncDb(oldSession, newSession, data);
     //  await writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
     await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
-
     await writeFile("/live/" + codeSpace + "/index.js", newSession.transpiled);
 
-    if (data.newHash === hashCode(codeSpace)) {
-      if (sendChannel) {
-        sendChannel.send({ hashCode: data.newHash });
-      }
+    // if (data.newHash === hashCode(codeSpace)) {
+    // if (sendChannel) {
+    //   sendChannel.send({ hashCode: data.newHash });
+    // }
 
-      return;
-    }
+    // return;
+    // }
 
     // console.//log("error -sending on sendChannel");
 
