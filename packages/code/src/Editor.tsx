@@ -167,16 +167,14 @@ let controller = new AbortController();
 async function onModChange(_code: string, codeSpace: string) {
   let roomSignal = room.signal;
   if (!roomSignal.aborted) {
-    // room.abort();
+    room.abort();
     room = new AbortController();
+    roomSignal = room.signal;
     const mySyg = room.signal;
     await wait(Math.random() * 3000);
     if (mySyg.aborted) return;
   }
-  room = new AbortController();
-  setTimeout(() => {
-    room.abort();
-  }, 3000);
+
   controller.abort();
   controller = new AbortController();
   const code = await prettier(_code);
@@ -188,6 +186,8 @@ async function onModChange(_code: string, codeSpace: string) {
   const counter = ++mod.counter;
   mod.code = code;
   if (controller.signal.aborted) return;
+  if (roomSignal.aborted) return;
+  room.abort();
   runner({ code, counter, codeSpace, signal: controller.signal });
 }
 let startedM = 0;
