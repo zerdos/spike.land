@@ -944,6 +944,7 @@ export class Code {
 
           try {
             const patch = data.patch;
+
             const newHash = data.newHash;
             // const oldHash = data.oldHash;
             // const reversePatch = data.reversePatch;

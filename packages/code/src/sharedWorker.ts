@@ -10,6 +10,7 @@ const names: { [codeSpace: string]: string } = {};
 export type {};
 declare const self: SharedWorkerGlobalScope & {
   mod: Mod;
+  name: string;
   counters: Counters;
   dbs: { [codeSpaces: string]: LocalForage };
   connections: { [codeSpaces: string]: MessagePort[] };
@@ -66,6 +67,7 @@ async function send(codeSpace: string, msg: object, name: string) {
 type Mod = {
   [codeSpace: string]: {
     socket: WebSocket;
+    name: string;
     blockedMessages: object[];
     isOpen: () => boolean;
     send: (message: object) => void;
@@ -215,7 +217,7 @@ async function onMessage(port: MessagePort, {
             patch: old.patch,
             reversePatch: next.reversePatch,
             name: names[codeSpace],
-          }, name);
+          }, names[codeSpace]);
         }
       }
     }
@@ -246,6 +248,7 @@ function reconnect(codeSpace: string, name: string) {
     const w: typeof mod[0] = mod[codeSpace] = {
       blockedMessages: [],
       socket: websocket,
+      name,
       isOpen: () => w.socket.readyState === WebSocket.OPEN,
       send: (msg: object) => {
         w.blockedMessages.push(msg);
@@ -256,12 +259,12 @@ function reconnect(codeSpace: string, name: string) {
         ) {
           const mess = w.blockedMessages.shift();
           console.log({ mess });
-          if (mess) w.socket.send(JSON.stringify(mess));
+          if (mess) w.socket.send(JSON.stringify({ ...mess, name: w.name }));
         }
       },
     };
 
-    w.send({ name });
+    w.send({ name: w.name });
   };
 
   websocket.onmessage = async (ev) => {
