@@ -24427,7 +24427,7 @@ var Code = class {
                   error: "this.session is null!"
                 });
               }
-              this.session.patchSync(newSess);
+              this.session.patchSync(newSess, true);
               this.sess = newSess;
             } else {
               return respondWith({
