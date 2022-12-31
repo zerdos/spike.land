@@ -61,7 +61,7 @@ export class Code {
     newSess: ICodeSession,
     message: CodePatch,
   ) {
-    (async () =>
+    return (async () =>
       await syncStorage(
         async (key, v) => (await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
         async (key) => await this.kv.get(key, { allowConcurrency: true }),

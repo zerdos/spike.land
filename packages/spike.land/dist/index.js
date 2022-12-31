@@ -23663,7 +23663,7 @@ var Code = class {
   sessions;
   i = 0;
   syncKV(oldSession, newSess, message) {
-    (async () => await syncStorage(
+    return (async () => await syncStorage(
       async (key, v) => await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true }),
       async (key) => await this.kv.get(key, { allowConcurrency: true }),
       oldSession,
