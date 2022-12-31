@@ -257,7 +257,47 @@ const ws = {
 
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
-  fetch(`${origin}/live/${codeSpace}/session/head`);
+  const hash = await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text();
+  const head = await codeHistory.getItem<string>("head");
+  const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
+
+  const sharedWorker = new SharedWorker(
+    "/sharedWorker.js?" + shHash,
+  );
+
+  sharedWorker.port.onmessage = async (ev) => {
+    console.log("ONMESSAGE", { data: ev.data });
+    if (ev.data.type === "onconnect") {
+      messagePort = sharedWorker.port;
+
+      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: hashCode(codeSpace) });
+      // messagePort = this;
+      ws.send = (
+        message,
+      ) => {
+        const messageData = { name: user, ...message, sess: mST(codeSpace), codeSpace, hashCode:head || hash   };
+        console.log("POST MESSAGE", { messageData });
+        if (
+          messageData.oldHash && messageData.oldHash === messageData.newHash
+        ) return;
+        messagePort.postMessage(messageData);
+      };
+
+      ws.send({ type: "handshake" });
+    } else {
+      try {
+        const data = JSON.parse(ab2str(ev.data));
+        await processData(data, "ws");
+        console.log("its a buffer", { data });
+      } catch (err) {
+        console.error("not a buff", { err, data: ev.data });
+      }
+      // }
+    }
+  };
+  sharedWorker.port.start();
+  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: head || hash });
+
   const root = (await readdir("/"));
 
   if (!root.includes("live")) await mkdir("/live");
@@ -269,7 +309,7 @@ export const run = async () => {
   const cs = await readdir(`/live/${codeSpace}`);
   // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
   let mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
-  const head = await codeHistory.getItem<string>("head");
+
   let hST: ICodeSession | null = null;
   if (head) {
     hST = await codeHistory.getItem<ICodeSession>(head)!;
@@ -303,41 +343,7 @@ export const run = async () => {
 
   // codeSpace = startState.codeSpace;
   // requestAnimationFrame(() => {
-  const sharedWorker = new SharedWorker(
-    "/sharedWorker.js?" + globalThis.assetHash,
-  );
 
-  sharedWorker.port.onmessage = async (ev) => {
-    console.log("ONMESSAGE", { data: ev.data });
-    if (ev.data.type === "onconnect") {
-      messagePort = sharedWorker.port;
-      sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
-
-      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: hashCode(codeSpace) });
-      // messagePort = this;
-      ws.send = (
-        message,
-      ) => {
-        const messageData = { name: user, ...message, sess: mST(codeSpace), codeSpace, hashCode: hashCode(codeSpace) };
-        console.log("POST MESSAGE", { messageData });
-        if (
-          messageData.oldHash && messageData.oldHash === messageData.newHash
-        ) return;
-        messagePort.postMessage(messageData);
-      };
-
-      ws.send({ type: "handshake" });
-    } else {
-      try {
-        const data = JSON.parse(ab2str(ev.data));
-        await processData(data, "ws");
-        console.log("its a buffer", { data });
-      } catch (err) {
-        console.error("not a buff", { err, data: ev.data });
-      }
-      // }
-    }
-  };
   // setTimeout(() => {
   // });
   wsLastHashCode = md5(mst.transpiled);
@@ -347,7 +353,6 @@ export const run = async () => {
     name: user,
     state: mst,
   });
-  sharedWorker.port.start();
 
   // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
