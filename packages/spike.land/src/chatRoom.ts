@@ -1052,9 +1052,14 @@ export class Code {
               message: CodePatch,
             ) =>
               await syncStorage(
-                async (key: string, value: unknown) =>
-                  await this.kv.put(key, value, { allowConcurrency: true }) as unknown as Promise<unknown>,
-                async (key: string) => await this.kv.get(key, { allowConcurrency: true }),
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                /* @ts-expect-error */
+                async (
+                  key: string | number,
+                  v,
+                ) => (await this.kv.put("#" + String(key), v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
+                async (key: string | number) =>
+                  await this.kv.get<CodePatch>("#" + String(key), { allowConcurrency: true }),
                 oldSession,
                 newSess,
                 message,
