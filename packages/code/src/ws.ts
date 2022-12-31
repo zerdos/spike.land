@@ -48,6 +48,12 @@ const users = new AVLTree(
   true,
 );
 
+const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
+
+const sharedWorker = new SharedWorker(
+  "/sharedWorker.js?ree=" + shHash,
+);
+
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 const user = md5(((self && self.crypto && self.crypto.randomUUID
   && self.crypto.randomUUID()) || (uidV4())).slice(
@@ -261,11 +267,6 @@ export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
   const hash = await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text();
   const head = await codeHistory.getItem<string>("head");
-  const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
-
-  const sharedWorker = new SharedWorker(
-    "/sharedWorker.js?ree=" + shHash,
-  );
 
   sharedWorker.port.onmessage = async (ev) => {
     console.log("ONMESSAGE", { data: ev.data });
@@ -300,8 +301,6 @@ export const run = async () => {
       // }
     }
   };
-  sharedWorker.port.start();
-  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: head || hash });
 
   const root = (await readdir("/"));
 
@@ -358,6 +357,8 @@ export const run = async () => {
     name: user,
     state: mst,
   });
+  sharedWorker.port.start();
+  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashKEY(codeSpace) });
 
   // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
@@ -461,12 +462,12 @@ export const run = async () => {
 const ignoreUsers: string[] = [];
 
 const { getItem, setItem } = codeHistory;
-const syncDb = (
+const syncDb = async (
   oldSession: ICodeSession,
   newSession: ICodeSession,
   message: CodePatch,
 ) =>
-  syncStorage(
+  await syncStorage(
     setItem,
     getItem,
     oldSession,
