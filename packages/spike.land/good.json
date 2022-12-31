@@ -177,7 +177,7 @@
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 35010,
+      "bytes": 35558,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
@@ -330,7 +330,7 @@
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 23478
+          "bytesInOutput": 23925
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -345,7 +345,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 932389
+      "bytes": 932836
     }
   }
 }
