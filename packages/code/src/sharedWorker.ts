@@ -14,7 +14,7 @@ declare const self: SharedWorkerGlobalScope & {
   counters: Counters;
   dbs: { [codeSpaces: string]: LocalForage };
   connections: { [codeSpaces: string]: MessagePort[] };
-  hashCodes: { [codeSpaces: string]: string };
+  hashCodes: { [codeSpaces: string]: number };
 
   names: {};
   // bc: BroadcastChannel;
