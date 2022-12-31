@@ -457,8 +457,6 @@ var package_default = {
     immutable: "^4.2.1",
     "is-callable": "1.2.7",
     localforage: "^1.10.0",
-    "lodash.debounce": "4.0.8",
-    "lodash.throttle": "4.1.1",
     logrocket: "^3.0.1",
     memfs: "^3.4.12",
     module: "^1.2.5",
@@ -492,8 +490,6 @@ var package_default = {
     "@types/eslint": "^8.4.10",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/is-callable": "1.1.0",
-    "@types/lodash.debounce": "4.0.7",
-    "@types/lodash.throttle": "4.1.7",
     "@types/node": "^18.11.18",
     "@types/prettier": "2.7.2",
     "@types/prismjs": "^1.26.0",
@@ -563,153 +559,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-66YROMOV.mjs
-var require_lodash = __commonJS2({
-  "../../node_modules/lodash.debounce/index.js"(exports, module) {
-    init_define_process();
-    var FUNC_ERROR_TEXT = "Expected a function";
-    var NAN = 0 / 0;
-    var symbolTag = "[object Symbol]";
-    var reTrim = /^\s+|\s+$/g;
-    var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-    var reIsBinary = /^0b[01]+$/i;
-    var reIsOctal = /^0o[0-7]+$/i;
-    var freeParseInt = parseInt;
-    var freeGlobal = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis;
-    var freeSelf = typeof self == "object" && self && self.Object === Object && self;
-    var root = freeGlobal || freeSelf || Function("return this")();
-    var objectProto = Object.prototype;
-    var objectToString = objectProto.toString;
-    var nativeMax = Math.max;
-    var nativeMin = Math.min;
-    var now = /* @__PURE__ */ __name(function() {
-      return root.Date.now();
-    }, "now");
-    function debounce2(func, wait, options) {
-      var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
-      if (typeof func != "function") {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      wait = toNumber(wait) || 0;
-      if (isObject(options)) {
-        leading = !!options.leading;
-        maxing = "maxWait" in options;
-        maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-        trailing = "trailing" in options ? !!options.trailing : trailing;
-      }
-      function invokeFunc(time) {
-        var args = lastArgs, thisArg = lastThis;
-        lastArgs = lastThis = void 0;
-        lastInvokeTime = time;
-        result = func.apply(thisArg, args);
-        return result;
-      }
-      __name(invokeFunc, "invokeFunc");
-      function leadingEdge(time) {
-        lastInvokeTime = time;
-        timerId = setTimeout(timerExpired, wait);
-        return leading ? invokeFunc(time) : result;
-      }
-      __name(leadingEdge, "leadingEdge");
-      function remainingWait(time) {
-        var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, result2 = wait - timeSinceLastCall;
-        return maxing ? nativeMin(result2, maxWait - timeSinceLastInvoke) : result2;
-      }
-      __name(remainingWait, "remainingWait");
-      function shouldInvoke(time) {
-        var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
-        return lastCallTime === void 0 || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
-      }
-      __name(shouldInvoke, "shouldInvoke");
-      function timerExpired() {
-        var time = now();
-        if (shouldInvoke(time)) {
-          return trailingEdge(time);
-        }
-        timerId = setTimeout(timerExpired, remainingWait(time));
-      }
-      __name(timerExpired, "timerExpired");
-      function trailingEdge(time) {
-        timerId = void 0;
-        if (trailing && lastArgs) {
-          return invokeFunc(time);
-        }
-        lastArgs = lastThis = void 0;
-        return result;
-      }
-      __name(trailingEdge, "trailingEdge");
-      function cancel() {
-        if (timerId !== void 0) {
-          clearTimeout(timerId);
-        }
-        lastInvokeTime = 0;
-        lastArgs = lastCallTime = lastThis = timerId = void 0;
-      }
-      __name(cancel, "cancel");
-      function flush() {
-        return timerId === void 0 ? result : trailingEdge(now());
-      }
-      __name(flush, "flush");
-      function debounced() {
-        var time = now(), isInvoking = shouldInvoke(time);
-        lastArgs = arguments;
-        lastThis = this;
-        lastCallTime = time;
-        if (isInvoking) {
-          if (timerId === void 0) {
-            return leadingEdge(lastCallTime);
-          }
-          if (maxing) {
-            timerId = setTimeout(timerExpired, wait);
-            return invokeFunc(lastCallTime);
-          }
-        }
-        if (timerId === void 0) {
-          timerId = setTimeout(timerExpired, wait);
-        }
-        return result;
-      }
-      __name(debounced, "debounced");
-      debounced.cancel = cancel;
-      debounced.flush = flush;
-      return debounced;
-    }
-    __name(debounce2, "debounce");
-    function isObject(value) {
-      var type = typeof value;
-      return !!value && (type == "object" || type == "function");
-    }
-    __name(isObject, "isObject");
-    function isObjectLike(value) {
-      return !!value && typeof value == "object";
-    }
-    __name(isObjectLike, "isObjectLike");
-    function isSymbol(value) {
-      return typeof value == "symbol" || isObjectLike(value) && objectToString.call(value) == symbolTag;
-    }
-    __name(isSymbol, "isSymbol");
-    function toNumber(value) {
-      if (typeof value == "number") {
-        return value;
-      }
-      if (isSymbol(value)) {
-        return NAN;
-      }
-      if (isObject(value)) {
-        var other = typeof value.valueOf == "function" ? value.valueOf() : value;
-        value = isObject(other) ? other + "" : other;
-      }
-      if (typeof value != "string") {
-        return value === 0 ? value : +value;
-      }
-      value = value.replace(reTrim, "");
-      var isBinary = reIsBinary.test(value);
-      return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-    }
-    __name(toNumber, "toNumber");
-    module.exports = debounce2;
-  }
-});
+// ../code/dist/chunk-chunk-H6YFGASB.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8446,7 +8296,6 @@ function setProp(prototype, name) {
   }
 }
 __name(setProp, "setProp");
-var import_lodash = __toESM2(require_lodash(), 1);
 var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n  <!-- <script type="module">\n    import LogRocket from "/logrocket";\n\n    LogRocket.init("7bmflb/spikeland");\n  <\/script> -->\n\n</body>\n\n</html>';
 init_define_process();
 var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
@@ -9026,13 +8875,6 @@ var CodeSession = class {
     hashStore[md5(user.state.transpiled)] = this.session.get("state");
   }
   update() {
-    return (0, import_lodash.default)(() => this.updateNonDebounced(), 200, {
-      maxWait: 500,
-      trailing: true,
-      leading: false
-    })();
-  }
-  updateNonDebounced() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
       try {
         x();

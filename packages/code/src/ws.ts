@@ -3,7 +3,6 @@
 
 // import 'css-paint-polyfill
 import AVLTree from "avl";
-// import debounce from "lodash.debounce";
 // import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import {
@@ -394,7 +393,6 @@ export const run = async () => {
   // onSessionUpdate(
   //   () => {
   //     syncWS();
-  //     debouncedSyncRTC();
 
   //     const sess = mST();
 
@@ -432,12 +430,6 @@ export const run = async () => {
 // }
 
 const ignoreUsers: string[] = [];
-
-// const debouncedSyncRTC = debounce(syncRTC, 100, {
-//   trailing: true,
-//   leading: true,
-//   maxWait: 500,
-// });
 
 const syncDb = async (
   oldSession: ICodeSession,
