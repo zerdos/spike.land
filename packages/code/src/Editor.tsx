@@ -163,12 +163,13 @@ export const Editor: FC<
 
 let room = new AbortController();
 let controller = new AbortController();
-
+room.abort();
 async function onModChange(_code: string, codeSpace: string) {
   if (!room.signal.aborted) {
     room.abort();
     room = new AbortController();
-    await wait(Math.random() * 2000);
+    await wait(Math.random() * 3000);
+    if (room.signal.aborted) return;
     room.abort();
   }
   room = new AbortController();
