@@ -10,11 +10,11 @@ import {
   ICodeSession,
   importMapReplace,
   makePatch,
-  makePatchFrom,
   patchSync,
   // initAta,
   // prettierJs,
   resetCSS,
+  string_,
   // run,
   syncStorage,
 } from "@spike.land/code/src/session";
@@ -229,7 +229,7 @@ export class Code {
               );
             }
           }
-          const body = JSON.stringify(mST(this.codeSpace));
+          const body = string_(this.session?.session.get("state")!.toJSON()!);
           return new Response(body, {
             status: 200,
             headers: {

@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-IKILCUN2.mjs
+// ../code/dist/chunk-chunk-FS4LHLHV.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -23766,7 +23766,7 @@ var Code = class {
               );
             }
           }
-          const body = JSON.stringify(mST(this.codeSpace));
+          const body = string_(this.session?.session.get("state").toJSON());
           return new Response(body, {
             status: 200,
             headers: {
