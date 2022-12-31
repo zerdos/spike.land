@@ -38,19 +38,21 @@ export const Editor: FC<
 
   onSessionUpdate(
     async () => {
-      const { i } = mST(codeSpace);
-      const code = await prettier(mST(codeSpace).code);
+      const { i, code: ccc } = mST(codeSpace);
+      const prettyCCC = await prettier(ccc);
+      const prettyCode = await prettier(code);
 
-      if (!code) return;
+      if (!prettyCCC) return;
+      if (prettyCCC === prettyCode) return;
 
-      if (i !== mST(codeSpace).i) return;
+      // if (i !== mST(codeSpace).i) return;
 
       changeContent((x) => ({
         ...x,
         i,
-        code,
+        code: ccc,
       }));
-      setValue(code);
+      setValue(ccc);
     },
     "editor",
     codeSpace,
@@ -137,7 +139,7 @@ export const Editor: FC<
   useEffect(() => {
     runner({ code, counter: i, codeSpace, signal: controller.signal });
     return () => controller.abort();
-  }, [code, i, codeSpace, controller]);
+  }, [code, i, codeSpace, controller.signal]);
 
   if (engine === "ace") return EditorNode;
 
