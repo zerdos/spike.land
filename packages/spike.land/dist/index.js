@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-7BDWXYSW.mjs
+// ../code/dist/chunk-chunk-F5VMNZ53.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8762,7 +8762,7 @@ var CodeSession = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode4 = md5(state.transpiled);
+      const hashCode4 = state.hashCode();
       hashStore[hashCode4] = state;
       return hashCode4;
     };
@@ -8823,12 +8823,12 @@ var CodeSession = class {
           throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
         }
       }
-      const oldHash = md5(this.session.get("state").transpiled);
+      const oldHash = this.session.get("state").hashCode();
       this.session = this.session.set(
         "state",
         this.session.get("state").merge(sess)
       );
-      const newHash = md5(this.session.get("state").transpiled);
+      const newHash = this.session.get("state").hashCode();
       if (newHash !== oldHash && force !== true) {
         this.update();
       }
@@ -8868,7 +8868,7 @@ var CodeSession = class {
       ...user,
       state: savedState ? savedState : JSON.parse(string_({ ...user.state, codeSpace }))
     })();
-    hashStore[md5(user.state.transpiled)] = this.session.get("state");
+    hashStore[hashKEY(codeSpace)] = this.session.get("state");
   }
   update() {
     Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
