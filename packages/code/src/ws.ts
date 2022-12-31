@@ -312,7 +312,7 @@ export const run = async () => {
           messageData.oldHash && messageData.oldHash === messageData.newHash
         ) return;
         messagePort.postMessage(messageData);
-      }, messagePort.postMessage({ codeSpace, type: "handshake", name: user });
+      }, messagePort.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
     } else {
       try {
         const data = JSON.parse(ab2str(ev.data));

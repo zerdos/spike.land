@@ -24220,6 +24220,21 @@ var Code = class {
     }
     try {
       try {
+        if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
+          const HEAD = hashCode3(this.codeSpace);
+          let commit = data.hashCode;
+          while (commit && commit !== HEAD) {
+            const oldNode = await this.kv.get(commit);
+            const newNode = await this.kv.get(oldNode.newHash);
+            respondWith({
+              oldHash: commit,
+              newHash: oldNode.newHash,
+              patch: oldNode.patch,
+              reversePatch: newNode.reversePatch
+            });
+            commit = newNode?.newHash;
+          }
+        }
         if (data.target && data.type && ["new-ice-candidate", "video-offer", "video-answer"].includes(
           data.type
         )) {
