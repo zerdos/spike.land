@@ -122,6 +122,24 @@ export const Editor: FC<
     `}
     />
   );
+  const onModChange = async (_code: string, codeSpace: string) => {
+    console.log(_code);
+
+    controller.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+    const counter = i + 1;
+    const c = await prettier(_code);
+
+    if (signal.aborted) return;
+    if (!c || code === c || signal.aborted) return;
+    changeContent((x: typeof mySession) => ({
+      ...x,
+      i,
+      code: c,
+    }));
+    runner({ code: c, counter, codeSpace, signal });
+  };
 
   if (engine === "ace") return EditorNode;
 
@@ -149,25 +167,6 @@ export const Editor: FC<
     </Rnd>
   );
 
-  async function onModChange(_code: string, codeSpace: string) {
-    // console.log(_code);
-
-    controller.abort();
-    controller = new AbortController();
-    const signal = controller.signal;
-    const counter = i + 1;
-    const c = await prettier(_code);
-
-    if (signal.aborted) return;
-    if (!c || code === c || signal.aborted) return;
-    changeContent((x: typeof mySession) => ({
-      ...x,
-      i,
-      code: c,
-    }));
-    runner({ code: c, counter, codeSpace, signal });
-  }
-
   async function setMonaco(container: HTMLDivElement, codeSpace: string) {
     if (startedM) return;
     startedM = 1;
@@ -179,8 +178,8 @@ export const Editor: FC<
     return await startMonaco({
       container,
       codeSpace,
-      i: mST().i,
-      code: mST().code,
+      i,
+      code,
       onChange: (code) => onModChange(code, codeSpace),
     });
   }
