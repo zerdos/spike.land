@@ -9,7 +9,6 @@ import { isMobile } from "./isMobile.mjs";
 import { prettier } from "./prettier";
 import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
-import "monaco-editor/min/vs/editor/editor.main.css";
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;
@@ -28,7 +27,7 @@ export const Editor: FC<
   const engine = isMobile() ? "ace" : "monaco";
 
   const [
-    mySession,
+    { i, code, started, setValue },
     changeContent,
   ] = useState({
     code: mST().code,
@@ -36,14 +35,6 @@ export const Editor: FC<
     started: false,
     setValue: (_code: string) => null,
   });
-
-  const {
-    code,
-    i,
-    started,
-    // getValue,
-    setValue,
-  } = mySession;
 
   useEffect(() => {
     if (started) return;
@@ -94,7 +85,7 @@ export const Editor: FC<
 
     if (i !== mST().i) return;
     setValue(code);
-    changeContent((x: typeof mySession) => ({
+    changeContent((x) => ({
       ...x,
       i,
       code,
@@ -128,17 +119,21 @@ export const Editor: FC<
     controller.abort();
     controller = new AbortController();
     const signal = controller.signal;
-    const counter = i + 1;
+
     const c = await prettier(_code);
+
+    const counter = i + 1;
 
     if (signal.aborted) return;
     if (!c || code === c || signal.aborted) return;
-    changeContent((x: typeof mySession) => ({
+
+    changeContent((x) => ({
       ...x,
       i: counter,
       code: c,
     }));
-    runner({ code: c, counter, codeSpace, signal });
+
+    await runner({ code: c, counter, codeSpace, signal });
   };
 
   if (engine === "ace") return EditorNode;
