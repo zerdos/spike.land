@@ -165,9 +165,13 @@ let room = new AbortController();
 let controller = new AbortController();
 
 async function onModChange(_code: string, codeSpace: string) {
-  room.abort();
+  if (!room.signal.aborted) {
+    room.abort();
+    room = new AbortController();
+    await wait(Math.random() * 2000);
+    room.abort();
+  }
   room = new AbortController();
-  await wait(Math.random() * 1000);
   controller.abort();
   controller = new AbortController();
   const code = await prettier(_code);
