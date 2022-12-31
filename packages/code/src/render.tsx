@@ -1,10 +1,11 @@
 import type { FC } from "react";
 // import { unmountComponentAtNode } from "react-dom";
-import { createRoot, hydrateRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { wait } from "./wait";
 
 export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
-  const root = hydrateRoot(rootEl, <App />);
+  const root = createRoot(rootEl);
+  root.render(<App />);
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   BC.onmessage = async ({ data }) => {
