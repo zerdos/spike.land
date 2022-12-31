@@ -79,8 +79,8 @@ type GetItem<T> = (
 ) => Promise<T | null>;
 
 export const syncStorage = async (
-  setItem: SetItem<unknown>,
-  getItem: GetItem<unknown>,
+  setItem: SetItem<Partial<CodePatch | ICodeSession> | number>,
+  getItem: GetItem<Partial<CodePatch | ICodeSession> | number>,
   oldSession: ICodeSession,
   newSession: ICodeSession,
   message: {
@@ -110,8 +110,8 @@ export const syncStorage = async (
   );
   if (!oldNode) throw Error("corrupt storage");
   await setItem(message.oldHash, {
-    oldHash: oldNode.oldHash ? oldNode.oldHash : null,
-    reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
+    oldHash: oldNode.oldHash ? oldNode.oldHash : 0,
+    reversePatch: oldNode.reversePatch,
     newHash: message.newHash,
     patch: message.patch,
   });

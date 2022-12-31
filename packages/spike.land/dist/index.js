@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-EW65326E.mjs
+// ../code/dist/chunk-chunk-D5L7CBWE.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8746,8 +8746,8 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
   if (!oldNode)
     throw Error("corrupt storage");
   await setItem(message.oldHash, {
-    oldHash: oldNode.oldHash ? oldNode.oldHash : null,
-    reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
+    oldHash: oldNode.oldHash ? oldNode.oldHash : 0,
+    reversePatch: oldNode.reversePatch,
     newHash: message.newHash,
     patch: message.patch
   });
@@ -24245,8 +24245,8 @@ var Code = class {
           try {
             await this.kv.put("session", newSess, { allowConcurrency: true });
             const syncKV = async (oldSession2, newSess2, message) => await syncStorage(
-              async (key, value) => await this.kv.put(key, value, { allowConcurrency: true }),
-              async (key) => await this.kv.get(key, { allowConcurrency: true }),
+              async (key, v) => await this.kv.put("#" + String(key), v, { allowConcurrency: true, allowUnconfirmed: true }),
+              async (key) => await this.kv.get("#" + String(key), { allowConcurrency: true }),
               oldSession2,
               newSess2,
               message
