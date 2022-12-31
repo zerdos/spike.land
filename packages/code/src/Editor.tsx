@@ -52,8 +52,8 @@ export const Editor: FC<
       }));
       setValue(code);
     },
-    codeSpace,
     "editor",
+    codeSpace,
   );
 
   useEffect(() => {
