@@ -24134,14 +24134,15 @@ var Code = class {
       webSocket
     };
     this.sessions.push(session);
-    webSocket.send(JSON.stringify({ hashCode: hashCode3(this.codeSpace), users: this.users.keys() }));
+    this.sessions = this.sessions.filter((x) => !x.quit);
+    const users = this.sessions.filter((x) => x.name).map((x) => x.name);
+    webSocket.send(JSON.stringify({ hashCode: hashCode3(this.codeSpace), users }));
     webSocket.addEventListener(
       "message",
       (msg) => this.processWsMessage(msg, session)
     );
     const closeOrErrorHandler = () => {
       session.quit = true;
-      this.users.remove(session.name);
     };
     webSocket.addEventListener("close", closeOrErrorHandler);
     webSocket.addEventListener("error", closeOrErrorHandler);
@@ -24169,7 +24170,8 @@ var Code = class {
           msg: "no-name-no-party"
         });
       }
-      session.name = data.name;
+      this.sessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
+      session.name = name;
     }
     if (data.type == "handshake" && data.hashCode !== hashCode3(this.codeSpace)) {
       const HEAD = hashCode3(this.codeSpace);
