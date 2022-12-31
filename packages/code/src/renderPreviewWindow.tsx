@@ -9,7 +9,7 @@ import { css } from "@emotion/react";
 
 import DraggableWindow from "./DraggableWindow";
 import { Editor } from "./Editor";
-import { hydrateRoot } from "./reactDomClient";
+import { createRoot } from "./reactDomClient";
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
@@ -119,7 +119,8 @@ export const renderPreviewWindow = (
 
   // (createCache as unknown as {default: typeof createCache}).default
 
-  hydrateRoot(rootEl!, <AppToRender codeSpace={codeSpace} />);
+  const root = createRoot(rootEl!);
+  root.render(<AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
 
   // }, 500);
