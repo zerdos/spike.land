@@ -556,7 +556,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../code/dist/chunk-chunk-EZ44CG4J.mjs
+// ../code/dist/chunk-chunk-3LBCQKSY.mjs
 var require_diff = __commonJS2({
   "../../node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8727,7 +8727,9 @@ function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 __name(initSession, "initSession");
-var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, newSession, message) => {
+var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, newSession, message) => {
+  const setItem = /* @__PURE__ */ __name((k, v) => _setItem(String(k), v), "setItem");
+  const getItem = /* @__PURE__ */ __name((k) => _get(String(k)), "getItem");
   const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
@@ -24245,8 +24247,8 @@ var Code = class {
           try {
             await this.kv.put("session", newSess, { allowConcurrency: true });
             const syncKV = async (oldSession2, newSess2, message) => await syncStorage(
-              async (key, v) => await this.kv.put("#" + String(key), v, { allowConcurrency: true, allowUnconfirmed: true }),
-              async (key) => await this.kv.get("#" + String(key), { allowConcurrency: true }),
+              async (key, v) => await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true }),
+              async (key) => await this.kv.get(key, { allowConcurrency: true }),
               oldSession2,
               newSess2,
               message

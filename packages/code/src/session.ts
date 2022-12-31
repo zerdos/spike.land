@@ -79,8 +79,8 @@ type GetItem<T> = (
 ) => Promise<T | null>;
 
 export const syncStorage = async (
-  setItem: SetItem<Partial<CodePatch | ICodeSession> | number>,
-  getItem: GetItem<Partial<CodePatch | ICodeSession> | number>,
+  _setItem: SetItem<Partial<CodePatch | ICodeSession> | number>,
+  _getItem: GetItem<Partial<CodePatch | ICodeSession> | number>,
   oldSession: ICodeSession,
   newSession: ICodeSession,
   message: {
@@ -90,6 +90,9 @@ export const syncStorage = async (
     patch: Delta[];
   },
 ) => {
+  const setItem = (k, v) => _setItem(String(k), v);
+
+  const getItem = (k) => _get(String(k));
   const hashOfOldSession = Record(oldSession)().hashCode();
   let historyHead = await getItem("head");
   if (!historyHead) {
