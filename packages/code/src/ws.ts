@@ -231,24 +231,27 @@ let messagePort: MessagePort;
 
 // });
 
+type MessageProps = Partial<{
+  oldHash?: string;
+  newHash?: string;
+  name?: string;
+  codeSpace: string;
+  i?: number;
+  code?: string;
+  transpiled?: string;
+  sess?: ICodeSession;
+  type?: string;
+  target?: string;
+  candidate?: RTCIceCandidateInit;
+  answer?: RTCSessionDescriptionInit;
+  offer?: RTCSessionDescription;
+  reversePatch?: Delta[];
+  patch?: Delta[];
+}>;
+
 const ws = {
   send: (
-    mess: {
-      oldHash?: string;
-      newHash?: string;
-      name?: string;
-      i?: number;
-      code?: string;
-      transpiled?: string;
-      sess?: ICodeSession;
-      type?: string;
-      target?: string;
-      candidate?: RTCIceCandidateInit;
-      answer?: RTCSessionDescriptionInit;
-      offer?: RTCSessionDescription;
-      reversePatch?: Delta[];
-      patch?: Delta[];
-    },
+    mess: MessageProps,
   ) => console.log("JUST A STUB", { mess }),
 };
 
@@ -299,20 +302,16 @@ export const run = async () => {
       console.log("POST ONCONNECT", { codeSpace, name: user });
       // messagePort = this;
       ws.send = (
-        message: {
-          oldHash?: string;
-          newHash?: string;
-          reversePatch?: Delta[];
-          patch?: Delta[];
-        },
+        message,
       ) => {
-        const messageData = { codeSpace, name: user, ...message, sess: mST(codeSpace) };
+        const messageData = { name: user, ...message, sess: mST(codeSpace), codeSpace, hashCode: hashCode(codeSpace) };
         console.log("POST MESSAGE", { messageData });
         if (
           messageData.oldHash && messageData.oldHash === messageData.newHash
         ) return;
         messagePort.postMessage(messageData);
-      }, messagePort.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
+      }
+       messagePort.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashCode(codeSpace) });
     } else {
       try {
         const data = JSON.parse(ab2str(ev.data));
