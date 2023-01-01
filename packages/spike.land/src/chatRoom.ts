@@ -27,6 +27,7 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
+import { initAndTransform } from "./ebuilld";
 
 // import { CodeRateLimiter } from "./rateLimiter";
 
@@ -179,7 +180,7 @@ export class Code {
           });
 
         case "index.trans.js": {
-          const trp = await esmTransform(mST(this.codeSpace).code, url.origin);
+          const trp = await initAndTransform(mST(this.codeSpace).code,{}, url.origin);
           return new Response(trp, {
             status: 200,
             headers: {
