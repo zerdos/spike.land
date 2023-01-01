@@ -69,8 +69,8 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-LSFDXWDP.mjs": {
-      "bytes": 488341,
+    "../code/dist/chunk-chunk-BRXKP7KX.mjs": {
+      "bytes": 518837,
       "imports": [
         {
           "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
@@ -86,7 +86,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/chunk-chunk-LSFDXWDP.mjs",
+          "path": "../code/dist/chunk-chunk-BRXKP7KX.mjs",
           "kind": "import-statement"
         },
         {
@@ -168,12 +168,35 @@
         }
       ]
     },
+    "../../node_modules/esbuild-wasm/lib/browser.js": {
+      "bytes": 115310,
+      "imports": []
+    },
+    "src/ebuilld.ts": {
+      "bytes": 1816,
+      "imports": [
+        {
+          "path": "../src/esbuild.wasm",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "../../node_modules/esbuild-wasm/lib/browser.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "@spike.land/code/src/session",
+          "kind": "import-statement",
+          "external": true
+        }
+      ]
+    },
     "src/iife.html": {
       "bytes": 2207,
       "imports": []
     },
     "src/chatRoom.ts": {
-      "bytes": 39241,
+      "bytes": 39295,
       "imports": [
         {
           "path": "../code/dist/session.mjs",
@@ -189,6 +212,10 @@
         },
         {
           "path": "src/handleErrors.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/ebuilld.ts",
           "kind": "import-statement"
         },
         {
@@ -256,6 +283,11 @@
           "path": "__STATIC_CONTENT_MANIFEST",
           "kind": "import-statement",
           "external": true
+        },
+        {
+          "path": "../src/esbuild.wasm",
+          "kind": "import-statement",
+          "external": true
         }
       ],
       "exports": [
@@ -285,6 +317,9 @@
         "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
           "bytesInOutput": 9010
         },
+        "../../node_modules/esbuild-wasm/lib/browser.js": {
+          "bytesInOutput": 130131
+        },
         "src/chat.ts": {
           "bytesInOutput": 10043
         },
@@ -292,13 +327,13 @@
           "bytesInOutput": 5050
         },
         "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
-          "bytesInOutput": 2026
+          "bytesInOutput": 1639
         },
         "../code/dist/chunk-chunk-7M7AO4YL.mjs": {
-          "bytesInOutput": 333746
+          "bytesInOutput": 333754
         },
-        "../code/dist/chunk-chunk-LSFDXWDP.mjs": {
-          "bytesInOutput": 482381
+        "../code/dist/chunk-chunk-BRXKP7KX.mjs": {
+          "bytesInOutput": 512619
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
@@ -315,11 +350,14 @@
         "../../node_modules/avl/src/index.js": {
           "bytesInOutput": 11149
         },
+        "src/ebuilld.ts": {
+          "bytesInOutput": 1038
+        },
         "src/iife.html": {
           "bytesInOutput": 2235
         },
         "src/chatRoom.ts": {
-          "bytesInOutput": 24801
+          "bytesInOutput": 24810
         },
         "src/index.ts": {
           "bytesInOutput": 33
@@ -334,7 +372,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 929088
+      "bytes": 1089822
     }
   }
 }

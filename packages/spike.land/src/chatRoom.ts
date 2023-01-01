@@ -24,6 +24,7 @@ import type { Delta } from "@spike.land/code/src/session";
 import AVLTree from "avl";
 import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
+import { initAndTransform } from "./ebuilld";
 import { CodeEnv } from "./env";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
@@ -179,7 +180,7 @@ export class Code {
           });
 
         case "index.trans.js": {
-          const trp = await esmTransform(mST(this.codeSpace).code, url.origin);
+          const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
           return new Response(trp, {
             status: 200,
             headers: {
