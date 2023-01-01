@@ -8931,7 +8931,7 @@ function createPatch(oldCode, newCode) {
 __name(createPatch, "createPatch");
 var patchSync = /* @__PURE__ */ __name((sess, force = true) => sessions[sess.codeSpace].patchSync(sess, force), "patchSync");
 
-// ../code/dist/chunk-chunk-6MQOVGCJ.mjs
+// ../code/dist/chunk-chunk-LSFDXWDP.mjs
 var require_just_once = __commonJS2({
   "../../node_modules/just-once/index.js"(exports, module) {
     init_define_process();
@@ -14460,7 +14460,7 @@ var require_assert = __commonJS2({
   }
 });
 var require_b64 = __commonJS2({
-  "../../node_modules/buffer-browserify/node_modules/base64-js/lib/b64.js"(exports) {
+  "../../node_modules/base64-js/lib/b64.js"(exports) {
     init_define_process();
     var lookup = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     (function(exports2) {
