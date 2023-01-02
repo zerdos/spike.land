@@ -147,17 +147,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@ava/typescript", [\
-      ["npm:3.0.1", {\
-        "packageLocation": "../../../Users/z/.yarn/berry/cache/@ava-typescript-npm-3.0.1-86ad2de6ce-9.zip/node_modules/@ava/typescript/",\
-        "packageDependencies": [\
-          ["@ava/typescript", "npm:3.0.1"],\
-          ["escape-string-regexp", "npm:5.0.0"],\
-          ["execa", "npm:5.1.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@babel/code-frame", [\
       ["npm:7.18.6", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/@babel-code-frame-npm-7.18.6-25229a7e34-9.zip/node_modules/@babel/code-frame/",\
@@ -1784,7 +1773,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike.land/code", "virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#workspace:packages/code"],\
           ["@ampproject/worker-dom", "npm:0.34.0"],\
-          ["@ava/typescript", "npm:3.0.1"],\
           ["@emotion/cache", "npm:11.10.5"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.10.5"],\
           ["@emotion/styled", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:11.10.5"],\
@@ -1873,7 +1861,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike.land/code", "workspace:packages/code"],\
           ["@ampproject/worker-dom", "npm:0.34.0"],\
-          ["@ava/typescript", "npm:3.0.1"],\
           ["@emotion/cache", "npm:11.10.5"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.10.5"],\
           ["@emotion/styled", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:11.10.5"],\
@@ -3441,7 +3428,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/ava-virtual-7a69bc5356/4/Users/z/.yarn/berry/cache/ava-npm-5.1.0-1699c4b58f-9.zip/node_modules/ava/",\
         "packageDependencies": [\
           ["ava", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.1.0"],\
-          ["@ava/typescript", "npm:3.0.1"],\
+          ["@ava/typescript", null],\
           ["@types/ava__typescript", null],\
           ["acorn", "npm:8.8.1"],\
           ["acorn-walk", "npm:8.2.0"],\

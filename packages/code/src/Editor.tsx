@@ -175,7 +175,7 @@ export const Editor: FC<
     startedM = 1;
     const link = document.createElement("link");
     link.setAttribute("rel", "stylesheet");
-    link.href = origin + "/Editor.css";
+    link.href = origin + "/src/Editor.css";
     document.head.append(link);
     const { startMonaco } = await import("./startMonaco");
     return await startMonaco({

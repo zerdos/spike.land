@@ -7,7 +7,6 @@ import { libp2pConfig } from "/npm:ipfs-core-config/src/libp2p.browser.js";
 import { routers } from "/npm:ipfs-core-config/src/libp2p-pubsub-routers.browser.js";
 
 export const startIpfs = async (codeSpace: string) => {
-  // @ts-expect-error
   const { create } = await importUmd(
     "https://unpkg.com/ipfs-core@0.16.1/dist/index.min.js",
   );

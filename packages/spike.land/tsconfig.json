@@ -2,10 +2,11 @@
   "compilerOptions": {
     "allowJs": true,
     "alwaysStrict": true,
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "importHelpers": true,
     "downlevelIteration": true,
-    "strict": true,
-    "noEmit": false,
     "forceConsistentCasingInFileNames": true,
     "preserveConstEnums": true,
     "moduleResolution": "node",
@@ -17,10 +18,10 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types"]
+    "types": []
   },
 
   "include": [
-    "src/*"
+    "src"
   ]
 }

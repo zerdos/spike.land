@@ -2837,19 +2837,19 @@ var package_default = {
     "./package.json": "./package.json",
     "./src/starter.ts": "./src/starter.ts",
     "./src/rtc.ts": "./src/rtc.ts",
-    "./src/session": {
-      import: "./dist/session.mjs",
-      node: "./dist/session.js"
+    "./session": {
+      import: "./dist/src/session.mjs",
+      node: "./dist/src/session.js"
     },
     "./src/textDiff": "./src/textDiff.ts",
     "./src/esbuildEsm": "./src/esbuildEsm.ts",
     "./src/binary": "./src/binary.ts",
-    "./src/importmap.json": "./src/importmap.json",
+    "./importmap.json": "./src/importmap.json",
     "./src/mockedMap.json": "./src/mockedMap.json"
   },
   scripts: {
     test: "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
-    typecheck: "yarn tsc",
+    types: "tsc",
     clean: "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
     start: "cd ../../.. && yarn start",
@@ -2859,8 +2859,8 @@ var package_default = {
     "build:framer-motion": 'yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\"production\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs',
     prebuild: "yarn test || echo FAILED",
     build: "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build",
-    "es:build": "yarn test && node esbuild-dev.mjs",
-    favicons: "cp -af src/assets/ ./dist && mkdir -p  ./dist/assets && cp src/assets/synthwave.webp   ./dist/assets/",
+    "es:build": "node esbuild-dev.mjs",
+    favicons: "mkdir -p ./dist/src/assets && cp -af src/assets/. ./dist/src/assets/",
     sw: "echo ok"
   },
   keywords: [
@@ -2877,7 +2877,7 @@ var package_default = {
   bugs: {
     url: "https://github.com/zerdos/spike.land"
   },
-  homepage: "http:///",
+  homepage: "http://spike.land",
   repository: {
     type: "git",
     url: "git+https://github.com/zerdos/spike.land.git"
@@ -2889,7 +2889,6 @@ var package_default = {
   },
   dependencies: {
     "@ampproject/worker-dom": "^0.34.0",
-    "@ava/typescript": "^3.0.1",
     "@emotion/cache": "11.10.5",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
@@ -2975,7 +2974,7 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JLPTXNJM.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -3015,7 +3014,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XDO6X2AW.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-YEU2NHBG.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -10752,7 +10751,7 @@ function setProp(prototype, name) {
   }
 }
 __name(setProp, "setProp");
-var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
+var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/src/assetsfavicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
 init_define_process();
 var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
 function md5FULL(inputString) {
@@ -10970,17 +10969,17 @@ overflow-wrap: break-word;
 init_define_process();
 var importmap_default = {
   imports: {
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
-    "react-dom/client": "/reactDomClient.mjs",
-    "framer-motion": "/motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/cache": "/emotionCache.mjs",
-    "@emotion/styled": "/emotionStyled.mjs",
-    react: "/reactMod.mjs",
-    "react-dom": "/reactDom.mjs",
-    "react-error-boundary": "/reactMod.mjs",
-    "hydrate.mjs": "/hydrate.mjs"
+    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/src/jsx.mjs",
+    "react-dom/client": "/src/reactDomClient.mjs",
+    "framer-motion": "/src/motion.mjs",
+    "@emotion/react": "/src/emotion.mjs",
+    "@emotion/cache": "/src/emotionCache.mjs",
+    "@emotion/styled": "/src/emotionStyled.mjs",
+    react: "/src/reactMod.mjs",
+    "react-dom": "/src/reactDom.mjs",
+    "react-error-boundary": "/src/reactMod.mjs",
+    "hydrate.mjs": "/src/hydrate.mjs"
   }
 };
 var importMapImports = importmap_default.imports;
@@ -11390,7 +11389,7 @@ function createPatch(oldCode, newCode) {
 __name(createPatch, "createPatch");
 var patchSync = /* @__PURE__ */ __name((sess, force = true) => sessions[sess.codeSpace].patchSync(sess, force), "patchSync");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-7CVXCDCV.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-7CVXCDCV.mjs
 var require_just_once = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process();
@@ -24929,17 +24928,17 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json
 var importmap_default2 = {
   imports: {
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
-    "react-dom/client": "/reactDomClient.mjs",
-    "framer-motion": "/motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/cache": "/emotionCache.mjs",
-    "@emotion/styled": "/emotionStyled.mjs",
-    react: "/reactMod.mjs",
-    "react-dom": "/reactDom.mjs",
-    "react-error-boundary": "/reactMod.mjs",
-    "hydrate.mjs": "/hydrate.mjs"
+    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/src/jsx.mjs",
+    "react-dom/client": "/src/reactDomClient.mjs",
+    "framer-motion": "/src/motion.mjs",
+    "@emotion/react": "/src/emotion.mjs",
+    "@emotion/cache": "/src/emotionCache.mjs",
+    "@emotion/styled": "/src/emotionStyled.mjs",
+    react: "/src/reactMod.mjs",
+    "react-dom": "/src/reactDom.mjs",
+    "react-error-boundary": "/src/reactMod.mjs",
+    "hydrate.mjs": "/src/hydrate.mjs"
   }
 };
 
@@ -26364,7 +26363,7 @@ var Code = class {
                   </div>
                   </div>
               </div>
-              <script type="module" src="/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`
+              <script type="module" src="/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`
           );
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
@@ -26392,7 +26391,7 @@ var Code = class {
           <script type="module">
           import App from "${url.origin}/live/${this.codeSpace}/index.js"
               
-              import {prerender} from "${url.origin}/render.mjs"
+              import {prerender} from "${url.origin}/src/render.mjs"
               
               
              const res = prerender(App).then(res=>window.parent.postMessage(res))

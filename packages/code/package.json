@@ -13,19 +13,19 @@
     "./package.json": "./package.json",
     "./src/starter.ts": "./src/starter.ts",
     "./src/rtc.ts": "./src/rtc.ts",
-    "./src/session": {
-      "import": "./dist/session.mjs",
-      "node": "./dist/session.js"
+    "./session": {
+      "import": "./dist/src/session.mjs",
+      "node": "./dist/src/session.js"
     },
     "./src/textDiff": "./src/textDiff.ts",
     "./src/esbuildEsm": "./src/esbuildEsm.ts",
     "./src/binary": "./src/binary.ts",
-    "./src/importmap.json": "./src/importmap.json",
+    "./importmap.json": "./src/importmap.json",
     "./src/mockedMap.json": "./src/mockedMap.json"
   },
   "scripts": {
     "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
-    "typecheck": "yarn tsc",
+    "types": "tsc",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
@@ -35,8 +35,8 @@
     "build:framer-motion": "yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
     "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build",
-    "es:build": "yarn test && node esbuild-dev.mjs",
-    "favicons": "cp -af src/assets/ ./dist && mkdir -p  ./dist/assets && cp src/assets/synthwave.webp   ./dist/assets/",
+    "es:build": "node esbuild-dev.mjs",
+    "favicons": "mkdir -p ./dist/src/assets && cp -af src/assets/. ./dist/src/assets/",
     "sw": "echo ok"
   },
   "keywords": [
@@ -53,7 +53,7 @@
   "bugs": {
     "url": "https://github.com/zerdos/spike.land"
   },
-  "homepage": "http:///",
+  "homepage": "http://spike.land",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zerdos/spike.land.git"
@@ -65,7 +65,6 @@
   },
   "dependencies": {
     "@ampproject/worker-dom": "^0.34.0",
-    "@ava/typescript": "^3.0.1",
     "@emotion/cache": "11.10.5",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",

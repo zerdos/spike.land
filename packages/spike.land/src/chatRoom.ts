@@ -17,9 +17,9 @@ import {
   string_,
   // run,
   syncStorage,
-} from "@spike.land/code/src/session";
-import { HTML, md5, mST, startSession } from "@spike.land/code/src/session";
-import type { Delta } from "@spike.land/code/src/session";
+} from "@spike.land/code/session";
+import { HTML, md5, mST, startSession } from "@spike.land/code/session";
+import type { Delta } from "@spike.land/code/session";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { handleErrors } from "./handleErrors";
@@ -623,7 +623,7 @@ export class Code {
                   </div>
                   </div>
               </div>
-              <script type="module" src="/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+              <script type="module" src="/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
             );
 
           // const Etag = request.headers.get("Etag");
@@ -670,7 +670,7 @@ export class Code {
           <script type="module">
           import App from "${url.origin}/live/${this.codeSpace}/index.js"
               
-              import {prerender} from "${url.origin}/render.mjs"
+              import {prerender} from "${url.origin}/src/render.mjs"
               
               
              const res = prerender(App).then(res=>window.parent.postMessage(res))

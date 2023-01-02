@@ -4,10 +4,9 @@ import packages from "@spike.land/code/package.json";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 // import imap from "@spike.land/code/src/importmap.json";
-import { importMapReplace } from "@spike.land/code/src/session";
+import { importMapReplace, md5 } from "@spike.land/code/session";
 
-import importMap from "@spike.land/code/src/importmap.json";
-import { md5 } from "@spike.land/code/src/session";
+import importMap from "@spike.land/code/importmap.json";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 

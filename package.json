@@ -11,9 +11,11 @@
   "scripts": {
     "clean": "yarn workspaces foreach --all run  clean",
     "build": "yarn workspaces foreach --all run  build",
+    "types": "yarn workspaces foreach --all run types",
+    "test": "yarn workspaces foreach --all run test",
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
-    "deploy": "yarn c:build && yarn c:deploy",
+    "deploy": "yarn clean &&(yarn types & yarn test & yarn c:build) && yarn c:deploy",
     "importmap": "yarn workspaces foreach --all run  importmap",
     "build:code": "yarn workspaces foreach --all run build:code",
     "yarn:publish": "yarn workspaces foreach --all run  yarn workspaces foreach --all run publish",
@@ -24,14 +26,14 @@
     "docker:build": "yarn workspaces foreach --all run   docker:build",
     "docker:push": "yarn workspaces foreach --all run   docker:push",
     "push": "yarn fmt && yarn deploy && git pull && yarn && git add . && git commit -m push && git push && yarn fmt",
-    "test": "xo && NODE_OPTIONS=--experimental-fetch yarn p:test",
+    "x:test": "xo && NODE_OPTIONS=--experimental-fetch yarn p:test",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "resolutions": {
     "wrangler/esbuild": "^0.16.10"
   },
-  "devDependencies": {
+  "dependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@emotion/react": "^11.10.5",
     "@isomorphic-git/lightning-fs": "^4.6.0",

@@ -38,7 +38,7 @@ const environment = env.NODE_ENV === "production"
 
 const isDevelopment = environment !== "production";
 
-const outdir = "./dist";
+const outdir = "dist/src";
 const target = "es2022";
 
 console.log(`
@@ -183,7 +183,6 @@ const build = (
       ".html",
       ".js",
       ".wasm",
-      ".workerJs.js",
       ".js?worker",
     ],
     metafile: true,
@@ -200,7 +199,6 @@ const build = (
       ".mjs": "tsx",
       ".css": "css",
       ".d.ts": "file",
-      ".workerJs.js": "file",
       ".wasm": "file",
     },
     outdir,
@@ -211,14 +209,14 @@ const build = (
 
 (async () => {
   await rm("src/monaco-workers", { recursive: true, force: true });
-  await cp("./src/index.html", "./dist/index.html");
-  await cp("./tsconfig.json", "./dist/tsconfig_dist.json");
-  await cp("./dist/favicons/favicon.ico", "./dist/favicon.ico");
+  // await cp("./src/index.html", "./dist/index.html");
+  await cp("./tsconfig.json", "./dist/src/tsconfig_dist.json");
+  await cp("./dist/src/assets/favicons/favicon.ico", "./dist/src/favicon.ico");
 
-  await cp("./src/via", "./dist", { recursive: true, force: true });
+  await cp("./src/via", "./dist/src", { recursive: true, force: true });
   await cp(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
-    "./dist/enhanced_dot_digital-7.ttf",
+    "./dist/src/enhanced_dot_digital-7.ttf",
   );
   await esbuild.build({
     entryPoints: [
@@ -235,10 +233,9 @@ const build = (
     keepNames: true,
 
     platform: "browser",
-    outExtension: { ".js": ".workerJs.js" },
     format: "iife",
     outbase: "monaco-editor/esm/vs",
-    outdir: "./src/monaco-workers",
+    outdir: "dist",
   });
   // await build(["src/react-jsx-runtime.ts"], [], false, "iife");
 
@@ -274,9 +271,9 @@ const build = (
     ignoreAnnotations: false,
     keepNames: true,
     treeShaking: true,
+    outdir: "dist",
     platform: "browser",
     format: "iife",
-    outdir: "dist",
   });
 
   buildOptions.plugins = [

@@ -21,16 +21,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ava/typescript@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@ava/typescript@npm:3.0.1"
-  dependencies:
-    escape-string-regexp: "npm:^5.0.0"
-    execa: "npm:^5.1.1"
-  checksum: fb7b8d85dca0b63318e908f524200cc09f54a99d162c5e8a57eb1b411e5b035bd174eb78e2f78fb85d9d5cefdaf2edcd1d85be1ef41708918cfe40ad63a655ff
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:^7.0.0":
   version: 7.18.6
   resolution: "@babel/code-frame@npm:7.18.6"
@@ -1367,7 +1357,6 @@ __metadata:
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
     "@ampproject/worker-dom": "npm:^0.34.0"
-    "@ava/typescript": "npm:^3.0.1"
     "@emotion/cache": "npm:11.10.5"
     "@emotion/react": "npm:11.10.5"
     "@emotion/styled": "npm:11.10.5"

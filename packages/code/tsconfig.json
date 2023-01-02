@@ -8,11 +8,12 @@
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
 
-  
-    "noEmit": true,
+    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
+    "declaration": true,
     "checkJs": false,
     "useDefineForClassFields": false,
+    "outDir": "dist",
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
     "noUnusedLocals": true,
@@ -72,9 +73,8 @@
   },
   "include": [
     "src",
-    "src/importmap.json",
     "package.json",
-    "esbuild-dev.mjs"
+
   ],
-  "exclude": [".yarn", "dist", "../worker-dom/src"]
+  "exclude": [".yarn", "dist"]
 }

@@ -1,11 +1,29 @@
 import * as monaco from "monaco-editor";
 
-import { getWorkerUrl } from "./monacoWorkers.mjs";
-
 // import localForage from "localforage";
 
 const { editor, languages, Uri } = monaco;
 import { RpcProvider } from "worker-rpc";
+
+const getWorkerUrl = (_moduleId, label) => {
+  if (label === "json") {
+    return `${location.origin}/language/json/json.js`;
+  }
+
+  if (label === "css" || label === "scss" || label === "less") {
+    return `${location.origin}/language/css/css.js`;
+  }
+
+  if (label === "html" || label === "handlebars" || label === "razor") {
+    return `${location.origin}/language//html/html.js`;
+  }
+
+  if (label === "typescript" || label === "javascript") {
+    return `${location.origin}/language/typescript/ts.js`;
+  }
+
+  return `${location.origin}/editor/editor.js`;
+};
 
 // import * as w from "./monacoExtra";
 const { createModel } = editor;
