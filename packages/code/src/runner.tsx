@@ -7,7 +7,7 @@ import { syncWS } from "./ws";
 // import { RpcProvider } from "worker-rpc";
 
 // import type { ICodeSession } from "./session";
-// import { buildT } from "./esbuildEsm";
+import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
 import { mST } from "./session";
 
@@ -157,7 +157,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
         // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
         // BC.postMessage({ html, css, code, transpiled, i: counter });
-        // await buildT(codeSpace, location.origin, signal, true);
+        await buildT(codeSpace, location.origin, signal, true);
         // BCbundle.postMessage({ counterMax });
       }
     };

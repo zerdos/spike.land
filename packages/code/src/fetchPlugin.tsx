@@ -3,6 +3,7 @@ import { Loader } from "esbuild-wasm";
 import { esmTransform } from "./esmTran";
 
 import { readFile } from "./fs";
+import { importMapReplace } from "./importMapReplace";
 
 // let fetchCache: Cache = {
 //   match: (req: Request) =>
@@ -141,7 +142,7 @@ export const fetchPlugin: (
 
       if (req.url.indexOf(".tsx")) {
         return {
-          contents: await response.text(),
+          contents: importMapReplace(await response.text(), origin, origin),
         };
       }
 
