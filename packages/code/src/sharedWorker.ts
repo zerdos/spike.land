@@ -1,12 +1,12 @@
 import { Mutex } from "async-mutex";
-import { m } from "framer-motion";
+// import { m } from "framer-motion";
 import localForage from "localforage";
 import { str2ab } from "./sab";
-import { CodeSession } from "./session";
+// import { CodeSession } from "./session";
 import type { Delta } from "./textDiff";
 import { wait } from "./wait";
 
-const hashStore: { [hash: string]: CodeSession } = {};
+// const hashStore: { [hash: string]: CodeSession } = {};
 const names: { [codeSpace: string]: string } = {};
 
 export type {};
@@ -98,7 +98,7 @@ type Data = {
   i: number;
   hashCode?: number;
   candidate?: string;
-  sess: CodeSession;
+  // sess: CodeSession;
   answer?: string;
   offer?: string;
   newHash: number;
@@ -144,14 +144,14 @@ async function onMessage(port: MessagePort, data: Data) {
     candidate,
     offer,
     answer,
-    sess,
+    // sess,
   } = data;
 
   const hash = newHash || hashCode;
   hashCodes[codeSpace] = hash || 0;
-  if (sess && hash) hashStore[hash] = sess;
-  if (sess && newHash) hashStore[newHash] = sess;
-  if (sess && hashCode) hashStore[hashCode] = sess;
+  // if (sess && hash) hashStore[hash] = sess;
+  // if (sess && newHash) hashStore[newHash] = sess;
+  // if (sess && hashCode) hashStore[hashCode] = sess;
 
   if (i && !counters[codeSpace]) counters[codeSpace] = i;
   else if (i && counters[codeSpace] >= i) return;

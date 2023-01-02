@@ -297,6 +297,24 @@ export const run = async () => {
       mst.code,
     );
   } else {
+    unlink(
+      `/live/${codeSpace}/index.js`,
+    );
+    await unlink(
+      `/live/${codeSpace}/index.tsx`,
+    );
+    await writeFile(
+      `/live/${codeSpace}/index.tsx`,
+      mst.code,
+    );
+  }
+
+  if (!cs.includes("index.tsx")) {
+    await writeFile(
+      `/live/${codeSpace}/index.tsx`,
+      mst.code,
+    );
+  } else {
     await unlink(
       `/live/${codeSpace}/index.tsx`,
     );
@@ -329,11 +347,11 @@ export const run = async () => {
     if (ev.data.type === "onconnect") {
       console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
       // messagePort = this;
-      const sess = mST(codeSpace);
+      // const sess = mST(codeSpace);
       ws.send = (
         message: MessageProps,
       ) => {
-        const messageData = { name: user, ...message, codeSpace, sess, i: sess.i, hashCode: hashKEY(codeSpace) };
+        const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
         console.log("POST MESSAGE", { messageData });
         if (
           messageData.oldHash && messageData.oldHash === messageData.newHash
