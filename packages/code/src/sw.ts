@@ -2,7 +2,8 @@
 import { transform } from "./esmTransform";
 export type {};
 import { readFile } from "./fs";
-import { renderToStream } from "./renderToStream";
+import { HTML, importMapReplace, md5, resetCSS } from "./session";
+// import { renderToStream } from "./renderToStream";
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
@@ -55,7 +56,80 @@ const createResponse = async (request: Request) => {
   // const fs = globalThis.fs;
 
   if (url.pathname.startsWith("/live") && url.pathname.endsWith("public")) {
-    return renderToStream("clock3");
+    const paths = url.pathname.split("/");
+    // return renderToStream("clock3");
+    const codeSpace = paths[2];
+    const { css, html, transpiled, i } = JSON.parse(
+      await readFile(
+        `/live/${codeSpace}/session.json`,
+      ) as string,
+    );
+    const ASSET_HASH = md5(transpiled);
+
+    const js = importMapReplace(transpiled, location.origin, location.origin).replace(
+      `export {`,
+      "const mod_ASSET_HASH = {",
+    );
+
+    const respText = HTML.replace(
+      "/**reset*/",
+      resetCSS,
+    )
+      .replace(
+        `<div id="root"></div>`,
+        `
+          <div id="root" data-i="${i}" style="height: 100%;">
+
+          <style>${css}</style>
+          <div id="${codeSpace}-css" style="height: 100%;">
+            ${html}
+          </div>
+          </div>
+          <script type="module">
+
+          import {render} from "${url.origin}/src/render.mjs";
+       
+          ${js}
+          const App= mod_ASSET_HASH.default;
+
+          const rootEl = document.getElementById("${codeSpace}-css");
+          
+          render(rootEl, App, "${codeSpace}");          
+      
+          </script>`,
+      ).split("ASSET_HASH").join(ASSET_HASH);
+
+    // const Etag = request.headers.get("Etag");
+    // const newEtag = await sha256(respText);
+    const headers = new Headers();
+    headers.set("Access-Control-Allow-Origin", "*");
+
+    headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+    headers.set("Cross-Origin-Opener-Policy", "same-origin");
+    headers.set(
+      "Cache-Control",
+      "no-cache",
+    );
+
+    // headers.set('Etag', newEtag);
+
+    // if (Etag === newEtag) {
+    //   // headers.set('CF-Cache-Status', 'HIT');
+    //   return new Response(null, {
+    //     status: 304,
+    //     statusText: "Not modified",
+    //     headers,
+    //   });
+    // }
+
+    headers.set("Content-Type", "text/html; charset=UTF-8");
+    headers.set("content_hash", md5(respText));
+    // headers.set("Etag", newEtag)
+    // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
+    return new Response(respText, {
+      status: 200,
+      headers,
+    });
   }
   if (url.pathname.startsWith("/live")) {
     try {
