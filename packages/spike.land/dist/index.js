@@ -48309,34 +48309,15 @@ var Code = class {
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = mST2(this.codeSpace);
           const newSess = mST2(this.codeSpace, data.patch);
-          if (md52(oldSession.transpiled) !== data.oldHash) {
+          if (hashKEY2(this.codeSpace) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`
             });
           }
-          if (md52(newSess.transpiled) !== data.newHash) {
-            return respondWith({
-              error: `new hashes not matching`
-            });
-          }
           try {
-            const newHash = data.newHash;
-            if (md52(newSess.transpiled) === newHash) {
-              if (this.session === null) {
-                return respondWith({
-                  error: "this.session is null!"
-                });
-              }
-              patchSync2(
-                newSess
-              );
-              this.sess = newSess;
-            } else {
-              return respondWith({
-                hashCode: md52(mST2(this.codeSpace).transpiled),
-                wrong: md52(mST2(this.codeSpace, data.patch).transpiled)
-              });
-            }
+            patchSync2(
+              newSess
+            );
           } catch (exp) {
             const err = exp || {};
             return respondWith({

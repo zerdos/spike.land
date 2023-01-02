@@ -1,5 +1,5 @@
-import zIndex from "@mui/material/styles/zIndex";
 import { Mutex } from "async-mutex";
+import { m } from "framer-motion";
 import localForage from "localforage";
 import { str2ab } from "./sab";
 import { CodeSession } from "./session";
@@ -23,19 +23,17 @@ declare const self: SharedWorkerGlobalScope & {
 };
 
 async function send(codeSpace: string, msg: object) {
-  if (!mod[codeSpace]) {
-    await reconnect(codeSpace);
+  let conn = self.mod[codeSpace];
+  if (!conn) {
+    conn = await reconnect(codeSpace);
   }
-
-  if (mod[codeSpace]) {
-    mod[codeSpace].send(msg);
-  }
+  conn.send(msg);
 
   await wait(500);
   if (!mod[codeSpace] || !mod[codeSpace].isOpen()) await reconnect(codeSpace);
 
   if (mod[codeSpace]) {
-    mod[codeSpace].send();
+    mod[codeSpace].send({});
   }
 }
 
@@ -118,16 +116,16 @@ const { mod, counters, hashCodes, connections, dbs } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(port: MessagePort, data: Data) {
-  // console.log("onMessage", {
-  //   codeSpace,
-  //   name,
-  //   sess,
-  //   oldHash,
-  //   newHash,
-  //   hashCode,
-  //   patch,
-  //   reversePatch,
-  // });
+  console.log("oMessage", {
+    data,
+    //   sess,
+    //   oldHash,
+    //   newHash,
+    //   hashCode,
+    //   patch,
+    //   reversePatch,
+  });
+
   if (!self.name && data.name) self.name = data.name;
 
   const {
@@ -181,7 +179,7 @@ async function onMessage(port: MessagePort, data: Data) {
     }
     send(codeSpace, { type: "handshake", hashCode: hashCodes[codeSpace] || hashCode, i, name: names[codeSpace] });
   }
-
+  send(codeSpace, data);
   const obj: { [k: string]: unknown } = {
     name,
     target,
@@ -267,16 +265,22 @@ async function reconnect(codeSpace: string) {
 
   if (mod[codeSpace] && mod[codeSpace].isOpen()) return mod[codeSpace];
   // if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
-  fixWebsocket();
 
-  function fixWebsocket() {
+  const prom = new Promise<typeof mod[0]>((res) => fixWebsocket(res));
+
+  await prom;
+  return mod[codeSpace];
+  function fixWebsocket(res: (m: typeof mod[0]) => void) {
     let websocket = new WebSocket(
       `wss://${location.host}/live/` + codeSpace + "/websocket",
     );
+
     websocket.onmessage = ({ data }) => {
-      if (mutex.isLocked()) mutex.release;
       connections[codeSpace].map(x => ((ab) => x.postMessage(ab, [ab]))(str2ab(data)));
-      websocket.send(JSON.stringify({ name, hashCode: hashCodes[codeSpace] }));
+      if (mutex.isLocked()) {
+        mutex.release();
+        websocket.send(JSON.stringify({ name, hashCode: hashCodes[codeSpace] }));
+      }
     };
 
     websocket.onopen = () => {
@@ -302,6 +306,7 @@ async function reconnect(codeSpace: string) {
             const mess = w.blockedMessages.shift();
             console.log({ mess });
             if (mess) websocket.send(JSON.stringify({ ...mess, name: names[codeSpace] }));
+            res(w);
           }
         },
       };

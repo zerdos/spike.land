@@ -25,7 +25,7 @@ import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
-import { esmTransform } from "./esbuild.wasm";
+// import { esmTransform } from "./esbuild.wasm";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
 
@@ -1027,41 +1027,21 @@ export class Code {
           const oldSession = mST(this.codeSpace);
           const newSess = mST(this.codeSpace, data.patch);
 
-          if (md5(oldSession.transpiled) !== data.oldHash) {
+          if (hashKEY(this.codeSpace) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`,
             });
           }
 
-          if (md5(newSess.transpiled) !== data.newHash) {
-            return respondWith({
-              error: `new hashes not matching`,
-            });
-          }
-
           try {
-            const newHash = data.newHash;
+            // const newHash = data.newHash;
             // const oldHash = data.oldHash;
             // const reversePatch = data.reversePatch;
 
-            if (md5(newSess.transpiled) === newHash) {
-              if (this.session === null) {
-                return respondWith({
-                  error: "this.session is null!",
-                });
-              }
-              // this.session.patchSync(newSess, true);
-              patchSync(
-                newSess,
-              );
-
-              this.sess = newSess;
-            } else {
-              return respondWith({
-                hashCode: md5(mST(this.codeSpace).transpiled),
-                wrong: md5(mST(this.codeSpace, data.patch).transpiled),
-              });
-            }
+            // this.session.patchSync(newSess, true);
+            patchSync(
+              newSess,
+            );
           } catch (exp) {
             const err = exp || {};
             return respondWith({
