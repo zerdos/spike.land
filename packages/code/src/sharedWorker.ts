@@ -116,24 +116,7 @@ self.dbs = self.dbs || {};
 const { mod, counters, hashCodes, connections, dbs } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
 
-async function onMessage(port: MessagePort, {
-  name,
-  codeSpace,
-  target,
-  type,
-  patch,
-  reversePatch,
-  users,
-  i,
-  address,
-  hashCode,
-  newHash,
-  oldHash,
-  candidate,
-  offer,
-  answer,
-  sess,
-}: Data) {
+async function onMessage(port: MessagePort, data: Data) {
   // console.log("onMessage", {
   //   codeSpace,
   //   name,
@@ -144,7 +127,26 @@ async function onMessage(port: MessagePort, {
   //   patch,
   //   reversePatch,
   // });
-  if (!self.name && name) self.name = name;
+  if (!self.name && data.name) self.name = data.name;
+
+  const {
+    name,
+    codeSpace,
+    target,
+    type,
+    patch,
+    reversePatch,
+    users,
+    i,
+    address,
+    hashCode,
+    newHash,
+    oldHash,
+    candidate,
+    offer,
+    answer,
+    sess,
+  } = data;
 
   const hash = newHash || hashCode;
   hashCodes[codeSpace] = hash || 0;
@@ -176,7 +178,7 @@ async function onMessage(port: MessagePort, {
     if (!names[codeSpace]) {
       names[codeSpace] = name;
     }
-    send(codeSpace, { type: "handshake", hashCode: hashCodes[codeSpace] || hashCode, i });
+    send(codeSpace, { type: "handshake", hashCode: hashCodes[codeSpace] || hashCode, i, name: names[codeSpace] });
   }
 
   const obj: { [k: string]: unknown } = {
@@ -237,9 +239,13 @@ async function onMessage(port: MessagePort, {
 }
 let iii = 0;
 self.onconnect = ({ ports }) => {
+  const port = ports[0];
+
   console.log("ON CONNECT");
-  ports[0].postMessage({ type: "onconnect", connections: ++iii });
-  ports[0].onmessage = ({ data }: { data: Data }) => onMessage(ports[0], data);
+
+  port.onmessage = ({ data }: { data: Data }) => onMessage(port, data);
+  port.start();
+  port.postMessage({ type: "onconnect", connections: ++iii });
 };
 
 const mutex = new Mutex();

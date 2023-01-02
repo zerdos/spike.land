@@ -26,8 +26,9 @@ const p = fs.promises;
 const origin = typeof location !== "undefined" ? location.origin : "";
 
 export const readdir = (filePath: string) => p.readdir(filePath).then(x => x.map(d => d.toString()));
-export const writeFile = (filePath: string, content: string | Uint8Array) =>
-  p.writeFile(
+export const writeFile = (filePath: string, content: string | Uint8Array) => {
+  console.log("write", filePath);
+  return p.writeFile(
     filePath,
     filePath.indexOf(".js") !== -1
       ? `/*
@@ -37,6 +38,7 @@ written: ${new Date()}
 ` + importMapReplace(content as string, origin, origin)
       : content,
   );
+};
 export const readFile = (filePath: string) => p.readFile(filePath, { encoding: "utf8" });
 export const stat = (filePath: string) => p.stat(filePath);
 export const unlink = (filepath: string) => p.unlink(filepath);

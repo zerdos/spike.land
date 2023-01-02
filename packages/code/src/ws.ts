@@ -9,6 +9,7 @@ import {
   applyPatch,
   type CodePatch,
   type Delta,
+  esmTransform,
   // type Delta,
   // CodeSession,
   hashKEY,
@@ -302,21 +303,6 @@ export const run = async () => {
     await writeFile(
       `/live/${codeSpace}/index.tsx`,
       mst.code,
-    );
-  }
-
-  if (!cs.includes("index.js")) {
-    await writeFile(
-      `/live/${codeSpace}/index.js`,
-      mst.transpiled,
-    );
-  } else {
-    await unlink(
-      `/live/${codeSpace}/index.js`,
-    );
-    await writeFile(
-      `/live/${codeSpace}/index.js`,
-      mst.transpiled,
     );
   }
 

@@ -330,22 +330,13 @@ const api: ExportedHandler<CodeEnv> = {
               //   "charset",
               // );
 
-              const isText = !!kvResp?.headers?.get("Content-Type")?.includes(
-                "charset",
-              );
+              // const isText = !!kvResp?.headers?.get("Content-Type")?.includes(
+              //   "charset",
+              // );
 
-              const kvRespCloned = kvResp.clone();
+              // const kvRespCloned = kvResp.clone();
 
-              kvResp = new Response(
-                isText
-                  ? importMapReplace(
-                    await kvRespCloned.text(),
-                    url.origin,
-                    request.url,
-                  )
-                  : kvResp.body,
-                kvResp,
-              );
+              kvResp = new Response(kvResp.body, kvResp);
               const headers = new Headers(kvResp.headers);
               if (isChunk(request.url)) {
                 headers.set("Cache-Control", "public, max-age=604800, immutable");
