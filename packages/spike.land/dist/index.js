@@ -48087,11 +48087,11 @@ var Code = class {
                   reject(null);
                   return false;
                 }
-                res(importMapReplace2(mST2(this.codeSpace).transpiled, url.origin, url.origin));
+                initAndTransform3(mST2(this.codeSpace).code, {}, url.origin).then((transpiled2) => res(transpiled2));
                 return true;
               })
             );
-            const trp2 = importMapReplace2(body, url.origin, url.origin);
+            const trp2 = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
             return new Response(trp2, {
               status: 200,
               headers: {
@@ -48105,7 +48105,7 @@ var Code = class {
             });
           }
           if (i2 < mST2(this.codeSpace).i) {
-            const trp2 = importMapReplace2(transpiled, url.origin, url.origin);
+            const trp2 = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
             return new Response(trp2, {
               status: 307,
               headers: {
@@ -48118,7 +48118,7 @@ var Code = class {
               }
             });
           }
-          const trp = importMapReplace2(transpiled, url.origin, url.origin);
+          const trp = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
           return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",

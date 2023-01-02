@@ -25,6 +25,7 @@ import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
+import { esmTransform } from "./esbuild.wasm";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
 
@@ -516,6 +517,7 @@ export class Code {
         case "index.js":
         case "js": {
           const i = path[1] || mST(this.codeSpace).i;
+
           if (i > mST(this.codeSpace).i) {
             const started = Date.now() / 1000;
             const body = await new Promise<string>((res, reject) =>
@@ -530,11 +532,12 @@ export class Code {
                   return false;
                 }
 
-                res(importMapReplace(mST(this.codeSpace).transpiled, url.origin, url.origin));
+                initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(transpiled => res(transpiled));
                 return true;
               })
             );
-            const trp = importMapReplace(body, url.origin, url.origin);
+
+            const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
             return new Response(trp, {
               status: 200,
               headers: {
@@ -549,7 +552,7 @@ export class Code {
             });
           }
           if (i < mST(this.codeSpace).i) {
-            const trp = importMapReplace(transpiled, url.origin, url.origin);
+            const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
             return new Response(trp, {
               status: 307,
               headers: {
@@ -563,7 +566,7 @@ export class Code {
               },
             });
           }
-          const trp = importMapReplace(transpiled, url.origin, url.origin);
+          const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
           return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",
