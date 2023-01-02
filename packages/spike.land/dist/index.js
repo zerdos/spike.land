@@ -11164,7 +11164,7 @@ function createPatch(oldCode, newCode) {
 }
 __name(createPatch, "createPatch");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-YIGT6DYH.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-R63P5I6G.mjs
 var require_just_once = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process();
@@ -24686,7 +24686,6 @@ init_define_process();
 var importmap_default = {
   imports: {
     "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-    "react/jsx-runtime": "/src/jsx.mjs",
     "react-dom/client": "/src/reactDomClient.mjs",
     "framer-motion": "/src/motion.mjs",
     "@emotion/react": "/src/emotion.mjs",
@@ -33111,7 +33110,7 @@ function createPatch2(oldCode, newCode) {
 __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
 
-// ../code/dist/src/chunk-chunk-YIGT6DYH.mjs
+// ../code/dist/src/chunk-chunk-R63P5I6G.mjs
 var require_just_once2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process2();
@@ -46633,7 +46632,6 @@ init_define_process2();
 var importmap_default2 = {
   imports: {
     "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-    "react/jsx-runtime": "/src/jsx.mjs",
     "react-dom/client": "/src/reactDomClient.mjs",
     "framer-motion": "/src/motion.mjs",
     "@emotion/react": "/src/emotion.mjs",
