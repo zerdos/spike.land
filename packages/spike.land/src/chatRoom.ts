@@ -925,13 +925,13 @@ export class Code {
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get<CodePatch>("" + commit, { allowConcurrency: true });
         const newNode = await this.kv.get<CodePatch>("" + oldNode!.newHash, { allowConcurrency: true });
-        respondWith({
+        return respondWith({
           oldHash: commit,
           newHash: oldNode!.newHash,
           patch: oldNode!.patch,
           reversePatch: newNode!.reversePatch,
         });
-        commit = newNode?.newHash;
+        //        commit = newNode?.newHash;
       }
       // const oldNode =  await this.kv.get<CodePatch>(commit);
       // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
@@ -1082,7 +1082,7 @@ export class Code {
           try {
             this.broadcast(data);
           } catch {
-            respondWith({
+            return respondWith({
               "msg": "broadcast issue",
             });
           }
@@ -1092,7 +1092,7 @@ export class Code {
 
             const { newHash, oldHash, patch, reversePatch } = data;
 
-            await syncKV(oldSession, newSess, {
+            await this.syncKV(oldSession, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
               codeSpace: this.codeSpace,

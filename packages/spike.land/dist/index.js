@@ -48291,13 +48291,12 @@ var Code = class {
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get("" + commit, { allowConcurrency: true });
         const newNode = await this.kv.get("" + oldNode.newHash, { allowConcurrency: true });
-        respondWith({
+        return respondWith({
           oldHash: commit,
           newHash: oldNode.newHash,
           patch: oldNode.patch,
           reversePatch: newNode.reversePatch
         });
-        commit = newNode?.newHash;
       }
     }
     try {
@@ -48348,14 +48347,14 @@ var Code = class {
           try {
             this.broadcast(data);
           } catch {
-            respondWith({
+            return respondWith({
               "msg": "broadcast issue"
             });
           }
           try {
             await this.kv.put("session", newSess, { allowConcurrency: true });
             const { newHash, oldHash, patch, reversePatch } = data;
-            await syncKV(oldSession, newSess, {
+            await this.syncKV(oldSession, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
               codeSpace: this.codeSpace,

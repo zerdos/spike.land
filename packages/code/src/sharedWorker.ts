@@ -293,7 +293,7 @@ async function reconnect(codeSpace: string) {
           ) {
             const mess = w.blockedMessages.shift();
             console.log({ mess });
-            if (mess) w.socket.send(JSON.stringify({ ...mess, name }));
+            if (mess) w.socket.send(JSON.stringify({ ...mess, name: names[codeSpace] }));
           }
         },
       };
