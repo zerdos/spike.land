@@ -291,15 +291,16 @@ export const run = async () => {
 
   if (hST && hST.i > mst.i) mst = hST!;
 
+  if (!cs.includes("index.js")) {
+    unlink(`/live/${codeSpace}/index.js`);
+  }
+
   if (!cs.includes("index.tsx")) {
     await writeFile(
       `/live/${codeSpace}/index.tsx`,
       mst.code,
     );
   } else {
-    unlink(
-      `/live/${codeSpace}/index.js`,
-    );
     await unlink(
       `/live/${codeSpace}/index.tsx`,
     );
