@@ -214,6 +214,7 @@ export const buildT = async (
       ".css": "css",
       ".ttf": "dataurl",
     },
+    outExtension: {"js"}
     write: false,
     metafile: true,
     target: "es2022",
@@ -231,7 +232,7 @@ export const buildT = async (
     jsxImportSource: "@emotion/react",
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace}/index.tsx`,
+      `./live/${codeSpace}/index.js`,
       // `./live/${codeSpace}/index.tsx`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",

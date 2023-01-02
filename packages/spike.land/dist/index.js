@@ -30355,7 +30355,7 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-PNXUS5VF.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-PEBZK2Y3.mjs
 init_chunk_chunk_YIGT6DYH();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -38529,7 +38529,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 var ASSET_HASH = md5(ASSET_MANIFEST);
 
-// ../code/dist/src/chunk-chunk-PNXUS5VF.mjs
+// ../code/dist/src/chunk-chunk-PEBZK2Y3.mjs
 init_chunk_chunk_YIGT6DYH2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({

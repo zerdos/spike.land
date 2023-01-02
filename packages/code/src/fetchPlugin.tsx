@@ -52,6 +52,7 @@ export const fetchPlugin: (
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
+
     build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
       console.log({ args });
 
@@ -142,7 +143,7 @@ export const fetchPlugin: (
 
       if (req.url.indexOf(".tsx")) {
         return {
-          contents: importMapReplace(await esmTransform(await response.text(), origin), origin, origin),
+          contents: response.text(),
         };
       }
 
