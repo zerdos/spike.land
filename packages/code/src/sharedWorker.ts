@@ -1,3 +1,4 @@
+import zIndex from "@mui/material/styles/zIndex";
 import { Mutex } from "async-mutex";
 import localForage from "localforage";
 import { str2ab } from "./sab";
@@ -250,13 +251,15 @@ self.onconnect = ({ ports }) => {
 const mutex = new Mutex();
 
 async function reconnect(codeSpace: string) {
-  const { name } = self;
+  const name = names[codeSpace];
   await mutex.waitForUnlock();
+  if (mod[codeSpace] && mod[codeSpace].isOpen()) return mod[codeSpace];
   mutex.acquire();
 
   setTimeout(() => {
     if (mutex.isLocked()) mutex.release();
   }, 2000);
+
   // return new Promise(async (resolve) => {
   // if (isPromise(mod[codeSpace])) {
   // return resolve(await mod[codeSpace]);
@@ -270,112 +273,114 @@ async function reconnect(codeSpace: string) {
     let websocket = new WebSocket(
       `wss://${location.host}/live/` + codeSpace + "/websocket",
     );
+    websocket.onmessage = ({ data }) => {
+      if (mutex.isLocked()) mutex.release;
+      connections[codeSpace].map(x => ((ab) => x.postMessage(ab, [ab]))(str2ab(data)));
+      websocket.send(JSON.stringify({ name, hashCode: hashCodes[codeSpace] }));
+    };
 
     websocket.onopen = () => {
+      // w.socket = websocket;
       const w: typeof mod[0] = mod[codeSpace] = mod[codeSpace] || {
         blockedMessages: [],
+        socket: websocket,
         isOpen: () => w.socket.readyState === WebSocket.OPEN,
         send: (msg?: object) => {
           if (msg) w.blockedMessages.push(msg);
-          const ctr = new AbortController();
+          // const ctr = new AbortController();
 
-          if (!w.isOpen()) {
-            setTimeout(() => {
-              if (ctr.signal.aborted) return;
-              if (!w.isOpen()) fixWebsocket();
-            }, 600);
-          }
+          // if (!w.isOpen()) {
+          // setTimeout(() => {
+          // if (ctr.signal.aborted) return;
+          // if (!w.isOpen()) fixWebsocket();
+          // }, 600);
+          // }
 
           while (
-            w.isOpen()
-            && w.blockedMessages.length
+            w.isOpen() && w.blockedMessages.length
           ) {
             const mess = w.blockedMessages.shift();
             console.log({ mess });
-            if (mess) w.socket.send(JSON.stringify({ ...mess, name: names[codeSpace] }));
+            if (mess) websocket.send(JSON.stringify({ ...mess, name: names[codeSpace] }));
           }
         },
       };
-      w.socket = websocket;
-      mutex.release();
 
-      w.send();
+      // websocket.addEventListener("message", async (ev) => {
+      //   connections[codeSpace] = connections[codeSpace].map(conn => {
+      //     try {
+      //       const ab = str2ab(ev.data);
+      //       conn.postMessage(ab, [ab]);
+      //       return conn;
+      //     } catch (err) {
+      //       console.error("can't post message connection");
+      //       return null;
+      //     }
+      //   }).filter((x) => x !== null) as MessagePort[];
 
-      websocket.addEventListener("message", async (ev) => {
-        connections[codeSpace] = connections[codeSpace].map(conn => {
-          try {
-            const ab = str2ab(ev.data);
-            conn.postMessage(ab, [ab]);
-            return conn;
-          } catch (err) {
-            console.error("can't post message connection");
-            return null;
-          }
-        }).filter((x) => x !== null) as MessagePort[];
+      //   const message = JSON.parse(ev.data);
 
-        const message = JSON.parse(ev.data);
+      //   const mess = { codeSpace, ...message };
+      //   mess.name = names[codeSpace];
 
-        const mess = { codeSpace, ...message };
-        mess.name = names[codeSpace];
+      //   const db = dbs[codeSpace];
+      //   const head = await db.getItem<string>("head");
 
-        const db = dbs[codeSpace];
-        const head = await db.getItem<string>("head");
+      //   const hash = message.newHash || message.hashCode;
+      //   if (hash && head && hash !== head) {
+      //     await db.setItem("wsHash", hash);
+      //     const old = await db.getItem<
+      //       {
+      //         newHash: string;
+      //         oldHash: string;
+      //         patch: Delta[];
+      //         i: number;
+      //         reversePatch: Delta[];
+      //       }
+      //     >(hash);
 
-        const hash = message.newHash || message.hashCode;
-        if (hash && head && hash !== head) {
-          await db.setItem("wsHash", hash);
-          const old = await db.getItem<
-            {
-              newHash: string;
-              oldHash: string;
-              patch: Delta[];
-              i: number;
-              reversePatch: Delta[];
-            }
-          >(hash);
+      //     if (old) {
+      //       const next = await db.getItem<
+      //         {
+      //           newHash: string;
+      //           oldHash: string;
+      //           i: number;
+      //           patch: Delta[];
+      //           reversePatch: Delta[];
+      //         }
+      //       >(
+      //         old.newHash,
+      //       );
+      //       if (next) {
+      //         return mod[codeSpace].send(
+      //           {
+      //             oldHash: hash,
+      //             newHash: old.newHash,
+      //             patch: old.patch,
+      //             i: next.i,
+      //             reversePatch: next.reversePatch,
+      //             name: names[codeSpace],
+      //           },
+      //         );
+      //       }
+      //     }
+      //   }
+      //   if (hash && hashStore[hash]) {
+      //     // mess.sess = hashStore[hash];
 
-          if (old) {
-            const next = await db.getItem<
-              {
-                newHash: string;
-                oldHash: string;
-                i: number;
-                patch: Delta[];
-                reversePatch: Delta[];
-              }
-            >(
-              old.newHash,
-            );
-            if (next) {
-              return mod[codeSpace].send(
-                {
-                  oldHash: hash,
-                  newHash: old.newHash,
-                  patch: old.patch,
-                  i: next.i,
-                  reversePatch: next.reversePatch,
-                  name: names[codeSpace],
-                },
-              );
-            }
-          }
-        }
-        if (hash && hashStore[hash]) {
-          // mess.sess = hashStore[hash];
+      //     // Object.assign(mess, { sess: hashStore[hash] });
+      //   }
 
-          // Object.assign(mess, { sess: hashStore[hash] });
-        }
+      //   // var bufView = new Uint16Array(str.length);
+      //   // for (var i = 0, strLen = str.length; i < strLen; i++) {
+      //   //   bufView[i] = str.charCodeAt(i);
+      //   // }
+      //   // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
+      //   // var j = 0;
+      //   // while (Atomics.load(bufView, j++) < str.length) {
 
-        // var bufView = new Uint16Array(str.length);
-        // for (var i = 0, strLen = str.length; i < strLen; i++) {
-        //   bufView[i] = str.charCodeAt(i);
-        // }
-        // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
-        // var j = 0;
-        // while (Atomics.load(bufView, j++) < str.length) {
-
-        // }
-      });
+      //   // }
+      // });
     };
   }
 
