@@ -47622,9 +47622,11 @@ AVLTree.default = AVLTree;
 // src/esbuild.ts
 var import_esbuild_wasm3 = __toESM(require_browser5(), 1);
 import was from "../src/esbuild.wasm";
-globalThis.performance = {
-  now: () => Date.now()
-};
+Object.assign(globalThis, {
+  performance: {
+    now: () => Date.now()
+  }
+});
 var mod3 = {
   init: false,
   initialize: () => mod3.init || (0, import_esbuild_wasm3.initialize)({
@@ -47655,8 +47657,8 @@ async function esmTransform3(code, origin) {
       }
     },
     target: "es2022"
-  }, origin);
-  return transpiled.code;
+  });
+  return importMapReplace2(transpiled.code, origin, origin);
 }
 
 // src/iife.html

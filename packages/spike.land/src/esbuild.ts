@@ -1,12 +1,15 @@
 import was from "./esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
 
-globalThis.performance = {
-  now: () => Date.now(),
-};
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";
 
-// import { importMapReplace, md5 } from "@spike.land/code/session";
+Object.assign(globalThis, {
+  performance: {
+    now: () => Date.now(),
+  },
+});
+
+import { importMapReplace } from "../../code/dist/src/session.mjs";
 
 // import impMap from "./importmap.json";
 //
@@ -58,8 +61,8 @@ export async function esmTransform(code: string, origin: string) {
       },
     },
     target: "es2022",
-  } as unknown as TransformOptions, origin);
+  } as unknown as TransformOptions);
 
   // apps[md5(transpiled.code)] = require(md5(code));
-  return transpiled.code;
+  return importMapReplace(transpiled.code, origin, origin);
 }
