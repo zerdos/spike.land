@@ -530,10 +530,6 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
     // console.log("SYNC!!");
     // console.log("SYNC!!");
 
-    await writeFile(
-      `/live/${codeSpace}/session.json`,
-      JSON.stringify(newSession),
-    );
     console.log({ newSession });
     // controller.abort();
     // controller = new AbortController();

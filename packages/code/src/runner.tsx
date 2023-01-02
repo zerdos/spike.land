@@ -148,7 +148,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
       if (html) {
         window.removeEventListener("message", responseListener);
         if (signal.aborted) return;
-        await syncWS({ ...mST(codeSpace), html, css, code, transpiled, i: counter }, signal);
+        const newSession = { ...mST(codeSpace), html, css, code, transpiled, i: counter };
+        const jsonStr = JSON.stringify(newSession);
+        const file = `/live/${codeSpace}/session.json`;
+        writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr)));
+
+        await syncWS(newSession, signal);
 
         // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
         // BC.postMessage({ html, css, code, transpiled, i: counter });
