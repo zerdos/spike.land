@@ -2,7 +2,7 @@
 import { transform } from "./esmTransform";
 export type {};
 import { readFile } from "./fs";
-
+import { renderToStream } from "./renderToStream";
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
@@ -55,7 +55,6 @@ const createResponse = async (request: Request) => {
   // const fs = globalThis.fs;
 
   if (url.pathname.startsWith("/live") && url.pathname.endsWith("public")) {
-    const { renderToStream } = await import("./renderToStream");
     return renderToStream("clock3");
   }
   if (url.pathname.startsWith("/live")) {
