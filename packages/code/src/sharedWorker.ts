@@ -244,7 +244,6 @@ self.onconnect = ({ ports }) => {
   console.log("ON CONNECT");
 
   port.onmessage = ({ data }: { data: Data }) => onMessage(port, data);
-  port.start();
   port.postMessage({ type: "onconnect", connections: ++iii });
 };
 
@@ -302,7 +301,7 @@ async function reconnect(codeSpace: string) {
 
       w.send();
 
-      websocket.onmessage = async (ev) => {
+      websocket.addEventListener("message", async (ev) => {
         connections[codeSpace] = connections[codeSpace].map(conn => {
           try {
             const ab = str2ab(ev.data);
@@ -376,7 +375,7 @@ async function reconnect(codeSpace: string) {
         // while (Atomics.load(bufView, j++) < str.length) {
 
         // }
-      };
+      });
     };
   }
 
