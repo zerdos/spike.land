@@ -2398,9 +2398,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p4 = getInt64(sp + 16);
+                        const p3 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p4, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -5623,9 +5623,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p4 = getInt64(sp + 16);
+                        const p3 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p4, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -11250,14 +11250,14 @@ var CodeSession = class {
 __name(CodeSession, "CodeSession");
 var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.get("state").hashCode(), "hashKEY");
 var hashCode3 = /* @__PURE__ */ __name((codeSpace) => md5(mST(codeSpace).transpiled), "hashCode");
-function mST(codeSpace, p4) {
+function mST(codeSpace, p3) {
   const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p4 ? JSON.parse(
+  const { i, transpiled, code, html, css } = p3 ? JSON.parse(
     applyPatch(
       string_(
         sessAsJs
       ),
-      p4
+      p3
     )
   ) : sessAsJs;
   return { i, transpiled, code, html, css, codeSpace };
@@ -14692,8 +14692,8 @@ var require_errors2 = __commonJS2({
     }
     __name(_inherits, "_inherits");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p32) {
-        o2.__proto__ = p32;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p3) {
+        o2.__proto__ = p3;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -14977,8 +14977,8 @@ var require_assertion_error = __commonJS2({
     }
     __name(_isNativeFunction, "_isNativeFunction");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p32) {
-        o2.__proto__ = p32;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p3) {
+        o2.__proto__ = p3;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -24802,7 +24802,7 @@ try {
   fsProb = memFS.fs;
 }
 var fs2 = fsProb;
-var p2 = fs2.promises;
+var p = fs2.promises;
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -27462,9 +27462,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p4 = getInt64(sp + 16);
+                        const p3 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p4, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -33190,14 +33190,14 @@ var CodeSession2 = class {
 __name2(CodeSession2, "CodeSession");
 var hashKEY2 = /* @__PURE__ */ __name2((codeSpace) => sessions2[codeSpace].session.get("state").hashCode(), "hashKEY");
 var hashCode32 = /* @__PURE__ */ __name2((codeSpace) => md52(mST2(codeSpace).transpiled), "hashCode");
-function mST2(codeSpace, p4) {
+function mST2(codeSpace, p3) {
   const sessAsJs = sessions2[codeSpace].session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p4 ? JSON.parse(
+  const { i, transpiled, code, html, css } = p3 ? JSON.parse(
     applyPatch3(
       string_2(
         sessAsJs
       ),
-      p4
+      p3
     )
   ) : sessAsJs;
   return { i, transpiled, code, html, css, codeSpace };
@@ -36639,8 +36639,8 @@ var require_errors22 = __commonJS3({
     }
     __name2(_inherits, "_inherits");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p32) {
-        o2.__proto__ = p32;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p3) {
+        o2.__proto__ = p3;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -36924,8 +36924,8 @@ var require_assertion_error2 = __commonJS3({
     }
     __name2(_isNativeFunction, "_isNativeFunction");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p32) {
-        o2.__proto__ = p32;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p3) {
+        o2.__proto__ = p3;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -46749,7 +46749,7 @@ try {
   fsProb2 = memFS2.fs;
 }
 var fs22 = fsProb2;
-var p3 = fs22.promises;
+var p2 = fs22.promises;
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -46889,7 +46889,7 @@ var api = {
             const file = newUrl.pathname.slice(0, 7) === "/assets/" ? newUrl.pathname.slice(8) : newUrl.pathname.slice(1);
             if (files[file]) {
               const kvCacheKey = new Request(
-                request.url.replace(newUrl.pathname, "/src/" + p)
+                request.url.replace(file, files[file])
               );
               response = await cache.match(kvCacheKey);
               if (response)

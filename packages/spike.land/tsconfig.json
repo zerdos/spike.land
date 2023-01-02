@@ -18,7 +18,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
-    "types": []
+    "types": ["@cloudflare/workers-types"]
   },
 
   "include": [
