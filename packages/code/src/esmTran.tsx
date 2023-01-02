@@ -37,7 +37,7 @@ export async function esmTransform(code: string, origin: string) {
         jsx: "react-jsx",
         useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react",
+        jsxImportSerce: "@emotion/react",
       },
     },
     target: "es2022",

@@ -214,7 +214,7 @@ export const buildT = async (
       ".css": "css",
       ".ttf": "dataurl",
     },
-    outExtension: {"js"}
+    outExtension: { ".js": ".mjs" },
     write: false,
     metafile: true,
     target: "es2022",
