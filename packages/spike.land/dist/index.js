@@ -11164,7 +11164,7 @@ function createPatch(oldCode, newCode) {
 }
 __name(createPatch, "createPatch");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-7GCKHUY5.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-NT2NAN2L.mjs
 var require_just_once = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process();
@@ -33111,7 +33111,7 @@ function createPatch2(oldCode, newCode) {
 __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
 
-// ../code/dist/src/chunk-chunk-7GCKHUY5.mjs
+// ../code/dist/src/chunk-chunk-NT2NAN2L.mjs
 var require_just_once2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process2();
@@ -48188,7 +48188,7 @@ var Code = class {
               <script type="module">
 
               import {render} from "${url.origin}/src/render.mjs";
-              import App from "${url.origin}/live/${this.codeSpace}/index.js";
+              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST2(this.codeSpace).i}";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");
               

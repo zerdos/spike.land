@@ -23,12 +23,20 @@ export const fs = fsProb;
 const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
-
 const origin = typeof location !== "undefined" ? location.origin : "";
 
 export const readdir = (filePath: string) => p.readdir(filePath).then(x => x.map(d => d.toString()));
 export const writeFile = (filePath: string, content: string | Uint8Array) =>
-  p.writeFile(filePath, filePath.indexOf(".js") !== -1 ? importMapReplace(content as string, origin, origin) : content);
+  p.writeFile(
+    filePath,
+    filePath.indexOf(".js") !== -1
+      ? `/*
+written: ${new Date()}
+  
+*/
+` + importMapReplace(content as string, origin, origin)
+      : content,
+  );
 export const readFile = (filePath: string) => p.readFile(filePath, { encoding: "utf8" });
 export const stat = (filePath: string) => p.stat(filePath);
 export const unlink = (filepath: string) => p.unlink(filepath);
