@@ -46,18 +46,14 @@ export const initAndTransform = async (
 
   if (initFinished !== true) await (initFinished);
 
-  const ttCode = importMapReplace(
-    (await transform(code, {
-      ...opts,
-      define: { ...define, ...(opts?.define ? opts.define : {}) },
-    })).code,
-    origin,
-    origin,
-  );
+  const ttCode = await transform(code, {
+    ...opts,
+    define: { ...define, ...(opts?.define ? opts.define : {}) },
+  });
 
   // : transformed.code; // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(code)}*/` + ttCode };
+  const res = { code: `/*${md5(code)}*/` + ttCode.code };
   return res;
 };
 

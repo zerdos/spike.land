@@ -728,7 +728,7 @@ export class Code {
               </div>
               <script type="module">
 
-              import {render} from "${url.origin}/render.mjs";
+              import {render} from "${url.origin}/src/render.mjs";
               import App from "${url.origin}/live/${this.codeSpace}/index.js";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");
@@ -827,7 +827,9 @@ export class Code {
     this.sessions.push(session);
     this.sessions = this.sessions.filter(x => !x.quit);
     const users = this.sessions.filter(x => x.name).map(x => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), i: mST(this.codeSpace).i, users, type: 'handshake' }));
+    webSocket.send(
+      JSON.stringify({ hashCode: hashKEY(this.codeSpace), i: mST(this.codeSpace).i, users, type: "handshake" }),
+    );
 
     // this.sessions.forEach((otherSession) => {
     // if (otherSession.name) {

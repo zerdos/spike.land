@@ -297,7 +297,7 @@ const api: ExportedHandler<CodeEnv> = {
 
             if (files[file]) {
               const kvCacheKey = new Request(
-                request.url.replace(file, files[file]),
+                request.url.replace(newUrl.pathname, "/src/" + p),
               );
               response = await cache.match(kvCacheKey);
               if (response) return response;

@@ -12,6 +12,7 @@ import {
   // type Delta,
   // CodeSession,
   hashKEY,
+  importMapReplace,
   makePatch,
   // makePatch,
   // makePatchFrom,
@@ -270,10 +271,77 @@ export const run = async () => {
   const hash = Number(await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text());
   const head = await codeHistory.getItem<string>("head");
 
+  const root = (await readdir("/"));
+
+  if (!root.includes("live")) await mkdir("/live");
+  const live = await readdir("/live");
+  if (!live.includes(codeSpace)) await mkdir("/live/" + codeSpace);
+
+  // if (!liveStat.isDirectory())
+  // else console.log("dir already )(exists")
+  const cs = await readdir(`/live/${codeSpace}`);
+  // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
+  let mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
+
+  let hST: ICodeSession | null = null;
+  if (head) {
+    hST = await codeHistory.getItem<ICodeSession>(head)!;
+  }
+
+  if (hST && hST.i > mst.i) mst = hST!;
+
+  if (!cs.includes("index.tsx")) {
+    await writeFile(
+      `/live/${codeSpace}/index.tsx`,
+      mst.code,
+    );
+  } else {
+    await unlink(
+      `/live/${codeSpace}/index.tsx`,
+    );
+    await writeFile(
+      `/live/${codeSpace}/index.tsx`,
+      mst.code,
+    );
+  }
+
+  if (!cs.includes("index.js")) {
+    await writeFile(
+      `/live/${codeSpace}/index.js`,
+      importMapReplace(mst.transpiled, location.origin, location.origin),
+    );
+  } else {
+    await unlink(
+      `/live/${codeSpace}/index.js`,
+    );
+    await writeFile(
+      `/live/${codeSpace}/index.js`,
+      importMapReplace(mst.transpiled, location.origin, location.origin),
+    );
+  }
+
+  // const codeHistory = localForage.createInstance({
+  //   name: location.origin + `/live/${codeSpace}`,
+  // });
+  // const db = self.dbs[codeSpace];
+
+  // codeSpace = startState.codeSpace;
+  // requestAnimationFrame(() => {
+
+  // setTimeout(() => {
+  // });
+  // wsLastHashCode = md5(mst.transpiled);
+  // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
+
+  startSession(codeSpace, {
+    name: user,
+    state: mst,
+  });
+
   sharedWorker.port.onmessage = async (ev) => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
-      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: head || hash });
+      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
       // messagePort = this;
       ws.send = (
         message: MessageProps,
@@ -304,62 +372,6 @@ export const run = async () => {
       // }
     }
   };
-
-  const root = (await readdir("/"));
-
-  if (!root.includes("live")) await mkdir("/live");
-  const live = await readdir("/live");
-  if (!live.includes(codeSpace)) await mkdir("/live/" + codeSpace);
-
-  // if (!liveStat.isDirectory())
-  // else console.log("dir already )(exists")
-  const cs = await readdir(`/live/${codeSpace}`);
-  // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
-  let mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
-
-  let hST: ICodeSession | null = null;
-  if (head) {
-    hST = await codeHistory.getItem<ICodeSession>(head)!;
-  }
-
-  if (hST && hST.i > mst.i) mst = hST!;
-
-  if (!cs.includes("index.tsx")) {
-    await writeFile(
-      `/live/${codeSpace}/index.tsx`,
-      mst.code,
-    );
-  } else if (
-    mst.code !== await readFile(
-      `/live/${codeSpace}/index.tsx`,
-    )
-  ) {
-    await unlink(
-      `/live/${codeSpace}/index.tsx`,
-    );
-    await writeFile(
-      `/live/${codeSpace}/index.tsx`,
-      mst.code,
-    );
-  }
-
-  // const codeHistory = localForage.createInstance({
-  //   name: location.origin + `/live/${codeSpace}`,
-  // });
-  // const db = self.dbs[codeSpace];
-
-  // codeSpace = startState.codeSpace;
-  // requestAnimationFrame(() => {
-
-  // setTimeout(() => {
-  // });
-  // wsLastHashCode = md5(mst.transpiled);
-  // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
-
-  startSession(codeSpace, {
-    name: user,
-    state: mst,
-  });
   sharedWorker.port.start();
   // sharedWorker.port.postMessage({ codeSpace, type: "handshake", i: mST(codeSpace).i, name: user, hashCode: hashKEY(codeSpace) });
 

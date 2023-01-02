@@ -2398,9 +2398,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p3 = getInt64(sp + 16);
+                        const p4 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p4, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -3010,7 +3010,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-PSTS2H5D.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-ZM6AXSFM.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -5623,9 +5623,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p3 = getInt64(sp + 16);
+                        const p4 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p4, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -11054,15 +11054,11 @@ var initAndTransform = /* @__PURE__ */ __name(async (code, opts, origin2) => {
   const initFinished = mod.initialize(origin2);
   if (initFinished !== true)
     await initFinished;
-  const ttCode = importMapReplace(
-    (await (0, import_esbuild_wasm.transform)(code, {
-      ...opts,
-      define: { ...define, ...opts?.define ? opts.define : {} }
-    })).code,
-    origin2,
-    origin2
-  );
-  const res = { code: `/*${md5(code)}*/` + ttCode };
+  const ttCode = await (0, import_esbuild_wasm.transform)(code, {
+    ...opts,
+    define: { ...define, ...opts?.define ? opts.define : {} }
+  });
+  const res = { code: `/*${md5(code)}*/` + ttCode.code };
   return res;
 }, "initAndTransform");
 var define = {
@@ -11254,14 +11250,14 @@ var CodeSession = class {
 __name(CodeSession, "CodeSession");
 var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.get("state").hashCode(), "hashKEY");
 var hashCode3 = /* @__PURE__ */ __name((codeSpace) => md5(mST(codeSpace).transpiled), "hashCode");
-function mST(codeSpace, p3) {
+function mST(codeSpace, p4) {
   const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p3 ? JSON.parse(
+  const { i, transpiled, code, html, css } = p4 ? JSON.parse(
     applyPatch(
       string_(
         sessAsJs
       ),
-      p3
+      p4
     )
   ) : sessAsJs;
   return { i, transpiled, code, html, css, codeSpace };
@@ -14696,8 +14692,8 @@ var require_errors2 = __commonJS2({
     }
     __name(_inherits, "_inherits");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p3) {
-        o2.__proto__ = p3;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p32) {
+        o2.__proto__ = p32;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -14981,8 +14977,8 @@ var require_assertion_error = __commonJS2({
     }
     __name(_isNativeFunction, "_isNativeFunction");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p3) {
-        o2.__proto__ = p3;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name(function _setPrototypeOf2(o2, p32) {
+        o2.__proto__ = p32;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -24806,7 +24802,7 @@ try {
   fsProb = memFS.fs;
 }
 var fs2 = fsProb;
-var p = fs2.promises;
+var p2 = fs2.promises;
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -24853,7 +24849,7 @@ var init_define_process2 = __esm2({
   }
 });
 
-// ../code/dist/src/chunk-chunk-PSTS2H5D.mjs
+// ../code/dist/src/chunk-chunk-ZM6AXSFM.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -27466,9 +27462,9 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
-                        const p3 = getInt64(sp + 16);
+                        const p4 = getInt64(sp + 16);
                         const n = this.mem.getInt32(sp + 24, true);
-                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
+                        globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p4, n));
                       },
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
@@ -32966,15 +32962,11 @@ var initAndTransform2 = /* @__PURE__ */ __name2(async (code, opts, origin2) => {
   const initFinished = mod2.initialize(origin2);
   if (initFinished !== true)
     await initFinished;
-  const ttCode = importMapReplace2(
-    (await (0, import_esbuild_wasm2.transform)(code, {
-      ...opts,
-      define: { ...define2, ...opts?.define ? opts.define : {} }
-    })).code,
-    origin2,
-    origin2
-  );
-  const res = { code: `/*${md52(code)}*/` + ttCode };
+  const ttCode = await (0, import_esbuild_wasm2.transform)(code, {
+    ...opts,
+    define: { ...define2, ...opts?.define ? opts.define : {} }
+  });
+  const res = { code: `/*${md52(code)}*/` + ttCode.code };
   return res;
 }, "initAndTransform");
 var define2 = {
@@ -33198,14 +33190,14 @@ var CodeSession2 = class {
 __name2(CodeSession2, "CodeSession");
 var hashKEY2 = /* @__PURE__ */ __name2((codeSpace) => sessions2[codeSpace].session.get("state").hashCode(), "hashKEY");
 var hashCode32 = /* @__PURE__ */ __name2((codeSpace) => md52(mST2(codeSpace).transpiled), "hashCode");
-function mST2(codeSpace, p3) {
+function mST2(codeSpace, p4) {
   const sessAsJs = sessions2[codeSpace].session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p3 ? JSON.parse(
+  const { i, transpiled, code, html, css } = p4 ? JSON.parse(
     applyPatch3(
       string_2(
         sessAsJs
       ),
-      p3
+      p4
     )
   ) : sessAsJs;
   return { i, transpiled, code, html, css, codeSpace };
@@ -36647,8 +36639,8 @@ var require_errors22 = __commonJS3({
     }
     __name2(_inherits, "_inherits");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p3) {
-        o2.__proto__ = p3;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p32) {
+        o2.__proto__ = p32;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -36932,8 +36924,8 @@ var require_assertion_error2 = __commonJS3({
     }
     __name2(_isNativeFunction, "_isNativeFunction");
     function _setPrototypeOf(o, p22) {
-      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p3) {
-        o2.__proto__ = p3;
+      _setPrototypeOf = Object.setPrototypeOf || /* @__PURE__ */ __name2(function _setPrototypeOf2(o2, p32) {
+        o2.__proto__ = p32;
         return o2;
       }, "_setPrototypeOf");
       return _setPrototypeOf(o, p22);
@@ -46757,7 +46749,7 @@ try {
   fsProb2 = memFS2.fs;
 }
 var fs22 = fsProb2;
-var p2 = fs22.promises;
+var p3 = fs22.promises;
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -46897,7 +46889,7 @@ var api = {
             const file = newUrl.pathname.slice(0, 7) === "/assets/" ? newUrl.pathname.slice(8) : newUrl.pathname.slice(1);
             if (files[file]) {
               const kvCacheKey = new Request(
-                request.url.replace(file, files[file])
+                request.url.replace(newUrl.pathname, "/src/" + p)
               );
               response = await cache.match(kvCacheKey);
               if (response)
@@ -48250,7 +48242,7 @@ var Code = class {
               </div>
               <script type="module">
 
-              import {render} from "${url.origin}/render.mjs";
+              import {render} from "${url.origin}/src/render.mjs";
               import App from "${url.origin}/live/${this.codeSpace}/index.js";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");
@@ -48317,7 +48309,9 @@ var Code = class {
     this.sessions.push(session);
     this.sessions = this.sessions.filter((x) => !x.quit);
     const users = this.sessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashKEY2(this.codeSpace), i: mST2(this.codeSpace).i, users }));
+    webSocket.send(
+      JSON.stringify({ hashCode: hashKEY2(this.codeSpace), i: mST2(this.codeSpace).i, users, type: "handshake" })
+    );
     webSocket.addEventListener(
       "message",
       (msg) => this.processWsMessage(msg, session)

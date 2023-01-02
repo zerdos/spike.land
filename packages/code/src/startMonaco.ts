@@ -5,27 +5,6 @@ import * as monaco from "monaco-editor";
 const { editor, languages, Uri } = monaco;
 import { RpcProvider } from "worker-rpc";
 
-const getWorkerUrl = (_moduleId, label) => {
-  if (label === "json") {
-    return `${location.origin}/language/json/json.js`;
-  }
-
-  if (label === "css" || label === "scss" || label === "less") {
-    return `${location.origin}/language/css/css.js`;
-  }
-
-  if (label === "html" || label === "handlebars" || label === "razor") {
-    return `${location.origin}/language//html/html.js`;
-  }
-
-  if (label === "typescript" || label === "javascript") {
-    return `${location.origin}/language/typescript/ts.js`;
-  }
-
-  return `${location.origin}/editor/editor.js`;
-};
-
-// import * as w from "./monacoExtra";
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = window.origin.includes("spike")
@@ -171,8 +150,26 @@ const monacoContribution = async (
 };
 
 self.MonacoEnvironment = {
-  baseUrl: originToUse + "/",
-  getWorkerUrl,
+  baseUrl: originToUse,
+  getWorkerUrl: (_: string, label: string) => {
+    if (label === "json") {
+      return `/language/json/json.js`;
+    }
+
+    if (label === "css" || label === "scss" || label === "less") {
+      return `/language/css/css.js`;
+    }
+
+    if (label === "html" || label === "handlebars" || label === "razor") {
+      return `/language//html/html.js`;
+    }
+
+    if (label === "typescript" || label === "javascript") {
+      return `/language/typescript/ts.js`;
+    }
+
+    return `/editor/editor.js`;
+  },
 };
 
 const mod: Record<string, Record<string, unknown>> = {};
