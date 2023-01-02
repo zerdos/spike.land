@@ -827,7 +827,7 @@ export class Code {
     this.sessions.push(session);
     this.sessions = this.sessions.filter(x => !x.quit);
     const users = this.sessions.filter(x => x.name).map(x => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), i: mST(this.codeSpace).i, users }));
+    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), i: mST(this.codeSpace).i, users, type: 'handshake' }));
 
     // this.sessions.forEach((otherSession) => {
     // if (otherSession.name) {
@@ -914,7 +914,7 @@ export class Code {
       session.name = name;
     }
 
-    if (data.type == "fetch") {
+    if (data.type == "handshake") {
       const HEAD = hashKEY(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {

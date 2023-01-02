@@ -48354,7 +48354,7 @@ var Code = class {
       this.sessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
       session.name = name;
     }
-    if (data.type == "fetch") {
+    if (data.type == "handshake") {
       const HEAD = hashKEY2(this.codeSpace);
       let commit = data.hashCode;
       while (commit && commit !== HEAD) {

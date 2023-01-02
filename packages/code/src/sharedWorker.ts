@@ -1,3 +1,4 @@
+import { Mutex } from "async-mutex";
 import localForage from "localforage";
 import { str2ab } from "./sab";
 import { CodeSession } from "./session";
@@ -22,7 +23,7 @@ declare const self: SharedWorkerGlobalScope & {
 
 async function send(codeSpace: string, msg: object) {
   if (!mod[codeSpace]) {
-    reconnect(codeSpace);
+    await reconnect(codeSpace);
   }
 
   if (mod[codeSpace]) {
@@ -30,7 +31,7 @@ async function send(codeSpace: string, msg: object) {
   }
 
   await wait(500);
-  if (!mod[codeSpace] || !mod[codeSpace].isOpen()) reconnect(codeSpace);
+  if (!mod[codeSpace] || !mod[codeSpace].isOpen()) await reconnect(codeSpace);
 
   if (mod[codeSpace]) {
     mod[codeSpace].send();
@@ -175,7 +176,7 @@ async function onMessage(port: MessagePort, {
     if (!names[codeSpace]) {
       names[codeSpace] = name;
     }
-    send(codeSpace, { type: "handshake", hashCode: hashCodes[codeSpace] || hashCode });
+    send(codeSpace, { type: "handshake", hashCode: hashCodes[codeSpace] || hashCode, i });
   }
 
   const obj: { [k: string]: unknown } = {
@@ -241,9 +242,16 @@ self.onconnect = ({ ports }) => {
   ports[0].onmessage = ({ data }: { data: Data }) => onMessage(ports[0], data);
 };
 
-function reconnect(codeSpace: string) {
-  const { name } = self;
+const mutex = new Mutex();
 
+async function reconnect(codeSpace: string) {
+  const { name } = self;
+  await mutex.waitForUnlock();
+  mutex.acquire();
+
+  setTimeout(() => {
+    if (mutex.isLocked()) mutex.release();
+  }, 2000);
   // return new Promise(async (resolve) => {
   // if (isPromise(mod[codeSpace])) {
   // return resolve(await mod[codeSpace]);
@@ -284,6 +292,7 @@ function reconnect(codeSpace: string) {
         },
       };
       w.socket = websocket;
+      mutex.release();
 
       w.send();
 
@@ -315,6 +324,7 @@ function reconnect(codeSpace: string) {
               newHash: string;
               oldHash: string;
               patch: Delta[];
+              i: number;
               reversePatch: Delta[];
             }
           >(hash);
@@ -324,6 +334,7 @@ function reconnect(codeSpace: string) {
               {
                 newHash: string;
                 oldHash: string;
+                i: number;
                 patch: Delta[];
                 reversePatch: Delta[];
               }
@@ -336,6 +347,7 @@ function reconnect(codeSpace: string) {
                   oldHash: hash,
                   newHash: old.newHash,
                   patch: old.patch,
+                  i: next.i,
                   reversePatch: next.reversePatch,
                   name: names[codeSpace],
                 },

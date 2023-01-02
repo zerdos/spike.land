@@ -285,6 +285,7 @@ export const run = async () => {
         ) return;
         sharedWorker.port.postMessage(messageData);
       };
+      ws.send({ type: "handshake" });
 
       while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
     } else {
@@ -360,14 +361,14 @@ export const run = async () => {
     state: mst,
   });
   sharedWorker.port.start();
-  sharedWorker.port.postMessage({ codeSpace, type: "handshake", name: user, hashCode: hashKEY(codeSpace) });
+  // sharedWorker.port.postMessage({ codeSpace, type: "handshake", i: mST(codeSpace).i, name: user, hashCode: hashKEY(codeSpace) });
 
   // }, location.origin);
   if (location.pathname === `/live/${codeSpace}`) {
     renderPreviewWindow({ codeSpace, dry: false });
   }
 
-  ws.send({ type: "handshake" });
+  // ws.send({ type: "handshake" });
 
   // await appFactory(mst.transpiled, codeSpace, dry);
 
