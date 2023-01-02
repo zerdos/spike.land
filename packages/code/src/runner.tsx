@@ -7,11 +7,11 @@ import { syncWS } from "./ws";
 // import { RpcProvider } from "worker-rpc";
 
 // import type { ICodeSession } from "./session";
-// import { buildT } from "./esbuildEsm";
+import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
 import { mST } from "./session";
-
-// Object.assign(globalThis, { transform, build, toUmd });
+//
+Object.assign(globalThis, { buildT });
 
 const origin = location.origin;
 // const IIFE = {};

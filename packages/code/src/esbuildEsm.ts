@@ -181,7 +181,7 @@ export const buildT = async (
   codeSpace: string,
   origin: string,
   signal: AbortSignal,
-  bundle = false,
+  opts = { bundle: false },
 ) => {
   // if (lastBuild) {
   // lastBuild = await lastBuild.rebuild();
@@ -194,7 +194,6 @@ export const buildT = async (
   if (initFinished !== true) await (initFinished);
   // skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
-    bundle,
     resolveExtensions: [
       ".tsx",
       ".ts",
@@ -227,6 +226,7 @@ export const buildT = async (
     minifyIdentifiers: false,
     minifySyntax: false,
     minifyWhitespace: false,
+
     splitting: false,
     incremental: true,
     jsxImportSource: "@emotion/react",
@@ -244,7 +244,9 @@ export const buildT = async (
     ],
 
     tsconfig: "./tsconfig.json",
+
     plugins: [unpkgPathPlugin(origin), fetchPlugin(origin)],
+    ...opts,
   };
   let b: BuildResult;
   if (
