@@ -110,6 +110,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.0.10"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
+          ["@yarnpkg/sdks", "npm:3.0.0-rc.34"],\
           ["cypress", "npm:12.2.0"],\
           ["dprint", "npm:0.34.1"],\
           ["esbuild", "npm:0.16.12"],\
@@ -9327,6 +9328,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.0.10"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
+          ["@yarnpkg/sdks", "npm:3.0.0-rc.34"],\
           ["cypress", "npm:12.2.0"],\
           ["dprint", "npm:0.34.1"],\
           ["esbuild", "npm:0.16.12"],\

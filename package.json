@@ -41,6 +41,7 @@
     "@types/react-dom": "18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
+    "@yarnpkg/sdks": "^3.0.0-rc.34",
     "cypress": "12.2.0",
     "dprint": "^0.34.1",
     "esbuild": "^0.16.12",
