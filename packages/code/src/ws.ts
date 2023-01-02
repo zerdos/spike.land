@@ -291,7 +291,7 @@ export const run = async () => {
 
   if (hST && hST.i > mst.i) mst = hST!;
 
-  if (!cs.includes("index.js")) {
+  if (cs.includes("index.js")) {
     unlink(`/live/${codeSpace}/index.js`);
   }
 
@@ -792,8 +792,9 @@ async function processData(
     const newSession = mST(codeSpace);
 
     await syncDb(oldSession, newSession, data);
-    //  await writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
+    //  X writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
     await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
+
     await writeFile("/live/" + codeSpace + "/index.js", newSession.transpiled);
 
     // if (data.newHash === hashKEY(codeSpace)) {
