@@ -68,8 +68,8 @@ const createResponse = async (request: Request) => {
 
     const js = importMapReplace(transpiled, location.origin, location.origin).replace(
       `export {`,
-      "const mod_ASSET_HASH = {",
-    );
+      "const mod_ASSET_HASH = stdin_default();",
+    ).replace("stdin_default as default", "");
 
     const respText = HTML.replace(
       "/**reset*/",
