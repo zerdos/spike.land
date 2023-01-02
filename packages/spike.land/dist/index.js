@@ -30353,12 +30353,10 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-PHWWBPNO.mjs
-init_chunk_chunk_JLPTXNJM();
-init_define_process();
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-4SF3M37Y.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-AEUR63CX.mjs
 init_chunk_chunk_R63P5I6G();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -38284,17 +38282,17 @@ __name(getRequest, "getRequest");
 init_define_process();
 var mod = {
   init: false,
-  initialize: async () => {
+  initialize: (orig) => {
     if (mod.init === false) {
       return mod.init = (0, import_esbuild_wasm.initialize)({
-        wasmURL: esbuild_default
+        wasmURL: new URL(esbuild_default, orig).toString()
       });
     }
     return mod.init;
   }
 };
-var initAndTransform = /* @__PURE__ */ __name(async (code, opts) => {
-  const initFinished = mod.initialize();
+var initAndTransform = /* @__PURE__ */ __name(async (code, opts, origin22) => {
+  const initFinished = mod.initialize(origin22);
   if (initFinished !== true)
     await initFinished;
   const ttCode = await (0, import_esbuild_wasm.transform)(code, {
@@ -38524,12 +38522,10 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 var ASSET_HASH = md5(ASSET_MANIFEST);
 
-// ../code/dist/src/chunk-chunk-PHWWBPNO.mjs
-init_chunk_chunk_JLPTXNJM2();
-init_define_process2();
+// ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-4SF3M37Y.mjs
+// ../code/dist/src/chunk-chunk-AEUR63CX.mjs
 init_chunk_chunk_R63P5I6G2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
@@ -46524,17 +46520,17 @@ __name2(getRequest2, "getRequest");
 init_define_process2();
 var mod2 = {
   init: false,
-  initialize: async () => {
+  initialize: (orig) => {
     if (mod2.init === false) {
       return mod2.init = (0, import_esbuild_wasm2.initialize)({
-        wasmURL: esbuild_default2
+        wasmURL: new URL(esbuild_default2, orig).toString()
       });
     }
     return mod2.init;
   }
 };
-var initAndTransform2 = /* @__PURE__ */ __name2(async (code, opts) => {
-  const initFinished = mod2.initialize();
+var initAndTransform2 = /* @__PURE__ */ __name2(async (code, opts, origin22) => {
+  const initFinished = mod2.initialize(origin22);
   if (initFinished !== true)
     await initFinished;
   const ttCode = await (0, import_esbuild_wasm2.transform)(code, {

@@ -6,7 +6,8 @@ import {
   transform,
   type TransformOptions,
 } from "esbuild-wasm";
-import { wasmFile } from "./esbuildWASM";
+
+import wasmFile from "esbuild-wasm/esbuild.wasm";
 
 // import impMap from "./importmap.json";
 //
@@ -18,10 +19,10 @@ import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
 const mod = {
   init: false as (boolean | Promise<void>),
-  initialize: async () => {
+  initialize: (orig: string) => {
     if (mod.init === false) {
       return mod.init = initialize({
-        wasmURL: wasmFile,
+        wasmURL: new URL(wasmFile, orig).toString(),
       });
     }
     return mod.init;
@@ -42,9 +43,10 @@ const mod = {
 export const initAndTransform = async (
   code: string,
   opts: TransformOptions,
+  origin: string,
 ) => {
   // const code = prettierJs(c)!;
-  const initFinished = mod.initialize();
+  const initFinished = mod.initialize(origin);
 
   if (initFinished !== true) await (initFinished);
 
