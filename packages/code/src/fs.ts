@@ -30,7 +30,7 @@ export const writeFile = (filePath: string, content: string | Uint8Array) => {
   console.log("write", filePath);
   return p.writeFile(
     filePath,
-    filePath.indexOf(".js") !== -1
+    (filePath.indexOf(".js") !== -1 && filePath.indexOf(".json") === -1)
       ? `/*
 written: ${new Date()}
   
