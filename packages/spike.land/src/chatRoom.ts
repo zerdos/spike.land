@@ -530,7 +530,7 @@ export class Code {
                   return false;
                 }
 
-                res(mST(this.codeSpace).transpiled);
+                res(importMapReplace(mST(this.codeSpace).transpiled, url.origin, url.origin));
                 return true;
               })
             );

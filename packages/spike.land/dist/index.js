@@ -48087,7 +48087,7 @@ var Code = class {
                   reject(null);
                   return false;
                 }
-                res(mST2(this.codeSpace).transpiled);
+                res(importMapReplace2(mST2(this.codeSpace).transpiled, url.origin, url.origin));
                 return true;
               })
             );

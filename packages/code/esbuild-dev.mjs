@@ -15,22 +15,6 @@ import { env, exit } from "process";
 import { NIL } from "uuid";
 // import { wait } from "./src/wait.mjs";
 
-const impMap = {
-  "imports": {
-    "framer-motion": "/motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/cache": "/emotionCache.mjs",
-    "@emotion/styled": "/emotionStyled.mjs",
-    "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
-    "react": "/reactMod.mjs",
-    "react/jsx-runtime": "/jsx.mjs",
-    "react-dom": "/reactDom.mjs",
-    "react-dom/client": "/reactDomClient.mjs",
-    "react-error-boundary": "/reactMod.mjs",
-    "hydrate.mjs": "/hydrate.mjs",
-  },
-};
-
 // await esbuild.initialize();
 const environment = env.NODE_ENV === "production"
   ? "production"
