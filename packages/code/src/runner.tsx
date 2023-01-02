@@ -8,7 +8,7 @@ import { syncWS } from "./ws";
 
 // import type { ICodeSession } from "./session";
 import { unlink, writeFile } from "./fs";
-import { mST } from "./session";
+import { importMapReplace, mST } from "./session";
 
 // Object.assign(globalThis, { transform, build, toUmd });
 
@@ -119,12 +119,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     try {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      await writeFile(`/live/${codeSpace}/index.js`, importMapReplace(transpiled, origin, origin));
     } catch {
       await unlink(`/live/${codeSpace}/index.tsx`);
       await unlink(`/live/${codeSpace}/index.js`);
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      await writeFile(`/live/${codeSpace}/index.js`, importMapReplace(transpiled, origin, origin));
     }
 
     BC.postMessage({ i: counter });
