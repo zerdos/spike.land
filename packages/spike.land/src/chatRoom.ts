@@ -1,13 +1,13 @@
+import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session.d";
 import {
   // applyPatch,
   // applyPatch,
   // addExtraModels,
-  CodePatch,
+
   CodeSession,
-  esmTransform,
   hashKEY,
   // dealWithMissing,
-  ICodeSession,
+
   importMapReplace,
   makePatch,
   patchSync,
@@ -17,15 +17,14 @@ import {
   string_,
   // run,
   syncStorage,
-} from "@spike.land/code/session";
-import { HTML, md5, mST, startSession } from "@spike.land/code/session";
-import type { Delta } from "@spike.land/code/session";
+} from "../../code/dist/src/session.mjs";
+import { HTML, md5, mST, startSession } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
-import { initAndTransform } from "./ebuilld";
 import { CodeEnv } from "./env";
+import { initAndTransform } from "./esbuild";
 import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
 

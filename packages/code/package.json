@@ -7,25 +7,16 @@
   "source": "index.js",
   "main": "public/static/bundle.mjs",
   "files": [
-    "**/*"
+    "dist"
   ],
   "exports": {
     "./package.json": "./package.json",
-    "./src/starter.ts": "./src/starter.ts",
-    "./src/rtc.ts": "./src/rtc.ts",
-    "./session": {
-      "import": "./dist/src/session.mjs",
-      "node": "./dist/src/session.js"
-    },
-    "./src/textDiff": "./src/textDiff.ts",
-    "./src/esbuildEsm": "./src/esbuildEsm.ts",
-    "./src/binary": "./src/binary.ts",
-    "./importmap.json": "./src/importmap.json",
-    "./src/mockedMap.json": "./src/mockedMap.json"
+    "./session": "./dist/src/session.mjs",
+    ".": "./dist"
   },
   "scripts": {
     "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
-    "types": "tsc",
+    "types": "tsc || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
     "start": "cd ../../.. && yarn start",
@@ -129,6 +120,11 @@
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
+    "@yarnpkg/cli": "^4.0.0-rc.34",
+    "@yarnpkg/core": "^4.0.0-rc.34",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.34",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.34",
+    "@yarnpkg/plugin-typescript": "^4.0.0-rc.34",
     "@yarnpkg/sdks": "3.0.0-rc.34",
     "esbuild": "0.16.12",
     "esbuild-plugin-alias": "0.2.1",

@@ -6,7 +6,7 @@ globalThis.performance = {
 };
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";
 
-import { importMapReplace, md5 } from "@spike.land/code/session";
+// import { importMapReplace, md5 } from "@spike.land/code/session";
 
 // import impMap from "./importmap.json";
 //

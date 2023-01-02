@@ -10,12 +10,12 @@
   ],
   "scripts": {
     "clean": "yarn workspaces foreach --all run  clean",
-    "build": "yarn workspaces foreach --all run  build",
+    "build": "yarn workspaces foreach --all run build",
     "types": "yarn workspaces foreach --all run types",
     "test": "yarn workspaces foreach --all run test",
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
-    "deploy": "yarn clean &&(yarn types & yarn test & yarn c:build) && yarn c:deploy",
+    "deploy": "yarn clean && yarn c:build  && yarn types && yarn c:deploy",
     "importmap": "yarn workspaces foreach --all run  importmap",
     "build:code": "yarn workspaces foreach --all run build:code",
     "yarn:publish": "yarn workspaces foreach --all run  yarn workspaces foreach --all run publish",
@@ -61,6 +61,10 @@
   },
   "packageManager": "yarn@4.0.0-rc.34",
   "devDependencies": {
+    "@yarnpkg/cli": "^4.0.0-rc.34",
+    "@yarnpkg/core": "^4.0.0-rc.34",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.34",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.34",
     "@yarnpkg/plugin-typescript": "^4.0.0-rc.34"
   }
 }

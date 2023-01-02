@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 import esbuild from "esbuild";
-import { cp, rm } from "node:fs/promises";
+import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
 
 import { resolve } from "node:path";
@@ -208,7 +208,6 @@ const build = (
   });
 
 (async () => {
-  await rm("src/monaco-workers", { recursive: true, force: true });
   // await cp("./src/index.html", "./dist/index.html");
   await cp("./tsconfig.json", "./dist/src/tsconfig_dist.json");
   await cp("./dist/src/assets/favicons/favicon.ico", "./dist/src/favicon.ico");
