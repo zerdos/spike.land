@@ -22,7 +22,7 @@ const mod = {
   initialize: (orig: string) => {
     if (mod.init === false) {
       return mod.init = initialize({
-        wasmURL: new URL(wasmFile, orig).toString(),
+        wasmURL: new URL(wasmFile, orig + "/src/").toString(),
       });
     }
     return mod.init;

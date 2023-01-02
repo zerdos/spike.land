@@ -30356,7 +30356,7 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-AEUR63CX.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-7TVB3SWS.mjs
 init_chunk_chunk_R63P5I6G();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -38285,7 +38285,7 @@ var mod = {
   initialize: (orig) => {
     if (mod.init === false) {
       return mod.init = (0, import_esbuild_wasm.initialize)({
-        wasmURL: new URL(esbuild_default, orig).toString()
+        wasmURL: new URL(esbuild_default, orig + "/src/").toString()
       });
     }
     return mod.init;
@@ -38525,7 +38525,7 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-AEUR63CX.mjs
+// ../code/dist/src/chunk-chunk-7TVB3SWS.mjs
 init_chunk_chunk_R63P5I6G2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
@@ -46523,7 +46523,7 @@ var mod2 = {
   initialize: (orig) => {
     if (mod2.init === false) {
       return mod2.init = (0, import_esbuild_wasm2.initialize)({
-        wasmURL: new URL(esbuild_default2, orig).toString()
+        wasmURL: new URL(esbuild_default2, orig + "/src/").toString()
       });
     }
     return mod2.init;
