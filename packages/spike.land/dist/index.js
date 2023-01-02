@@ -48326,13 +48326,6 @@ var Code = class {
             });
           }
           try {
-            this.broadcast(data);
-          } catch {
-            return respondWith({
-              "msg": "broadcast issue"
-            });
-          }
-          try {
             await this.kv.put("session", newSess, { allowConcurrency: true });
             const { newHash, oldHash, patch, reversePatch } = data;
             await this.syncKV(oldSession, newSess, {
@@ -48342,6 +48335,7 @@ var Code = class {
               patch,
               reversePatch
             });
+            this.broadcast(data);
           } catch (err) {
             return respondWith({
               error: "Saving it its really hard",

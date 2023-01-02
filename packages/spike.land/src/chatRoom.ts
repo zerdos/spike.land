@@ -1059,13 +1059,6 @@ export class Code {
           // }
 
           // if (newHash === hashKEY()) {
-          try {
-            this.broadcast(data);
-          } catch {
-            return respondWith({
-              "msg": "broadcast issue",
-            });
-          }
 
           try {
             await this.kv.put<ICodeSession>("session", newSess, { allowConcurrency: true });
@@ -1079,6 +1072,7 @@ export class Code {
               patch,
               reversePatch,
             });
+            this.broadcast(data);
           } catch (err) {
             return respondWith({
               error: "Saving it its really hard",
