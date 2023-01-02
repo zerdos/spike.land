@@ -1401,19 +1401,19 @@ __metadata:
     esbuild-plugin-alias: "npm:0.2.1"
     esbuild-plugin-external-global: "npm:1.0.1"
     esbuild-wasm: "npm:0.16.12"
-    eslint: "npm:^8.30.0"
+    eslint: "npm:^8.31.0"
     eslint-plugin-react: "npm:^7.31.11"
     events-browserify: "npm:^0.0.1"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:8.0.2"
+    framer-motion: "npm:8.1.0"
     immutable: "npm:^4.2.1"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
     logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.12"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20221230"
+    monaco-editor: "npm:0.35.0-dev.20230102"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
     path-browserify: "npm:^1.0.1"
@@ -4533,7 +4533,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.27.0, eslint@npm:^8.30.0":
+"eslint@npm:^8.27.0, eslint@npm:^8.31.0":
   version: 8.31.0
   resolution: "eslint@npm:8.31.0"
   dependencies:
@@ -5100,21 +5100,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:8.0.2":
-  version: 8.0.2
-  resolution: "framer-motion@npm:8.0.2"
+"framer-motion@npm:8.1.0":
+  version: 8.1.0
+  resolution: "framer-motion@npm:8.1.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
     hey-listen: "npm:^1.0.8"
-    tslib: "npm:2.4.0"
+    tslib: "npm:^2.4.0"
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: de2ebe8dd4a3840f1d7415549976b7a9624f7a5ec0485aa61b64826c2c6ea2c53763c80325c9af2a01dc168de5a542f47b3e0c6839106ec2dd39df960596e41a
+  checksum: ad8cea26d041f4afc8b863fbb9f62d81c661be310f4cf9745dbeb3ac70b430180e9b6c5e1d99522158cc3965f29a8029b190b5ef4899b2caced01de5134e289e
   languageName: node
   linkType: hard
 
@@ -7600,10 +7600,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20221230":
-  version: 0.35.0-dev.20221230
-  resolution: "monaco-editor@npm:0.35.0-dev.20221230"
-  checksum: a8ee45ecb7b118c5f4483fe90d7cab71b31ab6f6c81b6290ca766e835cd49e8eda3040514d9cfb8fade35fe2cc96992c71d9deda4c68a6ae3bb5ed78763d7431
+"monaco-editor@npm:0.35.0-dev.20230102":
+  version: 0.35.0-dev.20230102
+  resolution: "monaco-editor@npm:0.35.0-dev.20230102"
+  checksum: c89c2c2b6792d66a4943f9247bf5815ac969163a5b5a78a4a6238ad72f3fa8f16400d7b25aadba26767f7f2e6bcfb333e343991c81d59aeddf74bd907776b9fa
   languageName: node
   linkType: hard
 
@@ -7623,9 +7623,9 @@ __metadata:
     cypress: "npm:12.2.0"
     dprint: "npm:^0.34.1"
     esbuild: "npm:^0.16.12"
-    eslint: "npm:^8.30.0"
+    eslint: "npm:^8.31.0"
     eslint-plugin-react: "npm:^7.31.11"
-    monaco-editor: "npm:0.35.0-dev.20221230"
+    monaco-editor: "npm:0.35.0-dev.20230102"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.1"
     react: "npm:^18.2.0"
@@ -7711,7 +7711,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.10"
     esbuild: "npm:0.16.12"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:8.0.2"
+    framer-motion: "npm:8.1.0"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"
@@ -10462,11 +10462,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.5.5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
   version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=d73830"
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: b53b083cf90883c6c73d66ce2e8b39115f06a642dfc538085c32e030687cf9872c5ea8720c5f361d4d2d14a8af946bb5423e0bf6b472b11f776e020ba6332ced
+  checksum: e7321aeb1e2c0e3c19599808707208e2b730de8d17a5624f0a7297b9a1ffa39974edd4a819108b3b635bc00171476ddfa339e04d928a03ce8d8c6944cb8ec008
   languageName: node
   linkType: hard
 

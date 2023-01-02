@@ -1,56 +1,56 @@
 {
   "inputs": {
-    "../../node_modules/mime/Mime.js": {
+    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js": {
       "bytes": 2892,
       "imports": []
     },
-    "../../node_modules/mime/types/standard.js": {
+    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js": {
       "bytes": 9530,
       "imports": []
     },
-    "../../node_modules/mime/types/other.js": {
+    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js": {
       "bytes": 25894,
       "imports": []
     },
-    "../../node_modules/mime/index.js": {
+    "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js": {
       "bytes": 127,
       "imports": [
         {
-          "path": "../../node_modules/mime/Mime.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js",
           "kind": "require-call"
         },
         {
-          "path": "../../node_modules/mime/types/standard.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js",
           "kind": "require-call"
         },
         {
-          "path": "../../node_modules/mime/types/other.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js",
           "kind": "require-call"
         }
       ]
     },
-    "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+    "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
       "bytes": 1166,
       "imports": []
     },
-    "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+    "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
       "bytes": 11802,
       "imports": [
         {
-          "path": "../../node_modules/mime/index.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js",
           "kind": "require-call"
         },
         {
-          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js",
           "kind": "require-call"
         }
       ]
     },
-    "../code/package.json": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
       "bytes": 5153,
       "imports": []
     },
-    "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs": {
       "bytes": 2259,
       "imports": [
         {
@@ -60,37 +60,37 @@
         }
       ]
     },
-    "../code/dist/chunk-chunk-7M7AO4YL.mjs": {
-      "bytes": 334963,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XDO6X2AW.mjs": {
+      "bytes": 335333,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs",
           "kind": "import-statement"
         }
       ]
     },
-    "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
-      "bytes": 488403,
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-7CVXCDCV.mjs": {
+      "bytes": 497210,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs",
           "kind": "import-statement"
         }
       ]
     },
-    "../code/dist/session.mjs": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs": {
       "bytes": 670,
       "imports": [
         {
-          "path": "../code/dist/chunk-chunk-7M7AO4YL.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XDO6X2AW.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/chunk-chunk-6MQOVGCJ.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-7CVXCDCV.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/chunk-chunk-JLPTXNJM.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs",
           "kind": "import-statement"
         }
       ]
@@ -99,7 +99,7 @@
       "bytes": 668,
       "imports": [
         {
-          "path": "../code/dist/session.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
@@ -109,7 +109,7 @@
         }
       ]
     },
-    "../code/src/importmap.json": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json": {
       "bytes": 475,
       "imports": []
     },
@@ -121,11 +121,11 @@
       "bytes": 21567,
       "imports": [
         {
-          "path": "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js",
           "kind": "import-statement"
         },
         {
-          "path": "../code/package.json",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json",
           "kind": "import-statement"
         },
         {
@@ -133,15 +133,15 @@
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/session.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/src/importmap.json",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/session.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
@@ -155,20 +155,20 @@
         }
       ]
     },
-    "../../node_modules/avl/src/utils.js": {
+    "../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js": {
       "bytes": 3081,
       "imports": []
     },
-    "../../node_modules/avl/src/index.js": {
+    "../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js": {
       "bytes": 15405,
       "imports": [
         {
-          "path": "../../node_modules/avl/src/utils.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js",
           "kind": "import-statement"
         }
       ]
     },
-    "../../node_modules/esbuild-wasm/lib/browser.js": {
+    "../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.12-98193a4eff-9.zip/node_modules/esbuild-wasm/lib/browser.js": {
       "bytes": 115310,
       "imports": []
     },
@@ -181,7 +181,7 @@
           "external": true
         },
         {
-          "path": "../../node_modules/esbuild-wasm/lib/browser.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.12-98193a4eff-9.zip/node_modules/esbuild-wasm/lib/browser.js",
           "kind": "import-statement"
         },
         {
@@ -199,15 +199,15 @@
       "bytes": 39295,
       "imports": [
         {
-          "path": "../code/dist/session.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../code/dist/session.mjs",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/session.mjs",
           "kind": "import-statement"
         },
         {
-          "path": "../../node_modules/avl/src/index.js",
+          "path": "../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js",
           "kind": "import-statement"
         },
         {
@@ -299,55 +299,55 @@
       ],
       "entryPoint": "src/index.ts",
       "inputs": {
-        "../../node_modules/mime/Mime.js": {
-          "bytesInOutput": 2014
+        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js": {
+          "bytesInOutput": 2081
         },
-        "../../node_modules/mime/types/standard.js": {
-          "bytesInOutput": 10359
+        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/standard.js": {
+          "bytesInOutput": 10426
         },
-        "../../node_modules/mime/types/other.js": {
-          "bytesInOutput": 27456
+        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/types/other.js": {
+          "bytesInOutput": 27523
         },
-        "../../node_modules/mime/index.js": {
-          "bytesInOutput": 213
+        "../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/index.js": {
+          "bytesInOutput": 280
         },
-        "../../node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
-          "bytesInOutput": 1240
+        "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/types.js": {
+          "bytesInOutput": 1331
         },
-        "../../node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
-          "bytesInOutput": 9010
+        "../../../../../Users/z/.yarn/berry/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-9.zip/node_modules/@cloudflare/kv-asset-handler/dist/index.js": {
+          "bytesInOutput": 9101
         },
-        "../../node_modules/esbuild-wasm/lib/browser.js": {
-          "bytesInOutput": 130131
+        "../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.12-98193a4eff-9.zip/node_modules/esbuild-wasm/lib/browser.js": {
+          "bytesInOutput": 130208
         },
         "src/chat.ts": {
           "bytesInOutput": 10043
         },
-        "../code/package.json": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/package.json": {
           "bytesInOutput": 5050
         },
-        "../code/dist/chunk-chunk-JLPTXNJM.mjs": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-JLPTXNJM.mjs": {
           "bytesInOutput": 2026
         },
-        "../code/dist/chunk-chunk-7M7AO4YL.mjs": {
-          "bytesInOutput": 333748
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-XDO6X2AW.mjs": {
+          "bytesInOutput": 333897
         },
-        "../code/dist/chunk-chunk-6MQOVGCJ.mjs": {
-          "bytesInOutput": 482412
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/chunk-chunk-7CVXCDCV.mjs": {
+          "bytesInOutput": 484475
         },
         "src/staticContent.mjs": {
           "bytesInOutput": 134
         },
-        "../code/src/importmap.json": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json": {
           "bytesInOutput": 494
         },
         "src/handleErrors.ts": {
           "bytesInOutput": 840
         },
-        "../../node_modules/avl/src/utils.js": {
+        "../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/utils.js": {
           "bytesInOutput": 2081
         },
-        "../../node_modules/avl/src/index.js": {
+        "../../../../../Users/z/.yarn/berry/cache/avl-npm-1.5.3-ee43491243-9.zip/node_modules/avl/src/index.js": {
           "bytesInOutput": 11149
         },
         "src/ebuilld.ts": {
@@ -372,7 +372,7 @@
           "bytesInOutput": 980
         }
       },
-      "bytes": 1060369
+      "bytes": 1064107
     }
   }
 }

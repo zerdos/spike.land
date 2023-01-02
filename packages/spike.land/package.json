@@ -12,7 +12,7 @@
     "prepublishOnly": "wrangler publish",
     "predeploy": "yarn c:build && yarn x:build",
     "c:build": "yarn workspace @spike.land/code build",
-    "x:build": "esbuild  --bundle --tree-shaking=true  --external:fs --external:./src/esbuild.wasm --external:stream  --external:os    --metafile=good.json --format=esm --loader:.html=text --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
+    "x:build": "esbuild  --bundle --tree-shaking=true  --external:fs --external:./src/esbuild.wasm --external:stream  --external:os   --format=esm --loader:.html=text --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
