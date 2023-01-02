@@ -1,4 +1,4 @@
-import was from "./esbuild.wasm";
+import was from "esbuild-wasm/esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
 
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";

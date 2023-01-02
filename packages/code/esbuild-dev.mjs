@@ -98,6 +98,7 @@ const buildOptions = {
   loader: {
     ".ttf": "file",
     ".html": "text",
+    ".wasm": "file",
   },
   external: ["./mST", "/npm:*"],
   legalComments: "none",
@@ -291,7 +292,6 @@ const build = (
       "src/hydrate.tsx",
       "src/render.tsx",
       "src/reactDomClient.ts",
-      "src/esbuildWASM.ts",
       "src/emotion.ts",
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",

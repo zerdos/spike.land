@@ -6,6 +6,7 @@ import {
   transform,
   type TransformOptions,
 } from "esbuild-wasm";
+import { wasmFile } from "./esbuildWASM";
 
 // import impMap from "./importmap.json";
 //
@@ -17,31 +18,33 @@ import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
 const mod = {
   init: false as (boolean | Promise<void>),
-  initialize: (origin: string) => {
-    if (mod.init !== false) return mod.init;
-
-    return fetch(`${origin}/files.json`).then((f) => f.json()).then(
-      (k) => {
-        const wasmURL = new URL(
-          Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1) as string,
-          origin,
-        ).toString();
-        mod.init = initialize({
-          wasmURL,
-        }).then(() => mod.init = true) as Promise<void>;
-        return mod.init;
-      },
-    );
+  initialize: async () => {
+    if (mod.init === false) {
+      return mod.init = initialize({
+        wasmURL: wasmFile,
+      });
+    }
+    return mod.init;
   },
+  //   return fetch(`${origin}/files.json`).then((f) => f.json()).then(
+  //     (k) => {
+  //       const wasmURL = new URL(
+  //         Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1) as string,
+  //         origin,
+  //       ).toString();
+  //      then(() => mod.init = true) as Promise<void>;
+  //       return mod.init;
+  //     },
+  //   );
+  // },
 };
 
 export const initAndTransform = async (
   code: string,
   opts: TransformOptions,
-  origin: string,
 ) => {
   // const code = prettierJs(c)!;
-  const initFinished = mod.initialize(origin);
+  const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
 
