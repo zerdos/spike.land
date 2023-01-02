@@ -236,7 +236,7 @@ async function startMonacoPristine(
 
   const addExtraM = async () => {
     const search = new RegExp(
-      ` from '(${originToUse}/)?live/[a-zA-Z]+`,
+      ` from '(${originToUse})?/live/[a-zA-Z]+`,
       "gm",
     );
 
@@ -245,7 +245,7 @@ async function startMonacoPristine(
     // Console.log("load more models", replaced, models);
 
     for (const match of models) {
-      // console.log("***** EXTRA MODELS *****");
+      console.log("***** EXTRA MODELS *****");
       //
       const codeSpace = match[0].split("/live/").pop();
       const extraModel = new URL(

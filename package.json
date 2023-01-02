@@ -49,6 +49,7 @@
     "esbuild": "^0.16.12",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.31.11",
+    "localforage": "^1.10.0",
     "monaco-editor": "0.35.0-dev.20230102",
     "path-browserify": "^1.0.1",
     "playwright": "1.29.1",
@@ -58,5 +59,8 @@
     "utils": "^0.3.1",
     "xo": "^0.53.1"
   },
-  "packageManager": "yarn@4.0.0-rc.34"
+  "packageManager": "yarn@4.0.0-rc.34",
+  "devDependencies": {
+    "@yarnpkg/plugin-typescript": "^4.0.0-rc.34"
+  }
 }

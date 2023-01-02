@@ -110,12 +110,14 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.0.10"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
+          ["@yarnpkg/plugin-typescript", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:4.0.0-rc.34"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.34"],\
           ["cypress", "npm:12.2.0"],\
           ["dprint", "npm:0.34.1"],\
           ["esbuild", "npm:0.16.12"],\
           ["eslint", "npm:8.31.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
+          ["localforage", "npm:1.10.0"],\
           ["monaco-editor", "npm:0.35.0-dev.20230102"],\
           ["path-browserify", "npm:1.0.1"],\
           ["playwright", "npm:1.29.1"],\
@@ -126,6 +128,155 @@ const RAW_RUNTIME_STATE =
           ["xo", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:0.53.1"]\
         ],\
         "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@algolia/cache-browser-local-storage", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-cache-browser-local-storage-npm-4.14.3-bf0a7c2b35-9.zip/node_modules/@algolia/cache-browser-local-storage/",\
+        "packageDependencies": [\
+          ["@algolia/cache-browser-local-storage", "npm:4.14.3"],\
+          ["@algolia/cache-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/cache-common", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-cache-common-npm-4.14.3-48492ae95c-9.zip/node_modules/@algolia/cache-common/",\
+        "packageDependencies": [\
+          ["@algolia/cache-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/cache-in-memory", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-cache-in-memory-npm-4.14.3-3b059a0e5a-9.zip/node_modules/@algolia/cache-in-memory/",\
+        "packageDependencies": [\
+          ["@algolia/cache-in-memory", "npm:4.14.3"],\
+          ["@algolia/cache-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/client-account", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-client-account-npm-4.14.3-72a0cb1e4d-9.zip/node_modules/@algolia/client-account/",\
+        "packageDependencies": [\
+          ["@algolia/client-account", "npm:4.14.3"],\
+          ["@algolia/client-common", "npm:4.14.3"],\
+          ["@algolia/client-search", "npm:4.14.3"],\
+          ["@algolia/transporter", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/client-analytics", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-client-analytics-npm-4.14.3-fd38a466ae-9.zip/node_modules/@algolia/client-analytics/",\
+        "packageDependencies": [\
+          ["@algolia/client-analytics", "npm:4.14.3"],\
+          ["@algolia/client-common", "npm:4.14.3"],\
+          ["@algolia/client-search", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"],\
+          ["@algolia/transporter", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/client-common", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-client-common-npm-4.14.3-ba561788db-9.zip/node_modules/@algolia/client-common/",\
+        "packageDependencies": [\
+          ["@algolia/client-common", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"],\
+          ["@algolia/transporter", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/client-personalization", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-client-personalization-npm-4.14.3-0055616aa7-9.zip/node_modules/@algolia/client-personalization/",\
+        "packageDependencies": [\
+          ["@algolia/client-personalization", "npm:4.14.3"],\
+          ["@algolia/client-common", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"],\
+          ["@algolia/transporter", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/client-search", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-client-search-npm-4.14.3-8526852d32-9.zip/node_modules/@algolia/client-search/",\
+        "packageDependencies": [\
+          ["@algolia/client-search", "npm:4.14.3"],\
+          ["@algolia/client-common", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"],\
+          ["@algolia/transporter", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/logger-common", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-logger-common-npm-4.14.3-d4108ca9d6-9.zip/node_modules/@algolia/logger-common/",\
+        "packageDependencies": [\
+          ["@algolia/logger-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/logger-console", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-logger-console-npm-4.14.3-546fe12371-9.zip/node_modules/@algolia/logger-console/",\
+        "packageDependencies": [\
+          ["@algolia/logger-console", "npm:4.14.3"],\
+          ["@algolia/logger-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/requester-browser-xhr", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-requester-browser-xhr-npm-4.14.3-2939e82925-9.zip/node_modules/@algolia/requester-browser-xhr/",\
+        "packageDependencies": [\
+          ["@algolia/requester-browser-xhr", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/requester-common", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-requester-common-npm-4.14.3-d7bfca656b-9.zip/node_modules/@algolia/requester-common/",\
+        "packageDependencies": [\
+          ["@algolia/requester-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/requester-node-http", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-requester-node-http-npm-4.14.3-70b36165b5-9.zip/node_modules/@algolia/requester-node-http/",\
+        "packageDependencies": [\
+          ["@algolia/requester-node-http", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@algolia/transporter", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@algolia-transporter-npm-4.14.3-1ab173e5f3-9.zip/node_modules/@algolia/transporter/",\
+        "packageDependencies": [\
+          ["@algolia/transporter", "npm:4.14.3"],\
+          ["@algolia/cache-common", "npm:4.14.3"],\
+          ["@algolia/logger-common", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@ampproject/worker-dom", [\
@@ -2769,6 +2920,72 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@yarnpkg/plugin-pack", [\
+      ["npm:4.0.0-rc.34", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@yarnpkg-plugin-pack-npm-4.0.0-rc.34-a51697292a-9.zip/node_modules/@yarnpkg/plugin-pack/",\
+        "packageDependencies": [\
+          ["@yarnpkg/plugin-pack", "npm:4.0.0-rc.34"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:ed0531cd607f8171b00faaa174747a2ceb48895f0c96f05e9ed8521a00eff7b13739ea416330edd56efff5f7ace734689973b74b588f17fb51b86ec81308930d#npm:4.0.0-rc.34", {\
+        "packageLocation": "./.yarn/__virtual__/@yarnpkg-plugin-pack-virtual-4a6fc1e87d/4/Users/z/.yarn/berry/cache/@yarnpkg-plugin-pack-npm-4.0.0-rc.34-a51697292a-9.zip/node_modules/@yarnpkg/plugin-pack/",\
+        "packageDependencies": [\
+          ["@yarnpkg/plugin-pack", "virtual:ed0531cd607f8171b00faaa174747a2ceb48895f0c96f05e9ed8521a00eff7b13739ea416330edd56efff5f7ace734689973b74b588f17fb51b86ec81308930d#npm:4.0.0-rc.34"],\
+          ["@types/yarnpkg__cli", null],\
+          ["@types/yarnpkg__core", null],\
+          ["@yarnpkg/cli", null],\
+          ["@yarnpkg/core", null],\
+          ["@yarnpkg/fslib", "npm:3.0.0-rc.34"],\
+          ["clipanion", "virtual:cbf7078e467aba4e1a4a937a491e412822878bc7fb4fdd75be20353757a3d85d38b6f20fdb156220a9dbc5773d3d9127f443414b12aa687236579fca2d96eabb#npm:3.2.0-rc.14"],\
+          ["micromatch", "npm:4.0.5"],\
+          ["tar-stream", "npm:2.2.0"],\
+          ["tslib", "npm:2.4.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/yarnpkg__cli",\
+          "@types/yarnpkg__core",\
+          "@yarnpkg/cli",\
+          "@yarnpkg/core"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@yarnpkg/plugin-typescript", [\
+      ["npm:4.0.0-rc.34", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@yarnpkg-plugin-typescript-npm-4.0.0-rc.34-871ea7d41c-9.zip/node_modules/@yarnpkg/plugin-typescript/",\
+        "packageDependencies": [\
+          ["@yarnpkg/plugin-typescript", "npm:4.0.0-rc.34"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:4.0.0-rc.34", {\
+        "packageLocation": "./.yarn/__virtual__/@yarnpkg-plugin-typescript-virtual-ed0531cd60/4/Users/z/.yarn/berry/cache/@yarnpkg-plugin-typescript-npm-4.0.0-rc.34-871ea7d41c-9.zip/node_modules/@yarnpkg/plugin-typescript/",\
+        "packageDependencies": [\
+          ["@yarnpkg/plugin-typescript", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:4.0.0-rc.34"],\
+          ["@types/yarnpkg__cli", null],\
+          ["@types/yarnpkg__core", null],\
+          ["@types/yarnpkg__plugin-essentials", null],\
+          ["@yarnpkg/cli", null],\
+          ["@yarnpkg/core", null],\
+          ["@yarnpkg/fslib", "npm:3.0.0-rc.34"],\
+          ["@yarnpkg/plugin-essentials", null],\
+          ["@yarnpkg/plugin-pack", "virtual:ed0531cd607f8171b00faaa174747a2ceb48895f0c96f05e9ed8521a00eff7b13739ea416330edd56efff5f7ace734689973b74b588f17fb51b86ec81308930d#npm:4.0.0-rc.34"],\
+          ["algoliasearch", "npm:4.14.3"],\
+          ["semver", "npm:7.3.8"],\
+          ["tslib", "npm:2.4.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/yarnpkg__cli",\
+          "@types/yarnpkg__core",\
+          "@types/yarnpkg__plugin-essentials",\
+          "@yarnpkg/cli",\
+          "@yarnpkg/core",\
+          "@yarnpkg/plugin-essentials"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@yarnpkg/sdks", [\
       ["npm:3.0.0-rc.34", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/@yarnpkg-sdks-npm-3.0.0-rc.34-e34ca693fc-9.zip/node_modules/@yarnpkg/sdks/",\
@@ -2950,6 +3167,29 @@ const RAW_RUNTIME_STATE =
           ["json-schema-traverse", "npm:1.0.0"],\
           ["require-from-string", "npm:2.0.2"],\
           ["uri-js", "npm:4.4.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["algoliasearch", [\
+      ["npm:4.14.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/algoliasearch-npm-4.14.3-6f18dd148d-9.zip/node_modules/algoliasearch/",\
+        "packageDependencies": [\
+          ["algoliasearch", "npm:4.14.3"],\
+          ["@algolia/cache-browser-local-storage", "npm:4.14.3"],\
+          ["@algolia/cache-common", "npm:4.14.3"],\
+          ["@algolia/cache-in-memory", "npm:4.14.3"],\
+          ["@algolia/client-account", "npm:4.14.3"],\
+          ["@algolia/client-analytics", "npm:4.14.3"],\
+          ["@algolia/client-common", "npm:4.14.3"],\
+          ["@algolia/client-personalization", "npm:4.14.3"],\
+          ["@algolia/client-search", "npm:4.14.3"],\
+          ["@algolia/logger-common", "npm:4.14.3"],\
+          ["@algolia/logger-console", "npm:4.14.3"],\
+          ["@algolia/requester-browser-xhr", "npm:4.14.3"],\
+          ["@algolia/requester-common", "npm:4.14.3"],\
+          ["@algolia/requester-node-http", "npm:4.14.3"],\
+          ["@algolia/transporter", "npm:4.14.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3571,6 +3811,18 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../Users/z/.yarn/berry/cache/binary-extensions-npm-2.2.0-180c33fec7-9.zip/node_modules/binary-extensions/",\
         "packageDependencies": [\
           ["binary-extensions", "npm:2.2.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["bl", [\
+      ["npm:4.1.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/bl-npm-4.1.0-7f94cdcf3f-9.zip/node_modules/bl/",\
+        "packageDependencies": [\
+          ["bl", "npm:4.1.0"],\
+          ["buffer", "npm:5.7.1"],\
+          ["inherits", "npm:2.0.4"],\
+          ["readable-stream", "npm:3.6.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6512,6 +6764,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["fs-constants", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/fs-constants-npm-1.0.0-59576b2177-9.zip/node_modules/fs-constants/",\
+        "packageDependencies": [\
+          ["fs-constants", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fs-extra", [\
       ["npm:9.1.0", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/fs-extra-npm-9.1.0-983c2ddb4c-9.zip/node_modules/fs-extra/",\
@@ -9315,12 +9576,14 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.0.10"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.47.1"],\
+          ["@yarnpkg/plugin-typescript", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:4.0.0-rc.34"],\
           ["@yarnpkg/sdks", "npm:3.0.0-rc.34"],\
           ["cypress", "npm:12.2.0"],\
           ["dprint", "npm:0.34.1"],\
           ["esbuild", "npm:0.16.12"],\
           ["eslint", "npm:8.31.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
+          ["localforage", "npm:1.10.0"],\
           ["monaco-editor", "npm:0.35.0-dev.20230102"],\
           ["path-browserify", "npm:1.0.1"],\
           ["playwright", "npm:1.29.1"],\
@@ -12224,6 +12487,20 @@ const RAW_RUNTIME_STATE =
           ["minizlib", "npm:2.1.2"],\
           ["mkdirp", "npm:1.0.4"],\
           ["yallist", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tar-stream", [\
+      ["npm:2.2.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/tar-stream-npm-2.2.0-884c79b510-9.zip/node_modules/tar-stream/",\
+        "packageDependencies": [\
+          ["tar-stream", "npm:2.2.0"],\
+          ["bl", "npm:4.1.0"],\
+          ["end-of-stream", "npm:1.4.4"],\
+          ["fs-constants", "npm:1.0.0"],\
+          ["inherits", "npm:2.0.4"],\
+          ["readable-stream", "npm:3.6.0"]\
         ],\
         "linkType": "HARD"\
       }]\

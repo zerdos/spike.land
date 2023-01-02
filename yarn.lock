@@ -5,6 +5,138 @@ __metadata:
   version: 7
   cacheKey: 9
 
+"@algolia/cache-browser-local-storage@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/cache-browser-local-storage@npm:4.14.3"
+  dependencies:
+    "@algolia/cache-common": "npm:4.14.3"
+  checksum: cda3e5abdce36a5bb6632637805e6f10fd4b90ccf97ee373abbb2fcbdf1936270c23d6df1df052ecb91530f8a91a0b73ecdb341eb93ae56ab9384508a51340f3
+  languageName: node
+  linkType: hard
+
+"@algolia/cache-common@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/cache-common@npm:4.14.3"
+  checksum: d2ffa004d99ef82516fe35951b2f8a1f822cc9025aaef0ec3915c15cc9b2cc1595e89ae0354fa745b3870da0fbb982b34876e2570d624de81b3627e054447a34
+  languageName: node
+  linkType: hard
+
+"@algolia/cache-in-memory@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/cache-in-memory@npm:4.14.3"
+  dependencies:
+    "@algolia/cache-common": "npm:4.14.3"
+  checksum: b3ae3f214cbc10ebd239ffe6c06f3bd62ea6864f0b7592dce298af948a05569b186de8539ab0ceb94ca74c1a387d86214797fd36f2e9154b6b9ebf98ddf37999
+  languageName: node
+  linkType: hard
+
+"@algolia/client-account@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/client-account@npm:4.14.3"
+  dependencies:
+    "@algolia/client-common": "npm:4.14.3"
+    "@algolia/client-search": "npm:4.14.3"
+    "@algolia/transporter": "npm:4.14.3"
+  checksum: b72d8de7b18fdb931edfec1fbf05a645c94f97b530a13c829a6ba7d56b2dcda60f73e7e4c10a911b2477b4df60a88b22ab0ccc7a28f66456fff7f7fdee9af3a3
+  languageName: node
+  linkType: hard
+
+"@algolia/client-analytics@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/client-analytics@npm:4.14.3"
+  dependencies:
+    "@algolia/client-common": "npm:4.14.3"
+    "@algolia/client-search": "npm:4.14.3"
+    "@algolia/requester-common": "npm:4.14.3"
+    "@algolia/transporter": "npm:4.14.3"
+  checksum: 607ca90e1de89a29650f2e97aa48c306bea7593e6f3fe58bc82b5965b0d3dd9d513128f3f438ff7ca7d0d258c2f29ac9fcdf06c1e731c973321a91b6234f8c44
+  languageName: node
+  linkType: hard
+
+"@algolia/client-common@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/client-common@npm:4.14.3"
+  dependencies:
+    "@algolia/requester-common": "npm:4.14.3"
+    "@algolia/transporter": "npm:4.14.3"
+  checksum: 542c209f4af14f553e888cd33c2c12ce5d2e67109c64e3e2ec6880d35c4d14702a06d084b669bf1d54f59a6736671579e3c360b7dffa49629236c08369440c58
+  languageName: node
+  linkType: hard
+
+"@algolia/client-personalization@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/client-personalization@npm:4.14.3"
+  dependencies:
+    "@algolia/client-common": "npm:4.14.3"
+    "@algolia/requester-common": "npm:4.14.3"
+    "@algolia/transporter": "npm:4.14.3"
+  checksum: c1b9ca16f8346742e1c681cc9dbd02cd08b2030ede088bd0196f657ccdf7745f223f4dd323dddc61f82544673d3568f503491944dc442b3b51c7601f1d6221ae
+  languageName: node
+  linkType: hard
+
+"@algolia/client-search@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/client-search@npm:4.14.3"
+  dependencies:
+    "@algolia/client-common": "npm:4.14.3"
+    "@algolia/requester-common": "npm:4.14.3"
+    "@algolia/transporter": "npm:4.14.3"
+  checksum: ee9b72151c0ed9843902aa8ce31d4dd9d1b2e2d9d8c39110b1ccfe082a53d750f152f6a13c81e19ea51619fd45556baebf636f9785abfe3e7d2bd2aa3ffdaef4
+  languageName: node
+  linkType: hard
+
+"@algolia/logger-common@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/logger-common@npm:4.14.3"
+  checksum: 6b83464e7502ee84085e0d704b440ab022be0aa9108362dbdb729f25c0aa7ddcd3791714001b7009b85afa0b6b50c112c878664ae25c0541e21450cd2c60f3aa
+  languageName: node
+  linkType: hard
+
+"@algolia/logger-console@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/logger-console@npm:4.14.3"
+  dependencies:
+    "@algolia/logger-common": "npm:4.14.3"
+  checksum: f071beb8b19aab7f1102238b2a5f3f52c7bcb691d50077f9d10a2d214d968923c95889d7962fadd93bb5f359904c157ea802ee0598394d677787b16dc99ed0a4
+  languageName: node
+  linkType: hard
+
+"@algolia/requester-browser-xhr@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/requester-browser-xhr@npm:4.14.3"
+  dependencies:
+    "@algolia/requester-common": "npm:4.14.3"
+  checksum: 3372ec6f503405cc920e9c74c139510f949e04e869abdf3a9304bfd52874bcde30256f5da30b93a69c53ef88a72da28361845bb4af6c2efbd810b903aa4f5f01
+  languageName: node
+  linkType: hard
+
+"@algolia/requester-common@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/requester-common@npm:4.14.3"
+  checksum: 4b387a7483b01caa2fd963931f1182b48997ab9a83ba1bce6e0a5d3f9d4360cbe6cb99a3d0518c996aa620ea82d267ff969d04c6b4f366cc9bd78e22aa43c4c5
+  languageName: node
+  linkType: hard
+
+"@algolia/requester-node-http@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/requester-node-http@npm:4.14.3"
+  dependencies:
+    "@algolia/requester-common": "npm:4.14.3"
+  checksum: cd9ff2394e7f7bd0c025b1d025715466fd3108556a157480afe0fb85bd994213fabdb77db81a959952bd554af2cf4e70d30ae954478edfc0d1349b55ae28934b
+  languageName: node
+  linkType: hard
+
+"@algolia/transporter@npm:4.14.3":
+  version: 4.14.3
+  resolution: "@algolia/transporter@npm:4.14.3"
+  dependencies:
+    "@algolia/cache-common": "npm:4.14.3"
+    "@algolia/logger-common": "npm:4.14.3"
+    "@algolia/requester-common": "npm:4.14.3"
+  checksum: d402f17b2e93843d138a16461db1b0e805898112d28a8bc503824c21f05357755c43788ed01c9c6347a95972fe823e444da1cfdb2d15e1f5672440624b418e99
+  languageName: node
+  linkType: hard
+
 "@ampproject/worker-dom@npm:^0.34.0":
   version: 0.34.0
   resolution: "@ampproject/worker-dom@npm:0.34.0"
@@ -1972,6 +2104,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/plugin-pack@npm:^4.0.0-rc.34":
+  version: 4.0.0-rc.34
+  resolution: "@yarnpkg/plugin-pack@npm:4.0.0-rc.34"
+  dependencies:
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.34"
+    clipanion: "npm:^3.2.0-rc.10"
+    micromatch: "npm:^4.0.2"
+    tar-stream: "npm:^2.0.1"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@yarnpkg/cli": ^4.0.0-rc.34
+    "@yarnpkg/core": ^4.0.0-rc.34
+  checksum: ccb5289ab08e4cea1ba057b5c93a46f581c981a7792dd3cbf769ee3546dc5b5ef5c1747fa92e3ce4d83115ee5d5a198a7404b0f311d59572a1cd1ba568652ac8
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-typescript@npm:^4.0.0-rc.34":
+  version: 4.0.0-rc.34
+  resolution: "@yarnpkg/plugin-typescript@npm:4.0.0-rc.34"
+  dependencies:
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.34"
+    "@yarnpkg/plugin-pack": "npm:^4.0.0-rc.34"
+    algoliasearch: "npm:^4.2.0"
+    semver: "npm:^7.1.2"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@yarnpkg/cli": ^4.0.0-rc.34
+    "@yarnpkg/core": ^4.0.0-rc.34
+    "@yarnpkg/plugin-essentials": ^4.0.0-rc.34
+  checksum: b2db11abe44ce1ecd093b542c559947c95ed62fba3190fe27732dbd99ab81276371d910f4d9135557d44f5ef6d64294741d86f6b3e5a26d1b74b1976a9f039c4
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/sdks@npm:3.0.0-rc.34, @yarnpkg/sdks@npm:^3.0.0-rc.34":
   version: 3.0.0-rc.34
   resolution: "@yarnpkg/sdks@npm:3.0.0-rc.34"
@@ -2134,6 +2299,28 @@ __metadata:
     json-schema-traverse: "npm:^0.4.1"
     uri-js: "npm:^4.2.2"
   checksum: c8b4c5eb679d58b3b145c914cb328b49622ead05aecd2c8da490809d542d0796d558602a7988745214eff2a7642dcca784f909414cb746d7235a97a3f89fecee
+  languageName: node
+  linkType: hard
+
+"algoliasearch@npm:^4.2.0":
+  version: 4.14.3
+  resolution: "algoliasearch@npm:4.14.3"
+  dependencies:
+    "@algolia/cache-browser-local-storage": "npm:4.14.3"
+    "@algolia/cache-common": "npm:4.14.3"
+    "@algolia/cache-in-memory": "npm:4.14.3"
+    "@algolia/client-account": "npm:4.14.3"
+    "@algolia/client-analytics": "npm:4.14.3"
+    "@algolia/client-common": "npm:4.14.3"
+    "@algolia/client-personalization": "npm:4.14.3"
+    "@algolia/client-search": "npm:4.14.3"
+    "@algolia/logger-common": "npm:4.14.3"
+    "@algolia/logger-console": "npm:4.14.3"
+    "@algolia/requester-browser-xhr": "npm:4.14.3"
+    "@algolia/requester-common": "npm:4.14.3"
+    "@algolia/requester-node-http": "npm:4.14.3"
+    "@algolia/transporter": "npm:4.14.3"
+  checksum: 7990cbb241066802f2b00d582663375f67882134efc0bbb76245f9b88945477eea3aa01c161e8fb8a3610a14986ff133d4e4084592a96ef1d65297288c7ceb44
   languageName: node
   linkType: hard
 
@@ -2677,6 +2864,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bl@npm:^4.0.3":
+  version: 4.1.0
+  resolution: "bl@npm:4.1.0"
+  dependencies:
+    buffer: "npm:^5.5.0"
+    inherits: "npm:^2.0.4"
+    readable-stream: "npm:^3.4.0"
+  checksum: f6a0c17835e457f148ccc8703be5752de9cd79ef7343710fda7aac905a7187a31321005999b3b1b7ab3e8c2362a27222e7df110f7556fa3077e4fbc226ef5d5a
+  languageName: node
+  linkType: hard
+
 "blake3-wasm@npm:^2.1.5":
   version: 2.1.5
   resolution: "blake3-wasm@npm:2.1.5"
@@ -2783,7 +2981,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^5.6.0":
+"buffer@npm:^5.5.0, buffer@npm:^5.6.0":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
   dependencies:
@@ -3920,7 +4118,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"end-of-stream@npm:^1.0.0, end-of-stream@npm:^1.1.0":
+"end-of-stream@npm:^1.0.0, end-of-stream@npm:^1.1.0, end-of-stream@npm:^1.4.1":
   version: 1.4.4
   resolution: "end-of-stream@npm:1.4.4"
   dependencies:
@@ -5116,6 +5314,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-constants@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "fs-constants@npm:1.0.0"
+  checksum: fc080f48eec0d9cef6750e804f31c6ceac3f4222dfd7003c7ac350f6be91979b084d27e4249e8e66f54caf5ea0465721078934ce44302d9d725209830c8fd730
+  languageName: node
+  linkType: hard
+
 "fs-extra@npm:^9.1.0":
   version: 9.1.0
   resolution: "fs-extra@npm:9.1.0"
@@ -5822,7 +6027,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inherits@npm:2, inherits@npm:^2.0.1, inherits@npm:^2.0.3, inherits@npm:~2.0.1, inherits@npm:~2.0.3, inherits@npm:~2.0.4":
+"inherits@npm:2, inherits@npm:^2.0.1, inherits@npm:^2.0.3, inherits@npm:^2.0.4, inherits@npm:~2.0.1, inherits@npm:~2.0.3, inherits@npm:~2.0.4":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: ca76c7e45ec715bfe6c1dd67b780b9a15068f37b37ab56cf8b773537b2654238469a42950f5f4d301212755e7512be888f627752e778e1863d95cfedefc8b8bd
@@ -7609,12 +7814,14 @@ __metadata:
     "@types/react-dom": "npm:18.0.10"
     "@typescript-eslint/eslint-plugin": "npm:^5.47.1"
     "@typescript-eslint/parser": "npm:^5.47.1"
+    "@yarnpkg/plugin-typescript": "npm:^4.0.0-rc.34"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.34"
     cypress: "npm:12.2.0"
     dprint: "npm:^0.34.1"
     esbuild: "npm:^0.16.12"
     eslint: "npm:^8.31.0"
     eslint-plugin-react: "npm:^7.31.11"
+    localforage: "npm:^1.10.0"
     monaco-editor: "npm:0.35.0-dev.20230102"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.1"
@@ -9001,7 +9208,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0":
+"readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0":
   version: 3.6.0
   resolution: "readable-stream@npm:3.6.0"
   dependencies:
@@ -10118,6 +10325,19 @@ __metadata:
   version: 0.1.10
   resolution: "tapable@npm:0.1.10"
   checksum: b1adf84af24615f953194017f36fec3bc790ff4117db97b16e63206fd0aab0310546127595d19f04e221796f61715404afbd7fd41b1be7b3fcb18080993d552a
+  languageName: node
+  linkType: hard
+
+"tar-stream@npm:^2.0.1":
+  version: 2.2.0
+  resolution: "tar-stream@npm:2.2.0"
+  dependencies:
+    bl: "npm:^4.0.3"
+    end-of-stream: "npm:^1.4.1"
+    fs-constants: "npm:^1.0.0"
+    inherits: "npm:^2.0.3"
+    readable-stream: "npm:^3.1.1"
+  checksum: c0c8df70dbca1da9fc5dc89046b972ee9703ee0d07e096749e5c60f4847dd912e99da1dbb9cb9bd87be0deba550e60dbec2477a1c44c000435ceb5a909f5db5f
   languageName: node
   linkType: hard
 
