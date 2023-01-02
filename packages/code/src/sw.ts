@@ -68,7 +68,7 @@ const createResponse = async (request: Request) => {
 
     const js = importMapReplace(transpiled, location.origin, location.origin).replace(
       `export {`,
-      "const mod_ASSET_HASH = stdin_default();",
+      "const ModASSET_HASH = stdin_default();",
     ).replace("stdin_default as default", "").slice(0, -3);
 
     const respText = HTML.replace(
@@ -90,11 +90,11 @@ const createResponse = async (request: Request) => {
           import {render} from "${url.origin}/src/render.mjs";
        
           ${js}
-          const App= mod_ASSET_HASH.default;
+         
 
           const rootEl = document.getElementById("${codeSpace}-css");
           
-          render(rootEl, App, "${codeSpace}");          
+          render(rootEl, ModASSET_HASH, "${codeSpace}");          
       
           </script>`,
       ).split("ASSET_HASH").join(ASSET_HASH);
