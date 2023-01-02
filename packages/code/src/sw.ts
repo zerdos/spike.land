@@ -54,6 +54,10 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
 
+  if (url.pathname.startsWith("/live") && url.pathname.endsWith("public")) {
+    const { renderToStream } = await import("./renderToStream");
+    return renderToStream("clock3");
+  }
   if (url.pathname.startsWith("/live")) {
     try {
       const file = await readFile(url.pathname);
