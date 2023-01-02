@@ -48317,7 +48317,7 @@ var Code = class {
     this.sessions.push(session);
     this.sessions = this.sessions.filter((x) => !x.quit);
     const users = this.sessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashKEY2(this.codeSpace), users }));
+    webSocket.send(JSON.stringify({ hashCode: hashKEY2(this.codeSpace), i: mST2(this.codeSpace).i, users }));
     webSocket.addEventListener(
       "message",
       (msg) => this.processWsMessage(msg, session)
@@ -48463,7 +48463,6 @@ var Code = class {
         s.webSocket.send(message);
       } catch {
         console.error("p2p error");
-        "";
       }
     });
   }

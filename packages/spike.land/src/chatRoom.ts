@@ -827,7 +827,7 @@ export class Code {
     this.sessions.push(session);
     this.sessions = this.sessions.filter(x => !x.quit);
     const users = this.sessions.filter(x => x.name).map(x => x.name);
-    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), users }));
+    webSocket.send(JSON.stringify({ hashCode: hashKEY(this.codeSpace), i: mST(this.codeSpace).i, users }));
 
     // this.sessions.forEach((otherSession) => {
     // if (otherSession.name) {
@@ -1141,7 +1141,6 @@ export class Code {
           s.webSocket.send(message);
         } catch {
           console.error("p2p error");
-          "";
         }
       });
   }

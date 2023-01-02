@@ -234,7 +234,6 @@ const codeHistory = localForage.createInstance({
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
 // bc = new BroadcastChannel(location.origin);
-let messagePort: MessagePort;
 // console.log("Yo 0");
 
 // });
@@ -258,33 +257,36 @@ type MessageProps = Partial<{
 }>;
 
 const ws = {
+  blockedMessages: [] as MessageProps[],
   send: (
     mess: MessageProps,
-  ) => console.log("JUST A STUB", { mess }),
+  ) => {
+    ws.blockedMessages.push(mess);
+  },
 };
 
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
-  const hash = await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text();
+  const hash = Number(await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text());
   const head = await codeHistory.getItem<string>("head");
 
   sharedWorker.port.onmessage = async (ev) => {
     console.log("ONMESSAGE", { data: ev.data });
     if (ev.data.type === "onconnect") {
-      messagePort = sharedWorker.port;
-
       console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: head || hash });
       // messagePort = this;
       ws.send = (
-        message,
+        message: MessageProps,
       ) => {
-        const messageData = { name: user, ...message, codeSpace, hashCode: hashKEY(codeSpace) };
+        const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
         console.log("POST MESSAGE", { messageData });
         if (
           messageData.oldHash && messageData.oldHash === messageData.newHash
         ) return;
-        messagePort.postMessage(messageData);
+        sharedWorker.port.postMessage(messageData);
       };
+
+      while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
     } else {
       let data;
       try {

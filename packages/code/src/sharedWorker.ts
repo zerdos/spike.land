@@ -249,125 +249,118 @@ function reconnect(codeSpace: string) {
   // return resolve(await mod[codeSpace]);
   // }
 
-  if (mod[codeSpace]) return mod[codeSpace];
+  if (mod[codeSpace] && mod[codeSpace].isOpen()) return mod[codeSpace];
   // if (mod[codeSpace] && mod[codeSpace].readyState !== 1) delete mod[codeSpace];
+  fixWebsocket();
 
-  let websocket = new WebSocket(
-    `wss://${location.host}/live/` + codeSpace + "/websocket",
-  );
-
-  const fixit = () => {
-    websocket = new WebSocket(
+  function fixWebsocket() {
+    let websocket = new WebSocket(
       `wss://${location.host}/live/` + codeSpace + "/websocket",
     );
+
     websocket.onopen = () => {
-      mod[codeSpace].socket = websocket;
-      mod[codeSpace].send();
-    };
-  };
+      const w: typeof mod[0] = mod[codeSpace] = mod[codeSpace] || {
+        blockedMessages: [],
+        isOpen: () => w.socket.readyState === WebSocket.OPEN,
+        send: (msg?: object) => {
+          if (msg) w.blockedMessages.push(msg);
+          const ctr = new AbortController();
 
-  websocket.onopen = () => {
-    const w: typeof mod[0] = mod[codeSpace] = {
-      blockedMessages: [],
-      socket: websocket,
-      isOpen: () => w.socket.readyState === WebSocket.OPEN,
-      send: (msg?: object) => {
-        if (msg) w.blockedMessages.push(msg);
-        const ctr = new AbortController();
-
-        if (!w.isOpen()) {
-          setTimeout(() => {
-            if (ctr.signal.aborted) return;
-            if (!w.isOpen()) fixit();
-          }, 600);
-        }
-
-        while (
-          w.isOpen()
-          && w.blockedMessages.length
-        ) {
-          const mess = w.blockedMessages.shift();
-          console.log({ mess });
-          if (mess) w.socket.send(JSON.stringify({ ...mess, name }));
-        }
-      },
-    };
-
-    w.send();
-  };
-
-  websocket.onmessage = async (ev) => {
-    connections[codeSpace] = connections[codeSpace].map(conn => {
-      try {
-        const ab = str2ab(ev.data);
-        conn.postMessage(ab, [ab]);
-        return conn;
-      } catch (err) {
-        console.error("can't post message connection");
-        return null;
-      }
-    }).filter((x) => x !== null) as MessagePort[];
-
-    const message = JSON.parse(ev.data);
-
-    const mess = { codeSpace, ...message };
-    mess.name = names[codeSpace];
-
-    const db = dbs[codeSpace];
-    const head = await db.getItem<string>("head");
-
-    const hash = message.newHash || message.hashCode;
-    if (hash && head && hash !== head) {
-      await db.setItem("wsHash", hash);
-      const old = await db.getItem<
-        {
-          newHash: string;
-          oldHash: string;
-          patch: Delta[];
-          reversePatch: Delta[];
-        }
-      >(hash);
-
-      if (old) {
-        const next = await db.getItem<
-          {
-            newHash: string;
-            oldHash: string;
-            patch: Delta[];
-            reversePatch: Delta[];
+          if (!w.isOpen()) {
+            setTimeout(() => {
+              if (ctr.signal.aborted) return;
+              if (!w.isOpen()) fixWebsocket();
+            }, 600);
           }
-        >(
-          old.newHash,
-        );
-        if (next) {
-          return mod[codeSpace].send(
+
+          while (
+            w.isOpen()
+            && w.blockedMessages.length
+          ) {
+            const mess = w.blockedMessages.shift();
+            console.log({ mess });
+            if (mess) w.socket.send(JSON.stringify({ ...mess, name }));
+          }
+        },
+      };
+      w.socket = websocket;
+
+      w.send();
+
+      websocket.onmessage = async (ev) => {
+        connections[codeSpace] = connections[codeSpace].map(conn => {
+          try {
+            const ab = str2ab(ev.data);
+            conn.postMessage(ab, [ab]);
+            return conn;
+          } catch (err) {
+            console.error("can't post message connection");
+            return null;
+          }
+        }).filter((x) => x !== null) as MessagePort[];
+
+        const message = JSON.parse(ev.data);
+
+        const mess = { codeSpace, ...message };
+        mess.name = names[codeSpace];
+
+        const db = dbs[codeSpace];
+        const head = await db.getItem<string>("head");
+
+        const hash = message.newHash || message.hashCode;
+        if (hash && head && hash !== head) {
+          await db.setItem("wsHash", hash);
+          const old = await db.getItem<
             {
-              oldHash: hash,
-              newHash: old.newHash,
-              patch: old.patch,
-              reversePatch: next.reversePatch,
-              name: names[codeSpace],
-            },
-          );
+              newHash: string;
+              oldHash: string;
+              patch: Delta[];
+              reversePatch: Delta[];
+            }
+          >(hash);
+
+          if (old) {
+            const next = await db.getItem<
+              {
+                newHash: string;
+                oldHash: string;
+                patch: Delta[];
+                reversePatch: Delta[];
+              }
+            >(
+              old.newHash,
+            );
+            if (next) {
+              return mod[codeSpace].send(
+                {
+                  oldHash: hash,
+                  newHash: old.newHash,
+                  patch: old.patch,
+                  reversePatch: next.reversePatch,
+                  name: names[codeSpace],
+                },
+              );
+            }
+          }
         }
-      }
-    }
-    if (hash && hashStore[hash]) {
-      // mess.sess = hashStore[hash];
+        if (hash && hashStore[hash]) {
+          // mess.sess = hashStore[hash];
 
-      // Object.assign(mess, { sess: hashStore[hash] });
-    }
+          // Object.assign(mess, { sess: hashStore[hash] });
+        }
 
-    // var bufView = new Uint16Array(str.length);
-    // for (var i = 0, strLen = str.length; i < strLen; i++) {
-    //   bufView[i] = str.charCodeAt(i);
-    // }
-    // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
-    // var j = 0;
-    // while (Atomics.load(bufView, j++) < str.length) {
+        // var bufView = new Uint16Array(str.length);
+        // for (var i = 0, strLen = str.length; i < strLen; i++) {
+        //   bufView[i] = str.charCodeAt(i);
+        // }
+        // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
+        // var j = 0;
+        // while (Atomics.load(bufView, j++) < str.length) {
 
-    // }
-  };
+        // }
+      };
+    };
+  }
 
   return mod[codeSpace];
 }
