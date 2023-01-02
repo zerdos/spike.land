@@ -29,13 +29,13 @@ export const prerender = async (App: FC) => {
       const css = mineFromCaches();
       root.unmount();
       console.log({ html, css });
-      return { html, css, i };
+      return { html, css };
     }
 
     await wait(10);
   }
 
-  return { html: "", css: "", i };
+  return { html: "", css: "" };
 };
 
 function mineFromCaches() {

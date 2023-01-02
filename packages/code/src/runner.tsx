@@ -119,12 +119,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     try {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, importMapReplace(transpiled, origin, origin));
+      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     } catch {
       await unlink(`/live/${codeSpace}/index.tsx`);
       await unlink(`/live/${codeSpace}/index.js`);
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, importMapReplace(transpiled, origin, origin));
+      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     }
 
     BC.postMessage({ i: counter });

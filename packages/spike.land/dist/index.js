@@ -3010,7 +3010,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-ZM6AXSFM.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-OY7JYMDK.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -8959,10 +8959,10 @@ function iterateList(list, reverse32) {
   __name(iterateNode, "iterateNode");
 }
 __name(iterateList, "iterateList");
-function makeList(origin2, capacity, level, root, tail, ownerID, hash22) {
+function makeList(origin22, capacity, level, root, tail, ownerID, hash22) {
   var list = Object.create(ListPrototype);
-  list.size = capacity - origin2;
-  list._origin = origin2;
+  list.size = capacity - origin22;
+  list._origin = origin22;
   list._capacity = capacity;
   list._level = level;
   list._root = root;
@@ -10747,21 +10747,6 @@ function setProp(prototype, name) {
   }
 }
 __name(setProp, "setProp");
-var importmap_default = {
-  imports: {
-    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-    "react/jsx-runtime": "/src/jsx.mjs",
-    "react-dom/client": "/src/reactDomClient.mjs",
-    "framer-motion": "/src/motion.mjs",
-    "@emotion/react": "/src/emotion.mjs",
-    "@emotion/cache": "/src/emotionCache.mjs",
-    "@emotion/styled": "/src/emotionStyled.mjs",
-    react: "/src/reactMod.mjs",
-    "react-dom": "/src/reactDom.mjs",
-    "react-error-boundary": "/src/reactMod.mjs",
-    "hydrate.mjs": "/src/hydrate.mjs"
-  }
-};
 init_define_process();
 var md5 = /* @__PURE__ */ __name((code) => md5FULL(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
 function md5FULL(inputString) {
@@ -10909,99 +10894,6 @@ function md5FULL(inputString) {
 __name(md5FULL, "md5FULL");
 init_define_process();
 init_define_process();
-var importMapImports = importmap_default.imports;
-function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true) {
-  let returnStr = replaceAll(codeInp, `from"`, `from "`);
-  const items = Object.keys(
-    importMapImports
-  );
-  items.map((lib) => {
-    const uri = new URL(importMapImports[lib], origin2).toString();
-    if (importmapRep) {
-      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
-    }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin2}/`);
-  });
-  returnStr.split("/::").join(origin2);
-  if (!returnStr)
-    return returnStr;
-  const url = relativeUrl || origin2;
-  const baSe = new URL(".", url).toString();
-  const parent = new URL("..", url).toString();
-  const gParent = new URL("../..", url).toString();
-  const ggParent = new URL("../../..", url).toString();
-  returnStr = replaceAll(
-    returnStr,
-    `reference path="./`,
-    `reference path="${baSe}`
-  );
-  returnStr = replaceAll(returnStr, `import"`, `import "`);
-  returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
-  returnStr = replaceAll(
-    returnStr,
-    `import("../../../`,
-    ` import("${ggParent}`
-  );
-  returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
-  returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
-  returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
-  returnStr = replaceAll(
-    returnStr,
-    `import "../../../`,
-    ` import "${ggParent}`
-  );
-  returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
-  returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
-  returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
-  returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
-  returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
-  returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
-  let oldUrl;
-  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
-    (Y) => Y.split("\n").map((x) => {
-      if (x.length === 0 || x.indexOf("import") === -1)
-        return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin2) === -1) {
-        const slices = x.split(`"`);
-        slices[1] = origin2 + "/" + slices[1] + "?dev&format=es2022";
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1]);
-          slices[1] = origin2 + "/npm:" + oldUrl.pathname;
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1], origin2);
-          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
-            slices[1] = oldUrl.toString() + "/index.js";
-          }
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      return x;
-    }).join("\n")
-  ).join(";");
-  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
-  return returnStr;
-}
-__name(importMapReplace, "importMapReplace");
-function replaceAll(inp, search, replace) {
-  if (!inp)
-    return inp;
-  return inp.split(search).join(replace);
-}
-__name(replaceAll, "replaceAll");
-init_define_process();
 var import_fast_diff = __toESM2(require_diff(), 1);
 function createDelta(original, revision) {
   const result = (0, import_fast_diff.default)(original, revision);
@@ -11033,14 +10925,14 @@ init_define_process();
 init_define_process();
 var mod = {
   init: false,
-  initialize: (origin2) => {
+  initialize: (origin22) => {
     if (mod.init !== false)
       return mod.init;
-    return fetch(`${origin2}/files.json`).then((f) => f.json()).then(
+    return fetch(`${origin22}/files.json`).then((f) => f.json()).then(
       (k) => {
         const wasmURL = new URL(
           Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1),
-          origin2
+          origin22
         ).toString();
         mod.init = (0, import_esbuild_wasm.initialize)({
           wasmURL
@@ -11050,8 +10942,8 @@ var mod = {
     );
   }
 };
-var initAndTransform = /* @__PURE__ */ __name(async (code, opts, origin2) => {
-  const initFinished = mod.initialize(origin2);
+var initAndTransform = /* @__PURE__ */ __name(async (code, opts, origin22) => {
+  const initFinished = mod.initialize(origin22);
   if (initFinished !== true)
     await initFinished;
   const ttCode = await (0, import_esbuild_wasm.transform)(code, {
@@ -11083,7 +10975,7 @@ var define = {
     browser: true
   })
 };
-async function esmTransform(code, origin2) {
+async function esmTransform(code, origin22) {
   const transpiled = await initAndTransform(code, {
     loader: "tsx",
     format: "esm",
@@ -11100,7 +10992,7 @@ async function esmTransform(code, origin2) {
       }
     },
     target: "es2022"
-  }, origin2);
+  }, origin22);
   return transpiled.code;
 }
 __name(esmTransform, "esmTransform");
@@ -11141,7 +11033,6 @@ var CodeSession = class {
       return {
         oldHash: usedOldHash,
         newHash,
-        codeSpace: newRec.get("codeSpace"),
         reversePatch,
         patch
       };
@@ -11273,7 +11164,7 @@ function createPatch(oldCode, newCode) {
 }
 __name(createPatch, "createPatch");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-7CVXCDCV.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-7GCKHUY5.mjs
 var require_just_once = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process();
@@ -14521,15 +14412,15 @@ var require_util = __commonJS2({
       console.log("%s - %s", timestamp(), exports.format.apply(exports, arguments));
     };
     exports.inherits = require_inherits_browser();
-    exports._extend = function(origin, add) {
+    exports._extend = function(origin22, add) {
       if (!add || !isObject(add))
-        return origin;
+        return origin22;
       var keys3 = Object.keys(add);
       var i = keys3.length;
       while (i--) {
-        origin[keys3[i]] = add[keys3[i]];
+        origin22[keys3[i]] = add[keys3[i]];
       }
-      return origin;
+      return origin22;
     };
     function hasOwnProperty3(obj, prop) {
       return Object.prototype.hasOwnProperty.call(obj, prop);
@@ -24791,6 +24682,114 @@ var require_lib = __commonJS2({
 init_define_process();
 var import_lightning_fs = __toESM2(require_src(), 1);
 var memFS = __toESM2(require_lib(), 1);
+init_define_process();
+var importmap_default = {
+  imports: {
+    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/src/jsx.mjs",
+    "react-dom/client": "/src/reactDomClient.mjs",
+    "framer-motion": "/src/motion.mjs",
+    "@emotion/react": "/src/emotion.mjs",
+    "@emotion/cache": "/src/emotionCache.mjs",
+    "@emotion/styled": "/src/emotionStyled.mjs",
+    react: "/src/reactMod.mjs",
+    "react-dom": "/src/reactDom.mjs",
+    "react-error-boundary": "/src/reactMod.mjs",
+    "hydrate.mjs": "/src/hydrate.mjs"
+  }
+};
+var importMapImports = importmap_default.imports;
+function importMapReplace(codeInp, origin22, relativeUrl, importmapRep = true) {
+  let returnStr = replaceAll(codeInp, `from"`, `from "`);
+  const items = Object.keys(
+    importMapImports
+  );
+  items.map((lib) => {
+    const uri = new URL(importMapImports[lib], origin22).toString();
+    if (importmapRep) {
+      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin22}/`);
+  });
+  returnStr.split("/::").join(origin22);
+  if (!returnStr)
+    return returnStr;
+  const url = relativeUrl || origin22;
+  const baSe = new URL(".", url).toString();
+  const parent = new URL("..", url).toString();
+  const gParent = new URL("../..", url).toString();
+  const ggParent = new URL("../../..", url).toString();
+  returnStr = replaceAll(
+    returnStr,
+    `reference path="./`,
+    `reference path="${baSe}`
+  );
+  returnStr = replaceAll(returnStr, `import"`, `import "`);
+  returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
+  returnStr = replaceAll(
+    returnStr,
+    `import("../../../`,
+    ` import("${ggParent}`
+  );
+  returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
+  returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
+  returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
+  returnStr = replaceAll(
+    returnStr,
+    `import "../../../`,
+    ` import "${ggParent}`
+  );
+  returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
+  returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
+  returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
+  returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
+  returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
+  returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
+  let oldUrl;
+  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
+    (Y) => Y.split("\n").map((x) => {
+      if (x.length === 0 || x.indexOf("import") === -1)
+        return x;
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin22) === -1) {
+        const slices = x.split(`"`);
+        slices[1] = origin22 + "/" + slices[1] + "?dev&format=es2022";
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1]);
+          slices[1] = origin22 + "/npm:" + oldUrl.pathname;
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1], origin22);
+          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
+            slices[1] = oldUrl.toString() + "/index.js";
+          }
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      return x;
+    }).join("\n")
+  ).join(";");
+  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+  return returnStr;
+}
+__name(importMapReplace, "importMapReplace");
+function replaceAll(inp, search, replace) {
+  if (!inp)
+    return inp;
+  return inp.split(search).join(replace);
+}
+__name(replaceAll, "replaceAll");
 var fsProb;
 try {
   if (typeof indexedDB === "undefined")
@@ -24803,6 +24802,7 @@ try {
 }
 var fs2 = fsProb;
 var p = fs2.promises;
+var origin = typeof location !== "undefined" ? location.origin : "";
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -24849,7 +24849,7 @@ var init_define_process2 = __esm2({
   }
 });
 
-// ../code/dist/src/chunk-chunk-ZM6AXSFM.mjs
+// ../code/dist/src/chunk-chunk-OY7JYMDK.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -30798,10 +30798,10 @@ function iterateList2(list, reverse32) {
   __name2(iterateNode, "iterateNode");
 }
 __name2(iterateList2, "iterateList");
-function makeList2(origin2, capacity, level, root, tail, ownerID, hash22) {
+function makeList2(origin22, capacity, level, root, tail, ownerID, hash22) {
   var list = Object.create(ListPrototype2);
-  list.size = capacity - origin2;
-  list._origin = origin2;
+  list.size = capacity - origin22;
+  list._origin = origin22;
   list._capacity = capacity;
   list._level = level;
   list._root = root;
@@ -32586,21 +32586,6 @@ function setProp2(prototype, name) {
   }
 }
 __name2(setProp2, "setProp");
-var importmap_default2 = {
-  imports: {
-    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-    "react/jsx-runtime": "/src/jsx.mjs",
-    "react-dom/client": "/src/reactDomClient.mjs",
-    "framer-motion": "/src/motion.mjs",
-    "@emotion/react": "/src/emotion.mjs",
-    "@emotion/cache": "/src/emotionCache.mjs",
-    "@emotion/styled": "/src/emotionStyled.mjs",
-    react: "/src/reactMod.mjs",
-    "react-dom": "/src/reactDom.mjs",
-    "react-error-boundary": "/src/reactMod.mjs",
-    "hydrate.mjs": "/src/hydrate.mjs"
-  }
-};
 var src_default2 = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
 init_define_process2();
 var md52 = /* @__PURE__ */ __name2((code) => md5FULL2(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
@@ -32817,99 +32802,6 @@ overflow-wrap: break-word;
 -webkit-user-drag: element;
 }`;
 init_define_process2();
-var importMapImports2 = importmap_default2.imports;
-function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true) {
-  let returnStr = replaceAll2(codeInp, `from"`, `from "`);
-  const items = Object.keys(
-    importMapImports2
-  );
-  items.map((lib) => {
-    const uri = new URL(importMapImports2[lib], origin2).toString();
-    if (importmapRep) {
-      returnStr = replaceAll2(returnStr, ` from "${lib}"`, ` from "${uri}"`);
-    }
-    returnStr = replaceAll2(returnStr, ` from "/`, ` from "${origin2}/`);
-  });
-  returnStr.split("/::").join(origin2);
-  if (!returnStr)
-    return returnStr;
-  const url = relativeUrl || origin2;
-  const baSe = new URL(".", url).toString();
-  const parent = new URL("..", url).toString();
-  const gParent = new URL("../..", url).toString();
-  const ggParent = new URL("../../..", url).toString();
-  returnStr = replaceAll2(
-    returnStr,
-    `reference path="./`,
-    `reference path="${baSe}`
-  );
-  returnStr = replaceAll2(returnStr, `import"`, `import "`);
-  returnStr = replaceAll2(returnStr, ` from "../../../`, ` from "${ggParent}`);
-  returnStr = replaceAll2(
-    returnStr,
-    `import("../../../`,
-    ` import("${ggParent}`
-  );
-  returnStr = replaceAll2(returnStr, `import("../../`, ` import("${gParent}`);
-  returnStr = replaceAll2(returnStr, `import("../`, ` import("${parent}`);
-  returnStr = replaceAll2(returnStr, `import("./`, ` import("${baSe}`);
-  returnStr = replaceAll2(
-    returnStr,
-    `import "../../../`,
-    ` import "${ggParent}`
-  );
-  returnStr = replaceAll2(returnStr, `import "../../`, ` import "${gParent}`);
-  returnStr = replaceAll2(returnStr, `import "../`, ` import "${parent}`);
-  returnStr = replaceAll2(returnStr, `import "./`, ` import "${baSe}`);
-  returnStr = replaceAll2(returnStr, ` from "../../`, ` from "${gParent}`);
-  returnStr = replaceAll2(returnStr, ` from "../`, ` from "${parent}`);
-  returnStr = replaceAll2(returnStr, ` from "./`, ` from "${baSe}`);
-  let oldUrl;
-  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
-    (Y) => Y.split("\n").map((x) => {
-      if (x.length === 0 || x.indexOf("import") === -1)
-        return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin2) === -1) {
-        const slices = x.split(`"`);
-        slices[1] = origin2 + "/" + slices[1] + "?dev&format=es2022";
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1]);
-          slices[1] = origin2 + "/npm:" + oldUrl.pathname;
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1], origin2);
-          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
-            slices[1] = oldUrl.toString() + "/index.js";
-          }
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      return x;
-    }).join("\n")
-  ).join(";");
-  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
-  return returnStr;
-}
-__name2(importMapReplace2, "importMapReplace");
-function replaceAll2(inp, search, replace) {
-  if (!inp)
-    return inp;
-  return inp.split(search).join(replace);
-}
-__name2(replaceAll2, "replaceAll");
-init_define_process2();
 var import_fast_diff2 = __toESM3(require_diff2(), 1);
 function createDelta2(original, revision) {
   const result = (0, import_fast_diff2.default)(original, revision);
@@ -32941,14 +32833,14 @@ init_define_process2();
 init_define_process2();
 var mod2 = {
   init: false,
-  initialize: (origin2) => {
+  initialize: (origin22) => {
     if (mod2.init !== false)
       return mod2.init;
-    return fetch(`${origin2}/files.json`).then((f) => f.json()).then(
+    return fetch(`${origin22}/files.json`).then((f) => f.json()).then(
       (k) => {
         const wasmURL = new URL(
           Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1),
-          origin2
+          origin22
         ).toString();
         mod2.init = (0, import_esbuild_wasm2.initialize)({
           wasmURL
@@ -32958,8 +32850,8 @@ var mod2 = {
     );
   }
 };
-var initAndTransform2 = /* @__PURE__ */ __name2(async (code, opts, origin2) => {
-  const initFinished = mod2.initialize(origin2);
+var initAndTransform2 = /* @__PURE__ */ __name2(async (code, opts, origin22) => {
+  const initFinished = mod2.initialize(origin22);
   if (initFinished !== true)
     await initFinished;
   const ttCode = await (0, import_esbuild_wasm2.transform)(code, {
@@ -32991,7 +32883,7 @@ var define2 = {
     browser: true
   })
 };
-async function esmTransform2(code, origin2) {
+async function esmTransform2(code, origin22) {
   const transpiled = await initAndTransform2(code, {
     loader: "tsx",
     format: "esm",
@@ -33008,7 +32900,7 @@ async function esmTransform2(code, origin2) {
       }
     },
     target: "es2022"
-  }, origin2);
+  }, origin22);
   return transpiled.code;
 }
 __name2(esmTransform2, "esmTransform");
@@ -33020,10 +32912,10 @@ var syncStorage2 = /* @__PURE__ */ __name2(async (_setItem, _getItem, oldSession
   const setItem = /* @__PURE__ */ __name2((k, v) => _setItem("#" + String(k), v), "setItem");
   const getItem = /* @__PURE__ */ __name2((k) => _getItem("#" + String(k)), "getItem");
   const hashOfOldSession = Record3(oldSession)().hashCode();
-  let historyHead = await getItem("head");
+  let historyHead = await _getItem("head");
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
-    await setItem("head", hashOfOldSession);
+    await _setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
   await setItem(message.newHash, {
@@ -33081,7 +32973,6 @@ var CodeSession2 = class {
       return {
         oldHash: usedOldHash,
         newHash,
-        codeSpace: newRec.get("codeSpace"),
         reversePatch,
         patch
       };
@@ -33208,8 +33099,8 @@ function string_2(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name2(string_2, "string_");
-var makePatchFrom2 = /* @__PURE__ */ __name2((n, st) => sessions2[st.codeSpace].createPatchFromHashCode(n, st), "makePatchFrom");
-var makePatch2 = /* @__PURE__ */ __name2((st) => makePatchFrom2(hashKEY2(st.codeSpace), st), "makePatch");
+var makePatchFrom2 = /* @__PURE__ */ __name2((n, st) => ({ codeSpace: st.codeSpace, i: st.i, ...sessions2[st.codeSpace].createPatchFromHashCode(n, st) }), "makePatchFrom");
+var makePatch2 = /* @__PURE__ */ __name2((st) => ({ ...makePatchFrom2(hashKEY2(st.codeSpace), st), codeSpace: st.codeSpace, i: st.i }), "makePatch");
 var startSession2 = /* @__PURE__ */ __name2((codeSpace, u) => sessions2[codeSpace] || (sessions2[codeSpace] = new CodeSession2(codeSpace, {
   name: u.name,
   state: { ...u.state, codeSpace }
@@ -33220,7 +33111,7 @@ function createPatch2(oldCode, newCode) {
 __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
 
-// ../code/dist/src/chunk-chunk-7CVXCDCV.mjs
+// ../code/dist/src/chunk-chunk-7GCKHUY5.mjs
 var require_just_once2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/just-once-npm-1.1.0-84f49c474b-9.zip/node_modules/just-once/index.js"(exports, module) {
     init_define_process2();
@@ -36468,15 +36359,15 @@ var require_util3 = __commonJS3({
       console.log("%s - %s", timestamp(), exports.format.apply(exports, arguments));
     };
     exports.inherits = require_inherits_browser2();
-    exports._extend = function(origin, add) {
+    exports._extend = function(origin22, add) {
       if (!add || !isObject(add))
-        return origin;
+        return origin22;
       var keys3 = Object.keys(add);
       var i = keys3.length;
       while (i--) {
-        origin[keys3[i]] = add[keys3[i]];
+        origin22[keys3[i]] = add[keys3[i]];
       }
-      return origin;
+      return origin22;
     };
     function hasOwnProperty3(obj, prop) {
       return Object.prototype.hasOwnProperty.call(obj, prop);
@@ -46738,6 +46629,114 @@ var require_lib2 = __commonJS3({
 init_define_process2();
 var import_lightning_fs2 = __toESM3(require_src3(), 1);
 var memFS2 = __toESM3(require_lib2(), 1);
+init_define_process2();
+var importmap_default2 = {
+  imports: {
+    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+    "react/jsx-runtime": "/src/jsx.mjs",
+    "react-dom/client": "/src/reactDomClient.mjs",
+    "framer-motion": "/src/motion.mjs",
+    "@emotion/react": "/src/emotion.mjs",
+    "@emotion/cache": "/src/emotionCache.mjs",
+    "@emotion/styled": "/src/emotionStyled.mjs",
+    react: "/src/reactMod.mjs",
+    "react-dom": "/src/reactDom.mjs",
+    "react-error-boundary": "/src/reactMod.mjs",
+    "hydrate.mjs": "/src/hydrate.mjs"
+  }
+};
+var importMapImports2 = importmap_default2.imports;
+function importMapReplace2(codeInp, origin22, relativeUrl, importmapRep = true) {
+  let returnStr = replaceAll2(codeInp, `from"`, `from "`);
+  const items = Object.keys(
+    importMapImports2
+  );
+  items.map((lib) => {
+    const uri = new URL(importMapImports2[lib], origin22).toString();
+    if (importmapRep) {
+      returnStr = replaceAll2(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
+    returnStr = replaceAll2(returnStr, ` from "/`, ` from "${origin22}/`);
+  });
+  returnStr.split("/::").join(origin22);
+  if (!returnStr)
+    return returnStr;
+  const url = relativeUrl || origin22;
+  const baSe = new URL(".", url).toString();
+  const parent = new URL("..", url).toString();
+  const gParent = new URL("../..", url).toString();
+  const ggParent = new URL("../../..", url).toString();
+  returnStr = replaceAll2(
+    returnStr,
+    `reference path="./`,
+    `reference path="${baSe}`
+  );
+  returnStr = replaceAll2(returnStr, `import"`, `import "`);
+  returnStr = replaceAll2(returnStr, ` from "../../../`, ` from "${ggParent}`);
+  returnStr = replaceAll2(
+    returnStr,
+    `import("../../../`,
+    ` import("${ggParent}`
+  );
+  returnStr = replaceAll2(returnStr, `import("../../`, ` import("${gParent}`);
+  returnStr = replaceAll2(returnStr, `import("../`, ` import("${parent}`);
+  returnStr = replaceAll2(returnStr, `import("./`, ` import("${baSe}`);
+  returnStr = replaceAll2(
+    returnStr,
+    `import "../../../`,
+    ` import "${ggParent}`
+  );
+  returnStr = replaceAll2(returnStr, `import "../../`, ` import "${gParent}`);
+  returnStr = replaceAll2(returnStr, `import "../`, ` import "${parent}`);
+  returnStr = replaceAll2(returnStr, `import "./`, ` import "${baSe}`);
+  returnStr = replaceAll2(returnStr, ` from "../../`, ` from "${gParent}`);
+  returnStr = replaceAll2(returnStr, ` from "../`, ` from "${parent}`);
+  returnStr = replaceAll2(returnStr, ` from "./`, ` from "${baSe}`);
+  let oldUrl;
+  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
+    (Y) => Y.split("\n").map((x) => {
+      if (x.length === 0 || x.indexOf("import") === -1)
+        return x;
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin22) === -1) {
+        const slices = x.split(`"`);
+        slices[1] = origin22 + "/" + slices[1] + "?dev&format=es2022";
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1]);
+          slices[1] = origin22 + "/npm:" + oldUrl.pathname;
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1], origin22);
+          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
+            slices[1] = oldUrl.toString() + "/index.js";
+          }
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      return x;
+    }).join("\n")
+  ).join(";");
+  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+  return returnStr;
+}
+__name2(importMapReplace2, "importMapReplace");
+function replaceAll2(inp, search, replace) {
+  if (!inp)
+    return inp;
+  return inp.split(search).join(replace);
+}
+__name2(replaceAll2, "replaceAll");
 var fsProb2;
 try {
   if (typeof indexedDB === "undefined")
@@ -46750,6 +46749,7 @@ try {
 }
 var fs22 = fsProb2;
 var p2 = fs22.promises;
+var origin2 = typeof location !== "undefined" ? location.origin : "";
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -46900,15 +46900,6 @@ var api = {
                   waitUntil: async (prom) => await prom
                 },
                 {
-                  cacheControl: isChunk(url.href) ? {
-                    browserTTL: 2 * 60 * 60 * 24,
-                    edgeTTL: 2 * 60 * 60 * 24,
-                    bypassCache: false
-                  } : {
-                    browserTTL: 0,
-                    edgeTTL: 0,
-                    bypassCache: true
-                  },
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST
                 }
@@ -46928,6 +46919,9 @@ var api = {
                 kvResp
               );
               const headers2 = new Headers(kvResp.headers);
+              if (isChunk(request.url)) {
+                headers2.set("Cache-Control", "public, max-age=604800, immutable");
+              }
               headers2.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers: headers2 });
               cache.put(kvCacheKey, kvResp.clone());
@@ -47054,7 +47048,7 @@ async function handleApiRequest(path, request, env) {
 }
 function isChunk(link) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
-  return link.includes("chunk-") || chunkRegExp.test(link);
+  return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
 }
 var chat_default = api;
 
@@ -47626,13 +47620,13 @@ var mod3 = {
     worker: false
   }).then(() => mod3.init = true)
 };
-var initAndTransform3 = async (code, opts, origin) => {
+var initAndTransform3 = async (code, opts, origin3) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
-  return await esmTransform3(code, origin);
+  return await esmTransform3(code, origin3);
 };
-async function esmTransform3(code, origin) {
+async function esmTransform3(code, origin3) {
   const transpiled = await (0, import_esbuild_wasm3.transform)(code, {
     loader: "tsx",
     format: "esm",
@@ -47650,7 +47644,7 @@ async function esmTransform3(code, origin) {
     },
     target: "es2022"
   });
-  return importMapReplace2(transpiled.code, origin, origin);
+  return importMapReplace2(transpiled.code, origin3, origin3);
 }
 
 // src/iife.html
@@ -48022,55 +48016,6 @@ var Code = class {
               "Content-Type": "application/javascript; charset=UTF-8"
             }
           });
-        case "render.tsx": {
-          const codeSpace = this.codeSpace;
-          const src = importMapReplace2(
-            `import {createRoot} from "react-dom/client"
-          import { CacheProvider } from "@emotion/react";
-          import createCache from "@emotion/cache";
-          import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js"
-        
-          export default App;
-          export const render =(rootEl)=>{
-       
-      const root = createRoot(rootEl);
-      
-        const cache = createCache({
-          key: "z",
-          container: rootEl,
-          speedy: false
-        });
-      
-       cache.compat = undefined;
-      
-      root.render(<ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div role="alert">
-            <div>Oh no</div>
-            <pre>{error.message}</pre>
-          </div>
-        )}>
-        <CacheProvider value={cache}>
-          <App />
-        </CacheProvider>
-        </ErrorBoundary>)
-        }
-        ;`,
-            url.origin,
-            url.origin
-          );
-          return new Response(src, {
-            headers: {
-              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              content_hash: md52(src),
-              "Content-Type": "application/javascript; charset=UTF-8"
-            }
-          });
-        }
         case "index.mjs":
         case "index.js":
         case "js": {
@@ -48200,7 +48145,7 @@ var Code = class {
             `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js"
+          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST2(this.codeSpace).i}"
               
               import {prerender} from "${url.origin}/src/render.mjs"
               

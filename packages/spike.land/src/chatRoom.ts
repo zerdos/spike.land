@@ -462,57 +462,57 @@ export class Code {
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
-        case "render.tsx": {
-          const codeSpace = this.codeSpace;
+        //   case "render.tsx": {
+        //     const codeSpace = this.codeSpace;
 
-          const src = importMapReplace(
-            `import {createRoot} from "react-dom/client"
-          import { CacheProvider } from "@emotion/react";
-          import createCache from "@emotion/cache";
-          import { ErrorBoundary } from "react-error-boundary";
-          import App from "${url.origin}/live/${codeSpace}/index.js"
-        
-          export default App;
-          export const render =(rootEl)=>{
-       
-      const root = createRoot(rootEl);
-      
-        const cache = createCache({
-          key: "z",
-          container: rootEl,
-          speedy: false
-        });
-      
-       cache.compat = undefined;
-      
-      root.render(<ErrorBoundary
-        fallbackRender={({ error }) => (
-          <div role="alert">
-            <div>Oh no</div>
-            <pre>{error.message}</pre>
-          </div>
-        )}>
-        <CacheProvider value={cache}>
-          <App />
-        </CacheProvider>
-        </ErrorBoundary>)
-        }
-        ;`,
-            url.origin,
-            url.origin,
-          );
-          return new Response(src, {
-            headers: {
-              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
+        //     const src = importMapReplace(
+        //       `import {createRoot} from "react-dom/client"
+        //     import { CacheProvider } from "@emotion/react";
+        //     import createCache from "@emotion/cache";
+        //     import { ErrorBoundary } from "react-error-boundary";
+        //     import App from "${url.origin}/live/${codeSpace}/index.js"
 
-              content_hash: md5(src),
-              "Content-Type": "application/javascript; charset=UTF-8",
-            },
-          });
-        }
+        //     export default App;
+        //     export const render =(rootEl)=>{
+
+        // const root = createRoot(rootEl);
+
+        //   const cache = createCache({
+        //     key: "z",
+        //     container: rootEl,
+        //     speedy: false
+        //   });
+
+        //  cache.compat = undefined;
+
+        // root.render(<ErrorBoundary
+        //   fallbackRender={({ error }) => (
+        //     <div role="alert">
+        //       <div>Oh no</div>
+        //       <pre>{error.message}</pre>
+        //     </div>
+        //   )}>
+        //   <CacheProvider value={cache}>
+        //     <App />
+        //   </CacheProvider>
+        //   </ErrorBoundary>)
+        //   }
+        //   ;`,
+        //       url.origin,
+        //       url.origin,
+        //     );
+        //     return new Response(src, {
+        //       headers: {
+        //         "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "no-cache",
+
+        //         content_hash: md5(src),
+        //         "Content-Type": "application/javascript; charset=UTF-8",
+        //       },
+        //     });
+        //   }
         case "index.mjs":
         case "index.js":
         case "js": {
@@ -670,7 +670,7 @@ export class Code {
               `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js"
+          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}"
               
               import {prerender} from "${url.origin}/src/render.mjs"
               

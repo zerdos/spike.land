@@ -308,17 +308,17 @@ const api: ExportedHandler<CodeEnv> = {
                   waitUntil: async (prom) => await prom,
                 },
                 {
-                  cacheControl: (isChunk(url.href)
-                    ? {
-                      browserTTL: 2 * 60 * 60 * 24,
-                      edgeTTL: 2 * 60 * 60 * 24,
-                      bypassCache: false,
-                    }
-                    : {
-                      browserTTL: 0,
-                      edgeTTL: 0,
-                      bypassCache: true,
-                    }),
+                  // cacheControl: (isChunk(url.href)
+                  //   ? {
+                  //     browserTTL: 2 * 60 * 60 * 24,
+                  //     edgeTTL: 2 * 60 * 60 * 24,
+                  //     bypassCache: false,
+                  //   }
+                  //   : {
+                  //     browserTTL: 0,
+                  //     edgeTTL: 0,
+                  //     bypassCache: true,
+                  //   }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST,
                 },
@@ -347,6 +347,9 @@ const api: ExportedHandler<CodeEnv> = {
                 kvResp,
               );
               const headers = new Headers(kvResp.headers);
+              if (isChunk(request.url)) {
+                headers.set("Cache-Control", "public, max-age=604800, immutable");
+              }
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
               cache.put(kvCacheKey, kvResp.clone());
@@ -601,7 +604,7 @@ async function handleApiRequest(
 
 function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
-  return link.includes("chunk-") || chunkRegExp.test(link);
+  return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
 }
 
 export const getImportMapStr = (orig: string) => {

@@ -98,10 +98,10 @@ export const syncStorage = async (
       { oldHash: number; reversePatch?: typeof message.reversePatch }
     >;
   const hashOfOldSession = Record(oldSession)().hashCode();
-  let historyHead = (await getItem("head")) as unknown as number;
+  let historyHead = (await _getItem("head")) as unknown as number;
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
-    await setItem("head", hashOfOldSession);
+    await _setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
 
@@ -272,7 +272,6 @@ export class CodeSession implements ICodeSess {
     return {
       oldHash: usedOldHash,
       newHash,
-      codeSpace: newRec.get("codeSpace"),
       reversePatch,
       patch,
     };
@@ -502,11 +501,11 @@ export const makePatchFrom = (
   n: number,
   st: ICodeSession,
   // update?: (h: string) => void,
-) => sessions[st.codeSpace].createPatchFromHashCode(n, st);
+) => ({ codeSpace: st.codeSpace, i: st.i, ...sessions[st.codeSpace].createPatchFromHashCode(n, st) });
 export const makePatch = (
   st: ICodeSession,
   // update?: (h: string) => void,
-) => makePatchFrom(hashKEY(st.codeSpace), st);
+) => ({ ...makePatchFrom(hashKEY(st.codeSpace), st), codeSpace: st.codeSpace, i: st.i });
 
 export const startSession = (
   codeSpace: string,

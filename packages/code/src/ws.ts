@@ -308,7 +308,7 @@ export const run = async () => {
   if (!cs.includes("index.js")) {
     await writeFile(
       `/live/${codeSpace}/index.js`,
-      importMapReplace(mst.transpiled, location.origin, location.origin),
+      mst.transpiled,
     );
   } else {
     await unlink(
@@ -316,7 +316,7 @@ export const run = async () => {
     );
     await writeFile(
       `/live/${codeSpace}/index.js`,
-      importMapReplace(mst.transpiled, location.origin, location.origin),
+      mst.transpiled,
     );
   }
 

@@ -16,11 +16,6 @@ import { readFile } from "./fs";
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: (
-  importmapReplace: (
-    code: string,
-    origin: string,
-    relativeUrl: string,
-  ) => string,
   origin: string,
 ) => Plugin = () => ({
   name: "http",

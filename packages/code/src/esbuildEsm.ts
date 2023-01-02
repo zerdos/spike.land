@@ -12,7 +12,6 @@ import {
 // import { imports as importMapImports } from "./importmap.json";
 
 import { fetchPlugin } from "./fetchPlugin";
-import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
@@ -244,7 +243,7 @@ export const buildT = async (
     ],
 
     tsconfig: "./tsconfig.json",
-    plugins: [unpkgPathPlugin(origin), fetchPlugin(importMapReplace, origin)],
+    plugins: [unpkgPathPlugin(origin), fetchPlugin(origin)],
   };
   let b: BuildResult;
   if (
