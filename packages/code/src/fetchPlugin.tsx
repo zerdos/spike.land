@@ -3,7 +3,6 @@ import { Loader } from "esbuild-wasm";
 import { esmTransform } from "./esmTran";
 
 import { readFile } from "./fs";
-import { importMapReplace } from "./importMapReplace";
 
 // let fetchCache: Cache = {
 //   match: (req: Request) =>
@@ -52,7 +51,6 @@ export const fetchPlugin: (
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
-
     build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
       console.log({ args });
 
