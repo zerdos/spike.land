@@ -3010,7 +3010,7 @@ var init_define_process = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-IACLERQO.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-OY7JYMDK.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -10988,7 +10988,7 @@ async function esmTransform(code, origin22) {
         jsx: "react-jsx",
         useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
-        jsxImportSerce: "@emotion/react"
+        jsxImportSource: "@emotion/react"
       }
     },
     target: "es2022"
@@ -24848,7 +24848,7 @@ var init_define_process2 = __esm2({
   }
 });
 
-// ../code/dist/src/chunk-chunk-IACLERQO.mjs
+// ../code/dist/src/chunk-chunk-OY7JYMDK.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -32895,7 +32895,7 @@ async function esmTransform2(code, origin22) {
         jsx: "react-jsx",
         useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
-        jsxImportSerce: "@emotion/react"
+        jsxImportSource: "@emotion/react"
       }
     },
     target: "es2022"
