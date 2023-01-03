@@ -284,8 +284,9 @@ export const run = async () => {
     state: mst,
   });
   const BCC = new BroadcastChannel(location.origin + "/ws.js");
-  BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, e.ports[1]);
   const ports = new MessageChannel();
+  const port = ports.port1;
+  BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
 
   const obj = JSON.parse(
     JSON.stringify({ type: "onconnect", codeSpace, hashCode: head, session, name: user, "port": ports.port2 }),
@@ -293,7 +294,7 @@ export const run = async () => {
 
   BCC.postMessage(obj, "lol");
 
-  ports.port1.onmessage = (e) => handleWorker(e, ports.port1);
+  port.onmessage = (e) => handleWorker(e, port);
 
   const root = (await readdir("/"));
 
