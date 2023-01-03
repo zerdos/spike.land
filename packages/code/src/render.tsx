@@ -24,10 +24,10 @@ BC.onmessage = async ({ data }) => {
     const App: FC<{}> = (await import(
       createJsBlob(importMapReplace(data.transpiled, origin, origin))
     )).default;
-    const rootEl = document.createElement("div");
-    rootEl.style.height = "100%";
+    // const rootEl = document.createElement("div");
+    // rootEl.style.height = "100%";
 
-    const root = createRoot(rootEl);
+    // const root = createRoot(rootEl);
     const myMod = mod[i] = { i, signal: controller.signal, root, rootEl, retry: 100 };
     // const r = createRoot(newRoot);
 
@@ -38,7 +38,7 @@ BC.onmessage = async ({ data }) => {
     function check(m: typeof mod[0]) {
       requestAnimationFrame((_) => {
         if (myMod.signal.aborted) {
-          root.unmount();
+          // root.unmount();
           return;
         }
         const html = m.rootEl.innerHTML;
@@ -50,12 +50,12 @@ BC.onmessage = async ({ data }) => {
           // root.unmount();
           // root = r;
           BC.postMessage({ html, css, i: data.i });
-          root.unmount();
+          // root.unmount();
           return;
         }
         if (m.retry-- > 0) check(m);
         else {
-          root.unmount();
+          // root.unmount();
           return { html: "", css: "" };
         }
       });

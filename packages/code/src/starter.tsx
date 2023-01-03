@@ -250,6 +250,7 @@ export const importIt: (url: string) => Promise<{ App: FC; url: string }> = asyn
   let waitingTime = 100;
   let App;
   const urlARR = url.split("/");
+  x;
   const naked = +(urlARR.pop() || 0);
 
   const nUrl = urlARR.join("/");
