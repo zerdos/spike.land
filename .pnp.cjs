@@ -124,7 +124,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230102"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230103"],\
           ["path-browserify", "npm:1.0.1"],\
           ["playwright", "npm:1.29.1"],\
           ["react", "npm:18.2.0"],\
@@ -1261,10 +1261,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@libp2p/interfaces", [\
-      ["npm:3.1.0", {\
-        "packageLocation": "../../../Users/z/.yarn/berry/cache/@libp2p-interfaces-npm-3.1.0-534ed620c4-9.zip/node_modules/@libp2p/interfaces/",\
+      ["npm:3.2.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@libp2p-interfaces-npm-3.2.0-cd23be26ee-9.zip/node_modules/@libp2p/interfaces/",\
         "packageDependencies": [\
-          ["@libp2p/interfaces", "npm:3.1.0"]\
+          ["@libp2p/interfaces", "npm:3.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2087,7 +2087,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.10.5"],\
           ["@emotion/styled", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:11.10.5"],\
           ["@isomorphic-git/lightning-fs", "npm:4.6.0"],\
-          ["@libp2p/interfaces", "npm:3.1.0"],\
+          ["@libp2p/interfaces", "npm:3.2.0"],\
           ["@motionone/dom", "npm:10.15.3"],\
           ["@mui/material", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.11.3"],\
           ["@types/eslint", "npm:8.4.10"],\
@@ -2129,14 +2129,14 @@ const RAW_RUNTIME_STATE =
           ["events-browserify", "npm:0.0.1"],\
           ["fast-diff", "npm:1.2.0"],\
           ["fast-glob", "npm:3.2.12"],\
-          ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.4"],\
+          ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.5"],\
           ["immutable", "npm:4.2.1"],\
           ["is-callable", "npm:1.2.7"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.12"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230102"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230103"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
           ["path-browserify", "npm:1.0.1"],\
@@ -2180,7 +2180,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.10.5"],\
           ["@emotion/styled", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:11.10.5"],\
           ["@isomorphic-git/lightning-fs", "npm:4.6.0"],\
-          ["@libp2p/interfaces", "npm:3.1.0"],\
+          ["@libp2p/interfaces", "npm:3.2.0"],\
           ["@motionone/dom", "npm:10.15.3"],\
           ["@mui/material", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.11.3"],\
           ["@types/eslint", "npm:8.4.10"],\
@@ -2219,14 +2219,14 @@ const RAW_RUNTIME_STATE =
           ["events-browserify", "npm:0.0.1"],\
           ["fast-diff", "npm:1.2.0"],\
           ["fast-glob", "npm:3.2.12"],\
-          ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.4"],\
+          ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.5"],\
           ["immutable", "npm:4.2.1"],\
           ["is-callable", "npm:1.2.7"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.12"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230102"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230103"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
           ["path-browserify", "npm:1.0.1"],\
@@ -7875,17 +7875,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["framer-motion", [\
-      ["npm:8.1.4", {\
-        "packageLocation": "../../../Users/z/.yarn/berry/cache/framer-motion-npm-8.1.4-73a34bd742-9.zip/node_modules/framer-motion/",\
+      ["npm:8.1.5", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/framer-motion-npm-8.1.5-98587aa269-9.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "npm:8.1.4"]\
+          ["framer-motion", "npm:8.1.5"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:8.1.4", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-0d7be1c58b/4/Users/z/.yarn/berry/cache/framer-motion-npm-8.1.4-73a34bd742-9.zip/node_modules/framer-motion/",\
+      ["virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:8.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-7de2d09b64/4/Users/z/.yarn/berry/cache/framer-motion-npm-8.1.5-98587aa269-9.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:8.1.4"],\
+          ["framer-motion", "virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:8.1.5"],\
           ["@emotion/is-prop-valid", "npm:0.8.8"],\
           ["@motionone/dom", "npm:10.15.3"],\
           ["@types/react", null],\
@@ -7903,10 +7903,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.4", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-3f9d7b770b/4/Users/z/.yarn/berry/cache/framer-motion-npm-8.1.4-73a34bd742-9.zip/node_modules/framer-motion/",\
+      ["virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-9237e9cea7/4/Users/z/.yarn/berry/cache/framer-motion-npm-8.1.5-98587aa269-9.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.4"],\
+          ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.5"],\
           ["@emotion/is-prop-valid", "npm:0.8.8"],\
           ["@motionone/dom", "npm:10.15.3"],\
           ["@types/react", "npm:18.0.26"],\
@@ -10855,10 +10855,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.35.0-dev.20230102", {\
-        "packageLocation": "../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20230102-9e2a9d0afe-9.zip/node_modules/monaco-editor/",\
+      ["npm:0.35.0-dev.20230103", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20230103-ffc5ebd108-9.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.35.0-dev.20230102"]\
+          ["monaco-editor", "npm:0.35.0-dev.20230103"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10891,7 +10891,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230102"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230103"],\
           ["path-browserify", "npm:1.0.1"],\
           ["playwright", "npm:1.29.1"],\
           ["react", "npm:18.2.0"],\
@@ -10989,7 +10989,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.0.10"],\
           ["esbuild", "npm:0.16.13"],\
           ["esbuild-plugin-import-map", "npm:2.1.0"],\
-          ["framer-motion", "virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:8.1.4"],\
+          ["framer-motion", "virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:8.1.5"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:e54abfcf318a980c52f51bbf63447a3d3723cd6f64bec7877e47f4765081e1744e29a1d8722945e8d9e55b35f54b7f577e1962b14828689e7aef968b11235264#npm:18.2.0"],\
           ["serve", "npm:14.1.2"],\

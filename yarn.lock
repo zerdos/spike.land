@@ -898,10 +898,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@libp2p/interfaces@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@libp2p/interfaces@npm:3.1.0"
-  checksum: 0696264c4bd0c66eaca403c2c181dfaf9a2871a8d5a5c9c8e6c9e7bb5493a3de3e525d90554cc2d91562540025baf44ebcdf51a4aff0f8fb2b9357ebe9910b8f
+"@libp2p/interfaces@npm:3.2.0":
+  version: 3.2.0
+  resolution: "@libp2p/interfaces@npm:3.2.0"
+  checksum: e2e961ed6ff8907686f2b9b533fe2453cc01d7a182c77dd414fad5af834d4e10bab755184a21fe771459ab4da445c2dc00c7bf5af2df9f8597087c7f1f44ba26
   languageName: node
   linkType: hard
 
@@ -1645,7 +1645,7 @@ __metadata:
     "@emotion/react": "npm:11.10.5"
     "@emotion/styled": "npm:11.10.5"
     "@isomorphic-git/lightning-fs": "npm:^4.6.0"
-    "@libp2p/interfaces": "npm:3.1.0"
+    "@libp2p/interfaces": "npm:3.2.0"
     "@motionone/dom": "npm:10.15.3"
     "@mui/material": "npm:5.11.3"
     "@types/eslint": "npm:^8.4.10"
@@ -1684,14 +1684,14 @@ __metadata:
     events-browserify: "npm:^0.0.1"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
-    framer-motion: "npm:8.1.4"
+    framer-motion: "npm:8.1.5"
     immutable: "npm:^4.2.1"
     is-callable: "npm:1.2.7"
     localforage: "npm:^1.10.0"
     logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.12"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230102"
+    monaco-editor: "npm:0.35.0-dev.20230103"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
     path-browserify: "npm:^1.0.1"
@@ -6145,9 +6145,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:8.1.4":
-  version: 8.1.4
-  resolution: "framer-motion@npm:8.1.4"
+"framer-motion@npm:8.1.5":
+  version: 8.1.5
+  resolution: "framer-motion@npm:8.1.5"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
@@ -6159,7 +6159,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 95016a9a50d80802e42b28baf13ee92156eabe81579dc8d5511c2afed17b6b32ed86024c6366a82cfe2e67e113836c0b8a233b5072f53806aa1792a7e774fd80
+  checksum: 416a7c08f9f358f1f59810c2271e3482a89c54166e201459c300b80c0fa41e92c47b2fbcf75d3036bcfbc3e86d3ab9ea67a32fd2af2795eb80bb3cd2a2e0efc2
   languageName: node
   linkType: hard
 
@@ -8755,10 +8755,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20230102":
-  version: 0.35.0-dev.20230102
-  resolution: "monaco-editor@npm:0.35.0-dev.20230102"
-  checksum: c89c2c2b6792d66a4943f9247bf5815ac969163a5b5a78a4a6238ad72f3fa8f16400d7b25aadba26767f7f2e6bcfb333e343991c81d59aeddf74bd907776b9fa
+"monaco-editor@npm:0.35.0-dev.20230103":
+  version: 0.35.0-dev.20230103
+  resolution: "monaco-editor@npm:0.35.0-dev.20230103"
+  checksum: 05e113b09523776cc452954065d7ad35118f8281c5969e8b80475e92b6058262a6de76d4d9392122383dc85f56bc865877c1502c5b2260c811ec14afc4eee680
   languageName: node
   linkType: hard
 
@@ -8789,7 +8789,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     localforage: "npm:^1.10.0"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230102"
+    monaco-editor: "npm:0.35.0-dev.20230103"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.1"
     react: "npm:^18.2.0"
@@ -8875,7 +8875,7 @@ __metadata:
     "@types/react-dom": "npm:18.0.10"
     esbuild: "npm:0.16.13"
     esbuild-plugin-import-map: "npm:2.1.0"
-    framer-motion: "npm:8.1.4"
+    framer-motion: "npm:8.1.5"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.1.2"
