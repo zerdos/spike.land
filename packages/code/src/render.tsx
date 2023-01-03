@@ -1,6 +1,8 @@
 import type { FC } from "react";
 // import { unmountComponentAtNode } from "react-dom";
 import { createRoot } from "react-dom/client";
+import { importMapReplace } from "./importMapReplace";
+import { createJsBlob } from "./starter";
 import { wait } from "./wait";
 
 export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
@@ -9,10 +11,29 @@ export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string)
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   BC.onmessage = async ({ data }) => {
-    const App: FC<{}> = (await import(
-      `${location.origin}/live/${codeSpace}/index.js?refresh=` + data.i
-    )).default;
-    root.render(<App />);
+    if (data.transpiled) {
+      const App: FC<{}> = (await import(
+        createJsBlob(importMapReplace(data.transpiled, origin, origin))
+      )).default;
+      root.render(<App />);
+      requestAnimationFrame(async () => {
+        let i = 100;
+        while (i-- > 0) {
+          const html = document.getElementById("root")!.innerHTML;
+          if (html && html !== "") {
+            const css = mineFromCaches();
+            root.unmount();
+            console.log({ html, css, i: data.i });
+            return BC.postMessage({ html, css });
+          }
+
+          await wait(10);
+        }
+
+        return { html: "", css: "" };
+      });
+    }
+    prerender(new Function(data.transpiled)()).then(res => window.parent.postMessage(res));
   };
   return root;
 };

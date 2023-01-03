@@ -732,6 +732,7 @@ export class Code {
               <script type="module">
 
               import {render} from "${url.origin}/src/render.mjs";
+              
               import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");

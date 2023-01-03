@@ -118,7 +118,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     const transpiled = await esmTransform(code, origin);
     if (signal.aborted) return;
-
+    BC.onmessage = (e) => responseListener(e);
+    BC.postMessage({ i: counter, transpiled });
     try {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
       await writeFile(`/live/${codeSpace}/index.js`, transpiled);
@@ -129,25 +130,24 @@ export async function runner({ code, counter, codeSpace, signal }: {
       await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     }
 
-    BC.postMessage({ i: counter });
-    if (iframe) {
-      iframe.remove();
-    }
-    iframe = document.createElement("iframe");
-    iframe.style.opacity = "0";
-    iframe.style.height = "1px";
-    iframe.style.width = "1px";
-    iframe.style.position = "absolute";
+    // if (iframe) {
+    //   iframe.remove();
+    // }
+    // iframe = document.createElement("iframe");
+    // iframe.style.opacity = "0";
+    // iframe.style.height = "1px";
+    // iframe.style.width = "1px";
+    // iframe.style.position = "absolute";
 
-    iframe.src = prerender(transpiled, origin, codeSpace);
+    // iframe.src = prerender(transpiled, origin, codeSpace);
 
     const responseListener = async (e: MessageEvent) => {
       const data = e.data; // hare are data sent by other window postMessage method
-
+      if (counterMax !== data.i) return;
       const { html, css } = data;
 
       if (html) {
-        window.removeEventListener("message", responseListener);
+        // window.removeEventListener("message", responseListener);
         if (signal.aborted) return;
         const newSession = { ...mST(codeSpace), html, css, code, transpiled, i: counter };
         const jsonStr = JSON.stringify(newSession);
