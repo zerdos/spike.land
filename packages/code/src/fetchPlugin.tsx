@@ -1,7 +1,7 @@
 import type { Plugin } from "esbuild-wasm";
 import { Loader } from "esbuild-wasm";
 import { esmTransform } from "./esmTran";
-import { readFile } from "./fs";
+// import { readFile } from "./fs";
 import { importMapReplace } from "./importMapReplace";
 
 // let fetchCache: Cache = {
@@ -143,9 +143,9 @@ export const fetchPlugin: (
       const req = new Request(args.path);
       let response = await getRequest(req);
 
-      if (req.url.indexOf(".tsx")) {
+      if (args.path.indexOf(".tsx") !== -1) {
         return {
-          contents: await esmTransform(importMapReplace(await response.text(), origin, origin, true, true), origin),
+          contents: await esmTransform(importMapReplace(await response.text(), args.path, origin, true, true), origin),
         };
       }
 
