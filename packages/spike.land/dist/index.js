@@ -3277,7 +3277,7 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-L7XY4WFH.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-NXYI64U5.mjs
 init_chunk_chunk_QRJQSMAR();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -11446,7 +11446,7 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-L7XY4WFH.mjs
+// ../code/dist/src/chunk-chunk-NXYI64U5.mjs
 init_chunk_chunk_QRJQSMAR2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
@@ -19512,7 +19512,7 @@ var syncStorage2 = /* @__PURE__ */ __name2(async (_setItem, _getItem, oldSession
   const setItem = /* @__PURE__ */ __name2((k, v) => _setItem("#" + String(k), v), "setItem");
   const getItem = /* @__PURE__ */ __name2((k) => _getItem("#" + String(k)), "getItem");
   const hashOfOldSession = Record3(oldSession)().hashCode();
-  let historyHead = await getItem < "head";
+  let historyHead = await getItem("head");
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
     await setItem("head", hashOfOldSession);
@@ -20616,107 +20616,6 @@ async function esmTransform3(code, origin2) {
     return transpiled.code;
 }
 
-// src/iife.html
-var iife_default = `
-<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <base href="/">
-  <title>Instant React Editor</title>
-  <style>
-    html,
-body,
-#root {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%; 
- }
-
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-body {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  background: fixed;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: top;
-  overscroll-behavior-y: contain;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-height: -webkit-fill-available;
-  height: 100%;
-  /* prevent overscroll bounce*/
-  /* overflow-y: scroll; */
-  --webkit-overflow-scrolling: touch;
-  padding-bottom: 0 !important;
-  overflow: hidden;
-  /* overflow-x: hidden; */
-  /* overflow-y: hidden; */
-}
-  </style>
-</head>
-<body>
-  <script>     
-  window.startedWithNativeEsmModules = false;
-  if (location.href.indexOf(".tsx")!==-1) {
-    const loc = location.href.indexOf(".tsx");
-
-    location.href = location.href.slice(0,loc);
-  }
-  window.process = {
-    env: {
-      "NODE_ENV": "production"
-    }};
-  <\/script>
-  <div id="root"></div>
-  <script>
-
-
-   /** startState **/
-
-
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted) {
-    console.log('This page was restored from the bg cache.');
-  } else {
-    console.log('This page was loaded normally.');
-  }
-});
- 
- <\/script>
-
-  <script type="importmap">
-{
-  "imports": {
-    "react/jsx-runtime": "/react.mjs",
-    "react": "/react.mjs",
-    "react-dom/client": "/react.mjs",
-    "react-dom/server": "/react.mjs",
-    "framer-motion": "/framer-motion.mjs",
-    "@emotion/react": "/emotion.mjs",
-    "@emotion/react/jsx-runtime": "/emotion.mjs",
-    "@emotion/cache": "/emotion.mjs"
-  }
-}
-    <\/script>
-  
-    <script defer src="/iife.js"><\/script>
-
-
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'><\/script><!-- End Cloudflare Web Analytics -->
-</body>
-</html>`;
-
 // src/chatRoom.ts
 var Code = class {
   constructor(state, env) {
@@ -20798,9 +20697,9 @@ var Code = class {
       this.sessionStarted = true;
     }
     if (typeof this.head !== "number") {
-      const headVals = await this.kv.get(this.head);
-      if (headVals) {
-        const oldSession = mST2(this.codeSpace, headVals.reversePatch);
+      const headValue = await this.kv.get(this.head);
+      if (headValue) {
+        const oldSession = mST2(this.codeSpace, headValue.reversePatch);
         const newSession = mST2(this.codeSpace);
         patchSync2(oldSession, true);
         const message = makePatch2(newSession);
@@ -20873,7 +20772,7 @@ var Code = class {
               );
             }
           }
-          const body = string_2(this.session.session.get("state").toJSON());
+          const body = string_2(mST2(this.codeSpace));
           return new Response(body, {
             status: 200,
             headers: {
@@ -21151,26 +21050,6 @@ var Code = class {
             headers
           });
         }
-        case "iife": {
-          const startState = mST2(this.codeSpace);
-          const html2 = iife_default.replace(
-            `/** startState **/`,
-            `Object.assign(window,${JSON.stringify({
-              startState,
-              codeSpace: this.codeSpace,
-              address: this.address
-            })});`
-          );
-          return new Response(html2, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8"
-            }
-          });
-        }
         case "websocket": {
           if (request.headers.get("Upgrade") != "websocket") {
             return new Response("expected websocket", { status: 400 });
@@ -21235,7 +21114,7 @@ var Code = class {
     }
     if (data.type == "handshake") {
       const HEAD = hashKEY2(this.codeSpace);
-      let commit = data.hashCode;
+      const commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get("" + commit, { allowConcurrency: true });
         const newNode = await this.kv.get("" + oldNode.newHash, { allowConcurrency: true });

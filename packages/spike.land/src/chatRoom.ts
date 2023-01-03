@@ -1,23 +1,5 @@
 import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session.d";
-import {
-  // applyPatch,
-  // applyPatch,
-  // addExtraModels,
-
-  CodeSession,
-  hashKEY,
-  // dealWithMissing,
-
-  importMapReplace,
-  makePatch,
-  patchSync,
-  // initAta,
-  // prettierJs,
-  resetCSS,
-  string_,
-  // run,
-  syncStorage,
-} from "../../code/dist/src/session.mjs";
+import { hashKEY, makePatch, patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
 import { HTML, md5, mST, startSession } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -26,7 +8,6 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
-import IIFE from "./iife.html";
 import { ASSET_HASH } from "./staticContent.mjs";
 
 // import { CodeRateLimiter } from "./rateLimiter";
@@ -45,7 +26,7 @@ export class Code {
   // mutex: Mutex;
   sess: ICodeSession | null;
   sessionStarted: boolean;
-  session: CodeSession | null = null;
+  session: ICodeSession | null = null;
   user = md5(self.crypto.randomUUID());
   address: string;
   users = new AVLTree(
@@ -64,8 +45,11 @@ export class Code {
   ) {
     return (async () =>
       await syncStorage(
-        async (key, v) => (await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
-        async (key) => await this.kv.get(key, { allowConcurrency: true }),
+        async (
+          key: string,
+          v: object,
+        ) => (await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
+        async (key: string) => await this.kv.get(key, { allowConcurrency: true }),
         oldSession,
         newSess,
         message,
@@ -152,9 +136,9 @@ export class Code {
     }
 
     if (typeof this.head !== "number") {
-      const headVals = await this.kv.get(this.head);
-      if (headVals) {
-        const oldSession = mST(this.codeSpace, headVals.reversePatch);
+      const headValue = await this.kv.get<CodePatch>(this.head);
+      if (headValue) {
+        const oldSession = mST(this.codeSpace, headValue.reversePatch);
         const newSession = mST(this.codeSpace);
 
         patchSync(oldSession, true);
@@ -234,7 +218,7 @@ export class Code {
               );
             }
           }
-          const body = string_(this.session.session.get("state").toJSON());
+          const body = string_(mST(this.codeSpace));
           return new Response(body, {
             status: 200,
             headers: {
@@ -740,28 +724,7 @@ export class Code {
             headers,
           });
         }
-        case "iife": {
-          const startState = mST(this.codeSpace);
-          const html = IIFE.replace(
-            `/** startState **/`,
-            `Object.assign(window,${
-              JSON.stringify({
-                startState,
-                codeSpace: this.codeSpace,
-                address: this.address,
-              })
-            });`,
-          );
-          return new Response(html, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "text/html; charset=UTF-8",
-            },
-          });
-        }
+
         case "websocket": {
           if (request.headers.get("Upgrade") != "websocket") {
             return new Response("expected websocket", { status: 400 });
@@ -888,7 +851,7 @@ export class Code {
 
     if (data.type == "handshake") {
       const HEAD = hashKEY(this.codeSpace);
-      let commit = data.hashCode;
+      const commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get<CodePatch>("" + commit, { allowConcurrency: true });
         const newNode = await this.kv.get<CodePatch>("" + oldNode!.newHash, { allowConcurrency: true });

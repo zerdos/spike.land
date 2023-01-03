@@ -6,11 +6,8 @@
     "@emotion/react": "/src/emotion.mjs",
     "@emotion/cache": "/src/emotionCache.mjs",
     "@emotion/styled": "/src/emotionStyled.mjs",
-
     "react": "/src/reactMod.mjs",
-
     "react-dom": "/src/reactDom.mjs",
-
     "react-error-boundary": "/src/reactMod.mjs",
     "hydrate.mjs": "/src/hydrate.mjs"
   }
