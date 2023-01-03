@@ -149,7 +149,7 @@ export class Code {
       this.sessionStarted = true;
     }
 
-    if (typeof this.head !== "number") {
+    if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
       // if (headValue) {
       this.head = hashCode(this.sess);

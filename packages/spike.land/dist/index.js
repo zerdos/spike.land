@@ -21137,7 +21137,7 @@ var Code = class {
       );
       this.sessionStarted = true;
     }
-    if (typeof this.head !== "number") {
+    if (this.head === 0) {
       this.head = hashCode32(this.sess);
       await this.kv.put("head", this.head);
       await this.kv.put("#" + String(this.head), this.sess);
