@@ -8,7 +8,6 @@ import adapter from "webrtc-adapter";
 import {
   applyPatch,
   type CodePatch,
-  db,
   type Delta,
   // type Delta,
   // CodeSession,
@@ -23,8 +22,6 @@ import {
 
 import { Mutex } from "async-mutex";
 
-import { createInstance } from "localforage";
-
 // Import * as FS from '@isomorphic/-git/lightning-fs';
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -33,36 +30,12 @@ import { createInstance } from "localforage";
 import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
+import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait";
-
-const promises: { [codeSpace: string]: Promise<void> } = {};
-const dbs: { [codeSpace: string]: LocalForage } = {};
-
-export async function initDb(codeSpace: string) {
-  if ([codeSpace]) return dbs[codeSpace];
-
-  promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`]
-    || (async () => {
-      const dbInstance = createInstance({
-        name: `/live/${codeSpace}`,
-      });
-
-      let head = await db(codeSpace, initDb).getItem("head");
-      if (!head) {
-        head = hashKEY(codeSpace);
-        await dbInstance.setItem("#" + String(head), mST(codeSpace));
-        await dbInstance.setItem("head", hashKEY(codeSpace));
-        dbs[codeSpace] = dbInstance;
-      }
-    })();
-
-  await promises[`db-init-${codeSpace}`];
-  return dbs[codeSpace];
-}
 
 // import { isBuffer } from "util";
 
@@ -296,9 +269,9 @@ export const run = async () => {
   const hash = Number(
     await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text(),
   );
-  const head = await db(codeSpace, initDb).getItem("head");
+  const head = await ldb(codeSpace).getItem("head");
 
-  const savedSess = await db(codeSpace, initDb).getItem("#" + String(head)) as unknown as ICodeSession;
+  const savedSess = await ldb(codeSpace).getItem("#" + String(head)) as unknown as ICodeSession;
   let _mst: ICodeSession | null;
   if (savedSess && head === hash) {
     _mst = savedSess;
@@ -589,7 +562,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       ws.send(message);
 
-      await db(codeSpace, initDb).syncDb(oldSession, newSession, message);
+      await ldb(codeSpace).syncDb(oldSession, newSession, message);
 
       mutex.release();
     }
@@ -798,7 +771,7 @@ async function processData(
     applyPatch(data, codeSpace);
     const newSession = mST(codeSpace);
 
-    await db(codeSpace, initDb).syncDb(oldSession, newSession, data);
+    await ldb(codeSpace).syncDb(oldSession, newSession, data);
     //  X writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
     await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
 

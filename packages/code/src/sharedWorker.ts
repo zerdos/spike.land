@@ -1,13 +1,13 @@
 import { Mutex } from "async-mutex";
 import { Record } from "immutable";
+import { ldb } from "./createDb";
 // import { m } from "framer-motion";
 // import { S } from "memfs/lib/constants";
 // import { SEP } from "memfs/lib/node";
 import { str2ab } from "./sab";
-import { aPatch, CodePatch, CodeSession, db, ICodeSession, startSession, string_, syncStorage } from "./session";
+import { aPatch, CodePatch, CodeSession, ICodeSession, startSession, string_ } from "./session";
 // import { CodeSession } from "./session";
 import type { Delta } from "./textDiff";
-import { initDb } from "./ws";
 
 // const hashStore: { [hash: string]: CodeSession } = {};
 const names: { [codeSpace: string]: string } = {};
@@ -364,7 +364,7 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
                 "state",
                 newRec,
               );
-              await db(codeSpace, initDb).syncDb(oldState, newState, {
+              await ldb(codeSpace).syncDb(oldState, newState, {
                 oldHash,
                 newHash,
                 patch,
@@ -391,7 +391,7 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
     if (!mess) return;
     if (!mess.patch || (mess.patch && mess.i && mess.i > w.counterMax)) {
       const wsHash = mess.hashCode || mess.newHash;
-      if (wsHash) await db(codeSpace, initDb).setItem("wsHash", wsHash);
+      if (wsHash) await ldb(codeSpace).setItem("wsHash", wsHash);
 
       if (mess.i) {
         {
@@ -416,7 +416,7 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
             "state",
             newRec,
           );
-          await db(codeSpace, initDb).syncDb(oldState, newState, {
+          await ldb(codeSpace).syncDb(oldState, newState, {
             oldHash,
             newHash,
             patch,
