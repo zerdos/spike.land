@@ -3109,7 +3109,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-DJC3IZMB.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-EUO6AO4G.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11475,10 +11475,10 @@ var CodeSession = class {
   }
 };
 __name(CodeSession, "CodeSession");
-var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.get("state").hashCode(), "hashKEY");
+var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace]?.session.get("state").hashCode(), "hashKEY");
 function mST(codeSpace, p) {
   if (p && p.length) {
-    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+    const sessAsJs = sessions[codeSpace]?.session.get("state").toJSON();
     const { i, transpiled, code, html, css } = p ? JSON.parse(
       applyPatch(
         string_(
@@ -11487,7 +11487,7 @@ function mST(codeSpace, p) {
         p
       )
     ) : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({
+    return sessions[codeSpace]?.session.get("state").merge({
       i,
       transpiled,
       code,
@@ -11660,7 +11660,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-DJC3IZMB.mjs
+// ../code/dist/src/chunk-chunk-EUO6AO4G.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -20095,10 +20095,10 @@ var CodeSession2 = class {
   }
 };
 __name2(CodeSession2, "CodeSession");
-var hashKEY2 = /* @__PURE__ */ __name2((codeSpace) => sessions2[codeSpace].session.get("state").hashCode(), "hashKEY");
+var hashKEY2 = /* @__PURE__ */ __name2((codeSpace) => sessions2[codeSpace]?.session.get("state").hashCode(), "hashKEY");
 function mST2(codeSpace, p) {
   if (p && p.length) {
-    const sessAsJs = sessions2[codeSpace].session.get("state").toJSON();
+    const sessAsJs = sessions2[codeSpace]?.session.get("state").toJSON();
     const { i, transpiled, code, html, css } = p ? JSON.parse(
       applyPatch3(
         string_2(
@@ -20107,7 +20107,7 @@ function mST2(codeSpace, p) {
         p
       )
     ) : sessAsJs;
-    return sessions2[codeSpace].session.get("state").merge({
+    return sessions2[codeSpace]?.session.get("state").merge({
       i,
       transpiled,
       code,
@@ -20127,7 +20127,7 @@ __name2(string_2, "string_");
 var makePatchFrom2 = /* @__PURE__ */ __name2((n, st, codeSpace) => ({
   codeSpace,
   i: st.i,
-  ...sessions2[codeSpace].createPatchFromHashCode(n, st)
+  ...sessions2[codeSpace]?.createPatchFromHashCode(n, st)
 }), "makePatchFrom");
 var makePatch2 = /* @__PURE__ */ __name2((st, codeSpace) => ({
   ...makePatchFrom2(hashKEY2(codeSpace), st, codeSpace),

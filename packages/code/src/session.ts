@@ -494,10 +494,10 @@ export class CodeSession implements ICodeSess {
     this.session = user;
   }
 }
-export const hashKEY = (codeSpace: string) => sessions[codeSpace].session.get("state").hashCode();
+export const hashKEY = (codeSpace: string) => sessions[codeSpace]?.session.get("state").hashCode();
 export function mST(codeSpace: string, p?: Delta[]) {
   if (p && p.length) {
-    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+    const sessAsJs = sessions[codeSpace]?.session.get("state").toJSON();
 
     const { i, transpiled, code, html, css }: ICodeSession = p
       ? JSON.parse(
@@ -509,7 +509,7 @@ export function mST(codeSpace: string, p?: Delta[]) {
         ),
       )
       : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({
+    return sessions[codeSpace]?.session.get("state").merge({
       i,
       transpiled,
       code,
@@ -537,18 +537,18 @@ export function string_(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const applyPatchSync: IApplyPatch = (x, codeSpace: string) => sessions[codeSpace].applyPatch(x);
+export const applyPatchSync: IApplyPatch = (x, codeSpace: string) => sessions[codeSpace]?.applyPatch(x);
 
 export const applyPatch: IApplyPatch = (x, codeSpace: string) => {
-  sessions[codeSpace].applyPatch(x);
-  sessions[codeSpace].update();
+  sessions[codeSpace]?.applyPatch(x);
+  sessions[codeSpace]?.update();
 };
 
 export const onSessionUpdate = (
   fn: () => void,
   regId = "default",
   codeSpace: string,
-) => sessions[codeSpace].onUpdate(fn, regId);
+) => sessions[codeSpace]?.onUpdate(fn, regId);
 export const makePatchFrom = (
   n: number,
   st: ICodeSession,
@@ -557,7 +557,7 @@ export const makePatchFrom = (
 ) => ({
   codeSpace,
   i: st.i,
-  ...(sessions[codeSpace].createPatchFromHashCode(n, st)),
+  ...(sessions[codeSpace]?.createPatchFromHashCode(n, st)),
 });
 export const makePatch = (
   st: ICodeSession,
