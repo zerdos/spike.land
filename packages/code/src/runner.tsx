@@ -94,12 +94,13 @@ BC.onmessage = async ({ data }) => {
   if (counterMax !== data.i) return;
   if (processed === data.i) return;
   processed = data.i;
-  const { html, css } = data;
+  const { html, css, i } = data;
+  console.log(i, { css, html });
 
   if (html) {
     // window.removeEventListener("message", responseListener);
     if (signal.aborted) return;
-    const newSession = { ...mST(codeSpace), html, css, code: sess.code, transpiled: sess.transpiled, i: sess.i };
+    const newSession = { ...mST(codeSpace), html, css, code: sess.code, transpiled: sess.transpiled, i };
     const jsonStr = JSON.stringify(newSession);
     const file = `/live/${codeSpace}/session.json`;
 
