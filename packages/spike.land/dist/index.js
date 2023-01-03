@@ -48164,7 +48164,7 @@ var Code = class {
                 if (page ==="dehydrated")    document.getElementById("root").innerHTML= ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
                 
               }
-              <\/script>` : `<script scr="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`)
+              <\/script>` : `<script src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`)
           );
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");

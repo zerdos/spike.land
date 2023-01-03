@@ -637,7 +637,7 @@ export class Code {
                 
               }
               </script>`
-                : `<script scr="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
+                : `<script src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
             );
 
           // const Etag = request.headers.get("Etag");
