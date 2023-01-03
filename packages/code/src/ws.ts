@@ -285,7 +285,7 @@ export const run = async () => {
   });
   const BCC = new BroadcastChannel(location.origin + "/ws.js");
   BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, e.ports[1]);
-  BCC.postMessage({ type: "onconnect", codeSpace, hashCode, session });
+  BCC.postMessage({ type: "onconnect", codeSpace, hashCode: head, session });
 
   const root = (await readdir("/"));
 
