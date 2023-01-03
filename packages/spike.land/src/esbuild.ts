@@ -11,9 +11,9 @@ Object.assign(globalThis, {
 
 import { importMapReplace } from "../../code/dist/src/session.mjs";
 
-// import impMap from "./importmap.json";
+// import impMap from "./importMap.json";
 //
-// import { imports as importMapImports } from "./importmap.json";
+// import { imports as importMapImports } from "./importMap.json";
 
 //   import { fetchPlugin } from "./fetchPlugin";
 //   import { importMapReplace } from "./importMapReplace";

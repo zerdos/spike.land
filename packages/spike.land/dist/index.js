@@ -393,7 +393,7 @@ var init_chunk_chunk_JLPTXNJM = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-GQUFGFSD.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-HO2SKUQW.mjs
 function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
   let returnStr = replaceAll(codeInp, `from"`, `from "`);
   const items = Object.keys(
@@ -483,14 +483,28 @@ function replaceAll(inp, search, replace) {
     return inp;
   return inp.split(search).join(replace);
 }
-var importmap_d_default, importMapImports;
-var init_chunk_chunk_GQUFGFSD = __esm({
-  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-GQUFGFSD.mjs"() {
+var imports, importMap, importMap_default, importMapImports;
+var init_chunk_chunk_HO2SKUQW = __esm({
+  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-HO2SKUQW.mjs"() {
     "use strict";
     init_chunk_chunk_JLPTXNJM();
     init_define_process();
-    importmap_d_default = "./chunk-importmap.d-55DNWN2R.ts";
-    importMapImports = importmap_d_default.imports;
+    imports = {
+      "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+      "react-dom/client": "/src/reactDomClient.mjs",
+      "framer-motion": "/src/motion.mjs",
+      "@emotion/react": "/src/emotion.mjs",
+      "@emotion/cache": "/src/emotionCache.mjs",
+      "@emotion/styled": "/src/emotionStyled.mjs",
+      "react": "/src/reactMod.mjs",
+      "react-dom": "/src/reactDom.mjs",
+      "react-error-boundary": "/src/reactMod.mjs",
+      "hydrate.mjs": "/src/hydrate.mjs"
+    };
+    importMap = { imports };
+    importMap_default = importMap;
+    init_define_process();
+    importMapImports = importMap.imports;
     __name(importMapReplace, "importMapReplace");
     __name(replaceAll, "replaceAll");
   }
@@ -534,7 +548,7 @@ var init_chunk_chunk_JLPTXNJM2 = __esm({
   }
 });
 
-// ../code/dist/src/chunk-chunk-GQUFGFSD.mjs
+// ../code/dist/src/chunk-chunk-HO2SKUQW.mjs
 function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
   let returnStr = replaceAll2(codeInp, `from"`, `from "`);
   const items = Object.keys(
@@ -624,14 +638,28 @@ function replaceAll2(inp, search, replace) {
     return inp;
   return inp.split(search).join(replace);
 }
-var importmap_d_default2, importMapImports2;
-var init_chunk_chunk_GQUFGFSD2 = __esm({
-  "../code/dist/src/chunk-chunk-GQUFGFSD.mjs"() {
+var imports2, importMap3, importMap_default2, importMapImports2;
+var init_chunk_chunk_HO2SKUQW2 = __esm({
+  "../code/dist/src/chunk-chunk-HO2SKUQW.mjs"() {
     "use strict";
     init_chunk_chunk_JLPTXNJM2();
     init_define_process2();
-    importmap_d_default2 = "./chunk-importmap.d-55DNWN2R.ts";
-    importMapImports2 = importmap_d_default2.imports;
+    imports2 = {
+      "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+      "react-dom/client": "/src/reactDomClient.mjs",
+      "framer-motion": "/src/motion.mjs",
+      "@emotion/react": "/src/emotion.mjs",
+      "@emotion/cache": "/src/emotionCache.mjs",
+      "@emotion/styled": "/src/emotionStyled.mjs",
+      "react": "/src/reactMod.mjs",
+      "react-dom": "/src/reactDom.mjs",
+      "react-error-boundary": "/src/reactMod.mjs",
+      "hydrate.mjs": "/src/hydrate.mjs"
+    };
+    importMap3 = { imports: imports2 };
+    importMap_default2 = importMap3;
+    init_define_process2();
+    importMapImports2 = importMap3.imports;
     __name2(importMapReplace2, "importMapReplace");
     __name2(replaceAll2, "replaceAll");
   }
@@ -3251,8 +3279,8 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-D375VA4O.mjs
-init_chunk_chunk_GQUFGFSD();
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-Y44D2IUE.mjs
+init_chunk_chunk_HO2SKUQW();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
@@ -11240,6 +11268,7 @@ async function esmTransform(code, origin2) {
   return transpiled.code;
 }
 __name(esmTransform, "esmTransform");
+var importMap2 = { imports: importMap_default.imports };
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
@@ -11409,7 +11438,7 @@ function createPatch(oldCode, newCode) {
 __name(createPatch, "createPatch");
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/session.mjs
-init_chunk_chunk_GQUFGFSD();
+init_chunk_chunk_HO2SKUQW();
 init_chunk_chunk_JLPTXNJM();
 
 // src/staticContent.mjs
@@ -11420,8 +11449,8 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-D375VA4O.mjs
-init_chunk_chunk_GQUFGFSD2();
+// ../code/dist/src/chunk-chunk-Y44D2IUE.mjs
+init_chunk_chunk_HO2SKUQW2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
@@ -19159,21 +19188,7 @@ function setProp2(prototype, name) {
   }
 }
 __name2(setProp2, "setProp");
-var importmap_default = {
-  imports: {
-    "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-    "react-dom/client": "/src/reactDomClient.mjs",
-    "framer-motion": "/src/motion.mjs",
-    "@emotion/react": "/src/emotion.mjs",
-    "@emotion/cache": "/src/emotionCache.mjs",
-    "@emotion/styled": "/src/emotionStyled.mjs",
-    react: "/src/reactMod.mjs",
-    "react-dom": "/src/reactDom.mjs",
-    "react-error-boundary": "/src/reactMod.mjs",
-    "hydrate.mjs": "/src/hydrate.mjs"
-  }
-};
-var src_default2 = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importmap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
+var src_default2 = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importMap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
 init_define_process2();
 var md52 = /* @__PURE__ */ __name2((code) => md5FULL2(code).split("0").join("k").split("1").join("g").split("2").join("j").split("3").join("k").split("4").join("b").split("5").join("n").split("6").join("o").split("7").join("x").split("8").join("q").split("9").join("z").slice(0, 8), "md5");
 function md5FULL2(inputString) {
@@ -19492,7 +19507,7 @@ async function esmTransform2(code, origin2) {
   return transpiled.code;
 }
 __name2(esmTransform2, "esmTransform");
-var importMap2 = importmap_default;
+var importMap4 = { imports: importMap_default2.imports };
 function initSession2(room, u) {
   return Record3({ ...u, room, state: Record3(u.state)() });
 }
@@ -19701,7 +19716,7 @@ __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
 
 // ../code/dist/src/session.mjs
-init_chunk_chunk_GQUFGFSD2();
+init_chunk_chunk_HO2SKUQW2();
 init_chunk_chunk_JLPTXNJM2();
 
 // src/handleErrors.ts
@@ -19804,8 +19819,8 @@ var api = {
                 "Cache-Control": "no-cache"
               }
             });
-          case "importmap.json":
-            return new Response(JSON.stringify(importMap2), {
+          case "importMap.json":
+            return new Response(JSON.stringify(importMap4), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",

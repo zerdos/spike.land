@@ -133,7 +133,7 @@ export const createIframe = async (cs: string, counter: number) => {
 
       requestAnimationFrame(() =>
         !signal.aborted
-        && buildT(cs, location.origin, signal, true).then((x) => x && setIframe(createJsBlob(x)))
+        && buildT(cs, location.origin, signal, { bundle: false }).then((x) => x && setIframe(createJsBlob(x)))
       );
       res(iframe);
       return iframe;
@@ -205,8 +205,8 @@ let lastSuccessful = "";
 // }
 // };
 
-// import importmap from "./importmap.json";
-// const imp: { [key: string]: string } = { ...importmap.imports };
+// import importMap from "./importMap.json";
+// const imp: { [key: string]: string } = { ...importMap.imports };
 // const res = {};
 // Object.keys(imp).map((k) => Object.assign(res, { [k]: location.origin + imp[k] }));
 

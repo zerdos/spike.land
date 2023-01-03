@@ -1,7 +1,7 @@
 import { transform } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 
-import importmap from "./importmap.json";
+import importMap from "./importMap";
 
 import localForage from "localforage";
 
@@ -9,7 +9,7 @@ const fileCache = localForage.createInstance({
   name: "filecache",
 });
 
-const imp: { [key: string]: string } = { ...importmap.imports };
+const imp: { [key: string]: string } = { ...importMap.imports };
 
 const importMasRes: { [k: string]: string } = {};
 Object.keys(imp).map((k) => Object.assign(importMasRes, { [k]: location.origin + imp[k] }));
@@ -67,7 +67,7 @@ const mod = {
   function require(name){
 
 
-      const importmap = ${JSON.stringify(importmap.imports)};
+      const importMap = ${JSON.stringify(importMap.imports)};
       const uName = new URL(name, location.origin).toString();    
       const urlName = new URL(name+"/index.js", location.origin).toString();
       if (globalThis.globalNames[name]) return  globalThis.globalNames[name];     
@@ -75,7 +75,7 @@ const mod = {
       if (globalThis.globalNames[uName]) return  globalThis.globalNames[uName];     
 
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
-      if (importmap[name]) return require(importmap[name])      
+      if (importMap[name]) return require(importMap[name])      
       if (!name.includes("/npm:")){
       const npmUrl = new URL('/npm:*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
       return require(npmUrl);

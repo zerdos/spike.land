@@ -16,7 +16,7 @@
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
     "deploy": "yarn clean && yarn c:build  && yarn types && yarn c:deploy",
-    "importmap": "yarn workspaces foreach --all run  importmap",
+    "importMap": "yarn workspaces foreach --all run  importMap",
     "build:code": "yarn workspaces foreach --all run build:code",
     "yarn:publish": "yarn workspaces foreach --all run  yarn workspaces foreach --all run publish",
     "push:prod": "NODE_ENV=production yarn build-and-push",

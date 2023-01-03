@@ -109,7 +109,7 @@
         }
       ]
     },
-    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json": {
+    "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importMap.json": {
       "bytes": 475,
       "imports": []
     },
@@ -137,7 +137,7 @@
           "kind": "import-statement"
         },
         {
-          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json",
+          "path": "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importMap.json",
           "kind": "import-statement"
         },
         {
@@ -338,7 +338,7 @@
         "src/staticContent.mjs": {
           "bytesInOutput": 134
         },
-        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importmap.json": {
+        "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/src/importMap.json": {
           "bytesInOutput": 494
         },
         "src/handleErrors.ts": {

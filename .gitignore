@@ -111,7 +111,7 @@ extension/
 
 
 dist
-importmap.json5
+importMap.json5
 .yarn/install-state.gz
 .DS_Store
 **/.DS_Store

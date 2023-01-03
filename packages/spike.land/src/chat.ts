@@ -3,7 +3,7 @@ import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import packages from "../../code/package.json";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-// import imap from "@spike.land/code/src/importmap.json";
+// import imap from "@spike.land/code/src/importMap.json";
 import { importMap, importMapReplace, md5 } from "../../code/dist/src/session.mjs";
 
 import { CodeEnv } from "./env";
@@ -248,7 +248,7 @@ const api: ExportedHandler<CodeEnv> = {
                 "Cache-Control": "no-cache",
               },
             });
-          case "importmap.json":
+          case "importMap.json":
             return new Response(JSON.stringify(importMap), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",

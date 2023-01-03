@@ -9,9 +9,9 @@ import {
 
 import wasmFile from "esbuild-wasm/esbuild.wasm";
 
-// import impMap from "./importmap.json";
+// import impMap from "./importMap.json";
 //
-// import { imports as importMapImports } from "./importmap.json";
+// import { imports as importMapImports } from "./importMap.json";
 
 import { fetchPlugin } from "./fetchPlugin";
 import { md5 } from "./md5";

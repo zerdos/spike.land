@@ -1,7 +1,7 @@
 // import { skipImportmapReplaceNames } from "./esbuildEsm";
-import imap from "./importmap";
+import { importMap } from "./importMap";
 
-const importMapImports = imap.imports;
+const importMapImports = importMap.imports;
 export function importMapReplace(
   codeInp: string,
   origin: string,
