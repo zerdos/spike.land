@@ -236,13 +236,13 @@ const myApps: { [key: string]: FC } = {};
 const myAppCounters: { [key: string]: number } = {};
 let controller: AbortController;
 
-onSessionUpdate(
-  () => {
-    if (controller) controller.abort();
-  },
-  codeSpace,
-  "abort",
-);
+// onSessionUpdate(
+//   () => {
+//     if (controller) controller.abort();
+//   },
+//   codeSpace,
+//   "abort",
+// );
 
 export { md5 };
 
