@@ -153,22 +153,22 @@ self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_: string, label: string) => {
     if (label === "json") {
-      return `/language/json/json.js`;
+      return originToUse + `/language/json/json.js`;
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-      return `/language/css/css.js`;
+      return originToUse + `/language/css/css.js`;
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
-      return `/language//html/html.js`;
+      return originToUse + `/language//html/html.js`;
     }
 
     if (label === "typescript" || label === "javascript") {
-      return `/language/typescript/ts.js`;
+      return originToUse + `/language/typescript/ts.js`;
     }
 
-    return `/editor/editor.js`;
+    return originToUse + `/editor/editor.js`;
   },
 };
 
