@@ -36,28 +36,6 @@ export const Editor: FC<
     setValue: (_code: string) => null,
   });
 
-  onSessionUpdate(
-    async () => {
-      const { i, code: ccc } = mST(codeSpace);
-      const prettyCCC = await prettier(ccc);
-      const prettyCode = await prettier(code);
-
-      if (!prettyCCC) return;
-      if (prettyCCC === prettyCode) return;
-
-      // if (i !== mST(codeSpace).i) return;
-
-      changeContent((x) => ({
-        ...x,
-        i,
-        code: ccc,
-      }));
-      setValue(ccc);
-    },
-    "editor",
-    codeSpace,
-  );
-
   useEffect(() => {
     if (started) return;
     const _code = code;
@@ -140,6 +118,27 @@ export const Editor: FC<
 
   useEffect(() => {
     if (i <= mST(codeSpace).i) return;
+    onSessionUpdate(
+      async () => {
+        const { i, code: ccc } = mST(codeSpace);
+        const prettyCCC = await prettier(ccc);
+        const prettyCode = await prettier(code);
+
+        if (!prettyCCC) return;
+        if (prettyCCC === prettyCode) return;
+
+        // if (i !== mST(codeSpace).i) return;
+
+        changeContent((x) => ({
+          ...x,
+          i,
+          code: ccc,
+        }));
+        setValue(ccc);
+      },
+      "editor",
+      codeSpace,
+    );
     runner({ code, counter: i, codeSpace, signal: controller.signal });
     return () => controller.abort();
   }, [code, i, codeSpace, controller.signal]);
