@@ -222,7 +222,7 @@ export const buildT = async (
     write: false,
     metafile: true,
     target: "es2022",
-    outdir: `./live/${codeSpace}`,
+    outdir: `./dist`,
     treeShaking: true,
     minify: false,
 
