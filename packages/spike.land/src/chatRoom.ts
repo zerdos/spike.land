@@ -628,8 +628,9 @@ export class Code {
               const paths = location.pathname.split("/");
               const page = paths.pop();
               const codeSpace = paths.pop();
-          
-              const BC = new BroadcastChannel([...paths, codeSpace].join("/"));
+                
+            
+                const BC = new BroadcastChannel([...paths, codeSpace, ""].join("/"));
               
               BC.onmessage = ({data}) => {
                 const {html, css, i } = data;
