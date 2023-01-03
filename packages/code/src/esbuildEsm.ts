@@ -214,6 +214,8 @@ export const buildT = async (
     ],
     loader: {
       ".js": "tsx",
+      ".mjs": "js",
+      ".json": "json",
       ".tsx": "tsx",
       ".css": "css",
       ".ttf": "dataurl",
