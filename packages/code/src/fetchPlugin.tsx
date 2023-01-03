@@ -143,12 +143,6 @@ export const fetchPlugin: (
       const req = new Request(args.path);
       let response = await getRequest(req);
 
-      if (args.path.indexOf(".tsx") !== -1) {
-        return {
-          contents: await esmTransform(importMapReplace(await response.text(), origin, args.path, true, true), origin),
-        };
-      }
-
       if (args.namespace === "ttf") {
         let contents = await response.arrayBuffer();
         response = new Response(contents, response);
@@ -161,10 +155,18 @@ export const fetchPlugin: (
         };
       }
 
-      let contents = await response.text();
-      response = new Response(contents, response);
+      const code = await importMapReplace(await response.text(), origin, args.path, true);
 
-      return { contents };
+      if (args.path.indexOf(".tsx") !== -1) {
+        return {
+          contents: await esmTransform(code, origin),
+        };
+      }
+
+      // let contents = await response.text();
+      // response = new Response(contents, response);
+
+      return { contents: code };
     });
   },
 });
