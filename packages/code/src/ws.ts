@@ -282,7 +282,7 @@ export const run = async () => {
   // else console.log("dir already )(exists")
   const cs = await readdir(`/live/${codeSpace}`);
   // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
-  let mst = await import(`/live/${codeSpace}/mST.mjs`).then(({ mST }) => mST);
+  let mst = await fetch(`/live/${codeSpace}/session.json`).then(r => r.json());
 
   let hST: ICodeSession | null = null;
   if (head) {

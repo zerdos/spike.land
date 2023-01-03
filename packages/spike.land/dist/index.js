@@ -20920,51 +20920,6 @@ var Code = class {
             }
           });
         }
-        case "mST.mjs": {
-          const body = `
-          export const mST=${JSON.stringify(mST2(this.codeSpace))};
-          export const codeSpace="${this.codeSpace}";
-          export const address="${this.address}";
-          export const importmapReplaced=${JSON.stringify({
-            js: importMapReplace2(mST2(this.codeSpace).transpiled, url.origin, url.origin)
-          })}`;
-          const content_hash = md52(body);
-          return new Response(
-            `
-              export const mST=${JSON.stringify(mST2(this.codeSpace))};
-              export const codeSpace="${this.codeSpace}";
-              export const address="${this.address}";
-              export const importmapReplaced=${JSON.stringify({
-              js: importMapReplace2(mST2(this.codeSpace).transpiled, url.origin, url.origin)
-            })}`,
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                content_hash,
-                "Content-Type": "application/javascript; charset=UTF-8"
-              }
-            }
-          );
-        }
-        case "mST":
-          return new Response(
-            JSON.stringify({
-              mST: mST2(this.codeSpace),
-              hashCode: hashKEY2(this.codeSpace)
-            }),
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8"
-              }
-            }
-          );
         case "room":
           return new Response(JSON.stringify({ codeSpace: this.codeSpace }), {
             status: 200,

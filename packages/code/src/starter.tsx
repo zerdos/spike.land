@@ -213,14 +213,14 @@ let lastSuccessful = "";
 // importShim.addImportMap({ imports: res });
 
 async function moveToWorker(nameSpace: string, parent: HTMLElement) {
-  const { i } = nameSpace === codeSpace
-    ? mST(codeSpace)
-    : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
+  // const { i } = nameSpace === codeSpace
+  // ? mST(codeSpace)
+  // : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
   const div = parent?.getElementsByTagName("div")[0]!;
   div.style.height = "100%";
   const cont = new AbortController();
 
-  const js = await buildT(codeSpace, location.origin, cont.signal, false);
+  const js = await buildT(codeSpace, location.origin, cont.signal, { bundle: false });
 
   if (!js) return false;
   const src = createJsBlob(js);
