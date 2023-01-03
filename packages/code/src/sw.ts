@@ -11,11 +11,12 @@ var fetch = require("fetch-retry")(originalFetch, {
   retryDelay: 800,
 });
 
+onConnectToClients(self);
+
 // import { renderToStream } from "./renderToStream";
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
-  onConnectToClients(self);
   // globalThis.fs = new FS(location.origin);
 
   // const bc = new BroadcastChannel(location.origin);
