@@ -287,8 +287,10 @@ export const run = async () => {
   BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, e.ports[1]);
   const ports = new MessageChannel();
 
-  BCC.postMessage({ type: "onconnect", codeSpace, hashCode: head, session, name: user, ports });
-  ports.port1.onmessage = (e) => handleWorker(e, ports.port1);
+  BCC.postMessage({ type: "onconnect", codeSpace, hashCode: head, session, name: user, port: ports.port2 }, [
+    ports.port2,
+  ]);
+  ports.port1.onmessage = (e) => handleWorker(e, ports);
 
   const root = (await readdir("/"));
 
