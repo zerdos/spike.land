@@ -30356,7 +30356,7 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-RZ7M4NJW.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-GZ2HWTST.mjs
 init_chunk_chunk_R63P5I6G();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -38525,7 +38525,7 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-RZ7M4NJW.mjs
+// ../code/dist/src/chunk-chunk-GZ2HWTST.mjs
 init_chunk_chunk_R63P5I6G2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({

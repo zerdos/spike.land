@@ -126,8 +126,12 @@ export const fetchPlugin: (
       //       `);
       const contents = await esmTransform(code, origin);
       console.log({ contents });
+      const response = new Response(contents, {
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
+      });
+
       return {
-        contents: contents,
+        contents: response,
       };
       // }
       // return null;
@@ -141,7 +145,7 @@ export const fetchPlugin: (
 
       if (req.url.indexOf(".tsx")) {
         return {
-          contents: response.text(),
+          contents: await response.text(),
         };
       }
 
@@ -150,6 +154,7 @@ export const fetchPlugin: (
         response = new Response(contents, response);
 
         const z = new Uint8Array(contents, 1, 4);
+
         return {
           contents: z,
           loader: "dataurl" as Loader,
