@@ -223,8 +223,9 @@ export const buildT = async (
     outExtension: { ".js": ".mjs" },
     write: false,
     metafile: true,
+    
     target: "es2022",
-    outdir: `./dist`,
+    outdir: `./live/${codeSpace}`,
     treeShaking: true,
     minify: false,
 
@@ -234,7 +235,7 @@ export const buildT = async (
     minifySyntax: false,
     minifyWhitespace: false,
 
-    splitting: false,
+    splitting: true,
     incremental: true,
     jsxImportSource: "@emotion/react",
     format: "esm",
