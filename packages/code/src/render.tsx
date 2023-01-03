@@ -10,28 +10,31 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 let root: Root;
-
+let rootEl: HTMLDivElement;
+let i=0
 BC.onmessage = async ({ data }) => {
   if (data.transpiled) {
+    if (i===data.i) return
+    i = data.i;
     console.log("rerender", data.i);
     const App: FC<{}> = (await import(
       createJsBlob(importMapReplace(data.transpiled, origin, origin))
     )).default;
-    const newRoot = document.createElement("div");
-    newRoot.style.height = "100%";
-    const r = createRoot(newRoot);
-    r.render(<App />);
+    // const newRoot = document.createElement("div");
+    // newRoot.style.height = "100%";
+    // const r = createRoot(newRoot);
+    root.render(<App />);
     requestAnimationFrame(async () => {
       let i = 100;
       while (i-- > 0) {
-        const html = newRoot.innerHTML;
+        const html = rootEl.innerHTML;
         if (html && html !== "") {
-          const css = mineFromCaches();
+          const css = mineFromCaches(html);
           // root.unmount();
           console.log({ html, css, i: data.i });
-          document.getElementById("root")?.appendChild(newRoot);
-          root.unmount();
-          root = r;
+          // document.getElementById("root")?.appendChild(newRoot);
+          // root.unmount();
+          // root = r;
           return BC.postMessage({ html, css, i: data.i });
         }
 
@@ -43,7 +46,8 @@ BC.onmessage = async ({ data }) => {
   }
 };
 
-export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
+export const render = async (_rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
+  rootEl = _rootEl;
   root = createRoot(rootEl);
   root.render(<App />);
 
