@@ -456,7 +456,7 @@ export function createJsBlob(code: string | Uint8Array) {
   );
 }
 
-function createHTML(code: string) {
+export function createHTML(code: string) {
   return URL.createObjectURL(
     new Blob([code], { type: "text/html" }),
   );

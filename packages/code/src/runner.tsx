@@ -9,7 +9,8 @@ import { syncWS } from "./ws";
 // import type { ICodeSession } from "./session";
 import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
-import { mST } from "./session";
+import { HTML, importMapReplace, md5, mST, resetCSS } from "./session";
+import { createHTML } from "./starter";
 //
 Object.assign(globalThis, { buildT });
 
@@ -138,7 +139,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
     iframe.style.width = "1px";
     iframe.style.position = "absolute";
 
-    iframe.src = `${origin}/live/${codeSpace}/prerender`;
+    iframe.src = prerender(transpiled, origin, codeSpace);
 
     const responseListener = async (e: MessageEvent) => {
       const data = e.data; // hare are data sent by other window postMessage method
@@ -151,7 +152,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
         const newSession = { ...mST(codeSpace), html, css, code, transpiled, i: counter };
         const jsonStr = JSON.stringify(newSession);
         const file = `/live/${codeSpace}/session.json`;
-        writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr)));
+        await writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr)));
 
         await syncWS(newSession, signal);
 
@@ -201,4 +202,43 @@ export async function runner({ code, counter, codeSpace, signal }: {
   } finally {
   }
   // });
+}
+
+function prerender(transpiled: string, origin: string, codeSpace: string) {
+  const ASSET_HASH = md5(transpiled);
+
+  const js = importMapReplace(transpiled, location.origin, location.origin).replace(
+    `export {`,
+    "const ModASSET_HASH = stdin_default;",
+  ).replace("stdin_default as default", "").slice(0, -3);
+
+  return createHTML(
+    HTML.replace(
+      "/**reset*/",
+      resetCSS,
+    )
+      .replace(
+        `<div id="root"></div>`,
+        `
+        <div id="root" style="height: 100%;"></div>
+        <script type="module">
+
+        import {render, prerender} from "${origin}/src/render.mjs";
+     
+        ${js}
+       
+
+            
+          
+        const preRender = ${prerender};
+
+        if (preRender){
+        prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
+        } else {
+          const rootEl = document.getElementById("${codeSpace}-css");
+          render(rootEl, ModASSET_HASH, "${codeSpace}");          
+        }
+        </script>`,
+      ).split("ASSET_HASH").join(ASSET_HASH),
+  );
 }
