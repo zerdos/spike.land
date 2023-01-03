@@ -9,8 +9,10 @@ import { syncWS } from "./ws";
 // import type { ICodeSession } from "./session";
 import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
-import { HTML, importMapReplace, md5, mST, resetCSS } from "./session";
-import { createHTML } from "./starter";
+import { // HTML, importMapReplace, md5,
+  mST, // resetCSS
+} from "./session";
+// import { createHTML } from "./starter";
 //
 Object.assign(globalThis, { buildT });
 
@@ -79,14 +81,53 @@ const origin = location.origin;
 
 //   syncWS(sess);
 // };
+const codeSpace = location.pathname.slice(1).split("/")[1];
+
 let counterMax = 0;
-let iframe: HTMLIFrameElement;
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+let processed = 0;
+let s: AbortSignal;
+BC.onmessage = async ({ data }) => {
+  const signal = s;
+
+  if (counterMax !== data.i) return;
+  if (processed === data.i) return;
+  processed = data.i;
+  const { html, css } = data;
+
+  if (html) {
+    // window.removeEventListener("message", responseListener);
+    if (signal.aborted) return;
+    const newSession = { ...mST(codeSpace), html, css, code: sess.code, transpiled: sess.transpiled, i: sess.i };
+    const jsonStr = JSON.stringify(newSession);
+    const file = `/live/${codeSpace}/session.json`;
+
+    await Promise.all([
+      syncWS(newSession, signal),
+      writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr))),
+    ]);
+
+    // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+    // BC.postMessage({ html, css, code, transpiled, i: counter });
+    // await buildT(codeSpace, location.origin, signal, true);
+    // BCbundle.postMessage({ counterMax });
+  }
+};
+// let iframe: HTMLIFrameElement;
+const sess = {
+  i: counterMax,
+  codeSpace,
+  transpiled: "",
+  code: "",
+};
 export async function runner({ code, counter, codeSpace, signal }: {
   code: string;
   codeSpace: string;
   counter: number;
   signal: AbortSignal;
 }) {
+  s = signal;
   console.log({ counter });
   if (counter <= counterMax) return;
   // if (!rpcProvider) {
@@ -97,7 +138,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
   // iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
   // }
   counterMax = counter;
-  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+  sess.i = counterMax;
+  sess.code = code;
 
   // await mutex.runExclusive(async () => {
   // Console.log({ i, counter });
@@ -116,18 +158,19 @@ export async function runner({ code, counter, codeSpace, signal }: {
     // const pp = await buildT(codeSpace, counter, ab.signal);
     // if (!pp) return;
 
-    const transpiled = await esmTransform(code, origin);
+    sess.transpiled = await esmTransform(code, origin);
+
     if (signal.aborted) return;
-    BC.onmessage = (e) => responseListener(e);
-    BC.postMessage({ i: counter, transpiled });
+
+    BC.postMessage({ i: sess.i, transpiled: sess.transpiled });
     try {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
     } catch {
       await unlink(`/live/${codeSpace}/index.tsx`);
       await unlink(`/live/${codeSpace}/index.js`);
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
     }
 
     // if (iframe) {
@@ -140,31 +183,6 @@ export async function runner({ code, counter, codeSpace, signal }: {
     // iframe.style.position = "absolute";
 
     // iframe.src = prerender(transpiled, origin, codeSpace);
-    let processed = 0;
-
-    const responseListener = async (e: MessageEvent) => {
-      const data = e.data; // hare are data sent by other window postMessage method
-      if (counterMax !== data.i) return;
-      if (processed === data.i) return;
-      processed = data.i;
-      const { html, css } = data;
-
-      if (html) {
-        // window.removeEventListener("message", responseListener);
-        if (signal.aborted) return;
-        const newSession = { ...mST(codeSpace), html, css, code, transpiled, i: counter };
-        const jsonStr = JSON.stringify(newSession);
-        const file = `/live/${codeSpace}/session.json`;
-        await writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr)));
-
-        await syncWS(newSession, signal);
-
-        // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-        // BC.postMessage({ html, css, code, transpiled, i: counter });
-        // await buildT(codeSpace, location.origin, signal, true);
-        // BCbundle.postMessage({ counterMax });
-      }
-    };
 
     // window.addEventListener("message", responseListener);
 
@@ -207,32 +225,32 @@ export async function runner({ code, counter, codeSpace, signal }: {
   // });
 }
 
-function prerender(transpiled: string, origin: string, codeSpace: string) {
-  const ASSET_HASH = md5(transpiled);
+// function prerender(transpiled: string, origin: string, codeSpace: string) {
+//   const ASSET_HASH = md5(transpiled);
 
-  const js = importMapReplace(transpiled, location.origin, location.origin).replace(
-    `export {`,
-    "const ModASSET_HASH = stdin_default;",
-  ).replace("stdin_default as default", "").slice(0, -3);
+//   const js = importMapReplace(transpiled, location.origin, location.origin).replace(
+//     `export {`,
+//     "const ModASSET_HASH = stdin_default;",
+//   ).replace("stdin_default as default", "").slice(0, -3);
 
-  return createHTML(
-    HTML.replace(
-      "/**reset*/",
-      resetCSS,
-    )
-      .replace(
-        `<div id="root"></div>`,
-        `
-        <div id="root" style="height: 100%;"></div>
-        <script type="module">
+//   return createHTML(
+//     HTML.replace(
+//       "/**reset*/",
+//       resetCSS,
+//     )
+//       .replace(
+//         `<div id="root"></div>`,
+//         `
+//         <div id="root" style="height: 100%;"></div>
+//         <script type="module">
 
-        import {render, prerender} from "${origin}/src/render.mjs";
-     
-        ${js}
-      
-        prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
- 
-        </script>`,
-      ).split("ASSET_HASH").join(ASSET_HASH),
-  );
-}
+//         import {render, prerender} from "${origin}/src/render.mjs";
+
+//         ${js}
+
+//         prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
+
+//         </script>`,
+//       ).split("ASSET_HASH").join(ASSET_HASH),
+//   );
+// }
