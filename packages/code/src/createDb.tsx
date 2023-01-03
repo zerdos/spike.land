@@ -12,7 +12,7 @@ export async function initDb(codeSpace: string) {
         name: `/live/${codeSpace}`,
       });
 
-      let head = await db(codeSpace, initDb).getItem("head");
+      let head = await dbInstance.getItem("head");
       if (!head) {
         head = hashKEY(codeSpace);
         await dbInstance.setItem("#" + String(head), mST(codeSpace));
