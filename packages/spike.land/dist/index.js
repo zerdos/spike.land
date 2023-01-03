@@ -48162,7 +48162,7 @@ var Code = class {
               
               BC.onmessage = ({data})=>{
                 const {html, css, i } = data;
-                if (page ==="dehydrated")    document.getElementById("root").innerHTML= ['<div id="', codeSpace, '-css" style="height: 100%"><style>"], css, "</style>", html, "<div>" ].join("");
+                if (page ==="dehydrated")    document.getElementById("root").innerHTML= ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
                 
               }xx\xA7x\xA7\xA7
               if (page !== "dehydrated")  import"/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}");
