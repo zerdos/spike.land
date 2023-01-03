@@ -47649,10 +47649,12 @@ Object.assign(globalThis, {
 });
 var mod3 = {
   init: false,
-  initialize: () => mod3.init || (0, import_esbuild_wasm3.initialize)({
-    wasmModule: esbuild_default3,
-    worker: false
-  }).then(() => mod3.init = true)
+  initialize: () => mod3.init || import(esbuild_default3).then(
+    (wasmModule) => (0, import_esbuild_wasm3.initialize)({
+      wasmModule,
+      worker: false
+    })
+  ).then(() => mod3.init = true)
 };
 var initAndTransform3 = async (code, opts, origin4) => {
   const initFinished = mod3.initialize();
