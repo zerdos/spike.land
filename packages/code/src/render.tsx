@@ -59,7 +59,7 @@ export const prerender = async (App: FC) => {
   while (i-- > 0) {
     const html = document.getElementById("root")!.innerHTML;
     if (html && html !== "") {
-      const css = mineFromCaches();
+      const css = mineFromCaches(html);
       root.unmount();
       console.log({ html, css });
       return { html, css };
@@ -71,7 +71,7 @@ export const prerender = async (App: FC) => {
   return { html: "", css: "" };
 };
 
-function mineFromCaches(html) {
+function mineFromCaches(html: string) {
   const key = "css";
   // const key = cache.key;
   try {
@@ -88,7 +88,9 @@ function mineFromCaches(html) {
       } catch {
         return null;
       }
-    }).filter((x) => x && x.selectorText && x.selectorText.indexOf(key) !== -1)
+    }).filter((x) =>
+      x && x.selectorText && x.selectorText.indexOf(key) !== -1 && html.indexOf(x.selectorText.slice(4, 11)) !== -1
+    )
       .map((x) => x!.cssText)
       // .filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)
       .join("\n");
