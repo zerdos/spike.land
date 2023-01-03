@@ -168,9 +168,9 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // const client_id = user;
 // const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
 
-const codeHistory = localForage.createInstance({
-  name: `/live/${codeSpace}`,
-});
+// const codeHistory = localForage.createInstance({
+//   name: `/live/${codeSpace}`,
+// });
 
 // const p2pcf = new P2PCF(client_id, room_id, {
 // Worker URL (optional) - if left out, will use a public worker
@@ -296,9 +296,9 @@ export const run = async () => {
   const hash = Number(
     await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text(),
   );
-  const head = await codeHistory.getItem<number>("head");
+  const head = await db(codeSpace, initDb).getItem("head");
 
-  const savedSess = await codeHistory.getItem<ICodeSession>("#" + String(head));
+  const savedSess = await db(codeSpace, initDb).getItem("#" + String(head)) as unknown as ICodeSession;
   let _mst: ICodeSession | null;
   if (savedSess && head === hash) {
     _mst = savedSess;
