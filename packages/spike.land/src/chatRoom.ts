@@ -622,7 +622,7 @@ export class Code {
                   <style>${css}</style>
                   ${html}
                   </div>
-              </div>` + path[0] === "dehydrated"
+              </div>` + (path[0] === "dehydrated"
                 ? `<script type="module">
 
               const paths = location.pathname.split("/");
@@ -637,7 +637,7 @@ export class Code {
                 
               }
               </script>`
-                : `<script scr="/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+                : `<script scr="/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
             );
 
           // const Etag = request.headers.get("Etag");
