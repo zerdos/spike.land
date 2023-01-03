@@ -14,7 +14,7 @@ import { // HTML, importMapReplace, md5,
 } from "./session";
 // import { createHTML } from "./starter";
 //
-Object.assign(globalThis, { buildT });
+// Object.assign(globalThis, { buildT });
 
 const origin = location.origin;
 // const IIFE = {};

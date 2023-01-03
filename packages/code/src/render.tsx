@@ -9,40 +9,59 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-let root: Root;
-let rootEl: HTMLDivElement;
+// let root: Root;
+// let rootEl: HTMLDivElement;
 let i = 0;
+let controller = new AbortController();
+const mod: { [i: number]: { retry: number; rootEl: HTMLDivElement; root: Root; i: number; signal: AbortSignal } } = {};
 BC.onmessage = async ({ data }) => {
   if (data.transpiled) {
     if (i === data.i) return;
     i = data.i;
+
+    controller.abort();
+    controller = new AbortController();
+
     console.log("rerender", data.i);
     const App: FC<{}> = (await import(
       createJsBlob(importMapReplace(data.transpiled, origin, origin))
     )).default;
-    // const newRoot = document.createElement("div");
-    // newRoot.style.height = "100%";
+    const rootEl = document.createElement("div");
+    rootEl.style.height = "100%";
+
+    const root = createRoot(rootEl);
+    const myMod = mod[i] = { i, signal: controller.signal, root, rootEl, retry: 100 };
     // const r = createRoot(newRoot);
+
+    if (myMod.signal.aborted) return;
     root.render(<App />);
-    requestAnimationFrame(async () => {
-      let i = 100;
-      while (i-- > 0) {
-        const html = rootEl.innerHTML;
-        if (html && html !== "") {
+    check(myMod);
+
+    function check(m: typeof mod[0]) {
+      requestAnimationFrame((_) => {
+        if (myMod.signal.aborted) {
+          root.unmount();
+          return;
+        }
+        const html = m.rootEl.innerHTML;
+        if (html) {
           const css = mineFromCaches(html);
           // root.unmount();
-          console.log({ html, css, i: data.i });
+          console.log({ html, css, i: m.i });
           // document.getElementById("root")?.appendChild(newRoot);
           // root.unmount();
           // root = r;
-          return BC.postMessage({ html, css, i: data.i });
+          BC.postMessage({ html, css, i: data.i });
+          root.unmount();
+          return;
         }
-
-        await wait(10);
-      }
-
-      return { html: "", css: "" };
-    });
+        if (m.retry-- > 0) check(m);
+        else {
+          root.unmount();
+          return { html: "", css: "" };
+        }
+      });
+    }
   }
 };
 
