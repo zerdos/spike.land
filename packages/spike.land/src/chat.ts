@@ -325,7 +325,7 @@ const api: ExportedHandler<CodeEnv> = {
               );
 
               if (!kvResp.ok) {
-                request = new Request(request.url.replace(url.origin, url.origin + "/src/"), request);
+                request = new Request(request.url.replace(url.origin, url.origin + "/src"), request);
                 kvResp = await getAssetFromKV(
                   {
                     request,

@@ -19869,7 +19869,7 @@ var api = {
                 }
               );
               if (!kvResp.ok) {
-                request = new Request(request.url.replace(url.origin, url.origin + "/src/"), request);
+                request = new Request(request.url.replace(url.origin, url.origin + "/src"), request);
                 kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
                   {
                     request,
