@@ -1,40 +1,45 @@
 import type { FC } from "react";
 // import { unmountComponentAtNode } from "react-dom";
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 import { importMapReplace } from "./importMapReplace";
 import { createJsBlob } from "./starter";
 import { wait } from "./wait";
 
-export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
-  const root = createRoot(rootEl);
-  root.render(<App />);
+const codeSpace = location.pathname.slice(1).split("/")[1];
 
-  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-  BC.onmessage = async ({ data }) => {
-    if (data.transpiled) {
-      const App: FC<{}> = (await import(
-        createJsBlob(importMapReplace(data.transpiled, origin, origin))
-      )).default;
-      root.render(<App />);
-      requestAnimationFrame(async () => {
-        let i = 100;
-        while (i-- > 0) {
-          const html = document.getElementById("root")!.innerHTML;
-          if (html && html !== "") {
-            const css = mineFromCaches();
-            root.unmount();
-            console.log({ html, css, i: data.i });
-            return BC.postMessage({ html, css });
-          }
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-          await wait(10);
+let root: Root;
+
+BC.onmessage = async ({ data }) => {
+  if (data.transpiled) {
+    const App: FC<{}> = (await import(
+      createJsBlob(importMapReplace(data.transpiled, origin, origin))
+    )).default;
+    root.render(<App />);
+    requestAnimationFrame(async () => {
+      let i = 100;
+      while (i-- > 0) {
+        const html = document.getElementById("root")!.innerHTML;
+        if (html && html !== "") {
+          const css = mineFromCaches();
+          // root.unmount();
+          console.log({ html, css, i: data.i });
+          return BC.postMessage({ html, css });
         }
 
-        return { html: "", css: "" };
-      });
-    }
-    prerender(new Function(data.transpiled)()).then(res => window.parent.postMessage(res));
-  };
+        await wait(10);
+      }
+
+      return { html: "", css: "" };
+    });
+  }
+};
+
+export const render = async (rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
+  root = createRoot(rootEl);
+  root.render(<App />);
+
   return root;
 };
 
