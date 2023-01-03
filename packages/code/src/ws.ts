@@ -287,9 +287,11 @@ export const run = async () => {
   BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, e.ports[1]);
   const ports = new MessageChannel();
 
-  BCC.postMessage({ type: "onconnect", codeSpace, hashCode: head, session, name: user, "port": ports.port2 }, [
-    ports.port2,
-  ]);
+  const obj = JSON.parse(
+    JSON.stringify({ type: "onconnect", codeSpace, hashCode: head, session, name: user, "port": ports.port2 }),
+  );
+
+  BCC.postMessage(obj, "lol");
 
   ports.port1.onmessage = (e) => handleWorker(e, ports.port1);
 
