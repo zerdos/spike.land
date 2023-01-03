@@ -633,7 +633,7 @@ export class Code {
               
               BC.onmessage = ({data}) => {
                 const {html, css, i } = data;
-                if (page ==="dehydrated")    document.getElementById("root").innerHTML= ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
+                if (page ==="dehydrated") document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
                 
               }
               </script>`
