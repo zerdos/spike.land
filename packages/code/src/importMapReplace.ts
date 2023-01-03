@@ -1,5 +1,5 @@
 // import { skipImportmapReplaceNames } from "./esbuildEsm";
-import imap from "./importmap.json";
+import imap from "./importmap";
 
 const importMapImports = imap.imports;
 export function importMapReplace(

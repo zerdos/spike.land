@@ -1,5 +1,5 @@
 import { Record } from "immutable";
-import importMap from "./importmap.json";
+import imap from "./importmap.json";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 export { resetCSS } from "./getResetCss";
@@ -7,7 +7,7 @@ export { importMapReplace } from "./importMapReplace";
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
 export { esmTransform } from "./esmTran";
-export { importMap };
+export const importMap = imap;
 // Import * as Immutable from "immutable"
 
 type IUsername = string;
