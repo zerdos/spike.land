@@ -625,7 +625,7 @@ export class Code {
               </div>` + (path[0] === "dehydrated"
                 ? `<script>
 
-              const paths = location.pathname.split("/");
+              const paths = location.href.split("/");
               const page = paths.pop();
               const codeSpace = paths.pop();
                 
