@@ -140,10 +140,13 @@ export async function runner({ code, counter, codeSpace, signal }: {
     // iframe.style.position = "absolute";
 
     // iframe.src = prerender(transpiled, origin, codeSpace);
+    let processed = 0;
 
     const responseListener = async (e: MessageEvent) => {
       const data = e.data; // hare are data sent by other window postMessage method
       if (counterMax !== data.i) return;
+      if (processed === data.i) return;
+      processed = data.i;
       const { html, css } = data;
 
       if (html) {
@@ -163,9 +166,9 @@ export async function runner({ code, counter, codeSpace, signal }: {
       }
     };
 
-    window.addEventListener("message", responseListener);
+    // window.addEventListener("message", responseListener);
 
-    document.body.appendChild(iframe);
+    // document.body.appendChild(iframe);
 
     // BC .postMessage({ counter, i: counter, transpiled, codeSpace, code });
 
