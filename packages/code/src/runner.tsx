@@ -226,18 +226,9 @@ function prerender(transpiled: string, origin: string, codeSpace: string) {
         import {render, prerender} from "${origin}/src/render.mjs";
      
         ${js}
-       
-
-            
-          
-        const preRender = ${prerender};
-
-        if (preRender){
+      
         prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
-        } else {
-          const rootEl = document.getElementById("${codeSpace}-css");
-          render(rootEl, ModASSET_HASH, "${codeSpace}");          
-        }
+ 
         </script>`,
       ).split("ASSET_HASH").join(ASSET_HASH),
   );
