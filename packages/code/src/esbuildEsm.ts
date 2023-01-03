@@ -222,8 +222,9 @@ export const buildT = async (
     },
     outExtension: { ".js": ".mjs" },
     write: false,
+    external: [origin + "/src/*"],
     metafile: true,
-    
+
     target: "es2022",
     outdir: `./live/${codeSpace}`,
     treeShaking: true,
