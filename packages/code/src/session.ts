@@ -141,7 +141,6 @@ export type CodePatch = {
   oldHash: number;
   newHash: number;
   patch: Delta[];
-  codeSpace: string;
   reversePatch: Delta[];
 };
 type IApplyPatch = (
