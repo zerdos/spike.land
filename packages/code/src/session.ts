@@ -65,6 +65,43 @@ export type IUser = Record<
   }
 >;
 
+export function db(codeSpace: string, initDb: (codeSpace: string) => Promise<LocalForage>) {
+  const mod = {
+    syncDb: async (
+      oldSession: ICodeSession,
+      newSession: ICodeSession,
+      message: CodePatch,
+    ) => {
+      const { getItem, setItem } = mod;
+
+      const syncDb = async (
+        oldSession: ICodeSession,
+        newSession: ICodeSession,
+        message: CodePatch,
+      ) =>
+        await syncStorage(
+          setItem,
+          getItem,
+          oldSession,
+          newSession,
+          message,
+        );
+      return await syncDb(oldSession, newSession, message);
+    },
+    getItem: async (key: string) => {
+      const db = await initDb(codeSpace);
+
+      return await db.getItem(key);
+    },
+    setItem: async (key: string, value: object | string | number) => {
+      const db = await initDb(codeSpace);
+
+      return await db.setItem(key, value);
+    },
+  };
+  return mod;
+}
+
 export function initSession(room: string, u: IUserJSON) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
@@ -118,7 +155,9 @@ export const syncStorage = async (
     //   newHash: message.newHash,
     //   patch: message.patch,
     // });
-    const oldNode = (await getItem(historyHead)) as unknown as ICodeSession & Partial<CodePatch>;
+    const oldNode = (await getItem(historyHead)) as unknown as
+      & ICodeSession
+      & Partial<CodePatch>;
     // if (!oldNode) throw Error("corrupt storage");
     await setItem(historyHead, {
       newHash: message.newHash,
@@ -212,7 +251,9 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession(codeSpace, {
       ...user,
-      state: savedState ? savedState : JSON.parse(string_({ ...user.state, codeSpace })),
+      state: savedState
+        ? savedState
+        : JSON.parse(string_({ ...user.state, codeSpace })),
     })();
     hashStore[hashKEY(codeSpace)] = this.session.get("state");
   }
@@ -468,7 +509,14 @@ export function mST(codeSpace: string, p?: Delta[]) {
         ),
       )
       : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+    return sessions[codeSpace].session.get("state").merge({
+      i,
+      transpiled,
+      code,
+      html,
+      css,
+      codeSpace,
+    }).toObject();
   }
   return sessions[codeSpace].session.get("state").toObject();
 }
@@ -506,12 +554,20 @@ export const makePatchFrom = (
   st: ICodeSession,
   codeSpace: string,
   // update?: (h: string) => void,
-) => ({ codeSpace, i: st.i, ...(sessions[codeSpace].createPatchFromHashCode(n, st)) });
+) => ({
+  codeSpace,
+  i: st.i,
+  ...(sessions[codeSpace].createPatchFromHashCode(n, st)),
+});
 export const makePatch = (
   st: ICodeSession,
   codeSpace: string,
   // update?: (h: string) => void,
-) => ({ ...makePatchFrom(hashKEY(codeSpace), st, codeSpace), codeSpace, i: st.i });
+) => ({
+  ...makePatchFrom(hashKEY(codeSpace), st, codeSpace),
+  codeSpace,
+  i: st.i,
+});
 
 export const startSession = (
   codeSpace: string,

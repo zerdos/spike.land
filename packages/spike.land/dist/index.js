@@ -3109,7 +3109,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-SGI6R7KX.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-DJC3IZMB.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11272,11 +11272,70 @@ async function esmTransform(code, origin2) {
 }
 __name(esmTransform, "esmTransform");
 var importMap2 = { imports: importMap_default.imports };
+function db(codeSpace, initDb) {
+  const mod22 = {
+    syncDb: async (oldSession, newSession, message) => {
+      const { getItem, setItem } = mod22;
+      const syncDb = /* @__PURE__ */ __name(async (oldSession2, newSession2, message2) => await syncStorage(
+        setItem,
+        getItem,
+        oldSession2,
+        newSession2,
+        message2
+      ), "syncDb");
+      return await syncDb(oldSession, newSession, message);
+    },
+    getItem: async (key) => {
+      const db22 = await initDb(codeSpace);
+      return await db22.getItem(key);
+    },
+    setItem: async (key, value) => {
+      const db22 = await initDb(codeSpace);
+      return await db22.setItem(key, value);
+    }
+  };
+  return mod22;
+}
+__name(db, "db");
 function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 __name(initSession, "initSession");
 var storageMutex = new Mutex();
+var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, newSession, message) => {
+  storageMutex.runExclusive(async () => {
+    const setItem = /* @__PURE__ */ __name((k, v) => _setItem("#" + String(k), v), "setItem");
+    const getItem = /* @__PURE__ */ __name((k) => _getItem("#" + String(k)), "getItem");
+    const hashOfOldSession = Record(oldSession)().hashCode();
+    let historyHead = await _getItem("head");
+    if (!historyHead) {
+      await setItem(hashOfOldSession, oldSession);
+      await _setItem("head", hashOfOldSession);
+      historyHead = hashOfOldSession;
+    }
+    await setItem(message.newHash, {
+      ...newSession,
+      oldHash: message.oldHash,
+      reversePatch: message.reversePatch
+    });
+    const oldNode = await getItem(historyHead);
+    await setItem(historyHead, {
+      newHash: message.newHash,
+      patch: message.patch,
+      ...oldNode ? {
+        i: oldNode.i,
+        oldHash: oldNode.oldHash,
+        reversePatch: oldNode.reversePatch
+      } : {
+        code: oldSession.code,
+        transpiled: oldSession.transpiled,
+        html: oldSession.html,
+        css: oldSession.css
+      }
+    });
+    await _setItem("head", message.newHash);
+  });
+}, "syncStorage");
 var sessions = {};
 var hashStore = {};
 var CodeSession = class {
@@ -11428,7 +11487,14 @@ function mST(codeSpace, p) {
         p
       )
     ) : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+    return sessions[codeSpace].session.get("state").merge({
+      i,
+      transpiled,
+      code,
+      html,
+      css,
+      codeSpace
+    }).toObject();
   }
   return sessions[codeSpace].session.get("state").toObject();
 }
@@ -11594,7 +11660,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-SGI6R7KX.mjs
+// ../code/dist/src/chunk-chunk-DJC3IZMB.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -19826,6 +19892,31 @@ async function esmTransform2(code, origin2) {
 }
 __name2(esmTransform2, "esmTransform");
 var importMap4 = { imports: importMap_default2.imports };
+function db2(codeSpace, initDb) {
+  const mod22 = {
+    syncDb: async (oldSession, newSession, message) => {
+      const { getItem, setItem } = mod22;
+      const syncDb = /* @__PURE__ */ __name2(async (oldSession2, newSession2, message2) => await syncStorage2(
+        setItem,
+        getItem,
+        oldSession2,
+        newSession2,
+        message2
+      ), "syncDb");
+      return await syncDb(oldSession, newSession, message);
+    },
+    getItem: async (key) => {
+      const db22 = await initDb(codeSpace);
+      return await db22.getItem(key);
+    },
+    setItem: async (key, value) => {
+      const db22 = await initDb(codeSpace);
+      return await db22.setItem(key, value);
+    }
+  };
+  return mod22;
+}
+__name2(db2, "db");
 function initSession2(room, u) {
   return Record3({ ...u, room, state: Record3(u.state)() });
 }
@@ -20016,7 +20107,14 @@ function mST2(codeSpace, p) {
         p
       )
     ) : sessAsJs;
-    return sessions2[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+    return sessions2[codeSpace].session.get("state").merge({
+      i,
+      transpiled,
+      code,
+      html,
+      css,
+      codeSpace
+    }).toObject();
   }
   return sessions2[codeSpace].session.get("state").toObject();
 }
@@ -20026,8 +20124,16 @@ function string_2(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name2(string_2, "string_");
-var makePatchFrom2 = /* @__PURE__ */ __name2((n, st, codeSpace) => ({ codeSpace, i: st.i, ...sessions2[codeSpace].createPatchFromHashCode(n, st) }), "makePatchFrom");
-var makePatch2 = /* @__PURE__ */ __name2((st, codeSpace) => ({ ...makePatchFrom2(hashKEY2(codeSpace), st, codeSpace), codeSpace, i: st.i }), "makePatch");
+var makePatchFrom2 = /* @__PURE__ */ __name2((n, st, codeSpace) => ({
+  codeSpace,
+  i: st.i,
+  ...sessions2[codeSpace].createPatchFromHashCode(n, st)
+}), "makePatchFrom");
+var makePatch2 = /* @__PURE__ */ __name2((st, codeSpace) => ({
+  ...makePatchFrom2(hashKEY2(codeSpace), st, codeSpace),
+  codeSpace,
+  i: st.i
+}), "makePatch");
 var startSession2 = /* @__PURE__ */ __name2((codeSpace, u) => sessions2[codeSpace] || (sessions2[codeSpace] = new CodeSession2(codeSpace, {
   name: u.name,
   state: { ...u.state, codeSpace }
@@ -20192,7 +20298,9 @@ var api = {
                 }
               );
               if (!kvResp.ok) {
-                request = new Request(request.url.replace(url.origin, url.origin + "/src"));
+                request = new Request(
+                  request.url.replace(url.origin, url.origin + "/src")
+                );
                 kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
                   {
                     request,
@@ -20209,7 +20317,10 @@ var api = {
               kvResp = new Response(kvResp.body, kvResp);
               const headers2 = new Headers(kvResp.headers);
               if (isChunk(request.url)) {
-                headers2.set("Cache-Control", "public, max-age=604800, immutable");
+                headers2.set(
+                  "Cache-Control",
+                  "public, max-age=604800, immutable"
+                );
               }
               headers2.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers: headers2 });
@@ -20234,7 +20345,9 @@ var api = {
             request = new Request(esmUrl, { redirect: "follow" });
             response = await fetch(request);
             if (!response.ok) {
-              request = new Request(new URL(newUrl.pathname, "https://raw.githubusercontent.com/").toString());
+              request = new Request(
+                new URL(newUrl.pathname, "https://raw.githubusercontent.com/").toString()
+              );
               response = await fetch(request);
               if (!response.ok)
                 return response;
@@ -20954,7 +21067,9 @@ var Code = class {
     this.address = "";
     this.state.blockConcurrencyWhile(async () => {
       try {
-        const session = await this.kv.get("session", { allowConcurrency: true }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
+        const session = await this.kv.get("session", {
+          allowConcurrency: true
+        }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
           "session.json"
         ).then((x) => x.json());
         if (!session)
@@ -20993,7 +21108,10 @@ var Code = class {
   i = 0;
   syncKV(oldSession, newSess, message) {
     return (async () => await syncStorage2(
-      async (key, v) => await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true }),
+      async (key, v) => await this.kv.put(key, v, {
+        allowConcurrency: true,
+        allowUnconfirmed: true
+      }),
       async (key) => await this.kv.get(key, { allowConcurrency: true }),
       oldSession,
       newSess,
@@ -21049,7 +21167,11 @@ var Code = class {
             }
           });
         case "index.trans.js": {
-          const trp = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
+          const trp = await initAndTransform3(
+            mST2(this.codeSpace).code,
+            {},
+            url.origin
+          );
           return new Response(trp, {
             status: 200,
             headers: {
@@ -21065,7 +21187,9 @@ var Code = class {
         case "session.json":
         case "session": {
           if (path[1]) {
-            let session = await this.kv.get(path[1], { allowConcurrency: true });
+            let session = await this.kv.get(path[1], {
+              allowConcurrency: true
+            });
             if (session) {
               if (typeof session !== "string") {
                 session = JSON.stringify(session);
@@ -21182,11 +21306,17 @@ var Code = class {
                   reject(null);
                   return false;
                 }
-                initAndTransform3(mST2(this.codeSpace).code, {}, url.origin).then((transpiled2) => res(transpiled2));
+                initAndTransform3(mST2(this.codeSpace).code, {}, url.origin).then(
+                  (transpiled2) => res(transpiled2)
+                );
                 return true;
               })
             );
-            const trp2 = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
+            const trp2 = await initAndTransform3(
+              mST2(this.codeSpace).code,
+              {},
+              url.origin
+            );
             return new Response(trp2, {
               status: 200,
               headers: {
@@ -21200,7 +21330,11 @@ var Code = class {
             });
           }
           if (i2 < mST2(this.codeSpace).i) {
-            const trp2 = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
+            const trp2 = await initAndTransform3(
+              mST2(this.codeSpace).code,
+              {},
+              url.origin
+            );
             return new Response(trp2, {
               status: 307,
               headers: {
@@ -21213,7 +21347,11 @@ var Code = class {
               }
             });
           }
-          const trp = await initAndTransform3(mST2(this.codeSpace).code, {}, url.origin);
+          const trp = await initAndTransform3(
+            mST2(this.codeSpace).code,
+            {},
+            url.origin
+          );
           return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -21399,7 +21537,12 @@ sheet.addRule('h1', 'background: red;');
     this.sessions = this.sessions.filter((x) => !x.quit);
     const users = this.sessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
-      JSON.stringify({ hashCode: hashKEY2(this.codeSpace), i: mST2(this.codeSpace).i, users, type: "handshake" })
+      JSON.stringify({
+        hashCode: hashKEY2(this.codeSpace),
+        i: mST2(this.codeSpace).i,
+        users,
+        type: "handshake"
+      })
     );
     webSocket.addEventListener(
       "message",
@@ -21441,8 +21584,12 @@ sheet.addRule('h1', 'background: red;');
       const HEAD = hashKEY2(this.codeSpace);
       const commit = data.hashCode;
       while (commit && commit !== HEAD) {
-        const oldNode = await this.kv.get("" + commit, { allowConcurrency: true });
-        const newNode = await this.kv.get("" + oldNode.newHash, { allowConcurrency: true });
+        const oldNode = await this.kv.get("" + commit, {
+          allowConcurrency: true
+        });
+        const newNode = await this.kv.get("" + oldNode.newHash, {
+          allowConcurrency: true
+        });
         return respondWith({
           oldHash: commit,
           newHash: oldNode.newHash,
@@ -21478,7 +21625,9 @@ sheet.addRule('h1', 'background: red;');
             });
           }
           try {
-            await this.kv.put("session", newSess, { allowConcurrency: true });
+            await this.kv.put("session", newSess, {
+              allowConcurrency: true
+            });
             const { newHash, oldHash, patch, reversePatch } = data;
             await this.syncKV(oldSession, newSess, {
               newHash: +newHash,

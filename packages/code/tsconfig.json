@@ -73,7 +73,7 @@
   },
   "include": [
     "src/**/*",
-    "package.json",
+    "package.json"
   ],
   "exclude": [".yarn", "dist"]
 }

@@ -1,13 +1,13 @@
 import { Mutex } from "async-mutex";
 import { Record } from "immutable";
 // import { m } from "framer-motion";
-import localForage from "localforage";
 // import { S } from "memfs/lib/constants";
 // import { SEP } from "memfs/lib/node";
 import { str2ab } from "./sab";
-import { aPatch, CodePatch, CodeSession, ICodeSession, startSession, string_, syncStorage } from "./session";
+import { aPatch, CodePatch, CodeSession, db, ICodeSession, startSession, string_, syncStorage } from "./session";
 // import { CodeSession } from "./session";
 import type { Delta } from "./textDiff";
+import { initDb } from "./ws";
 
 // const hashStore: { [hash: string]: CodeSession } = {};
 const names: { [codeSpace: string]: string } = {};
@@ -44,7 +44,14 @@ function mST(codeSpace: string, p?: Delta[]) {
         ),
       )
       : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+    return sessions[codeSpace].session.get("state").merge({
+      i,
+      transpiled,
+      code,
+      html,
+      css,
+      codeSpace,
+    }).toObject();
   }
   return sessions[codeSpace].session.get("state").toObject();
 }
@@ -330,8 +337,10 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
       while (
         w.isOpen() && w.blockedMessages.length
       ) {
-        const mess: Partial<CodePatch & ICodeSession & { session: ICodeSession }> | undefined = w.blockedMessages
-          .shift();
+        const mess:
+          | Partial<CodePatch & ICodeSession & { session: ICodeSession }>
+          | undefined = w.blockedMessages
+            .shift();
         console.log({ mess });
         if (mess) {
           if (!mess.patch || (mess.patch && mess.i && mess.i > w.counterMax)) {
@@ -348,9 +357,19 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
                 console.error({ msg, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
-              const newRec = sessions[codeSpace].session.get("state").merge(newState);
-              sessions[codeSpace].session = sessions[codeSpace].session.set("state", newRec);
-              await db(codeSpace).syncDb(oldState, newState, { oldHash, newHash, patch, reversePatch });
+              const newRec = sessions[codeSpace].session.get("state").merge(
+                newState,
+              );
+              sessions[codeSpace].session = sessions[codeSpace].session.set(
+                "state",
+                newRec,
+              );
+              await db(codeSpace, initDb).syncDb(oldState, newState, {
+                oldHash,
+                newHash,
+                patch,
+                reversePatch,
+              });
             }
             const name = names[codeSpace];
             (() => {
@@ -366,11 +385,13 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
   };
 
   websocket.onmessage = async ({ data }: { data: string }) => {
-    const mess: Partial<CodePatch & ICodeSession & { hashCode: number }> | undefined = JSON.parse(data);
+    const mess:
+      | Partial<CodePatch & ICodeSession & { hashCode: number }>
+      | undefined = JSON.parse(data);
     if (!mess) return;
     if (!mess.patch || (mess.patch && mess.i && mess.i > w.counterMax)) {
       const wsHash = mess.hashCode || mess.newHash;
-      if (wsHash) await db(codeSpace).setItem("wsHash", wsHash);
+      if (wsHash) await db(codeSpace, initDb).setItem("wsHash", wsHash);
 
       if (mess.i) {
         {
@@ -382,20 +403,32 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
           const newState = mST(codeSpace, patch);
           const oldHash = hashCode(oldState);
           const newHash = hashCode(newState);
-          if (newHash !== wsHash || (mess.oldHash && oldHash !== mess.oldHash)) {
+          if (
+            newHash !== wsHash || (mess.oldHash && oldHash !== mess.oldHash)
+          ) {
             console.error({ mess, calculated: { oldHash, newHash } });
             throw ("Error - we messed up the hashStores");
           }
-          const newRec = sessions[codeSpace].session.get("state").merge(newState);
-          sessions[codeSpace].session = sessions[codeSpace].session.set("state", newRec);
-          await db(codeSpace).syncDb(oldState, newState, { oldHash, newHash, patch, reversePatch });
+          const newRec = sessions[codeSpace].session.get("state").merge(
+            newState,
+          );
+          sessions[codeSpace].session = sessions[codeSpace].session.set(
+            "state",
+            newRec,
+          );
+          await db(codeSpace, initDb).syncDb(oldState, newState, {
+            oldHash,
+            newHash,
+            patch,
+            reversePatch,
+          });
         }
 
         // const {oldHash, newHash, patch, reversePatch } = mess;
         // if (oldHash && newHash && reversePatch && patch) await syncDb();
       }
 
-      connections[codeSpace].map(x => ((ab) => x.postMessage(ab, [ab]))(str2ab(data)));
+      connections[codeSpace].map((x) => ((ab) => x.postMessage(ab, [ab]))(str2ab(data)));
     }
     if (mutex.isLocked()) {
       mutex.release();
@@ -483,65 +516,4 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
     //   // }
     // });
   };
-}
-
-const promises: { [codeSpace: string]: Promise<void> } = {};
-
-async function initDb(codeSpace: string) {
-  if (dbs[codeSpace]) return dbs[codeSpace];
-
-  promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`] || (async () => {
-    const db = localForage.createInstance({
-      name: `/live/${codeSpace}`,
-    });
-
-    let head = await db.getItem("head");
-    if (!head) {
-      await db.setItem("#" + String(hashCode), mST(codeSpace));
-      await db.setItem("head", sessions[codeSpace].hashOfState());
-      dbs[codeSpace] = db;
-    }
-  })();
-
-  await promises[`db-init-${codeSpace}`];
-  return dbs[codeSpace];
-}
-
-function db(codeSpace: string) {
-  const mod = {
-    syncDb: async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) => {
-      const { getItem, setItem } = mod;
-
-      const syncDb = async (
-        oldSession: ICodeSession,
-        newSession: ICodeSession,
-        message: CodePatch,
-      ) =>
-        await syncStorage(
-          setItem,
-          getItem,
-          oldSession,
-          newSession,
-          message,
-        );
-      return await syncDb(oldSession, newSession, message);
-    },
-    getItem: async (key: string) => {
-      dbs[codeSpace] || await initDb(codeSpace);
-      const db = localForage.createInstance({
-        name: `/live/${codeSpace}`,
-      });
-
-      return await db.getItem(key);
-    },
-    setItem: async (key: string, value: object | string | number) => {
-      dbs[codeSpace] || await initDb(codeSpace);
-      const db = localForage.createInstance({
-        name: `/live/${codeSpace}`,
-      });
-
-      return await db.setItem(key, value);
-    },
-  };
-  return mod;
 }

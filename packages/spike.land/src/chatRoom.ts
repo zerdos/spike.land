@@ -1,4 +1,4 @@
-import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session.d";
+import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session";
 import { hashKEY, makePatch, patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
 import { HTML, md5, mST, startSession } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
@@ -48,7 +48,10 @@ export class Code {
         async (
           key: string,
           v: object,
-        ) => (await this.kv.put(key, v, { allowConcurrency: true, allowUnconfirmed: true })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
+        ) => (await this.kv.put(key, v, {
+          allowConcurrency: true,
+          allowUnconfirmed: true,
+        })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
         async (key: string) => await this.kv.get(key, { allowConcurrency: true }),
         oldSession,
         newSess,
@@ -73,7 +76,9 @@ export class Code {
     this.state.blockConcurrencyWhile(async () => {
       try {
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
-        const session = await this.kv.get<ICodeSession>("session", { allowConcurrency: true })
+        const session = await this.kv.get<ICodeSession>("session", {
+          allowConcurrency: true,
+        })
           || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
             "session.json",
           ).then((x) => x.json());
@@ -91,7 +96,8 @@ export class Code {
         // if ( (head+1) !== Number(head)+1 ) {
         //   head =
         // }
-        this.address = await this.kv.get<string>("address", { allowConcurrency: true }) || "";
+        this.address = await this.kv.get<string>("address", { allowConcurrency: true })
+          || "";
 
         this.sess = session;
         this.codeSpace = session.codeSpace || "";
@@ -168,7 +174,11 @@ export class Code {
           });
 
         case "index.trans.js": {
-          const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
+          const trp = await initAndTransform(
+            mST(this.codeSpace).code,
+            {},
+            url.origin,
+          );
           return new Response(trp, {
             status: 200,
             headers: {
@@ -185,7 +195,9 @@ export class Code {
         case "session.json":
         case "session": {
           if (path[1]) {
-            let session = await this.kv.get<string | object>(path[1], { allowConcurrency: true });
+            let session = await this.kv.get<string | object>(path[1], {
+              allowConcurrency: true,
+            });
             if (session) {
               if (typeof session !== "string") {
                 session = JSON.stringify(session);
@@ -464,17 +476,25 @@ export class Code {
                 if (mST(this.codeSpace).i < Number(i) && started - now < 3000) {
                   return false;
                 }
-                if (mST(this.codeSpace).i < Number(i) && started - now >= 3000) {
+                if (
+                  mST(this.codeSpace).i < Number(i) && started - now >= 3000
+                ) {
                   reject(null);
                   return false;
                 }
 
-                initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(transpiled => res(transpiled));
+                initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(
+                  (transpiled) => res(transpiled),
+                );
                 return true;
               })
             );
 
-            const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
+            const trp = await initAndTransform(
+              mST(this.codeSpace).code,
+              {},
+              url.origin,
+            );
             return new Response(trp, {
               status: 200,
               headers: {
@@ -489,7 +509,11 @@ export class Code {
             });
           }
           if (i < mST(this.codeSpace).i) {
-            const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
+            const trp = await initAndTransform(
+              mST(this.codeSpace).code,
+              {},
+              url.origin,
+            );
             return new Response(trp, {
               status: 307,
               headers: {
@@ -503,7 +527,11 @@ export class Code {
               },
             });
           }
-          const trp = await initAndTransform(mST(this.codeSpace).code, {}, url.origin);
+          const trp = await initAndTransform(
+            mST(this.codeSpace).code,
+            {},
+            url.origin,
+          );
           return new Response(trp, {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -760,10 +788,15 @@ sheet.addRule('h1', 'background: red;');
       //   blockedMessages: [] as string[],
     };
     this.sessions.push(session);
-    this.sessions = this.sessions.filter(x => !x.quit);
-    const users = this.sessions.filter(x => x.name).map(x => x.name);
+    this.sessions = this.sessions.filter((x) => !x.quit);
+    const users = this.sessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
-      JSON.stringify({ hashCode: hashKEY(this.codeSpace), i: mST(this.codeSpace).i, users, type: "handshake" }),
+      JSON.stringify({
+        hashCode: hashKEY(this.codeSpace),
+        i: mST(this.codeSpace).i,
+        users,
+        type: "handshake",
+      }),
     );
 
     // this.sessions.forEach((otherSession) => {
@@ -816,7 +849,12 @@ sheet.addRule('h1', 'background: red;');
       name?: string;
       codeSpace?: string;
       target?: string;
-      type?: "new-ice-candidate" | "video-offer" | "video-answer" | "handshake" | "fetch";
+      type?:
+        | "new-ice-candidate"
+        | "video-offer"
+        | "video-answer"
+        | "handshake"
+        | "fetch";
       patch?: Delta[];
       reversePatch: Delta[];
       address?: string;
@@ -846,7 +884,7 @@ sheet.addRule('h1', 'background: red;');
         });
       }
 
-      this.sessions.filter(x => x.name === data.name).map(x => x.quit = true);
+      this.sessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
 
       session.name = name;
     }
@@ -855,8 +893,12 @@ sheet.addRule('h1', 'background: red;');
       const HEAD = hashKEY(this.codeSpace);
       const commit = data.hashCode;
       while (commit && commit !== HEAD) {
-        const oldNode = await this.kv.get<CodePatch>("" + commit, { allowConcurrency: true });
-        const newNode = await this.kv.get<CodePatch>("" + oldNode!.newHash, { allowConcurrency: true });
+        const oldNode = await this.kv.get<CodePatch>("" + commit, {
+          allowConcurrency: true,
+        });
+        const newNode = await this.kv.get<CodePatch>("" + oldNode!.newHash, {
+          allowConcurrency: true,
+        });
         return respondWith({
           oldHash: commit,
           newHash: oldNode!.newHash,
@@ -993,7 +1035,9 @@ sheet.addRule('h1', 'background: red;');
           // if (newHash === hashKEY()) {
 
           try {
-            await this.kv.put<ICodeSession>("session", newSess, { allowConcurrency: true });
+            await this.kv.put<ICodeSession>("session", newSess, {
+              allowConcurrency: true,
+            });
 
             const { newHash, oldHash, patch, reversePatch } = data;
 

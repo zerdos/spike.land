@@ -8,6 +8,7 @@ import adapter from "webrtc-adapter";
 import {
   applyPatch,
   type CodePatch,
+  db,
   type Delta,
   // type Delta,
   // CodeSession,
@@ -18,12 +19,11 @@ import {
   mST,
   //  onSessionUpdate,
   startSession,
-  syncStorage,
 } from "./session";
 
 import { Mutex } from "async-mutex";
 
-import localForage from "localforage";
+import { createInstance } from "localforage";
 
 // Import * as FS from '@isomorphic/-git/lightning-fs';
 
@@ -38,6 +38,31 @@ import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait";
+
+const promises: { [codeSpace: string]: Promise<void> } = {};
+const dbs: { [codeSpace: string]: LocalForage } = {};
+
+export async function initDb(codeSpace: string) {
+  if ([codeSpace]) return dbs[codeSpace];
+
+  promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`]
+    || (async () => {
+      const dbInstance = createInstance({
+        name: `/live/${codeSpace}`,
+      });
+
+      let head = await db(codeSpace, initDb).getItem("head");
+      if (!head) {
+        head = hashKEY(codeSpace);
+        await dbInstance.setItem("#" + String(head), mST(codeSpace));
+        await dbInstance.setItem("head", hashKEY(codeSpace));
+        dbs[codeSpace] = dbInstance;
+      }
+    })();
+
+  await promises[`db-init-${codeSpace}`];
+  return dbs[codeSpace];
+}
 
 // import { isBuffer } from "util";
 
@@ -268,7 +293,9 @@ const ws = {
 
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
-  const hash = Number(await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text());
+  const hash = Number(
+    await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text(),
+  );
   const head = await codeHistory.getItem<number>("head");
 
   const savedSess = await codeHistory.getItem<ICodeSession>("#" + String(head));
@@ -276,7 +303,7 @@ export const run = async () => {
   if (savedSess && head === hash) {
     _mst = savedSess;
   } else {
-    _mst = await fetch(`/live/${codeSpace}/session.json`).then(r => r.json());
+    _mst = await fetch(`/live/${codeSpace}/session.json`).then((r) => r.json());
   }
   const mst = _mst!;
   startSession(codeSpace, {
@@ -285,7 +312,9 @@ export const run = async () => {
   });
 
   const connectWithWorker = () => {
-    if (navigator && navigator.serviceWorker && navigator.serviceWorker.controller) {
+    if (
+      navigator && navigator.serviceWorker && navigator.serviceWorker.controller
+    ) {
       const messageChannel = new MessageChannel();
 
       navigator.serviceWorker.controller!.postMessage({
@@ -463,19 +492,19 @@ export const run = async () => {
 
 const ignoreUsers: string[] = [];
 
-const { getItem, setItem } = codeHistory;
-const syncDb = async (
-  oldSession: ICodeSession,
-  newSession: ICodeSession,
-  message: CodePatch,
-) =>
-  await syncStorage(
-    setItem,
-    getItem,
-    oldSession,
-    newSession,
-    message,
-  );
+// const { getItem, setItem } = codeHistory;
+// const syncDb = async (
+//   oldSession: ICodeSession,
+//   newSession: ICodeSession,
+//   message: CodePatch,
+// ) =>
+//   await syncStorage(
+//     setItem,
+//     getItem,
+//     oldSession,
+//     newSession,
+//     message,
+//   );
 // const hashOfOldSession = md5(oldSession.transpiled);
 // let historyHead = await codeHistory.getItem("head");
 // if (!historyHead) {
@@ -560,7 +589,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       ws.send(message);
 
-      await syncDb(oldSession, newSession, message);
+      await db(codeSpace, initDb).syncDb(oldSession, newSession, message);
 
       mutex.release();
     }
@@ -769,7 +798,7 @@ async function processData(
     applyPatch(data, codeSpace);
     const newSession = mST(codeSpace);
 
-    await syncDb(oldSession, newSession, data);
+    await db(codeSpace, initDb).syncDb(oldSession, newSession, data);
     //  X writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
     await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
 
@@ -1184,13 +1213,23 @@ async function handleNewICECandidateMessage(
 async function handleWorker(ev: MessageEvent, port: MessagePort) {
   console.log("ONMESSAGE", { data: ev.data });
   if (ev.data.type === "onconnect") {
-    console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
+    console.log("POST ONCONNECT", {
+      codeSpace,
+      name: user,
+      hashCode: mST(codeSpace),
+    });
     // messagePort = this;
     // const sess = mST(codeSpace);
     ws.send = (
       message: MessageProps,
     ) => {
-      const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
+      const messageData = {
+        name: user,
+        ...message,
+        codeSpace,
+        i: mST(codeSpace).i,
+        hashCode: hashKEY(codeSpace),
+      };
       console.log("POST MESSAGE", { messageData });
       if (
         messageData.oldHash && messageData.oldHash === messageData.newHash

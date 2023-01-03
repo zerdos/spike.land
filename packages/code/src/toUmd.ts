@@ -225,7 +225,9 @@ export const toUmd = async (source: string, name: string) => {
   globalThis.globalNames = globalThis.globalNames || {};
   globalThis.globalNames["${name}"] =  ${hash}  ;`;
 
-  mod.data[hash].deps = await Promise.all(findDeps(mod.data[hash].code).map((dep) => import.meta.resolve!(dep, name)));
+  mod.data[hash].deps = await Promise.all(
+    findDeps(mod.data[hash].code).map((dep) => import.meta.resolve!(dep, name)),
+  );
 
   await Promise.all(
     mod.data[hash].deps.map((depUrl) =>

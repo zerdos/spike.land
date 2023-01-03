@@ -25,7 +25,7 @@ const p = fs.promises;
 // const readdir = globalThis.fs.readdir;
 const origin = typeof location !== "undefined" ? location.origin : "";
 
-export const readdir = (filePath: string) => p.readdir(filePath).then(x => x.map(d => d.toString()));
+export const readdir = (filePath: string) => p.readdir(filePath).then((x) => x.map((d) => d.toString()));
 export const writeFile = (filePath: string, content: string | Uint8Array) => {
   console.log("write", filePath);
   return p.writeFile(

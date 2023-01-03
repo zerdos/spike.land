@@ -100,7 +100,14 @@ BC.onmessage = async ({ data }) => {
   if (html) {
     // window.removeEventListener("message", responseListener);
     if (signal.aborted) return;
-    const newSession = { ...mST(codeSpace), html, css, code: sess.code, transpiled: sess.transpiled, i };
+    const newSession = {
+      ...mST(codeSpace),
+      html,
+      css,
+      code: sess.code,
+      transpiled: sess.transpiled,
+      i,
+    };
     const jsonStr = JSON.stringify(newSession);
     const file = `/live/${codeSpace}/session.json`;
 

@@ -53,7 +53,7 @@ export const Editor: FC<
         ? setMonaco(container, codeSpace)
         : setAce(container)) as { setValue: (code: string) => null };
 
-      changeContent(x => ({ ...x, started: true, code, setValue }));
+      changeContent((x) => ({ ...x, started: true, code, setValue }));
     };
     start();
   }, [started, ref.current]);

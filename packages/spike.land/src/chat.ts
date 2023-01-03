@@ -325,7 +325,9 @@ const api: ExportedHandler<CodeEnv> = {
               );
 
               if (!kvResp.ok) {
-                request = new Request(request.url.replace(url.origin, url.origin + "/src"));
+                request = new Request(
+                  request.url.replace(url.origin, url.origin + "/src"),
+                );
                 kvResp = await getAssetFromKV(
                   {
                     request,
@@ -364,7 +366,10 @@ const api: ExportedHandler<CodeEnv> = {
               kvResp = new Response(kvResp.body, kvResp);
               const headers = new Headers(kvResp.headers);
               if (isChunk(request.url)) {
-                headers.set("Cache-Control", "public, max-age=604800, immutable");
+                headers.set(
+                  "Cache-Control",
+                  "public, max-age=604800, immutable",
+                );
               }
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
@@ -432,7 +437,10 @@ const api: ExportedHandler<CodeEnv> = {
             request = new Request(esmUrl, { redirect: "follow" });
             response = await fetch(request);
             if (!response.ok) {
-              request = new Request(new URL(newUrl.pathname, "https://raw.githubusercontent.com/").toString());
+              request = new Request(
+                new URL(newUrl.pathname, "https://raw.githubusercontent.com/")
+                  .toString(),
+              );
               response = await fetch(request);
 
               if (!response.ok) return response;

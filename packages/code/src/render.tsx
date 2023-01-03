@@ -11,7 +11,15 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 let i = 0;
 let controller = new AbortController();
-const mod: { [i: number]: { retry: number; rootEl: HTMLDivElement; root: Root; i: number; signal: AbortSignal } } = {};
+const mod: {
+  [i: number]: {
+    retry: number;
+    rootEl: HTMLDivElement;
+    root: Root;
+    i: number;
+    signal: AbortSignal;
+  };
+} = {};
 BC.onmessage = async ({ data }) => {
   if (data.transpiled) {
     if (i === data.i) return;
@@ -28,7 +36,13 @@ BC.onmessage = async ({ data }) => {
     // rootEl.style.height = "100%";
 
     // const root = createRoot(rootEl);
-    const myMod = mod[i] = { i, signal: controller.signal, root, rootEl, retry: 100 };
+    const myMod = mod[i] = {
+      i,
+      signal: controller.signal,
+      root,
+      rootEl,
+      retry: 100,
+    };
     // const r = createRoot(newRoot);
 
     if (myMod.signal.aborted) return;
@@ -66,7 +80,11 @@ BC.onmessage = async ({ data }) => {
 let root: Root;
 let rootEl: HTMLDivElement;
 
-export const render = async (_rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
+export const render = async (
+  _rootEl: HTMLDivElement,
+  App: FC,
+  codeSpace: string,
+) => {
   rootEl = _rootEl;
   root = createRoot(rootEl);
   root.render(<App />);
@@ -113,7 +131,8 @@ function mineFromCaches(html: string) {
         return null;
       }
     }).filter((x) =>
-      x && x.selectorText && x.selectorText.indexOf(key) !== -1 && html.indexOf(x.selectorText.slice(4, 11)) !== -1
+      x && x.selectorText && x.selectorText.indexOf(key) !== -1
+      && html.indexOf(x.selectorText.slice(4, 11)) !== -1
     )
       .map((x) => x!.cssText)
       // .filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)

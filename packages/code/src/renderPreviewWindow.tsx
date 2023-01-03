@@ -110,7 +110,9 @@ export const renderPreviewWindow = (
   if (singleton.started) return;
   singleton.started = true;
 
-  let rootEl: HTMLDivElement | null = document.querySelector(`#${codeSpace}-css`);
+  let rootEl: HTMLDivElement | null = document.querySelector(
+    `#${codeSpace}-css`,
+  );
   //
   // if (rootEl === null) return;
   // rootEl.style.height = "100%";

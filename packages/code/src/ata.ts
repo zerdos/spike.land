@@ -1,7 +1,9 @@
 import { tsx } from "detective-typescript";
 import { prettier } from "./prettier";
 
-export async function run({ code, originToUse }: { code: string; originToUse: string }) {
+export async function run(
+  { code, originToUse }: { code: string; originToUse: string },
+) {
   const impRes: {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};

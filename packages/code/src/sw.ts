@@ -259,7 +259,8 @@ const createResponse = async (request: Request) => {
     }
 
     if (
-      (url.pathname.indexOf(".ts") !== -1 || url.pathname.indexOf(".tsx") !== -1)
+      (url.pathname.indexOf(".ts") !== -1
+        || url.pathname.indexOf(".tsx") !== -1)
       && url.pathname.indexOf(".d.ts") === -1
     ) {
       const transformed = (await transform(await response.text(), {
