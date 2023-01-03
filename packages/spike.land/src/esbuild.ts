@@ -1,4 +1,4 @@
-import wasmFile from "esbuild-wasm/esbuild.wasm";
+import was from "esbuild-wasm/esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
 
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";
@@ -23,12 +23,10 @@ import { importMapReplace } from "../../code/dist/src/session.mjs";
 const mod = {
   init: false as (boolean | Promise<void>),
   initialize: () =>
-    mod.init || import(wasmFile).then((wasmModule) =>
-      initialize({
-        wasmModule,
-        worker: false,
-      })
-    ).then(() => mod.init = true) as Promise<void>,
+    mod.init || initialize({
+      wasmModule: was,
+      worker: false,
+    }).then(() => mod.init = true) as Promise<void>,
 };
 
 export const initAndTransform = async (
