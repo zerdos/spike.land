@@ -1684,9 +1684,11 @@ __metadata:
     events-browserify: "npm:^0.0.1"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
+    fetch-retry: "npm:^5.0.3"
     framer-motion: "npm:8.1.5"
     immutable: "npm:^4.2.1"
     is-callable: "npm:1.2.7"
+    isomorphic-fetch: "npm:^3.0.0"
     localforage: "npm:^1.10.0"
     logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.12"
@@ -5950,6 +5952,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fetch-retry@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "fetch-retry@npm:5.0.3"
+  checksum: c5984c71104db3aab018abe10fee0d9d000b2224839a15b45a7bfbb40a30136521c1984cf775b8665f8a2d1a8c3e5ca63a193a4f1c4500d10bdb2d729773444f
+  languageName: node
+  linkType: hard
+
 "figgy-pudding@npm:^3.5.1":
   version: 3.5.2
   resolution: "figgy-pudding@npm:3.5.2"
@@ -7651,6 +7660,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"isomorphic-fetch@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "isomorphic-fetch@npm:3.0.0"
+  dependencies:
+    node-fetch: "npm:^2.6.1"
+    whatwg-fetch: "npm:^3.4.1"
+  checksum: 30ea6c56465bb19f11e586b703583d364bea8587ef6dc5035a0e4ed6732e27e2fdcf7856fb4b22ed58ecc4a98aa7365a05530bf0eafbeaa3f727e7450bbf1425
+  languageName: node
+  linkType: hard
+
 "isomorphic-textencoder@npm:1.0.1":
   version: 1.0.1
   resolution: "isomorphic-textencoder@npm:1.0.1"
@@ -8882,6 +8901,20 @@ __metadata:
     typescript: "npm:^4.9.4"
   languageName: unknown
   linkType: soft
+
+"node-fetch@npm:^2.6.1":
+  version: 2.6.7
+  resolution: "node-fetch@npm:2.6.7"
+  dependencies:
+    whatwg-url: "npm:^5.0.0"
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 05c03fe66f38b9e349e691caf121b693a91adb41ab59c3af17d2c5f9d2f8d927c30b428e7c8049b739c674db06171117ba9d10dc72d6a2cf35ba8901dfb4de83
+  languageName: node
+  linkType: hard
 
 "node-forge@npm:^1":
   version: 1.3.1
@@ -11606,6 +11639,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tr46@npm:~0.0.3":
+  version: 0.0.3
+  resolution: "tr46@npm:0.0.3"
+  checksum: c670667f2df1c0983b48ee7e81d6013ab304f73573e9e4292233821b2219504307bedffc303c32df30813a9138114b8b084c81dea94fb68f08aca7770af98578
+  languageName: node
+  linkType: hard
+
 "treeify@npm:^1.1.0":
   version: 1.1.0
   resolution: "treeify@npm:1.1.0"
@@ -12083,6 +12123,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"webidl-conversions@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "webidl-conversions@npm:3.0.1"
+  checksum: 57c8c5fdd986be5432ea6adacd87d6757144289d3b48b33441e7310bd4f4f6d782dd34acbd74d61e923c142cc50333d27ba58235692fa7248541c0bcce2563e1
+  languageName: node
+  linkType: hard
+
 "webrtc-adapter@npm:^8.2.0":
   version: 8.2.0
   resolution: "webrtc-adapter@npm:8.2.0"
@@ -12096,6 +12143,23 @@ __metadata:
   version: 2.0.0
   resolution: "well-known-symbols@npm:2.0.0"
   checksum: b764dba042acf753bf31de5144867383a81904c8dbf6b4af2c9d52ed7f1cf3c516d49ce6075533c705903b8307eae4061891bee79fb7a8319390d5863f1ad4cb
+  languageName: node
+  linkType: hard
+
+"whatwg-fetch@npm:^3.4.1":
+  version: 3.6.2
+  resolution: "whatwg-fetch@npm:3.6.2"
+  checksum: 2752427eba29acff1469071044c3006d2a8800f45a2290a451b6c9dab762bd36767a571f15bfddcd1d6f86f27f7fd87364ed8dea7785cbf4782b70e263590cb9
+  languageName: node
+  linkType: hard
+
+"whatwg-url@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "whatwg-url@npm:5.0.0"
+  dependencies:
+    tr46: "npm:~0.0.3"
+    webidl-conversions: "npm:^3.0.0"
+  checksum: bd0cc6b75b84b3d032e30712e2f40eefbc07ecd14f093e87b2f81bb68bce10a3961e8eb646a7a8cc9c2352548fb501eeff668c8b2595fd7c6ea91d1406ce11ee
   languageName: node
   linkType: hard
 

@@ -2892,9 +2892,11 @@ var package_default = {
     "esbuild-wasm": "0.16.13",
     "events-browserify": "^0.0.1",
     "fast-diff": "1.2.0",
+    "fetch-retry": "^5.0.3",
     "framer-motion": "8.1.5",
     immutable: "^4.2.1",
     "is-callable": "1.2.7",
+    "isomorphic-fetch": "^3.0.0",
     localforage: "^1.10.0",
     logrocket: "^3.0.1",
     memfs: "^3.4.12",
@@ -20128,16 +20130,6 @@ function string_2(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name2(string_2, "string_");
-var makePatchFrom2 = /* @__PURE__ */ __name2((n, st, codeSpace) => ({
-  codeSpace,
-  i: st.i,
-  ...sessions2[codeSpace]?.createPatchFromHashCode(n, st)
-}), "makePatchFrom");
-var makePatch2 = /* @__PURE__ */ __name2((st, codeSpace) => ({
-  ...makePatchFrom2(hashKEY2(codeSpace), st, codeSpace),
-  codeSpace,
-  i: st.i
-}), "makePatch");
 var startSession2 = /* @__PURE__ */ __name2((codeSpace, u) => sessions2[codeSpace] || (sessions2[codeSpace] = new CodeSession2(codeSpace, {
   name: u.name,
   state: { ...u.state, codeSpace }
@@ -21066,7 +21058,7 @@ var Code = class {
     this.env = env;
     this.kv = state.storage;
     this.state = state;
-    this.head = "";
+    this.head = 0;
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;
@@ -21082,7 +21074,7 @@ var Code = class {
         ).then((x) => x.json());
         if (!session)
           throw Error("cant get the starter session");
-        this.head = await this.kv.get("head") || "";
+        this.head = await this.kv.get("head") || 0;
         this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
         this.sess = session;
         this.codeSpace = session.codeSpace || "";
@@ -21110,7 +21102,7 @@ var Code = class {
     (a, b) => a === b ? 0 : a < b ? 1 : -1,
     true
   );
-  head;
+  head = 0;
   waiting = [];
   sessions;
   i = 0;
@@ -21146,15 +21138,9 @@ var Code = class {
       this.sessionStarted = true;
     }
     if (typeof this.head !== "number") {
-      const headValue = await this.kv.get(this.head);
-      if (headValue) {
-        const oldSession = mST2(this.codeSpace, headValue.reversePatch);
-        const newSession = mST2(this.codeSpace);
-        patchSync2(oldSession, true);
-        const message = makePatch2(newSession);
-        patchSync2(newSession, true);
-        await this.syncKV(oldSession, newSession, message);
-      }
+      this.head = hashCode32(this.sess);
+      await this.kv.put("head", this.head);
+      await this.kv.put("#" + String(this.head), this.sess);
     }
     return handleErrors(request, async () => {
       const { code, transpiled, css, html, i } = mST2(this.codeSpace);

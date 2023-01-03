@@ -22,7 +22,7 @@ const mod: {
 } = {};
 BC.onmessage = async ({ data }) => {
   if (data.transpiled) {
-    if (i === data.i) return;
+    if (i === data.i || data.html) return;
     i = data.i;
 
     controller.abort();
@@ -64,10 +64,13 @@ BC.onmessage = async ({ data }) => {
           // root.unmount();
           // root = r;
           BC.postMessage({ html, css, i: data.i });
+          controller.abort();
           // root.unmount();
           return;
         }
-        if (m.retry-- > 0) check(m);
+        m.retry = m.retry - 1;
+
+        if (m.retry > 0) check(m);
         else {
           // root.unmount();
           return { html: "", css: "" };

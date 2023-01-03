@@ -4,6 +4,13 @@ export type {};
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
+
+var originalFetch = require("isomorphic-fetch");
+var fetch = require("fetch-retry")(originalFetch, {
+  retries: 3,
+  retryDelay: 800,
+});
+
 // import { renderToStream } from "./renderToStream";
 declare const self: ServiceWorkerGlobalScope;
 

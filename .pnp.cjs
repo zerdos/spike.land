@@ -2129,9 +2129,11 @@ const RAW_RUNTIME_STATE =
           ["events-browserify", "npm:0.0.1"],\
           ["fast-diff", "npm:1.2.0"],\
           ["fast-glob", "npm:3.2.12"],\
+          ["fetch-retry", "npm:5.0.3"],\
           ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.5"],\
           ["immutable", "npm:4.2.1"],\
           ["is-callable", "npm:1.2.7"],\
+          ["isomorphic-fetch", "npm:3.0.0"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.12"],\
@@ -2219,9 +2221,11 @@ const RAW_RUNTIME_STATE =
           ["events-browserify", "npm:0.0.1"],\
           ["fast-diff", "npm:1.2.0"],\
           ["fast-glob", "npm:3.2.12"],\
+          ["fetch-retry", "npm:5.0.3"],\
           ["framer-motion", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:8.1.5"],\
           ["immutable", "npm:4.2.1"],\
           ["is-callable", "npm:1.2.7"],\
+          ["isomorphic-fetch", "npm:3.0.0"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.12"],\
@@ -7661,6 +7665,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["fetch-retry", [\
+      ["npm:5.0.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/fetch-retry-npm-5.0.3-25867f01e0-9.zip/node_modules/fetch-retry/",\
+        "packageDependencies": [\
+          ["fetch-retry", "npm:5.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["figgy-pudding", [\
       ["npm:3.5.2", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/figgy-pudding-npm-3.5.2-2f4e3e1305-9.zip/node_modules/figgy-pudding/",\
@@ -9611,6 +9624,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["isomorphic-fetch", [\
+      ["npm:3.0.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/isomorphic-fetch-npm-3.0.0-bce711adff-9.zip/node_modules/isomorphic-fetch/",\
+        "packageDependencies": [\
+          ["isomorphic-fetch", "npm:3.0.0"],\
+          ["node-fetch", "virtual:bce711adff68a6cdf1561a45305ccbe56f7b2ce2f0cfd47cb36415e40898f689ab7e0e0a0b738617f4473953ed49e01b15d52d64826ea6cf70b1b898ac7b2fb6#npm:2.6.7"],\
+          ["whatwg-fetch", "npm:3.6.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["isomorphic-textencoder", [\
       ["npm:1.0.1", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/isomorphic-textencoder-npm-1.0.1-8203200106-9.zip/node_modules/isomorphic-textencoder/",\
@@ -10996,6 +11020,29 @@ const RAW_RUNTIME_STATE =
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
         ],\
         "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["node-fetch", [\
+      ["npm:2.6.7", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/node-fetch-npm-2.6.7-777aa2a6df-9.zip/node_modules/node-fetch/",\
+        "packageDependencies": [\
+          ["node-fetch", "npm:2.6.7"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:bce711adff68a6cdf1561a45305ccbe56f7b2ce2f0cfd47cb36415e40898f689ab7e0e0a0b738617f4473953ed49e01b15d52d64826ea6cf70b1b898ac7b2fb6#npm:2.6.7", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-4a377fafec/4/Users/z/.yarn/berry/cache/node-fetch-npm-2.6.7-777aa2a6df-9.zip/node_modules/node-fetch/",\
+        "packageDependencies": [\
+          ["node-fetch", "virtual:bce711adff68a6cdf1561a45305ccbe56f7b2ce2f0cfd47cb36415e40898f689ab7e0e0a0b738617f4473953ed49e01b15d52d64826ea6cf70b1b898ac7b2fb6#npm:2.6.7"],\
+          ["@types/encoding", null],\
+          ["encoding", null],\
+          ["whatwg-url", "npm:5.0.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/encoding",\
+          "encoding"\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["node-forge", [\
@@ -14137,6 +14184,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["tr46", [\
+      ["npm:0.0.3", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/tr46-npm-0.0.3-de53018915-9.zip/node_modules/tr46/",\
+        "packageDependencies": [\
+          ["tr46", "npm:0.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["treeify", [\
       ["npm:1.1.0", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/treeify-npm-1.1.0-abf9292333-9.zip/node_modules/treeify/",\
@@ -14677,6 +14733,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["webidl-conversions", [\
+      ["npm:3.0.1", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/webidl-conversions-npm-3.0.1-60310f6a2b-9.zip/node_modules/webidl-conversions/",\
+        "packageDependencies": [\
+          ["webidl-conversions", "npm:3.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["webrtc-adapter", [\
       ["npm:8.2.0", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/webrtc-adapter-npm-8.2.0-3d75ed65ad-9.zip/node_modules/webrtc-adapter/",\
@@ -14692,6 +14757,26 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../Users/z/.yarn/berry/cache/well-known-symbols-npm-2.0.0-16fb8dedc6-9.zip/node_modules/well-known-symbols/",\
         "packageDependencies": [\
           ["well-known-symbols", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["whatwg-fetch", [\
+      ["npm:3.6.2", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/whatwg-fetch-npm-3.6.2-4bdf324792-9.zip/node_modules/whatwg-fetch/",\
+        "packageDependencies": [\
+          ["whatwg-fetch", "npm:3.6.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["whatwg-url", [\
+      ["npm:5.0.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/whatwg-url-npm-5.0.0-374fb45e60-9.zip/node_modules/whatwg-url/",\
+        "packageDependencies": [\
+          ["whatwg-url", "npm:5.0.0"],\
+          ["tr46", "npm:0.0.3"],\
+          ["webidl-conversions", "npm:3.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\

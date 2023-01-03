@@ -1,5 +1,13 @@
 import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session";
-import { hashKEY, makePatch, patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
+import {
+  hashCode,
+  hashKEY,
+  makePatch,
+  patchSync,
+  resetCSS,
+  string_,
+  syncStorage,
+} from "../../code/dist/src/session.mjs";
 import { HTML, md5, mST, startSession } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -33,7 +41,7 @@ export class Code {
     (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
     true,
   );
-  head: "";
+  head = 0;
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
   i = 0;
@@ -63,7 +71,7 @@ export class Code {
     this.kv = state.storage;
     this.state = state;
 
-    this.head = "";
+    this.head = 0;
     this.sessionStarted = false;
     this.sessions = [];
     this.sess = null;
@@ -92,7 +100,7 @@ export class Code {
         //   session.css = s.css;
         // }
 
-        this.head = await this.kv.get("head") || "";
+        this.head = await this.kv.get("head") || 0;
         // if ( (head+1) !== Number(head)+1 ) {
         //   head =
         // }
@@ -142,16 +150,18 @@ export class Code {
     }
 
     if (typeof this.head !== "number") {
-      const headValue = await this.kv.get<CodePatch>(this.head);
-      if (headValue) {
-        const oldSession = mST(this.codeSpace, headValue.reversePatch);
-        const newSession = mST(this.codeSpace);
+      // const headValue = await this.kv.get<CodePatch>(this.head);
+      // if (headValue) {
+      this.head = hashCode(this.sess);
+      await this.kv.put("head", this.head);
+      await this.kv.put("#" + String(this.head), this.sess);
 
-        patchSync(oldSession, true);
-        const message = makePatch(newSession);
-        patchSync(newSession, true);
-        await this.syncKV(oldSession, newSession, message);
-      }
+      // const newSession = mST(this.codeSpace);
+
+      // patchSync(oldSession, true);
+      // const message = makePatch(newSession);
+      // patchSync(newSession, true);
+      // await this.syncKV(oldSession, newSession, message);
     }
 
     return handleErrors(request, async () => {
