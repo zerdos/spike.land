@@ -100,11 +100,11 @@ const createResponse = async (request: Request) => {
           const preRender = ${prerender ? "true" : "false"};
          (async ()=>{
 
-          try{
-            ModASSET_HASH = (await import("${url.origin}/live/${codeSpace}/index.mjs")).default;
-          } catch{
+          // try{
+            // ModASSET_HASH = (await import("${url.origin}/live/${codeSpace}/index.mjs")).default;
+          // } catch{
             ModASSET_HASH = (await import("${url.origin}/live/${codeSpace}/index.js")).default;
-          }
+          // }
           if (preRender){
             prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
           } else {
