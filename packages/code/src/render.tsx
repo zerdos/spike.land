@@ -13,19 +13,26 @@ let root: Root;
 
 BC.onmessage = async ({ data }) => {
   if (data.transpiled) {
+    console.log("rerender", data.i);
     const App: FC<{}> = (await import(
       createJsBlob(importMapReplace(data.transpiled, origin, origin))
     )).default;
-    root.render(<App />);
+    const newRoot = document.createElement("div");
+    newRoot.style.height = "100%";
+    const r = createRoot(newRoot);
+    r.render(<App />);
     requestAnimationFrame(async () => {
       let i = 100;
       while (i-- > 0) {
-        const html = document.getElementById("root")!.innerHTML;
+        const html = newRoot.innerHTML;
         if (html && html !== "") {
           const css = mineFromCaches();
           // root.unmount();
           console.log({ html, css, i: data.i });
-          return BC.postMessage({ html, css });
+          document.getElementById("root")?.appendChild(newRoot);
+          root.unmount();
+          root = r;
+          return BC.postMessage({ html, css, i: data.i });
         }
 
         await wait(10);
@@ -64,7 +71,7 @@ export const prerender = async (App: FC) => {
   return { html: "", css: "" };
 };
 
-function mineFromCaches() {
+function mineFromCaches(html) {
   const key = "css";
   // const key = cache.key;
   try {
