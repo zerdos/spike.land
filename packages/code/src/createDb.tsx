@@ -1,8 +1,8 @@
 import { createInstance } from "localforage";
 import { db, hashCode, ICodeSession, mST } from "./session";
 
-const promises: { [codeSpace: string]: Promise<void> } = {};
-const dbs: { [codeSpace: string]: LocalForage } = {};
+const promises: { [codeSpace: string]: Promise<void> } = globalThis.pppp = globalThis.pppp || {};
+const dbs: { [codeSpace: string]: LocalForage } = globalThis.dddd = globalThis.dddd || {};
 
 export async function initDb(codeSpace: string) {
   if (dbs[codeSpace]) return dbs[codeSpace];
