@@ -11,10 +11,10 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 let root: Root;
 let rootEl: HTMLDivElement;
-let i=0
+let i = 0;
 BC.onmessage = async ({ data }) => {
   if (data.transpiled) {
-    if (i===data.i) return
+    if (i === data.i) return;
     i = data.i;
     console.log("rerender", data.i);
     const App: FC<{}> = (await import(
