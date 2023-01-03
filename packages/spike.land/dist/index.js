@@ -48184,7 +48184,7 @@ var Code = class {
           <script type="module">
           import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST2(this.codeSpace).i}"
               
-              import {prerender} from "${url.origin}/src/render.mjs"
+            import {prerender} from "${url.origin}/src/render.mjs"
               
               
              const res = prerender(App).then(res=>window.parent.postMessage(res))

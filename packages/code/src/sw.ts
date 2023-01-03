@@ -55,7 +55,11 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
 
-  if (url.pathname.startsWith("/live") && url.pathname.endsWith("public")) {
+  const prerender = url.pathname.endsWith("prerender");
+  if (
+    url.pathname.startsWith("/live") && url.pathname.endsWith("public")
+    || url.pathname.endsWith("prerender")
+  ) {
     const paths = url.pathname.split("/");
     // return renderToStream("clock3");
     const codeSpace = paths[2];
@@ -80,22 +84,32 @@ const createResponse = async (request: Request) => {
         `
           <div id="root" data-i="${i}" style="height: 100%;">
 
-          <style>${css}</style>
+          ${
+          prerender ? "" : `<style>${css}</style>
           <div id="${codeSpace}-css" style="height: 100%;">
             ${html}
-          </div>
+          </div>`
+        }
+          
           </div>
           <script type="module">
 
-          import {render} from "${url.origin}/src/render.mjs";
+          import {render, prerender} from "${url.origin}/src/render.mjs";
        
           ${js}
          
 
-          const rootEl = document.getElementById("${codeSpace}-css");
+              
+              
           
-          render(rootEl, ModASSET_HASH, "${codeSpace}");          
-      
+          const preRender = ${prerender};
+
+          if (preRender){
+          prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
+          } else {
+            const rootEl = document.getElementById("${codeSpace}-css");
+            render(rootEl, ModASSET_HASH, "${codeSpace}");          
+          }
           </script>`,
       ).split("ASSET_HASH").join(ASSET_HASH);
 
