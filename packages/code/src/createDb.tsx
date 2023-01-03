@@ -8,7 +8,7 @@ export async function initDb(codeSpace: string) {
   if (dbs[codeSpace]) return dbs[codeSpace];
 
   promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`]
-    || (async () => {
+    || await (async () => {
       const dbInstance = createInstance({
         name: `/live/${codeSpace}`,
       });
@@ -25,8 +25,8 @@ export async function initDb(codeSpace: string) {
         head = hashCode(session);
         await dbInstance.setItem("#" + String(head), session);
         await dbInstance.setItem("head", head);
-        dbs[codeSpace] = dbInstance;
       }
+      dbs[codeSpace] = dbInstance;
     })();
 
   await promises[`db-init-${codeSpace}`];
