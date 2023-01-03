@@ -30356,7 +30356,7 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-7TVB3SWS.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-X27MZ3HA.mjs
 init_chunk_chunk_R63P5I6G();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -38525,7 +38525,7 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-7TVB3SWS.mjs
+// ../code/dist/src/chunk-chunk-X27MZ3HA.mjs
 init_chunk_chunk_R63P5I6G2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
@@ -46591,10 +46591,10 @@ var syncStorage2 = /* @__PURE__ */ __name2(async (_setItem, _getItem, oldSession
   const setItem = /* @__PURE__ */ __name2((k, v) => _setItem("#" + String(k), v), "setItem");
   const getItem = /* @__PURE__ */ __name2((k) => _getItem("#" + String(k)), "getItem");
   const hashOfOldSession = Record3(oldSession)().hashCode();
-  let historyHead = await _getItem("head");
+  let historyHead = await getItem("head");
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
-    await _setItem("head", hashOfOldSession);
+    await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
   await setItem(message.newHash, {

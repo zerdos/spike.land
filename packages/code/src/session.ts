@@ -98,10 +98,10 @@ export const syncStorage = async (
       { oldHash: number; reversePatch?: typeof message.reversePatch }
     >;
   const hashOfOldSession = Record(oldSession)().hashCode();
-  let historyHead = (await _getItem("head")) as unknown as number;
+  let historyHead = (await getItem("head")) as unknown as number;
   if (!historyHead) {
     await setItem(hashOfOldSession, oldSession);
-    await _setItem("head", hashOfOldSession);
+    await setItem("head", hashOfOldSession);
     historyHead = hashOfOldSession;
   }
 
