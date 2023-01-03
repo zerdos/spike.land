@@ -284,7 +284,7 @@ export const onConnectToClients = (me: ServiceWorkerGlobalScope) => {
   //   if (event.data && event.data.type === "INIT_PORT") {
   //     const port = event.ports[0];
 
-  BC.onmessage = (e) => e.type == "onconnect" && onMessage(e.data.port, e.data);
+  BC.onmessage = (e) => e.type == "onconnect" && onMessage(e.ports[0], e.data);
   BC.postMessage({ type: "onconnect", connections: ++iii });
 };
 
