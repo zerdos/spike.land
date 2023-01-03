@@ -2,11 +2,13 @@
 import { transform } from "./esmTransform";
 export type {};
 import { readFile } from "./fs";
-import { HTML, importMapReplace, md5, resetCSS } from "./session";
+import { HTML, md5, resetCSS } from "./session";
+import { onConnectToClients } from "./sharedWorker";
 // import { renderToStream } from "./renderToStream";
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener("activate", () => {
+  onConnectToClients(self);
   // globalThis.fs = new FS(location.origin);
 
   // const bc = new BroadcastChannel(location.origin);

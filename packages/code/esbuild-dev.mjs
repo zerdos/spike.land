@@ -241,8 +241,8 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "src/sw.ts",
-      "src/ata.worker.ts",
-      "src/prettier.worker.ts",
+      "src/ataWorker.ts",
+      "src/prettierWorker.ts",
       "src/sharedWorker.ts",
       // "src/fs.worker.ts",
     ],

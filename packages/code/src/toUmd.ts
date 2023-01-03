@@ -181,7 +181,7 @@ export const toUmd = async (source: string, name: string) => {
 
         loader: "ts",
         globalName: hash,
-      })).code,
+      }, origin)).code,
       deps: [],
     };
   } catch {
@@ -216,7 +216,7 @@ export const toUmd = async (source: string, name: string) => {
 
         loader: "tsx",
         globalName: hash,
-      })).code,
+      }, origin)).code,
       deps: [],
     };
   }
@@ -225,7 +225,7 @@ export const toUmd = async (source: string, name: string) => {
   globalThis.globalNames = globalThis.globalNames || {};
   globalThis.globalNames["${name}"] =  ${hash}  ;`;
 
-  mod.data[hash].deps = findDeps(mod.data[hash].code).map((dep) => import.meta.resolve!(dep, name));
+  mod.data[hash].deps = await Promise.all(findDeps(mod.data[hash].code).map((dep) => import.meta.resolve!(dep, name)));
 
   await Promise.all(
     mod.data[hash].deps.map((depUrl) =>

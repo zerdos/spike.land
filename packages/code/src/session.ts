@@ -1,3 +1,4 @@
+import { Mutex } from "async-mutex";
 import { Record } from "immutable";
 import imap from "./importMap";
 import HTML from "./index.html";
@@ -9,7 +10,7 @@ import { applyPatch as aPatch, createDelta } from "./textDiff";
 export { esmTransform } from "./esmTran";
 export const importMap = { imports: imap.imports };
 // Import * as Immutable from "immutable"
-
+export { aPatch, createDelta };
 type IUsername = string;
 
 export { HTML };
@@ -75,13 +76,14 @@ type SetItem<T> = (
 ) => Promise<T>;
 
 type GetItem<T> = (
-  key: string | number,
+  key: string,
   callback?: (err: any, value: T | null) => void,
 ) => Promise<T | null>;
 
+const storageMutex = new Mutex();
 export const syncStorage = async (
-  _setItem: SetItem<Partial<CodePatch | ICodeSession> | number>,
-  _getItem: GetItem<Partial<CodePatch | ICodeSession> | number>,
+  _setItem: SetItem<Partial<CodePatch | ICodeSession> | number | string>,
+  _getItem: GetItem<Partial<CodePatch | ICodeSession> | number | string>,
   oldSession: ICodeSession,
   newSession: ICodeSession,
   message: {
@@ -91,50 +93,52 @@ export const syncStorage = async (
     patch: Delta[];
   },
 ) => {
-  const setItem = (k, v) => _setItem("#" + String(k), v);
+  storageMutex.runExclusive(async () => {
+    const setItem = (k: number, v: object) => _setItem("#" + String(k), v);
 
-  const getItem = (k: number) =>
-    _getItem("#" + String(k)) as unknown as GetItem<
-      { oldHash: number; reversePatch?: typeof message.reversePatch }
-    >;
-  const hashOfOldSession = Record(oldSession)().hashCode();
-  let historyHead = (await getItem("head")) as unknown as number;
-  if (!historyHead) {
-    await setItem(hashOfOldSession, oldSession);
-    await setItem("head", hashOfOldSession);
-    historyHead = hashOfOldSession;
-  }
+    const getItem = (k: number) =>
+      _getItem("#" + String(k)) as unknown as GetItem<
+        { oldHash: number; reversePatch?: typeof message.reversePatch }
+      >;
+    const hashOfOldSession = Record(oldSession)().hashCode();
+    let historyHead = (await _getItem("head")) as unknown as number;
+    if (!historyHead) {
+      await setItem(hashOfOldSession, oldSession);
+      await _setItem("head", hashOfOldSession);
+      historyHead = hashOfOldSession;
+    }
 
-  await setItem(message.newHash, {
-    ...newSession,
-    oldHash: message.oldHash,
-    reversePatch: message.reversePatch,
+    await setItem(message.newHash, {
+      ...newSession,
+      oldHash: message.oldHash,
+      reversePatch: message.reversePatch,
+    });
+    // await setItem(message.oldHash, {
+    //   ...oldSession,
+    //   newHash: message.newHash,
+    //   patch: message.patch,
+    // });
+    const oldNode = (await getItem(historyHead)) as unknown as ICodeSession & Partial<CodePatch>;
+    // if (!oldNode) throw Error("corrupt storage");
+    await setItem(historyHead, {
+      newHash: message.newHash,
+      patch: message.patch,
+
+      ...(oldNode
+        ? {
+          i: oldNode.i,
+          oldHash: oldNode.oldHash,
+          reversePatch: oldNode.reversePatch,
+        }
+        : {
+          code: oldSession.code,
+          transpiled: oldSession.transpiled,
+          html: oldSession.html,
+          css: oldSession.css,
+        }),
+    });
+    await _setItem("head", message.newHash);
   });
-  // await setItem(message.oldHash, {
-  //   ...oldSession,
-  //   newHash: message.newHash,
-  //   patch: message.patch,
-  // });
-  const oldNode = (await getItem(historyHead)) as unknown as CodePatch;
-  // if (!oldNode) throw Error("corrupt storage");
-  await setItem(historyHead, {
-    newHash: message.newHash,
-    patch: message.patch,
-
-    ...(oldNode
-      ? {
-        i: oldNode.i,
-        oldHash: oldNode.oldHash,
-        reversePatch: oldNode.reversePatch,
-      }
-      : {
-        code: oldSession.code,
-        transpiled: oldSession.transpiled,
-        html: oldSession.html,
-        css: oldSession.css,
-      }),
-  });
-  await setItem("head", message.newHash);
 };
 
 export type CodePatch = {
@@ -347,7 +351,7 @@ export class CodeSession implements ICodeSess {
   }: CodePatch) => {
     if (!(oldHash && newHash && patch.length)) return;
     // const codeSpace = this.room || "";
-    hashStore[hashCode(this.room)] = this.session.get("state");
+    hashStore[hashKEY(this.room)] = this.session.get("state");
     let maybeOldRec = hashStore[oldHash];
     // try {
     //   if (!maybeOldRec) {
@@ -450,22 +454,23 @@ export class CodeSession implements ICodeSess {
   }
 }
 export const hashKEY = (codeSpace: string) => sessions[codeSpace].session.get("state").hashCode();
-export const hashCode = (codeSpace: string) => md5(mST(codeSpace).transpiled);
 export function mST(codeSpace: string, p?: Delta[]) {
-  // If (originStr) return addOrigin(session.json().state, originStr);
-  const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+  if (p && p.length) {
+    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
 
-  const { i, transpiled, code, html, css }: ICodeSession = p
-    ? JSON.parse(
-      aPatch(
-        string_(
-          sessAsJs,
+    const { i, transpiled, code, html, css }: ICodeSession = p
+      ? JSON.parse(
+        aPatch(
+          string_(
+            sessAsJs,
+          ),
+          p,
         ),
-        p,
-      ),
-    )
-    : sessAsJs;
-  return { i, transpiled, code, html, css, codeSpace };
+      )
+      : sessAsJs;
+    return sessions[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+  }
+  return sessions[codeSpace].session.get("state").toObject();
 }
 
 // function addOrigin(s: ICodeSession, originString: string) {
@@ -499,12 +504,14 @@ export const onSessionUpdate = (
 export const makePatchFrom = (
   n: number,
   st: ICodeSession,
+  codeSpace: string,
   // update?: (h: string) => void,
-) => ({ codeSpace: st.codeSpace, i: st.i, ...sessions[st.codeSpace].createPatchFromHashCode(n, st) });
+) => ({ codeSpace, i: st.i, ...(sessions[codeSpace].createPatchFromHashCode(n, st)) });
 export const makePatch = (
   st: ICodeSession,
+  codeSpace: string,
   // update?: (h: string) => void,
-) => ({ ...makePatchFrom(hashKEY(st.codeSpace), st), codeSpace: st.codeSpace, i: st.i });
+) => ({ ...makePatchFrom(hashKEY(codeSpace), st, codeSpace), codeSpace, i: st.i });
 
 export const startSession = (
   codeSpace: string,

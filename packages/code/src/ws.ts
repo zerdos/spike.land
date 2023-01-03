@@ -30,7 +30,7 @@ import localForage from "localforage";
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 // import { esmTransform } from "runner";
-import { mkdir, readdir, readFile, unlink, writeFile } from "./fs";
+import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -48,11 +48,13 @@ const users = new AVLTree(
   true,
 );
 
-const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
+// const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
 
-const sharedWorker = new SharedWorker(
-  "/sharedWorker.js?ree=" + shHash,
-);
+// const sharedWorker = new SharedWorker(
+//   "/sharedWorker.js?ree=" + shHash,
+// );
+
+const messageChannel = new MessageChannel();
 
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 const user = md5(((self && self.crypto && self.crypto.randomUUID
@@ -246,6 +248,7 @@ type MessageProps = Partial<{
   i?: number;
   code?: string;
   transpiled?: string;
+  session: ICodeSession;
   sess?: ICodeSession;
   type?: string;
   target?: string;
@@ -268,7 +271,60 @@ const ws = {
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
   const hash = Number(await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text());
-  const head = await codeHistory.getItem<string>("head");
+  const head = await codeHistory.getItem<number>("head");
+
+  const savedSess = await codeHistory.getItem<ICodeSession>("#" + String(head));
+  let _mst: ICodeSession | null;
+  if (savedSess && head === hash) {
+    _mst = savedSess;
+  } else {
+    _mst = await fetch(`/live/${codeSpace}/session.json`).then(r => r.json());
+  }
+  const mst = _mst!;
+  startSession(codeSpace, {
+    name: user,
+    state: mst,
+  });
+
+  navigator.serviceWorker.controller!.postMessage({
+    type: "INIT_PORT",
+  }, [messageChannel.port2]);
+
+  messageChannel.port1.onmessage = async (ev) => {
+    console.log("ONMESSAGE", { data: ev.data });
+    if (ev.data.type === "onconnect") {
+      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
+      // messagePort = this;
+      // const sess = mST(codeSpace);
+      ws.send = (
+        message: MessageProps,
+      ) => {
+        const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
+        console.log("POST MESSAGE", { messageData });
+        if (
+          messageData.oldHash && messageData.oldHash === messageData.newHash
+        ) return;
+        messageChannel.port1.postMessage(messageData);
+      };
+      ws.send({ type: "handshake", session: mST(codeSpace) });
+
+      while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
+    } else {
+      let data;
+      try {
+        data = JSON.parse(ab2str(ev.data));
+      } catch (err) {
+        console.error("not a buff", { err, data: ev.data });
+      }
+      try {
+        await processData(data, "ws");
+        console.log("its a buffer", { data });
+      } catch (err) {
+        console.error("process error", { err, data: ev.data });
+      }
+      // }
+    }
+  };
 
   const root = (await readdir("/"));
 
@@ -280,14 +336,10 @@ export const run = async () => {
   // else console.log("dir already )(exists")
   const cs = await readdir(`/live/${codeSpace}`);
   // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
-  let mst = await fetch(`/live/${codeSpace}/session.json`).then(r => r.json());
 
-  let hST: ICodeSession | null = null;
-  if (head) {
-    hST = await codeHistory.getItem<ICodeSession>(head)!;
-  }
+  // let hST: ICodeSession | null = null;
 
-  if (hST && hST.i > mst.i) mst = hST!;
+  // if (hST && hST.i > mst.i) mst = hST!;
 
   if (cs.includes("index.js")) {
     unlink(`/live/${codeSpace}/index.js`);
@@ -336,47 +388,6 @@ export const run = async () => {
   // wsLastHashCode = md5(mst.transpiled);
   // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
 
-  startSession(codeSpace, {
-    name: user,
-    state: mst,
-  });
-
-  sharedWorker.port.onmessage = async (ev) => {
-    console.log("ONMESSAGE", { data: ev.data });
-    if (ev.data.type === "onconnect") {
-      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
-      // messagePort = this;
-      // const sess = mST(codeSpace);
-      ws.send = (
-        message: MessageProps,
-      ) => {
-        const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
-        console.log("POST MESSAGE", { messageData });
-        if (
-          messageData.oldHash && messageData.oldHash === messageData.newHash
-        ) return;
-        sharedWorker.port.postMessage(messageData);
-      };
-      ws.send({ type: "handshake" });
-
-      while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
-    } else {
-      let data;
-      try {
-        data = JSON.parse(ab2str(ev.data));
-      } catch (err) {
-        console.error("not a buff", { err, data: ev.data });
-      }
-      try {
-        await processData(data, "ws");
-        console.log("its a buffer", { data });
-      } catch (err) {
-        console.error("process error", { err, data: ev.data });
-      }
-      // }
-    }
-  };
-  sharedWorker.port.start();
   // sharedWorker.port.postMessage({ codeSpace, type: "handshake", i: mST(codeSpace).i, name: user, hashCode: hashKEY(codeSpace) });
 
   // }, location.origin);
@@ -544,6 +555,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       console.log("alive3");
       const message = makePatch(
         newSession,
+        codeSpace,
       );
 
       console.log("alive4");

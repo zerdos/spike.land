@@ -3205,7 +3205,7 @@ var package_default = {
     "esbuild-wasm": "0.16.13",
     "events-browserify": "^0.0.1",
     "fast-diff": "1.2.0",
-    "framer-motion": "8.1.3",
+    "framer-motion": "8.1.4",
     immutable: "^4.2.1",
     "is-callable": "1.2.7",
     localforage: "^1.10.0",
@@ -3279,7 +3279,7 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-Y44D2IUE.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-646QYNUW.mjs
 init_chunk_chunk_HO2SKUQW();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
@@ -6315,6 +6315,190 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
   }
 });
 init_define_process();
+init_define_process();
+var E_TIMEOUT = new Error("timeout while waiting for mutex to become available");
+var E_ALREADY_LOCKED = new Error("mutex already locked");
+var E_CANCELED = new Error("request for lock canceled");
+var __awaiter$2 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  __name(adopt, "adopt");
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name(fulfilled, "fulfilled");
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name(rejected, "rejected");
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    __name(step, "step");
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Semaphore = class {
+  constructor(_value, _cancelError = E_CANCELED) {
+    this._value = _value;
+    this._cancelError = _cancelError;
+    this._weightedQueues = [];
+    this._weightedWaiters = [];
+  }
+  acquire(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve, reject) => {
+      if (!this._weightedQueues[weight - 1])
+        this._weightedQueues[weight - 1] = [];
+      this._weightedQueues[weight - 1].push({ resolve, reject });
+      this._dispatch();
+    });
+  }
+  runExclusive(callback, weight = 1) {
+    return __awaiter$2(this, void 0, void 0, function* () {
+      const [value, release] = yield this.acquire(weight);
+      try {
+        return yield callback(value);
+      } finally {
+        release();
+      }
+    });
+  }
+  waitForUnlock(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve) => {
+      if (!this._weightedWaiters[weight - 1])
+        this._weightedWaiters[weight - 1] = [];
+      this._weightedWaiters[weight - 1].push(resolve);
+      this._dispatch();
+    });
+  }
+  isLocked() {
+    return this._value <= 0;
+  }
+  getValue() {
+    return this._value;
+  }
+  setValue(value) {
+    this._value = value;
+    this._dispatch();
+  }
+  release(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    this._value += weight;
+    this._dispatch();
+  }
+  cancel() {
+    this._weightedQueues.forEach((queue) => queue.forEach((entry) => entry.reject(this._cancelError)));
+    this._weightedQueues = [];
+  }
+  _dispatch() {
+    var _a;
+    for (let weight = this._value; weight > 0; weight--) {
+      const queueEntry = (_a = this._weightedQueues[weight - 1]) === null || _a === void 0 ? void 0 : _a.shift();
+      if (!queueEntry)
+        continue;
+      const previousValue = this._value;
+      const previousWeight = weight;
+      this._value -= weight;
+      weight = this._value + 1;
+      queueEntry.resolve([previousValue, this._newReleaser(previousWeight)]);
+    }
+    this._drainUnlockWaiters();
+  }
+  _newReleaser(weight) {
+    let called = false;
+    return () => {
+      if (called)
+        return;
+      called = true;
+      this.release(weight);
+    };
+  }
+  _drainUnlockWaiters() {
+    for (let weight = this._value; weight > 0; weight--) {
+      if (!this._weightedWaiters[weight - 1])
+        continue;
+      this._weightedWaiters[weight - 1].forEach((waiter) => waiter());
+      this._weightedWaiters[weight - 1] = [];
+    }
+  }
+};
+__name(Semaphore, "Semaphore");
+var __awaiter$1 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  __name(adopt, "adopt");
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name(fulfilled, "fulfilled");
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name(rejected, "rejected");
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    __name(step, "step");
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Mutex = class {
+  constructor(cancelError) {
+    this._semaphore = new Semaphore(1, cancelError);
+  }
+  acquire() {
+    return __awaiter$1(this, void 0, void 0, function* () {
+      const [, releaser] = yield this._semaphore.acquire();
+      return releaser;
+    });
+  }
+  runExclusive(callback) {
+    return this._semaphore.runExclusive(() => callback());
+  }
+  isLocked() {
+    return this._semaphore.isLocked();
+  }
+  waitForUnlock() {
+    return this._semaphore.waitForUnlock();
+  }
+  release() {
+    if (this._semaphore.isLocked())
+      this._semaphore.release();
+  }
+  cancel() {
+    return this._semaphore.cancel();
+  }
+};
+__name(Mutex, "Mutex");
 init_define_process();
 var DELETE = "delete";
 var SHIFT = 5;
@@ -11273,6 +11457,7 @@ function initSession(room, u) {
   return Record({ ...u, room, state: Record(u.state)() });
 }
 __name(initSession, "initSession");
+var storageMutex = new Mutex();
 var sessions = {};
 var hashStore = {};
 var CodeSession = class {
@@ -11282,9 +11467,9 @@ var CodeSession = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode42 = state.hashCode();
-      hashStore[hashCode42] = state;
-      return hashCode42;
+      const hashCode32 = state.hashCode();
+      hashStore[hashCode32] = state;
+      return hashCode32;
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_(state));
@@ -11360,7 +11545,7 @@ var CodeSession = class {
     }) => {
       if (!(oldHash && newHash && patch.length))
         return;
-      hashStore[hashCode3(this.room)] = this.session.get("state");
+      hashStore[hashKEY(this.room)] = this.session.get("state");
       let maybeOldRec = hashStore[oldHash];
       if (!maybeOldRec)
         throw new Error(`cant find old record: ${oldHash}`);
@@ -11413,18 +11598,20 @@ var CodeSession = class {
 };
 __name(CodeSession, "CodeSession");
 var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace].session.get("state").hashCode(), "hashKEY");
-var hashCode3 = /* @__PURE__ */ __name((codeSpace) => md5(mST(codeSpace).transpiled), "hashCode");
 function mST(codeSpace, p) {
-  const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p ? JSON.parse(
-    applyPatch(
-      string_(
-        sessAsJs
-      ),
-      p
-    )
-  ) : sessAsJs;
-  return { i, transpiled, code, html, css, codeSpace };
+  if (p && p.length) {
+    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+    const { i, transpiled, code, html, css } = p ? JSON.parse(
+      applyPatch(
+        string_(
+          sessAsJs
+        ),
+        p
+      )
+    ) : sessAsJs;
+    return sessions[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+  }
+  return sessions[codeSpace].session.get("state").toObject();
 }
 __name(mST, "mST");
 function string_(s) {
@@ -11449,7 +11636,7 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-Y44D2IUE.mjs
+// ../code/dist/src/chunk-chunk-646QYNUW.mjs
 init_chunk_chunk_HO2SKUQW2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
@@ -14485,6 +14672,190 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
   }
 });
 init_define_process2();
+init_define_process2();
+var E_TIMEOUT2 = new Error("timeout while waiting for mutex to become available");
+var E_ALREADY_LOCKED2 = new Error("mutex already locked");
+var E_CANCELED2 = new Error("request for lock canceled");
+var __awaiter$22 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  __name2(adopt, "adopt");
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name2(fulfilled, "fulfilled");
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name2(rejected, "rejected");
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    __name2(step, "step");
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Semaphore2 = class {
+  constructor(_value, _cancelError = E_CANCELED2) {
+    this._value = _value;
+    this._cancelError = _cancelError;
+    this._weightedQueues = [];
+    this._weightedWaiters = [];
+  }
+  acquire(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve, reject) => {
+      if (!this._weightedQueues[weight - 1])
+        this._weightedQueues[weight - 1] = [];
+      this._weightedQueues[weight - 1].push({ resolve, reject });
+      this._dispatch();
+    });
+  }
+  runExclusive(callback, weight = 1) {
+    return __awaiter$22(this, void 0, void 0, function* () {
+      const [value, release] = yield this.acquire(weight);
+      try {
+        return yield callback(value);
+      } finally {
+        release();
+      }
+    });
+  }
+  waitForUnlock(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    return new Promise((resolve) => {
+      if (!this._weightedWaiters[weight - 1])
+        this._weightedWaiters[weight - 1] = [];
+      this._weightedWaiters[weight - 1].push(resolve);
+      this._dispatch();
+    });
+  }
+  isLocked() {
+    return this._value <= 0;
+  }
+  getValue() {
+    return this._value;
+  }
+  setValue(value) {
+    this._value = value;
+    this._dispatch();
+  }
+  release(weight = 1) {
+    if (weight <= 0)
+      throw new Error(`invalid weight ${weight}: must be positive`);
+    this._value += weight;
+    this._dispatch();
+  }
+  cancel() {
+    this._weightedQueues.forEach((queue) => queue.forEach((entry) => entry.reject(this._cancelError)));
+    this._weightedQueues = [];
+  }
+  _dispatch() {
+    var _a;
+    for (let weight = this._value; weight > 0; weight--) {
+      const queueEntry = (_a = this._weightedQueues[weight - 1]) === null || _a === void 0 ? void 0 : _a.shift();
+      if (!queueEntry)
+        continue;
+      const previousValue = this._value;
+      const previousWeight = weight;
+      this._value -= weight;
+      weight = this._value + 1;
+      queueEntry.resolve([previousValue, this._newReleaser(previousWeight)]);
+    }
+    this._drainUnlockWaiters();
+  }
+  _newReleaser(weight) {
+    let called = false;
+    return () => {
+      if (called)
+        return;
+      called = true;
+      this.release(weight);
+    };
+  }
+  _drainUnlockWaiters() {
+    for (let weight = this._value; weight > 0; weight--) {
+      if (!this._weightedWaiters[weight - 1])
+        continue;
+      this._weightedWaiters[weight - 1].forEach((waiter) => waiter());
+      this._weightedWaiters[weight - 1] = [];
+    }
+  }
+};
+__name2(Semaphore2, "Semaphore");
+var __awaiter$12 = function(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function(resolve) {
+      resolve(value);
+    });
+  }
+  __name2(adopt, "adopt");
+  return new (P || (P = Promise))(function(resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name2(fulfilled, "fulfilled");
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    __name2(rejected, "rejected");
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    __name2(step, "step");
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var Mutex2 = class {
+  constructor(cancelError) {
+    this._semaphore = new Semaphore2(1, cancelError);
+  }
+  acquire() {
+    return __awaiter$12(this, void 0, void 0, function* () {
+      const [, releaser] = yield this._semaphore.acquire();
+      return releaser;
+    });
+  }
+  runExclusive(callback) {
+    return this._semaphore.runExclusive(() => callback());
+  }
+  isLocked() {
+    return this._semaphore.isLocked();
+  }
+  waitForUnlock() {
+    return this._semaphore.waitForUnlock();
+  }
+  release() {
+    if (this._semaphore.isLocked())
+      this._semaphore.release();
+  }
+  cancel() {
+    return this._semaphore.cancel();
+  }
+};
+__name2(Mutex2, "Mutex");
 init_define_process2();
 var DELETE2 = "delete";
 var SHIFT2 = 5;
@@ -18708,7 +19079,7 @@ mixin2(Collection3, {
   valueSeq: /* @__PURE__ */ __name2(function valueSeq2() {
     return this.toIndexedSeq();
   }, "valueSeq"),
-  hashCode: /* @__PURE__ */ __name2(function hashCode4() {
+  hashCode: /* @__PURE__ */ __name2(function hashCode3() {
     return this.__hash || (this.__hash = hashCollection2(this));
   }, "hashCode")
 });
@@ -19512,37 +19883,40 @@ function initSession2(room, u) {
   return Record3({ ...u, room, state: Record3(u.state)() });
 }
 __name2(initSession2, "initSession");
+var storageMutex2 = new Mutex2();
 var syncStorage2 = /* @__PURE__ */ __name2(async (_setItem, _getItem, oldSession, newSession, message) => {
-  const setItem = /* @__PURE__ */ __name2((k, v) => _setItem("#" + String(k), v), "setItem");
-  const getItem = /* @__PURE__ */ __name2((k) => _getItem("#" + String(k)), "getItem");
-  const hashOfOldSession = Record3(oldSession)().hashCode();
-  let historyHead = await getItem("head");
-  if (!historyHead) {
-    await setItem(hashOfOldSession, oldSession);
-    await setItem("head", hashOfOldSession);
-    historyHead = hashOfOldSession;
-  }
-  await setItem(message.newHash, {
-    ...newSession,
-    oldHash: message.oldHash,
-    reversePatch: message.reversePatch
-  });
-  const oldNode = await getItem(historyHead);
-  await setItem(historyHead, {
-    newHash: message.newHash,
-    patch: message.patch,
-    ...oldNode ? {
-      i: oldNode.i,
-      oldHash: oldNode.oldHash,
-      reversePatch: oldNode.reversePatch
-    } : {
-      code: oldSession.code,
-      transpiled: oldSession.transpiled,
-      html: oldSession.html,
-      css: oldSession.css
+  storageMutex2.runExclusive(async () => {
+    const setItem = /* @__PURE__ */ __name2((k, v) => _setItem("#" + String(k), v), "setItem");
+    const getItem = /* @__PURE__ */ __name2((k) => _getItem("#" + String(k)), "getItem");
+    const hashOfOldSession = Record3(oldSession)().hashCode();
+    let historyHead = await _getItem("head");
+    if (!historyHead) {
+      await setItem(hashOfOldSession, oldSession);
+      await _setItem("head", hashOfOldSession);
+      historyHead = hashOfOldSession;
     }
+    await setItem(message.newHash, {
+      ...newSession,
+      oldHash: message.oldHash,
+      reversePatch: message.reversePatch
+    });
+    const oldNode = await getItem(historyHead);
+    await setItem(historyHead, {
+      newHash: message.newHash,
+      patch: message.patch,
+      ...oldNode ? {
+        i: oldNode.i,
+        oldHash: oldNode.oldHash,
+        reversePatch: oldNode.reversePatch
+      } : {
+        code: oldSession.code,
+        transpiled: oldSession.transpiled,
+        html: oldSession.html,
+        css: oldSession.css
+      }
+    });
+    await _setItem("head", message.newHash);
   });
-  await setItem("head", message.newHash);
 }, "syncStorage");
 var sessions2 = {};
 var hashStore2 = {};
@@ -19553,9 +19927,9 @@ var CodeSession2 = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode42 = state.hashCode();
-      hashStore2[hashCode42] = state;
-      return hashCode42;
+      const hashCode32 = state.hashCode();
+      hashStore2[hashCode32] = state;
+      return hashCode32;
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_2(state));
@@ -19631,7 +20005,7 @@ var CodeSession2 = class {
     }) => {
       if (!(oldHash && newHash && patch.length))
         return;
-      hashStore2[hashCode32(this.room)] = this.session.get("state");
+      hashStore2[hashKEY2(this.room)] = this.session.get("state");
       let maybeOldRec = hashStore2[oldHash];
       if (!maybeOldRec)
         throw new Error(`cant find old record: ${oldHash}`);
@@ -19684,18 +20058,20 @@ var CodeSession2 = class {
 };
 __name2(CodeSession2, "CodeSession");
 var hashKEY2 = /* @__PURE__ */ __name2((codeSpace) => sessions2[codeSpace].session.get("state").hashCode(), "hashKEY");
-var hashCode32 = /* @__PURE__ */ __name2((codeSpace) => md52(mST2(codeSpace).transpiled), "hashCode");
 function mST2(codeSpace, p) {
-  const sessAsJs = sessions2[codeSpace].session.get("state").toJSON();
-  const { i, transpiled, code, html, css } = p ? JSON.parse(
-    applyPatch3(
-      string_2(
-        sessAsJs
-      ),
-      p
-    )
-  ) : sessAsJs;
-  return { i, transpiled, code, html, css, codeSpace };
+  if (p && p.length) {
+    const sessAsJs = sessions2[codeSpace].session.get("state").toJSON();
+    const { i, transpiled, code, html, css } = p ? JSON.parse(
+      applyPatch3(
+        string_2(
+          sessAsJs
+        ),
+        p
+      )
+    ) : sessAsJs;
+    return sessions2[codeSpace].session.get("state").merge({ i, transpiled, code, html, css, codeSpace }).toObject();
+  }
+  return sessions2[codeSpace].session.get("state").toObject();
 }
 __name2(mST2, "mST");
 function string_2(s) {
@@ -19703,8 +20079,8 @@ function string_2(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name2(string_2, "string_");
-var makePatchFrom2 = /* @__PURE__ */ __name2((n, st) => ({ codeSpace: st.codeSpace, i: st.i, ...sessions2[st.codeSpace].createPatchFromHashCode(n, st) }), "makePatchFrom");
-var makePatch2 = /* @__PURE__ */ __name2((st) => ({ ...makePatchFrom2(hashKEY2(st.codeSpace), st), codeSpace: st.codeSpace, i: st.i }), "makePatch");
+var makePatchFrom2 = /* @__PURE__ */ __name2((n, st, codeSpace) => ({ codeSpace, i: st.i, ...sessions2[codeSpace].createPatchFromHashCode(n, st) }), "makePatchFrom");
+var makePatch2 = /* @__PURE__ */ __name2((st, codeSpace) => ({ ...makePatchFrom2(hashKEY2(codeSpace), st, codeSpace), codeSpace, i: st.i }), "makePatch");
 var startSession2 = /* @__PURE__ */ __name2((codeSpace, u) => sessions2[codeSpace] || (sessions2[codeSpace] = new CodeSession2(codeSpace, {
   name: u.name,
   state: { ...u.state, codeSpace }
@@ -20917,9 +21293,9 @@ var Code = class {
           });
         }
         case "hashCode": {
-          const hashCode5 = String(Number(path[1]));
+          const hashCode4 = String(Number(path[1]));
           const patch = await this.kv.get(
-            hashCode5,
+            hashCode4,
             { allowConcurrency: true }
           );
           return new Response(JSON.stringify(patch || {}), {
@@ -20961,6 +21337,8 @@ var Code = class {
                 if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
                 
               }
+              var sheet = document.createStyleSheet();
+sheet.addRule('h1', 'background: red;');
               <\/script>` : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`)
           );
           const headers = new Headers();
