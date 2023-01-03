@@ -324,6 +324,31 @@ const api: ExportedHandler<CodeEnv> = {
                 },
               );
 
+              if (!kvResp.ok) {
+                request = new Request(request.url.replace(url.origin, url.origin + "/src/"), request);
+                kvResp = await getAssetFromKV(
+                  {
+                    request,
+                    waitUntil: async (prom) => await prom,
+                  },
+                  {
+                    // cacheControl: (isChunk(url.href)
+                    //   ? {
+                    //     browserTTL: 2 * 60 * 60 * 24,
+                    //     edgeTTL: 2 * 60 * 60 * 24,
+                    //     orbypassCache: false,
+                    //   }
+                    //   : {
+                    //     browserTTL: 0,
+                    //     edgeTTL: 0,
+                    //     bypassCache: true,
+                    //   }),
+                    ASSET_NAMESPACE: env.__STATIC_CONTENT,
+                    ASSET_MANIFEST,
+                  },
+                );
+              }
+
               if (!kvResp.ok) return kvResp;
 
               // const isText = kvResp?.headers?.get("Content-Type")?.includes(

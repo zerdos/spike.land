@@ -19868,6 +19868,19 @@ var api = {
                   ASSET_MANIFEST
                 }
               );
+              if (!kvResp.ok) {
+                request = new Request(request.url.replace(url.origin, url.origin + "/src/"), request);
+                kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
+                  {
+                    request,
+                    waitUntil: async (prom) => await prom
+                  },
+                  {
+                    ASSET_NAMESPACE: env.__STATIC_CONTENT,
+                    ASSET_MANIFEST
+                  }
+                );
+              }
               if (!kvResp.ok)
                 return kvResp;
               kvResp = new Response(kvResp.body, kvResp);
