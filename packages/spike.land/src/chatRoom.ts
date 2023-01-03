@@ -1082,7 +1082,6 @@ export class Code {
             await this.syncKV(oldSession, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
-              codeSpace: this.codeSpace,
               patch,
               reversePatch,
             });
