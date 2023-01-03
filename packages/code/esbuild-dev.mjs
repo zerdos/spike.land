@@ -200,7 +200,7 @@ const build = (
   await cp("./src/via", "./dist/src", { recursive: true, force: true });
   await cp(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
-    "./dist/src/enhanced_dot_digital-7.ttf",
+    "./dist/enhanced_dot_digital-7.ttf",
   );
   await esbuild.build({
     entryPoints: [
