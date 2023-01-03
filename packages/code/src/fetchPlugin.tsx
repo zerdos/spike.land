@@ -125,13 +125,13 @@ export const fetchPlugin: (
       //     </ErrorBoundary></StrictMode>);
       //       `);
       const contents = await esmTransform(code, origin);
-      console.log({ contents });
-      const response = new Response(contents, {
-        headers: { "Content-Type": "application/json;charset=UTF-8" },
-      });
+      // console.log({ contents });
+      // const response = new Response(contents, {
+      //   headers: { "Content-Type": "application/json;charset=UTF-8" },
+      // });
 
       return {
-        contents: response,
+        contents,
       };
       // }
       // return null;
