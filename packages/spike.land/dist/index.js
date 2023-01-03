@@ -21140,7 +21140,7 @@ var Code = class {
     if (this.head === 0) {
       this.head = hashCode32(this.sess);
       await this.kv.put("head", this.head);
-      await this.kv.put("#" + String(this.head), this.sess);
+      await this.kv.put(String(this.head), this.sess);
     }
     return handleErrors(request, async () => {
       const { code, transpiled, css, html, i } = mST2(this.codeSpace);

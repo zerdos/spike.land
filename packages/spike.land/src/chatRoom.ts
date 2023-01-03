@@ -154,7 +154,7 @@ export class Code {
       // if (headValue) {
       this.head = hashCode(this.sess);
       await this.kv.put("head", this.head);
-      await this.kv.put("#" + String(this.head), this.sess);
+      await this.kv.put(String(this.head), this.sess);
 
       // const newSession = mST(this.codeSpace);
 
