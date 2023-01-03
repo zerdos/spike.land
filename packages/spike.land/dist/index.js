@@ -4,9 +4,6 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
 var __commonJS = (cb, mod4) => function __require2() {
   return mod4 || (0, cb[__getOwnPropNames(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
@@ -352,316 +349,6 @@ var require_dist = __commonJS({
       return response;
     };
     exports.getAssetFromKV = getAssetFromKV2;
-  }
-});
-
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JLPTXNJM.mjs
-var __create2, __defProp2, __getOwnPropDesc2, __getOwnPropNames2, __getProtoOf2, __hasOwnProp2, __name, __esm2, __commonJS2, __copyProps2, __toESM2, define_process_default, init_define_process;
-var init_chunk_chunk_JLPTXNJM = __esm({
-  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JLPTXNJM.mjs"() {
-    "use strict";
-    __create2 = Object.create;
-    __defProp2 = Object.defineProperty;
-    __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
-    __getOwnPropNames2 = Object.getOwnPropertyNames;
-    __getProtoOf2 = Object.getPrototypeOf;
-    __hasOwnProp2 = Object.prototype.hasOwnProperty;
-    __name = (target, value) => __defProp2(target, "name", { value, configurable: true });
-    __esm2 = (fn, res) => function __init() {
-      return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
-    };
-    __commonJS2 = (cb, mod4) => function __require2() {
-      return mod4 || (0, cb[__getOwnPropNames2(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
-    };
-    __copyProps2 = (to, from, except, desc) => {
-      if (from && typeof from === "object" || typeof from === "function") {
-        for (let key of __getOwnPropNames2(from))
-          if (!__hasOwnProp2.call(to, key) && key !== except)
-            __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
-      }
-      return to;
-    };
-    __toESM2 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create2(__getProtoOf2(mod4)) : {}, __copyProps2(
-      isNodeMode || !mod4 || !mod4.__esModule ? __defProp2(target, "default", { value: mod4, enumerable: true }) : target,
-      mod4
-    ));
-    init_define_process = __esm2({
-      "<define:process>"() {
-        define_process_default = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
-      }
-    });
-  }
-});
-
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-HO2SKUQW.mjs
-function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
-  let returnStr = replaceAll(codeInp, `from"`, `from "`);
-  const items = Object.keys(
-    importMapImports
-  );
-  items.map((lib) => {
-    const uri = new URL(importMapImports[lib], origin2).toString();
-    if (importmapRep) {
-      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
-    }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin2}/`);
-  });
-  returnStr.split("/::").join(origin2);
-  if (!returnStr)
-    return returnStr;
-  const url = relativeUrl || origin2;
-  const baSe = new URL(".", url).toString();
-  const parent = new URL("..", url).toString();
-  const gParent = new URL("../..", url).toString();
-  const ggParent = new URL("../../..", url).toString();
-  returnStr = replaceAll(
-    returnStr,
-    `reference path="./`,
-    `reference path="${baSe}`
-  );
-  returnStr = replaceAll(returnStr, `import"`, `import "`);
-  returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
-  returnStr = replaceAll(
-    returnStr,
-    `import("../../../`,
-    ` import("${ggParent}`
-  );
-  returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
-  returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
-  returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
-  returnStr = replaceAll(
-    returnStr,
-    `import "../../../`,
-    ` import "${ggParent}`
-  );
-  returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
-  returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
-  returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
-  returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
-  returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
-  returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
-  let oldUrl;
-  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
-    (Y) => Y.split("\n").map((x) => {
-      if (x.length === 0 || x.indexOf("import") === -1)
-        return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin2) === -1) {
-        const slices = x.split(`"`);
-        slices[1] = origin2 + "/" + slices[1] + "?dev&format=es2022";
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1]);
-          slices[1] = origin2 + "/npm:" + oldUrl.pathname;
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1], origin2);
-          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
-            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
-          }
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      return x;
-    }).join("\n")
-  ).join(";");
-  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
-  return returnStr;
-}
-function replaceAll(inp, search, replace) {
-  if (!inp)
-    return inp;
-  return inp.split(search).join(replace);
-}
-var imports, importMap, importMap_default, importMapImports;
-var init_chunk_chunk_HO2SKUQW = __esm({
-  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-HO2SKUQW.mjs"() {
-    "use strict";
-    init_chunk_chunk_JLPTXNJM();
-    init_define_process();
-    imports = {
-      "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-      "react-dom/client": "/src/reactDomClient.mjs",
-      "framer-motion": "/src/motion.mjs",
-      "@emotion/react": "/src/emotion.mjs",
-      "@emotion/cache": "/src/emotionCache.mjs",
-      "@emotion/styled": "/src/emotionStyled.mjs",
-      "react": "/src/reactMod.mjs",
-      "react-dom": "/src/reactDom.mjs",
-      "react-error-boundary": "/src/reactMod.mjs",
-      "hydrate.mjs": "/src/hydrate.mjs"
-    };
-    importMap = { imports };
-    importMap_default = importMap;
-    init_define_process();
-    importMapImports = importMap.imports;
-    __name(importMapReplace, "importMapReplace");
-    __name(replaceAll, "replaceAll");
-  }
-});
-
-// ../code/dist/src/chunk-chunk-JLPTXNJM.mjs
-var __create3, __defProp3, __getOwnPropDesc3, __getOwnPropNames3, __getProtoOf3, __hasOwnProp3, __name2, __esm3, __commonJS3, __copyProps3, __toESM3, define_process_default2, init_define_process2;
-var init_chunk_chunk_JLPTXNJM2 = __esm({
-  "../code/dist/src/chunk-chunk-JLPTXNJM.mjs"() {
-    "use strict";
-    __create3 = Object.create;
-    __defProp3 = Object.defineProperty;
-    __getOwnPropDesc3 = Object.getOwnPropertyDescriptor;
-    __getOwnPropNames3 = Object.getOwnPropertyNames;
-    __getProtoOf3 = Object.getPrototypeOf;
-    __hasOwnProp3 = Object.prototype.hasOwnProperty;
-    __name2 = (target, value) => __defProp3(target, "name", { value, configurable: true });
-    __esm3 = (fn, res) => function __init() {
-      return fn && (res = (0, fn[__getOwnPropNames3(fn)[0]])(fn = 0)), res;
-    };
-    __commonJS3 = (cb, mod4) => function __require2() {
-      return mod4 || (0, cb[__getOwnPropNames3(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
-    };
-    __copyProps3 = (to, from, except, desc) => {
-      if (from && typeof from === "object" || typeof from === "function") {
-        for (let key of __getOwnPropNames3(from))
-          if (!__hasOwnProp3.call(to, key) && key !== except)
-            __defProp3(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc3(from, key)) || desc.enumerable });
-      }
-      return to;
-    };
-    __toESM3 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create3(__getProtoOf3(mod4)) : {}, __copyProps3(
-      isNodeMode || !mod4 || !mod4.__esModule ? __defProp3(target, "default", { value: mod4, enumerable: true }) : target,
-      mod4
-    ));
-    init_define_process2 = __esm3({
-      "<define:process>"() {
-        define_process_default2 = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
-      }
-    });
-  }
-});
-
-// ../code/dist/src/chunk-chunk-HO2SKUQW.mjs
-function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
-  let returnStr = replaceAll2(codeInp, `from"`, `from "`);
-  const items = Object.keys(
-    importMapImports2
-  );
-  items.map((lib) => {
-    const uri = new URL(importMapImports2[lib], origin2).toString();
-    if (importmapRep) {
-      returnStr = replaceAll2(returnStr, ` from "${lib}"`, ` from "${uri}"`);
-    }
-    returnStr = replaceAll2(returnStr, ` from "/`, ` from "${origin2}/`);
-  });
-  returnStr.split("/::").join(origin2);
-  if (!returnStr)
-    return returnStr;
-  const url = relativeUrl || origin2;
-  const baSe = new URL(".", url).toString();
-  const parent = new URL("..", url).toString();
-  const gParent = new URL("../..", url).toString();
-  const ggParent = new URL("../../..", url).toString();
-  returnStr = replaceAll2(
-    returnStr,
-    `reference path="./`,
-    `reference path="${baSe}`
-  );
-  returnStr = replaceAll2(returnStr, `import"`, `import "`);
-  returnStr = replaceAll2(returnStr, ` from "../../../`, ` from "${ggParent}`);
-  returnStr = replaceAll2(
-    returnStr,
-    `import("../../../`,
-    ` import("${ggParent}`
-  );
-  returnStr = replaceAll2(returnStr, `import("../../`, ` import("${gParent}`);
-  returnStr = replaceAll2(returnStr, `import("../`, ` import("${parent}`);
-  returnStr = replaceAll2(returnStr, `import("./`, ` import("${baSe}`);
-  returnStr = replaceAll2(
-    returnStr,
-    `import "../../../`,
-    ` import "${ggParent}`
-  );
-  returnStr = replaceAll2(returnStr, `import "../../`, ` import "${gParent}`);
-  returnStr = replaceAll2(returnStr, `import "../`, ` import "${parent}`);
-  returnStr = replaceAll2(returnStr, `import "./`, ` import "${baSe}`);
-  returnStr = replaceAll2(returnStr, ` from "../../`, ` from "${gParent}`);
-  returnStr = replaceAll2(returnStr, ` from "../`, ` from "${parent}`);
-  returnStr = replaceAll2(returnStr, ` from "./`, ` from "${baSe}`);
-  let oldUrl;
-  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
-    (Y) => Y.split("\n").map((x) => {
-      if (x.length === 0 || x.indexOf("import") === -1)
-        return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin2) === -1) {
-        const slices = x.split(`"`);
-        slices[1] = origin2 + "/" + slices[1] + "?dev&format=es2022";
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1]);
-          slices[1] = origin2 + "/npm:" + oldUrl.pathname;
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
-        const slices = x.split(`"`);
-        try {
-          oldUrl = new URL(slices[1], origin2);
-          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
-            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
-          }
-        } catch {
-          console.error("URL ERR", slices[1]);
-        }
-        return slices.join(`"`);
-      }
-      return x;
-    }).join("\n")
-  ).join(";");
-  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
-  return returnStr;
-}
-function replaceAll2(inp, search, replace) {
-  if (!inp)
-    return inp;
-  return inp.split(search).join(replace);
-}
-var imports2, importMap3, importMap_default2, importMapImports2;
-var init_chunk_chunk_HO2SKUQW2 = __esm({
-  "../code/dist/src/chunk-chunk-HO2SKUQW.mjs"() {
-    "use strict";
-    init_chunk_chunk_JLPTXNJM2();
-    init_define_process2();
-    imports2 = {
-      "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-      "react-dom/client": "/src/reactDomClient.mjs",
-      "framer-motion": "/src/motion.mjs",
-      "@emotion/react": "/src/emotion.mjs",
-      "@emotion/cache": "/src/emotionCache.mjs",
-      "@emotion/styled": "/src/emotionStyled.mjs",
-      "react": "/src/reactMod.mjs",
-      "react-dom": "/src/reactDom.mjs",
-      "react-error-boundary": "/src/reactMod.mjs",
-      "hydrate.mjs": "/src/hydrate.mjs"
-    };
-    importMap3 = { imports: imports2 };
-    importMap_default2 = importMap3;
-    init_define_process2();
-    importMapImports2 = importMap3.imports;
-    __name2(importMapReplace2, "importMapReplace");
-    __name2(replaceAll2, "replaceAll");
   }
 });
 
@@ -3279,9 +2966,150 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-646QYNUW.mjs
-init_chunk_chunk_HO2SKUQW();
-init_chunk_chunk_JLPTXNJM();
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JLPTXNJM.mjs
+var __create2 = Object.create;
+var __defProp2 = Object.defineProperty;
+var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames2 = Object.getOwnPropertyNames;
+var __getProtoOf2 = Object.getPrototypeOf;
+var __hasOwnProp2 = Object.prototype.hasOwnProperty;
+var __name = (target, value) => __defProp2(target, "name", { value, configurable: true });
+var __esm = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
+};
+var __commonJS2 = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames2(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
+};
+var __copyProps2 = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames2(from))
+      if (!__hasOwnProp2.call(to, key) && key !== except)
+        __defProp2(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc2(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM2 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create2(__getProtoOf2(mod4)) : {}, __copyProps2(
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp2(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
+));
+var define_process_default;
+var init_define_process = __esm({
+  "<define:process>"() {
+    define_process_default = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
+  }
+});
+
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-HO2SKUQW.mjs
+init_define_process();
+var imports = {
+  "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+  "react-dom/client": "/src/reactDomClient.mjs",
+  "framer-motion": "/src/motion.mjs",
+  "@emotion/react": "/src/emotion.mjs",
+  "@emotion/cache": "/src/emotionCache.mjs",
+  "@emotion/styled": "/src/emotionStyled.mjs",
+  "react": "/src/reactMod.mjs",
+  "react-dom": "/src/reactDom.mjs",
+  "react-error-boundary": "/src/reactMod.mjs",
+  "hydrate.mjs": "/src/hydrate.mjs"
+};
+var importMap = { imports };
+var importMap_default = importMap;
+init_define_process();
+var importMapImports = importMap.imports;
+function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true, tsx = false) {
+  let returnStr = replaceAll(codeInp, `from"`, `from "`);
+  const items = Object.keys(
+    importMapImports
+  );
+  items.map((lib) => {
+    const uri = new URL(importMapImports[lib], origin).toString();
+    if (importmapRep) {
+      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
+  });
+  returnStr.split("/::").join(origin);
+  if (!returnStr)
+    return returnStr;
+  const url = relativeUrl || origin;
+  const baSe = new URL(".", url).toString();
+  const parent = new URL("..", url).toString();
+  const gParent = new URL("../..", url).toString();
+  const ggParent = new URL("../../..", url).toString();
+  returnStr = replaceAll(
+    returnStr,
+    `reference path="./`,
+    `reference path="${baSe}`
+  );
+  returnStr = replaceAll(returnStr, `import"`, `import "`);
+  returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
+  returnStr = replaceAll(
+    returnStr,
+    `import("../../../`,
+    ` import("${ggParent}`
+  );
+  returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
+  returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
+  returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
+  returnStr = replaceAll(
+    returnStr,
+    `import "../../../`,
+    ` import "${ggParent}`
+  );
+  returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
+  returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
+  returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
+  returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
+  returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
+  returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
+  let oldUrl;
+  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
+    (Y) => Y.split("\n").map((x) => {
+      if (x.length === 0 || x.indexOf("import") === -1)
+        return x;
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1) {
+        const slices = x.split(`"`);
+        slices[1] = origin + "/" + slices[1] + "?dev&format=es2022";
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1]);
+          slices[1] = origin + "/npm:" + oldUrl.pathname;
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1], origin);
+          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
+            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
+          }
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      return x;
+    }).join("\n")
+  ).join(";");
+  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+  return returnStr;
+}
+__name(importMapReplace, "importMapReplace");
+function replaceAll(inp, search, replace) {
+  if (!inp)
+    return inp;
+  return inp.split(search).join(replace);
+}
+__name(replaceAll, "replaceAll");
+
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-SGI6R7KX.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11377,15 +11205,6 @@ init_define_process();
 init_define_process();
 var import_esbuild_wasm = __toESM2(require_browser(), 1);
 init_define_process();
-async function getRequest(req) {
-  console.log({ getReq: req });
-  let response = await fetch(req);
-  if (!response || !response.ok)
-    return response;
-  response = new Response(response.body, response);
-  return response;
-}
-__name(getRequest, "getRequest");
 init_define_process();
 var mod = {
   init: false,
@@ -11624,10 +11443,6 @@ function createPatch(oldCode, newCode) {
 }
 __name(createPatch, "createPatch");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/session.mjs
-init_chunk_chunk_HO2SKUQW();
-init_chunk_chunk_JLPTXNJM();
-
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
@@ -11636,9 +11451,150 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-646QYNUW.mjs
-init_chunk_chunk_HO2SKUQW2();
-init_chunk_chunk_JLPTXNJM2();
+// ../code/dist/src/chunk-chunk-JLPTXNJM.mjs
+var __create3 = Object.create;
+var __defProp3 = Object.defineProperty;
+var __getOwnPropDesc3 = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames3 = Object.getOwnPropertyNames;
+var __getProtoOf3 = Object.getPrototypeOf;
+var __hasOwnProp3 = Object.prototype.hasOwnProperty;
+var __name2 = (target, value) => __defProp3(target, "name", { value, configurable: true });
+var __esm2 = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames3(fn)[0]])(fn = 0)), res;
+};
+var __commonJS3 = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames3(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
+};
+var __copyProps3 = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames3(from))
+      if (!__hasOwnProp3.call(to, key) && key !== except)
+        __defProp3(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc3(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM3 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create3(__getProtoOf3(mod4)) : {}, __copyProps3(
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp3(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
+));
+var define_process_default2;
+var init_define_process2 = __esm2({
+  "<define:process>"() {
+    define_process_default2 = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
+  }
+});
+
+// ../code/dist/src/chunk-chunk-HO2SKUQW.mjs
+init_define_process2();
+var imports2 = {
+  "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+  "react-dom/client": "/src/reactDomClient.mjs",
+  "framer-motion": "/src/motion.mjs",
+  "@emotion/react": "/src/emotion.mjs",
+  "@emotion/cache": "/src/emotionCache.mjs",
+  "@emotion/styled": "/src/emotionStyled.mjs",
+  "react": "/src/reactMod.mjs",
+  "react-dom": "/src/reactDom.mjs",
+  "react-error-boundary": "/src/reactMod.mjs",
+  "hydrate.mjs": "/src/hydrate.mjs"
+};
+var importMap3 = { imports: imports2 };
+var importMap_default2 = importMap3;
+init_define_process2();
+var importMapImports2 = importMap3.imports;
+function importMapReplace2(codeInp, origin, relativeUrl, importmapRep = true, tsx = false) {
+  let returnStr = replaceAll2(codeInp, `from"`, `from "`);
+  const items = Object.keys(
+    importMapImports2
+  );
+  items.map((lib) => {
+    const uri = new URL(importMapImports2[lib], origin).toString();
+    if (importmapRep) {
+      returnStr = replaceAll2(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+    }
+    returnStr = replaceAll2(returnStr, ` from "/`, ` from "${origin}/`);
+  });
+  returnStr.split("/::").join(origin);
+  if (!returnStr)
+    return returnStr;
+  const url = relativeUrl || origin;
+  const baSe = new URL(".", url).toString();
+  const parent = new URL("..", url).toString();
+  const gParent = new URL("../..", url).toString();
+  const ggParent = new URL("../../..", url).toString();
+  returnStr = replaceAll2(
+    returnStr,
+    `reference path="./`,
+    `reference path="${baSe}`
+  );
+  returnStr = replaceAll2(returnStr, `import"`, `import "`);
+  returnStr = replaceAll2(returnStr, ` from "../../../`, ` from "${ggParent}`);
+  returnStr = replaceAll2(
+    returnStr,
+    `import("../../../`,
+    ` import("${ggParent}`
+  );
+  returnStr = replaceAll2(returnStr, `import("../../`, ` import("${gParent}`);
+  returnStr = replaceAll2(returnStr, `import("../`, ` import("${parent}`);
+  returnStr = replaceAll2(returnStr, `import("./`, ` import("${baSe}`);
+  returnStr = replaceAll2(
+    returnStr,
+    `import "../../../`,
+    ` import "${ggParent}`
+  );
+  returnStr = replaceAll2(returnStr, `import "../../`, ` import "${gParent}`);
+  returnStr = replaceAll2(returnStr, `import "../`, ` import "${parent}`);
+  returnStr = replaceAll2(returnStr, `import "./`, ` import "${baSe}`);
+  returnStr = replaceAll2(returnStr, ` from "../../`, ` from "${gParent}`);
+  returnStr = replaceAll2(returnStr, ` from "../`, ` from "${parent}`);
+  returnStr = replaceAll2(returnStr, ` from "./`, ` from "${baSe}`);
+  let oldUrl;
+  returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map(
+    (Y) => Y.split("\n").map((x) => {
+      if (x.length === 0 || x.indexOf("import") === -1)
+        return x;
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1) {
+        const slices = x.split(`"`);
+        slices[1] = origin + "/" + slices[1] + "?dev&format=es2022";
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1]);
+          slices[1] = origin + "/npm:" + oldUrl.pathname;
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
+        const slices = x.split(`"`);
+        try {
+          oldUrl = new URL(slices[1], origin);
+          if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
+            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
+          }
+        } catch {
+          console.error("URL ERR", slices[1]);
+        }
+        return slices.join(`"`);
+      }
+      return x;
+    }).join("\n")
+  ).join(";");
+  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+  return returnStr;
+}
+__name2(importMapReplace2, "importMapReplace");
+function replaceAll2(inp, search, replace) {
+  if (!inp)
+    return inp;
+  return inp.split(search).join(replace);
+}
+__name2(replaceAll2, "replaceAll");
+
+// ../code/dist/src/chunk-chunk-SGI6R7KX.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -19803,15 +19759,6 @@ init_define_process2();
 init_define_process2();
 var import_esbuild_wasm2 = __toESM3(require_browser2(), 1);
 init_define_process2();
-async function getRequest2(req) {
-  console.log({ getReq: req });
-  let response = await fetch(req);
-  if (!response || !response.ok)
-    return response;
-  response = new Response(response.body, response);
-  return response;
-}
-__name2(getRequest2, "getRequest");
 init_define_process2();
 var mod2 = {
   init: false,
@@ -20090,10 +20037,6 @@ function createPatch2(oldCode, newCode) {
 }
 __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
-
-// ../code/dist/src/session.mjs
-init_chunk_chunk_HO2SKUQW2();
-init_chunk_chunk_JLPTXNJM2();
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -20966,13 +20909,13 @@ var mod3 = {
     worker: false
   }).then(() => mod3.init = true)
 };
-var initAndTransform3 = async (code, opts, origin2) => {
+var initAndTransform3 = async (code, opts, origin) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
-  return await esmTransform3(code, origin2);
+  return await esmTransform3(code, origin);
 };
-async function esmTransform3(code, origin2) {
+async function esmTransform3(code, origin) {
   const transpiled = await (0, import_esbuild_wasm3.transform)(code, {
     loader: "tsx",
     format: "esm",
@@ -20990,8 +20933,8 @@ async function esmTransform3(code, origin2) {
     },
     target: "es2022"
   });
-  if (origin2)
-    return importMapReplace2(transpiled.code, origin2, origin2);
+  if (origin)
+    return importMapReplace2(transpiled.code, origin, origin);
   else
     return transpiled.code;
 }

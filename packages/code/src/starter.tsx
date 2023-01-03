@@ -5,150 +5,150 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { Mutex } from "async-mutex";
 import createCache from "./emotionCache";
-import { buildT } from "./esbuildEsm";
+// import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5.js";
 import { type ICodeSession, mST, resetCSS } from "./session";
 import { wait } from "./wait";
 
-const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
-const abortz: { [key: string]: () => void } = {};
+// const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
+// const abortz: { [key: string]: () => void } = {};
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-const mutex = new Mutex();
+// const mutex = new Mutex();
 
 // if (location.pathname.includes(`/live/${codeSpace}/worker`)) {
 //   runInWorker(codeSpace, document.getElementById("root") as HTMLDivElement);
 // }
 
-export const createIframe = async (cs: string, counter: number) => {
-  await mutex.runExclusive(async () => {
-    if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
-    return modz[`${cs}-${counter}`] = new Promise(async (res) => {
-      if (modz[cs] !== null && modz[cs]! > counter) return;
-      if (abortz[cs]) (abortz[cs])();
+// export const createIframe = async (cs: string, counter: number) => {
+//   await mutex.runExclusive(async () => {
+//     if (modz[`${cs}-${counter}`]) return modz[`${cs}-${counter}`];
+//     return modz[`${cs}-${counter}`] = new Promise(async (res) => {
+//       if (modz[cs] !== null && modz[cs]! > counter) return;
+//       if (abortz[cs]) (abortz[cs])();
 
-      const controller = new AbortController();
-      const { signal } = controller;
-      abortz[cs] = () => controller.abort();
-      modz[cs] = counter;
+//       const controller = new AbortController();
+//       const { signal } = controller;
+//       abortz[cs] = () => controller.abort();
+//       modz[cs] = counter;
 
-      let MST: ICodeSession;
-      if (cs === codeSpace) MST = mST(codeSpace);
-      else {
-        MST = await fetch(`/live/${cs}/session.json`).then((x) => x.json() as Promise<ICodeSession>);
-      }
+//       let MST: ICodeSession;
+//       if (cs === codeSpace) MST = mST(codeSpace);
+//       else {
+//         MST = await fetch(`/live/${cs}/session.json`).then((x) => x.json() as Promise<ICodeSession>);
+//       }
 
-      if (signal.aborted) return;
-      if (modz[cs] !== counter) return;
-      const { html, css, i, transpiled } = MST;
-      // const hashCode = md5(transpiled);
-      if (i > modz[cs]!) modz[cs] = i;
+//       if (signal.aborted) return;
+//       if (modz[cs] !== counter) return;
+//       const { html, css, i, transpiled } = MST;
+//       // const hashCode = md5(transpiled);
+//       if (i > modz[cs]!) modz[cs] = i;
 
-      const counterLength = `/*${i}*/`.length;
+//       const counterLength = `/*${i}*/`.length;
 
-      if (i > counter) return createIframe(cs, i);
-      const c2 = +transpiled.slice(-counterLength).split("*")[1];
-      if (c2 > modz[cs]!) modz[cs] = c2;
-      if (c2 > i) return createIframe(cs, c2);
+//       if (i > counter) return createIframe(cs, i);
+//       const c2 = +transpiled.slice(-counterLength).split("*")[1];
+//       if (c2 > modz[cs]!) modz[cs] = c2;
+//       if (c2 > i) return createIframe(cs, c2);
 
-      if (signal.aborted) return;
+//       if (signal.aborted) return;
 
-      let iframe = document.createElement("iframe");
-      iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
+//       let iframe = document.createElement("iframe");
+//       iframe.setAttribute("src", `${location.origin}/live/${codeSpace}/`);
 
-      const iSRC = (srcJS: string) =>
-        createHTML(`
-    <html> 
-    <head>
-    <style>
-    html,body{
-      height: 100%;
-    }
-    q{
-      display: none;
-    }
-    ${resetCSS}
-    ${css}
-    </style>
-    <script type="module" src=${srcJS}></script> 
-    </head>
-    <body>
-    <div id="root" style="height: 100%;">${html}</div>
-    </body>
-    </html>`);
-      const setIframe = (srcJS: string) => {
-        iframe.src = iSRC(srcJS);
-        if (signal.aborted) return;
+//       const iSRC = (srcJS: string) =>
+//         createHTML(`
+//     <html>
+//     <head>
+//     <style>
+//     html,body{
+//       height: 100%;
+//     }
+//     q{
+//       display: none;
+//     }
+//     ${resetCSS}
+//     ${css}
+//     </style>
+//     <script type="module" src=${srcJS}></script>
+//     </head>
+//     <body>
+//     <div id="root" style="height: 100%;">${html}</div>
+//     </body>
+//     </html>`);
+//       const setIframe = (srcJS: string) => {
+//         iframe.src = iSRC(srcJS);
+//         if (signal.aborted) return;
 
-        const zBody = document.getElementById("z-body");
+//         const zBody = document.getElementById("z-body");
 
-        iframe.onload = () => {
-          if (signal.aborted) return false;
+//         iframe.onload = () => {
+//           if (signal.aborted) return false;
 
-          if (zBody?.firstChild?.isSameNode(iframe)) {
-            console.log("ALL OK");
-            return true;
-          }
+//           if (zBody?.firstChild?.isSameNode(iframe)) {
+//             console.log("ALL OK");
+//             return true;
+//           }
 
-          if (zBody) {
-            zBody.innerHTML = "";
-            zBody.appendChild(iframe);
-            return true;
-          }
-          return new Promise((res) =>
-            setTimeout(async () => {
-              res(await setIframe(srcJS));
-            }, 10000)
-          );
-        };
+//           if (zBody) {
+//             zBody.innerHTML = "";
+//             zBody.appendChild(iframe);
+//             return true;
+//           }
+//           return new Promise((res) =>
+//             setTimeout(async () => {
+//               res(await setIframe(srcJS));
+//             }, 10000)
+//           );
+//         };
 
-        iframe.setAttribute("data-coder", cs);
-        iframe.style.height = "100%";
-        iframe.setAttribute("id", `coder-${cs}`);
-        iframe.style.border = "none";
-        iframe.style.width = "100%";
+//         iframe.setAttribute("data-coder", cs);
+//         iframe.style.height = "100%";
+//         iframe.setAttribute("id", `coder-${cs}`);
+//         iframe.style.border = "none";
+//         iframe.style.width = "100%";
 
-        if (signal.aborted) return false;
+//         if (signal.aborted) return false;
 
-        if (zBody) {
-          zBody.innerHTML = ``;
-          zBody.appendChild(iframe);
-          return iframe;
-        }
-        return false;
-      };
+//         if (zBody) {
+//           zBody.innerHTML = ``;
+//           zBody.appendChild(iframe);
+//           return iframe;
+//         }
+//         return false;
+//       };
 
-      setIframe(createJsBlob(``));
-      if (signal.aborted) return;
-      if (modz[cs] !== counter) return;
-      // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
-      // document.body.appendChild(iframe)
+//       setIframe(createJsBlob(``));
+//       if (signal.aborted) return;
+//       if (modz[cs] !== counter) return;
+//       // document.querySelectorAll(`iframe[data-coder="${cs}"]`).forEach((el) => el.replaceWith(iframe));
+//       // document.body.appendChild(iframe)
 
-      if (signal.aborted) return;
-      if (!iframe) return;
-      if (signal.aborted) return;
-      // iframe.style.position = "fixed";
+//       if (signal.aborted) return;
+//       if (!iframe) return;
+//       if (signal.aborted) return;
+//       // iframe.style.position = "fixed";
 
-      // iframe && iframe.remove();
+//       // iframe && iframe.remove();
 
-      requestAnimationFrame(() =>
-        !signal.aborted
-        && buildT(cs, location.origin, signal, { bundle: false }).then((x) => x && setIframe(createJsBlob(x)))
-      );
-      res(iframe);
-      return iframe;
-      // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
-      // iframe.setAttribute("id", `coder-${code#Space}`);
+//       requestAnimationFrame(() =>
+//         !signal.aborted
+//         && buildT(cs, location.origin, signal, { bundle: false }).then((x) => x && setIframe(createJsBlob(x)))
+//       );
+//       res(iframe);
+//       return iframe;
+//       // document.getElementById(`coder-${codeSpace}`)?.replaceWith(iframe);
+//       // iframe.setAttribute("id", `coder-${code#Space}`);
 
-      // document.body.appendChild(iframe);
-    });
-  });
-};
+//       // document.body.appendChild(iframe);
+//     });
+//   });
+// };
 
-let worker: { terminate: () => void };
+// let worker: { terminate: () => void };
 // let oldDiv = null;
-let lastH = "";
-let lastSuccessful = "";
+// let lastH = "";
+// let lastSuccessful = "";
 
 // export async function runInWorker(nameSpace: string, _parent: HTMLDivElement) {
 //   if (worker) worker.terminate();
@@ -212,29 +212,29 @@ let lastSuccessful = "";
 
 // importShim.addImportMap({ imports: res });
 
-async function moveToWorker(nameSpace: string, parent: HTMLElement) {
-  // const { i } = nameSpace === codeSpace
-  // ? mST(codeSpace)
-  // : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
-  const div = parent?.getElementsByTagName("div")[0]!;
-  div.style.height = "100%";
-  const cont = new AbortController();
+// async function moveToWorker(nameSpace: string, parent: HTMLElement) {
+//   // const { i } = nameSpace === codeSpace
+//   // ? mST(codeSpace)
+//   // : (await import(`${location.origin}/live/${codeSpace}/mST.mjs`)).mST;
+//   const div = parent?.getElementsByTagName("div")[0]!;
+//   div.style.height = "100%";
+//   const cont = new AbortController();
 
-  const js = await buildT(codeSpace, location.origin, cont.signal, { bundle: false });
+//   const js = await buildT(codeSpace, location.origin, cont.signal, { bundle: false });
 
-  if (!js) return false;
-  const src = createJsBlob(js);
+//   if (!js) return false;
+//   const src = createJsBlob(js);
 
-  div.setAttribute("src", src);
-  div.setAttribute("data-shadow-dom", "open");
+//   div.setAttribute("src", src);
+//   div.setAttribute("data-shadow-dom", "open");
 
-  return div;
-}
+//   return div;
+// }
 
 Object.assign(globalThis, { md5 });
 const myApps: { [key: string]: FC } = {};
 const myAppCounters: { [key: string]: number } = {};
-let controller: AbortController;
+// let controller: AbortController;
 
 // onSessionUpdate(
 //   () => {
