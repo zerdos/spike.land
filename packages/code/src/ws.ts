@@ -299,6 +299,7 @@ export const run = async () => {
         connectWithWorker();
       }, 10000);}
   };
+  connectWithWorker();
 
   const root = (await readdir("/"));
 
