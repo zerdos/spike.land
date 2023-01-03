@@ -622,8 +622,8 @@ export class Code {
                   <style>${css}</style>
                   ${html}
                   </div>
-              </div>
-              <script type="module">
+              </div>` + path[0] === "dehydrated"
+                ? `<script type="module">
 
               const paths = location.pathname.split("/");
               const page = paths.pop();
@@ -631,13 +631,13 @@ export class Code {
           
               const BC = new BroadcastChannel([...paths, codeSpace].join("/"));
               
-              BC.onmessage = ({data})=>{
+              BC.onmessage = ({data}) => {
                 const {html, css, i } = data;
                 if (page ==="dehydrated")    document.getElementById("root").innerHTML= ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
                 
               }
-              if (page !== "dehydrated")  import"/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}");
-              </script>`,
+              </script>`
+                : `<script scr="/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
             );
 
           // const Etag = request.headers.get("Etag");
