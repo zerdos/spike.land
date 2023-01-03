@@ -8867,9 +8867,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"new@workspace:packages/importmaps":
+"new@workspace:packages/importMaps":
   version: 0.0.0-use.local
-  resolution: "new@workspace:packages/importmaps"
+  resolution: "new@workspace:packages/importMaps"
   dependencies:
     "@emotion/react": "npm:11.10.5"
     "@types/react-dom": "npm:18.0.10"
