@@ -1,10 +1,11 @@
 import { createInstance } from "localforage";
 import { db, hashKEY, mST } from "./session";
+
 const promises: { [codeSpace: string]: Promise<void> } = {};
 const dbs: { [codeSpace: string]: LocalForage } = {};
 
 export async function initDb(codeSpace: string) {
-  if ([codeSpace]) return dbs[codeSpace];
+  if (dbs[codeSpace]) return dbs[codeSpace];
 
   promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`]
     || (async () => {
