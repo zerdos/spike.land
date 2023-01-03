@@ -54,8 +54,6 @@ const users = new AVLTree(
 //   "/sharedWorker.js?ree=" + shHash,
 // );
 
-const messageChannel = new MessageChannel();
-
 const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 const user = md5(((self && self.crypto && self.crypto.randomUUID
   && self.crypto.randomUUID()) || (uidV4())).slice(
@@ -286,44 +284,18 @@ export const run = async () => {
     state: mst,
   });
 
-  navigator.serviceWorker.controller!.postMessage({
-    type: "INIT_PORT",
-  }, [messageChannel.port2]);
+  const connectWithWorker = () => {
+    if (navigator && navigator.serviceWorker && navigator.serviceWorker.controller) {
+      const messageChannel = new MessageChannel();
 
-  messageChannel.port1.onmessage = async (ev) => {
-    console.log("ONMESSAGE", { data: ev.data });
-    if (ev.data.type === "onconnect") {
-      console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
-      // messagePort = this;
-      // const sess = mST(codeSpace);
-      ws.send = (
-        message: MessageProps,
-      ) => {
-        const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
-        console.log("POST MESSAGE", { messageData });
-        if (
-          messageData.oldHash && messageData.oldHash === messageData.newHash
-        ) return;
-        messageChannel.port1.postMessage(messageData);
-      };
-      ws.send({ type: "handshake", session: mST(codeSpace) });
+      navigator.serviceWorker.controller!.postMessage({
+        type: "INIT_PORT",
+      }, [messageChannel.port2]);
 
-      while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
-    } else {
-      let data;
-      try {
-        data = JSON.parse(ab2str(ev.data));
-      } catch (err) {
-        console.error("not a buff", { err, data: ev.data });
-      }
-      try {
-        await processData(data, "ws");
-        console.log("its a buffer", { data });
-      } catch (err) {
-        console.error("process error", { err, data: ev.data });
-      }
-      // }
-    }
+      messageChannel.port1.onmessage = (e) => handleWorker(e, messageChannel.port2);
+    } else {setTimeout(() => {
+        connectWithWorker();
+      }, 10000);}
   };
 
   const root = (await readdir("/"));
@@ -1208,3 +1180,39 @@ async function handleNewICECandidateMessage(
 //     // console.//log("ipfs load error");
 //   }
 // }
+
+async function handleWorker(ev: MessageEvent, port: MessagePort) {
+  console.log("ONMESSAGE", { data: ev.data });
+  if (ev.data.type === "onconnect") {
+    console.log("POST ONCONNECT", { codeSpace, name: user, hashCode: mST(codeSpace) });
+    // messagePort = this;
+    // const sess = mST(codeSpace);
+    ws.send = (
+      message: MessageProps,
+    ) => {
+      const messageData = { name: user, ...message, codeSpace, i: mST(codeSpace).i, hashCode: hashKEY(codeSpace) };
+      console.log("POST MESSAGE", { messageData });
+      if (
+        messageData.oldHash && messageData.oldHash === messageData.newHash
+      ) return;
+      port.postMessage(messageData);
+    };
+    ws.send({ type: "handshake", session: mST(codeSpace) });
+
+    while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
+  } else {
+    let data;
+    try {
+      data = JSON.parse(ab2str(ev.data));
+    } catch (err) {
+      console.error("not a buff", { err, data: ev.data });
+    }
+    try {
+      await processData(data, "ws");
+      console.log("its a buffer", { data });
+    } catch (err) {
+      console.error("process error", { err, data: ev.data });
+    }
+    // }
+  }
+}
