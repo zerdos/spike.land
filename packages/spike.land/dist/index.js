@@ -393,7 +393,7 @@ var init_chunk_chunk_JLPTXNJM = __esm({
   }
 });
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-UYWKIV4P.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-QRJQSMAR.mjs
 function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
   let returnStr = replaceAll(codeInp, `from"`, `from "`);
   const items = Object.keys(
@@ -465,7 +465,7 @@ function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, ts
         try {
           oldUrl = new URL(slices[1], origin2);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
-            slices[1] = oldUrl.toString() + tsx ? "/index.tsx" : "/index.js";
+            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
           }
         } catch {
           console.error("URL ERR", slices[1]);
@@ -484,8 +484,8 @@ function replaceAll(inp, search, replace) {
   return inp.split(search).join(replace);
 }
 var importmap_default, importMapImports;
-var init_chunk_chunk_UYWKIV4P = __esm({
-  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-UYWKIV4P.mjs"() {
+var init_chunk_chunk_QRJQSMAR = __esm({
+  "../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-QRJQSMAR.mjs"() {
     "use strict";
     init_chunk_chunk_JLPTXNJM();
     importmap_default = {
@@ -547,7 +547,7 @@ var init_chunk_chunk_JLPTXNJM2 = __esm({
   }
 });
 
-// ../code/dist/src/chunk-chunk-UYWKIV4P.mjs
+// ../code/dist/src/chunk-chunk-QRJQSMAR.mjs
 function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
   let returnStr = replaceAll2(codeInp, `from"`, `from "`);
   const items = Object.keys(
@@ -619,7 +619,7 @@ function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, t
         try {
           oldUrl = new URL(slices[1], origin2);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
-            slices[1] = oldUrl.toString() + tsx ? "/index.tsx" : "/index.js";
+            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
           }
         } catch {
           console.error("URL ERR", slices[1]);
@@ -638,8 +638,8 @@ function replaceAll2(inp, search, replace) {
   return inp.split(search).join(replace);
 }
 var importmap_default2, importMapImports2;
-var init_chunk_chunk_UYWKIV4P2 = __esm({
-  "../code/dist/src/chunk-chunk-UYWKIV4P.mjs"() {
+var init_chunk_chunk_QRJQSMAR2 = __esm({
+  "../code/dist/src/chunk-chunk-QRJQSMAR.mjs"() {
     "use strict";
     init_chunk_chunk_JLPTXNJM2();
     importmap_default2 = {
@@ -3277,8 +3277,8 @@ var package_default = {
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-DABZ5OQ3.mjs
-init_chunk_chunk_UYWKIV4P();
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JOOAHNWO.mjs
+init_chunk_chunk_QRJQSMAR();
 init_chunk_chunk_JLPTXNJM();
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
@@ -11435,7 +11435,7 @@ function createPatch(oldCode, newCode) {
 __name(createPatch, "createPatch");
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/session.mjs
-init_chunk_chunk_UYWKIV4P();
+init_chunk_chunk_QRJQSMAR();
 init_chunk_chunk_JLPTXNJM();
 
 // src/staticContent.mjs
@@ -11446,8 +11446,8 @@ var ASSET_HASH = md5(ASSET_MANIFEST);
 // ../code/dist/src/chunk-chunk-6IC5WRDH.mjs
 var esbuild_default2 = "./chunk-esbuild-GS5BVJUF.wasm";
 
-// ../code/dist/src/chunk-chunk-DABZ5OQ3.mjs
-init_chunk_chunk_UYWKIV4P2();
+// ../code/dist/src/chunk-chunk-JOOAHNWO.mjs
+init_chunk_chunk_QRJQSMAR2();
 init_chunk_chunk_JLPTXNJM2();
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
@@ -19712,7 +19712,7 @@ __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
 
 // ../code/dist/src/session.mjs
-init_chunk_chunk_UYWKIV4P2();
+init_chunk_chunk_QRJQSMAR2();
 init_chunk_chunk_JLPTXNJM2();
 
 // src/handleErrors.ts
