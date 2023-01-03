@@ -239,7 +239,7 @@ export const buildT = async (
     jsxImportSource: "@emotion/react",
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace}/index.js`,
+      `./live/${codeSpace}/index.tsx`,
       // `./live/${codeSpace}/index.tsx`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",
