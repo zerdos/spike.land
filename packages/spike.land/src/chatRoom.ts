@@ -87,37 +87,41 @@ export class Code {
     // this.mutex = new Mutex();
 
     this.state.blockConcurrencyWhile(async () => {
-      // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
-      const session = await this.kv.get<ICodeSession>("session", { allowConcurrency: true })
-        || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
-          "session.json",
-        ).then((x) => x.json());
-      if (!session) throw Error("cant get the starter session");
-      // if (!session.code) {
-      //   const s = backupSession;
-      //   session.code = s.code;
-      //   session.transpiled = s.transpiled;
-      //   session.i = s.i;
-      //   session.html = s.html;
-      //   session.css = s.css;
-      // }
+      try {
+        // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
+        const session = await this.kv.get<ICodeSession>("session", { allowConcurrency: true })
+          || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+            "session.json",
+          ).then((x) => x.json());
+        if (!session) throw Error("cant get the starter session");
+        // if (!session.code) {
+        //   const s = backupSession;
+        //   session.code = s.code;
+        //   session.transpiled = s.transpiled;
+        //   session.i = s.i;
+        //   session.html = s.html;
+        //   session.css = s.css;
+        // }
 
-      this.head = await this.kv.get("head") || "";
-      // if ( (head+1) !== Number(head)+1 ) {
-      //   head =
-      // }
-      this.address = await this.kv.get<string>("address", { allowConcurrency: true }) || "";
+        this.head = await this.kv.get("head") || "";
+        // if ( (head+1) !== Number(head)+1 ) {
+        //   head =
+        // }
+        this.address = await this.kv.get<string>("address", { allowConcurrency: true }) || "";
 
-      this.sess = session;
-      this.codeSpace = session.codeSpace || "";
-      if (this.sess.codeSpace) {
-        this.session = startSession(
-          this.codeSpace,
-          { state: session, name: this.user },
-          // url.origin,
-        );
+        this.sess = session;
+        this.codeSpace = session.codeSpace || "";
+        if (this.sess.codeSpace) {
+          this.session = startSession(
+            this.codeSpace,
+            { state: session, name: this.user },
+            // url.origin,
+          );
+        }
+        this.sessionStarted = false;
+      } catch {
+        throw Error("cant get the starter session");
       }
-      this.sessionStarted = false;
     });
   }
   wait = (x?: () => boolean) => {

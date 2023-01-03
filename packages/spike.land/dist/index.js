@@ -20731,22 +20731,26 @@ var Code = class {
     this.codeSpace = "";
     this.address = "";
     this.state.blockConcurrencyWhile(async () => {
-      const session = await this.kv.get("session", { allowConcurrency: true }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
-        "session.json"
-      ).then((x) => x.json());
-      if (!session)
+      try {
+        const session = await this.kv.get("session", { allowConcurrency: true }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
+          "session.json"
+        ).then((x) => x.json());
+        if (!session)
+          throw Error("cant get the starter session");
+        this.head = await this.kv.get("head") || "";
+        this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
+        this.sess = session;
+        this.codeSpace = session.codeSpace || "";
+        if (this.sess.codeSpace) {
+          this.session = startSession2(
+            this.codeSpace,
+            { state: session, name: this.user }
+          );
+        }
+        this.sessionStarted = false;
+      } catch {
         throw Error("cant get the starter session");
-      this.head = await this.kv.get("head") || "";
-      this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
-      this.sess = session;
-      this.codeSpace = session.codeSpace || "";
-      if (this.sess.codeSpace) {
-        this.session = startSession2(
-          this.codeSpace,
-          { state: session, name: this.user }
-        );
       }
-      this.sessionStarted = false;
     });
   }
   state;
