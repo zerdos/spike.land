@@ -277,16 +277,15 @@ async function onMessage(port: MessagePort, data: Data) {
   // }
 }
 let iii = 0;
+const BC = new BroadcastChannel(location.origin + "/ws.js");
 
 export const onConnectToClients = (me: ServiceWorkerGlobalScope) => {
-  me.addEventListener("message", (event) => {
-    if (event.data && event.data.type === "INIT_PORT") {
-      const port = event.ports[0];
+  // me.addEventListener("message", (event) => {
+  //   if (event.data && event.data.type === "INIT_PORT") {
+  //     const port = event.ports[0];
 
-      port.onmessage = ({ data }: { data: Data }) => onMessage(port, data);
-      port.postMessage({ type: "onconnect", connections: ++iii });
-    }
-  });
+  BC.onmessage = (e) => onMessage(e.ports[0], e.data);
+  BC.postMessage({ type: "onconnect", connections: ++iii });
 };
 
 const mutex = new Mutex();

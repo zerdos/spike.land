@@ -283,23 +283,9 @@ export const run = async () => {
     name: user,
     state: mst,
   });
-
-  const connectWithWorker = () => {
-    if (
-      navigator && navigator.serviceWorker && navigator.serviceWorker.controller
-    ) {
-      const messageChannel = new MessageChannel();
-
-      navigator.serviceWorker.controller!.postMessage({
-        type: "INIT_PORT",
-      }, [messageChannel.port2]);
-
-      messageChannel.port1.onmessage = (e) => handleWorker(e, messageChannel.port2);
-    } else {setTimeout(() => {
-        connectWithWorker();
-      }, 10000);}
-  };
-  connectWithWorker();
+  const BCC = new BroadcastChannel(location.origin + "/ws.js");
+  BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, e.ports[1]);
+  BCC.postMessage({ type: "onconnect", codeSpace, hashCode, session });
 
   const root = (await readdir("/"));
 
