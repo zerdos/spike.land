@@ -63,14 +63,25 @@ const createResponse = async (request: Request) => {
     const paths = url.pathname.split("/");
     // return renderToStream("clock3");
     const codeSpace = paths[2];
+    let js: string;
+
     const { css, html, transpiled, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
       ) as string,
     );
-    const ASSET_HASH = md5(transpiled);
+    try {
+      const bundle = await readFile(
+        `/live/${codeSpace}/index.mjs`,
+      ) as string;
+      js = bundle;
+    } catch {
+      js = transpiled;
+    }
 
-    const js = importMapReplace(transpiled, location.origin, location.origin).replace(
+    const ASSET_HASH = md5(js);
+
+    const jsToServe = importMapReplace(js, location.origin, location.origin).replace(
       `export {`,
       "const ModASSET_HASH = stdin_default;",
     ).replace("stdin_default as default", "").slice(0, -3);
@@ -96,7 +107,7 @@ const createResponse = async (request: Request) => {
 
           import {render, prerender} from "${url.origin}/src/render.mjs";
        
-          ${js}
+          ${jsToServe}
          
 
               

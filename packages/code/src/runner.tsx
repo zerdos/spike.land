@@ -111,7 +111,7 @@ BC.onmessage = async ({ data }) => {
 
     // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     // BC.postMessage({ html, css, code, transpiled, i: counter });
-    // await buildT(codeSpace, location.origin, signal, true);
+    await buildT(codeSpace, location.origin, signal, { bundle: true });
     // BCbundle.postMessage({ counterMax });
   }
 };
