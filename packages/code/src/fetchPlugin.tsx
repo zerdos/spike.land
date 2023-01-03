@@ -1,8 +1,8 @@
 import type { Plugin } from "esbuild-wasm";
 import { Loader } from "esbuild-wasm";
 import { esmTransform } from "./esmTran";
-
 import { readFile } from "./fs";
+import { importMapReplace } from "./importMapReplace";
 
 // let fetchCache: Cache = {
 //   match: (req: Request) =>
@@ -51,91 +51,91 @@ export const fetchPlugin: (
     // from the internet. This has just enough logic to be able to
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
-    build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
-      console.log({ args });
+    // build.onLoad({ filter: /live\/.*.tsx.*/ }, async (args) => {
+    // console.log({ args });
 
-      const lastPart = args.path.split("/live/").pop();
-      const code = await readFile(`/live/${lastPart}`) as string;
-      // const code/`` = await esmTransform(file as string);
+    // const lastPart = args.path.split("/live/").pop();
+    // const code = await readFile(`/live/${lastPart}`) as string;
+    // const code/`` = await esmTransform(file as string);
 
-      // if (file) {
-      //   return new Response(file);
-      // }
+    // if (file) {
+    //   return new Response(file);
+    // }
 
-      //       if (args.path.indexOf("render.tsx") !== -1) {
+    //       if (args.path.indexOf("render.tsx") !== -1) {
 
-      //         const contents = await (`
-      //       import {hydrateRoot} from "react-dom/client"
-      //       import { CacheProvider } from "@emotion/react";
-      //       import createCache from "@emotion/cache";
-      //       import {StrictMode} from "react";
-      //       import { ErrorBoundary } from "react-error-boundary";
+    //         const contents = await (`
+    //       import {hydrateRoot} from "react-dom/client"
+    //       import { CacheProvider } from "@emotion/react";
+    //       import createCache from "@emotion/cache";
+    //       import {StrictMode} from "react";
+    //       import { ErrorBoundary } from "react-error-boundary";
 
-      //       import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
+    //       import App from "${location.origin}/live/${codeSpace}/index.js/${mST().i}"
 
-      //       document.body.innerHTML = ${
-      //           JSON.stringify(
-      //             `<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`,
-      //           )
-      //         };
+    //       document.body.innerHTML = ${
+    //           JSON.stringify(
+    //             `<style>${mST().css}</style><div id="root" style="height:100%">${mST().html}</div>`,
+    //           )
+    //         };
 
-      //   let rootEl = document.getElementById("root");
+    //   let rootEl = document.getElementById("root");
 
-      //   const codeSpace="${codeSpace}"
-      //     const cache = createCache({
-      //       key: "${hashCode()}",
-      //       container: rootEl,
-      //       speedy: false
-      //     });
+    //   const codeSpace="${codeSpace}"
+    //     const cache = createCache({
+    //       key: "${hashCode()}",
+    //       container: rootEl,
+    //       speedy: false
+    //     });
 
-      //    cache.compat = undefined;
+    //    cache.compat = undefined;
 
-      //    const bc = new BroadcastChannel(location.origin);
+    //    const bc = new BroadcastChannel(location.origin);
 
-      //    bc.onmessage = async (event) => {
-      //      if (
-      //       event.data.codeSpace === codeSpace)
-      // {
-      //       const App = (await("${location.origin}/live/${codeSpace}/index.js/"+event.data.i)).default;
+    //    bc.onmessage = async (event) => {
+    //      if (
+    //       event.data.codeSpace === codeSpace)
+    // {
+    //       const App = (await("${location.origin}/live/${codeSpace}/index.js/"+event.data.i)).default;
 
-      //       hydrateRoot(rootEl, <StrictMode><ErrorBoundary
-      //         fallbackRender={({ error }) => (
-      //           <div role="alert">
-      //             <div>Oh n o</div>
-      //             <pre>{error.message}</pre>
-      //           </div>
-      //         )}>
-      //         <CacheProvider value={cache}>
-      //           <App />
-      //         </CacheProvider>
-      //         </ErrorBoundary></StrictMode>);
-      //         }
-      //   }
+    //       hydrateRoot(rootEl, <StrictMode><ErrorBoundary
+    //         fallbackRender={({ error }) => (
+    //           <div role="alert">
+    //             <div>Oh n o</div>
+    //             <pre>{error.message}</pre>
+    //           </div>
+    //         )}>
+    //         <CacheProvider value={cache}>
+    //           <App />
+    //         </CacheProvider>
+    //         </ErrorBoundary></StrictMode>);
+    //         }
+    //   }
 
-      //    hydrateRoot(rootEl, <StrictMode><ErrorBoundary
-      //     fallbackRender={({ error }) => (
-      //       <div role="alert">
-      //         <div>Oh n o</div>
-      //         <pre>{error.message}</pre>
-      //       </div>
-      //     )}>
-      //     <CacheProvider value={cache}>
-      //       <App />
-      //     </CacheProvider>
-      //     </ErrorBoundary></StrictMode>);
-      //       `);
-      const contents = await esmTransform(code, origin);
-      // console.log({ contents });
-      // const response = new Response(contents, {
-      //   headers: { "Content-Type": "application/json;charset=UTF-8" },
-      // });
+    //    hydrateRoot(rootEl, <StrictMode><ErrorBoundary
+    //     fallbackRender={({ error }) => (
+    //       <div role="alert">
+    //         <div>Oh n o</div>
+    //         <pre>{error.message}</pre>
+    //       </div>
+    //     )}>
+    //     <CacheProvider value={cache}>
+    //       <App />
+    //     </CacheProvider>
+    //     </ErrorBoundary></StrictMode>);
+    //       `);
+    // const contents = await esmTransform(code, origin);
+    // console.log({ contents });
+    // const response = new Response(contents, {
+    //   headers: { "Content-Type": "application/json;charset=UTF-8" },
+    // });
 
-      return {
-        contents,
-      };
-      // }
-      // return null;
-    });
+    // return {
+    // contents,
+    // };
+    // }
+    // return null;
+    // });
 
     build.onLoad({ filter: /.*/ }, async (args) => {
       // importShim.resolve(args.path, args.importer)
@@ -145,7 +145,7 @@ export const fetchPlugin: (
 
       if (req.url.indexOf(".tsx")) {
         return {
-          contents: await response.text(),
+          contents: await esmTransform(importMapReplace(await response.text(), origin, origin, true, true), origin),
         };
       }
 

@@ -7,6 +7,7 @@ export function importMapReplace(
   origin: string,
   relativeUrl: string,
   importmapRep = true,
+  tsx = false,
 ) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
@@ -100,7 +101,7 @@ export function importMapReplace(
             oldUrl && oldUrl.pathname.indexOf(".") === -1
             && oldUrl.pathname.indexOf("/live/") !== -1
           ) {
-            slices[1] = oldUrl.toString() + "/index.js";
+            slices[1] = oldUrl.toString() + tsx ? "/index.tsx" : "/index.js";
           }
         } catch {
           console.error("URL ERR", slices[1]);
