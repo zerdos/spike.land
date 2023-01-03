@@ -3109,7 +3109,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-EUO6AO4G.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JH3UBBIL.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11345,9 +11345,9 @@ var CodeSession = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode32 = state.hashCode();
-      hashStore[hashCode32] = state;
-      return hashCode32;
+      const hashCode42 = state.hashCode();
+      hashStore[hashCode42] = state;
+      return hashCode42;
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_(state));
@@ -11508,6 +11508,10 @@ function createPatch(oldCode, newCode) {
   return createDelta(oldCode, newCode);
 }
 __name(createPatch, "createPatch");
+function hashCode3(sess) {
+  return Record(sess)().hashCode();
+}
+__name(hashCode3, "hashCode");
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -11660,7 +11664,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-EUO6AO4G.mjs
+// ../code/dist/src/chunk-chunk-JH3UBBIL.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -19101,7 +19105,7 @@ mixin2(Collection3, {
   valueSeq: /* @__PURE__ */ __name2(function valueSeq2() {
     return this.toIndexedSeq();
   }, "valueSeq"),
-  hashCode: /* @__PURE__ */ __name2(function hashCode3() {
+  hashCode: /* @__PURE__ */ __name2(function hashCode4() {
     return this.__hash || (this.__hash = hashCollection2(this));
   }, "hashCode")
 });
@@ -19965,9 +19969,9 @@ var CodeSession2 = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode32 = state.hashCode();
-      hashStore2[hashCode32] = state;
-      return hashCode32;
+      const hashCode42 = state.hashCode();
+      hashStore2[hashCode42] = state;
+      return hashCode42;
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_2(state));
@@ -20143,6 +20147,10 @@ function createPatch2(oldCode, newCode) {
 }
 __name2(createPatch2, "createPatch");
 var patchSync2 = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
+function hashCode32(sess) {
+  return Record3(sess)().hashCode();
+}
+__name2(hashCode32, "hashCode");
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -21374,9 +21382,9 @@ var Code = class {
           });
         }
         case "hashCode": {
-          const hashCode4 = String(Number(path[1]));
+          const hashCode5 = String(Number(path[1]));
           const patch = await this.kv.get(
-            hashCode4,
+            hashCode5,
             { allowConcurrency: true }
           );
           return new Response(JSON.stringify(patch || {}), {

@@ -587,3 +587,7 @@ function createPatch(oldCode: string, newCode: string) {
 export const patchSync = (sess: ICodeSession, force = true) => sessions[sess.codeSpace].patchSync(sess, force);
 
 export { type Delta } from "./textDiff";
+
+export function hashCode(sess: ICodeSession) {
+  return Record<ICodeSession>(sess)().hashCode();
+}

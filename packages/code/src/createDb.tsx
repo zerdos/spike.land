@@ -1,13 +1,8 @@
-import { Record } from "immutable";
 import { createInstance } from "localforage";
-import { db, hashKEY, ICodeSession, mST } from "./session";
+import { db, hashCode, ICodeSession, mST } from "./session";
 
 const promises: { [codeSpace: string]: Promise<void> } = {};
 const dbs: { [codeSpace: string]: LocalForage } = {};
-
-function hashCode(sess: ICodeSession) {
-  return Record<ICodeSession>(sess)().hashCode();
-}
 
 export async function initDb(codeSpace: string) {
   if (dbs[codeSpace]) return dbs[codeSpace];

@@ -9,6 +9,7 @@ import {
   applyPatch,
   type CodePatch,
   type Delta,
+  hashCode,
   // type Delta,
   // CodeSession,
   hashKEY,
@@ -266,9 +267,8 @@ const ws = {
 
 export const run = async () => {
   // const { readdir, mkdir, writeFile } = fs.promises;
-  const hash = Number(
-    await (await fetch(`${origin}/live/${codeSpace}/session/head`)).text(),
-  );
+  const session = await (await fetch(`${origin}/live/${codeSpace}/session`)).json();
+  const hash = hashCode(session);
   const head = await ldb(codeSpace).getItem("head");
 
   const savedSess = await ldb(codeSpace).getItem("#" + String(head)) as unknown as ICodeSession;
