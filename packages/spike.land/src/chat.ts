@@ -312,7 +312,7 @@ const api: ExportedHandler<CodeEnv> = {
                   //   ? {
                   //     browserTTL: 2 * 60 * 60 * 24,
                   //     edgeTTL: 2 * 60 * 60 * 24,
-                  //     bypassCache: false,
+                  //     orbypassCache: false,
                   //   }
                   //   : {
                   //     browserTTL: 0,

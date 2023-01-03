@@ -617,15 +617,27 @@ export class Code {
           )
             .replace(
               `<div id="root"></div>`,
-              `<div id="root" data-i="${i}" style="height: 100%;">
+              `<div id="root" style="height: 100%;">
+                  <div id="${this.codeSpace}-css" data-i="${i}" style="height: 100%;">
                   <style>${css}</style>
-                  <div id="${this.codeSpace}-css" style="height: 100%;">
-                  <div id="css" style="height: 100%;">
                   ${html}
                   </div>
-                  </div>
               </div>
-              <script type="module" src="/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+              <script type="module">
+
+              const paths = location.pathname.split("/");
+              const page = paths.pop();
+              const codeSpace = paths.pop();
+          
+              const BC = new BroadcastChannel([...paths, codeSpace].join("/"));
+              
+              BC.onmessage = ({data})=>{
+                const {html, css, i } = data;
+                if (page ==="dehydrated")    document.getElementById("root").innerHTML= ['<div id="', codeSpace, '-css" style="height: 100%"><style>", css, "</style>", html, "<div>" ].join("");
+                
+              }xx§x§§
+              if (page !== "dehydrated")  import"/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}");
+              </script>`,
             );
 
           // const Etag = request.headers.get("Etag");
