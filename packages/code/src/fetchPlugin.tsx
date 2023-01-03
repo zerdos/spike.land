@@ -145,7 +145,7 @@ export const fetchPlugin: (
 
       if (args.path.indexOf(".tsx") !== -1) {
         return {
-          contents: await esmTransform(importMapReplace(await response.text(), args.path, origin, true, true), origin),
+          contents: await esmTransform(importMapReplace(await response.text(), origin, args.path, true, true), origin),
         };
       }
 
