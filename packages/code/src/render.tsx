@@ -9,8 +9,6 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-// let root: Root;
-// let rootEl: HTMLDivElement;
 let i = 0;
 let controller = new AbortController();
 const mod: { [i: number]: { retry: number; rootEl: HTMLDivElement; root: Root; i: number; signal: AbortSignal } } = {};
@@ -64,6 +62,9 @@ BC.onmessage = async ({ data }) => {
     }
   }
 };
+
+let root: Root;
+let rootEl: HTMLDivElement;
 
 export const render = async (_rootEl: HTMLDivElement, App: FC, codeSpace: string) => {
   rootEl = _rootEl;
