@@ -623,7 +623,7 @@ export class Code {
                   ${html}
                   </div>
               </div>` + (path[0] === "dehydrated"
-                ? `<script type="module">
+                ? `<script>
 
               const paths = location.pathname.split("/");
               const page = paths.pop();
@@ -637,7 +637,7 @@ export class Code {
                 
               }
               </script>`
-                : `<script src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
+                : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
             );
 
           // const Etag = request.headers.get("Etag");
