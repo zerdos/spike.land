@@ -12,6 +12,7 @@ export async function initDb(codeSpace: string) {
       const dbInstance = createInstance({
         name: `/live/${codeSpace}`,
       });
+      await dbInstance.ready();
       let head = await dbInstance.getItem("head");
       let session: ICodeSession;
 
