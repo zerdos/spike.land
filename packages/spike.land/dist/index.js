@@ -19583,15 +19583,14 @@ async function esmTransform(code, origin) {
 }
 
 // src/chatRoom.ts
-var codeSpace;
 var head;
 function hashCode3(sess) {
   return Record(sess)().hashCode();
 }
 var sessions = {};
-function mST(codeSpace2, p3) {
+function mST(codeSpace, p3) {
   if (p3 && p3.length) {
-    const sessAsJs = sessions[codeSpace2].session.get("state").toJSON();
+    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
     const { i: i3, transpiled, code, html, css } = p3 ? JSON.parse(
       Dn2(
         Je2(
@@ -19600,16 +19599,16 @@ function mST(codeSpace2, p3) {
         p3
       )
     ) : sessAsJs;
-    return sessions[codeSpace2].session.get("state").merge({
+    return sessions[codeSpace].session.get("state").merge({
       i: i3,
       transpiled,
       code,
       html,
       css,
-      codeSpace: codeSpace2
+      codeSpace
     }).toObject();
   }
-  return sessions[codeSpace2].session.get("state").toObject();
+  return sessions[codeSpace].session.get("state").toObject();
 }
 var hashKEY = (cp) => hashCode3(mST(cp));
 var Code = class {
@@ -19617,6 +19616,7 @@ var Code = class {
     this.env = env;
     this.kv = state.storage;
     this.state = state;
+    this.sess = null;
     this.head = 0;
     this.sessionStarted = false;
     this.sessions = [];
@@ -19627,26 +19627,15 @@ var Code = class {
       try {
         this.head = await this.kv.get("head") || 0;
         head = this.head;
-        const session = await this.kv.get(this.head ? String(this.head) : "session", {
+        this.session = await this.kv.get(this.head ? String(this.head) : "session", {
           allowConcurrency: true
         }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
           "session.json"
         ).then((x) => x.json());
-        if (!session)
+        if (!this.session)
           throw Error("cant get the starter session");
         if (Number(this.head + 50) !== 50 + this.head)
           this.head = 0;
-        this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
-        this.sess = session;
-        codeSpace = this.codeSpace;
-        this.codeSpace = session.codeSpace || "";
-        if (this.sess.codeSpace) {
-          sessions[this.codeSpace] = bu2(
-            this.codeSpace,
-            { state: session, name: this.user }
-          );
-        }
-        this.sessionStarted = false;
       } catch {
         throw Error("cant get the starter session");
       }
@@ -19722,9 +19711,12 @@ var Code = class {
               }
               this.sess = newState;
               this.head = newHash;
-              this.session = bu2(
-                this.codeSpace,
-                { state: newState, name: this.user }
+              const newRec = sessions[this.codeSpace].session.get("state").merge(
+                newState
+              );
+              sessions[this.codeSpace].session = sessions[this.codeSpace].session.set(
+                "state",
+                newRec
               );
               this.syncKV(oldState, newState, {
                 oldHash,

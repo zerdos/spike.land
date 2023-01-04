@@ -99,6 +99,7 @@ export class Code {
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.kv = state.storage;
     this.state = state;
+    this.sess = null;
 
     this.head = 0;
     this.sessionStarted = false;
@@ -116,13 +117,13 @@ export class Code {
         this.head = await this.kv.get("head") || 0;
 
         head = this.head;
-        const session = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
+        this.session = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
           allowConcurrency: true,
         })
           || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
             "session.json",
           ).then((x) => x.json());
-        if (!session) throw Error("cant get the starter session");
+        if (!this.session) throw Error("cant get the starter session");
         // if (!session.code) {
         //   const s = backupSession;
         //   session.code = s.code;
@@ -137,20 +138,6 @@ export class Code {
         // if ( (head+1) !== Number(head)+1 ) {
         //   head =
         // }
-        this.address = await this.kv.get<string>("address", { allowConcurrency: true })
-          || "";
-
-        this.sess = session;
-        codeSpace = this.codeSpace;
-        this.codeSpace = session.codeSpace || "";
-        if (this.sess.codeSpace) {
-          sessions[this.codeSpace] = startSession(
-            this.codeSpace,
-            { state: session, name: this.user },
-            // url.origin,
-          );
-        }
-        this.sessionStarted = false;
       } catch {
         throw Error("cant get the starter session");
       }
@@ -222,10 +209,12 @@ export class Code {
               }
               this.sess = newState;
               this.head = newHash;
-              this.session = startSession(
-                this.codeSpace,
-                { state: newState, name: this.user },
-                // url.origin,
+              const newRec = sessions[this.codeSpace].session.get("state").merge(
+                newState,
+              );
+              sessions[this.codeSpace].session = sessions[this.codeSpace].session.set(
+                "state",
+                newRec,
               );
 
               // patchSync(newState, true);
