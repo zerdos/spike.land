@@ -15075,6 +15075,7 @@ async function esmTransform(code, origin) {
 }
 
 // src/chatRoom.ts
+var hashKEY = (cp) => Eu2(mu2(cp));
 var Code = class {
   constructor(state, env) {
     this.env = env;
@@ -15103,7 +15104,7 @@ var Code = class {
         this.sess = session;
         this.codeSpace = session.codeSpace || "";
         if (this.sess.codeSpace) {
-          this.sess = bu2(
+          this.session = bu2(
             this.codeSpace,
             { state: session, name: this.user }
           );
@@ -15141,17 +15142,6 @@ var Code = class {
       message
     ))();
   }
-  broadcast(msg) {
-    const message = JSON.stringify(msg);
-    this.sessions.filter((s) => s.name).map((s) => {
-      try {
-        s.webSocket.send(message);
-      } catch (err) {
-        s.quit = true;
-        this.users.remove(s.name);
-      }
-    });
-  }
   wait = (x) => {
     this.waiting = this.waiting.filter((x2) => !x2()) || [];
     if (x && !x())
@@ -15165,38 +15155,39 @@ var Code = class {
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.sess.codeSpace = this.codeSpace;
       await this.kv.put("session", this.sess, { allowConcurrency: true });
-      this.sess = bu2(
+      this.session = bu2(
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
       );
       this.sessionStarted = true;
     }
     if (this.head === 0) {
-      this.head = Eu2(this.sess);
+      const sess = mu2(this.codeSpace);
+      this.head = Eu2(sess);
+      this;
       await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), this.sess);
+      await this.kv.put(String(this.head), sess);
     }
     if (request.method === "POST") {
-      let mess;
       try {
-        mess = await request.json();
+        const mess = await request.json();
         if (mess) {
           if (!mess.patch || mess.patch && mess.i && mess.i > this.i) {
             if (mess.i) {
               this.i = mess.i;
               const reversePatch = mess.reversePatch || [];
               const patch = mess.patch || [];
-              const oldState = this.sess;
+              const oldState = mu2(this.codeSpace);
               const newState = mu2(this.codeSpace, patch);
               const oldHash = Eu2(oldState);
               const newHash = Eu2(newState);
-              if (Number(oldHash) !== Number(mess.oldHash) || Number(newHash) !== Number(mess.newHash)) {
+              if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw "Error - we messed up the hashStores";
               }
               this.sess = newState;
               this.head = newHash;
-              this.sess = bu2(
+              this.session = bu2(
                 this.codeSpace,
                 { state: newState, name: this.user }
               );
@@ -15220,8 +15211,7 @@ var Code = class {
           }
         }
       } catch (e3) {
-        const success = false;
-        return new Response(JSON.stringify({ success, mess, e: e3 }), {
+        return new Response(JSON.stringify({ success: false, error: { e: e3 } }), {
           status: 500,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -15242,7 +15232,7 @@ var Code = class {
       });
     }
     return handleErrors(request, async () => {
-      const { code, css, html, i: i3 } = this.sess;
+      const { code, css, html, i: i3 } = mu2(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0)
         path.push("");
@@ -15261,7 +15251,7 @@ var Code = class {
           });
         case "index.trans.js": {
           const trp = await initAndTransform(
-            this.sess.code,
+            mu2(this.codeSpace).code,
             {},
             url.origin
           );
@@ -15312,7 +15302,7 @@ var Code = class {
               );
             }
           }
-          const body = Je2(this.sess);
+          const body = Je2(mu2(this.codeSpace));
           return new Response(body, {
             status: 200,
             headers: {
@@ -15386,10 +15376,10 @@ var Code = class {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i4 = path[1] || this.sess.i;
-          if (i4 > this.sess.i) {
+          const i4 = path[1] || mu2(this.codeSpace).i;
+          if (i4 > mu2(this.codeSpace).i) {
             const trp2 = await initAndTransform(
-              this.sess.code,
+              mu2(this.codeSpace).code,
               {},
               url.origin
             );
@@ -15405,9 +15395,9 @@ var Code = class {
               }
             });
           }
-          if (i4 < this.sess.i) {
+          if (i4 < mu2(this.codeSpace).i) {
             const trp2 = await initAndTransform(
-              this.sess.code,
+              mu2(this.codeSpace).code,
               {},
               url.origin
             );
@@ -15416,7 +15406,7 @@ var Code = class {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${this.sess.i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mu2(this.codeSpace).i}`,
                 "Cache-Control": "no-cache",
                 content_hash: Qt2(trp2),
                 "Content-Type": "application/javascript; charset=UTF-8"
@@ -15424,7 +15414,7 @@ var Code = class {
             });
           }
           const trp = await initAndTransform(
-            this.sess.code,
+            mu2(this.codeSpace).code,
             {},
             url.origin
           );
@@ -15522,7 +15512,7 @@ sheet.addRule('h1', 'background: red;');
             `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${this.sess.i}"
+          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mu2(this.codeSpace).i}"
               
             import {prerender} from "${url.origin}/src/render.mjs"
               
@@ -15566,7 +15556,7 @@ sheet.addRule('h1', 'background: red;');
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${this.sess.i}";
+              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mu2(this.codeSpace).i}";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");
               
@@ -15614,8 +15604,8 @@ sheet.addRule('h1', 'background: red;');
     const users = this.sessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: this.head,
-        i: this.sess.i,
+        hashCode: hashKEY(this.codeSpace),
+        i: mu2(this.codeSpace).i,
         users,
         type: "handshake"
       })
@@ -15657,7 +15647,7 @@ sheet.addRule('h1', 'background: red;');
       session.name = name;
     }
     if (data.type == "handshake") {
-      const HEAD = this.head;
+      const HEAD = hashKEY(this.codeSpace);
       const commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get("" + commit, {
@@ -15682,9 +15672,9 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = this.sess;
+          const oldSession = mu2(this.codeSpace);
           const newSess = mu2(this.codeSpace, data.patch);
-          if (this.head !== Number(data.oldHash)) {
+          if (hashKEY(this.codeSpace) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`
             });
@@ -15701,12 +15691,11 @@ sheet.addRule('h1', 'background: red;');
             });
           }
           try {
-            this.sess = newSess;
-            this.kv.put("session", this.sess, {
+            await this.kv.put("session", newSess, {
               allowConcurrency: true
             });
             const { newHash, oldHash, patch, reversePatch } = data;
-            this.syncKV(oldSession, newSess, {
+            await this.syncKV(oldSession, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
               patch,
@@ -15720,7 +15709,7 @@ sheet.addRule('h1', 'background: red;');
             });
           }
           return respondWith({
-            hashCode: this.head
+            hashCode: hashKEY(this.codeSpace)
           });
         }
       } catch (exp) {
@@ -15745,6 +15734,17 @@ sheet.addRule('h1', 'background: red;');
         s.webSocket.send(message);
       } catch {
         console.error("p2p error");
+      }
+    });
+  }
+  broadcast(msg) {
+    const message = JSON.stringify(msg);
+    this.sessions.filter((s) => s.name).map((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (err) {
+        s.quit = true;
+        this.users.remove(s.name);
       }
     });
   }

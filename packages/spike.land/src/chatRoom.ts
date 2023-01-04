@@ -19,6 +19,7 @@ interface WebsocketSession {
   // blockedMessages: string[];
 }
 
+const hashKEY = (cp: string) => hashCode(mST(cp));
 export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
@@ -56,20 +57,6 @@ export class Code {
         newSess,
         message,
       ))();
-  }
-
-  broadcast(msg: unknown) {
-    const message = JSON.stringify(msg);
-
-    this.sessions.filter((s) => s.name).map((s) => {
-      try {
-        s.webSocket.send(message);
-      } catch (err) {
-        s.quit = true;
-        this.users.remove(s.name);
-        // s.blockedMessages.push(message);
-      }
-    });
   }
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
@@ -116,8 +103,8 @@ export class Code {
 
         this.sess = session;
         this.codeSpace = session.codeSpace || "";
-        if (this.sess!.codeSpace) {
-          this.sess = startSession(
+        if (this.sess.codeSpace) {
+          this.session = startSession(
             this.codeSpace,
             { state: session, name: this.user },
             // url.origin,
@@ -148,7 +135,7 @@ export class Code {
 
       await this.kv.put("session", this.sess!, { allowConcurrency: true });
 
-      this.sess = startSession(
+      this.session = startSession(
         this.codeSpace,
         { state: this.sess!, name: this.codeSpace },
         // url.origin,
@@ -159,12 +146,13 @@ export class Code {
     if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
       // if (headValue) {
-      this.head = hashCode(this.sess);
-
+      const sess = mST(this.codeSpace);
+      this.head = hashCode(sess);
+      this;
       await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), this.sess);
+      await this.kv.put(String(this.head), sess);
 
-      // const newSession = this.sess;
+      // const newSession = mST(this.codeSpace);
 
       // patchSync(oldSession, true);
       // const message = makePatch(newSession);
@@ -173,9 +161,10 @@ export class Code {
     }
 
     if (request.method === "POST") {
-      let mess: Partial<CodePatch & ICodeSession & { session: ICodeSession }> | undefined;
       try {
-        mess = await request.json();
+        const mess:
+          | Partial<CodePatch & ICodeSession & { session: ICodeSession }>
+          | undefined = await request.json();
         if (mess) {
           if (!mess.patch || (mess.patch && mess.i && mess.i > this.i)) {
             if (mess.i) {
@@ -183,17 +172,17 @@ export class Code {
 
               const reversePatch: Delta[] = mess.reversePatch || [];
               const patch: Delta[] = mess.patch || [];
-              const oldState = this.sess!;
+              const oldState = mST(this.codeSpace);
               const newState = mST(this.codeSpace, patch);
               const oldHash = hashCode(oldState);
               const newHash = hashCode(newState);
-              if (Number(oldHash) !== Number(mess.oldHash) || Number(newHash) !== Number(mess.newHash)) {
+              if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
               this.sess = newState;
               this.head = newHash;
-              this.sess = startSession(
+              this.session = startSession(
                 this.codeSpace,
                 { state: newState, name: this.user },
                 // url.origin,
@@ -229,8 +218,7 @@ export class Code {
           }
         }
       } catch (e) {
-        const success = false;
-        return new Response(JSON.stringify({ success, mess, e }), {
+        return new Response(JSON.stringify({ success: false, error: { e } }), {
           status: 500,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -252,7 +240,7 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
-      const { code, css, html, i } = this.sess!;
+      const { code, css, html, i } = mST(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
@@ -272,7 +260,7 @@ export class Code {
 
         case "index.trans.js": {
           const trp = await initAndTransform(
-            this.sess!.code,
+            mST(this.codeSpace).code,
             {},
             url.origin,
           );
@@ -327,7 +315,7 @@ export class Code {
               );
             }
           }
-          const body = string_(this.sess);
+          const body = string_(mST(this.codeSpace));
           return new Response(body, {
             status: 200,
             headers: {
@@ -340,7 +328,7 @@ export class Code {
           });
         }
         // case "prettier": {
-        //   return new Response(prettier(this.sess!.code), {
+        //   return new Response(prettier(mST(this.codeSpace).code), {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
@@ -414,14 +402,14 @@ export class Code {
           });
         }
         // case "yay": {
-        //   // const deps = detective(this.sess!.code);
+        //   // const deps = detective(mST(this.codeSpace).code);
         //   // initAta();
         //   // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
         //   // initAta();
 
-        //   // await addExtraModels(importMapReplace(this.sess!.code, url.origin, url.origin, false), url.toString());
+        //   // await addExtraModels(importMapReplace(mST(this.codeSpace).code, url.origin, url.origin, false), url.toString());
         //   // const code = await this.kv.list();c
-        //   // const code = this.sess!.code;
+        //   // const code = mST(this.codeSpace).code;
         //   // let [, ...deps] = path;
         //   // if (deps.length === 0) {
         //   //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
@@ -433,7 +421,7 @@ export class Code {
         //   // deps = [...(new Set(deps))];
         //   // const res = JSON.stringify(deps);
 
-        //   const res = JSON.stringify(await run(this.sess!.code, url.origin));
+        //   const res = JSON.stringify(await run(mST(this.codeSpace).code, url.origin));
 
         //   return new Response(res, {
         //     status: 200,
@@ -451,7 +439,7 @@ export class Code {
         //   let [, ...deps] = path;
         //   initAta();
         //   // const code = await this.kv.list();c
-        //   const code = prettierJs(this.sess!.code);
+        //   const code = prettierJs(mST(this.codeSpace).code);
         //   if (deps.length === 0) {
         //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
         //       s => s.split(`"`)[1],
@@ -562,25 +550,25 @@ export class Code {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i = path[1] || this.sess!.i;
+          const i = path[1] || mST(this.codeSpace).i;
 
-          if (i > this.sess!.i) {
+          if (i > mST(this.codeSpace).i) {
             // const started = Date.now() / 1000;
             // const body = await new Promise<string>((res, reject) =>
             //   this.wait(() => {
             //     const now = Date.now() / 1000;
 
-            //     if (this.sess!.i < Number(i) && started - now < 3000) {
+            //     if (mST(this.codeSpace).i < Number(i) && started - now < 3000) {
             //       return false;
             //     }
             //     if (
-            //       this.sess!.i < Number(i) && started - now >= 3000
+            //       mST(this.codeSpace).i < Number(i) && started - now >= 3000
             //     ) {
             //       reject(null);
             //       return false;
             //     }
 
-            //     initAndTransform(this.sess!.code, {}, url.origin).then(
+            //     initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(
             //       (transpiled) => res(transpiled),
             //     );
             //     return true;
@@ -588,7 +576,7 @@ export class Code {
             // );
 
             const trp = await initAndTransform(
-              this.sess!.code,
+              mST(this.codeSpace).code,
               {},
               url.origin,
             );
@@ -605,9 +593,9 @@ export class Code {
               },
             });
           }
-          if (i < this.sess!.i) {
+          if (i < mST(this.codeSpace).i) {
             const trp = await initAndTransform(
-              this.sess!.code,
+              mST(this.codeSpace).code,
               {},
               url.origin,
             );
@@ -616,7 +604,7 @@ export class Code {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${this.sess!.i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST(this.codeSpace).i}`,
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -625,7 +613,7 @@ export class Code {
             });
           }
           const trp = await initAndTransform(
-            this.sess!.code,
+            mST(this.codeSpace).code,
             {},
             url.origin,
           );
@@ -747,7 +735,7 @@ sheet.addRule('h1', 'background: red;');
               `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${this.sess!.i}"
+          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}"
               
             import {prerender} from "${url.origin}/src/render.mjs"
               
@@ -810,7 +798,7 @@ sheet.addRule('h1', 'background: red;');
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${this.sess!.i}";
+              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");
               
@@ -889,8 +877,8 @@ sheet.addRule('h1', 'background: red;');
     const users = this.sessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: this.head,
-        i: this.sess!.i,
+        hashCode: hashKEY(this.codeSpace),
+        i: mST(this.codeSpace).i,
         users,
         type: "handshake",
       }),
@@ -987,7 +975,7 @@ sheet.addRule('h1', 'background: red;');
     }
 
     if (data.type == "handshake") {
-      const HEAD = this.head;
+      const HEAD = hashKEY(this.codeSpace);
       const commit = data.hashCode;
       while (commit && commit !== HEAD) {
         const oldNode = await this.kv.get<CodePatch>("" + commit, {
@@ -1020,7 +1008,7 @@ sheet.addRule('h1', 'background: red;');
 
     //   if (data.hashCode) {
     //     if (data?.hashCode !== hashKEY(this.codeSpace)) {
-    //       const patch = makePatchFrom(data.hashCode, this.sess);
+    //       const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
     //       if (patch) {
     //         return respondWith({ ...patch });
     //       }
@@ -1055,7 +1043,7 @@ sheet.addRule('h1', 'background: red;');
       // if (
       //   !data.type && limiter.checkLimit()
       // ) {
-      //   return respondWith({ if ( if (data.i <= this.sess!.i) return;data.i <= this.sess!.i) return;
+      //   return respondWith({ if ( if (data.i <= mST(this.codeSpace).i) return;data.i <= mST(this.codeSpace).i) return;
       //     error: "Your IP is being rate-limited, please try again later.",
       //   });
       // }
@@ -1071,9 +1059,9 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
 
-        // if (data.i <= this.sess!.i) {
+        // if (data.i <= mST(this.codeSpace).i) {
         //   return respondWith({
-        //     error: `data.i <= this.sess!.i`,
+        //     error: `data.i <= mST(this.codeSpace).i`,
         //   });
         // }
 
@@ -1095,10 +1083,10 @@ sheet.addRule('h1', 'background: red;');
         //   return;
         // }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = this.sess;
+          const oldSession = mST(this.codeSpace);
           const newSess = mST(this.codeSpace, data.patch);
 
-          if (this.head !== Number(data.oldHash)) {
+          if (hashKEY(this.codeSpace) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`,
             });
@@ -1132,14 +1120,13 @@ sheet.addRule('h1', 'background: red;');
           // if (newHash === hashKEY()) {
 
           try {
-            this.sess = newSess;
-            this.kv.put<ICodeSession>("session", this.sess!, {
+            await this.kv.put<ICodeSession>("session", newSess, {
               allowConcurrency: true,
             });
 
             const { newHash, oldHash, patch, reversePatch } = data;
 
-            this.syncKV(oldSession!, newSess, {
+            await this.syncKV(oldSession, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
               patch,
@@ -1162,7 +1149,7 @@ sheet.addRule('h1', 'background: red;');
           // );
           // }
           return respondWith({
-            hashCode: this.head,
+            hashCode: hashKEY(this.codeSpace),
           });
         }
       } catch (exp) {
@@ -1194,6 +1181,20 @@ sheet.addRule('h1', 'background: red;');
           console.error("p2p error");
         }
       });
+  }
+
+  broadcast(msg: unknown) {
+    const message = JSON.stringify(msg);
+
+    this.sessions.filter((s) => s.name).map((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (err) {
+        s.quit = true;
+        this.users.remove(s.name);
+        // s.blockedMessages.push(message);
+      }
+    });
   }
 }
 
