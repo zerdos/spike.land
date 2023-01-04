@@ -1,6 +1,6 @@
 // Object.assign(globalThis, require("buffer/"));
 // Object.assign(globalThis, require("stream-browserify"));
-
+import ky from "ky";
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 // import P2PCF from "p2pcf";
@@ -258,25 +258,16 @@ type MessageProps = Partial<{
 
 const ws = {
   blockedMessages: [] as MessageProps[],
-  post: async (
-    mess,
-  ) => {
-    const request = new Request(location.href, {
-      method: "POST",
-      body: JSON.stringify(
-        {
-          name: user,
-          ...mess,
-          codeSpace,
-          i: mST(codeSpace).i,
-          hashCode: hashCode(mST(codeSpace)),
-        },
-      ),
-    });
-
-    const resp = ((await fetch(request)).json());
-    console.log("******* resp from CF", { resp });
-  },
+  post: (json: Partial<CodePatch & ICodeSession & { hashCode: number }>) =>
+    ky.post(`${origin}/live/${codeSpace}/session.json`, {
+      json,
+      retry: {
+        limit: 5,
+        methods: ["get"],
+        statusCodes: [413, 500],
+        backoffLimit: 3000,
+      },
+    }).json(),
   send: (
     mess: MessageProps,
   ) => {

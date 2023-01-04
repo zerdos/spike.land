@@ -1980,6 +1980,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:4.2.1"],\
           ["is-callable", "npm:1.2.7"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
+          ["ky", "npm:0.33.1"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.12"],\
@@ -2072,6 +2073,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:4.2.1"],\
           ["is-callable", "npm:1.2.7"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
+          ["ky", "npm:0.33.1"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.12"],\
@@ -9607,6 +9609,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../Users/z/.yarn/berry/cache/kleur-npm-4.1.5-46b6135f41-9.zip/node_modules/kleur/",\
         "packageDependencies": [\
           ["kleur", "npm:4.1.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["ky", [\
+      ["npm:0.33.1", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/ky-npm-0.33.1-ea80c7754f-9.zip/node_modules/ky/",\
+        "packageDependencies": [\
+          ["ky", "npm:0.33.1"]\
         ],\
         "linkType": "HARD"\
       }]\

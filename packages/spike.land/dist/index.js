@@ -2904,6 +2904,7 @@ var package_default = {
     immutable: "^4.2.1",
     "is-callable": "1.2.7",
     "isomorphic-fetch": "^3.0.0",
+    ky: "^0.33.1",
     localforage: "^1.10.0",
     logrocket: "^3.0.1",
     memfs: "^3.4.12",
