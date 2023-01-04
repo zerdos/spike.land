@@ -27,7 +27,6 @@ function hashCode(sess: ICodeSession) {
 export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
-  codeSpace: string;
   // mutex: Mutex;
   session: CodeSession | null;
   sess: ICodeSession | null;
@@ -96,8 +95,6 @@ export class Code {
     this.head = 0;
     this.wsSessions = [];
     this.env = env;
-    this.codeSpace = "";
-    this.address = "";
 
     // this.mutex = new Mutex();
 
@@ -141,7 +138,7 @@ export class Code {
     const url = new URL(request.url);
 
     this.wait();
-    if (!this.codeSpace) this.codeSpace = new URLSearchParams(request.url).get("room")!;
+    const codeSpace = url.searchParams.get("room");
 
     if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
@@ -257,7 +254,7 @@ export class Code {
           return new Response(trp, {
             status: 200,
             headers: {
-              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+              "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
               "Access-Control-Allow-Origin": "*",
               "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
@@ -369,7 +366,7 @@ export class Code {
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
            import {LoadRoom} from "/live/lazy/js";
-           export default ()=>jsX(LoadRoom, { room:"${this.codeSpace}"}) ;
+           export default ()=>jsX(LoadRoom, { room:"${codeSpace}"}) ;
            `,
             {
               status: 200,
@@ -408,7 +405,7 @@ export class Code {
         // case "yay": {
         //   // const deps = detective(this.sess!.code);
         //   // initAta();
-        //   // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
+        //   // await addExtraModels(code, url.origin + `/live/` + codeSpace);
         //   // initAta();
 
         //   // await addExtraModels(importMapReplace(this.sess!.code, url.origin, url.origin, false), url.toString());
@@ -481,7 +478,7 @@ export class Code {
         //     },
         //   });
         case "room":
-          return new Response(JSON.stringify({ codeSpace: this.codeSpace }), {
+          return new Response(JSON.stringify({ codeSpace: codeSpace }), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -501,7 +498,7 @@ export class Code {
             },
           });
         //   case "render.tsx": {
-        //     const codeSpace = this.codeSpace;
+        //     const codeSpace = codeSpace;
 
         //     const src = importMapReplace(
         //       `import {createRoot} from "react-dom/client"
@@ -541,7 +538,7 @@ export class Code {
         //     );
         //     return new Response(src, {
         //       headers: {
-        //         "x-typescript-types": `${url.origin}/live/${this.codeSpace}/render.tsx`,
+        //         "x-typescript-types": `${url.origin}/live/${codeSpace}/render.tsx`,
         //         "Access-Control-Allow-Origin": "*",
         //         "Cross-Origin-Embedder-Policy": "require-corp",
         //         "Cache-Control": "no-cache",
@@ -587,7 +584,7 @@ export class Code {
             return new Response(trp, {
               status: 200,
               headers: {
-                "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+                "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
@@ -608,7 +605,7 @@ export class Code {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${this.sess!.i}`,
+                "Location": `${url.origin}/live/${codeSpace}/index.mjs/${this.sess!.i}`,
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -672,7 +669,7 @@ export class Code {
             .replace(
               `<div id="root"></div>`,
               `<div id="root" style="height: 100%;">
-                  <div id="${this.codeSpace}-css" data-i="${i}" style="height: 100%;">
+                  <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                   <style>${css}</style>
                   ${html}
                   </div>
@@ -739,7 +736,7 @@ sheet.addRule('h1', 'background: red;');
               `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i}"
+          import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}"
               
             import {prerender} from "${url.origin}/src/render.mjs"
               
@@ -792,7 +789,7 @@ sheet.addRule('h1', 'background: red;');
               `<div id="root"></div>`,
               `
               <div id="root" style="height: 100%;">
-                <div id="${this.codeSpace}-css" data-i="${i}" style="height: 100%;">
+                <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                 <style>${css}</style>
                 ${html}
               </div>
@@ -800,11 +797,11 @@ sheet.addRule('h1', 'background: red;');
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i}";
+              import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
 
-              const rootEl = document.getElementById("${this.codeSpace}-css");
+              const rootEl = document.getElementById("${codeSpace}-css");
               
-              render(rootEl, App, "${this.codeSpace}");          
+              render(rootEl, App, "${codeSpace}");          
           
               </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
@@ -1008,7 +1005,7 @@ sheet.addRule('h1', 'background: red;');
     // });
 
     //   if (data.hashCode) {
-    //     if (data?.hashCode !== hashKEY(this.codeSpace)) {
+    //     if (data?.hashCode !== hashKEY(codeSpace)) {
     //       const patch = makePatchFrom(data.hashCode, this.sess);
     //       if (patch) {
     //         return respondWith({ ...patch });
@@ -1027,7 +1024,7 @@ sheet.addRule('h1', 'background: red;');
     //   : null;
     // // return respondWith({
     //   ...(rtcConnUser ? { name: rtcConnUser } : {}),
-    //   hashCode: hashKEY(this.codeSpace),
+    //   hashCode: hashKEY(codeSpace),
     //   users: this.users.keys(),
     // });
 

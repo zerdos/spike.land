@@ -19597,8 +19597,6 @@ var Code = class {
     this.head = 0;
     this.wsSessions = [];
     this.env = env;
-    this.codeSpace = "";
-    this.address = "";
     this.state.blockConcurrencyWhile(async () => {
       try {
         this.head = await this.kv.get("head") || 0;
@@ -19618,7 +19616,6 @@ var Code = class {
   }
   state;
   kv;
-  codeSpace;
   session;
   sess;
   user = Qt2(self.crypto.randomUUID());
@@ -19672,8 +19669,7 @@ var Code = class {
   async fetch(request) {
     const url = new URL(request.url);
     this.wait();
-    if (!this.codeSpace)
-      this.codeSpace = new URLSearchParams(request.url).get("room");
+    const codeSpace = url.searchParams.get("room");
     if (this.head === 0) {
       this.head = hashCode3(this.sess);
       this.kv.put(String(this.head), this.sess).then(() => this.kv.put("head", this.head));
@@ -19770,7 +19766,7 @@ var Code = class {
           return new Response(trp, {
             status: 200,
             headers: {
-              "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+              "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
               "Access-Control-Allow-Origin": "*",
               "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
@@ -19843,7 +19839,7 @@ var Code = class {
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
            import {LoadRoom} from "/live/lazy/js";
-           export default ()=>jsX(LoadRoom, { room:"${this.codeSpace}"}) ;
+           export default ()=>jsX(LoadRoom, { room:"${codeSpace}"}) ;
            `,
             {
               status: 200,
@@ -19879,7 +19875,7 @@ var Code = class {
           });
         }
         case "room":
-          return new Response(JSON.stringify({ codeSpace: this.codeSpace }), {
+          return new Response(JSON.stringify({ codeSpace }), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -19911,7 +19907,7 @@ var Code = class {
             return new Response(trp2, {
               status: 200,
               headers: {
-                "x-typescript-types": `${url.origin}/live/${this.codeSpace}/index.tsx`,
+                "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
@@ -19931,7 +19927,7 @@ var Code = class {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${this.sess.i}`,
+                "Location": `${url.origin}/live/${codeSpace}/index.mjs/${this.sess.i}`,
                 "Cache-Control": "no-cache",
                 content_hash: Qt2(trp2),
                 "Content-Type": "application/javascript; charset=UTF-8"
@@ -19991,7 +19987,7 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" style="height: 100%;">
-                  <div id="${this.codeSpace}-css" data-i="${i3}" style="height: 100%;">
+                  <div id="${codeSpace}-css" data-i="${i3}" style="height: 100%;">
                   <style>${css}</style>
                   ${html}
                   </div>
@@ -20037,7 +20033,7 @@ sheet.addRule('h1', 'background: red;');
             `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i3}"
+          import App from "${url.origin}/live/${codeSpace}/index.js?i=${i3}"
               
             import {prerender} from "${url.origin}/src/render.mjs"
               
@@ -20071,7 +20067,7 @@ sheet.addRule('h1', 'background: red;');
             `<div id="root"></div>`,
             `
               <div id="root" style="height: 100%;">
-                <div id="${this.codeSpace}-css" data-i="${i3}" style="height: 100%;">
+                <div id="${codeSpace}-css" data-i="${i3}" style="height: 100%;">
                 <style>${css}</style>
                 ${html}
               </div>
@@ -20079,11 +20075,11 @@ sheet.addRule('h1', 'background: red;');
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i3}";
+              import App from "${url.origin}/live/${codeSpace}/index.js?i=${i3}";
 
-              const rootEl = document.getElementById("${this.codeSpace}-css");
+              const rootEl = document.getElementById("${codeSpace}-css");
               
-              render(rootEl, App, "${this.codeSpace}");          
+              render(rootEl, App, "${codeSpace}");          
           
               <\/script>`
           ).split("ASSET_HASH").join(ASSET_HASH);
