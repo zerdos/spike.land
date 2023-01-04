@@ -20070,18 +20070,16 @@ sheet.addRule('h1', 'background: red;');
           ).replace(
             `<div id="root"></div>`,
             `
-              <div id="root" data-i="${i3}" style="height: 100%;">
-
-              <style>${css}</style>
-              <div id="${this.codeSpace}-css" style="height: 100%;">
+              <div id="root" style="height: 100%;">
+                <div id="${this.codeSpace}-css" data-i="${i3}" style="height: 100%;">
+                <style>${css}</style>
                 ${html}
-              </div>
               </div>
               <script type="module">
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}";
+              import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i3}";
 
               const rootEl = document.getElementById("${this.codeSpace}-css");
               
