@@ -1,17 +1,17 @@
 // import { importMapReplace } from "./esbuildEsm";
-import { transform } from "./esmTransform";
+// import { transform } from "./esmTransform";
 export type {};
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
 
-var originalFetch = require("isomorphic-fetch");
-var fetch = require("fetch-retry")(originalFetch, {
-  retries: 3,
-  retryDelay: 800,
-});
+// var originalFetch = require("isomorphic-fetch");
+// var fetch = require("fetch-retry")(originalFetch, {
+//   retries: 3,
+//   retryDelay: 800,
+// });
 
-onConnectToClients(self);
+onConnectToClients();
 
 // import { renderToStream } from "./renderToStream";
 declare const self: ServiceWorkerGlobalScope;
@@ -266,30 +266,30 @@ const createResponse = async (request: Request) => {
       return response;
     }
 
-    if (
-      (url.pathname.indexOf(".ts") !== -1
-        || url.pathname.indexOf(".tsx") !== -1)
-      && url.pathname.indexOf(".d.ts") === -1
-    ) {
-      const transformed = (await transform(await response.text(), {
-        format: "esm",
-        loader: "tsx",
-        target: "es2022",
-      })).code;
-      if (typeof transformed !== "string") {
-        return new Response("500 transpile error", { status: 500 });
-      }
+    // if (
+    //   (url.pathname.indexOf(".ts") !== -1
+    //     || url.pathname.indexOf(".tsx") !== -1)
+    //   && url.pathname.indexOf(".d.ts") === -1
+    // ) {
+    //   const transformed = (await transform(await response.text(), {
+    //     format: "esm",
+    //     loader: "tsx",
+    //     target: "es2022",
+    //   })).code;
+    //   if (typeof transformed !== "string") {
+    //     return new Response("500 transpile error", { status: 500 });
+    //   }
 
-      response = new Response(transformed, {
-        ...response,
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-      });
-    }
+    //   response = new Response(transformed, {
+    //     ...response,
+    //     status: 200,
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Cache-Control": "no-cache",
+    //       "Content-Type": "application/json; charset=UTF-8",
+    //     },
+    //   });
+    // }
     if (
       response.headers.get("Cache-Control") !== "no-cache" || isChunk
     ) {
