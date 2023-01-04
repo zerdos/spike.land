@@ -1,6 +1,6 @@
 import * as monaco from "monaco-editor";
 import editorUrl from "../dist/editor/editor.worker.js";
-import tsUrl from "../dist/languages/typescript/ts.worker.js";
+import tsUrl from "../dist/language/typescript/ts.worker.js";
 // import localForage from "localforage";
 
 const { editor, languages, Uri } = monaco;
@@ -166,7 +166,7 @@ self.MonacoEnvironment = {
     // }
 
     if (label === "typescript" || label === "javascript") {
-      return originToUse + `/language/typescript/ts.js`;
+      return tsUrl;
     }
 
     return editorUrl;
