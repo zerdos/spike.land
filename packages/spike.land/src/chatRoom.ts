@@ -180,7 +180,7 @@ export class Code {
                 throw ("Error - we messed up the hashStores");
               }
               this.sess = newState;
-
+              t;
               this.session = startSession(
                 this.codeSpace,
                 { state: newState, name: this.user },
