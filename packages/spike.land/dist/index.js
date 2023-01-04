@@ -20045,7 +20045,7 @@ sheet.addRule('h1', 'background: red;');
             `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}"
+          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i3}"
               
             import {prerender} from "${url.origin}/src/render.mjs"
               
