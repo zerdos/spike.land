@@ -112,7 +112,7 @@ const monacoContribution = async (
   const worker = new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
   const dispatcher: RpcProvider.Dispatcher = (m, t) => worker.port.postMessage(m, t as StructuredSerializeOptions);
 
-  const rpcProvider = new RpcProvider(dispatcher, 20_000);
+  const rpcProvider = new RpcProvider(dispatcher, 30_000);
 
   worker.port.onmessage = (e) => rpcProvider.dispatch(e.data);
   worker.port.start();

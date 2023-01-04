@@ -208,9 +208,9 @@ const build = (
     define,
     treeShaking: true,
     minify: true, // ! isDevelopment,
-    minifyWhitespace: true, // ! isDevelopment,
-    minifyIdentifiers: true, // ! isDevelopment,
-    minifySyntax: true, // ! isDevelopment,
+    minifyWhitespace: false, // ! isDevelopment,
+    minifyIdentifiers: false, // ! isDevelopment,
+    minifySyntax: false, // ! isDevelopment,
     ignoreAnnotations: false,
     keepNames: true,
 
