@@ -19627,12 +19627,12 @@ var Code = class {
       try {
         this.head = await this.kv.get("head") || 0;
         head = this.head;
-        this.session = await this.kv.get(this.head ? String(this.head) : "session", {
+        this.sess = await this.kv.get(this.head ? String(this.head) : "session", {
           allowConcurrency: true
         }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
           "session.json"
         ).then((x) => x.json());
-        if (!this.session)
+        if (!this.sess)
           throw Error("cant get the starter session");
         if (Number(this.head + 50) !== 50 + this.head)
           this.head = 0;

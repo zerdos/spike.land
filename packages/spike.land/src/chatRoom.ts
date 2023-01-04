@@ -117,13 +117,12 @@ export class Code {
         this.head = await this.kv.get("head") || 0;
 
         head = this.head;
-        this.session = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
+        this.sess = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
           allowConcurrency: true,
-        })
-          || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
-            "session.json",
-          ).then((x) => x.json());
-        if (!this.session) throw Error("cant get the starter session");
+        }) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+          "session.json",
+        ).then((x) => x.json());
+        if (!this.sess) throw Error("cant get the starter session");
         // if (!session.code) {
         //   const s = backupSession;
         //   session.code = s.code;
