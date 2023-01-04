@@ -567,13 +567,12 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
       applyPatch(message, codeSpace);
 
       // const newSS = mST(codeSpace);
-
-      ws.post(message);
-      ws.send(message);
-
       await ldb(codeSpace).syncDb(oldSession, newSession, message);
 
       mutex.release();
+
+      await ws.post(message);
+      // ws.send(message);
     }
   } catch (error) {
     console.error("error 2", { e: error });
