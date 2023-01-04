@@ -6,7 +6,7 @@ import { CacheProvider, css } from "@emotion/react";
 import createCache from "./emotionCache";
 // import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { mST } from "./session";
+import { importMapReplace, mST } from "./session";
 import { wait } from "./wait";
 
 // const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
@@ -381,9 +381,8 @@ export async function appFactory(
 ): Promise<FC<{ appId: string }>> {
   // }
 
-  const { transpiled: mstTranspiled, i: mstI } = mST(codeSpace);
-  const trp = transpiled.length > 0 ? transpiled : mstTranspiled;
-  if (transpiled) console.log({ transpiled });
+  const trp: string = transpiled || mST(codeSpace).transpiled;
+
   const hash = md5(transpiled);
 
   if (!apps[hash] || !eCaches[hash]) {
@@ -398,9 +397,8 @@ export async function appFactory(
       // if (terminal && terminal.clear) {
       //   terminal.clear();
       // }
-      console.log(`i: ${mstI}: `);
 
-      const App = (await import(createJsBlob(trp))).default;
+      const App = (await import(createJsBlob(importMapReplace(trp, origin, origin)))).default;
 
       apps[hash] = ({ appId }: { appId: string }) => (
         <div key={hash} style={{ height: 100 + "%" }} id={appId}>
