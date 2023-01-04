@@ -1,22 +1,23 @@
 // Import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-import esbuild from "esbuild";
-import { cp } from "node:fs/promises";
+import * as esbuild from "https://deno.land/x/esbuild@v0.16.13/mod.js";
+
+// import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
 
-import { resolve } from "node:path";
+// import { resolve } from "node:path";
 // import open from "open";
 // import fetch from "node-fetch";
 // Const { request } = require("http");
 // require("monaco-editor/esm/vs/language/css/css.worker")
 // const rmAsync = promisify(fs.rm);
-import { env, exit } from "process";
-import { NIL } from "uuid";
+// import { env, exit } from "process";
+// import { NIL } from "uuid";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = env.NODE_ENV === "production"
+const environment = "production" === "production"
   ? "production"
   : "development";
 
@@ -95,13 +96,12 @@ const buildOptions = {
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
+  external: ["./mST", "/npm:*"],
+  legalComments: "none",
   loader: {
-    ".ttf": "file",
     ".html": "text",
     ".wasm": "file",
   },
-  external: ["./mST", "/npm:*"],
-  legalComments: "none",
 };
 
 const workerEntryPoints = [
@@ -133,7 +133,7 @@ const build = (
     bundle: true,
     splitting: format === "esm",
     target,
-    format: format || "esm",
+    format: "esm",
     sourcemap: false,
 
     minify: !isDevelopment,
@@ -161,14 +161,12 @@ const build = (
       ".ts",
       ".jsx",
       ".js",
-      ".d.ts",
       ".css",
       ".json",
       ".mjs",
       ".html",
       ".js",
       ".wasm",
-      ".js?worker",
     ],
     metafile: true,
     define,
@@ -189,16 +187,14 @@ const build = (
     outdir,
   }).catch((error) => {
     console.error(error);
-    exit(1);
+    esbuild.stop();
   });
 
 (async () => {
   // await cp("./src/index.html", "./dist/index.html");
-  await cp("./tsconfig.json", "./dist/src/tsconfig_dist.json");
-  await cp("./dist/src/assets/favicons/favicon.ico", "./dist/src/favicon.ico");
+  // await Deno.copyFile("./src/assets/favicons/favicon.ico", "./dist/src/favicon.ico");
 
-  await cp("./src/via", "./dist/src", { recursive: true, force: true });
-  await cp(
+  await Deno.copyFile(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
@@ -245,6 +241,7 @@ const build = (
       "src/prettierWorker.ts",
       // "src/fs.worker.ts",
     ],
+
     bundle: true,
     define, // makeEnv("production"),
     minify: false,
@@ -254,6 +251,7 @@ const build = (
     ignoreAnnotations: false,
     keepNames: true,
     treeShaking: true,
+    legalComments: "none",
     outdir: "dist",
     platform: "browser",
     format: "iife",
@@ -349,6 +347,8 @@ const build = (
   );
 
   console.log("done");
+
+  esbuild.stop();
 
   // await build(
   //   [
