@@ -186,7 +186,7 @@ export class Code {
       // await this.syncKV(oldSession, newSession, message);
     }
 
-    if (request.method === "POST") {
+    if (request.method === "PUT") {
       try {
         const mess:
           | Partial<CodePatch & ICodeSession & { session: ICodeSession }>

@@ -8,6 +8,12 @@ const rpcProvider = new RpcProvider(
   dispatcher,
 );
 
-onmessage = (e) => rpcProvider.dispatch(e.data);
+onconnect = (e) => {
+  const port = e.ports[0];
+
+  port.addEventListener("message", (e) => rpcProvider.dispatch(e.data));
+
+  port.start(); // Required when using addEventListener. Otherwise called implicitly by onmessage setter.
+};
 
 rpcProvider.registerRpcHandler("ata", run);

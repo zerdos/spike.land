@@ -19693,7 +19693,7 @@ var Code = class {
       await this.kv.put("head", this.head);
       await this.kv.put(String(this.head), this.sess);
     }
-    if (request.method === "POST") {
+    if (request.method === "PUT") {
       try {
         const mess = await request.json();
         if (mess) {

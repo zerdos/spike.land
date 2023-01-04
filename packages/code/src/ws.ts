@@ -259,7 +259,7 @@ type MessageProps = Partial<{
 const ws = {
   blockedMessages: [] as MessageProps[],
   post: (json: Partial<CodePatch & ICodeSession & { hashCode: number }>) =>
-    ky.post(`${origin}/live/${codeSpace}/session.json`, {
+    ky.put(`${location.origin}/live/${codeSpace}/session.json`, {
       json,
       retry: {
         limit: 5,
