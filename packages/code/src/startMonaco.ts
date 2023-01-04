@@ -1,5 +1,6 @@
 import * as monaco from "monaco-editor";
-
+import editorUrl from "../dist/editor/editor.worker.js";
+import tsUrl from "../dist/languages/typescript/ts.worker.js";
 // import localForage from "localforage";
 
 const { editor, languages, Uri } = monaco;
@@ -152,23 +153,23 @@ const monacoContribution = async (
 self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_: string, label: string) => {
-    if (label === "json") {
-      return originToUse + `/language/json/json.js`;
-    }
+    // if (label === "json") {
+    //   return originToUse + `/language/json/json.js`;
+    // }
 
-    if (label === "css" || label === "scss" || label === "less") {
-      return originToUse + `/language/css/css.js`;
-    }
+    // if (label === "css" || label === "scss" || label === "less") {
+    //   return originToUse + `/language/css/css.js`;
+    // }
 
-    if (label === "html" || label === "handlebars" || label === "razor") {
-      return originToUse + `/language//html/html.js`;
-    }
+    // if (label === "html" || label === "handlebars" || label === "razor") {
+    //   return originToUse + `/language//html/html.js`;
+    // }
 
     if (label === "typescript" || label === "javascript") {
       return originToUse + `/language/typescript/ts.js`;
     }
 
-    return originToUse + `/editor/editor.js`;
+    return editorUrl;
   },
 };
 
