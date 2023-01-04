@@ -2,7 +2,6 @@ import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session
 import {
   hashCode,
   hashKEY,
-  makePatch,
   patchSync,
   resetCSS,
   string_,
@@ -165,7 +164,7 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
-      const { code, transpiled, css, html, i } = mST(this.codeSpace);
+      const { code, css, html, i } = mST(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
