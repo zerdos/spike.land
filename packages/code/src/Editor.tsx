@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
-import css from "monaco-editor/min/vs/editor/editor.main";
 import { isMobile } from "./isMobile.mjs";
 import { prettier } from "./prettier";
 import { runner } from "./runner";

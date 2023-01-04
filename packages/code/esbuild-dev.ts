@@ -17,7 +17,7 @@ import * as esbuild from "https://deno.land/x/esbuild@v0.16.13/mod.js";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = "production" === "production"
+const environment = "development" === "production"
   ? "production"
   : "development";
 
