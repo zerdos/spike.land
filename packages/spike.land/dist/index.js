@@ -19673,7 +19673,7 @@ var Code = class {
       this.head = hashCode3(this.sess);
       this.kv.put(String(this.head), this.sess).then(() => this.kv.put("head", this.head));
     }
-    if (request.method === "PUT") {
+    if (request.method === "POST") {
       try {
         const mess = await request.json();
         if (mess) {
