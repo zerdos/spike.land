@@ -21143,7 +21143,7 @@ var Code = class {
       await this.kv.put(String(this.head), this.sess);
     }
     return handleErrors(request, async () => {
-      const { code, transpiled, css, html, i } = mST2(this.codeSpace);
+      const { code, css, html, i } = mST2(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0)
         path.push("");
@@ -21289,23 +21289,6 @@ var Code = class {
         case "js": {
           const i2 = path[1] || mST2(this.codeSpace).i;
           if (i2 > mST2(this.codeSpace).i) {
-            const started = Date.now() / 1e3;
-            const body = await new Promise(
-              (res, reject) => this.wait(() => {
-                const now = Date.now() / 1e3;
-                if (mST2(this.codeSpace).i < Number(i2) && started - now < 3e3) {
-                  return false;
-                }
-                if (mST2(this.codeSpace).i < Number(i2) && started - now >= 3e3) {
-                  reject(null);
-                  return false;
-                }
-                initAndTransform3(mST2(this.codeSpace).code, {}, url.origin).then(
-                  (transpiled2) => res(transpiled2)
-                );
-                return true;
-              })
-            );
             const trp2 = await initAndTransform3(
               mST2(this.codeSpace).code,
               {},

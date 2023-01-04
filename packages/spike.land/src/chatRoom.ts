@@ -1,12 +1,5 @@
-import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session";
-import {
-  hashCode,
-  hashKEY,
-  patchSync,
-  resetCSS,
-  string_,
-  syncStorage,
-} from "../../code/dist/src/session.mjs";
+import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session.d";
+import { hashCode, hashKEY, patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
 import { HTML, md5, mST, startSession } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -477,27 +470,27 @@ export class Code {
           const i = path[1] || mST(this.codeSpace).i;
 
           if (i > mST(this.codeSpace).i) {
-            const started = Date.now() / 1000;
-            const body = await new Promise<string>((res, reject) =>
-              this.wait(() => {
-                const now = Date.now() / 1000;
+            // const started = Date.now() / 1000;
+            // const body = await new Promise<string>((res, reject) =>
+            //   this.wait(() => {
+            //     const now = Date.now() / 1000;
 
-                if (mST(this.codeSpace).i < Number(i) && started - now < 3000) {
-                  return false;
-                }
-                if (
-                  mST(this.codeSpace).i < Number(i) && started - now >= 3000
-                ) {
-                  reject(null);
-                  return false;
-                }
+            //     if (mST(this.codeSpace).i < Number(i) && started - now < 3000) {
+            //       return false;
+            //     }
+            //     if (
+            //       mST(this.codeSpace).i < Number(i) && started - now >= 3000
+            //     ) {
+            //       reject(null);
+            //       return false;
+            //     }
 
-                initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(
-                  (transpiled) => res(transpiled),
-                );
-                return true;
-              })
-            );
+            //     initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(
+            //       (transpiled) => res(transpiled),
+            //     );
+            //     return true;
+            //   })
+            // );
 
             const trp = await initAndTransform(
               mST(this.codeSpace).code,

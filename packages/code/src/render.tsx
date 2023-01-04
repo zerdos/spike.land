@@ -55,7 +55,7 @@ BC.onmessage = async ({ data }) => {
     check(myMod);
 
     function check(m: typeof mod[0]) {
-      requestAnimationFrame((_) => {
+      requestAnimationFrame(() => {
         if (myMod.signal.aborted) {
           // root.unmount();
           return;
