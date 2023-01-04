@@ -295,7 +295,9 @@ export const run = async () => {
   if (savedSess && head === hash) {
     _mst = savedSess;
   } else {
-    _mst = await fetch(`/live/${codeSpace}/session.json`).then((r) => r.json());
+    _mst = await fetch(`/live/${codeSpace}/session.json`).then((r) => r.json()).then(sess =>
+      sess.i > savedSess.i ? sess : savedSess
+    );
   }
   const mst = _mst!;
   startSession(codeSpace, {
