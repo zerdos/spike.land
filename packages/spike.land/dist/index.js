@@ -19584,14 +19584,15 @@ async function esmTransform(code, origin) {
 }
 
 // src/chatRoom.ts
+var codeSpace;
 var head;
 function hashCode3(sess) {
   return Record(sess)().hashCode();
 }
 var sessions = {};
-function mST(codeSpace, p3) {
+function mST(codeSpace2, p3) {
   if (p3 && p3.length) {
-    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+    const sessAsJs = sessions[codeSpace2].session.get("state").toJSON();
     const { i: i3, transpiled, code, html, css } = p3 ? JSON.parse(
       Dn2(
         Je2(
@@ -19600,16 +19601,16 @@ function mST(codeSpace, p3) {
         p3
       )
     ) : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({
+    return sessions[codeSpace2].session.get("state").merge({
       i: i3,
       transpiled,
       code,
       html,
       css,
-      codeSpace
+      codeSpace: codeSpace2
     }).toObject();
   }
-  return sessions[codeSpace].session.get("state").toObject();
+  return sessions[codeSpace2].session.get("state").toObject();
 }
 var hashKEY = (cp) => hashCode3(mST(cp));
 var Code = class {
@@ -19647,7 +19648,6 @@ var Code = class {
   codeSpace;
   sess;
   sessionStarted;
-  session = null;
   user = Qt2(self.crypto.randomUUID());
   address;
   users = new AVLTree(
@@ -19657,13 +19657,14 @@ var Code = class {
   head = 0;
   waiting = [];
   sessions;
+  buffy = [];
   i = 0;
   syncKV(oldSession, newSess, message) {
     return (async () => await da2(
       async (key, v) => await this.kv.put(key, v, {
         allowConcurrency: false
       }),
-      async (key) => await this.kv.get(String(key), { allowConcurrency: false }),
+      async (key) => await this.kv.get(String(key), { allowConcurrency: true }),
       oldSession,
       newSess,
       message
@@ -19678,9 +19679,8 @@ var Code = class {
     const url = new URL(request.url);
     this.wait();
     if (!this.codeSpace) {
-      this.codeSpace = url.searchParams.get("room") || "code-main";
-      this.codeSpace = url.searchParams.get("room") || "code-main";
-      this.sess.codeSpace = this.codeSpace;
+      codeSpace = this.codeSpace = url.searchParams.get("room") || "code-main";
+      this.sess = this.sess.merge({ ...this.sess, codeSpace });
       sessions[this.codeSpace] = bu2(
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
@@ -19690,8 +19690,7 @@ var Code = class {
     if (this.head === 0) {
       this.head = hashCode3(this.sess);
       head = this.head;
-      this.kv.put("head", this.head);
-      this.kv.put(String(this.head), this.sess);
+      this.kv.put(String(this.head), this.sess).then(() => this.kv.put("head", this.head));
     }
     if (request.method === "POST") {
       try {
@@ -19710,8 +19709,6 @@ var Code = class {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw "Error - we messed up the hashStores";
               }
-              this.sess = newState;
-              this.head = newHash;
               const newRec = sessions[this.codeSpace].session.get("state").merge(
                 newState
               );
@@ -19719,6 +19716,7 @@ var Code = class {
                 "state",
                 newRec
               );
+              this.sess = sessions[this.codeSpace].session.get("state").toObject();
               this.syncKV(oldState, newState, {
                 oldHash,
                 newHash,
@@ -20202,7 +20200,7 @@ sheet.addRule('h1', 'background: red;');
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = mST(this.codeSpace);
           const newSess = mST(this.codeSpace, data.patch);
-          if (hashKEY(this.codeSpace) !== data.oldHash) {
+          if (hashCode3(this.sess) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`
             });

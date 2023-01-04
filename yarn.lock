@@ -1476,6 +1476,7 @@ __metadata:
     miniflare: "npm:^2.11.0"
     module: "npm:^1.2.5"
     p-map: "npm:^5.5.0"
+    p-queue: "npm:^7.3.0"
     path: "npm:^0.12.7"
     path-browserify: "npm:^1.0.1"
     typescript: "npm:4.9.4"
@@ -5364,6 +5365,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "eventemitter3@npm:4.0.7"
+  checksum: e6ecb1ac2fee59b0ba0e778564cec0a1fe0631f28a50f24aa0e7ba367e718c5f9b23156fb2c1d238bcebe7923dfff37a63c39b519121a47c7bf78c38c96febd8
+  languageName: node
+  linkType: hard
+
 "events-browserify@npm:^0.0.1":
   version: 0.0.1
   resolution: "events-browserify@npm:0.0.1"
@@ -9096,6 +9104,16 @@ __metadata:
   dependencies:
     aggregate-error: "npm:^3.0.0"
   checksum: 619df8954fe81933903bc760e9884d85540ef7e8f6c24c4e28e2c8f0ad14d480bb7d4541787eee2e2d61aa0fae8b54abc42f7afc35db457884e589386e78a922
+  languageName: node
+  linkType: hard
+
+"p-queue@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "p-queue@npm:7.3.0"
+  dependencies:
+    eventemitter3: "npm:^4.0.7"
+    p-timeout: "npm:^5.0.2"
+  checksum: 058506e418c02ee9e55ba26afdcf96e1a899b5b07cb5385de7f592ab88b13fe0518aa9b7a31cdec530c96170ad10dc8ec5b19af3d356480fac9ba84fe1313ffc
   languageName: node
   linkType: hard
 

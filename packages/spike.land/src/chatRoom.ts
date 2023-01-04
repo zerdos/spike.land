@@ -64,7 +64,6 @@ export class Code {
   // mutex: Mutex;
   sess: ICodeSession | null;
   sessionStarted: boolean;
-  session: ICodeSession | null = null;
   user = md5(self.crypto.randomUUID());
   address: string;
   users = new AVLTree(
@@ -74,6 +73,7 @@ export class Code {
   head = 0;
   waiting: (() => boolean)[] = [];
   sessions: WebsocketSession[];
+  buffy: Promise<void>[] = [];
   i = 0;
 
   syncKV(
@@ -89,7 +89,7 @@ export class Code {
         ) => (await this.kv.put(key, v, {
           allowConcurrency: false,
         })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
-        async (key: string) => await this.kv.get(String(key), { allowConcurrency: false }),
+        async (key: string) => await this.kv.get(String(key), { allowConcurrency: true }),
         oldSession,
         newSess,
         message,
@@ -154,10 +154,8 @@ export class Code {
 
     // let sess = this.sess;
     if (!this.codeSpace) {
-      this.codeSpace = url.searchParams.get("room") || "code-main";
-
-      this.codeSpace = url.searchParams.get("room") || "code-main";
-      this.sess!.codeSpace = this.codeSpace;
+      codeSpace = this.codeSpace = url.searchParams.get("room") || "code-main";
+      this.sess = this.sess.merge({ ...this.sess, codeSpace });
 
       //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
 
@@ -175,8 +173,8 @@ export class Code {
       this.head = hashCode(this.sess!);
 
       head = this.head;
-      this.kv.put("head", this.head);
-      this.kv.put(String(this.head), this.sess!);
+
+      this.kv.put(String(this.head), this.sess!).then(() => this.kv.put("head", this.head));
 
       // const newSession = mST(this.codeSpace);
 
@@ -206,8 +204,7 @@ export class Code {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
-              this.sess = newState;
-              this.head = newHash;
+
               const newRec = sessions[this.codeSpace].session.get("state").merge(
                 newState,
               );
@@ -215,6 +212,7 @@ export class Code {
                 "state",
                 newRec,
               );
+              this.sess = sessions[this.codeSpace].session.get("state").toObject();
 
               // patchSync(newState, true);
 
@@ -976,8 +974,8 @@ sheet.addRule('h1', 'background: red;');
       candidate?: string;
       answer?: string;
       offer?: string;
-      newHash?: string;
-      oldHash?: string;
+      newHash?: number;
+      oldHash?: number;
     };
     try {
       data = typeof msg.data === "string"
@@ -1114,7 +1112,7 @@ sheet.addRule('h1', 'background: red;');
           const oldSession = mST(this.codeSpace);
           const newSess = mST(this.codeSpace, data.patch);
 
-          if (hashKEY(this.codeSpace) !== data.oldHash) {
+          if (hashCode(this.sess) !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`,
             });

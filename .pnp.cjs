@@ -2125,6 +2125,7 @@ const RAW_RUNTIME_STATE =
           ["miniflare", "virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#npm:2.11.0"],\
           ["module", "npm:1.2.5"],\
           ["p-map", "npm:5.5.0"],\
+          ["p-queue", "npm:7.3.0"],\
           ["path", "npm:0.12.7"],\
           ["path-browserify", "npm:1.0.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -7121,6 +7122,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["eventemitter3", [\
+      ["npm:4.0.7", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/eventemitter3-npm-4.0.7-7afcdd74ae-9.zip/node_modules/eventemitter3/",\
+        "packageDependencies": [\
+          ["eventemitter3", "npm:4.0.7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["events-browserify", [\
       ["npm:0.0.1", {\
         "packageLocation": "../../../Users/z/.yarn/berry/cache/events-browserify-npm-0.0.1-8457c40399-9.zip/node_modules/events-browserify/",\
@@ -11342,6 +11352,17 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["p-map", "npm:5.5.0"],\
           ["aggregate-error", "npm:4.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["p-queue", [\
+      ["npm:7.3.0", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/p-queue-npm-7.3.0-ad6f2467da-9.zip/node_modules/p-queue/",\
+        "packageDependencies": [\
+          ["p-queue", "npm:7.3.0"],\
+          ["eventemitter3", "npm:4.0.7"],\
+          ["p-timeout", "npm:5.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
