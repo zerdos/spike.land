@@ -53,14 +53,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       Math.max(
         100,
         (Math.floor(window.innerHeight / height) - 10) / 2
-          * devicePixelRatio,
+          / devicePixelRatio,
       ),
     );
     changeMaxScaleRange(
       Math.max(
         100,
         (Math.floor(40 * window.innerHeight / height)) / 2
-          * devicePixelRatio,
+          / devicePixelRatio,
       ),
     );
 
