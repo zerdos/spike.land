@@ -232,7 +232,7 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
-      const { code, css, html, i } = this.sess;
+      const { code, css, html, i } = this.sess!;
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
