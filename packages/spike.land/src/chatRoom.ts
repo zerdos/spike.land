@@ -86,7 +86,7 @@ export class Code {
         async (
           key: string,
           v: object,
-        ) => (await this.kv.put(String(key), v, {
+        ) => (await this.kv.put(key, v, {
           allowConcurrency: false,
         })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
         async (key: string) => await this.kv.get(String(key), { allowConcurrency: false }),
@@ -175,8 +175,8 @@ export class Code {
       this.head = hashCode(this.sess!);
 
       head = this.head;
-      await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), this.sess!);
+      this.kv.put("head", this.head);
+      this.kv.put(String(this.head), this.sess!);
 
       // const newSession = mST(this.codeSpace);
 
@@ -186,7 +186,7 @@ export class Code {
       // await this.syncKV(oldSession, newSession, message);
     }
 
-    if (request.method === "PUT") {
+    if (request.method === "POST") {
       try {
         const mess:
           | Partial<CodePatch & ICodeSession & { session: ICodeSession }>

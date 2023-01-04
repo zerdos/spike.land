@@ -91,7 +91,7 @@ export function db(codeSpace: string, initDb: (codeSpace: string) => Promise<Loc
     getItem: async (key: string) => {
       const db = await initDb(codeSpace);
 
-      return await db.getItem(key);
+      return await db.getItem(key) as unknown as object | string | number;
     },
     setItem: async (key: string, value: object | string | number) => {
       const db = await initDb(codeSpace);
@@ -121,8 +121,8 @@ const storageMutex = new Mutex();
 export const syncStorage = async (
   _setItem: SetItem<Partial<CodePatch | ICodeSession> | number | string>,
   _getItem: GetItem<Partial<CodePatch | ICodeSession> | number | string>,
-  oldSession: ICodeSession,
-  newSession: ICodeSession,
+  oldSession: Partial<CodePatch & ICodeSession>,
+  newSession: Partial<CodePatch | ICodeSession>,
   message: {
     oldHash: number;
     newHash: number;
@@ -137,7 +137,7 @@ export const syncStorage = async (
       _getItem(String(k)) as unknown as GetItem<
         { oldHash: number; reversePatch?: typeof message.reversePatch }
       >;
-    const hashOfOldSession = Record(oldSession)().hashCode();
+    const hashOfOldSession = oldSession.newHash!;
     let historyHead = (await _getItem("head")) as unknown as number;
     if (!historyHead) {
       await setItem(hashOfOldSession, oldSession);

@@ -3056,7 +3056,7 @@ function o2(s, m3, f) {
 }
 p(o2, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-FJXJFOFO.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-UV6TINSH.mjs
 var Os = r((Aa, Es) => {
   o();
   var fe = -1, se = 1, qt = 0;
@@ -8386,7 +8386,7 @@ p(ha, "initSession");
 var pa = new Ke();
 var da = p(async (t3, e3, r3, n, s) => {
   pa.runExclusive(async () => {
-    let o5 = p((_, p3) => t3(String(_), p3), "setItem"), a = p((_) => e3(String(_)), "getItem"), u = wt(r3)().hashCode(), l3 = await e3("head");
+    let o5 = p((_, p3) => t3(String(_), p3), "setItem"), a = p((_) => e3(String(_)), "getItem"), u = r3.newHash, l3 = await e3("head");
     l3 || (await o5(u, r3), await t3("head", u), l3 = u), await o5(s.newHash, { ...n, oldHash: s.oldHash, reversePatch: s.reversePatch });
     let c = await a(l3);
     await o5(l3, { newHash: s.newHash, patch: s.patch, ...c ? { i: c.i, oldHash: c.oldHash, reversePatch: c.reversePatch } : { code: r3.code, transpiled: r3.transpiled, html: r3.html, css: r3.css } }), await t3("head", s.newHash);
@@ -8592,7 +8592,7 @@ function o4(s, m3, f) {
 }
 p2(o4, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-FJXJFOFO.mjs
+// ../code/dist/src/chunk-chunk-UV6TINSH.mjs
 var Os2 = r2((Aa, Es) => {
   o3();
   var fe = -1, se = 1, qt = 0;
@@ -14049,7 +14049,7 @@ p2(ha2, "initSession");
 var pa2 = new Ke2();
 var da2 = p2(async (t3, e3, r3, n, s) => {
   pa2.runExclusive(async () => {
-    let o5 = p2((_, p3) => t3(String(_), p3), "setItem"), a = p2((_) => e3(String(_)), "getItem"), u = wt2(r3)().hashCode(), l3 = await e3("head");
+    let o5 = p2((_, p3) => t3(String(_), p3), "setItem"), a = p2((_) => e3(String(_)), "getItem"), u = r3.newHash, l3 = await e3("head");
     l3 || (await o5(u, r3), await t3("head", u), l3 = u), await o5(s.newHash, { ...n, oldHash: s.oldHash, reversePatch: s.reversePatch });
     let c = await a(l3);
     await o5(l3, { newHash: s.newHash, patch: s.patch, ...c ? { i: c.i, oldHash: c.oldHash, reversePatch: c.reversePatch } : { code: r3.code, transpiled: r3.transpiled, html: r3.html, css: r3.css } }), await t3("head", s.newHash);
@@ -19660,7 +19660,7 @@ var Code = class {
   i = 0;
   syncKV(oldSession, newSess, message) {
     return (async () => await da2(
-      async (key, v) => await this.kv.put(String(key), v, {
+      async (key, v) => await this.kv.put(key, v, {
         allowConcurrency: false
       }),
       async (key) => await this.kv.get(String(key), { allowConcurrency: false }),
@@ -19690,10 +19690,10 @@ var Code = class {
     if (this.head === 0) {
       this.head = hashCode3(this.sess);
       head = this.head;
-      await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), this.sess);
+      this.kv.put("head", this.head);
+      this.kv.put(String(this.head), this.sess);
     }
-    if (request.method === "PUT") {
+    if (request.method === "POST") {
       try {
         const mess = await request.json();
         if (mess) {
