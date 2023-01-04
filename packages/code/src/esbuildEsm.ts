@@ -30,7 +30,7 @@ const mod = {
   //   return fetch(`${origin}/files.json`).then((f) => f.json()).then(
   //     (k) => {
   //       const wasmURL = new URL(
-  //         Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild") !== -1) as string,
+  //         Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild-wasm") !== -1) as string,
   //         origin,
   //       ).toString();
   //      then(() => mod.init = true) as Promise<void>;

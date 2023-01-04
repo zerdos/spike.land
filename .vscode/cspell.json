@@ -58,7 +58,7 @@
     "draggable",
     "eoan",
     "Erdos",
-    "esbuild",
+    "esbuild-wasm",
     "esms",
     "eventlog",
     "execa",

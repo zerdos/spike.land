@@ -23,6 +23,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod2, isNodeMode, target) => (target = mod2 != null ? __create(__getProtoOf(mod2)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod2 || !mod2.__esModule ? __defProp(target, "default", { value: mod2, enumerable: true }) : target,
   mod2
 ));
@@ -161,6 +165,7 @@ var require_dist = __commonJS({
       browserTTL: null,
       edgeTTL: 2 * 60 * 60 * 24,
       bypassCache: false
+      // do not bypass Cloudflare's cache
     };
     var parseStringAsObject = (maybeString) => typeof maybeString === "string" ? JSON.parse(maybeString) : maybeString;
     var getAssetFromKVDefaultOptions = {
@@ -359,9 +364,9 @@ var require_dist = __commonJS({
   }
 });
 
-// ../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.13-8714cdd154-9.zip/node_modules/esbuild-wasm/lib/browser.js
+// ../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.14-49a0ba275e-9.zip/node_modules/esbuild-wasm/lib/browser.js
 var require_browser = __commonJS({
-  "../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.13-8714cdd154-9.zip/node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
+  "../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.14-49a0ba275e-9.zip/node_modules/esbuild-wasm/lib/browser.js"(exports, module) {
     ((module2) => {
       "use strict";
       var __defProp2 = Object.defineProperty;
@@ -1108,8 +1113,8 @@ is not a problem with esbuild. You need to fix your environment instead.
           if (isFirstPacket) {
             isFirstPacket = false;
             let binaryVersion = String.fromCharCode(...bytes);
-            if (binaryVersion !== "0.16.13") {
-              throw new Error(`Cannot start service: Host version "${"0.16.13"}" does not match binary version ${quote(binaryVersion)}`);
+            if (binaryVersion !== "0.16.14") {
+              throw new Error(`Cannot start service: Host version "${"0.16.14"}" does not match binary version ${quote(binaryVersion)}`);
             }
             return;
           }
@@ -2061,7 +2066,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
           }
         };
       }
-      var version = "0.16.13";
+      var version = "0.16.14";
       var build = (options) => ensureServiceIsRunning().build(options);
       var serve = () => {
         throw new Error(`The "serve" API only works in node`);
@@ -2108,7 +2113,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
       var startRunningService = (wasmURL, wasmModule, useWorker) => __async(void 0, null, function* () {
         let worker;
         if (useWorker) {
-          let blob = new Blob([`onmessage=${'((postMessage) => {\n      // Copyright 2018 The Go Authors. All rights reserved.\n      // Use of this source code is governed by a BSD-style\n      // license that can be found in the LICENSE file.\n      var __async = (__this, __arguments, generator) => {\n        return new Promise((resolve, reject) => {\n          var fulfilled = (value) => {\n            try {\n              step(generator.next(value));\n            } catch (e) {\n              reject(e);\n            }\n          };\n          var rejected = (value) => {\n            try {\n              step(generator.throw(value));\n            } catch (e) {\n              reject(e);\n            }\n          };\n          var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);\n          step((generator = generator.apply(__this, __arguments)).next());\n        });\n      };\n      let onmessage;\n      let globalThis = {};\n      for (let o = self; o; o = Object.getPrototypeOf(o))\n        for (let k of Object.getOwnPropertyNames(o))\n          if (!(k in globalThis))\n            Object.defineProperty(globalThis, k, { get: () => self[k] });\n      "use strict";\n      (() => {\n        const enosys = () => {\n          const err = new Error("not implemented");\n          err.code = "ENOSYS";\n          return err;\n        };\n        if (!globalThis.fs) {\n          let outputBuf = "";\n          globalThis.fs = {\n            constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 },\n            writeSync(fd, buf) {\n              outputBuf += decoder.decode(buf);\n              const nl = outputBuf.lastIndexOf("\\n");\n              if (nl != -1) {\n                console.log(outputBuf.substr(0, nl));\n                outputBuf = outputBuf.substr(nl + 1);\n              }\n              return buf.length;\n            },\n            write(fd, buf, offset, length, position, callback) {\n              if (offset !== 0 || length !== buf.length || position !== null) {\n                callback(enosys());\n                return;\n              }\n              const n = this.writeSync(fd, buf);\n              callback(null, n);\n            },\n            chmod(path, mode, callback) {\n              callback(enosys());\n            },\n            chown(path, uid, gid, callback) {\n              callback(enosys());\n            },\n            close(fd, callback) {\n              callback(enosys());\n            },\n            fchmod(fd, mode, callback) {\n              callback(enosys());\n            },\n            fchown(fd, uid, gid, callback) {\n              callback(enosys());\n            },\n            fstat(fd, callback) {\n              callback(enosys());\n            },\n            fsync(fd, callback) {\n              callback(null);\n            },\n            ftruncate(fd, length, callback) {\n              callback(enosys());\n            },\n            lchown(path, uid, gid, callback) {\n              callback(enosys());\n            },\n            link(path, link, callback) {\n              callback(enosys());\n            },\n            lstat(path, callback) {\n              callback(enosys());\n            },\n            mkdir(path, perm, callback) {\n              callback(enosys());\n            },\n            open(path, flags, mode, callback) {\n              callback(enosys());\n            },\n            read(fd, buffer, offset, length, position, callback) {\n              callback(enosys());\n            },\n            readdir(path, callback) {\n              callback(enosys());\n            },\n            readlink(path, callback) {\n              callback(enosys());\n            },\n            rename(from, to, callback) {\n              callback(enosys());\n            },\n            rmdir(path, callback) {\n              callback(enosys());\n            },\n            stat(path, callback) {\n              callback(enosys());\n            },\n            symlink(path, link, callback) {\n              callback(enosys());\n            },\n            truncate(path, length, callback) {\n              callback(enosys());\n            },\n            unlink(path, callback) {\n              callback(enosys());\n            },\n            utimes(path, atime, mtime, callback) {\n              callback(enosys());\n            }\n          };\n        }\n        if (!globalThis.process) {\n          globalThis.process = {\n            getuid() {\n              return -1;\n            },\n            getgid() {\n              return -1;\n            },\n            geteuid() {\n              return -1;\n            },\n            getegid() {\n              return -1;\n            },\n            getgroups() {\n              throw enosys();\n            },\n            pid: -1,\n            ppid: -1,\n            umask() {\n              throw enosys();\n            },\n            cwd() {\n              throw enosys();\n            },\n            chdir() {\n              throw enosys();\n            }\n          };\n        }\n        if (!globalThis.crypto) {\n          throw new Error("globalThis.crypto is not available, polyfill required (crypto.getRandomValues only)");\n        }\n        if (!globalThis.performance) {\n          throw new Error("globalThis.performance is not available, polyfill required (performance.now only)");\n        }\n        if (!globalThis.TextEncoder) {\n          throw new Error("globalThis.TextEncoder is not available, polyfill required");\n        }\n        if (!globalThis.TextDecoder) {\n          throw new Error("globalThis.TextDecoder is not available, polyfill required");\n        }\n        const encoder = new TextEncoder("utf-8");\n        const decoder = new TextDecoder("utf-8");\n        globalThis.Go = class {\n          constructor() {\n            this.argv = ["js"];\n            this.env = {};\n            this.exit = (code) => {\n              if (code !== 0) {\n                console.warn("exit code:", code);\n              }\n            };\n            this._exitPromise = new Promise((resolve) => {\n              this._resolveExitPromise = resolve;\n            });\n            this._pendingEvent = null;\n            this._scheduledTimeouts = /* @__PURE__ */ new Map();\n            this._nextCallbackTimeoutID = 1;\n            const setInt64 = (addr, v) => {\n              this.mem.setUint32(addr + 0, v, true);\n              this.mem.setUint32(addr + 4, Math.floor(v / 4294967296), true);\n            };\n            const getInt64 = (addr) => {\n              const low = this.mem.getUint32(addr + 0, true);\n              const high = this.mem.getInt32(addr + 4, true);\n              return low + high * 4294967296;\n            };\n            const loadValue = (addr) => {\n              const f = this.mem.getFloat64(addr, true);\n              if (f === 0) {\n                return void 0;\n              }\n              if (!isNaN(f)) {\n                return f;\n              }\n              const id = this.mem.getUint32(addr, true);\n              return this._values[id];\n            };\n            const storeValue = (addr, v) => {\n              const nanHead = 2146959360;\n              if (typeof v === "number" && v !== 0) {\n                if (isNaN(v)) {\n                  this.mem.setUint32(addr + 4, nanHead, true);\n                  this.mem.setUint32(addr, 0, true);\n                  return;\n                }\n                this.mem.setFloat64(addr, v, true);\n                return;\n              }\n              if (v === void 0) {\n                this.mem.setFloat64(addr, 0, true);\n                return;\n              }\n              let id = this._ids.get(v);\n              if (id === void 0) {\n                id = this._idPool.pop();\n                if (id === void 0) {\n                  id = this._values.length;\n                }\n                this._values[id] = v;\n                this._goRefCounts[id] = 0;\n                this._ids.set(v, id);\n              }\n              this._goRefCounts[id]++;\n              let typeFlag = 0;\n              switch (typeof v) {\n                case "object":\n                  if (v !== null) {\n                    typeFlag = 1;\n                  }\n                  break;\n                case "string":\n                  typeFlag = 2;\n                  break;\n                case "symbol":\n                  typeFlag = 3;\n                  break;\n                case "function":\n                  typeFlag = 4;\n                  break;\n              }\n              this.mem.setUint32(addr + 4, nanHead | typeFlag, true);\n              this.mem.setUint32(addr, id, true);\n            };\n            const loadSlice = (addr) => {\n              const array = getInt64(addr + 0);\n              const len = getInt64(addr + 8);\n              return new Uint8Array(this._inst.exports.mem.buffer, array, len);\n            };\n            const loadSliceOfValues = (addr) => {\n              const array = getInt64(addr + 0);\n              const len = getInt64(addr + 8);\n              const a = new Array(len);\n              for (let i = 0; i < len; i++) {\n                a[i] = loadValue(array + i * 8);\n              }\n              return a;\n            };\n            const loadString = (addr) => {\n              const saddr = getInt64(addr + 0);\n              const len = getInt64(addr + 8);\n              return decoder.decode(new DataView(this._inst.exports.mem.buffer, saddr, len));\n            };\n            const timeOrigin = Date.now() - performance.now();\n            this.importObject = {\n              go: {\n                "runtime.wasmExit": (sp) => {\n                  sp >>>= 0;\n                  const code = this.mem.getInt32(sp + 8, true);\n                  this.exited = true;\n                  delete this._inst;\n                  delete this._values;\n                  delete this._goRefCounts;\n                  delete this._ids;\n                  delete this._idPool;\n                  this.exit(code);\n                },\n                "runtime.wasmWrite": (sp) => {\n                  sp >>>= 0;\n                  const fd = getInt64(sp + 8);\n                  const p = getInt64(sp + 16);\n                  const n = this.mem.getInt32(sp + 24, true);\n                  globalThis.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));\n                },\n                "runtime.resetMemoryDataView": (sp) => {\n                  sp >>>= 0;\n                  this.mem = new DataView(this._inst.exports.mem.buffer);\n                },\n                "runtime.nanotime1": (sp) => {\n                  sp >>>= 0;\n                  setInt64(sp + 8, (timeOrigin + performance.now()) * 1e6);\n                },\n                "runtime.walltime": (sp) => {\n                  sp >>>= 0;\n                  const msec = new Date().getTime();\n                  setInt64(sp + 8, msec / 1e3);\n                  this.mem.setInt32(sp + 16, msec % 1e3 * 1e6, true);\n                },\n                "runtime.scheduleTimeoutEvent": (sp) => {\n                  sp >>>= 0;\n                  const id = this._nextCallbackTimeoutID;\n                  this._nextCallbackTimeoutID++;\n                  this._scheduledTimeouts.set(id, setTimeout(\n                    () => {\n                      this._resume();\n                      while (this._scheduledTimeouts.has(id)) {\n                        console.warn("scheduleTimeoutEvent: missed timeout event");\n                        this._resume();\n                      }\n                    },\n                    getInt64(sp + 8) + 1\n                  ));\n                  this.mem.setInt32(sp + 16, id, true);\n                },\n                "runtime.clearTimeoutEvent": (sp) => {\n                  sp >>>= 0;\n                  const id = this.mem.getInt32(sp + 8, true);\n                  clearTimeout(this._scheduledTimeouts.get(id));\n                  this._scheduledTimeouts.delete(id);\n                },\n                "runtime.getRandomData": (sp) => {\n                  sp >>>= 0;\n                  crypto.getRandomValues(loadSlice(sp + 8));\n                },\n                "syscall/js.finalizeRef": (sp) => {\n                  sp >>>= 0;\n                  const id = this.mem.getUint32(sp + 8, true);\n                  this._goRefCounts[id]--;\n                  if (this._goRefCounts[id] === 0) {\n                    const v = this._values[id];\n                    this._values[id] = null;\n                    this._ids.delete(v);\n                    this._idPool.push(id);\n                  }\n                },\n                "syscall/js.stringVal": (sp) => {\n                  sp >>>= 0;\n                  storeValue(sp + 24, loadString(sp + 8));\n                },\n                "syscall/js.valueGet": (sp) => {\n                  sp >>>= 0;\n                  const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));\n                  sp = this._inst.exports.getsp() >>> 0;\n                  storeValue(sp + 32, result);\n                },\n                "syscall/js.valueSet": (sp) => {\n                  sp >>>= 0;\n                  Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));\n                },\n                "syscall/js.valueDelete": (sp) => {\n                  sp >>>= 0;\n                  Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));\n                },\n                "syscall/js.valueIndex": (sp) => {\n                  sp >>>= 0;\n                  storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));\n                },\n                "syscall/js.valueSetIndex": (sp) => {\n                  sp >>>= 0;\n                  Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));\n                },\n                "syscall/js.valueCall": (sp) => {\n                  sp >>>= 0;\n                  try {\n                    const v = loadValue(sp + 8);\n                    const m = Reflect.get(v, loadString(sp + 16));\n                    const args = loadSliceOfValues(sp + 32);\n                    const result = Reflect.apply(m, v, args);\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 56, result);\n                    this.mem.setUint8(sp + 64, 1);\n                  } catch (err) {\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 56, err);\n                    this.mem.setUint8(sp + 64, 0);\n                  }\n                },\n                "syscall/js.valueInvoke": (sp) => {\n                  sp >>>= 0;\n                  try {\n                    const v = loadValue(sp + 8);\n                    const args = loadSliceOfValues(sp + 16);\n                    const result = Reflect.apply(v, void 0, args);\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, result);\n                    this.mem.setUint8(sp + 48, 1);\n                  } catch (err) {\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, err);\n                    this.mem.setUint8(sp + 48, 0);\n                  }\n                },\n                "syscall/js.valueNew": (sp) => {\n                  sp >>>= 0;\n                  try {\n                    const v = loadValue(sp + 8);\n                    const args = loadSliceOfValues(sp + 16);\n                    const result = Reflect.construct(v, args);\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, result);\n                    this.mem.setUint8(sp + 48, 1);\n                  } catch (err) {\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, err);\n                    this.mem.setUint8(sp + 48, 0);\n                  }\n                },\n                "syscall/js.valueLength": (sp) => {\n                  sp >>>= 0;\n                  setInt64(sp + 16, parseInt(loadValue(sp + 8).length));\n                },\n                "syscall/js.valuePrepareString": (sp) => {\n                  sp >>>= 0;\n                  const str = encoder.encode(String(loadValue(sp + 8)));\n                  storeValue(sp + 16, str);\n                  setInt64(sp + 24, str.length);\n                },\n                "syscall/js.valueLoadString": (sp) => {\n                  sp >>>= 0;\n                  const str = loadValue(sp + 8);\n                  loadSlice(sp + 16).set(str);\n                },\n                "syscall/js.valueInstanceOf": (sp) => {\n                  sp >>>= 0;\n                  this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0);\n                },\n                "syscall/js.copyBytesToGo": (sp) => {\n                  sp >>>= 0;\n                  const dst = loadSlice(sp + 8);\n                  const src = loadValue(sp + 32);\n                  if (!(src instanceof Uint8Array || src instanceof Uint8ClampedArray)) {\n                    this.mem.setUint8(sp + 48, 0);\n                    return;\n                  }\n                  const toCopy = src.subarray(0, dst.length);\n                  dst.set(toCopy);\n                  setInt64(sp + 40, toCopy.length);\n                  this.mem.setUint8(sp + 48, 1);\n                },\n                "syscall/js.copyBytesToJS": (sp) => {\n                  sp >>>= 0;\n                  const dst = loadValue(sp + 8);\n                  const src = loadSlice(sp + 16);\n                  if (!(dst instanceof Uint8Array || dst instanceof Uint8ClampedArray)) {\n                    this.mem.setUint8(sp + 48, 0);\n                    return;\n                  }\n                  const toCopy = src.subarray(0, dst.length);\n                  dst.set(toCopy);\n                  setInt64(sp + 40, toCopy.length);\n                  this.mem.setUint8(sp + 48, 1);\n                },\n                "debug": (value) => {\n                  console.log(value);\n                }\n              }\n            };\n          }\n          run(instance) {\n            return __async(this, null, function* () {\n              if (!(instance instanceof WebAssembly.Instance)) {\n                throw new Error("Go.run: WebAssembly.Instance expected");\n              }\n              this._inst = instance;\n              this.mem = new DataView(this._inst.exports.mem.buffer);\n              this._values = [\n                NaN,\n                0,\n                null,\n                true,\n                false,\n                globalThis,\n                this\n              ];\n              this._goRefCounts = new Array(this._values.length).fill(Infinity);\n              this._ids = /* @__PURE__ */ new Map([\n                [0, 1],\n                [null, 2],\n                [true, 3],\n                [false, 4],\n                [globalThis, 5],\n                [this, 6]\n              ]);\n              this._idPool = [];\n              this.exited = false;\n              let offset = 4096;\n              const strPtr = (str) => {\n                const ptr = offset;\n                const bytes = encoder.encode(str + "\\0");\n                new Uint8Array(this.mem.buffer, offset, bytes.length).set(bytes);\n                offset += bytes.length;\n                if (offset % 8 !== 0) {\n                  offset += 8 - offset % 8;\n                }\n                return ptr;\n              };\n              const argc = this.argv.length;\n              const argvPtrs = [];\n              this.argv.forEach((arg) => {\n                argvPtrs.push(strPtr(arg));\n              });\n              argvPtrs.push(0);\n              const keys = Object.keys(this.env).sort();\n              keys.forEach((key) => {\n                argvPtrs.push(strPtr(`${key}=${this.env[key]}`));\n              });\n              argvPtrs.push(0);\n              const argv = offset;\n              argvPtrs.forEach((ptr) => {\n                this.mem.setUint32(offset, ptr, true);\n                this.mem.setUint32(offset + 4, 0, true);\n                offset += 8;\n              });\n              const wasmMinDataAddr = 4096 + 8192;\n              if (offset >= wasmMinDataAddr) {\n                throw new Error("total length of command line and environment variables exceeds limit");\n              }\n              this._inst.exports.run(argc, argv);\n              if (this.exited) {\n                this._resolveExitPromise();\n              }\n              yield this._exitPromise;\n            });\n          }\n          _resume() {\n            if (this.exited) {\n              throw new Error("Go program has already exited");\n            }\n            this._inst.exports.resume();\n            if (this.exited) {\n              this._resolveExitPromise();\n            }\n          }\n          _makeFuncWrapper(id) {\n            const go = this;\n            return function() {\n              const event = { id, this: this, args: arguments };\n              go._pendingEvent = event;\n              go._resume();\n              return event.result;\n            };\n          }\n        };\n      })();\n      onmessage = ({ data: wasm }) => {\n        let decoder = new TextDecoder();\n        let fs = globalThis.fs;\n        let stderr = "";\n        fs.writeSync = (fd, buffer) => {\n          if (fd === 1) {\n            postMessage(buffer);\n          } else if (fd === 2) {\n            stderr += decoder.decode(buffer);\n            let parts = stderr.split("\\n");\n            if (parts.length > 1)\n              console.log(parts.slice(0, -1).join("\\n"));\n            stderr = parts[parts.length - 1];\n          } else {\n            throw new Error("Bad write");\n          }\n          return buffer.length;\n        };\n        let stdin = [];\n        let resumeStdin;\n        let stdinPos = 0;\n        onmessage = ({ data }) => {\n          if (data.length > 0) {\n            stdin.push(data);\n            if (resumeStdin)\n              resumeStdin();\n          }\n        };\n        fs.read = (fd, buffer, offset, length, position, callback) => {\n          if (fd !== 0 || offset !== 0 || length !== buffer.length || position !== null) {\n            throw new Error("Bad read");\n          }\n          if (stdin.length === 0) {\n            resumeStdin = () => fs.read(fd, buffer, offset, length, position, callback);\n            return;\n          }\n          let first = stdin[0];\n          let count = Math.max(0, Math.min(length, first.length - stdinPos));\n          buffer.set(first.subarray(stdinPos, stdinPos + count), offset);\n          stdinPos += count;\n          if (stdinPos === first.length) {\n            stdin.shift();\n            stdinPos = 0;\n          }\n          callback(null, count);\n        };\n        let go = new globalThis.Go();\n        go.argv = ["", `--service=${"0.16.13"}`];\n        tryToInstantiateModule(wasm, go).then(\n          (instance) => {\n            postMessage(null);\n            go.run(instance);\n          },\n          (error) => {\n            postMessage(error);\n          }\n        );\n      };\n      function tryToInstantiateModule(wasm, go) {\n        return __async(this, null, function* () {\n          if (wasm instanceof WebAssembly.Module) {\n            return WebAssembly.instantiate(wasm, go.importObject);\n          }\n          const res = yield fetch(wasm);\n          if (!res.ok)\n            throw new Error(`Failed to download ${JSON.stringify(wasm)}`);\n          if ("instantiateStreaming" in WebAssembly && /^application\\/wasm($|;)/i.test(res.headers.get("Content-Type") || "")) {\n            const result2 = yield WebAssembly.instantiateStreaming(res, go.importObject);\n            return result2.instance;\n          }\n          const bytes = yield res.arrayBuffer();\n          const result = yield WebAssembly.instantiate(bytes, go.importObject);\n          return result.instance;\n        });\n      }\n      return (m) => onmessage(m);\n    })'}(postMessage)`], { type: "text/javascript" });
+          let blob = new Blob([`onmessage=${'((postMessage) => {\n      // Copyright 2018 The Go Authors. All rights reserved.\n      // Use of this source code is governed by a BSD-style\n      // license that can be found in the LICENSE file.\n      var __async = (__this, __arguments, generator) => {\n        return new Promise((resolve, reject) => {\n          var fulfilled = (value) => {\n            try {\n              step(generator.next(value));\n            } catch (e) {\n              reject(e);\n            }\n          };\n          var rejected = (value) => {\n            try {\n              step(generator.throw(value));\n            } catch (e) {\n              reject(e);\n            }\n          };\n          var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);\n          step((generator = generator.apply(__this, __arguments)).next());\n        });\n      };\n      let onmessage;\n      let globalThis = {};\n      for (let o = self; o; o = Object.getPrototypeOf(o))\n        for (let k of Object.getOwnPropertyNames(o))\n          if (!(k in globalThis))\n            Object.defineProperty(globalThis, k, { get: () => self[k] });\n      "use strict";\n      (() => {\n        const enosys = () => {\n          const err = new Error("not implemented");\n          err.code = "ENOSYS";\n          return err;\n        };\n        if (!globalThis.fs) {\n          let outputBuf = "";\n          globalThis.fs = {\n            constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 },\n            // unused\n            writeSync(fd, buf) {\n              outputBuf += decoder.decode(buf);\n              const nl = outputBuf.lastIndexOf("\\n");\n              if (nl != -1) {\n                console.log(outputBuf.substr(0, nl));\n                outputBuf = outputBuf.substr(nl + 1);\n              }\n              return buf.length;\n            },\n            write(fd, buf, offset, length, position, callback) {\n              if (offset !== 0 || length !== buf.length || position !== null) {\n                callback(enosys());\n                return;\n              }\n              const n = this.writeSync(fd, buf);\n              callback(null, n);\n            },\n            chmod(path, mode, callback) {\n              callback(enosys());\n            },\n            chown(path, uid, gid, callback) {\n              callback(enosys());\n            },\n            close(fd, callback) {\n              callback(enosys());\n            },\n            fchmod(fd, mode, callback) {\n              callback(enosys());\n            },\n            fchown(fd, uid, gid, callback) {\n              callback(enosys());\n            },\n            fstat(fd, callback) {\n              callback(enosys());\n            },\n            fsync(fd, callback) {\n              callback(null);\n            },\n            ftruncate(fd, length, callback) {\n              callback(enosys());\n            },\n            lchown(path, uid, gid, callback) {\n              callback(enosys());\n            },\n            link(path, link, callback) {\n              callback(enosys());\n            },\n            lstat(path, callback) {\n              callback(enosys());\n            },\n            mkdir(path, perm, callback) {\n              callback(enosys());\n            },\n            open(path, flags, mode, callback) {\n              callback(enosys());\n            },\n            read(fd, buffer, offset, length, position, callback) {\n              callback(enosys());\n            },\n            readdir(path, callback) {\n              callback(enosys());\n            },\n            readlink(path, callback) {\n              callback(enosys());\n            },\n            rename(from, to, callback) {\n              callback(enosys());\n            },\n            rmdir(path, callback) {\n              callback(enosys());\n            },\n            stat(path, callback) {\n              callback(enosys());\n            },\n            symlink(path, link, callback) {\n              callback(enosys());\n            },\n            truncate(path, length, callback) {\n              callback(enosys());\n            },\n            unlink(path, callback) {\n              callback(enosys());\n            },\n            utimes(path, atime, mtime, callback) {\n              callback(enosys());\n            }\n          };\n        }\n        if (!globalThis.process) {\n          globalThis.process = {\n            getuid() {\n              return -1;\n            },\n            getgid() {\n              return -1;\n            },\n            geteuid() {\n              return -1;\n            },\n            getegid() {\n              return -1;\n            },\n            getgroups() {\n              throw enosys();\n            },\n            pid: -1,\n            ppid: -1,\n            umask() {\n              throw enosys();\n            },\n            cwd() {\n              throw enosys();\n            },\n            chdir() {\n              throw enosys();\n            }\n          };\n        }\n        if (!globalThis.crypto) {\n          throw new Error("globalThis.crypto is not available, polyfill required (crypto.getRandomValues only)");\n        }\n        if (!globalThis.performance) {\n          throw new Error("globalThis.performance is not available, polyfill required (performance.now only)");\n        }\n        if (!globalThis.TextEncoder) {\n          throw new Error("globalThis.TextEncoder is not available, polyfill required");\n        }\n        if (!globalThis.TextDecoder) {\n          throw new Error("globalThis.TextDecoder is not available, polyfill required");\n        }\n        const encoder = new TextEncoder("utf-8");\n        const decoder = new TextDecoder("utf-8");\n        globalThis.Go = class {\n          constructor() {\n            this.argv = ["js"];\n            this.env = {};\n            this.exit = (code) => {\n              if (code !== 0) {\n                console.warn("exit code:", code);\n              }\n            };\n            this._exitPromise = new Promise((resolve) => {\n              this._resolveExitPromise = resolve;\n            });\n            this._pendingEvent = null;\n            this._scheduledTimeouts = /* @__PURE__ */ new Map();\n            this._nextCallbackTimeoutID = 1;\n            const setInt64 = (addr, v) => {\n              this.mem.setUint32(addr + 0, v, true);\n              this.mem.setUint32(addr + 4, Math.floor(v / 4294967296), true);\n            };\n            const getInt64 = (addr) => {\n              const low = this.mem.getUint32(addr + 0, true);\n              const high = this.mem.getInt32(addr + 4, true);\n              return low + high * 4294967296;\n            };\n            const loadValue = (addr) => {\n              const f = this.mem.getFloat64(addr, true);\n              if (f === 0) {\n                return void 0;\n              }\n              if (!isNaN(f)) {\n                return f;\n              }\n              const id = this.mem.getUint32(addr, true);\n              return this._values[id];\n            };\n            const storeValue = (addr, v) => {\n              const nanHead = 2146959360;\n              if (typeof v === "number" && v !== 0) {\n                if (isNaN(v)) {\n                  this.mem.setUint32(addr + 4, nanHead, true);\n                  this.mem.setUint32(addr, 0, true);\n                  return;\n                }\n                this.mem.setFloat64(addr, v, true);\n                return;\n              }\n              if (v === void 0) {\n                this.mem.setFloat64(addr, 0, true);\n                return;\n              }\n              let id = this._ids.get(v);\n              if (id === void 0) {\n                id = this._idPool.pop();\n                if (id === void 0) {\n                  id = this._values.length;\n                }\n                this._values[id] = v;\n                this._goRefCounts[id] = 0;\n                this._ids.set(v, id);\n              }\n              this._goRefCounts[id]++;\n              let typeFlag = 0;\n              switch (typeof v) {\n                case "object":\n                  if (v !== null) {\n                    typeFlag = 1;\n                  }\n                  break;\n                case "string":\n                  typeFlag = 2;\n                  break;\n                case "symbol":\n                  typeFlag = 3;\n                  break;\n                case "function":\n                  typeFlag = 4;\n                  break;\n              }\n              this.mem.setUint32(addr + 4, nanHead | typeFlag, true);\n              this.mem.setUint32(addr, id, true);\n            };\n            const loadSlice = (addr) => {\n              const array = getInt64(addr + 0);\n              const len = getInt64(addr + 8);\n              return new Uint8Array(this._inst.exports.mem.buffer, array, len);\n            };\n            const loadSliceOfValues = (addr) => {\n              const array = getInt64(addr + 0);\n              const len = getInt64(addr + 8);\n              const a = new Array(len);\n              for (let i = 0; i < len; i++) {\n                a[i] = loadValue(array + i * 8);\n              }\n              return a;\n            };\n            const loadString = (addr) => {\n              const saddr = getInt64(addr + 0);\n              const len = getInt64(addr + 8);\n              return decoder.decode(new DataView(this._inst.exports.mem.buffer, saddr, len));\n            };\n            const timeOrigin = Date.now() - performance.now();\n            this.importObject = {\n              go: {\n                // Go\'s SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)\n                // may synchronously trigger a Go event handler. This makes Go code get executed in the middle of the imported\n                // function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).\n                // This changes the SP, thus we have to update the SP used by the imported function.\n                // func wasmExit(code int32)\n                "runtime.wasmExit": (sp) => {\n                  sp >>>= 0;\n                  const code = this.mem.getInt32(sp + 8, true);\n                  this.exited = true;\n                  delete this._inst;\n                  delete this._values;\n                  delete this._goRefCounts;\n                  delete this._ids;\n                  delete this._idPool;\n                  this.exit(code);\n                },\n                // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)\n                "runtime.wasmWrite": (sp) => {\n                  sp >>>= 0;\n                  const fd = getInt64(sp + 8);\n                  const p = getInt64(sp + 16);\n                  const n = this.mem.getInt32(sp + 24, true);\n                  globalThis.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));\n                },\n                // func resetMemoryDataView()\n                "runtime.resetMemoryDataView": (sp) => {\n                  sp >>>= 0;\n                  this.mem = new DataView(this._inst.exports.mem.buffer);\n                },\n                // func nanotime1() int64\n                "runtime.nanotime1": (sp) => {\n                  sp >>>= 0;\n                  setInt64(sp + 8, (timeOrigin + performance.now()) * 1e6);\n                },\n                // func walltime() (sec int64, nsec int32)\n                "runtime.walltime": (sp) => {\n                  sp >>>= 0;\n                  const msec = new Date().getTime();\n                  setInt64(sp + 8, msec / 1e3);\n                  this.mem.setInt32(sp + 16, msec % 1e3 * 1e6, true);\n                },\n                // func scheduleTimeoutEvent(delay int64) int32\n                "runtime.scheduleTimeoutEvent": (sp) => {\n                  sp >>>= 0;\n                  const id = this._nextCallbackTimeoutID;\n                  this._nextCallbackTimeoutID++;\n                  this._scheduledTimeouts.set(id, setTimeout(\n                    () => {\n                      this._resume();\n                      while (this._scheduledTimeouts.has(id)) {\n                        console.warn("scheduleTimeoutEvent: missed timeout event");\n                        this._resume();\n                      }\n                    },\n                    getInt64(sp + 8) + 1\n                    // setTimeout has been seen to fire up to 1 millisecond early\n                  ));\n                  this.mem.setInt32(sp + 16, id, true);\n                },\n                // func clearTimeoutEvent(id int32)\n                "runtime.clearTimeoutEvent": (sp) => {\n                  sp >>>= 0;\n                  const id = this.mem.getInt32(sp + 8, true);\n                  clearTimeout(this._scheduledTimeouts.get(id));\n                  this._scheduledTimeouts.delete(id);\n                },\n                // func getRandomData(r []byte)\n                "runtime.getRandomData": (sp) => {\n                  sp >>>= 0;\n                  crypto.getRandomValues(loadSlice(sp + 8));\n                },\n                // func finalizeRef(v ref)\n                "syscall/js.finalizeRef": (sp) => {\n                  sp >>>= 0;\n                  const id = this.mem.getUint32(sp + 8, true);\n                  this._goRefCounts[id]--;\n                  if (this._goRefCounts[id] === 0) {\n                    const v = this._values[id];\n                    this._values[id] = null;\n                    this._ids.delete(v);\n                    this._idPool.push(id);\n                  }\n                },\n                // func stringVal(value string) ref\n                "syscall/js.stringVal": (sp) => {\n                  sp >>>= 0;\n                  storeValue(sp + 24, loadString(sp + 8));\n                },\n                // func valueGet(v ref, p string) ref\n                "syscall/js.valueGet": (sp) => {\n                  sp >>>= 0;\n                  const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));\n                  sp = this._inst.exports.getsp() >>> 0;\n                  storeValue(sp + 32, result);\n                },\n                // func valueSet(v ref, p string, x ref)\n                "syscall/js.valueSet": (sp) => {\n                  sp >>>= 0;\n                  Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));\n                },\n                // func valueDelete(v ref, p string)\n                "syscall/js.valueDelete": (sp) => {\n                  sp >>>= 0;\n                  Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));\n                },\n                // func valueIndex(v ref, i int) ref\n                "syscall/js.valueIndex": (sp) => {\n                  sp >>>= 0;\n                  storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));\n                },\n                // valueSetIndex(v ref, i int, x ref)\n                "syscall/js.valueSetIndex": (sp) => {\n                  sp >>>= 0;\n                  Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));\n                },\n                // func valueCall(v ref, m string, args []ref) (ref, bool)\n                "syscall/js.valueCall": (sp) => {\n                  sp >>>= 0;\n                  try {\n                    const v = loadValue(sp + 8);\n                    const m = Reflect.get(v, loadString(sp + 16));\n                    const args = loadSliceOfValues(sp + 32);\n                    const result = Reflect.apply(m, v, args);\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 56, result);\n                    this.mem.setUint8(sp + 64, 1);\n                  } catch (err) {\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 56, err);\n                    this.mem.setUint8(sp + 64, 0);\n                  }\n                },\n                // func valueInvoke(v ref, args []ref) (ref, bool)\n                "syscall/js.valueInvoke": (sp) => {\n                  sp >>>= 0;\n                  try {\n                    const v = loadValue(sp + 8);\n                    const args = loadSliceOfValues(sp + 16);\n                    const result = Reflect.apply(v, void 0, args);\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, result);\n                    this.mem.setUint8(sp + 48, 1);\n                  } catch (err) {\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, err);\n                    this.mem.setUint8(sp + 48, 0);\n                  }\n                },\n                // func valueNew(v ref, args []ref) (ref, bool)\n                "syscall/js.valueNew": (sp) => {\n                  sp >>>= 0;\n                  try {\n                    const v = loadValue(sp + 8);\n                    const args = loadSliceOfValues(sp + 16);\n                    const result = Reflect.construct(v, args);\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, result);\n                    this.mem.setUint8(sp + 48, 1);\n                  } catch (err) {\n                    sp = this._inst.exports.getsp() >>> 0;\n                    storeValue(sp + 40, err);\n                    this.mem.setUint8(sp + 48, 0);\n                  }\n                },\n                // func valueLength(v ref) int\n                "syscall/js.valueLength": (sp) => {\n                  sp >>>= 0;\n                  setInt64(sp + 16, parseInt(loadValue(sp + 8).length));\n                },\n                // valuePrepareString(v ref) (ref, int)\n                "syscall/js.valuePrepareString": (sp) => {\n                  sp >>>= 0;\n                  const str = encoder.encode(String(loadValue(sp + 8)));\n                  storeValue(sp + 16, str);\n                  setInt64(sp + 24, str.length);\n                },\n                // valueLoadString(v ref, b []byte)\n                "syscall/js.valueLoadString": (sp) => {\n                  sp >>>= 0;\n                  const str = loadValue(sp + 8);\n                  loadSlice(sp + 16).set(str);\n                },\n                // func valueInstanceOf(v ref, t ref) bool\n                "syscall/js.valueInstanceOf": (sp) => {\n                  sp >>>= 0;\n                  this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0);\n                },\n                // func copyBytesToGo(dst []byte, src ref) (int, bool)\n                "syscall/js.copyBytesToGo": (sp) => {\n                  sp >>>= 0;\n                  const dst = loadSlice(sp + 8);\n                  const src = loadValue(sp + 32);\n                  if (!(src instanceof Uint8Array || src instanceof Uint8ClampedArray)) {\n                    this.mem.setUint8(sp + 48, 0);\n                    return;\n                  }\n                  const toCopy = src.subarray(0, dst.length);\n                  dst.set(toCopy);\n                  setInt64(sp + 40, toCopy.length);\n                  this.mem.setUint8(sp + 48, 1);\n                },\n                // func copyBytesToJS(dst ref, src []byte) (int, bool)\n                "syscall/js.copyBytesToJS": (sp) => {\n                  sp >>>= 0;\n                  const dst = loadValue(sp + 8);\n                  const src = loadSlice(sp + 16);\n                  if (!(dst instanceof Uint8Array || dst instanceof Uint8ClampedArray)) {\n                    this.mem.setUint8(sp + 48, 0);\n                    return;\n                  }\n                  const toCopy = src.subarray(0, dst.length);\n                  dst.set(toCopy);\n                  setInt64(sp + 40, toCopy.length);\n                  this.mem.setUint8(sp + 48, 1);\n                },\n                "debug": (value) => {\n                  console.log(value);\n                }\n              }\n            };\n          }\n          run(instance) {\n            return __async(this, null, function* () {\n              if (!(instance instanceof WebAssembly.Instance)) {\n                throw new Error("Go.run: WebAssembly.Instance expected");\n              }\n              this._inst = instance;\n              this.mem = new DataView(this._inst.exports.mem.buffer);\n              this._values = [\n                // JS values that Go currently has references to, indexed by reference id\n                NaN,\n                0,\n                null,\n                true,\n                false,\n                globalThis,\n                this\n              ];\n              this._goRefCounts = new Array(this._values.length).fill(Infinity);\n              this._ids = /* @__PURE__ */ new Map([\n                // mapping from JS values to reference ids\n                [0, 1],\n                [null, 2],\n                [true, 3],\n                [false, 4],\n                [globalThis, 5],\n                [this, 6]\n              ]);\n              this._idPool = [];\n              this.exited = false;\n              let offset = 4096;\n              const strPtr = (str) => {\n                const ptr = offset;\n                const bytes = encoder.encode(str + "\\0");\n                new Uint8Array(this.mem.buffer, offset, bytes.length).set(bytes);\n                offset += bytes.length;\n                if (offset % 8 !== 0) {\n                  offset += 8 - offset % 8;\n                }\n                return ptr;\n              };\n              const argc = this.argv.length;\n              const argvPtrs = [];\n              this.argv.forEach((arg) => {\n                argvPtrs.push(strPtr(arg));\n              });\n              argvPtrs.push(0);\n              const keys = Object.keys(this.env).sort();\n              keys.forEach((key) => {\n                argvPtrs.push(strPtr(`${key}=${this.env[key]}`));\n              });\n              argvPtrs.push(0);\n              const argv = offset;\n              argvPtrs.forEach((ptr) => {\n                this.mem.setUint32(offset, ptr, true);\n                this.mem.setUint32(offset + 4, 0, true);\n                offset += 8;\n              });\n              const wasmMinDataAddr = 4096 + 8192;\n              if (offset >= wasmMinDataAddr) {\n                throw new Error("total length of command line and environment variables exceeds limit");\n              }\n              this._inst.exports.run(argc, argv);\n              if (this.exited) {\n                this._resolveExitPromise();\n              }\n              yield this._exitPromise;\n            });\n          }\n          _resume() {\n            if (this.exited) {\n              throw new Error("Go program has already exited");\n            }\n            this._inst.exports.resume();\n            if (this.exited) {\n              this._resolveExitPromise();\n            }\n          }\n          _makeFuncWrapper(id) {\n            const go = this;\n            return function() {\n              const event = { id, this: this, args: arguments };\n              go._pendingEvent = event;\n              go._resume();\n              return event.result;\n            };\n          }\n        };\n      })();\n      onmessage = ({ data: wasm }) => {\n        let decoder = new TextDecoder();\n        let fs = globalThis.fs;\n        let stderr = "";\n        fs.writeSync = (fd, buffer) => {\n          if (fd === 1) {\n            postMessage(buffer);\n          } else if (fd === 2) {\n            stderr += decoder.decode(buffer);\n            let parts = stderr.split("\\n");\n            if (parts.length > 1)\n              console.log(parts.slice(0, -1).join("\\n"));\n            stderr = parts[parts.length - 1];\n          } else {\n            throw new Error("Bad write");\n          }\n          return buffer.length;\n        };\n        let stdin = [];\n        let resumeStdin;\n        let stdinPos = 0;\n        onmessage = ({ data }) => {\n          if (data.length > 0) {\n            stdin.push(data);\n            if (resumeStdin)\n              resumeStdin();\n          }\n        };\n        fs.read = (fd, buffer, offset, length, position, callback) => {\n          if (fd !== 0 || offset !== 0 || length !== buffer.length || position !== null) {\n            throw new Error("Bad read");\n          }\n          if (stdin.length === 0) {\n            resumeStdin = () => fs.read(fd, buffer, offset, length, position, callback);\n            return;\n          }\n          let first = stdin[0];\n          let count = Math.max(0, Math.min(length, first.length - stdinPos));\n          buffer.set(first.subarray(stdinPos, stdinPos + count), offset);\n          stdinPos += count;\n          if (stdinPos === first.length) {\n            stdin.shift();\n            stdinPos = 0;\n          }\n          callback(null, count);\n        };\n        let go = new globalThis.Go();\n        go.argv = ["", `--service=${"0.16.14"}`];\n        tryToInstantiateModule(wasm, go).then(\n          (instance) => {\n            postMessage(null);\n            go.run(instance);\n          },\n          (error) => {\n            postMessage(error);\n          }\n        );\n      };\n      function tryToInstantiateModule(wasm, go) {\n        return __async(this, null, function* () {\n          if (wasm instanceof WebAssembly.Module) {\n            return WebAssembly.instantiate(wasm, go.importObject);\n          }\n          const res = yield fetch(wasm);\n          if (!res.ok)\n            throw new Error(`Failed to download ${JSON.stringify(wasm)}`);\n          if ("instantiateStreaming" in WebAssembly && /^application\\/wasm($|;)/i.test(res.headers.get("Content-Type") || "")) {\n            const result2 = yield WebAssembly.instantiateStreaming(res, go.importObject);\n            return result2.instance;\n          }\n          const bytes = yield res.arrayBuffer();\n          const result = yield WebAssembly.instantiate(bytes, go.importObject);\n          return result.instance;\n        });\n      }\n      return (m) => onmessage(m);\n    })'}(postMessage)`], { type: "text/javascript" });
           worker = new Worker(URL.createObjectURL(blob));
         } else {
           let onmessage = ((postMessage) => {
@@ -2149,6 +2154,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                 let outputBuf = "";
                 globalThis2.fs = {
                   constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 },
+                  // unused
                   writeSync(fd, buf) {
                     outputBuf += decoder.decode(buf);
                     const nl = outputBuf.lastIndexOf("\n");
@@ -2384,6 +2390,11 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                   const timeOrigin = Date.now() - performance.now();
                   this.importObject = {
                     go: {
+                      // Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)
+                      // may synchronously trigger a Go event handler. This makes Go code get executed in the middle of the imported
+                      // function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).
+                      // This changes the SP, thus we have to update the SP used by the imported function.
+                      // func wasmExit(code int32)
                       "runtime.wasmExit": (sp) => {
                         sp >>>= 0;
                         const code = this.mem.getInt32(sp + 8, true);
@@ -2395,6 +2406,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                         delete this._idPool;
                         this.exit(code);
                       },
+                      // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
                       "runtime.wasmWrite": (sp) => {
                         sp >>>= 0;
                         const fd = getInt64(sp + 8);
@@ -2402,20 +2414,24 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                         const n = this.mem.getInt32(sp + 24, true);
                         globalThis2.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p3, n));
                       },
+                      // func resetMemoryDataView()
                       "runtime.resetMemoryDataView": (sp) => {
                         sp >>>= 0;
                         this.mem = new DataView(this._inst.exports.mem.buffer);
                       },
+                      // func nanotime1() int64
                       "runtime.nanotime1": (sp) => {
                         sp >>>= 0;
                         setInt64(sp + 8, (timeOrigin + performance.now()) * 1e6);
                       },
+                      // func walltime() (sec int64, nsec int32)
                       "runtime.walltime": (sp) => {
                         sp >>>= 0;
                         const msec = new Date().getTime();
                         setInt64(sp + 8, msec / 1e3);
                         this.mem.setInt32(sp + 16, msec % 1e3 * 1e6, true);
                       },
+                      // func scheduleTimeoutEvent(delay int64) int32
                       "runtime.scheduleTimeoutEvent": (sp) => {
                         sp >>>= 0;
                         const id = this._nextCallbackTimeoutID;
@@ -2429,19 +2445,23 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                             }
                           },
                           getInt64(sp + 8) + 1
+                          // setTimeout has been seen to fire up to 1 millisecond early
                         ));
                         this.mem.setInt32(sp + 16, id, true);
                       },
+                      // func clearTimeoutEvent(id int32)
                       "runtime.clearTimeoutEvent": (sp) => {
                         sp >>>= 0;
                         const id = this.mem.getInt32(sp + 8, true);
                         clearTimeout(this._scheduledTimeouts.get(id));
                         this._scheduledTimeouts.delete(id);
                       },
+                      // func getRandomData(r []byte)
                       "runtime.getRandomData": (sp) => {
                         sp >>>= 0;
                         crypto.getRandomValues(loadSlice(sp + 8));
                       },
+                      // func finalizeRef(v ref)
                       "syscall/js.finalizeRef": (sp) => {
                         sp >>>= 0;
                         const id = this.mem.getUint32(sp + 8, true);
@@ -2453,32 +2473,39 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                           this._idPool.push(id);
                         }
                       },
+                      // func stringVal(value string) ref
                       "syscall/js.stringVal": (sp) => {
                         sp >>>= 0;
                         storeValue(sp + 24, loadString(sp + 8));
                       },
+                      // func valueGet(v ref, p string) ref
                       "syscall/js.valueGet": (sp) => {
                         sp >>>= 0;
                         const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));
                         sp = this._inst.exports.getsp() >>> 0;
                         storeValue(sp + 32, result);
                       },
+                      // func valueSet(v ref, p string, x ref)
                       "syscall/js.valueSet": (sp) => {
                         sp >>>= 0;
                         Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));
                       },
+                      // func valueDelete(v ref, p string)
                       "syscall/js.valueDelete": (sp) => {
                         sp >>>= 0;
                         Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));
                       },
+                      // func valueIndex(v ref, i int) ref
                       "syscall/js.valueIndex": (sp) => {
                         sp >>>= 0;
                         storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));
                       },
+                      // valueSetIndex(v ref, i int, x ref)
                       "syscall/js.valueSetIndex": (sp) => {
                         sp >>>= 0;
                         Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));
                       },
+                      // func valueCall(v ref, m string, args []ref) (ref, bool)
                       "syscall/js.valueCall": (sp) => {
                         sp >>>= 0;
                         try {
@@ -2495,6 +2522,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                           this.mem.setUint8(sp + 64, 0);
                         }
                       },
+                      // func valueInvoke(v ref, args []ref) (ref, bool)
                       "syscall/js.valueInvoke": (sp) => {
                         sp >>>= 0;
                         try {
@@ -2510,6 +2538,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                           this.mem.setUint8(sp + 48, 0);
                         }
                       },
+                      // func valueNew(v ref, args []ref) (ref, bool)
                       "syscall/js.valueNew": (sp) => {
                         sp >>>= 0;
                         try {
@@ -2525,25 +2554,30 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                           this.mem.setUint8(sp + 48, 0);
                         }
                       },
+                      // func valueLength(v ref) int
                       "syscall/js.valueLength": (sp) => {
                         sp >>>= 0;
                         setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
                       },
+                      // valuePrepareString(v ref) (ref, int)
                       "syscall/js.valuePrepareString": (sp) => {
                         sp >>>= 0;
                         const str = encoder.encode(String(loadValue(sp + 8)));
                         storeValue(sp + 16, str);
                         setInt64(sp + 24, str.length);
                       },
+                      // valueLoadString(v ref, b []byte)
                       "syscall/js.valueLoadString": (sp) => {
                         sp >>>= 0;
                         const str = loadValue(sp + 8);
                         loadSlice(sp + 16).set(str);
                       },
+                      // func valueInstanceOf(v ref, t ref) bool
                       "syscall/js.valueInstanceOf": (sp) => {
                         sp >>>= 0;
                         this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0);
                       },
+                      // func copyBytesToGo(dst []byte, src ref) (int, bool)
                       "syscall/js.copyBytesToGo": (sp) => {
                         sp >>>= 0;
                         const dst = loadSlice(sp + 8);
@@ -2557,6 +2591,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                         setInt64(sp + 40, toCopy.length);
                         this.mem.setUint8(sp + 48, 1);
                       },
+                      // func copyBytesToJS(dst ref, src []byte) (int, bool)
                       "syscall/js.copyBytesToJS": (sp) => {
                         sp >>>= 0;
                         const dst = loadValue(sp + 8);
@@ -2584,6 +2619,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                     this._inst = instance;
                     this.mem = new DataView(this._inst.exports.mem.buffer);
                     this._values = [
+                      // JS values that Go currently has references to, indexed by reference id
                       NaN,
                       0,
                       null,
@@ -2594,6 +2630,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                     ];
                     this._goRefCounts = new Array(this._values.length).fill(Infinity);
                     this._ids = /* @__PURE__ */ new Map([
+                      // mapping from JS values to reference ids
                       [0, 1],
                       [null, 2],
                       [true, 3],
@@ -2709,7 +2746,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e3.text}`;
                 callback(null, count2);
               };
               let go3 = new globalThis2.Go();
-              go3.argv = ["", `--service=${"0.16.13"}`];
+              go3.argv = ["", `--service=${"0.16.14"}`];
               tryToInstantiateModule(wasm, go3).then(
                 (instance) => {
                   postMessage(null);
@@ -2896,7 +2933,7 @@ var package_default = {
     csstype: "3.1.1",
     "detective-typescript": "^9.0.0",
     "esbuild-plugin-external-global": "1.0.1",
-    "esbuild-wasm": "0.16.13",
+    "esbuild-wasm": "0.16.14",
     "events-browserify": "^0.0.1",
     "fast-diff": "1.2.0",
     "fetch-retry": "^5.0.3",
@@ -2953,7 +2990,7 @@ var package_default = {
     "@yarnpkg/plugin-git": "^3.0.0-rc.34",
     "@yarnpkg/plugin-typescript": "^4.0.0-rc.34",
     "@yarnpkg/sdks": "3.0.0-rc.34",
-    esbuild: "0.16.13",
+    esbuild: "0.16.14",
     "esbuild-plugin-alias": "0.2.1",
     eslint: "^8.31.0",
     "eslint-plugin-react": "^7.31.11",
@@ -2973,8 +3010,8 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-WVUJHC6X.mjs
-var $ = "./chunk-esbuild-GS5BVJUF.wasm";
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-XVVW6ARP.mjs
+var $ = "./chunk-esbuild-XXIAOOGR.wasm";
 
 // ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-TKEPGNJK.mjs
 var g = Object.create;
@@ -3056,13 +3093,13 @@ function o2(s, m3, f) {
 }
 p(o2, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JOJPXFZU.mjs
-var Os = r((Aa, Es) => {
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-UT5KALIC.mjs
+var Os = r((Ta, Es) => {
   o();
-  var fe = -1, se = 1, qt = 0;
+  var fe = -1, se = 1, Lt = 0;
   function pr(t3, e3, r3, n) {
     if (t3 === e3)
-      return t3 ? [[qt, t3]] : [];
+      return t3 ? [[Lt, t3]] : [];
     if (r3 != null) {
       var s = la(t3, e3, r3);
       if (s)
@@ -3073,7 +3110,7 @@ var Os = r((Aa, Es) => {
     var u = t3.substring(t3.length - o5);
     t3 = t3.substring(0, t3.length - o5), e3 = e3.substring(0, e3.length - o5);
     var l3 = sa(t3, e3);
-    return a && l3.unshift([qt, a]), u && l3.push([qt, u]), vs(l3, n), l3;
+    return a && l3.unshift([Lt, a]), u && l3.push([Lt, u]), vs(l3, n), l3;
   }
   p(pr, "diff_main");
   function sa(t3, e3) {
@@ -3084,13 +3121,13 @@ var Os = r((Aa, Es) => {
       return [[fe, t3]];
     var n = t3.length > e3.length ? t3 : e3, s = t3.length > e3.length ? e3 : t3, o5 = n.indexOf(s);
     if (o5 !== -1)
-      return r3 = [[se, n.substring(0, o5)], [qt, s], [se, n.substring(o5 + s.length)]], t3.length > e3.length && (r3[0][0] = r3[2][0] = fe), r3;
+      return r3 = [[se, n.substring(0, o5)], [Lt, s], [se, n.substring(o5 + s.length)]], t3.length > e3.length && (r3[0][0] = r3[2][0] = fe), r3;
     if (s.length === 1)
       return [[fe, t3], [se, e3]];
     var a = aa(t3, e3);
     if (a) {
       var u = a[0], l3 = a[1], c = a[2], _ = a[3], p3 = a[4], w3 = pr(u, c), v = pr(l3, _);
-      return w3.concat([[qt, p3]], v);
+      return w3.concat([[Lt, p3]], v);
     }
     return oa(t3, e3);
   }
@@ -3184,7 +3221,7 @@ var Os = r((Aa, Es) => {
   }
   p(aa, "diff_halfMatch_");
   function vs(t3, e3) {
-    t3.push([qt, ""]);
+    t3.push([Lt, ""]);
     for (var r3 = 0, n = 0, s = 0, o5 = "", a = "", u; r3 < t3.length; ) {
       if (r3 < t3.length - 1 && !t3[r3][1]) {
         t3.splice(r3, 1);
@@ -3197,7 +3234,7 @@ var Os = r((Aa, Es) => {
         case fe:
           n++, o5 += t3[r3][1], r3++;
           break;
-        case qt:
+        case Lt:
           var l3 = r3 - s - n - 1;
           if (e3) {
             if (l3 >= 0 && Ss(t3[l3][1])) {
@@ -3218,18 +3255,18 @@ var Os = r((Aa, Es) => {
             break;
           }
           if (o5.length > 0 || a.length > 0) {
-            o5.length > 0 && a.length > 0 && (u = zn(a, o5), u !== 0 && (l3 >= 0 ? t3[l3][1] += a.substring(0, u) : (t3.splice(0, 0, [qt, a.substring(0, u)]), r3++), a = a.substring(u), o5 = o5.substring(u)), u = Pn(a, o5), u !== 0 && (t3[r3][1] = a.substring(a.length - u) + t3[r3][1], a = a.substring(0, a.length - u), o5 = o5.substring(0, o5.length - u)));
+            o5.length > 0 && a.length > 0 && (u = zn(a, o5), u !== 0 && (l3 >= 0 ? t3[l3][1] += a.substring(0, u) : (t3.splice(0, 0, [Lt, a.substring(0, u)]), r3++), a = a.substring(u), o5 = o5.substring(u)), u = Pn(a, o5), u !== 0 && (t3[r3][1] = a.substring(a.length - u) + t3[r3][1], a = a.substring(0, a.length - u), o5 = o5.substring(0, o5.length - u)));
             var p3 = s + n;
             o5.length === 0 && a.length === 0 ? (t3.splice(r3 - p3, p3), r3 = r3 - p3) : o5.length === 0 ? (t3.splice(r3 - p3, p3, [se, a]), r3 = r3 - p3 + 1) : a.length === 0 ? (t3.splice(r3 - p3, p3, [fe, o5]), r3 = r3 - p3 + 1) : (t3.splice(r3 - p3, p3, [fe, o5], [se, a]), r3 = r3 - p3 + 2);
           }
-          r3 !== 0 && t3[r3 - 1][0] === qt ? (t3[r3 - 1][1] += t3[r3][1], t3.splice(r3, 1)) : r3++, s = 0, n = 0, o5 = "", a = "";
+          r3 !== 0 && t3[r3 - 1][0] === Lt ? (t3[r3 - 1][1] += t3[r3][1], t3.splice(r3, 1)) : r3++, s = 0, n = 0, o5 = "", a = "";
           break;
       }
     }
     t3[t3.length - 1][1] === "" && t3.pop();
     var w3 = false;
     for (r3 = 1; r3 < t3.length - 1; )
-      t3[r3 - 1][0] === qt && t3[r3 + 1][0] === qt && (t3[r3][1].substring(t3[r3][1].length - t3[r3 - 1][1].length) === t3[r3 - 1][1] ? (t3[r3][1] = t3[r3 - 1][1] + t3[r3][1].substring(0, t3[r3][1].length - t3[r3 - 1][1].length), t3[r3 + 1][1] = t3[r3 - 1][1] + t3[r3 + 1][1], t3.splice(r3 - 1, 1), w3 = true) : t3[r3][1].substring(0, t3[r3 + 1][1].length) == t3[r3 + 1][1] && (t3[r3 - 1][1] += t3[r3 + 1][1], t3[r3][1] = t3[r3][1].substring(t3[r3 + 1][1].length) + t3[r3 + 1][1], t3.splice(r3 + 1, 1), w3 = true)), r3++;
+      t3[r3 - 1][0] === Lt && t3[r3 + 1][0] === Lt && (t3[r3][1].substring(t3[r3][1].length - t3[r3 - 1][1].length) === t3[r3 - 1][1] ? (t3[r3][1] = t3[r3 - 1][1] + t3[r3][1].substring(0, t3[r3][1].length - t3[r3 - 1][1].length), t3[r3 + 1][1] = t3[r3 - 1][1] + t3[r3 + 1][1], t3.splice(r3 - 1, 1), w3 = true) : t3[r3][1].substring(0, t3[r3 + 1][1].length) == t3[r3 + 1][1] && (t3[r3 - 1][1] += t3[r3 + 1][1], t3[r3][1] = t3[r3][1].substring(t3[r3 + 1][1].length) + t3[r3 + 1][1], t3.splice(r3 + 1, 1), w3 = true)), r3++;
     w3 && vs(t3, e3);
   }
   p(vs, "diff_cleanupMerge");
@@ -3256,7 +3293,7 @@ var Os = r((Aa, Es) => {
   }
   p(ua, "remove_empty_tuples");
   function $n(t3, e3, r3, n) {
-    return Ss(t3) || bs(n) ? null : ua([[qt, t3], [fe, e3], [se, r3], [qt, n]]);
+    return Ss(t3) || bs(n) ? null : ua([[Lt, t3], [fe, e3], [se, r3], [Lt, n]]);
   }
   p($n, "make_edit_splice");
   function la(t3, e3, r3) {
@@ -3310,7 +3347,7 @@ var Os = r((Aa, Es) => {
   p(Cr, "diff");
   Cr.INSERT = se;
   Cr.DELETE = fe;
-  Cr.EQUAL = qt;
+  Cr.EQUAL = Lt;
   Es.exports = Cr;
 });
 var js = r((Da, Cn) => {
@@ -3322,21 +3359,21 @@ var js = r((Da, Cn) => {
         e3(h3, m3, { get: d[m3], enumerable: true });
     }, "__export"), a = p((h3, d, m3, M) => {
       if (d && typeof d == "object" || typeof d == "function")
-        for (let T of n(d))
-          !s.call(h3, T) && T !== m3 && e3(h3, T, { get: () => d[T], enumerable: !(M = r3(d, T)) || M.enumerable });
+        for (let R3 of n(d))
+          !s.call(h3, R3) && R3 !== m3 && e3(h3, R3, { get: () => d[R3], enumerable: !(M = r3(d, R3)) || M.enumerable });
       return h3;
-    }, "__copyProps"), u = p((h3) => a(e3({}, "__esModule", { value: true }), h3), "__toCommonJS"), l3 = p((h3, d, m3) => new Promise((M, T) => {
+    }, "__copyProps"), u = p((h3) => a(e3({}, "__esModule", { value: true }), h3), "__toCommonJS"), l3 = p((h3, d, m3) => new Promise((M, R3) => {
       var $5 = p((x) => {
         try {
           U3(m3.next(x));
         } catch (V) {
-          T(V);
+          R3(V);
         }
       }, "fulfilled"), j3 = p((x) => {
         try {
           U3(m3.throw(x));
         } catch (V) {
-          T(V);
+          R3(V);
         }
       }, "rejected"), U3 = p((x) => x.done ? M(x.value) : Promise.resolve(x.value).then($5, j3), "step");
       U3((m3 = m3.apply(h3, d)).next());
@@ -3356,12 +3393,12 @@ var js = r((Da, Cn) => {
           m3.write8(4), m3.write(M);
         else if (M instanceof Array) {
           m3.write8(5), m3.write32(M.length);
-          for (let T of M)
-            d(T);
+          for (let R3 of M)
+            d(R3);
         } else {
-          let T = Object.keys(M);
-          m3.write8(6), m3.write32(T.length);
-          for (let $5 of T)
+          let R3 = Object.keys(M);
+          m3.write8(6), m3.write32(R3.length);
+          for (let $5 of R3)
             m3.write(v($5)), d(M[$5]);
         }
       }, "visit"), m3 = new w3();
@@ -3396,12 +3433,12 @@ var js = r((Da, Cn) => {
           default:
             throw new Error("Invalid packet");
         }
-      }, "visit"), m3 = new w3(h3), M = m3.read32(), T = (M & 1) === 0;
+      }, "visit"), m3 = new w3(h3), M = m3.read32(), R3 = (M & 1) === 0;
       M >>>= 1;
       let $5 = d();
       if (m3.ptr !== h3.length)
         throw new Error("Invalid packet");
-      return { id: M, isRequest: T, value: $5 };
+      return { id: M, isRequest: R3, value: $5 };
     }
     p(p3, "decodePacket");
     var w3 = p(class {
@@ -3475,15 +3512,15 @@ is not a problem with esbuild. You need to fix your environment instead.
       return h3;
     }
     p(Q, "validateTarget");
-    var N = p(() => null, "canBeAnything"), W = p((h3) => typeof h3 == "boolean" ? null : "a boolean", "mustBeBoolean"), ft = p((h3) => typeof h3 == "boolean" || typeof h3 == "object" && !Array.isArray(h3) ? null : "a boolean or an object", "mustBeBooleanOrObject"), F = p((h3) => typeof h3 == "string" ? null : "a string", "mustBeString"), Dt = p((h3) => h3 instanceof RegExp ? null : "a RegExp object", "mustBeRegExp"), Ct = p((h3) => typeof h3 == "number" && h3 === (h3 | 0) ? null : "an integer", "mustBeInteger"), qr = p((h3) => typeof h3 == "function" ? null : "a function", "mustBeFunction"), It = p((h3) => Array.isArray(h3) ? null : "an array", "mustBeArray"), Xt = p((h3) => typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "an object", "mustBeObject"), Rs = p((h3) => h3 instanceof WebAssembly.Module ? null : "a WebAssembly.Module", "mustBeWebAssemblyModule"), Ts = p((h3) => typeof h3 == "object" && h3 !== null ? null : "an array or an object", "mustBeArrayOrRecord"), Un = p((h3) => typeof h3 == "object" && !Array.isArray(h3) ? null : "an object or null", "mustBeObjectOrNull"), Nn = p((h3) => typeof h3 == "string" || typeof h3 == "boolean" ? null : "a string or a boolean", "mustBeStringOrBoolean"), $s = p((h3) => typeof h3 == "string" || typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "a string or an object", "mustBeStringOrObject"), zs = p((h3) => typeof h3 == "string" || Array.isArray(h3) ? null : "a string or an array", "mustBeStringOrArray"), Fn = p((h3) => typeof h3 == "string" || h3 instanceof Uint8Array ? null : "a string or a Uint8Array", "mustBeStringOrUint8Array"), Ps = p((h3) => typeof h3 == "string" || h3 instanceof URL ? null : "a string or a URL", "mustBeStringOrURL");
+    var N = p(() => null, "canBeAnything"), W = p((h3) => typeof h3 == "boolean" ? null : "a boolean", "mustBeBoolean"), ft = p((h3) => typeof h3 == "boolean" || typeof h3 == "object" && !Array.isArray(h3) ? null : "a boolean or an object", "mustBeBooleanOrObject"), F = p((h3) => typeof h3 == "string" ? null : "a string", "mustBeString"), Dt = p((h3) => h3 instanceof RegExp ? null : "a RegExp object", "mustBeRegExp"), Ct = p((h3) => typeof h3 == "number" && h3 === (h3 | 0) ? null : "an integer", "mustBeInteger"), Lr = p((h3) => typeof h3 == "function" ? null : "a function", "mustBeFunction"), It = p((h3) => Array.isArray(h3) ? null : "an array", "mustBeArray"), Xt = p((h3) => typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "an object", "mustBeObject"), As = p((h3) => h3 instanceof WebAssembly.Module ? null : "a WebAssembly.Module", "mustBeWebAssemblyModule"), Rs = p((h3) => typeof h3 == "object" && h3 !== null ? null : "an array or an object", "mustBeArrayOrRecord"), Un = p((h3) => typeof h3 == "object" && !Array.isArray(h3) ? null : "an object or null", "mustBeObjectOrNull"), Nn = p((h3) => typeof h3 == "string" || typeof h3 == "boolean" ? null : "a string or a boolean", "mustBeStringOrBoolean"), $s = p((h3) => typeof h3 == "string" || typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "a string or an object", "mustBeStringOrObject"), zs = p((h3) => typeof h3 == "string" || Array.isArray(h3) ? null : "a string or an array", "mustBeStringOrArray"), Fn = p((h3) => typeof h3 == "string" || h3 instanceof Uint8Array ? null : "a string or a Uint8Array", "mustBeStringOrUint8Array"), Ps = p((h3) => typeof h3 == "string" || h3 instanceof URL ? null : "a string or a URL", "mustBeStringOrURL");
     function S(h3, d, m3, M) {
-      let T = h3[m3];
-      if (d[m3 + ""] = true, T === void 0)
+      let R3 = h3[m3];
+      if (d[m3 + ""] = true, R3 === void 0)
         return;
-      let $5 = M(T);
+      let $5 = M(R3);
       if ($5 !== null)
         throw new Error(`${K(m3)} must be ${$5}`);
-      return T;
+      return R3;
     }
     p(S, "getFlag");
     function kt(h3, d, m3) {
@@ -3493,11 +3530,11 @@ is not a problem with esbuild. You need to fix your environment instead.
     }
     p(kt, "checkForInvalidFlags");
     function Ds(h3) {
-      let d = /* @__PURE__ */ Object.create(null), m3 = S(h3, d, "wasmURL", Ps), M = S(h3, d, "wasmModule", Rs), T = S(h3, d, "worker", W);
-      return kt(h3, d, "in initialize() call"), { wasmURL: m3, wasmModule: M, worker: T };
+      let d = /* @__PURE__ */ Object.create(null), m3 = S(h3, d, "wasmURL", Ps), M = S(h3, d, "wasmModule", As), R3 = S(h3, d, "worker", W);
+      return kt(h3, d, "in initialize() call"), { wasmURL: m3, wasmModule: M, worker: R3 };
     }
     p(Ds, "validateInitializeOptions");
-    function qn(h3) {
+    function Ln(h3) {
       let d;
       if (h3 !== void 0) {
         d = /* @__PURE__ */ Object.create(null);
@@ -3511,10 +3548,10 @@ is not a problem with esbuild. You need to fix your environment instead.
       }
       return d;
     }
-    p(qn, "validateMangleCache");
-    function _r(h3, d, m3, M, T) {
+    p(Ln, "validateMangleCache");
+    function _r(h3, d, m3, M, R3) {
       let $5 = S(d, m3, "color", W), j3 = S(d, m3, "logLevel", F), U3 = S(d, m3, "logLimit", Ct);
-      $5 !== void 0 ? h3.push(`--color=${$5}`) : M && h3.push("--color=true"), h3.push(`--log-level=${j3 || T}`), h3.push(`--log-limit=${U3 || 0}`);
+      $5 !== void 0 ? h3.push(`--color=${$5}`) : M && h3.push("--color=true"), h3.push(`--log-level=${j3 || R3}`), h3.push(`--log-limit=${U3 || 0}`);
     }
     p(_r, "pushLogFlags");
     function Mt(h3, d, m3) {
@@ -3523,12 +3560,12 @@ is not a problem with esbuild. You need to fix your environment instead.
       return h3;
     }
     p(Mt, "validateStringValue");
-    function Ln(h3, d, m3) {
-      let M = S(d, m3, "legalComments", F), T = S(d, m3, "sourceRoot", F), $5 = S(d, m3, "sourcesContent", W), j3 = S(d, m3, "target", zs), U3 = S(d, m3, "format", F), x = S(d, m3, "globalName", F), V = S(d, m3, "mangleProps", Dt), Y = S(d, m3, "reserveProps", Dt), Z = S(d, m3, "mangleQuoted", W), rt = S(d, m3, "minify", W), J = S(d, m3, "minifySyntax", W), tt = S(d, m3, "minifyWhitespace", W), q3 = S(d, m3, "minifyIdentifiers", W), nt = S(d, m3, "drop", It), at = S(d, m3, "charset", F), D = S(d, m3, "treeShaking", W), E = S(d, m3, "ignoreAnnotations", W), g5 = S(d, m3, "jsx", F), I = S(d, m3, "jsxFactory", F), R3 = S(d, m3, "jsxFragment", F), C = S(d, m3, "jsxImportSource", F), L = S(d, m3, "jsxDev", W), A = S(d, m3, "jsxSideEffects", W), f = S(d, m3, "define", Xt), O = S(d, m3, "logOverride", Xt), z = S(d, m3, "supported", Xt), P = S(d, m3, "pure", It), H = S(d, m3, "keepNames", W), it = S(d, m3, "platform", F);
-      if (M && h3.push(`--legal-comments=${M}`), T !== void 0 && h3.push(`--source-root=${T}`), $5 !== void 0 && h3.push(`--sources-content=${$5}`), j3 && (Array.isArray(j3) ? h3.push(`--target=${Array.from(j3).map(Q).join(",")}`) : h3.push(`--target=${Q(j3)}`)), U3 && h3.push(`--format=${U3}`), x && h3.push(`--global-name=${x}`), it && h3.push(`--platform=${it}`), rt && h3.push("--minify"), J && h3.push("--minify-syntax"), tt && h3.push("--minify-whitespace"), q3 && h3.push("--minify-identifiers"), at && h3.push(`--charset=${at}`), D !== void 0 && h3.push(`--tree-shaking=${D}`), E && h3.push("--ignore-annotations"), nt)
+    function qn(h3, d, m3) {
+      let M = S(d, m3, "legalComments", F), R3 = S(d, m3, "sourceRoot", F), $5 = S(d, m3, "sourcesContent", W), j3 = S(d, m3, "target", zs), U3 = S(d, m3, "format", F), x = S(d, m3, "globalName", F), V = S(d, m3, "mangleProps", Dt), Y = S(d, m3, "reserveProps", Dt), Z = S(d, m3, "mangleQuoted", W), rt = S(d, m3, "minify", W), J = S(d, m3, "minifySyntax", W), tt = S(d, m3, "minifyWhitespace", W), L = S(d, m3, "minifyIdentifiers", W), nt = S(d, m3, "drop", It), at = S(d, m3, "charset", F), D = S(d, m3, "treeShaking", W), E = S(d, m3, "ignoreAnnotations", W), g5 = S(d, m3, "jsx", F), I = S(d, m3, "jsxFactory", F), A = S(d, m3, "jsxFragment", F), C = S(d, m3, "jsxImportSource", F), q3 = S(d, m3, "jsxDev", W), T = S(d, m3, "jsxSideEffects", W), f = S(d, m3, "define", Xt), O = S(d, m3, "logOverride", Xt), z = S(d, m3, "supported", Xt), P = S(d, m3, "pure", It), H = S(d, m3, "keepNames", W), it = S(d, m3, "platform", F);
+      if (M && h3.push(`--legal-comments=${M}`), R3 !== void 0 && h3.push(`--source-root=${R3}`), $5 !== void 0 && h3.push(`--sources-content=${$5}`), j3 && (Array.isArray(j3) ? h3.push(`--target=${Array.from(j3).map(Q).join(",")}`) : h3.push(`--target=${Q(j3)}`)), U3 && h3.push(`--format=${U3}`), x && h3.push(`--global-name=${x}`), it && h3.push(`--platform=${it}`), rt && h3.push("--minify"), J && h3.push("--minify-syntax"), tt && h3.push("--minify-whitespace"), L && h3.push("--minify-identifiers"), at && h3.push(`--charset=${at}`), D !== void 0 && h3.push(`--tree-shaking=${D}`), E && h3.push("--ignore-annotations"), nt)
         for (let G of nt)
           h3.push(`--drop:${Mt(G, "drop")}`);
-      if (V && h3.push(`--mangle-props=${V.source}`), Y && h3.push(`--reserve-props=${Y.source}`), Z !== void 0 && h3.push(`--mangle-quoted=${Z}`), g5 && h3.push(`--jsx=${g5}`), I && h3.push(`--jsx-factory=${I}`), R3 && h3.push(`--jsx-fragment=${R3}`), C && h3.push(`--jsx-import-source=${C}`), L && h3.push("--jsx-dev"), A && h3.push("--jsx-side-effects"), f)
+      if (V && h3.push(`--mangle-props=${V.source}`), Y && h3.push(`--reserve-props=${Y.source}`), Z !== void 0 && h3.push(`--mangle-quoted=${Z}`), g5 && h3.push(`--jsx=${g5}`), I && h3.push(`--jsx-factory=${I}`), A && h3.push(`--jsx-fragment=${A}`), C && h3.push(`--jsx-import-source=${C}`), q3 && h3.push("--jsx-dev"), T && h3.push("--jsx-side-effects"), f)
         for (let G in f) {
           if (G.indexOf("=") >= 0)
             throw new Error(`Invalid define: ${G}`);
@@ -3554,40 +3591,40 @@ is not a problem with esbuild. You need to fix your environment instead.
           h3.push(`--pure:${Mt(G, "pure")}`);
       H && h3.push("--keep-names");
     }
-    p(Ln, "pushCommonFlags");
-    function Cs(h3, d, m3, M, T) {
+    p(qn, "pushCommonFlags");
+    function Cs(h3, d, m3, M, R3) {
       var $5;
       let j3 = [], U3 = [], x = /* @__PURE__ */ Object.create(null), V = null, Y = null, Z = null;
-      _r(j3, d, x, m3, M), Ln(j3, d, x);
-      let rt = S(d, x, "sourcemap", Nn), J = S(d, x, "bundle", W), tt = S(d, x, "watch", ft), q3 = S(d, x, "splitting", W), nt = S(d, x, "preserveSymlinks", W), at = S(d, x, "metafile", W), D = S(d, x, "outfile", F), E = S(d, x, "outdir", F), g5 = S(d, x, "outbase", F), I = S(d, x, "tsconfig", F), R3 = S(d, x, "resolveExtensions", It), C = S(d, x, "nodePaths", It), L = S(d, x, "mainFields", It), A = S(d, x, "conditions", It), f = S(d, x, "external", It), O = S(d, x, "packages", F), z = S(d, x, "alias", Xt), P = S(d, x, "loader", Xt), H = S(d, x, "outExtension", Xt), it = S(d, x, "publicPath", F), G = S(d, x, "entryNames", F), et = S(d, x, "chunkNames", F), jt = S(d, x, "assetNames", F), Rt = S(d, x, "inject", It), bt = S(d, x, "banner", Xt), ut = S(d, x, "footer", Xt), st = S(d, x, "entryPoints", Ts), xt = S(d, x, "absWorkingDir", F), Tt = S(d, x, "stdin", Xt), be = ($5 = S(d, x, "write", W)) != null ? $5 : T, He = S(d, x, "allowOverwrite", W), oe = S(d, x, "incremental", W) === true, Zt = S(d, x, "mangleCache", Xt);
+      _r(j3, d, x, m3, M), qn(j3, d, x);
+      let rt = S(d, x, "sourcemap", Nn), J = S(d, x, "bundle", W), tt = S(d, x, "watch", ft), L = S(d, x, "splitting", W), nt = S(d, x, "preserveSymlinks", W), at = S(d, x, "metafile", W), D = S(d, x, "outfile", F), E = S(d, x, "outdir", F), g5 = S(d, x, "outbase", F), I = S(d, x, "tsconfig", F), A = S(d, x, "resolveExtensions", It), C = S(d, x, "nodePaths", It), q3 = S(d, x, "mainFields", It), T = S(d, x, "conditions", It), f = S(d, x, "external", It), O = S(d, x, "packages", F), z = S(d, x, "alias", Xt), P = S(d, x, "loader", Xt), H = S(d, x, "outExtension", Xt), it = S(d, x, "publicPath", F), G = S(d, x, "entryNames", F), et = S(d, x, "chunkNames", F), jt = S(d, x, "assetNames", F), At = S(d, x, "inject", It), bt = S(d, x, "banner", Xt), ut = S(d, x, "footer", Xt), st = S(d, x, "entryPoints", Rs), xt = S(d, x, "absWorkingDir", F), Rt = S(d, x, "stdin", Xt), be = ($5 = S(d, x, "write", W)) != null ? $5 : R3, He = S(d, x, "allowOverwrite", W), oe = S(d, x, "incremental", W) === true, Zt = S(d, x, "mangleCache", Xt);
       if (x.plugins = true, kt(d, x, `in ${h3}() call`), rt && j3.push(`--sourcemap${rt === true ? "" : `=${rt}`}`), J && j3.push("--bundle"), He && j3.push("--allow-overwrite"), tt)
         if (j3.push("--watch"), typeof tt == "boolean")
           Z = {};
         else {
-          let B = /* @__PURE__ */ Object.create(null), St = S(tt, B, "onRebuild", qr);
+          let B = /* @__PURE__ */ Object.create(null), St = S(tt, B, "onRebuild", Lr);
           kt(tt, B, `on "watch" in ${h3}() call`), Z = { onRebuild: St };
         }
-      if (q3 && j3.push("--splitting"), nt && j3.push("--preserve-symlinks"), at && j3.push("--metafile"), D && j3.push(`--outfile=${D}`), E && j3.push(`--outdir=${E}`), g5 && j3.push(`--outbase=${g5}`), I && j3.push(`--tsconfig=${I}`), O && j3.push(`--packages=${O}`), R3) {
+      if (L && j3.push("--splitting"), nt && j3.push("--preserve-symlinks"), at && j3.push("--metafile"), D && j3.push(`--outfile=${D}`), E && j3.push(`--outdir=${E}`), g5 && j3.push(`--outbase=${g5}`), I && j3.push(`--tsconfig=${I}`), O && j3.push(`--packages=${O}`), A) {
         let B = [];
-        for (let St of R3) {
+        for (let St of A) {
           if (Mt(St, "resolve extension"), St.indexOf(",") >= 0)
             throw new Error(`Invalid resolve extension: ${St}`);
           B.push(St);
         }
         j3.push(`--resolve-extensions=${B.join(",")}`);
       }
-      if (it && j3.push(`--public-path=${it}`), G && j3.push(`--entry-names=${G}`), et && j3.push(`--chunk-names=${et}`), jt && j3.push(`--asset-names=${jt}`), L) {
+      if (it && j3.push(`--public-path=${it}`), G && j3.push(`--entry-names=${G}`), et && j3.push(`--chunk-names=${et}`), jt && j3.push(`--asset-names=${jt}`), q3) {
         let B = [];
-        for (let St of L) {
+        for (let St of q3) {
           if (Mt(St, "main field"), St.indexOf(",") >= 0)
             throw new Error(`Invalid main field: ${St}`);
           B.push(St);
         }
         j3.push(`--main-fields=${B.join(",")}`);
       }
-      if (A) {
+      if (T) {
         let B = [];
-        for (let St of A) {
+        for (let St of T) {
           if (Mt(St, "condition"), St.indexOf(",") >= 0)
             throw new Error(`Invalid condition: ${St}`);
           B.push(St);
@@ -3615,8 +3652,8 @@ is not a problem with esbuild. You need to fix your environment instead.
             throw new Error(`Invalid footer file type: ${B}`);
           j3.push(`--footer:${B}=${Mt(ut[B], "footer", B)}`);
         }
-      if (Rt)
-        for (let B of Rt)
+      if (At)
+        for (let B of At)
           j3.push(`--inject:${Mt(B, "inject")}`);
       if (P)
         for (let B in P) {
@@ -3637,38 +3674,38 @@ is not a problem with esbuild. You need to fix your environment instead.
         else
           for (let B in st)
             U3.push([B, Mt(st[B], "entry point", B)]);
-      if (Tt) {
-        let B = /* @__PURE__ */ Object.create(null), St = S(Tt, B, "contents", Fn), Jn = S(Tt, B, "resolveDir", F), Hn = S(Tt, B, "sourcefile", F), Kn = S(Tt, B, "loader", F);
-        kt(Tt, B, 'in "stdin" object'), Hn && j3.push(`--sourcefile=${Hn}`), Kn && j3.push(`--loader=${Kn}`), Jn && (Y = Jn), typeof St == "string" ? V = v(St) : St instanceof Uint8Array && (V = St);
+      if (Rt) {
+        let B = /* @__PURE__ */ Object.create(null), St = S(Rt, B, "contents", Fn), Jn = S(Rt, B, "resolveDir", F), Hn = S(Rt, B, "sourcefile", F), Kn = S(Rt, B, "loader", F);
+        kt(Rt, B, 'in "stdin" object'), Hn && j3.push(`--sourcefile=${Hn}`), Kn && j3.push(`--loader=${Kn}`), Jn && (Y = Jn), typeof St == "string" ? V = v(St) : St instanceof Uint8Array && (V = St);
       }
-      let Ae = [];
+      let Te = [];
       if (C)
         for (let B of C)
-          B += "", Ae.push(B);
-      return { entries: U3, flags: j3, write: be, stdinContents: V, stdinResolveDir: Y, absWorkingDir: xt, incremental: oe, nodePaths: Ae, watch: Z, mangleCache: qn(Zt) };
+          B += "", Te.push(B);
+      return { entries: U3, flags: j3, write: be, stdinContents: V, stdinResolveDir: Y, absWorkingDir: xt, incremental: oe, nodePaths: Te, watch: Z, mangleCache: Ln(Zt) };
     }
     p(Cs, "flagsForBuildOptions");
     function Us(h3, d, m3, M) {
-      let T = [], $5 = /* @__PURE__ */ Object.create(null);
-      _r(T, d, $5, m3, M), Ln(T, d, $5);
+      let R3 = [], $5 = /* @__PURE__ */ Object.create(null);
+      _r(R3, d, $5, m3, M), qn(R3, d, $5);
       let j3 = S(d, $5, "sourcemap", Nn), U3 = S(d, $5, "tsconfigRaw", $s), x = S(d, $5, "sourcefile", F), V = S(d, $5, "loader", F), Y = S(d, $5, "banner", F), Z = S(d, $5, "footer", F), rt = S(d, $5, "mangleCache", Xt);
-      return kt(d, $5, `in ${h3}() call`), j3 && T.push(`--sourcemap=${j3 === true ? "external" : j3}`), U3 && T.push(`--tsconfig-raw=${typeof U3 == "string" ? U3 : JSON.stringify(U3)}`), x && T.push(`--sourcefile=${x}`), V && T.push(`--loader=${V}`), Y && T.push(`--banner=${Y}`), Z && T.push(`--footer=${Z}`), { flags: T, mangleCache: qn(rt) };
+      return kt(d, $5, `in ${h3}() call`), j3 && R3.push(`--sourcemap=${j3 === true ? "external" : j3}`), U3 && R3.push(`--tsconfig-raw=${typeof U3 == "string" ? U3 : JSON.stringify(U3)}`), x && R3.push(`--sourcefile=${x}`), V && R3.push(`--loader=${V}`), Y && R3.push(`--banner=${Y}`), Z && R3.push(`--footer=${Z}`), { flags: R3, mangleCache: Ln(rt) };
     }
     p(Us, "flagsForTransformOptions");
     function Ns(h3) {
-      let d = {}, m3 = { didClose: false, reason: "" }, M = {}, T = 0, $5 = 0, j3 = new Uint8Array(16 * 1024), U3 = 0, x = p((E) => {
+      let d = {}, m3 = { didClose: false, reason: "" }, M = {}, R3 = 0, $5 = 0, j3 = new Uint8Array(16 * 1024), U3 = 0, x = p((E) => {
         let g5 = U3 + E.length;
         if (g5 > j3.length) {
-          let R3 = new Uint8Array(g5 * 2);
-          R3.set(j3), j3 = R3;
+          let A = new Uint8Array(g5 * 2);
+          A.set(j3), j3 = A;
         }
         j3.set(E, U3), U3 += E.length;
         let I = 0;
         for (; I + 4 <= U3; ) {
-          let R3 = k3(j3, I);
-          if (I + 4 + R3 > U3)
+          let A = k3(j3, I);
+          if (I + 4 + A > U3)
             break;
-          I += 4, tt(j3.subarray(I, I + R3)), I += R3;
+          I += 4, tt(j3.subarray(I, I + A)), I += A;
         }
         I > 0 && (j3.copyWithin(0, I, U3), U3 -= I);
       }, "readFromStdout"), V = p((E) => {
@@ -3680,14 +3717,14 @@ is not a problem with esbuild. You need to fix your environment instead.
       }, "afterClose"), Y = p((E, g5, I) => {
         if (m3.didClose)
           return I("The service is no longer running" + m3.reason, null);
-        let R3 = T++;
-        M[R3] = (C, L) => {
+        let A = R3++;
+        M[A] = (C, q3) => {
           try {
-            I(C, L);
+            I(C, q3);
           } finally {
             E && E.unref();
           }
-        }, E && E.ref(), h3.writeToStdin(_({ id: R3, isRequest: true, value: g5 }));
+        }, E && E.ref(), h3.writeToStdin(_({ id: A, isRequest: true, value: g5 }));
       }, "sendRequest"), Z = p((E, g5) => {
         if (m3.didClose)
           throw new Error("The service is no longer running" + m3.reason);
@@ -3701,9 +3738,9 @@ is not a problem with esbuild. You need to fix your environment instead.
           if (typeof g5.key == "number") {
             let I = d[g5.key];
             if (I) {
-              let R3 = I[g5.command];
-              if (R3) {
-                yield R3(E, g5);
+              let A = I[g5.command];
+              if (A) {
+                yield A(E, g5);
                 return;
               }
             }
@@ -3716,8 +3753,8 @@ is not a problem with esbuild. You need to fix your environment instead.
         if (J) {
           J = false;
           let I = String.fromCharCode(...E);
-          if (I !== "0.16.13")
-            throw new Error(`Cannot start service: Host version "0.16.13" does not match binary version ${K(I)}`);
+          if (I !== "0.16.14")
+            throw new Error(`Cannot start service: Host version "0.16.14" does not match binary version ${K(I)}`);
           return;
         }
         let g5 = p3(E);
@@ -3728,80 +3765,80 @@ is not a problem with esbuild. You need to fix your environment instead.
           delete M[g5.id], g5.value.error ? I(g5.value.error, {}) : I(null, g5.value);
         }
       }, "handleIncomingPacket");
-      return { readFromStdout: x, afterClose: V, service: { buildOrServe: p(({ callName: E, refs: g5, serveOptions: I, options: R3, isTTY: C, defaultWD: L, callback: A }) => {
+      return { readFromStdout: x, afterClose: V, service: { buildOrServe: p(({ callName: E, refs: g5, serveOptions: I, options: A, isTTY: C, defaultWD: q3, callback: T }) => {
         let f = 0, O = $5++, z = {}, P = { ref() {
           ++f === 1 && g5 && g5.ref();
         }, unref() {
           --f === 0 && (delete d[O], g5 && g5.unref());
         } };
-        d[O] = z, P.ref(), Fs(E, O, Y, Z, P, h3, z, R3, I, C, L, m3, (H, it) => {
+        d[O] = z, P.ref(), Fs(E, O, Y, Z, P, h3, z, A, I, C, q3, m3, (H, it) => {
           try {
-            A(H, it);
+            T(H, it);
           } finally {
             P.unref();
           }
         });
-      }, "buildOrServe"), transform: p(({ callName: E, refs: g5, input: I, options: R3, isTTY: C, fs: L, callback: A }) => {
+      }, "buildOrServe"), transform: p(({ callName: E, refs: g5, input: I, options: A, isTTY: C, fs: q3, callback: T }) => {
         let f = Bn(), O = p((z) => {
           try {
             if (typeof I != "string" && !(I instanceof Uint8Array))
               throw new Error('The input to "transform" must be a string or a Uint8Array');
-            let { flags: P, mangleCache: H } = Us(E, R3, C, pt), it = { command: "transform", flags: P, inputFS: z !== null, input: z !== null ? v(z) : typeof I == "string" ? v(I) : I };
+            let { flags: P, mangleCache: H } = Us(E, A, C, pt), it = { command: "transform", flags: P, inputFS: z !== null, input: z !== null ? v(z) : typeof I == "string" ? v(I) : I };
             H && (it.mangleCache = H), Y(g5, it, (G, et) => {
               if (G)
-                return A(new Error(G), null);
-              let jt = pe(et.errors, f), Rt = pe(et.warnings, f), bt = 1, ut = p(() => {
+                return T(new Error(G), null);
+              let jt = pe(et.errors, f), At = pe(et.warnings, f), bt = 1, ut = p(() => {
                 if (--bt === 0) {
-                  let st = { warnings: Rt, code: et.code, map: et.map };
-                  "legalComments" in et && (st.legalComments = et?.legalComments), et.mangleCache && (st.mangleCache = et?.mangleCache), A(null, st);
+                  let st = { warnings: At, code: et.code, map: et.map };
+                  "legalComments" in et && (st.legalComments = et?.legalComments), et.mangleCache && (st.mangleCache = et?.mangleCache), T(null, st);
                 }
               }, "next");
               if (jt.length > 0)
-                return A(Me("Transform failed", jt, Rt), null);
-              et.codeFS && (bt++, L.readFile(et.code, (st, xt) => {
-                st !== null ? A(st, null) : (et.code = xt, ut());
-              })), et.mapFS && (bt++, L.readFile(et.map, (st, xt) => {
-                st !== null ? A(st, null) : (et.map = xt, ut());
+                return T(Me("Transform failed", jt, At), null);
+              et.codeFS && (bt++, q3.readFile(et.code, (st, xt) => {
+                st !== null ? T(st, null) : (et.code = xt, ut());
+              })), et.mapFS && (bt++, q3.readFile(et.map, (st, xt) => {
+                st !== null ? T(st, null) : (et.map = xt, ut());
               })), ut();
             });
           } catch (P) {
             let H = [];
             try {
-              _r(H, R3, {}, C, pt);
+              _r(H, A, {}, C, pt);
             } catch {
             }
             let it = je(P, h3, f, void 0, "");
             Y(g5, { command: "error", flags: H, error: it }, () => {
-              it.detail = f.load(it.detail), A(Me("Transform failed", [it], []), null);
+              it.detail = f.load(it.detail), T(Me("Transform failed", [it], []), null);
             });
           }
         }, "start");
         if ((typeof I == "string" || I instanceof Uint8Array) && I.length > 1024 * 1024) {
           let z = O;
-          O = p(() => L.writeFile(I, z), "start");
+          O = p(() => q3.writeFile(I, z), "start");
         }
         O(null);
-      }, "transform2"), formatMessages: p(({ callName: E, refs: g5, messages: I, options: R3, callback: C }) => {
-        let L = we(I, "messages", null, "");
-        if (!R3)
+      }, "transform2"), formatMessages: p(({ callName: E, refs: g5, messages: I, options: A, callback: C }) => {
+        let q3 = we(I, "messages", null, "");
+        if (!A)
           throw new Error(`Missing second argument in ${E}() call`);
-        let A = {}, f = S(R3, A, "kind", F), O = S(R3, A, "color", W), z = S(R3, A, "terminalWidth", Ct);
-        if (kt(R3, A, `in ${E}() call`), f === void 0)
+        let T = {}, f = S(A, T, "kind", F), O = S(A, T, "color", W), z = S(A, T, "terminalWidth", Ct);
+        if (kt(A, T, `in ${E}() call`), f === void 0)
           throw new Error(`Missing "kind" in ${E}() call`);
         if (f !== "error" && f !== "warning")
           throw new Error(`Expected "kind" to be "error" or "warning" in ${E}() call`);
-        let P = { command: "format-msgs", messages: L, isWarning: f === "warning" };
+        let P = { command: "format-msgs", messages: q3, isWarning: f === "warning" };
         O !== void 0 && (P.color = O), z !== void 0 && (P.terminalWidth = z), Y(g5, P, (H, it) => {
           if (H)
             return C(new Error(H), null);
           C(null, it.messages);
         });
-      }, "formatMessages2"), analyzeMetafile: p(({ callName: E, refs: g5, metafile: I, options: R3, callback: C }) => {
-        R3 === void 0 && (R3 = {});
-        let L = {}, A = S(R3, L, "color", W), f = S(R3, L, "verbose", W);
-        kt(R3, L, `in ${E}() call`);
+      }, "formatMessages2"), analyzeMetafile: p(({ callName: E, refs: g5, metafile: I, options: A, callback: C }) => {
+        A === void 0 && (A = {});
+        let q3 = {}, T = S(A, q3, "color", W), f = S(A, q3, "verbose", W);
+        kt(A, q3, `in ${E}() call`);
         let O = { command: "analyze-metafile", metafile: I };
-        A !== void 0 && (O.color = A), f !== void 0 && (O.verbose = f), Y(g5, O, (z, P) => {
+        T !== void 0 && (O.color = T), f !== void 0 && (O.verbose = f), Y(g5, O, (z, P) => {
           if (z)
             return C(new Error(z), null);
           C(null, P.result);
@@ -3809,18 +3846,18 @@ is not a problem with esbuild. You need to fix your environment instead.
       }, "analyzeMetafile2") } };
     }
     p(Ns, "createChannel");
-    function Fs(h3, d, m3, M, T, $5, j3, U3, x, V, Y, Z, rt) {
+    function Fs(h3, d, m3, M, R3, $5, j3, U3, x, V, Y, Z, rt) {
       let J = Bn(), tt = p((D, E, g5, I) => {
-        let R3 = [];
+        let A = [];
         try {
-          _r(R3, U3, {}, V, ct);
+          _r(A, U3, {}, V, ct);
         } catch {
         }
         let C = je(D, $5, J, g5, E);
-        m3(T, { command: "error", flags: R3, error: C }, () => {
+        m3(R3, { command: "error", flags: A, error: C }, () => {
           C.detail = J.load(C.detail), I(C);
         });
-      }, "logPluginError"), q3 = p((D, E) => {
+      }, "logPluginError"), L = p((D, E) => {
         tt(D, E, void 0, (g5) => {
           rt(Me("Build failed", [g5], []), null);
         });
@@ -3835,67 +3872,67 @@ is not a problem with esbuild. You need to fix your environment instead.
       }
       if (nt && nt.length > 0) {
         if ($5.isSync) {
-          q3(new Error("Cannot use plugins in synchronous API calls"), "");
+          L(new Error("Cannot use plugins in synchronous API calls"), "");
           return;
         }
-        Ls(d, m3, M, T, $5, j3, U3, nt, J).then((D) => {
+        qs(d, m3, M, R3, $5, j3, U3, nt, J).then((D) => {
           if (!D.ok) {
-            q3(D.error, D.pluginName);
+            L(D.error, D.pluginName);
             return;
           }
           try {
             at(D.requestPlugins, D.runOnEndCallbacks);
           } catch (E) {
-            q3(E, "");
+            L(E, "");
           }
-        }, (D) => q3(D, ""));
+        }, (D) => L(D, ""));
         return;
       }
       try {
         at(null, (D, E, g5) => g5());
       } catch (D) {
-        q3(D, "");
+        L(D, "");
       }
       function at(D, E) {
-        let g5 = !$5.isWriteUnavailable, { entries: I, flags: R3, write: C, stdinContents: L, stdinResolveDir: A, absWorkingDir: f, incremental: O, nodePaths: z, watch: P, mangleCache: H } = Cs(h3, U3, V, ct, g5), it = { command: "build", key: d, entries: I, flags: R3, write: C, stdinContents: L, stdinResolveDir: A, absWorkingDir: f || Y, incremental: O, nodePaths: z };
+        let g5 = !$5.isWriteUnavailable, { entries: I, flags: A, write: C, stdinContents: q3, stdinResolveDir: T, absWorkingDir: f, incremental: O, nodePaths: z, watch: P, mangleCache: H } = Cs(h3, U3, V, ct, g5), it = { command: "build", key: d, entries: I, flags: A, write: C, stdinContents: q3, stdinResolveDir: T, absWorkingDir: f || Y, incremental: O, nodePaths: z };
         D && (it.plugins = D), H && (it.mangleCache = H);
-        let G = x && qs(d, m3, M, T, j3, x, it), et, jt, Rt = p((ut, st) => {
+        let G = x && Ls(d, m3, M, R3, j3, x, it), et, jt, At = p((ut, st) => {
           ut.outputFiles && (st.outputFiles = ut.outputFiles.map(Bs)), ut.metafile && (st.metafile = JSON.parse(ut.metafile)), ut.mangleCache && (st.mangleCache = ut.mangleCache), ut.writeToStdout !== void 0 && console.log(y(ut.writeToStdout).replace(/\n$/, ""));
         }, "copyResponseToResult"), bt = p((ut, st) => {
           let xt = { errors: pe(ut.errors, J), warnings: pe(ut.warnings, J) };
-          Rt(ut, xt), E(xt, tt, () => {
+          At(ut, xt), E(xt, tt, () => {
             if (xt.errors.length > 0)
               return st(Me("Build failed", xt.errors, xt.warnings), null);
             if (ut.rebuild) {
               if (!et) {
-                let Tt = false;
+                let Rt = false;
                 et = p(() => new Promise((be, He) => {
-                  if (Tt || Z.didClose)
+                  if (Rt || Z.didClose)
                     throw new Error("Cannot rebuild");
-                  m3(T, { command: "rebuild", key: d }, (oe, Zt) => {
+                  m3(R3, { command: "rebuild", key: d }, (oe, Zt) => {
                     if (oe)
                       return st(Me("Build failed", [{ id: "", pluginName: "", text: oe, location: null, notes: [], detail: void 0 }], []), null);
-                    bt(Zt, (Ae, B) => {
-                      Ae ? He(Ae) : be(B);
+                    bt(Zt, (Te, B) => {
+                      Te ? He(Te) : be(B);
                     });
                   });
-                }), "rebuild"), T.ref(), et.dispose = () => {
-                  Tt || (Tt = true, m3(T, { command: "rebuild-dispose", key: d }, () => {
-                  }), T.unref());
+                }), "rebuild"), R3.ref(), et.dispose = () => {
+                  Rt || (Rt = true, m3(R3, { command: "rebuild-dispose", key: d }, () => {
+                  }), R3.unref());
                 };
               }
               xt.rebuild = et;
             }
             if (ut.watch) {
               if (!jt) {
-                let Tt = false;
-                T.ref(), jt = p(() => {
-                  Tt || (Tt = true, delete j3["watch-rebuild"], m3(T, { command: "watch-stop", key: d }, () => {
-                  }), T.unref());
+                let Rt = false;
+                R3.ref(), jt = p(() => {
+                  Rt || (Rt = true, delete j3["watch-rebuild"], m3(R3, { command: "watch-stop", key: d }, () => {
+                  }), R3.unref());
                 }, "stop"), P && (j3["watch-rebuild"] = (be, He) => {
                   try {
                     let oe = He.args, Zt = { errors: pe(oe.errors, J), warnings: pe(oe.warnings, J) };
-                    Rt(oe, Zt), E(Zt, tt, () => {
+                    At(oe, Zt), E(Zt, tt, () => {
                       if (Zt.errors.length > 0) {
                         P.onRebuild && P.onRebuild(Me("Build failed", Zt.errors, Zt.warnings), null);
                         return;
@@ -3919,16 +3956,16 @@ is not a problem with esbuild. You need to fix your environment instead.
           throw new Error('Cannot use "incremental" with a synchronous build');
         if (P && $5.isSync)
           throw new Error('Cannot use "watch" with a synchronous build');
-        m3(T, it, (ut, st) => {
+        m3(R3, it, (ut, st) => {
           if (ut)
             return rt(new Error(ut), null);
           if (G) {
-            let xt = st, Tt = false;
-            T.ref();
+            let xt = st, Rt = false;
+            R3.ref();
             let be = { port: xt.port, host: xt.host, wait: G.wait, stop() {
-              Tt || (Tt = true, G.stop(), T.unref());
+              Rt || (Rt = true, G.stop(), R3.unref());
             } };
-            return T.ref(), G.wait.then(T.unref, T.unref), rt(null, be);
+            return R3.ref(), G.wait.then(R3.unref, R3.unref), rt(null, be);
           }
           return bt(st, rt);
         });
@@ -3936,20 +3973,20 @@ is not a problem with esbuild. You need to fix your environment instead.
       p(at, "buildOrServeContinue");
     }
     p(Fs, "buildOrServeImpl");
-    var qs = p((h3, d, m3, M, T, $5, j3) => {
-      let U3 = {}, x = S($5, U3, "port", Ct), V = S($5, U3, "host", F), Y = S($5, U3, "servedir", F), Z = S($5, U3, "onRequest", qr), rt = new Promise((J, tt) => {
-        T["serve-wait"] = (q3, nt) => {
-          nt.error !== null ? tt(new Error(nt.error)) : J(), m3(q3, {});
+    var Ls = p((h3, d, m3, M, R3, $5, j3) => {
+      let U3 = {}, x = S($5, U3, "port", Ct), V = S($5, U3, "host", F), Y = S($5, U3, "servedir", F), Z = S($5, U3, "onRequest", Lr), rt = new Promise((J, tt) => {
+        R3["serve-wait"] = (L, nt) => {
+          nt.error !== null ? tt(new Error(nt.error)) : J(), m3(L, {});
         };
       });
-      return j3.serve = {}, kt($5, U3, "in serve() call"), x !== void 0 && (j3.serve.port = x), V !== void 0 && (j3.serve.host = V), Y !== void 0 && (j3.serve.servedir = Y), T["serve-request"] = (J, tt) => {
+      return j3.serve = {}, kt($5, U3, "in serve() call"), x !== void 0 && (j3.serve.port = x), V !== void 0 && (j3.serve.host = V), Y !== void 0 && (j3.serve.servedir = Y), R3["serve-request"] = (J, tt) => {
         Z && Z(tt.args), m3(J, {});
       }, { wait: rt, stop() {
         d(M, { command: "serve-stop", key: h3 }, () => {
         });
       } };
-    }, "buildServeData"), Ls = p((h3, d, m3, M, T, $5, j3, U3, x) => l3(void 0, null, function* () {
-      let V = [], Y = [], Z = {}, rt = {}, J = 0, tt = 0, q3 = [], nt = false;
+    }, "buildServeData"), qs = p((h3, d, m3, M, R3, $5, j3, U3, x) => l3(void 0, null, function* () {
+      let V = [], Y = [], Z = {}, rt = {}, J = 0, tt = 0, L = [], nt = false;
       U3 = [...U3];
       for (let D of U3) {
         let E = {};
@@ -3959,100 +3996,100 @@ is not a problem with esbuild. You need to fix your environment instead.
         if (typeof g5 != "string" || g5 === "")
           throw new Error(`Plugin at index ${tt} is missing a name`);
         try {
-          let I = S(D, E, "setup", qr);
+          let I = S(D, E, "setup", Lr);
           if (typeof I != "function")
             throw new Error("Plugin is missing a setup function");
           kt(D, E, `on plugin ${K(g5)}`);
-          let R3 = { name: g5, onResolve: [], onLoad: [] };
+          let A = { name: g5, onResolve: [], onLoad: [] };
           tt++;
-          let L = I({ initialOptions: j3, resolve: p((A, f = {}) => {
+          let q3 = I({ initialOptions: j3, resolve: p((T, f = {}) => {
             if (!nt)
               throw new Error('Cannot call "resolve" before plugin setup has completed');
-            if (typeof A != "string")
+            if (typeof T != "string")
               throw new Error("The path to resolve must be a string");
             let O = /* @__PURE__ */ Object.create(null), z = S(f, O, "pluginName", F), P = S(f, O, "importer", F), H = S(f, O, "namespace", F), it = S(f, O, "resolveDir", F), G = S(f, O, "kind", F), et = S(f, O, "pluginData", N);
-            return kt(f, O, "in resolve() call"), new Promise((jt, Rt) => {
-              let bt = { command: "resolve", path: A, key: h3, pluginName: g5 };
+            return kt(f, O, "in resolve() call"), new Promise((jt, At) => {
+              let bt = { command: "resolve", path: T, key: h3, pluginName: g5 };
               if (z != null && (bt.pluginName = z), P != null && (bt.importer = P), H != null && (bt.namespace = H), it != null && (bt.resolveDir = it), G != null)
                 bt.kind = G;
               else
                 throw new Error('Must specify "kind" when calling "resolve"');
               et != null && (bt.pluginData = x.store(et)), d(M, bt, (ut, st) => {
-                ut !== null ? Rt(new Error(ut)) : jt({ errors: pe(st.errors, x), warnings: pe(st.warnings, x), path: st.path, external: st.external, sideEffects: st.sideEffects, namespace: st.namespace, suffix: st.suffix, pluginData: x.load(st.pluginData) });
+                ut !== null ? At(new Error(ut)) : jt({ errors: pe(st.errors, x), warnings: pe(st.warnings, x), path: st.path, external: st.external, sideEffects: st.sideEffects, namespace: st.namespace, suffix: st.suffix, pluginData: x.load(st.pluginData) });
               });
             });
-          }, "resolve"), onStart(A) {
-            let f = 'This error came from the "onStart" callback registered here:', O = mr(new Error(f), T, "onStart");
-            V.push({ name: g5, callback: A, note: O });
-          }, onEnd(A) {
-            let f = 'This error came from the "onEnd" callback registered here:', O = mr(new Error(f), T, "onEnd");
-            Y.push({ name: g5, callback: A, note: O });
-          }, onResolve(A, f) {
-            let O = 'This error came from the "onResolve" callback registered here:', z = mr(new Error(O), T, "onResolve"), P = {}, H = S(A, P, "filter", Dt), it = S(A, P, "namespace", F);
-            if (kt(A, P, `in onResolve() call for plugin ${K(g5)}`), H == null)
+          }, "resolve"), onStart(T) {
+            let f = 'This error came from the "onStart" callback registered here:', O = mr(new Error(f), R3, "onStart");
+            V.push({ name: g5, callback: T, note: O });
+          }, onEnd(T) {
+            let f = 'This error came from the "onEnd" callback registered here:', O = mr(new Error(f), R3, "onEnd");
+            Y.push({ name: g5, callback: T, note: O });
+          }, onResolve(T, f) {
+            let O = 'This error came from the "onResolve" callback registered here:', z = mr(new Error(O), R3, "onResolve"), P = {}, H = S(T, P, "filter", Dt), it = S(T, P, "namespace", F);
+            if (kt(T, P, `in onResolve() call for plugin ${K(g5)}`), H == null)
               throw new Error("onResolve() call is missing a filter");
             let G = J++;
-            Z[G] = { name: g5, callback: f, note: z }, R3.onResolve.push({ id: G, filter: H.source, namespace: it || "" });
-          }, onLoad(A, f) {
-            let O = 'This error came from the "onLoad" callback registered here:', z = mr(new Error(O), T, "onLoad"), P = {}, H = S(A, P, "filter", Dt), it = S(A, P, "namespace", F);
-            if (kt(A, P, `in onLoad() call for plugin ${K(g5)}`), H == null)
+            Z[G] = { name: g5, callback: f, note: z }, A.onResolve.push({ id: G, filter: H.source, namespace: it || "" });
+          }, onLoad(T, f) {
+            let O = 'This error came from the "onLoad" callback registered here:', z = mr(new Error(O), R3, "onLoad"), P = {}, H = S(T, P, "filter", Dt), it = S(T, P, "namespace", F);
+            if (kt(T, P, `in onLoad() call for plugin ${K(g5)}`), H == null)
               throw new Error("onLoad() call is missing a filter");
             let G = J++;
-            rt[G] = { name: g5, callback: f, note: z }, R3.onLoad.push({ id: G, filter: H.source, namespace: it || "" });
-          }, esbuild: T.esbuild });
-          L && (yield L), q3.push(R3);
+            rt[G] = { name: g5, callback: f, note: z }, A.onLoad.push({ id: G, filter: H.source, namespace: it || "" });
+          }, esbuild: R3.esbuild });
+          q3 && (yield q3), L.push(A);
         } catch (I) {
           return { ok: false, error: I, pluginName: g5 };
         }
       }
       $5["on-start"] = (D, E) => l3(void 0, null, function* () {
         let g5 = { errors: [], warnings: [] };
-        yield Promise.all(V.map((I) => l3(void 0, [I], function* ({ name: R3, callback: C, note: L }) {
+        yield Promise.all(V.map((I) => l3(void 0, [I], function* ({ name: A, callback: C, note: q3 }) {
           try {
-            let A = yield C();
-            if (A != null) {
-              if (typeof A != "object")
-                throw new Error(`Expected onStart() callback in plugin ${K(R3)} to return an object`);
-              let f = {}, O = S(A, f, "errors", It), z = S(A, f, "warnings", It);
-              kt(A, f, `from onStart() callback in plugin ${K(R3)}`), O != null && g5.errors.push(...we(O, "errors", x, R3)), z != null && g5.warnings.push(...we(z, "warnings", x, R3));
+            let T = yield C();
+            if (T != null) {
+              if (typeof T != "object")
+                throw new Error(`Expected onStart() callback in plugin ${K(A)} to return an object`);
+              let f = {}, O = S(T, f, "errors", It), z = S(T, f, "warnings", It);
+              kt(T, f, `from onStart() callback in plugin ${K(A)}`), O != null && g5.errors.push(...we(O, "errors", x, A)), z != null && g5.warnings.push(...we(z, "warnings", x, A));
             }
-          } catch (A) {
-            g5.errors.push(je(A, T, x, L && L(), R3));
+          } catch (T) {
+            g5.errors.push(je(T, R3, x, q3 && q3(), A));
           }
         }))), m3(D, g5);
       }), $5["on-resolve"] = (D, E) => l3(void 0, null, function* () {
-        let g5 = {}, I = "", R3, C;
-        for (let L of E.ids)
+        let g5 = {}, I = "", A, C;
+        for (let q3 of E.ids)
           try {
-            ({ name: I, callback: R3, note: C } = Z[L]);
-            let A = yield R3({ path: E.path, importer: E.importer, namespace: E.namespace, resolveDir: E.resolveDir, kind: E.kind, pluginData: x.load(E.pluginData) });
-            if (A != null) {
-              if (typeof A != "object")
+            ({ name: I, callback: A, note: C } = Z[q3]);
+            let T = yield A({ path: E.path, importer: E.importer, namespace: E.namespace, resolveDir: E.resolveDir, kind: E.kind, pluginData: x.load(E.pluginData) });
+            if (T != null) {
+              if (typeof T != "object")
                 throw new Error(`Expected onResolve() callback in plugin ${K(I)} to return an object`);
-              let f = {}, O = S(A, f, "pluginName", F), z = S(A, f, "path", F), P = S(A, f, "namespace", F), H = S(A, f, "suffix", F), it = S(A, f, "external", W), G = S(A, f, "sideEffects", W), et = S(A, f, "pluginData", N), jt = S(A, f, "errors", It), Rt = S(A, f, "warnings", It), bt = S(A, f, "watchFiles", It), ut = S(A, f, "watchDirs", It);
-              kt(A, f, `from onResolve() callback in plugin ${K(I)}`), g5.id = L, O != null && (g5.pluginName = O), z != null && (g5.path = z), P != null && (g5.namespace = P), H != null && (g5.suffix = H), it != null && (g5.external = it), G != null && (g5.sideEffects = G), et != null && (g5.pluginData = x.store(et)), jt != null && (g5.errors = we(jt, "errors", x, I)), Rt != null && (g5.warnings = we(Rt, "warnings", x, I)), bt != null && (g5.watchFiles = gr(bt, "watchFiles")), ut != null && (g5.watchDirs = gr(ut, "watchDirs"));
+              let f = {}, O = S(T, f, "pluginName", F), z = S(T, f, "path", F), P = S(T, f, "namespace", F), H = S(T, f, "suffix", F), it = S(T, f, "external", W), G = S(T, f, "sideEffects", W), et = S(T, f, "pluginData", N), jt = S(T, f, "errors", It), At = S(T, f, "warnings", It), bt = S(T, f, "watchFiles", It), ut = S(T, f, "watchDirs", It);
+              kt(T, f, `from onResolve() callback in plugin ${K(I)}`), g5.id = q3, O != null && (g5.pluginName = O), z != null && (g5.path = z), P != null && (g5.namespace = P), H != null && (g5.suffix = H), it != null && (g5.external = it), G != null && (g5.sideEffects = G), et != null && (g5.pluginData = x.store(et)), jt != null && (g5.errors = we(jt, "errors", x, I)), At != null && (g5.warnings = we(At, "warnings", x, I)), bt != null && (g5.watchFiles = gr(bt, "watchFiles")), ut != null && (g5.watchDirs = gr(ut, "watchDirs"));
               break;
             }
-          } catch (A) {
-            g5 = { id: L, errors: [je(A, T, x, C && C(), I)] };
+          } catch (T) {
+            g5 = { id: q3, errors: [je(T, R3, x, C && C(), I)] };
             break;
           }
         m3(D, g5);
       }), $5["on-load"] = (D, E) => l3(void 0, null, function* () {
-        let g5 = {}, I = "", R3, C;
-        for (let L of E.ids)
+        let g5 = {}, I = "", A, C;
+        for (let q3 of E.ids)
           try {
-            ({ name: I, callback: R3, note: C } = rt[L]);
-            let A = yield R3({ path: E.path, namespace: E.namespace, suffix: E.suffix, pluginData: x.load(E.pluginData) });
-            if (A != null) {
-              if (typeof A != "object")
+            ({ name: I, callback: A, note: C } = rt[q3]);
+            let T = yield A({ path: E.path, namespace: E.namespace, suffix: E.suffix, pluginData: x.load(E.pluginData) });
+            if (T != null) {
+              if (typeof T != "object")
                 throw new Error(`Expected onLoad() callback in plugin ${K(I)} to return an object`);
-              let f = {}, O = S(A, f, "pluginName", F), z = S(A, f, "contents", Fn), P = S(A, f, "resolveDir", F), H = S(A, f, "pluginData", N), it = S(A, f, "loader", F), G = S(A, f, "errors", It), et = S(A, f, "warnings", It), jt = S(A, f, "watchFiles", It), Rt = S(A, f, "watchDirs", It);
-              kt(A, f, `from onLoad() callback in plugin ${K(I)}`), g5.id = L, O != null && (g5.pluginName = O), z instanceof Uint8Array ? g5.contents = z : z != null && (g5.contents = v(z)), P != null && (g5.resolveDir = P), H != null && (g5.pluginData = x.store(H)), it != null && (g5.loader = it), G != null && (g5.errors = we(G, "errors", x, I)), et != null && (g5.warnings = we(et, "warnings", x, I)), jt != null && (g5.watchFiles = gr(jt, "watchFiles")), Rt != null && (g5.watchDirs = gr(Rt, "watchDirs"));
+              let f = {}, O = S(T, f, "pluginName", F), z = S(T, f, "contents", Fn), P = S(T, f, "resolveDir", F), H = S(T, f, "pluginData", N), it = S(T, f, "loader", F), G = S(T, f, "errors", It), et = S(T, f, "warnings", It), jt = S(T, f, "watchFiles", It), At = S(T, f, "watchDirs", It);
+              kt(T, f, `from onLoad() callback in plugin ${K(I)}`), g5.id = q3, O != null && (g5.pluginName = O), z instanceof Uint8Array ? g5.contents = z : z != null && (g5.contents = v(z)), P != null && (g5.resolveDir = P), H != null && (g5.pluginData = x.store(H)), it != null && (g5.loader = it), G != null && (g5.errors = we(G, "errors", x, I)), et != null && (g5.warnings = we(et, "warnings", x, I)), jt != null && (g5.watchFiles = gr(jt, "watchFiles")), At != null && (g5.watchDirs = gr(At, "watchDirs"));
               break;
             }
-          } catch (A) {
-            g5 = { id: L, errors: [je(A, T, x, C && C(), I)] };
+          } catch (T) {
+            g5 = { id: q3, errors: [je(T, R3, x, C && C(), I)] };
             break;
           }
         m3(D, g5);
@@ -4060,14 +4097,14 @@ is not a problem with esbuild. You need to fix your environment instead.
       let at = p((D, E, g5) => g5(), "runOnEndCallbacks");
       return Y.length > 0 && (at = p((D, E, g5) => {
         (() => l3(void 0, null, function* () {
-          for (let { name: I, callback: R3, note: C } of Y)
+          for (let { name: I, callback: A, note: C } of Y)
             try {
-              yield R3(D);
-            } catch (L) {
-              D.errors.push(yield new Promise((A) => E(L, I, C && C(), A)));
+              yield A(D);
+            } catch (q3) {
+              D.errors.push(yield new Promise((T) => E(q3, I, C && C(), T)));
             }
         }))().then(g5);
-      }, "runOnEndCallbacks")), nt = true, { ok: true, requestPlugins: q3, runOnEndCallbacks: at };
+      }, "runOnEndCallbacks")), nt = true, { ok: true, requestPlugins: L, runOnEndCallbacks: at };
     }), "handlePlugins");
     function Bn() {
       let h3 = /* @__PURE__ */ new Map(), d = 0;
@@ -4082,11 +4119,11 @@ is not a problem with esbuild. You need to fix your environment instead.
     }
     p(Bn, "createObjectStash");
     function mr(h3, d, m3) {
-      let M, T = false;
+      let M, R3 = false;
       return () => {
-        if (T)
+        if (R3)
           return M;
-        T = true;
+        R3 = true;
         try {
           let $5 = (h3.stack + "").split(`
 `);
@@ -4099,7 +4136,7 @@ is not a problem with esbuild. You need to fix your environment instead.
       };
     }
     p(mr, "extractCallerV8");
-    function je(h3, d, m3, M, T) {
+    function je(h3, d, m3, M, R3) {
       let $5 = "Internal error", j3 = null;
       try {
         $5 = (h3 && h3.message || h3) + "";
@@ -4110,14 +4147,14 @@ is not a problem with esbuild. You need to fix your environment instead.
 `), "");
       } catch {
       }
-      return { id: "", pluginName: T, text: $5, location: j3, notes: M ? [M] : [], detail: m3 ? m3.store(h3) : -1 };
+      return { id: "", pluginName: R3, text: $5, location: j3, notes: M ? [M] : [], detail: m3 ? m3.store(h3) : -1 };
     }
     p(je, "extractErrorMessageV8");
     function Wn(h3, d, m3) {
       let M = "    at ";
       if (h3.readFileSync && !d[0].startsWith(M) && d[1].startsWith(M))
-        for (let T = 1; T < d.length; T++) {
-          let $5 = d[T];
+        for (let R3 = 1; R3 < d.length; R3++) {
+          let $5 = d[R3];
           if ($5.startsWith(M))
             for ($5 = $5.slice(M.length); ; ) {
               let j3 = /^(?:new |async )?\S+ \((.*)\)$/.exec($5);
@@ -4148,7 +4185,7 @@ is not a problem with esbuild. You need to fix your environment instead.
     }
     p(Wn, "parseStackLinesV8");
     function Me(h3, d, m3) {
-      let M = 5, T = d.length < 1 ? "" : ` with ${d.length} error${d.length < 2 ? "" : "s"}:` + d.slice(0, M + 1).map((j3, U3) => {
+      let M = 5, R3 = d.length < 1 ? "" : ` with ${d.length} error${d.length < 2 ? "" : "s"}:` + d.slice(0, M + 1).map((j3, U3) => {
         if (U3 === M)
           return `
 ...`;
@@ -4158,7 +4195,7 @@ error: ${j3.text}`;
         let { file: x, line: V, column: Y } = j3.location, Z = j3.pluginName ? `[plugin: ${j3.pluginName}] ` : "";
         return `
 ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
-      }).join(""), $5 = new Error(`${h3}${T}`);
+      }).join(""), $5 = new Error(`${h3}${R3}`);
       return $5.errors = d, $5.warnings = m3, $5;
     }
     p(Me, "failureErrorWithLog");
@@ -4171,24 +4208,24 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
     function Vn(h3, d) {
       if (h3 == null)
         return null;
-      let m3 = {}, M = S(h3, m3, "file", F), T = S(h3, m3, "namespace", F), $5 = S(h3, m3, "line", Ct), j3 = S(h3, m3, "column", Ct), U3 = S(h3, m3, "length", Ct), x = S(h3, m3, "lineText", F), V = S(h3, m3, "suggestion", F);
-      return kt(h3, m3, d), { file: M || "", namespace: T || "", line: $5 || 0, column: j3 || 0, length: U3 || 0, lineText: x || "", suggestion: V || "" };
+      let m3 = {}, M = S(h3, m3, "file", F), R3 = S(h3, m3, "namespace", F), $5 = S(h3, m3, "line", Ct), j3 = S(h3, m3, "column", Ct), U3 = S(h3, m3, "length", Ct), x = S(h3, m3, "lineText", F), V = S(h3, m3, "suggestion", F);
+      return kt(h3, m3, d), { file: M || "", namespace: R3 || "", line: $5 || 0, column: j3 || 0, length: U3 || 0, lineText: x || "", suggestion: V || "" };
     }
     p(Vn, "sanitizeLocation");
     function we(h3, d, m3, M) {
-      let T = [], $5 = 0;
+      let R3 = [], $5 = 0;
       for (let j3 of h3) {
         let U3 = {}, x = S(j3, U3, "id", F), V = S(j3, U3, "pluginName", F), Y = S(j3, U3, "text", F), Z = S(j3, U3, "location", Un), rt = S(j3, U3, "notes", It), J = S(j3, U3, "detail", N), tt = `in element ${$5} of "${d}"`;
         kt(j3, U3, tt);
-        let q3 = [];
+        let L = [];
         if (rt)
           for (let nt of rt) {
             let at = {}, D = S(nt, at, "text", F), E = S(nt, at, "location", Un);
-            kt(nt, at, tt), q3.push({ text: D || "", location: Vn(E, tt) });
+            kt(nt, at, tt), L.push({ text: D || "", location: Vn(E, tt) });
           }
-        T.push({ id: x || "", pluginName: V || M, text: Y || "", location: Vn(Z, tt), notes: q3, detail: m3 ? m3.store(J) : -1 }), $5++;
+        R3.push({ id: x || "", pluginName: V || M, text: Y || "", location: Vn(Z, tt), notes: L, detail: m3 ? m3.store(J) : -1 }), $5++;
       }
-      return T;
+      return R3;
     }
     p(we, "sanitizeMessages");
     function gr(h3, d) {
@@ -4209,7 +4246,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
       } };
     }
     p(Bs, "convertOutputFiles");
-    var Ws = "0.16.13", Vs = p((h3) => vr().build(h3), "build"), Js = p(() => {
+    var Ws = "0.16.14", Vs = p((h3) => vr().build(h3), "build"), Js = p(() => {
       throw new Error('The "serve" API only works in node');
     }, "serve"), Hs = p((h3, d) => vr().transform(h3, d), "transform"), Ks = p((h3, d) => vr().formatMessages(h3, d), "formatMessages"), Ys = p((h3, d) => vr().analyzeMetafile(h3, d), "analyzeMetafile"), Gs = p(() => {
       throw new Error('The "buildSync" API only works in node');
@@ -4219,9 +4256,9 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
       throw new Error('The "formatMessagesSync" API only works in node');
     }, "formatMessagesSync"), Zs = p(() => {
       throw new Error('The "analyzeMetafileSync" API only works in node');
-    }, "analyzeMetafileSync"), xe, Lr, vr = p(() => {
-      if (Lr)
-        return Lr;
+    }, "analyzeMetafileSync"), xe, qr, vr = p(() => {
+      if (qr)
+        return qr;
       throw xe ? new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this') : new Error('You need to call "initialize" before calling this');
     }, "ensureServiceIsRunning"), to = p((h3) => {
       h3 = Ds(h3 || {});
@@ -4277,6 +4314,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
           let outputBuf = "";
           globalThis.fs = {
             constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 },
+            // unused
             writeSync(fd, buf) {
               outputBuf += decoder.decode(buf);
               const nl = outputBuf.lastIndexOf("\\n");
@@ -4512,6 +4550,11 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
             const timeOrigin = Date.now() - performance.now();
             this.importObject = {
               go: {
+                // Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)
+                // may synchronously trigger a Go event handler. This makes Go code get executed in the middle of the imported
+                // function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).
+                // This changes the SP, thus we have to update the SP used by the imported function.
+                // func wasmExit(code int32)
                 "runtime.wasmExit": (sp) => {
                   sp >>>= 0;
                   const code = this.mem.getInt32(sp + 8, true);
@@ -4523,6 +4566,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   delete this._idPool;
                   this.exit(code);
                 },
+                // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
                 "runtime.wasmWrite": (sp) => {
                   sp >>>= 0;
                   const fd = getInt64(sp + 8);
@@ -4530,20 +4574,24 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   const n = this.mem.getInt32(sp + 24, true);
                   globalThis.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
                 },
+                // func resetMemoryDataView()
                 "runtime.resetMemoryDataView": (sp) => {
                   sp >>>= 0;
                   this.mem = new DataView(this._inst.exports.mem.buffer);
                 },
+                // func nanotime1() int64
                 "runtime.nanotime1": (sp) => {
                   sp >>>= 0;
                   setInt64(sp + 8, (timeOrigin + performance.now()) * 1e6);
                 },
+                // func walltime() (sec int64, nsec int32)
                 "runtime.walltime": (sp) => {
                   sp >>>= 0;
                   const msec = new Date().getTime();
                   setInt64(sp + 8, msec / 1e3);
                   this.mem.setInt32(sp + 16, msec % 1e3 * 1e6, true);
                 },
+                // func scheduleTimeoutEvent(delay int64) int32
                 "runtime.scheduleTimeoutEvent": (sp) => {
                   sp >>>= 0;
                   const id = this._nextCallbackTimeoutID;
@@ -4557,19 +4605,23 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                       }
                     },
                     getInt64(sp + 8) + 1
+                    // setTimeout has been seen to fire up to 1 millisecond early
                   ));
                   this.mem.setInt32(sp + 16, id, true);
                 },
+                // func clearTimeoutEvent(id int32)
                 "runtime.clearTimeoutEvent": (sp) => {
                   sp >>>= 0;
                   const id = this.mem.getInt32(sp + 8, true);
                   clearTimeout(this._scheduledTimeouts.get(id));
                   this._scheduledTimeouts.delete(id);
                 },
+                // func getRandomData(r []byte)
                 "runtime.getRandomData": (sp) => {
                   sp >>>= 0;
                   crypto.getRandomValues(loadSlice(sp + 8));
                 },
+                // func finalizeRef(v ref)
                 "syscall/js.finalizeRef": (sp) => {
                   sp >>>= 0;
                   const id = this.mem.getUint32(sp + 8, true);
@@ -4581,32 +4633,39 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this._idPool.push(id);
                   }
                 },
+                // func stringVal(value string) ref
                 "syscall/js.stringVal": (sp) => {
                   sp >>>= 0;
                   storeValue(sp + 24, loadString(sp + 8));
                 },
+                // func valueGet(v ref, p string) ref
                 "syscall/js.valueGet": (sp) => {
                   sp >>>= 0;
                   const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));
                   sp = this._inst.exports.getsp() >>> 0;
                   storeValue(sp + 32, result);
                 },
+                // func valueSet(v ref, p string, x ref)
                 "syscall/js.valueSet": (sp) => {
                   sp >>>= 0;
                   Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));
                 },
+                // func valueDelete(v ref, p string)
                 "syscall/js.valueDelete": (sp) => {
                   sp >>>= 0;
                   Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));
                 },
+                // func valueIndex(v ref, i int) ref
                 "syscall/js.valueIndex": (sp) => {
                   sp >>>= 0;
                   storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));
                 },
+                // valueSetIndex(v ref, i int, x ref)
                 "syscall/js.valueSetIndex": (sp) => {
                   sp >>>= 0;
                   Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));
                 },
+                // func valueCall(v ref, m string, args []ref) (ref, bool)
                 "syscall/js.valueCall": (sp) => {
                   sp >>>= 0;
                   try {
@@ -4623,6 +4682,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this.mem.setUint8(sp + 64, 0);
                   }
                 },
+                // func valueInvoke(v ref, args []ref) (ref, bool)
                 "syscall/js.valueInvoke": (sp) => {
                   sp >>>= 0;
                   try {
@@ -4638,6 +4698,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this.mem.setUint8(sp + 48, 0);
                   }
                 },
+                // func valueNew(v ref, args []ref) (ref, bool)
                 "syscall/js.valueNew": (sp) => {
                   sp >>>= 0;
                   try {
@@ -4653,25 +4714,30 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this.mem.setUint8(sp + 48, 0);
                   }
                 },
+                // func valueLength(v ref) int
                 "syscall/js.valueLength": (sp) => {
                   sp >>>= 0;
                   setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
                 },
+                // valuePrepareString(v ref) (ref, int)
                 "syscall/js.valuePrepareString": (sp) => {
                   sp >>>= 0;
                   const str = encoder.encode(String(loadValue(sp + 8)));
                   storeValue(sp + 16, str);
                   setInt64(sp + 24, str.length);
                 },
+                // valueLoadString(v ref, b []byte)
                 "syscall/js.valueLoadString": (sp) => {
                   sp >>>= 0;
                   const str = loadValue(sp + 8);
                   loadSlice(sp + 16).set(str);
                 },
+                // func valueInstanceOf(v ref, t ref) bool
                 "syscall/js.valueInstanceOf": (sp) => {
                   sp >>>= 0;
                   this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0);
                 },
+                // func copyBytesToGo(dst []byte, src ref) (int, bool)
                 "syscall/js.copyBytesToGo": (sp) => {
                   sp >>>= 0;
                   const dst = loadSlice(sp + 8);
@@ -4685,6 +4751,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   setInt64(sp + 40, toCopy.length);
                   this.mem.setUint8(sp + 48, 1);
                 },
+                // func copyBytesToJS(dst ref, src []byte) (int, bool)
                 "syscall/js.copyBytesToJS": (sp) => {
                   sp >>>= 0;
                   const dst = loadValue(sp + 8);
@@ -4712,6 +4779,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
               this._inst = instance;
               this.mem = new DataView(this._inst.exports.mem.buffer);
               this._values = [
+                // JS values that Go currently has references to, indexed by reference id
                 NaN,
                 0,
                 null,
@@ -4722,6 +4790,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
               ];
               this._goRefCounts = new Array(this._values.length).fill(Infinity);
               this._ids = /* @__PURE__ */ new Map([
+                // mapping from JS values to reference ids
                 [0, 1],
                 [null, 2],
                 [true, 3],
@@ -4837,7 +4906,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
           callback(null, count);
         };
         let go = new globalThis.Go();
-        go.argv = ["", \`--service=\${"0.16.13"}\`];
+        go.argv = ["", \`--service=\${"0.16.14"}\`];
         tryToInstantiateModule(wasm, go).then(
           (instance) => {
             postMessage(null);
@@ -4870,28 +4939,28 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
         M = new Worker(URL.createObjectURL(V));
       } else {
         let V = ((Y) => {
-          var Z = p((q3, nt, at) => new Promise((D, E) => {
+          var Z = p((L, nt, at) => new Promise((D, E) => {
             var g5 = p((C) => {
               try {
-                R3(at.next(C));
-              } catch (L) {
-                E(L);
+                A(at.next(C));
+              } catch (q3) {
+                E(q3);
               }
             }, "fulfilled"), I = p((C) => {
               try {
-                R3(at.throw(C));
-              } catch (L) {
-                E(L);
+                A(at.throw(C));
+              } catch (q3) {
+                E(q3);
               }
-            }, "rejected"), R3 = p((C) => C.done ? D(C.value) : Promise.resolve(C.value).then(g5, I), "step");
-            R3((at = at.apply(q3, nt)).next());
+            }, "rejected"), A = p((C) => C.done ? D(C.value) : Promise.resolve(C.value).then(g5, I), "step");
+            A((at = at.apply(L, nt)).next());
           }), "__async");
           let rt, J = {};
-          for (let q3 = self; q3; q3 = Object.getPrototypeOf(q3))
-            for (let nt of Object.getOwnPropertyNames(q3))
+          for (let L = self; L; L = Object.getPrototypeOf(L))
+            for (let nt of Object.getOwnPropertyNames(L))
               nt in J || Object.defineProperty(J, nt, { get: () => self[nt] });
           (() => {
-            let q3 = p(() => {
+            let L = p(() => {
               let D = new Error("not implemented");
               return D.code = "ENOSYS", D;
             }, "enosys");
@@ -4902,59 +4971,59 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 let I = D.lastIndexOf(`
 `);
                 return I != -1 && (console.log(D.substr(0, I)), D = D.substr(I + 1)), g5.length;
-              }, write(E, g5, I, R3, C, L) {
-                if (I !== 0 || R3 !== g5.length || C !== null) {
-                  L(q3());
+              }, write(E, g5, I, A, C, q3) {
+                if (I !== 0 || A !== g5.length || C !== null) {
+                  q3(L());
                   return;
                 }
-                let A = this.writeSync(E, g5);
-                L(null, A);
+                let T = this.writeSync(E, g5);
+                q3(null, T);
               }, chmod(E, g5, I) {
-                I(q3());
-              }, chown(E, g5, I, R3) {
-                R3(q3());
+                I(L());
+              }, chown(E, g5, I, A) {
+                A(L());
               }, close(E, g5) {
-                g5(q3());
+                g5(L());
               }, fchmod(E, g5, I) {
-                I(q3());
-              }, fchown(E, g5, I, R3) {
-                R3(q3());
+                I(L());
+              }, fchown(E, g5, I, A) {
+                A(L());
               }, fstat(E, g5) {
-                g5(q3());
+                g5(L());
               }, fsync(E, g5) {
                 g5(null);
               }, ftruncate(E, g5, I) {
-                I(q3());
-              }, lchown(E, g5, I, R3) {
-                R3(q3());
+                I(L());
+              }, lchown(E, g5, I, A) {
+                A(L());
               }, link(E, g5, I) {
-                I(q3());
+                I(L());
               }, lstat(E, g5) {
-                g5(q3());
+                g5(L());
               }, mkdir(E, g5, I) {
-                I(q3());
-              }, open(E, g5, I, R3) {
-                R3(q3());
-              }, read(E, g5, I, R3, C, L) {
-                L(q3());
+                I(L());
+              }, open(E, g5, I, A) {
+                A(L());
+              }, read(E, g5, I, A, C, q3) {
+                q3(L());
               }, readdir(E, g5) {
-                g5(q3());
+                g5(L());
               }, readlink(E, g5) {
-                g5(q3());
+                g5(L());
               }, rename(E, g5, I) {
-                I(q3());
+                I(L());
               }, rmdir(E, g5) {
-                g5(q3());
+                g5(L());
               }, stat(E, g5) {
-                g5(q3());
+                g5(L());
               }, symlink(E, g5, I) {
-                I(q3());
+                I(L());
               }, truncate(E, g5, I) {
-                I(q3());
+                I(L());
               }, unlink(E, g5) {
-                g5(q3());
-              }, utimes(E, g5, I, R3) {
-                R3(q3());
+                g5(L());
+              }, utimes(E, g5, I, A) {
+                A(L());
               } };
             }
             if (J.process || (J.process = { getuid() {
@@ -4966,13 +5035,13 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
             }, getegid() {
               return -1;
             }, getgroups() {
-              throw q3();
+              throw L();
             }, pid: -1, ppid: -1, umask() {
-              throw q3();
+              throw L();
             }, cwd() {
-              throw q3();
+              throw L();
             }, chdir() {
-              throw q3();
+              throw L();
             } }), !J.crypto)
               throw new Error("globalThis.crypto is not available, polyfill required (crypto.getRandomValues only)");
             if (!J.performance)
@@ -5033,7 +5102,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                       break;
                   }
                   this.mem.setUint32(f + 4, 2146959360 | H, true), this.mem.setUint32(f, P, true);
-                }, "storeValue"), R3 = p((f) => {
+                }, "storeValue"), A = p((f) => {
                   let O = E(f + 0), z = E(f + 8);
                   return new Uint8Array(this._inst.exports.mem.buffer, O, z);
                 }, "loadSlice"), C = p((f) => {
@@ -5041,10 +5110,10 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   for (let H = 0; H < z; H++)
                     P[H] = g5(O + H * 8);
                   return P;
-                }, "loadSliceOfValues"), L = p((f) => {
+                }, "loadSliceOfValues"), q3 = p((f) => {
                   let O = E(f + 0), z = E(f + 8);
                   return at.decode(new DataView(this._inst.exports.mem.buffer, O, z));
-                }, "loadString"), A = Date.now() - performance.now();
+                }, "loadString"), T = Date.now() - performance.now();
                 this.importObject = { go: { "runtime.wasmExit": (f) => {
                   f >>>= 0;
                   let O = this.mem.getInt32(f + 8, true);
@@ -5056,7 +5125,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 }, "runtime.resetMemoryDataView": (f) => {
                   f >>>= 0, this.mem = new DataView(this._inst.exports.mem.buffer);
                 }, "runtime.nanotime1": (f) => {
-                  f >>>= 0, D(f + 8, (A + performance.now()) * 1e6);
+                  f >>>= 0, D(f + 8, (T + performance.now()) * 1e6);
                 }, "runtime.walltime": (f) => {
                   f >>>= 0;
                   let O = new Date().getTime();
@@ -5073,7 +5142,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   let O = this.mem.getInt32(f + 8, true);
                   clearTimeout(this._scheduledTimeouts.get(O)), this._scheduledTimeouts.delete(O);
                 }, "runtime.getRandomData": (f) => {
-                  f >>>= 0, crypto.getRandomValues(R3(f + 8));
+                  f >>>= 0, crypto.getRandomValues(A(f + 8));
                 }, "syscall/js.finalizeRef": (f) => {
                   f >>>= 0;
                   let O = this.mem.getUint32(f + 8, true);
@@ -5082,15 +5151,15 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this._values[O] = null, this._ids.delete(z), this._idPool.push(O);
                   }
                 }, "syscall/js.stringVal": (f) => {
-                  f >>>= 0, I(f + 24, L(f + 8));
+                  f >>>= 0, I(f + 24, q3(f + 8));
                 }, "syscall/js.valueGet": (f) => {
                   f >>>= 0;
-                  let O = Reflect.get(g5(f + 8), L(f + 16));
+                  let O = Reflect.get(g5(f + 8), q3(f + 16));
                   f = this._inst.exports.getsp() >>> 0, I(f + 32, O);
                 }, "syscall/js.valueSet": (f) => {
-                  f >>>= 0, Reflect.set(g5(f + 8), L(f + 16), g5(f + 32));
+                  f >>>= 0, Reflect.set(g5(f + 8), q3(f + 16), g5(f + 32));
                 }, "syscall/js.valueDelete": (f) => {
-                  f >>>= 0, Reflect.deleteProperty(g5(f + 8), L(f + 16));
+                  f >>>= 0, Reflect.deleteProperty(g5(f + 8), q3(f + 16));
                 }, "syscall/js.valueIndex": (f) => {
                   f >>>= 0, I(f + 24, Reflect.get(g5(f + 8), E(f + 16)));
                 }, "syscall/js.valueSetIndex": (f) => {
@@ -5098,7 +5167,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 }, "syscall/js.valueCall": (f) => {
                   f >>>= 0;
                   try {
-                    let O = g5(f + 8), z = Reflect.get(O, L(f + 16)), P = C(f + 32), H = Reflect.apply(z, O, P);
+                    let O = g5(f + 8), z = Reflect.get(O, q3(f + 16)), P = C(f + 32), H = Reflect.apply(z, O, P);
                     f = this._inst.exports.getsp() >>> 0, I(f + 56, H), this.mem.setUint8(f + 64, 1);
                   } catch (O) {
                     f = this._inst.exports.getsp() >>> 0, I(f + 56, O), this.mem.setUint8(f + 64, 0);
@@ -5128,12 +5197,12 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 }, "syscall/js.valueLoadString": (f) => {
                   f >>>= 0;
                   let O = g5(f + 8);
-                  R3(f + 16).set(O);
+                  A(f + 16).set(O);
                 }, "syscall/js.valueInstanceOf": (f) => {
                   f >>>= 0, this.mem.setUint8(f + 24, g5(f + 8) instanceof g5(f + 16) ? 1 : 0);
                 }, "syscall/js.copyBytesToGo": (f) => {
                   f >>>= 0;
-                  let O = R3(f + 8), z = g5(f + 32);
+                  let O = A(f + 8), z = g5(f + 32);
                   if (!(z instanceof Uint8Array || z instanceof Uint8ClampedArray)) {
                     this.mem.setUint8(f + 48, 0);
                     return;
@@ -5142,7 +5211,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   O.set(P), D(f + 40, P.length), this.mem.setUint8(f + 48, 1);
                 }, "syscall/js.copyBytesToJS": (f) => {
                   f >>>= 0;
-                  let O = g5(f + 8), z = R3(f + 16);
+                  let O = g5(f + 8), z = A(f + 16);
                   if (!(O instanceof Uint8Array || O instanceof Uint8ClampedArray)) {
                     this.mem.setUint8(f + 48, 0);
                     return;
@@ -5161,20 +5230,20 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   let E = 4096, g5 = p((f) => {
                     let O = E, z = nt.encode(f + "\0");
                     return new Uint8Array(this.mem.buffer, E, z.length).set(z), E += z.length, E % 8 !== 0 && (E += 8 - E % 8), O;
-                  }, "strPtr"), I = this.argv.length, R3 = [];
+                  }, "strPtr"), I = this.argv.length, A = [];
                   this.argv.forEach((f) => {
-                    R3.push(g5(f));
-                  }), R3.push(0), Object.keys(this.env).sort().forEach((f) => {
-                    R3.push(g5(`${f}=${this.env[f]}`));
-                  }), R3.push(0);
-                  let L = E;
-                  R3.forEach((f) => {
+                    A.push(g5(f));
+                  }), A.push(0), Object.keys(this.env).sort().forEach((f) => {
+                    A.push(g5(`${f}=${this.env[f]}`));
+                  }), A.push(0);
+                  let q3 = E;
+                  A.forEach((f) => {
                     this.mem.setUint32(E, f, true), this.mem.setUint32(E + 4, 0, true), E += 8;
                   });
-                  let A = 4096 + 8192;
-                  if (E >= A)
+                  let T = 4096 + 8192;
+                  if (E >= T)
                     throw new Error("total length of command line and environment variables exceeds limit");
-                  this._inst.exports.run(I, L), this.exited && this._resolveExitPromise(), yield this._exitPromise;
+                  this._inst.exports.run(I, q3), this.exited && this._resolveExitPromise(), yield this._exitPromise;
                 });
               }
               _resume() {
@@ -5190,69 +5259,69 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 };
               }
             };
-          })(), rt = p(({ data: q3 }) => {
+          })(), rt = p(({ data: L }) => {
             let nt = new TextDecoder(), at = J.fs, D = "";
-            at.writeSync = (C, L) => {
+            at.writeSync = (C, q3) => {
               if (C === 1)
-                Y(L);
+                Y(q3);
               else if (C === 2) {
-                D += nt.decode(L);
-                let A = D.split(`
+                D += nt.decode(q3);
+                let T = D.split(`
 `);
-                A.length > 1 && console.log(A.slice(0, -1).join(`
-`)), D = A[A.length - 1];
+                T.length > 1 && console.log(T.slice(0, -1).join(`
+`)), D = T[T.length - 1];
               } else
                 throw new Error("Bad write");
-              return L.length;
+              return q3.length;
             };
             let E = [], g5, I = 0;
             rt = p(({ data: C }) => {
               C.length > 0 && (E.push(C), g5 && g5());
-            }, "onmessage"), at.read = (C, L, A, f, O, z) => {
-              if (C !== 0 || A !== 0 || f !== L.length || O !== null)
+            }, "onmessage"), at.read = (C, q3, T, f, O, z) => {
+              if (C !== 0 || T !== 0 || f !== q3.length || O !== null)
                 throw new Error("Bad read");
               if (E.length === 0) {
-                g5 = p(() => at.read(C, L, A, f, O, z), "resumeStdin");
+                g5 = p(() => at.read(C, q3, T, f, O, z), "resumeStdin");
                 return;
               }
               let P = E[0], H = Math.max(0, Math.min(f, P.length - I));
-              L.set(P.subarray(I, I + H), A), I += H, I === P.length && (E.shift(), I = 0), z(null, H);
+              q3.set(P.subarray(I, I + H), T), I += H, I === P.length && (E.shift(), I = 0), z(null, H);
             };
-            let R3 = new J.Go();
-            R3.argv = ["", "--service=0.16.13"], tt(q3, R3).then((C) => {
-              Y(null), R3.run(C);
+            let A = new J.Go();
+            A.argv = ["", "--service=0.16.14"], tt(L, A).then((C) => {
+              Y(null), A.run(C);
             }, (C) => {
               Y(C);
             });
           }, "onmessage");
-          function tt(q3, nt) {
+          function tt(L, nt) {
             return Z(this, null, function* () {
-              if (q3 instanceof WebAssembly.Module)
-                return WebAssembly.instantiate(q3, nt.importObject);
-              let at = yield fetch(q3);
+              if (L instanceof WebAssembly.Module)
+                return WebAssembly.instantiate(L, nt.importObject);
+              let at = yield fetch(L);
               if (!at.ok)
-                throw new Error(`Failed to download ${JSON.stringify(q3)}`);
+                throw new Error(`Failed to download ${JSON.stringify(L)}`);
               if ("instantiateStreaming" in WebAssembly && /^application\/wasm($|;)/i.test(at.headers.get("Content-Type") || ""))
                 return (yield WebAssembly.instantiateStreaming(at, nt.importObject)).instance;
               let D = yield at.arrayBuffer();
               return (yield WebAssembly.instantiate(D, nt.importObject)).instance;
             });
           }
-          return p(tt, "tryToInstantiateModule"), (q3) => rt(q3);
+          return p(tt, "tryToInstantiateModule"), (L) => rt(L);
         })((Y) => M.onmessage({ data: Y }));
         M = { onmessage: null, postMessage: (Y) => setTimeout(() => V({ data: Y })), terminate() {
         } };
       }
-      let T, $5, j3 = new Promise((V, Y) => {
-        T = V, $5 = Y;
+      let R3, $5, j3 = new Promise((V, Y) => {
+        R3 = V, $5 = Y;
       });
       M.onmessage = ({ data: V }) => {
-        M.onmessage = ({ data: Y }) => U3(Y), V ? $5(V) : T();
+        M.onmessage = ({ data: Y }) => U3(Y), V ? $5(V) : R3();
       }, M.postMessage(d || new URL(h3, location.href).toString());
       let { readFromStdout: U3, service: x } = Ns({ writeToStdin(V) {
         M.postMessage(V);
       }, isSync: false, isWriteUnavailable: true, esbuild: c });
-      yield j3, Lr = { build: (V) => new Promise((Y, Z) => x.buildOrServe({ callName: "build", refs: null, serveOptions: null, options: V, isTTY: false, defaultWD: "/", callback: (rt, J) => rt ? Z(rt) : Y(J) })), transform: (V, Y) => new Promise((Z, rt) => x.transform({ callName: "transform", refs: null, input: V, options: Y || {}, isTTY: false, fs: { readFile(J, tt) {
+      yield j3, qr = { build: (V) => new Promise((Y, Z) => x.buildOrServe({ callName: "build", refs: null, serveOptions: null, options: V, isTTY: false, defaultWD: "/", callback: (rt, J) => rt ? Z(rt) : Y(J) })), transform: (V, Y) => new Promise((Z, rt) => x.transform({ callName: "transform", refs: null, input: V, options: Y || {}, isTTY: false, fs: { readFile(J, tt) {
         tt(new Error("Internal error"), null);
       }, writeFile(J, tt) {
         tt(null);
@@ -5437,10 +5506,10 @@ p(Ht, "SetRef");
 function nn() {
 }
 p(nn, "OwnerID");
-function Re(t3) {
+function Ae(t3) {
   return t3.size === void 0 && (t3.size = t3.__iterate(Oi)), t3.size;
 }
-p(Re, "ensureSize");
+p(Ae, "ensureSize");
 function me(t3, e3) {
   if (typeof e3 != "number") {
     var r3 = e3 >>> 0;
@@ -5448,7 +5517,7 @@ function me(t3, e3) {
       return NaN;
     e3 = r3;
   }
-  return e3 < 0 ? Re(t3) + e3 : e3;
+  return e3 < 0 ? Ae(t3) + e3 : e3;
 }
 p(me, "wrapIndex");
 function Oi() {
@@ -5490,10 +5559,10 @@ function Ut(t3) {
   return Boolean(t3 && t3[xi]);
 }
 p(Ut, "isIndexed");
-function Ar(t3) {
+function Tr(t3) {
   return vt(t3) || Ut(t3);
 }
-p(Ar, "isAssociative");
+p(Tr, "isAssociative");
 var Et = p(function(e3) {
   return Nt(e3) ? e3 : Wt(e3);
 }, "Collection");
@@ -5511,21 +5580,21 @@ var Oe = function(t3) {
 }(Et);
 var Ue = function(t3) {
   function e3(r3) {
-    return Nt(r3) && !Ar(r3) ? r3 : Le(r3);
+    return Nt(r3) && !Tr(r3) ? r3 : qe(r3);
   }
   return p(e3, "SetCollection"), t3 && (e3.__proto__ = t3), e3.prototype = Object.create(t3 && t3.prototype), e3.prototype.constructor = e3, e3;
 }(Et);
 Et.Keyed = Gt;
 Et.Indexed = Oe;
 Et.Set = Ue;
-var Ai = "@@__IMMUTABLE_SEQ__@@";
+var Ti = "@@__IMMUTABLE_SEQ__@@";
 function sn(t3) {
-  return Boolean(t3 && t3[Ai]);
+  return Boolean(t3 && t3[Ti]);
 }
 p(sn, "isSeq");
-var Ri = "@@__IMMUTABLE_RECORD__@@";
+var Ai = "@@__IMMUTABLE_RECORD__@@";
 function Ne(t3) {
-  return Boolean(t3 && t3[Ri]);
+  return Boolean(t3 && t3[Ai]);
 }
 p(Ne, "isRecord");
 function ue(t3) {
@@ -5541,8 +5610,8 @@ var ur = 0;
 var ne = 1;
 var Yt = 2;
 var Yr = typeof Symbol == "function" && Symbol.iterator;
-var Ti = "@@iterator";
-var Rr = Yr || Ti;
+var Ri = "@@iterator";
+var Ar = Yr || Ri;
 var lt = p(function(e3) {
   this.next = e3;
 }, "Iterator");
@@ -5555,7 +5624,7 @@ lt.ENTRIES = Yt;
 lt.prototype.inspect = lt.prototype.toSource = function() {
   return this.toString();
 };
-lt.prototype[Rr] = function() {
+lt.prototype[Ar] = function() {
   return this;
 };
 function yt(t3, e3, r3, n) {
@@ -5568,7 +5637,7 @@ function Ft() {
 }
 p(Ft, "iteratorDone");
 function $i(t3) {
-  return Array.isArray(t3) ? true : !!Tr(t3);
+  return Array.isArray(t3) ? true : !!Rr(t3);
 }
 p($i, "hasIterator");
 function Zn(t3) {
@@ -5576,27 +5645,27 @@ function Zn(t3) {
 }
 p(Zn, "isIterator");
 function Gr(t3) {
-  var e3 = Tr(t3);
+  var e3 = Rr(t3);
   return e3 && e3.call(t3);
 }
 p(Gr, "getIterator");
-function Tr(t3) {
-  var e3 = t3 && (Yr && t3[Yr] || t3[Ti]);
+function Rr(t3) {
+  var e3 = t3 && (Yr && t3[Yr] || t3[Ri]);
   if (typeof e3 == "function")
     return e3;
 }
-p(Tr, "getIteratorFn");
+p(Rr, "getIteratorFn");
 function oo(t3) {
-  var e3 = Tr(t3);
+  var e3 = Rr(t3);
   return e3 && e3 === t3.entries;
 }
 p(oo, "isEntriesIterable");
 function ao(t3) {
-  var e3 = Tr(t3);
+  var e3 = Rr(t3);
   return e3 && e3 === t3.keys;
 }
 p(ao, "isKeysIterable");
-var qe = Object.prototype.hasOwnProperty;
+var Le = Object.prototype.hasOwnProperty;
 function zi(t3) {
   return Array.isArray(t3) || typeof t3 == "string" ? true : t3 && typeof t3 == "object" && Number.isInteger(t3.length) && t3.length >= 0 && (t3.length === 0 ? Object.keys(t3).length === 1 : t3.hasOwnProperty(t3.length - 1));
 }
@@ -5656,9 +5725,9 @@ var ie = function(t3) {
     return this.__toString("Seq [", "]");
   }, "toString"), e3;
 }(Wt);
-var Le = function(t3) {
+var qe = function(t3) {
   function e3(r3) {
-    return (Nt(r3) && !Ar(r3) ? r3 : ie(r3)).toSetSeq();
+    return (Nt(r3) && !Tr(r3) ? r3 : ie(r3)).toSetSeq();
   }
   return p(e3, "SetSeq"), t3 && (e3.__proto__ = t3), e3.prototype = Object.create(t3 && t3.prototype), e3.prototype.constructor = e3, e3.of = p(function() {
     return e3(arguments);
@@ -5668,9 +5737,9 @@ var Le = function(t3) {
 }(Wt);
 Wt.isSeq = sn;
 Wt.Keyed = ve;
-Wt.Set = Le;
+Wt.Set = qe;
 Wt.Indexed = ie;
-Wt.prototype[Ai] = true;
+Wt.prototype[Ti] = true;
 var Ee = function(t3) {
   function e3(r3) {
     this._array = r3, this.size = r3.length;
@@ -5702,7 +5771,7 @@ var on = function(t3) {
   return p(e3, "ObjectSeq"), t3 && (e3.__proto__ = t3), e3.prototype = Object.create(t3 && t3.prototype), e3.prototype.constructor = e3, e3.prototype.get = p(function(n, s) {
     return s !== void 0 && !this.has(n) ? s : this._object[n];
   }, "get"), e3.prototype.has = p(function(n) {
-    return qe.call(this._object, n);
+    return Le.call(this._object, n);
   }, "has"), e3.prototype.__iterate = p(function(n, s) {
     for (var o5 = this._object, a = this._keys, u = a.length, l3 = 0; l3 !== u; ) {
       var c = a[s ? u - ++l3 : l3++];
@@ -5817,7 +5886,7 @@ function $r(t3) {
 }
 p($r, "smi");
 var fo = Object.prototype.valueOf;
-function Lt(t3) {
+function qt(t3) {
   if (t3 == null)
     return ri(t3);
   if (typeof t3.hashCode == "function")
@@ -5843,7 +5912,7 @@ function Lt(t3) {
       throw new Error("Value type " + typeof e3 + " cannot be hashed.");
   }
 }
-p(Lt, "hash");
+p(qt, "hash");
 function ri(t3) {
   return t3 === null ? 1108378658 : 1108378659;
 }
@@ -5972,12 +6041,12 @@ var Ni = function(t3) {
     return this._iter.includes(n);
   }, "includes"), e3.prototype.__iterate = p(function(n, s) {
     var o5 = this, a = 0;
-    return s && Re(this), this._iter.__iterate(function(u) {
+    return s && Ae(this), this._iter.__iterate(function(u) {
       return n(u, s ? o5.size - ++a : a++, o5);
     }, s);
   }, "__iterate"), e3.prototype.__iterator = p(function(n, s) {
     var o5 = this, a = this._iter.__iterator(ne, s), u = 0;
-    return s && Re(this), new lt(function() {
+    return s && Ae(this), new lt(function() {
       var l3 = a.next();
       return l3.done ? l3 : yt(n, s ? o5.size - ++u : u++, l3.value, l3);
     });
@@ -6001,8 +6070,8 @@ var Fi = function(t3) {
       return a.done ? a : yt(n, a.value, a.value, a);
     });
   }, "__iterator"), e3;
-}(Le);
-var qi = function(t3) {
+}(qe);
+var Li = function(t3) {
   function e3(r3) {
     this._iter = r3, this.size = r3.size;
   }
@@ -6034,8 +6103,8 @@ var qi = function(t3) {
     });
   }, "__iterator"), e3;
 }(ve);
-Ni.prototype.cacheResult = zr.prototype.cacheResult = Fi.prototype.cacheResult = qi.prototype.cacheResult = dn;
-function Li(t3) {
+Ni.prototype.cacheResult = zr.prototype.cacheResult = Fi.prototype.cacheResult = Li.prototype.cacheResult = dn;
+function qi(t3) {
   var e3 = le(t3);
   return e3._iter = t3, e3.size = t3.size, e3.flip = function() {
     return t3;
@@ -6068,7 +6137,7 @@ function Li(t3) {
     return t3.__iterator(r3 === ne ? ur : ne, n);
   }, e3;
 }
-p(Li, "flipFactory");
+p(qi, "flipFactory");
 function Bi(t3, e3, r3) {
   var n = le(t3);
   return n.size = t3.size, n.has = function(s) {
@@ -6098,7 +6167,7 @@ function cn(t3, e3) {
   return n._iter = t3, n.size = t3.size, n.reverse = function() {
     return t3;
   }, t3.flip && (n.flip = function() {
-    var s = Li(t3);
+    var s = qi(t3);
     return s.reverse = function() {
       return t3.flip();
     }, s;
@@ -6110,12 +6179,12 @@ function cn(t3, e3) {
     return t3.includes(s);
   }, n.cacheResult = dn, n.__iterate = function(s, o5) {
     var a = this, u = 0;
-    return o5 && Re(t3), t3.__iterate(function(l3, c) {
+    return o5 && Ae(t3), t3.__iterate(function(l3, c) {
       return s(l3, e3 ? c : o5 ? a.size - ++u : u++, a);
     }, !o5);
   }, n.__iterator = function(s, o5) {
     var a = 0;
-    o5 && Re(t3);
+    o5 && Ae(t3);
     var u = t3.__iterator(Yt, !o5);
     return new lt(function() {
       var l3 = u.next();
@@ -6364,7 +6433,7 @@ function ko(t3, e3) {
   }, r3;
 }
 p(ko, "interposeFactory");
-function Te(t3, e3, r3) {
+function Re(t3, e3, r3) {
   e3 || (e3 = Hi);
   var n = vt(t3), s = 0, o5 = t3.toSeq().map(function(a, u) {
     return [u, a, s++, r3 ? r3(a, u, t3) : a];
@@ -6375,9 +6444,9 @@ function Te(t3, e3, r3) {
     o5[u].length = 2;
   } : function(a, u) {
     o5[u] = a[1];
-  }), n ? ve(o5) : Ut(t3) ? ie(o5) : Le(o5);
+  }), n ? ve(o5) : Ut(t3) ? ie(o5) : qe(o5);
 }
-p(Te, "sortFactory");
+p(Re, "sortFactory");
 function wr(t3, e3, r3) {
   if (e3 || (e3 = Hi), r3) {
     var n = t3.toSeq().map(function(s, o5) {
@@ -6438,7 +6507,7 @@ function pn(t3) {
 }
 p(pn, "collectionClass");
 function le(t3) {
-  return Object.create((vt(t3) ? ve : Ut(t3) ? ie : Le).prototype);
+  return Object.create((vt(t3) ? ve : Ut(t3) ? ie : qe).prototype);
 }
 p(le, "makeSequence");
 function dn() {
@@ -6498,7 +6567,7 @@ function tr(t3) {
 }
 p(tr, "quoteString");
 function xo(t3, e3) {
-  return ue(t3) ? t3.has(e3) : ge(t3) && qe.call(t3, e3);
+  return ue(t3) ? t3.has(e3) : ge(t3) && Le.call(t3, e3);
 }
 p(xo, "has");
 function Yi(t3, e3, r3) {
@@ -6510,11 +6579,11 @@ function kr(t3) {
     return ae(t3);
   var e3 = {};
   for (var r3 in t3)
-    qe.call(t3, r3) && (e3[r3] = t3[r3]);
+    Le.call(t3, r3) && (e3[r3] = t3[r3]);
   return e3;
 }
 p(kr, "shallowCopy");
-function Ao(t3, e3) {
+function To(t3, e3) {
   if (!ge(t3))
     throw new TypeError("Cannot update non-data-structure value: " + t3);
   if (ue(t3)) {
@@ -6522,13 +6591,13 @@ function Ao(t3, e3) {
       throw new TypeError("Cannot update immutable value without .remove() method: " + t3);
     return t3.remove(e3);
   }
-  if (!qe.call(t3, e3))
+  if (!Le.call(t3, e3))
     return t3;
   var r3 = kr(t3);
   return Array.isArray(r3) ? r3.splice(e3, 1) : delete r3[e3], r3;
 }
-p(Ao, "remove");
-function Ro(t3, e3, r3) {
+p(To, "remove");
+function Ao(t3, e3, r3) {
   if (!ge(t3))
     throw new TypeError("Cannot update non-data-structure value: " + t3);
   if (ue(t3)) {
@@ -6536,12 +6605,12 @@ function Ro(t3, e3, r3) {
       throw new TypeError("Cannot update immutable value without .set() method: " + t3);
     return t3.set(e3, r3);
   }
-  if (qe.call(t3, e3) && r3 === t3[e3])
+  if (Le.call(t3, e3) && r3 === t3[e3])
     return t3;
   var n = kr(t3);
   return n[e3] = r3, n;
 }
-p(Ro, "set");
+p(Ao, "set");
 function Be(t3, e3, r3, n) {
   n || (n = r3, r3 = void 0);
   var s = Gi(ue(t3), t3, Ki(e3), 0, r3, n);
@@ -6557,17 +6626,17 @@ function Gi(t3, e3, r3, n, s, o5) {
   if (!a && !ge(e3))
     throw new TypeError("Cannot update within non-data-structure value in path [" + r3.slice(0, n).map(tr) + "]: " + e3);
   var c = r3[n], _ = a ? ot : Yi(e3, c, ot), p3 = Gi(_ === ot ? t3 : ue(_), _, r3, n + 1, s, o5);
-  return p3 === _ ? e3 : p3 === ot ? Ao(e3, c) : Ro(a ? t3 ? ee() : {} : e3, c, p3);
+  return p3 === _ ? e3 : p3 === ot ? To(e3, c) : Ao(a ? t3 ? ee() : {} : e3, c, p3);
 }
 p(Gi, "updateInDeeply");
-function To(t3, e3, r3) {
+function Ro(t3, e3, r3) {
   return Be(t3, e3, ot, function() {
     return r3;
   });
 }
-p(To, "setIn$1");
+p(Ro, "setIn$1");
 function mn(t3, e3) {
-  return To(this, t3, e3);
+  return Ro(this, t3, e3);
 }
 p(mn, "setIn");
 function $o(t3, e3) {
@@ -6635,7 +6704,7 @@ function bn(t3, e3, r3) {
   for (var n = Array.isArray(t3), s = t3, o5 = n ? Oe : Gt, a = n ? function(l3) {
     s === t3 && (s = kr(s)), s.push(l3);
   } : function(l3, c) {
-    var _ = qe.call(s, c), p3 = _ && r3 ? r3(s[c], l3, c) : l3;
+    var _ = Le.call(s, c), p3 = _ && r3 ? r3(s[c], l3, c) : l3;
     (!_ || p3 !== s[c]) && (s === t3 && (s = kr(s)), s[c] = p3);
   }, u = 0; u < e3.length; u++)
     o5(e3[u]).forEach(a);
@@ -6736,9 +6805,9 @@ var We = function(t3) {
   }, "deleteAll"), e3.prototype.clear = p(function() {
     return this.size === 0 ? this : this.__ownerID ? (this.size = 0, this._root = null, this.__hash = void 0, this.__altered = true, this) : ee();
   }, "clear"), e3.prototype.sort = p(function(n) {
-    return he(Te(this, n));
+    return he(Re(this, n));
   }, "sort"), e3.prototype.sortBy = p(function(n, s) {
-    return he(Te(this, s, n));
+    return he(Re(this, s, n));
   }, "sortBy"), e3.prototype.map = p(function(n, s) {
     var o5 = this;
     return this.withMutations(function(a) {
@@ -6798,7 +6867,7 @@ er.prototype.update = p(function(e3, r3, n, s, o5, a, u) {
   if (w3 ? c[_][1] === o5 : l3)
     return this;
   if (Ht(u), (l3 || !w3) && Ht(a), !(l3 && c.length === 1)) {
-    if (!w3 && !l3 && c.length >= Lo)
+    if (!w3 && !l3 && c.length >= qo)
       return Co(e3, c, s, o5);
     var v = e3 && e3 === this.ownerID, y = v ? c : ae(c);
     return w3 ? l3 ? _ === p3 - 1 ? y.pop() : y[_] = y.pop() : y[_] = [s, o5] : y.push([s, o5]), v ? (this.entries = y, this) : new er(e3, y);
@@ -6808,12 +6877,12 @@ var $e = p(function(e3, r3, n) {
   this.ownerID = e3, this.bitmap = r3, this.nodes = n;
 }, "BitmapIndexedNode");
 $e.prototype.get = p(function(e3, r3, n, s) {
-  r3 === void 0 && (r3 = Lt(n));
+  r3 === void 0 && (r3 = qt(n));
   var o5 = 1 << ((e3 === 0 ? r3 : r3 >>> e3) & zt), a = this.bitmap;
   return a & o5 ? this.nodes[ns(a & o5 - 1)].get(e3 + _t, r3, n, s) : s;
 }, "get");
 $e.prototype.update = p(function(e3, r3, n, s, o5, a, u) {
-  n === void 0 && (n = Lt(s));
+  n === void 0 && (n = qt(s));
   var l3 = (r3 === 0 ? n : n >>> r3) & zt, c = 1 << l3, _ = this.bitmap, p3 = (_ & c) !== 0;
   if (!p3 && o5 === ot)
     return this;
@@ -6826,19 +6895,19 @@ $e.prototype.update = p(function(e3, r3, n, s, o5, a, u) {
     return v[w3 ^ 1];
   if (p3 && b3 && v.length === 1 && ci(b3))
     return b3;
-  var k3 = e3 && e3 === this.ownerID, X = p3 ? b3 ? _ : _ ^ c : _ | c, K = p3 ? b3 ? is(v, w3, b3, k3) : qo(v, w3, k3) : Fo(v, w3, b3, k3);
+  var k3 = e3 && e3 === this.ownerID, X = p3 ? b3 ? _ : _ ^ c : _ | c, K = p3 ? b3 ? is(v, w3, b3, k3) : Lo(v, w3, k3) : Fo(v, w3, b3, k3);
   return k3 ? (this.bitmap = X, this.nodes = K, this) : new $e(e3, X, K);
 }, "update");
 var rr = p(function(e3, r3, n) {
   this.ownerID = e3, this.count = r3, this.nodes = n;
 }, "HashArrayMapNode");
 rr.prototype.get = p(function(e3, r3, n, s) {
-  r3 === void 0 && (r3 = Lt(n));
+  r3 === void 0 && (r3 = qt(n));
   var o5 = (e3 === 0 ? r3 : r3 >>> e3) & zt, a = this.nodes[o5];
   return a ? a.get(e3 + _t, r3, n, s) : s;
 }, "get");
 rr.prototype.update = p(function(e3, r3, n, s, o5, a, u) {
-  n === void 0 && (n = Lt(s));
+  n === void 0 && (n = qt(s));
   var l3 = (r3 === 0 ? n : n >>> r3) & zt, c = o5 === ot, _ = this.nodes, p3 = _[l3];
   if (c && !p3)
     return this;
@@ -6863,7 +6932,7 @@ ze.prototype.get = p(function(e3, r3, n, s) {
   return s;
 }, "get");
 ze.prototype.update = p(function(e3, r3, n, s, o5, a, u) {
-  n === void 0 && (n = Lt(s));
+  n === void 0 && (n = qt(s));
   var l3 = o5 === ot;
   if (n !== this.keyHash)
     return l3 ? this : (Ht(u), Ht(a), jn(this, e3, r3, n, [s, o5]));
@@ -6891,7 +6960,7 @@ ce.prototype.update = p(function(e3, r3, n, s, o5, a, u) {
     Ht(a);
     return;
   }
-  return c ? e3 && e3 === this.ownerID ? (this.entry[1] = o5, this) : new ce(e3, this.keyHash, [s, o5]) : (Ht(a), jn(this, e3, r3, Lt(s), [s, o5]));
+  return c ? e3 && e3 === this.ownerID ? (this.entry[1] = o5, this) : new ce(e3, this.keyHash, [s, o5]) : (Ht(a), jn(this, e3, r3, qt(s), [s, o5]));
 }, "update");
 er.prototype.iterate = ze.prototype.iterate = function(t3, e3) {
   for (var r3 = this.entries, n = 0, s = r3.length - 1; n <= s; n++)
@@ -6985,7 +7054,7 @@ function jn(t3, e3, r3, n, s) {
 p(jn, "mergeIntoNode");
 function Co(t3, e3, r3, n) {
   t3 || (t3 = new nn());
-  for (var s = new ce(t3, Lt(r3), [r3, n]), o5 = 0; o5 < e3.length; o5++) {
+  for (var s = new ce(t3, qt(r3), [r3, n]), o5 = 0; o5 < e3.length; o5++) {
     var a = e3[o5];
     s = s.update(t3, 0, void 0, a[0], a[1]);
   }
@@ -7024,7 +7093,7 @@ function Fo(t3, e3, r3, n) {
   return o5;
 }
 p(Fo, "spliceIn");
-function qo(t3, e3, r3) {
+function Lo(t3, e3, r3) {
   var n = t3.length - 1;
   if (r3 && e3 === n)
     return t3.pop(), t3;
@@ -7032,8 +7101,8 @@ function qo(t3, e3, r3) {
     a === e3 && (o5 = 1), s[a] = t3[a + o5];
   return s;
 }
-p(qo, "spliceOut");
-var Lo = Jt / 4;
+p(Lo, "spliceOut");
+var qo = Jt / 4;
 var Bo = Jt / 2;
 var Wo = Jt / 4;
 var ss = "@@__IMMUTABLE_LIST__@@";
@@ -7479,12 +7548,12 @@ function Sr() {
 }
 p(Sr, "emptyStack");
 var ls = "@@__IMMUTABLE_SET__@@";
-function An(t3) {
+function Tn(t3) {
   return Boolean(t3 && t3[ls]);
 }
-p(An, "isSet");
+p(Tn, "isSet");
 function fs(t3) {
-  return An(t3) && re(t3);
+  return Tn(t3) && re(t3);
 }
 p(fs, "isOrderedSet");
 function cs(t3, e3) {
@@ -7494,7 +7563,7 @@ function cs(t3, e3) {
     return false;
   if (t3.size === 0 && e3.size === 0)
     return true;
-  var r3 = !Ar(t3);
+  var r3 = !Tr(t3);
   if (re(t3)) {
     var n = t3.entries();
     return e3.every(function(l3, c) {
@@ -7547,7 +7616,7 @@ function jr(t3) {
 p(jr, "toJS");
 var Dr = function(t3) {
   function e3(r3) {
-    return r3 == null ? Xe() : An(r3) && !re(r3) ? r3 : Xe().withMutations(function(n) {
+    return r3 == null ? Xe() : Tn(r3) && !re(r3) ? r3 : Xe().withMutations(function(n) {
       var s = t3(r3);
       Kt(s.size), s.forEach(function(o5) {
         return n.add(o5);
@@ -7559,9 +7628,9 @@ var Dr = function(t3) {
   }, "of"), e3.fromKeys = p(function(n) {
     return this(Gt(n).keySeq());
   }, "fromKeys"), e3.intersect = p(function(n) {
-    return n = Et(n).toArray(), n.length ? At.intersect.apply(e3(n.pop()), n) : Xe();
+    return n = Et(n).toArray(), n.length ? Tt.intersect.apply(e3(n.pop()), n) : Xe();
   }, "intersect"), e3.union = p(function(n) {
-    return n = Et(n).toArray(), n.length ? At.union.apply(e3(n.pop()), n) : Xe();
+    return n = Et(n).toArray(), n.length ? Tt.union.apply(e3(n.pop()), n) : Xe();
   }, "union"), e3.prototype.toString = p(function() {
     return this.__toString("Set {", "}");
   }, "toString"), e3.prototype.has = p(function(n) {
@@ -7626,9 +7695,9 @@ var Dr = function(t3) {
       });
     });
   }, "subtract"), e3.prototype.sort = p(function(n) {
-    return sr(Te(this, n));
+    return sr(Re(this, n));
   }, "sort"), e3.prototype.sortBy = p(function(n, s) {
-    return sr(Te(this, s, n));
+    return sr(Re(this, s, n));
   }, "sortBy"), e3.prototype.wasAltered = p(function() {
     return this._map.wasAltered();
   }, "wasAltered"), e3.prototype.__iterate = p(function(n, s) {
@@ -7645,28 +7714,28 @@ var Dr = function(t3) {
     return n ? this.__make(s, n) : this.size === 0 ? this.__empty() : (this.__ownerID = n, this._map = s, this);
   }, "__ensureOwner"), e3;
 }(Ue);
-Dr.isSet = An;
-var At = Dr.prototype;
-At[ls] = true;
-At[or] = At.remove;
-At.merge = At.concat = At.union;
-At.withMutations = lr;
-At.asImmutable = cr;
-At["@@transducer/init"] = At.asMutable = fr;
-At["@@transducer/step"] = function(t3, e3) {
+Dr.isSet = Tn;
+var Tt = Dr.prototype;
+Tt[ls] = true;
+Tt[or] = Tt.remove;
+Tt.merge = Tt.concat = Tt.union;
+Tt.withMutations = lr;
+Tt.asImmutable = cr;
+Tt["@@transducer/init"] = Tt.asMutable = fr;
+Tt["@@transducer/step"] = function(t3, e3) {
   return t3.add(e3);
 };
-At["@@transducer/result"] = function(t3) {
+Tt["@@transducer/result"] = function(t3) {
   return t3.asImmutable();
 };
-At.__empty = Xe;
-At.__make = hs;
+Tt.__empty = Xe;
+Tt.__make = hs;
 function Er(t3, e3) {
   return t3.__ownerID ? (t3.size = e3.size, t3._map = e3, t3) : e3 === t3._map ? t3 : e3.size === 0 ? t3.__empty() : t3.__make(e3);
 }
 p(Er, "updateSet");
 function hs(t3, e3) {
-  var r3 = Object.create(At);
+  var r3 = Object.create(Tt);
   return r3.size = t3 ? t3.size : 0, r3._map = t3, r3.__ownerID = e3, r3;
 }
 p(hs, "makeSet");
@@ -7751,7 +7820,7 @@ p(_s, "toObject");
 Et.isIterable = Nt;
 Et.isKeyed = vt;
 Et.isIndexed = Ut;
-Et.isAssociative = Ar;
+Et.isAssociative = Tr;
 Et.isOrdered = re;
 Et.Iterator = lt;
 Ie(Et, { toArray: p(function() {
@@ -7833,7 +7902,7 @@ Ie(Et, { toArray: p(function() {
 }, "slice"), some: p(function(e3, r3) {
   return !this.every(Or(e3), r3);
 }, "some"), sort: p(function(e3) {
-  return ht(this, Te(this, e3));
+  return ht(this, Re(this, e3));
 }, "sort"), values: p(function() {
   return this.__iterator(ne);
 }, "values"), butLast: p(function() {
@@ -7843,7 +7912,7 @@ Ie(Et, { toArray: p(function() {
     return true;
   });
 }, "isEmpty"), count: p(function(e3, r3) {
-  return Re(e3 ? this.toSeq().filter(e3, r3) : this);
+  return Ae(e3 ? this.toSeq().filter(e3, r3) : this);
 }, "count"), countBy: p(function(e3, r3) {
   return wo(this, e3, r3);
 }, "countBy"), equals: p(function(e3) {
@@ -7880,7 +7949,7 @@ Ie(Et, { toArray: p(function() {
 }, "flatMap"), flatten: p(function(e3) {
   return ht(this, Ji(this, e3, true));
 }, "flatten"), fromEntrySeq: p(function() {
-  return new qi(this);
+  return new Li(this);
 }, "fromEntrySeq"), get: p(function(e3, r3) {
   return this.find(function(n, s) {
     return Bt(s, e3);
@@ -7924,7 +7993,7 @@ Ie(Et, { toArray: p(function() {
 }, "skipWhile"), skipUntil: p(function(e3, r3) {
   return this.skipWhile(Or(e3), r3);
 }, "skipUntil"), sortBy: p(function(e3, r3) {
-  return ht(this, Te(this, r3, e3));
+  return ht(this, Re(this, r3, e3));
 }, "sortBy"), take: p(function(e3) {
   return this.slice(0, Math.max(0, e3));
 }, "take"), takeLast: p(function(e3) {
@@ -7942,7 +8011,7 @@ Ie(Et, { toArray: p(function() {
 }, "hashCode") });
 var $t = Et.prototype;
 $t[ji] = true;
-$t[Rr] = $t.values;
+$t[Ar] = $t.values;
 $t.toJSON = $t.toArray;
 $t.__toStringMapper = tr;
 $t.inspect = $t.toSource = function() {
@@ -7951,7 +8020,7 @@ $t.inspect = $t.toSource = function() {
 $t.chain = $t.flatMap;
 $t.contains = $t.includes;
 Ie(Gt, { flip: p(function() {
-  return ht(this, Li(this));
+  return ht(this, qi(this));
 }, "flip"), mapEntries: p(function(e3, r3) {
   var n = this, s = 0;
   return ht(this, this.toSeq().map(function(o5, a) {
@@ -7965,7 +8034,7 @@ Ie(Gt, { flip: p(function() {
 }, "mapKeys") });
 var hr = Gt.prototype;
 hr[Mi] = true;
-hr[Rr] = $t.entries;
+hr[Ar] = $t.entries;
 hr.toJSON = _s;
 hr.__toStringMapper = function(t3, e3) {
   return tr(e3) + ": " + tr(t3);
@@ -8044,7 +8113,7 @@ De.contains = De.includes;
 De.keys = De.values;
 Ie(ve, hr);
 Ie(ie, Ve);
-Ie(Le, De);
+Ie(qe, De);
 function vi(t3, e3, r3, n, s, o5) {
   return Kt(t3.size), t3.__iterate(function(a, u, l3) {
     s ? (s = false, r3 = a) : r3 = e3.call(n, r3, a, u, l3);
@@ -8083,13 +8152,13 @@ function Qo(t3) {
   if (t3.size === 1 / 0)
     return 0;
   var e3 = re(t3), r3 = vt(t3), n = e3 ? 1 : 0, s = t3.__iterate(r3 ? e3 ? function(o5, a) {
-    n = 31 * n + Si(Lt(o5), Lt(a)) | 0;
+    n = 31 * n + Si(qt(o5), qt(a)) | 0;
   } : function(o5, a) {
-    n = n + Si(Lt(o5), Lt(a)) | 0;
+    n = n + Si(qt(o5), qt(a)) | 0;
   } : e3 ? function(o5) {
-    n = 31 * n + Lt(o5) | 0;
+    n = 31 * n + qt(o5) | 0;
   } : function(o5) {
-    n = n + Lt(o5) | 0;
+    n = n + qt(o5) | 0;
   });
   return Xo(s, n);
 }
@@ -8161,7 +8230,7 @@ var wt = p(function(e3, r3) {
       o5._name = r3, o5._keys = c, o5._defaultValues = e3;
       for (var p3 = 0; p3 < c.length; p3++) {
         var w3 = c[p3];
-        _[w3] = p3, o5[w3] ? typeof console == "object" && console.warn && console.warn("Cannot define " + Tn(this) + ' with property "' + w3 + '" since that property name is part of the Record API.') : ta(o5, w3);
+        _[w3] = p3, o5[w3] ? typeof console == "object" && console.warn && console.warn("Cannot define " + Rn(this) + ' with property "' + w3 + '" since that property name is part of the Record API.') : ta(o5, w3);
       }
     }
     return this.__ownerID = void 0, this._values = Pr().withMutations(function(v) {
@@ -8173,7 +8242,7 @@ var wt = p(function(e3, r3) {
   return o5.constructor = s, r3 && (s.displayName = r3), s;
 }, "Record");
 wt.prototype.toString = p(function() {
-  for (var e3 = Tn(this) + " { ", r3 = this._keys, n, s = 0, o5 = r3.length; s !== o5; s++)
+  for (var e3 = Rn(this) + " { ", r3 = this._keys, n, s = 0, o5 = r3.length; s !== o5; s++)
     n = r3[s], e3 += (s ? ", " : "") + n + ": " + tr(this.get(n));
   return e3 + " }";
 }, "toString");
@@ -8196,7 +8265,7 @@ wt.prototype.set = p(function(e3, r3) {
   if (this.has(e3)) {
     var n = this._values.set(this._indices[e3], r3 === this._defaultValues[e3] ? void 0 : r3);
     if (n !== this._values && !this.__ownerID)
-      return Rn(this, n);
+      return An(this, n);
   }
   return this;
 }, "set");
@@ -8205,7 +8274,7 @@ wt.prototype.remove = p(function(e3) {
 }, "remove");
 wt.prototype.clear = p(function() {
   var e3 = this._values.clear().setSize(this._keys.length);
-  return this.__ownerID ? this : Rn(this, e3);
+  return this.__ownerID ? this : An(this, e3);
 }, "clear");
 wt.prototype.wasAltered = p(function() {
   return this._values.wasAltered();
@@ -8229,12 +8298,12 @@ wt.prototype.__ensureOwner = p(function(e3) {
   if (e3 === this.__ownerID)
     return this;
   var r3 = this._values.__ensureOwner(e3);
-  return e3 ? Rn(this, r3, e3) : (this.__ownerID = e3, this._values = r3, this);
+  return e3 ? An(this, r3, e3) : (this.__ownerID = e3, this._values = r3, this);
 }, "__ensureOwner");
 wt.isRecord = Ne;
-wt.getDescriptiveName = Tn;
+wt.getDescriptiveName = Rn;
 var dt = wt.prototype;
-dt[Ri] = true;
+dt[Ai] = true;
 dt[or] = dt.remove;
 dt.deleteIn = dt.removeIn = gn;
 dt.getIn = ds;
@@ -8251,20 +8320,20 @@ dt.updateIn = yn;
 dt.withMutations = lr;
 dt.asMutable = fr;
 dt.asImmutable = cr;
-dt[Rr] = dt.entries;
+dt[Ar] = dt.entries;
 dt.toJSON = dt.toObject = $t.toObject;
 dt.inspect = dt.toSource = function() {
   return this.toString();
 };
-function Rn(t3, e3, r3) {
+function An(t3, e3, r3) {
   var n = Object.create(Object.getPrototypeOf(t3));
   return n._values = e3, n.__ownerID = r3, n;
 }
-p(Rn, "makeRecord");
-function Tn(t3) {
+p(An, "makeRecord");
+function Rn(t3) {
   return t3.constructor.displayName || t3.constructor.name || "Record";
 }
-p(Tn, "recordName");
+p(Rn, "recordName");
 function Ce(t3) {
   return un(t3._keys.map(function(e3) {
     return [e3, t3.get(e3)];
@@ -8408,7 +8477,7 @@ var Nr = class {
       ye[Fr(this.room)] = this.session.get("state");
       let s = ye[e4], o5 = e4, a = Je(s.toJSON()), u = s.merge(n2), l3 = Je(u.toJSON()).split(Qt(u.get("transpiled"))).join("css"), c = this.session.get("state").merge(JSON.parse(l3)), _ = c.hashCode();
       ye[_] = c;
-      let p3 = As(a, l3), w3 = As(l3, a);
+      let p3 = Ts(a, l3), w3 = Ts(l3, a);
       return { oldHash: o5, newHash: _, reversePatch: w3, patch: p3 };
     };
     this.patchSync = (e4, r4 = false) => {
@@ -8494,10 +8563,10 @@ var yu = p((t3, e3 = "default", r3) => Vt[r3]?.onUpdate(t3, e3), "onSessionUpdat
 var _a = p((t3, e3, r3) => ({ codeSpace: r3, i: e3.i, ...Vt[r3]?.createPatchFromHashCode(t3, e3) }), "makePatchFrom");
 var wu = p((t3, e3) => ({ ..._a(Fr(e3), t3, e3), codeSpace: e3, i: t3.i }), "makePatch");
 var bu = p((t3, e3) => Vt[t3] || (Vt[t3] = new Nr(t3, { name: e3.name, state: { ...e3.state } })), "startSession");
-function As(t3, e3) {
+function Ts(t3, e3) {
   return ks(t3, e3);
 }
-p(As, "createPatch");
+p(Ts, "createPatch");
 var Su = p((t3, e3 = true) => Vt[t3.codeSpace].patchSync(t3, e3), "patchSync");
 function Eu(t3) {
   return wt(t3)().hashCode();
@@ -8509,8 +8578,8 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 var ASSET_HASH = Qt(ASSET_MANIFEST);
 
-// ../code/dist/src/chunk-chunk-WVUJHC6X.mjs
-var $3 = "./chunk-esbuild-GS5BVJUF.wasm";
+// ../code/dist/src/chunk-chunk-XVVW6ARP.mjs
+var $3 = "./chunk-esbuild-XXIAOOGR.wasm";
 
 // ../code/dist/src/chunk-chunk-TKEPGNJK.mjs
 var g3 = Object.create;
@@ -8592,13 +8661,13 @@ function o4(s, m3, f) {
 }
 p2(o4, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-JOJPXFZU.mjs
-var Os2 = r2((Aa, Es) => {
+// ../code/dist/src/chunk-chunk-UT5KALIC.mjs
+var Os2 = r2((Ta, Es) => {
   o3();
-  var fe = -1, se = 1, qt = 0;
+  var fe = -1, se = 1, Lt = 0;
   function pr(t3, e3, r3, n) {
     if (t3 === e3)
-      return t3 ? [[qt, t3]] : [];
+      return t3 ? [[Lt, t3]] : [];
     if (r3 != null) {
       var s = la(t3, e3, r3);
       if (s)
@@ -8609,7 +8678,7 @@ var Os2 = r2((Aa, Es) => {
     var u = t3.substring(t3.length - o5);
     t3 = t3.substring(0, t3.length - o5), e3 = e3.substring(0, e3.length - o5);
     var l3 = sa(t3, e3);
-    return a && l3.unshift([qt, a]), u && l3.push([qt, u]), vs(l3, n), l3;
+    return a && l3.unshift([Lt, a]), u && l3.push([Lt, u]), vs(l3, n), l3;
   }
   p2(pr, "diff_main");
   function sa(t3, e3) {
@@ -8620,13 +8689,13 @@ var Os2 = r2((Aa, Es) => {
       return [[fe, t3]];
     var n = t3.length > e3.length ? t3 : e3, s = t3.length > e3.length ? e3 : t3, o5 = n.indexOf(s);
     if (o5 !== -1)
-      return r3 = [[se, n.substring(0, o5)], [qt, s], [se, n.substring(o5 + s.length)]], t3.length > e3.length && (r3[0][0] = r3[2][0] = fe), r3;
+      return r3 = [[se, n.substring(0, o5)], [Lt, s], [se, n.substring(o5 + s.length)]], t3.length > e3.length && (r3[0][0] = r3[2][0] = fe), r3;
     if (s.length === 1)
       return [[fe, t3], [se, e3]];
     var a = aa(t3, e3);
     if (a) {
       var u = a[0], l3 = a[1], c = a[2], _ = a[3], p3 = a[4], w3 = pr(u, c), v = pr(l3, _);
-      return w3.concat([[qt, p3]], v);
+      return w3.concat([[Lt, p3]], v);
     }
     return oa(t3, e3);
   }
@@ -8720,7 +8789,7 @@ var Os2 = r2((Aa, Es) => {
   }
   p2(aa, "diff_halfMatch_");
   function vs(t3, e3) {
-    t3.push([qt, ""]);
+    t3.push([Lt, ""]);
     for (var r3 = 0, n = 0, s = 0, o5 = "", a = "", u; r3 < t3.length; ) {
       if (r3 < t3.length - 1 && !t3[r3][1]) {
         t3.splice(r3, 1);
@@ -8733,7 +8802,7 @@ var Os2 = r2((Aa, Es) => {
         case fe:
           n++, o5 += t3[r3][1], r3++;
           break;
-        case qt:
+        case Lt:
           var l3 = r3 - s - n - 1;
           if (e3) {
             if (l3 >= 0 && Ss(t3[l3][1])) {
@@ -8754,18 +8823,18 @@ var Os2 = r2((Aa, Es) => {
             break;
           }
           if (o5.length > 0 || a.length > 0) {
-            o5.length > 0 && a.length > 0 && (u = zn(a, o5), u !== 0 && (l3 >= 0 ? t3[l3][1] += a.substring(0, u) : (t3.splice(0, 0, [qt, a.substring(0, u)]), r3++), a = a.substring(u), o5 = o5.substring(u)), u = Pn(a, o5), u !== 0 && (t3[r3][1] = a.substring(a.length - u) + t3[r3][1], a = a.substring(0, a.length - u), o5 = o5.substring(0, o5.length - u)));
+            o5.length > 0 && a.length > 0 && (u = zn(a, o5), u !== 0 && (l3 >= 0 ? t3[l3][1] += a.substring(0, u) : (t3.splice(0, 0, [Lt, a.substring(0, u)]), r3++), a = a.substring(u), o5 = o5.substring(u)), u = Pn(a, o5), u !== 0 && (t3[r3][1] = a.substring(a.length - u) + t3[r3][1], a = a.substring(0, a.length - u), o5 = o5.substring(0, o5.length - u)));
             var p3 = s + n;
             o5.length === 0 && a.length === 0 ? (t3.splice(r3 - p3, p3), r3 = r3 - p3) : o5.length === 0 ? (t3.splice(r3 - p3, p3, [se, a]), r3 = r3 - p3 + 1) : a.length === 0 ? (t3.splice(r3 - p3, p3, [fe, o5]), r3 = r3 - p3 + 1) : (t3.splice(r3 - p3, p3, [fe, o5], [se, a]), r3 = r3 - p3 + 2);
           }
-          r3 !== 0 && t3[r3 - 1][0] === qt ? (t3[r3 - 1][1] += t3[r3][1], t3.splice(r3, 1)) : r3++, s = 0, n = 0, o5 = "", a = "";
+          r3 !== 0 && t3[r3 - 1][0] === Lt ? (t3[r3 - 1][1] += t3[r3][1], t3.splice(r3, 1)) : r3++, s = 0, n = 0, o5 = "", a = "";
           break;
       }
     }
     t3[t3.length - 1][1] === "" && t3.pop();
     var w3 = false;
     for (r3 = 1; r3 < t3.length - 1; )
-      t3[r3 - 1][0] === qt && t3[r3 + 1][0] === qt && (t3[r3][1].substring(t3[r3][1].length - t3[r3 - 1][1].length) === t3[r3 - 1][1] ? (t3[r3][1] = t3[r3 - 1][1] + t3[r3][1].substring(0, t3[r3][1].length - t3[r3 - 1][1].length), t3[r3 + 1][1] = t3[r3 - 1][1] + t3[r3 + 1][1], t3.splice(r3 - 1, 1), w3 = true) : t3[r3][1].substring(0, t3[r3 + 1][1].length) == t3[r3 + 1][1] && (t3[r3 - 1][1] += t3[r3 + 1][1], t3[r3][1] = t3[r3][1].substring(t3[r3 + 1][1].length) + t3[r3 + 1][1], t3.splice(r3 + 1, 1), w3 = true)), r3++;
+      t3[r3 - 1][0] === Lt && t3[r3 + 1][0] === Lt && (t3[r3][1].substring(t3[r3][1].length - t3[r3 - 1][1].length) === t3[r3 - 1][1] ? (t3[r3][1] = t3[r3 - 1][1] + t3[r3][1].substring(0, t3[r3][1].length - t3[r3 - 1][1].length), t3[r3 + 1][1] = t3[r3 - 1][1] + t3[r3 + 1][1], t3.splice(r3 - 1, 1), w3 = true) : t3[r3][1].substring(0, t3[r3 + 1][1].length) == t3[r3 + 1][1] && (t3[r3 - 1][1] += t3[r3 + 1][1], t3[r3][1] = t3[r3][1].substring(t3[r3 + 1][1].length) + t3[r3 + 1][1], t3.splice(r3 + 1, 1), w3 = true)), r3++;
     w3 && vs(t3, e3);
   }
   p2(vs, "diff_cleanupMerge");
@@ -8792,7 +8861,7 @@ var Os2 = r2((Aa, Es) => {
   }
   p2(ua, "remove_empty_tuples");
   function $n(t3, e3, r3, n) {
-    return Ss(t3) || bs(n) ? null : ua([[qt, t3], [fe, e3], [se, r3], [qt, n]]);
+    return Ss(t3) || bs(n) ? null : ua([[Lt, t3], [fe, e3], [se, r3], [Lt, n]]);
   }
   p2($n, "make_edit_splice");
   function la(t3, e3, r3) {
@@ -8846,7 +8915,7 @@ var Os2 = r2((Aa, Es) => {
   p2(Cr, "diff");
   Cr.INSERT = se;
   Cr.DELETE = fe;
-  Cr.EQUAL = qt;
+  Cr.EQUAL = Lt;
   Es.exports = Cr;
 });
 var js2 = r2((Da, Cn) => {
@@ -8858,21 +8927,21 @@ var js2 = r2((Da, Cn) => {
         e3(h3, m3, { get: d[m3], enumerable: true });
     }, "__export"), a = p2((h3, d, m3, M) => {
       if (d && typeof d == "object" || typeof d == "function")
-        for (let T of n(d))
-          !s.call(h3, T) && T !== m3 && e3(h3, T, { get: () => d[T], enumerable: !(M = r3(d, T)) || M.enumerable });
+        for (let R3 of n(d))
+          !s.call(h3, R3) && R3 !== m3 && e3(h3, R3, { get: () => d[R3], enumerable: !(M = r3(d, R3)) || M.enumerable });
       return h3;
-    }, "__copyProps"), u = p2((h3) => a(e3({}, "__esModule", { value: true }), h3), "__toCommonJS"), l3 = p2((h3, d, m3) => new Promise((M, T) => {
+    }, "__copyProps"), u = p2((h3) => a(e3({}, "__esModule", { value: true }), h3), "__toCommonJS"), l3 = p2((h3, d, m3) => new Promise((M, R3) => {
       var $5 = p2((x) => {
         try {
           U3(m3.next(x));
         } catch (V) {
-          T(V);
+          R3(V);
         }
       }, "fulfilled"), j3 = p2((x) => {
         try {
           U3(m3.throw(x));
         } catch (V) {
-          T(V);
+          R3(V);
         }
       }, "rejected"), U3 = p2((x) => x.done ? M(x.value) : Promise.resolve(x.value).then($5, j3), "step");
       U3((m3 = m3.apply(h3, d)).next());
@@ -8892,12 +8961,12 @@ var js2 = r2((Da, Cn) => {
           m3.write8(4), m3.write(M);
         else if (M instanceof Array) {
           m3.write8(5), m3.write32(M.length);
-          for (let T of M)
-            d(T);
+          for (let R3 of M)
+            d(R3);
         } else {
-          let T = Object.keys(M);
-          m3.write8(6), m3.write32(T.length);
-          for (let $5 of T)
+          let R3 = Object.keys(M);
+          m3.write8(6), m3.write32(R3.length);
+          for (let $5 of R3)
             m3.write(v($5)), d(M[$5]);
         }
       }, "visit"), m3 = new w3();
@@ -8932,12 +9001,12 @@ var js2 = r2((Da, Cn) => {
           default:
             throw new Error("Invalid packet");
         }
-      }, "visit"), m3 = new w3(h3), M = m3.read32(), T = (M & 1) === 0;
+      }, "visit"), m3 = new w3(h3), M = m3.read32(), R3 = (M & 1) === 0;
       M >>>= 1;
       let $5 = d();
       if (m3.ptr !== h3.length)
         throw new Error("Invalid packet");
-      return { id: M, isRequest: T, value: $5 };
+      return { id: M, isRequest: R3, value: $5 };
     }
     p2(p3, "decodePacket");
     var w3 = p2(class {
@@ -9011,15 +9080,15 @@ is not a problem with esbuild. You need to fix your environment instead.
       return h3;
     }
     p2(Q, "validateTarget");
-    var N = p2(() => null, "canBeAnything"), W = p2((h3) => typeof h3 == "boolean" ? null : "a boolean", "mustBeBoolean"), ft = p2((h3) => typeof h3 == "boolean" || typeof h3 == "object" && !Array.isArray(h3) ? null : "a boolean or an object", "mustBeBooleanOrObject"), F = p2((h3) => typeof h3 == "string" ? null : "a string", "mustBeString"), Dt = p2((h3) => h3 instanceof RegExp ? null : "a RegExp object", "mustBeRegExp"), Ct = p2((h3) => typeof h3 == "number" && h3 === (h3 | 0) ? null : "an integer", "mustBeInteger"), qr = p2((h3) => typeof h3 == "function" ? null : "a function", "mustBeFunction"), It = p2((h3) => Array.isArray(h3) ? null : "an array", "mustBeArray"), Xt = p2((h3) => typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "an object", "mustBeObject"), Rs = p2((h3) => h3 instanceof WebAssembly.Module ? null : "a WebAssembly.Module", "mustBeWebAssemblyModule"), Ts = p2((h3) => typeof h3 == "object" && h3 !== null ? null : "an array or an object", "mustBeArrayOrRecord"), Un = p2((h3) => typeof h3 == "object" && !Array.isArray(h3) ? null : "an object or null", "mustBeObjectOrNull"), Nn = p2((h3) => typeof h3 == "string" || typeof h3 == "boolean" ? null : "a string or a boolean", "mustBeStringOrBoolean"), $s = p2((h3) => typeof h3 == "string" || typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "a string or an object", "mustBeStringOrObject"), zs = p2((h3) => typeof h3 == "string" || Array.isArray(h3) ? null : "a string or an array", "mustBeStringOrArray"), Fn = p2((h3) => typeof h3 == "string" || h3 instanceof Uint8Array ? null : "a string or a Uint8Array", "mustBeStringOrUint8Array"), Ps = p2((h3) => typeof h3 == "string" || h3 instanceof URL ? null : "a string or a URL", "mustBeStringOrURL");
+    var N = p2(() => null, "canBeAnything"), W = p2((h3) => typeof h3 == "boolean" ? null : "a boolean", "mustBeBoolean"), ft = p2((h3) => typeof h3 == "boolean" || typeof h3 == "object" && !Array.isArray(h3) ? null : "a boolean or an object", "mustBeBooleanOrObject"), F = p2((h3) => typeof h3 == "string" ? null : "a string", "mustBeString"), Dt = p2((h3) => h3 instanceof RegExp ? null : "a RegExp object", "mustBeRegExp"), Ct = p2((h3) => typeof h3 == "number" && h3 === (h3 | 0) ? null : "an integer", "mustBeInteger"), Lr = p2((h3) => typeof h3 == "function" ? null : "a function", "mustBeFunction"), It = p2((h3) => Array.isArray(h3) ? null : "an array", "mustBeArray"), Xt = p2((h3) => typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "an object", "mustBeObject"), As = p2((h3) => h3 instanceof WebAssembly.Module ? null : "a WebAssembly.Module", "mustBeWebAssemblyModule"), Rs = p2((h3) => typeof h3 == "object" && h3 !== null ? null : "an array or an object", "mustBeArrayOrRecord"), Un = p2((h3) => typeof h3 == "object" && !Array.isArray(h3) ? null : "an object or null", "mustBeObjectOrNull"), Nn = p2((h3) => typeof h3 == "string" || typeof h3 == "boolean" ? null : "a string or a boolean", "mustBeStringOrBoolean"), $s = p2((h3) => typeof h3 == "string" || typeof h3 == "object" && h3 !== null && !Array.isArray(h3) ? null : "a string or an object", "mustBeStringOrObject"), zs = p2((h3) => typeof h3 == "string" || Array.isArray(h3) ? null : "a string or an array", "mustBeStringOrArray"), Fn = p2((h3) => typeof h3 == "string" || h3 instanceof Uint8Array ? null : "a string or a Uint8Array", "mustBeStringOrUint8Array"), Ps = p2((h3) => typeof h3 == "string" || h3 instanceof URL ? null : "a string or a URL", "mustBeStringOrURL");
     function S(h3, d, m3, M) {
-      let T = h3[m3];
-      if (d[m3 + ""] = true, T === void 0)
+      let R3 = h3[m3];
+      if (d[m3 + ""] = true, R3 === void 0)
         return;
-      let $5 = M(T);
+      let $5 = M(R3);
       if ($5 !== null)
         throw new Error(`${K(m3)} must be ${$5}`);
-      return T;
+      return R3;
     }
     p2(S, "getFlag");
     function kt(h3, d, m3) {
@@ -9029,11 +9098,11 @@ is not a problem with esbuild. You need to fix your environment instead.
     }
     p2(kt, "checkForInvalidFlags");
     function Ds(h3) {
-      let d = /* @__PURE__ */ Object.create(null), m3 = S(h3, d, "wasmURL", Ps), M = S(h3, d, "wasmModule", Rs), T = S(h3, d, "worker", W);
-      return kt(h3, d, "in initialize() call"), { wasmURL: m3, wasmModule: M, worker: T };
+      let d = /* @__PURE__ */ Object.create(null), m3 = S(h3, d, "wasmURL", Ps), M = S(h3, d, "wasmModule", As), R3 = S(h3, d, "worker", W);
+      return kt(h3, d, "in initialize() call"), { wasmURL: m3, wasmModule: M, worker: R3 };
     }
     p2(Ds, "validateInitializeOptions");
-    function qn(h3) {
+    function Ln(h3) {
       let d;
       if (h3 !== void 0) {
         d = /* @__PURE__ */ Object.create(null);
@@ -9047,10 +9116,10 @@ is not a problem with esbuild. You need to fix your environment instead.
       }
       return d;
     }
-    p2(qn, "validateMangleCache");
-    function _r(h3, d, m3, M, T) {
+    p2(Ln, "validateMangleCache");
+    function _r(h3, d, m3, M, R3) {
       let $5 = S(d, m3, "color", W), j3 = S(d, m3, "logLevel", F), U3 = S(d, m3, "logLimit", Ct);
-      $5 !== void 0 ? h3.push(`--color=${$5}`) : M && h3.push("--color=true"), h3.push(`--log-level=${j3 || T}`), h3.push(`--log-limit=${U3 || 0}`);
+      $5 !== void 0 ? h3.push(`--color=${$5}`) : M && h3.push("--color=true"), h3.push(`--log-level=${j3 || R3}`), h3.push(`--log-limit=${U3 || 0}`);
     }
     p2(_r, "pushLogFlags");
     function Mt(h3, d, m3) {
@@ -9059,12 +9128,12 @@ is not a problem with esbuild. You need to fix your environment instead.
       return h3;
     }
     p2(Mt, "validateStringValue");
-    function Ln(h3, d, m3) {
-      let M = S(d, m3, "legalComments", F), T = S(d, m3, "sourceRoot", F), $5 = S(d, m3, "sourcesContent", W), j3 = S(d, m3, "target", zs), U3 = S(d, m3, "format", F), x = S(d, m3, "globalName", F), V = S(d, m3, "mangleProps", Dt), Y = S(d, m3, "reserveProps", Dt), Z = S(d, m3, "mangleQuoted", W), rt = S(d, m3, "minify", W), J = S(d, m3, "minifySyntax", W), tt = S(d, m3, "minifyWhitespace", W), q3 = S(d, m3, "minifyIdentifiers", W), nt = S(d, m3, "drop", It), at = S(d, m3, "charset", F), D = S(d, m3, "treeShaking", W), E = S(d, m3, "ignoreAnnotations", W), g5 = S(d, m3, "jsx", F), I = S(d, m3, "jsxFactory", F), R3 = S(d, m3, "jsxFragment", F), C = S(d, m3, "jsxImportSource", F), L = S(d, m3, "jsxDev", W), A = S(d, m3, "jsxSideEffects", W), f = S(d, m3, "define", Xt), O = S(d, m3, "logOverride", Xt), z = S(d, m3, "supported", Xt), P = S(d, m3, "pure", It), H = S(d, m3, "keepNames", W), it = S(d, m3, "platform", F);
-      if (M && h3.push(`--legal-comments=${M}`), T !== void 0 && h3.push(`--source-root=${T}`), $5 !== void 0 && h3.push(`--sources-content=${$5}`), j3 && (Array.isArray(j3) ? h3.push(`--target=${Array.from(j3).map(Q).join(",")}`) : h3.push(`--target=${Q(j3)}`)), U3 && h3.push(`--format=${U3}`), x && h3.push(`--global-name=${x}`), it && h3.push(`--platform=${it}`), rt && h3.push("--minify"), J && h3.push("--minify-syntax"), tt && h3.push("--minify-whitespace"), q3 && h3.push("--minify-identifiers"), at && h3.push(`--charset=${at}`), D !== void 0 && h3.push(`--tree-shaking=${D}`), E && h3.push("--ignore-annotations"), nt)
+    function qn(h3, d, m3) {
+      let M = S(d, m3, "legalComments", F), R3 = S(d, m3, "sourceRoot", F), $5 = S(d, m3, "sourcesContent", W), j3 = S(d, m3, "target", zs), U3 = S(d, m3, "format", F), x = S(d, m3, "globalName", F), V = S(d, m3, "mangleProps", Dt), Y = S(d, m3, "reserveProps", Dt), Z = S(d, m3, "mangleQuoted", W), rt = S(d, m3, "minify", W), J = S(d, m3, "minifySyntax", W), tt = S(d, m3, "minifyWhitespace", W), L = S(d, m3, "minifyIdentifiers", W), nt = S(d, m3, "drop", It), at = S(d, m3, "charset", F), D = S(d, m3, "treeShaking", W), E = S(d, m3, "ignoreAnnotations", W), g5 = S(d, m3, "jsx", F), I = S(d, m3, "jsxFactory", F), A = S(d, m3, "jsxFragment", F), C = S(d, m3, "jsxImportSource", F), q3 = S(d, m3, "jsxDev", W), T = S(d, m3, "jsxSideEffects", W), f = S(d, m3, "define", Xt), O = S(d, m3, "logOverride", Xt), z = S(d, m3, "supported", Xt), P = S(d, m3, "pure", It), H = S(d, m3, "keepNames", W), it = S(d, m3, "platform", F);
+      if (M && h3.push(`--legal-comments=${M}`), R3 !== void 0 && h3.push(`--source-root=${R3}`), $5 !== void 0 && h3.push(`--sources-content=${$5}`), j3 && (Array.isArray(j3) ? h3.push(`--target=${Array.from(j3).map(Q).join(",")}`) : h3.push(`--target=${Q(j3)}`)), U3 && h3.push(`--format=${U3}`), x && h3.push(`--global-name=${x}`), it && h3.push(`--platform=${it}`), rt && h3.push("--minify"), J && h3.push("--minify-syntax"), tt && h3.push("--minify-whitespace"), L && h3.push("--minify-identifiers"), at && h3.push(`--charset=${at}`), D !== void 0 && h3.push(`--tree-shaking=${D}`), E && h3.push("--ignore-annotations"), nt)
         for (let G of nt)
           h3.push(`--drop:${Mt(G, "drop")}`);
-      if (V && h3.push(`--mangle-props=${V.source}`), Y && h3.push(`--reserve-props=${Y.source}`), Z !== void 0 && h3.push(`--mangle-quoted=${Z}`), g5 && h3.push(`--jsx=${g5}`), I && h3.push(`--jsx-factory=${I}`), R3 && h3.push(`--jsx-fragment=${R3}`), C && h3.push(`--jsx-import-source=${C}`), L && h3.push("--jsx-dev"), A && h3.push("--jsx-side-effects"), f)
+      if (V && h3.push(`--mangle-props=${V.source}`), Y && h3.push(`--reserve-props=${Y.source}`), Z !== void 0 && h3.push(`--mangle-quoted=${Z}`), g5 && h3.push(`--jsx=${g5}`), I && h3.push(`--jsx-factory=${I}`), A && h3.push(`--jsx-fragment=${A}`), C && h3.push(`--jsx-import-source=${C}`), q3 && h3.push("--jsx-dev"), T && h3.push("--jsx-side-effects"), f)
         for (let G in f) {
           if (G.indexOf("=") >= 0)
             throw new Error(`Invalid define: ${G}`);
@@ -9090,40 +9159,40 @@ is not a problem with esbuild. You need to fix your environment instead.
           h3.push(`--pure:${Mt(G, "pure")}`);
       H && h3.push("--keep-names");
     }
-    p2(Ln, "pushCommonFlags");
-    function Cs(h3, d, m3, M, T) {
+    p2(qn, "pushCommonFlags");
+    function Cs(h3, d, m3, M, R3) {
       var $5;
       let j3 = [], U3 = [], x = /* @__PURE__ */ Object.create(null), V = null, Y = null, Z = null;
-      _r(j3, d, x, m3, M), Ln(j3, d, x);
-      let rt = S(d, x, "sourcemap", Nn), J = S(d, x, "bundle", W), tt = S(d, x, "watch", ft), q3 = S(d, x, "splitting", W), nt = S(d, x, "preserveSymlinks", W), at = S(d, x, "metafile", W), D = S(d, x, "outfile", F), E = S(d, x, "outdir", F), g5 = S(d, x, "outbase", F), I = S(d, x, "tsconfig", F), R3 = S(d, x, "resolveExtensions", It), C = S(d, x, "nodePaths", It), L = S(d, x, "mainFields", It), A = S(d, x, "conditions", It), f = S(d, x, "external", It), O = S(d, x, "packages", F), z = S(d, x, "alias", Xt), P = S(d, x, "loader", Xt), H = S(d, x, "outExtension", Xt), it = S(d, x, "publicPath", F), G = S(d, x, "entryNames", F), et = S(d, x, "chunkNames", F), jt = S(d, x, "assetNames", F), Rt = S(d, x, "inject", It), bt = S(d, x, "banner", Xt), ut = S(d, x, "footer", Xt), st = S(d, x, "entryPoints", Ts), xt = S(d, x, "absWorkingDir", F), Tt = S(d, x, "stdin", Xt), be = ($5 = S(d, x, "write", W)) != null ? $5 : T, He = S(d, x, "allowOverwrite", W), oe = S(d, x, "incremental", W) === true, Zt = S(d, x, "mangleCache", Xt);
+      _r(j3, d, x, m3, M), qn(j3, d, x);
+      let rt = S(d, x, "sourcemap", Nn), J = S(d, x, "bundle", W), tt = S(d, x, "watch", ft), L = S(d, x, "splitting", W), nt = S(d, x, "preserveSymlinks", W), at = S(d, x, "metafile", W), D = S(d, x, "outfile", F), E = S(d, x, "outdir", F), g5 = S(d, x, "outbase", F), I = S(d, x, "tsconfig", F), A = S(d, x, "resolveExtensions", It), C = S(d, x, "nodePaths", It), q3 = S(d, x, "mainFields", It), T = S(d, x, "conditions", It), f = S(d, x, "external", It), O = S(d, x, "packages", F), z = S(d, x, "alias", Xt), P = S(d, x, "loader", Xt), H = S(d, x, "outExtension", Xt), it = S(d, x, "publicPath", F), G = S(d, x, "entryNames", F), et = S(d, x, "chunkNames", F), jt = S(d, x, "assetNames", F), At = S(d, x, "inject", It), bt = S(d, x, "banner", Xt), ut = S(d, x, "footer", Xt), st = S(d, x, "entryPoints", Rs), xt = S(d, x, "absWorkingDir", F), Rt = S(d, x, "stdin", Xt), be = ($5 = S(d, x, "write", W)) != null ? $5 : R3, He = S(d, x, "allowOverwrite", W), oe = S(d, x, "incremental", W) === true, Zt = S(d, x, "mangleCache", Xt);
       if (x.plugins = true, kt(d, x, `in ${h3}() call`), rt && j3.push(`--sourcemap${rt === true ? "" : `=${rt}`}`), J && j3.push("--bundle"), He && j3.push("--allow-overwrite"), tt)
         if (j3.push("--watch"), typeof tt == "boolean")
           Z = {};
         else {
-          let B = /* @__PURE__ */ Object.create(null), St = S(tt, B, "onRebuild", qr);
+          let B = /* @__PURE__ */ Object.create(null), St = S(tt, B, "onRebuild", Lr);
           kt(tt, B, `on "watch" in ${h3}() call`), Z = { onRebuild: St };
         }
-      if (q3 && j3.push("--splitting"), nt && j3.push("--preserve-symlinks"), at && j3.push("--metafile"), D && j3.push(`--outfile=${D}`), E && j3.push(`--outdir=${E}`), g5 && j3.push(`--outbase=${g5}`), I && j3.push(`--tsconfig=${I}`), O && j3.push(`--packages=${O}`), R3) {
+      if (L && j3.push("--splitting"), nt && j3.push("--preserve-symlinks"), at && j3.push("--metafile"), D && j3.push(`--outfile=${D}`), E && j3.push(`--outdir=${E}`), g5 && j3.push(`--outbase=${g5}`), I && j3.push(`--tsconfig=${I}`), O && j3.push(`--packages=${O}`), A) {
         let B = [];
-        for (let St of R3) {
+        for (let St of A) {
           if (Mt(St, "resolve extension"), St.indexOf(",") >= 0)
             throw new Error(`Invalid resolve extension: ${St}`);
           B.push(St);
         }
         j3.push(`--resolve-extensions=${B.join(",")}`);
       }
-      if (it && j3.push(`--public-path=${it}`), G && j3.push(`--entry-names=${G}`), et && j3.push(`--chunk-names=${et}`), jt && j3.push(`--asset-names=${jt}`), L) {
+      if (it && j3.push(`--public-path=${it}`), G && j3.push(`--entry-names=${G}`), et && j3.push(`--chunk-names=${et}`), jt && j3.push(`--asset-names=${jt}`), q3) {
         let B = [];
-        for (let St of L) {
+        for (let St of q3) {
           if (Mt(St, "main field"), St.indexOf(",") >= 0)
             throw new Error(`Invalid main field: ${St}`);
           B.push(St);
         }
         j3.push(`--main-fields=${B.join(",")}`);
       }
-      if (A) {
+      if (T) {
         let B = [];
-        for (let St of A) {
+        for (let St of T) {
           if (Mt(St, "condition"), St.indexOf(",") >= 0)
             throw new Error(`Invalid condition: ${St}`);
           B.push(St);
@@ -9151,8 +9220,8 @@ is not a problem with esbuild. You need to fix your environment instead.
             throw new Error(`Invalid footer file type: ${B}`);
           j3.push(`--footer:${B}=${Mt(ut[B], "footer", B)}`);
         }
-      if (Rt)
-        for (let B of Rt)
+      if (At)
+        for (let B of At)
           j3.push(`--inject:${Mt(B, "inject")}`);
       if (P)
         for (let B in P) {
@@ -9173,38 +9242,38 @@ is not a problem with esbuild. You need to fix your environment instead.
         else
           for (let B in st)
             U3.push([B, Mt(st[B], "entry point", B)]);
-      if (Tt) {
-        let B = /* @__PURE__ */ Object.create(null), St = S(Tt, B, "contents", Fn), Jn = S(Tt, B, "resolveDir", F), Hn = S(Tt, B, "sourcefile", F), Kn = S(Tt, B, "loader", F);
-        kt(Tt, B, 'in "stdin" object'), Hn && j3.push(`--sourcefile=${Hn}`), Kn && j3.push(`--loader=${Kn}`), Jn && (Y = Jn), typeof St == "string" ? V = v(St) : St instanceof Uint8Array && (V = St);
+      if (Rt) {
+        let B = /* @__PURE__ */ Object.create(null), St = S(Rt, B, "contents", Fn), Jn = S(Rt, B, "resolveDir", F), Hn = S(Rt, B, "sourcefile", F), Kn = S(Rt, B, "loader", F);
+        kt(Rt, B, 'in "stdin" object'), Hn && j3.push(`--sourcefile=${Hn}`), Kn && j3.push(`--loader=${Kn}`), Jn && (Y = Jn), typeof St == "string" ? V = v(St) : St instanceof Uint8Array && (V = St);
       }
-      let Ae = [];
+      let Te = [];
       if (C)
         for (let B of C)
-          B += "", Ae.push(B);
-      return { entries: U3, flags: j3, write: be, stdinContents: V, stdinResolveDir: Y, absWorkingDir: xt, incremental: oe, nodePaths: Ae, watch: Z, mangleCache: qn(Zt) };
+          B += "", Te.push(B);
+      return { entries: U3, flags: j3, write: be, stdinContents: V, stdinResolveDir: Y, absWorkingDir: xt, incremental: oe, nodePaths: Te, watch: Z, mangleCache: Ln(Zt) };
     }
     p2(Cs, "flagsForBuildOptions");
     function Us(h3, d, m3, M) {
-      let T = [], $5 = /* @__PURE__ */ Object.create(null);
-      _r(T, d, $5, m3, M), Ln(T, d, $5);
+      let R3 = [], $5 = /* @__PURE__ */ Object.create(null);
+      _r(R3, d, $5, m3, M), qn(R3, d, $5);
       let j3 = S(d, $5, "sourcemap", Nn), U3 = S(d, $5, "tsconfigRaw", $s), x = S(d, $5, "sourcefile", F), V = S(d, $5, "loader", F), Y = S(d, $5, "banner", F), Z = S(d, $5, "footer", F), rt = S(d, $5, "mangleCache", Xt);
-      return kt(d, $5, `in ${h3}() call`), j3 && T.push(`--sourcemap=${j3 === true ? "external" : j3}`), U3 && T.push(`--tsconfig-raw=${typeof U3 == "string" ? U3 : JSON.stringify(U3)}`), x && T.push(`--sourcefile=${x}`), V && T.push(`--loader=${V}`), Y && T.push(`--banner=${Y}`), Z && T.push(`--footer=${Z}`), { flags: T, mangleCache: qn(rt) };
+      return kt(d, $5, `in ${h3}() call`), j3 && R3.push(`--sourcemap=${j3 === true ? "external" : j3}`), U3 && R3.push(`--tsconfig-raw=${typeof U3 == "string" ? U3 : JSON.stringify(U3)}`), x && R3.push(`--sourcefile=${x}`), V && R3.push(`--loader=${V}`), Y && R3.push(`--banner=${Y}`), Z && R3.push(`--footer=${Z}`), { flags: R3, mangleCache: Ln(rt) };
     }
     p2(Us, "flagsForTransformOptions");
     function Ns(h3) {
-      let d = {}, m3 = { didClose: false, reason: "" }, M = {}, T = 0, $5 = 0, j3 = new Uint8Array(16 * 1024), U3 = 0, x = p2((E) => {
+      let d = {}, m3 = { didClose: false, reason: "" }, M = {}, R3 = 0, $5 = 0, j3 = new Uint8Array(16 * 1024), U3 = 0, x = p2((E) => {
         let g5 = U3 + E.length;
         if (g5 > j3.length) {
-          let R3 = new Uint8Array(g5 * 2);
-          R3.set(j3), j3 = R3;
+          let A = new Uint8Array(g5 * 2);
+          A.set(j3), j3 = A;
         }
         j3.set(E, U3), U3 += E.length;
         let I = 0;
         for (; I + 4 <= U3; ) {
-          let R3 = k3(j3, I);
-          if (I + 4 + R3 > U3)
+          let A = k3(j3, I);
+          if (I + 4 + A > U3)
             break;
-          I += 4, tt(j3.subarray(I, I + R3)), I += R3;
+          I += 4, tt(j3.subarray(I, I + A)), I += A;
         }
         I > 0 && (j3.copyWithin(0, I, U3), U3 -= I);
       }, "readFromStdout"), V = p2((E) => {
@@ -9216,14 +9285,14 @@ is not a problem with esbuild. You need to fix your environment instead.
       }, "afterClose"), Y = p2((E, g5, I) => {
         if (m3.didClose)
           return I("The service is no longer running" + m3.reason, null);
-        let R3 = T++;
-        M[R3] = (C, L) => {
+        let A = R3++;
+        M[A] = (C, q3) => {
           try {
-            I(C, L);
+            I(C, q3);
           } finally {
             E && E.unref();
           }
-        }, E && E.ref(), h3.writeToStdin(_({ id: R3, isRequest: true, value: g5 }));
+        }, E && E.ref(), h3.writeToStdin(_({ id: A, isRequest: true, value: g5 }));
       }, "sendRequest"), Z = p2((E, g5) => {
         if (m3.didClose)
           throw new Error("The service is no longer running" + m3.reason);
@@ -9237,9 +9306,9 @@ is not a problem with esbuild. You need to fix your environment instead.
           if (typeof g5.key == "number") {
             let I = d[g5.key];
             if (I) {
-              let R3 = I[g5.command];
-              if (R3) {
-                yield R3(E, g5);
+              let A = I[g5.command];
+              if (A) {
+                yield A(E, g5);
                 return;
               }
             }
@@ -9252,8 +9321,8 @@ is not a problem with esbuild. You need to fix your environment instead.
         if (J) {
           J = false;
           let I = String.fromCharCode(...E);
-          if (I !== "0.16.13")
-            throw new Error(`Cannot start service: Host version "0.16.13" does not match binary version ${K(I)}`);
+          if (I !== "0.16.14")
+            throw new Error(`Cannot start service: Host version "0.16.14" does not match binary version ${K(I)}`);
           return;
         }
         let g5 = p3(E);
@@ -9264,80 +9333,80 @@ is not a problem with esbuild. You need to fix your environment instead.
           delete M[g5.id], g5.value.error ? I(g5.value.error, {}) : I(null, g5.value);
         }
       }, "handleIncomingPacket");
-      return { readFromStdout: x, afterClose: V, service: { buildOrServe: p2(({ callName: E, refs: g5, serveOptions: I, options: R3, isTTY: C, defaultWD: L, callback: A }) => {
+      return { readFromStdout: x, afterClose: V, service: { buildOrServe: p2(({ callName: E, refs: g5, serveOptions: I, options: A, isTTY: C, defaultWD: q3, callback: T }) => {
         let f = 0, O = $5++, z = {}, P = { ref() {
           ++f === 1 && g5 && g5.ref();
         }, unref() {
           --f === 0 && (delete d[O], g5 && g5.unref());
         } };
-        d[O] = z, P.ref(), Fs(E, O, Y, Z, P, h3, z, R3, I, C, L, m3, (H, it) => {
+        d[O] = z, P.ref(), Fs(E, O, Y, Z, P, h3, z, A, I, C, q3, m3, (H, it) => {
           try {
-            A(H, it);
+            T(H, it);
           } finally {
             P.unref();
           }
         });
-      }, "buildOrServe"), transform: p2(({ callName: E, refs: g5, input: I, options: R3, isTTY: C, fs: L, callback: A }) => {
+      }, "buildOrServe"), transform: p2(({ callName: E, refs: g5, input: I, options: A, isTTY: C, fs: q3, callback: T }) => {
         let f = Bn(), O = p2((z) => {
           try {
             if (typeof I != "string" && !(I instanceof Uint8Array))
               throw new Error('The input to "transform" must be a string or a Uint8Array');
-            let { flags: P, mangleCache: H } = Us(E, R3, C, pt), it = { command: "transform", flags: P, inputFS: z !== null, input: z !== null ? v(z) : typeof I == "string" ? v(I) : I };
+            let { flags: P, mangleCache: H } = Us(E, A, C, pt), it = { command: "transform", flags: P, inputFS: z !== null, input: z !== null ? v(z) : typeof I == "string" ? v(I) : I };
             H && (it.mangleCache = H), Y(g5, it, (G, et) => {
               if (G)
-                return A(new Error(G), null);
-              let jt = pe(et.errors, f), Rt = pe(et.warnings, f), bt = 1, ut = p2(() => {
+                return T(new Error(G), null);
+              let jt = pe(et.errors, f), At = pe(et.warnings, f), bt = 1, ut = p2(() => {
                 if (--bt === 0) {
-                  let st = { warnings: Rt, code: et.code, map: et.map };
-                  "legalComments" in et && (st.legalComments = et?.legalComments), et.mangleCache && (st.mangleCache = et?.mangleCache), A(null, st);
+                  let st = { warnings: At, code: et.code, map: et.map };
+                  "legalComments" in et && (st.legalComments = et?.legalComments), et.mangleCache && (st.mangleCache = et?.mangleCache), T(null, st);
                 }
               }, "next");
               if (jt.length > 0)
-                return A(Me("Transform failed", jt, Rt), null);
-              et.codeFS && (bt++, L.readFile(et.code, (st, xt) => {
-                st !== null ? A(st, null) : (et.code = xt, ut());
-              })), et.mapFS && (bt++, L.readFile(et.map, (st, xt) => {
-                st !== null ? A(st, null) : (et.map = xt, ut());
+                return T(Me("Transform failed", jt, At), null);
+              et.codeFS && (bt++, q3.readFile(et.code, (st, xt) => {
+                st !== null ? T(st, null) : (et.code = xt, ut());
+              })), et.mapFS && (bt++, q3.readFile(et.map, (st, xt) => {
+                st !== null ? T(st, null) : (et.map = xt, ut());
               })), ut();
             });
           } catch (P) {
             let H = [];
             try {
-              _r(H, R3, {}, C, pt);
+              _r(H, A, {}, C, pt);
             } catch {
             }
             let it = je(P, h3, f, void 0, "");
             Y(g5, { command: "error", flags: H, error: it }, () => {
-              it.detail = f.load(it.detail), A(Me("Transform failed", [it], []), null);
+              it.detail = f.load(it.detail), T(Me("Transform failed", [it], []), null);
             });
           }
         }, "start");
         if ((typeof I == "string" || I instanceof Uint8Array) && I.length > 1024 * 1024) {
           let z = O;
-          O = p2(() => L.writeFile(I, z), "start");
+          O = p2(() => q3.writeFile(I, z), "start");
         }
         O(null);
-      }, "transform2"), formatMessages: p2(({ callName: E, refs: g5, messages: I, options: R3, callback: C }) => {
-        let L = we(I, "messages", null, "");
-        if (!R3)
+      }, "transform2"), formatMessages: p2(({ callName: E, refs: g5, messages: I, options: A, callback: C }) => {
+        let q3 = we(I, "messages", null, "");
+        if (!A)
           throw new Error(`Missing second argument in ${E}() call`);
-        let A = {}, f = S(R3, A, "kind", F), O = S(R3, A, "color", W), z = S(R3, A, "terminalWidth", Ct);
-        if (kt(R3, A, `in ${E}() call`), f === void 0)
+        let T = {}, f = S(A, T, "kind", F), O = S(A, T, "color", W), z = S(A, T, "terminalWidth", Ct);
+        if (kt(A, T, `in ${E}() call`), f === void 0)
           throw new Error(`Missing "kind" in ${E}() call`);
         if (f !== "error" && f !== "warning")
           throw new Error(`Expected "kind" to be "error" or "warning" in ${E}() call`);
-        let P = { command: "format-msgs", messages: L, isWarning: f === "warning" };
+        let P = { command: "format-msgs", messages: q3, isWarning: f === "warning" };
         O !== void 0 && (P.color = O), z !== void 0 && (P.terminalWidth = z), Y(g5, P, (H, it) => {
           if (H)
             return C(new Error(H), null);
           C(null, it.messages);
         });
-      }, "formatMessages2"), analyzeMetafile: p2(({ callName: E, refs: g5, metafile: I, options: R3, callback: C }) => {
-        R3 === void 0 && (R3 = {});
-        let L = {}, A = S(R3, L, "color", W), f = S(R3, L, "verbose", W);
-        kt(R3, L, `in ${E}() call`);
+      }, "formatMessages2"), analyzeMetafile: p2(({ callName: E, refs: g5, metafile: I, options: A, callback: C }) => {
+        A === void 0 && (A = {});
+        let q3 = {}, T = S(A, q3, "color", W), f = S(A, q3, "verbose", W);
+        kt(A, q3, `in ${E}() call`);
         let O = { command: "analyze-metafile", metafile: I };
-        A !== void 0 && (O.color = A), f !== void 0 && (O.verbose = f), Y(g5, O, (z, P) => {
+        T !== void 0 && (O.color = T), f !== void 0 && (O.verbose = f), Y(g5, O, (z, P) => {
           if (z)
             return C(new Error(z), null);
           C(null, P.result);
@@ -9345,18 +9414,18 @@ is not a problem with esbuild. You need to fix your environment instead.
       }, "analyzeMetafile2") } };
     }
     p2(Ns, "createChannel");
-    function Fs(h3, d, m3, M, T, $5, j3, U3, x, V, Y, Z, rt) {
+    function Fs(h3, d, m3, M, R3, $5, j3, U3, x, V, Y, Z, rt) {
       let J = Bn(), tt = p2((D, E, g5, I) => {
-        let R3 = [];
+        let A = [];
         try {
-          _r(R3, U3, {}, V, ct);
+          _r(A, U3, {}, V, ct);
         } catch {
         }
         let C = je(D, $5, J, g5, E);
-        m3(T, { command: "error", flags: R3, error: C }, () => {
+        m3(R3, { command: "error", flags: A, error: C }, () => {
           C.detail = J.load(C.detail), I(C);
         });
-      }, "logPluginError"), q3 = p2((D, E) => {
+      }, "logPluginError"), L = p2((D, E) => {
         tt(D, E, void 0, (g5) => {
           rt(Me("Build failed", [g5], []), null);
         });
@@ -9371,67 +9440,67 @@ is not a problem with esbuild. You need to fix your environment instead.
       }
       if (nt && nt.length > 0) {
         if ($5.isSync) {
-          q3(new Error("Cannot use plugins in synchronous API calls"), "");
+          L(new Error("Cannot use plugins in synchronous API calls"), "");
           return;
         }
-        Ls(d, m3, M, T, $5, j3, U3, nt, J).then((D) => {
+        qs(d, m3, M, R3, $5, j3, U3, nt, J).then((D) => {
           if (!D.ok) {
-            q3(D.error, D.pluginName);
+            L(D.error, D.pluginName);
             return;
           }
           try {
             at(D.requestPlugins, D.runOnEndCallbacks);
           } catch (E) {
-            q3(E, "");
+            L(E, "");
           }
-        }, (D) => q3(D, ""));
+        }, (D) => L(D, ""));
         return;
       }
       try {
         at(null, (D, E, g5) => g5());
       } catch (D) {
-        q3(D, "");
+        L(D, "");
       }
       function at(D, E) {
-        let g5 = !$5.isWriteUnavailable, { entries: I, flags: R3, write: C, stdinContents: L, stdinResolveDir: A, absWorkingDir: f, incremental: O, nodePaths: z, watch: P, mangleCache: H } = Cs(h3, U3, V, ct, g5), it = { command: "build", key: d, entries: I, flags: R3, write: C, stdinContents: L, stdinResolveDir: A, absWorkingDir: f || Y, incremental: O, nodePaths: z };
+        let g5 = !$5.isWriteUnavailable, { entries: I, flags: A, write: C, stdinContents: q3, stdinResolveDir: T, absWorkingDir: f, incremental: O, nodePaths: z, watch: P, mangleCache: H } = Cs(h3, U3, V, ct, g5), it = { command: "build", key: d, entries: I, flags: A, write: C, stdinContents: q3, stdinResolveDir: T, absWorkingDir: f || Y, incremental: O, nodePaths: z };
         D && (it.plugins = D), H && (it.mangleCache = H);
-        let G = x && qs(d, m3, M, T, j3, x, it), et, jt, Rt = p2((ut, st) => {
+        let G = x && Ls(d, m3, M, R3, j3, x, it), et, jt, At = p2((ut, st) => {
           ut.outputFiles && (st.outputFiles = ut.outputFiles.map(Bs)), ut.metafile && (st.metafile = JSON.parse(ut.metafile)), ut.mangleCache && (st.mangleCache = ut.mangleCache), ut.writeToStdout !== void 0 && console.log(y(ut.writeToStdout).replace(/\n$/, ""));
         }, "copyResponseToResult"), bt = p2((ut, st) => {
           let xt = { errors: pe(ut.errors, J), warnings: pe(ut.warnings, J) };
-          Rt(ut, xt), E(xt, tt, () => {
+          At(ut, xt), E(xt, tt, () => {
             if (xt.errors.length > 0)
               return st(Me("Build failed", xt.errors, xt.warnings), null);
             if (ut.rebuild) {
               if (!et) {
-                let Tt = false;
+                let Rt = false;
                 et = p2(() => new Promise((be, He) => {
-                  if (Tt || Z.didClose)
+                  if (Rt || Z.didClose)
                     throw new Error("Cannot rebuild");
-                  m3(T, { command: "rebuild", key: d }, (oe, Zt) => {
+                  m3(R3, { command: "rebuild", key: d }, (oe, Zt) => {
                     if (oe)
                       return st(Me("Build failed", [{ id: "", pluginName: "", text: oe, location: null, notes: [], detail: void 0 }], []), null);
-                    bt(Zt, (Ae, B) => {
-                      Ae ? He(Ae) : be(B);
+                    bt(Zt, (Te, B) => {
+                      Te ? He(Te) : be(B);
                     });
                   });
-                }), "rebuild"), T.ref(), et.dispose = () => {
-                  Tt || (Tt = true, m3(T, { command: "rebuild-dispose", key: d }, () => {
-                  }), T.unref());
+                }), "rebuild"), R3.ref(), et.dispose = () => {
+                  Rt || (Rt = true, m3(R3, { command: "rebuild-dispose", key: d }, () => {
+                  }), R3.unref());
                 };
               }
               xt.rebuild = et;
             }
             if (ut.watch) {
               if (!jt) {
-                let Tt = false;
-                T.ref(), jt = p2(() => {
-                  Tt || (Tt = true, delete j3["watch-rebuild"], m3(T, { command: "watch-stop", key: d }, () => {
-                  }), T.unref());
+                let Rt = false;
+                R3.ref(), jt = p2(() => {
+                  Rt || (Rt = true, delete j3["watch-rebuild"], m3(R3, { command: "watch-stop", key: d }, () => {
+                  }), R3.unref());
                 }, "stop"), P && (j3["watch-rebuild"] = (be, He) => {
                   try {
                     let oe = He.args, Zt = { errors: pe(oe.errors, J), warnings: pe(oe.warnings, J) };
-                    Rt(oe, Zt), E(Zt, tt, () => {
+                    At(oe, Zt), E(Zt, tt, () => {
                       if (Zt.errors.length > 0) {
                         P.onRebuild && P.onRebuild(Me("Build failed", Zt.errors, Zt.warnings), null);
                         return;
@@ -9455,16 +9524,16 @@ is not a problem with esbuild. You need to fix your environment instead.
           throw new Error('Cannot use "incremental" with a synchronous build');
         if (P && $5.isSync)
           throw new Error('Cannot use "watch" with a synchronous build');
-        m3(T, it, (ut, st) => {
+        m3(R3, it, (ut, st) => {
           if (ut)
             return rt(new Error(ut), null);
           if (G) {
-            let xt = st, Tt = false;
-            T.ref();
+            let xt = st, Rt = false;
+            R3.ref();
             let be = { port: xt.port, host: xt.host, wait: G.wait, stop() {
-              Tt || (Tt = true, G.stop(), T.unref());
+              Rt || (Rt = true, G.stop(), R3.unref());
             } };
-            return T.ref(), G.wait.then(T.unref, T.unref), rt(null, be);
+            return R3.ref(), G.wait.then(R3.unref, R3.unref), rt(null, be);
           }
           return bt(st, rt);
         });
@@ -9472,20 +9541,20 @@ is not a problem with esbuild. You need to fix your environment instead.
       p2(at, "buildOrServeContinue");
     }
     p2(Fs, "buildOrServeImpl");
-    var qs = p2((h3, d, m3, M, T, $5, j3) => {
-      let U3 = {}, x = S($5, U3, "port", Ct), V = S($5, U3, "host", F), Y = S($5, U3, "servedir", F), Z = S($5, U3, "onRequest", qr), rt = new Promise((J, tt) => {
-        T["serve-wait"] = (q3, nt) => {
-          nt.error !== null ? tt(new Error(nt.error)) : J(), m3(q3, {});
+    var Ls = p2((h3, d, m3, M, R3, $5, j3) => {
+      let U3 = {}, x = S($5, U3, "port", Ct), V = S($5, U3, "host", F), Y = S($5, U3, "servedir", F), Z = S($5, U3, "onRequest", Lr), rt = new Promise((J, tt) => {
+        R3["serve-wait"] = (L, nt) => {
+          nt.error !== null ? tt(new Error(nt.error)) : J(), m3(L, {});
         };
       });
-      return j3.serve = {}, kt($5, U3, "in serve() call"), x !== void 0 && (j3.serve.port = x), V !== void 0 && (j3.serve.host = V), Y !== void 0 && (j3.serve.servedir = Y), T["serve-request"] = (J, tt) => {
+      return j3.serve = {}, kt($5, U3, "in serve() call"), x !== void 0 && (j3.serve.port = x), V !== void 0 && (j3.serve.host = V), Y !== void 0 && (j3.serve.servedir = Y), R3["serve-request"] = (J, tt) => {
         Z && Z(tt.args), m3(J, {});
       }, { wait: rt, stop() {
         d(M, { command: "serve-stop", key: h3 }, () => {
         });
       } };
-    }, "buildServeData"), Ls = p2((h3, d, m3, M, T, $5, j3, U3, x) => l3(void 0, null, function* () {
-      let V = [], Y = [], Z = {}, rt = {}, J = 0, tt = 0, q3 = [], nt = false;
+    }, "buildServeData"), qs = p2((h3, d, m3, M, R3, $5, j3, U3, x) => l3(void 0, null, function* () {
+      let V = [], Y = [], Z = {}, rt = {}, J = 0, tt = 0, L = [], nt = false;
       U3 = [...U3];
       for (let D of U3) {
         let E = {};
@@ -9495,100 +9564,100 @@ is not a problem with esbuild. You need to fix your environment instead.
         if (typeof g5 != "string" || g5 === "")
           throw new Error(`Plugin at index ${tt} is missing a name`);
         try {
-          let I = S(D, E, "setup", qr);
+          let I = S(D, E, "setup", Lr);
           if (typeof I != "function")
             throw new Error("Plugin is missing a setup function");
           kt(D, E, `on plugin ${K(g5)}`);
-          let R3 = { name: g5, onResolve: [], onLoad: [] };
+          let A = { name: g5, onResolve: [], onLoad: [] };
           tt++;
-          let L = I({ initialOptions: j3, resolve: p2((A, f = {}) => {
+          let q3 = I({ initialOptions: j3, resolve: p2((T, f = {}) => {
             if (!nt)
               throw new Error('Cannot call "resolve" before plugin setup has completed');
-            if (typeof A != "string")
+            if (typeof T != "string")
               throw new Error("The path to resolve must be a string");
             let O = /* @__PURE__ */ Object.create(null), z = S(f, O, "pluginName", F), P = S(f, O, "importer", F), H = S(f, O, "namespace", F), it = S(f, O, "resolveDir", F), G = S(f, O, "kind", F), et = S(f, O, "pluginData", N);
-            return kt(f, O, "in resolve() call"), new Promise((jt, Rt) => {
-              let bt = { command: "resolve", path: A, key: h3, pluginName: g5 };
+            return kt(f, O, "in resolve() call"), new Promise((jt, At) => {
+              let bt = { command: "resolve", path: T, key: h3, pluginName: g5 };
               if (z != null && (bt.pluginName = z), P != null && (bt.importer = P), H != null && (bt.namespace = H), it != null && (bt.resolveDir = it), G != null)
                 bt.kind = G;
               else
                 throw new Error('Must specify "kind" when calling "resolve"');
               et != null && (bt.pluginData = x.store(et)), d(M, bt, (ut, st) => {
-                ut !== null ? Rt(new Error(ut)) : jt({ errors: pe(st.errors, x), warnings: pe(st.warnings, x), path: st.path, external: st.external, sideEffects: st.sideEffects, namespace: st.namespace, suffix: st.suffix, pluginData: x.load(st.pluginData) });
+                ut !== null ? At(new Error(ut)) : jt({ errors: pe(st.errors, x), warnings: pe(st.warnings, x), path: st.path, external: st.external, sideEffects: st.sideEffects, namespace: st.namespace, suffix: st.suffix, pluginData: x.load(st.pluginData) });
               });
             });
-          }, "resolve"), onStart(A) {
-            let f = 'This error came from the "onStart" callback registered here:', O = mr(new Error(f), T, "onStart");
-            V.push({ name: g5, callback: A, note: O });
-          }, onEnd(A) {
-            let f = 'This error came from the "onEnd" callback registered here:', O = mr(new Error(f), T, "onEnd");
-            Y.push({ name: g5, callback: A, note: O });
-          }, onResolve(A, f) {
-            let O = 'This error came from the "onResolve" callback registered here:', z = mr(new Error(O), T, "onResolve"), P = {}, H = S(A, P, "filter", Dt), it = S(A, P, "namespace", F);
-            if (kt(A, P, `in onResolve() call for plugin ${K(g5)}`), H == null)
+          }, "resolve"), onStart(T) {
+            let f = 'This error came from the "onStart" callback registered here:', O = mr(new Error(f), R3, "onStart");
+            V.push({ name: g5, callback: T, note: O });
+          }, onEnd(T) {
+            let f = 'This error came from the "onEnd" callback registered here:', O = mr(new Error(f), R3, "onEnd");
+            Y.push({ name: g5, callback: T, note: O });
+          }, onResolve(T, f) {
+            let O = 'This error came from the "onResolve" callback registered here:', z = mr(new Error(O), R3, "onResolve"), P = {}, H = S(T, P, "filter", Dt), it = S(T, P, "namespace", F);
+            if (kt(T, P, `in onResolve() call for plugin ${K(g5)}`), H == null)
               throw new Error("onResolve() call is missing a filter");
             let G = J++;
-            Z[G] = { name: g5, callback: f, note: z }, R3.onResolve.push({ id: G, filter: H.source, namespace: it || "" });
-          }, onLoad(A, f) {
-            let O = 'This error came from the "onLoad" callback registered here:', z = mr(new Error(O), T, "onLoad"), P = {}, H = S(A, P, "filter", Dt), it = S(A, P, "namespace", F);
-            if (kt(A, P, `in onLoad() call for plugin ${K(g5)}`), H == null)
+            Z[G] = { name: g5, callback: f, note: z }, A.onResolve.push({ id: G, filter: H.source, namespace: it || "" });
+          }, onLoad(T, f) {
+            let O = 'This error came from the "onLoad" callback registered here:', z = mr(new Error(O), R3, "onLoad"), P = {}, H = S(T, P, "filter", Dt), it = S(T, P, "namespace", F);
+            if (kt(T, P, `in onLoad() call for plugin ${K(g5)}`), H == null)
               throw new Error("onLoad() call is missing a filter");
             let G = J++;
-            rt[G] = { name: g5, callback: f, note: z }, R3.onLoad.push({ id: G, filter: H.source, namespace: it || "" });
-          }, esbuild: T.esbuild });
-          L && (yield L), q3.push(R3);
+            rt[G] = { name: g5, callback: f, note: z }, A.onLoad.push({ id: G, filter: H.source, namespace: it || "" });
+          }, esbuild: R3.esbuild });
+          q3 && (yield q3), L.push(A);
         } catch (I) {
           return { ok: false, error: I, pluginName: g5 };
         }
       }
       $5["on-start"] = (D, E) => l3(void 0, null, function* () {
         let g5 = { errors: [], warnings: [] };
-        yield Promise.all(V.map((I) => l3(void 0, [I], function* ({ name: R3, callback: C, note: L }) {
+        yield Promise.all(V.map((I) => l3(void 0, [I], function* ({ name: A, callback: C, note: q3 }) {
           try {
-            let A = yield C();
-            if (A != null) {
-              if (typeof A != "object")
-                throw new Error(`Expected onStart() callback in plugin ${K(R3)} to return an object`);
-              let f = {}, O = S(A, f, "errors", It), z = S(A, f, "warnings", It);
-              kt(A, f, `from onStart() callback in plugin ${K(R3)}`), O != null && g5.errors.push(...we(O, "errors", x, R3)), z != null && g5.warnings.push(...we(z, "warnings", x, R3));
+            let T = yield C();
+            if (T != null) {
+              if (typeof T != "object")
+                throw new Error(`Expected onStart() callback in plugin ${K(A)} to return an object`);
+              let f = {}, O = S(T, f, "errors", It), z = S(T, f, "warnings", It);
+              kt(T, f, `from onStart() callback in plugin ${K(A)}`), O != null && g5.errors.push(...we(O, "errors", x, A)), z != null && g5.warnings.push(...we(z, "warnings", x, A));
             }
-          } catch (A) {
-            g5.errors.push(je(A, T, x, L && L(), R3));
+          } catch (T) {
+            g5.errors.push(je(T, R3, x, q3 && q3(), A));
           }
         }))), m3(D, g5);
       }), $5["on-resolve"] = (D, E) => l3(void 0, null, function* () {
-        let g5 = {}, I = "", R3, C;
-        for (let L of E.ids)
+        let g5 = {}, I = "", A, C;
+        for (let q3 of E.ids)
           try {
-            ({ name: I, callback: R3, note: C } = Z[L]);
-            let A = yield R3({ path: E.path, importer: E.importer, namespace: E.namespace, resolveDir: E.resolveDir, kind: E.kind, pluginData: x.load(E.pluginData) });
-            if (A != null) {
-              if (typeof A != "object")
+            ({ name: I, callback: A, note: C } = Z[q3]);
+            let T = yield A({ path: E.path, importer: E.importer, namespace: E.namespace, resolveDir: E.resolveDir, kind: E.kind, pluginData: x.load(E.pluginData) });
+            if (T != null) {
+              if (typeof T != "object")
                 throw new Error(`Expected onResolve() callback in plugin ${K(I)} to return an object`);
-              let f = {}, O = S(A, f, "pluginName", F), z = S(A, f, "path", F), P = S(A, f, "namespace", F), H = S(A, f, "suffix", F), it = S(A, f, "external", W), G = S(A, f, "sideEffects", W), et = S(A, f, "pluginData", N), jt = S(A, f, "errors", It), Rt = S(A, f, "warnings", It), bt = S(A, f, "watchFiles", It), ut = S(A, f, "watchDirs", It);
-              kt(A, f, `from onResolve() callback in plugin ${K(I)}`), g5.id = L, O != null && (g5.pluginName = O), z != null && (g5.path = z), P != null && (g5.namespace = P), H != null && (g5.suffix = H), it != null && (g5.external = it), G != null && (g5.sideEffects = G), et != null && (g5.pluginData = x.store(et)), jt != null && (g5.errors = we(jt, "errors", x, I)), Rt != null && (g5.warnings = we(Rt, "warnings", x, I)), bt != null && (g5.watchFiles = gr(bt, "watchFiles")), ut != null && (g5.watchDirs = gr(ut, "watchDirs"));
+              let f = {}, O = S(T, f, "pluginName", F), z = S(T, f, "path", F), P = S(T, f, "namespace", F), H = S(T, f, "suffix", F), it = S(T, f, "external", W), G = S(T, f, "sideEffects", W), et = S(T, f, "pluginData", N), jt = S(T, f, "errors", It), At = S(T, f, "warnings", It), bt = S(T, f, "watchFiles", It), ut = S(T, f, "watchDirs", It);
+              kt(T, f, `from onResolve() callback in plugin ${K(I)}`), g5.id = q3, O != null && (g5.pluginName = O), z != null && (g5.path = z), P != null && (g5.namespace = P), H != null && (g5.suffix = H), it != null && (g5.external = it), G != null && (g5.sideEffects = G), et != null && (g5.pluginData = x.store(et)), jt != null && (g5.errors = we(jt, "errors", x, I)), At != null && (g5.warnings = we(At, "warnings", x, I)), bt != null && (g5.watchFiles = gr(bt, "watchFiles")), ut != null && (g5.watchDirs = gr(ut, "watchDirs"));
               break;
             }
-          } catch (A) {
-            g5 = { id: L, errors: [je(A, T, x, C && C(), I)] };
+          } catch (T) {
+            g5 = { id: q3, errors: [je(T, R3, x, C && C(), I)] };
             break;
           }
         m3(D, g5);
       }), $5["on-load"] = (D, E) => l3(void 0, null, function* () {
-        let g5 = {}, I = "", R3, C;
-        for (let L of E.ids)
+        let g5 = {}, I = "", A, C;
+        for (let q3 of E.ids)
           try {
-            ({ name: I, callback: R3, note: C } = rt[L]);
-            let A = yield R3({ path: E.path, namespace: E.namespace, suffix: E.suffix, pluginData: x.load(E.pluginData) });
-            if (A != null) {
-              if (typeof A != "object")
+            ({ name: I, callback: A, note: C } = rt[q3]);
+            let T = yield A({ path: E.path, namespace: E.namespace, suffix: E.suffix, pluginData: x.load(E.pluginData) });
+            if (T != null) {
+              if (typeof T != "object")
                 throw new Error(`Expected onLoad() callback in plugin ${K(I)} to return an object`);
-              let f = {}, O = S(A, f, "pluginName", F), z = S(A, f, "contents", Fn), P = S(A, f, "resolveDir", F), H = S(A, f, "pluginData", N), it = S(A, f, "loader", F), G = S(A, f, "errors", It), et = S(A, f, "warnings", It), jt = S(A, f, "watchFiles", It), Rt = S(A, f, "watchDirs", It);
-              kt(A, f, `from onLoad() callback in plugin ${K(I)}`), g5.id = L, O != null && (g5.pluginName = O), z instanceof Uint8Array ? g5.contents = z : z != null && (g5.contents = v(z)), P != null && (g5.resolveDir = P), H != null && (g5.pluginData = x.store(H)), it != null && (g5.loader = it), G != null && (g5.errors = we(G, "errors", x, I)), et != null && (g5.warnings = we(et, "warnings", x, I)), jt != null && (g5.watchFiles = gr(jt, "watchFiles")), Rt != null && (g5.watchDirs = gr(Rt, "watchDirs"));
+              let f = {}, O = S(T, f, "pluginName", F), z = S(T, f, "contents", Fn), P = S(T, f, "resolveDir", F), H = S(T, f, "pluginData", N), it = S(T, f, "loader", F), G = S(T, f, "errors", It), et = S(T, f, "warnings", It), jt = S(T, f, "watchFiles", It), At = S(T, f, "watchDirs", It);
+              kt(T, f, `from onLoad() callback in plugin ${K(I)}`), g5.id = q3, O != null && (g5.pluginName = O), z instanceof Uint8Array ? g5.contents = z : z != null && (g5.contents = v(z)), P != null && (g5.resolveDir = P), H != null && (g5.pluginData = x.store(H)), it != null && (g5.loader = it), G != null && (g5.errors = we(G, "errors", x, I)), et != null && (g5.warnings = we(et, "warnings", x, I)), jt != null && (g5.watchFiles = gr(jt, "watchFiles")), At != null && (g5.watchDirs = gr(At, "watchDirs"));
               break;
             }
-          } catch (A) {
-            g5 = { id: L, errors: [je(A, T, x, C && C(), I)] };
+          } catch (T) {
+            g5 = { id: q3, errors: [je(T, R3, x, C && C(), I)] };
             break;
           }
         m3(D, g5);
@@ -9596,14 +9665,14 @@ is not a problem with esbuild. You need to fix your environment instead.
       let at = p2((D, E, g5) => g5(), "runOnEndCallbacks");
       return Y.length > 0 && (at = p2((D, E, g5) => {
         (() => l3(void 0, null, function* () {
-          for (let { name: I, callback: R3, note: C } of Y)
+          for (let { name: I, callback: A, note: C } of Y)
             try {
-              yield R3(D);
-            } catch (L) {
-              D.errors.push(yield new Promise((A) => E(L, I, C && C(), A)));
+              yield A(D);
+            } catch (q3) {
+              D.errors.push(yield new Promise((T) => E(q3, I, C && C(), T)));
             }
         }))().then(g5);
-      }, "runOnEndCallbacks")), nt = true, { ok: true, requestPlugins: q3, runOnEndCallbacks: at };
+      }, "runOnEndCallbacks")), nt = true, { ok: true, requestPlugins: L, runOnEndCallbacks: at };
     }), "handlePlugins");
     function Bn() {
       let h3 = /* @__PURE__ */ new Map(), d = 0;
@@ -9618,11 +9687,11 @@ is not a problem with esbuild. You need to fix your environment instead.
     }
     p2(Bn, "createObjectStash");
     function mr(h3, d, m3) {
-      let M, T = false;
+      let M, R3 = false;
       return () => {
-        if (T)
+        if (R3)
           return M;
-        T = true;
+        R3 = true;
         try {
           let $5 = (h3.stack + "").split(`
 `);
@@ -9635,7 +9704,7 @@ is not a problem with esbuild. You need to fix your environment instead.
       };
     }
     p2(mr, "extractCallerV8");
-    function je(h3, d, m3, M, T) {
+    function je(h3, d, m3, M, R3) {
       let $5 = "Internal error", j3 = null;
       try {
         $5 = (h3 && h3.message || h3) + "";
@@ -9646,14 +9715,14 @@ is not a problem with esbuild. You need to fix your environment instead.
 `), "");
       } catch {
       }
-      return { id: "", pluginName: T, text: $5, location: j3, notes: M ? [M] : [], detail: m3 ? m3.store(h3) : -1 };
+      return { id: "", pluginName: R3, text: $5, location: j3, notes: M ? [M] : [], detail: m3 ? m3.store(h3) : -1 };
     }
     p2(je, "extractErrorMessageV8");
     function Wn(h3, d, m3) {
       let M = "    at ";
       if (h3.readFileSync && !d[0].startsWith(M) && d[1].startsWith(M))
-        for (let T = 1; T < d.length; T++) {
-          let $5 = d[T];
+        for (let R3 = 1; R3 < d.length; R3++) {
+          let $5 = d[R3];
           if ($5.startsWith(M))
             for ($5 = $5.slice(M.length); ; ) {
               let j3 = /^(?:new |async )?\S+ \((.*)\)$/.exec($5);
@@ -9684,7 +9753,7 @@ is not a problem with esbuild. You need to fix your environment instead.
     }
     p2(Wn, "parseStackLinesV8");
     function Me(h3, d, m3) {
-      let M = 5, T = d.length < 1 ? "" : ` with ${d.length} error${d.length < 2 ? "" : "s"}:` + d.slice(0, M + 1).map((j3, U3) => {
+      let M = 5, R3 = d.length < 1 ? "" : ` with ${d.length} error${d.length < 2 ? "" : "s"}:` + d.slice(0, M + 1).map((j3, U3) => {
         if (U3 === M)
           return `
 ...`;
@@ -9694,7 +9763,7 @@ error: ${j3.text}`;
         let { file: x, line: V, column: Y } = j3.location, Z = j3.pluginName ? `[plugin: ${j3.pluginName}] ` : "";
         return `
 ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
-      }).join(""), $5 = new Error(`${h3}${T}`);
+      }).join(""), $5 = new Error(`${h3}${R3}`);
       return $5.errors = d, $5.warnings = m3, $5;
     }
     p2(Me, "failureErrorWithLog");
@@ -9707,24 +9776,24 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
     function Vn(h3, d) {
       if (h3 == null)
         return null;
-      let m3 = {}, M = S(h3, m3, "file", F), T = S(h3, m3, "namespace", F), $5 = S(h3, m3, "line", Ct), j3 = S(h3, m3, "column", Ct), U3 = S(h3, m3, "length", Ct), x = S(h3, m3, "lineText", F), V = S(h3, m3, "suggestion", F);
-      return kt(h3, m3, d), { file: M || "", namespace: T || "", line: $5 || 0, column: j3 || 0, length: U3 || 0, lineText: x || "", suggestion: V || "" };
+      let m3 = {}, M = S(h3, m3, "file", F), R3 = S(h3, m3, "namespace", F), $5 = S(h3, m3, "line", Ct), j3 = S(h3, m3, "column", Ct), U3 = S(h3, m3, "length", Ct), x = S(h3, m3, "lineText", F), V = S(h3, m3, "suggestion", F);
+      return kt(h3, m3, d), { file: M || "", namespace: R3 || "", line: $5 || 0, column: j3 || 0, length: U3 || 0, lineText: x || "", suggestion: V || "" };
     }
     p2(Vn, "sanitizeLocation");
     function we(h3, d, m3, M) {
-      let T = [], $5 = 0;
+      let R3 = [], $5 = 0;
       for (let j3 of h3) {
         let U3 = {}, x = S(j3, U3, "id", F), V = S(j3, U3, "pluginName", F), Y = S(j3, U3, "text", F), Z = S(j3, U3, "location", Un), rt = S(j3, U3, "notes", It), J = S(j3, U3, "detail", N), tt = `in element ${$5} of "${d}"`;
         kt(j3, U3, tt);
-        let q3 = [];
+        let L = [];
         if (rt)
           for (let nt of rt) {
             let at = {}, D = S(nt, at, "text", F), E = S(nt, at, "location", Un);
-            kt(nt, at, tt), q3.push({ text: D || "", location: Vn(E, tt) });
+            kt(nt, at, tt), L.push({ text: D || "", location: Vn(E, tt) });
           }
-        T.push({ id: x || "", pluginName: V || M, text: Y || "", location: Vn(Z, tt), notes: q3, detail: m3 ? m3.store(J) : -1 }), $5++;
+        R3.push({ id: x || "", pluginName: V || M, text: Y || "", location: Vn(Z, tt), notes: L, detail: m3 ? m3.store(J) : -1 }), $5++;
       }
-      return T;
+      return R3;
     }
     p2(we, "sanitizeMessages");
     function gr(h3, d) {
@@ -9745,7 +9814,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
       } };
     }
     p2(Bs, "convertOutputFiles");
-    var Ws = "0.16.13", Vs = p2((h3) => vr().build(h3), "build"), Js = p2(() => {
+    var Ws = "0.16.14", Vs = p2((h3) => vr().build(h3), "build"), Js = p2(() => {
       throw new Error('The "serve" API only works in node');
     }, "serve"), Hs = p2((h3, d) => vr().transform(h3, d), "transform"), Ks = p2((h3, d) => vr().formatMessages(h3, d), "formatMessages"), Ys = p2((h3, d) => vr().analyzeMetafile(h3, d), "analyzeMetafile"), Gs = p2(() => {
       throw new Error('The "buildSync" API only works in node');
@@ -9755,9 +9824,9 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
       throw new Error('The "formatMessagesSync" API only works in node');
     }, "formatMessagesSync"), Zs = p2(() => {
       throw new Error('The "analyzeMetafileSync" API only works in node');
-    }, "analyzeMetafileSync"), xe, Lr, vr = p2(() => {
-      if (Lr)
-        return Lr;
+    }, "analyzeMetafileSync"), xe, qr, vr = p2(() => {
+      if (qr)
+        return qr;
       throw xe ? new Error('You need to wait for the promise returned from "initialize" to be resolved before calling this') : new Error('You need to call "initialize" before calling this');
     }, "ensureServiceIsRunning"), to = p2((h3) => {
       h3 = Ds(h3 || {});
@@ -9813,6 +9882,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
           let outputBuf = "";
           globalThis.fs = {
             constants: { O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1 },
+            // unused
             writeSync(fd, buf) {
               outputBuf += decoder.decode(buf);
               const nl = outputBuf.lastIndexOf("\\n");
@@ -10048,6 +10118,11 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
             const timeOrigin = Date.now() - performance.now();
             this.importObject = {
               go: {
+                // Go's SP does not change as long as no Go code is running. Some operations (e.g. calls, getters and setters)
+                // may synchronously trigger a Go event handler. This makes Go code get executed in the middle of the imported
+                // function. A goroutine can switch to a new stack if the current stack is too small (see morestack function).
+                // This changes the SP, thus we have to update the SP used by the imported function.
+                // func wasmExit(code int32)
                 "runtime.wasmExit": (sp) => {
                   sp >>>= 0;
                   const code = this.mem.getInt32(sp + 8, true);
@@ -10059,6 +10134,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   delete this._idPool;
                   this.exit(code);
                 },
+                // func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
                 "runtime.wasmWrite": (sp) => {
                   sp >>>= 0;
                   const fd = getInt64(sp + 8);
@@ -10066,20 +10142,24 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   const n = this.mem.getInt32(sp + 24, true);
                   globalThis.fs.writeSync(fd, new Uint8Array(this._inst.exports.mem.buffer, p, n));
                 },
+                // func resetMemoryDataView()
                 "runtime.resetMemoryDataView": (sp) => {
                   sp >>>= 0;
                   this.mem = new DataView(this._inst.exports.mem.buffer);
                 },
+                // func nanotime1() int64
                 "runtime.nanotime1": (sp) => {
                   sp >>>= 0;
                   setInt64(sp + 8, (timeOrigin + performance.now()) * 1e6);
                 },
+                // func walltime() (sec int64, nsec int32)
                 "runtime.walltime": (sp) => {
                   sp >>>= 0;
                   const msec = new Date().getTime();
                   setInt64(sp + 8, msec / 1e3);
                   this.mem.setInt32(sp + 16, msec % 1e3 * 1e6, true);
                 },
+                // func scheduleTimeoutEvent(delay int64) int32
                 "runtime.scheduleTimeoutEvent": (sp) => {
                   sp >>>= 0;
                   const id = this._nextCallbackTimeoutID;
@@ -10093,19 +10173,23 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                       }
                     },
                     getInt64(sp + 8) + 1
+                    // setTimeout has been seen to fire up to 1 millisecond early
                   ));
                   this.mem.setInt32(sp + 16, id, true);
                 },
+                // func clearTimeoutEvent(id int32)
                 "runtime.clearTimeoutEvent": (sp) => {
                   sp >>>= 0;
                   const id = this.mem.getInt32(sp + 8, true);
                   clearTimeout(this._scheduledTimeouts.get(id));
                   this._scheduledTimeouts.delete(id);
                 },
+                // func getRandomData(r []byte)
                 "runtime.getRandomData": (sp) => {
                   sp >>>= 0;
                   crypto.getRandomValues(loadSlice(sp + 8));
                 },
+                // func finalizeRef(v ref)
                 "syscall/js.finalizeRef": (sp) => {
                   sp >>>= 0;
                   const id = this.mem.getUint32(sp + 8, true);
@@ -10117,32 +10201,39 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this._idPool.push(id);
                   }
                 },
+                // func stringVal(value string) ref
                 "syscall/js.stringVal": (sp) => {
                   sp >>>= 0;
                   storeValue(sp + 24, loadString(sp + 8));
                 },
+                // func valueGet(v ref, p string) ref
                 "syscall/js.valueGet": (sp) => {
                   sp >>>= 0;
                   const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));
                   sp = this._inst.exports.getsp() >>> 0;
                   storeValue(sp + 32, result);
                 },
+                // func valueSet(v ref, p string, x ref)
                 "syscall/js.valueSet": (sp) => {
                   sp >>>= 0;
                   Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));
                 },
+                // func valueDelete(v ref, p string)
                 "syscall/js.valueDelete": (sp) => {
                   sp >>>= 0;
                   Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));
                 },
+                // func valueIndex(v ref, i int) ref
                 "syscall/js.valueIndex": (sp) => {
                   sp >>>= 0;
                   storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));
                 },
+                // valueSetIndex(v ref, i int, x ref)
                 "syscall/js.valueSetIndex": (sp) => {
                   sp >>>= 0;
                   Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));
                 },
+                // func valueCall(v ref, m string, args []ref) (ref, bool)
                 "syscall/js.valueCall": (sp) => {
                   sp >>>= 0;
                   try {
@@ -10159,6 +10250,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this.mem.setUint8(sp + 64, 0);
                   }
                 },
+                // func valueInvoke(v ref, args []ref) (ref, bool)
                 "syscall/js.valueInvoke": (sp) => {
                   sp >>>= 0;
                   try {
@@ -10174,6 +10266,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this.mem.setUint8(sp + 48, 0);
                   }
                 },
+                // func valueNew(v ref, args []ref) (ref, bool)
                 "syscall/js.valueNew": (sp) => {
                   sp >>>= 0;
                   try {
@@ -10189,25 +10282,30 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this.mem.setUint8(sp + 48, 0);
                   }
                 },
+                // func valueLength(v ref) int
                 "syscall/js.valueLength": (sp) => {
                   sp >>>= 0;
                   setInt64(sp + 16, parseInt(loadValue(sp + 8).length));
                 },
+                // valuePrepareString(v ref) (ref, int)
                 "syscall/js.valuePrepareString": (sp) => {
                   sp >>>= 0;
                   const str = encoder.encode(String(loadValue(sp + 8)));
                   storeValue(sp + 16, str);
                   setInt64(sp + 24, str.length);
                 },
+                // valueLoadString(v ref, b []byte)
                 "syscall/js.valueLoadString": (sp) => {
                   sp >>>= 0;
                   const str = loadValue(sp + 8);
                   loadSlice(sp + 16).set(str);
                 },
+                // func valueInstanceOf(v ref, t ref) bool
                 "syscall/js.valueInstanceOf": (sp) => {
                   sp >>>= 0;
                   this.mem.setUint8(sp + 24, loadValue(sp + 8) instanceof loadValue(sp + 16) ? 1 : 0);
                 },
+                // func copyBytesToGo(dst []byte, src ref) (int, bool)
                 "syscall/js.copyBytesToGo": (sp) => {
                   sp >>>= 0;
                   const dst = loadSlice(sp + 8);
@@ -10221,6 +10319,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   setInt64(sp + 40, toCopy.length);
                   this.mem.setUint8(sp + 48, 1);
                 },
+                // func copyBytesToJS(dst ref, src []byte) (int, bool)
                 "syscall/js.copyBytesToJS": (sp) => {
                   sp >>>= 0;
                   const dst = loadValue(sp + 8);
@@ -10248,6 +10347,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
               this._inst = instance;
               this.mem = new DataView(this._inst.exports.mem.buffer);
               this._values = [
+                // JS values that Go currently has references to, indexed by reference id
                 NaN,
                 0,
                 null,
@@ -10258,6 +10358,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
               ];
               this._goRefCounts = new Array(this._values.length).fill(Infinity);
               this._ids = /* @__PURE__ */ new Map([
+                // mapping from JS values to reference ids
                 [0, 1],
                 [null, 2],
                 [true, 3],
@@ -10373,7 +10474,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
           callback(null, count);
         };
         let go = new globalThis.Go();
-        go.argv = ["", \`--service=\${"0.16.13"}\`];
+        go.argv = ["", \`--service=\${"0.16.14"}\`];
         tryToInstantiateModule(wasm, go).then(
           (instance) => {
             postMessage(null);
@@ -10406,28 +10507,28 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
         M = new Worker(URL.createObjectURL(V));
       } else {
         let V = ((Y) => {
-          var Z = p2((q3, nt, at) => new Promise((D, E) => {
+          var Z = p2((L, nt, at) => new Promise((D, E) => {
             var g5 = p2((C) => {
               try {
-                R3(at.next(C));
-              } catch (L) {
-                E(L);
+                A(at.next(C));
+              } catch (q3) {
+                E(q3);
               }
             }, "fulfilled"), I = p2((C) => {
               try {
-                R3(at.throw(C));
-              } catch (L) {
-                E(L);
+                A(at.throw(C));
+              } catch (q3) {
+                E(q3);
               }
-            }, "rejected"), R3 = p2((C) => C.done ? D(C.value) : Promise.resolve(C.value).then(g5, I), "step");
-            R3((at = at.apply(q3, nt)).next());
+            }, "rejected"), A = p2((C) => C.done ? D(C.value) : Promise.resolve(C.value).then(g5, I), "step");
+            A((at = at.apply(L, nt)).next());
           }), "__async");
           let rt, J = {};
-          for (let q3 = self; q3; q3 = Object.getPrototypeOf(q3))
-            for (let nt of Object.getOwnPropertyNames(q3))
+          for (let L = self; L; L = Object.getPrototypeOf(L))
+            for (let nt of Object.getOwnPropertyNames(L))
               nt in J || Object.defineProperty(J, nt, { get: () => self[nt] });
           (() => {
-            let q3 = p2(() => {
+            let L = p2(() => {
               let D = new Error("not implemented");
               return D.code = "ENOSYS", D;
             }, "enosys");
@@ -10438,59 +10539,59 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 let I = D.lastIndexOf(`
 `);
                 return I != -1 && (console.log(D.substr(0, I)), D = D.substr(I + 1)), g5.length;
-              }, write(E, g5, I, R3, C, L) {
-                if (I !== 0 || R3 !== g5.length || C !== null) {
-                  L(q3());
+              }, write(E, g5, I, A, C, q3) {
+                if (I !== 0 || A !== g5.length || C !== null) {
+                  q3(L());
                   return;
                 }
-                let A = this.writeSync(E, g5);
-                L(null, A);
+                let T = this.writeSync(E, g5);
+                q3(null, T);
               }, chmod(E, g5, I) {
-                I(q3());
-              }, chown(E, g5, I, R3) {
-                R3(q3());
+                I(L());
+              }, chown(E, g5, I, A) {
+                A(L());
               }, close(E, g5) {
-                g5(q3());
+                g5(L());
               }, fchmod(E, g5, I) {
-                I(q3());
-              }, fchown(E, g5, I, R3) {
-                R3(q3());
+                I(L());
+              }, fchown(E, g5, I, A) {
+                A(L());
               }, fstat(E, g5) {
-                g5(q3());
+                g5(L());
               }, fsync(E, g5) {
                 g5(null);
               }, ftruncate(E, g5, I) {
-                I(q3());
-              }, lchown(E, g5, I, R3) {
-                R3(q3());
+                I(L());
+              }, lchown(E, g5, I, A) {
+                A(L());
               }, link(E, g5, I) {
-                I(q3());
+                I(L());
               }, lstat(E, g5) {
-                g5(q3());
+                g5(L());
               }, mkdir(E, g5, I) {
-                I(q3());
-              }, open(E, g5, I, R3) {
-                R3(q3());
-              }, read(E, g5, I, R3, C, L) {
-                L(q3());
+                I(L());
+              }, open(E, g5, I, A) {
+                A(L());
+              }, read(E, g5, I, A, C, q3) {
+                q3(L());
               }, readdir(E, g5) {
-                g5(q3());
+                g5(L());
               }, readlink(E, g5) {
-                g5(q3());
+                g5(L());
               }, rename(E, g5, I) {
-                I(q3());
+                I(L());
               }, rmdir(E, g5) {
-                g5(q3());
+                g5(L());
               }, stat(E, g5) {
-                g5(q3());
+                g5(L());
               }, symlink(E, g5, I) {
-                I(q3());
+                I(L());
               }, truncate(E, g5, I) {
-                I(q3());
+                I(L());
               }, unlink(E, g5) {
-                g5(q3());
-              }, utimes(E, g5, I, R3) {
-                R3(q3());
+                g5(L());
+              }, utimes(E, g5, I, A) {
+                A(L());
               } };
             }
             if (J.process || (J.process = { getuid() {
@@ -10502,13 +10603,13 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
             }, getegid() {
               return -1;
             }, getgroups() {
-              throw q3();
+              throw L();
             }, pid: -1, ppid: -1, umask() {
-              throw q3();
+              throw L();
             }, cwd() {
-              throw q3();
+              throw L();
             }, chdir() {
-              throw q3();
+              throw L();
             } }), !J.crypto)
               throw new Error("globalThis.crypto is not available, polyfill required (crypto.getRandomValues only)");
             if (!J.performance)
@@ -10569,7 +10670,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                       break;
                   }
                   this.mem.setUint32(f + 4, 2146959360 | H, true), this.mem.setUint32(f, P, true);
-                }, "storeValue"), R3 = p2((f) => {
+                }, "storeValue"), A = p2((f) => {
                   let O = E(f + 0), z = E(f + 8);
                   return new Uint8Array(this._inst.exports.mem.buffer, O, z);
                 }, "loadSlice"), C = p2((f) => {
@@ -10577,10 +10678,10 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   for (let H = 0; H < z; H++)
                     P[H] = g5(O + H * 8);
                   return P;
-                }, "loadSliceOfValues"), L = p2((f) => {
+                }, "loadSliceOfValues"), q3 = p2((f) => {
                   let O = E(f + 0), z = E(f + 8);
                   return at.decode(new DataView(this._inst.exports.mem.buffer, O, z));
-                }, "loadString"), A = Date.now() - performance.now();
+                }, "loadString"), T = Date.now() - performance.now();
                 this.importObject = { go: { "runtime.wasmExit": (f) => {
                   f >>>= 0;
                   let O = this.mem.getInt32(f + 8, true);
@@ -10592,7 +10693,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 }, "runtime.resetMemoryDataView": (f) => {
                   f >>>= 0, this.mem = new DataView(this._inst.exports.mem.buffer);
                 }, "runtime.nanotime1": (f) => {
-                  f >>>= 0, D(f + 8, (A + performance.now()) * 1e6);
+                  f >>>= 0, D(f + 8, (T + performance.now()) * 1e6);
                 }, "runtime.walltime": (f) => {
                   f >>>= 0;
                   let O = new Date().getTime();
@@ -10609,7 +10710,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   let O = this.mem.getInt32(f + 8, true);
                   clearTimeout(this._scheduledTimeouts.get(O)), this._scheduledTimeouts.delete(O);
                 }, "runtime.getRandomData": (f) => {
-                  f >>>= 0, crypto.getRandomValues(R3(f + 8));
+                  f >>>= 0, crypto.getRandomValues(A(f + 8));
                 }, "syscall/js.finalizeRef": (f) => {
                   f >>>= 0;
                   let O = this.mem.getUint32(f + 8, true);
@@ -10618,15 +10719,15 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                     this._values[O] = null, this._ids.delete(z), this._idPool.push(O);
                   }
                 }, "syscall/js.stringVal": (f) => {
-                  f >>>= 0, I(f + 24, L(f + 8));
+                  f >>>= 0, I(f + 24, q3(f + 8));
                 }, "syscall/js.valueGet": (f) => {
                   f >>>= 0;
-                  let O = Reflect.get(g5(f + 8), L(f + 16));
+                  let O = Reflect.get(g5(f + 8), q3(f + 16));
                   f = this._inst.exports.getsp() >>> 0, I(f + 32, O);
                 }, "syscall/js.valueSet": (f) => {
-                  f >>>= 0, Reflect.set(g5(f + 8), L(f + 16), g5(f + 32));
+                  f >>>= 0, Reflect.set(g5(f + 8), q3(f + 16), g5(f + 32));
                 }, "syscall/js.valueDelete": (f) => {
-                  f >>>= 0, Reflect.deleteProperty(g5(f + 8), L(f + 16));
+                  f >>>= 0, Reflect.deleteProperty(g5(f + 8), q3(f + 16));
                 }, "syscall/js.valueIndex": (f) => {
                   f >>>= 0, I(f + 24, Reflect.get(g5(f + 8), E(f + 16)));
                 }, "syscall/js.valueSetIndex": (f) => {
@@ -10634,7 +10735,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 }, "syscall/js.valueCall": (f) => {
                   f >>>= 0;
                   try {
-                    let O = g5(f + 8), z = Reflect.get(O, L(f + 16)), P = C(f + 32), H = Reflect.apply(z, O, P);
+                    let O = g5(f + 8), z = Reflect.get(O, q3(f + 16)), P = C(f + 32), H = Reflect.apply(z, O, P);
                     f = this._inst.exports.getsp() >>> 0, I(f + 56, H), this.mem.setUint8(f + 64, 1);
                   } catch (O) {
                     f = this._inst.exports.getsp() >>> 0, I(f + 56, O), this.mem.setUint8(f + 64, 0);
@@ -10664,12 +10765,12 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 }, "syscall/js.valueLoadString": (f) => {
                   f >>>= 0;
                   let O = g5(f + 8);
-                  R3(f + 16).set(O);
+                  A(f + 16).set(O);
                 }, "syscall/js.valueInstanceOf": (f) => {
                   f >>>= 0, this.mem.setUint8(f + 24, g5(f + 8) instanceof g5(f + 16) ? 1 : 0);
                 }, "syscall/js.copyBytesToGo": (f) => {
                   f >>>= 0;
-                  let O = R3(f + 8), z = g5(f + 32);
+                  let O = A(f + 8), z = g5(f + 32);
                   if (!(z instanceof Uint8Array || z instanceof Uint8ClampedArray)) {
                     this.mem.setUint8(f + 48, 0);
                     return;
@@ -10678,7 +10779,7 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   O.set(P), D(f + 40, P.length), this.mem.setUint8(f + 48, 1);
                 }, "syscall/js.copyBytesToJS": (f) => {
                   f >>>= 0;
-                  let O = g5(f + 8), z = R3(f + 16);
+                  let O = g5(f + 8), z = A(f + 16);
                   if (!(O instanceof Uint8Array || O instanceof Uint8ClampedArray)) {
                     this.mem.setUint8(f + 48, 0);
                     return;
@@ -10697,20 +10798,20 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                   let E = 4096, g5 = p2((f) => {
                     let O = E, z = nt.encode(f + "\0");
                     return new Uint8Array(this.mem.buffer, E, z.length).set(z), E += z.length, E % 8 !== 0 && (E += 8 - E % 8), O;
-                  }, "strPtr"), I = this.argv.length, R3 = [];
+                  }, "strPtr"), I = this.argv.length, A = [];
                   this.argv.forEach((f) => {
-                    R3.push(g5(f));
-                  }), R3.push(0), Object.keys(this.env).sort().forEach((f) => {
-                    R3.push(g5(`${f}=${this.env[f]}`));
-                  }), R3.push(0);
-                  let L = E;
-                  R3.forEach((f) => {
+                    A.push(g5(f));
+                  }), A.push(0), Object.keys(this.env).sort().forEach((f) => {
+                    A.push(g5(`${f}=${this.env[f]}`));
+                  }), A.push(0);
+                  let q3 = E;
+                  A.forEach((f) => {
                     this.mem.setUint32(E, f, true), this.mem.setUint32(E + 4, 0, true), E += 8;
                   });
-                  let A = 4096 + 8192;
-                  if (E >= A)
+                  let T = 4096 + 8192;
+                  if (E >= T)
                     throw new Error("total length of command line and environment variables exceeds limit");
-                  this._inst.exports.run(I, L), this.exited && this._resolveExitPromise(), yield this._exitPromise;
+                  this._inst.exports.run(I, q3), this.exited && this._resolveExitPromise(), yield this._exitPromise;
                 });
               }
               _resume() {
@@ -10726,69 +10827,69 @@ ${x}:${V}:${Y}: ERROR: ${Z}${j3.text}`;
                 };
               }
             };
-          })(), rt = p2(({ data: q3 }) => {
+          })(), rt = p2(({ data: L }) => {
             let nt = new TextDecoder(), at = J.fs, D = "";
-            at.writeSync = (C, L) => {
+            at.writeSync = (C, q3) => {
               if (C === 1)
-                Y(L);
+                Y(q3);
               else if (C === 2) {
-                D += nt.decode(L);
-                let A = D.split(`
+                D += nt.decode(q3);
+                let T = D.split(`
 `);
-                A.length > 1 && console.log(A.slice(0, -1).join(`
-`)), D = A[A.length - 1];
+                T.length > 1 && console.log(T.slice(0, -1).join(`
+`)), D = T[T.length - 1];
               } else
                 throw new Error("Bad write");
-              return L.length;
+              return q3.length;
             };
             let E = [], g5, I = 0;
             rt = p2(({ data: C }) => {
               C.length > 0 && (E.push(C), g5 && g5());
-            }, "onmessage"), at.read = (C, L, A, f, O, z) => {
-              if (C !== 0 || A !== 0 || f !== L.length || O !== null)
+            }, "onmessage"), at.read = (C, q3, T, f, O, z) => {
+              if (C !== 0 || T !== 0 || f !== q3.length || O !== null)
                 throw new Error("Bad read");
               if (E.length === 0) {
-                g5 = p2(() => at.read(C, L, A, f, O, z), "resumeStdin");
+                g5 = p2(() => at.read(C, q3, T, f, O, z), "resumeStdin");
                 return;
               }
               let P = E[0], H = Math.max(0, Math.min(f, P.length - I));
-              L.set(P.subarray(I, I + H), A), I += H, I === P.length && (E.shift(), I = 0), z(null, H);
+              q3.set(P.subarray(I, I + H), T), I += H, I === P.length && (E.shift(), I = 0), z(null, H);
             };
-            let R3 = new J.Go();
-            R3.argv = ["", "--service=0.16.13"], tt(q3, R3).then((C) => {
-              Y(null), R3.run(C);
+            let A = new J.Go();
+            A.argv = ["", "--service=0.16.14"], tt(L, A).then((C) => {
+              Y(null), A.run(C);
             }, (C) => {
               Y(C);
             });
           }, "onmessage");
-          function tt(q3, nt) {
+          function tt(L, nt) {
             return Z(this, null, function* () {
-              if (q3 instanceof WebAssembly.Module)
-                return WebAssembly.instantiate(q3, nt.importObject);
-              let at = yield fetch(q3);
+              if (L instanceof WebAssembly.Module)
+                return WebAssembly.instantiate(L, nt.importObject);
+              let at = yield fetch(L);
               if (!at.ok)
-                throw new Error(`Failed to download ${JSON.stringify(q3)}`);
+                throw new Error(`Failed to download ${JSON.stringify(L)}`);
               if ("instantiateStreaming" in WebAssembly && /^application\/wasm($|;)/i.test(at.headers.get("Content-Type") || ""))
                 return (yield WebAssembly.instantiateStreaming(at, nt.importObject)).instance;
               let D = yield at.arrayBuffer();
               return (yield WebAssembly.instantiate(D, nt.importObject)).instance;
             });
           }
-          return p2(tt, "tryToInstantiateModule"), (q3) => rt(q3);
+          return p2(tt, "tryToInstantiateModule"), (L) => rt(L);
         })((Y) => M.onmessage({ data: Y }));
         M = { onmessage: null, postMessage: (Y) => setTimeout(() => V({ data: Y })), terminate() {
         } };
       }
-      let T, $5, j3 = new Promise((V, Y) => {
-        T = V, $5 = Y;
+      let R3, $5, j3 = new Promise((V, Y) => {
+        R3 = V, $5 = Y;
       });
       M.onmessage = ({ data: V }) => {
-        M.onmessage = ({ data: Y }) => U3(Y), V ? $5(V) : T();
+        M.onmessage = ({ data: Y }) => U3(Y), V ? $5(V) : R3();
       }, M.postMessage(d || new URL(h3, location.href).toString());
       let { readFromStdout: U3, service: x } = Ns({ writeToStdin(V) {
         M.postMessage(V);
       }, isSync: false, isWriteUnavailable: true, esbuild: c });
-      yield j3, Lr = { build: (V) => new Promise((Y, Z) => x.buildOrServe({ callName: "build", refs: null, serveOptions: null, options: V, isTTY: false, defaultWD: "/", callback: (rt, J) => rt ? Z(rt) : Y(J) })), transform: (V, Y) => new Promise((Z, rt) => x.transform({ callName: "transform", refs: null, input: V, options: Y || {}, isTTY: false, fs: { readFile(J, tt) {
+      yield j3, qr = { build: (V) => new Promise((Y, Z) => x.buildOrServe({ callName: "build", refs: null, serveOptions: null, options: V, isTTY: false, defaultWD: "/", callback: (rt, J) => rt ? Z(rt) : Y(J) })), transform: (V, Y) => new Promise((Z, rt) => x.transform({ callName: "transform", refs: null, input: V, options: Y || {}, isTTY: false, fs: { readFile(J, tt) {
         tt(new Error("Internal error"), null);
       }, writeFile(J, tt) {
         tt(null);
@@ -10973,10 +11074,10 @@ p2(Ht2, "SetRef");
 function nn2() {
 }
 p2(nn2, "OwnerID");
-function Re2(t3) {
+function Ae2(t3) {
   return t3.size === void 0 && (t3.size = t3.__iterate(Oi2)), t3.size;
 }
-p2(Re2, "ensureSize");
+p2(Ae2, "ensureSize");
 function me2(t3, e3) {
   if (typeof e3 != "number") {
     var r3 = e3 >>> 0;
@@ -10984,7 +11085,7 @@ function me2(t3, e3) {
       return NaN;
     e3 = r3;
   }
-  return e3 < 0 ? Re2(t3) + e3 : e3;
+  return e3 < 0 ? Ae2(t3) + e3 : e3;
 }
 p2(me2, "wrapIndex");
 function Oi2() {
@@ -11026,10 +11127,10 @@ function Ut2(t3) {
   return Boolean(t3 && t3[xi2]);
 }
 p2(Ut2, "isIndexed");
-function Ar2(t3) {
+function Tr2(t3) {
   return vt2(t3) || Ut2(t3);
 }
-p2(Ar2, "isAssociative");
+p2(Tr2, "isAssociative");
 var Et2 = p2(function(e3) {
   return Nt2(e3) ? e3 : Wt2(e3);
 }, "Collection");
@@ -11047,21 +11148,21 @@ var Oe2 = function(t3) {
 }(Et2);
 var Ue2 = function(t3) {
   function e3(r3) {
-    return Nt2(r3) && !Ar2(r3) ? r3 : Le2(r3);
+    return Nt2(r3) && !Tr2(r3) ? r3 : qe2(r3);
   }
   return p2(e3, "SetCollection"), t3 && (e3.__proto__ = t3), e3.prototype = Object.create(t3 && t3.prototype), e3.prototype.constructor = e3, e3;
 }(Et2);
 Et2.Keyed = Gt2;
 Et2.Indexed = Oe2;
 Et2.Set = Ue2;
-var Ai2 = "@@__IMMUTABLE_SEQ__@@";
+var Ti2 = "@@__IMMUTABLE_SEQ__@@";
 function sn2(t3) {
-  return Boolean(t3 && t3[Ai2]);
+  return Boolean(t3 && t3[Ti2]);
 }
 p2(sn2, "isSeq");
-var Ri2 = "@@__IMMUTABLE_RECORD__@@";
+var Ai2 = "@@__IMMUTABLE_RECORD__@@";
 function Ne2(t3) {
-  return Boolean(t3 && t3[Ri2]);
+  return Boolean(t3 && t3[Ai2]);
 }
 p2(Ne2, "isRecord");
 function ue2(t3) {
@@ -11077,8 +11178,8 @@ var ur2 = 0;
 var ne2 = 1;
 var Yt2 = 2;
 var Yr2 = typeof Symbol == "function" && Symbol.iterator;
-var Ti2 = "@@iterator";
-var Rr2 = Yr2 || Ti2;
+var Ri2 = "@@iterator";
+var Ar2 = Yr2 || Ri2;
 var lt2 = p2(function(e3) {
   this.next = e3;
 }, "Iterator");
@@ -11091,7 +11192,7 @@ lt2.ENTRIES = Yt2;
 lt2.prototype.inspect = lt2.prototype.toSource = function() {
   return this.toString();
 };
-lt2.prototype[Rr2] = function() {
+lt2.prototype[Ar2] = function() {
   return this;
 };
 function yt2(t3, e3, r3, n) {
@@ -11104,7 +11205,7 @@ function Ft2() {
 }
 p2(Ft2, "iteratorDone");
 function $i2(t3) {
-  return Array.isArray(t3) ? true : !!Tr2(t3);
+  return Array.isArray(t3) ? true : !!Rr2(t3);
 }
 p2($i2, "hasIterator");
 function Zn2(t3) {
@@ -11112,27 +11213,27 @@ function Zn2(t3) {
 }
 p2(Zn2, "isIterator");
 function Gr2(t3) {
-  var e3 = Tr2(t3);
+  var e3 = Rr2(t3);
   return e3 && e3.call(t3);
 }
 p2(Gr2, "getIterator");
-function Tr2(t3) {
-  var e3 = t3 && (Yr2 && t3[Yr2] || t3[Ti2]);
+function Rr2(t3) {
+  var e3 = t3 && (Yr2 && t3[Yr2] || t3[Ri2]);
   if (typeof e3 == "function")
     return e3;
 }
-p2(Tr2, "getIteratorFn");
+p2(Rr2, "getIteratorFn");
 function oo2(t3) {
-  var e3 = Tr2(t3);
+  var e3 = Rr2(t3);
   return e3 && e3 === t3.entries;
 }
 p2(oo2, "isEntriesIterable");
 function ao2(t3) {
-  var e3 = Tr2(t3);
+  var e3 = Rr2(t3);
   return e3 && e3 === t3.keys;
 }
 p2(ao2, "isKeysIterable");
-var qe2 = Object.prototype.hasOwnProperty;
+var Le2 = Object.prototype.hasOwnProperty;
 function zi2(t3) {
   return Array.isArray(t3) || typeof t3 == "string" ? true : t3 && typeof t3 == "object" && Number.isInteger(t3.length) && t3.length >= 0 && (t3.length === 0 ? Object.keys(t3).length === 1 : t3.hasOwnProperty(t3.length - 1));
 }
@@ -11192,9 +11293,9 @@ var ie2 = function(t3) {
     return this.__toString("Seq [", "]");
   }, "toString"), e3;
 }(Wt2);
-var Le2 = function(t3) {
+var qe2 = function(t3) {
   function e3(r3) {
-    return (Nt2(r3) && !Ar2(r3) ? r3 : ie2(r3)).toSetSeq();
+    return (Nt2(r3) && !Tr2(r3) ? r3 : ie2(r3)).toSetSeq();
   }
   return p2(e3, "SetSeq"), t3 && (e3.__proto__ = t3), e3.prototype = Object.create(t3 && t3.prototype), e3.prototype.constructor = e3, e3.of = p2(function() {
     return e3(arguments);
@@ -11204,9 +11305,9 @@ var Le2 = function(t3) {
 }(Wt2);
 Wt2.isSeq = sn2;
 Wt2.Keyed = ve2;
-Wt2.Set = Le2;
+Wt2.Set = qe2;
 Wt2.Indexed = ie2;
-Wt2.prototype[Ai2] = true;
+Wt2.prototype[Ti2] = true;
 var Ee2 = function(t3) {
   function e3(r3) {
     this._array = r3, this.size = r3.length;
@@ -11238,7 +11339,7 @@ var on2 = function(t3) {
   return p2(e3, "ObjectSeq"), t3 && (e3.__proto__ = t3), e3.prototype = Object.create(t3 && t3.prototype), e3.prototype.constructor = e3, e3.prototype.get = p2(function(n, s) {
     return s !== void 0 && !this.has(n) ? s : this._object[n];
   }, "get"), e3.prototype.has = p2(function(n) {
-    return qe2.call(this._object, n);
+    return Le2.call(this._object, n);
   }, "has"), e3.prototype.__iterate = p2(function(n, s) {
     for (var o5 = this._object, a = this._keys, u = a.length, l3 = 0; l3 !== u; ) {
       var c = a[s ? u - ++l3 : l3++];
@@ -11353,7 +11454,7 @@ function $r2(t3) {
 }
 p2($r2, "smi");
 var fo2 = Object.prototype.valueOf;
-function Lt2(t3) {
+function qt2(t3) {
   if (t3 == null)
     return ri2(t3);
   if (typeof t3.hashCode == "function")
@@ -11379,7 +11480,7 @@ function Lt2(t3) {
       throw new Error("Value type " + typeof e3 + " cannot be hashed.");
   }
 }
-p2(Lt2, "hash");
+p2(qt2, "hash");
 function ri2(t3) {
   return t3 === null ? 1108378658 : 1108378659;
 }
@@ -11508,12 +11609,12 @@ var Ni2 = function(t3) {
     return this._iter.includes(n);
   }, "includes"), e3.prototype.__iterate = p2(function(n, s) {
     var o5 = this, a = 0;
-    return s && Re2(this), this._iter.__iterate(function(u) {
+    return s && Ae2(this), this._iter.__iterate(function(u) {
       return n(u, s ? o5.size - ++a : a++, o5);
     }, s);
   }, "__iterate"), e3.prototype.__iterator = p2(function(n, s) {
     var o5 = this, a = this._iter.__iterator(ne2, s), u = 0;
-    return s && Re2(this), new lt2(function() {
+    return s && Ae2(this), new lt2(function() {
       var l3 = a.next();
       return l3.done ? l3 : yt2(n, s ? o5.size - ++u : u++, l3.value, l3);
     });
@@ -11537,8 +11638,8 @@ var Fi2 = function(t3) {
       return a.done ? a : yt2(n, a.value, a.value, a);
     });
   }, "__iterator"), e3;
-}(Le2);
-var qi2 = function(t3) {
+}(qe2);
+var Li2 = function(t3) {
   function e3(r3) {
     this._iter = r3, this.size = r3.size;
   }
@@ -11570,8 +11671,8 @@ var qi2 = function(t3) {
     });
   }, "__iterator"), e3;
 }(ve2);
-Ni2.prototype.cacheResult = zr2.prototype.cacheResult = Fi2.prototype.cacheResult = qi2.prototype.cacheResult = dn2;
-function Li2(t3) {
+Ni2.prototype.cacheResult = zr2.prototype.cacheResult = Fi2.prototype.cacheResult = Li2.prototype.cacheResult = dn2;
+function qi2(t3) {
   var e3 = le2(t3);
   return e3._iter = t3, e3.size = t3.size, e3.flip = function() {
     return t3;
@@ -11604,7 +11705,7 @@ function Li2(t3) {
     return t3.__iterator(r3 === ne2 ? ur2 : ne2, n);
   }, e3;
 }
-p2(Li2, "flipFactory");
+p2(qi2, "flipFactory");
 function Bi2(t3, e3, r3) {
   var n = le2(t3);
   return n.size = t3.size, n.has = function(s) {
@@ -11634,7 +11735,7 @@ function cn2(t3, e3) {
   return n._iter = t3, n.size = t3.size, n.reverse = function() {
     return t3;
   }, t3.flip && (n.flip = function() {
-    var s = Li2(t3);
+    var s = qi2(t3);
     return s.reverse = function() {
       return t3.flip();
     }, s;
@@ -11646,12 +11747,12 @@ function cn2(t3, e3) {
     return t3.includes(s);
   }, n.cacheResult = dn2, n.__iterate = function(s, o5) {
     var a = this, u = 0;
-    return o5 && Re2(t3), t3.__iterate(function(l3, c) {
+    return o5 && Ae2(t3), t3.__iterate(function(l3, c) {
       return s(l3, e3 ? c : o5 ? a.size - ++u : u++, a);
     }, !o5);
   }, n.__iterator = function(s, o5) {
     var a = 0;
-    o5 && Re2(t3);
+    o5 && Ae2(t3);
     var u = t3.__iterator(Yt2, !o5);
     return new lt2(function() {
       var l3 = u.next();
@@ -11900,7 +12001,7 @@ function ko2(t3, e3) {
   }, r3;
 }
 p2(ko2, "interposeFactory");
-function Te2(t3, e3, r3) {
+function Re2(t3, e3, r3) {
   e3 || (e3 = Hi2);
   var n = vt2(t3), s = 0, o5 = t3.toSeq().map(function(a, u) {
     return [u, a, s++, r3 ? r3(a, u, t3) : a];
@@ -11911,9 +12012,9 @@ function Te2(t3, e3, r3) {
     o5[u].length = 2;
   } : function(a, u) {
     o5[u] = a[1];
-  }), n ? ve2(o5) : Ut2(t3) ? ie2(o5) : Le2(o5);
+  }), n ? ve2(o5) : Ut2(t3) ? ie2(o5) : qe2(o5);
 }
-p2(Te2, "sortFactory");
+p2(Re2, "sortFactory");
 function wr2(t3, e3, r3) {
   if (e3 || (e3 = Hi2), r3) {
     var n = t3.toSeq().map(function(s, o5) {
@@ -11974,7 +12075,7 @@ function pn2(t3) {
 }
 p2(pn2, "collectionClass");
 function le2(t3) {
-  return Object.create((vt2(t3) ? ve2 : Ut2(t3) ? ie2 : Le2).prototype);
+  return Object.create((vt2(t3) ? ve2 : Ut2(t3) ? ie2 : qe2).prototype);
 }
 p2(le2, "makeSequence");
 function dn2() {
@@ -12034,7 +12135,7 @@ function tr2(t3) {
 }
 p2(tr2, "quoteString");
 function xo2(t3, e3) {
-  return ue2(t3) ? t3.has(e3) : ge2(t3) && qe2.call(t3, e3);
+  return ue2(t3) ? t3.has(e3) : ge2(t3) && Le2.call(t3, e3);
 }
 p2(xo2, "has");
 function Yi2(t3, e3, r3) {
@@ -12046,11 +12147,11 @@ function kr2(t3) {
     return ae2(t3);
   var e3 = {};
   for (var r3 in t3)
-    qe2.call(t3, r3) && (e3[r3] = t3[r3]);
+    Le2.call(t3, r3) && (e3[r3] = t3[r3]);
   return e3;
 }
 p2(kr2, "shallowCopy");
-function Ao2(t3, e3) {
+function To2(t3, e3) {
   if (!ge2(t3))
     throw new TypeError("Cannot update non-data-structure value: " + t3);
   if (ue2(t3)) {
@@ -12058,13 +12159,13 @@ function Ao2(t3, e3) {
       throw new TypeError("Cannot update immutable value without .remove() method: " + t3);
     return t3.remove(e3);
   }
-  if (!qe2.call(t3, e3))
+  if (!Le2.call(t3, e3))
     return t3;
   var r3 = kr2(t3);
   return Array.isArray(r3) ? r3.splice(e3, 1) : delete r3[e3], r3;
 }
-p2(Ao2, "remove");
-function Ro2(t3, e3, r3) {
+p2(To2, "remove");
+function Ao2(t3, e3, r3) {
   if (!ge2(t3))
     throw new TypeError("Cannot update non-data-structure value: " + t3);
   if (ue2(t3)) {
@@ -12072,12 +12173,12 @@ function Ro2(t3, e3, r3) {
       throw new TypeError("Cannot update immutable value without .set() method: " + t3);
     return t3.set(e3, r3);
   }
-  if (qe2.call(t3, e3) && r3 === t3[e3])
+  if (Le2.call(t3, e3) && r3 === t3[e3])
     return t3;
   var n = kr2(t3);
   return n[e3] = r3, n;
 }
-p2(Ro2, "set");
+p2(Ao2, "set");
 function Be2(t3, e3, r3, n) {
   n || (n = r3, r3 = void 0);
   var s = Gi2(ue2(t3), t3, Ki2(e3), 0, r3, n);
@@ -12093,17 +12194,17 @@ function Gi2(t3, e3, r3, n, s, o5) {
   if (!a && !ge2(e3))
     throw new TypeError("Cannot update within non-data-structure value in path [" + r3.slice(0, n).map(tr2) + "]: " + e3);
   var c = r3[n], _ = a ? ot2 : Yi2(e3, c, ot2), p3 = Gi2(_ === ot2 ? t3 : ue2(_), _, r3, n + 1, s, o5);
-  return p3 === _ ? e3 : p3 === ot2 ? Ao2(e3, c) : Ro2(a ? t3 ? ee2() : {} : e3, c, p3);
+  return p3 === _ ? e3 : p3 === ot2 ? To2(e3, c) : Ao2(a ? t3 ? ee2() : {} : e3, c, p3);
 }
 p2(Gi2, "updateInDeeply");
-function To2(t3, e3, r3) {
+function Ro2(t3, e3, r3) {
   return Be2(t3, e3, ot2, function() {
     return r3;
   });
 }
-p2(To2, "setIn$1");
+p2(Ro2, "setIn$1");
 function mn2(t3, e3) {
-  return To2(this, t3, e3);
+  return Ro2(this, t3, e3);
 }
 p2(mn2, "setIn");
 function $o2(t3, e3) {
@@ -12171,7 +12272,7 @@ function bn2(t3, e3, r3) {
   for (var n = Array.isArray(t3), s = t3, o5 = n ? Oe2 : Gt2, a = n ? function(l3) {
     s === t3 && (s = kr2(s)), s.push(l3);
   } : function(l3, c) {
-    var _ = qe2.call(s, c), p3 = _ && r3 ? r3(s[c], l3, c) : l3;
+    var _ = Le2.call(s, c), p3 = _ && r3 ? r3(s[c], l3, c) : l3;
     (!_ || p3 !== s[c]) && (s === t3 && (s = kr2(s)), s[c] = p3);
   }, u = 0; u < e3.length; u++)
     o5(e3[u]).forEach(a);
@@ -12272,9 +12373,9 @@ var We2 = function(t3) {
   }, "deleteAll"), e3.prototype.clear = p2(function() {
     return this.size === 0 ? this : this.__ownerID ? (this.size = 0, this._root = null, this.__hash = void 0, this.__altered = true, this) : ee2();
   }, "clear"), e3.prototype.sort = p2(function(n) {
-    return he2(Te2(this, n));
+    return he2(Re2(this, n));
   }, "sort"), e3.prototype.sortBy = p2(function(n, s) {
-    return he2(Te2(this, s, n));
+    return he2(Re2(this, s, n));
   }, "sortBy"), e3.prototype.map = p2(function(n, s) {
     var o5 = this;
     return this.withMutations(function(a) {
@@ -12334,7 +12435,7 @@ er2.prototype.update = p2(function(e3, r3, n, s, o5, a, u) {
   if (w3 ? c[_][1] === o5 : l3)
     return this;
   if (Ht2(u), (l3 || !w3) && Ht2(a), !(l3 && c.length === 1)) {
-    if (!w3 && !l3 && c.length >= Lo2)
+    if (!w3 && !l3 && c.length >= qo2)
       return Co2(e3, c, s, o5);
     var v = e3 && e3 === this.ownerID, y = v ? c : ae2(c);
     return w3 ? l3 ? _ === p3 - 1 ? y.pop() : y[_] = y.pop() : y[_] = [s, o5] : y.push([s, o5]), v ? (this.entries = y, this) : new er2(e3, y);
@@ -12344,12 +12445,12 @@ var $e2 = p2(function(e3, r3, n) {
   this.ownerID = e3, this.bitmap = r3, this.nodes = n;
 }, "BitmapIndexedNode");
 $e2.prototype.get = p2(function(e3, r3, n, s) {
-  r3 === void 0 && (r3 = Lt2(n));
+  r3 === void 0 && (r3 = qt2(n));
   var o5 = 1 << ((e3 === 0 ? r3 : r3 >>> e3) & zt2), a = this.bitmap;
   return a & o5 ? this.nodes[ns2(a & o5 - 1)].get(e3 + _t2, r3, n, s) : s;
 }, "get");
 $e2.prototype.update = p2(function(e3, r3, n, s, o5, a, u) {
-  n === void 0 && (n = Lt2(s));
+  n === void 0 && (n = qt2(s));
   var l3 = (r3 === 0 ? n : n >>> r3) & zt2, c = 1 << l3, _ = this.bitmap, p3 = (_ & c) !== 0;
   if (!p3 && o5 === ot2)
     return this;
@@ -12362,19 +12463,19 @@ $e2.prototype.update = p2(function(e3, r3, n, s, o5, a, u) {
     return v[w3 ^ 1];
   if (p3 && b3 && v.length === 1 && ci2(b3))
     return b3;
-  var k3 = e3 && e3 === this.ownerID, X = p3 ? b3 ? _ : _ ^ c : _ | c, K = p3 ? b3 ? is2(v, w3, b3, k3) : qo2(v, w3, k3) : Fo2(v, w3, b3, k3);
+  var k3 = e3 && e3 === this.ownerID, X = p3 ? b3 ? _ : _ ^ c : _ | c, K = p3 ? b3 ? is2(v, w3, b3, k3) : Lo2(v, w3, k3) : Fo2(v, w3, b3, k3);
   return k3 ? (this.bitmap = X, this.nodes = K, this) : new $e2(e3, X, K);
 }, "update");
 var rr2 = p2(function(e3, r3, n) {
   this.ownerID = e3, this.count = r3, this.nodes = n;
 }, "HashArrayMapNode");
 rr2.prototype.get = p2(function(e3, r3, n, s) {
-  r3 === void 0 && (r3 = Lt2(n));
+  r3 === void 0 && (r3 = qt2(n));
   var o5 = (e3 === 0 ? r3 : r3 >>> e3) & zt2, a = this.nodes[o5];
   return a ? a.get(e3 + _t2, r3, n, s) : s;
 }, "get");
 rr2.prototype.update = p2(function(e3, r3, n, s, o5, a, u) {
-  n === void 0 && (n = Lt2(s));
+  n === void 0 && (n = qt2(s));
   var l3 = (r3 === 0 ? n : n >>> r3) & zt2, c = o5 === ot2, _ = this.nodes, p3 = _[l3];
   if (c && !p3)
     return this;
@@ -12399,7 +12500,7 @@ ze2.prototype.get = p2(function(e3, r3, n, s) {
   return s;
 }, "get");
 ze2.prototype.update = p2(function(e3, r3, n, s, o5, a, u) {
-  n === void 0 && (n = Lt2(s));
+  n === void 0 && (n = qt2(s));
   var l3 = o5 === ot2;
   if (n !== this.keyHash)
     return l3 ? this : (Ht2(u), Ht2(a), jn2(this, e3, r3, n, [s, o5]));
@@ -12427,7 +12528,7 @@ ce2.prototype.update = p2(function(e3, r3, n, s, o5, a, u) {
     Ht2(a);
     return;
   }
-  return c ? e3 && e3 === this.ownerID ? (this.entry[1] = o5, this) : new ce2(e3, this.keyHash, [s, o5]) : (Ht2(a), jn2(this, e3, r3, Lt2(s), [s, o5]));
+  return c ? e3 && e3 === this.ownerID ? (this.entry[1] = o5, this) : new ce2(e3, this.keyHash, [s, o5]) : (Ht2(a), jn2(this, e3, r3, qt2(s), [s, o5]));
 }, "update");
 er2.prototype.iterate = ze2.prototype.iterate = function(t3, e3) {
   for (var r3 = this.entries, n = 0, s = r3.length - 1; n <= s; n++)
@@ -12521,7 +12622,7 @@ function jn2(t3, e3, r3, n, s) {
 p2(jn2, "mergeIntoNode");
 function Co2(t3, e3, r3, n) {
   t3 || (t3 = new nn2());
-  for (var s = new ce2(t3, Lt2(r3), [r3, n]), o5 = 0; o5 < e3.length; o5++) {
+  for (var s = new ce2(t3, qt2(r3), [r3, n]), o5 = 0; o5 < e3.length; o5++) {
     var a = e3[o5];
     s = s.update(t3, 0, void 0, a[0], a[1]);
   }
@@ -12560,7 +12661,7 @@ function Fo2(t3, e3, r3, n) {
   return o5;
 }
 p2(Fo2, "spliceIn");
-function qo2(t3, e3, r3) {
+function Lo2(t3, e3, r3) {
   var n = t3.length - 1;
   if (r3 && e3 === n)
     return t3.pop(), t3;
@@ -12568,8 +12669,8 @@ function qo2(t3, e3, r3) {
     a === e3 && (o5 = 1), s[a] = t3[a + o5];
   return s;
 }
-p2(qo2, "spliceOut");
-var Lo2 = Jt2 / 4;
+p2(Lo2, "spliceOut");
+var qo2 = Jt2 / 4;
 var Bo2 = Jt2 / 2;
 var Wo2 = Jt2 / 4;
 var ss2 = "@@__IMMUTABLE_LIST__@@";
@@ -13015,12 +13116,12 @@ function Sr2() {
 }
 p2(Sr2, "emptyStack");
 var ls2 = "@@__IMMUTABLE_SET__@@";
-function An2(t3) {
+function Tn2(t3) {
   return Boolean(t3 && t3[ls2]);
 }
-p2(An2, "isSet");
+p2(Tn2, "isSet");
 function fs2(t3) {
-  return An2(t3) && re2(t3);
+  return Tn2(t3) && re2(t3);
 }
 p2(fs2, "isOrderedSet");
 function cs2(t3, e3) {
@@ -13030,7 +13131,7 @@ function cs2(t3, e3) {
     return false;
   if (t3.size === 0 && e3.size === 0)
     return true;
-  var r3 = !Ar2(t3);
+  var r3 = !Tr2(t3);
   if (re2(t3)) {
     var n = t3.entries();
     return e3.every(function(l3, c) {
@@ -13083,7 +13184,7 @@ function jr2(t3) {
 p2(jr2, "toJS");
 var Dr2 = function(t3) {
   function e3(r3) {
-    return r3 == null ? Xe2() : An2(r3) && !re2(r3) ? r3 : Xe2().withMutations(function(n) {
+    return r3 == null ? Xe2() : Tn2(r3) && !re2(r3) ? r3 : Xe2().withMutations(function(n) {
       var s = t3(r3);
       Kt2(s.size), s.forEach(function(o5) {
         return n.add(o5);
@@ -13095,9 +13196,9 @@ var Dr2 = function(t3) {
   }, "of"), e3.fromKeys = p2(function(n) {
     return this(Gt2(n).keySeq());
   }, "fromKeys"), e3.intersect = p2(function(n) {
-    return n = Et2(n).toArray(), n.length ? At2.intersect.apply(e3(n.pop()), n) : Xe2();
+    return n = Et2(n).toArray(), n.length ? Tt2.intersect.apply(e3(n.pop()), n) : Xe2();
   }, "intersect"), e3.union = p2(function(n) {
-    return n = Et2(n).toArray(), n.length ? At2.union.apply(e3(n.pop()), n) : Xe2();
+    return n = Et2(n).toArray(), n.length ? Tt2.union.apply(e3(n.pop()), n) : Xe2();
   }, "union"), e3.prototype.toString = p2(function() {
     return this.__toString("Set {", "}");
   }, "toString"), e3.prototype.has = p2(function(n) {
@@ -13162,9 +13263,9 @@ var Dr2 = function(t3) {
       });
     });
   }, "subtract"), e3.prototype.sort = p2(function(n) {
-    return sr2(Te2(this, n));
+    return sr2(Re2(this, n));
   }, "sort"), e3.prototype.sortBy = p2(function(n, s) {
-    return sr2(Te2(this, s, n));
+    return sr2(Re2(this, s, n));
   }, "sortBy"), e3.prototype.wasAltered = p2(function() {
     return this._map.wasAltered();
   }, "wasAltered"), e3.prototype.__iterate = p2(function(n, s) {
@@ -13181,28 +13282,28 @@ var Dr2 = function(t3) {
     return n ? this.__make(s, n) : this.size === 0 ? this.__empty() : (this.__ownerID = n, this._map = s, this);
   }, "__ensureOwner"), e3;
 }(Ue2);
-Dr2.isSet = An2;
-var At2 = Dr2.prototype;
-At2[ls2] = true;
-At2[or2] = At2.remove;
-At2.merge = At2.concat = At2.union;
-At2.withMutations = lr2;
-At2.asImmutable = cr2;
-At2["@@transducer/init"] = At2.asMutable = fr2;
-At2["@@transducer/step"] = function(t3, e3) {
+Dr2.isSet = Tn2;
+var Tt2 = Dr2.prototype;
+Tt2[ls2] = true;
+Tt2[or2] = Tt2.remove;
+Tt2.merge = Tt2.concat = Tt2.union;
+Tt2.withMutations = lr2;
+Tt2.asImmutable = cr2;
+Tt2["@@transducer/init"] = Tt2.asMutable = fr2;
+Tt2["@@transducer/step"] = function(t3, e3) {
   return t3.add(e3);
 };
-At2["@@transducer/result"] = function(t3) {
+Tt2["@@transducer/result"] = function(t3) {
   return t3.asImmutable();
 };
-At2.__empty = Xe2;
-At2.__make = hs2;
+Tt2.__empty = Xe2;
+Tt2.__make = hs2;
 function Er2(t3, e3) {
   return t3.__ownerID ? (t3.size = e3.size, t3._map = e3, t3) : e3 === t3._map ? t3 : e3.size === 0 ? t3.__empty() : t3.__make(e3);
 }
 p2(Er2, "updateSet");
 function hs2(t3, e3) {
-  var r3 = Object.create(At2);
+  var r3 = Object.create(Tt2);
   return r3.size = t3 ? t3.size : 0, r3._map = t3, r3.__ownerID = e3, r3;
 }
 p2(hs2, "makeSet");
@@ -13287,7 +13388,7 @@ p2(_s2, "toObject");
 Et2.isIterable = Nt2;
 Et2.isKeyed = vt2;
 Et2.isIndexed = Ut2;
-Et2.isAssociative = Ar2;
+Et2.isAssociative = Tr2;
 Et2.isOrdered = re2;
 Et2.Iterator = lt2;
 Ie2(Et2, { toArray: p2(function() {
@@ -13369,7 +13470,7 @@ Ie2(Et2, { toArray: p2(function() {
 }, "slice"), some: p2(function(e3, r3) {
   return !this.every(Or2(e3), r3);
 }, "some"), sort: p2(function(e3) {
-  return ht2(this, Te2(this, e3));
+  return ht2(this, Re2(this, e3));
 }, "sort"), values: p2(function() {
   return this.__iterator(ne2);
 }, "values"), butLast: p2(function() {
@@ -13379,7 +13480,7 @@ Ie2(Et2, { toArray: p2(function() {
     return true;
   });
 }, "isEmpty"), count: p2(function(e3, r3) {
-  return Re2(e3 ? this.toSeq().filter(e3, r3) : this);
+  return Ae2(e3 ? this.toSeq().filter(e3, r3) : this);
 }, "count"), countBy: p2(function(e3, r3) {
   return wo2(this, e3, r3);
 }, "countBy"), equals: p2(function(e3) {
@@ -13416,7 +13517,7 @@ Ie2(Et2, { toArray: p2(function() {
 }, "flatMap"), flatten: p2(function(e3) {
   return ht2(this, Ji2(this, e3, true));
 }, "flatten"), fromEntrySeq: p2(function() {
-  return new qi2(this);
+  return new Li2(this);
 }, "fromEntrySeq"), get: p2(function(e3, r3) {
   return this.find(function(n, s) {
     return Bt2(s, e3);
@@ -13460,7 +13561,7 @@ Ie2(Et2, { toArray: p2(function() {
 }, "skipWhile"), skipUntil: p2(function(e3, r3) {
   return this.skipWhile(Or2(e3), r3);
 }, "skipUntil"), sortBy: p2(function(e3, r3) {
-  return ht2(this, Te2(this, r3, e3));
+  return ht2(this, Re2(this, r3, e3));
 }, "sortBy"), take: p2(function(e3) {
   return this.slice(0, Math.max(0, e3));
 }, "take"), takeLast: p2(function(e3) {
@@ -13478,7 +13579,7 @@ Ie2(Et2, { toArray: p2(function() {
 }, "hashCode") });
 var $t2 = Et2.prototype;
 $t2[ji2] = true;
-$t2[Rr2] = $t2.values;
+$t2[Ar2] = $t2.values;
 $t2.toJSON = $t2.toArray;
 $t2.__toStringMapper = tr2;
 $t2.inspect = $t2.toSource = function() {
@@ -13487,7 +13588,7 @@ $t2.inspect = $t2.toSource = function() {
 $t2.chain = $t2.flatMap;
 $t2.contains = $t2.includes;
 Ie2(Gt2, { flip: p2(function() {
-  return ht2(this, Li2(this));
+  return ht2(this, qi2(this));
 }, "flip"), mapEntries: p2(function(e3, r3) {
   var n = this, s = 0;
   return ht2(this, this.toSeq().map(function(o5, a) {
@@ -13501,7 +13602,7 @@ Ie2(Gt2, { flip: p2(function() {
 }, "mapKeys") });
 var hr2 = Gt2.prototype;
 hr2[Mi2] = true;
-hr2[Rr2] = $t2.entries;
+hr2[Ar2] = $t2.entries;
 hr2.toJSON = _s2;
 hr2.__toStringMapper = function(t3, e3) {
   return tr2(e3) + ": " + tr2(t3);
@@ -13580,7 +13681,7 @@ De2.contains = De2.includes;
 De2.keys = De2.values;
 Ie2(ve2, hr2);
 Ie2(ie2, Ve2);
-Ie2(Le2, De2);
+Ie2(qe2, De2);
 function vi2(t3, e3, r3, n, s, o5) {
   return Kt2(t3.size), t3.__iterate(function(a, u, l3) {
     s ? (s = false, r3 = a) : r3 = e3.call(n, r3, a, u, l3);
@@ -13619,13 +13720,13 @@ function Qo2(t3) {
   if (t3.size === 1 / 0)
     return 0;
   var e3 = re2(t3), r3 = vt2(t3), n = e3 ? 1 : 0, s = t3.__iterate(r3 ? e3 ? function(o5, a) {
-    n = 31 * n + Si2(Lt2(o5), Lt2(a)) | 0;
+    n = 31 * n + Si2(qt2(o5), qt2(a)) | 0;
   } : function(o5, a) {
-    n = n + Si2(Lt2(o5), Lt2(a)) | 0;
+    n = n + Si2(qt2(o5), qt2(a)) | 0;
   } : e3 ? function(o5) {
-    n = 31 * n + Lt2(o5) | 0;
+    n = 31 * n + qt2(o5) | 0;
   } : function(o5) {
-    n = n + Lt2(o5) | 0;
+    n = n + qt2(o5) | 0;
   });
   return Xo2(s, n);
 }
@@ -13697,7 +13798,7 @@ var wt2 = p2(function(e3, r3) {
       o5._name = r3, o5._keys = c, o5._defaultValues = e3;
       for (var p3 = 0; p3 < c.length; p3++) {
         var w3 = c[p3];
-        _[w3] = p3, o5[w3] ? typeof console == "object" && console.warn && console.warn("Cannot define " + Tn2(this) + ' with property "' + w3 + '" since that property name is part of the Record API.') : ta2(o5, w3);
+        _[w3] = p3, o5[w3] ? typeof console == "object" && console.warn && console.warn("Cannot define " + Rn2(this) + ' with property "' + w3 + '" since that property name is part of the Record API.') : ta2(o5, w3);
       }
     }
     return this.__ownerID = void 0, this._values = Pr2().withMutations(function(v) {
@@ -13709,7 +13810,7 @@ var wt2 = p2(function(e3, r3) {
   return o5.constructor = s, r3 && (s.displayName = r3), s;
 }, "Record");
 wt2.prototype.toString = p2(function() {
-  for (var e3 = Tn2(this) + " { ", r3 = this._keys, n, s = 0, o5 = r3.length; s !== o5; s++)
+  for (var e3 = Rn2(this) + " { ", r3 = this._keys, n, s = 0, o5 = r3.length; s !== o5; s++)
     n = r3[s], e3 += (s ? ", " : "") + n + ": " + tr2(this.get(n));
   return e3 + " }";
 }, "toString");
@@ -13732,7 +13833,7 @@ wt2.prototype.set = p2(function(e3, r3) {
   if (this.has(e3)) {
     var n = this._values.set(this._indices[e3], r3 === this._defaultValues[e3] ? void 0 : r3);
     if (n !== this._values && !this.__ownerID)
-      return Rn2(this, n);
+      return An2(this, n);
   }
   return this;
 }, "set");
@@ -13741,7 +13842,7 @@ wt2.prototype.remove = p2(function(e3) {
 }, "remove");
 wt2.prototype.clear = p2(function() {
   var e3 = this._values.clear().setSize(this._keys.length);
-  return this.__ownerID ? this : Rn2(this, e3);
+  return this.__ownerID ? this : An2(this, e3);
 }, "clear");
 wt2.prototype.wasAltered = p2(function() {
   return this._values.wasAltered();
@@ -13765,12 +13866,12 @@ wt2.prototype.__ensureOwner = p2(function(e3) {
   if (e3 === this.__ownerID)
     return this;
   var r3 = this._values.__ensureOwner(e3);
-  return e3 ? Rn2(this, r3, e3) : (this.__ownerID = e3, this._values = r3, this);
+  return e3 ? An2(this, r3, e3) : (this.__ownerID = e3, this._values = r3, this);
 }, "__ensureOwner");
 wt2.isRecord = Ne2;
-wt2.getDescriptiveName = Tn2;
+wt2.getDescriptiveName = Rn2;
 var dt2 = wt2.prototype;
-dt2[Ri2] = true;
+dt2[Ai2] = true;
 dt2[or2] = dt2.remove;
 dt2.deleteIn = dt2.removeIn = gn2;
 dt2.getIn = ds2;
@@ -13787,20 +13888,20 @@ dt2.updateIn = yn2;
 dt2.withMutations = lr2;
 dt2.asMutable = fr2;
 dt2.asImmutable = cr2;
-dt2[Rr2] = dt2.entries;
+dt2[Ar2] = dt2.entries;
 dt2.toJSON = dt2.toObject = $t2.toObject;
 dt2.inspect = dt2.toSource = function() {
   return this.toString();
 };
-function Rn2(t3, e3, r3) {
+function An2(t3, e3, r3) {
   var n = Object.create(Object.getPrototypeOf(t3));
   return n._values = e3, n.__ownerID = r3, n;
 }
-p2(Rn2, "makeRecord");
-function Tn2(t3) {
+p2(An2, "makeRecord");
+function Rn2(t3) {
   return t3.constructor.displayName || t3.constructor.name || "Record";
 }
-p2(Tn2, "recordName");
+p2(Rn2, "recordName");
 function Ce2(t3) {
   return un2(t3._keys.map(function(e3) {
     return [e3, t3.get(e3)];
@@ -14071,7 +14172,7 @@ var Nr2 = class {
       ye2[Fr2(this.room)] = this.session.get("state");
       let s = ye2[e4], o5 = e4, a = Je2(s.toJSON()), u = s.merge(n2), l3 = Je2(u.toJSON()).split(Qt2(u.get("transpiled"))).join("css"), c = this.session.get("state").merge(JSON.parse(l3)), _ = c.hashCode();
       ye2[_] = c;
-      let p3 = As2(a, l3), w3 = As2(l3, a);
+      let p3 = Ts2(a, l3), w3 = Ts2(l3, a);
       return { oldHash: o5, newHash: _, reversePatch: w3, patch: p3 };
     };
     this.patchSync = (e4, r4 = false) => {
@@ -14157,10 +14258,10 @@ var yu2 = p2((t3, e3 = "default", r3) => Vt2[r3]?.onUpdate(t3, e3), "onSessionUp
 var _a2 = p2((t3, e3, r3) => ({ codeSpace: r3, i: e3.i, ...Vt2[r3]?.createPatchFromHashCode(t3, e3) }), "makePatchFrom");
 var wu2 = p2((t3, e3) => ({ ..._a2(Fr2(e3), t3, e3), codeSpace: e3, i: t3.i }), "makePatch");
 var bu2 = p2((t3, e3) => Vt2[t3] || (Vt2[t3] = new Nr2(t3, { name: e3.name, state: { ...e3.state } })), "startSession");
-function As2(t3, e3) {
+function Ts2(t3, e3) {
   return ks2(t3, e3);
 }
-p2(As2, "createPatch");
+p2(Ts2, "createPatch");
 var Su2 = p2((t3, e3 = true) => Vt2[t3.codeSpace].patchSync(t3, e3), "patchSync");
 function Eu2(t3) {
   return wt2(t3)().hashCode();
@@ -14316,6 +14417,17 @@ var api = {
                   waitUntil: async (prom) => await prom
                 },
                 {
+                  // cacheControl: (isChunk(url.href)
+                  //   ? {
+                  //     browserTTL: 2 * 60 * 60 * 24,
+                  //     edgeTTL: 2 * 60 * 60 * 24,
+                  //     orbypassCache: false,
+                  //   }
+                  //   : {
+                  //     browserTTL: 0,
+                  //     edgeTTL: 0,
+                  //     bypassCache: true,
+                  //   }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST
                 }
@@ -14330,6 +14442,17 @@ var api = {
                     waitUntil: async (prom) => await prom
                   },
                   {
+                    // cacheControl: (isChunk(url.href)
+                    //   ? {
+                    //     browserTTL: 2 * 60 * 60 * 24,
+                    //     edgeTTL: 2 * 60 * 60 * 24,
+                    //     orbypassCache: false,
+                    //   }
+                    //   : {
+                    //     browserTTL: 0,
+                    //     edgeTTL: 0,
+                    //     bypassCache: true,
+                    //   }),
                     ASSET_NAMESPACE: env.__STATIC_CONTENT,
                     ASSET_MANIFEST
                   }
@@ -14608,23 +14731,53 @@ function rotateRight(node) {
   return leftNode;
 }
 var AVLTree = class {
+  /**
+   * Callback for comparator
+   * @callback comparatorCallback
+   * @param {Key} a
+   * @param {Key} b
+   * @returns {number}
+   */
+  /**
+   * @class AVLTree
+   * @constructor
+   * @param  {comparatorCallback} [comparator]
+   * @param  {boolean}            [noDuplicates=false] Disallow duplicates
+   */
   constructor(comparator, noDuplicates = false) {
     this._comparator = comparator || DEFAULT_COMPARE;
     this._root = null;
     this._size = 0;
     this._noDuplicates = !!noDuplicates;
   }
+  /**
+   * Clear the tree
+   * @return {AVLTree}
+   */
   destroy() {
     return this.clear();
   }
+  /**
+   * Clear the tree
+   * @return {AVLTree}
+   */
   clear() {
     this._root = null;
     this._size = 0;
     return this;
   }
+  /**
+   * Number of nodes
+   * @return {number}
+   */
   get size() {
     return this._size;
   }
+  /**
+   * Whether the tree contains a node with the given key
+   * @param  {Key} key
+   * @return {boolean} true/false
+   */
   contains(key) {
     if (this._root) {
       var node = this._root;
@@ -14641,6 +14794,12 @@ var AVLTree = class {
     }
     return false;
   }
+  /* eslint-disable class-methods-use-this */
+  /**
+   * Successor node
+   * @param  {Node} node
+   * @return {?Node}
+   */
   next(node) {
     var successor = node;
     if (successor) {
@@ -14658,6 +14817,11 @@ var AVLTree = class {
     }
     return successor;
   }
+  /**
+   * Predecessor node
+   * @param  {Node} node
+   * @return {?Node}
+   */
   prev(node) {
     var predecessor = node;
     if (predecessor) {
@@ -14675,6 +14839,17 @@ var AVLTree = class {
     }
     return predecessor;
   }
+  /* eslint-enable class-methods-use-this */
+  /**
+   * Callback for forEach
+   * @callback forEachCallback
+   * @param {Node} node
+   * @param {number} index
+   */
+  /**
+   * @param  {forEachCallback} callback
+   * @return {AVLTree}
+   */
   forEach(callback) {
     var current = this._root;
     var s = [], done = false, i3 = 0;
@@ -14693,6 +14868,14 @@ var AVLTree = class {
     }
     return this;
   }
+  /**
+   * Walk key range from `low` to `high`. Stops if `fn` returns a value.
+   * @param  {Key}      low
+   * @param  {Key}      high
+   * @param  {Function} fn
+   * @param  {*?}       ctx
+   * @return {SplayTree}
+   */
   range(low, high, fn3, ctx) {
     const Q = [];
     const compare = this._comparator;
@@ -14715,6 +14898,10 @@ var AVLTree = class {
     }
     return this;
   }
+  /**
+   * Returns all keys in order
+   * @return {Array<Key>}
+   */
   keys() {
     var current = this._root;
     var s = [], r3 = [], done = false;
@@ -14733,6 +14920,10 @@ var AVLTree = class {
     }
     return r3;
   }
+  /**
+   * Returns `data` fields of all nodes in order.
+   * @return {Array<Value>}
+   */
   values() {
     var current = this._root;
     var s = [], r3 = [], done = false;
@@ -14751,6 +14942,11 @@ var AVLTree = class {
     }
     return r3;
   }
+  /**
+   * Returns node at given index
+   * @param  {number} index
+   * @return {?Node}
+   */
   at(index) {
     var current = this._root;
     var s = [], done = false, i3 = 0;
@@ -14771,6 +14967,10 @@ var AVLTree = class {
     }
     return null;
   }
+  /**
+   * Returns node with the minimum key
+   * @return {?Node}
+   */
   minNode() {
     var node = this._root;
     if (!node)
@@ -14779,6 +14979,10 @@ var AVLTree = class {
       node = node.left;
     return node;
   }
+  /**
+   * Returns node with the max key
+   * @return {?Node}
+   */
   maxNode() {
     var node = this._root;
     if (!node)
@@ -14787,6 +14991,10 @@ var AVLTree = class {
       node = node.right;
     return node;
   }
+  /**
+   * Min key
+   * @return {?Key}
+   */
   min() {
     var node = this._root;
     if (!node)
@@ -14795,6 +15003,10 @@ var AVLTree = class {
       node = node.left;
     return node.key;
   }
+  /**
+   * Max key
+   * @return {?Key}
+   */
   max() {
     var node = this._root;
     if (!node)
@@ -14803,9 +15015,16 @@ var AVLTree = class {
       node = node.right;
     return node.key;
   }
+  /**
+   * @return {boolean} true/false
+   */
   isEmpty() {
     return !this._root;
   }
+  /**
+   * Removes and returns the node with smallest key
+   * @return {?Node}
+   */
   pop() {
     var node = this._root, returnValue = null;
     if (node) {
@@ -14816,6 +15035,10 @@ var AVLTree = class {
     }
     return returnValue;
   }
+  /**
+   * Removes and returns the node with highest key
+   * @return {?Node}
+   */
   popMax() {
     var node = this._root, returnValue = null;
     if (node) {
@@ -14826,6 +15049,11 @@ var AVLTree = class {
     }
     return returnValue;
   }
+  /**
+   * Find node by key
+   * @param  {Key} key
+   * @return {?Node}
+   */
   find(key) {
     var root = this._root;
     var subtree = root, cmp;
@@ -14841,6 +15069,12 @@ var AVLTree = class {
     }
     return null;
   }
+  /**
+   * Insert a node into the tree
+   * @param  {Key} key
+   * @param  {Value} [data]
+   * @return {?Node}
+   */
   insert(key, data) {
     if (!this._root) {
       this._root = {
@@ -14920,6 +15154,11 @@ var AVLTree = class {
     this._size++;
     return newNode;
   }
+  /**
+   * Removes the node from the tree. If not found, returns null.
+   * @param  {Key} key
+   * @return {?Node}
+   */
   remove(key) {
     if (!this._root)
       return null;
@@ -15010,6 +15249,12 @@ var AVLTree = class {
     this._size--;
     return returnValue;
   }
+  /**
+   * Bulk-load items
+   * @param  {Array<Key>}  keys
+   * @param  {Array<Value>}  [values]
+   * @return {AVLTree}
+   */
   load(keys2 = [], values2 = [], presort) {
     if (this._size !== 0)
       throw new Error("bulk-load: tree is not empty");
@@ -15021,9 +15266,18 @@ var AVLTree = class {
     this._size = size;
     return this;
   }
+  /**
+   * Returns true if the tree is balanced
+   * @return {boolean}
+   */
   isBalanced() {
     return isBalanced(this._root);
   }
+  /**
+   * String representation of the tree - primitive horizontal print-out
+   * @param  {Function(Node):string} [printNode]
+   * @return {string}
+   */
   toString(printNode) {
     return print(this._root, printNode);
   }
@@ -15210,7 +15464,14 @@ function isArrayLike(value) {
   if (Array.isArray(value) || typeof value === "string") {
     return true;
   }
-  return value && typeof value === "object" && Number.isInteger(value.length) && value.length >= 0 && (value.length === 0 ? Object.keys(value).length === 1 : value.hasOwnProperty(value.length - 1));
+  return value && typeof value === "object" && Number.isInteger(value.length) && value.length >= 0 && (value.length === 0 ? (
+    // Only {length: 0} is considered Array-like.
+    Object.keys(value).length === 1
+  ) : (
+    // An object is only Array-like if it has a property where the last value
+    // in the array-like may be found (which could be undefined).
+    value.hasOwnProperty(value.length - 1)
+  ));
 }
 var Seq = /* @__PURE__ */ function(Collection3) {
   function Seq2(value) {
@@ -15563,7 +15824,10 @@ function hash(o5) {
   }
 }
 function hashNullish(nullish) {
-  return nullish === null ? 1108378658 : 1108378659;
+  return nullish === null ? 1108378658 : (
+    /* undefined */
+    1108378659
+  );
 }
 function hashNumber(n) {
   if (n !== n || n === Infinity) {
@@ -18218,13 +18482,17 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
     assertNotInfinite(iter.size);
     var newSize = this.size;
     var head = this._head;
-    iter.__iterate(function(value) {
-      newSize++;
-      head = {
-        value,
-        next: head
-      };
-    }, true);
+    iter.__iterate(
+      function(value) {
+        newSize++;
+        head = {
+          value,
+          next: head
+        };
+      },
+      /* reverse */
+      true
+    );
     if (this.__ownerID) {
       this.size = newSize;
       this._head = head;
@@ -18771,6 +19039,7 @@ Collection.isAssociative = isAssociative;
 Collection.isOrdered = isOrdered;
 Collection.Iterator = Iterator;
 mixin(Collection, {
+  // ### Conversion to other types
   toArray: function toArray() {
     assertNotInfinite(this.size);
     var array = new Array(this.size || 0);
@@ -18815,6 +19084,7 @@ mixin(Collection, {
   toList: function toList() {
     return List(isKeyed(this) ? this.valueSeq() : this);
   },
+  // ### Common JavaScript methods and properties
   toString: function toString3() {
     return "[Collection]";
   },
@@ -18824,6 +19094,7 @@ mixin(Collection, {
     }
     return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") + " " + tail;
   },
+  // ### ES6 Collection methods (ES6 Array and Map)
   concat: function concat() {
     var values2 = [], len = arguments.length;
     while (len--)
@@ -18915,6 +19186,7 @@ mixin(Collection, {
   values: function values() {
     return this.__iterator(ITERATE_VALUES);
   },
+  // ### More sequential methods
   butLast: function butLast() {
     return this.slice(0, -1);
   },
@@ -19075,9 +19347,13 @@ mixin(Collection, {
   valueSeq: function valueSeq() {
     return this.toIndexedSeq();
   },
+  // ### Hashable Object
   hashCode: function hashCode() {
     return this.__hash || (this.__hash = hashCollection(this));
   }
+  // ### Internal
+  // abstract __iterate(fn, reverse)
+  // abstract __iterator(type, reverse)
 });
 var CollectionPrototype = Collection.prototype;
 CollectionPrototype[IS_COLLECTION_SYMBOL] = true;
@@ -19090,6 +19366,7 @@ CollectionPrototype.inspect = CollectionPrototype.toSource = function() {
 CollectionPrototype.chain = CollectionPrototype.flatMap;
 CollectionPrototype.contains = CollectionPrototype.includes;
 mixin(KeyedCollection, {
+  // ### More sequential methods
   flip: function flip() {
     return reify(this, flipFactory(this));
   },
@@ -19121,9 +19398,11 @@ KeyedCollectionPrototype.__toStringMapper = function(v, k3) {
   return quoteString(k3) + ": " + quoteString(v);
 };
 mixin(IndexedCollection, {
+  // ### Conversion to other types
   toKeyedSeq: function toKeyedSeq2() {
     return new ToKeyedSequence(this, false);
   },
+  // ### ES6 Collection methods (ES6 Array and Map)
   filter: function filter2(predicate, context) {
     return reify(this, filterFactory(this, predicate, context, false));
   },
@@ -19158,6 +19437,7 @@ mixin(IndexedCollection, {
       numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum))
     );
   },
+  // ### More collection methods
   findLastIndex: function findLastIndex(predicate, context) {
     var entry = this.findLastEntry(predicate, context);
     return entry ? entry[0] : -1;
@@ -19217,12 +19497,14 @@ var IndexedCollectionPrototype = IndexedCollection.prototype;
 IndexedCollectionPrototype[IS_INDEXED_SYMBOL] = true;
 IndexedCollectionPrototype[IS_ORDERED_SYMBOL] = true;
 mixin(SetCollection, {
+  // ### ES6 Collection methods (ES6 Array and Map)
   get: function get9(value, notSetValue) {
     return this.has(value) ? value : notSetValue;
   },
   includes: function includes2(value) {
     return this.has(value);
   },
+  // ### More sequential methods
   keySeq: function keySeq3() {
     return this.valueSeq();
   }
@@ -19566,6 +19848,7 @@ async function esmTransform(code, origin) {
     treeShaking: true,
     platform: "browser",
     minify: false,
+    //   globalName: md5(code),
     keepNames: true,
     tsconfigRaw: {
       compilerOptions: {
@@ -19616,6 +19899,7 @@ var Code = class {
   }
   state;
   kv;
+  // mutex: Mutex;
   session;
   sess;
   user = Qt2(self.crypto.randomUUID());
@@ -19654,6 +19938,7 @@ var Code = class {
       async (key, v) => await this.kv.put(key, v, {
         allowConcurrency: false
       }),
+      // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
       async (key) => await this.kv.get(String(key), { allowConcurrency: true }),
       oldSession,
       newSess,
@@ -20116,6 +20401,7 @@ sheet.addRule('h1', 'background: red;');
       name: "",
       quit: false,
       webSocket
+      //   blockedMessages: [] as string[],
     };
     this.wsSessions.push(session);
     this.wsSessions = this.wsSessions.filter((x) => !x.quit);
@@ -20270,6 +20556,9 @@ sheet.addRule('h1', 'background: red;');
 // src/rateLimiter.ts
 var CodeRateLimiter = class {
   nextAllowedTime = 0;
+  // Our protocol is: POST when the IP performs an action, or GET to simply read the current limit.
+  // Either way, the result is the number of seconds to wait before allowing the IP to perform its
+  // next action.
   async fetch(request) {
     return await handleErrors(request, async () => {
       const now = Date.now() / 1e3;

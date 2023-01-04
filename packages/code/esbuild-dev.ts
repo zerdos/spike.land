@@ -1,7 +1,7 @@
 // Import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
-import * as esbuild from "https://deno.land/x/esbuild@v0.16.13/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.16.14/mod.js";
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};

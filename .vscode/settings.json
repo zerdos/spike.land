@@ -32,7 +32,7 @@
     "devimages",
     "dockerhub",
     "Erdos",
-    "esbuild",
+    "esbuild-wasm",
     "esms",
     "filecache",
     "ipfs",
