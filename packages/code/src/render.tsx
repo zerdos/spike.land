@@ -21,7 +21,7 @@ const mod: {
   };
 } = {};
 BC.onmessage = async ({ data }) => {
-  if (data.transpiled) {
+  if (data.transpiled && !data.html) {
     if (i === data.i || data.html) return;
     i = data.i;
 
@@ -29,7 +29,6 @@ BC.onmessage = async ({ data }) => {
     controller = new AbortController();
 
     console.log("rerender", data.i);
-    appFactory;
     const App = await appFactory(data.transpiled);
     const appId = md5(data.transpiled);
 
