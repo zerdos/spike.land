@@ -15184,7 +15184,10 @@ var Code = class {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw "Error - we messed up the hashStores";
               }
-              Su2(newState, true);
+              this.session = bu2(
+                this.codeSpace,
+                { state: newState, name: this.user }
+              );
               await this.syncKV(oldState, newState, {
                 oldHash,
                 newHash,

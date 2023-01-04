@@ -179,7 +179,22 @@ export class Code {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
-              patchSync(newState, true);
+
+              this.session = startSession(
+                this.codeSpace,
+                { state: newState, name: this.user },
+                // url.origin,
+              );
+
+              // patchSync(newState, true);
+
+              // const newRec = mST(this.codeSpace, pa)  //.session.get("state").merge(
+              //   newState,
+              // // // );
+              // sessions[codeSpace].session = sessions[codeSpace].session.set(
+              //   "state",
+              //   newRec,
+              // );
 
               await this.syncKV(oldState, newState, {
                 oldHash,
