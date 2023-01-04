@@ -1,8 +1,9 @@
-import type { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session.d";
-import { hashCode, patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
-import { HTML, md5, mST, startSession } from "../../code/dist/src/session.mjs";
+import type { CodePatch, CodeSession, Delta, ICodeSession } from "../../code/dist/src/session.d";
+import { patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
+import { aPatch, HTML, md5, startSession } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
+import { Record } from "immutable";
 import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
@@ -17,6 +18,42 @@ interface WebsocketSession {
   webSocket: WebSocket;
   quit?: boolean;
   // blockedMessages: string[];
+}
+
+let codeSpace;
+let head;
+let sess;
+
+function hashCode(sess: ICodeSession) {
+  return Record<ICodeSession>(sess)().hashCode();
+}
+
+const sessions: { [codeSpace: string]: CodeSession } = {};
+
+function mST(codeSpace: string, p?: Delta[]) {
+  if (p && p.length) {
+    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+
+    const { i, transpiled, code, html, css }: ICodeSession = p
+      ? JSON.parse(
+        aPatch(
+          string_(
+            sessAsJs,
+          ),
+          p,
+        ),
+      )
+      : sessAsJs;
+    return sessions[codeSpace].session.get("state").merge({
+      i,
+      transpiled,
+      code,
+      html,
+      css,
+      codeSpace,
+    }).toObject();
+  }
+  return sessions[codeSpace].session.get("state").toObject();
 }
 
 const hashKEY = (cp: string) => hashCode(mST(cp));
@@ -76,7 +113,11 @@ export class Code {
     this.state.blockConcurrencyWhile(async () => {
       try {
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
-        const session = await this.kv.get<ICodeSession>("session", {
+
+        this.head = await this.kv.get("head") || 0;
+
+        head = this.head;
+        const session = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
           allowConcurrency: true,
         })
           || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
@@ -92,9 +133,8 @@ export class Code {
         //   session.css = s.css;
         // }
 
-        this.head = await this.kv.get("head") || 0;
-
         if (Number(this.head + 50) !== 50 + this.head) this.head = 0;
+
         // if ( (head+1) !== Number(head)+1 ) {
         //   head =
         // }
@@ -102,6 +142,7 @@ export class Code {
           || "";
 
         this.sess = session;
+        codeSpace = this.codeSpace;
         this.codeSpace = session.codeSpace || "";
         if (this.sess.codeSpace) {
           this.session = startSession(
@@ -133,7 +174,7 @@ export class Code {
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.sess!.codeSpace = this.codeSpace;
 
-      await this.kv.put("session", this.sess!, { allowConcurrency: true });
+      //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
 
       this.session = startSession(
         this.codeSpace,
@@ -146,11 +187,11 @@ export class Code {
     if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
       // if (headValue) {
-      const sess = mST(this.codeSpace);
-      this.head = hashCode(sess);
-      this;
+      this.head = hashCode(this.sess!);
+
+      head = this.head;
       await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), sess);
+      await this.kv.put(String(this.head), this.sess!);
 
       // const newSession = mST(this.codeSpace);
 

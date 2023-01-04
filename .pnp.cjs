@@ -2119,6 +2119,7 @@ const RAW_RUNTIME_STATE =
           ["avl", "npm:1.5.3"],\
           ["detective-typescript", "npm:9.0.0"],\
           ["esbuild-wasm", "npm:0.16.13"],\
+          ["immutable", "npm:4.2.1"],\
           ["miniflare", "virtual:64b5d961cd44c16a34b7816cbfe5fd17444f5a63e765a7f2e679323b77f9aea34be80a6d7a6d3f0a012b66af37b324af52829546bf4761da8e342fe778838b81#npm:2.11.0"],\
           ["module", "npm:1.2.5"],\
           ["p-map", "npm:5.5.0"],\

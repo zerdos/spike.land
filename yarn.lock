@@ -1472,6 +1472,7 @@ __metadata:
     avl: "npm:^1.5.3"
     detective-typescript: "npm:^9.0.0"
     esbuild-wasm: "npm:^0.16.13"
+    immutable: "npm:^4.2.1"
     miniflare: "npm:^2.11.0"
     module: "npm:^1.2.5"
     p-map: "npm:^5.5.0"
