@@ -179,6 +179,7 @@ export class Code {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
+              this.sess = newState;
 
               this.session = startSession(
                 this.codeSpace,
@@ -196,7 +197,7 @@ export class Code {
               //   newRec,
               // );
 
-              await this.syncKV(oldState, newState, {
+              this.syncKV(oldState, newState, {
                 oldHash,
                 newHash,
                 patch,
