@@ -19584,33 +19584,8 @@ async function esmTransform(code, origin) {
 }
 
 // src/chatRoom.ts
-var codeSpace;
-var head;
 function hashCode3(sess) {
   return Record(sess)().hashCode();
-}
-var sessions = {};
-function mST(codeSpace2, p3) {
-  if (p3 && p3.length) {
-    const sessAsJs = sessions[codeSpace2].session.get("state").toJSON();
-    const { i: i3, transpiled, code, html, css } = p3 ? JSON.parse(
-      Dn2(
-        Je2(
-          sessAsJs
-        ),
-        p3
-      )
-    ) : sessAsJs;
-    return sessions[codeSpace2].session.get("state").merge({
-      i: i3,
-      transpiled,
-      code,
-      html,
-      css,
-      codeSpace: codeSpace2
-    }).toObject();
-  }
-  return sessions[codeSpace2].session.get("state").toObject();
 }
 var hashKEY = (cp) => hashCode3(mST(cp));
 var Code = class {
@@ -19619,15 +19594,15 @@ var Code = class {
     this.state = state;
     this.kv = state.storage;
     this.sess = null;
+    this.session = null;
     this.head = 0;
-    this.sessions = [];
+    this.wsSessions = [];
     this.env = env;
     this.codeSpace = "";
     this.address = "";
     this.state.blockConcurrencyWhile(async () => {
       try {
         this.head = await this.kv.get("head") || 0;
-        head = this.head;
         this.sess = await this.kv.get(this.head ? String(this.head) : "session", {
           allowConcurrency: true
         }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
@@ -19645,6 +19620,7 @@ var Code = class {
   state;
   kv;
   codeSpace;
+  session;
   sess;
   user = Qt2(self.crypto.randomUUID());
   address;
@@ -19654,9 +19630,31 @@ var Code = class {
   );
   head = 0;
   waiting = [];
-  sessions;
+  wsSessions;
   buffy = [];
   i = 0;
+  mST(codeSpace2, p3) {
+    if (p3 && p3.length) {
+      const sessAsJs = this.session.session.get("state").toJSON();
+      const { i: i3, transpiled, code, html, css } = p3 ? JSON.parse(
+        Dn2(
+          Je2(
+            sessAsJs
+          ),
+          p3
+        )
+      ) : sessAsJs;
+      return this.session.session.get("state").merge({
+        i: i3,
+        transpiled,
+        code,
+        html,
+        css,
+        codeSpace: codeSpace2
+      }).toObject();
+    }
+    return this.session.session.get("state").toObject();
+  }
   syncKV(oldSession, newSess, message) {
     return (async () => await da2(
       async (key, v) => await this.kv.put(key, v, {
@@ -19678,7 +19676,7 @@ var Code = class {
     this.wait();
     if (!this.sess.codeSpace) {
       codeSpace = this.codeSpace = this.sess.codeSpace = this.sess.codeSpace || url.searchParams.get("room") || "code-main";
-      sessions[this.codeSpace] = bu2(
+      this.session = bu2(
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
       );
@@ -19705,14 +19703,14 @@ var Code = class {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw "Error - we messed up the hashStores";
               }
-              const newRec = sessions[this.codeSpace].session.get("state").merge(
+              const newRec = this.session.session.get("state").merge(
                 newState
               );
-              sessions[this.codeSpace].session = sessions[this.codeSpace].session.set(
+              this.session.session = this.session.session.set(
                 "state",
                 newRec
               );
-              this.sess = sessions[this.codeSpace].session.get("state").toObject();
+              this.sess = this.session.session.get("state").toObject();
               this.syncKV(oldState, newState, {
                 oldHash,
                 newHash,
@@ -19964,7 +19962,7 @@ var Code = class {
           });
         }
         case "env": {
-          return new Response(request.url, {
+          return new Response(JSON.stringify(this.env), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -20132,9 +20130,9 @@ sheet.addRule('h1', 'background: red;');
       quit: false,
       webSocket
     };
-    this.sessions.push(session);
-    this.sessions = this.sessions.filter((x) => !x.quit);
-    const users = this.sessions.filter((x) => x.name).map((x) => x.name);
+    this.wsSessions.push(session);
+    this.wsSessions = this.wsSessions.filter((x) => !x.quit);
+    const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
         hashCode: hashKEY(this.codeSpace),
@@ -20176,7 +20174,7 @@ sheet.addRule('h1', 'background: red;');
           msg: "no-name-no-party"
         });
       }
-      this.sessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
+      this.wsSessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
       session.name = name;
     }
     if (data.type == "handshake") {
@@ -20262,7 +20260,7 @@ sheet.addRule('h1', 'background: red;');
   }
   user2user(to, msg) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.sessions.filter((session) => session.name === to).map((s) => {
+    this.wsSessions.filter((session) => session.name === to).map((s) => {
       try {
         s.webSocket.send(message);
       } catch {
@@ -20272,7 +20270,7 @@ sheet.addRule('h1', 'background: red;');
   }
   broadcast(msg) {
     const message = JSON.stringify(msg);
-    this.sessions.filter((s) => s.name).map((s) => {
+    this.wsSessions.filter((s) => s.name).map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {

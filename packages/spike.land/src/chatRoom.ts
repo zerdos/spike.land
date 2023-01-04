@@ -20,40 +20,8 @@ interface WebsocketSession {
   // blockedMessages: string[];
 }
 
-let codeSpace;
-let head;
-let sess;
-
 function hashCode(sess: ICodeSession) {
   return Record<ICodeSession>(sess)().hashCode();
-}
-
-const sessions: { [codeSpace: string]: CodeSession } = {};
-
-function mST(codeSpace: string, p?: Delta[]) {
-  if (p && p.length) {
-    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
-
-    const { i, transpiled, code, html, css }: ICodeSession = p
-      ? JSON.parse(
-        aPatch(
-          string_(
-            sessAsJs,
-          ),
-          p,
-        ),
-      )
-      : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({
-      i,
-      transpiled,
-      code,
-      html,
-      css,
-      codeSpace,
-    }).toObject();
-  }
-  return sessions[codeSpace].session.get("state").toObject();
 }
 
 const hashKEY = (cp: string) => hashCode(mST(cp));
@@ -62,6 +30,7 @@ export class Code {
   kv: DurableObjectStorage;
   codeSpace: string;
   // mutex: Mutex;
+  session: CodeSession | null;
   sess: ICodeSession | null;
   user = md5(self.crypto.randomUUID());
   address: string;
@@ -71,9 +40,35 @@ export class Code {
   );
   head = 0;
   waiting: (() => boolean)[] = [];
-  sessions: WebsocketSession[];
+  wsSessions: WebsocketSession[];
   buffy: Promise<void>[] = [];
   i = 0;
+
+  mST(codeSpace: string, p?: Delta[]) {
+    if (p && p.length) {
+      const sessAsJs = this.session!.session.get("state").toJSON();
+
+      const { i, transpiled, code, html, css }: ICodeSession = p
+        ? JSON.parse(
+          aPatch(
+            string_(
+              sessAsJs,
+            ),
+            p,
+          ),
+        )
+        : sessAsJs;
+      return this.session!.session.get("state").merge({
+        i,
+        transpiled,
+        code,
+        html,
+        css,
+        codeSpace,
+      }).toObject();
+    }
+    return this.session!.session.get("state").toObject();
+  }
 
   syncKV(
     oldSession: ICodeSession,
@@ -99,9 +94,9 @@ export class Code {
     this.state = state;
     this.kv = state.storage;
     this.sess = null;
-
+    this.session = null;
     this.head = 0;
-    this.sessions = [];
+    this.wsSessions = [];
     this.env = env;
     this.codeSpace = "";
     this.address = "";
@@ -114,7 +109,6 @@ export class Code {
 
         this.head = await this.kv.get("head") || 0;
 
-        head = this.head;
         this.sess = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
           allowConcurrency: true,
         }) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
@@ -157,7 +151,7 @@ export class Code {
 
       //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
 
-      sessions[this.codeSpace] = startSession(
+      this.session = startSession(
         this.codeSpace,
         { state: this.sess!, name: this.codeSpace },
         // url.origin,
@@ -202,24 +196,14 @@ export class Code {
                 throw ("Error - we messed up the hashStores");
               }
 
-              const newRec = sessions[this.codeSpace].session.get("state").merge(
+              const newRec = this.session.session.get("state").merge(
                 newState,
               );
-              sessions[this.codeSpace].session = sessions[this.codeSpace].session.set(
+              this.session.session = this.session.session.set(
                 "state",
                 newRec,
               );
-              this.sess = sessions[this.codeSpace].session.get("state").toObject();
-
-              // patchSync(newState, true);
-
-              // const newRec = mST(this.codeSpace, pa)  //.session.get("state").merge(
-              //   newState,
-              // // // );
-              // sessions[codeSpace].session = sessions[codeSpace].session.set(
-              //   "state",
-              //   newRec,
-              // );
+              this.sess = this.session.session.get("state").toObject();
 
               this.syncKV(oldState, newState, {
                 oldHash,
@@ -666,7 +650,7 @@ export class Code {
           });
         }
         case "env": {
-          return new Response(request.url, {
+          return new Response(JSON.stringify(this.env), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -772,7 +756,7 @@ sheet.addRule('h1', 'background: red;');
               `   
           <div id="root"></div>
           <script type="module">
-          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${mST(this.codeSpace).i}"
+          import App from "${url.origin}/live/${this.codeSpace}/index.js?i=${i}"
               
             import {prerender} from "${url.origin}/src/render.mjs"
               
@@ -907,9 +891,9 @@ sheet.addRule('h1', 'background: red;');
       webSocket,
       //   blockedMessages: [] as string[],
     };
-    this.sessions.push(session);
-    this.sessions = this.sessions.filter((x) => !x.quit);
-    const users = this.sessions.filter((x) => x.name).map((x) => x.name);
+    this.wsSessions.push(session);
+    this.wsSessions = this.wsSessions.filter((x) => !x.quit);
+    const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
         hashCode: hashKEY(this.codeSpace),
@@ -919,7 +903,7 @@ sheet.addRule('h1', 'background: red;');
       }),
     );
 
-    // this.sessions.forEach((otherSession) => {
+    // this.wsSessions.forEach((otherSession) => {
     // if (otherSession.name) {
     // session.blockedMessages.push(
     //   JSON.stringify({ name: otherSession.name }),
@@ -1004,7 +988,7 @@ sheet.addRule('h1', 'background: red;');
         });
       }
 
-      this.sessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
+      this.wsSessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
 
       session.name = name;
     }
@@ -1031,7 +1015,7 @@ sheet.addRule('h1', 'background: red;');
       // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
     }
     // try {
-    // this.sessions.map((otherSession) => {
+    // this.wsSessions.map((otherSession) => {
     //   if (otherSession === session) return;
 
     //   if (otherSession.name === data.name) {
@@ -1132,7 +1116,6 @@ sheet.addRule('h1', 'background: red;');
             // const oldHash = data.oldHash;
             // const reversePatch = data.reversePatch;
 
-            // this.session.patchSync(newSess, true);
             patchSync(
               newSess,
             );
@@ -1207,7 +1190,7 @@ sheet.addRule('h1', 'background: red;');
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     // Iterate over all the sessions sending them messages.
-    this.sessions
+    this.wsSessions
       .filter((session) => session.name === to)
       .map((s) => {
         try {
@@ -1221,7 +1204,7 @@ sheet.addRule('h1', 'background: red;');
   broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
 
-    this.sessions.filter((s) => s.name).map((s) => {
+    this.wsSessions.filter((s) => s.name).map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {
