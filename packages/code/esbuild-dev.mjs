@@ -243,7 +243,6 @@ const build = (
       "src/sw.ts",
       "src/ataWorker.ts",
       "src/prettierWorker.ts",
-      "src/sharedWorker.ts",
       // "src/fs.worker.ts",
     ],
     bundle: true,

@@ -149,7 +149,7 @@ self.hashCodes = self.hashCodes || {};
 
 self.dbs = self.dbs || {};
 
-const { mod, counters, hashCodes, connections, dbs, sessions } = self;
+const { mod, counters, hashCodes, connections, sessions } = self;
 // bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(port: MessagePort, data: Data) {
@@ -279,13 +279,22 @@ async function onMessage(port: MessagePort, data: Data) {
 let iii = 0;
 const BC = new BroadcastChannel(location.origin + "/ws.js");
 
-export const onConnectToClients = (me: ServiceWorkerGlobalScope) => {
+export const onConnectToClients = () => {
   // me.addEventListener("message", (event) => {
   //   if (event.data && event.data.type === "INIT_PORT") {
   //     const port = event.ports[0];
 
-  BC.onmessage = (e) => e.type == "onconnect" && onMessage(e.ports[0], e.data);
-  BC.postMessage({ type: "onconnect", connections: ++iii });
+  BC.onmessage = (e) => {
+    if (e.type !== "onconnect") return;
+    const ports = new MessageChannel();
+
+    const port = ports.port1;
+
+    port.onmessage = ({ data }) => onMessage(port, data);
+
+    port.postMessage({ type: "onconnect", connections: ++iii });
+    port.start();
+  };
 };
 
 const mutex = new Mutex();
@@ -437,82 +446,82 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
 
   websocket.onopen = () => {
     w.socket = websocket;
-    // w.socket = websocket;
-
-    // websocket.addEventListener("message", async (ev) => {
-    //   connections[codeSpace] = connections[codeSpace].map(conn => {
-    //     try {
-    //       const ab = str2ab(ev.data);
-    //       conn.postMessage(ab, [ab]);
-    //       return conn;
-    //     } catch (err) {
-    //       console.error("can't post message connection");
-    //       return null;
-    //     }
-    //   }).filter((x) => x !== null) as MessagePort[];
-
-    //   const message = JSON.parse(ev.data);
-
-    //   const mess = { codeSpace, ...message };
-    //   mess.name = names[codeSpace];
-
-    //   const db = dbs[codeSpace];
-    //   const head = await db.getItem<string>("head");
-
-    //   const hash = message.newHash || message.hashCode;
-    //   if (hash && head && hash !== head) {
-    //     await db.setItem("wsHash", hash);
-    //     const old = await db.getItem<
-    //       {
-    //         newHash: string;
-    //         oldHash: string;
-    //         patch: Delta[];
-    //         i: number;
-    //         reversePatch: Delta[];
-    //       }
-    //     >(hash);
-
-    //     if (old) {
-    //       const next = await db.getItem<
-    //         {
-    //           newHash: string;
-    //           oldHash: string;
-    //           i: number;
-    //           patch: Delta[];
-    //           reversePatch: Delta[];
-    //         }
-    //       >(
-    //         old.newHash,
-    //       );
-    //       if (next) {
-    //         return mod[codeSpace].send(
-    //           {
-    //             oldHash: hash,
-    //             newHash: old.newHash,
-    //             patch: old.patch,
-    //             i: next.i,
-    //             reversePatch: next.reversePatch,
-    //             name: names[codeSpace],
-    //           },
-    //         );
-    //       }
-    //     }
-    //   }
-    //   if (hash && hashStore[hash]) {
-    //     // mess.sess = hashStore[hash];
-
-    //     // Object.assign(mess, { sess: hashStore[hash] });
-    //   }
-
-    //   // var bufView = new Uint16Array(str.length);
-    //   // for (var i = 0, strLen = str.length; i < strLen; i++) {
-    //   //   bufView[i] = str.charCodeAt(i);
-    //   // }
-    //   // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
-    //   // var j = 0;
-    //   // while (Atomics.load(bufView, j++) < str.length) {
-
-    //   // }
-    // });
   };
+  // w.socket = websocket;
+
+  // websocket.addEventListener("message", async (ev) => {
+  //   connections[codeSpace] = connections[codeSpace].map(conn => {
+  //     try {
+  //       const ab = str2ab(ev.data);
+  //       conn.postMessage(ab, [ab]);
+  //       return conn;
+  //     } catch (err) {
+  //       console.error("can't post message connection");
+  //       return null;
+  //     }
+  //   }).filter((x) => x !== null) as MessagePort[];
+
+  //   const message = JSON.parse(ev.data);
+
+  //   const mess = { codeSpace, ...message };
+  //   mess.name = names[codeSpace];
+
+  //   const db = dbs[codeSpace];
+  //   const head = await db.getItem<string>("head");
+
+  //   const hash = message.newHash || message.hashCode;
+  //   if (hash && head && hash !== head) {
+  //     await db.setItem("wsHash", hash);
+  //     const old = await db.getItem<
+  //       {
+  //         newHash: string;
+  //         oldHash: string;
+  //         patch: Delta[];
+  //         i: number;
+  //         reversePatch: Delta[];
+  //       }
+  //     >(hash);
+
+  //     if (old) {
+  //       const next = await db.getItem<
+  //         {
+  //           newHash: string;
+  //           oldHash: string;
+  //           i: number;
+  //           patch: Delta[];
+  //           reversePatch: Delta[];
+  //         }
+  //       >(
+  //         old.newHash,
+  //       );
+  //       if (next) {
+  //         return mod[codeSpace].send(
+  //           {
+  //             oldHash: hash,
+  //             newHash: old.newHash,
+  //             patch: old.patch,
+  //             i: next.i,
+  //             reversePatch: next.reversePatch,
+  //             name: names[codeSpace],
+  //           },
+  //         );
+  //       }
+  //     }
+  //   }
+  //   if (hash && hashStore[hash]) {
+  //     // mess.sess = hashStore[hash];
+
+  //     // Object.assign(mess, { sess: hashStore[hash] });
+  //   }
+
+  //   // var bufView = new Uint16Array(str.length);
+  //   // for (var i = 0, strLen = str.length; i < strLen; i++) {
+  //   //   bufView[i] = str.charCodeAt(i);
+  //   // }
+  //   // const sab = new Uint16Array(str2ab(JSON.stringify(mess)));
+  //   // var j = 0;
+  //   // while (Atomics.load(bufView, j++) < str.length) {
+
+  //   // }
+  // });
 }
