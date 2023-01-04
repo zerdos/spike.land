@@ -43,7 +43,7 @@ export class Code {
   buffy: Promise<void>[] = [];
   i = 0;
 
-  mST(codeSpace: string, p?: Delta[]) {
+  mST(p?: Delta[]) {
     if (p && p.length) {
       const sessAsJs = this.session!.session.get("state").toJSON();
 
@@ -63,7 +63,6 @@ export class Code {
         code,
         html,
         css,
-        codeSpace,
       }).toObject();
     }
     return this.session!.session.get("state").toObject();
@@ -142,13 +141,12 @@ export class Code {
     const url = new URL(request.url);
 
     this.wait();
+    if (!this.codeSpace) this.codeSpace = new URLSearchParams(request.url).get("room")!;
 
     if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
       // if (headValue) {
       this.head = hashCode(this.sess!);
-
-      head = this.head;
 
       this.kv.put(String(this.head), this.sess!).then(() => this.kv.put("head", this.head));
 
@@ -172,8 +170,8 @@ export class Code {
 
               const reversePatch: Delta[] = mess.reversePatch || [];
               const patch: Delta[] = mess.patch || [];
-              const oldState = this.sess;
-              const newState = this.mST(this.sess!, patch);
+              const oldState = this.sess!;
+              const newState = this.mST(patch);
               const oldHash = hashCode(oldState);
               const newHash = hashCode(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
@@ -181,14 +179,14 @@ export class Code {
                 throw ("Error - we messed up the hashStores");
               }
 
-              const newRec = this.session.session.get("state").merge(
+              const newRec = this.session!.session.get("state").merge(
                 newState,
               );
-              this.session.session = this.session.session.set(
+              this.session!.session = this.session!.session.set(
                 "state",
                 newRec,
               );
-              this.sess = this.session.session.get("state").toObject();
+              this.sess = this.session!.session.get("state").toObject();
 
               this.syncKV(oldState, newState, {
                 oldHash,
@@ -1087,7 +1085,7 @@ sheet.addRule('h1', 'background: red;');
         // }
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = this.sess;
-          const newSess = this.mST(this.codeSpace, data.patch);
+          const newSess = this.mST(data.patch);
 
           if (this.head !== data.oldHash) {
             return respondWith({

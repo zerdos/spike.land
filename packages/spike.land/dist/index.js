@@ -18175,12 +18175,12 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
     return this.__toString("Stack [", "]");
   };
   Stack2.prototype.get = function get11(index, notSetValue) {
-    var head2 = this._head;
+    var head = this._head;
     index = wrapIndex(this, index);
-    while (head2 && index--) {
-      head2 = head2.next;
+    while (head && index--) {
+      head = head.next;
     }
-    return head2 ? head2.value : notSetValue;
+    return head ? head.value : notSetValue;
   };
   Stack2.prototype.peek = function peek() {
     return this._head && this._head.value;
@@ -18191,21 +18191,21 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
       return this;
     }
     var newSize = this.size + arguments.length;
-    var head2 = this._head;
+    var head = this._head;
     for (var ii3 = arguments.length - 1; ii3 >= 0; ii3--) {
-      head2 = {
+      head = {
         value: arguments$1[ii3],
-        next: head2
+        next: head
       };
     }
     if (this.__ownerID) {
       this.size = newSize;
-      this._head = head2;
+      this._head = head;
       this.__hash = void 0;
       this.__altered = true;
       return this;
     }
-    return makeStack(newSize, head2);
+    return makeStack(newSize, head);
   };
   Stack2.prototype.pushAll = function pushAll(iter) {
     iter = IndexedCollection2(iter);
@@ -18217,22 +18217,22 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
     }
     assertNotInfinite(iter.size);
     var newSize = this.size;
-    var head2 = this._head;
+    var head = this._head;
     iter.__iterate(function(value) {
       newSize++;
-      head2 = {
+      head = {
         value,
-        next: head2
+        next: head
       };
     }, true);
     if (this.__ownerID) {
       this.size = newSize;
-      this._head = head2;
+      this._head = head;
       this.__hash = void 0;
       this.__altered = true;
       return this;
     }
-    return makeStack(newSize, head2);
+    return makeStack(newSize, head);
   };
   Stack2.prototype.pop = function pop() {
     return this.slice(1);
@@ -18260,18 +18260,18 @@ var Stack = /* @__PURE__ */ function(IndexedCollection2) {
       return IndexedCollection2.prototype.slice.call(this, begin, end);
     }
     var newSize = this.size - resolvedBegin;
-    var head2 = this._head;
+    var head = this._head;
     while (resolvedBegin--) {
-      head2 = head2.next;
+      head = head.next;
     }
     if (this.__ownerID) {
       this.size = newSize;
-      this._head = head2;
+      this._head = head;
       this.__hash = void 0;
       this.__altered = true;
       return this;
     }
-    return makeStack(newSize, head2);
+    return makeStack(newSize, head);
   };
   Stack2.prototype.__ensureOwner = function __ensureOwner2(ownerID) {
     if (ownerID === this.__ownerID) {
@@ -18340,10 +18340,10 @@ StackPrototype["@@transducer/step"] = function(result, arr) {
 StackPrototype["@@transducer/result"] = function(obj) {
   return obj.asImmutable();
 };
-function makeStack(size, head2, ownerID, hash2) {
+function makeStack(size, head, ownerID, hash2) {
   var map2 = Object.create(StackPrototype);
   map2.size = size;
-  map2._head = head2;
+  map2._head = head;
   map2.__ownerID = ownerID;
   map2.__hash = hash2;
   map2.__altered = false;
@@ -18818,11 +18818,11 @@ mixin(Collection, {
   toString: function toString3() {
     return "[Collection]";
   },
-  __toString: function __toString(head2, tail) {
+  __toString: function __toString(head, tail) {
     if (this.size === 0) {
-      return head2 + tail;
+      return head + tail;
     }
-    return head2 + " " + this.toSeq().map(this.__toStringMapper).join(", ") + " " + tail;
+    return head + " " + this.toSeq().map(this.__toStringMapper).join(", ") + " " + tail;
   },
   concat: function concat() {
     var values2 = [], len = arguments.length;
@@ -19632,7 +19632,7 @@ var Code = class {
   wsSessions;
   buffy = [];
   i = 0;
-  mST(codeSpace, p3) {
+  mST(p3) {
     if (p3 && p3.length) {
       const sessAsJs = this.session.session.get("state").toJSON();
       const { i: i3, transpiled, code, html, css } = p3 ? JSON.parse(
@@ -19648,8 +19648,7 @@ var Code = class {
         transpiled,
         code,
         html,
-        css,
-        codeSpace
+        css
       }).toObject();
     }
     return this.session.session.get("state").toObject();
@@ -19673,9 +19672,10 @@ var Code = class {
   async fetch(request) {
     const url = new URL(request.url);
     this.wait();
+    if (!this.codeSpace)
+      this.codeSpace = new URLSearchParams(request.url).get("room");
     if (this.head === 0) {
       this.head = hashCode3(this.sess);
-      head = this.head;
       this.kv.put(String(this.head), this.sess).then(() => this.kv.put("head", this.head));
     }
     if (request.method === "POST") {
@@ -19688,7 +19688,7 @@ var Code = class {
               const reversePatch = mess.reversePatch || [];
               const patch = mess.patch || [];
               const oldState = this.sess;
-              const newState = this.mST(this.sess, patch);
+              const newState = this.mST(patch);
               const oldHash = hashCode3(oldState);
               const newHash = hashCode3(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
@@ -20195,7 +20195,7 @@ sheet.addRule('h1', 'background: red;');
         }
         if (data.patch && data.oldHash && data.newHash) {
           const oldSession = this.sess;
-          const newSess = this.mST(this.codeSpace, data.patch);
+          const newSess = this.mST(data.patch);
           if (this.head !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`
