@@ -15164,6 +15164,64 @@ var Code = class {
       await this.kv.put("head", this.head);
       await this.kv.put(String(this.head), this.sess);
     }
+    if (request.method === "POST") {
+      try {
+        const mess = await request.json();
+        if (mess) {
+          if (!mess.patch || mess.patch && mess.i && mess.i > this.i) {
+            if (mess.i) {
+              this.i = mess.i;
+              const reversePatch = mess.reversePatch || [];
+              const patch = mess.patch || [];
+              const oldState = mu2(this.codeSpace);
+              const newState = mu2(this.codeSpace, patch);
+              const oldHash = Eu2(oldState);
+              const newHash = Eu2(newState);
+              if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
+                console.error({ mess, calculated: { oldHash, newHash } });
+                throw "Error - we messed up the hashStores";
+              }
+              Su2(newState, true);
+              await this.syncKV(oldState, newState, {
+                oldHash,
+                newHash,
+                patch,
+                reversePatch
+              });
+              this.broadcast(mess);
+              return new Response(JSON.stringify({ success: true }), {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cross-Origin-Embedder-Policy": "require-corp",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json; charset=UTF-8"
+                }
+              });
+            }
+          }
+        }
+      } catch (e3) {
+        return new Response(JSON.stringify({ success: false, error: { e: e3 } }), {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8"
+          }
+        });
+      }
+      return new Response(JSON.stringify({ success: true, message: "nothing happened" }), {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/json; charset=UTF-8"
+        }
+      });
+    }
     return handleErrors(request, async () => {
       const { code, css, html, i: i3 } = mu2(this.codeSpace);
       const path = url.pathname.slice(1).split("/");

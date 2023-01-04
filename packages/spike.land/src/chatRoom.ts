@@ -156,6 +156,69 @@ export class Code {
       // await this.syncKV(oldSession, newSession, message);
     }
 
+    if (request.method === "POST") {
+      try {
+        const mess:
+          | Partial<CodePatch & ICodeSession & { session: ICodeSession }>
+          | undefined = await request.json();
+        if (mess) {
+          if (!mess.patch || (mess.patch && mess.i && mess.i > this.i)) {
+            if (mess.i) {
+              this.i = mess.i;
+
+              const reversePatch: Delta[] = mess.reversePatch || [];
+              const patch: Delta[] = mess.patch || [];
+              const oldState = mST(this.codeSpace);
+              const newState = mST(this.codeSpace, patch);
+              const oldHash = hashCode(oldState);
+              const newHash = hashCode(newState);
+              if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
+                console.error({ mess, calculated: { oldHash, newHash } });
+                throw ("Error - we messed up the hashStores");
+              }
+              patchSync(newState, true);
+
+              await this.syncKV(oldState, newState, {
+                oldHash,
+                newHash,
+                patch,
+                reversePatch,
+              });
+              this.broadcast(mess);
+              return new Response(JSON.stringify({ success: true }), {
+                status: 200,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cross-Origin-Embedder-Policy": "require-corp",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json; charset=UTF-8",
+                },
+              });
+            }
+          }
+        }
+      } catch (e) {
+        return new Response(JSON.stringify({ success: false, error: { e } }), {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+      return new Response(JSON.stringify({ success: true, message: "nothing happened" }), {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+    }
+
     return handleErrors(request, async () => {
       const { code, css, html, i } = mST(this.codeSpace);
       const path = url.pathname.slice(1).split("/");
@@ -1083,7 +1146,6 @@ sheet.addRule('h1', 'background: red;');
         exp: exp || {},
       });
     }
-    // });
   }
 
   user2user(to: string, msg: unknown | string) {

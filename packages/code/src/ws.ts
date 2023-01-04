@@ -258,6 +258,25 @@ type MessageProps = Partial<{
 
 const ws = {
   blockedMessages: [] as MessageProps[],
+  post: async (
+    mess,
+  ) => {
+    const request = new Request(location.href, {
+      method: "POST",
+      body: JSON.stringify(
+        {
+          name: user,
+          ...mess,
+          codeSpace,
+          i: mST(codeSpace).i,
+          hashCode: hashCode(mST(codeSpace)),
+        },
+      ),
+    });
+
+    const resp = ((await fetch(request)).json());
+    console.log("******* resp from CF", { resp });
+  },
   send: (
     mess: MessageProps,
   ) => {
@@ -556,6 +575,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       // const newSS = mST(codeSpace);
 
+      ws.post()
       ws.send(message);
 
       await ldb(codeSpace).syncDb(oldSession, newSession, message);
@@ -1197,7 +1217,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
         ...message,
         codeSpace,
         i: mST(codeSpace).i,
-        hashCode: hashKEY(codeSpace),
+        hashCode: hashCode(mST(codeSpace)),
       };
       console.log("POST MESSAGE", { messageData });
       if (
