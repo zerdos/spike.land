@@ -153,9 +153,9 @@ export class Code {
     this.wait();
 
     // let sess = this.sess;
-    if (!this.codeSpace) {
-      codeSpace = this.codeSpace = url.searchParams.get("room") || "code-main";
-      this.sess = this.sess.merge({ ...this.sess, codeSpace });
+    if (!this.sess.codeSpace) {
+      codeSpace = this.codeSpace = this.sess.codeSpace = this.sess.codeSpace || url.searchParams.get("room")
+        || "code-main";
 
       //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
 

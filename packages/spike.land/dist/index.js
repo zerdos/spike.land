@@ -19678,9 +19678,8 @@ var Code = class {
   async fetch(request) {
     const url = new URL(request.url);
     this.wait();
-    if (!this.codeSpace) {
-      codeSpace = this.codeSpace = url.searchParams.get("room") || "code-main";
-      this.sess = this.sess.merge({ ...this.sess, codeSpace });
+    if (!this.sess.codeSpace) {
+      codeSpace = this.codeSpace = this.sess.codeSpace = this.sess.codeSpace || url.searchParams.get("room") || "code-main";
       sessions[this.codeSpace] = bu2(
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
