@@ -1,5 +1,5 @@
 import { tsx } from "detective-typescript";
-import { prettier } from "./prettier";
+import { prettierJs as prettier } from "./prettierEsm";
 
 export async function run(
   { code, originToUse }: { code: string; originToUse: string },

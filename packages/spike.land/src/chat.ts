@@ -260,6 +260,10 @@ const api: ExportedHandler<CodeEnv> = {
             // This is a request for `/api/...`, call the API handler.
             return handleApiRequest(path.slice(1), request, env);
 
+          case "ata":
+            // This is a request for `/api/...`, call the API handler.
+            return handleApiRequest(path.slice(1), request, env);
+
           case "ipns":
           case "ipfs": {
             const u = new URL(request.url, "https://cloudflare-ipfs.com");

@@ -14378,6 +14378,8 @@ var api = {
             });
           case "api":
             return handleApiRequest(path2.slice(1), request, env);
+          case "ata":
+            return handleApiRequest(path2.slice(1), request, env);
           case "ipns":
           case "ipfs": {
             const u2 = new URL(request.url, "https://cloudflare-ipfs.com");
