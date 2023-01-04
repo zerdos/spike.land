@@ -3,11 +3,10 @@ import type { FC } from "react";
 // import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
-import { Mutex } from "async-mutex";
 import createCache from "./emotionCache";
 // import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { type ICodeSession, mST, resetCSS } from "./session";
+import { mST } from "./session";
 import { wait } from "./wait";
 
 // const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};

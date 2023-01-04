@@ -1,8 +1,8 @@
+import { EmotionCache } from "@emotion/cache";
 import type { FC } from "react";
 // import { unmountComponentAtNode } from "react-dom";
 import { createRoot, Root } from "react-dom/client";
-import { importMapReplace } from "./importMapReplace";
-import { createJsBlob } from "./starter";
+import { appFactory, md5 } from "./starter";
 import { wait } from "./wait";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
@@ -29,9 +29,13 @@ BC.onmessage = async ({ data }) => {
     controller = new AbortController();
 
     console.log("rerender", data.i);
-    const App: FC<{}> = (await import(
-      createJsBlob(importMapReplace(data.transpiled, origin, origin))
-    )).default;
+    appFactory;
+    const App = await appFactory(data.transpiled);
+    const appId = md5(data.transpiled);
+
+    // //(await import(
+    //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
+    // )).default;
     // const rootEl = document.createElement("div");
     // rootEl.style.height = "100%";
 
@@ -40,13 +44,14 @@ BC.onmessage = async ({ data }) => {
       i,
       signal: controller.signal,
       root,
+
       rootEl,
       retry: 100,
     };
     // const r = createRoot(newRoot);
 
     if (myMod.signal.aborted) return;
-    root.render(<App />);
+    root.render(<App appId={appId} />);
     check(myMod);
 
     function check(m: typeof mod[0]) {
@@ -57,7 +62,7 @@ BC.onmessage = async ({ data }) => {
         }
         const html = m.rootEl.innerHTML;
         if (html) {
-          const css = mineFromCaches(html);
+          const css = mineFromCaches(eCaches[appId], html);
           // root.unmount();
           console.log({ html, css, i: m.i });
           // document.getElementById("root")?.appendChild(newRoot);
@@ -86,7 +91,6 @@ let rootEl: HTMLDivElement;
 export const render = async (
   _rootEl: HTMLDivElement,
   App: FC,
-  codeSpace: string,
 ) => {
   rootEl = _rootEl;
   root = createRoot(rootEl);
@@ -104,7 +108,7 @@ export const prerender = async (App: FC) => {
   while (i-- > 0) {
     const html = document.getElementById("root")!.innerHTML;
     if (html && html !== "") {
-      const css = mineFromCaches(html);
+      const css = mineFromCaches({ key: "css" } as unknown as EmotionCache, html);
       root.unmount();
       console.log({ html, css });
       return { html, css };
@@ -116,9 +120,9 @@ export const prerender = async (App: FC) => {
   return { html: "", css: "" };
 };
 
-function mineFromCaches(html: string) {
-  const key = "css";
-  // const key = cache.key;
+function mineFromCaches(cache: EmotionCache, html: string) {
+  // const key = "css";
+  const key = cache.key || "css";
   try {
     return Array.from(
       document.querySelectorAll(`style[data-emotion="${key}"]`),
