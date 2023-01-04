@@ -63,7 +63,6 @@ export class Code {
   codeSpace: string;
   // mutex: Mutex;
   sess: ICodeSession | null;
-  sessionStarted: boolean;
   user = md5(self.crypto.randomUUID());
   address: string;
   users = new AVLTree(
@@ -97,12 +96,11 @@ export class Code {
   }
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
-    this.kv = state.storage;
     this.state = state;
+    this.kv = state.storage;
     this.sess = null;
 
     this.head = 0;
-    this.sessionStarted = false;
     this.sessions = [];
     this.env = env;
     this.codeSpace = "";
@@ -153,8 +151,8 @@ export class Code {
     this.wait();
 
     // let sess = this.sess;
-    if (!this.sess.codeSpace) {
-      codeSpace = this.codeSpace = this.sess.codeSpace = this.sess.codeSpace || url.searchParams.get("room")
+    if (!this.sess!.codeSpace) {
+      codeSpace = this.codeSpace = this.sess!.codeSpace = this.sess!.codeSpace || url.searchParams.get("room")
         || "code-main";
 
       //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
@@ -164,7 +162,6 @@ export class Code {
         { state: this.sess!, name: this.codeSpace },
         // url.origin,
       );
-      this.sessionStarted = true;
     }
 
     if (this.head === 0) {
@@ -300,6 +297,20 @@ export class Code {
 
               content_hash: md5(trp),
               "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
+        case "sessions": {
+          const d = await this.state.storage.list({ start: path[1] || "0", end: path[2] || "100" });
+
+          return new Response(JSON.stringify(d), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              content_hash: md5(d),
+              "Content-Type": "application/json; charset=UTF-8",
             },
           });
         }

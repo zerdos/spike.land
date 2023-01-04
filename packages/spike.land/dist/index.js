@@ -19616,11 +19616,10 @@ var hashKEY = (cp) => hashCode3(mST(cp));
 var Code = class {
   constructor(state, env) {
     this.env = env;
-    this.kv = state.storage;
     this.state = state;
+    this.kv = state.storage;
     this.sess = null;
     this.head = 0;
-    this.sessionStarted = false;
     this.sessions = [];
     this.env = env;
     this.codeSpace = "";
@@ -19647,7 +19646,6 @@ var Code = class {
   kv;
   codeSpace;
   sess;
-  sessionStarted;
   user = Qt2(self.crypto.randomUUID());
   address;
   users = new AVLTree(
@@ -19684,7 +19682,6 @@ var Code = class {
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
       );
-      this.sessionStarted = true;
     }
     if (this.head === 0) {
       this.head = hashCode3(this.sess);
@@ -19789,6 +19786,19 @@ var Code = class {
               "Cache-Control": "no-cache",
               content_hash: Qt2(trp),
               "Content-Type": "application/javascript; charset=UTF-8"
+            }
+          });
+        }
+        case "sessions": {
+          const d = await this.state.storage.list({ start: path[1] || "0", end: path[2] || "100" });
+          return new Response(JSON.stringify(d), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              content_hash: Qt2(d),
+              "Content-Type": "application/json; charset=UTF-8"
             }
           });
         }
