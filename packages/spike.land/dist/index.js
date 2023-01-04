@@ -19620,7 +19620,6 @@ var Code = class {
     this.head = 0;
     this.sessionStarted = false;
     this.sessions = [];
-    this.sess = null;
     this.env = env;
     this.codeSpace = "";
     this.address = "";
@@ -19642,7 +19641,7 @@ var Code = class {
         codeSpace = this.codeSpace;
         this.codeSpace = session.codeSpace || "";
         if (this.sess.codeSpace) {
-          this.session = bu2(
+          sessions[this.codeSpace] = bu2(
             this.codeSpace,
             { state: session, name: this.user }
           );
@@ -19692,7 +19691,7 @@ var Code = class {
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.codeSpace = url.searchParams.get("room") || "code-main";
       this.sess.codeSpace = this.codeSpace;
-      this.session = bu2(
+      sessions[this.codeSpace] = bu2(
         this.codeSpace,
         { state: this.sess, name: this.codeSpace }
       );

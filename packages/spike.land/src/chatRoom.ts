@@ -103,7 +103,6 @@ export class Code {
     this.head = 0;
     this.sessionStarted = false;
     this.sessions = [];
-    this.sess = null;
     this.env = env;
     this.codeSpace = "";
     this.address = "";
@@ -145,7 +144,7 @@ export class Code {
         codeSpace = this.codeSpace;
         this.codeSpace = session.codeSpace || "";
         if (this.sess.codeSpace) {
-          this.session = startSession(
+          sessions[this.codeSpace] = startSession(
             this.codeSpace,
             { state: session, name: this.user },
             // url.origin,
@@ -176,7 +175,7 @@ export class Code {
 
       //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
 
-      this.session = startSession(
+      sessions[this.codeSpace] = startSession(
         this.codeSpace,
         { state: this.sess!, name: this.codeSpace },
         // url.origin,
