@@ -311,7 +311,7 @@ export const run = async () => {
     JSON.stringify({ type: "onconnect", codeSpace, hashCode: head, session, name: user, "port": ports.port2 }),
   );
 
-  BCC.postMessage(obj, "lol");
+  BCC.postMessage(obj);
 
   port.onmessage = (e) => handleWorker(e, port);
 
