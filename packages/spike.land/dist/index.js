@@ -3055,7 +3055,7 @@ function o2(s, m3, f) {
 }
 p(o2, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-5MVL554Q.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-FJXJFOFO.mjs
 var Os = r((Aa, Es) => {
   o();
   var fe = -1, se = 1, qt = 0;
@@ -8385,7 +8385,7 @@ p(ha, "initSession");
 var pa = new Ke();
 var da = p(async (t4, e3, r3, n, s) => {
   pa.runExclusive(async () => {
-    let o5 = p((_, p3) => t4("#" + String(_), p3), "setItem"), a = p((_) => e3("#" + String(_)), "getItem"), u = wt(r3)().hashCode(), l3 = await e3("head");
+    let o5 = p((_, p3) => t4(String(_), p3), "setItem"), a = p((_) => e3(String(_)), "getItem"), u = wt(r3)().hashCode(), l3 = await e3("head");
     l3 || (await o5(u, r3), await t4("head", u), l3 = u), await o5(s.newHash, { ...n, oldHash: s.oldHash, reversePatch: s.reversePatch });
     let c = await a(l3);
     await o5(l3, { newHash: s.newHash, patch: s.patch, ...c ? { i: c.i, oldHash: c.oldHash, reversePatch: c.reversePatch } : { code: r3.code, transpiled: r3.transpiled, html: r3.html, css: r3.css } }), await t4("head", s.newHash);
@@ -8591,7 +8591,7 @@ function o4(s, m3, f) {
 }
 p2(o4, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-5MVL554Q.mjs
+// ../code/dist/src/chunk-chunk-FJXJFOFO.mjs
 var Os2 = r2((Aa, Es) => {
   o3();
   var fe = -1, se = 1, qt = 0;
@@ -14048,7 +14048,7 @@ p2(ha2, "initSession");
 var pa2 = new Ke2();
 var da2 = p2(async (t4, e3, r3, n, s) => {
   pa2.runExclusive(async () => {
-    let o5 = p2((_, p3) => t4("#" + String(_), p3), "setItem"), a = p2((_) => e3("#" + String(_)), "getItem"), u = wt2(r3)().hashCode(), l3 = await e3("head");
+    let o5 = p2((_, p3) => t4(String(_), p3), "setItem"), a = p2((_) => e3(String(_)), "getItem"), u = wt2(r3)().hashCode(), l3 = await e3("head");
     l3 || (await o5(u, r3), await t4("head", u), l3 = u), await o5(s.newHash, { ...n, oldHash: s.oldHash, reversePatch: s.reversePatch });
     let c = await a(l3);
     await o5(l3, { newHash: s.newHash, patch: s.patch, ...c ? { i: c.i, oldHash: c.oldHash, reversePatch: c.reversePatch } : { code: r3.code, transpiled: r3.transpiled, html: r3.html, css: r3.css } }), await t4("head", s.newHash);

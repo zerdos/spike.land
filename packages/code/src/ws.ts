@@ -290,7 +290,7 @@ export const run = async () => {
   const hash = hashCode(session);
   const head = await ldb(codeSpace).getItem("head");
 
-  const savedSess = await ldb(codeSpace).getItem("#" + String(head)) as unknown as ICodeSession;
+  const savedSess = await ldb(codeSpace).getItem(String(head)) as unknown as ICodeSession;
   let _mst: ICodeSession | null;
   if (savedSess && head === hash) {
     _mst = savedSess;

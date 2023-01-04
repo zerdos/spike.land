@@ -23,7 +23,7 @@ export async function initDb(codeSpace: string) {
       }
       if (!head) {
         head = hashCode(session);
-        await dbInstance.setItem("#" + String(head), session);
+        await dbInstance.setItem(String(head), session);
         await dbInstance.setItem("head", head);
       }
       dbs[codeSpace] = dbInstance;

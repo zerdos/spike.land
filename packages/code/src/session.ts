@@ -131,10 +131,10 @@ export const syncStorage = async (
   },
 ) => {
   storageMutex.runExclusive(async () => {
-    const setItem = (k: number, v: object) => _setItem("#" + String(k), v);
+    const setItem = (k: number, v: object) => _setItem(String(k), v);
 
     const getItem = (k: number) =>
-      _getItem("#" + String(k)) as unknown as GetItem<
+      _getItem(String(k)) as unknown as GetItem<
         { oldHash: number; reversePatch?: typeof message.reversePatch }
       >;
     const hashOfOldSession = Record(oldSession)().hashCode();
