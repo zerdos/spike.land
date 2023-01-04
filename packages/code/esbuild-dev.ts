@@ -240,7 +240,7 @@ const build = (
     entryPoints: [
       "src/sw.ts",
       "src/ataWorker.ts",
-      "src/prettierWorker.ts",
+      // "src/prettierWorker.ts",
       // "src/fs.worker.ts",
     ],
 

@@ -1,6 +1,6 @@
 import { RpcProvider } from "worker-rpc";
 
-import { run } from "./ata";
+import { prettierJs, run } from "./ata";
 
 const dispatcher: RpcProvider.Dispatcher = (m, t) => postMessage(m, t as StructuredSerializeOptions);
 
@@ -17,3 +17,4 @@ onconnect = (e) => {
 };
 
 rpcProvider.registerRpcHandler("ata", run);
+rpcProvider.registerRpcHandler("prettierJs", prettierJs);

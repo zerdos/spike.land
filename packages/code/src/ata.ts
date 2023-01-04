@@ -1,5 +1,7 @@
 import { tsx } from "detective-typescript";
-import { prettierJs as prettier } from "./prettierEsm";
+import { prettierJs } from "./prettierEsm";
+
+export { prettierJs };
 
 export async function run(
   { code, originToUse }: { code: string; originToUse: string },
@@ -98,7 +100,7 @@ export async function run(
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-    let res = tsx(await prettier(code));
+    let res = tsx(await prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
