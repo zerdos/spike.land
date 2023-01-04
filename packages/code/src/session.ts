@@ -515,7 +515,6 @@ export function mST(codeSpace: string, p?: Delta[]) {
       code,
       html,
       css,
-      codeSpace,
     }).toObject();
   }
   return sessions[codeSpace].session.get("state").toObject();
@@ -577,7 +576,7 @@ export const startSession = (
 ): CodeSession =>
   sessions[codeSpace] || (sessions[codeSpace] = new CodeSession(codeSpace, {
     name: u.name,
-    state: { ...u.state, codeSpace },
+    state: { ...u.state },
   }));
 
 function createPatch(oldCode: string, newCode: string) {

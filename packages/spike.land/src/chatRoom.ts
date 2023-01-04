@@ -24,7 +24,6 @@ function hashCode(sess: ICodeSession) {
   return Record<ICodeSession>(sess)().hashCode();
 }
 
-const hashKEY = (cp: string) => hashCode(mST(cp));
 export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
@@ -144,20 +143,6 @@ export class Code {
 
     this.wait();
 
-    // let sess = this.sess;
-    if (!this.sess!.codeSpace) {
-      codeSpace = this.codeSpace = this.sess!.codeSpace = this.sess!.codeSpace || url.searchParams.get("room")
-        || "code-main";
-
-      //   await this.kv.put("session", this.sess!, { allowConcurrency: true });
-
-      this.session = startSession(
-        this.codeSpace,
-        { state: this.sess!, name: this.codeSpace },
-        // url.origin,
-      );
-    }
-
     if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
       // if (headValue) {
@@ -167,7 +152,7 @@ export class Code {
 
       this.kv.put(String(this.head), this.sess!).then(() => this.kv.put("head", this.head));
 
-      // const newSession = mST(this.codeSpace);
+      // const newSession = this.sess;
 
       // patchSync(oldSession, true);
       // const message = makePatch(newSession);
@@ -187,8 +172,8 @@ export class Code {
 
               const reversePatch: Delta[] = mess.reversePatch || [];
               const patch: Delta[] = mess.patch || [];
-              const oldState = mST(this.codeSpace);
-              const newState = mST(this.codeSpace, patch);
+              const oldState = this.sess;
+              const newState = this.mST(this.sess!, patch);
               const oldHash = hashCode(oldState);
               const newHash = hashCode(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
@@ -247,7 +232,7 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
-      const { code, css, html, i } = mST(this.codeSpace);
+      const { code, css, html, i } = this.sess;
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
@@ -267,7 +252,7 @@ export class Code {
 
         case "index.trans.js": {
           const trp = await initAndTransform(
-            mST(this.codeSpace).code,
+            this.sess!.code,
             {},
             url.origin,
           );
@@ -336,7 +321,7 @@ export class Code {
               );
             }
           }
-          const body = string_(mST(this.codeSpace));
+          const body = string_(this.sess);
           return new Response(body, {
             status: 200,
             headers: {
@@ -349,7 +334,7 @@ export class Code {
           });
         }
         // case "prettier": {
-        //   return new Response(prettier(mST(this.codeSpace).code), {
+        //   return new Response(prettier(this.sess!.code), {
         //     status: 200,
         //     headers: {
         //       "Access-Control-Allow-Origin": "*",
@@ -423,14 +408,14 @@ export class Code {
           });
         }
         // case "yay": {
-        //   // const deps = detective(mST(this.codeSpace).code);
+        //   // const deps = detective(this.sess!.code);
         //   // initAta();
         //   // await addExtraModels(code, url.origin + `/live/` + this.codeSpace);
         //   // initAta();
 
-        //   // await addExtraModels(importMapReplace(mST(this.codeSpace).code, url.origin, url.origin, false), url.toString());
+        //   // await addExtraModels(importMapReplace(this.sess!.code, url.origin, url.origin, false), url.toString());
         //   // const code = await this.kv.list();c
-        //   // const code = mST(this.codeSpace).code;
+        //   // const code = this.sess!.code;
         //   // let [, ...deps] = path;
         //   // if (deps.length === 0) {
         //   //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
@@ -442,7 +427,7 @@ export class Code {
         //   // deps = [...(new Set(deps))];
         //   // const res = JSON.stringify(deps);
 
-        //   const res = JSON.stringify(await run(mST(this.codeSpace).code, url.origin));
+        //   const res = JSON.stringify(await run(this.sess!.code, url.origin));
 
         //   return new Response(res, {
         //     status: 200,
@@ -460,7 +445,7 @@ export class Code {
         //   let [, ...deps] = path;
         //   initAta();
         //   // const code = await this.kv.list();c
-        //   const code = prettierJs(mST(this.codeSpace).code);
+        //   const code = prettierJs(this.sess!.code);
         //   if (deps.length === 0) {
         //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
         //       s => s.split(`"`)[1],
@@ -571,25 +556,25 @@ export class Code {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i = path[1] || mST(this.codeSpace).i;
+          const i = path[1] || this.sess!.i;
 
-          if (i > mST(this.codeSpace).i) {
+          if (i > this.sess!.i) {
             // const started = Date.now() / 1000;
             // const body = await new Promise<string>((res, reject) =>
             //   this.wait(() => {
             //     const now = Date.now() / 1000;
 
-            //     if (mST(this.codeSpace).i < Number(i) && started - now < 3000) {
+            //     if (this.sess!.i < Number(i) && started - now < 3000) {
             //       return false;
             //     }
             //     if (
-            //       mST(this.codeSpace).i < Number(i) && started - now >= 3000
+            //       this.sess!.i < Number(i) && started - now >= 3000
             //     ) {
             //       reject(null);
             //       return false;
             //     }
 
-            //     initAndTransform(mST(this.codeSpace).code, {}, url.origin).then(
+            //     initAndTransform(this.sess!.code, {}, url.origin).then(
             //       (transpiled) => res(transpiled),
             //     );
             //     return true;
@@ -597,7 +582,7 @@ export class Code {
             // );
 
             const trp = await initAndTransform(
-              mST(this.codeSpace).code,
+              this.sess!.code,
               {},
               url.origin,
             );
@@ -614,9 +599,9 @@ export class Code {
               },
             });
           }
-          if (i < mST(this.codeSpace).i) {
+          if (i < this.sess!.i) {
             const trp = await initAndTransform(
-              mST(this.codeSpace).code,
+              this.sess!.code,
               {},
               url.origin,
             );
@@ -625,7 +610,7 @@ export class Code {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST(this.codeSpace).i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${this.sess!.i}`,
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -634,7 +619,7 @@ export class Code {
             });
           }
           const trp = await initAndTransform(
-            mST(this.codeSpace).code,
+            this.sess!.code,
             {},
             url.origin,
           );
@@ -896,8 +881,8 @@ sheet.addRule('h1', 'background: red;');
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: hashKEY(this.codeSpace),
-        i: mST(this.codeSpace).i,
+        hashCode: this.head,
+        i: this.sess!.i,
         users,
         type: "handshake",
       }),
@@ -994,9 +979,8 @@ sheet.addRule('h1', 'background: red;');
     }
 
     if (data.type == "handshake") {
-      const HEAD = hashKEY(this.codeSpace);
       const commit = data.hashCode;
-      while (commit && commit !== HEAD) {
+      while (commit && commit !== this.head) {
         const oldNode = await this.kv.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });
@@ -1027,7 +1011,7 @@ sheet.addRule('h1', 'background: red;');
 
     //   if (data.hashCode) {
     //     if (data?.hashCode !== hashKEY(this.codeSpace)) {
-    //       const patch = makePatchFrom(data.hashCode, mST(this.codeSpace));
+    //       const patch = makePatchFrom(data.hashCode, this.sess);
     //       if (patch) {
     //         return respondWith({ ...patch });
     //       }
@@ -1062,7 +1046,7 @@ sheet.addRule('h1', 'background: red;');
       // if (
       //   !data.type && limiter.checkLimit()
       // ) {
-      //   return respondWith({ if ( if (data.i <= mST(this.codeSpace).i) return;data.i <= mST(this.codeSpace).i) return;
+      //   return respondWith({ if ( if (data.i <= this.sess!.i) return;data.i <= this.sess!.i) return;
       //     error: "Your IP is being rate-limited, please try again later.",
       //   });
       // }
@@ -1078,9 +1062,9 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
 
-        // if (data.i <= mST(this.codeSpace).i) {
+        // if (data.i <= this.sess!.i) {
         //   return respondWith({
-        //     error: `data.i <= mST(this.codeSpace).i`,
+        //     error: `data.i <= this.sess!.i`,
         //   });
         // }
 
@@ -1102,10 +1086,10 @@ sheet.addRule('h1', 'background: red;');
         //   return;
         // }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = mST(this.codeSpace);
-          const newSess = mST(this.codeSpace, data.patch);
+          const oldSession = this.sess;
+          const newSess = this.mST(this.codeSpace, data.patch);
 
-          if (hashCode(this.sess) !== data.oldHash) {
+          if (this.head !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`,
             });
@@ -1144,7 +1128,7 @@ sheet.addRule('h1', 'background: red;');
 
             const { newHash, oldHash, patch, reversePatch } = data;
 
-            await this.syncKV(oldSession, newSess, {
+            await this.syncKV(oldSession || newSess, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
               patch,
@@ -1167,7 +1151,7 @@ sheet.addRule('h1', 'background: red;');
           // );
           // }
           return respondWith({
-            hashCode: hashKEY(this.codeSpace),
+            hashCode: this.head,
           });
         }
       } catch (exp) {

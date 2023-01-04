@@ -3056,7 +3056,7 @@ function o2(s, m3, f) {
 }
 p(o2, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-UV6TINSH.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-JOJPXFZU.mjs
 var Os = r((Aa, Es) => {
   o();
   var fe = -1, se = 1, qt = 0;
@@ -8476,7 +8476,7 @@ var Fr = p((t3) => Vt[t3]?.session.get("state").hashCode(), "hashKEY");
 function mu(t3, e3) {
   if (e3 && e3.length) {
     let r3 = Vt[t3]?.session.get("state").toJSON(), { i: n, transpiled: s, code: o5, html: a, css: u } = e3 ? JSON.parse(Dn(Je(r3), e3)) : r3;
-    return Vt[t3]?.session.get("state").merge({ i: n, transpiled: s, code: o5, html: a, css: u, codeSpace: t3 }).toObject();
+    return Vt[t3]?.session.get("state").merge({ i: n, transpiled: s, code: o5, html: a, css: u }).toObject();
   }
   return Vt[t3].session.get("state").toObject();
 }
@@ -8493,7 +8493,7 @@ var vu = p((t3, e3) => {
 var yu = p((t3, e3 = "default", r3) => Vt[r3]?.onUpdate(t3, e3), "onSessionUpdate");
 var _a = p((t3, e3, r3) => ({ codeSpace: r3, i: e3.i, ...Vt[r3]?.createPatchFromHashCode(t3, e3) }), "makePatchFrom");
 var wu = p((t3, e3) => ({ ..._a(Fr(e3), t3, e3), codeSpace: e3, i: t3.i }), "makePatch");
-var bu = p((t3, e3) => Vt[t3] || (Vt[t3] = new Nr(t3, { name: e3.name, state: { ...e3.state, codeSpace: t3 } })), "startSession");
+var bu = p((t3, e3) => Vt[t3] || (Vt[t3] = new Nr(t3, { name: e3.name, state: { ...e3.state } })), "startSession");
 function As(t3, e3) {
   return ks(t3, e3);
 }
@@ -8592,7 +8592,7 @@ function o4(s, m3, f) {
 }
 p2(o4, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-UV6TINSH.mjs
+// ../code/dist/src/chunk-chunk-JOJPXFZU.mjs
 var Os2 = r2((Aa, Es) => {
   o3();
   var fe = -1, se = 1, qt = 0;
@@ -14139,7 +14139,7 @@ var Fr2 = p2((t3) => Vt2[t3]?.session.get("state").hashCode(), "hashKEY");
 function mu2(t3, e3) {
   if (e3 && e3.length) {
     let r3 = Vt2[t3]?.session.get("state").toJSON(), { i: n, transpiled: s, code: o5, html: a, css: u } = e3 ? JSON.parse(Dn2(Je2(r3), e3)) : r3;
-    return Vt2[t3]?.session.get("state").merge({ i: n, transpiled: s, code: o5, html: a, css: u, codeSpace: t3 }).toObject();
+    return Vt2[t3]?.session.get("state").merge({ i: n, transpiled: s, code: o5, html: a, css: u }).toObject();
   }
   return Vt2[t3].session.get("state").toObject();
 }
@@ -14156,7 +14156,7 @@ var vu2 = p2((t3, e3) => {
 var yu2 = p2((t3, e3 = "default", r3) => Vt2[r3]?.onUpdate(t3, e3), "onSessionUpdate");
 var _a2 = p2((t3, e3, r3) => ({ codeSpace: r3, i: e3.i, ...Vt2[r3]?.createPatchFromHashCode(t3, e3) }), "makePatchFrom");
 var wu2 = p2((t3, e3) => ({ ..._a2(Fr2(e3), t3, e3), codeSpace: e3, i: t3.i }), "makePatch");
-var bu2 = p2((t3, e3) => Vt2[t3] || (Vt2[t3] = new Nr2(t3, { name: e3.name, state: { ...e3.state, codeSpace: t3 } })), "startSession");
+var bu2 = p2((t3, e3) => Vt2[t3] || (Vt2[t3] = new Nr2(t3, { name: e3.name, state: { ...e3.state } })), "startSession");
 function As2(t3, e3) {
   return ks2(t3, e3);
 }
@@ -19587,7 +19587,6 @@ async function esmTransform(code, origin) {
 function hashCode3(sess) {
   return Record(sess)().hashCode();
 }
-var hashKEY = (cp) => hashCode3(mST(cp));
 var Code = class {
   constructor(state, env) {
     this.env = env;
@@ -19633,7 +19632,7 @@ var Code = class {
   wsSessions;
   buffy = [];
   i = 0;
-  mST(codeSpace2, p3) {
+  mST(codeSpace, p3) {
     if (p3 && p3.length) {
       const sessAsJs = this.session.session.get("state").toJSON();
       const { i: i3, transpiled, code, html, css } = p3 ? JSON.parse(
@@ -19650,7 +19649,7 @@ var Code = class {
         code,
         html,
         css,
-        codeSpace: codeSpace2
+        codeSpace
       }).toObject();
     }
     return this.session.session.get("state").toObject();
@@ -19674,13 +19673,6 @@ var Code = class {
   async fetch(request) {
     const url = new URL(request.url);
     this.wait();
-    if (!this.sess.codeSpace) {
-      codeSpace = this.codeSpace = this.sess.codeSpace = this.sess.codeSpace || url.searchParams.get("room") || "code-main";
-      this.session = bu2(
-        this.codeSpace,
-        { state: this.sess, name: this.codeSpace }
-      );
-    }
     if (this.head === 0) {
       this.head = hashCode3(this.sess);
       head = this.head;
@@ -19695,8 +19687,8 @@ var Code = class {
               this.i = mess.i;
               const reversePatch = mess.reversePatch || [];
               const patch = mess.patch || [];
-              const oldState = mST(this.codeSpace);
-              const newState = mST(this.codeSpace, patch);
+              const oldState = this.sess;
+              const newState = this.mST(this.sess, patch);
               const oldHash = hashCode3(oldState);
               const newHash = hashCode3(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
@@ -19752,7 +19744,7 @@ var Code = class {
       });
     }
     return handleErrors(request, async () => {
-      const { code, css, html, i: i3 } = mST(this.codeSpace);
+      const { code, css, html, i: i3 } = this.sess;
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0)
         path.push("");
@@ -19771,7 +19763,7 @@ var Code = class {
           });
         case "index.trans.js": {
           const trp = await initAndTransform(
-            mST(this.codeSpace).code,
+            this.sess.code,
             {},
             url.origin
           );
@@ -19835,7 +19827,7 @@ var Code = class {
               );
             }
           }
-          const body = Je2(mST(this.codeSpace));
+          const body = Je2(this.sess);
           return new Response(body, {
             status: 200,
             headers: {
@@ -19909,10 +19901,10 @@ var Code = class {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i4 = path[1] || mST(this.codeSpace).i;
-          if (i4 > mST(this.codeSpace).i) {
+          const i4 = path[1] || this.sess.i;
+          if (i4 > this.sess.i) {
             const trp2 = await initAndTransform(
-              mST(this.codeSpace).code,
+              this.sess.code,
               {},
               url.origin
             );
@@ -19928,9 +19920,9 @@ var Code = class {
               }
             });
           }
-          if (i4 < mST(this.codeSpace).i) {
+          if (i4 < this.sess.i) {
             const trp2 = await initAndTransform(
-              mST(this.codeSpace).code,
+              this.sess.code,
               {},
               url.origin
             );
@@ -19939,7 +19931,7 @@ var Code = class {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${mST(this.codeSpace).i}`,
+                "Location": `${url.origin}/live/${this.codeSpace}/index.mjs/${this.sess.i}`,
                 "Cache-Control": "no-cache",
                 content_hash: Qt2(trp2),
                 "Content-Type": "application/javascript; charset=UTF-8"
@@ -19947,7 +19939,7 @@ var Code = class {
             });
           }
           const trp = await initAndTransform(
-            mST(this.codeSpace).code,
+            this.sess.code,
             {},
             url.origin
           );
@@ -20135,8 +20127,8 @@ sheet.addRule('h1', 'background: red;');
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: hashKEY(this.codeSpace),
-        i: mST(this.codeSpace).i,
+        hashCode: this.head,
+        i: this.sess.i,
         users,
         type: "handshake"
       })
@@ -20178,9 +20170,8 @@ sheet.addRule('h1', 'background: red;');
       session.name = name;
     }
     if (data.type == "handshake") {
-      const HEAD = hashKEY(this.codeSpace);
       const commit = data.hashCode;
-      while (commit && commit !== HEAD) {
+      while (commit && commit !== this.head) {
         const oldNode = await this.kv.get("" + commit, {
           allowConcurrency: true
         });
@@ -20203,9 +20194,9 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = mST(this.codeSpace);
-          const newSess = mST(this.codeSpace, data.patch);
-          if (hashCode3(this.sess) !== data.oldHash) {
+          const oldSession = this.sess;
+          const newSess = this.mST(this.codeSpace, data.patch);
+          if (this.head !== data.oldHash) {
             return respondWith({
               error: `old hashes not matching`
             });
@@ -20226,7 +20217,7 @@ sheet.addRule('h1', 'background: red;');
               allowConcurrency: true
             });
             const { newHash, oldHash, patch, reversePatch } = data;
-            await this.syncKV(oldSession, newSess, {
+            await this.syncKV(oldSession || newSess, newSess, {
               newHash: +newHash,
               oldHash: +oldHash,
               patch,
@@ -20240,7 +20231,7 @@ sheet.addRule('h1', 'background: red;');
             });
           }
           return respondWith({
-            hashCode: hashKEY(this.codeSpace)
+            hashCode: this.head
           });
         }
       } catch (exp) {
