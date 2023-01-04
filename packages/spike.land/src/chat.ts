@@ -371,7 +371,7 @@ const api: ExportedHandler<CodeEnv> = {
                   "public, max-age=604800, immutable",
                 );
               }
-              headers.append("Cross-Origin-Embedder-Policy", "require-corp");
+              headers.set("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
               cache.put(kvCacheKey, kvResp.clone());
               return kvResp;

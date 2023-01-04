@@ -14344,7 +14344,7 @@ var api = {
                   "public, max-age=604800, immutable"
                 );
               }
-              headers2.append("Cross-Origin-Embedder-Policy", "require-corp");
+              headers2.set("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers: headers2 });
               cache.put(kvCacheKey, kvResp.clone());
               return kvResp;
