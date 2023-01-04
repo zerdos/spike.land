@@ -31,7 +31,6 @@ export class Code {
   session: CodeSession | null;
   sess: ICodeSession | null;
   user = md5(self.crypto.randomUUID());
-  address: string;
   users = new AVLTree(
     (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
     true,
@@ -155,7 +154,7 @@ export class Code {
       // await this.syncKV(oldSession, newSession, message);
     }
 
-    if (request.method === "POST") {
+    if (request.method === "PUT") {
       try {
         const mess:
           | Partial<CodePatch & ICodeSession & { session: ICodeSession }>

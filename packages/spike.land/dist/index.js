@@ -19619,7 +19619,6 @@ var Code = class {
   session;
   sess;
   user = Qt2(self.crypto.randomUUID());
-  address;
   users = new AVLTree(
     (a, b3) => a === b3 ? 0 : a < b3 ? 1 : -1,
     true
@@ -19674,7 +19673,7 @@ var Code = class {
       this.head = hashCode3(this.sess);
       this.kv.put(String(this.head), this.sess).then(() => this.kv.put("head", this.head));
     }
-    if (request.method === "POST") {
+    if (request.method === "PUT") {
       try {
         const mess = await request.json();
         if (mess) {
