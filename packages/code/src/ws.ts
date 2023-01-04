@@ -575,7 +575,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       // const newSS = mST(codeSpace);
 
-      ws.post()
+      ws.post(message);
       ws.send(message);
 
       await ldb(codeSpace).syncDb(oldSession, newSession, message);
