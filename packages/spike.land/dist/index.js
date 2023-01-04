@@ -15097,6 +15097,8 @@ var Code = class {
         if (!session)
           throw Error("cant get the starter session");
         this.head = await this.kv.get("head") || 0;
+        if (Number(this.head + 50) !== 50 + this.head)
+          this.head = 0;
         this.address = await this.kv.get("address", { allowConcurrency: true }) || "";
         this.sess = session;
         this.codeSpace = session.codeSpace || "";
@@ -15160,9 +15162,10 @@ var Code = class {
       this.sessionStarted = true;
     }
     if (this.head === 0) {
-      this.head = Eu2(this.sess);
+      const sess = mu2(this.codeSpace);
+      this.head = Eu2(sess);
       await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), this.sess);
+      await this.kv.put(String(this.head), sess);
     }
     if (request.method === "POST") {
       try {

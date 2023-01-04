@@ -93,6 +93,8 @@ export class Code {
         // }
 
         this.head = await this.kv.get("head") || 0;
+
+        if (Number(this.head + 50) !== 50 + this.head) this.head = 0;
         // if ( (head+1) !== Number(head)+1 ) {
         //   head =
         // }
@@ -144,9 +146,10 @@ export class Code {
     if (this.head === 0) {
       // const headValue = await this.kv.get<CodePatch>(this.head);
       // if (headValue) {
-      this.head = hashCode(this.sess);
+      const sess = mST(this.codeSpace);
+      this.head = hashCode(sess);
       await this.kv.put("head", this.head);
-      await this.kv.put(String(this.head), this.sess);
+      await this.kv.put(String(this.head), sess);
 
       // const newSession = mST(this.codeSpace);
 
