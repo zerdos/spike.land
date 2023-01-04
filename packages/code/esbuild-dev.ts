@@ -17,7 +17,7 @@ import * as esbuild from "https://deno.land/x/esbuild@v0.16.13/mod.js";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = "development" === "production"
+const environment = "production" === "production"
   ? "production"
   : "development";
 
@@ -105,9 +105,9 @@ const buildOptions = {
 };
 
 const workerEntryPoints = [
-  // "vs/language/json/json.worker",
-  // "vs/language/css/css.worker",
-  // "vs/language/html/html.worker",
+  "vs/language/json/json.worker",
+  "vs/language/css/css.worker",
+  "vs/language/html/html.worker",
   "vs/language/typescript/ts.worker",
   "vs/editor/editor.worker",
 ];
@@ -117,27 +117,6 @@ console.log(`
 --------------${environment}---------------------
 ----------------------b1--------------------------
 -------------------------------------------------`);
-
-await esbuild.build({
-  entryPoints: [
-    ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-  ],
-  bundle: true,
-  define,
-  outExtension: { ".js": ".worker.js" },
-  treeShaking: true,
-  minify: true, // ! isDevelopment,
-  minifyWhitespace: true, // ! isDevelopment,
-  minifyIdentifiers: true, // ! isDevelopment,
-  minifySyntax: true, // ! isDevelopment,
-  ignoreAnnotations: false,
-  keepNames: true,
-
-  platform: "browser",
-  format: "iife",
-  outbase: "monaco-editor/esm/vs",
-  outdir: "dist",
-});
 
 const build = (
   entryPoints = [""],
@@ -187,7 +166,6 @@ const build = (
       ".mjs",
       ".html",
       ".js",
-      ".worker.js",
       ".wasm",
     ],
     metafile: true,
@@ -198,7 +176,6 @@ const build = (
       ".tsx": "tsx",
       ".jsx": "tsx",
       ".js": "ts",
-      ".worker.js": "file",
       ".ts": "ts",
       ".html": "text",
       ".cjs": "ts",
@@ -221,7 +198,25 @@ const build = (
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
+  await esbuild.build({
+    entryPoints: [
+      ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+    ],
+    bundle: true,
+    define,
+    treeShaking: true,
+    minify: true, // ! isDevelopment,
+    minifyWhitespace: true, // ! isDevelopment,
+    minifyIdentifiers: true, // ! isDevelopment,
+    minifySyntax: true, // ! isDevelopment,
+    ignoreAnnotations: false,
+    keepNames: true,
 
+    platform: "browser",
+    format: "iife",
+    outbase: "monaco-editor/esm/vs",
+    outdir: "dist",
+  });
   // await build(["src/react-jsx-runtime.ts"], [], false, "iife");
 
   // await build(["src/mWorker.mjs"], [], false, "iife");
