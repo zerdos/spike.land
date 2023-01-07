@@ -297,12 +297,17 @@ const build = (
   await build(
     [
       "src/reactMod.ts",
-      // "src/motion.ts",
+      "src/motion.ts",
+      "src/ErrorBoundary.tsx",
       "src/reactDom.ts",
       "src/hydrate.tsx",
+
+      "src/motion.ts",
+      "src/ErrorBoundary.tsx",
       "src/render.tsx",
       "src/reactDomClient.ts",
       "src/emotion.ts",
+      "src/hydrate.tsx",
       // "src/shared.ts",
       // "src/emotionCache.ts",
       // "src/emotionStyled.mjs",
@@ -310,23 +315,6 @@ const build = (
       // "src/jsx.mjs",
     ],
     [],
-  );
-
-  await build(
-    [
-      // "src/reactMod.ts",
-      "src/motion.ts",
-      // "src/reactDom.ts",
-      // "src/hydrate.tsx",
-      // "src/render.tsx",
-      // "src/reactDomClient.ts",
-      // "src/emotion.ts",
-      // "src/shared.ts",
-      // "src/emotionCache.ts",
-      // "src/emotionStyled.mjs",
-      // "src/emotionJsxRuntime.mjs",
-      // "src/jsx.mjs",
-    ],
   );
 
   await build(
@@ -339,10 +327,9 @@ const build = (
       "src/reactMod.ts",
 
       // "src/Editor.tsx",
-      "src/motion.ts",
 
       // "src/reactDom.ts",
-      "src/hydrate.tsx",
+
       "src/reactDomClient.ts",
       "src/esbuildWASM.ts",
       "src/emotion.ts",

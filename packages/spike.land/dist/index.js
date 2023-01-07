@@ -3053,7 +3053,7 @@ var init_importMap = __esm({
       "@emotion/styled": "/src/emotionStyled.mjs",
       "react": "/src/reactMod.mjs",
       "react-dom": "/src/reactDom.mjs",
-      "react-error-boundary": "/src/reactMod.mjs",
+      "react-error-boundary": "/src/ErrorBoundary.mjs",
       "hydrate.mjs": "/src/hydrate.mjs"
     };
     importMap = { imports };
@@ -11646,7 +11646,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmPLx7fbPPRigXTnZ2yj3M1MegeJCz74pymdQLWXzUUQUo\n";
+var dist_default = "QmSW42fJp2dK1zSPDFaphN8Yh8pKjopqfKWCprdLXuAFeM\n";
 
 // ../code/dist/src/session.mjs
 var __create3 = Object.create;
@@ -11698,7 +11698,7 @@ var init_importMap2 = __esm2({
       "@emotion/styled": "/src/emotionStyled.mjs",
       "react": "/src/reactMod.mjs",
       "react-dom": "/src/reactDom.mjs",
-      "react-error-boundary": "/src/reactMod.mjs",
+      "react-error-boundary": "/src/ErrorBoundary.mjs",
       "hydrate.mjs": "/src/hydrate.mjs"
     };
     importMap3 = { imports: imports2 };

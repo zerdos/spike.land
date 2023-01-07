@@ -7,7 +7,7 @@ const imports = {
   "@emotion/styled": "/src/emotionStyled.mjs",
   "react": "/src/reactMod.mjs",
   "react-dom": "/src/reactDom.mjs",
-  "react-error-boundary": "/src/reactMod.mjs",
+  "react-error-boundary": "/src/ErrorBoundary.mjs",
   "hydrate.mjs": "/src/hydrate.mjs",
 };
 export const importMap = { imports };

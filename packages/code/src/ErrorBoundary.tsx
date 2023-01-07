@@ -1,6 +1,6 @@
 import React from "react";
 
-class ErrorBoundary extends React.Component<
+export class ErrorBoundary extends React.Component<
   { children: JSX.Element },
   { errorInfo?: { componentStack: string }; error?: Error }
 > {
