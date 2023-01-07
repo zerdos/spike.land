@@ -207,6 +207,10 @@ const build = (
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
+  await Deno.copyFile(
+    "./dist/src/assets/favicons/favicon.ico",
+    "./dist/favicon.ico",
+  );
   await esbuild.build({
     entryPoints: [
       ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
