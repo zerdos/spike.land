@@ -11646,7 +11646,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmYsn6GjchtwPRsfcmB72kj3WBhhN1FM1LQ6xBb9dTcaHg\n";
+var dist_default = "QmPLx7fbPPRigXTnZ2yj3M1MegeJCz74pymdQLWXzUUQUo\n";
 
 // ../code/dist/src/session.mjs
 var __create3 = Object.create;

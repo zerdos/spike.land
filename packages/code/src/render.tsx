@@ -2,7 +2,10 @@ import "react";
 import { EmotionCache } from "@emotion/cache";
 import type { FC } from "react";
 import ReactDOM from "react-dom";
+
+import createCache from "./emotionCache";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
+import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import { appFactory, md5 } from "./starter";
@@ -20,9 +23,21 @@ export const render = async (
   App: FC,
 ) => {
   console.log({ _rootEl, App });
+
+  const cache = createCache({
+    key: "css",
+    speedy: false,
+  });
+
+  cache.compat = undefined;
+
   rootEl = _rootEl;
   root = createRoot(rootEl);
-  root.render(<App />);
+  root.render(
+    <CacheProvider value={cache}>
+      <App />
+    </CacheProvider>,
+  );
 
   return root;
 };
