@@ -796,11 +796,11 @@ sheet.addRule('h1', 'background: red;');
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
+              import defApp from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
 
               const rootEl = document.getElementById("${codeSpace}-css");
-              
-              render(rootEl, App, "${codeSpace}");          
+              const myApp = defApp();
+              render(rootEl, myApp, "${codeSpace}");          
           
               </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);
