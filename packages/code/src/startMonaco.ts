@@ -108,8 +108,10 @@ const monacoContribution = async (
     allowUmdGlobalAccess: false,
     include: [originToUse + "/"],
   });
+  console.log("ATA");
 
   ata({ code, originToUse }).then(extraLibs => {
+    console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     languages.typescript.typescriptDefaults
