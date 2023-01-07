@@ -297,16 +297,34 @@ const build = (
   await build(
     [
       "src/reactMod.ts",
-      "src/motion.ts",
-      // "src/reactDom.ts",
+      // "src/motion.ts",
+      "src/reactDom.ts",
       "src/hydrate.tsx",
       "src/render.tsx",
       "src/reactDomClient.ts",
       "src/emotion.ts",
-      "src/shared.ts",
-      "src/emotionCache.ts",
-      "src/emotionStyled.mjs",
+      // "src/shared.ts",
+      // "src/emotionCache.ts",
+      // "src/emotionStyled.mjs",
       "src/emotionJsxRuntime.mjs",
+      // "src/jsx.mjs",
+    ],
+    ["react-dom", "react-dom/*"],
+  );
+
+  await build(
+    [
+      // "src/reactMod.ts",
+      "src/motion.ts",
+      // "src/reactDom.ts",
+      // "src/hydrate.tsx",
+      // "src/render.tsx",
+      // "src/reactDomClient.ts",
+      // "src/emotion.ts",
+      // "src/shared.ts",
+      // "src/emotionCache.ts",
+      // "src/emotionStyled.mjs",
+      // "src/emotionJsxRuntime.mjs",
       // "src/jsx.mjs",
     ],
   );
