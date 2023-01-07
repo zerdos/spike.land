@@ -36,7 +36,7 @@ if (
   location.pathname !== `/live/${codeSpace}`
   && !location.pathname.endsWith("worker")
 ) {
-  const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH=" + assetHash);
+  // const bc = new SharedWorker("/sharedWorker.js?ASSET_HASH=" + assetHash);
   // const name = md5(((self && self.crypto && self.crypto.randomUUID
   //   && self.crypto.randomUUID()) || (uidV4())).slice(
   //     0,
@@ -44,7 +44,7 @@ if (
   //   ));
   // messagePort = bc.port;
 
-  bc.port.start();
+  // bc.port.start();
 
   if (location.pathname.endsWith(`/live/${codeSpace}`)) {
     // run();
