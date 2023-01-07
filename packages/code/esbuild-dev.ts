@@ -3,6 +3,7 @@
 // import postcssNested from "postcss-nested"
 
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.14/mod.js";
+import {imports} from  "./"
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
@@ -307,11 +308,9 @@ const build = (
       "src/render.tsx",
       "src/reactDomClient.ts",
       "src/emotion.ts",
-      "src/hydrate.tsx",
       // "src/shared.ts",
       // "src/emotionCache.ts",
       // "src/emotionStyled.mjs",
-      "src/emotionJsxRuntime.mjs",
       // "src/jsx.mjs",
     ],
     [],
@@ -323,22 +322,17 @@ const build = (
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
       "src/Editor.tsx",
-      // "src/motion.ts",
       "src/reactMod.ts",
 
       // "src/Editor.tsx",
 
       // "src/reactDom.ts",
 
-      "src/reactDomClient.ts",
       "src/esbuildWASM.ts",
-      "src/emotion.ts",
       // "src/emotionCache.ts",
-      // "src/emotionStyled.mjs",
-      "src/emotionJsxRuntime.mjs",
-      "src/emotion.ts",
+      // "src/emotionSt
       // "src/emotionJsxRuntime.ts",
-      "src/jsx.mjs",
+      // "src/jsx.mjs",
     ],
     [
       // "/npm:/*",
