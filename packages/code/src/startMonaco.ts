@@ -3,7 +3,7 @@ import * as monaco from "monaco-editor";
 // import localForage from "localforage";
 
 const { editor, languages, Uri } = monaco;
-import { RpcProvider } from "worker-rpc";
+import { ata } from "./shared";
 
 const { createModel } = editor;
 const create = editor.create;
@@ -109,33 +109,19 @@ const monacoContribution = async (
     include: [originToUse + "/"],
   });
 
-  const worker = new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
-  const dispatcher: RpcProvider.Dispatcher = (m, t) => worker.port.postMessage(m, t as StructuredSerializeOptions);
+  ata({ code, originToUse }).then(extraLibs => {
+    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
-  const rpcProvider = new RpcProvider(dispatcher, 30_000);
-
-  worker.port.onmessage = (e) => rpcProvider.dispatch(e.data);
-  worker.port.start();
-
-  rpcProvider
-    .rpc("ata", { code, originToUse })
-    .then((r) => {
-      const result = r as unknown as {
-        content: string;
-        filePath?: string | undefined;
-      }[];
-      console.log({ result });
-      languages.typescript.typescriptDefaults.setExtraLibs(result);
-      languages.typescript.typescriptDefaults
-        .setDiagnosticsOptions({
-          noSuggestionDiagnostics: false,
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
-          diagnosticCodesToIgnore: [2691],
-        });
-      languages.typescript.typescriptDefaults.setEagerModelSync(true);
-    });
-
+    languages.typescript.typescriptDefaults
+      .setDiagnosticsOptions({
+        noSuggestionDiagnostics: false,
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+        diagnosticCodesToIgnore: [2691],
+      });
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  });
+  x;
   // })();
 
   // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({

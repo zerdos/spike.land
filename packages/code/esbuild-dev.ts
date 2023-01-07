@@ -1,6 +1,7 @@
 // Import inlineWorkerPlugin from 'esbuild-plugin-inline-worker';
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
+
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.14/mod.js";
 
 // import { cp } from "node:fs/promises";
@@ -133,7 +134,7 @@ const build = (
     external: [...buildOptions.external, ...extraExternal.filter((x) => x)],
     outExtension: { ".js": ".mjs" },
     bundle: true,
-    splitting: format === "esm",
+    splitting: false, // format === "esm",
     target,
     format: "esm",
     sourcemap: false,
@@ -287,15 +288,16 @@ const build = (
     [
       "src/reactMod.ts",
       "src/motion.ts",
-      "src/reactDom.ts",
+      // "src/reactDom.ts",
       "src/hydrate.tsx",
       "src/render.tsx",
       "src/reactDomClient.ts",
       "src/emotion.ts",
+      "src/shared.ts",
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",
       "src/emotionJsxRuntime.mjs",
-      "src/jsx.mjs",
+      // "src/jsx.mjs",
     ],
   );
 

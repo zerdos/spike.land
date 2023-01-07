@@ -73,7 +73,6 @@ const createResponse = async (request: Request) => {
     const paths = url.pathname.split("/");
     // return renderToStream("clock3");
     const codeSpace = paths[2];
-    let js: string;
 
     const { css, html, transpiled, i } = JSON.parse(
       await readFile(

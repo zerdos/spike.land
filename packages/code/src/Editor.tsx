@@ -6,9 +6,9 @@ import { Rnd } from "react-rnd";
 
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
-import { prettier } from "./prettier";
 import { runner } from "./runner";
 import { mST, onSessionUpdate } from "./session";
+import { prettier } from "./shared";
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;

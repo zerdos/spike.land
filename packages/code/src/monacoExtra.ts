@@ -1,6 +1,6 @@
 import type * as monaco from "monaco-editor";
 import { importMapReplace } from "./importMapReplace";
-import { prettier } from "./prettier";
+import { prettier } from "./shared";
 
 let replaceMaps: { [key: string]: string } = {};
 

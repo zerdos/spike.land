@@ -1,6 +1,9 @@
 import { tsx } from "detective-typescript";
 import { prettierJs } from "./prettierEsm";
 
+import fetchBuilder from "fetch-retry";
+import originalFetch from "isomorphic-fetch";
+
 export { prettierJs };
 
 export async function run(
@@ -9,6 +12,11 @@ export async function run(
   const impRes: {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
+
+  const fetch = fetchBuilder(originalFetch, {
+    retries: 3,
+    retryDelay: 800,
+  });
 
   // console.log(
   await ata(
@@ -21,6 +29,7 @@ export async function run(
       ` + code,
     originToUse,
   );
+
   // );
 
   const versionNumbers = /@(\^)?\d+.\d+.\d+/gm;
