@@ -5,6 +5,7 @@ import { prettierJs, run } from "./ata";
 declare const self: SharedWorkerGlobalScope;
 
 self.onconnect = (e) => {
+  console.log("onConnected...");
   const port = e.ports[0];
 
   port.addEventListener("message", (e) => rpcProvider.dispatch(e.data));
