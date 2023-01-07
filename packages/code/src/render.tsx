@@ -94,7 +94,7 @@ export const render = async (
   console.log({ _rootEl, App });
   rootEl = _rootEl;
   root = createRoot(rootEl);
-  root.render(App());
+  root.render(<App />);
 
   return root;
 };
