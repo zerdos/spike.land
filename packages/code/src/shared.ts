@@ -1,15 +1,16 @@
 import { RpcProvider } from "worker-rpc";
-
-let worker: SharedWorker | null = null;
+let rpc: RpcProvider | null = null;
 const init = () => {
-  worker = globalThis.shworker = globalThis.shworker || new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
+  if (rpc) return rpc;
+  const worker = globalThis.sharedWorker = globalThis.sharedWorker
+    || new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
+
+  worker.port.onmessage = (e) => rpcProvider().dispatch(e.data);
   const rpcProvider = () =>
     new RpcProvider(
       (message, transfer) => worker!.port.postMessage(message, transfer as any),
     );
-
-  worker.port.onmessage = (e) => rpcProvider().dispatch(e.data);
-  return rpcProvider();
+  return rpc = rpcProvider();
 };
 
 export const prettier = async (code: string) => await init().rpc("prettierJs", code) as unknown as string;
