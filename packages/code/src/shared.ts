@@ -2,7 +2,7 @@ import { RpcProvider } from "worker-rpc";
 
 let worker: SharedWorker | null = null;
 const init = () => {
-  globalThis.shworker = globalThis.shworker || new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
+  worker = globalThis.shworker = globalThis.shworker || new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
   const rpcProvider = () =>
     new RpcProvider(
       (message, transfer) => worker!.port.postMessage(message, transfer as any),
