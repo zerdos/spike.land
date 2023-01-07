@@ -8,7 +8,7 @@
   "devDependencies": {
     "@types/react-dom": "18.0.10",
     "esbuild-plugin-import-map": "2.1.0",
-    "esbuild-wasm": "0.16.14",
+    "esbuild-wasm": "0.16.15",
     "serve": "14.1.2",
     "typescript": "^4.9.4"
   },
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
-    "framer-motion": "8.1.7",
+    "framer-motion": "8.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
