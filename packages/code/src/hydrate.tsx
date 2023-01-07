@@ -27,7 +27,6 @@ const codeSpace = paths[2];
 
 if (
   location.pathname === `/live/${codeSpace}`
-  || location.pathname === `/live/${codeSpace}/`
 ) {
   run();
 }
