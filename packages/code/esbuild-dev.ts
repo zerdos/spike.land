@@ -309,7 +309,7 @@ const build = (
       "src/emotionJsxRuntime.mjs",
       // "src/jsx.mjs",
     ],
-    ["react-dom", "react-dom/*"],
+    [],
   );
 
   await build(

@@ -13,4 +13,3 @@ export const files = JSON.parse(ASSET_MANIFEST);
 // export { reverseMap };
 // export { ASSET_MANIFEST };
 // export const getFilePath = (file) => reverseMap[file] ? file : files[file];
-export const ASSET_HASH = md5(ASSET_MANIFEST);

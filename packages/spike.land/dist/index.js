@@ -11644,7 +11644,9 @@ __name(hashCode3, "hashCode");
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
-var ASSET_HASH = md5(ASSET_MANIFEST);
+
+// src/dist.shasum
+var dist_default = "QmYsn6GjchtwPRsfcmB72kj3WBhhN1FM1LQ6xBb9dTcaHg\n";
 
 // ../code/dist/src/session.mjs
 var __create3 = Object.create;
@@ -20410,7 +20412,7 @@ var api = {
               "Location": `${u.origin}/live/${start}/`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
-              ASSET_HASH
+              ASSET_HASH: dist_default
             }
           }
         );
@@ -20419,7 +20421,7 @@ var api = {
         const newUrl = new URL(path2.join("/"), url.origin);
         request = new Request(newUrl, request);
         const cacheKey = new Request(request.url);
-        const cache = await caches.open(newUrl.origin);
+        const cache = await caches.open(dist_default);
         let response = await cache.match(cacheKey);
         if (response) {
           return response;
@@ -20444,7 +20446,7 @@ var api = {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
-                ASSET_HASH
+                ASSET_HASH: dist_default
               }
             });
           case "packages.json":
@@ -20459,7 +20461,7 @@ var api = {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
-                ASSET_HASH
+                ASSET_HASH: dist_default
               }
             });
           case "api":
@@ -26379,7 +26381,7 @@ var Code = class {
               }
               var sheet = document.createStyleSheet();
 sheet.addRule('h1', 'background: red;');
-              <\/script>` : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"><\/script>`)
+              <\/script>` : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${dist_default}"><\/script>`)
           );
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
@@ -26415,7 +26417,7 @@ sheet.addRule('h1', 'background: red;');
             //  console.log({res});
             
               <\/script>`
-          ).split("ASSET_HASH").join(ASSET_HASH);
+          ).split("ASSET_HASH").join(dist_default);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set("Cross-Origin-Embedder-Policy", "require-corp");
@@ -26442,19 +26444,20 @@ sheet.addRule('h1', 'background: red;');
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                 <style>${css}</style>
                 ${html}
+                </div>
               </div>
               <script type="module">
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import defApp from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
+              import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
 
               const rootEl = document.getElementById("${codeSpace}-css");
-              const myApp = defApp();
-              render(rootEl, myApp, "${codeSpace}");          
+      
+              render(rootEl, App, "${codeSpace}");          
           
               <\/script>`
-          ).split("ASSET_HASH").join(ASSET_HASH);
+          ).split("ASSET_HASH").join(dist_default);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
           headers.set("Cross-Origin-Embedder-Policy", "require-corp");

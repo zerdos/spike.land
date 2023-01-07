@@ -1,8 +1,9 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 // import {join} from "./rtc.mjs"
 import packages from "../../code/package.json";
-import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
+import ASSET_HASH from "./dist.shasum";
 // import imap from "@spike.land/code/src/importMap.json";
 import { importMap, importMapReplace, md5 } from "../../code/dist/src/session.mjs";
 
@@ -92,7 +93,7 @@ const api: ExportedHandler<CodeEnv> = {
         // }
 
         const cacheKey = new Request(request.url);
-        const cache = await caches.open(newUrl.origin);
+        const cache = await caches.open(ASSET_HASH);
 
         let response = await cache.match(cacheKey);
         if (response) {

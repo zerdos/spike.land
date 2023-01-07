@@ -1,6 +1,6 @@
 import type { CodePatch, CodeSession, Delta, ICodeSession } from "../../code/dist/src/session.d";
 import { patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
-import { aPatch, HTML, md5, startSession } from "../../code/dist/src/session.mjs";
+import { aPatch, HTML, md5 } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { Record } from "immutable";
@@ -9,7 +9,7 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
-import { ASSET_HASH } from "./staticContent.mjs";
+import ASSET_HASH from "./dist.shasum";
 
 // import { CodeRateLimiter } from "./rateLimiter";
 
@@ -791,16 +791,17 @@ sheet.addRule('h1', 'background: red;');
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                 <style>${css}</style>
                 ${html}
+                </div>
               </div>
               <script type="module">
 
               import {render} from "${url.origin}/src/render.mjs";
               
-              import defApp from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
+              import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
 
               const rootEl = document.getElementById("${codeSpace}-css");
-              const myApp = defApp();
-              render(rootEl, myApp, "${codeSpace}");          
+      
+              render(rootEl, App, "${codeSpace}");          
           
               </script>`,
             ).split("ASSET_HASH").join(ASSET_HASH);

@@ -187,44 +187,44 @@ const createResponse = async (request: Request) => {
   //   isChunk = true;
   //   url = new URL(files[url.pathname.slice(1)], url.origin);
   // }
-  if (
-    url.pathname.indexOf("/live/") !== -1
-  ) {
-    const controller = new AbortController();
+  // if (
+  //   url.pathname.indexOf("/live/") !== -1
+  // ) {
+  //   const controller = new AbortController();
 
-    let req = new Request(request.url, {
-      ...request,
-      signal: controller.signal,
-    });
-    let resp = await fetch(req);
-    if (!resp.ok) return resp;
-    resp = new Response(resp.body, resp);
-    const contentHash = resp.headers.has("content_hash")
-      ? resp.headers.get("content_hash")
-      : null;
-    if (contentHash) {
-      chunkCache = chunkCache || await caches.open("chunks");
+  //   let req = new Request(request.url, {
+  //     ...request,
+  //     signal: controller.signal,
+  //   });
+  //   let resp = await fetch(req);
+  //   if (!resp.ok) return resp;
+  //   resp = new Response(resp.body, resp);
+  //   const contentHash = resp.headers.has("content_hash")
+  //     ? resp.headers.get("content_hash")
+  //     : null;
+  //   if (contentHash) {
+  //     chunkCache = chunkCache || await caches.open("chunks");
 
-      let cacheKey = new Request(
-        new URL("/" + contentHash, url).toString(),
-      );
+  //     let cacheKey = new Request(
+  //       new URL("/" + contentHash, url).toString(),
+  //     );
 
-      let cachedResp = await chunkCache.match(cacheKey);
-      if (cachedResp) {
-        controller.abort();
-        return cachedResp;
-      }
+  //     let cachedResp = await chunkCache.match(cacheKey);
+  //     if (cachedResp) {
+  //       controller.abort();
+  //       return cachedResp;
+  //     }
 
-      cachedResp = new Response(await resp.blob(), resp);
+  //     cachedResp = new Response(await resp.blob(), resp);
 
-      await chunkCache.put(cacheKey, cachedResp.clone());
-      return cachedResp;
-    }
+  //     await chunkCache.put(cacheKey, cachedResp.clone());
+  //     return cachedResp;
+  //   }
 
-    resp = new Response(resp.body, resp);
+  //   resp = new Response(resp.body, resp);
 
-    return resp;
-  }
+  //   return resp;
+  // }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   const myCache = url.pathname.includes("npm:/v")
