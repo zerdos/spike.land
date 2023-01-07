@@ -1,9 +1,9 @@
 import * as monaco from "monaco-editor";
 
+import { ata } from "./shared";
 // import localForage from "localforage";
 
 const { editor, languages, Uri } = monaco;
-import { ata } from "./shared";
 
 const { createModel } = editor;
 const create = editor.create;
@@ -121,7 +121,7 @@ const monacoContribution = async (
       });
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
   });
-  x;
+
   // })();
 
   // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
