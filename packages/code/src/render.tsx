@@ -91,6 +91,7 @@ export const render = async (
   _rootEl: HTMLDivElement,
   App: FC,
 ) => {
+  console.log({ _rootEl, App });
   rootEl = _rootEl;
   root = createRoot(rootEl);
   root.render(<App />);
