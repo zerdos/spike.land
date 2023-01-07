@@ -9,6 +9,8 @@ export { prettierJs };
 export async function run(
   { code, originToUse }: { code: string; originToUse: string },
 ) {
+  console.log(`ATA run: ${originToUse} ${code}`);
+
   const impRes: {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
