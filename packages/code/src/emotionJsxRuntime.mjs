@@ -1,7 +1,12 @@
 // import {Fragment } from "react"
-import * as JSX from "@emotion/react/jsx-runtime";
+import { jsx } from "@emotion/react";
+import { Fragment } from "react";
 
-export const { jsx, jsxs, Fragment } = JSX;
+export const { jsx, jsxs, Fragment } = {
+  jsx,
+  jsxs: jsx,
+  Fragment,
+};
 // const jsxs = jsx;
 
 // export {jsx, jsxs, Fragment};

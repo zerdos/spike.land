@@ -3,7 +3,7 @@
 // import postcssNested from "postcss-nested"
 
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.14/mod.js";
-import {imports} from  "./"
+import imap from "./src/importMap.ts";
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
@@ -298,16 +298,11 @@ const build = (
   await build(
     [
       "src/reactMod.ts",
-      "src/motion.ts",
+      "src/emotion.ts",
       "src/ErrorBoundary.tsx",
       "src/reactDom.ts",
-      "src/hydrate.tsx",
-
-      "src/motion.ts",
-      "src/ErrorBoundary.tsx",
-      "src/render.tsx",
+      "src/jsx.mjs",
       "src/reactDomClient.ts",
-      "src/emotion.ts",
       // "src/shared.ts",
       // "src/emotionCache.ts",
       // "src/emotionStyled.mjs",
@@ -321,8 +316,12 @@ const build = (
       "src/session.ts",
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
+      "src/motion.ts",
       "src/Editor.tsx",
-      "src/reactMod.ts",
+      "src/emotionJsxRuntime.mjs",
+      "src/hydrate.tsx",
+      "src/render.tsx",
+      // "src/reactMod.ts",
 
       // "src/Editor.tsx",
 
@@ -335,6 +334,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
+      ...Object.keys(imap.imports).filter(x => x.indexOf("jsx-runtime") === -1).map(x => imap[x]),
       // "/npm:/*",
       // "react",
       //  "react-rnd",
@@ -356,7 +356,7 @@ const build = (
       // "prettier",
       // "react/",
     ],
-    false,
+    // false,
   );
 
   console.log("done");

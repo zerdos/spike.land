@@ -3052,6 +3052,7 @@ var init_importMap = __esm({
       "@emotion/cache": "/src/emotionCache.mjs",
       "@emotion/styled": "/src/emotionStyled.mjs",
       "react": "/src/reactMod.mjs",
+      "react/jsx-runtime": "/src/jsx.mjs",
       "react-dom": "/src/reactDom.mjs",
       "react-error-boundary": "/src/ErrorBoundary.mjs",
       "hydrate.mjs": "/src/hydrate.mjs"
@@ -11646,7 +11647,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmVQvTN8akx7gcqJbwFqFebNJtrhHdKuxVU63Ju1aSPDtn\n";
+var dist_default = "QmPt3SS2YJyPsb18derMGofVWh5PRcnjg8PmVR9F1ztDzV\n";
 
 // ../code/dist/src/session.mjs
 var __create3 = Object.create;
@@ -11697,6 +11698,7 @@ var init_importMap2 = __esm2({
       "@emotion/cache": "/src/emotionCache.mjs",
       "@emotion/styled": "/src/emotionStyled.mjs",
       "react": "/src/reactMod.mjs",
+      "react/jsx-runtime": "/src/jsx.mjs",
       "react-dom": "/src/reactDom.mjs",
       "react-error-boundary": "/src/ErrorBoundary.mjs",
       "hydrate.mjs": "/src/hydrate.mjs"

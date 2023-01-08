@@ -6,6 +6,7 @@ const imports = {
   "@emotion/cache": "/src/emotionCache.mjs",
   "@emotion/styled": "/src/emotionStyled.mjs",
   "react": "/src/reactMod.mjs",
+  "react/jsx-runtime": "/src/jsx.mjs",
   "react-dom": "/src/reactDom.mjs",
   "react-error-boundary": "/src/ErrorBoundary.mjs",
   "hydrate.mjs": "/src/hydrate.mjs",
