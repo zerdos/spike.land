@@ -11,6 +11,8 @@ import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
 import ASSET_HASH from "./dist.shasum";
 
+export { md5 };
+
 // import { CodeRateLimiter } from "./rateLimiter";
 
 interface WebsocketSession {
@@ -118,7 +120,7 @@ export class Code {
     this.state = state;
     this.kv = state.storage;
     this.sess = {} as ICodeSession;
-    this.session = Record.Factory<ICodeSession>(this.sess);
+    this.session = Record<ICodeSession>({})(this.sess);
     this.head = 0;
     this.wsSessions = [];
     this.env = env;
@@ -136,7 +138,7 @@ export class Code {
         ).then((x) => x.json())!;
         if (!this.sess) throw Error("cant get the starter session");
 
-        this.session = Record.Factory<ICodeSession>(this.sess);
+        this.session = Record<ICodeSession>({})(this.sess);
         if (this.head === 0) this.head = this.session.hashCode();
         await this.state.storage.put(String(this.head), this.session.toObject(), { allowConcurrency: false }).then(
           () => this.state.storage.put("head", this.head, { allowConcurrency: false }),

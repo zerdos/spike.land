@@ -4,8 +4,8 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod3) => function __require2() {
-  return mod3 || (0, cb[__getOwnPropNames(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
+var __commonJS = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -15,13 +15,13 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod3, isNodeMode, target) => (target = mod3 != null ? __create(__getProtoOf(mod3)) : {}, __copyProps(
+var __toESM = (mod4, isNodeMode, target) => (target = mod4 != null ? __create(__getProtoOf(mod4)) : {}, __copyProps(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod3 || !mod3.__esModule ? __defProp(target, "default", { value: mod3, enumerable: true }) : target,
-  mod3
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
 ));
 
 // ../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js
@@ -378,7 +378,7 @@ var require_browser3 = __commonJS({
         }
         return to;
       };
-      var __toCommonJS = (mod3) => __copyProps4(__defProp4({}, "__esModule", { value: true }), mod3);
+      var __toCommonJS = (mod4) => __copyProps4(__defProp4({}, "__esModule", { value: true }), mod4);
       var __async = (__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = (value) => {
@@ -3018,8 +3018,8 @@ var __name = (target, value) => __defProp2(target, "name", { value, configurable
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
-var __commonJS2 = (cb, mod3) => function __require2() {
-  return mod3 || (0, cb[__getOwnPropNames2(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
+var __commonJS2 = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames2(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
 var __copyProps2 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -3029,13 +3029,13 @@ var __copyProps2 = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM2 = (mod3, isNodeMode, target) => (target = mod3 != null ? __create2(__getProtoOf2(mod3)) : {}, __copyProps2(
+var __toESM2 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create2(__getProtoOf2(mod4)) : {}, __copyProps2(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod3 || !mod3.__esModule ? __defProp2(target, "default", { value: mod3, enumerable: true }) : target,
-  mod3
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp2(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
 ));
 var define_process_default;
 var init_define_process = __esm({
@@ -11592,7 +11592,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmVQXWnf8jGvhq6rMg5C7hjXdvVMNE5ZqBn7qncTTWjwAa\n";
+var dist_default = "QmZvSeCU9WLQ7Ea4TWtaVruedfCq74CMK6o2VHzAffA9w8\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
@@ -11608,8 +11608,8 @@ var __name2 = (target, value) => __defProp3(target, "name", { value, configurabl
 var __esm2 = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames3(fn)[0]])(fn = 0)), res;
 };
-var __commonJS3 = (cb, mod3) => function __require2() {
-  return mod3 || (0, cb[__getOwnPropNames3(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
+var __commonJS3 = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames3(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
 var __copyProps3 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -11619,13 +11619,13 @@ var __copyProps3 = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM3 = (mod3, isNodeMode, target) => (target = mod3 != null ? __create3(__getProtoOf3(mod3)) : {}, __copyProps3(
+var __toESM3 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create3(__getProtoOf3(mod4)) : {}, __copyProps3(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod3 || !mod3.__esModule ? __defProp3(target, "default", { value: mod3, enumerable: true }) : target,
-  mod3
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp3(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
 ));
 var define_process_default2;
 var init_define_process2 = __esm2({
@@ -20246,103 +20246,30 @@ function hashCode32(sess) {
 }
 __name2(hashCode32, "hashCode");
 
+// ../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.15-2ce771174d-9.zip/node_modules/esbuild-wasm/esbuild.wasm
+var esbuild_default3 = "./esbuild-M4QDVZDG.wasm";
+
 // src/esbuild.ts
 var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
-
-// package.json
-var package_default2 = {
-  name: "@spike.land/code-worker",
-  description: "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  version: "0.9.2",
-  main: "dist/index.js",
-  type: "module",
-  private: true,
-  scripts: {
-    dev: "wrangler dev",
-    deploy: "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler publish --env=testing dist/index.js",
-    prepublishOnly: "wrangler publish",
-    predeploy: "yarn x:build",
-    "x:build": "esbuild  --bundle --tree-shaking=true  --external:fs  --external:./src/esbuild.wasm --external:stream  --external:os --loader:.shasum=text   --format=esm --loader:.html=text --loader:.wasm=file   --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
-  },
-  devDependencies: {
-    "@cloudflare/kv-asset-handler": "0.3.0",
-    "@cloudflare/workers-types": "^4.20221111.1",
-    "@spike.land/code": "0.9.2",
-    module: "^1.2.5",
-    typescript: "4.9.4",
-    wrangler: "2.6.2"
-  },
-  dependencies: {
-    "async-mutex": "^0.4.0",
-    avl: "^1.5.3",
-    "detective-typescript": "^9.0.0",
-    "esbuild-wasm": "^0.16.15",
-    immutable: "^4.2.2",
-    miniflare: "^2.11.0",
-    "p-map": "^5.5.0",
-    "p-queue": "^7.3.0",
-    path: "^0.12.7",
-    "path-browserify": "^1.0.1"
-  },
-  publishConfig: {
-    access: "public"
-  },
-  gitHead: "db8e23b83d2dd82efc101eca9d1b5ec76d122df4"
+Object.assign(globalThis, {
+  performance: {
+    now: () => Date.now()
+  }
+});
+var mod3 = {
+  init: false,
+  initialize: () => mod3.init || (0, import_esbuild_wasm3.initialize)({
+    wasmModule: esbuild_default3,
+    worker: false
+  }).then(() => mod3.init = true)
 };
-
-// src/esbuild.ts
-var initAndTransform3 = async (code, opts, origin, env) => {
-  const request = new Request("https://testing.spike.land/src/chunk-esbuild-M4QDVZDG.wasm");
-  const resp = await fetch(
-    request
-    // waitUntil: async (prom) => await prom,
-    // {
-    // cacheControl: (isChunk(url.href)
-    //   ? {
-    //     browserTTL: 2 * 60 * 60 * 24,
-    //     edgeTTL: 2 * 60 * 60 * 24,
-    //     orbypassCache: false,
-    //   }
-    //   : {
-    //     browserTTL: 0,
-    //     edgeTTL: 0,
-    //     bypassCache: true,
-    //   }),
-    //   ASSET_NAMESPACE: env.__STATIC_CONTENT,
-    //   ASSET_MANIFEST,
-    // },
-  );
-  if (!resp.ok)
-    return resp;
-  const vers = package_default2.dependencies["esbuild-wasm"];
-  Object.assign(globalThis, {
-    performance: {
-      now: () => Date.now()
-    }
-  });
-  const mod3 = {
-    init: false,
-    initialize: async () => {
-      const importObject = {
-        imports: {
-          imported_func(arg) {
-            console.log(arg);
-          }
-        }
-      };
-      mod3.init || (0, import_esbuild_wasm3.initialize)({
-        wasmModule: resp.blob({ type: "application/wasm" }).then((Blob2) => WebAssembly.instantiate(Blob2)).then((results) => results.exports.Module),
-        worker: false
-      }).then(() => mod3.init = true);
-    }
-  };
+var initAndTransform3 = async (code, opts, origin) => {
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
-  return await esmTransform3(code, origin, location);
+  return await esmTransform3(code, origin);
 };
-async function esmTransform3(code, origin, env) {
+async function esmTransform3(code, origin) {
   const transpiled = await (0, import_esbuild_wasm3.transform)(code, {
     loader: "tsx",
     format: "esm",
@@ -20362,7 +20289,7 @@ async function esmTransform3(code, origin, env) {
     target: "es2022"
   });
   if (origin)
-    return importMapReplace2(transpiled.code, origin, location);
+    return importMapReplace2(transpiled.code, origin, origin);
   else
     return transpiled.code;
 }
@@ -25923,7 +25850,7 @@ var Code = class {
     this.state = state;
     this.kv = state.storage;
     this.sess = {};
-    this.session = Record4.Factory(this.sess);
+    this.session = Record4({})(this.sess);
     this.head = 0;
     this.wsSessions = [];
     this.env = env;
@@ -25936,7 +25863,7 @@ var Code = class {
         ).then((x) => x.json());
         if (!this.sess)
           throw Error("cant get the starter session");
-        this.session = Record4.Factory(this.sess);
+        this.session = Record4({})(this.sess);
         if (this.head === 0)
           this.head = this.session.hashCode();
         await this.state.storage.put(String(this.head), this.session.toObject(), { allowConcurrency: false }).then(

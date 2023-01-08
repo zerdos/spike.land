@@ -4,7 +4,7 @@ import ky from "ky";
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 // import P2PCF from "p2pcf";
-import adapter from "webrtc-adapter";
+// import adapter from "webrtc-adapter";
 import {
   //  onSession
   aPatch,
@@ -13,7 +13,6 @@ import {
   hashCode,
   // type Delta,
   // CodeSession,
-  hashKEY,
   makePatch,
   // makePatch,
   // makePatchFrom,
@@ -37,7 +36,6 @@ import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
-import { wait } from "./wait";
 
 type MessageProps = Partial<{
   oldHash?: number;
@@ -57,6 +55,8 @@ type MessageProps = Partial<{
   reversePatch?: Delta[];
   patch?: Delta[];
 }>;
+
+export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await sess;
 
 const ws = {
   blockedMessages: [] as MessageProps[],
@@ -83,9 +83,9 @@ const ws = {
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
+// const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
-const rtcConns: { [name: string]: RTCPeerConnection } = {};
+// const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
 export class Code {
   mutex: Mutex;
@@ -189,9 +189,15 @@ export class Code {
     this.mutex = new Mutex();
 
     this.users.insert(this.user);
-    this.sess = Record.Factory<ICodeSession>({ code: "", i: 0, transpiled: "", css: "", html: "" }).toObject();
+    this.sess = {
+      code: "",
+      transpiled: "",
+      i: 0,
+      css: "",
+      html: "",
+    };
     this.head = 0;
-    this.session = Record.Factory<ICodeSession>(this.sess);
+    this.session = Record<ICodeSession>(this.sess)({});
 
     this.mutex.runExclusive(async () => {
       this.mutex.acquire();
@@ -205,9 +211,70 @@ export class Code {
           String(this.head),
           await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`).json<ICodeSession>(),
         );
-      this.session = Record.Factory<ICodeSession>(this.sess);
+      this.session = Record<ICodeSession>(this.sess)();
       this.mutex.release();
     });
+  }
+
+  async syncWS(newSession: ICodeSession, signal: AbortSignal) {
+    this,
+      // console.log("SYNC!!");
+      // console.log("SYNC!!");
+      // console.log("SYNC!!");
+
+      console.log({ newSession });
+    // controller.abort();
+    // controller = new AbortController();
+
+    // console.log("alive1");
+    if (ws) {
+      // if (wsLastHashCode === hashKEY()) {
+      //   console.log("WS is up to date with us.");
+      //   return;
+      // }
+
+      // const sess = mST();
+      // console.//log({ wsLastHashCode });
+      console.log("alive3");
+      const message = makePatch(
+        newSession,
+        codeSpace,
+      );
+
+      console.log("alive4");
+
+      if (!message) {
+        return;
+      }
+
+      // if (message.newHash !== md5() {
+      // console.error("NEW hash is not even hashCode", hashKEY());
+      // return;
+      // }
+
+      console.log("alive5");
+      // console.log("SYNC!!");
+      // console.log({ ...message, name: user, i: sess.i });
+      // wsLastHashCode = message.newHash;
+
+      if (message.oldHash === message.newHash) return;
+      if (signal.aborted) return;
+
+      const oldSession = mST(codeSpace);
+
+      await this.mutex.waitForUnlock();
+      this.mutex.acquire();
+
+      // applyPatch(message, codeSpace);
+
+      // const newSS = mST(codeSpace);
+      await ldb(codeSpace).syncDb(oldSession, newSession, message);
+
+      this.mutex.release();
+
+      await ws.post(message);
+      // ws.send(message);
+    }
   }
 
   async run() {
@@ -294,125 +361,62 @@ export const run = async () => {
   codeSession.run();
 };
 
-export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
-  try {
-    // console.log("SYNC!!");
-    // console.log("SYNC!!");
-    // console.log("SYNC!!");
+// async function stopVideo() {
+// if (!sendChannel.localStream) return;
+// }
 
-    console.log({ newSession });
-    // controller.abort();
-    // controller = new AbortController();
+// async function startVideo() {
+// console.log({ adapter });
 
-    // console.log("alive1");
-    if (ws) {
-      // if (wsLastHashCode === hashKEY()) {
-      //   console.log("WS is up to date with us.");
-      //   return;
-      // }
+// const supported = await navigator.mediaDevices.getSupportedConstraints();
+// console.log({ supported });
 
-      // const sess = mST();
-      // console.//log({ wsLastHashCode });
-      console.log("alive3");
-      const message = makePatch(
-        newSession,
-        codeSpace,
-      );
+// const mediaConstraints = {
+// audio: false, // We want an audio track
+// video: true, // {
+//  .. aspectRatio?: ConstrainDouble;
+// autoGainControl?: ConstrainBoolean;
+// channelCount?: ConstrainULong;
+//  deviceId?: ConstrainDOMString;
+//  echoCancellation?: ConstrainBoolean;
+//  facingMode?: ConstrainDOMString;
+// frameRate?: ConstrainDouble;
+// groupId?: ConstrainDOMString;
+// height?: ConstrainULong;
+// latency?: ConstrainDouble;
+// noiseSuppression?: ConstrainBoolean;
+// sampleRate?: ConstrainULong;
+// sampleSize?: ConstrainULong;
+// suppressLocalAudioPlayback?: ConstrainBoolean;
+// width?: ConstrainULong;
+// }, // And we want a video track
+// };
 
-      console.log("alive4");
+// document.body.appendChild(sendChannel.vidElement);
 
-      if (!message) {
-        return;
-      }
+// const localStream = await navigator.mediaDevices.getUserMedia(
+//   mediaConstraints,
+// );
 
-      // if (message.newHash !== md5() {
-      // console.error("NEW hash is not even hashCode", hashKEY());
-      // return;
-      // }
+// handleSuccess(localStream);
+// function handleSuccess(localStream: MediaStream) {
+//   // const video = sendChannel.vidElement;
+//   const videoTracks = localStream.getVideoTracks();
+//   console.log("Got stream with constraints:", mediaConstraints);
+//   console.log(`Using video device: ${videoTracks[0].label}`);
+//   // sendChannel.localStream = localStream; // make variable available to browser console
+//   // video.srcObject = localStream;
+// }
 
-      console.log("alive5");
-      // console.log("SYNC!!");
-      // console.log({ ...message, name: user, i: sess.i });
-      // wsLastHashCode = message.newHash;
+// localStream.getVideoTracks().forEach((track) =>
+// Object.keys(sendChannel.rtcConns).map((k) => {
+// const peerConnection = sendChannel.rtcConns[k];
 
-      if (message.oldHash === message.newHash) return;
-      if (signal.aborted) return;
-
-      const oldSession = mST(codeSpace);
-
-      // await mutex.waitForUnlock();
-      // mutex.acquire();
-
-      // applyPatch(message, codeSpace);
-
-      // const newSS = mST(codeSpace);
-      await ldb(codeSpace).syncDb(oldSession, newSession, message);
-
-      mutex.release();
-
-      await ws.post(message);
-      // ws.send(message);
-    }
-  } catch (error) {
-    console.error("error 2", { e: error });
-  }
-}
-async function stopVideo() {
-  // if (!sendChannel.localStream) return;
-}
-
-async function startVideo() {
-  console.log({ adapter });
-
-  const supported = await navigator.mediaDevices.getSupportedConstraints();
-  console.log({ supported });
-
-  const mediaConstraints = {
-    audio: false, // We want an audio track
-    video: true, // {
-    //  .. aspectRatio?: ConstrainDouble;
-    // autoGainControl?: ConstrainBoolean;
-    // channelCount?: ConstrainULong;
-    //  deviceId?: ConstrainDOMString;
-    //  echoCancellation?: ConstrainBoolean;
-    //  facingMode?: ConstrainDOMString;
-    // frameRate?: ConstrainDouble;
-    // groupId?: ConstrainDOMString;
-    // height?: ConstrainULong;
-    // latency?: ConstrainDouble;
-    // noiseSuppression?: ConstrainBoolean;
-    // sampleRate?: ConstrainULong;
-    // sampleSize?: ConstrainULong;
-    // suppressLocalAudioPlayback?: ConstrainBoolean;
-    // width?: ConstrainULong;
-    // }, // And we want a video track
-  };
-
-  // document.body.appendChild(sendChannel.vidElement);
-
-  const localStream = await navigator.mediaDevices.getUserMedia(
-    mediaConstraints,
-  );
-
-  handleSuccess(localStream);
-  function handleSuccess(localStream: MediaStream) {
-    // const video = sendChannel.vidElement;
-    const videoTracks = localStream.getVideoTracks();
-    console.log("Got stream with constraints:", mediaConstraints);
-    console.log(`Using video device: ${videoTracks[0].label}`);
-    // sendChannel.localStream = localStream; // make variable available to browser console
-    // video.srcObject = localStream;
-  }
-
-  // localStream.getVideoTracks().forEach((track) =>
-  // Object.keys(sendChannel.rtcConns).map((k) => {
-  // const peerConnection = sendChannel.rtcConns[k];
-
-  // peerConnection.addTrack(track);
-  // })
-  // );
-}
-
+// peerConnection.addTrack(track);
+// })
+// );
+// }
+//
 // async function syncRTC() {
 //   try {
 //     if (Object.keys(rtcConns).length > 0) {
@@ -441,17 +445,17 @@ async function startVideo() {
 
 // const h: Record<number, number> = {};
 
-async function processWsMessage(
-  event: { data: string },
-  source: "ws" | "rtc",
-  // conn: { hashCode: string },
-) {
-  // lastSeenNow = Date.now();
+// async function processWsMessage(
+//   // event: { data: string },
+//   // source: "ws" | "rtc",
+//   // conn: { hashCode: string },
+// ) {
+//   // lastSeenNow = Date.now();
 
-  const data = JSON.parse(event.data);
+//   // const data = JSON.parse(event.data);
 
-  codeSession.processData(data, source);
-}
+//   // codeSession.pr(data, source);
+// }
 
 // Create the RTCPeerConnection which knows how to talk to our
 // selected STUN/TURN server and then uses getUserMedia() to find
@@ -487,16 +491,16 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
   urls: "stun:stun.l.google.com:19302",
 }];
 
-async function handleNewICECandidateMessage(
-  init: RTCIceCandidateInit,
-  target: string,
-) {
-  const candidate = new RTCIceCandidate(init);
-  // Const candidate = new RTCIceCandidate(message);
+// async function handleNewICECandidateMessage(
+//   init: RTCIceCandidateInit,
+//   target: string,
+// ) {
+//   const candidate = new RTCIceCandidate(init);
+//   // Const candidate = new RTCIceCandidate(message);
 
-  // console.//log(rtcConns[target]);
-  await rtcConns[target].addIceCandidate(candidate);
-}
+//   // console.//log(rtcConns[target]);
+//   await rtcConns[target].addIceCandidate(candidate);
+// }
 
 // export async function sw() {
 //   try {
@@ -597,7 +601,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
       console.error("not a buff", { err, data: ev.data });
     }
     try {
-      await codeSession.processData(data, "ws");
+      // await codeSession.processData(data, "ws");
       console.log("its a buffer", { data });
     } catch (err) {
       console.error("process error", { err, data: ev.data });
