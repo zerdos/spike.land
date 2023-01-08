@@ -21,8 +21,7 @@ const mod = {
   initialize: (orig: string) => {
     if (mod.init === false) {
       return mod.init = initialize({
-        wasmURL: new URL(wasmFile, orig + "/src")
-          .toString(),
+        wasmURL: `${orig}/src/${wasmFile}`,
       });
     }
     return mod.init;

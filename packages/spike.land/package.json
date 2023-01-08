@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "clean": "rm -rf dist ./src/esbuild-wasm && mkdir -p src/esbuild-wasm && cd src/esbuild-wasm && wget https://testing.spike.land/esbuild-wasm/esbuild.wasm",
+    "clean": "rm -rf dist ./src/esbuild-wasm && mkdir -p src/esbuild-wasm && cd src/esbuild-wasm",
     "deploy": "yarn x:build && yarn deploy:dev",
     "deploy:dev": "wrangler publish --env=testing dist/index.js",
     "prepublishOnly": "wrangler publish",
