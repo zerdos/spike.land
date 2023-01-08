@@ -33,7 +33,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [maxScaleRange, changeMaxScaleRange] = useState(100);
 
-  const dragRef = useRef<HTMLDivElement>(null);
   // globalThis.iRef = iRef;
 
   const startPositions = { bottom: 0, right: 0 };
@@ -93,7 +92,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   //  }, [terminalRef]);
 
   useEffect(() => {
-    if (!dragRef.current) return;
+    // if (!dragRef.current) return;
 
     // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = () => {
@@ -198,24 +197,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
-        ref={dragRef}
         initial={{
-          top: 0,
           padding: 0,
+          top: 0,
           right: 0,
           borderRadius: 0,
         }}
         animate={{
           top: bottom,
+          bottom: 0,
+          right: right,
           padding: 8,
-          right,
+
           borderRadius: 16,
         }}
         css={css`
             touch-action: pinch-zoom;
             background-color: ${rgba(r | 96, g | 66, b || 160, a || .3)};
             backdrop-filter: blur(15px);
-            z-index: 10;
+            z-index: -10;
             position: fixed;
           `}
         drag={true}
