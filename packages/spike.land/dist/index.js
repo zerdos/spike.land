@@ -20295,10 +20295,8 @@ var package_default2 = {
 var initAndTransform3 = async (code, opts, origin, env) => {
   const request = new Request("https://testing.spike.land/src/chunk-esbuild-M4QDVZDG.wasm");
   const resp = await fetch(
-    {
-      request
-      // waitUntil: async (prom) => await prom,
-    }
+    request
+    // waitUntil: async (prom) => await prom,
     // {
     // cacheControl: (isChunk(url.href)
     //   ? {

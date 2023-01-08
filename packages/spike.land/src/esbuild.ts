@@ -12,11 +12,7 @@ export const initAndTransform = async (
 ) => {
   const request = new Request("https://testing.spike.land/src/chunk-esbuild-M4QDVZDG.wasm");
 
-  const resp = await fetch(
-    {
-      request,
-      // waitUntil: async (prom) => await prom,
-    },
+  const resp = await fetch(request // waitUntil: async (prom) => await prom,
     // {
     // cacheControl: (isChunk(url.href)
     //   ? {
