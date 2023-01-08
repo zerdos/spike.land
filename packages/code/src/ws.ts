@@ -170,7 +170,7 @@ export class Code {
       ) as (ICodeSession | false)
         || await ldb(codeSpace).setItem(
           String(this.head),
-          await ky(`${origin}/live/${codeSpace}/session/${this.head}`)
+          await ky(`${origin}/live/${codeSpace}/session}`) // ;;.  /${this.head}`)
             .json<ICodeSession>(),
         );
       this.session = Record<ICodeSession>(this.sess)();
