@@ -74,7 +74,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     }, delay * 1000);
   }, []);
 
-  //  const terminalRef =  useRef(null);
+  const zBodyRef = useRef<HTMLIFrameElement>(null);
 
   //  useEffect(() =
   //   if (!terminalRef?.current) return;
@@ -169,6 +169,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
+  const iframe = (
+    <iframe
+      ref={zBodyRef}
+      // id={"z-body"}
+      // data-test-id="z-body"
+      css={css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: none;
+    height: 100vh;
+    width: inherit;
+  `}
+      src={`${location.origin}/live/${codeSpace}/iframe`}
+    />
+  );
+
   // useEffect(() => {
   //   const intervalHandler = setInterval(() => {
   //     // setCSS(mST().css);
@@ -194,7 +213,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
-  return (
+  return delay ? iframe : (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
         initial={{
@@ -297,22 +316,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 borderRadius: 8,
               }}
             >
-              <iframe
-                // ref={zBodyRef}
-                // id={"z-body"}
-                // data-test-id="z-body"
-                css={css`
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                border: none;
-                  height: 100vh;
-                  width: inherit;
-                `}
-                src={`${location.origin}/live/${codeSpace}/iframe`}
-              />
+              {iframe}
             </motion.div>
             <motion.div
               css={css`
