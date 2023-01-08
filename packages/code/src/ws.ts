@@ -30,11 +30,9 @@ import { Mutex } from "async-mutex";
 import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
-import { throws } from "assert";
 import { Record } from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
-import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
 
 type MessageProps = Partial<{
@@ -156,8 +154,8 @@ export class Code {
 
       if (this.sess.i === 0) {
         await Promise.all([
-          ky(`${origin}/live/${codeSpace}/live/session/head`).text().then(x => this.head = Number(x)),
-          ky(`${origin}/live/${codeSpace}/live/session`).json().then(x => this.sess = this.sess).then(() =>
+          ky(`${origin}/live/${codeSpace}/session/head`).text().then(x => this.head = Number(x)),
+          ky(`${origin}/live/${codeSpace}/session`).json().then(x => this.sess = this.sess).then(() =>
             this.session = Record<ICodeSession>(this.sess)()
           ),
         ]);
@@ -172,7 +170,7 @@ export class Code {
       ) as (ICodeSession | false)
         || await ldb(codeSpace).setItem(
           String(this.head),
-          await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`)
+          await ky(`${origin}/live/${codeSpace}/session/${this.head}`)
             .json<ICodeSession>(),
         );
       this.session = Record<ICodeSession>(this.sess)();
@@ -201,8 +199,8 @@ export class Code {
 
   async syncWS(newSession: ICodeSession, signal: AbortSignal) {
     const oldSession = this.sess;
-    const mewSession = this.session.merge(newSession).toJSON();
-    const message = this.createPatch(oldSession, newSession);
+    const newState = this.session.merge(newSession).toJSON();
+    const message = this.createPatch(oldSession, newState);
 
     // controller.abort();
     // controller = new AbortController();

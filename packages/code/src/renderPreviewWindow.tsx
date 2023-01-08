@@ -81,7 +81,7 @@ const AppToRender: FC<
     }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  const [hideRest, setHideRest] = useState(codeSession.sess.i > 0);
+  const [hideRest, setHideRest] = useState(codeSession.sess.i == 0);
 
   useEffect(() => {
     const t = setTimeout(() => {
