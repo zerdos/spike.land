@@ -3,8 +3,13 @@
 // import postcssNested from "postcss-nested"
 
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.15/mod.js";
-
 import { importMap } from "./src/importMap.ts";
+
+const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json").then(x => x.json());
+
+fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`).then((x) => x.blob()).then(b =>
+  Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b)
+);
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
@@ -103,9 +108,27 @@ const buildOptions = {
   platform: "browser",
   external: ["./mST", "/npm:*"],
   legalComments: "none",
+  resolveExtensions: [
+    ".tsx",
+    ".ttf",
+    ".ts",
+    ".jsx",
+    ".js",
+    ".css",
+    ".json",
+    ".mjs",
+    ".html",
+    ".js",
+    ".wasm",
+  ],
+
   loader: {
-    ".html": "text",
+    ".ttf": "file",
+    ".css": "file",
+    ".png": "file",
+    ".ico": "file",
     ".wasm": "file",
+    ".html": "text",
   },
 };
 
@@ -124,16 +147,14 @@ console.log(`
 -------------------------------------------------`);
 
 const build = (
-  entryPoints = [""],
-  extraExternal = [""],
-  watch = false,
-  format = "esm",
+  entryPoints,
+  extraExternal,
 ) =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
-    watch,
-    external: [...buildOptions.external, ...extraExternal.filter((x) => x)],
+    watch: false,
+    external: [],
     outExtension: { ".js": ".mjs" },
     bundle: true,
     splitting: true, // format === "esm",
@@ -161,35 +182,9 @@ const build = (
     assetNames: "chunk-[name]-[hash]",
     // ...(!keepEntryNames ? {en} : { entryNames: "chunk-[name]-[hash]" }),
     // EntryNames: "[name]-[hash]",
-    resolveExtensions: [
-      ".tsx",
-      ".ttf",
-      ".ts",
-      ".jsx",
-      ".js",
-      ".css",
-      ".json",
-      ".mjs",
-      ".html",
-      ".js",
-      ".wasm",
-    ],
+
     metafile: true,
     define,
-    loader: {
-      ".ttf": "file",
-      ".webp": "file",
-      ".tsx": "tsx",
-      ".jsx": "tsx",
-      ".js": "ts",
-      ".ts": "ts",
-      ".html": "text",
-      ".cjs": "ts",
-      ".mjs": "tsx",
-      ".css": "css",
-      ".d.ts": "file",
-      ".wasm": "file",
-    },
     outdir,
   }).catch((error) => {
     console.error(error);
@@ -218,6 +213,7 @@ const build = (
     entryPoints: [
       ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     ],
+
     bundle: true,
     define,
     treeShaking: true,
@@ -227,26 +223,6 @@ const build = (
     minifySyntax: false, // ! isDevelopment,
     ignoreAnnotations: false,
     keepNames: true,
-    resolveExtensions: [
-      ".tsx",
-      ".ttf",
-      ".ts",
-      ".jsx",
-      ".js",
-      ".css",
-      ".json",
-      ".mjs",
-      ".html",
-      ".js",
-      ".wasm",
-    ],
-
-    loader: {
-      ".ttf": "file",
-      ".css": "file",
-      ".png": "file",
-      ".ico": "file",
-    },
     platform: "browser",
     format: "iife",
     outbase: "monaco-editor/esm/vs",
@@ -277,28 +253,6 @@ const build = (
       // "src/fs.worker.ts",
     ],
     plugins: [],
-    resolveExtensions: [
-      ".tsx",
-      ".ttf",
-      ".ts",
-      ".jsx",
-      ".js",
-      ".css",
-      ".json",
-      ".mjs",
-      ".html",
-      ".js",
-      ".wasm",
-    ],
-
-    loader: {
-      ".ttf": "file",
-      ".css": "file",
-      ".png": "file",
-      ".ico": "file",
-      ".wasm": "file",
-      ".html": "text",
-    },
     bundle: true,
     define, // makeEnv("production"),
     minify: false,
@@ -340,21 +294,12 @@ const build = (
 
   await build(
     [
-      // "src/shared.ts",wπe
-      // "src/emotionCache.ts",
-      // "src/emotionStyled.mjs",
-      // "src/jsx.mjs",
-    ],
-    [],
-  );
-
-  await build(
-    [
       "src/reactMod.ts",
       "src/motion.ts",
       "src/reactDom.ts",
       "src/hydrate.tsx",
       "src/motion.ts",
+      "src/esbuildWASM.ts",
       "src/emotionJsxRuntime.mjs",
       "src/render.tsx",
       "src/reactDomClient.ts",
@@ -369,7 +314,6 @@ const build = (
 
       // "src/reactDom.ts",
 
-      "src/esbuildWASM.ts",
       // "src/emotionCache.ts",
       // "src/emotionSt
       // "src/emotionJsxRuntime.ts",

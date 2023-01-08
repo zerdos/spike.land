@@ -273,7 +273,7 @@ ENV SHELL=/usr/bin/zsh
 ### deno.Dockerfile
 
 USER ${USER}
-RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.27.2 \
+RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.29.2 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \

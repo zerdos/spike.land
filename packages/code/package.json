@@ -25,8 +25,8 @@
     "build:orbit-db": "esbuild --bundle src/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
     "build:framer-motion": "yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build",
-    "es:build": "deno run --allow-read --allow-write --allow-env --allow-run esbuild-dev.ts",
+    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build ",
+    "es:build": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run esbuild-dev.ts",
     "favicons": "mkdir -p ./dist/src/assets && cp -af src/assets/. ./dist/src/assets/",
     "sw": "echo ok"
   },
