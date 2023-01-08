@@ -2692,7 +2692,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
               };
             })();
-            onmessage2 = ({ data: wasm }) => {
+            onmessage2 = ({ data: wasm2 }) => {
               let decoder = new TextDecoder();
               let fs = globalThis2.fs;
               let stderr = "";
@@ -2740,7 +2740,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
               };
               let go = new globalThis2.Go();
               go.argv = ["", `--service=${"0.16.15"}`];
-              tryToInstantiateModule(wasm, go).then(
+              tryToInstantiateModule(wasm2, go).then(
                 (instance) => {
                   postMessage(null);
                   go.run(instance);
@@ -2750,14 +2750,14 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
               );
             };
-            function tryToInstantiateModule(wasm, go) {
+            function tryToInstantiateModule(wasm2, go) {
               return __async2(this, null, function* () {
-                if (wasm instanceof WebAssembly.Module) {
-                  return WebAssembly.instantiate(wasm, go.importObject);
+                if (wasm2 instanceof WebAssembly.Module) {
+                  return WebAssembly.instantiate(wasm2, go.importObject);
                 }
-                const res = yield fetch(wasm);
+                const res = yield fetch(wasm2);
                 if (!res.ok)
-                  throw new Error(`Failed to download ${JSON.stringify(wasm)}`);
+                  throw new Error(`Failed to download ${JSON.stringify(wasm2)}`);
                 if ("instantiateStreaming" in WebAssembly && /^application\/wasm($|;)/i.test(res.headers.get("Content-Type") || "")) {
                   const result2 = yield WebAssembly.instantiateStreaming(res, go.importObject);
                   return result2.instance;
@@ -2850,6 +2850,10 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 
 // src/chat.ts
 var import_kv_asset_handler = __toESM(require_dist(), 1);
+
+// src/esbuild-loader.ts
+import wasm from "../src/esbuild-wasm/esbuild.wasm";
+var esbuild_loader_default = wasm;
 
 // ../code/package.json
 var package_default = {
@@ -3151,7 +3155,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-ATGCNJAZ.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-RIJXBCNN.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -6060,7 +6064,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
               };
             })();
-            onmessage2 = /* @__PURE__ */ __name(({ data: wasm }) => {
+            onmessage2 = /* @__PURE__ */ __name(({ data: wasm2 }) => {
               let decoder = new TextDecoder();
               let fs = globalThis2.fs;
               let stderr = "";
@@ -6108,7 +6112,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
               };
               let go = new globalThis2.Go();
               go.argv = ["", `--service=${"0.16.15"}`];
-              tryToInstantiateModule(wasm, go).then(
+              tryToInstantiateModule(wasm2, go).then(
                 (instance) => {
                   postMessage(null);
                   go.run(instance);
@@ -6118,14 +6122,14 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
               );
             }, "onmessage");
-            function tryToInstantiateModule(wasm, go) {
+            function tryToInstantiateModule(wasm2, go) {
               return __async2(this, null, function* () {
-                if (wasm instanceof WebAssembly.Module) {
-                  return WebAssembly.instantiate(wasm, go.importObject);
+                if (wasm2 instanceof WebAssembly.Module) {
+                  return WebAssembly.instantiate(wasm2, go.importObject);
                 }
-                const res = yield fetch(wasm);
+                const res = yield fetch(wasm2);
                 if (!res.ok)
-                  throw new Error(`Failed to download ${JSON.stringify(wasm)}`);
+                  throw new Error(`Failed to download ${JSON.stringify(wasm2)}`);
                 if ("instantiateStreaming" in WebAssembly && /^application\/wasm($|;)/i.test(res.headers.get("Content-Type") || "")) {
                   const result2 = yield WebAssembly.instantiateStreaming(res, go.importObject);
                   return result2.instance;
@@ -11315,7 +11319,7 @@ var mod = {
   initialize: (orig) => {
     if (mod.init === false) {
       return mod.init = (0, import_esbuild_wasm.initialize)({
-        wasmURL: new URL(globalThis.assetHash + "/esbuild.wasm", orig + "/src/").toString()
+        wasmURL: new URL("/esbuild.wasm", orig).toString()
       });
     }
     return mod.init;
@@ -11462,7 +11466,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmcXhUJZKWavqVwdvZFQ1S8vRpewDDcV1cU59oh5wgfB1B\n";
+var dist_default = "QmNxKfuVnse26YnmQBi9erTsPQQTywgqzYUMr4WVDdNUMp\n";
 
 // ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;
@@ -11611,7 +11615,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-ATGCNJAZ.mjs
+// ../code/dist/src/chunk-chunk-RIJXBCNN.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -14520,7 +14524,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
               };
             })();
-            onmessage2 = /* @__PURE__ */ __name2(({ data: wasm }) => {
+            onmessage2 = /* @__PURE__ */ __name2(({ data: wasm2 }) => {
               let decoder = new TextDecoder();
               let fs = globalThis2.fs;
               let stderr = "";
@@ -14568,7 +14572,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
               };
               let go = new globalThis2.Go();
               go.argv = ["", `--service=${"0.16.15"}`];
-              tryToInstantiateModule(wasm, go).then(
+              tryToInstantiateModule(wasm2, go).then(
                 (instance) => {
                   postMessage(null);
                   go.run(instance);
@@ -14578,14 +14582,14 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
                 }
               );
             }, "onmessage");
-            function tryToInstantiateModule(wasm, go) {
+            function tryToInstantiateModule(wasm2, go) {
               return __async2(this, null, function* () {
-                if (wasm instanceof WebAssembly.Module) {
-                  return WebAssembly.instantiate(wasm, go.importObject);
+                if (wasm2 instanceof WebAssembly.Module) {
+                  return WebAssembly.instantiate(wasm2, go.importObject);
                 }
-                const res = yield fetch(wasm);
+                const res = yield fetch(wasm2);
                 if (!res.ok)
-                  throw new Error(`Failed to download ${JSON.stringify(wasm)}`);
+                  throw new Error(`Failed to download ${JSON.stringify(wasm2)}`);
                 if ("instantiateStreaming" in WebAssembly && /^application\/wasm($|;)/i.test(res.headers.get("Content-Type") || "")) {
                   const result2 = yield WebAssembly.instantiateStreaming(res, go.importObject);
                   return result2.instance;
@@ -19844,7 +19848,7 @@ var mod2 = {
   initialize: (orig) => {
     if (mod2.init === false) {
       return mod2.init = (0, import_esbuild_wasm2.initialize)({
-        wasmURL: new URL(globalThis.assetHash + "/esbuild.wasm", orig + "/src/").toString()
+        wasmURL: new URL("/esbuild.wasm", orig).toString()
       });
     }
     return mod2.init;
@@ -20072,15 +20076,6 @@ var api = {
       const url = u;
       const accept = request.headers.get("accept");
       const path = url.pathname.slice(1).split("/");
-      if (url.pathname.endsWith("esbuild.wasm")) {
-        return new Response(wasmFile, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-type": "application/wasm",
-            "Cross-Origin-Embedder-Policy": "require-corp"
-          }
-        });
-      }
       if (!path[0]) {
         const utcSecs = Math.floor(Math.floor(Date.now() / 1e3 / 7200));
         console.log({ asOrganization: request.cf?.asOrganization });
@@ -20152,6 +20147,15 @@ var api = {
                 ASSET_HASH: dist_default
               }
             });
+          case "esbuild.wasm": {
+            return new Response(esbuild_loader_default, {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-type": "application/wasm",
+                "Cross-Origin-Embedder-Policy": "require-corp"
+              }
+            });
+          }
           case "packages.json":
             return new Response(JSON.stringify(package_default), {
               headers: {

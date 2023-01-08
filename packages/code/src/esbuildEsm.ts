@@ -20,7 +20,7 @@ const mod = {
   initialize: (orig: string) => {
     if (mod.init === false) {
       return mod.init = initialize({
-        wasmURL: new URL(globalThis.assetHash + "/esbuild.wasm", orig + "/src/")
+        wasmURL: new URL("/esbuild.wasm", orig)
           .toString(),
       });
     }

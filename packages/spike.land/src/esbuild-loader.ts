@@ -1,3 +1,3 @@
-import wasm from "esbuild-wasm/esbuild.wasm";
+import wasm from "./esbuild-wasm/esbuild.wasm";
 
 export default wasm;

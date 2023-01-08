@@ -1,4 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import wasm from "./esbuild-loader";
 // import {join} from "./rtc.mjs"
 import packages from "../../code/package.json";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
@@ -48,15 +49,6 @@ const api: ExportedHandler<CodeEnv> = {
       // }
 
       const path = url.pathname.slice(1).split("/");
-      if (url.pathname.endsWith("esbuild.wasm")) {
-        return new Response(wasmFile, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-type": "application/wasm",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-          },
-        });
-      }
 
       if (!path[0]) {
         const utcSecs = Math.floor(Math.floor(Date.now() / 1000 / 7200));
@@ -272,6 +264,18 @@ const api: ExportedHandler<CodeEnv> = {
                 ASSET_HASH,
               },
             });
+
+          case "esbuild.wasm": {
+            // const wasmModule  = await (await import("./esbuild-wasm/esbuild.wasm")).default;
+
+            return new Response(wasm, {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-type": "application/wasm",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+              },
+            });
+          }
           case "packages.json":
             return new Response(JSON.stringify(packages), {
               headers: {
