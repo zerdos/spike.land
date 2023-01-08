@@ -38,35 +38,35 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const startPositions = { bottom: 0, right: 0 };
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
-  const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
+  const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
   const [delay, _setDelay] = useState(2);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
-  const setWidth = (width: number) => {
-    const breakPoint = breakPoints.findIndex((x) => x === width);
-    const height = breakPointHeights[breakPoint];
-    changeScaleRange(
-      Math.max(
-        100,
-        (Math.floor(window.innerHeight / height) - 10) / 2
-          / devicePixelRatio,
-      ),
-    );
-    changeMaxScaleRange(
-      Math.max(
-        100,
-        (Math.floor(40 * window.innerHeight / height)) / 2
-          / devicePixelRatio,
-      ),
-    );
+  // const setWidth = (width: number) => {
+  //   const breakPoint = breakPoints.findIndex((x) => x === width);
+  //   const height = breakPointHeights[breakPoint];
+  //   changeScaleRange(
+  //     Math.max(
+  //       100,
+  //       (Math.floor(window.innerHeight / height) - 10) / 2
+  //         / devicePixelRatio,
+  //     ),
+  //   );
+  //   changeMaxScaleRange(
+  //     Math.max(
+  //       100,
+  //       (Math.floor(40 * window.innerHeight / height)) / 2
+  //         / devicePixelRatio,
+  //     ),
+  //   );
 
-    // changeMaxScaleRange(Math.floor(100 * Math.sqrt(1 - (innerWidth / (width + 40)))));
-    // changeMaxScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
-    setWidthB(width);
-    setHeight(height);
-  };
+  //   // changeMaxScaleRange(Math.floor(100 * Math.sqrt(1 - (innerWidth / (width + 40)))));
+  //   // changeMaxScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
+  //   setWidthB(width);
+  //   setHeight(height);
+  // };
 
   // const zBodyRef = useRef<HTMLIFrameElement>(null);
 
@@ -108,25 +108,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       if (window.innerWidth / devicePixelRatio < 600) {
         //   changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
-        // setHeight(breakPointHeights[0]);
+        setHeight(breakPointHeights[0]);
       }
 
       if (window.innerWidth / devicePixelRatio < 1200) {
         // changeScaleRange(Math.floor(100*(breakPoints[0]*breakPoints[0] / innerWidth/innerWidth)));
         setWidth(breakPoints[0]);
-        // setHeight(breakPointHeights[0]);
+        setHeight(breakPointHeights[0]);
       } else if (window.innerWidth / devicePixelRatio < 1800) {
         setWidth(breakPoints[1]);
-        // setHeight(breakPointHeights[1]);
+        setHeight(breakPointHeights[1]);
 
         //        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
       } else if (window.innerWidth / devicePixelRatio < 2500) {
         setWidth(breakPoints[2]);
         //     changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-        // setHeight(breakPointHeights[1]);
+        setHeight(breakPointHeights[2]);
       } else if (window.innerWidth / devicePixelRatio > 2500) {
         setWidth(breakPoints[2]);
-        // setHeight(breakPointHeights[1]);
+        setHeight(breakPointHeights[2]);
         //    changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
         // changeScaleRange(100);
       }
