@@ -155,8 +155,8 @@ export class Code {
       if (!this.sess || !(this.sess.i > 0)) {
         await Promise.all([
           ky(`${origin}/live/${codeSpace}/session/head`).text().then(x => this.head = Number(x)),
-          ky(`${origin}/live/${codeSpace}/session`).json().then(x => this.sess = this.sess).then(() =>
-            this.session = Record<ICodeSession>(this.sess)()
+          ky(`${origin}/live/${codeSpace}/session`).json().then(x => this.session = Record<ICodeSession>(x)()).then(
+            () => this.sess = this.session.toJS(),
           ),
         ]);
       }
@@ -170,7 +170,7 @@ export class Code {
       ) as (ICodeSession | false)
         || await ldb(codeSpace).setItem(
           String(this.head),
-          await ky(`${origin}/live/${codeSpace}/session}`) // ;;.  /${this.head}`)
+          await ky(`${origin}/live/${codeSpace}/session`) // ;;.  /${this.head}`)
             .json<ICodeSession>(),
         );
       this.session = Record<ICodeSession>(this.sess)();
