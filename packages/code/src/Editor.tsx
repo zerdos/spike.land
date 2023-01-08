@@ -17,6 +17,8 @@ let startedAce = 0;
 export const Editor: FC<
   {
     codeSpace: string;
+    code: string;
+    i: string;
   }
 > = (
   { codeSpace },
@@ -27,7 +29,7 @@ export const Editor: FC<
   const engine = isMobile() ? "ace" : "monaco";
 
   const [
-    { i, code, started, setValue, controller },
+    { i, code, started, controller },
     changeContent,
   ] = useState({
     code: sess.code,

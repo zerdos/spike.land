@@ -14,6 +14,7 @@ import { css } from "@emotion/react";
 import DraggableWindow from "./DraggableWindow";
 import { Editor } from "./Editor";
 import { createRoot } from "./reactDomClient";
+import { codeSession } from "./ws";
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
@@ -80,14 +81,14 @@ const AppToRender: FC<
     }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  const [hideRest, setHideRest] = useState(true);
+  const [hideRest, setHideRest] = useState(codeSession.i > 0);
 
   useEffect(() => {
     const t = setTimeout(() => {
       if (hideRest) setHideRest(false);
     }, 2000);
     return () => clearTimeout(t);
-  }, []);
+  }, [codeSession.i]);
   // });
 
   //   || location.pathname.endsWith("hydrated");
@@ -119,6 +120,9 @@ const AppToRender: FC<
             <Fragment>
               <Editor
                 codeSpace={codeSpace}
+                code={codeSession.sess.code}
+                i={codeSession.sess.i}
+
               />
             </Fragment>
           </RainbowContainer>
