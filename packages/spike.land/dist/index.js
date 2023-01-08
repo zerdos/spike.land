@@ -11637,7 +11637,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmP51MBTFbcZKfVrknHKMv7id66a4RQYckbhGV9ZdAZm7i\n";
+var dist_default = "QmUGrnbNywjyz5zYizPgyosSekatkAKLJ59RCxEXf5jbKG\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
@@ -26362,11 +26362,16 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" style="height: 100%;">
-                <style>${css}</style>
+              <style>${css}</style>
+
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                <iframe src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
+                  ${html}
                   </div>
-              </div>` + (path[0] === "dehydrated" ? `<script>
+
+              </div>
+              <iframe id="${codeSpace}-iframe" src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
+               
+              ` + (path[0] === "dehydrated" ? `<script>
 
               const paths = location.href.split("/");
               const page = paths.pop();

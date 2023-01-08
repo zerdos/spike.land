@@ -514,11 +514,16 @@ export class Code {
             .replace(
               `<div id="root"></div>`,
               `<div id="root" style="height: 100%;">
-                <style>${css}</style>
+              <style>${css}</style>
+
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                <iframe src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
+                  ${html}
                   </div>
-              </div>` + (path[0] === "dehydrated"
+
+              </div>
+              <iframe id="${codeSpace}-iframe" src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
+               
+              ` + (path[0] === "dehydrated"
                 ? `<script>
 
               const paths = location.href.split("/");

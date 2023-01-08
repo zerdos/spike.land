@@ -74,7 +74,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     }, delay * 1000);
   }, []);
 
-  const zBodyRef = useRef<HTMLIFrameElement>(null);
+  const zBodyRef = useRef<HTMLIFrameElement>(document.getElementById(`${codeSpace}-iframe`) as HTMLIFrameElement);
 
   //  useEffect(() =
   //   if (!terminalRef?.current) return;
