@@ -360,6 +360,8 @@ export class Code {
 }
 
 export const codeSession = new Code();
+
+globalThis.codeSession = codeSession;
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await codeSession.syncWS(sess, signal);
 
 export const run = async () => {
