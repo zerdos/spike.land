@@ -296,11 +296,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 backgroundColor: rgba(r, g, b, 0.7),
                 transform: `scale(${scale},${scale})`,
                 transformOrigin: "top left",
-                height: height / scale,
-                width: width / scale,
+                height: height,
+                width: width,
                 borderRadius: 8,
               }}
-            >
+            >  
               <iframe
                 // ref={zBodyRef}
                 // id={"z-body"}
