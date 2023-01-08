@@ -20,11 +20,13 @@ import { importMapReplace } from "../../code/dist/src/session.mjs";
 //   import { md5 } from "./md5";
 //   import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
+
 const mod = {
+  wasmModule: n
   init: false as (boolean | Promise<void>),
-  initialize: () =>
+  initialize: (wasmModule) =>
     mod.init || initialize({
-      wasmModule: wasmModule,
+      wasmModule,
       worker: false,
     }).then(() => mod.init = true) as Promise<void>,
 };
@@ -35,7 +37,8 @@ export const initAndTransform = async (
   origin: string,
 ) => {
   // const code = prettierJs(c)!;
-  const initFinished = mod.initialize();
+  const wasm = await import(wasmModule);
+  const initFinished = mod.initialize(wasm);
 
   if (initFinished !== true) await (initFinished);
 

@@ -20261,13 +20261,14 @@ Object.assign(globalThis, {
 });
 var mod3 = {
   init: false,
-  initialize: () => mod3.init || (0, import_esbuild_wasm3.initialize)({
-    wasmModule: esbuild_loader_default,
+  initialize: (wasmModule) => mod3.init || (0, import_esbuild_wasm3.initialize)({
+    wasmModule,
     worker: false
   }).then(() => mod3.init = true)
 };
 var initAndTransform3 = async (code, opts, origin) => {
-  const initFinished = mod3.initialize();
+  const wasm = await import(esbuild_loader_default);
+  const initFinished = mod3.initialize(wasm);
   if (initFinished !== true)
     await initFinished;
   return await esmTransform3(code, origin);
