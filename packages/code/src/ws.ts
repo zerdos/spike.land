@@ -3,17 +3,18 @@
 import ky from "ky";
 // import 'css-paint-polyfill
 import AVLTree from "avl";
+import { applyPatch as aPatch, createDelta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
 import {
   //  onSession
-  aPatch,
+  
   type CodePatch,
   type Delta,
-  hashCode,
+  
   // type Delta,
   // CodeSession,
-  makePatch,
+  
   // makePatch,
   // makePatchFrom,
   mST,
@@ -31,6 +32,7 @@ import { Mutex } from "async-mutex";
 import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
+import { throws } from "assert";
 import { Record } from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -55,8 +57,6 @@ type MessageProps = Partial<{
   reversePatch?: Delta[];
   patch?: Delta[];
 }>;
-
-export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await sess;
 
 const ws = {
   blockedMessages: [] as MessageProps[],
@@ -92,7 +92,145 @@ export class Code {
 
   session: Record<ICodeSession>;
   sess: ICodeSession;
+  head: number;
   user = md5(self.crypto.randomUUID());
+  mST(p?: Delta[]) {
+    if (p && p.length) {
+      const sessAsJs = this.session.toJSON();
+
+      const { i, transpiled, code, html, css }: ICodeSession = p
+        ? JSON.parse(
+          aPatch(
+            string_(
+              sessAsJs,
+            ),
+            p,
+          ),
+        )
+        : sessAsJs;
+      return this.session.merge({
+        i,
+        transpiled,
+        code,
+        html,
+        css,
+      }).toObject();
+    }
+    return this.session.toObject();
+  }
+
+  // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
+
+  // const newHash = newRec.hashCode();
+  // hashStore[newHash] = newNewRecord;
+
+  syncKV(
+    oldSession: ICodeSession,
+    newSess: ICodeSession,
+    message: CodePatch,
+  ) {
+    syncStorage(
+      ldb(codeSpace).setItem,
+      ldb(codeSpace).getItem,
+      oldSession,
+      newSess,
+      message,
+    );
+  }
+
+  constructor() {
+    this.mutex = new Mutex();
+
+    // this.users.insert(this.user);
+    this.sess = {
+      code: "",
+      transpiled: "",
+      i: 0,
+      css: "",
+      html: "",
+    };
+    this.head = 0;
+    this.session = Record<ICodeSession>(this.sess)({});
+
+    this.mutex.runExclusive(async () => {
+      this.mutex.acquire();
+      this.head = await ldb(codeSpace).getItem("head") as number
+        || await ldb(codeSpace).setItem(
+          "head",
+          Number(
+            await ky(`${origin}/live/${codeSpace}/live/session/head`).text(),
+          ),
+        ) as number;
+      this.sess = await ldb(codeSpace).getItem(
+        String(this.head),
+      ) as (ICodeSession | false)
+        || await ldb(codeSpace).setItem(
+          String(this.head),
+          await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`)
+            .json<ICodeSession>(),
+        );
+      this.session = Record<ICodeSession>(this.sess)();
+      this.mutex.release();
+    });
+  }
+
+  createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
+    const oldRec = this.session.merge(oldSess);
+    const oldHash = oldRec.hashCode();
+    const newRec = this.session.merge(newSess);
+    const newHash = newRec.hashCode();
+
+    const oldString = string_(oldRec.toJSON());
+    const newString = string_(newRec.toJSON());
+
+    const patch = createDelta(oldString, newString);
+    const reversePatch = createDelta(newString, oldString);
+    return {
+      oldHash,
+      newHash,
+      reversePatch,
+      patch,
+    };
+  }
+
+  async syncWS(newSession: ICodeSession, signal: AbortSignal) {
+    const oldSession = this.sess;
+    const mewSession = this.session.merge(newSession).toJSON();
+    const message = this.createPatch(oldSession, newSession);
+
+    // controller.abort();
+    // controller = new AbortController();
+
+    // console.log("alive1");
+    if (ws) {
+      // if (wsLastHashCode === hashKEY()) {
+      //   console.log("WS is up to date with us.");
+      //   return;
+      // }]
+      if (signal.aborted) return;
+
+      const oldSession = mST(codeSpace);
+
+      await this.mutex.waitForUnlock();
+      this.mutex.acquire();
+
+      // applyPatch(message, codeSpace);
+
+      // const newSS = mST(codeSpace);
+      setTimeout(async () => {
+        this.session = this.session.merge(newSession);
+        await ldb(codeSpace).syncDb(oldSession, newSession, message);
+
+        this.mutex.release();
+
+        await ws.post(message);
+        ws.send(message);
+      });
+
+      return newSession;
+    }
+  }
+
   // sendChannel = {
   //   localStream: null as MediaStream | null,
   //   webRtcArray,
@@ -140,147 +278,10 @@ export class Code {
   );
   ignoreUsers = Array<string>();
 
-  head = 0;
   waiting: (() => boolean)[] = [];
   // wsSessions: WebsocketSession[];
   buffy: Promise<void>[] = [];
   i = 0;
-
-  mST(p?: Delta[]) {
-    if (p && p.length) {
-      const sessAsJs = this.session.toJSON();
-
-      const { i, transpiled, code, html, css }: ICodeSession = p
-        ? JSON.parse(
-          aPatch(
-            string_(
-              sessAsJs,
-            ),
-            p,
-          ),
-        )
-        : sessAsJs;
-      return this.session.merge({
-        i,
-        transpiled,
-        code,
-        html,
-        css,
-      }).toObject();
-    }
-    return this.session.toObject();
-  }
-
-  syncKV(
-    oldSession: ICodeSession,
-    newSess: ICodeSession,
-    message: CodePatch,
-  ) {
-    syncStorage(
-      ldb(codeSpace).setItem,
-      ldb(codeSpace).getItem,
-      oldSession,
-      newSess,
-      message,
-    );
-  }
-
-  constructor() {
-    this.mutex = new Mutex();
-
-    this.users.insert(this.user);
-    this.sess = {
-      code: "",
-      transpiled: "",
-      i: 0,
-      css: "",
-      html: "",
-    };
-    this.head = 0;
-    this.session = Record<ICodeSession>(this.sess)({});
-
-    this.mutex.runExclusive(async () => {
-      this.mutex.acquire();
-      this.head = await ldb(codeSpace).getItem("head") as number
-        || await ldb(codeSpace).setItem(
-          "head",
-          Number(
-            await ky(`${origin}/live/${codeSpace}/live/session/head`).text(),
-          ),
-        ) as number;
-      this.sess = await ldb(codeSpace).getItem(
-        String(this.head),
-      ) as (ICodeSession | false)
-        || await ldb(codeSpace).setItem(
-          String(this.head),
-          await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`)
-            .json<ICodeSession>(),
-        );
-      this.session = Record<ICodeSession>(this.sess)();
-      this.mutex.release();
-    });
-  }
-
-  async syncWS(newSession: ICodeSession, signal: AbortSignal) {
-    this,
-      // console.log("SYNC!!");
-      // console.log("SYNC!!");
-      // console.log("SYNC!!");
-
-      console.log({ newSession });
-    // controller.abort();
-    // controller = new AbortController();
-
-    // console.log("alive1");
-    if (ws) {
-      // if (wsLastHashCode === hashKEY()) {
-      //   console.log("WS is up to date with us.");
-      //   return;
-      // }
-
-      // const sess = mST();
-      // console.//log({ wsLastHashCode });
-      console.log("alive3");
-      const message = makePatch(
-        newSession,
-        codeSpace,
-      );
-
-      console.log("alive4");
-
-      if (!message) {
-        return;
-      }
-
-      // if (message.newHash !== md5() {
-      // console.error("NEW hash is not even hashCode", hashKEY());
-      // return;
-      // }
-
-      console.log("alive5");
-      // console.log("SYNC!!");
-      // console.log({ ...message, name: user, i: sess.i });
-      // wsLastHashCode = message.newHash;
-
-      if (message.oldHash === message.newHash) return;
-      if (signal.aborted) return;
-
-      const oldSession = mST(codeSpace);
-
-      await this.mutex.waitForUnlock();
-      this.mutex.acquire();
-
-      // applyPatch(message, codeSpace);
-
-      // const newSS = mST(codeSpace);
-      await ldb(codeSpace).syncDb(oldSession, newSession, message);
-
-      this.mutex.release();
-
-      await ws.post(message);
-      // ws.send(message);
-    }
-  }
 
   async run() {
     this.mutex.waitForUnlock();
@@ -361,6 +362,7 @@ export class Code {
 }
 
 export const codeSession = new Code();
+export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await codeSession.syncWS(sess, signal);
 
 export const run = async () => {
   codeSession.run();

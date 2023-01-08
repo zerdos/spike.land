@@ -3151,7 +3151,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-DETB4EBR.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-2MXUQJ5O.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11589,7 +11589,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmYi2BaCCJ61qL9MSzkyYa5fyNo2z2h9PK7LWdnztKyWuz\n";
+var dist_default = "QmaBvjz8yZDskJqWp4gYw6qFv349kwM1NLCF9tctq8EJod\n";
 
 // ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;
@@ -11738,7 +11738,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-DETB4EBR.mjs
+// ../code/dist/src/chunk-chunk-2MXUQJ5O.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
