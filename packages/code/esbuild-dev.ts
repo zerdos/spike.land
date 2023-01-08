@@ -296,6 +296,7 @@ const build = (
       ".css": "file",
       ".png": "file",
       ".ico": "file",
+      ".wasm": "file",
       ".html": "text",
     },
     bundle: true,

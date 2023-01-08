@@ -27,5 +27,6 @@
   "deno.enable": true,
   "deno.config": "./tsconfig.json",
   "deno.unstable": true,
-  "files.autoSave": "onFocusChange"
+  "files.autoSave": "onFocusChange",
+  "deno.lint": false
 }
