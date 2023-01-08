@@ -10,8 +10,8 @@ import { syncWS } from "./ws";
 // import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
 import { // HTML, importMapReplace, md5,
-  mST, // resetCSS
-} from "./session";
+  codeSession, // resetCSS
+} from "./ws";
 // import { createHTML } from "./starter";
 //
 // Object.assign(globalThis, { buildT });
@@ -101,7 +101,7 @@ BC.onmessage = async ({ data }) => {
     // window.removeEventListener("message", responseListener);
     if (signal.aborted) return;
     const newSession = {
-      ...mST(codeSpace),
+      ...codeSession.sess,
       html,
       css,
       code: sess.code,

@@ -6,7 +6,8 @@ import { CacheProvider, css } from "@emotion/react";
 import createCache from "./emotionCache";
 // import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5.js";
-import { importMapReplace, mST } from "./session";
+import { importMapReplace } from "./session";
+
 import { wait } from "./wait";
 
 // const modz: { [key: string]: null | Promise<HTMLIFrameElement> | number } = {};
@@ -377,11 +378,11 @@ export const { apps, eCaches } = globalThis as unknown as {
 // }
 
 export async function appFactory(
-  transpiled = "",
+  transpiled: string,
 ): Promise<FC<{ appId: string }>> {
   // }
 
-  const trp: string = transpiled || mST(codeSpace).transpiled;
+  const trp: string = transpiled;
 
   const hash = md5(transpiled);
 

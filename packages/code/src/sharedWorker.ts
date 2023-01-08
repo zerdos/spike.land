@@ -5,7 +5,7 @@ import { ldb } from "./createDb";
 // import { S } from "memfs/lib/constants";
 // import { SEP } from "memfs/lib/node";
 import { str2ab } from "./sab";
-import { aPatch, CodePatch, CodeSession, ICodeSession, string_ } from "./session";
+import { aPatch, CodePatch, ICodeSession, string_ } from "./session";
 // import { CodeSession } from "./session";
 import type { Delta } from "./textDiff";
 
@@ -18,7 +18,7 @@ declare const self: SharedWorkerGlobalScope & {
   name: string;
   counters: Counters;
   dbs: { [codeSpaces: string]: LocalForage };
-  sessions: { [codeSpaces: string]: CodeSession };
+  sessions: { [codeSpaces: string]: Record<ICodeSession> };
   connections: { [codeSpaces: string]: MessagePort[] };
   hashCodes: { [codeSpaces: string]: number };
 
@@ -32,7 +32,7 @@ function hashCode(sess: ICodeSession) {
 
 function mST(codeSpace: string, p?: Delta[]) {
   if (p && p.length) {
-    const sessAsJs = sessions[codeSpace].session.get("state").toJSON();
+    const sessAsJs = sessions[codeSpace].toJSON();
 
     const { i, transpiled, code, html, css }: ICodeSession = p
       ? JSON.parse(
@@ -44,16 +44,15 @@ function mST(codeSpace: string, p?: Delta[]) {
         ),
       )
       : sessAsJs;
-    return sessions[codeSpace].session.get("state").merge({
+    return sessions[codeSpace].merge({
       i,
       transpiled,
       code,
       html,
       css,
-      codeSpace,
     }).toObject();
   }
-  return sessions[codeSpace].session.get("state").toObject();
+  return sessions[codeSpace].toObject();
 }
 
 async function send(codeSpace: string, msg: object) {
@@ -207,10 +206,7 @@ async function onMessage(port: MessagePort, data: Data) {
       names[codeSpace] = name;
     }
 
-    sessions[codeSpace] = sessions[codeSpace] || startSession(codeSpace, {
-      name: names[codeSpace],
-      state: session,
-    });
+    sessions[codeSpace] = Record<ICodeSession>(session)();
 
     console.log(
       "onconnect",
@@ -365,13 +361,10 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
                 console.error({ msg, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
-              const newRec = sessions[codeSpace].session.get("state").merge(
+              const newRec = sessions[codeSpace].merge(
                 newState,
               );
-              sessions[codeSpace].session = sessions[codeSpace].session.set(
-                "state",
-                newRec,
-              );
+              sessions[codeSpace] = sessions[codeSpace].merge(newRec);
               await ldb(codeSpace).syncDb(oldState, newState, {
                 oldHash,
                 newHash,
@@ -381,7 +374,7 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
             }
             const name = names[codeSpace];
             (() => {
-              const { session, codeSpace, ...rest } = mess;
+              const { session, ...rest } = mess;
 
               websocket.send(JSON.stringify({ ...rest, name }));
             })();
@@ -417,11 +410,10 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
             console.error({ mess, calculated: { oldHash, newHash } });
             throw ("Error - we messed up the hashStores");
           }
-          const newRec = sessions[codeSpace].session.get("state").merge(
+          const newRec = sessions[codeSpace].merge(
             newState,
           );
-          sessions[codeSpace].session = sessions[codeSpace].session.set(
-            "state",
+          sessions[codeSpace] = sessions[codeSpace].merge(
             newRec,
           );
           await ldb(codeSpace).syncDb(oldState, newState, {

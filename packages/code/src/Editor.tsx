@@ -7,8 +7,8 @@ import { Rnd } from "react-rnd";
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
-import { mST } from "./session";
 import { prettier } from "./shared";
+import { codeSession } from "./ws";
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;
@@ -21,7 +21,8 @@ export const Editor: FC<
 > = (
   { codeSpace },
 ) => {
-  const mst = mST(codeSpace);
+  const sess = codeSession.sess;
+
   const ref = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
 
@@ -29,8 +30,8 @@ export const Editor: FC<
     { i, code, started, setValue, controller },
     changeContent,
   ] = useState({
-    code: mst.code,
-    i: mst.i,
+    code: sess.code,
+    i: sess.i,
     started: false,
     controller: new AbortController(),
     setValue: (_code: string) => null,
@@ -117,7 +118,7 @@ export const Editor: FC<
   };
 
   useEffect(() => {
-    if (i <= mST(codeSpace).i) return;
+    if (i <= codeSession.sess.i) return;
     // onSessionUpdate(
     //   async () => {
     //     const { i, code: ccc } = mST(codeSpace);

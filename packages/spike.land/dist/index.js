@@ -3151,7 +3151,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-4GJPPKXX.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-ATGCNJAZ.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11451,125 +11451,6 @@ var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, ne
     await setItem("head", message.newHash);
   });
 }, "syncStorage");
-var sessions = {};
-var hashStore = {};
-var CodeSession = class {
-  constructor(codeSpace, user) {
-    this.cb = {};
-    this.hashCodeSession = 0;
-    this.created = new Date().toISOString();
-    this.hashOfState = () => {
-      const state = this.session.get("state");
-      const hashCode32 = state.hashCode();
-      hashStore[hashCode32] = state;
-      return hashCode32;
-    };
-    this.createPatchFromHashCode = (oldHash, state) => {
-      const s = JSON.parse(string_(state));
-      hashStore[hashKEY(this.room)] = this.session.get(
-        "state"
-      );
-      let oldRec = hashStore[oldHash];
-      let usedOldHash = oldHash;
-      const oldString = string_(oldRec.toJSON());
-      const newRec = oldRec.merge(s);
-      const newString = string_(newRec.toJSON()).split(
-        md5(newRec.get("transpiled"))
-      ).join("css");
-      const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
-      const newHash = newNewRecord.hashCode();
-      hashStore[newHash] = newNewRecord;
-      const patch = createPatch(oldString, newString);
-      const reversePatch = createPatch(newString, oldString);
-      return {
-        oldHash: usedOldHash,
-        newHash,
-        reversePatch,
-        patch
-      };
-    };
-    this.applyPatch = ({
-      oldHash,
-      newHash,
-      patch
-    }) => {
-      if (!(oldHash && newHash && patch.length))
-        return;
-      hashStore[hashKEY(this.room)] = this.session.get("state");
-      let maybeOldRec = hashStore[oldHash];
-      if (!maybeOldRec)
-        throw new Error(`cant find old record: ${oldHash}`);
-      const oldString = string_(maybeOldRec.toJSON());
-      const applied = applyPatch(oldString, patch);
-      const newState = JSON.parse(applied);
-      const newRec = this.session.get("state").merge(
-        newState
-      );
-      const newRecord = this.session.get("state").merge(newRec);
-      const newHashCheck = newRecord.hashCode();
-      if (newHashCheck === newHash) {
-        this.session = this.session.set("state", newRecord);
-        hashStore[newHash] = this.session.get("state");
-      } else {
-        throw new Error("Wrong patch");
-      }
-      return newHash;
-    };
-    sessions[codeSpace] = this;
-    this.room = codeSpace;
-    const savedState = null;
-    this.session = initSession(codeSpace, {
-      ...user,
-      state: savedState ? savedState : JSON.parse(string_({ ...user.state }))
-    })();
-    hashStore[hashKEY(codeSpace)] = this.session.get("state");
-  }
-  update() {
-    Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
-      try {
-        x();
-      } catch (error) {
-        console.error("error calling callback", { err: error });
-      }
-    });
-  }
-  onUpdate(fn, regId) {
-    this.cb[regId] = fn;
-  }
-  json() {
-    const user = this.session.toJSON();
-    const state = user.state.toJSON();
-    return { ...user, state };
-  }
-  setRoom(codeSpace) {
-    const user = this.session.set("room", codeSpace);
-    this.session = user;
-  }
-};
-__name(CodeSession, "CodeSession");
-var hashKEY = /* @__PURE__ */ __name((codeSpace) => sessions[codeSpace]?.session.get("state").hashCode(), "hashKEY");
-function mST(codeSpace, p) {
-  if (p && p.length) {
-    const sessAsJs = sessions[codeSpace]?.session.get("state").toJSON();
-    const { i, transpiled, code, html, css } = p ? JSON.parse(
-      applyPatch(
-        string_(
-          sessAsJs
-        ),
-        p
-      )
-    ) : sessAsJs;
-    return sessions[codeSpace]?.session.get("state").merge({
-      i,
-      transpiled,
-      code,
-      html,
-      css
-    }).toObject();
-  }
-  return sessions[codeSpace].session.get("state").toObject();
-}
-__name(mST, "mST");
 function string_(s) {
   const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
@@ -11581,7 +11462,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmceLcEUuEP4Ft3audZ558tZhopiUrWgotPXUDoRCHsoCB\n";
+var dist_default = "QmPmYZFC7JZcRSXMc8z3kBZsbZ1dkqfX37iLvPG9EDcdrE\n";
 
 // ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;
@@ -11730,7 +11611,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-4GJPPKXX.mjs
+// ../code/dist/src/chunk-chunk-ATGCNJAZ.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -20099,125 +19980,6 @@ var syncStorage2 = /* @__PURE__ */ __name2(async (setItem, getItem, oldSession, 
     await setItem("head", message.newHash);
   });
 }, "syncStorage");
-var sessions2 = {};
-var hashStore2 = {};
-var CodeSession2 = class {
-  constructor(codeSpace, user) {
-    this.cb = {};
-    this.hashCodeSession = 0;
-    this.created = new Date().toISOString();
-    this.hashOfState = () => {
-      const state = this.session.get("state");
-      const hashCode32 = state.hashCode();
-      hashStore2[hashCode32] = state;
-      return hashCode32;
-    };
-    this.createPatchFromHashCode = (oldHash, state) => {
-      const s = JSON.parse(string_2(state));
-      hashStore2[hashKEY2(this.room)] = this.session.get(
-        "state"
-      );
-      let oldRec = hashStore2[oldHash];
-      let usedOldHash = oldHash;
-      const oldString = string_2(oldRec.toJSON());
-      const newRec = oldRec.merge(s);
-      const newString = string_2(newRec.toJSON()).split(
-        md52(newRec.get("transpiled"))
-      ).join("css");
-      const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
-      const newHash = newNewRecord.hashCode();
-      hashStore2[newHash] = newNewRecord;
-      const patch = createPatch(oldString, newString);
-      const reversePatch = createPatch(newString, oldString);
-      return {
-        oldHash: usedOldHash,
-        newHash,
-        reversePatch,
-        patch
-      };
-    };
-    this.applyPatch = ({
-      oldHash,
-      newHash,
-      patch
-    }) => {
-      if (!(oldHash && newHash && patch.length))
-        return;
-      hashStore2[hashKEY2(this.room)] = this.session.get("state");
-      let maybeOldRec = hashStore2[oldHash];
-      if (!maybeOldRec)
-        throw new Error(`cant find old record: ${oldHash}`);
-      const oldString = string_2(maybeOldRec.toJSON());
-      const applied = applyPatch2(oldString, patch);
-      const newState = JSON.parse(applied);
-      const newRec = this.session.get("state").merge(
-        newState
-      );
-      const newRecord = this.session.get("state").merge(newRec);
-      const newHashCheck = newRecord.hashCode();
-      if (newHashCheck === newHash) {
-        this.session = this.session.set("state", newRecord);
-        hashStore2[newHash] = this.session.get("state");
-      } else {
-        throw new Error("Wrong patch");
-      }
-      return newHash;
-    };
-    sessions2[codeSpace] = this;
-    this.room = codeSpace;
-    const savedState = null;
-    this.session = initSession2(codeSpace, {
-      ...user,
-      state: savedState ? savedState : JSON.parse(string_2({ ...user.state }))
-    })();
-    hashStore2[hashKEY2(codeSpace)] = this.session.get("state");
-  }
-  update() {
-    Object.keys(this.cb).map((k) => this.cb[k]).map((x) => {
-      try {
-        x();
-      } catch (error) {
-        console.error("error calling callback", { err: error });
-      }
-    });
-  }
-  onUpdate(fn, regId) {
-    this.cb[regId] = fn;
-  }
-  json() {
-    const user = this.session.toJSON();
-    const state = user.state.toJSON();
-    return { ...user, state };
-  }
-  setRoom(codeSpace) {
-    const user = this.session.set("room", codeSpace);
-    this.session = user;
-  }
-};
-__name2(CodeSession2, "CodeSession");
-var hashKEY2 = /* @__PURE__ */ __name2((codeSpace) => sessions2[codeSpace]?.session.get("state").hashCode(), "hashKEY");
-function mST2(codeSpace, p) {
-  if (p && p.length) {
-    const sessAsJs = sessions2[codeSpace]?.session.get("state").toJSON();
-    const { i, transpiled, code, html, css } = p ? JSON.parse(
-      applyPatch2(
-        string_2(
-          sessAsJs
-        ),
-        p
-      )
-    ) : sessAsJs;
-    return sessions2[codeSpace]?.session.get("state").merge({
-      i,
-      transpiled,
-      code,
-      html,
-      css
-    }).toObject();
-  }
-  return sessions2[codeSpace].session.get("state").toObject();
-}
-__name2(mST2, "mST");
 function string_2(s) {
   const { i, transpiled, code, html, css } = s;
   return JSON.stringify({ i, transpiled, code, html, css });
