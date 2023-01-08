@@ -2938,9 +2938,9 @@ var package_default = {
     ky: "^0.33.1",
     localforage: "^1.10.0",
     logrocket: "^3.0.1",
-    memfs: "^3.4.12",
+    memfs: "^3.4.13",
     module: "^1.2.5",
-    "monaco-editor": "0.35.0-dev.20230107",
+    "monaco-editor": "0.35.0-dev.20230108",
     "os-browserify": "^0.3.0",
     "p-map": "5.5.0",
     "path-browserify": "^1.0.1",
@@ -11592,7 +11592,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmZvSeCU9WLQ7Ea4TWtaVruedfCq74CMK6o2VHzAffA9w8\n";
+var dist_default = "QmZVGVCcthmyw5YTrdUwaS2u36oYKNBReZszB4zG3KifMh\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";

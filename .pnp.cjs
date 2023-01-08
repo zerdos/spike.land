@@ -124,7 +124,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230107"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230108"],\
           ["path-browserify", "npm:1.0.1"],\
           ["playwright", "npm:1.29.2"],\
           ["react", "npm:18.2.0"],\
@@ -2138,9 +2138,9 @@ const RAW_RUNTIME_STATE =
           ["ky", "npm:0.33.1"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
-          ["memfs", "npm:3.4.12"],\
+          ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230107"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230108"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
           ["path-browserify", "npm:1.0.1"],\
@@ -2232,9 +2232,9 @@ const RAW_RUNTIME_STATE =
           ["ky", "npm:0.33.1"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
-          ["memfs", "npm:3.4.12"],\
+          ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230107"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230108"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
           ["path-browserify", "npm:1.0.1"],\
@@ -10359,10 +10359,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["memfs", [\
-      ["npm:3.4.12", {\
-        "packageLocation": "../../../Users/z/.yarn/berry/cache/memfs-npm-3.4.12-22a464cc9b-9.zip/node_modules/memfs/",\
+      ["npm:3.4.13", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/memfs-npm-3.4.13-1b82431d2d-9.zip/node_modules/memfs/",\
         "packageDependencies": [\
-          ["memfs", "npm:3.4.12"],\
+          ["memfs", "npm:3.4.13"],\
           ["fs-monkey", "npm:1.0.3"]\
         ],\
         "linkType": "HARD"\
@@ -10812,10 +10812,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.35.0-dev.20230107", {\
-        "packageLocation": "../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20230107-87dcd7bdba-9.zip/node_modules/monaco-editor/",\
+      ["npm:0.35.0-dev.20230108", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/monaco-editor-npm-0.35.0-dev.20230108-dbac5fd682-9.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.35.0-dev.20230107"]\
+          ["monaco-editor", "npm:0.35.0-dev.20230108"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10848,7 +10848,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230107"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230108"],\
           ["path-browserify", "npm:1.0.1"],\
           ["playwright", "npm:1.29.2"],\
           ["react", "npm:18.2.0"],\

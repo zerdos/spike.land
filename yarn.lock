@@ -1695,9 +1695,9 @@ __metadata:
     ky: "npm:^0.33.1"
     localforage: "npm:^1.10.0"
     logrocket: "npm:^3.0.1"
-    memfs: "npm:^3.4.12"
+    memfs: "npm:^3.4.13"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230107"
+    monaco-editor: "npm:0.35.0-dev.20230108"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
     path-browserify: "npm:^1.0.1"
@@ -8263,12 +8263,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^3.4.12":
-  version: 3.4.12
-  resolution: "memfs@npm:3.4.12"
+"memfs@npm:^3.4.13":
+  version: 3.4.13
+  resolution: "memfs@npm:3.4.13"
   dependencies:
     fs-monkey: "npm:^1.0.3"
-  checksum: f2d8d2842babd8ce964b1fcb30fb38122dc08aad1f4b2d8d047a0830b651d90eba3a3433b4e77a069a7eca9d9858888f27b804a56a709e697c5e6f909d74a69b
+  checksum: 676de79f8ab10106eea5d12900e7334a47276eade5cec545b21bb0d26aa6b9e471a7513203c47a066a666b7fdec48e3a3e5e2cffc0ac051fc745fefc3947d0b9
   languageName: node
   linkType: hard
 
@@ -8679,10 +8679,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20230107":
-  version: 0.35.0-dev.20230107
-  resolution: "monaco-editor@npm:0.35.0-dev.20230107"
-  checksum: 4cf34b9a491699047fdb6bc971702f172af23e032941b628b1f7732fd503ec55b5100542282057e2f1a43a50d7bffde38b7b106f6b95ba513c609f05264e1994
+"monaco-editor@npm:0.35.0-dev.20230108":
+  version: 0.35.0-dev.20230108
+  resolution: "monaco-editor@npm:0.35.0-dev.20230108"
+  checksum: a18eb4338cc5d2386035c5e080a958ece8cc6700546b19f2752603c1145ebc2ff48fc34b986a8bcf07d2cc2e282e355981f9308cb2224973920aff283ca1e0ee
   languageName: node
   linkType: hard
 
@@ -8713,7 +8713,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.31.11"
     localforage: "npm:^1.10.0"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230107"
+    monaco-editor: "npm:0.35.0-dev.20230108"
     path-browserify: "npm:^1.0.1"
     playwright: "npm:1.29.2"
     react: "npm:^18.2.0"
