@@ -1,4 +1,4 @@
-import was from "esbuild-wasm/esbuild.wasm";
+import wasmModule from "./esbuild-loader";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
 
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";
@@ -24,7 +24,7 @@ const mod = {
   init: false as (boolean | Promise<void>),
   initialize: () =>
     mod.init || initialize({
-      wasmModule: was,
+      wasmModule: wasmModule,
       worker: false,
     }).then(() => mod.init = true) as Promise<void>,
 };

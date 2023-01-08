@@ -11592,7 +11592,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmZVGVCcthmyw5YTrdUwaS2u36oYKNBReZszB4zG3KifMh\n";
+var dist_default = "QmY5HJbepgmdyoJpHAC7aktf6BPzUEFjqNhmTccvMRyvJk\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
@@ -20249,6 +20249,9 @@ __name2(hashCode32, "hashCode");
 // ../../../../../Users/z/.yarn/berry/cache/esbuild-wasm-npm-0.16.15-2ce771174d-9.zip/node_modules/esbuild-wasm/esbuild.wasm
 var esbuild_default3 = "./esbuild-M4QDVZDG.wasm";
 
+// src/esbuild-loader.ts
+var esbuild_loader_default = esbuild_default3;
+
 // src/esbuild.ts
 var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
 Object.assign(globalThis, {
@@ -20259,7 +20262,7 @@ Object.assign(globalThis, {
 var mod3 = {
   init: false,
   initialize: () => mod3.init || (0, import_esbuild_wasm3.initialize)({
-    wasmModule: esbuild_default3,
+    wasmModule: esbuild_loader_default,
     worker: false
   }).then(() => mod3.init = true)
 };
