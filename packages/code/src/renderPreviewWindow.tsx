@@ -70,24 +70,24 @@ background:  repeating-radial-gradient(circle at bottom left,
 const AppToRender: FC<
   { codeSpace: string }
 > = (
-  { codeSpace },
+  { codeSpace }
 ) => {
-  // const portalNode = React.useMemo(() => portals.createHtmlPortalNode(), []);
-
   const portalNode = React.useMemo(() =>
     portals.createHtmlPortalNode({
       attributes: {
-        style: "height: 100%",
+        style: "height: 100%; width:100%;",
       },
     }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  // const hideRes = sp.has("edit");
+  const [hideRest, setHideRest] = useState(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (hideRest) setHideRest(false);
-  //   }, 2000);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (hideRest) setHideRest(false);
+    }, 2000);
+    return () => clearTimeout(t);
+  }, []);
   // });
 
   //   || location.pathname.endsWith("hydrated");
@@ -107,18 +107,23 @@ const AppToRender: FC<
           src={`${location.origin}/live/${codeSpace}/iframe`}
         />
       </portals.InPortal>
-      {onlyEdit ? null : (
-        <DraggableWindow codeSpace={codeSpace}>
-          <portals.OutPortal node={portalNode} />
-        </DraggableWindow>
-      )}
-      <RainbowContainer>
-        <Fragment>
-          <Editor
-            codeSpace={codeSpace}
-          />
-        </Fragment>
-      </RainbowContainer>
+      <>
+        {onlyEdit ? null : (
+          <DraggableWindow codeSpace={codeSpace}>
+            <portals.OutPortal node={portalNode} />
+          </DraggableWindow>
+        )}
+
+        {hideRest ? null : (
+          <RainbowContainer>
+            <Fragment>
+              <Editor
+                codeSpace={codeSpace}
+              />
+            </Fragment>
+          </RainbowContainer>
+        )}
+      </>
     </>
   );
 };

@@ -276,6 +276,10 @@ const ws = {
 };
 
 export const run = async () => {
+  if (location.pathname === `/live/${codeSpace}`) {
+    renderPreviewWindow({ codeSpace, dry: false });
+  }
+
   // const { readdir, mkdir, writeFile } = fs.promises;
   const session = await (await fetch(`${origin}/live/${codeSpace}/session`)).json();
   const hash = hashCode(session);
@@ -373,9 +377,6 @@ export const run = async () => {
   // sharedWorker.port.postMessage({ codeSpace, type: "handshake", i: mST(codeSpace).i, name: user, hashCode: hashKEY(codeSpace) });
 
   // }, location.origin);
-  if (location.pathname === `/live/${codeSpace}`) {
-    renderPreviewWindow({ codeSpace, dry: false });
-  }
 
   // ws.send({ type: "handshake" });
 
