@@ -26364,7 +26364,7 @@ var Code = class {
             `<div id="root" style="height: 100%;">
                 <style>${css}</style>
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                  ${html}
+                <iframe src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
                   </div>
               </div>` + (path[0] === "dehydrated" ? `<script>
 
