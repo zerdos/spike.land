@@ -127,7 +127,7 @@ export class Code {
 
     // this.mutex = new Mutex();
     this.state.blockConcurrencyWhile(async () => {
-      if (this.head !== 0 && this.sess && this.sess.i > 0) return;
+      if (this.head && this.sess?.code && this.sess.i > 10) return;
       try {
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
