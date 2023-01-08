@@ -282,7 +282,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <motion.div
               layout
               css={css`
-              position: relative;
               transform-origin: top left;
               `}
               initial={{
@@ -300,7 +299,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 width: width,
                 borderRadius: 8,
               }}
-            >  
+            >
               <iframe
                 // ref={zBodyRef}
                 // id={"z-body"}
