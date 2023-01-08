@@ -200,6 +200,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         initial={{
           padding: 0,
           top: 0,
+          backgroundColor: "rgba(0, 0,0, 0)",
+          backdropFilter: `blur(0px);`,
           right: 0,
           borderRadius: 0,
         }}
@@ -207,17 +209,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           top: bottom,
           bottom: 0,
           right: right,
+          backdropFilter: "blur(15px)",
           padding: 8,
-
+          backgroundColor: `${rgba(r | 96, g | 66, b || 160, a || .3)}`,
           borderRadius: 16,
         }}
-        css={css`
-            touch-action: pinch-zoom;
-            background-color: ${rgba(r | 96, g | 66, b || 160, a || .3)};
-            backdrop-filter: blur(15px);
-            z-index: -10;
-            position: fixed;
-          `}
         drag={true}
         dragMomentum={false}
         dragConstraints={{
@@ -238,9 +234,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <motion.div
               css={css`
               overflow: hidden;
-              display:flex;
+              display: flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0", width: "0%" }}
+              initial={{ height: 0, width: 0 }}
               animate={{
                 height: "42px",
                 width: "100%",
