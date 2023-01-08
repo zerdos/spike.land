@@ -40,7 +40,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, _setDelay] = useState(1);
+  const [delay, _setDelay] = useState(0);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
@@ -324,11 +324,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0", width: "0", opacity: 0 }}
+              initial={{ height: "0", width: "0" }}
               animate={{
                 height: "42px",
-                width: "100%",
-                opacity: 1,
+                width: "100%"
               }}
             >
               <ToggleButtonGroup
