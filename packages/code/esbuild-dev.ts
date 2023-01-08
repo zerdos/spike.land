@@ -124,7 +124,7 @@ const buildOptions = {
 
   loader: {
     ".ttf": "file",
-    ".css": "file",
+    ".css": "css",
     ".png": "file",
     ".ico": "file",
     ".wasm": "file",
@@ -149,6 +149,7 @@ console.log(`
 const build = (
   entryPoints,
   extraExternal,
+  buildOptions,
 ) =>
   esbuild.build({
     ...buildOptions,
@@ -342,7 +343,7 @@ const build = (
       // "prettier",
       // "react/",
     ],
-    false,
+    buildOptions,
   );
 
   console.log("done");
