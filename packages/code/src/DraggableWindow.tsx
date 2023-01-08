@@ -313,7 +313,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 right: 0;
                 border: none;
                   height: 100vh;
-                  width: 100v;
+                  width: 100vw;
                 `}
                 src={`${location.origin}/live/${codeSpace}/iframe`}
               />
