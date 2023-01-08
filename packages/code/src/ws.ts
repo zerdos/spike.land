@@ -8,16 +8,15 @@ import { applyPatch as aPatch, createDelta } from "./textDiff";
 // import adapter from "webrtc-adapter";
 import {
   //  onSession
-  
+
   type CodePatch,
   type Delta,
-  
   // type Delta,
   // CodeSession,
-  
+
   // makePatch,
   // makePatchFrom,
-  mST,
+
   string_,
   syncStorage,
 } from "./session";
@@ -209,7 +208,7 @@ export class Code {
       // }]
       if (signal.aborted) return;
 
-      const oldSession = mST(codeSpace);
+      const oldSession = this.sess;
 
       await this.mutex.waitForUnlock();
       this.mutex.acquire();
