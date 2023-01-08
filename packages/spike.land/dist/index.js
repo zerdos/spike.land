@@ -11637,7 +11637,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "Qmb3wRkpMChnY2A53tBsXivzNzADo935WXUybAPdzBneTs\n";
+var dist_default = "QmSLewZYgvo5g6Pi34ryuwRk4VSgDHgmz4GU3i1u9AceTT\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";

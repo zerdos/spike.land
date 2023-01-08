@@ -296,8 +296,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 backgroundColor: rgba(r, g, b, 0.7),
                 transform: `scale(${scale},${scale})`,
                 transformOrigin: "top left",
-                height: height * scale,
-                width: width * scale,
+                height: height / scale,
+                width: width / scale,
                 borderRadius: 8,
               }}
             >
@@ -313,7 +313,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 right: 0;
                 border: none;
                   height: 100vh;
-                  width: 100vw;
+                  width: inherit;
                 `}
                 src={`${location.origin}/live/${codeSpace}/iframe`}
               />
