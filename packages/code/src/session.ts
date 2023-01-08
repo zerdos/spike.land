@@ -64,7 +64,10 @@ export type IUser = Record<
   }
 >;
 
-export function db(codeSpace: string, initDb: (codeSpace: string) => Promise<LocalForage>) {
+export function db(
+  codeSpace: string,
+  initDb: (codeSpace: string) => Promise<LocalForage>,
+) {
   const mod = {
     syncDb: async (
       oldSession: ICodeSession,
@@ -243,9 +246,7 @@ export class CodeSession implements ICodeSess {
 
     this.session = initSession(codeSpace, {
       ...user,
-      state: savedState
-        ? savedState
-        : JSON.parse(string_({ ...user.state })),
+      state: savedState ? savedState : JSON.parse(string_({ ...user.state })),
     })();
     hashStore[hashKEY(codeSpace)] = this.session.get("state");
   }

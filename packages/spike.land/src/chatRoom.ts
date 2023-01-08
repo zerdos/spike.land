@@ -131,17 +131,27 @@ export class Code {
       try {
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
-        this.sess = (await this.kv.get<ICodeSession>(this.head !== 0 ? String(this.head) : "session", {
-          allowConcurrency: true,
-        })) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+        this.sess = (await this.kv.get<ICodeSession>(
+          this.head !== 0 ? String(this.head) : "session",
+          {
+            allowConcurrency: true,
+          },
+        )) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
           "session.json",
         ).then((x) => x.json())!;
         if (!this.sess) throw Error("cant get the starter session");
 
         this.session = Record<ICodeSession>({})(this.sess);
         if (this.head === 0) this.head = this.session.hashCode();
-        await this.state.storage.put(String(this.head), this.session.toObject(), { allowConcurrency: false }).then(
-          () => this.state.storage.put("head", this.head, { allowConcurrency: false }),
+        await this.state.storage.put(
+          String(this.head),
+          this.session.toObject(),
+          { allowConcurrency: false },
+        ).then(
+          () =>
+            this.state.storage.put("head", this.head, {
+              allowConcurrency: false,
+            }),
         );
       } catch {
         throw Error("cant get the starter session");
@@ -216,15 +226,18 @@ export class Code {
           },
         });
       }
-      return new Response(JSON.stringify({ success: true, message: "nothing happened" }), {
-        status: 204,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json; charset=UTF-8",
+      return new Response(
+        JSON.stringify({ success: true, message: "nothing happened" }),
+        {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
         },
-      });
+      );
     }
 
     return handleErrors(request, async () => {
@@ -285,7 +298,10 @@ export class Code {
           });
         }
         case "sessions": {
-          const d = await this.state.storage.list({ start: path[1] || "0", end: path[2] || "100" });
+          const d = await this.state.storage.list({
+            start: path[1] || "0",
+            end: path[2] || "100",
+          });
 
           return new Response(JSON.stringify(d), {
             status: 200,

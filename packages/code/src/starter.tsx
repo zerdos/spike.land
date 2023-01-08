@@ -316,10 +316,10 @@ if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
 
-export const { apps, eCaches } = (globalThis as unknown as {
+export const { apps, eCaches } = globalThis as unknown as {
   apps: Record<string, FC<{ appId: string }>>;
   eCaches: Record<string, EmotionCache>;
-});
+};
 
 // export function AutoUpdateApp()
 //    {
@@ -398,7 +398,8 @@ export async function appFactory(
       //   terminal.clear();
       // }
 
-      const App = (await import(createJsBlob(importMapReplace(trp, origin, origin)))).default;
+      const App = (await import(createJsBlob(importMapReplace(trp, origin, origin))))
+        .default;
 
       apps[hash] = ({ appId }: { appId: string }) => (
         <div key={hash} style={{ height: 100 + "%" }} id={appId}>

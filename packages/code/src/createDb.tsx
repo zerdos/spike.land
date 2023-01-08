@@ -19,7 +19,9 @@ export async function initDb(codeSpace: string) {
       try {
         session = mST(codeSpace);
       } catch {
-        session = await fetch(location.origin + "/live/" + codeSpace + "/session.json").then(x => x.json());
+        session = await fetch(
+          location.origin + "/live/" + codeSpace + "/session.json",
+        ).then((x) => x.json());
       }
       if (!head) {
         head = hashCode(session);

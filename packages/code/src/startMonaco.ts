@@ -110,7 +110,7 @@ const monacoContribution = async (
   });
   console.log("ATA");
 
-  ata({ code, originToUse }).then(extraLibs => {
+  ata({ code, originToUse }).then((extraLibs) => {
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 

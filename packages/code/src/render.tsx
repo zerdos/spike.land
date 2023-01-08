@@ -51,7 +51,10 @@ export const prerender = async (App: FC) => {
   while (i-- > 0) {
     const html = document.getElementById("root")!.innerHTML;
     if (html && html !== "") {
-      const css = mineFromCaches({ key: "css" } as unknown as EmotionCache, html);
+      const css = mineFromCaches(
+        { key: "css" } as unknown as EmotionCache,
+        html,
+      );
       root.unmount();
       console.log({ html, css });
       return { html, css };

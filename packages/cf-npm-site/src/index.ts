@@ -31,9 +31,9 @@ export default function(
           return cachedResp;
         }
 
-        const uri = (pathname.startsWith("/@")
+        const uri = pathname.startsWith("/@")
           ? pathname.substring(1)
-          : `@${version}${serveDir ? `/${serveDir}` : ``}${pathname}`);
+          : `@${version}${serveDir ? `/${serveDir}` : ``}${pathname}`;
 
         let targetPath = uri;
 

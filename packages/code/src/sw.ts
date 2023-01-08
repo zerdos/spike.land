@@ -62,7 +62,9 @@ let fileCache: Cache | null;
 
 const createResponse = async (request: Request) => {
   let url = new URL(request.url);
-  if (url.origin.indexOf("spike.land") === -1 && request.method === "POST") return fetch(request);
+  if (url.origin.indexOf("spike.land") === -1 && request.method === "POST") {
+    return fetch(request);
+  }
 
   // const fs = globalThis.fs;
 

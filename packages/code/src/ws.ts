@@ -204,12 +204,17 @@ export class Code {
       this.head = await ldb(codeSpace).getItem("head") as number
         || await ldb(codeSpace).setItem(
           "head",
-          Number(await ky(`${origin}/live/${codeSpace}/live/session/head`).text()),
+          Number(
+            await ky(`${origin}/live/${codeSpace}/live/session/head`).text(),
+          ),
         ) as number;
-      this.sess = await ldb(codeSpace).getItem(String(this.head)) as (ICodeSession | false)
+      this.sess = await ldb(codeSpace).getItem(
+        String(this.head),
+      ) as (ICodeSession | false)
         || await ldb(codeSpace).setItem(
           String(this.head),
-          await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`).json<ICodeSession>(),
+          await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`)
+            .json<ICodeSession>(),
         );
       this.session = Record<ICodeSession>(this.sess)();
       this.mutex.release();
@@ -304,7 +309,7 @@ export class Code {
 
     port.onmessage = (e) => handleWorker(e, port);
 
-    const root = (await readdir("/"));
+    const root = await readdir("/");
 
     if (!root.includes("live")) await mkdir("/live");
     const live = await readdir("/live");

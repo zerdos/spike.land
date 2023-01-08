@@ -12,7 +12,9 @@ const init = () => {
 };
 
 export const prettier = (code: string) => init().rpc("prettierJs", code) as unknown as string;
-export const ata = ({ code, originToUse }: { code: string; originToUse: string }) =>
+export const ata = (
+  { code, originToUse }: { code: string; originToUse: string },
+) =>
   init().rpc("ata", { code, originToUse }) as Promise<{
     content: string;
     filePath?: string;

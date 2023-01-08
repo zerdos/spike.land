@@ -11589,7 +11589,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmRS6iaEuL9KLQ4qUtDhJX8yPixiPSkWvrLz3aLy8CpCep\n";
+var dist_default = "QmYi2BaCCJ61qL9MSzkyYa5fyNo2z2h9PK7LWdnztKyWuz\n";
 
 // ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;
@@ -25857,9 +25857,12 @@ var Code = class {
     this.env = env;
     this.state.blockConcurrencyWhile(async () => {
       try {
-        this.sess = await this.kv.get(this.head !== 0 ? String(this.head) : "session", {
-          allowConcurrency: true
-        }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
+        this.sess = await this.kv.get(
+          this.head !== 0 ? String(this.head) : "session",
+          {
+            allowConcurrency: true
+          }
+        ) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
           "session.json"
         ).then((x) => x.json());
         if (!this.sess)
@@ -25867,8 +25870,14 @@ var Code = class {
         this.session = Record4({})(this.sess);
         if (this.head === 0)
           this.head = this.session.hashCode();
-        await this.state.storage.put(String(this.head), this.session.toObject(), { allowConcurrency: false }).then(
-          () => this.state.storage.put("head", this.head, { allowConcurrency: false })
+        await this.state.storage.put(
+          String(this.head),
+          this.session.toObject(),
+          { allowConcurrency: false }
+        ).then(
+          () => this.state.storage.put("head", this.head, {
+            allowConcurrency: false
+          })
         );
       } catch {
         throw Error("cant get the starter session");
@@ -26005,15 +26014,18 @@ var Code = class {
           }
         });
       }
-      return new Response(JSON.stringify({ success: true, message: "nothing happened" }), {
-        status: 204,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/json; charset=UTF-8"
+      return new Response(
+        JSON.stringify({ success: true, message: "nothing happened" }),
+        {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8"
+          }
         }
-      });
+      );
     }
     return handleErrors(request, async () => {
       const { code, css, html, i } = this.sess;
@@ -26070,7 +26082,10 @@ var Code = class {
           });
         }
         case "sessions": {
-          const d = await this.state.storage.list({ start: path[1] || "0", end: path[2] || "100" });
+          const d = await this.state.storage.list({
+            start: path[1] || "0",
+            end: path[2] || "100"
+          });
           return new Response(JSON.stringify(d), {
             status: 200,
             headers: {
