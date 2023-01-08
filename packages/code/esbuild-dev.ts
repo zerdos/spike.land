@@ -320,7 +320,7 @@ const build = (
       "src/session.ts",
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
-      //    "src/Editor.tsx",
+      "src/Editor.tsx",
       //      "src/reactMod.ts",
 
       // "src/Editor.tsx",
