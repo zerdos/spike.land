@@ -33,7 +33,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [maxScaleRange, changeMaxScaleRange] = useState(100);
 
-  const [isVisible, setVisible] = useState(false);
   const dragRef = useRef<HTMLDivElement>(null);
   // globalThis.iRef = iRef;
 
@@ -293,18 +292,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 width: width * scale,
               }}
             >
-              {!isVisible
-                ? (
-                  <div
-                    css={`{mST(codeSpace).css}`}
-                    style={{ height: "100%" }}
-                    dangerouslySetInnerHTML={{ __html: `${mST(codeSpace).html}` }}
-                  />
-                )
-                : null}
               <motion.iframe
                 frameBorder={0}
-                onLoad={() => setVisible(true)}
                 initial={{
                   width: window.innerWidth,
                   transformOrigin: "top left",
