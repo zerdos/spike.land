@@ -20502,36 +20502,11 @@ var api = {
                   ASSET_MANIFEST
                 }
               );
-              if (!kvResp.ok) {
-                request = new Request(
-                  request.url.replace(url.origin, url.origin + "/src")
-                );
-                kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
-                  {
-                    request,
-                    waitUntil: async (prom) => await prom
-                  },
-                  {
-                    // cacheControl: (isChunk(url.href)
-                    //   ? {
-                    //     browserTTL: 2 * 60 * 60 * 24,
-                    //     edgeTTL: 2 * 60 * 60 * 24,
-                    //     orbypassCache: false,
-                    //   }
-                    //   : {
-                    //     browserTTL: 0,
-                    //     edgeTTL: 0,
-                    //     bypassCache: true,
-                    //   }),
-                    ASSET_NAMESPACE: env.__STATIC_CONTENT,
-                    ASSET_MANIFEST
-                  }
-                );
-              }
               if (!kvResp.ok)
                 return kvResp;
               kvResp = new Response(kvResp.body, kvResp);
               const headers2 = new Headers(kvResp.headers);
+              kvResp.headers.forEach((v, k) => headers2.append(k, v));
               if (isChunk(request.url)) {
                 headers2.set(
                   "Cache-Control",
@@ -20540,7 +20515,7 @@ var api = {
               }
               headers2.set("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers: headers2 });
-              cache.put(kvCacheKey, kvResp.clone());
+              await cache.put(kvCacheKey, kvResp.clone());
               return kvResp;
             }
             const isDTS = u.pathname.endsWith(".d.ts");
