@@ -1653,6 +1653,7 @@ __metadata:
     "@types/eslint": "npm:^8.4.10"
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/is-callable": "npm:1.1.0"
+    "@types/isomorphic-fetch": "npm:^0.0.36"
     "@types/node": "npm:^18.11.18"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:^1.26.0"
@@ -1887,6 +1888,13 @@ __metadata:
   version: 1.1.0
   resolution: "@types/is-callable@npm:1.1.0"
   checksum: aae2046957650f4b502519ca3e2b1f7c17f155ebb7d9ae726aa8e1f9a990384c4db46b6aec81039caf44369227a5713f8bb3ce0da58740743a0feb4c56bd3437
+  languageName: node
+  linkType: hard
+
+"@types/isomorphic-fetch@npm:^0.0.36":
+  version: 0.0.36
+  resolution: "@types/isomorphic-fetch@npm:0.0.36"
+  checksum: 8912289c4cfc33b94f869edc23be398d5be234972508c8910701712057448b5f710416c97cfc0b57d685526852bc858bdff6a089af55b18327683f0fc2e29e08
   languageName: node
   linkType: hard
 

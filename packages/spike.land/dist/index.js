@@ -2915,6 +2915,7 @@ var package_default = {
     "@emotion/styled": "11.10.5",
     "@isomorphic-git/lightning-fs": "^4.6.0",
     "@mui/material": "5.11.3",
+    "@types/isomorphic-fetch": "^0.0.36",
     "@yarnpkg/fslib": "^3.0.0-rc.34",
     "ace-builds": "1.14.0",
     assert: "^2.0.0",
@@ -11636,7 +11637,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmNYuLU2vhw7Y6PnSEJ1UsZYC2pk41fLd136ALkGvevobD\n";
+var dist_default = "QmRgu4hfV8Ey2eitTcuebHtTfUfLssRKaK4RnZETYpUMy9\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";

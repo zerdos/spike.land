@@ -4,6 +4,11 @@ import { prettierJs } from "./prettierEsm";
 import fetchBuilder from "fetch-retry";
 import originalFetch from "isomorphic-fetch";
 
+self.fetch = fetchBuilder(originalFetch, {
+  retries: 3,
+  retryDelay: 800,
+});
+
 export { prettierJs };
 
 export async function run(
@@ -14,11 +19,6 @@ export async function run(
   const impRes: {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
-
-  const fetch = fetchBuilder(originalFetch, {
-    retries: 3,
-    retryDelay: 800,
-  });
 
   // console.log(
   await ata(

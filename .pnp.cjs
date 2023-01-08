@@ -2094,6 +2094,7 @@ const RAW_RUNTIME_STATE =
           ["@types/fast-glob", null],\
           ["@types/hoist-non-react-statics", "npm:3.3.1"],\
           ["@types/is-callable", "npm:1.1.0"],\
+          ["@types/isomorphic-fetch", "npm:0.0.36"],\
           ["@types/motionone__dom", null],\
           ["@types/node", "npm:18.11.18"],\
           ["@types/popmotion", null],\
@@ -2189,6 +2190,7 @@ const RAW_RUNTIME_STATE =
           ["@types/eslint", "npm:8.4.10"],\
           ["@types/hoist-non-react-statics", "npm:3.3.1"],\
           ["@types/is-callable", "npm:1.1.0"],\
+          ["@types/isomorphic-fetch", "npm:0.0.36"],\
           ["@types/node", "npm:18.11.18"],\
           ["@types/prettier", "npm:2.7.2"],\
           ["@types/prismjs", "npm:1.26.0"],\
@@ -2480,6 +2482,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../Users/z/.yarn/berry/cache/@types-is-callable-npm-1.1.0-44c4faafca-9.zip/node_modules/@types/is-callable/",\
         "packageDependencies": [\
           ["@types/is-callable", "npm:1.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/isomorphic-fetch", [\
+      ["npm:0.0.36", {\
+        "packageLocation": "../../../Users/z/.yarn/berry/cache/@types-isomorphic-fetch-npm-0.0.36-62cee7c683-9.zip/node_modules/@types/isomorphic-fetch/",\
+        "packageDependencies": [\
+          ["@types/isomorphic-fetch", "npm:0.0.36"]\
         ],\
         "linkType": "HARD"\
       }]\
