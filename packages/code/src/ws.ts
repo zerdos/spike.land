@@ -3,14 +3,13 @@
 import ky from "ky";
 // import 'css-paint-polyfill
 import AVLTree from "avl";
-import { applyPatch as aPatch, createDelta } from "./textDiff";
+import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
 import {
   //  onSession
 
   type CodePatch,
-  type Delta,
   // type Delta,
   // CodeSession,
 
@@ -292,7 +291,7 @@ export class Code {
     const BCC = new BroadcastChannel(location.origin + "/ws.js");
     const ports = new MessageChannel();
     const port = ports.port1;
-    BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
+    // BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
 
     const obj = JSON.parse(
       JSON.stringify({
@@ -307,7 +306,7 @@ export class Code {
 
     BCC.postMessage(obj);
 
-    port.onmessage = (e) => handleWorker(e, port);
+    // port.onmessage = (e) => handleWorker(e, port);
 
     const root = await readdir("/");
 
@@ -570,48 +569,48 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
 //   }
 // }
 
-async function handleWorker(ev: MessageEvent, port: MessagePort) {
-  console.log("ONMESSAGE", { data: ev.data });
-  if (ev.data.type === "onconnect") {
-    console.log("POST ONCONNECT", {
-      codeSpace,
-      name: codeSession.user,
-      hashCode: mST(codeSpace),
-    });
-    // messagePort = this;
-    // const sess = mST(codeSpace);
-    ws.send = (
-      message: MessageProps,
-    ) => {
-      const messageData = {
-        name: codeSession.user,
-        ...message,
-        codeSpace,
-        i: mST(codeSpace).i,
-        hashCode: hashCode(mST(codeSpace)),
-      };
-      console.log("POST MESSAGE", { messageData });
-      if (
-        messageData.oldHash && messageData.oldHash === messageData.newHash
-      ) return;
-      port.postMessage(messageData);
-    };
-    ws.send({ type: "handshake", session: mST(codeSpace) });
+// async function handleWorker(ev: MessageEvent, port: MessagePort) {
+//   console.log("ONMESSAGE", { data: ev.data });
+//   if (ev.data.type === "onconnect") {
+//     console.log("POST ONCONNECT", {
+//       codeSpace,
+//       name: codeSession.user,
+//       hashCode: mST(codeSpace),
+//     });
+//     // messagePort = this;
+//     // const sess = mST(codeSpace);
+//     ws.send = (
+//       message: MessageProps,
+//     ) => {
+//       const messageData = {
+//         name: codeSession.user,
+//         ...message,
+//         codeSpace,
+//         i: mST(codeSpace).i,
+//         hashCode: hashCode(mST(codeSpace)),
+//       };
+//       console.log("POST MESSAGE", { messageData });
+//       if (
+//         messageData.oldHash && messageData.oldHash === messageData.newHash
+//       ) return;
+//       port.postMessage(messageData);
+//     };
+//     ws.send({ type: "handshake", session: mST(codeSpace) });
 
-    while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
-  } else {
-    let data;
-    try {
-      data = JSON.parse(ab2str(ev.data));
-    } catch (err) {
-      console.error("not a buff", { err, data: ev.data });
-    }
-    try {
-      // await codeSession.processData(data, "ws");
-      console.log("its a buffer", { data });
-    } catch (err) {
-      console.error("process error", { err, data: ev.data });
-    }
-    // }
-  }
-}
+//     while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
+//   } else {
+//     let data;
+//     try {
+//       data = JSON.parse(ab2str(ev.data));
+//     } catch (err) {
+//       console.error("not a buff", { err, data: ev.data });
+//     }
+//     try {
+//       // await codeSession.processData(data, "ws");
+//       console.log("its a buffer", { data });
+//     } catch (err) {
+//       console.error("process error", { err, data: ev.data });
+//     }
+//     // }
+//   }
+// }

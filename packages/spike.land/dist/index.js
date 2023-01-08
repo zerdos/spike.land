@@ -3151,7 +3151,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-2MXUQJ5O.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-4GJPPKXX.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11460,9 +11460,9 @@ var CodeSession = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode42 = state.hashCode();
-      hashStore[hashCode42] = state;
-      return hashCode42;
+      const hashCode32 = state.hashCode();
+      hashStore[hashCode32] = state;
+      return hashCode32;
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_(state));
@@ -11575,21 +11575,13 @@ function string_(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name(string_, "string_");
-function createPatch(oldCode, newCode) {
-  return createDelta(oldCode, newCode);
-}
-__name(createPatch, "createPatch");
-function hashCode3(sess) {
-  return Record(sess)().hashCode();
-}
-__name(hashCode3, "hashCode");
 
 // src/staticContent.mjs
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmSeb23BbRyPmjCZduozE7WFns17pSJsC7rFGS1y3U2e7D\n";
+var dist_default = "QmceLcEUuEP4Ft3audZ558tZhopiUrWgotPXUDoRCHsoCB\n";
 
 // ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;
@@ -11738,7 +11730,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-2MXUQJ5O.mjs
+// ../code/dist/src/chunk-chunk-4GJPPKXX.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -19230,7 +19222,7 @@ mixin2(Collection3, {
     return this.toIndexedSeq();
   }, "valueSeq"),
   // ### Hashable Object
-  hashCode: /* @__PURE__ */ __name2(function hashCode4() {
+  hashCode: /* @__PURE__ */ __name2(function hashCode3() {
     return this.__hash || (this.__hash = hashCollection2(this));
   }, "hashCode")
   // ### Internal
@@ -20116,9 +20108,9 @@ var CodeSession2 = class {
     this.created = new Date().toISOString();
     this.hashOfState = () => {
       const state = this.session.get("state");
-      const hashCode42 = state.hashCode();
-      hashStore2[hashCode42] = state;
-      return hashCode42;
+      const hashCode32 = state.hashCode();
+      hashStore2[hashCode32] = state;
+      return hashCode32;
     };
     this.createPatchFromHashCode = (oldHash, state) => {
       const s = JSON.parse(string_2(state));
@@ -20135,8 +20127,8 @@ var CodeSession2 = class {
       const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
       const newHash = newNewRecord.hashCode();
       hashStore2[newHash] = newNewRecord;
-      const patch = createPatch2(oldString, newString);
-      const reversePatch = createPatch2(newString, oldString);
+      const patch = createPatch(oldString, newString);
+      const reversePatch = createPatch(newString, oldString);
       return {
         oldHash: usedOldHash,
         newHash,
@@ -20231,14 +20223,6 @@ function string_2(s) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 __name2(string_2, "string_");
-function createPatch2(oldCode, newCode) {
-  return createDelta2(oldCode, newCode);
-}
-__name2(createPatch2, "createPatch");
-function hashCode32(sess) {
-  return Record3(sess)().hashCode();
-}
-__name2(hashCode32, "hashCode");
 
 // src/esbuild.ts
 var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
@@ -25369,7 +25353,7 @@ mixin3(Collection4, {
     return this.toIndexedSeq();
   },
   // ### Hashable Object
-  hashCode: function hashCode5() {
+  hashCode: function hashCode4() {
     return this.__hash || (this.__hash = hashCollection3(this));
   }
   // ### Internal
@@ -25724,7 +25708,7 @@ Record4.prototype.toString = function toString9() {
 Record4.prototype.equals = function equals5(other) {
   return this === other || isRecord3(other) && recordSeq3(this).equals(recordSeq3(other));
 };
-Record4.prototype.hashCode = function hashCode6() {
+Record4.prototype.hashCode = function hashCode5() {
   return recordSeq3(this).hashCode();
 };
 Record4.prototype.has = function has9(k) {
@@ -25842,7 +25826,7 @@ function setProp3(prototype, name) {
 }
 
 // src/chatRoom.ts
-function hashCode7(sess) {
+function hashCode6(sess) {
   return Record4(sess)().hashCode();
 }
 var Code = class {
@@ -25973,8 +25957,8 @@ var Code = class {
               const patch = mess.patch || [];
               const oldState = this.sess;
               const newState = this.mST(patch);
-              const oldHash = hashCode7(oldState);
-              const newHash = hashCode7(newState);
+              const oldHash = hashCode6(oldState);
+              const newHash = hashCode6(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw "Error - we messed up the hashStores";
@@ -26270,9 +26254,9 @@ var Code = class {
           });
         }
         case "hashCode": {
-          const hashCode8 = String(Number(path[1]));
+          const hashCode7 = String(Number(path[1]));
           const patch = await this.kv.get(
-            hashCode8,
+            hashCode7,
             { allowConcurrency: true }
           );
           return new Response(JSON.stringify(patch || {}), {

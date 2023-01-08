@@ -5,7 +5,7 @@ import { ldb } from "./createDb";
 // import { S } from "memfs/lib/constants";
 // import { SEP } from "memfs/lib/node";
 import { str2ab } from "./sab";
-import { aPatch, CodePatch, CodeSession, ICodeSession, startSession, string_ } from "./session";
+import { aPatch, CodePatch, CodeSession, ICodeSession, string_ } from "./session";
 // import { CodeSession } from "./session";
 import type { Delta } from "./textDiff";
 
