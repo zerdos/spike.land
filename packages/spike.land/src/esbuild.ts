@@ -12,29 +12,29 @@ export const initAndTransform = async (
 ) => {
   const request = new Request("https://testing.spike.land/src/chunk-esbuild-M4QDVZDG.wasm");
 
-  let kvResp = await getAssetFromKV(
+  const resp = await fetch(
     {
       request,
-      waitUntil: async (prom) => await prom,
+      // waitUntil: async (prom) => await prom,
     },
-    {
-      // cacheControl: (isChunk(url.href)
-      //   ? {
-      //     browserTTL: 2 * 60 * 60 * 24,
-      //     edgeTTL: 2 * 60 * 60 * 24,
-      //     orbypassCache: false,
-      //   }
-      //   : {
-      //     browserTTL: 0,
-      //     edgeTTL: 0,
-      //     bypassCache: true,
-      //   }),
-      ASSET_NAMESPACE: env.__STATIC_CONTENT,
-      ASSET_MANIFEST,
-    },
+    // {
+    // cacheControl: (isChunk(url.href)
+    //   ? {
+    //     browserTTL: 2 * 60 * 60 * 24,
+    //     edgeTTL: 2 * 60 * 60 * 24,
+    //     orbypassCache: false,
+    //   }
+    //   : {
+    //     browserTTL: 0,
+    //     edgeTTL: 0,
+    //     bypassCache: true,
+    //   }),
+    //   ASSET_NAMESPACE: env.__STATIC_CONTENT,
+    //   ASSET_MANIFEST,
+    // },
   );
 
-  if (!kvResp.ok) return kvResp;
+  if (!resp.ok) return resp;
 
   const vers = pkg.dependencies["esbuild-wasm"];
 
@@ -78,7 +78,7 @@ export const initAndTransform = async (
       };
 
       mod.init || initialize({
-        wasmModule: await kvResp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject))
+        wasmModule: await resp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject))
           .then(results => results.exports.Module),
 
         worker: false,

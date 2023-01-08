@@ -197,7 +197,7 @@ var require_dist = __commonJS({
       }
     }
     exports.serveSinglePageApp = serveSinglePageApp;
-    var getAssetFromKV3 = async (event, options) => {
+    var getAssetFromKV2 = async (event, options) => {
       options = assignOptions(options);
       const request = event.request;
       const ASSET_NAMESPACE = options.ASSET_NAMESPACE;
@@ -353,7 +353,7 @@ var require_dist = __commonJS({
       }
       return response;
     };
-    exports.getAssetFromKV = getAssetFromKV3;
+    exports.getAssetFromKV = getAssetFromKV2;
   }
 });
 
@@ -2849,7 +2849,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 });
 
 // src/chat.ts
-var import_kv_asset_handler2 = __toESM(require_dist(), 1);
+var import_kv_asset_handler = __toESM(require_dist(), 1);
 
 // ../code/package.json
 var package_default = {
@@ -20247,7 +20247,6 @@ function hashCode32(sess) {
 __name2(hashCode32, "hashCode");
 
 // src/esbuild.ts
-var import_kv_asset_handler = __toESM(require_dist(), 1);
 var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
 
 // package.json
@@ -20295,29 +20294,29 @@ var package_default2 = {
 // src/esbuild.ts
 var initAndTransform3 = async (code, opts, origin, env) => {
   const request = new Request("https://testing.spike.land/src/chunk-esbuild-M4QDVZDG.wasm");
-  let kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
+  const resp = await fetch(
     {
-      request,
-      waitUntil: async (prom) => await prom
-    },
-    {
-      // cacheControl: (isChunk(url.href)
-      //   ? {
-      //     browserTTL: 2 * 60 * 60 * 24,
-      //     edgeTTL: 2 * 60 * 60 * 24,
-      //     orbypassCache: false,
-      //   }
-      //   : {
-      //     browserTTL: 0,
-      //     edgeTTL: 0,
-      //     bypassCache: true,
-      //   }),
-      ASSET_NAMESPACE: env.__STATIC_CONTENT,
-      ASSET_MANIFEST
+      request
+      // waitUntil: async (prom) => await prom,
     }
+    // {
+    // cacheControl: (isChunk(url.href)
+    //   ? {
+    //     browserTTL: 2 * 60 * 60 * 24,
+    //     edgeTTL: 2 * 60 * 60 * 24,
+    //     orbypassCache: false,
+    //   }
+    //   : {
+    //     browserTTL: 0,
+    //     edgeTTL: 0,
+    //     bypassCache: true,
+    //   }),
+    //   ASSET_NAMESPACE: env.__STATIC_CONTENT,
+    //   ASSET_MANIFEST,
+    // },
   );
-  if (!kvResp.ok)
-    return kvResp;
+  if (!resp.ok)
+    return resp;
   const vers = package_default2.dependencies["esbuild-wasm"];
   Object.assign(globalThis, {
     performance: {
@@ -20335,7 +20334,7 @@ var initAndTransform3 = async (code, opts, origin, env) => {
         }
       };
       mod3.init || (0, import_esbuild_wasm3.initialize)({
-        wasmModule: await kvResp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject)).then((results) => results.exports.Module),
+        wasmModule: await resp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject)).then((results) => results.exports.Module),
         worker: false
       }).then(() => mod3.init = true);
     }
@@ -20533,7 +20532,7 @@ var api = {
               response = await cache.match(kvCacheKey);
               if (response)
                 return response;
-              let kvResp = await (0, import_kv_asset_handler2.getAssetFromKV)(
+              let kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
                 {
                   request,
                   waitUntil: async (prom) => await prom
