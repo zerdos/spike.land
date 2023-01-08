@@ -1,7 +1,10 @@
-import was from "./esbuild.wasm";
+// import was from "./esbuild.wasm";
+import pkg from "../package.json" assert { type: "json" };
+const vers = pkg.dependencies["esbuild-wasm"];
+
 // const wasmModule = new WebAssembly.Instance(was).exports.Module;
 
-import { initialize, transform, type TransformOptions } from "esbuild-wasm";
+import { initialize, Location, transform, type TransformOptions } from "esbuild-wasm";
 
 Object.assign(globalThis, {
   performance: {
@@ -20,33 +23,58 @@ import { importMapReplace } from "../../code/dist/src/session.mjs";
 //   import { md5 } from "./md5";
 //   import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
+// function createJsBlob(code: string | Uint8Array) {
+//   return URL.createObjectURL(
+//     new Blob([code], {
+//       type: "application/wasm",
+//     }),
+//   );
+// }
+
 const mod = {
   init: false as (boolean | Promise<void>),
-  initialize: () =>
+  initialize: async () => {
+    // import(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then(was=>
+    // const was = await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then(r => r.blob());
+    // const wasmModule = new WebAssembly.Instance(was).exports.Module;
+    const importObject = {
+      imports: {
+        imported_func(arg) {
+          console.log(arg);
+        },
+      },
+    };
+
     mod.init || initialize({
-      wasmModule: was,
+      wasmModule: await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`)
+        .then((response) => response.arrayBuffer())
+        .then((bytes) => WebAssembly.instantiate(bytes, importObject)),
+
       worker: false,
-    }).then(() => mod.init = true) as Promise<void>,
+    }).then(() => mod.init = true) as Promise<void>;
+  },
 };
 
 export const initAndTransform = async (
   code: string,
   opts: TransformOptions,
   origin: string,
+  location: Location,
 ) => {
   // const code = prettierJs(c)!;
   const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
 
-  return await esmTransform(code, origin);
+  return await esmTransform(code, origin, location);
 };
 
-export async function esmTransform(code: string, origin: string) {
+export async function esmTransform(code: string, origin: string, location: Location) {
   // transform = transform || (await import(`./esbuildEsm`)).transform;
   const transpiled = await transform(code, {
     loader: "tsx",
     format: "esm",
+    location: location,
     treeShaking: true,
     platform: "browser",
     minify: false,
@@ -64,6 +92,6 @@ export async function esmTransform(code: string, origin: string) {
   } as unknown as TransformOptions);
 
   // apps[md5(transpiled.code)] = require(md5(code));
-  if (origin) return importMapReplace(transpiled.code, origin, origin);
+  if (origin) return importMapReplace(transpiled.code, origin, location);
   else return transpiled.code;
 }

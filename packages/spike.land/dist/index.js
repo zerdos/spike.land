@@ -3154,7 +3154,7 @@ function replaceAll(inp, search, replace) {
 }
 __name(replaceAll, "replaceAll");
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-ICGBSLEG.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-O6NFE6K3.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -11422,24 +11422,22 @@ function initSession(room, u) {
 }
 __name(initSession, "initSession");
 var storageMutex = new Mutex();
-var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, newSession, message) => {
+var syncStorage = /* @__PURE__ */ __name(async (setItem, getItem, oldSession, newSession, message) => {
   storageMutex.runExclusive(async () => {
-    const setItem = /* @__PURE__ */ __name((k, v) => _setItem(String(k), v), "setItem");
-    const getItem = /* @__PURE__ */ __name((k) => _getItem(String(k)), "getItem");
     const hashOfOldSession = oldSession.newHash;
-    let historyHead = await _getItem("head");
+    let historyHead = await getItem("head");
     if (!historyHead) {
-      await setItem(hashOfOldSession, oldSession);
-      await _setItem("head", hashOfOldSession);
+      await setItem(String(hashOfOldSession), oldSession);
+      await setItem("head", hashOfOldSession);
       historyHead = hashOfOldSession;
     }
-    await setItem(message.newHash, {
+    await setItem(String(message.newHash), {
       ...newSession,
       oldHash: message.oldHash,
       reversePatch: message.reversePatch
     });
-    const oldNode = await getItem(historyHead);
-    await setItem(historyHead, {
+    const oldNode = await getItem(String(historyHead));
+    await setItem(String(historyHead), {
       newHash: message.newHash,
       patch: message.patch,
       ...oldNode ? {
@@ -11453,7 +11451,7 @@ var syncStorage = /* @__PURE__ */ __name(async (_setItem, _getItem, oldSession, 
         css: oldSession.css
       }
     });
-    await _setItem("head", message.newHash);
+    await setItem("head", message.newHash);
   });
 }, "syncStorage");
 var sessions = {};
@@ -11493,49 +11491,6 @@ var CodeSession = class {
         patch
       };
     };
-    this.patchSync = (sess, force = false) => {
-      if (!force) {
-        if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-          throw new Error("Code update without I update error");
-        sess.i;
-        if (sess.i < this.session.get("state").i) {
-          console.log("never going back!");
-          sess.i = this.session.get("state").i + 1;
-        }
-        if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-          throw new Error("Code update without I update error");
-        if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
-          console.error(
-            `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
-          );
-          throw new Error("transpiled	hack issue");
-        }
-        if (sess.code.length < 5) {
-          throw new Error("code deleted?");
-        }
-        if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
-          console.error(`missing md5trans from html: ${md5(sess.transpiled)}
-      ${sess.html.slice(0, 64)}
-      
-      `);
-          throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-        }
-        if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
-          console.error(`missing from css: ${md5(sess.transpiled)}`);
-          throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-        }
-      }
-      const oldHash = this.session.get("state").hashCode();
-      this.session = this.session.set(
-        "state",
-        this.session.get("state").merge(sess)
-      );
-      const newHash = this.session.get("state").hashCode();
-      if (newHash !== oldHash && force !== true) {
-        this.update();
-      }
-      return this.session;
-    };
     this.applyPatch = ({
       oldHash,
       newHash,
@@ -11568,7 +11523,7 @@ var CodeSession = class {
     const savedState = null;
     this.session = initSession(codeSpace, {
       ...user,
-      state: savedState ? savedState : JSON.parse(string_({ ...user.state, codeSpace }))
+      state: savedState ? savedState : JSON.parse(string_({ ...user.state }))
     })();
     hashStore[hashKEY(codeSpace)] = this.session.get("state");
   }
@@ -11637,7 +11592,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmYWankuAUsEQCJvgREFzba86LR5rm3h5Z3ZQidCnB7JH9\n";
+var dist_default = "QmVQXWnf8jGvhq6rMg5C7hjXdvVMNE5ZqBn7qncTTWjwAa\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
@@ -11789,7 +11744,7 @@ function replaceAll2(inp, search, replace) {
 }
 __name2(replaceAll2, "replaceAll");
 
-// ../code/dist/src/chunk-chunk-ICGBSLEG.mjs
+// ../code/dist/src/chunk-chunk-O6NFE6K3.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -19995,7 +19950,7 @@ function createDelta2(original, revision) {
   return delta;
 }
 __name2(createDelta2, "createDelta");
-function applyPatch3(original, delta) {
+function applyPatch2(original, delta) {
   let result = "";
   let index = 0;
   for (const item of delta) {
@@ -20011,7 +19966,7 @@ function applyPatch3(original, delta) {
   }
   return result;
 }
-__name2(applyPatch3, "applyPatch");
+__name2(applyPatch2, "applyPatch");
 init_define_process2();
 init_define_process2();
 var import_esbuild_wasm2 = __toESM3(require_browser2(), 1);
@@ -20126,24 +20081,22 @@ function initSession2(room, u) {
 }
 __name2(initSession2, "initSession");
 var storageMutex2 = new Mutex2();
-var syncStorage2 = /* @__PURE__ */ __name2(async (_setItem, _getItem, oldSession, newSession, message) => {
+var syncStorage2 = /* @__PURE__ */ __name2(async (setItem, getItem, oldSession, newSession, message) => {
   storageMutex2.runExclusive(async () => {
-    const setItem = /* @__PURE__ */ __name2((k, v) => _setItem(String(k), v), "setItem");
-    const getItem = /* @__PURE__ */ __name2((k) => _getItem(String(k)), "getItem");
     const hashOfOldSession = oldSession.newHash;
-    let historyHead = await _getItem("head");
+    let historyHead = await getItem("head");
     if (!historyHead) {
-      await setItem(hashOfOldSession, oldSession);
-      await _setItem("head", hashOfOldSession);
+      await setItem(String(hashOfOldSession), oldSession);
+      await setItem("head", hashOfOldSession);
       historyHead = hashOfOldSession;
     }
-    await setItem(message.newHash, {
+    await setItem(String(message.newHash), {
       ...newSession,
       oldHash: message.oldHash,
       reversePatch: message.reversePatch
     });
-    const oldNode = await getItem(historyHead);
-    await setItem(historyHead, {
+    const oldNode = await getItem(String(historyHead));
+    await setItem(String(historyHead), {
       newHash: message.newHash,
       patch: message.patch,
       ...oldNode ? {
@@ -20157,7 +20110,7 @@ var syncStorage2 = /* @__PURE__ */ __name2(async (_setItem, _getItem, oldSession
         css: oldSession.css
       }
     });
-    await _setItem("head", message.newHash);
+    await setItem("head", message.newHash);
   });
 }, "syncStorage");
 var sessions2 = {};
@@ -20197,49 +20150,6 @@ var CodeSession2 = class {
         patch
       };
     };
-    this.patchSync = (sess, force = false) => {
-      if (!force) {
-        if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-          throw new Error("Code update without I update error");
-        sess.i;
-        if (sess.i < this.session.get("state").i) {
-          console.log("never going back!");
-          sess.i = this.session.get("state").i + 1;
-        }
-        if (sess.code !== this.session.get("state").code && sess.i <= this.session.get("state").i)
-          throw new Error("Code update without I update error");
-        if (sess.transpiled.slice(0, 12) !== `/*${md52(sess.code)}*/`) {
-          console.error(
-            `missing: /*${md52(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`
-          );
-          throw new Error("transpiled	hack issue");
-        }
-        if (sess.code.length < 5) {
-          throw new Error("code deleted?");
-        }
-        if (sess.html.indexOf(md52(sess.transpiled)) === -1) {
-          console.error(`missing md5trans from html: ${md52(sess.transpiled)}
-      ${sess.html.slice(0, 64)}
-      
-      `);
-          throw new Error(`render hack issue missing: ${md52(sess.transpiled)}.`);
-        }
-        if (sess.css.length && sess.css.indexOf(md52(sess.transpiled)) === -1) {
-          console.error(`missing from css: ${md52(sess.transpiled)}`);
-          throw new Error(`render hack issue missing: ${md52(sess.transpiled)}.`);
-        }
-      }
-      const oldHash = this.session.get("state").hashCode();
-      this.session = this.session.set(
-        "state",
-        this.session.get("state").merge(sess)
-      );
-      const newHash = this.session.get("state").hashCode();
-      if (newHash !== oldHash && force !== true) {
-        this.update();
-      }
-      return this.session;
-    };
     this.applyPatch = ({
       oldHash,
       newHash,
@@ -20252,7 +20162,7 @@ var CodeSession2 = class {
       if (!maybeOldRec)
         throw new Error(`cant find old record: ${oldHash}`);
       const oldString = string_2(maybeOldRec.toJSON());
-      const applied = applyPatch3(oldString, patch);
+      const applied = applyPatch2(oldString, patch);
       const newState = JSON.parse(applied);
       const newRec = this.session.get("state").merge(
         newState
@@ -20272,7 +20182,7 @@ var CodeSession2 = class {
     const savedState = null;
     this.session = initSession2(codeSpace, {
       ...user,
-      state: savedState ? savedState : JSON.parse(string_2({ ...user.state, codeSpace }))
+      state: savedState ? savedState : JSON.parse(string_2({ ...user.state }))
     })();
     hashStore2[hashKEY2(codeSpace)] = this.session.get("state");
   }
@@ -20304,7 +20214,7 @@ function mST2(codeSpace, p) {
   if (p && p.length) {
     const sessAsJs = sessions2[codeSpace]?.session.get("state").toJSON();
     const { i, transpiled, code, html, css } = p ? JSON.parse(
-      applyPatch3(
+      applyPatch2(
         string_2(
           sessAsJs
         ),
@@ -20335,6 +20245,104 @@ function hashCode32(sess) {
   return Record3(sess)().hashCode();
 }
 __name2(hashCode32, "hashCode");
+
+// package.json
+var package_default2 = {
+  name: "@spike.land/code-worker",
+  description: "An edge chat service that runs on Cloudflare Workers using Durable Objects",
+  version: "0.9.2",
+  main: "dist/index.js",
+  type: "module",
+  private: true,
+  scripts: {
+    dev: "wrangler dev",
+    deploy: "yarn x:build && yarn deploy:dev",
+    "deploy:dev": "wrangler publish --env=testing dist/index.js",
+    prepublishOnly: "wrangler publish",
+    predeploy: "yarn x:build",
+    "x:build": "esbuild  --bundle --tree-shaking=true  --external:fs  --external:./src/esbuild.wasm --external:stream  --external:os --loader:.shasum=text   --format=esm --loader:.html=text --loader:.wasm=file   --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
+  },
+  devDependencies: {
+    "@cloudflare/kv-asset-handler": "0.3.0",
+    "@cloudflare/workers-types": "^4.20221111.1",
+    "@spike.land/code": "0.9.2",
+    module: "^1.2.5",
+    typescript: "4.9.4",
+    wrangler: "2.6.2"
+  },
+  dependencies: {
+    "async-mutex": "^0.4.0",
+    avl: "^1.5.3",
+    "detective-typescript": "^9.0.0",
+    "esbuild-wasm": "^0.16.15",
+    immutable: "^4.2.2",
+    miniflare: "^2.11.0",
+    "p-map": "^5.5.0",
+    "p-queue": "^7.3.0",
+    path: "^0.12.7",
+    "path-browserify": "^1.0.1"
+  },
+  publishConfig: {
+    access: "public"
+  },
+  gitHead: "db8e23b83d2dd82efc101eca9d1b5ec76d122df4"
+};
+
+// src/esbuild.ts
+var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
+var vers = package_default2.dependencies["esbuild-wasm"];
+Object.assign(globalThis, {
+  performance: {
+    now: () => Date.now()
+  }
+});
+var mod3 = {
+  init: false,
+  initialize: async () => {
+    const importObject = {
+      imports: {
+        imported_func(arg) {
+          console.log(arg);
+        }
+      }
+    };
+    mod3.init || (0, import_esbuild_wasm3.initialize)({
+      wasmModule: await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then((response) => response.arrayBuffer()).then((bytes) => WebAssembly.instantiate(bytes, importObject)),
+      worker: false
+    }).then(() => mod3.init = true);
+  }
+};
+var initAndTransform3 = async (code, opts, origin, location2) => {
+  const initFinished = mod3.initialize();
+  if (initFinished !== true)
+    await initFinished;
+  return await esmTransform3(code, origin, location2);
+};
+async function esmTransform3(code, origin, location2) {
+  const transpiled = await (0, import_esbuild_wasm3.transform)(code, {
+    loader: "tsx",
+    format: "esm",
+    location: location2,
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    //   globalName: md5(code),
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        useDefineForClassFields: false,
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react"
+      }
+    },
+    target: "es2022"
+  });
+  if (origin)
+    return importMapReplace2(transpiled.code, origin, location2);
+  else
+    return transpiled.code;
+}
 
 // src/handleErrors.ts
 async function handleErrors(request, func) {
@@ -20414,6 +20422,24 @@ var api = {
                 "Cache-Control": "no-cache"
               }
             });
+          case "index.bu.js": {
+            const trp = await initAndTransform3(
+              ` export const Box = ({children})=><div>{children}</div>;`,
+              {},
+              url.origin,
+              url
+            );
+            return new Response(trp, {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+                content_hash: md52(trp),
+                "Content-Type": "application/javascript; charset=UTF-8"
+              }
+            });
+          }
           case "env":
             return new Response(JSON.stringify({ env, accept }), {
               headers: {
@@ -20515,7 +20541,6 @@ var api = {
               }
               headers2.set("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers: headers2 });
-              await cache.put(kvCacheKey, kvResp.clone());
               return kvResp;
             }
             const isDTS = u.pathname.endsWith(".d.ts");
@@ -25865,52 +25890,6 @@ function setProp3(prototype, name) {
   }
 }
 
-// src/esbuild.ts
-var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
-import was from "../src/esbuild.wasm";
-Object.assign(globalThis, {
-  performance: {
-    now: () => Date.now()
-  }
-});
-var mod3 = {
-  init: false,
-  initialize: () => mod3.init || (0, import_esbuild_wasm3.initialize)({
-    wasmModule: was,
-    worker: false
-  }).then(() => mod3.init = true)
-};
-var initAndTransform3 = async (code, opts, origin) => {
-  const initFinished = mod3.initialize();
-  if (initFinished !== true)
-    await initFinished;
-  return await esmTransform3(code, origin);
-};
-async function esmTransform3(code, origin) {
-  const transpiled = await (0, import_esbuild_wasm3.transform)(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    //   globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        useDefineForClassFields: false,
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react"
-      }
-    },
-    target: "es2022"
-  });
-  if (origin)
-    return importMapReplace2(transpiled.code, origin, origin);
-  else
-    return transpiled.code;
-}
-
 // src/chatRoom.ts
 function hashCode7(sess) {
   return Record4(sess)().hashCode();
@@ -25920,23 +25899,26 @@ var Code = class {
     this.env = env;
     this.state = state;
     this.kv = state.storage;
-    this.sess = null;
-    this.session = null;
+    this.sess = {};
+    this.session = Record4.Factory(this.sess);
     this.head = 0;
     this.wsSessions = [];
     this.env = env;
     this.state.blockConcurrencyWhile(async () => {
       try {
-        this.head = await this.kv.get("head") || 0;
-        this.sess = await this.kv.get(this.head ? String(this.head) : "session", {
+        this.sess = await this.kv.get(this.head !== 0 ? String(this.head) : "session", {
           allowConcurrency: true
         }) || await env.CODE.get(env.CODE.idFromName("code-main")).fetch(
           "session.json"
         ).then((x) => x.json());
         if (!this.sess)
           throw Error("cant get the starter session");
-        if (Number(this.head + 50) !== 50 + this.head)
-          this.head = 0;
+        this.session = Record4.Factory(this.sess);
+        if (this.head === 0)
+          this.head = this.session.hashCode();
+        await this.state.storage.put(String(this.head), this.session.toObject(), { allowConcurrency: false }).then(
+          () => this.state.storage.put("head", this.head, { allowConcurrency: false })
+        );
       } catch {
         throw Error("cant get the starter session");
       }
@@ -25959,16 +25941,16 @@ var Code = class {
   i = 0;
   mST(p) {
     if (p && p.length) {
-      const sessAsJs = this.session.session.get("state").toJSON();
+      const sessAsJs = this.session.toJSON();
       const { i, transpiled, code, html, css } = p ? JSON.parse(
-        applyPatch3(
+        applyPatch2(
           string_2(
             sessAsJs
           ),
           p
         )
       ) : sessAsJs;
-      return this.session.session.get("state").merge({
+      return this.session.merge({
         i,
         transpiled,
         code,
@@ -25976,7 +25958,7 @@ var Code = class {
         css
       }).toObject();
     }
-    return this.session.session.get("state").toObject();
+    return this.session.toObject();
   }
   user2user(to, msg) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
@@ -26020,10 +26002,6 @@ var Code = class {
     const url = new URL(request.url);
     this.wait();
     const codeSpace = url.searchParams.get("room");
-    if (this.head === 0) {
-      this.head = hashCode7(this.sess);
-      this.kv.put(String(this.head), this.sess).then(() => this.kv.put("head", this.head));
-    }
     if (request.method === "POST") {
       try {
         const mess = await request.json();
@@ -26041,14 +26019,11 @@ var Code = class {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw "Error - we messed up the hashStores";
               }
-              const newRec = this.session.session.get("state").merge(
+              const newRec = this.session.merge(
                 newState
               );
-              this.session.session = this.session.session.set(
-                "state",
-                newRec
-              );
-              this.sess = this.session.session.get("state").toObject();
+              this.session = newRec;
+              this.sess = this.session.toObject();
               this.syncKV(oldState, newState, {
                 oldHash,
                 newHash,
@@ -26107,6 +26082,24 @@ var Code = class {
               "Content-Type": "application/javascript; charset=UTF-8"
             }
           });
+        case "index.bu.js": {
+          const trp = await initAndTransform3(
+            ` export const Box = ({children})=><div>{children}</div>;`,
+            {},
+            url.origin
+          );
+          return new Response(trp, {
+            status: 200,
+            headers: {
+              "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              content_hash: md52(trp),
+              "Content-Type": "application/javascript; charset=UTF-8"
+            }
+          });
+        }
         case "index.trans.js": {
           const trp = await initAndTransform3(
             this.sess.code,
@@ -26546,18 +26539,15 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldState = this.session.session.get("state");
-          const newState = this.mST(data.patch);
-          const newRec = this.session.session.get("state").merge(
+          const oldState = this.session;
+          const newState = this.session.merge(this.mST(data.patch));
+          const newRec = this.session.merge(
             newState
           );
           try {
-            this.session.session = this.session.session.set(
-              "state",
-              newRec
-            );
-            this.sess = this.session.session.get("state").toObject();
-            this.syncKV(oldState, newState, {
+            this.session = newRec;
+            this.sess = this.session.toObject();
+            this.syncKV(oldState.toJSON(), newState.toJSON(), {
               oldHash: data.oldHash,
               newHash: data.newHash,
               patch: data.patch,

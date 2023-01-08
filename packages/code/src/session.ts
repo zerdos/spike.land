@@ -20,7 +20,6 @@ export { md5 };
 export type ICodeSession = {
   code: string;
   i: number;
-  codeSpace: string;
   html: string;
   transpiled: string;
   css: string;
@@ -93,10 +92,10 @@ export function db(codeSpace: string, initDb: (codeSpace: string) => Promise<Loc
 
       return await db.getItem(key) as unknown as object | string | number;
     },
-    setItem: async (key: string, value: object | string | number) => {
+    setItem: async <T>(key: string, value: T) => {
       const db = await initDb(codeSpace);
 
-      return await db.setItem(key, value);
+      return await db.setItem(key, value) as T;
     },
   };
   return mod;
@@ -119,8 +118,8 @@ type GetItem<T> = (
 
 const storageMutex = new Mutex();
 export const syncStorage = async (
-  _setItem: SetItem<Partial<CodePatch | ICodeSession> | number | string>,
-  _getItem: GetItem<Partial<CodePatch | ICodeSession> | number | string>,
+  setItem: SetItem<Partial<CodePatch | ICodeSession> | number | string>,
+  getItem: GetItem<Partial<CodePatch | ICodeSession> | number | string>,
   oldSession: Partial<CodePatch & ICodeSession>,
   newSession: Partial<CodePatch | ICodeSession>,
   message: {
@@ -131,21 +130,15 @@ export const syncStorage = async (
   },
 ) => {
   storageMutex.runExclusive(async () => {
-    const setItem = (k: number, v: object) => _setItem(String(k), v);
-
-    const getItem = (k: number) =>
-      _getItem(String(k)) as unknown as GetItem<
-        { oldHash: number; reversePatch?: typeof message.reversePatch }
-      >;
     const hashOfOldSession = oldSession.newHash!;
-    let historyHead = (await _getItem("head")) as unknown as number;
+    let historyHead = (await getItem("head")) as unknown as number;
     if (!historyHead) {
-      await setItem(hashOfOldSession, oldSession);
-      await _setItem("head", hashOfOldSession);
+      await setItem(String(hashOfOldSession), oldSession);
+      await setItem("head", hashOfOldSession);
       historyHead = hashOfOldSession;
     }
 
-    await setItem(message.newHash, {
+    await setItem(String(message.newHash), {
       ...newSession,
       oldHash: message.oldHash,
       reversePatch: message.reversePatch,
@@ -155,11 +148,11 @@ export const syncStorage = async (
     //   newHash: message.newHash,
     //   patch: message.patch,
     // });
-    const oldNode = (await getItem(historyHead)) as unknown as
+    const oldNode = (await getItem(String(historyHead))) as unknown as
       & ICodeSession
       & Partial<CodePatch>;
     // if (!oldNode) throw Error("corrupt storage");
-    await setItem(historyHead, {
+    await setItem(String(historyHead), {
       newHash: message.newHash,
       patch: message.patch,
 
@@ -176,7 +169,7 @@ export const syncStorage = async (
           css: oldSession.css,
         }),
     });
-    await _setItem("head", message.newHash);
+    await setItem("head", message.newHash);
   });
 };
 
@@ -188,7 +181,6 @@ export type CodePatch = {
 };
 type IApplyPatch = (
   prop: CodePatch,
-  codeSpace: string,
 ) => void;
 
 type ICodeSess = {
@@ -253,7 +245,7 @@ export class CodeSession implements ICodeSess {
       ...user,
       state: savedState
         ? savedState
-        : JSON.parse(string_({ ...user.state, codeSpace })),
+        : JSON.parse(string_({ ...user.state })),
     })();
     hashStore[hashKEY(codeSpace)] = this.session.get("state");
   }
@@ -321,63 +313,63 @@ export class CodeSession implements ICodeSess {
     };
   };
 
-  patchSync = (sess: ICodeSession, force = false) => {
-    if (!force) {
-      if (
-        sess.code !== this.session.get("state").code
-        && sess.i <= this.session.get("state").i
-      ) throw new Error("Code update without I update error");
-      sess.i;
-      if (sess.i < this.session.get("state").i) {
-        console.log("never going back!");
-        sess.i = this.session.get("state").i + 1;
-        // return;
-      }
-      if (
-        sess.code !== this.session.get("state").code
-        && sess.i <= this.session.get("state").i
-      ) throw new Error("Code update without I update error");
+  // patchSync = (sess: ICodeSession, force = false) => {
+  //   if (!force) {
+  //     if (
+  //       sess.code !== this.session.get("state").code
+  //       && sess.i <= this.session.get("state").i
+  //     ) throw new Error("Code update without I update error");
+  //     sess.i;
+  //     if (sess.i < this.session.get("state").i) {
+  //       console.log("never going back!");
+  //       sess.i = this.session.get("state").i + 1;
+  //       // return;
+  //     }
+  //     if (
+  //       sess.code !== this.session.get("state").code
+  //       && sess.i <= this.session.get("state").i
+  //     ) throw new Error("Code update without I update error");
 
-      if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
-        console.error(
-          `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`,
-        );
-        throw new Error("transpiled	hack issue");
-      }
+  //     if (sess.transpiled.slice(0, 12) !== `/*${md5(sess.code)}*/`) {
+  //       console.error(
+  //         `missing: /*${md5(sess.code)}*/, transpiled: ${sess.transpiled.slice(0, 12)}`,
+  //       );
+  //       throw new Error("transpiled	hack issue");
+  //     }
 
-      if (sess.code.length < 5) {
-        throw new Error("code deleted?");
-      }
+  //     if (sess.code.length < 5) {
+  //       throw new Error("code deleted?");
+  //     }
 
-      if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
-        console.error(`missing md5trans from html: ${md5(sess.transpiled)}
-      ${sess.html.slice(0, 64)}
-      
-      `);
-        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-      }
+  //     if (sess.html.indexOf(md5(sess.transpiled)) === -1) {
+  //       console.error(`missing md5trans from html: ${md5(sess.transpiled)}
+  //     ${sess.html.slice(0, 64)}
 
-      if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
-        console.error(`missing from css: ${md5(sess.transpiled)}`);
-        throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
-      }
-    }
+  //     `);
+  //       throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+  //     }
 
-    const oldHash = this.session.get("state").hashCode();
-    this.session = this.session.set(
-      "state",
-      this.session.get("state").merge(sess),
-    );
-    const newHash = this.session.get("state").hashCode();
-    if (newHash !== oldHash && force !== true) {
-      // console.log({ sess });\
-      // queueMicrotask(() => {
-      // this.createPatchFromHashCode(oldHash, mST(this.room));
-      this.update();
-      // });
-    }
-    return this.session;
-  };
+  //     if (sess.css.length && sess.css.indexOf(md5(sess.transpiled)) === -1) {
+  //       console.error(`missing from css: ${md5(sess.transpiled)}`);
+  //       throw new Error(`render hack issue missing: ${md5(sess.transpiled)}.`);
+  //     }
+  //   }
+
+  //   const oldHash = this.session.get("state").hashCode();
+  //   this.session = this.session.set(
+  //     "state",
+  //     this.session.get("state").merge(sess),
+  //   );
+  //   const newHash = this.session.get("state").hashCode();
+  //   if (newHash !== oldHash && force !== true) {
+  //     // console.log({ sess });\
+  //     // queueMicrotask(() => {
+  //     // this.createPatchFromHashCode(oldHash, mST(this.room));
+  //     this.update();
+  //     // });
+  //   }
+  //   return this.session;
+  // };
 
   // reverse = ({oldHash,
   // 	newHash,
@@ -536,18 +528,13 @@ export function string_(s: ICodeSession) {
   return JSON.stringify({ i, transpiled, code, html, css });
 }
 
-export const applyPatchSync: IApplyPatch = (x, codeSpace: string) => sessions[codeSpace]?.applyPatch(x);
+// export const applyPatchSync: IApplyPatch = (x: string) => sessions[]?.applyPatch(x);
 
-export const applyPatch: IApplyPatch = (x, codeSpace: string) => {
-  sessions[codeSpace]?.applyPatch(x);
-  sessions[codeSpace]?.update();
-};
+// export const applyPatch: IApplyPatch = (x, codeSpace: string) => {
+//   sessions[codeSpace]?.applyPatch(x);
+//   sessions[codeSpace]?.update();
+// };
 
-export const onSessionUpdate = (
-  fn: () => void,
-  regId = "default",
-  codeSpace: string,
-) => sessions[codeSpace]?.onUpdate(fn, regId);
 export const makePatchFrom = (
   n: number,
   st: ICodeSession,
@@ -583,7 +570,7 @@ function createPatch(oldCode: string, newCode: string) {
   return createDelta(oldCode, newCode);
 }
 
-export const patchSync = (sess: ICodeSession, force = true) => sessions[sess.codeSpace].patchSync(sess, force);
+// export const patchSync = (sess: ICodeSession, force = true) => sessions[sess.codeSpace].patchSync(sess, force);
 
 export { type Delta } from "./textDiff";
 

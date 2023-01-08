@@ -1,5 +1,5 @@
-import type { CodePatch, CodeSession, Delta, ICodeSession } from "../../code/dist/src/session.d";
-import { patchSync, resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
+import { CodePatch, Delta, ICodeSession } from "../../code/dist/src/session.d";
+import { resetCSS, string_, syncStorage } from "../../code/dist/src/session.mjs";
 import { aPatch, HTML, md5 } from "../../code/dist/src/session.mjs";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
@@ -28,7 +28,7 @@ export class Code {
   state: DurableObjectState;
   kv: DurableObjectStorage;
   // mutex: Mutex;
-  session: CodeSession | null;
+  session: Record<ICodeSession>;
   sess: ICodeSession | null;
   user = md5(self.crypto.randomUUID());
   users = new AVLTree(
@@ -43,7 +43,7 @@ export class Code {
 
   mST(p?: Delta[]) {
     if (p && p.length) {
-      const sessAsJs = this.session!.session.get("state").toJSON();
+      const sessAsJs = this.session.toJSON();
 
       const { i, transpiled, code, html, css }: ICodeSession = p
         ? JSON.parse(
@@ -55,7 +55,7 @@ export class Code {
           ),
         )
         : sessAsJs;
-      return this.session!.session.get("state").merge({
+      return this.session.merge({
         i,
         transpiled,
         code,
@@ -63,7 +63,7 @@ export class Code {
         css,
       }).toObject();
     }
-    return this.session!.session.get("state").toObject();
+    return this.session.toObject();
   }
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
@@ -117,8 +117,8 @@ export class Code {
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.state = state;
     this.kv = state.storage;
-    this.sess = null;
-    this.session = null;
+    this.sess = {} as ICodeSession;
+    this.session = Record.Factory<ICodeSession>(this.sess);
     this.head = 0;
     this.wsSessions = [];
     this.env = env;
@@ -129,28 +129,18 @@ export class Code {
       try {
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
-        this.head = await this.kv.get("head") || 0;
-
-        this.sess = await this.kv.get<ICodeSession>(this.head ? String(this.head) : "session", {
+        this.sess = (await this.kv.get<ICodeSession>(this.head !== 0 ? String(this.head) : "session", {
           allowConcurrency: true,
-        }) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
+        })) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
           "session.json",
-        ).then((x) => x.json());
+        ).then((x) => x.json())!;
         if (!this.sess) throw Error("cant get the starter session");
-        // if (!session.code) {
-        //   const s = backupSession;
-        //   session.code = s.code;
-        //   session.transpiled = s.transpiled;
-        //   session.i = s.i;
-        //   session.html = s.html;
-        //   session.css = s.css;
-        // }
 
-        if (Number(this.head + 50) !== 50 + this.head) this.head = 0;
-
-        // if ( (head+1) !== Number(head)+1 ) {
-        //   head =
-        // }
+        this.session = Record.Factory<ICodeSession>(this.sess);
+        if (this.head === 0) this.head = this.session.hashCode();
+        await this.state.storage.put(String(this.head), this.session.toObject(), { allowConcurrency: false }).then(
+          () => this.state.storage.put("head", this.head, { allowConcurrency: false }),
+        );
       } catch {
         throw Error("cant get the starter session");
       }
@@ -166,21 +156,6 @@ export class Code {
 
     this.wait();
     const codeSpace = url.searchParams.get("room");
-
-    if (this.head === 0) {
-      // const headValue = await this.kv.get<CodePatch>(this.head);
-      // if (headValue) {
-      this.head = hashCode(this.sess!);
-
-      this.kv.put(String(this.head), this.sess!).then(() => this.kv.put("head", this.head));
-
-      // const newSession = this.sess;
-
-      // patchSync(oldSession, true);
-      // const message = makePatch(newSession);
-      // patchSync(newSession, true);
-      // await this.syncKV(oldSession, newSession, message);
-    }
 
     if (request.method === "POST") {
       try {
@@ -203,14 +178,11 @@ export class Code {
                 throw ("Error - we messed up the hashStores");
               }
 
-              const newRec = this.session!.session.get("state").merge(
+              const newRec = this.session.merge(
                 newState,
               );
-              this.session!.session = this.session!.session.set(
-                "state",
-                newRec,
-              );
-              this.sess = this.session!.session.get("state").toObject();
+              this.session = newRec;
+              this.sess = this.session.toObject();
 
               this.syncKV(oldState, newState, {
                 oldHash,
@@ -272,6 +244,25 @@ export class Code {
             },
           });
 
+        case "index.bu.js": {
+          const trp = await initAndTransform(
+            ` export const Box = ({children})=><div>{children}</div>;`,
+            {},
+            url.origin,
+          );
+          return new Response(trp, {
+            status: 200,
+            headers: {
+              "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+
+              content_hash: md5(trp),
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
         case "index.trans.js": {
           const trp = await initAndTransform(
             this.sess!.code,
@@ -868,20 +859,17 @@ sheet.addRule('h1', 'background: red;');
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          const oldState = this.session!.session.get("state");
-          const newState = this.mST(data.patch);
+          const oldState = this.session;
+          const newState = this.session.merge(this.mST(data.patch));
 
-          const newRec = this.session!.session.get("state").merge(
+          const newRec = this.session.merge(
             newState,
           );
           try {
-            this.session!.session = this.session!.session.set(
-              "state",
-              newRec,
-            );
-            this.sess = this.session!.session.get("state").toObject();
+            this.session = newRec;
+            this.sess = this.session.toObject();
 
-            this.syncKV(oldState, newState, {
+            this.syncKV(oldState.toJSON(), newState.toJSON(), {
               oldHash: data.oldHash,
               newHash: data.newHash,
               patch: data.patch,

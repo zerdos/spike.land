@@ -6,7 +6,8 @@ import AVLTree from "avl";
 // import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import {
-  applyPatch,
+  //  onSession
+  aPatch,
   type CodePatch,
   type Delta,
   hashCode,
@@ -17,8 +18,8 @@ import {
   // makePatch,
   // makePatchFrom,
   mST,
-  //  onSessionUpdate,
-  startSession,
+  string_,
+  syncStorage,
 } from "./session";
 
 import { Mutex } from "async-mutex";
@@ -31,211 +32,12 @@ import { Mutex } from "async-mutex";
 import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
+import { Record } from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import { ab2str } from "./sab";
 import type { ICodeSession } from "./session";
-import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait";
-
-// import { isBuffer } from "util";
-
-// Import PubSubRoom from 'ipfs-pubsub-room'
-
-const users = new AVLTree(
-  (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
-  true,
-);
-
-// const shHash = md5((await (await fetch(`${origin}/files.json`)).json())["sharedWorker.js"]);
-
-// const sharedWorker = new SharedWorker(
-//   "/sharedWorker.js?ree=" + shHash,
-// );
-
-const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
-const user = md5(((self && self.crypto && self.crypto.randomUUID
-  && self.crypto.randomUUID()) || (uidV4())).slice(
-    0,
-    8,
-  ));
-
-users.insert(user);
-const rtcConns: Record<string, RTCPeerConnection> = {}; // To st/ RTCPeerConnection
-// let bc: BroadcastChannel;
-
-// let _hash = "";
-
-// let address: string;
-let wsLastHashCode = 0;
-// let webRTCLastSeenHashCode = "";
-// let lastSeenTimestamp = 0;
-// let lastSeenNow = 0;
-
-// let sendWS: (message: string) => void;
-// let rejoined = false;
-const tracks: {
-  [key: string]: {
-    track: MediaStreamTrack;
-    streams: readonly MediaStream[];
-    vidElement: HTMLVideoElement;
-  };
-} = {};
-export const sendChannel = {
-  localStream: null as MediaStream | null,
-  webRtcArray,
-  tracks,
-  user,
-  vidElement: document.createElement("video"),
-  stopVideo,
-  startVideo,
-  rtcConns,
-  send(data: any) {
-    // const target = data.target;
-    const messageString = JSON.stringify({
-      ...data,
-      name: data.name || user,
-    });
-    webRtcArray.map((ch) => {
-      try {
-        // console.//log("WebRtc send", data, ch);
-
-        if (ch.readyState !== "open") {
-          return;
-        }
-
-        if (
-          !data.target
-          || ch.target === data.target && !ignoreUsers.includes(ch.target)
-        ) {
-          ch.send(messageString);
-        }
-      } catch (error) {
-        // console.error("Error in broadcasting event", { e: error });
-      }
-    });
-  },
-};
-sendChannel.vidElement.playsInline = true;
-sendChannel.vidElement.autoplay = true;
-
-Object.assign(globalThis, { sendChannel, mST });
-
-// Let createDelta;
-
-// export const work = async (startState: {
-// mST: ICodeSession, codeSpace:string, address: string, assets: {[key: string]: string}
-// }) => {
-// codeSpace = startState.codeSpace;
-// address = startState.address;
-// const {assets}= startState;
-// const session = startSession(codeSpace, {
-// name: user,
-// state: startState.mST,
-// });
-
-// join()
-
-// }
-const codeSpace = location.pathname.slice(1).split("/")[1];
-
-// const client_id = user;
-// const room_id = codeSpace + "_" + md5(location.origin).slice(0, 4);
-
-// const codeHistory = localForage.createInstance({
-//   name: `/live/${codeSpace}`,
-// });
-
-// const p2pcf = new P2PCF(client_id, room_id, {
-// Worker URL (optional) - if left out, will use a public worker
-// workerUrl: "https://signal.spike.land",
-
-// STUN ICE servers (optional)
-// If left out, will use public STUN from Google + Twilio
-// stunIceServers: { ... },
-
-// TURN ICE servers (optional)
-// If left out, will use openrelay public TURN servers from metered.ca
-// turnIceServers: { ... },
-
-// Network change poll interval (milliseconds, optional, default: 15000, 15 seconds)
-// Interval to poll STUN for network changes + reconnect
-// networkChangePollIntervalMs: ...,
-
-// State expiration interval (milliseconds, optional, default: 120000, 2 minutes)
-// Timeout interval for peers during polling
-// stateExpirationIntervalMs: ...,
-
-// State heartbeat interval (milliseconds, optional, default: 30000, 30 seconds)
-// Time before expiration to heartbeat
-// stateHeartbeatWindowMs: ...,
-
-// Fast polling rate (milliseconds, optional, default: 750)
-// Polling rate during state transitions
-// fastPollingRateMs: ...,
-
-// Slow polling rate (milliseconds, optional, default: 1500, 1.5 seconds)
-// Polling rate when state is idle
-// slowPollingRateMs: ...,
-
-// Options to pass to RTCPeerConnection constructor (optional)
-// rtcPeerConnectionOptions: {},
-
-// Proprietary constraints to pass to RTCPeerConnection constructor (optional)
-// rtcPeerConnectionProprietaryConstraints: {},
-
-// SDP transform function (optional)
-// sdpTransform: (sdp) => sdp,
-// });
-
-// p2pcf.start();
-
-// p2pcf.on("peerconnect", (peer) => {
-// New peer connected
-
-// Peer is an instance of simple-peer (https://github.com/feross/simple-peer)
-//
-// The peer has two custom fields:
-// - id (a per session unique id)
-// - client_id (which was passed to their P2PCF constructor)
-
-// console.log("New peer:", peer.id, peer.client_id);
-
-// peer.on("track", (track, stream) => {
-//   console.log("TRck");
-//   console.log(track, stream);
-//   // New media track + stream from peer
-// });
-
-// Add a media stream to the peer to start sending it
-// peer.addStream(new MediaStream(...))
-// });
-
-// p2pcf.on("peerclose", (peer) => {
-//   console.log("peerclose", peer);
-//   // Peer has isconnected
-// });
-
-// p2pcf.on("msg", (peer, data) => {
-//   const msg = new TextDecoder().decode(data);
-//   console.log(peer.id, msg);
-
-//   // Received data from peer (data is an ArrayBuffer)
-// });
-
-// Broadcast a message via data channel to all peers
-// globalThis.broadcast = (msg: string) => {
-// var enc = new TextEncoder("utf-8");
-
-// p2pcf.broadcast(enc.encode(msg));
-// };
-
-// To send a message via data channel to just one peer:
-// p2pcf.send(peer, new ArrayBuffer(...))
-// bc = new BroadcastChannel(location.origin);
-// console.log("Yo 0");
-
-// });
 
 type MessageProps = Partial<{
   oldHash?: number;
@@ -275,247 +77,223 @@ const ws = {
   },
 };
 
-export const run = async () => {
-  if (location.pathname === `/live/${codeSpace}`) {
-    renderPreviewWindow({ codeSpace, dry: false });
-  }
+// import { isBuffer } from "util";
 
-  // const { readdir, mkdir, writeFile } = fs.promises;
-  const session = await (await fetch(`${origin}/live/${codeSpace}/session`)).json();
-  const hash = hashCode(session);
-  const head = await ldb(codeSpace).getItem("head");
+// Import PubSubRoom from 'ipfs-pubsub-room'
 
-  const savedSess = await ldb(codeSpace).getItem(String(head)) as unknown as ICodeSession;
-  let _mst: ICodeSession | null;
-  if (savedSess && head === hash) {
-    _mst = savedSess;
-  } else {
-    _mst = await fetch(`/live/${codeSpace}/session.json`).then((r) => r.json()).then(sess =>
-      sess.i > savedSess.i ? sess : savedSess
-    );
-  }
-  const mst = _mst!;
-  startSession(codeSpace, {
-    name: user,
-    state: mst,
-  });
-  const BCC = new BroadcastChannel(location.origin + "/ws.js");
-  const ports = new MessageChannel();
-  const port = ports.port1;
-  BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
+const codeSpace = location.pathname.slice(1).split("/")[1];
 
-  const obj = JSON.parse(
-    JSON.stringify({ type: "onconnect", codeSpace, hashCode: head, session, name: user, "port": ports.port2 }),
-  );
+const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
-  BCC.postMessage(obj);
+const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
-  port.onmessage = (e) => handleWorker(e, port);
+export class Code {
+  mutex: Mutex;
 
-  const root = (await readdir("/"));
+  session: Record<ICodeSession>;
+  sess: ICodeSession;
+  user = md5(self.crypto.randomUUID());
+  // sendChannel = {
+  //   localStream: null as MediaStream | null,
+  //   webRtcArray,
+  //   // tracks,
+  //   // tracks: {} as {
+  //   //   [key string]: {
+  //   //     track: MediaStreamTrack;
+  //   //     streams: readonly MediaStream[];
+  //   //     vidElement: HTMLVideoElement;
+  //   //   },
+  //   // user,
+  //   vidElement: document.createElement("video"),
+  //   stopVideo,
+  //   startVideo,
+  //   rtcConns,
+  //   send(data: any) {
+  //     // const target = data.target;
+  //     const messageString = JSON.stringify({
+  //       ...data,
+  //       name: data.name || codeSession.user,
+  //     });
+  //     webRtcArray.map((ch) => {
+  //       try {
+  //         // console.//log("WebRtc send", data, ch);
 
-  if (!root.includes("live")) await mkdir("/live");
-  const live = await readdir("/live");
-  if (!live.includes(codeSpace)) await mkdir("/live/" + codeSpace);
+  //         if (ch.readyState !== "open") {
+  //           return;
+  //         }
 
-  // if (!liveStat.isDirectory())
-  // else console.log("dir already )(exists")
-  const cs = await readdir(`/live/${codeSpace}`);
-  // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
-
-  // let hST: ICodeSession | null = null;
-
-  // if (hST && hST.i > mst.i) mst = hST!;
-
-  if (cs.includes("index.js")) {
-    unlink(`/live/${codeSpace}/index.js`);
-  }
-
-  if (!cs.includes("index.tsx")) {
-    await writeFile(
-      `/live/${codeSpace}/index.tsx`,
-      mst.code,
-    );
-  } else {
-    await unlink(
-      `/live/${codeSpace}/index.tsx`,
-    );
-    await writeFile(
-      `/live/${codeSpace}/index.tsx`,
-      mst.code,
-    );
-  }
-
-  if (!cs.includes("index.tsx")) {
-    await writeFile(
-      `/live/${codeSpace}/index.tsx`,
-      mst.code,
-    );
-  } else {
-    await unlink(
-      `/live/${codeSpace}/index.tsx`,
-    );
-    await writeFile(
-      `/live/${codeSpace}/index.tsx`,
-      mst.code,
-    );
-  }
-
-  // const codeHistory = localForage.createInstance({
-  //   name: location.origin + `/live/${codeSpace}`,
-  // });
-  // const db = self.dbs[codeSpace];
-
-  // codeSpace = startState.codeSpace;
-  // requestAnimationFrame(() => {
-
-  // setTimeout(() => {
-  // });
-  // wsLastHashCode = md5(mst.transpiled);
-  // globalThis.sharedWorker.port.postMessage({ name: user, codeSpace, hashCode: md5(mst.transpiled), sess: mst });
-
-  // sharedWorker.port.postMessage({ codeSpace, type: "handshake", i: mST(codeSpace).i, name: user, hashCode: hashKEY(codeSpace) });
-
-  // }, location.origin);
-
-  // ws.send({ type: "handshake" });
-
-  // await appFactory(mst.transpiled, codeSpace, dry);
-
-  // Const {join} = await import("./rtc");
-
-  // const conn = join(codeSpace, user, (message)=>{
-
-  // processData(message, "rtc")
-  // })
-
-  // sendChannel.send = (message: object)=> conn.broadcast(message);
-
-  // await join();
-  // console.log("broadcastChannel");
-  // bc.postMessage({ user, type: "suggestNeighborsRequest" });
-  // bc.onmessage = async (event) => {
-  //   if (event.data.ignoreUser && event.data.ignoreUser === user) {
-  //     return;
-  //   }
-  //   if (
-  //     event.data.codeSpace === codeSpace && event.data.name
-  //   ) {
-  //     processData(event.data, "ws", { hashCode: hashKEY() });
-  //   }
-
-  //   if (
-  //     event.data.user !== user
-  //     && event.data.type === "suggestNeighborsRequest"
-  //   ) {
-  //   }
-
-  //   if (
-  //     event.data.codeSpace === codeSpace && event.data.address && !address
-  //   ) {
-  //     ws.send({ codeSpace, address: event.data.address });
-  //   }
-
-  //   if (event.data.ignoreUser) {
-  //     !ignoreUsers.includes(event.data.ignoreUser)
-  //       && ignoreUsers.push(event.data.ignoreUser);
-  //   }
-
-  //   if (
-  //     event.data.codeSpace === codeSpace && event.data.sess && event.data.sess.code !== mST().code
-  //   ) {
-  //     const messageData = makePatch(event.data.sess);
-  //     if (messageData) {
-  //       applyPatch(messageData);
-  //     }
-  //   }
-  // };
-  // setTimeout(() => {
-
-  // onSessionUpdate(
-  //   () => {
-  //     syncWS();
-
-  //     const sess = mST();
-
-  //     const hash = md5(JSON.stringify(sess));
-  //     if (hash === _hash) return;
-  //     _hash = hash;
-
-  //     // bc.postMessage({
-  //     //   ignoreUser: user,
-  //     //   sess,
-  //     //   codeSpace,
-
-  //     //   address,
-  //     // });
+  //         if (
+  //           !data.target
+  //           || ch.target === data.target && !ignoreUsers.includes(ch.target)
+  //         ) {
+  //           ch.send(messageString);
+  //         }
+  //       } catch (error) {
+  //         // console.error("Error in broadcasting event", { e: error });
+  //       }
+  //     });
   //   },
-  //   "broadcast",
-  // );
-  // }, timeout);
+  // };
+  users = new AVLTree(
+    (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
+    true,
+  );
+  ignoreUsers = Array<string>();
 
-  // const { startIpfs } = await import("./startIpfs");
-  // await startIpfs(codeSpace);
+  head = 0;
+  waiting: (() => boolean)[] = [];
+  // wsSessions: WebsocketSession[];
+  buffy: Promise<void>[] = [];
+  i = 0;
+
+  mST(p?: Delta[]) {
+    if (p && p.length) {
+      const sessAsJs = this.session.toJSON();
+
+      const { i, transpiled, code, html, css }: ICodeSession = p
+        ? JSON.parse(
+          aPatch(
+            string_(
+              sessAsJs,
+            ),
+            p,
+          ),
+        )
+        : sessAsJs;
+      return this.session.merge({
+        i,
+        transpiled,
+        code,
+        html,
+        css,
+      }).toObject();
+    }
+    return this.session.toObject();
+  }
+
+  syncKV(
+    oldSession: ICodeSession,
+    newSess: ICodeSession,
+    message: CodePatch,
+  ) {
+    syncStorage(
+      ldb(codeSpace).setItem,
+      ldb(codeSpace).getItem,
+      oldSession,
+      newSess,
+      message,
+    );
+  }
+
+  constructor() {
+    this.mutex = new Mutex();
+
+    this.users.insert(this.user);
+    this.sess = Record.Factory<ICodeSession>({ code: "", i: 0, transpiled: "", css: "", html: "" }).toObject();
+    this.head = 0;
+    this.session = Record.Factory<ICodeSession>(this.sess);
+
+    this.mutex.runExclusive(async () => {
+      this.mutex.acquire();
+      this.head = await ldb(codeSpace).getItem("head") as number
+        || await ldb(codeSpace).setItem(
+          "head",
+          Number(await ky(`${origin}/live/${codeSpace}/live/session/head`).text()),
+        ) as number;
+      this.sess = await ldb(codeSpace).getItem(String(this.head)) as (ICodeSession | false)
+        || await ldb(codeSpace).setItem(
+          String(this.head),
+          await ky(`${origin}/live/${codeSpace}/live/session/${this.head}`).json<ICodeSession>(),
+        );
+      this.session = Record.Factory<ICodeSession>(this.sess);
+      this.mutex.release();
+    });
+  }
+
+  async run() {
+    this.mutex.waitForUnlock();
+
+    if (location.pathname === `/live/${codeSpace}`) {
+      renderPreviewWindow({ codeSpace, dry: false });
+    }
+
+    const BCC = new BroadcastChannel(location.origin + "/ws.js");
+    const ports = new MessageChannel();
+    const port = ports.port1;
+    BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
+
+    const obj = JSON.parse(
+      JSON.stringify({
+        type: "onconnect",
+        codeSpace,
+        hashCode: codeSession.head,
+        session: this.sess,
+        name: codeSession.user,
+        "port": ports.port2,
+      }),
+    );
+
+    BCC.postMessage(obj);
+
+    port.onmessage = (e) => handleWorker(e, port);
+
+    const root = (await readdir("/"));
+
+    if (!root.includes("live")) await mkdir("/live");
+    const live = await readdir("/live");
+    if (!live.includes(codeSpace)) await mkdir("/live/" + codeSpace);
+
+    // if (!liveStat.isDirectory())
+    // else console.log("dir already )(exists")
+    const cs = await readdir(`/live/${codeSpace}`);
+    // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
+
+    // let hST: ICodeSession | null = null;
+
+    // if (hST && hST.i > mst.i) mst = hST!;
+
+    if (cs.includes("index.js")) {
+      unlink(`/live/${codeSpace}/index.js`);
+    }
+
+    if (!cs.includes("index.tsx")) {
+      await writeFile(
+        `/live/${codeSpace}/index.tsx`,
+        this.sess.code,
+      );
+    } else {
+      await unlink(
+        `/live/${codeSpace}/index.tsx`,
+      );
+      await writeFile(
+        `/live/${codeSpace}/index.tsx`,
+        this.sess.code,
+      );
+    }
+
+    if (!cs.includes("index.tsx")) {
+      await writeFile(
+        `/live/${codeSpace}/index.tsx`,
+        this.sess.code,
+      );
+    } else {
+      await unlink(
+        `/live/${codeSpace}/index.tsx`,
+      );
+      await writeFile(
+        `/live/${codeSpace}/index.tsx`,
+        this.sess.code,
+      );
+    }
+  }
+}
+
+export const codeSession = new Code();
+
+export const run = async () => {
+  codeSession.run();
 };
 
-// let intervalHandler: NodeJS.Timer;
-
-// async function rejoin() {
-//   if (!rejoined || ws === null) {
-//     ws = null;
-
-//     const newWs = await join();
-
-//     return newWs;
-//   }
-
-//   return ws;
-// }
-
-const ignoreUsers: string[] = [];
-
-// const { getItem, setItem } = codeHistory;
-// const syncDb = async (
-//   oldSession: ICodeSession,
-//   newSession: ICodeSession,
-//   message: CodePatch,
-// ) =>
-//   await syncStorage(
-//     setItem,
-//     getItem,
-//     oldSession,
-//     newSession,
-//     message,
-//   );
-// const hashOfOldSession = md5(oldSession.transpiled);
-// let historyHead = await codeHistory.getItem("head");
-// if (!historyHead) {
-//   await codeHistory.setItem(hashOfOldSession, oldSession);
-//   await codeHistory.setItem("head", hashOfOldSession);
-//   historyHead = hashOfOldSession;
-// }
-
-// await codeHistory.setItem(message.newHash, {
-//   ...newSession,
-//   oldHash: message.oldHash,
-//   reversePatch: message.reversePatch,
-// });
-// const oldNode = await codeHistory.getItem<{ oldHash: string; reversePatch?: typeof message.reversePatch }>(
-//   message.oldHash,
-// );
-// if (!oldNode) throw Error("corrupt storage");
-// await codeHistory.setItem(message.oldHash, {
-//   oldHash: oldNode.oldHash ? oldNode.oldHash : null,
-//   reversePatch: oldNode.reversePatch ? oldNode.reversePatch : null,
-//   newHash: message.newHash,
-//   patch: message.patch,
-// });
-// await codeHistory.setItem("head", message.newHash);
-// console.log("alive6");
-// };
-// let controller = new AbortController();
-
-const mutex = new Mutex();
 export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
   try {
     // console.log("SYNC!!");
@@ -562,10 +340,10 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
 
       const oldSession = mST(codeSpace);
 
-      await mutex.waitForUnlock();
-      mutex.acquire();
+      // await mutex.waitForUnlock();
+      // mutex.acquire();
 
-      applyPatch(message, codeSpace);
+      // applyPatch(message, codeSpace);
 
       // const newSS = mST(codeSpace);
       await ldb(codeSpace).syncDb(oldSession, newSession, message);
@@ -580,7 +358,7 @@ export async function syncWS(newSession: ICodeSession, signal: AbortSignal) {
   }
 }
 async function stopVideo() {
-  if (!sendChannel.localStream) return;
+  // if (!sendChannel.localStream) return;
 }
 
 async function startVideo() {
@@ -618,21 +396,21 @@ async function startVideo() {
 
   handleSuccess(localStream);
   function handleSuccess(localStream: MediaStream) {
-    const video = sendChannel.vidElement;
+    // const video = sendChannel.vidElement;
     const videoTracks = localStream.getVideoTracks();
     console.log("Got stream with constraints:", mediaConstraints);
     console.log(`Using video device: ${videoTracks[0].label}`);
-    sendChannel.localStream = localStream; // make variable available to browser console
-    video.srcObject = localStream;
+    // sendChannel.localStream = localStream; // make variable available to browser console
+    // video.srcObject = localStream;
   }
 
-  localStream.getVideoTracks().forEach((track) =>
-    Object.keys(sendChannel.rtcConns).map((k) => {
-      const peerConnection = sendChannel.rtcConns[k];
+  // localStream.getVideoTracks().forEach((track) =>
+  // Object.keys(sendChannel.rtcConns).map((k) => {
+  // const peerConnection = sendChannel.rtcConns[k];
 
-      peerConnection.addTrack(track);
-    })
-  );
+  // peerConnection.addTrack(track);
+  // })
+  // );
 }
 
 // async function syncRTC() {
@@ -661,7 +439,7 @@ async function startVideo() {
 //   }
 // }
 
-const h: Record<number, number> = {};
+// const h: Record<number, number> = {};
 
 async function processWsMessage(
   event: { data: string },
@@ -672,417 +450,7 @@ async function processWsMessage(
 
   const data = JSON.parse(event.data);
 
-  processData(data, source);
-}
-
-async function processData(
-  data: any,
-  source: "ws" | "rtc",
-) {
-  console.table(data);
-  console.log(
-    `source; ${source}, newHash: ${data.newHash || data.hashCode}, i: ${data.i} ---current:   ${mST(codeSpace).i}`,
-  );
-
-  if (source === "ws" && data.i && data.i <= mST(codeSpace).i && data.newHash) {
-    wsLastHashCode = data.newHash || data.hashCode;
-    return;
-  }
-  if (source === "ws" && data.i && data.i <= mST(codeSpace).i && data.newHash) {
-    wsLastHashCode = data.newHash || data.hashCode;
-    return;
-  }
-  // MySession.addEvent(data);
-
-  // if (source === "ws") {
-  //   lastSeenNow = Date.now();
-  //   lastSeenTimestamp = data.timestamp;
-  // }
-  if (data.hashCode || data.newHash) {
-    wsLastHashCode = data.hashCode || data.newHash;
-  }
-
-  if (source === "ws" && (data.hashCode || data.newHash)) {
-    wsLastHashCode = data.hashCode || data.newHash;
-  }
-
-  if (source === "rtc" && data.hashCode || data.newHash) {
-    // webRTCLastSeenHashCode = data.hashCode || data.newHash;
-  }
-
-  if (ignoreUsers.includes(data.name)) {
-    return;
-  }
-
-  if (data.newHash === hashKEY(codeSpace)) {
-    return;
-  }
-
-  if (data.oldHash && data.newHash) {
-    if (h[data.oldHash] && h[data.oldHash] === data.newHash) {
-      return;
-    }
-
-    h[data.oldHash] = data.newHash;
-  }
-
-  if (data.newHash === hashKEY(codeSpace)) {
-    return;
-  }
-
-  (async () => {
-    try {
-      if (data.type === "new-ice-candidate") {
-        await handleNewICECandidateMessage(data.candidate, data.name);
-        return;
-      }
-
-      if (data.type === "video-offer") {
-        await handleChatOffer(data.offer, data.name);
-        return;
-      }
-
-      if (data.type === "video-answer") {
-        await handleChatAnswerMessage(data.answer, data.name);
-
-        return;
-      }
-
-      if (
-        data.name && data.name !== user
-        && !rtcConns[data.name] && !ignoreUsers.includes(data.name)
-      ) {
-        await createPeerConnection(data.name);
-        const users = data.users as string[];
-        const p2pUsers = users.filter((u) => u !== user && !ignoreUsers.includes(u));
-        while (p2pUsers.length) {
-          const nextToConnect = p2pUsers.pop();
-          if (nextToConnect && !sendChannel.rtcConns[nextToConnect]) {
-            createPeerConnection(nextToConnect);
-          }
-          await wait(500);
-        }
-
-        return;
-      }
-    } catch (error) {
-      // console.//log({ e: error });
-      //      log_error("Error with p2p");
-    }
-  })();
-
-  if (data.patch && data.name !== user && data.oldHash == hashKEY(codeSpace)) {
-    if (data.newHash === hashKEY(codeSpace)) {
-      return;
-    }
-
-    const oldSession = mST(codeSpace);
-    applyPatch(data, codeSpace);
-    const newSession = mST(codeSpace);
-
-    await ldb(codeSpace).syncDb(oldSession, newSession, data);
-    //  X writeFile(`/live/${codeSpace}/index.tsx`. newSession.code);
-    await writeFile("/live/" + codeSpace + "/index.tsx", newSession.code);
-
-    await writeFile("/live/" + codeSpace + "/index.js", newSession.transpiled);
-
-    // if (data.newHash === hashKEY(codeSpace)) {
-    // if (sendChannel) {
-    //   sendChannel.send({ hashCode: data.newHash });
-    // }
-
-    // return;
-    // }
-
-    // console.//log("error -sending on sendChannel");
-
-    return;
-  }
-
-  if (data.name === user) {
-    return;
-  }
-
-  if (wsLastHashCode !== hashKEY(codeSpace)) {
-    // Const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
-    // const state = await resp.json();
-
-    // const codePatch = await makePatch(state.mST);
-    // if (codePatch.newHash === wsLastHashCode) await applyPatch(codePatch);
-  }
-
-  function createPeerConnection(target: string) {
-    // log(`Setting up a connection with ${target}`);
-    if (rtcConns[target]) {
-      // log(`Aborting, since we have connection with this ${target}`);
-      return;
-    }
-
-    // Create an RTCPeerConnection which knows to use our chosen
-    // STUN server.
-
-    rtcConns[target] = new RTCPeerConnection(
-      rcpOptions,
-    );
-
-    // Set up event handlers for the ICE negotiation process.
-
-    rtcConns[target].onicecandidate = (event) => {
-      if (event.candidate) {
-        // log("*** Outgoing ICE candidate: " + event.candidate);
-
-        ws.send({
-          type: "new-ice-candidate",
-          target,
-          name: user,
-          candidate: event.candidate.toJSON(),
-        });
-      }
-    };
-
-    rtcConns[target].oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
-    rtcConns[target].onicegatheringstatechange = handleICEGatheringStateChangeEvent;
-    rtcConns[target].onsignalingstatechange = () => {
-      // log(
-      //   "*** rtcConns[target].signalingState  changed to: " +
-      //     rtcConns[target].signalingState,
-      // );
-      switch (rtcConns[target].signalingState) {
-        case "closed":
-          break;
-      }
-    };
-
-    rtcConns[target].onnegotiationneeded = handleNegotiationNeededEvent;
-
-    rtcConns[target].ontrack = function(ev) {
-      console.log("OnTack event ", ev);
-      const vidElement = document.createElement("video");
-      vidElement.autoplay = true;
-      vidElement.playsInline = true;
-      let stream = null;
-      if (ev.streams && ev.streams[0]) {
-        vidElement.srcObject = ev.streams[0];
-        stream = ev.streams[0];
-      } else {
-        let inboundStream = new MediaStream();
-        inboundStream.addTrack(ev.track);
-
-        vidElement.srcObject = inboundStream;
-        stream = inboundStream;
-      }
-      ev.track.onended = () => vidElement.srcObject = null;
-
-      //  sendChannel.localStream?.addTrack(ev.track);
-
-      sendChannel.tracks[target] = {
-        track: ev.track,
-        streams: [stream],
-        vidElement,
-      };
-    };
-
-    rtcConns[target].ondatachannel = (event) => {
-      users.insert(target);
-      // console.//log("Receive Channel Callback");
-      const rtcChannel = event.channel;
-      rtcChannel.binaryType = "arraybuffer";
-      rtcChannel.addEventListener("close", onReceiveChannelClosed);
-
-      if (
-        sendChannel && sendChannel.localStream && sendChannel.localStream.active
-      ) {
-        sendChannel.localStream.getTracks().forEach((track) => {
-          const datachannel = rtcConns[target];
-          datachannel.addTrack(track);
-        });
-      }
-
-      rtcChannel.addEventListener(
-        "message",
-        async (message) =>
-          processWsMessage(
-            message,
-            "rtc",
-            // Object.assign(rtc, { hashCode: hashKEY() }),
-            // respond: (msg)=>{},
-            // broadcast: ()=>{}
-          ),
-      );
-      const rtcWithTarget = Object.assign(rtc, { target });
-      webRtcArray.push(rtcWithTarget);
-    };
-
-    const dataChannelOptions = {
-      ordered: true, // Do not guarantee order
-      reliable: true,
-      maxPacketLifeTime: 3000, // In milliseconds
-    };
-
-    const rtc = Object.assign(
-      rtcConns[target].createDataChannel(
-        target,
-        dataChannelOptions,
-      ),
-      { target },
-    );
-
-    rtc.binaryType = "arraybuffer";
-
-    // rtc.addEventListener("message", async (message) => {
-    // console.//log("***********RTC***", { msg: message });
-
-    // const data = JSON.parse(message.data);
-    // if (data && data.hashCode) {
-    // webRTCLastSeenHashCode = data.hashCode;
-    // }
-
-    // if (data && data.newHash) {
-    // webRTCLastSeenHashCode = data.newHash;
-    // }
-    // const extendedRTC = Object.assign(rtc, {hashCode: hashKEY()})
-    // return processWsMessage(message, "rtc", extendedRTC);
-    // });
-
-    rtc.addEventListener("error", (error) => {
-      console.log("xxxxxx-  Data Channel Error:", error);
-    });
-
-    // Rtc.onmessage = (msg) => processWsMessage(msg, "rtc");
-
-    rtc.addEventListener("open", () => {
-      // console.//log("@@@@@@@@RTC IS OPEN&&&&&&&&");
-      webRtcArray.push(rtc);
-      // RtcConns[target].sendChannel = rtc;
-    });
-
-    rtc.addEventListener("close", () => {
-      // console.//log("xxxxxxxx- The Data Channel is Closed");
-    });
-
-    return rtcConns[target];
-
-    function onReceiveChannelClosed() {
-      // console.//log("Receive channel is closed");
-      rtcConns[target].close();
-      delete rtcConns[target];
-      // console.//log("Closed remote peer connection");
-    }
-
-    async function handleNegotiationNeededEvent() {
-      // log("*** Negotiation needed");
-
-      try {
-        // log("---> Creating offer");
-        const offer = await rtcConns[target].createOffer();
-
-        if (rtcConns[target].signalingState != "stable") {
-          // log("The connection isn't stable yet; postponing...");
-          return;
-        }
-
-        // Establish the offer as the local peer's current
-        // description.
-
-        // log("---> Setting local description to the offer");
-        await rtcConns[target].setLocalDescription(offer);
-
-        // Send the offer to the remote peer.
-
-        // log("---> Sending the offer to the remote peer");
-        ws.send({
-          target,
-          name: user,
-          type: "video-offer",
-          offer: rtcConns[target].localDescription!,
-        });
-      } catch {
-        // log(
-        //   "*** The following error occurred while handling the negotiationneeded event:",
-        // );
-      }
-    }
-
-    function handleICEConnectionStateChangeEvent() {
-      // log(
-      //   "*** ICE connection state changed to " +
-      //     rtcConns[target].iceConnectionState,
-      // );
-
-      switch (rtcConns[target].iceConnectionState) {
-        case "closed":
-        case "failed":
-        case "disconnected":
-          break;
-      }
-    }
-
-    function handleICEGatheringStateChangeEvent() {
-      // log(
-      //   "*** rtcConns[target].iceGatheringState changed to: " +
-      //     rtcConns[target].iceGatheringState,
-      // );
-    }
-  }
-
-  async function handleChatAnswerMessage(
-    answer: RTCSessionDescriptionInit,
-    target: string,
-  ) {
-    // log("*** Call recipient has accepted our call");
-
-    // Configure the remote description, which is the SDP payload
-    // in our "video-answer" message.
-    // const desc = new RTCSessionDescription(message);
-    if (rtcConns[target].signalingState === "stable") return;
-    await rtcConns[target].setRemoteDescription(
-      new RTCSessionDescription(
-        answer,
-      ),
-    ).catch(console.error);
-  }
-
-  async function handleChatOffer(
-    offer: RTCSessionDescriptionInit,
-    target: string,
-  ) {
-    if (!rtcConns[target]) {
-      createPeerConnection(target);
-    }
-
-    // Const desc = new RTCSessionDescription(message);
-
-    await rtcConns[target].setRemoteDescription(
-      new RTCSessionDescription(offer),
-    );
-    // If (rtcConns[target].signalingState != "stable") {
-    //// log("  - But the signaling state isn't stable, so triggering rollback");
-
-    // await Promise.all([
-    // rtcConns[target].setLocalDescription({ type: "rollback" }),
-    // rtcConns[target].setRemoteDescription(new RTCSessionDescription(offer)),
-    // ]);
-    // return;
-    // }
-
-    //// log("  - Setting remote description");
-    // await rtcConns[target].setRemoteDescription(desc);
-
-    // log("---> Creating and sending answer to caller");
-
-    const answer = await rtcConns[target].createAnswer();
-
-    await rtcConns[target].setLocalDescription(
-      answer,
-    );
-
-    ws.send({
-      target,
-      name: user,
-      type: "video-answer",
-      answer: answer!,
-    });
-  }
+  codeSession.processData(data, source);
 }
 
 // Create the RTCPeerConnection which knows how to talk to our
@@ -1197,7 +565,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
   if (ev.data.type === "onconnect") {
     console.log("POST ONCONNECT", {
       codeSpace,
-      name: user,
+      name: codeSession.user,
       hashCode: mST(codeSpace),
     });
     // messagePort = this;
@@ -1206,7 +574,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
       message: MessageProps,
     ) => {
       const messageData = {
-        name: user,
+        name: codeSession.user,
         ...message,
         codeSpace,
         i: mST(codeSpace).i,
@@ -1229,7 +597,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
       console.error("not a buff", { err, data: ev.data });
     }
     try {
-      await processData(data, "ws");
+      await codeSession.processData(data, "ws");
       console.log("its a buffer", { data });
     } catch (err) {
       console.error("process error", { err, data: ev.data });

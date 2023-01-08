@@ -4,10 +4,12 @@ import packages from "../../code/package.json";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 import ASSET_HASH from "./dist.shasum";
+
 // import imap from "@spike.land/code/src/importMap.json";
 import { importMap, importMapReplace, md5 } from "../../code/dist/src/session.mjs";
 
 import { CodeEnv } from "./env";
+import { initAndTransform } from "./esbuild";
 import { handleErrors } from "./handleErrors";
 
 const api: ExportedHandler<CodeEnv> = {
@@ -227,6 +229,25 @@ const api: ExportedHandler<CodeEnv> = {
                 "Cache-Control": "no-cache",
               },
             });
+          case "index.bu.js": {
+            const trp = await initAndTransform(
+              ` export const Box = ({children})=><div>{children}</div>;`,
+              {},
+              url.origin,
+              url,
+            );
+            return new Response(trp, {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+
+                content_hash: md5(trp),
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
+            });
+          }
           case "env":
             return new Response(JSON.stringify({ env, accept }), {
               headers: {
@@ -352,7 +373,6 @@ const api: ExportedHandler<CodeEnv> = {
               }
               headers.set("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
-              await cache.put(kvCacheKey, kvResp.clone());
               return kvResp;
             }
 
