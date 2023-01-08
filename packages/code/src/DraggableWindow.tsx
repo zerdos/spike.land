@@ -282,33 +282,25 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             </motion.div>
             <motion.div
               layout="size"
+              css={css`transform-origin: top left;`}
               initial={{
-                height: window.innerHeight,
-                width: window.innerWidth,
+                backgroundColor: rgba(r, g, b, 1),
+                transform: `scale(1,1)`,
+                borderRadius: 0,
               }}
               animate={{
-                height: height * scale,
-                width: width * scale,
+                backgroundColor: rgba(r, g, b, 0.7),
+                transform: `scale(${scale},${scale})`,
+                transformOrigin: "top left",
+                borderRadius: 8,
               }}
             >
-              <motion.iframe
-                frameBorder={0}
-                initial={{
-                  transformOrigin: "top left",
-                  backgroundColor: rgba(r, g, b, 1),
-                  transform: `scale(1,1)`,
-                  borderRadius: 0,
-                }}
-                animate={{
-                  backgroundColor: rgba(r, g, b, 0.7),
-                  transform: `scale(${scale},${scale})`,
-                  transformOrigin: "top left",
-                  borderRadius: 8,
-                }}
+              <iframe
                 // ref={zBodyRef}
                 // id={"z-body"}
                 // data-test-id="z-body"
                 css={css`
+                border: none;
                   height: 100%;
                   width: 100%;
                 `}
