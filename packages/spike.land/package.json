@@ -12,7 +12,7 @@
     "deploy:dev": "wrangler publish --env=testing dist/index.js",
     "prepublishOnly": "wrangler publish",
     "predeploy": "yarn x:build",
-    "x:build": "cp -rf  ../code/dist/src/*.wasm ./src/esbuild-wasm/ &&  esbuild  --bundle --tree-shaking=true  --external:fs --external:stream  --external:os --loader:.shasum=text  --format=esm --loader:.html=text  --external:./src/esbuild-wasm/esbuild.wasm  --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
+    "x:build": "cp -rf  ../code/dist/src/chunk-esbuild-*.wasm ./src/esbuild-wasm/esbuild.wasm &&  esbuild  --bundle --tree-shaking=true  --external:fs --external:stream  --external:os --loader:.shasum=text  --format=esm --loader:.html=text  --external:./src/esbuild-wasm/esbuild.wasm  --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",

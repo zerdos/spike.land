@@ -45,7 +45,7 @@ export class Code {
 
   mST(p?: Delta[]) {
     if (p && p.length) {
-      const sessAsJs = this.session.toJSON();
+      const sessAsJs = this.session.toJS();
 
       const { i, transpiled, code, html, css }: ICodeSession = p
         ? JSON.parse(
@@ -126,8 +126,8 @@ export class Code {
     this.env = env;
 
     // this.mutex = new Mutex();
-
     this.state.blockConcurrencyWhile(async () => {
+      if (this.head !== 0 && this.sess && this.sess.i > 0) return;
       try {
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
@@ -165,6 +165,11 @@ export class Code {
 
   async fetch(request: Request) {
     const url = new URL(request.url);
+    this.head = this.session.hashCode();
+    this.sess = this.session.toJS();
+    this.head = this.session.hashCode();
+    // this.kv.put("head", this.kv.head)
+    // this.kv.put(String(this.kv.head), this.sess)
 
     this.wait();
     const codeSpace = url.searchParams.get("room");
@@ -190,7 +195,7 @@ export class Code {
                 throw ("Error - we messed up the hashStores");
               }
               setTimeout(() => {
-                this.sess = this.session.toObject();
+                this.sess = this.session.toJS();
 
                 this.syncKV(oldState, newState, {
                   oldHash,
@@ -205,6 +210,11 @@ export class Code {
                 newState,
               );
               this.session = newRec;
+
+              this.sess = this.session.toJS();
+              this.head = this.session.hashCode();
+              this.kv.put("head", this.kv.head);
+              this.kv.put(String(this.kv.head), this.sess);
 
               return new Response(JSON.stringify({ success: true, newRec }), {
                 status: 200,
