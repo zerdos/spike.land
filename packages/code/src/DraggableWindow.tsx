@@ -40,7 +40,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, _setDelay] = useState(0);
+  const [delay, _setDelay] = useState(2);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
@@ -69,12 +69,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setHeight(height);
   };
 
-  // UseEffect(()=> {
-
-  //   ref.current?.appendChild(document.getElementById("root")!)
-
-  // }
-  //   , [ref]);
+  useEffect(() => {
+    setTimeout(() => {
+      _setDelay(0);
+    }, delay * 1000);
+  }, []);
 
   //  const terminalRef =  useRef(null);
 
