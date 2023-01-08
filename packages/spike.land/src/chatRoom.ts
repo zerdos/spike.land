@@ -127,9 +127,9 @@ export class Code {
     // this.mutex = new Mutex();
     this.state.blockConcurrencyWhile(async () => {
       try {
-        if (
-          this.head && this.state.sess?.code && this.state.sess.i > 10 && this.state.session.hashCode() == this.head
-        ) return;
+        // if (
+        //   this.head && this.state.sess?.code && this.state.sess.i > 10 && this.state.session.hashCode() == this.head
+        // ) return;
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
         this.state.sess = (await this.state.storage.get<ICodeSession>(
