@@ -152,13 +152,21 @@ export class Code {
 
     this.mutex.runExclusive(async () => {
       this.mutex.acquire();
-      this.head = await ldb(codeSpace).getItem("head") as number
-        || await ldb(codeSpace).setItem(
-          "head",
-          Number(
-            await ky(`${origin}/live/${codeSpace}/live/session/head`).text(),
+      this.head = await ldb(codeSpace).getItem("head") as number;
+
+      if (this.sess.i === 0) {
+        await Promise.all([
+          ky(`${origin}/live/${codeSpace}/live/session/head`).text().then(x => this.head = Number(x)),
+          ky(`${origin}/live/${codeSpace}/live/session`).json().then(x => this.sess = this.sess).then(() =>
+            this.session = Record<ICodeSession>(this.sess)()
           ),
-        ) as number;
+        ]);
+      }
+
+      await ldb(codeSpace).setItem(
+        "head",
+        Number(),
+      ) as number;
       this.sess = await ldb(codeSpace).getItem(
         String(this.head),
       ) as (ICodeSession | false)
