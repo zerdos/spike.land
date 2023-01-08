@@ -78,7 +78,7 @@ export const initAndTransform = async (
       };
 
       mod.init || initialize({
-        wasmModule: await resp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject))
+        wasmModule: resp.blob({ type: "application/wasm" }).then(Blob => WebAssembly.instantiate(Blob))
           .then(results => results.exports.Module),
 
         worker: false,

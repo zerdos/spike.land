@@ -20334,7 +20334,7 @@ var initAndTransform3 = async (code, opts, origin, env) => {
         }
       };
       mod3.init || (0, import_esbuild_wasm3.initialize)({
-        wasmModule: await resp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject)).then((results) => results.exports.Module),
+        wasmModule: resp.blob({ type: "application/wasm" }).then((Blob2) => WebAssembly.instantiate(Blob2)).then((results) => results.exports.Module),
         worker: false
       }).then(() => mod3.init = true);
     }
