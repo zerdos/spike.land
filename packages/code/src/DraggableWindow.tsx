@@ -282,6 +282,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <motion.div
               layout
               css={css`
+              position: relative;
               transform-origin: top left;
               `}
               initial={{
@@ -305,13 +306,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 // id={"z-body"}
                 // data-test-id="z-body"
                 css={css`
+                position: absolute;
+                top: 0;
+                left: 0;
                 border: none;
-                  height: 100%;
-                  width: 100%;
+                  height: 100vh;
+                  width: 100hw;
                 `}
                 src={`${location.origin}/live/${codeSpace}/iframe`}
-                suppressHydrationWarning={true}
-                seamless={true}
               />
             </motion.div>
             <motion.div
