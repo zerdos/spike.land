@@ -224,7 +224,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         }}
         animate={{
           top: bottom,
-          bottom: 0,
           right: right,
           backdropFilter: "blur(15px)",
           padding: 8,
