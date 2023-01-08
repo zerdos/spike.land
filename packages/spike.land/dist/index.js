@@ -11462,7 +11462,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmeQJMkWPaj2CfPxQUPn7XEbdfjNM37zUerdiXT2JjjQua\n";
+var dist_default = "QmbSoTzUtgwgRtCDcVmrgDNQvkLkPvUzzRKGV4Lbkq5AFE\n";
 
 // ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;

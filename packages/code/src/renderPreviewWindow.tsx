@@ -81,14 +81,14 @@ const AppToRender: FC<
     }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  const [hideRest, setHideRest] = useState(codeSession.i > 0);
+  const [hideRest, setHideRest] = useState(codeSession.sess.i > 0);
 
   useEffect(() => {
     const t = setTimeout(() => {
       if (hideRest) setHideRest(false);
     }, 2000);
     return () => clearTimeout(t);
-  }, [codeSession.i]);
+  }, [codeSession.sess.i]);
   // });
 
   //   || location.pathname.endsWith("hydrated");
@@ -122,7 +122,6 @@ const AppToRender: FC<
                 codeSpace={codeSpace}
                 code={codeSession.sess.code}
                 i={codeSession.sess.i}
-
               />
             </Fragment>
           </RainbowContainer>
