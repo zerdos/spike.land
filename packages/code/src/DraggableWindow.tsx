@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { motion, MotionConfig } from "framer-motion";
-import type { FC } from "react";
+import { Children, FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr.lazy";
@@ -18,13 +18,14 @@ const sizes = [10, 25, 50, 75, 100];
 
 type DraggableWindowProps = {
   // OnRestore: (() => void);
-  // children: JSX.Element;
+  children: JSX.Element;
   codeSpace: string;
 };
 
 export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     // OnRestore,
+    children,
     codeSpace,
     // HashCode,
   },
@@ -39,7 +40,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidthB] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, _setDelay] = useState(2);
+  const [delay, _setDelay] = useState(0);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
@@ -68,16 +69,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setHeight(height);
   };
 
-  const zBodyRef = useRef<HTMLIFrameElement>(null);
+  // const zBodyRef = useRef<HTMLIFrameElement>(null);
 
-  useEffect(() => {
-    if (!zBodyRef || zBodyRef.current === null) return;
-    zBodyRef.current.firstChild?.replaceWith(document.getElementById(`${codeSpace}-iframe`)!);
+  // useEffect(() => {
+  //   if (!zBodyRef || zBodyRef.current === null) return;
+  //   zBodyRef.current.firstChild?.replaceWith(document.getElementById(`${codeSpace}-iframe`)!);
 
-    setTimeout(() => {
-      _setDelay(0);
-    }, delay * 1000);
-  }, [zBodyRef, zBodyRef.current]);
+  //   setTimeout(() => {
+  //     _setDelay(0);
+  //   }, delay * 1000);
+  // }, [zBodyRef, zBodyRef.current]);
 
   //  useEffect(() =
   //   if (!terminalRef?.current) return;
@@ -172,19 +173,19 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
-  const HolderFrame = () => (
-    <iframe
-      ref={zBodyRef}
-      // id={"z-body"}
-      // data-test-id="z-body"
-      css={css`
-      height: 100%;
-      width: 100%;
-      border: none;
-  `}
-      src={`${location.origin}/live/${codeSpace}/iframe`}
-    />
-  );
+  // const HolderFrame = () => (
+  //   <iframe
+  //     ref={zBodyRef}
+  //     // id={"z-body"}
+  //     // data-test-id="z-body"
+  //     css={css`
+  //     height: 100%;
+  //     width: 100%;
+  //     border: none;
+  // `}
+  //     src={`${location.origin}/live/${codeSpace}/iframe`}
+  //   />
+  // );
 
   // useEffect(() => {
   //   const intervalHandler = setInterval(() => {
@@ -211,7 +212,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
-  return delay ? <HolderFrame /> : (
+  return (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
         initial={{
@@ -314,7 +315,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 borderRadius: 8,
               }}
             >
-              <HolderFrame />
+              {children}
             </motion.div>
             <motion.div
               css={css`

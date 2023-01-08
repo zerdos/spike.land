@@ -2953,7 +2953,7 @@ var package_default = {
     "react-error-boundary": "^3.1.4",
     "react-icons": "4.7.1",
     "react-qrious": "2.5.6",
-    "react-reverse-portal": "2.1.1",
+    "react-reverse-portal": "^2.1.1",
     "react-rnd": "^10.4.1",
     stream: "^0.0.2",
     "stream-browserify": "^3.0.0",
@@ -11637,7 +11637,7 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "Qmcov5Tq4pcmEKrHMz6oNU6V9c6kZjifdFugXeKRK7i4Dp\n";
+var dist_default = "QmdQsZt12GZTFL7A5iBHDHmDFFePpBSsbrD9hadyrZ5PsR\n";
 
 // ../code/dist/src/chunk-chunk-VEX22K7E.mjs
 var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
@@ -26368,9 +26368,7 @@ var Code = class {
                   ${html}
                   </div>
 
-              </div>
-              <iframe id="${codeSpace}-iframe" src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
-               
+              </div>              
               ` + (path[0] === "dehydrated" ? `<script>
 
               const paths = location.href.split("/");

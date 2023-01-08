@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { Fragment, useEffect, useState } from "react";
+import * as portals from "react-reverse-portal";
 
 // import { AutoUpdateApp } from "./starter";
 
@@ -68,12 +69,14 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
-  // const portalNode = useMemo(() =>
-  //   createHtmlPortalNode({
-  //     attributes: {
-  //       style: "height: 100%",
-  //     },
-  //   }), []);
+  // const portalNode = React.useMemo(() => portals.createHtmlPortalNode(), []);
+
+  const portalNode = React.useMemo(() =>
+    portals.createHtmlPortalNode({
+      attributes: {
+        style: "height: 100%",
+      },
+    }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   // const hideRes = sp.has("edit");
@@ -89,7 +92,23 @@ const AppToRender: FC<
 
   return (
     <>
-      {onlyEdit ? null : <DraggableWindow codeSpace={codeSpace} />}
+      <portals.InPortal node={portalNode}>
+        <iframe
+          // id={"z-body"}
+          // data-test-id="z-body"
+          css={css`
+      height: 100%;
+      width: 100%;
+      border: none;
+  `}
+          src={`${location.origin}/live/${codeSpace}/iframe`}
+        />
+      </portals.InPortal>
+      {onlyEdit ? null : (
+        <DraggableWindow codeSpace={codeSpace}>
+          <portals.OutPortal node={portalNode} />
+        </DraggableWindow>
+      )}
       <RainbowContainer>
         <Fragment>
           <Editor

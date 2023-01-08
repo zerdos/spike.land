@@ -520,9 +520,7 @@ export class Code {
                   ${html}
                   </div>
 
-              </div>
-              <iframe id="${codeSpace}-iframe" src="/live/${codeSpace}/iframe"  style="height: 100%; width: 100%; border:none;" ></iframe>
-               
+              </div>              
               ` + (path[0] === "dehydrated"
                 ? `<script>
 
