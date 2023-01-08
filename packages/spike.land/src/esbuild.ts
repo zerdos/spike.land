@@ -10,7 +10,7 @@ export const initAndTransform = async (
   origin: string,
   env,
 ) => {
-  const request = new Request("https://testing.spike.landsrc/chunk-esbuild-M4QDVZDG.wasm");
+  const request = new Request("https://testing.spike.land/src/chunk-esbuild-M4QDVZDG.wasm");
 
   let kvResp = await getAssetFromKV(
     {
@@ -78,8 +78,8 @@ export const initAndTransform = async (
       };
 
       mod.init || initialize({
-        wasmModule: await kvResp.arrayBuffer.then((bytes) => WebAssembly.instantiate(bytes, importObject))
-          .then(results => results.Module),
+        wasmModule: await kvResp.arrayBuffer().then((bytes) => WebAssembly.instantiate(bytes, importObject))
+          .then(results => results.exports.Module),
 
         worker: false,
       }).then(() => mod.init = true) as Promise<void>;
