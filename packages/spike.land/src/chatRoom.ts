@@ -65,6 +65,34 @@ export class Code {
     }
     return this.session!.session.get("state").toObject();
   }
+  user2user(to: string, msg: unknown | string) {
+    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
+
+    // Iterate over all the sessions sending them messages.
+    this.wsSessions
+      .filter((session) => session.name === to)
+      .map((s) => {
+        try {
+          s.webSocket.send(message);
+        } catch {
+          console.error("p2p error");
+        }
+      });
+  }
+
+  broadcast(msg: unknown) {
+    const message = JSON.stringify(msg);
+
+    this.wsSessions.filter((s) => s.name).map((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (err) {
+        s.quit = true;
+        this.users.remove(s.name);
+        // s.blockedMessages.push(message);
+      }
+    });
+  }
 
   syncKV(
     oldSession: ICodeSession,
@@ -327,40 +355,6 @@ export class Code {
             },
           });
         }
-        // case "prettier": {
-        //   return new Response(prettier(this.sess!.code), {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cache-Control": "no-cache",
-        //       "Content-Type": "application/javascript; charset=UTF-8",
-        //     },
-        //   });
-        // }
-        // case "delta":
-        //   type Diff = [-1 | 0 | 1, string];
-
-        //   const delta = await this.kv.get<{
-        //     hashCode: number;
-        //     delta: Diff[][];
-        //   }>("delta");
-
-        //   let deltaDiffs: Diff[][];
-
-        //   if (!delta || delta.hashCode !== hashKEY()) {
-        //     deltaDiffs = [];
-        //   } else {
-        //     deltaDiffs = delta.delta;
-        //   }
-
-        //   return new Response(JSON.stringify(deltaDiffs || []), {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cache-Control": "no-cache",
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   });
         case "lazy":
           return new Response(
             `import { jsx as jsX } from "@emotion/react";
@@ -401,81 +395,6 @@ export class Code {
             },
           });
         }
-        // case "yay": {
-        //   // const deps = detective(this.sess!.code);
-        //   // initAta();
-        //   // await addExtraModels(code, url.origin + `/live/` + codeSpace);
-        //   // initAta();
-
-        //   // await addExtraModels(importMapReplace(this.sess!.code, url.origin, url.origin, false), url.toString());
-        //   // const code = await this.kv.list();c
-        //   // const code = this.sess!.code;
-        //   // let [, ...deps] = path;
-        //   // if (deps.length === 0) {
-        //   //   deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-        //   //     s => s.split("'")[1],
-        //   //   ).filter(x => x && !(x.startsWith("https")));
-
-        //   //   deps.push("@emotion/react/jsx-runtime");
-        //   // }
-        //   // deps = [...(new Set(deps))];
-        //   // const res = JSON.stringify(deps);
-
-        //   const res = JSON.stringify(await run(this.sess!.code, url.origin));
-
-        //   return new Response(res, {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cross-Origin-Embedder-Policy": "require-corp",
-        //       "Cache-Control": "no-cache",
-        //       "content_hash": md5(res),
-        //       "Etag": md5(res),
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   });
-        // }
-        // case "ataStart": {
-        //   let [, ...deps] = path;
-        //   initAta();
-        //   // const code = await this.kv.list();c
-        //   const code = prettierJs(this.sess!.code);
-        //   if (deps.length === 0) {
-        //     deps = code.split(";").map(x => x.trim()).filter(x => x.startsWith("import") || x.startsWith("export")).map(
-        //       s => s.split(`"`)[1],
-        //     ).filter(x => x && !(x.startsWith("https")));
-
-        //     deps.push("@emotion/react/jsx-runtime");
-        //     deps.push("@emotion/react/jsx-dev-runtime");
-        //   }
-        //   deps = [...(new Set(deps))];
-        //   console.log({ deps });
-        //   const res = JSON.stringify(deps);
-        //   return new Response(res, {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cross-Origin-Embedder-Policy": "require-corp",
-        //       "Cache-Control": "no-cache",
-        //       "content_hash": md5(res),
-        //       "Etag": md5(res),
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   });
-        // }
-        // case "ata": {
-        //   return ATA();
-        // }
-        // case "hashCodeSession":
-        //   return new Response(hashKEY().toString(), {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cross-Origin-Embedder-Policy": "require-corp",
-        //       "Cache-Control": "no-cache",
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   });
         case "room":
           return new Response(JSON.stringify({ codeSpace: codeSpace }), {
             status: 200,
@@ -496,85 +415,12 @@ export class Code {
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
-        //   case "render.tsx": {
-        //     const codeSpace = codeSpace;
-
-        //     const src = importMapReplace(
-        //       `import {createRoot} from "react-dom/client"
-        //     import { CacheProvider } from "@emotion/react";
-        //     import createCache from "@emotion/cache";
-        //     import { ErrorBoundary } from "react-error-boundary";
-        //     import App from "${url.origin}/live/${codeSpace}/index.js"
-
-        //     export default App;
-        //     export const render =(rootEl)=>{
-
-        // const root = createRoot(rootEl);
-
-        //   const cache = createCache({
-        //     key: "z",
-        //     container: rootEl,
-        //     speedy: false
-        //   });
-
-        //  cache.compat = undefined;
-
-        // root.render(<ErrorBoundary
-        //   fallbackRender={({ error }) => (
-        //     <div role="alert">
-        //       <div>Oh no</div>
-        //       <pre>{error.message}</pre>
-        //     </div>
-        //   )}>
-        //   <CacheProvider value={cache}>
-        //     <App />
-        //   </CacheProvider>
-        //   </ErrorBoundary>)
-        //   }
-        //   ;`,
-        //       url.origin,
-        //       url.origin,
-        //     );
-        //     return new Response(src, {
-        //       headers: {
-        //         "x-typescript-types": `${url.origin}/live/${codeSpace}/render.tsx`,
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-
-        //         content_hash: md5(src),
-        //         "Content-Type": "application/javascript; charset=UTF-8",
-        //       },
-        //     });
-        //   }
         case "index.mjs":
         case "index.js":
         case "js": {
           const i = path[1] || this.sess!.i;
 
           if (i > this.sess!.i) {
-            // const started = Date.now() / 1000;
-            // const body = await new Promise<string>((res, reject) =>
-            //   this.wait(() => {
-            //     const now = Date.now() / 1000;
-
-            //     if (this.sess!.i < Number(i) && started - now < 3000) {
-            //       return false;
-            //     }
-            //     if (
-            //       this.sess!.i < Number(i) && started - now >= 3000
-            //     ) {
-            //       reject(null);
-            //       return false;
-            //     }
-
-            //     initAndTransform(this.sess!.code, {}, url.origin).then(
-            //       (transpiled) => res(transpiled),
-            //     );
-            //     return true;
-            //   })
-            // );
-
             const trp = await initAndTransform(
               this.sess!.code,
               {},
@@ -693,8 +539,6 @@ sheet.addRule('h1', 'background: red;');
                 : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
             );
 
-          // const Etag = request.headers.get("Etag");
-          // const newEtag = await sha256(respText);
           const headers = new Headers();
           headers.set("Access-Control-Allow-Origin", "*");
 
@@ -705,21 +549,9 @@ sheet.addRule('h1', 'background: red;');
             "no-cache",
           );
 
-          // headers.set('Etag', newEtag);
-
-          // if (Etag === newEtag) {
-          //   // headers.set('CF-Cache-Status', 'HIT');
-          //   return new Response(null, {
-          //     status: 304,
-          //     statusText: "Not modified",
-          //     headers,
-          //   });
-          // }
-
           headers.set("Content-Type", "text/html; charset=UTF-8");
           headers.set("content_hash", md5(respText));
-          // headers.set("Etag", newEtag)
-          // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
+
           return new Response(respText, {
             status: 200,
             headers,
@@ -759,21 +591,8 @@ sheet.addRule('h1', 'background: red;');
             "no-cache",
           );
 
-          // headers.set('Etag', newEtag);
-
-          // if (Etag === newEtag) {
-          //   // headers.set('CF-Cache-Status', 'HIT');
-          //   return new Response(null, {
-          //     status: 304,
-          //     statusText: "Not modified",
-          //     headers,
-          //   });
-          // }
-
           headers.set("Content-Type", "text/html; charset=UTF-8");
           headers.set("content_hash", md5(respText));
-          // headers.set("Etag", newEtag)
-          // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
           return new Response(respText, {
             status: 200,
             headers,
@@ -818,21 +637,8 @@ sheet.addRule('h1', 'background: red;');
             "no-cache",
           );
 
-          // headers.set('Etag', newEtag);
-
-          // if (Etag === newEtag) {
-          //   // headers.set('CF-Cache-Status', 'HIT');
-          //   return new Response(null, {
-          //     status: 304,
-          //     statusText: "Not modified",
-          //     headers,
-          //   });
-          // }
-
           headers.set("Content-Type", "text/html; charset=UTF-8");
           headers.set("content_hash", md5(respText));
-          // headers.set("Etag", newEtag)
-          // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
           return new Response(respText, {
             status: 200,
             headers,
@@ -1057,79 +863,43 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
 
-        // if (data.i <= this.sess!.i) {
-        //   return respondWith({
-        //     error: `data.i <= this.sess!.i`,
-        //   });
-        // }
-
-        // const newHash = this.session!.applyPatch({
-        //   newHash: data.newHash!,
-        //   oldHash: data.oldHash!,
-        //   patch: data.patch!,
-        // });
-        // if (newHash === data.newHash) {
-        //   this.broadcast(data);
-        //   await this.kv.put<ICodeSession>("session", { ...this.session!.session.get("state").toJSON() });
-        //   await this.kv.put(
-        //     String(newHash),
-        //     JSON.stringify({
-        //       oldHash: data,
-        //       patch: data,
-        //     }),
-        //   );
-        //   return;
-        // }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = this.sess;
-          const newSess = this.mST(data.patch);
+          const oldState = this.session!.session.get("state");
+          const newState = this.mST(data.patch);
 
-          if (this.head !== data.oldHash) {
-            return respondWith({
-              error: `old hashes not matching`,
-            });
-          }
-
+          const newRec = this.session!.session.get("state").merge(
+            newState,
+          );
           try {
-            // const newHash = data.newHash;
-            // const oldHash = data.oldHash;
-            // const reversePatch = data.reversePatch;
-
-            patchSync(
-              newSess,
+            this.session!.session = this.session!.session.set(
+              "state",
+              newRec,
             );
-          } catch (exp) {
-            const err = exp || {};
-            return respondWith({
-              error: "unknown error- in patching" + JSON.stringify({ err }),
-              exp: exp || {},
-            });
-          }
+            this.sess = this.session!.session.get("state").toObject();
 
-          // try {
-
-          //  // await applyPatch({ newHash, oldHash, patch, reversePatch });
-          // } catch (err) {
-          //   console.error({ err });
-          //   return respondWith({ err });
-          // }
-
-          // if (newHash === hashKEY()) {
-
-          try {
-            await this.kv.put<ICodeSession>("session", newSess, {
-              allowConcurrency: true,
+            this.syncKV(oldState, newState, {
+              oldHash: data.oldHash,
+              newHash: data.newHash,
+              patch: data.patch,
+              reversePatch: data.reversePatch,
             });
 
-            const { newHash, oldHash, patch, reversePatch } = data;
-
-            await this.syncKV(oldSession || newSess, newSess, {
-              newHash: +newHash,
-              oldHash: +oldHash,
-              patch,
-              reversePatch,
-            });
             this.broadcast(data);
+            // if (this.head !== data.oldHash) {
+            //   return respondWith({
+            //     error: `old hashes not matching`,
+            //   });
+            // }
+
+            //
+
+            //  // await applyPatch({ newHash, oldHash, patch, reversePatch });
+            // } catch (err) {
+            //   console.error({ err });
+            //   return respondWith({ err });
+            // }
+
+            // if (newHash === hashKEY()) {
           } catch (err) {
             return respondWith({
               error: "Saving it its really hard",
@@ -1164,74 +934,4 @@ sheet.addRule('h1', 'background: red;');
       });
     }
   }
-
-  user2user(to: string, msg: unknown | string) {
-    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-
-    // Iterate over all the sessions sending them messages.
-    this.wsSessions
-      .filter((session) => session.name === to)
-      .map((s) => {
-        try {
-          s.webSocket.send(message);
-        } catch {
-          console.error("p2p error");
-        }
-      });
-  }
-
-  broadcast(msg: unknown) {
-    const message = JSON.stringify(msg);
-
-    this.wsSessions.filter((s) => s.name).map((s) => {
-      try {
-        s.webSocket.send(message);
-      } catch (err) {
-        s.quit = true;
-        this.users.remove(s.name);
-        // s.blockedMessages.push(message);
-      }
-    });
-  }
 }
-
-// function importMapReplace(codeInp: string, origin: string, skipImap: false) {
-//  if (skipImap ===false){
-//   const items = Object.keys(
-//     importMap.imports,
-//   ) as (keyof typeof importMap.imports)[];
-//   let returnStr = codeInp;
-
-//   items.map((lib: keyof typeof importMap.imports) => {
-//     const uri = importMap.imports[lib].slice(1);
-//     returnStr = returnStr.replaceAll(
-//       ` from "${String(lib)}"`,
-//       ` from "${origin}/${String(uri)}"`,
-//     ).replaceAll
-//       ` from "./`,
-//       ` from "${origin}/live/`,
-//     ).replaceAll(
-//       ` from "/`,
-//       ` from "${origin}/`,
-//     );
-//   });}
-
-//   returnStr = returnStr.split(";").map((x) => x.trim()).map((x) => {
-//     if ((x.startsWith("import") || x.startsWith("export")) && x.indexOf(`"https://`) === -1) {
-//       return x.replaceAll(` "`, ` "${origin}/npm:/`);
-//     }
-
-//     if (
-//       !x.includes("/npm:/") && x.startsWith("import") && x.includes(origin)
-//       && !x.includes("/index.js")
-//     ) {
-//       const u = new URL(x.split(`"`)[1]);
-//       if (u && u.pathname.indexOf(".") === -1) {
-//         return x.slice(0, -1) + `/index.js"`;
-//       }
-//     }
-//     return x;
-//   }).join(";");
-
-//   return returnStr;
-// }

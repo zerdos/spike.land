@@ -2,8 +2,8 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.16.14/mod.js";
-import imap from "./src/importMap.ts";
+import * as esbuild from "https://deno.land/x/esbuild@v0.16.15/mod.js";
+import { importMap } from "./src/importMap.ts";
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
@@ -135,7 +135,7 @@ const build = (
     external: [...buildOptions.external, ...extraExternal.filter((x) => x)],
     outExtension: { ".js": ".mjs" },
     bundle: true,
-    splitting: false, // format === "esm",
+    splitting: true, // format === "esm",
     target,
     format: "esm",
     sourcemap: false,
@@ -255,6 +255,7 @@ const build = (
       // "src/prettierWorker.ts",
       // "src/fs.worker.ts",
     ],
+    plugins: [],
 
     bundle: true,
     define, // makeEnv("production"),
@@ -271,38 +272,32 @@ const build = (
     format: "iife",
   });
 
-  buildOptions.plugins = [
-    // aliasPlugin({
-    //    "stream": resolve("./src/stream.mjs"),
-    //  "buffer": resolve("./src/buffer/index.ts"),
-    // "@emotion/react": resolve("./src/emotion.ts"),
-    // "@emotion/react/jsx-runtime": resolve("./src/emotionJsxRuntime.ts"),
-    // "@emotion/react/jsx-dev-runtime": resolve("./src/emotionJsxRuntime.ts"),
-    // "@emotion/cache": resolve("./src/emotionCache.ts"),
-    // "@emotion/styled": resolve("./src/emotionStyled.mjs"),
+  // buildOptions.plugins = [
+  //   // aliasPlugin({
+  //   //    "stream": resolve("./src/stream.mjs"),
+  //   //  "buffer": resolve("./src/buffer/index.ts"),
+  //   // "@emotion/react": resolve("./src/emotion.ts"),
+  //   // "@emotion/react/jsx-runtime": resolve("./src/emotionJsxRuntime.ts"),
+  //   // "@emotion/react/jsx-dev-runtime": resolve("./src/emotionJsxRuntime.ts"),
+  //   // "@emotion/cache": resolve("./src/emotionCache.ts"),
+  //   // "@emotion/styled": resolve("./src/emotionStyled.mjs"),
 
-    // "@emotion/styled": resolve("./src/emotionStyled.mjs"),
-    // // "./mui": resolve("./dist/mui.mjs"),
-    // "react": resolve("./dist/reactMod.mjs"),
-    // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
-    // "react": resolve("./dist/reactMod.mjs"),
-    // "react-dom": resolve("./dist/reactDom.mjs"),
-    // "react-dom/client": resolve("./dist/reactDomClient.mjs"),
-    // "react-dom": resolve("./dist/reactMod.mjs"),
-    // "react-dom/client": resolve("./dist/reactMod.mjs"),
-    // "framer-motion": resolve("./src/motion.ts"),
-    // "react/jsx-dev-runtime": resolve("./src/jsx.mjs"),
-    // }),
-  ];
+  //   // "@emotion/styled": resolve("./src/emotionStyled.mjs"),
+  //   // // "./mui": resolve("./dist/mui.mjs"),
+  //   // "react": resolve("./dist/reactMod.mjs"),
+  //   // "react/jsx-runtime": resolve("./dist/jsx.mjs"),
+  //   // "react": resolve("./dist/reactMod.mjs"),
+  //   // "react-dom": resolve("./dist/reactDom.mjs"),
+  //   // "react-dom/client": resolve("./dist/reactDomClient.mjs"),
+  //   // "react-dom": resolve("./dist/reactMod.mjs"),
+  //   // "react-dom/client": resolve("./dist/reactMod.mjs"),
+  //   // "framer-motion": resolve("./src/motion.ts"),
+  //   // "react/jsx-dev-runtime": resolve("./src/jsx.mjs"),
+  //   // }),
+  // ];
 
   await build(
     [
-      "src/reactMod.ts",
-      "src/emotion.ts",
-      "src/ErrorBoundary.tsx",
-      "src/reactDom.ts",
-      "src/jsx.mjs",
-      "src/reactDomClient.ts",
       // "src/shared.ts",
       // "src/emotionCache.ts",
       // "src/emotionStyled.mjs",
@@ -313,15 +308,20 @@ const build = (
 
   await build(
     [
+      "src/reactMod.ts",
+      "src/motion.ts",
+      "src/reactDom.ts",
+      "src/hydrate.tsx",
+      "src/motion.ts",
+      "src/emotionJsxRuntime.mjs",
+      "src/render.tsx",
+      "src/reactDomClient.ts",
+      "src/emotion.ts",
       "src/session.ts",
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
-      "src/motion.ts",
-      "src/Editor.tsx",
-      "src/emotionJsxRuntime.mjs",
-      "src/hydrate.tsx",
-      "src/render.tsx",
-      // "src/reactMod.ts",
+      //    "src/Editor.tsx",
+      //      "src/reactMod.ts",
 
       // "src/Editor.tsx",
 
@@ -334,7 +334,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
-      ...Object.keys(imap.imports).filter(x => x.indexOf("jsx-runtime") === -1).map(x => imap[x]),
+      // ...Object.keys(importMap.imports).map(x=>importMap.imports[x])
       // "/npm:/*",
       // "react",
       //  "react-rnd",
@@ -356,7 +356,7 @@ const build = (
       // "prettier",
       // "react/",
     ],
-    // false,
+    false,
   );
 
   console.log("done");

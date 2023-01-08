@@ -8,7 +8,6 @@ const imports = {
   "react": "/src/reactMod.mjs",
   "react/jsx-runtime": "/src/jsx.mjs",
   "react-dom": "/src/reactDom.mjs",
-  "react-error-boundary": "/src/ErrorBoundary.mjs",
   "hydrate.mjs": "/src/hydrate.mjs",
 };
 export const importMap = { imports };

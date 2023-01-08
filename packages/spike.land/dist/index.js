@@ -4,7 +4,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod4) => function __require() {
+var __commonJS = (cb, mod4) => function __require2() {
   return mod4 || (0, cb[__getOwnPropNames(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
 var __copyProps = (to, from, except, desc) => {
@@ -3003,7 +3003,10 @@ var package_default = {
   }
 };
 
-// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/session.mjs
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-VEX22K7E.mjs
+var esbuild_default = "./chunk-esbuild-M4QDVZDG.wasm";
+
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -3014,8 +3017,8 @@ var __name = (target, value) => __defProp2(target, "name", { value, configurable
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
-var __commonJS2 = (cb, mod22) => function __require() {
-  return mod22 || (0, cb[__getOwnPropNames2(cb)[0]])((mod22 = { exports: {} }).exports, mod22), mod22.exports;
+var __commonJS2 = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames2(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
 var __copyProps2 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -3025,58 +3028,55 @@ var __copyProps2 = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM2 = (mod22, isNodeMode, target) => (target = mod22 != null ? __create2(__getProtoOf2(mod22)) : {}, __copyProps2(
+var __toESM2 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create2(__getProtoOf2(mod4)) : {}, __copyProps2(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod22 || !mod22.__esModule ? __defProp2(target, "default", { value: mod22, enumerable: true }) : target,
-  mod22
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp2(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
 ));
+var define_process_default;
 var init_define_process = __esm({
   "<define:process>"() {
+    define_process_default = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
   }
 });
-var imports;
-var importMap;
-var importMap_default;
-var init_importMap = __esm({
-  "src/importMap.ts"() {
-    "use strict";
-    init_define_process();
-    imports = {
-      "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-      "react-dom/client": "/src/reactDomClient.mjs",
-      "framer-motion": "/src/motion.mjs",
-      "@emotion/react": "/src/emotion.mjs",
-      "@emotion/cache": "/src/emotionCache.mjs",
-      "@emotion/styled": "/src/emotionStyled.mjs",
-      "react": "/src/reactMod.mjs",
-      "react/jsx-runtime": "/src/jsx.mjs",
-      "react-dom": "/src/reactDom.mjs",
-      "react-error-boundary": "/src/ErrorBoundary.mjs",
-      "hydrate.mjs": "/src/hydrate.mjs"
-    };
-    importMap = { imports };
-    importMap_default = importMap;
-  }
-});
-function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
+
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-C7KKMYE3.mjs
+init_define_process();
+var imports = {
+  "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+  "react-dom/client": "/src/reactDomClient.mjs",
+  "framer-motion": "/src/motion.mjs",
+  "@emotion/react": "/src/emotion.mjs",
+  "@emotion/cache": "/src/emotionCache.mjs",
+  "@emotion/styled": "/src/emotionStyled.mjs",
+  "react": "/src/reactMod.mjs",
+  "react/jsx-runtime": "/src/jsx.mjs",
+  "react-dom": "/src/reactDom.mjs",
+  "hydrate.mjs": "/src/hydrate.mjs"
+};
+var importMap = { imports };
+var importMap_default = importMap;
+init_define_process();
+var importMapImports = importMap.imports;
+function importMapReplace(codeInp, origin, relativeUrl, importmapRep = true, tsx = false) {
   let returnStr = replaceAll(codeInp, `from"`, `from "`);
   const items = Object.keys(
     importMapImports
   );
   items.map((lib) => {
-    const uri = new URL(importMapImports[lib], origin2).toString();
+    const uri = new URL(importMapImports[lib], origin).toString();
     if (importmapRep) {
       returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
     }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin2}/`);
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
-  returnStr.split("/::").join(origin2);
+  returnStr.split("/::").join(origin);
   if (!returnStr)
     return returnStr;
-  const url = relativeUrl || origin2;
+  const url = relativeUrl || origin;
   const baSe = new URL(".", url).toString();
   const parent = new URL("..", url).toString();
   const gParent = new URL("../..", url).toString();
@@ -3112,16 +3112,16 @@ function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, ts
     (Y) => Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1)
         return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin2) === -1) {
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1) {
         const slices = x.split(`"`);
-        slices[1] = origin2 + "/" + slices[1] + "?dev&format=es2022";
+        slices[1] = origin + "/" + slices[1] + "?dev&format=es2022";
         return slices.join(`"`);
       }
       if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
-          slices[1] = origin2 + "/npm:" + oldUrl.pathname;
+          slices[1] = origin + "/npm:" + oldUrl.pathname;
         } catch {
           console.error("URL ERR", slices[1]);
         }
@@ -3130,7 +3130,7 @@ function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, ts
       if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
         const slices = x.split(`"`);
         try {
-          oldUrl = new URL(slices[1], origin2);
+          oldUrl = new URL(slices[1], origin);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
             slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
           }
@@ -3145,22 +3145,15 @@ function importMapReplace(codeInp, origin2, relativeUrl, importmapRep = true, ts
   returnStr = returnStr.split("/npm:/npm:").join("/npm:");
   return returnStr;
 }
+__name(importMapReplace, "importMapReplace");
 function replaceAll(inp, search, replace) {
   if (!inp)
     return inp;
   return inp.split(search).join(replace);
 }
-var importMapImports;
-var init_importMapReplace = __esm({
-  "src/importMapReplace.ts"() {
-    "use strict";
-    init_define_process();
-    init_importMap();
-    importMapImports = importMap.imports;
-    __name(importMapReplace, "importMapReplace");
-    __name(replaceAll, "replaceAll");
-  }
-});
+__name(replaceAll, "replaceAll");
+
+// ../../.yarn/__virtual__/@spike.land-code-virtual-d9171aea5c/1/packages/code/dist/src/chunk-chunk-ICGBSLEG.mjs
 var require_diff = __commonJS2({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process();
@@ -3712,23 +3705,23 @@ var require_browser = __commonJS2({
     init_define_process();
     ((module2) => {
       "use strict";
-      var __defProp22 = Object.defineProperty;
-      var __getOwnPropDesc22 = Object.getOwnPropertyDescriptor;
-      var __getOwnPropNames22 = Object.getOwnPropertyNames;
-      var __hasOwnProp22 = Object.prototype.hasOwnProperty;
+      var __defProp4 = Object.defineProperty;
+      var __getOwnPropDesc4 = Object.getOwnPropertyDescriptor;
+      var __getOwnPropNames4 = Object.getOwnPropertyNames;
+      var __hasOwnProp4 = Object.prototype.hasOwnProperty;
       var __export = /* @__PURE__ */ __name((target, all) => {
         for (var name in all)
-          __defProp22(target, name, { get: all[name], enumerable: true });
+          __defProp4(target, name, { get: all[name], enumerable: true });
       }, "__export");
-      var __copyProps22 = /* @__PURE__ */ __name((to, from, except, desc) => {
+      var __copyProps4 = /* @__PURE__ */ __name((to, from, except, desc) => {
         if (from && typeof from === "object" || typeof from === "function") {
-          for (let key of __getOwnPropNames22(from))
-            if (!__hasOwnProp22.call(to, key) && key !== except)
-              __defProp22(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc22(from, key)) || desc.enumerable });
+          for (let key of __getOwnPropNames4(from))
+            if (!__hasOwnProp4.call(to, key) && key !== except)
+              __defProp4(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc4(from, key)) || desc.enumerable });
         }
         return to;
       }, "__copyProps");
-      var __toCommonJS = /* @__PURE__ */ __name((mod22) => __copyProps22(__defProp22({}, "__esModule", { value: true }), mod22), "__toCommonJS");
+      var __toCommonJS = /* @__PURE__ */ __name((mod22) => __copyProps4(__defProp4({}, "__esModule", { value: true }), mod22), "__toCommonJS");
       var __async = /* @__PURE__ */ __name((__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = /* @__PURE__ */ __name((value) => {
@@ -11141,7 +11134,6 @@ function setProp(prototype, name) {
   }
 }
 __name(setProp, "setProp");
-init_importMap();
 init_define_process();
 var md5 = /* @__PURE__ */ __name((code) => // cache.get(code) || cache.set(
 // code,
@@ -11290,7 +11282,6 @@ function md5FULL(inputString) {
 }
 __name(md5FULL, "md5FULL");
 init_define_process();
-init_importMapReplace();
 init_define_process();
 var import_fast_diff = __toESM2(require_diff(), 1);
 function createDelta(original, revision) {
@@ -11319,9 +11310,7 @@ __name(applyPatch, "applyPatch");
 init_define_process();
 init_define_process();
 var import_esbuild_wasm = __toESM2(require_browser(), 1);
-var esbuild_default = "./chunk-esbuild-M4QDVZDG.wasm";
 init_define_process();
-init_importMapReplace();
 init_define_process();
 var mod = {
   init: false,
@@ -11647,9 +11636,12 @@ import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 var files = JSON.parse(ASSET_MANIFEST);
 
 // src/dist.shasum
-var dist_default = "QmPt3SS2YJyPsb18derMGofVWh5PRcnjg8PmVR9F1ztDzV\n";
+var dist_default = "QmNYuLU2vhw7Y6PnSEJ1UsZYC2pk41fLd136ALkGvevobD\n";
 
-// ../code/dist/src/session.mjs
+// ../code/dist/src/chunk-chunk-VEX22K7E.mjs
+var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
+
+// ../code/dist/src/chunk-chunk-BUTQXMFE.mjs
 var __create3 = Object.create;
 var __defProp3 = Object.defineProperty;
 var __getOwnPropDesc3 = Object.getOwnPropertyDescriptor;
@@ -11660,8 +11652,8 @@ var __name2 = (target, value) => __defProp3(target, "name", { value, configurabl
 var __esm2 = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames3(fn)[0]])(fn = 0)), res;
 };
-var __commonJS3 = (cb, mod22) => function __require() {
-  return mod22 || (0, cb[__getOwnPropNames3(cb)[0]])((mod22 = { exports: {} }).exports, mod22), mod22.exports;
+var __commonJS3 = (cb, mod4) => function __require2() {
+  return mod4 || (0, cb[__getOwnPropNames3(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
 };
 var __copyProps3 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -11671,58 +11663,55 @@ var __copyProps3 = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM3 = (mod22, isNodeMode, target) => (target = mod22 != null ? __create3(__getProtoOf3(mod22)) : {}, __copyProps3(
+var __toESM3 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create3(__getProtoOf3(mod4)) : {}, __copyProps3(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod22 || !mod22.__esModule ? __defProp3(target, "default", { value: mod22, enumerable: true }) : target,
-  mod22
+  isNodeMode || !mod4 || !mod4.__esModule ? __defProp3(target, "default", { value: mod4, enumerable: true }) : target,
+  mod4
 ));
+var define_process_default2;
 var init_define_process2 = __esm2({
   "<define:process>"() {
+    define_process_default2 = { version: "v19.3.0", versions: { node: "v19.3.0" }, env: { NODE_ENV: "development", version: "v19.3.0", browser: true, isWebworker: true, NODE_DEBUG: false, DEBUG: false, isBrowser: true, versions: { node: "v19.3.0" } }, browser: true };
   }
 });
-var imports2;
-var importMap3;
-var importMap_default2;
-var init_importMap2 = __esm2({
-  "src/importMap.ts"() {
-    "use strict";
-    init_define_process2();
-    imports2 = {
-      "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
-      "react-dom/client": "/src/reactDomClient.mjs",
-      "framer-motion": "/src/motion.mjs",
-      "@emotion/react": "/src/emotion.mjs",
-      "@emotion/cache": "/src/emotionCache.mjs",
-      "@emotion/styled": "/src/emotionStyled.mjs",
-      "react": "/src/reactMod.mjs",
-      "react/jsx-runtime": "/src/jsx.mjs",
-      "react-dom": "/src/reactDom.mjs",
-      "react-error-boundary": "/src/ErrorBoundary.mjs",
-      "hydrate.mjs": "/src/hydrate.mjs"
-    };
-    importMap3 = { imports: imports2 };
-    importMap_default2 = importMap3;
-  }
-});
-function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, tsx = false) {
+
+// ../code/dist/src/chunk-chunk-C7KKMYE3.mjs
+init_define_process2();
+var imports2 = {
+  "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+  "react-dom/client": "/src/reactDomClient.mjs",
+  "framer-motion": "/src/motion.mjs",
+  "@emotion/react": "/src/emotion.mjs",
+  "@emotion/cache": "/src/emotionCache.mjs",
+  "@emotion/styled": "/src/emotionStyled.mjs",
+  "react": "/src/reactMod.mjs",
+  "react/jsx-runtime": "/src/jsx.mjs",
+  "react-dom": "/src/reactDom.mjs",
+  "hydrate.mjs": "/src/hydrate.mjs"
+};
+var importMap3 = { imports: imports2 };
+var importMap_default2 = importMap3;
+init_define_process2();
+var importMapImports2 = importMap3.imports;
+function importMapReplace2(codeInp, origin, relativeUrl, importmapRep = true, tsx = false) {
   let returnStr = replaceAll2(codeInp, `from"`, `from "`);
   const items = Object.keys(
     importMapImports2
   );
   items.map((lib) => {
-    const uri = new URL(importMapImports2[lib], origin2).toString();
+    const uri = new URL(importMapImports2[lib], origin).toString();
     if (importmapRep) {
       returnStr = replaceAll2(returnStr, ` from "${lib}"`, ` from "${uri}"`);
     }
-    returnStr = replaceAll2(returnStr, ` from "/`, ` from "${origin2}/`);
+    returnStr = replaceAll2(returnStr, ` from "/`, ` from "${origin}/`);
   });
-  returnStr.split("/::").join(origin2);
+  returnStr.split("/::").join(origin);
   if (!returnStr)
     return returnStr;
-  const url = relativeUrl || origin2;
+  const url = relativeUrl || origin;
   const baSe = new URL(".", url).toString();
   const parent = new URL("..", url).toString();
   const gParent = new URL("../..", url).toString();
@@ -11758,16 +11747,16 @@ function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, t
     (Y) => Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1)
         return x;
-      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin2) === -1) {
+      if (x.startsWith("import") && x.indexOf(`"`) !== -1 && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1) {
         const slices = x.split(`"`);
-        slices[1] = origin2 + "/" + slices[1] + "?dev&format=es2022";
+        slices[1] = origin + "/" + slices[1] + "?dev&format=es2022";
         return slices.join(`"`);
       }
       if (x.indexOf("/node_process.js") !== -1 || x.indexOf("/node_buffer.js") !== -1 || x.indexOf("@babel/runtime") !== -1) {
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
-          slices[1] = origin2 + "/npm:" + oldUrl.pathname;
+          slices[1] = origin + "/npm:" + oldUrl.pathname;
         } catch {
           console.error("URL ERR", slices[1]);
         }
@@ -11776,7 +11765,7 @@ function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, t
       if (x.indexOf("/npm:/") === -1 && x.startsWith("import")) {
         const slices = x.split(`"`);
         try {
-          oldUrl = new URL(slices[1], origin2);
+          oldUrl = new URL(slices[1], origin);
           if (oldUrl && oldUrl.pathname.indexOf(".") === -1 && oldUrl.pathname.indexOf("/live/") !== -1) {
             slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
           }
@@ -11791,22 +11780,15 @@ function importMapReplace2(codeInp, origin2, relativeUrl, importmapRep = true, t
   returnStr = returnStr.split("/npm:/npm:").join("/npm:");
   return returnStr;
 }
+__name2(importMapReplace2, "importMapReplace");
 function replaceAll2(inp, search, replace) {
   if (!inp)
     return inp;
   return inp.split(search).join(replace);
 }
-var importMapImports2;
-var init_importMapReplace2 = __esm2({
-  "src/importMapReplace.ts"() {
-    "use strict";
-    init_define_process2();
-    init_importMap2();
-    importMapImports2 = importMap3.imports;
-    __name2(importMapReplace2, "importMapReplace");
-    __name2(replaceAll2, "replaceAll");
-  }
-});
+__name2(replaceAll2, "replaceAll");
+
+// ../code/dist/src/chunk-chunk-ICGBSLEG.mjs
 var require_diff2 = __commonJS3({
   "../../../../../Users/z/.yarn/berry/cache/fast-diff-npm-1.2.0-5ba4171bb6-9.zip/node_modules/fast-diff/diff.js"(exports, module) {
     init_define_process2();
@@ -12358,23 +12340,23 @@ var require_browser2 = __commonJS3({
     init_define_process2();
     ((module2) => {
       "use strict";
-      var __defProp22 = Object.defineProperty;
-      var __getOwnPropDesc22 = Object.getOwnPropertyDescriptor;
-      var __getOwnPropNames22 = Object.getOwnPropertyNames;
-      var __hasOwnProp22 = Object.prototype.hasOwnProperty;
+      var __defProp4 = Object.defineProperty;
+      var __getOwnPropDesc4 = Object.getOwnPropertyDescriptor;
+      var __getOwnPropNames4 = Object.getOwnPropertyNames;
+      var __hasOwnProp4 = Object.prototype.hasOwnProperty;
       var __export = /* @__PURE__ */ __name2((target, all) => {
         for (var name in all)
-          __defProp22(target, name, { get: all[name], enumerable: true });
+          __defProp4(target, name, { get: all[name], enumerable: true });
       }, "__export");
-      var __copyProps22 = /* @__PURE__ */ __name2((to, from, except, desc) => {
+      var __copyProps4 = /* @__PURE__ */ __name2((to, from, except, desc) => {
         if (from && typeof from === "object" || typeof from === "function") {
-          for (let key of __getOwnPropNames22(from))
-            if (!__hasOwnProp22.call(to, key) && key !== except)
-              __defProp22(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc22(from, key)) || desc.enumerable });
+          for (let key of __getOwnPropNames4(from))
+            if (!__hasOwnProp4.call(to, key) && key !== except)
+              __defProp4(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc4(from, key)) || desc.enumerable });
         }
         return to;
       }, "__copyProps");
-      var __toCommonJS = /* @__PURE__ */ __name2((mod22) => __copyProps22(__defProp22({}, "__esModule", { value: true }), mod22), "__toCommonJS");
+      var __toCommonJS = /* @__PURE__ */ __name2((mod22) => __copyProps4(__defProp4({}, "__esModule", { value: true }), mod22), "__toCommonJS");
       var __async = /* @__PURE__ */ __name2((__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = /* @__PURE__ */ __name2((value) => {
@@ -19787,8 +19769,7 @@ function setProp2(prototype, name) {
   }
 }
 __name2(setProp2, "setProp");
-init_importMap2();
-var src_default = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importMap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
+var src_default2 = '<!DOCTYPE html>\n<html lang="en">\n\n<head profile="http://www.w3.org/2005/10/profile">\n  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width" />\n  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">\n  <base href="/">\n  <link rel="shortcut icon" type="image/png" href="/src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">\n  <title>Instant React Editor</title>\n\n  <script type="importMap"><\/script>\n  <style>\n    html,\n    body {\n      overflow: hidden;\n      margin: 0;\n      height: 100%;\n      --webkit-overflow-scrolling: touch;\n      overscroll-behavior-x: none;\n    }\n\n    q {\n      display: none;\n    }\n\n\n    @media screen and (prefers-color-scheme: dark) {\n      body {\n        background-color: #121212;\n        ;\n        color: hsl(210, 10%, 62%);\n        --text-color-normal: hsl(210, 10%, 62%);\n        --text-color-light: hsl(210, 15%, 35%);\n        --text-color-richer: hsl(210, 50%, 72%);\n        --text-color-highlight: hsl(25, 70%, 45%);\n      }\n    }\n\n\n    @media screen and (prefers-color-scheme: light) {\n      body {\n        background-color: white;\n        color: black;\n        --text-color-normal: #0a244d;\n        --text-color-light: #8cabd9;\n      }\n    }\n\n    /**reset*/\n  </style>\n</head>\n\n\n<body>\n  <div id="root"></div>\n</body>\n\n</html>';
 init_define_process2();
 var md52 = /* @__PURE__ */ __name2((code) => // cache.get(code) || cache.set(
 // code,
@@ -19937,7 +19918,7 @@ function md5FULL2(inputString) {
 }
 __name2(md5FULL2, "md5FULL");
 init_define_process2();
-var resetCSS = `
+var resetCSS2 = `
 *:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)) {
 all: unset;
 display: revert;
@@ -20005,7 +19986,6 @@ overflow-wrap: break-word;
 :where([draggable="true"]) {
 -webkit-user-drag: element;
 }`;
-init_importMapReplace2();
 init_define_process2();
 var import_fast_diff2 = __toESM3(require_diff2(), 1);
 function createDelta2(original, revision) {
@@ -20014,7 +19994,7 @@ function createDelta2(original, revision) {
   return delta;
 }
 __name2(createDelta2, "createDelta");
-function applyPatch2(original, delta) {
+function applyPatch3(original, delta) {
   let result = "";
   let index = 0;
   for (const item of delta) {
@@ -20030,13 +20010,11 @@ function applyPatch2(original, delta) {
   }
   return result;
 }
-__name2(applyPatch2, "applyPatch");
+__name2(applyPatch3, "applyPatch");
 init_define_process2();
 init_define_process2();
 var import_esbuild_wasm2 = __toESM3(require_browser2(), 1);
-var esbuild_default2 = "./chunk-esbuild-M4QDVZDG.wasm";
 init_define_process2();
-init_importMapReplace2();
 init_define_process2();
 var mod2 = {
   init: false,
@@ -20116,7 +20094,7 @@ async function esmTransform2(code, origin2) {
   return transpiled.code;
 }
 __name2(esmTransform2, "esmTransform");
-var importMap22 = { imports: importMap_default2.imports };
+var importMap4 = { imports: importMap_default2.imports };
 function db2(codeSpace, initDb) {
   const mod22 = {
     syncDb: async (oldSession, newSession, message) => {
@@ -20273,7 +20251,7 @@ var CodeSession2 = class {
       if (!maybeOldRec)
         throw new Error(`cant find old record: ${oldHash}`);
       const oldString = string_2(maybeOldRec.toJSON());
-      const applied = applyPatch2(oldString, patch);
+      const applied = applyPatch3(oldString, patch);
       const newState = JSON.parse(applied);
       const newRec = this.session.get("state").merge(
         newState
@@ -20325,7 +20303,7 @@ function mST2(codeSpace, p) {
   if (p && p.length) {
     const sessAsJs = sessions2[codeSpace]?.session.get("state").toJSON();
     const { i, transpiled, code, html, css } = p ? JSON.parse(
-      applyPatch2(
+      applyPatch3(
         string_2(
           sessAsJs
         ),
@@ -20352,7 +20330,6 @@ function createPatch2(oldCode, newCode) {
   return createDelta2(oldCode, newCode);
 }
 __name2(createPatch2, "createPatch");
-var patchSync = /* @__PURE__ */ __name2((sess, force = true) => sessions2[sess.codeSpace].patchSync(sess, force), "patchSync");
 function hashCode32(sess) {
   return Record3(sess)().hashCode();
 }
@@ -20459,7 +20436,7 @@ var api = {
               }
             });
           case "importMap.json":
-            return new Response(JSON.stringify(importMap22), {
+            return new Response(JSON.stringify(importMap4), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
@@ -26008,7 +25985,7 @@ var Code = class {
     if (p && p.length) {
       const sessAsJs = this.session.session.get("state").toJSON();
       const { i, transpiled, code, html, css } = p ? JSON.parse(
-        applyPatch2(
+        applyPatch3(
           string_2(
             sessAsJs
           ),
@@ -26024,6 +26001,27 @@ var Code = class {
       }).toObject();
     }
     return this.session.session.get("state").toObject();
+  }
+  user2user(to, msg) {
+    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
+    this.wsSessions.filter((session) => session.name === to).map((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch {
+        console.error("p2p error");
+      }
+    });
+  }
+  broadcast(msg) {
+    const message = JSON.stringify(msg);
+    this.wsSessions.filter((s) => s.name).map((s) => {
+      try {
+        s.webSocket.send(message);
+      } catch (err) {
+        s.quit = true;
+        this.users.remove(s.name);
+      }
+    });
   }
   syncKV(oldSession, newSess, message) {
     return (async () => await syncStorage2(
@@ -26357,9 +26355,9 @@ var Code = class {
         case "worker":
         case "dehydrated":
         case "public": {
-          const respText = src_default.replace(
+          const respText = src_default2.replace(
             "/**reset*/",
-            resetCSS
+            resetCSS2
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" style="height: 100%;">
@@ -26401,9 +26399,9 @@ sheet.addRule('h1', 'background: red;');
           });
         }
         case "prerender": {
-          const respText = src_default.replace(
+          const respText = src_default2.replace(
             "/**reset*/",
-            resetCSS
+            resetCSS2
           ).replace(
             `<div id="root"></div>`,
             `   
@@ -26436,9 +26434,9 @@ sheet.addRule('h1', 'background: red;');
           });
         }
         case "iframe": {
-          const respText = src_default.replace(
+          const respText = src_default2.replace(
             "/**reset*/",
-            resetCSS
+            resetCSS2
           ).replace(
             `<div id="root"></div>`,
             `
@@ -26568,34 +26566,22 @@ sheet.addRule('h1', 'background: red;');
           return this.user2user(data.target, { ...data, name });
         }
         if (data.patch && data.oldHash && data.newHash) {
-          const oldSession = this.sess;
-          const newSess = this.mST(data.patch);
-          if (this.head !== data.oldHash) {
-            return respondWith({
-              error: `old hashes not matching`
-            });
-          }
+          const oldState = this.session.session.get("state");
+          const newState = this.mST(data.patch);
+          const newRec = this.session.session.get("state").merge(
+            newState
+          );
           try {
-            patchSync(
-              newSess
+            this.session.session = this.session.session.set(
+              "state",
+              newRec
             );
-          } catch (exp) {
-            const err = exp || {};
-            return respondWith({
-              error: "unknown error- in patching" + JSON.stringify({ err }),
-              exp: exp || {}
-            });
-          }
-          try {
-            await this.kv.put("session", newSess, {
-              allowConcurrency: true
-            });
-            const { newHash, oldHash, patch, reversePatch } = data;
-            await this.syncKV(oldSession || newSess, newSess, {
-              newHash: +newHash,
-              oldHash: +oldHash,
-              patch,
-              reversePatch
+            this.sess = this.session.session.get("state").toObject();
+            this.syncKV(oldState, newState, {
+              oldHash: data.oldHash,
+              newHash: data.newHash,
+              patch: data.patch,
+              reversePatch: data.reversePatch
             });
             this.broadcast(data);
           } catch (err) {
@@ -26622,27 +26608,6 @@ sheet.addRule('h1', 'background: red;');
         exp: exp || {}
       });
     }
-  }
-  user2user(to, msg) {
-    const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
-    this.wsSessions.filter((session) => session.name === to).map((s) => {
-      try {
-        s.webSocket.send(message);
-      } catch {
-        console.error("p2p error");
-      }
-    });
-  }
-  broadcast(msg) {
-    const message = JSON.stringify(msg);
-    this.wsSessions.filter((s) => s.name).map((s) => {
-      try {
-        s.webSocket.send(message);
-      } catch (err) {
-        s.quit = true;
-        this.users.remove(s.name);
-      }
-    });
   }
 };
 
@@ -26709,11 +26674,11 @@ var r2bucket_default = {
 };
 
 // src/index.ts
-var src_default2 = chat_default;
+var src_default3 = chat_default;
 export {
   Code,
   CodeRateLimiter,
   r2bucket_default as R2,
   Users,
-  src_default2 as default
+  src_default3 as default
 };
