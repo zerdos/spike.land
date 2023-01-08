@@ -78,11 +78,11 @@ const AppToRender: FC<
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(!onlyEdit);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (hideRest) setHideRest(false);
-    }, 2000);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (hideRest) setHideRest(false);
+  //   }, 2000);
+  // });
 
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
@@ -90,7 +90,7 @@ const AppToRender: FC<
   return (
     <>
       {onlyEdit ? null : <DraggableWindow codeSpace={codeSpace} />}
-      {hideRest ? null : (
+      {!onlyEdit ? null : (
         <RainbowContainer>
           <Fragment>
             <Editor
