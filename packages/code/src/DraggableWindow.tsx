@@ -241,11 +241,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0px", width: "0%", opacity: 0 }}
+              initial={{ height: "0px", width: "0%" }}
               animate={{
                 height: "42px",
                 width: "100%",
-                opacity: 1,
               }}
             >
               <ToggleButtonGroup
@@ -327,7 +326,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               initial={{ height: "0", width: "0" }}
               animate={{
                 height: "42px",
-                width: "100%"
+                width: "100%",
               }}
             >
               <ToggleButtonGroup
@@ -397,8 +396,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </div>
 
           <motion.div
-            initial={{ height: 0, width: 0, opacity: 0 }}
-            animate={{ height: "100%", width: "88px", opacity: 1 }}
+            initial={{ height: 0, width: 0 }}
+            animate={{ height: "100%", width: "88px" }}
           >
             <div
               css={css`
