@@ -175,14 +175,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       // id={"z-body"}
       // data-test-id="z-body"
       css={css`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  border: none;
-    height: 100vh;
-    width: inherit;
+      height: 100%;
+      width: 100%;
+      border: none;
   `}
       src={`${location.origin}/live/${codeSpace}/iframe`}
     />
