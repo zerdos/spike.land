@@ -1,16 +1,10 @@
 // import { importMapReplace } from "./esbuildEsm";
 // import { transform } from "./esmTransform";
 export type {};
-import fetchBuilder from "fetch-retry";
-import originalFetch from "isomorphic-fetch";
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
-
-self.fetch = fetchBuilder(originalFetch, {
-  retries: 3,
-  retryDelay: 800,
-});
+import "./superFetch";
 
 // var originalFetch = require("isomorphic-fetch");
 // var fetch = require("fetch-retry")(originalFetch, {

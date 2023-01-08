@@ -1,3 +1,4 @@
+import "./superFetch";
 import { RpcProvider } from "worker-rpc";
 
 import { prettierJs, run } from "./ata";

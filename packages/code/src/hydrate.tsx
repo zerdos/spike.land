@@ -8,7 +8,7 @@ import { md5 } from "./md5";
 // import { ab2str } from "./sab";
 // import type { ICodeSession } from "./session";
 // import { wait } from "./wait";
-
+import "./superFetch";
 export { md5 };
 
 import { run } from "./ws";

@@ -1,14 +1,6 @@
 import { tsx } from "detective-typescript";
 import { prettierJs } from "./prettierEsm";
 
-import fetchBuilder from "fetch-retry";
-import originalFetch from "isomorphic-fetch";
-
-self.fetch = fetchBuilder(originalFetch, {
-  retries: 3,
-  retryDelay: 800,
-});
-
 export { prettierJs };
 
 export async function run(
