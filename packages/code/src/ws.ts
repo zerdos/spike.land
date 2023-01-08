@@ -152,7 +152,7 @@ export class Code {
       this.mutex.acquire();
       this.head = await ldb(codeSpace).getItem("head") as number;
 
-      if (this.sess.i === 0) {
+      if (!this.sess || !(this.sess.i > 0)) {
         await Promise.all([
           ky(`${origin}/live/${codeSpace}/session/head`).text().then(x => this.head = Number(x)),
           ky(`${origin}/live/${codeSpace}/session`).json().then(x => this.sess = this.sess).then(() =>
