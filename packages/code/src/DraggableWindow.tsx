@@ -281,19 +281,23 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
             <motion.div
-              layout="size"
+              layout
               css={css`
               transform-origin: top left;
-              height: 60%;`}
+              `}
               initial={{
                 backgroundColor: rgba(r, g, b, 1),
                 transform: `scale(1,1)`,
+                height,
+                width,
                 borderRadius: 0,
               }}
               animate={{
                 backgroundColor: rgba(r, g, b, 0.7),
                 transform: `scale(${scale},${scale})`,
                 transformOrigin: "top left",
+                height: height * scale,
+                width: width * scale,
                 borderRadius: 8,
               }}
             >
