@@ -296,8 +296,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               {!isVisible
                 ? (
                   <div
+                    css={`{mST(codeSpace).css}`}
                     style={{ height: "100%" }}
-                    dangerouslySetInnerHTML={{ __html: `<style>${mST(codeSpace).css}</style>${mST(codeSpace).html}` }}
+                    dangerouslySetInnerHTML={{ __html: `${mST(codeSpace).html}` }}
                   />
                 )
                 : null}
