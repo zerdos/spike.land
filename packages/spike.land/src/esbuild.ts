@@ -1,4 +1,4 @@
-import wasmModule from "./esbuild-loader";
+import wasmModule from "./esbuild-wasm/esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
 
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";
@@ -20,11 +20,9 @@ import { importMapReplace } from "../../code/dist/src/session.mjs";
 //   import { md5 } from "./md5";
 //   import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
-
 const mod = {
-  wasmModule: n
   init: false as (boolean | Promise<void>),
-  initialize: (wasmModule) =>
+  initialize: () =>
     mod.init || initialize({
       wasmModule,
       worker: false,
@@ -37,8 +35,7 @@ export const initAndTransform = async (
   origin: string,
 ) => {
   // const code = prettierJs(c)!;
-  const wasm = await import(wasmModule);
-  const initFinished = mod.initialize(wasm);
+  const initFinished = mod.initialize();
 
   if (initFinished !== true) await (initFinished);
 

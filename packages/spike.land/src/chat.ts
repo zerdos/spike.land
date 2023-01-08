@@ -48,6 +48,15 @@ const api: ExportedHandler<CodeEnv> = {
       // }
 
       const path = url.pathname.slice(1).split("/");
+      if (url.pathname.endsWith("esbuild.wasm")) {
+        return new Response(wasmFile, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-type": "application/wasm",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+          },
+        });
+      }
 
       if (!path[0]) {
         const utcSecs = Math.floor(Math.floor(Date.now() / 1000 / 7200));

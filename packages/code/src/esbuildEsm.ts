@@ -7,8 +7,6 @@ import {
   type TransformOptions,
 } from "esbuild-wasm";
 
-import wasmFile from "esbuild-wasm/esbuild.wasm";
-
 // import impMap from "./importMap.json";
 //
 // import { imports as importMapImports } from "./importMap.json";
@@ -22,7 +20,7 @@ const mod = {
   initialize: (orig: string) => {
     if (mod.init === false) {
       return mod.init = initialize({
-        wasmURL: new URL(wasmFile, orig + "/src/").toString(),
+        wasmURL: new URL(globalThis.assetHash + "/esbuild.wasm", orig + "/src/").toString(),
       });
     }
     return mod.init;
