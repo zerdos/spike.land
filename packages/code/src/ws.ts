@@ -263,7 +263,7 @@ const ws = {
       json,
       retry: {
         limit: 5,
-        methods: ["get"],
+        methods: ["post"],
         statusCodes: [413, 500],
         backoffLimit: 3000,
       },

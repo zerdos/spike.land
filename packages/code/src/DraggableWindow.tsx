@@ -232,6 +232,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           borderRadius: 16,
         }}
         css={css`
+          z-index: 10;
           position: fixed;
         `}
         drag={true}
