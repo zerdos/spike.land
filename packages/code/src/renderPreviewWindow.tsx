@@ -76,7 +76,7 @@ const AppToRender: FC<
   //   }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  const [hideRest, setHideRest] = useState(!onlyEdit);
+  // const hideRes = sp.has("edit");
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -90,15 +90,13 @@ const AppToRender: FC<
   return (
     <>
       {onlyEdit ? null : <DraggableWindow codeSpace={codeSpace} />}
-      {!onlyEdit ? null : (
-        <RainbowContainer>
-          <Fragment>
-            <Editor
-              codeSpace={codeSpace}
-            />
-          </Fragment>
-        </RainbowContainer>
-      )}
+      <RainbowContainer>
+        <Fragment>
+          <Editor
+            codeSpace={codeSpace}
+          />
+        </Fragment>
+      </RainbowContainer>
     </>
   );
 };
