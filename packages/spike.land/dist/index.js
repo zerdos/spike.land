@@ -26362,8 +26362,8 @@ var Code = class {
           ).replace(
             `<div id="root"></div>`,
             `<div id="root" style="height: 100%;">
-                  <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                  <style>${css}</style>
+                <style>${css}</style>
+                <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                   ${html}
                   </div>
               </div>` + (path[0] === "dehydrated" ? `<script>
@@ -26441,9 +26441,10 @@ sheet.addRule('h1', 'background: red;');
           ).replace(
             `<div id="root"></div>`,
             `
+
               <div id="root" style="height: 100%;">
-                <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                 <style>${css}</style>
+                <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                 ${html}
                 </div>
               </div>
