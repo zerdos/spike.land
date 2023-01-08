@@ -20307,7 +20307,9 @@ var mod3 = {
       }
     };
     mod3.init || (0, import_esbuild_wasm3.initialize)({
-      wasmModule: await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then((response) => response.arrayBuffer()).then((bytes) => WebAssembly.instantiate(bytes, importObject)),
+      wasmModule: await WebAssembly.compileStreaming(
+        fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`)
+      ).then((response) => response.arrayBuffer()).then((bytes) => WebAssembly.instantiate(bytes, importObject)),
       worker: false
     }).then(() => mod3.init = true);
   }

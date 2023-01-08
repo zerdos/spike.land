@@ -46,7 +46,9 @@ const mod = {
     };
 
     mod.init || initialize({
-      wasmModule: await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`)
+      wasmModule: await WebAssembly.compileStreaming(
+        fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`),
+      ) // await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`)
         .then((response) => response.arrayBuffer())
         .then((bytes) => WebAssembly.instantiate(bytes, importObject)),
 
