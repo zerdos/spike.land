@@ -234,7 +234,7 @@ const api: ExportedHandler<CodeEnv> = {
               ` export const Box = ({children})=><div>{children}</div>;`,
               {},
               url.origin,
-              url,
+              env,
             );
             return new Response(trp, {
               status: 200,

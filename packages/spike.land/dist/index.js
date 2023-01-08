@@ -4,8 +4,8 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod4) => function __require2() {
-  return mod4 || (0, cb[__getOwnPropNames(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
+var __commonJS = (cb, mod3) => function __require2() {
+  return mod3 || (0, cb[__getOwnPropNames(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -15,13 +15,13 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod4, isNodeMode, target) => (target = mod4 != null ? __create(__getProtoOf(mod4)) : {}, __copyProps(
+var __toESM = (mod3, isNodeMode, target) => (target = mod3 != null ? __create(__getProtoOf(mod3)) : {}, __copyProps(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod4 || !mod4.__esModule ? __defProp(target, "default", { value: mod4, enumerable: true }) : target,
-  mod4
+  isNodeMode || !mod3 || !mod3.__esModule ? __defProp(target, "default", { value: mod3, enumerable: true }) : target,
+  mod3
 ));
 
 // ../../../../../Users/z/.yarn/berry/cache/mime-npm-3.0.0-8d911e4c06-9.zip/node_modules/mime/Mime.js
@@ -197,7 +197,7 @@ var require_dist = __commonJS({
       }
     }
     exports.serveSinglePageApp = serveSinglePageApp;
-    var getAssetFromKV2 = async (event, options) => {
+    var getAssetFromKV3 = async (event, options) => {
       options = assignOptions(options);
       const request = event.request;
       const ASSET_NAMESPACE = options.ASSET_NAMESPACE;
@@ -353,7 +353,7 @@ var require_dist = __commonJS({
       }
       return response;
     };
-    exports.getAssetFromKV = getAssetFromKV2;
+    exports.getAssetFromKV = getAssetFromKV3;
   }
 });
 
@@ -378,7 +378,7 @@ var require_browser3 = __commonJS({
         }
         return to;
       };
-      var __toCommonJS = (mod4) => __copyProps4(__defProp4({}, "__esModule", { value: true }), mod4);
+      var __toCommonJS = (mod3) => __copyProps4(__defProp4({}, "__esModule", { value: true }), mod3);
       var __async = (__this, __arguments, generator) => {
         return new Promise((resolve, reject) => {
           var fulfilled = (value) => {
@@ -2849,7 +2849,7 @@ ${file}:${line}:${column}: ERROR: ${pluginText}${e.text}`;
 });
 
 // src/chat.ts
-var import_kv_asset_handler = __toESM(require_dist(), 1);
+var import_kv_asset_handler2 = __toESM(require_dist(), 1);
 
 // ../code/package.json
 var package_default = {
@@ -3018,8 +3018,8 @@ var __name = (target, value) => __defProp2(target, "name", { value, configurable
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames2(fn)[0]])(fn = 0)), res;
 };
-var __commonJS2 = (cb, mod4) => function __require2() {
-  return mod4 || (0, cb[__getOwnPropNames2(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
+var __commonJS2 = (cb, mod3) => function __require2() {
+  return mod3 || (0, cb[__getOwnPropNames2(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
 };
 var __copyProps2 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -3029,13 +3029,13 @@ var __copyProps2 = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM2 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create2(__getProtoOf2(mod4)) : {}, __copyProps2(
+var __toESM2 = (mod3, isNodeMode, target) => (target = mod3 != null ? __create2(__getProtoOf2(mod3)) : {}, __copyProps2(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod4 || !mod4.__esModule ? __defProp2(target, "default", { value: mod4, enumerable: true }) : target,
-  mod4
+  isNodeMode || !mod3 || !mod3.__esModule ? __defProp2(target, "default", { value: mod3, enumerable: true }) : target,
+  mod3
 ));
 var define_process_default;
 var init_define_process = __esm({
@@ -11608,8 +11608,8 @@ var __name2 = (target, value) => __defProp3(target, "name", { value, configurabl
 var __esm2 = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames3(fn)[0]])(fn = 0)), res;
 };
-var __commonJS3 = (cb, mod4) => function __require2() {
-  return mod4 || (0, cb[__getOwnPropNames3(cb)[0]])((mod4 = { exports: {} }).exports, mod4), mod4.exports;
+var __commonJS3 = (cb, mod3) => function __require2() {
+  return mod3 || (0, cb[__getOwnPropNames3(cb)[0]])((mod3 = { exports: {} }).exports, mod3), mod3.exports;
 };
 var __copyProps3 = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -11619,13 +11619,13 @@ var __copyProps3 = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM3 = (mod4, isNodeMode, target) => (target = mod4 != null ? __create3(__getProtoOf3(mod4)) : {}, __copyProps3(
+var __toESM3 = (mod3, isNodeMode, target) => (target = mod3 != null ? __create3(__getProtoOf3(mod3)) : {}, __copyProps3(
   // If the importer is in node compatibility mode or this is not an ESM
   // file that has been converted to a CommonJS file using a Babel-
   // compatible transform (i.e. "__esModule" has not been set), then set
   // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod4 || !mod4.__esModule ? __defProp3(target, "default", { value: mod4, enumerable: true }) : target,
-  mod4
+  isNodeMode || !mod3 || !mod3.__esModule ? __defProp3(target, "default", { value: mod3, enumerable: true }) : target,
+  mod3
 ));
 var define_process_default2;
 var init_define_process2 = __esm2({
@@ -20246,6 +20246,10 @@ function hashCode32(sess) {
 }
 __name2(hashCode32, "hashCode");
 
+// src/esbuild.ts
+var import_kv_asset_handler = __toESM(require_dist(), 1);
+var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
+
 // package.json
 var package_default2 = {
   name: "@spike.land/code-worker",
@@ -20289,42 +20293,62 @@ var package_default2 = {
 };
 
 // src/esbuild.ts
-var import_esbuild_wasm3 = __toESM(require_browser3(), 1);
-var vers = package_default2.dependencies["esbuild-wasm"];
-Object.assign(globalThis, {
-  performance: {
-    now: () => Date.now()
-  }
-});
-var mod3 = {
-  init: false,
-  initialize: async () => {
-    const importObject = {
-      imports: {
-        imported_func(arg) {
-          console.log(arg);
+var initAndTransform3 = async (code, opts, origin, env) => {
+  const request = new Request("https://testing.spike.landsrc/chunk-esbuild-M4QDVZDG.wasm");
+  let kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
+    {
+      request,
+      waitUntil: async (prom) => await prom
+    },
+    {
+      // cacheControl: (isChunk(url.href)
+      //   ? {
+      //     browserTTL: 2 * 60 * 60 * 24,
+      //     edgeTTL: 2 * 60 * 60 * 24,
+      //     orbypassCache: false,
+      //   }
+      //   : {
+      //     browserTTL: 0,
+      //     edgeTTL: 0,
+      //     bypassCache: true,
+      //   }),
+      ASSET_NAMESPACE: env.__STATIC_CONTENT,
+      ASSET_MANIFEST
+    }
+  );
+  if (!kvResp.ok)
+    return kvResp;
+  const vers = package_default2.dependencies["esbuild-wasm"];
+  Object.assign(globalThis, {
+    performance: {
+      now: () => Date.now()
+    }
+  });
+  const mod3 = {
+    init: false,
+    initialize: async () => {
+      const importObject = {
+        imports: {
+          imported_func(arg) {
+            console.log(arg);
+          }
         }
-      }
-    };
-    mod3.init || (0, import_esbuild_wasm3.initialize)({
-      wasmModule: await WebAssembly.compileStreaming(
-        fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`)
-      ).then((response) => response.arrayBuffer()).then((bytes) => WebAssembly.instantiate(bytes, importObject)),
-      worker: false
-    }).then(() => mod3.init = true);
-  }
-};
-var initAndTransform3 = async (code, opts, origin, location2) => {
+      };
+      mod3.init || (0, import_esbuild_wasm3.initialize)({
+        wasmModule: await kvResp.arrayBuffer.then((bytes) => WebAssembly.instantiate(bytes, importObject)).then((results) => results.Module),
+        worker: false
+      }).then(() => mod3.init = true);
+    }
+  };
   const initFinished = mod3.initialize();
   if (initFinished !== true)
     await initFinished;
-  return await esmTransform3(code, origin, location2);
+  return await esmTransform3(code, origin, location);
 };
-async function esmTransform3(code, origin, location2) {
+async function esmTransform3(code, origin, env) {
   const transpiled = await (0, import_esbuild_wasm3.transform)(code, {
     loader: "tsx",
     format: "esm",
-    location: location2,
     treeShaking: true,
     platform: "browser",
     minify: false,
@@ -20341,7 +20365,7 @@ async function esmTransform3(code, origin, location2) {
     target: "es2022"
   });
   if (origin)
-    return importMapReplace2(transpiled.code, origin, location2);
+    return importMapReplace2(transpiled.code, origin, location);
   else
     return transpiled.code;
 }
@@ -20429,7 +20453,7 @@ var api = {
               ` export const Box = ({children})=><div>{children}</div>;`,
               {},
               url.origin,
-              url
+              env
             );
             return new Response(trp, {
               status: 200,
@@ -20509,7 +20533,7 @@ var api = {
               response = await cache.match(kvCacheKey);
               if (response)
                 return response;
-              let kvResp = await (0, import_kv_asset_handler.getAssetFromKV)(
+              let kvResp = await (0, import_kv_asset_handler2.getAssetFromKV)(
                 {
                   request,
                   waitUntil: async (prom) => await prom

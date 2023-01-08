@@ -1,68 +1,91 @@
-// import was from "./esbuild.wasm";
-import pkg from "../package.json" assert { type: "json" };
-const vers = pkg.dependencies["esbuild-wasm"];
-
-// const wasmModule = new WebAssembly.Instance(was).exports.Module;
-
+import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { initialize, Location, transform, type TransformOptions } from "esbuild-wasm";
-
-Object.assign(globalThis, {
-  performance: {
-    now: () => Date.now(),
-  },
-});
-
 import { importMapReplace } from "../../code/dist/src/session.mjs";
-
-// import impMap from "./importMap.json";
-//
-// import { imports as importMapImports } from "./importMap.json";
-
-//   import { fetchPlugin } from "./fetchPlugin";
-//   import { importMapReplace } from "./importMapReplace";
-//   import { md5 } from "./md5";
-//   import { unpkgPathPlugin } from "./unpkg-path-plugin";
-
-// function createJsBlob(code: string | Uint8Array) {
-//   return URL.createObjectURL(
-//     new Blob([code], {
-//       type: "application/wasm",
-//     }),
-//   );
-// }
-
-const mod = {
-  init: false as (boolean | Promise<void>),
-  initialize: async () => {
-    // import(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then(was=>
-    // const was = await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then(r => r.blob());
-    // const wasmModule = new WebAssembly.Instance(was).exports.Module;
-    const importObject = {
-      imports: {
-        imported_func(arg) {
-          console.log(arg);
-        },
-      },
-    };
-
-    mod.init || initialize({
-      wasmModule: await WebAssembly.compileStreaming(
-        fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`),
-      ) // await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`)
-        .then((response) => response.arrayBuffer())
-        .then((bytes) => WebAssembly.instantiate(bytes, importObject)),
-
-      worker: false,
-    }).then(() => mod.init = true) as Promise<void>;
-  },
-};
+import pkg from "../package.json" assert { type: "json" };
+import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 export const initAndTransform = async (
   code: string,
   opts: TransformOptions,
   origin: string,
-  location: Location,
+  env,
 ) => {
+  const request = new Request("https://testing.spike.landsrc/chunk-esbuild-M4QDVZDG.wasm");
+
+  let kvResp = await getAssetFromKV(
+    {
+      request,
+      waitUntil: async (prom) => await prom,
+    },
+    {
+      // cacheControl: (isChunk(url.href)
+      //   ? {
+      //     browserTTL: 2 * 60 * 60 * 24,
+      //     edgeTTL: 2 * 60 * 60 * 24,
+      //     orbypassCache: false,
+      //   }
+      //   : {
+      //     browserTTL: 0,
+      //     edgeTTL: 0,
+      //     bypassCache: true,
+      //   }),
+      ASSET_NAMESPACE: env.__STATIC_CONTENT,
+      ASSET_MANIFEST,
+    },
+  );
+
+  if (!kvResp.ok) return kvResp;
+
+  const vers = pkg.dependencies["esbuild-wasm"];
+
+  // const wasmModule = new WebAssembly.Instance(was).exports.Module;
+
+  Object.assign(globalThis, {
+    performance: {
+      now: () => Date.now(),
+    },
+  });
+
+  // import impMap from "./importMap.json";
+  //
+  // import { imports as importMapImports } from "./importMap.json";
+
+  //   import { fetchPlugin } from "./fetchPlugin";
+  //   import { importMapReplace } from "./importMapReplace";
+  //   import { md5 } from "./md5";
+  //   import { unpkgPathPlugin } from "./unpkg-path-plugin";
+
+  // function createJsBlob(code: string | Uint8Array) {
+  //   return URL.createObjectURL(
+  //     new Blob([code], {
+  //       type: "application/wasm",
+  //     }),
+  //   );
+  // }
+
+  const mod = {
+    init: false as (boolean | Promise<void>),
+    initialize: async () => {
+      // import(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then(was=>
+      // const was = await fetch(`https://testing.spike.land/esbuild-wasm@${vers}/esbuild.wasm`).then(r => r.blob());
+      // const wasmModule = new WebAssembly.Instance(was).exports.Module;
+      const importObject = {
+        imports: {
+          imported_func(arg) {
+            console.log(arg);
+          },
+        },
+      };
+
+      mod.init || initialize({
+        wasmModule: await kvResp.arrayBuffer.then((bytes) => WebAssembly.instantiate(bytes, importObject))
+          .then(results => results.Module),
+
+        worker: false,
+      }).then(() => mod.init = true) as Promise<void>;
+    },
+  };
+
   // const code = prettierJs(c)!;
   const initFinished = mod.initialize();
 
@@ -71,12 +94,11 @@ export const initAndTransform = async (
   return await esmTransform(code, origin, location);
 };
 
-export async function esmTransform(code: string, origin: string, location: Location) {
+export async function esmTransform(code: string, origin: string, env) {
   // transform = transform || (await import(`./esbuildEsm`)).transform;
   const transpiled = await transform(code, {
     loader: "tsx",
     format: "esm",
-    location: location,
     treeShaking: true,
     platform: "browser",
     minify: false,
