@@ -45,7 +45,7 @@ export class Code {
 
   mST(p?: Delta[]) {
     if (p && p.length) {
-      const sessAsJs = this.session.toJS();
+      const sessAsJs = this.state.session.toJS();
 
       const { i, transpiled, code, html, css }: ICodeSession = p
         ? JSON.parse(
@@ -57,7 +57,7 @@ export class Code {
           ),
         )
         : sessAsJs;
-      return this.session.merge({
+      return this.state.session.merge({
         i,
         transpiled,
         code,
@@ -65,13 +65,13 @@ export class Code {
         css,
       }).toObject();
     }
-    return this.session.toObject();
+    return this.state.session.toObject();
   }
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     // Iterate over all the sessions sending them messages.
-    this.wsSessions
+    this.state.wsSessions
       .filter((session) => session.name === to)
       .map((s) => {
         try {
@@ -85,7 +85,7 @@ export class Code {
   broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
 
-    this.wsSessions.filter((s) => s.name).map((s) => {
+    this.state.wsSessions.filter((s) => s.name).map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {
@@ -106,10 +106,10 @@ export class Code {
         async (
           key: string,
           v: object,
-        ) => (await this.kv.put(key, v, {
+        ) => (await this.state.storage.put(key, v, {
           allowConcurrency: false,
         })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
-        async (key: string) => await this.kv.get(String(key), { allowConcurrency: true }),
+        async (key: string) => await this.state.storage.get(String(key), { allowConcurrency: true }),
         oldSession,
         newSess,
         message,
@@ -118,34 +118,35 @@ export class Code {
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
     this.state = state;
-    this.kv = state.storage;
-    this.sess = {} as ICodeSession;
-    this.session = Record<ICodeSession>({})(this.sess);
-    this.head = 0;
-    this.wsSessions = [];
+    this.state.sess = {} as ICodeSession;
+    this.state.session = Record<ICodeSession>({})(this.state.sess);
+    this.state.head = 0;
+    this.state.wsSessions = [];
     this.env = env;
 
     // this.mutex = new Mutex();
     this.state.blockConcurrencyWhile(async () => {
       try {
-        if (this.head && this.sess?.code && this.sess.i > 10 && this.session.hashCode() == this.head) return;
+        if (
+          this.head && this.state.sess?.code && this.state.sess.i > 10 && this.state.session.hashCode() == this.head
+        ) return;
         // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
 
-        this.sess = (await this.kv.get<ICodeSession>(
-          this.head !== 0 ? String(this.head) : "session",
+        this.state.sess = (await this.state.storage.get<ICodeSession>(
+          this.state.head !== 0 ? String(this.head) : "session",
           {
             allowConcurrency: true,
           },
         )) || await (env.CODE.get(env.CODE.idFromName("code-main"))).fetch(
           "session.json",
         ).then((x) => x.json())!;
-        if (!this.sess) throw Error("cant get the starter session");
+        if (!this.state.sess) throw Error("cant get the starter session");
 
-        this.session = Record<ICodeSession>({})(this.sess);
-        if (this.head === 0) this.head = this.session.hashCode();
+        this.state.session = Record<ICodeSession>({})(this.state.sess);
+        if (this.head === 0) this.state.head = this.state.session.hashCode();
         await this.state.storage.put(
           String(this.head),
-          this.session.toObject(),
+          this.state.session.toObject(),
           { allowConcurrency: false },
         ).then(
           () =>
@@ -165,11 +166,11 @@ export class Code {
 
   async fetch(request: Request) {
     const url = new URL(request.url);
-    this.head = this.session.hashCode();
-    this.sess = this.session.toJS();
-    this.head = this.session.hashCode();
-    // this.kv.put("head", this.kv.head)
-    // this.kv.put(String(this.kv.head), this.sess)
+    this.state.head = this.state.session.hashCode();
+    this.state.sess = this.state.session.toJS();
+    this.state.head = this.state.session.hashCode();
+    // this.state.storage.put("head", this.state.storage.head)
+    // this.state.storage.put(String(this.state.storage.head), this.state.sess)
 
     this.wait();
     const codeSpace = url.searchParams.get("room");
@@ -186,7 +187,7 @@ export class Code {
 
               const reversePatch: Delta[] = mess.reversePatch || [];
               const patch: Delta[] = mess.patch || [];
-              const oldState = this.sess!;
+              const oldState = this.state.sess!;
               const newState = this.mST(patch);
               const oldHash = hashCode(oldState);
               const newHash = hashCode(newState);
@@ -195,7 +196,7 @@ export class Code {
                 throw ("Error - we messed up the hashStores");
               }
               setTimeout(() => {
-                this.sess = this.session.toJS();
+                this.state.sess = this.state.session.toJS();
 
                 this.syncKV(oldState, newState, {
                   oldHash,
@@ -206,15 +207,15 @@ export class Code {
 
                 this.broadcast(mess);
               });
-              const newRec = this.session.merge(
+              const newRec = this.state.session.merge(
                 newState,
               );
-              this.session = newRec;
+              this.state.session = newRec;
 
-              this.sess = this.session.toJS();
-              this.head = this.session.hashCode();
-              this.kv.put("head", this.kv.head);
-              this.kv.put(String(this.kv.head), this.sess);
+              this.state.sess = this.state.session.toJS();
+              this.state.head = this.state.session.hashCode();
+              this.state.storage.put("head", this.state.storage.head);
+              this.state.storage.put(String(this.state.storage.head), this.state.sess);
 
               return new Response(JSON.stringify({ success: true, newRec }), {
                 status: 200,
@@ -254,7 +255,7 @@ export class Code {
     }
 
     return handleErrors(request, async () => {
-      const { code, css, html, i } = this.sess!;
+      const { code, css, html, i } = this.state.sess!;
       const path = url.pathname.slice(1).split("/");
       if (path.length === 0) path.push("");
 
@@ -293,7 +294,7 @@ export class Code {
         }
         case "index.trans.js": {
           const trp = await initAndTransform(
-            this.sess!.code,
+            this.state.sess!.code,
             {},
             url.origin,
           );
@@ -330,7 +331,7 @@ export class Code {
         case "session.json":
         case "session": {
           if (path[1]) {
-            let session = await this.kv.get<string | object>(path[1], {
+            let session = await this.state.storage.get<string | object>(path[1], {
               allowConcurrency: true,
             });
             if (session) {
@@ -365,7 +366,7 @@ export class Code {
               );
             }
           }
-          const body = string_(this.sess);
+          const body = string_(this.state.sess);
           return new Response(body, {
             status: 200,
             headers: {
@@ -405,7 +406,7 @@ export class Code {
           });
         }
         case "list": {
-          const list = await this.kv.list({ allowConcurrency: true });
+          const list = await this.state.storage.list({ allowConcurrency: true });
 
           return new Response(JSON.stringify({ ...list }), {
             status: 200,
@@ -440,11 +441,11 @@ export class Code {
         case "index.mjs":
         case "index.js":
         case "js": {
-          const i = path[1] || this.sess!.i;
+          const i = path[1] || this.state.sess!.i;
 
-          if (i > this.sess!.i) {
+          if (i > this.state.sess!.i) {
             const trp = await initAndTransform(
-              this.sess!.code,
+              this.state.sess!.code,
               {},
               url.origin,
             );
@@ -461,9 +462,9 @@ export class Code {
               },
             });
           }
-          if (i < this.sess!.i) {
+          if (i < this.state.sess!.i) {
             const trp = await initAndTransform(
-              this.sess!.code,
+              this.state.sess!.code,
               {},
               url.origin,
             );
@@ -472,7 +473,7 @@ export class Code {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${codeSpace}/index.mjs/${this.sess!.i}`,
+                "Location": `${url.origin}/live/${codeSpace}/index.mjs/${this.state.sess!.i}`,
                 "Cache-Control": "no-cache",
 
                 content_hash: md5(trp),
@@ -481,7 +482,7 @@ export class Code {
             });
           }
           const trp = await initAndTransform(
-            this.sess!.code,
+            this.state.sess!.code,
             {},
             url.origin,
           );
@@ -509,7 +510,7 @@ export class Code {
         }
         case "hashCode": {
           const hashCode = String(Number(path[1]));
-          const patch = await this.kv.get<{ patch: string; oldHash: number }>(
+          const patch = await this.state.storage.get<{ patch: string; oldHash: number }>(
             hashCode,
             { allowConcurrency: true },
           );
@@ -703,19 +704,19 @@ sheet.addRule('h1', 'background: red;');
       webSocket,
       //   blockedMessages: [] as string[],
     };
-    this.wsSessions.push(session);
-    this.wsSessions = this.wsSessions.filter((x) => !x.quit);
-    const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
+    this.state.wsSessions.push(session);
+    this.state.wsSessions = this.state.wsSessions.filter((x) => !x.quit);
+    const users = this.state.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
         hashCode: this.head,
-        i: this.sess!.i,
+        i: this.state.sess!.i,
         users,
         type: "handshake",
       }),
     );
 
-    // this.wsSessions.forEach((otherSession) => {
+    // this.state.wsSessions.forEach((otherSession) => {
     // if (otherSession.name) {
     // session.blockedMessages.push(
     //   JSON.stringify({ name: otherSession.name }),
@@ -723,7 +724,7 @@ sheet.addRule('h1', 'background: red;');
     //   }
     // });
 
-    // const storage = await this.kv.list({ reverse: true, limit: 100 });
+    // const storage = await this.state.storage.list({ reverse: true, limit: 100 });
     // const backlog = [...storage.values()];
     // backlog.reverse();
     // backlog.forEach((value) => {
@@ -800,7 +801,7 @@ sheet.addRule('h1', 'background: red;');
         });
       }
 
-      this.wsSessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
+      this.state.wsSessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
 
       session.name = name;
     }
@@ -808,10 +809,10 @@ sheet.addRule('h1', 'background: red;');
     if (data.type == "handshake") {
       const commit = data.hashCode;
       while (commit && commit !== this.head) {
-        const oldNode = await this.kv.get<CodePatch>("" + commit, {
+        const oldNode = await this.state.storage.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });
-        const newNode = await this.kv.get<CodePatch>("" + oldNode!.newHash, {
+        const newNode = await this.state.storage.get<CodePatch>("" + oldNode!.newHash, {
           allowConcurrency: true,
         });
         return respondWith({
@@ -822,11 +823,11 @@ sheet.addRule('h1', 'background: red;');
         });
         //        commit = newNode?.newHash;
       }
-      // const oldNode =  await this.kv.get<CodePatch>(commit);
+      // const oldNode =  await this.state.storage.get<CodePatch>(commit);
       // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
     }
     // try {
-    // this.wsSessions.map((otherSession) => {
+    // this.state.wsSessions.map((otherSession) => {
     //   if (otherSession === session) return;
 
     //   if (otherSession.name === data.name) {
@@ -838,7 +839,7 @@ sheet.addRule('h1', 'background: red;');
 
     //   if (data.hashCode) {
     //     if (data?.hashCode !== hashKEY(codeSpace)) {
-    //       const patch = makePatchFrom(data.hashCode, this.sess);
+    //       const patch = makePatchFrom(data.hashCode, this.state.sess);
     //       if (patch) {
     //         return respondWith({ ...patch });
     //       }
@@ -873,7 +874,7 @@ sheet.addRule('h1', 'background: red;');
       // if (
       //   !data.type && limiter.checkLimit()
       // ) {
-      //   return respondWith({ if ( if (data.i <= this.sess!.i) return;data.i <= this.sess!.i) return;
+      //   return respondWith({ if ( if (data.i <= this.state.sess!.i) return;data.i <= this.state.sess!.i) return;
       //     error: "Your IP is being rate-limited, please try again later.",
       //   });
       // }
@@ -890,15 +891,15 @@ sheet.addRule('h1', 'background: red;');
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          const oldState = this.session;
-          const newState = this.session.merge(this.mST(data.patch));
+          const oldState = this.state.session;
+          const newState = this.state.session.merge(this.mST(data.patch));
 
-          const newRec = this.session.merge(
+          const newRec = this.state.session.merge(
             newState,
           );
           try {
-            this.session = newRec;
-            this.sess = this.session.toObject();
+            this.state.session = newRec;
+            this.state.sess = this.state.session.toObject();
 
             this.syncKV(oldState.toJSON(), newState.toJSON(), {
               oldHash: data.oldHash,
@@ -930,7 +931,7 @@ sheet.addRule('h1', 'background: red;');
             });
           }
 
-          // await this.kv.put(
+          // await this.state.storage.put(
           //   String(newHash),
           //   JSON.stringify({
           //     oldHash,
