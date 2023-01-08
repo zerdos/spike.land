@@ -298,27 +298,39 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
             <motion.div
-              layout
-              css={css`
-              transform-origin: top left;
-              `}
+              layout="preserve-aspect"
               initial={{
-                backgroundColor: rgba(r, g, b, 1),
-                transform: `scale(1,1)`,
                 height: window.innerHeight,
                 width: window.innerWidth,
-                borderRadius: 0,
               }}
               animate={{
-                backgroundColor: rgba(r, g, b, 0.7),
-                transform: `scale(${scale},${scale})`,
-                transformOrigin: "top left",
-                height: height,
-                width: width,
-                borderRadius: 8,
+                height: height * scale,
+                width: width * scale,
               }}
             >
-              {children}
+              <motion.div
+                layout="size"
+                css={css`
+              transform-origin: top left;
+              `}
+                initial={{
+                  backgroundColor: rgba(r, g, b, 1),
+                  transform: `scale(1,1)`,
+                  height: window.innerHeight,
+                  width: window.innerWidth,
+                  borderRadius: 0,
+                }}
+                animate={{
+                  backgroundColor: rgba(r, g, b, 0.7),
+                  transform: `scale(${scale},${scale})`,
+                  transformOrigin: "top left",
+                  height: height,
+                  width: width,
+                  borderRadius: 8,
+                }}
+              >
+                {children}
+              </motion.div>
             </motion.div>
             <motion.div
               css={css`
