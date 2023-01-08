@@ -240,7 +240,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               overflow: hidden;
               display:flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0px", width: "0%" }}
+              initial={{ height: "0", width: "0%" }}
               animate={{
                 height: "42px",
                 width: "100%",
