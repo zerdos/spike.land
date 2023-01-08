@@ -70,7 +70,7 @@ background:  repeating-radial-gradient(circle at bottom left,
 const AppToRender: FC<
   { codeSpace: string }
 > = (
-  { codeSpace }
+  { codeSpace },
 ) => {
   const portalNode = React.useMemo(() =>
     portals.createHtmlPortalNode({

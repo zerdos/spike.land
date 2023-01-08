@@ -218,20 +218,22 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           padding: 0,
           top: 0,
           backgroundColor: "rgba(0, 0,0, 0)",
-          backdropFilter: `blur(0px);`,
-          left: 0,
+          backdropFilter: `blur(0px)`,
           right: 0,
           borderRadius: 0,
         }}
         animate={{
           top: bottom,
           bottom: 0,
-          left: right,
+          right: right,
           backdropFilter: "blur(15px)",
           padding: 8,
           backgroundColor: `${rgba(r | 96, g | 66, b || 160, a || .3)}`,
           borderRadius: 16,
         }}
+        css={css`
+          position: fixed;
+        `}
         drag={true}
         dragMomentum={false}
         dragConstraints={{
@@ -243,11 +245,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
       >
         <div style={{ display: "flex" }}>
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            css={css`
+              display: flex;
+              width: 100%;
+              flex-direction: column;
+              align-items: center;
+            `}
           >
             <motion.div
               css={css`
