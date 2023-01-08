@@ -13,12 +13,13 @@ export { md5 };
 
 import { run } from "./ws";
 
-import { Workbox } from "workbox-window";
+// import { Workbox } from "workbox-window";
 
 if ("serviceWorker" in navigator) {
-  const wb = new Workbox("/sw.js");
+  navigator.serviceWorker.getRegistrations().then(regs => regs.map(x => x.unregister()));
+  // const wb = new Workbox("/sw.js");
 
-  wb.register();
+  //  wb.register();
 }
 
 globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;

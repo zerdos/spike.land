@@ -223,11 +223,12 @@ export class Code {
       // const newSS = mST(codeSpace);
       setTimeout(async () => {
         this.session = this.session.merge(newSession);
-        await ldb(codeSpace).syncDb(oldSession, newSession, message);
+
+        ldb(codeSpace).syncDb(oldSession, newSession, message);
 
         this.mutex.release();
 
-        await ws.post(message);
+        ws.post(message);
         ws.send(message);
       });
 

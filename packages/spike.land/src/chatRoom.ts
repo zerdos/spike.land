@@ -189,21 +189,24 @@ export class Code {
                 console.error({ mess, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
+              setTimeout(() => {
+                this.sess = this.session.toObject();
 
+                this.syncKV(oldState, newState, {
+                  oldHash,
+                  newHash,
+                  patch,
+                  reversePatch,
+                });
+
+                this.broadcast(mess);
+              });
               const newRec = this.session.merge(
                 newState,
               );
               this.session = newRec;
-              this.sess = this.session.toObject();
 
-              this.syncKV(oldState, newState, {
-                oldHash,
-                newHash,
-                patch,
-                reversePatch,
-              });
-              this.broadcast(mess);
-              return new Response(JSON.stringify({ success: true }), {
+              return new Response(JSON.stringify({ success: true, newRec }), {
                 status: 200,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
