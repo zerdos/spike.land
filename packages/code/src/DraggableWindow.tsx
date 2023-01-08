@@ -294,17 +294,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               <motion.iframe
                 frameBorder={0}
                 initial={{
-                  width: window.innerWidth,
                   transformOrigin: "top left",
-                  height: window.innerHeight,
-                  backgroundColor: rgba(r, g, b, 0),
+                  backgroundColor: rgba(r, g, b, 1),
                   transform: `scale(1,1)`,
                   borderRadius: 0,
                 }}
                 animate={{
-                  width: width,
                   backgroundColor: rgba(r, g, b, 0.7),
-                  height: height,
                   transform: `scale(${scale},${scale})`,
                   transformOrigin: "top left",
                   borderRadius: 8,
@@ -312,7 +308,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 // ref={zBodyRef}
                 // id={"z-body"}
                 // data-test-id="z-body"
-
+                css={css`
+                  height: 100%;
+                  width: 100%;
+                `}
                 src={`${location.origin}/live/${codeSpace}/iframe`}
                 suppressHydrationWarning={true}
                 seamless={true}
