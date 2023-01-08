@@ -1,4 +1,7 @@
 import type { FC } from "react";
+
+import React from "react";
+
 import { Fragment, useEffect, useState } from "react";
 import * as portals from "react-reverse-portal";
 
