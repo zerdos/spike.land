@@ -648,7 +648,7 @@ export const getImportMapStr = (orig: string) => {
 export default api;
 
 function signaller(arg0: any) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 // function replaceAll(input: string, search: string, replace: string) {
 //   return input.split(search).join(replace);

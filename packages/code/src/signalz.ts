@@ -5,7 +5,7 @@
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 
-import P2PCF from "p2pcf";
+// import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
 import ReconnectingWebSocket from "./reconnWs.mjs";
 
@@ -121,80 +121,80 @@ Object.assign(globalThis, { sendChannel, mST });
 
 // }
 const codeSpace = location.pathname.slice(1).split("/")[1];
-const client_id = user;
-const room_id = codeSpace;
+// const client_id = user;
+// const room_id = codeSpace;
 
-const p2pcf = new P2PCF(client_id, room_id, {
-  // Worker URL (optional) - if left out, will use a public worker
-  workerUrl: "https://p2pcf.zed-vision.workers.dev",
+// const p2pcf = new P2PCF(client_id, room_id, {
+//   // Worker URL (optional) - if left out, will use a public worker
+//   workerUrl: "https://p2pcf.zed-vision.workers.dev",
 
-  // STUN ICE servers (optional)
-  // If left out, will use public STUN from Google + Twilio
-  // stunIceServers: { ... },
+//   // STUN ICE servers (optional)
+//   // If left out, will use public STUN from Google + Twilio
+//   // stunIceServers: { ... },
 
-  // TURN ICE servers (optional)
-  // If left out, will use openrelay public TURN servers from metered.ca
-  // turnIceServers: { ... },
+//   // TURN ICE servers (optional)
+//   // If left out, will use openrelay public TURN servers from metered.ca
+//   // turnIceServers: { ... },
 
-  // Network change poll interval (milliseconds, optional, default: 15000, 15 seconds)
-  // Interval to poll STUN for network changes + reconnect
-  // networkChangePollIntervalMs: ...,
+//   // Network change poll interval (milliseconds, optional, default: 15000, 15 seconds)
+//   // Interval to poll STUN for network changes + reconnect
+//   // networkChangePollIntervalMs: ...,
 
-  // State expiration interval (milliseconds, optional, default: 120000, 2 minutes)
-  // Timeout interval for peers during polling
-  // stateExpirationIntervalMs: ...,
+//   // State expiration interval (milliseconds, optional, default: 120000, 2 minutes)
+//   // Timeout interval for peers during polling
+//   // stateExpirationIntervalMs: ...,
 
-  // State heartbeat interval (milliseconds, optional, default: 30000, 30 seconds)
-  // Time before expiration to heartbeat
-  // stateHeartbeatWindowMs: ...,
+//   // State heartbeat interval (milliseconds, optional, default: 30000, 30 seconds)
+//   // Time before expiration to heartbeat
+//   // stateHeartbeatWindowMs: ...,
 
-  // Fast polling rate (milliseconds, optional, default: 750)
-  // Polling rate during state transitions
-  // fastPollingRateMs: ...,
+//   // Fast polling rate (milliseconds, optional, default: 750)
+//   // Polling rate during state transitions
+//   // fastPollingRateMs: ...,
 
-  // Slow polling rate (milliseconds, optional, default: 1500, 1.5 seconds)
-  // Polling rate when state is idle
-  // slowPollingRateMs: ...,
+//   // Slow polling rate (milliseconds, optional, default: 1500, 1.5 seconds)
+//   // Polling rate when state is idle
+//   // slowPollingRateMs: ...,
 
-  // Options to pass to RTCPeerConnection constructor (optional)
-  rtcPeerConnectionOptions: {},
+//   // Options to pass to RTCPeerConnection constructor (optional)
+//   rtcPeerConnectionOptions: {},
 
-  // Proprietary constraints to pass to RTCPeerConnection constructor (optional)
-  rtcPeerConnectionProprietaryConstraints: {},
+//   // Proprietary constraints to pass to RTCPeerConnection constructor (optional)
+//   rtcPeerConnectionProprietaryConstraints: {},
 
-  // SDP transform function (optional)
-  sdpTransform: sdp => sdp,
-});
+//   // SDP transform function (optional)
+//   sdpTransform: sdp => sdp,
+// });
 
-p2pcf.start();
+// p2pcf.start();
 
-p2pcf.on("peerconnect", peer => {
-  // New peer connected
+// p2pcf.on("peerconnect", peer => {
+//   // New peer connected
 
-  // Peer is an instance of simple-peer (https://github.com/feross/simple-peer)
-  //
-  // The peer has two custom fields:
-  // - id (a per session unique id)
-  // - client_id (which was passed to their P2PCF constructor)
+//   // Peer is an instance of simple-peer (https://github.com/feross/simple-peer)
+//   //
+//   // The peer has two custom fields:
+//   // - id (a per session unique id)
+//   // - client_id (which was passed to their P2PCF constructor)
 
-  console.log("New peer:", peer.id, peer.client_id);
+//   console.log("New peer:", peer.id, peer.client_id);
 
-  peer.on("track", (track, stream) => {
-    // New media track + stream from peer
-  });
+//   peer.on("track", (track, stream) => {
+//     // New media track + stream from peer
+//   });
 
-  // Add a media stream to the peer to start sending it
-  // peer.addStream(new MediaStream(...))
-});
+//   // Add a media stream to the peer to start sending it
+//   // peer.addStream(new MediaStream(...))
+// });
 
-p2pcf.on("peerclose", peer => {
-  // Peer has disconnected
-});
+// p2pcf.on("peerclose", peer => {
+//   // Peer has disconnected
+// });
 
-p2pcf.on("msg", (peer, data) => {
-  console.log(peer, data);
-  // Received data from peer (data is an ArrayBuffer)
-});
+// p2pcf.on("msg", (peer, data) => {
+//   console.log(peer, data);
+//   // Received data from peer (data is an ArrayBuffer)
+// });
 
 // Broadcast a message via data channel to all peers
 // p2pcf.broadcast(new ArrayBuffer(...))
@@ -202,91 +202,91 @@ p2pcf.on("msg", (peer, data) => {
 // To send a message via data channel to just one peer:
 // p2pcf.send(peer, new ArrayBuffer(...))
 
-export const run = async (startState: {
-  mST: ICodeSession;
-  codeSpace: string;
-  dry: boolean;
-  address: string;
-}) => {
-  const { mST: mst, dry, address } = startState;
-  // codeSpace = startState.codeSpace;
+// export const run = async (startState: {
+//   mST: ICodeSession;
+//   codeSpace: string;
+//   dry: boolean;
+//   address: string;
+// }) => {
+//   const { mST: mst, dry, address } = startState;
+//   // codeSpace = startState.codeSpace;
 
-  startSession(codeSpace, {
-    name: user,
-    state: mst,
-  }, location.origin);
-  if (location.pathname === `/live/${codeSpace}`) {
-    renderPreviewWindow({ codeSpace, dry: !!dry });
-  }
+//   startSession(codeSpace, {
+//     name: user,
+//     state: mst,
+//   }, location.origin);
+//   if (location.pathname === `/live/${codeSpace}`) {
+//     renderPreviewWindow({ codeSpace, dry: !!dry });
+//   }
 
-  // await appFactory(mst.transpiled, codeSpace, dry);
+//   // await appFactory(mst.transpiled, codeSpace, dry);
 
-  // Const {join} = await import("./rtc");
+//   // Const {join} = await import("./rtc");
 
-  // const conn = join(codeSpace, user, (message)=>{
+//   // const conn = join(codeSpace, user, (message)=>{
 
-  // processData(message, "rtc")
-  // })
+//   // processData(message, "rtc")
+//   // })
 
-  // sendChannel.send = (message: object)=> conn.broadcast(message);
+//   // sendChannel.send = (message: object)=> conn.broadcast(message);
 
-  console.log("broadcastChannel");
-  bc = new BroadcastChannel(location.origin);
-  bc.postMessage({ user, type: "suggestNeighborsRequest" });
-  bc.onmessage = async (event) => {
-    if (event.data.ignoreUser && event.data.ignoreUser === user) {
-      return;
-    }
+//   console.log("broadcastChannel");
+//   bc = new BroadcastChannel(location.origin);
+//   bc.postMessage({ user, type: "suggestNeighborsRequest" });
+//   bc.onmessage = async (event) => {
+//     if (event.data.ignoreUser && event.data.ignoreUser === user) {
+//       return;
+//     }
 
-    if (
-      event.data.user !== user
-      && event.data.type === "suggestNeighborsRequest"
-    ) {
-    }
+//     if (
+//       event.data.user !== user
+//       && event.data.type === "suggestNeighborsRequest"
+//     ) {
+//     }
 
-    if (
-      event.data.codeSpace === codeSpace && event.data.address && !address
-    ) {
-      ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
-    }
+//     if (
+//       event.data.codeSpace === codeSpace && event.data.address && !address
+//     ) {
+//       ws?.send(JSON.stringify({ codeSpace, address: event.data.address }));
+//     }
 
-    if (event.data.ignoreUser) {
-      !ignoreUsers.includes(event.data.ignoreUser)
-        && ignoreUsers.push(event.data.ignoreUser);
-    }
+//     if (event.data.ignoreUser) {
+//       !ignoreUsers.includes(event.data.ignoreUser)
+//         && ignoreUsers.push(event.data.ignoreUser);
+//     }
 
-    if (
-      event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
-    ) {
-      const messageData = makePatch(event.data.sess);
-      if (messageData) {
-        await applyPatch(messageData);
-      }
-    }
-  };
+//     if (
+//       event.data.codeSpace === codeSpace && event.data.sess.code !== mST().code
+//     ) {
+//       const messageData = makePatch(event.data.sess);
+//       if (messageData) {
+//         await applyPatch(messageData);
+//       }
+//     }
+//   };
 
-  onSessionUpdate(
-    () => {
-      const sess = mST();
+//   onSessionUpdate(
+//     () => {
+//       const sess = mST();
 
-      const hash = md5(JSON.stringify(sess));
-      if (hash === _hash) return;
-      _hash = hash;
+//       const hash = md5(JSON.stringify(sess));
+//       if (hash === _hash) return;
+//       _hash = hash;
 
-      bc.postMessage({
-        ignoreUser: user,
-        sess,
-        codeSpace,
+//       bc.postMessage({
+//         ignoreUser: user,
+//         sess,
+//         codeSpace,
 
-        address,
-      });
-    },
-    "broadcast",
-  );
+//         address,
+//       });
+//     },
+//     "broadcast",
+//   );
 
-  // const { startIpfs } = await import("./startIpfs");
-  // await startIpfs(codeSpace);
-};
+//   // const { startIpfs } = await import("./startIpfs");
+//   // await startIpfs(codeSpace);
+// };
 
 let intervalHandler: NodeJS.Timer;
 
@@ -316,40 +316,40 @@ const debouncedSyncWs = debounce(syncWS, 1200, {
   maxWait: 2500,
 });
 
-async function syncWS() {
-  try {
-    if (ws) {
-      if (wsLastHashCode === hashCode()) {
-        return;
-      }
+// async function syncWS() {
+//   try {
+//     if (ws) {
+//       if (wsLastHashCode === hashCode()) {
+//         return;
+//       }
 
-      const sess = mST();
-      // console.//log({ wsLastHashCode });
+//       const sess = mST();
+//       // console.//log({ wsLastHashCode });
 
-      const message = await makePatchFrom(
-        wsLastHashCode,
-        sess,
-      );
+//       const message = await makePatchFrom(
+//         wsLastHashCode,
+//         sess,
+//       );
 
-      if (!message) {
-        return;
-      }
+//       if (!message) {
+//         return;
+//       }
 
-      if (message.newHash !== hashCode()) {
-        // console.error("NEW hash is not even hashCode", hashCode());
-        return;
-      }
+//       if (message.newHash !== hashCode()) {
+//         // console.error("NEW hash is not even hashCode", hashCode());
+//         return;
+//       }
 
-      const messageString = JSON.stringify({ ...message, name: user });
-      sendWS(messageString);
-    } else {
-      rejoined = false;
-      await rejoin();
-    }
-  } catch (error) {
-    // console.error("error 2", { e: error });
-  }
-}
+//       const messageString = JSON.stringify({ ...message, name: user });
+//       sendWS(messageString);
+//     } else {
+//       rejoined = false;
+//       await rejoin();
+//     }
+//   } catch (error) {
+//     // console.error("error 2", { e: error });
+//   }
+// }
 async function stopVideo() {
   if (!sendChannel.localStream) return;
 }
@@ -899,31 +899,31 @@ async function handleNewICECandidateMessage(
 }
 
 function mST() {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function startSession(codeSpace: string, arg1: { name: string; state: ICodeSession }, origin: string) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function renderPreviewWindow(arg0: { codeSpace: string; dry: boolean }) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function makePatch(sess: any) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function applyPatch(messageData: any) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function onSessionUpdate(arg0: () => void, arg1: string) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function join() {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function debounce(
@@ -931,15 +931,15 @@ function debounce(
   arg1: number,
   arg2: { trailing: boolean; leading: boolean; maxWait: number },
 ) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function hashCode() {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 
 function makePatchFrom(wsLastHashCode: string, sess: void) {
-  throw new Error("Function not implemented.");
+  console.count("yay");
 }
 // export async function sw() {
 //   try {
