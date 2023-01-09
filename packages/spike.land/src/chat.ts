@@ -257,9 +257,9 @@ const api: ExportedHandler<CodeEnv> = {
             });
 
           case "websocket": {
-            if (request.headers.get("Upgrade") != "websocket") {
-              return new Response("expected websocket", { status: 400 });
-            }
+            // if (request.headers.get("Upgrade") != "websocket") {
+            //   return new Response("expected websocket", { status: 400 });
+            // }
             //
             //          const paths = [...path.slice(1)];
             //
@@ -268,7 +268,7 @@ const api: ExportedHandler<CodeEnv> = {
             const id = env.CODE.idFromName(ASSET_HASH);
             const roomObject = env.CODE.get(id);
             const newUrl = new URL(`${url.origin}/websocket/${ASSET_HASH}`);
-            return roomObject.fetch(newUrl);
+            return roomObject.fetch(new Request(newUrl.toString(), request));
 
             // signaller({...pair[1]});
 
