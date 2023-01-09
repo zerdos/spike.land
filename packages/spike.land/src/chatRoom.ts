@@ -517,7 +517,7 @@ export class Code {
                 {},
                 url.origin,
               );
-              return new Response(this.transpiled(), {
+              return new Response(await this.transpiled(), {
                 status: 307,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
@@ -530,11 +530,8 @@ export class Code {
                 },
               });
             }
-            const trp = await initAndTransform(
-              this.sess!.code,
-              {},
-              url.origin,
-            );
+            const trp = await this.transpiled();
+
             return new Response(trp, {
               headers: {
                 "Access-Control-Allow-Origin": "*",
