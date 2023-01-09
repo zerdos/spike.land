@@ -104,6 +104,7 @@ export class Code {
 
   async fetch(request: Request) {
     // try {
+    const sessions = await this.state.storage.get("sessions") || {};
     const backupSession: ICodeSession = {
       code: `export default () => (
           <div>
@@ -269,9 +270,14 @@ export class Code {
             return new Response("expected websocket", { status: 400 });
           }
 
+          sessions.conns = sessions.conns || [];
+
           const pair = new WebSocketPair();
 
+          sessions.conns.push({ ws: pair[1] });
           await signaller(pair[1]);
+
+          this.state.storage.put(sessions);
 
           return new Response(null, { status: 101, webSocket: pair[0] });
         }
