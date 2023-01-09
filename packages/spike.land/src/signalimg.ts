@@ -22,6 +22,9 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
       data = {};
     }
 
+    const name = data.name;
+
+    
     // switching type of the user message
     switch (data.type) {
       // when a user tries to login
@@ -141,7 +144,7 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
     }
   });
 
-  connection.send("Hello world");
+  connection.send(JSON.stringify({ users: Object.keys(users).map(x => x !== session.name) }));
 };
 
 function sendTo(connection, message) {
