@@ -1,16 +1,18 @@
 const users = {};
 
 // when a user connects to our sever users[
-export const signaller = async (sessions: [], ws) => {
-  const connection = await ws.accept();
+export const signaller = async (sessions: [], connection: WebSocket) => {
+  connection.accept();
+
   const session = { connection, quit: false, name: null };
+
   sessions.push(session);
 
   console.log("User connected");
 
   // when server gets a message from a connected user
-  connection.on("message", function(message) {
-    let data;
+  connection.addEventListener("message", async function(message: string) {
+    let data: { type: string; name: string };
 
     // accepting only JSON messages
     try {
@@ -34,8 +36,8 @@ export const signaller = async (sessions: [], ws) => {
           });
         } else {
           // save user connection on the server
-          users[data.name] = connection;
-          connection.name = data.name;
+          users[data.name] = session;
+          session.name = data.name;
 
           sendTo(connection, {
             type: "login",
