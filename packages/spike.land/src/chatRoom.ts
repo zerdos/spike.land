@@ -119,7 +119,8 @@ export class Code {
       html: "<div></div>",
       css: "",
     };
-    const sess: ICodeSession = (await this.state.storage.get("sess", {})) || backupSession;
+    const sess: ICodeSession = (await this.state.storage.get("sess", {}))
+      || (await this.state.storage.get("session", {})) || backupSession;
     const hashCode = (ICodeSession) => Record(backupSession)(sess).hashCode();
 
     const url = new URL(request.url);

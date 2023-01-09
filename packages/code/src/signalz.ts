@@ -304,19 +304,21 @@ async function rejoin() {
 
 const ignoreUsers: string[] = [];
 
-const debouncedSyncRTC = debounce(syncRTC, 100, {
-  trailing: true,
-  leading: true,
-  maxWait: 500,
-});
+// const debouncedSyncRTC = debounce(syncRTC, 100, {
+//   trailing: true,
+//   leading: true,
+//   maxWait: 500,
+// });
 
-const debouncedSyncWs = debounce(syncWS, 1200, {
-  trailing: true,
-  leading: true,
-  maxWait: 2500,
-});
+// const debouncedSyncWs = debounce(syncWS, 1200, {
+//   trailing: true,
+//   leading: true,
+//   maxWait: 2500,
+// });
 
-// async function syncWS() {
+async function syncWS() {
+  console.log("bum");
+}
 //   try {
 //     if (ws) {
 //       if (wsLastHashCode === hashCode()) {
