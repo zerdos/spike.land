@@ -95,11 +95,12 @@ const buildOptions = {
   alias: {
     path: "path-browserify",
     buffer: "buffer-browserify",
-    events: "events-browserify",
+    events: "events",
     stream: "stream-browserify",
     os: "os-browserify",
     assert: "assert-browserify",
     fs: "./src/fs.ts",
+    "tiny-little-peer": "/tiny-little-peer",
   },
   // alias: {
   //   "react-rnd": "/npm:/*react-rnd@10.3.7",
@@ -254,6 +255,7 @@ const build = (
       // "src/fs.worker.ts",
     ],
     plugins: [],
+
     bundle: true,
     define, // makeEnv("production"),
     minify: false,
@@ -322,14 +324,6 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
-      "tiny-simple-peer",
-      // ...Object.keys(importMap.imports).map(x=>importMap.imports[x])
-      // "/npm:/*",
-      // "react",
-      //  "react-rnd",
-      // "react-dom",
-      // "react-dom/",
-      // "react-icons",
       // "react-error-boundary",
       // "@emotion/react",
       // "@emotion/",
