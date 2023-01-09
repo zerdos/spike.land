@@ -135,8 +135,10 @@ export class Code {
 
         this.sess = this.sess.code
           ? this.sess
-          : await this.storage.get<ICodeSession>("head").then(head => this.storage.get<ICodeSession>(String(head))
-          )!;
+          : await this.storage.get<ICodeSession>("head").then((head) =>
+            head && this.storage.get<ICodeSession>(String(head))
+          );
+
         if (this.sess.code) return;
 
         this.sess.i = 1;
@@ -147,8 +149,9 @@ export class Code {
         </div>
         
         `;
+        return;
       } catch {
-        console.error("error happened");
+        console.error("Error while blockConcurrencyWhile");
       }
     });
 
