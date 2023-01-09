@@ -859,7 +859,7 @@ sheet.addRule('h1', 'background: red;');
 
     if (data.type == "handshake") {
       const commit = data.hashCode;
-      while (commit && commit !== this.head) {
+      while (commit && commit !== this.head()) {
         const oldNode = await this.storage.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });
