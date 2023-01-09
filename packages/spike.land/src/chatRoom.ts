@@ -35,13 +35,16 @@ export class Code {
   );
   head: (x?: ICodeSession) => number;
   waiting: (() => boolean)[] = [];
-  wsSessions: WebsocketSession[];
+
+  // wsSessions: WebsocketSession[];
+
   buffy: Promise<void>[] = [];
   i = 0;
   lastSavedHash = 0;
 
   mST(p?: Delta[]) {
     if (p && p.length) {
+      s;
       const sessAsJs = this.session().toJS();
 
       const { i, code, html, css }: ICodeSession = p
@@ -112,18 +115,20 @@ export class Code {
       ))();
   }
   t: { [i: number]: string } = {};
-  origin: string;
+  origin: string = "";
+  transpiled(k: number) {
+    const { t, origin, sess } = this;
+    const { i, code } = sess;
 
-  transpiled(i = this.sess.i) {
-    if (this.t[i]) return this.t[i];
+    const index = k || i;
+
+    if (t[index]) return t[index];
     if (!this.origin) return "";
-    return this.t[this.sess.i] = this.t[this.sess.i]
-      || (initAndTransform(this.sess.code, {}, this.origin));
+    return t[index] = t[index] || (initAndTransform(this.sess.code, {}, this.origin));
   }
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
     const _ = this;
-    this.origin = location.origin;
     this.state = state;
     this.storage = this.state.storage;
 
@@ -165,7 +170,7 @@ export class Code {
           css: "",
         };
 
-        this.session = this.session(this.sess);
+        this.session = this.sess(this.sess);
         this.head(this.sess);
         this.storage.put<ICodeSession>(String(this.head()), this.sess).then(
           this.storage.put<number>("head", this.head()),
@@ -187,7 +192,7 @@ export class Code {
   async fetch(request: Request) {
     try {
       const url = new URL(request.url);
-      const origin = url.origin;
+      this.origin = url.origin;
 
       // this.storage.put("head", this.storage.head)
       // this.storage.put(String(this.storage.head), this.sess)
