@@ -271,11 +271,10 @@ export class Code {
           }
 
           sessions.conns = sessions.conns || [];
-
           const pair = new WebSocketPair();
 
           sessions.conns.push({ ws: pair[1] });
-          await signaller(pair[1]);
+          await signaller(pair[1].accept());
 
           this.state.storage.put(sessions);
 
@@ -711,6 +710,7 @@ sheet.addRule('h1', 'background: red;');
     };
     this.wsSessions.push(session);
     this.wsSessions = this.wsSessions.filter((x) => !x.quit);
+
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
