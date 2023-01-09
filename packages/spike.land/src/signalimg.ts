@@ -121,7 +121,7 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
 
   // when user exits, for example closes a browser window
   // this may help if we are still in "offer","answer" or "candidate" state
-  connection.on("close", function() {
+  connection.addEventListener("close", function() {
     if (connection.name) {
       delete users[connection.name];
 
