@@ -148,14 +148,14 @@ console.log(`
 
 const build = (
   entryPoints,
-  extraExternal,
+  external,
   buildOptions,
 ) =>
   esbuild.build({
     ...buildOptions,
     entryPoints,
     watch: false,
-    external: [],
+    external,
     outExtension: { ".js": ".mjs" },
     bundle: true,
     splitting: true, // format === "esm",
@@ -169,7 +169,7 @@ const build = (
     minifySyntax: !isDevelopment,
     legalComments: "none",
     ignoreAnnotations: false, // True,
-    // external
+
     // external: [ "@emotion/react/*"],
     // sourcemap: true,
     treeShaking: true,
