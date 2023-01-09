@@ -21,7 +21,7 @@ const wsConnection = new ReconnectingWebSocket(
   `wss://${location.host}/websocket`,
 );
 
-wsConnection.addEventListener("open", () => {
+wsConnection.addEventListener("onopen", () => {
   // console.//log("NEW WS CONNECTION");
   wsConnection.send(JSON.stringify({ name: user, type: "login" }));
 });

@@ -4,7 +4,7 @@ const users = {};
 export const signaller = async (sessions: [], connection: WebSocket) => {
   connection.accept();
 
-  const session = { connection, quit: false, name: null };
+  const session = { quit: false, name: null };
 
   sessions.push(session);
 
@@ -30,6 +30,8 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
 
         // if anyone is logged in with this username then refuse
         if (users[data.name]) {
+          session.name = data.name;
+
           sendTo(connection, {
             type: "login",
             success: false,
