@@ -255,6 +255,19 @@ const api: ExportedHandler<CodeEnv> = {
                 "Cache-Control": "no-cache",
               },
             });
+            
+          case "websocket": {
+              if (request.headers.get("Upgrade") != "websocket") {
+                return new Response("expected websocket", { status: 400 });
+              }
+  
+              const pair = new WebSocketPair();
+  
+              await signaller(pair[1]);
+  
+              return new Response(null, { status: 101, webSocket: pair[0] });
+            
+          }
           case "files.json":
             return new Response(JSON.stringify(files), {
               headers: {
@@ -635,6 +648,10 @@ export const getImportMapStr = (orig: string) => {
 
 export default api;
 
+
+function signaller(arg0: any) {
+  throw new Error("Function not implemented.");
+}
 // function replaceAll(input: string, search: string, replace: string) {
 //   return input.split(search).join(replace);
 // }
