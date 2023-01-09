@@ -1,6 +1,7 @@
 import { CodePatch, Delta, ICodeSession } from "@spike.land/code";
 import { resetCSS, string_, syncStorage } from "@spike.land/code/session";
 import { aPatch, HTML, md5 } from "@spike.land/code/session";
+import { signaller } from "./signalimg";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";
 import { Record } from "immutable";
@@ -263,6 +264,17 @@ export class Code {
       if (path.length === 0) path.push("");
 
       switch (path[0]) {
+        case "websocket": {
+          if (request.headers.get("Upgrade") != "websocket") {
+            return new Response("expected websocket", { status: 400 });
+          }
+
+          const pair = new WebSocketPair();
+
+          await signaller(pair[1]);
+
+          return new Response(null, { status: 101, webSocket: pair[0] });
+        }
         case "code":
         case "index.tsx":
           return new Response(code, {
@@ -669,18 +681,6 @@ sheet.addRule('h1', 'background: red;');
             status: 200,
             headers,
           });
-        }
-
-        case "websocket": {
-          if (request.headers.get("Upgrade") != "websocket") {
-            return new Response("expected websocket", { status: 400 });
-          }
-
-          const pair = new WebSocketPair();
-
-          await this.handleSession(pair[1]);
-
-          return new Response(null, { status: 101, webSocket: pair[0] });
         }
 
         default:

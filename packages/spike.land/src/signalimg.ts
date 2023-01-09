@@ -1,7 +1,7 @@
 const users = {};
 
 // when a user connects to our sever users[
-export const signaller = (connection) => {
+export const signaller = async (connection) => {
   console.log("User connected");
 
   // when server gets a message from a connected user
