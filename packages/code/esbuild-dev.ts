@@ -322,6 +322,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
+      "tiny-simple-peer",
       // ...Object.keys(importMap.imports).map(x=>importMap.imports[x])
       // "/npm:/*",
       // "react",
