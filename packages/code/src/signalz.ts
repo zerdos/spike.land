@@ -17,6 +17,17 @@ import { md5 } from "./md5"; // import { wait } from "wait";
 import uidV4 from "./uidV4.mjs";
 import { wait } from "./wait.js";
 
+const wsConnection = new ReconnectingWebSocket(
+  `wss://${location.host}/websocket`,
+);
+
+wsConnection.addEventListener("open", () => {
+  // console.//log("NEW WS CONNECTION");
+  wsConnection.send(JSON.stringify({ name: user, type: "login" }));
+});
+
+wsConnection.onmessage = (e) => processWsMessage(e, "ws", { hashCode: "" });
+
 // Import PubSubRoom from 'ipfs-pubsub-room'
 
 const users = new AVLTree(
@@ -256,9 +267,6 @@ export const run = async (startState: {
 
   onSessionUpdate(
     () => {
-      debouncedSyncWs();
-      debouncedSyncRTC();
-
       const sess = mST();
 
       const hash = md5(JSON.stringify(sess));
@@ -401,10 +409,6 @@ async function startVideo() {
 async function syncRTC() {
   try {
     if (Object.keys(rtcConns).length > 0) {
-      if (webRTCLastSeenHashCode === hashCode()) {
-        return;
-      }
-
       const sess = mST();
       // console.//log({ wsLastHashCode });
 
@@ -424,17 +428,6 @@ async function syncRTC() {
   }
 }
 
-const wsConnection = new ReconnectingWebSocket(
-  `wss://${location.host}/websocket`,
-);
-rejoined = false;
-
-wsConnection.addEventListener("open", () => {
-  // console.//log("NEW WS CONNECTION");
-  wsConnection.send(JSON.stringify({ name: user, type: "login" }));
-});
-
-wsConnection.onmessage = (e) => processWsMessage(e, "ws", {});
 // If (delta) {
 // if (delta !== deltaSent) {
 // deltaSent = delta;
@@ -578,7 +571,7 @@ async function processData(
     return;
   }
 
-  if (wsLastHashCode !== hashCode()) {
+  if (wsLastHashCode) {
     // Const resp = await fetch(`https://spike.land/live/${codeSpace}/mST`);
     // const state = await resp.json();
 
@@ -679,7 +672,7 @@ async function processData(
           processWsMessage(
             message,
             "rtc",
-            Object.assign(rtc, { hashCode: hashCode() }),
+            Object.assign(rtc, { hashCode: "" }),
             // respond: (msg)=>{},
             // broadcast: ()=>{}
           ),
@@ -905,6 +898,49 @@ async function handleNewICECandidateMessage(
   await rtcConns[target].addIceCandidate(candidate);
 }
 
+function mST() {
+  throw new Error("Function not implemented.");
+}
+
+function startSession(codeSpace: string, arg1: { name: string; state: ICodeSession }, origin: string) {
+  throw new Error("Function not implemented.");
+}
+
+function renderPreviewWindow(arg0: { codeSpace: string; dry: boolean }) {
+  throw new Error("Function not implemented.");
+}
+
+function makePatch(sess: any) {
+  throw new Error("Function not implemented.");
+}
+
+function applyPatch(messageData: any) {
+  throw new Error("Function not implemented.");
+}
+
+function onSessionUpdate(arg0: () => void, arg1: string) {
+  throw new Error("Function not implemented.");
+}
+
+function join() {
+  throw new Error("Function not implemented.");
+}
+
+function debounce(
+  syncRTC: () => Promise<void>,
+  arg1: number,
+  arg2: { trailing: boolean; leading: boolean; maxWait: number },
+) {
+  throw new Error("Function not implemented.");
+}
+
+function hashCode() {
+  throw new Error("Function not implemented.");
+}
+
+function makePatchFrom(wsLastHashCode: string, sess: void) {
+  throw new Error("Function not implemented.");
+}
 // export async function sw() {
 //   try {
 //     navigator.serviceWorker.onmessage = async (event) => {
