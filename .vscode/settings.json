@@ -64,5 +64,6 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "eslint.nodePath": ".yarn/sdks",
   "deno.enable": true,
-  "deno.unstable": true
+  "deno.unstable": true,
+  "livePreview.defaultPreviewPath": "/packages/code/src/index.html"
 }

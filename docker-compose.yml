@@ -1,7 +1,10 @@
 version: "3.9"
 services:
-  devcontainer:
-    build: .
+  devcontainer: 
+    image: devimages/bookw
+    build: 
+      dockerfile: packages/bookworm-devcontainer  
+      context: .
     tmpfs:
       - /home/$USER/tmpfs:exec
     shm_size: 4gb

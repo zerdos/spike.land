@@ -106,7 +106,7 @@ const buildOptions = {
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
-  external: ["./mST", "/npm:*"],
+  external: ["./mST", "/npm:*", "tiny-simple-peer"],
   legalComments: "none",
   resolveExtensions: [
     ".tsx",
@@ -306,6 +306,7 @@ const build = (
       "src/reactDomClient.ts",
       "src/emotion.ts",
       "src/session.ts",
+      "src/signalz.ts",
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
       "src/Editor.tsx",
