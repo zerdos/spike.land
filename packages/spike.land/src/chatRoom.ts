@@ -15,6 +15,15 @@ export { md5 };
 
 // import { CodeRateLimiter } from "./rateLimiter";
 
+
+export type ICodeSession = {
+  code: string;
+  i: number;
+  html: string;
+  css: string;
+};
+
+
 interface WebsocketSession {
   name: string;
   webSocket: WebSocket;
@@ -23,49 +32,8 @@ interface WebsocketSession {
 }
 
 export class Code {
-  state: DurableObjectState;
-  storage: DurableObjectStorage;
   // mutex: Mutex;
-  session: (c?: ICodeSession) => Record<ICodeSession>;
-  sess: ICodeSession;
-  user = md5(self.crypto.randomUUID());
-  users = new AVLTree(
-    (a: string, b: string) => a === b ? 0 : a < b ? 1 : -1,
-    true,
-  );
-  head: (x?: ICodeSession) => number;
-  waiting: (() => boolean)[] = [];
-
-  // wsSessions: WebsocketSession[];
-
-  buffy: Promise<void>[] = [];
-  i = 0;
-  lastSavedHash = 0;
-
-  mST(p?: Delta[]) {
-    if (p && p.length) {
-      s;
-      const sessAsJs = this.session().toJS();
-
-      const { i, code, html, css }: ICodeSession = p
-        ? JSON.parse(
-          aPatch(
-            string_(
-              sessAsJs,
-            ),
-            p,
-          ),
-        )
-        : sessAsJs;
-      return this.session().merge({
-        i,
-        code,
-        html,
-        css,
-      }).toObject();
-    }
-    return this.session().toObject();
-  }
+  
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
@@ -95,116 +63,82 @@ export class Code {
     });
   }
 
-  syncKV(
-    oldSession: ICodeSession,
-    newSess: ICodeSession,
-    message: CodePatch,
-  ) {
-    return (async () =>
-      await syncStorage(
-        async (
-          key: string,
-          v: object,
-        ) => (await this.storage.put(key, v, {
-          allowConcurrency: false,
-        })), // .then(x=>console.log(x)).catch(()=>console.error('error')).finally(()=>console.log("ok")),
-        async (key: string) => await this.storage.get(String(key), { allowConcurrency: true }),
-        oldSession,
-        newSess,
-        message,
-      ))();
-  }
-  wait = (x?: () => boolean) => {
-    this.waiting = this.waiting.filter((x) => !x()) || [];
-    if (x && !x()) this.waiting.push(x);
-  };
 
-  t: { [i: number]: Promise<string> } = {};
-  origin: string = "";
-  transpiled(k = this.sess.i) {
-    const { t, origin, sess } = this;
-    const { i, code } = sess;
-
-    const index = k || i;
-
-    return t[index] = t[index]
-      || new Promise<string>(res =>
-        this.wait(() =>
-          !!(k <= this.sess.i ? false : res(initAndTransform(this.sess.code, {}, this.origin) as unknown as string))
-        )
-      );
-  }
-
-  constructor(state: DurableObjectState, private env: CodeEnv) {
-    const _ = this;
+  constructor(private state: DurableObjectState, private env: CodeEnv) {
     this.state = state;
-    this.storage = this.state.storage;
 
     // const _ = this;
-    this.sess = { code: "", i: 0, html: "", css: "" } as ICodeSession;
-    this.session = (x = this.sess) => Record<ICodeSession>(this.sess)(x);
-    this.head = (x = this.sess) => this.session(x).hashCode();
+    // this.origin = '';
+    // this.sess = { code: "", i: 0, html: "", css: "" } as ICodeSession;
+    // this.session = (x = this.newProperty.sess) => Record<ICodeSession>(this.sess)(x);
+    // this.head = (x = this.sess) => this.session(x).hashCode();
     // .wsSessions = [];
-    this.env = env;
+    // this.env = env;
 
     // this.mutex = new Mutex();
-    this.state.blockConcurrencyWhile(async () => {
-      try {
-        // if (
-        //   this.head && this.sess?.code && this.sess.i > 10 && this.session.hashCode() == this.head
-        // ) return;
-        // const backupSession = fetch(origin +  "/api/room/coder-main/session.json").then(x=>x.json());getBackupSession();
+    // this.state.blockConcurrencyWhile(async () => {
+    //   try {
+    //   const isSessLoaded =()=> this.sess && this.sess.code && this.sess.i>0 ;
 
-        this.sess = this.sess.code
-          ? this.sess
-          : await this.storage.get<ICodeSession>("head")
-            .then((head) =>
-              head && this.storage.get<ICodeSession>(String(head))
-                .then((x?: ICodeSession) => x.json())
-            );
+    //   if (isSessLoaded()) return;
+    //       console.log("REAC")
+    //     let head  = await this.storage.get<number>("head").;
+    //     if (head) {
+    //       this.sess = await this.storage.get<ICodeSession>(String(head));
+    //       if (isSessLoaded()) return;
+    //     }
 
-        if (this.sess && this.sess.code.length) return;
+   
 
-        this.sess = {
-          code: `
-        export default ()=<div> <h1>404 - for now.</h1>
-        
-        <h2>But you can edit even this page and share with your friends./</h2>
-        </div>
-        
-        `,
-          i: 1,
-          html: "<div></div>",
-          css: "",
-        };
+    //     this.sess=this.sess(backupSession);
 
-        this.session = this.sess(this.sess);
-        this.head(this.sess);
-        this.storage.put<ICodeSession>(String(this.head()), this.sess).then(
-          this.storage.put<number>("head", this.head()),
-        );
+    //     this.session = this.sess(this.sess);
+    //     head =  this.head(this.sess);
+    //     await this.storage.put<ICodeSession>(String(       head        ), this.sess);
+    //     await this.storage.put<ICodeSession>("head",head);
+      
+    //     return;
+    //   } catch{
+    //     console.error("Error while blockConcurrencyWhile");
+    //   }
+    // });
 
-        return;
-      } catch {
-        console.error("Error while blockConcurrencyWhile");
-      }
-    });
-
-    this.lastSavedHash = this.head();
+    // this.lastSavedHash = this.head();
   }
 
   async fetch(request: Request) {
     try {
+      const backupSession:ICodeSession = {
+        code: `export default () => (
+          <div>
+            <h1>404 - for now.</h1>
+        
+            <h2>
+              But you can edit even this page and share with your friends.
+            </h2>
+          </div>
+        );`,
+        i: 1,
+        html: "<div></div>",
+        css: "",
+      };
+      const sess: ICodeSession = (await this.state.storage.get("sess", {})) || backupSession;
+      const hashCode= (ICodeSession) => Record(backupSession)(sess).hashCode()
+      const origin = url.origin;
+      const transpiled = ()=> initAndTransform(sess.code, {}, origin)
+    
+      const oldHash = hashCode(sess);
+    
       const url = new URL(request.url);
-      this.origin = url.origin;
+      
 
       // this.storage.put("head", this.storage.head)
       // this.storage.put(String(this.storage.head), this.sess)
 
-      this.wait();
-      const codeSpace = url.searchParams.get("room");
+   
+      // const codeSpace = url.searchParams.get("room");
 
-      const mess = await request.json();
+      // const mess = await request.json();
 
       if (request.method === "POST") {
         return new Response(JSON.stringify({ success: true, mess }), {
@@ -291,11 +225,17 @@ export class Code {
                 "Cache-Control": "no-cache",
                 "Content-Type": "application/json; charset=UTF-8",
               },
-            },
+            d},
           );
         }
+
+
+
+
+      }} catch (err) {
+        console.error("error somewhere in the fetch");
         return new Response(
-          JSON.stringify({ success: true, message: "nothing happened" }),
+          JSON.stringify({ success: true, message: "error somewhere in the fetch happened" }),
           {
             status: 204,
             headers: {
@@ -308,8 +248,27 @@ export class Code {
         );
       }
 
+
+
+
+
+
+        return new Response(
+          JSON.stringify({ success: true, message: "nothing happened" }),
+          {
+            status: 204,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          },
+        );
+      
+
       return handleErrors(request, async () => {
-        const { code, css, html, i } = this.sess!;
+        const { code, css, html, i } = this.sess;
         const path = url.pathname.slice(1).split("/");
         if (path.length === 0) path.push("");
 
@@ -348,7 +307,7 @@ export class Code {
           }
           case "index.trans.js": {
             const trp = await initAndTransform(
-              this.sess!.code,
+              this.sess.code,
               {},
               url.origin,
             );
@@ -495,9 +454,9 @@ export class Code {
           case "index.mjs":
           case "index.js":
           case "js": {
-            const i = path[1] || this.sess!.i;
+            const i = path[1] || this.sess.i;
 
-            if (i > this.sess!.i) {
+            if (i > this.sess.i) {
               return new Response(await this.transpiled(i)), {
                 status: 200,
                 headers: {
@@ -506,14 +465,14 @@ export class Code {
                   "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
 
-                  content_hash: md5(this.transpiled()),
+                  content_hash: md5(await this.transpiled(i)),
                   "Content-Type": "application/javascript; charset=UTF-8",
                 },
               };
             }
-            if (i < this.sess!.i) {
+            if (i < this.sess.i) {
               const trp = await initAndTransform(
-                this.sess!.code,
+                this.sess.code,
                 {},
                 url.origin,
               );
@@ -522,7 +481,7 @@ export class Code {
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Location": `${url.origin}/live/${codeSpace}/index.js/${this.sess!.i}`,
+                  "Location": `${url.origin}/live/${codeSpace}/index.js/${this.sess.i}`,
                   "Cache-Control": "no-cache",
 
                   content_hash: md5(trp),
@@ -736,9 +695,8 @@ sheet.addRule('h1', 'background: red;');
             return new Response("Not found", { status: 404 });
         }
       });
-    } catch (err) {
-      console.error("error somewhere in the fetch");
-    }
+
+  
   }
 
   async handleSession(webSocket: WebSocket) {
@@ -761,7 +719,7 @@ sheet.addRule('h1', 'background: red;');
     webSocket.send(
       JSON.stringify({
         hashCode: this.head,
-        i: this.sess!.i,
+        i: this.sess.i,
         users,
         type: "handshake",
       }),
@@ -928,7 +886,7 @@ sheet.addRule('h1', 'background: red;');
       // if (
       //   !data.type && limiter.checkLimit()
       // ) {
-      //   return respondWith({ if ( if (data.i <= this.sess!.i) return;data.i <= this.sess!.i) return;
+      //   return respondWith({ if ( if (data.i <= this.sess.i) return;data.i <= this.sess.i) return;
       //     error: "Your IP is being rate-limited, please try again later.",
       //   });
       // }
