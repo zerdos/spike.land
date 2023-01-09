@@ -274,7 +274,7 @@ export class Code {
 
           await signaller(sessions, pair[1]);
 
-          this.state.storage.put("sessions", sessions);
+          this.state.storage.put("sessions", sessions.map(({ name, quit }) => ({ name, quit })));
 
           return new Response(null, { status: 101, webSocket: pair[0] });
         }
