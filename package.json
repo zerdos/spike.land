@@ -48,7 +48,7 @@
     "constants": "^0.0.2",
     "cypress": "12.3.0",
     "dprint": "^0.34.1",
-    "esbuild-wasm": "^0.16.15",
+    "esbuild-wasm": "^0.16.16",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.31.11",
     "localforage": "^1.10.0",
