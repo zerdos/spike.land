@@ -151,7 +151,8 @@ export class Code {
 
       if (!this.sess || !(this.sess.i > 0)) {
         await Promise.all([
-          this.head = await ky(`${origin}/live/${codeSpace}/session/head`).text().then(x => this.head = Number(x)),
+          this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
+            .text().then((x) => this.head = Number(x)),
           this.sess = await ky(`${origin}/live/${codeSpace}/session`).json(),
         ]);
         this.session = Record<ICodeSession>(this.sess)();

@@ -1,9 +1,6 @@
 import type { TransformOptions } from "esbuild-wasm";
 import { initialize, transform as esbTransform } from "esbuild-wasm";
 
-
-
-
 export const initAndTransform = async (
   code: string,
   opts: TransformOptions,
@@ -42,7 +39,6 @@ export async function esmTransform(code: string, origin: string) {
   if (origin) return importMapReplace(transpiled.code, origin, origin);
   else return transpiled.code;
 }
-
 
 const mod = {
   init: false as (boolean | Promise<void>),

@@ -16,7 +16,7 @@ import { run } from "./ws";
 // import { Workbox } from "workbox-window";
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.getRegistrations().then(regs => regs.map(x => x.unregister()));
+  navigator.serviceWorker.getRegistrations().then((regs) => regs.map((x) => x.unregister()));
   // const wb = new Workbox("/sw.js");
 
   //  wb.register();

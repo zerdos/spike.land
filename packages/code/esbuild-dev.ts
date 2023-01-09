@@ -5,11 +5,11 @@
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.15/mod.js";
 import { importMap } from "./src/importMap.ts";
 
-const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json").then(x => x.json());
+const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
+  .then((x) => x.json());
 
-fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`).then((x) => x.blob()).then(b =>
-  Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b)
-);
+fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`)
+  .then((x) => x.blob()).then((b) => Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b));
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};

@@ -111,15 +111,15 @@ export class Code {
         message,
       ))();
   }
-  t: {[i: number]:string}={}
+  t: { [i: number]: string } = {};
   origin: string;
 
-  transpiled(i = this.sess.i){
+  transpiled(i = this.sess.i) {
     if (this.t[i]) return this.t[i];
-    if (!this.origin) return ""
- return  this.t[this.sess.i]= this.t[this.sess.i] || (initAndTransform(this.sess.code, {}, this.origin))
+    if (!this.origin) return "";
+    return this.t[this.sess.i] = this.t[this.sess.i]
+      || (initAndTransform(this.sess.code, {}, this.origin));
   }
-
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
     const _ = this;
@@ -145,7 +145,7 @@ export class Code {
         this.sess = this.sess.code
           ? this.sess
           : await this.storage.get<ICodeSession>("head")
-            .then(head =>
+            .then((head) =>
               head && this.storage.get<ICodeSession>(String(head))
                 .then((x?: ICodeSession) => x.json())
             );
@@ -188,11 +188,6 @@ export class Code {
     try {
       const url = new URL(request.url);
       const origin = url.origin;
-
-
-      
-
-
 
       // this.storage.put("head", this.storage.head)
       // this.storage.put(String(this.storage.head), this.sess)
@@ -273,15 +268,22 @@ export class Code {
             }
           }
         } catch (err) {
-          return new Response(JSON.stringify({ success: false, mess: "on the post", error: { er } }), {
-            status: 500,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
+          return new Response(
+            JSON.stringify({
+              success: false,
+              mess: "on the post",
+              error: { er },
+            }),
+            {
+              status: 500,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
             },
-          });
+          );
         }
         return new Response(
           JSON.stringify({ success: true, message: "nothing happened" }),
@@ -553,7 +555,9 @@ export class Code {
           }
           case "hashCode": {
             const hashCode = String(Number(path[1]));
-            const patch = await this.storage.get<{ patch: string; oldHash: number }>(
+            const patch = await this.storage.get<
+              { patch: string; oldHash: number }
+            >(
               hashCode,
               { allowConcurrency: true },
             );
@@ -858,9 +862,12 @@ sheet.addRule('h1', 'background: red;');
         const oldNode = await this.storage.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });
-        const newNode = await this.storage.get<CodePatch>("" + oldNode!.newHash, {
-          allowConcurrency: true,
-        });
+        const newNode = await this.storage.get<CodePatch>(
+          "" + oldNode!.newHash,
+          {
+            allowConcurrency: true,
+          },
+        );
         return respondWith({
           oldHash: commit,
           newHash: oldNode!.newHash,
