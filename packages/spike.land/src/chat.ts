@@ -260,12 +260,19 @@ const api: ExportedHandler<CodeEnv> = {
             if (request.headers.get("Upgrade") != "websocket") {
               return new Response("expected websocket", { status: 400 });
             }
+            //
+            //          const paths = [...path.slice(1)];
+            //
 
-            const pair = new WebSocketPair();
+            // const pair = new WebSocketPair();
+            const id = env.CODE.idFromName(ASSET_HASH);
+            const roomObject = env.CODE.get(id);
+            const newUrl = new URL(`${url.origin}/websocket/${assetHash}`);
+            return roomObject.fetch(newUrl);
 
-            await signaller(pair[1]);
+            // signaller({...pair[1]});
 
-            return new Response(null, { status: 101, webSocket: pair[0] });
+            // return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "files.json":
             return new Response(JSON.stringify(files), {
@@ -589,7 +596,6 @@ async function handleApiRequest(
     case "room": {
       if (!path[1]) {
         if (request.method === "POST") {
-          const id = env.CODE.newUniqueId();
           return new Response(id.toString(), {
             headers: {
               "Access-Control-Allow-Origin": "*",
