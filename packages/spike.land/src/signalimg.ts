@@ -1,5 +1,7 @@
 const users = {};
 
+const userNames = new Set();
+
 // when a user connects to our sever users[
 export const signaller = async (sessions: [], connection: WebSocket) => {
   connection.accept();
@@ -19,12 +21,8 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
       data = JSON.parse(message);
     } catch (e) {
       console.log("Invalid JSON");
-      data = {};
     }
 
-    const name = data.name;
-
-    
     // switching type of the user message
     switch (data.type) {
       // when a user tries to login
@@ -33,7 +31,11 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
 
         // if anyone is logged in with this username then refuse
         if (users[data.name]) {
+          const name = data.name;
+          userNames.add(data.name);
+
           session.name = data.name;
+          userNames.add(session.name);
 
           sendTo(connection, {
             type: "login",
@@ -144,9 +146,14 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
     }
   });
 
-  connection.send(JSON.stringify({ users: Object.keys(users).map(x => x !== session.name) }));
+  userNames.delete(session.name);
+
+  const msg = JSON.stringify({ users: userNames });
+  userNames.add(session.name);
+
+  connection.send(msg);
 };
 
 function sendTo(connection, message) {
-  connection.send(JSON.stringify(message));
+  connection.send(msg);
 }
