@@ -498,7 +498,7 @@ export class Code {
             const i = path[1] || this.sess!.i;
 
             if (i > this.sess!.i) {
-              return new Response(await this.transpiled()), {
+              return new Response(await this.transpiled(i)), {
                 status: 200,
                 headers: {
                   "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
@@ -517,12 +517,12 @@ export class Code {
                 {},
                 url.origin,
               );
-              return new Response(trp, {
+              return new Response(this.transpiled(), {
                 status: 307,
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Location": `${url.origin}/live/${codeSpace}/index.mjs/${this.sess!.i}`,
+                  "Location": `${url.origin}/live/${codeSpace}/index.js/${this.sess!.i}`,
                   "Cache-Control": "no-cache",
 
                   content_hash: md5(trp),
