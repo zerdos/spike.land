@@ -114,17 +114,25 @@ export class Code {
         message,
       ))();
   }
-  t: { [i: number]: string } = {};
+  wait = (x?: () => boolean) => {
+    this.waiting = this.waiting.filter((x) => !x()) || [];
+    if (x && !x()) this.waiting.push(x);
+  };
+
+  t: { [i: number]: Promise<string> } = {};
   origin: string = "";
-  transpiled(k: number) {
+  transpiled(k = this.sess.i) {
     const { t, origin, sess } = this;
     const { i, code } = sess;
 
     const index = k || i;
 
-    if (t[index]) return t[index];
-    if (!this.origin) return "";
-    return t[index] = t[index] || initAndTransform(this.sess.code, {}, this.origin) as unknown as string;
+    return t[index] = t[index]
+      || new Promise<string>(res =>
+        this.wait(() =>
+          !!(k <= this.sess.i ? false : res(initAndTransform(this.sess.code, {}, this.origin) as unknown as string))
+        )
+      );
   }
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
@@ -184,10 +192,6 @@ export class Code {
 
     this.lastSavedHash = this.head();
   }
-  wait = (x?: () => boolean) => {
-    this.waiting = this.waiting.filter((x) => !x()) || [];
-    if (x && !x()) this.waiting.push(x);
-  };
 
   async fetch(request: Request) {
     try {
@@ -494,12 +498,7 @@ export class Code {
             const i = path[1] || this.sess!.i;
 
             if (i > this.sess!.i) {
-              const trp = await initAndTransform(
-                this.sess!.code,
-                {},
-                url.origin,
-              );
-              return new Response(trp, {
+              return new Response(await this.transpiled()), {
                 status: 200,
                 headers: {
                   "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
@@ -507,10 +506,10 @@ export class Code {
                   "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
 
-                  content_hash: md5(trp),
+                  content_hash: md5(this.transpiled()),
                   "Content-Type": "application/javascript; charset=UTF-8",
                 },
-              });
+              };
             }
             if (i < this.sess!.i) {
               const trp = await initAndTransform(
