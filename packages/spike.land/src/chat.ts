@@ -267,7 +267,7 @@ const api: ExportedHandler<CodeEnv> = {
             // const pair = new WebSocketPair();
             const id = env.CODE.idFromName(ASSET_HASH);
             const roomObject = env.CODE.get(id);
-            const newUrl = new URL(`${url.origin}/websocket/${assetHash}`);
+            const newUrl = new URL(`${url.origin}/websocket/${ASSET_HASH}`);
             return roomObject.fetch(newUrl);
 
             // signaller({...pair[1]});
