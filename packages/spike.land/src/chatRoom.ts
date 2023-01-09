@@ -23,7 +23,7 @@ interface WebsocketSession {
 }
 
 export class Code {
-  state: CF.DurableObjectState;
+  state: DurableObjectState;
   storage: DurableObjectStorage;
   // mutex: Mutex;
   session: (c?: ICodeSession) => Record<ICodeSession>;
@@ -112,9 +112,10 @@ export class Code {
         message,
       ))();
   }
+  origin: string;
   constructor(state: DurableObjectState, private env: CodeEnv) {
     const _ = this;
-
+    this.origin = location.origin;
     this.state = state;
     this.storage = this.state.storage;
 
@@ -135,20 +136,34 @@ export class Code {
 
         this.sess = this.sess.code
           ? this.sess
-          : await this.storage.get<ICodeSession>("head").then((head) =>
-            head && this.storage.get<ICodeSession>(String(head))
-          );
+          : await this.storage.get<ICodeSession>("head")
+            .then(head =>
+              head && this.storage.get<ICodeSession>(String(head))
+                .then((x?: ICodeSession) => x.json())
+            );
 
-        if (this.sess.code) return;
+        if (this.sess && this.sess.code.length) return;
 
-        this.sess.i = 1;
-        this.sess.code = `
-        export default ( )=<div> <h1>404 - for now.</h1>
+        this.sess = {
+          code: `
+        export default ()=<div> <h1>404 - for now.</h1>
         
         <h2>But you can edit even this page and share with your friends./</h2>
         </div>
         
-        `;
+        `,
+          i: 1,
+          transpiled: await initAndTransform(this.sess.code, {}, location.origin),
+          html: "<div></div>",
+          css: "",
+        };
+
+        this.session = this.session(this.sess);
+        this.head(this.sess);
+        this.storage.put<ICodeSession>(String(this.head()), this.sess).then(
+          this.storage.put<number>("head", this.head()),
+        );
+
         return;
       } catch {
         console.error("Error while blockConcurrencyWhile");
