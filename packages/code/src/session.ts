@@ -21,7 +21,6 @@ export type ICodeSession = {
   code: string;
   i: number;
   html: string;
-  transpiled: string;
   css: string;
 };
 
@@ -167,7 +166,6 @@ export const syncStorage = async (
         }
         : {
           code: oldSession.code,
-          transpiled: oldSession.transpiled,
           html: oldSession.html,
           css: oldSession.css,
         }),
@@ -198,9 +196,9 @@ type ICodeSess = {
 };
 
 // function addOrigin(s: ICodeSession, originString: string) {
-//   const { i, transpiled, code, html, css } = s;
+//   const { i, code, html, css } = s;
 
-//   const mst = { i, transpiled, code, html, css };
+//   const mst = { i, code, html, css };
 
 //   // mst.code = mst.code.replace("from '/live", `from './`);
 //   // mst.code = mst.code.replace("from './", `from '${originString}/live/`);
@@ -209,6 +207,6 @@ type ICodeSess = {
 // }
 
 export function string_(s: ICodeSession) {
-  const { i, transpiled, code, html, css } = s;
-  return JSON.stringify({ i, transpiled, code, html, css });
+  const { i, code, html, css } = s;
+  return JSON.stringify({ i, code, html, css });
 }

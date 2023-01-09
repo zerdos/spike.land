@@ -44,7 +44,7 @@ export class Code {
     if (p && p.length) {
       const sessAsJs = this.session().toJS();
 
-      const { i, transpiled, code, html, css }: ICodeSession = p
+      const { i, code, html, css }: ICodeSession = p
         ? JSON.parse(
           aPatch(
             string_(
@@ -56,7 +56,6 @@ export class Code {
         : sessAsJs;
       return this.session().merge({
         i,
-        transpiled,
         code,
         html,
         css,
@@ -112,7 +111,16 @@ export class Code {
         message,
       ))();
   }
+  t: {[i: number]:string}={}
   origin: string;
+
+  transpiled(i = this.sess.i){
+    if (this.t[i]) return this.t[i];
+    if (!this.origin) return ""
+ return  this.t[this.sess.i]= this.t[this.sess.i] || (initAndTransform(this.sess.code, {}, this.origin))
+  }
+
+
   constructor(state: DurableObjectState, private env: CodeEnv) {
     const _ = this;
     this.origin = location.origin;
@@ -120,7 +128,7 @@ export class Code {
     this.storage = this.state.storage;
 
     // const _ = this;
-    this.sess = { code: "", i: 0, transpiled: "", html: "", css: "" } as ICodeSession;
+    this.sess = { code: "", i: 0, html: "", css: "" } as ICodeSession;
     this.session = (x = this.sess) => Record<ICodeSession>(this.sess)(x);
     this.head = (x = this.sess) => this.session(x).hashCode();
     // .wsSessions = [];
@@ -153,7 +161,6 @@ export class Code {
         
         `,
           i: 1,
-          transpiled: await initAndTransform(this.sess.code, {}, location.origin),
           html: "<div></div>",
           css: "",
         };
@@ -180,7 +187,12 @@ export class Code {
   async fetch(request: Request) {
     try {
       const url = new URL(request.url);
-      const { i, code, transpiled, css, html } = this.sess;
+      const origin = url.origin;
+
+
+      
+
+
 
       // this.storage.put("head", this.storage.head)
       // this.storage.put(String(this.storage.head), this.sess)

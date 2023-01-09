@@ -42,7 +42,6 @@ type MessageProps = Partial<{
   codeSpace: string;
   i?: number;
   code?: string;
-  transpiled?: string;
   session: ICodeSession;
   sess?: ICodeSession;
   type?: string;
@@ -94,7 +93,7 @@ export class Code {
     if (p && p.length) {
       const sessAsJs = this.session.toJSON();
 
-      const { i, transpiled, code, html, css }: ICodeSession = p
+      const { i, code, html, css }: ICodeSession = p
         ? JSON.parse(
           aPatch(
             string_(
@@ -106,7 +105,6 @@ export class Code {
         : sessAsJs;
       return this.session.merge({
         i,
-        transpiled,
         code,
         html,
         css,
@@ -140,7 +138,6 @@ export class Code {
     // this.users.insert(this.user);
     this.sess = {
       code: "",
-      transpiled: "",
       i: 0,
       css: "",
       html: "",
