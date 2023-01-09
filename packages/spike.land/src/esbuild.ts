@@ -39,7 +39,7 @@ export const initAndTransform = async (
 
   if (initFinished !== true) await (initFinished);
 
-  return await esmTransform(code, origin);
+  return esmTransform(code, origin);
 };
 
 export async function esmTransform(code: string, origin: string) {

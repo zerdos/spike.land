@@ -124,7 +124,7 @@ export class Code {
 
     if (t[index]) return t[index];
     if (!this.origin) return "";
-    return t[index] = t[index] || (initAndTransform(this.sess.code, {}, this.origin));
+    return t[index] = t[index] || initAndTransform(this.sess.code, {}, this.origin) as unknown as string;
   }
 
   constructor(state: DurableObjectState, private env: CodeEnv) {
@@ -191,6 +191,16 @@ export class Code {
 
   async fetch(request: Request) {
     try {
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+
       const url = new URL(request.url);
       this.origin = url.origin;
 
