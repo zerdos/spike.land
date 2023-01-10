@@ -44,6 +44,7 @@ export const prettierJs = (code: string) => {
   }
 };
 
+Object.assign(self, { prettierJs });
 // export const prettierCss = (code: string) =>
 //   Prettier.format(code, {
 //     parser: "css",

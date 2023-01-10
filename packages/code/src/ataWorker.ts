@@ -1,26 +1,25 @@
+importScripts("/workerScripts/superFetch.js");
+self.originalFetch = self.fetch;
+self.fetch = self.superFetch;
+
+importScripts("/workerScripts/workerRpc.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/ata.js");
 
-import "./superFetch";
-import { RpcProvider } from "worker-rpc";
-
-const { prettierJs, ata } = self;
-
-const run = (opts) => ata({ ...opts, prettierJs });
-
-declare const self: SharedWorkerGlobalScope;
+const { RpcProvider, ata, prettierJs } = self;
 
 self.onconnect = ({ ports }) => {
-  // const port = e.ports[0];
+  const p = ports[0];
 
-  const {postMessage} = ports[0];
   const rpcProvider = new RpcProvider(
-    
+    (message, transfer) => p.postMessage(message, transfer),
   );
-  ports[0].onmessage = ({ data }) => rpcProvider.dispatch(data);
 
-  rpcProvider.registerRpcHandler("ata", run);
-  rpcProvider.registerRpcHandler("prettierJs", prettierJs);
+  p.onmessage = e => rpcProvider.dispatch(e.data);
 
-  ports[0].start(); // Required when using addEventListener. Otherwise called implicitly by onmessage setter.
+  rpcProvider.registerRpcHandler("prettierJs", (code: string) => prettierJs(code));
+
+  rpcProvider.registerRpcHandler("ata", ({ code, originToUse }) => ata({ code, originToUse, prettierJs }));
+
+  p.start();
 };

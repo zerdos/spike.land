@@ -240,6 +240,8 @@ const build = (
   await esbuild.build({
     ...buildOptions,
     entryPoints: [
+      "src/superFetch.ts",
+      "src/workerRpc.ts",
       "src/prettierEsm.ts",
       "src/ata.ts",
     ],

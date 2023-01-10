@@ -1306,17 +1306,18 @@ __metadata:
     "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.48.1"
     "@typescript-eslint/parser": "npm:^5.48.1"
+    "@typescript-eslint/typescript-estree": "npm:^5.48.1"
     "@yarnpkg/fslib": "npm:^3.0.0-rc.35"
     ace-builds: "npm:1.14.0"
     assert: "npm:^2.0.0"
     assert-browserify: "npm:^2.0.0"
+    ast-module-types: "npm:^3.0.0"
     async-mutex: "npm:^0.4.0"
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
     buffer: "npm:^6.0.3"
     constants: "npm:^0.0.2"
     csstype: "npm:3.1.1"
-    detective-typescript: "npm:^9.0.0"
     esbuild-wasm: "npm:0.16.16"
     eslint: "npm:^8.31.0"
     eslint-plugin-react: "npm:^7.31.11"
@@ -1334,6 +1335,7 @@ __metadata:
     memfs: "npm:^3.4.13"
     module: "npm:^1.2.5"
     monaco-editor: "npm:0.35.0-dev.20230110"
+    node-source-walk: "npm:^5.0.0"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
     p2pcf: "npm:^1.3.13"
@@ -1812,7 +1814,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.48.1, @typescript-eslint/typescript-estree@npm:^5.13.0":
+"@typescript-eslint/typescript-estree@npm:5.48.1, @typescript-eslint/typescript-estree@npm:^5.48.1":
   version: 5.48.1
   resolution: "@typescript-eslint/typescript-estree@npm:5.48.1"
   dependencies:
@@ -4298,18 +4300,6 @@ __metadata:
   version: 2.1.0
   resolution: "detect-newline@npm:2.1.0"
   checksum: c777b723a7faa02b2942d8bee9fc5eef7ffe98e7c1fe45546c8f01fbeb253e98d0ea2411b09e00693fe202be8a64eb49da1c8cd4ddddb5d40eaa4fa9b26f22fd
-  languageName: node
-  linkType: hard
-
-"detective-typescript@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "detective-typescript@npm:9.0.0"
-  dependencies:
-    "@typescript-eslint/typescript-estree": "npm:^5.13.0"
-    ast-module-types: "npm:^3.0.0"
-    node-source-walk: "npm:^5.0.0"
-    typescript: "npm:^4.5.5"
-  checksum: af8d12b752ab3892ff29b802ee85f0b6a27111b7de803829614840c1ffc1de17174351e9513108846d5b9cab6fa2512f8a934a28cfa5703e1a6edcc3acc504fa
   languageName: node
   linkType: hard
 
@@ -11316,7 +11306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.4, typescript@npm:^4.5.5, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
+"typescript@npm:4.9.4, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
   bin:
@@ -11326,7 +11316,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.5.5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
   version: 4.9.4
   resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"
   bin:

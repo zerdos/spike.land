@@ -1,4 +1,4 @@
-import { tsx } from "detective-typescript";
+import { tsx } from "./dts.mjs";
 
 export async function ata(
   { code, originToUse, prettierJs }: { code: string; originToUse: string; prettierJs: (code: string) => string },
@@ -155,3 +155,5 @@ export async function ata(
     }));
   }
 }
+
+Object.assign(self, { ata });

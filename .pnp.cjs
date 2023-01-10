@@ -1754,17 +1754,18 @@ const RAW_RUNTIME_STATE =
           ["@types/uuid", "npm:9.0.0"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.48.1"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.48.1"],\
+          ["@typescript-eslint/typescript-estree", "virtual:75992756575b79fddc165c5cf41f57ab318783e3ee4e75246a1597caee46c05196839d398cb430ea46ffaf4a8c991aeb97949dcaa4db99a0fede7009ff1e8c62#npm:5.48.1"],\
           ["@yarnpkg/fslib", "npm:3.0.0-rc.35"],\
           ["ace-builds", "npm:1.14.0"],\
           ["assert", "npm:2.0.0"],\
           ["assert-browserify", "npm:2.0.0"],\
+          ["ast-module-types", "npm:3.0.0"],\
           ["async-mutex", "npm:0.4.0"],\
           ["ava", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.1.0"],\
           ["avl", "npm:1.5.3"],\
           ["buffer", "npm:6.0.3"],\
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.1"],\
-          ["detective-typescript", "npm:9.0.0"],\
           ["esbuild-wasm", "npm:0.16.16"],\
           ["eslint", "npm:8.31.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
@@ -1782,6 +1783,7 @@ const RAW_RUNTIME_STATE =
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.35.0-dev.20230110"],\
+          ["node-source-walk", "npm:5.0.0"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
           ["p2pcf", "npm:1.3.13"],\
@@ -1840,17 +1842,18 @@ const RAW_RUNTIME_STATE =
           ["@types/uuid", "npm:9.0.0"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.48.1"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.48.1"],\
+          ["@typescript-eslint/typescript-estree", "virtual:75992756575b79fddc165c5cf41f57ab318783e3ee4e75246a1597caee46c05196839d398cb430ea46ffaf4a8c991aeb97949dcaa4db99a0fede7009ff1e8c62#npm:5.48.1"],\
           ["@yarnpkg/fslib", "npm:3.0.0-rc.35"],\
           ["ace-builds", "npm:1.14.0"],\
           ["assert", "npm:2.0.0"],\
           ["assert-browserify", "npm:2.0.0"],\
+          ["ast-module-types", "npm:3.0.0"],\
           ["async-mutex", "npm:0.4.0"],\
           ["ava", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.1.0"],\
           ["avl", "npm:1.5.3"],\
           ["buffer", "npm:6.0.3"],\
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.1"],\
-          ["detective-typescript", "npm:9.0.0"],\
           ["esbuild-wasm", "npm:0.16.16"],\
           ["eslint", "npm:8.31.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
@@ -1868,6 +1871,7 @@ const RAW_RUNTIME_STATE =
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.35.0-dev.20230110"],\
+          ["node-source-walk", "npm:5.0.0"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
           ["p2pcf", "npm:1.3.13"],\
@@ -5822,19 +5826,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/detect-newline-npm-2.1.0-31d9d239e0-9.zip/node_modules/detect-newline/",\
         "packageDependencies": [\
           ["detect-newline", "npm:2.1.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["detective-typescript", [\
-      ["npm:9.0.0", {\
-        "packageLocation": "./.yarn/global/cache/detective-typescript-npm-9.0.0-ace1716f14-9.zip/node_modules/detective-typescript/",\
-        "packageDependencies": [\
-          ["detective-typescript", "npm:9.0.0"],\
-          ["@typescript-eslint/typescript-estree", "virtual:75992756575b79fddc165c5cf41f57ab318783e3ee4e75246a1597caee46c05196839d398cb430ea46ffaf4a8c991aeb97949dcaa4db99a0fede7009ff1e8c62#npm:5.48.1"],\
-          ["ast-module-types", "npm:3.0.0"],\
-          ["node-source-walk", "npm:5.0.0"],\
-          ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"]\
         ],\
         "linkType": "HARD"\
       }]\

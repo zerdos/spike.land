@@ -150,12 +150,13 @@ export class Code {
       this.head = await ldb(codeSpace).getItem("head") as number;
 
       if (!this.sess || !(this.sess.i > 0)) {
-        await Promise.all([
-          this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
-            .text().then((x) => this.head = Number(x)),
-          this.sess = await ky(`${origin}/live/${codeSpace}/session`).json(),
-        ]);
+        // await Promise.all([
+          // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
+            // .text().then((x) => this.head = Number(x)),
+          this.sess = await ky(`${origin}/live/${codeSpace}/session`).json()
+        // ]);
         this.session = Record<ICodeSession>(this.sess)();
+        this.head = this.session.ha
       }
 
       await ldb(codeSpace).setItem(
