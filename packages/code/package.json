@@ -11,8 +11,8 @@
   ],
   "exports": {
     "./package.json": "./package.json",
-    "./session": "./dist/src/session.mjs",
-    ".": "./dist"
+    "./session": "./src/session.mjs",
+    ".": "./"
   },
   "scripts": {
     "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",

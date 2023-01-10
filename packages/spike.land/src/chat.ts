@@ -1,15 +1,14 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import wasm from "./esbuild-loader";
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 import ASSET_HASH from "./dist.shasum";
 
 // import imap from "@spike.land/code/src/importMap.json";
-import { importMap, importMapReplace, md5 } from "../../code/dist/src/session.mjs";
+import { importMap, importMapReplace, md5 } from "../../code/src/session";
 
 import { CodeEnv } from "./env";
-import { initAndTransform } from "./esbuild";
+import { initAndTransform } from "./esbuild.ts";
 import { handleErrors } from "./handleErrors";
 
 const api: ExportedHandler<CodeEnv> = {

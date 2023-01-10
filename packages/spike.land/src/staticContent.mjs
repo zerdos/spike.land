@@ -1,4 +1,4 @@
-import { md5 } from "@spike.land/code/session";
+
 import ASSET_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 
 export { ASSET_MANIFEST };

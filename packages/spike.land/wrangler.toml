@@ -4,7 +4,8 @@ name = "spike-land"
 account_id = "1f98921051196545ebe79a450d3c71ed"
 usage_model = "unbound"
 compatibility_date = "2021-10-16"
-main = " dist/index.js"
+main = "../code/dist/src/spike.land/src/index.mjs"
+
 
 [durable_objects]
 bindings = [
@@ -27,9 +28,8 @@ type = "CompiledWasm"
 globs = ["**/*.wasm"]
 
 [site]
-bucket = "../../packages/code/dist" # Add the directory with your static assets
-
-
+bucket = "../code/dist" # Add the directory with your static assets
+ 
 [env.testing]
 name = "testing-spike-land"
 usage_model = "unbound"

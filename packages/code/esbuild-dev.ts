@@ -3,13 +3,12 @@
 // import postcssNested from "postcss-nested"
 
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.15/mod.js";
-import { importMap } from "./src/importMap.ts";
 
-const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
-  .then((x) => x.json());
+// const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
+//   .then((x) => x.json());
 
-fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`)
-  .then((x) => x.blob()).then((b) => Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b));
+// fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`)
+//  .then((x) => x.blob()).then((b) => Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b));
 
 // import { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
@@ -107,7 +106,7 @@ const buildOptions = {
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
-  external: ["./mST", "/npm:*", "../../npm:/*"],
+  external: ["./mST", "/npm:*", "../../npm:/*, ","__STATIC_CONTENT_MANIFEST", '__STATIC_CONTENT_MANIFEST'],
   legalComments: "none",
   resolveExtensions: [
     ".tsx",
@@ -128,6 +127,7 @@ const buildOptions = {
     ".css": "css",
     ".png": "file",
     ".ico": "file",
+    ".shasum": "text",
     ".wasm": "file",
     ".html": "text",
   },
@@ -302,7 +302,7 @@ const build = (
       "src/reactDom.ts",
       "src/hydrate.tsx",
       "src/motion.ts",
-      "src/esbuildWASM.ts",
+      // "src/esbuildWASM.ts",
       "src/emotionJsxRuntime.mjs",
       "src/render.tsx",
       "src/reactDomClient.ts",
@@ -313,7 +313,7 @@ const build = (
       // "src/reactMod.ts",
       "src/Editor.tsx",
       //      "src/reactMod.ts",
-
+      "../spike.land/src/index.ts",
       // "src/Editor.tsx",
 
       // "src/reactDom.ts",
@@ -324,6 +324,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
+      '__STATIC_CONTENT_MANIFEST'
       // "react-error-boundary",
       // "@emotion/react",
       // "@emotion/",

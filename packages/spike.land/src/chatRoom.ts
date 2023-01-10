@@ -1,6 +1,6 @@
-import { CodePatch, Delta, ICodeSession } from "@spike.land/code";
-import { resetCSS, string_, syncStorage } from "@spike.land/code/session";
-import { aPatch, HTML, md5 } from "@spike.land/code/session";
+import { CodePatch, Delta, ICodeSession } from "./../../code/src/session";
+import { resetCSS, string_, syncStorage } from "./../../code/src/session";
+import { aPatch, HTML, md5 } from "./../../code/src/session";
 import { signaller } from "./signalimg";
 // import { Mutex } from "async-mutex";
 import AVLTree from "avl";

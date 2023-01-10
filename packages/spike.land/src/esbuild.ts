@@ -1,4 +1,6 @@
-import wasmModule from "./esbuild-wasm/esbuild.wasm";
+import wasmModule from "./esbuild-loader";
+
+// import wasmModule from "./esbuild-wasm/esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
 
 import { initialize, transform, type TransformOptions } from "esbuild-wasm";
@@ -9,7 +11,7 @@ Object.assign(globalThis, {
   },
 });
 
-import { importMapReplace } from "../../code/dist/src/session.mjs";
+import { importMapReplace } from "../../code/src/importMapReplace";
 
 // import impMap from "./importmap.json";
 //
