@@ -1257,6 +1257,8 @@ __metadata:
 "@spike.land/cf-npm-site@workspace:packages/cf-npm-site":
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
+  dependencies:
+    esbuild-wasm: "npm:^0.16.16"
   languageName: unknown
   linkType: soft
 
@@ -1304,13 +1306,7 @@ __metadata:
     "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^5.48.1"
     "@typescript-eslint/parser": "npm:^5.48.1"
-    "@yarnpkg/cli": "npm:^4.0.0-rc.35"
-    "@yarnpkg/core": "npm:^4.0.0-rc.35"
     "@yarnpkg/fslib": "npm:^3.0.0-rc.35"
-    "@yarnpkg/plugin-essentials": "npm:^4.0.0-rc.35"
-    "@yarnpkg/plugin-git": "npm:^3.0.0-rc.35"
-    "@yarnpkg/plugin-typescript": "npm:^4.0.0-rc.35"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.35"
     ace-builds: "npm:1.14.0"
     assert: "npm:^2.0.0"
     assert-browserify: "npm:^2.0.0"
@@ -1318,10 +1314,9 @@ __metadata:
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
     buffer: "npm:^6.0.3"
+    constants: "npm:^0.0.2"
     csstype: "npm:3.1.1"
     detective-typescript: "npm:^9.0.0"
-    esbuild: "npm:0.16.16"
-    esbuild-plugin-alias: "npm:0.2.1"
     esbuild-wasm: "npm:0.16.16"
     eslint: "npm:^8.31.0"
     eslint-plugin-react: "npm:^7.31.11"
@@ -1360,7 +1355,6 @@ __metadata:
     tslib: "npm:^2.4.1"
     typescript: "npm:^4.9.4"
     util: "npm:^0.12.5"
-    utils: "npm:^0.3.1"
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
     webrtc-adapter: "npm:^8.2.0"
@@ -2385,7 +2379,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.0.0-rc.35, @yarnpkg/sdks@npm:^3.0.0-rc.35":
+"@yarnpkg/sdks@npm:^3.0.0-rc.35":
   version: 3.0.0-rc.35
   resolution: "@yarnpkg/sdks@npm:3.0.0-rc.35"
   dependencies:
@@ -4599,13 +4593,6 @@ __metadata:
   version: 1.1.0
   resolution: "es6-object-assign@npm:1.1.0"
   checksum: f532def5809db56af42b7b5c51ad93f51cdc09435fe609caa015dd0255ff7fe3693df213a7bdba8444a9f5dcc42f67947827e70f4f874b4effb7bd3b17ff14db
-  languageName: node
-  linkType: hard
-
-"esbuild-plugin-alias@npm:0.2.1":
-  version: 0.2.1
-  resolution: "esbuild-plugin-alias@npm:0.2.1"
-  checksum: 4e544c4ed572e80a3c14123f32ed70a20a936519f5a750c6c072030379e7be6163a899db6f2ee1e58aa4aacb73652f1014381767d2bdc8336e054e50f52e0b2d
   languageName: node
   linkType: hard
 

@@ -94,7 +94,11 @@ const buildOptions = {
   alias: {
     path: "path-browserify",
     buffer: "buffer/",
+    util: "util/",
+    constants: "constants/",
+    module: "module/",
     events: "events/",
+
     // events: "events",
     stream: "stream/",
     os: "os-browserify",

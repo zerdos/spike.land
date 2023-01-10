@@ -12,5 +12,8 @@
   "license": "BSD-3-Clause",
   "typings": "public/index.d.ts",
   "main": "public/index.mjs",
-  "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
+  "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4",
+  "devDependencies": {
+    "esbuild-wasm": "^0.16.16"
+  }
 }
