@@ -294,7 +294,7 @@ export class Code {
             },
           });
         case "tokens": {
-          return new Response(jsTokens(code) || {}, {
+          return new Response(JSON.stringify(jsTokens(code)), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
