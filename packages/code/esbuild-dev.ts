@@ -41,7 +41,7 @@ console.log(`
 -------------------------------------------------
 -------------------------------------------------`);
 
-const makeEnv = (environment) => ({
+const makeEnv = (environment: string) => ({
   "process.env.NODE_ENV": `"${environment}"`,
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
@@ -244,7 +244,7 @@ const build = (
     ],
 
     bundle: true,
-    define,
+    define: makeEnv("production"),
     target: "es2015",
     treeShaking: true,
     minify: true, // ! isDevelopment,
