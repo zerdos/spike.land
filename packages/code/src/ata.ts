@@ -100,7 +100,7 @@ export async function ata(
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
-    let res = tsx(await prettierJs(code));
+    let res = tsx(prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
