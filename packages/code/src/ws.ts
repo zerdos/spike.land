@@ -151,12 +151,12 @@ export class Code {
 
       if (!this.sess || !(this.sess.i > 0)) {
         // await Promise.all([
-          // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
-            // .text().then((x) => this.head = Number(x)),
-          this.sess = await ky(`${origin}/live/${codeSpace}/session`).json()
+        // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
+        // .text().then((x) => this.head = Number(x)),
+        this.sess = await ky(`${origin}/live/${codeSpace}/session`).json();
         // ]);
         this.session = Record<ICodeSession>(this.sess)();
-        this.head = this.session.ha
+        this.head = this.session.hashCode();
       }
 
       await ldb(codeSpace).setItem(
