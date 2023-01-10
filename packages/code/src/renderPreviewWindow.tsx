@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import React from "react";
+import { lazy, Suspense } from "react";
 
 import { Fragment, useEffect, useState } from "react";
 import * as portals from "react-reverse-portal";
@@ -12,9 +12,10 @@ import { css } from "@emotion/react";
 // Import { useSpring, a } from '@react-spring/web'
 
 import DraggableWindow from "./DraggableWindow";
-import { Editor } from "./Editor";
 import { createRoot } from "./reactDomClient";
 import { codeSession } from "./ws";
+
+const Editor = lazy(() => import(`${location.origin}/src/Editor.mjs`));
 
 const RainbowContainer: FC<{ children: JSX.Element }> = (
   { children },
@@ -117,13 +118,13 @@ const AppToRender: FC<
 
         {hideRest ? null : (
           <RainbowContainer>
-            <Fragment>
+            <Suspense fallback={<></>}>
               <Editor
                 codeSpace={codeSpace}
                 code={codeSession.sess.code}
                 i={codeSession.sess.i}
               />
-            </Fragment>
+            </Suspense>
           </RainbowContainer>
         )}
       </>

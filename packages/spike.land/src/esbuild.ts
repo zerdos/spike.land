@@ -1,4 +1,4 @@
-import wasmModule from "./esbuild-loader";
+import wasmModule from "esbuild-wasm/esbuild.wasm";
 
 // import wasmModule from "./esbuild-wasm/esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;

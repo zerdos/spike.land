@@ -88,7 +88,7 @@ const define = makeEnv(environment);
 // ]
 // })];//
 
-const buildOptions = {
+const buildOptions: esbuild.BuildOptions = {
   define,
   target,
   alias: {
@@ -235,6 +235,27 @@ const build = (
     outbase: "monaco-editor/esm/vs",
     outdir: "dist",
   });
+
+  await esbuild.build({
+    ...buildOptions,
+    entryPoints: [
+      "src/prettierEsm.ts",
+      "src/ata.ts",
+    ],
+
+    bundle: true,
+    define,
+    treeShaking: true,
+    minify: true, // ! isDevelopment,
+    minifyWhitespace: false, // ! isDevelopment,
+    minifyIdentifiers: false, // ! isDevelopment,
+    minifySyntax: false, // ! isDevelopment,
+    ignoreAnnotations: false,
+    keepNames: true,
+    platform: "browser",
+    format: "iife",
+    outdir: "dist/workerScripts",
+  });
   // await build(["src/react-jsx-runtime.ts"], [], false, "iife");
 
   // await build(["src/mWorker.mjs"], [], false, "iife");
@@ -255,12 +276,12 @@ const build = (
     ...buildOptions,
     entryPoints: [
       "src/sw.ts",
+      "src/esbuildWASM.ts",
       "src/ataWorker.ts",
       // "src/prettierWorker.ts",
       // "src/fs.worker.ts",
     ],
     plugins: [],
-
     bundle: true,
     define, // makeEnv("production"),
     minify: false,
@@ -300,6 +321,16 @@ const build = (
   //   // }),
   // ];
 
+  let wasmFile;
+
+  const dir = await Deno.readDir("./dist");
+  for await (const file of dir) {
+    if (file.name.includes("esbuild") && file.name.includes(".wasm")) wasmFile = file.name;
+  }
+
+  console.log(wasmFile);
+
+  //  console.log(dir);
   await build(
     [
       "src/reactMod.ts",
@@ -318,7 +349,7 @@ const build = (
       // "src/reactMod.ts",
       "src/Editor.tsx",
       //      "src/reactMod.ts",
-      "../spike.land/src/index.ts",
+      "src/cf-workers.ts",
       // "src/Editor.tsx",
 
       // "src/reactDom.ts",
@@ -330,6 +361,10 @@ const build = (
     ],
     [
       "__STATIC_CONTENT_MANIFEST",
+      `../${wasmFile}`,
+      `./${wasmFile}`,
+      `${wasmFile}`,
+      "esbuild-wasm/esbuild.wasm",
       // "react-error-boundary",
       // "@emotion/react",
       // "@emotion/",
@@ -345,9 +380,13 @@ const build = (
       // "prettier",
       // "react/",
     ],
-    buildOptions,
+    {
+      ...buildOptions,
+      alias: { ...buildOptions.alias, "esbuild-wasm/esbuild.wasm": `../${wasmFile}` },
+      loader: { ...buildOptions.loader },
+    },
   );
-
+  //
   console.log("done");
 
   esbuild.stop();

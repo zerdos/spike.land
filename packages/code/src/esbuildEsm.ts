@@ -18,10 +18,16 @@ import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
 const mod = {
   init: false as (boolean | Promise<void>),
-  initialize: (orig: string) => {
+  initialize: async (orig: string) => {
     if (mod.init === false) {
-      return mod.init = initialize({
-        wasmURL: `${orig}/src/${wasmFile}`,
+      return WebAssembly.compileStreaming(fetch(
+        new URL(`${orig}/src/${wasmFile}`),
+      )).then((wasmMod) => {
+        const imports = WebAssembly.Module.imports(wasmMod);
+        console.log(imports[0]);
+        return mod.init = initialize({
+          wasmModule: imports[0],
+        });
       });
     }
     return mod.init;

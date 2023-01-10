@@ -1,13 +1,13 @@
 const imports = {
-  "@emotion/react/jsx-runtime": "/src/code/emotionJsxRuntime.mjs",
-  "react-dom/client": "/src/code/reactDomClient.mjs",
-  "framer-motion": "/src/code/motion.mjs",
-  "@emotion/react": "/src/code/emotion.mjs",
-  "@emotion/cache": "/src/code/emotionCache.mjs",
-  "@emotion/styled": "/src/code/emotionStyled.mjs",
-  "react": "/src/code/reactMod.mjs",
-  "react/jsx-runtime": "/src/code/jsx.mjs",
-  "react-dom": "/src/code/reactDom.mjs",
+  "@emotion/react/jsx-runtime": "/src/emotionJsxRuntime.mjs",
+  "react-dom/client": "/src/reactDomClient.mjs",
+  "framer-motion": "/src/motion.mjs",
+  "@emotion/react": "/src/emotion.mjs",
+  "@emotion/cache": "/src/emotionCache.mjs",
+  "@emotion/styled": "/src/emotionStyled.mjs",
+  "react": "/src/reactMod.mjs",
+  "react/jsx-runtime": "/src/jsx.mjs",
+  "react-dom": "/src/reactDom.mjs",
 };
 export const importMap = { imports };
 

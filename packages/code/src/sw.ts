@@ -1,5 +1,4 @@
 // import { importMapReplace } from "./esbuildEsm";
-import { transform } from "./esmTransform";
 export type {};
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";

@@ -575,7 +575,7 @@ export class Code {
               var sheet = document.createStyleSheet();
 sheet.addRule('h1', 'background: red;');
               </script>`
-                : `<script type="module" src="${url.origin}/src/code/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
+                : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
             );
 
           const headers = new Headers();
@@ -652,11 +652,11 @@ sheet.addRule('h1', 'background: red;');
                 ${html}
                 </div>
               </div>
-              <script type="module" src="/src/code/signalz.mjs"></script>
+              <script type="module" src="/src/signalz.mjs"></script>
 
               <script type="module">
 
-              import {render} from "${url.origin}/src/code/render.mjs";
+              import {render} from "${url.origin}/src/render.mjs";
               
               import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}";
 

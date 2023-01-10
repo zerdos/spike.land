@@ -9,8 +9,8 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler publish --env=testing ../code/dist/src/spike.land/src/index.mjs",
-    "prepublishOnly": "wrangler publish ../code/dist/src/spike.land/src/index.mjs ",
+    "deploy:dev": "wrangler publish --env=testing ../code/dist/src/cf-workers.mjs",
+    "prepublishOnly": "wrangler publish ../code/dist/src/cf-workers.mjs",
     "predeploy": "yarn x:build",
     "x:build": "echo ok"
   },

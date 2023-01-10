@@ -1,7 +1,12 @@
+importScripts("/workersScripts/prettierEsm.js");
+importScripts("/workersScripts/ata.js");
+
 import "./superFetch";
 import { RpcProvider } from "worker-rpc";
 
-import { prettierJs, run } from "./ata";
+const { prettierJs, ata } = self;
+
+const run = (opts) => ata({ ...opts, prettierJs });
 
 declare const self: SharedWorkerGlobalScope;
 

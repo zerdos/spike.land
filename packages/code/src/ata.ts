@@ -1,10 +1,7 @@
 import { tsx } from "detective-typescript";
-import { prettierJs } from "./prettierEsm";
 
-export { prettierJs };
-
-export async function run(
-  { code, originToUse }: { code: string; originToUse: string },
+export async function ata(
+  { code, originToUse, prettierJs }: { code: string; originToUse: string; prettierJs: (code: string) => string },
 ) {
   console.log(`ATA run: ${originToUse} ${code}`);
 

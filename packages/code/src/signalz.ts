@@ -5,7 +5,7 @@
 // import 'css-paint-polyfill
 import AVLTree from "avl";
 
-import { syncWS } from "./ws.ts";
+// import { syncWS } from "./ws.ts";
 
 // import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
