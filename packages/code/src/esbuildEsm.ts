@@ -17,6 +17,7 @@ import { fetchPlugin } from "./fetchPlugin";
 import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
+import { wait } from "./wait";
 
 let initDone = false;
 const mutex = new Mutex();
@@ -46,7 +47,12 @@ export const initAndTransform = async (
   // const initFinished = mod.initialize(origin);
 
   // if (initFinished !== true) await (initFinished);
+
+  if (initDone === false) await mutex.waitForUnlock();
+  await mutex.acquire();
+  await mutex.release();
   init(origin);
+  await wait(100);
   await mutex.waitForUnlock();
 
   const ttCode = await transform(code, {
@@ -193,9 +199,12 @@ export const buildT = async (
   // return lastBuild.outputFiles![0].contents;
   // }
   // const initFinished = mod.initialize(origin);
+  if (initDone === false) await mutex.waitForUnlock();
+  await mutex.acquire();
+  await mutex.release();
   init(origin);
+  await wait(100);
   await mutex.waitForUnlock();
-
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
   // if (initFinished !== true) await (initFinished);
@@ -293,9 +302,12 @@ export const buildT = async (
 export { initAndTransform as transform };
 
 export async function esmTransform(code: string, origin: string) {
+  if (initDone === false) await mutex.waitForUnlock();
+  await mutex.acquire();
+  await mutex.release();
   init(origin);
+  await wait(100);
   await mutex.waitForUnlock();
-
   // transform = transform || (await import(`./esbuildEsm`)).transform;
   const transpiled = await transform(code, {
     loader: "tsx",
