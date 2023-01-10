@@ -1273,6 +1273,7 @@ __metadata:
     avl: "npm:^1.5.3"
     esbuild-wasm: "npm:^0.16.16"
     immutable: "npm:^4.2.2"
+    js-tokens: "npm:^8.0.0"
     module: "npm:^1.2.5"
     p-map: "npm:^5.5.0"
     p-queue: "npm:^7.3.0"
@@ -1329,6 +1330,7 @@ __metadata:
     immutable: "npm:^4.2.2"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:^3.0.0"
+    js-tokens: "npm:^8.0.0"
     ky: "npm:^0.33.1"
     localforage: "npm:^1.10.0"
     logrocket: "npm:^3.0.1"
@@ -7199,6 +7201,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-tokens@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "js-tokens@npm:8.0.0"
+  checksum: 9e60d58b2b1b86f85eca96be5ba084620f3b00002fe07a6675e41e28d25a478ea6a231d45f20e57d4c12c4d6d6e48d2b382c8810576c8009e202d57de76b7a97
+  languageName: node
+  linkType: hard
+
 "js-types@npm:^1.0.0":
   version: 1.0.0
   resolution: "js-types@npm:1.0.0"
@@ -8262,6 +8271,7 @@ __metadata:
     dprint: "npm:^0.34.1"
     eslint: "npm:^8.31.0"
     eslint-plugin-react: "npm:^7.31.11"
+    js-tokens: "npm:^8.0.0"
     localforage: "npm:^1.10.0"
     module: "npm:^1.2.5"
     monaco-editor: "npm:0.35.0-dev.20230110"

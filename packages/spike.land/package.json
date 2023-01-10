@@ -27,6 +27,7 @@
     "avl": "^1.5.3",
     "esbuild-wasm": "^0.16.16",
     "immutable": "^4.2.2",
+    "js-tokens": "^8.0.0",
     "p-map": "^5.5.0",
     "p-queue": "^7.3.0"
   },

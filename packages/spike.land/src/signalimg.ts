@@ -1,5 +1,6 @@
 const users = {};
 
+const sessions = [];
 const userNames = new Set();
 
 // when a user connects to our sever users[
@@ -63,7 +64,7 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
 
         if (conn != null) {
           // setting that UserA connected with UserB
-          connection.otherName = data.name;
+          connection.target = data.name;
 
           sendTo(conn, {
             type: "offer",
@@ -80,7 +81,7 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
         var conn = users[data.name];
 
         if (conn != null) {
-          connection.otherName = data.name;
+          connection.target = data.name;
           sendTo(conn, {
             type: "answer",
             answer: data.answer,
@@ -105,7 +106,7 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
       case "leave":
         console.log("Disconnecting from", data.name);
         var conn = users[data.name];
-        conn.otherName = null;
+        conn.target = null;
 
         // notify the other user so he can disconnect his peer connection
         if (conn != null) {
@@ -124,6 +125,11 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
 
         break;
     }
+
+    return {
+      broadcast: (obj) => null,
+      respond: (obj) => null,
+    };
   });
 
   // when user exits, for example closes a browser window
@@ -132,10 +138,10 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
     if (connection.name) {
       delete users[connection.name];
 
-      if (connection.otherName) {
-        console.log("Disconnecting from ", connection.otherName);
-        var conn = users[connection.otherName];
-        conn.otherName = null;
+      if (connection.target) {
+        console.log("Disconnecting from ", connection.target);
+        var conn = users[connection.target];
+        conn.target = null;
 
         if (conn != null) {
           sendTo(conn, {
@@ -146,10 +152,10 @@ export const signaller = async (sessions: [], connection: WebSocket) => {
     }
   });
 
-  userNames.delete(session.name);
+  // userNames.delete(session.name);
 
   const msg = JSON.stringify({ users: userNames });
-  userNames.add(session.name);
+  // userNames.add(session.name);
 
   connection.send(msg);
 };

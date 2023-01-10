@@ -69,3 +69,12 @@ export async function esmTransform(code: string, origin: string) {
   if (origin) return importMapReplace(transpiled.code, origin, origin);
   else return transpiled.code;
 }
+
+export default {
+  async fetch(request: Request) {
+    const url = new URL(request.url);
+    if (request.method === "POST") {
+      return new Response(await initAndTransform(await request.text(), {}, url.origin), request.headers);
+    }
+  },
+};

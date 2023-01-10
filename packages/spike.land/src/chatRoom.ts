@@ -10,6 +10,7 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
+import jsTokens from "js-tokens";
 import ASSET_HASH from "./dist.shasum";
 
 export { md5 };
@@ -47,7 +48,6 @@ export class Code {
         }
       });
   }
-
   broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
 
@@ -119,6 +119,7 @@ export class Code {
       html: "<div></div>",
       css: "",
     };
+    const inc = this.state.inc = this.state.inc++ || 1;
     const sess: ICodeSession = (await this.state.storage.get("sess", {}))
       || (await this.state.storage.get("session", {})) || backupSession;
     const hashCode = (ICodeSession) => Record(backupSession)(sess).hashCode();
@@ -277,6 +278,7 @@ export class Code {
 
           this.state.storage.put("sessions", sessions.map(({ name, quit }) => ({ name, quit })));
 
+          // this.broadcast(sessions, {yooo});
           return new Response(null, { status: 101, webSocket: pair[0] });
         }
         case "code":
@@ -291,8 +293,18 @@ export class Code {
               "Content-Type": "application/javascript; charset=UTF-8",
             },
           });
-
-        case "index.bu.js": {
+        case "tokens": {
+          return new Response(jsTokens(code) || {}, {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+          });
+        }
+        case "index.box.js": {
           const trp = await initAndTransform(
             ` export const Box = ({children})=><div>{children}</div>;`,
             {},

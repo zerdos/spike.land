@@ -105,6 +105,7 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.34.1"],\
           ["eslint", "npm:8.31.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
+          ["js-tokens", "npm:8.0.0"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.35.0-dev.20230110"],\
@@ -1777,6 +1778,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:4.2.2"],\
           ["is-callable", "npm:1.2.7"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
+          ["js-tokens", "npm:8.0.0"],\
           ["ky", "npm:0.33.1"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
@@ -1865,6 +1867,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:4.2.2"],\
           ["is-callable", "npm:1.2.7"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
+          ["js-tokens", "npm:8.0.0"],\
           ["ky", "npm:0.33.1"],\
           ["localforage", "npm:1.10.0"],\
           ["logrocket", "npm:3.0.1"],\
@@ -1913,6 +1916,7 @@ const RAW_RUNTIME_STATE =
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.16.16"],\
           ["immutable", "npm:4.2.2"],\
+          ["js-tokens", "npm:8.0.0"],\
           ["module", "npm:1.2.5"],\
           ["p-map", "npm:5.5.0"],\
           ["p-queue", "npm:7.3.0"],\
@@ -9244,6 +9248,13 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:8.0.0", {\
+        "packageLocation": "./.yarn/global/cache/js-tokens-npm-8.0.0-44f34c45ba-9.zip/node_modules/js-tokens/",\
+        "packageDependencies": [\
+          ["js-tokens", "npm:8.0.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["js-types", [\
@@ -10437,6 +10448,7 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.34.1"],\
           ["eslint", "npm:8.31.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.31.11"],\
+          ["js-tokens", "npm:8.0.0"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.35.0-dev.20230110"],\

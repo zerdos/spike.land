@@ -67,7 +67,8 @@
     "@yarnpkg/core": "^4.0.0-rc.35",
     "@yarnpkg/plugin-essentials": "^4.0.0-rc.35",
     "@yarnpkg/plugin-git": "^3.0.0-rc.35",
-    "@yarnpkg/plugin-typescript": "^4.0.0-rc.35"
+    "@yarnpkg/plugin-typescript": "^4.0.0-rc.35",
+    "js-tokens": "^8.0.0"
   },
   "packageManager": "yarn@4.0.0-rc.35"
 }
