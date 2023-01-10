@@ -15,7 +15,7 @@ self.onconnect = ({ ports }) => {
 
   const {postMessage} = ports[0];
   const rpcProvider = new RpcProvider(
-    postMessage
+    
   );
   ports[0].onmessage = ({ data }) => rpcProvider.dispatch(data);
 
