@@ -14,7 +14,7 @@ import { codeSession } from "./ws";
 let startedM = 0;
 let startedAce = 0;
 
-export const Editor: FC<
+const Editor: FC<
   {
     codeSpace: string;
     code: string;
@@ -201,7 +201,7 @@ export const Editor: FC<
     );
   }
 };
-
+export default Editor;
 // let room = new AbortController();
 
 // room.abort();
