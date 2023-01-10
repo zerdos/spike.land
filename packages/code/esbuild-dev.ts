@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.16.15/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.16.16/mod.js";
 
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
@@ -93,9 +93,10 @@ const buildOptions = {
   target,
   alias: {
     path: "path-browserify",
-    buffer: "buffer-browserify",
-    events: "events",
-    stream: "stream",
+    buffer: "buffer/",
+    events: "events/",
+    // events: "events",
+    stream: "stream/",
     os: "os-browserify",
     assert: "assert",
     fs: "./src/fs.ts",
@@ -106,7 +107,7 @@ const buildOptions = {
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
-  external: ["./mST", "/npm:*", "../../npm:/*, ","__STATIC_CONTENT_MANIFEST", '__STATIC_CONTENT_MANIFEST'],
+  external: ["./mST", "/npm:*", "../../npm:/*, ", "__STATIC_CONTENT_MANIFEST", "__STATIC_CONTENT_MANIFEST"],
   legalComments: "none",
   resolveExtensions: [
     ".tsx",
@@ -324,7 +325,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
-      '__STATIC_CONTENT_MANIFEST'
+      "__STATIC_CONTENT_MANIFEST",
       // "react-error-boundary",
       // "@emotion/react",
       // "@emotion/",

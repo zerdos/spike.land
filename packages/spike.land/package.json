@@ -7,13 +7,12 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "clean": "rm -rf dist ./src/esbuild-wasm && mkdir -p src/esbuild-wasm && cd src/esbuild-wasm",
+    "clean": "rm -rf dist",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler publish --env=testing ./dist/index.js",
-    "prepublishOnly": "wrangler publish",
+    "deploy:dev": "wrangler publish --env=testing ../code/dist/src/spike.land/src/index.mjs",
+    "prepublishOnly": "wrangler publish ../code/dist/src/spike.land/src/index.mjs ",
     "predeploy": "yarn x:build",
-    "z:build": "echo ok",
-    "x:build": "cp -rf  ../code/dist/src/chunk-esbuild-*.wasm ./src/esbuild-wasm/esbuild.wasm &&  esbuild  --bundle --tree-shaking=true  --external:fs --external:stream  --external:os --loader:.shasum=text  --format=esm --loader:.html=text  --external:./src/esbuild-wasm/esbuild.wasm  --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
+    "x:build": "echo ok"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
@@ -26,14 +25,10 @@
   "dependencies": {
     "async-mutex": "^0.4.0",
     "avl": "^1.5.3",
-    "detective-typescript": "^9.0.0",
     "esbuild-wasm": "^0.16.16",
     "immutable": "^4.2.2",
-    "miniflare": "^2.11.0",
     "p-map": "^5.5.0",
-    "p-queue": "^7.3.0",
-    "path": "^0.12.7",
-    "path-browserify": "^1.0.1"
+    "p-queue": "^7.3.0"
   },
   "publishConfig": {
     "access": "public"
