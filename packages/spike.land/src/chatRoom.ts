@@ -294,7 +294,25 @@ export class Code {
             },
           });
         case "tokens": {
-          return new Response(JSON.stringify(Array.from(jsTokens(code, { jsx: true }))), {
+          const toki: Token[] = Array.from(jsTokens(code, { jsx: true }));
+
+          type Token =
+            | { type: "StringLiteral"; value: string; closed: boolean }
+            | { type: "NoSubstitutionTemplate"; value: string; closed: boolean }
+            | { type: "TemplateHead"; value: string }
+            | { type: "TemplateMiddle"; value: string }
+            | { type: "TemplateTail"; value: string; closed: boolean }
+            | { type: "RegularExpressionLiteral"; value: string; closed: boolean }
+            | { type: "MultiLineComment"; value: string; closed: boolean }
+            | { type: "SingleLineComment"; value: string }
+            | { type: "IdentifierName"; value: string }
+            | { type: "PrivateIdentifier"; value: string }
+            | { type: "NumericLiteral"; value: string }
+            | { type: "Punctuator"; value: string }
+            | { type: "WhiteSpace"; value: string }
+            | { type: "LineTerminatorSequence"; value: string }
+            | { type: "Invalid"; value: string };
+          return new Response(JSON.stringify(toki.filter(x => x.type !== "WhiteSpace")), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -304,7 +322,36 @@ export class Code {
             },
           });
         }
-        case "index.box.js": {
+        case "token2": {
+          const toki: Token[] = Array.from(jsTokens(code, { jsx: true }));
+
+          type Token =
+            | { type: "StringLiteral"; value: string; closed: boolean }
+            | { type: "NoSubstitutionTemplate"; value: string; closed: boolean }
+            | { type: "TemplateHead"; value: string }
+            | { type: "TemplateMiddle"; value: string }
+            | { type: "TemplateTail"; value: string; closed: boolean }
+            | { type: "RegularExpressionLiteral"; value: string; closed: boolean }
+            | { type: "MultiLineComment"; value: string; closed: boolean }
+            | { type: "SingleLineComment"; value: string }
+            | { type: "IdentifierName"; value: string }
+            | { type: "PrivateIdentifier"; value: string }
+            | { type: "NumericLiteral"; value: string }
+            | { type: "Punctuator"; value: string }
+            | { type: "WhiteSpace"; value: string }
+            | { type: "LineTerminatorSequence"; value: string }
+            | { type: "Invalid"; value: string };
+          return new Response(toki.filter(x => x.type !== "WhiteSpace").map(x => x.value).join(), {
+            status: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+            },
+          });
+        }
+        case "index.yo.tsx": {
           const trp = await initAndTransform(
             ` export const Box = ({children})=><div>{children}</div>;`,
             {},
