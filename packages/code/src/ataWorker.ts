@@ -1,5 +1,5 @@
-importScripts("/workersScripts/prettierEsm.js");
-importScripts("/workersScripts/ata.js");
+importScripts("/workerScripts/prettierEsm.js");
+importScripts("/workerScripts/ata.js");
 
 import "./superFetch";
 import { RpcProvider } from "worker-rpc";
