@@ -142,7 +142,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     // SetTimeout(reveal, 200);
   }, []);
 
-  const bgColor = window.getComputedStyle(
+  const bgColor = getComputedStyle(
     document.body,
     null,
   ).getPropertyValue("background-color")
@@ -159,7 +159,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   useEffect(() => {
     const intervalHandler = setInterval(() => {
       // setCSS(mST().css);
-      const bgColor = window.getComputedStyle(
+      const bgColor = getComputedStyle(
         document.body,
         null,
       ).getPropertyValue("background-color")

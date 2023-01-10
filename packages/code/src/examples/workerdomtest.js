@@ -7,7 +7,7 @@ fetch(
       new Blob([text], { type: "application/javascript" }),
     ))).default;
 
-    window.getComputedStyle = function(e, t) {
+    getComputedStyle = function(e, t) {
       return this.el = e,
         this.getPropertyValue = function(t) {
           /** @type {RegExp} */
