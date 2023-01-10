@@ -9,10 +9,12 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist ./src/esbuild-wasm && mkdir -p src/esbuild-wasm && cd src/esbuild-wasm",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler publish --env=testing dist/index.js",
+    "deploy:dev": "wrangler publish --env=testing ../code/dist/index.js",
     "prepublishOnly": "wrangler publish",
     "predeploy": "yarn x:build",
-    "x:build": "cp -rf  ../code/dist/src/chunk-esbuild-*.wasm ./src/esbuild-wasm/esbuild.wasm &&  esbuild  --bundle --tree-shaking=true  --external:fs --external:stream  --external:os --loader:.shasum=text  --format=esm --loader:.html=text  --external:./src/esbuild-wasm/esbuild.wasm  --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
+    "x:build": "echo ok",
+    
+    "zx:build": "cp -rf  ../code/dist/src/chunk-esbuild-*.wasm ./src/esbuild-wasm/esbuild.wasm &&  esbuild  --bundle --tree-shaking=true  --external:fs --external:stream  --external:os --loader:.shasum=text  --format=esm --loader:.html=text  --external:./src/esbuild-wasm/esbuild.wasm  --loader:.ico=binary --external:__STATIC_CONTENT_MANIFEST --tree-shaking --platform=browser src/index.ts --outdir=dist"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
@@ -20,7 +22,7 @@
     "@spike.land/code": "0.9.2",
     "module": "^1.2.5",
     "typescript": "4.9.4",
-    "wrangler": "2.6.2"
+    "wrangler": "2.7.0"
   },
   "dependencies": {
     "async-mutex": "^0.4.0",
