@@ -1,3 +1,4 @@
+import { Mutex } from "async-mutex";
 import {
   build as esbuildBuild,
   type BuildOptions,
@@ -8,7 +9,6 @@ import {
   version,
 } from "esbuild-wasm";
 
-import { wasmFile } from "./esbuildWASM";
 // import impMap from "./importMap.json";
 //
 // import { imports as importMapImports } from "./importMap.json";
@@ -18,34 +18,23 @@ import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 
-const mod = {
-  init: false as (boolean | Promise<void>),
-  initialize: (orig: string) => {
-    if (mod.init === false) {
-      // return WebAssembly.compileStreaming(fetch(
-      // new URL(`${orig}/src/${wasmFile}`),
-      // )).then((wasmMod) => {
-      // const imports = WebAssembly.Module.imports(wasmMod);
-      // console.log(imports[0]);
-      return mod.init = initialize({
-        wasmUrl: `${origin}/esbuild-wasm@${version}/esbuild.wasm`,
+let initDone = false;
+const mutex = new Mutex();
+
+const init = (orig: string) => {
+  if (initDone === false) {
+    (async () => {
+      await mutex.waitForUnlock();
+      if (initDone) return;
+      await mutex.acquire();
+      await initialize({
+        wasmURL: `${orig}/esbuild-wasm@${version}/esbuild.wasm`,
         worker: true,
-      }).then((res: boolean) => mod.init = res);
-      // });
-    }
-    return mod.init;
-  },
-  //   return fetch(`${origin}/files.json`).then((f) => f.json()).then(
-  //     (k) => {
-  //       const wasmURL = new URL(
-  //         Object.keys(k).find((i) => i.indexOf(".wasm") !== -1 && i.indexOf("esbuild-wasm") !== -1) as string,
-  //         origin,
-  //       ).toString();
-  //      then(() => mod.init = true) as Promise<void>;
-  //       return mod.init;
-  //     },
-  //   );
-  // },
+      });
+      initDone = true;
+      mutex.release();
+    })();
+  }
 };
 
 export const initAndTransform = async (
@@ -54,9 +43,11 @@ export const initAndTransform = async (
   origin: string,
 ) => {
   // const code = prettierJs(c)!;
-  const initFinished = mod.initialize(origin);
+  // const initFinished = mod.initialize(origin);
 
-  if (initFinished !== true) await (initFinished);
+  // if (initFinished !== true) await (initFinished);
+  init(origin);
+  await mutex.waitForUnlock();
 
   const ttCode = await transform(code, {
     ...opts,
@@ -201,10 +192,13 @@ export const buildT = async (
   //
   // return lastBuild.outputFiles![0].contents;
   // }
-  const initFinished = mod.initialize(origin);
+  // const initFinished = mod.initialize(origin);
+  init(origin);
+  await mutex.waitForUnlock();
+
   // const rawCode = await fetch(`${location.origin}/live/${codeSpace}/index.js`).then(x => x.text());
 
-  if (initFinished !== true) await (initFinished);
+  // if (initFinished !== true) await (initFinished);
   // skipImportmapReplaceNames = true;
   const defaultOpts: BuildOptions = {
     resolveExtensions: [
@@ -299,6 +293,9 @@ export const buildT = async (
 export { initAndTransform as transform };
 
 export async function esmTransform(code: string, origin: string) {
+  init(origin);
+  await mutex.waitForUnlock();
+
   // transform = transform || (await import(`./esbuildEsm`)).transform;
   const transpiled = await transform(code, {
     loader: "tsx",
