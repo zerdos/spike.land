@@ -17,8 +17,6 @@ let startedAce = 0;
 const Editor: FC<
   {
     codeSpace: string;
-    code: string;
-    i: string;
   }
 > = (
   { codeSpace },
