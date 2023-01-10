@@ -1798,7 +1798,6 @@ const RAW_RUNTIME_STATE =
           ["react-qrious", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.5.6"],\
           ["react-reverse-portal", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.1.1"],\
           ["react-rnd", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:10.4.1"],\
-          ["stream", "npm:0.0.2"],\
           ["stream-browserify", "npm:3.0.0"],\
           ["tslib", "npm:2.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -1885,7 +1884,6 @@ const RAW_RUNTIME_STATE =
           ["react-qrious", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.5.6"],\
           ["react-reverse-portal", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.1.1"],\
           ["react-rnd", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:10.4.1"],\
-          ["stream", "npm:0.0.2"],\
           ["stream-browserify", "npm:3.0.0"],\
           ["tslib", "npm:2.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -5938,15 +5936,6 @@ const RAW_RUNTIME_STATE =
           ["ecc-jsbn", "npm:0.1.2"],\
           ["jsbn", "npm:0.1.1"],\
           ["safer-buffer", "npm:2.1.2"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["emitter-component", [\
-      ["npm:1.1.1", {\
-        "packageLocation": "./.yarn/global/cache/emitter-component-npm-1.1.1-e7a14ded4b-9.zip/node_modules/emitter-component/",\
-        "packageDependencies": [\
-          ["emitter-component", "npm:1.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13171,16 +13160,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["stack-utils", "npm:2.0.6"],\
           ["escape-string-regexp", "npm:2.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["stream", [\
-      ["npm:0.0.2", {\
-        "packageLocation": "./.yarn/global/cache/stream-npm-0.0.2-2f332b5d35-9.zip/node_modules/stream/",\
-        "packageDependencies": [\
-          ["stream", "npm:0.0.2"],\
-          ["emitter-component", "npm:1.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\

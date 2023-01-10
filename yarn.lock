@@ -1350,7 +1350,6 @@ __metadata:
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:^2.1.1"
     react-rnd: "npm:^10.4.1"
-    stream: "npm:^0.0.2"
     stream-browserify: "npm:^3.0.0"
     tslib: "npm:^2.4.1"
     typescript: "npm:^4.9.4"
@@ -4403,13 +4402,6 @@ __metadata:
     jsbn: "npm:~0.1.0"
     safer-buffer: "npm:^2.1.0"
   checksum: cef3f6f2462c6c5d03dc1ebe1532afee95655c3bb1aa89c89462588355f0168afa6e7c63b0d2e3989493c1e4090fae33b7f4d1b57d76fdcea226f3555b15fbcd
-  languageName: node
-  linkType: hard
-
-"emitter-component@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "emitter-component@npm:1.1.1"
-  checksum: 3cd24a5bb6d60f5cf7a0bad3b33fbb33fddc36adaae927d74826ec87a3b857af201442bfae0932905eec4fee43a0c3f729239e7ca9bc5b1fd2bba6f50109c762
   languageName: node
   linkType: hard
 
@@ -10620,15 +10612,6 @@ __metadata:
   version: 1.0.1
   resolution: "stream-shift@npm:1.0.1"
   checksum: 078c51f760750e60a20bb9264d4ca6918bedd8a6e1fb474a475699411916606b840f8b4cb5d038f684afc549692475fde16535d73d80dc2f2cec61366211b8d1
-  languageName: node
-  linkType: hard
-
-"stream@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "stream@npm:0.0.2"
-  dependencies:
-    emitter-component: "npm:^1.1.1"
-  checksum: a0f393bd7a65b6b658ad9fa77590a23bea48cc49c38cc0339ab7fa86d9959ba213e7ab452beb84aa5626875dbf5cdcdffd0205b075e26a1a85301eb6d8c330ae
   languageName: node
   linkType: hard
 

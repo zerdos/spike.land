@@ -153,9 +153,9 @@ console.log(`
 -------------------------------------------------`);
 
 const build = (
-  entryPoints,
-  external,
-  buildOptions,
+  entryPoints: esbuild.BuildOptions.entryPoints,
+  external: esbuild.BuildOptions.external,
+  buildOptions: esbuild.BuildOptions,
 ) =>
   esbuild.build({
     ...buildOptions,
@@ -217,6 +217,7 @@ const build = (
     "./dist/favicon.ico",
   );
   await esbuild.build({
+    ...buildOptions,
     entryPoints: [
       ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     ],

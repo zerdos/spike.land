@@ -10,19 +10,17 @@ const run = (opts) => ata({ ...opts, prettierJs });
 
 declare const self: SharedWorkerGlobalScope;
 
-self.onconnect = (e) => {
-  console.log("onConnected...");
-  const port = e.ports[0];
+self.onconnect = ({ ports }) => {
+  // const port = e.ports[0];
 
-  port.addEventListener("message", (e) => rpcProvider.dispatch(e.data));
-
-  const dispatcher: RpcProvider.Dispatcher = (m, t) => port.postMessage(m, t as StructuredSerializeOptions);
-
+  const {postMessage} = ports[0];
   const rpcProvider = new RpcProvider(
-    dispatcher,
+    postMessage
   );
+  ports[0].onmessage = ({ data }) => rpcProvider.dispatch(data);
+
   rpcProvider.registerRpcHandler("ata", run);
   rpcProvider.registerRpcHandler("prettierJs", prettierJs);
 
-  port.start(); // Required when using addEventListener. Otherwise called implicitly by onmessage setter.
+  ports[0].start(); // Required when using addEventListener. Otherwise called implicitly by onmessage setter.
 };
