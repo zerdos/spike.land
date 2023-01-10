@@ -1,6 +1,6 @@
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useMemo } from "react";
 
 import { Fragment, useEffect, useState } from "react";
 import * as portals from "react-reverse-portal";
@@ -17,7 +17,7 @@ import { codeSession } from "./ws";
 
 const Editor = lazy(() => import(`${location.origin}/src/Editor.mjs`));
 
-const RainbowContainer: FC<{ children: JSX.Element }> = (
+const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
 ) => (
   <div
@@ -74,7 +74,7 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
-  const portalNode = React.useMemo(() =>
+  const portalNode = useMemo(() =>
     portals.createHtmlPortalNode({
       attributes: {
         style: "height: 100%; width:100%;",

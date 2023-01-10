@@ -1,6 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
 import { Loader } from "esbuild-wasm";
-import { esmTransform } from "./esmTran";
+import { esmTransform } from "./esbuildEsm";
 // import { readFile } from "./fs";
 import { importMapReplace } from "./importMapReplace";
 

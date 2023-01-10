@@ -7,7 +7,7 @@ export { resetCSS } from "./getResetCss";
 export { importMapReplace } from "./importMapReplace";
 import type { Delta } from "./textDiff";
 import { applyPatch as aPatch, createDelta } from "./textDiff";
-export { esmTransform } from "./esmTran";
+export { esmTransform } from "./esbuildEsm";
 export const importMap = { imports: imap.imports };
 // Import * as Immutable from "immutable"
 export { aPatch, createDelta };
