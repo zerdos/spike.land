@@ -100,7 +100,7 @@ const buildOptions: esbuild.BuildOptions = {
     events: "events/",
 
     // events: "events",
-    stream: "stream",
+    stream: "stream-browserify",
     os: "os-browserify",
     assert: "assert",
     fs: "./src/fs.ts",
