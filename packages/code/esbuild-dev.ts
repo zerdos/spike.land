@@ -245,6 +245,7 @@ const build = (
 
     bundle: true,
     define,
+    target: "es2015",
     treeShaking: true,
     minify: true, // ! isDevelopment,
     minifyWhitespace: false, // ! isDevelopment,
