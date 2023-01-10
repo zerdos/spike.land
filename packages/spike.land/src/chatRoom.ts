@@ -341,7 +341,7 @@ export class Code {
             | { type: "WhiteSpace"; value: string }
             | { type: "LineTerminatorSequence"; value: string }
             | { type: "Invalid"; value: string };
-          return new Response(toki.filter(x => x.type !== "WhiteSpace").map(x => x.value).join(), {
+          return new Response(toki.filter(x => x.type !== "WhiteSpace").map(x => x.value).join(" "), {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
