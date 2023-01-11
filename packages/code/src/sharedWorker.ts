@@ -36,7 +36,7 @@ function hashCode(sess: ICodeSession) {
 
 function mST(codeSpace: string, p?: Delta[]) {
   if (p && p.length) {
-    const sessAsJs = sessions[codeSpace].toJs();
+    const sessAsJs = sessions[codeSpace];
 
     const { i, code, html, css }: ICodeSession = p
       ? JSON.parse(
@@ -53,9 +53,9 @@ function mST(codeSpace: string, p?: Delta[]) {
       code,
       html,
       css,
-    }).toJs();
+    });
   }
-  return sessions[codeSpace].toJs();
+  return sessions[codeSpace];
 }
 
 async function send(codeSpace: string, msg: object) {

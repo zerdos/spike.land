@@ -1,6 +1,7 @@
 import type { DurableObject } from "@cloudflare/workers-types";
 import { ICodeSession } from "./../../code/src/session";
 import { md5 } from "./../../code/src/session";
+import type { RecordOf } from "immutable";
 import { CodeEnv } from "./env";
 import { Delta } from "../../code/src/textDiff";
 export { md5 };
@@ -15,14 +16,14 @@ export declare class Code implements DurableObject {
     wsSessions: WebsocketSession[];
     user2user(to: string, msg: unknown | string): void;
     broadcast(msg: unknown): void;
-    private session;
+    session: RecordOf<ICodeSession>;
     createPatch(oldSess: ICodeSession, newSess: ICodeSession): {
         oldHash: number;
         newHash: number;
         reversePatch: Delta[];
         patch: Delta[];
     };
-    mST(p: Delta[]): ICodeSession;
+    mST(p: Delta[]): RecordOf<ICodeSession>;
     private backupSession;
     constructor(state: DurableObjectState, env: CodeEnv);
     fetch(request: Request): Promise<Response>;

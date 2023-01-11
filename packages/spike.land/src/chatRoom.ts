@@ -6,6 +6,8 @@ import { signaller } from "./signalling";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
 import type { RecordOf } from "immutable";
+import { hash } from "immutable";
+
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
@@ -56,15 +58,15 @@ export class Code implements DurableObject {
       }
     });
   }
-  private session: RecordOf<ICodeSession>;
+  session: RecordOf<ICodeSession> = makeSession({ i: 0, code: "", html: "", css: "" });
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
     const oldRec = makeSession(oldSess);
-    const oldHash = oldRec.hashCode();
+    const oldHash = hash(oldRec);
     const newRec = makeSession(newSess);
-    const newHash = newRec.hashCode();
+    const newHash = hash(newRec);
 
-    const oldString = string_(oldRec.toJs());
-    const newString = string_(newRec.toJs());
+    const oldString = string_(oldRec);
+    const newString = string_(newRec);
 
     const patch = createDelta(oldString, newString);
     const reversePatch = createDelta(newString, oldString);
@@ -76,30 +78,27 @@ export class Code implements DurableObject {
     };
   }
   mST(p: Delta[]) {
-    const oldString = string_(this.session.toJs());
+    const oldString = string_(this.session);
     const newString = aPatch(oldString, p);
     const s = JSON.parse(newString);
-    return makeSession(s).toJs();
+    return makeSession(s);
   }
 
-  private backupSession: ICodeSession;
+  private backupSession = makeSession({
+    code: `export default () => (
+        <div>
+          <h1>404 - for now.</h1>
+      
+          <h2>
+            But you can edit even this page and share with your friends.
+          </h2>
+        </div>
+      );`,
+    i: 0,
+    html: "<div></div>",
+    css: "",
+  });
   constructor(private state: DurableObjectState, private env: CodeEnv) {
-    this.backupSession = {
-      code: `export default () => (
-          <div>
-            <h1>404 - for now.</h1>
-        
-            <h2>
-              But you can edit even this page and share with your friends.
-            </h2>
-          </div>
-        );`,
-      i: 0,
-      html: "<div></div>",
-      css: "",
-    };
-    this.session = makeSession({ i: 0, code: "", html: "", css: "" });
-
     // const _ = this;
     // this.origin = '';
     // sess = { code: "", i: 0, html: "", css: "" } as ICodeSession;
@@ -147,24 +146,24 @@ export class Code implements DurableObject {
         const inc = Number(await this.state.storage.get("inc")) + 1 || 1;
         this.state.storage.put("inc", inc);
 
-        const sess: ICodeSession = this.session.toJs().i
-          ? this.session.toJs()
+        const sess: ICodeSession = this.session.i
+          ? this.session
           : makeSession(
             await this.state.storage.get("sess")
               || (await this.state.storage.get("session") as ICodeSession),
-          ).toJs() || this.session.toJs();
+          ) || this.session;
 
         // const getSession = (s = sess) => Record(sess)(s);
-        const hashCode = (s = sess) => makeSession(s).hashCode();
+
         this.state.storage.put("sess", sess);
-        this.state.storage.put("head", this.session.hashCode());
+        this.state.storage.put("head", hash(this.session));
 
         const url = new URL(request.url);
 
         const origin = url.origin;
         const transpiled = () => initAndTransform(sess.code, {}, origin);
 
-        const oldHash = hashCode(sess);
+        const oldHash = hash(sess);
 
         const codeSpace = url.searchParams.get("room");
 
@@ -202,11 +201,11 @@ export class Code implements DurableObject {
             });
           }
 
-          const newSession = makeSession(this.mST(message.patch));
-          const newSess = newSession.toJs();
-          const newHash = newSession.hashCode();
+          const newSession = this.mST(message.patch);
 
-          // const newSess= newSession.toJs();
+          const newHash = hash(newSession);
+
+          // const newSess= newSession;
           if (newHash !== message.newHash) {
             return new Response(JSON.stringify({ newHash, message, success: false }), {
               status: 500,
@@ -220,7 +219,7 @@ export class Code implements DurableObject {
           }
 
           this.session = newSession;
-          this.state.storage.put("sess", newSess);
+          this.state.storage.put("sess", newSession);
 
           return new Response(JSON.stringify({ ...message, success: true }), {
             status: 200,
@@ -265,7 +264,7 @@ export class Code implements DurableObject {
         //       // setTimeout(() => {
         //       //   sess = Record<ICodeSession>(sess)(newState)
 
-        //       //   this.syncKV(oldState, newState.toJs(), {
+        //       //   this.syncKV(oldState, newState, {
         //       //     oldHash,
         //       //     newHash,
         //       //     patch,
@@ -277,7 +276,7 @@ export class Code implements DurableObject {
         //       const newRec = session().merge(
         //         newState,
         //       );
-        //       session = Record<ICodeSession>(newRec.toJs());
+        //       session = Record<ICodeSession>(newRec);
 
         //       sess = Record<ICodeSession>(sess)(newRec);
         //       this.state.storage.put("head", sess);
@@ -462,7 +461,7 @@ export class Code implements DurableObject {
                 allowConcurrency: true,
               });
               if (session) {
-                const s = makeSession(typeof session === "string" ? JSON.parse(session) : session).toJs();
+                const s = makeSession(typeof session === "string" ? JSON.parse(session) : session);
 
                 // const { i, transpiled, code, html, css } = session;
 
@@ -820,8 +819,8 @@ sheet.addRule('h1', 'background: red;');
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: this.session.hashCode(),
-        i: this.session.toJs().i,
+        hashCode: hash(this.session),
+        i: this.session.i,
         users,
         type: "handshake",
       }),
@@ -919,7 +918,7 @@ sheet.addRule('h1', 'background: red;');
 
     if (data.type == "handshake") {
       const commit = data.hashCode;
-      while (commit && commit !== this.session.hashCode()) {
+      while (commit && commit !== hash(this.session)) {
         const oldNode = await this.state.storage.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });
@@ -1013,9 +1012,9 @@ sheet.addRule('h1', 'background: red;');
           // );
           try {
             // session = newRec;
-            // sess = session.toJs();
+            // sess = session;
 
-            // this.syncKV(oldState.toJs(), newState.toJs(), {
+            // this.syncKV(oldState, newState, {
             //   oldHash: data.oldHash,
             //   newHash: data.newHash,
             //   patch: data.patch,

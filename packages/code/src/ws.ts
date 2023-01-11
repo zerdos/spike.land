@@ -32,6 +32,7 @@ import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 import type { RecordOf } from "immutable";
+import { hash } from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
@@ -88,15 +89,15 @@ export const sess = () => ({
 });
 const mutex = new Mutex();
 export class Code {
-  session: RecordOf<ICodeSession>;
+  session = makeSession({ i: 0, code: "", html: "", css: "" });
   public sess: ICodeSession;
   head: number;
   user = md5(self.crypto.randomUUID());
   mST(p: Delta[]) {
-    const oldString = string_(this.session.toJs());
+    const oldString = string_(this.session);
     const newString = aPatch(oldString, p);
     const s = JSON.parse(newString);
-    return makeSession(s).toJs();
+    return makeSession(s);
   }
   // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
 
@@ -131,8 +132,8 @@ export class Code {
           const startSess = await ky(`${origin}/live/${codeSpace}/session`).json<ICodeSession>();
           // ]);
           this.session = makeSession(startSess);
-          this.sess = this.session.toJs();
-          this.head = this.session.hashCode();
+          this.sess = this.session;
+          this.head = hash(this.sess);
 
           await ldb(codeSpace).setItem(
             "head",
@@ -142,22 +143,22 @@ export class Code {
         } else {
           const startSess = await ldb(codeSpace).getItem(String(head)) as ICodeSession;
           this.session = makeSession(startSess);
-          this.sess = this.session.toJs();
+          this.sess = this.session;
 
-          this.head = this.session.hashCode();
+          this.head = hash(this.session);
         }
       });
     })();
   }
 
-  createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
+  createPatch(oldSess: RecordOf<ICodeSession>, newSess: RecordOf<ICodeSession>) {
     const oldRec = makeSession(oldSess);
-    const oldHash = oldRec.hashCode();
+    const oldHash = hash(oldRec);
     const newRec = makeSession(newSess);
-    const newHash = newRec.hashCode();
+    const newHash = hash(newRec);
 
-    const oldString = string_(oldRec.toJS());
-    const newString = string_(newRec.toJs());
+    const oldString = string_(oldRec);
+    const newString = string_(newRec);
 
     const patch = createDelta(oldString, newString);
     const reversePatch = createDelta(newString, oldString);
@@ -170,12 +171,14 @@ export class Code {
   }
 
   async syncWS(newSession: ICodeSession, signal: AbortSignal) {
-    const oldSession = makeSession(this.sess);
+    const oldSession = this.session;
     const newSess = makeSession(newSession);
 
-    const oldHash = oldSession.hashCode();
-    const newState = makeSession(newSession).toJs();
-    const message = this.createPatch(oldSession, newState);
+    const oldHash = hash(oldSession);
+    this.session = newSess;
+    this.sess = newSess;
+    this.head = hash(newSess);
+    const message = this.createPatch(oldSession, newSess);
 
     // controller.abort();
     // controller = new AbortController();
