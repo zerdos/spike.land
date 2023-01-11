@@ -289,6 +289,7 @@ export class Code {
 
     if (location.pathname === `/live/${codeSpace}`) {
       const code = await prettier(sess().code);
+      globalThis.firstRender.code = code;
 
       cSess.session = makeSession({ ...cSess.session, code });
 
