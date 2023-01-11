@@ -364,7 +364,7 @@ export const codeSession = async () => {
   };
 };
 
-export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await codeSession.syncWS(sess, signal);
+export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 
 export const run = async () => {
   (await codeSession()).run!();
