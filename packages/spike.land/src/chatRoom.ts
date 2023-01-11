@@ -98,12 +98,7 @@ export class Code implements DurableObject {
       html: "<div></div>",
       css: "",
     };
-    this.session = makeSession({
-      i: 0,
-      code: "",
-      html: "",
-      css: "",
-    });
+    this.session = makeSession({ i: 0, code: "", html: "", css: "" });
 
     // const _ = this;
     // this.origin = '';
