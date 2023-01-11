@@ -8,6 +8,7 @@ import prettier from "prettier/standalone";
 // let lastSuccessful: string | null = null;
 
 export const prettierJs = (code: string) => {
+  return code;
   console.log(`prettierJS: ${code}`);
   try {
     return prettier.format(code, {
