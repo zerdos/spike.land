@@ -152,8 +152,8 @@ export class Code {
     const sess: ICodeSession = this.session.toJS().i ? this.session.toJS() : (await this.state.storage.get("sess", {}))
       || (await this.state.storage.get("session", {})) || this.session.toJS();
 
-    const getSession = (s = sess) => Record(sess)(s);
-    const hashCode = (s = sess) => getSession(s).hashCode();
+    // const getSession = (s = sess) => Record(sess)(s);
+    const hashCode = (s = sess) => this.session.merge(s).hashCode();
 
     const url = new URL(request.url);
 
@@ -198,7 +198,7 @@ export class Code {
         });
       }
 
-      const newSession = getSession(this.mST(message.patch));
+      const newSession = this.session.merge(this.mST(message.patch));
       const newSess = newSession.toJS();
       const newHash = newSession.hashCode();
 

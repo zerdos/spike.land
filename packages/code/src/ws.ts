@@ -155,7 +155,28 @@ export class Code {
         // .text().then((x) => this.head = Number(x)),
         this.sess = await ky(`${origin}/live/${codeSpace}/session`).json();
         // ]);
-        this.session = Record<ICodeSession>(this.sess)();
+
+        const backupSession = {
+          code: `export default () => (
+              <div>
+                <h1>404 - for now.</h1>
+            
+                <h2>
+                  But you can edit even this page and share with your friends.
+                </h2>
+              </div>
+            );`,
+          i: 0,
+          html: "<div></div>",
+          css: "",
+        };
+        const {
+          i,
+          code,
+          html,
+          css,
+        } = backupSession;
+        this.session = Record<ICodeSession>({ i, code, html, css })(this.sess);
         this.head = this.session.hashCode();
       }
 
