@@ -18,14 +18,12 @@ export { HTML };
 
 export { md5 };
 
-export const makeSession: (p: ICodeSession) => ICodeSession = (
-  { i, code, html, css } = { i: 0, code: "", html: "", css: "" },
-) =>
+export const makeSession: (p: ICodeSession) => ICodeSession = (p) =>
   Record({ i: 0, code: "", html: "", css: "" })({
-    i,
-    code,
-    html,
-    css: css && css.split(".css-").filter(x => html.indexOf(x.slice(0, 5)) !== -1).join(".css-"),
+    i: p.i || 0,
+    code: p.code || `export default ()=> <>Nothing<>`,
+    html: p.html || "",
+    css: (p.css || "").split(".css-").filter(x => (p.html || "").indexOf(x.slice(0, 5)) !== -1).join(".css-"),
   }).toJS();
 
 export type ICodeSession = {
