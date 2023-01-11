@@ -1,4 +1,5 @@
 import { Mutex } from "async-mutex";
+import Immutable from "immutable";
 import { hash, Record } from "immutable";
 import { ldb } from "./createDb";
 // import { m } from "framer-motion";
@@ -350,8 +351,8 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
               const patch: Delta[] = mess.patch || [];
               const oldState = mST(codeSpace);
               const newState = mST(codeSpace, patch);
-              const oldHash = hash(oldState);
-              const newHash = hash(newState);
+              const oldHash = Immutable.hash(oldState);
+              const newHash = Immutable.hash(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
                 console.error({ msg, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
@@ -395,8 +396,8 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
           const patch: Delta[] = mess.patch || [];
           const oldState = mST(codeSpace);
           const newState = mST(codeSpace, patch);
-          const oldHash = hash(oldState);
-          const newHash = hash(newState);
+          const oldHash = Immutable.hash(oldState);
+          const newHash = Immutable.hash(newState);
           if (
             newHash !== wsHash || (mess.oldHash && oldHash !== mess.oldHash)
           ) {

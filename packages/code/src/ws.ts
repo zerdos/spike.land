@@ -33,6 +33,7 @@ import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 // import type { RecordOf } from "immutable";
 import { hash } from "immutable";
+import Immutable from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
@@ -88,7 +89,7 @@ const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
   sess = this.session;
-  head = hash(this.session);
+  head = Immutable.hash(this.session);
   user = md5(self.crypto.randomUUID());
   mST(p: Delta[]) {
     const oldString = string_(this.session);
@@ -130,7 +131,7 @@ export class Code {
           // ]);
           this.session = makeSession(startSess);
           this.sess = this.session;
-          this.head = hash(this.sess);
+          this.head = Immutable.hash(this.sess);
 
           await ldb(codeSpace).setItem(
             "head",
@@ -142,7 +143,7 @@ export class Code {
           this.session = makeSession(startSess);
           this.sess = this.session;
 
-          this.head = hash(this.session);
+          this.head = Immutable.hash(this.session);
         }
       });
     })();
@@ -150,9 +151,9 @@ export class Code {
 
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
     const oldRec = makeSession(oldSess);
-    const oldHash = hash(oldRec);
+    const oldHash = Immutable.hash(oldRec);
     const newRec = makeSession(newSess);
-    const newHash = hash(newRec);
+    const newHash = Immutable.hash(newRec);
 
     const oldString = string_(oldRec);
     const newString = string_(newRec);
@@ -171,10 +172,10 @@ export class Code {
     const oldSession = this.session;
     const newSess = makeSession(newSession);
 
-    const oldHash = hash(oldSession);
+    const oldHash = Immutable.hash(oldSession);
     this.session = newSess;
     this.sess = newSess;
-    this.head = hash(newSess);
+    this.head = Immutable.hash(newSess);
     const message = this.createPatch(oldSession, newSess);
 
     // controller.abort();
