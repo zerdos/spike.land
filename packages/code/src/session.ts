@@ -18,13 +18,13 @@ export { HTML };
 
 export { md5 };
 
-export const makeSession: (p: ICodeSession) => RecordOf<ICodeSession> = ({ i, code, html, css }) =>
+export const makeSession: (p: ICodeSession) => ICodeSession = ({ i, code, html, css }) =>
   Record({ i: 0, code: "", html: "", css: "" })({
     i,
     code,
     html,
     css: css.split(".css-").filter(x => html.indexOf(x.slice(0, 5)) !== -1).join(".css-"),
-  });
+  }).toJS();
 
 export type ICodeSession = {
   code: string;

@@ -90,8 +90,8 @@ export const sess = () => ({
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
-  public sess: ICodeSession;
-  head: number;
+  sess = this.session;
+  head = hash(this.session);
   user = md5(self.crypto.randomUUID());
   mST(p: Delta[]) {
     const oldString = string_(this.session);
@@ -151,7 +151,7 @@ export class Code {
     })();
   }
 
-  createPatch(oldSess: RecordOf<ICodeSession>, newSess: RecordOf<ICodeSession>) {
+  createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
     const oldRec = makeSession(oldSess);
     const oldHash = hash(oldRec);
     const newRec = makeSession(newSess);

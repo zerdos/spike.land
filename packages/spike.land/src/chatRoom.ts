@@ -58,7 +58,7 @@ export class Code implements DurableObject {
       }
     });
   }
-  session: RecordOf<ICodeSession> = makeSession({ i: 0, code: "", html: "", css: "" });
+  session = makeSession({ i: 0, code: "", html: "", css: "" });
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
     const oldRec = makeSession(oldSess);
     const oldHash = hash(oldRec);
