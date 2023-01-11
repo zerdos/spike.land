@@ -48,13 +48,16 @@ export const render = async (
   while (i-- > 0) {
     const html = rootEl.innerHTML;
     if (html && html !== "") {
+      globalThis.firstRender.html = html;
       const css = mineFromCaches(
-        { key: "css" } as unknown as EmotionCache,
+        cache,
         html,
       );
       // root.unmount();
       console.log({ html, css });
-      globalThis.firstRender = { ...globalThis.firstRender, html, css };
+
+      globalThis.firstRender.css = css;
+
       return { html, css };
     }
 
