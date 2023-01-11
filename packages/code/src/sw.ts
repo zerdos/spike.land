@@ -1,9 +1,12 @@
 // import { importMapReplace } from "./esbuildEsm";
+importScripts("/workerScripts/superFetch.js");
+self.originalFetch = self.fetch;
+self.fetch = self.superFetch;
+
 export type {};
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
-import "./superFetch";
 
 // var originalFetch = require("isomorphic-fetch");
 // var fetch = require("fetch-retry")(originalFetch, {

@@ -1,3 +1,7 @@
+importScripts("/workerScripts/superFetch.js");
+self.originalFetch = self.fetch;
+self.fetch = self.superFetch;
+
 import { Mutex } from "async-mutex";
 import { Record } from "immutable";
 import { ldb } from "./createDb";

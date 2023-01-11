@@ -45,14 +45,14 @@ const Editor: FC<
         return;
       }
 
-      const code = await (prettier(await ky(`${origin}/live/${codeSpace}/index.tsx`).text()));
+      const code = await ky(`${origin}/live/${codeSpace}/index.tsx`).text();
 
       const container = ref?.current;
       if (container === null) return;
 
       const { setValue } = await (engine === "monaco"
-        ? setMonaco(container, codeSpace)
-        : setAce(container)) as { setValue: (code: string) => null };
+        ? setMonaco(container, codeSpace, code, i)
+        : setAce(container, code)) as { setValue: (code: string) => null };
 
       changeContent((x) => ({ ...x, started: true, code, setValue }));
     };
@@ -177,13 +177,13 @@ const Editor: FC<
     </Rnd>
   );
 
-  async function setMonaco(container: HTMLDivElement, codeSpace: string) {
+  async function setMonaco(container: HTMLDivElement, codeSpace: string, code: string, i: number) {
     if (startedM) return;
     startedM = 1;
     const link = document.createElement("link");
     link.setAttribute("rel", "stylesheet");
     link.href = origin + "/src/Editor.css";
-    document.head.append(link);
+    document.head.appendChild(link);
     const { startMonaco } = await import("./startMonaco");
     return await startMonaco({
       container,
@@ -194,7 +194,7 @@ const Editor: FC<
     });
   }
 
-  async function setAce(container: HTMLDivElement) {
+  async function setAce(container: HTMLDivElement, code: string) {
     if (startedAce) return;
     startedAce = 1;
     const { startAce } = await import("./startAce");
