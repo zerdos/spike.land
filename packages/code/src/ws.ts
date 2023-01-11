@@ -3,6 +3,8 @@
 import ky from "ky";
 // import 'css-paint-polyfill
 import AVLTree from "avl";
+import { prettier } from "./shared";
+
 import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
@@ -24,6 +26,11 @@ import {
 
 import { Mutex } from "async-mutex";
 
+globalThis.firstRender = globalThis.firstRender || {
+  html: "",
+  css: "",
+  code: "",
+};
 // Import * as FS from '@isomorphic/-git/lightning-fs';
 
 // import { renderPreviewWindow } from "./renderPreviewWindow";
@@ -33,7 +40,7 @@ import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 // import type { RecordOf } from "immutable";
-import * as Immutable from "immutable";
+// import * as Immutable from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
@@ -218,7 +225,6 @@ export class Code {
 
         // const test1 = this.mST(se§)
 
-        ws.post(message);
         ws.send(message);
       });
 
@@ -282,6 +288,10 @@ export class Code {
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
+      const code = await prettier(sess().code);
+
+      cSess.session = makeSession({ ...cSess.session, code });
+
       renderPreviewWindow({ codeSpace, dry: false });
     }
 

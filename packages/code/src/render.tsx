@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import createCache from "./emotionCache";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
-import { CacheProvider } from "@emotion/react";
+import { CacheProvider, css } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import { appFactory, md5 } from "./starter";
@@ -17,6 +17,11 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 let root: Root;
 let rootEl: HTMLDivElement;
+globalThis.firstRender = globalThis.firstRender || {
+  html: "",
+  css: "",
+  code: "",
+};
 
 export const render = async (
   _rootEl: HTMLDivElement,
@@ -38,6 +43,23 @@ export const render = async (
       <App />
     </CacheProvider>,
   );
+
+  let i = 100;
+  while (i-- > 0) {
+    const html = rootEl.innerHTML;
+    if (html && html !== "") {
+      const css = mineFromCaches(
+        { key: "css" } as unknown as EmotionCache,
+        html,
+      );
+      // root.unmount();
+      console.log({ html, css });
+      globalThis.firstRender = { ...globalThis.firstRender, html, css };
+      return { html, css };
+    }
+
+    await wait(10);
+  }
 
   return root;
 };
