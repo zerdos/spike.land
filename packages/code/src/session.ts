@@ -21,7 +21,7 @@ export { md5 };
 export const makeSession: (p: ICodeSession) => ICodeSession = (p = { i: 0, code: "", html: "", css: "" }) =>
   Record({ i: 0, code: "", html: "", css: "" })({
     i: p.i || 0,
-    code: p.code || `export default ()=> <>Nothing<>`,
+    code: p.code || `export default ()=> <>Nothing</>`,
     html: p.html || "",
     css: (p.css || "").split(".css-").filter(x => (p.html || "").indexOf(x.slice(0, 5)) !== -1).join(".css-"),
   }).toJS();

@@ -2,7 +2,7 @@
 export const md5 = (code) =>
   // cache.get(code) || cache.set(
   // code,
-  md5FULL(code).split("0").join("k")
+  md5FULL(typeof code === "string" ? code : JSON.stringify(code)).split("0").join("k")
     .split("1").join("g")
     .split("2").join("j")
     .split("3").join("k")
