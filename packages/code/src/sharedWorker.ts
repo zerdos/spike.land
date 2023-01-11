@@ -34,7 +34,7 @@ function mST(codeSpace: string, p?: Delta[]) {
   if (p && p.length) {
     const sessAsJs = sessions[codeSpace].toJSON();
 
-    const { i, transpiled, code, html, css }: ICodeSession = p
+    const { i, code, html, css }: ICodeSession = p
       ? JSON.parse(
         aPatch(
           string_(
@@ -46,7 +46,6 @@ function mST(codeSpace: string, p?: Delta[]) {
       : sessAsJs;
     return sessions[codeSpace].merge({
       i,
-      transpiled,
       code,
       html,
       css,

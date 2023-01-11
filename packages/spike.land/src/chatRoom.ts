@@ -1,9 +1,9 @@
-import { CodePatch, Delta, ICodeSession } from "./../../code/src/session";
-import { resetCSS, string_, syncStorage } from "./../../code/src/session";
+import { CodePatch, ICodeSession } from "./../../code/src/session";
+import { resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
-import { signaller } from "./signalimg";
+import { signaller } from "./signalling";
 // import { Mutex } from "async-mutex";
-import AVLTree from "avl";
+// import AVLTree from "avl";
 import { Record } from "immutable";
 import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
@@ -11,18 +11,12 @@ import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
+import { Delta } from "../../code/src/textDiff";
 import ASSET_HASH from "./dist.shasum";
 
 export { md5 };
 
 // import { CodeRateLimiter } from "./rateLimiter";
-
-export type ICodeSession = {
-  code: string;
-  i: number;
-  html: string;
-  css: string;
-};
 
 interface WebsocketSession {
   name: string;
@@ -33,7 +27,7 @@ interface WebsocketSession {
 
 export class Code {
   // mutex: Mutex;
-
+  private wsSessions: WebsocketSession[] = [];
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
@@ -48,6 +42,7 @@ export class Code {
         }
       });
   }
+  // private users:
   broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
 
@@ -56,14 +51,59 @@ export class Code {
         s.webSocket.send(message);
       } catch (err) {
         s.quit = true;
-        this.users.remove(s.name);
+        // this.users.remove(s.name);
         // s.blockedMessages.push(message);
       }
     });
   }
+  private session: Record<ICodeSession>;
+  mST(p?: Delta[]) {
+    if (p && p.length) {
+      const sessAsJs = this.session.toJS();
 
+      const { i, code, html, css }: ICodeSession = p
+        ? JSON.parse(
+          aPatch(
+            string_(
+              sessAsJs,
+            ),
+            p,
+          ),
+        )
+        : sessAsJs;
+      return this.session.merge({
+        i,
+        code,
+        html,
+        css,
+      }).toJS();
+    }
+    return this.session.toJS();
+  }
+
+  private backupSession: ICodeSession;
   constructor(private state: DurableObjectState, private env: CodeEnv) {
-    this.state = state;
+    this.backupSession = {
+      code: `export default () => (
+          <div>
+            <h1>404 - for now.</h1>
+        
+            <h2>
+              But you can edit even this page and share with your friends.
+            </h2>
+          </div>
+        );`,
+      i: 0,
+      html: "<div></div>",
+      css: "",
+    };
+    const {
+      i,
+      code,
+      html,
+      css,
+    } = this.backupSession;
+    this.session = Record<ICodeSession>({ i, code, html, css })(this.backupSession);
 
     // const _ = this;
     // this.origin = '';
@@ -105,24 +145,15 @@ export class Code {
   async fetch(request: Request) {
     // try {
     const sessions = await this.state.storage.get("sessions") || [];
-    const backupSession: ICodeSession = {
-      code: `export default () => (
-          <div>
-            <h1>404 - for now.</h1>
-        
-            <h2>
-              But you can edit even this page and share with your friends.
-            </h2>
-          </div>
-        );`,
-      i: 1,
-      html: "<div></div>",
-      css: "",
-    };
-    const inc = this.state.inc = this.state.inc++ || 1;
-    const sess: ICodeSession = (await this.state.storage.get("sess", {}))
-      || (await this.state.storage.get("session", {})) || backupSession;
-    const hashCode = (ICodeSession) => Record(backupSession)(sess).hashCode();
+
+    const inc = Number(await this.state.storage.get("inc")) + 1 || 1;
+    this.state.storage.put("inc", inc);
+
+    const sess: ICodeSession = this.session.toJS().i ? this.session.toJS() : (await this.state.storage.get("sess", {}))
+      || (await this.state.storage.get("session", {})) || this.session.toJS();
+
+    const getSession = (s = sess) => Record(sess)(s);
+    const hashCode = (s = sess) => getSession(s).hashCode();
 
     const url = new URL(request.url);
 
@@ -140,16 +171,63 @@ export class Code {
 
     // const mess = await request.json();
 
-    // if (request.method === "POST") {
-    // return new Response(JSON.stringify({ success: true, mess }), {
-    //   status: 200,
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Cross-Origin-Embedder-Policy": "require-corp",
-    //     "Cache-Control": "no-cache",
-    //     "Content-Type": "application/json; charset=UTF-8",
-    //   },
-    // });
+    if (request.method === "POST") {
+      const message = await request.json<CodePatch>();
+
+      if (!message) {
+        new Response(JSON.stringify({ message: "failed to get the message", success: false }), {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+
+      if (oldHash !== message.oldHash) {
+        return new Response(JSON.stringify({ sess, oldHash, success: false }), {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+
+      const newSession = getSession(this.mST(message.patch));
+      const newSess = newSession.toJS();
+      const newHash = newSession.hashCode();
+
+      // const newSess= newSession.toJS();
+      if (newHash !== message.newHash) {
+        return new Response(JSON.stringify({ newHash, message, success: false }), {
+          status: 500,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+
+      this.session = newSession;
+      this.state.storage.put("sess", newSess);
+
+      return new Response(JSON.stringify({ ...message, success: true }), {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cache-Control": "no-cache",
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
+    }
 
     // try {
     //   const mess:

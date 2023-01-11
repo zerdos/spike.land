@@ -91,7 +91,7 @@ export class Code {
   user = md5(self.crypto.randomUUID());
   mST(p?: Delta[]) {
     if (p && p.length) {
-      const sessAsJs = this.session.toJSON();
+      const sessAsJs = this.session.toJS();
 
       const { i, code, html, css }: ICodeSession = p
         ? JSON.parse(
@@ -108,9 +108,9 @@ export class Code {
         code,
         html,
         css,
-      }).toObject();
+      }).toJS();
     }
-    return this.session.toObject();
+    return this.session.toJS();
   }
 
   // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));

@@ -4,6 +4,8 @@
 
 import * as esbuild from "https://deno.land/x/esbuild@v0.16.16/mod.js";
 
+import { copy } from "https://deno.land/std@0.171.0/fs/copy.ts";
+
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
 
@@ -208,13 +210,13 @@ const build = (
     "./dist/live/box/index.js",
   );
 
-  await Deno.copyFile(
+  await copy(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
-  await Deno.copyFile(
-    "./dist/src/assets/favicons/favicon.ico",
-    "./dist/favicon.ico",
+  await copy(
+    "./src/assets",
+    "./dist/assets",
   );
   await esbuild.build({
     ...buildOptions,
