@@ -84,11 +84,6 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 // const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
-export const sess = () => ({
-  ...(cSess.sess),
-});
-
-
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
@@ -364,6 +359,12 @@ export const codeSession = async () => {
     },
   };
 };
+
+export const sess = () => ({
+  ...(cSess.sess),
+});
+
+Object.assign(globalThis, { sess, hash, makeSession, cSess: () => cSess });
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 
