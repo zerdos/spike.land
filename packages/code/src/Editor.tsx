@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import ky from "ky";
 
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -9,7 +8,7 @@ import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
-import { codeSession, sess } from "./ws";
+import { sess } from "./ws";
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;
@@ -45,7 +44,7 @@ const Editor: FC<
         return;
       }
 
-      const code = await ky(`${origin}/live/${codeSpace}/index.tsx`).text();
+      // const code = await ky(`${origin}/live/${codeSpace}/index.tsx`).text();
 
       const container = ref?.current;
       if (container === null) return;
@@ -102,7 +101,6 @@ const Editor: FC<
   const onChange = async (_code: string) => {
     if (code === _code) return;
     console.log(_code);
-    const cSess = (await codeSession());
 
     const ccc = await prettier(code);
     const c = await prettier(_code);
@@ -112,19 +110,15 @@ const Editor: FC<
 
     changeContent((x) => ({
       ...x,
-      i: cSess.sess!.i + 1,
+      i: i + 1,
       code: c,
       controller: new AbortController(),
     }));
   };
 
   useEffect(() => {
-    let next = i;
-    (async () => {
-      const cSess = (await codeSession());
-
-      if (i !== 0 && cSess && cSess.sess && i <= cSess.sess.i) return;
-      next = cSess.sess!.i;
+    // let next = i;
+      if (i <= sess().i) return;
       // onSessionUpdate(
       //   async () => {
       //     const { i, code: ccc } = mST(codeSpace);
@@ -146,9 +140,8 @@ const Editor: FC<
       //   "editor",
       //   codeSpace,
       // );
-      runner({ code, counter: next, codeSpace, signal: controller.signal });
+      runner({ code, counter: i, codeSpace, signal: controller.signal });
       return () => controller.abort();
-    })();
   }, [code, i, codeSpace, controller.signal]);
 
   if (engine === "ace") return EditorNode;
