@@ -10,6 +10,7 @@ import {
   //  onSession
 
   type CodePatch,
+  makeSession,
   // type Delta,
   // CodeSession,
 
@@ -30,7 +31,7 @@ import { Mutex } from "async-mutex";
 import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
-import { Record } from "immutable";
+import type { RecordOf } from "immutable";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
@@ -87,15 +88,15 @@ export const sess = () => ({
 });
 const mutex = new Mutex();
 export class Code {
-  session: Record<ICodeSession>;
+  session: RecordOf<ICodeSession>;
   public sess: ICodeSession;
   head: number;
   user = md5(self.crypto.randomUUID());
   mST(p: Delta[]) {
-    const oldString = string_(this.session.toJSON());
+    const oldString = string_(this.session.toJs());
     const newString = aPatch(oldString, p);
     const s = JSON.parse(newString);
-    return this.session.merge(s).toJSON();
+    return makeSession(s).toJs();
   }
   // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
 
@@ -129,13 +130,8 @@ export class Code {
           // .text().then((x) => this.head = Number(x)),
           const startSess = await ky(`${origin}/live/${codeSpace}/session`).json<ICodeSession>();
           // ]);
-          this.session = Record<ICodeSession>({
-            i: 0,
-            code: "",
-            html: "",
-            css: "",
-          })(startSess);
-          this.sess = this.session.toJSON();
+          this.session = makeSession(startSess);
+          this.sess = this.session.toJs();
           this.head = this.session.hashCode();
 
           await ldb(codeSpace).setItem(
@@ -145,13 +141,8 @@ export class Code {
           await ldb(codeSpace).setItem(String(this.head), this.sess) as (ICodeSession | false);
         } else {
           const startSess = await ldb(codeSpace).getItem(String(head)) as ICodeSession;
-          this.session = Record<ICodeSession>({
-            i: 0,
-            code: "",
-            html: "",
-            css: "",
-          })(startSess);
-          this.sess = this.session.toJSON();
+          this.session = makeSession(startSess);
+          this.sess = this.session.toJs();
 
           this.head = this.session.hashCode();
         }
@@ -160,13 +151,13 @@ export class Code {
   }
 
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
-    const oldRec = this.session.merge(oldSess);
+    const oldRec = makeSession(oldSess);
     const oldHash = oldRec.hashCode();
-    const newRec = this.session.merge(newSess);
+    const newRec = makeSession(newSess);
     const newHash = newRec.hashCode();
 
-    const oldString = string_(oldRec.toJSON());
-    const newString = string_(newRec.toJSON());
+    const oldString = string_(oldRec.toJS());
+    const newString = string_(newRec.toJs());
 
     const patch = createDelta(oldString, newString);
     const reversePatch = createDelta(newString, oldString);
@@ -179,8 +170,11 @@ export class Code {
   }
 
   async syncWS(newSession: ICodeSession, signal: AbortSignal) {
-    const oldSession = this.session.merge(this.sess).toJSON();
-    const newState = this.session.merge(newSession).toJSON();
+    const oldSession = makeSession(this.sess);
+    const newSess = makeSession(newSession);
+
+    const oldHash = oldSession.hashCode();
+    const newState = makeSession(newSession).toJs();
     const message = this.createPatch(oldSession, newState);
 
     // controller.abort();
@@ -203,11 +197,13 @@ export class Code {
 
       // const newSS = mST(codeSpace);
       setTimeout(async () => {
-        this.session = this.session.merge(newSession);
+        this.session = makeSession(newSession);
 
         ldb(codeSpace).syncDb(oldSession, newSession, message);
 
         mutex.release();
+
+        // const test1 = this.mST(se§)
 
         ws.post(message);
         ws.send(message);

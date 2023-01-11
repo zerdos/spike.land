@@ -1,11 +1,11 @@
 import type { DurableObject, WebSocketPair } from "@cloudflare/workers-types";
-import { CodePatch, ICodeSession } from "./../../code/src/session";
+import { CodePatch, ICodeSession, makeSession } from "./../../code/src/session";
 import { resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
 import { signaller } from "./signalling";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
-import { merge, Record } from "immutable";
+import type { RecordOf } from "immutable";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
@@ -56,15 +56,15 @@ export class Code implements DurableObject {
       }
     });
   }
-  private session: Record<ICodeSession>;
+  private session: RecordOf<ICodeSession>;
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
-    const oldRec = this.session.merge(oldSess);
+    const oldRec = makeSession(oldSess);
     const oldHash = oldRec.hashCode();
-    const newRec = this.session.merge(newSess);
+    const newRec = makeSession(newSess);
     const newHash = newRec.hashCode();
 
-    const oldString = string_(oldRec.toJSON());
-    const newString = string_(newRec.toJSON());
+    const oldString = string_(oldRec.toJs());
+    const newString = string_(newRec.toJs());
 
     const patch = createDelta(oldString, newString);
     const reversePatch = createDelta(newString, oldString);
@@ -76,10 +76,10 @@ export class Code implements DurableObject {
     };
   }
   mST(p: Delta[]) {
-    const oldString = string_(this.session.toJSON());
+    const oldString = string_(this.session.toJs());
     const newString = aPatch(oldString, p);
     const s = JSON.parse(newString);
-    return this.session.merge(s).toJSON();
+    return makeSession(s).toJs();
   }
 
   private backupSession: ICodeSession;
@@ -98,12 +98,12 @@ export class Code implements DurableObject {
       html: "<div></div>",
       css: "",
     };
-    this.session = Record<ICodeSession>({
+    this.session = makeSession({
       i: 0,
       code: "",
       html: "",
       css: "",
-    })();
+    });
 
     // const _ = this;
     // this.origin = '';
@@ -152,15 +152,15 @@ export class Code implements DurableObject {
         const inc = Number(await this.state.storage.get("inc")) + 1 || 1;
         this.state.storage.put("inc", inc);
 
-        const sess: ICodeSession = this.session.toJSON().i
-          ? this.session.toJSON()
-          : this.session.merge(
+        const sess: ICodeSession = this.session.toJs().i
+          ? this.session.toJs()
+          : makeSession(
             await this.state.storage.get("sess")
               || (await this.state.storage.get("session") as ICodeSession),
-          ).toJSON() || this.session.toJSON();
+          ).toJs() || this.session.toJs();
 
         // const getSession = (s = sess) => Record(sess)(s);
-        const hashCode = (s = sess) => this.session.merge(s).hashCode();
+        const hashCode = (s = sess) => makeSession(s).hashCode();
         this.state.storage.put("sess", sess);
         this.state.storage.put("head", this.session.hashCode());
 
@@ -207,11 +207,11 @@ export class Code implements DurableObject {
             });
           }
 
-          const newSession = this.session.merge(this.mST(message.patch));
-          const newSess = newSession.toJSON();
+          const newSession = makeSession(this.mST(message.patch));
+          const newSess = newSession.toJs();
           const newHash = newSession.hashCode();
 
-          // const newSess= newSession.toJSON();
+          // const newSess= newSession.toJs();
           if (newHash !== message.newHash) {
             return new Response(JSON.stringify({ newHash, message, success: false }), {
               status: 500,
@@ -270,7 +270,7 @@ export class Code implements DurableObject {
         //       // setTimeout(() => {
         //       //   sess = Record<ICodeSession>(sess)(newState)
 
-        //       //   this.syncKV(oldState, newState.toJSON(), {
+        //       //   this.syncKV(oldState, newState.toJs(), {
         //       //     oldHash,
         //       //     newHash,
         //       //     patch,
@@ -282,7 +282,7 @@ export class Code implements DurableObject {
         //       const newRec = session().merge(
         //         newState,
         //       );
-        //       session = Record<ICodeSession>(newRec.toJSON());
+        //       session = Record<ICodeSession>(newRec.toJs());
 
         //       sess = Record<ICodeSession>(sess)(newRec);
         //       this.state.storage.put("head", sess);
@@ -467,7 +467,7 @@ export class Code implements DurableObject {
                 allowConcurrency: true,
               });
               if (session) {
-                const s = this.session.merge(typeof session === "string" ? JSON.parse(session) : session).toJSON();
+                const s = makeSession(typeof session === "string" ? JSON.parse(session) : session).toJs();
 
                 // const { i, transpiled, code, html, css } = session;
 
@@ -826,7 +826,7 @@ sheet.addRule('h1', 'background: red;');
     webSocket.send(
       JSON.stringify({
         hashCode: this.session.hashCode(),
-        i: this.session.toJSON().i,
+        i: this.session.toJs().i,
         users,
         type: "handshake",
       }),
@@ -1018,9 +1018,9 @@ sheet.addRule('h1', 'background: red;');
           // );
           try {
             // session = newRec;
-            // sess = session.toObject();
+            // sess = session.toJs();
 
-            // this.syncKV(oldState.toJSON(), newState.toJSON(), {
+            // this.syncKV(oldState.toJs(), newState.toJs(), {
             //   oldHash: data.oldHash,
             //   newHash: data.newHash,
             //   patch: data.patch,

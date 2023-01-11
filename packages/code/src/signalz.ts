@@ -612,7 +612,7 @@ async function processData(
           type: "new-ice-candidate",
           target,
           name: user,
-          candidate: event.candidate.toJSON(),
+          candidate: event.candidate.toJs(),
         }));
       }
     };

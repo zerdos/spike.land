@@ -10,7 +10,7 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    if: "!contains(toJSON(github.event.commits.*.message), '[skip ci]')"
+    if: "!contains(toJs(github.event.commits.*.message), '[skip ci]')"
     strategy:
       fail-fast: false
       matrix:

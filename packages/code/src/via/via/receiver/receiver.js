@@ -17,7 +17,7 @@
   let nextObjectId = -1;
 
   // Get the real object from an ID.
-  function IdToObject(id) {
+  function IdtoJs(id) {
     const ret = idMap.get(id);
 
     if (typeof ret === "undefined") {
@@ -37,7 +37,7 @@
 
   // Get the real value from an ID and a property path, e.g. object ID 0, path ["document", "title"]
   // will return window.document.title.
-  function IdToObjectProperty(id, path) {
+  function IdtoJsProperty(id, path) {
     const ret = idMap.get(id);
 
     if (typeof ret === "undefined") {
@@ -90,11 +90,11 @@
       case 0: // primitive
         return arr[1];
       case 1: // object
-        return IdToObject(arr[1]);
+        return IdtoJs(arr[1]);
       case 2: // callback
         return GetCallbackShim(arr[1]);
       case 3: // object property
-        return IdToObjectProperty(arr[1], arr[2]);
+        return IdtoJsProperty(arr[1], arr[2]);
       default:
         throw new Error("invalid arg type");
     }
@@ -153,7 +153,7 @@
   }
 
   function ViaCall(objectId, path, argsData, returnObjectId) {
-    const obj = IdToObject(objectId);
+    const obj = IdtoJs(objectId);
     const args = argsData.map(UnwrapArg);
     const methodName = path[path.length - 1];
 
@@ -168,7 +168,7 @@
   }
 
   function ViaConstruct(objectId, path, argsData, returnObjectId) {
-    const obj = IdToObject(objectId);
+    const obj = IdtoJs(objectId);
     const args = argsData.map(UnwrapArg);
     const methodName = path[path.length - 1];
 
@@ -183,7 +183,7 @@
   }
 
   function ViaSet(objectId, path, valueData) {
-    const obj = IdToObject(objectId);
+    const obj = IdtoJs(objectId);
     const value = UnwrapArg(valueData);
     const propertyName = path[path.length - 1];
 
@@ -197,7 +197,7 @@
   }
 
   function ViaGet(getId, objectId, path, getResults) {
-    const obj = IdToObject(objectId);
+    const obj = IdtoJs(objectId);
 
     if (path === null) {
       getResults.push([getId, WrapArg(obj)]);

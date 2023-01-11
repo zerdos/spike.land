@@ -1,4 +1,5 @@
 import { Mutex } from "async-mutex";
+import type { RecordOf } from "immutable";
 import { Record } from "immutable";
 import imap from "./importMap";
 import HTML from "./index.html";
@@ -16,6 +17,14 @@ type IUsername = string;
 export { HTML };
 
 export { md5 };
+
+export const makeSession: (p: ICodeSession) => RecordOf<ICodeSession> = ({ i, code, html, css }) =>
+  Record({ i: 0, code: "", html: "", css: "" })({
+    i,
+    code,
+    html,
+    css: css.split(".css-").filter(x => html.indexOf(x.slice(0, 5)) !== -1).join(".css-"),
+  });
 
 export type ICodeSession = {
   code: string;
