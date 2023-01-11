@@ -2,7 +2,7 @@ import type { FC, ReactNode } from "react";
 
 import { lazy, Suspense, useMemo } from "react";
 
-import { Fragment, useEffect, useState } from "react";
+// import { Fragment, useEffect, useState } from "react";
 import * as portals from "react-reverse-portal";
 
 // import { AutoUpdateApp } from "./starter";
@@ -13,7 +13,7 @@ import { css } from "@emotion/react";
 
 import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
-import { codeSession } from "./ws";
+// import { codeSession } from "./ws";
 
 const Editor = lazy(() => import(`${location.origin}/src/Editor.mjs`));
 

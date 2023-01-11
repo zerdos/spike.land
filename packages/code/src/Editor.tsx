@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import ky from "ky";
 
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -39,13 +40,14 @@ const Editor: FC<
 
   useEffect(() => {
     if (started) return;
-    const _code = code;
 
     const start = async () => {
-      const code = await prettier(_code);
+      // const code = await prettier(_code);
       if (!ref?.current || started) {
         return;
       }
+
+      const code = await (prettier(await ky(`${origin}/live/${codeSpace}/index.tsx`).text()));
 
       const container = ref?.current;
       if (container === null) return;

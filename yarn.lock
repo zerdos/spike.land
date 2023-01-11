@@ -1316,6 +1316,7 @@ __metadata:
     async-mutex: "npm:^0.4.0"
     ava: "npm:^5.1.0"
     avl: "npm:1.5.3"
+    browser-fs-access: "npm:^0.31.1"
     buffer: "npm:^6.0.3"
     constants: "npm:^0.0.2"
     csstype: "npm:3.1.1"
@@ -3224,6 +3225,13 @@ __metadata:
   dependencies:
     fill-range: "npm:^7.0.1"
   checksum: 1aa7f7f39e1dff23894196303515503dd945f36adcb78073ee067b421ecc595265556911183b24d1bc4e51011d3536d63d117cb4493e5123fcc7456596a93637
+  languageName: node
+  linkType: hard
+
+"browser-fs-access@npm:^0.31.1":
+  version: 0.31.1
+  resolution: "browser-fs-access@npm:0.31.1"
+  checksum: 1427a4de3601ae9f70f7d8b1373288ee1a274434c0fea2876f6bbf28f5571555654ec9ef591992b790f4923295c378c8620a3160ac4adeb2e86b45b048e982e5
   languageName: node
   linkType: hard
 
