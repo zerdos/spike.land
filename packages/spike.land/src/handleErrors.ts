@@ -1,4 +1,4 @@
-import  { WebSocketPair } from "@cloudflare/workers-types";
+
 export async function handleErrors(
   request: Request,
   getApi: () => (Request: Request) => Promise<Response>,

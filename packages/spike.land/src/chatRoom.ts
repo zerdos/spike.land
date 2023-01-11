@@ -6,7 +6,6 @@ import { signaller } from "./signalling";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
 import { Record } from "immutable";
-import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
@@ -143,7 +142,7 @@ export class Code implements DurableObject {
     // this.lastSavedHash = this.head();
   }
 
-  async api(request: Request) {
+  public async api(request: Request) {
     // try {
     // const sessions = await this.state.storage.get("sessions") || [];
 
@@ -798,7 +797,7 @@ sheet.addRule('h1', 'background: red;');
   }
 
   fetch(request: Request) {
-    return handleErrors(request, () => () => this.api);
+    return (() => handleErrors(request, this.api))();
   }
 
   async handleSession(webSocket: WebSocket) {
@@ -1071,6 +1070,42 @@ sheet.addRule('h1', 'background: red;');
         error: "unknown error - e2",
         exp: exp || {},
       });
+    }
+  }
+}
+export async function handleErrors(
+  request: Request,
+  api: (req: Request) => Promise<Response>,
+) {
+  try {
+    return await api(request);
+  } catch (err) {
+    if (request.headers.get("Upgrade") === "websocket") {
+      // Annoyingly, if we return an HTTP error in response to a WebSocket request, Chrome devtools
+      // won't show us the response body! So... let's send a WebSocket response with an error
+      // frame instead.
+
+      let stack = null;
+
+      if (err instanceof Error) {
+        stack = err.stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+
+      const pair = new WebSocketPair();
+      pair[1].accept();
+      pair[1].send(JSON.stringify({ error: stack }));
+      pair[1].close(1011, "Uncaught exception during session setup");
+      return new Response(null, { status: 101, webSocket: pair[0] });
+    } else {
+      let stack = "We have no idea what happened";
+
+      if (err instanceof Error) {
+        stack = err.stack || stack;
+        console.log({ error: err.stack, message: err.message });
+      }
+
+      return new Response(stack, { status: 500 });
     }
   }
 }

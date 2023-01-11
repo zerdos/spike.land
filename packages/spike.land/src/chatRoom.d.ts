@@ -40,3 +40,4 @@ export declare class Code implements DurableObject {
         data: string | ArrayBuffer;
     }, session: WebsocketSession): Promise<void>;
 }
+export declare function handleErrors(request: Request, api: (req: Request) => Promise<Response>): Promise<Response>;
