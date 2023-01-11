@@ -82,10 +82,13 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 // const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
+export const sess = () => ({
+  ...(cSess.sess),
+});
 const mutex = new Mutex();
 export class Code {
   session: Record<ICodeSession>;
-  sess: ICodeSession;
+  public sess: ICodeSession;
   head: number;
   user = md5(self.crypto.randomUUID());
   mST(p: Delta[]) {
@@ -149,6 +152,7 @@ export class Code {
             css: "",
           })(startSess);
           this.sess = this.session.toJSON();
+
           this.head = this.session.hashCode();
         }
       });
@@ -281,9 +285,9 @@ export class Code {
       JSON.stringify({
         type: "onconnect",
         codeSpace,
-        hashCode: codeSession.head,
+        hashCode: this.head,
         session: this.sess,
-        name: codeSession.user,
+        name: this.user,
         "port": ports.port2,
       }),
     );
@@ -363,7 +367,7 @@ export const codeSession = async () => {
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await codeSession.syncWS(sess, signal);
 
 export const run = async () => {
-  (await codeSession()).run();
+  (await codeSession()).run!();
 };
 
 // async function stopVideo() {

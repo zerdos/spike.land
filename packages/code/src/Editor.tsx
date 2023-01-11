@@ -9,7 +9,7 @@ import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
-import { codeSession } from "./ws";
+import { codeSession, sess } from "./ws";
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;
@@ -29,8 +29,8 @@ const Editor: FC<
     { i, code, started, controller },
     changeContent,
   ] = useState({
-    code: "",
-    i: 0,
+    code: sess().code,
+    i: sess().i,
     started: false,
     controller: new AbortController(),
     setValue: (_code: string) => null,
