@@ -158,8 +158,14 @@ export class Code {
     const oldString = string_(oldRec);
     const newString = string_(newRec);
 
-    const patch = createDelta(oldString, newString);
-    const reversePatch = createDelta(newString, oldString);
+    const reversePatch = createDelta(oldString, newString);
+    const patch = createDelta(newString, oldString);
+
+    // const oldString = string_(oldRec);
+    // const newString = string_(newRec);
+
+    // const patch = createDelta(oldRec.code, newRec.code);
+    // const reversePatch = createDelta(newRec.code, oldRec.code);
     return {
       oldHash,
       newHash,
