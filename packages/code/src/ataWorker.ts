@@ -1,6 +1,6 @@
 importScripts("/workerScripts/superFetch.js");
-self.originalFetch = self.fetch;
-self.fetch = self.superFetch;
+globalThis.originalFetch = self.fetch;
+self.fetch = globalThis.superFetch;
 
 importScripts("/workerScripts/workerRpc.js");
 importScripts("/workerScripts/prettierEsm.js");

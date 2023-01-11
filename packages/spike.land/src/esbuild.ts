@@ -74,7 +74,7 @@ export default {
   async fetch(request: Request) {
     const url = new URL(request.url);
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), {}, url.origin), request.headers);
+      return new Response(await initAndTransform(await request.text(), {}, url.origin), request);
     }
   },
 };

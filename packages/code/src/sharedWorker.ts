@@ -1,15 +1,11 @@
-importScripts("/workerScripts/superFetch.js");
-self.originalFetch = self.fetch;
-self.fetch = self.superFetch;
-
 import { Mutex } from "async-mutex";
-import { Record } from "immutable";
+import { hash, Record } from "immutable";
 import { ldb } from "./createDb";
 // import { m } from "framer-motion";
 // import { S } from "memfs/lib/constants";
 // import { SEP } from "memfs/lib/node";
 import { str2ab } from "./sab";
-import { aPatch, CodePatch, ICodeSession, string_ } from "./session";
+import { aPatch, CodePatch, ICodeSession, makeSession, string_ } from "./session";
 // import { CodeSession } from "./session";
 import type { Delta } from "./textDiff";
 
@@ -22,17 +18,13 @@ declare const self: SharedWorkerGlobalScope & {
   name: string;
   counters: Counters;
   dbs: { [codeSpaces: string]: LocalForage };
-  sessions: { [codeSpaces: string]: Record<ICodeSession> };
+  sessions: { [codeSpaces: string]: ICodeSession };
   connections: { [codeSpaces: string]: MessagePort[] };
   hashCodes: { [codeSpaces: string]: number };
 
   names: {};
   // bc: BroadcastChannel;
 };
-
-function hashCode(sess: ICodeSession) {
-  return Record<ICodeSession>(sess)().hashCode();
-}
 
 function mST(codeSpace: string, p?: Delta[]) {
   if (p && p.length) {
@@ -48,7 +40,7 @@ function mST(codeSpace: string, p?: Delta[]) {
         ),
       )
       : sessAsJs;
-    return sessions[codeSpace].merge({
+    return makeSession({
       i,
       code,
       html,
@@ -358,16 +350,14 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
               const patch: Delta[] = mess.patch || [];
               const oldState = mST(codeSpace);
               const newState = mST(codeSpace, patch);
-              const oldHash = hashCode(oldState);
-              const newHash = hashCode(newState);
+              const oldHash = hash(oldState);
+              const newHash = hash(newState);
               if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
                 console.error({ msg, calculated: { oldHash, newHash } });
                 throw ("Error - we messed up the hashStores");
               }
-              const newRec = sessions[codeSpace].merge(
-                newState,
-              );
-              sessions[codeSpace] = sessions[codeSpace].merge(newRec);
+              const newRec = makeSession(newState);
+              sessions[codeSpace] = newRec;
               await ldb(codeSpace).syncDb(oldState, newState, {
                 oldHash,
                 newHash,
@@ -405,18 +395,18 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
           const patch: Delta[] = mess.patch || [];
           const oldState = mST(codeSpace);
           const newState = mST(codeSpace, patch);
-          const oldHash = hashCode(oldState);
-          const newHash = hashCode(newState);
+          const oldHash = hash(oldState);
+          const newHash = hash(newState);
           if (
             newHash !== wsHash || (mess.oldHash && oldHash !== mess.oldHash)
           ) {
             console.error({ mess, calculated: { oldHash, newHash } });
             throw ("Error - we messed up the hashStores");
           }
-          const newRec = sessions[codeSpace].merge(
+          const newRec = makeSession(
             newState,
           );
-          sessions[codeSpace] = sessions[codeSpace].merge(
+          sessions[codeSpace] = makeSession(
             newRec,
           );
           await ldb(codeSpace).syncDb(oldState, newState, {

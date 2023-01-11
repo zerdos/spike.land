@@ -1,7 +1,7 @@
 // import { importMapReplace } from "./esbuildEsm";
 importScripts("/workerScripts/superFetch.js");
-self.originalFetch = self.fetch;
-self.fetch = self.superFetch;
+const originalFetch = self.fetch;
+globalThis.fetch = globalThis.superFetch;
 
 export type {};
 import { readFile } from "./fs";

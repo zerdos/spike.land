@@ -10,7 +10,7 @@ import { syncWS } from "./ws";
 // import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
 import { // HTML, importMapReplace, md5,
-  codeSession, // resetCSS
+  sess as oldSess, // resetCSS
 } from "./ws";
 // import { createHTML } from "./starter";
 //
@@ -101,11 +101,10 @@ BC.onmessage = async ({ data }) => {
     // window.removeEventListener("message", responseListener);
     if (signal.aborted) return;
     const newSession = {
-      ...codeSession.sess,
+      ...oldSess(),
       html,
       css,
       code: sess.code,
-      transpiled: sess.transpiled,
       i,
     };
     const jsonStr = JSON.stringify(newSession);

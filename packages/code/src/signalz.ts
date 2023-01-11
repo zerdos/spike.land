@@ -427,10 +427,10 @@ async function syncRTC() {
           sess,
         )
         : makePatch(sess);
-      if (message !== null && message.patch) {
-        // console.//log("sendRTC");
-        sendChannel.send(message);
-      }
+      // if (message !== null && message.patch) {
+      //   // console.//log("sendRTC");
+      //   sendChannel.send(message);
+      // }
     }
   } catch (error) {
     // console.error("Error sending RTC...", { e: error });
@@ -911,9 +911,9 @@ function mST() {
   console.count("yay");
 }
 
-function startSession(codeSpace: string, arg1: { name: string; state: ICodeSession }, origin: string) {
-  console.count("yay");
-}
+// function startSession(codeSpace: string, arg1: { name: string; state: ICodeSession }, origin: string) {
+//   console.count("yay");
+// }
 
 function renderPreviewWindow(arg0: { codeSpace: string; dry: boolean }) {
   console.count("yay");

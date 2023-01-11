@@ -6,4 +6,4 @@ export const superFetch = fetchBuilder(originalFetch, {
   retryDelay: 800,
 });
 
-Object.assign(self, { superFetch });
+Object.assign(globalThis, { superFetch });
