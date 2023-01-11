@@ -29,6 +29,10 @@ export const render = async (
 ) => {
   console.log({ _rootEl, App });
 
+  const el = document.createElement("div");
+  el.style.opacity
+  _rootEl.parentElement?.appendChild(el);
+  _rootEl.parentElement;
   const cache = createCache({
     key: "css",
     speedy: false,
@@ -37,7 +41,7 @@ export const render = async (
   cache.compat = undefined;
 
   rootEl = _rootEl;
-  root = createRoot(rootEl);
+  root = createRoot(el);
   root.render(
     <CacheProvider value={cache}>
       <App />
@@ -46,9 +50,8 @@ export const render = async (
 
   let i = 100;
   while (i-- > 0) {
-    const html = rootEl.innerHTML;
+    const html = el.innerHTML;
     if (html && html !== "") {
-      globalThis.firstRender.html = html;
       const css = mineFromCaches(
         cache,
         html,
@@ -57,7 +60,7 @@ export const render = async (
       console.log({ html, css });
 
       globalThis.firstRender.css = css;
-
+      _rootEl.remove();
       return { html, css };
     }
 
