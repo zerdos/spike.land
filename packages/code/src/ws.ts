@@ -364,7 +364,7 @@ export const sess = () => ({
   ...(cSess.sess),
 });
 
-Object.assign(globalThis, { sess, hash, makeSession, cSess: () => cSess });
+Object.assign(globalThis, { sess, hash: (val: unknown) => Immutable.hash(val), makeSession, cSess: () => cSess });
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 
