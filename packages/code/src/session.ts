@@ -18,7 +18,7 @@ export { HTML };
 
 export { md5 };
 
-export const makeSession: (p: ICodeSession) => ICodeSession = (p) =>
+export const makeSession: (p: ICodeSession) => ICodeSession = (p = { i: 0, code: "", html: "", css: "" }) =>
   Record({ i: 0, code: "", html: "", css: "" })({
     i: p.i || 0,
     code: p.code || `export default ()=> <>Nothing<>`,
