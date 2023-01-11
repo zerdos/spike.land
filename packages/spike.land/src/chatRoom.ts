@@ -1,3 +1,4 @@
+import type { DurableObject, WebSocketPair } from "@cloudflare/workers-types";
 import { CodePatch, ICodeSession } from "./../../code/src/session";
 import { resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
@@ -18,16 +19,16 @@ export { md5 };
 
 // import { CodeRateLimiter } from "./rateLimiter";
 
-interface WebsocketSession {
+export interface WebsocketSession {
   name: string;
   webSocket: WebSocket;
   quit?: boolean;
   // blockedMessages: string[];
 }
 
-export class Code {
+export class Code implements DurableObject {
   // mutex: Mutex;
-  private wsSessions: WebsocketSession[] = [];
+  public wsSessions: WebsocketSession[] = [];
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
@@ -142,9 +143,9 @@ export class Code {
     // this.lastSavedHash = this.head();
   }
 
-  async fetch(request: Request) {
+  async api(request: Request) {
     // try {
-    const sessions = await this.state.storage.get("sessions") || [];
+    // const sessions = await this.state.storage.get("sessions") || [];
 
     const inc = Number(await this.state.storage.get("inc")) + 1 || 1;
     this.state.storage.put("inc", inc);
@@ -339,87 +340,175 @@ export class Code {
     //   },
     // );
 
-    return handleErrors(request, async () => {
-      const { code, css, html, i } = sess;
-      const path = url.pathname.slice(1).split("/");
-      if (path.length === 0) path.push("");
+    const { code, css, html, i } = sess;
+    const path = url.pathname.slice(1).split("/");
+    if (path.length === 0) path.push("");
 
-      switch (path[0]) {
-        case "websocket": {
-          if (request.headers.get("Upgrade") != "websocket") {
-            return new Response("expected websocket", { status: 400 });
+    switch (path[0]) {
+      case "websocket": {
+        if (request.headers.get("Upgrade") != "websocket") {
+          return new Response("expected websocket", { status: 400 });
+        }
+
+        const pair = new WebSocketPair();
+
+        await signaller(this.wsSessions, pair[1]);
+
+        // this.state.storage.put("sessions", this.wsSessions.map(({ name, quit }) => ({ name, quit })));
+
+        // this.broadcast(sessions, {yooo});
+        return new Response(null, { status: 101, webSocket: pair[0] });
+      }
+      case "code":
+      case "index.tsx":
+        return new Response(code, {
+          status: 200,
+          headers: new Headers({
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            content_hash: md5(code),
+            "Content-Type": "application/javascript; charset=UTF-8",
+          }),
+        });
+      case "tokens": {
+        const tokens = Array.from(jsTokens(code, { jsx: true }));
+
+        return new Response(JSON.stringify(tokens.filter(x => x.type !== "WhiteSpace")), {
+          status: 200,
+          headers: new Headers({
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          }),
+        });
+      }
+      case "token2": {
+        const tokens = Array.from(jsTokens(code, { jsx: true }));
+
+        return new Response(tokens.filter(x => x.type !== "WhiteSpace").map(x => x.value).join(" "), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
+      case "index.yo.tsx": {
+        const trp = await initAndTransform(
+          ` export const Box = ({children})=><div>{children}</div>;`,
+          {},
+          url.origin,
+        );
+        return new Response(trp, {
+          status: 200,
+          headers: {
+            "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+
+            content_hash: md5(trp),
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
+      case "index.trans.js": {
+        const trp = await initAndTransform(
+          sess.code,
+          {},
+          url.origin,
+        );
+        return new Response(trp, {
+          status: 200,
+          headers: {
+            "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+
+            content_hash: md5(trp),
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
+      // case "sessions": {
+      //   const d = await this.state.storage.list({
+      //     start: path[1] || "0",
+      //     end: path[2] || "100",
+      //   });
+
+      //   return new Response(JSON.stringify(d), {
+      //     status: 200,
+      //     headers: {
+      //       "Access-Control-Allow-Origin": "*",
+      //       "Cross-Origin-Embedder-Policy": "require-corp",
+      //       "Cache-Control": "no-cache",
+      //       content_hash: md5(d),
+      //       "Content-Type": "application/json; charset=UTF-8",
+      //     },
+      //   });
+      // }
+      case "session.json":
+      case "session": {
+        if (path[1]) {
+          let session = await this.state.storage.get<string | object>(path[1], {
+            allowConcurrency: true,
+          });
+          if (session) {
+            if (typeof session !== "string") {
+              session = JSON.stringify(session);
+            }
+
+            // const { i, transpiled, code, html, css } = session;
+
+            return new Response(session, {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+                content_hash: md5(session),
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
+          } else {
+            return new Response(
+              JSON.stringify({ success: false, statusCode: 404 }),
+              {
+                status: 404,
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Cross-Origin-Embedder-Policy": "require-corp",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json; charset=UTF-8",
+                },
+              },
+            );
           }
-
-          const pair = new WebSocketPair();
-
-          await signaller(wsSessions, pair[1]);
-
-          this.state.storage.put("sessions", sessions.map(({ name, quit }) => ({ name, quit })));
-
-          // this.broadcast(sessions, {yooo});
-          return new Response(null, { status: 101, webSocket: pair[0] });
         }
-        case "code":
-        case "index.tsx":
-          return new Response(code, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              content_hash: md5(code),
-              "Content-Type": "application/javascript; charset=UTF-8",
-            },
-          });
-        case "tokens": {
-          const toki: Token[] = Array.from(jsTokens(code, { jsx: true }));
-
-          type Token =
-            | { type: "StringLiteral"; value: string; closed: boolean }
-            | { type: "NoSubstitutionTemplate"; value: string; closed: boolean }
-            | { type: "TemplateHead"; value: string }
-            | { type: "TemplateMiddle"; value: string }
-            | { type: "TemplateTail"; value: string; closed: boolean }
-            | { type: "RegularExpressionLiteral"; value: string; closed: boolean }
-            | { type: "MultiLineComment"; value: string; closed: boolean }
-            | { type: "SingleLineComment"; value: string }
-            | { type: "IdentifierName"; value: string }
-            | { type: "PrivateIdentifier"; value: string }
-            | { type: "NumericLiteral"; value: string }
-            | { type: "Punctuator"; value: string }
-            | { type: "WhiteSpace"; value: string }
-            | { type: "LineTerminatorSequence"; value: string }
-            | { type: "Invalid"; value: string };
-          return new Response(JSON.stringify(toki.filter(x => x.type !== "WhiteSpace")), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "token2": {
-          const toki: Token[] = Array.from(jsTokens(code, { jsx: true }));
-
-          type Token =
-            | { type: "StringLiteral"; value: string; closed: boolean }
-            | { type: "NoSubstitutionTemplate"; value: string; closed: boolean }
-            | { type: "TemplateHead"; value: string }
-            | { type: "TemplateMiddle"; value: string }
-            | { type: "TemplateTail"; value: string; closed: boolean }
-            | { type: "RegularExpressionLiteral"; value: string; closed: boolean }
-            | { type: "MultiLineComment"; value: string; closed: boolean }
-            | { type: "SingleLineComment"; value: string }
-            | { type: "IdentifierName"; value: string }
-            | { type: "PrivateIdentifier"; value: string }
-            | { type: "NumericLiteral"; value: string }
-            | { type: "Punctuator"; value: string }
-            | { type: "WhiteSpace"; value: string }
-            | { type: "LineTerminatorSequence"; value: string }
-            | { type: "Invalid"; value: string };
-          return new Response(toki.filter(x => x.type !== "WhiteSpace").map(x => x.value).join(" "), {
+        const body = string_(sess);
+        return new Response(body, {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            content_hash: md5(body),
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+      case "lazy":
+        return new Response(
+          `import { jsx as jsX } from "@emotion/react";
+           import {LoadRoom} from "/live/lazy/js";
+           export default ()=>jsX(LoadRoom, { room:"${codeSpace}"}) ;
+           `,
+          {
             status: 200,
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -427,15 +516,59 @@ export class Code {
               "Cache-Control": "no-cache",
               "Content-Type": "application/javascript; charset=UTF-8",
             },
-          });
-        }
-        case "index.yo.tsx": {
-          const trp = await initAndTransform(
-            ` export const Box = ({children})=><div>{children}</div>;`,
-            {},
-            url.origin,
-          );
-          return new Response(trp, {
+          },
+        );
+      case "request": {
+        return new Response(JSON.stringify({ ...request }), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+      case "list": {
+        const list = await this.state.storage.list({ allowConcurrency: true });
+
+        return new Response(JSON.stringify({ ...list }), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+      case "room":
+        return new Response(JSON.stringify({ codeSpace: codeSpace }), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      case "path":
+        return new Response(path.join("----"), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      case "index.mjs":
+      case "index.js":
+      case "js": {
+        const i = path[1] || sess.i;
+
+        if (i > sess.i) {
+          return new Response(await transpiled()), {
             status: 200,
             headers: {
               "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
@@ -443,23 +576,23 @@ export class Code {
               "Cross-Origin-Embedder-Policy": "require-corp",
               "Cache-Control": "no-cache",
 
-              content_hash: md5(trp),
+              content_hash: md5(await transpiled()),
               "Content-Type": "application/javascript; charset=UTF-8",
             },
-          });
+          };
         }
-        case "index.trans.js": {
+        if (i < sess.i) {
           const trp = await initAndTransform(
             sess.code,
             {},
             url.origin,
           );
-          return new Response(trp, {
-            status: 200,
+          return new Response(await transpiled(), {
+            status: 307,
             headers: {
-              "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
               "Access-Control-Allow-Origin": "*",
               "Cross-Origin-Embedder-Policy": "require-corp",
+              "Location": `${url.origin}/live/${codeSpace}/index.js/${sess.i}`,
               "Cache-Control": "no-cache",
 
               content_hash: md5(trp),
@@ -467,226 +600,61 @@ export class Code {
             },
           });
         }
-        // case "sessions": {
-        //   const d = await this.state.storage.list({
-        //     start: path[1] || "0",
-        //     end: path[2] || "100",
-        //   });
+        const trp = await transpiled();
 
-        //   return new Response(JSON.stringify(d), {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cross-Origin-Embedder-Policy": "require-corp",
-        //       "Cache-Control": "no-cache",
-        //       content_hash: md5(d),
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   });
-        // }
-        case "session.json":
-        case "session": {
-          if (path[1]) {
-            let session = await this.state.storage.get<string | object>(path[1], {
-              allowConcurrency: true,
-            });
-            if (session) {
-              if (typeof session !== "string") {
-                session = JSON.stringify(session);
-              }
+        return new Response(trp, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
 
-              // const { i, transpiled, code, html, css } = session;
+            content_hash: md5(trp),
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
+      case "env": {
+        return new Response(JSON.stringify(this.env), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "no-cache",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Content-Type": "text/html; charset=UTF-8",
+          },
+        });
+      }
+      case "hashCode": {
+        const hashCode = String(Number(path[1]));
+        const patch = await this.state.storage.get<
+          { patch: string; oldHash: number }
+        >(
+          hashCode,
+          { allowConcurrency: true },
+        );
 
-              return new Response(session, {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-                  content_hash: md5(session),
-                  "Content-Type": "application/json; charset=UTF-8",
-                },
-              });
-            } else {
-              return new Response(
-                JSON.stringify({ success: false, statusCode: 404 }),
-                {
-                  status: 404,
-                  headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Cross-Origin-Embedder-Policy": "require-corp",
-                    "Cache-Control": "no-cache",
-                    "Content-Type": "application/json; charset=UTF-8",
-                  },
-                },
-              );
-            }
-          }
-          const body = string_(sess);
-          return new Response(body, {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              content_hash: md5(body),
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "lazy":
-          return new Response(
-            `import { jsx as jsX } from "@emotion/react";
-           import {LoadRoom} from "/live/lazy/js";
-           export default ()=>jsX(LoadRoom, { room:"${codeSpace}"}) ;
-           `,
-            {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/javascript; charset=UTF-8",
-              },
-            },
-          );
-        case "request": {
-          return new Response(JSON.stringify({ ...request }), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "list": {
-          const list = await this.state.storage.list({ allowConcurrency: true });
-
-          return new Response(JSON.stringify({ ...list }), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "room":
-          return new Response(JSON.stringify({ codeSpace: codeSpace }), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        case "path":
-          return new Response(path.join("----"), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/javascript; charset=UTF-8",
-            },
-          });
-        case "index.mjs":
-        case "index.js":
-        case "js": {
-          const i = path[1] || sess.i;
-
-          if (i > sess.i) {
-            return new Response(await transpiled(i)), {
-              status: 200,
-              headers: {
-                "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-
-                content_hash: md5(await transpiled(i)),
-                "Content-Type": "application/javascript; charset=UTF-8",
-              },
-            };
-          }
-          if (i < sess.i) {
-            const trp = await initAndTransform(
-              sess.code,
-              {},
-              url.origin,
-            );
-            return new Response(await transpiled(), {
-              status: 307,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Location": `${url.origin}/live/${codeSpace}/index.js/${sess.i}`,
-                "Cache-Control": "no-cache",
-
-                content_hash: md5(trp),
-                "Content-Type": "application/javascript; charset=UTF-8",
-              },
-            });
-          }
-          const trp = await transpiled();
-
-          return new Response(trp, {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-
-              content_hash: md5(trp),
-              "Content-Type": "application/javascript; charset=UTF-8",
-            },
-          });
-        }
-        case "env": {
-          return new Response(JSON.stringify(this.env), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Content-Type": "text/html; charset=UTF-8",
-            },
-          });
-        }
-        case "hashCode": {
-          const hashCode = String(Number(path[1]));
-          const patch = await this.state.storage.get<
-            { patch: string; oldHash: number }
-          >(
-            hashCode,
-            { allowConcurrency: true },
-          );
-
-          return new Response(JSON.stringify(patch || {}), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
-        case "":
-        case "hydrated":
-        case "worker":
-        case "dehydrated":
-        case "public": {
-          const respText = HTML.replace(
-            "/**reset*/",
-            resetCSS,
-          )
-            .replace(
-              `<div id="root"></div>`,
-              `<div id="root" style="height: 100%;">
+        return new Response(JSON.stringify(patch || {}), {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        });
+      }
+      case "":
+      case "hydrated":
+      case "worker":
+      case "dehydrated":
+      case "public": {
+        const respText = HTML.replace(
+          "/**reset*/",
+          resetCSS,
+        )
+          .replace(
+            `<div id="root"></div>`,
+            `<div id="root" style="height: 100%;">
               <style>${css}</style>
 
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
@@ -695,7 +663,7 @@ export class Code {
 
               </div>              
               ` + (path[0] === "dehydrated"
-                ? `<script>
+              ? `<script>
 
               const paths = location.href.split("/");
               const page = paths.pop();
@@ -712,35 +680,35 @@ export class Code {
               var sheet = document.createStyleSheet();
 sheet.addRule('h1', 'background: red;');
               </script>`
-                : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
-            );
-
-          const headers = new Headers();
-          headers.set("Access-Control-Allow-Origin", "*");
-
-          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-          headers.set("Cross-Origin-Opener-Policy", "same-origin");
-          headers.set(
-            "Cache-Control",
-            "no-cache",
+              : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
           );
 
-          headers.set("Content-Type", "text/html; charset=UTF-8");
-          headers.set("content_hash", md5(respText));
+        const headers = new Headers();
+        headers.set("Access-Control-Allow-Origin", "*");
 
-          return new Response(respText, {
-            status: 200,
-            headers,
-          });
-        }
-        case "prerender": {
-          const respText = HTML.replace(
-            "/**reset*/",
-            resetCSS,
-          )
-            .replace(
-              `<div id="root"></div>`,
-              `   
+        headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+        headers.set("Cross-Origin-Opener-Policy", "same-origin");
+        headers.set(
+          "Cache-Control",
+          "no-cache",
+        );
+
+        headers.set("Content-Type", "text/html; charset=UTF-8");
+        headers.set("content_hash", md5(respText));
+
+        return new Response(respText, {
+          status: 200,
+          headers: headers,
+        });
+      }
+      case "prerender": {
+        const respText = HTML.replace(
+          "/**reset*/",
+          resetCSS,
+        )
+          .replace(
+            `<div id="root"></div>`,
+            `   
           <div id="root"></div>
           <script type="module">
           import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}"
@@ -753,35 +721,35 @@ sheet.addRule('h1', 'background: red;');
             //  console.log({res});
             
               </script>`,
-            ).split("ASSET_HASH").join(ASSET_HASH);
+          ).split("ASSET_HASH").join(ASSET_HASH);
 
-          // const Etag = request.headers.get("Etag");
-          // const newEtag = await sha256(respText);
-          const headers = new Headers();
-          headers.set("Access-Control-Allow-Origin", "*");
+        // const Etag = request.headers.get("Etag");
+        // const newEtag = await sha256(respText);
+        const headers = new Headers();
+        headers.set("Access-Control-Allow-Origin", "*");
 
-          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-          headers.set("Cross-Origin-Opener-Policy", "same-origin");
-          headers.set(
-            "Cache-Control",
-            "no-cache",
-          );
+        headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+        headers.set("Cross-Origin-Opener-Policy", "same-origin");
+        headers.set(
+          "Cache-Control",
+          "no-cache",
+        );
 
-          headers.set("Content-Type", "text/html; charset=UTF-8");
-          headers.set("content_hash", md5(respText));
-          return new Response(respText, {
-            status: 200,
-            headers,
-          });
-        }
-        case "iframe": {
-          const respText = HTML.replace(
-            "/**reset*/",
-            resetCSS,
-          )
-            .replace(
-              `<div id="root"></div>`,
-              `
+        headers.set("Content-Type", "text/html; charset=UTF-8");
+        headers.set("content_hash", md5(respText));
+        return new Response(respText, {
+          status: 200,
+          headers,
+        });
+      }
+      case "iframe": {
+        const respText = HTML.replace(
+          "/**reset*/",
+          resetCSS,
+        )
+          .replace(
+            `<div id="root"></div>`,
+            `
 
               <div id="root" style="height: 100%;">
                 <style>${css}</style>
@@ -802,32 +770,35 @@ sheet.addRule('h1', 'background: red;');
               render(rootEl, App, "${codeSpace}");          
           
               </script>`,
-            ).split("ASSET_HASH").join(ASSET_HASH);
+          ).split("ASSET_HASH").join(ASSET_HASH);
 
-          // const Etag = request.headers.get("Etag");
-          // const newEtag = await sha256(respText);
-          const headers = new Headers();
-          headers.set("Access-Control-Allow-Origin", "*");
+        // const Etag = request.headers.get("Etag");
+        // const newEtag = await sha256(respText);
+        const headers = new Headers();
+        headers.set("Access-Control-Allow-Origin", "*");
 
-          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-          headers.set("Cross-Origin-Opener-Policy", "same-origin");
-          headers.set(
-            "Cache-Control",
-            "no-cache",
-          );
+        headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+        headers.set("Cross-Origin-Opener-Policy", "same-origin");
+        headers.set(
+          "Cache-Control",
+          "no-cache",
+        );
 
-          headers.set("Content-Type", "text/html; charset=UTF-8");
-          headers.set("content_hash", md5(respText));
-          return new Response(respText, {
-            status: 200,
-            headers,
-          });
-        }
-
-        default:
-          return new Response("Not found", { status: 404 });
+        headers.set("Content-Type", "text/html; charset=UTF-8");
+        headers.set("content_hash", md5(respText));
+        return new Response(respText, {
+          status: 200,
+          headers,
+        });
       }
-    });
+
+      default:
+        return new Response("Not found", { status: 404 });
+    }
+  }
+
+  fetch(request: Request) {
+    return handleErrors(request, () => this.api);
   }
 
   async handleSession(webSocket: WebSocket) {
@@ -850,8 +821,8 @@ sheet.addRule('h1', 'background: red;');
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: this.head,
-        i: sess.i,
+        hashCode: this.session.hashCode(),
+        i: this.session.toJS().i,
         users,
         type: "handshake",
       }),
@@ -893,7 +864,7 @@ sheet.addRule('h1', 'background: red;');
     //    limiter: RateLimiterClient,
   ) {
     if (session.quit) {
-      this.users.remove(session.name);
+      // this.users.remove(session.name);
       session.webSocket.close(1011, "WebSocket broken.");
       return;
     }
@@ -949,7 +920,7 @@ sheet.addRule('h1', 'background: red;');
 
     if (data.type == "handshake") {
       const commit = data.hashCode;
-      while (commit && commit !== this.head()) {
+      while (commit && commit !== this.session.hashCode()) {
         const oldNode = await this.state.storage.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });

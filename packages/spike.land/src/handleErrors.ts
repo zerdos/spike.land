@@ -1,9 +1,11 @@
+import type { WebSocketPair } from "@cloudflare/workers-types";
 export async function handleErrors(
   request: Request,
-  func: () => Promise<Response>,
+  getApi: () => (Request: Request) => Promise<Response>,
 ) {
+  const api = getApi();
   try {
-    return await func();
+    return await api(request);
   } catch (err) {
     if (request.headers.get("Upgrade") === "websocket") {
       // Annoyingly, if we return an HTTP error in response to a WebSocket request, Chrome devtools

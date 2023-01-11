@@ -1,13 +1,16 @@
+import type { WebSocket } from "@cloudflare/workers-types";
+import { WebsocketSession } from "./chatRoom";
+
 const users = {};
 
 const sessions = [];
 const userNames = new Set();
 
 // when a user connects to our sever users[
-export const signaller = async (sessions: [], connection: WebSocket) => {
+export const signaller = async (sessions: WebsocketSession[], connection: WebSocket) => {
   connection.accept();
 
-  const session = { quit: false, name: null };
+  const session: WebsocketSession = { quit: false, name: "", webSocket: connection };
 
   sessions.push(session);
 
