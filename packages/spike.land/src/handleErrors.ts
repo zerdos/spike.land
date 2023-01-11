@@ -1,4 +1,3 @@
-
 export async function handleErrors(
   request: Request,
   getApi: () => (Request: Request) => Promise<Response>,

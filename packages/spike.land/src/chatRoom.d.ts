@@ -23,21 +23,10 @@ export declare class Code implements DurableObject {
     };
     private backupSession;
     constructor(state: DurableObjectState, env: CodeEnv);
-    api(request: Request): Promise<Response | {
-        status: number;
-        headers: {
-            "x-typescript-types": string;
-            "Access-Control-Allow-Origin": string;
-            "Cross-Origin-Embedder-Policy": string;
-            "Cache-Control": string;
-            content_hash: string;
-            "Content-Type": string;
-        };
-    }>;
     fetch(request: Request): Promise<Response>;
     handleSession(webSocket: WebSocket): Promise<void>;
     processWsMessage(msg: {
         data: string | ArrayBuffer;
     }, session: WebsocketSession): Promise<void>;
 }
-export declare function handleErrors(request: Request, api: (req: Request) => Promise<Response>): Promise<Response>;
+export declare function handleErrors(request: Request, cb: () => Promise<Response>): Promise<Response>;
