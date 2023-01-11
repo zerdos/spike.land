@@ -7,9 +7,10 @@ import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
 import {
+  CodePatch,
+  makeHash,
   //  onSession
 
-  type CodePatch,
   makeSession,
   // type Delta,
   // CodeSession,
@@ -88,7 +89,7 @@ const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
   sess = this.session;
-  head = Immutable.hash(this.session);
+  head = makeHash(this.session);
   user = md5(self.crypto.randomUUID());
   mST(p: Delta[]) {
     const oldString = string_(this.session);
@@ -130,7 +131,7 @@ export class Code {
           // ]);
           this.session = makeSession(startSess);
           this.sess = this.session;
-          this.head = Immutable.hash(this.sess);
+          this.head = makeHash(this.sess);
 
           await ldb(codeSpace).setItem(
             "head",
@@ -142,7 +143,7 @@ export class Code {
           this.session = makeSession(startSess);
           this.sess = this.session;
 
-          this.head = Immutable.hash(this.session);
+          this.head = makeHash(this.session);
         }
       });
     })();
@@ -150,9 +151,9 @@ export class Code {
 
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
     const oldRec = makeSession(oldSess);
-    const oldHash = Immutable.hash(oldRec);
+    const oldHash = makeHash(oldRec);
     const newRec = makeSession(newSess);
-    const newHash = Immutable.hash(newRec);
+    const newHash = makeHash(newRec);
 
     const oldString = string_(oldRec);
     const newString = string_(newRec);
@@ -171,10 +172,10 @@ export class Code {
     const oldSession = this.session;
     const newSess = makeSession(newSession);
 
-    const oldHash = Immutable.hash(oldSession);
+    const oldHash = makeHash(oldSession);
     this.session = newSess;
     this.sess = newSess;
-    this.head = Immutable.hash(newSess);
+    this.head = makeHash(newSess);
     const message = this.createPatch(oldSession, newSess);
 
     // controller.abort();
@@ -364,7 +365,7 @@ export const sess = () => ({
   ...(cSess.sess),
 });
 
-Object.assign(globalThis, { sess, hash: (val: unknown) => Immutable.hash(val), makeSession, cSess: () => cSess });
+Object.assign(globalThis, { sess, hash: (val: unknown) => makeHash(val), makeSession, cSess: () => cSess });
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 

@@ -1,18 +1,15 @@
 import type { DurableObject, WebSocketPair } from "@cloudflare/workers-types";
 import { CodePatch, ICodeSession, makeSession } from "./../../code/src/session";
-import { resetCSS, string_ } from "./../../code/src/session";
+import { makeHash, resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
 import { signaller } from "./signalling";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
-import type { RecordOf } from "immutable";
-import { hash } from "immutable";
 
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
-import Immutable from "immutable";
 import jsTokens from "js-tokens";
 import { createDelta, Delta } from "../../code/src/textDiff";
 import ASSET_HASH from "./dist.shasum";
@@ -62,9 +59,9 @@ export class Code implements DurableObject {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
     const oldRec = makeSession(oldSess);
-    const oldHash = Immutable.hash(oldRec);
+    const oldHash = makeHash(oldRec);
     const newRec = makeSession(newSess);
-    const newHash = Immutable.hash(newRec);
+    const newHash = makeHash(newRec);
 
     const oldString = string_(oldRec);
     const newString = string_(newRec);
@@ -157,14 +154,14 @@ export class Code implements DurableObject {
         // const getSession = (s = sess) => Record(sess)(s);
 
         this.state.storage.put("sess", sess);
-        this.state.storage.put("head", Immutable.hash(this.session));
+        this.state.storage.put("head", makeHash(this.session));
 
         const url = new URL(request.url);
 
         const origin = url.origin;
         const transpiled = () => initAndTransform(sess.code, {}, origin);
 
-        const oldHash = Immutable.hash(sess);
+        const oldHash = makeHash(sess);
 
         const codeSpace = url.searchParams.get("room");
 
@@ -204,7 +201,7 @@ export class Code implements DurableObject {
 
           const newSession = this.mST(message.patch);
 
-          const newHash = Immutable.hash(newSession);
+          const newHash = makeHash(newSession);
 
           // const newSess= newSession;
           if (newHash !== message.newHash) {
@@ -820,7 +817,7 @@ sheet.addRule('h1', 'background: red;');
     const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
     webSocket.send(
       JSON.stringify({
-        hashCode: Immutable.hash(this.session),
+        hashCode: makeHash(this.session),
         i: this.session.i,
         users,
         type: "handshake",
@@ -919,7 +916,7 @@ sheet.addRule('h1', 'background: red;');
 
     if (data.type == "handshake") {
       const commit = data.hashCode;
-      while (commit && commit !== Immutable.hash(this.session)) {
+      while (commit && commit !== makeHash(this.session)) {
         const oldNode = await this.state.storage.get<CodePatch>("" + commit, {
           allowConcurrency: true,
         });

@@ -1,5 +1,5 @@
 import { Mutex } from "async-mutex";
-import type { RecordOf } from "immutable";
+import Immutable from "immutable";
 import { Record } from "immutable";
 import imap from "./importMap";
 import HTML from "./index.html";
@@ -17,6 +17,8 @@ type IUsername = string;
 export { HTML };
 
 export { md5 };
+
+export const makeHash = (cx: ICodeSession) => Immutable.hash(string_(cx));
 
 export const makeSession: (p: ICodeSession) => ICodeSession = (p = { i: 0, code: "", html: "", css: "" }) =>
   Record({ i: 0, code: "", html: "", css: "" })({
