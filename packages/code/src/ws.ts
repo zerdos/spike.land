@@ -92,6 +92,8 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 // const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
@@ -168,17 +170,17 @@ export class Code {
     const newRec = makeSession(newSess);
     const newHash = makeHash(newRec);
 
+    const oldString = string_(oldRec);
+    const newString = string_(newRec);
+
+    const patch = createDelta(oldString, newString);
+    const reversePatch = createDelta(newString, oldString);
+
     // const oldString = string_(oldRec);
     // const newString = string_(newRec);
 
-    // const reversePatch = createDelta(oldString, newString);
-    // const patch = createDelta(newString, oldString);
-
-    // const oldString = string_(oldRec);
-    // const newString = string_(newRec);
-
-    const patch = createDelta(oldRec.code, newRec.code);
-    const reversePatch = createDelta(newRec.code, oldRec.code);
+    // const patch = createDelta(oldRec.code, newRec.code);
+    // const reversePatch = createDelta(newRec.code, oldRec.code);
     return {
       oldHash,
       newHash,
@@ -290,6 +292,14 @@ export class Code {
     if (location.pathname === `/live/${codeSpace}`) {
       const code = await prettier(sess().code);
       globalThis.firstRender.code = code;
+      BC.onmessage = ({ data }) => {
+        if (data.type === "firstRender") {
+          const { html, css } = data;
+          cSess.session = makeSession({ ...cSess.session, code });
+
+          ws.post({ type: "firstRender", html, css, code });
+        }
+      };
 
       cSess.session = makeSession({ ...cSess.session, code });
 

@@ -30,7 +30,7 @@ export const render = async (
   console.log({ _rootEl, App });
 
   const el = document.createElement("div");
-  el.style.opacity
+  el.style.opacity = "0";
   _rootEl.parentElement?.appendChild(el);
   _rootEl.parentElement;
   const cache = createCache({
@@ -58,9 +58,12 @@ export const render = async (
       );
       // root.unmount();
       console.log({ html, css });
-
+      globalThis.firstRender.html = html;
       globalThis.firstRender.css = css;
+      el.style.opacity = "1";
       _rootEl.remove();
+      BC.postMessage({ type: "firstRender", html, css });
+
       return { html, css };
     }
 

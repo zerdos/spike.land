@@ -18,7 +18,7 @@ export { HTML };
 
 export { md5 };
 
-export const makeHash = (cx: ICodeSession) => Immutable.hash(string_(cx));
+export const makeHash = (cx: ICodeSession) => String(Immutable.hash(string_(cx)));
 
 export const makeSession: (p: ICodeSession) => ICodeSession = (p = { i: 0, code: "", html: "", css: "" }) =>
   Record({ i: 0, code: "", html: "", css: "" })({

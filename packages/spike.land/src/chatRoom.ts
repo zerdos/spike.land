@@ -76,7 +76,7 @@ export class Code implements DurableObject {
     };
   }
   mST(p: Delta[]) {
-    const oldString = this.session.code;
+    const oldString = string_(this.session);
     const code = aPatch(oldString, p);
     // const s = JSON.parse(newString);
     return makeSession({ ...this.session, code });
@@ -173,7 +173,23 @@ export class Code implements DurableObject {
         // const mess = await request.json();
 
         if (request.method === "POST") {
-          const message = await request.json<CodePatch>();
+          const message = await request.json<CodePatch | ICodeSession & { type?: "firstRender" }>();
+          if (message.type === "firstRender") {
+            const { html, css, code } = message as ICodeSession;
+            this.session = makeSession({ ...this.session, html, css, code });
+            this.state.storage.put("sess", this.session);
+            this.state.storage.put("head", makeHash(this.session));
+            this.state.storage.put(makeHash(this.session), this.session);
+            return new Response(JSON.stringify({ ...message, success: true }), {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
+          }
 
           if (!message) {
             new Response(JSON.stringify({ message: "failed to get the message", success: false }), {

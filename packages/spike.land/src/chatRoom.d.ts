@@ -17,8 +17,8 @@ export declare class Code implements DurableObject {
     broadcast(msg: unknown): void;
     session: ICodeSession;
     createPatch(oldSess: ICodeSession, newSess: ICodeSession): {
-        oldHash: number;
-        newHash: number;
+        oldHash: string;
+        newHash: string;
         reversePatch: Delta[];
         patch: Delta[];
     };
