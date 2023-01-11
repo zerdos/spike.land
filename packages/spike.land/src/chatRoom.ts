@@ -798,7 +798,7 @@ sheet.addRule('h1', 'background: red;');
   }
 
   fetch(request: Request) {
-    return handleErrors(request, () => this.api);
+    return handleErrors(request, () => () => this.api);
   }
 
   async handleSession(webSocket: WebSocket) {
