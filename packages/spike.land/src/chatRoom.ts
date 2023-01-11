@@ -5,7 +5,7 @@ import { aPatch, HTML, md5 } from "./../../code/src/session";
 import { signaller } from "./signalling";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
-import { Record } from "immutable";
+import { merge, Record } from "immutable";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
@@ -97,13 +97,12 @@ export class Code implements DurableObject {
       html: "<div></div>",
       css: "",
     };
-    const {
-      i,
-      code,
-      html,
-      css,
-    } = this.backupSession;
-    this.session = Record<ICodeSession>({ i, code, html, css })(this.backupSession);
+    this.session = Record<ICodeSession>({
+      i: 0,
+      code: "",
+      html: "",
+      css: "",
+    })();
 
     // const _ = this;
     // this.origin = '';
@@ -154,11 +153,15 @@ export class Code implements DurableObject {
 
         const sess: ICodeSession = this.session.toJS().i
           ? this.session.toJS()
-          : (await this.state.storage.get("sess", {}))
-            || (await this.state.storage.get("session", {})) || this.session.toJS();
+          : this.session.merge(
+            await this.state.storage.get("sess")
+              || (await this.state.storage.get("session") as ICodeSession),
+          ).toJS() || this.session.toJS();
 
         // const getSession = (s = sess) => Record(sess)(s);
         const hashCode = (s = sess) => this.session.merge(s).hashCode();
+        this.state.storage.put("sess", sess);
+        this.state.storage.put("head", this.session.hashCode());
 
         const url = new URL(request.url);
 
@@ -459,17 +462,15 @@ export class Code implements DurableObject {
           case "session.json":
           case "session": {
             if (path[1]) {
-              let session = await this.state.storage.get<string | object>(path[1], {
+              const session = await this.state.storage.get<string | object>(path[1], {
                 allowConcurrency: true,
               });
               if (session) {
-                if (typeof session !== "string") {
-                  session = JSON.stringify(session);
-                }
+                const s = this.session.merge(typeof session === "string" ? JSON.parse(session) : session).toJS();
 
                 // const { i, transpiled, code, html, css } = session;
 
-                return new Response(session, {
+                return new Response(string_(s), {
                   status: 200,
                   headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -1076,7 +1077,7 @@ sheet.addRule('h1', 'background: red;');
     }
   }
 }
-export async function handleErrors(
+async function handleErrors(
   request: Request,
   cb: () => Promise<Response>,
 ) {

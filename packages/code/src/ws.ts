@@ -82,9 +82,8 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 // const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
+const mutex = new Mutex();
 export class Code {
-  mutex: Mutex;
-
   session: Record<ICodeSession>;
   sess: ICodeSession;
   head: number;
@@ -133,68 +132,45 @@ export class Code {
   }
 
   constructor() {
-    this.mutex = new Mutex();
+    (async () => {
+      // this.users.insert(this.user);
 
-    // this.users.insert(this.user);
-    this.sess = {
-      code: "",
-      i: 0,
-      css: "",
-      html: "",
-    };
-    this.head = 0;
-    this.session = Record<ICodeSession>(this.sess)({});
+      await mutex.runExclusive(async () => {
+        const head = Number(await ldb(codeSpace).getItem("head") || 0);
 
-    this.mutex.runExclusive(async () => {
-      this.mutex.acquire();
-      this.head = await ldb(codeSpace).getItem("head") as number;
+        if (head === 0) {
+          // await Promise.all([
+          // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
+          // .text().then((x) => this.head = Number(x)),
+          const startSess = await ky(`${origin}/live/${codeSpace}/session`).json<ICodeSession>();
+          // ]);
+          this.session = Record<ICodeSession>({
+            i: 0,
+            code: "",
+            html: "",
+            css: "",
+          })(startSess);
+          this.sess = this.session.toJS();
+          this.head = this.session.hashCode();
 
-      if (!this.sess || !(this.sess.i > 0)) {
-        // await Promise.all([
-        // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
-        // .text().then((x) => this.head = Number(x)),
-        this.sess = await ky(`${origin}/live/${codeSpace}/session`).json();
-        // ]);
-
-        const backupSession = {
-          code: `export default () => (
-              <div>
-                <h1>404 - for now.</h1>
-            
-                <h2>
-                  But you can edit even this page and share with your friends.
-                </h2>
-              </div>
-            );`,
-          i: 0,
-          html: "<div></div>",
-          css: "",
-        };
-        const {
-          i,
-          code,
-          html,
-          css,
-        } = backupSession;
-        this.session = Record<ICodeSession>({ i, code, html, css })(this.sess);
-        this.head = this.session.hashCode();
-      }
-
-      await ldb(codeSpace).setItem(
-        "head",
-        Number(),
-      ) as number;
-      this.sess = await ldb(codeSpace).getItem(
-        String(this.head),
-      ) as (ICodeSession | false)
-        || await ldb(codeSpace).setItem(
-          String(this.head),
-          await ky(`${origin}/live/${codeSpace}/session`) // ;;.  /${this.head}`)
-            .json<ICodeSession>(),
-        );
-      this.session = Record<ICodeSession>(this.sess)();
-      this.mutex.release();
-    });
+          await ldb(codeSpace).setItem(
+            "head",
+            Number(this.head),
+          ) as number;
+          await ldb(codeSpace).setItem(String(this.head), this.sess) as (ICodeSession | false);
+        } else {
+          const startSess = await ldb(codeSpace).getItem(String(head)) as ICodeSession;
+          this.session = Record<ICodeSession>({
+            i: 0,
+            code: "",
+            html: "",
+            css: "",
+          })(startSess);
+          this.sess = this.session.toJS();
+          this.head = this.session.hashCode();
+        }
+      });
+    })();
   }
 
   createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
@@ -234,8 +210,8 @@ export class Code {
 
       const oldSession = this.sess;
 
-      await this.mutex.waitForUnlock();
-      this.mutex.acquire();
+      await mutex.waitForUnlock();
+      await mutex.acquire();
 
       // applyPatch(message, codeSpace);
 
@@ -245,7 +221,7 @@ export class Code {
 
         ldb(codeSpace).syncDb(oldSession, newSession, message);
 
-        this.mutex.release();
+        mutex.release();
 
         ws.post(message);
         ws.send(message);
@@ -308,7 +284,7 @@ export class Code {
   i = 0;
 
   async run() {
-    this.mutex.waitForUnlock();
+    await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
       renderPreviewWindow({ codeSpace, dry: false });
@@ -387,7 +363,6 @@ export class Code {
 
 export const codeSession = new Code();
 
-globalThis.codeSession = codeSession;
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await codeSession.syncWS(sess, signal);
 
 export const run = async () => {

@@ -1,10 +1,9 @@
 export async function handleErrors(
   request: Request,
-  getApi: () => (Request: Request) => Promise<Response>,
+  func: () => Promise<Response>,
 ) {
-  const api = getApi();
   try {
-    return await api(request);
+    return await func();
   } catch (err) {
     if (request.headers.get("Upgrade") === "websocket") {
       // Annoyingly, if we return an HTTP error in response to a WebSocket request, Chrome devtools
