@@ -352,7 +352,7 @@ export class Code {
 
           const pair = new WebSocketPair();
 
-          await signaller(sessions, pair[1]);
+          await signaller(wsSessions, pair[1]);
 
           this.state.storage.put("sessions", sessions.map(({ name, quit }) => ({ name, quit })));
 
