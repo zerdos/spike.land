@@ -88,30 +88,12 @@ export class Code {
   sess: ICodeSession;
   head: number;
   user = md5(self.crypto.randomUUID());
-  mST(p?: Delta[]) {
-    if (p && p.length) {
-      const sessAsJs = this.session.toJS();
-
-      const { i, code, html, css }: ICodeSession = p
-        ? JSON.parse(
-          aPatch(
-            string_(
-              sessAsJs,
-            ),
-            p,
-          ),
-        )
-        : sessAsJs;
-      return this.session.merge({
-        i,
-        code,
-        html,
-        css,
-      }).toJS();
-    }
-    return this.session.toJS();
+  mST(p: Delta[]) {
+    const oldString = string_(this.session.toJSON());
+    const newString = aPatch(oldString, p);
+    const s = JSON.parse(newString);
+    return this.session.merge(s).toJSON();
   }
-
   // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
 
   // const newHash = newRec.hashCode();
@@ -150,7 +132,7 @@ export class Code {
             html: "",
             css: "",
           })(startSess);
-          this.sess = this.session.toJS();
+          this.sess = this.session.toJSON();
           this.head = this.session.hashCode();
 
           await ldb(codeSpace).setItem(
@@ -166,7 +148,7 @@ export class Code {
             html: "",
             css: "",
           })(startSess);
-          this.sess = this.session.toJS();
+          this.sess = this.session.toJSON();
           this.head = this.session.hashCode();
         }
       });
@@ -193,7 +175,7 @@ export class Code {
   }
 
   async syncWS(newSession: ICodeSession, signal: AbortSignal) {
-    const oldSession = this.sess;
+    const oldSession = this.session.merge(this.sess).toJSON();
     const newState = this.session.merge(newSession).toJSON();
     const message = this.createPatch(oldSession, newState);
 
@@ -361,12 +343,27 @@ export class Code {
   }
 }
 
-export const codeSession = new Code();
+let cSess: Code;
+export const codeSession = async () => {
+  await mutex.waitForUnlock();
+  mutex.acquire();
+  if (cSess) return { sess: { ...cSess.sess } };
+  cSess = cSess || new Code();
+  return {
+    run: async () => {
+      mutex.release();
+      setTimeout(async () => {
+        await mutex.waitForUnlock();
+        await cSess.run();
+      });
+    },
+  };
+};
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await codeSession.syncWS(sess, signal);
 
 export const run = async () => {
-  codeSession.run();
+  (await codeSession()).run();
 };
 
 // async function stopVideo() {

@@ -22,8 +22,6 @@ const Editor: FC<
 > = (
   { codeSpace },
 ) => {
-  const sess = codeSession.sess;
-
   const ref = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
 
@@ -31,8 +29,8 @@ const Editor: FC<
     { i, code, started, controller },
     changeContent,
   ] = useState({
-    code: sess.code,
-    i: sess.i,
+    code: "",
+    i: 0,
     started: false,
     controller: new AbortController(),
     setValue: (_code: string) => null,
@@ -104,6 +102,7 @@ const Editor: FC<
   const onChange = async (_code: string) => {
     if (code === _code) return;
     console.log(_code);
+    const cSess = (await codeSession());
 
     const ccc = await prettier(code);
     const c = await prettier(_code);
@@ -113,37 +112,43 @@ const Editor: FC<
 
     changeContent((x) => ({
       ...x,
-      i: x.i + 1,
+      i: cSess.sess!.i + 1,
       code: c,
       controller: new AbortController(),
     }));
   };
 
   useEffect(() => {
-    if (i <= codeSession.sess.i) return;
-    // onSessionUpdate(
-    //   async () => {
-    //     const { i, code: ccc } = mST(codeSpace);
-    //     const prettyCCC = await prettier(ccc);
-    //     const prettyCode = await prettier(code);
+    let next = i;
+    (async () => {
+      const cSess = (await codeSession());
 
-    //     if (!prettyCCC) return;
-    //     if (prettyCCC === prettyCode) return;
+      if (i !== 0 && cSess && cSess.sess && i <= cSess.sess.i) return;
+      next = cSess.sess!.i;
+      // onSessionUpdate(
+      //   async () => {
+      //     const { i, code: ccc } = mST(codeSpace);
+      //     const prettyCCC = await prettier(ccc);
+      //     const prettyCode = await prettier(code);
 
-    //     // if (i !== mST(codeSpace).i) return;
+      //     if (!prettyCCC) return;
+      //     if (prettyCCC === prettyCode) return;
 
-    //     changeContent((x) => ({
-    //       ...x,
-    //       i,
-    //       code: ccc,
-    //     }));
-    //     setValue(ccc);
-    //   },
-    //   "editor",
-    //   codeSpace,
-    // );
-    runner({ code, counter: i, codeSpace, signal: controller.signal });
-    return () => controller.abort();
+      //     // if (i !== mST(codeSpace).i) return;
+
+      //     changeContent((x) => ({
+      //       ...x,
+      //       i,
+      //       code: ccc,
+      //     }));
+      //     setValue(ccc);
+      //   },
+      //   "editor",
+      //   codeSpace,
+      // );
+      runner({ code, counter: next, codeSpace, signal: controller.signal });
+      return () => controller.abort();
+    })();
   }, [code, i, codeSpace, controller.signal]);
 
   if (engine === "ace") return EditorNode;
