@@ -23,7 +23,7 @@ export const makeSession: (p: ICodeSession) => ICodeSession = ({ i, code, html, 
     i,
     code,
     html,
-    css: css.split(".css-").filter(x => html.indexOf(x.slice(0, 5)) !== -1).join(".css-"),
+    css: css && css.split(".css-").filter(x => html.indexOf(x.slice(0, 5)) !== -1).join(".css-"),
   }).toJS();
 
 export type ICodeSession = {
