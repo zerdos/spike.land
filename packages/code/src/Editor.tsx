@@ -118,30 +118,30 @@ const Editor: FC<
 
   useEffect(() => {
     // let next = i;
-      if (i <= sess().i) return;
-      // onSessionUpdate(
-      //   async () => {
-      //     const { i, code: ccc } = mST(codeSpace);
-      //     const prettyCCC = await prettier(ccc);
-      //     const prettyCode = await prettier(code);
+    if (i <= sess().i) return;
+    // onSessionUpdate(
+    //   async () => {
+    //     const { i, code: ccc } = mST(codeSpace);
+    //     const prettyCCC = await prettier(ccc);
+    //     const prettyCode = await prettier(code);
 
-      //     if (!prettyCCC) return;
-      //     if (prettyCCC === prettyCode) return;
+    //     if (!prettyCCC) return;
+    //     if (prettyCCC === prettyCode) return;
 
-      //     // if (i !== mST(codeSpace).i) return;
+    //     // if (i !== mST(codeSpace).i) return;
 
-      //     changeContent((x) => ({
-      //       ...x,
-      //       i,
-      //       code: ccc,
-      //     }));
-      //     setValue(ccc);
-      //   },
-      //   "editor",
-      //   codeSpace,
-      // );
-      runner({ code, counter: i, codeSpace, signal: controller.signal });
-      return () => controller.abort();
+    //     changeContent((x) => ({
+    //       ...x,
+    //       i,
+    //       code: ccc,
+    //     }));
+    //     setValue(ccc);
+    //   },
+    //   "editor",
+    //   codeSpace,
+    // );
+    runner({ code, counter: i, codeSpace, signal: controller.signal });
+    return () => controller.abort();
   }, [code, i, codeSpace, controller.signal]);
 
   if (engine === "ace") return EditorNode;
