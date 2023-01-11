@@ -91,11 +91,17 @@ export class Code {
   sess = this.session;
   head = makeHash(this.session);
   user = md5(self.crypto.randomUUID());
+  // mST(p: Delta[]) {
+  //   const oldString = string_(this.session);
+  //   const newString = aPatch(oldString, p);
+  //   const s = JSON.parse(newString);
+  //   return makeSession(s);
+  // }
   mST(p: Delta[]) {
-    const oldString = string_(this.session);
-    const newString = aPatch(oldString, p);
-    const s = JSON.parse(newString);
-    return makeSession(s);
+    const oldString = this.session.code;
+    const code = aPatch(oldString, p);
+    // const s = JSON.parse(newString);
+    return makeSession({ ...this.session, code });
   }
   // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
 
@@ -155,17 +161,17 @@ export class Code {
     const newRec = makeSession(newSess);
     const newHash = makeHash(newRec);
 
-    const oldString = string_(oldRec);
-    const newString = string_(newRec);
+    // const oldString = string_(oldRec);
+    // const newString = string_(newRec);
 
-    const reversePatch = createDelta(oldString, newString);
-    const patch = createDelta(newString, oldString);
+    // const reversePatch = createDelta(oldString, newString);
+    // const patch = createDelta(newString, oldString);
 
     // const oldString = string_(oldRec);
     // const newString = string_(newRec);
 
-    // const patch = createDelta(oldRec.code, newRec.code);
-    // const reversePatch = createDelta(newRec.code, oldRec.code);
+    const patch = createDelta(oldRec.code, newRec.code);
+    const reversePatch = createDelta(newRec.code, oldRec.code);
     return {
       oldHash,
       newHash,

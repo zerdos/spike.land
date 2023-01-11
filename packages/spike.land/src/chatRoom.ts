@@ -76,10 +76,10 @@ export class Code implements DurableObject {
     };
   }
   mST(p: Delta[]) {
-    const oldString = string_(this.session);
-    const newString = aPatch(oldString, p);
-    const s = JSON.parse(newString);
-    return makeSession(s);
+    const oldString = this.session.code;
+    const code = aPatch(oldString, p);
+    // const s = JSON.parse(newString);
+    return makeSession({ ...this.session, code });
   }
 
   private backupSession = makeSession({
