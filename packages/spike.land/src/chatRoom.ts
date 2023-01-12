@@ -687,7 +687,7 @@ sheet.addRule('h1', 'background: red;');
             });
           }
           case "prerender": {
-            const respText = HTML.replace(
+            const respText = HTML.replace("sw.js", "sw.js?version=" + files["sw.js"].split(".")[1]).replace(
               "/**reset*/",
               resetCSS,
             )

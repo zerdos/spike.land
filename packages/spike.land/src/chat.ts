@@ -274,7 +274,7 @@ const api: DurableObject = {
             // return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "files.json":
-            return new Response(JSON.stringify(files), {
+            return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",

@@ -3,7 +3,6 @@ importScripts("/workerScripts/superFetch.js");
 self.fetch = globalThis.superFetch;
 
 export type {};
-import { text } from "stream/consumers";
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
@@ -88,7 +87,6 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
 
-  const prerender = url.pathname.endsWith("prerender");
   if (
     url.pathname.startsWith("/live") && url.pathname.endsWith("public")
     || url.pathname.endsWith("prerender")
@@ -105,60 +103,41 @@ const createResponse = async (request: Request) => {
       ),
     );
 
-    const ASSET_HASH = md5(code);
+    const { ASSET_HASH } = self.files;
 
-    const respText = HTML.replace(
+    const respText = HTML.replace("sw.js", "sw.js?version=" + self.files["sw.js"].split(".")[1]).replace(
       "/**reset*/",
       resetCSS,
-    )
-      .replace(
-        `<div id="root"></div>`,
-        `
-          <div id="root" data-i="${i}" style="height: 100%;">
+    ).replace(
+      `<div id="root"></div>`,
+      `<div id="root" style="height: 100%;">
+    <style>${css}</style>
 
-          ${
-          prerender ? "" : `<style>${css}</style>
-          <div id="${codeSpace}-css" style="height: 100%;">
-            ${html}
-          </div>`
-        }
-          
-          </div>
-          <script type="module">
+      <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
+        ${html}
+        </div>
 
-          import {render, prerender} from "${url.origin}/src/render.mjs";
-       
+    </div>              
+    ` + url.pathname.endsWith("dehydrated")
+        ? `<script>
 
-          let ModASSET_HASH;
-
-          const preRender = ${prerender ? "true" : "false"};
-         (async ()=>{
-
-          // try{
-            // ModASSET_HASH = (await import("${url.origin}/live/${codeSpace}/index.mjs")).default;
-          // } catch{
-            ModASSET_HASH = (await import("${url.origin}/live/${codeSpace}/index.js")).default;
-          // }
-          if (preRender){
-            prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
-          } else {
-              const rootEl = document.getElementById("${codeSpace}-css");
-              render(rootEl, ModASSET_HASH, "${codeSpace}");          
-            render(rootEl, ModASSET_HASH, "${codeSpace}");          
-              render(rootEl, ModASSET_HASH, "${codeSpace}");          
-            }
-
-         })();
-         
-
-              
-              
-          
-
-          
-         
-          </script>`,
-      ).split("ASSET_HASH").join(ASSET_HASH);
+    const paths = location.href.split("/");
+    const page = paths.pop();
+    const codeSpace = paths.pop();
+      
+  
+      const BC = new BroadcastChannel([...paths, codeSpace, ""].join("/"));
+    
+    BC.onmessage = ({data}) => {
+      const {html, css, i } = data;
+      if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
+      
+    }
+    var sheet = document.createStyleSheet();
+sheet.addRule('h1', 'background: red;');
+    </script>`
+        : `<script type="module" src="${location.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+    );
 
     // const Etag = request.headers.get("Etag");
     // const newEtag = await sha256(respText);
@@ -172,21 +151,8 @@ const createResponse = async (request: Request) => {
       "no-cache",
     );
 
-    // headers.set('Etag', newEtag);
-
-    // if (Etag === newEtag) {
-    //   // headers.set('CF-Cache-Status', 'HIT');
-    //   return new Response(null, {
-    //     status: 304,
-    //     statusText: "Not modified",
-    //     headers,
-    //   });
-    // }
-
     headers.set("Content-Type", "text/html; charset=UTF-8");
     headers.set("content_hash", md5(respText));
-    // headers.set("Etag", newEtag)
-    // headers.set("x-content-digest", `SHA-256=${newEtag}`);÷≥≥÷÷÷
     return new Response(respText, {
       status: 200,
       headers,
