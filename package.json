@@ -9,11 +9,11 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "yarn workspaces foreach --all run  clean",
+    "clean": "yarn workspaces foreach --all run clean",
     "build": "yarn workspaces foreach --all run build",
     "types": "yarn workspaces foreach --all run types",
     "test": "yarn workspaces foreach --all run test",
-    "shasum": "ipfs add --only-hash -r -Q packages/code/dist >  packages/spike.land/src/dist.shasum",
+    "shasum": "ipfs add --only-hash -r -Q packages/code/dist | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/src/dist.shasum.js",
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
     "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types",

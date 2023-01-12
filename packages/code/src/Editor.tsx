@@ -8,7 +8,7 @@ import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
-import { sess } from "./ws";
+// import { sess } from "./ws";
 
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;
@@ -28,8 +28,8 @@ const Editor: FC<
     { i, code, started, controller },
     changeContent,
   ] = useState({
-    code: sess.code,
-    i: sess.i,
+    code: globalThis.session.code,
+    i: globalThis.session.i,
     started: false,
     controller: new AbortController(),
     setValue: (_code: string) => null,
@@ -118,7 +118,7 @@ const Editor: FC<
 
   useEffect(() => {
     // let next = i;
-    if (i <= sess.i) return;
+    if (i <= globalThis.session.i) return;
     // onSessionUpdate(
     //   async () => {
     //     const { i, code: ccc } = mST(codeSpace);

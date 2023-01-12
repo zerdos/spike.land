@@ -301,7 +301,7 @@ export class Code {
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
         if (data.type === "firstRender") {
-          firstRender = true;
+          firstRenderSent = true;
           const { html, css } = data;
           cSess.session = makeSession({ ...cSess.session, code });
 

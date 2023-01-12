@@ -134,7 +134,6 @@ const buildOptions: esbuild.BuildOptions = {
     ".css": "css",
     ".png": "file",
     ".ico": "file",
-    ".shasum": "text",
     ".wasm": "file",
     ".html": "text",
   },
@@ -372,6 +371,7 @@ const build = (
     ],
     [
       "__STATIC_CONTENT_MANIFEST",
+      "./dist.shasum",
       `../${wasmFile}`,
       `./${wasmFile}`,
       `${wasmFile}`,
