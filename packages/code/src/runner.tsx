@@ -168,11 +168,11 @@ export async function runner({ code, counter, codeSpace, signal }: {
     // const pp = await buildT(codeSpace, counter, ab.signal);
     // if (!pp) return;
 
-    sess.transpiled = await transpile(code);
+    //    sess.transpiled = await transpile(code);
 
     if (signal.aborted) return;
 
-    BC.postMessage({ i: sess.i, transpiled: sess.transpiled });
+    BC.postMessage({ i: sess.i, code, type: "prerender" });
     try {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
       await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);

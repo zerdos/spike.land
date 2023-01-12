@@ -198,7 +198,7 @@ const createResponse = async (request: Request) => {
           i: 0,
         };
         BC.onmessage = async ({ data }) => {
-          if (data.type === "transpile") {
+          if (data.type === "prerender" && data.code && !data.html) {
             const transpiled = await transpile(data.code);
             BC.postMessage({ ...data, transpiled });
           }

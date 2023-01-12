@@ -90,8 +90,13 @@ export const render = async (
 };
 
 export const prerender = async (App: FC) => {
-  const rootEl = document.getElementById("root")!;
-  const root = createRoot(rootEl);
+  const _rootEl = document.getElementById("root")!;
+  const el = document.createElement("div");
+  el.style.opacity = "0";
+  _rootEl.parentElement?.appendChild(el);
+  _rootEl.parentElement;
+
+  const root = createRoot(el);
   root.render(<App />);
 
   let i = 100;
@@ -153,7 +158,7 @@ const mod: {
   };
 } = {};
 BC.onmessage = async ({ data }) => {
-  if (data.transpiled && !data.html) {
+  if (data.transpiled && !data.html && data.code && data.type === "prerender") {
     if (i === data.i || data.html) return;
     i = data.i;
 
@@ -198,7 +203,7 @@ BC.onmessage = async ({ data }) => {
           // document.getElementById("root")?.appendChild(newRoot);
           // root.unmount();
           // root = r;
-          BC.postMessage({ html, css, i: data.i });
+          BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
           controller.abort();
           // root.unmount();
           return;
