@@ -3,6 +3,7 @@
 
 // import type { EmotionCache } from "@emotion/cache";
 // import { createRoot } from "react-dom/client";
+import { mkdir } from "./fs";
 import { md5 } from "./md5";
 // import { render } from "./render";
 // import { ab2str } from "./sab";
@@ -22,6 +23,9 @@ import { run } from "./ws";
 globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
+mkdir("/");
+mkdir("/live");
+mkdir("/live/" + codeSpace);
 
 if (
   location.pathname === `/live/${codeSpace}`

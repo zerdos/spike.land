@@ -294,10 +294,6 @@ export class Code {
   i = 0;
 
   async run() {
-    await mkdir("/");
-    await mkdir("/live");
-    await mkdir("/live/" + codeSpace);
-
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
