@@ -1,5 +1,6 @@
 // import FS from "@isomorphic-git/lightning-fs";
 import FS from "@isomorphic-git/lightning-fs";
+import { Mutex } from "async-mutex";
 import * as memFS from "memfs";
 import { importMapReplace } from "./importMapReplace";
 
@@ -39,8 +40,12 @@ written: ${new Date()}
       : content,
   );
 };
+const mutex = new Mutex();
+
 export const readFile = (filePath: string) =>
-  p.readFile(filePath, { encoding: "utf8" }).catch(() => fetch(origin + filePath).then(x => x.text()));
-// export const stat = (filePath: string) => p.stat(filePath);
-export const unlink = (filepath: string) => p.unlink(filepath).catch(() => {/** nothing really happened */});
-export const mkdir = (filePath: string) => p.mkdir(filePath);
+  mutex.runExclusive(() =>
+    p.readFile(filePath, { encoding: "utf8" }).catch(() => fetch(origin + filePath).then(x => x.text()))
+  );
+export const unlink = (filepath: string) =>
+  mutex.runExclusive(() => p.unlink(filepath).catch(() => {/** nothing really happened */}));
+export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath));
