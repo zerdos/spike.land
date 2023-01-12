@@ -8,7 +8,8 @@ import { importMapReplace } from "./importMapReplace";
 
 import FS from "@isomorphic-git/lightning-fs";
 
-let fsProb: FS | typeof memFS.fs;
+let fsProb: FS // | typeof memFS.fs;
+;
 try {
   if (typeof indexedDB === "undefined") fsProb = memFS.fs;
   else {
@@ -55,4 +56,4 @@ export const readFile = (filePath: string) =>
   );
 export const unlink = (filepath: string) =>
   mutex.runExclusive(() => p.unlink(filepath).catch(() => {/** nothing really happened */}));
-export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath));
+export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath)).catch(() => {});

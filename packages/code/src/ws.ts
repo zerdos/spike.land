@@ -94,6 +94,7 @@ function makeSession(sess: ICodeSession) {
 // Import PubSubRoom from 'ipfs-pubsub-room'
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
+mkdir("/live/" + codeSpace);
 
 // const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
@@ -333,12 +334,6 @@ export class Code {
     BCC.postMessage(obj);
 
     // port.onmessage = (e) => handleWorker(e, port);
-
-    const root = await readdir("/");
-
-    if (!root.includes("live")) await mkdir("/live");
-    const live = await readdir("/live");
-    if (!live.includes(codeSpace)) await mkdir("/live/" + codeSpace);
 
     // if (!liveStat.isDirectory())
     // else console.log("dir already )(exists")
