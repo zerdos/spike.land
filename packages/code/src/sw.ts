@@ -107,13 +107,13 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
   const paths = url.pathname.split("/");
-
+  const codeSpace = paths[2];
   if (
     url.pathname === `/live/${codeSpace}/iframe` || url.pathname === `/live/${codeSpace}/`
     || url.pathname === `/live/${codeSpace}/public` || url.pathname === `/live/${codeSpace}/dehydrated`
   ) {
     // return renderToStream("clock3");
-    const codeSpace = paths[2];
+
     globalThis.conns = globalThis.conns || {};
     globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
       const websocket = new ReconnectingWebSocket(
