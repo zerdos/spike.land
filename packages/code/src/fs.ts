@@ -1,5 +1,5 @@
 // import FS from "@isomorphic-git/lightning-fs";
-import FS from "@isomorphic-git/lightning-fs";
+// import FS from "@isomorphic-git/lightning-fs";
 import { Mutex } from "async-mutex";
 import * as memFS from "memfs";
 import { importMapReplace } from "./importMapReplace";
@@ -8,16 +8,16 @@ import { importMapReplace } from "./importMapReplace";
 
 // import FS from "@isomorphic-git/lightning-fs";
 
-let fsProb: FS | typeof memFS.fs;
-try {
-  if (typeof indexedDB === "undefined") fsProb = memFS.fs;
-  else {
-    // const FS = (await import("@isomorphic-git/lightning-fs")).default
-    fsProb = new FS("fakeFS");
-  }
-} catch {
-  fsProb = memFS.fs;
-}
+let fsProb = memFS.fs; // FS | typeof memFS.fs;
+// try {
+//   if (typeof indexedDB === "undefined") fsProb = memFS.fs;
+//   else {
+//     // const FS = (await import("@isomorphic-git/lightning-fs")).default
+//     // fsProb = new FS("fakeFS");
+//   }
+// } catch {
+//   fsProb = memFS.fs;
+// }
 
 export const fs = fsProb;
 
