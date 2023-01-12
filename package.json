@@ -26,7 +26,7 @@
     "build:prod": "NODE_ENV=production yarn build:all",
     "docker:build": "yarn workspaces foreach --all run   docker:build",
     "docker:push": "yarn workspaces foreach --all run   docker:push",
-    "push": "yarn fmt && yarn deploy && git pull && yarn && git add . && git commit -m push && git push && yarn fmt",
+    "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
     "x:test": "xo && NODE_OPTIONS=--experimental-fetch yarn p:test",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
