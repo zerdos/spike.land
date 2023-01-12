@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import createCache from "./emotionCache";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
-import { CacheProvider, css } from "@emotion/react";
+import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import { appFactory, md5 } from "./starter";
@@ -25,9 +25,20 @@ globalThis.firstRender = globalThis.firstRender || {
 
 export const render = async (
   _rootEl: HTMLDivElement,
-  App: FC,
+  codeSpace: string,
+  counter: number,
 ) => {
-  console.log({ _rootEl, App });
+  let App;
+  try {
+    App = (await import(location.origin + "/live/" + codeSpace + "/" + counter)).default;
+  } catch (err) {
+    App = () => (
+      <div>
+        <h1>Error</h1>
+        <pre>{JSON.stringify({err})}</pre>
+      </div>
+    );
+  }
 
   const el = document.createElement("div");
   el.style.opacity = "0";
