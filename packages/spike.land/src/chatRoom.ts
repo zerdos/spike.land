@@ -341,7 +341,7 @@ export class Code implements DurableObject {
 
             const pair = new WebSocketPair();
 
-            await signaller(this.wsSessions, pair[1]);
+            await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
 
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
@@ -1068,7 +1068,7 @@ async function handleErrors(
       // won't show us the response body! So... let's send a WebSocket response with an error
       // frame instead.
 
-      let stack = null;
+      let stack: string | undefined = "";
 
       if (err instanceof Error) {
         stack = err.stack;
@@ -1076,7 +1076,7 @@ async function handleErrors(
       }
 
       const pair = new WebSocketPair();
-      pair[1].accept();
+      (pair[1] as unknown as WebSocket).accept();
       pair[1].send(JSON.stringify({ error: stack }));
       pair[1].close(1011, "Uncaught exception during session setup");
       return new Response(null, { status: 101, webSocket: pair[0] });

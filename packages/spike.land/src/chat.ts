@@ -233,7 +233,6 @@ const api: ExportedHandler<CodeEnv> = {
               ` export const Box = ({children})=><div>{children}</div>;`,
               {},
               url.origin,
-              env,
             );
             return new Response(trp, {
               status: 200,
@@ -595,6 +594,7 @@ async function handleApiRequest(
     case "room": {
       if (!path[1]) {
         if (request.method === "POST") {
+          const id = env.CODE.newUniqueId();
           return new Response(id.toString(), {
             headers: {
               "Access-Control-Allow-Origin": "*",
