@@ -655,7 +655,8 @@ export class Code implements DurableObject {
               const codeSpace = paths.pop();
                 
             
-                const BC = new BroadcastChannel([...paths, codeSpace, ""].join("/"));
+              const BC = new BroadcastChannel("${url.origin}/live/${codeSpace}/");
+
               
               BC.onmessage = ({data}) => {
                 const {html, css, i } = data;

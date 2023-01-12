@@ -127,7 +127,7 @@ x
     const codeSpace = paths[2]
       
   
-      const BC = new BroadcastChannel(${url.origin}/live/${codeSpace});
+      const BC = new BroadcastChannel("${url.origin}/live/${codeSpace}/");
     
     BC.onmessage = ({data}) => {
       const {html, css, i } = data;
