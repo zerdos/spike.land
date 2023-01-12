@@ -106,7 +106,9 @@ export class Code implements DurableObject {
     html: "<div></div>",
     css: "",
   });
+  i: number;
   constructor(private state: DurableObjectState, private env: CodeEnv) {
+    this.i = 0;
   }
 
   async fetch(request: Request) {
@@ -136,6 +138,7 @@ export class Code implements DurableObject {
         const origin = url.origin;
         const transpiled = () => initAndTransform(sess.code, {}, origin);
 
+        this.i = sess.i;
         const oldHash = makeHash(sess);
 
         const codeSpace = url.searchParams.get("room");
@@ -343,9 +346,10 @@ export class Code implements DurableObject {
 
             const pair = new WebSocketPair();
 
-            await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
+            return this.handleSession(pair[1] as unknown as WebSocket);
+            // await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
 
-            return new Response(null, { status: 101, webSocket: pair[0] });
+            // return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "code":
           case "index.tsx":
@@ -874,8 +878,8 @@ export class Code implements DurableObject {
       candidate?: string;
       answer?: string;
       offer?: string;
-      newHash?: number;
-      oldHash?: number;
+      newHash?: string;
+      oldHash?: string;
     };
     try {
       data = typeof msg.data === "string"
@@ -925,11 +929,11 @@ export class Code implements DurableObject {
     }
     // try {
     // this.wsSessions.map((otherSession) => {
-    //   if (otherSession === session) return;
+    // if (otherSession === session) return;
 
-    //   if (otherSession.name === data.name) {
-    //     otherSession.name = "";
-    //     otherSession.blockedMessages.map((m) => session.webSocket.send(m));
+    // if (otherSession.name === data.name) {
+    // /    otherSession.name = "";
+    // otherSession.blockedMessages.map((m) => session.webSocket.send(m));
     //     otherSession.blockedMessages = [];
     //   }
     // });
@@ -959,7 +963,7 @@ export class Code implements DurableObject {
     // });
 
     // }
-    // this.i = data.i;
+    this.i = data.i;
 
     // await this.mutex.runExclusive(async () => {
     // if (data.i < this.i) return;
@@ -988,8 +992,9 @@ export class Code implements DurableObject {
         }
 
         if (data.patch && data.oldHash && data.newHash) {
-          // const oldState = session;
-          // const newState = session.merge(this.mST(data.patch));
+          const oldState = this.session;
+          const oldHash = makeHash(this.session);
+          const newState = makeSession(this.mST(data.patch));
 
           // const newRec = session.merge(
           //   newState,
@@ -1005,16 +1010,24 @@ export class Code implements DurableObject {
             //   reversePatch: data.reversePatch,
             // });
 
+            // this.broadcast(data);
+            if (makeHash(this.session) !== data.oldHash) {
+              return respondWith({
+                error: `old hashes not matching`,
+              });
+            }
+            if (oldHash !== data.oldHash) {
+              return respondWith({
+                error: `old hashes not matching`,
+              });
+            }
             this.broadcast(data);
-            // if (this.head !== data.oldHash) {
-            //   return respondWith({
-            //     error: `old hashes not matching`,
-            //   });
-            // }
+
+            this.session = newState;
 
             //
 
-            //  // await applyPatch({ newHash, oldHash, patch, reversePatch });
+            // await applyPatch({ newHash, oldHash, patch, reversePatch });
             // } catch (err) {
             //   console.error({ err });
             //   return respondWith({ err });
@@ -1056,6 +1069,7 @@ export class Code implements DurableObject {
     }
   }
 }
+
 async function handleErrors(
   request: Request,
   cb: () => Promise<Response>,
