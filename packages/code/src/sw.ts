@@ -1,7 +1,3 @@
-// import { importMapReplace } from "./esbuildEsm";
-importScripts("/workerScripts/superFetch.js");
-self.fetch = globalThis.superFetch;
-
 export type {};
 import { Mutex } from "async-mutex";
 import throttle from "lodash.throttle";
@@ -315,5 +311,5 @@ const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: 
 self.addEventListener("fetch", async function(event) {
   await getFilesThrottled();
 
-  return event.respondWith(createResponse(event.request));
+  return event.respondWith((() => createResponse(event.request))());
 });
