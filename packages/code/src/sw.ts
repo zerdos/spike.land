@@ -21,19 +21,67 @@ self.ReconnectingWebSocket = ReconnectingWebSocket;
 
 const { writeFile, readDir, readFile, unlink, mkdir } = self;
 
+const connections = self.connections = self.connections || {};
+
 self.onmessage = async (event) => {
   const { data } = event;
+  const codeSpace = data.codeSpace;
+
+  connections[codeSpace] = connections[codeSpace] || await (async () => {
+    const websocket = new ReconnectingWebSocket(
+      `wss://${location.host}/api/room/` + codeSpace + "/websocket",
+    );
+    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+    const session = {
+      websocket,
+      BC,
+      user: md5(self.crypto.randomUUID()),
+      i: 0,
+    };
+    BC.onmessage = async ({ data }) => {
+      if (data.i > session.i && (data.hashCode || data.newHash)) {
+        session.i = data.i;
+
+        data.name = session.user;
+        websocket.send(JSON.stringify(data));
+      }
+    };
+
+    websocket.onopen = () => console.log("onOpened");
+    websocket.onmessage = async ({ data }) => {
+      const msg = JSON.parse(data);
+      if (data.type === "handShake") {
+        websocket.send(JSON.stringify({ name: session.user }));
+        return;
+      }
+      if (data.type === "transpile") {
+        const transpiled = await transpile(data.code);
+        websocket.send(JSON.stringify({ ...data, transpiled }));
+      }
+
+      if (msg.i > session.i) {
+        session.i = msg.i;
+        BC.postMessage(data);
+      }
+    };
+    session;
+  })();
+  const transpiled = await transpile(data.code);
   if (data.type === "prerender" && data.code && !data.html) {
     try {
-      await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
+      await mkdir("/");
+      await mkdir("/live");
+      await mkdir("/live/" + codeSpace);
+      await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     } catch {
       await unlink(`/live/${codeSpace}/index.tsx`);
       await unlink(`/live/${codeSpace}/index.js`);
-      await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
+      await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+      await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
     }
-    const transpiled = await transpile(data.code);
+
     return event.ports[0].postMessage({ data, transpiled });
   }
 };
@@ -132,48 +180,6 @@ const createResponse = async (request: Request) => {
     || url.pathname === `/live/${codeSpace}/public` || url.pathname === `/live/${codeSpace}/dehydrated`
   ) {
     // return renderToStream("clock3");
-
-    self.conns = self.conns || {};
-    self.conns[codeSpace] = self.conns[codeSpace] || (async () => {
-      const websocket = new ReconnectingWebSocket(
-        `wss://${location.host}/api/room/` + codeSpace + "/websocket",
-      );
-      const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-      const session = {
-        websocket,
-        BC,
-        user: md5(self.crypto.randomUUID()),
-        i: 0,
-      };
-      BC.onmessage = async ({ data }) => {
-        if (data.i > session.i && (data.hashCode || data.newHash)) {
-          session.i = data.i;
-
-          data.name = session.user;
-          websocket.send(JSON.stringify(data));
-        }
-      };
-
-      websocket.onopen = () => console.log("onOpened");
-      websocket.onmessage = async ({ data }) => {
-        const msg = JSON.parse(data);
-        if (data.type === "handShake") {
-          websocket.send(JSON.stringify({ name: session.user }));
-          return;
-        }
-        if (data.type === "transpile") {
-          const transpiled = await transpile(data.code);
-          websocket.send(JSON.stringify({ ...data, transpiled }));
-        }
-
-        if (msg.i > session.i) {
-          session.i = msg.i;
-          BC.postMessage(data);
-        }
-      };
-      session;
-    })();
 
     const { css, html, i, code } = JSON.parse(
       await readFile(

@@ -315,70 +315,35 @@ export class Code {
       renderPreviewWindow({ codeSpace, dry: false });
     }
 
-    const BCC = new BroadcastChannel(location.origin + "/ws.js");
-    const ports = new MessageChannel();
-    const port = ports.port1;
+    // const BCC = new BroadcastChannel(location.origin + "/ws.js");
+    // const ports = new MessageChannel();
+    // const port = ports.port1;
 
-    BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
+    // BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
 
-    const obj = JSON.parse(
-      JSON.stringify({
-        type: "onconnect",
-        codeSpace,
-        hashCode: this.head,
-        session: this.sess,
-        name: this.user,
-        "port": ports.port1,
-      }),
-    );
+    // const obj = JSON.parse(
+    //   JSON.stringify({
+    //     type: "onconnect",
+    //     codeSpace,
+    //     hashCode: this.head,
+    //     session: this.sess,
+    //     name: this.user,
+    //     "port": ports.port1,
+    //   }),
+    // );
 
     // port.onmessage = ()=>handleWorkerz.z/
-    BCC.postMessage(obj, [ports.port1]);
+    // BCC.postMessage(obj, [ports.port1]);
 
     // port.onmessage = (e) => handleWorker(e, port);
 
     // if (!liveStat.isDirectory())
     // else console.log("dir already )(exists")
-    const cs = await readdir(`/live/${codeSpace}`);
-    // const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
+    /// const code = await fs.promises.readFile(`/live/${codeSpace}/index.tsx`)
 
     // let hST: ICodeSession | null = null;
 
     // if (hST && hST.i > mst.i) mst = hST!;
-
-    if (cs.includes("index.js")) {
-      unlink(`/live/${codeSpace}/index.js`);
-    }
-
-    if (!cs.includes("index.tsx")) {
-      await writeFile(
-        `/live/${codeSpace}/index.tsx`,
-        this.sess.code,
-      );
-    } else {
-      await unlink(
-        `/live/${codeSpace}/index.tsx`,
-      );
-      await writeFile(
-        `/live/${codeSpace}/index.tsx`,
-        this.sess.code,
-      );
-    }
-
-    if (!cs.includes("index.tsx")) {
-      await writeFile(
-        `/live/${codeSpace}/index.tsx`,
-        this.sess.code,
-      );
-    } else {
-      await unlink(
-        `/live/${codeSpace}/index.tsx`,
-      );
-      await writeFile(
-        `/live/${codeSpace}/index.tsx`,
-        this.sess.code,
-      );
-    }
   }
 }
 
