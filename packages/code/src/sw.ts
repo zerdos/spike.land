@@ -14,6 +14,7 @@ import { onConnectToClients } from "./sharedWorker";
 //   retries: 3,
 //   retryDelay: 800,
 // });
+let ASSET_HASH = "assetHashNotFound";
 declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
 
 const mutex = new Mutex();
@@ -22,9 +23,11 @@ async function getFiles() {
 
   try {
     await mutex.acquire();
-    self.files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
+    const files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
 
+    self.files = files;
     self.fileCacheName = md5(self.files);
+    ASSET_HASH = files[ASSET_HASH] || "filesDoesntHaveAssetHash";
 
     const currentChunks = Object.values(self.files);
     caches.keys().then(myCaches =>
@@ -116,8 +119,6 @@ const createResponse = async (request: Request) => {
         `/live/${codeSpace}/session.json`,
       ) as string,
     );
-
-    const ASSET_HASH = self.files.ASSET_HASH.trim();
 
     const respText = HTML.replace("sw.js", "sw.js?version=" + self.files["sw.js"].split(".")[1]).replace(
       "/**reset*/",
