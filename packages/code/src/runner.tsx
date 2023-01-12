@@ -172,7 +172,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     if (signal.aborted) return;
 
-    const sess = await sw.messageSW({ i: counter, code, type: "prerender" });
+    const sess = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
     // console.log({sess});
 
     // if (iframe) {
