@@ -124,10 +124,10 @@ x
 
     const paths = location.href.split("/");
     const page = paths.pop();
-    const codeSpace = paths.pop();
+    const codeSpace = paths[2]
       
   
-      const BC = new BroadcastChannel([...paths, codeSpace, ""].join("/"));
+      const BC = new BroadcastChannel(${url.origin}/live/${codeSpace});
     
     BC.onmessage = ({data}) => {
       const {html, css, i } = data;
