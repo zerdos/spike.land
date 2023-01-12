@@ -144,7 +144,7 @@ const createResponse = async (request: Request) => {
       if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
       
     }
-    </script>` + url.pathname == `/live/${codeSpace}/dehydrated`
+    </script>` + url.pathname !== `/live/${codeSpace}/dehydrated`
         ? `<script type="module">
         import {render} from "${url.origin}/src/render.mjs?v=${ASSET_HASH}";
               
