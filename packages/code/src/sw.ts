@@ -102,39 +102,7 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
   const paths = url.pathname.split("/");
-  const codeSpace = paths[1];
-
-  globalThis.conns = globalThis.conns || {};
-  globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
-    const websocket = new ReconnectingWebSocket(
-      `wss://${location.host}/live/` + codeSpace + "/websocket",
-    );
-    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-    const session = {
-      websocket,
-      BC,
-      user: md5(self.crypto.randomUUID()),
-      i: 0,
-    };
-    BC.onmessage = ({ data }) => {
-      if (data.i > session.i) {
-        session.i = data.i;
-        websocket.send(JSON.stringify(data));
-      }
-    };
-
-    websocket.onopen = () => websocket.send({ name: session.user });
-    websocket.onmessage = ({ data }) => {
-      const msg = JSON.parse(data);
-
-      if (msg.i > session.i) {
-        session.i = msg.i;
-        BC.postMessage(data);
-      }
-    };
-    session;
-  })();
+  const codeSpace = paths[2];
 
   if (
     url.pathname === `/live/${codeSpace}/iframe` || url.pathname === `/live/${codeSpace}/`
@@ -209,6 +177,38 @@ const createResponse = async (request: Request) => {
     || url.pathname.endsWith(".tsx")
   ) {
     try {
+      globalThis.conns = globalThis.conns || {};
+      globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
+        const websocket = new ReconnectingWebSocket(
+          `wss://${location.host}/live/` + codeSpace + "/websocket",
+        );
+        const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+        const session = {
+          websocket,
+          BC,
+          user: md5(self.crypto.randomUUID()),
+          i: 0,
+        };
+        BC.onmessage = ({ data }) => {
+          if (data.i > session.i) {
+            session.i = data.i;
+            websocket.send(JSON.stringify(data));
+          }
+        };
+
+        websocket.onopen = () => websocket.send({ name: session.user });
+        websocket.onmessage = ({ data }) => {
+          const msg = JSON.parse(data);
+
+          if (msg.i > session.i) {
+            session.i = msg.i;
+            BC.postMessage(data);
+          }
+        };
+        session;
+      })();
+
       const file = await readFile(url.pathname);
       if (file) {
         return new Response(file, {
