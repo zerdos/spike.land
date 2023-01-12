@@ -4,6 +4,7 @@
 // import { transpile } from "./transpile";
 import { sw } from "./hydrate";
 import { syncWS } from "./ws";
+// import { prerender } from "./render";
 // import { RpcProvider } from "worker-rpc";
 
 // import type { ICodeSession } from "./session";
@@ -172,8 +173,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     if (signal.aborted) return;
 
-    const sess = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
-    console.log({ sess });
+    const { data } = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
+    // transpiled = data.transpiled;
 
     // if (iframe) {
     //   iframe.remove();
@@ -190,7 +191,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     // document.body.appendChild(iframe);
 
-    // BC .postMessage({ counter, i: counter, transpiled, codeSpace, code });
+    BC.postMessage({ counter, i: counter, transpiled: data.transpiled, codeSpace, code });
 
     // console.log("still alive2");
     // // patchSync(sess);
