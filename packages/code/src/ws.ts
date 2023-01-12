@@ -25,7 +25,7 @@ import {
 } from "./session";
 
 import { Mutex } from "async-mutex";
-
+let firstRenderSent = false;
 globalThis.firstRender = globalThis.firstRender || {
   html: "",
   css: "",
@@ -300,7 +300,7 @@ export class Code {
       const code = await prettier(globalThis.session.code);
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
-        if (data.type === "firstRender") {
+        if (data.type === "firstRender" && firstRenderSent == false) {
           firstRenderSent = true;
           const { html, css } = data;
           cSess.session = makeSession({ ...cSess.session, code });
