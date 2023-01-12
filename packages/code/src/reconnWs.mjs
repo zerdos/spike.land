@@ -197,9 +197,9 @@ function ReconnectingWebSocket(url, protocols, options) {
    * @param s String The name that the event should use
    * @param args Object an optional object that the event will use
    */
-  function generateEvent(s, args) {
-    var evt = document.createEvent("CustomEvent");
-    evt.initCustomEvent(s, false, false, args);
+  function generateEvent(s) {
+    var evt = globalThis.self.CustomEvent(s);
+
     return evt;
   }
 
