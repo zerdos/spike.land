@@ -99,7 +99,7 @@ const createResponse = async (request: Request) => {
     const { css, html, transpiled, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
-      ) as string,
+      ).catch(() => fe),
     );
 
     const ASSET_HASH = md5(transpiled);

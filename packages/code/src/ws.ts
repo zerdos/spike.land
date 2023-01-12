@@ -13,7 +13,7 @@ import {
   makeHash,
   //  onSession
 
-  makeSession,
+  makeSession as ms,
   // type Delta,
   // CodeSession,
 
@@ -83,6 +83,11 @@ const ws = {
   },
 };
 
+function makeSession(sess: ICodeSession) {
+  const session = ms(sess);
+  unlink(`/live/${codeSpace}/session.json`).then(() => writeFile(`/live/${codeSpace}/session.json`, string_(session)));
+  return session;
+}
 // import { isBuffer } from "util";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
