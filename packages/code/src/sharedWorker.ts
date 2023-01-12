@@ -1,5 +1,7 @@
 import { Mutex } from "async-mutex";
 import { Record } from "immutable";
+import ReconnectingWebSocket from "./reconnWs.mjs";
+
 import { ldb } from "./createDb";
 // import { m } from "framer-motion";
 // import { S } from "memfs/lib/constants";
@@ -315,7 +317,7 @@ async function reconnect(codeSpace: string) {
 }
 
 function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
-  let websocket = new WebSocket(
+  let websocket = new ReconnectingWebSocket(
     `wss://${location.host}/live/` + codeSpace + "/websocket",
   );
   const w: typeof mod[0] = mod[codeSpace] = mod[codeSpace] || {
