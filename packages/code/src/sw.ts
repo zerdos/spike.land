@@ -108,9 +108,7 @@ const createResponse = async (request: Request) => {
     const { css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
-      ).then(x => x as unknown as string).catch(async () =>
-        fetch(location.origin + `/live/${codeSpace}/session.json`).then((resp) => resp.text())
-      ),
+      ) as string,
     );
 
     const ASSET_HASH = self.files.ASSET_HASH.trim();
@@ -122,7 +120,6 @@ const createResponse = async (request: Request) => {
       `<div id="root"></div>`,
       `<div id="root" style="height: 100%;">
     <style>${css}</style>
-x
       <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
         ${html}
         </div>
@@ -145,7 +142,7 @@ x
     }
     </script>`
         : `<script type="module">
-        import {render} from "${url.origin}/src/render.mjs";
+        import {render} from "${url.origin}/src/render.mjs?v=${ASSET_HASH}";
               
         const rootEl = document.getElementById("${codeSpace}-css");
 
