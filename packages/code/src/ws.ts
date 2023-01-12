@@ -317,7 +317,8 @@ export class Code {
     const BCC = new BroadcastChannel(location.origin + "/ws.js");
     const ports = new MessageChannel();
     const port = ports.port1;
-    // BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
+
+    BCC.onmessage = (e) => e.data.type === "onconnect" && handleWorker(e, port);
 
     const obj = JSON.parse(
       JSON.stringify({
@@ -326,11 +327,12 @@ export class Code {
         hashCode: this.head,
         session: this.sess,
         name: this.user,
-        "port": ports.port2,
+        "port": ports.port1,
       }),
     );
 
-    BCC.postMessage(obj);
+    // port.onmessage = ()=>handleWorkerz.z/
+    BCC.postMessage(obj, [ports.port1]);
 
     // port.onmessage = (e) => handleWorker(e, port);
 
@@ -609,34 +611,36 @@ rcpOptions.iceServers = [{ urls: "stun:stun.stunprotocol.org:3478" }, {
 //   }
 // }
 
-// async function handleWorker(ev: MessageEvent, port: MessagePort) {
-//   console.log("ONMESSAGE", { data: ev.data });
-//   if (ev.data.type === "onconnect") {
-//     console.log("POST ONCONNECT", {
-//       codeSpace,
-//       name: codeSession.user,
-//       hashCode: mST(codeSpace),
-//     });
-//     // messagePort = this;
-//     // const sess = mST(codeSpace);
-//     ws.send = (
-//       message: MessageProps,
-//     ) => {
-//       const messageData = {
-//         name: codeSession.user,
-//         ...message,
-//         codeSpace,
-//         i: mST(codeSpace).i,
-//         hashCode: hashCode(mST(codeSpace)),
-//       };
-//       console.log("POST MESSAGE", { messageData });
-//       if (
-//         messageData.oldHash && messageData.oldHash === messageData.newHash
-//       ) return;
-//       port.postMessage(messageData);
-//     };
-//     ws.send({ type: "handshake", session: mST(codeSpace) });
+async function handleWorker(ev: MessageEvent, port: MessagePort) {
+  console.log("ONMESSAGE", { data: ev.data });
+  if (ev.data.type === "onconnect") {
+    console.log("POST ONCONNECT", {
+      codeSpace,
+      name: cSess.user,
+      hashCode: makeHash(globalThis.session),
+    });
+    // messagePort = this;
+    // const sess = mST(codeSpace);
+    ws.send = (
+      message: MessageProps,
+    ) => {
+      const messageData = {
+        ...message,
+        name: cSess.user,
 
+        codeSpace,
+        // i: mST(codeSpace).i,
+        hashCode: makeHash(globalThis.session),
+      };
+      console.log("POST MESSAGE", { messageData });
+      //       if (
+      //         messageData.oldHash && messageData.oldHash === messageData.newHash
+      //       ) return;
+      port.postMessage(messageData);
+    };
+    ws.send({ type: "handshake", session: globalThis.session });
+  }
+}
 //     while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
 //   } else {
 //     let data;

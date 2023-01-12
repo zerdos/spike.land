@@ -102,7 +102,7 @@ async function send(codeSpace: string, msg: object) {
 
 type Mod = {
   [codeSpace: string]: {
-    socket: WebSocket;
+    socket: ReconnectingWebSocket;
     counterMax: number;
     blockedMessages: object[];
     isOpen: () => boolean;
@@ -281,7 +281,7 @@ export const onConnectToClients = () => {
     if (e.type !== "onconnect") return;
     const ports = new MessageChannel();
 
-    const port = ports.port1;
+    const port = e.ports[0];
 
     port.onmessage = ({ data }) => onMessage(port, data);
 
@@ -323,7 +323,7 @@ function fixWebsocket(codeSpace: string, res: (m: typeof mod[0]) => void) {
   const w: typeof mod[0] = mod[codeSpace] = mod[codeSpace] || {
     blockedMessages: [],
     socket: websocket,
-    isOpen: () => w.socket.readyState === WebSocket.OPEN,
+    isOpen: () => w.socket.readyState === ReconnectingWebSocket.OPEN,
     send: async (msg?: object) => {
       if (msg) w.blockedMessages.push(msg);
       // const ctr = new AbortController();

@@ -4,7 +4,7 @@ import throttle from "lodash.throttle";
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
-
+onConnectToClients();
 // var originalFetch = require("isomorphic-fetch");
 // var fetch = require("fetch-retry")(originalFetch, {
 //   retries: 3,
@@ -42,8 +42,6 @@ async function getFiles() {
     mutex.release();
   }
 }
-
-onConnectToClients();
 
 // import { renderToStream } from "./renderToStream";
 
