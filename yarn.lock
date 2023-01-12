@@ -1467,6 +1467,7 @@ __metadata:
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/is-callable": "npm:1.1.0"
     "@types/isomorphic-fetch": "npm:^0.0.36"
+    "@types/lodash.throttle": "npm:^4"
     "@types/node": "npm:^18.11.18"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:^1.26.0"
@@ -1502,6 +1503,7 @@ __metadata:
     js-tokens: "npm:^8.0.0"
     ky: "npm:^0.33.1"
     localforage: "npm:^1.10.0"
+    lodash.throttle: "npm:^4.1.1"
     logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.13"
     module: "npm:^1.2.5"
@@ -1733,6 +1735,22 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: c1fbfe6e2a8c82656c8fc5782d937c82ed336cdca451c4d7a8d08d245531ad21572024d621b38071d34cfb7461702eea79fcf222a03264f00564d75e78bd348d
+  languageName: node
+  linkType: hard
+
+"@types/lodash.throttle@npm:^4":
+  version: 4.1.7
+  resolution: "@types/lodash.throttle@npm:4.1.7"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: 0ac44e1fdba3edf4f537d8ca6d3d7ba9b5dc342907e113aef1bb8b8649aa796ca64b0805652776ddf7d8046eeafbef444bea52e6f3d99ccde3861312389d0960
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.191
+  resolution: "@types/lodash@npm:4.14.191"
+  checksum: e8762fec34eec79828b6b1e08243e25703bfad1b53a7032c0293b69f51d222c0a36ae08d3588ab8147c6a3f478096e02186a860b909cdbe29c7c745cefea2442
   languageName: node
   linkType: hard
 
@@ -7901,6 +7919,13 @@ __metadata:
   dependencies:
     lodash._reinterpolate: "npm:^3.0.0"
   checksum: 2dfd0463e1a8e8709345eeab76007deab3688b549dbc2fde1dd5de0d53fbf1d2bcd4c5f003756f5baaf6540386511c7c7babbe80894f43f5b95de653e50510cb
+  languageName: node
+  linkType: hard
+
+"lodash.throttle@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: 798dd59dd44b99c274f214698bf4aa8c337264ce843654399e6b610333c6fb67e3a0467c96c149fa0a8b5a22f16d811b66313575e52c6705eb999333f505c079
   languageName: node
   linkType: hard
 

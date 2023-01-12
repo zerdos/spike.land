@@ -3,6 +3,8 @@ importScripts("/workerScripts/superFetch.js");
 self.fetch = globalThis.superFetch;
 
 export type {};
+import { Mutex } from "async-mutex";
+import throttle from "lodash.throttle";
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
@@ -12,30 +14,37 @@ import { onConnectToClients } from "./sharedWorker";
 //   retries: 3,
 //   retryDelay: 800,
 // });
+declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
+
+const mutex = new Mutex();
+async function getFiles() {
+  mutex.acquire();
+  try {
+    self.files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
+
+    self.fileCacheName = md5(self.files);
+
+    const currentChunks = Object.values(self.files);
+    caches.keys().then(myCaches =>
+      myCaches.map(x => {
+        if (x !== "chunks" && x !== self.fileCacheName) caches.delete(x);
+      })
+    );
+
+    const chunkCaches = await caches.open("chunks");
+
+    await (await (await caches.open("chunks")).keys()).filter(x => !currentChunks.includes(new URL(x.url).pathname))
+      .map(
+        x => chunkCaches.delete(x),
+      );
+  } finally {
+    mutex.release();
+  }
+}
 
 onConnectToClients();
 
 // import { renderToStream } from "./renderToStream";
-declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
-
-self.addEventListener("activate", async () => {
-  self.files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
-
-  self.fileCacheName = md5(self.files);
-
-  const currentChunks = Object.values(self.files);
-  caches.keys().then(myCaches =>
-    myCaches.map(x => {
-      if (x !== "chunks" && x !== self.fileCacheName) caches.delete(x);
-    })
-  );
-
-  const chunkCaches = await caches.open("chunks");
-
-  await (await (await caches.open("chunks")).keys()).filter(x => !currentChunks.includes(new URL(x.url).pathname)).map(
-    x => chunkCaches.delete(x),
-  );
-});
 
 // globalThis.fs = new FS(location.origin);
 
@@ -104,7 +113,7 @@ const createResponse = async (request: Request) => {
       ),
     );
 
-    const { ASSET_HASH } = self.files;
+    const ASSET_HASH = self.files.ASSET_HASH.trim();
 
     const respText = HTML.replace("sw.js", "sw.js?version=" + self.files["sw.js"].split(".")[1]).replace(
       "/**reset*/",
@@ -299,8 +308,10 @@ x
   }
 };
 
+const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
 self.addEventListener("fetch", function(event) {
+  if (!self.files) getFilesThrottled();
   return event.respondWith(
-    createResponse(event.request),
+    mutex.waitForUnlock().then(() => createResponse(event.request)),
   );
 });

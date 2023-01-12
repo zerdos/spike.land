@@ -13,12 +13,13 @@ import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
 import { createDelta, Delta } from "../../code/src/textDiff";
-import ASSET_HASH from "./dist.shasum";
+import shaSum from "./dist.shasum";
 
 export { md5 };
 
 // import { CodeRateLimiter } from "./rateLimiter";
 
+const ASSET_HASH = shaSum.trim();
 export interface WebsocketSession {
   name: string;
   webSocket: WebSocket;

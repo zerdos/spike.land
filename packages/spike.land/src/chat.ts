@@ -3,7 +3,7 @@ import type { DurableObject, Request, Response } from "@cloudflare/workers-types
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-import ASSET_HASH from "./dist.shasum";
+import shaSum from "./dist.shasum";
 
 // import imap from "@spike.land/code/src/importMap.json";
 import { importMap, importMapReplace, md5 } from "../../code/src/session";
@@ -11,6 +11,8 @@ import { importMap, importMapReplace, md5 } from "../../code/src/session";
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 import { handleErrors } from "./handleErrors";
+
+const ASSET_HASH = shaSum.trim();
 
 const api: DurableObject = {
   fetch: (
