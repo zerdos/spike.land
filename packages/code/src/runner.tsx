@@ -1,7 +1,7 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
 // import { buildT } from "./esbuildEsm";
-import { transpile } from "./shared";
+import { transpile } from "./transpile";
 import { syncWS } from "./ws";
 
 // import { RpcProvider } from "worker-rpc";

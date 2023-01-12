@@ -2,7 +2,7 @@ import { initialize, transform, version } from "esbuild-wasm";
 
 const init = initialize({
   wasmURL: `${location.origin}/esbuild-wasm@${version}/esbuild.wasm`,
-  worker: false,
+  worker: true,
 });
 
 export const transpile = (code: string) =>

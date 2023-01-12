@@ -1,6 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
 import { Loader } from "esbuild-wasm";
-import { transpile } from "./shared";
+import { esmTransform } from "./esbuildEsm";
 // import { readFile } from "./fs";
 import { importMapReplace } from "./importMapReplace";
 
@@ -70,7 +70,7 @@ export const fetchPlugin: (
 
       if (args.path.indexOf(".tsx") !== -1) {
         return {
-          contents: await transpile(code),
+          contents: await esmTransform(code, origin),
         };
       }
 
