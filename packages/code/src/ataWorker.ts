@@ -1,3 +1,5 @@
+globalThis.isSharedWorker = true;
+
 importScripts("/workerScripts/superFetch.js");
 globalThis.originalFetch = self.fetch;
 self.fetch = globalThis.superFetch;
@@ -5,8 +7,9 @@ self.fetch = globalThis.superFetch;
 importScripts("/workerScripts/workerRpc.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/ata.js");
+importScripts("/workerScripts/transpile.js");
 
-const { RpcProvider, ata, prettierJs } = self;
+const { RpcProvider, ata, prettierJs, esmTransform } = self;
 
 self.onconnect = ({ ports }) => {
   const p = ports[0];
@@ -19,7 +22,13 @@ self.onconnect = ({ ports }) => {
 
   rpcProvider.registerRpcHandler("prettierJs", (code: string) => prettierJs(code));
 
-  rpcProvider.registerRpcHandler("ata", ({ code, originToUse }) => ata({ code, originToUse, prettierJs }));
+  rpcProvider.registerRpcHandler(
+    "ata",
+    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs }),
+  );
+
+  rpcProvider.registerRpcHandler("transpile"),
+    ({ code, origin }: { code: string; origin: string }) => esmTransform(code, origin);
 
   p.start();
 };

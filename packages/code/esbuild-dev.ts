@@ -248,6 +248,7 @@ const build = (
       "src/superFetch.ts",
       "src/workerRpc.ts",
       "src/prettierEsm.ts",
+      "src/transpile.ts",
       "src/ata.ts",
     ],
 

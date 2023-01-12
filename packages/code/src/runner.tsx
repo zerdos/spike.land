@@ -1,7 +1,7 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
 // import { buildT } from "./esbuildEsm";
-import { esmTransform } from "./esbuildEsm";
+import { transpile } from "./shared";
 import { syncWS } from "./ws";
 
 // import { RpcProvider } from "worker-rpc";
@@ -89,6 +89,13 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 let processed = 0;
 let s: AbortSignal;
 BC.onmessage = async ({ data }) => {
+  // if (data.type === "transpile" ) {
+  //   const code = data.code;
+
+  //   esmTransform = await esmTransform(data.code, origin);
+  //   BC.postMessage({})
+  // }
+
   const signal = s;
 
   if (counterMax !== data.i) return;
@@ -156,16 +163,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
   // if (code === mST().code) return;
   // if (mod.i > counter) return;
 
-  // session.changes.push(changes);false
-  // esbuildEsmTransform = esbuildEsmTransform ||
-  //   (await import("./esbuildEsm.ts")).transform;
-
   try {
     // const ab = new AbortController();
     // const pp = await buildT(codeSpace, counter, ab.signal);
     // if (!pp) return;
 
-    sess.transpiled = await esmTransform(code, origin);
+    sess.transpiled = await transpile({ code, origin });
 
     if (signal.aborted) return;
 

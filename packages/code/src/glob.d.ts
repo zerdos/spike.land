@@ -6,6 +6,7 @@ import ear from "@emotion/react";
 import FS from "@isomorphic-git/lightning-fs";
 import { RequestInitWithRetry } from "fetch-retry";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
+import { esbuildEsm as Transpile } from "./esbuildEsm";
 import { ICodeSession } from "./session";
 
 declare global {
@@ -16,7 +17,9 @@ declare global {
     css: string;
     html: string;
   };
+  var isSharedWorker: boolean;
   var session: ICodeSession;
+  var esbuildEsm: Transpile;
   var assetHash: string;
   var apps: { [key: string]: FC<{ appId: string }> };
   var eCaches: { [key: string]: EmotionCache };

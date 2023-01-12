@@ -111,11 +111,15 @@ const createResponse = async (request: Request) => {
     // return renderToStream("clock3");
     const codeSpace = paths[2];
 
-    const { css, html, i } = JSON.parse(
+    const { css, html, i, code } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
       ) as string,
     );
+
+    const code2 = await readFile(
+      `/live/${codeSpace}/index.tsx`,
+    ) as string;
 
     const respText = HTML.replace(
       "/**reset*/",
@@ -191,15 +195,21 @@ const createResponse = async (request: Request) => {
           i: 0,
         };
         BC.onmessage = ({ data }) => {
-          if (data.i > session.i) {
+          if (data.i > session.i && (data.hashCode || data.newHash)) {
             session.i = data.i;
+
+            data.name = session.user;
             websocket.send(JSON.stringify(data));
           }
         };
 
-        websocket.onopen = () => websocket.send(JSON.stringify({ name: session.user }));
+        websocket.onopen = () => console.log("onOpened");
         websocket.onmessage = ({ data }) => {
           const msg = JSON.parse(data);
+          if (data.type === "handShake") {
+            websocket.send(JSON.stringify({ name: session.user }));
+            return;
+          }
 
           if (msg.i > session.i) {
             session.i = msg.i;
