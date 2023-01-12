@@ -15,8 +15,6 @@ import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
 
-const Editor = lazy(() => import(`${location.origin}/src/Editor.mjs`));
-
 const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
 ) => (
@@ -94,6 +92,7 @@ const AppToRender: FC<
 
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
+  const Editor = lazy(() => import(`${location.origin}/src/Editor.mjs`));
 
   return (
     <>
