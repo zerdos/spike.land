@@ -41,6 +41,7 @@ import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 // import type { RecordOf } from "immutable";
 // import * as Immutable from "immutable";
+import type { IFirstRender } from "../../spike.land/src/chatRoom";
 import { ldb } from "./createDb";
 import { renderPreviewWindow } from "./renderPreviewWindow";
 import type { ICodeSession } from "./session";
@@ -65,7 +66,7 @@ type MessageProps = Partial<{
 
 const ws = {
   blockedMessages: [] as MessageProps[],
-  post: (json: Partial<CodePatch & ICodeSession & { hashCode: number }>) =>
+  post: (json: Partial<CodePatch & ICodeSession & { hashCode: number } & IFirstRender>) =>
     ky.post(location.href, {
       json,
       retry: {

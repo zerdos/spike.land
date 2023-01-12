@@ -25,7 +25,7 @@ export interface WebsocketSession {
   // blockedMessages: string[];
 }
 
-interface IFirstRender {
+export interface IFirstRender {
   type: "firstRender";
   code: string;
   css: string;

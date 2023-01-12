@@ -1,8 +1,6 @@
 // import { importMapReplace } from "./esbuildEsm";
 importScripts("/workerScripts/superFetch.js");
-const originalFetch = self.fetch;
-globalThis.fetch = globalThis.superFetch;
-
+self.fetch = globalThis.superFetch;
 export type {};
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
@@ -64,7 +62,7 @@ let fileCache: Cache | null;
 
 const createResponse = async (request: Request) => {
   let url = new URL(request.url);
-  if (url.origin.indexOf("spike.land") === -1 && request.method === "POST") {
+  if (url.origin !== self.location.origin || request.method === "POST") {
     return fetch(request);
   }
 

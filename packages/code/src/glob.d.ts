@@ -4,10 +4,12 @@ import type { FC } from "react";
 import type {} from "react-dom";
 import ear from "@emotion/react";
 import FS from "@isomorphic-git/lightning-fs";
+import { RequestInitWithRetry } from "fetch-retry";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 
 declare global {
   var sharedWorker: SharedWorker;
+  var superFetch: (input: RequestInfo, init?: RequestInitWithRetry) => Promise<Response>;
   var firstRender: {
     code: string;
     css: string;

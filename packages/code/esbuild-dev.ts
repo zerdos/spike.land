@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.16.16/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.16.17/mod.js";
 
 import { copy } from "https://deno.land/std@0.171.0/fs/copy.ts";
 
@@ -215,8 +215,12 @@ const build = (
     "./dist/enhanced_dot_digital-7.ttf",
   );
   await copy(
-    "./src/assets",
-    "./dist/assets",
+    "./src/assets/manifest.json",
+    "./dist/manifest.json",
+  );
+  await copy(
+    "./src/assets/favicons",
+    "./dist/favicons",
   );
   await esbuild.build({
     ...buildOptions,
