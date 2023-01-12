@@ -347,10 +347,10 @@ export class Code implements DurableObject {
 
             const pair = new WebSocketPair();
 
-            return this.handleSession(pair[1] as unknown as WebSocket);
+            await this.handleSession(pair[1] as unknown as WebSocket);
             // await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
 
-            // return new Response(null, { status: 101, webSocket: pair[0] });
+            return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "code":
           case "index.tsx":
