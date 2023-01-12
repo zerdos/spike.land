@@ -70,7 +70,7 @@ export const fetchPlugin: (
 
       if (args.path.indexOf(".tsx") !== -1) {
         return {
-          contents: await transpile({ code, origin }),
+          contents: await transpile(code),
         };
       }
 

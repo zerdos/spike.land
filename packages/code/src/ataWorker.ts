@@ -27,8 +27,7 @@ self.onconnect = ({ ports }) => {
     ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs }),
   );
 
-  rpcProvider.registerRpcHandler("transpile"),
-    ({ code, origin }: { code: string; origin: string }) => esmTransform(code, origin);
+  rpcProvider.registerRpcHandler("transpile"), (code: string) => esmTransform(code, location.origin);
 
   p.start();
 };

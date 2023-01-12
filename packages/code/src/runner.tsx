@@ -168,7 +168,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
     // const pp = await buildT(codeSpace, counter, ab.signal);
     // if (!pp) return;
 
-    sess.transpiled = await transpile({ code, origin });
+    sess.transpiled = await transpile(code);
 
     if (signal.aborted) return;
 

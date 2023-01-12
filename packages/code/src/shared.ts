@@ -20,6 +20,4 @@ export const ata = (
     filePath?: string;
   }[]>;
 
-export const transpile = (
-  { code, origin }: { code: string; origin: string },
-) => init().rpc("transpile", { code, origin }) as Promise<string>;
+export const transpile = (code: string) => init().rpc("transpile", code) as Promise<string>;
