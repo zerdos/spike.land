@@ -110,7 +110,7 @@ const Editor: FC<
 
     changeContent((x) => ({
       ...x,
-      i: i + 1,
+      i: x.i + 1,
       code: c,
       controller: new AbortController(),
     }));
