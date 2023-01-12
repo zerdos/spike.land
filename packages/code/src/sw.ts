@@ -182,8 +182,9 @@ const createResponse = async (request: Request) => {
     });
   }
   if (
-    url.pathname.startsWith("/live") && (url.pathname.endsWith(".js") || url.pathname.endsWith(".mjs"))
-    || url.pathname.endsWith(".tsx")
+    url.pathname.startsWith("/live")
+    && (url.pathname.indexOf(".js") !== -1 || url.pathname.indexOf(".mjs") !== -1
+      || url.pathname.indexOf(".tsx") !== -1)
   ) {
     try {
       globalThis.conns = globalThis.conns || {};
