@@ -307,7 +307,7 @@ const createResponse = async (request: Request) => {
 
 const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
 self.addEventListener("fetch", function(event) {
-  if (!self.files) getFilesThrottled();
+  if (!self.files) getFiles();
   return event.respondWith(
     mutex.waitForUnlock().then(() => createResponse(event.request)),
   );
