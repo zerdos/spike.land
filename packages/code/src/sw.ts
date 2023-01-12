@@ -133,7 +133,7 @@ const createResponse = async (request: Request) => {
 
     </div>              
     ` + url.pathname.endsWith("dehydrated")
-        ? `<script>
+        ? `<script type="module">
 
     const paths = location.href.split("/");
     const page = paths.pop();
@@ -159,6 +159,7 @@ const createResponse = async (request: Request) => {
 
     // const Etag = request.headers.get("Etag");
     // const newEtag = await sha256(respText);
+
     const headers = new Headers();
     headers.set("Access-Control-Allow-Origin", "*");
 
