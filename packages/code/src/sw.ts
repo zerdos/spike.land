@@ -100,7 +100,7 @@ const createResponse = async (request: Request) => {
       await readFile(
         `/live/${codeSpace}/session.json`,
       ).then(x => x as unknown as string).catch(async () =>
-        fetch(`/live/${codeSpace}/session`).then((resp) => resp.text())
+        fetch(location.origin + `/live/${codeSpace}/session.json`).then((resp) => resp.text())
       ),
     );
 

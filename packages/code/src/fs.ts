@@ -39,7 +39,8 @@ written: ${new Date()}
       : content,
   );
 };
-export const readFile = (filePath: string) => p.readFile(filePath, { encoding: "utf8" });
-export const stat = (filePath: string) => p.stat(filePath);
+export const readFile = (filePath: string) =>
+  p.readFile(filePath, { encoding: "utf8" }).catch(() => fetch(origin + filePath).then(x => x.text()));
+// export const stat = (filePath: string) => p.stat(filePath);
 export const unlink = (filepath: string) => p.unlink(filepath).catch(() => {/** nothing really happened */});
 export const mkdir = (filePath: string) => p.mkdir(filePath);
