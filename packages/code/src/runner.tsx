@@ -10,6 +10,7 @@ import { syncWS } from "./ws";
 // import type { ICodeSession } from "./session";
 // import { buildT } from "./esbuildEsm";
 import { unlink, writeFile } from "./fs";
+import { wait } from "./wait";
 import { // HTML, importMapReplace, md5,
   sess as oldSess, // resetCSS
 } from "./ws";
@@ -116,7 +117,10 @@ BC.onmessage = async ({ data }) => {
       i,
     };
     const jsonStr = JSON.stringify(newSession);
+    await wait(200);
+
     const file = `/live/${codeSpace}/session.json`;
+    if (signal.aborted) return;
 
     await Promise.all([
       syncWS(newSession, signal),
