@@ -1,11 +1,10 @@
 importScripts("/workerScripts/transpile.js");
-
+importScripts("/workerScripts/fs.js");
 export type {};
 
 import { Mutex } from "async-mutex";
 // import { randomUUID } from "crypto";
 import throttle from "lodash.throttle";
-import { readFile } from "./fs";
 import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
 import { md5 } from "./md5";

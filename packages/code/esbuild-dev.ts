@@ -249,6 +249,7 @@ const build = (
       "src/workerRpc.ts",
       "src/prettierEsm.ts",
       "src/transpile.ts",
+      "src/fs.ts",
       "src/ata.ts",
     ],
 
