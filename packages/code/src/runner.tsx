@@ -101,7 +101,7 @@ BC.onmessage = async ({ data }) => {
     // window.removeEventListener("message", responseListener);
     if (signal.aborted) return;
     const newSession = {
-      ...oldSess(),
+      ...oldSess,
       html,
       css,
       code: sess.code,

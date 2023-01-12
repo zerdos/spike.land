@@ -85,6 +85,7 @@ const ws = {
 
 function makeSession(sess: ICodeSession) {
   const session = ms(sess);
+  globalThis.session = session;
   unlink(`/live/${codeSpace}/session.json`).then(() => writeFile(`/live/${codeSpace}/session.json`, string_(session)));
   return session;
 }
@@ -99,7 +100,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
+let session;
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
@@ -296,7 +297,7 @@ export class Code {
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
-      const code = await prettier(sess().code);
+      const code = await prettier(sess.code);
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
         if (data.type === "firstRender") {
@@ -400,9 +401,7 @@ export const codeSession = async () => {
   };
 };
 
-export const sess = () => ({
-  ...(cSess.sess),
-});
+export const sess = globalThis.session;
 
 Object.assign(globalThis, { sess, hash: (val: ICodeSession) => makeHash(val), makeSession, cSess: () => cSess });
 
