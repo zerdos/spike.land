@@ -86,16 +86,17 @@ const createResponse = async (request: Request) => {
   }
 
   // const fs = globalThis.fs;
+  const paths = url.pathname.split("/");
+  const codeSpace = paths[2];
 
   if (
-    url.pathname.startsWith("/live") && url.pathname.endsWith("public")
-    || url.pathname.endsWith("prerender")
+    url.pathname === `/live/${codeSpace}/iframe` || url.pathname === `/live/${codeSpace}/`
+    || url.pathname === `/live/${codeSpace}/public` || url.pathname === `/live/${codeSpace}/dehydrated`
   ) {
-    const paths = url.pathname.split("/");
     // return renderToStream("clock3");
     const codeSpace = paths[2];
 
-    const { css, html, i, code } = JSON.parse(
+    const { css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
       ).then(x => x as unknown as string).catch(async () =>
@@ -112,7 +113,7 @@ const createResponse = async (request: Request) => {
       `<div id="root"></div>`,
       `<div id="root" style="height: 100%;">
     <style>${css}</style>
-
+x
       <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
         ${html}
         </div>
