@@ -135,16 +135,11 @@ export const syncStorage = async (
   getItem: GetItem<Partial<CodePatch | ICodeSession> | number | string>,
   oldSession: Partial<CodePatch & ICodeSession>,
   newSession: Partial<CodePatch | ICodeSession>,
-  message: {
-    oldHash: number;
-    newHash: number;
-    reversePatch: Delta[];
-    patch: Delta[];
-  },
+  message: CodePatch,
 ) => {
   storageMutex.runExclusive(async () => {
     const hashOfOldSession = oldSession.newHash!;
-    let historyHead = (await getItem("head")) as unknown as number;
+    let historyHead = String(await getItem("head"));
     if (!historyHead) {
       await setItem(String(hashOfOldSession), oldSession);
       await setItem("head", hashOfOldSession);
@@ -186,24 +181,10 @@ export const syncStorage = async (
 };
 
 export type CodePatch = {
-  oldHash: number;
-  newHash: number;
+  oldHash: string;
+  newHash: string;
   patch: Delta[];
   reversePatch: Delta[];
-};
-type IApplyPatch = (
-  prop: CodePatch,
-) => void;
-
-type ICodeSess = {
-  hashOfState: () => number;
-  applyPatch: IApplyPatch;
-  createPatchFromHashCode: (
-    c: number,
-    st: ICodeSession,
-    updateHash?: (h: string) => void,
-  ) => CodePatch | null;
-  json: () => IUserJSON;
 };
 
 // function addOrigin(s: ICodeSession, originString: string) {

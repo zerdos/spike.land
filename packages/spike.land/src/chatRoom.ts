@@ -1,4 +1,4 @@
-import type { DurableObject, WebSocketPair } from "@cloudflare/workers-types";
+import type { WebSocket } from "@cloudflare/workers-types";
 import { CodePatch, ICodeSession, makeSession } from "./../../code/src/session";
 import { makeHash, resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
@@ -23,6 +23,14 @@ export interface WebsocketSession {
   webSocket: WebSocket;
   quit?: boolean;
   // blockedMessages: string[];
+}
+
+interface IFirstRender {
+  type: "firstRender";
+  code: string;
+  css: string;
+
+  html: string;
 }
 
 export class Code implements DurableObject {
@@ -97,41 +105,6 @@ export class Code implements DurableObject {
     css: "",
   });
   constructor(private state: DurableObjectState, private env: CodeEnv) {
-    // const _ = this;
-    // this.origin = '';
-    // sess = { code: "", i: 0, html: "", css: "" } as ICodeSession;
-    // session = (x = this.newProperty.sess) => Record<ICodeSession>(sess)(x);
-    // this.head = (x = sess) => session(x).hashCode();
-    // .wsSessions = [];
-    // this.env = env;
-
-    // this.mutex = new Mutex();
-    // this.state.blockConcurrencyWhile(async () => {
-    //   try {
-    //   const isSessLoaded =()=> sess && sess.code && sess.i>0 ;
-
-    //   if (isSessLoaded()) return;
-    //       console.log("REAC")
-    //     let head  = await this.state.storage.get<number>("head").;
-    //     if (head) {
-    //       sess = await this.state.storage.get<ICodeSession>(String(head));
-    //       if (isSessLoaded()) return;
-    //     }
-
-    //     sess=sess(backupSession);
-
-    //     session = sess(sess);
-    //     head =  this.head(sess);
-    //     await this.state.storage.put<ICodeSession>(String(       head        ), sess);
-    //     await this.state.storage.put<ICodeSession>("head",head);
-
-    //     return;
-    //   } catch{
-    //     console.error("Error while blockConcurrencyWhile");
-    //   }
-    // });
-
-    // this.lastSavedHash = this.head();
   }
 
   async fetch(request: Request) {
@@ -173,9 +146,9 @@ export class Code implements DurableObject {
         // const mess = await request.json();
 
         if (request.method === "POST") {
-          const message = await request.json<CodePatch | ICodeSession & { type?: "firstRender" }>();
+          const message = await request.json<CodePatch & IFirstRender>();
           if (message.type === "firstRender") {
-            const { html, css, code } = message as ICodeSession;
+            const { html, css, code } = message;
             this.session = makeSession({ ...this.session, html, css, code });
             this.state.storage.put("sess", this.session);
             this.state.storage.put("head", makeHash(this.session));
@@ -370,9 +343,6 @@ export class Code implements DurableObject {
 
             await signaller(this.wsSessions, pair[1]);
 
-            // this.state.storage.put("sessions", this.wsSessions.map(({ name, quit }) => ({ name, quit })));
-
-            // this.broadcast(sessions, {yooo});
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "code":
@@ -771,7 +741,7 @@ sheet.addRule('h1', 'background: red;');
                 ${html}
                 </div>
               </div>
-              <script type="module" src="/src/signalz.mjs"></script>
+            
 
               <script type="module">
 
@@ -899,7 +869,7 @@ sheet.addRule('h1', 'background: red;');
       patch?: Delta[];
       reversePatch: Delta[];
       address?: string;
-      hashCode?: number;
+      hashCode?: string;
       i: number;
       candidate?: string;
       answer?: string;

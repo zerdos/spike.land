@@ -1,4 +1,4 @@
-import type { DurableObject } from "@cloudflare/workers-types";
+import type { WebSocket } from "@cloudflare/workers-types";
 import { ICodeSession } from "./../../code/src/session";
 import { md5 } from "./../../code/src/session";
 import { CodeEnv } from "./env";

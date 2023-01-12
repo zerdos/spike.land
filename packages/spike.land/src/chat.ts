@@ -8,7 +8,7 @@ import ASSET_HASH from "./dist.shasum";
 import { importMap, importMapReplace, md5 } from "../../code/src/session";
 
 import { CodeEnv } from "./env";
-import { initAndTransform } from "./esbuild.ts";
+import { initAndTransform } from "./esbuild";
 import { handleErrors } from "./handleErrors";
 
 const api: ExportedHandler<CodeEnv> = {

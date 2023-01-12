@@ -1,5 +1,5 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import { WebsocketSession } from "./chatRoom";
+import type { WebsocketSession } from "./chatRoom";
 
 const users = {};
 
