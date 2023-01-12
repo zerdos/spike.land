@@ -300,7 +300,8 @@ export class Code {
       const code = await prettier(globalThis.session.code);
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
-        if (data.type === "firstRender" && firstRenderSent == false) {
+        if ((data.type === "prerender" || data.type === "prerender") && data.html && data.css && data.i && data.code) {
+          console.log({ data });
           firstRenderSent = true;
           const { html, css } = data;
           cSess.session = makeSession({ ...cSess.session, code });
