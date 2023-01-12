@@ -135,7 +135,13 @@ x
       
     }
     </script>`
-        : `<script type="module" src="${location.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
+        : `<script type="module">
+        import {render} from "${url.origin}/src/render.mjs";
+              
+        const rootEl = document.getElementById("${codeSpace}-css");
+
+        render(rootEl, "${codeSpace}", ${i});
+        </script>`,
     );
 
     // const Etag = request.headers.get("Etag");
