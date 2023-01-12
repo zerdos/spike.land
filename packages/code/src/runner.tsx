@@ -2,8 +2,8 @@
 // import { Mutex } from "async-mutex";
 // import { buildT } from "./esbuildEsm";
 // import { transpile } from "./transpile";
+import { sw } from "./hydrate";
 import { syncWS } from "./ws";
-
 // import { RpcProvider } from "worker-rpc";
 
 // import type { ICodeSession } from "./session";
@@ -172,16 +172,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     if (signal.aborted) return;
 
-    BC.postMessage({ i: counter, code, type: "prerender" });
-    try {
-      await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
-    } catch {
-      await unlink(`/live/${codeSpace}/index.tsx`);
-      await unlink(`/live/${codeSpace}/index.js`);
-      await writeFile(`/live/${codeSpace}/index.tsx`, code);
-      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
-    }
+    const sess = await sw.messageSW({ i: counter, code, type: "prerender" });
+    // console.log({sess});
 
     // if (iframe) {
     //   iframe.remove();

@@ -18,6 +18,25 @@ self.ReconnectingWebSocket = ReconnectingWebSocket;
 //   retries: 3,
 //   retryDelay: 800,
 // });
+
+const { writeFile, readDir, readFile, unlink, mkdir } = self;
+
+self.onmessage = async (event) => {
+  const { data } = event;
+  if (data.type === "prerender" && data.code && !data.html) {
+    try {
+      await writeFile(`/live/${codeSpace}/index.tsx`, code);
+      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
+    } catch {
+      await unlink(`/live/${codeSpace}/index.tsx`);
+      await unlink(`/live/${codeSpace}/index.js`);
+      await writeFile(`/live/${codeSpace}/index.tsx`, code);
+      await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
+    }
+    const transpiled = await transpile(data.code);
+    return event.ports[0].postMessage({ data, transpiled });
+  }
+};
 let ASSET_HASH = "assetHashNotFound";
 declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
 
@@ -114,8 +133,8 @@ const createResponse = async (request: Request) => {
   ) {
     // return renderToStream("clock3");
 
-    globalThis.conns = globalThis.conns || {};
-    globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
+    self.conns = self.conns || {};
+    self.conns[codeSpace] = self.conns[codeSpace] || (async () => {
       const websocket = new ReconnectingWebSocket(
         `wss://${location.host}/api/room/` + codeSpace + "/websocket",
       );
@@ -128,11 +147,6 @@ const createResponse = async (request: Request) => {
         i: 0,
       };
       BC.onmessage = async ({ data }) => {
-        if (data.type === "prerender" && data.code && !data.html) {
-          const transpiled = await transpile(data.code);
-          BC.postMessage({ ...data, transpiled });
-          return;
-        }
         if (data.i > session.i && (data.hashCode || data.newHash)) {
           session.i = data.i;
 

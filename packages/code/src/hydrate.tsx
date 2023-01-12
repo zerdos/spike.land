@@ -14,30 +14,31 @@ export { md5 };
 
 import { run } from "./ws";
 
-// import { Workbox } from "workbox-window";
+import { Workbox } from "workbox-window";
+export const sw = new Workbox("/sw.js", { immediate: true });
 
-// const wb = new Workbox("/sw.js");
+// await sw.register({immediate: true});
 
-//  wb.register();
+sw.messageSkipWaiting();
+// if ("serviceWorker" in navigator) {
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").then((sw) => {
-    navigator.serviceWorker.getRegistrations().then(
-      workers =>
-        Promise.all(
-          workers.filter(
-            (x) => x !== sw,
-          ).map(x => x.unregister()),
-        ),
-    )
-      .then(
-        () =>
-          navigator.serviceWorker.getRegistrations().then(r =>
-            r.filter(x => x.active).map(x => x !== sw && x.update())
-          ),
-      );
-  });
-}
+//   navigator.serviceWorker.register("/sw.js").then((sw) => {
+//     navigator.serviceWorker.getRegistrations().then(
+//       workers =>
+//         Promise.all(
+//           workers.filter(
+//             (x) => x !== sw,
+//           ).map(x => x.unregister()),
+//         ),
+//     )
+//       .then(
+//         () =>
+//           navigator.serviceWorker.getRegistrations().then(r =>
+//             r.filter(x => x.active).map(x => x !== sw && x.update())
+//           ),
+//       );
+//   });
+// }
 
 globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;
 const paths = location.pathname.split("/");
