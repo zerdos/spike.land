@@ -82,7 +82,7 @@ self.onmessage = async (event) => {
       await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
     }
 
-    return event.ports[0].postMessage({ data, transpiled });
+    return event.ports[0].postMessage({ ...data, transpiled });
   }
 };
 let ASSET_HASH = "assetHashNotFound";

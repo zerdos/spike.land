@@ -173,23 +173,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     if (signal.aborted) return;
 
-    const { data } = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
-    // transpiled = data.transpiled;
-
-    // if (iframe) {
-    //   iframe.remove();
-    // }
-    // iframe = document.createElement("iframe");
-    // iframe.style.opacity = "0";
-    // iframe.style.height = "1px";
-    // iframe.style.width = "1px";
-    // iframe.style.position = "absolute";
-
-    // iframe.src = prerender(transpiled, origin, codeSpace);
-
-    // window.addEventListener("message", responseListener);
-
-    // document.body.appendChild(iframe);
+    const data = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
 
     BC.postMessage({ counter, i: counter, transpiled: data.transpiled, codeSpace, code });
 
