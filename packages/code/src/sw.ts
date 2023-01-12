@@ -18,8 +18,10 @@ declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string 
 
 const mutex = new Mutex();
 async function getFiles() {
-  mutex.acquire();
+  mutex.isLocked() && await mutex.waitForUnlock();
+
   try {
+    await mutex.acquire();
     self.files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
 
     self.fileCacheName = md5(self.files);
@@ -89,6 +91,10 @@ let fileCache: Cache | null;
 //   });
 
 const createResponse = async (request: Request) => {
+  if (mutex.isLocked()) {
+    mutex.waitForUnlock();
+  }
+
   let url = new URL(request.url);
   if (url.origin !== self.location.origin || request.method === "POST") {
     return fetch(request);
@@ -307,8 +313,7 @@ const createResponse = async (request: Request) => {
 
 const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
 self.addEventListener("fetch", async function(event) {
-  if (!self.files) await getFilesThrottled();
-  return event.respondWith(
-    getFilesThrottled() / mutex.waitForUnlock().then(() => createResponse(event.request)),
-  );
+  await getFilesThrottled();
+
+  return event.respondWith(createResponse(event.request));
 });
