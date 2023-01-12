@@ -1,4 +1,7 @@
+importScripts("/workerScripts/transpile.js");
+
 export type {};
+
 import { Mutex } from "async-mutex";
 // import { randomUUID } from "crypto";
 import throttle from "lodash.throttle";
@@ -194,7 +197,11 @@ const createResponse = async (request: Request) => {
           user: md5(self.crypto.randomUUID()),
           i: 0,
         };
-        BC.onmessage = ({ data }) => {
+        BC.onmessage = async ({ data }) => {
+          if (data.type === "transpile") {
+            const transpiled = await transpile(data.code);
+            BC.postMessage({ ...data, transpiled });
+          }
           if (data.i > session.i && (data.hashCode || data.newHash)) {
             session.i = data.i;
 
@@ -204,11 +211,15 @@ const createResponse = async (request: Request) => {
         };
 
         websocket.onopen = () => console.log("onOpened");
-        websocket.onmessage = ({ data }) => {
+        websocket.onmessage = async ({ data }) => {
           const msg = JSON.parse(data);
           if (data.type === "handShake") {
             websocket.send(JSON.stringify({ name: session.user }));
             return;
+          }
+          if (data.type === "transpile") {
+            const transpiled = await transpile(data.code);
+            websocket.send(JSON.stringify({ ...data, transpiled }));
           }
 
           if (msg.i > session.i) {
