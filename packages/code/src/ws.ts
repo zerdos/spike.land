@@ -43,7 +43,7 @@ import { md5 } from "./md5"; // import { wait } from "wait";
 // import * as Immutable from "immutable";
 import type { IFirstRender } from "../../spike.land/src/chatRoom";
 import { ldb } from "./createDb";
-import { renderPreviewWindow } from "./renderPreviewWindow";
+
 import type { ICodeSession } from "./session";
 
 type MessageProps = Partial<{
@@ -303,7 +303,7 @@ export class Code {
       };
 
       cSess.session = makeSession({ ...cSess.session, code });
-
+      const { renderPreviewWindow } = await import("./renderPreviewWindow");
       renderPreviewWindow({ codeSpace, dry: false });
     }
 

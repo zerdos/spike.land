@@ -73,7 +73,8 @@
     ]
   },
   "include": [
-    "src/**/*",
+    "src",
+    "../spike.land/src"
     "package.json"
   ],
   "exclude": [".yarn", "dist"]
