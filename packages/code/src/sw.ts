@@ -107,7 +107,6 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
   const paths = url.pathname.split("/");
-  const codeSpace = paths[2];
 
   if (
     url.pathname === `/live/${codeSpace}/iframe` || url.pathname === `/live/${codeSpace}/`
@@ -115,6 +114,52 @@ const createResponse = async (request: Request) => {
   ) {
     // return renderToStream("clock3");
     const codeSpace = paths[2];
+    globalThis.conns = globalThis.conns || {};
+    globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
+      const websocket = new ReconnectingWebSocket(
+        `wss://${location.host}/api/room/` + codeSpace + "/websocket",
+      );
+      const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+      const session = {
+        websocket,
+        BC,
+        user: md5(self.crypto.randomUUID()),
+        i: 0,
+      };
+      BC.onmessage = async ({ data }) => {
+        if (data.type === "prerender" && data.code && !data.html) {
+          const transpiled = await transpile(data.code);
+          BC.postMessage({ ...data, transpiled });
+          return;
+        }
+        if (data.i > session.i && (data.hashCode || data.newHash)) {
+          session.i = data.i;
+
+          data.name = session.user;
+          websocket.send(JSON.stringify(data));
+        }
+      };
+
+      websocket.onopen = () => console.log("onOpened");
+      websocket.onmessage = async ({ data }) => {
+        const msg = JSON.parse(data);
+        if (data.type === "handShake") {
+          websocket.send(JSON.stringify({ name: session.user }));
+          return;
+        }
+        if (data.type === "transpile") {
+          const transpiled = await transpile(data.code);
+          websocket.send(JSON.stringify({ ...data, transpiled }));
+        }
+
+        if (msg.i > session.i) {
+          session.i = msg.i;
+          BC.postMessage(data);
+        }
+      };
+      session;
+    })();
 
     const { css, html, i, code } = JSON.parse(
       await readFile(
@@ -187,53 +232,6 @@ const createResponse = async (request: Request) => {
       || url.pathname.indexOf(".tsx") !== -1)
   ) {
     try {
-      globalThis.conns = globalThis.conns || {};
-      globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
-        const websocket = new ReconnectingWebSocket(
-          `wss://${location.host}/api/room/` + codeSpace + "/websocket",
-        );
-        const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-        const session = {
-          websocket,
-          BC,
-          user: md5(self.crypto.randomUUID()),
-          i: 0,
-        };
-        BC.onmessage = async ({ data }) => {
-          if (data.type === "prerender" && data.code && !data.html) {
-            const transpiled = await transpile(data.code);
-            BC.postMessage({ ...data, transpiled });
-            return;
-          }
-          if (data.i > session.i && (data.hashCode || data.newHash)) {
-            session.i = data.i;
-
-            data.name = session.user;
-            websocket.send(JSON.stringify(data));
-          }
-        };
-
-        websocket.onopen = () => console.log("onOpened");
-        websocket.onmessage = async ({ data }) => {
-          const msg = JSON.parse(data);
-          if (data.type === "handShake") {
-            websocket.send(JSON.stringify({ name: session.user }));
-            return;
-          }
-          if (data.type === "transpile") {
-            const transpiled = await transpile(data.code);
-            websocket.send(JSON.stringify({ ...data, transpiled }));
-          }
-
-          if (msg.i > session.i) {
-            session.i = msg.i;
-            BC.postMessage(data);
-          }
-        };
-        session;
-      })();
-
       if (url.pathname.indexOf("index.js") !== -1) {
         const file = await readFile(`/live/${codeSpace}/index.tsx`);
 
