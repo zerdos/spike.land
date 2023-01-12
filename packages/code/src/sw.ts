@@ -197,7 +197,7 @@ const createResponse = async (request: Request) => {
           }
         };
 
-        websocket.onopen = () => websocket.send({ name: session.user });
+        websocket.onopen = () => websocket.send(JSON.stringify({ name: session.user }));
         websocket.onmessage = ({ data }) => {
           const msg = JSON.parse(data);
 
