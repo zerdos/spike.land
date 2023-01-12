@@ -180,7 +180,7 @@ const createResponse = async (request: Request) => {
       globalThis.conns = globalThis.conns || {};
       globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
         const websocket = new ReconnectingWebSocket(
-          `wss://${location.host}/api/` + codeSpace + "/websocket",
+          `wss://${location.host}/api/room/` + codeSpace + "/websocket",
         );
         const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
