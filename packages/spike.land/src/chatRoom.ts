@@ -56,6 +56,9 @@ export class Code implements DurableObject {
   broadcast(msg: unknown) {
     const message = JSON.stringify(msg);
 
+    this.state.storage.put("sess", this.session);
+    this.state.storage.put("head", makeHash(this.session));
+
     this.wsSessions.filter((s) => s.name).map((s) => {
       try {
         s.webSocket.send(message);
@@ -1021,9 +1024,10 @@ export class Code implements DurableObject {
                 error: `old hashes not matching`,
               });
             }
-            this.broadcast(data);
 
             this.session = newState;
+
+            this.broadcast(data);
 
             //
 
