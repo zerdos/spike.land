@@ -102,7 +102,7 @@ const createResponse = async (request: Request) => {
 
   // const fs = globalThis.fs;
   const paths = url.pathname.split("/");
-  const codeSpace = paths[2];
+  const codeSpace = paths[1];
 
   globalThis.conns = globalThis.conns || {};
   globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
