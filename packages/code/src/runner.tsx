@@ -1,7 +1,7 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
 // import { buildT } from "./esbuildEsm";
-import { transpile } from "./transpile";
+// import { transpile } from "./transpile";
 import { syncWS } from "./ws";
 
 // import { RpcProvider } from "worker-rpc";
@@ -172,7 +172,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     if (signal.aborted) return;
 
-    BC.postMessage({ i: sess.i, code, type: "prerender" });
+    BC.postMessage({ i: counter, code, type: "prerender" });
     try {
       await writeFile(`/live/${codeSpace}/index.tsx`, code);
       await writeFile(`/live/${codeSpace}/index.js`, sess.transpiled);
