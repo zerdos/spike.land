@@ -634,7 +634,7 @@ export class Code implements DurableObject {
           case "worker":
           case "dehydrated":
           case "public": {
-            const respText = HTML.replace("sw.js", "sw.js?version=" + files["sw.js"].split(".")[1]).replace(
+            const respText = HTML.replace(
               "/**reset*/",
               resetCSS,
             )
@@ -688,7 +688,7 @@ export class Code implements DurableObject {
             });
           }
           case "prerender": {
-            const respText = HTML.replace("sw.js", "sw.js?version=" + files["sw.js"].split(".")[1]).replace(
+            const respText = HTML.replace(
               "/**reset*/",
               resetCSS,
             )

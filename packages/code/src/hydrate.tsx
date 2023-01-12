@@ -20,6 +20,25 @@ import { run } from "./ws";
 
 //  wb.register();
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").then((sw) => {
+    navigator.serviceWorker.getRegistrations().then(
+      workers =>
+        Promise.all(
+          workers.filter(
+            (x) => x !== sw,
+          ).map(x => x.unregister()),
+        ),
+    )
+      .then(
+        () =>
+          navigator.serviceWorker.getRegistrations().then(r =>
+            r.filter(x => x.active).map(x => x !== sw && x.update())
+          ),
+      );
+  });
+}
+
 globalThis.assetHash = new URL(import.meta.url).searchParams.get("ASSET_HASH")!;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];

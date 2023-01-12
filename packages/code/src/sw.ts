@@ -120,7 +120,7 @@ const createResponse = async (request: Request) => {
       ) as string,
     );
 
-    const respText = HTML.replace("sw.js", "sw.js?version=" + self.files["sw.js"].split(".")[1]).replace(
+    const respText = HTML.replace(
       "/**reset*/",
       resetCSS,
     ).replace(
@@ -132,8 +132,6 @@ const createResponse = async (request: Request) => {
         </div>
 
     </div>              
-    ` + url.pathname.endsWith("dehydrated")
-        ? `<script type="module">
 
     const paths = location.href.split("/");
     const page = paths.pop();
@@ -147,14 +145,15 @@ const createResponse = async (request: Request) => {
       if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
       
     }
-    </script>`
-        : `<script type="module">
+    </script>` + url.pathname === `/live/${codeSpace}/dehydrated`
+        ? `<script type="module">
         import {render} from "${url.origin}/src/render.mjs?v=${ASSET_HASH}";
               
         const rootEl = document.getElementById("${codeSpace}-css");
 
         render(rootEl, "${codeSpace}", ${i});
-        </script>`,
+        </script>`
+        : "",
     );
 
     // const Etag = request.headers.get("Etag");
