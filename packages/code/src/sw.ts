@@ -1,11 +1,12 @@
 export type {};
 import { Mutex } from "async-mutex";
-import { randomUUID } from "crypto";
+// import { randomUUID } from "crypto";
 import throttle from "lodash.throttle";
 import { readFile } from "./fs";
 import ReconnectingWebSocket from "./reconnWs.mjs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
+self.WebSocket = ReconnectingWebSocket as unknown as typeof ServiceWorkerGlobalScope.WebSocket;
 onConnectToClients();
 // var originalFetch = require("isomorphic-fetch");
 // var fetch = require("fetch-retry")(originalFetch, {
@@ -105,7 +106,7 @@ const createResponse = async (request: Request) => {
 
   globalThis.conns = globalThis.conns || {};
   globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
-    const websocket = new ReconnectingWebSocket(
+    const websocket = new self.WebSocket(
       `wss://${location.host}/live/` + codeSpace + "/websocket",
     );
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
