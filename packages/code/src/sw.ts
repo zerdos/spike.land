@@ -230,6 +230,17 @@ const createResponse = async (request: Request) => {
         session;
       })();
 
+      if (url.pathname.indexOf("index.js") !== -1) {
+        const file = await readFile(`/live/${codeSpace}/index.tsx`);
+
+        return new Response(await transpile(file), {
+          headers: {
+            "content-type": "application/javascript; charset=utf-8",
+            "Cache-Control": "no-cache",
+          },
+        });
+      }
+
       const file = await readFile(url.pathname);
       if (file) {
         return new Response(file, {
