@@ -67,6 +67,7 @@ export const render = async (
         cache,
         html,
       );
+
       // root.unmount();
       console.log({ html, css });
       globalThis.firstRender.html = html;
@@ -112,11 +113,12 @@ function mineFromCaches(cache: EmotionCache, html: string) {
   // const key = "css";
   const key = cache.key || "css";
   try {
-    return Array.from(
-      document.querySelectorAll(`style[data-emotion="${key}"]`),
-    ).map((x) => x.textContent).join(
-      "\n",
-    );
+    return Array.from(document.querySelectorAll(`style[data-styled-jsx`)).map(x => x.textContent)
+      + Array.from(
+        document.querySelectorAll(`style[data-emotion="${key}"]`),
+      ).map((x) => x.textContent).join(
+        "\n",
+      );
   } catch {
     // const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
     return Array.from(document.styleSheets).map((x) => {

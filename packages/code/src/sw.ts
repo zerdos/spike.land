@@ -1,6 +1,7 @@
 // import { importMapReplace } from "./esbuildEsm";
 importScripts("/workerScripts/superFetch.js");
 self.fetch = globalThis.superFetch;
+
 export type {};
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
@@ -15,18 +16,36 @@ import { onConnectToClients } from "./sharedWorker";
 onConnectToClients();
 
 // import { renderToStream } from "./renderToStream";
-declare const self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
 
-self.addEventListener("activate", () => {
-  // globalThis.fs = new FS(location.origin);
+self.addEventListener("activate", async () => {
+  self.files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
 
-  // const bc = new BroadcastChannel(location.origin);
+  self.fileCacheName = md5(self.files);
 
-  // bc.onmessage(ev => {
-  //   if (ev.data.type === "bundle") {
-  //   }
-  // });
+  const currentChunks = Object.values(self.files);
+  caches.keys().then(myCaches =>
+    myCaches.map(x => {
+      if (x !== "chunks" && x !== self.fileCacheName) caches.delete(x);
+    })
+  );
+
+  const chunkCaches = await caches.open("chunks");
+
+  await (await (await caches.open("chunks")).keys()).filter(x => !currentChunks.includes(new URL(x.url).pathname)).map(
+    x => chunkCaches.delete(x),
+  );
 });
+
+// globalThis.fs = new FS(location.origin);
+
+// const bc = new BroadcastChannel(location.origin);
+
+// bc.onmessage(ev => {
+//   if (ev.data.type === "bundle") {
+//   }
+// });
+// });
 // async function wait(delay) {
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
@@ -234,7 +253,7 @@ const createResponse = async (request: Request) => {
     ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
     : (url.pathname.includes("chunk-") || isChunk)
     ? (chunkCache = chunkCache || await caches.open("chunks"))
-    : (fileCache = fileCache || await caches.open(`fileCache`));
+    : (fileCache = fileCache || await caches.open(self.fileCacheName));
 
   if (url.pathname.length < 2) return fetch(request);
   // if (Date.now() - lastChecked > 40_000) {

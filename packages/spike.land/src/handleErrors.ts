@@ -1,5 +1,7 @@
+import type { Request, Response } from "@cloudflare/workers-types";
+
 export async function handleErrors(
-  request: Request,
+  request: Request<unknown>,
   func: () => Promise<Response>,
 ) {
   try {

@@ -1,4 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import type { DurableObject, Request, Response } from "@cloudflare/workers-types";
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
@@ -11,12 +12,12 @@ import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 import { handleErrors } from "./handleErrors";
 
-const api: ExportedHandler<CodeEnv> = {
-  fetch: async (
-    req,
-    env,
+const api: DurableObject = {
+  fetch: (
+    req: Request<unknown>,
+    env: CodeEnv,
   ) => {
-    let request = new Request(req.url, req);
+    let request = new Request(req.url, { ...req });
     if (
       request.cf && request.cf.asOrganization
       && request.cf.asOrganization.startsWith("YANDEX")

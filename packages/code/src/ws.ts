@@ -47,8 +47,8 @@ import { ldb } from "./createDb";
 import type { ICodeSession } from "./session";
 
 type MessageProps = Partial<{
-  oldHash?: number;
-  newHash?: number;
+  oldHash?: string;
+  newHash?: string;
   name?: string;
   codeSpace: string;
   i?: number;
@@ -66,7 +66,7 @@ type MessageProps = Partial<{
 
 const ws = {
   blockedMessages: [] as MessageProps[],
-  post: (json: Partial<CodePatch & ICodeSession & { hashCode: number } & IFirstRender>) =>
+  post: (json: Partial<CodePatch & ICodeSession & { hashCode: string } & IFirstRender>) =>
     ky.post(location.href, {
       json,
       retry: {
@@ -194,7 +194,7 @@ export class Code {
     const oldSession = this.session;
     const newSess = makeSession(newSession);
 
-    const oldHash = makeHash(oldSession);
+    // const oldHash = makeHash(oldSession);
     this.session = newSess;
     this.sess = newSess;
     this.head = makeHash(newSess);
@@ -399,7 +399,7 @@ export const sess = () => ({
   ...(cSess.sess),
 });
 
-Object.assign(globalThis, { sess, hash: (val: unknown) => makeHash(val), makeSession, cSess: () => cSess });
+Object.assign(globalThis, { sess, hash: (val: ICodeSession) => makeHash(val), makeSession, cSess: () => cSess });
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 
