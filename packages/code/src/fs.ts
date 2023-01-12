@@ -56,4 +56,4 @@ export const readFile = (filePath: string) =>
   );
 export const unlink = (filepath: string) =>
   mutex.runExclusive(() => p.unlink(filepath).catch(() => {/** nothing really happened */}));
-export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath)).catch(() => {});
+export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath).catch(() => {}));

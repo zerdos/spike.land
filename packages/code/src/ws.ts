@@ -94,7 +94,6 @@ function makeSession(sess: ICodeSession) {
 // Import PubSubRoom from 'ipfs-pubsub-room'
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
-mkdir("/live/" + codeSpace);
 
 // const webRtcArray: Array<RTCDataChannel & { target: string }> = [];
 
@@ -295,6 +294,10 @@ export class Code {
   i = 0;
 
   async run() {
+    await mkdir("/");
+    await mkdir("/live");
+    await mkdir("/live/" + codeSpace);
+
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
