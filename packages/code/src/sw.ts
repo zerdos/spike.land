@@ -65,7 +65,7 @@ self.onmessage = async (event) => {
         BC.postMessage(data);
       }
     };
-    session;
+    return session;
   })();
   const transpiled = await transpile(data.code);
   if (data.type === "prerender" && data.code && !data.html) {
