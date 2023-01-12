@@ -201,6 +201,7 @@ const createResponse = async (request: Request) => {
           if (data.type === "prerender" && data.code && !data.html) {
             const transpiled = await transpile(data.code);
             BC.postMessage({ ...data, transpiled });
+            return;
           }
           if (data.i > session.i && (data.hashCode || data.newHash)) {
             session.i = data.i;
