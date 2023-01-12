@@ -17,9 +17,9 @@ import { run } from "./ws";
 import { Workbox } from "workbox-window";
 export const sw = new Workbox("/sw.js", { immediate: true });
 
-// await sw.register({immediate: true});
+await sw.register({ immediate: true });
 
-sw.messageSkipWaiting();
+// sw.messageSkipWaiting();
 // if ("serviceWorker" in navigator) {
 
 //   navigator.serviceWorker.register("/sw.js").then((sw) => {
