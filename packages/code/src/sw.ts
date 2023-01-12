@@ -133,8 +133,6 @@ const createResponse = async (request: Request) => {
       if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
       
     }
-    var sheet = document.createStyleSheet();
-sheet.addRule('h1', 'background: red;');
     </script>`
         : `<script type="module" src="${location.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`,
     );
