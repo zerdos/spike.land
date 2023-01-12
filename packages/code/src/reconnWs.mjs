@@ -160,7 +160,7 @@ function ReconnectingWebSocket(url, protocols, options) {
   var ws;
   var forcedClose = false;
   var timedOut = false;
-  var eventTarget = globalThis.self.eventTarget;
+  var eventTarget = new globalThis.self.EventTarget();
 
   // Wire up "on*" properties as event handlers
 
