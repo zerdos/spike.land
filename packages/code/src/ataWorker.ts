@@ -9,7 +9,7 @@ importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/transpile.js");
 
-const { RpcProvider, ata, prettierJs, esmTransform } = self;
+const { RpcProvider, ata, prettierJs, transpile } = self;
 
 self.onconnect = ({ ports }) => {
   const p = ports[0];
@@ -27,7 +27,7 @@ self.onconnect = ({ ports }) => {
     ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs }),
   );
 
-  rpcProvider.registerRpcHandler("transpile"), (code: string) => esmTransform(code, location.origin);
+  rpcProvider.registerRpcHandler("transpile"), (code: string) => transpile(code);
 
   p.start();
 };
