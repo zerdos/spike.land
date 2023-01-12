@@ -41,5 +41,5 @@ written: ${new Date()}
 };
 export const readFile = (filePath: string) => p.readFile(filePath, { encoding: "utf8" });
 export const stat = (filePath: string) => p.stat(filePath);
-export const unlink = (filepath: string) => p.unlink(filepath);
+export const unlink = (filepath: string) => p.unlink(filepath).catch(() => {/** nothing reall */});
 export const mkdir = (filePath: string) => p.mkdir(filePath);

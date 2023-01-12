@@ -3,6 +3,7 @@ importScripts("/workerScripts/superFetch.js");
 self.fetch = globalThis.superFetch;
 
 export type {};
+import { text } from "stream/consumers";
 import { readFile } from "./fs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
@@ -96,13 +97,15 @@ const createResponse = async (request: Request) => {
     // return renderToStream("clock3");
     const codeSpace = paths[2];
 
-    const { css, html, transpiled, i } = JSON.parse(
+    const { css, html, i, code } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
-      ).catch(() => fe),
+      ).then(x => x as unknown as string).catch(async () =>
+        fetch(`/live/${codeSpace}/session`).then((resp) => resp.text())
+      ),
     );
 
-    const ASSET_HASH = md5(transpiled);
+    const ASSET_HASH = md5(code);
 
     const respText = HTML.replace(
       "/**reset*/",
