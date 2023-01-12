@@ -1,7 +1,9 @@
 export type {};
 import { Mutex } from "async-mutex";
+import { randomUUID } from "crypto";
 import throttle from "lodash.throttle";
 import { readFile } from "./fs";
+import ReconnectingWebSocket from "./reconnWs.mjs";
 import { HTML, md5, resetCSS } from "./session";
 import { onConnectToClients } from "./sharedWorker";
 onConnectToClients();
@@ -100,6 +102,38 @@ const createResponse = async (request: Request) => {
   // const fs = globalThis.fs;
   const paths = url.pathname.split("/");
   const codeSpace = paths[2];
+
+  globalThis.conns = globalThis.conns || {};
+  globalThis.conns[codeSpace] = globalThis.conns[codeSpace] || (async () => {
+    const websocket = new ReconnectingWebSocket(
+      `wss://${location.host}/live/` + codeSpace + "/websocket",
+    );
+    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+    const session = {
+      websocket,
+      BC,
+      user: md5(self.crypto.randomUUID()),
+      i: 0,
+    };
+    BC.onmessage = ({ data }) => {
+      if (data.i > session.i) {
+        session.i = data.i;
+        websocket.send(JSON.stringify(data));
+      }
+    };
+
+    websocket.onopen = () => websocket.send({ name: session.user });
+    websocket.onmessage = ({ data }) => {
+      const msg = JSON.parse(data);
+
+      if (msg.i > session.i) {
+        session.i = msg.i;
+        BC.postMessage(data);
+      }
+    };
+    session;
+  })();
 
   if (
     url.pathname === `/live/${codeSpace}/iframe` || url.pathname === `/live/${codeSpace}/`

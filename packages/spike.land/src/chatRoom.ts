@@ -2,8 +2,6 @@ import type { WebSocket } from "@cloudflare/workers-types";
 import { CodePatch, ICodeSession, makeSession } from "./../../code/src/session";
 import { makeHash, resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
-import { signaller } from "./signalling";
-import { files } from "./staticContent.mjs";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
 
