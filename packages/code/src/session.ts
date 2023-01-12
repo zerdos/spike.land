@@ -25,7 +25,8 @@ export const makeSession: (p: ICodeSession) => ICodeSession = (p = { i: 0, code:
     i: p.i || 0,
     code: p.code || `export default ()=> <>Nothing</>`,
     html: p.html || "",
-    css: (p.css || "").split(".css-").filter(x => (p.html || "").indexOf(x.slice(0, 5)) !== -1).join(".css-"),
+    css: (p.css || "").split(".css-").filter(x => x.startsWith("html") || (p.html || "").indexOf(x.slice(0, 5)) !== -1)
+      .join(".css-"),
   }).toJS();
 
 export type ICodeSession = {
