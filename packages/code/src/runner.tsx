@@ -175,7 +175,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     const data = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
 
-    BC.postMessage({ counter, i: counter, transpiled: data.transpiled, codeSpace, code });
+    BC.postMessage({ ...data });
 
     // console.log("still alive2");
     // // patchSync(sess);
