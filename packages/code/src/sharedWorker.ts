@@ -270,24 +270,11 @@ async function onMessage(port: MessagePort, data: Data) {
   // }
 }
 let iii = 0;
-const BC = new BroadcastChannel(location.origin + "/ws.js");
 
 export const onConnectToClients = () => {
   // me.addEventListener("message", (event) => {
   //   if (event.data && event.data.type === "INIT_PORT") {
   //     const port = event.ports[0];
-
-  BC.onmessage = (e) => {
-    if (e.type !== "onconnect") return;
-    const ports = new MessageChannel();
-
-    const port = e.ports[0];
-
-    port.onmessage = ({ data }) => onMessage(port, data);
-
-    port.postMessage({ type: "onconnect", connections: ++iii });
-    port.start();
-  };
 };
 
 const mutex = new Mutex();

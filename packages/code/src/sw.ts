@@ -6,11 +6,14 @@ import { Mutex } from "async-mutex";
 // import { randomUUID } from "crypto";
 import throttle from "lodash.throttle";
 import { readFile } from "./fs";
+import { resetCSS } from "./getResetCss";
+import HTML from "./index.html";
+import { md5 } from "./md5";
 import ReconnectingWebSocket from "./reconnWs.mjs";
-import { HTML, md5, resetCSS } from "./session";
-import { onConnectToClients } from "./sharedWorker";
+// import { HTML, md5, resetCSS } from "./session";
+// import { onConnectToClients } from "./sharedWorker";
 self.ReconnectingWebSocket = ReconnectingWebSocket;
-onConnectToClients();
+// onConnectToClients();
 // var originalFetch = require("isomorphic-fetch");
 // var fetch = require("fetch-retry")(originalFetch, {
 //   retries: 3,
