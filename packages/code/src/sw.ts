@@ -23,7 +23,12 @@ const { writeFile, readDir, readFile, unlink, mkdir } = self;
 
 const connections = self.connections = self.connections || {};
 
+let controller = new AbortController();
+
 self.onmessage = async (event) => {
+  controller.abort();
+  controller = new AbortController();
+  const signal = controller.signal;
   const { data } = event;
   const codeSpace = data.codeSpace;
 
@@ -65,26 +70,34 @@ self.onmessage = async (event) => {
         BC.postMessage(data);
       }
     };
+
     return session;
   })();
-  const transpiled = await transpile(data.code);
-  if (data.type === "prerender" && data.code && !data.html) {
-    try {
-      await mkdir("/");
-      await mkdir("/live");
-      await mkdir("/live/" + codeSpace);
-      await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-    } catch {
-      await unlink(`/live/${codeSpace}/index.tsx`);
-      await unlink(`/live/${codeSpace}/index.js`);
-      await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-      await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
-    }
 
-    return event.ports[0].postMessage({ ...data, transpiled });
-  }
+  if (signal.aborted) return null;
+  const transpiled = await transpile(data.code);
+
+  setTimeout(async () => {
+    if (signal.aborted) return null;
+    if (data.type === "prerender" && data.code && !data.html) {
+      try {
+        await mkdir("/");
+        await mkdir("/live");
+        await mkdir("/live/" + codeSpace);
+        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      } catch {
+        await unlink(`/live/${codeSpace}/index.tsx`);
+        await unlink(`/live/${codeSpace}/index.js`);
+        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+        await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
+      }
+    }
+  }, 200);
+  if (signal.aborted) return null;
+  return event.ports[0].postMessage({ ...data, transpiled });
 };
+
 let ASSET_HASH = "assetHashNotFound";
 declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
 
