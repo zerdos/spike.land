@@ -73,7 +73,11 @@ export const render = async (
       globalThis.firstRender.html = html;
       globalThis.firstRender.css = css;
       el.style.opacity = "1";
+      el.style.height = "100%";
+      const id = _rootEl.id;
+
       _rootEl.remove();
+      el.setAttribute(id, id);
       BC.postMessage({ type: "firstRender", html, css });
 
       return { html, css };
