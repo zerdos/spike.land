@@ -297,10 +297,11 @@ export class Code {
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
-      const code = await prettier(sess.code);
+      const code = await prettier(globalThis.session.code);
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
         if (data.type === "firstRender") {
+          firstRender = true;
           const { html, css } = data;
           cSess.session = makeSession({ ...cSess.session, code });
 
