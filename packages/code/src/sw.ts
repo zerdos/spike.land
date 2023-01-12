@@ -171,7 +171,10 @@ const createResponse = async (request: Request) => {
       headers,
     });
   }
-  if (url.pathname.startsWith("/live")) {
+  if (
+    url.pathname.startsWith("/live") && (url.pathname.endsWith(".js") || url.pathname.endsWith(".mjs"))
+    || url.pathname.endsWith(".tsx")
+  ) {
     try {
       const file = await readFile(url.pathname);
       if (file) {
