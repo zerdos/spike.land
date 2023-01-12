@@ -222,7 +222,7 @@ async function startMonacoPristine(
 
   const addExtraM = async () => {
     const search = new RegExp(
-      ` from '(${originToUse})?/live/[a-zA-Z]+`,
+      ` from "(${originToUse})?/live/[a-zA-Z]+`,
       "gm",
     );
 
