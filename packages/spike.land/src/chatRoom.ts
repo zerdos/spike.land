@@ -3,6 +3,7 @@ import { CodePatch, ICodeSession, makeSession } from "./../../code/src/session";
 import { makeHash, resetCSS, string_ } from "./../../code/src/session";
 import { aPatch, HTML, md5 } from "./../../code/src/session";
 import { signaller } from "./signalling";
+import { files } from "./staticContent.mjs";
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
 
@@ -632,7 +633,7 @@ export class Code implements DurableObject {
           case "worker":
           case "dehydrated":
           case "public": {
-            const respText = HTML.replace(
+            const respText = HTML.replace("sw.js", "sw.js?version=" + files["sw.js"].split(".")[1]).replace(
               "/**reset*/",
               resetCSS,
             )
