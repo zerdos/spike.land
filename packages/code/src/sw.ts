@@ -126,13 +126,12 @@ const createResponse = async (request: Request) => {
     ).replace(
       `<div id="root"></div>`,
       `<div id="root" style="height: 100%;">
-    <style>${css}</style>
-      <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-        ${html}
-        </div>
-
+            <style>${css}</style>
+            <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
+              ${html}
+            </div>
     </div>              
-
+    <script type="module">
     const paths = location.href.split("/");
     const page = paths.pop();
     const codeSpace = paths[2]
@@ -145,7 +144,7 @@ const createResponse = async (request: Request) => {
       if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
       
     }
-    </script>` + url.pathname === `/live/${codeSpace}/dehydrated`
+    </script>` + url.pathname == `/live/${codeSpace}/dehydrated`
         ? `<script type="module">
         import {render} from "${url.origin}/src/render.mjs?v=${ASSET_HASH}";
               
