@@ -310,8 +310,8 @@ const createResponse = async (request: Request) => {
   const ct = response.headers.get("Content-Type") || "";
 
   if (
-    response.headers.get("Content-Type").indexOf("application") !== -1
-    && response.headers.get("Content-Type").indexOf("charset") !== -1
+    ((ct.indexOf("application") !== -1
+      && ct.indexOf("charset") !== -1) || request.url.endsWith(".js") || request.url.endsWith(".mjs"))
     && !request.url.endsWith(".json")
   ) {
     return new Response(importMapReplace(prettierJs(await response.text()), location.origin, response.url), response);
