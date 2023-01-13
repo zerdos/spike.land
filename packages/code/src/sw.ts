@@ -309,8 +309,9 @@ const createResponse = async (request: Request) => {
   if (
     response.headers.get("Content-Type").indexOf("application") !== -1
     && response.headers.get("Content-Type").indexOf("charset") !== -1
+    && !request.url.endsWith(".json")
   ) {
-    return new Response(importMapReplace(prettierJs(await response.text()), origin, response.url), response);
+    return new Response(importMapReplace(prettierJs(await response.text()), location.origin, response.url), response);
   }
 
   return response;
