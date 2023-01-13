@@ -165,9 +165,18 @@ BC.onmessage = async ({ data }) => {
     controller.abort();
     controller = new AbortController();
 
-    console.log("rerender", data.i);
+    const _rootEl = document.getElementById("root")!;
+    const el = document.createElement("div");
+    el.style.opacity = "0";
+    _rootEl.parentElement?.appendChild(el);
+    _rootEl.parentElement;
+
+    const root = createRoot(el);
     const App = await appFactory(data.transpiled);
     const appId = md5(data.transpiled);
+    root.render(<App appId={appId} />);
+
+    console.log("rerender", data.i);
 
     // //(await import(
     //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
@@ -186,7 +195,7 @@ BC.onmessage = async ({ data }) => {
     // const r = createRoot(newRoot);
 
     if (myMod.signal.aborted) return;
-    root.render(<App appId={appId} />);
+
     check(myMod);
 
     function check(m: typeof mod[0]) {
