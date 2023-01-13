@@ -281,7 +281,7 @@ const createResponse = async (request: Request) => {
       if (url.pathname.indexOf("index.js") !== -1) {
         const file = await readFile(`/live/${codeSpace}/index.tsx`);
 
-        return new Response(await transpile(file), {
+        return new Response(importMapReplace(await transpile(file), origin, request.url), {
           headers: {
             "Content-Type": "application/javascript; charset=UTF-8",
             "Cache-Control": "no-cache",
