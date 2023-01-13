@@ -67,53 +67,43 @@ export const initAndTransform = async (
   return res;
 };
 
-const define = {
-  "process.env.NODE_ENV": `"development"`,
+const makeEnv = (environment: string) => ({
+  "process.env.NODE_ENV": `"${environment}"`,
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
-  "process.env.DEBUG": JSON.stringify(true),
+  "process.env.DEBUG": JSON.stringify(false),
   "isBrowser": JSON.stringify(true),
   "isJest": JSON.stringify(false),
   "process.env.version": "\"1.1.1\"",
   global: "globalThis",
+
   "WORKER_DOM_DEBUG": JSON.stringify(false),
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
+    version: "v19.3.0",
+    versions: {
+      node: "v19.3.0",
+    },
+    cwd: JSON.stringify(() => "/"),
+
     env: {
-      NODE_ENV: `development`,
+      NODE_ENV: `${environment}`,
+      version: "v19.3.0",
+      cwd: JSON.stringify(() => "/"),
       browser: true,
+      isWebworker: true,
       NODE_DEBUG: false,
-      DEBUG: true,
+      DEBUG: false,
       isBrowser: true,
+      versions: {
+        node: "v19.3.0",
+      },
     },
     browser: true,
   }),
-};
-
-// const definePrd = {
-//   "process.env.NODE_ENV": `"production"`,
-//   "process.env.NODE_DEBUG": JSON.stringify(false),
-//   "process.browser": JSON.stringify(true),
-//   "process.env.DEBUG": JSON.stringify(false),
-//   "isBrowser": JSON.stringify(true),
-//   "isJest": JSON.stringify(false),
-//   "process.env.version": "\"1.1.1\"",
-//   global: "globalThis",
-//   "WORKER_DOM_DEBUG": JSON.stringify(false),
-//   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
-//   // "libFileMap": JSON.stringify({}),
-//   process: JSON.stringify({
-//     env: {
-//       NODE_ENV: `production`,
-//       browser: true,
-//       NODE_DEBUG: false,
-//       DEBUG: false,
-//       isBrowser: true,
-//     },
-//     browser: true,
-//   }),
-// };
+});
+const define = makeEnv("development");
 
 export let skipImportmapReplaceNames = false;
 // export const build = async (
@@ -154,7 +144,7 @@ export let skipImportmapReplaceNames = false;
 //     outdir: `./`,
 //     treeShaking: true,
 //     minify: false,
-//     define: define,
+// define: define,
 //     minifyIdentifiers: false,
 //     minifySyntax: false,
 //     minifyWhitespace: false,
@@ -225,7 +215,7 @@ export const buildT = async (
       ".ttf",
     ],
     loader: {
-      ".js": "tsx",
+      ".js": "js",
       ".mjs": "js",
       ".json": "json",
       ".tsx": "tsx",
@@ -253,7 +243,8 @@ export const buildT = async (
 
     splitting: true,
     incremental: true,
-    jsxImportSource: "@emotion/react",
+    // jsxImportSource: "@emotion/react",
+
     format: "esm",
     entryPoints: [
       `./live/${codeSpace}/index.js`,
