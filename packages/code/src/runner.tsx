@@ -1,6 +1,6 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
-// import { buildT } from "./esbuildEsm";
+import { buildT } from "./esbuildEsm";
 // import { transpile } from "./transpile";
 import { sw } from "./hydrate";
 import { syncWS } from "./ws";
@@ -16,7 +16,10 @@ import { // HTML, importMapReplace, md5,
 } from "./ws";
 // import { createHTML } from "./starter";
 //
-// Object.assign(globalThis, { buildT });
+Object.assign(globalThis, {
+  build: (codeSpace: string, opts) =>
+    buildT(codeSpace, location.origin, (new AbortController()).signal, { bundle: true, ...opts }),
+});
 
 const origin = location.origin;
 // const IIFE = {};

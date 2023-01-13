@@ -210,10 +210,6 @@ const createResponse = async (request: Request) => {
       ) as string,
     );
 
-    const code2 = await readFile(
-      `/live/${codeSpace}/index.tsx`,
-    ) as string;
-
     const respText = HTML.replace(
       "/**reset*/",
       resetCSS,
