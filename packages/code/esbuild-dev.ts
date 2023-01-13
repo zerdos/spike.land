@@ -114,7 +114,7 @@ const buildOptions: esbuild.BuildOptions = {
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
-  external: ["./mST", "/npm:*", "../../npm:/*, ", "__STATIC_CONTENT_MANIFEST", "__STATIC_CONTENT_MANIFEST"],
+  external: ["./mST", "/npm:*/", "../../npm:/*, ", "__STATIC_CONTENT_MANIFEST", "__STATIC_CONTENT_MANIFEST"],
   legalComments: "none",
   resolveExtensions: [
     ".tsx",
