@@ -73,7 +73,7 @@ export function importMapReplace(
         && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/*" + slices[1] + "?bundle=true&dev";
+        slices[1] = origin + "/*" + slices[1];
         return slices.join(`"`);
       }
       if (
