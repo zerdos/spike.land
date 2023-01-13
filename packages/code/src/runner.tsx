@@ -1,6 +1,6 @@
 // Import type { Dispatch, ReactNode, SetStateAction } from "react";
 // import { Mutex } from "async-mutex";
-import { buildT } from "./esbuildEsm";
+// import { buildT } from "./esbuildEsm";
 // import { transpile } from "./transpile";
 import { sw } from "./hydrate";
 import { syncWS } from "./ws";
@@ -17,11 +17,12 @@ import { // HTML, importMapReplace, md5,
 // import { createHTML } from "./starter";
 //
 Object.assign(globalThis, {
-  build: (codeSpace: string, opts) =>
-    buildT(codeSpace, location.origin, (new AbortController()).signal, { bundle: true, ...opts }),
+  build: (codeSpace: string, opts: any) => () =>
+    import("./esbuildEsm").then(eb =>
+      eb.buildT(codeSpace, location.origin, (new AbortController()).signal, { bundle: true, ...opts }())
+    ),
 });
 
-const origin = location.origin;
 // const IIFE = {};
 
 // export const umdTransform = async (code: string) => {
@@ -152,32 +153,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
   s = signal;
   console.log({ counter });
   if (counter <= counterMax) return;
-  // if (!rpcProvider) {
-  // rpcProvider = new RpcProvider(
-  // (message, transfer) => iRef.current.contentWindow.postMessage(message, transfer),
-  // );
 
-  // iRef.current.contentWindow.onmessage = e => rpcProvider.dispatch(e.data);
-  // }
   counterMax = counter;
   sess.i = counterMax;
   sess.code = code;
 
-  // await mutex.runExclusive(async () => {
-  // Console.log({ i, counter });
-
-  // mod.i = counter;
-
-  // if (code === mST().code) return;
-  // if (mod.i > counter) return;
-
   try {
-    // const ab = new AbortController();
-    // const pp = await buildT(codeSpace, counter, ab.signal);
-    // if (!pp) return;
-
-    //    sess.transpiled = await transpile(code);
-
     if (signal.aborted) return;
 
     const data = await sw.messageSW({
@@ -188,68 +169,8 @@ export async function runner({ code, counter, codeSpace, signal }: {
     });
 
     BC.postMessage({ ...data });
-
-    // console.log("still alive2");
-    // // patchSync(sess);
-    // console.log("still alive3");
-
-    // const built = await build(code, counter, controller.signal);
-    // if (!built) return;
-    // const { html, css } = await render(transpiledCode, codeSpace);
-    //
-    // console.log({ html, css });
-
-    // if (!html) {
-    // return;
-    // }
-    // console.log("still alive1");
-    // // sess = {
-    // //   ...mST(),
-    // //   code,
-    // //   // codeSpace,
-    // //   i: counter,.
-    // //   transpiled: transpiledCode,
-    // //   html,
-    // //   css,
-    // // };
-    // console.log("still alive2");
-    // // patchSync(sess);
-    // console.log("still alive3");
-    // // syncWS(sess);
-    // console.log("still alive4");
   } catch (error) {
     console.error({ error });
   } finally {
   }
-  // });
 }
-
-// function prerender(transpiled: string, origin: string, codeSpace: string) {
-//   const ASSET_HASH = md5(transpiled);
-
-//   const js = importMapReplace(transpiled, location.origin, location.origin).replace(
-//     `export {`,
-//     "const ModASSET_HASH = stdin_default;",
-//   ).replace("stdin_default as default", "").slice(0, -3);
-
-//   return createHTML(
-//     HTML.replace(
-//       "/**reset*/",
-//       resetCSS,
-//     )
-//       .replace(
-//         `<div id="root"></div>`,
-//         `
-//         <div id="root" style="height: 100%;"></div>
-//         <script type="module">
-
-//         import {render, prerender} from "${origin}/src/render.mjs";
-
-//         ${js}
-
-//         prerender(ModASSET_HASH).then(res=>window.parent.postMessage(res))
-
-//         </script>`,
-//       ).split("ASSET_HASH").join(ASSET_HASH),
-//   );
-// }
