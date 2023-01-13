@@ -224,7 +224,11 @@ export const buildT = async (
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    external: [origin + "/src/*", "/src/*"],
+    external: [
+      "http-url:" + origin + "/src/*",
+      origin + "/src/*",
+      "/src/*",
+    ],
 
     metafile: true,
     alias: {
