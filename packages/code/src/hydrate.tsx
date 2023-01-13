@@ -15,9 +15,9 @@ export { md5 };
 import { run } from "./ws";
 
 import { Workbox } from "workbox-window";
-export const sw = new Workbox("/sw.js", { immediate: true });
+export const sw = new Workbox("/sw.js");
 
-await sw.register({ immediate: true });
+await sw.register();
 
 // sw.messageSkipWaiting();
 // if ("serviceWorker" in navigator) {

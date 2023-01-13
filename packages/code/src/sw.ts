@@ -1,16 +1,22 @@
+import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
+import type * as FS from "./fs";
+declare const self:
+  & ServiceWorkerGlobalScope
+  & { files: { [key: string]: string }; fileCacheName: string }
+  & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 export type {};
 
 // import { randomUUID } from "crypto";
-import throttle from "lodash.throttle";
+// import throttle from "lodash.throttle";
 import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 import ReconnectingWebSocket from "./reconnWs.mjs";
 // import { HTML, md5, resetCSS } from "./session";
 // import { onConnectToClients } from "./sharedWorker";
-self.ReconnectingWebSocket = ReconnectingWebSocket;
+// self.ReconnectingWebSocket = ReconnectingWebSocket;
 // onConnectToClients();
 // var originalFetch = require("isomorphic-fetch");
 // var fetch = require("fetch-retry")(originalFetch, {
@@ -18,7 +24,7 @@ self.ReconnectingWebSocket = ReconnectingWebSocket;
 //   retryDelay: 800,
 // });
 
-const { writeFile, readDir, readFile, unlink, mkdir, Mutex, transpile } = self;
+const { mkdir } = self;
 
 const connections = self.connections = self.connections || {};
 
@@ -77,7 +83,7 @@ self.onmessage = async (event) => {
   const transpiled = await transpile(data.code);
 
   setTimeout(async () => {
-    if (signal.aborted) return null;
+    if (signal.aborted) return;
     if (data.type === "prerender" && data.code && !data.html) {
       try {
         await mkdir("/");
@@ -97,38 +103,37 @@ self.onmessage = async (event) => {
   return event.ports[0].postMessage({ ...data, transpiled });
 };
 
-let ASSET_HASH = "assetHashNotFound";
-declare const self: ServiceWorkerGlobalScope & { files: { [key: string]: string }; fileCacheName: string };
+// let ASSET_HASH = "assetHashNotFound";
 
-const mutex = new Mutex();
-async function getFiles() {
-  mutex.isLocked() && await mutex.waitForUnlock();
+// const mutex = new Mutex();
+// async function getFiles() {
+//   mutex.isLocked() && await mutex.waitForUnlock();
 
-  try {
-    await mutex.acquire();
-    const files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
+//   try {
+//     await mutex.acquire();
+//     const files = await (await fetch(location.origin + "/files.json")).json<{ [key: string]: string }>();
 
-    self.files = files;
-    self.fileCacheName = md5(self.files);
-    ASSET_HASH = files[ASSET_HASH] || "filesDoesntHaveAssetHash";
+//     self.files = files;
+//     self.fileCacheName = md5(self.files);
+//     ASSET_HASH = files[ASSET_HASH] || "filesDoesntHaveAssetHash";
 
-    const currentChunks = Object.values(self.files);
-    caches.keys().then(myCaches =>
-      myCaches.map(x => {
-        if (x !== "chunks" && x !== self.fileCacheName) caches.delete(x);
-      })
-    );
+//     const currentChunks = Object.values(self.files);
+//     caches.keys().then(myCaches =>
+//       myCaches.map(x => {
+//         if (x !== "chunks" && x !== self.fileCacheName) caches.delete(x);
+//       })
+//     );
 
-    const chunkCaches = await caches.open("chunks");
+//     const chunkCaches = await caches.open("chunks");
 
-    await (await (await caches.open("chunks")).keys()).filter(x => !currentChunks.includes(new URL(x.url).pathname))
-      .map(
-        x => chunkCaches.delete(x),
-      );
-  } finally {
-    mutex.release();
-  }
-}
+//     await (await (await caches.open("chunks")).keys()).filter(x => !currentChunks.includes(new URL(x.url).pathname))
+//       .map(
+//         x => chunkCaches.delete(x),
+//       );
+//   } finally {
+//     mutex.release();
+//   }
+// }
 
 // import { renderToStream } from "./renderToStream";
 
@@ -150,10 +155,10 @@ async function getFiles() {
 // }
 
 // let lastChecked = 0;
-let npmCache: Cache | null;
+// let npmCache: Cache | null;
 
-let chunkCache: Cache | null;
-let fileCache: Cache | null;
+// let chunkCache: Cache | null;
+// let fileCache: Cache | null;
 // let cacheName = "default";
 // let files: { [k: string]: string } = {};
 // const assets: { [assetHash: string]: Promise<typeof files> } = {};
@@ -174,14 +179,14 @@ let fileCache: Cache | null;
 //     assets[assetHash].then((f) => files = f);
 //   });
 
-const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
+// const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
 
 const createResponse = async (request: Request) => {
   // const controller = new AbortController();
-  await getFilesThrottled();
-  if (mutex.isLocked()) {
-    await mutex.waitForUnlock();
-  }
+  // await getFilesThrottled();
+  // if (mutex.isLocked()) {
+  //   await mutex.waitForUnlock();
+  // }
 
   let url = new URL(request.url);
   if (url.origin !== self.location.origin || request.method === "POST") {
@@ -233,7 +238,7 @@ const createResponse = async (request: Request) => {
     }
     </script>` + (url.pathname !== `/live/${codeSpace}/dehydrated`
         ? `<script type="module">
-        import {render} from "${url.origin}/src/render.mjs?v=${ASSET_HASH}";
+        import {render} from "${url.origin}/src/render.mjs";
               
         const rootEl = document.getElementById("${codeSpace}-css");
 
@@ -291,8 +296,8 @@ const createResponse = async (request: Request) => {
     } catch {
     }
   }
-
-  let isChunk = url.pathname.includes("chunk-");
+  return fetch(request);
+  // let isChunk = url.pathname.includes("chunk-");
   // if (files && files[url.pathname.slice(1)]) {
   //   isChunk = true;
   //   url = new URL(files[url.pathname.slice(1)], url.origin);
@@ -337,13 +342,13 @@ const createResponse = async (request: Request) => {
   // }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  const myCache = url.pathname.includes("npm:/v")
-    ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
-    : (url.pathname.includes("chunk-") || isChunk)
-    ? (chunkCache = chunkCache || await caches.open("chunks"))
-    : (fileCache = fileCache || await caches.open(self.fileCacheName));
+  // const myCache = url.pathname.includes("npm:/v")
+  // ? (npmCache = npmCache || await caches.open(url.pathname.slice(0, 10)))
+  // : (url.pathname.includes("chunk-") || isChunk)
+  // ? (chunkCache = chunkCache || await caches.open("chunks"))
+  // : (fileCache = fileCache || await caches.open(self.fileCacheName));
 
-  if (url.pathname.length < 2) return fetch(request);
+  // if (url.pathname.length < 2) return fetch(request);
   // if (Date.now() - lastChecked > 40_000) {
   // lastChecked = Date./now();
   // setTimeout(() => getCacheName());
@@ -355,62 +360,62 @@ const createResponse = async (request: Request) => {
   //   url = new URL(location.origin + "/:z:" + btoa(url.toString()));
   // }
 
-  const cacheKey = new Request(
-    url,
-  );
+  // const cacheKey = new Request(
+  //   url,
+  // );
 
-  let response = await myCache.match(cacheKey);
+  // let response// = await myCache.match(cacheKey);
 
-  if (response) return response;
+  // if (response) return response;
 
-  try {
-    request = new Request(request.url, { ...request, redirect: "follow" });
-    response = await fetch(request);
-    if (!response.ok) return response;
+  // try {
+  //   request = new Request(request.url, { ...request, redirect: "follow" });
+  //   response = await fetch(request);
+  //   if (!response.ok) return response;
 
-    // response = new Response(response.body, response);
-    if (
-      !response.ok
-    ) {
-      return response;
-    }
+  //   // response = new Response(response.body, response);
+  //   // if (
+  //   //   !response.ok
+  //   // ) {
+  //   //   return response;
+  //   // }
 
-    // if (
-    //   (url.pathname.indexOf(".ts") !== -1
-    //     || url.pathname.indexOf(".tsx") !== -1)
-    //   && url.pathname.indexOf(".d.ts") === -1
-    // ) {
-    //   const transformed = (await transform(await response.text(), {
-    //     format: "esm",
-    //     loader: "tsx",
-    //     target: "es2022",
-    //   })).code;
-    //   if (typeof transformed !== "string") {
-    //     return new Response("500 transpile error", { status: 500 });
-    //   }
+  //   // if (
+  //   //   (url.pathname.indexOf(".ts") !== -1
+  //   //     || url.pathname.indexOf(".tsx") !== -1)
+  //   //   && url.pathname.indexOf(".d.ts") === -1
+  //   // ) {
+  //   //   const transformed = (await transform(await response.text(), {
+  //   //     format: "esm",
+  //   //     loader: "tsx",
+  //   //     target: "es2022",
+  //   //   })).code;
+  //   //   if (typeof transformed !== "string") {
+  //   //     return new Response("500 transpile error", { status: 500 });
+  //   //   }
 
-    //   response = new Response(transformed, {
-    //     ...response,
-    //     status: 200,
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "*",
-    //       "Cache-Control": "no-cache",
-    //       "Content-Type": "application/json; charset=UTF-8",
-    //     },
-    //   });
-    // }
-    if (
-      response.headers.get("Cache-Control") !== "no-cache" || isChunk
-    ) {
-      await myCache.put(cacheKey, response.clone());
-    }
-    return response;
-  } catch (err) {
-    return new Response("oh no! " + JSON.stringify({ err }), {
-      status: 500,
-      statusText: `Could not fetch:  ${request.url}`,
-    });
-  }
+  //   //   response = new Response(transformed, {
+  //   //     ...response,
+  //   //     status: 200,
+  //   //     headers: {
+  //   //       "Access-Control-Allow-Origin": "*",
+  //   //       "Cache-Control": "no-cache",
+  //   //       "Content-Type": "application/json; charset=UTF-8",
+  //   //     },
+  //   //   });
+  //   // }
+  //   // if (
+  //   //   response.headers.get("Cache-Control") !== "no-cache" || isChunk
+  //   // ) {
+  //   //   await myCache.put(cacheKey, response.clone());
+  //   // }
+  //   return response;
+  // } catch (err) {
+  //   return new Response("oh no! " + JSON.stringify({ err }), {
+  //     status: 500,
+  //     statusText: `Could not fetch:  ${request.url}`,
+  //   });
+  // }
 };
 
 self.addEventListener("fetch", function(event) {
