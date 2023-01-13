@@ -3,7 +3,6 @@ import type { DurableObject, Request, Response } from "@cloudflare/workers-types
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-import { prettierJs } from "../../code/src/prettierEsm";
 import shaSum from "./dist.shasum";
 
 // import imap from "@spike.land/code/src/importMap.json";
@@ -494,7 +493,7 @@ const api: DurableObject = {
               `,
                 {
                   headers: {
-                    "Content-Type": "application/javascript; charset=UTF-8",
+                    "content-type": "application/javascript; charset=utf-8",
                     "Cache-Control": "no-cache",
                   },
                 },
@@ -516,9 +515,7 @@ const api: DurableObject = {
             );
             const bodyStr = isText
               ? importMapReplace(
-                prettierJs(
-                  await response.text(),
-                ),
+                await response.text(),
                 u.origin,
                 isDTS ? xTs : response.url,
               ).split("esm.sh").join(
