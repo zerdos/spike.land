@@ -29,40 +29,40 @@ export function importMapReplace(
 
   returnStr.split("/::").join(origin);
   if (!returnStr) return returnStr;
-  const url = relativeUrl || origin;
-  const baSe = (new URL(".", url)).toString();
-  const parent = (new URL("..", url)).toString();
-  const gParent = (new URL("../..", url)).toString();
-  const ggParent = (new URL("../../..", url)).toString();
+  // const url = relativeUrl || origin;
+  // const baSe = (new URL(".", url)).toString();
+  // const parent = (new URL("..", url)).toString();
+  // const gParent = (new URL("../..", url)).toString();
+  // const ggParent = (new URL("../../..", url)).toString();
 
   // returnStr = replaceAll(returnStr, `from"`, `from "}`);
-  returnStr = replaceAll(
-    returnStr,
-    `reference path="./`,
-    `reference path="${baSe}`,
-  );
+  // returnStr = replaceAll(
+  // returnStr,
+  // `reference path="./`,
+  // `reference path="${baSe}`,
+  // );
   returnStr = replaceAll(returnStr, `import"`, `import "`);
 
-  returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
-  returnStr = replaceAll(
-    returnStr,
-    `import("../../../`,
-    ` import("${ggParent}`,
-  );
-  returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
-  returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
-  returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
-  returnStr = replaceAll(
-    returnStr,
-    `import "../../../`,
-    ` import "${ggParent}`,
-  );
-  returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
-  returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
-  returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
-  returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
-  returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
-  returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
+  // returnStr = replaceAll(returnStr, ` from "../../../`, ` from "${ggParent}`);
+  // returnStr = replaceAll(
+  // returnStr,
+  //   `import("../../../`,
+  //   ` import("${ggParent}`,
+  // );
+  // returnStr = replaceAll(returnStr, `import("../../`, ` import("${gParent}`);
+  // returnStr = replaceAll(returnStr, `import("../`, ` import("${parent}`);
+  // returnStr = replaceAll(returnStr, `import("./`, ` import("${baSe}`);
+  // returnStr = replaceAll(
+  //   returnStr,
+  //   `import "../../../`,
+  //   ` import "${ggParent}`,
+  // );
+  // returnStr = replaceAll(returnStr, `import "../../`, ` import "${gParent}`);
+  // returnStr = replaceAll(returnStr, `import "../`, ` import "${parent}`);
+  // returnStr = replaceAll(returnStr, `import "./`, ` import "${baSe}`);
+  // returnStr = replaceAll(returnStr, ` from "../../`, ` from "${gParent}`);
+  // returnStr = replaceAll(returnStr, ` from "../`, ` from "${parent}`);
+  // returnStr = replaceAll(returnStr, ` from "./`, ` from "${baSe}`);
 
   let oldUrl: URL;
   returnStr = returnStr.split(";").map((x) => x.indexOf("import") !== -1 ? x.trim() : x).map((Y) =>
@@ -70,7 +70,7 @@ export function importMapReplace(
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
         x.startsWith("import") && x.indexOf(`"`) !== -1
-        && x.indexOf(`https://`) === -1 && x.indexOf(origin) === -1
+        && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1
       ) {
         const slices = x.split(`"`);
         slices[1] = origin + "/*" + slices[1];
