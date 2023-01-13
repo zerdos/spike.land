@@ -301,11 +301,14 @@ const createResponse = async (request: Request) => {
     } catch {
     }
   }
-  response = await fetch(request);
+  let response = await fetch(request);
 
   if (!response.ok) return response;
 
-  let response = new Response(response.body, response);
+  response = new Response(response.body, response);
+
+  const ct = response.headers.get("Content-Type") || "";
+
   if (
     response.headers.get("Content-Type").indexOf("application") !== -1
     && response.headers.get("Content-Type").indexOf("charset") !== -1
