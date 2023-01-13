@@ -188,8 +188,8 @@ BC.onmessage = async ({ data }) => {
     const myMod = mod[i] || {
       i,
       signal: controller.signal,
-      root,
-      rootEl,
+      root: myroot,
+      rootEl: el,
       retry: 100,
     };
     // const r = createRoot(newRoot);
