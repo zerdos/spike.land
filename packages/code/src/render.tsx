@@ -167,7 +167,7 @@ BC.onmessage = async ({ data }) => {
     const el = document.createElement("div");
     el.style.opacity = "0";
     el.style.height = "100%";
-    document.getElementById("root")!.appendChild(el);
+    document.body.appendChild(el);
 
     const myRoot = createRoot(el);
     const App = await appFactory(data.transpiled);
@@ -213,13 +213,15 @@ BC.onmessage = async ({ data }) => {
         // root.unmount();
         // root = r;
         root.unmount();
-        root = m.root;
+
+        // root = m.root;
 
         m.rootEl.style.opacity = "1";
         m.rootEl.style.height = "100%";
         //        rootEl = m.rootEl;
-        document.getElementById("root")?.removeChild(document.getElementById(codeSpace + "-css")!);
-        m.rootEl.setAttribute("id", codeSpace + "-css");
+        document.getElementById("root")?.remove();
+
+        m.rootEl.id = "root";
 
         BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
         controller.abort();
