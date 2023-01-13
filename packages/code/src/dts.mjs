@@ -91,7 +91,10 @@ export const tsx = (src, options) => {
 };
 
 function extractDependencyFromRequire(node) {
-  if (node.arguments[0].type === "Literal" || node.arguments[0].type === "StringLiteral") {
+  if (
+    node.arguments[0].type === "Literal"
+    || node.arguments[0].type === "StringLiteral"
+  ) {
     return node.arguments[0].value;
   }
 

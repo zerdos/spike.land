@@ -208,7 +208,10 @@ function ReconnectingWebSocket(url, protocols, options) {
     ws.binaryType = this.binaryType;
 
     if (reconnectAttempt) {
-      if (this.maxReconnectAttempts && this.reconnectAttempts > this.maxReconnectAttempts) {
+      if (
+        this.maxReconnectAttempts
+        && this.reconnectAttempts > this.maxReconnectAttempts
+      ) {
         return;
       }
     } else {
@@ -264,16 +267,27 @@ function ReconnectingWebSocket(url, protocols, options) {
           eventTarget.dispatchEvent(generateEvent("close"));
         }
 
-        var timeout = self.reconnectInterval * Math.pow(self.reconnectDecay, self.reconnectAttempts);
-        setTimeout(function() {
-          self.reconnectAttempts++;
-          self.open(true);
-        }, timeout > self.maxReconnectInterval ? self.maxReconnectInterval : timeout);
+        var timeout = self.reconnectInterval
+          * Math.pow(self.reconnectDecay, self.reconnectAttempts);
+        setTimeout(
+          function() {
+            self.reconnectAttempts++;
+            self.open(true);
+          },
+          timeout > self.maxReconnectInterval
+            ? self.maxReconnectInterval
+            : timeout,
+        );
       }
     };
     ws.onmessage = function(event) {
       if (self.debug || ReconnectingWebSocket.debugAll) {
-        console.debug("ReconnectingWebSocket", "onmessage", self.url, event.data);
+        console.debug(
+          "ReconnectingWebSocket",
+          "onmessage",
+          self.url,
+          event.data,
+        );
       }
       var e = generateEvent("message");
       e.data = event.data;

@@ -24,7 +24,7 @@ import ReconnectingWebSocket from "./reconnWs.mjs";
 //   retryDelay: 800,
 // });
 
-const { mkdir } = self;
+// const { mkdir } = self;
 
 const connections = self.connections = self.connections || {};
 
@@ -197,12 +197,14 @@ const createResponse = async (request: Request) => {
   const paths = url.pathname.split("/");
   const codeSpace = paths[2];
   if (
-    url.pathname === `/live/${codeSpace}/iframe` || url.pathname === `/live/${codeSpace}/`
-    || url.pathname === `/live/${codeSpace}/public` || url.pathname === `/live/${codeSpace}/dehydrated`
+    url.pathname === `/live/${codeSpace}/iframe`
+    || url.pathname === `/live/${codeSpace}/`
+    || url.pathname === `/live/${codeSpace}/public`
+    || url.pathname === `/live/${codeSpace}/dehydrated`
   ) {
     // return renderToStream("clock3");
 
-    const { css, html, i, code } = JSON.parse(
+    const { css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
       ) as string,
@@ -269,7 +271,8 @@ const createResponse = async (request: Request) => {
   }
   if (
     url.pathname.startsWith("/live")
-    && (url.pathname.indexOf(".js") !== -1 || url.pathname.indexOf(".mjs") !== -1
+    && (url.pathname.indexOf(".js") !== -1
+      || url.pathname.indexOf(".mjs") !== -1
       || url.pathname.indexOf(".tsx") !== -1)
   ) {
     try {

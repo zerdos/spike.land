@@ -66,7 +66,11 @@ type MessageProps = Partial<{
 
 const ws = {
   blockedMessages: [] as MessageProps[],
-  post: (json: Partial<CodePatch & ICodeSession & { hashCode: string } & IFirstRender>) =>
+  post: (
+    json: Partial<
+      CodePatch & ICodeSession & { hashCode: string } & IFirstRender
+    >,
+  ) =>
     ky.post(location.href, {
       json,
       retry: {
@@ -149,7 +153,8 @@ export class Code {
           // await Promise.all([
           // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
           // .text().then((x) => this.head = Number(x)),
-          const startSess = await ky(`${origin}/live/${codeSpace}/session`).json<ICodeSession>();
+          const startSess = await ky(`${origin}/live/${codeSpace}/session`)
+            .json<ICodeSession>();
           // ]);
           this.session = makeSession(startSess);
           this.sess = this.session;
@@ -159,9 +164,14 @@ export class Code {
             "head",
             Number(this.head),
           ) as number;
-          await ldb(codeSpace).setItem(String(this.head), this.sess) as (ICodeSession | false);
+          await ldb(codeSpace).setItem(
+            String(this.head),
+            this.sess,
+          ) as (ICodeSession | false);
         } else {
-          const startSess = await ldb(codeSpace).getItem(String(head)) as ICodeSession;
+          const startSess = await ldb(codeSpace).getItem(
+            String(head),
+          ) as ICodeSession;
           this.session = makeSession(startSess);
           this.sess = this.session;
 
@@ -300,7 +310,10 @@ export class Code {
       const code = await prettier(globalThis.session.code);
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
-        if ((data.type === "prerender" || data.type === "prerender") && data.html && data.css && data.i && data.code) {
+        if (
+          (data.type === "prerender" || data.type === "prerender")
+          && data.html && data.css && data.i && data.code
+        ) {
           console.log({ data });
           firstRenderSent = true;
           const { html, css } = data;
@@ -366,7 +379,12 @@ export const codeSession = async () => {
 
 export const sess = globalThis.session;
 
-Object.assign(globalThis, { sess, hash: (val: ICodeSession) => makeHash(val), makeSession, cSess: () => cSess });
+Object.assign(globalThis, {
+  sess,
+  hash: (val: ICodeSession) => makeHash(val),
+  makeSession,
+  cSess: () => cSess,
+});
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 

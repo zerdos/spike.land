@@ -20,12 +20,16 @@ export { md5 };
 
 export const makeHash = (cx: ICodeSession) => String(Immutable.hash(string_(cx)));
 
-export const makeSession: (p: ICodeSession) => ICodeSession = (p = { i: 0, code: "", html: "", css: "" }) =>
+export const makeSession: (p: ICodeSession) => ICodeSession = (
+  p = { i: 0, code: "", html: "", css: "" },
+) =>
   Record({ i: 0, code: "", html: "", css: "" })({
     i: p.i || 0,
     code: p.code || `export default ()=> <>Nothing</>`,
     html: p.html || "",
-    css: (p.css || "").split(".css-").filter(x => x.startsWith("html") || (p.html || "").indexOf(x.slice(0, 5)) !== -1)
+    css: (p.css || "").split(".css-").filter((x) =>
+      x.startsWith("html") || (p.html || "").indexOf(x.slice(0, 5)) !== -1
+    )
       .join(".css-"),
   }).toJS();
 

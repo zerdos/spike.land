@@ -25,7 +25,7 @@ export const transpile = (code: string) =>
         },
       },
       target: "es2022",
-    }).then(x => importMapReplace(x.code, location.origin, location.origin))
+    }).then((x) => importMapReplace(x.code, location.origin, location.origin))
   );
 
 Object.assign(self, { transpile });

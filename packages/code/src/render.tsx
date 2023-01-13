@@ -15,7 +15,6 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 let root: Root;
-let rootEl: HTMLDivElement;
 globalThis.firstRender = globalThis.firstRender || {
   html: "",
   css: "",
@@ -29,7 +28,9 @@ export const render = async (
 ) => {
   let App;
   try {
-    App = (await import(location.origin + "/live/" + codeSpace + "/index.js?i=" + counter)).default;
+    App = (await import(
+      location.origin + "/live/" + codeSpace + "/index.js?i=" + counter
+    )).default;
   } catch (err) {
     App = () => (
       <div>
@@ -50,7 +51,7 @@ export const render = async (
 
   cache.compat = undefined;
 
-  rootEl = _rootEl;
+  // rootEl = _rootEl;
   root = createRoot(el);
   root.render(
     <CacheProvider value={cache}>
@@ -121,7 +122,9 @@ function mineFromCaches(cache: EmotionCache, html: string) {
   // const key = "css";
   const key = cache.key || "css";
   try {
-    return Array.from(document.querySelectorAll(`style[data-styled-jsx`)).map(x => x.textContent)
+    return Array.from(document.querySelectorAll(`style[data-styled-jsx`)).map(
+      (x) => x.textContent,
+    )
       + Array.from(
         document.querySelectorAll(`style[data-emotion="${key}"]`),
       ).map((x) => x.textContent).join(
@@ -228,7 +231,13 @@ BC.onmessage = async ({ data }) => {
 
         m.rootEl.id = "root";
 
-        BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
+        BC.postMessage({
+          html,
+          css,
+          i: data.i,
+          type: "prerender",
+          code: data.code,
+        });
         controller.abort();
         // root.unmount();
         return;

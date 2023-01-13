@@ -177,7 +177,12 @@ export async function runner({ code, counter, codeSpace, signal }: {
 
     if (signal.aborted) return;
 
-    const data = await sw.messageSW({ i: counter, code, type: "prerender", codeSpace });
+    const data = await sw.messageSW({
+      i: counter,
+      code,
+      type: "prerender",
+      codeSpace,
+    });
 
     BC.postMessage({ ...data });
 

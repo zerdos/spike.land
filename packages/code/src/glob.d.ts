@@ -11,7 +11,10 @@ import { ICodeSession } from "./session";
 
 declare global {
   var sharedWorker: SharedWorker;
-  var superFetch: (input: RequestInfo, init?: RequestInitWithRetry) => Promise<Response>;
+  var superFetch: (
+    input: RequestInfo,
+    init?: RequestInitWithRetry,
+  ) => Promise<Response>;
   var firstRender: {
     code: string;
     css: string;

@@ -170,7 +170,12 @@ const Editor: FC<
     </Rnd>
   );
 
-  async function setMonaco(container: HTMLDivElement, codeSpace: string, code: string, i: number) {
+  async function setMonaco(
+    container: HTMLDivElement,
+    codeSpace: string,
+    code: string,
+    i: number,
+  ) {
     if (startedM) return;
     startedM = 1;
     const link = document.createElement("link");

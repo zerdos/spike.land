@@ -1,7 +1,11 @@
 import { tsx } from "./dts.mjs";
 
 export async function ata(
-  { code, originToUse, prettierJs }: { code: string; originToUse: string; prettierJs: (code: string) => string },
+  { code, originToUse, prettierJs }: {
+    code: string;
+    originToUse: string;
+    prettierJs: (code: string) => string;
+  },
 ) {
   console.log(`ATA run: ${originToUse} ${code}`);
 
