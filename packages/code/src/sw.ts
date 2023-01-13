@@ -314,7 +314,10 @@ const createResponse = async (request: Request) => {
       && ct.indexOf("charset") !== -1) || request.url.endsWith(".js") || request.url.endsWith(".mjs"))
     && !request.url.endsWith(".json")
   ) {
-    return new Response(importMapReplace(prettierJs(await response.text()), location.origin, response.url), response);
+    return new Response(
+      importMapReplace(prettierJs(await response.text()), location.origin, response.url, true, false),
+      response,
+    );
   }
 
   return response;
