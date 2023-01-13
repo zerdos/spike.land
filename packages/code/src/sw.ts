@@ -175,9 +175,13 @@ let fileCache: Cache | null;
 //     assets[assetHash].then((f) => files = f);
 //   });
 
+const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
+
 const createResponse = async (request: Request) => {
+  // const controller = new AbortController();
+  await getFilesThrottled();
   if (mutex.isLocked()) {
-    mutex.waitForUnlock();
+    await mutex.waitForUnlock();
   }
 
   let url = new URL(request.url);
@@ -410,9 +414,6 @@ const createResponse = async (request: Request) => {
   }
 };
 
-const getFilesThrottled = throttle(getFiles, 60_000, { trailing: true, leading: false });
-self.addEventListener("fetch", async function(event) {
-  await getFilesThrottled();
-
+self.addEventListener("fetch", function(event) {
   return event.respondWith((() => createResponse(event.request))());
 });
