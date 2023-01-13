@@ -1,5 +1,7 @@
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
+importScripts("/workerScripts/prettierEsm.js");
+
 import type * as FS from "./fs";
 declare const self:
   & ServiceWorkerGlobalScope
@@ -305,7 +307,7 @@ const createResponse = async (request: Request) => {
 
   let response = new Response(response.body, response);
 
-  return new Response(importMapReplace(await response.text(), origin, response.url), response);
+  return new Response(importMapReplace(prettierJs(await response.text()), origin, response.url), response);
 
   // let isChunk = url.pathname.includes("chunk-");
   // if (files && files[url.pathname.slice(1)]) {
