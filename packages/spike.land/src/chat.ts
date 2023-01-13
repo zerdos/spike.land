@@ -493,7 +493,7 @@ const api: DurableObject = {
               `,
                 {
                   headers: {
-                    "content-type": "application/javascript; charset=utf-8",
+                    "Content-Type": "application/javascript; charset=UTF-8",
                     "Cache-Control": "no-cache",
                   },
                 },

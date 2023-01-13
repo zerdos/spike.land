@@ -277,7 +277,7 @@ const createResponse = async (request: Request) => {
 
         return new Response(await transpile(file), {
           headers: {
-            "content-type": "application/javascript; charset=utf-8",
+            "Content-Type": "application/javascript; charset=UTF-8",
             "Cache-Control": "no-cache",
           },
         });
@@ -287,7 +287,7 @@ const createResponse = async (request: Request) => {
       if (file) {
         return new Response(file, {
           headers: {
-            "content-type": "application/javascript; charset=utf-8",
+            "Content-Type": "application/javascript; charset=UTF-8",
             "Cache-Control": "no-cache",
           },
         });
