@@ -113,7 +113,7 @@ export const prerender = async (App: FC) => {
         { key: "css" } as unknown as EmotionCache,
         html,
       );
-      root.unmount();
+      //      root.unmount();
       console.log({ html, css });
       return { html, css };
     }
