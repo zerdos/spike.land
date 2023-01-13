@@ -218,7 +218,7 @@ BC.onmessage = async ({ data }) => {
         m.rootEl.style.opacity = "1";
         m.rootEl.style.height = "100%";
         //        rootEl = m.rootEl;
-        document.getElementById(codeSpace + "-css")!.remove();
+        document.getElementById("root")?.removeChild(document.getElementById(codeSpace + "-css")!);
         m.rootEl.setAttribute("id", codeSpace + "-css");
 
         BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
