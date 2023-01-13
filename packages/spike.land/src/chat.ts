@@ -3,6 +3,7 @@ import type { DurableObject, Request, Response } from "@cloudflare/workers-types
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
+import { prettierJs } from "../../code/src/prettierEsm";
 import shaSum from "./dist.shasum";
 
 // import imap from "@spike.land/code/src/importMap.json";
