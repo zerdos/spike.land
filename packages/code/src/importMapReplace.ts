@@ -20,11 +20,11 @@ export function importMapReplace(
   ) as (keyof typeof importMapImports)[];
 
   items.map((lib: keyof typeof importMapImports) => {
-    const uri = (new URL(importMapImports[lib], origin)).toString();
+    // const uri = (new URL(importMapImports[lib], origin)).toString();
     if (importmapRep) {
-      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${uri}"`);
+      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${importMapImports[lib]}"`);
     }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
+    // returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
 
   returnStr.split("/::").join(origin);
