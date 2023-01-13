@@ -45,7 +45,7 @@ export const writeFile = (filePath: string, content: string | Uint8Array) =>
 written: ${new Date()}
   
 */
-` + importMapReplace(content as string, origin, origin)
+` + importMapReplace(content as string, origin)
         : content,
     );
   });

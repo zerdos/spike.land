@@ -69,7 +69,7 @@ self.onmessage = async (event) => {
         return;
       }
       if (data.type === "transpile") {
-        const transpiled = importMapReplace(await transpile(data.code), location.origin, location.origin);
+        const transpiled = importMapReplace(await transpile(data.code), location.origin);
         websocket.send(JSON.stringify({ ...data, transpiled }));
       }
 
@@ -83,6 +83,8 @@ self.onmessage = async (event) => {
   })();
 
   if (signal.aborted) return null;
+
+  const transpiled = importMapReplace(await transpile(data.code), location.origin);
 
   if (data.type === "prerender") {
     setTimeout(async () => {
@@ -98,12 +100,11 @@ self.onmessage = async (event) => {
           await unlink(`/live/${codeSpace}/index.tsx`);
           await unlink(`/live/${codeSpace}/index.js`);
           await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-          await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
+          await writeFile(`/live/${codeSpace}/index.js`, transpiled);
         }
       }
     }, 200);
   }
-  const transpiled = await transpile(data.code);
 
   if (signal.aborted) return null;
   return event.ports[0].postMessage({ ...data, transpiled });
@@ -271,36 +272,7 @@ const createResponse = async (request: Request) => {
       headers,
     });
   }
-  if (
-    url.pathname.startsWith("/live")
-    && (url.pathname.indexOf(".js") !== -1
-      || url.pathname.indexOf(".mjs") !== -1
-      || url.pathname.indexOf(".tsx") !== -1)
-  ) {
-    try {
-      if (url.pathname.indexOf("index.js") !== -1) {
-        const file = await readFile(`/live/${codeSpace}/index.tsx`);
 
-        return new Response(importMapReplace(await transpile(file), origin, request.url), {
-          headers: {
-            "Content-Type": "application/javascript; charset=UTF-8",
-            "Cache-Control": "no-cache",
-          },
-        });
-      }
-
-      // const file = await readFile(url.pathname);
-      // if (file) {
-      //   return new Response(file, {
-      //     headers: {
-      //       "Content-Type": "application/javascript; charset=UTF-8",
-      //       "Cache-Control": "no-cache",
-      //     },
-      //   });
-      // }
-    } catch {
-    }
-  }
   let response = await fetch(request);
 
   if (!response.ok) return response;
@@ -319,9 +291,6 @@ const createResponse = async (request: Request) => {
         // prettierJs(
         await response.text(),
         location.origin,
-        new URL("./", request.url).toString(),
-        true,
-        false,
       ),
       { headers: response.headers },
     );

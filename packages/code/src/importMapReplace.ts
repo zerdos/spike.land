@@ -5,9 +5,6 @@ const importMapImports = importMap.imports;
 export function importMapReplace(
   codeInp: string,
   origin: string,
-  relativeUrl: string,
-  importmapRep = true,
-  tsx = true,
 ) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
@@ -21,9 +18,8 @@ export function importMapReplace(
 
   items.map((lib: keyof typeof importMapImports) => {
     // const uri = (new URL(importMapImports[lib], origin)).toString();
-    if (importmapRep) {
-      returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${importMapImports[lib]}"`);
-    }
+
+    returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${importMapImports[lib]}"`);
   });
   returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   returnStr.split("/::").join(origin);
@@ -100,7 +96,7 @@ export function importMapReplace(
             oldUrl && oldUrl.pathname.indexOf(".") === -1
             && oldUrl.pathname.indexOf("/live/") !== -1
           ) {
-            slices[1] = oldUrl.toString() + (tsx ? "/index.tsx" : "/index.js");
+            slices[1] = oldUrl.toString() + "/index.js";
           }
         } catch {
           console.error("URL ERR", slices[1]);
