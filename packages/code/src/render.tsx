@@ -1,7 +1,6 @@
 import "react";
 import { EmotionCache } from "@emotion/cache";
 import type { FC } from "react";
-import ReactDOM from "react-dom";
 
 import createCache from "./emotionCache";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
@@ -171,10 +170,10 @@ BC.onmessage = async ({ data }) => {
     _rootEl.parentElement?.appendChild(el);
     _rootEl.parentElement;
 
-    const myroot = createRoot(el);
+    const myRoot = createRoot(el);
     const App = await appFactory(data.transpiled);
     const appId = md5(data.transpiled);
-    myroot.render(<App appId={appId} />);
+    myRoot.render(<App appId={appId} />);
 
     console.log("rerender", data.i);
 
@@ -185,53 +184,49 @@ BC.onmessage = async ({ data }) => {
     // rootEl.style.height = "100%";
 
     // const root = createRoot(rootEl);
-    const myMod = mod[i] || {
+    const m = mod[i] || {
       i,
       signal: controller.signal,
-      root: myroot,
+      root: myRoot,
       rootEl: el,
       retry: 100,
     };
     // const r = createRoot(newRoot);
 
-    if (myMod.signal.aborted) return;
+    if (m.signal.aborted) return;
 
-    check(myMod);
+    // check(myMod);
 
-    function check(m: typeof mod[0]) {
-      ReactDOM.flushSync(() => {
-        if (myMod.signal.aborted) {
-          // root.unmount();
-          return;
-        }
-        const html = m.rootEl.innerHTML;
-        if (html) {
-          const css = mineFromCaches(eCaches[appId], html);
-          // root.unmount();
-          console.log({ html, css, i: m.i });
-          // document.getElementById("root")?.appendChild(newRoot);
-          // root.unmount();
-          // root = r;
-          root.unmount();
-          root = m.root;
-          m.rootEl.style.opacity = "1";
-          m.rootEl.style.height = "100%";
-          rootEl = m.rootEl;
-          //          rootEl.replaceWith(m.rootEl);
+    // async function check(m: typeof mod[0]) {
+    // ReactDOM.flushSync(() => {
 
-          BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
-          controller.abort();
-          // root.unmount();
-          return;
-        }
-        m.retry = m.retry - 1;
+    while (m.retry--) {
+      if (m.signal.aborted) {
+        // root.unmount();
+        return;
+      }
+      const html = m.rootEl.innerHTML;
+      if (html) {
+        const css = mineFromCaches(eCaches[appId], html);
+        // root.unmount();
+        console.log({ html, css, i: m.i });
+        // document.getElementById("root")?.appendChild(newRoot);
+        // root.unmount();
+        // root = r;
+        root.unmount();
+        root = m.root;
+        m.rootEl.style.opacity = "1";
+        m.rootEl.style.height = "100%";
+        rootEl = m.rootEl;
+        //          rootEl.replaceWith(m.rootEl);
 
-        if (m.retry > 0) check(m);
-        else {
-          // root.unmount();
-          return { html: "", css: "" };
-        }
-      });
+        BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
+        controller.abort();
+        // root.unmount();
+        return;
+      }
+      await wait(1);
     }
+    return;
   }
 };
