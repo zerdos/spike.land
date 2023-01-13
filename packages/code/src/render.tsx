@@ -214,8 +214,8 @@ BC.onmessage = async ({ data }) => {
           // root = r;
           root.unmount();
           root = m.root;
-          m.rootEl.opacity = "1";
-          m.rootEl.height = "100%";
+          m.rootEl.style.opacity = "1";
+          m.rootEl.style.height = "100%";
           rootEl = m.rootEl;
           //          rootEl.replaceWith(m.rootEl);
 
