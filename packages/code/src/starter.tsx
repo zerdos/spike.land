@@ -390,7 +390,7 @@ export async function appFactory(
     try {
       eCaches[hash] = eCaches[hash] || createCache({
         key: hash,
-        speedy: false,
+        speedy: true,
       });
 
       eCaches[hash].compat = undefined;
