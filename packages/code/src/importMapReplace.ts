@@ -7,7 +7,7 @@ export function importMapReplace(
   origin: string,
   relativeUrl: string,
   importmapRep = true,
-  tsx = false,
+  tsx = true,
 ) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
@@ -24,9 +24,8 @@ export function importMapReplace(
     if (importmapRep) {
       returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${importMapImports[lib]}"`);
     }
-    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
-
+  returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   returnStr.split("/::").join(origin);
   if (!returnStr) return returnStr;
   // const url = relativeUrl || origin;
