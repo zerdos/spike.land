@@ -214,11 +214,12 @@ BC.onmessage = async ({ data }) => {
         // root = r;
         root.unmount();
         root = m.root;
+
         m.rootEl.style.opacity = "1";
         m.rootEl.style.height = "100%";
         //        rootEl = m.rootEl;
-        rootEl.remove();
-        rootEl = m.rootEl;
+        document.getElementById(codeSpace + "-css")!.remove();
+        m.rootEl.setAttribute("id", codeSpace + "-css");
 
         BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
         controller.abort();
