@@ -80,25 +80,28 @@ self.onmessage = async (event) => {
   })();
 
   if (signal.aborted) return null;
+
+  if (data.type === "prerender") {
+    setTimeout(async () => {
+      if (signal.aborted) return;
+      if (data.type === "prerender" && data.code && !data.html) {
+        try {
+          await mkdir("/");
+          await mkdir("/live");
+          await mkdir("/live/" + codeSpace);
+          await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+          await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+        } catch {
+          await unlink(`/live/${codeSpace}/index.tsx`);
+          await unlink(`/live/${codeSpace}/index.js`);
+          await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+          await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
+        }
+      }
+    }, 200);
+  }
   const transpiled = await transpile(data.code);
 
-  setTimeout(async () => {
-    if (signal.aborted) return;
-    if (data.type === "prerender" && data.code && !data.html) {
-      try {
-        await mkdir("/");
-        await mkdir("/live");
-        await mkdir("/live/" + codeSpace);
-        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-      } catch {
-        await unlink(`/live/${codeSpace}/index.tsx`);
-        await unlink(`/live/${codeSpace}/index.js`);
-        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-        await writeFile(`/live/${codeSpace}/index.js`, data.transpiled);
-      }
-    }
-  }, 200);
   if (signal.aborted) return null;
   return event.ports[0].postMessage({ ...data, transpiled });
 };
