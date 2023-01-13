@@ -8,6 +8,7 @@ import {
   type TransformOptions,
   version,
 } from "esbuild-wasm";
+import { importMap } from "./importMap";
 
 // import impMap from "./importMap.json";
 //
@@ -233,8 +234,11 @@ export const buildT = async (
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    external: [origin + "/src/*"],
+    // external: [origin + "/src/*"],
     metafile: true,
+    alias: {
+      ...importMap.imports,
+    },
 
     target: "es2022",
     outdir: `./live/${codeSpace}`,
