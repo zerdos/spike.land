@@ -192,7 +192,10 @@ BC.onmessage = async ({ data }) => {
     };
     // const r = createRoot(newRoot);
 
-    if (m.signal.aborted) return;
+    if (m.signal.aborted) {
+      m.root.unmount();
+      m.rootEl.remove();
+    }
 
     // check(myMod);
 
@@ -201,6 +204,8 @@ BC.onmessage = async ({ data }) => {
 
     while (m.retry--) {
       if (m.signal.aborted) {
+        m.root.unmount();
+        m.rootEl.remove();
         // root.unmount();
         return;
       }
