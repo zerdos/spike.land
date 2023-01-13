@@ -96,7 +96,7 @@ const buildOptions: esbuild.BuildOptions = {
   alias: {
     path: "path-browserify",
     buffer: "buffer/",
-    util: "util/",
+    util: "util",
     constants: "constants/",
     module: "module/",
     events: "events/",
@@ -106,7 +106,7 @@ const buildOptions: esbuild.BuildOptions = {
     os: "os-browserify",
     assert: "assert",
     fs: "./src/fs.ts",
-    "tiny-simple-peer": "/npm/*tiny-simple-peer",
+    "tiny-simple-peer": "/:npm/*tiny-simple-peer",
   },
   // alias: {
   //   "react-rnd": "/npm:/*react-rnd@10.3.7",
