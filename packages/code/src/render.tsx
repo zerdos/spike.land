@@ -29,15 +29,21 @@ export const render = async (
   let App;
   try {
     App = (await import(
-      location.origin + "/live/" + codeSpace + "/index.js?i=" + counter
+      location.origin + "/live/" + codeSpace + "/index.mjs"
     )).default;
   } catch (err) {
-    App = () => (
-      <div>
-        <h1>Error</h1>
-        <pre>{JSON.stringify({err})}</pre>
-      </div>
-    );
+    try {
+      App = (await import(
+        location.origin + "/live/" + codeSpace + "/index.js?i=" + counter
+      )).default;
+    } catch (err) {
+      App = () => (
+        <div>
+          <h1>Error</h1>
+          <pre>{JSON.stringify({err})}</pre>
+        </div>
+      );
+    }
   }
 
   const el = document.createElement("div");
