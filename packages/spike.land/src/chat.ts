@@ -514,15 +514,13 @@ const api: DurableObject = {
               "charset",
             );
             const bodyStr = isText
-              ? ((isDTS !== true
-                ? await initAndTransform(
-                  await response.text(),
-                  {},
-                  response.url,
-                )
-                : importMapReplace(await response.text(), response?.url, xTs)).split("esm.sh").join(
-                  url.host,
-                ))
+              ? importMapReplace(
+                await response.text(),
+                u.origin,
+                isDTS ? xTs : response.url,
+              ).split("esm.sh").join(
+                url.host,
+              )
               : await response.blob();
 
             response = new Response(

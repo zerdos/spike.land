@@ -11,6 +11,7 @@ export type {};
 // import { randomUUID } from "crypto";
 // import throttle from "lodash.throttle";
 import { resetCSS } from "./getResetCss";
+import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 import ReconnectingWebSocket from "./reconnWs.mjs";
@@ -298,7 +299,14 @@ const createResponse = async (request: Request) => {
     } catch {
     }
   }
-  return fetch(request);
+  response = await fetch(request);
+
+  if (!response.ok) return response;
+
+  let response = new Response(response.body, response);
+
+  return new Response(importMapReplace(await response.text(), origin, response.url), response);
+
   // let isChunk = url.pathname.includes("chunk-");
   // if (files && files[url.pathname.slice(1)]) {
   //   isChunk = true;
