@@ -1,6 +1,6 @@
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
-importScripts("/workerScripts/prettierEsm.js");
+// importScripts("/workerScripts/prettierEsm.js");
 
 import type * as FS from "./fs";
 declare const self:
@@ -316,7 +316,8 @@ const createResponse = async (request: Request) => {
   ) {
     return new Response(
       importMapReplace(
-        prettierJs(await response.text()),
+        // prettierJs(
+        await response.text(),
         location.origin,
         new URL("./", request.url).toString(),
         true,
