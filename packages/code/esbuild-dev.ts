@@ -93,6 +93,7 @@ const define = makeEnv(environment);
 const buildOptions: esbuild.BuildOptions = {
   define,
   target,
+  sourcemap: "linked",
   alias: {
     path: "path-browserify",
     buffer: "buffer/",
@@ -168,7 +169,6 @@ const build = (
     splitting: true, // format === "esm",
     target,
     format: "esm",
-    sourcemap: false,
 
     minify: !isDevelopment,
     minifyWhitespace: false,
@@ -178,7 +178,7 @@ const build = (
     ignoreAnnotations: false, // True,
 
     // external: [ "@emotion/react/*"],
-    // sourcemap: true,
+
     treeShaking: true,
     logLimit: 0,
     keepNames: true,

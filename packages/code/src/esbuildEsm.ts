@@ -247,6 +247,7 @@ export const buildT = async (
     minifyWhitespace: false,
 
     splitting: true,
+
     incremental: true,
     // jsxImportSource: "@emotion/react",
 

@@ -73,7 +73,7 @@ export function importMapReplace(
         && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1 && x.indexOf(`"https`) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/*" + slices[1];
+        slices[1] = origin + "/npm:*" + slices[1];
         return slices.join(`"`);
       }
       if (
