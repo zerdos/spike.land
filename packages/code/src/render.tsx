@@ -217,7 +217,8 @@ BC.onmessage = async ({ data }) => {
         m.rootEl.style.opacity = "1";
         m.rootEl.style.height = "100%";
         //        rootEl = m.rootEl;
-        //          rootEl.replaceWith(m.rootEl);
+        rootEl.remove();
+        rootEl = m.rootEl;
 
         BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
         controller.abort();
