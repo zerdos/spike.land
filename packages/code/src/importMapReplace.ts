@@ -24,7 +24,7 @@ export function importMapReplace(
     if (importmapRep) {
       returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${importMapImports[lib]}"`);
     }
-    // returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
+    returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   });
 
   returnStr.split("/::").join(origin);
