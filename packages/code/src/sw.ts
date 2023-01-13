@@ -2,7 +2,6 @@ importScripts("/workerScripts/transpile.js");
 importScripts("/workerScripts/fs.js");
 export type {};
 
-import { Mutex } from "async-mutex";
 // import { randomUUID } from "crypto";
 import throttle from "lodash.throttle";
 import { resetCSS } from "./getResetCss";
@@ -19,7 +18,7 @@ self.ReconnectingWebSocket = ReconnectingWebSocket;
 //   retryDelay: 800,
 // });
 
-const { writeFile, readDir, readFile, unlink, mkdir } = self;
+const { writeFile, readDir, readFile, unlink, mkdir, Mutex, transpile } = self;
 
 const connections = self.connections = self.connections || {};
 
