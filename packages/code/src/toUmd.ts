@@ -77,7 +77,7 @@ const mod = {
       if (globalThis.globalNames[urlName]) return  globalThis.globalNames[urlName];
       if (importMap[name]) return require(importMap[name])      
       if (!name.includes("/npm:")){
-      const npmUrl = new URL('/npm:*/'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
+      const npmUrl = new URL('/npm:/*'+name+"?bundle&external=@emotion/*,react*,react ", location.origin).toString()
       return require(npmUrl);
     }
   }`;
