@@ -515,7 +515,9 @@ const api: DurableObject = {
             );
             const bodyStr = isText
               ? importMapReplace(
-                await response.text(),
+                prettierJs(
+                  await response.text(),
+                ),
                 u.origin,
                 isDTS ? xTs : response.url,
               ).split("esm.sh").join(
