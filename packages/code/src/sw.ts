@@ -69,7 +69,7 @@ self.onmessage = async (event) => {
         return;
       }
       if (data.type === "transpile") {
-        const transpiled = await transpile(data.code);
+        const transpiled = importMapReplace(await transpile(data.code), location.origin, location.origin);
         websocket.send(JSON.stringify({ ...data, transpiled }));
       }
 
