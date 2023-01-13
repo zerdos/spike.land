@@ -311,8 +311,8 @@ const createResponse = async (request: Request) => {
 
   if (
     ((ct.indexOf("application") !== -1
-      && ct.indexOf("charset") !== -1) || request.url.endsWith(".js") || request.url.endsWith(".mjs"))
-    && !request.url.endsWith(".json")
+      && ct.indexOf("charset") !== -1) || request.url.includes(".js") || request.url.includes(".mjs"))
+    && !request.url.includes(".json")
   ) {
     return new Response(
       importMapReplace(
