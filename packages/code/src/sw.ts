@@ -315,7 +315,7 @@ const createResponse = async (request: Request) => {
     && !request.url.endsWith(".json")
   ) {
     return new Response(
-      importMapReplace(prettierJs(await response.text()), location.origin, response.url, true, false),
+      importMapReplace(prettierJs(await response.text()), location.origin, request.url, true, false),
       { headers: response.headers },
     );
   }
