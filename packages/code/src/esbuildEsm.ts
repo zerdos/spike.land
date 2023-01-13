@@ -224,7 +224,8 @@ export const buildT = async (
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    external: [origin + "/src/*"],
+    external: [origin + "/src/*", "/src/*"],
+
     metafile: true,
     alias: {
       ...importMap.imports,
