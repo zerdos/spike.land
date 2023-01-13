@@ -164,11 +164,10 @@ BC.onmessage = async ({ data }) => {
     controller.abort();
     controller = new AbortController();
 
-    const _rootEl = rootEl;
     const el = document.createElement("div");
     el.style.opacity = "0";
-    _rootEl.parentElement?.appendChild(el);
-    _rootEl.parentElement;
+    el.style.height = "100%";
+    document.getElementById("root")!.appendChild(el);
 
     const myRoot = createRoot(el);
     const App = await appFactory(data.transpiled);
@@ -217,7 +216,7 @@ BC.onmessage = async ({ data }) => {
         root = m.root;
         m.rootEl.style.opacity = "1";
         m.rootEl.style.height = "100%";
-        rootEl = m.rootEl;
+        //        rootEl = m.rootEl;
         //          rootEl.replaceWith(m.rootEl);
 
         BC.postMessage({ html, css, i: data.i, type: "prerender", code: data.code });
