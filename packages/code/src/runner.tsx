@@ -8,7 +8,9 @@ import { sess as oldSess } from "./ws";
 Object.assign(globalThis, {
   build: (codeSpace: string, opts: any) => () =>
     import("./esbuildEsm").then(eb =>
-      eb.buildT(codeSpace, location.origin, (new AbortController()).signal, { bundle: true, ...opts }())
+      (({ buildT }) => buildT(codeSpace, location.origin, (new AbortController()).signal, { bundle: true, ...opts }))(
+        eb,
+      )
     ),
 });
 
