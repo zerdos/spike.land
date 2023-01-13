@@ -289,15 +289,15 @@ const createResponse = async (request: Request) => {
         });
       }
 
-      const file = await readFile(url.pathname);
-      if (file) {
-        return new Response(file, {
-          headers: {
-            "Content-Type": "application/javascript; charset=UTF-8",
-            "Cache-Control": "no-cache",
-          },
-        });
-      }
+      // const file = await readFile(url.pathname);
+      // if (file) {
+      //   return new Response(file, {
+      //     headers: {
+      //       "Content-Type": "application/javascript; charset=UTF-8",
+      //       "Cache-Control": "no-cache",
+      //     },
+      //   });
+      // }
     } catch {
     }
   }
