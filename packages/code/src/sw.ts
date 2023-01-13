@@ -306,8 +306,11 @@ const createResponse = async (request: Request) => {
   if (!response.ok) return response;
 
   let response = new Response(response.body, response);
+  if (response.headers.get("Content-Type").indexOf("application") !== -1) {
+    return new Response(importMapReplace(prettierJs(await response.text()), origin, response.url), response);
+  }
 
-  return new Response(importMapReplace(prettierJs(await response.text()), origin, response.url), response);
+  return response;
 
   // let isChunk = url.pathname.includes("chunk-");
   // if (files && files[url.pathname.slice(1)]) {
