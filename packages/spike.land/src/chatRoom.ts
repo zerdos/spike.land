@@ -122,12 +122,12 @@ export class Code implements DurableObject {
         const inc = Number(await this.state.storage.get("inc")) + 1 || 1;
         this.state.storage.put("inc", inc);
 
-        const sess: ICodeSession = this.session.i
+        const sess: ICodeSession = (this.session.i
           ? this.session
           : makeSession(
             await this.state.storage.get("sess")
               || (await this.state.storage.get("session") as ICodeSession),
-          ) || this.session;
+          )) || this.session;
 
         // const getSession = (s = sess) => Record(sess)(s);
 
@@ -154,8 +154,8 @@ export class Code implements DurableObject {
         if (request.method === "POST") {
           const message = await request.json<CodePatch & IFirstRender>();
           if (message.type === "firstRender") {
-            const { html, css, code } = message;
-            this.session = makeSession({ ...this.session, html, css, code });
+            const { html, css, code, i } = message;
+            this.session = makeSession({ i, html, css, code });
             this.state.storage.put("sess", this.session);
             this.state.storage.put("head", makeHash(this.session));
             this.state.storage.put(makeHash(this.session), this.session);
@@ -556,41 +556,6 @@ export class Code implements DurableObject {
           case "index.mjs":
           case "index.js":
           case "js": {
-            const i = path[1] || sess.i;
-
-            if (i > sess.i) {
-              return new Response(await transpiled()), {
-                status: 200,
-                headers: {
-                  "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-
-                  content_hash: md5(await transpiled()),
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
-              };
-            }
-            if (i < sess.i) {
-              const trp = await initAndTransform(
-                sess.code,
-                {},
-                url.origin,
-              );
-              return new Response(await transpiled(), {
-                status: 307,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Location": `${url.origin}/live/${codeSpace}/index.js/${sess.i}`,
-                  "Cache-Control": "no-cache",
-
-                  content_hash: md5(trp),
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
-              });
-            }
             const trp = await transpiled();
 
             return new Response(trp, {
