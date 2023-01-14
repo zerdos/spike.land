@@ -2,7 +2,7 @@ import * as Ipfs from "ipfs-core";
 import type * as IPFS from "ipfs-core/dist/src/index";
 import { getResponse } from "ipfs-http-response";
 
-const init = Ipfs.create().then((ipfs: IPFS) => {
+const init = Ipfs.create().then((ipfs: IPFS.IPFS) => {
   Object.assign(globalThis, { ipfs });
   Object.assign(self, { ipfs });
   return ipfs;
