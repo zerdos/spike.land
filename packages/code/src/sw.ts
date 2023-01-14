@@ -43,9 +43,6 @@ self.onmessage = async (event) => {
       oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
     };
     BC.onmessage = async ({ data }) => {
-      const i = data.i;
-      if (i < session.i) return;
-
       if (data.i > session.i && (data.hashCode || data.newHash)) {
         session.i = data.i;
 
