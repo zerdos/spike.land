@@ -1,7 +1,7 @@
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
 // importScripts("/workerScripts/ipfs-core.js");
-// importScripts("/workerScripts/prettierEsm.js");
+importScripts("/workerScripts/prettierEsm.js");
 
 import type * as FS from "./fs";
 declare const self:
@@ -266,11 +266,11 @@ const createResponse = async (request: Request) => {
       prettierJs(
         importMapReplace(
           prettierJs(
-            await response.text(),
+            await response.clone().text(),
           ),
           location.origin,
         ),
-        { headers: response.headers },
+        { ...response },
       ),
     );
   }
