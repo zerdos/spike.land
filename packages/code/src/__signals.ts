@@ -9,7 +9,7 @@ import AVLTree from "avl";
 
 // import P2PCF from "p2pcf";
 import adapter from "webrtc-adapter";
-import ReconnectingWebSocket from "./reconnWs.mjs";
+import ReconnectingWebSocket from "./ReconnectingWebSocket.js";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 

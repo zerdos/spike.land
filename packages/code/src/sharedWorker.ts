@@ -1,6 +1,6 @@
 import { Mutex } from "async-mutex";
 import { Record } from "immutable";
-import ReconnectingWebSocket from "./reconnWs.mjs";
+import ReconnectingWebSocket from "./ReconnectingWebSocket.js";
 
 import { ldb } from "./createDb";
 // import { m } from "framer-motion";
