@@ -34,8 +34,8 @@ self.onmessage = async (event) => {
   const codeSpace = data.codeSpace;
 
   connections[codeSpace] = connections[codeSpace] || await (async () => {
-    const websocket = new WebSocket(
-      `wss://${location.host}/api/room/` + codeSpace + "/websocket",
+    const websocket = new ReconnectingWebSocket(
+      `wss://${location.host}/live/${codeSpace}/websocket`,
     );
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 

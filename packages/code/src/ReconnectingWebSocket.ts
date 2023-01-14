@@ -96,7 +96,7 @@
 //     return;
 // }
 
-function ReconnectingWebSocket(url, protocols, options) {
+export function ReconnectingWebSocket(url, protocols, options) {
   // Default settings
   var settings = {
     /** Whether this instance should log debug messages. */
