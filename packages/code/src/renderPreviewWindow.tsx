@@ -137,13 +137,11 @@ export const renderPreviewWindow = async (
 
   const root = createRoot(rootEl);
   reveal = () => {
-    document.getElementById("root")!.removeChild(
-      document.querySelector(
-        `#${codeSpace}-css`,
-      )!,
-    );
-    rootEl.style.opacity = "1";
+    const re = document.getElementById("root");
     rootEl.style.height = "100%";
+    re?.removeChild(re.firstElementChild!);
+
+    rootEl.style.opacity = "1";
   };
   root.render(<AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
