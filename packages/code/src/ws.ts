@@ -324,8 +324,9 @@ export class Code {
       };
 
       cSess.session = makeSession({ ...cSess.session, code });
+
       const { renderPreviewWindow } = await import("./renderPreviewWindow");
-      renderPreviewWindow({ codeSpace, dry: false });
+      renderPreviewWindow({ codeSpace });
     }
 
     // const BCC = new BroadcastChannel(location.origin + "/ws.js");

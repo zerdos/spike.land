@@ -172,42 +172,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
-  // const HolderFrame = () => (
-  //   <iframe
-  //     ref={zBodyRef}
-  //     // id={"z-body"}
-  //     // data-test-id="z-body"
-  //     css={css`
-  //     height: 100%;
-  //     width: 100%;
-  //     border: none;
-  // `}
-  //     src={`${location.origin}/live/${codeSpace}/iframe`}
-  //   />
-  // );
-
-  // useEffect(() => {
-  //   const intervalHandler = setInterval(() => {
-  //     // setCSS(mST().css);
-
-  //     if (iRef.current !== null) {
-  //       if (iRef.current.clientWidth > window.innerWidth) {
-  //         const newScale = scaleRange + Math.floor(window.innerWidth / width);
-  //         changeScaleRange(newScale);
-  //         changeMaxScaleRange(newScale);
-  //       }
-  //     }
-  //   }, 1000);
-  //   return () => clearInterval(intervalHandler);
-  // }, [scaleRange]);
-
-  // const [clients, setClients] = useState(Object.keys(sendChannel.rtcConns));
-
-  // useEffect(() => {
-  //   setClients([...Object.keys(sendChannel.rtcConns)]);
-  // }, [sendChannel.webRtcArray.length, setClients]);
-
-  // const delay: number = sessionStorage && Number(sessionStorage.getItem("delay")) || 5;
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";

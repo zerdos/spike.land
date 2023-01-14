@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from "react";
 
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense } from "react";
 
 // import { Fragment, useEffect, useState } from "react";
-import * as portals from "react-reverse-portal";
+// import * as portals from "react-reverse-portal";
 
 // import { AutoUpdateApp } from "./starter";
 
@@ -72,12 +72,6 @@ const AppToRender: FC<
 > = (
   { codeSpace },
 ) => {
-  const portalNode = useMemo(() =>
-    portals.createHtmlPortalNode({
-      attributes: {
-        style: "height: 100%; width:100%;",
-      },
-    }), []);
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   // const [hideRest, setHideRest] = useState(codeSession.sess.i == 0);
@@ -96,22 +90,10 @@ const AppToRender: FC<
 
   return (
     <>
-      <portals.InPortal node={portalNode}>
-        <iframe
-          // id={"z-body"}
-          // data-test-id="z-body"
-          css={css`
-      height: 100%;
-      width: 100%;
-      border: none;
-  `}
-          src={`${location.origin}/live/${codeSpace}/iframe`}
-        />
-      </portals.InPortal>
       <>
         {onlyEdit ? null : (
           <DraggableWindow codeSpace={codeSpace}>
-            <portals.OutPortal node={portalNode} />
+            <iframe css={css`height: 100%; border: 0;`} src={`/live/${codeSpace}/iframe`} />
           </DraggableWindow>
         )}
 
@@ -128,8 +110,8 @@ const AppToRender: FC<
 };
 const singleton = { started: false };
 
-export const renderPreviewWindow = (
-  { codeSpace }: { codeSpace: string; dry: boolean },
+export const renderPreviewWindow = async (
+  { codeSpace }: { codeSpace: string; transpiled: string },
 ) => {
   if (singleton.started) return;
   singleton.started = true;
