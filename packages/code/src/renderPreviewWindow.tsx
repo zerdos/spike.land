@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 // import { Fragment, useEffect, useState } from "react";
 // import * as portals from "react-reverse-portal";
@@ -15,6 +15,7 @@ import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
 let reveal = () => {};
+let revealed = false;
 
 const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
@@ -75,15 +76,10 @@ const AppToRender: FC<
 ) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  // const [hideRest, setHideRest] = useState(codeSession.sess.i == 0);
 
-  // useEffect(() => {
-  // const t = setTimeout(() => {
-  // if (hideRest) setHideRest(false);
-  // }, 2000);
-  // return () => clearTimeout(t);
-  // }, [codeSession.sess.i]);
-  // });
+  const [hideRest, setHideRest] = useState(!revealed);
+
+  useEffect(() => setHideRest(!revealed), [revealed]);
 
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
@@ -101,13 +97,15 @@ const AppToRender: FC<
         </DraggableWindow>
       )}
 
-      <RainbowContainer>
-        <Suspense fallback={<></>}>
-          <Editor
-            codeSpace={codeSpace}
-          />
-        </Suspense>
-      </RainbowContainer>
+      {hideRest ? null : (
+        <RainbowContainer>
+          <Suspense fallback={<></>}>
+            <Editor
+              codeSpace={codeSpace}
+            />
+          </Suspense>
+        </RainbowContainer>
+      )}
     </>
   );
 };
@@ -137,6 +135,7 @@ export const renderPreviewWindow = async (
 
   const root = createRoot(rootEl);
   reveal = () => {
+    revealed = true;
     const re = document.getElementById("root");
     rootEl.style.height = "100%";
     re?.removeChild(re.firstElementChild!);
