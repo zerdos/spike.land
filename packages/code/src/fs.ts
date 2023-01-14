@@ -37,7 +37,7 @@ export const readdir = (filePath: string) =>
     )
   );
 export const writeFile = async (filePath: string, content: string | Uint8Array) => {
-  if (controllers[filePath]) controllers.filepath.abort();
+  if (controllers[filePath]) controllers[filePath].abort();
   controllers[filePath] = new AbortController();
   const signal = controllers[filePath].signal;
   return await mutex.runExclusive(() => {
