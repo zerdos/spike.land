@@ -80,7 +80,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
       codeSpace,
     });
 
-    const App = aappFactory(data.transpiled);
+    BC.postMessage(data);
   } catch (error) {
     console.error({ error });
   } finally {
