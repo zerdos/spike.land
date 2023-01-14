@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { domAnimation, domMax, LazyMotion, m } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import { Children, FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -29,6 +29,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     // HashCode,
   },
 ) => {
+  const [];
   const [scaleRange, changeScaleRange] = useState(100);
 
   const [maxScaleRange, changeMaxScaleRange] = useState(100);
@@ -115,12 +116,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
-    <LazyMotion features={{ ...domAnimation, ...domMax }} strict>
-      <m.div
+    <MotionConfig transition={{ delay, type, duration }}>
+      <motion.div
         initial={{
           padding: 0,
           top: 0,
-          backgroundColor: "rgba(0,0,0, 0)",
+          backgroundColor: "rgba(0, 0,0, 0)",
           backdropFilter: `blur(0px)`,
           right: 0,
           borderRadius: 0,
@@ -155,12 +156,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               align-items: center;
             `}
           >
-            <m.div
+            <motion.div
               css={css`
               overflow: hidden;
               display: flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0px", width: "0%" }}
+              initial={{ height: 0, width: 0 }}
               animate={{
                 height: "42px",
                 width: "100%",
@@ -198,8 +199,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     </ToggleButton>
                   ))}
               </ToggleButtonGroup>
-            </m.div>
-            <m.div
+            </motion.div>
+            <motion.div
               layout="preserve-aspect"
               initial={{
                 height: window.innerHeight,
@@ -210,7 +211,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 width: width * scale,
               }}
             >
-              <m.div
+              <motion.div
                 layout="size"
                 css={css`
               transform-origin: top left;
@@ -231,14 +232,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
               >
                 {children}
-              </m.div>
-            </m.div>
-            <m.div
+              </motion.div>
+            </motion.div>
+            <motion.div
               css={css`
               overflow: hidden;
               display: flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0px", width: "0%" }}
+              initial={{ height: "0", width: "0" }}
               animate={{
                 height: "42px",
                 width: "100%",
@@ -307,10 +308,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   </ToggleButton>
                 ))}
               </ToggleButtonGroup>
-            </m.div>
+            </motion.div>
           </div>
 
-          <m.div
+          <motion.div
             css={css`overflow: hidden;`}
             initial={{ height: "0%", width: "0px" }}
             animate={{ height: "100%", width: "88px" }}
@@ -384,10 +385,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 <Share />
               </Fab>
             </div>
-          </m.div>
+          </motion.div>
         </div>
-      </m.div>
-    </LazyMotion>
+      </motion.div>
+    </MotionConfig>
   );
 };
 
