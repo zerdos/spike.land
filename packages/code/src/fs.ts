@@ -26,7 +26,7 @@ const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
 const origin = typeof location !== "undefined" ? location.origin : "";
-
+const files: { [key: string]: string } = {};
 const mutex = new Mutex();
 
 export const readdir = (filePath: string) =>
@@ -35,25 +35,24 @@ export const readdir = (filePath: string) =>
       p.mkdir(filePath).then(() => p.readdir(filePath))
     )
   );
-export const writeFile = (filePath: string, content: string | Uint8Array) =>
-  mutex.runExclusive(() => {
-    console.log("write", filePath);
-    return p.writeFile(
-      filePath,
-      (filePath.indexOf(".js") !== -1 && filePath.indexOf(".json") === -1)
-        ? `/*
-written: ${new Date()}
-  
-*/
-` + importMapReplace(content as string, origin)
-        : content,
-    );
-  });
+export const writeFile = async (filePath: string, content: string | Uint8Array) =>
+  (!files[filePath] || files[filePath] !== content)
+    ? await mutex.runExclusive(() => {
+      console.log("write", filePath);
+      files[filePath] = content as string;
+      return p.writeFile(
+        filePath,
+        content,
+      );
+    })
+    : true;
 
-export const readFile = (filePath: string) =>
-  mutex.runExclusive(() =>
-    p.readFile(filePath, { encoding: "utf8" }).catch(() => fetch(origin + filePath).then((x) => x.text()))
-  );
+export const readFile = async (filePath: string) =>
+  files[filePath]
+    ? files[filePath]
+    : await mutex.runExclusive(() =>
+      p.readFile(filePath, { encoding: "utf8" }).catch(() => fetch(origin + filePath).then((x) => x.text()))
+    );
 export const unlink = (filepath: string) =>
   mutex.runExclusive(() => p.unlink(filepath).catch(() => {/** nothing really happened */}));
 export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath).catch(() => {}));
