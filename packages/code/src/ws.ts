@@ -309,15 +309,15 @@ export class Code {
     if (location.pathname === `/live/${codeSpace}`) {
       const code = await prettier(globalThis.session.code);
       globalThis.firstRender.code = code;
-      BC.onmessage = ({ data }) => {
+      window.onmessage = ({ data }) => {
         if (
           (data.type === "prerender" || data.type === "firstRender")
-          && data.html && data.css && data.i && data.code
+          && data.html && data.css
         ) {
           console.log({ data });
           firstRenderSent = true;
           const { html, css } = data;
-          cSess.session = makeSession({ ...cSess.session, code });
+          cSess.session = makeSession({ ...cSess.session, code, html, css });
 
           ws.post({ type: "firstRender", html, i: data.i, css, code });
         }

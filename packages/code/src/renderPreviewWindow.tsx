@@ -111,7 +111,7 @@ const AppToRender: FC<
 const singleton = { started: false };
 
 export const renderPreviewWindow = async (
-  { codeSpace }: { codeSpace: string; transpiled: string },
+  { codeSpace }: { codeSpace: string },
 ) => {
   if (singleton.started) return;
   singleton.started = true;
@@ -120,17 +120,6 @@ export const renderPreviewWindow = async (
   document.getElementById("root")!.appendChild(rootEl);
   rootEl.style.opacity = "0";
   rootEl.style.height = "0px";
-  // root.appendChild(rootEl);
-  // let rootEl: HTMLDivElement | null = document.querySelector(
-  //   `#${codeSpace}-css`,
-  // );
-  //
-  // if (rootEl === null) return;
-  // rootEl.style.height = "100%";
-  // rootEl.innerHTML = ``;
-  // const root = createRoot(rootEl);
-
-  // (createCache as unknown as {default: typeof createCache}).default
 
   const root = createRoot(rootEl);
   reveal = () => {
@@ -141,7 +130,4 @@ export const renderPreviewWindow = async (
     rootEl.style.opacity = "1";
   };
   root.render(<AppToRender codeSpace={codeSpace} />);
-  // setTimeout(() => {
-
-  // }, 500);
 };

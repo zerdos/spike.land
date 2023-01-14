@@ -65,7 +65,7 @@ export const render = async (
     </CacheProvider>,
   );
 
-  let i = 100;
+  let i = location.href.endsWith("iframe") ? 100 : 0;
   while (i-- > 0) {
     const html = el.innerHTML;
     if (html && html !== "") {
@@ -84,7 +84,7 @@ export const render = async (
 
       _rootEl.remove();
       el.setAttribute(id, id);
-      BC.postMessage({ type: "firstRender", html, css });
+      window?.parent?.postMessage({ type: "firstRender", html, css });
 
       return { html, css };
     }
