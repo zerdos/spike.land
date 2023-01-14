@@ -91,25 +91,23 @@ const AppToRender: FC<
 
   return (
     <>
-      <>
-        {onlyEdit ? null : (
-          <DraggableWindow codeSpace={codeSpace}>
-            <iframe
-              onLoad={() => reveal()}
-              css={css`height: 100%; width: 100%; border: 0;`}
-              src={`/live/${codeSpace}/iframe`}
-            />
-          </DraggableWindow>
-        )}
+      {onlyEdit ? null : (
+        <DraggableWindow codeSpace={codeSpace}>
+          <iframe
+            onLoad={() => reveal()}
+            css={css`height: 100%; width: 100%; border: 0;`}
+            src={`/live/${codeSpace}/iframe`}
+          />
+        </DraggableWindow>
+      )}
 
-        <RainbowContainer>
-          <Suspense fallback={<></>}>
-            <Editor
-              codeSpace={codeSpace}
-            />
-          </Suspense>
-        </RainbowContainer>
-      </>
+      <RainbowContainer>
+        <Suspense fallback={<></>}>
+          <Editor
+            codeSpace={codeSpace}
+          />
+        </Suspense>
+      </RainbowContainer>
     </>
   );
 };
@@ -140,10 +138,12 @@ export const renderPreviewWindow = async (
   // (createCache as unknown as {default: typeof createCache}).default
 
   const root = createRoot(rootEl);
-  reveal = () =>
+  reveal = () => {
     document.querySelector(
       `#${codeSpace}-css`,
     )?.replaceWith(rootEl);
+    root2.remove();
+  };
   root.render(<AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
 
