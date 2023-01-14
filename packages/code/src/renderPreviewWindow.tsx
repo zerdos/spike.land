@@ -137,10 +137,11 @@ export const renderPreviewWindow = async (
 
   const root = createRoot(rootEl);
   reveal = () => {
-    document.querySelector(
-      `#${codeSpace}-css`,
-    )?.remove();
-
+    document.getElementById("root")!.removeChild(
+      document.querySelector(
+        `#${codeSpace}-css`,
+      )!,
+    );
     rootEl.style.opacity = "1";
     rootEl.style.height = "100%";
   };
