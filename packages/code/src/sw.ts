@@ -1,7 +1,7 @@
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
 // importScripts("/workerScripts/ipfs-core.js");
-importScripts("/workerScripts/prettierEsm.js");
+// importScripts("/workerScripts/prettierEsm.js");
 
 import type * as FS from "./fs";
 declare const self:
