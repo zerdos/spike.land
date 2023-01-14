@@ -117,11 +117,12 @@ export const renderPreviewWindow = async (
   singleton.started = true;
 
   let rootEl = document.createElement("div");
-  document.getElementById("root")!.appendChild(rootEl);
   rootEl.style.opacity = "0";
   rootEl.style.height = "0px";
 
   const root = createRoot(rootEl);
+  document.getElementById("root")!.appendChild(rootEl);
+
   reveal = () => {
     const re = document.getElementById("root");
     rootEl.style.height = "100%";

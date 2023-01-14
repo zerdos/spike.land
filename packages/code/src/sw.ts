@@ -119,14 +119,13 @@ const createResponse = async (request: Request) => {
 
     const respText = HTML.replace(
       "/**reset*/",
-      resetCSS,
+      resetCSS + css,
     ).replace(
       `<div id="root"></div>`,
       `<div id="root" style="height: 100%;">
-            <style>${css}</style>
-            <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-              ${html}
-            </div>
+        <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
+          ${html}
+        </div>
     </div>`,
     );
 
