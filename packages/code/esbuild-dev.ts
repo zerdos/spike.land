@@ -34,7 +34,7 @@ const environment = "development";
 
 const isDevelopment = environment !== "production";
 
-const outdir = "dist/src";
+const outdir = "dist";
 const target = "es2022";
 
 console.log(`
@@ -97,17 +97,21 @@ const buildOptions: esbuild.BuildOptions = {
   alias: {
     path: "path-browserify",
     buffer: "buffer/",
+    "node:buffer": "buffer/",
+
     util: "util",
     constants: "constants/",
     module: "module/",
     events: "events/",
 
     // events: "events",
+
     stream: "stream-browserify",
+    "node:stream": "stream-browserify",
+    "file-type": "../../node_modules/file-type/browser.js",
     os: "os-browserify",
     assert: "assert",
     fs: "./src/fs.ts",
-    "tiny-simple-peer": "/*tiny-simple-peer",
   },
   // alias: {
   //   "react-rnd": "/npm:/*react-rnd@10.3.7",
@@ -201,7 +205,7 @@ const build = (
 
 (async () => {
   // await cp("./src/index.html", "./dist/index.html");
-  await copy("./src/favicon.ico", "./dist/src/favicon.ico");
+  await copy("./src/favicon.ico", "./dist/favicon.ico");
   await Deno.mkdir("./dist/live");
   await Deno.mkdir("./dist/live/box");
   await copy(
@@ -251,6 +255,7 @@ const build = (
       "src/transpile.ts",
       "src/fs.ts",
       "src/ata.ts",
+      "src/ipfs-core.ts",
     ],
 
     plugins: [],
@@ -355,11 +360,11 @@ const build = (
       "src/render.tsx",
       "src/reactDomClient.ts",
       "src/emotion.ts",
-      "src/session.ts",
+      // "src/session.ts",
       // "src/signalz.ts",
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
-      "src/Editor.tsx",
+      // "src/Editor.tsx",
       //      "src/reactMod.ts",
       "src/cf-workers.ts",
       // "src/Editor.tsx",
@@ -374,7 +379,6 @@ const build = (
     [
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
-      `../${wasmFile}`,
       `./${wasmFile}`,
       `${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
@@ -396,7 +400,7 @@ const build = (
     ],
     {
       ...buildOptions,
-      alias: { ...buildOptions.alias, "esbuild-wasm/esbuild.wasm": `../${wasmFile}` },
+      alias: { ...buildOptions.alias, "esbuild-wasm/esbuild.wasm": `./${wasmFile}` },
       loader: { ...buildOptions.loader },
     },
   );

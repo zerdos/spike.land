@@ -13,7 +13,7 @@
     "build": "yarn workspaces foreach --all run build",
     "types": "yarn workspaces foreach --all run types",
     "test": "yarn workspaces foreach --all run test",
-    "shasum": "ipfs add --only-hash -r -Q packages/code/dist | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/src/dist.shasum.js",
+    "shasum": "ipfs add --only-hash -r -Q packages/code/dist | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
     "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types",
@@ -32,7 +32,8 @@
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "resolutions": {
-    "wrangler/esbuild": "^0.16.10"
+    "wrangler/esbuild": "^0.16.10",
+    "ipfs-http-response/file-type": "18.1.0"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
@@ -50,6 +51,7 @@
     "dprint": "^0.34.1",
     "eslint": "^8.31.0",
     "eslint-plugin-react": "^7.32.0",
+    "ipfs-http-response": "^6.0.0",
     "localforage": "^1.10.0",
     "module": "^1.2.5",
     "monaco-editor": "0.35.0-dev.20230112",

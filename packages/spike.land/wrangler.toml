@@ -4,7 +4,7 @@ name = "spike-land"
 account_id = "1f98921051196545ebe79a450d3c71ed"
 usage_model = "unbound"
 compatibility_date = "2021-10-16"
-main = "../code/dist/src/cf-workers.mjs"
+main = "../code/dist/cf-workers.mjs"
 
 
 [durable_objects]

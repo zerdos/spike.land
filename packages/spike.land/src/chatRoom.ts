@@ -671,7 +671,7 @@ export class Code implements DurableObject {
               }
               
               </script>`
-                    : `<script type="module" src="${url.origin}/src/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
+                    : `<script type="module" src="${url.origin}/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
               );
 
             const headers = new Headers();
@@ -704,7 +704,7 @@ export class Code implements DurableObject {
           <script type="module">
           import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}"
               
-            import {prerender} from "${url.origin}/src/render.mjs"
+            import {prerender} from "${url.origin}/render.mjs"
               
               
              const res = prerender(App).then(res=>window.parent.postMessage(res))
@@ -752,7 +752,7 @@ export class Code implements DurableObject {
 
               <script type="module">
 
-            import {render} from "${url.origin}/src/render.mjs";
+            import {render} from "${url.origin}/render.mjs";
               
               const rootEl = document.getElementById("${codeSpace}-css");
       

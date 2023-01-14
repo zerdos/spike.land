@@ -1,6 +1,7 @@
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
-// importScripts("/workerScripts/prettierEsm.js");
+importScripts("/workerScripts/ipfs-core.js");
+importScripts("/workerScripts/prettierEsm.js");
 
 import type * as FS from "./fs";
 declare const self:
@@ -243,7 +244,7 @@ const createResponse = async (request: Request) => {
     }
     </script>` + (url.pathname !== `/live/${codeSpace}/dehydrated`
         ? `<script type="module">
-        import {render} from "${url.origin}/src/render.mjs";
+        import {render} from "${url.origin}/render.mjs";
               
         const rootEl = document.getElementById("${codeSpace}-css");
 
@@ -287,13 +288,22 @@ const createResponse = async (request: Request) => {
     && !request.url.includes(".json")
   ) {
     return new Response(
-      importMapReplace(
-        // prettierJs(
-        await response.text(),
-        location.origin,
+      prettierJs(
+        importMapReplace(
+          prettierJs(
+            await response.text(),
+          ),
+          location.origin,
+        ),
+        { headers: response.headers },
       ),
-      { headers: response.headers },
     );
+  }
+
+  if (paths[0] === "/ipfs/") {
+    const { getIpfsResponse } = self as unknown as { getIpfsResponse: (ipfsPath: string) => Response };
+
+    response = await getIpfsResponse(url.pathname);
   }
 
   return response;

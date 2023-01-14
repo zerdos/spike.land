@@ -1,4 +1,4 @@
-import type { ICodeSession } from "../../code/dist/src/session";
+import type { ICodeSession } from "../../code/src/session";
 
 export function getBackupSession() {
   return {

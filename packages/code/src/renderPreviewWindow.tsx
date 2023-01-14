@@ -92,7 +92,7 @@ const AppToRender: FC<
 
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
-  const Editor = lazy(() => import(`${location.origin}/src/Editor.mjs`));
+  const Editor = lazy(() => import("./Editor"));
 
   return (
     <>
