@@ -6,7 +6,6 @@ import * as memFS from "memfs";
 // export const fs = new FS('fakeFS', {db: null});\
 
 import FS from "@isomorphic-git/lightning-fs";
-import { S } from "memfs/lib/constants";
 import { wait } from "./wait";
 
 let fsProb: FS | typeof memFS.fs;
@@ -44,15 +43,16 @@ export const writeFile = async (filePath: string, content: string) => {
   controllers[filePath] = new AbortController();
   const signal = controllers[filePath].signal;
 
-  await wait(100);
-  if (files[filePath] === content) return;
-  if (signal.aborted) return;
-  console.log("write", filePath);
-  files[filePath] = content;
-  return p.writeFile(
-    filePath,
-    content,
-  );
+  setTimeout(() => {
+    if (files[filePath] === content) return;
+    if (signal.aborted) return;
+    console.log("write", filePath);
+    files[filePath] = content;
+    return p.writeFile(
+      filePath,
+      content,
+    );
+  });
 };
 
 export const readFile = async (filePath: string) =>
