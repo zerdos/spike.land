@@ -115,12 +115,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
-    <MotionConfig transition={{ delay: 1, delayChildren: 2, type, duration }}>
+    <MotionConfig transition={{ delay: 0, type, duration }}>
       <motion.div
         initial={{
           padding: 0,
           top: 0,
-          backgroundColor: "rgba(0, 0,0, 0)",
+          backgroundColor: "rgba(0,0,0, 0)",
           backdropFilter: `blur(0px)`,
           right: 0,
           borderRadius: 0,
@@ -160,7 +160,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               overflow: hidden;
               display: flex;
               justify-content: space-evenly;`}
-              initial={{ height: 0, width: 0 }}
+              initial={{ height: "0px", width: "0%" }}
               animate={{
                 height: "42px",
                 width: "100%",
@@ -238,7 +238,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               overflow: hidden;
               display: flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0", width: "0" }}
+              initial={{ height: "0px", width: "0%" }}
               animate={{
                 height: "42px",
                 width: "100%",
