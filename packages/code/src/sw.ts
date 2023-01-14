@@ -16,8 +16,7 @@ import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 import ReconnectingWebSocket from "./reconnWs.mjs";
-import { createPatch, makeHash, makeSession } from "./session";
-import { sess } from "./ws";
+import { createPatch, makeSession } from "./session";
 
 const connections = self.connections = self.connections || {};
 

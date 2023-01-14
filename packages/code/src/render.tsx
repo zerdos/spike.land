@@ -34,7 +34,7 @@ export const render = async (
   } catch (err) {
     try {
       App = (await import(
-        location.origin + "/live/" + codeSpace + "/index.js?i=" + counter
+        location.origin + "/live/" + codeSpace + "/index.js"
       )).default;
     } catch (err) {
       App = () => (

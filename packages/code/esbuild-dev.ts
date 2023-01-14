@@ -26,7 +26,7 @@ import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = "production";
+const environment = "development";
 
 // = "production" === "production"
 //   ? "production"
