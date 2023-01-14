@@ -93,7 +93,7 @@ const define = makeEnv(environment);
 const buildOptions: esbuild.BuildOptions = {
   define,
   target,
-  sourcemap: "linked",
+  sourcemap: false,
   alias: {
     path: "path-browserify",
     buffer: "buffer/",

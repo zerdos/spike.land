@@ -248,7 +248,7 @@ export const buildT = async (
 
     splitting: true,
 
-    incremental: true,
+    // incremental: true,
     // jsxImportSource: "@emotion/react",
 
     format: "esm",
@@ -276,7 +276,7 @@ export const buildT = async (
     console.log(b.outputFiles);
 
     const { readdir, unlink, writeFile } = await import("./fs");
-    const cs = await readdir(`/live/${codeSpace}`);
+    const cs = await readdir(`/live/${codeSpace}`) as string[];
 
     cs.filter((x) => x.indexOf("chunk") !== -1).map((chunk) =>
       b.outputFiles?.find((x) => x.path.indexOf(chunk) !== -1)
