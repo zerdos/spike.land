@@ -108,7 +108,7 @@ const AppToRender: FC<
     </>
   );
 };
-const singleton = { started: false };
+const singleton = globalThis.s = globalThis.s || { started: false };
 
 export const renderPreviewWindow = async (
   { codeSpace }: { codeSpace: string },
