@@ -638,6 +638,7 @@ export class Code implements DurableObject {
           case "hydrated":
           case "worker":
           case "dehydrated":
+          case "iframe":
           case "public": {
             const respText = HTML.replace(
               "/**reset*/",
@@ -672,42 +673,6 @@ export class Code implements DurableObject {
             return new Response(respText, {
               status: 200,
               headers: headers,
-            });
-          }
-          case "iframe": {
-            const respText = HTML.replace(
-              "/**reset*/",
-              resetCSS,
-            )
-              .replace(
-                `<div id="root"></div>`,
-                `
-
-              <div id="root" style="height: 100%;">
-                <style>${css}</style>
-                <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                ${html}
-                </div>
-              </div>`,
-              );
-
-            // const Etag = request.headers.get("Etag");
-            // const newEtag = await sha256(respText);
-            const headers = new Headers();
-            headers.set("Access-Control-Allow-Origin", "*");
-
-            headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-            headers.set("Cross-Origin-Opener-Policy", "same-origin");
-            headers.set(
-              "Cache-Control",
-              "no-cache",
-            );
-
-            headers.set("Content-Type", "text/html; charset=UTF-8");
-            headers.set("content_hash", md5(respText));
-            return new Response(respText, {
-              status: 200,
-              headers,
             });
           }
 

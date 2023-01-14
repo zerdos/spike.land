@@ -130,9 +130,6 @@ const createResponse = async (request: Request) => {
     </div>`,
     );
 
-    // const Etag = request.headers.get("Etag");
-    // const newEtag = await sha256(respText);
-
     const headers = new Headers();
     headers.set("Access-Control-Allow-Origin", "*");
 
