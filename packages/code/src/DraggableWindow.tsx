@@ -297,7 +297,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <motion.div
               css={css`
               overflow: hidden;
-              display:flex;
+              display: flex;
               justify-content: space-evenly;`}
               initial={{ height: "0", width: "0" }}
               animate={{
@@ -372,7 +372,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </div>
 
           <motion.div
-            initial={{ height: 0, width: 0 }}
+            css={css`overflow: hidden;`}
+            initial={{ height: "0%", width: "0px" }}
             animate={{ height: "100%", width: "88px" }}
           >
             <div
