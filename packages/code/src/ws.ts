@@ -317,7 +317,7 @@ export class Code {
           console.log({ data });
           firstRenderSent = true;
           const { html, css } = data;
-          cSess.session = makeSession({ ...cSess.session, code, html, css });
+          cSess.session = makeSession({ ...cSess.session, html, css });
 
           ws.post({ type: "firstRender", html, i: data.i, css, code });
         }

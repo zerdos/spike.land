@@ -33,6 +33,31 @@ export const makeSession: (p: ICodeSession) => ICodeSession = (
       .join(".css-"),
   }).toJS();
 
+export const createPatch = (oldSess: ICodeSession, newSess: ICodeSession) => {
+  const oldRec = makeSession(oldSess);
+  const oldHash = makeHash(oldRec);
+  const newRec = makeSession(newSess);
+  const newHash = makeHash(newRec);
+
+  const oldString = string_(oldRec);
+  const newString = string_(newRec);
+
+  const patch = createDelta(oldString, newString);
+  const reversePatch = createDelta(newString, oldString);
+
+  // const oldString = string_(oldRec);
+  // const newString = string_(newRec);
+
+  // const patch = createDelta(oldRec.code, newRec.code);
+  // const reversePatch = createDelta(newRec.code, oldRec.code);
+  return {
+    oldHash,
+    newHash,
+    reversePatch,
+    patch,
+  };
+};
+
 export type ICodeSession = {
   code: string;
   i: number;

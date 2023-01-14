@@ -16,6 +16,8 @@ import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 import ReconnectingWebSocket from "./reconnWs.mjs";
+import { createPatch, makeHash, makeSession } from "./session";
+import { sess } from "./ws";
 
 const connections = self.connections = self.connections || {};
 
@@ -39,13 +41,26 @@ self.onmessage = async (event) => {
       BC,
       user: md5(self.crypto.randomUUID()),
       i: 0,
+      oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
     };
     BC.onmessage = async ({ data }) => {
+      const i = data.i;
+      if (i < session.i) return;
+
       if (data.i > session.i && (data.hashCode || data.newHash)) {
         session.i = data.i;
 
         data.name = session.user;
         websocket.send(JSON.stringify(data));
+      }
+      if (data.i > session.i && data.html && data.css && data.code) {
+        session.i = data.i;
+        const newSession = makeSession(data);
+        const patchMessage = createPatch(session.oldSession, newSession);
+
+        BC.postMessage({ ...patchMessage, name: session.user });
+
+        websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
       }
     };
 

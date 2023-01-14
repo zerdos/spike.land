@@ -221,22 +221,25 @@ BC.onmessage = async ({ data }) => {
       const html = m.rootEl.innerHTML;
       if (html) {
         const css = mineFromCaches(eCaches[appId], html);
-        // root.unmount();
-        console.log({ html, css, i: m.i });
-        // document.getElementById("root")?.appendChild(newRoot);
-        // root.unmount();
-        // root = r;
-        root.unmount();
+        try {
+          // root.unmount();
+          console.log({ html, css, i: m.i });
+          // document.getElementById("root")?.appendChild(newRoot);
+          // root.unmount();
+          // root = r;
+          root.unmount();
 
-        // root = m.root;
+          // root = m.root;
 
-        m.rootEl.style.opacity = "1";
-        m.rootEl.style.height = "100%";
-        //        rootEl = m.rootEl;
-        document.getElementById("root")?.remove();
+          m.rootEl.style.opacity = "1";
+          m.rootEl.style.height = "100%";
+          //        rootEl = m.rootEl;
+          document.getElementById("root")?.remove();
 
-        m.rootEl.id = "root";
-
+          m.rootEl.id = "root";
+        } catch (e) {
+          "some error";
+        }
         BC.postMessage({
           html,
           css,
