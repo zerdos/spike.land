@@ -646,7 +646,7 @@ export class Code implements DurableObject {
             )
               .replace(
                 `<div id="root"></div>`,
-                `<div id="root">
+                `<div id="root" style="height: 100%;">
                         <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                           ${html}
                         </div>
