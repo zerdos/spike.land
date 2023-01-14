@@ -93,7 +93,7 @@ const AppToRender: FC<
       <>
         {onlyEdit ? null : (
           <DraggableWindow codeSpace={codeSpace}>
-            <iframe css={css`height: 100%; border: 0;`} src={`/live/${codeSpace}/iframe`} />
+            <iframe css={css`height: 100%; width: 100%; border: 0;`} src={`/live/${codeSpace}/iframe`} />
           </DraggableWindow>
         )}
 
