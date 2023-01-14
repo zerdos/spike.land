@@ -114,7 +114,7 @@ const createResponse = async (request: Request) => {
     const { css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
-      ) as string,
+      ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
     );
 
     const respText = HTML.replace(
