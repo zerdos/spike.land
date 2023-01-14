@@ -77,7 +77,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         bottom: 20,
         right: 20,
       });
-      _setDelay(0);
+
+      setTimeout(() => {
+        _setDelay(0);
+      }, 1000);
     };
 
     reveal();
