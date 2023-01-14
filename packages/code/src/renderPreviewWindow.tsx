@@ -18,7 +18,6 @@ let reveal = () => {};
 const mod = {
   revealed: false,
 };
-let revealed = false;
 
 const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
@@ -80,9 +79,9 @@ const AppToRender: FC<
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
 
-  const [hideRest, setHideRest] = useState(!revealed);
+  const [hideRest, setHideRest] = useState(!mod.revealed);
 
-  useEffect(() => setHideRest(!revealed), [revealed]);
+  useEffect(() => setHideRest(!mod.revealed), [mod.revealed]);
 
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
