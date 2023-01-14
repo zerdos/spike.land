@@ -29,7 +29,7 @@ export const render = async (
   let App;
   try {
     App = (await import(
-      location.origin + "/live/" + codeSpace + "/index.mjs"
+      location.origin + "/live/" + codeSpace + "/index.js"
     )).default;
   } catch (err) {
     try {

@@ -173,6 +173,7 @@ const createResponse = async (request: Request) => {
         `/live/${codeSpace}/index.js`,
         trp,
       );
+
       return new Response(trp, {
         headers: {
           "Access-Control-Allow-Origin": "*",
