@@ -34,7 +34,7 @@ self.onmessage = async (event) => {
   const codeSpace = data.codeSpace;
 
   connections[codeSpace] = connections[codeSpace] || await (async () => {
-    const websocket = new ReconnectingWebSocket(
+    const websocket = new WebSocket(
       `wss://${location.host}/api/room/` + codeSpace + "/websocket",
     );
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -169,7 +169,7 @@ const createResponse = async (request: Request) => {
         ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
       );
 
-      const trp = await transpile(code);
+      const trp = await importMapReplace(await transpile(code), location.origin);
 
       await writeFile(
         `/live/${codeSpace}/session.json`,
