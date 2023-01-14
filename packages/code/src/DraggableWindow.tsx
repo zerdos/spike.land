@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { domAnimation, LazyMotion, m, MotionConfig } from "framer-motion";
+import { domAnimation, domMax, LazyMotion, m } from "framer-motion";
 import { Children, FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -115,7 +115,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={{ ...domAnimation, ...domMax }} strict>
       <m.div
         initial={{
           padding: 0,
