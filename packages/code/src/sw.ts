@@ -172,7 +172,7 @@ const createResponse = async (request: Request) => {
       const trp = await importMapReplace(await transpile(code), location.origin);
 
       await writeFile(
-        `/live/${codeSpace}/session.json`,
+        `/live/${codeSpace}/index.js`,
         trp,
       );
       return new Response(trp, {

@@ -41,12 +41,12 @@ BC.onmessage = async ({ data }) => {
     const jsonStr = JSON.stringify(newSession);
     await wait(200);
 
-    const file = `/live/${codeSpace}/session.json`;
+    // const file = `/live/${codeSpace}/session.json`;
     if (signal.aborted) return;
 
     await Promise.all([
       syncWS(newSession, signal),
-      writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr))),
+      // writeFile(file, jsonStr).catch(() => unlink(file).then(() => writeFile(file, jsonStr))),
     ]);
   }
 };
