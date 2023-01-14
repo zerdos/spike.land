@@ -29,8 +29,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     // HashCode,
   },
 ) => {
-  const [];
   const [scaleRange, changeScaleRange] = useState(100);
+  const [delay, _setDelay] = useState(2);
 
   const [maxScaleRange, changeMaxScaleRange] = useState(100);
 
@@ -77,6 +77,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         bottom: 20,
         right: 20,
       });
+      _setDelay(0);
     };
 
     reveal();

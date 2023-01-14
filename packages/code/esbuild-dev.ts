@@ -2,9 +2,9 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.16.17/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.17.0/mod.js";
 
-import { copy } from "https://deno.land/std@0.171.0/fs/copy.ts";
+import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
@@ -26,7 +26,7 @@ import { copy } from "https://deno.land/std@0.171.0/fs/copy.ts";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = "development";
+const environment = "production";
 
 // = "production" === "production"
 //   ? "production"
@@ -166,7 +166,6 @@ const build = (
   esbuild.build({
     ...buildOptions,
     entryPoints,
-    watch: false,
     external,
     outExtension: { ".js": ".mjs" },
     bundle: true,
