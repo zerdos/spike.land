@@ -266,11 +266,11 @@ const createResponse = async (request: Request) => {
       prettierJs(
         importMapReplace(
           prettierJs(
-            await response.clone().text(),
+            await (await response.clone()).text(),
           ),
           location.origin,
         ),
-        { ...response },
+        response,
       ),
     );
   }
