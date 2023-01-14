@@ -6,6 +6,8 @@ import * as memFS from "memfs";
 // export const fs = new FS('fakeFS', {db: null});\
 
 import FS from "@isomorphic-git/lightning-fs";
+import { S } from "memfs/lib/constants";
+import { wait } from "./wait";
 
 let fsProb: FS | typeof memFS.fs;
 
@@ -36,20 +38,21 @@ export const readdir = (filePath: string) =>
       p.mkdir(filePath).then(() => p.readdir(filePath))
     )
   );
-export const writeFile = async (filePath: string, content: string | Uint8Array) => {
+export const writeFile = async (filePath: string, content: string) => {
+  if (files[filePath] === content) return;
   if (controllers[filePath]) controllers[filePath].abort();
   controllers[filePath] = new AbortController();
   const signal = controllers[filePath].signal;
-  return await mutex.runExclusive(() => {
-    if (files[filePath] === content) return;
-    if (signal.aborted) return;
-    console.log("write", filePath);
-    files[filePath] = content as string;
-    return p.writeFile(
-      filePath,
-      content,
-    );
-  });
+
+  await wait(100);
+  if (files[filePath] === content) return;
+  if (signal.aborted) return;
+  console.log("write", filePath);
+  files[filePath] = content;
+  return p.writeFile(
+    filePath,
+    content,
+  );
 };
 
 export const readFile = async (filePath: string) =>
