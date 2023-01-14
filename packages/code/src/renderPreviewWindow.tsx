@@ -118,20 +118,18 @@ export const renderPreviewWindow = async (
 ) => {
   if (singleton.started) return;
   singleton.started = true;
-  const root2 = document.createElement("div");
-  root2.style.opacity = "0";
-  root2.style.height = "0";
-  root2.style.position = "absolute";
-  document.body.appendChild(root2);
 
   let rootEl = document.createElement("div");
-  root2.appendChild(rootEl);
+  document.getElementById("root")!.appendChild(rootEl);
+  rootEl.style.opacity = "0";
+  rootEl.style.height = "0px";
+  // root.appendChild(rootEl);
   // let rootEl: HTMLDivElement | null = document.querySelector(
   //   `#${codeSpace}-css`,
   // );
   //
   // if (rootEl === null) return;
-  rootEl.style.height = "100%";
+  // rootEl.style.height = "100%";
   // rootEl.innerHTML = ``;
   // const root = createRoot(rootEl);
 
@@ -141,8 +139,10 @@ export const renderPreviewWindow = async (
   reveal = () => {
     document.querySelector(
       `#${codeSpace}-css`,
-    )?.replaceWith(rootEl);
-    root2.remove();
+    )?.remove();
+
+    rootEl.style.opacity = "1";
+    rootEl.style.height = "100%";
   };
   root.render(<AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
