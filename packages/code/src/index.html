@@ -4,6 +4,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
+  <link href="/hydrate.css" rel="stylesheet"> 
   <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
   <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">
   <base href="/">
@@ -48,14 +49,14 @@
 
     /**reset*/
   </style>
-    <link href="/hydrate.css" rel="stylesheet"> 
+
     <script async src="/workerScripts/superFetch.js"></script>
-    <script src="/hydrate.mjs" type="module"></script>
 </head>
 
 
 <body>
   <div id="root"></div>
+  <script src="/hydrate.mjs" type="module"></script>
 </body>
 
 </html>

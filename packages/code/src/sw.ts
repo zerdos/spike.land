@@ -225,29 +225,7 @@ const createResponse = async (request: Request) => {
             <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
               ${html}
             </div>
-    </div>              
-    <script type="module">
-    const paths = location.href.split("/");
-    const page = paths.pop();
-    const codeSpace = paths[2]
-      
-  
-      const BC = new BroadcastChannel("${url.origin}/live/${codeSpace}/");
-    
-    BC.onmessage = ({data}) => {
-      const {html, css, i } = data;
-      if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
-      
-    }
-    </script>` + (url.pathname !== `/live/${codeSpace}/dehydrated`
-        ? `<script type="module">
-        import {render} from "${url.origin}/render.mjs";
-              
-        const rootEl = document.getElementById("${codeSpace}-css");
-
-        render(rootEl, "${codeSpace}", ${i});
-        </script>`
-        : ""),
+    </div>`,
     );
 
     // const Etag = request.headers.get("Etag");
