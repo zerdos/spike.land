@@ -14,6 +14,7 @@ import { css } from "@emotion/react";
 import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
+let reveal = () => {};
 
 const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
@@ -93,7 +94,11 @@ const AppToRender: FC<
       <>
         {onlyEdit ? null : (
           <DraggableWindow codeSpace={codeSpace}>
-            <iframe css={css`height: 100%; width: 100%; border: 0;`} src={`/live/${codeSpace}/iframe`} />
+            <iframe
+              onLoad={() => reveal()}
+              css={css`height: 100%; width: 100%; border: 0;`}
+              src={`/live/${codeSpace}/iframe`}
+            />
           </DraggableWindow>
         )}
 
@@ -116,9 +121,10 @@ export const renderPreviewWindow = async (
   if (singleton.started) return;
   singleton.started = true;
 
-  let rootEl: HTMLDivElement | null = document.querySelector(
-    `#${codeSpace}-css`,
-  );
+  let rootEl = document.getElementById("div");
+  // let rootEl: HTMLDivElement | null = document.querySelector(
+  //   `#${codeSpace}-css`,
+  // );
   //
   // if (rootEl === null) return;
   // rootEl.style.height = "100%";
@@ -128,6 +134,10 @@ export const renderPreviewWindow = async (
   // (createCache as unknown as {default: typeof createCache}).default
 
   const root = createRoot(rootEl!);
+  reveal = () =>
+    document.querySelector(
+      `#${codeSpace}-css`,
+    )?.replaceWith(rootEl!);
   root.render(<AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
 
