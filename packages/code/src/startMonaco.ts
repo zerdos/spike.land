@@ -463,7 +463,7 @@ async function startMonacoPristine(
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
 
     console.log({ version: model.getVersionId(), ev });
-    F;
+
     mod.silent = true;
     onChange(model.getValue());
     mod.silent = false;
