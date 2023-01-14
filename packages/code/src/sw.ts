@@ -163,13 +163,11 @@ const createResponse = async (request: Request) => {
   }
   try {
     if (url.pathname === `/live/${codeSpace}/index.js`) {
-      const { code, css, html, i } = JSON.parse(
-        await readFile(
-          `/live/${codeSpace}/session.json`,
-        ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
-      );
+      const code = await readFile(
+        `/live/${codeSpace}/index.tsx`,
+      ) as string;
 
-      const trp = await importMapReplace(await transpile(code), location.origin);
+      const trp = importMapReplace(await transpile(code), location.origin);
 
       await writeFile(
         `/live/${codeSpace}/index.js`,
