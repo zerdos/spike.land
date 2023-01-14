@@ -201,10 +201,10 @@ const build = (
 
 (async () => {
   // await cp("./src/index.html", "./dist/index.html");
-  // await Deno.copyFile("./src/assets/favicons/favicon.ico", "./dist/src/favicon.ico");
+  await copy("./src/favicon.ico", "./dist/src/favicon.ico");
   await Deno.mkdir("./dist/live");
   await Deno.mkdir("./dist/live/box");
-  await Deno.copyFile(
+  await copy(
     "./stubs/box/index.js",
     "./dist/live/box/index.js",
   );
