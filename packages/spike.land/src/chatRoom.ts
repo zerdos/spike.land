@@ -642,18 +642,15 @@ export class Code implements DurableObject {
           case "public": {
             const respText = HTML.replace(
               "/**reset*/",
-              resetCSS,
+              resetCSS + css,
             )
               .replace(
                 `<div id="root"></div>`,
-                `<div id="root" style="height: 100%;">
-              <style>${css}</style>
-
-                <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                  ${html}
-                  </div>
-
-              </div>              
+                `<div id="root">
+                        <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
+                          ${html}
+                        </div>
+                </div>              
               `,
               );
 
