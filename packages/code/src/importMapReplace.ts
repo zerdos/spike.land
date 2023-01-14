@@ -10,7 +10,7 @@ export function importMapReplace(
   //   return codeInp;
   // }
 
-  let returnStr = replaceAll(codeInp, `from"`, `from "`);
+  let returnStr = replaceAll(codeInp, `from"`, ` from "`);
 
   const items = Object.keys(
     importMapImports,
