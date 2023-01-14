@@ -15,6 +15,9 @@ import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
 let reveal = () => {};
+const mod = {
+  revealed: false,
+};
 let revealed = false;
 
 const RainbowContainer: FC<{ children: ReactNode }> = (
