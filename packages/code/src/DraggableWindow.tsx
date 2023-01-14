@@ -115,7 +115,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
-    <MotionConfig transition={{ delay: 100, delayChildren: 300, type, duration }}>
+    <MotionConfig transition={{ delay: 1, delayChildren: 2, type, duration }}>
       <motion.div
         initial={{
           padding: 0,
