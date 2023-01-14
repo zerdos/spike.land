@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 
 // import { Fragment, useEffect, useState } from "react";
 // import * as portals from "react-reverse-portal";
@@ -14,10 +14,7 @@ import { css } from "@emotion/react";
 import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
-let reveal = () => {};
-const mod = {
-  revealed: false,
-};
+let reveal = (tmp?: unknown) => {};
 
 const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
@@ -79,9 +76,9 @@ const AppToRender: FC<
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
 
-  const [hideRest, setHideRest] = useState(!mod.revealed);
+  const [hideRest, setHideRest] = useState(true);
 
-  useEffect(() => setHideRest(!mod.revealed), [mod.revealed]);
+  // reveal= ()=>hideRest(false);
 
   //   || location.pathname.endsWith("hydrated");
   // const devTools = !onlyApp;
@@ -92,7 +89,7 @@ const AppToRender: FC<
       {onlyEdit ? null : (
         <DraggableWindow codeSpace={codeSpace}>
           <iframe
-            onLoad={() => reveal()}
+            onLoad={() => reveal(setHideRest(false))}
             css={css`height: 100%; width: 100%; border: 0;`}
             src={`/live/${codeSpace}/iframe`}
           />
@@ -137,7 +134,6 @@ export const renderPreviewWindow = async (
 
   const root = createRoot(rootEl);
   reveal = () => {
-    revealed = true;
     const re = document.getElementById("root");
     rootEl.style.height = "100%";
     re?.removeChild(re.firstElementChild!);
