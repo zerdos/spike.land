@@ -39,72 +39,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
-  const [delay, _setDelay] = useState(Number(sessionStorage.getItem("delay")) || 0);
+  // const [delay, _setDelay] = useState(Number(sessionStorage.getItem("delay")) || 0);
   const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
-  // const setWidth = (width: number) => {
-  //   const breakPoint = breakPoints.findIndex((x) => x === width);
-  //   const height = breakPointHeights[breakPoint];
-  //   changeScaleRange(
-  //     Math.max(
-  //       100,
-  //       (Math.floor(window.innerHeight / height) - 10) / 2
-  //         / devicePixelRatio,
-  //     ),
-  //   );
-  //   changeMaxScaleRange(
-  //     Math.max(
-  //       100,
-  //       (Math.floor(40 * window.innerHeight / height)) / 2
-  //         / devicePixelRatio,
-  //     ),
-  //   );
-
-  //   // changeMaxScaleRange(Math.floor(100 * Math.sqrt(1 - (innerWidth / (width + 40)))));
-  //   // changeMaxScaleRange(Math.floor(100 * (innerWidth / (width + 40))));
-  //   setWidthB(width);
-  //   setHeight(height);
-  // };
-
-  // const zBodyRef = useRef<HTMLIFrameElement>(null);
-
   useEffect(() => {
-    // if (!zBodyRef || zBodyRef.current === null) return;
-    // zBodyRef.current.firstChild?.replaceWith(document.getElementById(`${codeSpace}-iframe`)!);
-
-    setTimeout(() => {
-      _setDelay(0);
-    }, delay * 1000);
-  }, []);
-
-  //  useEffect(() =
-  //   if (!terminalRef?.current) return;
-
-  // terminal.open(terminalRef.current)
-  // fitAddon.activate(terminal)
-  // fitAddon.fit();
-
-  //   console.log = (...data) => {
-  //    const params = data.map (d=> typeof d === "object"? JSON.stringify(d, null, 2): d);
-  //     terminal.write(params.join(" - ") + "\r\n");
-  //     origConsole.apply(console, data);
-  // }
-
-  //  }, [terminalRef]);
-
-  useEffect(() => {
-    // if (!dragRef.current) return;
-
-    // zBodyRef.current.innerHTML = zBodyRef.current.innerHTML || mST().html;
     const reveal = () => {
-      // await wait(300);
-      // setPositions({
-      //   bottom: -50 * devicePixelRatio,
-      //   right: -90 * devicePixelRatio,
-      // });
-
       if (window.innerWidth / devicePixelRatio < 600) {
         //   changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
@@ -135,11 +76,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         bottom: 20,
         right: 20,
       });
-      // setDelay(0);
     };
 
     reveal();
-    // SetTimeout(reveal, 200);
   }, []);
 
   const bgColor = getComputedStyle(
@@ -176,7 +115,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const type = sessionStorage && sessionStorage.getItem("type") || "spring";
   return (
-    <MotionConfig transition={{ delay, type, duration }}>
+    <MotionConfig transition={{ type, duration }}>
       <motion.div
         initial={{
           padding: 0,
