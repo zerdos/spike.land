@@ -26,6 +26,8 @@ const p = fs.promises;
 // const readdir = globalThis.fs.readdir;
 const origin = typeof location !== "undefined" ? location.origin : "";
 const files: { [key: string]: string } = globalThis.files = globalThis.files || {};
+const controllers: { [key: string]: AbortController } = globalThis.controllers = globalThis.controllers || {};
+
 const mutex = new Mutex();
 
 export const readdir = (filePath: string) =>
@@ -34,18 +36,21 @@ export const readdir = (filePath: string) =>
       p.mkdir(filePath).then(() => p.readdir(filePath))
     )
   );
-export const writeFile = async (filePath: string, content: string | Uint8Array) =>
-  (!files[filePath] || files[filePath] !== content)
-    ? await mutex.runExclusive(() => {
-      if (files[filePath] === content) return;
-      console.log("write", filePath);
-      files[filePath] = content as string;
-      return p.writeFile(
-        filePath,
-        content,
-      );
-    })
-    : true;
+export const writeFile = async (filePath: string, content: string | Uint8Array) => {
+  if (controllers[filePath]) controllers.filepath.abort();
+  controllers[filePath] = new AbortController();
+  const signal = controllers[filePath].signal;
+  return await mutex.runExclusive(() => {
+    if (files[filePath] === content) return;
+    if (signal.aborted) return;
+    console.log("write", filePath);
+    files[filePath] = content as string;
+    return p.writeFile(
+      filePath,
+      content,
+    );
+  });
+};
 
 export const readFile = async (filePath: string) =>
   files[filePath]
