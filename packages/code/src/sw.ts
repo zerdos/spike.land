@@ -241,7 +241,7 @@ const createResponse = async (request: Request) => {
       "no-cache",
     );
 
-    headers.set("Content-Type", "text/html; charset=UTF-8");
+    // headers.set("Content-Type", "text/html; charset=UTF-8");
     headers.set("content_hash", md5(respText));
     return new Response(respText, {
       status: 200,
@@ -257,29 +257,29 @@ const createResponse = async (request: Request) => {
 
   const ct = response.headers.get("Content-Type") || "";
 
-  if (
-    ((ct.indexOf("application") !== -1
-      && ct.indexOf("charset") !== -1) || request.url.includes(".js") || request.url.includes(".mjs"))
-    && !request.url.includes(".json")
-  ) {
-    return new Response(
-      prettierJs(
-        importMapReplace(
-          prettierJs(
-            await (await response.clone()).text(),
-          ),
-          location.origin,
-        ),
-        response,
-      ),
-    );
-  }
+  // if (
+  //   ((ct.indexOf("application") !== -1
+  //     && ct.indexOf("charset") !== -1) || request.url.includes(".js") || request.url.includes(".mjs"))
+  //   && !request.url.includes(".json")
+  // ) {
+  //   return new Response(
+  //     prettierJs(
+  //       importMapReplace(
+  //         prettierJs(
+  //           await (await response.clone()).text(),
+  //         ),
+  //         location.origin,
+  //       ),
+  //       response,
+  //     ),
+  //   );
+  // }
 
-  if (paths[0] === "/ipfs/") {
-    const { getIpfsResponse } = self as unknown as { getIpfsResponse: (ipfsPath: string) => Response };
+  // if (paths[0] === "/ipfs/") {
+  //   const { getIpfsResponse } = self as unknown as { getIpfsResponse: (ipfsPath: string) => Response };
 
-    response = await getIpfsResponse(url.pathname);
-  }
+  //   response = await getIpfsResponse(url.pathname);
+  // }
 
   return response;
 
