@@ -653,25 +653,7 @@ export class Code implements DurableObject {
                   </div>
 
               </div>              
-              ` + (path[0] === "dehydrated"
-                    ? `<script>
-
-              const paths = location.href.split("/");
-              const page = paths.pop();
-              const codeSpace = paths.pop();
-                
-            
-              const BC = new BroadcastChannel("${url.origin}/live/${codeSpace}/");
-
-              
-              BC.onmessage = ({data}) => {
-                const {html, css, i } = data;
-                if (page ==="dehydrated" && html ) document.getElementById("root").innerHTML = ['<div id="', codeSpace, '-css" style="height: 100%"><style>', css, "</style>", html, "<div>" ].join("");
-                
-              }
-              
-              </script>`
-                    : `<script type="module" src="${url.origin}/hydrate.mjs?ASSET_HASH=${ASSET_HASH}"></script>`),
+              `,
               );
 
             const headers = new Headers();
@@ -692,47 +674,6 @@ export class Code implements DurableObject {
               headers: headers,
             });
           }
-          case "prerender": {
-            const respText = HTML.replace(
-              "/**reset*/",
-              resetCSS,
-            )
-              .replace(
-                `<div id="root"></div>`,
-                `   
-          <div id="root"></div>
-          <script type="module">
-          import App from "${url.origin}/live/${codeSpace}/index.js?i=${i}"
-              
-            import {prerender} from "${url.origin}/render.mjs"
-              
-              
-             const res = prerender(App).then(res=>window.parent.postMessage(res))
-
-            //  console.log({res});
-            
-              </script>`,
-              ).split("ASSET_HASH").join(ASSET_HASH);
-
-            // const Etag = request.headers.get("Etag");
-            // const newEtag = await sha256(respText);
-            const headers = new Headers();
-            headers.set("Access-Control-Allow-Origin", "*");
-
-            headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-            headers.set("Cross-Origin-Opener-Policy", "same-origin");
-            headers.set(
-              "Cache-Control",
-              "no-cache",
-            );
-
-            headers.set("Content-Type", "text/html; charset=UTF-8");
-            headers.set("content_hash", md5(respText));
-            return new Response(respText, {
-              status: 200,
-              headers,
-            });
-          }
           case "iframe": {
             const respText = HTML.replace(
               "/**reset*/",
@@ -747,19 +688,8 @@ export class Code implements DurableObject {
                 <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
                 ${html}
                 </div>
-              </div>
-            
-
-              <script type="module">
-
-            import {render} from "${url.origin}/render.mjs";
-              
-              const rootEl = document.getElementById("${codeSpace}-css");
-      
-              render(rootEl, "${codeSpace}", ${i});          
-          
-              </script>`,
-              ).split("ASSET_HASH").join(ASSET_HASH);
+              </div>`,
+              );
 
             // const Etag = request.headers.get("Etag");
             // const newEtag = await sha256(respText);

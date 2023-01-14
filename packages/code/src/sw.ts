@@ -88,23 +88,20 @@ self.onmessage = async (event) => {
   const transpiled = importMapReplace(await transpile(data.code), location.origin);
 
   if (data.type === "prerender") {
-    setTimeout(async () => {
-      if (signal.aborted) return;
-      if (data.type === "prerender" && data.code && !data.html) {
-        try {
-          await mkdir("/");
-          await mkdir("/live");
-          await mkdir("/live/" + codeSpace);
-          await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-          await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-        } catch {
-          await unlink(`/live/${codeSpace}/index.tsx`);
-          await unlink(`/live/${codeSpace}/index.js`);
-          await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-          await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-        }
+    // setTimeout(async () => {
+    if (signal.aborted) return;
+    if (data.type === "prerender" && data.code && !data.html) {
+      try {
+        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      } catch {
+        await unlink(`/live/${codeSpace}/index.tsx`);
+        await unlink(`/live/${codeSpace}/index.js`);
+        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
       }
-    }, 200);
+    }
+    //  }, 200);
   }
 
   if (signal.aborted) return null;

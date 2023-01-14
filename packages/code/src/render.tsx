@@ -22,7 +22,7 @@ globalThis.firstRender = globalThis.firstRender || {
 };
 
 export const render = async (
-  _rootEl: HTMLDivElement,
+  _rootEl: HTMLElement,
   codeSpace: string,
   counter: number,
 ) => {

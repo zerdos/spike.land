@@ -311,7 +311,7 @@ export class Code {
       globalThis.firstRender.code = code;
       BC.onmessage = ({ data }) => {
         if (
-          (data.type === "prerender" || data.type === "prerender")
+          (data.type === "prerender" || data.type === "firstRender")
           && data.html && data.css && data.i && data.code
         ) {
           console.log({ data });
@@ -319,7 +319,7 @@ export class Code {
           const { html, css } = data;
           cSess.session = makeSession({ ...cSess.session, code });
 
-          ws.post({ type: "firstRender", html, css, code });
+          ws.post({ type: "firstRender", html, i: data.i, css, code });
         }
       };
 
