@@ -8,9 +8,9 @@
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
 
-    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
     "declaration": true,
+    "noEmit": true,
     "checkJs": false,
     "useDefineForClassFields": false,
     "outDir": "dist",

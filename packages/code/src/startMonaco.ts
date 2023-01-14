@@ -1,9 +1,9 @@
-import * as monaco from "monaco-editor";
+import "monaco-editor/esm/vs/editor/edcore.main";
+import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
+import { editor, languages, Uri } from "monaco-editor";
 
 import { ata } from "./shared";
 // import localForage from "localforage";
-
-const { editor, languages, Uri } = monaco;
 
 const { createModel } = editor;
 const create = editor.create;

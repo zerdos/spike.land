@@ -145,9 +145,9 @@ const buildOptions: esbuild.BuildOptions = {
 };
 
 const workerEntryPoints = [
-  "vs/language/json/json.worker",
-  "vs/language/css/css.worker",
-  "vs/language/html/html.worker",
+  // "vs/language/json/json.worker",
+  // "vs/language/css/css.worker",
+  // "vs/language/html/html.worker",
   "vs/language/typescript/ts.worker",
   "vs/editor/editor.worker",
 ];

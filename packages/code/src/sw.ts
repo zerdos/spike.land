@@ -1,6 +1,7 @@
+// import {precacheAndRoute} from 'workbox-precaching';
+
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
-// importScripts("/workerScripts/ipfs-core.js");
 // importScripts("/workerScripts/prettierEsm.js");
 
 import type * as FS from "./fs";
@@ -9,6 +10,9 @@ declare const self:
   & { files: { [key: string]: string }; fileCacheName: string }
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
+import type FSD from "./fs";
+const { readFile, unlink, mkdir, writeFile, readdir, Mutex } = self as unknown as typeof FSD;
+
 export type {};
 
 import { resetCSS } from "./getResetCss";
@@ -122,7 +126,7 @@ const createResponse = async (request: Request) => {
   ) {
     // return renderToStream("clock3");
 
-    const { css, html, i } = JSON.parse(
+    const { code, css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
       ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
@@ -156,6 +160,34 @@ const createResponse = async (request: Request) => {
       status: 200,
       headers,
     });
+  }
+  try {
+    if (url.pathname === `/live/${codeSpace}/index.js`) {
+      const { code, css, html, i } = JSON.parse(
+        await readFile(
+          `/live/${codeSpace}/session.json`,
+        ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
+      );
+
+      const trp = await transpile(code);
+
+      await writeFile(
+        `/live/${codeSpace}/session.json`,
+        trp,
+      );
+      return new Response(trp, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cache-Control": "no-cache",
+
+          content_hash: md5(trp),
+          "Content-Type": "application/javascript; charset=UTF-8",
+        },
+      });
+    }
+  } catch {
+    console.log("some error again");
   }
 
   return fetch(request);

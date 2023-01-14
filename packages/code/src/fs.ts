@@ -2,7 +2,6 @@
 // import FS from "@isomorphic-git/lightning-fs";
 import { Mutex } from "async-mutex";
 import * as memFS from "memfs";
-import { importMapReplace } from "./importMapReplace";
 
 // export const fs = new FS('fakeFS', {db: null});\
 
@@ -26,7 +25,7 @@ const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
 const origin = typeof location !== "undefined" ? location.origin : "";
-const files: { [key: string]: string } = {};
+const files: { [key: string]: string } = globalThis.files = globalThis.files || {};
 const mutex = new Mutex();
 
 export const readdir = (filePath: string) =>
@@ -38,6 +37,7 @@ export const readdir = (filePath: string) =>
 export const writeFile = async (filePath: string, content: string | Uint8Array) =>
   (!files[filePath] || files[filePath] !== content)
     ? await mutex.runExclusive(() => {
+      if (files[filePath] === content) return;
       console.log("write", filePath);
       files[filePath] = content as string;
       return p.writeFile(
@@ -57,4 +57,5 @@ export const unlink = (filepath: string) =>
   mutex.runExclusive(() => p.unlink(filepath).catch(() => {/** nothing really happened */}));
 export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(filePath).catch(() => {}));
 
+export default { readFile, unlink, mkdir, writeFile, readdir, Mutex };
 Object.assign(self, { readFile, unlink, mkdir, writeFile, readdir, Mutex });

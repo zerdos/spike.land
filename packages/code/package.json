@@ -15,6 +15,7 @@
     ".": "./"
   },
   "scripts": {
+    "hash": "cd dist && find .  -type f -exec shasum -a 256 {} \";\" | jq -R -s -c 'split(\"\n\")[:-1]'>dist.json",
     "test": "esbuild --bundle tests/* --platform=node --external:uvu --external:uvu/  --external:esbuild-wasm  --external:esbuild-wasm/  --external:memfs  --format=esm   --loader:.html=text --outdir=testsJs && yarn uvu testsJs && rm -rf testsJs",
     "types": "tsc || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
@@ -25,7 +26,7 @@
     "build:orbit-db": "esbuild --bundle src/preact.ts  --target=esnext --minify --format=esm --platform=browser  --outfile=./dist//react.mjs",
     "build:framer-motion": "yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build ",
+    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build && yarn hash ",
     "es:build": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run esbuild-dev.ts",
     "favicons": "mkdir -p ./dist/assets && cp -af src/assets/. ./dist/assets/",
     "sw": "echo ok"
