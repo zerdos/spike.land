@@ -120,20 +120,26 @@ export const renderPreviewWindow = async (
 ) => {
   if (singleton.started) return;
   singleton.started = true;
+  const root2 = document.createElement("div");
+  root2.style.opacity = "0";
+  root2.style.height = "0";
+  root2.style.position = "absolute";
+  document.body.appendChild(root2);
 
   let rootEl = document.createElement("div");
+  root2.appendChild(rootEl);
   // let rootEl: HTMLDivElement | null = document.querySelector(
   //   `#${codeSpace}-css`,
   // );
   //
   // if (rootEl === null) return;
-  // rootEl.style.height = "100%";
+  rootEl.style.height = "100%";
   // rootEl.innerHTML = ``;
   // const root = createRoot(rootEl);
 
   // (createCache as unknown as {default: typeof createCache}).default
 
-  const root = createRoot(rootEl!);
+  const root = createRoot(rootEl);
   reveal = () =>
     document.querySelector(
       `#${codeSpace}-css`,
