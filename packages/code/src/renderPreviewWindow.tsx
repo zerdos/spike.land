@@ -121,7 +121,7 @@ export const renderPreviewWindow = async (
   if (singleton.started) return;
   singleton.started = true;
 
-  let rootEl = document.getElementById("div");
+  let rootEl = document.createElement("div");
   // let rootEl: HTMLDivElement | null = document.querySelector(
   //   `#${codeSpace}-css`,
   // );
@@ -137,7 +137,7 @@ export const renderPreviewWindow = async (
   reveal = () =>
     document.querySelector(
       `#${codeSpace}-css`,
-    )?.replaceWith(rootEl!);
+    )?.replaceWith(rootEl);
   root.render(<AppToRender codeSpace={codeSpace} />);
   // setTimeout(() => {
 
