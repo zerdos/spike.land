@@ -64,6 +64,6 @@ if (
   render(
     document.getElementById(codeSpace + "-css")!,
     codeSpace,
-    document.getElementById(codeSpace + "-css")?.getAttribute("i"),
+    Number(document.getElementById(codeSpace + "-css")!.getAttribute("i")),
   );
 }
