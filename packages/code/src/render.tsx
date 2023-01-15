@@ -30,6 +30,7 @@ export const render = async (
   counter: number,
 ) => {
   __rootEl = _rootEl;
+  if (!__rootEl) return;
   let App;
   try {
     App = (await import(
