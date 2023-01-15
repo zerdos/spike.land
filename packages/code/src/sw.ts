@@ -22,7 +22,9 @@ import { createPatch, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
-const connections = globalThis.connections = globalThis.connections || {};
+localStorage.getItem("user") || localStorage.setItem("user", md5(self.crypto.randomUUID()));
+const user = localStorage.getItem("user")!;
+const connections = {};
 
 let controller = new AbortController();
 
@@ -34,61 +36,7 @@ self.onmessage = async (event) => {
   const signal = controller.signal;
   const { data } = event;
   const codeSpace = data.codeSpace;
-
-  connections[codeSpace] = connections[codeSpace] || await (async () => {
-    console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
-    const websocket = new ReconnectingWebSocket(
-      `wss://${location.host}/live/${codeSpace}/websocket`,
-    );
-    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-    const session = {
-      websocket,
-      BC,
-      user: md5(self.crypto.randomUUID()),
-      i: 0,
-      oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
-    };
-    BC.onmessage = async ({ data }) => {
-      if (data.i > session.i && (data.hashCode || data.newHash)) {
-        session.i = data.i;
-
-        data.name = session.user;
-        websocket.send(JSON.stringify(data));
-      }
-      if (data.i >= session.i && data.html && data.code) {
-        session.i = data.i;
-        if (makeHash(data) !== makeHash(session.oldSession)) {
-          const patchMessage = createPatch(session.oldSession, data);
-
-          BC.postMessage({ ...patchMessage, name: session.user });
-
-          websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
-          session.oldSession = makeSession(data);
-        }
-      }
-    };
-
-    websocket.onopen = () => console.log("onOpened");
-    websocket.onmessage = async ({ data }) => {
-      const msg = JSON.parse(data);
-      if (data.type === "handShake") {
-        websocket.send(JSON.stringify({ name: session.user }));
-        return;
-      }
-      if (data.type === "transpile") {
-        const transpiled = importMapReplace(await transpile(data.code), location.origin);
-        websocket.send(JSON.stringify({ ...data, transpiled }));
-      }
-
-      if (msg.i > session.i) {
-        session.i = msg.i;
-        BC.postMessage(data);
-      }
-    };
-
-    return session;
-  })();
+  await setConnections(codeSpace);
 
   if (signal.aborted) return null;
 
@@ -168,6 +116,8 @@ const createResponse = async (request: Request) => {
   }
   try {
     if (url.pathname === `/live/${codeSpace}/index.js`) {
+      await setConnections(codeSpace);
+
       const code = await readFile(
         `/live/${codeSpace}/index.tsx`,
       ) as string;
@@ -200,3 +150,59 @@ const createResponse = async (request: Request) => {
 self.addEventListener("fetch", function(event) {
   return event.respondWith((() => createResponse(event.request))());
 });
+
+async function setConnections(codeSpace: string) {
+  return connections[codeSpace] = connections[codeSpace] || await (async (codeSpace) => {
+    console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
+    const websocket = new ReconnectingWebSocket(
+      `wss://${location.host}/live/${codeSpace}/websocket`,
+    );
+    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+    const session = {
+      websocket,
+      user,
+      i: 0,
+      oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
+    };
+    BC.onmessage = async ({ data }) => {
+      if (data.i > session.i && (data.hashCode || data.newHash)) {
+        session.i = data.i;
+
+        data.name = session.user;
+        websocket.send(JSON.stringify(data));
+      }
+      if (data.i >= session.i && data.html && data.code) {
+        session.i = data.i;
+        if (makeHash(data) !== makeHash(session.oldSession)) {
+          const patchMessage = createPatch(session.oldSession, data);
+
+          BC.postMessage({ ...patchMessage, name: session.user });
+
+          websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
+          session.oldSession = makeSession(data);
+        }
+      }
+    };
+
+    websocket.onopen = () => console.log("onOpened");
+    websocket.onmessage = async ({ data }) => {
+      const msg = JSON.parse(data);
+      if (data.type === "handShake") {
+        websocket.send(JSON.stringify({ name: session.user }));
+        return;
+      }
+      if (data.type === "transpile") {
+        const transpiled = importMapReplace(await transpile(data.code), location.origin);
+        websocket.send(JSON.stringify({ ...data, transpiled }));
+      }
+
+      if (msg.i > session.i) {
+        session.i = msg.i;
+        BC.postMessage(data);
+      }
+    };
+
+    return session;
+  })(codeSpace);
+}
