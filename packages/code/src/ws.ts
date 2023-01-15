@@ -5,7 +5,7 @@ import ky from "ky";
 import AVLTree from "avl";
 import { prettier } from "./shared";
 
-import { applyPatch as aPatch, Delta } from "./textDiff";
+import type { Delta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
 import {
@@ -265,7 +265,7 @@ export class Code {
       window.onmessage = ({ data }) => {
         if (
           (data.type === "prerender" || data.type === "firstRender")
-          && data.html && data.css
+          && data.html
         ) {
           console.log({ data });
           firstRenderSent = true;
