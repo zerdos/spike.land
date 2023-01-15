@@ -21,11 +21,15 @@ globalThis.firstRender = globalThis.firstRender || {
   code: "",
 };
 
+let __rootEl: HTMLElement;
+BC.onmessage = ({ data }) => data.html && data.code && data.i && render(__rootEl, codeSpace, data.i);
+
 export const render = async (
   _rootEl: HTMLElement,
   codeSpace: string,
   counter: number,
 ) => {
+  __rootEl = _rootEl;
   let App;
   try {
     App = (await import(
@@ -44,6 +48,11 @@ export const render = async (
         </div>
       );
     }
+  }
+
+  if (root) {
+    root.render(<App></App>);
+    return;
   }
 
   const el = document.createElement("div");
