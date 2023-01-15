@@ -151,6 +151,7 @@ self.addEventListener("fetch", function(event) {
 });
 
 async function setConnections(codeSpace: string) {
+  const user = await localforage.getItem("user") || await localforage.setItem("user", md5(self.crypto.randomUUID()));
   return connections[codeSpace] = connections[codeSpace] || await (async (codeSpace) => {
     console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
     const websocket = new ReconnectingWebSocket(
