@@ -755,7 +755,7 @@ export class Code implements DurableObject {
 
       this.wsSessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
 
-      session.name = name;
+      session.name = data.name;
     }
 
     if (data.type == "handshake") {
