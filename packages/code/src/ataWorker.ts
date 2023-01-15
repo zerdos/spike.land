@@ -1,6 +1,7 @@
 globalThis.isSharedWorker = true;
 
 importScripts("/workerScripts/superFetch.js");
+import { ReconnectingWebSocket } from "./ReconnectingWebSocket";
 
 import type * as RPC from "worker-rpc";
 
@@ -71,7 +72,7 @@ function setConnections(signal: string) {
 
   connections[codeSpace] = connections[codeSpace] || (async (codeSpace) => {
     console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
-    const websocket = new WebSocket(
+    const websocket = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
