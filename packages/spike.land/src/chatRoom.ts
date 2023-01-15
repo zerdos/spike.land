@@ -1,7 +1,7 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 import { resetCSS } from "./../../code/src/getResetCss";
 import HTML from "./../../code/src/index.html";
-import { aPatch, applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
+import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 
@@ -14,13 +14,12 @@ import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
 import { createDelta, Delta } from "../../code/src/textDiff";
-import shaSum from "./dist.shasum";
+// import shaSum from "./dist.shasum";
 
 export { md5 };
 
 // import { CodeRateLimiter } from "./rateLimiter";
 
-const ASSET_HASH = shaSum.trim();
 export interface WebsocketSession {
   name: string;
   webSocket: WebSocket;

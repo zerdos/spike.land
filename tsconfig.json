@@ -3,7 +3,7 @@
     "allowJs": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,

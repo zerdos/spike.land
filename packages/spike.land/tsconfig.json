@@ -4,7 +4,7 @@
     "alwaysStrict": true,
     "strict": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "importHelpers": true,
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,

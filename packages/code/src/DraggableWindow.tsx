@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { motion, MotionConfig } from "framer-motion";
-import { Children, FC } from "react";
-import { useEffect, useRef, useState } from "react";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr.lazy";
 
@@ -32,8 +32,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const [scaleRange, changeScaleRange] = useState(100);
   const [delay, _setDelay] = useState(2);
 
-  const [maxScaleRange, changeMaxScaleRange] = useState(100);
-
+  // const [maxScaleRange, changeMaxScaleRange] = useState(100);
+  const maxScaleRange = 100;
   // globalThis.iRef = iRef;
 
   const startPositions = { bottom: 0, right: 0 };

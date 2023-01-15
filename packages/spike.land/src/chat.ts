@@ -1,5 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import type { DurableObject, Request, Response } from "@cloudflare/workers-types";
+import type {} from "@cloudflare/workers-types";
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
@@ -18,10 +18,10 @@ import { handleErrors } from "./handleErrors";
 
 const ASSET_HASH = shaSum.trim();
 
-const api: DurableObject = {
+const api: ExportedHandler<CodeEnv> = {
   fetch: (
-    req: Request<unknown>,
-    env: CodeEnv,
+    req,
+    env,
   ) => {
     let request = new Request(req.url, { ...req });
     if (
@@ -351,17 +351,6 @@ const api: DurableObject = {
                   waitUntil: async (prom) => await prom,
                 },
                 {
-                  // cacheControl: (isChunk(url.href)
-                  //   ? {
-                  //     browserTTL: 2 * 60 * 60 * 24,
-                  //     edgeTTL: 2 * 60 * 60 * 24,
-                  //     orbypassCache: false,
-                  //   }
-                  //   : {
-                  //     browserTTL: 0,
-                  //     edgeTTL: 0,
-                  //     bypassCache: true,
-                  //   }),
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
                   ASSET_MANIFEST,
                 },
@@ -521,7 +510,6 @@ const api: DurableObject = {
               ? importMapReplace(
                 await response.text(),
                 u.origin,
-                isDTS ? xTs : response.url,
               ).split("esm.sh").join(
                 url.host,
               )
@@ -659,9 +647,6 @@ export const getImportMapStr = (orig: string) => {
 
 export default api;
 
-function signaller(arg0: any) {
-  console.count("yay");
-}
 // function replaceAll(input: string, search: string, replace: string) {
 //   return input.split(search).join(replace);
 // }

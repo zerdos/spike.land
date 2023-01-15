@@ -1,3 +1,3 @@
 declare module "*.wasm" {
-  export default string;
+  export default "filename";
 }

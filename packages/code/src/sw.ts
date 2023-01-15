@@ -3,27 +3,36 @@
 import type {} from "./transpile";
 importScripts("/workerScripts/transpile.js");
 // importScripts("/workerScripts/prettierEsm.js");
+import type { transpile as Transpile } from "./transpile";
 
 import type * as FS from "./fs";
-declare const self:
+declare var self:
   & ServiceWorkerGlobalScope
   & { files: { [key: string]: string }; fileCacheName: string }
+  & { transpile: typeof Transpile }
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 import type FSD from "./fs";
-const { readFile, unlink, mkdir, writeFile, readdir, Mutex } = self as unknown as typeof FSD;
-
+const { readFile, unlink, writeFile } = self as unknown as typeof FSD;
+const { transpile } = self;
 export type {};
 
 import localforage from "localforage";
 import { resetCSS } from "./getResetCss";
 import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
-import { createPatch, makeHash, makeSession } from "./makeSess";
+import { createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
-import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
+// import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
-const connections = {};
+const connections: {
+  [key: string]: {
+    websocket: WebSocket;
+    user: {};
+    i: number;
+    oldSession: ICodeSession;
+  };
+} = {};
 
 let controller = new AbortController();
 
@@ -69,14 +78,9 @@ const createResponse = async (request: Request) => {
   }
 
   const paths = url.pathname.split("/");
-  const codeSpace = paths[2];
-  if (
-    url.pathname === `/live/${codeSpace}/iframe`
-    || url.pathname === `/live/${codeSpace}/`
-    || url.pathname === `/live/${codeSpace}/public`
-    || url.pathname === `/live/${codeSpace}/dehydrated`
-  ) {
-    // return renderToStream("clock3");
+
+  if (paths[1] === "live") {
+    const codeSpace = paths[2];
 
     const { code, css, html, i } = JSON.parse(
       await readFile(
@@ -84,63 +88,72 @@ const createResponse = async (request: Request) => {
       ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
     );
 
-    const respText = HTML.replace(
-      "/**reset*/",
-      resetCSS + css,
-    ).replace(
-      `<div id="root"></div>`,
-      `<div id="root" style="height: 100%;">
+    if (
+      url.pathname === `/live/${codeSpace}/iframe`
+      || url.pathname === `/live/${codeSpace}/`
+      || url.pathname === `/live/${codeSpace}/public`
+      || url.pathname === `/live/${codeSpace}/dehydrated`
+    ) {
+      // return renderToStream("clock3");
+
+      const respText = HTML.replace(
+        "/**reset*/",
+        resetCSS + css,
+      ).replace(
+        `<div id="root"></div>`,
+        `<div id="root" style="height: 100%;">
         <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
           ${html}
         </div>
     </div>`,
-    );
-
-    const headers = new Headers();
-    headers.set("Access-Control-Allow-Origin", "*");
-
-    headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-    headers.set("Cross-Origin-Opener-Policy", "same-origin");
-    headers.set(
-      "Cache-Control",
-      "no-cache",
-    );
-
-    headers.set("Content-Type", "text/html; charset=UTF-8");
-    headers.set("content_hash", md5(respText));
-    return new Response(respText, {
-      status: 200,
-      headers,
-    });
-  }
-  try {
-    if (url.pathname === `/live/${codeSpace}/index.js`) {
-      await setConnections(codeSpace);
-
-      const code = await readFile(
-        `/live/${codeSpace}/index.tsx`,
-      ) as string;
-
-      const trp = importMapReplace(await transpile(code), location.origin);
-
-      await writeFile(
-        `/live/${codeSpace}/index.js`,
-        trp,
       );
 
-      return new Response(trp, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-          "Cache-Control": "no-cache",
+      const headers = new Headers();
+      headers.set("Access-Control-Allow-Origin", "*");
 
-          content_hash: md5(trp),
-          "Content-Type": "application/javascript; charset=UTF-8",
-        },
+      headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+      headers.set("Cross-Origin-Opener-Policy", "same-origin");
+      headers.set(
+        "Cache-Control",
+        "no-cache",
+      );
+
+      headers.set("Content-Type", "text/html; charset=UTF-8");
+      headers.set("content_hash", md5(respText));
+      return new Response(respText, {
+        status: 200,
+        headers,
       });
     }
-  } catch {
-    console.log("some error again");
+    try {
+      if (url.pathname === `/live/${codeSpace}/index.js`) {
+        await setConnections(codeSpace);
+
+        // const code = await readFile(
+        //   `/live/${codeSpace}/index.tsx`,
+        // ) as string;
+
+        const trp = importMapReplace(await transpile(code), location.origin);
+
+        await writeFile(
+          `/live/${codeSpace}/index.js`,
+          trp,
+        );
+
+        return new Response(trp, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+
+            content_hash: md5(trp),
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
+    } catch {
+      console.log("some error again");
+    }
   }
 
   return fetch(request);
@@ -152,14 +165,15 @@ self.addEventListener("fetch", function(event) {
 
 async function setConnections(codeSpace: string) {
   const user = await localforage.getItem("user") || await localforage.setItem("user", md5(self.crypto.randomUUID()));
-  return connections[codeSpace] = connections[codeSpace] || await (async (codeSpace) => {
+  connections[codeSpace] = connections[codeSpace] || await (async (codeSpace) => {
     console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
-    const websocket = new ReconnectingWebSocket(
+    const websocket = new WebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
     const session = {
+      BC,
       websocket,
       user,
       i: 0,
