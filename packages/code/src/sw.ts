@@ -15,6 +15,7 @@ const { readFile, unlink, mkdir, writeFile, readdir, Mutex } = self as unknown a
 
 export type {};
 
+import localforage from "localforage";
 import { resetCSS } from "./getResetCss";
 import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
@@ -22,8 +23,6 @@ import { createPatch, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
-localStorage.getItem("user") || localStorage.setItem("user", md5(self.crypto.randomUUID()));
-const user = localStorage.getItem("user")!;
 const connections = {};
 
 let controller = new AbortController();
