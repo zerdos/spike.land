@@ -7,7 +7,7 @@ import type * as RPC from "worker-rpc";
 
 import type { ata as Ata } from "./ata";
 import { importMapReplace } from "./importMapReplace";
-import { createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
+import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
 
@@ -116,6 +116,14 @@ function setConnections(signal: string) {
       if (data.type === "transpile") {
         const transpiled = importMapReplace(await transpile(data.code), location.origin);
         websocket.send(JSON.stringify({ ...data, transpiled }));
+      }
+      if (data.newHash) {
+        const newSession = applyCodePatch(sess, data);
+        if (makeHash(newSession) !== makeHash(session.oldSession)) {
+          BC.postMessage(newSession);
+          session.i = newSession.i;
+          session.oldSession = newSession;
+        }
       }
 
       if (msg.i > session.i) {
