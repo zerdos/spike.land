@@ -271,7 +271,7 @@ export class Code {
 
   async run() {
     const sess = (await codeSession());
-    sess.run ? await sess.run() : {};
+    sess.run ? sess.run() : {};
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
