@@ -122,13 +122,14 @@ export class Code {
 
       await mutex.runExclusive(async () => {
         const head = Number(await ldb(codeSpace).getItem("head") || 0);
+        const startSess = await ky(`${origin}/live/${codeSpace}/session`)
+          .json<ICodeSession>();
 
         if (head === 0) {
           // await Promise.all([
           // this.head = await ky(`${origin}/live/${codeSpace}/session/head`)
           // .text().then((x) => this.head = Number(x)),
-          const startSess = await ky(`${origin}/live/${codeSpace}/session`)
-            .json<ICodeSession>();
+
           // ]);
           this.session = makeSession(startSess);
           this.sess = this.session;
@@ -143,10 +144,10 @@ export class Code {
             this.sess,
           ) as (ICodeSession | false);
         } else {
-          const startSess = await ldb(codeSpace).getItem(
+          const startSessLocal = await ldb(codeSpace).getItem(
             String(head),
           ) as ICodeSession;
-          this.session = makeSession(startSess);
+          this.session = makeSession(startSess.i > startSessLocal.i ? startSess : startSessLocal);
           this.sess = this.session;
 
           this.head = makeHash(this.session);
