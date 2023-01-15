@@ -242,11 +242,10 @@ if (location.pathname.endsWith("/iframe")) {
           } catch (e) {
             "some error";
           }
-          window?.parent?.postMessage({
+          BC.postMessage({
             html,
             css,
             i: data.i,
-            type: "prerender",
             code: data.code,
           });
           controller.abort();

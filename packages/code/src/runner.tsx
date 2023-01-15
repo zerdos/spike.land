@@ -1,8 +1,6 @@
 import { sw } from "./hydrate";
 import { syncWS } from "./ws";
 
-import { unlink, writeFile } from "./fs";
-import { appFactory } from "./starter";
 import { wait } from "./wait";
 import { sess as oldSess } from "./ws";
 
