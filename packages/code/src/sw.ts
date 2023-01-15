@@ -18,7 +18,7 @@ export type {};
 import { resetCSS } from "./getResetCss";
 import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
-import { createPatch, makeSession } from "./makeSess";
+import { createPatch, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
@@ -56,14 +56,16 @@ self.onmessage = async (event) => {
         data.name = session.user;
         websocket.send(JSON.stringify(data));
       }
-      if (data.i > session.i && data.html && data.css && data.code) {
+      if (data.i >= session.i && data.html && data.css && data.code) {
         session.i = data.i;
-        const newSession = makeSession(data);
-        const patchMessage = createPatch(session.oldSession, newSession);
+        if (makeHash(data) !== makeHash(session.oldSession)) {
+          const patchMessage = createPatch(session.oldSession, data);
 
-        BC.postMessage({ ...patchMessage, name: session.user });
+          BC.postMessage({ ...patchMessage, name: session.user });
 
-        websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
+          websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
+          session.oldSession = makeSession(data);
+        }
       }
     };
 
