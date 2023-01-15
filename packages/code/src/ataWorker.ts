@@ -52,6 +52,7 @@ self.onconnect = ({ ports }) => {
 
 const connections: {
   [key: string]: {
+    BC: BroadcastChannel;
     websocket: WebSocket;
     user: {};
     i: number;
@@ -60,7 +61,11 @@ const connections: {
 } = {};
 
 function setConnections(signal: string) {
-  const [codeSpace, user] = signal.split(" ");
+  const parts = signal.split(" ");
+
+  const codeSpace = parts[0];
+
+  const user = parts[1];
 
   connections[codeSpace] = connections[codeSpace] || (async (codeSpace) => {
     console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
@@ -69,13 +74,15 @@ function setConnections(signal: string) {
     );
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-    const session = {
+    connections[codeSpace] = {
       BC,
       websocket,
       user,
       i: 0,
       oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
     };
+    const session = connections[codeSpace];
+
     BC.onmessage = async ({ data }) => {
       if (data.i > session.i && (data.hashCode || data.newHash)) {
         session.i = data.i;
@@ -94,7 +101,6 @@ function setConnections(signal: string) {
           session.oldSession = makeSession(data);
         }
       }
-      return session;
     };
 
     websocket.onopen = () => console.log("onOpened");
@@ -114,7 +120,5 @@ function setConnections(signal: string) {
         BC.postMessage(data);
       }
     };
-
-    return session;
   })(codeSpace);
 }
