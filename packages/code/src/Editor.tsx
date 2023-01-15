@@ -17,6 +17,10 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 let startedM = 0;
 let startedAce = 0;
 
+const mod = {
+  i: 0,
+};
+
 const Editor: FC<
   {
     codeSpace: string;
@@ -37,14 +41,6 @@ const Editor: FC<
     controller: new AbortController(),
     setValue: (_code: string) => null,
   });
-
-  BC.onmessage = async ({ data }) => {
-    if (i >= data.i) return;
-    if (data.code && await prettier(data.code) !== await prettier(code)) {
-      setValue(data.code);
-    }
-    changeContent(x => ({ ...x, code: data.code, i: data.i }));
-  };
 
   useEffect(() => {
     if (started) return;
@@ -109,6 +105,7 @@ const Editor: FC<
     `}
     />
   );
+
   const onChange = async (_code: string) => {
     if (code === _code) return;
     console.log(_code);
@@ -121,10 +118,18 @@ const Editor: FC<
 
     changeContent((x) => ({
       ...x,
-      i: x.i + 1,
+      i: mod.i = x.i + 1,
       code: c,
       controller: new AbortController(),
     }));
+  };
+
+  BC.onmessage = async ({ data }) => {
+    if (mod.i >= data.i) return;
+    if (data.code && await prettier(data.code) !== await prettier(code)) {
+      setValue(data.code);
+    }
+    changeContent(x => ({ ...x, code: data.code, i: data.i }));
   };
 
   useEffect(() => {
