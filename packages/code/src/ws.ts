@@ -262,15 +262,19 @@ export class Code {
       globalThis.firstRender.code = code;
       window.onmessage = ({ data }) => {
         if (
-          (data.type === "prerender" || data.type === "firstRender")
-          && data.html
+          // (data.type === "prerender" || data.type === "firstRender")
+          data.html && data.code && data.i
         ) {
+          const oldHash = makeHash(this.session);
+
           console.log({ data });
           firstRenderSent = true;
-          const { html, css } = data;
-          cSess.session = makeSession({ code, i: cSess.session.i, html, css });
+          //  const { html, css } = data;
+          const newSession = makeSession(data);
+          const newHash = makeHash(newSession);
+          if (newHash !== oldHash) cSess.session = newSession;
 
-          ws.post({ type: "firstRender", ...cSess.session });
+          // ws.post({ type: "firstRender", ...cSess.session });
           BC.postMessage(cSess.session);
         }
       };
@@ -320,21 +324,6 @@ if (!globalThis.cSess) {
 }
 
 const { cSess } = globalThis;
-
-export const codeSession = async () => {
-  await mutex.waitForUnlock();
-  mutex.acquire();
-  if (cSess) return { sess: { ...cSess.sess } };
-  return {
-    run: async () => {
-      mutex.release();
-      setTimeout(async () => {
-        await mutex.waitForUnlock();
-        cSess.run();
-      });
-    },
-  };
-};
 
 export const sess = cSess.session;
 
@@ -452,7 +441,7 @@ export const run = () => cSess.run();
 // video; however, you can be more specific. It's possible to state
 // that you would prefer (or require) specific resolutions of video,
 // whether to prefer the user-facing or rear-facing camera (if available),
-// and so on.
+// and §o on.
 //
 // See also:
 // https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamConstraints
