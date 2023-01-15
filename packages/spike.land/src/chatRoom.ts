@@ -32,7 +32,7 @@ export interface IFirstRender {
   type: "firstRender";
   code: string;
   css: string;
-
+  i: number;
   html: string;
 }
 

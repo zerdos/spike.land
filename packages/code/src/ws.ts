@@ -285,7 +285,7 @@ export class Code {
           const { html, css } = data;
           cSess.session = makeSession({ ...cSess.session, html, css });
 
-          ws.post({ type: "firstRender", html, i: data.i, css, code });
+          ws.post({ type: "firstRender", ...cSess.session });
         }
       };
 
