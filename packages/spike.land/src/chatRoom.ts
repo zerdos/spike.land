@@ -24,7 +24,7 @@ export interface WebsocketSession {
   name: string;
   webSocket: WebSocket;
   quit?: boolean;
-  // blockedMessages: string[];
+  blockedMessages: string[];
 }
 
 export interface IFirstRender {
@@ -53,11 +53,21 @@ export class Code implements DurableObject {
       });
   }
   // private users:
-  broadcast(msg: unknown) {
+  broadcast(msg: CodePatch) {
     const message = JSON.stringify(msg);
 
+    const head = makeHash(this.session);
     this.state.storage.put("sess", this.session);
-    this.state.storage.put("head", makeHash(this.session));
+    this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
+    this.state.storage.get(msg.oldHash).then(data =>
+      this.state.storage.put(msg.oldHash, {
+        oldHash: msg.oldHash || "",
+        reversePatch: data.reversePatch || [],
+        newHash: msg.newHash,
+        patch: msg.patch,
+      })
+    );
+    this.state.storage.put("head", head);
 
     this.wsSessions.filter((s) => s.name).map((s) => {
       try {
@@ -65,7 +75,7 @@ export class Code implements DurableObject {
       } catch (err) {
         s.quit = true;
         // this.users.remove(s.name);
-        // s.blockedMessages.push(message);
+        s.blockedMessages.push(message);
       }
     });
   }
@@ -653,7 +663,7 @@ export class Code implements DurableObject {
       name: "",
       quit: false,
       webSocket,
-      //   blockedMessages: [] as string[],
+      blockedMessages: [] as string[],
     };
     this.wsSessions.push(session);
     this.wsSessions = this.wsSessions.filter((x) => !x.quit);
@@ -753,7 +763,10 @@ export class Code implements DurableObject {
         });
       }
 
-      this.wsSessions.filter((x) => x.name === data.name).map((x) => x.quit = true);
+      this.wsSessions.filter((x) => x.name === data.name).map(x =>
+        x.blockedMessages.reverse().map(m => session.webSocket.send(m)) && x
+      ).map((x) => x.quit = true);
+      this.wsSessions = this.wsSessions.filter(x => !x.quit);
 
       session.name = data.name;
     }
