@@ -10,6 +10,9 @@ import { runner } from "./runner";
 import { prettier } from "./shared";
 // import { sess } from "./ws";
 
+const codeSpace = location.pathname.slice(1).split("/")[1];
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
 // Export type IStandaloneCodeEditor = editor.Ist;
 let startedM = 0;
 let startedAce = 0;
@@ -25,7 +28,7 @@ const Editor: FC<
   const engine = isMobile() ? "ace" : "monaco";
 
   const [
-    { i, code, started, controller },
+    { i, code, started, controller, setValue },
     changeContent,
   ] = useState({
     code: globalThis.cSess.session.code,
@@ -34,6 +37,14 @@ const Editor: FC<
     controller: new AbortController(),
     setValue: (_code: string) => null,
   });
+
+  BC.onmessage = async ({ data }) => {
+    if (i >= data.i) return;
+    if (data.code && await prettier(data.code) !== await prettier(code)) {
+      setValue(data.code);
+    }
+    changeContent(x => ({ ...x, code: data.code, i: data.i }));
+  };
 
   useEffect(() => {
     if (started) return;

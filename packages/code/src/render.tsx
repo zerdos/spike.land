@@ -29,7 +29,7 @@ const mod: {
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
   if (data.transpiled && data.i) {
-    if (i === data.i || data.html) return;
+    if (i === data.i) return;
     i = data.i;
 
     controller.abort();
@@ -125,7 +125,7 @@ globalThis.firstRender = globalThis.firstRender || {
 };
 
 let __rootEl: HTMLElement;
-BC.onmessage = ({ data }) => data.html && data.transpiled && data.code && data.i && rerender(data);
+BC.onmessage = ({ data }) => data.html && data.transpiled && data.i && rerender(data);
 
 export const render = async (
   _rootEl: HTMLElement,
