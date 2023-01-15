@@ -1,7 +1,7 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 import { resetCSS } from "./../../code/src/getResetCss";
 import HTML from "./../../code/src/index.html";
-import { aPatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
+import { aPatch, applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 
@@ -88,12 +88,6 @@ export class Code implements DurableObject {
       reversePatch,
       patch,
     };
-  }
-  mST(p: Delta[]) {
-    const oldString = string_(this.session);
-    const newString = aPatch(oldString, p);
-    const s = JSON.parse(newString);
-    return makeSession({ ...this.session, ...s });
   }
 
   private backupSession = makeSession({
@@ -197,7 +191,7 @@ export class Code implements DurableObject {
             });
           }
 
-          const newSession = this.mST(message.patch);
+          const newSession = applyCodePatch(this.session, message as unknown as CodePatch);
 
           const newHash = makeHash(newSession);
 
@@ -824,7 +818,11 @@ export class Code implements DurableObject {
     // });
 
     // }
-    this.i = data.i;
+    if (data.i && !this.i) {
+      this.i = data.i;
+    }
+
+    if (data.i && this.i && this.i > data.i) return respondWith({ error: "i is not up to date" });
 
     // await this.mutex.runExclusive(async () => {
     // if (data.i < this.i) return;
@@ -855,7 +853,7 @@ export class Code implements DurableObject {
         if (data.patch && data.oldHash && data.newHash) {
           const oldState = this.session;
           const oldHash = makeHash(this.session);
-          const newState = makeSession(this.mST(data.patch));
+          const newState = applyCodePatch(oldState, data as unknown as CodePatch);
 
           // const newRec = session.merge(
           //   newState,

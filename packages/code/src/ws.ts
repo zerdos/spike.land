@@ -101,22 +101,6 @@ export class Code {
   sess = this.session;
   head = makeHash(this.session);
   user = md5(self.crypto.randomUUID());
-  // mST(p: Delta[]) {
-  //   const oldString = string_(this.session);
-  //   const newString = aPatch(oldString, p);
-  //   const s = JSON.parse(newString);
-  //   return makeSession(s);
-  // }
-  mST(p: Delta[]) {
-    const oldString = this.session.code;
-    const code = aPatch(oldString, p);
-    // const s = JSON.parse(newString);
-    return makeSession({ ...this.session, code });
-  }
-  // const newNewRecord = this.session.get("state").merge(JSON.parse(newString));
-
-  // const newHash = newRec.hashCode();
-  // hashStore[newHash] = newNewRecord;
 
   syncKV(
     oldSession: ICodeSession,
