@@ -95,7 +95,6 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 // const rtcConns: { [name: string]: RTCPeerConnection } = {};
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-let session;
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
@@ -270,12 +269,10 @@ export class Code {
   i = 0;
 
   async run() {
-    const sess = (await codeSession());
-    sess.run ? sess.run() : {};
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
-      const code = await prettier(globalThis.session.code);
+      const code = await prettier(sess.code);
       globalThis.firstRender.code = code;
       window.onmessage = ({ data }) => {
         if (
@@ -350,8 +347,6 @@ export const sess = globalThis.session;
 
 Object.assign(globalThis, {
   sess,
-  hash: (val: ICodeSession) => makeHash(val),
-  makeSession,
   cSess: () => cSess,
 });
 
