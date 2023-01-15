@@ -275,6 +275,8 @@ export class Code {
         }
       };
 
+      connect(`${codeSpace} ${cSess.user}`);
+
       const { renderPreviewWindow } = await import("./renderPreviewWindow");
       renderPreviewWindow({ codeSpace });
     }
