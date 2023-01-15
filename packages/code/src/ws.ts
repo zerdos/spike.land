@@ -272,7 +272,7 @@ export class Code {
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
-      const code = await prettier(sess.code);
+      const code = await prettier(globalThis.cSess().sess.code);
       globalThis.firstRender.code = code;
       window.onmessage = ({ data }) => {
         if (
