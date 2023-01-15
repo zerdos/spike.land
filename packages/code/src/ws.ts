@@ -3,7 +3,7 @@
 import ky from "ky";
 // import 'css-paint-polyfill
 import AVLTree from "avl";
-import { prettier } from "./shared";
+import { connect, prettier } from "./shared";
 
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
@@ -95,7 +95,9 @@ export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
   sess = this.session;
   head = makeHash(this.session);
-  user = md5(self.crypto.randomUUID());
+  user = localStorage.getItem(`${codeSpace} user`)
+    ? localStorage.getItem(`${codeSpace} user`)
+    : md5(self.crypto.randomUUID());
 
   syncKV(
     oldSession: ICodeSession,
@@ -114,6 +116,8 @@ export class Code {
   constructor() {
     (async () => {
       // this.users.insert(this.user);
+      localStorage.setItem(`${codeSpace} user`, this.user!);
+      connect(`${codeSpace} ${this.user}`);
 
       await mutex.runExclusive(async () => {
         const head = Number(await ldb(codeSpace).getItem("head") || 0);

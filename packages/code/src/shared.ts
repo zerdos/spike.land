@@ -6,6 +6,7 @@ const init = () => {
     || new SharedWorker("/ataWorker.js?" + globalThis.assetHash);
   rpc = new RpcProvider(
     (message, transfer) => worker.port.postMessage(message, transfer as any),
+    0,
   ) as RpcProvider;
   worker.port.onmessage = (e) => rpc!.dispatch(e.data);
   return rpc;
@@ -21,3 +22,5 @@ export const ata = (
   }[]>;
 
 export const transpile = (code: string) => init().rpc("transpile", code) as Promise<string>;
+
+export const connect = (codeSpace: string) => init().signal(codeSpace);

@@ -17,63 +17,49 @@ const { readFile, unlink, writeFile } = self as unknown as typeof FSD;
 // const { transpile } = self;
 export type {};
 
-import localforage from "localforage";
 import { resetCSS } from "./getResetCss";
 import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
-import { createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 // import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
-const connections: {
-  [key: string]: {
-    websocket: WebSocket;
-    user: {};
-    i: number;
-    oldSession: ICodeSession;
-  };
-} = {};
+// let controller = new AbortController();
 
-let controller = new AbortController();
+// self.onmessage = async (event) => {
+//   if (event.data.type === "ata") {
+//     globalThis.sharedWorker = event.data;
+//     event.data.port.start();
+//   }
+//   controller.abort();
+//   console.log({ event });
+//   controller = new AbortController();
 
-self.onmessage = async (event) => {
-  if (event.data.type === "ata") {
-    globalThis.sharedWorker = event.data;
-    event.data.port.start();
-  }
-  controller.abort();
-  console.log({ event });
-  controller = new AbortController();
+//   const signal = controller.signal;
+//   const { data } = event;
+//   const codeSpace = data.codeSpace;
 
-  const signal = controller.signal;
-  const { data } = event;
-  const codeSpace = data.codeSpace;
-  await setConnections(codeSpace);
+//   if (signal.aborted) return null;
 
-  if (signal.aborted) return null;
+//   if (data.type === "prerender") {
+//     // setTimeout(async () => {
+//     if (signal.aborted) return;
+//     // if (data.type === "prerender" && data.code && !data.html) {
+//       // try {
+//         // await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+//         // await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+//       // } catch {
+//         // await unlink(`/live/${codeSpace}/index.tsx`);
+//         // await unlink(`/live/${codeSpace}/index.js`);
+//         // await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+//         // await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+//       // }
+//     }
+//     //  }, 200);
+//   }
 
-  const transpiled = importMapReplace(await transpile(data.code), location.origin);
-
-  if (data.type === "prerender") {
-    // setTimeout(async () => {
-    if (signal.aborted) return;
-    if (data.type === "prerender" && data.code && !data.html) {
-      try {
-        // await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-      } catch {
-        // await unlink(`/live/${codeSpace}/index.tsx`);
-        await unlink(`/live/${codeSpace}/index.js`);
-        // await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
-        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-      }
-    }
-    //  }, 200);
-  }
-
-  if (signal.aborted) return null;
-  return event.ports[0].postMessage({ ...data, transpiled });
-};
+//   if (signal.aborted) return null;
+//   return event.ports[0].postMessage({ ...data, transpiled });
+// };
 
 const createResponse = async (request: Request) => {
   let url = new URL(request.url);
@@ -131,8 +117,6 @@ const createResponse = async (request: Request) => {
     }
     try {
       if (url.pathname === `/live/${codeSpace}/index.js`) {
-        await setConnections(codeSpace);
-
         // const code = await readFile(
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;
@@ -166,61 +150,3 @@ const createResponse = async (request: Request) => {
 self.addEventListener("fetch", function(event) {
   return event.respondWith((() => createResponse(event.request))());
 });
-
-async function setConnections(codeSpace: string) {
-  const user = await localforage.getItem("user") || await localforage.setItem("user", md5(self.crypto.randomUUID()));
-  connections[codeSpace] = connections[codeSpace] || await (async (codeSpace) => {
-    console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
-    const websocket = new WebSocket(
-      `wss://${location.host}/live/${codeSpace}/websocket`,
-    );
-    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-    const session = {
-      BC,
-      websocket,
-      user,
-      i: 0,
-      oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
-    };
-    BC.onmessage = async ({ data }) => {
-      if (data.i > session.i && (data.hashCode || data.newHash)) {
-        session.i = data.i;
-
-        data.name = session.user;
-        websocket.send(JSON.stringify(data));
-      }
-      if (data.i >= session.i && data.html && data.code) {
-        session.i = data.i;
-        if (makeHash(data) !== makeHash(session.oldSession)) {
-          const patchMessage = createPatch(session.oldSession, data);
-
-          BC.postMessage({ ...patchMessage, name: session.user });
-
-          websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
-          session.oldSession = makeSession(data);
-        }
-      }
-    };
-
-    websocket.onopen = () => console.log("onOpened");
-    websocket.onmessage = async ({ data }) => {
-      const msg = JSON.parse(data);
-      if (data.type === "handShake") {
-        websocket.send(JSON.stringify({ name: session.user }));
-        return;
-      }
-      if (data.type === "transpile") {
-        const transpiled = importMapReplace(await transpile(data.code), location.origin);
-        websocket.send(JSON.stringify({ ...data, transpiled }));
-      }
-
-      if (msg.i > session.i) {
-        session.i = msg.i;
-        BC.postMessage(data);
-      }
-    };
-
-    return session;
-  })(codeSpace);
-}

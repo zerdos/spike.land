@@ -1,6 +1,7 @@
 import { sw } from "./hydrate";
 import { syncWS } from "./ws";
 
+import { transpile } from "./shared";
 import { wait } from "./wait";
 import { sess as oldSess } from "./ws";
 
@@ -71,14 +72,20 @@ export async function runner({ code, counter, codeSpace, signal }: {
   try {
     if (signal.aborted) return;
 
-    const data = await sw.messageSW({
-      i: counter,
-      code,
-      type: "prerender",
-      codeSpace,
-    });
+    // const data = await sw.messageSW({
+    //   i: counter,
+    //   code,
+    //   type: "prerender",
+    //   codeSpace,
+    // });
+    const transpiled = await transpile(code);
 
-    document.querySelector("iframe")?.contentWindow?.postMessage(data);
+    document.querySelector("iframe")?.contentWindow?.postMessage({
+      code,
+      i: counter,
+      type: "prerender",
+      transpiled: transpiled,
+    });
   } catch (error) {
     console.error({ error });
   } finally {

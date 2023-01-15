@@ -5,6 +5,8 @@ importScripts("/workerScripts/superFetch.js");
 import type * as RPC from "worker-rpc";
 
 import type { ata as Ata } from "./ata";
+import { importMapReplace } from "./importMapReplace";
+import { createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
 
@@ -43,5 +45,76 @@ self.onconnect = ({ ports }) => {
 
   rpcProvider.registerRpcHandler("transpile", (code: string) => transpile(code));
 
+  rpcProvider.registerSignalHandler("connect", (signal: string) => setConnections(signal));
+
   p.start();
 };
+
+const connections: {
+  [key: string]: {
+    websocket: WebSocket;
+    user: {};
+    i: number;
+    oldSession: ICodeSession;
+  };
+} = {};
+
+function setConnections(signal: string) {
+  const [codeSpace, user] = signal.split(" ");
+
+  connections[codeSpace] = connections[codeSpace] || (async (codeSpace) => {
+    console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
+    const websocket = new WebSocket(
+      `wss://${location.host}/live/${codeSpace}/websocket`,
+    );
+    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+    const session = {
+      BC,
+      websocket,
+      user,
+      i: 0,
+      oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
+    };
+    BC.onmessage = async ({ data }) => {
+      if (data.i > session.i && (data.hashCode || data.newHash)) {
+        session.i = data.i;
+
+        data.name = session.user;
+        websocket.send(JSON.stringify(data));
+      }
+      if (data.i >= session.i && data.html && data.code) {
+        session.i = data.i;
+        if (makeHash(data) !== makeHash(session.oldSession)) {
+          const patchMessage = createPatch(session.oldSession, data);
+
+          BC.postMessage({ ...patchMessage, name: session.user });
+
+          websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
+          session.oldSession = makeSession(data);
+        }
+      }
+      return session;
+    };
+
+    websocket.onopen = () => console.log("onOpened");
+    websocket.onmessage = async ({ data }) => {
+      const msg = JSON.parse(data);
+      if (data.type === "handShake") {
+        websocket.send(JSON.stringify({ name: session.user }));
+        return;
+      }
+      if (data.type === "transpile") {
+        const transpiled = importMapReplace(await transpile(data.code), location.origin);
+        websocket.send(JSON.stringify({ ...data, transpiled }));
+      }
+
+      if (msg.i > session.i) {
+        session.i = msg.i;
+        BC.postMessage(data);
+      }
+    };
+
+    return session;
+  })(codeSpace);
+}
