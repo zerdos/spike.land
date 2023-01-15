@@ -165,94 +165,97 @@ const mod: {
     signal: AbortSignal;
   };
 } = {};
-BC.onmessage = async ({ data }) => {
-  if (data.transpiled && !data.html && data.code && data.type === "prerender") {
-    if (i === data.i || data.html) return;
-    i = data.i;
 
-    controller.abort();
-    controller = new AbortController();
+if (location.pathname.endsWith("/iframe")) {
+  window.onmessage = async ({ data }) => {
+    if (data.transpiled && !data.html && data.code && data.type === "prerender") {
+      if (i === data.i || data.html) return;
+      i = data.i;
 
-    const el = document.createElement("div");
-    el.style.opacity = "0";
-    el.style.height = "100%";
-    document.body.appendChild(el);
+      controller.abort();
+      controller = new AbortController();
 
-    const myRoot = createRoot(el);
-    const App = await appFactory(data.transpiled);
-    const appId = md5(data.transpiled);
-    myRoot.render(<App appId={appId} />);
+      const el = document.createElement("div");
+      el.style.opacity = "0";
+      el.style.height = "100%";
+      document.body.appendChild(el);
 
-    console.log("rerender", data.i);
+      const myRoot = createRoot(el);
+      const App = await appFactory(data.transpiled);
+      const appId = md5(data.transpiled);
+      myRoot.render(<App appId={appId} />);
 
-    // //(await import(
-    //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
-    // )).default;
-    // const rootEl = document.createElement("div");
-    // rootEl.style.height = "100%";
+      console.log("rerender", data.i);
 
-    // const root = createRoot(rootEl);
-    const m = mod[i] || {
-      i,
-      signal: controller.signal,
-      root: myRoot,
-      rootEl: el,
-      retry: 100,
-    };
-    // const r = createRoot(newRoot);
+      // //(await import(
+      //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
+      // )).default;
+      // const rootEl = document.createElement("div");
+      // rootEl.style.height = "100%";
 
-    if (m.signal.aborted) {
-      m.root.unmount();
-      m.rootEl.remove();
-    }
+      // const root = createRoot(rootEl);
+      const m = mod[i] || {
+        i,
+        signal: controller.signal,
+        root: myRoot,
+        rootEl: el,
+        retry: 100,
+      };
+      // const r = createRoot(newRoot);
 
-    // check(myMod);
-
-    // async function check(m: typeof mod[0]) {
-    // ReactDOM.flushSync(() => {
-
-    while (m.retry--) {
       if (m.signal.aborted) {
         m.root.unmount();
         m.rootEl.remove();
-        // root.unmount();
-        return;
       }
-      const html = m.rootEl.innerHTML;
-      if (html) {
-        const css = mineFromCaches(eCaches[appId], html);
-        try {
+
+      // check(myMod);
+
+      // async function check(m: typeof mod[0]) {
+      // ReactDOM.flushSync(() => {
+
+      while (m.retry--) {
+        if (m.signal.aborted) {
+          m.root.unmount();
+          m.rootEl.remove();
           // root.unmount();
-          console.log({ html, css, i: m.i });
-          // document.getElementById("root")?.appendChild(newRoot);
-          // root.unmount();
-          // root = r;
-          root.unmount();
-
-          // root = m.root;
-
-          m.rootEl.style.opacity = "1";
-          m.rootEl.style.height = "100%";
-          //        rootEl = m.rootEl;
-          document.getElementById("root")?.remove();
-
-          m.rootEl.id = "root";
-        } catch (e) {
-          "some error";
+          return;
         }
-        BC.postMessage({
-          html,
-          css,
-          i: data.i,
-          type: "prerender",
-          code: data.code,
-        });
-        controller.abort();
-        // root.unmount();
-        return;
+        const html = m.rootEl.innerHTML;
+        if (html) {
+          const css = mineFromCaches(eCaches[appId], html);
+          try {
+            // root.unmount();
+            console.log({ html, css, i: m.i });
+            // document.getElementById("root")?.appendChild(newRoot);
+            // root.unmount();
+            // root = r;
+            root.unmount();
+
+            // root = m.root;
+
+            m.rootEl.style.opacity = "1";
+            m.rootEl.style.height = "100%";
+            //        rootEl = m.rootEl;
+            document.getElementById("root")?.remove();
+
+            m.rootEl.id = "root";
+          } catch (e) {
+            "some error";
+          }
+          window?.parent?.postMessage({
+            html,
+            css,
+            i: data.i,
+            type: "prerender",
+            code: data.code,
+          });
+          controller.abort();
+          // root.unmount();
+          return;
+        }
+        await wait(1);
       }
-      await wait(1);
+      return;
     }
-    return;
-  }
-};
+  };
+}
