@@ -32,7 +32,7 @@
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "resolutions": {
-    "wrangler/esbuild": "^0.16.10",
+    "wrangler/esbuild": "npm:esbuild-wasm@^0.16.10",
     "ipfs-http-response/file-type": "18.1.0"
   },
   "dependencies": {
