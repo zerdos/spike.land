@@ -5,24 +5,23 @@ import ky from "ky";
 import AVLTree from "avl";
 import { prettier } from "./shared";
 
-import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
+import { applyPatch as aPatch, Delta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
 import {
   CodePatch,
+  createPatch,
+  ICodeSession,
   makeHash,
   //  onSession
 
-  makeSession as ms,
+  makeSession,
   // type Delta,
   // CodeSession,
 
   // makePatch,
   // makePatchFrom,
-
-  string_,
-  syncStorage,
-} from "./session";
+} from "./makeSess";
 
 import { Mutex } from "async-mutex";
 let firstRenderSent = false;
@@ -36,15 +35,13 @@ globalThis.firstRender = globalThis.firstRender || {
 // import { renderPreviewWindow } from "./renderPreviewWindow";
 
 // import { esmTransform } from "runner";
-import { mkdir, readdir, unlink, writeFile } from "./fs";
 import { md5 } from "./md5"; // import { wait } from "wait";
 // import { prettierJs } from "./prettierEsm";
 // import type { RecordOf } from "immutable";
 // import * as Immutable from "immutable";
 import type { IFirstRender } from "../../spike.land/src/chatRoom";
 import { ldb } from "./createDb";
-
-import type { ICodeSession } from "./session";
+import { syncStorage } from "./session";
 
 type MessageProps = Partial<{
   oldHash?: string;
@@ -87,12 +84,6 @@ const ws = {
   },
 };
 
-function makeSession(sess: ICodeSession) {
-  const session = ms(sess);
-  globalThis.session = session;
-  unlink(`/live/${codeSpace}/session.json`).then(() => writeFile(`/live/${codeSpace}/session.json`, string_(session)));
-  return session;
-}
 // import { isBuffer } from "util";
 
 // Import PubSubRoom from 'ipfs-pubsub-room'
@@ -181,31 +172,6 @@ export class Code {
     })();
   }
 
-  createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
-    const oldRec = makeSession(oldSess);
-    const oldHash = makeHash(oldRec);
-    const newRec = makeSession(newSess);
-    const newHash = makeHash(newRec);
-
-    const oldString = string_(oldRec);
-    const newString = string_(newRec);
-
-    const patch = createDelta(oldString, newString);
-    const reversePatch = createDelta(newString, oldString);
-
-    // const oldString = string_(oldRec);
-    // const newString = string_(newRec);
-
-    // const patch = createDelta(oldRec.code, newRec.code);
-    // const reversePatch = createDelta(newRec.code, oldRec.code);
-    return {
-      oldHash,
-      newHash,
-      reversePatch,
-      patch,
-    };
-  }
-
   async syncWS(newSession: ICodeSession, signal: AbortSignal) {
     const oldSession = this.session;
     const newSess = makeSession(newSession);
@@ -214,7 +180,7 @@ export class Code {
     this.session = newSess;
     this.sess = newSess;
     this.head = makeHash(newSess);
-    const message = this.createPatch(oldSession, newSess);
+    const message = createPatch(oldSession, newSess);
 
     // controller.abort();
     // controller = new AbortController();

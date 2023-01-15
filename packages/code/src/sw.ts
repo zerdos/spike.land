@@ -18,9 +18,9 @@ export type {};
 import { resetCSS } from "./getResetCss";
 import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
+import { createPatch, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
-import { createPatch, makeSession } from "./session";
 
 const connections = globalThis.connections = globalThis.connections || {};
 

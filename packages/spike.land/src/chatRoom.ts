@@ -1,7 +1,10 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import { CodePatch, ICodeSession, makeSession } from "./../../code/src/session";
-import { makeHash, resetCSS, string_ } from "./../../code/src/session";
-import { aPatch, HTML, md5 } from "./../../code/src/session";
+import { resetCSS } from "./../../code/src/getResetCss";
+import HTML from "./../../code/src/index.html";
+import { aPatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
+import { makeHash, string_ } from "./../../code/src/makeSess";
+import { md5 } from "./../../code/src/md5";
+
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
 
@@ -88,9 +91,9 @@ export class Code implements DurableObject {
   }
   mST(p: Delta[]) {
     const oldString = string_(this.session);
-    const code = aPatch(oldString, p);
-    // const s = JSON.parse(newString);
-    return makeSession({ ...this.session, code });
+    const newString = aPatch(oldString, p);
+    const s = JSON.parse(newString);
+    return makeSession({ ...this.session, ...s });
   }
 
   private backupSession = makeSession({

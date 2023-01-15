@@ -5,8 +5,12 @@ import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
 import shaSum from "./dist.shasum";
 
+import { importMapReplace } from "../../code/src/importMapReplace";
+
+import { importMap } from "../../code/src/importMap";
+
 // import imap from "@spike.land/code/src/importMap.json";
-import { importMap, importMapReplace, md5 } from "../../code/src/session";
+import { md5 } from "../../code/src/md5";
 
 import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
