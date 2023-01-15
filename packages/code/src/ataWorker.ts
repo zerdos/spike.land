@@ -118,9 +118,10 @@ function setConnections(signal: string) {
         websocket.send(JSON.stringify({ ...data, transpiled }));
       }
       if (data.newHash) {
-        const newSession = applyCodePatch(sess, data);
+        const newSession = applyCodePatch(session.oldSession, data);
         if (makeHash(newSession) !== makeHash(session.oldSession)) {
-          BC.postMessage(newSession);
+          const transpiled = importMapReplace(await transpile(data.code), location.origin);
+          BC.postMessage({ ...newSession, transpiled });
           session.i = newSession.i;
           session.oldSession = newSession;
         }
@@ -128,7 +129,7 @@ function setConnections(signal: string) {
 
       if (msg.i > session.i) {
         session.i = msg.i;
-        BC.postMessage(data);
+        BC.postMessage({ ...msg });
       }
     };
   })(codeSpace);

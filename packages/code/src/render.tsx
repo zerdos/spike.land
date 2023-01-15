@@ -7,12 +7,116 @@ import createCache from "./emotionCache";
 import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
+import { ICodeSession } from "./makeSess";
 import { appFactory, md5 } from "./starter";
 import { wait } from "./wait";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
+let i = 0;
+let controller = new AbortController();
+const mod: {
+  [i: number]: {
+    retry: number;
+    rootEl: HTMLDivElement;
+    root: Root;
+    i: number;
+    signal: AbortSignal;
+  };
+} = {};
+
+async function rerender(data: ICodeSession & { transpiled: string }) {
+  if (data.transpiled && !data.html && data.code) {
+    if (i === data.i || data.html) return;
+    i = data.i;
+
+    controller.abort();
+    controller = new AbortController();
+
+    const el = document.createElement("div");
+    el.style.opacity = "0";
+    el.style.height = "100%";
+    document.body.appendChild(el);
+
+    const myRoot = createRoot(el);
+    const App = await appFactory(data.transpiled);
+    const appId = md5(data.transpiled);
+    myRoot.render(<App appId={appId} />);
+
+    console.log("rerender", data.i);
+
+    // //(await import(
+    //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
+    // )).default;
+    // const rootEl = document.createElement("div");
+    // rootEl.style.height = "100%";
+
+    // const root = createRoot(rootEl);
+    const m = mod[i] || {
+      i,
+      signal: controller.signal,
+      root: myRoot,
+      rootEl: el,
+      retry: 100,
+    };
+    // const r = createRoot(newRoot);
+
+    if (m.signal.aborted) {
+      m.root.unmount();
+      m.rootEl.remove();
+    }
+
+    // check(myMod);
+
+    // async function check(m: typeof mod[0]) {
+    // ReactDOM.flushSync(() => {
+
+    while (m.retry--) {
+      if (m.signal.aborted) {
+        m.root.unmount();
+        m.rootEl.remove();
+        // root.unmount();
+        return;
+      }
+      const html = m.rootEl.innerHTML;
+      if (html) {
+        const css = mineFromCaches(eCaches[appId], html);
+        try {
+          // root.unmount();
+          console.log({ html, css, i: m.i });
+          // document.getElementById("root")?.appendChild(newRoot);
+          // root.unmount();
+          // root = r;
+          root.unmount();
+
+          // root = m.root;
+
+          m.rootEl.style.opacity = "1";
+          m.rootEl.style.height = "100%";
+          //        rootEl = m.rootEl;
+          document.getElementById("root")?.remove();
+
+          m.rootEl.id = "root";
+        } catch (e) {
+          "some error";
+        }
+        BC.postMessage({
+          html,
+          css,
+          i: data.i,
+          code: data.code,
+        });
+        controller.abort();
+        // root.unmount();
+        return;
+      }
+      await wait(1);
+    }
+    return;
+  }
+}
 
 let root: Root;
 globalThis.firstRender = globalThis.firstRender || {
@@ -22,7 +126,7 @@ globalThis.firstRender = globalThis.firstRender || {
 };
 
 let __rootEl: HTMLElement;
-BC.onmessage = ({ data }) => data.html && data.code && data.i && render(__rootEl, codeSpace, data.i);
+BC.onmessage = ({ data }) => data.html && data.code && data.i && rerender(__rootEl, codeSpace, data.i);
 
 export const render = async (
   _rootEl: HTMLElement,
@@ -164,107 +268,8 @@ function mineFromCaches(cache: EmotionCache, html: string) {
   }
 }
 
-let i = 0;
-let controller = new AbortController();
-const mod: {
-  [i: number]: {
-    retry: number;
-    rootEl: HTMLDivElement;
-    root: Root;
-    i: number;
-    signal: AbortSignal;
-  };
-} = {};
-
 if (location.pathname.endsWith("/iframe")) {
   window.onmessage = async ({ data }) => {
-    if (data.transpiled && !data.html && data.code && data.type === "prerender") {
-      if (i === data.i || data.html) return;
-      i = data.i;
-
-      controller.abort();
-      controller = new AbortController();
-
-      const el = document.createElement("div");
-      el.style.opacity = "0";
-      el.style.height = "100%";
-      document.body.appendChild(el);
-
-      const myRoot = createRoot(el);
-      const App = await appFactory(data.transpiled);
-      const appId = md5(data.transpiled);
-      myRoot.render(<App appId={appId} />);
-
-      console.log("rerender", data.i);
-
-      // //(await import(
-      //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
-      // )).default;
-      // const rootEl = document.createElement("div");
-      // rootEl.style.height = "100%";
-
-      // const root = createRoot(rootEl);
-      const m = mod[i] || {
-        i,
-        signal: controller.signal,
-        root: myRoot,
-        rootEl: el,
-        retry: 100,
-      };
-      // const r = createRoot(newRoot);
-
-      if (m.signal.aborted) {
-        m.root.unmount();
-        m.rootEl.remove();
-      }
-
-      // check(myMod);
-
-      // async function check(m: typeof mod[0]) {
-      // ReactDOM.flushSync(() => {
-
-      while (m.retry--) {
-        if (m.signal.aborted) {
-          m.root.unmount();
-          m.rootEl.remove();
-          // root.unmount();
-          return;
-        }
-        const html = m.rootEl.innerHTML;
-        if (html) {
-          const css = mineFromCaches(eCaches[appId], html);
-          try {
-            // root.unmount();
-            console.log({ html, css, i: m.i });
-            // document.getElementById("root")?.appendChild(newRoot);
-            // root.unmount();
-            // root = r;
-            root.unmount();
-
-            // root = m.root;
-
-            m.rootEl.style.opacity = "1";
-            m.rootEl.style.height = "100%";
-            //        rootEl = m.rootEl;
-            document.getElementById("root")?.remove();
-
-            m.rootEl.id = "root";
-          } catch (e) {
-            "some error";
-          }
-          BC.postMessage({
-            html,
-            css,
-            i: data.i,
-            code: data.code,
-          });
-          controller.abort();
-          // root.unmount();
-          return;
-        }
-        await wait(1);
-      }
-      return;
-    }
+    rerender(data);
   };
 }
