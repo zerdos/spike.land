@@ -122,7 +122,7 @@ export class Code {
 
       await mutex.runExclusive(async () => {
         const head = Number(await ldb(codeSpace).getItem("head") || 0);
-        const startSess = await ky(`${origin}/live/${codeSpace}/session`)
+        const startSess = await ky(`${origin}/live/${codeSpace}/session.json`)
           .json<ICodeSession>();
 
         if (head === 0) {
