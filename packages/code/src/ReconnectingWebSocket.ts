@@ -96,7 +96,7 @@
 //     return;
 // }
 
-export function ReconnectingWebSocket(url, protocols, options) {
+export function ReconnectingWebSocket(url: string, protocols = [], options = {}) {
   // Default settings
   var settings = {
     /** Whether this instance should log debug messages. */
@@ -372,5 +372,3 @@ ReconnectingWebSocket.CONNECTING = WebSocket.CONNECTING;
 ReconnectingWebSocket.OPEN = WebSocket.OPEN;
 ReconnectingWebSocket.CLOSING = WebSocket.CLOSING;
 ReconnectingWebSocket.CLOSED = WebSocket.CLOSED;
-
-export default ReconnectingWebSocket;

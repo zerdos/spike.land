@@ -22,18 +22,21 @@ import { md5 } from "./md5";
 import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 import { createPatch, makeSession } from "./session";
 
-const connections = self.connections = self.connections || {};
+const connections = globalThis.connections = globalThis.connections || {};
 
 let controller = new AbortController();
 
 self.onmessage = async (event) => {
   controller.abort();
+  console.log({ event });
   controller = new AbortController();
+
   const signal = controller.signal;
   const { data } = event;
   const codeSpace = data.codeSpace;
 
   connections[codeSpace] = connections[codeSpace] || await (async () => {
+    console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
     const websocket = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
