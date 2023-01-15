@@ -1,20 +1,20 @@
 // import {precacheAndRoute} from 'workbox-precaching';
 
 import type {} from "./transpile";
-importScripts("/workerScripts/transpile.js");
+// importScripts("/workerScripts/transpile.js");
 // importScripts("/workerScripts/prettierEsm.js");
-import type { transpile as Transpile } from "./transpile";
+import { transpile } from "./shared";
 
 import type * as FS from "./fs";
 declare var self:
   & ServiceWorkerGlobalScope
   & { files: { [key: string]: string }; fileCacheName: string }
-  & { transpile: typeof Transpile }
+  // & { transpile: typeof Transpile }
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 import type FSD from "./fs";
 const { readFile, unlink, writeFile } = self as unknown as typeof FSD;
-const { transpile } = self;
+// const { transpile } = self;
 export type {};
 
 import localforage from "localforage";
