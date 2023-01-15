@@ -60,6 +60,8 @@ const connections: {
   };
 } = {};
 
+Object.assign(self, { connections });
+
 function setConnections(signal: string) {
   const parts = signal.split(" ");
 
