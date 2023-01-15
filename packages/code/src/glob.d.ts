@@ -6,11 +6,13 @@ import ear from "@emotion/react";
 import FS from "@isomorphic-git/lightning-fs";
 import { RequestInitWithRetry } from "fetch-retry";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
-import { esbuildEsm as Transpile } from "./esbuildEsm";
-import { ICodeSession } from "./session";
+// import { esbuildEsm as Transpile } from "./esbuildEsm";
+// import { ICodeSession } from "./session";
+import { Code } from "./ws";
 
 declare global {
   var sharedWorker: SharedWorker;
+  var cSess: Code;
   var superFetch: (
     input: RequestInfo,
     init?: RequestInitWithRetry,
@@ -21,8 +23,8 @@ declare global {
     html: string;
   };
   var isSharedWorker: boolean;
-  var session: ICodeSession;
-  var esbuildEsm: Transpile;
+  // var session: ICodeSession;
+  // var esbuildEsm: Transpile;
   var assetHash: string;
   var apps: { [key: string]: FC<{ appId: string }> };
   var eCaches: { [key: string]: EmotionCache };

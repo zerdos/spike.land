@@ -1,6 +1,6 @@
 import { createInstance } from "localforage";
-import { db, ICodeSession } from "./session";
-import { codeSession } from "./ws";
+import { makeHash } from "./makeSess";
+import { db } from "./session";
 
 const promises: { [codeSpace: string]: Promise<void> } = globalThis.pppp = globalThis.pppp || {};
 const dbs: { [codeSpace: string]: LocalForage } = globalThis.dddd = globalThis.dddd || {};
@@ -18,14 +18,14 @@ export async function initDb(codeSpace: string) {
       let session: ICodeSession;
 
       try {
-        session = codeSession.sess;
+        session = globalThis.cSess.session;
       } catch {
         session = await fetch(
           location.origin + "/live/" + codeSpace + "/session.json",
         ).then((x) => x.json());
       }
       if (!head) {
-        head = codeSession.head;
+        head = makeHash(globalThis.cSess.session);
         await dbInstance.setItem(String(head), session);
         await dbInstance.setItem("head", head);
       }

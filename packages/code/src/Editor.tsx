@@ -28,8 +28,8 @@ const Editor: FC<
     { i, code, started, controller },
     changeContent,
   ] = useState({
-    code: globalThis.session.code,
-    i: globalThis.session.i,
+    code: globalThis.cSess.session.code,
+    i: globalThis.cSess.session.i,
     started: false,
     controller: new AbortController(),
     setValue: (_code: string) => null,
@@ -118,7 +118,7 @@ const Editor: FC<
 
   useEffect(() => {
     // let next = i;
-    if (i <= globalThis.session.i) return;
+    if (i <= globalThis.cSess.session.i) return;
     // onSessionUpdate(
     //   async () => {
     //     const { i, code: ccc } = mST(codeSpace);

@@ -5,7 +5,6 @@ import ky from "ky";
 import AVLTree from "avl";
 import { prettier } from "./shared";
 
-import type { Delta } from "./textDiff";
 // import P2PCF from "p2pcf";
 // import adapter from "webrtc-adapter";
 import {
@@ -43,23 +42,19 @@ import type { IFirstRender } from "../../spike.land/src/chatRoom";
 import { ldb } from "./createDb";
 import { syncStorage } from "./session";
 
-type MessageProps = Partial<{
-  oldHash?: string;
-  newHash?: string;
-  name?: string;
-  codeSpace: string;
-  i?: number;
-  code?: string;
-  session: ICodeSession;
-  sess?: ICodeSession;
-  type?: string;
-  target?: string;
-  candidate?: RTCIceCandidateInit;
-  answer?: RTCSessionDescriptionInit;
-  offer?: RTCSessionDescription;
-  reversePatch?: Delta[];
-  patch?: Delta[];
-}>;
+type MessageProps = Partial<
+  CodePatch | ICodeSession | {
+    name?: string;
+    codeSpace: string;
+    session: ICodeSession;
+    sess?: ICodeSession;
+    type?: string;
+    target?: string;
+    candidate?: RTCIceCandidateInit;
+    answer?: RTCSessionDescriptionInit;
+    offer?: RTCSessionDescription;
+  }
+>;
 
 const ws = {
   blockedMessages: [] as MessageProps[],
@@ -257,8 +252,7 @@ export class Code {
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
-      globalThis.session = globalThis.cSess().sess;
-      const code = await prettier(globalThis.session.code);
+      const code = await prettier(cSess.session.code);
       cSess.session = makeSession({ ...cSess.session, code });
 
       globalThis.firstRender.code = code;
@@ -313,35 +307,34 @@ export class Code {
   }
 }
 
-let cSess: Code;
+if (!globalThis.cSess) {
+  Object.assign(globalThis, {
+    cSess: new Code(),
+  });
+}
+
+const { cSess } = globalThis;
+
 export const codeSession = async () => {
   await mutex.waitForUnlock();
   mutex.acquire();
   if (cSess) return { sess: { ...cSess.sess } };
-  cSess = cSess || new Code();
   return {
     run: async () => {
       mutex.release();
       setTimeout(async () => {
         await mutex.waitForUnlock();
-        await cSess.run();
+        cSess.run();
       });
     },
   };
 };
 
-export const sess = globalThis.session;
-
-Object.assign(globalThis, {
-  sess,
-  cSess: () => cSess,
-});
+export const sess = cSess.session;
 
 export const syncWS = async (sess: ICodeSession, signal: AbortSignal) => await cSess.syncWS(sess, signal);
 
-export const run = async () => {
-  (await codeSession()).run!();
-};
+export const run = () => cSess.run();
 
 // async function stopVideo() {
 // if (!sendChannel.localStream) return;
@@ -552,7 +545,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
     console.log("POST ONCONNECT", {
       codeSpace,
       name: cSess.user,
-      hashCode: makeHash(globalThis.session),
+      hashCode: makeHash(cSess.session),
     });
     // messagePort = this;
     // const sess = mST(codeSpace);
@@ -565,7 +558,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
 
         codeSpace,
         // i: mST(codeSpace).i,
-        hashCode: makeHash(globalThis.session),
+        hashCode: makeHash(cSess.session),
       };
       console.log("POST MESSAGE", { messageData });
       //       if (
@@ -573,7 +566,7 @@ async function handleWorker(ev: MessageEvent, port: MessagePort) {
       //       ) return;
       port.postMessage(messageData);
     };
-    ws.send({ type: "handshake", session: globalThis.session });
+    ws.send({ type: "handshake", session: cSess.session });
   }
 }
 //     while (ws.blockedMessages.length) ws.send(ws.blockedMessages!.shift()!);
