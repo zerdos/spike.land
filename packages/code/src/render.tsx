@@ -126,7 +126,7 @@ globalThis.firstRender = globalThis.firstRender || {
 };
 
 let __rootEl: HTMLElement;
-BC.onmessage = ({ data }) => data.html && data.code && data.i && rerender(__rootEl, codeSpace, data.i);
+BC.onmessage = ({ data }) => data.html && data.transpiled && data.code && data.i && rerender(data);
 
 export const render = async (
   _rootEl: HTMLElement,
