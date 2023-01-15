@@ -103,10 +103,9 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
           "some error";
         }
         BC.postMessage({
+          ...data,
           html,
           css,
-          i: data.i,
-          code: data.code,
         });
         controller.abort();
         // root.unmount();
