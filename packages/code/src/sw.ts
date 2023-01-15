@@ -38,7 +38,7 @@ let controller = new AbortController();
 
 self.onmessage = async (event) => {
   if (event.data.type === "ata") {
-    globalThis.sharedWorker = event.data.port;
+    globalThis.sharedWorker = event.data;
     event.data.port.start();
   }
   controller.abort();
