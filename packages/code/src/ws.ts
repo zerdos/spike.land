@@ -270,7 +270,8 @@ export class Code {
   i = 0;
 
   async run() {
-    const sess = (await codeSession()).run();
+    const sess = (await codeSession());
+    sess.run ? await sess.run() : {};
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
