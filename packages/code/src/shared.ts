@@ -23,4 +23,4 @@ export const ata = (
 
 export const transpile = (code: string) => init().rpc("transpile", code) as Promise<string>;
 
-export const connect = (codeSpace: string) => init().signal(codeSpace);
+export const connect = (codeSpace: string) => init().signal("connect", codeSpace);

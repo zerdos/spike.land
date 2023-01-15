@@ -45,7 +45,7 @@ self.onconnect = ({ ports }) => {
 
   rpcProvider.registerRpcHandler("transpile", (code: string) => transpile(code));
 
-  rpcProvider.registerSignalHandler("connect", setConnections);
+  rpcProvider.registerSignalHandler("connect", (signal: string) => setConnections(signal));
 
   p.start();
 };
