@@ -80,7 +80,7 @@ export async function runner({ code, counter, codeSpace, signal }: {
       codeSpace,
     });
 
-    BC.postMessage(data);
+    document.querySelector("iframe")?.contentWindow?.postMessage(data);
   } catch (error) {
     console.error({ error });
   } finally {
