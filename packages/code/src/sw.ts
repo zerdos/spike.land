@@ -97,12 +97,12 @@ self.onmessage = async (event) => {
     if (signal.aborted) return;
     if (data.type === "prerender" && data.code && !data.html) {
       try {
-        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+        // await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
         await writeFile(`/live/${codeSpace}/index.js`, transpiled);
       } catch {
-        await unlink(`/live/${codeSpace}/index.tsx`);
+        // await unlink(`/live/${codeSpace}/index.tsx`);
         await unlink(`/live/${codeSpace}/index.js`);
-        await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
+        // await writeFile(`/live/${codeSpace}/index.tsx`, data.code);
         await writeFile(`/live/${codeSpace}/index.js`, transpiled);
       }
     }
