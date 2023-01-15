@@ -28,7 +28,7 @@ const mod: {
 } = {};
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
-  if (data.transpiled && !data.html && data.code) {
+  if (data.transpiled && data.i) {
     if (i === data.i || data.html) return;
     i = data.i;
 
