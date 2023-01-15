@@ -59,10 +59,10 @@ export class Code implements DurableObject {
     const head = makeHash(this.session);
     this.state.storage.put("sess", this.session);
     this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
-    this.state.storage.get(msg.oldHash).then(data =>
+    this.state.storage.get(msg.oldHash).then((data: unknown) =>
       this.state.storage.put(msg.oldHash, {
-        oldHash: msg.oldHash || "",
-        reversePatch: data.reversePatch || [],
+        oldHash: (data || { oldHash: "" }).oldHash || "",
+        reversePatch: (data || { reversePatch: "" }).reversePatch || [],
         newHash: msg.newHash,
         patch: msg.patch,
       })
