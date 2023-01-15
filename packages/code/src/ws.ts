@@ -122,7 +122,7 @@ export class Code {
 
       await mutex.runExclusive(async () => {
         const head = Number(await ldb(codeSpace).getItem("head") || 0);
-        const startSess = await ky(`${origin}/live/${codeSpace}/session.json`)
+        const startSess = await ky(`${origin}/live/${codeSpace}/session`)
           .json<ICodeSession>();
 
         if (head === 0) {
@@ -259,6 +259,8 @@ export class Code {
     if (location.pathname === `/live/${codeSpace}`) {
       globalThis.session = globalThis.cSess().sess;
       const code = await prettier(globalThis.session.code);
+      cSess.session = makeSession({ ...cSess.session, code });
+
       globalThis.firstRender.code = code;
       window.onmessage = ({ data }) => {
         if (
@@ -268,13 +270,12 @@ export class Code {
           console.log({ data });
           firstRenderSent = true;
           const { html, css } = data;
-          cSess.session = makeSession({ ...cSess.session, html, css });
+          cSess.session = makeSession({ code, i: cSess.session.i, html, css });
 
           ws.post({ type: "firstRender", ...cSess.session });
+          BC.postMessage(cSess.session);
         }
       };
-
-      cSess.session = makeSession({ ...cSess.session, code });
 
       const { renderPreviewWindow } = await import("./renderPreviewWindow");
       renderPreviewWindow({ codeSpace });
