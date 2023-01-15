@@ -37,6 +37,10 @@ const connections: {
 let controller = new AbortController();
 
 self.onmessage = async (event) => {
+  if (event.data.type === "ata") {
+    globalThis.sharedWorker = event.data.port;
+    event.data.port.start();
+  }
   controller.abort();
   console.log({ event });
   controller = new AbortController();

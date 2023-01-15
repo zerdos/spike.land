@@ -16,7 +16,12 @@ import { run } from "./ws";
 import { Workbox } from "workbox-window";
 export const sw = new Workbox("/sw.js");
 
+const ata = new SharedWorker("ataWorker.js");
+const port = ata.port;
 await sw.register();
+sw.addEventListener("activated", function(e) {
+  e.sw?.postMessage({ type: "ata", port: port }, [port]);
+});
 import { render } from "./render";
 
 // sw.messageSkipWaiting();
