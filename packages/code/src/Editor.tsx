@@ -136,7 +136,7 @@ const Editor: FC<
   };
 
   useEffect(() => {
-    runner({ code, counter: i, codeSpace, signal: controller.signal });
+    if (i && code) runner({ code, counter: i, codeSpace, signal: controller.signal });
     return () => controller.abort();
   }, [code, i, codeSpace, controller.signal]);
 
