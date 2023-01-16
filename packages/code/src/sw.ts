@@ -75,7 +75,8 @@ const createResponse = async (request: Request) => {
     const { code, css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
-      ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x => x.json()),
+      ) as string
+        || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then((x) => x.json()),
     );
 
     if (

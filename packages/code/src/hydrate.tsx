@@ -55,7 +55,12 @@ if (
 
   BC.onmessage = ({ data }) => {
     const { html, css, i } = data;
-    document.getElementById(`${codeSpace}-css`)!.innerHTML = [`<style>`, css, `</style>`, html].join("");
+    document.getElementById(`${codeSpace}-css`)!.innerHTML = [
+      `<style>`,
+      css,
+      `</style>`,
+      html,
+    ].join("");
 
     // `<div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
     // <style>${css}</style>

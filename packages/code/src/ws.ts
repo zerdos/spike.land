@@ -146,7 +146,9 @@ export class Code {
           const startSessLocal = await ldb(codeSpace).getItem(
             String(head),
           ) as ICodeSession;
-          this.session = makeSession(startSess.i > startSessLocal.i ? startSess : startSessLocal);
+          this.session = makeSession(
+            startSess.i > startSessLocal.i ? startSess : startSessLocal,
+          );
           this.sess = this.session;
 
           this.head = makeHash(this.session);

@@ -26,7 +26,8 @@ const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
 const origin = typeof location !== "undefined" ? location.origin : "";
-const files: { [key: string]: string } = globalThis.files = globalThis.files || {};
+const files: { [key: string]: string } = globalThis.files = globalThis.files
+  || {};
 const controllers: { [key: string]: AbortController } = globalThis.controllers = globalThis.controllers || {};
 
 const mutex = new Mutex();

@@ -6,10 +6,14 @@ import { transpile } from "./shared";
 
 Object.assign(globalThis, {
   build: (codeSpace: string, opts: any) => () =>
-    import("./esbuildEsm").then(eb =>
-      (({ buildT }) => buildT(codeSpace, location.origin, (new AbortController()).signal, { bundle: true, ...opts }))(
-        eb,
-      )
+    import("./esbuildEsm").then((eb) =>
+      (({ buildT }) =>
+        buildT(codeSpace, location.origin, (new AbortController()).signal, {
+          bundle: true,
+          ...opts,
+        }))(
+          eb,
+        )
     ),
 });
 

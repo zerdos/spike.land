@@ -10,9 +10,14 @@ import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
 
-declare var self: SharedWorkerGlobalScope & { RpcProvider: typeof RPC.RpcProvider } & { ata: typeof Ata } & {
-  prettierJs: typeof Prettier;
-} & { transpile: typeof Transpile };
+declare var self:
+  & SharedWorkerGlobalScope
+  & { RpcProvider: typeof RPC.RpcProvider }
+  & { ata: typeof Ata }
+  & {
+    prettierJs: typeof Prettier;
+  }
+  & { transpile: typeof Transpile };
 
 Object.assign(self, { fetch: globalThis.superFetch });
 
@@ -43,9 +48,15 @@ self.onconnect = ({ ports }) => {
     ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs }),
   );
 
-  rpcProvider.registerRpcHandler("transpile", (code: string) => transpile(code));
+  rpcProvider.registerRpcHandler(
+    "transpile",
+    (code: string) => transpile(code),
+  );
 
-  rpcProvider.registerSignalHandler("connect", (signal: string) => setConnections(signal));
+  rpcProvider.registerSignalHandler(
+    "connect",
+    (signal: string) => setConnections(signal),
+  );
 
   p.start();
 };
@@ -70,7 +81,9 @@ function setConnections(signal: string) {
   const user = parts[1];
 
   connections[codeSpace] = connections[codeSpace] || (async (codeSpace) => {
-    console.log("new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`);
+    console.log(
+      "new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`,
+    );
     const websocket = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
@@ -81,7 +94,9 @@ function setConnections(signal: string) {
       websocket,
       user,
       i: 0,
-      oldSession: makeSession(await (await fetch(`/live/${codeSpace}/session`)).json()),
+      oldSession: makeSession(
+        await (await fetch(`/live/${codeSpace}/session`)).json(),
+      ),
     };
     const session = connections[codeSpace];
 
@@ -99,7 +114,9 @@ function setConnections(signal: string) {
 
           BC.postMessage({ ...patchMessage, name: session.user });
 
-          websocket.send(JSON.stringify({ ...patchMessage, name: session.user }));
+          websocket.send(
+            JSON.stringify({ ...patchMessage, name: session.user }),
+          );
           session.oldSession = makeSession(data);
         }
       }

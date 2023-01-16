@@ -19,7 +19,11 @@ export function importMapReplace(
   items.map((lib: keyof typeof importMapImports) => {
     // const uri = (new URL(importMapImports[lib], origin)).toString();
 
-    returnStr = replaceAll(returnStr, ` from "${lib}"`, ` from "${importMapImports[lib]}"`);
+    returnStr = replaceAll(
+      returnStr,
+      ` from "${lib}"`,
+      ` from "${importMapImports[lib]}"`,
+    );
   });
   returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   returnStr.split("/::").join(origin);
@@ -65,7 +69,8 @@ export function importMapReplace(
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
         x.startsWith("import") && x.indexOf(`"`) !== -1
-        && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1 && x.indexOf(`"https`) === -1
+        && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1
+        && x.indexOf(`"https`) === -1
       ) {
         const slices = x.split(`"`);
         slices[1] = origin + "/npm:/*" + slices[1] + "?bundle=true";

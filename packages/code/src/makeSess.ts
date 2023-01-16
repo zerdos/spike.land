@@ -8,7 +8,9 @@ const aPC = (sess: ICodeSession, mess: CodePatch) =>
 
 export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   const newSess = aPC(sess, mess);
-  if (makeHash(newSess) !== mess.newHash) throw new Error("we cant even calculate CodePatch");
+  if (makeHash(newSess) !== mess.newHash) {
+    throw new Error("we cant even calculate CodePatch");
+  }
 
   return newSess;
 }
@@ -60,7 +62,9 @@ export const createPatch = (oldSess: ICodeSession, newSess: ICodeSession) => {
 
   const newSess2 = applyCodePatch(oldSess, codePatch);
 
-  if (makeHash(newSess2) !== codePatch.newHash) throw new Error("we cant even calculate CodePatch");
+  if (makeHash(newSess2) !== codePatch.newHash) {
+    throw new Error("we cant even calculate CodePatch");
+  }
 
   return codePatch;
 };

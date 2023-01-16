@@ -20,6 +20,7 @@ let startedAce = 0;
 const mod = {
   i: 0,
   code: "",
+  controller: new AbortController(),
 };
 
 const Editor: FC<
@@ -33,17 +34,14 @@ const Editor: FC<
   const engine = isMobile() ? "ace" : "monaco";
 
   const [
-    { i, code, started, controller, setValue },
+    { i, code, started, setValue },
     changeContent,
   ] = useState({
     code: globalThis.cSess.session.code,
     i: globalThis.cSess.session.i,
     started: false,
-    controller: new AbortController(),
     setValue: (_code: string) => null,
   });
-  mod.i = globalThis.cSess.session.i;
-  mod.code = globalThis.cSess.session.code;
 
   useEffect(() => {
     if (started) return;
@@ -54,6 +52,9 @@ const Editor: FC<
         return;
       }
 
+      mod.i = globalThis.cSess.session.i;
+      mod.code = globalThis.cSess.session.code;
+
       // const code = await ky(`${origin}/live/${codeSpace}/index.tsx`).text();
 
       const container = ref?.current;
@@ -63,7 +64,12 @@ const Editor: FC<
         ? setMonaco(container, codeSpace, code, i)
         : setAce(container, code)) as { setValue: (code: string) => null };
 
-      changeContent((x) => ({ ...x, started: true, code, setValue: (code: string) => modz.setValue(code) }));
+      changeContent((x) => ({
+        ...x,
+        started: true,
+        code,
+        setValue: (code: string) => modz.setValue(code),
+      }));
     };
     start();
   }, [started, ref.current]);
@@ -117,19 +123,23 @@ const Editor: FC<
     const c = await prettier(_code);
 
     if (mod.code === c) return;
-    controller.abort();
+    mod.controller.abort();
 
-    mod.i = mod.i + 1;
+    mod.controller = new AbortController(), mod.i = mod.i + 1;
     mod.code = _code;
 
     changeContent((x) => ({
       ...x,
       i: mod.i,
       code: mod.code,
-      controller: new AbortController(),
     }));
 
-    runner({ code: mod.code, counter: mod.i, codeSpace, signal: controller.signal });
+    runner({
+      code: mod.code,
+      counter: mod.i,
+      codeSpace,
+      signal: mod.controller.signal,
+    });
   };
 
   BC.onmessage = async ({ data }) => {
@@ -140,7 +150,7 @@ const Editor: FC<
       mod.code = data.code;
       setValue(data.code);
     }
-    changeContent(x => ({ ...x, ...mod }));
+    changeContent((x) => ({ ...x, ...mod }));
   };
 
   if (engine === "ace") return EditorNode;
