@@ -125,7 +125,8 @@ const Editor: FC<
     if (mod.code === c) return;
     mod.controller.abort();
 
-    mod.controller = new AbortController(), mod.i = mod.i + 1;
+    mod.controller = new AbortController();
+    mod.i = mod.i + 1;
     mod.code = _code;
 
     changeContent((x) => ({
