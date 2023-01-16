@@ -19,6 +19,7 @@ let startedAce = 0;
 
 const mod = {
   i: 0,
+  code: "",
 };
 
 const Editor: FC<
@@ -42,6 +43,7 @@ const Editor: FC<
     setValue: (_code: string) => null,
   });
   mod.i = globalThis.cSess.session.i;
+  mod.code = globalThis.cSess.session.code;
 
   useEffect(() => {
     if (started) return;
@@ -108,37 +110,38 @@ const Editor: FC<
   );
 
   const onChange = async (_code: string) => {
-    if (code === _code) return;
+    if (mod.code === _code) return;
     console.log(_code);
 
-    const ccc = await prettier(code);
+    // const ccc = await prettier(code);
     const c = await prettier(_code);
 
-    if (c === ccc) return;
+    if (mod.code === c) return;
     controller.abort();
 
     mod.i = mod.i + 1;
+    mod.code = _code;
+
     changeContent((x) => ({
       ...x,
-      i: x.i + 1,
-      code: c,
+      i: mod.i,
+      code: mod.code,
       controller: new AbortController(),
     }));
+
+    runner({ code: mod.code, counter: mod.i, codeSpace, signal: controller.signal });
   };
 
   BC.onmessage = async ({ data }) => {
     if (mod.i >= Number(data.i)) return;
     mod.i = Number(data.i);
+
     if (data.code) {
+      mod.code = data.code;
       setValue(data.code);
     }
-    changeContent(x => ({ ...x, code: data.code, i: Number(data.i) }));
+    changeContent(x => ({ ...x, ...mod }));
   };
-
-  useEffect(() => {
-    runner({ code, counter: i, codeSpace, signal: controller.signal });
-    return () => controller.abort();
-  }, [code, i, codeSpace, controller.signal]);
 
   if (engine === "ace") return EditorNode;
 
