@@ -57,11 +57,11 @@ const Editor: FC<
       const container = ref?.current;
       if (container === null) return;
 
-      const { setValue } = await (engine === "monaco"
+      const modz = await (engine === "monaco"
         ? setMonaco(container, codeSpace, code, i)
         : setAce(container, code)) as { setValue: (code: string) => null };
 
-      changeContent((x) => ({ ...x, started: true, code, setValue }));
+      changeContent((x) => ({ ...x, started: true, code, setValue: (code: string) => modz.setValue(code) }));
     };
     start();
   }, [started, ref.current]);
@@ -136,7 +136,7 @@ const Editor: FC<
   };
 
   useEffect(() => {
-    if (i && code) runner({ code, counter: i, codeSpace, signal: controller.signal });
+    runner({ code, counter: i, codeSpace, signal: controller.signal });
     return () => controller.abort();
   }, [code, i, codeSpace, controller.signal]);
 
