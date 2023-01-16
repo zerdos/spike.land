@@ -26,7 +26,7 @@ import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = "development";
+const environment = Deno.env.get("NODE_ENV") === "production" ? "production" : "development";
 
 // = "production" === "production"
 //   ? "production"
@@ -159,8 +159,8 @@ console.log(`
 -------------------------------------------------`);
 
 const build = (
-  entryPoints: esbuild.BuildOptions.entryPoints,
-  external: esbuild.BuildOptions.external,
+  entryPoints: string[],
+  external: string[],
   buildOptions: esbuild.BuildOptions,
 ) =>
   esbuild.build({
@@ -254,7 +254,7 @@ const build = (
       "src/transpile.ts",
       "src/fs.ts",
       "src/ata.ts",
-      "src/ipfs-core.ts",
+      // "src/ipfs-core.ts",
     ],
 
     plugins: [],

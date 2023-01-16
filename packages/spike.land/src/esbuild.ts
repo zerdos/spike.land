@@ -66,7 +66,7 @@ export async function esmTransform(code: string, origin: string) {
   } as unknown as TransformOptions);
 
   // apps[md5(transpiled.code)] = require(md5(code));
-  if (origin) return importMapReplace(transpiled.code, origin, origin);
+  if (origin) return importMapReplace(transpiled.code, origin);
   else return transpiled.code;
 }
 

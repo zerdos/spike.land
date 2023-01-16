@@ -149,7 +149,7 @@ export async function ata(
         .then((dtsRes) => {
           const u = new URL(dtsRes.url, origin);
           impRes[newBase!].url = u.toString();
-          return dtsRes.text(); // .then(z => importMapReplace(z, u.toString(), origin, false));
+          return dtsRes.text();
         });
 
       if (impRes[newBase].content.length > 0) {

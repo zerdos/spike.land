@@ -6,7 +6,6 @@ import { ReconnectingWebSocket } from "./ReconnectingWebSocket";
 import type * as RPC from "worker-rpc";
 
 import type { ata as Ata } from "./ata";
-import { importMapReplace } from "./importMapReplace";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
@@ -114,13 +113,13 @@ function setConnections(signal: string) {
         return;
       }
       if (data.type === "transpile") {
-        const transpiled = importMapReplace(await transpile(data.code), location.origin);
+        const transpiled = await transpile(data.code);
         websocket.send(JSON.stringify({ ...data, transpiled }));
       }
       if (data.newHash) {
         const newSession = applyCodePatch(session.oldSession, data);
         if (makeHash(newSession) !== makeHash(session.oldSession)) {
-          const transpiled = importMapReplace(await transpile(data.code), location.origin);
+          const transpiled = await transpile(data.code);
           BC.postMessage({ ...newSession, transpiled });
           session.i = newSession.i;
           session.oldSession = newSession;

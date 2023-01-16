@@ -1,4 +1,5 @@
 import { initialize, transform, version } from "esbuild-wasm";
+import { importMapReplace } from "./importMapReplace";
 
 const init = initialize({
   wasmURL: `${location.origin}/esbuild-wasm@${version}/esbuild.wasm`,
@@ -24,7 +25,7 @@ export const transpile = (code: string) =>
         },
       },
       target: "es2022",
-    }).then((x) => x.code)
+    }).then((x) => importMapReplace(x.code, location.origin))
   );
 
 Object.assign(self, { transpile });

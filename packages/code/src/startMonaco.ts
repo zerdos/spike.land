@@ -1,6 +1,7 @@
 import "monaco-editor/esm/vs/editor/edcore.main";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import { editor, languages, Uri } from "monaco-editor";
+import { prettier } from "./shared";
 
 import { ata } from "./shared";
 // import localForage from "localforage";
@@ -403,7 +404,7 @@ async function startMonacoPristine(
   // const memoryCache = localForage.createInstance({
   //   name: "model-" + codeSpace,
   // });
-  myEditor.onDidBlurEditorText(() => console.log("blur"));
+
   const mod = {
     getValue: () => model.getValue(),
     silent: false,
@@ -441,6 +442,8 @@ async function startMonacoPristine(
       }
     },
   };
+
+  myEditor.onDidBlurEditorText(async () => mod.setValue(await prettier(model.getValue())));
 
   // let start = await memoryCache.getItem("start");
 

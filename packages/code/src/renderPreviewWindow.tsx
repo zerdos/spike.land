@@ -2,11 +2,6 @@ import type { FC, ReactNode } from "react";
 
 import { lazy, Suspense, useState } from "react";
 
-// import { Fragment, useEffect, useState } from "react";
-// import * as portals from "react-reverse-portal";
-
-// import { AutoUpdateApp } from "./starter";
-
 import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'

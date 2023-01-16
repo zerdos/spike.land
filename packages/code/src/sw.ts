@@ -1,24 +1,24 @@
 // import {precacheAndRoute} from 'workbox-precaching';
 
-import type {} from "./transpile";
-// importScripts("/workerScripts/transpile.js");
+import type { transpile as Transpile } from "./transpile";
+importScripts("/workerScripts/transpile.js");
 // importScripts("/workerScripts/prettierEsm.js");
-import { transpile } from "./shared";
+
+// import { transpile } from "./transpile.ts";
 
 import type * as FS from "./fs";
-declare var self:
+declare const self:
   & ServiceWorkerGlobalScope
   & { files: { [key: string]: string }; fileCacheName: string }
-  // & { transpile: typeof Transpile }
+  & { transpile: typeof Transpile }
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 import type FSD from "./fs";
 const { readFile, unlink, writeFile } = self as unknown as typeof FSD;
-// const { transpile } = self;
+const { transpile } = self;
 export type {};
 
 import { resetCSS } from "./getResetCss";
-import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { md5 } from "./md5";
 // import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
@@ -121,7 +121,7 @@ const createResponse = async (request: Request) => {
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;
 
-        const trp = importMapReplace(await transpile(code), location.origin);
+        const trp = await transpile(code);
 
         await writeFile(
           `/live/${codeSpace}/index.js`,

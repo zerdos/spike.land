@@ -41,6 +41,7 @@ const Editor: FC<
     controller: new AbortController(),
     setValue: (_code: string) => null,
   });
+  mod.i = globalThis.cSess.session.i;
 
   useEffect(() => {
     if (started) return;
@@ -116,46 +117,25 @@ const Editor: FC<
     if (c === ccc) return;
     controller.abort();
 
+    mod.i = mod.i + 1;
     changeContent((x) => ({
       ...x,
-      i: mod.i = x.i + 1,
+      i: x.i + 1,
       code: c,
       controller: new AbortController(),
     }));
   };
 
   BC.onmessage = async ({ data }) => {
-    if (mod.i >= data.i) return;
-    if (data.code && await prettier(data.code) !== await prettier(code)) {
+    if (mod.i >= Number(data.i)) return;
+    mod.i = Number(data.i);
+    if (data.code) {
       setValue(data.code);
     }
-    changeContent(x => ({ ...x, code: data.code, i: data.i }));
+    changeContent(x => ({ ...x, code: data.code, i: Number(data.i) }));
   };
 
   useEffect(() => {
-    // let next = i;
-    if (i <= globalThis.cSess.session.i) return;
-    // onSessionUpdate(
-    //   async () => {
-    //     const { i, code: ccc } = mST(codeSpace);
-    //     const prettyCCC = await prettier(ccc);
-    //     const prettyCode = await prettier(code);
-
-    //     if (!prettyCCC) return;
-    //     if (prettyCCC === prettyCode) return;
-
-    //     // if (i !== mST(codeSpace).i) return;
-
-    //     changeContent((x) => ({
-    //       ...x,
-    //       i,
-    //       code: ccc,
-    //     }));
-    //     setValue(ccc);
-    //   },
-    //   "editor",
-    //   codeSpace,
-    // );
     runner({ code, counter: i, codeSpace, signal: controller.signal });
     return () => controller.abort();
   }, [code, i, codeSpace, controller.signal]);
