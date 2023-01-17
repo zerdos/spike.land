@@ -145,11 +145,15 @@ const Editor: FC<
   };
 
   BC.onmessage = async ({ data }) => {
-    if (mod.i >= Number(data.i) && !data.code) return;
+    if (mod.i >= Number(data.i) && !data.code && !data.html) return;
     mod.i = Number(data.i);
     mod.code = data.code;
-    setValue(mod.code);
     cSess.session = makeSession(data);
+    mod.controller.abort();
+    mod.controller = new AbortController();
+
+    runner({ ...mod, counter: mod.i, codeSpace: codeSpace, signal: mod.controller.signal });
+    setValue(mod.code);
     changeContent((x) => ({ ...x, ...mod }));
   };
 
