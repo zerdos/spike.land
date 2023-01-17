@@ -168,7 +168,11 @@ export async function ata(
         impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString()]
         || {
           url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString(),
-          content: `/// <reference path="${newBase}" />`,
+          content: `
+          import mod from  "${newBase}";
+          export * from "${newBase}";
+          export default mod;
+          `,
           ref: r,
         };
     }));
