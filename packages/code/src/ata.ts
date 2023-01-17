@@ -141,7 +141,7 @@ export async function ata(
       if (newBase.indexOf(location.origin) !== -1) {
         return true;
       }
-      impRes[new URL(r, baseUrl).toString()] = {
+      impRes[new URL(r.includes("d.ts") ? r : r + ".d.ts", baseUrl).toString()] = {
         url: new URL(r, baseUrl).toString(),
         content: `/// <reference path="${newBase}" />`,
         ref: r,
