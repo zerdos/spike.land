@@ -6,7 +6,6 @@ import * as memFS from "memfs";
 // export const fs = new FS('fakeFS', {db: null});\
 
 import FS from "@isomorphic-git/lightning-fs";
-import { wait } from "./wait";
 
 let fsProb: FS | typeof memFS.fs;
 

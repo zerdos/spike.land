@@ -10,6 +10,8 @@ import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
 
+import { Mutex } from "async-mutex";
+
 declare var self:
   & SharedWorkerGlobalScope
   & { RpcProvider: typeof RPC.RpcProvider }
@@ -71,6 +73,7 @@ const connections: {
 } = {};
 
 Object.assign(self, { connections });
+const mutex = new Mutex();
 
 function setConnections(signal: string) {
   const parts = signal.split(" ");
@@ -125,19 +128,21 @@ function setConnections(signal: string) {
         transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
       }
       if (data.newHash) {
-        if (makeHash(c.oldSession) !== String(data.oldHash)) {
-          c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-          const transpiled = await transpile(c.oldSession.code);
+        await mutex.runExclusive(async () => {
+          if (makeHash(c.oldSession) !== String(data.oldHash)) {
+            c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+            const transpiled = await transpile(c.oldSession.code);
 
-          BC.postMessage({ ...c.oldSession, transpiled });
-          return;
-        }
-        const newSession = applyCodePatch(c.oldSession, data);
-        if (makeHash(newSession) !== makeHash(c.oldSession)) {
-          const transpiled = await transpile(data.code);
-          c.oldSession = newSession;
-          BC.postMessage({ ...newSession, transpiled });
-        }
+            BC.postMessage({ ...c.oldSession, transpiled });
+            return;
+          }
+          const newSession = applyCodePatch(c.oldSession, data);
+          if (makeHash(newSession) !== makeHash(c.oldSession)) {
+            const transpiled = await transpile(data.code);
+            c.oldSession = newSession;
+            BC.postMessage({ ...newSession, transpiled });
+          }
+        });
       }
     };
   }
