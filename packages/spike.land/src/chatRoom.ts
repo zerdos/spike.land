@@ -157,79 +157,79 @@ export class Code implements DurableObject {
 
         // const mess = await request.json();
 
-        if (request.method === "POST") {
-          const message = await request.json<CodePatch & IFirstRender>();
-          if (message.type === "firstRender") {
-            const { html, css, code, i } = message;
-            this.session = makeSession({ i, html, css, code });
-            this.state.storage.put("sess", this.session);
-            this.state.storage.put("head", makeHash(this.session));
-            this.state.storage.put(makeHash(this.session), this.session);
-            return new Response(JSON.stringify({ ...message, success: true }), {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
-          }
+        // if (request.method === "POST") {
+        //   const message = await request.json<CodePatch & IFirstRender>();
+        //   if (message.type === "firstRender") {
+        //     const { html, css, code, i } = message;
+        //     this.session = makeSession({ i, html, css, code });
+        //     this.state.storage.put("sess", this.session);
+        //     this.state.storage.put("head", makeHash(this.session));
+        //     this.state.storage.put(makeHash(this.session), this.session);
+        //     return new Response(JSON.stringify({ ...message, success: true }), {
+        //       status: 200,
+        //       headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "no-cache",
+        //         "Content-Type": "application/json; charset=UTF-8",
+        //       },
+        //     });
+        //   }
 
-          if (!message) {
-            new Response(JSON.stringify({ message: "failed to get the message", success: false }), {
-              status: 500,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
-          }
+        //   if (!message) {
+        //     new Response(JSON.stringify({ message: "failed to get the message", success: false }), {
+        //       status: 500,
+        //       headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "no-cache",
+        //         "Content-Type": "application/json; charset=UTF-8",
+        //       },
+        //     });
+        //   }
 
-          if (oldHash !== message.oldHash) {
-            return new Response(JSON.stringify({ sess, oldHash, success: false }), {
-              status: 500,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
-          }
+        //   if (oldHash !== message.oldHash) {
+        //     return new Response(JSON.stringify({ sess, oldHash, success: false }), {
+        //       status: 500,
+        //       headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "no-cache",
+        //         "Content-Type": "application/json; charset=UTF-8",
+        //       },
+        //     });
+        //   }
 
-          const newSession = applyCodePatch(this.session, message as unknown as CodePatch);
+        //   const newSession = applyCodePatch(this.session, message as unknown as CodePatch);
 
-          const newHash = makeHash(newSession);
+        //   const newHash = makeHash(newSession);
 
-          // const newSess= newSession;
-          if (newHash !== message.newHash) {
-            return new Response(JSON.stringify({ newHash, message, success: false }), {
-              status: 500,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
-          }
+        //   // const newSess= newSession;
+        //   if (newHash !== message.newHash) {
+        //     return new Response(JSON.stringify({ newHash, message, success: false }), {
+        //       status: 500,
+        //       headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         "Cross-Origin-Embedder-Policy": "require-corp",
+        //         "Cache-Control": "no-cache",
+        //         "Content-Type": "application/json; charset=UTF-8",
+        //       },
+        //     });
+        //   }
 
-          this.session = newSession;
-          this.state.storage.put("sess", newSession);
+        //   this.session = newSession;
+        //   this.state.storage.put("sess", newSession);
 
-          return new Response(JSON.stringify({ ...message, success: true }), {
-            status: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Cross-Origin-Embedder-Policy": "require-corp",
-              "Cache-Control": "no-cache",
-              "Content-Type": "application/json; charset=UTF-8",
-            },
-          });
-        }
+        //   return new Response(JSON.stringify({ ...message, success: true }), {
+        //     status: 200,
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //       "Cross-Origin-Embedder-Policy": "require-corp",
+        //       "Cache-Control": "no-cache",
+        //       "Content-Type": "application/json; charset=UTF-8",
+        //     },
+        //   });
+        // }
 
         // try {
         //   const mess:
@@ -672,7 +672,7 @@ export class Code implements DurableObject {
     webSocket.send(
       JSON.stringify({
         hashCode: makeHash(this.session),
-        i: this.session.i,
+        i: this.i,
         users,
         type: "handshake",
       }),
