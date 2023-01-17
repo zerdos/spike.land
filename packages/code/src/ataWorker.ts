@@ -50,7 +50,7 @@ self.onconnect = ({ ports }) => {
 
   rpcProvider.registerRpcHandler(
     "transpile",
-    (code: string) => transpile(code),
+    (code: string) => code ? transpile(code) : code,
   );
 
   rpcProvider.registerSignalHandler(
@@ -114,6 +114,13 @@ function setConnections(signal: string) {
     ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
       if (data.type === "handShake") {
+        if (makeHash(c.oldSession) !== String(data.hashCode)) {
+          c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+          const transpiled = await transpile(c.oldSession.code);
+
+          BC.postMessage({ ...c.oldSession, transpiled });
+          return;
+        }
         ws.send(JSON.stringify({ name: c.user }));
         return;
       }
@@ -121,7 +128,7 @@ function setConnections(signal: string) {
         transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
       }
       if (data.newHash) {
-        if (makeHash(c.oldSession) !== data.oldHash) {
+        if (makeHash(c.oldSession) !== String(data.oldHash)) {
           c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
           const transpiled = await transpile(c.oldSession.code);
 
