@@ -140,6 +140,24 @@ const createResponse = async (request: Request) => {
           },
         });
       }
+      if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
+        // const code = await readFile(
+        //   `/live/${codeSpace}/index.tsx`,
+        // ) as string;
+
+        const trp = await readFile(`/live/${codeSpace}/index.mjs`);
+
+        return new Response(trp, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+
+            content_hash: md5(trp),
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
     } catch {
       console.log("some error again");
     }
