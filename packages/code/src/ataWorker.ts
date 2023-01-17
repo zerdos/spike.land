@@ -73,49 +73,19 @@ const connections: {
 
 Object.assign(self, { connections });
 
-function setConnections(signal: string) {
+async function setConnections(signal: string) {
   const parts = signal.split(" ");
 
   const codeSpace = parts[0];
 
   const user = parts[1];
 
-  connections[codeSpace] = connections[codeSpace] || (async (codeSpace) => {
-    console.log(
-      "new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`,
-    );
-    const session = connections[codeSpace];
-
-    const websocket = new ReconnectingWebSocket(
-      `wss://${location.host}/live/${codeSpace}/websocket`,
-    );
-
-    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-    websocket.onopen = () => console.log("onOpened");
-    websocket.onmessage = (ev: { data: string }) => {
-      const data = JSON.parse(ev.data);
-      if (data.type === "handShake") {
-        websocket.send(JSON.stringify({ name: session.user }));
-        return;
-      }
-      if (data.type === "transpile") {
-        transpile(data.code).then(transpiled => websocket.send(JSON.stringify({ ...data, transpiled })));
-      }
-      if (data.newHash) {
-        const newSession = applyCodePatch(session.oldSession, data);
-        if (makeHash(newSession) !== makeHash(session.oldSession)) {
-          transpile(data.code).then(transpiled => {
-            BC.postMessage({ ...newSession, transpiled });
-            session.i = newSession.i;
-            session.oldSession = newSession;
-          });
-        }
-      }
-    };
-
-    connections[codeSpace] = {
-      BC,
-      websocket,
+  connections[codeSpace] = connections[codeSpace] || await (async (codeSpace: string, user: string) => {
+    const c = {
+      BC: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
+      ws: new ReconnectingWebSocket(
+        `wss://${location.host}/live/${codeSpace}/websocket`,
+      ),
       user,
       i: 0,
       oldSession: makeSession(
@@ -123,26 +93,48 @@ function setConnections(signal: string) {
       ),
     };
 
-    BC.onmessage = ({ data }) => {
-      if (data.i > session.i && (data.hashCode || data.newHash)) {
-        session.i = data.i;
-
-        data.name = session.user;
-        websocket.send(JSON.stringify(data));
+    c.ws.onopen = () => console.log("onOpened");
+    c.ws.onmessage = (ev: { data: string }) => {
+      const data = JSON.parse(ev.data);
+      if (data.type === "handShake") {
+        c.ws.send(JSON.stringify({ name: c.user }));
+        return;
       }
-      if (data.i > session.i && data.html && data.code) {
-        session.i = data.i;
-        if (makeHash(data) !== makeHash(session.oldSession)) {
-          const patchMessage = createPatch(session.oldSession, data);
-
-          BC.postMessage({ ...patchMessage, name: session.user });
-
-          websocket.send(
-            JSON.stringify({ ...patchMessage, name: session.user }),
-          );
-          session.oldSession = makeSession(data);
+      if (data.type === "transpile") {
+        transpile(data.code).then(transpiled => c.ws.send(JSON.stringify({ ...data, transpiled })));
+      }
+      if (data.newHash) {
+        const newSession = applyCodePatch(c.oldSession, data);
+        if (makeHash(newSession) !== makeHash(c.oldSession)) {
+          transpile(data.code).then(transpiled => {
+            c.BC.postMessage({ ...newSession, transpiled });
+            c.i = newSession.i;
+            c.oldSession = newSession;
+          });
         }
       }
     };
-  })(codeSpace);
+
+    c.BC.onmessage = ({ data }) => {
+      if (data.i > c.i && (data.hashCode || data.newHash)) {
+        c.i = data.i;
+
+        data.name = c.user;
+        c.ws.send(JSON.stringify(data));
+      }
+      if (data.i > c.i && data.html && data.code) {
+        c.i = data.i;
+        if (makeHash(data) !== makeHash(c.oldSession)) {
+          const patchMessage = createPatch(c.oldSession, data);
+
+          c.BC.postMessage({ ...patchMessage, name: c.user });
+
+          c.ws.send(
+            JSON.stringify({ ...patchMessage, name: c.user }),
+          );
+          c.oldSession = makeSession(data);
+        }
+      }
+    };
+  })(codeSpace, user);
 }
