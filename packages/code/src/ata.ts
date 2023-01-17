@@ -114,7 +114,7 @@ export async function ata(
         ...refs.map((r) => r.split(`"`)[0]).map(r =>
           (r.startsWith(".") || r.startsWith("https:/"))
             ? r
-            : r.slice(1)
+            : new URL(r.slice(1), originToUse).toString
         ),
         //     : new URL(`./` + r, baseUrl).toString()
         // ),
