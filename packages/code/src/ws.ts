@@ -93,7 +93,6 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
-  sess = this.session;
   head = makeHash(this.session);
   user = localStorage.getItem(`${codeSpace} user`)
     ? localStorage.getItem(`${codeSpace} user`)
@@ -131,8 +130,7 @@ export class Code {
 
           // ]);
           this.session = makeSession(startSess);
-          this.sess = this.session;
-          this.head = makeHash(this.sess);
+          this.head = makeHash(this.session);
 
           await ldb(codeSpace).setItem(
             "head",
@@ -140,7 +138,7 @@ export class Code {
           ) as number;
           await ldb(codeSpace).setItem(
             String(this.head),
-            this.sess,
+            this.session,
           ) as (ICodeSession | false);
         } else {
           const startSessLocal = await ldb(codeSpace).getItem(
@@ -149,7 +147,6 @@ export class Code {
           this.session = makeSession(
             startSess.i > startSessLocal.i ? startSess : startSessLocal,
           );
-          this.sess = this.session;
 
           this.head = makeHash(this.session);
         }
@@ -163,7 +160,6 @@ export class Code {
 
     // const oldHash = makeHash(oldSession);
     this.session = newSess;
-    this.sess = newSess;
     this.head = makeHash(newSess);
     const message = createPatch(oldSession, newSess);
 
@@ -178,7 +174,7 @@ export class Code {
       // }]
       if (signal.aborted) return;
 
-      const oldSession = this.sess;
+      const oldSession = this.session;
 
       await mutex.waitForUnlock();
       await mutex.acquire();
