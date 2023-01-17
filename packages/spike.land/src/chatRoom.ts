@@ -4,6 +4,7 @@ import HTML from "./../../code/src/index.html";
 import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
+import codeShaSum from "./dist.shasum";
 
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
@@ -37,6 +38,7 @@ export interface IFirstRender {
 
 export class Code implements DurableObject {
   // mutex: Mutex;
+  #codeShaSum = codeShaSum;
   #wsSessions: WebsocketSession[] = [];
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
@@ -155,6 +157,8 @@ export class Code implements DurableObject {
                     hashCode: makeHash(this.session),
                     i: this.session.i,
                     users,
+                    runner: this.#codeShaSum,
+                    codeShaSum,
                     type: "handshake",
                   }),
                 );
