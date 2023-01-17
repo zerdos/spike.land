@@ -102,11 +102,13 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
         } catch (e) {
           "some error";
         }
-        BC.postMessage({
-          ...data,
-          html,
-          css,
-        });
+        if (!data.html) {
+          BC.postMessage({
+            ...data,
+            html,
+            css,
+          });
+        }
         controller.abort();
         // root.unmount();
         return;
