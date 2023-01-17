@@ -22,7 +22,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 let counterMax = 0;
 
 const sess = {
-  i: counterMax,
+  i: 0,
   codeSpace,
   transpiled: "",
   code: "",

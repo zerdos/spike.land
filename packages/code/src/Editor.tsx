@@ -120,10 +120,10 @@ const Editor: FC<
     if (mod.code === _code) return;
     console.log(_code);
 
-    // const ccc = await prettier(code);
+    const ccc = await prettier(code);
     const c = await prettier(_code);
 
-    if (mod.code === c) return;
+    if (ccc === c) return;
     mod.controller.abort();
 
     mod.controller = new AbortController();
