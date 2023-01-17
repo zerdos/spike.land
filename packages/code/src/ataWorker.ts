@@ -121,7 +121,7 @@ function setConnections(signal: string) {
         transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
       }
       if (data.newHash) {
-        if (makeHash(c.oldSession) !== data.newHash) {
+        if (makeHash(c.oldSession) !== data.oldHash) {
           c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
           const transpiled = await transpile(c.oldSession.code);
 
