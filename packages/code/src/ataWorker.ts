@@ -114,6 +114,8 @@ function setConnections(signal: string) {
     ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
       if (data.type === "handShake") {
+        ws.send(JSON.stringify({ name: c.user }));
+
         if (makeHash(c.oldSession) !== String(data.hashCode)) {
           c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
           const transpiled = await transpile(c.oldSession.code);
@@ -121,7 +123,6 @@ function setConnections(signal: string) {
           BC.postMessage({ ...c.oldSession, transpiled });
           return;
         }
-        ws.send(JSON.stringify({ name: c.user }));
         return;
       }
       if (data.type === "transpile") {
