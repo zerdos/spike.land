@@ -27,7 +27,7 @@ export async function ata(
 
   // );
 
-  const versionNumbers = /@(\^)?\d+.\d+.\d+/gm;
+  const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
 
   // let url = replaceMappings(filePath, replaceMaps).replaceAll(
   // versionNumbers,
