@@ -53,8 +53,8 @@ const Editor: FC<
         return;
       }
 
-      mod.i = globalThis.cSess.session.i;
-      mod.code = globalThis.cSess.session.code;
+      mod.i = Number(cSess.session.i);
+      mod.code = cSess.session.code;
 
       // const code = await ky(`${origin}/live/${codeSpace}/index.tsx`).text();
 
@@ -127,7 +127,7 @@ const Editor: FC<
     mod.controller.abort();
 
     mod.controller = new AbortController();
-    mod.i = mod.i + 1;
+    mod.i = Number(mod.i) + 1;
     mod.code = _code;
 
     changeContent((x) => ({
