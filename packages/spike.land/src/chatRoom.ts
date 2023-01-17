@@ -1,7 +1,7 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 import { resetCSS } from "./../../code/src/getResetCss";
 import HTML from "./../../code/src/index.html";
-import { applyCodePatch, CodePatch, makeSession } from "./../../code/src/makeSess";
+import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 
@@ -98,7 +98,15 @@ export class Code implements DurableObject {
   constructor(private state: DurableObjectState, private env: CodeEnv) {
     this.state.blockConcurrencyWhile(async () => {
       try {
-        this.session = await this.state.storage.get("session") || this.#backupSession;
+        let s = await this.state.storage.get("session");
+        if (!s) {
+          await this.state.storage.put("session", this.#backupSession);
+          s = this.#backupSession;
+          const head = makeHash(s as ICodeSession);
+          await this.state.storage.put("session", head);
+          await this.state.storage.put("head", head);
+        }
+        this.session = s as unknown as ICodeSession;
       } catch {
         this.session = this.#backupSession;
       }
