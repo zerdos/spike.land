@@ -57,7 +57,7 @@ export class Code implements DurableObject {
     const message = JSON.stringify(msg);
 
     const head = makeHash(this.session);
-    this.state.storage.put("sess", this.session);
+    this.state.storage.put("session", this.session);
     this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
     this.state.storage.get(msg.oldHash).then((data: unknown) =>
       this.state.storage.put(msg.oldHash, {
@@ -99,7 +99,7 @@ export class Code implements DurableObject {
     };
   }
 
-  private backupSession = makeSession({
+  #backupSession = makeSession({
     code: `export default () => (
         <div>
           <h1>404 - for now.</h1>
@@ -109,13 +109,20 @@ export class Code implements DurableObject {
           </h2>
         </div>
       );`,
-    i: 0,
+    i: 1,
     html: "<div></div>",
     css: "",
   });
-  i: number;
   constructor(private state: DurableObjectState, private env: CodeEnv) {
-    this.i = 0;
+    this.state.blockConcurrencyWhile(async () => {
+      try {
+        this.session = await this.state.storage.get("session") || this.#backupSession;
+      } catch {
+        this.session = this.#backupSession;
+      }
+      this.state.storage.put("session", this.session);
+      this.state.storage.put("session", makeHash(this.session));
+    });
   }
 
   async fetch(request: Request) {
@@ -125,28 +132,7 @@ export class Code implements DurableObject {
         // try {
         // const sessions = await this.state.storage.get("sessions") || [];
 
-        const inc = Number(await this.state.storage.get("inc")) + 1 || 1;
-        this.state.storage.put("inc", inc);
-
-        const sess: ICodeSession = (this.session.i
-          ? this.session
-          : makeSession(
-            await this.state.storage.get("sess")
-              || (await this.state.storage.get("session") as ICodeSession),
-          )) || this.session;
-
-        // const getSession = (s = sess) => Record(sess)(s);
-
-        this.state.storage.put("sess", sess);
-        this.state.storage.put("head", makeHash(this.session));
-
         const url = new URL(request.url);
-
-        const origin = url.origin;
-        const transpiled = () => initAndTransform(sess.code, {}, origin);
-
-        this.i = sess.i;
-        const oldHash = makeHash(sess);
 
         const codeSpace = url.searchParams.get("room");
 
@@ -162,7 +148,7 @@ export class Code implements DurableObject {
         //   if (message.type === "firstRender") {
         //     const { html, css, code, i } = message;
         //     this.session = makeSession({ i, html, css, code });
-        //     this.state.storage.put("sess", this.session);
+        //     this.state.storage.put("session", this.session);
         //     this.state.storage.put("head", makeHash(this.session));
         //     this.state.storage.put(makeHash(this.session), this.session);
         //     return new Response(JSON.stringify({ ...message, success: true }), {
@@ -218,7 +204,7 @@ export class Code implements DurableObject {
         //   }
 
         //   this.session = newSession;
-        //   this.state.storage.put("sess", newSession);
+        //   this.state.storage.put("session", newSession);
 
         //   return new Response(JSON.stringify({ ...message, success: true }), {
         //     status: 200,
@@ -341,7 +327,7 @@ export class Code implements DurableObject {
         //   },
         // );
 
-        const { code, css, html, i } = sess;
+        const { code, css, html, i } = this.session;
         const path = url.pathname.slice(1).split("/");
         if (path.length === 0) path.push("");
 
@@ -417,7 +403,7 @@ export class Code implements DurableObject {
           }
           case "index.trans.js": {
             const trp = await initAndTransform(
-              sess.code,
+              code,
               {},
               url.origin,
             );
@@ -487,7 +473,7 @@ export class Code implements DurableObject {
                 );
               }
             }
-            const body = string_(sess);
+            const body = string_(this.session);
             return new Response(body, {
               status: 200,
               headers: {
@@ -562,7 +548,7 @@ export class Code implements DurableObject {
           case "index.mjs":
           case "index.js":
           case "js": {
-            const trp = await transpiled();
+            const trp = await initAndTransform(code, {}, url.origin);
 
             return new Response(trp, {
               headers: {
@@ -672,7 +658,7 @@ export class Code implements DurableObject {
     webSocket.send(
       JSON.stringify({
         hashCode: makeHash(this.session),
-        i: this.i,
+        i: this.session.i,
         users,
         type: "handshake",
       }),
@@ -830,11 +816,8 @@ export class Code implements DurableObject {
     // });
 
     // }
-    if (data.i && !this.i) {
-      this.i = data.i;
-    }
 
-    if (data.i && this.i && this.i > data.i) return respondWith({ error: "i is not up to date" });
+    if (data.i && this.session.i && this.session.i > data.i) return respondWith({ error: "i is not up to date" });
 
     // await this.mutex.runExclusive(async () => {
     // if (data.i < this.i) return;
@@ -895,7 +878,7 @@ export class Code implements DurableObject {
 
             this.session = newState;
 
-            this.broadcast(data);
+            this.broadcast(data as CodePatch);
 
             //
 
