@@ -126,6 +126,12 @@ function setConnections(signal: string) {
 
     ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
+      if (data.strSess) {
+        const sess = makeSession(JSON.stringify(data.strSess));
+        const pp = makePatch(c.oldSession, sess);
+        ws.send(JSON.stringify({ ...pp, name: c.user, i: c.oldSession.i }));
+        return;
+      }
       if (data.i < c.oldSession.i) return;
       if (data.type === "handShake") {
         ws.send(JSON.stringify({ name: c.user }));

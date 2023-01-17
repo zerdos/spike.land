@@ -608,14 +608,11 @@ export class Code implements DurableObject {
             // });
 
             // this.broadcast(data);
-            if (makeHash(this.session) !== data.oldHash) {
-              return respondWith({
-                error: `old hashes not matching`,
-              });
-            }
             if (oldHash !== data.oldHash) {
               return respondWith({
                 error: `old hashes not matching`,
+                i: this.session.i,
+                strSess: JSON.stringify(this.session),
               });
             }
 
