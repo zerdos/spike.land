@@ -142,9 +142,9 @@ export async function ata(
         return true;
       }
       impRes[r] = {
-        url: `${location.origin}/${r}/index.d.ts`,
-        content: `/// <reference path="${newBase}" />`,
-        ref: newBase,
+        url: `${location.origin}/${r}`,
+        content: `/// <reference path="${r}" />`,
+        ref: r,
       };
       // console.log("processing: " + r);
 
