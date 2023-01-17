@@ -95,18 +95,29 @@ function setConnections(signal: string) {
     c.ws = ws;
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
-    BC.onmessage = ({ data }) => {
-      if (data.i > c.oldSession.i && data.html && data.code) {
-        if (makeHash(data) !== makeHash(c.oldSession)) {
-          const patchMessage = createPatch(c.oldSession, data);
+    BC.onmessage = async ({ data }) => {
+      if (data.i >= c.oldSession.i && data.html && data.code) {
+        await mutex.runExclusive(async () => {
+          const oldHash = makeHash(c.oldSession);
+          const oldSession = makeSession(c.oldSession);
+          const newSession = makeSession(data);
+          if (makeHash(newSession) !== oldHash) {
+            const patchMessage = createPatch(oldSession, newSession);
+            const transpiled = await transpile(c.oldSession.code);
 
-          // BC.postMessage({ ...patchMessage, name: c.user });
+            // BC.postMessage({ ...patchMessage, name: c.user });
+            if (patchMessage.oldHash === oldHash) {
+              ws.send(
+                JSON.stringify({ ...patchMessage, name: c.user }),
+              );
 
-          ws.send(
-            JSON.stringify({ ...patchMessage, name: c.user }),
-          );
-          c.oldSession = makeSession(data);
-        }
+              BC.postMessage(
+                { ...newSession, transpiled },
+              );
+              c.oldSession = makeSession(data);
+            }
+          }
+        });
       }
     };
 
