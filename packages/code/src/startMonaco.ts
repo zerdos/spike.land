@@ -406,6 +406,8 @@ async function startMonacoPristine(
   //   name: "model-" + codeSpace,
   // });
 
+  let ctr = new AbortController();
+
   const mod = {
     getValue: () => model.getValue(),
     silent: false,
@@ -446,11 +448,13 @@ async function startMonacoPristine(
     },
   };
   myEditor.getDomNode()?.blur();
-  const ctr = new AbortController();
+
   myEditor.onDidFocusEditorText(() => {
     mod.isEdit = true;
     ctr.abort();
-    ctr = setTimeout(() => {
+    ctr = new AbortController();
+    setTimeout(() => {
+      if (ctr.signal.aborted) return;
       mod.isEdit = false;
     }, 200);
   });
@@ -477,7 +481,11 @@ async function startMonacoPristine(
 
   model.onDidChangeContent((ev) => {
     mod.isEdit = true;
+    ctr.abort();
+    ctr = new AbortController();
+
     setTimeout(() => {
+      if (ctr.signal.aborted) return;
       mod.isEdit = false;
     }, 1000);
     // globalThis[codeSpace].model = myEditor.getModel();
