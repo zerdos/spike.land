@@ -111,9 +111,11 @@ export async function ata(
       const [, ...refs] = refParts;
       res = [
         ...res,
-        ...refs.map((r) => r.split(`"`)[0]), // .map((r) =>
-        //   (r.startsWith(".") || r.startsWith("https:/"))
-        //     ? r
+        ...refs.map((r) => r.split(`"`)[0]).map(r =>
+          (r.startsWith(".") || r.startsWith("https:/"))
+            ? r
+            : r.slice(1)
+        ),
         //     : new URL(`./` + r, baseUrl).toString()
         // ),
       ];
