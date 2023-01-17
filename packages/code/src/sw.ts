@@ -117,7 +117,7 @@ const createResponse = async (request: Request) => {
       });
     }
     try {
-      if (url.pathname === `/live/${codeSpace}/index.js`) {
+      if (url.pathname.startsWith(`/live/${codeSpace}/index.js`)) {
         // const code = await readFile(
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;

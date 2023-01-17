@@ -28,7 +28,7 @@ const mod: {
 } = {};
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
-  if (data.transpiled && data.i) {
+  if (data.i) {
     if (i === data.i) return;
     i = data.i;
 
@@ -41,7 +41,9 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     document.body.appendChild(el);
 
     const myRoot = createRoot(el);
-    const App = await appFactory(data.transpiled);
+    const App = data.transpiled ? await appFactory(data.transpiled) : ((await import(
+      location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
+    )).default);
     const appId = md5(data.transpiled);
     myRoot.render(<App appId={appId} />);
 

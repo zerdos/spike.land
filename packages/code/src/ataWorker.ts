@@ -132,9 +132,9 @@ function setConnections(signal: string) {
 
         if (makeHash(c.oldSession) !== String(data.hashCode)) {
           c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-          const transpiled = await transpile(c.oldSession.code);
+          //    const transpiled = await transpile(c.oldSession.code);
 
-          BC.postMessage({ ...c.oldSession, transpiled });
+          BC.postMessage(c.oldSession);
           return;
         }
         return;
@@ -144,18 +144,21 @@ function setConnections(signal: string) {
       // }
       if (data.newHash) {
         await mutex.runExclusive(async () => {
-          if (makeHash(c.oldSession) !== String(data.oldHash)) {
-            c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-            const transpiled = await transpile(c.oldSession.code);
+          const oldSession = makeSession(c.oldSession);
 
-            BC.postMessage({ ...c.oldSession, transpiled });
+          const newSession = applyCodePatch(oldSession, data);
+          const newHash = makeHash(newSession);
+          const oldHash = makeHash(oldSession);
+          if (oldHash !== String(data.oldHash)) {
+            c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+
+            BC.postMessage({ ...c.oldSession });
             return;
           }
-          const newSession = applyCodePatch(c.oldSession, data);
-          if (makeHash(newSession) !== makeHash(c.oldSession)) {
-            const transpiled = await transpile(data.code);
+
+          if (oldHash !== newHash) {
             c.oldSession = newSession;
-            BC.postMessage({ ...newSession, transpiled });
+            BC.postMessage({ ...newSession });
           }
         });
       }
