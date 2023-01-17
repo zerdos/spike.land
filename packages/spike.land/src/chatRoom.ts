@@ -121,7 +121,9 @@ export class Code implements DurableObject {
         this.session = this.#backupSession;
       }
       this.state.storage.put("session", this.session);
-      this.state.storage.put("session", makeHash(this.session));
+      const head = makeHash(this.session);
+      this.state.storage.put("session", head);
+      this.state.storage.put("head", head);
     });
   }
 
