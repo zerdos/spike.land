@@ -141,16 +141,7 @@ export async function ata(
       if (newBase.indexOf(location.origin) !== -1) {
         return true;
       }
-      impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString()] = {
-        url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString(),
-        content: `
-        export * from "${newBase}";
-        import * as mod from  "${newBase}" ;
-   
-        export default mod;
-        `,
-        ref: r,
-      };
+
       // console.log("processing: " + r);
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
@@ -173,7 +164,13 @@ export async function ata(
       //   content: `/// <reference path="${newBase}" />`,
       //   ref: r,
       // };
-      return true;
+      impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString()] =
+        impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString()]
+        || {
+          url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString(),
+          content: `/// <reference path="${newBase}" />`,
+          ref: r,
+        };
     }));
   }
 }
