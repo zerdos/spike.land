@@ -98,23 +98,26 @@ function setConnections(signal: string) {
     BC.onmessage = async ({ data }) => {
       if (data.i >= c.oldSession.i && data.html && data.code) {
         await mutex.runExclusive(async () => {
-          const oldHash = makeHash(c.oldSession);
           const oldSession = makeSession(c.oldSession);
+
           const newSession = makeSession(data);
-          if (makeHash(newSession) !== oldHash) {
+          const newHash = makeHash(newSession);
+          const oldHash = makeHash(oldSession);
+
+          if (newHash !== oldHash) {
             const patchMessage = createPatch(oldSession, newSession);
             const transpiled = await transpile(c.oldSession.code);
 
             // BC.postMessage({ ...patchMessage, name: c.user });
             if (patchMessage.oldHash === oldHash) {
+              c.oldSession = newSession;
               ws.send(
-                JSON.stringify({ ...patchMessage, name: c.user }),
+                JSON.stringify({ ...patchMessage, i: newSession.i, name: c.user }),
               );
 
               BC.postMessage(
                 { ...newSession, transpiled },
               );
-              c.oldSession = makeSession(data);
             }
           }
         });
@@ -136,9 +139,9 @@ function setConnections(signal: string) {
         }
         return;
       }
-      if (data.type === "transpile") {
-        transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
-      }
+      // if (data.type === "transpile") {
+      //   transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
+      // }
       if (data.newHash) {
         await mutex.runExclusive(async () => {
           if (makeHash(c.oldSession) !== String(data.oldHash)) {
