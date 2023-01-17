@@ -163,8 +163,8 @@ export async function ata(
         await ata(impRes[newBase].content, impRes[newBase].url!);
       }
 
-      impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString()] = {
-        url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString(),
+      impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString()] = {
+        url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString(),
         content: `/// <reference path="${newBase}" />`,
         ref: r,
       };
