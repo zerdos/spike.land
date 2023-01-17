@@ -130,7 +130,7 @@ function setConnections(signal: string) {
         data.name = session.user;
         websocket.send(JSON.stringify(data));
       }
-      if (data.i >= session.i && data.html && data.code) {
+      if (data.i > session.i && data.html && data.code) {
         session.i = data.i;
         if (makeHash(data) !== makeHash(session.oldSession)) {
           const patchMessage = createPatch(session.oldSession, data);
