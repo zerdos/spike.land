@@ -93,11 +93,7 @@ function setConnections(signal: string) {
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
     BC.onmessage = ({ data }) => {
-      if (data.i > c.oldSession.i && (data.hashCode || data.newHash)) {
-        data.name = c.user;
-        ws.send(JSON.stringify(data));
-      }
-      if (data.i > c.oldSession.i && data.html && data.code) {
+      if (data.i >= c.oldSession.i && data.html && data.code) {
         if (makeHash(data) !== makeHash(c.oldSession)) {
           const patchMessage = createPatch(c.oldSession, data);
 
