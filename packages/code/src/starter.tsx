@@ -115,11 +115,9 @@ export async function appFactory(
         .default;
 
       apps[hash] = ({ appId }: { appId: string }) => (
-        <div key={hash} style={{ height: 100 + "%" }} id={appId}>
-          <CacheProvider key={hash} value={eCaches[hash]}>
-            <App />
-          </CacheProvider>
-        </div>
+        <CacheProvider key={hash} value={eCaches[hash]}>
+          <App />
+        </CacheProvider>
       );
     } catch (error) {
       if (error instanceof SyntaxError) {
