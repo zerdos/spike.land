@@ -84,10 +84,34 @@ function setConnections(signal: string) {
     console.log(
       "new WS conn to: " + `wss://${location.host}/live/${codeSpace}/websocket`,
     );
+    const session = connections[codeSpace];
+
     const websocket = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
+
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+    websocket.onopen = () => console.log("onOpened");
+    websocket.onmessage = (ev: { data: string }) => {
+      const data = JSON.parse(ev.data);
+      if (data.type === "handShake") {
+        websocket.send(JSON.stringify({ name: session.user }));
+        return;
+      }
+      if (data.type === "transpile") {
+        transpile(data.code).then(transpiled => websocket.send(JSON.stringify({ ...data, transpiled })));
+      }
+      if (data.newHash) {
+        const newSession = applyCodePatch(session.oldSession, data);
+        if (makeHash(newSession) !== makeHash(session.oldSession)) {
+          transpile(data.code).then(transpiled => {
+            BC.postMessage({ ...newSession, transpiled });
+            session.i = newSession.i;
+            session.oldSession = newSession;
+          });
+        }
+      }
+    };
 
     connections[codeSpace] = {
       BC,
@@ -98,9 +122,8 @@ function setConnections(signal: string) {
         await (await fetch(`/live/${codeSpace}/session`)).json(),
       ),
     };
-    const session = connections[codeSpace];
 
-    BC.onmessage = async ({ data }) => {
+    BC.onmessage = ({ data }) => {
       if (data.i > session.i && (data.hashCode || data.newHash)) {
         session.i = data.i;
 
@@ -119,33 +142,6 @@ function setConnections(signal: string) {
           );
           session.oldSession = makeSession(data);
         }
-      }
-    };
-
-    websocket.onopen = () => console.log("onOpened");
-    websocket.onmessage = async ({ data }) => {
-      const msg = JSON.parse(data);
-      if (data.type === "handShake") {
-        websocket.send(JSON.stringify({ name: session.user }));
-        return;
-      }
-      if (data.type === "transpile") {
-        const transpiled = await transpile(data.code);
-        websocket.send(JSON.stringify({ ...data, transpiled }));
-      }
-      if (data.newHash) {
-        const newSession = applyCodePatch(session.oldSession, data);
-        if (makeHash(newSession) !== makeHash(session.oldSession)) {
-          const transpiled = await transpile(data.code);
-          BC.postMessage({ ...newSession, transpiled });
-          session.i = newSession.i;
-          session.oldSession = newSession;
-        }
-      }
-
-      if (msg.i > session.i) {
-        session.i = msg.i;
-        BC.postMessage({ ...msg });
       }
     };
   })(codeSpace);
