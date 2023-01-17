@@ -103,7 +103,7 @@ export class Code implements DurableObject {
           await this.state.storage.put("session", this.#backupSession);
           s = this.#backupSession;
           const head = makeHash(s as ICodeSession);
-          await this.state.storage.put("session", head);
+          // await this.state.storage.put("session", this);
           await this.state.storage.put("head", head);
         }
         this.session = s as unknown as ICodeSession;
@@ -112,7 +112,7 @@ export class Code implements DurableObject {
       }
       this.state.storage.put("session", this.session);
       const head = makeHash(this.session);
-      this.state.storage.put("session", head);
+      // this.state.storage.put("session", head);
       this.state.storage.put("head", head);
     });
   }
