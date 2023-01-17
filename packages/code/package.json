@@ -81,7 +81,7 @@
     "fast-diff": "1.2.0",
     "fetch-retry": "^5.0.3",
     "file-type": "^18.2.0",
-    "framer-motion": "8.4.3",
+    "framer-motion": "8.4.5",
     "immutable": "^4.2.2",
     "ipfs-core": "^0.18.0",
     "ipfs-http-response": "^6.0.0",

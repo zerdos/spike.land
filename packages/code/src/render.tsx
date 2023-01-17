@@ -130,7 +130,6 @@ BC.onmessage = ({ data }) => data.html && data.transpiled && data.i && rerender(
 export const render = async (
   _rootEl: HTMLElement,
   codeSpace: string,
-  counter: number,
 ) => {
   __rootEl = _rootEl;
   if (!__rootEl) return;

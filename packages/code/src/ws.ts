@@ -273,7 +273,7 @@ export class Code {
           if (newHash !== oldHash) cSess.session = newSession;
 
           // ws.post({ type: "firstRender", ...cSess.session });
-          BC.postMessage(cSess.session);
+          BC.postMessage({ ...cSess.session });
         }
       };
 

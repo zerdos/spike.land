@@ -48,7 +48,7 @@
     "@yarnpkg/sdks": "^3.0.0-rc.35",
     "constants": "^0.0.2",
     "cypress": "12.3.0",
-    "dprint": "^0.34.1",
+    "dprint": "^0.34.4",
     "eslint": "^8.32.0",
     "eslint-plugin-react": "^7.32.1",
     "ipfs-http-response": "^6.0.0",
