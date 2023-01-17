@@ -56,8 +56,6 @@ export class Code implements DurableObject {
   }
   // private users:
   broadcast(msg: CodePatch) {
-    const message = JSON.stringify(msg);
-
     const head = makeHash(this.session);
     this.state.storage.put("session", this.session);
     this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
@@ -71,6 +69,7 @@ export class Code implements DurableObject {
     );
     this.state.storage.put("head", head);
 
+    const message = JSON.stringify({ ...msg, i: this.session.i });
     this.#wsSessions.map((s) => {
       try {
         s.webSocket.send(message);
