@@ -61,8 +61,8 @@ export class Code implements DurableObject {
     this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
     this.state.storage.get(msg.oldHash).then((data: unknown) =>
       this.state.storage.put(msg.oldHash, {
-        oldHash: (data || { oldHash: "" }).oldHash || "",
-        reversePatch: (data || { reversePatch: "" }).reversePatch || [],
+        oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash || "",
+        reversePatch: (data as { reversePatch?: string } || { reversePatch: "" }).reversePatch || [],
         newHash: msg.newHash,
         patch: msg.patch,
       })
