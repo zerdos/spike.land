@@ -64,7 +64,7 @@ self.onconnect = ({ ports }) => {
 const connections: {
   [key: string]: {
     BC: BroadcastChannel;
-    websocket: WebSocket;
+    ws: WebSocket;
     user: {};
     i: number;
     oldSession: ICodeSession;
@@ -80,61 +80,64 @@ async function setConnections(signal: string) {
 
   const user = parts[1];
 
-  connections[codeSpace] = connections[codeSpace] || await (async (codeSpace: string, user: string) => {
-    const c = connections[codeSpace] = {
-      BC: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
-      ws: new ReconnectingWebSocket(
-        `wss://${location.host}/live/${codeSpace}/websocket`,
-      ),
-      user,
-      i: 0,
-      oldSession: makeSession(
-        await (await fetch(`/live/${codeSpace}/session`)).json(),
-      ),
-    };
+  const c = connections[codeSpace] = connections[codeSpace] || {
+    user,
+    i: 0,
+    oldSession: makeSession(
+      await (await fetch(`/live/${codeSpace}/session`)).json(),
+    ),
+  };
 
-    c.ws.onopen = () => console.log("onOpened");
-    c.ws.onmessage = (ev: { data: string }) => {
-      const data = JSON.parse(ev.data);
-      if (data.type === "handShake") {
-        c.ws.send(JSON.stringify({ name: c.user }));
-        return;
-      }
-      if (data.type === "transpile") {
-        transpile(data.code).then(transpiled => c.ws.send(JSON.stringify({ ...data, transpiled })));
-      }
-      if (data.newHash) {
-        const newSession = applyCodePatch(c.oldSession, data);
-        if (makeHash(newSession) !== makeHash(c.oldSession)) {
-          transpile(data.code).then(transpiled => {
-            c.BC.postMessage({ ...newSession, transpiled });
-            c.i = newSession.i;
-            c.oldSession = newSession;
-          });
+  if (!c.ws) {
+    c.ws = new ReconnectingWebSocket(
+      `wss://${location.host}/live/${codeSpace}/websocket`,
+    );
+    c.BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
+      c.BC.onmessage = ({ data }) => {
+        if (data.i > c.i && (data.hashCode || data.newHash)) {
+          c.i = data.i;
+
+          data.name = c.user;
+          c.ws.send(JSON.stringify(data));
         }
-      }
-    };
+        if (data.i > c.i && data.html && data.code) {
+          c.i = data.i;
+          if (makeHash(data) !== makeHash(c.oldSession)) {
+            const patchMessage = createPatch(c.oldSession, data);
 
-    c.BC.onmessage = ({ data }) => {
-      if (data.i > c.i && (data.hashCode || data.newHash)) {
-        c.i = data.i;
+            c.BC.postMessage({ ...patchMessage, name: c.user });
 
-        data.name = c.user;
-        c.ws.send(JSON.stringify(data));
-      }
-      if (data.i > c.i && data.html && data.code) {
-        c.i = data.i;
-        if (makeHash(data) !== makeHash(c.oldSession)) {
-          const patchMessage = createPatch(c.oldSession, data);
-
-          c.BC.postMessage({ ...patchMessage, name: c.user });
-
-          c.ws.send(
-            JSON.stringify({ ...patchMessage, name: c.user }),
-          );
-          c.oldSession = makeSession(data);
+            c.ws.send(
+              JSON.stringify({ ...patchMessage, name: c.user }),
+            );
+            c.oldSession = makeSession(data);
+          }
         }
-      }
-    };
-  })(codeSpace, user);
+      };
+
+    c.ws.addEventListener("open", function() {
+      c.ws = this;
+
+      c.ws.onmessage = (ev: { data: string }) => {
+        const data = JSON.parse(ev.data);
+        if (data.type === "handShake") {
+          c.ws.send(JSON.stringify({ name: c.user }));
+          return;
+        }
+        if (data.type === "transpile") {
+          transpile(data.code).then(transpiled => c.ws.send(JSON.stringify({ ...data, transpiled })));
+        }
+        if (data.newHash) {
+          const newSession = applyCodePatch(c.oldSession, data);
+          if (makeHash(newSession) !== makeHash(c.oldSession)) {
+            transpile(data.code).then(transpiled => {
+              c.BC.postMessage({ ...newSession, transpiled });
+              c.i = newSession.i;
+              c.oldSession = newSession;
+            });
+          }
+        }
+      };
+    });
+  }
 }
