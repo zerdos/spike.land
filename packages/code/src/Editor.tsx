@@ -144,13 +144,10 @@ const Editor: FC<
   };
 
   BC.onmessage = async ({ data }) => {
-    if (mod.i >= Number(data.i)) return;
+    if (mod.i >= Number(data.i) && !data.code) return;
     mod.i = Number(data.i);
+    mod.code = data.code;
 
-    if (data.code) {
-      mod.code = data.code;
-      setValue(data.code);
-    }
     changeContent((x) => ({ ...x, ...mod }));
   };
 
