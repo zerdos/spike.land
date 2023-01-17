@@ -71,7 +71,7 @@ export class Code implements DurableObject {
     );
     this.state.storage.put("head", head);
 
-    this.#wsSessions.filter((s) => s.name).map((s) => {
+    this.#wsSessions.map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {
@@ -150,7 +150,6 @@ export class Code implements DurableObject {
                   blockedMessages: [] as string[],
                 };
                 this.#wsSessions.push(session);
-                this.#wsSessions = this.#wsSessions.filter((x) => !x.quit);
 
                 const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
                 webSocket.send(
