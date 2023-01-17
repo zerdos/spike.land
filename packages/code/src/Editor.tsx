@@ -148,8 +148,8 @@ const Editor: FC<
     if (mod.i >= Number(data.i) && !data.code) return;
     mod.i = Number(data.i);
     mod.code = data.code;
+    setValue(mod.code);
     cSess.session = makeSession(data);
-
     changeContent((x) => ({ ...x, ...mod }));
   };
 
