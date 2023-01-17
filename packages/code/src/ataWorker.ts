@@ -81,7 +81,7 @@ async function setConnections(signal: string) {
   const user = parts[1];
 
   connections[codeSpace] = connections[codeSpace] || await (async (codeSpace: string, user: string) => {
-    const c = {
+    const c = connections[codeSpace] = {
       BC: new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
       ws: new ReconnectingWebSocket(
         `wss://${location.host}/live/${codeSpace}/websocket`,
