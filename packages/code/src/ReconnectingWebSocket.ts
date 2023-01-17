@@ -376,3 +376,5 @@ ReconnectingWebSocket.CONNECTING = WebSocket.CONNECTING;
 ReconnectingWebSocket.OPEN = WebSocket.OPEN;
 ReconnectingWebSocket.CLOSING = WebSocket.CLOSING;
 ReconnectingWebSocket.CLOSED = WebSocket.CLOSED;
+
+export default ReconnectingWebSocket;

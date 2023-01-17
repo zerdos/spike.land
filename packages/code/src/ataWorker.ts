@@ -1,7 +1,7 @@
 globalThis.isSharedWorker = true;
 
 importScripts("/workerScripts/superFetch.js");
-import { ReconnectingWebSocket } from "./ReconnectingWebSocket";
+import ReconnectingWebSocket from "./ReconnectingWebSocket";
 
 import type * as RPC from "worker-rpc";
 
@@ -64,7 +64,7 @@ self.onconnect = ({ ports }) => {
 const connections: {
   [key: string]: {
     BC: BroadcastChannel;
-    ws: ReconnectingWebSocket;
+    ws: typeof ReconnectingWebSocket;
     user: string;
     oldSession: ICodeSession;
   };
