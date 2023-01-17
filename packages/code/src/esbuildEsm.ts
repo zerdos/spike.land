@@ -155,8 +155,7 @@ export const buildT = async (
     write: false,
     external: [
       "http-url:" + origin + "/src/*",
-      origin + "/src/*",
-      "/src/*",
+      origin + "/react*",
     ],
 
     metafile: true,
