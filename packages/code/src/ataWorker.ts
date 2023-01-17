@@ -128,7 +128,7 @@ function setConnections(signal: string) {
       const data = JSON.parse(ev.data);
       if (data.strSess) {
         const sess = makeSession(JSON.stringify(data.strSess));
-        const pp = makePatch(c.oldSession, sess);
+        const pp = createPatch(c.oldSession, sess);
         ws.send(JSON.stringify({ ...pp, name: c.user, i: c.oldSession.i }));
         return;
       }
