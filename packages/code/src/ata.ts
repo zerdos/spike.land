@@ -142,7 +142,7 @@ export async function ata(
         return true;
       }
       impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + ".d.ts", baseUrl).toString()] = {
-        url: new URL(r, baseUrl).toString(),
+        url: new URL(r.indexOf("d.ts") !== -1 ? r : r + ".d.ts", baseUrl).toString(),
         content: `/// <reference path="${newBase}" />`,
         ref: r,
       };
