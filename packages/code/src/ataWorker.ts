@@ -111,7 +111,7 @@ function setConnections(signal: string) {
       }
     };
 
-    ws.onmessage = (ev: { data: string }) => {
+    ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
       if (data.type === "handShake") {
         ws.send(JSON.stringify({ name: c.user }));
@@ -121,12 +121,18 @@ function setConnections(signal: string) {
         transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
       }
       if (data.newHash) {
+        if (makeHash(c.oldSession) !== data.newHash) {
+          c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+          const transpiled = await transpile(c.oldSession.code);
+
+          BC.postMessage({ ...c.oldSession, transpiled });
+          return;
+        }
         const newSession = applyCodePatch(c.oldSession, data);
         if (makeHash(newSession) !== makeHash(c.oldSession)) {
-          transpile(data.code).then(transpiled => {
-            BC.postMessage({ ...newSession, transpiled });
-            c.oldSession = newSession;
-          });
+          const transpiled = await transpile(data.code);
+          c.oldSession = newSession;
+          BC.postMessage({ ...newSession, transpiled });
         }
       }
     };
