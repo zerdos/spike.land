@@ -100,7 +100,7 @@ export class Code implements DurableObject {
   constructor(private state: DurableObjectState, private env: CodeEnv) {
     this.state.blockConcurrencyWhile(async () => {
       try {
-        let s = await this.state.storage.get("session");
+        let s = await this.state.storage.get<ICodeSession>("session");
 
         if (!s || !s.i) {
           await this.state.storage.put("session", this.#backupSession);
