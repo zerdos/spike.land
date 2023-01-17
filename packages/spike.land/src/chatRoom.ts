@@ -156,6 +156,7 @@ export class Code implements DurableObject {
                   JSON.stringify({
                     hashCode: makeHash(this.session),
                     i: this.session.i,
+                    sessionI: JSON.parse(JSON.stringify(this.session)).i || "??",
                     users,
                     runner: this.#codeShaSum,
                     codeShaSum,
