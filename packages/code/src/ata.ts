@@ -141,9 +141,9 @@ export async function ata(
       if (newBase.indexOf(location.origin) !== -1) {
         return true;
       }
-      impRes[r] = {
-        url: `${location.origin}/${r}`,
-        content: `/// <reference path="${r}" />`,
+      impRes[new URL(r, baseUrl).toString()] = {
+        url: new URL(r, baseUrl).toString(),
+        content: `/// <reference path="${newBase}" />`,
         ref: r,
       };
       // console.log("processing: " + r);
