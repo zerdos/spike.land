@@ -12,7 +12,7 @@ import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 // fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`)
 //  .then((x) => x.blob()).then((b) => Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b));
 
-// import { cp } from "node:fs/promises";
+// impor/dist.shasum.jst { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
 
 // import { resolve } from "node:path";
@@ -118,7 +118,14 @@ const buildOptions: esbuild.BuildOptions = {
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
-  external: ["./mST", "/npm:/*", "../../npm:/*, ", "__STATIC_CONTENT_MANIFEST", "__STATIC_CONTENT_MANIFEST"],
+  external: [
+    "./mST",
+    "/npm:/*",
+    "../../npm:/*, ",
+    "__STATIC_CONTENT_MANIFEST",
+    "__STATIC_CONTENT_MANIFEST",
+    "/dist.shasum.js",
+  ],
   legalComments: "none",
   resolveExtensions: [
     ".tsx",
@@ -375,6 +382,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
+      "/dist.shasum.js",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,
