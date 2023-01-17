@@ -106,7 +106,7 @@ function setConnections(signal: string) {
 
           if (newHash !== oldHash) {
             const patchMessage = createPatch(oldSession, newSession);
-            const transpiled = await transpile(c.oldSession.code);
+            // const transpiled = await transpile(c.oldSession.code);
 
             // BC.postMessage({ ...patchMessage, name: c.user });
             if (patchMessage.oldHash === oldHash) {
@@ -115,9 +115,9 @@ function setConnections(signal: string) {
                 JSON.stringify({ ...patchMessage, i: newSession.i, name: c.user }),
               );
 
-              BC.postMessage(
-                { ...newSession, transpiled },
-              );
+              // BC.postMessage(
+              //   { ...newSession, transpiled },
+              // );
             }
           }
         });
