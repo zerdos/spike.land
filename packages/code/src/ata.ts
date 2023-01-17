@@ -143,7 +143,7 @@ export async function ata(
       }
       impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString()] = {
         url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString(),
-        content: `/// <reference path="${newBase}" />`,
+        content: `export * from "${newBase}" `,
         ref: r,
       };
       // console.log("processing: " + r);
