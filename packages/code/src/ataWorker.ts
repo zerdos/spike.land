@@ -64,7 +64,7 @@ self.onconnect = ({ ports }) => {
 const connections: {
   [key: string]: {
     BC: BroadcastChannel;
-    ws: WebSocket;
+    ws: ReconnectingWebSocket;
     user: string;
     oldSession: ICodeSession;
   };
@@ -86,10 +86,12 @@ function setConnections(signal: string) {
 
   if (!c.ws) {
     fetch(`/live/${codeSpace}/session`).then(s => s.json<ICodeSession>().then(ss => c.oldSession = makeSession(ss)));
-    const ws = new WebSocket(
+    const ws = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
+    c.ws = ws;
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+    c.BC = BC;
     BC.onmessage = ({ data }) => {
       if (data.i > c.oldSession.i && (data.hashCode || data.newHash)) {
         data.name = c.user;
@@ -128,8 +130,5 @@ function setConnections(signal: string) {
         }
       }
     };
-
-    c.ws = ws;
-    c.BC = BC;
   }
 }
