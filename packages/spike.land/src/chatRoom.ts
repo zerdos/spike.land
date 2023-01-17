@@ -157,10 +157,10 @@ export class Code implements DurableObject {
                   JSON.stringify({
                     hashCode: makeHash(this.session),
                     i: this.session.i,
-                    sessionI: JSON.parse(JSON.stringify(this.session)).i || JSON.stringify(this.session),
+                    // sessionI: JSON.parse(JSON.stringify(this.session)).i || JSON.stringify(this.session),
                     users,
-                    runner: this.#codeShaSum,
-                    codeShaSum,
+                    // runner: this.#codeShaSum,
+                    // codeShaSum,
                     type: "handshake",
                   }),
                 );
