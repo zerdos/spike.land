@@ -3,6 +3,7 @@ import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import { editor, languages, Uri } from "monaco-editor";
 import { prettier } from "./shared";
 
+import { transpileModule } from "typescript";
 import { ata } from "./shared";
 // import localForage from "localforage";
 
@@ -418,8 +419,10 @@ async function startMonacoPristine(
           },
         );
     },
+    isEdit: false,
     setValue: (code: string) => {
       console.log("setValue! ", code);
+      if (mod.isEdit) return;
       mod.silent = true;
       let state = null;
       try {
@@ -442,8 +445,19 @@ async function startMonacoPristine(
       }
     },
   };
-
-  myEditor.onDidBlurEditorText(async () => mod.setValue(await prettier(model.getValue())));
+  myEditor.getDomNode()?.blur();
+  const ctr = new AbortController();
+  myEditor.onDidFocusEditorText(() => {
+    mod.isEdit = true;
+    ctr.abort();
+    ctr = setTimeout(() => {
+      mod.isEdit = false;
+    }, 200);
+  });
+  myEditor.onDidBlurEditorText(async () => {
+    mod.setValue(await prettier(model.getValue()));
+    mod.isEdit = true;
+  });
 
   // let start = await memoryCache.getItem("start");
 
@@ -462,6 +476,10 @@ async function startMonacoPristine(
   // viewState: myEditor.saveViewState()};
 
   model.onDidChangeContent((ev) => {
+    mod.isEdit = true;
+    setTimeout(() => {
+      mod.isEdit = false;
+    }, 1000);
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
 
