@@ -101,7 +101,8 @@ export class Code implements DurableObject {
     this.state.blockConcurrencyWhile(async () => {
       try {
         let s = await this.state.storage.get("session");
-        if (!s) {
+
+        if (!s || !s.i) {
           await this.state.storage.put("session", this.#backupSession);
           s = this.#backupSession;
           const head = makeHash(s as ICodeSession);
@@ -156,7 +157,7 @@ export class Code implements DurableObject {
                   JSON.stringify({
                     hashCode: makeHash(this.session),
                     i: this.session.i,
-                    sessionI: JSON.parse(JSON.stringify(this.session)).i || "??",
+                    sessionI: JSON.parse(JSON.stringify(this.session)).i || JSON.stringify(this.session),
                     users,
                     runner: this.#codeShaSum,
                     codeShaSum,
