@@ -101,7 +101,7 @@ export async function appFactory(
   if (!apps[hash] || !eCaches[hash]) {
     try {
       eCaches[hash] = eCaches[hash] || createCache({
-        key: hash,
+        key: "css",
         speedy: false,
       });
 

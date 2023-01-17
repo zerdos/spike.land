@@ -238,8 +238,8 @@ export const prerender = async (App: FC) => {
 };
 
 function mineFromCaches(cache: EmotionCache, html: string) {
-  // const key = "css";
-  const key = cache.key || "css";
+  const key = "css";
+  // const key = cache.key || "css";
   try {
     return Array.from(document.querySelectorAll(`style[data-styled-jsx`)).map(
       (x) => x.textContent,
