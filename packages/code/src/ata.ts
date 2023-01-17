@@ -147,8 +147,10 @@ export async function ata(
 
       impRes[newBase].content = await fetch(newBase, { redirect: "follow" })
         .then((dtsRes) => {
-          const u = new URL(dtsRes.url, origin);
-          impRes[newBase!].url = u.toString();
+          // const u = new URL(dtsRes.url, origin)
+
+          // impRes[newBase!].url =    dtsRes.url;
+          impRes[newBase!].url = dtsRes.url;
           return dtsRes.text();
         });
 
