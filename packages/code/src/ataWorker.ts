@@ -64,7 +64,7 @@ self.onconnect = ({ ports }) => {
 const connections: {
   [key: string]: {
     BC: BroadcastChannel;
-    ws: typeof ReconnectingWebSocket;
+    ws: typeof WebSocket;
     user: string;
     oldSession: ICodeSession;
   };
