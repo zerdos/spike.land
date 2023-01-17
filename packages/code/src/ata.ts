@@ -143,7 +143,12 @@ export async function ata(
       }
       impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString()] = {
         url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString(),
-        content: `import type {} from "${newBase}" `,
+        content: `
+        import mod from  "${newBase}" ;
+
+        export * from "${newBase}";
+        export default mod;
+        `,
         ref: r,
       };
       // console.log("processing: " + r);
