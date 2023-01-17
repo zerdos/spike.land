@@ -123,6 +123,7 @@ function setConnections(signal: string) {
 
     ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
+      if (data.i < c.oldSession.i) return;
       if (data.type === "handShake") {
         ws.send(JSON.stringify({ name: c.user }));
 

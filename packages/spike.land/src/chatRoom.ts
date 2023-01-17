@@ -57,7 +57,6 @@ export class Code implements DurableObject {
   // private users:
   broadcast(msg: CodePatch) {
     const head = makeHash(this.session);
-    this.state.storage.put("session", this.session);
     this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
     this.state.storage.get(msg.oldHash).then((data: unknown) =>
       this.state.storage.put(msg.oldHash, {
@@ -621,6 +620,7 @@ export class Code implements DurableObject {
             }
 
             this.session = newState;
+            await this.state.storage.put("session", this.session);
 
             this.broadcast(data as CodePatch);
 
