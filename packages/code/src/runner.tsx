@@ -10,6 +10,7 @@ Object.assign(globalThis, {
       (({ buildT }) =>
         buildT(codeSpace, location.origin, (new AbortController()).signal, {
           bundle: true,
+          splitting: false,
           ...opts,
         }))(
           eb,
