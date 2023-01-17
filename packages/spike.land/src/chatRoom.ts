@@ -1,7 +1,7 @@
 import type { WebSocket } from "@cloudflare/workers-types";
 import { resetCSS } from "./../../code/src/getResetCss";
 import HTML from "./../../code/src/index.html";
-import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
+import { applyCodePatch, CodePatch, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 
@@ -13,7 +13,7 @@ import { CodeEnv } from "./env";
 import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
-import { createDelta, Delta } from "../../code/src/textDiff";
+import { Delta } from "../../code/src/textDiff";
 // import shaSum from "./dist.shasum";
 
 export { md5 };
@@ -37,12 +37,12 @@ export interface IFirstRender {
 
 export class Code implements DurableObject {
   // mutex: Mutex;
-  public wsSessions: WebsocketSession[] = [];
+  #wsSessions: WebsocketSession[] = [];
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     // Iterate over all the sessions sending them messages.
-    this.wsSessions
+    this.#wsSessions
       .filter((session) => session.name === to)
       .map((s) => {
         try {
@@ -69,7 +69,7 @@ export class Code implements DurableObject {
     );
     this.state.storage.put("head", head);
 
-    this.wsSessions.filter((s) => s.name).map((s) => {
+    this.#wsSessions.filter((s) => s.name).map((s) => {
       try {
         s.webSocket.send(message);
       } catch (err) {
@@ -80,24 +80,6 @@ export class Code implements DurableObject {
     });
   }
   session = makeSession({ i: 0, code: "", html: "", css: "" });
-  createPatch(oldSess: ICodeSession, newSess: ICodeSession) {
-    const oldRec = makeSession(oldSess);
-    const oldHash = makeHash(oldRec);
-    const newRec = makeSession(newSess);
-    const newHash = makeHash(newRec);
-
-    const oldString = string_(oldRec);
-    const newString = string_(newRec);
-
-    const patch = createDelta(oldString, newString);
-    const reversePatch = createDelta(newString, oldString);
-    return {
-      oldHash,
-      newHash,
-      reversePatch,
-      patch,
-    };
-  }
 
   #backupSession = makeSession({
     code: `export default () => (
@@ -127,207 +109,13 @@ export class Code implements DurableObject {
     });
   }
 
-  async fetch(request: Request) {
+  fetch(request: Request) {
     return handleErrors(
       request,
       (async () => {
-        // try {
-        // const sessions = await this.state.storage.get("sessions") || [];
-
         const url = new URL(request.url);
 
         const codeSpace = url.searchParams.get("room");
-
-        // this.state.storage.put("head", this.state.storage.head)
-        // this.state.storage.put(String(this.state.storage.head), sess)
-
-        // const codeSpace = url.searchParams.get("room");
-
-        // const mess = await request.json();
-
-        // if (request.method === "POST") {
-        //   const message = await request.json<CodePatch & IFirstRender>();
-        //   if (message.type === "firstRender") {
-        //     const { html, css, code, i } = message;
-        //     this.session = makeSession({ i, html, css, code });
-        //     this.state.storage.put("session", this.session);
-        //     this.state.storage.put("head", makeHash(this.session));
-        //     this.state.storage.put(makeHash(this.session), this.session);
-        //     return new Response(JSON.stringify({ ...message, success: true }), {
-        //       status: 200,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     });
-        //   }
-
-        //   if (!message) {
-        //     new Response(JSON.stringify({ message: "failed to get the message", success: false }), {
-        //       status: 500,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     });
-        //   }
-
-        //   if (oldHash !== message.oldHash) {
-        //     return new Response(JSON.stringify({ sess, oldHash, success: false }), {
-        //       status: 500,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     });
-        //   }
-
-        //   const newSession = applyCodePatch(this.session, message as unknown as CodePatch);
-
-        //   const newHash = makeHash(newSession);
-
-        //   // const newSess= newSession;
-        //   if (newHash !== message.newHash) {
-        //     return new Response(JSON.stringify({ newHash, message, success: false }), {
-        //       status: 500,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     });
-        //   }
-
-        //   this.session = newSession;
-        //   this.state.storage.put("session", newSession);
-
-        //   return new Response(JSON.stringify({ ...message, success: true }), {
-        //     status: 200,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cross-Origin-Embedder-Policy": "require-corp",
-        //       "Cache-Control": "no-cache",
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   });
-        // }
-
-        // try {
-        //   const mess:
-        //     | Partial<CodePatch & ICodeSession & { session: ICodeSession }>
-        //     | undefined = await request.json();
-        //   if (mess) {
-
-        //     return new Response(JSON.stringify({ foo, mess }), {
-        //       status: 200,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     });
-
-        //     if (!mess.patch || (mess.patch && mess.i && mess.i > this.i)) {
-        //       // this.i = mess.i;
-
-        //       const reversePatch: Delta[] = mess.reversePatch || [];
-        //       const patch: Delta[] = mess.patch || [];
-        //       const oldState = sess;
-        //       const newState = session(this.mST(patch));
-        //       const oldHash = this.head();
-        //       const newHash = newState.hashCode();
-        //       if (oldHash !== mess.oldHash || newHash !== mess.newHash) {
-        //         console.error({ mess, calculated: { oldHash, newHash } });
-        //         throw ("Error - we messed up the hashStores");
-        //       }
-        //       // setTimeout(() => {
-        //       //   sess = Record<ICodeSession>(sess)(newState)
-
-        //       //   this.syncKV(oldState, newState, {
-        //       //     oldHash,
-        //       //     newHash,
-        //       //     patch,
-        //       //     reversePatch,
-        //       //   });
-
-        //       //   // this.broadcast(mess);
-        //       // });
-        //       const newRec = session().merge(
-        //         newState,
-        //       );
-        //       session = Record<ICodeSession>(newRec);
-
-        //       sess = Record<ICodeSession>(sess)(newRec);
-        //       this.state.storage.put("head", sess);
-        //       this.state.storage.put(String(this.head()), sess);
-
-        //       return new Response(JSON.stringify({ success: true, newRec }), {
-        //         status: 200,
-        //         headers: {
-        //           "Access-Control-Allow-Origin": "*",
-        //           "Cross-Origin-Embedder-Policy": "require-corp",
-        //           "Cache-Control": "no-cache",
-        //           "Content-Type": "application/json; charset=UTF-8",
-        //         },
-        //       });
-        //     }
-        //   }
-        // } catch (err) {
-        //   return new Response(
-        //     JSON.stringify({
-        //       success: false,
-        //       mess: "on the post",
-        //       error: { er },
-        //     }),
-        //     {
-        //       status: 500,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     },
-        //   );
-        // }
-
-        //  }
-        // } catch (err) {
-        //   console.error("error somewhere in the fetch");
-        //   return new Response(
-        //     JSON.stringify({ success: true, message: "error somewhere in the fetch happened" }),
-        //     {
-        //       status: 204,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "no-cache",
-        //         "Content-Type": "application/json; charset=UTF-8",
-        //       },
-        //     },
-        //   );
-        // }
-
-        // return new Response(
-        //   JSON.stringify({ success: true, message: "nothing happened" }),
-        //   {
-        //     status: 204,
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "*",
-        //       "Cross-Origin-Embedder-Policy": "require-corp",
-        //       "Cache-Control": "no-cache",
-        //       "Content-Type": "application/json; charset=UTF-8",
-        //     },
-        //   },
-        // );
 
         const { code, css, html, i } = this.session;
         const path = url.pathname.slice(1).split("/");
@@ -341,8 +129,42 @@ export class Code implements DurableObject {
 
             const pair = new WebSocketPair();
 
-            await this.handleSession(pair[1] as unknown as WebSocket);
-            // await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
+            const handleSession = async (webSocket: WebSocket) => {
+              webSocket.accept();
+              const session = {
+                name: "",
+                quit: false,
+                webSocket,
+                blockedMessages: [] as string[],
+              };
+              this.#wsSessions.push(session);
+              this.#wsSessions = this.#wsSessions.filter((x) => !x.quit);
+
+              const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
+              webSocket.send(
+                JSON.stringify({
+                  hashCode: makeHash(this.session),
+                  i: this.session.i,
+                  users,
+                  type: "handshake",
+                }),
+              );
+
+              webSocket.addEventListener(
+                "message",
+                (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
+              );
+
+              const closeOrErrorHandler = () => {
+                session.quit = true;
+                // this.users.remove(session.name);
+              };
+              webSocket.addEventListener("close", closeOrErrorHandler);
+              webSocket.addEventListener("error", closeOrErrorHandler);
+            };
+
+            await handleSession(pair[1] as unknown as WebSocket);
+            // await signaller(this.#wsSessions, pair[1] as unknown as WebSocket);
 
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
@@ -422,23 +244,6 @@ export class Code implements DurableObject {
               },
             });
           }
-          // case "sessions": {
-          //   const d = await this.state.storage.list({
-          //     start: path[1] || "0",
-          //     end: path[2] || "100",
-          //   });
-
-          //   return new Response(JSON.stringify(d), {
-          //     status: 200,
-          //     headers: {
-          //       "Access-Control-Allow-Origin": "*",
-          //       "Cross-Origin-Embedder-Policy": "require-corp",
-          //       "Cache-Control": "no-cache",
-          //       content_hash: md5(d),
-          //       "Content-Type": "application/json; charset=UTF-8",
-          //     },
-          //   });
-          // }
           case "session.json":
           case "session": {
             if (path[1]) {
@@ -637,63 +442,39 @@ export class Code implements DurableObject {
         }
       }) as unknown as () => Promise<Response>,
     );
-  }
 
-  async handleSession(webSocket: WebSocket) {
-    webSocket.accept();
+    async function handleErrors(
+      request: Request,
+      cb: () => Promise<Response>,
+    ) {
+      try {
+        return await cb();
+      } catch (err) {
+        if (request.headers.get("Upgrade") === "websocket") {
+          let stack: string | undefined = "";
 
-    // const limiter = new CodeRateLimiter(  );
+          if (err instanceof Error) {
+            stack = err.stack;
+            console.log({ error: err.stack, message: err.message });
+          }
 
-    // Create our session and add it to the sessions list.
-    // We don't send any messages to the client until it has sent us the initial user info
-    // message. Until then, we will queue messages in `session.blockedMessages`.
-    const session = {
-      name: "",
-      quit: false,
-      webSocket,
-      blockedMessages: [] as string[],
-    };
-    this.wsSessions.push(session);
-    this.wsSessions = this.wsSessions.filter((x) => !x.quit);
+          const pair = new WebSocketPair();
+          (pair[1] as unknown as WebSocket).accept();
+          pair[1].send(JSON.stringify({ error: stack }));
+          pair[1].close(1011, "Uncaught exception during session setup");
+          return new Response(null, { status: 101, webSocket: pair[0] });
+        } else {
+          let stack = "We have no idea what happened";
 
-    const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
-    webSocket.send(
-      JSON.stringify({
-        hashCode: makeHash(this.session),
-        i: this.session.i,
-        users,
-        type: "handshake",
-      }),
-    );
+          if (err instanceof Error) {
+            stack = err.stack || stack;
+            console.log({ error: err.stack, message: err.message });
+          }
 
-    // this.wsSessions.forEach((otherSession) => {
-    // if (otherSession.name) {
-    // session.blockedMessages.push(
-    //   JSON.stringify({ name: otherSession.name }),
-    // );
-    //   }
-    // });
-
-    // const storage = await this.state.storage.list({ reverse: true, limit: 100 });
-    // const backlog = [...storage.values()];
-    // backlog.reverse();
-    // backlog.forEach((value) => {
-    // session.blockedMessages.push(
-    // typeof value === "string" ? value : JSON.stringify(value),
-    // );
-    // });
-
-    webSocket.addEventListener(
-      "message",
-      (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
-    );
-
-    const closeOrErrorHandler = () => {
-      session.quit = true;
-      // this.users.remove(session.name);
-    };
-    webSocket.addEventListener("close", closeOrErrorHandler);
-    webSocket.addEventListener("error", closeOrErrorHandler);
+          return new Response(stack, { status: 500 });
+        }
+      }
+    }
   }
 
   async processWsMessage(
@@ -751,10 +532,10 @@ export class Code implements DurableObject {
         });
       }
 
-      this.wsSessions.filter((x) => x.name === data.name).map(x =>
+      this.#wsSessions.filter((x) => x.name === data.name).map(x =>
         x.blockedMessages.reverse().map(m => session.webSocket.send(m)) && x
       ).map((x) => x.quit = true);
-      this.wsSessions = this.wsSessions.filter(x => !x.quit);
+      this.#wsSessions = this.#wsSessions.filter(x => !x.quit);
 
       session.name = data.name;
     }
@@ -777,65 +558,12 @@ export class Code implements DurableObject {
           patch: oldNode!.patch,
           reversePatch: newNode!.reversePatch,
         });
-        //        commit = newNode?.newHash;
       }
-      // const oldNode =  await this.state.storage.get<CodePatch>(commit);
-      // respondWith({oldHash: commit, newHash: oldNode!.newHash, patch: oldNode!.patch, reversePatch: newNode!.reversePatch})
     }
-    // try {
-    // this.wsSessions.map((otherSession) => {
-    // if (otherSession === session) return;
-
-    // if (otherSession.name === data.name) {
-    // /    otherSession.name = "";
-    // otherSession.blockedMessages.map((m) => session.webSocket.send(m));
-    //     otherSession.blockedMessages = [];
-    //   }
-    // });
-
-    //   if (data.hashCode) {
-    //     if (data?.hashCode !== hashKEY(codeSpace)) {
-    //       const patch = makePatchFrom(data.hashCode, sess);
-    //       if (patch) {
-    //         return respondWith({ ...patch });
-    //       }
-    //     }
-    //   }
-    // } catch (e) {
-    //   respondWith({ error: "error while checked blocked messages" });
-    // }
-
-    // const userNode = this.users.insert(data.name);
-
-    // const usersNum = this.users.keys().length;
-    // const rtcConnUser = usersNum > 2
-    //   ? (userNode.parent?.key || userNode.left?.key || userNode.right?.key)
-    //   : null;
-    // // return respondWith({
-    //   ...(rtcConnUser ? { name: rtcConnUser } : {}),
-    //   hashCode: hashKEY(codeSpace),
-    //   users: this.users.keys(),
-    // });
-
-    // }
 
     if (data.i && this.session.i && this.session.i > data.i) return respondWith({ error: "i is not up to date" });
 
-    // await this.mutex.runExclusive(async () => {
-    // if (data.i < this.i) return;
-    // if (data.codeSpace && data.address && !this.address) {
-    //   return this.broadcast(data);
-    // }
-
     try {
-      // if (
-      //   !data.type && limiter.checkLimit()
-      // ) {
-      //   return respondWith({ if ( if (data.i <= sess.i) return;data.i <= sess.i) return;
-      //     error: "Your IP is being rate-limited, please try again later.",
-      //   });
-      // }
-
       try {
         if (
           data.target
@@ -923,43 +651,6 @@ export class Code implements DurableObject {
         error: "unknown error - e2",
         exp: exp || {},
       });
-    }
-  }
-}
-
-async function handleErrors(
-  request: Request,
-  cb: () => Promise<Response>,
-) {
-  try {
-    return await cb();
-  } catch (err) {
-    if (request.headers.get("Upgrade") === "websocket") {
-      // Annoyingly, if we return an HTTP error in response to a WebSocket request, Chrome devtools
-      // won't show us the response body! So... let's send a WebSocket response with an error
-      // frame instead.
-
-      let stack: string | undefined = "";
-
-      if (err instanceof Error) {
-        stack = err.stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-
-      const pair = new WebSocketPair();
-      (pair[1] as unknown as WebSocket).accept();
-      pair[1].send(JSON.stringify({ error: stack }));
-      pair[1].close(1011, "Uncaught exception during session setup");
-      return new Response(null, { status: 101, webSocket: pair[0] });
-    } else {
-      let stack = "We have no idea what happened";
-
-      if (err instanceof Error) {
-        stack = err.stack || stack;
-        console.log({ error: err.stack, message: err.message });
-      }
-
-      return new Response(stack, { status: 500 });
     }
   }
 }
