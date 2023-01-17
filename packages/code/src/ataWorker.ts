@@ -89,34 +89,34 @@ async function setConnections(signal: string) {
   };
 
   if (!c.ws) {
-    c.ws = new ReconnectingWebSocket(
+    const ws = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
-    c.BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`),
-      c.BC.onmessage = ({ data }) => {
-        if (data.i > c.i && (data.hashCode || data.newHash)) {
-          c.i = data.i;
+    const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+    BC.onmessage = ({ data }) => {
+      if (data.i > c.i && (data.hashCode || data.newHash)) {
+        c.i = data.i;
 
-          data.name = c.user;
-          c.ws.send(JSON.stringify(data));
+        data.name = c.user;
+        c.ws.send(JSON.stringify(data));
+      }
+      if (data.i > c.i && data.html && data.code) {
+        c.i = data.i;
+        if (makeHash(data) !== makeHash(c.oldSession)) {
+          const patchMessage = createPatch(c.oldSession, data);
+
+          BC.postMessage({ ...patchMessage, name: c.user });
+
+          c.ws.send(
+            JSON.stringify({ ...patchMessage, name: c.user }),
+          );
+          c.oldSession = makeSession(data);
         }
-        if (data.i > c.i && data.html && data.code) {
-          c.i = data.i;
-          if (makeHash(data) !== makeHash(c.oldSession)) {
-            const patchMessage = createPatch(c.oldSession, data);
+      }
+    };
 
-            c.BC.postMessage({ ...patchMessage, name: c.user });
-
-            c.ws.send(
-              JSON.stringify({ ...patchMessage, name: c.user }),
-            );
-            c.oldSession = makeSession(data);
-          }
-        }
-      };
-
-    c.ws.addEventListener("open", function() {
-      c.ws = this;
+    ws.addEventListener("open", function() {
+      c.ws = ws;
 
       c.ws.onmessage = (ev: { data: string }) => {
         const data = JSON.parse(ev.data);
@@ -131,7 +131,7 @@ async function setConnections(signal: string) {
           const newSession = applyCodePatch(c.oldSession, data);
           if (makeHash(newSession) !== makeHash(c.oldSession)) {
             transpile(data.code).then(transpiled => {
-              c.BC.postMessage({ ...newSession, transpiled });
+              BC.postMessage({ ...newSession, transpiled });
               c.i = newSession.i;
               c.oldSession = newSession;
             });
@@ -139,5 +139,8 @@ async function setConnections(signal: string) {
         }
       };
     });
+
+    c.ws = ws;
+    c.BC = BC;
   }
 }
