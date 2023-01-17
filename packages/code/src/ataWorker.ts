@@ -96,7 +96,7 @@ function setConnections(signal: string) {
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
     BC.onmessage = async ({ data }) => {
-      if (data.i >= c.oldSession.i && data.html && data.code) {
+      if (data.i > c.oldSession.i && data.html && data.code) {
         await mutex.runExclusive(async () => {
           const oldSession = makeSession(c.oldSession);
 
