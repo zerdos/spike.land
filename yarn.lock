@@ -2392,6 +2392,7 @@ __metadata:
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:^2.1.1"
     react-rnd: "npm:^10.4.1"
+    reconnecting-websocket: "npm:^4.4.0"
     stream-browserify: "npm:^3.0.0"
     tslib: "npm:^2.4.1"
     typescript: "npm:^4.9.4"
@@ -13026,6 +13027,13 @@ __metadata:
   dependencies:
     ms: "npm:^2.1.1"
   checksum: 1c17a1b55459d9e21bd068cf9f41a228b71a66fe55920373c8ccebf53624e4801cdee1f6a734466dc9819d420053827ac973bc7e8d21b9ccc4bdd521c51a0a42
+  languageName: node
+  linkType: hard
+
+"reconnecting-websocket@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "reconnecting-websocket@npm:4.4.0"
+  checksum: 3548bbd74d1370fd3b9f4cfb827719d4bb1e15527b2dea4bdce09a960b33d7e0e1cc39cc46619dfb93fc0c9bed8c7b3c3375f4f2762e8ef5926f2a08ca7408ed
   languageName: node
   linkType: hard
 

@@ -1,7 +1,8 @@
+import ReconnectingWebSocket from "reconnecting-websocket";
+
 globalThis.isSharedWorker = true;
 
 importScripts("/workerScripts/superFetch.js");
-import ReconnectingWebSocket from "./ReconnectingWebSocket";
 
 import type * as RPC from "worker-rpc";
 
@@ -127,8 +128,8 @@ function setConnections(signal: string) {
     ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
       if (data.strSess) {
-        const sess = makeSession(JSON.stringify(data.strSess));
-        const pp = createPatch(c.oldSession, sess);
+        const sess = makeSession(data.strSess);
+        const pp = createPatch(sess, c.oldSession);
         ws.send(JSON.stringify({ ...pp, name: c.user, i: c.oldSession.i }));
         return;
       }

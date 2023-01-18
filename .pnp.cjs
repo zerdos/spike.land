@@ -2948,6 +2948,7 @@ const RAW_RUNTIME_STATE =
           ["react-qrious", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.5.6"],\
           ["react-reverse-portal", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.1.1"],\
           ["react-rnd", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:10.4.1"],\
+          ["reconnecting-websocket", "npm:4.4.0"],\
           ["stream-browserify", "npm:3.0.0"],\
           ["tslib", "npm:2.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -3043,6 +3044,7 @@ const RAW_RUNTIME_STATE =
           ["react-qrious", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.5.6"],\
           ["react-reverse-portal", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:2.1.1"],\
           ["react-rnd", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:10.4.1"],\
+          ["reconnecting-websocket", "npm:4.4.0"],\
           ["stream-browserify", "npm:3.0.0"],\
           ["tslib", "npm:2.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -15876,6 +15878,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["receptacle", "npm:1.3.2"],\
           ["ms", "npm:2.1.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["reconnecting-websocket", [\
+      ["npm:4.4.0", {\
+        "packageLocation": "./.yarn/global/cache/reconnecting-websocket-npm-4.4.0-c6f262f5df-9.zip/node_modules/reconnecting-websocket/",\
+        "packageDependencies": [\
+          ["reconnecting-websocket", "npm:4.4.0"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -301,8 +301,8 @@ const build = (
       "src/sw.ts",
       "src/esbuildWASM.ts",
       "src/ataWorker.ts",
-      // "src/prettierWorker.ts",
-      // "src/fs.worker.ts",
+      "src/prettierWorker.ts",
+      "src/fs.worker.ts",
     ],
     plugins: [],
     bundle: true,
@@ -357,13 +357,15 @@ const build = (
   await build(
     [
       "src/reactMod.ts",
-      "src/motion.ts",
       "src/reactDom.ts",
+      "src/reactDomClient.ts",
+      "src/jsx.mjs",
+
+      "src/motion.ts",
       "src/hydrate.tsx",
       "src/motion.ts",
       // "src/esbuildWASM.ts",
       "src/emotionJsxRuntime.mjs",
-      "src/reactDomClient.ts",
       "src/emotion.ts",
       // "src/session.ts",
       // "src/signalz.ts",
@@ -386,6 +388,11 @@ const build = (
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,
+      "./dist/reactDomClient.js",
+      "./dist/reactDom.js",
+      "./dist/jsx.js",
+      // "/reactMod.js",
+      // "react/jsx-runtime",
       `${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
       "@cloudflare/workers-types",
@@ -406,7 +413,11 @@ const build = (
     ],
     {
       ...buildOptions,
-      alias: { ...buildOptions.alias, "esbuild-wasm/esbuild.wasm": `./${wasmFile}` },
+      alias: {
+        ...buildOptions.alias,
+        "esbuild-wasm/esbuild.wasm": `./${wasmFile}`, //      "react/jsx-runtime": "./dist/jsx.js",
+        //  "react-dom/client": "./dist/reactDomClient.js",
+      },
       loader: { ...buildOptions.loader },
     },
   );

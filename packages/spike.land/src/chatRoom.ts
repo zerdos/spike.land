@@ -588,10 +588,24 @@ export class Code implements DurableObject {
           return this.user2user(data.target, { ...data, name });
         }
 
-        if (data.patch && data.oldHash && data.newHash) {
+        if (data.patch && data.oldHash && data.newHash && data.reversePatch) {
           const oldState = this.session;
           const oldHash = makeHash(this.session);
-          const newState = applyCodePatch(oldState, data as unknown as CodePatch);
+
+          if (oldHash !== data.oldHash) {
+            return respondWith({
+              error: `old hashes not matching`,
+              i: this.session.i,
+              strSess: this.session,
+            });
+          }
+
+          const newState = applyCodePatch(oldState, {
+            oldHash: data.oldHash,
+            newHash: data.newHash,
+            patch: data.patch,
+            reversePatch: data.reversePatch,
+          });
 
           // const newRec = session.merge(
           //   newState,
@@ -608,13 +622,6 @@ export class Code implements DurableObject {
             // });
 
             // this.broadcast(data);
-            if (oldHash !== data.oldHash) {
-              return respondWith({
-                error: `old hashes not matching`,
-                i: this.session.i,
-                strSess: JSON.stringify(this.session),
-              });
-            }
 
             this.session = newState;
             await this.state.storage.put("session", this.session);
