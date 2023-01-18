@@ -7,7 +7,6 @@ import createCache from "./emotionCache";
 import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
-import { renderToString } from "react-dom/server";
 import { ICodeSession } from "./makeSess";
 import { appFactory, md5 } from "./starter";
 import { wait } from "./wait";
@@ -49,7 +48,6 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     myRoot.render(<App appId={appId} />);
 
     console.log("rerender", data.i);
-    const HTML = renderToString(<App appId={appId} />);
 
     // //(await import(
     //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
@@ -86,10 +84,10 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
       }
       const html = m.rootEl.innerHTML;
       if (html) {
-        const css = mineFromCaches(eCaches[appId], HTML);
+        const css = mineFromCaches(eCaches[appId], html);
         try {
           // root.unmount();
-          console.log({ html: HTML, css, i: m.i });
+          console.log({ html, css, i: m.i });
           // document.getElementById("root")?.appendChild(newRoot);
           // root.unmount();
           // root = r;
@@ -202,7 +200,6 @@ export const render = async (
 
       _rootEl.remove();
       el.setAttribute(id, id);
-      window?.parent?.postMessage({ type: "firstRender", html, css });
       window?.parent?.postMessage({ type: "firstRender", html, css });
 
       return { html, css };
