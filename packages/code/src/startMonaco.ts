@@ -3,7 +3,7 @@ import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import { editor, languages, Uri } from "monaco-editor";
 import { prettier } from "./shared";
 
-import { transpileModule } from "typescript";
+// import { transpileModule } from "typescript";
 import { ata } from "./shared";
 // import localForage from "localforage";
 
@@ -14,6 +14,7 @@ const originToUse = window.origin.includes("spike")
   : "https://testing.spike.land/";
 
 // Object.assign(globalThis, { setupTypeAcquisition });
+
 const lib = [
   "dom",
   "dom.iterable",
@@ -190,6 +191,7 @@ async function startMonacoPristine(
     onChange: (_code: string) => void;
   },
 ) {
+  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   // If (mod[name]) return mod[name];
 
   // Const innerStyle = document.createElement("style");
@@ -478,6 +480,14 @@ async function startMonacoPristine(
 
   // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
   // viewState: myEditor.saveViewState()};
+  BC.onmessage = ({ data }: { data: { versionId?: number; changes?: editor.IModelContentChange[] } }) => {
+    if (data.changes && data.versionId && data.versionId > model.getVersionId()) {
+      // mod.silent = true;
+
+      model.applyEdits(data.changes);
+      // mod.silent = false;
+    }
+  };
 
   model.onDidChangeContent((ev) => {
     mod.isEdit = true;
@@ -490,6 +500,7 @@ async function startMonacoPristine(
     }, 1000);
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
+    BC.postMessage(JSON.parse(JSON.stringify(ev)));
 
     console.log({ version: model.getVersionId(), ev });
 

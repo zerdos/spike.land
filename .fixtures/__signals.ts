@@ -8,8 +8,8 @@ import AVLTree from "avl";
 // import { syncWS } from "./ws.ts";
 
 // import P2PCF from "p2pcf";
+import ReconnectingWebSocket from "monorepo/.fixtures/ReconnectingWebSocket.js";
 import adapter from "webrtc-adapter";
-import ReconnectingWebSocket from "./ReconnectingWebSocket.js";
 
 // Import * as FS from '@isomorphic-git/lightning-fs';
 

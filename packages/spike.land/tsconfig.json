@@ -21,7 +21,7 @@
     "lib": ["ESNext"],
     "types": ["@cloudflare/workers-types"]
   },
-  "exclude": ["node_modules","dist"],
+  "exclude": ["node_modules","dist", "src/dist"],
   "include": [
     "src",
     "../code"

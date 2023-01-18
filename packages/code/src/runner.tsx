@@ -28,11 +28,11 @@ const sess = {
   transpiled: "",
   code: "",
 };
-export async function runner({ code, counter, signal }: {
+export async function runner({ code, counter }: {
   code: string;
   codeSpace: string;
   counter: number;
-  signal: AbortSignal;
+  // signal: AbortSignal;
 }) {
   console.log({ counter });
   if (counter <= counterMax) return;
@@ -42,7 +42,7 @@ export async function runner({ code, counter, signal }: {
   sess.code = code;
 
   try {
-    if (signal.aborted) return;
+    // if (signal.aborted) return;
 
     // const data = await sw.messageSW({
     //   i: counter,

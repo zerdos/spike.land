@@ -74,8 +74,7 @@
   },
   "include": [
     "src",
-    "../spike.land/src",
-    "package.json"
-  ],
-  "exclude": [".yarn", "dist"]
+    "../spike.land/src/index",
+    "package.json"],
+  "exclude": [".yarn", "dist", "../../.yarn", "src/ipfs-core.ts"]
 }
