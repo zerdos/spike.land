@@ -145,7 +145,9 @@ const Editor: FC<
   };
 
   BC.onmessage = async ({ data }) => {
-    if (mod.i >= Number(data.i) && !data.code && !data.html) return;
+    if (
+      !(!data && data.i && data.code && data.code.length > 0) || ((mod.i >= Number(data.i)) && !data.code && !data.html)
+    ) return;
     mod.i = Number(data.i);
     mod.code = data.code;
     cSess.session = makeSession(data);
