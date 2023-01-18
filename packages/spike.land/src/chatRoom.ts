@@ -511,6 +511,7 @@ export class Code implements DurableObject {
 
     let data: {
       name?: string;
+      changes?: object[];
       codeSpace?: string;
       target?: string;
       type?:

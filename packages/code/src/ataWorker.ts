@@ -146,9 +146,9 @@ function setConnections(signal: string) {
 
         if (makeHash(c.oldSession) !== String(data.hashCode)) {
           c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-          //    const transpiled = await transpile(c.oldSession.code);
+          const transpiled = data.transpiled || await transpile(c.oldSession.code);
 
-          BC.postMessage(c.oldSession);
+          BC.postMessage({ ...c.oldSession, transpiled });
           return;
         }
         return;
