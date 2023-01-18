@@ -67,7 +67,7 @@ self.onconnect = ({ ports }) => {
 const connections: {
   [key: string]: {
     BC: BroadcastChannel;
-    ws: typeof WebSocket;
+    ws: ReconnectingWebSocket;
     user: string;
     oldSession: ICodeSession;
   };
@@ -98,30 +98,28 @@ function setConnections(signal: string) {
     c.BC = BC;
     BC.onmessage = async ({ data }) => {
       if (data.i > c.oldSession.i && data.html && data.code) {
-        await mutex.runExclusive(async () => {
-          const oldSession = makeSession(c.oldSession);
+        const oldSession = makeSession(c.oldSession);
 
-          const newSession = makeSession(data);
-          const newHash = makeHash(newSession);
-          const oldHash = makeHash(oldSession);
+        const newSession = makeSession(data);
+        const newHash = makeHash(newSession);
+        const oldHash = makeHash(oldSession);
 
-          if (newHash !== oldHash) {
-            const patchMessage = createPatch(oldSession, newSession);
-            // const transpiled = await transpile(c.oldSession.code);
+        if (newHash !== oldHash) {
+          const patchMessage = createPatch(oldSession, newSession);
+          // const transpiled = await transpile(c.oldSession.code);
 
-            // BC.postMessage({ ...patchMessage, name: c.user });
-            if (patchMessage.oldHash === oldHash) {
-              c.oldSession = newSession;
-              ws.send(
-                JSON.stringify({ ...patchMessage, i: newSession.i, name: c.user }),
-              );
+          // BC.postMessage({ ...patchMessage, name: c.user });
+          if (patchMessage.oldHash === oldHash) {
+            c.oldSession = newSession;
+            ws.send(
+              JSON.stringify({ ...patchMessage, i: newSession.i, name: c.user }),
+            );
 
-              // BC.postMessage(
-              //   { ...newSession, transpiled },
-              // );
-            }
+            // BC.postMessage(
+            //   { ...newSession, transpiled },
+            // );
           }
-        });
+        }
       }
     };
 
@@ -147,8 +145,22 @@ function setConnections(signal: string) {
         return;
       }
       // if (data.type === "transpile") {
+      // ws.send(JSON.stringify({ name: c.user }));
+
+      // if (makeHash(c.oldSession) !== String(data.hashCode)) {
+      // c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+      //  const transpiled = await transpile(c.oldSession.code);
+      //
+      // BC.postMessage({});
+      // return;
+      // }
+      // return;
+      // }
+      // if (data.type === "transpile") {
       //   transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
       // }
+
+      // ^? a
       if (data.newHash) {
         await mutex.runExclusive(async () => {
           const oldSession = makeSession(c.oldSession);
