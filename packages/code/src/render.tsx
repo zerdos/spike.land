@@ -203,6 +203,7 @@ export const render = async (
       _rootEl.remove();
       el.setAttribute(id, id);
       window?.parent?.postMessage({ type: "firstRender", html, css });
+      window?.parent?.postMessage({ type: "firstRender", html, css });
 
       return { html, css };
     }
