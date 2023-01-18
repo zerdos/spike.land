@@ -70,6 +70,7 @@ const connections: {
     ws: ReconnectingWebSocket;
     user: string;
     oldSession: ICodeSession;
+    versionId: number;
   };
 } = {};
 
@@ -97,6 +98,10 @@ function setConnections(signal: string) {
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
     BC.onmessage = async ({ data }) => {
+      if (data.changes && data.versionId > c.versionId) {
+        c.versionId = data.versionId;
+        ws.send(JSON.stringify(data));
+      }
       if (data.i > c.oldSession.i && data.html && data.code) {
         const oldSession = makeSession(c.oldSession);
 
@@ -125,6 +130,10 @@ function setConnections(signal: string) {
 
     ws.onmessage = async (ev: { data: string }) => {
       const data = JSON.parse(ev.data);
+      if (data.changes && data.versionId > c.versionId) {
+        c.versionId = data.versionId;
+        BC.postMessage(data);
+      }
       if (data.strSess) {
         const sess = makeSession(data.strSess);
         const pp = createPatch(sess, c.oldSession);

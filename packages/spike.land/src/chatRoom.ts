@@ -58,23 +58,29 @@ export class Code implements DurableObject {
       });
   }
   // private users:
-  async broadcast(msg: CodePatch) {
-    const head = makeHash(this.session);
+  async broadcast(msg: CodePatch | string) {
+    let message: string;
+    if (typeof msg === "string") {
+      message = msg;
+    } else {
+      const head = makeHash(this.session);
 
-    this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
-    this.state.storage.get(msg.oldHash).then((data: unknown) =>
-      this.state.storage.put(msg.oldHash, {
-        oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash || "",
-        reversePatch: (data as { reversePatch?: string } || { reversePatch: "" }).reversePatch || [],
-        newHash: msg.newHash,
-        patch: msg.patch,
-      })
-    );
-    this.state.storage.put("head", head);
+      this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
+      this.state.storage.get(msg.oldHash).then((data: unknown) =>
+        this.state.storage.put(msg.oldHash, {
+          oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash || "",
+          reversePatch: (data as { reversePatch?: string } || { reversePatch: "" }).reversePatch || [],
+          newHash: msg.newHash,
+          patch: msg.patch,
+        })
+      );
+      this.state.storage.put("head", head);
 
-    this.#transpiled = this.#transpiled || await initAndTransform(this.session.code, {}, this.#origin);
+      this.#transpiled = this.#transpiled || await initAndTransform(this.session.code, {}, this.#origin);
 
-    const message = JSON.stringify({ ...msg, i: this.session.i, transpiled: this.#transpiled });
+      message = JSON.stringify({ ...msg, i: this.session.i, transpiled: this.#transpiled });
+    }
+
     this.#wsSessions.map((s) => {
       try {
         s.webSocket.send(message);
@@ -533,6 +539,10 @@ export class Code implements DurableObject {
         error: "JSON parse error",
         exp: exp || {},
       });
+    }
+
+    if (!data.changes) {
+      return this.broadcast(msg);
     }
 
     if (!name) {
