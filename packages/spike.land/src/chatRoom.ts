@@ -543,7 +543,7 @@ export class Code implements DurableObject {
     }
 
     if (!data.changes) {
-      return this.broadcast(msg);
+      return this.broadcast(msg.data as string);
     }
 
     if (!name) {
