@@ -1,5 +1,6 @@
 // import { syncWS } from "./ws";
 
+// import { makeSession } from "./makeSess";
 import { transpile } from "./shared";
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
@@ -36,6 +37,8 @@ export async function runner({ code, counter, signal }: {
 }) {
   console.log({ counter });
   if (counter <= counterMax) return;
+
+  // const newSess = makeSession({...cSess.session, i: counter, code})
 
   counterMax = counter;
   sess.i = counterMax;
