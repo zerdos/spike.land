@@ -39,6 +39,7 @@ export interface IFirstRender {
 export class Code implements DurableObject {
   // mutex: Mutex;
   #codeShaSum = codeShaSum;
+  #versionId = -1;
   #wsSessions: WebsocketSession[] = [];
   #transpiled = "";
   #origin = "";
@@ -510,6 +511,7 @@ export class Code implements DurableObject {
     const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
     let data: {
+      versionId?: number;
       name?: string;
       changes?: object[];
       codeSpace?: string;
@@ -542,7 +544,8 @@ export class Code implements DurableObject {
       });
     }
 
-    if (!data.changes) {
+    if (data.changes && data.versionId && data.versionId > this.#versionId) {
+      this.#versionId = data.versionId;
       return this.broadcast(msg.data as string);
     }
 

@@ -86,6 +86,7 @@ function setConnections(signal: string) {
 
   const c = connections[codeSpace] = connections[codeSpace] || {
     user,
+    versionId: -1,
     oldSession: makeSession({ i: 0, html: "", css: "", code: "" }),
   };
 
