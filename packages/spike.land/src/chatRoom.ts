@@ -40,6 +40,9 @@ export class Code implements DurableObject {
   // mutex: Mutex;
   #codeShaSum = codeShaSum;
   #wsSessions: WebsocketSession[] = [];
+  #transpiled = "";
+  #origin = "";
+
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
@@ -55,8 +58,9 @@ export class Code implements DurableObject {
       });
   }
   // private users:
-  broadcast(msg: CodePatch) {
+  async broadcast(msg: CodePatch) {
     const head = makeHash(this.session);
+
     this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
     this.state.storage.get(msg.oldHash).then((data: unknown) =>
       this.state.storage.put(msg.oldHash, {
@@ -68,7 +72,9 @@ export class Code implements DurableObject {
     );
     this.state.storage.put("head", head);
 
-    const message = JSON.stringify({ ...msg, i: this.session.i });
+    this.#transpiled = this.#transpiled || await initAndTransform(this.session.code, {}, this.#origin);
+
+    const message = JSON.stringify({ ...msg, i: this.session.i, transpiled: this.#transpiled });
     this.#wsSessions.map((s) => {
       try {
         s.webSocket.send(message);
@@ -79,6 +85,7 @@ export class Code implements DurableObject {
       }
     });
   }
+
   session = makeSession({ i: 0, code: "", html: "", css: "" });
 
   #backupSession = makeSession({
@@ -128,6 +135,13 @@ export class Code implements DurableObject {
           const codeSpace = url.searchParams.get("room");
 
           const { code, css, html, i } = this.session;
+
+          if (this.#origin.length === 0) {
+            this.#origin = url.origin;
+          }
+          if (this.#transpiled.length === 0) {
+            this.#transpiled = await initAndTransform(this.session.code, {}, this.#origin);
+          }
           const path = url.pathname.slice(1).split("/");
           if (path.length === 0) path.push("");
 
@@ -221,25 +235,6 @@ export class Code implements DurableObject {
             case "index.yo.tsx": {
               const trp = await initAndTransform(
                 ` export const Box = ({children})=><div>{children}</div>;`,
-                {},
-                url.origin,
-              );
-              return new Response(trp, {
-                status: 200,
-                headers: {
-                  "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-
-                  content_hash: md5(trp),
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
-              });
-            }
-            case "index.trans.js": {
-              const trp = await initAndTransform(
-                code,
                 {},
                 url.origin,
               );
@@ -367,15 +362,17 @@ export class Code implements DurableObject {
             case "index.mjs":
             case "index.js":
             case "js": {
-              const trp = await initAndTransform(code, {}, url.origin);
+              this.#transpiled = this.#transpiled.length > 0
+                ? this.#transpiled
+                : await initAndTransform(code, {}, url.origin);
 
-              return new Response(trp, {
+              return new Response(this.#transpiled, {
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
 
-                  content_hash: md5(trp),
+                  content_hash: md5(this.#transpiled),
                   "Content-Type": "application/javascript; charset=UTF-8",
                 },
               });
