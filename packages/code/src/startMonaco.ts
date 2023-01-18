@@ -500,7 +500,7 @@ async function startMonacoPristine(
     }, 1000);
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
-    BC.postMessage(JSON.parse(JSON.stringify(ev)));
+    BC.postMessage(JSON.parse(JSON.stringify({ versionId: ev.versionId, changes: ev.changes })));
 
     console.log({ version: model.getVersionId(), ev });
 
