@@ -7,7 +7,7 @@ import { Rnd } from "react-rnd";
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
 import { makeSession } from "./makeSess.js";
-// import { runner } from "./runner";
+import { runner } from "./runner";
 import { prettier } from "./shared";
 // import { sess } from "./ws";
 
@@ -136,8 +136,11 @@ const Editor: FC<
       code: mod.code,
     }));
 
-    BC.postMessage({
-      ...mod,
+    runner({
+      code: mod.code,
+      counter: mod.i,
+      codeSpace,
+      signal: mod.controller.signal,
     });
   };
 
@@ -149,7 +152,7 @@ const Editor: FC<
     mod.controller.abort();
     mod.controller = new AbortController();
 
-    BC.postMessage({ ...mod });
+    runner({ ...mod, counter: mod.i, codeSpace: codeSpace, signal: mod.controller.signal });
     setValue(mod.code);
     changeContent((x) => ({ ...x, ...mod }));
   };
