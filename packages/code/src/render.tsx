@@ -1,4 +1,3 @@
-import "react";
 import { EmotionCache } from "@emotion/cache";
 import type { FC } from "react";
 
@@ -29,7 +28,7 @@ const mod: {
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
   if (data.i) {
-    if (i === data.i) return;
+    if (i <= data.i) return;
     i = data.i;
 
     controller.abort();

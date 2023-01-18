@@ -150,7 +150,7 @@ const Editor: FC<
     ) return;
     mod.i = Number(data.i);
     mod.code = data.code;
-    cSess.session = makeSession(data);
+    // cSess.session = makeSession(data);
     // mod.controller.abort();
     // mod.controller = new AbortController();
 

@@ -42,35 +42,45 @@ import { render } from "./render";
 
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-mkdir("/");
-mkdir("/live");
-mkdir("/live/" + codeSpace);
+await mkdir("/");
+await mkdir("/live");
+await mkdir("/live/" + codeSpace);
 
 if (
   location.pathname === `/live/${codeSpace}`
 ) {
   run();
-} else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
+} else if (location.pathname === `/live/${codeSpace}/dehydrated` || location.pathname === `/live/${codeSpace}/public`) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
   BC.onmessage = ({ data }) => {
-    const { html, css, i } = data;
-    document.getElementById(`${codeSpace}-css`)!.innerHTML = [
+    const { html, css } = data;
+    document.getElementById("root")!.innerHTML = [
+      `<div id="${codeSpace}-css" style="height:100%;">`,
       `<style>`,
       css,
       `</style>`,
       html,
+      "</div>",
     ].join("");
 
-    // `<div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-    // <style>${css}</style>
-    // ${html}
-    // </div>`;
+    if (location.pathname === `/live/${codeSpace}/public`) {
+      render(
+        document.getElementById(codeSpace + "-css")!,
+        codeSpace,
+      );
+    }
   };
+
+  if (location.pathname === `/live/${codeSpace}/public`) {
+    render(
+      document.getElementById(codeSpace + "-css")!,
+      codeSpace,
+    );
+  }
 } else {
   render(
     document.getElementById(codeSpace + "-css")!,
     codeSpace,
-    Number(document.getElementById(codeSpace + "-css")!.getAttribute("i")),
   );
 }
