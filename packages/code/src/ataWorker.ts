@@ -174,16 +174,17 @@ function setConnections(signal: string) {
       if (data.newHash) {
         await mutex.runExclusive(async () => {
           const oldSession = makeSession(c.oldSession);
-
-          const newSession = applyCodePatch(oldSession, data);
-          const newHash = makeHash(newSession);
           const oldHash = makeHash(oldSession);
+
           if (oldHash !== String(data.oldHash)) {
-            c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+            c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
 
             BC.postMessage({ ...c.oldSession });
             return;
           }
+
+          const newSession = applyCodePatch(oldSession, data);
+          const newHash = makeHash(newSession);
 
           if (oldHash !== newHash) {
             c.oldSession = newSession;
