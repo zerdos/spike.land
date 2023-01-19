@@ -149,23 +149,23 @@ export class Code {
     await mutex.waitForUnlock();
 
     if (location.pathname === `/live/${codeSpace}`) {
-      const code = await prettier(cSess.session.code);
-      cSess.session = makeSession({ ...cSess.session, code });
+      // const code = await prettier(cSess.session.code);
+      // cSess.session = makeSession({ ...cSess.session, code });
 
-      globalThis.firstRender.code = code;
-      window.onmessage = ({ data }) => {
-        if (
-          data.html && data.code && data.i
-        ) {
-          const oldHash = makeHash(this.session);
+      // globalThis.firstRender.code = code;
+      // window.onmessage = ({ data }) => {
+      //   if (
+      //     data.html && data.code && data.i
+      //   ) {
+      //     const oldHash = makeHash(this.session);
 
-          const newSession = makeSession(data);
-          const newHash = makeHash(newSession);
-          if (newHash !== oldHash) cSess.session = newSession;
+      //     const newSession = makeSession(data);
+      //     const newHash = makeHash(newSession);
+      //     if (newHash !== oldHash) cSess.session = newSession;
 
-          BC.postMessage({ ...cSess.session });
-        }
-      };
+      //     BC.postMessage({ ...cSess.session });
+      //   }
+      // };
 
       connect(`${codeSpace} ${cSess.user}`);
 

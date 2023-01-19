@@ -43,8 +43,8 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     const App = data.transpiled ? await appFactory(data.transpiled) : ((await import(
       location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
     )).default);
-    const appId = md5(data.transpiled);
-    myRoot.render(<App appId={appId} />);
+
+    myRoot.render(<App />);
 
     console.log("rerender", data.i);
 
