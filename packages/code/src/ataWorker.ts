@@ -179,17 +179,25 @@ function setConnections(signal: string) {
           if (oldHash !== String(data.oldHash)) {
             c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
 
-            BC.postMessage({ ...c.oldSession });
+            console.log({ ...(c.oldSession) });
+            BC.postMessage({ ...(c.oldSession) });
             return;
           }
 
           const newSession = applyCodePatch(oldSession, data);
           const newHash = makeHash(newSession);
 
-          if (oldHash !== newHash) {
+          if (data.newHash !== newHash) {
             c.oldSession = newSession;
+            console.log({ ...(c.oldSession) });
             BC.postMessage({ ...newSession });
+            return;
           }
+
+          c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
+
+          console.log({ ...(c.oldSession) });
+          BC.postMessage({ ...(c.oldSession) });
         });
       }
     };
