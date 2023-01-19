@@ -28,6 +28,7 @@ const mod: {
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
   if (data.i) {
+    console.log("rerender", { data });
     if (i <= data.i) return;
     i = data.i;
 
