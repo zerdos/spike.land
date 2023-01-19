@@ -76,13 +76,8 @@ export class Code implements DurableObject {
       );
       this.state.storage.put("head", head);
 
-      this.#transpiled = await fetch(`https://js.spike.land`, {
-        method: "POST",
-        body: this.session.code,
-        headers: { TR_ORIGIN: this.#origin },
-      }).then(resp => resp.text());
-
-      message = JSON.stringify({ ...msg, i: this.session.i, transpiled: this.#transpiled });
+      this.#transpiled = "";
+      message = JSON.stringify({ ...msg, i: this.session.i });
     }
 
     this.#wsSessions.map((s) => {
