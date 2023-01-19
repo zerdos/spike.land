@@ -29,7 +29,7 @@ const mod: {
 async function rerender(data: ICodeSession & { transpiled: string }) {
   if (data.i) {
     console.log("rerender", { data });
-    if (i <= data.i) return;
+    if (i >= data.i) return;
     i = data.i;
 
     controller.abort();
@@ -84,7 +84,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
       }
       const html = m.rootEl.innerHTML;
       if (html) {
-        const css = mineFromCaches(eCaches[appId], html);
+        const css = mineFromCaches({ key: "css" } as EmotionCache, html);
         try {
           // root.unmount();
           console.log({ html, css, i: m.i });
