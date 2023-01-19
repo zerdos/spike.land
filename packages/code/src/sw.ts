@@ -14,7 +14,7 @@ declare const self:
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 import type FSD from "./fs";
-const { readFile, unlink, writeFile } = self as unknown as typeof FSD;
+const { readFile, unlink, mkdir, writeFile } = self as unknown as typeof FSD;
 const { transpile } = self;
 export type {};
 
@@ -122,7 +122,7 @@ const createResponse = async (request: Request) => {
         // ) as string;
 
         const trp = await transpile(code, location.origin);
-
+        await mkdir(`/live/${codeSpace}`);
         await writeFile(
           `/live/${codeSpace}/index.js`,
           trp,
