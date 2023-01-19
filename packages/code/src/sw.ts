@@ -20,6 +20,7 @@ export type {};
 
 import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
+import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
 // import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
@@ -72,10 +73,8 @@ const createResponse = async (request: Request) => {
   if (paths[1] === "live") {
     const codeSpace = paths[2];
 
-    const { code, css, html, i } = JSON.parse(
-      await readFile(
-        `/live/${codeSpace}/session.json`,
-      ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then((x) => x.text()),
+    const { code, css, html, i } = await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x =>
+      x.json<ICodeSession>()
     );
 
     if (
