@@ -13,7 +13,6 @@ import { importMap } from "../../code/src/importMap";
 import { md5 } from "../../code/src/md5";
 
 import { CodeEnv } from "./env";
-import { initAndTransform } from "./esbuild";
 import { handleErrors } from "./handleErrors";
 
 const ASSET_HASH = shaSum.trim();
@@ -235,24 +234,6 @@ const api: ExportedHandler<CodeEnv> = {
                 "Cache-Control": "no-cache",
               },
             });
-          case "index.bu.js": {
-            const trp = await initAndTransform(
-              ` export const Box = ({children})=><div>{children}</div>;`,
-              {},
-              url.origin,
-            );
-            return new Response(trp, {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-
-                content_hash: md5(trp),
-                "Content-Type": "application/javascript; charset=UTF-8",
-              },
-            });
-          }
           case "env":
             return new Response(JSON.stringify({ env, accept }), {
               headers: {

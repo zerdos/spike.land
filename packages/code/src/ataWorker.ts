@@ -53,7 +53,7 @@ self.onconnect = ({ ports }) => {
 
   rpcProvider.registerRpcHandler(
     "transpile",
-    (code: string) => code ? transpile(code) : code,
+    (code: string) => code ? transpile(code, location.origin) : code,
   );
 
   rpcProvider.registerSignalHandler(
@@ -147,7 +147,7 @@ function setConnections(signal: string) {
 
         if (makeHash(c.oldSession) !== String(data.hashCode)) {
           c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-          const transpiled = data.transpiled || await transpile(c.oldSession.code);
+          const transpiled = data.transpiled || await transpile(c.oldSession.code, location.origin);
 
           BC.postMessage({ ...c.oldSession, transpiled });
           return;

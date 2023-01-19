@@ -72,9 +72,9 @@ export async function esmTransform(code: string, origin: string) {
 
 export default {
   async fetch(request: Request) {
-    const url = new URL(request.url);
+    // const url = new URL(request.url);
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), {}, url.origin), request);
+      return new Response(await initAndTransform(await request.text(), {}, request.headers.get("TR_ORIGIN")!), request);
     }
   },
 };

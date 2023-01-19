@@ -11,7 +11,6 @@ import codeShaSum from "./dist.shasum";
 
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
-import { initAndTransform } from "./esbuild";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
 import { Delta } from "../../code/src/textDiff";
@@ -77,7 +76,11 @@ export class Code implements DurableObject {
       );
       this.state.storage.put("head", head);
 
-      this.#transpiled = this.#transpiled || await initAndTransform(this.session.code, {}, this.#origin);
+      this.#transpiled = await fetch(`https://js.spike.land`, {
+        method: "POST",
+        body: this.session.code,
+        headers: { TR_ORIGIN: this.#origin },
+      }).then(resp => resp.text());
 
       message = JSON.stringify({ ...msg, i: this.session.i, transpiled: this.#transpiled });
     }
@@ -147,7 +150,11 @@ export class Code implements DurableObject {
             this.#origin = url.origin;
           }
           if (this.#transpiled.length === 0) {
-            this.#transpiled = await initAndTransform(this.session.code, {}, this.#origin);
+            this.#transpiled = await fetch(`https://js.spike.land`, {
+              method: "POST",
+              body: this.session.code,
+              headers: { TR_ORIGIN: this.#origin },
+            }).then(resp => resp.text());
           }
           const path = url.pathname.slice(1).split("/");
           if (path.length === 0) path.push("");
@@ -239,25 +246,7 @@ export class Code implements DurableObject {
                 },
               });
             }
-            case "index.yo.tsx": {
-              const trp = await initAndTransform(
-                ` export const Box = ({children})=><div>{children}</div>;`,
-                {},
-                url.origin,
-              );
-              return new Response(trp, {
-                status: 200,
-                headers: {
-                  "x-typescript-types": `${url.origin}/live/${codeSpace}/index.tsx`,
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
 
-                  content_hash: md5(trp),
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
-              });
-            }
             case "session.json":
             case "session": {
               if (path[1]) {
@@ -371,7 +360,11 @@ export class Code implements DurableObject {
             case "js": {
               this.#transpiled = this.#transpiled.length > 0
                 ? this.#transpiled
-                : await initAndTransform(code, {}, url.origin);
+                : await fetch(`https://js.spike.land`, {
+                  method: "POST",
+                  body: this.session.code,
+                  headers: { TR_ORIGIN: this.#origin },
+                }).then(resp => resp.text());
 
               return new Response(this.#transpiled, {
                 headers: {

@@ -75,8 +75,7 @@ const createResponse = async (request: Request) => {
     const { code, css, html, i } = JSON.parse(
       await readFile(
         `/live/${codeSpace}/session.json`,
-      ) as string
-        || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then((x) => x.json()),
+      ) as string || await fetch(`${url.origin}/live/${codeSpace}/session.json`).then((x) => x.text()),
     );
 
     if (
@@ -122,7 +121,7 @@ const createResponse = async (request: Request) => {
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;
 
-        const trp = await transpile(code);
+        const trp = await transpile(code, location.origin);
 
         await writeFile(
           `/live/${codeSpace}/index.js`,

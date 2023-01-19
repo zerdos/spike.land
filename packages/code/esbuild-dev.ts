@@ -374,6 +374,7 @@ const build = (
       // "src/Editor.tsx",
       //      "src/reactMod.ts",
       "src/cf-workers.ts",
+      "src/cf-esbuild.ts",
       // "src/Editor.tsx",
 
       // "src/reactDom.ts",

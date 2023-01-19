@@ -1,5 +1,5 @@
 {
-  "name": "@spike.land/code-worker",
+  "name": "@spike.land/transpile",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.9.2",
   "main": "dist/index.js",
@@ -9,8 +9,8 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler publish --env=testing ../code/dist/cf-workers.mjs",
-    "prepublishOnly": "wrangler publish ../code/dist/cf-workers.mjs",
+    "deploy:dev": "wrangler publish ../code/dist/cf-esbuild.mjs",
+    "prepublishOnly": "wrangler publish ../code/dist/cf-esbuild.mjs",
     "predeploy": "yarn x:build",
     "x:build": "echo ok"
   },
@@ -18,18 +18,11 @@
     "@cloudflare/kv-asset-handler": "0.3.0",
     "@cloudflare/workers-types": "^4.20221111.1",
     "@spike.land/code": "0.9.2",
-    "module": "^1.2.5",
     "typescript": "4.9.4",
     "wrangler": "2.8.0"
   },
   "dependencies": {
-    "async-mutex": "0.4.0",
-    "avl": "1.5.3",
-    "esbuild-wasm": "0.17.3",
-    "immutable": "4.2.2",
-    "js-tokens": "8.0.1",
-    "p-map": "5.5.0",
-    "p-queue": "7.3.0"
+    "esbuild-wasm": "0.17.3"
   },
   "publishConfig": {
     "access": "public"
