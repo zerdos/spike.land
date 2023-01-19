@@ -23,6 +23,7 @@ export const ata = (
     filePath?: string;
   }[]>;
 
-export const transpile = (code: string) => init().rpc("transpile", code) as Promise<string>;
+export const transpile = ({ code, originToUse }: { code: string; originToUse: string }) =>
+  init().rpc("transpile", { code, originToUse }) as Promise<string>;
 
 export const connect = (codeSpace: string) => init().signal("connect", codeSpace);

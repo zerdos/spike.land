@@ -53,7 +53,7 @@ self.onconnect = ({ ports }) => {
 
   rpcProvider.registerRpcHandler(
     "transpile",
-    (code: string) => code ? transpile(code, location.origin) : code,
+    ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
   );
 
   rpcProvider.registerSignalHandler(
@@ -101,7 +101,7 @@ function setConnections(signal: string) {
     BC.onmessage = async ({ data }) => {
       if (data.changes && data.versionId > c.versionId) {
         c.versionId = data.versionId;
-        ws.send(JSON.stringify(data));
+        ws.send(JSON.stringify({ ...data, name: c.user }));
       }
       if (data.i > c.oldSession.i && data.html && data.code) {
         const oldSession = makeSession(c.oldSession);

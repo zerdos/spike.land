@@ -50,7 +50,7 @@ export async function runner({ code, counter }: {
     //   type: "prerender",
     //   codeSpace,
     // });
-    const transpiled = await transpile(code);
+    const transpiled = await transpile({ code, originToUse: location.origin });
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
       code,

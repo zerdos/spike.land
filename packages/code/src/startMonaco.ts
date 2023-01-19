@@ -480,14 +480,14 @@ async function startMonacoPristine(
 
   // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
   // viewState: myEditor.saveViewState()};
-  BC.onmessage = ({ data }: { data: { versionId?: number; changes?: editor.IModelContentChange[] } }) => {
-    if (data.changes && data.versionId && data.versionId > model.getVersionId()) {
-      // mod.silent = true;
+  // BC.onmessage = ({ data }: { data: { versionId?: number; changes?: editor.IModelContentChange[] } }) => {
+  //   if (data.changes && data.versionId && data.versionId > model.getVersionId()) {
+  //     // mod.silent = true;
 
-      model.applyEdits(data.changes);
-      // mod.silent = false;
-    }
-  };
+  //     model.applyEdits(data.changes);
+  //     // mod.silent = false;
+  //   }
+  // };
 
   model.onDidChangeContent((ev) => {
     mod.isEdit = true;
@@ -500,7 +500,7 @@ async function startMonacoPristine(
     }, 1000);
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
-    BC.postMessage(JSON.parse(JSON.stringify({ versionId: ev.versionId, changes: ev.changes })));
+    // BC.postMessage(JSON.parse(JSON.stringify({ versionId: ev.versionId, changes: ev.changes })));
 
     console.log({ version: model.getVersionId(), ev });
 
