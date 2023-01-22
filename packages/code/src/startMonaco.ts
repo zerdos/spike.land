@@ -114,7 +114,7 @@ const monacoContribution = async (
   // console.log("ATA");
 
   ata({ code, originToUse }).then((extraLibs) => {
-    console.log({ extraLibs });
+    console.log("Auto typings results: ", { extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     languages.typescript.typescriptDefaults
@@ -191,7 +191,7 @@ async function startMonacoPristine(
     onChange: (_code: string) => void;
   },
 ) {
-  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+  // const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   // If (mod[name]) return mod[name];
 
   // Const innerStyle = document.createElement("style");

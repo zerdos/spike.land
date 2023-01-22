@@ -57,7 +57,7 @@ const ws = {
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+// const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 const mutex = new Mutex();
 export class Code {
   session = makeSession({ i: 0, code: "", html: "", css: "" });
