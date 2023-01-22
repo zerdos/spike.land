@@ -1,7 +1,7 @@
 import ky from "ky";
 
 import AVLTree from "avl";
-import { connect, prettier } from "./shared";
+import { connect } from "./shared";
 
 import { CodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 
