@@ -6,7 +6,6 @@ import { Rnd } from "react-rnd";
 
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
-import { makeSession } from "./makeSess.js";
 import { runner } from "./runner";
 import { prettier } from "./shared";
 // import { sess } from "./ws";
@@ -146,7 +145,7 @@ const Editor: FC<
 
   BC.onmessage = async ({ data }) => {
     if (
-      !(!data && data.i && data.code && data.code.length > 0) || ((mod.i >= Number(data.i)) && !data.code && !data.html)
+      (!data || !data.i && data.code) || mod.i >= Number(data.i) || !data.code && !data.html
     ) return;
     mod.i = Number(data.i);
     mod.code = data.code;
