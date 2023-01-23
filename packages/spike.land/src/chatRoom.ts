@@ -405,6 +405,8 @@ export class Code implements DurableObject {
               });
             }
             case "":
+            case undefined:
+            case null:
             case "hydrated":
             case "worker":
             case "dehydrated":

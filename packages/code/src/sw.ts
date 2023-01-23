@@ -14,7 +14,7 @@ declare const self:
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 import type FSD from "./fs";
-const { readFile, unlink, mkdir, writeFile } = self as unknown as typeof FSD;
+const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
 const { transpile } = self;
 export type {};
 
