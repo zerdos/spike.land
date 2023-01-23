@@ -7,7 +7,7 @@ import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import { ICodeSession } from "./makeSess";
-import { appFactory, md5 } from "./starter";
+import { appFactory } from "./starter";
 import { wait } from "./wait";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
@@ -129,7 +129,7 @@ globalThis.firstRender = globalThis.firstRender || {
 };
 
 let __rootEl: HTMLElement;
-BC.onmessage = ({ data }) => data.html && data.transpiled && data.i && rerender(data);
+BC.onmessage = ({ data }) => data.html && data.i && rerender(data);
 
 export const render = async (
   _rootEl: HTMLElement,
@@ -240,7 +240,7 @@ export const prerender = async (App: FC) => {
   return { html: "", css: "" };
 };
 
-function mineFromCaches(cache: EmotionCache, html: string) {
+function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = "css";
   // const key = cache.key || "css";
   try {
