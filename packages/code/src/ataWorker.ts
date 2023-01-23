@@ -141,7 +141,7 @@ function setConnections(signal: string) {
         ws.send(JSON.stringify({ ...pp, name: c.user, i: c.oldSession.i }));
         return;
       }
-      if (data.i < c.oldSession.i) return;
+      if (data.i && data.i < c.oldSession.i) return;
       if (data.type === "handShake") {
         ws.send(JSON.stringify({ name: c.user }));
 
@@ -171,7 +171,7 @@ function setConnections(signal: string) {
       // }
 
       // ^? a
-      if (data.newHash) {
+      if (data.newHash && data.oldHash) {
         await mutex.runExclusive(async () => {
           const oldSession = makeSession(c.oldSession);
           const oldHash = makeHash(oldSession);
@@ -179,25 +179,25 @@ function setConnections(signal: string) {
           if (oldHash !== String(data.oldHash)) {
             c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
 
-            console.log({ ...(c.oldSession) });
-            BC.postMessage({ ...(c.oldSession) });
+            console.log(c.oldSession);
+            BC.postMessage(c.oldSession);
             return;
           }
 
           const newSession = applyCodePatch(oldSession, data);
           const newHash = makeHash(newSession);
 
-          if (data.newHash !== newHash) {
+          if (data.newHash === newHash) {
             c.oldSession = newSession;
-            console.log({ ...(c.oldSession) });
-            BC.postMessage({ ...newSession });
+            console.log(newSession);
+            BC.postMessage(newSession);
             return;
           }
 
           c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
 
-          console.log({ ...(c.oldSession) });
-          BC.postMessage({ ...(c.oldSession) });
+          console.log(c.oldSession);
+          BC.postMessage(c.oldSession);
         });
       }
     };
