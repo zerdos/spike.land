@@ -9,7 +9,7 @@ import { css } from "@emotion/react";
 import DraggableWindow from "./DraggableWindow";
 import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
-let reveal = (tmp?: unknown) => {};
+let reveal = (_tmp?: unknown) => {};
 
 const RainbowContainer: FC<{ children: ReactNode }> = (
   { children },
@@ -103,7 +103,7 @@ const AppToRender: FC<
     </>
   );
 };
-const singleton = globalThis.s = globalThis.s || { started: false };
+const singleton = { started: false };
 
 export const renderPreviewWindow = async (
   { codeSpace }: { codeSpace: string },

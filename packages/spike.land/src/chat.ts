@@ -68,7 +68,7 @@ const api: ExportedHandler<CodeEnv> = {
           {
             status: 307,
             headers: {
-              "Location": `${u.origin}/live/${start}/`,
+              "Location": `${u.origin}/live/${start}/iframe`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
               ASSET_HASH: ASSET_HASH,
