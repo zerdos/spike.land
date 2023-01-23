@@ -92,7 +92,7 @@
     "logrocket": "^3.0.1",
     "memfs": "^3.4.13",
     "module": "^1.2.5",
-    "monaco-editor": "0.35.0-dev.20230122",
+    "monaco-editor": "0.35.0-dev.20230123",
     "node-source-walk": "^5.0.0",
     "os-browserify": "^0.3.0",
     "p-map": "5.5.0",

@@ -113,7 +113,7 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:8.0.1"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230122"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230123"],\
           ["p2pcf", "npm:1.3.13"],\
           ["playwright", "npm:1.29.2"],\
           ["react", "npm:18.2.0"],\
@@ -2934,7 +2934,7 @@ const RAW_RUNTIME_STATE =
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230122"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230123"],\
           ["node-source-walk", "npm:5.0.0"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
@@ -3030,7 +3030,7 @@ const RAW_RUNTIME_STATE =
           ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230122"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230123"],\
           ["node-source-walk", "npm:5.0.0"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
@@ -13590,10 +13590,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.35.0-dev.20230122", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20230122-4839cbbae4-9.zip/node_modules/monaco-editor/",\
+      ["npm:0.35.0-dev.20230123", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20230123-f3442332a1-9.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.35.0-dev.20230122"]\
+          ["monaco-editor", "npm:0.35.0-dev.20230123"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13627,7 +13627,7 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:8.0.1"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230122"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230123"],\
           ["p2pcf", "npm:1.3.13"],\
           ["playwright", "npm:1.29.2"],\
           ["react", "npm:18.2.0"],\
