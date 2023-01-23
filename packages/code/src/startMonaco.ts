@@ -425,6 +425,7 @@ async function startMonacoPristine(
     },
     isEdit: false,
     setValue: (code: string) => {
+      myEditor.getDomNode()?.blur();
       console.log("setValue! ", code);
       if (mod.isEdit) return;
       mod.silent = true;
