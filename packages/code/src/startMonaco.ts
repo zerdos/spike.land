@@ -140,7 +140,7 @@ const monacoContribution = (
   return code;
 };
 
-MonacoEnvironment = {
+self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_: string, label: string) => {
     if (label === "json") {
