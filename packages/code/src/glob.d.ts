@@ -5,6 +5,7 @@ import type {} from "react-dom";
 import ear from "@emotion/react";
 import FS from "@isomorphic-git/lightning-fs";
 import { RequestInitWithRetry } from "fetch-retry";
+import {} from "monaco-editor";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 // import { esbuildEsm as Transpile } from "./esbuildEsm";
 // import { ICodeSession } from "./session";
@@ -13,6 +14,11 @@ import { Code } from "./ws";
 declare global {
   var sharedWorker: SharedWorker;
   var cSess: Code;
+  // var MonacoEnvironment:  { baseUrl: string,
+  // getWorkerUrl: (_: string, label: string)=>string}
+  // if (label === "json") {
+  /// return originToUse + `/language/json/json.js`;
+  // }}
   var superFetch: (
     input: RequestInfo,
     init?: RequestInitWithRetry,

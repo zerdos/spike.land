@@ -1,5 +1,6 @@
 import "monaco-editor/esm/vs/editor/edcore.main";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
+import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
 import { prettier } from "./shared";
 
@@ -9,9 +10,7 @@ import { ata } from "./shared";
 
 const { createModel } = editor;
 const create = editor.create;
-const originToUse = window.origin.includes("spike")
-  ? location.origin
-  : "https://testing.spike.land/";
+const originToUse = location.origin;
 
 // Object.assign(globalThis, { setupTypeAcquisition });
 
@@ -73,7 +72,7 @@ const lib = [
   // "webworker.iterable",
 ];
 
-const monacoContribution = async (
+const monacoContribution = (
   code: string,
 ) => {
   // Const {typescript} = languages;
@@ -141,7 +140,7 @@ const monacoContribution = async (
   return code;
 };
 
-self.MonacoEnvironment = {
+MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_: string, label: string) => {
     if (label === "json") {
