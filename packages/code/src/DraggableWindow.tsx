@@ -269,12 +269,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     key={ind}
                     value={size}
                   >
-                    {size === 640
+                    {size === breakPoints[0]
                       ? (
                         <span
                           css={css`
                         color: ${
-                            width === 640
+                            width === breakPoints[0]
                               ? "var(--text-color-highlight)"
                               : "var(--text-color-normal)"
                           };
@@ -283,12 +283,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                           <Phone />
                         </span>
                       )
-                      : (size === 1024
+                      : (size === breakPoints[1]
                         ? (
                           <span
                             css={css`
                         color: ${
-                              width === 1024
+                              width === breakPoints[1]
                                 ? "var(--text-color-highlight)"
                                 : "var(--text-color-normal)"
                             };
@@ -301,7 +301,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                           <span
                             css={css`
                         color: ${
-                              width === 1366
+                              width === breakPoints[2]
                                 ? "var(--text-color-highlight)"
                                 : "var(--text-color-normal)"
                             };
