@@ -4,7 +4,7 @@ import HTML from "./../../code/src/index.html";
 import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
-import codeShaSum from "./dist.shasum";
+// import codeShaSum from "./dist.shasum";
 
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
@@ -37,7 +37,6 @@ export interface IFirstRender {
 
 export class Code implements DurableObject {
   // mutex: Mutex;
-  #codeShaSum = codeShaSum;
   #versionId = -1;
   #wsSessions: WebsocketSession[] = [];
   #transpiled = "";
