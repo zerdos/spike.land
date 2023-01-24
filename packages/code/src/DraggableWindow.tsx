@@ -47,6 +47,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     const reveal = () => {
+      changeScaleRange(Math.min(100, 50 / 1 / (1 / devicePixelRatio)));
       if (window.innerWidth / devicePixelRatio < 600) {
         //   changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
         setWidth(breakPoints[0]);
