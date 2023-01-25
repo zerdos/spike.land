@@ -62,6 +62,7 @@
     "@emotion/styled": "11.10.5",
     "@isomorphic-git/lightning-fs": "^4.6.0",
     "@mui/material": "5.11.6",
+    "@okikio/sharedworker": "^1.0.4",
     "@types/isomorphic-fetch": "^0.0.36",
     "@typescript-eslint/typescript-estree": "^5.49.0",
     "@yarnpkg/fslib": "^3.0.0-rc.36",

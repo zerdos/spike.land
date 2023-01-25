@@ -1,4 +1,5 @@
 import assetHash from "/dist.shasum.js";
+import SharedWorker from "@okikio/sharedworker";
 import { RpcProvider } from "worker-rpc";
 
 let rpc: RpcProvider | null = null;

@@ -2518,6 +2518,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@okikio/sharedworker", [\
+      ["npm:1.0.4", {\
+        "packageLocation": "./.yarn/global/cache/@okikio-sharedworker-npm-1.0.4-3b0156f0c5-9.zip/node_modules/@okikio/sharedworker/",\
+        "packageDependencies": [\
+          ["@okikio/sharedworker", "npm:1.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@playwright/test", [\
       ["npm:1.30.0", {\
         "packageLocation": "./.yarn/global/cache/@playwright-test-npm-1.30.0-79845750cc-9.zip/node_modules/@playwright/test/",\
@@ -2681,6 +2690,7 @@ const RAW_RUNTIME_STATE =
           ["@libp2p/interfaces", "npm:3.3.1"],\
           ["@motionone/dom", "npm:10.15.5"],\
           ["@mui/material", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.11.6"],\
+          ["@okikio/sharedworker", "npm:1.0.4"],\
           ["@types/eslint", "npm:8.4.10"],\
           ["@types/events", "npm:3.0.0"],\
           ["@types/fast-glob", null],\
@@ -2782,6 +2792,7 @@ const RAW_RUNTIME_STATE =
           ["@libp2p/interfaces", "npm:3.3.1"],\
           ["@motionone/dom", "npm:10.15.5"],\
           ["@mui/material", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:5.11.6"],\
+          ["@okikio/sharedworker", "npm:1.0.4"],\
           ["@types/eslint", "npm:8.4.10"],\
           ["@types/events", "npm:3.0.0"],\
           ["@types/hoist-non-react-statics", "npm:3.3.1"],\
