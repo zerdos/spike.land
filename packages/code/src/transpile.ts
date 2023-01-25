@@ -1,7 +1,7 @@
 import { initialize, transform, version } from "esbuild-wasm";
 import { importMapReplace } from "./importMapReplace";
 
-const mod = globalThis.mod = globalThis.mod || {
+const mod = self.mod = self.mod || {
   init: false as (boolean | Promise<void> | NodeJS.Timeout),
   initialize: (wasmModule: WebAssembly.Module) =>
     mod.init || initialize({

@@ -69,9 +69,11 @@ const putInCache = async (request: Request, response: Response) => {
 };
 
 const cacheFirst = async (request: Request) => {
-  const responseFromCache = await caches.match(request);
-  if (responseFromCache) {
-    return responseFromCache;
+  if (request.url.indexOf("/live/") == -1) {
+    const responseFromCache = await caches.match(request);
+    if (responseFromCache) {
+      return responseFromCache;
+    }
   }
   const responseFromNetwork = await fetch(request);
   putInCache(request, responseFromNetwork.clone());

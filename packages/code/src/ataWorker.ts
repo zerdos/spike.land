@@ -74,7 +74,6 @@ const connections: {
   };
 } = {};
 
-Object.assign(self, { connections });
 const mutex = new Mutex();
 
 function setConnections(signal: string) {
