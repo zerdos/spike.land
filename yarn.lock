@@ -2172,15 +2172,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.29.2":
-  version: 1.29.2
-  resolution: "@playwright/test@npm:1.29.2"
+"@playwright/test@npm:1.30.0":
+  version: 1.30.0
+  resolution: "@playwright/test@npm:1.30.0"
   dependencies:
     "@types/node": "npm:*"
-    playwright-core: "npm:1.29.2"
+    playwright-core: "npm:1.30.0"
   bin:
     playwright: cli.js
-  checksum: 7cf5f87cd1033e6b009737391fd41aec1ecec1567d8a430b960100f0c8df0334b60ba71d7b05232fe448d081977031f39a9d4c7d92bd1d8ebacb15bb9b9476d6
+  checksum: ca35345828a0f350533e5a7487215f7209bf6209b5bce0ca70feadd5de9795892bec107732864163ca528812b3da6a07e51fcf6bdfba34f3f4f0dfed0ad007fd
   languageName: node
   linkType: hard
 
@@ -2374,7 +2374,7 @@ __metadata:
     logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.13"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230124"
+    monaco-editor: "npm:0.35.0-dev.20230125"
     node-source-walk: "npm:^5.0.0"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
@@ -3819,10 +3819,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zeit/schemas@npm:2.21.0":
-  version: 2.21.0
-  resolution: "@zeit/schemas@npm:2.21.0"
-  checksum: ab70487b61fb0208995d9418e11756ced2a46ee1109861640495dd3230840ad189f0d087a73df4cfefa9998f7e61c26e2d3cc4c96d464dfc8c4ac58dda9cb8b9
+"@zeit/schemas@npm:2.29.0":
+  version: 2.29.0
+  resolution: "@zeit/schemas@npm:2.29.0"
+  checksum: 7d84f54c97a8f49a4324eab737a51b1c0d844973861f119462fdb3e19837022aa9c8963a1e570cf3224098aeddd8971d956618a2f510bb539b1e31e305ed698f
   languageName: node
   linkType: hard
 
@@ -5640,9 +5640,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.3.0":
-  version: 12.3.0
-  resolution: "cypress@npm:12.3.0"
+"cypress@npm:12.4.0":
+  version: 12.4.0
+  resolution: "cypress@npm:12.4.0"
   dependencies:
     "@cypress/request": "npm:^2.88.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -5688,7 +5688,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: a9ced4465e78735d2310ada67d88ed5e5d03df91edc6ed5e4ec9d61b08694203624a9f8f72762a481814fa8d979a2571f0251a78ae0a415fd9766bd0676bceb3
+  checksum: 08765e6400fccabcf73be9d0c35a5846fa9c86ec7277f339588d1153d5f301d7c87ccc13f546a4154284cc11e3a246b137be86beeeae07d4df49b00dd188bbad
   languageName: node
   linkType: hard
 
@@ -11132,10 +11132,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20230124":
-  version: 0.35.0-dev.20230124
-  resolution: "monaco-editor@npm:0.35.0-dev.20230124"
-  checksum: 2d10f1db463f23275875fd46e1e5803589119ff3bb45307e2054e7f80c17eecf37e36e58c4b5079c9a9eca8b436f2e703ef1fa5b9979ebe2946338419de8ee08
+"monaco-editor@npm:0.35.0-dev.20230125":
+  version: 0.35.0-dev.20230125
+  resolution: "monaco-editor@npm:0.35.0-dev.20230125"
+  checksum: 5c1a0dbe6c6cebdbf07ddbf93952e5b6d1c31b40d9f9434b3b8737091bb08ee3c3fd19d4852b263868da7bccb8b0b50f33bc4cb97fc364cd58ae62e1afee9a2f
   languageName: node
   linkType: hard
 
@@ -11146,7 +11146,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:^4.20221111.1"
     "@emotion/react": "npm:^11.10.5"
     "@isomorphic-git/lightning-fs": "npm:^4.6.0"
-    "@playwright/test": "npm:1.29.2"
+    "@playwright/test": "npm:1.30.0"
     "@types/eslint": "npm:^8.4.10"
     "@types/react": "npm:^18.0.27"
     "@types/react-dom": "npm:18.0.10"
@@ -11159,7 +11159,7 @@ __metadata:
     "@yarnpkg/plugin-typescript": "npm:^4.0.0-rc.36"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.36"
     constants: "npm:^0.0.2"
-    cypress: "npm:12.3.0"
+    cypress: "npm:12.4.0"
     dprint: "npm:^0.34.4"
     eslint: "npm:^8.32.0"
     eslint-plugin-react: "npm:^7.32.1"
@@ -11167,9 +11167,9 @@ __metadata:
     js-tokens: "npm:^8.0.1"
     localforage: "npm:^1.10.0"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230124"
+    monaco-editor: "npm:0.35.0-dev.20230125"
     p2pcf: "npm:^1.3.13"
-    playwright: "npm:1.29.2"
+    playwright: "npm:1.30.0"
     react: "npm:^18.2.0"
     typescript: "npm:4.9.4"
     util: "npm:^0.12.5"
@@ -11334,7 +11334,7 @@ __metadata:
     framer-motion: "npm:8.5.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    serve: "npm:14.1.2"
+    serve: "npm:14.2.0"
     typescript: "npm:^4.9.4"
   languageName: unknown
   linkType: soft
@@ -12296,23 +12296,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.29.2":
-  version: 1.29.2
-  resolution: "playwright-core@npm:1.29.2"
+"playwright-core@npm:1.30.0":
+  version: 1.30.0
+  resolution: "playwright-core@npm:1.30.0"
   bin:
     playwright: cli.js
-  checksum: d16c6fad6647c38f58873ff5e48c614ca268f05b6601837804166c167dfdec13b5751d95fbcee3dc25de20ae7c9ba361ba04c44535257502bcca04c9b5c12e86
+  checksum: 08dddb4f81a3220235847bc699cdf336008670b13da45a2340fe693f1a1b486ce79fd3773a662b73c2b32120aabe62cf8b50f78ededc24d5811f917816f2ae25
   languageName: node
   linkType: hard
 
-"playwright@npm:1.29.2":
-  version: 1.29.2
-  resolution: "playwright@npm:1.29.2"
+"playwright@npm:1.30.0":
+  version: 1.30.0
+  resolution: "playwright@npm:1.30.0"
   dependencies:
-    playwright-core: "npm:1.29.2"
+    playwright-core: "npm:1.30.0"
   bin:
     playwright: cli.js
-  checksum: 4dc3a38d6d8da0c69275d1783a94c6818cce00d0027ff7f3d82bb0019a49feab7680633f1aacc85003c6d90c2ef0aedcbb66597a4ad6f6ccd3b825e64d412d53
+  checksum: 64d752ada9ab94e16f89cf87b311a6d6fe951fa3255a3b0ef6686eae3eb289eae57db9a9cae21e676f4caf178b11ac652c1e9223a01caea71ea68af79f0018da
   languageName: node
   linkType: hard
 
@@ -13572,11 +13572,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"serve@npm:14.1.2":
-  version: 14.1.2
-  resolution: "serve@npm:14.1.2"
+"serve@npm:14.2.0":
+  version: 14.2.0
+  resolution: "serve@npm:14.2.0"
   dependencies:
-    "@zeit/schemas": "npm:2.21.0"
+    "@zeit/schemas": "npm:2.29.0"
     ajv: "npm:8.11.0"
     arg: "npm:5.0.2"
     boxen: "npm:7.0.0"
@@ -13589,7 +13589,7 @@ __metadata:
     update-check: "npm:1.5.4"
   bin:
     serve: build/main.js
-  checksum: 9e55bb8a1e00e8f03ad637b6b8f22210fc45311ec0d57d8b9965e5fbbec985d424ac49a990008167c941e26fa2de1085ee1b39c880476b70146767ca58fac2b3
+  checksum: 64f02d60cf788876dee503210096e296b60c3191a49e8305487548f0509bbf1f2168a01d81a7ae5e2d614327cac0998505481e3ef3d8b1e27834e9f64182c542
   languageName: node
   linkType: hard
 
