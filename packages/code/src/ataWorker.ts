@@ -70,7 +70,10 @@ self.onconnect = e => {
 // This is the fallback, just in case the browser doesn't support SharedWorkers natively
 self.onconnect = ({ ports }) => start(ports[0]);
 
-if ("SharedWorkerGlobalScope" in self) start(self as unknown as MessagePort);
+// If the script is running in a normal webworker then don't worry about the Shared Worker message ports
+if (!("SharedWorkerGlobalScope" in self)) {
+  start(self as typeof self & MessagePort);
+}
 
 const connections: {
   [key: string]: {
