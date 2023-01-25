@@ -1,11 +1,11 @@
-import { md5 } from "./md5";
-import { appFactory } from "./starter";
+import { md5 } from "@spike.land/code/src/md5";
+import { appFactory } from "@spike.land/code/src/starter";
 
 import type { EmotionCache } from "@emotion/cache";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 // import { renderToString } from "react-dom/server";
-import { wait } from "./wait";
+import { wait } from "@spike.land/code/src/wait";
 
 const mod = {
   md5hash: "",

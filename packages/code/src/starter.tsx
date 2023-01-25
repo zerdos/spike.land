@@ -8,77 +8,10 @@ import createCache from "./emotionCache";
 import { md5 } from "./md5.js";
 
 Object.assign(globalThis, { md5 });
-const myApps: { [key: string]: FC } = {};
-const myAppCounters: { [key: string]: number } = {};
+// const myApps: { [key: string]: FC } = {};
+// const myAppCounters: { [key: string]: number } = {};
 
 export { md5 };
-
-// export const importIt: (url: string) => Promise<{ App: FC; url: string }> = async (url: string) => {
-//   let waitingTime = 100;
-//   let App;
-//   const urlARR = url.split("/");
-
-//   const naked = +(urlARR.pop() || 0);
-
-//   const nUrl = urlARR.join("/");
-//   myAppCounters[nUrl] = myAppCounters[nUrl] || naked;
-
-//   while (true) {
-//     const betterNaked = naked < myAppCounters[nUrl]
-//       ? myAppCounters[nUrl]
-//       : naked;
-//     const url = [...urlARR, betterNaked].join("/");
-
-//     try {
-//       try {
-//         let controller = new AbortController();
-//         const signal = controller.signal;
-//         let resp = await fetch(url, { signal });
-
-//         //  let urlLoc: null | string;
-//         // if (resp.headers.keys()) {
-//         //   urlLoc = resp.headers.get("location");
-//         //   const// if (urlLoc === null) throw new Error("No idea why");
-//         // const bestCounter = +(urlLoc.split("/").pop() || 0);
-//         // myAppCounters[nUrl] = bestCounter;
-//         // if (urlLoc !== null)
-//         // return await importIt(urlLoc);
-//         // }
-
-//         if (resp.ok) {
-//           try {
-//             App = (await import(url)).default as FC;
-
-//             return { App, url: resp.url };
-//           } catch {
-//             const trp = await resp.text();
-
-//             try {
-//               App = (await import(createJsBlob(trp))).default;
-//             } catch {
-//               console.error("something went nuts");
-
-//               App = (await import(createJsBlob(trp))).default;
-//             }
-//             myApps[nUrl] = App;
-
-//             return { App, url: resp.url };
-//           }
-//         }
-//       } catch (err) {
-//         console.error({ err });
-//         console.error(
-//           (err && (err as unknown as any)?.message as unknown as any)
-//             || "error has been thrown",
-//         );
-//       }
-//     } catch {
-//       console.error("bad something happened;");
-//     } finally {
-//       await wait(waitingTime *= 2);
-//     }
-//   }
-// };
 
 if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
@@ -91,71 +24,72 @@ export const { apps, eCaches } = globalThis as unknown as {
 
 export async function appFactory(
   transpiled: string,
-): Promise<FC<{ appId: string }>> {
+): Promise<FC> {
   // }
 
   const trp: string = transpiled;
 
   const hash = md5(transpiled);
 
-  if (!apps[hash] || !eCaches[hash]) {
-    try {
-      eCaches[hash] = eCaches[hash] || createCache({
-        key: "css",
-        speedy: false,
-      });
+  // if (!apps[hash] || !eCaches[hash]) {
+  try {
+    // eCaches[hash] = eCaches[hash] ||
+    const cache = createCache({
+      key: "css",
+      speedy: false,
+    });
 
-      eCaches[hash].compat = undefined;
+    cache.compat = undefined;
 
-      // if (terminal && terminal.clear) {
-      //   terminal.clear();
-      // }
+    // if (terminal && terminal.clear) {
+    //   terminal.clear();
+    // }
 
-      const App = (await import(createJsBlob(trp)))
-        .default;
+    const App = (await import(createJsBlob(trp)))
+      .default;
 
-      apps[hash] = ({ appId }: { appId: string }) => (
-        <CacheProvider key={hash} value={eCaches[hash]}>
-          <App />
-        </CacheProvider>
+    return () => (
+      <CacheProvider key={hash} value={cache}>
+        <App />
+      </CacheProvider>
+    );
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      const name = error.name;
+      const message = error.message;
+      return () => (
+        <div css={css`background-color: orange;`}>
+          <h1>Syntax Error</h1>
+
+          <h2>{hash}</h2>
+          <h2>{name}: {message}</h2>
+          <p>{JSON.stringify({ err: error })}</p>
+        </div>
       );
-    } catch (error) {
-      if (error instanceof SyntaxError) {
-        const name = error.name;
-        const message = error.message;
-        apps[hash] = () => (
-          <div css={css`background-color: orange;`}>
-            <h1>Syntax Error</h1>
+    } else if (error instanceof Error) {
+      const name = error.name;
+      const message = error.message;
 
-            <h2>{hash}</h2>
-            <h2>{name}: {message}</h2>
-            <p>{JSON.stringify({ err: error })}</p>
-          </div>
-        );
-      } else if (error instanceof Error) {
-        const name = error.name;
-        const message = error.message;
-
-        apps[hash] = () => (
-          <div css={css`background-color: orange;`}>
-            <h1>Syntax Error</h1>
-            <h2>{name}: {message}</h2>
-            <p>{JSON.stringify({ err: error })}</p>
-          </div>
-        );
-      } else {
-        apps[hash] = () => (
-          <div css={css`background-color: orange;`}>
-            <h1>Unknown Error: ${hash}</h1>
-          </div>
-        );
-      }
+      return () => (
+        <div css={css`background-color: orange;`}>
+          <h1>Syntax Error</h1>
+          <h2>{name}: {message}</h2>
+          <p>{JSON.stringify({ err: error })}</p>
+        </div>
+      );
+    } else {
+      return () => (
+        <div css={css`background-color: orange;`}>
+          <h1>Unknown Error: ${hash}</h1>
+        </div>
+      );
     }
-
-    if (transpiled !== "") return apps[hash];
   }
 
-  return apps[hash];
+  // if (transpiled !== "") return apps[hash];
+  // }
+
+  // return apps[hash];
 }
 
 export function createJsBlob(code: string | Uint8Array) {
