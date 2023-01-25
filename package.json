@@ -71,5 +71,5 @@
     "@yarnpkg/plugin-typescript": "^4.0.0-rc.36",
     "js-tokens": "^8.0.1"
   },
-  "packageManager": "yarn@4.0.0-rc.35"
+  "packageManager": "yarn@4.0.0-rc.36"
 }
