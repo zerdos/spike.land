@@ -31,14 +31,14 @@ importScripts("/workerScripts/transpile.js");
 
 const { RpcProvider, ata, prettierJs, transpile } = self;
 
-self.onconnect = ({ ports }) => {
-  const p = ports[0];
+const start = (port: MessagePort) => {
+  // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
   const rpcProvider = new RpcProvider(
-    (message, transfer) => p.postMessage(message, transfer as StructuredSerializeOptions),
+    (message, transfer) => port.postMessage(message, transfer as StructuredSerializeOptions),
   );
 
-  p.onmessage = (e) => rpcProvider.dispatch(e.data);
+  port.onmessage = ({ data }) => rpcProvider.dispatch(data);
   globalThis.isSharedWorker = true;
 
   rpcProvider.registerRpcHandler(
@@ -60,9 +60,17 @@ self.onconnect = ({ ports }) => {
     "connect",
     (signal: string) => setConnections(signal),
   );
-
-  p.start();
 };
+
+self.onconnect = e => {
+  let [port] = e.ports;
+  start(port);
+};
+
+// This is the fallback, just in case the browser doesn't support SharedWorkers natively
+self.onconnect = ({ ports }) => start(ports[0]);
+
+if ("SharedWorkerGlobalScope" in self) start(self as unknown as MessagePort);
 
 const connections: {
   [key: string]: {

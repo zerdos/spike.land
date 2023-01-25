@@ -123,7 +123,6 @@ const buildOptions: esbuild.BuildOptions = {
     "/npm:/*",
     "../../npm:/*, ",
     "__STATIC_CONTENT_MANIFEST",
-    "__STATIC_CONTENT_MANIFEST",
     "/dist.shasum.js",
   ],
   legalComments: "none",
