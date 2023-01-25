@@ -2249,6 +2249,7 @@ __metadata:
     react-rnd: "npm:^10.4.1"
     reconnecting-websocket: "npm:^4.4.0"
     stream-browserify: "npm:^3.0.0"
+    transferables: "npm:^1.0.2"
     ts-md5: "npm:^1.3.1"
     tslib: "npm:^2.4.1"
     typescript: "npm:^4.9.4"
@@ -14294,6 +14295,13 @@ __metadata:
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
   checksum: c670667f2df1c0983b48ee7e81d6013ab304f73573e9e4292233821b2219504307bedffc303c32df30813a9138114b8b084c81dea94fb68f08aca7770af98578
+  languageName: node
+  linkType: hard
+
+"transferables@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "transferables@npm:1.0.2"
+  checksum: 2fcdf6face20ac9ce75d29f728ad92ffff8e7f799d24bd4c9d90010ec33356db7e7a2c1740f4291a050b487a8ab5346347555a1fc5a1cfd5d95bc5276ff199a7
   languageName: node
   linkType: hard
 

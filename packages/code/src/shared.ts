@@ -1,5 +1,6 @@
 import assetHash from "/dist.shasum.js";
 import SharedWorker from "@okikio/sharedworker";
+import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
 
 let rpc: RpcProvider | null = null;
@@ -7,10 +8,11 @@ const init = () => {
   if (rpc !== null) return rpc;
   const worker = new SharedWorker("/ataWorker.js?" + assetHash);
   rpc = new RpcProvider(
-    (message, transfer) => worker.port.postMessage(message, transfer as any),
+    (message: unknown) =>
+      worker.port.postMessage(message, hasTransferables(message) ? getTransferables(message) : undefined),
     0,
   ) as RpcProvider;
-  worker.port.onmessage = (e) => rpc!.dispatch(e.data);
+  worker.port.onmessage = ({ data }) => rpc!.dispatch(data);
   return rpc;
 };
 

@@ -2763,6 +2763,7 @@ const RAW_RUNTIME_STATE =
           ["react-rnd", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:10.4.1"],\
           ["reconnecting-websocket", "npm:4.4.0"],\
           ["stream-browserify", "npm:3.0.0"],\
+          ["transferables", "npm:1.0.2"],\
           ["ts-md5", "npm:1.3.1"],\
           ["tslib", "npm:2.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -2862,6 +2863,7 @@ const RAW_RUNTIME_STATE =
           ["react-rnd", "virtual:fd52941ef524d67d999f9439c1bfa7e696c737d61392f62fd63a30651b0c7945c4c95ab647c71fcb038989620196a3ea10690e53f7d0d5a542f0973833a28da2#npm:10.4.1"],\
           ["reconnecting-websocket", "npm:4.4.0"],\
           ["stream-browserify", "npm:3.0.0"],\
+          ["transferables", "npm:1.0.2"],\
           ["ts-md5", "npm:1.3.1"],\
           ["tslib", "npm:2.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
@@ -17279,6 +17281,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/tr46-npm-0.0.3-de53018915-9.zip/node_modules/tr46/",\
         "packageDependencies": [\
           ["tr46", "npm:0.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["transferables", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/global/cache/transferables-npm-1.0.2-ee02c7dd2b-9.zip/node_modules/transferables/",\
+        "packageDependencies": [\
+          ["transferables", "npm:1.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
