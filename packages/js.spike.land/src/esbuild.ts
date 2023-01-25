@@ -52,12 +52,15 @@ export default {
         ...request,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
         },
       });
-    } else {return new Response("try to POST", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });}
+    }
+    return new Response("try to POST", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+      },
+    });
   },
 };
