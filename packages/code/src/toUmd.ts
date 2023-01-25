@@ -1,5 +1,5 @@
 import { transform } from "./esbuildEsm";
-import { md5 } from "./md5.js";
+import { md5 } from "./md5";
 
 import importMap from "./importMap";
 

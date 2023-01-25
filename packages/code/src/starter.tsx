@@ -5,7 +5,7 @@ import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import createCache from "./emotionCache";
 // import { buildT } from "./esbuildEsm";
-import { md5 } from "./md5.js";
+import { md5 } from "./md5";
 
 Object.assign(globalThis, { md5 });
 // const myApps: { [key: string]: FC } = {};

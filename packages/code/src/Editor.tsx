@@ -117,12 +117,13 @@ const Editor: FC<
 
   const onChange = async (_code: string) => {
     if (mod.code === _code) return;
-    console.log(_code);
-
+    //
     const ccc = await prettier(code);
     const c = await prettier(_code);
 
     if (ccc === c) return;
+    console.log(_code);
+
     // mod.controller.abort();
 
     // mod.controller = new AbortController();

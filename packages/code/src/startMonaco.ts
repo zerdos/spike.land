@@ -437,7 +437,7 @@ async function startMonacoPristine(
           console.error("error while saving monaco state");
         }
 
-        console.log("trying to change code");
+        console.log("changing the code!");
         model.setValue(code);
         if (state) {
           myEditor.restoreViewState(state);

@@ -2,7 +2,7 @@ import ReconnectingWebSocket from "reconnecting-websocket";
 
 globalThis.isSharedWorker = true;
 
-importScripts("/workerScripts/superFetch.js");
+// importScripts("/workerScripts/superFetch.js");
 
 import type * as RPC from "worker-rpc";
 
@@ -22,7 +22,7 @@ declare var self:
   }
   & { transpile: typeof Transpile };
 
-Object.assign(self, { fetch: globalThis.superFetch });
+// Object.assign(self, { fetch: globalThis.superFetch });
 
 importScripts("/workerScripts/workerRpc.js");
 importScripts("/workerScripts/prettierEsm.js");
