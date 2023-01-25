@@ -9,9 +9,14 @@ import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
 import { Phone, Share, Tablet, Tv } from "./icons";
 // import { wait } from "./wait";
+// const innerWidth =
 
-const breakPoints = [750, 1024, 1920];
-const breakPointHeights = [1335, 1366, 1080];
+const breakPoints = [
+  innerWidth < 750 ? innerWidth : 750,
+  (innerWidth < 1025 && innerWidth > 750) ? innerWidth : 1024,
+  innerWidth > 1024 ? innerWidth : 1920,
+];
+// const breakPointHeights = [1335, 1366, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
@@ -39,40 +44,42 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const startPositions = { bottom: 0, right: 0 };
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
-  const [width, setWidth] = useState(window.innerWidth * devicePixelRatio);
+  const [width, setWidth] = useState(innerWidth * devicePixelRatio);
   // const [delay, _setDelay] = useState(Number(sessionStorage.getItem("delay")) || 0);
-  const [height, setHeight] = useState(window.innerHeight * devicePixelRatio);
+  const [height, setHeight] = useState(innerHeight * devicePixelRatio);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
   useEffect(() => {
     const reveal = () => {
       changeScaleRange(Math.min(50, 50 / 1 / (1 / devicePixelRatio)));
-      if (window.innerWidth / devicePixelRatio < 600) {
-        //   changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
-        setWidth(breakPoints[0]);
-        setHeight(breakPointHeights[0]);
-      }
+      setWidth(innerWidth);
+      setHeight(innerHeight);
+      // if (window.innerWidth / devicePixelRatio < 600) {
+      // changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
+      //  ;
+      // setHeight(breakPointHeights[0]);
+      // }
 
-      if (window.innerWidth / devicePixelRatio < 1200) {
-        // changeScaleRange(Math.floor(100*(breakPoints[0]*breakPoints[0] / innerWidth/innerWidth)));
-        setWidth(breakPoints[0]);
-        setHeight(breakPointHeights[0]);
-      } else if (window.innerWidth / devicePixelRatio < 1800) {
-        setWidth(breakPoints[1]);
-        setHeight(breakPointHeights[1]);
+      // if (window.innerWidth / devicePixelRatio < 1200) {
+      //   // changeScaleRange(Math.floor(100*(breakPoints[0]*breakPoints[0] / innerWidth/innerWidth)));
+      //   setWidth(breakPoints[0]);
+      //   setHeight(breakPointHeights[0]);
+      // } else if (window.innerWidth / devicePixelRatio < 1800) {
+      //   setWidth(breakPoints[1]);
+      //   setHeight(breakPointHeights[1]);
 
-        //        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-      } else if (window.innerWidth / devicePixelRatio < 2500) {
-        setWidth(breakPoints[2]);
-        //     changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-        setHeight(breakPointHeights[2]);
-      } else if (window.innerWidth / devicePixelRatio > 2500) {
-        setWidth(breakPoints[2]);
-        setHeight(breakPointHeights[2]);
-        //    changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-        // changeScaleRange(100);
-      }
+      //   //        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
+      // } else if (window.innerWidth / devicePixelRatio < 2500) {
+      //   setWidth(breakPoints[2]);
+      //   //     changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
+      //   setHeight(breakPointHeights[2]);
+      // } else if (window.innerWidth / devicePixelRatio > 2500) {
+      //   setWidth(breakPoints[2]);
+      //   setHeight(breakPointHeights[2]);
+      //   //    changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
+      //   // changeScaleRange(100);
+      // }
 
       setPositions({
         bottom: 20,
