@@ -77,14 +77,13 @@ export async function appFactory(
           <p>{JSON.stringify({ err: error })}</p>
         </div>
       );
-    } else {
-      return () => (
-        <div css={css`background-color: orange;`}>
-          <h1>Unknown Error: ${hash}</h1>
-        </div>
-      );
     }
   }
+  return () => (
+    <div css={css`background-color: orange;`}>
+      <h1>Unknown Error: ${hash}</h1>
+    </div>
+  );
 
   // if (transpiled !== "") return apps[hash];
   // }
