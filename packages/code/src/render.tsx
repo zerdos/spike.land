@@ -1,5 +1,5 @@
 import { EmotionCache } from "@emotion/cache";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
 import createCache from "./emotionCache";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
@@ -7,6 +7,8 @@ import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import { ICodeSession } from "./makeSess";
+import ParentSize from "./ParentSize";
+import type { ParentSizeState } from "./ParentSize";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
 
@@ -45,7 +47,19 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
       location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
     )).default);
 
-    myRoot.render(<App />);
+    myRoot.render(
+      <ParentSize>
+        {({ width, height, top, left, ref }) => (
+          <App
+            {...(width ? { width } : {})}
+            {...(height ? { height } : {})}
+            {...(top ? { top } : {})}
+            {...(left ? { left } : {})}
+            {...(ref ? { ref } : {})}
+          />
+        )}
+      </ParentSize>,
+    );
 
     console.log("rerender", data.i);
 
@@ -137,28 +151,44 @@ export const render = async (
 ) => {
   __rootEl = _rootEl;
   if (!__rootEl) return;
-  let App;
+  let App: FC<
+    {
+      width?: number;
+      height?: number;
+      top?: number;
+      left?: number;
+      ref?: HTMLDivElement;
+      resize?: (state: ParentSizeState) => void;
+      children?: ReactNode;
+    }
+  >;
   try {
     App = (await import(
       location.origin + "/live/" + codeSpace + "/index.js"
     )).default;
   } catch (err) {
-    try {
-      App = (await import(
-        location.origin + "/live/" + codeSpace + "/index.js"
-      )).default;
-    } catch (err) {
-      App = () => (
-        <div>
-          <h1>Error</h1>
-          <pre>{JSON.stringify({err})}</pre>
-        </div>
-      );
-    }
+    App = () => (
+      <div>
+        <h1>Error</h1>
+        <pre>{JSON.stringify({err})}</pre>
+      </div>
+    );
   }
 
   if (root) {
-    root.render(<App></App>);
+    root.render(
+      <ParentSize>
+        {({ width, height, top, left, ref }) => (
+          <App
+            {...(width ? { width } : { width: window.innerWidth })}
+            {...(height ? { height } : { height: window.innerHeight })}
+            {...(top ? { top } : { top: 0 })}
+            {...(left ? { left } : { left: 0 })}
+            {...(ref ? { ref } : {})}
+          />
+        )}
+      </ParentSize>,
+    );
     return;
   }
 
@@ -177,7 +207,16 @@ export const render = async (
   root = createRoot(el);
   root.render(
     <CacheProvider value={cache}>
-      <App />
+      <ParentSize>
+        {({ width, height, top, left }) => (
+          <App
+            {...(width ? { width } : { width: window.innerWidth })}
+            {...(height ? { height } : { height: window.innerHeight })}
+            {...(top ? { top } : { top: 0 })}
+            {...(left ? { left } : { left: 0 })}
+          />
+        )}
+      </ParentSize>
     </CacheProvider>,
   );
 
@@ -211,7 +250,19 @@ export const render = async (
   return root;
 };
 
-export const prerender = async (App: FC) => {
+export const prerender = async (
+  App: FC<
+    {
+      width?: number;
+      height?: number;
+      top?: number;
+      left?: number;
+      ref?: HTMLDivElement;
+      resize?: (state: ParentSizeState) => void;
+      children?: ReactNode;
+    }
+  >,
+) => {
   const _rootEl = document.getElementById("root")!;
   const el = document.createElement("div");
   el.style.opacity = "0";
@@ -219,7 +270,18 @@ export const prerender = async (App: FC) => {
   _rootEl.parentElement;
 
   const root = createRoot(el);
-  root.render(<App />);
+  root.render(
+    <ParentSize>
+      {({ width, height, top, left }) => (
+        <App
+          {...(width ? { width } : { width: window.innerWidth })}
+          {...(height ? { height } : { height: window.innerHeight })}
+          {...(top ? { top } : { top: 0 })}
+          {...(left ? { left } : { left: 0 })}
+        />
+      )}
+    </ParentSize>,
+  );
 
   let i = 100;
   while (i-- > 0) {

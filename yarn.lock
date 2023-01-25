@@ -2177,6 +2177,7 @@ __metadata:
     "@types/hoist-non-react-statics": "npm:^3.3.1"
     "@types/is-callable": "npm:1.1.0"
     "@types/isomorphic-fetch": "npm:^0.0.36"
+    "@types/lodash.debounce": "npm:^4"
     "@types/lodash.throttle": "npm:^4.1.7"
     "@types/node": "npm:^18.11.18"
     "@types/prettier": "npm:2.7.2"
@@ -2216,8 +2217,8 @@ __metadata:
     js-tokens: "npm:^8.0.1"
     ky: "npm:^0.33.2"
     localforage: "npm:^1.10.0"
+    lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
-    logrocket: "npm:^3.0.1"
     memfs: "npm:^3.4.13"
     module: "npm:^1.2.5"
     monaco-editor: "npm:0.35.0-dev.20230125"
@@ -2627,6 +2628,15 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: c1fbfe6e2a8c82656c8fc5782d937c82ed336cdca451c4d7a8d08d245531ad21572024d621b38071d34cfb7461702eea79fcf222a03264f00564d75e78bd348d
+  languageName: node
+  linkType: hard
+
+"@types/lodash.debounce@npm:^4":
+  version: 4.0.7
+  resolution: "@types/lodash.debounce@npm:4.0.7"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: 51691419d02a7a63eea15692dcd352f589f599e047f65ea97f43272f3489e4b8bd5f49050f63411b485d1b4f6bdcef54fb78b693681fe8b0c7c65cb788781238
   languageName: node
   linkType: hard
 
@@ -10196,6 +10206,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.debounce@npm:^4.0.8":
+  version: 4.0.8
+  resolution: "lodash.debounce@npm:4.0.8"
+  checksum: 960a803d892fc09976e7b559c36407000c3beb136cf20e88ae6a694b5d7cf64e31dde516079140a945ba695b7d5e5699444d61fd13a70ff7de409bbae7604005
+  languageName: node
+  linkType: hard
+
 "lodash.isequal@npm:^4.0.0":
   version: 4.5.0
   resolution: "lodash.isequal@npm:4.5.0"
@@ -10294,13 +10311,6 @@ __metadata:
     slice-ansi: "npm:^4.0.0"
     wrap-ansi: "npm:^6.2.0"
   checksum: b508aeb81f60fab087e44f9eb8591a22b791caa3df8363da9b171518f36406151a9590db573acbb7eeb8b49874944d3bf844d5dee734f810ad8b5a3c5eadbabf
-  languageName: node
-  linkType: hard
-
-"logrocket@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "logrocket@npm:3.0.1"
-  checksum: 981820c5d21f71535b256b244d75a1d9e3d2e6cbdb19b4cd162ee14c5320a056976b80fe6231526f26e9bea29fe6e221061dd39814bc97ae404a7efeb0704ca4
   languageName: node
   linkType: hard
 

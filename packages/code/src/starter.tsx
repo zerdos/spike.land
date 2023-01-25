@@ -24,7 +24,7 @@ export const { apps, eCaches } = globalThis as unknown as {
 
 export async function appFactory(
   transpiled: string,
-): Promise<FC> {
+): Promise<FC<{ width: number; height: number; top: number; left: number }>> {
   // }
 
   const trp: string = transpiled;
@@ -41,16 +41,21 @@ export async function appFactory(
 
     cache.compat = undefined;
 
-    // if (terminal && terminal.clear) {
+    // if (terminal && terminal.clear) {r
     //   terminal.clear();
     // }
 
     const App = (await import(createJsBlob(trp)))
       .default;
 
-    return () => (
+    return ({ width, height, top, left }) => (
       <CacheProvider key={hash} value={cache}>
-        <App />
+        <App
+          {...(width ? { width } : { width: window.innerWidth })}
+          {...(height ? { height } : { height: window.innerHeight })}
+          {...(top ? { top } : { top: 0 })}
+          {...(left ? { left } : { left: 0 })}
+        />
       </CacheProvider>
     );
   } catch (error) {

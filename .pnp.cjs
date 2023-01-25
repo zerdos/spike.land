@@ -2687,6 +2687,7 @@ const RAW_RUNTIME_STATE =
           ["@types/hoist-non-react-statics", "npm:3.3.1"],\
           ["@types/is-callable", "npm:1.1.0"],\
           ["@types/isomorphic-fetch", "npm:0.0.36"],\
+          ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
           ["@types/motionone__dom", null],\
           ["@types/node", "npm:18.11.18"],\
@@ -2728,8 +2729,8 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:8.0.1"],\
           ["ky", "npm:0.33.2"],\
           ["localforage", "npm:1.10.0"],\
+          ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
-          ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.35.0-dev.20230125"],\
@@ -2786,6 +2787,7 @@ const RAW_RUNTIME_STATE =
           ["@types/hoist-non-react-statics", "npm:3.3.1"],\
           ["@types/is-callable", "npm:1.1.0"],\
           ["@types/isomorphic-fetch", "npm:0.0.36"],\
+          ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
           ["@types/node", "npm:18.11.18"],\
           ["@types/prettier", "npm:2.7.2"],\
@@ -2825,8 +2827,8 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:8.0.1"],\
           ["ky", "npm:0.33.2"],\
           ["localforage", "npm:1.10.0"],\
+          ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
-          ["logrocket", "npm:3.0.1"],\
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.35.0-dev.20230125"],\
@@ -3334,6 +3336,16 @@ const RAW_RUNTIME_STATE =
       ["npm:4.14.191", {\
         "packageLocation": "./.yarn/global/cache/@types-lodash-npm-4.14.191-67a04a969b-9.zip/node_modules/@types/lodash/",\
         "packageDependencies": [\
+          ["@types/lodash", "npm:4.14.191"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/lodash.debounce", [\
+      ["npm:4.0.7", {\
+        "packageLocation": "./.yarn/global/cache/@types-lodash.debounce-npm-4.0.7-efe92bf273-9.zip/node_modules/@types/lodash.debounce/",\
+        "packageDependencies": [\
+          ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash", "npm:4.14.191"]\
         ],\
         "linkType": "HARD"\
@@ -12586,6 +12598,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["lodash.debounce", [\
+      ["npm:4.0.8", {\
+        "packageLocation": "./.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-9.zip/node_modules/lodash.debounce/",\
+        "packageDependencies": [\
+          ["lodash.debounce", "npm:4.0.8"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["lodash.isequal", [\
       ["npm:4.5.0", {\
         "packageLocation": "./.yarn/global/cache/lodash.isequal-npm-4.5.0-f8b0f64d63-9.zip/node_modules/lodash.isequal/",\
@@ -12694,15 +12715,6 @@ const RAW_RUNTIME_STATE =
           ["cli-cursor", "npm:3.1.0"],\
           ["slice-ansi", "npm:4.0.0"],\
           ["wrap-ansi", "npm:6.2.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["logrocket", [\
-      ["npm:3.0.1", {\
-        "packageLocation": "./.yarn/global/cache/logrocket-npm-3.0.1-0369ec95cd-9.zip/node_modules/logrocket/",\
-        "packageDependencies": [\
-          ["logrocket", "npm:3.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\

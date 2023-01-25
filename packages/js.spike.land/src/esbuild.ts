@@ -48,7 +48,16 @@ export const initAndTransform = (
 export default {
   async fetch(request: Request) {
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN")!), request);
-    }
+      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN")!), {
+        ...request,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } else {return new Response("try to POST", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });}
   },
 };

@@ -935,13 +935,13 @@ function join() {
   console.count("yay");
 }
 
-function debounce(
-  syncRTC: () => Promise<void>,
-  arg1: number,
-  arg2: { trailing: boolean; leading: boolean; maxWait: number },
-) {
-  console.count("yay");
-}
+// function debounce(
+//   syncRTC: () => Promise<void>,
+//   arg1: number,
+//   arg2: { trailing: boolean; leading: boolean; maxWait: number },
+// ) {
+//   console.count("yay");
+// }
 
 function hashCode() {
   console.count("yay");

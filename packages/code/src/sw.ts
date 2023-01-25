@@ -1,7 +1,7 @@
 // import {precacheAndRoute} from 'workbox-precaching';
-
 import type { transpile as Transpile } from "./transpile";
 importScripts("/workerScripts/transpile.js");
+importScripts("/swVersion.js");
 // importScripts("/workerScripts/prettierEsm.js");
 
 // import { transpile } from "./transpile.ts";
@@ -9,6 +9,7 @@ importScripts("/workerScripts/transpile.js");
 import type * as FS from "./fs";
 declare const self:
   & ServiceWorkerGlobalScope
+  & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string }
   & { transpile: typeof Transpile }
   & ({ readdir: typeof FS.readdir });
@@ -62,7 +63,22 @@ import { md5 } from "./md5";
 //   return event.ports[0].postMessage({ ...data, transpiled });
 // };
 
-const createResponse = async (request: Request) => {
+const putInCache = async (request: Request, response: Response) => {
+  const cache = await caches.open(self.swVersion);
+  await cache.put(request, response);
+};
+
+const cacheFirst = async (request: Request) => {
+  const responseFromCache = await caches.match(request);
+  if (responseFromCache) {
+    return responseFromCache;
+  }
+  const responseFromNetwork = await fetch(request);
+  putInCache(request, responseFromNetwork.clone());
+  return responseFromNetwork;
+};
+
+const fakeBackend = async (request: Request) => {
   let url = new URL(request.url);
   if (url.origin !== self.location.origin || request.method === "POST") {
     return fetch(request);
@@ -161,9 +177,11 @@ const createResponse = async (request: Request) => {
     }
   }
 
-  return fetch(request);
+  return cacheFirst(request);
 };
 
-self.addEventListener("fetch", function(event) {
-  return event.respondWith((() => createResponse(event.request))());
+self.addEventListener("fetch", (event) => {
+  event.respondWith(fakeBackend(event.request));
 });
+
+// self.onfetch = (event)=>event.respondWith(fakeBackend((event.request)));

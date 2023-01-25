@@ -17,7 +17,6 @@ import { Workbox } from "workbox-window";
 export const sw = new Workbox("/sw.js");
 
 await sw.register();
-import { render } from "./render";
 
 // sw.messageSkipWaiting();
 // if ("serviceWorker" in navigator) {
@@ -50,7 +49,7 @@ if (
   location.pathname === `/live/${codeSpace}`
 ) {
   run();
-} else if (location.pathname === `/live/${codeSpace}/dehydrated` || location.pathname === `/live/${codeSpace}/public`) {
+} else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
   BC.onmessage = ({ data }) => {
@@ -64,21 +63,23 @@ if (
       "</div>",
     ].join("");
 
-    if (location.pathname === `/live/${codeSpace}/public`) {
-      render(
-        document.getElementById(codeSpace + "-css")!,
-        codeSpace,
-      );
-    }
+    // if (location.pathname === `/live/${codeSpace}/public`) {
+    //   render(
+    //     document.getElementById(codeSpace + "-css")!,
+    //     codeSpace,
+    //   );
+    // }
   };
 
-  if (location.pathname === `/live/${codeSpace}/public`) {
-    render(
-      document.getElementById(codeSpace + "-css")!,
-      codeSpace,
-    );
-  }
+  // if (location.pathname === `/live/${codeSpace}/public`) {
+  //   render(
+  //     document.getElementById(codeSpace + "-css")!,
+  //     codeSpace,
+  //   );
+  // }
 } else {
+  const { render } = await import("./render");
+
   render(
     document.getElementById(codeSpace + "-css")!,
     codeSpace,

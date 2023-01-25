@@ -12,6 +12,7 @@ import { importMap } from "../../code/src/importMap";
 // import imap from "@spike.land/code/src/importMap.json";
 import { md5 } from "../../code/src/md5";
 
+import shasum from "./dist.shasum";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 
@@ -268,6 +269,14 @@ const api: ExportedHandler<CodeEnv> = {
                 ASSET_HASH,
               },
             });
+          case "swVersion.js": {
+            return new Response(`self.swVersion = "${shasum}"`, {
+              headers: {
+                "content-type": "application/javascript; charset=utf-8",
+                "Cache-Control": "no-cache",
+              },
+            });
+          }
           case "importMap.json":
             return new Response(JSON.stringify(importMap), {
               headers: {
