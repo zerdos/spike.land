@@ -366,6 +366,8 @@ async function startMonacoPristine(
     automaticLayout: true,
 
     useShadowDOM: false,
+    tabSize: 2,
+    insertSpaces: true,
 
     contextmenu: true,
     stablePeek: true,
