@@ -16,6 +16,9 @@ export async function startAce(
   const editor = edit(container, {
     autoScrollEditorIntoView: false,
     useWorker: true,
+    tabSize: 2,
+    enableBasicAutocompletion: true,
+    behavioursEnabled: true,
     scrollPastEnd: true,
     copyWithEmptySelection: false,
   });
