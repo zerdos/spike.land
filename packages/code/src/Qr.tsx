@@ -43,7 +43,7 @@ export const QRButton: FC<{ url: string }> = ({ url }) => {
         ? (
           <QRious
             key={url || origin + url}
-            value={url || "/live/coder/public"}
+            value={url || "/live/coder"}
           />
         )
         : (

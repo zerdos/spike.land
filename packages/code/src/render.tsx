@@ -220,7 +220,9 @@ export const render = async (
     </CacheProvider>,
   );
 
-  let i = location.href.endsWith("iframe") ? 100 : 0;
+  let i = (location.href.endsWith("iframe") || location.href.endsWith("/") || location.href.endsWith("public"))
+    ? 100
+    : 0;
   while (i-- > 0) {
     const html = el.innerHTML;
     if (html && html !== "") {
@@ -334,7 +336,7 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   }
 }
 
-if (location.pathname.endsWith("/iframe")) {
+if (location.pathname.endsWith("/iframe") || location.pathname.endsWith("/") || location.pathname.endsWith("/public")) {
   window.onmessage = async ({ data }) => {
     rerender(data);
   };
