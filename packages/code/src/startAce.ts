@@ -17,7 +17,6 @@ export async function startAce(
     autoScrollEditorIntoView: false,
     useWorker: true,
     tabSize: 2,
-    enableBasicAutocompletion: true,
     behavioursEnabled: true,
     useSoftTabs: true,
 
