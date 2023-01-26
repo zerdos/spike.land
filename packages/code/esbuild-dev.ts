@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.17.0/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.17.4/mod.js";
 
 import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 
