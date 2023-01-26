@@ -32,7 +32,7 @@ export const prettierJs = (code: string) => {
 
       tabWidth: 2,
       trailingComma: "all",
-      useTabs: true,
+      useTabs: false,
       parser: "typescript",
       plugins: [parserTypescript /// parserHtml, parserPostcss
       ],
