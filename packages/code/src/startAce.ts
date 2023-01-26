@@ -19,14 +19,19 @@ export async function startAce(
     tabSize: 2,
     enableBasicAutocompletion: true,
     behavioursEnabled: true,
+    useSoftTabs: true,
+
+    mergeUndoDeltas: true,
+    value: code,
+    mode: "ace/mode/typescript",
+
     scrollPastEnd: true,
+
     copyWithEmptySelection: false,
   });
   editor.setTheme("ace/theme/monokai");
 
-  editor.session.setMode("ace/mode/typescript", () => ({ jsx: true }));
-  editor.session.setValue(code);
-  mod.value = code;
+  // editor.session.se;
 
   editor.session.on("change", () => {
     if (mod.silent) return;
