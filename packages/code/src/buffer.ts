@@ -1,1 +1,1 @@
-var Buffer = require("buffer/").Buffer;
+export const Buffer = require("buffer/").Buffer;

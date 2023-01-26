@@ -112,6 +112,38 @@ const monacoContribution = (
   });
   // console.log("ATA");
 
+  (() => {
+    const search = new RegExp(
+      ` from "(${originToUse})?/live/[a-zA-Z]+`,
+      "gm",
+    );
+
+    // 0123456
+    const models = code.matchAll(search);
+    // Console.log("load more models", replaced, models);
+
+    for (const match of models) {
+      console.log("***** EXTRA MODELS *****");
+      //
+      const codeSpace = match[0].split("/live/").pop();
+      const extraModel = new URL(
+        "/live/" + codeSpace + "/index.tsx",
+        originToUse,
+      ).toString();
+
+      const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+
+      fetch(extraModel).then((res) => res.text()).then(content => {
+        console.log(`adding extra models: ${mUri.toString()}`, { content });
+        editor.getModel(mUri) || createModel(
+          content,
+          "typescript",
+          mUri,
+        );
+      });
+    }
+  })();
+
   ata({ code, originToUse }).then((extraLibs) => {
     console.log("Auto typings results: ", { extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
@@ -223,36 +255,6 @@ async function startMonacoPristine(
     uri,
   );
 
-  const addExtraM = async () => {
-    const search = new RegExp(
-      ` from "(${originToUse})?/live/[a-zA-Z]+`,
-      "gm",
-    );
-
-    // 0123456
-    const models = replaced.matchAll(search);
-    // Console.log("load more models", replaced, models);
-
-    for (const match of models) {
-      console.log("***** EXTRA MODELS *****");
-      //
-      const codeSpace = match[0].split("/live/").pop();
-      const extraModel = new URL(
-        "/live/" + codeSpace + "/index.tsx",
-        originToUse,
-      ).toString();
-
-      const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
-
-      const content = await fetch(extraModel).then((res) => res.text());
-      console.log(`adding extra models: ${mUri.toString()}`, { content });
-      editor.getModel(mUri) || createModel(
-        content,
-        "typescript",
-        mUri,
-      );
-    }
-  };
   const myEditor = create(container, {
     model,
     scrollbar: {
@@ -396,10 +398,7 @@ async function startMonacoPristine(
   // globalThis[codeSpace]!.model  && myEditor.setModel( globalThis[codeSpace]!.model );
   //   globalThis[codeSpace].viewState && myEditor.restoreViewState(globalThis[codeSpace].viewState);
   // }
-  languages.typescript.typescriptDefaults.setEagerModelSync(true);
-  setTimeout(() => {
-    addExtraM();
-  }, 500);
+  //  languages.typescript.typescriptDefaults.setEagerModelSync(true);
 
   // setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
 

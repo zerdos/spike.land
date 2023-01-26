@@ -99,7 +99,8 @@ const Editor: FC<
       ref={ref}
       css={css`
     ${
-        (engine === "ace") ? `` : `border-right: 4px dashed gray;
+        (engine === "ace") ? `` : `     
+    border-right: 4px dashed gray;
     border-bottom: 4px dashed gray;`
       }
 
@@ -197,6 +198,10 @@ const Editor: FC<
   ) {
     if (startedM) return;
     startedM = 1;
+
+    const style = document.createElement("style");
+    style.innerHTML = `@import url("${location.origin}/hydrate.css");`;
+    document.head.appendChild(style);
 
     const { startMonaco } = await import("./startMonaco");
     return await startMonaco({
