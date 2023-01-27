@@ -2162,7 +2162,7 @@ __metadata:
     module: "npm:^1.2.5"
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.0"
-    typescript: "npm:4.9.4"
+    typescript: "npm:beta"
     wrangler: "npm:2.8.1"
   languageName: unknown
   linkType: soft
@@ -2252,7 +2252,7 @@ __metadata:
     transferables: "npm:^1.0.2"
     ts-md5: "npm:^1.3.1"
     tslib: "npm:^2.5.0"
-    typescript: "npm:^4.9.4"
+    typescript: "npm:beta"
     util: "npm:^0.12.5"
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
@@ -2339,7 +2339,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:^4.20230115.0"
     "@spike.land/code": "npm:0.9.2"
     esbuild-wasm: "npm:0.17.4"
-    typescript: "npm:4.9.4"
+    typescript: "npm:beta"
     wrangler: "npm:2.8.1"
   languageName: unknown
   linkType: soft
@@ -10949,7 +10949,7 @@ __metadata:
     p2pcf: "npm:^1.3.13"
     playwright: "npm:1.30.0"
     react: "npm:^18.2.0"
-    typescript: "npm:4.9.4"
+    typescript: "npm:beta"
     util: "npm:^0.12.5"
     utils: "npm:^0.3.1"
     xo: "npm:^0.53.1"
@@ -11113,7 +11113,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.2.0"
-    typescript: "npm:^4.9.4"
+    typescript: "npm:beta"
   languageName: unknown
   linkType: soft
 
@@ -14513,7 +14513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.4, typescript@npm:^4.9.3, typescript@npm:^4.9.4":
+"typescript@npm:^4.9.3":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
   bin:
@@ -14523,13 +14523,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.4#optional!builtin<compat/typescript>":
+"typescript@npm:beta":
+  version: 5.0.0-beta
+  resolution: "typescript@npm:5.0.0-beta"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 036c77994118855f806df5e346f9afc57dfc4044fd97d6aba23fd015633fff84790554748d65982a75a294e395b267e28f1fa9ec4bc5d576436ebe1de91f1b1f
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^4.9.3#optional!builtin<compat/typescript>":
   version: 4.9.4
   resolution: "typescript@patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: e7321aeb1e2c0e3c19599808707208e2b730de8d17a5624f0a7297b9a1ffa39974edd4a819108b3b635bc00171476ddfa339e04d928a03ce8d8c6944cb8ec008
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3Abeta#optional!builtin<compat/typescript>":
+  version: 5.0.0-beta
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-beta#optional!builtin<compat/typescript>::version=5.0.0-beta&hash=ad5954"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 3d8da49dcae4b4050d5f0083579520b766d468045385bcdb94af32e0a9e7dd5c7aea2a57dea61bf3681a7ece84420319fe115547861a12287258fc84ddd07c51
   languageName: node
   linkType: hard
 
