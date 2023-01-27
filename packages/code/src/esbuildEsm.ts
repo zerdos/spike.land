@@ -181,7 +181,7 @@ export const buildT = async (
 
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace}/index.js`,
+      `./live/${codeSpace}/index.tsx`,
       // `./live/${codeSpace}/index.tsx`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",
@@ -219,7 +219,7 @@ export const buildT = async (
         await unlink(f.path);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
-        await writeFile(f.path, f.contents);
+        await writeFile(f.path, f.contents as string);
       }
     });
 
