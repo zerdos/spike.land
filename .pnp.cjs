@@ -109,7 +109,7 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:8.0.1"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230126"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230127"],\
           ["p2pcf", "npm:1.3.13"],\
           ["playwright", "npm:1.30.0"],\
           ["react", "npm:18.2.0"],\
@@ -2743,7 +2743,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.throttle", "npm:4.1.1"],\
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230126"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230127"],\
           ["node-source-walk", "npm:5.0.0"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
@@ -2765,7 +2765,7 @@ const RAW_RUNTIME_STATE =
           ["stream-browserify", "npm:3.0.0"],\
           ["transferables", "npm:1.0.2"],\
           ["ts-md5", "npm:1.3.1"],\
-          ["tslib", "npm:2.4.1"],\
+          ["tslib", "npm:2.5.0"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
           ["util", "npm:0.12.5"],\
           ["uuid", "npm:9.0.0"],\
@@ -2843,7 +2843,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.throttle", "npm:4.1.1"],\
           ["memfs", "npm:3.4.13"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230126"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230127"],\
           ["node-source-walk", "npm:5.0.0"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:5.5.0"],\
@@ -2865,7 +2865,7 @@ const RAW_RUNTIME_STATE =
           ["stream-browserify", "npm:3.0.0"],\
           ["transferables", "npm:1.0.2"],\
           ["ts-md5", "npm:1.3.1"],\
-          ["tslib", "npm:2.4.1"],\
+          ["tslib", "npm:2.5.0"],\
           ["typescript", "patch:typescript@npm%3A4.9.4#optional!builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
           ["util", "npm:0.12.5"],\
           ["uuid", "npm:9.0.0"],\
@@ -13371,10 +13371,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.35.0-dev.20230126", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20230126-55049e5bf9-9.zip/node_modules/monaco-editor/",\
+      ["npm:0.35.0-dev.20230127", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.35.0-dev.20230127-43ab32e570-9.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.35.0-dev.20230126"]\
+          ["monaco-editor", "npm:0.35.0-dev.20230127"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13408,7 +13408,7 @@ const RAW_RUNTIME_STATE =
           ["js-tokens", "npm:8.0.1"],\
           ["localforage", "npm:1.10.0"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.35.0-dev.20230126"],\
+          ["monaco-editor", "npm:0.35.0-dev.20230127"],\
           ["p2pcf", "npm:1.3.13"],\
           ["playwright", "npm:1.30.0"],\
           ["react", "npm:18.2.0"],\
@@ -17370,6 +17370,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/tslib-npm-2.4.1-36f0ed04db-9.zip/node_modules/tslib/",\
         "packageDependencies": [\
           ["tslib", "npm:2.4.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.5.0", {\
+        "packageLocation": "./.yarn/global/cache/tslib-npm-2.5.0-bb364efebd-9.zip/node_modules/tslib/",\
+        "packageDependencies": [\
+          ["tslib", "npm:2.5.0"]\
         ],\
         "linkType": "HARD"\
       }]\
