@@ -1,6 +1,6 @@
 import { Mutex } from "async-mutex";
 import { Record } from "immutable";
-import ReconnectingWebSocket from "monorepo/.fixtures/ReconnectingWebSocket.js";
+import ReconnectingWebSocket from "reconnecting-websocket";
 
 import { ldb } from "./createDb";
 // import { m } from "framer-motion";
@@ -8,6 +8,7 @@ import { ldb } from "./createDb";
 // import { SEP } from "memfs/lib/node";
 import { str2ab } from "./sab";
 // import { CodeSession } from "./session";
+import { aPatch, CodePatch, ICodeSession, makeHash, makeSession, string_ } from "./makeSess";
 import type { Delta } from "./textDiff";
 
 // const hashStore: { [hash: string]: CodeSession } = {};
@@ -145,7 +146,7 @@ self.hashCodes = self.hashCodes || {};
 self.dbs = self.dbs || {};
 
 const { mod, counters, hashCodes, connections, sessions } = self;
-// bc.onmessage = ({ data }) => onMessage(data);
+bc.onmessage = ({ data }) => onMessage(data);
 
 async function onMessage(port: MessagePort, data: Data) {
   console.log("oMessage", {
@@ -268,7 +269,6 @@ async function onMessage(port: MessagePort, data: Data) {
   //   }
   // }
 }
-let iii = 0;
 
 export const onConnectToClients = () => {
   // me.addEventListener("message", (event) => {
