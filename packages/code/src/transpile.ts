@@ -1,14 +1,24 @@
 import { initialize, transform, version } from "esbuild-wasm";
 import { importMapReplace } from "./importMapReplace";
 
-const mod = self.mod = self.mod || {
-  init: false as (boolean | Promise<void> | NodeJS.Timeout),
-  initialize: (wasmModule: WebAssembly.Module) =>
-    mod.init || initialize({
-      wasmModule,
-      worker: false,
-    }).then(() => mod.init = true) as Promise<void>,
-};
+declare const self:
+  & ServiceWorkerGlobalScope
+  & {
+    mod: {
+      init: boolean | NodeJS.Timeout;
+      initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
+    };
+  };
+
+const mod = self.mod = self.mod
+  || {
+    init: false as (boolean | Promise<void> | NodeJS.Timeout),
+    initialize: (wasmModule: WebAssembly.Module) =>
+      (self.mod.init as boolean) || initialize({
+        wasmModule,
+        worker: false,
+      }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
+  };
 
 export const transpile = async (code: string, origin: string, wasmModule?: WebAssembly.Module) => {
   if (wasmModule) {
