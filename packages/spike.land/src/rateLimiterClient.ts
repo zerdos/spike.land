@@ -1,6 +1,6 @@
 // RateLimiterClient implements rate limiting logic on the caller's side.
 
-import { CodeRateLimiter } from ".";
+import { CodeRateLimiter } from "./rateLimiter";
 
 export class RateLimiterClient {
   private nextAllowedTime = 0;

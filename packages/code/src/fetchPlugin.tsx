@@ -64,8 +64,6 @@ export const fetchPlugin: (
       const code = await importMapReplace(
         await response.text(),
         origin,
-        args.path,
-        true,
       );
 
       if (args.path.indexOf(".tsx") !== -1) {
