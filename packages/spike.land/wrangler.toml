@@ -21,12 +21,6 @@ new_classes = ["Code", "CodeRateLimiter"] # Array of new classes
 tag = "v1" # Should be unique for each entry
 new_classes = ["Users"] # Array of new classes
 
-
-
-[[rules]]
-type = "CompiledWasm"
-globs = ["**/*.wasm"]
-
 [site]
 bucket = "../code/dist" # Add the directory with your static assets
  

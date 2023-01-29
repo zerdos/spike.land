@@ -9,4 +9,4 @@ main = "../code/dist/cf-esbuild.mjs"
 [[rules]]
 type = "CompiledWasm"
 globs = ["**/*.wasm"]
- 
+fallthrough = false
