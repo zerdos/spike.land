@@ -2143,7 +2143,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.17.4"
+    esbuild-wasm: "npm:0.17.5"
   languageName: unknown
   linkType: soft
 
@@ -2156,13 +2156,13 @@ __metadata:
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.17.4"
+    esbuild-wasm: "npm:0.17.5"
     immutable: "npm:4.2.2"
     js-tokens: "npm:8.0.1"
     module: "npm:^1.2.5"
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.0"
-    typescript: "npm:beta"
+    typescript: "npm:5.0.0-dev.20230129"
     wrangler: "npm:2.8.1"
   languageName: unknown
   linkType: soft
@@ -2208,15 +2208,15 @@ __metadata:
     buffer: "npm:^6.0.3"
     constants: "npm:^0.0.2"
     csstype: "npm:3.1.1"
-    esbuild-wasm: "npm:0.17.4"
-    eslint: "npm:^8.32.0"
-    eslint-plugin-react: "npm:^7.32.1"
+    esbuild-wasm: "npm:0.17.5"
+    eslint: "npm:^8.33.0"
+    eslint-plugin-react: "npm:^7.32.2"
     events: "npm:^3.3.0"
     fast-diff: "npm:1.2.0"
     fast-glob: "npm:3.2.12"
     fetch-retry: "npm:^5.0.3"
     file-type: "npm:^18.2.0"
-    framer-motion: "npm:8.5.3"
+    framer-motion: "npm:8.5.4"
     immutable: "npm:^4.2.2"
     ipfs-core: "npm:^0.18.0"
     ipfs-http-response: "npm:^6.0.0"
@@ -2229,7 +2229,7 @@ __metadata:
     lodash.throttle: "npm:^4.1.1"
     memfs: "npm:^3.4.13"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230127"
+    monaco-editor: "npm:0.35.0-dev.20230129"
     node-source-walk: "npm:^5.0.0"
     os-browserify: "npm:^0.3.0"
     p-map: "npm:5.5.0"
@@ -2252,7 +2252,7 @@ __metadata:
     transferables: "npm:^1.0.2"
     ts-md5: "npm:^1.3.1"
     tslib: "npm:^2.5.0"
-    typescript: "npm:beta"
+    typescript: "npm:5.0.0-dev.20230129"
     util: "npm:^0.12.5"
     uuid: "npm:^9.0.0"
     uvu: "npm:0.5.6"
@@ -2279,7 +2279,7 @@ __metadata:
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:^18.11.18"
-    esbuild-wasm: "npm:0.17.4"
+    esbuild-wasm: "npm:0.17.5"
   languageName: unknown
   linkType: soft
 
@@ -2338,8 +2338,8 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:^4.20230115.0"
     "@spike.land/code": "npm:0.9.2"
-    esbuild-wasm: "npm:0.17.4"
-    typescript: "npm:beta"
+    esbuild-wasm: "npm:0.17.5"
+    typescript: "npm:5.0.0-dev.20230129"
     wrangler: "npm:2.8.1"
   languageName: unknown
   linkType: soft
@@ -5506,9 +5506,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.4.0":
-  version: 12.4.0
-  resolution: "cypress@npm:12.4.0"
+"cypress@npm:12.4.1":
+  version: 12.4.1
+  resolution: "cypress@npm:12.4.1"
   dependencies:
     "@cypress/request": "npm:^2.88.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -5554,7 +5554,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 08765e6400fccabcf73be9d0c35a5846fa9c86ec7277f339588d1153d5f301d7c87ccc13f546a4154284cc11e3a246b137be86beeeae07d4df49b00dd188bbad
+  checksum: 4f00588cbd840498477595337fb0007002cd4fb32fbd585a15fca20d955ba7449bdc0837365ffb9ddbe3569945130c98652ecd1f6a3339ee0b6d2772d197df4a
   languageName: node
   linkType: hard
 
@@ -6203,12 +6203,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.17.4":
-  version: 0.17.4
-  resolution: "esbuild-wasm@npm:0.17.4"
+"esbuild-wasm@npm:0.17.5":
+  version: 0.17.5
+  resolution: "esbuild-wasm@npm:0.17.5"
   bin:
     esbuild: bin/esbuild
-  checksum: b612a9e117dcca1e4164c6af8bef3001bde690c5bdb4ad5c8917ab25cfc2744da9f4b0ccd4221262298e2f2422c2085da52fd84d79887f0e681c097678622ad6
+  checksum: 84a7e1774d9f31eef2ffe862616b9e08d4493598aed0087fc6a58d7bb2c31703455224af1ff02bf9a40119987d2897d94cdfa35a005cdf16d915e8a5da45a29d
   languageName: node
   linkType: hard
 
@@ -6460,9 +6460,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:^7.32.1":
-  version: 7.32.1
-  resolution: "eslint-plugin-react@npm:7.32.1"
+"eslint-plugin-react@npm:^7.32.2":
+  version: 7.32.2
+  resolution: "eslint-plugin-react@npm:7.32.2"
   dependencies:
     array-includes: "npm:^3.1.6"
     array.prototype.flatmap: "npm:^1.3.1"
@@ -6481,7 +6481,7 @@ __metadata:
     string.prototype.matchall: "npm:^4.0.8"
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 6d6ed632b4c3b1d99901caf6c65abe7eaeabd34f91f7b518846624085f2bf9134fb79b97242552a18a100819ef471ce9e0fb8fffcd4ae250f8b096634de8ddb0
+  checksum: c609be006eeb23f6cc28cbc43a97cc8724fd2ac1c33425bb8d5f93c3bd59ae1c136a9261afa0716ca9a81ffabcfb66ca5952bc84b934cb4f50d00c362fcf69b7
   languageName: node
   linkType: hard
 
@@ -6577,7 +6577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.27.0, eslint@npm:^8.32.0":
+"eslint@npm:^8.27.0":
   version: 8.32.0
   resolution: "eslint@npm:8.32.0"
   dependencies:
@@ -6623,6 +6623,55 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: cc00214baef7655ccf19f65017910e6f24786958a19f481fbbc9595060aad7437646ffde1d123d13aef60a0ff61ab09573bff0319679d632e87dd1d0f9878c3e
+  languageName: node
+  linkType: hard
+
+"eslint@npm:^8.33.0":
+  version: 8.33.0
+  resolution: "eslint@npm:8.33.0"
+  dependencies:
+    "@eslint/eslintrc": "npm:^1.4.1"
+    "@humanwhocodes/config-array": "npm:^0.11.8"
+    "@humanwhocodes/module-importer": "npm:^1.0.1"
+    "@nodelib/fs.walk": "npm:^1.2.8"
+    ajv: "npm:^6.10.0"
+    chalk: "npm:^4.0.0"
+    cross-spawn: "npm:^7.0.2"
+    debug: "npm:^4.3.2"
+    doctrine: "npm:^3.0.0"
+    escape-string-regexp: "npm:^4.0.0"
+    eslint-scope: "npm:^7.1.1"
+    eslint-utils: "npm:^3.0.0"
+    eslint-visitor-keys: "npm:^3.3.0"
+    espree: "npm:^9.4.0"
+    esquery: "npm:^1.4.0"
+    esutils: "npm:^2.0.2"
+    fast-deep-equal: "npm:^3.1.3"
+    file-entry-cache: "npm:^6.0.1"
+    find-up: "npm:^5.0.0"
+    glob-parent: "npm:^6.0.2"
+    globals: "npm:^13.19.0"
+    grapheme-splitter: "npm:^1.0.4"
+    ignore: "npm:^5.2.0"
+    import-fresh: "npm:^3.0.0"
+    imurmurhash: "npm:^0.1.4"
+    is-glob: "npm:^4.0.0"
+    is-path-inside: "npm:^3.0.3"
+    js-sdsl: "npm:^4.1.4"
+    js-yaml: "npm:^4.1.0"
+    json-stable-stringify-without-jsonify: "npm:^1.0.1"
+    levn: "npm:^0.4.1"
+    lodash.merge: "npm:^4.6.2"
+    minimatch: "npm:^3.1.2"
+    natural-compare: "npm:^1.4.0"
+    optionator: "npm:^0.9.1"
+    regexpp: "npm:^3.2.0"
+    strip-ansi: "npm:^6.0.1"
+    strip-json-comments: "npm:^3.1.0"
+    text-table: "npm:^0.2.0"
+  bin:
+    eslint: bin/eslint.js
+  checksum: 616877cf98325f619070e6c85b1bb4734fe99202871f5f43cbb9c56b13d7cacf8caa499c61c0a112541067be3b6143cd0497d1319950a4a1d355adeff8504596
   languageName: node
   linkType: hard
 
@@ -7238,9 +7287,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:8.5.3":
-  version: 8.5.3
-  resolution: "framer-motion@npm:8.5.3"
+"framer-motion@npm:8.5.4":
+  version: 8.5.4
+  resolution: "framer-motion@npm:8.5.4"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
@@ -7252,7 +7301,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 23b49caf4e427459f10f41b412f6e5bd4ecaf9cad3dbd50c9625a4af42254291dc97851e6d1d99af6383c976b54384a1119c692ab3f35e34e727a093b64d1173
+  checksum: 5e80ef1fe925cb23014d7bb4608c891f1a0200f6e7283d21e3bcf3725eeac82e7b91d8943b4db8f4d2c3a9f0bef53268eb38d2a609a3115907e6b9f893cefe94
   languageName: node
   linkType: hard
 
@@ -10910,10 +10959,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20230127":
-  version: 0.35.0-dev.20230127
-  resolution: "monaco-editor@npm:0.35.0-dev.20230127"
-  checksum: 324d44a759f1cdaa77c7441819c026cd642e469006f9497984d0fc5037c03068df7bb8f6ae1714ad5d105561113fc87fba75aa61161ba20454f3fcb226dbb784
+"monaco-editor@npm:0.35.0-dev.20230129":
+  version: 0.35.0-dev.20230129
+  resolution: "monaco-editor@npm:0.35.0-dev.20230129"
+  checksum: 0faf60ae07ac8b5bd8924291c67945dc0fa69bbc02c72162c7f3c0f0534e410c2fa5628dcbb9cfebdc6ed28021f4db820c5fe328c9d038d807cb0756b8cf960b
   languageName: node
   linkType: hard
 
@@ -10937,19 +10986,19 @@ __metadata:
     "@yarnpkg/plugin-typescript": "npm:^4.0.0-rc.36"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.36"
     constants: "npm:^0.0.2"
-    cypress: "npm:12.4.0"
+    cypress: "npm:12.4.1"
     dprint: "npm:^0.34.4"
-    eslint: "npm:^8.32.0"
-    eslint-plugin-react: "npm:^7.32.1"
+    eslint: "npm:^8.33.0"
+    eslint-plugin-react: "npm:^7.32.2"
     ipfs-http-response: "npm:^6.0.0"
     js-tokens: "npm:^8.0.1"
     localforage: "npm:^1.10.0"
     module: "npm:^1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230127"
+    monaco-editor: "npm:0.35.0-dev.20230129"
     p2pcf: "npm:^1.3.13"
     playwright: "npm:1.30.0"
     react: "npm:^18.2.0"
-    typescript: "npm:beta"
+    typescript: "npm:5.0.0-dev.20230129"
     util: "npm:^0.12.5"
     utils: "npm:^0.3.1"
     xo: "npm:^0.53.1"
@@ -11108,12 +11157,12 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:11.10.5"
     "@types/react-dom": "npm:18.0.10"
-    esbuild-wasm: "npm:0.17.4"
-    framer-motion: "npm:8.5.3"
+    esbuild-wasm: "npm:0.17.5"
+    framer-motion: "npm:8.5.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     serve: "npm:14.2.0"
-    typescript: "npm:beta"
+    typescript: "npm:5.0.0-dev.20230129"
   languageName: unknown
   linkType: soft
 
@@ -14513,6 +14562,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:5.0.0-dev.20230129":
+  version: 5.0.0-dev.20230129
+  resolution: "typescript@npm:5.0.0-dev.20230129"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 5c60f318056ba1d8858a3ff3ca77fb3568a5d375e018d33f1df13e52e9da08a3f4bd9a7fb5326aa9f80330c5914870bfba1034a55be4c225b76a89f76dca310a
+  languageName: node
+  linkType: hard
+
 "typescript@npm:^4.9.3":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
@@ -14523,13 +14582,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:beta":
-  version: 5.0.0-beta
-  resolution: "typescript@npm:5.0.0-beta"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230129#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230129
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230129#optional!builtin<compat/typescript>::version=5.0.0-dev.20230129&hash=ad5954"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 036c77994118855f806df5e346f9afc57dfc4044fd97d6aba23fd015633fff84790554748d65982a75a294e395b267e28f1fa9ec4bc5d576436ebe1de91f1b1f
+  checksum: 5123594c0063729d3f0fcd90b1eb44c3a5a87fc385744e6f7327f776c885b9187a35c9c31b43203301afd034a4d4edf35558d0c9e6b7dd909058478642c24ca4
   languageName: node
   linkType: hard
 
@@ -14540,16 +14599,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: e7321aeb1e2c0e3c19599808707208e2b730de8d17a5624f0a7297b9a1ffa39974edd4a819108b3b635bc00171476ddfa339e04d928a03ce8d8c6944cb8ec008
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3Abeta#optional!builtin<compat/typescript>":
-  version: 5.0.0-beta
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-beta#optional!builtin<compat/typescript>::version=5.0.0-beta&hash=ad5954"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 3d8da49dcae4b4050d5f0083579520b766d468045385bcdb94af32e0a9e7dd5c7aea2a57dea61bf3681a7ece84420319fe115547861a12287258fc84ddd07c51
   languageName: node
   linkType: hard
 
