@@ -36,7 +36,7 @@ export const transpile = async (code: string, origin: string, wasmModule?: WebAs
     }, 5000);
 
     const offLoadToServer = (code: string) =>
-      fetch(`https://js.spike.land`, {
+      fetch(`https://js.spike.land?v=${swVersion}`, {
         method: "POST",
         body: code,
         headers: { TR_ORIGIN: origin },

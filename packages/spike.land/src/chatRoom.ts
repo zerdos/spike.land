@@ -14,6 +14,7 @@ import { CodeEnv } from "./env";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
 import { Delta } from "../../code/src/textDiff";
+import shasum from "./dist.shasum";
 // import shaSum from "./dist.shasum";
 
 export { md5 };
@@ -146,7 +147,7 @@ export class Code implements DurableObject {
             this.#origin = url.origin;
           }
           if (this.#transpiled.length === 0) {
-            this.#transpiled = await fetch(`https://js.spike.land`, {
+            this.#transpiled = await fetch(`https://js.spike.land?v=${shasum}`, {
               method: "POST",
               body: this.session.code,
               headers: { TR_ORIGIN: this.#origin },
@@ -356,7 +357,7 @@ export class Code implements DurableObject {
             case "js": {
               this.#transpiled = this.#transpiled.length > 0
                 ? this.#transpiled
-                : await fetch(`https://js.spike.land`, {
+                : await fetch(`https://js.spike.land?v=${shasum}`, {
                   method: "POST",
                   body: this.session.code,
                   headers: { TR_ORIGIN: this.#origin },
