@@ -106,14 +106,16 @@ const fakeBackend = async (request: Request) => {
       const respText = HTML.replace(
         "/**reset*/",
         resetCSS + css,
-      ).replace(
-        `<div id="root"></div>`,
-        `<div id="root" style="height: 100%;">
+      )
+        .replace("ASSET_HASH", self.swVersion)
+        .replace(
+          `<div id="root"></div>`,
+          `<div id="root" style="height: 100%;">
         <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
           ${html}
         </div>
     </div>`,
-      );
+        );
 
       const headers = new Headers();
       headers.set("Access-Control-Allow-Origin", "*");

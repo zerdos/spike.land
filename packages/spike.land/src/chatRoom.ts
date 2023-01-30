@@ -4,7 +4,7 @@ import HTML from "./../../code/src/index.html";
 import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
-// import codeShaSum from "./dist.shasum";
+import codeShaSum from "./dist.shasum";
 
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
@@ -415,6 +415,7 @@ export class Code implements DurableObject {
                 "/**reset*/",
                 resetCSS + css,
               )
+                .replace("ASSET_HASH", codeShaSum)
                 .replace(
                   `<div id="root"></div>`,
                   `<div id="root" style="height: 100%;">
