@@ -1,4 +1,4 @@
-/// <reference types="@cloudflare/workers-types">
+import {} from "@cloudflare/workers-types";
 
 export async function handleErrors(
   request: Request<unknown>,
