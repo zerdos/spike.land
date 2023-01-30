@@ -65,7 +65,7 @@
     "@okikio/sharedworker": "^1.0.4",
     "@types/isomorphic-fetch": "^0.0.36",
     "@typescript-eslint/typescript-estree": "^5.49.0",
-    "@yarnpkg/fslib": "^3.0.0-rc.36",
+    "@yarnpkg/fslib": "^3.0.0-rc.37",
     "ace-builds": "1.15.0",
     "assert": "^2.0.0",
     "assert-browserify": "^2.0.0",

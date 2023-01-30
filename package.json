@@ -45,7 +45,7 @@
     "@types/react-dom": "18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
-    "@yarnpkg/sdks": "^3.0.0-rc.36",
+    "@yarnpkg/sdks": "^3.0.0-rc.37",
     "constants": "^0.0.2",
     "cypress": "12.4.1",
     "dprint": "^0.34.4",
@@ -64,12 +64,12 @@
     "xo": "^0.53.1"
   },
   "devDependencies": {
-    "@yarnpkg/cli": "^4.0.0-rc.36",
-    "@yarnpkg/core": "^4.0.0-rc.36",
-    "@yarnpkg/plugin-essentials": "^4.0.0-rc.36",
-    "@yarnpkg/plugin-git": "^3.0.0-rc.36",
-    "@yarnpkg/plugin-typescript": "^4.0.0-rc.36",
+    "@yarnpkg/cli": "^4.0.0-rc.37",
+    "@yarnpkg/core": "^4.0.0-rc.37",
+    "@yarnpkg/plugin-essentials": "^4.0.0-rc.37",
+    "@yarnpkg/plugin-git": "^3.0.0-rc.37",
+    "@yarnpkg/plugin-typescript": "^4.0.0-rc.37",
     "js-tokens": "^8.0.1"
   },
-  "packageManager": "yarn@4.0.0-rc.36"
+  "packageManager": "yarn@4.0.0-rc.37"
 }
