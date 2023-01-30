@@ -106,6 +106,11 @@ const fakeBackend = async (request: Request) => {
       const respText = HTML.replace(
         "/**reset*/",
         resetCSS + css,
+      ).replace(
+        "<script src=\"/swVersion.js\"></script>",
+        `<script>
+      window.swVersion = "${self.swVersion}"
+      </script>`,
       )
         .replace("ASSET_HASH", self.swVersion)
         .replace(

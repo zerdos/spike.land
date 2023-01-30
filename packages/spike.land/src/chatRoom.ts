@@ -416,6 +416,11 @@ export class Code implements DurableObject {
               const respText = HTML.replace(
                 "/**reset*/",
                 resetCSS + css,
+              ).replace(
+                "<script src=\"/swVersion.js\"></script>",
+                `<script>
+              window.swVersion = "${ASSET_HASH}"
+              </script>`,
               )
                 .replace("ASSET_HASH", ASSET_HASH)
                 .replace(
