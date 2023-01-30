@@ -3,8 +3,6 @@ import type {} from "@cloudflare/workers-types";
 // import {join} from "./rtc.mjs"
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-import shaSum from "./dist.shasum";
-
 import { importMapReplace } from "../../code/src/importMapReplace";
 
 import { importMap } from "../../code/src/importMap";
@@ -12,11 +10,9 @@ import { importMap } from "../../code/src/importMap";
 // import imap from "@spike.land/code/src/importMap.json";
 import { md5 } from "../../code/src/md5";
 
-import shasum from "./dist.shasum";
+import ASSET_HASH from "./dist.shasum";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
-
-const ASSET_HASH = shaSum.trim();
 
 const api: ExportedHandler<CodeEnv> = {
   fetch: (
@@ -244,22 +240,23 @@ const api: ExportedHandler<CodeEnv> = {
             });
 
           case "websocket": {
-            // if (request.headers.get("Upgrade") != "websocket") {
-            //   return new Response("expected websocket", { status: 400 });
-            // }
+            if (request.headers.get("Upgrade") != "websocket") {
+              return new Response("expected websocket", { status: 400 });
+            }
             //
             //          const paths = [...path.slice(1)];
             //
 
-            // const pair = new WebSocketPair();
-            const id = env.CODE.idFromName(ASSET_HASH);
-            const roomObject = env.CODE.get(id);
-            const newUrl = new URL(`${url.origin}/websocket/${ASSET_HASH}`);
-            return roomObject.fetch(new Request(newUrl.toString(), request));
+            const pair = new WebSocketPair();
+            pair[1].accept();
+            // const id = env.CODE.idFromName(ASSET_HASH);
+            // const roomObject = env.CODE.get(id);
+            // const newUrl = new URL(`${url.origin}/websocket/${ASSET_HASH}`);
+            // return roomObject.fetch(new Request(newUrl.toString(), request));
 
             // signaller({...pair[1]});
 
-            // return new Response(null, { status: 101, webSocket: pair[0] });
+            return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "files.json":
             return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
@@ -270,7 +267,7 @@ const api: ExportedHandler<CodeEnv> = {
               },
             });
           case "swVersion.js": {
-            return new Response(`self.swVersion = "${shasum}"`, {
+            return new Response(`self.swVersion = "${ASSET_HASH}"`, {
               headers: {
                 "content-type": "application/javascript; charset=utf-8",
                 "Cache-Control": "no-cache",

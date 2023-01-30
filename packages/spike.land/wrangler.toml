@@ -13,9 +13,9 @@ bindings = [
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
 
-[[r2_buckets]]
-binding = "R2_BUCKET" 
-bucket_name = "ze3w"
+# [[r2_buckets]]
+# binding = "R2_BUCKET" 
+# bucket_name = "ze3w"
 
 [[migrations]]
 tag = "v2" # Should be unique for each entry
@@ -44,6 +44,6 @@ bindings = [
 ]
 
 
-[[env.testing.r2_buckets]]
-binding = "R2_BUCKET" 
-bucket_name = "ze3w"
+# [[env.testing.r2_buckets]]
+# binding = "R2_BUCKET" 
+# bucket_name = "ze3w"
