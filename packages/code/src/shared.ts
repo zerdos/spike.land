@@ -5,7 +5,7 @@ import { RpcProvider } from "worker-rpc";
 let rpc: RpcProvider | null = null;
 const init = () => {
   if (rpc !== null) return rpc;
-  const worker = new SharedWorker("/ataWorker.js?" + swVersion);
+  const worker = new SharedWorker("/ataWorker.js?v=" + swVersion);
   rpc = new RpcProvider(
     message =>
       worker.port.postMessage(

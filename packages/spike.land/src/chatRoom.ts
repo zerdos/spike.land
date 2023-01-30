@@ -5,6 +5,7 @@ import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../co
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 import codeShaSum from "./dist.shasum";
+import { handleErrors } from "./handleErrors";
 
 // import { Mutex } from "async-mutex";
 // import AVLTree from "avl";
@@ -452,39 +453,6 @@ export class Code implements DurableObject {
         }) as unknown as () => Promise<Response>,
       )
     );
-
-    async function handleErrors(
-      request: Request,
-      cb: () => Promise<Response>,
-    ) {
-      try {
-        return await cb();
-      } catch (err) {
-        if (request.headers.get("Upgrade") === "websocket") {
-          let stack: string | undefined = "";
-
-          if (err instanceof Error) {
-            stack = err.stack;
-            console.log({ error: err.stack, message: err.message });
-          }
-
-          const pair = new WebSocketPair();
-          (pair[1] as unknown as WebSocket).accept();
-          pair[1].send(JSON.stringify({ error: stack }));
-          pair[1].close(1011, "Uncaught exception during session setup");
-          return new Response(null, { status: 101, webSocket: pair[0] });
-        } else {
-          let stack = "We have no idea what happened";
-
-          if (err instanceof Error) {
-            stack = err.stack || stack;
-            console.log({ error: err.stack, message: err.message });
-          }
-
-          return new Response(stack, { status: 500 });
-        }
-      }
-    }
   }
 
   async processWsMessage(
