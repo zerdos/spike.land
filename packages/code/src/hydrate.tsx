@@ -14,22 +14,23 @@ export { md5 };
 import { run } from "./ws";
 
 import { Workbox } from "workbox-window";
-export const sw = new Workbox("/sw.js");
+export const sw = new Workbox("/sw.js?v=" + swVersion);
 
 await sw.register();
 
 // sw.messageSkipWaiting();
-// if ("serviceWorker" in navigator) {
-
-//   navigator.serviceWorker.register("/sw.js").then((sw) => {
-//     navigator.serviceWorker.getRegistrations().then(
-//       workers =>
-//         Promise.all(
-//           workers.filter(
-//             (x) => x !== sw,
-//           ).map(x => x.unregister()),
-//         ),
-//     )
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").then((sw) => {
+    navigator.serviceWorker.getRegistrations().then(
+      workers =>
+        Promise.all(
+          workers.filter(
+            (x) => x !== sw,
+          ).map(x => x.unregister()),
+        ),
+    );
+  });
+}
 //       .then(
 //         () =>
 //           navigator.serviceWorker.getRegistrations().then(r =>
