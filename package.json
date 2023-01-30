@@ -27,7 +27,6 @@
     "docker:build": "yarn workspaces foreach --all run   docker:build",
     "docker:push": "yarn workspaces foreach --all run   docker:push",
     "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
-    "x:test": "xo && NODE_OPTIONS=--experimental-fetch yarn p:test",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
@@ -60,8 +59,7 @@
     "react": "^18.2.0",
     "typescript": "5.0.0-dev.20230130",
     "util": "^0.12.5",
-    "utils": "^0.3.1",
-    "xo": "^0.53.1"
+    "utils": "^0.3.1"
   },
   "devDependencies": {
     "@yarnpkg/cli": "^4.0.0-rc.37",
