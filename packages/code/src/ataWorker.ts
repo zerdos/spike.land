@@ -23,7 +23,7 @@ declare var self:
   & { transpile: typeof Transpile };
 
 // Object.assign(self, { fetch: globalThis.superFetch });
-
+importScripts("/swVersion.js");
 importScripts("/workerScripts/workerRpc.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/ata.js");
