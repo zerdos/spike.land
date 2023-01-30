@@ -22,7 +22,7 @@ export function importMapReplace(
     returnStr = replaceAll(
       returnStr,
       ` from "${lib}"`,
-      ` from "${importMapImports[lib]}"`,
+      ` from "${importMapImports[lib]}?v=${globalThis.assetHash || Math.random()}"`,
     );
   });
   returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
