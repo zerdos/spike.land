@@ -3,7 +3,7 @@
 import { CodeRateLimiter } from "./rateLimiter";
 
 export class RateLimiterClient {
-  private nextAllowedTime = 0;
+  // private nextAllowedTime = 0;
   private limiter;
   private inCooldown: boolean;
   // The constructor takes two functions:

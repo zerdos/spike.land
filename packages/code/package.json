@@ -145,15 +145,7 @@
     "ipfs-http-response": "^6.0.0",
     "popmotion": "11.0.5",
     "tslib": "^2.5.0",
-    "typescript": "5.0.0-dev.20230129",
+    "typescript": "5.0.0-dev.20230130",
     "uvu": "0.5.6"
-  },
-  "peerDependencies": {
-    "@motionone/dom": "*",
-    "fast-glob": "*",
-    "popmotion": "*"
-  },
-  "directories": {
-    "test": "tests"
   }
 }

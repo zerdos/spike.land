@@ -6,4 +6,5 @@ export interface CodeEnv extends EventInit {
   __STATIC_CONTENT: KVNamespace;
 
   LIMITERS: DurableObjectNamespace;
+  R2_BUCKET: R2Bucket;
 }

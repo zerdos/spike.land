@@ -1,3 +1,5 @@
+/// <reference types="@cloudflare/workers-types">
+
 export async function handleErrors(
   request: Request<unknown>,
   func: () => Promise<Response>,

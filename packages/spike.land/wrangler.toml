@@ -3,7 +3,7 @@ name = "spike-land"
 # Add your account ID here
 account_id = "1f98921051196545ebe79a450d3c71ed"
 usage_model = "unbound"
-compatibility_date = "2021-10-16"
+compatibility_date = "2022-06-30"
 main = "../code/dist/cf-workers.mjs"
 
 
@@ -12,6 +12,10 @@ bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
+
+[[r2_buckets]]
+binding = "R2_BUCKET" 
+bucket_name = "ze3w"
 
 [[migrations]]
 tag = "v2" # Should be unique for each entry
@@ -39,3 +43,7 @@ bindings = [
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
 
+
+[[env.testing.r2_buckets]]
+binding = "R2_BUCKET" 
+bucket_name = "ze3w"

@@ -1,4 +1,4 @@
 declare module "*.wasm" {
-  const fn: string;
+  declare const fn;
   export default fn;
 }
