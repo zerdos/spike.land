@@ -1,12 +1,11 @@
 import SharedWorker from "@okikio/sharedworker";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
-import assetHash from "./shasum.mjs";
 
 let rpc: RpcProvider | null = null;
 const init = () => {
   if (rpc !== null) return rpc;
-  const worker = new SharedWorker("/ataWorker.js?" + assetHash);
+  const worker = new SharedWorker("/ataWorker.js?" + swVersion);
   rpc = new RpcProvider(
     message =>
       worker.port.postMessage(

@@ -31,7 +31,7 @@ declare global {
   var isSharedWorker: boolean;
   // var session: ICodeSession;
   // var esbuildEsm: Transpile;
-  var assetHash: string;
+  var swVersion: string;
   var apps: { [key: string]: FC<{ appId: string }> };
   var eCaches: { [key: string]: EmotionCache };
   const emotionReact: typeof ear;
