@@ -103,7 +103,7 @@ function setConnections(signal: string) {
   if (!c.ws) {
     fetch(`/live/${codeSpace}/session`).then(s => s.json<ICodeSession>().then(ss => c.oldSession = makeSession(ss)));
     const ws = new ReconnectingWebSocket(
-      `https://${location.host}/live/${codeSpace}/websocket`,
+      `wss://${location.host}/live/${codeSpace}/websocket`,
     );
     c.ws = ws;
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
