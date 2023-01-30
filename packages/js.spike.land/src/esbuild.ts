@@ -1,5 +1,6 @@
 import wasmModule from "esbuild-wasm/esbuild.wasm";
 import { transpile } from "../../code/src/transpile";
+import codeShaSum from "./dist.shasum";
 
 // import wasmModule from "./esbuild-wasm/esbuild.wasm";
 // const wasmModule = new WebAssembly.Instance(mod).exports.Module;
@@ -36,7 +37,7 @@ export const initAndTransform = (
   code: string,
   // opts: TransformOptions,
   origin: string,
-) => transpile(code, origin, wasmModule);
+) => transpile(code, origin, wasmModule, codeShaSum);
 // const code = prettierJs(c)!;
 // const initFinished = mod.initialize();
 
@@ -48,7 +49,7 @@ export const initAndTransform = (
 export default {
   async fetch(request: Request) {
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN")!), {
+      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN")!, codeShaSum), {
         ...request,
         headers: {
           "Access-Control-Allow-Origin": "*",

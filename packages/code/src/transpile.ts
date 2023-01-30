@@ -20,7 +20,7 @@ const mod = self.mod = self.mod
       }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
   };
 
-export const transpile = async (code: string, origin: string, wasmModule?: WebAssembly.Module) => {
+export const transpile = async (code: string, origin: string, wasmModule?: WebAssembly.Module, codeShaSum = "") => {
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
@@ -62,7 +62,7 @@ export const transpile = async (code: string, origin: string, wasmModule?: WebAs
       },
     },
     target: "es2022",
-  }).then((x) => importMapReplace(x.code, origin));
+  }).then((x) => importMapReplace(x.code, origin, codeShaSum));
 };
 
 Object.assign(self, { transpile });
