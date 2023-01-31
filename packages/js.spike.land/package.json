@@ -18,8 +18,8 @@
     "@cloudflare/kv-asset-handler": "0.3.0",
     "@cloudflare/workers-types": "^4.20230115.0",
     "@spike.land/code": "0.9.2",
-    "typescript": "5.0.0-dev.20230130",
-    "wrangler": "2.8.1"
+    "typescript": "5.0.0-dev.20230131",
+    "wrangler": "2.9.0"
   },
   "dependencies": {
     "esbuild-wasm": "0.17.5"

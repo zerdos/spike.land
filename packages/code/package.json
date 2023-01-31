@@ -82,7 +82,7 @@
     "fast-diff": "1.2.0",
     "fetch-retry": "^5.0.3",
     "file-type": "^18.2.0",
-    "framer-motion": "8.5.4",
+    "framer-motion": "8.5.5",
     "immutable": "^4.2.2",
     "is-callable": "1.2.7",
     "isomorphic-fetch": "^3.0.0",
@@ -93,7 +93,7 @@
     "lodash.throttle": "^4.1.1",
     "memfs": "^3.4.13",
     "module": "^1.2.5",
-    "monaco-editor": "0.35.0-dev.20230129",
+    "monaco-editor": "0.35.0-dev.20230131",
     "node-source-walk": "^5.0.0",
     "os-browserify": "^0.3.0",
     "p-map": "5.5.0",
@@ -145,7 +145,7 @@
     "ipfs-http-response": "^6.0.0",
     "popmotion": "11.0.5",
     "tslib": "^2.5.0",
-    "typescript": "5.0.0-dev.20230130",
+    "typescript": "5.0.0-dev.20230131",
     "uvu": "0.5.6"
   }
 }
