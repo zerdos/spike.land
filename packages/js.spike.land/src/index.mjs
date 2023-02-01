@@ -34,9 +34,9 @@ Object.assign(globalThis, {
 // };
 
 export const initAndTransform = (
-  code: string,
+  code,
   // opts: TransformOptions,
-  origin: string,
+  origin,
   codeShaSum = "",
 ) => transpile(code, origin, wasmModule, codeShaSum);
 // const code = prettierJs(c)!;
@@ -48,9 +48,9 @@ export const initAndTransform = (
 // };
 
 export default {
-  async fetch(request: Request) {
+  async fetch(request) {
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN")!, ASSET_HASH), {
+      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN"), ASSET_HASH), {
         ...request,
         headers: {
           "Access-Control-Allow-Origin": "*",

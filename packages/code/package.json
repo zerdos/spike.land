@@ -121,7 +121,6 @@
     "worker-rpc": "0.2.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20230115.0",
     "@libp2p/interfaces": "3.3.1",
     "@motionone/dom": "10.15.5",
     "@types/eslint": "8.4.10",

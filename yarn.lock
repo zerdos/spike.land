@@ -2162,7 +2162,6 @@ __metadata:
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
     "@ampproject/worker-dom": "npm:0.34.0"
-    "@cloudflare/workers-types": "npm:4.20230115.0"
     "@emotion/cache": "npm:11.10.5"
     "@emotion/react": "npm:11.10.5"
     "@emotion/styled": "npm:11.10.5"
