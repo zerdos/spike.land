@@ -64,9 +64,6 @@
     "target": "esnext",
     "lib": [
       "esnext",
-      "DOM",
-      "WebWorker",
-      "DOM.Iterable",
       "ES2018.AsyncGenerator",
       "ES2020.SharedMemory",
       "ESNext.Promise",

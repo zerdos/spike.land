@@ -15,7 +15,6 @@ import { importMap } from "./importMap";
 // import { imports as importMapImports } from "./importMap.json";
 
 import { fetchPlugin } from "./fetchPlugin";
-import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 import { wait } from "./wait";
@@ -219,7 +218,7 @@ export const buildT = async (
         await unlink(f.path);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
-        await writeFile(f.path, f.contents as string);
+        await writeFile(f.path, f.contents as unknown as string);
       }
     });
 
@@ -229,38 +228,6 @@ export const buildT = async (
 };
 
 export { initAndTransform as transform };
-
-export async function esmTransform(code: string, origin: string) {
-  if (initDone === false) await mutex.waitForUnlock();
-  await mutex.acquire();
-  await mutex.release();
-  init(origin);
-  await wait(100);
-  await mutex.waitForUnlock();
-  // transform = transform || (await import(`./esbuildEsm`)).transform;
-  const transpiled = await transform(code, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    //   globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        useDefineForClassFields: false,
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react",
-      },
-    },
-    target: "es2022",
-  } as unknown as TransformOptions);
-
-  // apps[md5(transpiled.code)] = require(md5(code));
-  if (origin) return importMapReplace(transpiled.code, origin);
-  else return transpiled.code;
-}
 
 // export const transform = async (
 //   code: string,

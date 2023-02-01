@@ -6,7 +6,7 @@ import { transpile } from "./shared";
 
 Object.assign(globalThis, {
   build: (codeSpace: string, opts: any) => () =>
-    import("./esbuildEsm").then((eb) =>
+    import("./esbuildEsmBuild").then((eb) =>
       (({ buildT }) =>
         buildT(codeSpace, location.origin, (new AbortController()).signal, {
           bundle: true,
