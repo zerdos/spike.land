@@ -133,21 +133,20 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         initial={{
           padding: 0,
           top: 0,
-          backgroundColor: "rgba(0, 0,0, 0)",
-          backdropFilter: `blur(0px)`,
           right: 0,
+          backgroundColor: "rgba(0, 0,0, 0)",
           borderRadius: 0,
         }}
         animate={{
+          padding: 8,
           top: bottom,
           right: right,
-          backdropFilter: "blur(15px)",
-          padding: 8,
           backgroundColor: `${rgba(r | 96, g | 66, b || 160, a || .7)}`,
           borderRadius: 16,
         }}
         css={css`
           z-index: 10;
+          backdrop-filter: blur(15px);
           position: fixed;
         `}
         drag={true}
