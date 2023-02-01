@@ -8,7 +8,7 @@ var node = {
 };
 var deno = "1.29.4";
 var git = "2.39.1";
-var cypress = "12.4.1";
+var cypress = "12.5.0";
 var yarn = "1.22.19";
 var dotnet3 = "3.1.417";
 var dotnet5 = "5.0.406";
