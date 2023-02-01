@@ -143,7 +143,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           right: right,
           backdropFilter: "blur(15px)",
           padding: 8,
-          backgroundColor: `${rgba(r | 96, g | 66, b || 160, a || .3)}`,
+          backgroundColor: `${rgba(r | 96, g | 66, b || 160, a || .7)}`,
           borderRadius: 16,
         }}
         css={css`
