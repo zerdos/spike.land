@@ -1350,8 +1350,8 @@ __metadata:
   linkType: hard
 
 "@libp2p/tcp@npm:^6.0.2":
-  version: 6.1.1
-  resolution: "@libp2p/tcp@npm:6.1.1"
+  version: 6.1.2
+  resolution: "@libp2p/tcp@npm:6.1.2"
   dependencies:
     "@libp2p/interface-connection": "npm:^3.0.2"
     "@libp2p/interface-metrics": "npm:^4.0.0"
@@ -1362,7 +1362,7 @@ __metadata:
     "@multiformats/mafmt": "npm:^11.0.3"
     "@multiformats/multiaddr": "npm:^11.0.0"
     stream-to-it: "npm:^0.2.2"
-  checksum: 76f85f3fd8407589ea631d20c6d46925615b7eaff10a6713f2883d66c43f4345a0191d965f76e2a47a6aadb388a108b949d04dac8650d82c27a3d428667035c5
+  checksum: 48f7a4476772d7338324ed4a2d71d8c192c90dfc9831986f2d0f3978d6ae7b2e23834b6e40c594a87e3278030bccafe948b548144aff0bcd4be251714cc49424
   languageName: node
   linkType: hard
 
@@ -12218,9 +12218,9 @@ __metadata:
   linkType: hard
 
 "sdp@npm:^3.0.2":
-  version: 3.0.3
-  resolution: "sdp@npm:3.0.3"
-  checksum: a02ec104fa656cc8f8f79d1c68d03de47b28cd8d6baabcb98e322c553c2058ef3cdd3e0764dce6ecd27d3b8929c9bb18a81b646a689c06f17b69cd8ff200faf2
+  version: 3.1.0
+  resolution: "sdp@npm:3.1.0"
+  checksum: 4db3a8c2814fdb7a01564100e6cb5e581f885826852e455eb58c6b2c466d0f239e198f455df28bcde5b0620a0e9297b0cb5ee67f947badb0068973db08ad3aba
   languageName: node
   linkType: hard
 
