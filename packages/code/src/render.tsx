@@ -2,6 +2,7 @@ import { EmotionCache } from "@emotion/cache";
 import type { FC, ReactNode } from "react";
 
 import createCache from "./emotionCache";
+import { stat } from "./fs";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
 import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";
@@ -43,9 +44,19 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     document.body.appendChild(el);
 
     const myRoot = createRoot(el);
-    const App = data.transpiled ? await appFactory(data.transpiled) : ((await import(
+
+    const indexMjs = await stat("/live/" + codeSpace + "/index.mjs");
+    let AppBundled: typeof AppTranspiled;
+    const AppTranspiled = data.transpiled ? await appFactory(data.transpiled) : ((await import(
       location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
     )).default);
+    if (indexMjs.isFile()) {
+      AppBundled = (await import(
+        location.origin + "/live/" + codeSpace + "/index.mjs"
+      )).default;
+    }
+
+    const App = AppBundled || AppTranspiled;
 
     myRoot.render(
       <ParentSize>

@@ -17,15 +17,17 @@ export function importMapReplace(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
 
-  items.map((lib: keyof typeof importMapImports) => {
-    // const uri = (new URL(importMapImports[lib], origin)).toString();
+  if (swV !== "-1") {
+    items.map((lib: keyof typeof importMapImports) => {
+      // const uri = (new URL(importMapImports[lib], origin)).toString();
 
-    returnStr = replaceAll(
-      returnStr,
-      ` from "${lib}"`,
-      ` from "${importMapImports[lib]}?v=${typeof swVersion !== "undefined" ? swVersion : swV || Math.random()}"`,
-    );
-  });
+      returnStr = replaceAll(
+        returnStr,
+        ` from "${lib}"`,
+        ` from "${importMapImports[lib]}?v=${typeof swVersion !== "undefined" ? swVersion : swV || Math.random()}"`,
+      );
+    });
+  }
   returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
   returnStr.split("/::").join(origin);
   if (!returnStr) return returnStr;
@@ -115,6 +117,16 @@ export function importMapReplace(
   ).join(";");
 
   returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+
+  // if (swV==="-1") items.map((lib: keyof typeof importMapImports) => {
+  //   // const uri = (new URL(importMapImports[lib], origin)).toString();
+
+  //   returnStr = replaceAll(
+  //     returnStr,
+  //     ` from "${lib}"`,
+  //     ` from "${lib}"`
+  //   );
+  // });
 
   return returnStr;
 }

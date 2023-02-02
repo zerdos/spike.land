@@ -1,8 +1,8 @@
 import type { Plugin } from "esbuild-wasm";
 import { Loader } from "esbuild-wasm";
-import { transpile } from "./transpile";
+import { importMap } from "./importMap";
 // import { readFile } from "./fs";
-import { importMapReplace } from "./importMapReplace";
+// import { importMapReplace } from "./importMapReplace";
 
 // let fetchCache: Cache = {
 //   match: (req: Request) =>
@@ -16,8 +16,8 @@ import { importMapReplace } from "./importMapReplace";
 // import type * as esbuild from "esbuild-wasm";
 
 export const fetchPlugin: (
-  origin: string,
-) => Plugin = () => ({
+  transform: (code: string) => Promise<string>,
+) => Plugin = (transform) => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -34,8 +34,17 @@ export const fetchPlugin: (
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
-      path: new URL(args.path, args.importer).toString(),
+    build.onResolve({ filter: /^https?:\/\//, namespace: "http-url" }, (args) => ({
+      path: new URL(
+        (args.path.indexOf("/live/") !== -1 && args.path.indexOf(".tsx") === -1) ? args.path + "/index.tsx" : args.path,
+        args.importer,
+      ).toString(),
+      namespace: "http-url",
+    }));
+    build.onResolve({ filter: /^[a-z]+/, namespace: "http-url" }, (args) => ({
+      path: Object.keys(importMap.imports).includes(args.path)
+        ? args.path
+        : "https://esm.sh/*" + args.path + "?bundle=true",
       namespace: "http-url",
     }));
     build.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
@@ -61,14 +70,15 @@ export const fetchPlugin: (
         };
       }
 
-      const code = await importMapReplace(
-        await response.text(),
-        origin,
-      );
+      const code = await response.text(); // await importMapReplace(
+      //   await response.text(),
+      //   origin,
+      //   "-1"
+      // );
 
       if (args.path.indexOf(".tsx") !== -1) {
         return {
-          contents: await transpile(code, origin),
+          contents: await transform(code),
         };
       }
 

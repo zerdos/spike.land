@@ -15,9 +15,11 @@ import { importMap } from "./importMap";
 // import { imports as importMapImports } from "./importMap.json";
 
 import { fetchPlugin } from "./fetchPlugin";
+import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
 import { unpkgPathPlugin } from "./unpkg-path-plugin";
 import { wait } from "./wait";
+// import { transpile } from "./transpile";
 
 let initDone = false;
 const mutex = new Mutex();
@@ -80,15 +82,15 @@ const makeEnv = (environment: string) => ({
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
-    version: "v19.3.0",
+    version: "v19.5.0",
     versions: {
-      node: "v19.3.0",
+      node: "v19.5.0",
     },
     cwd: JSON.stringify(() => "/"),
 
     env: {
       NODE_ENV: `${environment}`,
-      version: "v19.3.0",
+      version: "v19.5.0",
       cwd: JSON.stringify(() => "/"),
       browser: true,
       isWebworker: true,
@@ -96,7 +98,7 @@ const makeEnv = (environment: string) => ({
       DEBUG: false,
       isBrowser: true,
       versions: {
-        node: "v19.3.0",
+        node: "v19.5.0",
       },
     },
     browser: true,
@@ -105,6 +107,26 @@ const makeEnv = (environment: string) => ({
 const define = makeEnv("development");
 
 export let skipImportmapReplaceNames = false;
+
+const transformTsx = (code: string) =>
+  transform(code, {
+    loader: "tsx",
+    format: "esm",
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    //   globalName: md5(code),
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        useDefineForClassFields: false,
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react",
+      },
+    },
+    target: "es2022",
+  }).then(r => r.code);
 
 export const buildT = async (
   codeSpace: string,
@@ -152,15 +174,12 @@ export const buildT = async (
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    external: [
-      "http-url:" + origin + "/src/*",
-      origin + "/react*",
-    ],
+    external: Object.keys(importMap.imports),
 
-    metafile: true,
-    alias: {
-      ...importMap.imports,
-    },
+    // metafile: false,
+    // alias: {
+    //  ...importMap.imports,
+    // },
 
     target: "es2022",
     outdir: `./live/${codeSpace}`,
@@ -193,7 +212,7 @@ export const buildT = async (
 
     tsconfig: "./tsconfig.json",
 
-    plugins: [unpkgPathPlugin(origin), fetchPlugin(origin)],
+    plugins: [unpkgPathPlugin(origin), fetchPlugin(transformTsx)],
     ...opts,
   };
   let b: BuildResult;
@@ -218,7 +237,7 @@ export const buildT = async (
         await unlink(f.path);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
-        await writeFile(f.path, f.contents as unknown as string);
+        await writeFile(f.path, importMapReplace(f.contents as unknown as string, location.origin));
       }
     });
 
