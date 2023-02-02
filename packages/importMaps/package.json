@@ -9,14 +9,14 @@
     "@types/react-dom": "18.0.10",
     "esbuild-wasm": "0.17.5",
     "serve": "14.2.0",
-    "typescript": "5.0.0-dev.20230201"
+    "typescript": "5.0.0-dev.20230202"
   },
   "scripts": {
     "dev": "node server.mjs && yarn serve --ssl-cert .certs/localhost.pem --ssl-key .certs/localhost-key.pem public"
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
-    "framer-motion": "9.0.0",
+    "framer-motion": "9.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
