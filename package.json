@@ -69,5 +69,8 @@
     "@yarnpkg/plugin-typescript": "4.0.0-rc.37",
     "js-tokens": "8.0.1"
   },
+  "peerDependencies": {
+    "@babel/core": "7.20.12"
+  },
   "packageManager": "yarn@4.0.0-rc.37"
 }
