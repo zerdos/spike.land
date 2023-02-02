@@ -2170,7 +2170,7 @@ __metadata:
     "@motionone/dom": "npm:10.15.5"
     "@mui/material": "npm:5.11.7"
     "@okikio/sharedworker": "npm:1.0.4"
-    "@types/eslint": "npm:8.4.10"
+    "@types/eslint": "npm:8.21.0"
     "@types/events": "npm:3.0.0"
     "@types/hoist-non-react-statics": "npm:3.3.1"
     "@types/is-callable": "npm:1.1.0"
@@ -2540,13 +2540,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.4.10":
-  version: 8.4.10
-  resolution: "@types/eslint@npm:8.4.10"
+"@types/eslint@npm:8.21.0":
+  version: 8.21.0
+  resolution: "@types/eslint@npm:8.21.0"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 459bcef9a9b7994668c32f853285bea5004dfce293511cf4a9596bdd00ee345a978e96bb82c773c2b03c486847f17194c2fcf36900ee3532549fecd7680f5fc1
+  checksum: ddb802f77b1a850666704019704588c0e3e1a5971865dc56a87b2722f3d5aa7290ccfff39ba59d7a13ee7c1c93150470029343e51b198a22d1596237fb9e5b95
   languageName: node
   linkType: hard
 
@@ -9847,7 +9847,7 @@ __metadata:
     "@emotion/react": "npm:11.10.5"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.30.0"
-    "@types/eslint": "npm:8.4.10"
+    "@types/eslint": "npm:8.21.0"
     "@types/react": "npm:18.0.27"
     "@types/react-dom": "npm:18.0.10"
     "@typescript-eslint/eslint-plugin": "npm:5.50.0"
