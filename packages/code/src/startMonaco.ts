@@ -2,10 +2,9 @@ import "monaco-editor/esm/vs/editor/edcore.main";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
-import { prettier } from "./shared";
 
 // import { transpileModule } from "typescript";
-import { ata } from "./shared";
+import { ata, prettier } from "./shared";
 // import localForage from "localforage";
 
 const { createModel } = editor;
