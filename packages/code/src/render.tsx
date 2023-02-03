@@ -50,7 +50,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     const AppTranspiled = data.transpiled ? await appFactory(data.transpiled) : ((await import(
       location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
     )).default);
-    if (indexMjs.isFile()) {
+    if (indexMjs) {
       AppBundled = (await import(
         location.origin + "/live/" + codeSpace + "/index.mjs"
       )).default;
