@@ -26,7 +26,9 @@ import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = Deno.env.get("NODE_ENV") === "production" ? "production" : "development";
+const environment = Deno.env.get("NODE_ENV") === "production"
+  ? "production"
+  : "development";
 
 // = "production" === "production"
 //   ? "production"
@@ -347,7 +349,9 @@ const build = (
 
   const dir = await Deno.readDir("./dist");
   for await (const file of dir) {
-    if (file.name.includes("esbuild") && file.name.includes(".wasm")) wasmFile = file.name;
+    if (file.name.includes("esbuild") && file.name.includes(".wasm")) {
+      wasmFile = file.name;
+    }
   }
 
   console.log(wasmFile);

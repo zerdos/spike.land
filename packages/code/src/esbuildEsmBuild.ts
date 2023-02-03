@@ -126,7 +126,7 @@ const transformTsx = (code: string) =>
       },
     },
     target: "es2022",
-  }).then(r => r.code);
+  }).then((r) => r.code);
 
 export const buildT = async (
   codeSpace: string,
@@ -237,7 +237,10 @@ export const buildT = async (
         await unlink(f.path);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
-        await writeFile(f.path, importMapReplace(f.contents as unknown as string, location.origin));
+        await writeFile(
+          f.path,
+          importMapReplace(f.contents as unknown as string, location.origin),
+        );
       }
     });
 

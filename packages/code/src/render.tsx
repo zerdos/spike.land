@@ -47,9 +47,11 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
 
     const indexMjs = await stat("/live/" + codeSpace + "/index.mjs");
     let AppBundled: typeof AppTranspiled;
-    const AppTranspiled = data.transpiled ? await appFactory(data.transpiled) : ((await import(
-      location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
-    )).default);
+    const AppTranspiled = data.transpiled
+      ? await appFactory(data.transpiled)
+      : ((await import(
+        location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
+      )).default);
     if (indexMjs) {
       AppBundled = (await import(
         location.origin + "/live/" + codeSpace + "/index.mjs"
@@ -231,7 +233,8 @@ export const render = async (
     </CacheProvider>,
   );
 
-  let i = (location.href.endsWith("iframe") || location.href.endsWith("/") || location.href.endsWith("public"))
+  let i = (location.href.endsWith("iframe") || location.href.endsWith("/")
+      || location.href.endsWith("public"))
     ? 100
     : 0;
   while (i-- > 0) {
@@ -347,7 +350,10 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   }
 }
 
-if (location.pathname.endsWith("/iframe") || location.pathname.endsWith("/") || location.pathname.endsWith("/public")) {
+if (
+  location.pathname.endsWith("/iframe") || location.pathname.endsWith("/")
+  || location.pathname.endsWith("/public")
+) {
   window.onmessage = async ({ data }) => {
     rerender(data);
   };

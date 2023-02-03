@@ -7,7 +7,7 @@ const init = () => {
   if (rpc !== null) return rpc;
   const worker = new SharedWorker("/ataWorker.js?v=" + swVersion);
   rpc = new RpcProvider(
-    message =>
+    (message) =>
       worker.port.postMessage(
         message,
         (hasTransferables(message as unknown)
@@ -29,7 +29,8 @@ export const ata = (
     filePath?: string;
   }[]>;
 
-export const transpile = ({ code, originToUse }: { code: string; originToUse: string }) =>
-  init().rpc("transpile", { code, originToUse }) as Promise<string>;
+export const transpile = (
+  { code, originToUse }: { code: string; originToUse: string },
+) => init().rpc("transpile", { code, originToUse }) as Promise<string>;
 
 export const connect = (codeSpace: string) => init().signal("connect", codeSpace);

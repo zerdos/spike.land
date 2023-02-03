@@ -41,7 +41,10 @@ export default function ParentSize({
   parentSizeStyles = defaultParentSizeStyles,
   enableDebounceLeadingCall = true,
   ...restProps
-}: ParentSizeProps & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ParentSizeProps>) {
+}:
+  & ParentSizeProps
+  & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ParentSizeProps>)
+{
   const target = useRef<HTMLDivElement | null>(null);
   const animationFrameID = useRef(0);
 
@@ -53,7 +56,9 @@ export default function ParentSize({
   });
 
   const resize = useMemo(() => {
-    const normalized = Array.isArray(ignoreDimensions) ? ignoreDimensions : [ignoreDimensions];
+    const normalized = Array.isArray(ignoreDimensions)
+      ? ignoreDimensions
+      : [ignoreDimensions];
 
     return debounce(
       (incoming: ParentSizeState) => {
@@ -89,7 +94,12 @@ export default function ParentSize({
   }, [resize]);
 
   return (
-    <div style={parentSizeStyles} ref={target} className={className} {...restProps}>
+    <div
+      style={parentSizeStyles}
+      ref={target}
+      className={className}
+      {...restProps}
+    >
       {children({
         ...state,
         ref: target.current,

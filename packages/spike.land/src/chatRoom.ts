@@ -66,11 +66,17 @@ export class Code implements DurableObject {
     } else {
       const head = makeHash(this.session);
 
-      this.state.storage.put(head, { ...this.session, oldHash: msg.oldHash, reversePatch: msg.reversePatch });
+      this.state.storage.put(head, {
+        ...this.session,
+        oldHash: msg.oldHash,
+        reversePatch: msg.reversePatch,
+      });
       this.state.storage.get(msg.oldHash).then((data: unknown) =>
         this.state.storage.put(msg.oldHash, {
-          oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash || "",
-          reversePatch: (data as { reversePatch?: string } || { reversePatch: "" }).reversePatch || [],
+          oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash
+            || "",
+          reversePatch: (data as { reversePatch?: string } || { reversePatch: "" })
+            .reversePatch || [],
           newHash: msg.newHash,
           patch: msg.patch,
         })
@@ -114,7 +120,8 @@ export class Code implements DurableObject {
         let s = await this.state.storage.get<ICodeSession>("session");
 
         if (!s || !s.i) {
-          const backupCode = await (await fetch("https://spike.land/live/code-main/index.tsx")).text();
+          const backupCode = await (await fetch("https://spike.land/live/code-main/index.tsx"))
+            .text();
           this.#backupSession.code = backupCode;
           await this.state.storage.put("session", this.#backupSession);
           s = this.#backupSession;
@@ -134,7 +141,7 @@ export class Code implements DurableObject {
   }
 
   fetch(request: Request) {
-    return this.state.storage.get("session").then(s => this.session = s as ICodeSession).then(() =>
+    return this.state.storage.get("session").then((s) => this.session = s as ICodeSession).then(() =>
       handleErrors(
         request,
         (async () => {
@@ -148,11 +155,14 @@ export class Code implements DurableObject {
             this.#origin = url.origin;
           }
           if (this.#transpiled.length === 0) {
-            this.#transpiled = await fetch(`https://js.spike.land?v=${shasum}`, {
-              method: "POST",
-              body: this.session.code,
-              headers: { TR_ORIGIN: this.#origin },
-            }).then(resp => resp.text());
+            this.#transpiled = await fetch(
+              `https://js.spike.land?v=${shasum}`,
+              {
+                method: "POST",
+                body: this.session.code,
+                headers: { TR_ORIGIN: this.#origin },
+              },
+            ).then((resp) => resp.text());
           }
           const path = url.pathname.slice(1).split("/");
           if (path.length === 0) path.push("");
@@ -221,38 +231,49 @@ export class Code implements DurableObject {
             case "tokens": {
               const tokens = Array.from(jsTokens(code, { jsx: true }));
 
-              return new Response(JSON.stringify(tokens.filter(x => x.type !== "WhiteSpace")), {
-                status: 200,
-                headers: new Headers({
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/json; charset=UTF-8",
-                }),
-              });
+              return new Response(
+                JSON.stringify(tokens.filter((x) => x.type !== "WhiteSpace")),
+                {
+                  status: 200,
+                  headers: new Headers({
+                    "Access-Control-Allow-Origin": "*",
+                    "Cross-Origin-Embedder-Policy": "require-corp",
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/json; charset=UTF-8",
+                  }),
+                },
+              );
             }
             case "token2": {
               const tokens = Array.from(jsTokens(code, { jsx: true }));
 
-              return new Response(tokens.filter(x => x.type !== "WhiteSpace").map(x => x.value).join(" "), {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/javascript; charset=UTF-8",
+              return new Response(
+                tokens.filter((x) => x.type !== "WhiteSpace").map((x) => x.value).join(" "),
+                {
+                  status: 200,
+                  headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Cross-Origin-Embedder-Policy": "require-corp",
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/javascript; charset=UTF-8",
+                  },
                 },
-              });
+              );
             }
 
             case "session.json":
             case "session": {
               if (path[1]) {
-                const session = await this.state.storage.get<string | object>(path[1], {
-                  allowConcurrency: false,
-                });
+                const session = await this.state.storage.get<string | object>(
+                  path[1],
+                  {
+                    allowConcurrency: false,
+                  },
+                );
                 if (session) {
-                  const s = makeSession(typeof session === "string" ? JSON.parse(session) : session);
+                  const s = makeSession(
+                    typeof session === "string" ? JSON.parse(session) : session,
+                  );
 
                   // const { i, transpiled, code, html, css } = session;
 
@@ -321,7 +342,9 @@ export class Code implements DurableObject {
               });
             }
             case "list": {
-              const list = await this.state.storage.list({ allowConcurrency: true });
+              const list = await this.state.storage.list({
+                allowConcurrency: true,
+              });
 
               return new Response(JSON.stringify({ ...list }), {
                 status: 200,
@@ -362,7 +385,7 @@ export class Code implements DurableObject {
                   method: "POST",
                   body: this.session.code,
                   headers: { TR_ORIGIN: this.#origin },
-                }).then(resp => resp.text());
+                }).then((resp) => resp.text());
 
               return new Response(this.#transpiled, {
                 headers: {
@@ -523,10 +546,10 @@ export class Code implements DurableObject {
         });
       }
 
-      this.#wsSessions.filter((x) => x.name === data.name).map(x =>
-        x.blockedMessages.reverse().map(m => session.webSocket.send(m)) && x
+      this.#wsSessions.filter((x) => x.name === data.name).map((x) =>
+        x.blockedMessages.reverse().map((m) => session.webSocket.send(m)) && x
       ).map((x) => x.quit = true);
-      this.#wsSessions = this.#wsSessions.filter(x => !x.quit);
+      this.#wsSessions = this.#wsSessions.filter((x) => !x.quit);
 
       session.name = data.name;
     }
@@ -552,7 +575,9 @@ export class Code implements DurableObject {
       }
     }
 
-    if (data.i && this.session.i && this.session.i > data.i) return respondWith({ error: "i is not up to date" });
+    if (data.i && this.session.i && this.session.i > data.i) {
+      return respondWith({ error: "i is not up to date" });
+    }
 
     try {
       try {

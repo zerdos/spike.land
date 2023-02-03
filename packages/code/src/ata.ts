@@ -122,7 +122,7 @@ export async function ata(
       const [, ...refs] = refParts;
       res = [
         ...res,
-        ...refs.map((r) => r.split(`"`)[0]).map(r =>
+        ...refs.map((r) => r.split(`"`)[0]).map((r) =>
           (r.startsWith(".") || r.startsWith("https:/"))
             ? r
             : new URL(r.slice(1), originToUse).toString()
@@ -177,10 +177,18 @@ export async function ata(
       //   content: `/// <reference path="${newBase}" />`,
       //   ref: r,
       // };
-      impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString()] =
-        impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString()]
+      impRes[
+        new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl)
+          .toString()
+      ] = impRes[
+        new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl)
+          .toString()
+      ]
         || {
-          url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl).toString(),
+          url: new URL(
+            r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts",
+            baseUrl,
+          ).toString(),
           content: `
           import mod from  "${newBase}";
           export * from "${newBase}";

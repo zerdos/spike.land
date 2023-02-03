@@ -34,13 +34,19 @@ export const fetchPlugin: (
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    build.onResolve({ filter: /^https?:\/\//, namespace: "http-url" }, (args) => ({
-      path: new URL(
-        (args.path.indexOf("/live/") !== -1 && args.path.indexOf(".tsx") === -1) ? args.path + "/index.tsx" : args.path,
-        args.importer,
-      ).toString(),
-      namespace: "http-url",
-    }));
+    build.onResolve(
+      { filter: /^https?:\/\//, namespace: "http-url" },
+      (args) => ({
+        path: new URL(
+          (args.path.indexOf("/live/") !== -1
+              && args.path.indexOf(".tsx") === -1)
+            ? args.path + "/index.tsx"
+            : args.path,
+          args.importer,
+        ).toString(),
+        namespace: "http-url",
+      }),
+    );
     build.onResolve({ filter: /^[a-z]+/, namespace: "http-url" }, (args) => ({
       path: Object.keys(importMap.imports).includes(args.path)
         ? args.path

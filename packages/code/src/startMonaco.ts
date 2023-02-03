@@ -133,7 +133,7 @@ const monacoContribution = (
 
       const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
-      fetch(extraModel).then((res) => res.text()).then(content => {
+      fetch(extraModel).then((res) => res.text()).then((content) => {
         console.log(`adding extra models: ${mUri.toString()}`, { content });
         editor.getModel(mUri) || createModel(
           content,

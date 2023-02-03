@@ -91,9 +91,9 @@ const fakeBackend = async (request: Request) => {
   if (paths[1] === "live") {
     const codeSpace = paths[2];
 
-    const { code, css, html, i } = await fetch(`${url.origin}/live/${codeSpace}/session.json`).then(x =>
-      x.json<ICodeSession>()
-    );
+    const { code, css, html, i } = await fetch(
+      `${url.origin}/live/${codeSpace}/session.json`,
+    ).then((x) => x.json<ICodeSession>());
 
     if (
       url.pathname === `/live/${codeSpace}/iframe`

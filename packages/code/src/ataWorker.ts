@@ -62,7 +62,7 @@ const start = (port: MessagePort) => {
   );
 };
 
-self.onconnect = e => {
+self.onconnect = (e) => {
   let [port] = e.ports;
   start(port);
 };
@@ -101,7 +101,9 @@ function setConnections(signal: string) {
   };
 
   if (!c.ws) {
-    fetch(`/live/${codeSpace}/session`).then(s => s.json<ICodeSession>().then(ss => c.oldSession = makeSession(ss)));
+    fetch(`/live/${codeSpace}/session`).then((s) =>
+      s.json<ICodeSession>().then((ss) => c.oldSession = makeSession(ss))
+    );
     const ws = new ReconnectingWebSocket(
       `wss://${location.host}/live/${codeSpace}/websocket`,
     );
@@ -128,7 +130,11 @@ function setConnections(signal: string) {
           if (patchMessage.oldHash === oldHash) {
             c.oldSession = newSession;
             ws.send(
-              JSON.stringify({ ...patchMessage, i: newSession.i, name: c.user }),
+              JSON.stringify({
+                ...patchMessage,
+                i: newSession.i,
+                name: c.user,
+              }),
             );
 
             // BC.postMessage(
@@ -156,8 +162,10 @@ function setConnections(signal: string) {
         ws.send(JSON.stringify({ name: c.user }));
 
         if (makeHash(c.oldSession) !== String(data.hashCode)) {
-          c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-          const transpiled = data.transpiled || await transpile(c.oldSession.code, location.origin);
+          c.oldSession = await (await fetch(`/live/${codeSpace}/session`))
+            .json();
+          const transpiled = data.transpiled
+            || await transpile(c.oldSession.code, location.origin);
 
           BC.postMessage({ ...c.oldSession, transpiled });
           return;
@@ -187,7 +195,9 @@ function setConnections(signal: string) {
           const oldHash = makeHash(oldSession);
 
           if (oldHash !== String(data.oldHash)) {
-            c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
+            c.oldSession = makeSession(
+              await (await fetch(`/live/${codeSpace}/session`)).json(),
+            );
 
             console.log(c.oldSession);
             BC.postMessage(c.oldSession);
@@ -204,7 +214,9 @@ function setConnections(signal: string) {
             return;
           }
 
-          c.oldSession = makeSession(await (await fetch(`/live/${codeSpace}/session`)).json());
+          c.oldSession = makeSession(
+            await (await fetch(`/live/${codeSpace}/session`)).json(),
+          );
 
           console.log(c.oldSession);
           BC.postMessage(c.oldSession);

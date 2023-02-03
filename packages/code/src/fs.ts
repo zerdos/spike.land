@@ -67,4 +67,12 @@ export const mkdir = (filePath: string) => mutex.runExclusive(() => p.mkdir(file
 export const stat = (filePath: string) => mutex.runExclusive(() => p.readFile(filePath).catch(() => false));
 
 export default { readFile, unlink, mkdir, writeFile, readdir, Mutex, stat };
-Object.assign(self, { readFile, unlink, mkdir, writeFile, readdir, Mutex, stat });
+Object.assign(self, {
+  readFile,
+  unlink,
+  mkdir,
+  writeFile,
+  readdir,
+  Mutex,
+  stat,
+});

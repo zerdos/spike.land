@@ -6,7 +6,9 @@ declare const self:
   & {
     mod: {
       init: boolean | NodeJS.Timeout;
-      initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
+      initialize: (
+        wasmModule: WebAssembly.Module,
+      ) => Promise<boolean> | boolean;
     };
   };
 
@@ -20,7 +22,12 @@ const mod = self.mod = self.mod
       }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
   };
 
-export const transpile = async (code: string, origin: string, wasmModule?: WebAssembly.Module, codeShaSum = "") => {
+export const transpile = async (
+  code: string,
+  origin: string,
+  wasmModule?: WebAssembly.Module,
+  codeShaSum = "",
+) => {
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
@@ -40,7 +47,7 @@ export const transpile = async (code: string, origin: string, wasmModule?: WebAs
         method: "POST",
         body: code,
         headers: { TR_ORIGIN: origin },
-      }).then(resp => resp.text());
+      }).then((resp) => resp.text());
 
     if (mod.init !== true) return offLoadToServer(code);
   }

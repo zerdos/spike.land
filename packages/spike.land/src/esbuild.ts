@@ -74,7 +74,14 @@ export default {
   async fetch(request: Request) {
     // const url = new URL(request.url);
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), {}, request.headers.get("TR_ORIGIN")!), request);
+      return new Response(
+        await initAndTransform(
+          await request.text(),
+          {},
+          request.headers.get("TR_ORIGIN")!,
+        ),
+        request,
+      );
     }
   },
 };

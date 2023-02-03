@@ -52,7 +52,7 @@
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
     "composite": true,
-    "rootDir": "..",   
+    "rootDir": "..",
 
     "removeComments": true,
     "module": "ESNext",
@@ -72,7 +72,7 @@
   },
   "include": [
     "src",
-    "../spike.land/src"],
+    "../spike.land/src"
+  ],
   "exclude": [".yarn", "dist"]
-  
 }

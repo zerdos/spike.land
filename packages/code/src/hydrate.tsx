@@ -22,11 +22,11 @@ await sw.register();
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then((sw) => {
     navigator.serviceWorker.getRegistrations().then(
-      workers =>
+      (workers) =>
         Promise.all(
           workers.filter(
             (x) => x !== sw,
-          ).map(x => x.unregister()),
+          ).map((x) => x.unregister()),
         ),
     );
   });

@@ -147,7 +147,8 @@ const Editor: FC<
 
   BC.onmessage = async ({ data }) => {
     if (
-      (!data || !data.i && data.code) || mod.i >= Number(data.i) || !data.code && !data.html
+      (!data || !data.i && data.code) || mod.i >= Number(data.i)
+      || !data.code && !data.html
     ) return;
     mod.i = Number(data.i);
     mod.code = data.code;

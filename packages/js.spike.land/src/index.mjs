@@ -50,13 +50,20 @@ export const initAndTransform = (
 export default {
   async fetch(request) {
     if (request.method === "POST") {
-      return new Response(await initAndTransform(await request.text(), request.headers.get("TR_ORIGIN"), ASSET_HASH), {
-        ...request,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
+      return new Response(
+        await initAndTransform(
+          await request.text(),
+          request.headers.get("TR_ORIGIN"),
+          ASSET_HASH,
+        ),
+        {
+          ...request,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+          },
         },
-      });
+      );
     }
     return new Response("try to POST", {
       headers: {
