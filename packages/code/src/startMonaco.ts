@@ -46,7 +46,7 @@ const lib = [
   // "es2018.regexp",
   // "es2019.array",
   // "es2019",
-  // "es2019.full",
+  // "es2019.full",ata
   // "es2019.object",
   // "es2019.string",
   // "es2019.symbol",
@@ -114,7 +114,7 @@ const monacoContribution = (
 
   (() => {
     const search = new RegExp(
-      ` from "(${originToUse})?/live/[a-zA-Z]+`,
+      ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
       "gm",
     );
 
