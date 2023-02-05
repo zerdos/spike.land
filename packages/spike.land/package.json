@@ -20,7 +20,7 @@
     "@spike.land/code": "0.9.2",
     "@types/babel__core": "^7.20.0",
     "module": "1.2.5",
-    "typescript": "5.0.0-dev.20230204",
+    "typescript": "5.0.0-dev.20230205",
     "wrangler": "2.9.0"
   },
   "dependencies": {
@@ -31,7 +31,7 @@
     "immutable": "4.2.3",
     "js-tokens": "8.0.1",
     "p-map": "5.5.0",
-    "p-queue": "7.3.0",
+    "p-queue": "7.3.3",
     "prom-client": "^14.1.1"
   },
   "publishConfig": {

@@ -2230,9 +2230,9 @@ __metadata:
     js-tokens: "npm:8.0.1"
     module: "npm:1.2.5"
     p-map: "npm:5.5.0"
-    p-queue: "npm:7.3.0"
+    p-queue: "npm:7.3.3"
     prom-client: "npm:^14.1.1"
-    typescript: "npm:5.0.0-dev.20230204"
+    typescript: "npm:5.0.0-dev.20230205"
     wrangler: "npm:2.9.0"
   languageName: unknown
   linkType: soft
@@ -2257,7 +2257,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.11.18"
+    "@types/node": "npm:18.11.19"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.0.27"
@@ -2298,7 +2298,7 @@ __metadata:
     lodash.throttle: "npm:4.1.1"
     memfs: "npm:3.4.13"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230204"
+    monaco-editor: "npm:0.35.0-dev.20230205"
     node-source-walk: "npm:5.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:5.5.0"
@@ -2321,7 +2321,7 @@ __metadata:
     transferables: "npm:1.0.2"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.0-dev.20230204"
+    typescript: "npm:5.0.0-dev.20230205"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -2346,7 +2346,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.11.18"
+    "@types/node": "npm:18.11.19"
     esbuild-wasm: "npm:0.17.5"
   languageName: unknown
   linkType: soft
@@ -2406,7 +2406,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230115.0"
     esbuild-wasm: "npm:0.17.5"
-    typescript: "npm:5.0.0-dev.20230204"
+    typescript: "npm:5.0.0-dev.20230205"
     wrangler: "npm:2.9.0"
   languageName: unknown
   linkType: soft
@@ -2736,10 +2736,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.11.18, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
+"@types/node@npm:*, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
   version: 18.11.18
   resolution: "@types/node@npm:18.11.18"
   checksum: bd39552701928d4a1613bc46adf8b65f8212064c2b5475a67161b6c4cef21ddb0a5c2ba062673213f8f5301ef6e171241a9e274a9b59c9fc1f5e2b69764740eb
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.11.19":
+  version: 18.11.19
+  resolution: "@types/node@npm:18.11.19"
+  checksum: 72c822bd403b89a7c1fe59fd9360d29f2373459cdcf890fe6260c7413f936d89e5d154bdeb701bc833936ee88e87776ae9a4dc2b654ba111babbdebac1e67228
   languageName: node
   linkType: hard
 
@@ -9026,10 +9033,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20230204":
-  version: 0.35.0-dev.20230204
-  resolution: "monaco-editor@npm:0.35.0-dev.20230204"
-  checksum: 68e3e364569b874ff72b473bccec355d4a834473fa3c93ce165676dcfd391ce7280e80fe830b802bd650d4db86255744cd4dec3dc8b02d3ec83ea64fae2e777a
+"monaco-editor@npm:0.35.0-dev.20230205":
+  version: 0.35.0-dev.20230205
+  resolution: "monaco-editor@npm:0.35.0-dev.20230205"
+  checksum: fdbb40e77759d9b1a52ae97e4b5d65eb01664ad475aebe3897b1ff1bac0131f88b9dea0f8e2e59bd2826681312135b28fde1f8160c1e2fd87605870bc992946c
   languageName: node
   linkType: hard
 
@@ -9055,11 +9062,11 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230204"
+    monaco-editor: "npm:0.35.0-dev.20230205"
     p2pcf: "npm:1.3.13"
     playwright: "npm:1.30.0"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.0-dev.20230204"
+    typescript: "npm:5.0.0-dev.20230205"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   peerDependencies:
@@ -9701,7 +9708,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-queue@npm:7.3.0, p-queue@npm:^7.2.0, p-queue@npm:^7.3.0":
+"p-queue@npm:7.3.3":
+  version: 7.3.3
+  resolution: "p-queue@npm:7.3.3"
+  dependencies:
+    eventemitter3: "npm:^4.0.7"
+    p-timeout: "npm:^5.0.2"
+  checksum: b86d10a7aa9dc423b88306b0d002666a33f83f9791540cf00b050066c47adb6d5745ba12a946b511270bea9a913545b7db648f731fe832123f658759e90defec
+  languageName: node
+  linkType: hard
+
+"p-queue@npm:^7.2.0, p-queue@npm:^7.3.0":
   version: 7.3.0
   resolution: "p-queue@npm:7.3.0"
   dependencies:
@@ -11977,23 +11994,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.0-dev.20230204":
-  version: 5.0.0-dev.20230204
-  resolution: "typescript@npm:5.0.0-dev.20230204"
+"typescript@npm:5.0.0-dev.20230205":
+  version: 5.0.0-dev.20230205
+  resolution: "typescript@npm:5.0.0-dev.20230205"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 024728f865269cbbc23b7d4d252973195612235fbf926e9cd1a1deb9a89816d1ea63c86ac37c62d7eef82050830736322824d65ce8d2ee15d48f883545373564
+  checksum: 9bd9da6986870c24c9c2e27f5934466f057eeff49126efebb7c41051dfcb49c9dd1ed3f7f84914b9710534f77c2b53a8139e3a9ac02b0c360a48fad4c58831d1
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.0-dev.20230204#optional!builtin<compat/typescript>":
-  version: 5.0.0-dev.20230204
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230204#optional!builtin<compat/typescript>::version=5.0.0-dev.20230204&hash=1f5320"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230205#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230205
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230205#optional!builtin<compat/typescript>::version=5.0.0-dev.20230205&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 32ff25b243f9d785b9507be26a7182060d31dfddcf9af001b82a163b1092a5645d30fbede6a82d8946280b94fd2bf3b8406250f8e833f68946c81dc85749d518
+  checksum: a0225231dbb29922133dbc5d6cc370497e48931d9c56b949a153cc7751ab5224ce7382d48e668dc5b99db4810f533b3e5cea0e5907f2459f9f38f89e824eeeac
   languageName: node
   linkType: hard
 
