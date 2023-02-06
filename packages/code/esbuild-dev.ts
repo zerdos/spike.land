@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.17.5/mod.js";
+import * as esbuild from "https://deno.land/x/esbuild@v0.17.6/mod.js";
 
 import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 
@@ -12,7 +12,7 @@ import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
 // fetch(`https://testing.spike.land/esbuild-wasm@${pkg.version}/esbuild.wasm`)
 //  .then((x) => x.blob()).then((b) => Deno.writeAllSync(`./dist/src/esbuild-${pkg.version}.wasm`, b));
 
-// impor/dist.shasum.jst { cp } from "node:fs/promises";
+// import/dist.shasum.jst { cp } from "node:fs/promises";
 // import impMap from "./importMaps.json" assert {type: "json"};
 
 // import { resolve } from "node:path";
