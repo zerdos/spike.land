@@ -4932,9 +4932,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.286
-  resolution: "electron-to-chromium@npm:1.4.286"
-  checksum: cb4743db6932e9b9caa8694f517033dfbd614741cf093f41985d972f896fc95826c54633ebf92228fe1761332e3b2609a3a39bb7f7e6872cd0bb7fb6b5182160
+  version: 1.4.288
+  resolution: "electron-to-chromium@npm:1.4.288"
+  checksum: 48d36585a444ac71a652f8791a4201d0cea7e4fce14529c65fb1b1e42d912e811b0434057b902657f5a62e8aa2915f88464e992c2227a0715d9640f6434efc81
   languageName: node
   linkType: hard
 
@@ -4977,16 +4977,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io-client@npm:~6.2.3":
-  version: 6.2.3
-  resolution: "engine.io-client@npm:6.2.3"
+"engine.io-client@npm:~6.4.0":
+  version: 6.4.0
+  resolution: "engine.io-client@npm:6.4.0"
   dependencies:
     "@socket.io/component-emitter": "npm:~3.1.0"
     debug: "npm:~4.3.1"
     engine.io-parser: "npm:~5.0.3"
-    ws: "npm:~8.2.3"
+    ws: "npm:~8.11.0"
     xmlhttprequest-ssl: "npm:~2.0.0"
-  checksum: ff253f320a3d347e9f13d5726fa464db1842bdd3b9c254a24e567ce08a2101b4cb6173251ee7424a40a06665b261d200f408812715f836f2b47ac6bd3375f925
+  checksum: 08d7861af7946e5ceb9f830447b9fc26a173f2d0ed476260c43fe5ea8fedb34ad41c27050bc07aa07d54df63ffe74d246f9b4ccd0f657baf485f5b395d9ce28c
   languageName: node
   linkType: hard
 
@@ -9701,23 +9701,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-queue@npm:7.3.4":
+"p-queue@npm:7.3.4, p-queue@npm:^7.2.0, p-queue@npm:^7.3.0":
   version: 7.3.4
   resolution: "p-queue@npm:7.3.4"
   dependencies:
     eventemitter3: "npm:^4.0.7"
     p-timeout: "npm:^5.0.2"
   checksum: f2a163b1ac35ea31c19b1b7dee2223126605dd945b29c265427a5d1840fe35b231e8e7db4e93e7c8d9e074b4e3abd9eceaea1f5c820634dfe3a972da2fa6e914
-  languageName: node
-  linkType: hard
-
-"p-queue@npm:^7.2.0, p-queue@npm:^7.3.0":
-  version: 7.3.3
-  resolution: "p-queue@npm:7.3.3"
-  dependencies:
-    eventemitter3: "npm:^4.0.7"
-    p-timeout: "npm:^5.0.2"
-  checksum: b86d10a7aa9dc423b88306b0d002666a33f83f9791540cf00b050066c47adb6d5745ba12a946b511270bea9a913545b7db648f731fe832123f658759e90defec
   languageName: node
   linkType: hard
 
@@ -11156,14 +11146,14 @@ __metadata:
   linkType: hard
 
 "socket.io-client@npm:^4.1.2":
-  version: 4.5.4
-  resolution: "socket.io-client@npm:4.5.4"
+  version: 4.6.0
+  resolution: "socket.io-client@npm:4.6.0"
   dependencies:
     "@socket.io/component-emitter": "npm:~3.1.0"
     debug: "npm:~4.3.2"
-    engine.io-client: "npm:~6.2.3"
+    engine.io-client: "npm:~6.4.0"
     socket.io-parser: "npm:~4.2.1"
-  checksum: 44988ca5d1686520393a496172b6b4111768e0edcd2a8190d3b782a6223fc67d8dde23808347c25cc0e5b0543a124c1097aecb80bc36f444f56de1c94cafccff
+  checksum: f0200eb7e13a18f6603b6350c30f06df33a6a32de97a10df281f8dcfbbab59f177c0b1e1d5879e8b03045c01acdc15a1d3e34576386b68b79d9faae828b16e15
   languageName: node
   linkType: hard
 
@@ -12565,9 +12555,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:~8.2.3":
-  version: 8.2.3
-  resolution: "ws@npm:8.2.3"
+"ws@npm:~8.11.0":
+  version: 8.11.0
+  resolution: "ws@npm:8.11.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -12576,7 +12566,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 2994fec3e2698d099b02be87f4c8e1a9da043320f27f4698139b0835d596beb704063339a9e703b925e2f761a42ab586ea207343b3f22d02518d8a60fb5820f7
+  checksum: c573e020b665b724acf6d5500c117f2c117f2b07b7414700a5fe61fd03e850578649f951851afca3d7885ef2ee6ecd83881abb2ebe005defd62aeb657e13a9be
   languageName: node
   linkType: hard
 
