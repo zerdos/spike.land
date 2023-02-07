@@ -485,7 +485,7 @@ async function startMonacoPristine(
       mod.silent = true;
 
       model.applyEdits(data.changes);
-      // mod.silent = false;
+      mod.silent = false;
     }
   };
 
@@ -500,7 +500,9 @@ async function startMonacoPristine(
     }, 1000);
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
-    BC.postMessage(JSON.parse(JSON.stringify({ changes: ev.changes })));
+    if (!mod.silent) {
+      BC.postMessage(JSON.parse(JSON.stringify({ changes: ev.changes })));
+    }
 
     // console.log({ version: model.getVersionId(), ev });
 
