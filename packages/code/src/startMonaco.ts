@@ -445,7 +445,9 @@ async function startMonacoPristine(
       } catch {
         console.error("error while saving the state");
       } finally {
-        mod.silent = false;
+        setTimeout(() => {
+          mod.silent = false;
+        }, 500);
       }
     },
   };
@@ -481,6 +483,7 @@ async function startMonacoPristine(
   // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
   // viewState: myEditor.saveViewState()};
   BC.onmessage = ({ data }: { data: { changes?: editor.IModelContentChange[] } }) => {
+    if (mod.silent) return;
     if (data.changes) {
       mod.silent = true;
 
