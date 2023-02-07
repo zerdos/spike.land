@@ -4,7 +4,7 @@
 
 import * as esbuild from "https://deno.land/x/esbuild@v0.17.6/mod.js";
 
-import { copy } from "https://deno.land/std@0.172.0/fs/copy.ts";
+import { copy } from "https://deno.land/std@0.177.0/fs/copy.ts";
 
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
@@ -37,7 +37,7 @@ const environment = Deno.env.get("NODE_ENV") === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "dist";
-const target = "es2022";
+const target = "es2017";
 
 console.log(`
 -------------------------------------------------

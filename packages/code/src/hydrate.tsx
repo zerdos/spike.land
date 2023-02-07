@@ -16,20 +16,20 @@ import { run } from "./ws";
 import { Workbox } from "workbox-window";
 export const sw = new Workbox("/sw.js?v=" + swVersion);
 
-await sw.register();
-
 // sw.messageSkipWaiting();
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").then((sw) => {
-    navigator.serviceWorker.getRegistrations().then(
-      (workers) =>
-        Promise.all(
-          workers.filter(
-            (x) => x !== sw,
-          ).map((x) => x.unregister()),
-        ),
-    );
-  });
+  sw.register().then(() =>
+    navigator.serviceWorker.register("/sw.js").then((sw) => {
+      navigator.serviceWorker.getRegistrations().then(
+        (workers) =>
+          Promise.all(
+            workers.filter(
+              (x) => x !== sw,
+            ).map((x) => x.unregister()),
+          ),
+      );
+    })
+  );
 }
 //       .then(
 //         () =>
@@ -42,9 +42,7 @@ if ("serviceWorker" in navigator) {
 
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-await mkdir("/");
-await mkdir("/live");
-await mkdir("/live/" + codeSpace);
+mkdir("/").then(() => mkdir("/live")).then(() => mkdir("/live/" + codeSpace));
 
 if (
   location.pathname === `/live/${codeSpace}`
@@ -79,10 +77,10 @@ if (
   //   );
   // }
 } else {
-  const { render } = await import("./render");
-
-  render(
-    document.getElementById(codeSpace + "-css")!,
-    codeSpace,
+  import("./render").then(({ render }) =>
+    render(
+      document.getElementById(codeSpace + "-css")!,
+      codeSpace,
+    )
   );
 }
