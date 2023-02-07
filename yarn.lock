@@ -2232,7 +2232,7 @@ __metadata:
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
     prom-client: "npm:^14.1.1"
-    typescript: "npm:5.0.0-dev.20230206"
+    typescript: "npm:5.0.0-dev.20230207"
     wrangler: "npm:2.9.1"
   languageName: unknown
   linkType: soft
@@ -2321,7 +2321,7 @@ __metadata:
     transferables: "npm:1.0.2"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.0-dev.20230206"
+    typescript: "npm:5.0.0-dev.20230207"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -2406,7 +2406,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230115.0"
     esbuild-wasm: "npm:0.17.6"
-    typescript: "npm:5.0.0-dev.20230206"
+    typescript: "npm:5.0.0-dev.20230207"
     wrangler: "npm:2.9.1"
   languageName: unknown
   linkType: soft
@@ -9059,7 +9059,7 @@ __metadata:
     p2pcf: "npm:1.3.13"
     playwright: "npm:1.30.0"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.0-dev.20230206"
+    typescript: "npm:5.0.0-dev.20230207"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   peerDependencies:
@@ -11977,23 +11977,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.0-dev.20230206":
-  version: 5.0.0-dev.20230206
-  resolution: "typescript@npm:5.0.0-dev.20230206"
+"typescript@npm:5.0.0-dev.20230207":
+  version: 5.0.0-dev.20230207
+  resolution: "typescript@npm:5.0.0-dev.20230207"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 4658ae6305a76cc26f7d39200894b670e0143b3ea654abca8158d4e0b230991bb34d4a6d53cca8d681522b878f381d15be5fbef20a168dc7bee03961916bbf90
+  checksum: b2e3839f62030e88cb44d0e161cebd26db58003449802391ab1f8f24d07f4412c15720438ddcb0f56b4e87b9f6050bc869b9b132c9f85d11e71285752bfab53a
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.0-dev.20230206#optional!builtin<compat/typescript>":
-  version: 5.0.0-dev.20230206
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230206#optional!builtin<compat/typescript>::version=5.0.0-dev.20230206&hash=1f5320"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230207#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230207
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230207#optional!builtin<compat/typescript>::version=5.0.0-dev.20230207&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 66e8c684663ea500613f7a532f9dda79a39c271adf78c634cfee9aedc0d68b41e1baa3f13eaaf33546e1ec8a39bee993160f3dd9e855309f27e182acb10bdc48
+  checksum: 1fbf0eeb8d50a1f13f7a1bb8f1ceeef2bac64a1e0e8a932e67c9b5652f823f291a58a9c313de81608465382460f457ef77cd8a40ce95c5838741e8dff29dbe40
   languageName: node
   linkType: hard
 
