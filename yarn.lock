@@ -2230,10 +2230,10 @@ __metadata:
     js-tokens: "npm:8.0.1"
     module: "npm:1.2.5"
     p-map: "npm:5.5.0"
-    p-queue: "npm:7.3.3"
+    p-queue: "npm:7.3.4"
     prom-client: "npm:^14.1.1"
     typescript: "npm:5.0.0-dev.20230206"
-    wrangler: "npm:2.9.0"
+    wrangler: "npm:2.9.1"
   languageName: unknown
   linkType: soft
 
@@ -2271,7 +2271,7 @@ __metadata:
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:3.0.0"
     async-mutex: "npm:0.4.0"
-    ava: "npm:5.1.1"
+    ava: "npm:5.2.0"
     avl: "npm:1.5.3"
     browser-fs-access: "npm:0.31.2"
     buffer: "npm:6.0.3"
@@ -2407,7 +2407,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230115.0"
     esbuild-wasm: "npm:0.17.6"
     typescript: "npm:5.0.0-dev.20230206"
-    wrangler: "npm:2.9.0"
+    wrangler: "npm:2.9.1"
   languageName: unknown
   linkType: soft
 
@@ -3526,9 +3526,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ava@npm:5.1.1":
-  version: 5.1.1
-  resolution: "ava@npm:5.1.1"
+"ava@npm:5.2.0":
+  version: 5.2.0
+  resolution: "ava@npm:5.2.0"
   dependencies:
     acorn: "npm:^8.8.1"
     acorn-walk: "npm:^8.2.0"
@@ -3582,7 +3582,7 @@ __metadata:
       optional: true
   bin:
     ava: entrypoints/cli.mjs
-  checksum: 7b253e74d24d482dfdef09dc4e591e86caf973a082e2414d0f641552bf0c1a5f9e90fb237b661814796b16250d9d42c8232f08d5af06337514b26399493f01d5
+  checksum: 4deb5c034aa3baa5aa7ffffe568f77f213d4e6a71b8fd410d73eb2b20f81291c9615f8382ac156004cb4f194dd2b1f26130dc3b93b4ccbcc7b57ae9bd42d2e60
   languageName: node
   linkType: hard
 
@@ -9701,7 +9701,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-queue@npm:7.3.3, p-queue@npm:^7.2.0, p-queue@npm:^7.3.0":
+"p-queue@npm:7.3.4":
+  version: 7.3.4
+  resolution: "p-queue@npm:7.3.4"
+  dependencies:
+    eventemitter3: "npm:^4.0.7"
+    p-timeout: "npm:^5.0.2"
+  checksum: f2a163b1ac35ea31c19b1b7dee2223126605dd945b29c265427a5d1840fe35b231e8e7db4e93e7c8d9e074b4e3abd9eceaea1f5c820634dfe3a972da2fa6e914
+  languageName: node
+  linkType: hard
+
+"p-queue@npm:^7.2.0, p-queue@npm:^7.3.0":
   version: 7.3.3
   resolution: "p-queue@npm:7.3.3"
   dependencies:
@@ -12461,9 +12471,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.9.0":
-  version: 2.9.0
-  resolution: "wrangler@npm:2.9.0"
+"wrangler@npm:2.9.1":
+  version: 2.9.1
+  resolution: "wrangler@npm:2.9.1"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -12473,7 +12483,7 @@ __metadata:
     "@miniflare/durable-objects": "npm:2.11.0"
     blake3-wasm: "npm:^2.1.5"
     chokidar: "npm:^3.5.3"
-    esbuild: "npm:0.14.51"
+    esbuild: "npm:0.16.3"
     fsevents: "npm:~2.3.2"
     miniflare: "npm:2.11.0"
     nanoid: "npm:^3.3.3"
@@ -12487,7 +12497,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: d09094c538d148f26f926dbb691e27ed25ce57df9aee4ea905c4e54b547e857e3475c82ea2f90b2c4c3cea9290be1394530c2ca290b71a6d39293742661ea757
+  checksum: fd12367459b4d9e3e529767d4e9f2b7f534c1df47b385fcaa5ea9b4e82f9fbcfc76de229a10a9f3866c80a7fad2f5357eda8bc33317403402a380acd45d16c06
   languageName: node
   linkType: hard
 
