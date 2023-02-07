@@ -61,7 +61,7 @@
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@isomorphic-git/lightning-fs": "4.6.0",
-    "@mui/material": "5.11.7",
+    "@mui/material": "5.11.8",
     "@okikio/sharedworker": "1.0.4",
     "@types/isomorphic-fetch": "0.0.36",
     "@typescript-eslint/typescript-estree": "5.51.0",
