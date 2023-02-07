@@ -2,9 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import * as esbuild from "https://deno.land/x/esbuild@v0.17.6/mod.js";
-
-import { copy } from "https://deno.land/std@0.177.0/fs/copy.ts";
+import { copy, esbuild } from "./esbuild-depts.mjs";
 
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
