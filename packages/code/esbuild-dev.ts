@@ -369,7 +369,7 @@ const build = (
       "src/emotionJsxRuntime.mjs",
       "src/emotion.ts",
       // "src/session.ts",
-      // "src/signalz.ts",
+      // "src/signass.ts",
       // "src/prettierWorker.mjs",
       // "src/reactMod.ts",
       // "src/Editor.tsx",

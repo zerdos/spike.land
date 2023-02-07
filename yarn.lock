@@ -2032,9 +2032,9 @@ __metadata:
   linkType: hard
 
 "@noble/ed25519@npm:^1.6.0":
-  version: 1.7.2
-  resolution: "@noble/ed25519@npm:1.7.2"
-  checksum: 8d1c374a4012fe95567d30b6810de5ea9e0223e79de45b6dbdd0f157c163a651b55ec196e932641960c8f9f9f14534ad043a2ef890df22fc167c8717c664d2e5
+  version: 1.7.3
+  resolution: "@noble/ed25519@npm:1.7.3"
+  checksum: ab652badbcd3cac70d0efdb3baae8820922f78288febe6aadf5441a54c1892e9d7bc6ab958385250b2ac338e365c9e25e995f06a6ae5feac714d82fd4c07a4a9
   languageName: node
   linkType: hard
 
@@ -2736,14 +2736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
-  version: 18.11.19
-  resolution: "@types/node@npm:18.11.19"
-  checksum: 72c822bd403b89a7c1fe59fd9360d29f2373459cdcf890fe6260c7413f936d89e5d154bdeb701bc833936ee88e87776ae9a4dc2b654ba111babbdebac1e67228
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:18.13.0":
+"@types/node@npm:*, @types/node@npm:18.13.0, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
   version: 18.13.0
   resolution: "@types/node@npm:18.13.0"
   checksum: 591b7b9a97dbeaa155c3fe1a00e22fc13241781bda02f4e96935811723e7719fe18ed003301551cfa3273488cc7cf2f99146b752abc9b60aaab57bcbc67da830
