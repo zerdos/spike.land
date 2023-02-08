@@ -9,7 +9,7 @@ const init = Ipfs.create().then((ipfs: IPFS.IPFS) => {
 });
 
 export const getIpfs = async () => {
-  return globalThis.ipfs ? globalThis.ipfs : await init;
+  return Object.hasOwn(self, "ipfs") ? (self as unknown as { ipfs: typeof IPFS }).ipfs : await init;
 };
 export const getIpfsResponse = async (ipfsPath: string) => await getResponse(await getIpfs(), ipfsPath);
 

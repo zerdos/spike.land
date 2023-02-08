@@ -149,7 +149,7 @@ export async function ata(
       }
 
       if (newBase === null) {
-        return;
+        return true;
       }
       if (newBase.indexOf(location.origin) !== -1) {
         return true;
@@ -196,6 +196,7 @@ export async function ata(
           `,
           ref: r,
         };
+      return true;
     }));
   }
 }

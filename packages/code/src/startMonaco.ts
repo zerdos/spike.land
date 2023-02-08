@@ -491,7 +491,7 @@ async function startMonacoPristine(
     }
   };
 
-  model.onDidChangeContent((ev) => {
+  model.onDidChangeContent((_ev) => {
     mod.isEdit = true;
     ctr.abort();
     ctr = new AbortController();
