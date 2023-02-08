@@ -736,12 +736,12 @@ __metadata:
   linkType: hard
 
 "@ipld/dag-json@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "@ipld/dag-json@npm:10.0.0"
+  version: 10.0.1
+  resolution: "@ipld/dag-json@npm:10.0.1"
   dependencies:
     cborg: "npm:^1.10.0"
     multiformats: "npm:^11.0.0"
-  checksum: 599c2f1b706c84b47f471fc11269c601296c33e1f54669083051ec4dfdc9243eb1ee02bfe921acbd4d4d765ed4b88d43f91b0c405c4dedea85fe86af76335db4
+  checksum: 6f6acbfbd3435d7f046e92db2707c73499c7034b5548065c5c8f23a3c8b90833af66bfdaeaeb198c14f1464e66d0968a8e6d71d7e4d62838045ab12563239802
   languageName: node
   linkType: hard
 
@@ -2022,12 +2022,12 @@ __metadata:
   linkType: hard
 
 "@multiformats/murmur3@npm:^2.0.0":
-  version: 2.1.2
-  resolution: "@multiformats/murmur3@npm:2.1.2"
+  version: 2.1.3
+  resolution: "@multiformats/murmur3@npm:2.1.3"
   dependencies:
     multiformats: "npm:^11.0.0"
     murmurhash3js-revisited: "npm:^3.0.0"
-  checksum: 42d96d94d3303d95e2c43195f2bad508695ad2bb5a064aa0f9753e15e945ea998f80c65f976817e4cca3dcd01d42cdf45264128a7ec386957eba91eeb0e8a36c
+  checksum: 30cc154bea9f5f2cfa82129aa9be9b3b071025a68f5d8a0e246d22b734e41ffaed5d2045992e1812823c2ffb7aa77d2a0cbf67d01a7065eceb7820e7f627c8d2
   languageName: node
   linkType: hard
 
@@ -2232,7 +2232,7 @@ __metadata:
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
     prom-client: "npm:^14.1.1"
-    typescript: "npm:5.0.0-dev.20230207"
+    typescript: "npm:5.0.0-dev.20230208"
     wrangler: "npm:2.9.1"
   languageName: unknown
   linkType: soft
@@ -2298,14 +2298,14 @@ __metadata:
     lodash.throttle: "npm:4.1.1"
     memfs: "npm:3.4.13"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230206"
+    monaco-editor: "npm:0.35.0"
     node-source-walk: "npm:5.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:5.5.0"
     p2pcf: "npm:1.3.13"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    prettier: "npm:2.8.3"
+    prettier: "npm:2.8.4"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
@@ -2321,7 +2321,7 @@ __metadata:
     transferables: "npm:1.0.2"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.0-dev.20230207"
+    typescript: "npm:5.0.0-dev.20230208"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -2406,7 +2406,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230115.0"
     esbuild-wasm: "npm:0.17.6"
-    typescript: "npm:5.0.0-dev.20230207"
+    typescript: "npm:5.0.0-dev.20230208"
     wrangler: "npm:2.9.1"
   languageName: unknown
   linkType: soft
@@ -3984,9 +3984,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001449":
-  version: 1.0.30001450
-  resolution: "caniuse-lite@npm:1.0.30001450"
-  checksum: 2fb0262238b10d650150804f02fa666b5d9cf53d6645e9efc3b3ebe2fa5f4cc1de161925217ebc503eedd6662084dbef0bb4743e143b46e535851b1b308de5a9
+  version: 1.0.30001451
+  resolution: "caniuse-lite@npm:1.0.30001451"
+  checksum: c23513d8c93b4fd849b3a418ab13ef3977437f5f21ebcf099671285f6cf6d245e2456829d9c443458d1b7784efa434ff67ba9d6722b68b5d78bdd35898369460
   languageName: node
   linkType: hard
 
@@ -4932,9 +4932,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.288
-  resolution: "electron-to-chromium@npm:1.4.288"
-  checksum: 48d36585a444ac71a652f8791a4201d0cea7e4fce14529c65fb1b1e42d912e811b0434057b902657f5a62e8aa2915f88464e992c2227a0715d9640f6434efc81
+  version: 1.4.289
+  resolution: "electron-to-chromium@npm:1.4.289"
+  checksum: 86ea62940b1df4231c0424a1e10e50c460fb7372574e280cba672bbaab24b6fb02d85ed57f8fbac490ef5636c4ca47a281fe616c4268337abae5d55fc0f2cf0f
   languageName: node
   linkType: hard
 
@@ -8966,9 +8966,9 @@ __metadata:
   linkType: hard
 
 "minipass@npm:^4.0.0":
-  version: 4.0.2
-  resolution: "minipass@npm:4.0.2"
-  checksum: 23a79feab2394d19cecbf16dfbbc360d2eb8dc91d382c7fbbaac3e8735d66056d65483d097bff815b50867e902f2eea3f7a005ed2fdae331984a4aa4213486d4
+  version: 4.0.3
+  resolution: "minipass@npm:4.0.3"
+  checksum: f0e10358a29253eb64295f0cb2790acd2109279c2c721ea1883bfcab1bac4434cc75027d98993fade26f0ecaa984e0144b6af677a6da86aeaa96ddd317d84dbe
   languageName: node
   linkType: hard
 
@@ -9026,10 +9026,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.35.0-dev.20230206":
-  version: 0.35.0-dev.20230206
-  resolution: "monaco-editor@npm:0.35.0-dev.20230206"
-  checksum: 5450f17380c98b6e1dc11b227997643df4835099e31091fee20cc2f18eed4053427180cb07350a1fbc841ad81306439ea28f1581bc9410a6f676245868fb1cf9
+"monaco-editor@npm:0.35.0":
+  version: 0.35.0
+  resolution: "monaco-editor@npm:0.35.0"
+  checksum: 7c51bd47a84a88e355544323fb78384fc97f9831b281de5c8bf2dd4c9cf49822e1a936645eef43f4d5783e5029e7eba1143aaf33062ffee41df02b0be960b81b
   languageName: node
   linkType: hard
 
@@ -9055,11 +9055,11 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.35.0-dev.20230206"
+    monaco-editor: "npm:0.35.0"
     p2pcf: "npm:1.3.13"
     playwright: "npm:1.30.0"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.0-dev.20230207"
+    typescript: "npm:5.0.0-dev.20230208"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   peerDependencies:
@@ -10075,12 +10075,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.3":
-  version: 2.8.3
-  resolution: "prettier@npm:2.8.3"
+"prettier@npm:2.8.4":
+  version: 2.8.4
+  resolution: "prettier@npm:2.8.4"
   bin:
     prettier: bin-prettier.js
-  checksum: 9daf1c05e07337a96fec26b5518ce787e4f98bfd1a5eb72af988cf123ea7ed56584f10c0cc4fc3073bf9504d157a8604d93a8e17752c483ae114614a0c557b36
+  checksum: e8a99b3a385d8d09881a64b759b9cd88e44ab7ba09832d55608fd7203efdc78f0d94773532f3bb3bbb3f579096f7011883df06a26eb61792e786ea4f5fc984f0
   languageName: node
   linkType: hard
 
@@ -10213,8 +10213,8 @@ __metadata:
   linkType: hard
 
 "protobufjs@npm:^7.0.0":
-  version: 7.2.1
-  resolution: "protobufjs@npm:7.2.1"
+  version: 7.2.2
+  resolution: "protobufjs@npm:7.2.2"
   dependencies:
     "@protobufjs/aspromise": "npm:^1.1.2"
     "@protobufjs/base64": "npm:^1.1.2"
@@ -10228,7 +10228,7 @@ __metadata:
     "@protobufjs/utf8": "npm:^1.1.0"
     "@types/node": "npm:>=13.7.0"
     long: "npm:^5.0.0"
-  checksum: 42eeb2c0285b17fe6e598e5532981842d847c585908c7fbc1a7eb153dbbe8f7efbc3b99f6397d29061acecafe16c1d7211c82be3db94c8a567aa9b44654c3ecf
+  checksum: b45ee9fe369ce31efb5a5abe85127bb19445f74981e3f89729627a9246b18f192697e3709168a364edb151d16d9b8ebd67dc66ae28b64cb79be2725fb71476a6
   languageName: node
   linkType: hard
 
@@ -11977,23 +11977,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.0-dev.20230207":
-  version: 5.0.0-dev.20230207
-  resolution: "typescript@npm:5.0.0-dev.20230207"
+"typescript@npm:5.0.0-dev.20230208":
+  version: 5.0.0-dev.20230208
+  resolution: "typescript@npm:5.0.0-dev.20230208"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: b2e3839f62030e88cb44d0e161cebd26db58003449802391ab1f8f24d07f4412c15720438ddcb0f56b4e87b9f6050bc869b9b132c9f85d11e71285752bfab53a
+  checksum: 5411dbdc60c32ce9e0ee38fe1592e88053e1069d3fc61cefd834ae123abff760185ea0e26fec9a61b186ff2517baf7961e7b88bce5f1a211a7bc15d5faa6f283
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.0-dev.20230207#optional!builtin<compat/typescript>":
-  version: 5.0.0-dev.20230207
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230207#optional!builtin<compat/typescript>::version=5.0.0-dev.20230207&hash=1f5320"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230208#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230208
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230208#optional!builtin<compat/typescript>::version=5.0.0-dev.20230208&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1fbf0eeb8d50a1f13f7a1bb8f1ceeef2bac64a1e0e8a932e67c9b5652f823f291a58a9c313de81608465382460f457ef77cd8a40ce95c5838741e8dff29dbe40
+  checksum: 51fe08eab4e3d875287a7b19f1221ce35a2abb35b3574cf6dda07c7b7b8cb36e9452aa903ed12b0d6415c895d7e29a3179ee99064009688ade0c91a7d9f13982
   languageName: node
   linkType: hard
 
