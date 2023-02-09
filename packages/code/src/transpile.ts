@@ -1,5 +1,4 @@
 import { initialize, transform, version } from "esbuild-wasm";
-import { importMapReplace } from "./importMapReplace";
 
 declare const self:
   & ServiceWorkerGlobalScope
@@ -69,7 +68,7 @@ export const transpile = async (
       },
     },
     target: "es2022",
-  }).then((x) => importMapReplace(x.code, origin, codeShaSum));
+  }).then((x) => x.code);
 };
 
 Object.assign(self, { transpile });

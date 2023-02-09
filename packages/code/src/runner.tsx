@@ -1,6 +1,8 @@
 // import { syncWS } from "./ws";
 
+import { importMapReplace } from "./importMapReplace";
 import { transpile } from "./shared";
+
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
 
@@ -50,7 +52,7 @@ export async function runner({ code, counter }: {
     //   type: "prerender",
     //   codeSpace,
     // });
-    const transpiled = await transpile({ code, originToUse: location.origin });
+    const transpiled = importMapReplace(await transpile({ code, originToUse: location.origin }), location.origin);
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
       code,

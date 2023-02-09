@@ -12,7 +12,6 @@ export function importMapReplace(
   // }
 
   let returnStr = replaceAll(codeInp, `from"`, ` from "`);
-
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
@@ -28,9 +27,10 @@ export function importMapReplace(
       );
     });
   }
+
   returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
-  returnStr.split("/::").join(origin);
-  if (!returnStr) return returnStr;
+  returnStr = replaceAll(returnStr, ` import("/`, ` import("${origin}/`);
+
   // const url = relativeUrl || origin;
   // const baSe = (new URL(".", url)).toString();
   // const parent = (new URL("..", url)).toString();
@@ -71,7 +71,7 @@ export function importMapReplace(
     Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
-        x.startsWith("import") && x.indexOf(`"`) !== -1
+        (x.startsWith("import") || x.indexOf(`import("`) !== -1) && x.indexOf(`"`) !== -1
         && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1
         && x.indexOf(`"https`) === -1
       ) {

@@ -14,6 +14,7 @@ import { handleErrors } from "./handleErrors";
 import { CodeEnv } from "./env";
 // import { esmTransform } from "./esbuild.wasm";
 import jsTokens from "js-tokens";
+import { importMapReplace } from "../../code/src/importMapReplace";
 import { Delta } from "../../code/src/textDiff";
 import shasum from "./dist.shasum";
 // import shaSum from "./dist.shasum";
@@ -162,7 +163,7 @@ export class Code implements DurableObject {
                 body: this.session.code,
                 headers: { TR_ORIGIN: this.#origin },
               },
-            ).then((resp) => resp.text());
+            ).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
           }
           const path = url.pathname.slice(1).split("/");
           if (path.length === 0) path.push("");
@@ -385,7 +386,7 @@ export class Code implements DurableObject {
                   method: "POST",
                   body: this.session.code,
                   headers: { TR_ORIGIN: this.#origin },
-                }).then((resp) => resp.text());
+                }).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
 
               return new Response(this.#transpiled, {
                 headers: {
