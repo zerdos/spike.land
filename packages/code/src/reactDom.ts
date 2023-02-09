@@ -1,14 +1,12 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "preact/compat";
 
 export const {
   createPortal,
-  flushSync,
   render,
   findDOMNode,
   hydrate,
   unmountComponentAtNode,
   unstable_batchedUpdates,
-  unstable_renderSubtreeIntoContainer,
   version,
 } = ReactDOM;
 

@@ -1,10 +1,9 @@
 // import isCallable from "is-callable";
-import * as React from "react";
+import * as React from "preact/compat";
 export const {
   Children,
   Component,
   Fragment,
-  Profiler,
   PureComponent,
   StrictMode,
   Suspense,

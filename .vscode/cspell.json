@@ -126,6 +126,7 @@
     "ponyfill",
     "popmotion",
     "popperjs",
+    "preact",
     "prebuilds",
     "precache",
     "precaching",
