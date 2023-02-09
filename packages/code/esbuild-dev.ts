@@ -362,9 +362,9 @@ const build = (
       "src/reactDomClient.ts",
       "src/jsx.mjs",
 
-      "src/motion.ts",
+      // "src/motion.ts",
       "src/hydrate.tsx",
-      "src/motion.ts",
+      // "src/motion.ts",
       // "src/esbuildWASM.ts",
       "src/emotionJsxRuntime.mjs",
       "src/emotion.ts",
@@ -417,6 +417,11 @@ const build = (
       ...buildOptions,
       alias: {
         ...buildOptions.alias,
+        "react": "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat", // Must be below test-utils
+        "react/jsx-runtime": "preact/jsx-runtime",
+
         "esbuild-wasm/esbuild.wasm": `./${wasmFile}`, //      "react/jsx-runtime": "./dist/jsx.js",
         //  "react-dom/client": "./dist/reactDomClient.js",
       },
