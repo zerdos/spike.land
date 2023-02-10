@@ -2210,7 +2210,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.17.6"
+    esbuild-wasm: "npm:0.17.7"
   languageName: unknown
   linkType: soft
 
@@ -2225,7 +2225,7 @@ __metadata:
     "@types/babel__core": "npm:^7.20.0"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.17.6"
+    esbuild-wasm: "npm:0.17.7"
     immutable: "npm:4.2.4"
     js-tokens: "npm:8.0.1"
     module: "npm:1.2.5"
@@ -2277,7 +2277,7 @@ __metadata:
     buffer: "npm:6.0.3"
     constants: "npm:0.0.2"
     csstype: "npm:3.1.1"
-    esbuild-wasm: "npm:0.17.6"
+    esbuild-wasm: "npm:0.17.7"
     eslint: "npm:8.33.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
@@ -2305,7 +2305,7 @@ __metadata:
     p2pcf: "npm:1.3.13"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    preact: "npm:^10.12.0"
+    preact: "npm:^10.12.1"
     prettier: "npm:2.8.4"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
@@ -2348,7 +2348,7 @@ __metadata:
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:18.13.0"
-    esbuild-wasm: "npm:0.17.6"
+    esbuild-wasm: "npm:0.17.7"
   languageName: unknown
   linkType: soft
 
@@ -2406,7 +2406,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230115.0"
-    esbuild-wasm: "npm:0.17.6"
+    esbuild-wasm: "npm:0.17.7"
     typescript: "npm:5.0.0-dev.20230209"
     wrangler: "npm:2.9.1"
   languageName: unknown
@@ -5116,12 +5116,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.17.6":
-  version: 0.17.6
-  resolution: "esbuild-wasm@npm:0.17.6"
+"esbuild-wasm@npm:0.17.7":
+  version: 0.17.7
+  resolution: "esbuild-wasm@npm:0.17.7"
   bin:
     esbuild: bin/esbuild
-  checksum: d56f3d76b0f7cd264677009cbdc4d11347517b6ab65e9a2bf7e6f06521707bb81f4bbc4195fbe1f33150d87c757018054b252a3af6055edb17f764187f486f42
+  checksum: d17a4f6411eb803540452bf51aaa7dbcbc538e103089d76819e466bc662123dd2d926d994432b7a38f335ee14d2eaebdf502d785d062b76ca594f1c9061116a7
   languageName: node
   linkType: hard
 
@@ -10062,10 +10062,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:^10.12.0":
-  version: 10.12.0
-  resolution: "preact@npm:10.12.0"
-  checksum: 6802d64afe267056b1e9daffd96ae9a90c33e76d510c5e768f315bca441286a2d8f8275559ecda966fdfcc4a50bf99dab125c63ebb779d38732416ba95e7b2f1
+"preact@npm:^10.12.1":
+  version: 10.12.1
+  resolution: "preact@npm:10.12.1"
+  checksum: cdd5c306caf914ab6d444b007dc206631a94901967e2a272aff13ff3b990813e745f98271a838a637e185b9867ff046d69957738e1eb3d194ee57a718b06e59d
   languageName: node
   linkType: hard
 
