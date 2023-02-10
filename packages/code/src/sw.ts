@@ -20,6 +20,7 @@ const { transpile } = self;
 export type {};
 
 import { resetCSS } from "./getResetCss";
+import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
