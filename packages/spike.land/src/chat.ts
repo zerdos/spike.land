@@ -52,7 +52,7 @@ const api: ExportedHandler<CodeEnv> = {
       const path = url.pathname.slice(1).split("/");
 
       if (!path[0]) {
-        const utcSecs = Math.floor(Math.floor(Date.now() / 1000 / 7200));
+        const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
         console.log({ asOrganization: request.cf?.asOrganization });
         const start = md5(
           (request.cf?.asOrganization || "default") + utcSecs + `
@@ -65,7 +65,7 @@ const api: ExportedHandler<CodeEnv> = {
           {
             status: 307,
             headers: {
-              "Location": `${u.origin}/live/${start}/iframe`,
+              "Location": `${u.origin}/live/${start}`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
               ASSET_HASH: ASSET_HASH,
