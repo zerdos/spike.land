@@ -137,14 +137,14 @@
     "@types/uuid": "9.0.0",
     "@typescript-eslint/eslint-plugin": "5.51.0",
     "@typescript-eslint/parser": "5.51.0",
-    "eslint": "8.33.0",
+    "eslint": "8.34.0",
     "eslint-plugin-react": "7.32.2",
     "fast-glob": "3.2.12",
     "ipfs-core": "0.18.0",
     "ipfs-http-response": "6.0.0",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.0.0-dev.20230210",
+    "typescript": "5.0.0-dev.20230211",
     "uvu": "0.5.6"
   },
   "peerDependencies": {
