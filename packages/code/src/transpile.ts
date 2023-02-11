@@ -1,4 +1,4 @@
-import { initialize, transform, version } from "esbuild-wasm";
+import { initialize, transform, version } from "https://deno.land/x/esbuild@v0.17.7/mod.js";
 
 declare const self:
   & ServiceWorkerGlobalScope
