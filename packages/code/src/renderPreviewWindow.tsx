@@ -6,8 +6,8 @@ import { css } from "@emotion/react";
 
 // Import { useSpring, a } from '@react-spring/web'
 
+import { createRoot } from "react-dom/client";
 import DraggableWindow from "./DraggableWindow";
-import { createRoot } from "./reactDomClient";
 // import { codeSession } from "./ws";
 let reveal = (_tmp?: unknown) => {};
 

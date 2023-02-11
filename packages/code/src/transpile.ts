@@ -25,7 +25,6 @@ export const transpile = async (
   code: string,
   origin: string,
   wasmModule?: WebAssembly.Module,
-  codeShaSum = "",
 ) => {
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);

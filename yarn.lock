@@ -2260,7 +2260,7 @@ __metadata:
     "@types/node": "npm:18.13.0"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
-    "@types/react": "npm:18.0.28"
+    "@types/react": "npm:^18.0.28"
     "@types/react-dom": "npm:18.0.10"
     "@types/uuid": "npm:9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:5.51.0"
@@ -2817,7 +2817,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.0.28":
+"@types/react@npm:18.0.28, @types/react@npm:^18.0.28":
   version: 18.0.28
   resolution: "@types/react@npm:18.0.28"
   dependencies:

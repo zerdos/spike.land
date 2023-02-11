@@ -33,12 +33,11 @@ Object.assign(globalThis, {
 //     }).then(() => mod.init = true) as Promise<void>,
 // };
 
-export const initAndTransform = (
+const initAndTransform = (
   code,
   // opts: TransformOptions,
   origin,
-  codeShaSum = "",
-) => transpile(code, origin, wasmModule, codeShaSum);
+) => transpile(code, origin, wasmModule);
 // const code = prettierJs(c)!;
 // const initFinished = mod.initialize();
 

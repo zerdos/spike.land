@@ -31,9 +31,8 @@ const mod = {
     }).then(() => mod.init = true) as Promise<void>,
 };
 
-export const initAndTransform = async (
+const initAndTransform = async (
   code: string,
-  opts: TransformOptions,
   origin: string,
 ) => {
   // const code = prettierJs(c)!;
@@ -77,7 +76,6 @@ export default {
       return new Response(
         await initAndTransform(
           await request.text(),
-          {},
           request.headers.get("TR_ORIGIN")!,
         ),
         request,

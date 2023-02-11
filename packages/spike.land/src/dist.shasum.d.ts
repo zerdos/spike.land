@@ -1,2 +1,2 @@
-const shasum: string;
+declare const shasum: string;
 export default shasum;
