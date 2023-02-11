@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import { copy, esbuild } from "./esbuild-depts.mjs";
+import { copy, env, esbuild, mkdir, readDir } from "./esbuild-depts.mjs";
 
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
@@ -24,7 +24,7 @@ import { copy, esbuild } from "./esbuild-depts.mjs";
 // import { wait } from "./src/wait.mjs";
 
 // await esbuild.initialize();
-const environment = Deno.env.get("NODE_ENV") === "production"
+const environment = env.get("NODE_ENV") === "production"
   ? "production"
   : "development";
 
@@ -211,8 +211,8 @@ const build = (
 (async () => {
   // await cp("./src/index.html", "./dist/index.html");
   await copy("./src/favicon.ico", "./dist/favicon.ico");
-  await Deno.mkdir("./dist/live");
-  await Deno.mkdir("./dist/live/box");
+  await mkdir("./dist/live");
+  await mkdir("./dist/live/box");
   await copy(
     "./stubs/box/index.js",
     "./dist/live/box/index.js",
@@ -345,7 +345,7 @@ const build = (
 
   let wasmFile;
 
-  const dir = await Deno.readDir("./dist");
+  const dir = await readDir("./dist");
   for await (const file of dir) {
     if (file.name.includes("esbuild") && file.name.includes(".wasm")) {
       wasmFile = file.name;
@@ -362,7 +362,7 @@ const build = (
       "src/reactDomClient.ts",
       "src/jsx.mjs",
 
-      "src/motion.ts",
+      // "src/motion.ts",
       "src/hydrate.tsx",
       // "src/motion.ts",
       // "src/esbuildWASM.ts",
