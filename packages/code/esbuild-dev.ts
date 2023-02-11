@@ -203,8 +203,8 @@ const build = (
     metafile: true,
     define,
     outdir,
-  }).catch((error) => {
-    console.error(error);
+  }).catch((Error: Error) => {
+    console.error(Error);
     esbuild.stop();
   });
 
