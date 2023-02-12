@@ -300,7 +300,6 @@ const build = (
       "src/sw.ts",
       "src/esbuildWASM.ts",
       "src/ataWorker.ts",
-      "src/prettierWorker.ts",
       "src/fs.worker.ts",
     ],
     plugins: [],
