@@ -260,6 +260,7 @@ const build = (
       "src/transpile.ts",
       "src/fs.ts",
       "src/ata.ts",
+      "src/ataWorker.ts",
       // "src/ipfs-core.ts",
     ],
 
@@ -299,8 +300,6 @@ const build = (
     entryPoints: [
       "src/sw.ts",
       "src/esbuildWASM.ts",
-      "src/ataWorker.ts",
-      "src/fs.worker.ts",
     ],
     plugins: [],
     bundle: true,
