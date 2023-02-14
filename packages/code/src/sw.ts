@@ -1,7 +1,8 @@
 // import {precacheAndRoute} from 'workbox-precaching';
-import type { transpile as Transpile } from "./transpile";
-importScripts("/workerScripts/transpile.js");
 importScripts("/swVersion.js");
+
+import { transpile } from "./shared";
+
 // importScripts("/workerScripts/prettierEsm.js");
 
 // import { transpile } from "./transpile.ts";
@@ -11,12 +12,11 @@ declare const self:
   & ServiceWorkerGlobalScope
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string }
-  & { transpile: typeof Transpile }
   & ({ readdir: typeof FS.readdir });
 importScripts("/workerScripts/fs.js");
 import type FSD from "./fs";
 const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
-const { transpile } = self;
+
 export type {};
 
 import { resetCSS } from "./getResetCss";

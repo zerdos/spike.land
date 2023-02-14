@@ -4,6 +4,7 @@ import { RpcProvider } from "worker-rpc";
 
 let rpc: RpcProvider | null = null;
 const init = () => {
+  const { swVersion } = self;
   if (rpc !== null) return rpc;
   const worker = new SharedWorker("/workerScripts/ataWorker.js?v=" + swVersion);
   rpc = new RpcProvider(
