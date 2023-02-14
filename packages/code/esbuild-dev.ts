@@ -307,6 +307,7 @@ const build = (
     minify: false,
     mangleQuoted: false,
     minifySyntax: false,
+    charset: "utf8",
     minifyWhitespace: false,
     ignoreAnnotations: false,
     keepNames: true,

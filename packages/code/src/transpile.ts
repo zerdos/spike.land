@@ -56,6 +56,7 @@ export const transpile = async (
     treeShaking: true,
     platform: "browser",
     minify: false,
+    charset: "utf8",
     //   globalName: md5(code),
     keepNames: true,
     tsconfigRaw: {
