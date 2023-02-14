@@ -1,29 +1,106 @@
 // import {precacheAndRoute} from 'workbox-precaching';
-import type { transpile as Transpile } from "./transpile";
-importScripts("/workerScripts/transpile.js");
+// import type { transpile as Transpile } from "./transpile";
+// importScripts("/workerScripts/transpile.js");
 importScripts("/swVersion.js");
+
+const addResourcesToCache = async (resources) => {
+  const cache = await caches.open(self.swVersion);
+  await cache.addAll(resources);
+};
+
+const putInCache = async (request, response) => {
+  const cache = await caches.open("v1");
+  await cache.put(request, response);
+};
+
+const cacheFirst = async ({ request, preloadResponsePromise, fallbackUrl }) => {
+  // First try to get the resource from the cache
+  const responseFromCache = await caches.match(request);
+  if (responseFromCache) {
+    return responseFromCache;
+  }
+
+  // Next try to use the preloaded response, if it's there
+  const preloadResponse = await preloadResponsePromise;
+  if (preloadResponse) {
+    console.info("using preload response", preloadResponse);
+    putInCache(request, preloadResponse.clone());
+    return preloadResponse;
+  }
+
+  // Next try to get the resource from the network
+  try {
+    const responseFromNetwork = await fetch(request);
+    // response may be used only once
+    // we need to save clone to put one copy in cache
+    // and serve second one
+    putInCache(request, responseFromNetwork.clone());
+    return responseFromNetwork;
+  } catch (error) {
+    const fallbackResponse = await caches.match(fallbackUrl);
+    if (fallbackResponse) {
+      return fallbackResponse;
+    }
+    // when even the fallback response is not available,
+    // there is nothing we can do, but we must always
+    // return a Response object
+    return new Response("Network error happened", {
+      status: 408,
+      headers: { "Content-Type": "text/plain" },
+    });
+  }
+};
+
+const enableNavigationPreload = async () => {
+  if (self.registration.navigationPreload) {
+    // Enable navigation preloads!
+    await self.registration.navigationPreload.enable();
+  }
+};
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(enableNavigationPreload());
+});
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    addResourcesToCache([
+      Object.keys(self.files).map((f) => `/${f}`),
+    ]),
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    cacheFirst({
+      request: event.request,
+      preloadResponsePromise: event.preloadResponse,
+      fallbackUrl: "./gallery/myLittleVader.jpg",
+    }),
+  );
+});
 // importScripts("/workerScripts/prettierEsm.js");
 
 // import { transpile } from "./transpile.ts";
 
-import type * as FS from "./fs";
+// import type * as FS from "./fs";
 declare const self:
   & ServiceWorkerGlobalScope
   & { swVersion: string }
-  & { files: { [key: string]: string }; fileCacheName: string }
-  & { transpile: typeof Transpile }
-  & ({ readdir: typeof FS.readdir });
-importScripts("/workerScripts/fs.js");
-import type FSD from "./fs";
-const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
-const { transpile } = self;
+  & { files: { [key: string]: string }; fileCacheName: string };
+// & { transpile: typeof Transpile }
+// & ({ readdir: typeof FS.readdir });
+// importScripts("/workerScripts/fs.js");
+// import type FSD from "./fs";
+// const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
+// const { transpile } = self;
 export type {};
 
-import { resetCSS } from "./getResetCss";
-import { importMapReplace } from "./importMapReplace";
-import HTML from "./index.html";
-import { ICodeSession } from "./makeSess";
-import { md5 } from "./md5";
+// import { resetCSS } from "./getResetCss";
+// import { importMapReplace } from "./importMapReplace";
+// import HTML from "./index.html";
+// import { ICodeSession } from "./makeSess";
+// import { md5 } from "./md5";
 // import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
 // let controller = new AbortController();
@@ -62,136 +139,136 @@ import { md5 } from "./md5";
 
 //   if (signal.aborted) return null;
 //   return event.ports[0].postMessage({ ...data, transpiled });
+// // };
+
+// const putInCache = async (request: Request, response: Response) => {
+//   const cache = await caches.open(self.swVersion);
+//   await cache.put(request, response);
 // };
 
-const putInCache = async (request: Request, response: Response) => {
-  const cache = await caches.open(self.swVersion);
-  await cache.put(request, response);
-};
+// const cacheFirst = async (request: Request) => {
+//   if (request.url.indexOf("/live/") == -1) {
+//     const responseFromCache = await caches.match(request);
+//     if (responseFromCache) {
+//       return responseFromCache;
+//     }
+//   }
+//   const responseFromNetwork = await fetch(request);
+//   putInCache(request, responseFromNetwork.clone());
+//   return responseFromNetwork;
+// };
 
-const cacheFirst = async (request: Request) => {
-  if (request.url.indexOf("/live/") == -1) {
-    const responseFromCache = await caches.match(request);
-    if (responseFromCache) {
-      return responseFromCache;
-    }
-  }
-  const responseFromNetwork = await fetch(request);
-  putInCache(request, responseFromNetwork.clone());
-  return responseFromNetwork;
-};
+// const fakeBackend = async (request: Request) => {
+//   let url = new URL(request.url);
+//   if (url.origin !== self.location.origin || request.method === "POST") {
+//     return fetch(request);
+//   }
 
-const fakeBackend = async (request: Request) => {
-  let url = new URL(request.url);
-  if (url.origin !== self.location.origin || request.method === "POST") {
-    return fetch(request);
-  }
+//   const paths = url.pathname.split("/");
 
-  const paths = url.pathname.split("/");
+//   if (paths[1] === "live") {
+//     const codeSpace = paths[2];
 
-  if (paths[1] === "live") {
-    const codeSpace = paths[2];
+//     const { code, css, html, i } = await fetch(
+//       `${url.origin}/live/${codeSpace}/session.json`,
+//     ).then((x) => x.json<ICodeSession>());
 
-    const { code, css, html, i } = await fetch(
-      `${url.origin}/live/${codeSpace}/session.json`,
-    ).then((x) => x.json<ICodeSession>());
+//     if (
+//       url.pathname === `/live/${codeSpace}/iframe`
+//       || url.pathname === `/live/${codeSpace}/`
+//       || url.pathname === `/live/${codeSpace}/public`
+//       || url.pathname === `/live/${codeSpace}/dehydrated`
+//     ) {
+//       // return renderToStream("clock3");
 
-    if (
-      url.pathname === `/live/${codeSpace}/iframe`
-      || url.pathname === `/live/${codeSpace}/`
-      || url.pathname === `/live/${codeSpace}/public`
-      || url.pathname === `/live/${codeSpace}/dehydrated`
-    ) {
-      // return renderToStream("clock3");
+//       const respText = HTML.replace(
+//         "/**reset*/",
+//         resetCSS + css,
+//       ).replace(
+//         "<script src=\"/swVersion.js\"></script>",
+//         `<script>
+//       window.swVersion = "${self.swVersion}"
+//       </script>`,
+//       )
+//         .replace("ASSET_HASH", self.swVersion)
+//         .replace(
+//           `<div id="root"></div>`,
+//           `<div id="root" style="height: 100%;">
+//         <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
+//           ${html}
+//         </div>
+//     </div>`,
+//         );
 
-      const respText = HTML.replace(
-        "/**reset*/",
-        resetCSS + css,
-      ).replace(
-        "<script src=\"/swVersion.js\"></script>",
-        `<script>
-      window.swVersion = "${self.swVersion}"
-      </script>`,
-      )
-        .replace("ASSET_HASH", self.swVersion)
-        .replace(
-          `<div id="root"></div>`,
-          `<div id="root" style="height: 100%;">
-        <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-          ${html}
-        </div>
-    </div>`,
-        );
+//       const headers = new Headers();
+//       headers.set("Access-Control-Allow-Origin", "*");
 
-      const headers = new Headers();
-      headers.set("Access-Control-Allow-Origin", "*");
+//       headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+//       headers.set("Cross-Origin-Opener-Policy", "same-origin");
+//       headers.set(
+//         "Cache-Control",
+//         "no-cache",
+//       );
 
-      headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-      headers.set("Cross-Origin-Opener-Policy", "same-origin");
-      headers.set(
-        "Cache-Control",
-        "no-cache",
-      );
+//       headers.set("Content-Type", "text/html; charset=UTF-8");
+//       headers.set("content_hash", md5(respText));
+//       return new Response(respText, {
+//         status: 200,
+//         headers,
+//       });
+//     }
+//     try {
+//       if (url.pathname.startsWith(`/live/${codeSpace}/index.js`)) {
+//         // const code = await readFile(
+//         //   `/live/${codeSpace}/index.tsx`,
+//         // ) as string;
 
-      headers.set("Content-Type", "text/html; charset=UTF-8");
-      headers.set("content_hash", md5(respText));
-      return new Response(respText, {
-        status: 200,
-        headers,
-      });
-    }
-    try {
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.js`)) {
-        // const code = await readFile(
-        //   `/live/${codeSpace}/index.tsx`,
-        // ) as string;
+//         const trp = importMapReplace(await transpile(code, location.origin), location.origin, self.swVersion);
+//         await mkdir(`/live/${codeSpace}`);
+//         await writeFile(
+//           `/live/${codeSpace}/index.js`,
+//           trp,
+//         );
 
-        const trp = importMapReplace(await transpile(code, location.origin), location.origin, self.swVersion);
-        await mkdir(`/live/${codeSpace}`);
-        await writeFile(
-          `/live/${codeSpace}/index.js`,
-          trp,
-        );
+//         return new Response(trp, {
+//           headers: {
+//             "Access-Control-Allow-Origin": "*",
+//             "Cross-Origin-Embedder-Policy": "require-corp",
+//             "Cache-Control": "no-cache",
 
-        return new Response(trp, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cache-Control": "no-cache",
+//             content_hash: md5(trp),
+//             "Content-Type": "application/javascript; charset=UTF-8",
+//           },
+//         });
+//       }
+//       if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
+//         // const code = await readFile(
+//         //   `/live/${codeSpace}/index.tsx`,
+//         // ) as string;
 
-            content_hash: md5(trp),
-            "Content-Type": "application/javascript; charset=UTF-8",
-          },
-        });
-      }
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
-        // const code = await readFile(
-        //   `/live/${codeSpace}/index.tsx`,
-        // ) as string;
+//         const trp = await readFile(`/live/${codeSpace}/index.mjs`);
 
-        const trp = await readFile(`/live/${codeSpace}/index.mjs`);
+//         return new Response(trp, {
+//           headers: {
+//             "Access-Control-Allow-Origin": "*",
+//             "Cross-Origin-Embedder-Policy": "require-corp",
+//             "Cache-Control": "no-cache",
 
-        return new Response(trp, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Cache-Control": "no-cache",
+//             content_hash: md5(trp),
+//             "Content-Type": "application/javascript; charset=UTF-8",
+//           },
+//         });
+//       }
+//     } catch {
+//       console.log("some error again");
+//     }
+//   }
 
-            content_hash: md5(trp),
-            "Content-Type": "application/javascript; charset=UTF-8",
-          },
-        });
-      }
-    } catch {
-      console.log("some error again");
-    }
-  }
+//   return cacheFirst(request);
+// };
 
-  return cacheFirst(request);
-};
-
-self.addEventListener("fetch", (event) => {
-  event.respondWith(fakeBackend(event.request));
-});
+// self.addEventListener("fetch", (event) => {
+//   event.respondWith(fakeBackend(event.request));
+// });
 
 // self.onfetch = (event)=>event.respondWith(fakeBackend((event.request)));

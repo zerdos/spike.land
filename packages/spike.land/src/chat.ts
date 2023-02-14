@@ -267,7 +267,7 @@ const api: ExportedHandler<CodeEnv> = {
               },
             });
           case "swVersion.js": {
-            return new Response(`self.swVersion = "${ASSET_HASH}"`, {
+            return new Response(`self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)}; `, {
               headers: {
                 "content-type": "application/javascript; charset=utf-8",
                 "Cache-Control": "no-cache",
