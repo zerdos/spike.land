@@ -123,7 +123,7 @@
   "devDependencies": {
     "@libp2p/interfaces": "3.3.1",
     "@motionone/dom": "10.15.5",
-    "@types/eslint": "8.21.0",
+    "@types/eslint": "8.21.1",
     "@types/events": "3.0.0",
     "@types/hoist-non-react-statics": "3.3.1",
     "@types/is-callable": "1.1.0",
@@ -144,7 +144,7 @@
     "ipfs-http-response": "6.0.0",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.0.0-dev.20230213",
+    "typescript": "5.0.0-dev.20230214",
     "uvu": "0.5.6"
   },
   "peerDependencies": {
