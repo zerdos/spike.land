@@ -746,11 +746,11 @@ __metadata:
   linkType: hard
 
 "@ipld/dag-pb@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@ipld/dag-pb@npm:4.0.0"
+  version: 4.0.2
+  resolution: "@ipld/dag-pb@npm:4.0.2"
   dependencies:
     multiformats: "npm:^11.0.0"
-  checksum: ff23f766ebab0defee90c5b8c46ef4f6b6e2c313b6bddd764c423023cad927faebba046e188fb355c0627209efbe3a3a4e79f0cf6d1db4ec791aabb71a38991b
+  checksum: d719f6fb91c27314b72756ceee384a34798664f35e168476063f7421f1a8689f7105be18a551a7b55b9a727c7547672171bac72a9c6daa5cd9a5f26518c5c3f0
   languageName: node
   linkType: hard
 
@@ -867,8 +867,8 @@ __metadata:
   linkType: hard
 
 "@libp2p/delegated-content-routing@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@libp2p/delegated-content-routing@npm:4.0.0"
+  version: 4.0.1
+  resolution: "@libp2p/delegated-content-routing@npm:4.0.1"
   dependencies:
     "@libp2p/interface-content-routing": "npm:^2.0.0"
     "@libp2p/interface-peer-id": "npm:^2.0.0"
@@ -881,7 +881,7 @@ __metadata:
     multiformats: "npm:^11.0.0"
     p-defer: "npm:^4.0.0"
     p-queue: "npm:^7.2.0"
-  checksum: c671e7d8041b265397e3d8d2828332d38dbcb5411a99cec155ff1c8de8b7d4c7584d58643fb83d2e6103c819a7a0a1e2bf8b9d5d342e6538749228914d39f1b9
+  checksum: 83656e81dc8c30d6a949a52db4793ed76b69a1add0d6bc29f22ba67a5a7fbf8e49385a9a166cbdadad3a6a2c9f8f0117184bfab3f647803b2aca68142d8bd7fc
   languageName: node
   linkType: hard
 
@@ -2860,9 +2860,9 @@ __metadata:
   linkType: hard
 
 "@types/trusted-types@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@types/trusted-types@npm:2.0.2"
-  checksum: 0e106fb83a7bb427e24f458f96c957af6e3bae4603cac3635093060c9c3175b5a08d0905c890c595f5de65a03613b74d6f04612c940cac28cd5c43fad80c242e
+  version: 2.0.3
+  resolution: "@types/trusted-types@npm:2.0.3"
+  checksum: 625c7de5c2dc012f74993d60b68d6408771da39f1f3cf5bc5cb7bf988b259695890e9157895da44f7f79ff26481d9895fb53d5ceb11c6027ccd23294e9f84953
   languageName: node
   linkType: hard
 
@@ -3985,9 +3985,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001449":
-  version: 1.0.30001451
-  resolution: "caniuse-lite@npm:1.0.30001451"
-  checksum: c23513d8c93b4fd849b3a418ab13ef3977437f5f21ebcf099671285f6cf6d245e2456829d9c443458d1b7784efa434ff67ba9d6722b68b5d78bdd35898369460
+  version: 1.0.30001452
+  resolution: "caniuse-lite@npm:1.0.30001452"
+  checksum: 5e7441b868531bb086ecaae980efd36c25429ee4aaff07775a30a2500a925d377d02fb9270420a27079b35fa679a465083e666c3bde81d93c1f06bcb538da811
   languageName: node
   linkType: hard
 
@@ -4933,9 +4933,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.295
-  resolution: "electron-to-chromium@npm:1.4.295"
-  checksum: 36da9871dde9693f43cb763ab4f1034eb9b3302b3ea69640f358c8925eeaa65ac6b9dae4727b9e973851b86b79dfe059ce7ee374e5845ad149276a19f76171b6
+  version: 1.4.296
+  resolution: "electron-to-chromium@npm:1.4.296"
+  checksum: 4c068d221995caeb15279f9fa6230983d1ba7d769225a0ac0f95815ec8829dd1dc0dfc306f3833fd3b51e7f8576539b41e9e255f24036a7191fc9d245fdbef60
   languageName: node
   linkType: hard
 
@@ -10985,9 +10985,9 @@ __metadata:
   linkType: hard
 
 "sdp@npm:^3.0.2":
-  version: 3.1.0
-  resolution: "sdp@npm:3.1.0"
-  checksum: 4db3a8c2814fdb7a01564100e6cb5e581f885826852e455eb58c6b2c466d0f239e198f455df28bcde5b0620a0e9297b0cb5ee67f947badb0068973db08ad3aba
+  version: 3.2.0
+  resolution: "sdp@npm:3.2.0"
+  checksum: d2d347355d1510d39d605a11ed81dc5292796a0b31cb12b2b25899b20ac950caf44f84ac7ec5d791899af969aa67f274aa5c34989d03f52cda013d06ed8faada
   languageName: node
   linkType: hard
 
@@ -12055,11 +12055,11 @@ __metadata:
   linkType: hard
 
 "undici@npm:^5.12.0":
-  version: 5.18.0
-  resolution: "undici@npm:5.18.0"
+  version: 5.19.1
+  resolution: "undici@npm:5.19.1"
   dependencies:
     busboy: "npm:^1.6.0"
-  checksum: 6e4bd8f2c0c9475e601ef9dba378a8f5c9274ce28cf97f03b1c202d5002c7722466358d6d63a69be96ef29f52be3d29d3fbfb13ac7b92f25520960c72104d0c3
+  checksum: 999c4ad5d08b9082b3a3e7a1e66bf3b9c08dac89ef8b9951da8e00959fafc03319028ed83f161ddb8d4e157ce6a9b6c8a50194daa64fd21dd5e493cddb039bbe
   languageName: node
   linkType: hard
 
@@ -12549,8 +12549,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.2.2, ws@npm:^8.4.0":
-  version: 8.12.0
-  resolution: "ws@npm:8.12.0"
+  version: 8.12.1
+  resolution: "ws@npm:8.12.1"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -12559,7 +12559,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 048ab67bf67c094e515b99ba3b6eaf051b6e46dfdb498f5ff05109bd7f9514c086a8b680e73bd0c24b476eb45925eaa1a5319bd4a79c0dc3de1fc45fdba7b3dc
+  checksum: a876f870ceeaaf115138a47eacc6b2a2d750c95d770124ad2aad4d7b03d4413dae65e6325ac76df3c30930f6c8cb683c65b236f7068e497e5c70a5f8acd9e213
   languageName: node
   linkType: hard
 

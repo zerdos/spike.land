@@ -18,6 +18,7 @@ const api: ExportedHandler<CodeEnv> = {
   fetch: (
     req,
     env,
+    ctx,
   ) => {
     let request = new Request(req.url, { ...req });
     if (
@@ -335,7 +336,9 @@ const api: ExportedHandler<CodeEnv> = {
               let kvResp = await getAssetFromKV(
                 {
                   request,
-                  waitUntil: (promise) => promise,
+                  waitUntil(promise) {
+                    return ctx.waitUntil(promise);
+                  },
                 },
                 {
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
@@ -359,14 +362,16 @@ const api: ExportedHandler<CodeEnv> = {
               const headers = new Headers(kvResp.headers);
               kvResp.headers.forEach((v, k) => headers.append(k, v));
               if (isChunk(request.url)) {
-                headers.set(
+                headers.append(
                   "Cache-Control",
                   "public, max-age=604800, immutable",
                 );
               }
-              headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+              headers.append("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
-              await cache.put(kvCacheKey, kvResp);
+              if (kvResp && kvResp.ok && kvResp.status === 200) {
+                await cache.put(kvCacheKey, kvResp.clone());
+              }
               return kvResp;
             }
 

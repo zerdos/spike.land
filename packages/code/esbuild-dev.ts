@@ -111,7 +111,7 @@ const buildOptions: esbuild.BuildOptions = {
     "file-type": "../../node_modules/file-type/browser.js",
     os: "os-browserify",
     assert: "assert",
-    fs: "./src/fs.ts",
+    // fs: "./src/fs.ts",
   },
   // alias: {
   //   "react-rnd": "/npm:/*react-rnd@10.3.7",
@@ -269,6 +269,10 @@ const build = (
     define, // makeEnv("production"),
     minify: false,
     mangleQuoted: false,
+    alias: {
+      ...buildOptions.alias,
+      fs: "./src/fs.ts",
+    },
     minifySyntax: false,
     minifyWhitespace: false,
     ignoreAnnotations: false,
