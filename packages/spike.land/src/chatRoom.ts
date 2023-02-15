@@ -142,7 +142,7 @@ export class Code implements DurableObject {
   }
 
   fetch(request: Request) {
-    return this.state.storage.get("session").then((s) => this.session = s as ICodeSession).then(() =>
+    return (this.state.storage.get("session").then((s) => this.session = s as ICodeSession).then(() =>
       handleErrors(
         request,
         (async () => {
@@ -481,7 +481,7 @@ export class Code implements DurableObject {
           }
         }) as unknown as () => Promise<Response>,
       )
-    );
+    ));
   }
 
   async processWsMessage(
