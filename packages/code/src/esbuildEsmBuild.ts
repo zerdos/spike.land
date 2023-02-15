@@ -32,7 +32,6 @@ const init = (orig: string) => {
       await mutex.acquire();
       await initialize({
         wasmURL: `${orig}/esbuild-wasm@${version}/esbuild.wasm`,
-        worker: !globalThis.isSharedWorker,
       });
       initDone = true;
       mutex.release();

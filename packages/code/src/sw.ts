@@ -1,7 +1,7 @@
 // import {precacheAndRoute} from 'workbox-precaching';
 importScripts("/swVersion.js");
 
-import { transpile } from "./shared";
+import { init, transpile } from "./shared";
 
 // importScripts("/workerScripts/prettierEsm.js");
 
@@ -24,15 +24,22 @@ import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
+
 // import { ReconnectingWebSocket } from "./ReconnectingWebSocket.js";
 
 // let controller = new AbortController();
+let started = false;
 
-// self.onmessage = async (event) => {
-//   if (event.data.type === "ata") {
-//     globalThis.sharedWorker = event.data;
-//     event.data.port.start();
-//   }
+self.onmessage = async (event) => {
+  if (event.data.type === "sharedworker") {
+    globalThis.sharedWorker = event.data;
+    const port = event.data.sharedWorkerPort;
+    port.start();
+
+    init(swVersion, port);
+    started = true;
+  }
+};
 //   controller.abort();
 //   console.log({ event });
 //   controller = new AbortController();
@@ -141,7 +148,7 @@ const fakeBackend = async (request: Request) => {
       });
     }
     try {
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.js`)) {
+      if (url.pathname.startsWith(`/live/${codeSpace}/index.js`) && started) {
         // const code = await readFile(
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;
@@ -186,8 +193,8 @@ const fakeBackend = async (request: Request) => {
           },
         });
       }
-    } catch {
-      console.log("some error again");
+    } catch (err) {
+      console.error({ err }, "some error again");
     }
   }
 

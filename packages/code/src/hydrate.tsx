@@ -11,10 +11,35 @@ import { md5 } from "./md5";
 // import { wait } from "./wait";
 export { md5 };
 
+import { getTransferables, hasTransferables } from "transferables";
+import { Workbox } from "workbox-window";
+import { getPort, init } from "./shared";
 import { run } from "./ws";
 
-import { Workbox } from "workbox-window";
 export const sw = new Workbox("/sw.js?v=" + swVersion);
+init(swVersion, null);
+const port = getPort();
+
+sw.getSW().then(sw => {
+  const swPort = new MessageChannel();
+  port.addEventListener(
+    "message",
+    (data) =>
+      swPort.port1.postMessage(
+        data,
+        (hasTransferables(data) ? getTransferables(data) : undefined) as unknown as Transferable[],
+      ),
+  );
+  swPort.port1.addEventListener(
+    "message",
+    (data) =>
+      swPort.port1.postMessage(
+        data,
+        (hasTransferables(data) ? getTransferables(data) : undefined) as unknown as Transferable[],
+      ),
+  );
+  sw.postMessage({ type: "sharedworker", sharedWorkerPort: swPort.port1 }, [swPort.port1]);
+});
 
 // sw.messageSkipWaiting();
 if ("serviceWorker" in navigator) {

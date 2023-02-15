@@ -1,10 +1,6 @@
 import ReconnectingWebSocket from "reconnecting-websocket";
 
-globalThis.isSharedWorker = true;
-
-// importScripts("/workerScripts/superFetch.js");
-
-import type * as RPC from "worker-rpc";
+import type { RpcFactory } from "./workerRpc";
 
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
@@ -15,7 +11,7 @@ import { Mutex } from "async-mutex";
 
 declare var self:
   & SharedWorkerGlobalScope
-  & { RpcProvider: typeof RPC.RpcProvider }
+  & { rpcFactory: RpcFactory }
   & { ata: typeof Ata }
   & {
     prettierJs: typeof Prettier;
@@ -25,21 +21,17 @@ declare var self:
 // Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");
 importScripts("/workerScripts/workerRpc.js");
-importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/ata.js");
+importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/transpile.js");
 
-const { RpcProvider, ata, prettierJs, transpile } = self;
-
+const { rpcFactory, ata, prettierJs, transpile } = self;
 const start = (port: MessagePort) => {
   // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
-  const rpcProvider = new RpcProvider(
-    (message, transfer) => port.postMessage(message, transfer as StructuredSerializeOptions),
-  );
+  const rpcProvider = rpcFactory(port);
 
   port.onmessage = ({ data }) => rpcProvider.dispatch(data);
-  globalThis.isSharedWorker = true;
 
   rpcProvider.registerRpcHandler(
     "prettierJs",
@@ -48,7 +40,9 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "ata",
-    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs }),
+    ({ code, originToUse }: { code: string; originToUse: string }) => {
+      return ata({ code, originToUse, prettierJs });
+    },
   );
 
   rpcProvider.registerRpcHandler(
@@ -70,7 +64,7 @@ self.onconnect = (e) => {
 // This is the fallback, just in case the browser doesn't support SharedWorkers natively
 self.onconnect = ({ ports }) => start(ports[0]);
 
-// If the script is running in a normal webworker then don't worry about the Shared Worker message ports
+// If the script is running in a normal webworker thr don't worry about the Shared Worker message ports
 if (!("SharedWorkerGlobalScope" in self)) {
   start(self as typeof self & MessagePort);
 }

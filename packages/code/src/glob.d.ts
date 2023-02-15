@@ -28,7 +28,7 @@ declare global {
     css: string;
     html: string;
   };
-  var isSharedWorker: boolean;
+
   // var session: ICodeSession;
   // var esbuildEsm: Transpile;
   var swVersion: string;
