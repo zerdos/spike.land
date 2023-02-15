@@ -1,6 +1,6 @@
 import ReconnectingWebSocket from "reconnecting-websocket";
 
-import type { RpcFactory } from "./workerRpc";
+import { rpcFactory } from "./workerRpc";
 
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
@@ -11,7 +11,6 @@ import { Mutex } from "async-mutex";
 
 declare var self:
   & SharedWorkerGlobalScope
-  & { rpcFactory: RpcFactory }
   & { ata: typeof Ata }
   & {
     prettierJs: typeof Prettier;
@@ -20,12 +19,11 @@ declare var self:
 
 // Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");
-importScripts("/workerScripts/workerRpc.js");
 importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/transpile.js");
 
-const { rpcFactory, ata, prettierJs, transpile } = self;
+const { ata, prettierJs, transpile } = self;
 const start = (port: MessagePort) => {
   // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
