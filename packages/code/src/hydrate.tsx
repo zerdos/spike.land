@@ -24,7 +24,7 @@ sw.getSW().then(sw => {
   const swPort = new MessageChannel();
   port.addEventListener(
     "message",
-    (data) =>
+    ({ data }) =>
       swPort.port1.postMessage(
         data,
         (hasTransferables(data) ? getTransferables(data) : undefined) as unknown as Transferable[],
@@ -32,7 +32,7 @@ sw.getSW().then(sw => {
   );
   swPort.port1.addEventListener(
     "message",
-    (data) =>
+    ({ data }) =>
       swPort.port1.postMessage(
         data,
         (hasTransferables(data) ? getTransferables(data) : undefined) as unknown as Transferable[],
