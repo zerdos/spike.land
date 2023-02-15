@@ -25,7 +25,7 @@ const p = fs.promises;
 
 // const readdir = globalThis.fs.readdir;
 const origin = typeof location !== "undefined" ? location.origin : "";
-const files: { [key: string]: string } = {};
+const memoryFiles: { [key: string]: string } = {};
 const controllers: { [key: string]: AbortController } = {};
 
 const mutex = new Mutex();
@@ -37,16 +37,16 @@ export const readdir = (filePath: string) =>
     )
   );
 export const writeFile = async (filePath: string, content: string) => {
-  if (files[filePath] === content) return;
+  if (memoryFiles[filePath] === content) return;
   if (controllers[filePath]) controllers[filePath].abort();
   controllers[filePath] = new AbortController();
   const signal = controllers[filePath].signal;
 
   setTimeout(() => {
-    if (files[filePath] === content) return;
+    if (memoryFiles[filePath] === content) return;
     if (signal.aborted) return;
     console.log("write", filePath);
-    files[filePath] = content;
+    memoryFiles[filePath] = content;
     return p.writeFile(
       filePath,
       content,
@@ -55,8 +55,8 @@ export const writeFile = async (filePath: string, content: string) => {
 };
 
 export const readFile = async (filePath: string) =>
-  files[filePath]
-    ? files[filePath]
+  memoryFiles[filePath]
+    ? memoryFiles[filePath]
     : await mutex.runExclusive(() =>
       p.readFile(filePath, { encoding: "utf8" }).catch(() => fetch(origin + filePath).then((x) => x.text()))
     );

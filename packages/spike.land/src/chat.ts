@@ -100,7 +100,7 @@ const api: ExportedHandler<CodeEnv> = {
         const cache = await caches.open(ASSET_HASH);
 
         let response = await cache.match(cacheKey);
-        if (response) {
+        if (response && response.ok && response.status === 200) {
           return response;
         }
 
@@ -327,15 +327,15 @@ const api: ExportedHandler<CodeEnv> = {
 
             if (files[file]) {
               const kvCacheKey = new Request(
-                request.url.replace(file, files[file]),
+                request.url,
               );
               response = await cache.match(kvCacheKey);
-              if (response) return response;
+              if (response && response.ok && response.status === 200) return response;
 
               let kvResp = await getAssetFromKV(
                 {
                   request,
-                  waitUntil: async (prom) => await prom,
+                  waitUntil: (promise) => promise,
                 },
                 {
                   ASSET_NAMESPACE: env.__STATIC_CONTENT,
@@ -366,6 +366,7 @@ const api: ExportedHandler<CodeEnv> = {
               }
               headers.set("Cross-Origin-Embedder-Policy", "require-corp");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
+              await cache.put(kvCacheKey, kvResp);
               return kvResp;
             }
 

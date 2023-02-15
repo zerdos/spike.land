@@ -35,13 +35,13 @@
     "ipfs-http-response/file-type": "18.2.0"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230115.0",
+    "@cloudflare/workers-types": "4.20230214.0",
     "@emotion/react": "11.10.5",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@playwright/test": "1.30.0",
     "@types/eslint": "8.21.1",
     "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.10",
+    "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "5.52.0",
     "@typescript-eslint/parser": "5.52.0",
     "constants": "0.0.2",

@@ -7,6 +7,7 @@ const imports = {
   "@emotion/styled": "/emotionStyled.mjs",
   "react": "/reactMod.mjs",
   "react-dom": "/reactDom.mjs",
+  "foo-bar": "/fooBar.mjs",
 };
 export const importMap = { imports };
 
