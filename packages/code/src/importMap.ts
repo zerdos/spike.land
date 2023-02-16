@@ -1,5 +1,5 @@
 const imports = {
-  "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+  "@emotion/react/jsx-runtime": "/emotion.mjs",
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom/client": "/reactDomClient.mjs",
   "@emotion/react": "/emotion.mjs",
