@@ -2405,7 +2405,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.52.0"
     "@typescript-eslint/parser": "npm:5.52.0"
     "@typescript-eslint/typescript-estree": "npm:5.52.0"
-    ace-builds: "npm:1.15.1"
+    ace-builds: "npm:1.15.2"
     assert: "npm:2.0.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:3.0.0"
@@ -2424,7 +2424,7 @@ __metadata:
     fast-glob: "npm:3.2.12"
     fetch-retry: "npm:5.0.3"
     file-type: "npm:18.2.0"
-    framer-motion: "npm:9.0.3"
+    framer-motion: "npm:9.0.4"
     immutable: "npm:4.2.4"
     ipfs-core: "npm:0.18.0"
     ipfs-http-response: "npm:6.0.0"
@@ -3216,10 +3216,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.15.1":
-  version: 1.15.1
-  resolution: "ace-builds@npm:1.15.1"
-  checksum: d40e75257e2976b95532ac12449f3b86fade561c8c62b9b27682676a23c6bd851b0ec0aaddb1575812eb797dd531d8bfc98af5e67a8fb964f8a3fd748060a6b6
+"ace-builds@npm:1.15.2":
+  version: 1.15.2
+  resolution: "ace-builds@npm:1.15.2"
+  checksum: 2b0a36fb1b60509422f6112a18b76320ca6754e80d3c7aeb15557b60f4874fa97fedbafc3b9855482c062eadbf02f5e9d08cccc9c671323b6cd66787df239e9d
   languageName: node
   linkType: hard
 
@@ -4672,9 +4672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.5.1":
-  version: 12.5.1
-  resolution: "cypress@npm:12.5.1"
+"cypress@npm:12.6.0":
+  version: 12.6.0
+  resolution: "cypress@npm:12.6.0"
   dependencies:
     "@cypress/request": "npm:^2.88.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -4693,7 +4693,7 @@ __metadata:
     commander: "npm:^5.1.0"
     common-tags: "npm:^1.8.0"
     dayjs: "npm:^1.10.4"
-    debug: "npm:^4.3.2"
+    debug: "npm:^4.3.4"
     enquirer: "npm:^2.3.6"
     eventemitter2: "npm:6.4.7"
     execa: "npm:4.1.0"
@@ -4720,7 +4720,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 0fc2ebe68492e97f461f7049120e1a5c379268378dab88908ed5149c47e7e8ec19d8a241da075c6ded4ae8b65348b427fc3465b03e0d6d700f3641c65520abf3
+  checksum: 2dc4c86b5f4cb4dda4ebee3a70377c6f9dec060f8154780065c27f1bb55fbf0a6e9e482b2be49e760c77d053b623d6756bf83a1e485518fecf9b57aeadb79781
   languageName: node
   linkType: hard
 
@@ -6022,9 +6022,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:9.0.3":
-  version: 9.0.3
-  resolution: "framer-motion@npm:9.0.3"
+"framer-motion@npm:9.0.4":
+  version: 9.0.4
+  resolution: "framer-motion@npm:9.0.4"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
@@ -6036,7 +6036,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: b5a45c2f27a95bbdfb88f2e8819e1138fbb9a9c4e49d80d7089f5c568849f40fb4b2d8f180fb320a242d42fc56a460406a2b7ca9c2ae0700f5f51c455b168ea6
+  checksum: b71ee05578e186bd46c2066b22d9249bd8c5f7dadb59014fa21218cf4d03c3f4084c7728d73c66dee28c2cbcec04c01cbfaa901a61c9c7ed3fb735125ba10d3e
   languageName: node
   linkType: hard
 
@@ -9261,7 +9261,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.52.0"
     "@typescript-eslint/parser": "npm:5.52.0"
     constants: "npm:0.0.2"
-    cypress: "npm:12.5.1"
+    cypress: "npm:12.6.0"
     dprint: "npm:0.34.5"
     eslint: "npm:8.34.0"
     eslint-plugin-react: "npm:7.32.2"

@@ -45,7 +45,7 @@
     "@typescript-eslint/eslint-plugin": "5.52.0",
     "@typescript-eslint/parser": "5.52.0",
     "constants": "0.0.2",
-    "cypress": "12.5.1",
+    "cypress": "12.6.0",
     "dprint": "0.34.5",
     "eslint": "8.34.0",
     "eslint-plugin-react": "7.32.2",

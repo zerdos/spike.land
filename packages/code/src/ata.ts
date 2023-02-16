@@ -94,7 +94,9 @@ export async function ata(
     ...Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
       .map((x) => ({
         filePath: impRes[x].url!,
-        content: impRes[x].content.split(`import mod from "/`).join(`import mod from "`).split(`export * from "/`).join(
+        content: prettierJs(impRes[x].content).split(`import mod from "/`).join(`import mod from "`).split(
+          `export * from "/`,
+        ).join(
           `export * from "`,
         ),
       })),

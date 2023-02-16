@@ -7,7 +7,7 @@ import prettier from "prettier/standalone";
 
 // let lastSuccessful: string | null = null;
 
-export const prettierJs = (code: string) => {
+const prettierJs = (code: string) => {
   // return code;
   // console.log(`prettierJS: ${code}`);
   try {
@@ -46,6 +46,7 @@ export const prettierJs = (code: string) => {
 };
 
 Object.assign(self, { prettierJs });
+export type Prettier = typeof prettierJs;
 // export const prettierCss = (code: string) =>
 //   Prettier.format(code, {
 //     parser: "css",

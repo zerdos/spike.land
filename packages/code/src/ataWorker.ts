@@ -2,7 +2,7 @@ import { rpcFactory } from "./workerRpc";
 
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
-import type { prettierJs as Prettier } from "./prettierEsm";
+import type { Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
 
 import { Mutex } from "async-mutex";
@@ -19,7 +19,7 @@ declare var self:
   & SharedWorkerGlobalScope
   & { ata: typeof Ata }
   & {
-    prettierJs: typeof Prettier;
+    prettierJs: Prettier;
   }
   & { transpile: typeof Transpile };
 
