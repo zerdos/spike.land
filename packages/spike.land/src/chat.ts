@@ -69,6 +69,7 @@ const api: ExportedHandler<CodeEnv> = {
               "Location": `${u.origin}/live/${start}`,
               "Content-Type": "text/html;charset=UTF-8",
               "Cache-Control": "no-cache",
+              "Content-Encoding": "gzip",
               ASSET_HASH: ASSET_HASH,
             },
           },
@@ -229,6 +230,7 @@ const api: ExportedHandler<CodeEnv> = {
             return new Response("ping" + Math.random(), {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
+                "Content-Encoding": "gzip",
                 "Cache-Control": "no-cache",
               },
             });
@@ -237,6 +239,7 @@ const api: ExportedHandler<CodeEnv> = {
               headers: {
                 "Content-Type": "text/html;charset=UTF-8",
                 "Cache-Control": "no-cache",
+                "Content-Encoding": "gzip",
               },
             });
 
@@ -263,6 +266,7 @@ const api: ExportedHandler<CodeEnv> = {
             return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
+                "Content-Encoding": "gzip",
                 "Cache-Control": "no-cache",
                 ASSET_HASH,
               },
@@ -272,6 +276,7 @@ const api: ExportedHandler<CodeEnv> = {
               headers: {
                 "content-type": "application/javascript; charset=utf-8",
                 "Cache-Control": "no-cache",
+                "Content-Encoding": "gzip",
               },
             });
           }
@@ -280,6 +285,7 @@ const api: ExportedHandler<CodeEnv> = {
               headers: {
                 "Content-Type": "application/json;charset=UTF-8",
                 "Cache-Control": "no-cache",
+                "Content-Encoding": "gzip",
                 ASSET_HASH,
               },
             });
@@ -368,6 +374,7 @@ const api: ExportedHandler<CodeEnv> = {
                 );
               }
               headers.append("Cross-Origin-Embedder-Policy", "require-corp");
+              headers.append("Content-Encoding", "gzip");
               kvResp = new Response(kvResp.body, { ...kvResp, headers });
               if (kvResp && kvResp.ok && kvResp.status === 200) {
                 await cache.put(kvCacheKey, kvResp.clone());
@@ -410,8 +417,7 @@ const api: ExportedHandler<CodeEnv> = {
 
             //   await cache.put(cacheKey, response.clone());
             //   return response;
-            // }
-            // const isJs = u.toString().includes(".js")
+            // }            // const isJs = u.toString().includes(".js")
             //   || u.toString().includes(".mjs");
 
             const isDTS = u.pathname.endsWith(".d.ts");
@@ -466,6 +472,7 @@ const api: ExportedHandler<CodeEnv> = {
                 return new Response(JSON.stringify({ error: "NO_DTS" }), {
                   headers: {
                     "Content-Type": "application/json;charset=UTF-8",
+                    "Content-Encoding": "gzip",
                     "Cache-Control": "no-cache",
                   },
                 });
@@ -480,6 +487,7 @@ const api: ExportedHandler<CodeEnv> = {
                 {
                   headers: {
                     "content-type": "application/javascript; charset=utf-8",
+                    "Content-Encoding": "gzip",
                     "Cache-Control": "no-cache",
                   },
                 },

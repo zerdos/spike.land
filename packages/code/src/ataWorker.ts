@@ -1,5 +1,3 @@
-import ReconnectingWebSocket from "reconnecting-websocket";
-
 import { rpcFactory } from "./workerRpc";
 
 import type { ata as Ata } from "./ata";
@@ -8,6 +6,14 @@ import type { prettierJs as Prettier } from "./prettierEsm";
 import type { transpile as Transpile } from "./transpile";
 
 import { Mutex } from "async-mutex";
+
+import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
+
+const policy = {
+  timeout: 4000,
+  attempts: Infinity,
+  maxDelay: 60000,
+};
 
 declare var self:
   & SharedWorkerGlobalScope
@@ -70,7 +76,7 @@ if (!("SharedWorkerGlobalScope" in self)) {
 const connections: {
   [key: string]: {
     BC: BroadcastChannel;
-    ws: ReconnectingWebSocket;
+    ws: Socket;
     user: string;
     oldSession: ICodeSession;
   };
@@ -94,9 +100,105 @@ function setConnections(signal: string) {
     fetch(`/live/${codeSpace}/session`).then((s) =>
       s.json<ICodeSession>().then((ss) => c.oldSession = makeSession(ss))
     );
-    const ws = new ReconnectingWebSocket(
-      `wss://${location.host}/live/${codeSpace}/websocket`,
-    );
+
+    const delegate = {
+      socketDidOpen(_socket: Socket) {
+        // Socket is ready to write.
+      },
+      socketDidClose(_socket: Socket, _code?: number, _reason?: string) {
+        // Socket closed and will retry the connection.
+      },
+      socketDidFinish(_socket: Socket) {
+        // Socket closed for good and will not retry.
+      },
+      socketDidReceiveMessage(ws: Socket, message: string) {
+        const data = JSON.parse(message);
+        (async () => {
+          if (data.changes) {
+            BC.postMessage(data);
+          }
+          if (data.strSess) {
+            const sess = makeSession(data.strSess);
+            const pp = createPatch(sess, c.oldSession);
+            ws.send(JSON.stringify({ ...pp, name: c.user, i: c.oldSession.i }));
+            return;
+          }
+          if (data.i && data.i < c.oldSession.i) return;
+          if (data.type === "handShake") {
+            ws.send(JSON.stringify({ name: c.user }));
+
+            if (makeHash(c.oldSession) !== String(data.hashCode)) {
+              c.oldSession = await (await fetch(`/live/${codeSpace}/session`))
+                .json();
+              const transpiled = data.transpiled
+                || await transpile(c.oldSession.code, location.origin);
+
+              BC.postMessage({ ...c.oldSession, transpiled });
+              return;
+            }
+            return;
+          }
+          // if (data.type === "transpile") {
+          // ws.send(JSON.stringify({ name: c.user }));
+
+          // if (makeHash(c.oldSession) !== String(data.hashCode)) {
+          // c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
+          //  const transpiled = await transpile(c.oldSession.code);
+          //
+          // BC.postMessage({});
+          // return;
+          // }
+          // return;
+          // }
+          // if (data.type === "transpile") {
+          //   transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
+          // }
+
+          // ^? a
+          if (data.newHash && data.oldHash) {
+            await mutex.runExclusive(async () => {
+              const oldSession = makeSession(c.oldSession);
+              const oldHash = makeHash(oldSession);
+
+              if (oldHash !== String(data.oldHash)) {
+                c.oldSession = makeSession(
+                  await (await fetch(`/live/${codeSpace}/session`)).json(),
+                );
+
+                console.log(c.oldSession);
+                BC.postMessage(c.oldSession);
+                return;
+              }
+
+              const newSession = applyCodePatch(oldSession, data);
+              const newHash = makeHash(newSession);
+
+              if (data.newHash === newHash) {
+                c.oldSession = newSession;
+                console.log(newSession);
+                BC.postMessage(newSession);
+                return;
+              }
+
+              c.oldSession = makeSession(
+                await (await fetch(`/live/${codeSpace}/session`)).json(),
+              );
+
+              console.log(c.oldSession);
+              BC.postMessage(c.oldSession);
+            });
+          }
+        })();
+      },
+      socketShouldRetry(_socket: Socket, code: number): boolean {
+        // Socket reconnects unless server returns the policy violation code.
+        return code !== 1008;
+      },
+    };
+    const url = `wss://${location.host}/live/${codeSpace}/websocket`;
+    const ws = new BufferedSocket(new StableSocket(url, delegate, policy));
+    ws.open();
+
     c.ws = ws;
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
@@ -131,84 +233,6 @@ function setConnections(signal: string) {
             // );
           }
         }
-      }
-    };
-
-    ws.onmessage = async (ev: { data: string }) => {
-      const data = JSON.parse(ev.data);
-      if (data.changes) {
-        BC.postMessage(data);
-      }
-      if (data.strSess) {
-        const sess = makeSession(data.strSess);
-        const pp = createPatch(sess, c.oldSession);
-        ws.send(JSON.stringify({ ...pp, name: c.user, i: c.oldSession.i }));
-        return;
-      }
-      if (data.i && data.i < c.oldSession.i) return;
-      if (data.type === "handShake") {
-        ws.send(JSON.stringify({ name: c.user }));
-
-        if (makeHash(c.oldSession) !== String(data.hashCode)) {
-          c.oldSession = await (await fetch(`/live/${codeSpace}/session`))
-            .json();
-          const transpiled = data.transpiled
-            || await transpile(c.oldSession.code, location.origin);
-
-          BC.postMessage({ ...c.oldSession, transpiled });
-          return;
-        }
-        return;
-      }
-      // if (data.type === "transpile") {
-      // ws.send(JSON.stringify({ name: c.user }));
-
-      // if (makeHash(c.oldSession) !== String(data.hashCode)) {
-      // c.oldSession = await (await fetch(`/live/${codeSpace}/session`)).json();
-      //  const transpiled = await transpile(c.oldSession.code);
-      //
-      // BC.postMessage({});
-      // return;
-      // }
-      // return;
-      // }
-      // if (data.type === "transpile") {
-      //   transpile(data.code).then(transpiled => ws.send(JSON.stringify({ ...data, transpiled })));
-      // }
-
-      // ^? a
-      if (data.newHash && data.oldHash) {
-        await mutex.runExclusive(async () => {
-          const oldSession = makeSession(c.oldSession);
-          const oldHash = makeHash(oldSession);
-
-          if (oldHash !== String(data.oldHash)) {
-            c.oldSession = makeSession(
-              await (await fetch(`/live/${codeSpace}/session`)).json(),
-            );
-
-            console.log(c.oldSession);
-            BC.postMessage(c.oldSession);
-            return;
-          }
-
-          const newSession = applyCodePatch(oldSession, data);
-          const newHash = makeHash(newSession);
-
-          if (data.newHash === newHash) {
-            c.oldSession = newSession;
-            console.log(newSession);
-            BC.postMessage(newSession);
-            return;
-          }
-
-          c.oldSession = makeSession(
-            await (await fetch(`/live/${codeSpace}/session`)).json(),
-          );
-
-          console.log(c.oldSession);
-          BC.postMessage(c.oldSession);
-        });
       }
     };
   }

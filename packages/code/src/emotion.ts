@@ -1,7 +1,5 @@
 import * as EmotionReact from "@emotion/react";
-import * as JSX from "@emotion/react/jsx-runtime";
-
-export const { jsx, jsxs, Fragment } = JSX;
+export * from "@emotion/react/jsx-runtime";
 
 // import * as EA from "@emotion/react";
 
@@ -22,5 +20,3 @@ export const {
   withTheme,
   // @ts-ignore
 } = EmotionReact;
-
-export default JSX;

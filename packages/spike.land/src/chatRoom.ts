@@ -284,6 +284,7 @@ export class Code implements DurableObject {
                       "Access-Control-Allow-Origin": "*",
                       "Cross-Origin-Embedder-Policy": "require-corp",
                       "Cache-Control": "no-cache",
+                      "Content-Encoding": "gzip",
                       content_hash: md5(session),
                       "Content-Type": "application/json; charset=UTF-8",
                     },
@@ -296,6 +297,7 @@ export class Code implements DurableObject {
                       headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Cross-Origin-Embedder-Policy": "require-corp",
+                        "Content-Encoding": "gzip",
                         "Cache-Control": "no-cache",
                         "Content-Type": "application/json; charset=UTF-8",
                       },
@@ -310,6 +312,7 @@ export class Code implements DurableObject {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
+                  "Content-Encoding": "gzip",
                   content_hash: md5(body),
                   "Content-Type": "application/json; charset=UTF-8",
                 },
@@ -325,6 +328,7 @@ export class Code implements DurableObject {
                   status: 200,
                   headers: {
                     "Access-Control-Allow-Origin": "*",
+                    "Content-Encoding": "gzip",
                     "Cross-Origin-Embedder-Policy": "require-corp",
                     "Cache-Control": "no-cache",
                     "Content-Type": "application/javascript; charset=UTF-8",
@@ -338,6 +342,7 @@ export class Code implements DurableObject {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
                   "Cache-Control": "no-cache",
+                  "Content-Encoding": "gzip",
                   "Content-Type": "application/json; charset=UTF-8",
                 },
               });
@@ -352,6 +357,7 @@ export class Code implements DurableObject {
                 headers: {
                   "Access-Control-Allow-Origin": "*",
                   "Cross-Origin-Embedder-Policy": "require-corp",
+                  "Content-Encoding": "gzip",
                   "Cache-Control": "no-cache",
                   "Content-Type": "application/json; charset=UTF-8",
                 },
@@ -467,6 +473,7 @@ export class Code implements DurableObject {
                 "no-cache",
               );
 
+              headers.set("Content-Encoding", "gzip");
               headers.set("Content-Type", "text/html; charset=UTF-8");
               headers.set("content_hash", md5(respText));
 

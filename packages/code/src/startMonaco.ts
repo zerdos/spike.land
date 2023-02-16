@@ -91,7 +91,6 @@ const monacoContribution = (
     forceConsistentCasingInFileNames: true,
     noFallthroughCasesInSwitch: true,
     resolveJsonModule: true,
-
     noEmit: true,
     allowNonTsExtensions: true,
     traceResolution: true,
@@ -103,7 +102,9 @@ const monacoContribution = (
     sourceMap: true,
     maxNodeModuleJsDepth: 20,
     rootDir: originToUse + "/",
-    paths: {},
+    paths: {
+      "tslib": ["/*tslib?bundle=true"],
+    },
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
