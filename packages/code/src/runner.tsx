@@ -1,5 +1,6 @@
 // import { syncWS } from "./ws";
 
+import type { BuildOptions } from "esbuild-wasm";
 import { importMapReplace } from "./importMapReplace";
 import { transpile } from "./shared";
 
@@ -7,7 +8,7 @@ import { transpile } from "./shared";
 // import { sess as oldSess } from "./ws";
 
 Object.assign(globalThis, {
-  build: (codeSpace: string, opts: any) => () =>
+  build: (codeSpace: string, opts: BuildOptions) => () =>
     import("./esbuildEsmBuild").then((eb) =>
       (({ buildT }) =>
         buildT(codeSpace, location.origin, (new AbortController()).signal, {

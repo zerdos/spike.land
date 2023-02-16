@@ -16,10 +16,10 @@ const detective = (src, options = {}) => {
   // https://www.typescriptlang.org/v2/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-and-export
   const skipTypeImports = Boolean(options.skipTypeImports);
   // Remove skipTypeImports option, as this option may not be recognized by the walker/parser
-  delete walkerOptions.skipTypeImports;
+  walkerOptions.skipTypeImports = undefined;
 
   const mixedImports = Boolean(options.mixedImports);
-  delete walkerOptions.mixedImports;
+  walkerOptions.mixedImports = undefined;
 
   const dependencies = [];
 
@@ -39,18 +39,18 @@ const detective = (src, options = {}) => {
         if (skipTypeImports && node.importKind === "type") {
           break;
         }
-        if (node.source && node.source.value) {
+        if (node.source?.value) {
           dependencies.push(node.source.value);
         }
         break;
       case "ExportNamedDeclaration":
       case "ExportAllDeclaration":
-        if (node.source && node.source.value) {
+        if (node.source?.value) {
           dependencies.push(node.source.value);
         }
         break;
       case "TSExternalModuleReference":
-        if (node.expression && node.expression.value) {
+        if (node.expression?.value) {
           dependencies.push(node.expression.value);
         }
         break;
@@ -61,9 +61,9 @@ const detective = (src, options = {}) => {
         break;
       case "CallExpression":
         if (
-          !mixedImports || !types.isRequire(node)
-          || !node.arguments
-          || !node.arguments.length
+          !(((mixedImports && types.isRequire(node))
+            && node.arguments)
+            && node.arguments.length)
         ) {
           break;
         }

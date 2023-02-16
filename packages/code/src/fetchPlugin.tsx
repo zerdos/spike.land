@@ -40,7 +40,7 @@ export const fetchPlugin: (
         path: new URL(
           (args.path.indexOf("/live/") !== -1
               && args.path.indexOf(".tsx") === -1)
-            ? args.path + "/index.tsx"
+            ? `${args.path}/index.tsx`
             : args.path,
           args.importer,
         ).toString(),
@@ -50,7 +50,7 @@ export const fetchPlugin: (
     build.onResolve({ filter: /^[a-z]+/, namespace: "http-url" }, (args) => ({
       path: Object.keys(importMap.imports).includes(args.path)
         ? args.path
-        : "https://esm.sh/*" + args.path + "?bundle=true",
+        : `https://esm.sh/*${args.path}?bundle=true`,
       namespace: "http-url",
     }));
     build.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
@@ -102,7 +102,7 @@ async function getRequest(req: Request) {
   // if (response) return response;
 
   let response = await fetch(req);
-  if (!response || !response.ok) return response;
+  if (!(response?.ok)) return response;
   response = new Response(response.body, response);
 
   // await fetchCache.put(req, response.clone());

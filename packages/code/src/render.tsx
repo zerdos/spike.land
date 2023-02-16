@@ -45,16 +45,16 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
 
     const myRoot = createRoot(el);
 
-    const indexMjs = await stat("/live/" + codeSpace + "/index.mjs");
+    const indexMjs = await stat(`/live/${codeSpace}/index.mjs`);
     let AppBundled: typeof AppTranspiled;
     const AppTranspiled = data.transpiled
       ? await appFactory(data.transpiled)
       : ((await import(
-        location.origin + "/live/" + codeSpace + "/index.js" + "?i=" + data.i
+        `${location.origin}/live/${codeSpace}/index.js?i=${data.i}`
       )).default);
     if (indexMjs) {
       AppBundled = (await import(
-        location.origin + "/live/" + codeSpace + "/index.mjs"
+        `${location.origin}/live/${codeSpace}/index.mjs`
       )).default;
     }
 
@@ -177,7 +177,7 @@ export const render = async (
   >;
   try {
     App = (await import(
-      location.origin + "/live/" + codeSpace + "/index.js"
+      `${location.origin}/live/${codeSpace}/index.js`
     )).default;
   } catch (err) {
     App = () => (
@@ -322,7 +322,7 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = "css";
   // const key = cache.key || "css";
   try {
-    return Array.from(document.querySelectorAll(`style[data-styled-jsx`)).map(
+    return Array.from(document.querySelectorAll("style[data-styled-jsx")).map(
       (x) => x.textContent,
     )
       + Array.from(
@@ -341,7 +341,7 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
         return null;
       }
     }).filter((x) =>
-      x && x.selectorText && x.selectorText.indexOf(key) !== -1
+      x?.selectorText && x.selectorText.indexOf(key) !== -1
       && html.indexOf(x.selectorText.slice(4, 11)) !== -1
     )
       .map((x) => x!.cssText)

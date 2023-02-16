@@ -76,7 +76,7 @@ export function importMapReplace(
         && x.indexOf(`"https`) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/npm:/*" + slices[1] + "?bundle";
+        slices[1] = `${origin}/npm:/*${slices[1]}?bundle`;
         return slices.join(`"`);
       }
       if (
@@ -87,7 +87,7 @@ export function importMapReplace(
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
-          slices[1] = origin + "/npm:" + oldUrl.pathname + "?bundle";
+          slices[1] = `${origin}/npm:${oldUrl.pathname}?bundle`;
         } catch {
           console.error("URL ERR", slices[1]);
         }
@@ -104,7 +104,7 @@ export function importMapReplace(
             oldUrl && oldUrl.pathname.indexOf(".") === -1
             && oldUrl.pathname.indexOf("/live/") !== -1
           ) {
-            slices[1] = oldUrl.toString() + "/index.js";
+            slices[1] = `${oldUrl.toString()}/index.js`;
           }
         } catch {
           console.error("URL ERR", slices[1]);

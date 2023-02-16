@@ -21,7 +21,7 @@ export async function initDb(codeSpace: string) {
         session = globalThis.cSess.session;
       } catch {
         session = await fetch(
-          location.origin + "/live/" + codeSpace + "/session.json",
+          `${location.origin}/live/${codeSpace}/session.json`,
         ).then((x) => x.json());
       }
       if (!head) {

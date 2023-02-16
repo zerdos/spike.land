@@ -24,7 +24,7 @@ async function Start() {
     get(document.URL),
   ]);
 
-  console.log("Document title is: " + docTitle + ", URL is: " + docUrl);
+  console.log(`Document title is: ${docTitle}, URL is: ${docUrl}`);
 
   const h1 = document.createElement("h1");
   h1.textContent = "Via.js - using DOM in worker";
@@ -57,7 +57,7 @@ async function OnClick(e) {
     get(e.clientY),
   ]);
 
-  console.log("[Worker] Click event at " + x + ", " + y);
+  console.log(`[Worker] Click event at ${x}, ${y}`);
 
   const source = via.audioContext.createBufferSource();
   source.buffer = self.audioBuffer;

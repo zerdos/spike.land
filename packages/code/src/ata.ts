@@ -21,7 +21,7 @@ export async function ata(
       import "@types/react/global.d.ts";
 
       
-      ` + code,
+      ${code}`,
     originToUse,
   );
 
@@ -34,31 +34,33 @@ export async function ata(
   // ``,
 
   const vNumbers = /\/(v)[0-9]+\//gm;
-  const subst = `\/`;
+  const subst = "\/";
 
   // The substituted value will be contained in the result variable
 
-  Object.keys(impRes).filter((x) => !(impRes[x].ref).startsWith(".") && !(impRes[x].ref).startsWith("https")).map((x) =>
+  Object.keys(impRes).filter((x) => !((impRes[x].ref).startsWith(".") || (impRes[x].ref).startsWith("https"))).map((
+    x,
+  ) =>
     Object.keys(impRes).map((t) =>
       impRes[t] = {
         ref: impRes[t].ref,
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
-            "https://esm.sh/" + x,
+            `https://esm.sh/${x}`,
           ).join(impRes[x].ref).replace(vNumbers, subst).split(
             "/@types/",
           ).join("/").split("/types/").join(
             "/",
           ).replaceAll(
             versionNumbers,
-            ``,
+            "",
           ),
         url: impRes[t].url!.replace(vNumbers, subst).split(
           "/@types/",
         ).join("/").split("/types/").join("/")
           .replaceAll(
             versionNumbers,
-            ``,
+            "",
           ).split("/dist/").join("/"),
       }
     )
@@ -69,13 +71,13 @@ export async function ata(
       url: impRes[x].url!.replace("esm.sh", location.host),
       ref: impRes[x].ref,
       content: impRes[x].content.split("https://esm.sh").join("").split(
-        `esm.sh`,
+        "esm.sh",
       ).join(""),
     }
   );
 
   const extras = [{
-    filePath: location.origin + "/@emotion/react/css-prop.d.ts",
+    filePath: `${location.origin}/@emotion/react/css-prop.d.ts`,
     content: `import {} from 'react'
   import { Interpolation } from '@emotion/serialize'
   import { Theme } from '.'
@@ -86,7 +88,7 @@ export async function ata(
     }
   }`,
   }, {
-    filePath: location.origin + "/@emotion/react/jsx-runtime.d.ts",
+    filePath: `${location.origin}/@emotion/react/jsx-runtime.d.ts`,
     content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
   }];
 
@@ -182,15 +184,15 @@ export async function ata(
       //   ref: r,
       // };
       impRes[
-        new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl)
+        new URL(r.indexOf("d.ts") !== -1 ? r : `${r}/index.d.ts`, baseUrl)
           .toString()
       ] = impRes[
-        new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts", baseUrl)
+        new URL(r.indexOf("d.ts") !== -1 ? r : `${r}/index.d.ts`, baseUrl)
           .toString()
       ]
         || {
           url: new URL(
-            r.indexOf("d.ts") !== -1 ? r : r + "/index.d.ts",
+            r.indexOf("d.ts") !== -1 ? r : `${r}/index.d.ts`,
             baseUrl,
           ).toString(),
           content: `

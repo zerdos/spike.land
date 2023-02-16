@@ -101,14 +101,14 @@ const monacoContribution = (
     noEmitOnError: true,
     sourceMap: true,
     maxNodeModuleJsDepth: 20,
-    rootDir: originToUse + "/",
+    rootDir: `${originToUse}/`,
     paths: {
       "tslib": ["/*tslib?bundle=true"],
     },
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
-    include: [originToUse + "/"],
+    include: [`${originToUse}/`],
   });
   // console.log("ATA");
 
@@ -127,7 +127,7 @@ const monacoContribution = (
       //
       const codeSpace = match[0].split("/live/").pop();
       const extraModel = new URL(
-        "/live/" + codeSpace + "/index.tsx",
+        `/live/${codeSpace}/index.tsx`,
         originToUse,
       ).toString();
 
@@ -176,22 +176,22 @@ self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_: string, label: string) => {
     if (label === "json") {
-      return originToUse + `/language/json/json.js`;
+      return `${originToUse}/language/json/json.js`;
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-      return originToUse + `/language/css/css.js`;
+      return `${originToUse}/language/css/css.js`;
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
-      return originToUse + `/language//html/html.js`;
+      return `${originToUse}/language//html/html.js`;
     }
 
     if (label === "typescript" || label === "javascript") {
-      return originToUse + `/language/typescript/ts.js`;
+      return `${originToUse}/language/typescript/ts.js`;
     }
 
-    return originToUse + `/editor/editor.js`;
+    return `${originToUse}/editor/editor.js`;
   },
 };
 

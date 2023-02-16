@@ -20,7 +20,7 @@ export function applyPatch(original: string, delta: Delta[]) {
     if (item[0] === -1 && typeof value === "number") {
       // DELETE
       index += value;
-    } else if (operation == 0 && typeof value === "number") {
+    } else if (operation === 0 && typeof value === "number") {
       // KEEP
       result += original.slice(index, index += value);
     } else {

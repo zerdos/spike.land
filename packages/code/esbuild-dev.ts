@@ -364,7 +364,7 @@ const build = (
       "src/reactDomClient.mjs",
       "src/jsx.mjs",
 
-      // "src/motion.ts",
+      "src/motion.ts",
       "src/hydrate.tsx",
       // "src/motion.ts",
       // "src/esbuildWASM.ts",

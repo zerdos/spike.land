@@ -126,7 +126,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
 
-  const type = sessionStorage && sessionStorage.getItem("type") || "spring";
+  const type = sessionStorage?.getItem("type") || "spring";
   return (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
@@ -191,9 +191,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   scaleRange,
                   maxScaleRange,
                 ]).values())
-                  .sort((a, b) => a - b).map((size, ind) => (
+                  .sort((a, b) => a - b).map((size) => (
                     <ToggleButton
-                      key={ind}
+                      key={`${size}`}
                       value={size}
                     >
                       <span
@@ -229,7 +229,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               `}
                 initial={{
                   backgroundColor: rgba(r, g, b, 1),
-                  transform: `scale(1,1)`,
+                  transform: "scale(1,1)",
                   height: window.innerHeight,
                   width: window.innerWidth,
                   borderRadius: 0,
@@ -270,9 +270,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   }
                 }}
               >
-                {breakPoints.map((size, ind) => (
+                {breakPoints.map((size) => (
                   <ToggleButton
-                    key={ind}
+                    key={`${size}`}
                     value={size}
                   >
                     {size === breakPoints[0]
@@ -352,7 +352,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </Fab>
 
               <QRButton
-                url={location.origin + `/live/${codeSpace}/public`}
+                url={`${location.origin}/live/${codeSpace}/public`}
               />
 
               {
@@ -364,31 +364,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </Fab> */
               }
 
-              {false && (
-                <>
-                  {
-                    /* <video
-                        ref={videoRef}
-                        onClick={
-                          () => {} // startVideo(videoRef?.current!)
-                        }
-                        playsInline={true}
-                        autoPlay={true}
-                      >
-                      </video>
-                      {clients.map((k, index) => (
-                        <video
-                          id={`video-${k}`}
-                          key={index}
-                          // ref={videoRef}
-                          playsInline={true}
-                          autoPlay={true}
-                        >
-                        </video>
-                      ))} */
-                  }
-                </>
-              )}
+              {false}
               <Fab
                 key="Share"
                 onClick={() => open(`/live/${codeSpace}/public`)}

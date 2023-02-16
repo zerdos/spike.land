@@ -99,7 +99,7 @@ const Editor: FC<
       ref={ref}
       css={css`
     ${
-        (engine === "ace") ? `` : `     
+        (engine === "ace") ? "" : `     
     border-right: 4px dashed gray;
     border-bottom: 4px dashed gray;`
       }
@@ -148,7 +148,7 @@ const Editor: FC<
   BC.onmessage = async ({ data }) => {
     if (
       (!data || !data.i && data.code) || mod.i >= Number(data.i)
-      || !data.code && !data.html
+      || !(data.code || data.html)
     ) return;
     mod.i = Number(data.i);
     mod.code = data.code;

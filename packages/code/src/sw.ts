@@ -77,7 +77,7 @@ const putInCache = async (request: Request, response: Response) => {
 };
 
 const cacheFirst = async (request: Request) => {
-  if (request.url.indexOf("/live/") == -1) {
+  if (request.url.indexOf("/live/") === -1) {
     const responseFromCache = await caches.match(request);
     if (responseFromCache) {
       return responseFromCache;

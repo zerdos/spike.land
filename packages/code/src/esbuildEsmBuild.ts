@@ -63,7 +63,7 @@ export const initAndTransform = async (
 
   // : transformed.code; // .split("dataset").join("attributes");
 
-  const res = { code: `/*${md5(code)}*/` + ttCode.code };
+  const res = { code: `/*${md5(code)}*/${ttCode.code}` };
   return res;
 };
 

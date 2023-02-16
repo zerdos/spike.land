@@ -16,7 +16,7 @@ import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
 import { run } from "./ws";
 
-export const sw = new Workbox("/sw.js?v=" + swVersion);
+export const sw = new Workbox(`/sw.js?v=${swVersion}`);
 init(swVersion, null);
 const port = getPort();
 
@@ -67,7 +67,7 @@ if ("serviceWorker" in navigator) {
 
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-mkdir("/").then(() => mkdir("/live")).then(() => mkdir("/live/" + codeSpace));
+mkdir("/").then(() => mkdir("/live")).then(() => mkdir(`/live/${codeSpace}`));
 
 if (
   location.pathname === `/live/${codeSpace}`
@@ -80,9 +80,9 @@ if (
     const { html, css } = data;
     document.getElementById("root")!.innerHTML = [
       `<div id="${codeSpace}-css" style="height:100%;">`,
-      `<style>`,
+      "<style>",
       css,
-      `</style>`,
+      "</style>",
       html,
       "</div>",
     ].join("");
@@ -104,7 +104,7 @@ if (
 } else {
   import("./render").then(({ render }) =>
     render(
-      document.getElementById(codeSpace + "-css")!,
+      document.getElementById(`${codeSpace}-css`)!,
       codeSpace,
     )
   );

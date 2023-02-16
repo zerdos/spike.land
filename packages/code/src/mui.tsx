@@ -17,7 +17,7 @@ height:28px;
       </div>
     }
   >
-    <FabLazy {...props}></FabLazy>
+    <FabLazy {...props} />
   </Suspense>
 );
 

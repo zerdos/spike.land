@@ -1,7 +1,7 @@
 import { css, Global } from "@emotion/react";
 import { useEffect, useState } from "react";
 
-const pageText = `The future is here, but not evenly distributed...`;
+const pageText = "The future is here, but not evenly distributed...";
 
 const FutureIsHere = () => {
   const [visibleChars, setVisibleChars] = useState(0);

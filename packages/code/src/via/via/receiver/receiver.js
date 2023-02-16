@@ -21,7 +21,7 @@
     const ret = idMap.get(id);
 
     if (typeof ret === "undefined") {
-      throw new Error("missing object id: " + id);
+      throw new Error(`missing object id: ${id}`);
     }
 
     return ret;
@@ -41,7 +41,7 @@
     const ret = idMap.get(id);
 
     if (typeof ret === "undefined") {
-      throw new Error("missing object id: " + id);
+      throw new Error(`missing object id: ${id}`);
     }
 
     let base = ret;
@@ -110,7 +110,7 @@
         OnCleanupMessage(data);
         break;
       default:
-        console.error("Unknown message type: " + data.type);
+        console.error(`Unknown message type: ${data.type}`);
         break;
     }
   };
@@ -148,7 +148,7 @@
         ViaConstruct(arr[1], arr[2], arr[3], arr[4]);
         break;
       default:
-        throw new Error("invalid cmd type: " + type);
+        throw new Error(`invalid cmd type: ${type}`);
     }
   }
 

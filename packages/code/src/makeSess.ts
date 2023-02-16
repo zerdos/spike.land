@@ -22,7 +22,7 @@ export const makeSession: (p: ICodeSession) => ICodeSession = (
 ) =>
   Record({ i: 0, code: "", html: "", css: "" })({
     i: p.i || 0,
-    code: p.code || `export default ()=> <>Nothing</>`,
+    code: p.code || "export default ()=> <>Nothing</>",
     html: p.html || "",
     css: (p.css || "").split(".css-").filter((x) =>
       x.startsWith("html") || (p.html || "").indexOf(x.slice(0, 5)) !== -1

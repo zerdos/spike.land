@@ -12,9 +12,9 @@ fetch(
         this.getPropertyValue = function(t) {
           /** @type {RegExp} */
           var n = /(\-([a-z]){1})/g;
-          return t == "float" && (t = "styleFloat"),
-            n.test(t) && (t = t.replace(n, function() {
-              return arguments[2].toUpperCase();
+          return t === "float" && (t = "styleFloat"),
+            n.test(t) && (t = t.replace(n, function(...rest) {
+              return rest[2].toUpperCase();
             })),
             e.currentStyle[t] ? e.currentStyle[t] : null;
         },

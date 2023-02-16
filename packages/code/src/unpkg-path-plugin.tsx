@@ -4,7 +4,7 @@ export const unpkgPathPlugin = (origin: string) => ({
   name: "unpkg-path-plugin",
   setup(build: esbuild.PluginBuild) {
     // handle rel paths in module :  includes ./ || ../
-    build.onResolve({ filter: /^\.+\// }, (args: any) => {
+    build.onResolve({ filter: /^\.+\// }, (args: { path: string }) => {
       const url = new URL(args.path, location.origin).toString();
 
       return {
@@ -13,7 +13,7 @@ export const unpkgPathPlugin = (origin: string) => ({
       };
     });
 
-    build.onResolve({ filter: /^\[a-z]+\// }, (args: any) => {
+    build.onResolve({ filter: /^\[a-z]+\// }, (args: { path: string }) => {
       if (args.path.indexOf(origin) !== -1) {
         return {
           namespace: "http-url",

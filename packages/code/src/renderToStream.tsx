@@ -12,7 +12,7 @@ export const renderToStream = async (codeSpace: string) => {
     let stream = await renderToReadableStream(
       <html>
         <body>
-          <App></App>
+          <App />
         </body>
       </html>,
       {

@@ -99,12 +99,12 @@ export function initSession(room: string, u: IUserJSON) {
 type SetItem<T> = (
   key: string,
   value: T,
-  callback?: (err: any, value: T) => void,
+  callback?: (err: Error, value: T) => void,
 ) => Promise<T>;
 
 type GetItem<T> = (
   key: string,
-  callback?: (err: any, value: T | null) => void,
+  callback?: (err: Error, value: T | null) => void,
 ) => Promise<T | null>;
 
 const storageMutex = new Mutex();
