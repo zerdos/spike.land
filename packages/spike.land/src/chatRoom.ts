@@ -30,13 +30,13 @@ export interface WebsocketSession {
   blockedMessages: string[];
 }
 
-export interface IFirstRender {
-  type: "firstRender";
-  code: string;
-  css: string;
-  i: number;
-  html: string;
-}
+// export interface IFirstRender {
+//   type: "firstRender";
+//   code: string;
+//   css: string;
+//   i: number;
+//   html: string;
+// }
 
 export class Code implements DurableObject {
   // mutex: Mutex;

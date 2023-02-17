@@ -87,7 +87,8 @@ export class Code {
 
       await mutex.runExclusive(async () => {
         const head = Number(await ldb(codeSpace).getItem("head") || 0);
-        const startSess = await fetch(`${origin}/live/${codeSpace}/session`).then(resp => resp.json<ICodeSession>());
+        const startSess = await fetch(`${origin}/live/${codeSpace}/session`)
+          .then((resp) => resp.json<ICodeSession>());
 
         if (head === 0) {
           this.session = makeSession(startSess);

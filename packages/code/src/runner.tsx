@@ -52,7 +52,10 @@ export async function runner({ code, counter }: {
     //   type: "prerender",
     //   codeSpace,
     // });
-    const transpiled = importMapReplace(await transpile({ code, originToUse: location.origin }), location.origin);
+    const transpiled = importMapReplace(
+      await transpile({ code, originToUse: location.origin }),
+      location.origin,
+    );
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
       code,

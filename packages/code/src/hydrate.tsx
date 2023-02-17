@@ -20,14 +20,16 @@ export const sw = new Workbox(`/sw.js?v=${swVersion}`);
 init(swVersion, null);
 const port = getPort();
 
-sw.getSW().then(sw => {
+sw.getSW().then((sw) => {
   const swPort = new MessageChannel();
   port.addEventListener(
     "message",
     ({ data }) =>
       swPort.port1.postMessage(
         data,
-        (hasTransferables(data) ? getTransferables(data) : undefined) as unknown as Transferable[],
+        (hasTransferables(data)
+          ? getTransferables(data)
+          : undefined) as unknown as Transferable[],
       ),
   );
   swPort.port1.addEventListener(
@@ -35,10 +37,14 @@ sw.getSW().then(sw => {
     ({ data }) =>
       swPort.port1.postMessage(
         data,
-        (hasTransferables(data) ? getTransferables(data) : undefined) as unknown as Transferable[],
+        (hasTransferables(data)
+          ? getTransferables(data)
+          : undefined) as unknown as Transferable[],
       ),
   );
-  sw.postMessage({ type: "sharedworker", sharedWorkerPort: swPort.port1 }, [swPort.port1]);
+  sw.postMessage({ type: "sharedworker", sharedWorkerPort: swPort.port1 }, [
+    swPort.port1,
+  ]);
 });
 
 // sw.messageSkipWaiting();

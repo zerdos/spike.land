@@ -272,13 +272,16 @@ const api: ExportedHandler<CodeEnv> = {
               },
             });
           case "swVersion.js": {
-            return new Response(`self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)}; `, {
-              headers: {
-                "content-type": "application/javascript; charset=utf-8",
-                "Cache-Control": "no-cache",
-                "Content-Encoding": "gzip",
+            return new Response(
+              `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)}; `,
+              {
+                headers: {
+                  "content-type": "application/javascript; charset=utf-8",
+                  "Cache-Control": "no-cache",
+                  "Content-Encoding": "gzip",
+                },
               },
-            });
+            );
           }
           case "importMap.json":
             return new Response(JSON.stringify(importMap), {
@@ -337,7 +340,9 @@ const api: ExportedHandler<CodeEnv> = {
                 request.url,
               );
               response = await cache.match(kvCacheKey);
-              if (response && response.ok && response.status === 200) return response;
+              if (response && response.ok && response.status === 200) {
+                return response;
+              }
 
               let kvResp = await getAssetFromKV(
                 {

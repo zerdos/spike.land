@@ -71,7 +71,8 @@ export function importMapReplace(
     Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
-        (x.startsWith("import") || x.indexOf(`import("`) !== -1) && x.indexOf(`"`) !== -1
+        (x.startsWith("import") || x.indexOf(`import("`) !== -1)
+        && x.indexOf(`"`) !== -1
         && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1
         && x.indexOf(`"https`) === -1
       ) {

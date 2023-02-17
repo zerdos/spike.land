@@ -8,7 +8,8 @@ export const getPort = () => workerPort;
 export const init = (swVersion: string, port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
 
-  workerPort = port || (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
+  workerPort = port
+    || (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
   rpc = new RpcProvider(
     (message) =>
       workerPort.postMessage(
