@@ -1,4 +1,4 @@
-import ky from "ky";
+// import ky from "ky";
 
 import AVLTree from "avl";
 import { connect } from "./shared";
@@ -14,46 +14,46 @@ globalThis.firstRender = globalThis.firstRender || {
 
 import { md5 } from "./md5";
 
-import type { IFirstRender } from "../../spike.land/src/chatRoom";
+// import type { IFirstRender } from "../../spike.land/src/chatRoom";
 import { ldb } from "./createDb";
 import { syncStorage } from "./session";
 
-type MessageProps = Partial<
-  CodePatch | ICodeSession | {
-    name?: string;
-    codeSpace: string;
-    session: ICodeSession;
-    sess?: ICodeSession;
-    type?: string;
-    target?: string;
-    candidate?: RTCIceCandidateInit;
-    answer?: RTCSessionDescriptionInit;
-    offer?: RTCSessionDescription;
-  }
->;
+// type MessageProps = Partial<
+//   CodePatch | ICodeSession | {
+//     name?: string;
+//     codeSpace: string;
+//     session: ICodeSession;
+//     sess?: ICodeSession;
+//     type?: string;
+//     target?: string;
+//     candidate?: RTCIceCandidateInit;
+//     answer?: RTCSessionDescriptionInit;
+//     offer?: RTCSessionDescription;
+//   }
+// >;
 
-const ws = {
-  blockedMessages: [] as MessageProps[],
-  post: (
-    json: Partial<
-      CodePatch & ICodeSession & { hashCode: string } & IFirstRender
-    >,
-  ) =>
-    ky.post(location.href, {
-      json,
-      retry: {
-        limit: 5,
-        methods: ["post"],
-        statusCodes: [413, 500],
-        backoffLimit: 3000,
-      },
-    }).json(),
-  send: (
-    mess: MessageProps,
-  ) => {
-    ws.blockedMessages.push(mess);
-  },
-};
+// const ws = {
+//   blockedMessages: [] as MessageProps[],
+//   post: (
+//     json: Partial<
+//       CodePatch & ICodeSession & { hashCode: string } & IFirstRender
+//     >,
+//   ) =>
+//     ky.post(location.href, {
+//       json,
+//       retry: {
+//         limit: 5,
+//         methods: ["post"],
+//         statusCodes: [413, 500],
+//         backoffLimit: 3000,
+//       },
+//     }).json(),
+//   send: (
+//     mess: MessageProps,
+//   ) => {
+//     ws.blockedMessages.push(mess);
+//   },
+// };
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
@@ -87,8 +87,7 @@ export class Code {
 
       await mutex.runExclusive(async () => {
         const head = Number(await ldb(codeSpace).getItem("head") || 0);
-        const startSess = await ky(`${origin}/live/${codeSpace}/session`)
-          .json<ICodeSession>();
+        const startSess = await fetch(`${origin}/live/${codeSpace}/session`).then(resp => resp.json<ICodeSession>());
 
         if (head === 0) {
           this.session = makeSession(startSess);

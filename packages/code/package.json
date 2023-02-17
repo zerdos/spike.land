@@ -56,10 +56,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@ampproject/worker-dom": "0.34.0",
     "@emotion/cache": "11.10.5",
-    "@emotion/react": "11.10.5",
-    "@emotion/styled": "11.10.5",
+    "@emotion/react": "11.10.6",
+    "@emotion/styled": "11.10.6",
     "@github/stable-socket": "^1.1.0",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@mui/material": "5.11.9",
@@ -87,7 +86,6 @@
     "is-callable": "1.2.7",
     "isomorphic-fetch": "3.0.0",
     "js-tokens": "8.0.1",
-    "ky": "0.33.2",
     "localforage": "1.10.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
@@ -144,11 +142,10 @@
     "ipfs-http-response": "6.0.0",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.0.0-dev.20230216",
+    "typescript": "5.0.0-dev.20230217",
     "uvu": "0.5.6"
   },
   "peerDependencies": {
-    "@babel/core": "7.20.12",
     "prom-client": "14.1.1"
   }
 }
