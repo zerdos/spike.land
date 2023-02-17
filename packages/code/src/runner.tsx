@@ -23,11 +23,10 @@ Object.assign(globalThis, {
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-let counterMax = 0;
-
-const sess = {
+const runnerSession = {
   i: 0,
   codeSpace,
+  counterMax: 0,
   transpiled: "",
   code: "",
 };
@@ -38,11 +37,11 @@ export async function runner({ code, counter }: {
   // signal: AbortSignal;
 }) {
   console.log({ counter });
-  if (counter <= counterMax) return;
+  if (counter <= runnerSession.counterMax) return;
 
-  counterMax = counter;
-  sess.i = counterMax;
-  sess.code = code;
+  runnerSession.counterMax = counter;
+  runnerSession.i = runnerSession.counterMax;
+  runnerSession.code = code;
 
   try {
     // if (signal.aborted) return;
