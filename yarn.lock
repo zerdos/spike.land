@@ -2110,7 +2110,7 @@ __metadata:
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
     prom-client: "npm:^14.1.1"
-    typescript: "npm:5.0.0-dev.20230217"
+    typescript: "npm:5.0.0-dev.20230218"
     wrangler: "npm:2.10.0"
   languageName: unknown
   linkType: soft
@@ -2176,6 +2176,7 @@ __metadata:
     memfs: "npm:3.4.13"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.35.0"
+    monaco-editor-core: "npm:^0.35.0"
     node-source-walk: "npm:5.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:5.5.0"
@@ -2198,7 +2199,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.0-dev.20230217"
+    typescript: "npm:5.0.0-dev.20230218"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -2282,7 +2283,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230215.0"
     esbuild-wasm: "npm:0.17.8"
-    typescript: "npm:5.0.0-dev.20230217"
+    typescript: "npm:5.0.0-dev.20230218"
     wrangler: "npm:2.10.0"
   languageName: unknown
   linkType: soft
@@ -8897,6 +8898,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monaco-editor-core@npm:^0.35.0":
+  version: 0.35.0
+  resolution: "monaco-editor-core@npm:0.35.0"
+  checksum: 30cf69dd545d86a7b7a01e7e98bf3472d606247d8504ccfa6ca83768ce1d9e7ed70b1cec918b64f3202b64e11c5b6d4f21c559edcf808db6a6f3e892faf40ed2
+  languageName: node
+  linkType: hard
+
 "monaco-editor@npm:0.35.0":
   version: 0.35.0
   resolution: "monaco-editor@npm:0.35.0"
@@ -8904,14 +8912,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.36.0-dev.20230217":
-  version: 0.36.0-dev.20230217
-  resolution: "monaco-editor@npm:0.36.0-dev.20230217"
+"monaco-editor@npm:0.36.0-dev.20230218":
+  version: 0.36.0-dev.20230218
+  resolution: "monaco-editor@npm:0.36.0-dev.20230218"
   dependencies:
     "@types/shelljs": "npm:^0.8.11"
     pin-github-action: "npm:^1.8.0"
     shelljs: "npm:^0.8.5"
-  checksum: c6e41862e9b98aaae601ca2a369f797a6df33550fa43080dfa0d8da07353e908e4fbe8417ba31eaa433b2ed63e763f3330741bbd16b528da24e3322edde386ed
+  checksum: 1c6ed406b752458a21ef21ed01b272337466450ce466734cff5ac969ae8ee3164c94695f7dba85515dbb4edf77135c629cbcee21f8fd3d088bba2bbce5ec22b5
   languageName: node
   linkType: hard
 
@@ -8937,11 +8945,11 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.36.0-dev.20230217"
+    monaco-editor: "npm:0.36.0-dev.20230218"
     p2pcf: "npm:1.3.13"
     playwright: "npm:1.30.0"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.0-dev.20230217"
+    typescript: "npm:5.0.0-dev.20230218"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -11880,23 +11888,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.0-dev.20230217":
-  version: 5.0.0-dev.20230217
-  resolution: "typescript@npm:5.0.0-dev.20230217"
+"typescript@npm:5.0.0-dev.20230218":
+  version: 5.0.0-dev.20230218
+  resolution: "typescript@npm:5.0.0-dev.20230218"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e9ec53039b20684af823d2a20f669c805cbb7286ba91b2d8d525f77bf466315a5026ad1ec32d5f332e63fef21285b3afaa4dd88608b3d4944faaf76ea26a6293
+  checksum: b191155be4086385635063d38ded0be52122d113a968dcf5b8d49c5892ed85e638dcb61880934ab1ccc2d8274a58395a8ba6da3664eafe13b33db661e0837d18
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.0-dev.20230217#optional!builtin<compat/typescript>":
-  version: 5.0.0-dev.20230217
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230217#optional!builtin<compat/typescript>::version=5.0.0-dev.20230217&hash=1f5320"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230218#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230218
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230218#optional!builtin<compat/typescript>::version=5.0.0-dev.20230218&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5230df6ca3cb9880a69a61bc50f840b0abbbff102762a96511e0b630ff5b078aff2e2c5985b092b71372eb1c4842c494926da88de1d2882a116f3dc662613357
+  checksum: ab613149ccd3596d82d7f7f7ccb9877d8cd4c8e173d01eb9341bb904f8b597c91a82091ae8ff7726fa6a0f7ee172a5e332dc798ab0fe3b38a109bad4f0d8f61a
   languageName: node
   linkType: hard
 

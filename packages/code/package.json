@@ -92,6 +92,7 @@
     "memfs": "3.4.13",
     "module": "1.2.5",
     "monaco-editor": "0.35.0",
+    "monaco-editor-core": "^0.35.0",
     "node-source-walk": "5.0.0",
     "os-browserify": "0.3.0",
     "p-map": "5.5.0",
@@ -142,7 +143,7 @@
     "ipfs-http-response": "6.0.0",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.0.0-dev.20230217",
+    "typescript": "5.0.0-dev.20230218",
     "uvu": "0.5.6"
   },
   "peerDependencies": {

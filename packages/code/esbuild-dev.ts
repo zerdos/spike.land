@@ -238,6 +238,9 @@ const build = (
 
     bundle: true,
     define,
+    alias: {
+      "lib/typescriptServices": "typescript",
+    },
     treeShaking: true,
     minify: true, // ! isDevelopment,
     minifyWhitespace: true, // ! isDevelopment,
@@ -259,6 +262,7 @@ const build = (
       "src/transpile.ts",
       "src/fs.ts",
       "src/ata.ts",
+      "src/ts.worker.ts",
       "src/ataWorker.ts",
       // "src/ipfs-core.ts",
     ],
