@@ -35,7 +35,7 @@
     "ipfs-http-response/file-type": "18.2.0"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230214.0",
+    "@cloudflare/workers-types": "4.20230215.0",
     "@emotion/react": "11.10.6",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@playwright/test": "1.30.0",
