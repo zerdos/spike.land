@@ -2630,14 +2630,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
-  version: 18.13.0
-  resolution: "@types/node@npm:18.13.0"
-  checksum: 591b7b9a97dbeaa155c3fe1a00e22fc13241781bda02f4e96935811723e7719fe18ed003301551cfa3273488cc7cf2f99146b752abc9b60aaab57bcbc67da830
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:18.14.0":
+"@types/node@npm:*, @types/node@npm:18.14.0, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
   version: 18.14.0
   resolution: "@types/node@npm:18.14.0"
   checksum: d17dff07c712379d67af7750f1586b4840ade31ab814d04987aa25850f1d4ef29b63b9ed03a7a9dccee8c86106ca75ae3b6f8cdd17be3ef3f693e700b1ea437b
@@ -8477,9 +8470,9 @@ __metadata:
   linkType: hard
 
 "lru-cache@npm:^7.7.1":
-  version: 7.16.0
-  resolution: "lru-cache@npm:7.16.0"
-  checksum: 689e5cc5ea7629947019cc0bcd0a21af1123570a5b28e719fe6f0f728deeae7b3b0c8668fff1d1872bb0dcdb2a8e6fd520959cdae82c0fa5e8eecebbe1b2cee6
+  version: 7.16.1
+  resolution: "lru-cache@npm:7.16.1"
+  checksum: 5619d4ffd5a45fb68a02bef904d6d72427c54a7a6a051126797eaa20f7429c17e681fe9cdd0de12b69a737e5f0df817f626ca5916f50e85141865dcf075873ae
   languageName: node
   linkType: hard
 
@@ -11971,11 +11964,11 @@ __metadata:
   linkType: hard
 
 "undici@npm:^5.12.0":
-  version: 5.19.1
-  resolution: "undici@npm:5.19.1"
+  version: 5.20.0
+  resolution: "undici@npm:5.20.0"
   dependencies:
     busboy: "npm:^1.6.0"
-  checksum: 999c4ad5d08b9082b3a3e7a1e66bf3b9c08dac89ef8b9951da8e00959fafc03319028ed83f161ddb8d4e157ce6a9b6c8a50194daa64fd21dd5e493cddb039bbe
+  checksum: b307c8aa8ca8858f814cb3c1bfcdc34ae2e6da38838b47d36f722555014f0519e18daaa981df7029fd51f314a59eb35375de9be275873ee94e6345c8bc1de488
   languageName: node
   linkType: hard
 
