@@ -26,7 +26,7 @@
   "dependencies": {
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.17.8",
+    "esbuild-wasm": "0.17.9",
     "immutable": "4.2.4",
     "js-tokens": "8.0.1",
     "p-map": "5.5.0",
