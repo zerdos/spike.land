@@ -5,7 +5,7 @@
 // import { createRoot } from "react-dom/client";
 import { mkdir } from "./fs";
 import { md5 } from "./md5";
-// import { render } from "./render";
+import { render } from "./render";
 // import { ab2str } from "./sab";
 // import type { ICodeSession } from "./session";
 // import { wait } from "./wait";
@@ -108,10 +108,10 @@ if (
   //   );
   // }
 } else {
-  import("./render").then(({ render }) =>
-    render(
-      document.getElementById(`${codeSpace}-css`)!,
-      codeSpace,
-    )
+  // import("./render").then(({ render }) =>
+  render(
+    document.getElementById(`${codeSpace}-css`)!,
+    codeSpace,
   );
+  // );
 }

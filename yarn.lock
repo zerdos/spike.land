@@ -207,10 +207,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230215.0":
-  version: 4.20230215.0
-  resolution: "@cloudflare/workers-types@npm:4.20230215.0"
-  checksum: ad1c6bdc5492f99544861eabee7f632dfb1f23de1b4d18d5077269310c6968023d837c6ec79be6c40e4d719b20410b48318cbd75ea308280443d3a93a661caba
+"@cloudflare/workers-types@npm:4.20230221.0":
+  version: 4.20230221.0
+  resolution: "@cloudflare/workers-types@npm:4.20230221.0"
+  checksum: d7ae864a13ab65dc792511d3e258c4614c10f38211ab9e838cc2c5aba4d0a22349499676802a3e8c3d0589a52b373fd132eb4202779bc60086aa9940011a3866
   languageName: node
   linkType: hard
 
@@ -2098,7 +2098,7 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230215.0"
+    "@cloudflare/workers-types": "npm:4.20230221.0"
     "@spike.land/code": "npm:0.9.2"
     "@types/babel__core": "npm:^7.20.0"
     async-mutex: "npm:0.4.0"
@@ -2163,7 +2163,7 @@ __metadata:
     fast-glob: "npm:3.2.12"
     fetch-retry: "npm:5.0.3"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:9.0.6"
+    framer-motion: "npm:9.0.7"
     immutable: "npm:4.2.4"
     ipfs-core: "npm:0.18.0"
     ipfs-http-response: "npm:6.0.0"
@@ -2281,7 +2281,7 @@ __metadata:
   resolution: "@spike.land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230215.0"
+    "@cloudflare/workers-types": "npm:4.20230221.0"
     esbuild-wasm: "npm:0.17.10"
     typescript: "npm:5.0.0-dev.20230221"
     wrangler: "npm:2.10.0"
@@ -5732,9 +5732,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:9.0.6":
-  version: 9.0.6
-  resolution: "framer-motion@npm:9.0.6"
+"framer-motion@npm:9.0.7":
+  version: 9.0.7
+  resolution: "framer-motion@npm:9.0.7"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     "@motionone/dom": "npm:^10.15.3"
@@ -5746,7 +5746,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 1593932b1ffe63d5501145bff9960b1e62e488858359678514dca0119978d7abc6a8fbb6c563535755dbe09e120f07e5dd1b362575b8c441a46a14bb463240bc
+  checksum: 1a6cbd45180b470eead3f764536bdc82e8d03ae56d0095fc45e97298f0b27da4fe82ed0039cb42ddd6859cc3410aa9dcebb362c79fb613e64dd8b291f5203f19
   languageName: node
   linkType: hard
 
@@ -8920,7 +8920,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230215.0"
+    "@cloudflare/workers-types": "npm:4.20230221.0"
     "@emotion/react": "npm:11.10.6"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.30.0"
