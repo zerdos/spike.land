@@ -130,6 +130,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   return (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
+        layout
         initial={{
           padding: 0,
           top: 0,
@@ -168,10 +169,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             `}
           >
             <motion.div
+              layout
               css={css`
-              overflow: hidden;
-              display: flex;
-              justify-content: space-evenly;`}
+                overflow: hidden;
+                display: flex;
+                justify-content: space-evenly;
+              `}
               initial={{ height: 0, width: 0 }}
               animate={{
                 height: "42px",
@@ -212,7 +215,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
             <motion.div
-              layout="preserve-aspect"
+              layout
               initial={{
                 height: window.innerHeight,
                 width: window.innerWidth,
@@ -223,7 +226,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               }}
             >
               <motion.div
-                layout="size"
+                layout
                 css={css`
               transform-origin: top left;
               `}
@@ -246,11 +249,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </motion.div>
             </motion.div>
             <motion.div
+              layout
               css={css`
               overflow: hidden;
               display: flex;
               justify-content: space-evenly;`}
-              initial={{ height: "0", width: "0" }}
+              initial={{ height: "0px", width: "0%" }}
               animate={{
                 height: "42px",
                 width: "100%",
@@ -323,6 +327,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           </div>
 
           <motion.div
+            layout
             css={css`overflow: hidden;`}
             initial={{ height: "0%", width: "0px" }}
             animate={{ height: "100%", width: "88px" }}
