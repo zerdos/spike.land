@@ -188,6 +188,7 @@ export const render = async (
     );
   }
 
+  root = root || createRoot(_rootEl);
   if (root) {
     root.render(
       <ParentSize>
@@ -285,7 +286,7 @@ export const prerender = async (
   _rootEl.parentElement?.appendChild(el);
   _rootEl.parentElement;
 
-  const root = createRoot(el);
+  root = root || createRoot(el);
   root.render(
     <ParentSize>
       {({ width, height, top, left }) => (
