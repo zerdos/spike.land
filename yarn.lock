@@ -95,31 +95,31 @@ __metadata:
   linkType: hard
 
 "@babel/parser@npm:^7.0.0, @babel/parser@npm:^7.1.0, @babel/parser@npm:^7.20.7":
-  version: 7.20.15
-  resolution: "@babel/parser@npm:7.20.15"
+  version: 7.21.1
+  resolution: "@babel/parser@npm:7.21.1"
   bin:
     parser: ./bin/babel-parser.js
-  checksum: 46660698145cc259591646cf4095f2608d77128c007653ba4356c755352c9d34ae45b152d269da7b0bb459cc257850d7b25aa9bf00bef25eac94205dcce0fbdc
+  checksum: 4692c4da80404b7cdb5f3806b25f51dfc0583003a2ef0a7c5582f6c9a388d6ab1bd58735c8d813feab1fa65a1130a7fbd297f410a98d876fb5627ae50e7d3139
   languageName: node
   linkType: hard
 
 "@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.20.13, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
-  version: 7.20.13
-  resolution: "@babel/runtime@npm:7.20.13"
+  version: 7.21.0
+  resolution: "@babel/runtime@npm:7.21.0"
   dependencies:
     regenerator-runtime: "npm:^0.13.11"
-  checksum: 0e09b4915318248aeeccdf6dc6a8ccdeedbe4b7187fa4159eaa569c4a407c36f3b8689296296b25246671987efe2253dd6e3bab63a40deedcdbd49b8845204e6
+  checksum: adff473f615f797cffbd64d6839a5e3816e6e7942a6c9bfc23369e6d89a18c92eda974e2f538540a0ce543c28e3d637c59a0a8c391cee978e0b7dc31b606ef08
   languageName: node
   linkType: hard
 
 "@babel/types@npm:^7.0.0, @babel/types@npm:^7.18.6, @babel/types@npm:^7.20.7, @babel/types@npm:^7.3.0, @babel/types@npm:^7.8.3":
-  version: 7.20.7
-  resolution: "@babel/types@npm:7.20.7"
+  version: 7.21.0
+  resolution: "@babel/types@npm:7.21.0"
   dependencies:
     "@babel/helper-string-parser": "npm:^7.19.4"
     "@babel/helper-validator-identifier": "npm:^7.19.1"
     to-fast-properties: "npm:^2.0.0"
-  checksum: 3457ea7eaf5d3cb20ff93c058d60983609c5963f87ac7793e2ef690934f34fadd874669d2abc4705d5953c212ed9d3cc0194618b66fa90b99ead6d2466ccce9d
+  checksum: fe4d4327cb218345d9cf4d8e38956ab00830714f69c97e2d26f4dc7e544c8e76ea3549a1e51110d1b176784ed48df95b88ba40c9a68589c863d1bddeb6ee93ff
   languageName: node
   linkType: hard
 
@@ -131,8 +131,8 @@ __metadata:
   linkType: hard
 
 "@chainsafe/libp2p-gossipsub@npm:^6.0.0":
-  version: 6.1.0
-  resolution: "@chainsafe/libp2p-gossipsub@npm:6.1.0"
+  version: 6.2.0
+  resolution: "@chainsafe/libp2p-gossipsub@npm:6.2.0"
   dependencies:
     "@libp2p/crypto": "npm:^1.0.3"
     "@libp2p/interface-connection": "npm:^3.0.1"
@@ -158,25 +158,25 @@ __metadata:
     protobufjs: "npm:^6.11.2"
     uint8arraylist: "npm:^2.3.2"
     uint8arrays: "npm:^4.0.2"
-  checksum: bdb3dc94ae8171453cd88fade47267949578c190f9b757268affbd04db5d91dc1c9f396d2062c62a09308731e5a3149f12a6eecd71b74d6a4cdb47b00a6bb3d2
+  checksum: 4b5aee3d4bf8ae88c4d3d77bfc66464347d7bd170215c5c26919936b0edab0bbce12ed238f22c387fde3dc7895f462a8a558d52e68093aa9e4592fd684e91214
   languageName: node
   linkType: hard
 
 "@chainsafe/libp2p-noise@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@chainsafe/libp2p-noise@npm:11.0.0"
+  version: 11.0.1
+  resolution: "@chainsafe/libp2p-noise@npm:11.0.1"
   dependencies:
-    "@libp2p/crypto": "npm:^1.0.0"
-    "@libp2p/interface-connection-encrypter": "npm:^3.0.0"
-    "@libp2p/interface-keys": "npm:^1.0.2"
-    "@libp2p/interface-metrics": "npm:^4.0.2"
+    "@libp2p/crypto": "npm:^1.0.11"
+    "@libp2p/interface-connection-encrypter": "npm:^3.0.5"
+    "@libp2p/interface-keys": "npm:^1.0.6"
+    "@libp2p/interface-metrics": "npm:^4.0.4"
     "@libp2p/interface-peer-id": "npm:^2.0.0"
-    "@libp2p/logger": "npm:^2.0.0"
+    "@libp2p/logger": "npm:^2.0.5"
     "@libp2p/peer-id": "npm:^2.0.0"
     "@stablelib/chacha20poly1305": "npm:^1.0.1"
     "@stablelib/hkdf": "npm:^1.0.1"
     "@stablelib/sha256": "npm:^1.0.1"
-    "@stablelib/x25519": "npm:^1.0.1"
+    "@stablelib/x25519": "npm:^1.0.3"
     it-length-prefixed: "npm:^8.0.2"
     it-pair: "npm:^2.0.2"
     it-pb-stream: "npm:^2.0.2"
@@ -185,7 +185,7 @@ __metadata:
     protons-runtime: "npm:^4.0.1"
     uint8arraylist: "npm:^2.3.2"
     uint8arrays: "npm:^4.0.2"
-  checksum: 0ad7647f98716352cfdf4a9aebd18454f8d57e169b01f2d7423377d1e77d4340dd95b99aea4d6551ccca500b82d086fc53476f9136ba0eb0f75ecd7dd4f55d9a
+  checksum: 87bfc64c56515d74624899fd37d5fba01ecb8397151f7d0b847f9ac6844e763edec80be2fcbb3d61f1a26cd62c4de10124d616af2b13007696a1a95c19f49827
   languageName: node
   linkType: hard
 
@@ -677,7 +677,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@libp2p/interface-connection-encrypter@npm:^3.0.0, @libp2p/interface-connection-encrypter@npm:^3.0.1":
+"@libp2p/interface-connection-encrypter@npm:^3.0.1, @libp2p/interface-connection-encrypter@npm:^3.0.5":
   version: 3.0.6
   resolution: "@libp2p/interface-connection-encrypter@npm:3.0.6"
   dependencies:
@@ -775,7 +775,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@libp2p/interface-metrics@npm:^4.0.0, @libp2p/interface-metrics@npm:^4.0.2":
+"@libp2p/interface-metrics@npm:^4.0.0, @libp2p/interface-metrics@npm:^4.0.2, @libp2p/interface-metrics@npm:^4.0.4":
   version: 4.0.5
   resolution: "@libp2p/interface-metrics@npm:4.0.5"
   dependencies:
@@ -2425,7 +2425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stablelib/x25519@npm:^1.0.1":
+"@stablelib/x25519@npm:^1.0.3":
   version: 1.0.3
   resolution: "@stablelib/x25519@npm:1.0.3"
   dependencies:
@@ -5558,18 +5558,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:18.2.0":
-  version: 18.2.0
-  resolution: "file-type@npm:18.2.0"
-  dependencies:
-    readable-web-to-node-stream: "npm:^3.0.2"
-    strtok3: "npm:^7.0.0"
-    token-types: "npm:^5.0.1"
-  checksum: baff88b54ebdfcf5650891e3770b33bf28eabcaf9873f7da88c39e3fd1213c551d3ca90c3f64df96ba328f6a745b3b634182c3d79de28e0a7f9542c22ab0aafe
-  languageName: node
-  linkType: hard
-
-"file-type@npm:18.2.1":
+"file-type@npm:18.2.1, file-type@npm:^18.0.0":
   version: 18.2.1
   resolution: "file-type@npm:18.2.1"
   dependencies:
@@ -7052,9 +7041,9 @@ __metadata:
   linkType: hard
 
 "is-electron@npm:^2.2.0":
-  version: 2.2.1
-  resolution: "is-electron@npm:2.2.1"
-  checksum: e26ed06dc9f7ae6e10318f8f8c83feb0ce94f516ed5dc73a590c2e6a4e18ebf1066a5615e3d301230a4e72178ad323a5c10e4d40c260a7e57411d060b82fd1d4
+  version: 2.2.2
+  resolution: "is-electron@npm:2.2.2"
+  checksum: 9f7e85f8c3b5bc7257fed0083b3d6907d515f62269ad49a20637b1f92f949d94b1e0e9c6f0743d848e2d7c03635fe1b0b3f83b4b0dc5173fbce8784aa6161127
   languageName: node
   linkType: hard
 
@@ -11061,14 +11050,14 @@ __metadata:
   linkType: hard
 
 "socket.io-client@npm:^4.1.2":
-  version: 4.6.0
-  resolution: "socket.io-client@npm:4.6.0"
+  version: 4.6.1
+  resolution: "socket.io-client@npm:4.6.1"
   dependencies:
     "@socket.io/component-emitter": "npm:~3.1.0"
     debug: "npm:~4.3.2"
     engine.io-client: "npm:~6.4.0"
     socket.io-parser: "npm:~4.2.1"
-  checksum: f0200eb7e13a18f6603b6350c30f06df33a6a32de97a10df281f8dcfbbab59f177c0b1e1d5879e8b03045c01acdc15a1d3e34576386b68b79d9faae828b16e15
+  checksum: 483543d5fcc1ee50a64d9e83e7c2c1aeaab6f2cf29ddac60e6d903adff27365d9456710078399fc5e3c1d4876c14fd8048e55e678265604eff1f4d70787e8090
   languageName: node
   linkType: hard
 

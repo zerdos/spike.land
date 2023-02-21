@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "yarn workspaces foreach --all run clean",
+    "clean": "rm -rf packages/code/dist && yarn workspaces foreach --all run clean",
     "build": "yarn workspaces foreach --all run build",
     "types": "yarn workspaces foreach --all run types",
     "test": "yarn workspaces foreach --all run test",
@@ -31,8 +31,7 @@
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "resolutions": {
-    "wrangler/esbuild": "npm:esbuild-wasm@0.16.17",
-    "ipfs-http-response/file-type": "18.2.0"
+    "wrangler/esbuild": "npm:esbuild-wasm@0.16.17"
   },
   "dependencies": {
     "@cloudflare/workers-types": "4.20230215.0",
