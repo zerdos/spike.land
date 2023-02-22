@@ -20,7 +20,7 @@ let startedAce = 0;
 const mod = {
   i: 0,
   code: "",
-  // controller: new AbortController(),
+  controller: new AbortController(),
 };
 
 const Editor: FC<
@@ -118,12 +118,20 @@ const Editor: FC<
 
   const onChange = async (_code: string) => {
     if (mod.code === _code) return;
+    mod.controller.abort();
+    mod.controller = new AbortController();
+    const { signal } = mod.controller;
+
     //
     const ccc = await prettier(code);
+    if (signal.aborted) return;
+
     const c = await prettier(_code);
+    if (signal.aborted) return;
 
     if (ccc === c) return;
-    console.log(_code);
+
+    // console.log(_code);
 
     // mod.controller.abort();
 
@@ -141,7 +149,7 @@ const Editor: FC<
       code: mod.code,
       counter: mod.i,
       codeSpace,
-      // signal: mod.controller.signal,
+      signal,
     });
   };
 
@@ -153,13 +161,14 @@ const Editor: FC<
     mod.i = Number(data.i);
     mod.code = data.code;
     // cSess.session = makeSession(data);
-    // mod.controller.abort();
-    // mod.controller = new AbortController();
-
+    mod.controller.abort();
+    mod.controller = new AbortController();
+    const { signal } = mod.controller;
     runner({
       ...mod,
       counter: mod.i,
-      codeSpace, /// codeSpace//, //signal: mod.controller.signal
+      codeSpace,
+      signal,
     });
     setValue(mod.code);
     changeContent((x) => ({ ...x, ...mod }));

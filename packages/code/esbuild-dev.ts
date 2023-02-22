@@ -35,7 +35,7 @@ const environment = env.get("NODE_ENV") === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "dist";
-const target = "es2017";
+const target = "es2021";
 
 console.log(`
 -------------------------------------------------

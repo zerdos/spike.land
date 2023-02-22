@@ -30,21 +30,22 @@ const runnerSession = {
   transpiled: "",
   code: "",
 };
-export async function runner({ code, counter }: {
+export async function runner({ code, counter, signal }: {
   code: string;
   codeSpace: string;
   counter: number;
-  // signal: AbortSignal;
+  signal: AbortSignal;
 }) {
   console.log({ counter });
   if (counter <= runnerSession.counterMax) return;
+  if (signal.aborted) return;
 
   runnerSession.counterMax = counter;
   runnerSession.i = runnerSession.counterMax;
   runnerSession.code = code;
 
   try {
-    // if (signal.aborted) return;
+    if (signal.aborted) return;
 
     // const data = await sw.messageSW({
     //   i: counter,
@@ -57,6 +58,7 @@ export async function runner({ code, counter }: {
       location.origin,
     );
 
+    if (signal.aborted) return;
     document.querySelector("iframe")?.contentWindow?.postMessage({
       code,
       i: counter,
