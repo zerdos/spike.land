@@ -112,27 +112,29 @@ const monacoContribution = (
   });
   // console.log("ATA");
 
-  (() => {
-    const search = new RegExp(
-      ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
-      "gm",
-    );
+  const extraModels: Promise<any>[] = [];
 
-    // 0123456
-    const models = code.matchAll(search);
-    // Console.log("load more models", replaced, models);
+  //  (() => {
+  const search = new RegExp(
+    ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
+    "gm",
+  );
 
-    for (const match of models) {
-      console.log("***** EXTRA MODELS *****");
-      //
-      const codeSpace = match[0].split("/live/").pop();
-      const extraModel = new URL(
-        `/live/${codeSpace}/index.tsx`,
-        originToUse,
-      ).toString();
+  // 0123456
+  const models = code.matchAll(search);
+  // Console.log("load more models", replaced, models);
+  for (const match of models) {
+    console.log("***** EXTRA MODELS *****");
+    //
+    const codeSpace = match[0].split("/live/").pop();
+    const extraModel = new URL(
+      `/live/${codeSpace}/index.tsx`,
+      originToUse,
+    ).toString();
 
-      const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+    const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
+    extraModels.push(
       fetch(extraModel).then((res) => res.text()).then((content) => {
         console.log(`adding extra models: ${mUri.toString()}`, { content });
         editor.getModel(mUri) || createModel(
@@ -140,13 +142,17 @@ const monacoContribution = (
           "typescript",
           mUri,
         );
-      });
-    }
-  })();
+        return true;
+      }),
+    );
+  }
+  // })();
 
-  ata({ code, originToUse }).then((extraLibs) => {
+  ata({ code, originToUse }).then(async (extraLibs) => {
     console.log("Auto typings results: ", { extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+
+    if (extraModels.length) await Promise.all(extraModels);
 
     languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({
