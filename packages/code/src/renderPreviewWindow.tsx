@@ -86,7 +86,7 @@ const AppToRender: FC<
           <iframe
             onLoad={() => reveal(setHideRest(false))}
             css={css`height: 100%; width: 100%; border: 0;`}
-            src={`/live/${codeSpace}/iframe`}
+            src={`/live/${codeSpace}/?v=` + swVersion}
           />
         </DraggableWindow>
       )}

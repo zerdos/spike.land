@@ -161,8 +161,8 @@ const Editor: FC<
     mod.i = Number(data.i);
     mod.code = data.code;
     // cSess.session = makeSession(data);
-    mod.controller.abort();
-    mod.controller = new AbortController();
+    // mod.controller.abort();
+    // mod.controller = new AbortController();
     const { signal } = mod.controller;
     runner({
       ...mod,
