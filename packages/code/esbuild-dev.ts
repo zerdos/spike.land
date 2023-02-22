@@ -2,7 +2,7 @@
 // import autoprefixer from "autoprefixer"
 // import postcssNested from "postcss-nested"
 
-import { copy, env, esbuild, mkdir, readDir } from "./esbuild-depts.mjs";
+import { copyFile, env, esbuild, mkdir, readDir } from "./esbuild-depts.mjs";
 
 // const pkg = await fetch("https://testing.spike.land/esbuild-wasm/package.json")
 //   .then((x) => x.json());
@@ -209,27 +209,24 @@ const build = (
   });
 
 (async () => {
-  // await cp("./src/index.html", "./dist/index.html");
-  await copy("./src/favicon.ico", "./dist/favicon.ico");
+  // await copyFile("./src/index.html", "./dist/index.html");
+  await copyFile("./src/favicon.ico", "./dist/favicon.ico");
   await mkdir("./dist/live");
   await mkdir("./dist/live/box");
-  await copy(
+  await copyFile(
     "./stubs/box/index.js",
     "./dist/live/box/index.js",
   );
 
-  await copy(
+  await copyFile(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
-  await copy(
+  await copyFile(
     "./src/assets/manifest.json",
     "./dist/manifest.json",
   );
-  await copy(
-    "./src/assets/favicons",
-    "./dist/favicons",
-  );
+
   await esbuild.build({
     ...buildOptions,
     entryPoints: [
