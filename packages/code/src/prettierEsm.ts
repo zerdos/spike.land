@@ -39,6 +39,7 @@ const prettierJs = (code: string) => {
     });
     // return lastSuccessful = current;
   } catch (error) {
+    if (code === "Types not found") return "export {}";
     console.error("prettier error"), console.error({ err: error, code });
 
     return code;
