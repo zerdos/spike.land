@@ -30,9 +30,6 @@
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
-  "resolutions": {
-    "wrangler/esbuild": "npm:esbuild-wasm@0.16.17"
-  },
   "dependencies": {
     "@cloudflare/workers-types": "4.20230221.0",
     "@emotion/react": "11.10.6",
