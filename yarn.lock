@@ -1682,7 +1682,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/dom@npm:10.15.5, @motionone/dom@npm:^10.15.3":
+"@motionone/dom@npm:10.15.5":
   version: 10.15.5
   resolution: "@motionone/dom@npm:10.15.5"
   dependencies:
@@ -2132,19 +2132,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.31.0":
-  version: 1.31.0
-  resolution: "@playwright/test@npm:1.31.0"
+"@playwright/test@npm:1.31.1":
+  version: 1.31.1
+  resolution: "@playwright/test@npm:1.31.1"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.31.0"
+    playwright-core: "npm:1.31.1"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: ea52e1a107332b0e171e84b491d37cae5c12bcd8a70552066490779a05e73ba9e0572b5e9ce5fb8e0f2fd51e1c766c33f0c7cef08b1b4c0092da481fbf785933
+  checksum: 9d452a31458058df6885b787b1600bf12879e348f74c7fa8111dc89e290218bb50ce88e514ef949f6d2b511952ca5f4233eaad8712c34ac096fa14567a085cc3
   languageName: node
   linkType: hard
 
@@ -2268,7 +2268,7 @@ __metadata:
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
     prom-client: "npm:^14.1.1"
-    typescript: "npm:5.0.0-dev.20230222"
+    typescript: "npm:5.0.0-dev.20230223"
     wrangler: "npm:2.11.0"
   languageName: unknown
   linkType: soft
@@ -2293,7 +2293,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.14.0"
+    "@types/node": "npm:18.14.1"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:^18.0.28"
@@ -2321,7 +2321,7 @@ __metadata:
     fast-glob: "npm:3.2.12"
     fetch-retry: "npm:5.0.3"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:9.0.7"
+    framer-motion: "npm:9.1.1"
     immutable: "npm:4.2.4"
     ipfs-core: "npm:0.18.0"
     ipfs-http-response: "npm:6.0.0"
@@ -2357,7 +2357,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.0-dev.20230222"
+    typescript: "npm:5.0.0-dev.20230223"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -2381,7 +2381,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.14.0"
+    "@types/node": "npm:18.14.1"
     esbuild-wasm: "npm:0.17.10"
   languageName: unknown
   linkType: soft
@@ -2441,7 +2441,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230221.0"
     esbuild-wasm: "npm:0.17.10"
-    typescript: "npm:5.0.0-dev.20230222"
+    typescript: "npm:5.0.0-dev.20230223"
     wrangler: "npm:2.11.0"
   languageName: unknown
   linkType: soft
@@ -2788,10 +2788,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.14.0, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
+"@types/node@npm:*, @types/node@npm:>=13.7.0, @types/node@npm:^18.0.0":
   version: 18.14.0
   resolution: "@types/node@npm:18.14.0"
   checksum: d17dff07c712379d67af7750f1586b4840ade31ab814d04987aa25850f1d4ef29b63b9ed03a7a9dccee8c86106ca75ae3b6f8cdd17be3ef3f693e700b1ea437b
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.14.1":
+  version: 18.14.1
+  resolution: "@types/node@npm:18.14.1"
+  checksum: b91f3b982e51b2560373086d70b43b2938f28e8ec63ad3fb77f742050a54ac1205b92c16e5d96514445e74e3e190e495f61f0acbc90da96548b2ad4973e93a98
   languageName: node
   linkType: hard
 
@@ -5958,13 +5965,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:9.0.7":
-  version: 9.0.7
-  resolution: "framer-motion@npm:9.0.7"
+"framer-motion@npm:9.1.1":
+  version: 9.1.1
+  resolution: "framer-motion@npm:9.1.1"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
-    "@motionone/dom": "npm:^10.15.3"
-    hey-listen: "npm:^1.0.8"
     tslib: "npm:^2.4.0"
   peerDependencies:
     react: ^18.0.0
@@ -5972,7 +5977,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 1a6cbd45180b470eead3f764536bdc82e8d03ae56d0095fc45e97298f0b27da4fe82ed0039cb42ddd6859cc3410aa9dcebb362c79fb613e64dd8b291f5203f19
+  checksum: 1bcebd8fafe640123112d8f81e54224391657e9ad533adbc4d489b1bf10596c3123aa2b1c7edf24069ca65fa8bad5a7b24bd676a950162504dec83e2a5bd1307
   languageName: node
   linkType: hard
 
@@ -9131,14 +9136,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.36.0-dev.20230221":
-  version: 0.36.0-dev.20230221
-  resolution: "monaco-editor@npm:0.36.0-dev.20230221"
+"monaco-editor@npm:0.36.0-dev.20230223":
+  version: 0.36.0-dev.20230223
+  resolution: "monaco-editor@npm:0.36.0-dev.20230223"
   dependencies:
     "@types/shelljs": "npm:^0.8.11"
     pin-github-action: "npm:^1.8.0"
     shelljs: "npm:^0.8.5"
-  checksum: 6032fcec65f1abbaa066164af842e1249cbd30735a8048c4e07ef1b85f12ff1ae22dd7daef1e06bcfb7359e9a062f1f7bb447a55bc4ca9cb7c1036fec29439e1
+  checksum: bc1e95a3fe5b9bbe8ec592e1eac1d0901e6dec8bed286086c0fb8ec53101bfe06de27f97873d42c008a2c04baaf3350f1ee37db9b4fc9e068a3a9db26911eac6
   languageName: node
   linkType: hard
 
@@ -9149,7 +9154,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230221.0"
     "@emotion/react": "npm:11.10.6"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.31.0"
+    "@playwright/test": "npm:1.31.1"
     "@types/eslint": "npm:8.21.1"
     "@types/react": "npm:18.0.28"
     "@types/react-dom": "npm:18.0.11"
@@ -9164,11 +9169,11 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.36.0-dev.20230221"
+    monaco-editor: "npm:0.36.0-dev.20230223"
     p2pcf: "npm:1.3.13"
-    playwright: "npm:1.31.0"
+    playwright: "npm:1.31.1"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.0-dev.20230222"
+    typescript: "npm:5.0.0-dev.20230223"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -10128,23 +10133,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.31.0":
-  version: 1.31.0
-  resolution: "playwright-core@npm:1.31.0"
+"playwright-core@npm:1.31.1":
+  version: 1.31.1
+  resolution: "playwright-core@npm:1.31.1"
   bin:
     playwright: cli.js
-  checksum: 4212f37219b334bd65b6eb422c724ef3897117730fe3657e6078cacb47ead7ed4daf1d66d4459da7abd8dc77877f83236e6487c322b0a75166bf94ebb6c0beaf
+  checksum: ee4367fd082d6d683a6401f32e45c53d37ac1198da440c17db4d39abea636f6e4d0382f5449bcbe939e68d8d836669affbfe83b8a221ec636758368bb5b5e029
   languageName: node
   linkType: hard
 
-"playwright@npm:1.31.0":
-  version: 1.31.0
-  resolution: "playwright@npm:1.31.0"
+"playwright@npm:1.31.1":
+  version: 1.31.1
+  resolution: "playwright@npm:1.31.1"
   dependencies:
-    playwright-core: "npm:1.31.0"
+    playwright-core: "npm:1.31.1"
   bin:
     playwright: cli.js
-  checksum: 61be08bb5bf62864a78f37de4b12680af79528d873489fb9152dc7ef9fa5db1c8f9bcfde96da0c10bfed4e4d0a66b7cb8fcc5e9d80bea2f43e81293b7942e5f2
+  checksum: 96fc21e49752c8995238301221b7d0560e3784ad7463cc026284f045853d952933a1326512fc754359a3b908220dac93d2094cac04f58dfdef0bed64fb4ac41f
   languageName: node
   linkType: hard
 
@@ -12107,23 +12112,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.0-dev.20230222":
-  version: 5.0.0-dev.20230222
-  resolution: "typescript@npm:5.0.0-dev.20230222"
+"typescript@npm:5.0.0-dev.20230223":
+  version: 5.0.0-dev.20230223
+  resolution: "typescript@npm:5.0.0-dev.20230223"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e22533927607fb9a52c7dbd2d2f530f268f2a7a03596ed9f76e5b20e9a49fe093c55441650d9d0f566e5f850be4a15d0e3f193aa987e62788d2860f7a909f1a2
+  checksum: a4b6ea24903e8d1ffe4f485145229ee03e3eaca0b89e58a74086650800c6b8c1caeb310409b4a78dcd3274bb63122f9672a3a82fca8cab9db90c4f48c020ff4d
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.0-dev.20230222#optional!builtin<compat/typescript>":
-  version: 5.0.0-dev.20230222
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230222#optional!builtin<compat/typescript>::version=5.0.0-dev.20230222&hash=1f5320"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230223#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230223
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230223#optional!builtin<compat/typescript>::version=5.0.0-dev.20230223&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3adf75aedcb5ed69971f3f015624b045d4d58cd45602e6a8ae7bf4549e754b44cdb8b4e312edbc63b63409f7eb2efbb33795f0c14e2771a264368e13ec727c52
+  checksum: f92472834376ba26a5756afed5b64ba00aec3d4b998fc36ec069016a7e4135fb3a3e6c52e80695b341b49a4a5556985c79a7e372a35d5bd399700721d3e70d47
   languageName: node
   linkType: hard
 
