@@ -20,7 +20,7 @@
     "@spike.land/code": "0.9.2",
     "@types/babel__core": "^7.20.0",
     "module": "1.2.5",
-    "typescript": "5.0.0-dev.20230223",
+    "typescript": "5.0.0-dev.20230224",
     "wrangler": "2.11.0"
   },
   "dependencies": {

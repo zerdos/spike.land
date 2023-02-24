@@ -177,7 +177,10 @@ export async function ata(
         });
 
       if (impRes[newBase].content.length > 0) {
-        await ata(impRes[newBase].content, impRes[newBase].url!);
+        try {
+          await ata(impRes[newBase].content, impRes[newBase].url!);
+        } catch {
+        }
       }
 
       // impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString()] = {

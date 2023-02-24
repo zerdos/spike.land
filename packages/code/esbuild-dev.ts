@@ -363,7 +363,7 @@ const build = (
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.mjs",
-      "src/jsx.mjs",
+      // "src/jsx.mjs",
 
       "src/motion.ts",
       "src/hydrate.tsx",

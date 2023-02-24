@@ -2268,7 +2268,7 @@ __metadata:
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
     prom-client: "npm:^14.1.1"
-    typescript: "npm:5.0.0-dev.20230223"
+    typescript: "npm:5.0.0-dev.20230224"
     wrangler: "npm:2.11.0"
   languageName: unknown
   linkType: soft
@@ -2321,7 +2321,7 @@ __metadata:
     fast-glob: "npm:3.2.12"
     fetch-retry: "npm:5.0.3"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:9.1.1"
+    framer-motion: "npm:9.1.7"
     immutable: "npm:4.2.4"
     ipfs-core: "npm:0.18.0"
     ipfs-http-response: "npm:6.0.0"
@@ -2357,7 +2357,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.0-dev.20230223"
+    typescript: "npm:5.0.0-dev.20230224"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -2441,7 +2441,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230221.0"
     esbuild-wasm: "npm:0.17.10"
-    typescript: "npm:5.0.0-dev.20230223"
+    typescript: "npm:5.0.0-dev.20230224"
     wrangler: "npm:2.11.0"
   languageName: unknown
   linkType: soft
@@ -5965,9 +5965,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:9.1.1":
-  version: 9.1.1
-  resolution: "framer-motion@npm:9.1.1"
+"framer-motion@npm:9.1.7":
+  version: 9.1.7
+  resolution: "framer-motion@npm:9.1.7"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -5977,7 +5977,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 1bcebd8fafe640123112d8f81e54224391657e9ad533adbc4d489b1bf10596c3123aa2b1c7edf24069ca65fa8bad5a7b24bd676a950162504dec83e2a5bd1307
+  checksum: 5603be57f05a941f6b84e98b263b8b1744e0e3249435a924e0953799123a0614c025412ff01faa1fbc9cae9ce0fe3183418b8b4c21fadc20b9b8ec3256e6a32b
   languageName: node
   linkType: hard
 
@@ -9136,14 +9136,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.36.0-dev.20230223":
-  version: 0.36.0-dev.20230223
-  resolution: "monaco-editor@npm:0.36.0-dev.20230223"
+"monaco-editor@npm:0.36.0-dev.20230224":
+  version: 0.36.0-dev.20230224
+  resolution: "monaco-editor@npm:0.36.0-dev.20230224"
   dependencies:
     "@types/shelljs": "npm:^0.8.11"
     pin-github-action: "npm:^1.8.0"
     shelljs: "npm:^0.8.5"
-  checksum: bc1e95a3fe5b9bbe8ec592e1eac1d0901e6dec8bed286086c0fb8ec53101bfe06de27f97873d42c008a2c04baaf3350f1ee37db9b4fc9e068a3a9db26911eac6
+  checksum: 4846194ea8866a7a0f5ee4298e34cd9b2a9895c5354c604710579591aa913117e4dd4247d60c2933a52792f4487b88311d6b39cce37d7bb3ce0a22d3b6865988
   languageName: node
   linkType: hard
 
@@ -9169,11 +9169,11 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.36.0-dev.20230223"
+    monaco-editor: "npm:0.36.0-dev.20230224"
     p2pcf: "npm:1.3.13"
     playwright: "npm:1.31.1"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.0-dev.20230223"
+    typescript: "npm:5.0.0-dev.20230224"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -12112,23 +12112,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.0-dev.20230223":
-  version: 5.0.0-dev.20230223
-  resolution: "typescript@npm:5.0.0-dev.20230223"
+"typescript@npm:5.0.0-dev.20230224":
+  version: 5.0.0-dev.20230224
+  resolution: "typescript@npm:5.0.0-dev.20230224"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a4b6ea24903e8d1ffe4f485145229ee03e3eaca0b89e58a74086650800c6b8c1caeb310409b4a78dcd3274bb63122f9672a3a82fca8cab9db90c4f48c020ff4d
+  checksum: 2c30ee32a78f64844b877032db0a974e1666033b867181158770b0283c210f6e2ba8576f5dca5c2e8e95a4239c6733bd5a9d15d67fbade3580d38125606ce26d
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.0-dev.20230223#optional!builtin<compat/typescript>":
-  version: 5.0.0-dev.20230223
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230223#optional!builtin<compat/typescript>::version=5.0.0-dev.20230223&hash=1f5320"
+"typescript@patch:typescript@npm%3A5.0.0-dev.20230224#optional!builtin<compat/typescript>":
+  version: 5.0.0-dev.20230224
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230224#optional!builtin<compat/typescript>::version=5.0.0-dev.20230224&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f92472834376ba26a5756afed5b64ba00aec3d4b998fc36ec069016a7e4135fb3a3e6c52e80695b341b49a4a5556985c79a7e372a35d5bd399700721d3e70d47
+  checksum: 344606ae35b610297dd729eb56ccd5dcba79e8fcf24ee942a5cf7a854b74949e71e7ec543ef871f28ab8a8356a20bc6ee9a5fa9733f047a81911786264efe1fa
   languageName: node
   linkType: hard
 
