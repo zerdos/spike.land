@@ -210,7 +210,7 @@ const Editor: FC<
     startedM = 1;
 
     const style = document.createElement("style");
-    style.innerHTML = `@import url("${location.origin}/hydrate.css");`;
+    style.innerHTML = `@import url("${location.origin}/hydrate.css?v=${swVersion}");`;
     document.head.appendChild(style);
 
     const { startMonaco } = await import("./startMonaco");
