@@ -1,5 +1,5 @@
 import { Uri, worker } from "monaco-editor-core";
-import * as edworker from "monaco-editor-core/esm/vs/editor/editor.worker";
+import { initialize } from "monaco-editor-core/esm/vs/editor/editor.worker";
 import {
   Diagnostic,
   DiagnosticRelatedInformation,
@@ -146,10 +146,15 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
   }
 
   getDefaultLibFileName(options: ts.CompilerOptions): string {
+    const eslib = `lib.es${2013 + (options.target || 99)}.full.d.ts`;
     switch (options.target) {
       case 99 /* ESNext */:
         const esnext = "lib.esnext.full.d.ts";
         if (esnext in libFileMap || esnext in this._extraLibs) return esnext;
+        if (eslib in libFileMap || eslib in this._extraLibs) {
+          return eslib;
+        }
+        return "lib.es6.d.ts";
       case 7 /* ES2020 */:
       case 6 /* ES2019 */:
       case 5 /* ES2018 */:
@@ -159,7 +164,7 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
       default:
         // Support a dynamic lookup for the ES20XX version based on the target
         // which is safe unless TC39 changes their numbering system
-        const eslib = `lib.es${2013 + (options.target || 99)}.full.d.ts`;
+
         // Note: This also looks in _extraLibs, If you want
         // to add support for additional target options, you will need to
         // add the extra dts files to _extraLibs via the API.
@@ -504,7 +509,7 @@ globalThis.ts = ts.typescript;
 
 self.onmessage = () => {
   // ignore the first message
-  edworker.initialize((ctx: worker.IWorkerContext, createData: ICreateData) => {
+  initialize((ctx: worker.IWorkerContext, createData: ICreateData) => {
     return create(ctx, createData);
   });
 };
