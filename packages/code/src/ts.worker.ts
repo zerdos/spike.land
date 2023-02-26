@@ -137,7 +137,9 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
       case "jsx":
         return ts.ScriptKind.JSX;
       default:
-        return this.getCompilationSettings().allowJs ? ts.ScriptKind.JS : ts.ScriptKind.TS;
+        return this.getCompilationSettings().allowJs
+          ? ts.ScriptKind.JS
+          : ts.ScriptKind.TS;
     }
   }
 
@@ -205,11 +207,15 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     const diagnostics: Diagnostic[] = [];
     for (const tsDiagnostic of tsDiagnostics) {
       const diagnostic: Diagnostic = { ...tsDiagnostic };
-      diagnostic.file = diagnostic.file ? { fileName: diagnostic.file.fileName } : undefined;
+      diagnostic.file = diagnostic.file
+        ? { fileName: diagnostic.file.fileName }
+        : undefined;
       if (tsDiagnostic.relatedInformation) {
         diagnostic.relatedInformation = [];
         for (const tsRelatedDiagnostic of tsDiagnostic.relatedInformation) {
-          const relatedDiagnostic: DiagnosticRelatedInformation = { ...tsRelatedDiagnostic };
+          const relatedDiagnostic: DiagnosticRelatedInformation = {
+            ...tsRelatedDiagnostic,
+          };
           relatedDiagnostic.file = relatedDiagnostic.file
             ? { fileName: relatedDiagnostic.file.fileName }
             : undefined;
@@ -241,7 +247,9 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     if (fileNameIsLib(fileName)) {
       return [];
     }
-    const diagnostics = this._languageService.getSuggestionDiagnostics(fileName);
+    const diagnostics = this._languageService.getSuggestionDiagnostics(
+      fileName,
+    );
     return TypeScriptWorker.clearFiles(diagnostics);
   }
 
@@ -260,7 +268,11 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     if (fileNameIsLib(fileName)) {
       return undefined;
     }
-    return this._languageService.getCompletionsAtPosition(fileName, position, undefined);
+    return this._languageService.getCompletionsAtPosition(
+      fileName,
+      position,
+      undefined,
+    );
   }
 
   async getCompletionEntryDetails(
@@ -287,7 +299,11 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     if (fileNameIsLib(fileName)) {
       return undefined;
     }
-    return this._languageService.getSignatureHelpItems(fileName, position, options);
+    return this._languageService.getSignatureHelpItems(
+      fileName,
+      position,
+      options,
+    );
   }
 
   async getQuickInfoAtPosition(
@@ -330,7 +346,9 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     return this._languageService.getReferencesAtPosition(fileName, position);
   }
 
-  async getNavigationBarItems(fileName: string): Promise<ts.NavigationBarItem[]> {
+  async getNavigationBarItems(
+    fileName: string,
+  ): Promise<ts.NavigationBarItem[]> {
     if (fileNameIsLib(fileName)) {
       return [];
     }
@@ -344,7 +362,10 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     if (fileNameIsLib(fileName)) {
       return [];
     }
-    return this._languageService.getFormattingEditsForDocument(fileName, options);
+    return this._languageService.getFormattingEditsForDocument(
+      fileName,
+      options,
+    );
   }
 
   async getFormattingEditsForRange(
@@ -356,7 +377,12 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     if (fileNameIsLib(fileName)) {
       return [];
     }
-    return this._languageService.getFormattingEditsForRange(fileName, start, end, options);
+    return this._languageService.getFormattingEditsForRange(
+      fileName,
+      start,
+      end,
+      options,
+    );
   }
 
   async getFormattingEditsAfterKeystroke(
@@ -368,7 +394,12 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     if (fileNameIsLib(fileName)) {
       return [];
     }
-    return this._languageService.getFormattingEditsAfterKeystroke(fileName, postion, ch, options);
+    return this._languageService.getFormattingEditsAfterKeystroke(
+      fileName,
+      postion,
+      ch,
+      options,
+    );
   }
 
   async findRenameLocations(
@@ -396,7 +427,10 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     options: ts.RenameInfoOptions,
   ): Promise<ts.RenameInfo> {
     if (fileNameIsLib(fileName)) {
-      return { canRename: false, localizedErrorMessage: "Cannot rename in lib file" };
+      return {
+        canRename: false,
+        localizedErrorMessage: "Cannot rename in lib file",
+      };
     }
     return this._languageService.getRenameInfo(fileName, position, options);
   }
@@ -452,7 +486,11 @@ export class TypeScriptWorker implements ts.LanguageServiceHost, ITypeScriptWork
     };
 
     try {
-      return this._languageService.provideInlayHints(fileName, span, preferences);
+      return this._languageService.provideInlayHints(
+        fileName,
+        span,
+        preferences,
+      );
     } catch {
       return [];
     }
@@ -479,7 +517,10 @@ declare global {
   var customTSWorkerFactory: CustomTSWebWorkerFactory | undefined;
 }
 
-export function create(ctx: worker.IWorkerContext, createData: ICreateData): TypeScriptWorker {
+export function create(
+  ctx: worker.IWorkerContext,
+  createData: ICreateData,
+): TypeScriptWorker {
   let TSWorkerClass = TypeScriptWorker;
   if (createData.customWorkerPath) {
     if (typeof importScripts === "undefined") {
