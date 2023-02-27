@@ -482,9 +482,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "@eslint/eslintrc@npm:1.4.1"
+"@eslint/eslintrc@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@eslint/eslintrc@npm:2.0.0"
   dependencies:
     ajv: "npm:^6.12.4"
     debug: "npm:^4.3.2"
@@ -495,7 +495,14 @@ __metadata:
     js-yaml: "npm:^4.1.0"
     minimatch: "npm:^3.1.2"
     strip-json-comments: "npm:^3.1.1"
-  checksum: 4e469ed508c3154078503b1f22b9d7f2498e76e770ff3f8c61c9961a16760c817e977f2f00b02201d1e91d6a4ebc766c1c67aae9189b00d5c1fe2e7205b6ad72
+  checksum: 29a8b98afca4e088f84dc1e7be849e51ca6df31172a90ef3898dd201e7e022ee7d665d999b0134849ac7279497d5270867945bdf534ad3ca0ac036e1869b310c
+  languageName: node
+  linkType: hard
+
+"@eslint/js@npm:8.35.0":
+  version: 8.35.0
+  resolution: "@eslint/js@npm:8.35.0"
+  checksum: ada3a3a42de60014ddae9f2f81e96442168b74151c6785194191f17850497c8750ab0140ca37c143dda1bfaf149cfc63ff28adcf94c41ceada4afc05ff596711
   languageName: node
   linkType: hard
 
@@ -1292,7 +1299,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.14.1"
+    "@types/node": "npm:18.14.2"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:^18.0.28"
@@ -1313,13 +1320,13 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.1"
     esbuild-wasm: "npm:0.17.10"
-    eslint: "npm:8.34.0"
+    eslint: "npm:8.35.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
     fast-diff: "npm:1.2.0"
-    fetch-retry: "npm:5.0.3"
+    fetch-retry: "npm:5.0.4"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:10.0.0"
+    framer-motion: "npm:10.0.1"
     immutable: "npm:4.2.4"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1377,7 +1384,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.14.1"
+    "@types/node": "npm:18.14.2"
     esbuild-wasm: "npm:0.17.10"
   languageName: unknown
   linkType: soft
@@ -1603,10 +1610,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.14.1":
+"@types/node@npm:*":
   version: 18.14.1
   resolution: "@types/node@npm:18.14.1"
   checksum: b91f3b982e51b2560373086d70b43b2938f28e8ec63ad3fb77f742050a54ac1205b92c16e5d96514445e74e3e190e495f61f0acbc90da96548b2ad4973e93a98
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.14.2":
+  version: 18.14.2
+  resolution: "@types/node@npm:18.14.2"
+  checksum: 129305df2c8e761c22cfa7a88ab780577864c8fc53a5b70cabbe4dd595e4b38b211b73a4380d0a18bf5da3634081bfa554cccf52dfd5e228e7a27de12c857aaf
   languageName: node
   linkType: hard
 
@@ -3825,11 +3839,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.34.0":
-  version: 8.34.0
-  resolution: "eslint@npm:8.34.0"
+"eslint@npm:8.35.0":
+  version: 8.35.0
+  resolution: "eslint@npm:8.35.0"
   dependencies:
-    "@eslint/eslintrc": "npm:^1.4.1"
+    "@eslint/eslintrc": "npm:^2.0.0"
+    "@eslint/js": "npm:8.35.0"
     "@humanwhocodes/config-array": "npm:^0.11.8"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@nodelib/fs.walk": "npm:^1.2.8"
@@ -3843,7 +3858,7 @@ __metadata:
     eslint-utils: "npm:^3.0.0"
     eslint-visitor-keys: "npm:^3.3.0"
     espree: "npm:^9.4.0"
-    esquery: "npm:^1.4.0"
+    esquery: "npm:^1.4.2"
     esutils: "npm:^2.0.2"
     fast-deep-equal: "npm:^3.1.3"
     file-entry-cache: "npm:^6.0.1"
@@ -3870,7 +3885,7 @@ __metadata:
     text-table: "npm:^0.2.0"
   bin:
     eslint: bin/eslint.js
-  checksum: ec20023e4d680f390b89509f27b40824957d6518ed19c43c52b979e891a3ee225cf09a7fc9e9f882b3636f5cfa34a7a2e20416a2b22047d94db9b1ac3a55e9d9
+  checksum: 9e49b49d9f877bcfbf376166e5a870c6a725b1e713e339f05b85a0d70ebd9ab3c72faceac27251b25fbbd53fd06594d6c00b335b5a59de3a36486eeeafa0f2bc
   languageName: node
   linkType: hard
 
@@ -3895,7 +3910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esquery@npm:^1.4.0":
+"esquery@npm:^1.4.2":
   version: 1.4.2
   resolution: "esquery@npm:1.4.2"
   dependencies:
@@ -4175,10 +4190,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-retry@npm:5.0.3":
-  version: 5.0.3
-  resolution: "fetch-retry@npm:5.0.3"
-  checksum: c5984c71104db3aab018abe10fee0d9d000b2224839a15b45a7bfbb40a30136521c1984cf775b8665f8a2d1a8c3e5ca63a193a4f1c4500d10bdb2d729773444f
+"fetch-retry@npm:5.0.4":
+  version: 5.0.4
+  resolution: "fetch-retry@npm:5.0.4"
+  checksum: d89ce55ff2715231933f71d1bd65b06ba3e23a699a3db46d3aec12d320c68060158b39a60e6e569bf80433452e886eb74d3e698430ec583d5d73a25658a5a9f5
   languageName: node
   linkType: hard
 
@@ -4377,9 +4392,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.0.0":
-  version: 10.0.0
-  resolution: "framer-motion@npm:10.0.0"
+"framer-motion@npm:10.0.1":
+  version: 10.0.1
+  resolution: "framer-motion@npm:10.0.1"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4389,7 +4404,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 1cdebc381cedc8ef6b972741795fa72495a996bd9b5808d1c0c14018558d80de6a12a46f90306cf7402a9673be7589d63910e750489a9cb1c150983a3c933d30
+  checksum: 6d201ee92270634b966e7fb5f5b4dafa2bc7c4faa562e1db025f0b99e62aaf3e63a6f061a9d84c7b1357b40400c6f08c28fe6718ddf6e8fb05a569e22f1e24ce
   languageName: node
   linkType: hard
 
@@ -6609,7 +6624,7 @@ __metadata:
     constants: "npm:0.0.2"
     cypress: "npm:12.7.0"
     dprint: "npm:0.34.5"
-    eslint: "npm:8.34.0"
+    eslint: "npm:8.35.0"
     eslint-plugin-react: "npm:7.32.2"
     ipfs-http-response: "npm:6.0.0"
     js-tokens: "npm:8.0.1"
