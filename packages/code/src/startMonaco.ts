@@ -432,19 +432,19 @@ async function startMonacoPristine(
     isEdit: false,
     setValue: (code: string) => {
       myEditor.getDomNode()?.blur();
-      console.log("setValue! ", code);
+      // console.log("setValue! ", code);
       if (mod.isEdit) return;
       mod.silent = true;
       let state = null;
       try {
-        console.log("trying to change code");
+        // console.log("trying to change code");
         try {
           state = myEditor.saveViewState();
         } catch {
           console.error("error while saving monaco state");
         }
 
-        console.log("changing the code!");
+        // console.log("changing the code!");
         model.setValue(code);
         if (state) {
           myEditor.restoreViewState(state);

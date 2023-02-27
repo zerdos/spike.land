@@ -99,7 +99,7 @@ const Editor: FC<
       ref={ref}
       css={css`
     ${
-        (engine === "ace") ? "" : `     
+        (engine === "ace") ? "" : `
     border-right: 4px dashed gray;
     border-bottom: 4px dashed gray;`
       }
@@ -118,32 +118,22 @@ const Editor: FC<
 
   const onChange = async (_code: string) => {
     if (mod.code === _code) return;
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    const { signal } = mod.controller;
-
-    //
-    const ccc = await prettier(code);
-    if (signal.aborted) return;
 
     const c = await prettier(_code);
-    if (signal.aborted) return;
 
-    if (ccc === c) return;
+    if (mod.code === c) return;
 
-    // console.log(_code);
-
-    // mod.controller.abort();
-
-    // mod.controller = new AbortController();
+    mod.controller.abort();
+    mod.controller = new AbortController();
+    const signal = mod.controller.signal;
     mod.i = Number(mod.i) + 1;
-    mod.code = _code;
+    mod.code = c;
 
-    changeContent((x) => ({
-      ...x,
-      i: mod.i,
-      code: mod.code,
-    }));
+    // changeContent((x) => ({
+    //   ...x,
+    //   i: mod.i,
+    //   code: mod.code,
+    // }));
 
     runner({
       code: mod.code,
@@ -153,7 +143,7 @@ const Editor: FC<
     });
   };
 
-  BC.onmessage = async ({ data }) => {
+  BC.onmessage = ({ data }) => {
     if (
       (!data || !data.i && data.code) || mod.i >= Number(data.i)
       || !(data.code || data.html)
