@@ -90,7 +90,6 @@
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
     "memfs": "3.4.13",
-    "module": "1.2.5",
     "monaco-editor": "0.36.0",
     "monaco-editor-core": "^0.36.0",
     "node-source-walk": "5.0.0",
