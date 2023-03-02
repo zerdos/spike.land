@@ -46,7 +46,7 @@ export async function ata(
         ref: impRes[t].ref,
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
-            `https://esm.sh/${x}`,
+            `https://esm.sh /${x}`,
           ).join(impRes[x].ref).replace(vNumbers, subst).split(
             "/@types/",
           ).join("/").split("/types/").join(
