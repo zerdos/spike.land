@@ -121,9 +121,9 @@ export class Code implements DurableObject {
         let s = await this.state.storage.get<ICodeSession>("session");
 
         if (!s || !s.i) {
-          const backupCode = (await fetch(
+          const backupCode = await fetch(
             "https://spike.land/live/code-main/index.tsx",
-          ).then(r => r.text())).split("spike.land").join(this.#origin);
+          ).then(r => r.text());
           this.#backupSession.code = backupCode;
           await this.state.storage.put("session", this.#backupSession);
           s = this.#backupSession;
