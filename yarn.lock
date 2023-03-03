@@ -1087,19 +1087,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.31.1":
-  version: 1.31.1
-  resolution: "@playwright/test@npm:1.31.1"
+"@playwright/test@npm:1.31.2":
+  version: 1.31.2
+  resolution: "@playwright/test@npm:1.31.2"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.31.1"
+    playwright-core: "npm:1.31.2"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 9d452a31458058df6885b787b1600bf12879e348f74c7fa8111dc89e290218bb50ce88e514ef949f6d2b511952ca5f4233eaad8712c34ac096fa14567a085cc3
+  checksum: d97738f8b0801f020e9cf9de96feb57fdc02c4befd0a94a28487f8db655966a06893d65b68a97b0e6783b0568b26d2decaea186700b7e528c3de666281009351
   languageName: node
   linkType: hard
 
@@ -1166,7 +1166,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.14.4"
+    "@types/node": "npm:18.14.5"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:^18.0.28"
@@ -1175,7 +1175,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.54.0"
     "@typescript-eslint/parser": "npm:5.54.0"
     "@typescript-eslint/typescript-estree": "npm:5.54.0"
-    ace-builds: "npm:1.15.2"
+    ace-builds: "npm:1.15.3"
     assert: "npm:2.0.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:3.0.0"
@@ -1219,7 +1219,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-error-boundary: "npm:3.1.4"
-    react-icons: "npm:4.7.1"
+    react-icons: "npm:4.8.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
     react-rnd: "npm:10.4.1"
@@ -1251,7 +1251,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.14.4"
+    "@types/node": "npm:18.14.5"
     esbuild-wasm: "npm:0.17.10"
   languageName: unknown
   linkType: soft
@@ -1426,10 +1426,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.14.4":
-  version: 18.14.4
-  resolution: "@types/node@npm:18.14.4"
-  checksum: 96c3a61093dd7d2006d5d30be093cfdea21537db79e14c99c5c9b550b9cf384aafd77864b51d528f5e43213af4e885e3751ed361e13bf227bfb49cefd278825d
+"@types/node@npm:18.14.5":
+  version: 18.14.5
+  resolution: "@types/node@npm:18.14.5"
+  checksum: aed72b73fd01526654af9b2ac10afb070440c64c577503193ee9dde7222ad381b7b7ca0ca2aed771ea18497cba75b5d96fe32ce8702836b5c2ea3744eea5b03e
   languageName: node
   linkType: hard
 
@@ -1692,10 +1692,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.15.2":
-  version: 1.15.2
-  resolution: "ace-builds@npm:1.15.2"
-  checksum: 2b0a36fb1b60509422f6112a18b76320ca6754e80d3c7aeb15557b60f4874fa97fedbafc3b9855482c062eadbf02f5e9d08cccc9c671323b6cd66787df239e9d
+"ace-builds@npm:1.15.3":
+  version: 1.15.3
+  resolution: "ace-builds@npm:1.15.3"
+  checksum: 170457c8f2c3d101634c60a04a0a5c9ce51af09bf34a0aea75feca47ac368a98144182f8a86017dd554d1aafa237d3c39a09aff1a065fb86502128e51858b336
   languageName: node
   linkType: hard
 
@@ -6373,7 +6373,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230228.0"
     "@emotion/react": "npm:11.10.6"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.31.1"
+    "@playwright/test": "npm:1.31.2"
     "@types/eslint": "npm:8.21.1"
     "@types/react": "npm:18.0.28"
     "@types/react-dom": "npm:18.0.11"
@@ -6388,7 +6388,7 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.36.1"
-    playwright: "npm:1.31.1"
+    playwright: "npm:1.31.2"
     react: "npm:18.2.0"
     typescript: "npm:5.1.0-dev.20230302"
     util: "npm:0.12.5"
@@ -7192,23 +7192,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.31.1":
-  version: 1.31.1
-  resolution: "playwright-core@npm:1.31.1"
+"playwright-core@npm:1.31.2":
+  version: 1.31.2
+  resolution: "playwright-core@npm:1.31.2"
   bin:
     playwright: cli.js
-  checksum: ee4367fd082d6d683a6401f32e45c53d37ac1198da440c17db4d39abea636f6e4d0382f5449bcbe939e68d8d836669affbfe83b8a221ec636758368bb5b5e029
+  checksum: 1aa3e9c76760d53f0d38dc52b8f339ab1cd96dc68a45373db83c7ed2b2908f6a1f9106cc86424f7fcb53535b1eb1cb75a6fadc2b61f42fc79008e0fdd2653856
   languageName: node
   linkType: hard
 
-"playwright@npm:1.31.1":
-  version: 1.31.1
-  resolution: "playwright@npm:1.31.1"
+"playwright@npm:1.31.2":
+  version: 1.31.2
+  resolution: "playwright@npm:1.31.2"
   dependencies:
-    playwright-core: "npm:1.31.1"
+    playwright-core: "npm:1.31.2"
   bin:
     playwright: cli.js
-  checksum: 96fc21e49752c8995238301221b7d0560e3784ad7463cc026284f045853d952933a1326512fc754359a3b908220dac93d2094cac04f58dfdef0bed64fb4ac41f
+  checksum: cd1581b8a72ce038c00a7ecced779a5d76f2e2c03227d060c49aa7cccd3171da4622d8c0e431890e171c89596f71ff4916eb8e75e1b33bc293a9197e1e9c1477
   languageName: node
   linkType: hard
 
@@ -7467,12 +7467,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:4.7.1":
-  version: 4.7.1
-  resolution: "react-icons@npm:4.7.1"
+"react-icons@npm:4.8.0":
+  version: 4.8.0
+  resolution: "react-icons@npm:4.8.0"
   peerDependencies:
     react: "*"
-  checksum: 30dcb1ae224b5846d9436c433d321fb4827cacff4e759de9c26adc19093f4b71433007f896d09ff96cf09bc72751828642cfde0825b9ecdd48e300520e02c1ba
+  checksum: 18ff21e05b3ee10c34dccb930f60956c6124461cc5ef317e81a82bb88b61458f7b5e0afa47e79f24f793785fd3ae6b4775c2e1275cbf20be99fc7578e0b98628
   languageName: node
   linkType: hard
 
