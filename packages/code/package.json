@@ -76,7 +76,7 @@
     "buffer": "6.0.3",
     "constants": "0.0.2",
     "csstype": "3.1.1",
-    "esbuild-wasm": "0.17.10",
+    "esbuild-wasm": "0.17.11",
     "events": "3.3.0",
     "fast-diff": "1.2.0",
     "fetch-retry": "5.0.4",
@@ -128,7 +128,7 @@
     "@types/is-callable": "1.1.0",
     "@types/lodash.debounce": "4.0.7",
     "@types/lodash.throttle": "4.1.7",
-    "@types/node": "18.14.5",
+    "@types/node": "18.14.6",
     "@types/prettier": "2.7.2",
     "@types/prismjs": "1.26.0",
     "@types/react": "^18.0.28",
@@ -140,7 +140,7 @@
     "eslint-plugin-react": "7.32.2",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.1.0-dev.20230303",
+    "typescript": "5.1.0-dev.20230304",
     "uvu": "0.5.6"
   },
   "peerDependencies": {

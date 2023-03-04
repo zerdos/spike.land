@@ -67,7 +67,7 @@ export const transpile = async (
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2021",
+    target: "esnext",
   }).then((x) => x.code);
 };
 

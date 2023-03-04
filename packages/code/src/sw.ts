@@ -78,7 +78,8 @@ const putInCache = async (request: Request, response: Response) => {
 
 const cacheFirst = async (request: Request) => {
   if (request.url.indexOf("/live/") === -1) {
-    const responseFromCache = await caches.match(request);
+    const cache = await caches.open(self.swVersion);
+    const responseFromCache = await cache.match(request);
     if (responseFromCache) {
       return responseFromCache;
     }
