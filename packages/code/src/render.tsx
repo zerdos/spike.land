@@ -37,6 +37,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
 
     controller.abort();
     controller = new AbortController();
+    const signal = controller.signal;
 
     const el = document.createElement("div");
     el.style.opacity = "0";
@@ -59,6 +60,8 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     }
 
     const App = AppBundled || AppTranspiled;
+    if (signal.aborted) return;
+    if (data.i !== i) return;
 
     myRoot.render(
       <ParentSize>
@@ -85,7 +88,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     // const root = createRoot(rootEl);
     const m = mod[i] || {
       i,
-      signal: controller.signal,
+      signal,
       root: myRoot,
       rootEl: el,
       retry: 100,
@@ -103,7 +106,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     // ReactDOM.flushSync(() => {
 
     while (m.retry--) {
-      if (m.signal.aborted) {
+      if (signal.aborted) {
         m.root.unmount();
         m.rootEl.remove();
         // root.unmount();
