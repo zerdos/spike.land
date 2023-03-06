@@ -50,7 +50,7 @@
     "monaco-editor": "0.36.1",
     "playwright": "1.31.2",
     "react": "18.2.0",
-    "typescript": "5.1.0-dev.20230305",
+    "typescript": "5.1.0-dev.20230306",
     "util": "0.12.5",
     "utils": "0.3.1"
   },
