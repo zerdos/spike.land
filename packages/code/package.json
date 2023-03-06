@@ -61,7 +61,7 @@
     "@emotion/styled": "11.10.6",
     "@github/stable-socket": "^1.1.0",
     "@isomorphic-git/lightning-fs": "4.6.0",
-    "@mui/material": "5.11.11",
+    "@mui/material": "5.11.12",
     "@okikio/sharedworker": "1.0.4",
     "@types/isomorphic-fetch": "0.0.36",
     "@typescript-eslint/typescript-estree": "5.54.0",
@@ -81,7 +81,7 @@
     "fast-diff": "1.2.0",
     "fetch-retry": "5.0.4",
     "file-type": "18.2.1",
-    "framer-motion": "10.0.2",
+    "framer-motion": "10.1.0",
     "immutable": "4.2.4",
     "is-callable": "1.2.7",
     "isomorphic-fetch": "3.0.0",
@@ -142,8 +142,5 @@
     "tslib": "2.5.0",
     "typescript": "5.1.0-dev.20230306",
     "uvu": "0.5.6"
-  },
-  "peerDependencies": {
-    "prom-client": "14.1.1"
   }
 }

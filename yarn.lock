@@ -900,23 +900,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^5.11.11":
-  version: 5.11.11
-  resolution: "@mui/core-downloads-tracker@npm:5.11.11"
-  checksum: 6150168904838e73d967f4f39771ba5d75486420c52085bf02b9e6d505632764c5e557871546cdf1f49ee637535995c2429f58136c03781abb535e7c3c7facd2
+"@mui/core-downloads-tracker@npm:^5.11.12":
+  version: 5.11.12
+  resolution: "@mui/core-downloads-tracker@npm:5.11.12"
+  checksum: 38bc4586fc8133487c02975776027a2341bea1b8dda8dc14c0730e183793398e729a3db717f35f748ab4d8cd37bab0118ae22bd40c985d5d528d97684b6b1fa3
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.11.11":
-  version: 5.11.11
-  resolution: "@mui/material@npm:5.11.11"
+"@mui/material@npm:5.11.12":
+  version: 5.11.12
+  resolution: "@mui/material@npm:5.11.12"
   dependencies:
     "@babel/runtime": "npm:^7.21.0"
     "@mui/base": "npm:5.0.0-alpha.119"
-    "@mui/core-downloads-tracker": "npm:^5.11.11"
-    "@mui/system": "npm:^5.11.11"
+    "@mui/core-downloads-tracker": "npm:^5.11.12"
+    "@mui/system": "npm:^5.11.12"
     "@mui/types": "npm:^7.2.3"
-    "@mui/utils": "npm:^5.11.11"
+    "@mui/utils": "npm:^5.11.12"
     "@types/react-transition-group": "npm:^4.4.5"
     clsx: "npm:^1.2.1"
     csstype: "npm:^3.1.1"
@@ -936,16 +936,16 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: ee64adecd6659fc47c0d7dedd02def3a060d6feb0d63c94b021dfb47dc1d78a9fe129caf31961e854f119d48b59273b8496b0d7f702d81dc20338fa1c65f3728
+  checksum: 185feb62a2c3d38d2f93729ce99d8e6fe22220e0390800faf695c0c9ef2d84dfdde3a9911255b26f7632c1e94af965777b7399560f7027d3e8f5dc6568a36ced
   languageName: node
   linkType: hard
 
-"@mui/private-theming@npm:^5.11.11":
-  version: 5.11.11
-  resolution: "@mui/private-theming@npm:5.11.11"
+"@mui/private-theming@npm:^5.11.12":
+  version: 5.11.12
+  resolution: "@mui/private-theming@npm:5.11.12"
   dependencies:
     "@babel/runtime": "npm:^7.21.0"
-    "@mui/utils": "npm:^5.11.11"
+    "@mui/utils": "npm:^5.11.12"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0
@@ -953,7 +953,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 15b5577cf953af9a307cbe26ef044b286ab6c16f11f6d36d5bb266dbbcbe3447550c03275e148e15b4b3321d74d9da61833bbf93347d4b9607eaaba9a2432c58
+  checksum: 3924499d3a5a36014dc6258941efa2ff1d5fc8af4583a776e61c1c615660dab8fd7811354915623dfeb6163020458cdf27fb38bd98f4f34668519a5a9a039b5b
   languageName: node
   linkType: hard
 
@@ -978,15 +978,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^5.11.11":
-  version: 5.11.11
-  resolution: "@mui/system@npm:5.11.11"
+"@mui/system@npm:^5.11.12":
+  version: 5.11.12
+  resolution: "@mui/system@npm:5.11.12"
   dependencies:
     "@babel/runtime": "npm:^7.21.0"
-    "@mui/private-theming": "npm:^5.11.11"
+    "@mui/private-theming": "npm:^5.11.12"
     "@mui/styled-engine": "npm:^5.11.11"
     "@mui/types": "npm:^7.2.3"
-    "@mui/utils": "npm:^5.11.11"
+    "@mui/utils": "npm:^5.11.12"
     clsx: "npm:^1.2.1"
     csstype: "npm:^3.1.1"
     prop-types: "npm:^15.8.1"
@@ -1002,7 +1002,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 533e484517ede702fd48590882ca716bf075df2d5a824d4574dd3c3430de8bfb67ca25357d98b3177d8d6397c133177b2f8528c3d249347ad4f93d586dc2058b
+  checksum: 405825c12f19b2585de7c1c6bd79436e08546e79b2311620c8adf54784a87de3cfb17c182e3705cb7f414c9f9b4da64c58ab83411e92ca50e9806ac99947f325
   languageName: node
   linkType: hard
 
@@ -1030,6 +1030,21 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
   checksum: d2fe3ef62ddfb1ba26a912855ea70fcb44d66005c30a71788b0f868f4bade6809e6eaa4eefc139e7ab7b94a84e2115f4c45b941d897c3f84c710132ab4c00a33
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:^5.11.12":
+  version: 5.11.12
+  resolution: "@mui/utils@npm:5.11.12"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+    "@types/prop-types": "npm:^15.7.5"
+    "@types/react-is": "npm:^16.7.1 || ^17.0.0"
+    prop-types: "npm:^15.8.1"
+    react-is: "npm:^18.2.0"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+  checksum: 918387a12fb52348b5c48f9c2bd7d6093577bf41a989826e123b320262d75a943e953f27ada8f1da5259af007a041161576e9f26a887d04be4ba891440e831d0
   languageName: node
   linkType: hard
 
@@ -1140,7 +1155,6 @@ __metadata:
     js-tokens: "npm:8.0.1"
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
-    prom-client: "npm:^14.1.1"
     typescript: "npm:5.1.0-dev.20230306"
     wrangler: "npm:2.12.0"
   languageName: unknown
@@ -1157,7 +1171,7 @@ __metadata:
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@libp2p/interfaces": "npm:3.3.1"
     "@motionone/dom": "npm:10.15.5"
-    "@mui/material": "npm:5.11.11"
+    "@mui/material": "npm:5.11.12"
     "@okikio/sharedworker": "npm:1.0.4"
     "@types/eslint": "npm:8.21.1"
     "@types/events": "npm:3.0.0"
@@ -1193,7 +1207,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     fetch-retry: "npm:5.0.4"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:10.0.2"
+    framer-motion: "npm:10.1.0"
     immutable: "npm:4.2.4"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1234,8 +1248,6 @@ __metadata:
     webrtc-adapter: "npm:8.2.1"
     workbox-window: "npm:6.5.4"
     worker-rpc: "npm:0.2.0"
-  peerDependencies:
-    prom-client: 14.1.1
   languageName: unknown
   linkType: soft
 
@@ -2287,13 +2299,6 @@ __metadata:
   version: 2.2.0
   resolution: "binary-extensions@npm:2.2.0"
   checksum: 16cf7c0cfd2d04c0d7a115473b14054d6b01c077d8894f5eadc53e0cc1a0bea512a6187b314b26c99efd0c5f02b2871ab413017916d9ecaa47fa23d0f519adc6
-  languageName: node
-  linkType: hard
-
-"bintrees@npm:1.0.2":
-  version: 1.0.2
-  resolution: "bintrees@npm:1.0.2"
-  checksum: 412686b5f2db1089131968a4f397cb4224b335a01f84a325847e793c0aa12c66d34ad219bbe23ac13bcb76dec2d3dd78fc1dd6bd385f27ca39f482dc1d1713be
   languageName: node
   linkType: hard
 
@@ -4170,9 +4175,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.0.2":
-  version: 10.0.2
-  resolution: "framer-motion@npm:10.0.2"
+"framer-motion@npm:10.1.0":
+  version: 10.1.0
+  resolution: "framer-motion@npm:10.1.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4182,7 +4187,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: e054c52733c9c65907cd6efbd05e0e3035bab4fb0654e27336b30ac43b1b958b980aaa7eba2b1c22cc4cba17ac7a417e063572e5ca587135af4f4be83a116c89
+  checksum: 751a51732979307a7be52322732c650f81d84bc4ffccb113b2cfbffbf3b592982de1bf146ff0f7703439da86e45b8b3c741fc154e3c45460e0ee0f8d1ee6adc1
   languageName: node
   linkType: hard
 
@@ -7300,15 +7305,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prom-client@npm:^14.1.1":
-  version: 14.1.1
-  resolution: "prom-client@npm:14.1.1"
-  dependencies:
-    tdigest: "npm:^0.1.1"
-  checksum: 9a8c14ba8b8274c8b65c68573d7b7d7c40ffd91e684e7e43cf13a3032880b54cb629f3458a1028a091e010d3debcfd9bb11ff2e0468361a4b897cea96f54c894
-  languageName: node
-  linkType: hard
-
 "promise-inflight@npm:^1.0.1":
   version: 1.0.1
   resolution: "promise-inflight@npm:1.0.1"
@@ -8574,15 +8570,6 @@ __metadata:
     mkdirp: "npm:^1.0.3"
     yallist: "npm:^4.0.0"
   checksum: b1254685cb870858a072a6863d7f769c5c27f964166cacdf2fee4aac526dc8949fb9cd609a9e0a77e5cb8f993e2d38c966c52de0e71827e8f14a3d4cd43209db
-  languageName: node
-  linkType: hard
-
-"tdigest@npm:^0.1.1":
-  version: 0.1.2
-  resolution: "tdigest@npm:0.1.2"
-  dependencies:
-    bintrees: "npm:1.0.2"
-  checksum: 16de3c6397f3add5b06dcddfedc47d4974ceb42e0da1c0d659e707626b723d87e7564c6343c7f07137676c4a997e8874872685b9e5425cdbc80f096e53b3e2a2
   languageName: node
   linkType: hard
 
