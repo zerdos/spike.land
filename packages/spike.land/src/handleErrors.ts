@@ -1,4 +1,4 @@
-import type {} from "@cloudflare/workers-types";
+import type { WebSocket } from "@cloudflare/workers-types";
 
 export async function handleErrors(
   request: Request,

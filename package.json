@@ -57,5 +57,5 @@
   "devDependencies": {
     "js-tokens": "8.0.1"
   },
-  "packageManager": "yarn@4.0.0-rc.39"
+  "packageManager": "yarn@4.0.0-rc.40"
 }
