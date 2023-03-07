@@ -64,7 +64,7 @@
     "@mui/material": "5.11.12",
     "@okikio/sharedworker": "1.0.4",
     "@types/isomorphic-fetch": "0.0.36",
-    "@typescript-eslint/typescript-estree": "5.54.0",
+    "@typescript-eslint/typescript-estree": "5.54.1",
     "ace-builds": "1.15.3",
     "assert": "2.0.0",
     "assert-browserify": "2.0.0",
@@ -134,13 +134,13 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/uuid": "9.0.1",
-    "@typescript-eslint/eslint-plugin": "5.54.0",
-    "@typescript-eslint/parser": "5.54.0",
+    "@typescript-eslint/eslint-plugin": "5.54.1",
+    "@typescript-eslint/parser": "5.54.1",
     "eslint": "8.35.0",
     "eslint-plugin-react": "7.32.2",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.1.0-dev.20230306",
+    "typescript": "5.1.0-dev.20230307",
     "uvu": "0.5.6"
   }
 }
