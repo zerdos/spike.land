@@ -422,11 +422,11 @@ const build = (
         ...buildOptions.alias,
         "react": "preact/compat",
         "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat", // Must be below test-utils
+        "react-dom": "preact/compat",
         "react/jsx-runtime": "preact/jsx-runtime",
-
-        "esbuild-wasm/esbuild.wasm": `./${wasmFile}`, //      "react/jsx-runtime": "./dist/jsx.js",
-        //  "react-dom/client": "./dist/reactDomClient.js",
+        "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
+        // "react/jsx-runtime": "./dist/jsx.js",
+        "react-dom/client": "preact/compat/client",
       },
       loader: { ...buildOptions.loader },
     },

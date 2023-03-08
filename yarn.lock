@@ -95,10 +95,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230228.0":
-  version: 4.20230228.0
-  resolution: "@cloudflare/workers-types@npm:4.20230228.0"
-  checksum: 0c33f106f864f18b853ac80160dcd8ffe58182bfb6be1b85db425421ecfb6a9fe7eb5c99865dec6eba00f310751b8c940f1c869b923cc75b16abc70adf4ce8f9
+"@cloudflare/workers-types@npm:4.20230307.0":
+  version: 4.20230307.0
+  resolution: "@cloudflare/workers-types@npm:4.20230307.0"
+  checksum: 8e6c4bcff4277fbf6a68e993d3067ceeb921370ffb36e33e700ca8d478ac0052308fee2e9d9a970966f931ca6e9a7999be611256e9f798fe0755f07a5c955f23
   languageName: node
   linkType: hard
 
@@ -1131,7 +1131,7 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230228.0"
+    "@cloudflare/workers-types": "npm:4.20230307.0"
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1140,8 +1140,8 @@ __metadata:
     js-tokens: "npm:8.0.1"
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
-    typescript: "npm:5.1.0-dev.20230307"
-    wrangler: "npm:2.12.0"
+    typescript: "npm:5.1.0-dev.20230308"
+    wrangler: "npm:2.12.2"
   languageName: unknown
   linkType: soft
 
@@ -1192,7 +1192,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     fetch-retry: "npm:5.0.4"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:10.1.0"
+    framer-motion: "npm:10.2.3"
     immutable: "npm:4.2.4"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1226,7 +1226,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.1.0-dev.20230307"
+    typescript: "npm:5.1.0-dev.20230308"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -1306,10 +1306,10 @@ __metadata:
   resolution: "@spike.land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230228.0"
+    "@cloudflare/workers-types": "npm:4.20230307.0"
     esbuild-wasm: "npm:0.17.11"
-    typescript: "npm:5.1.0-dev.20230307"
-    wrangler: "npm:2.12.0"
+    typescript: "npm:5.1.0-dev.20230308"
+    wrangler: "npm:2.12.2"
   languageName: unknown
   linkType: soft
 
@@ -4153,9 +4153,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.1.0":
-  version: 10.1.0
-  resolution: "framer-motion@npm:10.1.0"
+"framer-motion@npm:10.2.3":
+  version: 10.2.3
+  resolution: "framer-motion@npm:10.2.3"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4165,7 +4165,12 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 751a51732979307a7be52322732c650f81d84bc4ffccb113b2cfbffbf3b592982de1bf146ff0f7703439da86e45b8b3c741fc154e3c45460e0ee0f8d1ee6adc1
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 0b8ffef29b9aad560462773c1670c83e765b4e833f7641d7e3c97db3bf42dc04c0acd746ba6d6b9bf3e8c12536c14f9ef44bfc02c8af0d827e99c7651c9f96e4
   languageName: node
   linkType: hard
 
@@ -6353,7 +6358,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230228.0"
+    "@cloudflare/workers-types": "npm:4.20230307.0"
     "@emotion/react": "npm:11.10.6"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.31.2"
@@ -6373,7 +6378,7 @@ __metadata:
     monaco-editor: "npm:0.36.1"
     playwright: "npm:1.31.2"
     react: "npm:18.2.0"
-    typescript: "npm:5.1.0-dev.20230307"
+    typescript: "npm:5.1.0-dev.20230308"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -8827,23 +8832,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.1.0-dev.20230307":
-  version: 5.1.0-dev.20230307
-  resolution: "typescript@npm:5.1.0-dev.20230307"
+"typescript@npm:5.1.0-dev.20230308":
+  version: 5.1.0-dev.20230308
+  resolution: "typescript@npm:5.1.0-dev.20230308"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 847d0f8905b95e68418c97b70f8ffa23c66dc0f53a09c8366bf1227dd4b01d31426a5db49b7b8799fac0d8e499d32516817827bbf6c6e5b518a1c724ed5e633e
+  checksum: a42d54b247f9649cdec9cc43232afee58f0b7346292a94970c8f82fb6b16030b0f85295a666918405939fbddd1261de12a425835ef4b1f996e890c93cea195ef
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.1.0-dev.20230307#optional!builtin<compat/typescript>":
-  version: 5.1.0-dev.20230307
-  resolution: "typescript@patch:typescript@npm%3A5.1.0-dev.20230307#optional!builtin<compat/typescript>::version=5.1.0-dev.20230307&hash=85af82"
+"typescript@patch:typescript@npm%3A5.1.0-dev.20230308#optional!builtin<compat/typescript>":
+  version: 5.1.0-dev.20230308
+  resolution: "typescript@patch:typescript@npm%3A5.1.0-dev.20230308#optional!builtin<compat/typescript>::version=5.1.0-dev.20230308&hash=85af82"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 7361dda8aac78710bcb75a0efa1f520001c972ab34c9cfc3e9fa322a820f59929996a85cbb662586ac148b094418d28b80ab2669042157cd92a833eec32d41f0
+  checksum: 0d43552c8d3162b4003d23f5eb63dd1be31f6adc4f8f04771b4499b4257ef6eba16563f6b0bbe8ed578f8ae5711708802bbbefa471ba23d08f1907a126be9f67
   languageName: node
   linkType: hard
 
@@ -9239,9 +9244,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.12.0":
-  version: 2.12.0
-  resolution: "wrangler@npm:2.12.0"
+"wrangler@npm:2.12.2":
+  version: 2.12.2
+  resolution: "wrangler@npm:2.12.2"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -9265,7 +9270,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: bcac10430ef437679cd1edb431eb9c837489f9298f7438ed2a6c4cbe0524f79cfbe4635e0b50f90cbfe3e0411e8f90113cc47fcb26f9c3b5249efa8d0a28f5bf
+  checksum: 8271caa76329ca8a69815d0ee9cfc4d2ac40670a9dab632832235a8da60356e33f4629701bc5416bb5f291306bc6b44f1796fdca434ea4ae3fe4565ba844e0b0
   languageName: node
   linkType: hard
 
