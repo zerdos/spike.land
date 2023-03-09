@@ -1136,7 +1136,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.14.6"
+    "@types/node": "npm:18.15.0"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:^18.0.28"
@@ -1181,7 +1181,7 @@ __metadata:
     p2pcf: "npm:1.3.13"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    preact: "npm:^10.13.0"
+    preact: "npm:^10.13.1"
     prettier: "npm:2.8.4"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
@@ -1219,7 +1219,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.14.6"
+    "@types/node": "npm:18.15.0"
     esbuild-wasm: "npm:0.17.11"
   languageName: unknown
   linkType: soft
@@ -1387,10 +1387,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.14.6":
+"@types/node@npm:*":
   version: 18.14.6
   resolution: "@types/node@npm:18.14.6"
   checksum: 4bbd9fe4cb1b31afe4f76b0b37fe51e46199dc57ab519811f61456cb267d7590323e6c687041f5a73872858d9eb64fdd158e9f669bbb36979d59ec7a91396dfa
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.15.0":
+  version: 18.15.0
+  resolution: "@types/node@npm:18.15.0"
+  checksum: 3d8e41b54a715a4d69fced5ef10af7e41f640d343cac09bcd538d28dc1cfdc9495091a66b0e3eb1292ca4656715e87c2e129ab05130c6c592b67ce641780c804
   languageName: node
   linkType: hard
 
@@ -7023,10 +7030,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:^10.13.0":
-  version: 10.13.0
-  resolution: "preact@npm:10.13.0"
-  checksum: 4acc00c9f33de0da5a62ed167749f4c8600cca5be03cceb50563051cfb332f29abcfeb340e237cc671152d8c126f35b41ae54e94b08e746be07f1af47b60387c
+"preact@npm:^10.13.1":
+  version: 10.13.1
+  resolution: "preact@npm:10.13.1"
+  checksum: a9e6cca5494c5b1987e0e676b03f19696cc1b7bdb24aa3e439068cb6c71006a464b32165ba076aac2ba05bceb16138149a5f077496939b577804628893ab3906
   languageName: node
   linkType: hard
 
