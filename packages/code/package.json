@@ -120,7 +120,6 @@
     "worker-rpc": "0.2.0"
   },
   "devDependencies": {
-    "@libp2p/interfaces": "3.3.1",
     "@motionone/dom": "10.15.5",
     "@types/eslint": "8.21.1",
     "@types/events": "3.0.0",
@@ -140,7 +139,7 @@
     "eslint-plugin-react": "7.32.2",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "4.9.5",
+    "typescript": "5.0.1-rc",
     "uvu": "0.5.6"
   }
 }

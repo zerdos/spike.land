@@ -45,12 +45,11 @@
     "dprint": "0.34.5",
     "eslint": "8.35.0",
     "eslint-plugin-react": "7.32.2",
-    "ipfs-http-response": "6.0.0",
     "localforage": "1.10.0",
     "monaco-editor": "0.36.1",
     "playwright": "1.31.2",
     "react": "18.2.0",
-    "typescript": "4.9.5",
+    "typescript": "5.0.1-rc",
     "util": "0.12.5",
     "utils": "0.3.1"
   },
