@@ -57,7 +57,7 @@ const makeEnv = (environment: string) => ({
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
-    version: "v19.3.0",
+    version: "v19.7.0",
     versions: {
       node: "v19.7.0",
     },
@@ -72,9 +72,6 @@ const makeEnv = (environment: string) => ({
       NODE_DEBUG: false,
       DEBUG: false,
       isBrowser: true,
-      versions: {
-        node: "v19.7.0",
-      },
     },
     browser: true,
   }),
@@ -99,6 +96,8 @@ const buildOptions: esbuild.BuildOptions = {
     buffer: "buffer/",
     "node:buffer": "buffer/",
 
+    util: "util",
+    constants: "constants/",
     module: "module/",
     events: "events/",
 
