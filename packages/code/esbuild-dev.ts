@@ -59,13 +59,13 @@ const makeEnv = (environment: string) => ({
   process: JSON.stringify({
     version: "v19.3.0",
     versions: {
-      node: "v19.3.0",
+      node: "v19.7.0",
     },
     cwd: JSON.stringify(() => "/"),
 
     env: {
       NODE_ENV: `${environment}`,
-      version: "v19.3.0",
+      version: "v19.7.0",
       cwd: JSON.stringify(() => "/"),
       browser: true,
       isWebworker: true,
@@ -73,7 +73,7 @@ const makeEnv = (environment: string) => ({
       DEBUG: false,
       isBrowser: true,
       versions: {
-        node: "v19.3.0",
+        node: "v19.7.0",
       },
     },
     browser: true,
@@ -99,8 +99,6 @@ const buildOptions: esbuild.BuildOptions = {
     buffer: "buffer/",
     "node:buffer": "buffer/",
 
-    util: "util",
-    constants: "constants/",
     module: "module/",
     events: "events/",
 
