@@ -13,7 +13,7 @@ import { handleErrors } from "./handleErrors";
 // import pMap from "p-map";
 import { CodeEnv } from "./env";
 // import { esmTransform } from "./esbuild.wasm";
-import jsTokens from "js-tokens";
+// import jsTokens from "js-tokens";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import { Delta } from "../../code/src/textDiff";
 import shasum from "./dist.shasum";
@@ -123,7 +123,7 @@ export class Code implements DurableObject {
         if (!s || !s.i) {
           const backupCode = await fetch(
             "https://spike.land/live/code-main/index.tsx",
-          ).then(r => r.text());
+          ).then((r) => r.text());
           this.#backupSession.code = backupCode;
           await this.state.storage.put("session", this.#backupSession);
           s = this.#backupSession;
@@ -229,39 +229,39 @@ export class Code implements DurableObject {
                 "Content-Type": "application/javascript; charset=UTF-8",
               }),
             });
-          case "tokens": {
-            const tokens = Array.from(jsTokens(code, { jsx: true }));
+          // case "tokens": {
+          //   const tokens = Array.from(jsTokens(code, { jsx: true }));
 
-            return new Response(
-              JSON.stringify(tokens.filter((x) => x.type !== "WhiteSpace")),
-              {
-                status: 200,
-                headers: new Headers({
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/json; charset=UTF-8",
-                }),
-              },
-            );
-          }
-          case "token2": {
-            const tokens = Array.from(jsTokens(code, { jsx: true }));
+          //   return new Response(
+          //     JSON.stringify(tokens.filter((x) => x.type !== "WhiteSpace")),
+          //     {
+          //       status: 200,
+          //       headers: new Headers({
+          //         "Access-Control-Allow-Origin": "*",
+          //         "Cross-Origin-Embedder-Policy": "require-corp",
+          //         "Cache-Control": "no-cache",
+          //         "Content-Type": "application/json; charset=UTF-8",
+          //       }),
+          //     },
+          //   );
+          // }
+          // case "token2": {
+          //   const tokens = Array.from(jsTokens(code, { jsx: true }));
 
-            return new Response(
-              tokens.filter((x) => x.type !== "WhiteSpace").map((x) => x.value)
-                .join(" "),
-              {
-                status: 200,
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Cross-Origin-Embedder-Policy": "require-corp",
-                  "Cache-Control": "no-cache",
-                  "Content-Type": "application/javascript; charset=UTF-8",
-                },
-              },
-            );
-          }
+          //   return new Response(
+          //     tokens.filter((x) => x.type !== "WhiteSpace").map((x) => x.value)
+          //       .join(" "),
+          //     {
+          //       status: 200,
+          //       headers: {
+          //         "Access-Control-Allow-Origin": "*",
+          //         "Cross-Origin-Embedder-Policy": "require-corp",
+          //         "Cache-Control": "no-cache",
+          //         "Content-Type": "application/javascript; charset=UTF-8",
+          //       },
+          //     },
+          //   );
+          // }
 
           case "session.json":
           case "session": {
