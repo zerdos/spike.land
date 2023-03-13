@@ -42,7 +42,7 @@
     "@typescript-eslint/parser": "5.54.1",
     "constants": "0.0.2",
     "cypress": "12.7.0",
-    "dprint": "0.35.0",
+    "dprint": "0.35.3",
     "eslint": "8.36.0",
     "eslint-plugin-react": "7.32.2",
     "localforage": "1.10.0",
