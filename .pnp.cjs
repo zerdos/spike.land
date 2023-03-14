@@ -1528,7 +1528,7 @@ const RAW_RUNTIME_STATE =
           ["@types/isomorphic-fetch", "npm:0.0.36"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:18.15.2"],\
+          ["@types/node", "npm:18.15.3"],\
           ["@types/prettier", "npm:2.7.2"],\
           ["@types/prismjs", "npm:1.26.0"],\
           ["@types/react", "npm:18.0.28"],\
@@ -1636,7 +1636,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike.land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:18.15.2"],\
+          ["@types/node", "npm:18.15.3"],\
           ["esbuild-wasm", "npm:0.17.11"]\
         ],\
         "linkType": "SOFT"\
@@ -1861,10 +1861,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:18.15.2", {\
-        "packageLocation": "./.yarn/global/cache/@types-node-npm-18.15.2-63848c3d07-9.zip/node_modules/@types/node/",\
+      ["npm:18.15.3", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-18.15.3-d092b0c75c-9.zip/node_modules/@types/node/",\
         "packageDependencies": [\
-          ["@types/node", "npm:18.15.2"]\
+          ["@types/node", "npm:18.15.3"]\
         ],\
         "linkType": "HARD"\
       }]\
