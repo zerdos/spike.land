@@ -1472,7 +1472,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@playwright-test-npm-1.31.2-10c7aaacb7-9.zip/node_modules/@playwright/test/",\
         "packageDependencies": [\
           ["@playwright/test", "npm:1.31.2"],\
-          ["@types/node", "npm:18.15.1"],\
+          ["@types/node", "npm:18.15.3"],\
           ["fsevents", "patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"],\
           ["playwright-core", "npm:1.31.2"]\
         ],\
@@ -1745,7 +1745,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-better-sqlite3-npm-7.6.3-ce23cfd6ed-9.zip/node_modules/@types/better-sqlite3/",\
         "packageDependencies": [\
           ["@types/better-sqlite3", "npm:7.6.3"],\
-          ["@types/node", "npm:18.15.1"]\
+          ["@types/node", "npm:18.15.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -1847,17 +1847,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/node", [\
-      ["npm:14.18.37", {\
-        "packageLocation": "./.yarn/global/cache/@types-node-npm-14.18.37-d3dace2145-9.zip/node_modules/@types/node/",\
+      ["npm:14.18.38", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-14.18.38-b17d3e65a0-9.zip/node_modules/@types/node/",\
         "packageDependencies": [\
-          ["@types/node", "npm:14.18.37"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:18.15.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-node-npm-18.15.1-9afe26ff55-9.zip/node_modules/@types/node/",\
-        "packageDependencies": [\
-          ["@types/node", "npm:18.15.1"]\
+          ["@types/node", "npm:14.18.38"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -2015,7 +2008,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-yauzl-npm-2.10.0-7b242343cb-9.zip/node_modules/@types/yauzl/",\
         "packageDependencies": [\
           ["@types/yauzl", "npm:2.10.0"],\
-          ["@types/node", "npm:18.15.1"]\
+          ["@types/node", "npm:18.15.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3704,7 +3697,7 @@ const RAW_RUNTIME_STATE =
           ["cypress", "npm:12.7.0"],\
           ["@cypress/request", "npm:2.88.11"],\
           ["@cypress/xvfb", "npm:1.2.4"],\
-          ["@types/node", "npm:14.18.37"],\
+          ["@types/node", "npm:14.18.38"],\
           ["@types/sinonjs__fake-timers", "npm:8.1.1"],\
           ["@types/sizzle", "npm:2.3.3"],\
           ["arch", "npm:2.2.0"],\
