@@ -1112,7 +1112,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.17.11"
+    esbuild-wasm: "npm:0.17.12"
   languageName: unknown
   linkType: soft
 
@@ -1125,12 +1125,12 @@ __metadata:
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.17.11"
+    esbuild-wasm: "npm:0.17.12"
     immutable: "npm:4.3.0"
     js-tokens: "npm:8.0.1"
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
-    typescript: "npm:5.0.1-rc"
+    typescript: "npm:5.0.2"
     wrangler: "npm:2.12.3"
   languageName: unknown
   linkType: soft
@@ -1174,7 +1174,7 @@ __metadata:
     buffer: "npm:6.0.3"
     constants: "npm:0.0.2"
     csstype: "npm:3.1.1"
-    esbuild-wasm: "npm:0.17.11"
+    esbuild-wasm: "npm:0.17.12"
     eslint: "npm:8.36.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
@@ -1215,7 +1215,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.1-rc"
+    typescript: "npm:5.0.2"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -1238,7 +1238,7 @@ __metadata:
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:18.15.3"
-    esbuild-wasm: "npm:0.17.11"
+    esbuild-wasm: "npm:0.17.12"
   languageName: unknown
   linkType: soft
 
@@ -1296,8 +1296,8 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230307.0"
-    esbuild-wasm: "npm:0.17.11"
-    typescript: "npm:5.0.1-rc"
+    esbuild-wasm: "npm:0.17.12"
+    typescript: "npm:5.0.2"
     wrangler: "npm:2.12.3"
   languageName: unknown
   linkType: soft
@@ -2948,9 +2948,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.8.0":
-  version: 12.8.0
-  resolution: "cypress@npm:12.8.0"
+"cypress@npm:12.8.1":
+  version: 12.8.1
+  resolution: "cypress@npm:12.8.1"
   dependencies:
     "@cypress/request": "npm:^2.88.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -2996,7 +2996,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: fd45bed5130017f0ae12b27b14a99e9f6f10ae8578de701dec9891f1c370b57c1256f3b8730681712ea671f05888f590aba57788f79bb10548bf605bcdc59b6f
+  checksum: b0d1de5ca3a70a7cb95a951169d666efe6a4dfb3443123211b58f4c7fb18973cf53f97a435ecd12bd71645874498e908a1cf76032dc1b222cc1aba1ed8b99242
   languageName: node
   linkType: hard
 
@@ -3398,12 +3398,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.17.11":
-  version: 0.17.11
-  resolution: "esbuild-wasm@npm:0.17.11"
+"esbuild-wasm@npm:0.17.12":
+  version: 0.17.12
+  resolution: "esbuild-wasm@npm:0.17.12"
   bin:
     esbuild: bin/esbuild
-  checksum: a68de52ae1108e09456b2981bfb6a7abb1b857d84c54b9187c88dc60d73c1d826fa60e070cc62c7f545c59309566aa7faadb518499b1f9f7415b6fc0587df457
+  checksum: 2c420360ef6c37e0bf4ec1035e9f7e464f499b15a8fa2226ee86281eca510c3f7419a68e72df8763037b637c771220acc29111c5258843d3f91365336ae5ca95
   languageName: node
   linkType: hard
 
@@ -6222,7 +6222,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.55.0"
     "@typescript-eslint/parser": "npm:5.55.0"
     constants: "npm:0.0.2"
-    cypress: "npm:12.8.0"
+    cypress: "npm:12.8.1"
     dprint: "npm:0.35.3"
     eslint: "npm:8.36.0"
     eslint-plugin-react: "npm:7.32.2"
@@ -6231,7 +6231,7 @@ __metadata:
     monaco-editor: "npm:0.36.1"
     playwright: "npm:1.31.2"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.1-rc"
+    typescript: "npm:5.0.2"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -8649,23 +8649,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.1-rc":
-  version: 5.0.1-rc
-  resolution: "typescript@npm:5.0.1-rc"
+"typescript@npm:5.0.2":
+  version: 5.0.2
+  resolution: "typescript@npm:5.0.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 282f8b515bd8033b131a6e6ca17b51706bddfaf04090675d592b2c4186603e8634bd9a386f9d0292dc635e9ed62a925b00454a869c6c81fd9884de45c96bec88
+  checksum: a305d149166e376acb51bcd1bab9f2ab55c5bd52d0b43f0e49b58ea5cf085cd7c0a3d38ea58f3991aa7b04c97907b6c17c8611334d7f0e54db3d31d7897d9661
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.1-rc#optional!builtin<compat/typescript>":
-  version: 5.0.1-rc
-  resolution: "typescript@patch:typescript@npm%3A5.0.1-rc#optional!builtin<compat/typescript>::version=5.0.1-rc&hash=85af82"
+"typescript@patch:typescript@npm%3A5.0.2#optional!builtin<compat/typescript>":
+  version: 5.0.2
+  resolution: "typescript@patch:typescript@npm%3A5.0.2#optional!builtin<compat/typescript>::version=5.0.2&hash=85af82"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 92873efe77ab726e33f2b4f0618576041332e018eb8091db4793a1a6f5369e207f4e9da2e8c23492873cdda9b45acd9f197ad850113ced8e1b21858476f2e63b
+  checksum: 152c6851fd46cd63988ae112ede3b64aab3b10f9a33f5c8c5bab41af3bc0ec59dd265349da67890c80f1eba156a5beb0fb78ece94b40b3031c1eea3cece1e233
   languageName: node
   linkType: hard
 
