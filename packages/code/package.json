@@ -65,7 +65,7 @@
     "@okikio/sharedworker": "1.0.4",
     "@types/isomorphic-fetch": "0.0.36",
     "@typescript-eslint/typescript-estree": "5.55.0",
-    "ace-builds": "1.15.3",
+    "ace-builds": "1.16.0",
     "assert": "2.0.0",
     "assert-browserify": "2.0.0",
     "ast-module-types": "3.0.0",
