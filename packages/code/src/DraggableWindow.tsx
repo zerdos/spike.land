@@ -227,19 +227,18 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             >
               <motion.div
                 layout
-                css={css`
-              transform-origin: top left;
-              `}
                 initial={{
+                  transformOrigin: "top left",
                   backgroundColor: rgba(r, g, b, 1),
-                  transform: "scale(1,1)",
+                  scale: scale * scale,
                   height: window.innerHeight,
                   width: window.innerWidth,
                   borderRadius: 0,
                 }}
                 animate={{
+                  transformOrigin: "top left",
                   backgroundColor: rgba(r, g, b, 0.7),
-                  transform: `scale(${scale},${scale})`,
+                  scale: scale * scale,
                   height: height,
                   width: width,
                   borderRadius: 8,
