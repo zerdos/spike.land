@@ -357,7 +357,9 @@ const api: ExportedHandler<CodeEnv> = {
                 },
               );
 
-              if (!kvResp.ok) return kvResp;
+              if (!kvResp.ok) {
+                return new Response(`its a 404: ${await kvResp.text()}`, { status: 404, statusText: "not found" });
+              }
 
               // const isText = kvResp?.headers?.get("Content-Type")?.includes(
               //   "charset",
