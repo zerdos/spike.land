@@ -54,6 +54,14 @@ export default {
           await request.text(),
           request.headers.get("TR_ORIGIN"),
           ASSET_HASH,
+        ).catch(async () =>
+          await initAndTransform(
+            `
+        export default ()=><h1>Transpile error</h1>
+        `,
+            request.headers.get("TR_ORIGIN"),
+            ASSET_HASH,
+          )
         ),
         {
           ...request,
