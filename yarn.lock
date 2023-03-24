@@ -1077,19 +1077,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.31.2":
-  version: 1.31.2
-  resolution: "@playwright/test@npm:1.31.2"
+"@playwright/test@npm:1.32.0":
+  version: 1.32.0
+  resolution: "@playwright/test@npm:1.32.0"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.31.2"
+    playwright-core: "npm:1.32.0"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: d97738f8b0801f020e9cf9de96feb57fdc02c4befd0a94a28487f8db655966a06893d65b68a97b0e6783b0568b26d2decaea186700b7e528c3de666281009351
+  checksum: c53c1df7f3bd1a88c61b3ab93e5aa3532dc25607dd5a3774f465abb13a881df8c952cfdde924d1a33f92083e9596f71265684f20244ca2c07292522799559398
   languageName: node
   linkType: hard
 
@@ -1154,7 +1154,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.15.5"
+    "@types/node": "npm:18.15.7"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:^18.0.28"
@@ -1181,7 +1181,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     fetch-retry: "npm:5.0.4"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:10.8.4"
+    framer-motion: "npm:10.8.5"
     immutable: "npm:4.3.0"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1200,13 +1200,13 @@ __metadata:
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
     preact: "npm:10.13.1"
-    prettier: "npm:2.8.6"
+    prettier: "npm:2.8.7"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-error-boundary: "npm:4.0.0"
+    react-error-boundary: "npm:4.0.2"
     react-icons: "npm:4.8.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
@@ -1219,7 +1219,7 @@ __metadata:
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
-    webrtc-adapter: "npm:8.2.1"
+    webrtc-adapter: "npm:8.2.2"
     workbox-window: "npm:6.5.4"
     worker-rpc: "npm:0.2.0"
   languageName: unknown
@@ -1237,7 +1237,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.15.5"
+    "@types/node": "npm:18.15.7"
     esbuild-wasm: "npm:0.17.12"
   languageName: unknown
   linkType: soft
@@ -1412,10 +1412,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.15.5":
-  version: 18.15.5
-  resolution: "@types/node@npm:18.15.5"
-  checksum: b046d8e4ebb94c1f811743d8be63b7e76fa03db9117ae1a7bc4589fddbb13b70c24fd5d2d4f674032b8a0ceb4db2e74725d241ccdf99f8ec61e357de2e2bbebb
+"@types/node@npm:18.15.7":
+  version: 18.15.7
+  resolution: "@types/node@npm:18.15.7"
+  checksum: 521cebfb0a7115590beee0864f5a7856bd460f499ad9d77de96fc70d3de50a11e16a64e5e9a78c0191020b96454fd41a891afd4bcc90a27cbcde5765526d64ea
   languageName: node
   linkType: hard
 
@@ -4108,9 +4108,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.8.4":
-  version: 10.8.4
-  resolution: "framer-motion@npm:10.8.4"
+"framer-motion@npm:10.8.5":
+  version: 10.8.5
+  resolution: "framer-motion@npm:10.8.5"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4125,7 +4125,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 3d0cb0950295b2dcc887a0201ea0aa83cb39c53d63885e57d4b69e175fe2e1d090d6e1c545f45d80c51058ec26130e5e937db045876ba9d0706e654d4b6daa52
+  checksum: a16dee14f8b782ab4c464450b3550362a8a9a0f0363c01f47b40998cfbe081da6407f2fabbfca5b03bb80926048e8ac4e5afbc7e935f63d425a2b890ea054d51
   languageName: node
   linkType: hard
 
@@ -6222,7 +6222,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230321.0"
     "@emotion/react": "npm:11.10.6"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.31.2"
+    "@playwright/test": "npm:1.32.0"
     "@types/eslint": "npm:8.21.3"
     "@types/react": "npm:18.0.28"
     "@types/react-dom": "npm:18.0.11"
@@ -6236,7 +6236,7 @@ __metadata:
     js-tokens: "npm:8.0.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.36.1"
-    playwright: "npm:1.31.2"
+    playwright: "npm:1.32.0"
     react: "npm:18.2.0"
     typescript: "npm:5.0.2"
     util: "npm:0.12.5"
@@ -7000,23 +7000,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.31.2":
-  version: 1.31.2
-  resolution: "playwright-core@npm:1.31.2"
+"playwright-core@npm:1.32.0":
+  version: 1.32.0
+  resolution: "playwright-core@npm:1.32.0"
   bin:
     playwright: cli.js
-  checksum: 1aa3e9c76760d53f0d38dc52b8f339ab1cd96dc68a45373db83c7ed2b2908f6a1f9106cc86424f7fcb53535b1eb1cb75a6fadc2b61f42fc79008e0fdd2653856
+  checksum: a1219051274bbb77ec6bf7ec042e4a816ff2265d745768667e0b4fcec2559acf2a02d9959664a1da8c9c572a202c65b3bf7cee74ae1c348bfd28097a294cde98
   languageName: node
   linkType: hard
 
-"playwright@npm:1.31.2":
-  version: 1.31.2
-  resolution: "playwright@npm:1.31.2"
+"playwright@npm:1.32.0":
+  version: 1.32.0
+  resolution: "playwright@npm:1.32.0"
   dependencies:
-    playwright-core: "npm:1.31.2"
+    playwright-core: "npm:1.32.0"
   bin:
     playwright: cli.js
-  checksum: cd1581b8a72ce038c00a7ecced779a5d76f2e2c03227d060c49aa7cccd3171da4622d8c0e431890e171c89596f71ff4916eb8e75e1b33bc293a9197e1e9c1477
+  checksum: d0522d43f6883e7a44b309afe3bfa51184bb30cbb06ee1950fe67ba5b6dd27cef8531d2dfe1cabf518215eddb80c99e836c7061b454996f27e6b9cf665cd29a3
   languageName: node
   linkType: hard
 
@@ -7062,12 +7062,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.6":
-  version: 2.8.6
-  resolution: "prettier@npm:2.8.6"
+"prettier@npm:2.8.7":
+  version: 2.8.7
+  resolution: "prettier@npm:2.8.7"
   bin:
     prettier: bin-prettier.js
-  checksum: 349cf6e60e9e816aedede90186fbd77a169d81ef55ae319e9528012ea610dde8f96d93188435153d2c92772ee9ff6869def1035e2beb7ece779da4f7ca8ee532
+  checksum: ec15b2e0a2a34a4987cca4ee72b2df56c7f4a4c62322d9a0f3c9efccb2cc0e3efdb791bb2764f2268e69e05946dc72108e5b5957d4bb2c1a41a11733b8b09153
   languageName: node
   linkType: hard
 
@@ -7255,14 +7255,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:4.0.0":
-  version: 4.0.0
-  resolution: "react-error-boundary@npm:4.0.0"
+"react-error-boundary@npm:4.0.2":
+  version: 4.0.2
+  resolution: "react-error-boundary@npm:4.0.2"
   dependencies:
     "@babel/runtime": "npm:^7.12.5"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: d5d04405106c6c620cdb3f1c22abf24ac90b4b3ff9af87c60ef8a7ec85fa49188fb71588899318738051b553ac419a08a28ce6e06468f537e9c0a01cdccebd15
+  checksum: bfe7bf8fc15f243ac200a0c87cc525f0b6b2488c7ded526a7c572b070417638eb81c9e229831ceca25811bc0b9078bde22b0538fcf489167842973d7c062d01e
   languageName: node
   linkType: hard
 
@@ -8928,12 +8928,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webrtc-adapter@npm:8.2.1":
-  version: 8.2.1
-  resolution: "webrtc-adapter@npm:8.2.1"
+"webrtc-adapter@npm:8.2.2":
+  version: 8.2.2
+  resolution: "webrtc-adapter@npm:8.2.2"
   dependencies:
     sdp: "npm:^3.2.0"
-  checksum: 184987d4f0d3de52b14b4c608a5175e3301e07b5430ae17fd8f4c4fb8d6ad189e7422c3351475ddb580017f3cb82abc6db2f32ac6f28dda227460da5ff1d2509
+  checksum: 27791ffc37f70ce056e991fa1f981472b5f4525f3b472e0d5f26c66d8f6e4264f657d53e6f30dced1bc710acc350684d73507d3f809f3deb300f825da70b101e
   languageName: node
   linkType: hard
 
