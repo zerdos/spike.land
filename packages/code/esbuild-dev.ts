@@ -380,9 +380,9 @@ const build = (
 
       // "src/reactDom.ts",
 
-      // "src/emotionCache.ts",
-      // "src/emotionSt
-      // "src/emotionJsxRuntime.ts",
+      "src/emotionCache.ts",
+      "src/emotionStyled.mjs",
+      // "src/emotionJsxRuntime.ts",i
       // "src/jsx.mjs",
     ],
     [

@@ -1,7 +1,6 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-import { css } from "/src/emotion.mjs";
-import { Fragment, jsx, jsxs } from "/src/emotionJsxRuntime.mjs";
+import { css, Fragment, jsx, jsxs } from "/emotion.mjs";
 const Box = /* @__PURE__ */ __name(({ children, boxRef, bg }) => {
   const background = bg || "#1D1F20";
   return /* @__PURE__ */ jsxs(
