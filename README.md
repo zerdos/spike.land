@@ -1,4 +1,4 @@
-j[Real time React page editor, in typescript!
+Real time React page editor, in typescript!
 
 ![Screenshot](editor.png?11)(https://spike.land)
 
