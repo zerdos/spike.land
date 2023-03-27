@@ -208,12 +208,6 @@ const build = (
 (async () => {
   // await copyFile("./src/index.html", "./dist/index.html");
   await copyFile("./src/favicon.ico", "./dist/favicon.ico");
-  await mkdir("./dist/live");
-  await mkdir("./dist/live/box");
-  await copyFile(
-    "./stubs/box/index.js",
-    "./dist/live/box/index.js",
-  );
 
   await copyFile(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",

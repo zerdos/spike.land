@@ -562,30 +562,6 @@ const api: ExportedHandler<CodeEnv> = {
     });
   },
 };
-
-// async function handleFileEvent(request: Request, ASSET_NAMESPACE: KVNamespace) {
-//   try {
-//     const ev = { request, waitUntil: async (prom: Promise<void>) => await prom };
-//     // Add logic to decide whether to serve an asset or run your original Worker code
-//     return await getAssetFromKV(ev, {
-//       ASSET_NAMESPACE,
-//       ASSET_MANIFEST,
-//     });
-//   } catch (e) {
-//     const pathname = new URL(request.url).pathname;
-//     return new Response(
-//       `"${pathname}" not found.
-
-//     ASSET_NAMESPACE: ${ASSET_NAMESPACE}
-//     ASSET_MANIFEST:
-//     ${ASSET_MANIFEST}`,
-//       {
-//         status: 404,
-//         statusText: "not found",
-//       },
-//     );
-//   }
-// }
 async function handleApiRequest(
   path: string[],
   request: Request,
@@ -630,14 +606,6 @@ async function handleApiRequest(
       return new Response("Not found", { status: 404 });
   }
 }
-
-// async function getHTMLResp(env: CodeEnv, room: string) {
-//   const id = env.CODE.idFromName(room);
-//   const roomObject = env.CODE.get(id);
-
-//   return roomObject.fetch("public?room=" + room);
-// }
-
 function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
@@ -654,20 +622,3 @@ export const getImportMapStr = (orig: string) => {
 };
 
 export default api;
-
-// function replaceAll(input: string, search: string, replace: string) {
-//   return input.split(search).join(replace);
-// }
-
-// function removeComments(str: string) {
-//   const code = str.split("\n").map(x => x.trim()).filter(x => x.slice(0, 2) !== "//" || x.indexOf("reference") !== -1)
-//     .join("\n").split(";").map(x => x.trim()).filter(x => x.slice(0, 2) !== "//" || x.indexOf("reference") !== -1).join(
-//       ";/n",
-//     );
-//   const regex = /\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm;
-
-//   // const regex = /(?<!\/)\/\*((?:(?!\*\/).|\s)*)\*\//g;
-//   // /\/\*.*?\*\//gi;
-//   // Takes a string of code, not an actual function.
-//   return code.replaceAll(regex, ``);
-// }
