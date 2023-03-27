@@ -37,19 +37,6 @@ const api: ExportedHandler<CodeEnv> = {
 
       const accept = request.headers.get("accept");
 
-      // const serveJs = !(accept && accept.includes("html"));
-
-      // if (
-      //   serveJs && u.pathname.endsWith(".tsx")
-      //   && !u.pathname.endsWith("index.tsx")
-      // ) {
-      //   url = new URL(request.url.replace(".tsx", "/index.tsx"));
-      // }
-
-      // if (serveJs && !url.pathname.includes(".")) {
-      //   url = new URL(request.url + "/index.js");
-      // }
-
       const path = url.pathname.slice(1).split("/");
 
       if (!path[0]) {
@@ -80,24 +67,6 @@ const api: ExportedHandler<CodeEnv> = {
         const newUrl = new URL(path.join("/"), url.origin);
         request = new Request(newUrl, request);
 
-        // if (newUrl.pathname.includes(":z:")) {
-        //   const reqHeaders = new Headers(request.headers);
-        //   const next = atob(newUrl.pathname.slice(4));
-        //   reqHeaders.set("Referer", next);
-
-        //   request = new Request(next, { ...request, headers: reqHeaders });
-        //   let resp = await fetch(request);
-        //   if (!resp.ok) return resp;
-
-        //   const headers = new Headers(resp.headers);
-        //   headers.set("Access-Control-Allow-Origin", "*");
-        //   headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-        //   resp = new Response(resp.body, { ...resp, headers });
-
-        //   // await cache.put(cacheKey, response.clone());
-        //   return resp;
-        // }
-
         const cacheKey = new Request(request.url);
         const cache = await caches.open(ASSET_HASH);
 
@@ -105,125 +74,6 @@ const api: ExportedHandler<CodeEnv> = {
         if (response && response.ok && response.status === 200) {
           return response;
         }
-
-        // ) {
-        // Referer:
-        // https:
-        // testing.spike.land/npm:/v102/@emotion/serialize@1.1.1/es2015/serialize.js?bundle&target=es2020&keep-names=true&dev=true
-
-        // if (path[0] && path[0].startsWith("unpkg:")) {
-        //   const esmUrl = u.toString().replace(
-        //     u.origin + "/unpkg:",
-        //     "https://unpkg.com/",
-        //   );
-
-        //   request = new Request(esmUrl, { ...request, redirect: "follow" });
-        //   let resp = await fetch(request);
-
-        //   if (
-        //     resp !== null && !resp.ok || resp.status === 307
-        //     || resp.status === 302
-        //   ) {
-        //     const redirectUrl = resp.headers.get("location");
-        //     if (redirectUrl) {
-        //       request = new Request(redirectUrl, {
-        //         ...request,
-        //         redirect: "follow",
-        //       });
-        //       resp = await fetch(request);
-        //     }
-        //     if (resp !== null && !resp.ok) return resp;
-        //   }
-
-        //   const isText = !!resp?.headers?.get("Content-Type")?.includes(
-        //     "charset",
-        //   );
-        //   const bodyStr = await (isText ? resp.text() : null);
-        //   const regex = /https:\/\/unpkg.com\//gm;
-        //   const regex2 = / from "\//gm;
-        //   if (!bodyStr) throw new Error("empty body");
-
-        //   const responseToCache = new Response(
-        //     `
-        //       // ${request.url}
-        //       `
-        //       + bodyStr
-        //       ? bodyStr.replaceAll(regex, u.origin + "/unpkg:")
-        //         .replaceAll(regex2, " from \"/unpkg:")
-        //       : await resp.blob(),
-        //     {
-        //       status: 200,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "public, max-age=604800, immutable",
-        //         "Content-Type": resp.headers.get("Content-Type")!,
-        //       },
-        //     },
-        //   );
-        //   if (responseToCache.ok) {
-        //     await cache.put(cacheKey, responseToCache.clone());
-        //   }
-        //   return responseToCache;
-        // }
-
-        // if (path[0] && path[0].startsWith("node_modules")) {
-        //   const esmUrl = u.toString().replace(
-        //     u.origin + "/node_modules/",
-        //     "https://unpkg.com/",
-        //   );
-        //   request = new Request(esmUrl, { ...request, redirect: "follow" });
-        //   let resp = await fetch(request);
-
-        //   if (
-        //     resp !== null && !resp.ok || resp.status === 307
-        //     || resp.status === 302
-        //   ) {
-        //     const redirectUrl = resp.headers.get("location");
-        //     if (redirectUrl) {
-        //       request = new Request(
-        //         new URL(redirectUrl, `https://unpkg.com`).toString(),
-        //         {
-        //           ...request,
-        //           redirect: "follow",
-        //         },
-        //       );
-        //       resp = await fetch(request);
-        //     }
-        //     if (resp !== null && !resp.ok) return resp;
-        //   }
-
-        //   const isText = !!resp?.headers?.get("Content-Type")?.includes(
-        //     "charset",
-        //   );
-        //   const bodyStr = await (isText ? resp.text() : null);
-        //   const regex = /https:\/\/unpkg.com\//gm;
-        //   const regex2 = / from "\//gm;
-        //   if (!bodyStr) throw new Error("empty body");
-
-        //   const responseToCache = new Response(
-        //     `
-        //       // ${request.url}
-        //       `
-        //       + bodyStr
-        //       ? bodyStr.replaceAll(regex, u.origin + "/node_modules/")
-        //         .replaceAll(regex2, " from \"/node_modules/")
-        //       : await resp.blob(),
-        //     {
-        //       status: 200,
-        //       headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Cross-Origin-Embedder-Policy": "require-corp",
-        //         "Cache-Control": "public, max-age=604800, immutable",
-        //         "Content-Type": resp.headers.get("Content-Type")!,
-        //       },
-        //     },
-        //   );
-        //   if (responseToCache.ok) {
-        //     await cache.put(cacheKey, responseToCache.clone());
-        //   }
-        //   return responseToCache;
-        // }
 
         switch (path[0]) {
           case "ping":
@@ -253,13 +103,6 @@ const api: ExportedHandler<CodeEnv> = {
 
             const pair = new WebSocketPair();
             pair[1].accept();
-            // const id = env.CODE.idFromName(ASSET_HASH);
-            // const roomObject = env.CODE.get(id);
-            // const newUrl = new URL(`${url.origin}/websocket/${ASSET_HASH}`);
-            // return roomObject.fetch(new Request(newUrl.toString(), request));
-
-            // signaller({...pair[1]});
-
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "files.json":
@@ -361,16 +204,6 @@ const api: ExportedHandler<CodeEnv> = {
                 return new Response(`its a 404: ${await kvResp.text()}`, { status: 404, statusText: "not found" });
               }
 
-              // const isText = kvResp?.headers?.get("Content-Type")?.includes(
-              //   "charset",
-              // );
-
-              // const isText = !!kvResp?.headers?.get("Content-Type")?.includes(
-              //   "charset",
-              // );
-
-              // const kvRespCloned = kvResp.clone();
-
               kvResp = new Response(kvResp.body, kvResp);
               const headers = new Headers(kvResp.headers);
               kvResp.headers.forEach((v, k) => headers.append(k, v));
@@ -388,44 +221,6 @@ const api: ExportedHandler<CodeEnv> = {
               }
               return kvResp;
             }
-
-            // const referer = request.headers.get("Referer");
-            // if (
-            //   path[0]
-            //   && ((referer && referer.indexOf("npm:/") !== -1) || path[0].startsWith("v9") || path[0].startsWith("v1")
-            //     || path[0].startsWith("npm:") || path[0].startsWith("node_modules/"))
-            // ) {
-            // if (u.toString().includes(".d.ts")) {
-            //   const dtsUrl = u.toString().replace(
-            //     u.origin + "/npm:",
-            //     "https://esm.sh",
-            //   );
-            //   request = new Request(dtsUrl, { ...request, redirect: "follow" });
-            //   response = await fetch(request);
-            // let response= new Response(JSON.stringify({ env, accept,path  }), {
-            //   headers: {
-            //     "Content-Type": "text/html;charset=UTF-8",
-            //     "Cache-Control": "no-cache",
-            //   },
-            // });
-            // return response;
-            // response = new Response(path[0], response);
-
-            //   if (!response.ok) return response;
-            //   response = new Response(
-            //     importMapReplace(
-            //       (await response.text()).split("esm.sh/").join(u.hostname + "/npm:/"),
-            //       u.origin
-            //     ),
-            //     {
-            //       ...response,
-            //     },
-            //   );
-
-            //   await cache.put(cacheKey, response.clone());
-            //   return response;
-            // }            // const isJs = u.toString().includes(".js")
-            //   || u.toString().includes(".mjs");
 
             const isDTS = u.pathname.endsWith(".d.ts");
 
@@ -610,15 +405,5 @@ function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
 }
-
-export const getImportMapStr = (orig: string) => {
-  const importmapImport: { [k: string]: string } = { ...importMap.imports };
-
-  for (const [key, value] of Object.entries(importMap.imports)) {
-    importmapImport[key] = orig + "/" + value;
-  }
-
-  return JSON.stringify({ imports: importmapImport });
-};
 
 export default api;
