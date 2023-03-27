@@ -1,75 +1,26 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import type {} from "@cloudflare/workers-types";
-// import {join} from "./rtc.mjs"
-import { ASSET_MANIFEST, files } from "./staticContent.mjs";
-
-import { importMapReplace } from "../../code/src/importMapReplace";
-
 import { importMap } from "../../code/src/importMap";
-
-// import imap from "@spike.land/code/src/importMap.json";
+import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
-
 import ASSET_HASH from "./dist.shasum";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
+import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
-const api: ExportedHandler<CodeEnv> = {
-  fetch: (
-    request,
-    env,
-    ctx,
-  ) => {
-    if (
-      request.cf && request.cf.asOrganization
-      && request.cf.asOrganization.startsWith("YANDEX")
-    ) {
-      return new Response(null, { status: 401, statusText: "no robots" });
-    }
+// Helper function to check if a link is a chunk
+function isChunk(link: string) {
+  const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
+  return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
+}
 
-    return handleErrors(request, async () => {
-      console.log(`handling request: ${request.url}`);
-      // We have received an HTTP request! Parse the URL and route the request.
-
-      const url = new URL(request.url);
-
-      const path = url.pathname.slice(1).split("/");
-
-      if (!path[0]) {
-        const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
-        console.log({ asOrganization: request.cf?.asOrganization });
-        const start = md5(
-          (request.cf?.asOrganization || "default") + utcSecs + `
-        and reset every 2 hours
-        time`,
-        );
-        // Serve our HTML at the root path.
-        return new Response(
-          `<meta http-equiv="refresh" content="0; URL=${url.origin}/live/${start}" />`,
-          {
-            status: 307,
-            headers: {
-              "Location": `${url.origin}/live/${start}`,
-              "Content-Type": "text/html;charset=UTF-8",
-              "Cache-Control": "no-cache",
-              "Content-Encoding": "gzip",
-              ASSET_HASH: ASSET_HASH,
-            },
-          },
-        );
-      }
-
-      return handleFetchApi(path, request, env, ctx);
-    });
-  },
-};
+// Function to handle API requests
 async function handleApiRequest(
   path: string[],
   request: Request,
   env: CodeEnv,
 ) {
-  // We've received at API request. Route the request based on the path.
-
+  // Logic for handling API requests
   switch (path[0]) {
     case "room": {
       if (!path[1]) {
@@ -107,12 +58,6 @@ async function handleApiRequest(
       return new Response("Not found", { status: 404 });
   }
 }
-function isChunk(link: string) {
-  const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
-  return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
-}
-
-export default api;
 
 async function handleFetchApi(
   path: string[],
@@ -370,26 +315,70 @@ async function handleFetchApi(
           headers,
         },
       );
-
-      // if (isText && response.url.indexOf(".d.ts") !== -1) {
-      // }
-      // response = new Response(
-      //   bodyStr,
-      //   {
-      //     status: 200,
-      //     headers: {
-      //       "Access-Control-Allow-Origin": "*",
-      //       "Cross-Origin-Embedder-Policy": "require-corp",
-      //       "Cache-Control": "no-cache",
-      //       "x-DTS": (response.headers.get("x-typescript-types") || "NO_DTS").replace("esm.sh/", u.host + "/npm:/"),
-      //       "Content-Type": response.headers.get("Content-Type")!,
-      //     },
-      //   },
-      // );
       await cache.put(cacheKey, response.clone());
       return response;
-      // }
-      // }
     }
   }
 }
+
+const api: ExportedHandler<CodeEnv> = {};
+
+export default api;
+
+// Function to handle unauthorized requests
+function handleUnauthorizedRequest(): Response {
+  return new Response(null, { status: 401, statusText: "no robots" });
+}
+
+// Function to handle redirect response for empty path
+function handleRedirectResponse(url: URL, start: string): Response {
+  return new Response(
+    `<meta http-equiv="refresh" content="0; URL=${url.origin}/live/${start}" />`,
+    {
+      status: 307,
+      headers: {
+        "Location": `${url.origin}/live/${start}`,
+        "Content-Type": "text/html;charset=UTF-8",
+        "Cache-Control": "no-cache",
+        "Content-Encoding": "gzip",
+        ASSET_HASH: ASSET_HASH,
+      },
+    },
+  );
+}
+
+// Function to handle the main fetch logic
+async function handleMainFetch(
+  request: Request,
+  env: CodeEnv,
+  ctx: ExecutionContext,
+): Promise<Response> {
+  if (
+    request.cf && request.cf.asOrganization
+    && (request.cf.asOrganization as unknown as string).startsWith("YANDEX")
+  ) {
+    return handleUnauthorizedRequest();
+  }
+
+  return handleErrors(request, async () => {
+    console.log(`handling request: ${request.url}`);
+
+    const url = new URL(request.url);
+    const path = url.pathname.slice(1).split("/");
+
+    if (!path[0]) {
+      const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
+      console.log({ asOrganization: request.cf?.asOrganization });
+      const start = md5(
+        ((request.cf?.asOrganization as unknown as string) || "default") + utcSecs + `
+      and reset every 2 hours
+      time`,
+      );
+      return handleRedirectResponse(url, start);
+    }
+
+    return handleFetchApi(path, request, env, ctx);
+  });
+}
+
+api.fetch = handleMainFetch;
