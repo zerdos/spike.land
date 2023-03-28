@@ -124,7 +124,7 @@ const transformTsx = (code: string) =>
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2022",
+    target: "chrome88",
   }).then((r) => r.code);
 
 export const buildT = async (
@@ -180,7 +180,7 @@ export const buildT = async (
     //  ...importMap.imports,
     // },
 
-    target: "es2022",
+    target: "chrome88",
     outdir: `./live/${codeSpace}`,
     treeShaking: true,
     minify: false,

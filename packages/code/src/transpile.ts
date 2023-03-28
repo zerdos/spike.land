@@ -67,7 +67,7 @@ export const transpile = async (
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "esnext",
+    target: "chrome88",
   }).then((x) => x.code);
 };
 

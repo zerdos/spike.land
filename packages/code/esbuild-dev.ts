@@ -35,7 +35,7 @@ const environment = env.get("NODE_ENV") === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "dist";
-const target = "esnext";
+const target = "chrome88";
 
 console.log(`
 -------------------------------------------------
