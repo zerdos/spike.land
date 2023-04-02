@@ -1130,7 +1130,7 @@ __metadata:
     js-tokens: "npm:8.0.1"
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
-    typescript: "npm:5.0.2"
+    typescript: "npm:5.0.3"
     wrangler: "npm:2.13.0"
   languageName: unknown
   linkType: soft
@@ -1147,7 +1147,7 @@ __metadata:
     "@motionone/dom": "npm:10.15.5"
     "@mui/material": "npm:5.11.15"
     "@okikio/sharedworker": "npm:1.0.4"
-    "@types/eslint": "npm:8.21.3"
+    "@types/eslint": "npm:8.37.0"
     "@types/events": "npm:3.0.0"
     "@types/hoist-non-react-statics": "npm:3.3.1"
     "@types/is-callable": "npm:1.1.0"
@@ -1181,7 +1181,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     fetch-retry: "npm:5.0.4"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:10.9.2"
+    framer-motion: "npm:10.10.0"
     immutable: "npm:4.3.0"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1215,7 +1215,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.0"
-    typescript: "npm:5.0.2"
+    typescript: "npm:5.0.3"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -1297,7 +1297,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230321.0"
     esbuild-wasm: "npm:0.17.14"
-    typescript: "npm:5.0.2"
+    typescript: "npm:5.0.3"
     wrangler: "npm:2.13.0"
   languageName: unknown
   linkType: soft
@@ -1325,13 +1325,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.21.3":
-  version: 8.21.3
-  resolution: "@types/eslint@npm:8.21.3"
+"@types/eslint@npm:8.37.0":
+  version: 8.37.0
+  resolution: "@types/eslint@npm:8.37.0"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 407d56d6c7c39667697edd0e96e5c362b45a173eb8922662d585c081d19eb57509acd809e029a96e225abdcdedb14685538f462d29820a0fbe773d2253f3bf8d
+  checksum: 5a1b547b4fbebeb173fd3e4a717de868021a14322cb7bd1bc2b432f3ac3cfec2e268623d24543a4ca7787fe64c59dd310a6ee329199e9f16b0d168d26a2da026
   languageName: node
   linkType: hard
 
@@ -4101,9 +4101,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.9.2":
-  version: 10.9.2
-  resolution: "framer-motion@npm:10.9.2"
+"framer-motion@npm:10.10.0":
+  version: 10.10.0
+  resolution: "framer-motion@npm:10.10.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4118,7 +4118,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 3a78d70d9d7ba908091d974e2a0d7a744cf3f62634c45f74f8055f720f6d8fb9960b43283d5eae4b27859771841cb3e05c51c6ef23958eb47bc03ab164d4f585
+  checksum: 30e5df00689a6bd197b8c304520b6a9e56c7e6b7a06264c6850905202bcdd6f68af0cb299230fd327881f2a1de53be0a77cd046e5510b210c91c165c597f28a5
   languageName: node
   linkType: hard
 
@@ -6216,7 +6216,7 @@ __metadata:
     "@emotion/react": "npm:11.10.6"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.32.1"
-    "@types/eslint": "npm:8.21.3"
+    "@types/eslint": "npm:8.37.0"
     "@types/react": "npm:18.0.31"
     "@types/react-dom": "npm:18.0.11"
     "@typescript-eslint/eslint-plugin": "npm:5.57.0"
@@ -6231,7 +6231,7 @@ __metadata:
     monaco-editor: "npm:0.36.1"
     playwright: "npm:1.32.1"
     react: "npm:18.2.0"
-    typescript: "npm:5.0.2"
+    typescript: "npm:5.0.3"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -8649,23 +8649,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.2":
-  version: 5.0.2
-  resolution: "typescript@npm:5.0.2"
+"typescript@npm:5.0.3":
+  version: 5.0.3
+  resolution: "typescript@npm:5.0.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a305d149166e376acb51bcd1bab9f2ab55c5bd52d0b43f0e49b58ea5cf085cd7c0a3d38ea58f3991aa7b04c97907b6c17c8611334d7f0e54db3d31d7897d9661
+  checksum: 45ee631503499861d77d7a7b1d49fb5c62ae6bb5a99cdf5110f3e21c627397f5f76cf3d67ee0b223a33cfad469ea18de7650cab7a529b1376f5218a27b81671e
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.2#optional!builtin<compat/typescript>":
-  version: 5.0.2
-  resolution: "typescript@patch:typescript@npm%3A5.0.2#optional!builtin<compat/typescript>::version=5.0.2&hash=b5f058"
+"typescript@patch:typescript@npm%3A5.0.3#optional!builtin<compat/typescript>":
+  version: 5.0.3
+  resolution: "typescript@patch:typescript@npm%3A5.0.3#optional!builtin<compat/typescript>::version=5.0.3&hash=b5f058"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 99fed54ef1fa7a2d1c235d3f6e23212f18542cf5ab09e1a9e285a4a97d9f050d6919715cd79107e295de833adf808134576a829b3400f88ffd48415730d90742
+  checksum: 66967b1418927f8c780bcec443e6e1572d0c88314e3b45797d22bffc8981b3c8e687a37f24bcad00e2d349722df225e758678559e810a6673f4773b8f44eb5d2
   languageName: node
   linkType: hard
 

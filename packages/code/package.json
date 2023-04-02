@@ -81,7 +81,7 @@
     "fast-diff": "1.2.0",
     "fetch-retry": "5.0.4",
     "file-type": "18.2.1",
-    "framer-motion": "10.9.2",
+    "framer-motion": "10.10.0",
     "immutable": "4.3.0",
     "is-callable": "1.2.7",
     "isomorphic-fetch": "3.0.0",
@@ -121,7 +121,7 @@
   },
   "devDependencies": {
     "@motionone/dom": "10.15.5",
-    "@types/eslint": "8.21.3",
+    "@types/eslint": "8.37.0",
     "@types/events": "3.0.0",
     "@types/hoist-non-react-statics": "3.3.1",
     "@types/is-callable": "1.1.0",
@@ -139,7 +139,7 @@
     "eslint-plugin-react": "7.32.2",
     "popmotion": "11.0.5",
     "tslib": "2.5.0",
-    "typescript": "5.0.2",
+    "typescript": "5.0.3",
     "uvu": "0.5.6"
   }
 }
