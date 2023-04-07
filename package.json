@@ -46,7 +46,7 @@
     "eslint": "8.37.0",
     "eslint-plugin-react": "7.32.2",
     "localforage": "1.10.0",
-    "monaco-editor": "0.37.0",
+    "monaco-editor": "0.37.1",
     "playwright": "1.32.2",
     "react": "18.2.0",
     "typescript": "5.0.3",
