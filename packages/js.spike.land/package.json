@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
-    "@cloudflare/workers-types": "4.20230321.0",
+    "@cloudflare/workers-types": "4.20230404.0",
     "typescript": "5.0.3",
     "wrangler": "2.14.0"
   },

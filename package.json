@@ -31,7 +31,7 @@
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230321.0",
+    "@cloudflare/workers-types": "4.20230404.0",
     "@emotion/react": "11.10.6",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@playwright/test": "1.32.2",
@@ -46,7 +46,7 @@
     "eslint": "8.37.0",
     "eslint-plugin-react": "7.32.2",
     "localforage": "1.10.0",
-    "monaco-editor": "0.36.1",
+    "monaco-editor": "0.37.0",
     "playwright": "1.32.2",
     "react": "18.2.0",
     "typescript": "5.0.3",
