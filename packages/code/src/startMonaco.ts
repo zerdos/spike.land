@@ -2,6 +2,7 @@ import "monaco-editor/esm/vs/editor/edcore.main";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
+import { language as tsxMonarchRules } from "monaco-editor/esm/vs/basic-languages/typescript/typescript.js";
 
 // import { transpileModule } from "typescript";
 import { ata, prettier } from "./shared";
@@ -10,6 +11,21 @@ import { ata, prettier } from "./shared";
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
+
+languages.register({ id: "tsx" });
+// Get the TypeScript language configuration
+
+// Copy the existing TypeScript Monarch rules
+
+// Update the tokenizer to support TSX syntax
+tsxMonarchRules.tokenizer.root = [
+  ...tsxMonarchRules.tokenizer.root,
+  [/<\s*[\w]+/, "tag"],
+  [/<\s*\/\s*[\w]+\s*>/, "tag"],
+];
+
+// Register a tokens provider for the new language
+languages.setMonarchTokensProvider("tsx", tsxMonarchRules);
 
 // Object.assign(globalThis, { setupTypeAcquisition });
 
@@ -78,7 +94,11 @@ const monacoContribution = (
 
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse,
-    target: languages.typescript.ScriptTarget.ESNext,
+
+    target: languages.typescript.ScriptTarget.Latest,
+    allowNonTsExtensions: true,
+    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
+    module: languages.typescript.ModuleKind.CommonJS,
 
     importHelpers: true,
     lib,
@@ -92,12 +112,9 @@ const monacoContribution = (
     noFallthroughCasesInSwitch: true,
     resolveJsonModule: true,
     noEmit: true,
-    allowNonTsExtensions: true,
     traceResolution: true,
 
-    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     declaration: true,
-    module: languages.typescript.ModuleKind.CommonJS,
     noEmitOnError: true,
     sourceMap: true,
     maxNodeModuleJsDepth: 20,
@@ -139,7 +156,7 @@ const monacoContribution = (
         console.log(`adding extra models: ${mUri.toString()}`, { content });
         editor.getModel(mUri) || createModel(
           content,
-          "typescript",
+          "tsx",
           mUri,
         );
         return true;
@@ -193,7 +210,7 @@ self.MonacoEnvironment = {
       return `${originToUse}/language//html/html.js`;
     }
 
-    if (label === "typescript" || label === "javascript") {
+    if (label === "typescript" || label === "javascript" || label === "tsx") {
       return `${originToUse}/workerScripts/ts.worker.js`;
     }
 
@@ -257,7 +274,7 @@ async function startMonacoPristine(
 
   const model = editor.getModel(uri) || createModel(
     replaced,
-    "typescript",
+    "tsx",
     uri,
   );
 
