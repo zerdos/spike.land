@@ -28,6 +28,38 @@ const lib = [
   "es2016",
   "esnext",
 ];
+function fetchAndCreateExtraModels(
+  code: string,
+  originToUse: string,
+): Promise<any>[] {
+  const extraModels: Promise<any>[] = [];
+  const search = new RegExp(
+    ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
+    "gm",
+  );
+
+  const models = code.matchAll(search);
+  for (const match of models) {
+    const codeSpace = match[0].split("/live/").pop();
+    const extraModel = new URL(
+      `/live/${codeSpace}/index.tsx`,
+      originToUse,
+    ).toString();
+
+    const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+
+    extraModels.push(
+      fetch(extraModel)
+        .then((res) => res.text())
+        .then((content) => {
+          editor.getModel(mUri) || createModel(content, "tsx", mUri);
+          return true;
+        }),
+    );
+  }
+
+  return extraModels;
+}
 
 const monacoContribution = (code: string) => {
   languages.typescript.typescriptDefaults.setCompilerOptions({
@@ -62,34 +94,7 @@ const monacoContribution = (code: string) => {
     include: [`${originToUse}/`],
   });
 
-  const extraModels: Promise<any>[] = [];
-
-  const search = new RegExp(
-    ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
-    "gm",
-  );
-
-  const models = code.matchAll(search);
-  for (const match of models) {
-    const codeSpace = match[0].split("/live/").pop();
-    const extraModel = new URL(
-      `/live/${codeSpace}/index.tsx`,
-      originToUse,
-    ).toString();
-
-    const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
-
-    extraModels.push(
-      fetch(extraModel).then((res) => res.text()).then((content) => {
-        editor.getModel(mUri) || createModel(
-          content,
-          "tsx",
-          mUri,
-        );
-        return true;
-      }),
-    );
-  }
+  const extraModels = fetchAndCreateExtraModels(code, originToUse);
 
   ata({ code, originToUse }).then(async (extraLibs) => {
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
