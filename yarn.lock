@@ -164,7 +164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/cache@npm:11.10.7":
+"@emotion/cache@npm:11.10.7, @emotion/cache@npm:^11.10.5":
   version: 11.10.7
   resolution: "@emotion/cache@npm:11.10.7"
   dependencies:
@@ -174,19 +174,6 @@ __metadata:
     "@emotion/weak-memoize": "npm:^0.3.0"
     stylis: "npm:4.1.3"
   checksum: c5a4099e8c5bb49c4091747f7284bc10f686d9cf9ceec4088109d4d95d6cf677b1a951a341342a6e8c277300762a3e8aefb3afb45aa9c9c03a1b62b56ac4b2e5
-  languageName: node
-  linkType: hard
-
-"@emotion/cache@npm:^11.10.5":
-  version: 11.10.5
-  resolution: "@emotion/cache@npm:11.10.5"
-  dependencies:
-    "@emotion/memoize": "npm:^0.8.0"
-    "@emotion/sheet": "npm:^1.2.1"
-    "@emotion/utils": "npm:^1.2.0"
-    "@emotion/weak-memoize": "npm:^0.3.0"
-    stylis: "npm:4.1.3"
-  checksum: 40c744c5eea3d4438186ea4be71bf691cf3ac16774bda3d6d825960286fa35d735492ae881c028e01881101890f79568107877faefa58d027c760a4207ebe738
   languageName: node
   linkType: hard
 
@@ -1330,11 +1317,11 @@ __metadata:
   linkType: hard
 
 "@types/better-sqlite3@npm:^7.6.0":
-  version: 7.6.3
-  resolution: "@types/better-sqlite3@npm:7.6.3"
+  version: 7.6.4
+  resolution: "@types/better-sqlite3@npm:7.6.4"
   dependencies:
     "@types/node": "npm:*"
-  checksum: f18a119440877c43f2bdc2050e562e5b14f43882dec1b12010c5346d6015ed41ea29c807520ad644ca22be4a4df3afd8b212f38e169cc6d929af10f6911c922b
+  checksum: 02a6104df5f955544584fd6af69ce2ac2d693e6f8f20438add675b26d0e66f912a3d40e66319ba130a839fae9614a236bf31e0915e30a41065661399eb821171
   languageName: node
   linkType: hard
 
@@ -1487,18 +1474,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 18.0.32
-  resolution: "@types/react@npm:18.0.32"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: bb7ecdf1ad633274b29b3f9f3abc3a37905d993f9bfc27d176ff0f87bd484117dd7a29081a7f9199fafa51ebcd82fb25ef94b3e8b8cf6faf748f07422cfb264e
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:18.0.33":
+"@types/react@npm:*, @types/react@npm:18.0.33":
   version: 18.0.33
   resolution: "@types/react@npm:18.0.33"
   dependencies:
@@ -4915,7 +4891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.9.0":
+"is-core-module@npm:^2.11.0, is-core-module@npm:^2.9.0":
   version: 2.11.0
   resolution: "is-core-module@npm:2.11.0"
   dependencies:
@@ -7564,15 +7540,15 @@ __metadata:
   linkType: hard
 
 "resolve@npm:^1.10.0, resolve@npm:^1.19.0":
-  version: 1.22.1
-  resolution: "resolve@npm:1.22.1"
+  version: 1.22.2
+  resolution: "resolve@npm:1.22.2"
   dependencies:
-    is-core-module: "npm:^2.9.0"
+    is-core-module: "npm:^2.11.0"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: d8ea39ac2ecaedc681504f043944a20cc05587d6ec52d4d9ec79801e58be083f2237d0e83170ce86c793083eaf71a6f95a7f921a79dfb6fa32b37107e61df36c
+  checksum: fe7adbedd826521300326e5c3e55784c369e8d52a16f542c3735c553a98dd26ba7fc91bc859a3cbe80cb1c83e5fa2d93aa2c36bdbe1584fff8c7feebc765cd1e
   languageName: node
   linkType: hard
 
@@ -7590,15 +7566,15 @@ __metadata:
   linkType: hard
 
 "resolve@patch:resolve@npm%3A^1.10.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>":
-  version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#optional!builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
+  version: 1.22.2
+  resolution: "resolve@patch:resolve@npm%3A1.22.2#optional!builtin<compat/resolve>::version=1.22.2&hash=c3c19d"
   dependencies:
-    is-core-module: "npm:^2.9.0"
+    is-core-module: "npm:^2.11.0"
     path-parse: "npm:^1.0.7"
     supports-preserve-symlinks-flag: "npm:^1.0.0"
   bin:
     resolve: bin/resolve
-  checksum: a6f214b97d932445796f78dab7a898ec78966327e0d6cb571f90b6ac0f3b3347bf6bab0a071d899bfdc316b26ed845f6655310b38b8f6ee4da5272a0c5ecef85
+  checksum: 58838d3b80cac9bc3386d09c058e91c6169659ba8d42a01698e149bd27a7e3c1557c46e1d0e2bde1b426731ee46bf17d3a8e750c2ae78c093129891b39886c20
   languageName: node
   linkType: hard
 
