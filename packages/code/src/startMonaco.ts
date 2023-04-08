@@ -3,19 +3,13 @@ import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
 import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
 import { language as tsxMonarchRules } from "monaco-editor/esm/vs/basic-languages/typescript/typescript.js";
-
-// import { transpileModule } from "typescript";
 import { ata, prettier } from "./shared";
-// import localForage from "localforage";
 
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
 languages.register({ id: "tsx" });
-// Get the TypeScript language configuration
-
-// Copy the existing TypeScript Monarch rules
 
 // Update the tokenizer to support TSX syntax
 tsxMonarchRules.tokenizer.root = [
@@ -27,93 +21,33 @@ tsxMonarchRules.tokenizer.root = [
 // Register a tokens provider for the new language
 languages.setMonarchTokensProvider("tsx", tsxMonarchRules);
 
-// Object.assign(globalThis, { setupTypeAcquisition });
-
 const lib = [
   "dom",
   "dom.iterable",
-  // "es2015.collection",
-  // "es2015.core",
   "es2015",
-  // "es2015.generator",
-  // "es2015.iterable",
-  // "es2015.promise",
-  // "es2015.proxy",
-  // "es2015.reflect",
-  // "es2015.symbol",
-  // "es2015.symbol.wellknown",
-  // "es2016.array.include",
   "es2016",
-  // "es2016.full",
-  // "es2017",
-  // "es2017.full",
-  // "es2017.intl",
-  // "es2017.object",
-  // "es2017.sharedmemory",
-  // "es2017.string",
-  // "es2017.typedarrays",
-  // "es2018.asyncgenerator",
-  // "es2018.asynciterator",
-  // "es2018",
-  // "es2018.full",
-  // "es2018.intl",
-  // "es2018.promise",
-  // "es2018.regexp",
-  // "es2019.array",
-  // "es2019",
-  // "es2019.full",ata
-  // "es2019.object",
-  // "es2019.string",
-  // "es2019.symbol",
-  // "es2020.bigint",
-  // "es2020",
-  // "es2020.full",
-  // "es2020.intl",
-  // "es2020.promise",
-  // "es2020.sharedmemory",
-  // "es2020.string",
-  // "es2020.symbol.wellknown",
-  // "es2022",
-  // "es2022.full",
-  // "es2022.intl",
-  // "es2022.promise",
-  // "es2022.string",
-  // "es2022.weakref",
-  // "es5",
-  // "es6",
   "esnext",
-  // "webworker",
-  // "webworker.importscripts",
-  // "webworker.iterable",
 ];
 
-const monacoContribution = (
-  code: string,
-) => {
-  // Const {typescript} = languages;
-
+const monacoContribution = (code: string) => {
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse,
-
     target: languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
     module: languages.typescript.ModuleKind.CommonJS,
-
     importHelpers: true,
     lib,
     allowJs: true,
     skipLibCheck: false,
     downlevelIteration: true,
     esModuleInterop: true,
-
     allowSyntheticDefaultImports: true,
     forceConsistentCasingInFileNames: true,
     noFallthroughCasesInSwitch: true,
     resolveJsonModule: true,
     noEmit: true,
     traceResolution: true,
-
     declaration: true,
     noEmitOnError: true,
     sourceMap: true,
@@ -127,22 +61,16 @@ const monacoContribution = (
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
   });
-  // console.log("ATA");
 
   const extraModels: Promise<any>[] = [];
 
-  //  (() => {
   const search = new RegExp(
     ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
     "gm",
   );
 
-  // 0123456
   const models = code.matchAll(search);
-  // Console.log("load more models", replaced, models);
   for (const match of models) {
-    console.log("***** EXTRA MODELS *****");
-    //
     const codeSpace = match[0].split("/live/").pop();
     const extraModel = new URL(
       `/live/${codeSpace}/index.tsx`,
@@ -153,7 +81,6 @@ const monacoContribution = (
 
     extraModels.push(
       fetch(extraModel).then((res) => res.text()).then((content) => {
-        console.log(`adding extra models: ${mUri.toString()}`, { content });
         editor.getModel(mUri) || createModel(
           content,
           "tsx",
@@ -163,10 +90,8 @@ const monacoContribution = (
       }),
     );
   }
-  // })();
 
   ata({ code, originToUse }).then(async (extraLibs) => {
-    console.log("Auto typings results: ", { extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     if (extraModels.length) await Promise.all(extraModels);
