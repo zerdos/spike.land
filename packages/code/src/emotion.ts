@@ -1,39 +1,55 @@
-import * as EmotionReact from "@emotion/react";
-import { Fragment, jsx as emotionJsx, jsxs } from "@emotion/react/jsx-runtime";
-
-export const {
-  __unsafe_useEmotionCache,
+import {
   CacheProvider,
   ClassNames,
-
-  createElement,
-  Global,
   css,
+  Global,
+  jsx as emotionJsx,
   keyframes,
   ThemeContext,
   ThemeProvider,
   useTheme,
   withEmotionCache,
   withTheme,
-} = EmotionReact;
+} from "@emotion/react";
+import { CSSObject } from "@emotion/react";
+import { DetailedHTMLProps, ElementType, Fragment, HTMLAttributes } from "react";
 
-export function jsx(type, props, ...children) {
+type JSXElement = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+
+function jsx(
+  type: ElementType,
+  props: JSXElement | null,
+  ...children: React.ReactNode[]
+): React.ReactElement {
+  const modifiedProps = processProps(props);
+  return emotionJsx(type, modifiedProps, ...children);
+}
+
+function processProps(props: JSXElement | null): JSXElement | null {
   if (props && props.style) {
-    // Convert the style prop to a CSS class using Emotion's css function
-    const classNameFromStyle = css(props.style);
-
-    // Combine the generated class with any existing className prop
+    const classNameFromStyle = css(props.style as CSSObject);
     const existingClassName = props.className || "";
     props.className = `${existingClassName} ${classNameFromStyle}`.trim();
-
-    // Remove the style prop from the props object
     delete props.style;
   }
 
-  // Call the original Emotion jsx runtime with the modified props
-  return emotionJsx(type, props, ...children);
+  return props;
 }
 
-export { Fragment, jsxs };
+const jsxs = jsx;
 
-// import * as EA from "@emotion/react";
+export {
+  CacheProvider,
+  ClassNames,
+  css,
+  Fragment,
+  Global,
+  jsx,
+  jsxs,
+  keyframes,
+  ThemeContext,
+  ThemeProvider,
+  useTheme,
+  withEmotionCache,
+  withTheme,
+};
