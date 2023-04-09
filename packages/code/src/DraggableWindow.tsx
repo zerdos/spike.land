@@ -88,10 +88,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
       setTimeout(() => {
         _setDelay(0);
-      }, 1000);
+      }, 100);
     };
-
-    reveal();
+    setTimeout(() => {
+      reveal();
+    }, 100);
   }, []);
 
   const bgColor = getComputedStyle(
