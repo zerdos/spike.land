@@ -2,7 +2,7 @@ import "monaco-editor/esm/vs/editor/edcore.main";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
-import { language as tsxMonarchRules } from "monaco-editor/esm/vs/basic-languages/typescript/typescript.js";
+import { language as tsxMonarchRules } from "monaco-editor/esm/vs/basic-languages/typescript/typescript";
 import { ata, prettier } from "./shared";
 
 const { createModel } = editor;
