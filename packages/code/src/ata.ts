@@ -167,7 +167,9 @@ export async function ata(
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
-      impRes[newBase].content = await fetch(new URL(newBase, location.origin).toString(), { redirect: "follow" })
+      const url = new URL(newBase.split("https://esm.sh").join(self.location.origin));
+
+      impRes[newBase].content = await fetch(url, { redirect: "follow" })
         .then((dtsRes) => {
           // const u = new URL(dtsRes.url, origin)
 
@@ -180,7 +182,11 @@ export async function ata(
         try {
           await ata(impRes[newBase].content, impRes[newBase].url!);
         } catch {
-          await ata(impRes[newBase].content, impRes[newBase].url!);
+          try {
+            await ata(impRes[newBase].content, impRes[newBase].url!);
+          } catch {
+            console.error("ata error");
+          }
         }
       }
 

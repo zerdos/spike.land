@@ -90,8 +90,7 @@ const cacheFirst = async (request: Request) => {
 };
 
 const fakeBackend = async (request: Request) => {
-  let url = new URL(request.url);
-  if (url.origin.includes("esm.sh")) url = new URL(request.url, self.location.origin);
+  const url = new URL(request.url.split("https://esm.sh").join(self.location.origin));
 
   if (url.origin !== self.location.origin || request.method === "POST") {
     return fetch(request);
