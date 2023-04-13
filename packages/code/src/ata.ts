@@ -143,7 +143,7 @@ export async function ata(
     res = [...new Set(res)];
 
     return await Promise.all(res.map(async (r: string) => {
-      let newBase = (r.slice(0, 1) === ".")
+      const newBase = (r.slice(0, 1) === ".")
         ? new URL(r, baseUrl).toString()
         : r.indexOf("https://") !== -1
         ? r
@@ -167,7 +167,7 @@ export async function ata(
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
-      impRes[newBase].content = await fetch(newBase, { redirect: "follow" })
+      impRes[newBase].content = await fetch(new URL(newBase, location.origin).toString(), { redirect: "follow" })
         .then((dtsRes) => {
           // const u = new URL(dtsRes.url, origin)
 
@@ -180,6 +180,7 @@ export async function ata(
         try {
           await ata(impRes[newBase].content, impRes[newBase].url!);
         } catch {
+          await ata(impRes[newBase].content, impRes[newBase].url!);
         }
       }
 
