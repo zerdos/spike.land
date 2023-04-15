@@ -16,7 +16,7 @@ export async function ata(
   // console.log(
   await ata(
     `/** @jsx jsx */
-      import { jsx } from '@emotion/react'
+      import { jsx } from "@emotion/react/jsx-runtime";
       import "@emotion/react/types/css-prop";
       import "@types/react/global.d.ts";
 
