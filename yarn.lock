@@ -1131,7 +1131,7 @@ __metadata:
     p-map: "npm:5.5.0"
     p-queue: "npm:7.3.4"
     typescript: "npm:5.0.4"
-    wrangler: "npm:2.15.0"
+    wrangler: "npm:2.15.1"
   languageName: unknown
   linkType: soft
 
@@ -1181,7 +1181,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     fetch-retry: "npm:5.0.4"
     file-type: "npm:18.2.1"
-    framer-motion: "npm:10.11.6"
+    framer-motion: "npm:10.12.2"
     immutable: "npm:4.3.0"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1298,7 +1298,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230404.0"
     esbuild-wasm: "npm:0.17.16"
     typescript: "npm:5.0.4"
-    wrangler: "npm:2.15.0"
+    wrangler: "npm:2.15.1"
   languageName: unknown
   linkType: soft
 
@@ -4112,9 +4112,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.11.6":
-  version: 10.11.6
-  resolution: "framer-motion@npm:10.11.6"
+"framer-motion@npm:10.12.2":
+  version: 10.12.2
+  resolution: "framer-motion@npm:10.12.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4129,7 +4129,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: d80cbf9fe304cc8da97ffc9608303bfc33f6c8eb5d4f115bb834c6b0b214ab847c73387b2c199de93020fc581c2054e092f0e7a71916de5d5170b076fe327200
+  checksum: a59cf585190ec9a4da8a6d8c4118a1b7611245f2e632411978ec5546510e1db42a49f5efa91065f8b8c6818220662851e7c1ec69149bb6b3f25ee484d58e9173
   languageName: node
   linkType: hard
 
@@ -9054,9 +9054,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.15.0":
-  version: 2.15.0
-  resolution: "wrangler@npm:2.15.0"
+"wrangler@npm:2.15.1":
+  version: 2.15.1
+  resolution: "wrangler@npm:2.15.1"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -9080,7 +9080,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 966c94162338c1990d1306e5581e3473f87ef250fd183321c2d4d4330b1a1aadc84ce25c9100d5937c2581e4f055ef471510452294f1d9cda07e20d1ac933e8f
+  checksum: 3d4596ee4846c33347a17f438f37e23cdd093f9ca9d0bc7c844a460fa42856ec78c99646d1efd739dc69d75dac8d3f38f56864cdf992b212ba0d1e0b7c9b5135
   languageName: node
   linkType: hard
 
