@@ -10,9 +10,9 @@ export const Fab: FC<FabProps> = (props) => (
     fallback={
       <div
         css={css`
-width: 28px; 
-height:28px;
-`}
+        width: 28px; 
+        height:28px;
+        `}
       >
       </div>
     }
