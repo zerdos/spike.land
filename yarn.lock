@@ -1474,18 +1474,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 18.0.35
-  resolution: "@types/react@npm:18.0.35"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 894a5b9060e734b43c78307564bc433eff2ccbb9cd20180a0813eb8aaafa31f74312b3e207f682b8dfb8399b05b0b9fe348d32348a0adc2aa5ddce4bc47e9f8c
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:18.0.37":
+"@types/react@npm:*, @types/react@npm:18.0.37":
   version: 18.0.37
   resolution: "@types/react@npm:18.0.37"
   dependencies:
@@ -2774,9 +2763,9 @@ __metadata:
   linkType: hard
 
 "colorette@npm:^2.0.16":
-  version: 2.0.19
-  resolution: "colorette@npm:2.0.19"
-  checksum: f887e4f7608a1a37037f0b9f7da4d1608e2e1ac0126b87c4c143ff0348bc586173b86fde37f71f1b7742cd1c04285d0cb3cbeab391935886c86a162f4f2b5b87
+  version: 2.0.20
+  resolution: "colorette@npm:2.0.20"
+  checksum: 51a2b1cf140e120074178dd17ffdd4e349b7e84d2cb498f83978124ba0efc19d4d35c1859226f7a75ef0b368b0feafd10370927e871827af428b7500396af274
   languageName: node
   linkType: hard
 
@@ -7792,13 +7781,13 @@ __metadata:
   linkType: hard
 
 "semver@npm:^7.0.0, semver@npm:^7.3.2, semver@npm:^7.3.5, semver@npm:^7.3.7":
-  version: 7.4.0
-  resolution: "semver@npm:7.4.0"
+  version: 7.5.0
+  resolution: "semver@npm:7.5.0"
   dependencies:
     lru-cache: "npm:^6.0.0"
   bin:
     semver: bin/semver.js
-  checksum: 0ba4e8c5446278311c29de48f8cfebedea84d93c5d4c33d6d1e5996e4bba66dfab8d30f77c2c9a3877eb0296552c1f54fd3a29f00e0290e03569040a0dead105
+  checksum: 4cc7856258319d36c441fb969fa2ee622fa3761ce1b04013ed5d05979adfcf3079f4fc4dff11f9b2588802620d579da2c209a4e26803d9adfbf44b78244b683b
   languageName: node
   linkType: hard
 
