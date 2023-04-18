@@ -18,10 +18,10 @@
     "@cloudflare/kv-asset-handler": "0.3.0",
     "@cloudflare/workers-types": "4.20230404.0",
     "typescript": "5.0.4",
-    "wrangler": "2.15.1"
+    "wrangler": "2.16.0"
   },
   "dependencies": {
-    "esbuild-wasm": "0.17.16"
+    "esbuild-wasm": "0.17.17"
   },
   "publishConfig": {
     "access": "public"

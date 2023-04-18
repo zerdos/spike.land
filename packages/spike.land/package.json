@@ -19,12 +19,12 @@
     "@cloudflare/workers-types": "4.20230404.0",
     "@spike.land/code": "0.9.2",
     "typescript": "5.0.4",
-    "wrangler": "2.15.1"
+    "wrangler": "2.16.0"
   },
   "dependencies": {
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.17.16",
+    "esbuild-wasm": "0.17.17",
     "immutable": "4.3.0",
     "js-tokens": "8.0.1",
     "p-map": "5.5.0",
