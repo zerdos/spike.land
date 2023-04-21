@@ -1336,9 +1336,9 @@ __metadata:
   linkType: hard
 
 "@types/estree@npm:*":
-  version: 1.0.0
-  resolution: "@types/estree@npm:1.0.0"
-  checksum: 474df434e3a469cb7a68d44c8b7ac3a21bca344fa3b49651c3451d0f3662ff0c3b2ba52149cbc5b9c9a9f3f1ac37958c163ef29b65a8b36fccb5ccb2acfc9b08
+  version: 1.0.1
+  resolution: "@types/estree@npm:1.0.1"
+  checksum: 76f967f120d15b8b8747312bff3a3016e480662d9a3dc0b1deb8bfb565898edc4c195bf924bc1398426c0a736844e7b4923cf176900fb4c7d5531907b01d2411
   languageName: node
   linkType: hard
 
@@ -1405,14 +1405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 18.15.11
-  resolution: "@types/node@npm:18.15.11"
-  checksum: 2ad6c7aeb0841a821d5f0556ccbc9c0cec597cb31b5fe58b085740983f6b01a21a3c62c37ca642dd92b5de8935d6084896634af19f1f022e8d173049ad258a60
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:18.15.13":
+"@types/node@npm:*, @types/node@npm:18.15.13":
   version: 18.15.13
   resolution: "@types/node@npm:18.15.13"
   checksum: 2f3b73aa4d643fa96c4f83ac1e9077af04257fdd350db76d9b14f7349135ba284a0bf1cfc66aaff29a3d8c103b77d734064e7040ba3e8409eef3177d0ed164fd
@@ -3094,7 +3087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"define-properties@npm:^1.1.3, define-properties@npm:^1.1.4":
+"define-properties@npm:^1.1.3, define-properties@npm:^1.1.4, define-properties@npm:^1.2.0":
   version: 1.2.0
   resolution: "define-properties@npm:1.2.0"
   dependencies:
@@ -4211,7 +4204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"functions-have-names@npm:^1.2.2":
+"functions-have-names@npm:^1.2.2, functions-have-names@npm:^1.2.3":
   version: 1.2.3
   resolution: "functions-have-names@npm:1.2.3"
   checksum: 2b58e5d607d7338c29e5ff8c285ddf09d79857b6d0ef9f781ee2e80cf666726d6909b5ab635e13d49ded9dcfd3c7abc01a22a52089bf23833848a6bfb6e8dac1
@@ -7455,13 +7448,13 @@ __metadata:
   linkType: hard
 
 "regexp.prototype.flags@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "regexp.prototype.flags@npm:1.4.3"
+  version: 1.5.0
+  resolution: "regexp.prototype.flags@npm:1.5.0"
   dependencies:
     call-bind: "npm:^1.0.2"
-    define-properties: "npm:^1.1.3"
-    functions-have-names: "npm:^1.2.2"
-  checksum: 73e364f4cc03ed04f5f966300c6b9672c3bd049f2636db534b7e6f3e03575c178e04def3d73ac0e393bca3400b2acbee6c0609b89b93a51c83c56ed472de7739
+    define-properties: "npm:^1.2.0"
+    functions-have-names: "npm:^1.2.3"
+  checksum: 27e06f7238805b9b315bb43ef60500345cd3c041c9ba2f6b2b7951bd23409314d22741a100e2ce4c6b996d5488dfdc59776486f51f07fef2c2bd36b01dde1092
   languageName: node
   linkType: hard
 
