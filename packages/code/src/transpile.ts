@@ -1,10 +1,12 @@
-import { initialize, transform, version } from "esbuild-wasm";
+import { initialize, transform } from "esbuild-wasm";
+import { wasmFile } from "./esbuildWASM";
+import { wait } from "./wait";
 
 declare const self:
   & ServiceWorkerGlobalScope
   & {
     mod: {
-      init: boolean | NodeJS.Timeout;
+      init: boolean | Promise<boolean>;
       initialize: (
         wasmModule: WebAssembly.Module,
       ) => Promise<boolean> | boolean;
@@ -31,14 +33,12 @@ export const transpile = async (
 
     if (initFinished !== true) await (initFinished);
   } else {
-    mod.init = mod.init || setTimeout(() => {
-      initialize({
-        wasmURL: `/esbuild-wasm@${version}/esbuild.wasm`,
-        worker: false,
-      }).then(() => {
-        mod.init = true;
-      });
-    }, 5000);
+    mod.init = mod.init || initialize({
+      wasmURL: `/${wasmFile}`,
+      worker: false,
+    }).then(() => {
+      return mod.init = true;
+    });
 
     const offLoadToServer = (code: string) =>
       fetch(`https://js.spike.land?v=${swVersion}`, {
@@ -46,7 +46,7 @@ export const transpile = async (
         body: code,
         headers: { TR_ORIGIN: origin },
       }).then((resp) => resp.text());
-
+    if (mod.init !== true) await wait(1000);
     if (mod.init !== true) return offLoadToServer(code);
   }
 
