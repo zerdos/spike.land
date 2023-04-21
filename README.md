@@ -1,12 +1,14 @@
-Real time React page editor, in typescript!
+# Real-Time React Page Editor in TypeScript
 
-![Screenshot](editor.png?11)(https://spike.land)
+Easily edit and preview your React pages in real-time using this TypeScript-based page editor.
 
-![Screenshot](![screen-capture](https://user-i![screen-capture](https://user-images.githubusercontent.com/1433047/152510761-ecd12293-1eaf-425e-ae7b-71238260cc8c.gif)
-mages.githubusercontent.com/1433047/152510558-c0b763f5-d64d-4884-9fb6-8a82f571062e.gif)
-)](https://spike.land)
+![Real-Time React Page Editor Screenshot](https://user-images.githubusercontent.com/1433047/152510761-ecd12293-1eaf-425e-ae7b-71238260cc8c.gif)
 
-# This is a monorepo. [![LastUpdated](https://img.shields.io/github/last-commit/zerdos/spike.land.svg)](https://github.com/zerdos/spike.land/)
+[Live Demo](https://spike.land)
+
+## Monorepo Structure ![Last Updated](https://img.shields.io/github/last-commit/zerdos/spike.land.svg)
+
+This project is organized as a monorepo. The main components are:
 
 ```js
 if (code) return "it is in the monorepo";
@@ -19,19 +21,25 @@ if (code) return "it is in the monorepo";
 //
 ```
 
-### If you came here for a specific thing - then look in the packages folder.
 
-You can browse thr whole repo with gitpods:
+### Navigating the Monorepo
+
+If you're interested in a specific component, check out the `packages` folder.
+
+You can explore the entire repository using Gitpod:
+
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/zerdos/spike.land)
 
 ```bash
-# If you opened the repo in gitpods, 
-#  - you are lucky:) 
-#  - you can try the newest Ubuntu + Xfce with this command:
+# If you opened the repo in Gitpod,
+#  - you're in luck! 
+#  - Try the latest Ubuntu + Xfce with this command:
 
 startx;
 
-# After it opened, you can access the remote server on the port :6080 in your browser.
+# After it opens, you can access the remote server on port :6080 in your browser.
 ```
+
+For more information on JavaScript package managers, check out this article:
 
 https://blog.logrocket.com/javascript-package-managers-compared/
