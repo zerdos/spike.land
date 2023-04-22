@@ -8,6 +8,8 @@ import { css } from "@emotion/react";
 
 import { createRoot } from "react-dom/client";
 import DraggableWindow from "./DraggableWindow";
+// @ts-ignore
+import { swVersion } from "/swVersion.mjs";
 // import { codeSession } from "./ws";
 let reveal = (_tmp?: unknown) => {};
 
