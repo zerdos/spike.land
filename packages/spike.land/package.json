@@ -27,7 +27,7 @@
     "esbuild-wasm": "0.17.17",
     "immutable": "4.3.0",
     "js-tokens": "8.0.1",
-    "p-map": "5.5.0",
+    "p-map": "6.0.0",
     "p-queue": "7.3.4"
   },
   "publishConfig": {
