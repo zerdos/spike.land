@@ -218,17 +218,19 @@ export class Code implements DurableObject {
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
           case "code":
-          case "index.tsx":
-            return new Response(code, {
+          case "index.tsx": {
+            const replaced = code.split("https://spike.land/").join(`${this.#origin}/`);
+            return new Response(replaced, {
               status: 200,
               headers: new Headers({
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
-                content_hash: md5(code),
+                content_hash: md5(replaced),
                 "Content-Type": "application/javascript; charset=UTF-8",
               }),
             });
+          }
           // case "tokens": {
           //   const tokens = Array.from(jsTokens(code, { jsx: true }));
 
@@ -395,13 +397,14 @@ export class Code implements DurableObject {
                 headers: { TR_ORIGIN: this.#origin },
               }).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
 
-            return new Response(this.#transpiled, {
+            const replaced = this.#transpiled.split("https://spike.land/").join(`${this.#origin}/`);
+            return new Response(replaced, {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
 
-                content_hash: md5(this.#transpiled),
+                content_hash: md5(replaced),
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
             });
