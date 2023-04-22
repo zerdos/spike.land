@@ -147,6 +147,7 @@ export class Code implements DurableObject {
       request,
       (async () => {
         const url = new URL(request.url);
+        this.session.code = this.session.code.split("https://spike.land/").join(`${url.origin}/`);
 
         const codeSpace = url.searchParams.get("room");
 
@@ -160,7 +161,7 @@ export class Code implements DurableObject {
             `https://js.spike.land?v=${shasum}`,
             {
               method: "POST",
-              body: this.session.code,
+              body: code,
               headers: { TR_ORIGIN: this.#origin },
             },
           ).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
@@ -219,14 +220,13 @@ export class Code implements DurableObject {
           }
           case "code":
           case "index.tsx": {
-            const replaced = code.split("https://spike.land/").join(`${this.#origin}/`);
-            return new Response(replaced, {
+            return new Response(code, {
               status: 200,
               headers: new Headers({
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
-                content_hash: md5(replaced),
+                content_hash: md5(code),
                 "Content-Type": "application/javascript; charset=UTF-8",
               }),
             });

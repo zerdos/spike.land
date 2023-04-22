@@ -15,6 +15,8 @@ import { getTransferables, hasTransferables } from "transferables";
 import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
 import { run } from "./ws";
+// @ts-ignore
+import { swVersion } from "/swVersion.mjs";
 
 export const sw = new Workbox(`/sw.js?v=${swVersion}`);
 init(swVersion, null);

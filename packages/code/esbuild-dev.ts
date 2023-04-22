@@ -117,6 +117,7 @@ const buildOptions: esbuild.BuildOptions = {
   platform: "browser",
   external: [
     "./mST",
+    "/swVersion.mjs",
     "/npm:/*",
     "../../npm:/*, ",
     "__STATIC_CONTENT_MANIFEST",
@@ -380,6 +381,7 @@ const build = (
       // "src/jsx.mjs",
     ],
     [
+      "/swVersion.mjs",
       "/dist.shasum.js",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",

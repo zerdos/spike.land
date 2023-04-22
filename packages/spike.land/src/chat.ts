@@ -105,6 +105,18 @@ async function handleFetchApi(
           ASSET_HASH,
         },
       });
+    case "swVersion.mjs": {
+      return new Response(
+        `export const swVersion = "${ASSET_HASH}";`,
+        {
+          headers: {
+            "content-type": "application/javascript; charset=utf-8",
+            "Cache-Control": "no-cache",
+            "Content-Encoding": "gzip",
+          },
+        },
+      );
+    }
     case "swVersion.js": {
       return new Response(
         `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)}; `,
