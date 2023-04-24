@@ -1112,7 +1112,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.17.17"
+    esbuild-wasm: "npm:0.17.18"
   languageName: unknown
   linkType: soft
 
@@ -1125,7 +1125,7 @@ __metadata:
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.17.17"
+    esbuild-wasm: "npm:0.17.18"
     immutable: "npm:4.3.0"
     js-tokens: "npm:8.0.1"
     p-map: "npm:6.0.0"
@@ -1154,7 +1154,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:18.15.13"
+    "@types/node": "npm:18.16.0"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.0.38"
@@ -1174,7 +1174,7 @@ __metadata:
     buffer: "npm:6.0.3"
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
-    esbuild-wasm: "npm:0.17.17"
+    esbuild-wasm: "npm:0.17.18"
     eslint: "npm:8.39.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
@@ -1200,7 +1200,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
     preact: "npm:10.13.2"
-    prettier: "npm:2.8.7"
+    prettier: "npm:2.8.8"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
@@ -1237,8 +1237,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:18.15.13"
-    esbuild-wasm: "npm:0.17.17"
+    "@types/node": "npm:18.16.0"
+    esbuild-wasm: "npm:0.17.18"
   languageName: unknown
   linkType: soft
 
@@ -1296,7 +1296,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230404.0"
-    esbuild-wasm: "npm:0.17.17"
+    esbuild-wasm: "npm:0.17.18"
     typescript: "npm:5.0.4"
     wrangler: "npm:2.16.0"
   languageName: unknown
@@ -1405,10 +1405,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:18.15.13":
+"@types/node@npm:*":
   version: 18.15.13
   resolution: "@types/node@npm:18.15.13"
   checksum: 2f3b73aa4d643fa96c4f83ac1e9077af04257fdd350db76d9b14f7349135ba284a0bf1cfc66aaff29a3d8c103b77d734064e7040ba3e8409eef3177d0ed164fd
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.16.0":
+  version: 18.16.0
+  resolution: "@types/node@npm:18.16.0"
+  checksum: e2a407946adcc00c72f05cad85e57b14e8ae615eedcf834daa39186bf7ff136c802519504c391cc8f3b6935726e6ada1ef1dd1546d5c88d0051185f6dc41dd07
   languageName: node
   linkType: hard
 
@@ -3409,12 +3416,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.17.17":
-  version: 0.17.17
-  resolution: "esbuild-wasm@npm:0.17.17"
+"esbuild-wasm@npm:0.17.18":
+  version: 0.17.18
+  resolution: "esbuild-wasm@npm:0.17.18"
   bin:
     esbuild: bin/esbuild
-  checksum: 0430a0016dd79a783c711ac27190f1657b4d13a31908aa93aa8f4eef288c976a81a3e5d8329097ccfc4c282414258a1c3e5a5a085a3a6b8f7323218363898fe9
+  checksum: bf2d06cc2c28ca45509749b7327ba1c5b69ed88082e513f5382ac3c16a2001f58fcb1ea3a542db4cdd0e007d2c0d44629bf5447b7620334a4cb20ed4eaf5f115
   languageName: node
   linkType: hard
 
@@ -7073,12 +7080,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.7":
-  version: 2.8.7
-  resolution: "prettier@npm:2.8.7"
+"prettier@npm:2.8.8":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
   bin:
     prettier: bin-prettier.js
-  checksum: ec15b2e0a2a34a4987cca4ee72b2df56c7f4a4c62322d9a0f3c9efccb2cc0e3efdb791bb2764f2268e69e05946dc72108e5b5957d4bb2c1a41a11733b8b09153
+  checksum: 38b0a43ea17e83f54b904f8808f7d0fd1d9705ef9627bb40017ee276cbd6f5e7d15bcf816c4467b64cfe14ef109369a981ce61fad9c6022749d041f74a672188
   languageName: node
   linkType: hard
 
