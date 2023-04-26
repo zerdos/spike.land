@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "18.16.0",
+    "@types/node": "18.16.1",
     "esbuild-wasm": "0.17.18"
   },
   "gitHead": "1aee37f582ca7efae8a35b8bc64ece3859bb07f4"
