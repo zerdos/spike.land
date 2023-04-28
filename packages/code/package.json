@@ -56,9 +56,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@emotion/cache": "11.10.7",
-    "@emotion/react": "11.10.6",
-    "@emotion/styled": "11.10.6",
+    "@emotion/cache": "11.10.8",
+    "@emotion/react": "11.10.8",
+    "@emotion/styled": "11.10.8",
     "@github/stable-socket": "1.1.0",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@mui/material": "5.12.2",
@@ -127,7 +127,7 @@
     "@types/is-callable": "1.1.0",
     "@types/lodash.debounce": "4.0.7",
     "@types/lodash.throttle": "4.1.7",
-    "@types/node": "18.16.1",
+    "@types/node": "18.16.2",
     "@types/prettier": "2.7.2",
     "@types/prismjs": "1.26.0",
     "@types/react": "18.2.0",
