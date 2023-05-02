@@ -13,7 +13,7 @@
     "build": "yarn workspaces foreach --all run build",
     "types": "yarn workspaces foreach --all run types",
     "test": "yarn workspaces foreach --all run test",
-    "shasum": "ipfs add --only-hash -r -Q packages/code/dist | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
+    "shasum": "find ./packages/code/dist -type f -print0 | sort -z | xargs -0 shasum | shasum | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
     "c:build": "yarn workspace @spike.land/code build",
     "c:deploy": "yarn workspace @spike.land/code-worker deploy",
     "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types",
@@ -38,8 +38,8 @@
     "@types/eslint": "8.37.0",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
-    "@typescript-eslint/eslint-plugin": "5.59.1",
-    "@typescript-eslint/parser": "5.59.1",
+    "@typescript-eslint/eslint-plugin": "5.59.2",
+    "@typescript-eslint/parser": "5.59.2",
     "constants": "0.0.2",
     "cypress": "12.11.0",
     "dprint": "0.36.0",
@@ -52,9 +52,6 @@
     "typescript": "5.0.4",
     "util": "0.12.5",
     "utils": "0.3.1"
-  },
-  "devDependencies": {
-    "js-tokens": "8.0.1"
   },
   "packageManager": "yarn@4.0.0-rc.42"
 }
