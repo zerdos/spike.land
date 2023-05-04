@@ -105,7 +105,7 @@ const fakeBackend = async (request: Request) => {
 
     const { code, css, html, i } = await fetch(
       `${url.origin}/live/${codeSpace}/session.json`,
-    ).then((x) => x.json<ICodeSession>());
+    ).then((x) => x.json() as unknown as ICodeSession);
 
     if (
       url.pathname === `/live/${codeSpace}/iframe`
@@ -156,17 +156,24 @@ const fakeBackend = async (request: Request) => {
         // const code = await readFile(
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;
-
-        const trp = importMapReplace(
-          await transpile({ code, originToUse: location.origin }),
-          location.origin,
-          self.swVersion,
-        );
-        await mkdir(`/live/${codeSpace}`);
-        await writeFile(
-          `/live/${codeSpace}/index.js`,
-          trp,
-        );
+        const trp = await Promise.race([
+          fetch(
+            `${url.origin}/live/${codeSpace}/index.js`,
+          ).then((x) => x.text()),
+          (async () => {
+            const trp = importMapReplace(
+              await transpile({ code, originToUse: location.origin }),
+              location.origin,
+              self.swVersion,
+            );
+            await mkdir(`/live/${codeSpace}`);
+            await writeFile(
+              `/live/${codeSpace}/index.js`,
+              trp,
+            );
+            return trp;
+          })(),
+        ]);
 
         return new Response(trp, {
           headers: {
