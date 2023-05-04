@@ -95,10 +95,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230404.0":
-  version: 4.20230404.0
-  resolution: "@cloudflare/workers-types@npm:4.20230404.0"
-  checksum: 71d612b8d763ce5499d777c778f8e8a0ad63790fe865aaa6aad739e51e310d689a7d0980cbc75444004ba82154019e72472f15ebf34b79c3ef7e47b25e403a59
+"@cloudflare/workers-types@npm:4.20230419.0":
+  version: 4.20230419.0
+  resolution: "@cloudflare/workers-types@npm:4.20230419.0"
+  checksum: 9a354741e49ff926ec91d57bc9df8b7371ccd40fca3be6873842a7c71b4e6f41d3c720903d314ebc565db83461269a15589a04a7bbe11b311a705c2993302674
   languageName: node
   linkType: hard
 
@@ -1121,7 +1121,7 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230404.0"
+    "@cloudflare/workers-types": "npm:4.20230419.0"
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1130,7 +1130,7 @@ __metadata:
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
     typescript: "npm:5.0.4"
-    wrangler: "npm:2.18.0"
+    wrangler: "npm:2.19.0"
   languageName: unknown
   linkType: soft
 
@@ -1156,13 +1156,13 @@ __metadata:
     "@types/node": "npm:18.16.3"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
-    "@types/react": "npm:18.2.0"
-    "@types/react-dom": "npm:18.2.1"
+    "@types/react": "npm:18.2.4"
+    "@types/react-dom": "npm:18.2.3"
     "@types/uuid": "npm:9.0.1"
     "@typescript-eslint/eslint-plugin": "npm:5.59.2"
     "@typescript-eslint/parser": "npm:5.59.2"
     "@typescript-eslint/typescript-estree": "npm:5.59.2"
-    ace-builds: "npm:1.18.0"
+    ace-builds: "npm:1.19.0"
     assert: "npm:2.0.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:4.0.0"
@@ -1178,7 +1178,7 @@ __metadata:
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
     fast-diff: "npm:1.2.0"
-    fetch-retry: "npm:5.0.4"
+    fetch-retry: "npm:5.0.5"
     file-type: "npm:18.3.0"
     framer-motion: "npm:10.12.7"
     immutable: "npm:4.3.0"
@@ -1293,10 +1293,10 @@ __metadata:
   resolution: "@spike.land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230404.0"
+    "@cloudflare/workers-types": "npm:4.20230419.0"
     esbuild-wasm: "npm:0.17.18"
     typescript: "npm:5.0.4"
-    wrangler: "npm:2.18.0"
+    wrangler: "npm:2.19.0"
   languageName: unknown
   linkType: soft
 
@@ -1445,12 +1445,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.1":
-  version: 18.2.1
-  resolution: "@types/react-dom@npm:18.2.1"
+"@types/react-dom@npm:18.2.3":
+  version: 18.2.3
+  resolution: "@types/react-dom@npm:18.2.3"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 77e87d27b7eb2e0f2295350be90157562f51b5eaabe390fe678c69e28f3ca7836dab76be1568bd0fcaefbb5efb20eb887ff28812d7d5f7504bfbbeb8260885e9
+  checksum: a42d3f793d2e98996abe266e2d74ea87fb6042d8827a4788cda565816c9d0774e96dda1c0d32d0dbc8e7f8d845e8f42e75644bd907d0b0ea037dee0fbbeabe4f
   languageName: node
   linkType: hard
 
@@ -1472,7 +1472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.0":
+"@types/react@npm:*":
   version: 18.2.0
   resolution: "@types/react@npm:18.2.0"
   dependencies:
@@ -1480,6 +1480,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 80387fb092ba8cb5ce9eee2c7ed873a270c6ff8ad6cb3a55aa52ff3f2aa1db447bb8ea937ca8686eec6b359e04ee110ea9feda4d002c8929759303f7865c13a8
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.4":
+  version: 18.2.4
+  resolution: "@types/react@npm:18.2.4"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 7da875e6ee4c3d467c6f1fe3285d0bfdb62df4636f7d500f7d4f988f3c9c590e7946599e375d2af5233672324ee27870ba1e118525e3ea41be515ee196f140f0
   languageName: node
   linkType: hard
 
@@ -1680,10 +1691,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.18.0":
-  version: 1.18.0
-  resolution: "ace-builds@npm:1.18.0"
-  checksum: aa0581d64dec0291ec38e6043cad0779ca47bcb6a659a9da78df96ba084b17f037d1fc39c49c245dfeffb820997648394c48080a0fadbf72bf550e04b33b77a1
+"ace-builds@npm:1.19.0":
+  version: 1.19.0
+  resolution: "ace-builds@npm:1.19.0"
+  checksum: 8109a1cbcf277e54231d4ec0bc8f3b3b4f292283bcd01e96eb111cb941edfbf37da4ce46f13d6eae2aa57aa20346afe274b68feb43e1adac9a7448942f2fc5d7
   languageName: node
   linkType: hard
 
@@ -3208,15 +3219,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.36.0":
-  version: 0.36.0
-  resolution: "dprint@npm:0.36.0"
+"dprint@npm:0.36.1":
+  version: 0.36.1
+  resolution: "dprint@npm:0.36.1"
   dependencies:
     https-proxy-agent: "npm:=5.0.1"
     yauzl: "npm:=2.10.0"
   bin:
     dprint: bin.js
-  checksum: be3a52d789ad7d8ad38779a7a295433ccecccb3ec9d820c8ba332dd3c56284dfe9c5d70cfa117fa06abe8357bf0e9c0fdd41d5de66806d8df510ed4ce289b7c6
+  checksum: f26aa57f1058f4b46ad981f56a4f0ed46e433850a28f2970fabb25231c21b30b82b2f50bd404e4dda75fda852ec1ef5ae88be5819c65396a13b74ca8042cbb34
   languageName: node
   linkType: hard
 
@@ -3924,10 +3935,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-retry@npm:5.0.4":
-  version: 5.0.4
-  resolution: "fetch-retry@npm:5.0.4"
-  checksum: d89ce55ff2715231933f71d1bd65b06ba3e23a699a3db46d3aec12d320c68060158b39a60e6e569bf80433452e886eb74d3e698430ec583d5d73a25658a5a9f5
+"fetch-retry@npm:5.0.5":
+  version: 5.0.5
+  resolution: "fetch-retry@npm:5.0.5"
+  checksum: e98c582187519c72132ce8154f70a2f06a45e1f13c3a63be47cc160f831dd79bf1d3ccc8fa709a29db4c8d69ed45157b8708c160b20fbd4f7b71cb06ac1b1795
   languageName: node
   linkType: hard
 
@@ -6214,18 +6225,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230404.0"
+    "@cloudflare/workers-types": "npm:4.20230419.0"
     "@emotion/react": "npm:11.10.8"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.33.0"
     "@types/eslint": "npm:8.37.0"
-    "@types/react": "npm:18.2.0"
-    "@types/react-dom": "npm:18.2.1"
+    "@types/react": "npm:18.2.4"
+    "@types/react-dom": "npm:18.2.3"
     "@typescript-eslint/eslint-plugin": "npm:5.59.2"
     "@typescript-eslint/parser": "npm:5.59.2"
     constants: "npm:0.0.2"
     cypress: "npm:12.11.0"
-    dprint: "npm:0.36.0"
+    dprint: "npm:0.36.1"
     eslint: "npm:8.39.0"
     eslint-plugin-react: "npm:7.32.2"
     localforage: "npm:1.10.0"
@@ -9058,9 +9069,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:2.18.0":
-  version: 2.18.0
-  resolution: "wrangler@npm:2.18.0"
+"wrangler@npm:2.19.0":
+  version: 2.19.0
+  resolution: "wrangler@npm:2.19.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.1.1"
@@ -9084,7 +9095,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 1ae862721d9f270347fa87c4e5e25c12f31af01dada28b5851b64a7cc0307d2b0854b67625c0237d73b1304aa31c131c4bd1d1ebd80ebb9f1f4c0414057b148d
+  checksum: 0621cae3e16321652e6dcb5577323d1c208ee9f7b70af7d0ca1a725c784d0ef83f62bd991c8a5a5821daa4d6200670ecf8e9e1bead9bea1966da7af6c847e0cf
   languageName: node
   linkType: hard
 
