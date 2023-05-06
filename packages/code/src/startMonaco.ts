@@ -1,25 +1,10 @@
-import "monaco-editor/esm/vs/editor/edcore.main";
-import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
-import { language as tsxMonarchRules } from "monaco-editor/esm/vs/basic-languages/typescript/typescript";
 import { ata, prettier } from "./shared";
 
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
-
-languages.register({ id: "tsx" });
-
-// Update the tokenizer to support TSX syntax
-tsxMonarchRules.tokenizer.root = [
-  ...tsxMonarchRules.tokenizer.root,
-  [/<\s*[\w]+/, "tag"],
-  [/<\s*\/\s*[\w]+\s*>/, "tag"],
-];
-
-// Register a tokens provider for the new language
-languages.setMonarchTokensProvider("tsx", tsxMonarchRules);
 
 const lib = [
   "dom",
@@ -52,7 +37,7 @@ function fetchAndCreateExtraModels(
       fetch(extraModel)
         .then((res) => res.text())
         .then((content) => {
-          editor.getModel(mUri) || createModel(content, "tsx", mUri);
+          editor.getModel(mUri) || createModel(content, "typescript", mUri);
           return true;
         }),
     );
@@ -140,7 +125,7 @@ self.MonacoEnvironment = {
       return `${originToUse}/language//html/html.js`;
     }
 
-    if (label === "typescript" || label === "javascript" || label === "tsx") {
+    if (label === "typescript" || label === "javascript") {
       return `${originToUse}/workerScripts/ts.worker.js`;
     }
 
@@ -204,7 +189,7 @@ async function startMonacoPristine(
 
   const model = editor.getModel(uri) || createModel(
     replaced,
-    "tsx",
+    "typescript",
     uri,
   );
 
