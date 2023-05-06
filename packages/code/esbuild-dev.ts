@@ -251,7 +251,7 @@ const build = (
       "src/transpile.ts",
       "src/fs.ts",
       "src/ata.ts",
-      "src/ts.worker.ts",
+      // "src/ts.worker.ts",
       "src/ataWorker.ts",
       // "src/ipfs-core.ts",
     ],
