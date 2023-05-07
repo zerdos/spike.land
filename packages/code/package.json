@@ -91,7 +91,6 @@
     "memfs": "3.5.1",
     "module": "1.2.5",
     "monaco-editor": "0.38.0",
-    "monaco-editor-core": "0.38.0",
     "node-source-walk": "6.0.0",
     "os-browserify": "0.3.0",
     "p-map": "6.0.0",

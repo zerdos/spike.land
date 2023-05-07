@@ -126,7 +126,7 @@ self.MonacoEnvironment = {
     }
 
     if (label === "typescript" || label === "javascript") {
-      return `${originToUse}/language/typescript/ts.worker.js`;
+      return `${originToUse}/language/typescript/ts.js`;
     }
 
     return `${originToUse}/editor/editor.js`;

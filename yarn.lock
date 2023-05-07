@@ -1190,7 +1190,6 @@ __metadata:
     memfs: "npm:3.5.1"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.38.0"
-    monaco-editor-core: "npm:0.38.0"
     node-source-walk: "npm:6.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
@@ -6207,13 +6206,6 @@ __metadata:
   bin:
     module: ./dist/cli.js
   checksum: 30fc1c7800ccb1f4a81d2eecf7c6ee22998aed99ac9c735f21f37b2c04e355c06f67a0ade33bf119f57536046fed247488e7f211ca3b547c2d8167840af4ea92
-  languageName: node
-  linkType: hard
-
-"monaco-editor-core@npm:0.38.0":
-  version: 0.38.0
-  resolution: "monaco-editor-core@npm:0.38.0"
-  checksum: 754ae58901a7355ba3032db4b5973b340e40ebe5fd4b09f7b35f065040c56076dfc35fe5edb93c0bd18418b897858c28847253c35cd639336863cdd19c3c5ca5
   languageName: node
   linkType: hard
 
