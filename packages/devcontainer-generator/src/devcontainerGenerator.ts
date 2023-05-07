@@ -10,6 +10,7 @@ type Base =
   | "eoan"
   | "groovy"
   | "focal"
+  | "lunar"
   | "hirsute"
   | "bullseye"
   | "bookworm"

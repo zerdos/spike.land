@@ -1274,6 +1274,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spike.land/lunar-devcontainer@workspace:packages/lunar-devcontainer":
+  version: 0.0.0-use.local
+  resolution: "@spike.land/lunar-devcontainer@workspace:packages/lunar-devcontainer"
+  dependencies:
+    "@spike.land/devcontainer-generator": "npm:0.9.2"
+  languageName: unknown
+  linkType: soft
+
+"@spike.land/lunar-xubuntu-desktop@workspace:packages/lunar-xubuntu-desktop":
+  version: 0.0.0-use.local
+  resolution: "@spike.land/lunar-xubuntu-desktop@workspace:packages/lunar-xubuntu-desktop"
+  languageName: unknown
+  linkType: soft
+
 "@spike.land/monorepo-modules@workspace:packages/monorepo-modules":
   version: 0.0.0-use.local
   resolution: "@spike.land/monorepo-modules@workspace:packages/monorepo-modules"

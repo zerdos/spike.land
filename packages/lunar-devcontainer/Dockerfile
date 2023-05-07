@@ -7,7 +7,7 @@ RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
 RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
 
-FROM debian:bookworm as devimage
+FROM ubuntu:lunar as devimage
 
 ### base.Dockerfile
 ### Generator: https://github.com/zerdos/spike.land/tree/main/dockerhub/devimages

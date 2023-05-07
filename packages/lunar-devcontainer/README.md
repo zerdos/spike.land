@@ -1,6 +1,6 @@
 ## Devcontainer
 
-- Base image: ubuntu:bookworm
+- Base image: ubuntu:lunar
 - Node: 18.16.0
 - Yarn: 1.22.19
 - Cypress 12.11.0

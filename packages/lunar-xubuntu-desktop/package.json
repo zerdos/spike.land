@@ -1,0 +1,15 @@
+{
+  "name": "@spike.land/lunar-xubuntu-desktop",
+  "tagname": "lunar-xubuntu-desktop",
+  "files": [],
+  "version": "0.9.1",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "git@github.com:zerdos/spike.land.git",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5",
+  "publishConfig": {
+    "access": "public"
+  }
+}
