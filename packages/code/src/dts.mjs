@@ -1,4 +1,4 @@
-var te = (t =>
+var te = ((t) =>
   typeof require < "u"
     ? require
     : typeof Proxy < "u"
@@ -19,7 +19,10 @@ var He = Object.create,
     if (S && typeof S == "object" || typeof S == "function") {
       for (let f of Ge(S)) {
         !Ze.call(t, f) && f !== x
-          && ce(t, f, { get: () => S[f], enumerable: !(o = Ve(S, f)) || o.enumerable });
+          && ce(t, f, {
+            get: () => S[f],
+            enumerable: !(o = Ve(S, f)) || o.enumerable,
+          });
       }
     }
     return t;
@@ -29,7 +32,12 @@ var He = Object.create,
     S,
     x,
   ) => (x = t != null ? He(Qe(t)) : {},
-    tt(S || !t || !t.__esModule ? ce(x, "default", { value: t, enumerable: !0 }) : x, t)),
+    tt(
+      S || !t || !t.__esModule
+        ? ce(x, "default", { value: t, enumerable: !0 })
+        : x,
+      t,
+    )),
   Oe = et((t, S) => {
     "use strict";
     var x = typeof Reflect == "object" ? Reflect : null,
@@ -37,9 +45,13 @@ var He = Object.create,
         return Function.prototype.apply.call(d, E, i);
       }, "ReflectApply"),
       f;
-    x && typeof x.ownKeys == "function" ? f = x.ownKeys : Object.getOwnPropertySymbols
+    x && typeof x.ownKeys == "function"
+      ? f = x.ownKeys
+      : Object.getOwnPropertySymbols
       ? f = L(function(d) {
-        return Object.getOwnPropertyNames(d).concat(Object.getOwnPropertySymbols(d));
+        return Object.getOwnPropertyNames(d).concat(
+          Object.getOwnPropertySymbols(d),
+        );
       }, "ReflectOwnKeys")
       : f = L(function(d) {
         return Object.getOwnPropertyNames(d);
@@ -64,7 +76,10 @@ var He = Object.create,
     var y = 10;
     function r(d) {
       if (typeof d != "function") {
-        throw new TypeError("The \"listener\" argument must be of type Function. Received type " + typeof d);
+        throw new TypeError(
+          "The \"listener\" argument must be of type Function. Received type "
+            + typeof d,
+        );
       }
     }
     L(r, "checkListener"),
@@ -76,7 +91,8 @@ var He = Object.create,
         set: function(d) {
           if (typeof d != "number" || d < 0 || c(d)) {
             throw new RangeError(
-              "The value of \"defaultMaxListeners\" is out of range. It must be a non-negative number. Received " + d
+              "The value of \"defaultMaxListeners\" is out of range. It must be a non-negative number. Received "
+                + d
                 + ".",
             );
           }
@@ -84,20 +100,24 @@ var He = Object.create,
         },
       }),
       n.init = function() {
-        (this._events === void 0 || this._events === Object.getPrototypeOf(this)._events)
+        (this._events === void 0
+          || this._events === Object.getPrototypeOf(this)._events)
         && (this._events = Object.create(null), this._eventsCount = 0),
           this._maxListeners = this._maxListeners || void 0;
       },
       n.prototype.setMaxListeners = L(function(d) {
         if (typeof d != "number" || d < 0 || c(d)) {
           throw new RangeError(
-            "The value of \"n\" is out of range. It must be a non-negative number. Received " + d + ".",
+            "The value of \"n\" is out of range. It must be a non-negative number. Received "
+              + d + ".",
           );
         }
         return this._maxListeners = d, this;
       }, "setMaxListeners");
     function s(d) {
-      return d._maxListeners === void 0 ? n.defaultMaxListeners : d._maxListeners;
+      return d._maxListeners === void 0
+        ? n.defaultMaxListeners
+        : d._maxListeners;
     }
     L(s, "_getMaxListeners"),
       n.prototype.getMaxListeners = L(function() {
@@ -111,13 +131,17 @@ var He = Object.create,
         if (m) {
           var _;
           if (E.length > 0 && (_ = E[0]), _ instanceof Error) throw _;
-          var P = new Error("Unhandled error." + (_ ? " (" + _.message + ")" : ""));
+          var P = new Error(
+            "Unhandled error." + (_ ? " (" + _.message + ")" : ""),
+          );
           throw P.context = _, P;
         }
         var N = g[d];
         if (N === void 0) return !1;
         if (typeof N == "function") o(N, this, E);
-        else for (var M = N.length, K = T(N, M), i = 0; i < M; ++i) o(K[i], this, E);
+        else {for (var M = N.length, K = T(N, M), i = 0; i < M; ++i) {
+            o(K[i], this, E);
+          }}
         return !0;
       }, "emit");
     function p(d, E, i, m) {
@@ -127,18 +151,24 @@ var He = Object.create,
           _ = d._events,
           _ === void 0
             ? (_ = d._events = Object.create(null), d._eventsCount = 0)
-            : (_.newListener !== void 0 && (d.emit("newListener", E, i.listener ? i.listener : i), _ = d._events),
+            : (_.newListener !== void 0
+              && (d.emit("newListener", E, i.listener ? i.listener : i), _ = d._events),
               P = _[E]),
           P === void 0
       ) P = _[E] = i, ++d._eventsCount;
       else if (
-        typeof P == "function" ? P = _[E] = m ? [i, P] : [P, i] : m ? P.unshift(i) : P.push(i),
+        typeof P == "function"
+          ? P = _[E] = m ? [i, P] : [P, i]
+          : m
+          ? P.unshift(i)
+          : P.push(i),
           g = s(d),
           g > 0 && P.length > g && !P.warned
       ) {
         P.warned = !0;
         var N = new Error(
-          "Possible EventEmitter memory leak detected. " + P.length + " " + String(E)
+          "Possible EventEmitter memory leak detected. " + P.length + " "
+            + String(E)
             + " listeners added. Use emitter.setMaxListeners() to increase limit",
         );
         N.name = "MaxListenersExceededWarning", N.emitter = d, N.type = E, N.count = P.length, v(N);
@@ -157,12 +187,15 @@ var He = Object.create,
       if (!this.fired) {
         return this.target.removeListener(this.type, this.wrapFn),
           this.fired = !0,
-          arguments.length === 0 ? this.listener.call(this.target) : this.listener.apply(this.target, arguments);
+          arguments.length === 0
+            ? this.listener.call(this.target)
+            : this.listener.apply(this.target, arguments);
       }
     }
     L(e, "onceWrapper");
     function a(d, E, i) {
-      var m = { fired: !1, wrapFn: void 0, target: d, type: E, listener: i }, g = e.bind(m);
+      var m = { fired: !1, wrapFn: void 0, target: d, type: E, listener: i },
+        g = e.bind(m);
       return g.listener = i, m.wrapFn = g, g;
     }
     L(a, "_onceWrap"),
@@ -179,7 +212,9 @@ var He = Object.create,
         if (i === E || i.listener === E) {
           --this._eventsCount === 0
             ? this._events = Object.create(null)
-            : (delete m[d], m.removeListener && this.emit("removeListener", d, i.listener || E));
+            : (delete m[d],
+              m.removeListener
+              && this.emit("removeListener", d, i.listener || E));
         } else if (typeof i != "function") {
           for (g = -1, _ = i.length - 1; _ >= 0; _--) {
             if (i[_] === E || i[_].listener === E) {
@@ -190,7 +225,8 @@ var He = Object.create,
           if (g < 0) return this;
           g === 0 ? i.shift() : b(i, g),
             i.length === 1 && (m[d] = i[0]),
-            m.removeListener !== void 0 && this.emit("removeListener", d, P || E);
+            m.removeListener !== void 0
+            && this.emit("removeListener", d, P || E);
         }
         return this;
       }, "removeListener"),
@@ -201,26 +237,38 @@ var He = Object.create,
         if (i.removeListener === void 0) {
           return arguments.length === 0
             ? (this._events = Object.create(null), this._eventsCount = 0)
-            : i[d] !== void 0 && (--this._eventsCount === 0 ? this._events = Object.create(null) : delete i[d]),
+            : i[d] !== void 0 && (--this._eventsCount === 0
+              ? this._events = Object.create(null)
+              : delete i[d]),
             this;
         }
         if (arguments.length === 0) {
           var g = Object.keys(i), _;
-          for (m = 0; m < g.length; ++m) _ = g[m], _ !== "removeListener" && this.removeAllListeners(_);
+          for (m = 0; m < g.length; ++m) {
+            _ = g[m], _ !== "removeListener" && this.removeAllListeners(_);
+          }
           return this.removeAllListeners("removeListener"),
             this._events = Object.create(null),
             this._eventsCount = 0,
             this;
         }
         if (E = i[d], typeof E == "function") this.removeListener(d, E);
-        else if (E !== void 0) for (m = E.length - 1; m >= 0; m--) this.removeListener(d, E[m]);
+        else if (E !== void 0) {
+          for (m = E.length - 1; m >= 0; m--) this.removeListener(d, E[m]);
+        }
         return this;
       }, "removeAllListeners");
     function l(d, E, i) {
       var m = d._events;
       if (m === void 0) return [];
       var g = m[E];
-      return g === void 0 ? [] : typeof g == "function" ? i ? [g.listener || g] : [g] : i ? C(g) : T(g, g.length);
+      return g === void 0
+        ? []
+        : typeof g == "function"
+        ? i ? [g.listener || g] : [g]
+        : i
+        ? C(g)
+        : T(g, g.length);
     }
     L(l, "_listeners"),
       n.prototype.listeners = L(function(d) {
@@ -230,7 +278,9 @@ var He = Object.create,
         return l(this, d, !1);
       }, "rawListeners"),
       n.listenerCount = function(d, E) {
-        return typeof d.listenerCount == "function" ? d.listenerCount(E) : u.call(d, E);
+        return typeof d.listenerCount == "function"
+          ? d.listenerCount(E)
+          : u.call(d, E);
       },
       n.prototype.listenerCount = u;
     function u(d) {
@@ -257,7 +307,9 @@ var He = Object.create,
     }
     L(b, "spliceOne");
     function C(d) {
-      for (var E = new Array(d.length), i = 0; i < E.length; ++i) E[i] = d[i].listener || d[i];
+      for (var E = new Array(d.length), i = 0; i < E.length; ++i) {
+        E[i] = d[i].listener || d[i];
+      }
       return E;
     }
     L(C, "unwrapListeners");
@@ -287,7 +339,10 @@ var He = Object.create,
             m.once && d.removeEventListener(E, g), i(_);
           }, "wrapListener"),
         );
-      } else throw new TypeError("The \"emitter\" argument must be of type EventEmitter. Received type " + typeof d);
+      } else {throw new TypeError(
+          "The \"emitter\" argument must be of type EventEmitter. Received type "
+            + typeof d,
+        );}
     }
     L(w, "eventTargetAgnosticAddListener");
   }),
@@ -360,7 +415,7 @@ var Q = typeof Deno < "u",
       throw new Error("process.binding is not supported");
     },
     cwd: () => Q ? Deno.cwd?.() ?? "/" : "/",
-    chdir: t => {
+    chdir: (t) => {
       if (Q) Deno.chdir(t);
       else throw new Error("process.chdir is not supported");
     },
@@ -549,14 +604,17 @@ var Or = pe.default ?? pe,
   Fr = Object.getOwnPropertyNames,
   Kr = Object.getPrototypeOf,
   Ir = Object.prototype.hasOwnProperty,
-  Yr =
-    (t =>
-      typeof te < "u" ? te : typeof Proxy < "u" ? new Proxy(t, { get: (S, x) => (typeof te < "u" ? te : S)[x] }) : t)(
-        function(t) {
-          if (typeof te < "u") return te.apply(this, arguments);
-          throw new Error("Dynamic require of \"" + t + "\" is not supported");
-        },
-      ),
+  Yr = ((t) =>
+    typeof te < "u"
+      ? te
+      : typeof Proxy < "u"
+      ? new Proxy(t, { get: (S, x) => (typeof te < "u" ? te : S)[x] })
+      : t)(
+      function(t) {
+        if (typeof te < "u") return te.apply(this, arguments);
+        throw new Error("Dynamic require of \"" + t + "\" is not supported");
+      },
+    ),
   F = (t, S) => () => (S || t((S = { exports: {} }).exports, S), S.exports),
   Lr = (t, S) => {
     for (var x in S) ge(t, x, { get: S[x], enumerable: !0 });
@@ -565,7 +623,10 @@ var Or = pe.default ?? pe,
     if (S && typeof S == "object" || typeof S == "function") {
       for (let f of Fr(S)) {
         !Ir.call(t, f) && f !== x
-          && ge(t, f, { get: () => S[f], enumerable: !(o = kr(S, f)) || o.enumerable });
+          && ge(t, f, {
+            get: () => S[f],
+            enumerable: !(o = kr(S, f)) || o.enumerable,
+          });
       }
     }
     return t;
@@ -576,8 +637,13 @@ var Or = pe.default ?? pe,
     S,
     x,
   ) => (x = t != null ? Mr(Kr(t)) : {},
-    le(S || !t || !t.__esModule ? ge(x, "default", { value: t, enumerable: !0 }) : x, t)),
-  ie = F(t => {
+    le(
+      S || !t || !t.__esModule
+        ? ge(x, "default", { value: t, enumerable: !0 })
+        : x,
+      t,
+    )),
+  ie = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(r, s, p, e) {
@@ -604,19 +670,44 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(r) {
         if (r && r.__esModule) return r;
         var s = {};
-        if (r != null) for (var p in r) p !== "default" && Object.prototype.hasOwnProperty.call(r, p) && S(s, r, p);
+        if (r != null) {
+          for (var p in r) {
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
+              && S(s, r, p);
+          }
+        }
         return x(s, r), s;
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.typescriptVersionIsAtLeast = void 0;
     var f = o(fe), v = o($);
     function c(r) {
-      return f.satisfies(v.version, `>= ${r}.0 || >= ${r}.1-rc || >= ${r}.0-beta`, { includePrerelease: !0 });
+      return f.satisfies(
+        v.version,
+        `>= ${r}.0 || >= ${r}.1-rc || >= ${r}.0-beta`,
+        { includePrerelease: !0 },
+      );
     }
-    var n = ["3.7", "3.8", "3.9", "4.0", "4.1", "4.2", "4.3", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9", "5.0"], y = {};
+    var n = [
+        "3.7",
+        "3.8",
+        "3.9",
+        "4.0",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "4.5",
+        "4.6",
+        "4.7",
+        "4.8",
+        "4.9",
+        "5.0",
+      ],
+      y = {};
     t.typescriptVersionIsAtLeast = y;
     for (let r of n) y[r] = c(r);
   }),
-  ve = F(t => {
+  ve = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(r, s, p, e) {
@@ -643,7 +734,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(r) {
         if (r && r.__esModule) return r;
         var s = {};
-        if (r != null) for (var p in r) p !== "default" && Object.prototype.hasOwnProperty.call(r, p) && S(s, r, p);
+        if (r != null) {
+          for (var p in r) {
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
+              && S(s, r, p);
+          }
+        }
         return x(s, r), s;
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.getDecorators = t.getModifiers = void 0;
@@ -658,7 +754,9 @@ var Or = pe.default ?? pe,
           }
           return;
         }
-        return (s = r.modifiers) === null || s === void 0 ? void 0 : s.filter(p => !f.isDecorator(p));
+        return (s = r.modifiers) === null || s === void 0
+          ? void 0
+          : s.filter((p) => !f.isDecorator(p));
       }
     }
     t.getModifiers = n;
@@ -672,12 +770,14 @@ var Or = pe.default ?? pe,
           }
           return;
         }
-        return (s = r.decorators) === null || s === void 0 ? void 0 : s.filter(f.isDecorator);
+        return (s = r.decorators) === null || s === void 0
+          ? void 0
+          : s.filter(f.isDecorator);
       }
     }
     t.getDecorators = y;
   }),
-  Br = F(t => {
+  Br = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }),
       t.xhtmlEntities = void 0,
@@ -937,7 +1037,7 @@ var Or = pe.default ?? pe,
         diams: "\u2666",
       };
   }),
-  Me = F(t => {
+  Me = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
     var S;
@@ -1127,15 +1227,15 @@ var Or = pe.default ?? pe,
         o.Line = "Line";
     })(x = t.AST_TOKEN_TYPES || (t.AST_TOKEN_TYPES = {}));
   }),
-  Jr = F(t => {
+  Jr = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 });
   }),
-  Xr = F(t => {
+  Xr = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 });
   }),
-  qr = F(t => {
+  qr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(f, v, c, n) {
@@ -1162,12 +1262,17 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(f) {
         if (f && f.__esModule) return f;
         var v = {};
-        if (f != null) for (var c in f) c !== "default" && Object.prototype.hasOwnProperty.call(f, c) && S(v, f, c);
+        if (f != null) {
+          for (var c in f) {
+            c !== "default" && Object.prototype.hasOwnProperty.call(f, c)
+              && S(v, f, c);
+          }
+        }
         return x(v, f), v;
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.TSESTree = void 0, t.TSESTree = o(Me());
   }),
-  Ur = F(t => {
+  Ur = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(f, v, c, n) {
@@ -1185,7 +1290,10 @@ var Or = pe.default ?? pe,
           n === void 0 && (n = c), f[n] = v[c];
         }),
       x = t && t.__exportStar || function(f, v) {
-        for (var c in f) c !== "default" && !Object.prototype.hasOwnProperty.call(v, c) && S(v, f, c);
+        for (var c in f) {
+          c !== "default" && !Object.prototype.hasOwnProperty.call(v, c)
+            && S(v, f, c);
+        }
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
     var o = Me();
@@ -1205,15 +1313,15 @@ var Or = pe.default ?? pe,
       x(Xr(), t),
       x(qr(), t);
   }),
-  Wr = F(t => {
+  Wr = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 });
   }),
-  $r = F(t => {
+  $r = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 });
   }),
-  oe = F(t => {
+  oe = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(f, v, c, n) {
@@ -1231,7 +1339,10 @@ var Or = pe.default ?? pe,
           n === void 0 && (n = c), f[n] = v[c];
         }),
       x = t && t.__exportStar || function(f, v) {
-        for (var c in f) c !== "default" && !Object.prototype.hasOwnProperty.call(v, c) && S(v, f, c);
+        for (var c in f) {
+          c !== "default" && !Object.prototype.hasOwnProperty.call(v, c)
+            && S(v, f, c);
+        }
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.TSESTree = t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
     var o = Ur();
@@ -1256,7 +1367,7 @@ var Or = pe.default ?? pe,
       x(Wr(), t),
       x($r(), t);
   }),
-  ae = F(t => {
+  ae = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(h, D, j, I) {
@@ -1283,7 +1394,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(h) {
         if (h && h.__esModule) return h;
         var D = {};
-        if (h != null) for (var j in h) j !== "default" && Object.prototype.hasOwnProperty.call(h, j) && S(D, h, j);
+        if (h != null) {
+          for (var j in h) {
+            j !== "default" && Object.prototype.hasOwnProperty.call(h, j)
+              && S(D, h, j);
+          }
+        }
         return x(D, h), D;
       };
     Object.defineProperty(t, "__esModule", { value: !0 }),
@@ -1349,13 +1465,17 @@ var Or = pe.default ?? pe,
     }
     t.isESTreeClassMember = u;
     function T(h, D) {
-      return (0, v.getModifiers)(D)?.some(I => I.kind === h) === !0;
+      return (0, v.getModifiers)(D)?.some((I) => I.kind === h) === !0;
     }
     t.hasModifier = T;
     function b(h) {
       var D;
       let j = (0, v.getModifiers)(h);
-      return j == null ? null : (D = j[j.length - 1]) !== null && D !== void 0 ? D : null;
+      return j == null
+        ? null
+        : (D = j[j.length - 1]) !== null && D !== void 0
+        ? D
+        : null;
     }
     t.getLastModifier = b;
     function C(h) {
@@ -1363,7 +1483,8 @@ var Or = pe.default ?? pe,
     }
     t.isComma = C;
     function k(h) {
-      return h.kind === s.SingleLineCommentTrivia || h.kind === s.MultiLineCommentTrivia;
+      return h.kind === s.SingleLineCommentTrivia
+        || h.kind === s.MultiLineCommentTrivia;
     }
     t.isComment = k;
     function A(h) {
@@ -1418,7 +1539,11 @@ var Or = pe.default ?? pe,
     }
     t.isJSXToken = _;
     function P(h) {
-      return h.flags & f.NodeFlags.Let ? "let" : h.flags & f.NodeFlags.Const ? "const" : "var";
+      return h.flags & f.NodeFlags.Let
+        ? "let"
+        : h.flags & f.NodeFlags.Const
+        ? "const"
+        : "var";
     }
     t.getDeclarationKind = P;
     function N(h) {
@@ -1444,7 +1569,10 @@ var Or = pe.default ?? pe,
       function I(X) {
         return f.isToken(X) && X.pos === h.end
           ? X
-          : Pe(X.getChildren(j), G => (G.pos <= h.pos && G.end > h.end || G.pos === h.end) && xe(G, j) ? I(G) : void 0);
+          : Pe(X.getChildren(j), (G) =>
+            (G.pos <= h.pos && G.end > h.end || G.pos === h.end) && xe(G, j)
+              ? I(G)
+              : void 0);
       }
     }
     t.findNextToken = M;
@@ -1460,10 +1588,12 @@ var Or = pe.default ?? pe,
     }
     t.hasJSXAncestor = J;
     function Y(h) {
-      return h.replace(/&(?:#\d+|#x[\da-fA-F]+|[0-9a-zA-Z]+);/g, D => {
+      return h.replace(/&(?:#\d+|#x[\da-fA-F]+|[0-9a-zA-Z]+);/g, (D) => {
         let j = D.slice(1, -1);
         if (j[0] === "#") {
-          let I = j[1] === "x" ? parseInt(j.slice(2), 16) : parseInt(j.slice(1), 10);
+          let I = j[1] === "x"
+            ? parseInt(j.slice(2), 16)
+            : parseInt(j.slice(1), 10);
           return I > 1114111 ? D : String.fromCodePoint(I);
         }
         return c.xhtmlEntities[j] || D;
@@ -1505,15 +1635,21 @@ var Or = pe.default ?? pe,
           ? n.AST_TOKEN_TYPES.Boolean
           : n.AST_TOKEN_TYPES.Keyword;
       }
-      if (h.kind >= s.FirstPunctuation && h.kind <= s.LastPunctuation) return n.AST_TOKEN_TYPES.Punctuator;
-      if (h.kind >= s.NoSubstitutionTemplateLiteral && h.kind <= s.TemplateTail) return n.AST_TOKEN_TYPES.Template;
+      if (h.kind >= s.FirstPunctuation && h.kind <= s.LastPunctuation) {
+        return n.AST_TOKEN_TYPES.Punctuator;
+      }
+      if (
+        h.kind >= s.NoSubstitutionTemplateLiteral && h.kind <= s.TemplateTail
+      ) return n.AST_TOKEN_TYPES.Template;
       switch (h.kind) {
         case s.NumericLiteral:
           return n.AST_TOKEN_TYPES.Numeric;
         case s.JsxText:
           return n.AST_TOKEN_TYPES.JSXText;
         case s.StringLiteral:
-          return h.parent && (h.parent.kind === s.JsxAttribute || h.parent.kind === s.JsxElement)
+          return h.parent
+              && (h.parent.kind === s.JsxAttribute
+                || h.parent.kind === s.JsxElement)
             ? n.AST_TOKEN_TYPES.JSXText
             : n.AST_TOKEN_TYPES.String;
         case s.RegularExpressionLiteral:
@@ -1531,14 +1667,20 @@ var Or = pe.default ?? pe,
     }
     t.getTokenType = z;
     function ee(h, D) {
-      let j = h.kind === s.JsxText ? h.getFullStart() : h.getStart(D), I = h.getEnd(), X = D.text.slice(j, I), G = z(h);
+      let j = h.kind === s.JsxText ? h.getFullStart() : h.getStart(D),
+        I = h.getEnd(),
+        X = D.text.slice(j, I),
+        G = z(h);
       return G === n.AST_TOKEN_TYPES.RegularExpression
         ? {
           type: G,
           value: X,
           range: [j, I],
           loc: E(j, I, D),
-          regex: { pattern: X.slice(1, X.lastIndexOf("/")), flags: X.slice(X.lastIndexOf("/") + 1) },
+          regex: {
+            pattern: X.slice(1, X.lastIndexOf("/")),
+            flags: X.slice(X.lastIndexOf("/") + 1),
+          },
         }
         : { type: G, value: X, range: [j, I], loc: E(j, I, D) };
     }
@@ -1563,7 +1705,11 @@ var Or = pe.default ?? pe,
           this.index = j,
           this.lineNumber = I,
           this.column = X,
-          Object.defineProperty(this, "name", { value: new.target.name, enumerable: !1, configurable: !0 });
+          Object.defineProperty(this, "name", {
+            value: new.target.name,
+            enumerable: !1,
+            configurable: !0,
+          });
       }
     };
     t.TSError = _e;
@@ -1586,7 +1732,8 @@ var Or = pe.default ?? pe,
     }
     t.firstDefined = Pe;
     function be(h) {
-      return (r ? f.identifierToKeywordKind(h) : h.originalKeywordKind) === s.ThisKeyword;
+      return (r ? f.identifierToKeywordKind(h) : h.originalKeywordKind)
+        === s.ThisKeyword;
     }
     t.identifierIsThisKeyword = be;
     function Ne(h) {
@@ -1600,7 +1747,7 @@ var Or = pe.default ?? pe,
     }
     t.isThisInTypeQuery = ze;
   }),
-  ke = F(t => {
+  ke = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(e, a, l, u) {
@@ -1627,13 +1774,22 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(e) {
         if (e && e.__esModule) return e;
         var a = {};
-        if (e != null) for (var l in e) l !== "default" && Object.prototype.hasOwnProperty.call(e, l) && S(a, e, l);
+        if (e != null) {
+          for (var l in e) {
+            l !== "default" && Object.prototype.hasOwnProperty.call(e, l)
+              && S(a, e, l);
+          }
+        }
         return x(a, e), a;
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.Converter = t.convertError = void 0;
     var f = o($), v = ve(), c = ae(), n = oe(), y = ie(), r = f.SyntaxKind;
     function s(e) {
-      return (0, c.createError)(e.file, e.start, "message" in e && e.message || e.messageText);
+      return (0, c.createError)(
+        e.file,
+        e.start,
+        "message" in e && e.message || e.messageText,
+      );
     }
     t.convertError = s;
     var p = class {
@@ -1646,7 +1802,10 @@ var Or = pe.default ?? pe,
           this.options = Object.assign({}, a);
       }
       getASTMaps() {
-        return { esTreeNodeToTSNodeMap: this.esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap: this.tsNodeToESTreeNodeMap };
+        return {
+          esTreeNodeToTSNodeMap: this.esTreeNodeToTSNodeMap,
+          tsNodeToESTreeNodeMap: this.tsNodeToESTreeNodeMap,
+        };
       }
       convertProgram() {
         return this.converter(this.ast);
@@ -1665,7 +1824,9 @@ var Or = pe.default ?? pe,
           let u = l[0],
             T = l[1],
             b = T && T.kind === r.DefaultKeyword,
-            C = b ? (0, c.findNextToken)(T, this.ast, this.ast) : (0, c.findNextToken)(u, this.ast, this.ast);
+            C = b
+              ? (0, c.findNextToken)(T, this.ast, this.ast)
+              : (0, c.findNextToken)(u, this.ast, this.ast);
           if (
             a.range[0] = C.getStart(this.ast), a.loc = (0, c.getLocFor)(a.range[0], a.range[1], this.ast), b
           ) {
@@ -1695,7 +1856,8 @@ var Or = pe.default ?? pe,
       }
       registerTSNodeInNodeMap(e, a) {
         a && this.options.shouldPreserveNodeMaps
-          && (this.tsNodeToESTreeNodeMap.has(e) || this.tsNodeToESTreeNodeMap.set(e, a));
+          && (this.tsNodeToESTreeNodeMap.has(e)
+            || this.tsNodeToESTreeNodeMap.set(e, a));
       }
       convertPattern(e, a) {
         return this.converter(e, a, this.inTypeMode, !0);
@@ -1710,7 +1872,8 @@ var Or = pe.default ?? pe,
         let l = a;
         return l.range || (l.range = (0, c.getRange)(e, this.ast)),
           l.loc || (l.loc = (0, c.getLocFor)(l.range[0], l.range[1], this.ast)),
-          l && this.options.shouldPreserveNodeMaps && this.esTreeNodeToTSNodeMap.set(l, e),
+          l && this.options.shouldPreserveNodeMaps
+          && this.esTreeNodeToTSNodeMap.set(l, e),
           l;
       }
       convertBindingNameWithTypeAnnotation(e, a, l) {
@@ -1720,7 +1883,9 @@ var Or = pe.default ?? pe,
           u;
       }
       convertTypeAnnotation(e, a) {
-        let l = a?.kind === r.FunctionType || a?.kind === r.ConstructorType ? 2 : 1,
+        let l = a?.kind === r.FunctionType || a?.kind === r.ConstructorType
+            ? 2
+            : 1,
           u = e.getFullStart() - l,
           T = (0, c.getLocFor)(u, e.end, this.ast);
         return {
@@ -1732,23 +1897,26 @@ var Or = pe.default ?? pe,
       }
       convertBodyExpressions(e, a) {
         let l = (0, c.canContainDirective)(a);
-        return e.map(u => {
+        return e.map((u) => {
           let T = this.convertChild(u);
           if (l) {
-            if (T?.expression && f.isExpressionStatement(u) && f.isStringLiteral(u.expression)) {
+            if (
+              T?.expression && f.isExpressionStatement(u)
+              && f.isStringLiteral(u.expression)
+            ) {
               let b = T.expression.raw;
               return T.directive = b.slice(1, -1), T;
             } else l = !1;
           }
           return T;
-        }).filter(u => u);
+        }).filter((u) => u);
       }
       convertTypeArgumentsToTypeParameters(e, a) {
         let l = (0, c.findNextToken)(e, this.ast, this.ast);
         return this.createNode(a, {
           type: n.AST_NODE_TYPES.TSTypeParameterInstantiation,
           range: [e.pos - 1, l.end],
-          params: e.map(u => this.convertType(u)),
+          params: e.map((u) => this.convertType(u)),
         });
       }
       convertTSTypeParametersToTypeParametersDeclaration(e) {
@@ -1757,14 +1925,16 @@ var Or = pe.default ?? pe,
           type: n.AST_NODE_TYPES.TSTypeParameterDeclaration,
           range: [e.pos - 1, a.end],
           loc: (0, c.getLocFor)(e.pos - 1, a.end, this.ast),
-          params: e.map(l => this.convertType(l)),
+          params: e.map((l) => this.convertType(l)),
         };
       }
       convertParameters(e) {
         return e?.length
-          ? e.map(a => {
+          ? e.map((a) => {
             let l = this.convertChild(a), u = (0, v.getDecorators)(a);
-            return u?.length && (l.decorators = u.map(T => this.convertChild(T))), l;
+            return u?.length
+              && (l.decorators = u.map((T) => this.convertChild(T))),
+              l;
           })
           : [];
       }
@@ -1776,7 +1946,9 @@ var Or = pe.default ?? pe,
               ? { child: e.callee, isOptional: e.optional }
               : { child: e.expression, isOptional: !1 })(),
           T = (0, c.isChildUnwrappableOptionalChain)(a, l);
-        if (!T && !u) return e;
+        if (!T && !u) {
+          return e;
+        }
         if (T && (0, c.isChainExpression)(l)) {
           let b = l.expression;
           e.type === n.AST_NODE_TYPES.MemberExpression
@@ -1785,28 +1957,40 @@ var Or = pe.default ?? pe,
             ? e.callee = b
             : e.expression = b;
         }
-        return this.createNode(a, { type: n.AST_NODE_TYPES.ChainExpression, expression: e });
+        return this.createNode(a, {
+          type: n.AST_NODE_TYPES.ChainExpression,
+          expression: e,
+        });
       }
       deeplyCopy(e) {
         if (e.kind === f.SyntaxKind.JSDocFunctionType) {
-          throw (0, c.createError)(this.ast, e.pos, "JSDoc types can only be used inside documentation comments.");
+          throw (0, c.createError)(
+            this.ast,
+            e.pos,
+            "JSDoc types can only be used inside documentation comments.",
+          );
         }
         let a = `TS${r[e.kind]}`;
         if (this.options.errorOnUnknownASTType && !n.AST_NODE_TYPES[a]) {
           throw new Error(`Unknown AST_NODE_TYPE: "${a}"`);
         }
         let l = this.createNode(e, { type: a });
-        "type" in e && (l.typeAnnotation = e.type && "kind" in e.type && f.isTypeNode(e.type)
+        "type" in e
+        && (l.typeAnnotation = e.type && "kind" in e.type && f.isTypeNode(e.type)
           ? this.convertTypeAnnotation(e.type, e)
           : null),
-          "typeArguments" in e && (l.typeParameters = e.typeArguments && "pos" in e.typeArguments
+          "typeArguments" in e
+          && (l.typeParameters = e.typeArguments && "pos" in e.typeArguments
             ? this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)
             : null),
-          "typeParameters" in e && (l.typeParameters = e.typeParameters && "pos" in e.typeParameters
-            ? this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)
+          "typeParameters" in e
+          && (l.typeParameters = e.typeParameters && "pos" in e.typeParameters
+            ? this.convertTSTypeParametersToTypeParametersDeclaration(
+              e.typeParameters,
+            )
             : null);
         let u = (0, v.getDecorators)(e);
-        u?.length && (l.decorators = u.map(b => this.convertChild(b)));
+        u?.length && (l.decorators = u.map((b) => this.convertChild(b)));
         let T = new Set([
           "_children",
           "decorators",
@@ -1829,17 +2013,22 @@ var Or = pe.default ?? pe,
           "typeArguments",
           "typeParameters",
         ]);
-        return Object.entries(e).filter(([b]) => !T.has(b)).forEach(([b, C]) => {
-          Array.isArray(C)
-            ? l[b] = C.map(k => this.convertChild(k))
-            : C && typeof C == "object" && C.kind
-            ? l[b] = this.convertChild(C)
-            : l[b] = C;
-        }),
+        return Object.entries(e).filter(([b]) => !T.has(b)).forEach(
+          ([b, C]) => {
+            Array.isArray(C)
+              ? l[b] = C.map((k) => this.convertChild(k))
+              : C && typeof C == "object" && C.kind
+              ? l[b] = this.convertChild(C)
+              : l[b] = C;
+          },
+        ),
           l;
       }
       convertJSXIdentifier(e) {
-        let a = this.createNode(e, { type: n.AST_NODE_TYPES.JSXIdentifier, name: e.getText() });
+        let a = this.createNode(e, {
+          type: n.AST_NODE_TYPES.JSXIdentifier,
+          name: e.getText(),
+        });
         return this.registerTSNodeInNodeMap(e, a), a;
       }
       convertJSXNamespaceOrIdentifier(e) {
@@ -1868,7 +2057,11 @@ var Or = pe.default ?? pe,
         let l;
         switch (e.kind) {
           case r.PropertyAccessExpression:
-            if (e.name.kind === r.PrivateIdentifier) throw new Error("Non-private identifier expected.");
+            if (e.name.kind === r.PrivateIdentifier) {
+              throw new Error(
+                "Non-private identifier expected.",
+              );
+            }
             l = this.createNode(e, {
               type: n.AST_NODE_TYPES.JSXMemberExpression,
               object: this.convertJSXTagName(e.expression, a),
@@ -1903,7 +2096,10 @@ var Or = pe.default ?? pe,
           e.type && (a.returnType = this.convertTypeAnnotation(e.type, e)),
           (0, c.hasModifier)(r.ReadonlyKeyword, e) && (a.readonly = !0),
           e.typeParameters
-          && (a.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters));
+          && (a.typeParameters = this
+            .convertTSTypeParametersToTypeParametersDeclaration(
+              e.typeParameters,
+            ));
         let l = (0, c.getTSNodeAccessibility)(e);
         return l && (a.accessibility = l),
           (0, c.hasModifier)(r.ExportKeyword, e) && (a.export = !0),
@@ -1911,7 +2107,7 @@ var Or = pe.default ?? pe,
           a;
       }
       convertAssertClasue(e) {
-        return e === void 0 ? [] : e.elements.map(a => this.convertChild(a));
+        return e === void 0 ? [] : e.elements.map((a) => this.convertChild(a));
       }
       applyModifiersToResult(e, a) {
         if (!a) return;
@@ -1935,18 +2131,30 @@ var Or = pe.default ?? pe,
         l.length > 0 && (e.modifiers = l);
       }
       fixParentLocation(e, a) {
-        a[0] < e.range[0] && (e.range[0] = a[0], e.loc.start = (0, c.getLineAndCharacterFor)(e.range[0], this.ast)),
-          a[1] > e.range[1] && (e.range[1] = a[1], e.loc.end = (0, c.getLineAndCharacterFor)(e.range[1], this.ast));
+        a[0] < e.range[0]
+        && (e.range[0] = a[0], e.loc.start = (0, c.getLineAndCharacterFor)(e.range[0], this.ast)),
+          a[1] > e.range[1]
+          && (e.range[1] = a[1], e.loc.end = (0, c.getLineAndCharacterFor)(e.range[1], this.ast));
       }
       assertModuleSpecifier(e, a) {
         var l;
         if (!a && e.moduleSpecifier == null) {
-          throw (0, c.createError)(this.ast, e.pos, "Module specifier must be a string literal.");
+          throw (0, c.createError)(
+            this.ast,
+            e.pos,
+            "Module specifier must be a string literal.",
+          );
         }
         if (
-          e.moduleSpecifier && ((l = e.moduleSpecifier) === null || l === void 0 ? void 0 : l.kind) !== r.StringLiteral
+          e.moduleSpecifier && ((l = e.moduleSpecifier) === null || l === void 0
+              ? void 0
+              : l.kind) !== r.StringLiteral
         ) {
-          throw (0, c.createError)(this.ast, e.moduleSpecifier.pos, "Module specifier must be a string literal.");
+          throw (0, c.createError)(
+            this.ast,
+            e.moduleSpecifier.pos,
+            "Module specifier must be a string literal.",
+          );
         }
       }
       convertNode(e, a) {
@@ -1967,9 +2175,15 @@ var Or = pe.default ?? pe,
           case r.Identifier:
             return (0, c.isThisInTypeQuery)(e)
               ? this.createNode(e, { type: n.AST_NODE_TYPES.ThisExpression })
-              : this.createNode(e, { type: n.AST_NODE_TYPES.Identifier, name: e.text });
+              : this.createNode(e, {
+                type: n.AST_NODE_TYPES.Identifier,
+                name: e.text,
+              });
           case r.PrivateIdentifier:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.PrivateIdentifier, name: e.text.slice(1) });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.PrivateIdentifier,
+              name: e.text.slice(1),
+            });
           case r.WithStatement:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.WithStatement,
@@ -1988,9 +2202,15 @@ var Or = pe.default ?? pe,
               body: this.convertChild(e.statement),
             });
           case r.ContinueStatement:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.ContinueStatement, label: this.convertChild(e.label) });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.ContinueStatement,
+              label: this.convertChild(e.label),
+            });
           case r.BreakStatement:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.BreakStatement, label: this.convertChild(e.label) });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.BreakStatement,
+              label: this.convertChild(e.label),
+            });
           case r.IfStatement:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.IfStatement,
@@ -2002,14 +2222,16 @@ var Or = pe.default ?? pe,
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.SwitchStatement,
               discriminant: this.convertChild(e.expression),
-              cases: e.caseBlock.clauses.map(i => this.convertChild(i)),
+              cases: e.caseBlock.clauses.map((i) => this.convertChild(i)),
             });
           case r.CaseClause:
           case r.DefaultClause:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.SwitchCase,
-              test: e.kind === r.CaseClause ? this.convertChild(e.expression) : null,
-              consequent: e.statements.map(i => this.convertChild(i)),
+              test: e.kind === r.CaseClause
+                ? this.convertChild(e.expression)
+                : null,
+              consequent: e.statements.map((i) => this.convertChild(i)),
             });
           case r.ThrowStatement:
             return this.createNode(e, {
@@ -2027,7 +2249,10 @@ var Or = pe.default ?? pe,
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.CatchClause,
               param: e.variableDeclaration
-                ? this.convertBindingNameWithTypeAnnotation(e.variableDeclaration.name, e.variableDeclaration.type)
+                ? this.convertBindingNameWithTypeAnnotation(
+                  e.variableDeclaration.name,
+                  e.variableDeclaration.type,
+                )
                 : null,
               body: this.convertChild(e.block),
             });
@@ -2069,7 +2294,9 @@ var Or = pe.default ?? pe,
           case r.FunctionDeclaration: {
             let i = (0, c.hasModifier)(r.DeclareKeyword, e),
               m = this.createNode(e, {
-                type: i || !e.body ? n.AST_NODE_TYPES.TSDeclareFunction : n.AST_NODE_TYPES.FunctionDeclaration,
+                type: i || !e.body
+                  ? n.AST_NODE_TYPES.TSDeclareFunction
+                  : n.AST_NODE_TYPES.FunctionDeclaration,
                 id: this.convertChild(e.name),
                 generator: !!e.asteriskToken,
                 expression: !1,
@@ -2077,9 +2304,13 @@ var Or = pe.default ?? pe,
                 params: this.convertParameters(e.parameters),
                 body: this.convertChild(e.body) || void 0,
               });
-            return e.type && (m.returnType = this.convertTypeAnnotation(e.type, e)),
+            return e.type
+              && (m.returnType = this.convertTypeAnnotation(e.type, e)),
               e.typeParameters
-              && (m.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
+              && (m.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )),
               i && (m.declare = !0),
               this.fixExports(e, m);
           }
@@ -2094,7 +2325,7 @@ var Or = pe.default ?? pe,
           case r.VariableStatement: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.VariableDeclaration,
-              declarations: e.declarationList.declarations.map(m => this.convertChild(m)),
+              declarations: e.declarationList.declarations.map((m) => this.convertChild(m)),
               kind: (0, c.getDeclarationKind)(e.declarationList),
             });
             return (0, c.hasModifier)(r.DeclareKeyword, e) && (i.declare = !0), this.fixExports(e, i);
@@ -2102,7 +2333,7 @@ var Or = pe.default ?? pe,
           case r.VariableDeclarationList:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.VariableDeclaration,
-              declarations: e.declarations.map(i => this.convertChild(i)),
+              declarations: e.declarations.map((i) => this.convertChild(i)),
               kind: (0, c.getDeclarationKind)(e),
             });
           case r.ExpressionStatement:
@@ -2111,32 +2342,39 @@ var Or = pe.default ?? pe,
               expression: this.convertChild(e.expression),
             });
           case r.ThisKeyword:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.ThisExpression });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.ThisExpression,
+            });
           case r.ArrayLiteralExpression:
             return this.allowPattern
               ? this.createNode(e, {
                 type: n.AST_NODE_TYPES.ArrayPattern,
-                elements: e.elements.map(i => this.convertPattern(i)),
+                elements: e.elements.map((i) => this.convertPattern(i)),
               })
               : this.createNode(e, {
                 type: n.AST_NODE_TYPES.ArrayExpression,
-                elements: e.elements.map(i => this.convertChild(i)),
+                elements: e.elements.map((i) => this.convertChild(i)),
               });
           case r.ObjectLiteralExpression:
             return this.allowPattern
               ? this.createNode(e, {
                 type: n.AST_NODE_TYPES.ObjectPattern,
-                properties: e.properties.map(i => this.convertPattern(i)),
+                properties: e.properties.map((i) => this.convertPattern(i)),
               })
               : this.createNode(e, {
                 type: n.AST_NODE_TYPES.ObjectExpression,
-                properties: e.properties.map(i => this.convertChild(i)),
+                properties: e.properties.map((i) => this.convertChild(i)),
               });
           case r.PropertyAssignment:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.Property,
               key: this.convertChild(e.name),
-              value: this.converter(e.initializer, e, this.inTypeMode, this.allowPattern),
+              value: this.converter(
+                e.initializer,
+                e,
+                this.inTypeMode,
+                this.allowPattern,
+              ),
               computed: (0, c.isComputedProperty)(e.name),
               method: !1,
               shorthand: !1,
@@ -2173,7 +2411,9 @@ var Or = pe.default ?? pe,
               m = (0, c.hasModifier)(r.AccessorKeyword, e),
               g = (() =>
                 m
-                  ? i ? n.AST_NODE_TYPES.TSAbstractAccessorProperty : n.AST_NODE_TYPES.AccessorProperty
+                  ? i
+                    ? n.AST_NODE_TYPES.TSAbstractAccessorProperty
+                    : n.AST_NODE_TYPES.AccessorProperty
                   : i
                   ? n.AST_NODE_TYPES.TSAbstractPropertyDefinition
                   : n.AST_NODE_TYPES.PropertyDefinition)(),
@@ -2187,25 +2427,34 @@ var Or = pe.default ?? pe,
                 declare: (0, c.hasModifier)(r.DeclareKeyword, e),
                 override: (0, c.hasModifier)(r.OverrideKeyword, e),
               });
-            e.type && (_.typeAnnotation = this.convertTypeAnnotation(e.type, e));
+            e.type
+              && (_.typeAnnotation = this.convertTypeAnnotation(e.type, e));
             let P = (0, v.getDecorators)(e);
-            P && (_.decorators = P.map(M => this.convertChild(M)));
+            P && (_.decorators = P.map((M) => this.convertChild(M)));
             let N = (0, c.getTSNodeAccessibility)(e);
             return N && (_.accessibility = N),
-              (e.name.kind === r.Identifier || e.name.kind === r.ComputedPropertyName
-                || e.name.kind === r.PrivateIdentifier) && e.questionToken && (_.optional = !0),
+              (e.name.kind === r.Identifier
+                || e.name.kind === r.ComputedPropertyName
+                || e.name.kind === r.PrivateIdentifier)
+              && e.questionToken && (_.optional = !0),
               e.exclamationToken && (_.definite = !0),
-              _.key.type === n.AST_NODE_TYPES.Literal && e.questionToken && (_.optional = !0),
+              _.key.type === n.AST_NODE_TYPES.Literal && e.questionToken
+              && (_.optional = !0),
               _;
           }
           case r.GetAccessor:
           case r.SetAccessor:
-            if (e.parent.kind === r.InterfaceDeclaration || e.parent.kind === r.TypeLiteral) {
+            if (
+              e.parent.kind === r.InterfaceDeclaration
+              || e.parent.kind === r.TypeLiteral
+            ) {
               return this.convertMethodSignature(e);
             }
           case r.MethodDeclaration: {
             let i = this.createNode(e, {
-              type: e.body ? n.AST_NODE_TYPES.FunctionExpression : n.AST_NODE_TYPES.TSEmptyBodyFunctionExpression,
+              type: e.body
+                ? n.AST_NODE_TYPES.FunctionExpression
+                : n.AST_NODE_TYPES.TSEmptyBodyFunctionExpression,
               id: null,
               generator: !!e.asteriskToken,
               expression: !1,
@@ -2216,11 +2465,14 @@ var Or = pe.default ?? pe,
             });
             e.type && (i.returnType = this.convertTypeAnnotation(e.type, e)),
               e.typeParameters
-              && (i.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters),
+              && (i.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                ),
                 this.fixParentLocation(i, i.typeParameters.range));
             let m;
             if (a.kind === r.ObjectLiteralExpression) {
-              i.params = e.parameters.map(g => this.convertChild(g)),
+              i.params = e.parameters.map((g) => this.convertChild(g)),
                 m = this.createNode(e, {
                   type: n.AST_NODE_TYPES.Property,
                   key: this.convertChild(e.name),
@@ -2245,7 +2497,7 @@ var Or = pe.default ?? pe,
                 override: (0, c.hasModifier)(r.OverrideKeyword, e),
               });
               let _ = (0, v.getDecorators)(e);
-              _ && (m.decorators = _.map(N => this.convertChild(N)));
+              _ && (m.decorators = _.map((N) => this.convertChild(N)));
               let P = (0, c.getTSNodeAccessibility)(e);
               P && (m.accessibility = P);
             }
@@ -2254,15 +2506,20 @@ var Or = pe.default ?? pe,
                 ? m.kind = "get"
                 : e.kind === r.SetAccessor
                 ? m.kind = "set"
-                : !m.static && e.name.kind === r.StringLiteral && e.name.text === "constructor"
-                  && m.type !== n.AST_NODE_TYPES.Property && (m.kind = "constructor"),
+                : !m.static && e.name.kind === r.StringLiteral
+                  && e.name.text === "constructor"
+                  && m.type !== n.AST_NODE_TYPES.Property
+                  && (m.kind = "constructor"),
               m;
           }
           case r.Constructor: {
             let i = (0, c.getLastModifier)(e),
-              m = i && (0, c.findNextToken)(i, e, this.ast) || e.getFirstToken(),
+              m = i && (0, c.findNextToken)(i, e, this.ast)
+                || e.getFirstToken(),
               g = this.createNode(e, {
-                type: e.body ? n.AST_NODE_TYPES.FunctionExpression : n.AST_NODE_TYPES.TSEmptyBodyFunctionExpression,
+                type: e.body
+                  ? n.AST_NODE_TYPES.FunctionExpression
+                  : n.AST_NODE_TYPES.TSEmptyBodyFunctionExpression,
                 id: null,
                 params: this.convertParameters(e.parameters),
                 generator: !1,
@@ -2272,7 +2529,10 @@ var Or = pe.default ?? pe,
                 range: [e.parameters.pos - 1, e.end],
               });
             e.typeParameters
-            && (g.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters),
+            && (g.typeParameters = this
+              .convertTSTypeParametersToTypeParametersDeclaration(
+                e.typeParameters,
+              ),
               this.fixParentLocation(g, g.typeParameters.range)),
               e.type && (g.returnType = this.convertTypeAnnotation(e.type, e));
             let _ = this.createNode(e, {
@@ -2305,9 +2565,13 @@ var Or = pe.default ?? pe,
               async: (0, c.hasModifier)(r.AsyncKeyword, e),
               expression: !1,
             });
-            return e.type && (i.returnType = this.convertTypeAnnotation(e.type, e)),
+            return e.type
+              && (i.returnType = this.convertTypeAnnotation(e.type, e)),
               e.typeParameters
-              && (i.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
+              && (i.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )),
               i;
           }
           case r.SuperKeyword:
@@ -2315,14 +2579,14 @@ var Or = pe.default ?? pe,
           case r.ArrayBindingPattern:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.ArrayPattern,
-              elements: e.elements.map(i => this.convertPattern(i)),
+              elements: e.elements.map((i) => this.convertPattern(i)),
             });
           case r.OmittedExpression:
             return null;
           case r.ObjectBindingPattern:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.ObjectPattern,
-              properties: e.elements.map(i => this.convertPattern(i)),
+              properties: e.elements.map((i) => this.convertPattern(i)),
             });
           case r.BindingElement:
             if (a.kind === r.ArrayBindingPattern) {
@@ -2334,20 +2598,28 @@ var Or = pe.default ?? pe,
                   right: this.convertChild(e.initializer),
                 })
                 : e.dotDotDotToken
-                ? this.createNode(e, { type: n.AST_NODE_TYPES.RestElement, argument: i })
+                ? this.createNode(e, {
+                  type: n.AST_NODE_TYPES.RestElement,
+                  argument: i,
+                })
                 : i;
             } else {
               let i;
               return e.dotDotDotToken
                 ? i = this.createNode(e, {
                   type: n.AST_NODE_TYPES.RestElement,
-                  argument: this.convertChild((l = e.propertyName) !== null && l !== void 0 ? l : e.name),
+                  argument: this.convertChild(
+                    (l = e.propertyName) !== null && l !== void 0 ? l : e.name,
+                  ),
                 })
                 : i = this.createNode(e, {
                   type: n.AST_NODE_TYPES.Property,
-                  key: this.convertChild((u = e.propertyName) !== null && u !== void 0 ? u : e.name),
+                  key: this.convertChild(
+                    (u = e.propertyName) !== null && u !== void 0 ? u : e.name,
+                  ),
                   value: this.convertChild(e.name),
-                  computed: !!(e.propertyName && e.propertyName.kind === r.ComputedPropertyName),
+                  computed: !!(e.propertyName
+                    && e.propertyName.kind === r.ComputedPropertyName),
                   method: !1,
                   shorthand: !e.propertyName,
                   kind: "init",
@@ -2371,9 +2643,13 @@ var Or = pe.default ?? pe,
               async: (0, c.hasModifier)(r.AsyncKeyword, e),
               expression: e.body.kind !== r.Block,
             });
-            return e.type && (i.returnType = this.convertTypeAnnotation(e.type, e)),
+            return e.type
+              && (i.returnType = this.convertTypeAnnotation(e.type, e)),
               e.typeParameters
-              && (i.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
+              && (i.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )),
               i;
           }
           case r.YieldExpression:
@@ -2393,7 +2669,13 @@ var Or = pe.default ?? pe,
               quasis: [
                 this.createNode(e, {
                   type: n.AST_NODE_TYPES.TemplateElement,
-                  value: { raw: this.ast.text.slice(e.getStart(this.ast) + 1, e.end - 1), cooked: e.text },
+                  value: {
+                    raw: this.ast.text.slice(
+                      e.getStart(this.ast) + 1,
+                      e.end - 1,
+                    ),
+                    cooked: e.text,
+                  },
                   tail: !0,
                 }),
               ],
@@ -2405,7 +2687,7 @@ var Or = pe.default ?? pe,
               quasis: [this.convertChild(e.head)],
               expressions: [],
             });
-            return e.templateSpans.forEach(m => {
+            return e.templateSpans.forEach((m) => {
               i.expressions.push(this.convertChild(m.expression)), i.quasis.push(this.convertChild(m.literal));
             }),
               i;
@@ -2425,19 +2707,34 @@ var Or = pe.default ?? pe,
             let i = e.kind === r.TemplateTail;
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TemplateElement,
-              value: { raw: this.ast.text.slice(e.getStart(this.ast) + 1, e.end - (i ? 1 : 2)), cooked: e.text },
+              value: {
+                raw: this.ast.text.slice(
+                  e.getStart(this.ast) + 1,
+                  e.end - (i ? 1 : 2),
+                ),
+                cooked: e.text,
+              },
               tail: i,
             });
           }
           case r.SpreadAssignment:
           case r.SpreadElement:
             return this.allowPattern
-              ? this.createNode(e, { type: n.AST_NODE_TYPES.RestElement, argument: this.convertPattern(e.expression) })
-              : this.createNode(e, { type: n.AST_NODE_TYPES.SpreadElement, argument: this.convertChild(e.expression) });
+              ? this.createNode(e, {
+                type: n.AST_NODE_TYPES.RestElement,
+                argument: this.convertPattern(e.expression),
+              })
+              : this.createNode(e, {
+                type: n.AST_NODE_TYPES.SpreadElement,
+                argument: this.convertChild(e.expression),
+              });
           case r.Parameter: {
             let i, m;
             return e.dotDotDotToken
-              ? i = m = this.createNode(e, { type: n.AST_NODE_TYPES.RestElement, argument: this.convertChild(e.name) })
+              ? i = m = this.createNode(e, {
+                type: n.AST_NODE_TYPES.RestElement,
+                argument: this.convertChild(e.name),
+              })
               : e.initializer
               ? (i = this.convertChild(e.name),
                 m = this.createNode(e, {
@@ -2453,12 +2750,19 @@ var Or = pe.default ?? pe,
                 this.fixParentLocation(i, i.typeAnnotation.range)),
               e.questionToken
               && (e.questionToken.end > i.range[1]
-                && (i.range[1] = e.questionToken.end, i.loc.end = (0, c.getLineAndCharacterFor)(i.range[1], this.ast)),
+                && (i.range[1] = e.questionToken.end,
+                  i.loc.end = (0, c.getLineAndCharacterFor)(
+                    i.range[1],
+                    this.ast,
+                  )),
                 i.optional = !0),
               (0, v.getModifiers)(e)
                 ? this.createNode(e, {
                   type: n.AST_NODE_TYPES.TSParameterProperty,
-                  accessibility: (T = (0, c.getTSNodeAccessibility)(e)) !== null && T !== void 0 ? T : void 0,
+                  accessibility: (T = (0, c.getTSNodeAccessibility)(e)) !== null
+                      && T !== void 0
+                    ? T
+                    : void 0,
                   readonly: (0, c.hasModifier)(r.ReadonlyKeyword, e) || void 0,
                   static: (0, c.hasModifier)(r.StaticKeyword, e) || void 0,
                   export: (0, c.hasModifier)(r.ExportKeyword, e) || void 0,
@@ -2473,8 +2777,8 @@ var Or = pe.default ?? pe,
               m = e.kind === r.ClassDeclaration
                 ? n.AST_NODE_TYPES.ClassDeclaration
                 : n.AST_NODE_TYPES.ClassExpression,
-              g = i.find(K => K.token === r.ExtendsKeyword),
-              _ = i.find(K => K.token === r.ImplementsKeyword),
+              g = i.find((K) => K.token === r.ExtendsKeyword),
+              _ = i.find((K) => K.token === r.ImplementsKeyword),
               P = this.createNode(e, {
                 type: m,
                 id: this.convertChild(e.name),
@@ -2483,7 +2787,9 @@ var Or = pe.default ?? pe,
                   body: [],
                   range: [e.members.pos - 1, e.end],
                 }),
-                superClass: g?.types[0] ? this.convertChild(g.types[0].expression) : null,
+                superClass: g?.types[0]
+                  ? this.convertChild(g.types[0].expression)
+                  : null,
               });
             if (g) {
               if (g.types.length > 1) {
@@ -2494,20 +2800,26 @@ var Or = pe.default ?? pe,
                 );
               }
               !((C = g.types[0]) === null || C === void 0) && C.typeArguments
-                && (P.superTypeParameters = this.convertTypeArgumentsToTypeParameters(
-                  g.types[0].typeArguments,
-                  g.types[0],
-                ));
+                && (P.superTypeParameters = this
+                  .convertTypeArgumentsToTypeParameters(
+                    g.types[0].typeArguments,
+                    g.types[0],
+                  ));
             }
             e.typeParameters
-            && (P.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
-              _ && (P.implements = _.types.map(K => this.convertChild(K))),
+            && (P.typeParameters = this
+              .convertTSTypeParametersToTypeParametersDeclaration(
+                e.typeParameters,
+              )),
+              _ && (P.implements = _.types.map((K) => this.convertChild(K))),
               (0, c.hasModifier)(r.AbstractKeyword, e) && (P.abstract = !0),
               (0, c.hasModifier)(r.DeclareKeyword, e) && (P.declare = !0);
             let N = (0, v.getDecorators)(e);
-            N && (P.decorators = N.map(K => this.convertChild(K)));
+            N && (P.decorators = N.map((K) => this.convertChild(K)));
             let M = e.members.filter(c.isESTreeClassMember);
-            return M.length && (P.body.body = M.map(K => this.convertChild(K))), this.fixExports(e, P);
+            return M.length
+              && (P.body.body = M.map((K) => this.convertChild(K))),
+              this.fixExports(e, P);
           }
           case r.ModuleBlock:
             return this.createNode(e, {
@@ -2526,16 +2838,19 @@ var Or = pe.default ?? pe,
             if (
               e.importClause
               && (e.importClause.isTypeOnly && (i.importKind = "type"),
-                e.importClause.name && i.specifiers.push(this.convertChild(e.importClause)),
+                e.importClause.name
+                && i.specifiers.push(this.convertChild(e.importClause)),
                 e.importClause.namedBindings)
             ) {
               switch (e.importClause.namedBindings.kind) {
                 case r.NamespaceImport:
-                  i.specifiers.push(this.convertChild(e.importClause.namedBindings));
+                  i.specifiers.push(
+                    this.convertChild(e.importClause.namedBindings),
+                  );
                   break;
                 case r.NamedImports:
                   i.specifiers = i.specifiers.concat(
-                    e.importClause.namedBindings.elements.map(m => this.convertChild(m)),
+                    e.importClause.namedBindings.elements.map((m) => this.convertChild(m)),
                   );
                   break;
               }
@@ -2551,20 +2866,28 @@ var Or = pe.default ?? pe,
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.ImportSpecifier,
               local: this.convertChild(e.name),
-              imported: this.convertChild((k = e.propertyName) !== null && k !== void 0 ? k : e.name),
+              imported: this.convertChild(
+                (k = e.propertyName) !== null && k !== void 0 ? k : e.name,
+              ),
               importKind: e.isTypeOnly ? "type" : "value",
             });
           case r.ImportClause: {
             let i = this.convertChild(e.name);
-            return this.createNode(e, { type: n.AST_NODE_TYPES.ImportDefaultSpecifier, local: i, range: i.range });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.ImportDefaultSpecifier,
+              local: i,
+              range: i.range,
+            });
           }
           case r.ExportDeclaration:
-            return ((A = e.exportClause) === null || A === void 0 ? void 0 : A.kind) === r.NamedExports
+            return ((A = e.exportClause) === null || A === void 0
+                ? void 0
+                : A.kind) === r.NamedExports
               ? (this.assertModuleSpecifier(e, !0),
                 this.createNode(e, {
                   type: n.AST_NODE_TYPES.ExportNamedDeclaration,
                   source: this.convertChild(e.moduleSpecifier),
-                  specifiers: e.exportClause.elements.map(i => this.convertChild(i)),
+                  specifiers: e.exportClause.elements.map((i) => this.convertChild(i)),
                   exportKind: e.isTypeOnly ? "type" : "value",
                   declaration: null,
                   assertions: this.convertAssertClasue(e.assertClause),
@@ -2582,7 +2905,9 @@ var Or = pe.default ?? pe,
           case r.ExportSpecifier:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.ExportSpecifier,
-              local: this.convertChild((w = e.propertyName) !== null && w !== void 0 ? w : e.name),
+              local: this.convertChild(
+                (w = e.propertyName) !== null && w !== void 0 ? w : e.name,
+              ),
               exported: this.convertChild(e.name),
               exportKind: e.isTypeOnly ? "type" : "value",
             });
@@ -2643,16 +2968,21 @@ var Or = pe.default ?? pe,
             });
           case r.BinaryExpression:
             if ((0, c.isComma)(e.operatorToken)) {
-              let i = this.createNode(e, { type: n.AST_NODE_TYPES.SequenceExpression, expressions: [] }),
+              let i = this.createNode(e, {
+                  type: n.AST_NODE_TYPES.SequenceExpression,
+                  expressions: [],
+                }),
                 m = this.convertChild(e.left);
-              return m.type === n.AST_NODE_TYPES.SequenceExpression && e.left.kind !== r.ParenthesizedExpression
+              return m.type === n.AST_NODE_TYPES.SequenceExpression
+                  && e.left.kind !== r.ParenthesizedExpression
                 ? i.expressions = i.expressions.concat(m.expressions)
                 : i.expressions.push(m),
                 i.expressions.push(this.convertChild(e.right)),
                 i;
             } else {
               let i = (0, c.getBinaryExpressionType)(e.operatorToken);
-              return this.allowPattern && i === n.AST_NODE_TYPES.AssignmentExpression
+              return this.allowPattern
+                  && i === n.AST_NODE_TYPES.AssignmentExpression
                 ? this.createNode(e, {
                   type: n.AST_NODE_TYPES.AssignmentPattern,
                   left: this.convertPattern(e.left, e),
@@ -2661,7 +2991,12 @@ var Or = pe.default ?? pe,
                 : this.createNode(e, {
                   type: i,
                   operator: (0, c.getTextForTokenKind)(e.operatorToken.kind),
-                  left: this.converter(e.left, e, this.inTypeMode, i === n.AST_NODE_TYPES.AssignmentExpression),
+                  left: this.converter(
+                    e.left,
+                    e,
+                    this.inTypeMode,
+                    i === n.AST_NODE_TYPES.AssignmentExpression,
+                  ),
                   right: this.convertChild(e.right),
                 });
             }
@@ -2703,11 +3038,13 @@ var Or = pe.default ?? pe,
               return this.createNode(e, {
                 type: n.AST_NODE_TYPES.ImportExpression,
                 source: this.convertChild(e.arguments[0]),
-                attributes: e.arguments[1] ? this.convertChild(e.arguments[1]) : null,
+                attributes: e.arguments[1]
+                  ? this.convertChild(e.arguments[1])
+                  : null,
               });
             }
             let i = this.convertChild(e.expression),
-              m = e.arguments.map(_ => this.convertChild(_)),
+              m = e.arguments.map((_) => this.convertChild(_)),
               g = this.createNode(e, {
                 type: n.AST_NODE_TYPES.CallExpression,
                 callee: i,
@@ -2715,7 +3052,10 @@ var Or = pe.default ?? pe,
                 optional: e.questionDotToken !== void 0,
               });
             return e.typeArguments
-              && (g.typeParameters = this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)),
+              && (g.typeParameters = this.convertTypeArgumentsToTypeParameters(
+                e.typeArguments,
+                e,
+              )),
               this.convertChainExpression(g, e);
           }
           case r.NewExpression: {
@@ -2723,11 +3063,14 @@ var Or = pe.default ?? pe,
               type: n.AST_NODE_TYPES.NewExpression,
               callee: this.convertChild(e.expression),
               arguments: e.arguments
-                ? e.arguments.map(m => this.convertChild(m))
+                ? e.arguments.map((m) => this.convertChild(m))
                 : [],
             });
             return e.typeArguments
-              && (i.typeParameters = this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)),
+              && (i.typeParameters = this.convertTypeArgumentsToTypeParameters(
+                e.typeArguments,
+                e,
+              )),
               i;
           }
           case r.ConditionalExpression:
@@ -2754,11 +3097,17 @@ var Or = pe.default ?? pe,
           case r.StringLiteral:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.Literal,
-              value: a.kind === r.JsxAttribute ? (0, c.unescapeStringLiteralText)(e.text) : e.text,
+              value: a.kind === r.JsxAttribute
+                ? (0, c.unescapeStringLiteralText)(e.text)
+                : e.text,
               raw: e.getText(),
             });
           case r.NumericLiteral:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.Literal, value: Number(e.text), raw: e.getText() });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.Literal,
+              value: Number(e.text),
+              raw: e.getText(),
+            });
           case r.BigIntLiteral: {
             let i = (0, c.getRange)(e, this.ast),
               m = this.ast.text.slice(i[0], i[1]),
@@ -2773,7 +3122,9 @@ var Or = pe.default ?? pe,
             });
           }
           case r.RegularExpressionLiteral: {
-            let i = e.text.slice(1, e.text.lastIndexOf("/")), m = e.text.slice(e.text.lastIndexOf("/") + 1), g = null;
+            let i = e.text.slice(1, e.text.lastIndexOf("/")),
+              m = e.text.slice(e.text.lastIndexOf("/") + 1),
+              g = null;
             try {
               g = new RegExp(i, m);
             } catch {
@@ -2787,30 +3138,46 @@ var Or = pe.default ?? pe,
             });
           }
           case r.TrueKeyword:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.Literal, value: !0, raw: "true" });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.Literal,
+              value: !0,
+              raw: "true",
+            });
           case r.FalseKeyword:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.Literal, value: !1, raw: "false" });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.Literal,
+              value: !1,
+              raw: "false",
+            });
           case r.NullKeyword:
             return !y.typescriptVersionIsAtLeast["4.0"] && this.inTypeMode
               ? this.createNode(e, { type: n.AST_NODE_TYPES.TSNullKeyword })
-              : this.createNode(e, { type: n.AST_NODE_TYPES.Literal, value: null, raw: "null" });
+              : this.createNode(e, {
+                type: n.AST_NODE_TYPES.Literal,
+                value: null,
+                raw: "null",
+              });
           case r.EmptyStatement:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.EmptyStatement });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.EmptyStatement,
+            });
           case r.DebuggerStatement:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.DebuggerStatement });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.DebuggerStatement,
+            });
           case r.JsxElement:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.JSXElement,
               openingElement: this.convertChild(e.openingElement),
               closingElement: this.convertChild(e.closingElement),
-              children: e.children.map(i => this.convertChild(i)),
+              children: e.children.map((i) => this.convertChild(i)),
             });
           case r.JsxFragment:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.JSXFragment,
               openingFragment: this.convertChild(e.openingFragment),
               closingFragment: this.convertChild(e.closingFragment),
-              children: e.children.map(i => this.convertChild(i)),
+              children: e.children.map((i) => this.convertChild(i)),
             });
           case r.JsxSelfClosingElement:
             return this.createNode(e, {
@@ -2818,11 +3185,14 @@ var Or = pe.default ?? pe,
               openingElement: this.createNode(e, {
                 type: n.AST_NODE_TYPES.JSXOpeningElement,
                 typeParameters: e.typeArguments
-                  ? this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)
+                  ? this.convertTypeArgumentsToTypeParameters(
+                    e.typeArguments,
+                    e,
+                  )
                   : void 0,
                 selfClosing: !0,
                 name: this.convertJSXTagName(e.tagName, e),
-                attributes: e.attributes.properties.map(i => this.convertChild(i)),
+                attributes: e.attributes.properties.map((i) => this.convertChild(i)),
                 range: (0, c.getRange)(e, this.ast),
               }),
               closingElement: null,
@@ -2836,7 +3206,7 @@ var Or = pe.default ?? pe,
                 : void 0,
               selfClosing: !1,
               name: this.convertJSXTagName(e.tagName, e),
-              attributes: e.attributes.properties.map(i => this.convertChild(i)),
+              attributes: e.attributes.properties.map((i) => this.convertChild(i)),
             });
           case r.JsxClosingElement:
             return this.createNode(e, {
@@ -2844,9 +3214,13 @@ var Or = pe.default ?? pe,
               name: this.convertJSXTagName(e.tagName, e),
             });
           case r.JsxOpeningFragment:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.JSXOpeningFragment });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.JSXOpeningFragment,
+            });
           case r.JsxClosingFragment:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.JSXClosingFragment });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.JSXClosingFragment,
+            });
           case r.JsxExpression: {
             let i = e.expression
               ? this.convertChild(e.expression)
@@ -2855,8 +3229,14 @@ var Or = pe.default ?? pe,
                 range: [e.getStart(this.ast) + 1, e.getEnd() - 1],
               });
             return e.dotDotDotToken
-              ? this.createNode(e, { type: n.AST_NODE_TYPES.JSXSpreadChild, expression: i })
-              : this.createNode(e, { type: n.AST_NODE_TYPES.JSXExpressionContainer, expression: i });
+              ? this.createNode(e, {
+                type: n.AST_NODE_TYPES.JSXSpreadChild,
+                expression: i,
+              })
+              : this.createNode(e, {
+                type: n.AST_NODE_TYPES.JSXExpressionContainer,
+                expression: i,
+              });
           }
           case r.JsxAttribute:
             return this.createNode(e, {
@@ -2865,7 +3245,9 @@ var Or = pe.default ?? pe,
               value: this.convertChild(e.initializer),
             });
           case r.JsxText: {
-            let i = e.getFullStart(), m = e.getEnd(), g = this.ast.text.slice(i, m);
+            let i = e.getFullStart(),
+              m = e.getEnd(),
+              g = this.ast.text.slice(i, m);
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.JSXText,
               value: (0, c.unescapeStringLiteralText)(g),
@@ -2896,7 +3278,9 @@ var Or = pe.default ?? pe,
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSTypeParameter,
               name: this.convertType(e.name),
-              constraint: e.constraint ? this.convertType(e.constraint) : void 0,
+              constraint: e.constraint
+                ? this.convertType(e.constraint)
+                : void 0,
               default: e.default ? this.convertType(e.default) : void 0,
               in: (0, c.hasModifier)(r.InKeyword, e),
               out: (0, c.hasModifier)(r.OutKeyword, e),
@@ -2916,7 +3300,9 @@ var Or = pe.default ?? pe,
           case r.VoidKeyword:
           case r.UndefinedKeyword:
           case r.IntrinsicKeyword:
-            return this.createNode(e, { type: n.AST_NODE_TYPES[`TS${r[e.kind]}`] });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES[`TS${r[e.kind]}`],
+            });
           case r.NonNullExpression: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSNonNullExpression,
@@ -2927,7 +3313,7 @@ var Or = pe.default ?? pe,
           case r.TypeLiteral:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSTypeLiteral,
-              members: e.members.map(i => this.convertChild(i)),
+              members: e.members.map((i) => this.convertChild(i)),
             });
           case r.ArrayType:
             return this.createNode(e, {
@@ -2952,20 +3338,28 @@ var Or = pe.default ?? pe,
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSTypeQuery,
               exprName: this.convertType(e.exprName),
-              typeParameters: e.typeArguments && this.convertTypeArgumentsToTypeParameters(e.typeArguments, e),
+              typeParameters: e.typeArguments
+                && this.convertTypeArgumentsToTypeParameters(e.typeArguments, e),
             });
           case r.MappedType: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSMappedType,
               typeParameter: this.convertType(e.typeParameter),
-              nameType: (d = this.convertType(e.nameType)) !== null && d !== void 0 ? d : null,
+              nameType: (d = this.convertType(e.nameType)) !== null && d !== void 0
+                ? d
+                : null,
             });
-            return e.readonlyToken && (e.readonlyToken.kind === r.ReadonlyKeyword
-              ? i.readonly = !0
-              : i.readonly = (0, c.getTextForTokenKind)(e.readonlyToken.kind)),
+            return e.readonlyToken
+              && (e.readonlyToken.kind === r.ReadonlyKeyword
+                ? i.readonly = !0
+                : i.readonly = (0, c.getTextForTokenKind)(
+                  e.readonlyToken.kind,
+                )),
               e.questionToken && (e.questionToken.kind === r.QuestionToken
                 ? i.optional = !0
-                : i.optional = (0, c.getTextForTokenKind)(e.questionToken.kind)),
+                : i.optional = (0, c.getTextForTokenKind)(
+                  e.questionToken.kind,
+                )),
               e.type && (i.typeAnnotation = this.convertType(e.type)),
               i;
           }
@@ -2979,7 +3373,10 @@ var Or = pe.default ?? pe,
             });
             return (0, c.hasModifier)(r.DeclareKeyword, e) && (i.declare = !0),
               e.typeParameters
-              && (i.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
+              && (i.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )),
               this.fixExports(e, i);
           }
           case r.MethodSignature:
@@ -2990,7 +3387,9 @@ var Or = pe.default ?? pe,
                 optional: (0, c.isOptional)(e) || void 0,
                 computed: (0, c.isComputedProperty)(e.name),
                 key: this.convertChild(e.name),
-                typeAnnotation: e.type ? this.convertTypeAnnotation(e.type, e) : void 0,
+                typeAnnotation: e.type
+                  ? this.convertTypeAnnotation(e.type, e)
+                  : void 0,
                 initializer: this.convertChild(e.initializer) || void 0,
                 readonly: (0, c.hasModifier)(r.ReadonlyKeyword, e) || void 0,
                 static: (0, c.hasModifier)(r.StaticKeyword, e) || void 0,
@@ -3002,9 +3401,10 @@ var Or = pe.default ?? pe,
           case r.IndexSignature: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSIndexSignature,
-              parameters: e.parameters.map(g => this.convertChild(g)),
+              parameters: e.parameters.map((g) => this.convertChild(g)),
             });
-            e.type && (i.typeAnnotation = this.convertTypeAnnotation(e.type, e)),
+            e.type
+            && (i.typeAnnotation = this.convertTypeAnnotation(e.type, e)),
               (0, c.hasModifier)(r.ReadonlyKeyword, e) && (i.readonly = !0);
             let m = (0, c.getTSNodeAccessibility)(e);
             return m && (i.accessibility = m),
@@ -3018,9 +3418,13 @@ var Or = pe.default ?? pe,
               params: this.convertParameters(e.parameters),
               abstract: (0, c.hasModifier)(r.AbstractKeyword, e),
             });
-            return e.type && (i.returnType = this.convertTypeAnnotation(e.type, e)),
+            return e.type
+              && (i.returnType = this.convertTypeAnnotation(e.type, e)),
               e.typeParameters
-              && (i.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
+              && (i.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )),
               i;
           }
           case r.FunctionType:
@@ -3031,10 +3435,17 @@ var Or = pe.default ?? pe,
                 : e.kind === r.CallSignature
                 ? n.AST_NODE_TYPES.TSCallSignatureDeclaration
                 : n.AST_NODE_TYPES.TSFunctionType,
-              m = this.createNode(e, { type: i, params: this.convertParameters(e.parameters) });
-            return e.type && (m.returnType = this.convertTypeAnnotation(e.type, e)),
+              m = this.createNode(e, {
+                type: i,
+                params: this.convertParameters(e.parameters),
+              });
+            return e.type
+              && (m.returnType = this.convertTypeAnnotation(e.type, e)),
               e.typeParameters
-              && (m.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
+              && (m.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )),
               m;
           }
           case r.ExpressionWithTypeArguments: {
@@ -3044,9 +3455,15 @@ var Or = pe.default ?? pe,
                 : i === r.HeritageClause
                 ? n.AST_NODE_TYPES.TSClassImplements
                 : n.AST_NODE_TYPES.TSInstantiationExpression,
-              g = this.createNode(e, { type: m, expression: this.convertChild(e.expression) });
+              g = this.createNode(e, {
+                type: m,
+                expression: this.convertChild(e.expression),
+              });
             return e.typeArguments
-              && (g.typeParameters = this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)),
+              && (g.typeParameters = this.convertTypeArgumentsToTypeParameters(
+                e.typeArguments,
+                e,
+              )),
               g;
           }
           case r.InterfaceDeclaration: {
@@ -3055,24 +3472,28 @@ var Or = pe.default ?? pe,
                 type: n.AST_NODE_TYPES.TSInterfaceDeclaration,
                 body: this.createNode(e, {
                   type: n.AST_NODE_TYPES.TSInterfaceBody,
-                  body: e.members.map(g => this.convertChild(g)),
+                  body: e.members.map((g) => this.convertChild(g)),
                   range: [e.members.pos - 1, e.end],
                 }),
                 id: this.convertChild(e.name),
               });
             if (
               e.typeParameters
-              && (m.typeParameters = this.convertTSTypeParametersToTypeParametersDeclaration(e.typeParameters)),
-                i.length > 0
+              && (m.typeParameters = this
+                .convertTSTypeParametersToTypeParametersDeclaration(
+                  e.typeParameters,
+                )), i.length > 0
             ) {
               let g = [], _ = [];
               for (let P of i) {
-                if (P.token === r.ExtendsKeyword) for (let N of P.types) g.push(this.convertChild(N, e));
-                else for (let N of P.types) _.push(this.convertChild(N, e));
+                if (P.token === r.ExtendsKeyword) {
+                  for (let N of P.types) g.push(this.convertChild(N, e));
+                } else for (let N of P.types) _.push(this.convertChild(N, e));
               }
               g.length && (m.extends = g), _.length && (m.implements = _);
             }
-            return (0, c.hasModifier)(r.AbstractKeyword, e) && (m.abstract = !0),
+            return (0, c.hasModifier)(r.AbstractKeyword, e)
+              && (m.abstract = !0),
               (0, c.hasModifier)(r.DeclareKeyword, e) && (m.declare = !0),
               this.fixExports(e, m);
           }
@@ -3095,20 +3516,27 @@ var Or = pe.default ?? pe,
               isTypeOf: !!e.isTypeOf,
               parameter: this.convertChild(e.argument),
               qualifier: this.convertChild(e.qualifier),
-              typeParameters: e.typeArguments ? this.convertTypeArgumentsToTypeParameters(e.typeArguments, e) : null,
+              typeParameters: e.typeArguments
+                ? this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)
+                : null,
             });
           case r.EnumDeclaration: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSEnumDeclaration,
               id: this.convertChild(e.name),
-              members: e.members.map(m => this.convertChild(m)),
+              members: e.members.map((m) => this.convertChild(m)),
             });
             return this.applyModifiersToResult(i, (0, v.getModifiers)(e)), this.fixExports(e, i);
           }
           case r.EnumMember: {
-            let i = this.createNode(e, { type: n.AST_NODE_TYPES.TSEnumMember, id: this.convertChild(e.name) });
-            return e.initializer && (i.initializer = this.convertChild(e.initializer)),
-              e.name.kind === f.SyntaxKind.ComputedPropertyName && (i.computed = !0),
+            let i = this.createNode(e, {
+              type: n.AST_NODE_TYPES.TSEnumMember,
+              id: this.convertChild(e.name),
+            });
+            return e.initializer
+              && (i.initializer = this.convertChild(e.initializer)),
+              e.name.kind === f.SyntaxKind.ComputedPropertyName
+              && (i.computed = !0),
               i;
           }
           case r.ModuleDeclaration: {
@@ -3117,9 +3545,13 @@ var Or = pe.default ?? pe,
               Object.assign(
                 { type: n.AST_NODE_TYPES.TSModuleDeclaration },
                 (() => {
-                  let m = this.convertChild(e.name), g = this.convertChild(e.body);
+                  let m = this.convertChild(e.name),
+                    g = this.convertChild(e.body);
                   if (e.flags & f.NodeFlags.GlobalAugmentation) {
-                    if (g == null || g.type === n.AST_NODE_TYPES.TSModuleDeclaration) {
+                    if (
+                      g == null
+                      || g.type === n.AST_NODE_TYPES.TSModuleDeclaration
+                    ) {
                       throw new Error(
                         "Expected a valid module body",
                       );
@@ -3138,7 +3570,10 @@ var Or = pe.default ?? pe,
                       );
                     }
                     return { kind: "namespace", id: m, body: g };
-                  } else return Object.assign({ kind: "module", id: m }, g != null ? { body: g } : {});
+                  } else {return Object.assign(
+                      { kind: "module", id: m },
+                      g != null ? { body: g } : {},
+                    );}
                 })(),
               ),
             );
@@ -3149,12 +3584,12 @@ var Or = pe.default ?? pe,
           case r.UnionType:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSUnionType,
-              types: e.types.map(i => this.convertType(i)),
+              types: e.types.map((i) => this.convertType(i)),
             });
           case r.IntersectionType:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSIntersectionType,
-              types: e.types.map(i => this.convertType(i)),
+              types: e.types.map((i) => this.convertType(i)),
             });
           case r.AsExpression:
             return this.createNode(e, {
@@ -3168,9 +3603,15 @@ var Or = pe.default ?? pe,
               typeParameter: this.convertType(e.typeParameter),
             });
           case r.LiteralType:
-            return y.typescriptVersionIsAtLeast["4.0"] && e.literal.kind === r.NullKeyword
-              ? this.createNode(e.literal, { type: n.AST_NODE_TYPES.TSNullKeyword })
-              : this.createNode(e, { type: n.AST_NODE_TYPES.TSLiteralType, literal: this.convertType(e.literal) });
+            return y.typescriptVersionIsAtLeast["4.0"]
+                && e.literal.kind === r.NullKeyword
+              ? this.createNode(e.literal, {
+                type: n.AST_NODE_TYPES.TSNullKeyword,
+              })
+              : this.createNode(e, {
+                type: n.AST_NODE_TYPES.TSLiteralType,
+                literal: this.convertType(e.literal),
+              });
           case r.TypeAssertionExpression:
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSTypeAssertion,
@@ -3196,12 +3637,17 @@ var Or = pe.default ?? pe,
               id: this.convertChild(e.name),
             });
           case r.AbstractKeyword:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.TSAbstractKeyword });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.TSAbstractKeyword,
+            });
           case r.TupleType: {
             let i = "elementTypes" in e
-              ? e.elementTypes.map(m => this.convertType(m))
-              : e.elements.map(m => this.convertType(m));
-            return this.createNode(e, { type: n.AST_NODE_TYPES.TSTupleType, elementTypes: i });
+              ? e.elementTypes.map((m) => this.convertType(m))
+              : e.elements.map((m) => this.convertType(m));
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.TSTupleType,
+              elementTypes: i,
+            });
           }
           case r.NamedTupleMember: {
             let i = this.createNode(e, {
@@ -3213,7 +3659,10 @@ var Or = pe.default ?? pe,
             return e.dotDotDotToken
               ? (i.range[0] = i.label.range[0],
                 i.loc.start = i.label.loc.start,
-                this.createNode(e, { type: n.AST_NODE_TYPES.TSRestType, typeAnnotation: i }))
+                this.createNode(e, {
+                  type: n.AST_NODE_TYPES.TSRestType,
+                  typeAnnotation: i,
+                }))
               : i;
           }
           case r.OptionalType:
@@ -3222,14 +3671,17 @@ var Or = pe.default ?? pe,
               typeAnnotation: this.convertType(e.type),
             });
           case r.RestType:
-            return this.createNode(e, { type: n.AST_NODE_TYPES.TSRestType, typeAnnotation: this.convertType(e.type) });
+            return this.createNode(e, {
+              type: n.AST_NODE_TYPES.TSRestType,
+              typeAnnotation: this.convertType(e.type),
+            });
           case r.TemplateLiteralType: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSTemplateLiteralType,
               quasis: [this.convertChild(e.head)],
               types: [],
             });
-            return e.templateSpans.forEach(m => {
+            return e.templateSpans.forEach((m) => {
               i.types.push(this.convertChild(m.type)), i.quasis.push(this.convertChild(m.literal));
             }),
               i;
@@ -3258,7 +3710,7 @@ var Or = pe.default ?? pe,
     };
     t.Converter = p;
   }),
-  zr = F(t => {
+  zr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(r, s, p, e) {
@@ -3286,7 +3738,10 @@ var Or = pe.default ?? pe,
         if (r && r.__esModule) return r;
         var s = {};
         if (r != null) {
-          for (var p in r) p !== "default" && Object.prototype.hasOwnProperty.call(r, p) && S(s, r, p);
+          for (var p in r) {
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
+              && S(s, r, p);
+          }
         }
         return x(s, r), s;
       };
@@ -3295,18 +3750,22 @@ var Or = pe.default ?? pe,
     function y(r, s) {
       let p = [];
       return (0, f.forEachComment)(r, (e, a) => {
-        let l = a.kind === v.SyntaxKind.SingleLineCommentTrivia ? n.AST_TOKEN_TYPES.Line : n.AST_TOKEN_TYPES.Block,
+        let l = a.kind === v.SyntaxKind.SingleLineCommentTrivia
+            ? n.AST_TOKEN_TYPES.Line
+            : n.AST_TOKEN_TYPES.Block,
           u = [a.pos, a.end],
           T = (0, c.getLocFor)(u[0], u[1], r),
           b = u[0] + 2,
-          C = a.kind === v.SyntaxKind.SingleLineCommentTrivia ? u[1] - b : u[1] - b - 2;
+          C = a.kind === v.SyntaxKind.SingleLineCommentTrivia
+            ? u[1] - b
+            : u[1] - b - 2;
         p.push({ type: l, value: s.slice(b, b + C), range: u, loc: T });
       }, r),
         p;
     }
     t.convertComments = y;
   }),
-  Fe = F(t => {
+  Fe = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 });
     var S = {
@@ -3422,13 +3881,13 @@ var Or = pe.default ?? pe,
     }
     t.KEYS = S, t.getKeys = v, t.unionWith = c;
   }),
-  Hr = F(t => {
+  Hr = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.getKeys = void 0;
     var S = Fe(), x = S.getKeys;
     t.getKeys = x;
   }),
-  Vr = F(t => {
+  Vr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(y, r, s, p) {
@@ -3455,7 +3914,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(y) {
         if (y && y.__esModule) return y;
         var r = {};
-        if (y != null) for (var s in y) s !== "default" && Object.prototype.hasOwnProperty.call(y, s) && S(r, y, s);
+        if (y != null) {
+          for (var s in y) {
+            s !== "default" && Object.prototype.hasOwnProperty.call(y, s)
+              && S(r, y, s);
+          }
+        }
         return x(r, y), r;
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.visitorKeys = void 0;
@@ -3492,7 +3956,12 @@ var Or = pe.default ?? pe,
         ClassExpression: v.ClassDeclaration,
         Decorator: ["expression"],
         ExportAllDeclaration: ["exported", "source", "assertions"],
-        ExportNamedDeclaration: ["declaration", "specifiers", "source", "assertions"],
+        ExportNamedDeclaration: [
+          "declaration",
+          "specifiers",
+          "source",
+          "assertions",
+        ],
         FunctionDeclaration: v.Function,
         FunctionExpression: v.Function,
         Identifier: ["decorators", "typeAnnotation"],
@@ -3522,7 +3991,12 @@ var Or = pe.default ?? pe,
         TSBooleanKeyword: [],
         TSCallSignatureDeclaration: v.FunctionType,
         TSClassImplements: ["expression", "typeParameters"],
-        TSConditionalType: ["checkType", "extendsType", "trueType", "falseType"],
+        TSConditionalType: [
+          "checkType",
+          "extendsType",
+          "trueType",
+          "falseType",
+        ],
         TSConstructorType: v.FunctionType,
         TSConstructSignatureDeclaration: v.FunctionType,
         TSDeclareFunction: v.Function,
@@ -3592,7 +4066,7 @@ var Or = pe.default ?? pe,
       n = f.unionWith(c);
     t.visitorKeys = n;
   }),
-  Ke = F(t => {
+  Ke = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.visitorKeys = t.getKeys = void 0;
     var S = Hr();
@@ -3610,7 +4084,7 @@ var Or = pe.default ?? pe,
       },
     });
   }),
-  Ie = F(t => {
+  Ie = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.simpleTraverse = void 0;
     var S = Ke();
@@ -3645,17 +4119,20 @@ var Or = pe.default ?? pe,
     }
     t.simpleTraverse = v;
   }),
-  Gr = F(t => {
+  Gr = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.astConverter = void 0;
     var S = ke(), x = zr(), o = ae(), f = Ie();
     function v(c, n, y) {
       let { parseDiagnostics: r } = c;
       if (r.length) throw (0, S.convertError)(r[0]);
-      let s = new S.Converter(c, { errorOnUnknownASTType: n.errorOnUnknownASTType || !1, shouldPreserveNodeMaps: y }),
+      let s = new S.Converter(c, {
+          errorOnUnknownASTType: n.errorOnUnknownASTType || !1,
+          shouldPreserveNodeMaps: y,
+        }),
         p = s.convertProgram();
       (!n.range || !n.loc) && (0, f.simpleTraverse)(p, {
-        enter: a => {
+        enter: (a) => {
           n.range || delete a.range, n.loc || delete a.loc;
         },
       }),
@@ -3666,7 +4143,7 @@ var Or = pe.default ?? pe,
     }
     t.astConverter = v;
   }),
-  re = F(t => {
+  re = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(A, w, d, E) {
@@ -3693,7 +4170,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(A) {
         if (A && A.__esModule) return A;
         var w = {};
-        if (A != null) for (var d in A) d !== "default" && Object.prototype.hasOwnProperty.call(A, d) && S(w, A, d);
+        if (A != null) {
+          for (var d in A) {
+            d !== "default" && Object.prototype.hasOwnProperty.call(A, d)
+              && S(w, A, d);
+          }
+        }
         return x(w, A), w;
       },
       f = t && t.__importDefault || function(A) {
@@ -3709,14 +4191,23 @@ var Or = pe.default ?? pe,
         t.canonicalDirname =
         t.CORE_COMPILER_OPTIONS =
           void 0;
-    var v = f(Z), c = o($), n = { noEmit: !0, noUnusedLocals: !0, noUnusedParameters: !0 };
+    var v = f(Z),
+      c = o($),
+      n = { noEmit: !0, noUnusedLocals: !0, noUnusedParameters: !0 };
     t.CORE_COMPILER_OPTIONS = n;
-    var y = Object.assign(Object.assign({}, n), { allowNonTsExtensions: !0, allowJs: !0, checkJs: !0 });
+    var y = Object.assign(Object.assign({}, n), {
+      allowNonTsExtensions: !0,
+      allowJs: !0,
+      checkJs: !0,
+    });
     function r(A) {
-      return A.debugLevel.has("typescript") ? Object.assign(Object.assign({}, y), { extendedDiagnostics: !0 }) : y;
+      return A.debugLevel.has("typescript")
+        ? Object.assign(Object.assign({}, y), { extendedDiagnostics: !0 })
+        : y;
     }
     t.createDefaultCompilerOptionsFromExtra = r;
-    var s = c.sys !== void 0 ? c.sys.useCaseSensitiveFileNames : !0, p = s ? A => A : A => A.toLowerCase();
+    var s = c.sys !== void 0 ? c.sys.useCaseSensitiveFileNames : !0,
+      p = s ? (A) => A : (A) => A.toLowerCase();
     function e(A) {
       let w = v.default.normalize(A);
       return w.endsWith(v.default.sep) && (w = w.slice(0, -1)), p(w);
@@ -3733,10 +4224,16 @@ var Or = pe.default ?? pe,
     var u = [c.Extension.Dts, c.Extension.Dcts, c.Extension.Dmts];
     function T(A) {
       var w;
-      return A ? (w = u.find(d => A.endsWith(d))) !== null && w !== void 0 ? w : v.default.extname(A) : null;
+      return A
+        ? (w = u.find((d) => A.endsWith(d))) !== null && w !== void 0
+          ? w
+          : v.default.extname(A)
+        : null;
     }
     function b(A, w) {
-      let d = A.getSourceFile(w.filePath), E = T(w.filePath), i = T(d?.fileName);
+      let d = A.getSourceFile(w.filePath),
+        E = T(w.filePath),
+        i = T(d?.fileName);
       if (E === i) return d && { ast: d, program: A };
     }
     t.getAstFromProgram = b;
@@ -3757,11 +4254,13 @@ var Or = pe.default ?? pe,
     t.getModuleResolver = C;
     function k(A) {
       var w;
-      return !((w = c.sys) === null || w === void 0) && w.createHash ? c.sys.createHash(A) : A;
+      return !((w = c.sys) === null || w === void 0) && w.createHash
+        ? c.sys.createHash(A)
+        : A;
     }
     t.createHash = k;
   }),
-  Qr = F(t => {
+  Qr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(p, e, a, l) {
@@ -3788,7 +4287,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(p) {
         if (p && p.__esModule) return p;
         var e = {};
-        if (p != null) for (var a in p) a !== "default" && Object.prototype.hasOwnProperty.call(p, a) && S(e, p, a);
+        if (p != null) {
+          for (var a in p) {
+            a !== "default" && Object.prototype.hasOwnProperty.call(p, a)
+              && S(e, p, a);
+          }
+        }
         return x(e, p), e;
       },
       f = t && t.__importDefault || function(p) {
@@ -3799,7 +4303,9 @@ var Or = pe.default ?? pe,
       c = f(Z),
       n = o($),
       y = re(),
-      r = (0, v.default)("typescript-eslint:typescript-estree:createDefaultProgram");
+      r = (0, v.default)(
+        "typescript-eslint:typescript-estree:createDefaultProgram",
+      );
     function s(p) {
       var e;
       if (
@@ -3810,19 +4316,26 @@ var Or = pe.default ?? pe,
         l = n.getParsedCommandLineOfConfigFile(
           a,
           (0, y.createDefaultCompilerOptionsFromExtra)(p),
-          Object.assign(Object.assign({}, n.sys), { onUnRecoverableConfigFileDiagnostic: () => {} }),
+          Object.assign(Object.assign({}, n.sys), {
+            onUnRecoverableConfigFileDiagnostic: () => {},
+          }),
         );
       if (!l) return;
       let u = n.createCompilerHost(l.options, !0);
-      p.moduleResolver && (u.resolveModuleNames = (0, y.getModuleResolver)(p.moduleResolver).resolveModuleNames);
+      p.moduleResolver
+        && (u.resolveModuleNames = (0, y.getModuleResolver)(p.moduleResolver).resolveModuleNames);
       let T = u.readFile;
-      u.readFile = k => c.default.normalize(k) === c.default.normalize(p.filePath) ? p.code : T(k);
-      let b = n.createProgram([p.filePath], l.options, u), C = b.getSourceFile(p.filePath);
+      u.readFile = (k) =>
+        c.default.normalize(k) === c.default.normalize(p.filePath)
+          ? p.code
+          : T(k);
+      let b = n.createProgram([p.filePath], l.options, u),
+        C = b.getSourceFile(p.filePath);
       return C && { ast: C, program: b };
     }
     t.createDefaultProgram = s;
   }),
-  Ee = F(t => {
+  Ee = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(r, s, p, e) {
@@ -3849,7 +4362,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(r) {
         if (r && r.__esModule) return r;
         var s = {};
-        if (r != null) for (var p in r) p !== "default" && Object.prototype.hasOwnProperty.call(r, p) && S(s, r, p);
+        if (r != null) {
+          for (var p in r) {
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
+              && S(s, r, p);
+          }
+        }
         return x(s, r), s;
       },
       f = t && t.__importDefault || function(r) {
@@ -3891,7 +4409,7 @@ var Or = pe.default ?? pe,
     }
     t.getLanguageVariant = y;
   }),
-  Zr = F(t => {
+  Zr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(p, e, a, l) {
@@ -3918,7 +4436,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(p) {
         if (p && p.__esModule) return p;
         var e = {};
-        if (p != null) for (var a in p) a !== "default" && Object.prototype.hasOwnProperty.call(p, a) && S(e, p, a);
+        if (p != null) {
+          for (var a in p) {
+            a !== "default" && Object.prototype.hasOwnProperty.call(p, a)
+              && S(e, p, a);
+          }
+        }
         return x(e, p), e;
       },
       f = t && t.__importDefault || function(p) {
@@ -3929,9 +4452,15 @@ var Or = pe.default ?? pe,
       c = o($),
       n = Ee(),
       y = re(),
-      r = (0, v.default)("typescript-eslint:typescript-estree:createIsolatedProgram");
+      r = (0, v.default)(
+        "typescript-eslint:typescript-estree:createIsolatedProgram",
+      );
     function s(p) {
-      r("Getting isolated program in %s mode for: %s", p.jsx ? "TSX" : "TS", p.filePath);
+      r(
+        "Getting isolated program in %s mode for: %s",
+        p.jsx ? "TSX" : "TS",
+        p.filePath,
+      );
       let e = {
           fileExists() {
             return !0;
@@ -3953,7 +4482,13 @@ var Or = pe.default ?? pe,
 `;
           },
           getSourceFile(u) {
-            return c.createSourceFile(u, p.code, c.ScriptTarget.Latest, !0, (0, n.getScriptKind)(p.filePath, p.jsx));
+            return c.createSourceFile(
+              u,
+              p.code,
+              c.ScriptTarget.Latest,
+              !0,
+              (0, n.getScriptKind)(p.filePath, p.jsx),
+            );
           },
           readFile() {},
           useCaseSensitiveFileNames() {
@@ -3966,18 +4501,26 @@ var Or = pe.default ?? pe,
         a = c.createProgram(
           [p.filePath],
           Object.assign(
-            { noResolve: !0, target: c.ScriptTarget.Latest, jsx: p.jsx ? c.JsxEmit.Preserve : void 0 },
+            {
+              noResolve: !0,
+              target: c.ScriptTarget.Latest,
+              jsx: p.jsx ? c.JsxEmit.Preserve : void 0,
+            },
             (0, y.createDefaultCompilerOptionsFromExtra)(p),
           ),
           e,
         ),
         l = a.getSourceFile(p.filePath);
-      if (!l) throw new Error("Expected an ast to be returned for the single-file isolated program.");
+      if (!l) {
+        throw new Error(
+          "Expected an ast to be returned for the single-file isolated program.",
+        );
+      }
       return { ast: l, program: a };
     }
     t.createIsolatedProgram = s;
   }),
-  en = F(t => {
+  en = F((t) => {
     "use strict";
     var S = t && t.__importDefault || function(f) {
       return f && f.__esModule ? f : { default: f };
@@ -3994,7 +4537,7 @@ var Or = pe.default ?? pe,
     }
     t.describeFilePath = o;
   }),
-  Ye = F(t => {
+  Ye = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(_, P, N, M) {
@@ -4021,7 +4564,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(_) {
         if (_ && _.__esModule) return _;
         var P = {};
-        if (_ != null) for (var N in _) N !== "default" && Object.prototype.hasOwnProperty.call(_, N) && S(P, _, N);
+        if (_ != null) {
+          for (var N in _) {
+            N !== "default" && Object.prototype.hasOwnProperty.call(_, N)
+              && S(P, _, N);
+          }
+        }
         return x(P, _), P;
       },
       f = t && t.__importDefault || function(_) {
@@ -4033,7 +4581,9 @@ var Or = pe.default ?? pe,
       n = f(fe),
       y = o($),
       r = re(),
-      s = (0, v.default)("typescript-eslint:typescript-estree:createWatchProgram"),
+      s = (0, v.default)(
+        "typescript-eslint:typescript-estree:createWatchProgram",
+      ),
       p = new Map(),
       e = new Map(),
       a = new Map(),
@@ -4060,19 +4610,26 @@ var Or = pe.default ?? pe,
     }
     var k = { code: "", filePath: "" };
     function A(_) {
-      throw new Error(y.flattenDiagnosticMessageText(_.messageText, y.sys.newLine));
+      throw new Error(
+        y.flattenDiagnosticMessageText(_.messageText, y.sys.newLine),
+      );
     }
     function w(_, P, N) {
       let M = N.EXPERIMENTAL_useSourceOfProjectReferenceRedirect
-        ? new Set(P.getSourceFiles().map(K => (0, r.getCanonicalFileName)(K.fileName)))
-        : new Set(P.getRootFileNames().map(K => (0, r.getCanonicalFileName)(K)));
+        ? new Set(
+          P.getSourceFiles().map((K) => (0, r.getCanonicalFileName)(K.fileName)),
+        )
+        : new Set(
+          P.getRootFileNames().map((K) => (0, r.getCanonicalFileName)(K)),
+        );
       return l.set(_, M), M;
     }
     function d(_) {
       let P = (0, r.getCanonicalFileName)(_.filePath), N = [];
       k.code = _.code, k.filePath = P;
       let M = e.get(P), K = (0, r.createHash)(_.code);
-      T.get(P) !== K && M && M.size > 0 && M.forEach(Y => Y(P, y.FileWatcherEventKind.Changed));
+      T.get(P) !== K && M && M.size > 0
+        && M.forEach((Y) => Y(P, y.FileWatcherEventKind.Changed));
       let J = new Set(_.projects);
       for (let [Y, B] of p.entries()) {
         if (!J.has(Y)) continue;
@@ -4084,7 +4641,10 @@ var Or = pe.default ?? pe,
             [R];
         }
       }
-      s("File did not belong to any existing programs, moving to create/update. %s", P);
+      s(
+        "File did not belong to any existing programs, moving to create/update. %s",
+        P,
+      );
       for (let Y of _.projects) {
         let B = p.get(Y);
         if (B) {
@@ -4092,20 +4652,26 @@ var Or = pe.default ?? pe,
           if (!U) {
             continue;
           }
-          if (U.getTypeChecker(), w(Y, U, _).has(P)) return s("Found updated program for file. %s", P), [U];
+          if (U.getTypeChecker(), w(Y, U, _).has(P)) {
+            return s("Found updated program for file. %s", P), [U];
+          }
           N.push(U);
           continue;
         }
         let q = i(Y, _);
         p.set(Y, q);
         let R = q.getProgram().getProgram();
-        if (R.getTypeChecker(), w(Y, R, _).has(P)) return s("Found program for file. %s", P), [R];
+        if (R.getTypeChecker(), w(Y, R, _).has(P)) {
+          return s("Found program for file. %s", P), [R];
+        }
         N.push(R);
       }
       return N;
     }
     t.getWatchProgramsForProjects = d;
-    var E = n.default.satisfies(y.version, ">=3.9.0-beta", { includePrerelease: !0 });
+    var E = n.default.satisfies(y.version, ">=3.9.0-beta", {
+      includePrerelease: !0,
+    });
     function i(_, P) {
       s("Creating watch program for %s.", _);
       let N = y.createWatchCompilerHost(
@@ -4116,15 +4682,17 @@ var Or = pe.default ?? pe,
         A,
         () => {},
       );
-      P.moduleResolver && (N.resolveModuleNames = (0, r.getModuleResolver)(P.moduleResolver).resolveModuleNames);
+      P.moduleResolver
+        && (N.resolveModuleNames = (0, r.getModuleResolver)(P.moduleResolver).resolveModuleNames);
       let M = N.readFile;
       N.readFile = (B, q) => {
-        let R = (0, r.getCanonicalFileName)(B), U = R === k.filePath ? k.code : M(R, q);
+        let R = (0, r.getCanonicalFileName)(B),
+          U = R === k.filePath ? k.code : M(R, q);
         return U !== void 0 && T.set(R, (0, r.createHash)(U)), U;
       },
         N.onUnRecoverableConfigFileDiagnostic = A,
-        N.afterProgramCreate = B => {
-          let q = B.getConfigFileParsingDiagnostics().filter(R =>
+        N.afterProgramCreate = (B) => {
+          let q = B.getConfigFileParsingDiagnostics().filter((R) =>
             R.category === y.DiagnosticCategory.Error && R.code !== 18003
           );
           q.length > 0 && A(q[0]);
@@ -4132,11 +4700,11 @@ var Or = pe.default ?? pe,
         N.watchFile = C(e),
         N.watchDirectory = C(a);
       let K = N.onCachedDirectoryStructureHostCreate;
-      N.onCachedDirectoryStructureHostCreate = B => {
+      N.onCachedDirectoryStructureHostCreate = (B) => {
         let q = B.readDirectory;
         B.readDirectory = (R, U, z, ee, se) => q(R, U ? U.concat(P.extraFileExtensions) : void 0, z, ee, se), K(B);
       },
-        N.extraFileExtensions = P.extraFileExtensions.map(B => ({
+        N.extraFileExtensions = P.extraFileExtensions.map((B) => ({
           extension: B,
           isMixedContent: !0,
           scriptKind: y.ScriptKind.Deferred,
@@ -4167,7 +4735,7 @@ var Or = pe.default ?? pe,
       if (W.env.TSESTREE_NO_INVALIDATION === "true") return M;
       m(N)
         && (s("tsconfig has changed - triggering program update. %s", N),
-          e.get(N).forEach(z => z(N, y.FileWatcherEventKind.Changed)),
+          e.get(N).forEach((z) => z(N, y.FileWatcherEventKind.Changed)),
           l.delete(N));
       let K = M.getSourceFile(P);
       if (K) return M;
@@ -4176,34 +4744,39 @@ var Or = pe.default ?? pe,
       for (; Y !== B;) {
         Y = B;
         let z = a.get(Y);
-        z && (z.forEach(ee => {
+        z && (z.forEach((ee) => {
           J !== Y && ee(J, y.FileWatcherEventKind.Changed), ee(Y, y.FileWatcherEventKind.Changed);
         }),
           q = !0), B = (0, r.canonicalDirname)(Y);
       }
-      if (!q) return s("No callback found for file, not part of this program. %s", P), null;
-      if (l.delete(N), M = _.getProgram().getProgram(), K = M.getSourceFile(P), K) return M;
-      s("File was still not found in program after directory update - checking file deletions. %s", P);
-      let R = M.getRootFileNames().find(z => !c.default.existsSync(z));
+      if (!q) {
+        return s("No callback found for file, not part of this program. %s", P), null;
+      }
+      if (
+        l.delete(N), M = _.getProgram().getProgram(), K = M.getSourceFile(P), K
+      ) return M;
+      s(
+        "File was still not found in program after directory update - checking file deletions. %s",
+        P,
+      );
+      let R = M.getRootFileNames().find((z) => !c.default.existsSync(z));
       if (!R) return null;
       let U = e.get((0, r.getCanonicalFileName)(R));
       return U
         ? (s("Marking file as deleted. %s", R),
-          U.forEach(z => z(R, y.FileWatcherEventKind.Deleted)),
+          U.forEach((z) => z(R, y.FileWatcherEventKind.Deleted)),
           l.delete(N),
           M = _.getProgram().getProgram(),
           K = M.getSourceFile(P),
-          K
-            ? M
-            : (s(
-              "File was still not found in program after deletion check, assuming it is not part of this program. %s",
-              P,
-            ),
-              null))
+          K ? M : (s(
+            "File was still not found in program after deletion check, assuming it is not part of this program. %s",
+            P,
+          ),
+            null))
         : (s("Could not find watch callbacks for root file. %s", R), M);
     }
   }),
-  tn = F(t => {
+  tn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(u, T, b, C) {
@@ -4230,7 +4803,12 @@ var Or = pe.default ?? pe,
       o = t && t.__importStar || function(u) {
         if (u && u.__esModule) return u;
         var T = {};
-        if (u != null) for (var b in u) b !== "default" && Object.prototype.hasOwnProperty.call(u, b) && S(T, u, b);
+        if (u != null) {
+          for (var b in u) {
+            b !== "default" && Object.prototype.hasOwnProperty.call(u, b)
+              && S(T, u, b);
+          }
+        }
         return x(T, u), T;
       },
       f = t && t.__importDefault || function(u) {
@@ -4244,7 +4822,9 @@ var Or = pe.default ?? pe,
       r = en(),
       s = Ye(),
       p = re(),
-      e = (0, v.default)("typescript-eslint:typescript-estree:createProjectProgram"),
+      e = (0, v.default)(
+        "typescript-eslint:typescript-estree:createProjectProgram",
+      ),
       a = [
         n.Extension.Ts,
         n.Extension.Tsx,
@@ -4257,20 +4837,23 @@ var Or = pe.default ?? pe,
       ];
     function l(u) {
       e("Creating project program for: %s", u.filePath);
-      let T = (0, s.getWatchProgramsForProjects)(u), b = (0, y.firstDefined)(T, g => (0, p.getAstFromProgram)(g, u));
+      let T = (0, s.getWatchProgramsForProjects)(u),
+        b = (0, y.firstDefined)(T, (g) => (0, p.getAstFromProgram)(g, u));
       if (b || u.createDefaultProgram) return b;
-      let C = g => (0, r.describeFilePath)(g, u.tsconfigRootDir),
+      let C = (g) => (0, r.describeFilePath)(g, u.tsconfigRootDir),
         k = (0, r.describeFilePath)(u.filePath, u.tsconfigRootDir),
         A = u.projects.map(C),
         w = A.length === 1 ? A[0] : `
 ${
-          A.map(g => `- ${g}`).join(`
+          A.map((g) => `- ${g}`).join(`
 `)
         }`,
-        d = [`ESLint was configured to run on \`${k}\` using \`parserOptions.project\`: ${w}`],
+        d = [
+          `ESLint was configured to run on \`${k}\` using \`parserOptions.project\`: ${w}`,
+        ],
         E = !1,
         i = u.extraFileExtensions || [];
-      i.forEach(g => {
+      i.forEach((g) => {
         g.startsWith(".")
         || d.push(
           `Found unexpected extension \`${g}\` specified with the \`parserOptions.extraFileExtensions\` option. Did you mean \`.${g}\`?`,
@@ -4285,8 +4868,14 @@ ${
         let g = `The extension for the file (\`${m}\`) is non-standard`;
         i.length > 0
           ? i.includes(m)
-            || (d.push(`${g}. It should be added to your existing \`parserOptions.extraFileExtensions\`.`), E = !0)
-          : (d.push(`${g}. You should add \`parserOptions.extraFileExtensions\` to your config.`), E = !0);
+            || (d.push(
+              `${g}. It should be added to your existing \`parserOptions.extraFileExtensions\`.`,
+            ),
+              E = !0)
+          : (d.push(
+            `${g}. You should add \`parserOptions.extraFileExtensions\` to your config.`,
+          ),
+            E = !0);
       }
       if (!E) {
         let [g, _] = u.projects.length === 1
@@ -4305,7 +4894,7 @@ ${
     }
     t.createProjectProgram = l;
   }),
-  rn = F(t => {
+  rn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(s, p, e, a) {
@@ -4332,21 +4921,41 @@ ${
       o = t && t.__importStar || function(s) {
         if (s && s.__esModule) return s;
         var p = {};
-        if (s != null) for (var e in s) e !== "default" && Object.prototype.hasOwnProperty.call(s, e) && S(p, s, e);
+        if (s != null) {
+          for (var e in s) {
+            e !== "default" && Object.prototype.hasOwnProperty.call(s, e)
+              && S(p, s, e);
+          }
+        }
         return x(p, s), p;
       },
       f = t && t.__importDefault || function(s) {
         return s && s.__esModule ? s : { default: s };
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.createSourceFile = void 0;
-    var v = f(V), c = o($), n = Ee(), y = (0, v.default)("typescript-eslint:typescript-estree:createSourceFile");
+    var v = f(V),
+      c = o($),
+      n = Ee(),
+      y = (0, v.default)(
+        "typescript-eslint:typescript-estree:createSourceFile",
+      );
     function r(s) {
-      return y("Getting AST without type information in %s mode for: %s", s.jsx ? "TSX" : "TS", s.filePath),
-        c.createSourceFile(s.filePath, s.code, c.ScriptTarget.Latest, !0, (0, n.getScriptKind)(s.filePath, s.jsx));
+      return y(
+        "Getting AST without type information in %s mode for: %s",
+        s.jsx ? "TSX" : "TS",
+        s.filePath,
+      ),
+        c.createSourceFile(
+          s.filePath,
+          s.code,
+          c.ScriptTarget.Latest,
+          !0,
+          (0, n.getScriptKind)(s.filePath, s.jsx),
+        );
     }
     t.createSourceFile = r;
   }),
-  Le = F(t => {
+  Le = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(l, u, T, b) {
@@ -4373,7 +4982,12 @@ ${
       o = t && t.__importStar || function(l) {
         if (l && l.__esModule) return l;
         var u = {};
-        if (l != null) for (var T in l) T !== "default" && Object.prototype.hasOwnProperty.call(l, T) && S(u, l, T);
+        if (l != null) {
+          for (var T in l) {
+            T !== "default" && Object.prototype.hasOwnProperty.call(l, T)
+              && S(u, l, T);
+          }
+        }
         return x(u, l), u;
       },
       f = t && t.__importDefault || function(l) {
@@ -4386,7 +5000,9 @@ ${
       n = o(Z),
       y = o($),
       r = re(),
-      s = (0, v.default)("typescript-eslint:typescript-estree:useProvidedProgram");
+      s = (0, v.default)(
+        "typescript-eslint:typescript-estree:useProvidedProgram",
+      );
     function p(l, u) {
       s("Retrieving ast for %s from provided program instance(s)", u.filePath);
       let T;
@@ -4406,16 +5022,18 @@ ${
     t.useProvidedPrograms = p;
     function e(l, u) {
       if (y.sys === void 0) {
-        throw new Error("`createProgramFromConfigFile` is only supported in a Node-like environment.");
+        throw new Error(
+          "`createProgramFromConfigFile` is only supported in a Node-like environment.",
+        );
       }
       let T = y.getParsedCommandLineOfConfigFile(l, r.CORE_COMPILER_OPTIONS, {
-        onUnRecoverableConfigFileDiagnostic: C => {
+        onUnRecoverableConfigFileDiagnostic: (C) => {
           throw new Error(a([C]));
         },
         fileExists: c.existsSync,
         getCurrentDirectory: () => u && n.resolve(u) || W.cwd(),
         readDirectory: y.sys.readDirectory,
-        readFile: C => c.readFileSync(C, "utf-8"),
+        readFile: (C) => c.readFileSync(C, "utf-8"),
         useCaseSensitiveFileNames: y.sys.useCaseSensitiveFileNames,
       });
       if (T.errors.length) throw new Error(a(T.errors));
@@ -4425,27 +5043,35 @@ ${
     t.createProgramFromConfigFile = e;
     function a(l) {
       return y.formatDiagnostics(l, {
-        getCanonicalFileName: u => u,
+        getCanonicalFileName: (u) => u,
         getCurrentDirectory: W.cwd,
         getNewLine: () => `
 `,
       });
     }
   }),
-  Re = F(t => {
+  Re = F((t) => {
     "use strict";
     var S = t && t.__classPrivateFieldSet || function(n, y, r, s, p) {
         if (s === "m") throw new TypeError("Private method is not writable");
-        if (s === "a" && !p) throw new TypeError("Private accessor was defined without a setter");
+        if (s === "a" && !p) {
+          throw new TypeError("Private accessor was defined without a setter");
+        }
         if (typeof y == "function" ? n !== y || !p : !y.has(n)) {
-          throw new TypeError("Cannot write private member to an object whose class did not declare it");
+          throw new TypeError(
+            "Cannot write private member to an object whose class did not declare it",
+          );
         }
         return s === "a" ? p.call(n, r) : p ? p.value = r : y.set(n, r), r;
       },
       x = t && t.__classPrivateFieldGet || function(n, y, r, s) {
-        if (r === "a" && !s) throw new TypeError("Private accessor was defined without a getter");
+        if (r === "a" && !s) {
+          throw new TypeError("Private accessor was defined without a getter");
+        }
         if (typeof y == "function" ? n !== y || !s : !y.has(n)) {
-          throw new TypeError("Cannot read private member from an object whose class did not declare it");
+          throw new TypeError(
+            "Cannot read private member from an object whose class did not declare it",
+          );
         }
         return r === "m" ? s : r === "a" ? s.call(n) : s ? s.value : y.get(n);
       },
@@ -4460,12 +5086,19 @@ ${
           o.set(this, void 0), f.set(this, new Map()), S(this, o, n, "f");
         }
         set(n, y) {
-          return x(this, f, "f").set(n, { value: y, lastSeen: x(this, o, "f") === "Infinity" ? v : W.hrtime() }), this;
+          return x(this, f, "f").set(n, {
+            value: y,
+            lastSeen: x(this, o, "f") === "Infinity" ? v : W.hrtime(),
+          }),
+            this;
         }
         get(n) {
           let y = x(this, f, "f").get(n);
           if (y?.value != null) {
-            if (x(this, o, "f") === "Infinity" || W.hrtime(y.lastSeen)[0] < x(this, o, "f")) return y.value;
+            if (
+              x(this, o, "f") === "Infinity"
+              || W.hrtime(y.lastSeen)[0] < x(this, o, "f")
+            ) return y.value;
             x(this, f, "f").delete(n);
           }
         }
@@ -4475,7 +5108,7 @@ ${
       };
     t.ExpiringCache = c, o = new WeakMap(), f = new WeakMap();
   }),
-  nn = F(t => {
+  nn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(s, p, e, a) {
@@ -4502,14 +5135,24 @@ ${
       o = t && t.__importStar || function(s) {
         if (s && s.__esModule) return s;
         var p = {};
-        if (s != null) for (var e in s) e !== "default" && Object.prototype.hasOwnProperty.call(s, e) && S(p, s, e);
+        if (s != null) {
+          for (var e in s) {
+            e !== "default" && Object.prototype.hasOwnProperty.call(s, e)
+              && S(p, s, e);
+          }
+        }
         return x(p, s), p;
       },
       f = t && t.__importDefault || function(s) {
         return s && s.__esModule ? s : { default: s };
       };
     Object.defineProperty(t, "__esModule", { value: !0 }), t.getProjectConfigFiles = void 0;
-    var v = f(V), c = o(ne), n = o(Z), y = (0, v.default)("typescript-eslint:typescript-estree:getProjectConfigFiles");
+    var v = f(V),
+      c = o(ne),
+      n = o(Z),
+      y = (0, v.default)(
+        "typescript-eslint:typescript-estree:getProjectConfigFiles",
+      );
     function r(s, p) {
       var e;
       if (p !== !0) return p === void 0 || Array.isArray(p) ? p : [p];
@@ -4518,7 +5161,9 @@ ${
       do {
         y("Checking tsconfig.json path: %s", a);
         let u = n.join(a, "tsconfig.json"),
-          T = (e = s.tsconfigMatchCache.get(a)) !== null && e !== void 0 ? e : c.existsSync(u) && u;
+          T = (e = s.tsconfigMatchCache.get(a)) !== null && e !== void 0
+            ? e
+            : c.existsSync(u) && u;
         if (T) {
           for (let b of l) s.tsconfigMatchCache.set(b, T);
           return [T];
@@ -4531,32 +5176,41 @@ ${
     }
     t.getProjectConfigFiles = r;
   }),
-  on = F(t => {
+  on = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.inferSingleRun = void 0;
     var S = Z;
     function x(o) {
-      return o?.project == null || o?.programs != null || W.env.TSESTREE_SINGLE_RUN === "false"
+      return o?.project == null || o?.programs != null
+          || W.env.TSESTREE_SINGLE_RUN === "false"
         ? !1
         : !!(W.env.TSESTREE_SINGLE_RUN === "true"
           || o?.allowAutomaticSingleRunInference
-            && (W.env.CI === "true" || W.argv[1].endsWith((0, S.normalize)("node_modules/.bin/eslint"))));
+            && (W.env.CI === "true"
+              || W.argv[1].endsWith(
+                (0, S.normalize)("node_modules/.bin/eslint"),
+              )));
     }
     t.inferSingleRun = x;
   }),
-  Be = F(t => {
+  Be = F((t) => {
     "use strict";
     var S = t && t.__importDefault || function(a) {
       return a && a.__esModule ? a : { default: a };
     };
     Object.defineProperty(t, "__esModule", { value: !0 }),
-      t.clearGlobResolutionCache = t.resolveProjectList = t.clearGlobCache = void 0;
+      t.clearGlobResolutionCache =
+        t.resolveProjectList =
+        t.clearGlobCache =
+          void 0;
     var x = S(V),
       o = Cr,
       f = S(jr),
       v = re(),
       c = Re(),
-      n = (0, x.default)("typescript-eslint:typescript-estree:parser:parseSettings:resolveProjectList"),
+      n = (0, x.default)(
+        "typescript-eslint:typescript-estree:parser:parseSettings:resolveProjectList",
+      ),
       y = null;
     function r() {
       y?.clear();
@@ -4566,18 +5220,28 @@ ${
       var l, u, T;
       let b = [];
       if (typeof a.project == "string") b.push(a.project);
-      else if (Array.isArray(a.project)) for (let i of a.project) typeof i == "string" && b.push(i);
+      else if (Array.isArray(a.project)) {
+        for (let i of a.project) typeof i == "string" && b.push(i);
+      }
       if (b.length === 0) return [];
-      let C = ((l = a.projectFolderIgnoreList) !== null && l !== void 0 ? l : ["**/node_modules/**"]).reduce(
-          (i, m) => (typeof m == "string" && i.push(m), i),
-          [],
-        ).map(i => i.startsWith("!") ? i : `!${i}`),
-        k = p({ project: b, projectFolderIgnoreList: C, tsconfigRootDir: a.tsconfigRootDir });
+      let C = ((l = a.projectFolderIgnoreList) !== null && l !== void 0
+          ? l
+          : ["**/node_modules/**"]).reduce(
+            (i, m) => (typeof m == "string" && i.push(m), i),
+            [],
+          ).map((i) => i.startsWith("!") ? i : `!${i}`),
+        k = p({
+          project: b,
+          projectFolderIgnoreList: C,
+          tsconfigRootDir: a.tsconfigRootDir,
+        });
       if (y == null) {
         y = new c.ExpiringCache(
           a.singleRun
             ? "Infinity"
-            : (T = (u = a.cacheLifetime) === null || u === void 0 ? void 0 : u.glob) !== null && T !== void 0
+            : (T = (u = a.cacheLifetime) === null || u === void 0
+                    ? void 0
+                    : u.glob) !== null && T !== void 0
             ? T
             : c.DEFAULT_TSCONFIG_CACHE_DURATION_SECONDS,
         );
@@ -4585,11 +5249,17 @@ ${
         let i = y.get(k);
         if (i) return i;
       }
-      let A = b.filter(i => !(0, f.default)(i)),
-        w = b.filter(i => (0, f.default)(i)),
+      let A = b.filter((i) => !(0, f.default)(i)),
+        w = b.filter((i) => (0, f.default)(i)),
         d = new Set(
-          A.concat(w.length === 0 ? [] : (0, o.sync)([...w, ...C], { cwd: a.tsconfigRootDir })).map(i =>
-            (0, v.getCanonicalFileName)((0, v.ensureAbsolutePath)(i, a.tsconfigRootDir))
+          A.concat(
+            w.length === 0
+              ? []
+              : (0, o.sync)([...w, ...C], { cwd: a.tsconfigRootDir }),
+          ).map((i) =>
+            (0, v.getCanonicalFileName)(
+              (0, v.ensureAbsolutePath)(i, a.tsconfigRootDir),
+            )
           ),
         );
       n("parserOptions.project (excluding ignored) matched projects: %s", d);
@@ -4598,7 +5268,11 @@ ${
     }
     t.resolveProjectList = s;
     function p({ project: a, projectFolderIgnoreList: l, tsconfigRootDir: u }) {
-      let T = { tsconfigRootDir: u, project: a, projectFolderIgnoreList: [...l].sort() };
+      let T = {
+        tsconfigRootDir: u,
+        project: a,
+        projectFolderIgnoreList: [...l].sort(),
+      };
       return (0, v.createHash)(JSON.stringify(T));
     }
     function e() {
@@ -4606,7 +5280,7 @@ ${
     }
     t.clearGlobResolutionCache = e;
   }),
-  an = F(t => {
+  an = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(a, l, u, T) {
@@ -4633,7 +5307,12 @@ ${
       o = t && t.__importStar || function(a) {
         if (a && a.__esModule) return a;
         var l = {};
-        if (a != null) for (var u in a) u !== "default" && Object.prototype.hasOwnProperty.call(a, u) && S(l, a, u);
+        if (a != null) {
+          for (var u in a) {
+            u !== "default" && Object.prototype.hasOwnProperty.call(a, u)
+              && S(l, a, u);
+          }
+        }
         return x(l, a), l;
       },
       f = t && t.__importDefault || function(a) {
@@ -4650,7 +5329,10 @@ ${
     function e(a) {
       var l;
       if (!s && !p) {
-        if (!(typeof W > "u") && !((l = W.stdout) === null || l === void 0) && l.isTTY) {
+        if (
+          !(typeof W > "u") && !((l = W.stdout) === null || l === void 0)
+          && l.isTTY
+        ) {
           let u = "=============",
             T = [
               u,
@@ -4670,7 +5352,7 @@ ${
     }
     t.warnAboutTSVersion = e;
   }),
-  Je = F(t => {
+  Je = F((t) => {
     "use strict";
     var S = t && t.__importDefault || function(u) {
       return u && u.__esModule ? u : { default: u };
@@ -4683,7 +5365,9 @@ ${
       c = on(),
       n = Be(),
       y = an(),
-      r = (0, x.default)("typescript-eslint:typescript-estree:parser:parseSettings:createParseSettings"),
+      r = (0, x.default)(
+        "typescript-eslint:typescript-estree:parser:parseSettings:createParseSettings",
+      ),
       s;
     function p(u, T = {}) {
       var b, C, k;
@@ -4702,19 +5386,26 @@ ${
           errorOnTypeScriptSyntacticAndSemanticIssues: !1,
           errorOnUnknownASTType: T.errorOnUnknownASTType === !0,
           EXPERIMENTAL_useSourceOfProjectReferenceRedirect: T.EXPERIMENTAL_useSourceOfProjectReferenceRedirect === !0,
-          extraFileExtensions: Array.isArray(T.extraFileExtensions) && T.extraFileExtensions.every(E =>
-              typeof E == "string"
-            )
+          extraFileExtensions: Array.isArray(T.extraFileExtensions)
+              && T.extraFileExtensions.every((E) => typeof E == "string")
             ? T.extraFileExtensions
             : [],
           filePath: (0, o.ensureAbsolutePath)(
-            typeof T.filePath == "string" && T.filePath !== "<input>" ? T.filePath : l(T.jsx),
+            typeof T.filePath == "string" && T.filePath !== "<input>"
+              ? T.filePath
+              : l(T.jsx),
             w,
           ),
           jsx: T.jsx === !0,
           loc: T.loc === !0,
-          log: typeof T.loggerFn == "function" ? T.loggerFn : T.loggerFn === !1 ? () => {} : console.log,
-          moduleResolver: (b = T.moduleResolver) !== null && b !== void 0 ? b : "",
+          log: typeof T.loggerFn == "function"
+            ? T.loggerFn
+            : T.loggerFn === !1
+            ? () => {}
+            : console.log,
+          moduleResolver: (b = T.moduleResolver) !== null && b !== void 0
+            ? b
+            : "",
           preserveNodeMaps: T.preserveNodeMaps !== !1,
           programs: Array.isArray(T.programs) ? T.programs : null,
           projects: [],
@@ -4724,7 +5415,9 @@ ${
           tsconfigMatchCache: s ?? (s = new f.ExpiringCache(
             A
               ? "Infinity"
-              : (k = (C = T.cacheLifetime) === null || C === void 0 ? void 0 : C.glob) !== null && k !== void 0
+              : (k = (C = T.cacheLifetime) === null || C === void 0
+                      ? void 0
+                      : C.glob) !== null && k !== void 0
               ? k
               : f.DEFAULT_TSCONFIG_CACHE_DURATION_SECONDS,
           )),
@@ -4733,7 +5426,8 @@ ${
       if (d.debugLevel.size > 0) {
         let E = [];
         d.debugLevel.has("typescript-eslint") && E.push("typescript-eslint:*"),
-          (d.debugLevel.has("eslint") || x.default.enabled("eslint:*,-eslint:code-path"))
+          (d.debugLevel.has("eslint")
+            || x.default.enabled("eslint:*,-eslint:code-path"))
           && E.push("eslint:*,-eslint:code-path"),
           x.default.enable(E.join(","));
       }
@@ -4768,7 +5462,7 @@ ${
       return u ? "estree.tsx" : "estree.ts";
     }
   }),
-  sn = F(t => {
+  sn = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.getFirstSemanticOrSyntacticError = void 0;
     var S = $;
@@ -4785,7 +5479,7 @@ ${
     }
     t.getFirstSemanticOrSyntacticError = x;
     function o(v) {
-      return v.filter(c => {
+      return v.filter((c) => {
         switch (c.code) {
           case 1013:
           case 1014:
@@ -4834,11 +5528,14 @@ ${
     }
     function f(v) {
       return Object.assign(Object.assign({}, v), {
-        message: (0, S.flattenDiagnosticMessageText)(v.messageText, S.sys.newLine),
+        message: (0, S.flattenDiagnosticMessageText)(
+          v.messageText,
+          S.sys.newLine,
+        ),
       });
     }
   }),
-  Xe = F(t => {
+  Xe = F((t) => {
     "use strict";
     var S = t && t.__importDefault || function(d) {
       return d && d.__esModule ? d : { default: d };
@@ -4867,8 +5564,10 @@ ${
     }
     t.clearProgramCache = l;
     function u(d, E) {
-      return d.programs && (0, r.useProvidedPrograms)(d.programs, d) || E && (0, n.createProjectProgram)(d)
-        || E && d.createDefaultProgram && (0, v.createDefaultProgram)(d) || (0, c.createIsolatedProgram)(d);
+      return d.programs && (0, r.useProvidedPrograms)(d.programs, d)
+        || E && (0, n.createProjectProgram)(d)
+        || E && d.createDefaultProgram && (0, v.createDefaultProgram)(d)
+        || (0, c.createIsolatedProgram)(d);
     }
     function T(d, E) {
       let { ast: i } = b(d, E, !1);
@@ -4882,8 +5581,13 @@ ${
           "\"errorOnTypeScriptSyntacticAndSemanticIssues\" is only supported for parseAndGenerateServices()",
         );
       }
-      let g = (0, y.createSourceFile)(m), { estree: _, astMaps: P } = (0, o.astConverter)(g, m, i);
-      return { ast: _, esTreeNodeToTSNodeMap: P.esTreeNodeToTSNodeMap, tsNodeToESTreeNodeMap: P.tsNodeToESTreeNodeMap };
+      let g = (0, y.createSourceFile)(m),
+        { estree: _, astMaps: P } = (0, o.astConverter)(g, m, i);
+      return {
+        ast: _,
+        esTreeNodeToTSNodeMap: P.esTreeNodeToTSNodeMap,
+        tsNodeToESTreeNodeMap: P.tsNodeToESTreeNodeMap,
+      };
     }
     function C(d, E) {
       return b(d, E, !0);
@@ -4897,23 +5601,30 @@ ${
     function w(d, E) {
       var i, m;
       let g = (0, s.createParseSettings)(d, E);
-      E !== void 0 && typeof E.errorOnTypeScriptSyntacticAndSemanticIssues == "boolean"
-      && E.errorOnTypeScriptSyntacticAndSemanticIssues && (g.errorOnTypeScriptSyntacticAndSemanticIssues = !0),
-        g.singleRun && !g.programs && ((i = g.projects) === null || i === void 0 ? void 0 : i.length) > 0
+      E !== void 0
+      && typeof E.errorOnTypeScriptSyntacticAndSemanticIssues == "boolean"
+      && E.errorOnTypeScriptSyntacticAndSemanticIssues
+      && (g.errorOnTypeScriptSyntacticAndSemanticIssues = !0),
+        g.singleRun && !g.programs
+        && ((i = g.projects) === null || i === void 0 ? void 0 : i.length) > 0
         && (g.programs = {
           *[Symbol.iterator]() {
             for (let Y of g.projects) {
               let B = a.get(Y);
               if (B) yield B;
               else {
-                e("Detected single-run/CLI usage, creating Program once ahead of time for project: %s", Y);
+                e(
+                  "Detected single-run/CLI usage, creating Program once ahead of time for project: %s",
+                  Y,
+                );
                 let q = (0, r.createProgramFromConfigFile)(Y);
                 a.set(Y, q), yield q;
               }
             }
           },
         });
-      let _ = g.programs != null || ((m = g.projects) === null || m === void 0 ? void 0 : m.length) > 0;
+      let _ = g.programs != null
+        || ((m = g.projects) === null || m === void 0 ? void 0 : m.length) > 0;
       g.singleRun && E.filePath && (k[E.filePath] = (k[E.filePath] || 0) + 1);
       let { ast: P, program: N } = g.singleRun && E.filePath && k[E.filePath] > 1
           ? (0, c.createIsolatedProgram)(g)
@@ -4936,7 +5647,7 @@ ${
     }
     t.parseAndGenerateServices = w;
   }),
-  cn = F(t => {
+  cn = F((t) => {
     "use strict";
     Object.defineProperty(t, "__esModule", { value: !0 }), t.clearProgramCache = t.clearCaches = void 0;
     var S = Ye(), x = Xe(), o = Je(), f = Be();
@@ -4959,9 +5670,19 @@ ${
         url: "https://github.com/typescript-eslint/typescript-eslint.git",
         directory: "packages/typescript-estree",
       },
-      bugs: { url: "https://github.com/typescript-eslint/typescript-eslint/issues" },
+      bugs: {
+        url: "https://github.com/typescript-eslint/typescript-eslint/issues",
+      },
       license: "BSD-2-Clause",
-      keywords: ["ast", "estree", "ecmascript", "javascript", "typescript", "parser", "syntax"],
+      keywords: [
+        "ast",
+        "estree",
+        "ecmascript",
+        "javascript",
+        "typescript",
+        "parser",
+        "syntax",
+      ],
       scripts: {
         build: "tsc -b tsconfig.build.json",
         postbuild: "downlevel-dts dist _ts3.4/dist",
@@ -4998,12 +5719,15 @@ ${
         typescript: "*",
       },
       peerDependenciesMeta: { typescript: { optional: !0 } },
-      funding: { type: "opencollective", url: "https://opencollective.com/typescript-eslint" },
+      funding: {
+        type: "opencollective",
+        url: "https://opencollective.com/typescript-eslint",
+      },
       typesVersions: { "<3.8": { "*": ["_ts3.4/*"] } },
       gitHead: "ce5f5165c9d4c5843c86d48b6e6e9a488eb06b0a",
     };
   }),
-  pn = F(t => {
+  pn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
         ? function(y, r, s, p) {
@@ -5021,7 +5745,10 @@ ${
           p === void 0 && (p = s), y[p] = r[s];
         }),
       x = t && t.__exportStar || function(y, r) {
-        for (var s in y) s !== "default" && !Object.prototype.hasOwnProperty.call(r, s) && S(r, y, s);
+        for (var s in y) {
+          s !== "default" && !Object.prototype.hasOwnProperty.call(r, s)
+            && S(r, y, s);
+        }
       };
     Object.defineProperty(t, "__esModule", { value: !0 }),
       t.version =
@@ -5094,10 +5821,11 @@ ${
       let p = !!y.mixedImports;
       delete r.mixedImports;
       let e = new o(r), a = [];
-      return e.walk(n, l => {
+      return e.walk(n, (l) => {
         switch (l.type) {
           case "ImportExpression":
-            !y.skipAsyncImports && l.source && l.source.value && a.push(l.source.value);
+            !y.skipAsyncImports && l.source && l.source.value
+              && a.push(l.source.value);
             break;
           case "ImportDeclaration":
             if (s && l.importKind === "type") break;
@@ -5111,10 +5839,13 @@ ${
             l.expression && l.expression.value && a.push(l.expression.value);
             break;
           case "TSImportType":
-            !s && l.parameter.type === "TSLiteralType" && a.push(l.parameter.literal.value);
+            !s && l.parameter.type === "TSLiteralType"
+              && a.push(l.parameter.literal.value);
             break;
           case "CallExpression":
-            if (!p || !f.isRequire(l) || !l.arguments || !l.arguments.length) break;
+            if (!p || !f.isRequire(l) || !l.arguments || !l.arguments.length) {
+              break;
+            }
             if (f.isPlainRequire(l)) {
               let u = v(l);
               u && a.push(u);
@@ -5126,8 +5857,13 @@ ${
         a;
     }, S.exports.tsx = (n, y = {}) => S.exports(n, { ...y, jsx: !0 });
     function v(n) {
-      if (n.arguments[0].type === "Literal" || n.arguments[0].type === "StringLiteral") return n.arguments[0].value;
-      if (n.arguments[0].type === "TemplateLiteral") return n.arguments[0].quasis[0].value.raw;
+      if (
+        n.arguments[0].type === "Literal"
+        || n.arguments[0].type === "StringLiteral"
+      ) return n.arguments[0].value;
+      if (n.arguments[0].type === "TemplateLiteral") {
+        return n.arguments[0].quasis[0].value.raw;
+      }
     }
     function c(n) {
       return n.arguments[0].value;

@@ -1,7 +1,7 @@
-import type { WebSocket } from "@cloudflare/workers-types";
+import type { Request as WRequest, WebSocket } from "@cloudflare/workers-types";
 
 export async function handleErrors(
-  request: Request,
+  request: WRequest<unknown, CfProperties<unknown>>,
   cb: () => Promise<Response>,
 ) {
   try {

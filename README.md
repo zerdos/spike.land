@@ -1,6 +1,7 @@
 # Real-Time React Page Editor in TypeScript
 
-Easily edit and preview your React pages in real-time using this TypeScript-based page editor.
+Easily edit and preview your React pages in real-time using this
+TypeScript-based page editor.
 
 ![Real-Time React Page Editor Screenshot](https://user-images.githubusercontent.com/1433047/152510761-ecd12293-1eaf-425e-ae7b-71238260cc8c.gif)
 
@@ -20,7 +21,6 @@ if (code) return "it is in the monorepo";
 //                                   /packages/rolling-devcontainer
 //
 ```
-
 
 ### Navigating the Monorepo
 

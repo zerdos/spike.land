@@ -1,5 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import type {} from "@cloudflare/workers-types";
+import type { Request as WRequest } from "@cloudflare/workers-types";
 import { importMap } from "../../code/src/importMap";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
@@ -17,7 +17,7 @@ function isChunk(link: string) {
 // Function to handle API requests
 async function handleApiRequest(
   path: string[],
-  request: Request,
+  request: WRequest<unknown, CfProperties<unknown>>,
   env: CodeEnv,
 ) {
   // Logic for handling API requests
@@ -52,7 +52,7 @@ async function handleApiRequest(
 
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
-      return roomObject.fetch(new Request(newUrl.toString(), request));
+      return roomObject.fetch(new Request(newUrl.toString()));
     }
     default:
       return new Response("Not found", { status: 404 });
@@ -61,7 +61,7 @@ async function handleApiRequest(
 
 async function handleFetchApi(
   path: string[],
-  request: Request,
+  request: WRequest,
   env: CodeEnv,
   ctx: ExecutionContext,
 ): Promise<Response> {
@@ -93,7 +93,7 @@ async function handleFetchApi(
       //          const paths = [...path.slice(1)];
       //
       const pair = new WebSocketPair();
-      pair[1].accept();
+      (pair[1] as unknown as { accept: () => void }).accept();
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     case "files.json":
@@ -204,7 +204,10 @@ async function handleFetchApi(
         );
 
         if (!kvResp.ok) {
-          return new Response(`its a 404: ${await kvResp.text()}`, { status: 404, statusText: "not found" });
+          return new Response(`its a 404: ${await kvResp.text()}`, {
+            status: 404,
+            statusText: "not found",
+          });
         }
 
         kvResp = new Response(kvResp.body, kvResp);
@@ -361,7 +364,7 @@ function handleRedirectResponse(url: URL, start: string): Response {
 
 // Function to handle the main fetch logic
 async function handleMainFetch(
-  request: Request,
+  request: WRequest<unknown, CfProperties<unknown>>,
   env: CodeEnv,
   ctx: ExecutionContext,
 ): Promise<Response> {
@@ -382,7 +385,8 @@ async function handleMainFetch(
       const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
       console.log({ asOrganization: request.cf?.asOrganization });
       const start = md5(
-        ((request.cf?.asOrganization as unknown as string) || "default") + utcSecs + `
+        ((request.cf?.asOrganization as unknown as string) || "default")
+          + utcSecs + `
       and reset every 2 hours
       time`,
       );

@@ -167,7 +167,9 @@ export async function ata(
 
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
-      const url = new URL(newBase.split("https://esm.sh").join(self.location.origin));
+      const url = new URL(
+        newBase.split("https://esm.sh").join(self.location.origin),
+      );
 
       impRes[newBase].content = await fetch(url, { redirect: "follow" })
         .then((dtsRes) => {

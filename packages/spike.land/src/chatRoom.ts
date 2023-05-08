@@ -1,4 +1,4 @@
-import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
+import type { DurableObject, DurableObjectState, Request as WRequest, WebSocket } from "@cloudflare/workers-types";
 import { resetCSS } from "../../code/src/getResetCss";
 import HTML from "./../../code/src/index.html";
 import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
@@ -142,12 +142,14 @@ export class Code implements DurableObject {
     });
   }
 
-  fetch(request: Request) {
+  fetch(request: WRequest<unknown, CfProperties<unknown>>) {
     return handleErrors(
       request,
       (async () => {
         const url = new URL(request.url);
-        this.session.code = this.session.code.split("https://spike.land/").join(`${url.origin}/`);
+        this.session.code = this.session.code.split("https://spike.land/").join(
+          `${url.origin}/`,
+        );
 
         const codeSpace = url.searchParams.get("room");
 
@@ -397,7 +399,9 @@ export class Code implements DurableObject {
                 headers: { TR_ORIGIN: this.#origin },
               }).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
 
-            const replaced = this.#transpiled.split("https://spike.land/").join(`${this.#origin}/`);
+            const replaced = this.#transpiled.split("https://spike.land/").join(
+              `${this.#origin}/`,
+            );
             return new Response(replaced, {
               headers: {
                 "Access-Control-Allow-Origin": "*",
