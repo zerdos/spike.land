@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3.1.1
         with:
           context: ./
-          file: ./dockerhub/devimages/${{ matrix.image-name }}/Dockerfile
+          file: ./packages/${{ matrix.image-name }}/Dockerfile
           push: true
           platforms: ${{ matrix.platform }}
           tags: devimages/${{ matrix.image-name }}:${{ steps.extract_version.outputs.version }},devimages/${{ matrix.image-name }}:latest

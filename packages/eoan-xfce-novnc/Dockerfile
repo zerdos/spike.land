@@ -10,7 +10,7 @@ RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-
 FROM ubuntu:jammy as devimage
 
 ### base.Dockerfile
-### Generator: https://github.com/zerdos/spike.land/tree/main/dockerhub/devimages
+### Generator: https://github.com/zerdos/spike.land/tree/main/packages
 
 LABEL maintainer=zoltan.erdos@me.com
 
