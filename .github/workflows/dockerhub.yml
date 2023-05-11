@@ -30,12 +30,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Extract Package Version
-        uses: Saionaro/extract-package-version@v1.1.1
+      
+      - name: Extract version
         id: extract_version
+        uses: Saionaro/extract-package-version@v1.2.1
         with:
-          path: dockerhub/devimages/${{ matrix.image-name }}
+          path: packages    /${{ matrix.image-name }}
 
       - name: Build and push
         uses: docker/build-push-action@v3.1.1
