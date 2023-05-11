@@ -1,4 +1,4 @@
-FROM devimages/jammy-devcontainer:latest as devimage
+FROM devimages/lunar-devcontainer:latest as devimage
 
 USER 0
 
