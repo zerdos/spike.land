@@ -35,7 +35,7 @@ jobs:
         id: extract_version
         uses: Saionaro/extract-package-version@v1.2.1
         with:
-          path: packages    /${{ matrix.image-name }}
+          path: packages/${{ matrix.image-name }}
 
       - name: Build and push
         uses: docker/build-push-action@v3.1.1
