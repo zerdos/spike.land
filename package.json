@@ -31,7 +31,7 @@
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230419.0",
+    "@cloudflare/workers-types": "4.20230511.0",
     "@emotion/react": "11.11.0",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@playwright/test": "1.33.0",

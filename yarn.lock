@@ -95,10 +95,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230419.0":
-  version: 4.20230419.0
-  resolution: "@cloudflare/workers-types@npm:4.20230419.0"
-  checksum: 9a354741e49ff926ec91d57bc9df8b7371ccd40fca3be6873842a7c71b4e6f41d3c720903d314ebc565db83461269a15589a04a7bbe11b311a705c2993302674
+"@cloudflare/workers-types@npm:4.20230511.0":
+  version: 4.20230511.0
+  resolution: "@cloudflare/workers-types@npm:4.20230511.0"
+  checksum: 90f933031ca8e2dc71804ddf5184cb0f68720d646940d283d4dad1585d18c96a395b29005d0e255ccf985c96fb11b206f4e9434efae50f8b3efcf5704da1b975
   languageName: node
   linkType: hard
 
@@ -1112,7 +1112,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.17.18"
+    esbuild-wasm: "npm:0.17.19"
   languageName: unknown
   linkType: soft
 
@@ -1121,11 +1121,11 @@ __metadata:
   resolution: "@spike.land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230419.0"
+    "@cloudflare/workers-types": "npm:4.20230511.0"
     "@spike.land/code": "npm:0.9.2"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.17.18"
+    esbuild-wasm: "npm:0.17.19"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
@@ -1153,7 +1153,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.1.2"
+    "@types/node": "npm:20.1.3"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.2.6"
@@ -1173,7 +1173,7 @@ __metadata:
     buffer: "npm:6.0.3"
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
-    esbuild-wasm: "npm:0.17.18"
+    esbuild-wasm: "npm:0.17.19"
     eslint: "npm:8.40.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
@@ -1234,8 +1234,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.1.2"
-    esbuild-wasm: "npm:0.17.18"
+    "@types/node": "npm:20.1.3"
+    esbuild-wasm: "npm:0.17.19"
   languageName: unknown
   linkType: soft
 
@@ -1306,8 +1306,8 @@ __metadata:
   resolution: "@spike.land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230419.0"
-    esbuild-wasm: "npm:0.17.18"
+    "@cloudflare/workers-types": "npm:4.20230511.0"
+    esbuild-wasm: "npm:0.17.19"
     typescript: "npm:5.0.4"
     wrangler: "npm:2.20.0"
   languageName: unknown
@@ -1416,10 +1416,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.1.2":
+"@types/node@npm:*":
   version: 20.1.2
   resolution: "@types/node@npm:20.1.2"
   checksum: 01c562f1b84810f9aa780afee5024ffd9cd021d5fe4cad09b753a81408d028e39a21aff8a99c4fb3683e07ae1141973645284ef7d567a3a2fcfc74d5a952969a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.1.3":
+  version: 20.1.3
+  resolution: "@types/node@npm:20.1.3"
+  checksum: 69eeb75b3c5452116792ffbe9143ed7ed561c1d37887af216926cd30dac5926b6d5e092aa673d80c7af917f315d422bb56ff43b42a1c3727fe34a32b1201940b
   languageName: node
   linkType: hard
 
@@ -3420,12 +3427,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.17.18":
-  version: 0.17.18
-  resolution: "esbuild-wasm@npm:0.17.18"
+"esbuild-wasm@npm:0.17.19":
+  version: 0.17.19
+  resolution: "esbuild-wasm@npm:0.17.19"
   bin:
     esbuild: bin/esbuild
-  checksum: bf2d06cc2c28ca45509749b7327ba1c5b69ed88082e513f5382ac3c16a2001f58fcb1ea3a542db4cdd0e007d2c0d44629bf5447b7620334a4cb20ed4eaf5f115
+  checksum: d331bf2b1de1e93494d6d0651d1893d31ced96bc46899d929318eba3e850a7d86098a69e792e17b6507dc97080ec9058407e8bff31ade630ca8f82cc344dd064
   languageName: node
   linkType: hard
 
@@ -6220,7 +6227,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230419.0"
+    "@cloudflare/workers-types": "npm:4.20230511.0"
     "@emotion/react": "npm:11.11.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.33.0"
