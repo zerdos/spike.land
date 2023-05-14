@@ -1153,7 +1153,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.1.3"
+    "@types/node": "npm:20.1.4"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.2.6"
@@ -1196,7 +1196,7 @@ __metadata:
     p2pcf: "npm:1.3.13"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    preact: "npm:10.13.2"
+    preact: "npm:10.14.0"
     prettier: "npm:2.8.8"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
@@ -1234,7 +1234,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.1.3"
+    "@types/node": "npm:20.1.4"
     esbuild-wasm: "npm:0.17.19"
   languageName: unknown
   linkType: soft
@@ -1423,10 +1423,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.1.3":
-  version: 20.1.3
-  resolution: "@types/node@npm:20.1.3"
-  checksum: 69eeb75b3c5452116792ffbe9143ed7ed561c1d37887af216926cd30dac5926b6d5e092aa673d80c7af917f315d422bb56ff43b42a1c3727fe34a32b1201940b
+"@types/node@npm:20.1.4":
+  version: 20.1.4
+  resolution: "@types/node@npm:20.1.4"
+  checksum: a42d78780d9c26d50c926a358831f439561008e14a89e306fbdc2e15ff58fed8ac744c1d12b52cf32309fce6ee774da8eb46bce23175ced3ec1d83e2bb21802b
   languageName: node
   linkType: hard
 
@@ -7055,10 +7055,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.13.2":
-  version: 10.13.2
-  resolution: "preact@npm:10.13.2"
-  checksum: e3bea767e31d237b472d5c5ba034eec9fa7b891e0e5441e2dea21a63f61e105a5f124367748bc8554b7c8215cffd8da0d8d4bb725067737f42a4f68507ed74ba
+"preact@npm:10.14.0":
+  version: 10.14.0
+  resolution: "preact@npm:10.14.0"
+  checksum: efa8fc0e430b5722161ef8d19ac8d43fdc0e964024edf5c5ba6865ba45c6af7db21f78545a63be41d9d6240edf6510d868dae8673cf3f4af7539ca7d2489f919
   languageName: node
   linkType: hard
 
