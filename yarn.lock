@@ -1190,7 +1190,7 @@ __metadata:
     memfs: "npm:3.5.1"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.38.0"
-    node-source-walk: "npm:6.0.1"
+    node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
     p2pcf: "npm:1.3.13"
@@ -6359,12 +6359,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-source-walk@npm:6.0.1":
-  version: 6.0.1
-  resolution: "node-source-walk@npm:6.0.1"
+"node-source-walk@npm:6.0.2":
+  version: 6.0.2
+  resolution: "node-source-walk@npm:6.0.2"
   dependencies:
     "@babel/parser": "npm:^7.21.8"
-  checksum: e57aef4f802bf3bcd94cd5832771e5041206a25feebfadaaca11c6ce9049fa3766b6b6ac98005f1c61662f7f1c91ef2585099da6ea63485416bd5b095da892a4
+  checksum: 0d8cb15c83ac1cb02187b43f4f3b46e8e83939e5c6f7678cba1e0e727ff3da3c96ebd0adef6611040373a6843191699b29b2898630fac2cc525dd08705887a68
   languageName: node
   linkType: hard
 
