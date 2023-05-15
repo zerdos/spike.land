@@ -383,7 +383,7 @@ const build = (
     [
       "/swVersion.mjs",
       "/dist.shasum.js",
-      "/monaco-editor",
+      // "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,
@@ -415,7 +415,7 @@ const build = (
       alias: {
         ...buildOptions.alias,
         "react": "preact/compat",
-        "monaco-editor": "/monaco-editor",
+        // "monaco-editor": "/monaco-editor",
         "react-dom/test-utils": "preact/test-utils",
         "react-dom": "preact/compat",
         "react/jsx-runtime": "preact/jsx-runtime",
