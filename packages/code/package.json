@@ -79,7 +79,7 @@
     "esbuild-wasm": "0.17.19",
     "events": "3.3.0",
     "fast-diff": "1.2.0",
-    "fetch-retry": "5.0.5",
+    "fetch-retry": "5.0.6",
     "file-type": "18.4.0",
     "framer-motion": "10.12.12",
     "immutable": "4.3.0",

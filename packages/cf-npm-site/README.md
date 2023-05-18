@@ -65,7 +65,7 @@ authenticated, you can deploy the app for the first time by adding your
 Cloudflare account ID (which can be viewed by running `wrangler whoami`) to the
 wrangler.toml file and then running:
 
-    wrangler publish --new-class ChatRoom --new-class RateLimiter
+    wrangler deploy --new-class ChatRoom --new-class RateLimiter
 
 If you get an error about the `--new-class` flag not being recognized, you need
 to update your version of Wrangler.
