@@ -3,6 +3,7 @@
 .yarn/global
 .yarn/global/store
 haters/
+bc
 .env
 client_id§
 videos/
