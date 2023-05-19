@@ -980,7 +980,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.2.0"
+    "@types/node": "npm:20.2.1"
     "@types/prettier": "npm:2.7.2"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.2.6"
@@ -1061,7 +1061,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.2.0"
+    "@types/node": "npm:20.2.1"
     esbuild-wasm: "npm:0.17.19"
   languageName: unknown
   linkType: soft
@@ -1234,10 +1234,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.2.0":
+"@types/node@npm:*":
   version: 20.2.0
   resolution: "@types/node@npm:20.2.0"
   checksum: f247425461bb16f233ec5486553aff18288c1576044eab994522cf708480d3ac8d05e106e02883524a2b2ffd53476c0c41c58e50f019df1babdfab2d2c9b350c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.2.1":
+  version: 20.2.1
+  resolution: "@types/node@npm:20.2.1"
+  checksum: d8431e663a93580f9b8f87c5f3db3cdaa32d3ffbe806820975d90f8d2c571928b67e35314dc3abe9a6cd590329fd8030ba7295e824262d5604d922bce6750348
   languageName: node
   linkType: hard
 
