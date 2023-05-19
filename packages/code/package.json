@@ -136,7 +136,7 @@
     "eslint": "8.40.0",
     "eslint-plugin-react": "7.32.2",
     "popmotion": "11.0.5",
-    "tslib": "2.5.1",
+    "tslib": "2.5.2",
     "typescript": "5.0.4",
     "uvu": "0.5.6"
   }
