@@ -1234,14 +1234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 20.2.0
-  resolution: "@types/node@npm:20.2.0"
-  checksum: f247425461bb16f233ec5486553aff18288c1576044eab994522cf708480d3ac8d05e106e02883524a2b2ffd53476c0c41c58e50f019df1babdfab2d2c9b350c
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:20.2.1":
+"@types/node@npm:*, @types/node@npm:20.2.1":
   version: 20.2.1
   resolution: "@types/node@npm:20.2.1"
   checksum: d8431e663a93580f9b8f87c5f3db3cdaa32d3ffbe806820975d90f8d2c571928b67e35314dc3abe9a6cd590329fd8030ba7295e824262d5604d922bce6750348
@@ -8516,7 +8509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.5.2":
+"tslib@npm:2.5.2, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
   version: 2.5.2
   resolution: "tslib@npm:2.5.2"
   checksum: ed22e23f3d390c305c714064679149f3dd298bc7473697480343c6ec4d2afc94270f85d947fca2ccc6324a22602ef04fe2c7177dda317fbea55f7da1dca3fa36
@@ -8527,13 +8520,6 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: 441af59dc42ad4ae57140e62cb362369620c6076845c2c2b0ecc863c1d719ce24fdbc301e9053433fef43075e061bf84b702318ff1204b496a5bba10baf9eb9f
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
-  version: 2.5.1
-  resolution: "tslib@npm:2.5.1"
-  checksum: 4e03af4a3e519b12cc9a82b3bbabc1cb71402b1233da868e4bdaec7199915ce6f64884058be10828bdfe75eaf9073fdf10f9efa2a7ccbb400b1f24382f26a0fc
   languageName: node
   linkType: hard
 

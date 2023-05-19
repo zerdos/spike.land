@@ -433,7 +433,9 @@ async function startMonacoPristine(
   };
 
   model.onDidChangeContent((_ev) => {
-    console.log("onDidChangeContent", model.getValue());
+    const code = model.getValue();
+
+    // console.log("onDidChangeContent", model.getValue());
     mod.isEdit = true;
     ctr.abort();
     ctr = new AbortController();
@@ -445,7 +447,7 @@ async function startMonacoPristine(
     // globalThis[codeSpace].model = myEditor.getModel();
     // globalThis[codeSpace].viewState = myEditor.saveViewState();
     if (!mod.silent) {
-      onChange(myEditor.getModel()?.getValue()!);
+      onChange(code);
       // BC.postMessage(JSON.parse(JSON.stringify({ changes: ev.changes })));
     }
     // console.log({ version: model.getVersionId(), ev });
