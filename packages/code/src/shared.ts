@@ -1,8 +1,6 @@
 import SharedWorker from "@okikio/sharedworker";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
-// @ts-ignore
-import { swVersion } from "/swVersion.mjs";
 
 let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
