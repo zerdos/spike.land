@@ -1,6 +1,8 @@
 import SharedWorker from "@okikio/sharedworker";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
+// @ts-ignore
+import { swVersion } from "/swVersion.mjs";
 
 let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
@@ -23,7 +25,7 @@ export const init = (swVersion: string, port: MessagePort | null = null) => {
   workerPort.onmessage = ({ data }) => rpc!.dispatch(data);
   return rpc;
 };
-const { swVersion } = self;
+
 export const prettier = (code: string) => init(swVersion).rpc("prettierJs", code) as unknown as string;
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
