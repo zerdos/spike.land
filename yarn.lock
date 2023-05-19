@@ -1000,6 +1000,7 @@ __metadata:
     buffer: "npm:6.0.3"
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
+    detective-typescript: "npm:11.1.0"
     esbuild-wasm: "npm:0.17.19"
     eslint: "npm:8.40.0"
     eslint-plugin-react: "npm:7.32.2"
@@ -1440,7 +1441,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/typescript-estree@npm:5.59.6":
+"@typescript-eslint/typescript-estree@npm:5.59.6, @typescript-eslint/typescript-estree@npm:^5.59.5":
   version: 5.59.6
   resolution: "@typescript-eslint/typescript-estree@npm:5.59.6"
   dependencies:
@@ -1921,7 +1922,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ast-module-types@npm:5.0.0":
+"ast-module-types@npm:5.0.0, ast-module-types@npm:^5.0.0":
   version: 5.0.0
   resolution: "ast-module-types@npm:5.0.0"
   checksum: f6176e78080b77caba62c660a5b2ea8ee9b64ce17ae02659676ccba795ec11454d1a3f9883e377240c97f9cef9fa4b8e7f9595e06ec4f37657a63b41ecf5cb41
@@ -3038,6 +3039,18 @@ __metadata:
   version: 2.1.0
   resolution: "detect-newline@npm:2.1.0"
   checksum: c777b723a7faa02b2942d8bee9fc5eef7ffe98e7c1fe45546c8f01fbeb253e98d0ea2411b09e00693fe202be8a64eb49da1c8cd4ddddb5d40eaa4fa9b26f22fd
+  languageName: node
+  linkType: hard
+
+"detective-typescript@npm:11.1.0":
+  version: 11.1.0
+  resolution: "detective-typescript@npm:11.1.0"
+  dependencies:
+    "@typescript-eslint/typescript-estree": "npm:^5.59.5"
+    ast-module-types: "npm:^5.0.0"
+    node-source-walk: "npm:^6.0.1"
+    typescript: "npm:^5.0.4"
+  checksum: b3b81d0de8e7063ffed7f6a0d07dcf8a9b687093987fb050c196829dcb722ad4f0f5c9920a952400cae35ec625379a6c5e3bf8b5ba44ebeda6cb099b904c8db5
   languageName: node
   linkType: hard
 
@@ -6242,7 +6255,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-source-walk@npm:6.0.2":
+"node-source-walk@npm:6.0.2, node-source-walk@npm:^6.0.1":
   version: 6.0.2
   resolution: "node-source-walk@npm:6.0.2"
   dependencies:
@@ -8598,7 +8611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.0.4":
+"typescript@npm:5.0.4, typescript@npm:^5.0.4":
   version: 5.0.4
   resolution: "typescript@npm:5.0.4"
   bin:
@@ -8608,7 +8621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
   version: 5.0.4
   resolution: "typescript@patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>::version=5.0.4&hash=b5f058"
   bin:

@@ -126,7 +126,7 @@ const Editor: FC<
 
     mod.controller.abort();
     mod.controller = new AbortController();
-    const signal = mod.controller.signal;
+    const { signal } = mod.controller;
     mod.i = Number(mod.i) + 1;
     mod.code = c;
 

@@ -26,7 +26,7 @@ export const init = (swVersion: string, port: MessagePort | null = null) => {
   return rpc;
 };
 
-export const prettier = (code: string) => init(swVersion).rpc("prettierJs", code) as unknown as string;
+export const prettier = (code: string) => init(swVersion).rpc("prettierJs", code) as Promise<string>;
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
 ) =>
