@@ -117,7 +117,7 @@ const Editor: FC<
   );
 
   const onChange = async (_code: string) => {
-    console.log("onChange", code);
+    console.log("onChange", _code);
     if (mod.code === _code) return;
 
     const c = await prettier(_code);
