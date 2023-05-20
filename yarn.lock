@@ -904,19 +904,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.33.0":
-  version: 1.33.0
-  resolution: "@playwright/test@npm:1.33.0"
+"@playwright/test@npm:1.34.0":
+  version: 1.34.0
+  resolution: "@playwright/test@npm:1.34.0"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.33.0"
+    playwright-core: "npm:1.34.0"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 340831d62b5507f7efabd12e6b92830e252da666e7ec4221a1ace8380459d45392768592581c3192f2d211d5df4de6ed26e354b4c0ede98745b8cea3b77c0625
+  checksum: 3467c37ce8f5d2cdfb5860e8188ed6b465e0590a2b928e75e5d57d7c911ea7919806e3d490e47e00ce4cde97a0def2e8a19aded52a332393d4db8e4fca5628a6
   languageName: node
   linkType: hard
 
@@ -6110,7 +6110,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230511.0"
     "@emotion/react": "npm:11.11.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.33.0"
+    "@playwright/test": "npm:1.34.0"
     "@types/eslint": "npm:8.37.0"
     "@types/react": "npm:18.2.6"
     "@types/react-dom": "npm:18.2.4"
@@ -6123,7 +6123,7 @@ __metadata:
     eslint-plugin-react: "npm:7.32.2"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.38.0"
-    playwright: "npm:1.33.0"
+    playwright: "npm:1.34.0"
     react: "npm:18.2.0"
     typescript: "npm:5.0.4"
     util: "npm:0.12.5"
@@ -6866,23 +6866,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.33.0":
-  version: 1.33.0
-  resolution: "playwright-core@npm:1.33.0"
-  bin:
-    playwright: cli.js
-  checksum: 1b920bf37aebb533b1959d4c6f88c69ac81e83e8592b016748b5a7c3a8b8cd6264fd151247be8c63ec2c2b07cd4aca47ede56abe86a49a66f3a97300e58a83e0
+"playwright-core@npm:1.34.0":
+  version: 1.34.0
+  resolution: "playwright-core@npm:1.34.0"
+  checksum: a08a92768f7dbb2eb4cc046bc58263c18ca90aa021a261d359b0a14838e3699ea8eabcea5be2ce24eb9d8c621edc0bc42a82daabc4f5cb9974b27c6c364d72b6
   languageName: node
   linkType: hard
 
-"playwright@npm:1.33.0":
-  version: 1.33.0
-  resolution: "playwright@npm:1.33.0"
+"playwright@npm:1.34.0":
+  version: 1.34.0
+  resolution: "playwright@npm:1.34.0"
   dependencies:
-    playwright-core: "npm:1.33.0"
+    playwright-core: "npm:1.34.0"
   bin:
     playwright: cli.js
-  checksum: 79bc7c3c84dafa1ad5a84d6d9e589929312869203040be20a02b3a3ab6a493f43347de8aeada670ef42e209fc598a6996f7c4c38fea6aa393c598353e5424d1f
+  checksum: 40eb162e73cdb27ed2dddfc33d4098bbaa2ef7f4d4e7fa53d26db235add05ce1aa406213ed6f07040358529903ff71375e3ac4023ba046ea4215fd1904519731
   languageName: node
   linkType: hard
 
