@@ -32,7 +32,7 @@ const mod: {
 async function rerender(data: ICodeSession & { transpiled: string }) {
   if (data.i) {
     if (i >= data.i) return;
-    console.log("rerender", { data });
+    console.log("rerender", { i: data.i });
     i = data.i;
 
     controller.abort();
@@ -76,8 +76,6 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
         )}
       </ParentSize>,
     );
-
-    console.log("rerender", data.i);
 
     // //(await import(
     //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
