@@ -358,7 +358,7 @@ const build = (
       "src/jsx.mjs",
 
       "src/motion.ts",
-      "src/hydrate.tsx",
+      "src/hydrate.ts",
       // "src/motion.ts",
       // "src/esbuildWASM.ts",
       // "src/emotionJsxRuntime.mjs",

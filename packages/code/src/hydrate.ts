@@ -1,27 +1,19 @@
-// import type { Root } from "react-dom/client";
-// import uidV4 from "./uidV4.mjs";
-
-// import type { EmotionCache } from "@emotion/cache";
-// import { createRoot } from "react-dom/client";
-import { mkdir } from "./fs";
-import { md5 } from "./md5";
-import { render } from "./render";
-// import { ab2str } from "./sab";
-// import type { ICodeSession } from "./session";
-// import { wait } from "./wait";
-export { md5 };
-
-import { getTransferables, hasTransferables } from "transferables";
+// Import necessary modules
 import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
 import { run } from "./ws";
-// @ts-ignore
-import { swVersion } from "/swVersion.mjs";
 
+import { getTransferables, hasTransferables } from "transferables";
+import { mkdir } from "./fs";
+import { render } from "./render";
+
+// Set up service worker version
+const { swVersion } = self;
 export const sw = new Workbox(`/sw.js?v=${swVersion}`);
 init(swVersion, null);
 const port = getPort();
 
+// Set up service worker event listeners
 sw.getSW().then((sw) => {
   const swPort = new MessageChannel();
   port.addEventListener(
@@ -49,7 +41,7 @@ sw.getSW().then((sw) => {
   ]);
 });
 
-// sw.messageSkipWaiting();
+// Register service worker
 if ("serviceWorker" in navigator) {
   sw.register().then(() =>
     navigator.serviceWorker.register("/sw.js").then((sw) => {
@@ -64,26 +56,19 @@ if ("serviceWorker" in navigator) {
     })
   );
 }
-//       .then(
-//         () =>
-//           navigator.serviceWorker.getRegistrations().then(r =>
-//             r.filter(x => x.active).map(x => x !== sw && x.update())
-//           ),
-//       );
-//   });
-// }
 
+// Create directories for the code space
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 mkdir("/").then(() => mkdir("/live")).then(() => mkdir(`/live/${codeSpace}`));
 
-if (
-  location.pathname === `/live/${codeSpace}`
-) {
+// Check if on live page, and if so, run the code
+if (location.pathname === `/live/${codeSpace}`) {
   run();
 } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
+  // Update HTML and CSS on message received
   BC.onmessage = ({ data }) => {
     const { html, css } = data;
     document.getElementById("root")!.innerHTML = [
@@ -94,26 +79,11 @@ if (
       html,
       "</div>",
     ].join("");
-
-    // if (location.pathname === `/live/${codeSpace}/public`) {
-    //   render(
-    //     document.getElementById(codeSpace + "-css")!,
-    //     codeSpace,
-    //   );
-    // }
   };
-
-  // if (location.pathname === `/live/${codeSpace}/public`) {
-  //   render(
-  //     document.getElementById(codeSpace + "-css")!,
-  //     codeSpace,
-  //   );
-  // }
 } else {
-  // import("./render").then(({ render }) =>
+  // Render the code
   render(
     document.getElementById(`${codeSpace}-css`)!,
     codeSpace,
   );
-  // );
 }
