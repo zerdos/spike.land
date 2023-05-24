@@ -904,19 +904,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.34.1":
-  version: 1.34.1
-  resolution: "@playwright/test@npm:1.34.1"
+"@playwright/test@npm:1.34.2":
+  version: 1.34.2
+  resolution: "@playwright/test@npm:1.34.2"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.34.1"
+    playwright-core: "npm:1.34.2"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 08fb4a26f721097f49384751cede2e53795086abda8ac14e520f2277d959c078ee6a356863ec8fe7517b93117edddaf51cc2ec0479033c6dae752f98025517f7
+  checksum: 31261945676e0aca99ecd52a0c6fa5ef05e60d06e5b037b2d7829d53c9e26f5c9eb25828c718c678ac433ef78db6842f1da99a59451bb96749a70fc6fee22b79
   languageName: node
   linkType: hard
 
@@ -1008,7 +1008,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:5.0.6"
     file-type: "npm:18.4.0"
-    framer-motion: "npm:10.12.13"
+    framer-motion: "npm:10.12.14"
     immutable: "npm:4.3.0"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -2854,9 +2854,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.12.0":
-  version: 12.12.0
-  resolution: "cypress@npm:12.12.0"
+"cypress@npm:12.13.0":
+  version: 12.13.0
+  resolution: "cypress@npm:12.13.0"
   dependencies:
     "@cypress/request": "npm:^2.88.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -2902,7 +2902,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 40db4e919d5f962433b8373b10b8f8f30d169c9be0bd714fe119d8911175b7969547fa14918d787473f6341f4c7ce6ae35b53a1c886a2c8330a0802d60a41e93
+  checksum: 2fbd6e3a3b756e9b4032fa6d2d8e2d0a4f41896e1015a0a144d98d719b3b2ce483c255ecbf145113a798681cadb6300438ec6a800012470e63f13be6f0d7f551
   languageName: node
   linkType: hard
 
@@ -4052,9 +4052,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.12.13":
-  version: 10.12.13
-  resolution: "framer-motion@npm:10.12.13"
+"framer-motion@npm:10.12.14":
+  version: 10.12.14
+  resolution: "framer-motion@npm:10.12.14"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -4069,7 +4069,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: ff5091c923faf04751f8aab68406ebdbc3f8bd6e0f1ce4ad3407411a14b8444e3c8bed9efa7682aeaa93fee3f809f61a6cd32d8000701ec8f54ae23b197e8edc
+  checksum: 15ac7ddd889f0b45b9579b116c745f193100e54511c8987ccd3f243f8501b4e12f23a5ef1bd3d9bb3cd4ecff8d214627c89bb3aecda92f479b7899a94e592923
   languageName: node
   linkType: hard
 
@@ -6158,20 +6158,20 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230518.0"
     "@emotion/react": "npm:11.11.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.34.1"
+    "@playwright/test": "npm:1.34.2"
     "@types/eslint": "npm:8.40.0"
     "@types/react": "npm:18.2.6"
     "@types/react-dom": "npm:18.2.4"
     "@typescript-eslint/eslint-plugin": "npm:5.59.7"
     "@typescript-eslint/parser": "npm:5.59.7"
     constants: "npm:0.0.2"
-    cypress: "npm:12.12.0"
+    cypress: "npm:12.13.0"
     dprint: "npm:0.36.1"
     eslint: "npm:8.41.0"
     eslint-plugin-react: "npm:7.32.2"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.38.0"
-    playwright: "npm:1.34.1"
+    playwright: "npm:1.34.2"
     react: "npm:18.2.0"
     typescript: "npm:5.0.4"
     util: "npm:0.12.5"
@@ -6914,23 +6914,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.34.1":
-  version: 1.34.1
-  resolution: "playwright-core@npm:1.34.1"
+"playwright-core@npm:1.34.2":
+  version: 1.34.2
+  resolution: "playwright-core@npm:1.34.2"
   bin:
     playwright: cli.js
-  checksum: db8e3f00f9c5590840ecb230d473db967c7f4c6c9876a5bca202aea014e63840da0615219895f0f0ef73a2705c5d511b661a87f4bf8aece8972cf881514dee01
+  checksum: 2cbb2a54d0d4c54213ceea521f3be3f9752d7600caf2e9c4c613294c52d7891e1d7200169f84f7a6f0ef4bde25b8fc088fca6b41418f96770c4675d0e91391c0
   languageName: node
   linkType: hard
 
-"playwright@npm:1.34.1":
-  version: 1.34.1
-  resolution: "playwright@npm:1.34.1"
+"playwright@npm:1.34.2":
+  version: 1.34.2
+  resolution: "playwright@npm:1.34.2"
   dependencies:
-    playwright-core: "npm:1.34.1"
+    playwright-core: "npm:1.34.2"
   bin:
     playwright: cli.js
-  checksum: 369092b04b2f81781983c11819646d8f592700456a0bbfea87d0af35bf498d989ebd5b0a126018140fa1e86831c1d6e47f46c36697749d38676d41af55703eb1
+  checksum: cfd458b6ef7d54bdcaa04afc7c9e6f1679298156d052e43bd1e9425d915bea0976ecc55ec2d3cbc32ffeec50f405287596478979baff6ee77d6d34c459856907
   languageName: node
   linkType: hard
 
