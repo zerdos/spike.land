@@ -1040,15 +1040,15 @@ __metadata:
     p2pcf: "npm:1.3.13"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    preact: "npm:10.15.0"
+    preact: "npm:10.15.1"
     prettier: "npm:2.8.8"
     prismjs: "npm:1.29.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-error-boundary: "npm:4.0.4"
-    react-icons: "npm:4.8.0"
+    react-error-boundary: "npm:4.0.7"
+    react-icons: "npm:4.9.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
     react-rnd: "npm:10.4.1"
@@ -7226,10 +7226,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.15.0":
-  version: 10.15.0
-  resolution: "preact@npm:10.15.0"
-  checksum: 0bf66081883a88745b3c5b9b3efeb60a38d07e84b353facb29273a03d94715f63783722adf80463dc9c14bc74118f2dae790c1eb65ffe8134effa04e9acf4772
+"preact@npm:10.15.1":
+  version: 10.15.1
+  resolution: "preact@npm:10.15.1"
+  checksum: 793634c527a9f4fbc6d48b15917996ae404fa91f71d2cb5cfdab5dee4d5c8760e7f9dfe2d5f43b155129976ae53ac197760488189eb4d0599d48f843db0b48f5
   languageName: node
   linkType: hard
 
@@ -7490,23 +7490,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:4.0.4":
-  version: 4.0.4
-  resolution: "react-error-boundary@npm:4.0.4"
+"react-error-boundary@npm:4.0.7":
+  version: 4.0.7
+  resolution: "react-error-boundary@npm:4.0.7"
   dependencies:
     "@babel/runtime": "npm:^7.12.5"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: 896f3206decc9c342e38a26b11bf4afbc281d16127a030dfdb2a6d728a65b822f13c1ba4659d7307f7d4ae687eb21a7d6d0cccc9f86bc47d9c3014d18211a4b6
+  checksum: 05265823bd6eb86d1df140b61f5395c6027fa73357f03ee7110c2b57af576809536c363b7e601eb3c3e615740f4f8da60f4f37165d49fb86a774b98968a11cdf
   languageName: node
   linkType: hard
 
-"react-icons@npm:4.8.0":
-  version: 4.8.0
-  resolution: "react-icons@npm:4.8.0"
+"react-icons@npm:4.9.0":
+  version: 4.9.0
+  resolution: "react-icons@npm:4.9.0"
   peerDependencies:
     react: "*"
-  checksum: 18ff21e05b3ee10c34dccb930f60956c6124461cc5ef317e81a82bb88b61458f7b5e0afa47e79f24f793785fd3ae6b4775c2e1275cbf20be99fc7578e0b98628
+  checksum: 463a61197cd55f70dedb730dbf0ba7b5aaa31016d431032ceef07dd5eab810ec8e71bc2620fd7b77802ce377027b56d868056f7f58694b3e7e59a79254d4eecb
   languageName: node
   linkType: hard
 
