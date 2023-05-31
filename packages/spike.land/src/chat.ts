@@ -375,6 +375,19 @@ async function handleMainFetch(
     return handleUnauthorizedRequest();
   }
 
+  const url = new URL(request.url);
+  if (url.pathname.endsWith(".d.ts")) {
+    const apiurl = new URL(`https://esm.sh${url.pathname}`);
+
+    const response = await fetch(new Request(apiurl, request));
+    let body = await response.text();
+
+    // Replace esm.sh with the original origin
+    body = body.replace(/esm\.sh/g, url.origin);
+
+    return new Response(body, response);
+  }
+
   return handleErrors(request, async () => {
     console.log(`handling request: ${request.url}`);
 
