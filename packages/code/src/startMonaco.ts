@@ -82,6 +82,7 @@ const monacoContribution = (code: string) => {
   const extraModels = fetchAndCreateExtraModels(code, originToUse);
 
   ata({ code, originToUse }).then(async (extraLibs) => {
+    console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     if (extraModels.length) await Promise.all(extraModels);
