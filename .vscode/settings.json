@@ -59,8 +59,9 @@
   },
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsserver.log": "verbose",
+  "typescript.tsserver.logToFile": true,
+  "typescript.tsserver.logFile": ".yarn/sdks/typescript/tsserver.log",
   "eslint.nodePath": ".yarn/sdks",
-  "deno.enable": true,
-  "deno.unstable": true,
   "livePreview.defaultPreviewPath": "/packages/code/src/index.html"
 }
