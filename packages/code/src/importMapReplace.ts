@@ -5,7 +5,7 @@ const importMapImports = importMap.imports;
 export function importMapReplace(
   codeInp: string,
   origin: string,
-  swV = String(Math.random()),
+  swV: string,
 ) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
@@ -23,7 +23,7 @@ export function importMapReplace(
       returnStr = replaceAll(
         returnStr,
         ` from "${lib}"`,
-        ` from "${importMapImports[lib]}?v=${typeof swVersion !== "undefined" ? swVersion : swV || Math.random()}"`,
+        ` from "${importMapImports[lib]}?v=${swV}"`,
       );
     });
   }

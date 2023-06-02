@@ -317,6 +317,7 @@ async function handleFetchApi(
         ? importMapReplace(
           await response.text(),
           u.origin,
+          ASSET_HASH,
         ).split("esm.sh").join(
           u.host,
         )
