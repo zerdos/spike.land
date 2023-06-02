@@ -11,7 +11,6 @@
     "preserveConstEnums": true,
     "moduleResolution": "node",
     "sourceMap": true,
-
     "outDir": "dist",
     "rootDir": "..",
     "resolveJsonModule": true,
@@ -22,9 +21,8 @@
     "lib": ["ESNext"],
     "types": ["@cloudflare/workers-types"]
   },
-  "exclude": ["**/*.spec.ts", "node_modules", ".yarn", "dist"],
+  "exclude": ["**/*.spec.ts", "**/node_modules/*", "**/ .yarn", "**/dist"],
   "include": [
-    "src",
-    "../code"
+    "src"
   ]
 }

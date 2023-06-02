@@ -1,5 +1,5 @@
 import type { WebSocket } from "@cloudflare/workers-types";
-import { ICodeSession } from "./../../code/src/session";
+import { ICodeSession } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/session";
 import { Delta } from "../../code/src/textDiff";
 import { CodeEnv } from "./env";

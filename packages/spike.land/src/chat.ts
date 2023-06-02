@@ -377,9 +377,9 @@ async function handleMainFetch(
 
   const url = new URL(request.url);
   if (url.pathname.endsWith(".d.ts")) {
-    const apiurl = new URL(`https://esm.sh${url.pathname}`);
+    const apiUrl = new URL(`https://esm.sh${url.pathname}`);
 
-    const response = await fetch(new Request(apiurl, request));
+    const response = await fetch(new Request(apiUrl, request));
     let body = await response.text();
 
     // Replace esm.sh with the original origin
