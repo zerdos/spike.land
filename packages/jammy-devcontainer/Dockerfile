@@ -5,7 +5,7 @@ ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn
 
 RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
-RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
+# RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
 
 FROM ubuntu:jammy as devimage
 
@@ -199,8 +199,8 @@ RUN  ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 
 
-COPY --link --from=node-builder  /root/.cache/Cypress /home/${USER}/.cache/Cypress
-RUN chown -R ${USER}:${USER} /home/${USER}/.cache
+# COPY --link --from=node-builder  /root/.cache/Cypress /home/${USER}/.cache/Cypress
+# RUN chown -R ${USER}:${USER} /home/${USER}/.cache
 ### noVNC.Dockerfile
 
 RUN  git clone https://github.com/novnc/noVNC.git  --depth=1 \

@@ -5,7 +5,7 @@ ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn
 
 RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
-RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
+# RUN cd && mkdir cy && cd cy && yarn init  && yarn add --dev cypress --mode=skip-build && yarn run cypress install --force
 
 FROM {DISTRO} as devimage
 

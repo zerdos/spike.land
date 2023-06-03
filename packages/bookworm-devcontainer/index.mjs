@@ -12,7 +12,6 @@ const run = async () => {
   devGenerator.setChrome();
   devGenerator.setDotnet("6");
   devGenerator.setDeno();
-  devGenerator.setCypress();
   devGenerator.setVscode();
 
   const { Dockerfile, README } = await devGenerator.generate();
