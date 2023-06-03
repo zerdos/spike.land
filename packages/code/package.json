@@ -1,8 +1,8 @@
 {
   "name": "@spike.land/code",
-  "version": "0.9.2",
-  "description": "spike.land",
+  "version": "0.9.3",
   "type": "module",
+  "description": "spike.land",
   "entry": "./index.js",
   "source": "index.js",
   "main": "public/static/bundle.mjs",

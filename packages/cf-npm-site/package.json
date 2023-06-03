@@ -1,6 +1,7 @@
 {
   "name": "@spike.land/cf-npm-site",
-  "version": "0.9.2",
+  "version": "0.9.3",
+  "type": "module",
   "scripts": {
     "clean": "rm -rf dist && yarn build",
     "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=public/index.mjs"

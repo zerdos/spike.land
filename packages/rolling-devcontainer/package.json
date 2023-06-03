@@ -4,7 +4,7 @@
   "scripts": {
     "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
     "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
-    "docker:push": "node docker.js",
+    "docker:push": "node docker.mjs",
     "docker:build": "docker build .",
     "build": "node index.mjs"
   },

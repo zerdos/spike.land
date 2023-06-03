@@ -1,5 +1,5 @@
-const p = require(__dirname + `/package.json`);
-const execa = require("execa");
+import { execa } from "execa";
+import p from "./package.json" assert { type: "json" };
 
 const tagname = `devimages/${p.tagname}:${p.version}`;
 const latestTagname = `devimages/${p.tagname}:latest`;
