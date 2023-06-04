@@ -203,6 +203,8 @@ RUN  ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 # RUN chown -R ${USER}:${USER} /home/${USER}/.cache
 ### noVNC.Dockerfile
 
+ENV PORT=6080
+
 RUN  git clone https://github.com/novnc/noVNC.git  --depth=1 \
   && cp -af ./noVNC/.  /usr/share/novnc/ \
   && rm -rf ./noVNC \
@@ -215,7 +217,7 @@ RUN  git clone https://github.com/novnc/noVNC.git  --depth=1 \
   && sed -i -e '1 aterminator &' /etc/X11/Xtigervnc-session ) \
   && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
   && sed -i -e 's/use_compositing=true/use_compositing=false/g' /usr/share/xfwm4/defaults \
-  && echo "((chmod 644 ~/.ssh/*.pub && chmod 600 ~/.ssh/id_rsa && chmod 600 ~/.gitconfig) || true ) && (vncserver -SecurityTypes none -cleanstale -useold :1 -localhost no --I-KNOW-THIS-IS-INSECURE && websockify --web=/usr/share/novnc/ --wrap-mode=ignore 6080 localhost:5901 || echo ok)" >> /usr/bin/startx
+  && echo "((chmod 644 ~/.ssh/*.pub && chmod 600 ~/.ssh/id_rsa && chmod 600 ~/.gitconfig) || true ) && (vncserver -SecurityTypes none -cleanstale -useold :1 -localhost no --I-KNOW-THIS-IS-INSECURE && websockify --web=/usr/share/novnc/ --wrap-mode=ignore ${PORT} localhost:5901 || echo ok)" >> /usr/bin/startx
 
 ### xfce.Dockerfile
 
