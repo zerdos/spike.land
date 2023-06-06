@@ -1295,7 +1295,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.2.5":
+"@types/node@npm:*, @types/node@npm:20.2.5, @types/node@npm:^20.2.5":
   version: 20.2.5
   resolution: "@types/node@npm:20.2.5"
   checksum: 55e4f8d08e3c225e48e012e04458d6c1db5af6e4991e3abb003b82d3f10018a14742c0512b27991cb02e54768be560ea1fe4c17208e04273247132c9eb07499a
@@ -3481,6 +3481,13 @@ __metadata:
     "@babel/runtime": "npm:^7.8.7"
     csstype: "npm:^3.0.2"
   checksum: 4744ec87fd4f09ab51037350ef915371ed0479e7920a23edbb08a9a268c16bcbdbe4a6df76e923956a7465d1d4a5e861f7f5e8bdbfe03546a60b100200f9307a
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^16.1.4":
+  version: 16.1.4
+  resolution: "dotenv@npm:16.1.4"
+  checksum: c8eb9665ee670f2d3aa36b6f3dc43a9108a02da9efaa86cb9890d6873cbc025b047e30ce23f852195be8e4a2601b7684c23173d937d754443c4fbc957e1da512
   languageName: node
   linkType: hard
 
@@ -7652,10 +7659,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "pr-tldt@workspace:packages/pr-tldt"
   dependencies:
+    "@types/node": "npm:^20.2.5"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
+    dotenv: "npm:^16.1.4"
     express: "npm:^4.18.2"
     openai: "npm:^3.2.1"
+    p-limit: "npm:^4.0.0"
   languageName: unknown
   linkType: soft
 

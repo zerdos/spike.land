@@ -4376,6 +4376,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["dotenv", [\
+      ["npm:16.1.4", {\
+        "packageLocation": "./.yarn/global/cache/dotenv-npm-16.1.4-c4499a21eb-9.zip/node_modules/dotenv/",\
+        "packageDependencies": [\
+          ["dotenv", "npm:16.1.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["dprint", [\
       ["npm:0.37.1", {\
         "packageLocation": "./.yarn/unplugged/dprint-npm-0.37.1-c337c9aea9/node_modules/dprint/",\
@@ -9017,10 +9026,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/pr-tldt/",\
         "packageDependencies": [\
           ["pr-tldt", "workspace:packages/pr-tldt"],\
+          ["@types/node", "npm:20.2.5"],\
           ["axios", "npm:1.4.0"],\
           ["body-parser", "npm:1.20.2"],\
+          ["dotenv", "npm:16.1.4"],\
           ["express", "npm:4.18.2"],\
-          ["openai", "npm:3.2.1"]\
+          ["openai", "npm:3.2.1"],\
+          ["p-limit", "npm:4.0.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
