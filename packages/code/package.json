@@ -91,7 +91,7 @@
     "lodash.throttle": "4.1.1",
     "memfs": "3.5.2",
     "module": "1.2.5",
-    "monaco-editor": "0.38.0",
+    "monaco-editor": "0.39.0",
     "node-source-walk": "6.0.2",
     "os-browserify": "0.3.0",
     "p-map": "6.0.0",
