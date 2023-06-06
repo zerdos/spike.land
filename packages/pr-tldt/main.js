@@ -1,4 +1,4 @@
-const axios = require('axios');
+// const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -77,8 +77,9 @@ async function generateSummary(diffSection, model="gpt-3.5-turbo") {
 
               console.log(completion2.data.choices[0].message.content)
               return completion2.data.choices[0].message.content;
-            } catch {
-                return "Sorry, I couldn't understand that."
+            } catch (e) 
+            {
+                return e.message || "Sorry, I couldn't understand that."
             }
 
     }
