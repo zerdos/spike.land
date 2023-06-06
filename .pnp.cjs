@@ -110,7 +110,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["execa", "npm:7.1.1"],\
           ["localforage", "npm:1.10.0"],\
-          ["monaco-editor", "npm:0.38.0"],\
+          ["monaco-editor", "npm:0.39.0"],\
           ["playwright", "npm:1.34.3"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
@@ -544,16 +544,16 @@ const RAW_RUNTIME_STATE =
     ]],\
     ["@esbuild-plugins/node-globals-polyfill", [\
       ["npm:0.1.1", {\
-        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-5cfb235cef/node_modules/@esbuild-plugins/node-globals-polyfill/",\
+        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-d7de963e54/node_modules/@esbuild-plugins/node-globals-polyfill/",\
         "packageDependencies": [\
           ["@esbuild-plugins/node-globals-polyfill", "npm:0.1.1"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:14c71ea794d8d35c0c78e68417ffe2bca723438211fb59219db9d2ee2274f8f897a2a5ddf889762a8a2dd96845465370450c3fc8aed01e2624f553c918501020#npm:0.1.1", {\
-        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-5cfb235cef/node_modules/@esbuild-plugins/node-globals-polyfill/",\
+      ["virtual:cefbde03b1f81847d8b32c17f3b7890c30f2c1f59547eddf57b3d8cca4f56e90a104d19a4d506b926f71d95784597944fd05448fb4689c6fd0a7795070b3599f#npm:0.1.1", {\
+        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-d7de963e54/node_modules/@esbuild-plugins/node-globals-polyfill/",\
         "packageDependencies": [\
-          ["@esbuild-plugins/node-globals-polyfill", "virtual:14c71ea794d8d35c0c78e68417ffe2bca723438211fb59219db9d2ee2274f8f897a2a5ddf889762a8a2dd96845465370450c3fc8aed01e2624f553c918501020#npm:0.1.1"],\
+          ["@esbuild-plugins/node-globals-polyfill", "virtual:cefbde03b1f81847d8b32c17f3b7890c30f2c1f59547eddf57b3d8cca4f56e90a104d19a4d506b926f71d95784597944fd05448fb4689c6fd0a7795070b3599f#npm:0.1.1"],\
           ["@types/esbuild", null],\
           ["esbuild", "npm:0.16.3"]\
         ],\
@@ -572,10 +572,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:14c71ea794d8d35c0c78e68417ffe2bca723438211fb59219db9d2ee2274f8f897a2a5ddf889762a8a2dd96845465370450c3fc8aed01e2624f553c918501020#npm:0.1.4", {\
-        "packageLocation": "./.yarn/__virtual__/@esbuild-plugins-node-modules-polyfill-virtual-5e6bb4a97a/0/global/cache/@esbuild-plugins-node-modules-polyfill-npm-0.1.4-3fbc582225-9.zip/node_modules/@esbuild-plugins/node-modules-polyfill/",\
+      ["virtual:cefbde03b1f81847d8b32c17f3b7890c30f2c1f59547eddf57b3d8cca4f56e90a104d19a4d506b926f71d95784597944fd05448fb4689c6fd0a7795070b3599f#npm:0.1.4", {\
+        "packageLocation": "./.yarn/__virtual__/@esbuild-plugins-node-modules-polyfill-virtual-afb3833489/0/global/cache/@esbuild-plugins-node-modules-polyfill-npm-0.1.4-3fbc582225-9.zip/node_modules/@esbuild-plugins/node-modules-polyfill/",\
         "packageDependencies": [\
-          ["@esbuild-plugins/node-modules-polyfill", "virtual:14c71ea794d8d35c0c78e68417ffe2bca723438211fb59219db9d2ee2274f8f897a2a5ddf889762a8a2dd96845465370450c3fc8aed01e2624f553c918501020#npm:0.1.4"],\
+          ["@esbuild-plugins/node-modules-polyfill", "virtual:cefbde03b1f81847d8b32c17f3b7890c30f2c1f59547eddf57b3d8cca4f56e90a104d19a4d506b926f71d95784597944fd05448fb4689c6fd0a7795070b3599f#npm:0.1.4"],\
           ["@types/esbuild", null],\
           ["esbuild", "npm:0.16.3"],\
           ["escape-string-regexp", "npm:4.0.0"],\
@@ -1414,7 +1414,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.throttle", "npm:4.1.1"],\
           ["memfs", "npm:3.5.2"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.38.0"],\
+          ["monaco-editor", "npm:0.39.0"],\
           ["node-source-walk", "npm:6.0.2"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:6.0.0"],\
@@ -1463,7 +1463,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:6.0.0"],\
           ["p-queue", "npm:7.3.4"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
-          ["wrangler", "npm:3.0.1"]\
+          ["wrangler", "npm:3.1.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -1583,7 +1583,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/workers-types", "npm:4.20230518.0"],\
           ["esbuild-wasm", "npm:0.17.19"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
-          ["wrangler", "npm:3.0.1"]\
+          ["wrangler", "npm:3.1.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -8003,10 +8003,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.38.0", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.38.0-f7de4cebaa-9.zip/node_modules/monaco-editor/",\
+      ["npm:0.39.0", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.39.0-d239deb36c-9.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.38.0"]\
+          ["monaco-editor", "npm:0.39.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8033,7 +8033,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["execa", "npm:7.1.1"],\
           ["localforage", "npm:1.10.0"],\
-          ["monaco-editor", "npm:0.38.0"],\
+          ["monaco-editor", "npm:0.39.0"],\
           ["playwright", "npm:1.34.3"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
@@ -11701,13 +11701,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["wrangler", [\
-      ["npm:3.0.1", {\
-        "packageLocation": "./.yarn/global/cache/wrangler-npm-3.0.1-14c71ea794-9.zip/node_modules/wrangler/",\
+      ["npm:3.1.0", {\
+        "packageLocation": "./.yarn/global/cache/wrangler-npm-3.1.0-cefbde03b1-9.zip/node_modules/wrangler/",\
         "packageDependencies": [\
-          ["wrangler", "npm:3.0.1"],\
+          ["wrangler", "npm:3.1.0"],\
           ["@cloudflare/kv-asset-handler", "npm:0.2.0"],\
-          ["@esbuild-plugins/node-globals-polyfill", "virtual:14c71ea794d8d35c0c78e68417ffe2bca723438211fb59219db9d2ee2274f8f897a2a5ddf889762a8a2dd96845465370450c3fc8aed01e2624f553c918501020#npm:0.1.1"],\
-          ["@esbuild-plugins/node-modules-polyfill", "virtual:14c71ea794d8d35c0c78e68417ffe2bca723438211fb59219db9d2ee2274f8f897a2a5ddf889762a8a2dd96845465370450c3fc8aed01e2624f553c918501020#npm:0.1.4"],\
+          ["@esbuild-plugins/node-globals-polyfill", "virtual:cefbde03b1f81847d8b32c17f3b7890c30f2c1f59547eddf57b3d8cca4f56e90a104d19a4d506b926f71d95784597944fd05448fb4689c6fd0a7795070b3599f#npm:0.1.1"],\
+          ["@esbuild-plugins/node-modules-polyfill", "virtual:cefbde03b1f81847d8b32c17f3b7890c30f2c1f59547eddf57b3d8cca4f56e90a104d19a4d506b926f71d95784597944fd05448fb4689c6fd0a7795070b3599f#npm:0.1.4"],\
           ["blake3-wasm", "npm:2.1.5"],\
           ["chokidar", "npm:3.5.3"],\
           ["esbuild", "npm:0.16.3"],\
