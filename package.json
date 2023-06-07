@@ -29,7 +29,7 @@
     "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
-    "ai-commit": "ai-commit"
+    "skynet-toolkit": "skynet-toolkit"
   },
   "dependencies": {
     "@cloudflare/workers-types": "4.20230518.0",
@@ -58,6 +58,6 @@
   },
   "packageManager": "yarn@4.0.0-rc.45",
   "devDependencies": {
-    "@devimages/ai-commit": "workspace:^"
+    "@spike.land/ai-devtools": "workspace:^"
   }
 }

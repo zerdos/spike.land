@@ -189,25 +189,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devimages/ai-commit@workspace:^, @devimages/ai-commit@workspace:packages/pr-tldt":
-  version: 0.0.0-use.local
-  resolution: "@devimages/ai-commit@workspace:packages/pr-tldt"
-  dependencies:
-    "@types/node": "npm:^20.2.5"
-    axios: "npm:^1.4.0"
-    body-parser: "npm:^1.20.2"
-    commander: "npm:^10.0.1"
-    dotenv: "npm:^16.1.4"
-    express: "npm:^4.18.2"
-    node-fetch: "npm:^3.3.1"
-    openai: "npm:^3.2.1"
-    p-limit: "npm:^4.0.0"
-    simple-git: "npm:^3.19.0"
-  bin:
-    ai-commit: ./index.mjs
-  languageName: unknown
-  linkType: soft
-
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/babel-plugin@npm:11.11.0"
@@ -977,6 +958,25 @@ __metadata:
   checksum: c4326c4f01370580cf5b1b799d5aabab6cb3b0f7f06aec316bec403796064f3b7c68ebd22361313557bf153346266e133f8dd16b3a95e07650f70843321548f3
   languageName: node
   linkType: hard
+
+"@spike.land/ai-devtools@workspace:^, @spike.land/ai-devtools@workspace:packages/ai-devtools":
+  version: 0.0.0-use.local
+  resolution: "@spike.land/ai-devtools@workspace:packages/ai-devtools"
+  dependencies:
+    "@types/node": "npm:^20.2.5"
+    axios: "npm:^1.4.0"
+    body-parser: "npm:^1.20.2"
+    commander: "npm:^10.0.1"
+    dotenv: "npm:^16.1.4"
+    express: "npm:^4.18.2"
+    node-fetch: "npm:^3.3.1"
+    openai: "npm:^3.2.1"
+    p-limit: "npm:^4.0.0"
+    simple-git: "npm:^3.19.0"
+  bin:
+    skynet-toolkit: ./index.mjs
+  languageName: unknown
+  linkType: soft
 
 "@spike.land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer":
   version: 0.0.0-use.local
@@ -6799,10 +6799,10 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@cloudflare/workers-types": "npm:4.20230518.0"
-    "@devimages/ai-commit": "workspace:^"
     "@emotion/react": "npm:11.11.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.34.3"
+    "@spike.land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.40.0"
     "@types/react": "npm:18.2.8"
     "@types/react-dom": "npm:18.2.4"
