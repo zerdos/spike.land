@@ -940,6 +940,25 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@kwsites/file-exists", [\
+      ["npm:1.1.1", {\
+        "packageLocation": "./.yarn/global/cache/@kwsites-file-exists-npm-1.1.1-8dde907e27-9.zip/node_modules/@kwsites/file-exists/",\
+        "packageDependencies": [\
+          ["@kwsites/file-exists", "npm:1.1.1"],\
+          ["debug", "virtual:ac3d8e680759ce54399273724d44e041d6c9b73454d191d411a8c44bb27e22f02aaf6ed9d3ad0ac1c298eac4833cff369c9c7b84c573016112c4f84be2cd8543#npm:4.3.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@kwsites/promise-deferred", [\
+      ["npm:1.1.1", {\
+        "packageLocation": "./.yarn/global/cache/@kwsites-promise-deferred-npm-1.1.1-82db04bcea-9.zip/node_modules/@kwsites/promise-deferred/",\
+        "packageDependencies": [\
+          ["@kwsites/promise-deferred", "npm:1.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@motionone/animation", [\
       ["npm:10.15.1", {\
         "packageLocation": "./.yarn/global/cache/@motionone-animation-npm-10.15.1-f581cc96f3-9.zip/node_modules/@motionone/animation/",\
@@ -8989,7 +9008,8 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.1.4"],\
           ["express", "npm:4.18.2"],\
           ["openai", "npm:3.2.1"],\
-          ["p-limit", "npm:4.0.0"]\
+          ["p-limit", "npm:4.0.0"],\
+          ["simple-git", "npm:3.19.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -10203,6 +10223,18 @@ const RAW_RUNTIME_STATE =
           ["decompress-response", "npm:6.0.0"],\
           ["once", "npm:1.4.0"],\
           ["simple-concat", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["simple-git", [\
+      ["npm:3.19.0", {\
+        "packageLocation": "./.yarn/global/cache/simple-git-npm-3.19.0-25e1876395-9.zip/node_modules/simple-git/",\
+        "packageDependencies": [\
+          ["simple-git", "npm:3.19.0"],\
+          ["@kwsites/file-exists", "npm:1.1.1"],\
+          ["@kwsites/promise-deferred", "npm:1.1.1"],\
+          ["debug", "virtual:ac3d8e680759ce54399273724d44e041d6c9b73454d191d411a8c44bb27e22f02aaf6ed9d3ad0ac1c298eac4833cff369c9c7b84c573016112c4f84be2cd8543#npm:4.3.4"]\
         ],\
         "linkType": "HARD"\
       }]\

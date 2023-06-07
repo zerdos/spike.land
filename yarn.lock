@@ -638,6 +638,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kwsites/file-exists@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@kwsites/file-exists@npm:1.1.1"
+  dependencies:
+    debug: "npm:^4.1.1"
+  checksum: 81832dce08e5bed62d54baa9b20f2107b1a442efcbf9e0c2726ac754d19757edeedcdf57b252af970b44cb7623a434240d659d2ac6b8bf41c5b99d6eba89b475
+  languageName: node
+  linkType: hard
+
+"@kwsites/promise-deferred@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@kwsites/promise-deferred@npm:1.1.1"
+  checksum: d8eab06cdd466e40932201707dd332ef666a743ccbbbb21ac4d4ac8563c3ce62c1b748bbdd7e3755da2c19fdea47253d332c489980aecdf278cfa87b4785dad0
+  languageName: node
+  linkType: hard
+
 "@motionone/animation@npm:^10.15.1":
   version: 10.15.1
   resolution: "@motionone/animation@npm:10.15.1"
@@ -7631,6 +7647,7 @@ __metadata:
     express: "npm:^4.18.2"
     openai: "npm:^3.2.1"
     p-limit: "npm:^4.0.0"
+    simple-git: "npm:^3.19.0"
   languageName: unknown
   linkType: soft
 
@@ -8619,6 +8636,17 @@ __metadata:
     once: "npm:^1.3.1"
     simple-concat: "npm:^1.0.0"
   checksum: f44b953899a2df12012150e834cc1d731d366e3e7b72f6e5d04d48d6750098afd21b7813a7e7aa1f8dcbf24915c80730df63c6c27c1b0f851b9245211cf8f0a2
+  languageName: node
+  linkType: hard
+
+"simple-git@npm:^3.19.0":
+  version: 3.19.0
+  resolution: "simple-git@npm:3.19.0"
+  dependencies:
+    "@kwsites/file-exists": "npm:^1.1.1"
+    "@kwsites/promise-deferred": "npm:^1.1.1"
+    debug: "npm:^4.3.4"
+  checksum: b2a4864ac6f107829d823ea5e066c0662bd647f723171e2d848a80c3c80397951b8e9c473fd8edf6f6fbb55a5346ac430f628e2f1ad1ce688f9691296ea95469
   languageName: node
   linkType: hard
 

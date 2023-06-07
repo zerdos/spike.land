@@ -9,7 +9,8 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "openai": "^3.2.1",
-    "p-limit": "^4.0.0"
+    "p-limit": "^4.0.0",
+    "simple-git": "^3.19.0"
   },
   "devDependencies": {
     "@types/node": "^20.2.5"
