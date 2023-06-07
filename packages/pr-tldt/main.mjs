@@ -28,26 +28,38 @@ app.post("/tldr", async (req, res) => {
   const diff = req.body;
   const sections = diff.split("diff --git");
 
-  const limit = pLimit(4);
+  const limit = pLimit(3);
   const tasks = sections.map(section => {
     if (section.trim() === "") return Promise.resolve("");
-    return limit(() => generateSummary(section, "gpt-3.5-turbo"));
+    return limit(() =>
+      generateSummary(section, "gpt-3.5-turbo").then(x => {
+        console.log(x);
+        return x;
+      })
+    );
   });
 
   const summariesFull = await Promise.allSettled(tasks);
-  const successfulSummaries = summariesFull.filter(result => result.status === "fulfilled").map(result =>
-    result.value.trim()
-  ).filter(x => x);
+  const successfulSummaries = summariesFull.filter(result => result.status === "fulfilled").map(result => result.value)
+    .filter(x => x);
 
   try {
+    const sumOfSums = [];
+
+    while (successfulSummaries.length) {
+      sumOfSums.push(generateSummary(successfulSummaries.splice(0, 4).join(` --- `)));
+    }
+    const summaries = (await Promise.allSettled(sumOfSums)).filter(result => result.status === "fulfilled").map(
+      result => result.value,
+    ).filter(x => x);
     const promt = `
 If you find any issue, you have the developers to double check things just for making sure that everything is correct, please not even write a summary about the features.
+In case of issue, typo, error, your message starts:
+"ACTIONS NEEDED!!!" 
 Otherwise, if there are no issues: Your job is summarizing the reviews in a short, but effective summary message.
 
-----agent-report:
-
 ${
-      successfulSummaries.join(`
+      summaries.join(`
 
 ----agent-report:
 `)
@@ -78,16 +90,12 @@ async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
     const completion = await openai.createChatCompletion({
       model,
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 400,
+      max_tokens: 800,
     });
     return completion.data.choices[0].message.content;
   } catch (e) {
     console.error(`Failed to generate summary with model ${model}: ${e.message}`);
-    if (model !== "gpt-3.5-turbo") {
-      return generateSummary(diffSection, "gpt-3.5-turbo");
-    } else {
-      throw e;
-    }
+    // return generateSummary(diffSection, "gpt-3.5-turbo").catch(()=>'');
   }
 }
 
