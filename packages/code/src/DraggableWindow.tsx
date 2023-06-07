@@ -196,9 +196,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   newScale && changeScaleRange(newScale);
                 }}
               >
-                x
-
-                xxw
                 {Array.from(new Set([
                   ...(sizes.filter((x) => x < maxScaleRange)),
                   scaleRange,
