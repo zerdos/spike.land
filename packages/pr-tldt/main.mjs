@@ -45,18 +45,21 @@ app.post("/tldr", async (req, res) => {
 
   try {
     const sumOfSums = [];
+    if (successfulSummaries.length > 4) {
+      while (successfulSummaries.length) {
+        sumOfSums.push(generateSummary(successfulSummaries.splice(0, 4).join(` --- `)));
+      }
+    } else sumOfSums.push(...successfulSummaries);
 
-    while (successfulSummaries.length) {
-      sumOfSums.push(generateSummary(successfulSummaries.splice(0, 4).join(` --- `)));
-    }
     const summaries = (await Promise.allSettled(sumOfSums)).filter(result => result.status === "fulfilled").map(
       result => result.value,
     ).filter(x => x);
+
     const promt = `
 If you find any issue, you have the developers to double check things just for making sure that everything is correct, please not even write a summary about the features.
 In case of issue, typo, error, your message starts:
 "ACTIONS NEEDED!!!" 
-Otherwise, if there are no issues: Your job is summarizing the reviews in a short, but effective summary message.
+Otherwise, if there are no issues: Your job is summarizing the reviews in a short, but effective message.
 
 ${
       summaries.join(`
@@ -67,6 +70,8 @@ ${
 
 `;
 
+    if (cache[promt]) return res.json(cache[promt]);
+
     console.log(promt);
     const finalSummary = await openai.createChatCompletion({
       model: "gpt-4",
@@ -75,15 +80,29 @@ ${
         content: promt,
       }],
       max_tokens: 3600,
-    });
+    }).catch(async () =>
+      await openai.createChatCompletion({
+        model: "gpt-4",
+        messages: [{
+          role: "user",
+          content: promt,
+        }],
+        max_tokens: 3600,
+      })
+    );
+    cache[promt] = finalSummary.data.choices[0].message.content;
 
-    res.json(finalSummary.data.choices[0].message.content);
+    res.json(cache[promt]);
   } catch (e) {
     res.status(500).json({ error: "Failed to generate final summary." });
   }
 });
 
+const cache = {};
+
 async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
+  if (cache[diffSection]) return cache[diffSection];
+
   const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
 
   try {
@@ -92,7 +111,8 @@ async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
       messages: [{ role: "user", content: prompt }],
       max_tokens: 800,
     });
-    return completion.data.choices[0].message.content;
+    cache[diffSection] = completion.data.choices[0].message.content;
+    return cache[diffSection];
   } catch (e) {
     console.error(`Failed to generate summary with model ${model}: ${e.message}`);
     // return generateSummary(diffSection, "gpt-3.5-turbo").catch(()=>'');
