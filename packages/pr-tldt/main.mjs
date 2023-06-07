@@ -35,23 +35,50 @@ app.post("/tldr", async (req, res) => {
   });
 
   const summariesFull = await Promise.allSettled(tasks);
-  const successfulSummaries = summariesFull.filter(result => result.status === "fulfilled").map(result => result.value);
+  const successfulSummaries = summariesFull.filter(result => result.status === "fulfilled").map(result =>
+    result.value.trim()
+  ).filter(x => x);
 
   try {
-    const finalSummary = await generateSummary(`TLDR:\n${successfulSummaries.join("\n")}`, "gpt-3.5-turbo");
-    res.json(finalSummary);
+    const promt = `
+If you find any issue, you have the developers to double check things just for making sure that everything is correct, please not even write a summary about the features.
+Otherwise, if there are no issues: Your job is summarizing the reviews in a short, but effective summary message.
+
+----agent-report:
+
+${
+      successfulSummaries.join(`
+
+----agent-report:
+`)
+    }
+
+`;
+
+    console.log(promt);
+    const finalSummary = await openai.createChatCompletion({
+      model: "gpt-4",
+      messages: [{
+        role: "user",
+        content: promt,
+      }],
+      max_tokens: 3600,
+    });
+
+    res.json(finalSummary.data.choices[0].message.content);
   } catch (e) {
     res.status(500).json({ error: "Failed to generate final summary." });
   }
 });
 
 async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
-  const prompt = `${diffSection.slice(0, 2028)}. TLDR?`;
+  const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
 
   try {
     const completion = await openai.createChatCompletion({
       model,
       messages: [{ role: "user", content: prompt }],
+      max_tokens: 400,
     });
     return completion.data.choices[0].message.content;
   } catch (e) {

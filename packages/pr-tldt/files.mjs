@@ -41,7 +41,7 @@ git.diff(["--cached", "--name-only"])
           return openai.createCompletion({
             model: "text-davinci-003",
             prompt: "TLDR? " + changes.slice(0, 2048) + "     TLDR?",
-            max_tokens: 256,
+            max_tokens: 400,
           });
         })
         .then(response => {
