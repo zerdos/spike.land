@@ -52,7 +52,7 @@ async function handleApiRequest(
 
       newUrl.pathname = "/" + path.slice(2).join("/");
       newUrl.searchParams.append("room", name);
-      return roomObject.fetch(new Request(newUrl.toString()));
+      return roomObject.fetch(new Request(newUrl.toString(), request));
     }
     default:
       return new Response("Not found", { status: 404 });

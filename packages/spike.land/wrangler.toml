@@ -37,6 +37,9 @@ usage_model = "unbound"
 tag = "v4" 
 new_classes= ["Users", "Code", "CodeRateLimiter"]
 
+
+
+
 [env.testing.durable_objects]
 bindings = [
     { name = "CODE", class_name = "Code" },
