@@ -974,7 +974,7 @@ __metadata:
     p-limit: "npm:^4.0.0"
     simple-git: "npm:^3.19.0"
   bin:
-    skynet-toolkit: ./index.mjs
+    ai-commit: ./index.mjs
   languageName: unknown
   linkType: soft
 
