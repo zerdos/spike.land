@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:20-alpine3.18
 WORKDIR /app
 ADD . /app
 RUN yarn
