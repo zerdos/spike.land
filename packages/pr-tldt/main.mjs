@@ -21,6 +21,19 @@ app.use(bodyParser.text());
 
 app.post("/tldr", handleTLDRRequest);
 
+app.get("/*", async (req, resp) => {
+  console.log(req.originalUrl);
+
+  const url = req.originalUrl.startsWith("/patch-diff.gith")
+    ? "https://" + req.originalUrl.slice(1)
+    : "https://" + req.originalUrl.slice(1) + ".diff";
+  console.log({ url });
+
+  const diff = await (await fetch(url)).text();
+
+  return handleTLDRRequest({ ...req, body: diff }, resp);
+});
+
 const cache = {};
 
 app.use(handleErrors);
