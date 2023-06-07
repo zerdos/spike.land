@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { motion, MotionConfig } from "framer-motion";
+import { MotionConfig } from "framer-motion";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -8,6 +8,12 @@ import { QRButton } from "./Qr.lazy";
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 
 import { Phone, Share, Tablet, Tv } from "./icons";
+
+import { createDomMotionComponent } from "framer-motion";
+
+const motion = {
+  div: createDomMotionComponent("div"),
+};
 // import { wait } from "./wait";
 // const innerWidth =
 
@@ -44,9 +50,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   const startPositions = { bottom: 0, right: 0 };
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
-  const [width, setWidth] = useState(innerWidth * devicePixelRatio);
+  const [width, setWidth] = useState(innerWidth);
   // const [delay, _setDelay] = useState(Number(sessionStorage.getItem("delay")) || 0);
-  const [height, setHeight] = useState(innerHeight * devicePixelRatio);
+  const [height, setHeight] = useState(innerHeight);
   // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
