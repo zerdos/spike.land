@@ -1,12 +1,14 @@
 {
+  "name": "@spike.land/ai-devtools",
   "version": "1.0.0",
-  "name": "@devimages/ai-commit",
   "main": "index.mjs",
   "license": "MIT",
   "scripts": {
     "start": "node index.mjs"
   },
-  "bin": "./index.mjs",
+  "bin": {
+    "ai-commit": "./index.mjs"
+  },
   "dependencies": {
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
