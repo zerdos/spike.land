@@ -19,8 +19,7 @@ const openai = new OpenAIApi(configuration);
 const app = express();
 app.use(bodyParser.text());
 
-
-app.post("/commit", (req, resp)=>handleTLDRRequest(req, resp, "commit"));
+app.post("/commit", (req, resp) => handleTLDRRequest(req, resp, "commit"));
 
 app.post("/tldr", handleTLDRRequest);
 
@@ -46,7 +45,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-async function handleTLDRRequest(req, res, type="tldr") {
+async function handleTLDRRequest(req, res, type = "tldr") {
   if (typeof req.body !== "string") {
     res.status(400).json({ error: "Invalid input format. Expected a string." });
     return;
@@ -82,24 +81,24 @@ async function handleTLDRRequest(req, res, type="tldr") {
       result => result.value,
     ).filter(x => x);
 
-    const promt = type==="tldr" ?`
+    const promt = type === "tldr"
+      ? `
   If you find any issue, you have the developers to double check things just for making sure that everything is correct, please not even write a summary about the features.
   In case of issue, typo, error, your message starts:
   "ACTIONS NEEDED!!!" 
   Otherwise, if there are no issues: Your job is summarizing the reviews in a short, but effective message.
   
   ${
-      summaries.join(`
+        summaries.join(`
   
   ----agent-report:
   `)
-    }
+      }
   
-  `:`
+  `
+      : `
   You are an expert software developer, and you know how to write short and expressing commit messages - in convictional commit format. 
-  The repo has the following changes:   ${
-    summaries.join(`\n`)
-  }
+  The repo has the following changes:   ${summaries.join(`\n`)}
   Please try hard to write the best commit message possible!
   `;
 
