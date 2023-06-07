@@ -19,15 +19,19 @@
   "workspaceFolder": "/workspace",
 
   // Set *default* container specific settings.json values on container create.
-  "settings": {},
 
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "streetsidesoftware.code-spell-checker",
-    "pflannery.vscode-versionlens",
-    "styled-components.vscode-styled-components",
-    "arcanis.vscode-zipfs"
-  ],
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "pflannery.vscode-versionlens",
+        "styled-components.vscode-styled-components",
+        "arcanis.vscode-zipfs"
+      ]
+    }
+  },
   // Use 'forwardPorts' to make a l ist of ports inside the container available locally.
   "forwardPorts": [6080],
 
