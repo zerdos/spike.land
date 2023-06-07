@@ -1,13 +1,19 @@
 {
-  "name": "pr-tldt",
   "version": "1.0.0",
-  "main": "index.js",
+  "name": "@devimages/ai-commit",
+  "main": "index.mjs",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "bin": "./index.mjs",
   "dependencies": {
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
+    "commander": "^10.0.1",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
+    "node-fetch": "^3.3.1",
     "openai": "^3.2.1",
     "p-limit": "^4.0.0",
     "simple-git": "^3.19.0"

@@ -28,7 +28,8 @@
     "docker:push": "yarn workspaces foreach --all run   docker:push",
     "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
     "p:test": "playwright test tests/*.spec.ts",
-    "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\""
+    "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
+    "ai-commit": "ai-commit"
   },
   "dependencies": {
     "@cloudflare/workers-types": "4.20230518.0",
@@ -55,5 +56,8 @@
     "util": "0.12.5",
     "utils": "0.3.1"
   },
-  "packageManager": "yarn@4.0.0-rc.45"
+  "packageManager": "yarn@4.0.0-rc.45",
+  "devDependencies": {
+    "@devimages/ai-commit": "workspace:^"
+  }
 }

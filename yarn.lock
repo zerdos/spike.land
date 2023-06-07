@@ -189,6 +189,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@devimages/ai-commit@workspace:^, @devimages/ai-commit@workspace:packages/pr-tldt":
+  version: 0.0.0-use.local
+  resolution: "@devimages/ai-commit@workspace:packages/pr-tldt"
+  dependencies:
+    "@types/node": "npm:^20.2.5"
+    axios: "npm:^1.4.0"
+    body-parser: "npm:^1.20.2"
+    commander: "npm:^10.0.1"
+    dotenv: "npm:^16.1.4"
+    express: "npm:^4.18.2"
+    node-fetch: "npm:^3.3.1"
+    openai: "npm:^3.2.1"
+    p-limit: "npm:^4.0.0"
+    simple-git: "npm:^3.19.0"
+  bin:
+    ai-commit: ./index.mjs
+  languageName: unknown
+  linkType: soft
+
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/babel-plugin@npm:11.11.0"
@@ -2983,6 +3002,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "commander@npm:10.0.1"
+  checksum: b2a03d799104eac407ca031b94126c98198594fcff41554eb253cef748de57fb1a4cdd591baa075de589f2fddf1f968d1ecd1b79e8b47570ee441ab4f3363776
+  languageName: node
+  linkType: hard
+
 "commander@npm:^6.2.1":
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
@@ -3246,6 +3272,13 @@ __metadata:
   version: 2.0.2
   resolution: "data-uri-to-buffer@npm:2.0.2"
   checksum: 4ce992ffccf24909d032484eb517a5418b996df56abf2a15d9a0541ae8f45ee752d1cb82bc6325429f577ba24e21a603735a4177241f9f62be928b6b0d40af5b
+  languageName: node
+  linkType: hard
+
+"data-uri-to-buffer@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "data-uri-to-buffer@npm:4.0.1"
+  checksum: 4398e0c9ca2073b89c0c6f90ffe5044e9193966f3f734b8492237d8dcd1305c77e08d964922da6e5bde9e380eddbde1c110340d7fbb34dcbdfeea35c45383211
   languageName: node
   linkType: hard
 
@@ -4268,6 +4301,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
+  version: 3.2.0
+  resolution: "fetch-blob@npm:3.2.0"
+  dependencies:
+    node-domexception: "npm:^1.0.0"
+    web-streams-polyfill: "npm:^3.0.3"
+  checksum: 114f3d29d46bf029fdc4753b3688295e9a917f37c81c124b3fcad7388ecffe234c29cd48259bed2319ca25aaf105ffd96a3e369c3ad1bcca5f94f410876f5b0d
+  languageName: node
+  linkType: hard
+
 "fetch-retry@npm:5.0.6":
   version: 5.0.6
   resolution: "fetch-retry@npm:5.0.6"
@@ -4494,6 +4537,15 @@ __metadata:
     combined-stream: "npm:^1.0.6"
     mime-types: "npm:^2.1.12"
   checksum: 0f88d2d298ac7751fbef88eb1148e709727560bbe6ed17ca1fd10745b8b572cdab7d51d934b97ccdc411add4e39afdb414bc400580a348de2d39a49401f3f5ec
+  languageName: node
+  linkType: hard
+
+"formdata-polyfill@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "formdata-polyfill@npm:4.0.10"
+  dependencies:
+    fetch-blob: "npm:^3.1.2"
+  checksum: 8954f9e756728f96239da0b07b2651193ebad3be58c7c9b114c3982982861d8bbd820497926b1d5018e5a57281af86693471672ed7c6c26860910c5597d5fc9d
   languageName: node
   linkType: hard
 
@@ -6747,6 +6799,7 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@cloudflare/workers-types": "npm:4.20230518.0"
+    "@devimages/ai-commit": "workspace:^"
     "@emotion/react": "npm:11.11.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.34.3"
@@ -6855,6 +6908,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-domexception@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "node-domexception@npm:1.0.0"
+  checksum: 7b65cf4b5e9545fbf17d8fd969952f71074048ff6f5c94d4ba9b98f1aee84ca9c5ec12e0eb7d5db0b6ad199c8c8c100056ef36c1145eabb542d910159c034bb7
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:^2.6.1":
   version: 2.6.11
   resolution: "node-fetch@npm:2.6.11"
@@ -6866,6 +6926,17 @@ __metadata:
     encoding:
       optional: true
   checksum: 3e7af7c0025f4bebd8f14efd0248344a5f0155253762810bf1be70e9e8d669e3ee74794754ca1a53e7d9ad8f4906d774e2b4e9e5209e2fd5d515e5c7299b3280
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "node-fetch@npm:3.3.1"
+  dependencies:
+    data-uri-to-buffer: "npm:^4.0.0"
+    fetch-blob: "npm:^3.1.4"
+    formdata-polyfill: "npm:^4.0.10"
+  checksum: 1d0c635bdff0da737610fe4e8382f01da15402a47e74cf709cc9cb9633c2843215dd167d5fbcb827b966554bc9fdd5134e54eeb54896a75026850c59b1701c0c
   languageName: node
   linkType: hard
 
@@ -7635,21 +7706,6 @@ __metadata:
   checksum: b68e204972f79d49e47e10220e89466bbcd57ce93b3f2a34eb50283dcb16bc8b0f10333277a8912ffc1e8ace4e31a22c77cd18a5b91b856bf3c6f7d82f5b767d
   languageName: node
   linkType: hard
-
-"pr-tldt@workspace:packages/pr-tldt":
-  version: 0.0.0-use.local
-  resolution: "pr-tldt@workspace:packages/pr-tldt"
-  dependencies:
-    "@types/node": "npm:^20.2.5"
-    axios: "npm:^1.4.0"
-    body-parser: "npm:^1.20.2"
-    dotenv: "npm:^16.1.4"
-    express: "npm:^4.18.2"
-    openai: "npm:^3.2.1"
-    p-limit: "npm:^4.0.0"
-    simple-git: "npm:^3.19.0"
-  languageName: unknown
-  linkType: soft
 
 "preact@npm:10.15.1":
   version: 10.15.1
@@ -9812,6 +9868,13 @@ __metadata:
     clone-stats: "npm:^0.0.1"
     replace-ext: "npm:0.0.1"
   checksum: 7466512e0b19f8cf4cc9004cc71c12e840ecd6d3c3f8bffe94a0eef348ab993b2e12b5bf9b8983ffe760b871c0ba9066418b9f3e9ba78e37d1c84815f4261b57
+  languageName: node
+  linkType: hard
+
+"web-streams-polyfill@npm:^3.0.3":
+  version: 3.2.1
+  resolution: "web-streams-polyfill@npm:3.2.1"
+  checksum: d0b6246240d181d6e2d8de6ded04938581bc5807da33ccd6f6b4a431c1f3fa3c04ffe0dfb739c7172d1208141717b4c80e8df7b300998fa9287ddb69bbaa0c68
   languageName: node
   linkType: hard
 
