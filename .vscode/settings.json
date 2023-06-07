@@ -26,6 +26,7 @@
   "explorer.expandSingleFolderWorkspaces": true,
   "cSpell.words": [
     "applewebkit",
+    "arcanis",
     "axax",
     "bmflb",
     "codicon",
@@ -49,6 +50,7 @@
     "stunprotocol",
     "subword",
     "versionlens",
+    "zipfs",
     "Zoltan"
   ],
   "files.watcherExclude": {
