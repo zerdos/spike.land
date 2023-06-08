@@ -260,9 +260,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:11.11.0":
-  version: 11.11.0
-  resolution: "@emotion/react@npm:11.11.0"
+"@emotion/react@npm:11.11.1":
+  version: 11.11.1
+  resolution: "@emotion/react@npm:11.11.1"
   dependencies:
     "@babel/runtime": "npm:^7.18.3"
     "@emotion/babel-plugin": "npm:^11.11.0"
@@ -277,7 +277,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 090797964325e85d00dc44f109efc7c93194049128ebffde55819f0f37b201608d2a8090d11c1173af09621eceb011ea9d9b1c37d54b3508fe8b144f53db3f28
+  checksum: beae1f42b138566242655f6c13a3b0a2301c0fa6ed7de09ad272dad8d7cedcab4d69d0314ca51a485342345f07ab6ebca74f2aac69cbe24cc9de552e7915d30a
   languageName: node
   linkType: hard
 
@@ -1017,7 +1017,7 @@ __metadata:
   resolution: "@spike.land/code@workspace:packages/code"
   dependencies:
     "@emotion/cache": "npm:11.11.0"
-    "@emotion/react": "npm:11.11.0"
+    "@emotion/react": "npm:11.11.1"
     "@emotion/styled": "npm:11.11.0"
     "@github/stable-socket": "npm:1.1.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
@@ -1034,7 +1034,7 @@ __metadata:
     "@types/node": "npm:20.2.5"
     "@types/prettier": "npm:2.7.3"
     "@types/prismjs": "npm:1.26.0"
-    "@types/react": "npm:18.2.8"
+    "@types/react": "npm:18.2.9"
     "@types/react-dom": "npm:18.2.4"
     "@types/uuid": "npm:9.0.1"
     "@typescript-eslint/eslint-plugin": "npm:5.59.9"
@@ -1066,7 +1066,7 @@ __metadata:
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
-    memfs: "npm:3.5.2"
+    memfs: "npm:3.5.3"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.39.0"
     node-source-walk: "npm:6.0.2"
@@ -1399,7 +1399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.8":
+"@types/react@npm:*":
   version: 18.2.8
   resolution: "@types/react@npm:18.2.8"
   dependencies:
@@ -1407,6 +1407,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 4c340c7d84821a1af27016500e59ecda39274afbb8ab61cfddca0d75423bdb9e56de69fa8b52042b0ab3f90724a6576bed308a2358569af3858a4fc2c5a2d717
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.9":
+  version: 18.2.9
+  resolution: "@types/react@npm:18.2.9"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 970b32d0420638efe9f4f27636f185e7e8b06cec61866c52eb06d9f1695b38af0f2ac9617357f48e21f5eb50a2cc2824ced1baa0b6b9fa9d7de26a4bebbd3a09
   languageName: node
   linkType: hard
 
@@ -3207,9 +3218,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.13.0":
-  version: 12.13.0
-  resolution: "cypress@npm:12.13.0"
+"cypress@npm:12.14.0":
+  version: 12.14.0
+  resolution: "cypress@npm:12.14.0"
   dependencies:
     "@cypress/request": "npm:^2.88.10"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -3255,7 +3266,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 2fbd6e3a3b756e9b4032fa6d2d8e2d0a4f41896e1015a0a144d98d719b3b2ce483c255ecbf145113a798681cadb6300438ec6a800012470e63f13be6f0d7f551
+  checksum: 5c88f8729f5d9b46600a70a807945a511da0112e9a094f70e09bca4f5a984bd81cf24fda96a9696984086e6883599ea8d237a6ac36fbf9be5fc5b2c7e62da63f
   languageName: node
   linkType: hard
 
@@ -4621,7 +4632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-monkey@npm:^1.0.3":
+"fs-monkey@npm:^1.0.4":
   version: 1.0.4
   resolution: "fs-monkey@npm:1.0.4"
   checksum: daa4e064a53e87294dcde8fa09a1bc753e3a3e83ffb88b434ca58193c8057af2b578aeb1b4b706988ed50e1fe7114dd3bf6bfbdf34eb18f5d0cbd7e4eeac7f1e
@@ -6472,12 +6483,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:3.5.2":
-  version: 3.5.2
-  resolution: "memfs@npm:3.5.2"
+"memfs@npm:3.5.3":
+  version: 3.5.3
+  resolution: "memfs@npm:3.5.3"
   dependencies:
-    fs-monkey: "npm:^1.0.3"
-  checksum: af358d7744d6b6a2eb6baaa4d878b49cda8fe5cdd4730a8b594b8a23834ce95abc3a5babbebc85d708cb3c0de35bdec84b445c8efece6349e9455511c9c645d7
+    fs-monkey: "npm:^1.0.4"
+  checksum: a24b9f73482c6160e4548f259f572e726750205044b2eaba5ad35d11d28d9a2e67ecc349dd07ab7cbecf022126d010d2d89628868939702d0c46199469899482
   languageName: node
   linkType: hard
 
@@ -6799,18 +6810,18 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@cloudflare/workers-types": "npm:4.20230518.0"
-    "@emotion/react": "npm:11.11.0"
+    "@emotion/react": "npm:11.11.1"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.34.3"
     "@spike.land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.40.0"
-    "@types/react": "npm:18.2.8"
+    "@types/react": "npm:18.2.9"
     "@types/react-dom": "npm:18.2.4"
     "@typescript-eslint/eslint-plugin": "npm:5.59.9"
     "@typescript-eslint/parser": "npm:5.59.9"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.45"
     constants: "npm:0.0.2"
-    cypress: "npm:12.13.0"
+    cypress: "npm:12.14.0"
     dprint: "npm:0.37.1"
     eslint: "npm:8.42.0"
     eslint-plugin-react: "npm:7.32.2"
