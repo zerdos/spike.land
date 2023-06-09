@@ -1,7 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import type { Request as WRequest } from "@cloudflare/workers-types";
 import { importMap } from "../../code/src/importMap";
-//import { importMapReplace } from "../../code/src/importMapReplace";
+import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
@@ -19,7 +19,8 @@ function isChunk(link: string) {
 async function handleApiRequest(
   path: string[],
   request: WRequest<unknown, CfProperties<unknown>>,
-  env: Env 
+  env: Env,
+  ctx: ExecutionContext
 ) {
   // Logic for handling API requests
   switch (path[0]) {
@@ -93,6 +94,9 @@ async function handleFetchApi(
   }
 
   switch (path[0]) {
+
+
+
     case "ping":
       return new Response("ping" + Math.random(), {
         headers: {
@@ -156,11 +160,11 @@ async function handleFetchApi(
       });
     case "api":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env);
+      return handleApiRequest(path.slice(1), request, env, ctx);
 
     case "ata":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env);
+      return handleApiRequest(path.slice(1), request, env,ctx);
 
     case "ipns":
     case "ipfs": {
@@ -184,7 +188,8 @@ async function handleFetchApi(
       return handleApiRequest(
         ["room", ...paths],
         request,
-        env
+        env,
+        ctx
       ).catch((e) =>
         new Response("Error," + e?.message, {
           status: 500,
@@ -204,7 +209,14 @@ async function handleFetchApi(
           else return new Response("NO dts", {});
         }
         
-        return await esmWorker.fetch(request,env,ctx);
+
+        const esmPackage = await esmWorker.fetch(request,env,ctx);
+        return new Response(importMapReplace(
+                await esmPackage.text(),
+                u.origin, 
+                ASSET_HASH),  {
+                  headers: esmPackage.headers,
+                });
       }
       
       const file = newUrl.pathname.slice(0, 7) === ("/assets/")

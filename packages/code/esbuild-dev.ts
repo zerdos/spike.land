@@ -390,6 +390,7 @@ const build = (
       "./dist.shasum",
       `./${wasmFile}`,
       "./dist/reactDomClient.js",
+      "/*monaco-editor?bundle",
       "./dist/reactDom.js",
       "./dist/jsx.js",
       // "/reactMod.js",
@@ -417,6 +418,7 @@ const build = (
       alias: {
         ...buildOptions.alias,
         "react": "preact/compat",
+        "monaco-editor": "/*monaco-editor?bundle",
         // "monaco-editor": "/monaco-editor",
         "react-dom/test-utils": "preact/test-utils",
         "react-dom": "preact/compat",

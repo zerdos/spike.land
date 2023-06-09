@@ -1,6 +1,7 @@
 import type {} from "monaco-editor";
-import { editor, languages, Uri } from   "/monaco-editor";
+import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
+
 
 const { createModel } = editor;
 const create = editor.create;
@@ -349,6 +350,58 @@ async function startMonacoPristine(
 
   let ctr = new AbortController();
 
+  setInterval(async () => {
+      const typeScriptWorker =  (await (await languages.typescript.getTypeScriptWorker())(uri))  
+
+      const diag2 = await typeScriptWorker.getSyntacticDiagnostics(uri.toString());
+      
+    diag2.map((d)=> console.error(false && d.messageText.toString()))
+
+
+    const diag3 = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
+      
+    diag3.map(async (d)=> {
+
+      const message = d.messageText.toString();
+
+      if (message.indexOf("Cannot find module")!==-1) {
+        
+      
+        const pkg = message.split("'")[1];
+        if (pkg.indexOf("https://")) return;
+        const cnt =  await fetch(originToUse+ "/"+pkg, {redirect: "follow"});
+        
+
+        if (cnt.headers.has('X-TypeScript-Types')) {
+          languages.typescript.typescriptDefaults.addExtraLib(
+          await (await fetch(cnt.headers.get('X-TypeScript-Types')!)).text(),  `${originToUse}/${pkg}/index.d.ts`
+          );
+        }
+
+        if (cnt.headers.has('X-TypeScript-Types')) {
+          languages.typescript.typescriptDefaults.addExtraLib(
+          await cnt.text(),  `/${pkg}/index.ts`
+          );
+        }
+
+
+
+        console.error({pkg});
+
+
+     
+      }
+    })
+
+return typeScriptWorker
+        .getSuggestionDiagnostics(uri.toString())
+        .then(diag=> diag.map(d => false &&console.error(d.messageText.toString())))
+        .catch(
+          (e) => {
+            console.log("ts error, will retry", e);
+          },
+        );
+  }, 5000);
   const mod = {
     getValue: () => model.getValue(),
     silent: false,
@@ -387,6 +440,7 @@ async function startMonacoPristine(
       } finally {
         setTimeout(() => {
           mod.silent = false;
+          mod.getErrors();  
         }, 500);
       }
     },

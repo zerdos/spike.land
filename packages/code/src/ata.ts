@@ -129,7 +129,7 @@ export async function ata(
       res = [
         ...res,
         ...refs.map((r) => r.split(`"`)[0]).map((r) =>
-          (r.startsWith(".") || r.startsWith("https:/"))
+          (r.startsWith(".") || r.startsWith("https://"))
             ? r
             : new URL(r.slice(1), originToUse).toString()
         ),
@@ -146,7 +146,7 @@ export async function ata(
         : r.indexOf("https://") !== -1
         ? r
         : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
-          (res) => res.headers.get("x-typescript-types"),
+          (res) => res.headers.get("X-typescript-types"),
         );
 
       // const rR = r.slice(0, 1) ==="."? newBase;
@@ -155,9 +155,6 @@ export async function ata(
       }
 
       if (newBase === null) {
-        return true;
-      }
-      if (newBase.indexOf(location.origin) !== -1) {
         return true;
       }
 
