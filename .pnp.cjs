@@ -112,7 +112,7 @@ const RAW_RUNTIME_STATE =
           ["execa", "npm:7.1.1"],\
           ["localforage", "npm:1.10.0"],\
           ["monaco-editor", "npm:0.39.0"],\
-          ["playwright", "npm:1.34.3"],\
+          ["playwright", "npm:1.35.0"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["util", "npm:0.12.5"],\
@@ -1421,7 +1421,7 @@ const RAW_RUNTIME_STATE =
           ["@types/prismjs", "npm:1.26.0"],\
           ["@types/react", "npm:18.2.9"],\
           ["@types/react-dom", "npm:18.2.4"],\
-          ["@types/uuid", "npm:9.0.1"],\
+          ["@types/uuid", "npm:9.0.2"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.9"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.9"],\
           ["@typescript-eslint/typescript-estree", "virtual:a8b56153b2693bdf049232a677412b22282afc614d7fcf73235daa2efe0874e2b48fbe1237a9c63ebb407ba89f150658ca4929f51adf2f39355d02c55edb9aaf#npm:5.59.9"],\
@@ -1962,10 +1962,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/uuid", [\
-      ["npm:9.0.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-uuid-npm-9.0.1-b44e45eb8a-9.zip/node_modules/@types/uuid/",\
+      ["npm:9.0.2", {\
+        "packageLocation": "./.yarn/global/cache/@types-uuid-npm-9.0.2-f2a5f65979-9.zip/node_modules/@types/uuid/",\
         "packageDependencies": [\
-          ["@types/uuid", "npm:9.0.1"]\
+          ["@types/uuid", "npm:9.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8095,7 +8095,7 @@ const RAW_RUNTIME_STATE =
           ["execa", "npm:7.1.1"],\
           ["localforage", "npm:1.10.0"],\
           ["monaco-editor", "npm:0.39.0"],\
-          ["playwright", "npm:1.34.3"],\
+          ["playwright", "npm:1.35.0"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["util", "npm:0.12.5"],\
@@ -9051,11 +9051,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["playwright", [\
-      ["npm:1.34.3", {\
-        "packageLocation": "./.yarn/unplugged/playwright-npm-1.34.3-ab07fbe58d/node_modules/playwright/",\
+      ["npm:1.35.0", {\
+        "packageLocation": "./.yarn/unplugged/playwright-npm-1.35.0-bc187ac2e6/node_modules/playwright/",\
         "packageDependencies": [\
-          ["playwright", "npm:1.34.3"],\
-          ["playwright-core", "npm:1.34.3"]\
+          ["playwright", "npm:1.35.0"],\
+          ["playwright-core", "npm:1.35.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9065,6 +9065,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.34.3-f476cefee2/node_modules/playwright-core/",\
         "packageDependencies": [\
           ["playwright-core", "npm:1.34.3"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:1.35.0", {\
+        "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.35.0-887829e564/node_modules/playwright-core/",\
+        "packageDependencies": [\
+          ["playwright-core", "npm:1.35.0"]\
         ],\
         "linkType": "HARD"\
       }]\

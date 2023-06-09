@@ -1037,7 +1037,7 @@ __metadata:
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.2.9"
     "@types/react-dom": "npm:18.2.4"
-    "@types/uuid": "npm:9.0.1"
+    "@types/uuid": "npm:9.0.2"
     "@typescript-eslint/eslint-plugin": "npm:5.59.9"
     "@typescript-eslint/parser": "npm:5.59.9"
     "@typescript-eslint/typescript-estree": "npm:5.59.9"
@@ -1473,10 +1473,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:9.0.1":
-  version: 9.0.1
-  resolution: "@types/uuid@npm:9.0.1"
-  checksum: ca96225b4d47b8146380c0f60921b2a0b62acf3a8def03e8e7b369ed3b0180989c12f8305eb71ffc0cecb944102e18eec1260a3e84040d9a48de987d3aa00148
+"@types/uuid@npm:9.0.2":
+  version: 9.0.2
+  resolution: "@types/uuid@npm:9.0.2"
+  checksum: dfb80ebf6fadb343b05f12e7f162bad47b19d290194b0a074a4b16c115272345b27501a3abce3f9fd2cb392a645b171f7cf7008cf25029c1a270fae050450d71
   languageName: node
   linkType: hard
 
@@ -6836,7 +6836,7 @@ __metadata:
     execa: "npm:^7.1.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.39.0"
-    playwright: "npm:1.34.3"
+    playwright: "npm:1.35.0"
     react: "npm:18.2.0"
     typescript: "npm:5.1.3"
     util: "npm:0.12.5"
@@ -7694,14 +7694,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:1.34.3":
-  version: 1.34.3
-  resolution: "playwright@npm:1.34.3"
+"playwright-core@npm:1.35.0":
+  version: 1.35.0
+  resolution: "playwright-core@npm:1.35.0"
+  bin:
+    playwright-core: cli.js
+  checksum: 1d13dd07039ebeb8d8bcbd9d548987116e70f39e4d8f5b59fd187bb444216e50153e4d22c4373935fc7c8a1781370229df1045cfbba9f0ad557a50c812e11346
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.35.0":
+  version: 1.35.0
+  resolution: "playwright@npm:1.35.0"
   dependencies:
-    playwright-core: "npm:1.34.3"
+    playwright-core: "npm:1.35.0"
   bin:
     playwright: cli.js
-  checksum: ead85dbf57b73b531fc569751ef7347927c196b7150226e08c210425b7bb95f96c02bb4dec140a89e424bbccac4973a7b29da140948d8cd66f38cf0630b95de2
+  checksum: dc18dfdd4a0c87790f1c7c409effd51126782c3a5e6ec397e745e9ef52ec4a63b72c199a8b1fff9321038ec85e1d00f9a667afcc47f86d6fc78e344fe1f9d69e
   languageName: node
   linkType: hard
 
