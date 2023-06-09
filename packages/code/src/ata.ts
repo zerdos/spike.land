@@ -1,4 +1,4 @@
-import { tsx } from "./dts.mjs";
+import  {tsx} from 'detective-typescript'
 
 export async function ata(
   { code, originToUse, prettierJs }: {
@@ -69,7 +69,7 @@ export async function ata(
       url: impRes[x].url!,
       ref: impRes[x].ref,
       content: impRes[x].content.split(
-       originToUse
+        originToUse,
       ).join(""),
     }
   );

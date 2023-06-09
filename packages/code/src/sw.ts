@@ -1,7 +1,7 @@
 // import {precacheAndRoute} from 'workbox-precaching';
 importScripts("/swVersion.js");
 
-import { readFile, mkdir, writeFile } from "./memfs"
+import { mkdir, readFile, writeFile } from "./memfs";
 
 import { init, transpile } from "./shared";
 
@@ -14,8 +14,8 @@ import { init, transpile } from "./shared";
 declare const self:
   & ServiceWorkerGlobalScope
   & { swVersion: string }
-  & { files: { [key: string]: string }; fileCacheName: string }
-  // & ({ readdir: typeof FS.readdir });
+  & { files: { [key: string]: string }; fileCacheName: string };
+// & ({ readdir: typeof FS.readdir });
 
 // const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
 

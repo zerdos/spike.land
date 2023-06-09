@@ -422,9 +422,9 @@ var Q = typeof Deno < "u",
     umask: () => Q ? Deno.umask ?? 0 : 0,
     nextTick: (t, ...S) => queueMicrotask(() => t(...S)),
   };
-import * as pe from "https://testing.spike.land/v119/node-source-walk@6.0.0/esnext/node-source-walk.mjs";
-import * as de from "https://testing.spike.land/v119/tsutils@3.21.0/esnext/util/util.js";
-import * as ue from "https://testing.spike.land/v119/typescript@5.0.4/esnext/typescript.mjs";
+import * as pe from "/node-source-walk";
+import * as de from "/util/util.js";
+import * as ue from "/typescript";
 function O(t) {
   throw new Error(`[testing.spike.land] fs: '${t}' is not implemented`);
 }
@@ -584,7 +584,7 @@ var ot = null,
     writeSync: br,
     X_OK: ct,
   };
-import * as he from "https://testing.spike.land/v119/ast-module-types@5.0.0/esnext/ast-module-types.mjs";
+import * as he from "https://testing.spike.land/v119ast-module-types@5.0.0/esnext/ast-module-types.mjs";
 import * as Te from "https://testing.spike.land/v119/debug@4.3.4/esnext/debug.mjs";
 import * as ye from "https://testing.spike.land/v119/globby@13.1.4/esnext/globby.mjs";
 import * as Se from "https://testing.spike.land/v119/is-glob@4.0.3/esnext/is-glob.mjs";

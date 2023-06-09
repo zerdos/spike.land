@@ -108,7 +108,7 @@ const buildOptions: esbuild.BuildOptions = {
     "file-type": "../../node_modules/file-type/browser.js",
     os: "os-browserify",
     assert: "assert",
-    // fs: "./src/fs.ts",
+    fs: "memfs",
   },
   // alias: {
   //   "react-rnd": "/*react-rnd@10.3.7",
@@ -262,7 +262,7 @@ const build = (
     minify: false,
     mangleQuoted: false,
     alias: {
-      ...buildOptions.alias
+      ...buildOptions.alias,
     },
     minifySyntax: false,
     minifyWhitespace: false,
@@ -386,7 +386,7 @@ const build = (
 
       "/monaco-editor/*",
 
-//      "/monaco-editor",
+      //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,

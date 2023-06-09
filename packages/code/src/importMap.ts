@@ -8,8 +8,8 @@ export const importMapImports = {
   "react": "reactMod.mjs",
   "framer-motion": "motion.mjs",
   "react-dom": "reactDom.mjs",
-  "foo-bar": "fooBar.mjs"
+  "foo-bar": "fooBar.mjs",
 };
-export const importMap = { imports:importMapImports };
+export const importMap = { imports: importMapImports };
 
 export default importMap;

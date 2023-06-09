@@ -113,7 +113,7 @@ const monacoContribution = (code: string) => {
 
 self.MonacoEnvironment = {
   baseUrl: originToUse,
-  getWorker  :async (_: string, label: string) => {
+  getWorker: async (_: string, label: string) => {
     if (label === "json") {
       const jWorker = (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker?worker`)).default;
 
@@ -133,12 +133,13 @@ self.MonacoEnvironment = {
     }
 
     if (label === "typescript" || label === "javascript") {
-      const tsWorker = (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker`)).default;
+      const tsWorker =
+        (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker`)).default;
 
       return tsWorker();
     }
     const edWorker = (await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker?worker`)).default;
-    
+
     return edWorker();
   },
 };
@@ -365,7 +366,7 @@ async function startMonacoPristine(
       uri.toString(),
     );
 
-    diag2.map((d) => console.error(false && d.messageText.toString()));
+    diag2.map((d) => false && console.error(d.messageText.toString()));
 
     const diag3 = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
 
@@ -444,7 +445,6 @@ async function startMonacoPristine(
       } finally {
         setTimeout(() => {
           mod.silent = false;
-          mod.getErrors();
         }, 500);
       }
     },

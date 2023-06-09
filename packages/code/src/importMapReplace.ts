@@ -11,42 +11,38 @@ export function importMapReplace(code: string) {
   // Replace the top-level import statements with the mapped import
   code = code.replace(topLevelImportPattern, (_, importStatement, importPath) => {
     // Remove quotes from the import path
-    const path: keyof typeof imports = importPath.replace(/['"`]/g, '');
+    const path: keyof typeof imports = importPath.replace(/['"`]/g, "");
 
-    if (path.startsWith('.')) {
+    if (path.startsWith("https://") || path.startsWith(".")) {
       return `${importStatement}${importPath}`;
     }
-
 
     // Check if the path is in the imports map
     if (imports[path]) {
       // If it is, replace it with the mapped import
-      return `${importStatement}'/${imports[path]}'`;
     } else {
       // If it's not, transform it and append ?bundle
-      return `${importStatement}'/${path}?bundle&external=react'`;
+      return `${importStatement}'origin/${path}?bundle&external=react'`;
     }
   });
 
   // Replace the dynamic import or require statements with the mapped import
   code = code.replace(dynamicImportPattern, (_, importType, importPath) => {
     // Remove quotes from the import path
-    const path: keyof typeof imports = importPath.replace(/['"`]/g, '');
-
+    const path: keyof typeof imports = importPath.replace(/['"`]/g, "");
 
     // Check if the path is in the imports map
     if (imports[path]) {
       // If it is, replace it with the mapped import
-      return `${importType}('/${imports[path]}')`;
+      return `${importType}('origin//${imports[path]}')`;
     } else {
-
-    if (path.startsWith('.')) {
-      return `${importType}(${path}')`;
-    }
+      if (path.startsWith("https://") || path.startsWith(".")) {
+        return `${importType}(${path}')`;
+      }
       // If it's not, transform it and append ?bundle
-      return `${importType}('/${path}?bundle&external=react')`;
+      return `${importType}('origin/${path}?bundle&external=react')`;
     }
   });
 
-  return code.split(`"react"`).join(`"/${imports.react}"`);
+  return code.split(`"react"`).join(`"origin//${imports.react}"`);
 }
