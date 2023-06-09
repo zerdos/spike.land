@@ -1,10 +1,10 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import type { Request as WRequest } from "@cloudflare/workers-types";
 import { importMap } from "../../code/src/importMap";
-import { importMapReplace } from "../../code/src/importMapReplace";
+//import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
 import ASSET_HASH from "./dist.shasum";
-import { CodeEnv } from "./env";
+import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 import esmWorker from "./esm.worker";
@@ -19,10 +19,15 @@ function isChunk(link: string) {
 async function handleApiRequest(
   path: string[],
   request: WRequest<unknown, CfProperties<unknown>>,
-  env: CodeEnv,
+  env: Env,
+  ctx: ExecutionContext,  
 ) {
   // Logic for handling API requests
   switch (path[0]) {
+    case "esm": {
+      const req = new Request([...path.slice(1)].join("/"), request);
+      return esmWorker.fetch(req, env, ctx);
+    }
     case "room": {
       if (!path[1]) {
         if (request.method === "POST") {
@@ -78,7 +83,7 @@ function isUrlFile(pathname: string) {
 async function handleFetchApi(
   path: string[],
   request: WRequest,
-  env: CodeEnv,
+  env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
   const u = new URL(request.url);
@@ -156,11 +161,11 @@ async function handleFetchApi(
       });
     case "api":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env);
+      return handleApiRequest(path.slice(1), request, env, ctx);
 
     case "ata":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env);
+      return handleApiRequest(path.slice(1), request, env, ctx);
 
     case "ipns":
     case "ipfs": {
@@ -185,6 +190,7 @@ async function handleFetchApi(
         ["room", ...paths],
         request,
         env,
+        ctx
       ).catch((e) =>
         new Response("Error," + e?.message, {
           status: 500,
@@ -195,7 +201,8 @@ async function handleFetchApi(
     default: {
 
       if (!isUrlFile(path.join("/"))) {
-        return esmWorker(request, env, ctx);
+        
+        return esmWorker.fetch(request,env,ctx);
       }
       
       const file = newUrl.pathname.slice(0, 7) === ("/assets/")
@@ -249,116 +256,120 @@ async function handleFetchApi(
         return kvResp;
       }
 
-      const isDTS = u.pathname.endsWith(".d.ts");
+      // const isDTS = u.pathname.endsWith(".d.ts");
 
-      const packageName = u.toString().split(
-        u.origin,
-      ).join(
-        "https://esm.sh",
-      ).split(
-        "/node_modules",
-      ).join(
-        "",
-      ).split(
-        "/npm:",
-      ).join(
-        "",
-      ).replace("/index.d.ts", "");
+      // const packageName = u.toString().split(
+      //   u.origin,
+      // ).join(
+      //   "https://esm.sh",
+      // ).split(
+      //   "/node_modules",
+      // ).join(
+      //   "",
+      // ).split(
+      //   "/npm:",
+      // ).join(
+      //   "",
+      // ).replace("/index.d.ts", "");
 
-      const esmUrl = packageName;
+      // const esmUrl = packageName;
 
-      request = new Request(esmUrl, { redirect: "follow" });
-      response = await fetch(request);
-      if (!response.ok) {
-        request = new Request(
-          new URL(newUrl.pathname, "https://raw.githubusercontent.com/")
-            .toString(),
-        );
-        response = await fetch(request);
+      // request = new Request(esmUrl, { redirect: "follow" });
+      // response = await fetch(request);
+      // if (!response.ok) {
+      //   request = new Request(
+      //     new URL(newUrl.pathname, "https://raw.githubusercontent.com/")
+      //       .toString(),
+      //   );
+      //   response = await fetch(request);
 
-        if (!response.ok) {
-          return response;
-        }
-      }
-
-      // if (response.headers.has("location")) {
-      const redirectUrl = response.headers.get("location")
-        || response.url;
-
-      // request = new Request(redirectUrl, request);
-      const headers = new Headers(response.headers);
-      headers.set(
-        "location",
-        redirectUrl.replace(
-          "esm.sh/",
-          u.hostname + "/",
-        ),
-      );
-      headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-
-      const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
-      if (isDTS) {
-        if (xTs === "NO_DTS") {
-          return new Response(JSON.stringify({ error: "NO_DTS" }), {
-            headers: {
-              "Content-Type": "application/json;charset=UTF-8",
-              "Content-Encoding": "gzip",
-              "Cache-Control": "no-cache",
-            },
-          });
-        }
-
-        const xt = response.headers.get("x-typescript-types");
-        response = new Response(
-          `
-        export * from "${xt}";
-        export { default } from "${xt}";
-        `,
-          {
-            headers: {
-              "content-type": "application/javascript; charset=utf-8",
-              "Content-Encoding": "gzip",
-              "Cache-Control": "no-cache",
-            },
-          },
-        );
-      }
-
-      // headers.set(
-      //   "x-dts",
-      //   xTs,
-      // );
-      // headers.delete("x-typescript-types");
-      //   return response;
+      //   if (!response.ok) {
+      //     return response;
+      //   }
       // }
-      const isText = !!response?.headers?.get("Content-Type")?.includes(
-        "charset",
-      );
-      const bodyStr = isText
-        ? importMapReplace(
-          await response.text(),
-          u.origin,
-          ASSET_HASH,
-        ).split("esm.sh").join(
-          u.host,
-        )
-        : await response.blob();
 
-      response = new Response(
-        bodyStr,
-        {
-          ...response,
-          status: 200,
-          headers,
-        },
-      );
-      await cache.put(cacheKey, response.clone());
-      return response;
+      // // if (response.headers.has("location")) {
+      // const redirectUrl = response.headers.get("location")
+      //   || response.url;
+
+      // // request = new Request(redirectUrl, request);
+      // const headers = new Headers(response.headers);
+      // headers.set(
+      //   "location",
+      //   redirectUrl.replace(
+      //     "esm.sh/",
+      //     u.hostname + "/",
+      //   ),
+      // );
+      // headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+
+      // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
+      // if (isDTS) {
+      //   if (xTs === "NO_DTS") {
+      //     return new Response(JSON.stringify({ error: "NO_DTS" }), {
+      //       headers: {
+      //         "Content-Type": "application/json;charset=UTF-8",
+      //         "Content-Encoding": "gzip",
+      //         "Cache-Control": "no-cache",
+      //       },
+      //     });
+      //   }
+
+      //   const xt = response.headers.get("x-typescript-types");
+      //   response = new Response(
+      //     `
+      //   export * from "${xt}";
+      //   export { default } from "${xt}";
+      //   `,
+      //     {
+      //       headers: {
+      //         "content-type": "application/javascript; charset=utf-8",
+      //         "Content-Encoding": "gzip",
+      //         "Cache-Control": "no-cache",
+      //       },
+      //     },
+      //   );
+      // }
+
+      // // headers.set(
+      // //   "x-dts",
+      // //   xTs,
+      // // );
+      // // headers.delete("x-typescript-types");
+      // //   return response;
+      // // }
+      // const isText = !!response?.headers?.get("Content-Type")?.includes(
+      //   "charset",
+      // );
+      // const bodyStr = isText
+      //   ? importMapReplace(
+      //     await response.text(),
+      //     u.origin,
+      //     ASSET_HASH,
+      //   ).split("esm.sh").join(
+      //     u.host,
+      //   )
+      //   : await response.blob();
+
+      // response = new Response(
+      //   bodyStr,
+      //   {
+      //     ...response,
+      //     status: 200,
+      //     headers,
+      //   },
+      // );
+      // await cache.put(cacheKey, response.clone());
+      // return response;
     }
+
+    return new Response("not found :((( ", { status: 404 });
+
+    ///done
   }
 }
 
-const api: ExportedHandler<CodeEnv> = {};
+const api: ExportedHandler<Env> = {};
 
 export default api;
 
@@ -387,7 +398,7 @@ function handleRedirectResponse(url: URL, start: string): Response {
 // Function to handle the main fetch logic
 async function handleMainFetch(
   request: WRequest<unknown, CfProperties<unknown>>,
-  env: CodeEnv,
+  env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
   if (
@@ -397,18 +408,18 @@ async function handleMainFetch(
     return handleUnauthorizedRequest();
   }
 
-  const url = new URL(request.url);
-  if (url.pathname.endsWith(".d.ts")) {
-    const apiUrl = new URL(`https://esm.sh${url.pathname}`);
+//  const url = new URL(request.url);
+  // if (url.pathname.endsWith(".d.ts")) {
+  //   const apiUrl = new URL(`https://esm.sh${url.pathname}`);
 
-    const response = await fetch(new Request(apiUrl, request));
-    let body = await response.text();
+  //   const response = await fetch(new Request(apiUrl, request));
+  //   let body = await response.text();
 
-    // Replace esm.sh with the original origin
-    body = body.replace(/esm\.sh/g, url.origin);
+  //   // Replace esm.sh with the original origin
+  //   body = body.replace(/esm\.sh/g, url.origin);
 
-    return new Response(body, response);
-  }
+  //   return new Response(body, response);
+  // }
 
   return handleErrors(request, async () => {
     console.log(`handling request: ${request.url}`);

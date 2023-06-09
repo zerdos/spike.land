@@ -77,7 +77,7 @@ export function importMapReplace(
         && x.indexOf(`"https`) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = `${origin}/npm:/*${slices[1]}?bundle`;
+        slices[1] = `${origin}/*${slices[1]}?bundle`;
         return slices.join(`"`);
       }
       if (
@@ -96,7 +96,7 @@ export function importMapReplace(
         return slices.join(`"`);
       }
       if (
-        x.indexOf("/npm:/") === -1 && x.startsWith("import")
+        x.indexOf("/") === -1 && x.startsWith("import")
       ) {
         const slices = x.split(`"`);
         try {
@@ -117,7 +117,7 @@ export function importMapReplace(
     }).join("\n")
   ).join(";");
 
-  returnStr = returnStr.split("/npm:/npm:").join("/npm:");
+//  returnStr = returnStr.split("/npm:").join("/npm:");
 
   // if (swV==="-1") items.map((lib: keyof typeof importMapImports) => {
   //   // const uri = (new URL(importMapImports[lib], origin)).toString();

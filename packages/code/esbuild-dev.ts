@@ -111,7 +111,7 @@ const buildOptions: esbuild.BuildOptions = {
     // fs: "./src/fs.ts",
   },
   // alias: {
-  //   "react-rnd": "/npm:/*react-rnd@10.3.7",
+  //   "react-rnd": "/*react-rnd@10.3.7",
   // },
   //  entryNames: "[dir]/[name]-[hash]",
   platform: "browser",
@@ -119,8 +119,7 @@ const buildOptions: esbuild.BuildOptions = {
     "./mST",
     "esm-worker", 
     "/swVersion.mjs",
-    "/npm:/*",
-    "../../npm:/*, ",
+
     "__STATIC_CONTENT_MANIFEST",
     "/dist.shasum.js",
   ],
@@ -298,6 +297,7 @@ const build = (
       "src/sw.ts",
       "src/esbuildWASM.ts",
     ],
+    platform: "browser",
     plugins: [],
     bundle: true,
     define, // makeEnv("production"),
@@ -311,7 +311,6 @@ const build = (
     treeShaking: true,
     legalComments: "none",
     outdir: "dist",
-    platform: "browser",
     format: "iife",
   });
 

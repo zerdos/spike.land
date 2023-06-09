@@ -166,7 +166,7 @@ async function startMonacoPristine(
 
   // Const innerStyle = document.createElement("style");
   // monacoCss
-  // innerStyle.innerText = `@import url(${originToUse}/npm:/monaco-editor@${version}/?css);`;
+  // innerStyle.innerText = `@import url(${originToUse}/monaco-editor@${version}/?css);`;
   // container.appendChild(innerStyle);
 
   const replaced = await monacoContribution(

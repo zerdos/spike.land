@@ -1,15 +1,25 @@
 #!/usr/bin/env node
 
 import { exec } from "child_process";
+import { promisify } from "util";
 import { Command } from "commander";
 import fetch from "node-fetch";
 const program = new Command();
+
+const exe = promisify(exec);
 
 program
   .version("1.0.0")
   .description("CLI tool to execute a special git commit command")
   .action(async () => {
     exec("git diff --cached", async (error, stdout, stderr) => {
+
+      let diff = stdout;
+      if (diff.length === 0) {
+        await exe("git add .");
+        diff = (await exe("git diff --cached")).stdout;
+      }
+      
       if (error) {
         console.error(`exec error: ${error}`);
         return;

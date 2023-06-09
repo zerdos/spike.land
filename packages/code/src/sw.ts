@@ -1,5 +1,6 @@
 // import {precacheAndRoute} from 'workbox-precaching';
 importScripts("/swVersion.js");
+importScripts("/workerScripts/fs.js");
 
 import { init, transpile } from "./shared";
 
@@ -7,14 +8,16 @@ import { init, transpile } from "./shared";
 
 // import { transpile } from "./transpile.ts";
 
+
+import type FSD from "./fs";
 import type * as FS from "./fs";
 declare const self:
   & ServiceWorkerGlobalScope
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string }
   & ({ readdir: typeof FS.readdir });
-importScripts("/workerScripts/fs.js");
-import type FSD from "./fs";
+
+
 const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
 
 export type {};
@@ -91,7 +94,7 @@ const cacheFirst = async (request: Request) => {
 
 const fakeBackend = async (request: Request) => {
   const url = new URL(
-    request.url.split("https://esm.sh").join(self.location.origin),
+    request.url
   );
 
   if (url.origin !== self.location.origin || request.method === "POST") {

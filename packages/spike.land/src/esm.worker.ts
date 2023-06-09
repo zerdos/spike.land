@@ -1,15 +1,13 @@
 import { withESMWorker } from "esm-worker";
 
-// extend the `Env` interface
-declare global {
-  interface Env {
-    ESM_ORIGIN: string;
-    NPM_REGISTRY: string;
+// // extend the `Env` interface
+// declare global {
+//   interface Env {
+//     // your custom env vars
+//     // your other vars in `wrangler.toml` ...
+//   }
+// }
 
-    // your custom env vars
-    // your other vars in `wrangler.toml` ...
-  }
-}
 
 export default withESMWorker((req, env, ctx) => {
   const { url } = ctx;

@@ -44,7 +44,7 @@ export async function ata(
         ref: impRes[t].ref,
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
-            `https://esm.sh/${x}`,
+            `https://${location.host}/${x}`,
           ).join(impRes[x].ref).replace(vNumbers, subst).split(
             "/@types/",
           ).join("/").split("/types/").join(
@@ -66,10 +66,10 @@ export async function ata(
 
   Object.keys(impRes).map((x) =>
     impRes[x] = {
-      url: impRes[x].url!.replace("esm.sh", location.host),
+      url: impRes[x].url!.replace(location.host, location.host),
       ref: impRes[x].ref,
-      content: impRes[x].content.split("https://esm.sh").join("").split(
-        "esm.sh",
+      content: impRes[x].content.split(
+        location.host,
       ).join(""),
     }
   );
@@ -166,7 +166,7 @@ export async function ata(
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
       const url = new URL(
-        newBase.split("https://esm.sh").join(self.location.origin),
+        newBase
       );
 
       impRes[newBase].content = await fetch(url, { redirect: "follow" })

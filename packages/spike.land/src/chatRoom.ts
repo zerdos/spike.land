@@ -11,7 +11,7 @@ import { handleErrors } from "./handleErrors";
 // import AVLTree from "avl";
 
 // import pMap from "p-map";
-import { CodeEnv } from "./env";
+import Env from "./env";
 // import { esmTransform } from "./esbuild.wasm";
 // import jsTokens from "js-tokens";
 import { importMapReplace } from "../../code/src/importMapReplace";
@@ -115,7 +115,7 @@ export class Code implements DurableObject {
     html: "<div></div>",
     css: "",
   });
-  constructor(private state: DurableObjectState, private env: CodeEnv) {
+  constructor(private state: DurableObjectState, private env: Env) {
     this.state.blockConcurrencyWhile(async () => {
       try {
         let s = await this.state.storage.get<ICodeSession>("session");
