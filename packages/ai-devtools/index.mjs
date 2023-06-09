@@ -18,8 +18,13 @@ program
       if (diff.length === 0) {
         await exe("git add .");
         diff = (await exe("git diff --cached")).stdout;
+
+        if (diff.length === 0) {
+          await exe("git reset --soft HEAD~");
+          diff = (await exe("git diff --cached")).stdout;
+        }
       }
-      
+
       if (error) {
         console.error(`exec error: ${error}`);
         return;
