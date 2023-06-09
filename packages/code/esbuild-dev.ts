@@ -219,29 +219,29 @@ const build = (
     "./dist/manifest.json",
   );
 
-  await esbuild.build({
-    ...buildOptions,
-    entryPoints: [
-      ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-    ],
+  // await esbuild.build({
+  //   ...buildOptions,
+  //   entryPoints: [
+  //     ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+  //   ],
 
-    bundle: true,
-    define,
-    alias: {
-      "lib/typescriptServices": "typescript",
-    },
-    treeShaking: true,
-    minify: true, // ! isDevelopment,
-    minifyWhitespace: true, // ! isDevelopment,
-    minifyIdentifiers: true, // ! isDevelopment,
-    minifySyntax: true, // ! isDevelopment,
-    ignoreAnnotations: true,
-    keepNames: false,
-    platform: "browser",
-    format: "iife",
-    outbase: "monaco-editor/esm/vs",
-    outdir: "dist",
-  });
+  //   bundle: true,
+  //   define,
+  //   alias: {
+  //     "lib/typescriptServices": "typescript",
+  //   },
+  //   treeShaking: true,
+  //   minify: true, // ! isDevelopment,
+  //   minifyWhitespace: true, // ! isDevelopment,
+  //   minifyIdentifiers: true, // ! isDevelopment,
+  //   minifySyntax: true, // ! isDevelopment,
+  //   ignoreAnnotations: true,
+  //   keepNames: false,
+  //   platform: "browser",
+  //   format: "iife",
+  //   outbase: "monaco-editor/esm/vs",
+  //   outdir: "dist",
+  // });
 
   await esbuild.build({
     ...buildOptions,
@@ -249,7 +249,7 @@ const build = (
       "src/superFetch.ts",
       "src/prettierEsm.ts",
       "src/transpile.ts",
-      "src/fs.ts",
+      "src/memfs.ts",
       "src/ata.ts",
       // "src/ts.worker.ts",
       "src/ataWorker.ts",
@@ -262,8 +262,7 @@ const build = (
     minify: false,
     mangleQuoted: false,
     alias: {
-      ...buildOptions.alias,
-      fs: "./src/fs.ts",
+      ...buildOptions.alias
     },
     minifySyntax: false,
     minifyWhitespace: false,
@@ -383,14 +382,16 @@ const build = (
     [
       "/swVersion.mjs",
       "/dist.shasum.js",
-      //"monaco-editor",
+      "/monaco-editor",
+
+      "/monaco-editor/*",
 
 //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,
       "./dist/reactDomClient.js",
-      "/*monaco-editor?bundle",
+      "/*monaco-editor?bundle&target=es2020",
       "./dist/reactDom.js",
       "./dist/jsx.js",
       // "/reactMod.js",
@@ -418,7 +419,8 @@ const build = (
       alias: {
         ...buildOptions.alias,
         "react": "preact/compat",
-        // "monaco-editor": "/*monaco-editor?bundle",
+        "monaco-editor": "/monaco-editor",
+        "monaco-editor/*": "/monaco-editor/",
         // "monaco-editor": "/monaco-editor",
         "react-dom/test-utils": "preact/test-utils",
         "react-dom": "preact/compat",

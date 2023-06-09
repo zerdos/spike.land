@@ -71,7 +71,7 @@ const monacoContribution = (code: string) => {
     maxNodeModuleJsDepth: 20,
     rootDir: `${originToUse}/`,
     paths: {
-      "tslib": ["/*tslib?bundle=true"],
+      "tslib": ["/*tslib?bundle&target=es2020=true"],
     },
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
@@ -113,24 +113,33 @@ const monacoContribution = (code: string) => {
 
 self.MonacoEnvironment = {
   baseUrl: originToUse,
-  getWorkerUrl: (_: string, label: string) => {
+  getWorker  :async (_: string, label: string) => {
     if (label === "json") {
-      return `${originToUse}/language/json/json.js`;
+      const jWorker = (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker?worker`)).default;
+
+      return jWorker();
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-      return `${originToUse}/language/css/css.js`;
+      const cWorker = (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker?worker`)).default;
+
+      return cWorker();
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
-      return `${originToUse}/language//html/html.js`;
+      const hWorker = (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker?worker`)).default;
+
+      return hWorker();
     }
 
     if (label === "typescript" || label === "javascript") {
-      return `${originToUse}/language/typescript/ts.js`;
-    }
+      const tsWorker = (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker`)).default;
 
-    return `${originToUse}/editor/editor.js`;
+      return tsWorker();
+    }
+    const edWorker = (await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker?worker`)).default;
+    
+    return edWorker();
   },
 };
 

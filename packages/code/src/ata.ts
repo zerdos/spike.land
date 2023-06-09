@@ -1,4 +1,3 @@
-import { tsx } from "detective-typescript";
 
 export async function ata(
   { code, originToUse, prettierJs }: {
@@ -7,6 +6,8 @@ export async function ata(
     prettierJs: (code: string) => string;
   },
 ) {
+  const { tsx } = await import(`${originToUse}/detective-typescript?bundle&target=es2020`);
+
   console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: {
@@ -44,7 +45,7 @@ export async function ata(
         ref: impRes[t].ref,
         content: impRes[t].content.split(impRes[x].url!).join(x).split("/dist/")
           .join("/").split(
-            `https://${location.host}/${x}`,
+            `https://${originToUse}/${x}`,
           ).join(impRes[x].ref).replace(vNumbers, subst).split(
             "/@types/",
           ).join("/").split("/types/").join(
@@ -66,10 +67,10 @@ export async function ata(
 
   Object.keys(impRes).map((x) =>
     impRes[x] = {
-      url: impRes[x].url!.replace(location.host, location.host),
+      url: impRes[x].url!,
       ref: impRes[x].ref,
       content: impRes[x].content.split(
-        location.host,
+       originToUse
       ).join(""),
     }
   );
@@ -109,7 +110,7 @@ export async function ata(
 
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
-    //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
+    //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&target=es2020&keep-names=true&dev=true")).default
     // let res = tsx(prettierJs(prettierJs(code).split(`/// <reference path="`).map(x=> {
     //   const xx = x.split(`"`);
     //   if(xx.length>1 && xx[1]) {

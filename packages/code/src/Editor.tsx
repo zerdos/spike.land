@@ -201,7 +201,7 @@ const Editor: FC<
     startedM = 1;
 
     const style = document.createElement("style");
-    style.innerHTML = `@import url("${location.origin}/monaco-editor/min/vs/editor/editor.main.css?v=${swVersion}");`;
+    style.innerHTML = `@import url("${location.origin}/monaco-editor?css");`;
     document.head.appendChild(style);
 
     const { startMonaco } = await import("./startMonaco");

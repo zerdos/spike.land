@@ -1,7 +1,6 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import type { Request as WRequest } from "@cloudflare/workers-types";
 import { importMap } from "../../code/src/importMap";
-import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
@@ -14,7 +13,7 @@ function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
 }
-
+ 
 // Function to handle API requests
 async function handleApiRequest(
   path: string[],
@@ -87,7 +86,7 @@ async function handleFetchApi(
   const cacheKey = new Request(request.url);
   const cache = await caches.open(ASSET_HASH);
 
-  let response = await cache.match(cacheKey);
+  const response = await cache.match(cacheKey);
   if (response && response.ok && response.status === 200) {
     return response;
   }
@@ -196,26 +195,28 @@ async function handleFetchApi(
     default:
       {
         if (!isUrlFile(path.join("/"))) {
-          const resp = await esmWorker.fetch(request, env, ctx);
+          let resp = await esmWorker.fetch(request, env, ctx);
           if (!resp.ok) return resp;
+          
+          const headers= new Headers(resp.headers)
+          headers.append("Cross-Origin-Embedder-Policy", "require-corp")
+          resp = new Response(resp.body, {...resp, headers})
 
-          if (request.headers.has("X-TypeScript-Types")) {
-            if (resp.headers.has("X-TypeScript-Types")) {
-              return await fetch(resp.headers.get("X-TypeScript-Types")!);
-            } else return new Response("NO dts", {});
-          }
-
-          const esmPackage = await esmWorker.fetch(request, env, ctx);
-          return new Response(
-            importMapReplace(
-              await esmPackage.text(),
-              u.origin,
-              ASSET_HASH,
-            ),
-            {
-              headers: esmPackage.headers,
-            },
-          );
+        
+          return resp
+          // return esmPackage;
+          
+          
+          // new Response(
+          //   importMapReplace(
+          //     await esmPackage.text(),
+          //     u.origin,
+          //     ASSET_HASH,
+          //   ),
+          //   {
+          //     headers: esmPackage.headers,
+          //   },
+          // );
         }
 
         const file = newUrl.pathname.slice(0, 7) === ("/assets/")
@@ -223,14 +224,7 @@ async function handleFetchApi(
           : newUrl.pathname.slice(1);
 
         if (files[file]) {
-          const kvCacheKey = new Request(
-            request.url,
-          );
-          response = await cache.match(kvCacheKey);
-          if (response && response.ok && response.status === 200) {
-            return response;
-          }
-
+    
           let kvResp = await getAssetFromKV(
             {
               request,
@@ -245,13 +239,9 @@ async function handleFetchApi(
           );
 
           if (!kvResp.ok) {
-            return new Response(`its a 404: ${await kvResp.text()}`, {
-              status: 404,
-              statusText: "not found",
-            });
+            return kvResp;
           }
 
-          kvResp = new Response(kvResp.body, kvResp);
           const headers = new Headers(kvResp.headers);
           kvResp.headers.forEach((v, k) => headers.append(k, v));
           if (isChunk(request.url)) {
@@ -261,11 +251,9 @@ async function handleFetchApi(
             );
           }
           headers.append("Cross-Origin-Embedder-Policy", "require-corp");
-          headers.append("Content-Encoding", "gzip");
+     
           kvResp = new Response(kvResp.body, { ...kvResp, headers });
-          if (kvResp && kvResp.ok && kvResp.status === 200) {
-            await cache.put(kvCacheKey, kvResp.clone());
-          }
+          
           return kvResp;
         }
 

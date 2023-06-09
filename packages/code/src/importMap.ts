@@ -8,9 +8,7 @@ const imports = {
   "react": "/reactMod.mjs",
   "framer-motion": "/motion.mjs",
   "react-dom": "/reactDom.mjs",
-  "foo-bar": "/fooBar.mjs",
-  "monaco-editor": "/monaco-editor?bundle",
-  "monaco-editor/": "/monaco-editor/",
+  "foo-bar": "/fooBar.mjs"
 };
 export const importMap = { imports };
 

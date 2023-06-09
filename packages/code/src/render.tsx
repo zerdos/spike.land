@@ -2,7 +2,7 @@ import { EmotionCache } from "@emotion/cache";
 import type { FC, ReactNode } from "react";
 
 import createCache from "./emotionCache";
-import { stat } from "./fs";
+import { stat } from "./memfs";
 // import { unmountComponentAtNode } from "react-dom";import { createRoot } from "react-dom/client";
 import { CacheProvider } from "@emotion/react";
 import type { Root } from "react-dom/client";

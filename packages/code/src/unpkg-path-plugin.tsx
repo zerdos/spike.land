@@ -22,7 +22,7 @@ export const unpkgPathPlugin = (origin: string) => ({
       }
 
       return {
-        path: `${origin}/*${args.path}?bundle?target=es2022&format=esm`,
+        path: `${origin}/*${args.path}?bundle&target=es2020?target=es2022&format=esm`,
         namespace: "http-url",
       };
     });

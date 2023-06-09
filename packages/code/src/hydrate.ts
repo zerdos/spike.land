@@ -4,7 +4,7 @@ import { getPort, init } from "./shared";
 import { run } from "./ws";
 
 import { getTransferables, hasTransferables } from "transferables";
-import { mkdir } from "./fs";
+import { mkdir } from "./memfs";
 import { render } from "./render";
 
 // Set up service worker version

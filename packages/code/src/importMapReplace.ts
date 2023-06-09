@@ -5,29 +5,32 @@ const importMapImports = importMap.imports;
 export function importMapReplace(
   codeInp: string,
   origin: string,
+  swV: string,
 ) {
   // if (skipImportmapReplaceNames) {
   //   return codeInp;
   // }
 
   let returnStr = replaceAll(codeInp, `from"`, ` from "`);
-
   const items = Object.keys(
     importMapImports,
   ) as (keyof typeof importMapImports)[];
 
-  items.map((lib: keyof typeof importMapImports) => {
-    // const uri = (new URL(importMapImports[lib], origin)).toString();
+  if (swV !== "-1") {
+    items.map((lib: keyof typeof importMapImports) => {
+      // const uri = (new URL(importMapImports[lib], origin)).toString();
 
-    returnStr = replaceAll(
-      returnStr,
-      ` from "${lib}"`,
-      ` from "${importMapImports[lib]}?v=${globalThis.assetHash || Math.random()}"`,
-    );
-  });
+      returnStr = replaceAll(
+        returnStr,
+        ` from "${lib}"`,
+        ` from "${importMapImports[lib]}?v=${swV}"`,
+      );
+    });
+  }
+
   returnStr = replaceAll(returnStr, ` from "/`, ` from "${origin}/`);
-  returnStr.split("/::").join(origin);
-  if (!returnStr) return returnStr;
+  returnStr = replaceAll(returnStr, ` import("/`, ` import("${origin}/`);
+
   // const url = relativeUrl || origin;
   // const baSe = (new URL(".", url)).toString();
   // const parent = (new URL("..", url)).toString();
@@ -68,12 +71,13 @@ export function importMapReplace(
     Y.split("\n").map((x) => {
       if (x.length === 0 || x.indexOf("import") === -1) return x;
       if (
-        x.startsWith("import") && x.indexOf(`"`) !== -1
+        (x.startsWith("import") || x.indexOf(`import("`) !== -1)
+        && x.indexOf(`"`) !== -1
         && x.indexOf(`".`) === -1 && x.indexOf(`"/`) === -1
         && x.indexOf(`"https`) === -1
       ) {
         const slices = x.split(`"`);
-        slices[1] = origin + "/*" + slices[1] + "?bundle";
+        slices[1] = `${origin}/*${slices[1]}?bundle&target=es2020`;
         return slices.join(`"`);
       }
       if (
@@ -84,7 +88,7 @@ export function importMapReplace(
         const slices = x.split(`"`);
         try {
           oldUrl = new URL(slices[1]);
-          slices[1] = origin + "/*" + oldUrl.pathname + "?bundle";
+          slices[1] = `${origin}/*${oldUrl.pathname}?bundle&target=es2020`;
         } catch {
           console.error("URL ERR", slices[1]);
         }
@@ -101,7 +105,7 @@ export function importMapReplace(
             oldUrl && oldUrl.pathname.indexOf(".") === -1
             && oldUrl.pathname.indexOf("/live/") !== -1
           ) {
-            slices[1] = oldUrl.toString() + "/index.js";
+            slices[1] = `${oldUrl.toString()}/index.js`;
           }
         } catch {
           console.error("URL ERR", slices[1]);
@@ -114,6 +118,16 @@ export function importMapReplace(
   ).join(";");
 
   returnStr = returnStr.split("//").join("/");
+
+  // if (swV==="-1") items.map((lib: keyof typeof importMapImports) => {
+  //   // const uri = (new URL(importMapImports[lib], origin)).toString();
+
+  //   returnStr = replaceAll(
+  //     returnStr,
+  //     ` from "${lib}"`,
+  //     ` from "${lib}"`
+  //   );
+  // });
 
   return returnStr;
 }
