@@ -6,12 +6,25 @@ usage_model = "unbound"
 compatibility_date = "2021-10-16"
 main = "../code/dist/cf-workers.mjs"
 
+kv_namespaces = [
+    { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3" }
+]
+
 
 [durable_objects]
 bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
+
+[vars]
+ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
+NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "esm"
+preview_bucket_name = "esm"
 
 # [[r2_buckets]]
 # binding = "R2_BUCKET" 
@@ -32,6 +45,11 @@ bucket = "../code/dist" # Add the directory with your static assets
 name = "testing-spike-land"
 usage_model = "unbound"
 
+kv_namespaces = [
+    { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3" }
+]
+
+
 
 [[env.testing.migrations]]
 tag = "v4" 
@@ -45,6 +63,17 @@ bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
+
+
+
+[env.testing.vars]
+ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
+NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
+
+[[env.testing.r2_buckets]]
+binding = "R2"
+bucket_name = "esm"
+preview_bucket_name = "esm"
 
 
 # [[env.testing.r2_buckets]]

@@ -1498,6 +1498,7 @@ const RAW_RUNTIME_STATE =
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.17.19"],\
+          ["esm-worker", "npm:0.125.0"],\
           ["immutable", "npm:4.3.0"],\
           ["p-map", "npm:6.0.0"],\
           ["p-queue", "npm:7.3.4"],\
@@ -4841,6 +4842,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/eslint-visitor-keys-npm-3.4.1-a5d0a58208-9.zip/node_modules/eslint-visitor-keys/",\
         "packageDependencies": [\
           ["eslint-visitor-keys", "npm:3.4.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["esm-worker", [\
+      ["npm:0.125.0", {\
+        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.125.0-85849066eb-9.zip/node_modules/esm-worker/",\
+        "packageDependencies": [\
+          ["esm-worker", "npm:0.125.0"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -7,6 +7,7 @@ import ASSET_HASH from "./dist.shasum";
 import { CodeEnv } from "./env";
 import { handleErrors } from "./handleErrors";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
+import esmWorker from "./esm.worker";
 
 // Helper function to check if a link is a chunk
 function isChunk(link: string) {
@@ -57,6 +58,21 @@ async function handleApiRequest(
     default:
       return new Response("Not found", { status: 404 });
   }
+}
+
+
+function isUrlFile(pathname: string) {
+  const url = new URL(`/${pathname}`, "https://example.com").pathname.slice(1);
+  
+  const parts = url.split('/');
+  const lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+  if (!lastSegment ||  (lastSegment &&  !lastSegment.includes('.'))) {
+    return false;
+  }
+
+  if (files[url]) return true
+
+  return false
 }
 
 async function handleFetchApi(
@@ -177,6 +193,11 @@ async function handleFetchApi(
       );
     }
     default: {
+
+      if (!isUrlFile(path.join("/"))) {
+        return esmWorker(request, env, ctx);
+      }
+      
       const file = newUrl.pathname.slice(0, 7) === ("/assets/")
         ? newUrl.pathname.slice(8)
         : newUrl.pathname.slice(1);

@@ -117,6 +117,7 @@ const buildOptions: esbuild.BuildOptions = {
   platform: "browser",
   external: [
     "./mST",
+    "esm-worker", 
     "/swVersion.mjs",
     "/npm:/*",
     "../../npm:/*, ",

@@ -1004,6 +1004,7 @@ __metadata:
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.17.19"
+    esm-worker: "npm:^0.125.0"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
@@ -3955,6 +3956,13 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: 1fd613026fd7d8f448e919def158ca92295ed85c28712e318be4fe82758beb7659a31aff3c5047c564dbb3f48ec129184210634a287335bcb189bb3b6fc755a1
+  languageName: node
+  linkType: hard
+
+"esm-worker@npm:^0.125.0":
+  version: 0.125.0
+  resolution: "esm-worker@npm:0.125.0"
+  checksum: f91e17258f7901104648b0266eaf60d59590672def01aaabc7c35a1712e42eb6a6fbbe3f7aba21ec6fa6e6d59e693dee2dfbb75ffdd2c3abc3e67d26595da57b
   languageName: node
   linkType: hard
 
