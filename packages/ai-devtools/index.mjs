@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { exec } from "child_process";
-import { promisify } from "util";
 import { Command } from "commander";
 import fetch from "node-fetch";
+import { promisify } from "util";
 const program = new Command();
 
 const exe = promisify(exec);
@@ -13,7 +13,6 @@ program
   .description("CLI tool to execute a special git commit command")
   .action(async () => {
     exec("git diff --cached", async (error, stdout, stderr) => {
-
       let diff = stdout;
       if (diff.length === 0) {
         await exe("git add .");
@@ -32,13 +31,16 @@ program
 
       let response;
       try {
-        response = await fetch("https://git-diff-tldt-ozv5gnkbfa-uc.a.run.app/commit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain",
+        response = await fetch(
+          "https://git-diff-tldt-ozv5gnkbfa-uc.a.run.app/commit",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "text/plain",
+            },
+            body: stdout,
           },
-          body: stdout,
-        });
+        );
       } catch (error) {
         console.error(`fetch error: ${error}`);
         return;

@@ -8,7 +8,6 @@ import { withESMWorker } from "esm-worker";
 //   }
 // }
 
-
 export default withESMWorker((req, env, ctx) => {
   const { url } = ctx;
 

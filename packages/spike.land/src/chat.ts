@@ -5,9 +5,9 @@ import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
+import esmWorker from "./esm.worker";
 import { handleErrors } from "./handleErrors";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
-import esmWorker from "./esm.worker";
 
 // Helper function to check if a link is a chunk
 function isChunk(link: string) {
@@ -20,7 +20,7 @@ async function handleApiRequest(
   path: string[],
   request: WRequest<unknown, CfProperties<unknown>>,
   env: Env,
-  ctx: ExecutionContext
+  ctx: ExecutionContext,
 ) {
   // Logic for handling API requests
   switch (path[0]) {
@@ -61,19 +61,18 @@ async function handleApiRequest(
   }
 }
 
-
 function isUrlFile(pathname: string) {
   const url = new URL(`/${pathname}`, "https://example.com").pathname.slice(1);
-  
-  const parts = url.split('/');
-  const lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
-  if (!lastSegment ||  (lastSegment &&  !lastSegment.includes('.'))) {
+
+  const parts = url.split("/");
+  const lastSegment = parts.pop() || parts.pop(); // handle potential trailing slash
+  if (!lastSegment || (lastSegment && !lastSegment.includes("."))) {
     return false;
   }
 
-  if (files[url]) return true
+  if (files[url]) return true;
 
-  return false
+  return false;
 }
 
 async function handleFetchApi(
@@ -94,9 +93,6 @@ async function handleFetchApi(
   }
 
   switch (path[0]) {
-
-
-
     case "ping":
       return new Response("ping" + Math.random(), {
         headers: {
@@ -164,7 +160,7 @@ async function handleFetchApi(
 
     case "ata":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env,ctx);
+      return handleApiRequest(path.slice(1), request, env, ctx);
 
     case "ipns":
     case "ipfs": {
@@ -189,7 +185,7 @@ async function handleFetchApi(
         ["room", ...paths],
         request,
         env,
-        ctx
+        ctx,
       ).catch((e) =>
         new Response("Error," + e?.message, {
           status: 500,
@@ -197,189 +193,192 @@ async function handleFetchApi(
         })
       );
     }
-    default: {
+    default:
+      {
+        if (!isUrlFile(path.join("/"))) {
+          const resp = await esmWorker.fetch(request, env, ctx);
+          if (!resp.ok) return resp;
 
-      if (!isUrlFile(path.join("/"))) {
+          if (request.headers.has("X-TypeScript-Types")) {
+            if (resp.headers.has("X-TypeScript-Types")) {
+              return await fetch(resp.headers.get("X-TypeScript-Types")!);
+            } else return new Response("NO dts", {});
+          }
 
-        const resp = await esmWorker.fetch(request,env,ctx);
-        if (!resp.ok) return resp;
-
-        if (request.headers.has('X-TypeScript-Types')) {
-          if (resp.headers.has('X-TypeScript-Types')) return await fetch(resp.headers.get("X-TypeScript-Types")!)
-          else return new Response("NO dts", {});
-        }
-        
-
-        const esmPackage = await esmWorker.fetch(request,env,ctx);
-        return new Response(importMapReplace(
-                await esmPackage.text(),
-                u.origin, 
-                ASSET_HASH),  {
-                  headers: esmPackage.headers,
-                });
-      }
-      
-      const file = newUrl.pathname.slice(0, 7) === ("/assets/")
-        ? newUrl.pathname.slice(8)
-        : newUrl.pathname.slice(1);
-
-      if (files[file]) {
-        const kvCacheKey = new Request(
-          request.url,
-        );
-        response = await cache.match(kvCacheKey);
-        if (response && response.ok && response.status === 200) {
-          return response;
-        }
-
-        let kvResp = await getAssetFromKV(
-          {
-            request,
-            waitUntil(promise) {
-              return ctx.waitUntil(promise);
+          const esmPackage = await esmWorker.fetch(request, env, ctx);
+          return new Response(
+            importMapReplace(
+              await esmPackage.text(),
+              u.origin,
+              ASSET_HASH,
+            ),
+            {
+              headers: esmPackage.headers,
             },
-          },
-          {
-            ASSET_NAMESPACE: env.__STATIC_CONTENT,
-            ASSET_MANIFEST,
-          },
-        );
-
-        if (!kvResp.ok) {
-          return new Response(`its a 404: ${await kvResp.text()}`, {
-            status: 404,
-            statusText: "not found",
-          });
-        }
-
-        kvResp = new Response(kvResp.body, kvResp);
-        const headers = new Headers(kvResp.headers);
-        kvResp.headers.forEach((v, k) => headers.append(k, v));
-        if (isChunk(request.url)) {
-          headers.append(
-            "Cache-Control",
-            "public, max-age=604800, immutable",
           );
         }
-        headers.append("Cross-Origin-Embedder-Policy", "require-corp");
-        headers.append("Content-Encoding", "gzip");
-        kvResp = new Response(kvResp.body, { ...kvResp, headers });
-        if (kvResp && kvResp.ok && kvResp.status === 200) {
-          await cache.put(kvCacheKey, kvResp.clone());
+
+        const file = newUrl.pathname.slice(0, 7) === ("/assets/")
+          ? newUrl.pathname.slice(8)
+          : newUrl.pathname.slice(1);
+
+        if (files[file]) {
+          const kvCacheKey = new Request(
+            request.url,
+          );
+          response = await cache.match(kvCacheKey);
+          if (response && response.ok && response.status === 200) {
+            return response;
+          }
+
+          let kvResp = await getAssetFromKV(
+            {
+              request,
+              waitUntil(promise) {
+                return ctx.waitUntil(promise);
+              },
+            },
+            {
+              ASSET_NAMESPACE: env.__STATIC_CONTENT,
+              ASSET_MANIFEST,
+            },
+          );
+
+          if (!kvResp.ok) {
+            return new Response(`its a 404: ${await kvResp.text()}`, {
+              status: 404,
+              statusText: "not found",
+            });
+          }
+
+          kvResp = new Response(kvResp.body, kvResp);
+          const headers = new Headers(kvResp.headers);
+          kvResp.headers.forEach((v, k) => headers.append(k, v));
+          if (isChunk(request.url)) {
+            headers.append(
+              "Cache-Control",
+              "public, max-age=604800, immutable",
+            );
+          }
+          headers.append("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.append("Content-Encoding", "gzip");
+          kvResp = new Response(kvResp.body, { ...kvResp, headers });
+          if (kvResp && kvResp.ok && kvResp.status === 200) {
+            await cache.put(kvCacheKey, kvResp.clone());
+          }
+          return kvResp;
         }
-        return kvResp;
+
+        // const isDTS = u.pathname.endsWith(".d.ts");
+
+        // const packageName = u.toString().split(
+        //   u.origin,
+        // ).join(
+        //   "https://esm.sh",
+        // ).split(
+        //   "/node_modules",
+        // ).join(
+        //   "",
+        // ).split(
+        //   "/npm:",
+        // ).join(
+        //   "",
+        // ).replace("/index.d.ts", "");
+
+        // const esmUrl = packageName;
+
+        // request = new Request(esmUrl, { redirect: "follow" });
+        // response = await fetch(request);
+        // if (!response.ok) {
+        //   request = new Request(
+        //     new URL(newUrl.pathname, "https://raw.githubusercontent.com/")
+        //       .toString(),
+        //   );
+        //   response = await fetch(request);
+
+        //   if (!response.ok) {
+        //     return response;
+        //   }
+        // }
+
+        // // if (response.headers.has("location")) {
+        // const redirectUrl = response.headers.get("location")
+        //   || response.url;
+
+        // // request = new Request(redirectUrl, request);
+        // const headers = new Headers(response.headers);
+        // headers.set(
+        //   "location",
+        //   redirectUrl.replace(
+        //     "esm.sh/",
+        //     u.hostname + "/",
+        //   ),
+        // );
+        // headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+
+        // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
+        // if (isDTS) {
+        //   if (xTs === "NO_DTS") {
+        //     return new Response(JSON.stringify({ error: "NO_DTS" }), {
+        //       headers: {
+        //         "Content-Type": "application/json;charset=UTF-8",
+        //         "Content-Encoding": "gzip",
+        //         "Cache-Control": "no-cache",
+        //       },
+        //     });
+        //   }
+
+        //   const xt = response.headers.get("x-typescript-types");
+        //   response = new Response(
+        //     `
+        //   export * from "${xt}";
+        //   export { default } from "${xt}";
+        //   `,
+        //     {
+        //       headers: {
+        //         "content-type": "application/javascript; charset=utf-8",
+        //         "Content-Encoding": "gzip",
+        //         "Cache-Control": "no-cache",
+        //       },
+        //     },
+        //   );
+        // }
+
+        // // headers.set(
+        // //   "x-dts",
+        // //   xTs,
+        // // );
+        // // headers.delete("x-typescript-types");
+        // //   return response;
+        // // }
+        // const isText = !!response?.headers?.get("Content-Type")?.includes(
+        //   "charset",
+        // );
+        // const bodyStr = isText
+        //   ? importMapReplace(
+        //     await response.text(),
+        //     u.origin,
+        //     ASSET_HASH,
+        //   ).split("esm.sh").join(
+        //     u.host,
+        //   )
+        //   : await response.blob();
+
+        // response = new Response(
+        //   bodyStr,
+        //   {
+        //     ...response,
+        //     status: 200,
+        //     headers,
+        //   },
+        // );
+        // await cache.put(cacheKey, response.clone());
+        // return response;
       }
 
-      // const isDTS = u.pathname.endsWith(".d.ts");
+      return new Response("not found :((( ", { status: 404 });
 
-      // const packageName = u.toString().split(
-      //   u.origin,
-      // ).join(
-      //   "https://esm.sh",
-      // ).split(
-      //   "/node_modules",
-      // ).join(
-      //   "",
-      // ).split(
-      //   "/npm:",
-      // ).join(
-      //   "",
-      // ).replace("/index.d.ts", "");
-
-      // const esmUrl = packageName;
-
-      // request = new Request(esmUrl, { redirect: "follow" });
-      // response = await fetch(request);
-      // if (!response.ok) {
-      //   request = new Request(
-      //     new URL(newUrl.pathname, "https://raw.githubusercontent.com/")
-      //       .toString(),
-      //   );
-      //   response = await fetch(request);
-
-      //   if (!response.ok) {
-      //     return response;
-      //   }
-      // }
-
-      // // if (response.headers.has("location")) {
-      // const redirectUrl = response.headers.get("location")
-      //   || response.url;
-
-      // // request = new Request(redirectUrl, request);
-      // const headers = new Headers(response.headers);
-      // headers.set(
-      //   "location",
-      //   redirectUrl.replace(
-      //     "esm.sh/",
-      //     u.hostname + "/",
-      //   ),
-      // );
-      // headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-
-      // const xTs = response.headers.get("x-typescript-types") || "NO_DTS";
-      // if (isDTS) {
-      //   if (xTs === "NO_DTS") {
-      //     return new Response(JSON.stringify({ error: "NO_DTS" }), {
-      //       headers: {
-      //         "Content-Type": "application/json;charset=UTF-8",
-      //         "Content-Encoding": "gzip",
-      //         "Cache-Control": "no-cache",
-      //       },
-      //     });
-      //   }
-
-      //   const xt = response.headers.get("x-typescript-types");
-      //   response = new Response(
-      //     `
-      //   export * from "${xt}";
-      //   export { default } from "${xt}";
-      //   `,
-      //     {
-      //       headers: {
-      //         "content-type": "application/javascript; charset=utf-8",
-      //         "Content-Encoding": "gzip",
-      //         "Cache-Control": "no-cache",
-      //       },
-      //     },
-      //   );
-      // }
-
-      // // headers.set(
-      // //   "x-dts",
-      // //   xTs,
-      // // );
-      // // headers.delete("x-typescript-types");
-      // //   return response;
-      // // }
-      // const isText = !!response?.headers?.get("Content-Type")?.includes(
-      //   "charset",
-      // );
-      // const bodyStr = isText
-      //   ? importMapReplace(
-      //     await response.text(),
-      //     u.origin,
-      //     ASSET_HASH,
-      //   ).split("esm.sh").join(
-      //     u.host,
-      //   )
-      //   : await response.blob();
-
-      // response = new Response(
-      //   bodyStr,
-      //   {
-      //     ...response,
-      //     status: 200,
-      //     headers,
-      //   },
-      // );
-      // await cache.put(cacheKey, response.clone());
-      // return response;
-    }
-
-    return new Response("not found :((( ", { status: 404 });
-
-    ///done
+      /// done
   }
 }
 
@@ -422,7 +421,7 @@ async function handleMainFetch(
     return handleUnauthorizedRequest();
   }
 
-//  const url = new URL(request.url);
+  //  const url = new URL(request.url);
   // if (url.pathname.endsWith(".d.ts")) {
   //   const apiUrl = new URL(`https://esm.sh${url.pathname}`);
 

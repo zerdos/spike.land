@@ -163,7 +163,7 @@ export async function ata(
       impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
       const url = new URL(
-        newBase
+        newBase,
       );
 
       impRes[newBase].content = await fetch(url, { redirect: "follow" })

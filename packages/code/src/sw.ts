@@ -8,7 +8,6 @@ import { init, transpile } from "./shared";
 
 // import { transpile } from "./transpile.ts";
 
-
 import type FSD from "./fs";
 import type * as FS from "./fs";
 declare const self:
@@ -16,7 +15,6 @@ declare const self:
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string }
   & ({ readdir: typeof FS.readdir });
-
 
 const { readFile, mkdir, writeFile } = self as unknown as typeof FSD;
 
@@ -94,7 +92,7 @@ const cacheFirst = async (request: Request) => {
 
 const fakeBackend = async (request: Request) => {
   const url = new URL(
-    request.url
+    request.url,
   );
 
   if (url.origin !== self.location.origin || request.method === "POST") {

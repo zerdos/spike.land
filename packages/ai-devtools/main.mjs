@@ -55,10 +55,10 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   const sections = diff.split("diff --git");
 
   const limit = pLimit(3);
-  const tasks = sections.map(section => {
+  const tasks = sections.map((section) => {
     if (section.trim() === "") return Promise.resolve("");
     return limit(() =>
-      generateSummary(section, "gpt-3.5-turbo").then(x => {
+      generateSummary(section, "gpt-3.5-turbo").then((x) => {
         console.log(x);
         return x;
       })
@@ -66,20 +66,24 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   });
 
   const summariesFull = await Promise.allSettled(tasks);
-  const successfulSummaries = summariesFull.filter(result => result.status === "fulfilled").map(result => result.value)
-    .filter(x => x);
+  const successfulSummaries = summariesFull.filter((result) => result.status === "fulfilled").map((result) =>
+    result.value
+  )
+    .filter((x) => x);
 
   try {
     const sumOfSums = [];
     if (successfulSummaries.length > 4) {
       while (successfulSummaries.length) {
-        sumOfSums.push(generateSummary(successfulSummaries.splice(0, 4).join(` --- `)));
+        sumOfSums.push(
+          generateSummary(successfulSummaries.splice(0, 4).join(` --- `)),
+        );
       }
     } else sumOfSums.push(...successfulSummaries);
 
-    const summaries = (await Promise.allSettled(sumOfSums)).filter(result => result.status === "fulfilled").map(
-      result => result.value,
-    ).filter(x => x);
+    const summaries = (await Promise.allSettled(sumOfSums)).filter((result) => result.status === "fulfilled").map(
+      (result) => result.value,
+    ).filter((x) => x);
 
     const promt = type === "tldr"
       ? `
@@ -149,7 +153,9 @@ async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
     cache[diffSection] = completion.data.choices[0].message.content;
     return cache[diffSection];
   } catch (e) {
-    console.error(`Failed to generate summary with model ${model}: ${e.message}`);
+    console.error(
+      `Failed to generate summary with model ${model}: ${e.message}`,
+    );
     // return generateSummary(diffSection, "gpt-3.5-turbo").catch(()=>'');
   }
 }

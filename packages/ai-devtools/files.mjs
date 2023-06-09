@@ -26,43 +26,45 @@ git.diff(["--cached", "--name-only"])
     const changedFiles = result.split("\n");
 
     // Generate a commit message
-    await Promise.all(changedFiles.map(file =>
-      file && git.diff(["--cached", "--", file])
-        .then(result => {
-          const changes = result;
-          // console.log({result})
+    await Promise.all(
+      changedFiles.map((file) =>
+        file && git.diff(["--cached", "--", file])
+          .then((result) => {
+            const changes = result;
+            // console.log({result})
 
-          const empty = { data: { choices: [{ text: "" }] } };
-          if (file.indexOf("yarn.lock") !== -1) return empty;
-          if (file.indexOf(".pnp.cjs") !== -1) return empty;
-          if (file.indexOf("package-lock") !== -1) return empty;
+            const empty = { data: { choices: [{ text: "" }] } };
+            if (file.indexOf("yarn.lock") !== -1) return empty;
+            if (file.indexOf(".pnp.cjs") !== -1) return empty;
+            if (file.indexOf("package-lock") !== -1) return empty;
 
-          // Generate a summary of the changes
-          return openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: "TLDR? " + changes.slice(0, 2048) + "     TLDR?",
-            max_tokens: 400,
-          });
-        })
-        .then(response => {
-          // console.log({response})
-          const summary = response.data.choices[0].text;
+            // Generate a summary of the changes
+            return openai.createCompletion({
+              model: "text-davinci-003",
+              prompt: "TLDR? " + changes.slice(0, 2048) + "     TLDR?",
+              max_tokens: 400,
+            });
+          })
+          .then((response) => {
+            // console.log({response})
+            const summary = response.data.choices[0].text;
 
-          // Add the summary to the commit message
-          if (summary) {
-            commitMessage = `${file}: ${summary}\n`;
-          }
+            // Add the summary to the commit message
+            if (summary) {
+              commitMessage = `${file}: ${summary}\n`;
+            }
 
-          // Set the commit message
-          console.log(commitMessage);
-          // return git.commit();
-          return commitMessage;
-        })
-        .catch((err) => {
-          console.error(err.message || "err2");
-        })
-    ));
+            // Set the commit message
+            console.log(commitMessage);
+            // return git.commit();
+            return commitMessage;
+          })
+          .catch((err) => {
+            console.error(err.message || "err2");
+          })
+      ),
+    );
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("err3");
   });
