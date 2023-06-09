@@ -19,15 +19,10 @@ function isChunk(link: string) {
 async function handleApiRequest(
   path: string[],
   request: WRequest<unknown, CfProperties<unknown>>,
-  env: Env,
-  ctx: ExecutionContext,  
+  env: Env 
 ) {
   // Logic for handling API requests
   switch (path[0]) {
-    case "esm": {
-      const req = new Request([...path.slice(1)].join("/"), request);
-      return esmWorker.fetch(req, env, ctx);
-    }
     case "room": {
       if (!path[1]) {
         if (request.method === "POST") {
@@ -161,11 +156,11 @@ async function handleFetchApi(
       });
     case "api":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env, ctx);
+      return handleApiRequest(path.slice(1), request, env);
 
     case "ata":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env, ctx);
+      return handleApiRequest(path.slice(1), request, env);
 
     case "ipns":
     case "ipfs": {
@@ -189,8 +184,7 @@ async function handleFetchApi(
       return handleApiRequest(
         ["room", ...paths],
         request,
-        env,
-        ctx
+        env
       ).catch((e) =>
         new Response("Error," + e?.message, {
           status: 500,
@@ -201,8 +195,16 @@ async function handleFetchApi(
     default: {
 
       if (!isUrlFile(path.join("/"))) {
+
+        const resp = await esmWorker.fetch(request,env,ctx);
+        if (!resp.ok) return resp;
+
+        if (request.headers.has('X-TypeScript-Types')) {
+          if (resp.headers.has('X-TypeScript-Types')) return await fetch(resp.headers.get("X-TypeScript-Types")!)
+          else return new Response("NO dts", {});
+        }
         
-        return esmWorker.fetch(request,env,ctx);
+        return await esmWorker.fetch(request,env,ctx);
       }
       
       const file = newUrl.pathname.slice(0, 7) === ("/assets/")

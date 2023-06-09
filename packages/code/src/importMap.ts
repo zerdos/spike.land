@@ -9,6 +9,9 @@ const imports = {
   "framer-motion": "/motion.mjs",
   "react-dom": "/reactDom.mjs",
   "foo-bar": "/fooBar.mjs",
+  "monaco-editor": "/monaco-editor?bundle",
+  "monaco-editor/": "/monaco-editor/"
+  
 };
 export const importMap = { imports };
 

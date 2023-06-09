@@ -383,7 +383,9 @@ const build = (
     [
       "/swVersion.mjs",
       "/dist.shasum.js",
-      // "/monaco-editor",
+      "monaco-editor",
+
+      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,
