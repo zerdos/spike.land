@@ -54,9 +54,7 @@ export async function runner({ code, counter, signal }: {
     //   codeSpace,
     // });
     const transpiled = importMapReplace(
-      await transpile({ code, originToUse: location.origin }),
-      location.origin,
-      swVersion,
+      await transpile({ code, originToUse: location.origin })
     );
 
     if (signal.aborted) return;

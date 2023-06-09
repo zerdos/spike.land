@@ -391,7 +391,7 @@ const build = (
       "./dist.shasum",
       `./${wasmFile}`,
       "./dist/reactDomClient.js",
-      "/*monaco-editor?bundle&target=es2020",
+      "/*monaco-editor?bundle",
       "./dist/reactDom.js",
       "./dist/jsx.js",
       // "/reactMod.js",

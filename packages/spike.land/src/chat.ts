@@ -7,6 +7,7 @@ import Env from "./env";
 import esmWorker from "./esm.worker";
 import { handleErrors } from "./handleErrors";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { importMapReplace } from "../../code/src/importMapReplace";
 
 // Helper function to check if a link is a chunk
 function isChunk(link: string) {
@@ -200,6 +201,15 @@ async function handleFetchApi(
           
           const headers= new Headers(resp.headers)
           headers.append("Cross-Origin-Embedder-Policy", "require-corp")
+          const contentType = headers.get('Content-type');
+        
+          if (contentType && contentType.indexOf('charset')){
+            try{
+         return   new Response( importMapReplace(await resp.text())  , {...resp, headers})
+            }catch{
+              return new Response(resp.body, {...resp, headers})
+            }
+        }
           resp = new Response(resp.body, {...resp, headers})
 
         

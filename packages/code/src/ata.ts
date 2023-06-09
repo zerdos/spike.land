@@ -1,3 +1,4 @@
+import { tsx } from "./dts.mjs";
 
 export async function ata(
   { code, originToUse, prettierJs }: {
@@ -6,8 +7,6 @@ export async function ata(
     prettierJs: (code: string) => string;
   },
 ) {
-  const { tsx } = await import(`${originToUse}/detective-typescript?bundle&target=es2020`);
-
   console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: {
@@ -110,7 +109,7 @@ export async function ata(
 
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
-    //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&target=es2020&keep-names=true&dev=true")).default
+    //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
     // let res = tsx(prettierJs(prettierJs(code).split(`/// <reference path="`).map(x=> {
     //   const xx = x.split(`"`);
     //   if(xx.length>1 && xx[1]) {

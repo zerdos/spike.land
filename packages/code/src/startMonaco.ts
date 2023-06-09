@@ -71,7 +71,7 @@ const monacoContribution = (code: string) => {
     maxNodeModuleJsDepth: 20,
     rootDir: `${originToUse}/`,
     paths: {
-      "tslib": ["/*tslib?bundle&target=es2020=true"],
+      "tslib": ["/*tslib?bundle=true"],
     },
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,

@@ -158,16 +158,16 @@ export class Code implements DurableObject {
         if (this.#origin.length === 0) {
           this.#origin = url.origin;
         }
-        if (this.#transpiled.length === 0) {
-          this.#transpiled = await fetch(
-            `https://js.spike.land?v=${shasum}`,
-            {
-              method: "POST",
-              body: code,
-              headers: { TR_ORIGIN: this.#origin },
-            },
-          ).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
-        }
+        const transpiledPromise = fetch(
+          `https://js.spike.land?v=${shasum}`,
+          {
+            method: "POST",
+            body: code,
+            headers: { TR_ORIGIN: this.#origin },
+          },
+        ).then(async (resp) => this.#transpiled =importMapReplace(await resp.text()));
+
+        if (this.#transpiled.length === 0) await transpiledPromise;
         const path = url.pathname.slice(1).split("/");
         if (path.length === 0) path.push("");
 
@@ -397,7 +397,7 @@ export class Code implements DurableObject {
                 method: "POST",
                 body: this.session.code,
                 headers: { TR_ORIGIN: this.#origin },
-              }).then(async (resp) => importMapReplace(await resp.text(), this.#origin, ASSET_HASH));
+              }).then(async (resp) => importMapReplace(await resp.text()));
 
             const replaced = this.#transpiled.split("https://spike.land/").join(
               `${this.#origin}/`,

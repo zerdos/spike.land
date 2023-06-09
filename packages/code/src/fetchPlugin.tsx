@@ -50,7 +50,7 @@ export const fetchPlugin: (
     build.onResolve({ filter: /^[a-z]+/, namespace: "http-url" }, (args) => ({
       path: Object.keys(importMap.imports).includes(args.path)
         ? args.path
-        : `https://esm.sh/*${args.path}?bundle&target=es2020=true`,
+        : `https://esm.sh/*${args.path}?bundle=true`,
       namespace: "http-url",
     }));
     build.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
