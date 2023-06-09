@@ -13,13 +13,18 @@ export function importMapReplace(code: string) {
     // Remove quotes from the import path
     const path: keyof typeof imports = importPath.replace(/['"`]/g, '');
 
+    if (path.startsWith('.')) {
+      return `${importStatement}${importPath}`;
+    }
+
+
     // Check if the path is in the imports map
     if (imports[path]) {
       // If it is, replace it with the mapped import
       return `${importStatement}'/${imports[path]}'`;
     } else {
       // If it's not, transform it and append ?bundle
-      return `${importStatement}'/${path}?bundle&target=es2020'`;
+      return `${importStatement}'/${path}?bundle&external=react'`;
     }
   });
 
@@ -28,15 +33,20 @@ export function importMapReplace(code: string) {
     // Remove quotes from the import path
     const path: keyof typeof imports = importPath.replace(/['"`]/g, '');
 
+
     // Check if the path is in the imports map
     if (imports[path]) {
       // If it is, replace it with the mapped import
       return `${importType}('/${imports[path]}')`;
     } else {
+
+    if (path.startsWith('.')) {
+      return `${importType}(${path}')`;
+    }
       // If it's not, transform it and append ?bundle
-      return `${importType}('/${path}?bundle&target=es2020')`;
+      return `${importType}('/${path}?bundle&external=react')`;
     }
   });
 
-  return code;
+  return code.split(`"react"`).join(`"/${imports.react}"`);
 }
