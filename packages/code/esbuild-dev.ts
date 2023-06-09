@@ -418,7 +418,7 @@ const build = (
       alias: {
         ...buildOptions.alias,
         "react": "preact/compat",
-        "monaco-editor": "/*monaco-editor?bundle",
+        // "monaco-editor": "/*monaco-editor?bundle",
         // "monaco-editor": "/monaco-editor",
         "react-dom/test-utils": "preact/test-utils",
         "react-dom": "preact/compat",
