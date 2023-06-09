@@ -165,7 +165,9 @@ export class Code implements DurableObject {
             body: code,
             headers: { TR_ORIGIN: this.#origin },
           },
-        ).then(async (resp) => this.#transpiled = importMapReplace((await resp.text()).split("origin/").join(url.origin)));
+        ).then(async (resp) =>
+          this.#transpiled = importMapReplace(await resp.text()).split("origin/").join(url.origin + "/")
+        );
 
         if (this.#transpiled.length === 0) await transpiledPromise;
         const path = url.pathname.slice(1).split("/");

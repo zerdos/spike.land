@@ -19,6 +19,7 @@ export function importMapReplace(code: string) {
 
     // Check if the path is in the imports map
     if (imports[path]) {
+      return `${importStatement}'origin/${imports[path]}'`;
       // If it is, replace it with the mapped import
     } else {
       // If it's not, transform it and append ?bundle
@@ -34,15 +35,15 @@ export function importMapReplace(code: string) {
     // Check if the path is in the imports map
     if (imports[path]) {
       // If it is, replace it with the mapped import
-      return `${importType}('origin//${imports[path]}')`;
+      return `${importType}('origin/${imports[path]}')`;
     } else {
       if (path.startsWith("https://") || path.startsWith(".")) {
-        return `${importType}(${path}')`;
+        return `${importType}('origin/${path}')`;
       }
       // If it's not, transform it and append ?bundle
       return `${importType}('origin/${path}?bundle&external=react')`;
     }
   });
 
-  return code.split(`"react"`).join(`"origin//${imports.react}"`);
+  return code.split(`"react"`).join(`"origin/${imports.react}"`);
 }

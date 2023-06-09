@@ -1,4 +1,4 @@
-import  {tsx} from 'detective-typescript'
+import { tsx } from "detective-typescript";
 
 export async function ata(
   { code, originToUse, prettierJs }: {
