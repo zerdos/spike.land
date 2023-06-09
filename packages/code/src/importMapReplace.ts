@@ -38,12 +38,12 @@ export function importMapReplace(code: string) {
       return `${importType}('origin/${imports[path]}')`;
     } else {
       if (path.startsWith("https://") || path.startsWith(".")) {
-        return `${importType}('origin/${path}')`;
+        return `${importType}('origin/${[path]}')`;
       }
       // If it's not, transform it and append ?bundle
       return `${importType}('origin/${path}?bundle&external=react')`;
     }
   });
 
-  return code.split(`"react"`).join(`"origin/${imports.react}"`);
+  return code; // .split(`"react"`).join(`"origin/${imports.react}"`);
 }

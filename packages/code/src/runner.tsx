@@ -55,7 +55,7 @@ export async function runner({ code, counter, signal }: {
     // });
     const transpiled = importMapReplace(
       await transpile({ code, originToUse: location.origin }),
-    ).split("origin/").join(location.origin + "/");
+    ).split(`origin/`).join(location.origin + "/");
 
     if (signal.aborted) return;
     document.querySelector("iframe")?.contentWindow?.postMessage({
