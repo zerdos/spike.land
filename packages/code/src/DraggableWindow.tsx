@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { MotionConfig } from "framer-motion";
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { QRButton } from "./Qr.lazy";
 
@@ -51,42 +51,13 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(innerWidth);
-  // const [delay, _setDelay] = useState(Number(sessionStorage.getItem("delay")) || 0);
-  const [height, setHeight] = useState(innerHeight);
-  // const videoRef = useRef(null);
   const scale = scaleRange / 100;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const reveal = () => {
       changeScaleRange(Math.min(50, 50 / 1 / (1 / devicePixelRatio)));
       setWidth(innerWidth);
-      setHeight(innerHeight);
-      // if (window.innerWidth / devicePixelRatio < 600) {
-      // changeScaleRange(Math.floor(100 * breakPoints[0] / innerWidth));
-      //  ;
-      // setHeight(breakPointHeights[0]);
-      // }
-
-      // if (window.innerWidth / devicePixelRatio < 1200) {
-      //   // changeScaleRange(Math.floor(100*(breakPoints[0]*breakPoints[0] / innerWidth/innerWidth)));
-      //   setWidth(breakPoints[0]);
-      //   setHeight(breakPointHeights[0]);
-      // } else if (window.innerWidth / devicePixelRatio < 1800) {
-      //   setWidth(breakPoints[1]);
-      //   setHeight(breakPointHeights[1]);
-
-      //   //        changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-      // } else if (window.innerWidth / devicePixelRatio < 2500) {
-      //   setWidth(breakPoints[2]);
-      //   //     changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-      //   setHeight(breakPointHeights[2]);
-      // } else if (window.innerWidth / devicePixelRatio > 2500) {
-      //   setWidth(breakPoints[2]);
-      //   setHeight(breakPointHeights[2]);
-      //   //    changeScaleRange(Math.floor(100 * breakPoints[1] / innerWidth));
-      //   // changeScaleRange(100);
-      // }
-
+    
       setPositions({
         bottom: 20,
         right: 20,
@@ -115,7 +86,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const intervalHandler = setInterval(() => {
       // setCSS(mST().css);
       const bgColor = getComputedStyle(
@@ -222,34 +193,26 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
             <motion.div
+                 css={css`
+                 transform-origin: top left;
+            
+                 border-radius: 8px;
+                 background-color: ${rgba(r, g, b, 0.7)};
+               `}
               layout
+                transition={{ scale: {  type: "spring" } }}
               initial={{
                 height: window.innerHeight,
                 width: window.innerWidth,
               }}
               animate={{
-                height: height * scale,
-                width: width * scale,
+                height: window.innerHeight* Math.sqrt( scale),
+                width: window.innerWidth*Math.sqrt(scale),
               }}
             >
-              <motion.div
-                css={css`
-                  transform-origin: top left;
-                  scale: ${scale};
-                  border-radius: 8px;
-                  background-color: ${rgba(r, g, b, 0.7)};
-                `}
-                initial={{
-                  height: window.innerHeight,
-                  width: window.innerWidth,
-                }}
-                animate={{
-                  height,
-                  width,
-                }}
-              >
+
                 {children}
-              </motion.div>
+       
             </motion.div>
             <motion.div
               layout
@@ -269,11 +232,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 exclusive
                 onChange={(_e: unknown, newSize: number) => {
                   if (newSize) {
-                    // setHeight(
-                    //   // breakPointHeights[breakPoints.indexOf(newSize)],
-                    // );
-                    //    changeMaxScaleRange(Math.floor(100 * newSize / innerWidth));
-                    setWidth(newSize);
+                     setWidth(newSize);
                   }
                 }}
               >
@@ -363,16 +322,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 url={`${location.origin}/live/${codeSpace}/public`}
               />
 
-              {
-                /* <Fab
-                key="video"
-                onClick={() => open(`/live/${codeSpace}/public`)}
-              >
-                <Share />
-              </Fab> */
-              }
-
-              {false}
               <Fab
                 key="Share"
                 onClick={() => open(`/live/${codeSpace}/public`)}
