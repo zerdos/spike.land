@@ -7,7 +7,7 @@ compatibility_date = "2021-10-16"
 main = "../code/dist/cf-workers.mjs"
 
 kv_namespaces = [
-    { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3" }
+    { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5" }
 ]
 
 
@@ -23,8 +23,8 @@ NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm regist
 
 [[r2_buckets]]
 binding = "R2"
-bucket_name = "esm"
-preview_bucket_name = "esm"
+bucket_name = "npmprod"
+preview_bucket_name = "npmprod"
 
 # [[r2_buckets]]
 # binding = "R2_BUCKET" 
