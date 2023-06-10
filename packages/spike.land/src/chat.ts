@@ -194,7 +194,7 @@ async function handleFetchApi(
           statusText: e?.message,
         })
       );
-      }
+    }
     default:
       {
         if (!isUrlFile(path.join("/"))) {

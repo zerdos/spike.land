@@ -1,5 +1,3 @@
-
-
 export const oo = {
   "@emotion/react/jsx-runtime": "origin/emotion.mjs",
   "react/jsx-runtime": "origin/jsx.mjs",
@@ -11,7 +9,7 @@ export const oo = {
   "framer-motion": "origin/motion.mjs",
   "react-dom": "origin/reactDom.mjs",
   "foo-bar": "origin/fooBar.mjs",
-}
+};
 export const importMap = { imports: oo };
 
 export default importMap;

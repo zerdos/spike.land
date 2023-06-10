@@ -57,7 +57,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     const reveal = () => {
       changeScaleRange(Math.min(50, 50 / 1 / (1 / devicePixelRatio)));
       setWidth(innerWidth);
-    
+
       setPositions({
         bottom: 20,
         right: 20,
@@ -65,11 +65,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
       setTimeout(() => {
         _setDelay(0);
-      }, 100);
+      }, 2000);
     };
     setTimeout(() => {
       reveal();
-    }, 100);
+    }, 2000);
   }, []);
 
   const bgColor = getComputedStyle(
@@ -193,26 +193,47 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
             <motion.div
-                 css={css`
-                 transform-origin: top left;
-            
+              transition={{ scale: { type: "spring" } }}
+              css={css`
+                display: block;
                  border-radius: 8px;
                  background-color: ${rgba(r, g, b, 0.7)};
                `}
-              layout
-                transition={{ scale: {  type: "spring" } }}
               initial={{
                 height: window.innerHeight,
                 width: window.innerWidth,
               }}
               animate={{
-                height: window.innerHeight* Math.sqrt( scale),
-                width: window.innerWidth*Math.sqrt(scale),
+                height: window.innerHeight * scale,
+                width: window.innerWidth * scale,
               }}
             >
-
+              <motion.div
+                transition={{
+                  zoom: { type: "spring" },
+                }}
+                css={css`
+              transform-origin:top left;
+                
+                display: inline-block;
+                height:  100%; 
+                 width: 100%; 
+                 border-radius: 8px;
+                 background-color: ${rgba(r, g, b, 0.7)};
+                 overflow: hidden;
+                 
+               `}
+                initial={{
+                  scale: 1,
+                }}
+                animate={{
+                  height: window.innerHeight,
+                  width: window.innerWidth,
+                  scale: 1 * scale,
+                }}
+              >
                 {children}
-       
+              </motion.div>
             </motion.div>
             <motion.div
               layout
@@ -232,7 +253,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 exclusive
                 onChange={(_e: unknown, newSize: number) => {
                   if (newSize) {
-                     setWidth(newSize);
+                    setWidth(newSize);
                   }
                 }}
               >
