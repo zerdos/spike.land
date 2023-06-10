@@ -194,7 +194,7 @@ async function handleFetchApi(
           statusText: e?.message,
         })
       );
-    }
+      }
     default:
       {
         if (!isUrlFile(path.join("/"))) {
@@ -205,9 +205,12 @@ async function handleFetchApi(
           headers.append("Cross-Origin-Embedder-Policy", "require-corp");
           const contentType = headers.get("Content-type");
 
-          if (contentType && contentType.indexOf("charset")) {
+          if (request.url.includes(".mjs") || (contentType && contentType.indexOf("charset"))) {
             try {
-              return new Response(importMapReplace(await resp.text()), { ...resp, headers });
+              return new Response(importMapReplace(await resp.text()).split(`origin/`).join(u.origin + "/"), {
+                ...resp,
+                headers,
+              });
             } catch {
               return new Response(resp.body, { ...resp, headers });
             }

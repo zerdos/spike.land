@@ -1,49 +1,41 @@
-// import { skipImportmapReplaceNames } from "./esbuildEsm";
-import { importMapImports as imports } from "./importMap";
+import { oo } from "./importMap"
 
-export function importMapReplace(code: string) {
-  // Create a regex pattern that matches any top-level import statements
-  const topLevelImportPattern = /(import\s+[\w{},*\s]+\s+from\s+)(['"`][^'`"]+['"`])/g;
+self.impTest = code => console.log(importMapReplace(code));
 
-  // Create a regex pattern that matches any dynamic import or require statements
-  const dynamicImportPattern = /(import|require)\(([^)]+)\)/g;
+export function importMapReplace(code: string): string {
+  const topLevelImportPattern = /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  
+  // Matches top-level exports: export ... from "package"
+  const topLevelExportPattern = /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  
+  // Matches dynamic imports: import("package")
+  const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`]\))/g;
 
-  // Replace the top-level import statements with the mapped import
-  code = code.replace(topLevelImportPattern, (_, importStatement, importPath) => {
-    // Remove quotes from the import path
-    const path: keyof typeof imports = importPath.replace(/['"`]/g, "");
-
-    if (path.startsWith("https://") || path.startsWith(".")) {
-      return `${importStatement}${importPath}`;
+  // Replace function for all patterns
+  const replacer = (match: string, p1: string, p2: string) => {
+    const packageName = p2.slice(1, -1); // Remove quotes
+    if (packageName.startsWith('.') || packageName.startsWith('http')) {
+      // Ignore relative and absolute URLs
+      return match;
     }
-
-    // Check if the path is in the imports map
-    if (imports[path]) {
-      return `${importStatement}'origin/${imports[path]}'`;
-      // If it is, replace it with the mapped import
-    } else {
-      // If it's not, transform it and append ?bundle
-      return `${importStatement}'origin/${path}?bundle&external=react'`;
+    if (packageName.startsWith('/')) {
+      // Ignore relative and absolute URLs
+      return `${p1}'origin${packageName}'`;
     }
+    return `${p1}'origin/*${packageName}?bundle'`;
+  };
+
+  // Apply all replacements
+  code = code
+    .replace(topLevelImportPattern, replacer)
+    .replace(topLevelExportPattern, replacer)
+    .replace(dynamicImportPattern, replacer);
+
+
+  // Apply custom mappings
+  Object.keys(oo).forEach((pkg) => {
+    code = code.split(`origin/*${pkg}?bundle`).join(oo[pkg]);
   });
 
-  // Replace the dynamic import or require statements with the mapped import
-  code = code.replace(dynamicImportPattern, (_, importType, importPath) => {
-    // Remove quotes from the import path
-    const path: keyof typeof imports = importPath.replace(/['"`]/g, "");
-
-    // Check if the path is in the imports map
-    if (imports[path]) {
-      // If it is, replace it with the mapped import
-      return `${importType}('origin/${imports[path]}')`;
-    } else {
-      if (path.startsWith("https://") || path.startsWith(".")) {
-        return `${importType}('origin/${[path]}')`;
-      }
-      // If it's not, transform it and append ?bundle
-      return `${importType}('origin/${path}?bundle&external=react')`;
-    }
-  });
-
-  return code; // .split(`"react"`).join(`"origin/${imports.react}"`);
+  return code;
 }
