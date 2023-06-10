@@ -4,6 +4,7 @@ import type { BuildOptions } from "esbuild-wasm";
 import { importMapReplace } from "./importMapReplace";
 import { transpile } from "./shared";
 
+
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
 
@@ -53,9 +54,7 @@ export async function runner({ code, counter, signal }: {
     //   type: "prerender",
     //   codeSpace,
     // });
-    const transpiled = importMapReplace(
-      await transpile({ code, originToUse: location.origin }),
-    ).split(`origin/`).join(location.origin + "/");
+    const transpiled = await importMapReplace(await transpile({ code, originToUse: location.origin }), origin)
 
     if (signal.aborted) return;
     document.querySelector("iframe")?.contentWindow?.postMessage({

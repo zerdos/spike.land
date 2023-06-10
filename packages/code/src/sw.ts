@@ -163,9 +163,9 @@ const fakeBackend = async (request: Request) => {
             `${url.origin}/live/${codeSpace}/index.js`,
           ).then((x) => x.text()),
           (async () => {
-            const trp = importMapReplace(
-              await transpile({ code, originToUse: location.origin }),
-            ).split(`origin/`).join(location.origin);
+            const trp = await importMapReplace(
+              await transpile({ code, originToUse: location.origin }), location.origin
+            )
             await mkdir(`/live/${codeSpace}`);
             await writeFile(
               `/live/${codeSpace}/index.js`,

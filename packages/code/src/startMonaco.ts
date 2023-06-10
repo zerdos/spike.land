@@ -84,8 +84,7 @@ const monacoContribution = (code: string) => {
 
   ata({ code, originToUse }).then(async (extraLibs) => {
     console.log({ extraLibs });
-    languages.typescript.typescriptDefaults.setExtraLibs([...extraLibs, {content: await fetch(`${originToUse}/v125/tslib@2.5.3/es2022/tslib.bundle.mjs`).then(x=>x.text()), filePath: originToUse+"/tslib" }]);
-
+    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
     if (extraModels.length) await Promise.all(extraModels);
 
     languages.typescript.typescriptDefaults

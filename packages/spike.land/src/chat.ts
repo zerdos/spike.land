@@ -90,7 +90,7 @@ async function handleFetchApi(
   const cache = await caches.open(ASSET_HASH);
 
   const response = await cache.match(cacheKey);
-  if (response && response.ok && response.status === 200) {
+  if (response && response.ok && !response.bodyUsed && response.status === 200) {
     return response;
   }
 
@@ -207,7 +207,7 @@ async function handleFetchApi(
 
           if (request.url.includes(".mjs") || (contentType && contentType.indexOf("charset"))) {
             try {
-              return new Response(importMapReplace(await resp.text()).split(`origin/`).join(u.origin + "/"), {
+              return new Response( await importMapReplace(await resp.text(), u.origin), {
                 ...resp,
                 headers,
               });

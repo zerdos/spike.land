@@ -1,14 +1,14 @@
 export const oo = {
-  "@emotion/react/jsx-runtime": "origin/emotion.mjs",
-  "react/jsx-runtime": "origin/jsx.mjs",
-  "react-dom/client": "origin/reactDomClient.mjs",
-  "@emotion/react": "origin/emotion.mjs",
-  "@emotion/cache": "origin/emotionCache.mjs",
-  "@emotion/styled": "origin/emotionStyled.mjs",
-  "react": "origin/reactMod.mjs",
-  "framer-motion": "origin/motion.mjs",
-  "react-dom": "origin/reactDom.mjs",
-  "foo-bar": "origin/fooBar.mjs",
+  "@emotion/react/jsx-runtime": "/emotion.mjs",
+  "react/jsx-runtime": "/jsx.mjs",
+  "react-dom/client": "/reactDomClient.mjs",
+  "@emotion/react": "/emotion.mjs",
+  "@emotion/cache": "/emotionCache.mjs",
+  "@emotion/styled": "/emotionStyled.mjs",
+  "react": "/reactMod.mjs",
+  "framer-motion": "/motion.mjs",
+  "react-dom": "/reactDom.mjs",
+  "foo-bar": "/fooBar.mjs",
 };
 export const importMap = { imports: oo };
 

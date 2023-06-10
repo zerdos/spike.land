@@ -382,16 +382,15 @@ const build = (
     [
       "/swVersion.mjs",
       "/dist.shasum.js",
-      "/monaco-editor",
+      // "/monaco-editor",
 
-      "/monaco-editor/*",
+      // "/monaco-editor/*",
 
       //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",
       `./${wasmFile}`,
       "./dist/reactDomClient.js",
-      "/*monaco-editor?bundle",
       "./dist/reactDom.js",
       "./dist/jsx.js",
       // "/reactMod.js",
@@ -419,8 +418,8 @@ const build = (
       alias: {
         ...buildOptions.alias,
         "react": "preact/compat",
-        "monaco-editor": "/monaco-editor",
-        "monaco-editor/*": "/monaco-editor/",
+        // "monaco-editor": "/monaco-editor",
+        // "monaco-editor/*": "/monaco-editor/",
         // "monaco-editor": "/monaco-editor",
         "react-dom/test-utils": "preact/test-utils",
         "react-dom": "preact/compat",
