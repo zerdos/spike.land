@@ -1,5 +1,5 @@
 {
-  "name": "@spike.land/jammy-devcontainer",
+  "name": "@spike-land/jammy-devcontainer",
   "tagname": "jammy-devcontainer",
   "scripts": {
     "tag:version": "node --no-warnings -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@spike.land/devcontainer-generator": "0.9.3"
+    "@spike-land/devcontainer-generator": "0.9.3"
   },
   "version": "0.9.2",
   "description": "devcontainer vscode docker xfce remoteDesktop",

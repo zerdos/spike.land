@@ -2,6 +2,7 @@ import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
 
+
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
@@ -71,7 +72,7 @@ const monacoContribution = (code: string) => {
     maxNodeModuleJsDepth: 20,
     rootDir: `${originToUse}/`,
     paths: {
-      "tslib": ["/*tslib?bundle=true"],
+      "tslib": ["/tslib"],
     },
     jsxImportSource: "@emotion/react",
     jsx: languages.typescript.JsxEmit.ReactJSX,
@@ -83,7 +84,7 @@ const monacoContribution = (code: string) => {
 
   ata({ code, originToUse }).then(async (extraLibs) => {
     console.log({ extraLibs });
-    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+    languages.typescript.typescriptDefaults.setExtraLibs([...extraLibs, {content: await fetch(`${originToUse}/v125/tslib@2.5.3/es2022/tslib.bundle.mjs`).then(x=>x.text()), filePath: originToUse+"/tslib" }]);
 
     if (extraModels.length) await Promise.all(extraModels);
 

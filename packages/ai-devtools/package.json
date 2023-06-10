@@ -1,10 +1,13 @@
 {
-  "name": "@spike.land/ai-devtools",
+  "name": "@spike-land/ai-devtools",
   "version": "1.0.0",
   "main": "index.mjs",
   "license": "MIT",
   "scripts": {
     "start": "node index.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "bin": {
     "ai-commit": "./index.mjs"

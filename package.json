@@ -14,8 +14,8 @@
     "types": "yarn workspaces foreach --all run types",
     "test": "yarn workspaces foreach --all run test",
     "shasum": "find ./packages/code/dist -type f -print0 | sort -z | xargs -0 shasum | shasum | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
-    "c:build": "yarn workspace @spike.land/code build",
-    "c:deploy": "yarn workspace @spike.land/code-worker deploy",
+    "c:build": "yarn workspace @spike-land/code build",
+    "c:deploy": "yarn workspace @spike-land/code-worker deploy",
     "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types",
     "importMap": "yarn workspaces foreach --all run  importMap",
     "build:code": "yarn workspaces foreach --all run build:code",
@@ -58,6 +58,6 @@
   },
   "packageManager": "yarn@4.0.0-rc.45",
   "devDependencies": {
-    "@spike.land/ai-devtools": "workspace:^"
+    "@spike-land/ai-devtools": "workspace:^"
   }
 }

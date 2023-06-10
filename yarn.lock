@@ -959,9 +959,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spike.land/ai-devtools@workspace:^, @spike.land/ai-devtools@workspace:packages/ai-devtools":
+"@spike-land/ai-devtools@workspace:^, @spike-land/ai-devtools@workspace:packages/ai-devtools":
   version: 0.0.0-use.local
-  resolution: "@spike.land/ai-devtools@workspace:packages/ai-devtools"
+  resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
     "@types/node": "npm:^20.2.5"
     axios: "npm:^1.4.0"
@@ -978,29 +978,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike.land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer":
+"@spike-land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike.land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer"
+  resolution: "@spike-land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.3"
+    "@spike-land/devcontainer-generator": "npm:0.9.3"
   languageName: unknown
   linkType: soft
 
-"@spike.land/cf-npm-site@workspace:packages/cf-npm-site":
+"@spike-land/cf-npm-site@workspace:packages/cf-npm-site":
   version: 0.0.0-use.local
-  resolution: "@spike.land/cf-npm-site@workspace:packages/cf-npm-site"
+  resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
     esbuild-wasm: "npm:0.17.19"
   languageName: unknown
   linkType: soft
 
-"@spike.land/code-worker@workspace:packages/spike.land":
+"@spike-land/code-worker@workspace:packages/spike.land":
   version: 0.0.0-use.local
-  resolution: "@spike.land/code-worker@workspace:packages/spike.land"
+  resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230518.0"
-    "@spike.land/code": "npm:0.9.3"
+    "@spike-land/code": "npm:0.9.3"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.17.19"
@@ -1013,9 +1013,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike.land/code@npm:0.9.3, @spike.land/code@workspace:packages/code":
+"@spike-land/code@npm:0.9.3, @spike-land/code@workspace:packages/code":
   version: 0.0.0-use.local
-  resolution: "@spike.land/code@workspace:packages/code"
+  resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.1"
@@ -1026,6 +1026,8 @@ __metadata:
     "@mui/material": "npm:5.13.4"
     "@okikio/sharedworker": "npm:1.0.4"
     "@types/eslint": "npm:8.40.1"
+    "@types/esprima": "npm:^4"
+    "@types/estraverse": "npm:^5"
     "@types/events": "npm:3.0.0"
     "@types/hoist-non-react-statics": "npm:3.3.1"
     "@types/is-callable": "npm:1.1.0"
@@ -1054,8 +1056,11 @@ __metadata:
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
     esbuild-wasm: "npm:0.17.19"
+    escodegen: "npm:^2.0.0"
     eslint: "npm:8.42.0"
     eslint-plugin-react: "npm:7.32.2"
+    esprima: "npm:^4.0.1"
+    estraverse: "npm:^5.3.0"
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:5.0.6"
@@ -1102,88 +1107,88 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike.land/cypress@workspace:packages/cypress":
+"@spike-land/cypress@workspace:packages/cypress":
   version: 0.0.0-use.local
-  resolution: "@spike.land/cypress@workspace:packages/cypress"
+  resolution: "@spike-land/cypress@workspace:packages/cypress"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.3"
+    "@spike-land/devcontainer-generator": "npm:0.9.3"
   languageName: unknown
   linkType: soft
 
-"@spike.land/devcontainer-generator@npm:*, @spike.land/devcontainer-generator@npm:0.9.3, @spike.land/devcontainer-generator@workspace:packages/devcontainer-generator":
+"@spike-land/devcontainer-generator@npm:*, @spike-land/devcontainer-generator@npm:0.9.3, @spike-land/devcontainer-generator@workspace:packages/devcontainer-generator":
   version: 0.0.0-use.local
-  resolution: "@spike.land/devcontainer-generator@workspace:packages/devcontainer-generator"
+  resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.2.5"
     esbuild-wasm: "npm:0.17.19"
   languageName: unknown
   linkType: soft
 
-"@spike.land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc":
+"@spike-land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc":
   version: 0.0.0-use.local
-  resolution: "@spike.land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
+  resolution: "@spike-land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.3"
+    "@spike-land/devcontainer-generator": "npm:0.9.3"
   languageName: unknown
   linkType: soft
 
-"@spike.land/gitpod-monorepo@workspace:packages/gitpod-monorepo":
+"@spike-land/gitpod-monorepo@workspace:packages/gitpod-monorepo":
   version: 0.0.0-use.local
-  resolution: "@spike.land/gitpod-monorepo@workspace:packages/gitpod-monorepo"
+  resolution: "@spike-land/gitpod-monorepo@workspace:packages/gitpod-monorepo"
   languageName: unknown
   linkType: soft
 
-"@spike.land/gitpod@workspace:packages/gitpod":
+"@spike-land/gitpod@workspace:packages/gitpod":
   version: 0.0.0-use.local
-  resolution: "@spike.land/gitpod@workspace:packages/gitpod"
+  resolution: "@spike-land/gitpod@workspace:packages/gitpod"
   languageName: unknown
   linkType: soft
 
-"@spike.land/jammy-devcontainer@workspace:packages/jammy-devcontainer":
+"@spike-land/jammy-devcontainer@workspace:packages/jammy-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike.land/jammy-devcontainer@workspace:packages/jammy-devcontainer"
+  resolution: "@spike-land/jammy-devcontainer@workspace:packages/jammy-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.3"
+    "@spike-land/devcontainer-generator": "npm:0.9.3"
   languageName: unknown
   linkType: soft
 
-"@spike.land/jammy-xubuntu-desktop@workspace:packages/jammy-xubuntu-desktop":
+"@spike-land/jammy-xubuntu-desktop@workspace:packages/jammy-xubuntu-desktop":
   version: 0.0.0-use.local
-  resolution: "@spike.land/jammy-xubuntu-desktop@workspace:packages/jammy-xubuntu-desktop"
+  resolution: "@spike-land/jammy-xubuntu-desktop@workspace:packages/jammy-xubuntu-desktop"
   languageName: unknown
   linkType: soft
 
-"@spike.land/lunar-devcontainer@workspace:packages/lunar-devcontainer":
+"@spike-land/lunar-devcontainer@workspace:packages/lunar-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike.land/lunar-devcontainer@workspace:packages/lunar-devcontainer"
+  resolution: "@spike-land/lunar-devcontainer@workspace:packages/lunar-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:0.9.3"
+    "@spike-land/devcontainer-generator": "npm:0.9.3"
   languageName: unknown
   linkType: soft
 
-"@spike.land/lunar-xubuntu-desktop@workspace:packages/lunar-xubuntu-desktop":
+"@spike-land/lunar-xubuntu-desktop@workspace:packages/lunar-xubuntu-desktop":
   version: 0.0.0-use.local
-  resolution: "@spike.land/lunar-xubuntu-desktop@workspace:packages/lunar-xubuntu-desktop"
+  resolution: "@spike-land/lunar-xubuntu-desktop@workspace:packages/lunar-xubuntu-desktop"
   languageName: unknown
   linkType: soft
 
-"@spike.land/monorepo-modules@workspace:packages/monorepo-modules":
+"@spike-land/monorepo-modules@workspace:packages/monorepo-modules":
   version: 0.0.0-use.local
-  resolution: "@spike.land/monorepo-modules@workspace:packages/monorepo-modules"
+  resolution: "@spike-land/monorepo-modules@workspace:packages/monorepo-modules"
   languageName: unknown
   linkType: soft
 
-"@spike.land/rolling-devcontainer@workspace:packages/rolling-devcontainer":
+"@spike-land/rolling-devcontainer@workspace:packages/rolling-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@spike.land/rolling-devcontainer@workspace:packages/rolling-devcontainer"
+  resolution: "@spike-land/rolling-devcontainer@workspace:packages/rolling-devcontainer"
   dependencies:
-    "@spike.land/devcontainer-generator": "npm:*"
+    "@spike-land/devcontainer-generator": "npm:*"
   languageName: unknown
   linkType: soft
 
-"@spike.land/transpile@workspace:packages/js.spike.land":
+"@spike-land/transpile@workspace:packages/js.spike.land":
   version: 0.0.0-use.local
-  resolution: "@spike.land/transpile@workspace:packages/js.spike.land"
+  resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230518.0"
@@ -1242,6 +1247,24 @@ __metadata:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
   checksum: 0d7e883e03a9f4f51ec69f579399065dd9221838dcc01608569988a4a8f7ebb72e062ecd80da3feef83de520a69bce44407e8a989af898c9f93533f88103d153
+  languageName: node
+  linkType: hard
+
+"@types/esprima@npm:^4":
+  version: 4.0.3
+  resolution: "@types/esprima@npm:4.0.3"
+  dependencies:
+    "@types/estree": "npm:*"
+  checksum: e47f02ba8e98fef425c575d6fdf73e323e315bcf760932f06b482b8b70d66c7b54cc3b64d0fdfd5f627cad1a7ed5bd74ddbbba217d602e9adbcee012081cd111
+  languageName: node
+  linkType: hard
+
+"@types/estraverse@npm:^5":
+  version: 5.1.2
+  resolution: "@types/estraverse@npm:5.1.2"
+  dependencies:
+    "@types/estree": "npm:*"
+  checksum: db2f01d4d147256457665fadfde5377842f7ed4066c00e0c21ff00ebcb2aecf8f8ed7832e207dee6e71dfc8614ddda89868b0c673770667afe4302fcbac0f9cf
   languageName: node
   linkType: hard
 
@@ -3381,7 +3404,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-is@npm:^0.1.3":
+"deep-is@npm:^0.1.3, deep-is@npm:~0.1.3":
   version: 0.1.4
   resolution: "deep-is@npm:0.1.4"
   checksum: dfee7fc148cb00508a2a4af815144cce85a86ec7a5f658525bf6929095baeef7782c166504a0dc3b18872a1f53e27521de3d308a575c6d8063516815fc553a59
@@ -3858,6 +3881,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"escodegen@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "escodegen@npm:2.0.0"
+  dependencies:
+    esprima: "npm:^4.0.1"
+    estraverse: "npm:^5.2.0"
+    esutils: "npm:^2.0.2"
+    optionator: "npm:^0.8.1"
+    source-map: "npm:~0.6.1"
+  dependenciesMeta:
+    source-map:
+      optional: true
+  bin:
+    escodegen: bin/escodegen.js
+    esgenerate: bin/esgenerate.js
+  checksum: b7b02b8bc92c32b741cf13b558903c230cfd63fa37983a5c07ccac417d5ca67b266a9714180fd833947bd54221ce4fde72f8d772acc5ba1a5a1dafa25978252a
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-react@npm:7.32.2":
   version: 7.32.2
   resolution: "eslint-plugin-react@npm:7.32.2"
@@ -4281,7 +4323,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-levenshtein@npm:^2.0.6":
+"fast-levenshtein@npm:^2.0.6, fast-levenshtein@npm:~2.0.6":
   version: 2.0.6
   resolution: "fast-levenshtein@npm:2.0.6"
   checksum: 7814143d0352153a7a51ebd9b21341bf1732b9599ec592a398ab5e4584b516aeb5008834ba2a46502253c221b33dad7dddc93ce3f5054acd09218cce1710c81b
@@ -6119,6 +6161,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"levn@npm:~0.3.0":
+  version: 0.3.0
+  resolution: "levn@npm:0.3.0"
+  dependencies:
+    prelude-ls: "npm:~1.1.2"
+    type-check: "npm:~0.3.2"
+  checksum: ca790d4b61d6ae2357b4e33f5a5da663c403c796f572b90f4fd9f1afd3cd71cf29903905638f81d7c5cb585619ae1d7f959deb0c86802bae02ba37c14a0902a8
+  languageName: node
+  linkType: hard
+
 "lie@npm:3.1.1":
   version: 3.1.1
   resolution: "lie@npm:3.1.1"
@@ -6821,7 +6873,7 @@ __metadata:
     "@emotion/react": "npm:11.11.1"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.35.0"
-    "@spike.land/ai-devtools": "workspace:^"
+    "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.40.1"
     "@types/react": "npm:18.2.9"
     "@types/react-dom": "npm:18.2.4"
@@ -7271,6 +7323,20 @@ __metadata:
     axios: "npm:^0.26.0"
     form-data: "npm:^4.0.0"
   checksum: 5c6e735c4b58f742753cab14e84b89e702024ef88528b56594287c8632c420e052c8732616d5a167cebb3052a372b65a929aaa6fe2b16a3c91373efa9e21d717
+  languageName: node
+  linkType: hard
+
+"optionator@npm:^0.8.1":
+  version: 0.8.3
+  resolution: "optionator@npm:0.8.3"
+  dependencies:
+    deep-is: "npm:~0.1.3"
+    fast-levenshtein: "npm:~2.0.6"
+    levn: "npm:~0.3.0"
+    prelude-ls: "npm:~1.1.2"
+    type-check: "npm:~0.3.2"
+    word-wrap: "npm:~1.2.3"
+  checksum: 021c16397799d38097056ba4ed2469ba10c873ebcae4cf231a87f7197ab44bbb028a5e90d4b82c5709c56463957e394cdfa39efb2e6c1215a0b770eccbc6dfe0
   languageName: node
   linkType: hard
 
@@ -7759,6 +7825,13 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: 0fee0e2ba5dc7793340a5861d9d37ce4f3d8ec246099bfae25e1f2a928a4df1c009a91882c35862bdf245f69081160df4ed0ec2438662ae22e50b621a6b7848f
+  languageName: node
+  linkType: hard
+
+"prelude-ls@npm:~1.1.2":
+  version: 1.1.2
+  resolution: "prelude-ls@npm:1.1.2"
+  checksum: e18c52ae66a3327dc4c51defe91f05505d8df7a4f75ae7cc99d6689a2b84817b57828f09bb3da073ef34af28275dbbaacedc1028e3564e681a67f5f6a0351468
   languageName: node
   linkType: hard
 
@@ -8836,7 +8909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.6.0, source-map@npm:^0.6.1, source-map@npm:~0.6.0":
+"source-map@npm:^0.6.0, source-map@npm:^0.6.1, source-map@npm:~0.6.0, source-map@npm:~0.6.1":
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: cba9f44c3a4a0485f44a7760ebe427eecdd3b58011ae0459c05506b54f898835b2302073d6afa563a19b60ee9e54c82e33bc4a032e28bebacdfc635f1d0bf7e0
@@ -9571,6 +9644,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-check@npm:~0.3.2":
+  version: 0.3.2
+  resolution: "type-check@npm:0.3.2"
+  dependencies:
+    prelude-ls: "npm:~1.1.2"
+  checksum: 92c9d1306c41f84ebc2af6f53326c59c6ed1d3c6a89d5c8a8ec20ef959af135d97b8f0f0773137bd50dd54098b5742f76129141a4519cd77b5f38517cf3637b2
+  languageName: node
+  linkType: hard
+
 "type-fest@npm:^0.13.1":
   version: 0.13.1
   resolution: "type-fest@npm:0.13.1"
@@ -9993,7 +10075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"word-wrap@npm:^1.1.0, word-wrap@npm:^1.2.3":
+"word-wrap@npm:^1.1.0, word-wrap@npm:^1.2.3, word-wrap@npm:~1.2.3":
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 17267cdb6baa9d5452b0998531adafd2df52a25159f27cbb754b2fdcff4af8808019efe4c0a2bcc5ceb63becb30df07c792c0125ad21991266aefadb940df74a

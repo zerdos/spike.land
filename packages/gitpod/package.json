@@ -1,5 +1,5 @@
 {
-  "name": "@spike.land/gitpod",
+  "name": "@spike-land/gitpod",
   "tagname": "gitpod",
   "version": "0.9.2",
   "description": "devcontainer vscode docker xfce remoteDesktop",

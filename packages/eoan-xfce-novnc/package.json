@@ -1,5 +1,5 @@
 {
-  "name": "@spike.land/eoan-xfce-novnc",
+  "name": "@spike-land/eoan-xfce-novnc",
   "tagname": "eoan-xfce-novnc",
   "scripts": {
     "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@spike.land/devcontainer-generator": "0.9.3"
+    "@spike-land/devcontainer-generator": "0.9.3"
   },
   "version": "0.9.2",
   "description": "devcontainer vscode docker xfce remoteDesktop",

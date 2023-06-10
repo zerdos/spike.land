@@ -47,6 +47,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     const myRoot = createRoot(el);
 
     const indexMjs = await stat(`/live/${codeSpace}/index.mjs`);
+
     let AppBundled: typeof AppTranspiled;
     const AppTranspiled = data.transpiled
       ? await appFactory(data.transpiled)
@@ -209,6 +210,7 @@ export const render = async (
 
   const el = document.createElement("div");
   el.style.opacity = "0";
+  el.remove();
   _rootEl.parentElement?.appendChild(el);
   _rootEl.parentElement;
   const cache = createCache({

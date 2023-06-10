@@ -1,5 +1,5 @@
 {
-  "name": "@spike.land/cf-npm-site",
+  "name": "@spike-land/cf-npm-site",
   "version": "0.9.3",
   "type": "module",
   "scripts": {
