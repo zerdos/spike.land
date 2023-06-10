@@ -66,7 +66,7 @@ export async function importMapReplace(code: string, origin: string): Promise<st
 
   async function getBrowserEntry(packageName: string){
 
-    const pkg = await (await fetch(`${origin}/${packageName}/package.json`)).json()
+  const pkg = await (await fetch(`${origin}/${packageName}/package.json`)).json()
     
     
     

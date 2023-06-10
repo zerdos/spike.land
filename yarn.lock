@@ -963,7 +963,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.2.5"
+    "@types/node": "npm:^20.2.6"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^10.0.1"
@@ -990,7 +990,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.17.19"
+    esbuild-wasm: "npm:0.18.0"
   languageName: unknown
   linkType: soft
 
@@ -1003,7 +1003,7 @@ __metadata:
     "@spike-land/code": "npm:0.9.3"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.17.19"
+    esbuild-wasm: "npm:0.18.0"
     esm-worker: "npm:^0.125.0"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
@@ -1026,18 +1026,18 @@ __metadata:
     "@mui/material": "npm:5.13.4"
     "@okikio/sharedworker": "npm:1.0.4"
     "@types/eslint": "npm:8.40.1"
-    "@types/esprima": "npm:^4"
-    "@types/estraverse": "npm:^5"
+    "@types/esprima": "npm:^4.0.3"
+    "@types/estraverse": "npm:^5.1.2"
     "@types/events": "npm:3.0.0"
     "@types/hoist-non-react-statics": "npm:3.3.1"
     "@types/is-callable": "npm:1.1.0"
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.2.5"
+    "@types/node": "npm:20.2.6"
     "@types/prettier": "npm:2.7.3"
     "@types/prismjs": "npm:1.26.0"
-    "@types/react": "npm:18.2.9"
+    "@types/react": "npm:18.2.10"
     "@types/react-dom": "npm:18.2.4"
     "@types/uuid": "npm:9.0.2"
     "@typescript-eslint/eslint-plugin": "npm:5.59.9"
@@ -1055,7 +1055,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.17.19"
+    esbuild-wasm: "npm:0.18.0"
     escodegen: "npm:^2.0.0"
     eslint: "npm:8.42.0"
     eslint-plugin-react: "npm:7.32.2"
@@ -1088,7 +1088,7 @@ __metadata:
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-error-boundary: "npm:4.0.9"
+    react-error-boundary: "npm:4.0.10"
     react-icons: "npm:4.9.0"
     react-qrious: "npm:2.5.6"
     react-reverse-portal: "npm:2.1.1"
@@ -1119,8 +1119,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.2.5"
-    esbuild-wasm: "npm:0.17.19"
+    "@types/node": "npm:20.2.6"
+    esbuild-wasm: "npm:0.18.0"
   languageName: unknown
   linkType: soft
 
@@ -1192,7 +1192,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230518.0"
-    esbuild-wasm: "npm:0.17.19"
+    esbuild-wasm: "npm:0.18.0"
     typescript: "npm:5.1.3"
     wrangler: "npm:3.1.0"
   languageName: unknown
@@ -1250,7 +1250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/esprima@npm:^4":
+"@types/esprima@npm:^4.0.3":
   version: 4.0.3
   resolution: "@types/esprima@npm:4.0.3"
   dependencies:
@@ -1259,7 +1259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estraverse@npm:^5":
+"@types/estraverse@npm:^5.1.2":
   version: 5.1.2
   resolution: "@types/estraverse@npm:5.1.2"
   dependencies:
@@ -1354,10 +1354,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.2.5, @types/node@npm:^20.2.5":
+"@types/node@npm:*":
   version: 20.2.5
   resolution: "@types/node@npm:20.2.5"
   checksum: 55e4f8d08e3c225e48e012e04458d6c1db5af6e4991e3abb003b82d3f10018a14742c0512b27991cb02e54768be560ea1fe4c17208e04273247132c9eb07499a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.2.6, @types/node@npm:^20.2.6":
+  version: 20.2.6
+  resolution: "@types/node@npm:20.2.6"
+  checksum: b0c87912070b4f94cd040e2ecb7060a30b28c51c2cbf264f58b215a1fa21afce1c240a92998c4e80642d858be0c5603ad6f42d6993be43f2c39bb679b6ccab1c
   languageName: node
   linkType: hard
 
@@ -1434,14 +1441,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.9":
-  version: 18.2.9
-  resolution: "@types/react@npm:18.2.9"
+"@types/react@npm:18.2.10":
+  version: 18.2.10
+  resolution: "@types/react@npm:18.2.10"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 970b32d0420638efe9f4f27636f185e7e8b06cec61866c52eb06d9f1695b38af0f2ac9617357f48e21f5eb50a2cc2824ced1baa0b6b9fa9d7de26a4bebbd3a09
+  checksum: a6aefd6a42209699a54907ee8e4915fcf487f3db6d1b233a82aa7afbd4fa657b28e2c86f6ef75e48d2a5cbac7fe650816542fa9a23483f4275823e08cbc8ab3c
   languageName: node
   linkType: hard
 
@@ -3753,12 +3760,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.17.19":
-  version: 0.17.19
-  resolution: "esbuild-wasm@npm:0.17.19"
+"esbuild-wasm@npm:0.18.0":
+  version: 0.18.0
+  resolution: "esbuild-wasm@npm:0.18.0"
   bin:
     esbuild: bin/esbuild
-  checksum: d331bf2b1de1e93494d6d0651d1893d31ced96bc46899d929318eba3e850a7d86098a69e792e17b6507dc97080ec9058407e8bff31ade630ca8f82cc344dd064
+  checksum: f0acd504a981170f416614cc8321ed1e23954532096a017cb7555a104e8e09f900b14a3d8c82f7f50464f2502fffc8e8b4ab54dc1f6f9b79c201a23873235d2b
   languageName: node
   linkType: hard
 
@@ -6875,7 +6882,7 @@ __metadata:
     "@playwright/test": "npm:1.35.0"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.40.1"
-    "@types/react": "npm:18.2.9"
+    "@types/react": "npm:18.2.10"
     "@types/react-dom": "npm:18.2.4"
     "@typescript-eslint/eslint-plugin": "npm:5.59.9"
     "@typescript-eslint/parser": "npm:5.59.9"
@@ -8120,14 +8127,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:4.0.9":
-  version: 4.0.9
-  resolution: "react-error-boundary@npm:4.0.9"
+"react-error-boundary@npm:4.0.10":
+  version: 4.0.10
+  resolution: "react-error-boundary@npm:4.0.10"
   dependencies:
     "@babel/runtime": "npm:^7.12.5"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: bb3656838cdbebba9288fab51bd4a265937d77cd84da349d21b0a5d45b44be6d9f4af6b432916bb4c0cc84f489d13722aa28d41c7fce39610b9e68cbdc87b743
+  checksum: 99469646ad4bf9244feabe7e9fff4643af2153dc2a0a086d2c7fee64361a53932c1fddd17205f3553ab096b5c96beb63237f6b67d02e6870147b0e25e5a3c872
   languageName: node
   linkType: hard
 
