@@ -31,7 +31,7 @@ const init = (orig: string) => {
       if (initDone) return;
       await mutex.acquire();
       await initialize({
-        wasmURL: `${orig}/esbuild-wasm@${version}/esbuild.wasm`,
+        wasmURL: `https://unpkg.com/esbuild-wasm@${version}/esbuild.wasm`,
       });
       initDone = true;
       mutex.release();
@@ -180,7 +180,7 @@ export const buildT = async (
     //  ...importMap.imports,
     // },
 
-    target: "chrome88",
+    target: "es2020",
     outdir: `./live/${codeSpace}`,
     treeShaking: true,
     minify: false,
@@ -198,7 +198,7 @@ export const buildT = async (
 
     format: "esm",
     entryPoints: [
-      `./live/${codeSpace}/index.tsx`,
+      `./live/${codeSpace}/index.js`,
       // `./live/${codeSpace}/index.tsx`,
       // "./reactDomClient.mjs",
       // "./emotion.mjs",
@@ -209,7 +209,6 @@ export const buildT = async (
       // "./reactDom.mjs",
     ],
 
-    tsconfig: "./tsconfig.json",
 
     plugins: [unpkgPathPlugin(origin), fetchPlugin(transformTsx)],
     ...opts,

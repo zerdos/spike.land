@@ -42,25 +42,33 @@ export async function importMapReplace(code: string, origin: string): Promise<st
     return `${p1}'${origin}/*${packageName}?bundle'`;
   };
 
+  let str =code;
+  if (typeof code !== "string") {
+    var uint8array = new TextEncoder().encode("someString");
+    str = new TextDecoder().decode(uint8array);
+  }
+  
+
+
   // Apply all replacements
-  code = code
+  let replaced = str
     .replace(topLevelImportPattern, replacer)
     .replace(topLevelExportPattern, replacer)
     .replace(dynamicImportPattern, replacer);
 
   // Apply custom mappings
   Object.keys(oo).forEach((pkg) => {
-    code = code.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg]);
+    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg]);
   });
 
 (await Promise.all(Object.keys(debts))).map(({packageName, entry})=>{
 
       if (entry && entry.length) {
-        code = code.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
+        replaced = replaced.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
       }
     })
 
-  return code;
+  return replaced;
 
 
 

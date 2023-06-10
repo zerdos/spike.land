@@ -189,7 +189,7 @@ const build = (
     treeShaking: true,
     logLimit: 0,
     keepNames: true,
-
+   
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
     platform: "browser",
@@ -209,6 +209,7 @@ const build = (
 (async () => {
   // await copyFile("./src/index.html", "./dist/index.html");
   await copyFile("./src/favicon.ico", "./dist/favicon.ico");
+  await copyFile("./tsconfig.json", "./dist/tsconfig.json");
 
   await copyFile(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
