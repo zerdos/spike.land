@@ -1,4 +1,9 @@
+import { test } from "node:test";
 import { oo } from "./importMap";
+import type { PackageJson } from 'type-fest'
+
+// Create a new variable called packageJson which is of type PackageJson
+
 
 // Read the package.json file
 
@@ -36,7 +41,7 @@ export async function importMapReplace(code: string, origin: string): Promise<st
       return `${p1}'origin${packageName}'`;
     }
 
-    if (!oo[packageName] && !debts[packageName] && (packageName.split("/").length < 3) && packageName.slice(-4).indexOf(".")===-1  ) {
+    if (!Object.hasOwn(oo, packageName)  && !debts[packageName] && (packageName.split("/").length < 3) && packageName.slice(-4).indexOf(".")===-1  ) {
       debts[packageName] = getBrowserEntry(packageName);
     }
     return `${p1}'${origin}/*${packageName}?bundle'`;
@@ -74,7 +79,7 @@ export async function importMapReplace(code: string, origin: string): Promise<st
 
   async function getBrowserEntry(packageName: string){
 
-  const pkg = await (await fetch(`${origin}/${packageName}/package.json`)).json()
+  const pkg: PackageJson = await (await fetch(`${origin}/${packageName}/package.json`)).json()
     
     
     
@@ -107,3 +112,14 @@ export async function importMapReplace(code: string, origin: string): Promise<st
     
     
 }
+
+
+const tests = globalThis.tests = globalThis.tests || [];
+
+tests.push({"name": "importMapReplace",
+test: 
+  async function() {
+  var code = `import { foo } from "bar"`;
+  var result = await importMapReplace(code, location.origin);
+ return result ===  `import { foo } from "${location.origin}/*bar?bundle"`;
+}})
