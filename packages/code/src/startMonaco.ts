@@ -2,7 +2,6 @@ import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
 
-
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;

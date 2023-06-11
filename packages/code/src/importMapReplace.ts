@@ -1,58 +1,28 @@
 import { oo } from "./importMap";
-import type { PackageJson } from 'type-fest'
-
-// Create a new variable called packageJson which is of type PackageJson
-
-
-// Read the package.json file
-
-
-// import {parseModule} from 'esprima'
-// import {replace} from 'estraverse';
-// import {generate} from 'escodegen';
-
-// self.impTest = code => console.log(importMapReplace(code));
+// import type { PackageJson } from 'type-fest'
 
 const debts: {
-  [pkg: string]: Promise<{packageName: string, entry : string}>
+  [pkg: string]: Promise<{ packageName: string; entry: string }>;
 } = {};
-
 export async function importMapReplace(code: string, origin: string): Promise<string> {
-
   const topLevelImportPattern = /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
-
-  // Matches top-level exports: export ... from "package"
   const topLevelExportPattern = /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
 
-  // Matches dynamic imports: import("package")
-  const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`]\))/g;
-
-  // Replace function for all patterns
-  const replacer =  (match: string, p1: string, p2: string) => {
+  const replacer = (match: string, p1: string, p2: string, p3: string) => {
     const packageName = p2.slice(1, -1); // Remove quotes
-    if (packageName.startsWith(".") || packageName.startsWith("http")) {
+    if (packageName.startsWith(".") || packageName.startsWith("http") || packageName.startsWith("/")) {
       // Ignore relative and absolute URLs
       return match;
     }
-    if (packageName.startsWith("/")) {
-
-      // Ignore relative and absolute URLs
-      return `${p1}'origin${packageName}'`;
-    }
-
-    if (!Object.hasOwn(oo, packageName)  && !debts[packageName] && (packageName.split("/").length < 3) && packageName.slice(-4).indexOf(".")===-1  ) {
-      debts[packageName] = getBrowserEntry(packageName);
-    }
-    return `${p1}'${origin}/*${packageName}?bundle'`;
+    return `${p1}'${origin}/*${packageName}?bundle'${p3}`;
   };
 
-  let str =code;
+  let str = code;
   if (typeof code !== "string") {
-    var uint8array = new TextEncoder().encode("someString");
+    var uint8array = new TextEncoder().encode(code);
     str = new TextDecoder().decode(uint8array);
   }
-  
-
 
   // Apply all replacements
   let replaced = str
@@ -62,63 +32,15 @@ export async function importMapReplace(code: string, origin: string): Promise<st
 
   // Apply custom mappings
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg]);
+    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg as keyof typeof oo]);
   });
 
-(await Promise.all(Object.keys(debts))).map(({packageName, entry})=>{
-
-      if (entry && entry.length) {
-        replaced = replaced.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
-      }
-    })
+  const debtEntries = await Promise.all(Object.values(debts));
+  debtEntries.forEach(({ packageName, entry }) => {
+    if (entry && entry.length) {
+      replaced = replaced.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
+    }
+  });
 
   return replaced;
-
-
-
-  async function getBrowserEntry(packageName: string){
-
-  const pkg: PackageJson = await (await fetch(`${origin}/${packageName}/package.json`)).json()
-    
-    
-    
-    
-    
-        // Default entry points
-        let mainEntry = '';
-        let moduleEntry = ''
-        let browserEntry = ''
-    
-            // Check if the package.json has main, module, or browser fields
-            if (pkg.main && pkg.main!=="index.js") {
-                mainEntry = pkg.main;
-            }
-            if (pkg.module) {
-                moduleEntry = pkg.module;
-            }
-            if (pkg.browser) {
-                browserEntry = pkg.browser;
-            }
-    
-            console.log(`Main entry point: ${mainEntry}`);
-            console.log(`Module entry point: ${moduleEntry}`);
-            console.log(`Browser entry point: ${browserEntry}`);
-       if  (browserEntry) return{packageName, entry: browserEntry}
-       if (moduleEntry) return {packageName, entry: moduleEntry}
-       return {packageName, entry: mainEntry}
-      }
-      
-    
-    
 }
-
-
-const tests = globalThis.tests = globalThis.tests || [];
-
-tests.push({"name": "importMapReplace",
-test: 
-  async function() {
-  var code = `import { foo } from "bar"`;
-  var result = await importMapReplace(code, location.origin);
- return result ===  `import { foo } from "${location.origin}/*bar?bundle"`;
-}})

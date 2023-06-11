@@ -189,7 +189,7 @@ const build = (
     treeShaking: true,
     logLimit: 0,
     keepNames: true,
-   
+
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
     platform: "browser",

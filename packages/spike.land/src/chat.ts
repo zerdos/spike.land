@@ -202,15 +202,18 @@ async function handleFetchApi(
           if (!resp.ok) return resp;
 
           const headers = new Headers(resp.headers);
-          if (request.url.indexOf(".wasm")!==-1) {
-            headers.append("Content-Type","application/wasm");
+          if (request.url.indexOf(".wasm") !== -1) {
+            headers.append("Content-Type", "application/wasm");
           }
           headers.append("Cross-Origin-Embedder-Policy", "require-corp");
           const contentType = headers.get("Content-type");
 
-          if (request.url.indexOf(".wasm")===-1 && (request.url.indexOf(".mjs")!==-1 || (contentType && contentType.indexOf("charset")))) {
+          if (
+            request.url.indexOf(".wasm") === -1
+            && (request.url.indexOf(".mjs") !== -1 || (contentType && contentType.indexOf("charset")))
+          ) {
             try {
-              return new Response( await importMapReplace(await resp.text(), u.origin), {
+              return new Response(await importMapReplace(await resp.text(), u.origin), {
                 ...resp,
                 headers,
               });
@@ -218,7 +221,7 @@ async function handleFetchApi(
               return new Response(resp.body, { ...resp, headers });
             }
           }
-        return new Response(resp.body, { ...resp, headers });
+          return new Response(resp.body, { ...resp, headers });
 
           // return esmPackage;
 

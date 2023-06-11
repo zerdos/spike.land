@@ -165,9 +165,7 @@ export class Code implements DurableObject {
             body: code,
             headers: { TR_ORIGIN: this.#origin },
           },
-        ).then(async (resp) =>
-          this.#transpiled = await importMapReplace(await resp.text(), url.origin)
-        );
+        ).then(async (resp) => this.#transpiled = await importMapReplace(await resp.text(), url.origin));
 
         if (this.#transpiled.length === 0) await transpiledPromise;
         const path = url.pathname.slice(1).split("/");
@@ -399,7 +397,7 @@ export class Code implements DurableObject {
                 method: "POST",
                 body: this.session.code,
                 headers: { TR_ORIGIN: this.#origin },
-              }).then(async (resp) => importMapReplace(await resp.text(), this.#origin ));
+              }).then(async (resp) => importMapReplace(await resp.text(), this.#origin));
 
             const replaced = this.#transpiled.split("https://spike.land/").join(
               `${this.#origin}/`,

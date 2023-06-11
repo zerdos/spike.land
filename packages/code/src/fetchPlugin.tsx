@@ -101,7 +101,7 @@ async function getRequest(req: Request) {
   // let response = await fetchCache.match(req);
   // if (response) return response;
 
-  let response = await fetch(req, {redirect: "follow"});
+  let response = await fetch(req, { redirect: "follow" });
   if (!(response?.ok)) return response;
   response = new Response(response.body, response);
 
