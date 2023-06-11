@@ -1,4 +1,3 @@
-import { test } from "node:test";
 import { oo } from "./importMap";
 import type { PackageJson } from 'type-fest'
 

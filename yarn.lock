@@ -1094,6 +1094,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.3"
+    type-fest: "npm:^3.11.1"
     typescript: "npm:5.1.3"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
@@ -9616,6 +9617,13 @@ __metadata:
   version: 0.21.3
   resolution: "type-fest@npm:0.21.3"
   checksum: b64cd677e7d579f929d8d14bccdad0ca5da9013124f11457ce9cc255e3141dd453128a46fed2e03f38c0c2319853118edcfb118d1f4e4f09091f6bbdb91ce467
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^3.11.1":
+  version: 3.11.1
+  resolution: "type-fest@npm:3.11.1"
+  checksum: fbd1286256aea3dc445022e03bf557a659091546bec56c8da3bb94fc1c70a28e798a54b5be846591d7866b7e180dec9a0b198a70896f3db00d791c1c638d2d82
   languageName: node
   linkType: hard
 
