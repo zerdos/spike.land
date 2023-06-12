@@ -49,15 +49,22 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
     const indexMjs = await stat(`/live/${codeSpace}/index.mjs`);
 
     let AppBundled: typeof AppTranspiled;
-    const AppTranspiled = (await import(
+    
+
+
+    const AppTranspiled =  (await (data.transpiled? appFactory(data.transpiled) :import(
       `${location.origin}/live/${codeSpace}/index.js?i=${data.i}`
-    )).default;
-    // ? await appFactory(data.transpiled)
+    ))).default;
+
 
     if (indexMjs) {
+      try{
       AppBundled = (await import(
         `${location.origin}/live/${codeSpace}/index.mjs`
       )).default;
+      } catch{
+        AppBundled = null;
+      }
     }
 
     const App = AppBundled || AppTranspiled;
