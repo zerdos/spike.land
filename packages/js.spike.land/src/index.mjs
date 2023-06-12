@@ -1,6 +1,6 @@
 import { build, initialize } from "esbuild-wasm";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
-import { buildT } from "../../code/src/esbuildEsmBuild";
+
 import { transpile } from "../../code/src/transpile";
 import ASSET_HASH from "./dist.shasum";
 
@@ -50,27 +50,6 @@ const initAndTransform = (
 
 export default {
   async fetch(request) {
-    const params = new URL(request.url).searchParams;
-    const { code, origin } = Object.fromEntries(params.entries());
-
-    if (request.method === "GET") {
-      return new Response(
-        await buildT(
-          code,
-          { bundle: true },
-          origin,
-          { esbuildBuild: build, initialize },
-        ),
-      ),
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "*",
-            "Content-Type": "application/javascript",
-            "cache-control": "no-cache",
-          },
-        };
-    }
     if (request.method === "POST") {
       return new Response(
         await initAndTransform(
@@ -94,6 +73,32 @@ export default {
           },
         },
       );
+    }
+    if (request.method === "GET") {
+      const params = new URL(request.url).searchParams;
+      const { code, origin } = Object.fromEntries(params.entries());
+
+      if (code && origin) {
+        const { buildT } = await import("../../code/src/esbuildEsmBuild");
+        return new Response(
+          await buildT(
+            code,
+            { bundle: true },
+            new AbortController(),
+            `https://${origin}.spike.land/`,
+            { esbuildBuild: build, initialize },
+          ),
+        ),
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Headers": "*",
+              "Content-Type": "application/javascript",
+              "cache-control": "no-cache",
+            },
+          };
+      }
+      return new Response("404", { status: 404 });
     }
     return new Response("try to POST", {
       headers: {

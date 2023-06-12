@@ -166,10 +166,10 @@ var DevcontainerGenerator = class {
     );
     this._readme += readmeTemplates["base"].replace("{DISTRO}", this.base);
     if (this._debianBackports) {
-      this._dockerfile += dockerTemplates["debianBackports"].replace(
+      this._dockerfile += dockerTemplates["debianBackports"].replace("{DISTRO}", this.base).replace(
         "{DISTRO}",
         this.base,
-      ).replace("{DISTRO}", this.base);
+      );
     }
     if (this._gitVersion) {
       if (this._gitVersion === "ubuntu") {
@@ -182,21 +182,18 @@ var DevcontainerGenerator = class {
       }
     }
     if (this._nodeVersion) {
-      this._dockerfile += dockerTemplates["node"].replace(
-        "{NODE_VERSION}",
-        node[this._nodeVersion],
-      ).replace("{YARN_VERSION}", yarn);
-      this._readme += readmeTemplates["node"].replace(
-        "{NODE_VERSION}",
-        node[this._nodeVersion],
-      ).replace("{YARN_VERSION}", yarn);
+      this._dockerfile += dockerTemplates["node"].replace("{NODE_VERSION}", node[this._nodeVersion]).replace(
+        "{YARN_VERSION}",
+        yarn,
+      );
+      this._readme += readmeTemplates["node"].replace("{NODE_VERSION}", node[this._nodeVersion]).replace(
+        "{YARN_VERSION}",
+        yarn,
+      );
     }
     if (this._dotnet) {
       if (this._dotnet === "6") {
-        this._dockerfile += dockerTemplates["dotnet6"].replace(
-          "{DOTNET_SDK_VERSION}",
-          dotnet6,
-        ).replace(
+        this._dockerfile += dockerTemplates["dotnet6"].replace("{DOTNET_SDK_VERSION}", dotnet6).replace(
           "{arm_dotnet_sha512}",
           sha.dotnet_sha512["6.0.400"].arm,
         ).replace(
@@ -204,18 +201,12 @@ var DevcontainerGenerator = class {
           sha.dotnet_sha512["6.0.400"].amd,
         );
       } else if (this._dotnet === "3") {
-        this._dockerfile += dockerTemplates["dotnet3"].replace(
-          "{DOTNET_SDK_VERSION}",
-          dotnet3,
-        ).replace(
+        this._dockerfile += dockerTemplates["dotnet3"].replace("{DOTNET_SDK_VERSION}", dotnet3).replace(
           "{amd_dotnet_sha512}",
           sha.dotnet_sha512[dotnet3],
         );
       } else {
-        this._dockerfile += dockerTemplates["dotnet5"].replace(
-          "{DOTNET_SDK_VERSION}",
-          dotnet5,
-        ).replace(
+        this._dockerfile += dockerTemplates["dotnet5"].replace("{DOTNET_SDK_VERSION}", dotnet5).replace(
           "{dotnet_sha512}",
           sha.dotnet_sha512[dotnet5],
         );
@@ -299,10 +290,7 @@ RUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding
       this._readme += readmeTemplates["zsh"];
     }
     if (this._deno) {
-      this._dockerfile += dockerTemplates["deno"].replace(
-        "{DENO_VERSION}",
-        deno,
-      );
+      this._dockerfile += dockerTemplates["deno"].replace("{DENO_VERSION}", deno);
       this._readme += readmeTemplates["deno"].replace("{DENO_VERSION}", deno);
     }
     this._dockerfile += dockerTemplates["suffix"];
