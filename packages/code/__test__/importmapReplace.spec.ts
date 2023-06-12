@@ -26,71 +26,82 @@ describe("importMapReplace", () => {
 
   it("should replace top-level imports", async () => {
     const code = "import React from \"react\";";
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace coder44 ", async () => {
     const code = `
     import { css } from "@emotion/react";
+    import $ from "react";
+
+    import { css  as $kdkd } from "@emotion/react";
+
     import { useEffect, useState, useRef } from "react";
     import type { FC } from "react";
     import QRTerminal from "qrcode-terminal";
     `;
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace top-level exports", async () => {
     const code = `export { default } from "react";`;
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace dynamic imports", async () => {
     const code = `const React = import("react");`;
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should ignore relative URLs", async () => {
     const code = `import MyComponent from "./MyComponent";`;
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should ignore absolute URLs", async () => {
     const code = "import MyComponent from \"http://example.com/MyComponent.js\";";
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should apply custom mappings", async () => {
     const code = "import CustomPackage from \"custom-package\";";
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
   it("should replace dynamic imports", async () => {
     const code = "const module = import(\"some-module\");";
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace dynamic imports with await", async () => {
     const code = "const module = await import(\"some-module\");";
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace dynamic imports inside a function", async () => {
     const code = `
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"d3-time";
       async function loadModule() {
         const module = await import("some-module");
         // do something with module
       }
     `;
 
-    const result = await importMapReplace(code, origin);
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should replace the live urls", async () => {
+    const code = `import Box from "/live/Box";`;
+    const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 });

@@ -236,7 +236,7 @@ export const buildT = async (
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
         await writeFile(
           f.path,
-          await importMapReplace(f.contents as unknown as string, origin),
+          importMapReplace(f.contents as unknown as string, origin),
         );
       }
     });

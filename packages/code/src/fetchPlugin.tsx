@@ -35,7 +35,7 @@ export const fetchPlugin: (
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
     build.onResolve(
-      { filter: /^https?:\/\//, namespace: "http-url" },
+      { filter: /.*/, namespace: "http-url" },
       (args) => ({
         path: new URL(
           (args.path.indexOf("/live/") !== -1
@@ -53,6 +53,12 @@ export const fetchPlugin: (
         : `${location.origin}/${args.path}`,
       namespace: "http-url",
     }));
+
+    build.onResolve({ filter: /\/[a-z]+/, namespace: "http-url" }, (args) => ({
+      path: new URL(args.path, location.origin).toString(),
+      namespace: "http-url",
+    }));
+
     build.onResolve({ filter: /\.ttf*/, namespace: "http-url" }, (args) => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "ttf",
@@ -76,7 +82,7 @@ export const fetchPlugin: (
         };
       }
 
-      const code = await response.text(); // await importMapReplace(
+      const code = await response.text(); // importMapReplace(
       //   await response.text(),
       //   origin,
       //   "-1"

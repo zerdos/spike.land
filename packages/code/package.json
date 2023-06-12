@@ -16,7 +16,7 @@
   },
   "scripts": {
     "hash": "cd dist && find .  -type f -exec shasum -a 256 {} \";\" | jq -R -s -c 'split(\"\n\")[:-1]'>dist.json",
-    "test": "jest",
+    "test": "yarn node --experimental-vm-modules $(yarn bin jest) -u",
     "types": "tsc || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",

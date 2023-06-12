@@ -220,29 +220,29 @@ const build = (
     "./dist/manifest.json",
   );
 
-  // await esbuild.build({
-  //   ...buildOptions,
-  //   entryPoints: [
-  //     ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-  //   ],
+  await esbuild.build({
+    ...buildOptions,
+    entryPoints: [
+      ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+    ],
 
-  //   bundle: true,
-  //   define,
-  //   alias: {
-  //     "lib/typescriptServices": "typescript",
-  //   },
-  //   treeShaking: true,
-  //   minify: true, // ! isDevelopment,
-  //   minifyWhitespace: true, // ! isDevelopment,
-  //   minifyIdentifiers: true, // ! isDevelopment,
-  //   minifySyntax: true, // ! isDevelopment,
-  //   ignoreAnnotations: true,
-  //   keepNames: false,
-  //   platform: "browser",
-  //   format: "iife",
-  //   outbase: "monaco-editor/esm/vs",
-  //   outdir: "dist",
-  // });
+    bundle: true,
+    define,
+    alias: {
+      "lib/typescriptServices": "typescript",
+    },
+    treeShaking: true,
+    minify: true, // ! isDevelopment,
+    minifyWhitespace: true, // ! isDevelopment,
+    minifyIdentifiers: true, // ! isDevelopment,
+    minifySyntax: true, // ! isDevelopment,
+    ignoreAnnotations: true,
+    keepNames: false,
+    platform: "browser",
+    format: "iife",
+    outbase: "monaco-editor/esm/vs",
+    outdir: "dist",
+  });
 
   await esbuild.build({
     ...buildOptions,

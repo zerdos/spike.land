@@ -4,24 +4,41 @@ import { oo } from "./importMap";
 // const debts: {
 //   [pkg: string]: Promise<{ packageName: string; entry: string }>;
 // } = {};
-export async function importMapReplace(code: string, origin: string): Promise<string> {
-  const topLevelImportPattern = /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
-  const topLevelExportPattern = /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+export function importMapReplace(code: string, origin: string): string {
+  const topLevelImportPattern =
+    /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  const topLevelExportPattern =
+    /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
 
   const replacer = (match: string, p1: string, p2: string, p3: string) => {
     const packageName = p2.slice(1, -1); // Remove quotes
-    if (packageName.startsWith(".") || packageName.startsWith("http") || packageName.startsWith("/")) {
+
+    if (packageName.startsWith(origin + "/live") && packageName.indexOf("index.js") === -1) {
       // Ignore relative and absolute URLs
+
+      return p1 + "\"" + `${packageName}/index.js` + "\"" + String(p3).replace(/[0-9]/g, "");
+    }
+
+    if (packageName.startsWith(".") || packageName.startsWith("http")) {
+      // Ignore relative and absolute URLs
+
       return match;
     }
+
+    if (packageName.startsWith("/live")) {
+      // Ignore relative and absolute URLs
+
+      return p1 + "\"" + `${origin}${packageName}/index.js` + "\"" + String(p3).replace(/[0-9]/g, "");
+    }
+
     return p1 + "\"" + `${origin}/*${packageName}?bundle` + "\"" + String(p3).replace(/[0-9]/g, "");
   };
 
   let str = code;
   if (typeof code !== "string") {
-    var uint8array = new TextEncoder().encode(code);
-    str = new TextDecoder().decode(uint8array);
+    const arr = new Uint8Array(code);
+    str = new TextDecoder().decode(arr);
   }
 
   // Apply all replacements
@@ -34,13 +51,6 @@ export async function importMapReplace(code: string, origin: string): Promise<st
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg as keyof typeof oo]);
   });
-
-  // const debtEntries = await Promise.all(Object.values(debts));
-  // for (const {packageName, entry} of debtEntries) {
-  //   if (entry && entry.length) {
-  //     replaced = replaced.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
-  //   }
-  // }
 
   return replaced;
 }

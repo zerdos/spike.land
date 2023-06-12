@@ -9,6 +9,10 @@ exports[`importMapReplace should ignore relative URLs 1`] = `"import MyComponent
 exports[`importMapReplace should replace coder44  1`] = `
 "
     import { css } from "http://localhost:3000/emotion.mjs";
+    import $ from "http://localhost:3000/reactMod.mjs";
+
+    import { css  as $kdkd } from "http://localhost:3000/emotion.mjs";
+
     import { useEffect, useState, useRef } from "http://localhost:3000/reactMod.mjs";
     import type { FC } from "http://localhost:3000/reactMod.mjs";
     import QRTerminal from "http://localhost:3000/*qrcode-terminal?bundle";
@@ -21,6 +25,7 @@ exports[`importMapReplace should replace dynamic imports 2`] = `"const module = 
 
 exports[`importMapReplace should replace dynamic imports inside a function 1`] = `
 "
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
       async function loadModule() {
         const module = await import("http://localhost:3000/*some-module?bundle");
         // do something with module
@@ -29,6 +34,8 @@ exports[`importMapReplace should replace dynamic imports inside a function 1`] =
 `;
 
 exports[`importMapReplace should replace dynamic imports with await 1`] = `"const module = await import("http://localhost:3000/*some-module?bundle");"`;
+
+exports[`importMapReplace should replace the live urls 1`] = `"import Box from "http://localhost:3000/live/Box/index.js";"`;
 
 exports[`importMapReplace should replace top-level exports 1`] = `"export { default } from "http://localhost:3000/reactMod.mjs";"`;
 

@@ -53,7 +53,7 @@ export async function runner({ code, counter, signal }: {
     //   type: "prerender",
     //   codeSpace,
     // });
-    const transpiled = await importMapReplace(await transpile({ code, originToUse: location.origin }), origin);
+    const transpiled = importMapReplace(await transpile({ code, originToUse: location.origin }), origin);
 
     if (signal.aborted) return;
     document.querySelector("iframe")?.contentWindow?.postMessage({
