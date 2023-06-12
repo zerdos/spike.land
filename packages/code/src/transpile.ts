@@ -1,4 +1,4 @@
-import { initialize, transform } from "esbuild-wasm";
+import { build, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 import { wait } from "./wait";
 

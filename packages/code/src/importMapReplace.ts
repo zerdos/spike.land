@@ -25,7 +25,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     if (packageName.startsWith("/")) {
-        return p1 + "\"" + `${origin}${packageName}` + "\""
+      return p1 + "\"" + `${origin}${packageName}` + "\""
         + String(p3).replace(/[0-9]/g, "");
     }
 

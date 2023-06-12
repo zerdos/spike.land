@@ -209,7 +209,7 @@ const build = (
 (async () => {
   // await copyFile("./src/index.html", "./dist/index.html");
   await copyFile("./src/favicon.ico", "./dist/favicon.ico");
-  await copyFile("./tsconfig.json", "./dist/tsconfig.json");
+  await copyFile("./lame.mjs", "./dist/lame.mjs");
 
   await copyFile(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
