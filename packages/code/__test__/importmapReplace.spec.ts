@@ -88,8 +88,12 @@ describe("importMapReplace", () => {
 
   it("should replace dynamic imports inside a function", async () => {
     const code = `
+    import{Buffer as De}from"/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"d3-time";
       async function loadModule() {
+        let{default:c}=await import("axios");
+        let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
+        
         const module = await import("some-module");
         // do something with module
       }

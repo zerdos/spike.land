@@ -2,7 +2,7 @@
 
 exports[`importMapReplace should apply custom mappings 1`] = `"import CustomPackage from "http://localhost:3000/*custom-package?bundle";"`;
 
-exports[`importMapReplace should ignore absolute URLs 1`] = `"import MyComponent from "http://example.com/MyComponent.js";"`;
+exports[`importMapReplace should ignore absolute URLs 1`] = `"import MyComponent from "http://localhost:3000/MyComponent.js";"`;
 
 exports[`importMapReplace should ignore relative URLs 1`] = `"import MyComponent from "./MyComponent";"`;
 
@@ -25,8 +25,12 @@ exports[`importMapReplace should replace dynamic imports 2`] = `"const module = 
 
 exports[`importMapReplace should replace dynamic imports inside a function 1`] = `
 "
+    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
       async function loadModule() {
+        let{default:c}=await import("http://localhost:3000/*axios?bundle");
+        let{default:d}=await import("http://localhost:3000/axios/dist/axios.min.js");
+        
         const module = await import("http://localhost:3000/*some-module?bundle");
         // do something with module
       }
