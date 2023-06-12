@@ -53,7 +53,9 @@ async function handleApiRequest(
       const newUrl = new URL(request.url);
 
       newUrl.pathname = "/" + path.slice(2).join("/");
-      if (request.headers.get("Sec-Fetch-Dest") === "script") newUrl.pathname += "/index.js";
+      if (request.headers.get("Sec-Fetch-Dest") === "script") {
+        newUrl.pathname += "/index.js";
+      }
       newUrl.searchParams.append("room", name);
 
       return roomObject.fetch(new Request(newUrl.toString(), request));
@@ -90,7 +92,9 @@ async function handleFetchApi(
   const cache = await caches.open(ASSET_HASH);
 
   const response = await cache.match(cacheKey);
-  if (response && response.ok && !response.bodyUsed && response.status === 200) {
+  if (
+    response && response.ok && !response.bodyUsed && response.status === 200
+  ) {
     return response;
   }
 
@@ -214,10 +218,13 @@ async function handleFetchApi(
             && (contentType && contentType.indexOf("charset"))
           ) {
             try {
-              return new Response(importMapReplace(await resp.text(), u.origin), {
-                ...resp,
-                headers,
-              });
+              return new Response(
+                importMapReplace(await resp.text(), u.origin),
+                {
+                  ...resp,
+                  headers,
+                },
+              );
             } catch {
               return new Response(resp.body, { ...resp, headers });
             }
