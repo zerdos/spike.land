@@ -1773,7 +1773,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.59.9"
     "@typescript-eslint/parser": "npm:5.59.9"
     "@typescript-eslint/typescript-estree": "npm:5.59.9"
-    ace-builds: "npm:1.22.0"
+    ace-builds: "npm:1.22.1"
     assert: "npm:2.0.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -2598,10 +2598,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.22.0":
-  version: 1.22.0
-  resolution: "ace-builds@npm:1.22.0"
-  checksum: f877592283616d389de6b6f6975194dadd957b053bd7489021eec1d2c2efd8b8cf1f3f4d09c6394ce5c44b9a2fca18371ffb010278a1e70080e14a57796edc12
+"ace-builds@npm:1.22.1":
+  version: 1.22.1
+  resolution: "ace-builds@npm:1.22.1"
+  checksum: ea3281dd3ae1db27b483e7b27118833a7855a2ca0b7e3bb4c987665f380441892890c43f239a3d6b4cc89b88b82e9ad3ad31bb6c7b4ab7e1b08093b8e06b86e9
   languageName: node
   linkType: hard
 

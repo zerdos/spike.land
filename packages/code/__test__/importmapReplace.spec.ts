@@ -30,20 +30,31 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
+  it("should replace coder44 ", async () => {
+    const code = `
+    import { css } from "@emotion/react";
+    import { useEffect, useState, useRef } from "react";
+    import type { FC } from "react";
+    import QRTerminal from "qrcode-terminal";
+    `;
+    const result = await importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
   it("should replace top-level exports", async () => {
-    const code = "export { default } from \"react\";";
+    const code = `export { default } from "react";`;
     const result = await importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace dynamic imports", async () => {
-    const code = "const React = import(\"react\");";
+    const code = `const React = import("react");`;
     const result = await importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should ignore relative URLs", async () => {
-    const code = "import MyComponent from \"./MyComponent\";";
+    const code = `import MyComponent from "./MyComponent";`;
     const result = await importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });

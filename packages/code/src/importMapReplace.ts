@@ -1,9 +1,9 @@
 import { oo } from "./importMap";
 // import type { PackageJson } from 'type-fest'
 
-const debts: {
-  [pkg: string]: Promise<{ packageName: string; entry: string }>;
-} = {};
+// const debts: {
+//   [pkg: string]: Promise<{ packageName: string; entry: string }>;
+// } = {};
 export async function importMapReplace(code: string, origin: string): Promise<string> {
   const topLevelImportPattern = /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const topLevelExportPattern = /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s]+|\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
@@ -15,7 +15,7 @@ export async function importMapReplace(code: string, origin: string): Promise<st
       // Ignore relative and absolute URLs
       return match;
     }
-    return `${p1}'${origin}/*${packageName}?bundle'${p3}`;
+    return p1 + "\"" + `${origin}/*${packageName}?bundle` + "\"" + String(p3).replace(/[0-9]/g, "");
   };
 
   let str = code;
@@ -35,12 +35,12 @@ export async function importMapReplace(code: string, origin: string): Promise<st
     replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg as keyof typeof oo]);
   });
 
-  const debtEntries = await Promise.all(Object.values(debts));
-  debtEntries.forEach(({ packageName, entry }) => {
-    if (entry && entry.length) {
-      replaced = replaced.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
-    }
-  });
+  // const debtEntries = await Promise.all(Object.values(debts));
+  // for (const {packageName, entry} of debtEntries) {
+  //   if (entry && entry.length) {
+  //     replaced = replaced.split(`${origin}/*${packageName}?bundle`).join(`${origin}/*${packageName}/${entry}?bundle`);
+  //   }
+  // }
 
   return replaced;
 }

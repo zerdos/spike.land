@@ -2567,7 +2567,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.9"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.9"],\
           ["@typescript-eslint/typescript-estree", "virtual:a8b56153b2693bdf049232a677412b22282afc614d7fcf73235daa2efe0874e2b48fbe1237a9c63ebb407ba89f150658ca4929f51adf2f39355d02c55edb9aaf#npm:5.59.9"],\
-          ["ace-builds", "npm:1.22.0"],\
+          ["ace-builds", "npm:1.22.1"],\
           ["assert", "npm:2.0.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:5.0.0"],\
@@ -2667,7 +2667,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.9"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.9"],\
           ["@typescript-eslint/typescript-estree", "virtual:a8b56153b2693bdf049232a677412b22282afc614d7fcf73235daa2efe0874e2b48fbe1237a9c63ebb407ba89f150658ca4929f51adf2f39355d02c55edb9aaf#npm:5.59.9"],\
-          ["ace-builds", "npm:1.22.0"],\
+          ["ace-builds", "npm:1.22.1"],\
           ["assert", "npm:2.0.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:5.0.0"],\
@@ -3719,10 +3719,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ace-builds", [\
-      ["npm:1.22.0", {\
-        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.22.0-a0148f57bc-9.zip/node_modules/ace-builds/",\
+      ["npm:1.22.1", {\
+        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.22.1-7eb9fad3be-9.zip/node_modules/ace-builds/",\
         "packageDependencies": [\
-          ["ace-builds", "npm:1.22.0"]\
+          ["ace-builds", "npm:1.22.1"]\
         ],\
         "linkType": "HARD"\
       }]\

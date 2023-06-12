@@ -1,26 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`importMapReplace should apply custom mappings 1`] = `"import CustomPackage from 'http://localhost:3000/*custom-package?bundle'0;"`;
+exports[`importMapReplace should apply custom mappings 1`] = `"import CustomPackage from "http://localhost:3000/*custom-package?bundle";"`;
 
 exports[`importMapReplace should ignore absolute URLs 1`] = `"import MyComponent from "http://example.com/MyComponent.js";"`;
 
 exports[`importMapReplace should ignore relative URLs 1`] = `"import MyComponent from "./MyComponent";"`;
 
-exports[`importMapReplace should replace dynamic imports 1`] = `"const React = import('http://localhost:3000/reactMod.mjs');"`;
+exports[`importMapReplace should replace coder44  1`] = `
+"
+    import { css } from "http://localhost:3000/emotion.mjs";
+    import { useEffect, useState, useRef } from "http://localhost:3000/reactMod.mjs";
+    import type { FC } from "http://localhost:3000/reactMod.mjs";
+    import QRTerminal from "http://localhost:3000/*qrcode-terminal?bundle";
+    "
+`;
 
-exports[`importMapReplace should replace dynamic imports 2`] = `"const module = import('http://localhost:3000/*some-module?bundle');"`;
+exports[`importMapReplace should replace dynamic imports 1`] = `"const React = import("http://localhost:3000/reactMod.mjs");"`;
+
+exports[`importMapReplace should replace dynamic imports 2`] = `"const module = import("http://localhost:3000/*some-module?bundle");"`;
 
 exports[`importMapReplace should replace dynamic imports inside a function 1`] = `
 "
       async function loadModule() {
-        const module = await import('http://localhost:3000/*some-module?bundle');
+        const module = await import("http://localhost:3000/*some-module?bundle");
         // do something with module
       }
     "
 `;
 
-exports[`importMapReplace should replace dynamic imports with await 1`] = `"const module = await import('http://localhost:3000/*some-module?bundle');"`;
+exports[`importMapReplace should replace dynamic imports with await 1`] = `"const module = await import("http://localhost:3000/*some-module?bundle");"`;
 
-exports[`importMapReplace should replace top-level exports 1`] = `"export { default } from 'http://localhost:3000/reactMod.mjs'0;"`;
+exports[`importMapReplace should replace top-level exports 1`] = `"export { default } from "http://localhost:3000/reactMod.mjs";"`;
 
-exports[`importMapReplace should replace top-level imports 1`] = `"import React from 'http://localhost:3000/reactMod.mjs'0;"`;
+exports[`importMapReplace should replace top-level imports 1`] = `"import React from "http://localhost:3000/reactMod.mjs";"`;
