@@ -18,7 +18,6 @@ bindings = [
 ]
 
 [vars]
-OPENAI_API_KEY = "sk-xxx" # change to your openai api key if needed
 ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
 NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
 

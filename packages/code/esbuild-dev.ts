@@ -182,13 +182,13 @@ const build = (
     minifyIdentifiers: false,
     minifySyntax: !isDevelopment,
     legalComments: "none",
-    ignoreAnnotations: false, // True,
+    ignoreAnnotations: true, // True,
 
     // external: [ "@emotion/react/*"],
 
     treeShaking: true,
     logLimit: 0,
-    keepNames: true,
+    keepNames: false,
 
     tsconfig: "./tsconfig.json",
     allowOverwrite: true,
@@ -212,7 +212,7 @@ const build = (
   await copyFile("./lame.mjs", "./dist/lame.mjs");
 
   await copyFile(
-    "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
+    "./enhanced_dot_digital-7/enhanced_dot_dfgigital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
   await copyFile(
@@ -268,7 +268,7 @@ const build = (
     minifySyntax: false,
     minifyWhitespace: false,
     ignoreAnnotations: false,
-    keepNames: true,
+    keepNames: false,
     treeShaking: true,
     legalComments: "none",
     platform: "browser",
@@ -306,8 +306,8 @@ const build = (
     minifySyntax: false,
     charset: "utf8",
     minifyWhitespace: false,
-    ignoreAnnotations: false,
-    keepNames: true,
+    ignoreAnnotations: true,
+    keepNames: false,
     treeShaking: true,
     legalComments: "none",
     outdir: "dist",
