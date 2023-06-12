@@ -209,7 +209,7 @@ const build = (
 (async () => {
   // await copyFile("./src/index.html", "./dist/index.html");
   await copyFile("./src/favicon.ico", "./dist/favicon.ico");
-  await copyFile("./tsconfig.json", "./dist/tsconfig.json");
+  await copyFile("./lame.mjs", "./dist/lame.mjs");
 
   await copyFile(
     "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
@@ -220,29 +220,29 @@ const build = (
     "./dist/manifest.json",
   );
 
-  // await esbuild.build({
-  //   ...buildOptions,
-  //   entryPoints: [
-  //     ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-  //   ],
+  await esbuild.build({
+    ...buildOptions,
+    entryPoints: [
+      ...workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+    ],
 
-  //   bundle: true,
-  //   define,
-  //   alias: {
-  //     "lib/typescriptServices": "typescript",
-  //   },
-  //   treeShaking: true,
-  //   minify: true, // ! isDevelopment,
-  //   minifyWhitespace: true, // ! isDevelopment,
-  //   minifyIdentifiers: true, // ! isDevelopment,
-  //   minifySyntax: true, // ! isDevelopment,
-  //   ignoreAnnotations: true,
-  //   keepNames: false,
-  //   platform: "browser",
-  //   format: "iife",
-  //   outbase: "monaco-editor/esm/vs",
-  //   outdir: "dist",
-  // });
+    bundle: true,
+    define,
+    alias: {
+      "lib/typescriptServices": "typescript",
+    },
+    treeShaking: true,
+    minify: true, // ! isDevelopment,
+    minifyWhitespace: true, // ! isDevelopment,
+    minifyIdentifiers: true, // ! isDevelopment,
+    minifySyntax: true, // ! isDevelopment,
+    ignoreAnnotations: true,
+    keepNames: false,
+    platform: "browser",
+    format: "iife",
+    outbase: "monaco-editor/esm/vs",
+    outdir: "dist",
+  });
 
   await esbuild.build({
     ...buildOptions,

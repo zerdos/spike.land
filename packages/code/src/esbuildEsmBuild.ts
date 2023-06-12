@@ -24,13 +24,13 @@ import { wait } from "./wait";
 let initDone = false;
 const mutex = new Mutex();
 
-const init = (orig: string) => {
+const init = (orig: string, init = initialize) => {
   if (initDone === false) {
     (async () => {
       await mutex.waitForUnlock();
       if (initDone) return;
       await mutex.acquire();
-      await initialize({
+      await init({
         wasmURL: `https://unpkg.com/esbuild-wasm@${version}/esbuild.wasm`,
       });
       initDone = true;
@@ -132,6 +132,10 @@ export const buildT = async (
   origin: string,
   signal: AbortSignal,
   opts = { bundle: false },
+  builder = {
+    esbuildBuild,
+    initialize,
+  },
 ) => {
   // if (lastBuild) {
   // lastBuild = await lastBuild.rebuild();
@@ -214,7 +218,7 @@ export const buildT = async (
   };
   let b: BuildResult;
   if (
-    !signal.aborted && (b = await esbuildBuild(defaultOpts)) && !signal.aborted
+    !signal.aborted && (b = await builder.esbuildBuild(defaultOpts)) && !signal.aborted
   ) {
     console.log(b.outputFiles);
 
@@ -236,7 +240,7 @@ export const buildT = async (
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
         await writeFile(
           f.path,
-          await importMapReplace(f.contents as unknown as string, origin),
+          importMapReplace(f.contents as unknown as string, origin),
         );
       }
     });

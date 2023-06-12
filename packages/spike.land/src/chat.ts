@@ -198,7 +198,7 @@ async function handleFetchApi(
     default:
       {
         if (!isUrlFile(path.join("/"))) {
-          let resp = await esmWorker.fetch(request, env, ctx);
+          const resp = await esmWorker.fetch(request, env, ctx);
           if (!resp.ok) return resp;
 
           const headers = new Headers(resp.headers);
@@ -210,10 +210,11 @@ async function handleFetchApi(
 
           if (
             request.url.indexOf(".wasm") === -1
-            && (request.url.indexOf(".mjs") !== -1 || (contentType && contentType.indexOf("charset")))
+            && request.url.indexOf(".ts.worker") === -1
+            && (contentType && contentType.indexOf("charset"))
           ) {
             try {
-              return new Response(await importMapReplace(await resp.text(), u.origin), {
+              return new Response(importMapReplace(await resp.text(), u.origin), {
                 ...resp,
                 headers,
               });
