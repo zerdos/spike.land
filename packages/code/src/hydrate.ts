@@ -9,7 +9,7 @@ import { render } from "./render";
 
 // Set up service worker version
 const { swVersion } = self;
-export const sw = new Workbox(`/sw.js?v=${swVersion}`);
+export const sw = new Workbox(`/sw.js`);
 init(swVersion, null);
 const port = getPort();
 

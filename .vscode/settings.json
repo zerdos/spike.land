@@ -65,5 +65,8 @@
   "typescript.tsserver.logToFile": true,
   "typescript.tsserver.logFile": ".yarn/sdks/typescript/tsserver.log",
   "eslint.nodePath": ".yarn/sdks",
-  "livePreview.defaultPreviewPath": "/packages/code/src/index.html"
+  "livePreview.defaultPreviewPath": "/packages/code/src/index.html",
+  "editor.tabCompletion": "on",
+  "diffEditor.codeLens": true,
+  "MutableAI.upsell": false
 }

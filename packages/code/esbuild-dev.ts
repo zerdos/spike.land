@@ -212,9 +212,10 @@ const build = (
   await copyFile("./lame.mjs", "./dist/lame.mjs");
 
   await copyFile(
-    "./enhanced_dot_digital-7/enhanced_dot_dfgigital-7.ttf",
+    "./enhanced_dot_digital-7/enhanced_dot_digital-7.ttf",
     "./dist/enhanced_dot_digital-7.ttf",
   );
+
   await copyFile(
     "./src/assets/manifest.json",
     "./dist/manifest.json",
