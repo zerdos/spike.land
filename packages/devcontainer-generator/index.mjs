@@ -169,7 +169,10 @@ var DevcontainerGenerator = class {
       this._dockerfile += dockerTemplates["debianBackports"].replace(
         "{DISTRO}",
         this.base,
-      ).replace("{DISTRO}", this.base);
+      ).replace(
+        "{DISTRO}",
+        this.base,
+      );
     }
     if (this._gitVersion) {
       if (this._gitVersion === "ubuntu") {
@@ -185,11 +188,17 @@ var DevcontainerGenerator = class {
       this._dockerfile += dockerTemplates["node"].replace(
         "{NODE_VERSION}",
         node[this._nodeVersion],
-      ).replace("{YARN_VERSION}", yarn);
+      ).replace(
+        "{YARN_VERSION}",
+        yarn,
+      );
       this._readme += readmeTemplates["node"].replace(
         "{NODE_VERSION}",
         node[this._nodeVersion],
-      ).replace("{YARN_VERSION}", yarn);
+      ).replace(
+        "{YARN_VERSION}",
+        yarn,
+      );
     }
     if (this._dotnet) {
       if (this._dotnet === "6") {

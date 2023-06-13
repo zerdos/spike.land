@@ -32,7 +32,7 @@ RUN apt-get update \
   curl \
   git \
   gpg \
-  libgtk2.0-0 \
+    libgtk2.0-0 \
   libgtk-3-0 \
   libnotify-dev \
   libgconf-2-4 \

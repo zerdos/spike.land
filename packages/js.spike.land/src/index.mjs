@@ -95,6 +95,32 @@ export default {
         },
       );
     }
+    if (request.method === "GET") {
+      const params = new URL(request.url).searchParams;
+      const { code, origin } = Object.fromEntries(params.entries());
+
+      if (code && origin) {
+        const { buildT } = await import("../../code/src/esbuildEsmBuild");
+        return new Response(
+          await buildT(
+            code,
+            { bundle: true },
+            new AbortController(),
+            `https://${origin}.spike.land/`,
+            { esbuildBuild: build, initialize },
+          ),
+        ),
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Headers": "*",
+              "Content-Type": "application/javascript",
+              "cache-control": "no-cache",
+            },
+          };
+      }
+      return new Response("404", { status: 404 });
+    }
     return new Response("try to POST", {
       headers: {
         "Access-Control-Allow-Origin": "*",
