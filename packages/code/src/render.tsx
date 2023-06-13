@@ -13,6 +13,33 @@ import type { ParentSizeState } from "./ParentSize";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
 
+const runtime = require("react-refresh/runtime");
+runtime.injectIntoGlobalHook(window);
+
+// BEFORE EVERY MODULE EXECUTES
+
+function reFresh() {
+  var prevRefreshReg = window.$RefreshReg$;
+  var prevRefreshSig = window.$RefreshSig$;
+  var RefreshRuntime = require("react-refresh/runtime");
+
+  window.$RefreshReg$ = (type, id) => {
+    // Note module.id is webpack-specific, this may vary in other bundlers
+    const fullId = module.id + " " + id;
+    RefreshRuntime.register(type, fullId);
+  };
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+
+  try {
+    // !!!
+    // ...ACTUAL MODULE SOURCE CODE...
+    // !!!
+  } finally {
+    window.$RefreshReg$ = prevRefreshReg;
+    window.$RefreshSig$ = prevRefreshSig;
+  }
+}
+
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);

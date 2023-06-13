@@ -4,10 +4,10 @@ import type { FC } from "react";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import createCache from "./emotionCache";
+import { readFile, stat } from "./memfs";
 // import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5";
 
-Object.assign(globalThis, { md5 });
 // const myApps: { [key: string]: FC } = {};
 // const myAppCounters: { [key: string]: number } = {};
 
@@ -22,12 +22,16 @@ export const { apps, eCaches } = globalThis as unknown as {
   eCaches: Record<string, EmotionCache>;
 };
 
+const codeSpace = location.pathname.slice(1).split("/")[1];
 export async function appFactory(
   transpiled: string,
 ): Promise<FC<{ width: number; height: number; top: number; left: number }>> {
   // }
 
-  const trp: string = transpiled;
+  const indexMjs = (await stat(`/live/${codeSpace}/index.mjs`))
+    && (await readFile(`/live/${codeSpace}/index.mjs`) as string);
+
+  const trp: string = indexMjs || transpiled;
 
   const hash = md5(transpiled);
 
