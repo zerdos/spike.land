@@ -393,11 +393,11 @@ export class Code implements DurableObject {
           case "js": {
             this.#transpiled = this.#transpiled.length > 0
               ? this.#transpiled
-              : await fetch(`https://js.spike.land?v=${shasum}`, {
+              : await fetch(`https://js.spike.land`, {
                 method: "POST",
                 body: this.session.code,
                 headers: { TR_ORIGIN: this.#origin },
-              }).then(async (resp) => importMapReplace(await resp.text(), this.#origin));
+              }).then((resp) => resp.text());
 
             const replaced = this.#transpiled.split("https://spike.land/").join(
               `${this.#origin}/`,
@@ -407,7 +407,7 @@ export class Code implements DurableObject {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
-
+                "x-typescript-types": this.#origin + "/live/index.tsx",
                 content_hash: md5(replaced),
                 "Content-Type": "application/javascript; charset=UTF-8",
               },

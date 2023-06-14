@@ -20,7 +20,6 @@ async function handleApiRequest(
   path: string[],
   request: WRequest<unknown, CfProperties<unknown>>,
   env: Env,
-  ctx: ExecutionContext,
 ) {
   // Logic for handling API requests
   switch (path[0]) {

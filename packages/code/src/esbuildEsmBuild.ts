@@ -218,12 +218,8 @@ export const buildT = async (
   };
   let b: BuildResult;
   if (
-<<<<<<< HEAD
     !signal.aborted && (b = await builder.esbuildBuild(defaultOpts))
     && !signal.aborted
-=======
-    !signal.aborted && (b = await builder.esbuildBuild(defaultOpts)) && !signal.aborted
->>>>>>> 4cbfd0b69 (changes)
   ) {
     console.log(b.outputFiles);
 

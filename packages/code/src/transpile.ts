@@ -1,5 +1,7 @@
-import { build, initialize, transform } from "esbuild-wasm";
+import { kMaxLength } from "buffer";
+import { initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
+import { importMapReplace } from "./importMapReplace";
 import { wait } from "./wait";
 
 declare const self:
@@ -22,6 +24,29 @@ const mod = self.mod = self.mod
         worker: false,
       }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
   };
+
+export const cjs = async (code: string) => {
+  const { code: cjs } = await transform(code, {
+    loader: "tsx",
+    format: "cjs",
+    treeShaking: true,
+    platform: "browser",
+    minify: false,
+    charset: "utf8",
+    //   globalName: md5(code),
+    keepNames: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
+        useDefineForClassFields: false,
+        jsxFragmentFactory: "Fragment",
+        jsxImportSource: "@emotion/react",
+      },
+    },
+    target: "chrome88",
+  });
+  return cjs;
+};
 
 export const transpile = async (
   code: string,
@@ -68,7 +93,7 @@ export const transpile = async (
       },
     },
     target: "chrome88",
-  }).then((x) => x.code);
+  }).then((x) => importMapReplace(x.code, origin));
 };
 
 Object.assign(self, { transpile });

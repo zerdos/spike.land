@@ -1,7 +1,8 @@
 // import { syncWS } from "./ws";
 
 import type { BuildOptions } from "esbuild-wasm";
-import { importMapReplace } from "./importMapReplace";
+
+import { stat } from "./memfs";
 import { transpile } from "./shared";
 
 // import { wait } from "./wait";
@@ -53,10 +54,14 @@ export async function runner({ code, counter, signal }: {
     //   type: "prerender",
     //   codeSpace,
     // });
-    const transpiled = importMapReplace(
-      await transpile({ code, originToUse: location.origin }),
-      origin,
-    );
+
+    const bundle = await stat(`/live/${codeSpace}/index.mjs`);
+
+    if (bundle) {
+      await (globalThis as any as { build: (codeSpace: string, opts: BuildOptions) => () => Promise<string | false> })
+        .build(codeSpace, { bundle: true })();
+    }
+    const transpiled = await transpile({ code, originToUse: location.origin });
 
     if (signal.aborted) return;
     document.querySelector("iframe")?.contentWindow?.postMessage({
