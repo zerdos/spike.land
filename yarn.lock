@@ -1641,14 +1641,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.3.0"
+    "@types/node": "npm:^20.3.1"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^10.0.1"
     dotenv: "npm:^16.1.4"
     express: "npm:^4.18.2"
     node-fetch: "npm:^3.3.1"
-    openai: "npm:^3.2.1"
+    openai: "npm:^3.3.0"
     p-limit: "npm:^4.0.0"
     simple-git: "npm:^3.19.0"
   bin:
@@ -1668,7 +1668,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.18.1"
+    esbuild-wasm: "npm:0.18.2"
   languageName: unknown
   linkType: soft
 
@@ -1681,7 +1681,7 @@ __metadata:
     "@spike-land/code": "npm:0.9.3"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.18.1"
+    esbuild-wasm: "npm:0.18.2"
     esm-worker: "npm:^0.125.0"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
@@ -1704,7 +1704,7 @@ __metadata:
     "@mui/material": "npm:5.13.5"
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.1"
-    "@types/eslint": "npm:8.40.1"
+    "@types/eslint": "npm:8.40.2"
     "@types/esprima": "npm:^4.0.3"
     "@types/estraverse": "npm:^5.1.2"
     "@types/events": "npm:3.0.0"
@@ -1714,7 +1714,7 @@ __metadata:
     "@types/jest": "npm:^29.5.2"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.3.0"
+    "@types/node": "npm:20.3.1"
     "@types/prettier": "npm:2.7.3"
     "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.2.12"
@@ -1735,7 +1735,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.18.1"
+    esbuild-wasm: "npm:0.18.2"
     eslint: "npm:8.42.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
@@ -1802,8 +1802,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.3.0"
-    esbuild-wasm: "npm:0.18.1"
+    "@types/node": "npm:20.3.1"
+    esbuild-wasm: "npm:0.18.2"
   languageName: unknown
   linkType: soft
 
@@ -1875,7 +1875,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230518.0"
-    esbuild-wasm: "npm:0.18.1"
+    esbuild-wasm: "npm:0.18.2"
     typescript: "npm:5.1.3"
     wrangler: "npm:3.1.0"
   languageName: unknown
@@ -1964,13 +1964,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.40.1":
-  version: 8.40.1
-  resolution: "@types/eslint@npm:8.40.1"
+"@types/eslint@npm:8.40.2":
+  version: 8.40.2
+  resolution: "@types/eslint@npm:8.40.2"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 0d7e883e03a9f4f51ec69f579399065dd9221838dcc01608569988a4a8f7ebb72e062ecd80da3feef83de520a69bce44407e8a989af898c9f93533f88103d153
+  checksum: 84f4da669a839830e3696494ec7ba659f7fa064eb87e3f1d4b60204b4db9c9093bbbd9f59b7bf46370bdba97cae0b959d4b2391c743d69297a8df5d100d35191
   languageName: node
   linkType: hard
 
@@ -2122,17 +2122,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.3.0":
+"@types/node@npm:*, @types/node@npm:20.3.1, @types/node@npm:^20.3.1":
   version: 20.3.1
   resolution: "@types/node@npm:20.3.1"
   checksum: 262e63e934b31335efdd0cb9c6b46e20c0bfa826952f670596ca8621d21d29382ff701e1afdd83f43eff06b42f43a054617ed835b074fb56f61bf1150e9711d5
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:20.3.0":
-  version: 20.3.0
-  resolution: "@types/node@npm:20.3.0"
-  checksum: 5d949ff0253ad01b79376095bcfb0daf355e8791bdda882d4032fbe176d9febb907becdf0cdf4a22c6165c9c0805daba458c764e1cde7959ce9d3b41170f08d5
   languageName: node
   linkType: hard
 
@@ -4740,12 +4733,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.18.1":
-  version: 0.18.1
-  resolution: "esbuild-wasm@npm:0.18.1"
+"esbuild-wasm@npm:0.18.2":
+  version: 0.18.2
+  resolution: "esbuild-wasm@npm:0.18.2"
   bin:
     esbuild: bin/esbuild
-  checksum: a95dbc2622c54928edd2d7e375b3c0f7c9902b69c9a6b97b4990bde822d129b35d3a6851d84fc516cfbcb5a95d521baf11f08d0741c3ca23d93d4a37d702e19e
+  checksum: 738d4a91bf62e4c04bda0cf3d2812bfd39a4f0ae3efe7e2a4fa33e9533d4a5ee7dfa48844776d5e98c5311a76e899899928732ffd69ed2ba06ca5c31e7700578
   languageName: node
   linkType: hard
 
@@ -8565,7 +8558,7 @@ __metadata:
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.35.0"
     "@spike-land/ai-devtools": "workspace:^"
-    "@types/eslint": "npm:8.40.1"
+    "@types/eslint": "npm:8.40.2"
     "@types/react": "npm:18.2.12"
     "@types/react-dom": "npm:18.2.5"
     "@typescript-eslint/eslint-plugin": "npm:5.59.11"
@@ -9022,7 +9015,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:^3.2.1":
+"openai@npm:^3.3.0":
   version: 3.3.0
   resolution: "openai@npm:3.3.0"
   dependencies:
