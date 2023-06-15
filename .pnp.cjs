@@ -96,7 +96,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/workers-types", "npm:4.20230518.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.1"],\
           ["@isomorphic-git/lightning-fs", "npm:4.6.0"],\
-          ["@playwright/test", "npm:1.35.0"],\
+          ["@playwright/test", "npm:1.35.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:8.40.2"],\
           ["@types/react", "npm:18.2.12"],\
@@ -112,7 +112,7 @@ const RAW_RUNTIME_STATE =
           ["execa", "npm:7.1.1"],\
           ["localforage", "npm:1.10.0"],\
           ["monaco-editor", "npm:0.39.0"],\
-          ["playwright", "npm:1.35.0"],\
+          ["playwright", "npm:1.35.1"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["util", "npm:0.12.5"],\
@@ -2391,13 +2391,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@playwright/test", [\
-      ["npm:1.35.0", {\
-        "packageLocation": "./.yarn/global/cache/@playwright-test-npm-1.35.0-bb258733c8-9.zip/node_modules/@playwright/test/",\
+      ["npm:1.35.1", {\
+        "packageLocation": "./.yarn/global/cache/@playwright-test-npm-1.35.1-3073e07fa7-9.zip/node_modules/@playwright/test/",\
         "packageDependencies": [\
-          ["@playwright/test", "npm:1.35.0"],\
+          ["@playwright/test", "npm:1.35.1"],\
           ["@types/node", "npm:20.3.1"],\
           ["fsevents", "patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"],\
-          ["playwright-core", "npm:1.35.0"]\
+          ["playwright-core", "npm:1.35.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2505,7 +2505,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/cf-npm-site/",\
         "packageDependencies": [\
           ["@spike-land/cf-npm-site", "workspace:packages/cf-npm-site"],\
-          ["esbuild-wasm", "npm:0.18.2"]\
+          ["esbuild-wasm", "npm:0.18.3"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2556,7 +2556,7 @@ const RAW_RUNTIME_STATE =
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.2"],\
           ["detective-typescript", "npm:11.1.0"],\
-          ["esbuild-wasm", "npm:0.18.2"],\
+          ["esbuild-wasm", "npm:0.18.3"],\
           ["eslint", "npm:8.42.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["events", "npm:3.3.0"],\
@@ -2599,7 +2599,7 @@ const RAW_RUNTIME_STATE =
           ["ts-md5", "npm:1.3.1"],\
           ["ts-node", null],\
           ["tslib", "npm:2.5.3"],\
-          ["type-fest", "npm:3.11.1"],\
+          ["type-fest", "npm:3.12.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["util", "npm:0.12.5"],\
           ["uuid", "npm:9.0.0"],\
@@ -2658,7 +2658,7 @@ const RAW_RUNTIME_STATE =
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.2"],\
           ["detective-typescript", "npm:11.1.0"],\
-          ["esbuild-wasm", "npm:0.18.2"],\
+          ["esbuild-wasm", "npm:0.18.3"],\
           ["eslint", "npm:8.42.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["events", "npm:3.3.0"],\
@@ -2700,7 +2700,7 @@ const RAW_RUNTIME_STATE =
           ["ts-jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.1.0"],\
           ["ts-md5", "npm:1.3.1"],\
           ["tslib", "npm:2.5.3"],\
-          ["type-fest", "npm:3.11.1"],\
+          ["type-fest", "npm:3.12.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["util", "npm:0.12.5"],\
           ["uuid", "npm:9.0.0"],\
@@ -2722,8 +2722,8 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/code", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#workspace:packages/code"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
-          ["esbuild-wasm", "npm:0.18.2"],\
-          ["esm-worker", "npm:0.125.0"],\
+          ["esbuild-wasm", "npm:0.18.3"],\
+          ["esm-worker", "npm:0.126.0"],\
           ["immutable", "npm:4.3.0"],\
           ["p-map", "npm:6.0.0"],\
           ["p-queue", "npm:7.3.4"],\
@@ -2749,7 +2749,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
           ["@types/node", "npm:20.3.1"],\
-          ["esbuild-wasm", "npm:0.18.2"]\
+          ["esbuild-wasm", "npm:0.18.3"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2846,7 +2846,7 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
           ["@cloudflare/workers-types", "npm:4.20230518.0"],\
-          ["esbuild-wasm", "npm:0.18.2"],\
+          ["esbuild-wasm", "npm:0.18.3"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["wrangler", "npm:3.1.0"]\
         ],\
@@ -6314,10 +6314,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["esbuild-wasm", [\
-      ["npm:0.18.2", {\
-        "packageLocation": "./.yarn/global/cache/esbuild-wasm-npm-0.18.2-71361e778b-9.zip/node_modules/esbuild-wasm/",\
+      ["npm:0.18.3", {\
+        "packageLocation": "./.yarn/global/cache/esbuild-wasm-npm-0.18.3-0378f5edc3-9.zip/node_modules/esbuild-wasm/",\
         "packageDependencies": [\
-          ["esbuild-wasm", "npm:0.18.2"]\
+          ["esbuild-wasm", "npm:0.18.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6485,10 +6485,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["esm-worker", [\
-      ["npm:0.125.0", {\
-        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.125.0-85849066eb-9.zip/node_modules/esm-worker/",\
+      ["npm:0.126.0", {\
+        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.126.0-0d695ab3cd-9.zip/node_modules/esm-worker/",\
         "packageDependencies": [\
-          ["esm-worker", "npm:0.125.0"]\
+          ["esm-worker", "npm:0.126.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10557,7 +10557,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/workers-types", "npm:4.20230518.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.1"],\
           ["@isomorphic-git/lightning-fs", "npm:4.6.0"],\
-          ["@playwright/test", "npm:1.35.0"],\
+          ["@playwright/test", "npm:1.35.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:8.40.2"],\
           ["@types/react", "npm:18.2.12"],\
@@ -10573,7 +10573,7 @@ const RAW_RUNTIME_STATE =
           ["execa", "npm:7.1.1"],\
           ["localforage", "npm:1.10.0"],\
           ["monaco-editor", "npm:0.39.0"],\
-          ["playwright", "npm:1.35.0"],\
+          ["playwright", "npm:1.35.1"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["util", "npm:0.12.5"],\
@@ -11595,20 +11595,20 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["playwright", [\
-      ["npm:1.35.0", {\
-        "packageLocation": "./.yarn/unplugged/playwright-npm-1.35.0-bc187ac2e6/node_modules/playwright/",\
+      ["npm:1.35.1", {\
+        "packageLocation": "./.yarn/unplugged/playwright-npm-1.35.1-95370832b7/node_modules/playwright/",\
         "packageDependencies": [\
-          ["playwright", "npm:1.35.0"],\
-          ["playwright-core", "npm:1.35.0"]\
+          ["playwright", "npm:1.35.1"],\
+          ["playwright-core", "npm:1.35.1"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["playwright-core", [\
-      ["npm:1.35.0", {\
-        "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.35.0-887829e564/node_modules/playwright-core/",\
+      ["npm:1.35.1", {\
+        "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.35.1-69a99ef963/node_modules/playwright-core/",\
         "packageDependencies": [\
-          ["playwright-core", "npm:1.35.0"]\
+          ["playwright-core", "npm:1.35.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13991,10 +13991,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:3.11.1", {\
-        "packageLocation": "./.yarn/global/cache/type-fest-npm-3.11.1-96f477e7ef-9.zip/node_modules/type-fest/",\
+      ["npm:3.12.0", {\
+        "packageLocation": "./.yarn/global/cache/type-fest-npm-3.12.0-786f0faba8-9.zip/node_modules/type-fest/",\
         "packageDependencies": [\
-          ["type-fest", "npm:3.11.1"]\
+          ["type-fest", "npm:3.12.0"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -1573,19 +1573,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.35.0":
-  version: 1.35.0
-  resolution: "@playwright/test@npm:1.35.0"
+"@playwright/test@npm:1.35.1":
+  version: 1.35.1
+  resolution: "@playwright/test@npm:1.35.1"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.35.0"
+    playwright-core: "npm:1.35.1"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 9497ab42d7df1197632bba59d804e76f38099e4b712a6a432259fb24e17d49d2de4c39668a7ffd138d7e21c90a3fb39fb179151ac156525222e4069fc0ab3804
+  checksum: e8fe56ff3bdcaedaffa36b773ef2212827267f9667a516dcd0d6caf3713415ab2c55645211e57f38ff38849a7884fd3cd8a1272ee85cee899ea0682380c23bf2
   languageName: node
   linkType: hard
 
@@ -1668,7 +1668,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.18.2"
+    esbuild-wasm: "npm:0.18.3"
   languageName: unknown
   linkType: soft
 
@@ -1681,8 +1681,8 @@ __metadata:
     "@spike-land/code": "npm:0.9.3"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.18.2"
-    esm-worker: "npm:^0.125.0"
+    esbuild-wasm: "npm:0.18.3"
+    esm-worker: "npm:^0.126.0"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
@@ -1735,7 +1735,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.18.2"
+    esbuild-wasm: "npm:0.18.3"
     eslint: "npm:8.42.0"
     eslint-plugin-react: "npm:7.32.2"
     events: "npm:3.3.0"
@@ -1777,7 +1777,7 @@ __metadata:
     ts-jest: "npm:^29.1.0"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.5.3"
-    type-fest: "npm:^3.11.1"
+    type-fest: "npm:^3.12.0"
     typescript: "npm:5.1.3"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
@@ -1803,7 +1803,7 @@ __metadata:
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.3.1"
-    esbuild-wasm: "npm:0.18.2"
+    esbuild-wasm: "npm:0.18.3"
   languageName: unknown
   linkType: soft
 
@@ -1875,7 +1875,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230518.0"
-    esbuild-wasm: "npm:0.18.2"
+    esbuild-wasm: "npm:0.18.3"
     typescript: "npm:5.1.3"
     wrangler: "npm:3.1.0"
   languageName: unknown
@@ -4733,12 +4733,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.18.2":
-  version: 0.18.2
-  resolution: "esbuild-wasm@npm:0.18.2"
+"esbuild-wasm@npm:0.18.3":
+  version: 0.18.3
+  resolution: "esbuild-wasm@npm:0.18.3"
   bin:
     esbuild: bin/esbuild
-  checksum: 738d4a91bf62e4c04bda0cf3d2812bfd39a4f0ae3efe7e2a4fa33e9533d4a5ee7dfa48844776d5e98c5311a76e899899928732ffd69ed2ba06ca5c31e7700578
+  checksum: 5755fa2aa2c69a8cc56c8346e45761b0712165d1b41ec46b3fe84f3ed4ea6fc8b52fbba7bcb18ed6c1ef36962d08955bf9b7bc4e40e371df9db2addbf95e4327
   languageName: node
   linkType: hard
 
@@ -4962,10 +4962,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-worker@npm:^0.125.0":
-  version: 0.125.0
-  resolution: "esm-worker@npm:0.125.0"
-  checksum: f91e17258f7901104648b0266eaf60d59590672def01aaabc7c35a1712e42eb6a6fbbe3f7aba21ec6fa6e6d59e693dee2dfbb75ffdd2c3abc3e67d26595da57b
+"esm-worker@npm:^0.126.0":
+  version: 0.126.0
+  resolution: "esm-worker@npm:0.126.0"
+  checksum: 6bc02bdf50065d46fcf7c9791d0b56e04a0e18a2ee993dfd69d3464b956fa5374c44da5c20085bc48b92f98cfc9e89e3f75c4166bd9a8d1c66329be483944f16
   languageName: node
   linkType: hard
 
@@ -8556,7 +8556,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230518.0"
     "@emotion/react": "npm:11.11.1"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.35.0"
+    "@playwright/test": "npm:1.35.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.40.2"
     "@types/react": "npm:18.2.12"
@@ -8572,7 +8572,7 @@ __metadata:
     execa: "npm:^7.1.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.39.0"
-    playwright: "npm:1.35.0"
+    playwright: "npm:1.35.1"
     react: "npm:18.2.0"
     typescript: "npm:5.1.3"
     util: "npm:0.12.5"
@@ -9478,23 +9478,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.35.0":
-  version: 1.35.0
-  resolution: "playwright-core@npm:1.35.0"
+"playwright-core@npm:1.35.1":
+  version: 1.35.1
+  resolution: "playwright-core@npm:1.35.1"
   bin:
     playwright-core: cli.js
-  checksum: 1d13dd07039ebeb8d8bcbd9d548987116e70f39e4d8f5b59fd187bb444216e50153e4d22c4373935fc7c8a1781370229df1045cfbba9f0ad557a50c812e11346
+  checksum: 5b1ad6c8b3c86f3167169028f226d19c1967f1979d422e976196553358279c4e2dc305a5b6d72b304ce917599706defa4ed64812dc1935b0ac1b8fa8b8f4559e
   languageName: node
   linkType: hard
 
-"playwright@npm:1.35.0":
-  version: 1.35.0
-  resolution: "playwright@npm:1.35.0"
+"playwright@npm:1.35.1":
+  version: 1.35.1
+  resolution: "playwright@npm:1.35.1"
   dependencies:
-    playwright-core: "npm:1.35.0"
+    playwright-core: "npm:1.35.1"
   bin:
     playwright: cli.js
-  checksum: dc18dfdd4a0c87790f1c7c409effd51126782c3a5e6ec397e745e9ef52ec4a63b72c199a8b1fff9321038ec85e1d00f9a667afcc47f86d6fc78e344fe1f9d69e
+  checksum: 014a1a2178713ed59103583b8d636dabf00b96cd0bab8ed0d1d4c19b408182cfe73feb32398d407447081dc7d2bffd69c5fff0e3267b23483bcc7f54885842ed
   languageName: node
   linkType: hard
 
@@ -11512,10 +11512,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^3.11.1":
-  version: 3.11.1
-  resolution: "type-fest@npm:3.11.1"
-  checksum: fbd1286256aea3dc445022e03bf557a659091546bec56c8da3bb94fc1c70a28e798a54b5be846591d7866b7e180dec9a0b198a70896f3db00d791c1c638d2d82
+"type-fest@npm:^3.12.0":
+  version: 3.12.0
+  resolution: "type-fest@npm:3.12.0"
+  checksum: 4272f157b6dcc98151e2a0bcb97f5b271115515528aa92046d1cd91699830b54f5e86f4bf55ff4505471c1434630b71f4fd1ecab0b8b2b8dfb3a05869bdf4272
   languageName: node
   linkType: hard
 
