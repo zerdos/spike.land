@@ -208,12 +208,13 @@ async function handleFetchApi(
           if (request.url.indexOf(".wasm") !== -1) {
             headers.append("Content-Type", "application/wasm");
           }
+
           headers.append("Cross-Origin-Embedder-Policy", "require-corp");
           const contentType = headers.get("Content-type");
 
           if (
             request.url.indexOf(".wasm") === -1
-            && request.url.indexOf(".ts.worker") === -1
+            && !request.url.endsWith(".map") && request.url.indexOf(".worker") === -1
             && (contentType && contentType.indexOf("charset"))
           ) {
             try {

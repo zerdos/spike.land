@@ -112,24 +112,24 @@ const monacoContribution = (code: string) => {
 
 self.MonacoEnvironment = {
   baseUrl: originToUse,
-  getWorkerUrl: (_: string, label: string) => {
+  getWorker: async (_: string, label: string) => {
     if (label === "json") {
-      return `${originToUse}/language/json/json.js`;
+      return (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker.js?worker`)).default();
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-      return `${originToUse}/language/css/css.js`;
+      return (await import(`${originToUse}//monaco-editor/esm/vs/language/css/css.worker.js?worker`)).default();
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
-      return `${originToUse}/language//html/html.js`;
+      return (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker.js?worker`)).default();
     }
 
     if (label === "typescript" || label === "javascript") {
-      return `${originToUse}/language/typescript/ts.js`;
+      return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker`)).default();
     }
 
-    return `${originToUse}/editor/editor.js`;
+    return (await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker`)).default();
   },
 };
 

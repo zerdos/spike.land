@@ -74,5 +74,6 @@ export function importMapReplace(code: string, origin: string): string {
     );
   });
 
-  return replaced;
+  return `/****\n${JSON.stringify({ importMapReplace: new Date().toISOString() })}\n****/\n\n` + replaced;
+  replaced;
 }

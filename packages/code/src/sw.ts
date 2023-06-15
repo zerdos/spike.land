@@ -22,7 +22,6 @@ declare const self:
 export type {};
 
 import { resetCSS } from "./getResetCss";
-import { importMapReplace } from "./importMapReplace";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
@@ -163,10 +162,8 @@ const fakeBackend = async (request: Request) => {
             `${url.origin}/live/${codeSpace}/index.js`,
           ).then((x) => x.text()),
           (async () => {
-            const trp = importMapReplace(
-              await transpile({ code, originToUse: location.origin }),
-              location.origin,
-            );
+            const trp = await transpile({ code, originToUse: location.origin });
+
             await mkdir(`/live/${codeSpace}`);
             await writeFile(
               `/live/${codeSpace}/index.js`,
