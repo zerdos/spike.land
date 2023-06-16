@@ -3402,16 +3402,16 @@ __metadata:
   linkType: hard
 
 "browserslist@npm:^4.21.3":
-  version: 4.21.8
-  resolution: "browserslist@npm:4.21.8"
+  version: 4.21.9
+  resolution: "browserslist@npm:4.21.9"
   dependencies:
-    caniuse-lite: "npm:^1.0.30001502"
-    electron-to-chromium: "npm:^1.4.428"
+    caniuse-lite: "npm:^1.0.30001503"
+    electron-to-chromium: "npm:^1.4.431"
     node-releases: "npm:^2.0.12"
     update-browserslist-db: "npm:^1.0.11"
   bin:
     browserslist: cli.js
-  checksum: f92a45282d603fdfb06a8282a34873774b253f3cb65228c439373c8d34df2c377154542963dd503d7489de41e9934c834faa55dc23a485c7d6b16fbd5b06c248
+  checksum: 0158082dc5c14f6db834b6d46c56fafcdfb203959467f66857dd6c4167af0f95108ed101776e020f84a2bb6771a9219bf2e4f2c35776bbc651d7deaf5d3a1f60
   languageName: node
   linkType: hard
 
@@ -3584,10 +3584,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.30001502":
-  version: 1.0.30001502
-  resolution: "caniuse-lite@npm:1.0.30001502"
-  checksum: 3dc7ce2d32dc43a90f1f76e4966017f573e374211d8962fd062b5bf994ada8c155ad9fe3b7b33f69dff46446acc71e207b47b7474fa5694f802f4301aba3f07e
+"caniuse-lite@npm:^1.0.30001503":
+  version: 1.0.30001503
+  resolution: "caniuse-lite@npm:1.0.30001503"
+  checksum: 9db53cb56a20a5c34685199e1df1c265d0a5f977d481f0c61c347e1758c1cc685002c22c0a0bf472e5449def46145402f5365ba98c29eef9cc118b884beab5cb
   languageName: node
   linkType: hard
 
@@ -4554,10 +4554,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.4.428":
-  version: 1.4.428
-  resolution: "electron-to-chromium@npm:1.4.428"
-  checksum: afcb4da7a31a5193e4a9cc84817644e322b8bd06ea03e7e1dff0e25b50d27207c89e00b5091430300590be9134baeab17f69f7bc7ddd31f92a4086bb50a78c9f
+"electron-to-chromium@npm:^1.4.431":
+  version: 1.4.431
+  resolution: "electron-to-chromium@npm:1.4.431"
+  checksum: 56d4b8650d9555e933b92d03fca54187857f3cfda8ba83fc1fb4aa7e4baa13e9b903856bb94177cd0b44f2f464a2cafb02408c8f136230c1468a3ca42509c73b
   languageName: node
   linkType: hard
 
@@ -10408,13 +10408,13 @@ __metadata:
   linkType: hard
 
 "semver@npm:7.x, semver@npm:^7.1.2, semver@npm:^7.3.2, semver@npm:^7.3.5, semver@npm:^7.3.7":
-  version: 7.5.1
-  resolution: "semver@npm:7.5.1"
+  version: 7.5.2
+  resolution: "semver@npm:7.5.2"
   dependencies:
     lru-cache: "npm:^6.0.0"
   bin:
     semver: bin/semver.js
-  checksum: 20fce7894334634f553a64334b21fa2dc7cccd08a5f31122c187f1c1d3e45b8fc47d599d3fa52342c3fb3ee0bd139a8fbd41bc5b9e849ada8f7e7cc91b18a180
+  checksum: 896fab94563f3e4187b57a883e2efab277488bf4bd823d7794410435c39a1191830ae366470baad3430f74a555534d06cfc85c3e1b82f2bdeb9dd34edc980189
   languageName: node
   linkType: hard
 

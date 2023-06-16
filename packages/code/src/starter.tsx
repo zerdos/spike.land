@@ -51,17 +51,18 @@ export async function appFactory(
 
     const App = (await import(createJsBlob(trp)))
       .default;
+    return App;
 
-    return ({ width, height, top, left }) => (
-      <CacheProvider key={hash} value={cache}>
-        <App
-          {...(width ? { width } : { width: window.innerWidth })}
-          {...(height ? { height } : { height: window.innerHeight })}
-          {...(top ? { top } : { top: 0 })}
-          {...(left ? { left } : { left: 0 })}
-        />
-      </CacheProvider>
-    );
+    // return ({ width, height, top, left }) => (
+    //   <CacheProvider key={hash} value={cache}>
+    //     <App
+    //       {...(width ? { width } : { width: window.innerWidth })}
+    //       {...(height ? { height } : { height: window.innerHeight })}
+    //       {...(top ? { top } : { top: 0 })}
+    //       {...(left ? { left } : { left: 0 })}
+    //     />
+    //   </CacheProvider>
+    //  );
   } catch (error) {
     if (error instanceof SyntaxError) {
       const name = error.name;

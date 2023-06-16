@@ -18,27 +18,27 @@ runtime.injectIntoGlobalHook(window);
 
 // BEFORE EVERY MODULE EXECUTES
 
-function reFresh() {
-  var prevRefreshReg = window.$RefreshReg$;
-  var prevRefreshSig = window.$RefreshSig$;
-  var RefreshRuntime = require("react-refresh/runtime");
+// function reFresh() {
+//   var prevRefreshReg = window.$RefreshReg$;
+//   var prevRefreshSig = window.$RefreshSig$;
+//   var RefreshRuntime = require("react-refresh/runtime");
 
-  window.$RefreshReg$ = (type, id) => {
-    // Note module.id is webpack-specific, this may vary in other bundlers
-    const fullId = module.id + " " + id;
-    RefreshRuntime.register(type, fullId);
-  };
-  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+//   window.$RefreshReg$ = (type, id) => {
+//     // Note module.id is webpack-specific, this may vary in other bundlers
+//     const fullId = module.id + " " + id;
+//     RefreshRuntime.register(type, fullId);
+//   };
+//   window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
 
-  try {
-    // !!!
-    // ...ACTUAL MODULE SOURCE CODE...
-    // !!!
-  } finally {
-    window.$RefreshReg$ = prevRefreshReg;
-    window.$RefreshSig$ = prevRefreshSig;
-  }
-}
+//   try {
+//     // !!!
+//     // ...ACTUAL MODULE SOURCE CODE...
+//     // !!!
+//   } finally {
+//     window.$RefreshReg$ = prevRefreshReg;
+//     window.$RefreshSig$ = prevRefreshSig;
+//   }
+// }
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
@@ -57,127 +57,141 @@ const mod: {
 } = {};
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
-  if (data.i) {
-    if (i >= data.i) return;
-    console.log("rerender", { i: data.i });
-    i = data.i;
+  try {
+    if (data.i) {
+      if (i >= data.i) return;
+      console.log("rerender", { i: data.i });
+      i = data.i;
 
-    controller.abort();
-    controller = new AbortController();
-    const signal = controller.signal;
+      controller.abort();
+      controller = new AbortController();
+      const signal = controller.signal;
 
-    const el = document.createElement("div");
-    el.style.opacity = "0";
-    el.style.height = "100%";
-    document.body.appendChild(el);
+      const el = document.createElement("div");
+      el.style.opacity = "0";
+      console.log(location.href);
+      console.log(`el opacity: 0`, { el });
 
-    const myRoot = createRoot(el);
+      el.style.height = "100%";
+      document.body.appendChild(el);
 
-    const indexMjs = await stat(`/live/${codeSpace}/index.mjs`);
+      const myRoot = createRoot(el);
 
-    let AppBundled: typeof AppTranspiled;
+      const indexMjs = await stat(`/live/${codeSpace}/index.mjs`);
 
-    const AppTranspiled = (await (data.transpiled ? appFactory(data.transpiled) : import(
-      `${location.origin}/live/${codeSpace}/index.js?i=${data.i}`
-    ))).default;
+      let AppBundled: typeof AppTranspiled;
 
-    if (indexMjs) {
-      try {
-        AppBundled = (await import(
-          `${location.origin}/live/${codeSpace}/index.mjs`
-        )).default;
-      } catch {
-        AppBundled = null;
+      const AppTranspiled = data.transpiled ? await appFactory(data.transpiled) : (await (import(
+        `${location.origin}/live/${codeSpace}/index.js?i=${data.i}`
+      ))).default;
+
+      if (indexMjs) {
+        try {
+          AppBundled = (await import(
+            `${location.origin}/live/${codeSpace}/index.mjs`
+          )).default;
+        } catch {
+          AppBundled = null;
+        }
       }
-    }
+      root.unmount();
+      await wait(5);
+      const App = AppBundled || AppTranspiled;
+      if (signal.aborted) return;
+      if (data.i !== i) return;
 
-    const App = AppBundled || AppTranspiled;
-    if (signal.aborted) return;
-    if (data.i !== i) return;
+      const cache = createCache({
+        key: "css",
+        speedy: false,
+      });
 
-    myRoot.render(
-      <ParentSize>
-        {({ width, height, top, left, ref }) => (
-          <App
-            {...(width ? { width } : {})}
-            {...(height ? { height } : {})}
-            {...(top ? { top } : {})}
-            {...(left ? { left } : {})}
-            {...(ref ? { ref } : {})}
-          />
-        )}
-      </ParentSize>,
-    );
+      cache.compat = undefined;
+      myRoot.render(
+        <CacheProvider value={cache}>
+          <ParentSize>
+            {({ width, height, top, left }) => (
+              <App
+                {...(width ? { width } : { width: window.innerWidth })}
+                {...(height ? { height } : { height: window.innerHeight })}
+                {...(top ? { top } : { top: 0 })}
+                {...(left ? { left } : { left: 0 })}
+              />
+            )}
+          </ParentSize>
+        </CacheProvider>,
+      );
 
-    // //(await import(
-    //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
-    // )).default;
-    // const rootEl = document.createElement("div");
-    // rootEl.style.height = "100%";
+      // //(await import(
+      //   createJsBlob(importMapReplace(data.transpiled, origin, origin))
+      // )).default;
+      // const rootEl = document.createElement("div");
+      // rootEl.style.height = "100%";
 
-    // const root = createRoot(rootEl);
-    const m = mod[i] || {
-      i,
-      signal,
-      root: myRoot,
-      rootEl: el,
-      retry: 100,
-    };
-    // const r = createRoot(newRoot);
+      // const root = createRoot(rootEl);
+      const m = mod[i] || {
+        i,
+        signal,
+        root: myRoot,
+        rootEl: el,
+        retry: 100,
+      };
+      // const r = createRoot(newRoot);
 
-    if (m.signal.aborted) {
-      m.root.unmount();
-      m.rootEl.remove();
-    }
-
-    // check(myMod);
-
-    // async function check(m: typeof mod[0]) {
-    // ReactDOM.flushSync(() => {
-
-    while (m.retry--) {
-      if (signal.aborted) {
+      if (m.signal.aborted) {
         m.root.unmount();
         m.rootEl.remove();
-        // root.unmount();
-        return;
       }
-      const html = m.rootEl.innerHTML;
-      if (html) {
-        const css = mineFromCaches({ key: "css" } as EmotionCache, html);
-        try {
+
+      // check(myMod);
+
+      // async function check(m: typeof mod[0]) {
+      // ReactDOM.flushSync(() => {
+
+      while (m.retry--) {
+        if (signal.aborted) {
+          m.root.unmount();
+          m.rootEl.remove();
           // root.unmount();
-          console.log({ html, css, i: m.i });
-          // document.getElementById("root")?.appendChild(newRoot);
+          return;
+        }
+        const html = m.rootEl.innerHTML;
+        if (html) {
+          const css = mineFromCaches({ key: "css" } as EmotionCache, html);
+          try {
+            // root.unmount();
+            console.log({ html, css, i: m.i });
+            // document.getElementById("root")?.appendChild(newRoot);
+            // root.unmount();
+            // root = r;
+
+            // root = m.root;
+
+            m.rootEl.style.opacity = "1";
+            m.rootEl.style.height = "100%";
+            //        rootEl = m.rootEl;
+            document.getElementById("root")?.remove();
+
+            m.rootEl.id = "root";
+          } catch (e) {
+            "some error";
+          }
+          if (!data.html) {
+            BC.postMessage({
+              ...data,
+              html,
+              css,
+            });
+          }
+          controller.abort();
           // root.unmount();
-          // root = r;
-          root.unmount();
-
-          // root = m.root;
-
-          m.rootEl.style.opacity = "1";
-          m.rootEl.style.height = "100%";
-          //        rootEl = m.rootEl;
-          document.getElementById("root")?.remove();
-
-          m.rootEl.id = "root";
-        } catch (e) {
-          "some error";
+          return;
         }
-        if (!data.html) {
-          BC.postMessage({
-            ...data,
-            html,
-            css,
-          });
-        }
-        controller.abort();
-        // root.unmount();
-        return;
+        await wait(1);
       }
-      await wait(1);
+      return;
     }
-    return;
+  } catch (error) {
+    console.error("Error during rerendering:", error);
   }
 }
 
@@ -189,7 +203,6 @@ globalThis.firstRender = globalThis.firstRender || {
 };
 
 let __rootEl: HTMLElement;
-BC.onmessage = ({ data }) => data.html && data.i && rerender(data);
 
 export const render = async (
   _rootEl: HTMLElement,
@@ -223,18 +236,26 @@ export const render = async (
 
   root = root || createRoot(_rootEl);
   if (root) {
+    const cache = createCache({
+      key: "css",
+      speedy: false,
+    });
+
+    cache.compat = undefined;
+
     root.render(
-      <ParentSize>
-        {({ width, height, top, left, ref }) => (
-          <App
-            {...(width ? { width } : { width: window.innerWidth })}
-            {...(height ? { height } : { height: window.innerHeight })}
-            {...(top ? { top } : { top: 0 })}
-            {...(left ? { left } : { left: 0 })}
-            {...(ref ? { ref } : {})}
-          />
-        )}
-      </ParentSize>,
+      <CacheProvider value={cache}>
+        <ParentSize>
+          {({ width, height, top, left }) => (
+            <App
+              {...(width ? { width } : { width: window.innerWidth })}
+              {...(height ? { height } : { height: window.innerHeight })}
+              {...(top ? { top } : { top: 0 })}
+              {...(left ? { left } : { left: 0 })}
+            />
+          )}
+        </ParentSize>
+      </CacheProvider>,
     );
     return;
   }
@@ -321,17 +342,25 @@ export const prerender = async (
   _rootEl.parentElement;
 
   root = root || createRoot(el);
+  const cache = createCache({
+    key: "css",
+    speedy: false,
+  });
+
+  cache.compat = undefined;
   root.render(
-    <ParentSize>
-      {({ width, height, top, left }) => (
-        <App
-          {...(width ? { width } : { width: window.innerWidth })}
-          {...(height ? { height } : { height: window.innerHeight })}
-          {...(top ? { top } : { top: 0 })}
-          {...(left ? { left } : { left: 0 })}
-        />
-      )}
-    </ParentSize>,
+    <CacheProvider value={cache}>
+      <ParentSize>
+        {({ width, height, top, left }) => (
+          <App
+            {...(width ? { width } : { width: window.innerWidth })}
+            {...(height ? { height } : { height: window.innerHeight })}
+            {...(top ? { top } : { top: 0 })}
+            {...(left ? { left } : { left: 0 })}
+          />
+        )}
+      </ParentSize>
+    </CacheProvider>,
   );
 
   let i = 100;
@@ -386,10 +415,12 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
 }
 
 if (
-  location.pathname.endsWith("/iframe") || location.pathname.endsWith("/")
+  location.pathname.endsWith("/iframe")
+  || location.pathname.endsWith("/")
   || location.pathname.endsWith("/public")
 ) {
   window.onmessage = async ({ data }) => {
     rerender(data);
   };
+  BC.onmessage = ({ data }) => data.html && data.i && rerender(data);
 }

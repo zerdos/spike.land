@@ -1,54 +1,35 @@
 import { css } from "@emotion/react";
 import { MotionConfig } from "framer-motion";
+import { createDomMotionComponent } from "framer-motion";
 import type { FC } from "react";
 import { useLayoutEffect, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
-import { QRButton } from "./Qr.lazy";
-
-import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
-
 import { Phone, Share, Tablet, Tv } from "./icons";
-
-import { createDomMotionComponent } from "framer-motion";
+import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
+import { QRButton } from "./Qr.lazy";
 
 const motion = {
   div: createDomMotionComponent("div"),
 };
-// import { wait } from "./wait";
-// const innerWidth =
 
 const breakPoints = [
   innerWidth < 750 ? innerWidth : 750,
   (innerWidth < 1025 && innerWidth > 750) ? innerWidth : 1024,
   innerWidth > 1024 ? innerWidth : 1920,
 ];
-// const breakPointHeights = [1335, 1366, 1080];
 
 const sizes = [10, 25, 50, 75, 100];
 
 type DraggableWindowProps = {
-  // OnRestore: (() => void);
   children: JSX.Element;
   codeSpace: string;
 };
 
-export const DraggableWindow: FC<DraggableWindowProps> = (
-  {
-    // OnRestore,
-    children,
-    codeSpace,
-    // HashCode,
-  },
-) => {
+export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
   const [scaleRange, changeScaleRange] = useState(100);
   const [delay, _setDelay] = useState(2);
-
-  // const [maxScaleRange, changeMaxScaleRange] = useState(100);
   const maxScaleRange = 100;
-  // globalThis.iRef = iRef;
-
   const startPositions = { bottom: 0, right: 0 };
-
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const [width, setWidth] = useState(innerWidth);
   const scale = scaleRange / 100;
@@ -57,12 +38,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     const reveal = () => {
       changeScaleRange(Math.min(50, 50 / 1 / (1 / devicePixelRatio)));
       setWidth(innerWidth);
-
       setPositions({
         bottom: 20,
         right: 20,
       });
-
       setTimeout(() => {
         _setDelay(0);
       }, 2000);
@@ -79,16 +58,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     .slice(4, -1).split(",")
     .slice(0, 4)
     .map((x) => Number(x) || 0);
-
   const [bg, setBG] = useState(bgColor);
-
   const [r, g, b, a] = bg;
-
   const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
 
   useLayoutEffect(() => {
     const intervalHandler = setInterval(() => {
-      // setCSS(mST().css);
       const bgColor = getComputedStyle(
         document.body,
         null,
@@ -96,15 +71,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         .slice(4, -1).split(",")
         .slice(0, 4)
         .map((x) => Number(x) || 0);
-
       if (JSON.stringify(bg) !== JSON.stringify(bgColor)) setBG(bgColor);
     }, 1000 / 2);
     return () => clearInterval(intervalHandler);
   }, []);
 
   const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
-
   const type = sessionStorage?.getItem("type") || "spring";
+
   return (
     <MotionConfig transition={{ delay, type, duration }}>
       <motion.div
@@ -179,12 +153,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                     >
                       <span
                         css={css`
-                       color: ${
+                        color: ${
                           size === scaleRange
                             ? "var(--text-color-highlight)"
                             : "var(--text-color-normal)"
                         };
-                       `}
+                        `}
                       >
                         {size}%
                       </span>
@@ -196,9 +170,9 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               transition={{ scale: { type: "spring" } }}
               css={css`
                 display: block;
-                 border-radius: 8px;
-                 background-color: ${rgba(r, g, b, 0.7)};
-               `}
+                border-radius: 8px;
+                background-color: ${rgba(r, g, b, 0.7)};
+              `}
               initial={{
                 height: window.innerHeight,
                 width: window.innerWidth,
@@ -213,16 +187,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                   zoom: { type: "spring" },
                 }}
                 css={css`
-              transform-origin:top left;
-                
-                display: inline-block;
-                height:  100%; 
-                 width: 100%; 
-                 border-radius: 8px;
-                 background-color: ${rgba(r, g, b, 0.7)};
-                 overflow: hidden;
-                 
-               `}
+                  transform-origin:top left;
+                  display: inline-block;
+                  height:  100%; 
+                  width: 100%; 
+                  border-radius: 8px;
+                  background-color: ${rgba(r, g, b, 0.7)};
+                  overflow: hidden;
+                `}
                 initial={{
                   scale: 1,
                 }}
@@ -238,9 +210,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
             <motion.div
               layout
               css={css`
-              overflow: hidden;
-              display: flex;
-              justify-content: space-evenly;`}
+                overflow: hidden;
+                display: flex;
+                justify-content: space-evenly;
+              `}
               initial={{ height: "0px", width: "0%" }}
               animate={{
                 height: "42px",
@@ -266,12 +239,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                       ? (
                         <span
                           css={css`
-                        color: ${
+                            color: ${
                             width === breakPoints[0]
                               ? "var(--text-color-highlight)"
                               : "var(--text-color-normal)"
                           };
-                        `}
+                          `}
                         >
                           <Phone />
                         </span>
@@ -280,12 +253,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         ? (
                           <span
                             css={css`
-                        color: ${
+                              color: ${
                               width === breakPoints[1]
                                 ? "var(--text-color-highlight)"
                                 : "var(--text-color-normal)"
                             };
-                        `}
+                            `}
                           >
                             <Tablet />
                           </span>
@@ -293,12 +266,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                         : (
                           <span
                             css={css`
-                        color: ${
+                              color: ${
                               width === breakPoints[2]
                                 ? "var(--text-color-highlight)"
                                 : "var(--text-color-normal)"
                             };
-                      `}
+                            `}
                           >
                             <Tv />
                           </span>
@@ -308,7 +281,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               </ToggleButtonGroup>
             </motion.div>
           </div>
-
           <motion.div
             layout
             css={css`overflow: hidden;`}
@@ -317,11 +289,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           >
             <div
               css={css`
-              padding: 16px;
-              display: flex;
-              overflow: "hidden";
-              align-items: center;          
-              flex-direction: column;
+                padding: 16px;
+                display: flex;
+                overflow: "hidden";
+                align-items: center;          
+                flex-direction: column;
               `}
             >
               <Fab
@@ -332,17 +304,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               >
                 <span
                   css={css`
-                font-size: 20pt;
-              `}
+                    font-size: 20pt;
+                  `}
                 >
                   <FullscreenIcon key="fs" />
                 </span>
               </Fab>
-
               <QRButton
                 url={`${location.origin}/live/${codeSpace}/public`}
               />
-
               <Fab
                 key="Share"
                 onClick={() => open(`/live/${codeSpace}/public`)}
