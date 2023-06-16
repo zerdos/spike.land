@@ -1,7 +1,7 @@
-import { build, initialize } from "esbuild-wasm";
+import { initialize } from "esbuild-wasm";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
-import { buildT } from "../../code/src/esbuildEsmBuild";
-import { transpile } from "../../code/src/transpile";
+// import { buildT } from "../../code/src/esbuildEsmBuild";
+import { build, transpile } from "../../code/src/transpile";
 import ASSET_HASH from "./dist.shasum";
 
 // import wasmModule from "./esbuild-wasm/esbuild.wasm";
@@ -55,12 +55,7 @@ export default {
 
     if (request.method === "GET") {
       return new Response(
-        await buildT(
-          code,
-          { bundle: true },
-          origin,
-          { esbuildBuild: build, initialize },
-        ),
+        await build({ code, origin, wasmModule }),
       ),
         {
           headers: {

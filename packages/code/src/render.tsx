@@ -100,7 +100,7 @@ export const render = async (
   if (!App) {
     try {
       App = (await import(
-        `${location.origin}/live/${codeSpace}/index.js`
+        `${location.origin}/live/${codeSpace}/index.mjs`
       )).default;
     } catch (err) {
       App = () => (

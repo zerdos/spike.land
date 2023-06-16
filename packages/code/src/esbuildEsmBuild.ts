@@ -8,7 +8,6 @@ import {
   type TransformOptions,
   version,
 } from "esbuild-wasm";
-import { importMap } from "./importMap";
 
 // import impMap from "./importMap.json";
 //
@@ -17,7 +16,7 @@ import { importMap } from "./importMap";
 import { fetchPlugin } from "./fetchPlugin";
 import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
-import { unpkgPathPlugin } from "./unpkg-path-plugin";
+// import { unpkgPathPlugin } from "./unpkg-path-plugin";
 import { wait } from "./wait";
 // import { transpile } from "./transpile";
 
@@ -168,8 +167,8 @@ export const buildT = async (
       ".ttf",
     ],
     loader: {
-      ".js": "js",
-      ".mjs": "js",
+      ".js": "tsx",
+      ".mjs": "ts",
       ".json": "json",
       ".tsx": "tsx",
       ".css": "css",
@@ -177,46 +176,37 @@ export const buildT = async (
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    external: Object.keys(importMap.imports),
 
     // metafile: false,
     // alias: {
     //  ...importMap.imports,
     // },
 
-    target: "es2020",
-    outdir: `./live/${codeSpace}`,
+    target: "es2021",
+    outdir: `${location.origin}/live/${codeSpace}/`,
     treeShaking: true,
-    minify: false,
+    minify: true,
 
     define: define,
 
-    minifyIdentifiers: false,
-    minifySyntax: false,
-    minifyWhitespace: false,
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
 
-    splitting: true,
-
-    // incremental: true,
-    // jsxImportSource: "@emotion/react",
+    splitting: false,
 
     format: "esm",
+    platform: "browser",
     entryPoints: [
-      `./live/${codeSpace}/index.js`,
-      // `./live/${codeSpace}/index.tsx`,
-      // "./reactDomClient.mjs",
-      // "./emotion.mjs",
-      // "./motion.mjs",
-      // "./emotionCache.mjs",
-      // "./emotionStyled.mjs",
-      // "./reactMod.mjs",
-      // "./reactDom.mjs",
+      `${location.origin}/live/${codeSpace}/index.js`,
     ],
+    packages: "external",
 
-    plugins: [unpkgPathPlugin(origin), fetchPlugin(transformTsx)],
+    plugins: [fetchPlugin],
     ...opts,
   };
   let b: BuildResult;
+
   if (
     !signal.aborted && (b = await builder.esbuildBuild(defaultOpts))
     && !signal.aborted
@@ -232,15 +222,16 @@ export const buildT = async (
     );
 
     b.outputFiles?.map(async (f) => {
-      const file = f.path.split("/").pop()!;
+      const fPath = f.path.slice(location.origin.length);
+      const file = fPath.split("/").pop()!;
 
       if (signal.aborted) return;
       if (cs.includes(file) && file.indexOf("chunk") === -1) {
-        await unlink(f.path);
+        await unlink(fPath);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
         await writeFile(
-          f.path,
+          fPath,
           importMapReplace(f.contents as unknown as string, origin),
         );
       }
