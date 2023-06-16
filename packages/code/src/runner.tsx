@@ -64,6 +64,7 @@ export async function runner({ code, counter, signal }: {
     const transpiled = await transpile({ code, originToUse: location.origin });
 
     if (signal.aborted) return;
+
     document.querySelector("iframe")?.contentWindow?.postMessage({
       code,
       i: counter,

@@ -38,19 +38,20 @@ export async function appFactory(
   // if (!apps[hash] || !eCaches[hash]) {
   try {
     // eCaches[hash] = eCaches[hash] ||
-    const cache = createCache({
-      key: "css",
-      speedy: false,
-    });
+    // const cache = createCache({
+    //   key: "css",
+    //   speedy: false,
+    // });
 
-    cache.compat = undefined;
+    //    cache.compat = undefined;
 
     // if (terminal && terminal.clear) {r
     //   terminal.clear();
     // }
-
-    const App = (await import(createJsBlob(trp)))
+    const blobUrl = createJsBlob(trp);
+    const App = (await import(blobUrl))
       .default;
+    URL.revokeObjectURL(blobUrl);
     return App;
 
     // return ({ width, height, top, left }) => (
