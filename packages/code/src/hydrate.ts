@@ -60,7 +60,7 @@ if ("serviceWorker" in navigator) {
 // Create directories for the code space
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-mkdir("/").then(() => mkdir("/live")).then(() => mkdir(`/live/${codeSpace}`));
+mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
 
 // Check if on live page, and if so, run the code
 if (location.pathname === `/live/${codeSpace}`) {

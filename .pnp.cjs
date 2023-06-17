@@ -2480,7 +2480,7 @@ const RAW_RUNTIME_STATE =
           ["axios", "npm:1.4.0"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
-          ["dotenv", "npm:16.3.0"],\
+          ["dotenv", "npm:16.3.1"],\
           ["express", "npm:4.18.2"],\
           ["node-fetch", "npm:3.3.1"],\
           ["openai", "npm:3.3.0"],\
@@ -2541,6 +2541,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.5"],\
           ["@types/ts-node", null],\
           ["@types/uuid", "npm:9.0.2"],\
+          ["@types/wicg-file-system-access", "npm:2020.9.6"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.11"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.11"],\
           ["@typescript-eslint/typescript-estree", "virtual:784601ea30b4b965954a2324e64a05e76fd49a46c596233bfd537b8f64e9c5a6eb91dfd69bf099683c3040a59bdc588e043ec5b09f095904766a20ff03fb9cc4#npm:5.59.11"],\
@@ -2643,6 +2644,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.12"],\
           ["@types/react-dom", "npm:18.2.5"],\
           ["@types/uuid", "npm:9.0.2"],\
+          ["@types/wicg-file-system-access", "npm:2020.9.6"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.11"],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:5.59.11"],\
           ["@typescript-eslint/typescript-estree", "virtual:784601ea30b4b965954a2324e64a05e76fd49a46c596233bfd537b8f64e9c5a6eb91dfd69bf099683c3040a59bdc588e043ec5b09f095904766a20ff03fb9cc4#npm:5.59.11"],\
@@ -3305,6 +3307,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-uuid-npm-9.0.2-f2a5f65979-9.zip/node_modules/@types/uuid/",\
         "packageDependencies": [\
           ["@types/uuid", "npm:9.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/wicg-file-system-access", [\
+      ["npm:2020.9.6", {\
+        "packageLocation": "./.yarn/global/cache/@types-wicg-file-system-access-npm-2020.9.6-97b11f6f2d-9.zip/node_modules/@types/wicg-file-system-access/",\
+        "packageDependencies": [\
+          ["@types/wicg-file-system-access", "npm:2020.9.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6020,10 +6031,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dotenv", [\
-      ["npm:16.3.0", {\
-        "packageLocation": "./.yarn/global/cache/dotenv-npm-16.3.0-87ca3caa50-9.zip/node_modules/dotenv/",\
+      ["npm:16.3.1", {\
+        "packageLocation": "./.yarn/global/cache/dotenv-npm-16.3.1-e6d380a398-9.zip/node_modules/dotenv/",\
         "packageDependencies": [\
-          ["dotenv", "npm:16.3.0"]\
+          ["dotenv", "npm:16.3.1"]\
         ],\
         "linkType": "HARD"\
       }]\

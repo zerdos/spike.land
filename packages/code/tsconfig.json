@@ -65,6 +65,7 @@
       "ESNext",
       "DOM",
       "ESNext.String",
+      "ESNext.AsyncIterable",
       "DOM.Iterable",
       "WebWorker",
       "WebWorker.ImportScripts",
