@@ -1,6 +1,6 @@
 {
   "name": "@spike-land/ai-devtools",
-  "version": "1.0.0",
+  "version": "0.9.4",
   "main": "index.mjs",
   "license": "MIT",
   "scripts": {
