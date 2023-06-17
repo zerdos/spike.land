@@ -44,6 +44,7 @@ export class Code implements DurableObject {
   #wsSessions: WebsocketSession[] = [];
   #transpiled = "";
   #origin = "";
+  #mjs = "";
 
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
@@ -150,6 +151,23 @@ export class Code implements DurableObject {
         this.session.code = this.session.code.split("https://spike.land/").join(
           `${url.origin}/`,
         );
+
+        // if (this.#mjs === "") {
+        //   this.state.storage.get("mjs").
+
+        //   then((mjs) => mjs && mjs .text()).then((mjs) => this.#mjs = mjs?mjs:this.#transpiled));
+
+        //   }
+
+        // }
+
+        if (request.method === "POST") {
+          if (request.headers.has("TR_BUNDLE")) {
+            const tmp = await request.text();
+            this.#mjs = tmp;
+            this.state.storage.put("mjs", tmp);
+          }
+        }
 
         const codeSpace = url.searchParams.get("room");
 
@@ -378,7 +396,7 @@ export class Code implements DurableObject {
                 "Content-Type": "application/json; charset=UTF-8",
               },
             });
-          case "path":
+          case "path": {
             return new Response(path.join("----"), {
               status: 200,
               headers: {
@@ -388,7 +406,21 @@ export class Code implements DurableObject {
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
             });
-          case "index.mjs":
+          }
+          case "index.mjs": {
+            const resp = this.#mjs || this.#transpiled || "";
+
+            return new Response(resp, {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+                "x-typescript-types": this.#origin + "/live/index.tsx",
+                content_hash: md5(resp),
+                "Content-Type": "application/javascript; charset=UTF-8",
+              },
+            });
+          }
           case "index.js":
           case "js": {
             this.#transpiled = this.#transpiled.length > 0

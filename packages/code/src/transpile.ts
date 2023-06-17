@@ -205,7 +205,13 @@ export const build = async (
   };
   let b: BuildResult;
 
-  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin));
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(x =>
+    fetch(`${origin}/live/${codeSpace}`, {
+      method: "POST",
+      body: x,
+      headers: { "Content-Type": "application/javascript", "TR_ORIGIN": `origin`, "TR_BUNDLE": `true` },
+    }).then(x => x.text()).then(x => console.log(x))
+  );
 };
 
 Object.assign(self, { transpile, build });

@@ -230,10 +230,18 @@ export const buildT = async (
         await unlink(fPath);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {
+        const file = importMapReplace(f.contents as unknown as string, origin);
+
         await writeFile(
           fPath,
-          importMapReplace(f.contents as unknown as string, origin),
+          file,
         );
+
+       await fetch(`${origin}/live/${codeSpace}`, {
+          method: "POST",
+          body: file,
+          headers: { "Content-Type": "application/javascript", "TR_ORIGIN": `origin`, "TR_BUNDLE": `true` },
+        }).then(x => x.text()).then(x => console.log(x));
       }
     });
 

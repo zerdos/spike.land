@@ -3,7 +3,7 @@ import { rpcFactory } from "./workerRpc";
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import type { Prettier } from "./prettierEsm";
-import type { transpile as Transpile } from "./transpile";
+import type { build as Build, transpile as Transpile } from "./transpile";
 
 import { Mutex } from "async-mutex";
 
@@ -21,7 +21,8 @@ declare var self:
   & {
     prettierJs: Prettier;
   }
-  & { transpile: typeof Transpile };
+  & { transpile: typeof Transpile }
+  & { build: typeof Build };
 
 // Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");
@@ -29,7 +30,7 @@ importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/transpile.js");
 
-const { ata, prettierJs, transpile } = self;
+const { ata, prettierJs, transpile, build } = self;
 const start = (port: MessagePort) => {
   // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
@@ -52,6 +53,11 @@ const start = (port: MessagePort) => {
   rpcProvider.registerRpcHandler(
     "transpile",
     ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
+  );
+
+  rpcProvider.registerRpcHandler(
+    "build",
+    ({ codeSpace, origin }: { codeSpace: string; origin: string }) => build({ codeSpace, origin }),
   );
 
   rpcProvider.registerSignalHandler(

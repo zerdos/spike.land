@@ -3,7 +3,7 @@
 import type { BuildOptions } from "esbuild-wasm";
 
 import { stat } from "./memfs";
-import { transpile } from "./shared";
+import { build, transpile } from "./shared";
 
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
@@ -58,8 +58,7 @@ export async function runner({ code, counter, signal }: {
     const bundle = await stat(`/live/${codeSpace}/index.mjs`);
 
     if (bundle) {
-      await (globalThis as any as { build: (codeSpace: string, opts: BuildOptions) => () => Promise<string | false> })
-        .build(codeSpace, { bundle: true })();
+      await build({ code, originToUse: location.origin });
     }
     const transpiled = await transpile({ code, originToUse: location.origin });
 

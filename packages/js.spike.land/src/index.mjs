@@ -51,11 +51,11 @@ const initAndTransform = (
 export default {
   async fetch(request) {
     const params = new URL(request.url).searchParams;
-    const { code, origin } = Object.fromEntries(params.entries());
+    const { codeSpace, origin } = Object.fromEntries(params.entries());
 
     if (request.method === "GET") {
       return new Response(
-        await build({ code, origin, wasmModule }),
+        await build({ codeSpace, origin: origin ? `https://${origin}.spike.land` : "https://spike.land", wasmModule }),
       ),
         {
           headers: {
@@ -66,6 +66,7 @@ export default {
           },
         };
     }
+
     if (request.method === "POST") {
       return new Response(
         await initAndTransform(
