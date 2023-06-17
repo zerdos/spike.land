@@ -237,7 +237,7 @@ export const buildT = async (
           file,
         );
 
-       await fetch(`${origin}/live/${codeSpace}`, {
+        await fetch(`${origin}/live/${codeSpace}`, {
           method: "POST",
           body: file,
           headers: { "Content-Type": "application/javascript", "TR_ORIGIN": `origin`, "TR_BUNDLE": `true` },

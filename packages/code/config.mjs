@@ -17,7 +17,7 @@ export const workerEntryPoints = [
 export const buildOptions = {
   target,
   //   plugins: [fetchPlugin],
-  sourcemap: "inline",
+  sourcemap: false,
   outdir,
   bundle: true,
   outExtension: { ".js": ".mjs" },
