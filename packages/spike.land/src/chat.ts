@@ -181,6 +181,41 @@ async function handleFetchApi(
       return resp2;
     }
     case "live": {
+      if (request.url.endsWith("index.mjs")) {
+        if (request.method === "PUT") {
+          const key = request.url;
+
+          await env.R2.put(key, request.body);
+          return new Response(`Put ${key} successfully!`);
+        } else if (request.method === "GET") {
+          const key = request.url;
+
+          const object = await env.R2.get(key);
+          if (!object) {
+            const paths = [...path.slice(1)].map(p => p.replace(/\.mjs$/, ".js"));
+
+            return handleApiRequest(
+              ["room", ...paths],
+              request,
+              env,
+              ctx,
+            );
+            return new Response(`Not found ${key}!`);
+          }
+
+          const headers = new Headers();
+          object.writeHttpMetadata(headers);
+          headers.set("etag", object.httpEtag);
+          headers.set("Cache-Control", "public, max-age=31536000");
+          headers.set("Access-Control-Allow-Origin", "*");
+          headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.set("Content-Type", "application/javascript; charset=UTF-8");
+
+          return new Response(object.body, {
+            headers,
+          });
+        }
+      }
       const paths = [...path.slice(1)];
 
       // const newUrl =  new URL(paths.join("/"), url.origin);

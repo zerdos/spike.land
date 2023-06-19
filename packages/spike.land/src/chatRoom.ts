@@ -402,38 +402,36 @@ export class Code implements DurableObject {
             const key = `${origin}/live/${codeSpace}/index.mjs`;
             switch (request.method) {
               case "PUT":
+                env;
                 await env.R2.put(key, request.body);
                 return new Response(`Put ${key} successfully!`);
               case "GET": {
                 try {
-                const object = await env.R2.get(key);
-                
-                const headers = new Headers();
-                object.writeHttpMetadata(headers);
-                headers.set("etag", object.httpEtag);
-                headers.set("Cache-Control", "public, max-age=31536000");
-                headers.set("Access-Control-Allow-Origin", "*");
-                headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-                headers.set("Content-Type", "application/javascript; charset=UTF-8");
+                  const object = await env.R2.get(key);
 
-                return new Response(object.body, {
-                  headers,
-                });
+                  const headers = new Headers();
+                  object.writeHttpMetadata(headers);
+                  headers.set("etag", object.httpEtag);
+                  headers.set("Cache-Control", "public, max-age=31536000");
+                  headers.set("Access-Control-Allow-Origin", "*");
+                  headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+                  headers.set("Content-Type", "application/javascript; charset=UTF-8");
+
+                  return new Response(object.body, {
+                    headers,
+                  });
                 } catch (e) {
-
                   return new Response(this.#transpiled, {
                     headers: {
                       "Access-Control-Allow-Origin": "*",
                       "Cross-Origin-Embedder-Policy": "require-corp",
                       "Cache-Control": "no-cache",
                       "x-typescript-types": this.#origin + "/live/index.tsx",
-                      etag:  md5(this.#transpiled),
+                      etag: md5(this.#transpiled),
                       "Content-Type": "application/javascript; charset=UTF-8",
                     },
                   });
                 }
-
-               
               }
               case "DELETE":
                 await env.R2.delete(key);
