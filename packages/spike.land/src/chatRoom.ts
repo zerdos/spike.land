@@ -44,7 +44,6 @@ export class Code implements DurableObject {
   #wsSessions: WebsocketSession[] = [];
   #transpiled = "";
   #origin = "";
-  #mjs = "";
 
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
@@ -139,11 +138,11 @@ export class Code implements DurableObject {
       //      this.state.storage.put("session", this.session);
       // const head = makeHash(this.session);
       //    this.state.storage.put(head, this.session);
-      //  this.state.storage.put("head", head);
+      //  this.state.storage.put("head", head);x
     });
   }
 
-  fetch(request: WRequest<unknown, CfProperties<unknown>>) {
+  fetch(request: WRequest<unknown, CfProperties<unknown>>, env: Env) {
     return handleErrors(
       request,
       (async () => {
@@ -160,14 +159,6 @@ export class Code implements DurableObject {
         //   }
 
         // }
-
-        if (request.method === "POST") {
-          if (request.headers.has("TR_BUNDLE")) {
-            const tmp = await request.text();
-            this.#mjs = tmp;
-            this.state.storage.put("mjs", tmp);
-          }
-        }
 
         const codeSpace = url.searchParams.get("room");
 
@@ -408,18 +399,54 @@ export class Code implements DurableObject {
             });
           }
           case "index.mjs": {
-            const resp = this.#mjs || this.#transpiled || "";
+            const key = `${origin}/live/${codeSpace}/index.mjs`;
+            switch (request.method) {
+              case "PUT":
+                await env.R2.put(key, request.body);
+                return new Response(`Put ${key} successfully!`);
+              case "GET": {
+                try {
+                const object = await env.R2.get(key);
+                
+                const headers = new Headers();
+                object.writeHttpMetadata(headers);
+                headers.set("etag", object.httpEtag);
+                headers.set("Cache-Control", "public, max-age=31536000");
+                headers.set("Access-Control-Allow-Origin", "*");
+                headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+                headers.set("Content-Type", "application/javascript; charset=UTF-8");
 
-            return new Response(resp, {
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "x-typescript-types": this.#origin + "/live/index.tsx",
-                content_hash: md5(resp),
-                "Content-Type": "application/javascript; charset=UTF-8",
-              },
-            });
+                return new Response(object.body, {
+                  headers,
+                });
+                } catch (e) {
+
+                  return new Response(this.#transpiled, {
+                    headers: {
+                      "Access-Control-Allow-Origin": "*",
+                      "Cross-Origin-Embedder-Policy": "require-corp",
+                      "Cache-Control": "no-cache",
+                      "x-typescript-types": this.#origin + "/live/index.tsx",
+                      etag:  md5(this.#transpiled),
+                      "Content-Type": "application/javascript; charset=UTF-8",
+                    },
+                  });
+                }
+
+               
+              }
+              case "DELETE":
+                await env.R2.delete(key);
+                return new Response("Deleted!");
+
+              default:
+                return new Response("Method Not Allowed", {
+                  status: 405,
+                  headers: {
+                    Allow: "PUT, GET, DELETE",
+                  },
+                });
+            }
           }
           case "index.js":
           case "js": {

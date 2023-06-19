@@ -237,10 +237,10 @@ export const buildT = async (
           file,
         );
 
-        await fetch(`${origin}/live/${codeSpace}`, {
-          method: "POST",
+        await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+          method: "PUT",
           body: file,
-          headers: { "Content-Type": "application/javascript", "TR_ORIGIN": `origin`, "TR_BUNDLE": `true` },
+          headers: { "Content-Type": "application/javascript" },
         }).then(x => x.text()).then(x => console.log(x));
       }
     });
