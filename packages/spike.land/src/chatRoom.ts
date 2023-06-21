@@ -6,22 +6,13 @@ import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 import ASSET_HASH from "./dist.shasum";
 import { handleErrors } from "./handleErrors";
-
-// import { Mutex } from "async-mutex";
-// import AVLTree from "avl";
-
-// import pMap from "p-map";
 import Env from "./env";
-// import { esmTransform } from "./esbuild.wasm";
-// import jsTokens from "js-tokens";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import { Delta } from "../../code/src/textDiff";
 import shasum from "./dist.shasum";
-// import shaSum from "./dist.shasum";
 
 export { md5 };
 
-// import { CodeRateLimiter } from "./rateLimiter";
 
 export interface WebsocketSession {
   name: string;
@@ -142,7 +133,7 @@ export class Code implements DurableObject {
     });
   }
 
-  fetch(request: WRequest<unknown, CfProperties<unknown>>, env: Env) {
+  fetch(request: WRequest<unknown, CfProperties<unknown>>) {
     return handleErrors(
       request,
       (async () => {
@@ -398,54 +389,7 @@ export class Code implements DurableObject {
               },
             });
           }
-          case "index.mjs": {
-            const key = `${origin}/live/${codeSpace}/index.mjs`;
-            switch (request.method) {
-              case "PUT":
-                env;
-                await env.R2.put(key, request.body);
-                return new Response(`Put ${key} successfully!`);
-              case "GET": {
-                try {
-                  const object = await env.R2.get(key);
-
-                  const headers = new Headers();
-                  object.writeHttpMetadata(headers);
-                  headers.set("etag", object.httpEtag);
-                  headers.set("Cache-Control", "public, max-age=31536000");
-                  headers.set("Access-Control-Allow-Origin", "*");
-                  headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-                  headers.set("Content-Type", "application/javascript; charset=UTF-8");
-
-                  return new Response(object.body, {
-                    headers,
-                  });
-                } catch (e) {
-                  return new Response(this.#transpiled, {
-                    headers: {
-                      "Access-Control-Allow-Origin": "*",
-                      "Cross-Origin-Embedder-Policy": "require-corp",
-                      "Cache-Control": "no-cache",
-                      "x-typescript-types": this.#origin + "/live/index.tsx",
-                      etag: md5(this.#transpiled),
-                      "Content-Type": "application/javascript; charset=UTF-8",
-                    },
-                  });
-                }
-              }
-              case "DELETE":
-                await env.R2.delete(key);
-                return new Response("Deleted!");
-
-              default:
-                return new Response("Method Not Allowed", {
-                  status: 405,
-                  headers: {
-                    Allow: "PUT, GET, DELETE",
-                  },
-                });
-            }
-          }
+          case "index.mjs":
           case "index.js":
           case "js": {
             this.#transpiled = this.#transpiled.length > 0
