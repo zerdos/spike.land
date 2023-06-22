@@ -41,7 +41,7 @@
     "@types/react-dom": "18.2.6",
     "@typescript-eslint/eslint-plugin": "5.60.0",
     "@typescript-eslint/parser": "5.60.0",
-    "@yarnpkg/sdks": "^3.0.0-rc.45",
+    "@yarnpkg/sdks": "^3.0.0-rc.46",
     "constants": "0.0.2",
     "cypress": "12.15.0",
     "dprint": "0.37.1",
@@ -56,7 +56,7 @@
     "util": "0.12.5",
     "utils": "0.3.1"
   },
-  "packageManager": "yarn@4.0.0-rc.45",
+  "packageManager": "yarn@4.0.0-rc.46",
   "devDependencies": {
     "@spike-land/ai-devtools": "workspace:^"
   }
