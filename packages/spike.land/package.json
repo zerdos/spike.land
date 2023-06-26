@@ -24,7 +24,7 @@
   "dependencies": {
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.18.8",
+    "esbuild-wasm": "0.18.9",
     "esm-worker": "^0.126.0",
     "immutable": "4.3.0",
     "p-map": "6.0.0",

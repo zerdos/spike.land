@@ -2530,7 +2530,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/cf-npm-site/",\
         "packageDependencies": [\
           ["@spike-land/cf-npm-site", "workspace:packages/cf-npm-site"],\
-          ["esbuild-wasm", "npm:0.18.8"]\
+          ["esbuild-wasm", "npm:0.18.9"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2582,7 +2582,7 @@ const RAW_RUNTIME_STATE =
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.2"],\
           ["detective-typescript", "npm:11.1.0"],\
-          ["esbuild-wasm", "npm:0.18.8"],\
+          ["esbuild-wasm", "npm:0.18.9"],\
           ["eslint", "npm:8.43.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["events", "npm:3.3.0"],\
@@ -2684,7 +2684,7 @@ const RAW_RUNTIME_STATE =
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.2"],\
           ["detective-typescript", "npm:11.1.0"],\
-          ["esbuild-wasm", "npm:0.18.8"],\
+          ["esbuild-wasm", "npm:0.18.9"],\
           ["eslint", "npm:8.43.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["events", "npm:3.3.0"],\
@@ -2747,7 +2747,7 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/code", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#workspace:packages/code"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
-          ["esbuild-wasm", "npm:0.18.8"],\
+          ["esbuild-wasm", "npm:0.18.9"],\
           ["esm-worker", "npm:0.126.0"],\
           ["immutable", "npm:4.3.0"],\
           ["p-map", "npm:6.0.0"],\
@@ -2774,7 +2774,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
           ["@types/node", "npm:20.3.1"],\
-          ["esbuild-wasm", "npm:0.18.8"]\
+          ["esbuild-wasm", "npm:0.18.9"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2871,7 +2871,7 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
           ["@cloudflare/workers-types", "npm:4.20230518.0"],\
-          ["esbuild-wasm", "npm:0.18.8"],\
+          ["esbuild-wasm", "npm:0.18.9"],\
           ["typescript", "patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
           ["wrangler", "npm:3.1.1"]\
         ],\
@@ -6358,10 +6358,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["esbuild-wasm", [\
-      ["npm:0.18.8", {\
-        "packageLocation": "./.yarn/global/cache/esbuild-wasm-npm-0.18.8-6ef303f93c-10.zip/node_modules/esbuild-wasm/",\
+      ["npm:0.18.9", {\
+        "packageLocation": "./.yarn/global/cache/esbuild-wasm-npm-0.18.9-87adb9652c-10.zip/node_modules/esbuild-wasm/",\
         "packageDependencies": [\
-          ["esbuild-wasm", "npm:0.18.8"]\
+          ["esbuild-wasm", "npm:0.18.9"]\
         ],\
         "linkType": "HARD"\
       }]\
