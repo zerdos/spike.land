@@ -1665,7 +1665,7 @@ __metadata:
     node-fetch: "npm:^3.3.1"
     openai: "npm:^3.3.0"
     p-limit: "npm:^4.0.0"
-    simple-git: "npm:^3.19.0"
+    simple-git: "npm:^3.19.1"
   bin:
     ai-commit: ./index.mjs
   languageName: unknown
@@ -10559,14 +10559,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-git@npm:^3.19.0":
-  version: 3.19.0
-  resolution: "simple-git@npm:3.19.0"
+"simple-git@npm:^3.19.1":
+  version: 3.19.1
+  resolution: "simple-git@npm:3.19.1"
   dependencies:
     "@kwsites/file-exists": "npm:^1.1.1"
     "@kwsites/promise-deferred": "npm:^1.1.1"
     debug: "npm:^4.3.4"
-  checksum: 524849275eb6e91b879d030b61f8497943910ec20aeb5dce25d6002d40d4ae0db273430b4dd4cb863550a87e6040763c381e900ae4c70218b1bad924ae87d115
+  checksum: a8bf386761d5d67d3d3be50e48fa206a4a469d5943a52e09bf0a9f847adaefd4588e8fbc556b6857542c897ec97786c1c6e2db636c7d8996c6139002bedf7810
   languageName: node
   linkType: hard
 

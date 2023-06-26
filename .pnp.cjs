@@ -2510,7 +2510,7 @@ const RAW_RUNTIME_STATE =
           ["node-fetch", "npm:3.3.1"],\
           ["openai", "npm:3.3.0"],\
           ["p-limit", "npm:4.0.0"],\
-          ["simple-git", "npm:3.19.0"]\
+          ["simple-git", "npm:3.19.1"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -12903,10 +12903,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["simple-git", [\
-      ["npm:3.19.0", {\
-        "packageLocation": "./.yarn/global/cache/simple-git-npm-3.19.0-25e1876395-10.zip/node_modules/simple-git/",\
+      ["npm:3.19.1", {\
+        "packageLocation": "./.yarn/global/cache/simple-git-npm-3.19.1-0ad370a4e2-10.zip/node_modules/simple-git/",\
         "packageDependencies": [\
-          ["simple-git", "npm:3.19.0"],\
+          ["simple-git", "npm:3.19.1"],\
           ["@kwsites/file-exists", "npm:1.1.1"],\
           ["@kwsites/promise-deferred", "npm:1.1.1"],\
           ["debug", "virtual:ac3d8e680759ce54399273724d44e041d6c9b73454d191d411a8c44bb27e22f02aaf6ed9d3ad0ac1c298eac4833cff369c9c7b84c573016112c4f84be2cd8543#npm:4.3.4"]\
