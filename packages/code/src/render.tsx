@@ -10,6 +10,7 @@ import ParentSize from "./ParentSize";
 import type { ParentSizeState } from "./ParentSize";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
+import { stat } from "./memfs";
 
 const runtime = require("react-refresh/runtime");
 runtime.injectIntoGlobalHook(window);
@@ -100,7 +101,7 @@ export const render = async (
   if (!App) {
     try {
       App = (await import(
-        `${location.origin}/live/${codeSpace}/index.mjs`
+   await stat(`/live/${codeSpace}/index.mjs`)?     `${location.origin}/live/${codeSpace}/index.mjs`: `${location.origin}/live/${codeSpace}/index.js`
       )).default;
     } catch (err) {
       App = () => (

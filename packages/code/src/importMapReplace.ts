@@ -5,6 +5,9 @@ import { oo } from "./importMap";
 //   [pkg: string]: Promise<{ packageName: string; entry: string }>;
 // } = {};
 export function importMapReplace(code: string, origin: string): string {
+  if (code.indexOf("importMapReplace")!==-1) {
+   return code;
+  }
   const topLevelImportPattern =
     /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const topLevelExportPattern =
