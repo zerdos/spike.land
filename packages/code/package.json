@@ -92,7 +92,6 @@
     "localforage": "1.10.0",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
-    "memfs": "3.5.3",
     "module": "1.2.5",
     "monaco-editor": "0.39.0",
     "node-source-walk": "6.0.2",

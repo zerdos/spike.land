@@ -32,9 +32,9 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     alias: {
       ...buildOptions.alias,
     },
-    minifySyntax: false,
-    minifyWhitespace: false,
-    ignoreAnnotations: false,
+    minifySyntax: true,
+    minifyWhitespace: true,
+    ignoreAnnotations: true,
     keepNames: false,
     treeShaking: true,
     legalComments: "none",
@@ -47,7 +47,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ...buildOptions,
     entryPoints: [
       "src/sw.ts",
-
       "src/esbuildWASM.ts",
     ],
     platform: "browser",
@@ -55,17 +54,16 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     bundle: true,
     format: "iife",
     outExtension: { ".js": ".js" },
-    minify: false,
-    mangleQuoted: false,
-    minifySyntax: false,
+    minify: true,
+    mangleQuoted: true,
+    minifySyntax: true,
     charset: "utf8",
-    minifyWhitespace: false,
+    minifyWhitespace: true,
     ignoreAnnotations: true,
     keepNames: false,
     treeShaking: true,
     legalComments: "none",
     outdir: "dist",
-    format: "iife",
   });
 
   const wasmFile = await getWasmFile();

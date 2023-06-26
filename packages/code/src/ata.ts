@@ -1,4 +1,8 @@
 import { tsx } from "detective-typescript";
+// import Process from 'process';
+
+// @ts-ignore
+// if (typeof define_process_default !== "undefined") Object.assign(define_process_default, {cwd: () => "/"});
 
 export async function ata(
   { code, originToUse, prettierJs }: {
@@ -7,6 +11,8 @@ export async function ata(
     prettierJs: (code: string) => string;
   },
 ) {
+  process.cwd = () => "/";
+
   console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: {

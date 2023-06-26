@@ -28,16 +28,20 @@ export const makeEnv = (environment) => ({
   "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
   // "libFileMap": JSON.stringify({}),
   process: JSON.stringify({
-    version: "v19.7.0",
+    version: "v20.3.1",
     versions: {
-      node: "v19.7.0",
+      node: "v20.3.1",
     },
-    cwd: JSON.stringify(() => "/"),
+    cwd: function() {
+      return "/";
+    },
 
     env: {
       NODE_ENV: `${environment}`,
       version: "v19.7.0",
-      cwd: JSON.stringify(() => "/"),
+      cwd: function() {
+        return "/";
+      },
       browser: true,
       isWebworker: true,
       NODE_DEBUG: false,

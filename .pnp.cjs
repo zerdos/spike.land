@@ -2597,7 +2597,6 @@ const RAW_RUNTIME_STATE =
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
-          ["memfs", "npm:3.5.3"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.39.0"],\
           ["node-source-walk", "npm:6.0.2"],\
@@ -2700,7 +2699,6 @@ const RAW_RUNTIME_STATE =
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
-          ["memfs", "npm:3.5.3"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.39.0"],\
           ["node-source-walk", "npm:6.0.2"],\
@@ -7394,15 +7392,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["fs-monkey", [\
-      ["npm:1.0.4", {\
-        "packageLocation": "./.yarn/global/cache/fs-monkey-npm-1.0.4-d8be500c32-10.zip/node_modules/fs-monkey/",\
-        "packageDependencies": [\
-          ["fs-monkey", "npm:1.0.4"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["fs.realpath", [\
       ["npm:1.0.0", {\
         "packageLocation": "./.yarn/global/cache/fs.realpath-npm-1.0.0-c8f05d8126-10.zip/node_modules/fs.realpath/",\
@@ -10240,16 +10229,6 @@ const RAW_RUNTIME_STATE =
           ["mem", "npm:9.0.2"],\
           ["map-age-cleaner", "npm:0.1.3"],\
           ["mimic-fn", "npm:4.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["memfs", [\
-      ["npm:3.5.3", {\
-        "packageLocation": "./.yarn/global/cache/memfs-npm-3.5.3-58186f00bb-10.zip/node_modules/memfs/",\
-        "packageDependencies": [\
-          ["memfs", "npm:3.5.3"],\
-          ["fs-monkey", "npm:1.0.4"]\
         ],\
         "linkType": "HARD"\
       }]\

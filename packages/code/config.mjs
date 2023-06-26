@@ -1,5 +1,6 @@
 import { env } from "./esbuild-depts.mjs";
 import { fetchPlugin } from "./fetchPlugin.mjs";
+// import * as fs from "fs";
 
 export const environment = env.get("NODE_ENV") === "production"
   ? "production"
@@ -38,7 +39,8 @@ export const buildOptions = {
     "file-type": "../../node_modules/file-type/browser.js",
     os: "os-browserify",
     assert: "assert",
-    fs: "memfs",
+    "graceful-fs": "./src/memfs",
+    fs: "./src/memfs",
   },
 
   // alias: {

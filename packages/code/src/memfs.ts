@@ -1,5 +1,4 @@
 const textEncoder = new TextEncoder();
-const textDecoder = new TextDecoder();
 
 type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string };
 
@@ -12,7 +11,6 @@ const getDirectoryEntriesRecursive = async (
   const entries: {
     [path: string]: FileSystemEntry | FileSystemEntry[];
   } = {};
-  // Get an iterator of the files and folders in the directory.
   const directoryIterator = directoryHandle.values();
   const directoryEntryPromises = [];
   for await (const handle of directoryIterator) {
@@ -55,68 +53,74 @@ const getDirectoryEntriesRecursive = async (
   return entries;
 };
 
-const getDirectoryHandleAtPath = async (filePath: string): Promise<FileSystemDirectoryHandle> => {
+const getDirectoryHandleAndFileName = async (
+  filePath: string,
+): Promise<{ dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }> => {
   const pathParts = filePath.split("/").filter(x => x);
-  pathParts.pop();
+  const fileName = pathParts.pop()?.trim();
 
   let currentHandle = await navigator.storage.getDirectory();
 
-  if (!pathParts || !pathParts.length) return currentHandle;
-
-  for (const part of pathParts) {
-    currentHandle = await currentHandle.getDirectoryHandle(part, { create: true });
+  if (pathParts && pathParts.length) {
+    for (const part of pathParts) {
+      currentHandle = await currentHandle.getDirectoryHandle(part, { create: true });
+    }
   }
 
-  return currentHandle;
+  return { dirHandle: currentHandle, fileName };
 };
 
 export const readdir = async (filePath: string): Promise<string[]> => {
-  const entries = await getDirectoryEntriesRecursive(await getDirectoryHandleAtPath(filePath));
+  const { dirHandle } = await getDirectoryHandleAndFileName(filePath);
+  const entries = await getDirectoryEntriesRecursive(dirHandle);
   return Object.keys(entries);
 };
 
 export const writeFile = async (filePath: string, content: string): Promise<void> => {
-  const dirHandle = await getDirectoryHandleAtPath(filePath);
-  const fileName = filePath.split("/").pop()!;
+  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+  if (!fileName) throw new Error("Invalid file path");
   const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
   const accessHandle = await fileHandle.createWritable();
   const encodedContent = textEncoder.encode(content);
   await accessHandle.write(encodedContent);
   await accessHandle.close();
-  // await accessHandle.flush();
 };
 
 export const readFile = async (filePath: string): Promise<string> => {
-  const fileHandle = await (await getDirectoryHandleAtPath(filePath)).getFileHandle(filePath.split("/").pop()!);
+  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+  if (!fileName) throw new Error("Invalid file path");
+  const fileHandle = await dirHandle.getFileHandle(fileName);
   const file = await fileHandle.getFile();
   return await file.text();
-  // const size = accessHandle.getSize();
-  // const dataView = new DataView(new ArrayBuffer(size));
-  // await accessHandle.read(dataView);
-  // return textDecoder.decode(dataView);
 };
 
 export const unlink = async (filePath: string): Promise<void> => {
-  const dirHandle = await getDirectoryHandleAtPath(filePath);
-  await dirHandle.removeEntry(filePath.split("/").pop()!);
+  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+  if (!fileName) throw new Error("Invalid file path");
+  await dirHandle.removeEntry(fileName);
 };
 
 export const mkdir = async (filePath: string): Promise<void> => {
-  const dirHandle = await getDirectoryHandleAtPath(filePath);
-  const dirName = filePath.split("/").pop()!;
-  await dirHandle.getDirectoryHandle(dirName, { create: true });
+  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+  if (!fileName) throw new Error("Invalid file path");
+  await dirHandle.getDirectoryHandle(fileName, { create: true });
 };
 
 export const stat = async (filePath: string): Promise<boolean> => {
   try {
-    const dirHandle = await getDirectoryHandleAtPath(filePath);
-    const fileHandle = await dirHandle.getFileHandle(filePath.split("/").pop()!);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    if (!fileName) throw new Error("Invalid file path");
+    const fileHandle = await dirHandle.getFileHandle(fileName);
     return fileHandle ? true : false;
   } catch {
     return false;
   }
 };
 
-export default { readFile, unlink, mkdir, writeFile, readdir, stat };
+export const cwd = async () => "/";
 
-Object.assign(globalThis, { readFile, unlink, mkdir, writeFile, readdir, stat });
+const FS = { readFile, unlink, mkdir, writeFile, readdir, stat, cwd };
+
+export default FS;
+
+Object.assign(globalThis, FS);
