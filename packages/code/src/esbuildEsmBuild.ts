@@ -213,7 +213,7 @@ export const buildT = async (
   ) {
     console.log(b.outputFiles);
 
-    const { readdir,stat, unlink, writeFile } = await import("./memfs");
+    const { readdir, stat, unlink, writeFile } = await import("./memfs");
     const cs = await readdir(`/live/${codeSpace}`) as string[];
 
     cs.filter((x) => x.indexOf("chunk") !== -1).map((chunk) =>
@@ -227,7 +227,6 @@ export const buildT = async (
 
       if (signal.aborted) return;
       if (cs.includes(file) && file.indexOf("chunk") === -1) {
-        
         await stat(fPath) && await unlink(fPath);
       }
       if (file?.indexOf("chunk") === -1 || !cs.includes(file)) {

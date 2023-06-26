@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:jammy
-- Node: 18.16.0
+- Node: 18.16.1
 - Yarn: 1.22.19
 - Cypress 12.14.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)

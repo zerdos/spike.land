@@ -2,7 +2,7 @@
 
 import type { BuildOptions } from "esbuild-wasm";
 
-import { stat, writeFile, unlink } from "./memfs";
+import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
 
 // import { wait } from "./wait";
@@ -55,21 +55,19 @@ export async function runner({ code, counter, signal }: {
     //   codeSpace,
     // });
     await stat(`/live/${codeSpace}/index.js`) && await unlink(`/live/${codeSpace}/index.js`);
- 
 
     const bundle = await stat(`/live/${codeSpace}/index.mjs`);
     const transpiled = await transpile({ code, originToUse: location.origin });
 
     if (bundle) {
-      try{
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-      await build({ codeSpace, origin: location.origin });
+      try {
+        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+        await build({ codeSpace, origin: location.origin });
       } catch {
-       await stat(`/live/${codeSpace}/index.js`) && await unlink(`/live/${codeSpace}/index.js`);
+        await stat(`/live/${codeSpace}/index.js`) && await unlink(`/live/${codeSpace}/index.js`);
         unlink(`/live/${codeSpace}/index.mjs`);
       }
     }
-
 
     if (signal.aborted) return;
 

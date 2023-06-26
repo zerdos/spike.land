@@ -1,4 +1,3 @@
-
 export const fetchPlugin = {
   name: "http",
   setup(build) {
@@ -28,10 +27,12 @@ export const fetchPlugin = {
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       const url = new URL(args.path);
       if (url.pathname.indexOf("/live/") !== -1 && url.pathname.endsWith(".js")) {
-        const {stat, readFile} = await import("./src/memfs");
-        if (await stat(utl.pathname)) return {
-          contents: await readFile(url.pathname)
-        } 
+        const { stat, readFile } = await import("./src/memfs");
+        if (await stat(utl.pathname)) {
+          return {
+            contents: await readFile(url.pathname),
+          };
+        }
       }
       let contents = await fetch(args.path, { redirect: "follow" }).then(res => res.text());
 

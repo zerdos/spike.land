@@ -1,6 +1,6 @@
 {
   "name": "@spike-land/cf-npm-site",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist && yarn build",
