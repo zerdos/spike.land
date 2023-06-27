@@ -1,13 +1,7 @@
-import { initialize } from "esbuild-wasm";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
-// import { buildT } from "../../code/src/esbuildEsmBuild";
 import { build, transpile } from "../../code/src/transpile";
 import ASSET_HASH from "./dist.shasum";
 
-// import wasmModule from "./esbuild-wasm/esbuild.wasm";
-// const wasmModule = new WebAssembly.Instance(mod).exports.Module;
-
-// import { initialize, transform, type TransformOptions } from "esbuild-wasm";
 
 Object.assign(globalThis, {
   performance: {
@@ -15,38 +9,10 @@ Object.assign(globalThis, {
   },
 });
 
-// import { importMapReplace } from "../../code/src/importMapReplace";
-
-// import impMap from "./importmap.json";
-//
-// import { imports as importMapImports } from "./importmap.json";
-
-//   import { fetchPlugin } from "./fetchPlugin";
-//   import { importMapReplace } from "./importMapReplace";
-//   import { md5 } from "./md5";
-//   import { unpkgPathPlugin } from "./unpkg-path-plugin";
-
-// const mod = {
-//   init: false as (boolean | Promise<void>),
-//   initialize: () =>
-//     mod.init || initialize({
-//       wasmModule,
-//       worker: false,
-//     }).then(() => mod.init = true) as Promise<void>,
-// };
-
 const initAndTransform = (
   code,
-  // opts: TransformOptions,
   origin,
 ) => transpile(code, origin, wasmModule);
-// const code = prettierJs(c)!;
-// const initFinished = mod.initialize();
-
-// if (initFinished !== true) await (initFinished);
-
-// return transform(code, origin);
-// };
 
 export default {
   async fetch(request) {
@@ -93,17 +59,13 @@ export default {
     }
     if (request.method === "GET") {
       const params = new URL(request.url).searchParams;
-      const { code, origin } = Object.fromEntries(params.entries());
+      const { codeSpace, origin } = Object.fromEntries(params.entries());
 
-      if (code && origin) {
-        const { buildT } = await import("../../code/src/esbuildEsmBuild");
+      if (codeSpace && origin) {
         return new Response(
-          await buildT(
-            code,
-            { bundle: true },
-            new AbortController(),
-            `https://${origin}.spike.land/`,
-            { esbuildBuild: build, initialize },
+          await build(
+            codeSpace,
+            origin
           ),
         ),
           {

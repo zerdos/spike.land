@@ -1,6 +1,6 @@
-import { CodeEnv } from "./env";
+import MyEnv from "./env";
 
-const R2BucketHandler: ExportedHandler<CodeEnv> = {
+const R2BucketHandler: ExportedHandler<MyEnv> = {
   async fetch(request, env) {
     const url = new URL(request.url);
     const key = url.pathname.slice(1);
@@ -9,10 +9,10 @@ const R2BucketHandler: ExportedHandler<CodeEnv> = {
 
     switch (request.method) {
       case "PUT":
-        await env.R2_BUCKET.put(key, request.body);
+        await env.R2.put(key, request.body);
         return new Response(`Put ${key} successfully!`);
       case "GET":
-        object = await env.R2_BUCKET.get(key);
+        object = await env.R2.get(key);
 
         if (object === null) {
           return new Response("Object Not Found", { status: 404 });
@@ -26,7 +26,7 @@ const R2BucketHandler: ExportedHandler<CodeEnv> = {
           headers,
         });
       case "DELETE":
-        await env.R2_BUCKET.delete(key);
+        await env.R2.delete(key);
         return new Response("Deleted!");
 
       default:

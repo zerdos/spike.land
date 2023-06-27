@@ -161,11 +161,11 @@ async function handleFetchApi(
       });
     case "api":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env, ctx);
+      return handleApiRequest(path.slice(1), request, env);
 
     case "ata":
       // This is a request for `/api/...`, call the API handler.
-      return handleApiRequest(path.slice(1), request, env, ctx);
+      return handleApiRequest(path.slice(1), request, env);
 
     case "ipns":
     case "ipfs": {
@@ -197,8 +197,7 @@ async function handleFetchApi(
             return handleApiRequest(
               ["room", ...paths],
               request,
-              env,
-              ctx,
+              env
             );
             return new Response(`Not found ${key}!`);
           }
@@ -224,8 +223,7 @@ async function handleFetchApi(
       return handleApiRequest(
         ["room", ...paths],
         request,
-        env,
-        ctx,
+        env
       ).catch((e) =>
         new Response("Error," + e?.message, {
           status: 500,

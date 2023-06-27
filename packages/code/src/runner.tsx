@@ -1,26 +1,10 @@
-// import { syncWS } from "./ws";
-
-import type { BuildOptions } from "esbuild-wasm";
-
 import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
 
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
 
-Object.assign(globalThis, {
-  build: (codeSpace: string, opts: BuildOptions) => () =>
-    import("./esbuildEsmBuild").then((eb) =>
-      (({ buildT }) =>
-        buildT(codeSpace, location.origin, (new AbortController()).signal, {
-          bundle: true,
-          splitting: false,
-          ...opts,
-        }))(
-          eb,
-        )
-    ),
-});
+Object.assign(globalThis, {build, transpile});
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
