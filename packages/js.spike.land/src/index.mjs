@@ -20,6 +20,7 @@ export default {
     const { codeSpace, origin } = Object.fromEntries(params.entries());
 
     if (request.method === "GET") {
+      try{
       return new Response(
         await build({ codeSpace, origin: origin ? `https://${origin}.spike.land` : "https://spike.land", wasmModule }),
       ),
@@ -31,6 +32,9 @@ export default {
             "cache-control": "no-cache",
           },
         };
+      }catch(e) {
+        return new Response("500");
+      }
     }
 
     if (request.method === "POST") {
