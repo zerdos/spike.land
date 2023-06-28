@@ -1,4 +1,6 @@
+import type { Request } from "@cloudflare/workers-types";
 import { handleErrors } from "./handleErrors";
+
 export class CodeRateLimiter {
   private nextAllowedTime = 0;
 

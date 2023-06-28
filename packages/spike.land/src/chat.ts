@@ -197,7 +197,7 @@ async function handleFetchApi(
             return handleApiRequest(
               ["room", ...paths],
               request,
-              env
+              env,
             );
             return new Response(`Not found ${key}!`);
           }
@@ -223,7 +223,7 @@ async function handleFetchApi(
       return handleApiRequest(
         ["room", ...paths],
         request,
-        env
+        env,
       ).catch((e) =>
         new Response("Error," + e?.message, {
           status: 500,

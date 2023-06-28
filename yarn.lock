@@ -1701,7 +1701,7 @@ __metadata:
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
-    typescript: "npm:5.1.3"
+    typescript: "npm:5.1.5"
     wrangler: "npm:3.1.1"
   languageName: unknown
   linkType: soft
@@ -1739,7 +1739,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.60.1"
     "@typescript-eslint/parser": "npm:5.60.1"
     "@typescript-eslint/typescript-estree": "npm:5.60.1"
-    ace-builds: "npm:1.23.0"
+    ace-builds: "npm:1.23.1"
     assert: "npm:2.0.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -1793,7 +1793,7 @@ __metadata:
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.0"
     type-fest: "npm:^3.12.0"
-    typescript: "npm:5.1.3"
+    typescript: "npm:5.1.5"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
     uvu: "npm:0.5.6"
@@ -1891,7 +1891,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230518.0"
     esbuild-wasm: "npm:0.18.10"
-    typescript: "npm:5.1.3"
+    typescript: "npm:5.1.5"
     wrangler: "npm:3.1.1"
   languageName: unknown
   linkType: soft
@@ -2606,10 +2606,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.23.0":
-  version: 1.23.0
-  resolution: "ace-builds@npm:1.23.0"
-  checksum: c6b3d80eb3515bc21b449a522ed61d5c10a29436e9a28967f5550c02c19d0b1bd8cca62fab9c58f8dc9482d0c0b06ba2de49545e9fb2e0d8289aed312e3330f1
+"ace-builds@npm:1.23.1":
+  version: 1.23.1
+  resolution: "ace-builds@npm:1.23.1"
+  checksum: 0a3b81bd38f4fd49cc04ea17533afaffe1d3a2d9df7126526d75f990dd4bc1789be025f3709766d0e6941f0c5a8c04926a58f1336cc08e69b96b355c2f50890e
   languageName: node
   linkType: hard
 
@@ -8633,7 +8633,7 @@ __metadata:
     monaco-editor: "npm:0.39.0"
     playwright: "npm:1.35.1"
     react: "npm:18.2.0"
-    typescript: "npm:5.1.3"
+    typescript: "npm:5.1.5"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -11613,7 +11613,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.1.3, typescript@npm:^5.0.4":
+"typescript@npm:5.1.5":
+  version: 5.1.5
+  resolution: "typescript@npm:5.1.5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 31bf11371df97f479b05e1e2d2a1a84ec985a8dc4d87ae91ffed77f1123f3a5ebde96564c35964b9409fdc21adaf1ee8c57153eb9d417be6d6bae74c7052871b
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^5.0.4":
   version: 5.1.3
   resolution: "typescript@npm:5.1.3"
   bin:
@@ -11623,7 +11633,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.1.5#optional!builtin<compat/typescript>":
+  version: 5.1.5
+  resolution: "typescript@patch:typescript@npm%3A5.1.5#optional!builtin<compat/typescript>::version=5.1.5&hash=5da071"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 5ac7c068450b2dac8181bb4a1de09f2b129a98525ea3ca3bc0389a0d1a1cce81c90b25dc0a30c0e464562d2e64ceb6641684c187fcf06e657b428bf1888ee2b7
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
   version: 5.1.3
   resolution: "typescript@patch:typescript@npm%3A5.1.3#optional!builtin<compat/typescript>::version=5.1.3&hash=5da071"
   bin:

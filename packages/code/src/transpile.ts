@@ -48,7 +48,7 @@ export const cjs = async (code: string) => {
   return cjs;
 };
 const transpileMod = {
-  counter: 0
+  counter: 0,
 };
 export const transpile = async (
   code: string,
@@ -67,15 +67,19 @@ export const transpile = async (
       return mod.init = true;
     });
 
-    const offLoadToServer = (code: string) =>{
-    const current = transpileMod.counter++;
+    const offLoadToServer = (code: string) => {
+      const current = transpileMod.counter++;
 
-    wait(300).then(()=>current === transpileMod.counter?  fetch(`https://js.spike.land?v=${swVersion}`, {
-        method: "POST",
-        body: code,
-        headers: { TR_ORIGIN: origin },
-      }).then((resp) => resp.text()): wait(2000).then(()=>"waited too long"));
-    }
+      wait(300).then(() =>
+        current === transpileMod.counter
+          ? fetch(`https://js.spike.land?v=${swVersion}`, {
+            method: "POST",
+            body: code,
+            headers: { TR_ORIGIN: origin },
+          }).then((resp) => resp.text())
+          : wait(2000).then(() => "waited too long")
+      );
+    };
     if (mod.init !== true) await wait(1000);
     if (mod.init !== true) return offLoadToServer(code);
   }

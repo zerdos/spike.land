@@ -2,7 +2,6 @@ import wasmModule from "esbuild-wasm/esbuild.wasm";
 import { build, transpile } from "../../code/src/transpile";
 import ASSET_HASH from "./dist.shasum";
 
-
 Object.assign(globalThis, {
   performance: {
     now: () => Date.now(),
@@ -20,19 +19,23 @@ export default {
     const { codeSpace, origin } = Object.fromEntries(params.entries());
 
     if (request.method === "GET") {
-      try{
-      return new Response(
-        await build({ codeSpace, origin: origin ? `https://${origin}.spike.land` : "https://spike.land", wasmModule }),
-      ),
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "*",
-            "Content-Type": "application/javascript",
-            "cache-control": "no-cache",
-          },
-        };
-      }catch(e) {
+      try {
+        return new Response(
+          await build({
+            codeSpace,
+            origin: origin ? `https://${origin}.spike.land` : "https://spike.land",
+            wasmModule,
+          }),
+        ),
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Headers": "*",
+              "Content-Type": "application/javascript",
+              "cache-control": "no-cache",
+            },
+          };
+      } catch (e) {
         return new Response("500");
       }
     }
@@ -69,7 +72,7 @@ export default {
         return new Response(
           await build(
             codeSpace,
-            origin
+            origin,
           ),
         ),
           {

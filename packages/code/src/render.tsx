@@ -1,7 +1,6 @@
 import { EmotionCache } from "@emotion/cache";
-import type { FC, ReactNode } from "react";
-
 import { CacheProvider } from "@emotion/react";
+import type { FC, ReactNode } from "react";
 import type { Root } from "react-dom/client";
 import { createRoot } from "react-dom/client";
 import createCache from "./emotionCache";
@@ -15,23 +14,61 @@ import { wait } from "./wait";
 const runtime = require("react-refresh/runtime");
 runtime.injectIntoGlobalHook(window);
 
-const codeSpace = location.pathname.slice(1).split("/")[1];
-
+const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
 let controller = new AbortController();
-const mod: {
-  i: number;
-} = {
-  i: 0,
-};
-
-const cache = createCache({
-  key: "css",
-  speedy: false,
-});
-
+const mod = { i: 0 };
+const cache = createCache({ key: "css", speedy: false });
 cache.compat = undefined;
+
+let root: Root;
+globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
+let __rootEl: HTMLElement;
+
+export const render = async (
+  _rootEl: HTMLElement,
+  codeSpace: string,
+  mApp = null,
+  signal = null as any,
+  data = null as any,
+) => {
+  __rootEl = _rootEl;
+  if (!__rootEl) return;
+  let App: FC<
+    {
+      width?: number;
+      height?: number;
+      top?: number;
+      left?: number;
+      ref?: HTMLDivElement;
+      resize?: (state: ParentSizeState) => void;
+      children?: ReactNode;
+    }
+  > = mApp as any;
+
+  App = await getApp(App, codeSpace);
+
+  root = createRoot(_rootEl);
+  const cache = createCache({ key: "css", speedy: false });
+  cache.compat = undefined;
+
+  root.render(
+    <CacheProvider value={cache}>
+      <ParentSize>
+        {({ width, height, top, left }) => (
+          <App
+            {...(width ? { width } : { width: window.innerWidth })}
+            {...(height ? { height } : { height: window.innerHeight })}
+            {...(top ? { top } : { top: 0 })}
+            {...(left ? { left } : { left: 0 })}
+          />
+        )}
+      </ParentSize>
+    </CacheProvider>,
+  );
+
+  return await handleRender(_rootEl, signal, data, cache);
+};
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
   try {
@@ -68,36 +105,11 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
   }
 }
 
-let root: Root;
-globalThis.firstRender = globalThis.firstRender || {
-  html: "",
-  css: "",
-  code: "",
-};
+function getCodeSpace() {
+  return location.pathname.slice(1).split("/")[1];
+}
 
-let __rootEl: HTMLElement;
-
-export const render = async (
-  _rootEl: HTMLElement,
-  codeSpace: string,
-  mApp = null,
-  signal = null as any,
-  data = null as any,
-) => {
-  __rootEl = _rootEl;
-  if (!__rootEl) return;
-  let App: FC<
-    {
-      width?: number;
-      height?: number;
-      top?: number;
-      left?: number;
-      ref?: HTMLDivElement;
-      resize?: (state: ParentSizeState) => void;
-      children?: ReactNode;
-    }
-  > = mApp as any;
-
+async function getApp(App: any, codeSpace: string) {
   if (!App) {
     try {
       App = (await import(
@@ -114,32 +126,11 @@ export const render = async (
       );
     }
   }
+  return App;
+}
 
-  root = createRoot(_rootEl);
-  const cache = createCache({
-    key: "css",
-    speedy: false,
-  });
-
-  cache.compat = undefined;
-
-  root.render(
-    <CacheProvider value={cache}>
-      <ParentSize>
-        {({ width, height, top, left }) => (
-          <App
-            {...(width ? { width } : { width: window.innerWidth })}
-            {...(height ? { height } : { height: window.innerHeight })}
-            {...(top ? { top } : { top: 0 })}
-            {...(left ? { left } : { left: 0 })}
-          />
-        )}
-      </ParentSize>
-    </CacheProvider>,
-  );
-
-  let ii = (location.href.endsWith("iframe") || location.href.endsWith("/")
-      || location.href.endsWith("public"))
+async function handleRender(_rootEl: HTMLElement, signal: any, data: any, cache: EmotionCache) {
+  let ii = (location.href.endsWith("iframe") || location.href.endsWith("/") || location.href.endsWith("public"))
     ? 100
     : 0;
   while (ii-- > 0) {
@@ -147,18 +138,11 @@ export const render = async (
 
     const html = _rootEl.innerHTML;
     if (html && html !== "") {
-      const css = mineFromCaches(
-        cache,
-        html,
-      );
+      const css = mineFromCaches(cache, html);
 
       if (data) {
         if (!signal.aborted) {
-          BC.postMessage({
-            ...data,
-            html,
-            css,
-          });
+          BC.postMessage({ ...data, html, css });
         }
         return;
       }
@@ -175,24 +159,16 @@ export const render = async (
   }
 
   return root;
-};
+}
 
 function mineFromCaches(_cache: EmotionCache, html: string) {
-  // const key = "css";
   const key = _cache.key || "css";
   try {
-    return Array.from(document.querySelectorAll("style[data-styled-jsx")).map(
-      (x) => x.textContent,
-    )
+    return Array.from(document.querySelectorAll("style[data-styled-jsx]")).map((x) => x.textContent)
       + Array.from(
-        new Set(
-          Array.from(
-            document.querySelectorAll(`style[data-emotion="${key}"]`),
-          ).map((x) => x.textContent),
-        ),
+        new Set(Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`)).map((x) => x.textContent)),
       ).join("\n");
   } catch {
-    // const keys = Object.keys(cache.inserted).map((x) => `.${cache.key}-${x}`);
     return Array.from(document.styleSheets).map((x) => {
       try {
         return x.cssRules[0] as CSSPageRule;
@@ -200,20 +176,13 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
         return null;
       }
     }).filter((x) =>
-      x?.selectorText && x.selectorText.indexOf(key) !== -1
-      && html.indexOf(x.selectorText.slice(4, 11)) !== -1
+      x?.selectorText && x.selectorText.indexOf(key) !== -1 && html.indexOf(x.selectorText.slice(4, 11)) !== -1
     )
-      .map((x) => x!.cssText)
-      // .filter((x) => x && keys.includes(x.selectorText)).map((x) => x!.cssText)
-      .join("\n");
+      .map((x) => x!.cssText).join("\n");
   }
 }
 
-if (
-  location.pathname.endsWith("/iframe")
-  || location.pathname.endsWith("/")
-  || location.pathname.endsWith("/public")
-) {
+if (location.pathname.endsWith("/iframe") || location.pathname.endsWith("/") || location.pathname.endsWith("/public")) {
   window.onmessage = async ({ data }) => {
     rerender(data);
   };

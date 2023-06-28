@@ -4,7 +4,7 @@ import { build, transpile } from "./shared";
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
 
-Object.assign(globalThis, {build, transpile});
+Object.assign(globalThis, { build, transpile });
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
