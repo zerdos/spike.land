@@ -98,7 +98,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     alias: {
       ...buildOptions.alias,
       "react": "preact/compat",
-      "monaco-editor": "/monaco-editor",
+      // "monaco-editor": "/f*monaco-editor?bundle=true",
 
       // "monaco-editor": "/monaco-editor",
       "react-dom/test-utils": "preact/test-utils",
@@ -120,7 +120,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "/monaco-editor",
 
       "/monaco-editor/*",
-
+    
       //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",

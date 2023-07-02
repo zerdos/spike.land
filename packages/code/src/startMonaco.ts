@@ -118,7 +118,7 @@ self.MonacoEnvironment = {
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-      return (await import(`${originToUse}//monaco-editor/esm/vs/language/css/css.worker.js?worker`)).default();
+      return (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker.js?worker`)).default();
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
