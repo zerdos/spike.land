@@ -538,6 +538,60 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dprint/darwin-arm64@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@dprint/darwin-arm64@npm:0.38.0"
+  bin:
+    darwin-arm64: bin.js
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@dprint/darwin-x64@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@dprint/darwin-x64@npm:0.38.0"
+  bin:
+    darwin-x64: bin.js
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@dprint/linux-arm64-glibc@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@dprint/linux-arm64-glibc@npm:0.38.0"
+  bin:
+    linux-arm64-glibc: bin.js
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@dprint/linux-x64-glibc@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@dprint/linux-x64-glibc@npm:0.38.0"
+  bin:
+    linux-x64-glibc: bin.js
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@dprint/linux-x64-musl@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@dprint/linux-x64-musl@npm:0.38.0"
+  bin:
+    linux-x64-musl: bin.js
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@dprint/win32-x64@npm:0.38.0":
+  version: 0.38.0
+  resolution: "@dprint/win32-x64@npm:0.38.0"
+  bin:
+    win32-x64: bin.js
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/babel-plugin@npm:11.11.0"
@@ -4540,15 +4594,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.37.1":
-  version: 0.37.1
-  resolution: "dprint@npm:0.37.1"
+"dprint@npm:0.38.0":
+  version: 0.38.0
+  resolution: "dprint@npm:0.38.0"
   dependencies:
-    https-proxy-agent: "npm:=5.0.1"
-    yauzl: "npm:=2.10.0"
+    "@dprint/darwin-arm64": "npm:0.38.0"
+    "@dprint/darwin-x64": "npm:0.38.0"
+    "@dprint/linux-arm64-glibc": "npm:0.38.0"
+    "@dprint/linux-x64-glibc": "npm:0.38.0"
+    "@dprint/linux-x64-musl": "npm:0.38.0"
+    "@dprint/win32-x64": "npm:0.38.0"
+  dependenciesMeta:
+    "@dprint/darwin-arm64":
+      optional: true
+    "@dprint/darwin-x64":
+      optional: true
+    "@dprint/linux-arm64-glibc":
+      optional: true
+    "@dprint/linux-x64-glibc":
+      optional: true
+    "@dprint/linux-x64-musl":
+      optional: true
+    "@dprint/win32-x64":
+      optional: true
   bin:
     dprint: bin.js
-  checksum: 90c7ae985890614fbb754bd76697d758507d3141df6c99c9b933bb341b167fda4d7fdee350320f9507cacdabc11038163fe71510bb9979a25fea7275016c4166
+  checksum: fc69b110e259e1f835af570712bba7ab5b4228f61d422fc6234c67da035cbaa669295afd4f5429ca083626fa75e978b2576618979efc6aaf649c27257d9a781c
   languageName: node
   linkType: hard
 
@@ -6343,7 +6414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"https-proxy-agent@npm:=5.0.1, https-proxy-agent@npm:^5.0.0":
+"https-proxy-agent@npm:^5.0.0":
   version: 5.0.1
   resolution: "https-proxy-agent@npm:5.0.1"
   dependencies:
@@ -8586,7 +8657,7 @@ __metadata:
     "@yarnpkg/sdks": "npm:^3.0.0-rc.47"
     constants: "npm:0.0.2"
     cypress: "npm:12.16.0"
-    dprint: "npm:0.37.1"
+    dprint: "npm:0.38.0"
     eslint: "npm:8.44.0"
     eslint-plugin-react: "npm:7.32.2"
     execa: "npm:^7.1.1"
@@ -12246,7 +12317,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yauzl@npm:=2.10.0, yauzl@npm:^2.10.0":
+"yauzl@npm:^2.10.0":
   version: 2.10.0
   resolution: "yauzl@npm:2.10.0"
   dependencies:

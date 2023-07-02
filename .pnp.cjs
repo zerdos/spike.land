@@ -106,7 +106,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.0.0-rc.47"],\
           ["constants", "npm:0.0.2"],\
           ["cypress", "npm:12.16.0"],\
-          ["dprint", "npm:0.37.1"],\
+          ["dprint", "npm:0.38.0"],\
           ["eslint", "npm:8.44.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["execa", "npm:7.1.1"],\
@@ -1048,6 +1048,60 @@ const RAW_RUNTIME_STATE =
           ["@cypress/xvfb", "npm:1.2.4"],\
           ["debug", "virtual:396a3691f7b25accf085fe2fff1f56eb7540eff3f2e928a7572ca1de9b831ff8f22136404f236aaed35d90369918dfc34392844d0f822a310563f34746dfb015#npm:3.2.7"],\
           ["lodash.once", "npm:4.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/darwin-arm64", [\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-darwin-arm64-npm-0.38.0-9728a61bcb/node_modules/@dprint/darwin-arm64/",\
+        "packageDependencies": [\
+          ["@dprint/darwin-arm64", "npm:0.38.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/darwin-x64", [\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-darwin-x64-npm-0.38.0-9bec70aaf9/node_modules/@dprint/darwin-x64/",\
+        "packageDependencies": [\
+          ["@dprint/darwin-x64", "npm:0.38.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/linux-arm64-glibc", [\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-glibc-npm-0.38.0-d3c8a29237/node_modules/@dprint/linux-arm64-glibc/",\
+        "packageDependencies": [\
+          ["@dprint/linux-arm64-glibc", "npm:0.38.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/linux-x64-glibc", [\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-glibc-npm-0.38.0-405aa6fc7d/node_modules/@dprint/linux-x64-glibc/",\
+        "packageDependencies": [\
+          ["@dprint/linux-x64-glibc", "npm:0.38.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/linux-x64-musl", [\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-musl-npm-0.38.0-e8472b85d5/node_modules/@dprint/linux-x64-musl/",\
+        "packageDependencies": [\
+          ["@dprint/linux-x64-musl", "npm:0.38.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/win32-x64", [\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-win32-x64-npm-0.38.0-cc405898a1/node_modules/@dprint/win32-x64/",\
+        "packageDependencies": [\
+          ["@dprint/win32-x64", "npm:0.38.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6068,12 +6122,16 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dprint", [\
-      ["npm:0.37.1", {\
-        "packageLocation": "./.yarn/unplugged/dprint-npm-0.37.1-c337c9aea9/node_modules/dprint/",\
+      ["npm:0.38.0", {\
+        "packageLocation": "./.yarn/global/cache/dprint-npm-0.38.0-b9480f8043-10.zip/node_modules/dprint/",\
         "packageDependencies": [\
-          ["dprint", "npm:0.37.1"],\
-          ["https-proxy-agent", "npm:5.0.1"],\
-          ["yauzl", "npm:2.10.0"]\
+          ["dprint", "npm:0.38.0"],\
+          ["@dprint/darwin-arm64", "npm:0.38.0"],\
+          ["@dprint/darwin-x64", "npm:0.38.0"],\
+          ["@dprint/linux-arm64-glibc", "npm:0.38.0"],\
+          ["@dprint/linux-x64-glibc", "npm:0.38.0"],\
+          ["@dprint/linux-x64-musl", "npm:0.38.0"],\
+          ["@dprint/win32-x64", "npm:0.38.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10589,7 +10647,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.0.0-rc.47"],\
           ["constants", "npm:0.0.2"],\
           ["cypress", "npm:12.16.0"],\
-          ["dprint", "npm:0.37.1"],\
+          ["dprint", "npm:0.38.0"],\
           ["eslint", "npm:8.44.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.32.2"],\
           ["execa", "npm:7.1.1"],\
