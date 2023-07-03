@@ -538,54 +538,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/darwin-arm64@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@dprint/darwin-arm64@npm:0.38.0"
+"@dprint/darwin-arm64@npm:0.38.2":
+  version: 0.38.2
+  resolution: "@dprint/darwin-arm64@npm:0.38.2"
   bin:
     darwin-arm64: bin.js
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@dprint/darwin-x64@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@dprint/darwin-x64@npm:0.38.0"
+"@dprint/darwin-x64@npm:0.38.2":
+  version: 0.38.2
+  resolution: "@dprint/darwin-x64@npm:0.38.2"
   bin:
     darwin-x64: bin.js
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-glibc@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@dprint/linux-arm64-glibc@npm:0.38.0"
+"@dprint/linux-arm64-glibc@npm:0.38.2":
+  version: 0.38.2
+  resolution: "@dprint/linux-arm64-glibc@npm:0.38.2"
   bin:
     linux-arm64-glibc: bin.js
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-glibc@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@dprint/linux-x64-glibc@npm:0.38.0"
+"@dprint/linux-x64-glibc@npm:0.38.2":
+  version: 0.38.2
+  resolution: "@dprint/linux-x64-glibc@npm:0.38.2"
   bin:
     linux-x64-glibc: bin.js
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-musl@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@dprint/linux-x64-musl@npm:0.38.0"
+"@dprint/linux-x64-musl@npm:0.38.2":
+  version: 0.38.2
+  resolution: "@dprint/linux-x64-musl@npm:0.38.2"
   bin:
     linux-x64-musl: bin.js
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/win32-x64@npm:0.38.0":
-  version: 0.38.0
-  resolution: "@dprint/win32-x64@npm:0.38.0"
+"@dprint/win32-x64@npm:0.38.2":
+  version: 0.38.2
+  resolution: "@dprint/win32-x64@npm:0.38.2"
   bin:
     win32-x64: bin.js
   conditions: os=win32 & cpu=x64
@@ -1743,7 +1743,7 @@ __metadata:
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.18.11"
-    esm-worker: "npm:^0.127.0"
+    esm-worker: "npm:^0.127.1"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
@@ -2488,17 +2488,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.0-rc.47":
-  version: 4.0.0-rc.47
-  resolution: "@yarnpkg/core@npm:4.0.0-rc.47"
+"@yarnpkg/core@npm:^4.0.0-rc.48":
+  version: 4.0.0-rc.48
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.48"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
     "@types/treeify": "npm:^1.0.0"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.47"
-    "@yarnpkg/libzip": "npm:^3.0.0-rc.47"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.47"
-    "@yarnpkg/shell": "npm:^4.0.0-rc.47"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.48"
+    "@yarnpkg/libzip": "npm:^3.0.0-rc.48"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.48"
+    "@yarnpkg/shell": "npm:^4.0.0-rc.48"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
     ci-info: "npm:^3.2.0"
@@ -2518,49 +2518,49 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: 86a25db3eebd1f4da58330b21dec8af2a5bac7e9ce9056422e239e3261b0b4818edc1e301504af112b2ce150593cf92e689db3ae0e2cb3b29db712f47b28924a
+  checksum: 07428390bf5714f3c7f8d6729577d5d0bf3c42d0a46a8f457a037887a1bc07e660771aed6ab2eee4378064452cf9c823e8cd4bafc860f3e2fa60617900da0c76
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.47":
-  version: 3.0.0-rc.47
-  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.47"
+"@yarnpkg/fslib@npm:^3.0.0-rc.48":
+  version: 3.0.0-rc.48
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.48"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 449d3b0ef6a5f23fd5ba79e921c44faa198af4c5345bd60f24aedbaa5f8e52454dd40b07e500135a8ac21452e7c790f820e97fb4cc05704f4fd13bc6a14f8f15
+  checksum: 613b5b722efcec3d3df08cf2dee6e33808a5612f2e6e694ae3c1c1c804ec8640fd1909009b0d8347b818cdcef5958d93501f65373081bbf275e504412b0ed0d7
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.0-rc.47":
-  version: 3.0.0-rc.47
-  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.47"
+"@yarnpkg/libzip@npm:^3.0.0-rc.48":
+  version: 3.0.0-rc.48
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.48"
   dependencies:
     "@types/emscripten": "npm:^1.39.6"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.47"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.48"
     tslib: "npm:^2.4.0"
   peerDependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.47
-  checksum: 54a694dfcba87bd2d805d2d1a2e873f9554a6b83f66d64cb58369440ef8967a072ad0d92182cb291e640dfa436e6032e1c61bdfd90a33c180ff1984f5ed15144
+    "@yarnpkg/fslib": ^3.0.0-rc.48
+  checksum: b8163b9ce74f2d5dd97297ee37f8f23133856f460bd052731972bd53457462013381dbbda8c51606ccb66ca4dac6e7e1b87d7091227ffa949c9f0c6759a370c3
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.47":
-  version: 3.0.0-rc.47
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.47"
+"@yarnpkg/parsers@npm:^3.0.0-rc.48":
+  version: 3.0.0-rc.48
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.48"
   dependencies:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
-  checksum: 2a4b020511eb289b06aa48969ebaebc50c80802741587a2ec2beac41be3e03c01fc33e371dd8b953367bfe1db078786c1686874ce92314ed324e1f112a4cdcbe
+  checksum: c26cdec5e132dc31e73b167218478412ef7c1a283dce052c116e4a5d0df8b1342e89315488452cc951efad5c4445bc7d24b951fa95e12717cf78272d3ee28714
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:^3.0.0-rc.47":
-  version: 3.0.0-rc.47
-  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.47"
+"@yarnpkg/sdks@npm:^3.0.0-rc.48":
+  version: 3.0.0-rc.48
+  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.48"
   dependencies:
-    "@yarnpkg/core": "npm:^4.0.0-rc.47"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.47"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.47"
+    "@yarnpkg/core": "npm:^4.0.0-rc.48"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.48"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.48"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^3.2.1"
     comment-json: "npm:^2.2.0"
@@ -2568,16 +2568,16 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: a617efa2d5a16434808d49b2e3dde71ad095ac9074b568321f199137a3381e1edd2937ffe72c4e6c06b9979152ae01c1dc75aaae1f65d4305d89cf6998cdfece
+  checksum: 548043145e120cb3567b4436ec44a186c0da0ce4f661753aab7f5cbd20be0a59ed5c18ae79665ae90db7c180efd0d2421d659ce42553a14d44d5a6f402a125ab
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^4.0.0-rc.47":
-  version: 4.0.0-rc.47
-  resolution: "@yarnpkg/shell@npm:4.0.0-rc.47"
+"@yarnpkg/shell@npm:^4.0.0-rc.48":
+  version: 4.0.0-rc.48
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.48"
   dependencies:
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.47"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.47"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.48"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.48"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^3.2.1"
     cross-spawn: "npm:7.0.3"
@@ -2586,7 +2586,7 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     shell: ./lib/cli.js
-  checksum: 743bf0305e536961d6befb51d14caf18e00b8a78e1b924cd64d475aac96e9d5a798315937713ab91a776a5cb3290debe9351b536035cf1c32e305c10686dec9e
+  checksum: fe5c3ecb4ea84369e07cf5efe566989051e86582578666d2ceeac6b4281baa6ec242d1a027bb5e796473b4e852e47ea7b1bfc5a42facff25314223ec6f0ab79f
   languageName: node
   linkType: hard
 
@@ -4594,16 +4594,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.38.0":
-  version: 0.38.0
-  resolution: "dprint@npm:0.38.0"
+"dprint@npm:0.38.2":
+  version: 0.38.2
+  resolution: "dprint@npm:0.38.2"
   dependencies:
-    "@dprint/darwin-arm64": "npm:0.38.0"
-    "@dprint/darwin-x64": "npm:0.38.0"
-    "@dprint/linux-arm64-glibc": "npm:0.38.0"
-    "@dprint/linux-x64-glibc": "npm:0.38.0"
-    "@dprint/linux-x64-musl": "npm:0.38.0"
-    "@dprint/win32-x64": "npm:0.38.0"
+    "@dprint/darwin-arm64": "npm:0.38.2"
+    "@dprint/darwin-x64": "npm:0.38.2"
+    "@dprint/linux-arm64-glibc": "npm:0.38.2"
+    "@dprint/linux-x64-glibc": "npm:0.38.2"
+    "@dprint/linux-x64-musl": "npm:0.38.2"
+    "@dprint/win32-x64": "npm:0.38.2"
   dependenciesMeta:
     "@dprint/darwin-arm64":
       optional: true
@@ -4619,7 +4619,7 @@ __metadata:
       optional: true
   bin:
     dprint: bin.js
-  checksum: fc69b110e259e1f835af570712bba7ab5b4228f61d422fc6234c67da035cbaa669295afd4f5429ca083626fa75e978b2576618979efc6aaf649c27257d9a781c
+  checksum: 52b0de0690c993a8991222b2fa9ecc88921d5560f502486fd1bba94c7e31116edb12ddf31e81e1077fed24bb5a33d8376c4b670953de8abf30c8e56979d14396
   languageName: node
   linkType: hard
 
@@ -5067,10 +5067,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-worker@npm:^0.127.0":
-  version: 0.127.0
-  resolution: "esm-worker@npm:0.127.0"
-  checksum: 2429beae6c2817ae7219aa9c8ff4d2a13592e64db397a3353995cfd4da31959ed1a371a91ffcc6a8636689b6458e3339e1dd56fa8b5b8c2898546b52e8f8ed3c
+"esm-worker@npm:^0.127.1":
+  version: 0.127.1
+  resolution: "esm-worker@npm:0.127.1"
+  checksum: ee74a3dd0c4b5349b456b5d75570f88dab82f73bf1902aa6000817ad48c98f9effec1f333e526f45f0a7894cd31984a4f1771ddea43c5503243094c58eea337e
   languageName: node
   linkType: hard
 
@@ -8654,10 +8654,10 @@ __metadata:
     "@types/react-dom": "npm:18.2.6"
     "@typescript-eslint/eslint-plugin": "npm:5.60.1"
     "@typescript-eslint/parser": "npm:5.60.1"
-    "@yarnpkg/sdks": "npm:^3.0.0-rc.47"
+    "@yarnpkg/sdks": "npm:^3.0.0-rc.48"
     constants: "npm:0.0.2"
     cypress: "npm:12.16.0"
-    dprint: "npm:0.38.0"
+    dprint: "npm:0.38.2"
     eslint: "npm:8.44.0"
     eslint-plugin-react: "npm:7.32.2"
     execa: "npm:^7.1.1"
