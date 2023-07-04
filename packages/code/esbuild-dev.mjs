@@ -6,6 +6,30 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
 (async () => {
   await copyFiles();
 
+  const workerEntryPoints = [
+    'vs/language/json/json.worker.js',
+    'vs/language/css/css.worker.js',
+    'vs/language/html/html.worker.js',
+    'vs/language/typescript/ts.worker.js',
+    'vs/editor/editor.worker.js'
+  ];
+  
+  await build({
+    entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
+    bundle: true,
+    format: 'iife',
+    mangleQuoted: true,
+    minifySyntax: true,
+    charset: "utf8",
+    minifyWhitespace: true,
+    ignoreAnnotations: true,
+    keepNames: false,
+    treeShaking: true,
+    // outbase: '../../node_modules/monaco-editor/esm/',
+    outdir: "dist"
+  });
+  
+
   //
 
   await build({
@@ -34,9 +58,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     },
     minifySyntax: true,
     minifyWhitespace: true,
-    ignoreAnnotations: true,
-    keepNames: false,
-    treeShaking: true,
+    keepNames: true,
     legalComments: "none",
     platform: "browser",
     format: "iife",
@@ -55,13 +77,11 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "iife",
     outExtension: { ".js": ".js" },
     minify: true,
-    mangleQuoted: true,
-    minifySyntax: true,
+    mangleQuoted: false,
     charset: "utf8",
-    minifyWhitespace: true,
-    ignoreAnnotations: true,
-    keepNames: false,
-    treeShaking: true,
+    legalComments: "none",
+    keepNames: true,
+    treeShaking: false,
     legalComments: "none",
     outdir: "dist",
   });
@@ -75,6 +95,11 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ...buildOptions,
     splitting: true,
     format: "esm",
+    minify: true, 
+    bundle: true,
+    sourcemap: false,
+    legalComments: "none",
+
     entryPoints: [
       "src/reactMod.ts",
       "src/reactDom.ts",
@@ -117,7 +142,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     external: [
       "/swVersion.mjs",
       "/dist.shasum.js",
-      "/monaco-editor",
+      // "/monaco-editor",
 
       "/monaco-editor/*",
     

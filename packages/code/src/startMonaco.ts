@@ -1,7 +1,8 @@
 import type {} from "monaco-editor";
 import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
-
+// import TSWorkerFactory from "/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016";
+// import EditorWorkerFactory from "/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016";
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
@@ -110,26 +111,32 @@ const monacoContribution = (code: string) => {
   return code;
 };
 
+
+
+
 self.MonacoEnvironment = {
   baseUrl: originToUse,
-  getWorker: async (_: string, label: string) => {
+  getWorkerUrl: (_moduleId: string, label: string) => {
     if (label === "json") {
-      return (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker.js?worker`)).default();
+     // return (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker.js?worker&target=es2016`)).default();
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-      return (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker.js?worker`)).default();
+   //   return (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker.js?worker&target=es2016`)).default();
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
-      return (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker.js?worker`)).default();
+    //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker.js?worker&target=es2016`)).default();
     }
 
     if (label === "typescript" || label === "javascript") {
-      return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker`)).default();
+      return `${originToUse}/language/typescript/ts.worker.js`;
+    //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016`)).default();
     }
 
-    return (await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker`)).default();
+    return `${originToUse}/editor/editor.worker.js`;
+    
+    //(await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016`)).default();
   },
 };
 
