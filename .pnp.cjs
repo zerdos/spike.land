@@ -2548,7 +2548,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.3.3"],\
+          ["@types/node", "npm:20.4.0"],\
           ["axios", "npm:1.4.0"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
@@ -2606,7 +2606,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.2"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.3.3"],\
+          ["@types/node", "npm:20.4.0"],\
           ["@types/prettier", "npm:2.7.3"],\
           ["@types/prismjs", "npm:1.26.0"],\
           ["@types/react", "npm:18.2.14"],\
@@ -2653,7 +2653,7 @@ const RAW_RUNTIME_STATE =
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
           ["preact", "npm:10.15.1"],\
-          ["prettier", "npm:2.8.8"],\
+          ["prettier", "npm:3.0.0"],\
           ["prismjs", "npm:1.29.0"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.9"],\
@@ -2709,7 +2709,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.2"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.3.3"],\
+          ["@types/node", "npm:20.4.0"],\
           ["@types/prettier", "npm:2.7.3"],\
           ["@types/prismjs", "npm:1.26.0"],\
           ["@types/react", "npm:18.2.14"],\
@@ -2755,7 +2755,7 @@ const RAW_RUNTIME_STATE =
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
           ["preact", "npm:10.15.1"],\
-          ["prettier", "npm:2.8.8"],\
+          ["prettier", "npm:3.0.0"],\
           ["prismjs", "npm:1.29.0"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.9"],\
@@ -2795,7 +2795,7 @@ const RAW_RUNTIME_STATE =
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.18.11"],\
-          ["esm-worker", "npm:0.127.1"],\
+          ["esm-worker", "npm:0.128.0"],\
           ["immutable", "npm:4.3.0"],\
           ["p-map", "npm:6.0.0"],\
           ["p-queue", "npm:7.3.4"],\
@@ -2820,7 +2820,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.3.3"],\
+          ["@types/node", "npm:20.4.0"],\
           ["esbuild-wasm", "npm:0.18.11"]\
         ],\
         "linkType": "SOFT"\
@@ -3217,6 +3217,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.3.3-aac92e0a89-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.3.3"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.4.0", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.4.0-2eb9c50cc4-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.4.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6584,10 +6591,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["esm-worker", [\
-      ["npm:0.127.1", {\
-        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.127.1-524a4657e4-10.zip/node_modules/esm-worker/",\
+      ["npm:0.128.0", {\
+        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.128.0-ec488401a5-10.zip/node_modules/esm-worker/",\
         "packageDependencies": [\
-          ["esm-worker", "npm:0.127.1"]\
+          ["esm-worker", "npm:0.128.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11766,10 +11773,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["prettier", [\
-      ["npm:2.8.8", {\
-        "packageLocation": "./.yarn/global/cache/prettier-npm-2.8.8-430828a36c-10.zip/node_modules/prettier/",\
+      ["npm:3.0.0", {\
+        "packageLocation": "./.yarn/global/cache/prettier-npm-3.0.0-7ffbcce680-10.zip/node_modules/prettier/",\
         "packageDependencies": [\
-          ["prettier", "npm:2.8.8"]\
+          ["prettier", "npm:3.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
