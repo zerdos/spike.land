@@ -38,7 +38,7 @@ export const makeEnv = (environment) => ({
 
     env: {
       NODE_ENV: `${environment}`,
-      version: "v19.7.0",
+      version: "v20.3.0",
       cwd: function() {
         return "/";
       },

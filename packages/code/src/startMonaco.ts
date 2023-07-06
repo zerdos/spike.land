@@ -130,11 +130,11 @@ self.MonacoEnvironment = {
     }
 
     if (label === "typescript" || label === "javascript") {
-      return `${originToUse}/language/typescript/ts.worker.js`;
+      return `${originToUse}/language/typescript/ts.worker.mjs`;
     //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016`)).default();
     }
 
-    return `${originToUse}/editor/editor.worker.js`;
+    return `${originToUse}/editor/editor.worker.mjs`;
     
     //(await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016`)).default();
   },

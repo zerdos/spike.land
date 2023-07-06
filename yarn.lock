@@ -1774,9 +1774,6 @@ __metadata:
     "@mui/material": "npm:5.13.7"
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.1"
-    "@types/eslint": "npm:8.40.2"
-    "@types/esprima": "npm:^4.0.3"
-    "@types/estraverse": "npm:^5.1.2"
     "@types/events": "npm:3.0.0"
     "@types/hoist-non-react-statics": "npm:3.3.1"
     "@types/is-callable": "npm:1.1.0"
@@ -1786,11 +1783,9 @@ __metadata:
     "@types/lodash.throttle": "npm:4.1.7"
     "@types/node": "npm:20.4.0"
     "@types/prettier": "npm:2.7.3"
-    "@types/prismjs": "npm:1.26.0"
     "@types/react": "npm:18.2.14"
     "@types/react-dom": "npm:18.2.6"
     "@types/uuid": "npm:9.0.2"
-    "@types/wicg-file-system-access": "npm:^2020.9.6"
     "@typescript-eslint/eslint-plugin": "npm:5.61.0"
     "@typescript-eslint/parser": "npm:5.61.0"
     "@typescript-eslint/typescript-estree": "npm:5.61.0"
@@ -1830,8 +1825,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
     preact: "npm:10.15.1"
-    prettier: "npm:3.0.0"
-    prismjs: "npm:1.29.0"
+    prettier: "npm:2.8.4"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
@@ -1855,8 +1849,6 @@ __metadata:
     webrtc-adapter: "npm:8.2.3"
     workbox-window: "npm:7.0.0"
     worker-rpc: "npm:0.2.0"
-  peerDependencies:
-    ts-node: "*"
   languageName: unknown
   linkType: soft
 
@@ -2044,24 +2036,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/esprima@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "@types/esprima@npm:4.0.3"
-  dependencies:
-    "@types/estree": "npm:*"
-  checksum: 266d1f87a9469688af0f143dec47caae25e6f689194da0d57d03d796cf8bdbfb99593717885e98d9538f1beff967a642f126d693e0e4b5fa4f4605fb55866919
-  languageName: node
-  linkType: hard
-
-"@types/estraverse@npm:^5.1.2":
-  version: 5.1.2
-  resolution: "@types/estraverse@npm:5.1.2"
-  dependencies:
-    "@types/estree": "npm:*"
-  checksum: 128a810e7505408eff9d1d51bb8492035472df25f0eb280ec87196aae3cba0b8ecf1877e7a9d1578a5729391ba7e18221b6a5441e219d459ffcc043f2b6df8c5
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:*":
   version: 1.0.1
   resolution: "@types/estree@npm:1.0.1"
@@ -2227,13 +2201,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prismjs@npm:1.26.0":
-  version: 1.26.0
-  resolution: "@types/prismjs@npm:1.26.0"
-  checksum: 61b46e490acd46abba6c7c8c491247ba0c94f65f36f2eb1b8a80b0afc7961c7f9f2b386bd51daf114d61758e59957fe196a285f5e34bd88e46b4794b3e2a597d
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*, @types/prop-types@npm:^15.7.5":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
@@ -2341,13 +2308,6 @@ __metadata:
   version: 9.0.2
   resolution: "@types/uuid@npm:9.0.2"
   checksum: 1754bcf3444e1e3aeadd6e774fc328eb53bc956665e2e8fb6ec127aa8e1f43d9a224c3d22a9a6233dca8dd81a12dc7fed4d84b8876dd5ec82d40f574f7ff8b68
-  languageName: node
-  linkType: hard
-
-"@types/wicg-file-system-access@npm:^2020.9.6":
-  version: 2020.9.6
-  resolution: "@types/wicg-file-system-access@npm:2020.9.6"
-  checksum: cdaccd56fec594efae7a8156bbb8f3a1a91dafae6e86302d2544d6298ac07d133956e20823a7c26142d60bf62781de0c7ffd703fc24deea66da31abab47c53de
   languageName: node
   linkType: hard
 
@@ -9661,12 +9621,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.0.0":
-  version: 3.0.0
-  resolution: "prettier@npm:3.0.0"
+"prettier@npm:2.8.4":
+  version: 2.8.4
+  resolution: "prettier@npm:2.8.4"
   bin:
-    prettier: bin/prettier.cjs
-  checksum: 399292638280988ecd44db6532e908246b7c9468e6f5f571b3835a5206b7f1132cb674c12be430d921474901dc85398429dfd2dc31b282eef9affebd3ce72cef
+    prettier: bin-prettier.js
+  checksum: 57aedf9eea2ea3a4091c7867c8192d268614c395826c323c1fee7841b3ebab6b299c034b5a083f908d8a995ba7fc5c633ecc4b90c8fd56615c0c054a73d8c6b3
   languageName: node
   linkType: hard
 
@@ -9701,13 +9661,6 @@ __metadata:
   version: 1.0.42
   resolution: "printable-characters@npm:1.0.42"
   checksum: 5fd9f44f2b24c9d875a97642a72be27f53aaac7f0f8f2792f969f3082e4516878db21cfa999f827606b002a890e6afeac0e0cc8dcb0d2d7965252975e634c6b2
-  languageName: node
-  linkType: hard
-
-"prismjs@npm:1.29.0":
-  version: 1.29.0
-  resolution: "prismjs@npm:1.29.0"
-  checksum: 2080db382c2dde0cfc7693769e89b501ef1bfc8ff4f8d25c07fd4c37ca31bc443f6133d5b7c145a73309dc396e829ddb7cc18560026d862a887ae08864ef6b07
   languageName: node
   linkType: hard
 
