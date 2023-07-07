@@ -16,16 +16,16 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
-    "@cloudflare/workers-types": "4.20230518.0",
+    "@cloudflare/workers-types": "4.20230628.0",
     "@spike-land/code": "0.9.6",
     "typescript": "5.1.6",
-    "wrangler": "3.1.1"
+    "wrangler": "3.1.2"
   },
   "dependencies": {
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.18.11",
-    "esm-worker": "^0.128.0",
+    "esm-worker": "^0.128.14",
     "immutable": "4.3.0",
     "p-map": "6.0.0",
     "p-queue": "7.3.4"

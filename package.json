@@ -32,7 +32,7 @@
     "ai-commit": "ai-commit"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230518.0",
+    "@cloudflare/workers-types": "4.20230628.0",
     "@emotion/react": "11.11.1",
     "@isomorphic-git/lightning-fs": "4.6.0",
     "@playwright/test": "1.35.1",
@@ -43,7 +43,7 @@
     "@typescript-eslint/parser": "5.61.0",
     "@yarnpkg/sdks": "^3.0.0-rc.48",
     "constants": "0.0.2",
-    "cypress": "12.16.0",
+    "cypress": "12.17.0",
     "dprint": "0.38.3",
     "eslint": "8.44.0",
     "eslint-plugin-react": "7.32.2",
