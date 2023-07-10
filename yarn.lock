@@ -538,54 +538,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/darwin-arm64@npm:0.38.3":
-  version: 0.38.3
-  resolution: "@dprint/darwin-arm64@npm:0.38.3"
+"@dprint/darwin-arm64@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@dprint/darwin-arm64@npm:0.39.0"
   bin:
     darwin-arm64: bin.js
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@dprint/darwin-x64@npm:0.38.3":
-  version: 0.38.3
-  resolution: "@dprint/darwin-x64@npm:0.38.3"
+"@dprint/darwin-x64@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@dprint/darwin-x64@npm:0.39.0"
   bin:
     darwin-x64: bin.js
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-glibc@npm:0.38.3":
-  version: 0.38.3
-  resolution: "@dprint/linux-arm64-glibc@npm:0.38.3"
+"@dprint/linux-arm64-glibc@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@dprint/linux-arm64-glibc@npm:0.39.0"
   bin:
     linux-arm64-glibc: bin.js
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-glibc@npm:0.38.3":
-  version: 0.38.3
-  resolution: "@dprint/linux-x64-glibc@npm:0.38.3"
+"@dprint/linux-x64-glibc@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@dprint/linux-x64-glibc@npm:0.39.0"
   bin:
     linux-x64-glibc: bin.js
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-musl@npm:0.38.3":
-  version: 0.38.3
-  resolution: "@dprint/linux-x64-musl@npm:0.38.3"
+"@dprint/linux-x64-musl@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@dprint/linux-x64-musl@npm:0.39.0"
   bin:
     linux-x64-musl: bin.js
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/win32-x64@npm:0.38.3":
-  version: 0.38.3
-  resolution: "@dprint/win32-x64@npm:0.38.3"
+"@dprint/win32-x64@npm:0.39.0":
+  version: 0.39.0
+  resolution: "@dprint/win32-x64@npm:0.39.0"
   bin:
     win32-x64: bin.js
   conditions: os=win32 & cpu=x64
@@ -1734,7 +1734,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.4.0"
+    "@types/node": "npm:^20.4.1"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^11.0.0"
@@ -1775,7 +1775,7 @@ __metadata:
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.18.11"
-    esm-worker: "npm:^0.128.14"
+    esm-worker: "npm:^0.128.16"
     immutable: "npm:4.3.0"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
@@ -1804,7 +1804,7 @@ __metadata:
     "@types/jest": "npm:^29.5.2"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.4.0"
+    "@types/node": "npm:20.4.1"
     "@types/prettier": "npm:2.7.3"
     "@types/react": "npm:18.2.14"
     "@types/react-dom": "npm:18.2.6"
@@ -1812,7 +1812,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:5.61.0"
     "@typescript-eslint/parser": "npm:5.61.0"
     "@typescript-eslint/typescript-estree": "npm:5.61.0"
-    ace-builds: "npm:1.23.1"
+    ace-builds: "npm:1.23.2"
     assert: "npm:2.0.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -1840,15 +1840,15 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.39.0"
+    monaco-editor: "npm:0.40.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
     p2pcf: "npm:1.3.13"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    preact: "npm:10.15.1"
-    prettier: "npm:2.8.8"
+    preact: "npm:10.16.0"
+    prettier: "npm:3.0.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
@@ -1864,7 +1864,7 @@ __metadata:
     ts-jest: "npm:^29.1.1"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.0"
-    type-fest: "npm:^3.12.0"
+    type-fest: "npm:^3.13.0"
     typescript: "npm:5.1.6"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
@@ -1887,7 +1887,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.4.0"
+    "@types/node": "npm:20.4.1"
     esbuild-wasm: "npm:0.18.11"
   languageName: unknown
   linkType: soft
@@ -2049,13 +2049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.40.2":
-  version: 8.40.2
-  resolution: "@types/eslint@npm:8.40.2"
+"@types/eslint@npm:8.44.0":
+  version: 8.44.0
+  resolution: "@types/eslint@npm:8.44.0"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 7b4d22dd7da4fc5aa49bbd4e754afabad302f136623ba33efc1fe2e3e021d9b2784415982487e31ddcf1d1d921b4a69c78674a4df8466a41aabb4836e44e92a6
+  checksum: 29657ff1e3325be8048646b0f10f20e6fd6668c81e560cdf931b228eae8758e56ba0a51b71e699e86adfea4fdc05f68d23cb078b105d77be81a731f7aa172caa
   languageName: node
   linkType: hard
 
@@ -2196,10 +2196,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.4.0, @types/node@npm:^20.4.0":
-  version: 20.4.0
-  resolution: "@types/node@npm:20.4.0"
-  checksum: 06ec46ffd73047203ab798a52e6257f8c6e9fb97c6df1292140c71d28e1b7f1110bafe46bf99f6f0642fe75bdace7799e204e72ef81f487fb008d0a3e77b9538
+"@types/node@npm:20.4.1, @types/node@npm:^20.4.1":
+  version: 20.4.1
+  resolution: "@types/node@npm:20.4.1"
+  checksum: 71e643c3c0dba17631970b1fa1dd3f82788ea226eedc8d81edfcc2399856d4b882c29b235a9106d04c49c185c3de8038840fe92e82853f80454b9fa6b6fbce37
   languageName: node
   linkType: hard
 
@@ -2599,10 +2599,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.23.1":
-  version: 1.23.1
-  resolution: "ace-builds@npm:1.23.1"
-  checksum: 0a3b81bd38f4fd49cc04ea17533afaffe1d3a2d9df7126526d75f990dd4bc1789be025f3709766d0e6941f0c5a8c04926a58f1336cc08e69b96b355c2f50890e
+"ace-builds@npm:1.23.2":
+  version: 1.23.2
+  resolution: "ace-builds@npm:1.23.2"
+  checksum: cdae040ef1245474a22d8aa55d5b242827393ffb3bb2aa29ebb104aec306b8419695ff608d68fd8e65b0aa8e2cdf44af6c3dcb892845899575225d71d4aaf0ab
   languageName: node
   linkType: hard
 
@@ -4586,16 +4586,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.38.3":
-  version: 0.38.3
-  resolution: "dprint@npm:0.38.3"
+"dprint@npm:0.39.0":
+  version: 0.39.0
+  resolution: "dprint@npm:0.39.0"
   dependencies:
-    "@dprint/darwin-arm64": "npm:0.38.3"
-    "@dprint/darwin-x64": "npm:0.38.3"
-    "@dprint/linux-arm64-glibc": "npm:0.38.3"
-    "@dprint/linux-x64-glibc": "npm:0.38.3"
-    "@dprint/linux-x64-musl": "npm:0.38.3"
-    "@dprint/win32-x64": "npm:0.38.3"
+    "@dprint/darwin-arm64": "npm:0.39.0"
+    "@dprint/darwin-x64": "npm:0.39.0"
+    "@dprint/linux-arm64-glibc": "npm:0.39.0"
+    "@dprint/linux-x64-glibc": "npm:0.39.0"
+    "@dprint/linux-x64-musl": "npm:0.39.0"
+    "@dprint/win32-x64": "npm:0.39.0"
   dependenciesMeta:
     "@dprint/darwin-arm64":
       optional: true
@@ -4611,7 +4611,7 @@ __metadata:
       optional: true
   bin:
     dprint: bin.js
-  checksum: d17459ec2d8d30cdd320d0f3682d56dbfd4b7e9199c8b5a5aeca61ac85e058e01f42ddd9c9d05db1ad6980e8df72fd5c29df3d6096eb334f7c18320b63d51227
+  checksum: 7b90b3e8fb779d26d604179d94009c3c53a66d9f9c830ed3d43f02d40e36e16bb6734df065981a63736a8a718bb27439478a6bbc79a1c055bf74b06834c1441b
   languageName: node
   linkType: hard
 
@@ -5059,10 +5059,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-worker@npm:^0.128.14":
-  version: 0.128.14
-  resolution: "esm-worker@npm:0.128.14"
-  checksum: a36a69eac9b811ff2a2a80ac369c1fa8e0a25554c775769127151764426fb1a959ce530874cb589408e3d07afcebdd752e5d7e2ad7f8a232040c03846684357d
+"esm-worker@npm:^0.128.16":
+  version: 0.128.16
+  resolution: "esm-worker@npm:0.128.16"
+  checksum: 2064ff35d2dee8784bbf147a4e121f64178363b63357905fa6c838a1973f3de4cbde4d92f90728b110605fba7a341be7286dc9faabcc4a74011151eeb1697065
   languageName: node
   linkType: hard
 
@@ -8694,10 +8694,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.39.0":
-  version: 0.39.0
-  resolution: "monaco-editor@npm:0.39.0"
-  checksum: f11b2840b4ee6a3be68c6d4295d3d4fcb5a2a7ac9ad06eacabf816ecf0d0b08264823cac433103ca1c8f6c88e3618c25a2c639aeb18158bcde7105ee63c86819
+"monaco-editor@npm:0.40.0":
+  version: 0.40.0
+  resolution: "monaco-editor@npm:0.40.0"
+  checksum: 9fc9eac730d42c8069247f442a1cceb89c308dca77652c5f850cb333c295f6c8ce07cf59216413075d49fa72e8ffd6f8ab8752efc5d50225eaabdbd4a9fcb200
   languageName: node
   linkType: hard
 
@@ -8710,7 +8710,7 @@ __metadata:
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.35.1"
     "@spike-land/ai-devtools": "workspace:^"
-    "@types/eslint": "npm:8.40.2"
+    "@types/eslint": "npm:8.44.0"
     "@types/react": "npm:18.2.14"
     "@types/react-dom": "npm:18.2.6"
     "@typescript-eslint/eslint-plugin": "npm:5.61.0"
@@ -8718,12 +8718,12 @@ __metadata:
     "@yarnpkg/sdks": "npm:^3.0.0-rc.48"
     constants: "npm:0.0.2"
     cypress: "npm:12.17.0"
-    dprint: "npm:0.38.3"
+    dprint: "npm:0.39.0"
     eslint: "npm:8.44.0"
     eslint-plugin-react: "npm:7.32.2"
     execa: "npm:^7.1.1"
     localforage: "npm:1.10.0"
-    monaco-editor: "npm:0.39.0"
+    monaco-editor: "npm:0.40.0"
     playwright: "npm:1.35.1"
     react: "npm:18.2.0"
     typescript: "npm:5.1.6"
@@ -9671,10 +9671,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"preact@npm:10.15.1":
-  version: 10.15.1
-  resolution: "preact@npm:10.15.1"
-  checksum: 9348471cdb04e9c3ec5b5722a0cca31b18594f07460ed313b0d75bafac3bfecd2b53a4fb5da0403a73e822ba6817c574a5a4e27d7a3cfbfa12737dc1d8e87344
+"preact@npm:10.16.0":
+  version: 10.16.0
+  resolution: "preact@npm:10.16.0"
+  checksum: cebda8b97d40c302c14a78b108c4776cf92f57638404749d87ac51a3d293eb8366e805f66f1cd58cd6b8e858bf4a04bf10dd4556d6466f3b0ed39f8b154a5c15
   languageName: node
   linkType: hard
 
@@ -9714,12 +9714,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.8":
-  version: 2.8.8
-  resolution: "prettier@npm:2.8.8"
+"prettier@npm:3.0.0":
+  version: 3.0.0
+  resolution: "prettier@npm:3.0.0"
   bin:
-    prettier: bin-prettier.js
-  checksum: 00cdb6ab0281f98306cd1847425c24cbaaa48a5ff03633945ab4c701901b8e96ad558eb0777364ffc312f437af9b5a07d0f45346266e8245beaf6247b9c62b24
+    prettier: bin/prettier.cjs
+  checksum: 399292638280988ecd44db6532e908246b7c9468e6f5f571b3835a5206b7f1132cb674c12be430d921474901dc85398429dfd2dc31b282eef9affebd3ce72cef
   languageName: node
   linkType: hard
 
@@ -11675,10 +11675,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^3.12.0":
-  version: 3.12.0
-  resolution: "type-fest@npm:3.12.0"
-  checksum: 637359c0f819e597dd88479d76f48de8c9bf30c336aa2557e85a6d723580b5c782f5cffa1058825b99bdbfbd545fe3b6033331354141d9e921da8fb9ba1925f2
+"type-fest@npm:^3.13.0":
+  version: 3.13.0
+  resolution: "type-fest@npm:3.13.0"
+  checksum: 2ad0406fb32c536fb0ea485898e74e7e51234d46929e33d4051b01257c6ca012bb7b5a833d4da3ed0f1d942e40e3f364ffa6071177ed91930b4db3c98ffb2ce8
   languageName: node
   linkType: hard
 
