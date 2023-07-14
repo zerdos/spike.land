@@ -2358,7 +2358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:6.0.0":
+"@typescript-eslint/eslint-plugin@npm:6.0.0, @typescript-eslint/eslint-plugin@npm:^6.0.0":
   version: 6.0.0
   resolution: "@typescript-eslint/eslint-plugin@npm:6.0.0"
   dependencies:
@@ -2385,7 +2385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:6.0.0":
+"@typescript-eslint/parser@npm:6.0.0, @typescript-eslint/parser@npm:^6.0.0":
   version: 6.0.0
   resolution: "@typescript-eslint/parser@npm:6.0.0"
   dependencies:
@@ -4996,7 +4996,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.32.2":
+"eslint-plugin-react@npm:7.32.2, eslint-plugin-react@npm:^7.32.2":
   version: 7.32.2
   resolution: "eslint-plugin-react@npm:7.32.2"
   dependencies:
@@ -8751,14 +8751,14 @@ __metadata:
     "@types/eslint": "npm:8.44.0"
     "@types/react": "npm:18.2.15"
     "@types/react-dom": "npm:18.2.7"
-    "@typescript-eslint/eslint-plugin": "npm:6.0.0"
-    "@typescript-eslint/parser": "npm:6.0.0"
+    "@typescript-eslint/eslint-plugin": "npm:^6.0.0"
+    "@typescript-eslint/parser": "npm:^6.0.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.48"
     constants: "npm:0.0.2"
     cypress: "npm:12.17.1"
     dprint: "npm:0.39.1"
     eslint: "npm:8.44.0"
-    eslint-plugin-react: "npm:7.32.2"
+    eslint-plugin-react: "npm:^7.32.2"
     execa: "npm:^7.1.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.40.0"
