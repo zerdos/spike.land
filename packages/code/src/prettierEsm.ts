@@ -1,17 +1,19 @@
 // import parserBabel from "prettier/parser-babel";
 import pluginTypescript from "prettier/plugins/typescript";
+//@ts-ignore
 import pluginEstree from "prettier/plugins/estree"
-import * as prettier from "prettier/standalone";
+import {format} from "prettier/standalone";
+// export type * as Prettier from "prettier/standalone"
 // import parserHtml from "prettier/parser-html";
 // import parserPostcss from "prettier/parser-postcss";
 
 // let lastSuccessful: string | null = null;
 
-const prettierJs = (code: string) => {
+export const prettierJs = async (code: string) => {
   // return code;
   // console.log(`prettierJS: ${code}`);
   try {
-    return prettier.format(code, {
+    return await format(code, {
       arrowParens: "always",
       bracketSpacing: true,
       embeddedLanguageFormatting: "auto",
@@ -47,7 +49,7 @@ const prettierJs = (code: string) => {
 };
 
 Object.assign(self, { prettierJs });
-export type Prettier = typeof prettierJs;
+
 // export const prettierCss = (code: string) =>
 //   Prettier.format(code, {
 //     parser: "css",

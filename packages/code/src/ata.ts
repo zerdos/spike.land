@@ -8,7 +8,7 @@ export async function ata(
   { code, originToUse, prettierJs }: {
     code: string;
     originToUse: string;
-    prettierJs: (code: string) => string;
+    prettierJs: (code: string) => Promise<string>;
   },
 ) {
   process.cwd = () => "/";
@@ -97,17 +97,17 @@ export async function ata(
   }];
 
   const extraLibs = [
-    ...Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
-      .map((x) => ({
+    ...(await Promise.all(Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
+      .map(async(x) => ({
         filePath: impRes[x].url!,
-        content: prettierJs(impRes[x].content).split(`import mod from "/`).join(
+        content: (await prettierJs(impRes[x].content)).split(`import mod from "/`).join(
           `import mod from "`,
         ).split(
           `export * from "/`,
         ).join(
           `export * from "`,
         ),
-      })),
+      })))),
     ...extras,
   ];
 
@@ -125,7 +125,7 @@ export async function ata(
     //   return xx.join(`"`);
     // }).join(`; import "`)));
 
-    let res = tsx(prettierJs(code));
+    let res = tsx(await prettierJs(code));
 
     // let res = tsx(prettierJs(code));
 

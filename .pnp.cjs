@@ -2625,7 +2625,6 @@ const RAW_RUNTIME_STATE =
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
           ["@types/node", "npm:20.4.2"],\
-          ["@types/prettier", "npm:2.7.3"],\
           ["@types/react", "npm:18.2.15"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@types/uuid", "npm:9.0.2"],\
