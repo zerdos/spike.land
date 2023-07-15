@@ -62,6 +62,7 @@
     "esbuild",
     "esbuild-wasm",
     "esms",
+    "estree",
     "eventlog",
     "execa",
     "favicon",

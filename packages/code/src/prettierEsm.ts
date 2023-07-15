@@ -1,7 +1,7 @@
 // import parserBabel from "prettier/parser-babel";
-import parserTypescript from "prettier/parser-typescript";
-
-import prettier from "prettier/standalone";
+import pluginTypescript from "prettier/plugins/typescript";
+import pluginEstree from "prettier/plugins/estree"
+import * as prettier from "prettier/standalone";
 // import parserHtml from "prettier/parser-html";
 // import parserPostcss from "prettier/parser-postcss";
 
@@ -34,7 +34,7 @@ const prettierJs = (code: string) => {
       trailingComma: "all",
       useTabs: false,
       parser: "typescript",
-      plugins: [parserTypescript /// parserHtml, parserPostcss
+      plugins: [pluginEstree, pluginTypescript /// parserHtml, parserPostcss
       ],
     });
     // return lastSuccessful = current;
