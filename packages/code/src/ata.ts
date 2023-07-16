@@ -151,9 +151,9 @@ export async function ata(
         ? new URL(r, baseUrl).toString()
         : r.indexOf("https://") !== -1
         ? r
-        : await fetch(`${location.origin}/${r}`, { redirect: "follow" }).then(
-          (res) => res.headers.get("X-typescript-types"),
-        );
+        : ((r.indexOf('data:text/javascript')===-1) &&  await fetch(`${location.origin}/*${r}?bundle`, { redirect: "follow" }).then(
+          async(res) => res.headers.get("X-typescript-types") || (await res.text()).split(`"`).find(x=>x.startsWith("https://")&& x.indexOf(r)!==-1)
+        )) || null;
 
       // const rR = r.slice(0, 1) ==="."? newBase;
       if (impRes[newBase!]) {
