@@ -159,7 +159,7 @@ export const build = async (
       browser: true,
     }),
   });
-  const define = makeEnv("development");
+  const define = makeEnv("production");
   const defaultOpts: BuildOptions = {
     resolveExtensions: [
       ".tsx",
@@ -190,16 +190,18 @@ export const build = async (
     //  ...importMap.imports,
     // },
 
-    target: "es2021",
+    target: "esnext",
     outdir: `${location.origin}/live/${codeSpace}/`,
     treeShaking: true,
-    minify: true,
-
+    bundle: true,
     define,
+    keepNames: false,
+    ignoreAnnotations: true,
 
-    minifyIdentifiers: true,
+
     minifySyntax: true,
-    minifyWhitespace: true,
+    minifyIdentifiers: true,
+    minifyWhitespace: false,
 
     splitting: false,
 
@@ -215,8 +217,8 @@ export const build = async (
   let b: BuildResult;
 
   return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(x =>
-    fetch(`${origin}/live/${codeSpace}`, {
-      method: "POST",
+    fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+      method: "PUT",
       body: x,
       headers: { "Content-Type": "application/javascript", "TR_ORIGIN": `origin`, "TR_BUNDLE": `true` },
     }).then(x => x.text()).then(x => console.log(x))

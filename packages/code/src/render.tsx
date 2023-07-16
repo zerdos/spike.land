@@ -113,7 +113,7 @@ async function getApp(App: any, codeSpace: string) {
   if (!App) {
     try {
       App = (await import(
-        await stat(`/live/${codeSpace}/index.mjs`)
+        (location.href.endsWith("iframe") || await stat(`/live/${codeSpace}/index.mjs`))
           ? `${location.origin}/live/${codeSpace}/index.mjs`
           : `${location.origin}/live/${codeSpace}/index.js`
       )).default;

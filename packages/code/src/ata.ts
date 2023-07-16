@@ -193,21 +193,17 @@ export async function ata(
         }
       }
 
-      // impRes[new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString()] = {
-      //   url: new URL(r.indexOf("d.ts") !== -1 ? r : r + "/index.ts", baseUrl).toString(),
-      //   content: `/// <reference path="${newBase}" />`,
-      //   ref: r,
-      // };
+  
       impRes[
-        new URL(r.indexOf("d.ts") !== -1 ? r : `${r}/index.d.ts`, baseUrl)
+        new URL((r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)  ? r : `${r}/index.d.ts`, baseUrl)
           .toString()
       ] = impRes[
-        new URL(r.indexOf("d.ts") !== -1 ? r : `${r}/index.d.ts`, baseUrl)
+        new URL( (r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)  ? r : `${r}/index.d.ts`, baseUrl)
           .toString()
       ]
         || {
           url: new URL(
-            r.indexOf("d.ts") !== -1 ? r : `${r}/index.d.ts`,
+            (r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)  ? r : `${r}/index.d.ts`,
             baseUrl,
           ).toString(),
           content: `
