@@ -1807,7 +1807,6 @@ __metadata:
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-error-boundary: "npm:4.0.10"
     react-icons: "npm:4.10.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:^0.14.0"
@@ -1818,7 +1817,6 @@ __metadata:
     ts-jest: "npm:^29.1.1"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.0"
-    type-fest: "npm:^3.13.0"
     typescript: "npm:5.1.6"
     util: "npm:0.12.5"
     uuid: "npm:9.0.0"
@@ -9947,17 +9945,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-error-boundary@npm:4.0.10":
-  version: 4.0.10
-  resolution: "react-error-boundary@npm:4.0.10"
-  dependencies:
-    "@babel/runtime": "npm:^7.12.5"
-  peerDependencies:
-    react: ">=16.13.1"
-  checksum: 521612cd8cec4d2b5507ac6191ac45117f2f83d9c5c0616790f2b0e8cce3b0c2254b5a494c24c16f01b3f30b4106f7044a572f650d2157076bd5686c2438cecb
-  languageName: node
-  linkType: hard
-
 "react-icons@npm:4.10.1":
   version: 4.10.1
   resolution: "react-icons@npm:4.10.1"
@@ -11623,13 +11610,6 @@ __metadata:
   version: 0.21.3
   resolution: "type-fest@npm:0.21.3"
   checksum: f4254070d9c3d83a6e573bcb95173008d73474ceadbbf620dd32d273940ca18734dff39c2b2480282df9afe5d1675ebed5499a00d791758748ea81f61a38961f
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "type-fest@npm:3.13.0"
-  checksum: 2ad0406fb32c536fb0ea485898e74e7e51234d46929e33d4051b01257c6ca012bb7b5a833d4da3ed0f1d942e40e3f364ffa6071177ed91930b4db3c98ffb2ce8
   languageName: node
   linkType: hard
 

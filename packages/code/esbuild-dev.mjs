@@ -167,7 +167,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       `${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
       "@cloudflare/workers-types",
-      // "react-error-boundary",
       // "@emotion/react",
       // "@emotion/",
       // "react*",

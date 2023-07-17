@@ -2652,7 +2652,6 @@ const RAW_RUNTIME_STATE =
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.9"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.2.0"],\
-          ["react-error-boundary", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.0.10"],\
           ["react-icons", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.10.1"],\
           ["react-qrious", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.5.6"],\
           ["react-refresh", "npm:0.14.0"],\
@@ -2663,7 +2662,6 @@ const RAW_RUNTIME_STATE =
           ["ts-jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.1.1"],\
           ["ts-md5", "npm:1.3.1"],\
           ["tslib", "npm:2.6.0"],\
-          ["type-fest", "npm:3.13.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"],\
           ["util", "npm:0.12.5"],\
           ["uuid", "npm:9.0.0"],\
@@ -12206,29 +12204,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["react-error-boundary", [\
-      ["npm:4.0.10", {\
-        "packageLocation": "./.yarn/global/cache/react-error-boundary-npm-4.0.10-26f7abd70f-10.zip/node_modules/react-error-boundary/",\
-        "packageDependencies": [\
-          ["react-error-boundary", "npm:4.0.10"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.0.10", {\
-        "packageLocation": "./.yarn/__virtual__/react-error-boundary-virtual-596949dd1c/0/global/cache/react-error-boundary-npm-4.0.10-26f7abd70f-10.zip/node_modules/react-error-boundary/",\
-        "packageDependencies": [\
-          ["react-error-boundary", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.0.10"],\
-          ["@babel/runtime", "npm:7.22.6"],\
-          ["@types/react", "npm:18.2.15"],\
-          ["react", "npm:18.2.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/react",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["react-icons", [\
       ["npm:4.10.1", {\
         "packageLocation": "./.yarn/global/cache/react-icons-npm-4.10.1-74abe904b6-10.zip/node_modules/react-icons/",\
@@ -14155,13 +14130,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/type-fest-npm-0.21.3-5ff2a9c6fd-10.zip/node_modules/type-fest/",\
         "packageDependencies": [\
           ["type-fest", "npm:0.21.3"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:3.13.0", {\
-        "packageLocation": "./.yarn/global/cache/type-fest-npm-3.13.0-9b64367c8b-10.zip/node_modules/type-fest/",\
-        "packageDependencies": [\
-          ["type-fest", "npm:3.13.0"]\
         ],\
         "linkType": "HARD"\
       }]\
