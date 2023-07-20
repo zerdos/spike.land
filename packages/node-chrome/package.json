@@ -12,7 +12,7 @@
     "docker-compose.yml",
     "Dockerfile",
     "README.md"
-  ]
+  ],
   "devDependencies": {
     "@spike-land/devcontainer-generator": "*"
   },
