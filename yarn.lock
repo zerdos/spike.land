@@ -378,7 +378,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.5, @babel/runtime@npm:^7.22.6, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.22.6
   resolution: "@babel/runtime@npm:7.22.6"
   dependencies:
@@ -1415,14 +1415,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/base@npm:5.0.0-beta.7":
-  version: 5.0.0-beta.7
-  resolution: "@mui/base@npm:5.0.0-beta.7"
+"@mui/base@npm:5.0.0-beta.8":
+  version: 5.0.0-beta.8
+  resolution: "@mui/base@npm:5.0.0-beta.8"
   dependencies:
-    "@babel/runtime": "npm:^7.22.5"
+    "@babel/runtime": "npm:^7.22.6"
     "@emotion/is-prop-valid": "npm:^1.2.1"
     "@mui/types": "npm:^7.2.4"
-    "@mui/utils": "npm:^5.13.7"
+    "@mui/utils": "npm:^5.14.1"
     "@popperjs/core": "npm:^2.11.8"
     clsx: "npm:^1.2.1"
     prop-types: "npm:^15.8.1"
@@ -1434,27 +1434,27 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: d03d6d5266056266eb650b011cf341d2405c1c50fb7552f3a5ed2743a5105cfae006e6ad7881fba364a26f61c5de99b1063de30541d4b5db8b171e07baef0dfd
+  checksum: 5d4b77b65b06be2fd9193f9fd37197003cee823adb0d8d6bfa5af2b5727724ef450e06428f4eaea675a6c867eecd9018bcb76380ccee3ff143ea06e3ed29db8f
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^5.14.0":
-  version: 5.14.0
-  resolution: "@mui/core-downloads-tracker@npm:5.14.0"
-  checksum: 20b5b830ac3661c9a7b331c4c4a5ea4ba614907182576ebde2508564bda7102f037670105097db31a1452cf55d092dd9dff94fb6931b87910bb48d1fb11c8b50
+"@mui/core-downloads-tracker@npm:^5.14.1":
+  version: 5.14.1
+  resolution: "@mui/core-downloads-tracker@npm:5.14.1"
+  checksum: 8de805bb200ca9f6bc12574faeea5c550b2f7b1fdaf7dd2ad052fc06277c1490f7006f0ac7eaaad5eab02d011951bd588ee0d28838c78cc789e10bf22603941f
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.14.0":
-  version: 5.14.0
-  resolution: "@mui/material@npm:5.14.0"
+"@mui/material@npm:5.14.1":
+  version: 5.14.1
+  resolution: "@mui/material@npm:5.14.1"
   dependencies:
-    "@babel/runtime": "npm:^7.22.5"
-    "@mui/base": "npm:5.0.0-beta.7"
-    "@mui/core-downloads-tracker": "npm:^5.14.0"
-    "@mui/system": "npm:^5.14.0"
+    "@babel/runtime": "npm:^7.22.6"
+    "@mui/base": "npm:5.0.0-beta.8"
+    "@mui/core-downloads-tracker": "npm:^5.14.1"
+    "@mui/system": "npm:^5.14.1"
     "@mui/types": "npm:^7.2.4"
-    "@mui/utils": "npm:^5.13.7"
+    "@mui/utils": "npm:^5.14.1"
     "@types/react-transition-group": "npm:^4.4.6"
     clsx: "npm:^1.2.1"
     csstype: "npm:^3.1.2"
@@ -1474,7 +1474,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: dbf453f31e8fe757581b9e70a10c983e370662c4730b058ecf7308104b2592131074fea24899adf6af688c153319b25a0b00361203cb4de343729b8cb9e1311f
+  checksum: a2ab0abdea2b5895ca27627d7c84b00e62cbd711734eaa364655432105f829b3497fac6cec1f4270c76b4b1bdc1299ea20fd6cb43d2e99a262a3314254df929e
   languageName: node
   linkType: hard
 
@@ -1516,15 +1516,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^5.14.0":
-  version: 5.14.0
-  resolution: "@mui/system@npm:5.14.0"
+"@mui/system@npm:^5.14.1":
+  version: 5.14.1
+  resolution: "@mui/system@npm:5.14.1"
   dependencies:
-    "@babel/runtime": "npm:^7.22.5"
+    "@babel/runtime": "npm:^7.22.6"
     "@mui/private-theming": "npm:^5.13.7"
     "@mui/styled-engine": "npm:^5.13.2"
     "@mui/types": "npm:^7.2.4"
-    "@mui/utils": "npm:^5.13.7"
+    "@mui/utils": "npm:^5.14.1"
     clsx: "npm:^1.2.1"
     csstype: "npm:^3.1.2"
     prop-types: "npm:^15.8.1"
@@ -1540,7 +1540,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 729c68df0ad775ca2ac1e2edfd9dabaf0b922f498b9d72cc3b35ede872211b80ab2d0f19d0585e369d682c0e5c2c3a2948ea887a7bdcc4f872c21682d23c9112
+  checksum: b1f5a3d846dbe61a887531171432999b0c9236d23090205b842ac9758932f98d1c550b05aa66a3ebd9f6fef1b1fc480b98f78d443c11352fd053153ae4fd2709
   languageName: node
   linkType: hard
 
@@ -1568,6 +1568,21 @@ __metadata:
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
   checksum: df520ddee589d3fea99b09f642f8d94408288d618d597c8b20ba60039d4a59c63c08142d9575e930ebabfe1d0c25fc733cc13a746b91bb3601de4e042c3cf0fa
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:^5.14.1":
+  version: 5.14.1
+  resolution: "@mui/utils@npm:5.14.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.22.6"
+    "@types/prop-types": "npm:^15.7.5"
+    "@types/react-is": "npm:^18.2.1"
+    prop-types: "npm:^15.8.1"
+    react-is: "npm:^18.2.0"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+  checksum: c9039584c1f315e303959420c558411e27f163a9aedff22200b79a7a99a3bb57849088dd4e46de522fecd0310d6bdc7b9e1d510f15141859257793b1667ad8ad
   languageName: node
   linkType: hard
 
@@ -1716,7 +1731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.18.14"
+    esbuild-wasm: "npm:0.18.15"
   languageName: unknown
   linkType: soft
 
@@ -1729,7 +1744,7 @@ __metadata:
     "@spike-land/code": "npm:0.9.6"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.18.14"
+    esbuild-wasm: "npm:0.18.15"
     esm-worker: "npm:^0.128.16"
     immutable: "npm:4.3.1"
     p-map: "npm:6.0.0"
@@ -1749,7 +1764,7 @@ __metadata:
     "@github/stable-socket": "npm:1.1.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@motionone/dom": "npm:10.16.2"
-    "@mui/material": "npm:5.14.0"
+    "@mui/material": "npm:5.14.1"
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.1"
     "@types/events": "npm:3.0.0"
@@ -1778,14 +1793,14 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.18.14"
+    esbuild-wasm: "npm:0.18.15"
     eslint: "npm:8.45.0"
-    eslint-plugin-react: "npm:7.32.2"
+    eslint-plugin-react: "npm:7.33.0"
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:5.0.6"
     file-type: "npm:18.5.0"
-    framer-motion: "npm:10.12.22"
+    framer-motion: "npm:10.13.0"
     immutable: "npm:4.3.1"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -1840,7 +1855,7 @@ __metadata:
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.4.2"
-    esbuild-wasm: "npm:0.18.14"
+    esbuild-wasm: "npm:0.18.15"
   languageName: unknown
   linkType: soft
 
@@ -1898,6 +1913,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spike-land/node-chrome@workspace:packages/node-chrome":
+  version: 0.0.0-use.local
+  resolution: "@spike-land/node-chrome@workspace:packages/node-chrome"
+  dependencies:
+    "@spike-land/devcontainer-generator": "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@spike-land/rolling-devcontainer@workspace:packages/rolling-devcontainer":
   version: 0.0.0-use.local
   resolution: "@spike-land/rolling-devcontainer@workspace:packages/rolling-devcontainer"
@@ -1912,7 +1935,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230717.0"
-    esbuild-wasm: "npm:0.18.14"
+    esbuild-wasm: "npm:0.18.15"
     typescript: "npm:5.1.6"
     wrangler: "npm:3.3.0"
   languageName: unknown
@@ -4831,12 +4854,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.18.14":
-  version: 0.18.14
-  resolution: "esbuild-wasm@npm:0.18.14"
+"esbuild-wasm@npm:0.18.15":
+  version: 0.18.15
+  resolution: "esbuild-wasm@npm:0.18.15"
   bin:
     esbuild: bin/esbuild
-  checksum: 7d1f7b7691fc6cf81110a6218a92ef2b71070ae21973385a5fa5bb243ea39d46fd1b35b836c0c95050cdf5711370f0db136aa802baa56a34b28a9b4cdbe08c0e
+  checksum: 6f7145164225c875d063e67815fb0a6125b3caaf29b4bbeec8b5bf181e36d4b6f544986a021136200ef41bbc699e44aa63496146735b827bd2a9a3b08b5f011b
   languageName: node
   linkType: hard
 
@@ -4959,9 +4982,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.32.2, eslint-plugin-react@npm:^7.32.2":
-  version: 7.32.2
-  resolution: "eslint-plugin-react@npm:7.32.2"
+"eslint-plugin-react@npm:7.33.0, eslint-plugin-react@npm:^7.33.0":
+  version: 7.33.0
+  resolution: "eslint-plugin-react@npm:7.33.0"
   dependencies:
     array-includes: "npm:^3.1.6"
     array.prototype.flatmap: "npm:^1.3.1"
@@ -4976,11 +4999,11 @@ __metadata:
     object.values: "npm:^1.1.6"
     prop-types: "npm:^15.8.1"
     resolve: "npm:^2.0.0-next.4"
-    semver: "npm:^6.3.0"
+    semver: "npm:^6.3.1"
     string.prototype.matchall: "npm:^4.0.8"
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: 5ca7959c85fa557bcd25c4b9b3f81fbfae974e8fb16172e31a275712cc71da8ecbb9436da2d3130a8b24dd7a4bbe69d37d4392944aecc4821618717ba156caf4
+  checksum: 5fadbe11a5da4fe38697f0270facfb05811f85ba51203ad51843feacb81eac93a9315ae8f121127492650de4812191ad4dc96c05002338edcc7e29e9778c4c15
   languageName: node
   linkType: hard
 
@@ -5731,9 +5754,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.12.22":
-  version: 10.12.22
-  resolution: "framer-motion@npm:10.12.22"
+"framer-motion@npm:10.13.0":
+  version: 10.13.0
+  resolution: "framer-motion@npm:10.13.0"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -5748,7 +5771,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 8844268e59a85b0a197fe097280f2a7aeb5ffa06618c8b51a3e25c95bdd2c94cfd573922fc51248ef2dddd6011f9c81d22cf61b581b54c95c6a8222ef9fa3512
+  checksum: bff215160a0087a2d4aac7472b2fff1e242d29e625f1501aabc88b0420df754ad9a7320d89421de895c552862b3bbeea81863894d7c502a6a8ed174569140a55
   languageName: node
   linkType: hard
 
@@ -8640,7 +8663,7 @@ __metadata:
     cypress: "npm:12.17.1"
     dprint: "npm:0.39.1"
     eslint: "npm:8.45.0"
-    eslint-plugin-react: "npm:^7.32.2"
+    eslint-plugin-react: "npm:^7.33.0"
     execa: "npm:^7.1.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.40.0"
