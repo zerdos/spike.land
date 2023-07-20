@@ -1,0 +1,29 @@
+{
+  "name": "@spike-land/node-chrome",
+  "tagname": "node-chrome",
+  "scripts": {
+    "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
+    "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
+    "docker:push": "node docker.mjs",
+    "docker:build": "docker build ."
+  },
+  "files": [
+    ".devcontainer/**/*",
+    "docker-compose.yml",
+    "Dockerfile",
+    "README.md"
+  ]
+  "devDependencies": {
+    "@spike-land/devcontainer-generator": "*"
+  },
+  "version": "0.9.6",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "https://github.com/zerdos/spike.land",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "gitHead": "67d48a100505652f0e431fa7dd2fa810a2b1dec5",
+  "publishConfig": {
+    "access": "public"
+  }
+}
