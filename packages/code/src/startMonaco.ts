@@ -111,32 +111,29 @@ const monacoContribution = (code: string) => {
   return code;
 };
 
-
-
-
 self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_moduleId: string, label: string) => {
     if (label === "json") {
-     // return (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker.js?worker&target=es2016`)).default();
+      // return (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker.js?worker&target=es2016`)).default();
     }
 
     if (label === "css" || label === "scss" || label === "less") {
-   //   return (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker.js?worker&target=es2016`)).default();
+      //   return (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker.js?worker&target=es2016`)).default();
     }
 
     if (label === "html" || label === "handlebars" || label === "razor") {
-    //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker.js?worker&target=es2016`)).default();
+      //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker.js?worker&target=es2016`)).default();
     }
 
     if (label === "typescript" || label === "javascript") {
       return `${originToUse}/language/typescript/ts.worker.mjs`;
-    //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016`)).default();
+      //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016`)).default();
     }
 
     return `${originToUse}/editor/editor.worker.mjs`;
-    
-    //(await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016`)).default();
+
+    // (await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016`)).default();
   },
 };
 

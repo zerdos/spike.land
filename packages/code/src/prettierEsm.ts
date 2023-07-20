@@ -1,8 +1,8 @@
 // import parserBabel from "prettier/parser-babel";
 import pluginTypescript from "prettier/plugins/typescript";
-//@ts-ignore
-import pluginEstree from "prettier/plugins/estree"
-import {format} from "prettier/standalone";
+// @ts-ignore
+import pluginEstree from "prettier/plugins/estree";
+import { format } from "prettier/standalone";
 // export type * as Prettier from "prettier/standalone"
 // import parserHtml from "prettier/parser-html";
 // import parserPostcss from "prettier/parser-postcss";

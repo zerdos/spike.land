@@ -7,19 +7,19 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
   await copyFiles();
 
   const workerEntryPoints = [
-    'vs/language/json/json.worker.js',
-    'vs/language/css/css.worker.js',
-    'vs/language/html/html.worker.js',
-    'vs/language/typescript/ts.worker.js',
-    'vs/editor/editor.worker.js'
+    "vs/language/json/json.worker.js",
+    "vs/language/css/css.worker.js",
+    "vs/language/html/html.worker.js",
+    "vs/language/typescript/ts.worker.js",
+    "vs/editor/editor.worker.js",
   ];
-  
+
   await build({
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
-    format: 'iife',
+    format: "iife",
     mangleQuoted: true,
- 
+
     charset: "utf8",
     minifySyntax: true,
     minifyIdentifiers: true,
@@ -29,9 +29,8 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     keepNames: false,
     treeShaking: true,
     // outbase: '../../node_modules/monaco-editor/esm/',
-    outdir: "dist"
+    outdir: "dist",
   });
-  
 
   //
 
@@ -154,7 +153,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       // "/monaco-editor",
 
       "/monaco-editor/*",
-    
+
       //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
       "./dist.shasum",

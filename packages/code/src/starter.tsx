@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 // import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
-import {  css } from "@emotion/react";
+import { css } from "@emotion/react";
 // import createCache from "./emotionCache";
 import { readFile, stat } from "./memfs";
 // import { buildT } from "./esbuildEsm";

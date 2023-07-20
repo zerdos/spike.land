@@ -97,17 +97,19 @@ export async function ata(
   }];
 
   const extraLibs = [
-    ...(await Promise.all(Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
-      .map(async(x) => ({
-        filePath: impRes[x].url!,
-        content: (await prettierJs(impRes[x].content)).split(`import mod from "/`).join(
-          `import mod from "`,
-        ).split(
-          `export * from "/`,
-        ).join(
-          `export * from "`,
-        ),
-      })))),
+    ...(await Promise.all(
+      Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
+        .map(async (x) => ({
+          filePath: impRes[x].url!,
+          content: (await prettierJs(impRes[x].content)).split(`import mod from "/`).join(
+            `import mod from "`,
+          ).split(
+            `export * from "/`,
+          ).join(
+            `export * from "`,
+          ),
+        })),
+    )),
     ...extras,
   ];
 
@@ -151,9 +153,12 @@ export async function ata(
         ? new URL(r, baseUrl).toString()
         : r.indexOf("https://") !== -1
         ? r
-        : ((r.indexOf('data:text/javascript')===-1) &&  await fetch(`${location.origin}/*${r}?bundle`, { redirect: "follow" }).then(
-          async(res) => res.headers.get("X-typescript-types") || (await res.text()).split(`"`).find(x=>x.startsWith("https://")&& x.indexOf(r)!==-1)
-        )) || null;
+        : ((r.indexOf("data:text/javascript") === -1)
+          && await fetch(`${location.origin}/*${r}?bundle`, { redirect: "follow" }).then(
+            async (res) =>
+              res.headers.get("X-typescript-types")
+              || (await res.text()).split(`"`).find(x => x.startsWith("https://") && x.indexOf(r) !== -1),
+          )) || null;
 
       // const rR = r.slice(0, 1) ==="."? newBase;
       if (impRes[newBase!]) {
@@ -193,17 +198,16 @@ export async function ata(
         }
       }
 
-  
       impRes[
-        new URL((r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)  ? r : `${r}/index.d.ts`, baseUrl)
+        new URL((r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1) ? r : `${r}/index.d.ts`, baseUrl)
           .toString()
       ] = impRes[
-        new URL( (r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)  ? r : `${r}/index.d.ts`, baseUrl)
+        new URL((r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1) ? r : `${r}/index.d.ts`, baseUrl)
           .toString()
       ]
         || {
           url: new URL(
-            (r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)  ? r : `${r}/index.d.ts`,
+            (r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1) ? r : `${r}/index.d.ts`,
             baseUrl,
           ).toString(),
           content: `

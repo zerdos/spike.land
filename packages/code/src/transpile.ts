@@ -198,7 +198,6 @@ export const build = async (
     keepNames: false,
     ignoreAnnotations: true,
 
-
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: false,
