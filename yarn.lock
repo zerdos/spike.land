@@ -487,10 +487,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230717.0":
-  version: 4.20230717.0
-  resolution: "@cloudflare/workers-types@npm:4.20230717.0"
-  checksum: d4836a300aa6514a649fe20eec74185b42bdab666821fd15081ddb595fe26309d5548aacd568ccb288c2f5c7f59440f60c7ab4e2d0c5e2280519e133abf7e3bc
+"@cloudflare/workers-types@npm:4.20230717.1":
+  version: 4.20230717.1
+  resolution: "@cloudflare/workers-types@npm:4.20230717.1"
+  checksum: f025ee6bcaa79b3550c4c38c1eaa4d12f972eb781c09e61974e1ee431642896c331f84fd812790af981ec3684670a8f1588a14d0294cf53dc0dfa084206a2bbb
   languageName: node
   linkType: hard
 
@@ -1704,7 +1704,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.4.2"
+    "@types/node": "npm:^20.4.3"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^11.0.0"
@@ -1740,12 +1740,12 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230717.0"
+    "@cloudflare/workers-types": "npm:4.20230717.1"
     "@spike-land/code": "npm:0.9.6"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.18.15"
-    esm-worker: "npm:^0.128.16"
+    esm-worker: "npm:^0.129.0"
     immutable: "npm:4.3.1"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
@@ -1774,7 +1774,7 @@ __metadata:
     "@types/jest": "npm:^29.5.3"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.4.2"
+    "@types/node": "npm:20.4.3"
     "@types/react": "npm:18.2.15"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.2"
@@ -1854,7 +1854,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.4.2"
+    "@types/node": "npm:20.4.3"
     esbuild-wasm: "npm:0.18.15"
   languageName: unknown
   linkType: soft
@@ -1934,7 +1934,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230717.0"
+    "@cloudflare/workers-types": "npm:4.20230717.1"
     esbuild-wasm: "npm:0.18.15"
     typescript: "npm:5.1.6"
     wrangler: "npm:3.3.0"
@@ -2164,10 +2164,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.4.2, @types/node@npm:^20.4.2":
+"@types/node@npm:*":
   version: 20.4.2
   resolution: "@types/node@npm:20.4.2"
   checksum: d013c11ea228921ae319f7db5f2f65e9d3f58537919bca9e6409f6b380d1ef05625389e7d0dd0e8c4bbb90560a12b9ae6fab98b4722e19611b3de9052a0e2f94
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.4.3, @types/node@npm:^20.4.3":
+  version: 20.4.3
+  resolution: "@types/node@npm:20.4.3"
+  checksum: be8b82f390d74cb7664d9ede0388583bc19b41bfda73afc4bc480ea96cbae5d3be1ef566657b98338260a19e7c6e0a02f8e330d0f6e36ba7a20c28c623da3f95
   languageName: node
   linkType: hard
 
@@ -4279,9 +4286,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:12.17.1":
-  version: 12.17.1
-  resolution: "cypress@npm:12.17.1"
+"cypress@npm:12.17.2":
+  version: 12.17.2
+  resolution: "cypress@npm:12.17.2"
   dependencies:
     "@cypress/request": "npm:^2.88.11"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -4327,7 +4334,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: be0969781f556d9a143537fec5f8297c4c6409067769ca466f761f5ae4a0685838db4f92644bec5abab364642e61ca9b967bac13fc7104266904582cc0e08329
+  checksum: 14332b3c868debd32f6d1aba41cbe8229c05caaa0f7e4e6208049cae51ccb64b5d1df1d38f5335e94af5e722b0d560f6941330092e26711d9fea9d276ec4ce52
   languageName: node
   linkType: hard
 
@@ -5071,10 +5078,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-worker@npm:^0.128.16":
-  version: 0.128.16
-  resolution: "esm-worker@npm:0.128.16"
-  checksum: 2064ff35d2dee8784bbf147a4e121f64178363b63357905fa6c838a1973f3de4cbde4d92f90728b110605fba7a341be7286dc9faabcc4a74011151eeb1697065
+"esm-worker@npm:^0.129.0":
+  version: 0.129.0
+  resolution: "esm-worker@npm:0.129.0"
+  checksum: c3f6efd3300ea2307a2d43a351e5bee17e471cc4ccc4cbe1634cc1674146056250fd7418c0a98613db2fc91833e20767acc4e24587cad55829eb67c6b6cc15d9
   languageName: node
   linkType: hard
 
@@ -8648,7 +8655,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230717.0"
+    "@cloudflare/workers-types": "npm:4.20230717.1"
     "@emotion/react": "npm:11.11.1"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.36.1"
@@ -8660,7 +8667,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^6.1.0"
     "@yarnpkg/sdks": "npm:^3.0.0-rc.48"
     constants: "npm:0.0.2"
-    cypress: "npm:12.17.1"
+    cypress: "npm:12.17.2"
     dprint: "npm:0.39.1"
     eslint: "npm:8.45.0"
     eslint-plugin-react: "npm:^7.33.0"
