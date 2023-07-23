@@ -1704,7 +1704,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.4.3"
+    "@types/node": "npm:^20.4.4"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^11.0.0"
@@ -1731,7 +1731,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.18.15"
+    esbuild-wasm: "npm:0.18.16"
   languageName: unknown
   linkType: soft
 
@@ -1744,7 +1744,7 @@ __metadata:
     "@spike-land/code": "npm:0.9.6"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.18.15"
+    esbuild-wasm: "npm:0.18.16"
     esm-worker: "npm:^0.129.0"
     immutable: "npm:4.3.1"
     p-map: "npm:6.0.0"
@@ -1774,7 +1774,7 @@ __metadata:
     "@types/jest": "npm:^29.5.3"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.4.3"
+    "@types/node": "npm:20.4.4"
     "@types/react": "npm:18.2.15"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.2"
@@ -1793,7 +1793,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.18.15"
+    esbuild-wasm: "npm:0.18.16"
     eslint: "npm:8.45.0"
     eslint-plugin-react: "npm:7.33.0"
     events: "npm:3.3.0"
@@ -1854,8 +1854,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.4.3"
-    esbuild-wasm: "npm:0.18.15"
+    "@types/node": "npm:20.4.4"
+    esbuild-wasm: "npm:0.18.16"
   languageName: unknown
   linkType: soft
 
@@ -1935,7 +1935,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230717.1"
-    esbuild-wasm: "npm:0.18.15"
+    esbuild-wasm: "npm:0.18.16"
     typescript: "npm:5.1.6"
     wrangler: "npm:3.3.0"
   languageName: unknown
@@ -2171,10 +2171,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.4.3, @types/node@npm:^20.4.3":
-  version: 20.4.3
-  resolution: "@types/node@npm:20.4.3"
-  checksum: be8b82f390d74cb7664d9ede0388583bc19b41bfda73afc4bc480ea96cbae5d3be1ef566657b98338260a19e7c6e0a02f8e330d0f6e36ba7a20c28c623da3f95
+"@types/node@npm:20.4.4, @types/node@npm:^20.4.4":
+  version: 20.4.4
+  resolution: "@types/node@npm:20.4.4"
+  checksum: 2efae59d93520e98d3d346160ae1d86ac57804e461250db60edd1253e06dbd2120e07659e535d536e70c7503b58828a84a03641fdde635c0d40d66a53ff0c8b8
   languageName: node
   linkType: hard
 
@@ -4861,12 +4861,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.18.15":
-  version: 0.18.15
-  resolution: "esbuild-wasm@npm:0.18.15"
+"esbuild-wasm@npm:0.18.16":
+  version: 0.18.16
+  resolution: "esbuild-wasm@npm:0.18.16"
   bin:
     esbuild: bin/esbuild
-  checksum: 6f7145164225c875d063e67815fb0a6125b3caaf29b4bbeec8b5bf181e36d4b6f544986a021136200ef41bbc699e44aa63496146735b827bd2a9a3b08b5f011b
+  checksum: 406a67c3ccd42abf8500fcff12c19a62ca29097088e2cd21bce21cb6a380ce3d9baa8d278682fec02b9aab1ffaa047c80353da5f79d54b1f681e34918be0132a
   languageName: node
   linkType: hard
 
