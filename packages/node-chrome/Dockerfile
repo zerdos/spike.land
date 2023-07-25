@@ -7,4 +7,5 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
     && apt-get autoremove -y \
     && apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
-    && sed -i 's/"$HERE\/chrome"/"$HERE\/chrome" --no-sandbox/g' /opt/google/chrome/google-chrome
+    && sed -i 's/"$HERE\/chrome"/"$HERE\/chrome" --no-sandbox/g' /opt/google/chrome/google-chrome \
+    && npm install -g yarn loki concurrently
