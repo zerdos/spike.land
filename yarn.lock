@@ -487,10 +487,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230717.1":
-  version: 4.20230717.1
-  resolution: "@cloudflare/workers-types@npm:4.20230717.1"
-  checksum: f025ee6bcaa79b3550c4c38c1eaa4d12f972eb781c09e61974e1ee431642896c331f84fd812790af981ec3684670a8f1588a14d0294cf53dc0dfa084206a2bbb
+"@cloudflare/workers-types@npm:4.20230724.0":
+  version: 4.20230724.0
+  resolution: "@cloudflare/workers-types@npm:4.20230724.0"
+  checksum: 05f74559d0873947ea461fbe0cba886f06a1d2281237d43022bf6b04ca1fb713ee0507fd7bb2b44c761c095351e8622283f0dc0a80b7a15f2429957b8b17076d
   languageName: node
   linkType: hard
 
@@ -1438,20 +1438,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^5.14.1":
-  version: 5.14.1
-  resolution: "@mui/core-downloads-tracker@npm:5.14.1"
-  checksum: 8de805bb200ca9f6bc12574faeea5c550b2f7b1fdaf7dd2ad052fc06277c1490f7006f0ac7eaaad5eab02d011951bd588ee0d28838c78cc789e10bf22603941f
+"@mui/core-downloads-tracker@npm:^5.14.2":
+  version: 5.14.2
+  resolution: "@mui/core-downloads-tracker@npm:5.14.2"
+  checksum: ea8032d101b190c2eb5bc67378a9142a56c15d6341ef6f9ad244921f1ba042e301328a132ecfc7a1473a09c56b11333b83859d12e50c12d1ee7a6a26eff27e36
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.14.1":
-  version: 5.14.1
-  resolution: "@mui/material@npm:5.14.1"
+"@mui/material@npm:5.14.2":
+  version: 5.14.2
+  resolution: "@mui/material@npm:5.14.2"
   dependencies:
     "@babel/runtime": "npm:^7.22.6"
     "@mui/base": "npm:5.0.0-beta.8"
-    "@mui/core-downloads-tracker": "npm:^5.14.1"
+    "@mui/core-downloads-tracker": "npm:^5.14.2"
     "@mui/system": "npm:^5.14.1"
     "@mui/types": "npm:^7.2.4"
     "@mui/utils": "npm:^5.14.1"
@@ -1474,7 +1474,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: a2ab0abdea2b5895ca27627d7c84b00e62cbd711734eaa364655432105f829b3497fac6cec1f4270c76b4b1bdc1299ea20fd6cb43d2e99a262a3314254df929e
+  checksum: 120807fe7c8eba0c47d65fcc1059bbd1575c9bdf7f2eaa2fa02e0b00c1d7e7ce8f72744fba4004bd803bafe3995c42697450564b6df6f04414b77ec5ddc76534
   languageName: node
   linkType: hard
 
@@ -1621,19 +1621,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.36.1":
-  version: 1.36.1
-  resolution: "@playwright/test@npm:1.36.1"
+"@playwright/test@npm:1.36.2":
+  version: 1.36.2
+  resolution: "@playwright/test@npm:1.36.2"
   dependencies:
     "@types/node": "npm:*"
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.36.1"
+    playwright-core: "npm:1.36.2"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 69e679e092fe4d6fed591cc317bf8bd2144dd441e823f5704b7e1e8d2425727cb3b4cd5c1268e42426db305ffba90b59e3f67f04f5ecc3fafdfcb25bd6058625
+  checksum: 4bbe0fa72efbf03c127e55f153ab9c9221aa484011feea764f5e40185656c96953dc4ec32ec5e0842dfbe4a5395955b0c41d6729041fa2ee699117668a42d82b
   languageName: node
   linkType: hard
 
@@ -1689,13 +1689,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.4.4"
+    "@types/node": "npm:^20.4.5"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^11.0.0"
     dotenv: "npm:^16.3.1"
     express: "npm:^4.18.2"
-    node-fetch: "npm:^3.3.1"
+    node-fetch: "npm:^3.3.2"
     openai: "npm:^3.3.0"
     p-limit: "npm:^4.0.0"
     simple-git: "npm:^3.19.1"
@@ -1725,7 +1725,7 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230717.1"
+    "@cloudflare/workers-types": "npm:4.20230724.0"
     "@spike-land/code": "npm:0.9.6"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1749,7 +1749,7 @@ __metadata:
     "@github/stable-socket": "npm:1.1.0"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@motionone/dom": "npm:10.16.2"
-    "@mui/material": "npm:5.14.1"
+    "@mui/material": "npm:5.14.2"
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.1"
     "@types/events": "npm:3.0.0"
@@ -1759,7 +1759,7 @@ __metadata:
     "@types/jest": "npm:^29.5.3"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.4.4"
+    "@types/node": "npm:20.4.5"
     "@types/react": "npm:18.2.16"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.2"
@@ -1839,7 +1839,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.4.4"
+    "@types/node": "npm:20.4.5"
     esbuild-wasm: "npm:0.18.16"
   languageName: unknown
   linkType: soft
@@ -1919,7 +1919,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230717.1"
+    "@cloudflare/workers-types": "npm:4.20230724.0"
     esbuild-wasm: "npm:0.18.16"
     typescript: "npm:5.1.6"
     wrangler: "npm:3.3.0"
@@ -2009,13 +2009,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.44.0":
-  version: 8.44.0
-  resolution: "@types/eslint@npm:8.44.0"
+"@types/eslint@npm:8.44.1":
+  version: 8.44.1
+  resolution: "@types/eslint@npm:8.44.1"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 29657ff1e3325be8048646b0f10f20e6fd6668c81e560cdf931b228eae8758e56ba0a51b71e699e86adfea4fdc05f68d23cb078b105d77be81a731f7aa172caa
+  checksum: 6e97936428e0fd378f9fd81bf5ad1192e43f738745e3303428e04f03eee2624a6b54039d68740e2c6540e482e43b292d68593b8daab0bf8c75efd94352f5c518
   languageName: node
   linkType: hard
 
@@ -2149,10 +2149,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.4.4, @types/node@npm:^20.4.4":
+"@types/node@npm:*":
   version: 20.4.4
   resolution: "@types/node@npm:20.4.4"
   checksum: 2efae59d93520e98d3d346160ae1d86ac57804e461250db60edd1253e06dbd2120e07659e535d536e70c7503b58828a84a03641fdde635c0d40d66a53ff0c8b8
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.4.5, @types/node@npm:^20.4.5":
+  version: 20.4.5
+  resolution: "@types/node@npm:20.4.5"
+  checksum: aa31081f82a2d377f00cfd7ced73925753db1f542fca19e6b0442585a7322b8eacd957fdccaaff65d9976454d213af0980c12390c59a975cf8a368e3f872717a
   languageName: node
   linkType: hard
 
@@ -8629,12 +8636,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230717.1"
+    "@cloudflare/workers-types": "npm:4.20230724.0"
     "@emotion/react": "npm:11.11.1"
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
-    "@playwright/test": "npm:1.36.1"
+    "@playwright/test": "npm:1.36.2"
     "@spike-land/ai-devtools": "workspace:^"
-    "@types/eslint": "npm:8.44.0"
+    "@types/eslint": "npm:8.44.1"
     "@types/react": "npm:18.2.16"
     "@types/react-dom": "npm:18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:^6.2.0"
@@ -8648,7 +8655,7 @@ __metadata:
     execa: "npm:^7.1.1"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.40.0"
-    playwright: "npm:1.36.1"
+    playwright: "npm:1.36.2"
     react: "npm:18.2.0"
     typescript: "npm:5.1.6"
     util: "npm:0.12.5"
@@ -8760,14 +8767,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "node-fetch@npm:3.3.1"
+"node-fetch@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "node-fetch@npm:3.3.2"
   dependencies:
     data-uri-to-buffer: "npm:^4.0.0"
     fetch-blob: "npm:^3.1.4"
     formdata-polyfill: "npm:^4.0.10"
-  checksum: 9fed9ed9ab83f719ffbe51b5029f32ee9820a725afc57a3e6a7e5742a05dd38b22d005f2d03d70e8e0924b497e513b08992843bb1bc7f0a15b72ad071d8c1271
+  checksum: 24207ca8c81231c7c59151840e3fded461d67a31cf3e3b3968e12201a42f89ce4a0b5fb7079b1fa0a4655957b1ca9257553200f03a9f668b45ebad265ca5593d
   languageName: node
   linkType: hard
 
@@ -9554,23 +9561,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.36.1":
-  version: 1.36.1
-  resolution: "playwright-core@npm:1.36.1"
+"playwright-core@npm:1.36.2":
+  version: 1.36.2
+  resolution: "playwright-core@npm:1.36.2"
   bin:
     playwright-core: cli.js
-  checksum: bf08b9b0638ef9c6714e5975e64627be76bf2376639b656b2e4ec53683271f0c7260563f8c5017b1a329a4df615018973c62a79dc96fb329f8081c42d30662f3
+  checksum: 5cd22b77f4f2160c56654592f1767c578a3945e86d227c324ee5bd021eb85d8c36a00e0dcf785fb66623d7c448f973b99bafcc790a43e90d7d9f04f471f3a605
   languageName: node
   linkType: hard
 
-"playwright@npm:1.36.1":
-  version: 1.36.1
-  resolution: "playwright@npm:1.36.1"
+"playwright@npm:1.36.2":
+  version: 1.36.2
+  resolution: "playwright@npm:1.36.2"
   dependencies:
-    playwright-core: "npm:1.36.1"
+    playwright-core: "npm:1.36.2"
   bin:
     playwright: cli.js
-  checksum: 75e9cd4134331d9912385bdf9051acad5044123c4c6b0b5078173f19fafe9b62dae5137ca98d90b66079652e20d3561c3098f84b537470a5d26120ba0e59cae6
+  checksum: 29031341d0db3ac78c09343e658c99a8e0044270fe6b5b5eba98cafcb0c618176812ea73f7742a3e2eca1629977a791f596935ed9c8e6d0699ef5243ccccd6ef
   languageName: node
   linkType: hard
 
