@@ -1716,7 +1716,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.18.16"
+    esbuild-wasm: "npm:0.18.17"
   languageName: unknown
   linkType: soft
 
@@ -1729,7 +1729,7 @@ __metadata:
     "@spike-land/code": "npm:0.9.6"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.18.16"
+    esbuild-wasm: "npm:0.18.17"
     esm-worker: "npm:^0.129.0"
     immutable: "npm:4.3.1"
     p-map: "npm:6.0.0"
@@ -1778,7 +1778,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.18.16"
+    esbuild-wasm: "npm:0.18.17"
     eslint: "npm:8.45.0"
     eslint-plugin-react: "npm:7.33.0"
     events: "npm:3.3.0"
@@ -1840,7 +1840,7 @@ __metadata:
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.4.5"
-    esbuild-wasm: "npm:0.18.16"
+    esbuild-wasm: "npm:0.18.17"
   languageName: unknown
   linkType: soft
 
@@ -1920,7 +1920,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230724.0"
-    esbuild-wasm: "npm:0.18.16"
+    esbuild-wasm: "npm:0.18.17"
     typescript: "npm:5.1.6"
     wrangler: "npm:3.3.0"
   languageName: unknown
@@ -4846,12 +4846,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.18.16":
-  version: 0.18.16
-  resolution: "esbuild-wasm@npm:0.18.16"
+"esbuild-wasm@npm:0.18.17":
+  version: 0.18.17
+  resolution: "esbuild-wasm@npm:0.18.17"
   bin:
     esbuild: bin/esbuild
-  checksum: 406a67c3ccd42abf8500fcff12c19a62ca29097088e2cd21bce21cb6a380ce3d9baa8d278682fec02b9aab1ffaa047c80353da5f79d54b1f681e34918be0132a
+  checksum: 15e229b0333994058cafa147e49e64e9421157098012ed5591c21ad527e32aae6bc23375619a5eae6f8b31fbb77e3eab376f5ff20e34f48ad7b15d563cb67b4f
   languageName: node
   linkType: hard
 
