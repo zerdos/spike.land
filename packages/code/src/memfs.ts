@@ -2,58 +2,52 @@ const textEncoder = new TextEncoder();
 
 type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string };
 
-const getDirectoryEntriesRecursive = async (
+const handleFile = async (handle: FileSystemHandle, nestedPath: string) => {
+  const file = await handle.getFile!();
+  return {
+    name: handle.name,
+    kind: handle.kind,
+    size: file.size,
+    type: file.type,
+    lastModified: file.lastModified,
+    relativePath: nestedPath,
+    handle,
+  } as FileSystemEntry;
+}
+
+const handleDirectory = async (handle: FileSystemDirectoryHandle, nestedPath: string = '') => {
+  return {
+    name: handle.name,
+    kind: handle.kind,
+    relativePath: nestedPath,
+    entries: await getDirectoryEntriesRecursive(handle, nestedPath),
+    handle,
+  };
+}
+
+export const getDirectoryEntriesRecursive = async (
   directoryHandle: FileSystemDirectoryHandle,
   relativePath = ".",
 ) => {
-  const fileHandles = [];
-  const directoryHandles = [];
-  const entries: {
-    [path: string]: FileSystemEntry | FileSystemEntry[];
-  } = {};
   const directoryIterator = directoryHandle.values();
-  const directoryEntryPromises = [];
+  const directoryEntryPromises: Promise<FileSystemEntry>[] = [];
   for await (const handle of directoryIterator) {
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
-      fileHandles.push({ handle, nestedPath });
-      directoryEntryPromises.push(
-        handle.getFile().then((file) => {
-          return {
-            name: handle.name,
-            kind: handle.kind,
-            size: file.size,
-            type: file.type,
-            lastModified: file.lastModified,
-            relativePath: nestedPath,
-            handle,
-          } as FileSystemEntry;
-        }),
-      );
+      directoryEntryPromises.push(handleFile(handle as FileSystemFileHandle, nestedPath));
     } else if (handle.kind === "directory") {
-      directoryHandles.push({ handle, nestedPath });
-      directoryEntryPromises.push(
-        (async () => {
-          return {
-            name: handle.name,
-            kind: handle.kind,
-            relativePath: nestedPath,
-            entries: await getDirectoryEntriesRecursive(handle, nestedPath),
-            handle,
-          };
-        })(),
-      );
+      directoryEntryPromises.push(handleDirectory(handle as FileSystemDirectoryHandle, nestedPath));
     }
   }
   const directoryEntries = await Promise.all(directoryEntryPromises);
+  const entries: { [key: string]: FileSystemEntry } = {};
   directoryEntries.forEach((directoryEntry) => {
-    const name = directoryEntry.name!;
-    entries[name] = directoryEntry;
+    entries[directoryEntry.name!] = directoryEntry;
   });
   return entries;
 };
 
-const getDirectoryHandleAndFileName = async (
+export const getDirectoryHandleAndFileName = async (
   filePath: string,
 ): Promise<{ dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }> => {
   const pathParts = filePath.split("/").filter(x => x);
