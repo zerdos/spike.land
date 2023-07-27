@@ -13,9 +13,9 @@ const handleFile = async (handle: FileSystemHandle, nestedPath: string) => {
     relativePath: nestedPath,
     handle,
   } as FileSystemEntry;
-}
+};
 
-const handleDirectory = async (handle: FileSystemDirectoryHandle, nestedPath: string = '') => {
+const handleDirectory = async (handle: FileSystemDirectoryHandle, nestedPath: string = "") => {
   return {
     name: handle.name,
     kind: handle.kind,
@@ -23,7 +23,7 @@ const handleDirectory = async (handle: FileSystemDirectoryHandle, nestedPath: st
     entries: await getDirectoryEntriesRecursive(handle, nestedPath),
     handle,
   };
-}
+};
 
 export const getDirectoryEntriesRecursive = async (
   directoryHandle: FileSystemDirectoryHandle,

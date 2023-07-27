@@ -1760,7 +1760,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
     "@types/node": "npm:20.4.5"
-    "@types/react": "npm:18.2.16"
+    "@types/react": "npm:18.2.17"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.2"
     "@typescript-eslint/eslint-plugin": "npm:6.2.0"
@@ -2218,7 +2218,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.16":
+"@types/react@npm:*":
   version: 18.2.16
   resolution: "@types/react@npm:18.2.16"
   dependencies:
@@ -2226,6 +2226,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 05243d76c3803174947a411239a9f6a9a25fdf57c981f78aa03b8fe2c124f6a9962cb65d7c6e9e41b046e14b1608d7eb32d9a2f01dfedde668d41eac63a26a31
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.17":
+  version: 18.2.17
+  resolution: "@types/react@npm:18.2.17"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 13a74aebf0a7224ab3e1557aa6cfa5b93d6e11bb94f55d9ca88bd6873cd93e54c7cfcb3b495a777e987a7f8a59dc714860ae5cb5fd832ee8d9bde7e9a0b52b7e
   languageName: node
   linkType: hard
 
@@ -5192,9 +5203,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^7.1.1":
-  version: 7.1.1
-  resolution: "execa@npm:7.1.1"
+"execa@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "execa@npm:7.2.0"
   dependencies:
     cross-spawn: "npm:^7.0.3"
     get-stream: "npm:^6.0.1"
@@ -5205,7 +5216,7 @@ __metadata:
     onetime: "npm:^6.0.0"
     signal-exit: "npm:^3.0.7"
     strip-final-newline: "npm:^3.0.0"
-  checksum: eca047b21506cfe9f1aae7b2eb16662a5d84d3a14f36f13ddc6d2c982529f7c8ecae6fe14465398cd3289a01d18968fde026b8907314885d126e414961da6384
+  checksum: 473feff60f9d4dbe799225948de48b5158c1723021d19c4b982afe37bcd111ae84e1b4c9dfe967fae5101b0894b1a62e4dd564a286dfa3e46d7b0cfdbf7fe62b
   languageName: node
   linkType: hard
 
@@ -8642,7 +8653,7 @@ __metadata:
     "@playwright/test": "npm:1.36.2"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.44.1"
-    "@types/react": "npm:18.2.16"
+    "@types/react": "npm:18.2.17"
     "@types/react-dom": "npm:18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:^6.2.0"
     "@typescript-eslint/parser": "npm:^6.2.0"
@@ -8652,7 +8663,7 @@ __metadata:
     dprint: "npm:0.39.1"
     eslint: "npm:8.45.0"
     eslint-plugin-react: "npm:^7.33.0"
-    execa: "npm:^7.1.1"
+    execa: "npm:^7.2.0"
     localforage: "npm:1.10.0"
     monaco-editor: "npm:0.40.0"
     playwright: "npm:1.36.2"
