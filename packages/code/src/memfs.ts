@@ -15,7 +15,10 @@ const handleFile = async (handle: FileSystemHandle, nestedPath: string) => {
   } as FileSystemEntry;
 };
 
-const handleDirectory = async (handle: FileSystemDirectoryHandle, nestedPath: string = "") => {
+const handleDirectory = async (
+  handle: FileSystemDirectoryHandle,
+  nestedPath: string = "",
+) => {
   return {
     name: handle.name,
     kind: handle.kind,
@@ -34,9 +37,13 @@ export const getDirectoryEntriesRecursive = async (
   for await (const handle of directoryIterator) {
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
-      directoryEntryPromises.push(handleFile(handle as FileSystemFileHandle, nestedPath));
+      directoryEntryPromises.push(
+        handleFile(handle as FileSystemFileHandle, nestedPath),
+      );
     } else if (handle.kind === "directory") {
-      directoryEntryPromises.push(handleDirectory(handle as FileSystemDirectoryHandle, nestedPath));
+      directoryEntryPromises.push(
+        handleDirectory(handle as FileSystemDirectoryHandle, nestedPath),
+      );
     }
   }
   const directoryEntries = await Promise.all(directoryEntryPromises);
@@ -49,15 +56,19 @@ export const getDirectoryEntriesRecursive = async (
 
 export const getDirectoryHandleAndFileName = async (
   filePath: string,
-): Promise<{ dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }> => {
-  const pathParts = filePath.split("/").filter(x => x);
+): Promise<
+  { dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }
+> => {
+  const pathParts = filePath.split("/").filter((x) => x);
   const fileName = pathParts.pop()?.trim();
 
   let currentHandle = await navigator.storage.getDirectory();
 
   if (pathParts && pathParts.length) {
     for (const part of pathParts) {
-      currentHandle = await currentHandle.getDirectoryHandle(part, { create: true });
+      currentHandle = await currentHandle.getDirectoryHandle(part, {
+        create: true,
+      });
     }
   }
 
@@ -70,7 +81,10 @@ export const readdir = async (filePath: string): Promise<string[]> => {
   return Object.keys(entries);
 };
 
-export const writeFile = async (filePath: string, content: string): Promise<void> => {
+export const writeFile = async (
+  filePath: string,
+  content: string,
+): Promise<void> => {
   const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
   if (!fileName) throw new Error("Invalid file path");
   const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
@@ -102,7 +116,9 @@ export const mkdir = async (filePath: string): Promise<void> => {
 
 export const stat = async (filePath: string): Promise<boolean> => {
   try {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
     if (!fileName) throw new Error("Invalid file path");
     const fileHandle = await dirHandle.getFileHandle(fileName);
     return fileHandle ? true : false;

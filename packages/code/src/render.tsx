@@ -22,7 +22,8 @@ const cache = createCache({ key: "css", speedy: false });
 cache.compat = undefined;
 
 let root: Root;
-globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
+globalThis.firstRender = globalThis.firstRender
+  || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
 
 export const render = async (
@@ -97,7 +98,13 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
 
       if (signal.aborted) return;
 
-      render(document.getElementById(`${codeSpace}-css`)!, codeSpace, App as any, signal, data);
+      render(
+        document.getElementById(`${codeSpace}-css`)!,
+        codeSpace,
+        App as any,
+        signal,
+        data,
+      );
       return;
     }
   } catch (error) {
@@ -113,7 +120,8 @@ async function getApp(App: any, codeSpace: string) {
   if (!App) {
     try {
       App = (await import(
-        (location.href.endsWith("iframe") || await stat(`/live/${codeSpace}/index.mjs`))
+        (location.href.endsWith("iframe")
+            || await stat(`/live/${codeSpace}/index.mjs`))
           ? `${location.origin}/live/${codeSpace}/index.mjs`
           : `${location.origin}/live/${codeSpace}/index.js`
       )).default;
@@ -129,8 +137,14 @@ async function getApp(App: any, codeSpace: string) {
   return App;
 }
 
-async function handleRender(_rootEl: HTMLElement, signal: any, data: any, cache: EmotionCache) {
-  let ii = (location.href.endsWith("iframe") || location.href.endsWith("/") || location.href.endsWith("public"))
+async function handleRender(
+  _rootEl: HTMLElement,
+  signal: any,
+  data: any,
+  cache: EmotionCache,
+) {
+  let ii = (location.href.endsWith("iframe") || location.href.endsWith("/")
+      || location.href.endsWith("public"))
     ? 100
     : 0;
   while (ii-- > 0) {
@@ -164,9 +178,14 @@ async function handleRender(_rootEl: HTMLElement, signal: any, data: any, cache:
 function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = _cache.key || "css";
   try {
-    return Array.from(document.querySelectorAll("style[data-styled-jsx]")).map((x) => x.textContent)
+    return Array.from(document.querySelectorAll("style[data-styled-jsx]")).map((
+      x,
+    ) => x.textContent)
       + Array.from(
-        new Set(Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`)).map((x) => x.textContent)),
+        new Set(
+          Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
+            .map((x) => x.textContent),
+        ),
       ).join("\n");
   } catch {
     return Array.from(document.styleSheets).map((x) => {
@@ -176,13 +195,17 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
         return null;
       }
     }).filter((x) =>
-      x?.selectorText && x.selectorText.indexOf(key) !== -1 && html.indexOf(x.selectorText.slice(4, 11)) !== -1
+      x?.selectorText && x.selectorText.indexOf(key) !== -1
+      && html.indexOf(x.selectorText.slice(4, 11)) !== -1
     )
       .map((x) => x!.cssText).join("\n");
   }
 }
 
-if (location.pathname.endsWith("/iframe") || location.pathname.endsWith("/") || location.pathname.endsWith("/public")) {
+if (
+  location.pathname.endsWith("/iframe") || location.pathname.endsWith("/")
+  || location.pathname.endsWith("/public")
+) {
   window.onmessage = async ({ data }) => {
     rerender(data);
   };

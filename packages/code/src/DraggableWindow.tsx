@@ -25,7 +25,9 @@ type DraggableWindowProps = {
   codeSpace: string;
 };
 
-export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
+export const DraggableWindow: FC<DraggableWindowProps> = (
+  { children, codeSpace },
+) => {
   const [scaleRange, changeScaleRange] = useState(100);
   const [delay, _setDelay] = useState(2);
   const maxScaleRange = 100;

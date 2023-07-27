@@ -65,7 +65,13 @@ declare global {
       name: string,
       options?: FileSystemHandlePermissionDescriptor,
     ) => Promise<FileSystemDirectoryHandle>;
-    getFileHandle: (name: string, options?: FileSystemHandlePermissionDescriptor) => Promise<FileSystemFileHandle>;
-    removeEntry: (name: string, options?: FileSystemHandlePermissionDescriptor) => Promise<void>;
+    getFileHandle: (
+      name: string,
+      options?: FileSystemHandlePermissionDescriptor,
+    ) => Promise<FileSystemFileHandle>;
+    removeEntry: (
+      name: string,
+      options?: FileSystemHandlePermissionDescriptor,
+    ) => Promise<void>;
   }
 }

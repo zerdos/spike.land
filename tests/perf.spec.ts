@@ -15,7 +15,8 @@ async function measurePerformance(page: Page, TestInfo: TestInfo) {
     return [timing];
   });
   // Get the start to load event end time
-  const startToLoadEventEnd = performanceTiming.loadEventEnd - performanceTiming.startTime;
+  const startToLoadEventEnd = performanceTiming.loadEventEnd
+    - performanceTiming.startTime;
   // Add the performance annotation to the HTML report
   test.info().annotations.push({
     type: "Performance",

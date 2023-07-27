@@ -41,6 +41,10 @@ export const transpile = (
 
 export const build = (
   { codeSpace, origin }: { codeSpace: string; origin: string },
-) => init(swVersion).rpc("build", { codeSpace, origin: origin || location.origin }) as Promise<string>;
+) =>
+  init(swVersion).rpc("build", {
+    codeSpace,
+    origin: origin || location.origin,
+  }) as Promise<string>;
 
 export const connect = (codeSpace: string) => init(swVersion).signal("connect", codeSpace);

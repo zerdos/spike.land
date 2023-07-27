@@ -192,7 +192,7 @@ async function handleFetchApi(
 
           const object = await env.R2.get(key);
           if (!object) {
-            const paths = [...path.slice(1)].map(p => p.replace(/\.mjs$/, ".js"));
+            const paths = [...path.slice(1)].map((p) => p.replace(/\.mjs$/, ".js"));
 
             return handleApiRequest(
               ["room", ...paths],
@@ -247,7 +247,8 @@ async function handleFetchApi(
 
           if (
             request.url.indexOf(".wasm") === -1
-            && !request.url.endsWith(".map") && request.url.indexOf(".worker") === -1
+            && !request.url.endsWith(".map")
+            && request.url.indexOf(".worker") === -1
             && (contentType && contentType.indexOf("charset"))
           ) {
             try {

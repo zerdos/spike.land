@@ -23,7 +23,9 @@ export default {
         return new Response(
           await build({
             codeSpace,
-            origin: origin ? `https://${origin}.spike.land` : "https://spike.land",
+            origin: origin
+              ? `https://${origin}.spike.land`
+              : "https://spike.land",
             wasmModule,
           }),
         ),

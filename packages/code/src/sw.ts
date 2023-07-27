@@ -189,8 +189,8 @@ const fakeBackend = async (request: Request) => {
         //   `/live/${codeSpace}/index.tsx`,
         // ) as string;
 
-        const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(async () =>
-          fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) => x.text())
+        const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
+          async () => fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) => x.text()),
         );
 
         return new Response(trp, {

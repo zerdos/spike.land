@@ -108,7 +108,11 @@ export const transpile = async (
 Object.assign(self, { transpile });
 
 export const build = async (
-  { codeSpace, origin, wasmModule }: { codeSpace: string; origin: string; wasmModule?: WebAssembly.Module },
+  { codeSpace, origin, wasmModule }: {
+    codeSpace: string;
+    origin: string;
+    wasmModule?: WebAssembly.Module;
+  },
 ) => {
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
@@ -215,12 +219,16 @@ export const build = async (
   };
   let b: BuildResult;
 
-  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(x =>
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) =>
     fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "PUT",
       body: x,
-      headers: { "Content-Type": "application/javascript", "TR_ORIGIN": `origin`, "TR_BUNDLE": `true` },
-    }).then(x => x.text()).then(x => console.log(x))
+      headers: {
+        "Content-Type": "application/javascript",
+        "TR_ORIGIN": `origin`,
+        "TR_BUNDLE": `true`,
+      },
+    }).then((x) => x.text()).then((x) => console.log(x))
   );
 };
 
