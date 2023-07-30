@@ -25,7 +25,7 @@
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.18.17",
-    "esm-worker": "^0.130.1",
+    "esm-worker": "^0.130.2",
     "immutable": "4.3.1",
     "p-map": "6.0.0",
     "p-queue": "7.3.4"
