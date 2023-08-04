@@ -115,7 +115,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.33.1"],\
           ["execa", "npm:7.2.0"],\
           ["localforage", "npm:1.10.0"],\
-          ["monaco-editor", "npm:0.40.0"],\
+          ["monaco-editor", "npm:0.41.0"],\
           ["playwright", "npm:1.36.2"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"],\
@@ -2578,7 +2578,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.4.5"],\
+          ["@types/node", "npm:20.4.7"],\
           ["axios", "npm:1.4.0"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
@@ -2633,7 +2633,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.3"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.4.5"],\
+          ["@types/node", "npm:20.4.7"],\
           ["@types/react", "npm:18.2.18"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@types/uuid", "npm:9.0.2"],\
@@ -2660,7 +2660,7 @@ const RAW_RUNTIME_STATE =
           ["fetch-retry", "npm:5.0.6"],\
           ["file-type", "npm:18.5.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:10.15.0"],\
-          ["immutable", "npm:4.3.1"],\
+          ["immutable", "npm:4.3.2"],\
           ["is-callable", "npm:1.2.7"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.6.2"],\
@@ -2668,7 +2668,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.40.0"],\
+          ["monaco-editor", "npm:0.41.0"],\
           ["node-source-walk", "npm:6.0.2"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:6.0.0"],\
@@ -2676,7 +2676,7 @@ const RAW_RUNTIME_STATE =
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
           ["preact", "npm:10.16.0"],\
-          ["prettier", "npm:3.0.0"],\
+          ["prettier", "npm:3.0.1"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.9"],\
           ["react", "npm:18.2.0"],\
@@ -2714,7 +2714,7 @@ const RAW_RUNTIME_STATE =
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.18.17"],\
           ["esm-worker", "npm:0.130.4"],\
-          ["immutable", "npm:4.3.1"],\
+          ["immutable", "npm:4.3.2"],\
           ["p-map", "npm:6.0.0"],\
           ["p-queue", "npm:7.3.4"],\
           ["typescript", "patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"],\
@@ -2738,7 +2738,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.4.5"],\
+          ["@types/node", "npm:20.4.7"],\
           ["esbuild-wasm", "npm:0.18.17"]\
         ],\
         "linkType": "SOFT"\
@@ -3125,6 +3125,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.4.5-7555fad0d4-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.4.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.4.7", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.4.7-897ee0b002-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.4.7"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8271,10 +8278,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["immutable", [\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/immutable-npm-4.3.1-2bfc312410-10.zip/node_modules/immutable/",\
+      ["npm:4.3.2", {\
+        "packageLocation": "./.yarn/global/cache/immutable-npm-4.3.2-413e7ca19b-10.zip/node_modules/immutable/",\
         "packageDependencies": [\
-          ["immutable", "npm:4.3.1"]\
+          ["immutable", "npm:4.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10708,10 +10715,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.40.0", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.40.0-b83e49acc1-10.zip/node_modules/monaco-editor/",\
+      ["npm:0.41.0", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.41.0-4f71416c64-10.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.40.0"]\
+          ["monaco-editor", "npm:0.41.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10739,7 +10746,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.33.1"],\
           ["execa", "npm:7.2.0"],\
           ["localforage", "npm:1.10.0"],\
-          ["monaco-editor", "npm:0.40.0"],\
+          ["monaco-editor", "npm:0.41.0"],\
           ["playwright", "npm:1.36.2"],\
           ["react", "npm:18.2.0"],\
           ["typescript", "patch:typescript@npm%3A5.1.6#optional!builtin<compat/typescript>::version=5.1.6&hash=5da071"],\
@@ -11852,10 +11859,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["prettier", [\
-      ["npm:3.0.0", {\
-        "packageLocation": "./.yarn/global/cache/prettier-npm-3.0.0-7ffbcce680-10.zip/node_modules/prettier/",\
+      ["npm:3.0.1", {\
+        "packageLocation": "./.yarn/global/cache/prettier-npm-3.0.1-d00deab00c-10.zip/node_modules/prettier/",\
         "packageDependencies": [\
-          ["prettier", "npm:3.0.0"]\
+          ["prettier", "npm:3.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -1704,7 +1704,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:^20.4.5"
+    "@types/node": "npm:^20.4.7"
     axios: "npm:^1.4.0"
     body-parser: "npm:^1.20.2"
     commander: "npm:^11.0.0"
@@ -1746,7 +1746,7 @@ __metadata:
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.18.17"
     esm-worker: "npm:^0.130.4"
-    immutable: "npm:4.3.1"
+    immutable: "npm:4.3.2"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.3.4"
     typescript: "npm:5.1.6"
@@ -1774,7 +1774,7 @@ __metadata:
     "@types/jest": "npm:^29.5.3"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.4.5"
+    "@types/node": "npm:20.4.7"
     "@types/react": "npm:18.2.18"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.2"
@@ -1801,7 +1801,7 @@ __metadata:
     fetch-retry: "npm:5.0.6"
     file-type: "npm:18.5.0"
     framer-motion: "npm:10.15.0"
-    immutable: "npm:4.3.1"
+    immutable: "npm:4.3.2"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:^29.6.2"
@@ -1809,7 +1809,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.40.0"
+    monaco-editor: "npm:0.41.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
@@ -1817,7 +1817,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
     preact: "npm:10.16.0"
-    prettier: "npm:3.0.0"
+    prettier: "npm:3.0.1"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.9"
     react: "npm:18.2.0"
@@ -1854,7 +1854,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.4.5"
+    "@types/node": "npm:20.4.7"
     esbuild-wasm: "npm:0.18.17"
   languageName: unknown
   linkType: soft
@@ -2164,10 +2164,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.4.5, @types/node@npm:^20.4.5":
+"@types/node@npm:*":
   version: 20.4.5
   resolution: "@types/node@npm:20.4.5"
   checksum: aa31081f82a2d377f00cfd7ced73925753db1f542fca19e6b0442585a7322b8eacd957fdccaaff65d9976454d213af0980c12390c59a975cf8a368e3f872717a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.4.7, @types/node@npm:^20.4.7":
+  version: 20.4.7
+  resolution: "@types/node@npm:20.4.7"
+  checksum: 63c43283caeaf854853b2a1717754ebb094ea15cd9bb7b93a0a49cc5f5f533d6125986effec1e9bb5d8150c353c76a516bdecc7a74aba20bfde6a78e59952845
   languageName: node
   linkType: hard
 
@@ -6515,10 +6522,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutable@npm:4.3.1":
-  version: 4.3.1
-  resolution: "immutable@npm:4.3.1"
-  checksum: 8b37052a6e91b223e9a6d7b0e6fb4917fdfe8ba5aa4370643eaa135a0174c72fafe2cfead4e0850fc38b4621d0291a187fa1c11f9d37ab06564199de86ede824
+"immutable@npm:4.3.2":
+  version: 4.3.2
+  resolution: "immutable@npm:4.3.2"
+  checksum: 85176b8f3124e04479cfc1f682e3aea9c3665030cf2e7c22e64b53fe8052b42323088208ae0108cf37ac6ce569784858bc5c02b3c8187fa2d363f6977de0e5c0
   languageName: node
   linkType: hard
 
@@ -8649,10 +8656,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.40.0":
-  version: 0.40.0
-  resolution: "monaco-editor@npm:0.40.0"
-  checksum: 9fc9eac730d42c8069247f442a1cceb89c308dca77652c5f850cb333c295f6c8ce07cf59216413075d49fa72e8ffd6f8ab8752efc5d50225eaabdbd4a9fcb200
+"monaco-editor@npm:0.41.0":
+  version: 0.41.0
+  resolution: "monaco-editor@npm:0.41.0"
+  checksum: fdedc6ca35d8d80d8bc1b8a395a8f247d86908f1f9e2eda72ae23527ca11111952ea64bfb85d41bc7c721ff24ab49b868c139928998a6110a93902fe3b8335f3
   languageName: node
   linkType: hard
 
@@ -8678,7 +8685,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.1"
     execa: "npm:^7.2.0"
     localforage: "npm:1.10.0"
-    monaco-editor: "npm:0.40.0"
+    monaco-editor: "npm:0.41.0"
     playwright: "npm:1.36.2"
     react: "npm:18.2.0"
     typescript: "npm:5.1.6"
@@ -9669,12 +9676,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.0.0":
-  version: 3.0.0
-  resolution: "prettier@npm:3.0.0"
+"prettier@npm:3.0.1":
+  version: 3.0.1
+  resolution: "prettier@npm:3.0.1"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 399292638280988ecd44db6532e908246b7c9468e6f5f571b3835a5206b7f1132cb674c12be430d921474901dc85398429dfd2dc31b282eef9affebd3ce72cef
+  checksum: bd20d7565d7701f3446cc149d767031da9239c32eea2aac558876353c781e0557291d885c0585af52500311425a326dd4248364eac41303d0454769a5ec2141a
   languageName: node
   linkType: hard
 
