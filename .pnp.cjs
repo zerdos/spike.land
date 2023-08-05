@@ -102,7 +102,7 @@ const RAW_RUNTIME_STATE =
           ["@isomorphic-git/lightning-fs", "npm:4.6.0"],\
           ["@playwright/test", "npm:1.36.2"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/react", "npm:18.2.18"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:6.2.1"],\
@@ -1587,7 +1587,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@eslint-community-eslint-utils-virtual-17ffd3d5df/0/global/cache/@eslint-community-eslint-utils-npm-4.4.0-d1791bd5a3-10.zip/node_modules/@eslint-community/eslint-utils/",\
         "packageDependencies": [\
           ["@eslint-community/eslint-utils", "virtual:0f841017d2c1388a2d03fc453771da0a2de7b6b2c20836ea28e3f3f091cb131beae31f1a48fd38b4469501c880ddf249e9923263cbf069693860a2c84707e953#npm:4.4.0"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["eslint", "npm:8.46.0"],\
           ["eslint-visitor-keys", "npm:3.4.2"]\
         ],\
@@ -2949,10 +2949,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/eslint", [\
-      ["npm:8.44.1", {\
-        "packageLocation": "./.yarn/global/cache/@types-eslint-npm-8.44.1-0d28c810c6-10.zip/node_modules/@types/eslint/",\
+      ["npm:8.44.2", {\
+        "packageLocation": "./.yarn/global/cache/@types-eslint-npm-8.44.2-6e9a6149b6-10.zip/node_modules/@types/eslint/",\
         "packageDependencies": [\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/estree", "npm:1.0.1"],\
           ["@types/json-schema", "npm:7.0.12"]\
         ],\
@@ -3363,7 +3363,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:6.2.1"],\
           ["@eslint-community/regexpp", "npm:4.6.2"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/typescript", null],\
           ["@types/typescript-eslint__parser", null],\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:6.2.1"],\
@@ -3426,7 +3426,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@typescript-eslint-parser-virtual-8882a271ae/0/global/cache/@typescript-eslint-parser-npm-6.2.1-5eca572243-10.zip/node_modules/@typescript-eslint/parser/",\
         "packageDependencies": [\
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:6.2.1"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/typescript", null],\
           ["@typescript-eslint/scope-manager", "npm:6.2.1"],\
           ["@typescript-eslint/types", "npm:6.2.1"],\
@@ -3468,7 +3468,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@typescript-eslint-type-utils-virtual-f2f32a1fbf/0/global/cache/@typescript-eslint-type-utils-npm-6.2.1-c2052dd97a-10.zip/node_modules/@typescript-eslint/type-utils/",\
         "packageDependencies": [\
           ["@typescript-eslint/type-utils", "virtual:194f209b0b6488537b89aebb3d072ea686b0d73d693383c1215fdc2c0af37bd9106cf924361242eb29f12fc7008e1b4452dc959c80b4d28990b779aedcfd7808#npm:6.2.1"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/typescript", null],\
           ["@typescript-eslint/typescript-estree", "virtual:f2f32a1fbfb956ca23c47ca24140c5089c607282e9cd4a581923b1353fbb1ae7ce3500e73df478b527785fceddfda910eefd2e9d3a1132f68bad14e2edb55426#npm:6.2.1"],\
           ["@typescript-eslint/utils", "virtual:194f209b0b6488537b89aebb3d072ea686b0d73d693383c1215fdc2c0af37bd9106cf924361242eb29f12fc7008e1b4452dc959c80b4d28990b779aedcfd7808#npm:6.2.1"],\
@@ -3612,7 +3612,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@typescript-eslint/utils", "virtual:194f209b0b6488537b89aebb3d072ea686b0d73d693383c1215fdc2c0af37bd9106cf924361242eb29f12fc7008e1b4452dc959c80b4d28990b779aedcfd7808#npm:6.2.1"],\
           ["@eslint-community/eslint-utils", "virtual:0f841017d2c1388a2d03fc453771da0a2de7b6b2c20836ea28e3f3f091cb131beae31f1a48fd38b4469501c880ddf249e9923263cbf069693860a2c84707e953#npm:4.4.0"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/json-schema", "npm:7.0.12"],\
           ["@types/semver", "npm:7.5.0"],\
           ["@typescript-eslint/scope-manager", "npm:6.2.1"],\
@@ -6635,7 +6635,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-virtual-47c4fc997a/0/global/cache/eslint-plugin-react-npm-7.33.1-6e69813204-10.zip/node_modules/eslint-plugin-react/",\
         "packageDependencies": [\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.33.1"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["array-includes", "npm:3.1.6"],\
           ["array.prototype.flatmap", "npm:1.3.1"],\
           ["array.prototype.tosorted", "npm:1.1.1"],\
@@ -10733,7 +10733,7 @@ const RAW_RUNTIME_STATE =
           ["@isomorphic-git/lightning-fs", "npm:4.6.0"],\
           ["@playwright/test", "npm:1.36.2"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/eslint", "npm:8.44.1"],\
+          ["@types/eslint", "npm:8.44.2"],\
           ["@types/react", "npm:18.2.18"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@typescript-eslint/eslint-plugin", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:6.2.1"],\

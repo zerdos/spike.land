@@ -53,7 +53,7 @@ const monacoContribution = (code: string) => {
     target: languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
     moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
-    module: languages.typescript.ModuleKind.CommonJS,
+    module: languages.typescript.ModuleKind.ESNext,
     importHelpers: true,
     lib,
     allowJs: true,
@@ -75,7 +75,7 @@ const monacoContribution = (code: string) => {
       "tslib": ["/tslib"],
     },
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSX,
+    jsx: languages.typescript.JsxEmit.ReactJSXDev,
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
   });

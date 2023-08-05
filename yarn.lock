@@ -2024,13 +2024,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.44.1":
-  version: 8.44.1
-  resolution: "@types/eslint@npm:8.44.1"
+"@types/eslint@npm:8.44.2":
+  version: 8.44.2
+  resolution: "@types/eslint@npm:8.44.2"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 6e97936428e0fd378f9fd81bf5ad1192e43f738745e3303428e04f03eee2624a6b54039d68740e2c6540e482e43b292d68593b8daab0bf8c75efd94352f5c518
+  checksum: 9fe07d4fba1ab9d53d0da404c5774c056deb4bb37a3712a11d35f40ec4389d5d8cc46f19387cf79a3054754e1b71f5dbb796ee6f7411449e9f2399aff8a94def
   languageName: node
   linkType: hard
 
@@ -8672,7 +8672,7 @@ __metadata:
     "@isomorphic-git/lightning-fs": "npm:4.6.0"
     "@playwright/test": "npm:1.36.2"
     "@spike-land/ai-devtools": "workspace:^"
-    "@types/eslint": "npm:8.44.1"
+    "@types/eslint": "npm:8.44.2"
     "@types/react": "npm:18.2.18"
     "@types/react-dom": "npm:18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:^6.2.1"
