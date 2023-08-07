@@ -5664,7 +5664,7 @@ ${
       main: "dist/index.js",
       types: "dist/index.d.ts",
       files: ["dist", "_ts3.4", "README.md", "LICENSE"],
-      engines: { node: "^12.22.0 || ^14.17.0 || >=16.0.0" },
+      engines: { node: "12.22.0 || ^14.17.0 || >=16.0.0" },
       repository: {
         type: "git",
         url: "https://github.com/typescript-eslint/typescript-eslint.git",
@@ -5697,11 +5697,11 @@ ${
       dependencies: {
         "@typescript-eslint/types": "5.59.2",
         "@typescript-eslint/visitor-keys": "5.59.2",
-        debug: "^4.3.4",
-        globby: "^11.1.0",
-        "is-glob": "^4.0.3",
-        semver: "^7.3.7",
-        tsutils: "^3.21.0",
+        debug: "4.3.4",
+        globby: "11.1.0",
+        "is-glob": "4.0.3",
+        semver: "7.3.7",
+        tsutils: "3.21.0",
       },
       devDependencies: {
         "@babel/code-frame": "*",

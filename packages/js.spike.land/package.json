@@ -21,7 +21,7 @@
     "wrangler": "3.4.0"
   },
   "dependencies": {
-    "esbuild-wasm": "0.18.17"
+    "esbuild-wasm": "0.18.19"
   },
   "publishConfig": {
     "access": "public"

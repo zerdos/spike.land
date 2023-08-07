@@ -22,11 +22,14 @@
     "wrangler": "3.4.0"
   },
   "dependencies": {
+    "@types/node": "^20.4.8",
+    "ai": "^2.1.32",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.18.17",
-    "esm-worker": "^0.130.4",
+    "esbuild-wasm": "0.18.19",
+    "esm-worker": "0.130.4",
     "immutable": "4.3.2",
+    "openai-edge": "^1.2.2",
     "p-map": "6.0.0",
     "p-queue": "7.3.4"
   },

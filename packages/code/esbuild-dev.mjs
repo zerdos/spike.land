@@ -18,21 +18,20 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
     format: "iife",
-    mangleQuoted: true,
 
     charset: "utf8",
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: false,
 
-    ignoreAnnotations: true,
-    keepNames: false,
+    ignoreAnnotations: false,
+    keepNames: true,
     treeShaking: true,
     // outbase: '../../node_modules/monaco-editor/esm/',
     outdir: "dist",
   });
 
-  //
+  // =
 
   await build({
     ...buildOptions,

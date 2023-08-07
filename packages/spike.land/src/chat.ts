@@ -3,6 +3,7 @@ import type { Request as WRequest } from "@cloudflare/workers-types";
 import { importMap } from "../../code/src/importMap";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
+import { handleAiFetchApi } from "./ai";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
 import esmWorker from "./esm.worker";
@@ -23,6 +24,10 @@ async function handleApiRequest(
 ) {
   // Logic for handling API requests
   switch (path[0]) {
+    case "generate":
+    case "chat": {
+      return handleAiFetchApi(path, request, env);
+    }
     case "room": {
       if (!path[1]) {
         if (request.method === "POST") {
