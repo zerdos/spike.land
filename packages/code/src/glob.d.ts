@@ -3,7 +3,6 @@ import EmotionReact from "@emotion/react";
 import type { FC } from "react";
 import type {} from "react-dom";
 import ear from "@emotion/react";
-import FS from "@isomorphic-git/lightning-fs";
 import { RequestInitWithRetry } from "fetch-retry";
 import {} from "monaco-editor";
 import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
@@ -48,30 +47,5 @@ declare global {
 
 // types.d.ts
 declare global {
-  interface FileSystemHandle {
-    kind: "file" | "directory";
-    name: string;
-    getFile?: () => Promise<File>;
-  }
 
-  interface FileSystemFileHandle extends FileSystemHandle {
-    kind: "file";
-  }
-
-  interface FileSystemDirectoryHandle extends FileSystemHandle {
-    kind: "directory";
-    values: () => AsyncIterable<FileSystemHandle>;
-    getDirectoryHandle: (
-      name: string,
-      options?: FileSystemHandlePermissionDescriptor,
-    ) => Promise<FileSystemDirectoryHandle>;
-    getFileHandle: (
-      name: string,
-      options?: FileSystemHandlePermissionDescriptor,
-    ) => Promise<FileSystemFileHandle>;
-    removeEntry: (
-      name: string,
-      options?: FileSystemHandlePermissionDescriptor,
-    ) => Promise<void>;
-  }
 }

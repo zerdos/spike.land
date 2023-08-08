@@ -204,7 +204,6 @@ async function handleFetchApi(
               request,
               env,
             );
-            return new Response(`Not found ${key}!`);
           }
 
           const headers = new Headers();
@@ -239,7 +238,11 @@ async function handleFetchApi(
     default:
       {
         if (!isUrlFile(path.join("/"))) {
-          const resp = await esmWorker.fetch(request, env, ctx);
+          const esmResp = esmWorker.fetch(request, env, ctx);
+          const isUnpFile = await fetch(["https://unpkg.com", ...path].join("/"));
+          if (isUnpFile.ok) return new Response(await isUnpFile.blob(), {headers: isUnpFile.headers});
+
+          const resp = await esmResp;
           if (!resp.ok) return resp;
 
           const headers = new Headers(resp.headers);
