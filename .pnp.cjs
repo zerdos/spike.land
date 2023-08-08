@@ -2579,7 +2579,6 @@ const RAW_RUNTIME_STATE =
           ["async-mutex", "npm:0.4.0"],\
           ["ava", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.3.1"],\
           ["avl", "npm:1.5.3"],\
-          ["browser-fs-access", "npm:0.34.1"],\
           ["buffer", "npm:6.0.3"],\
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.2"],\
@@ -2600,7 +2599,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.42.0-dev-20230808"],\
+          ["monaco-editor", "npm:0.40.0"],\
           ["node-source-walk", "npm:6.0.2"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:6.0.0"],\
@@ -4829,15 +4828,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["braces", "npm:3.0.2"],\
           ["fill-range", "npm:7.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["browser-fs-access", [\
-      ["npm:0.34.1", {\
-        "packageLocation": "./.yarn/global/cache/browser-fs-access-npm-0.34.1-7fcd7d9328-10.zip/node_modules/browser-fs-access/",\
-        "packageDependencies": [\
-          ["browser-fs-access", "npm:0.34.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10654,17 +10644,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
+      ["npm:0.40.0", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.40.0-b83e49acc1-10.zip/node_modules/monaco-editor/",\
+        "packageDependencies": [\
+          ["monaco-editor", "npm:0.40.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:0.41.0", {\
         "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.41.0-4f71416c64-10.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
           ["monaco-editor", "npm:0.41.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:0.42.0-dev-20230808", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.42.0-dev-20230808-0959914d73-10.zip/node_modules/monaco-editor/",\
-        "packageDependencies": [\
-          ["monaco-editor", "npm:0.42.0-dev-20230808"]\
         ],\
         "linkType": "HARD"\
       }]\

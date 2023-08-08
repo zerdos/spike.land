@@ -1746,7 +1746,6 @@ __metadata:
     async-mutex: "npm:0.4.0"
     ava: "npm:5.3.1"
     avl: "npm:1.5.3"
-    browser-fs-access: "npm:0.34.1"
     buffer: "npm:6.0.3"
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
@@ -1767,7 +1766,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.42.0-dev-20230808"
+    monaco-editor: "npm:0.40.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
@@ -3479,13 +3478,6 @@ __metadata:
   dependencies:
     fill-range: "npm:^7.0.1"
   checksum: 966b1fb48d193b9d155f810e5efd1790962f2c4e0829f8440b8ad236ba009222c501f70185ef732fef17a4c490bb33a03b90dab0631feafbdf447da91e8165b1
-  languageName: node
-  linkType: hard
-
-"browser-fs-access@npm:0.34.1":
-  version: 0.34.1
-  resolution: "browser-fs-access@npm:0.34.1"
-  checksum: 6f62525feed7f3925aef3f7fc0b8d46ca97e1c94d6a70f9839e3311999e96ab9440d9ab278c8a9aca1f6bdb376d0d1efa9f5cdd68374073ec2a09ca2707f6842
   languageName: node
   linkType: hard
 
@@ -8611,17 +8603,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monaco-editor@npm:0.40.0":
+  version: 0.40.0
+  resolution: "monaco-editor@npm:0.40.0"
+  checksum: 9fc9eac730d42c8069247f442a1cceb89c308dca77652c5f850cb333c295f6c8ce07cf59216413075d49fa72e8ffd6f8ab8752efc5d50225eaabdbd4a9fcb200
+  languageName: node
+  linkType: hard
+
 "monaco-editor@npm:0.41.0":
   version: 0.41.0
   resolution: "monaco-editor@npm:0.41.0"
   checksum: fdedc6ca35d8d80d8bc1b8a395a8f247d86908f1f9e2eda72ae23527ca11111952ea64bfb85d41bc7c721ff24ab49b868c139928998a6110a93902fe3b8335f3
-  languageName: node
-  linkType: hard
-
-"monaco-editor@npm:0.42.0-dev-20230808":
-  version: 0.42.0-dev-20230808
-  resolution: "monaco-editor@npm:0.42.0-dev-20230808"
-  checksum: c038db86add2f7fb2b318e6c9a7b9ecf6fad1deb26a6d17ebc6301ff1b6228ffb75c366b8e7aa06ca36b8ea5aa37c5f7811f4265ae74886d409c04a0fcbeee07
   languageName: node
   linkType: hard
 
