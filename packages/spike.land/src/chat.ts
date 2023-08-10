@@ -240,7 +240,7 @@ async function handleFetchApi(
         if (!isUrlFile(path.join("/"))) {
           const esmResp = esmWorker.fetch(request, env, ctx);
           const isUnpFile = await fetch(["https://unpkg.com", ...path].join("/"));
-          if (isUnpFile.ok) return new Response(await isUnpFile.blob(), {headers: isUnpFile.headers});
+          if (isUnpFile.ok) return new Response(await isUnpFile.blob(), { headers: isUnpFile.headers });
 
           const resp = await esmResp;
           if (!resp.ok) return resp;

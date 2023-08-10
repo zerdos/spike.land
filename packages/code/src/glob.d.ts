@@ -47,5 +47,4 @@ declare global {
 
 // types.d.ts
 declare global {
-
 }
