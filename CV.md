@@ -5,46 +5,42 @@ GitHub: [github.com/zerdos](https://github.com/zerdos)
 
 # Summary
 
-I am a dedicated Full Stack Developer with a strong focus on frontend development and substantial experience in backend technologies. I have a passion for creating robust, high-quality code, with a keen interest in Test-Driven Development (TDD) and staying abreast of the latest tech trends. I consistently strive to select the most effective and efficient tools for each task.
-
-Throughout my career, I have demonstrated a stable work history and adaptability, navigating roles in various settings from startups to major corporations. I am eager to bring my diverse skills and experiences to a long-term role where I can contribute to a team and an organization's success.
+Passionate and dedicated Full Stack Developer with a strong focus on frontend development backed by substantial experience in backend technologies. Proven track record of producing high-quality code, advocating for Test-Driven Development (TDD), and staying current with the latest tech trends. Skilled at adapting to various environments, from startups to major corporations, and eager to contribute to a long-term role that leverages diverse skills and experiences.
 
 # Work Experience
 
-## March 2023 – September 2023: Frontend Developer, Virgin Media Company
-- Developed and maintained the Component Library.
-- Created a pipeline for importing CSS design tokens from Figma to our project. Implemented PostCSS plugins to remove unused tokens, resulting in an 80% reduction in our CSS build size.
-- Added automatic visual regression tests to our Storybook and GitLab-CI pipeline.
-- Assisted in upgrading the frontend tech stack to the latest packages.
-- Played a key role in migrating the virginmedia.com site from on-premise to the cloud.
-- Supported graduate students in their learning journey by providing guidance and mentorship.
+## March 2023 – September 2023: Frontend Developer (Contractor), Virgin Media Company
+- Developed and maintained the Component Library, creating a pipeline that enabled design changes in Figma to automatically trigger pull requests, visualizing visual changes in real-time.
+- Reduced CSS build size by 80% via implementation of PostCSS plugins to remove unused tokens.
+- Played a key role in the migration of the virginmedia.com site from on-premise to the cloud.
+- Provided mentorship and guidance to graduate students.
 - Collaborated with the O2 care team to implement the 'Install sim' journey.
 
 ## 2018 – 2023: Full Stack Developer (Long-term Contractor), Investec Bank
-- Worked within an Agile team environment, contributing to both the frontend and backend of the corporate-facing web app (Investex IX). Introduced new automated testing tools and kept our tech stack up to date. Developed Azure functions for data migration.
-- Tech stack: TypeScript, React, CSS, C#, .NET Core, MSSQL, Docker, AWS, OpenApi, Kubernetes, TDD, Gitops, Helm Charts, Azure, Continuous Delivery.
+- Played a crucial role in establishing test automation and cloud deployment for the corporate-facing web app (Investex IX).
+- Developed new Azure functions for data migration.
+- Contributed to both the frontend and backend of the application in an Agile team environment.
+- Kept the tech stack up to date and introduced new automated testing tools.
 
 ## 2014 – 2018: Lead Frontend Developer, TalkTalk
-- Participated in "Agile transformation", maintained technical vision, introduced new technologies, and found new ways of testing. Recruited and coached new talents, organized regular "Lunch and Learn" sessions.
-- Tech stack: AngularJS and Angular 2+, Ionic framework, TypeScript, ES6+, Node, GraphQL, AWS (S3, Lambda, DynamoDB).
+- Delivered the new sales site and the new MyTalkTalk app.
+- Introduced teams to Test-Driven Development and Continuous Integration practices.
+- Maintained technical vision, introduced new technologies, and found new ways of testing.
+- Recruited and coached new talents, organized regular "Lunch and Learn" sessions.
 
-## 2013 – 2014: Senior Frontend Developer (Consultant), Keytree
-- Worked as a consultant for various high-profile clients, including BP, Jaguar & Land Rover, and National Grid.
-- Tech stack: Angular, Bootstrap, TDD (Karma, Jasmine, Protractor, Browserstack).
+## 2013 – 2014: Senior Frontend Developer, Keytree
+- Worked as a consultant for high-profile clients, including BP, Jaguar & Land Rover, and National Grid.
+- Created new Angular frontends for older SAP-based applications.
 
 ## 2012 – 2013: Frontend Developer, Emarsys Ltd.
 - Worked as part of an agile team, learned the philosophy of software development, clean code, and TDD.
-- Tech stack: Angular, Bootstrap, Mocha, SinonJS, Jenkins.
 
 # Hobby Projects
 
 ## spike.land (2020 - present)
-- Focused on creating a frictionless development environment.
-- Technologies used: TypeScript, Prettier, ESbuild, Deno, websockets, WebRTC, Monaco-editor, Ace editor, IPFS, Emotion-js (CSS in js), Framer-motion, Yarn workspaces, Isomorphic-git.
-
-## https://hub.docker.com/u/devimages (2019 - 2021)
-- Created Docker images to help set up developer environments and to use these images on CI servers.
-- Technologies used: Docker and Bash scripts.
+- Focused on creating a frictionless development environment, which completely removes the need for environment setup, package install, and build time.
+- The deployment and build happen for each button press, up to 10x per second.
+- Currently adding an AI assistant to aid code writing and debugging.
 
 # Availability
 Available to start a new position from September 2023.
@@ -54,7 +50,7 @@ Available to start a new position from September 2023.
 Computer Scientist and Mathematician, with a focus on parallel programming and distributed systems.
 
 # Additional Skills
-Team Collaboration: Proficiency in Agile methodologies, pair programming, and cross-team collaboration.
+- Team Collaboration: Proficient in Agile methodologies, pair programming, and cross-team collaboration.▍
 Business Acumen: Understand the importance of aligning tech solutions with business goals.
 Backend Development: Significant experience with backend technologies such as .NET Core, MSSQL, AWS, and Docker.
 
