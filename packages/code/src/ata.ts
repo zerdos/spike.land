@@ -94,6 +94,9 @@ export async function ata(
   }, {
     filePath: `${location.origin}/@emotion/react/jsx-runtime.d.ts`,
     content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+  }, {
+    filePath: `${location.origin}/@emotion/react/jsx-dev-runtime.d.ts`,
+    content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
   }];
 
   const extraLibs = [
