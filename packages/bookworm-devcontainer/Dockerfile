@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.5.2
 
 FROM node:alpine as node-builder
-ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn- 4.0.0-rc.50.cjs /usr/local/bin/yarn
+ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.0.0-rc.50.cjs /usr/local/bin/yarn
 
 RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
@@ -271,7 +271,7 @@ ENV SHELL=/usr/bin/zsh
 ### deno.Dockerfile
 
 USER ${USER}
-RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.35.2 \
+RUN (curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.36.0 \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.zshrc \
   && echo "export DENO_INSTALL=\"\${HOME}/.deno\"" >> ${HOME}/.bashrc \
   && echo "export PATH=\"\$DENO_INSTALL/bin:\$PATH\"" >> ${HOME}/.bashrc \
