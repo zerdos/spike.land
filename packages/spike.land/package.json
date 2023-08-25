@@ -18,17 +18,17 @@
     "@cloudflare/kv-asset-handler": "0.3.0",
     "@cloudflare/workers-types": "4.20230821.0",
     "@spike-land/code": "0.9.8",
-    "typescript": "5.1.6",
-    "wrangler": "3.5.1"
+    "typescript": "5.2.2",
+    "wrangler": "3.6.0"
   },
   "dependencies": {
     "@types/node": "20.5.4",
-    "ai": "2.2.8",
+    "ai": "2.2.9",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.19.2",
     "esm-worker": "0.131.1",
-    "immutable": "4.3.3",
+    "immutable": "5.0.0-beta.1",
     "openai-edge": "1.2.2",
     "p-map": "6.0.0",
     "p-queue": "7.3.4"

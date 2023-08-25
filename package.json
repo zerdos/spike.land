@@ -52,9 +52,9 @@
     "monaco-editor": "0.41.0",
     "playwright": "1.37.1",
     "react": "18.2.0",
-    "typescript": "5.1.6",
+    "typescript": "5.2.2",
     "util": "0.12.5",
     "utils": "0.3.1"
   },
-  "packageManager": "yarn@4.0.0-rc.49"
+  "packageManager": "yarn@4.0.0-rc.50"
 }
