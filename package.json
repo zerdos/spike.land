@@ -45,7 +45,7 @@
     "constants": "0.0.2",
     "cypress": "12.17.4",
     "dprint": "0.40.2",
-    "eslint": "8.47.0",
+    "eslint": "8.48.0",
     "eslint-plugin-react": "7.33.2",
     "execa": "8.0.1",
     "localforage": "1.10.0",
