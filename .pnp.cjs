@@ -2569,7 +2569,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.5.6"],\
+          ["@types/node", "npm:20.5.7"],\
           ["axios", "npm:1.5.0"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
@@ -2623,7 +2623,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.4"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.5.6"],\
+          ["@types/node", "npm:20.5.7"],\
           ["@types/react", "npm:18.2.21"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@types/uuid", "npm:9.0.2"],\
@@ -2649,7 +2649,7 @@ const RAW_RUNTIME_STATE =
           ["fetch-retry", "npm:5.0.6"],\
           ["file-type", "npm:18.5.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:10.16.1"],\
-          ["immutable", "npm:5.0.0-beta.2"],\
+          ["immutable", "npm:5.0.0-beta.3"],\
           ["is-callable", "npm:1.2.7"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.6.4"],\
@@ -2699,13 +2699,13 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
           ["@cloudflare/workers-types", "npm:4.20230821.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:20.5.6"],\
+          ["@types/node", "npm:20.5.7"],\
           ["ai", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.2.9"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.19.2"],\
           ["esm-worker", "npm:0.131.1"],\
-          ["immutable", "npm:5.0.0-beta.2"],\
+          ["immutable", "npm:5.0.0-beta.3"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:6.0.0"],\
           ["p-queue", "npm:7.3.4"],\
@@ -2730,7 +2730,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.5.6"],\
+          ["@types/node", "npm:20.5.7"],\
           ["esbuild-wasm", "npm:0.19.2"]\
         ],\
         "linkType": "SOFT"\
@@ -3124,6 +3124,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.5.6-f7a7eed369-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.5.6"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.5.7", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.5.7-b5e80f1922-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.5.7"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8422,10 +8429,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["immutable", [\
-      ["npm:5.0.0-beta.2", {\
-        "packageLocation": "./.yarn/global/cache/immutable-npm-5.0.0-beta.2-206c10d88f-10.zip/node_modules/immutable/",\
+      ["npm:5.0.0-beta.3", {\
+        "packageLocation": "./.yarn/global/cache/immutable-npm-5.0.0-beta.3-a6ba550254-10.zip/node_modules/immutable/",\
         "packageDependencies": [\
-          ["immutable", "npm:5.0.0-beta.2"]\
+          ["immutable", "npm:5.0.0-beta.3"]\
         ],\
         "linkType": "HARD"\
       }]\
