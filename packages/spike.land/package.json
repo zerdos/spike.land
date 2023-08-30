@@ -1,7 +1,7 @@
 {
   "name": "@spike-land/code-worker",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "type": "module",
   "main": "dist/index.js",
   "private": true,
@@ -17,7 +17,7 @@
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
     "@cloudflare/workers-types": "4.20230821.0",
-    "@spike-land/code": "0.9.10",
+    "@spike-land/code": "0.9.11",
     "typescript": "5.2.2",
     "wrangler": "3.6.0"
   },

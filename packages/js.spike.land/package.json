@@ -1,7 +1,7 @@
 {
   "name": "@spike-land/transpile",
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "type": "module",
   "main": "dist/index.js",
   "private": true,

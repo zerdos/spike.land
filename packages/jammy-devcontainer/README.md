@@ -3,9 +3,9 @@
 - Base image: ubuntu:jammy
 - Node: 18.17.1
 - Yarn: 1.22.19
-- Cypress 12.17.3
+- Cypress 13.0.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!
-- Deno: 1.36.0
+- Deno: 1.36.3
 - github: https://github.com/zerdos/spike.land
