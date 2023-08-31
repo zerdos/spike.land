@@ -1746,7 +1746,7 @@ __metadata:
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:6.0.0"
-    p-queue: "npm:7.3.4"
+    p-queue: "npm:7.4.0"
     typescript: "npm:5.2.2"
     wrangler: "npm:3.6.0"
   languageName: unknown
@@ -1774,7 +1774,7 @@ __metadata:
     "@types/node": "npm:20.5.7"
     "@types/react": "npm:18.2.21"
     "@types/react-dom": "npm:18.2.7"
-    "@types/uuid": "npm:9.0.2"
+    "@types/uuid": "npm:9.0.3"
     "@typescript-eslint/eslint-plugin": "npm:6.5.0"
     "@typescript-eslint/parser": "npm:6.5.0"
     "@typescript-eslint/typescript-estree": "npm:6.5.0"
@@ -1796,7 +1796,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:5.0.6"
     file-type: "npm:18.5.0"
-    framer-motion: "npm:10.16.1"
+    framer-motion: "npm:10.16.2"
     immutable: "npm:5.0.0-beta.4"
     is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
@@ -2308,10 +2308,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:9.0.2":
-  version: 9.0.2
-  resolution: "@types/uuid@npm:9.0.2"
-  checksum: 1754bcf3444e1e3aeadd6e774fc328eb53bc956665e2e8fb6ec127aa8e1f43d9a224c3d22a9a6233dca8dd81a12dc7fed4d84b8876dd5ec82d40f574f7ff8b68
+"@types/uuid@npm:9.0.3":
+  version: 9.0.3
+  resolution: "@types/uuid@npm:9.0.3"
+  checksum: 3dde198defd71c067dd14b3050a8fe6d1ead5fe94ec318472e2c30a399d13f18941fe66cffabdcac7267177c9de2f975fdee6f0cc87cde610a2578e1ce4cc3af
   languageName: node
   linkType: hard
 
@@ -5269,10 +5269,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventemitter3@npm:^4.0.7":
-  version: 4.0.7
-  resolution: "eventemitter3@npm:4.0.7"
-  checksum: 8030029382404942c01d0037079f1b1bc8fed524b5849c237b80549b01e2fc49709e1d0c557fa65ca4498fc9e24cff1475ef7b855121fcc15f9d61f93e282346
+"eventemitter3@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "eventemitter3@npm:5.0.1"
+  checksum: ac6423ec31124629c84c7077eed1e6987f6d66c31cf43c6fcbf6c87791d56317ce808d9ead483652436df171b526fc7220eccdc9f3225df334e81582c3cf7dd5
   languageName: node
   linkType: hard
 
@@ -5899,9 +5899,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.16.1":
-  version: 10.16.1
-  resolution: "framer-motion@npm:10.16.1"
+"framer-motion@npm:10.16.2":
+  version: 10.16.2
+  resolution: "framer-motion@npm:10.16.2"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -5916,7 +5916,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 18cc0a511e09f0d803f19a54e9a74e664c3b9eda4a8833ce99910cab989a935e5e5d905e22ec752061ca326fb35d41f1d6e343b408b73411ba8378ed94079985
+  checksum: 3d1e36391525494705f207d3a045295a7ac111f0c3038a69e7e98e7c0f44c7ec2f488fafd2828d781e647193fb3a00e4988b1b5bd032b21c2593d0c32f09da06
   languageName: node
   linkType: hard
 
@@ -9519,13 +9519,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-queue@npm:7.3.4":
-  version: 7.3.4
-  resolution: "p-queue@npm:7.3.4"
+"p-queue@npm:7.4.0":
+  version: 7.4.0
+  resolution: "p-queue@npm:7.4.0"
   dependencies:
-    eventemitter3: "npm:^4.0.7"
+    eventemitter3: "npm:^5.0.1"
     p-timeout: "npm:^5.0.2"
-  checksum: 5249f9a24635012929f4e9c0f2e36274bc0b6a571a2df61c3c77d9e843442bb29193cdeac18cbeaa98f65f1e329c9cd28187ac1dc07d6dfc1facc93919527aa8
+  checksum: b81ce458f87a89215bac8bbdd3ac2f6963c50c05ccd9a45eb279ef488989fc7339b77671ca3a07a9728bd2bd764796a0ae747be65437d1da119e3b43bc01471b
   languageName: node
   linkType: hard
 
