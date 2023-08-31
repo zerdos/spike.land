@@ -42,7 +42,7 @@ export async function ata(
 
   // The substituted value will be contained in the result variable
 
-  Object.keys(impRes).filter((x) => !((impRes[x].ref).startsWith(".") || (impRes[x].ref).startsWith("https"))).map((
+  Object.keys(impRes).filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https"))).map((
     x,
   ) =>
     Object.keys(impRes).map((t) =>

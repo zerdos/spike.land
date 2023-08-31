@@ -58,7 +58,7 @@ export const transpile = async (
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
-    if (initFinished !== true) await (initFinished);
+    if (initFinished !== true) await initFinished;
   } else {
     mod.init = mod.init || initialize({
       wasmURL: `/${wasmFile}`,
@@ -117,7 +117,7 @@ export const build = async (
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
-    if (initFinished !== true) await (initFinished);
+    if (initFinished !== true) await initFinished;
   } else {
     mod.init = mod.init || initialize({
       wasmURL: `/${wasmFile}`,
