@@ -1738,7 +1738,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20230821.0"
     "@spike-land/code": "npm:0.9.11"
     "@types/node": "npm:20.5.7"
-    ai: "npm:2.2.10"
+    ai: "npm:2.2.11"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.19.2"
@@ -2704,9 +2704,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:2.2.10":
-  version: 2.2.10
-  resolution: "ai@npm:2.2.10"
+"ai@npm:2.2.11":
+  version: 2.2.11
+  resolution: "ai@npm:2.2.11"
   dependencies:
     eventsource-parser: "npm:1.0.0"
     nanoid: "npm:3.3.6"
@@ -2730,7 +2730,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: e11b4d9fafb39400c33f4deab203682b044211cb121409c4cb361aa23d1df7e1c1a0bc73fde0bf2eb6621374fbdc65784f114816d2dc224749a78bdf22bdd425
+  checksum: 8e23da3b914a865f6f6c4a2cd9ec1ab63b1729b704a69aa5d8eee041e56d4449cda547a2807886ee63ba5cadfcd7f546d7f32804ed7b9910faa6fb280d5441a5
   languageName: node
   linkType: hard
 
@@ -4349,9 +4349,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.0.0":
-  version: 13.0.0
-  resolution: "cypress@npm:13.0.0"
+"cypress@npm:13.1.0":
+  version: 13.1.0
+  resolution: "cypress@npm:13.1.0"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -4398,7 +4398,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 9c3043e1a766432f0a585cd6bafb15741f44041fa8580236eeafe598639c088cba22a4b46a1d464418b3d8e5a03c30b10c812115c6bfccdaf76e76fe36fe7354
+  checksum: 8e96041503497ca1c1bbcfbd7fa679683ca338fa1b76557fe8f3e4926fc61efd15ccdd0d269146515b6743a1845886aaf1d6cfb72e143a5c57bff6853a18cb92
   languageName: node
   linkType: hard
 
@@ -8877,7 +8877,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:6.5.0"
     "@yarnpkg/sdks": "npm:3.0.0-rc.50"
     constants: "npm:0.0.2"
-    cypress: "npm:13.0.0"
+    cypress: "npm:13.1.0"
     dprint: "npm:0.40.2"
     eslint: "npm:8.48.0"
     eslint-plugin-react: "npm:7.33.2"
