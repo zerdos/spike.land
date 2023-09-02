@@ -2569,14 +2569,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.5.7"],\
+          ["@types/node", "npm:20.5.8"],\
           ["axios", "npm:1.5.0"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
           ["dotenv", "npm:16.3.1"],\
           ["express", "npm:4.18.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "npm:4.3.1"],\
+          ["openai", "npm:4.4.0"],\
           ["p-limit", "npm:4.0.0"],\
           ["simple-git", "npm:3.19.1"]\
         ],\
@@ -2623,7 +2623,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.4"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.5.7"],\
+          ["@types/node", "npm:20.5.8"],\
           ["@types/react", "npm:18.2.21"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@types/uuid", "npm:9.0.3"],\
@@ -2699,7 +2699,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
           ["@cloudflare/workers-types", "npm:4.20230821.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:20.5.7"],\
+          ["@types/node", "npm:20.5.8"],\
           ["ai", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.2.11"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
@@ -2730,7 +2730,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.5.7"],\
+          ["@types/node", "npm:20.5.8"],\
           ["esbuild-wasm", "npm:0.19.2"]\
         ],\
         "linkType": "SOFT"\
@@ -3124,6 +3124,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.5.7-b5e80f1922-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.5.7"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.5.8", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.5.8-302cbe2fa5-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.5.8"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9167,7 +9174,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/isomorphic-fetch-npm-3.0.0-bce711adff-10.zip/node_modules/isomorphic-fetch/",\
         "packageDependencies": [\
           ["isomorphic-fetch", "npm:3.0.0"],\
-          ["node-fetch", "virtual:762bfb116a6acdf180996a47301f0a32ccb7e2123e0031231eceefb5555d9e7d5376ad7355e03bde60f407a8bf4abbcbbb5fd791fb2aa39fb88b8ea67e1e758c#npm:2.7.0"],\
+          ["node-fetch", "virtual:d0fc80938eb1869d8851439f659d46352bdb3df382600c3294be8f0c0f417132c5738e3445d37860234078584f8a5edebdbe8149eab904e27e2621417aacecc9#npm:2.7.0"],\
           ["whatwg-fetch", "npm:3.6.18"]\
         ],\
         "linkType": "HARD"\
@@ -11088,10 +11095,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:762bfb116a6acdf180996a47301f0a32ccb7e2123e0031231eceefb5555d9e7d5376ad7355e03bde60f407a8bf4abbcbbb5fd791fb2aa39fb88b8ea67e1e758c#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-72163d4f99/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:d0fc80938eb1869d8851439f659d46352bdb3df382600c3294be8f0c0f417132c5738e3445d37860234078584f8a5edebdbe8149eab904e27e2621417aacecc9#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-0373c13905/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:762bfb116a6acdf180996a47301f0a32ccb7e2123e0031231eceefb5555d9e7d5376ad7355e03bde60f407a8bf4abbcbbb5fd791fb2aa39fb88b8ea67e1e758c#npm:2.7.0"],\
+          ["node-fetch", "virtual:d0fc80938eb1869d8851439f659d46352bdb3df382600c3294be8f0c0f417132c5738e3445d37860234078584f8a5edebdbe8149eab904e27e2621417aacecc9#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -11468,14 +11475,14 @@ const RAW_RUNTIME_STATE =
           ["digest-fetch", "npm:1.3.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:762bfb116a6acdf180996a47301f0a32ccb7e2123e0031231eceefb5555d9e7d5376ad7355e03bde60f407a8bf4abbcbbb5fd791fb2aa39fb88b8ea67e1e758c#npm:2.7.0"]\
+          ["node-fetch", "virtual:d0fc80938eb1869d8851439f659d46352bdb3df382600c3294be8f0c0f417132c5738e3445d37860234078584f8a5edebdbe8149eab904e27e2621417aacecc9#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:4.3.1", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.3.1-762bfb116a-10.zip/node_modules/openai/",\
+      ["npm:4.4.0", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.4.0-d0fc80938e-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.3.1"],\
+          ["openai", "npm:4.4.0"],\
           ["@types/node", "npm:18.17.12"],\
           ["@types/node-fetch", "npm:2.6.4"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -11483,7 +11490,7 @@ const RAW_RUNTIME_STATE =
           ["digest-fetch", "npm:1.3.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:762bfb116a6acdf180996a47301f0a32ccb7e2123e0031231eceefb5555d9e7d5376ad7355e03bde60f407a8bf4abbcbbb5fd791fb2aa39fb88b8ea67e1e758c#npm:2.7.0"]\
+          ["node-fetch", "virtual:d0fc80938eb1869d8851439f659d46352bdb3df382600c3294be8f0c0f417132c5738e3445d37860234078584f8a5edebdbe8149eab904e27e2621417aacecc9#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
