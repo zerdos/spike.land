@@ -22,7 +22,7 @@
     "wrangler": "3.6.0"
   },
   "dependencies": {
-    "@types/node": "20.5.8",
+    "@types/node": "20.5.9",
     "ai": "2.2.11",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
@@ -31,7 +31,7 @@
     "immutable": "5.0.0-beta.4",
     "openai-edge": "1.2.2",
     "p-map": "6.0.0",
-    "p-queue": "7.4.0"
+    "p-queue": "7.4.1"
   },
   "publishConfig": {
     "access": "public"

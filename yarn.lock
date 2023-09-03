@@ -1699,7 +1699,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.5.8"
+    "@types/node": "npm:20.5.9"
     axios: "npm:1.5.0"
     body-parser: "npm:1.20.2"
     commander: "npm:11.0.0"
@@ -1737,7 +1737,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230821.0"
     "@spike-land/code": "npm:0.9.11"
-    "@types/node": "npm:20.5.8"
+    "@types/node": "npm:20.5.9"
     ai: "npm:2.2.11"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1746,7 +1746,7 @@ __metadata:
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:6.0.0"
-    p-queue: "npm:7.4.0"
+    p-queue: "npm:7.4.1"
     typescript: "npm:5.2.2"
     wrangler: "npm:3.6.0"
   languageName: unknown
@@ -1771,7 +1771,7 @@ __metadata:
     "@types/jest": "npm:29.5.4"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.5.8"
+    "@types/node": "npm:20.5.9"
     "@types/react": "npm:18.2.21"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.3"
@@ -1850,7 +1850,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.5.8"
+    "@types/node": "npm:20.5.9"
     esbuild-wasm: "npm:0.19.2"
   languageName: unknown
   linkType: soft
@@ -2170,10 +2170,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.5.8":
+"@types/node@npm:*":
   version: 20.5.8
   resolution: "@types/node@npm:20.5.8"
   checksum: 831540dcdfe7d10ef7385abfaa86cbdb7488d6635d955175e174e8c861eef457ee6c6b1e78847e7f1459fd3b327b97081c4b599bfc33e042c59eb1534e60a74d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.5.9":
+  version: 20.5.9
+  resolution: "@types/node@npm:20.5.9"
+  checksum: bb3bf17d7583cfe6b0fca796d20e6b70513fedbe5ed7801789ab39d3f75f8783900595471cedc26eb8989cb54a8026506004764ed2c180f77ecac84c60e0075f
   languageName: node
   linkType: hard
 
@@ -9511,13 +9518,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-queue@npm:7.4.0":
-  version: 7.4.0
-  resolution: "p-queue@npm:7.4.0"
+"p-queue@npm:7.4.1":
+  version: 7.4.1
+  resolution: "p-queue@npm:7.4.1"
   dependencies:
     eventemitter3: "npm:^5.0.1"
     p-timeout: "npm:^5.0.2"
-  checksum: b81ce458f87a89215bac8bbdd3ac2f6963c50c05ccd9a45eb279ef488989fc7339b77671ca3a07a9728bd2bd764796a0ae747be65437d1da119e3b43bc01471b
+  checksum: 82934551f20a38cc19b31cda7200f2db93ca99b8c642d3ac861d12a7a9160eb32235738a8cd53f1a7ea0c7b52d6c0bb27644b6461e9a51e6a59f1e8d65904b78
   languageName: node
   linkType: hard
 

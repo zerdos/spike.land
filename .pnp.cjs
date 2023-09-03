@@ -2569,7 +2569,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.5.8"],\
+          ["@types/node", "npm:20.5.9"],\
           ["axios", "npm:1.5.0"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
@@ -2623,7 +2623,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.4"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.5.8"],\
+          ["@types/node", "npm:20.5.9"],\
           ["@types/react", "npm:18.2.21"],\
           ["@types/react-dom", "npm:18.2.7"],\
           ["@types/uuid", "npm:9.0.3"],\
@@ -2699,7 +2699,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
           ["@cloudflare/workers-types", "npm:4.20230821.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:20.5.8"],\
+          ["@types/node", "npm:20.5.9"],\
           ["ai", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.2.11"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
@@ -2708,7 +2708,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:5.0.0-beta.4"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:6.0.0"],\
-          ["p-queue", "npm:7.4.0"],\
+          ["p-queue", "npm:7.4.1"],\
           ["typescript", "patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
           ["wrangler", "npm:3.6.0"]\
         ],\
@@ -2730,7 +2730,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.5.8"],\
+          ["@types/node", "npm:20.5.9"],\
           ["esbuild-wasm", "npm:0.19.2"]\
         ],\
         "linkType": "SOFT"\
@@ -3124,6 +3124,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.5.8-302cbe2fa5-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.5.8"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.5.9", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.5.9-0b27ddedcc-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.5.9"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11666,10 +11673,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["p-queue", [\
-      ["npm:7.4.0", {\
-        "packageLocation": "./.yarn/global/cache/p-queue-npm-7.4.0-6edb90ac09-10.zip/node_modules/p-queue/",\
+      ["npm:7.4.1", {\
+        "packageLocation": "./.yarn/global/cache/p-queue-npm-7.4.1-e0cf0a6f17-10.zip/node_modules/p-queue/",\
         "packageDependencies": [\
-          ["p-queue", "npm:7.4.0"],\
+          ["p-queue", "npm:7.4.1"],\
           ["eventemitter3", "npm:5.0.1"],\
           ["p-timeout", "npm:5.1.0"]\
         ],\
