@@ -1742,7 +1742,7 @@ __metadata:
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.19.2"
-    esm-worker: "npm:0.131.1"
+    esm-worker: "npm:0.132.1"
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:6.0.0"
@@ -5174,10 +5174,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-worker@npm:0.131.1":
-  version: 0.131.1
-  resolution: "esm-worker@npm:0.131.1"
-  checksum: fe2b78a3d232ca9ff88431869d0600b569a35fe576c7980fcc520e1e3e2603a644297f86ef16713fa6f119c6ebfe2a5a4587b8c100b75fcd2d71857176e697db
+"esm-worker@npm:0.132.1":
+  version: 0.132.1
+  resolution: "esm-worker@npm:0.132.1"
+  checksum: 12914c37b53a93b9c57ab2272092f81e30533788337f8fc9ef122cb78a2f50400757cc147ea3fd3af01598c10ffd4b937e665ba2937671f295f59c534b0bffd8
   languageName: node
   linkType: hard
 

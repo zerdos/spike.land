@@ -2704,7 +2704,7 @@ const RAW_RUNTIME_STATE =
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.19.2"],\
-          ["esm-worker", "npm:0.131.1"],\
+          ["esm-worker", "npm:0.132.1"],\
           ["immutable", "npm:5.0.0-beta.4"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:6.0.0"],\
@@ -6779,10 +6779,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["esm-worker", [\
-      ["npm:0.131.1", {\
-        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.131.1-121f953d44-10.zip/node_modules/esm-worker/",\
+      ["npm:0.132.1", {\
+        "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.132.1-e21c0f2914-10.zip/node_modules/esm-worker/",\
         "packageDependencies": [\
-          ["esm-worker", "npm:0.131.1"]\
+          ["esm-worker", "npm:0.132.1"]\
         ],\
         "linkType": "HARD"\
       }]\
