@@ -4,7 +4,7 @@ import { readFile } from "fs/promises";
 // versions.json
 var node = {
   lts: "18.17.1",
-  current: "20.5.1"
+  current: "20.6.0"
 };
 var deno = "1.36.3";
 var git = "2.42.0";
