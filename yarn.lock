@@ -536,44 +536,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/darwin-arm64@npm:0.40.2":
-  version: 0.40.2
-  resolution: "@dprint/darwin-arm64@npm:0.40.2"
+"@dprint/darwin-arm64@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@dprint/darwin-arm64@npm:0.41.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@dprint/darwin-x64@npm:0.40.2":
-  version: 0.40.2
-  resolution: "@dprint/darwin-x64@npm:0.40.2"
+"@dprint/darwin-x64@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@dprint/darwin-x64@npm:0.41.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-glibc@npm:0.40.2":
-  version: 0.40.2
-  resolution: "@dprint/linux-arm64-glibc@npm:0.40.2"
+"@dprint/linux-arm64-glibc@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@dprint/linux-arm64-glibc@npm:0.41.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-glibc@npm:0.40.2":
-  version: 0.40.2
-  resolution: "@dprint/linux-x64-glibc@npm:0.40.2"
+"@dprint/linux-x64-glibc@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@dprint/linux-x64-glibc@npm:0.41.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-musl@npm:0.40.2":
-  version: 0.40.2
-  resolution: "@dprint/linux-x64-musl@npm:0.40.2"
+"@dprint/linux-x64-musl@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@dprint/linux-x64-musl@npm:0.41.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/win32-x64@npm:0.40.2":
-  version: 0.40.2
-  resolution: "@dprint/win32-x64@npm:0.40.2"
+"@dprint/win32-x64@npm:0.41.0":
+  version: 0.41.0
+  resolution: "@dprint/win32-x64@npm:0.41.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -950,10 +950,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.48.0":
-  version: 8.48.0
-  resolution: "@eslint/js@npm:8.48.0"
-  checksum: 55f6c58b046772c2bcb479366e23d9bd6fe9a32e2143729a593b6482d134debfb90bf49186ebd5884dcbab27c29f0baa2a47a3239afbae3622561eb82deed193
+"@eslint/js@npm:8.49.0":
+  version: 8.49.0
+  resolution: "@eslint/js@npm:8.49.0"
+  checksum: 544acf1150629596eda78f1340220299151e59325a0af5bb38cdedf983d07f0ad0ec57a1e9d2c5e19d374f9bb37720ae8537856ad8199818aea55958b1ae7854
   languageName: node
   linkType: hard
 
@@ -1012,7 +1012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.10":
+"@humanwhocodes/config-array@npm:^0.11.11":
   version: 0.11.11
   resolution: "@humanwhocodes/config-array@npm:0.11.11"
   dependencies:
@@ -1699,14 +1699,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.5.9"
+    "@types/node": "npm:20.6.0"
     axios: "npm:1.5.0"
     body-parser: "npm:1.20.2"
     commander: "npm:11.0.0"
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.5.0"
+    openai: "npm:4.6.0"
     p-limit: "npm:4.0.0"
     simple-git: "npm:3.19.1"
   bin:
@@ -1737,7 +1737,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230904.0"
     "@spike-land/code": "npm:0.9.11"
-    "@types/node": "npm:20.5.9"
+    "@types/node": "npm:20.6.0"
     ai: "npm:2.2.12"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1771,14 +1771,14 @@ __metadata:
     "@types/jest": "npm:29.5.4"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.5.9"
+    "@types/node": "npm:20.6.0"
     "@types/react": "npm:18.2.21"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.3"
     "@typescript-eslint/eslint-plugin": "npm:6.6.0"
     "@typescript-eslint/parser": "npm:6.6.0"
     "@typescript-eslint/typescript-estree": "npm:6.6.0"
-    ace-builds: "npm:1.24.1"
+    ace-builds: "npm:1.24.2"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -1790,7 +1790,7 @@ __metadata:
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
     esbuild-wasm: "npm:0.19.2"
-    eslint: "npm:8.48.0"
+    eslint: "npm:8.49.0"
     eslint-plugin-react: "npm:7.33.2"
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
@@ -1805,7 +1805,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.40.0"
+    monaco-editor: "npm:0.42.0-rc1"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
@@ -1850,7 +1850,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.5.9"
+    "@types/node": "npm:20.6.0"
     esbuild-wasm: "npm:0.19.2"
   languageName: unknown
   linkType: soft
@@ -2170,10 +2170,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.5.9":
+"@types/node@npm:*":
   version: 20.5.9
   resolution: "@types/node@npm:20.5.9"
   checksum: bb3bf17d7583cfe6b0fca796d20e6b70513fedbe5ed7801789ab39d3f75f8783900595471cedc26eb8989cb54a8026506004764ed2c180f77ecac84c60e0075f
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.6.0":
+  version: 20.6.0
+  resolution: "@types/node@npm:20.6.0"
+  checksum: 8244a0e8ceadbc7e44687b536cb98889002671d9e873127814206ef0a2b9d6190294df794bc3bc57e8c4987fbc6504b2b27b599193aca6acbed4a6a4f535230e
   languageName: node
   linkType: hard
 
@@ -2618,10 +2625,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.24.1":
-  version: 1.24.1
-  resolution: "ace-builds@npm:1.24.1"
-  checksum: e263fc65e991fa7aa3d0427cd930368cc61ff458bed010e9473cc9216e8120ee47443f44befbc4e93a073fe2904ca970796d1653956c7beac68c0514021452d9
+"ace-builds@npm:1.24.2":
+  version: 1.24.2
+  resolution: "ace-builds@npm:1.24.2"
+  checksum: 8ae90eabfdc7f89380dc6ea1f741d657b114f6a8c5affd344f12f9e9d4286cd07e623e96fad61a2f9689800a8816ee5bed73d3d2e4270cc698149be6bb68416e
   languageName: node
   linkType: hard
 
@@ -4686,16 +4693,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.40.2":
-  version: 0.40.2
-  resolution: "dprint@npm:0.40.2"
+"dprint@npm:0.41.0":
+  version: 0.41.0
+  resolution: "dprint@npm:0.41.0"
   dependencies:
-    "@dprint/darwin-arm64": "npm:0.40.2"
-    "@dprint/darwin-x64": "npm:0.40.2"
-    "@dprint/linux-arm64-glibc": "npm:0.40.2"
-    "@dprint/linux-x64-glibc": "npm:0.40.2"
-    "@dprint/linux-x64-musl": "npm:0.40.2"
-    "@dprint/win32-x64": "npm:0.40.2"
+    "@dprint/darwin-arm64": "npm:0.41.0"
+    "@dprint/darwin-x64": "npm:0.41.0"
+    "@dprint/linux-arm64-glibc": "npm:0.41.0"
+    "@dprint/linux-x64-glibc": "npm:0.41.0"
+    "@dprint/linux-x64-musl": "npm:0.41.0"
+    "@dprint/win32-x64": "npm:0.41.0"
   dependenciesMeta:
     "@dprint/darwin-arm64":
       optional: true
@@ -4711,7 +4718,7 @@ __metadata:
       optional: true
   bin:
     dprint: bin.js
-  checksum: 0d0ded36970a2b1af1ef12b8ae383c974efc25efa852783d4c24310236e6c99010958f2f9b0031481d4bba2bef0329351d5aa030026a3da4c94961f489f9bd0c
+  checksum: 908d8fbd134841d6109d6b20074a070822690c712714a184610bdd0ffcf9dcf87fc5cda6cd3a1d62bf3f6c1265d0eb23c5f68535c5dfe847ae214b963502f852
   languageName: node
   linkType: hard
 
@@ -5129,15 +5136,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.48.0":
-  version: 8.48.0
-  resolution: "eslint@npm:8.48.0"
+"eslint@npm:8.49.0":
+  version: 8.49.0
+  resolution: "eslint@npm:8.49.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.6.1"
     "@eslint/eslintrc": "npm:^2.1.2"
-    "@eslint/js": "npm:8.48.0"
-    "@humanwhocodes/config-array": "npm:^0.11.10"
+    "@eslint/js": "npm:8.49.0"
+    "@humanwhocodes/config-array": "npm:^0.11.11"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@nodelib/fs.walk": "npm:^1.2.8"
     ajv: "npm:^6.12.4"
@@ -5172,7 +5179,7 @@ __metadata:
     text-table: "npm:^0.2.0"
   bin:
     eslint: bin/eslint.js
-  checksum: 43ba3a939aa9203b2d98de9aa242262f10dd242eba6f9f72d17cd9ba8a82085441ffa8b93e017aae0561d52d3bcf49fde3afda4d25b4f95ff4e7274dc911474a
+  checksum: 5ec661eefe4638bff52e9c92dee30138a7b38086ec0099f0b51dfa3a9999dda913d89d3cd9cb5b1c3dd0f2ddc7dce333cd91d4cbbde7014b52c054db9a52fc4c
   languageName: node
   linkType: hard
 
@@ -8841,17 +8848,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.40.0":
-  version: 0.40.0
-  resolution: "monaco-editor@npm:0.40.0"
-  checksum: 9fc9eac730d42c8069247f442a1cceb89c308dca77652c5f850cb333c295f6c8ce07cf59216413075d49fa72e8ffd6f8ab8752efc5d50225eaabdbd4a9fcb200
-  languageName: node
-  linkType: hard
-
 "monaco-editor@npm:0.41.0":
   version: 0.41.0
   resolution: "monaco-editor@npm:0.41.0"
   checksum: fdedc6ca35d8d80d8bc1b8a395a8f247d86908f1f9e2eda72ae23527ca11111952ea64bfb85d41bc7c721ff24ab49b868c139928998a6110a93902fe3b8335f3
+  languageName: node
+  linkType: hard
+
+"monaco-editor@npm:0.42.0-rc1":
+  version: 0.42.0-rc1
+  resolution: "monaco-editor@npm:0.42.0-rc1"
+  checksum: 01e488e3f2f5c240c1162537589d0858154b01690bcc8d5a0face5f7697dbe031fd47209853bf6980946d7c287376fdf1fdeb283bd5f31057f9bacaa19817ce6
   languageName: node
   linkType: hard
 
@@ -8871,8 +8878,8 @@ __metadata:
     "@yarnpkg/sdks": "npm:3.0.0-rc.50"
     constants: "npm:0.0.2"
     cypress: "npm:13.1.0"
-    dprint: "npm:0.40.2"
-    eslint: "npm:8.48.0"
+    dprint: "npm:0.41.0"
+    eslint: "npm:8.49.0"
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
     localforage: "npm:1.10.0"
@@ -9338,9 +9345,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.5.0":
-  version: 4.5.0
-  resolution: "openai@npm:4.5.0"
+"openai@npm:4.6.0":
+  version: 4.6.0
+  resolution: "openai@npm:4.6.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9352,7 +9359,7 @@ __metadata:
     node-fetch: "npm:^2.6.7"
   bin:
     openai: bin/cli
-  checksum: cfdc1aeeccbc5dad5b99fb33b89982198bf51987a5ef66d41dd7804ab0254f0d2104eb1322304fb98c688eb260dada6a20fcb409d7e94903db8dd9fdca7c8a54
+  checksum: c5129acf51eb81c5641d9232797b748f45901b0ebe04652ac002c6a1220ae86ab84b15562b702109ec5fd853badf8ec933f139bb291764729967dd473306e6af
   languageName: node
   linkType: hard
 

@@ -8,6 +8,7 @@ import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
+import {version} from "monaco-editor/package.json";
 // import { sess } from "./ws";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
@@ -201,7 +202,7 @@ const Editor: FC<
     startedM = 1;
 
     const style = document.createElement("style");
-    style.innerHTML = `@import url("${location.origin}/monaco-editor?css");`;
+    style.innerHTML = `@import url("${location.origin}/monaco-editor@${version}?css");`;
     document.head.appendChild(style);
 
     const { startMonaco } = await import("./startMonaco");
