@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
+import { version } from "monaco-editor/package.json";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
-import {version} from "monaco-editor/package.json";
 // import { sess } from "./ws";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];

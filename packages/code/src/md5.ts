@@ -20,7 +20,7 @@ export const md5 = (input: string | object): string => {
   const modifiedHash = hashWithoutZeros.split("").map((char) => {
     if (characterMap[char]) return characterMap[char];
     return char;
-  }).join("")+"aaaaaaaa";
+  }).join("") + "aaaaaaaa";
   return modifiedHash.slice(0, 8);
 };
 
