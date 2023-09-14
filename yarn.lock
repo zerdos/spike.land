@@ -377,7 +377,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.22.10, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.22.15, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.22.15
   resolution: "@babel/runtime@npm:7.22.15"
   dependencies:
@@ -976,7 +976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/react-dom@npm:^2.0.1":
+"@floating-ui/react-dom@npm:^2.0.2":
   version: 2.0.2
   resolution: "@floating-ui/react-dom@npm:2.0.2"
   dependencies:
@@ -1433,19 +1433,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/base@npm:5.0.0-beta.14":
-  version: 5.0.0-beta.14
-  resolution: "@mui/base@npm:5.0.0-beta.14"
+"@mui/base@npm:5.0.0-beta.15":
+  version: 5.0.0-beta.15
+  resolution: "@mui/base@npm:5.0.0-beta.15"
   dependencies:
-    "@babel/runtime": "npm:^7.22.10"
-    "@emotion/is-prop-valid": "npm:^1.2.1"
-    "@floating-ui/react-dom": "npm:^2.0.1"
+    "@babel/runtime": "npm:^7.22.15"
+    "@floating-ui/react-dom": "npm:^2.0.2"
     "@mui/types": "npm:^7.2.4"
-    "@mui/utils": "npm:^5.14.8"
+    "@mui/utils": "npm:^5.14.9"
     "@popperjs/core": "npm:^2.11.8"
     clsx: "npm:^2.0.0"
     prop-types: "npm:^15.8.1"
-    react-is: "npm:^18.2.0"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
@@ -1453,27 +1451,27 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: a6c82623a0cbbae2f9053cecf9cbba130f8bc0dea768d7496112b47f1d53235fd5c216896effcfd6719c5bca906342fe6c10a03fa1ea786fb65d19bd22b08885
+  checksum: db809376baa87d63f216baa0fb124f8815be27f6c38cb70674973c01de4bddf9bdf780f4b8e6a7e50cf4e760b6d997109429550e597ef55f32427b171532ecc0
   languageName: node
   linkType: hard
 
-"@mui/core-downloads-tracker@npm:^5.14.8":
-  version: 5.14.8
-  resolution: "@mui/core-downloads-tracker@npm:5.14.8"
-  checksum: b8322994d7c05426008c3426f7ce4bb0a1dfd633429af704cc9e164655007fc446ba21bf6b00af8fa1b9a9cb4c1757d72c7554e13cceadc575af7d44344da38c
+"@mui/core-downloads-tracker@npm:^5.14.9":
+  version: 5.14.9
+  resolution: "@mui/core-downloads-tracker@npm:5.14.9"
+  checksum: 70a1030d7f083372fa18aae052bfd664118f20d9ceddcd87c64fdfdaf821b3712de21e2095a98f6f4218f86787f518e0314b1425bc2302cec85067e2cf2bd58f
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.14.8":
-  version: 5.14.8
-  resolution: "@mui/material@npm:5.14.8"
+"@mui/material@npm:5.14.9":
+  version: 5.14.9
+  resolution: "@mui/material@npm:5.14.9"
   dependencies:
-    "@babel/runtime": "npm:^7.22.10"
-    "@mui/base": "npm:5.0.0-beta.14"
-    "@mui/core-downloads-tracker": "npm:^5.14.8"
-    "@mui/system": "npm:^5.14.8"
+    "@babel/runtime": "npm:^7.22.15"
+    "@mui/base": "npm:5.0.0-beta.15"
+    "@mui/core-downloads-tracker": "npm:^5.14.9"
+    "@mui/system": "npm:^5.14.9"
     "@mui/types": "npm:^7.2.4"
-    "@mui/utils": "npm:^5.14.8"
+    "@mui/utils": "npm:^5.14.9"
     "@types/react-transition-group": "npm:^4.4.6"
     clsx: "npm:^2.0.0"
     csstype: "npm:^3.1.2"
@@ -1493,16 +1491,16 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 1d7ee1fdb35c0da0df1e4b8ef9de081e924f6eb7d6800dc438c1c2c26c1d617168d05361d516ef96dd14b4e4caeafe598a8ea5a83a8b8055012405002384a958
+  checksum: 86368bb17bacfeb97d4358dcd4154fe2c0b919904f468bf5e8f232daef03f6246cb88e2e9a50b6aeffa20ad9257f5bcae70fb0eda5779d6242bd82e0cef5c89b
   languageName: node
   linkType: hard
 
-"@mui/private-theming@npm:^5.14.8":
-  version: 5.14.8
-  resolution: "@mui/private-theming@npm:5.14.8"
+"@mui/private-theming@npm:^5.14.9":
+  version: 5.14.9
+  resolution: "@mui/private-theming@npm:5.14.9"
   dependencies:
-    "@babel/runtime": "npm:^7.22.10"
-    "@mui/utils": "npm:^5.14.8"
+    "@babel/runtime": "npm:^7.22.15"
+    "@mui/utils": "npm:^5.14.9"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     "@types/react": ^17.0.0 || ^18.0.0
@@ -1510,18 +1508,19 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 11a4619bb6b85c1efab3c6b3b7c20431c17000a988d5f87aca8e223e952e68992ad9bb9d2e4c52ecbcbf7234e3f647cd8b96be5b7dd562bc27821f74b3d0a3c2
+  checksum: 9c6cdcdc06f02cdee740b071e68dd549e451bdad76f8e01f0337077bb1ac71fd77031999c491c2a84a3565a295cf7fb273ba317093471d5a028f951bb3d7a1ea
   languageName: node
   linkType: hard
 
-"@mui/styled-engine@npm:^5.14.8":
-  version: 5.14.8
-  resolution: "@mui/styled-engine@npm:5.14.8"
+"@mui/styled-engine@npm:^5.14.9":
+  version: 5.14.9
+  resolution: "@mui/styled-engine@npm:5.14.9"
   dependencies:
-    "@babel/runtime": "npm:^7.22.10"
+    "@babel/runtime": "npm:^7.22.15"
     "@emotion/cache": "npm:^11.11.0"
     csstype: "npm:^3.1.2"
     prop-types: "npm:^15.8.1"
+    react: "npm:^18.2.0"
   peerDependencies:
     "@emotion/react": ^11.4.1
     "@emotion/styled": ^11.3.0
@@ -1531,19 +1530,19 @@ __metadata:
       optional: true
     "@emotion/styled":
       optional: true
-  checksum: 84610408f19905de3203173cc7cb2c778f544b772bed87bf91997f811b4f96bfa8dfc583cb449d6e49d90db86c2816f8edbd82be1e0cfb9758fe5de7397ee467
+  checksum: 0c0908ee8bfb23ab87c5931c13010589d0774d7c9f592675d9197f1be805adde5595752d8c620463f49922d03d5cece478ac628aa2b0b57f64bc26f2130480db
   languageName: node
   linkType: hard
 
-"@mui/system@npm:^5.14.8":
-  version: 5.14.8
-  resolution: "@mui/system@npm:5.14.8"
+"@mui/system@npm:^5.14.9":
+  version: 5.14.9
+  resolution: "@mui/system@npm:5.14.9"
   dependencies:
-    "@babel/runtime": "npm:^7.22.10"
-    "@mui/private-theming": "npm:^5.14.8"
-    "@mui/styled-engine": "npm:^5.14.8"
+    "@babel/runtime": "npm:^7.22.15"
+    "@mui/private-theming": "npm:^5.14.9"
+    "@mui/styled-engine": "npm:^5.14.9"
     "@mui/types": "npm:^7.2.4"
-    "@mui/utils": "npm:^5.14.8"
+    "@mui/utils": "npm:^5.14.9"
     clsx: "npm:^2.0.0"
     csstype: "npm:^3.1.2"
     prop-types: "npm:^15.8.1"
@@ -1559,7 +1558,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: e2e80591f1302d203862c0ba0d8b4364c5d87098c9e8faa9e8204359a5f4d0e1b944af87854ae03afa5dcd9f1fc4e83852f9dc1dc278166e710223b3bea58562
+  checksum: 01a8ad4bfdd4af41da077470d795e5cbe9326450357d3bea257b9874f8d7b8ce848a9e871a688695f2b90afa5b05fd9a5cd889932594b310cebc83e7aad73348
   languageName: node
   linkType: hard
 
@@ -1575,18 +1574,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^5.14.8":
-  version: 5.14.8
-  resolution: "@mui/utils@npm:5.14.8"
+"@mui/utils@npm:^5.14.9":
+  version: 5.14.9
+  resolution: "@mui/utils@npm:5.14.9"
   dependencies:
-    "@babel/runtime": "npm:^7.22.10"
-    "@types/prop-types": "npm:^15.7.5"
-    "@types/react-is": "npm:^18.2.1"
+    "@babel/runtime": "npm:^7.22.15"
     prop-types: "npm:^15.8.1"
     react-is: "npm:^18.2.0"
   peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
     react: ^17.0.0 || ^18.0.0
-  checksum: a542ab1847daee880a296936458145403e153947a51c6f786427523d1ef9b49ff406deda9a83f33d1310b75b064c09a32b5dec2d91dd2c06bfb2f0e841cee151
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 3ea5dee3b1a58cc2b842bba981acbc03e091c7a32279f4566b5d4af4a28e64b386e20c4d542e86efa74dca6d2e262226bcc2e7002b83334793ee7d25b6729123
   languageName: node
   linkType: hard
 
@@ -1640,19 +1642,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.37.1":
-  version: 1.37.1
-  resolution: "@playwright/test@npm:1.37.1"
+"@playwright/test@npm:1.38.0":
+  version: 1.38.0
+  resolution: "@playwright/test@npm:1.38.0"
   dependencies:
-    "@types/node": "npm:*"
-    fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.37.1"
-  dependenciesMeta:
-    fsevents:
-      optional: true
+    playwright: "npm:1.38.0"
   bin:
     playwright: cli.js
-  checksum: c445f4a590cf5a980e37ed020a8a9020a490d513590bb4d79b24034c7f76add1e540762e313f50376f988ec7d5007542788b53866b957fb84d4359abf814ff30
+  checksum: 8011cf50e75bc6d76ef6d12aca0aa6122aeb783e3692f997cf3e3bcc7c163dde505be0495cc6045267a2e5538b74892afb98ca664ced8ddf8c5a1395244535ab
   languageName: node
   linkType: hard
 
@@ -1735,7 +1732,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.19.2"
+    esbuild-wasm: "npm:0.19.3"
   languageName: unknown
   linkType: soft
 
@@ -1750,14 +1747,14 @@ __metadata:
     ai: "npm:2.2.12"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.19.2"
+    esbuild-wasm: "npm:0.19.3"
     esm-worker: "npm:0.132.1"
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.4.1"
     typescript: "npm:5.2.2"
-    wrangler: "npm:3.7.0"
+    wrangler: "npm:3.8.0"
   languageName: unknown
   linkType: soft
 
@@ -1771,7 +1768,7 @@ __metadata:
     "@emotion/styled": "npm:11.11.0"
     "@github/stable-socket": "npm:1.1.0"
     "@motionone/dom": "npm:10.16.2"
-    "@mui/material": "npm:5.14.8"
+    "@mui/material": "npm:5.14.9"
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.1"
     "@types/events": "npm:3.0.0"
@@ -1788,7 +1785,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:6.7.0"
     "@typescript-eslint/parser": "npm:6.7.0"
     "@typescript-eslint/typescript-estree": "npm:6.7.0"
-    ace-builds: "npm:1.24.2"
+    ace-builds: "npm:1.25.0"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -1799,7 +1796,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
-    esbuild-wasm: "npm:0.19.2"
+    esbuild-wasm: "npm:0.19.3"
     eslint: "npm:8.49.0"
     eslint-plugin-react: "npm:7.33.2"
     events: "npm:3.3.0"
@@ -1861,7 +1858,7 @@ __metadata:
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.6.0"
-    esbuild-wasm: "npm:0.19.2"
+    esbuild-wasm: "npm:0.19.3"
   languageName: unknown
   linkType: soft
 
@@ -1941,9 +1938,9 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230904.0"
-    esbuild-wasm: "npm:0.19.2"
+    esbuild-wasm: "npm:0.19.3"
     typescript: "npm:5.2.2"
-    wrangler: "npm:3.7.0"
+    wrangler: "npm:3.8.0"
   languageName: unknown
   linkType: soft
 
@@ -2201,7 +2198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.5":
+"@types/prop-types@npm:*":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
@@ -2214,15 +2211,6 @@ __metadata:
   dependencies:
     "@types/react": "npm:*"
   checksum: 9b70ef66cbe2d2898ea37eb79ee3697e0e4ad3d950e769a601f79be94097d43b8ef45b98a0b29528203c7d731c81666f637b2b7032deeced99214b4bc0662614
-  languageName: node
-  linkType: hard
-
-"@types/react-is@npm:^18.2.1":
-  version: 18.2.1
-  resolution: "@types/react-is@npm:18.2.1"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: b44c3262efa2c68fa6fe2beb9ef86170b18305469461a3f97aa14943cc033cb21a26944f718bdb6434eea6e8f7fcba251c4f45b65b897a3fcf751b5a6003cf82
   languageName: node
   linkType: hard
 
@@ -2621,10 +2609,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.24.2":
-  version: 1.24.2
-  resolution: "ace-builds@npm:1.24.2"
-  checksum: 8ae90eabfdc7f89380dc6ea1f741d657b114f6a8c5affd344f12f9e9d4286cd07e623e96fad61a2f9689800a8816ee5bed73d3d2e4270cc698149be6bb68416e
+"ace-builds@npm:1.25.0":
+  version: 1.25.0
+  resolution: "ace-builds@npm:1.25.0"
+  checksum: 8faf80c727ff9b03229f5c18198049c49c359ff93ad632e38223bbf5c09d75e1e69e367ec8c6214158f6727fceb5f79a7327ce71013f66c6307f757a8163bb7d
   languageName: node
   linkType: hard
 
@@ -4978,12 +4966,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.19.2":
-  version: 0.19.2
-  resolution: "esbuild-wasm@npm:0.19.2"
+"esbuild-wasm@npm:0.19.3":
+  version: 0.19.3
+  resolution: "esbuild-wasm@npm:0.19.3"
   bin:
     esbuild: bin/esbuild
-  checksum: 3893348674bd7b5c7c061899f7e0d3fb7c55cc1cef3e05ee95f8b1d46dcdacf33c12199e4511556d94d56abb1e15c98f26497e209d4f9bc66e0580094029f573
+  checksum: a979250ddd31ec69adbbbec724d1693226aa9ba871dbf95a169a084efa819172ca828620c63934977dc2274b826d9bb7ac7561af852695d4b24e26ccdd5833b0
   languageName: node
   linkType: hard
 
@@ -8941,7 +8929,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20230904.0"
     "@emotion/react": "npm:11.11.1"
-    "@playwright/test": "npm:1.37.1"
+    "@playwright/test": "npm:1.38.0"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.44.2"
     "@types/react": "npm:18.2.21"
@@ -8956,7 +8944,7 @@ __metadata:
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
     localforage: "npm:1.10.0"
-    playwright: "npm:1.37.1"
+    playwright: "npm:1.38.0"
     react: "npm:18.2.0"
     typescript: "npm:5.2.2"
     util: "npm:0.12.5"
@@ -9888,23 +9876,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.37.1":
-  version: 1.37.1
-  resolution: "playwright-core@npm:1.37.1"
+"playwright-core@npm:1.38.0":
+  version: 1.38.0
+  resolution: "playwright-core@npm:1.38.0"
   bin:
     playwright-core: cli.js
-  checksum: 9db000892cbe330d5e047e78de11febf53f708bcd8bacaf727eceedb57d67abc7a74e6bb793dabce13b420da8896e6fef840ba1bb9ace2dac3ade3b81f801502
+  checksum: 54118663e1bc2ee4d90d80380b68806e318186267b8688eae49d9e2c7496423ae979672bc10bf53be154939a92891e0904092f312b1ef9950b8355894c7c569c
   languageName: node
   linkType: hard
 
-"playwright@npm:1.37.1":
-  version: 1.37.1
-  resolution: "playwright@npm:1.37.1"
+"playwright@npm:1.38.0":
+  version: 1.38.0
+  resolution: "playwright@npm:1.38.0"
   dependencies:
-    playwright-core: "npm:1.37.1"
+    fsevents: "npm:2.3.2"
+    playwright-core: "npm:1.38.0"
+  dependenciesMeta:
+    fsevents:
+      optional: true
   bin:
     playwright: cli.js
-  checksum: 647cac5e263f0134823e76e21eb7b4c003215fbfb67a16cf3f582c6b37ca032912e0fcf6dea4c5ce763b45a1c38c6feb1f22fe77a07e694d90282a07994c1465
+  checksum: ee3a92ff0278a5c405ebaa9b31b5d6a8d8476b1c90f7aba68f1c6693e36529055bc8101a9fa6cfcdce1ff694353a67b32d6b9210a652f426fb7078681de68d67
   languageName: node
   linkType: hard
 
@@ -10368,7 +10360,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
+"react@npm:18.2.0, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -12624,9 +12616,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.7.0":
-  version: 3.7.0
-  resolution: "wrangler@npm:3.7.0"
+"wrangler@npm:3.8.0":
+  version: 3.8.0
+  resolution: "wrangler@npm:3.8.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12647,7 +12639,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 3a11978ae9973a632e5f1091ece5368ba0c455e391adf1f42e9272ad612646716457a3d75c7c2e01acabd67055a73b22e8a41da44803e125fe19ec908e997278
+  checksum: 876542c8ba093f4446557e43ebd7891befbc24ecb2ee34302e3944f63ee471f02ce2394dd451b91ad5576c902c585f22e95291f001550d2d90478d6f239654db
   languageName: node
   linkType: hard
 
