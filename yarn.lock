@@ -1712,7 +1712,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.6.0"
+    openai: "npm:4.7.0"
     p-limit: "npm:4.0.0"
     simple-git: "npm:3.19.1"
   bin:
@@ -1781,11 +1781,11 @@ __metadata:
     "@types/node": "npm:20.6.0"
     "@types/react": "npm:18.2.21"
     "@types/react-dom": "npm:18.2.7"
-    "@types/uuid": "npm:9.0.3"
+    "@types/uuid": "npm:9.0.4"
     "@typescript-eslint/eslint-plugin": "npm:6.7.0"
     "@typescript-eslint/parser": "npm:6.7.0"
     "@typescript-eslint/typescript-estree": "npm:6.7.0"
-    ace-builds: "npm:1.25.0"
+    ace-builds: "npm:1.25.1"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -2292,10 +2292,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:9.0.3":
-  version: 9.0.3
-  resolution: "@types/uuid@npm:9.0.3"
-  checksum: 3dde198defd71c067dd14b3050a8fe6d1ead5fe94ec318472e2c30a399d13f18941fe66cffabdcac7267177c9de2f975fdee6f0cc87cde610a2578e1ce4cc3af
+"@types/uuid@npm:9.0.4":
+  version: 9.0.4
+  resolution: "@types/uuid@npm:9.0.4"
+  checksum: 356e2504456eaebbc43a5af5ca6c07d71f5ae5520b5767cb1c62cd0ec55475fc4ee3d16a2874f4a5fce78e40e8583025afd3a7d9ba41f82939de310665f53f0e
   languageName: node
   linkType: hard
 
@@ -2609,10 +2609,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.25.0":
-  version: 1.25.0
-  resolution: "ace-builds@npm:1.25.0"
-  checksum: 8faf80c727ff9b03229f5c18198049c49c359ff93ad632e38223bbf5c09d75e1e69e367ec8c6214158f6727fceb5f79a7327ce71013f66c6307f757a8163bb7d
+"ace-builds@npm:1.25.1":
+  version: 1.25.1
+  resolution: "ace-builds@npm:1.25.1"
+  checksum: c8b4f178d77b81228fdeb07b551c90c3281ce88af7edeeb20b05add421ddbb798ed79e277a44ddb209d67da700cd498a456686a40450a155436727b21c005daa
   languageName: node
   linkType: hard
 
@@ -9405,9 +9405,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.6.0":
-  version: 4.6.0
-  resolution: "openai@npm:4.6.0"
+"openai@npm:4.7.0":
+  version: 4.7.0
+  resolution: "openai@npm:4.7.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9419,7 +9419,7 @@ __metadata:
     node-fetch: "npm:^2.6.7"
   bin:
     openai: bin/cli
-  checksum: c5129acf51eb81c5641d9232797b748f45901b0ebe04652ac002c6a1220ae86ab84b15562b702109ec5fd853badf8ec933f139bb291764729967dd473306e6af
+  checksum: 222a8ef32c27ae72735af91fd8283cf3b8ca3d443022d1823f9513ccb5b6e8903df99a6daff51e091b01ff724959459606412c2edba9bf756c7c74e4328813ef
   languageName: node
   linkType: hard
 
