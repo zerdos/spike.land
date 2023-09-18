@@ -1368,71 +1368,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@motionone/animation@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/animation@npm:10.15.1"
-  dependencies:
-    "@motionone/easing": "npm:^10.15.1"
-    "@motionone/types": "npm:^10.15.1"
-    "@motionone/utils": "npm:^10.15.1"
-    tslib: "npm:^2.3.1"
-  checksum: d270c5940fef8dcbfb4a5e65f107b840d1980e09583d3d0a7768e31a204ffcdc10b2a8cb73330cec856941138d07b8012e7096025f61c7ed79727c7af394ecc8
-  languageName: node
-  linkType: hard
-
-"@motionone/dom@npm:10.16.2":
-  version: 10.16.2
-  resolution: "@motionone/dom@npm:10.16.2"
-  dependencies:
-    "@motionone/animation": "npm:^10.15.1"
-    "@motionone/generators": "npm:^10.15.1"
-    "@motionone/types": "npm:^10.15.1"
-    "@motionone/utils": "npm:^10.15.1"
-    hey-listen: "npm:^1.0.8"
-    tslib: "npm:^2.3.1"
-  checksum: 52bf466eaa5ef7c183effe4e83695c1e632708d897a804235486cc73472e01e9d4594aee5cc899a15beb127486f7671c932e0478a415bcf3032991ca1094c8da
-  languageName: node
-  linkType: hard
-
-"@motionone/easing@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/easing@npm:10.15.1"
-  dependencies:
-    "@motionone/utils": "npm:^10.15.1"
-    tslib: "npm:^2.3.1"
-  checksum: 78190a9b4c473a33b6548c2a1a0e4d1a78cf9ccb7a21e5d798fa2d9552bbe3f5f6aa23a7fa5588bf6264cb2580893e5ba89658d40ac2abd4b3ec5f0d27990895
-  languageName: node
-  linkType: hard
-
-"@motionone/generators@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/generators@npm:10.15.1"
-  dependencies:
-    "@motionone/types": "npm:^10.15.1"
-    "@motionone/utils": "npm:^10.15.1"
-    tslib: "npm:^2.3.1"
-  checksum: 82a9884445c07c9ddd8b825d2ef542bbbce87901573367a9ddcac9949ca65a3bbef05182a129fe6ff0c880844f457e77db7bd3ebffdb548501ed1e3b61d8d6b0
-  languageName: node
-  linkType: hard
-
-"@motionone/types@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/types@npm:10.15.1"
-  checksum: 98091f7dca257508d94d1080678c433da39a814e8e58aaa742212bf6c2a5b5e2120a6251a06e3ea522219ce6d1b6eb6aa2cab224b803fe52789033d8398ef0aa
-  languageName: node
-  linkType: hard
-
-"@motionone/utils@npm:^10.15.1":
-  version: 10.15.1
-  resolution: "@motionone/utils@npm:10.15.1"
-  dependencies:
-    "@motionone/types": "npm:^10.15.1"
-    hey-listen: "npm:^1.0.8"
-    tslib: "npm:^2.3.1"
-  checksum: 317dd16b9f75c39470ff4aeae29fecea2f205d1276e70e0254d8124e23713634786b4fb4d9dafebc3d731ab235b5c6260016ddde8e0c354af79bd9d64af99b1d
-  languageName: node
-  linkType: hard
-
 "@mui/base@npm:5.0.0-beta.15":
   version: 5.0.0-beta.15
   resolution: "@mui/base@npm:5.0.0-beta.15"
@@ -1724,7 +1659,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.13"
+    "@spike-land/devcontainer-generator": "npm:0.9.18"
   languageName: unknown
   linkType: soft
 
@@ -1742,7 +1677,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230914.0"
-    "@spike-land/code": "npm:0.9.13"
+    "@spike-land/code": "npm:0.9.18"
     "@types/node": "npm:20.6.2"
     ai: "npm:2.2.12"
     async-mutex: "npm:0.4.0"
@@ -1758,7 +1693,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/code@npm:0.9.13, @spike-land/code@workspace:packages/code":
+"@spike-land/code@npm:0.9.18, @spike-land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
@@ -1767,13 +1702,9 @@ __metadata:
     "@emotion/react": "npm:11.11.1"
     "@emotion/styled": "npm:11.11.0"
     "@github/stable-socket": "npm:1.1.0"
-    "@motionone/dom": "npm:10.16.2"
     "@mui/material": "npm:5.14.9"
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.1"
-    "@types/events": "npm:3.0.0"
-    "@types/hoist-non-react-statics": "npm:3.3.1"
-    "@types/is-callable": "npm:1.1.0"
     "@types/isomorphic-fetch": "npm:0.0.36"
     "@types/jest": "npm:29.5.5"
     "@types/lodash.debounce": "npm:4.0.7"
@@ -1805,7 +1736,6 @@ __metadata:
     file-type: "npm:18.5.0"
     framer-motion: "npm:10.16.4"
     immutable: "npm:5.0.0-beta.4"
-    is-callable: "npm:1.2.7"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
     localforage: "npm:1.10.0"
@@ -1849,11 +1779,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cypress@workspace:packages/cypress"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.13"
+    "@spike-land/devcontainer-generator": "npm:0.9.18"
   languageName: unknown
   linkType: soft
 
-"@spike-land/devcontainer-generator@npm:*, @spike-land/devcontainer-generator@npm:0.9.13, @spike-land/devcontainer-generator@workspace:packages/devcontainer-generator":
+"@spike-land/devcontainer-generator@npm:*, @spike-land/devcontainer-generator@npm:0.9.18, @spike-land/devcontainer-generator@workspace:packages/devcontainer-generator":
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
@@ -1866,7 +1796,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.13"
+    "@spike-land/devcontainer-generator": "npm:0.9.18"
   languageName: unknown
   linkType: soft
 
@@ -1886,7 +1816,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/jammy-devcontainer@workspace:packages/jammy-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.13"
+    "@spike-land/devcontainer-generator": "npm:0.9.18"
   languageName: unknown
   linkType: soft
 
@@ -1900,7 +1830,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/lunar-devcontainer@workspace:packages/lunar-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.13"
+    "@spike-land/devcontainer-generator": "npm:0.9.18"
   languageName: unknown
   linkType: soft
 
@@ -2044,13 +1974,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/events@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@types/events@npm:3.0.0"
-  checksum: 2eeaef9ec698761931de6dd030d1b5bd52c1da6deead32bbe6648ada7659479e9801f02d584e186037c83c28db6f6a680b4de50193b23f0024d83feffadfcdfe
-  languageName: node
-  linkType: hard
-
 "@types/graceful-fs@npm:^4.1.3":
   version: 4.1.6
   resolution: "@types/graceful-fs@npm:4.1.6"
@@ -2060,27 +1983,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:3.3.1":
-  version: 3.3.1
-  resolution: "@types/hoist-non-react-statics@npm:3.3.1"
-  dependencies:
-    "@types/react": "npm:*"
-    hoist-non-react-statics: "npm:^3.3.0"
-  checksum: 071e6d75a0ed9aa0e9ca2cc529a8c15bf7ac3e4a37aac279772ea6036fd0bf969b67fb627b65cfce65adeab31fec1e9e95b4dcdefeab075b580c0c7174206f63
-  languageName: node
-  linkType: hard
-
 "@types/http-cache-semantics@npm:*":
   version: 4.0.1
   resolution: "@types/http-cache-semantics@npm:4.0.1"
   checksum: d059bf8a15d5163cc60da51ba00d17620507f968d0b792cd55f62043016344a5f0e1aa94fa411089d41114035fcd0ea656f968bda7eabb6663a97787e3445a1c
-  languageName: node
-  linkType: hard
-
-"@types/is-callable@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@types/is-callable@npm:1.1.0"
-  checksum: d4466b0f83db9194e139fc322d98969f46dcd9cc1f0655b6002fd0ce7e5972ade21db450d9bac0b4bfa3188163056fd4ca47832f63d8eb9ea8071ed7b5a816e3
   languageName: node
   linkType: hard
 
@@ -2488,17 +2394,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.0-rc.50":
-  version: 4.0.0-rc.50
-  resolution: "@yarnpkg/core@npm:4.0.0-rc.50"
+"@yarnpkg/core@npm:^4.0.0-rc.51":
+  version: 4.0.0-rc.51
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.51"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
     "@types/treeify": "npm:^1.0.0"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.50"
-    "@yarnpkg/libzip": "npm:^3.0.0-rc.50"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.50"
-    "@yarnpkg/shell": "npm:^4.0.0-rc.50"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
+    "@yarnpkg/libzip": "npm:^3.0.0-rc.51"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.51"
+    "@yarnpkg/shell": "npm:^4.0.0-rc.51"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
     ci-info: "npm:^3.2.0"
@@ -2518,49 +2424,49 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: ef651166a77abb77119937afb321301b8ce91e382da07e5f7cceecd55d07a6b60ff351bfe1cac40a53c20c8efe540adce9818928c6a97b4299e3cdcb523fe227
+  checksum: 83d2e03b82e63f2f23cbbd317cfc79b153cf783c40b8be0fedcf277aabbc1762f147daf337ad582d9f24d2a0f690e2dad22005252d43119e72819e4ac0681aad
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.50":
-  version: 3.0.0-rc.50
-  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.50"
+"@yarnpkg/fslib@npm:^3.0.0-rc.51":
+  version: 3.0.0-rc.51
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.51"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 7b676058d1916a9b94e50eb90c6961b293454abc2777dfa63754211f90d75cea7004b7fa7e434b6696cc01167428ee9abbbbd45e5d68c51c33a25a0419083653
+  checksum: 82b1b86b31894c7238b5bd43000a42761f44ddf12a8dc1c8428d48f0248e969947ab04cae813eb03663961ad7e60caab2304f0a501f5b89b9b1af2bd0ada4786
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.0-rc.50":
-  version: 3.0.0-rc.50
-  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.50"
+"@yarnpkg/libzip@npm:^3.0.0-rc.51":
+  version: 3.0.0-rc.51
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.51"
   dependencies:
     "@types/emscripten": "npm:^1.39.6"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.50"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
     tslib: "npm:^2.4.0"
   peerDependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.50
-  checksum: c8fa04b556f09947323b1f8aace6af7141a7532d270c8b467a08bed3d7da7175ae92f56e0d17d70753b372a76dd3b184bdc9ea0c16f781a464ed6f321288a782
+    "@yarnpkg/fslib": ^3.0.0-rc.51
+  checksum: 972757cba562f7c1077f6a6b3331620988924a0cddf0b7c591a0d239830a1a8d43217584e06d3b5f1d693786435d2e1504e90afa6ca696c127b2e82a666b748b
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.50":
-  version: 3.0.0-rc.50
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.50"
+"@yarnpkg/parsers@npm:^3.0.0-rc.51":
+  version: 3.0.0-rc.51
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.51"
   dependencies:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
-  checksum: e021dab85afce7ffc7f4384da313e38f0d24820b7a4018fe713afb1d789dabad5bd043d11cfe3e2cbc01d9d0182a44bf9509da0edce66954be4da0dc0a0d35d7
+  checksum: 23055c9231f422780975af61b61f04b3a905186316017b5713166f9236a9b1d6fb46b8cd1eef1af4654779ca3e164ee46297a930fc1721b45ba12191511ec6be
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.0.0-rc.50":
-  version: 3.0.0-rc.50
-  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.50"
+"@yarnpkg/sdks@npm:3.0.0-rc.51":
+  version: 3.0.0-rc.51
+  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.51"
   dependencies:
-    "@yarnpkg/core": "npm:^4.0.0-rc.50"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.50"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.50"
+    "@yarnpkg/core": "npm:^4.0.0-rc.51"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.51"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     comment-json: "npm:^2.2.0"
@@ -2568,16 +2474,16 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: d4cd7e9e624f90e21f4c2ed02a05cb25fa546df0698cc2f3f750c2a7b5bf6103baa6ecd1f7eae628d04cc7647a07bd557e80fbe73acf7ef77be212cdf9dd1ef7
+  checksum: 7756dcfd387387c281d071286284c2a6f9b8f8d92d0adcff5777df75fcefcbd5e07ebbabe2fd479217755ee4dabeb346130a689010ff40e389bb847dd3aab274
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^4.0.0-rc.50":
-  version: 4.0.0-rc.50
-  resolution: "@yarnpkg/shell@npm:4.0.0-rc.50"
+"@yarnpkg/shell@npm:^4.0.0-rc.51":
+  version: 4.0.0-rc.51
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.51"
   dependencies:
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.50"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.50"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.51"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     cross-spawn: "npm:7.0.3"
@@ -2586,7 +2492,7 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     shell: ./lib/cli.js
-  checksum: f68c1361a450938e0e881cdb912f584c980f4326b70c860a4e5f36df1c91ea81f7c82683193739b21232a9a47cb04e6ec0318fc03188425d284200b91c102fb0
+  checksum: d4fb7b19b7bfd5b6c25318d29e34eeb05f8805b05fa16c5bc9b5c5802b579dc165c1d2509086ed2b1e7ba730f64e7665a0d7a7b3df032645382f53a569c21b27
   languageName: node
   linkType: hard
 
@@ -6512,7 +6418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -6865,7 +6771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-callable@npm:1.2.7, is-callable@npm:^1.1.3, is-callable@npm:^1.1.4, is-callable@npm:^1.2.7":
+"is-callable@npm:^1.1.3, is-callable@npm:^1.1.4, is-callable@npm:^1.2.7":
   version: 1.2.7
   resolution: "is-callable@npm:1.2.7"
   checksum: 48a9297fb92c99e9df48706241a189da362bff3003354aea4048bd5f7b2eb0d823cd16d0a383cece3d76166ba16d85d9659165ac6fcce1ac12e6c649d66dbdb9
@@ -8943,7 +8849,7 @@ __metadata:
     "@types/react-dom": "npm:18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:6.7.0"
     "@typescript-eslint/parser": "npm:6.7.0"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.50"
+    "@yarnpkg/sdks": "npm:3.0.0-rc.51"
     constants: "npm:0.0.2"
     cypress: "npm:13.2.0"
     dprint: "npm:0.41.0"
@@ -11937,7 +11843,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.6.2, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+"tslib@npm:2.6.2, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.4.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: bd26c22d36736513980091a1e356378e8b662ded04204453d353a7f34a4c21ed0afc59b5f90719d4ba756e581a162ecbf93118dc9c6be5acf70aa309188166ca
