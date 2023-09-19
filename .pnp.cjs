@@ -2549,7 +2549,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.7.2"],\
           ["@typescript-eslint/parser", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.7.2"],\
           ["@typescript-eslint/typescript-estree", "virtual:021c022f600365025d86dafe9265697d2dda17c659e0c84fdcc9bd2268afca5d606f6cded0a5391ad8f09e521ef2193658b9e2b9dcf4b4f80619e591825cf88f#npm:6.7.2"],\
-          ["ace-builds", "npm:1.26.0"],\
+          ["ace-builds", "npm:1.27.0"],\
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:5.0.0"],\
@@ -3693,10 +3693,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ace-builds", [\
-      ["npm:1.26.0", {\
-        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.26.0-d852ddb4ab-10.zip/node_modules/ace-builds/",\
+      ["npm:1.27.0", {\
+        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.27.0-7646f37b0b-10.zip/node_modules/ace-builds/",\
         "packageDependencies": [\
-          ["ace-builds", "npm:1.26.0"]\
+          ["ace-builds", "npm:1.27.0"]\
         ],\
         "linkType": "HARD"\
       }]\

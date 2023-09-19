@@ -1,5 +1,5 @@
 import { env } from "./esbuild-depts.mjs";
-import { fetchPlugin } from "./fetchPlugin.mjs";
+import { fetchPlugin } from "./src/fetchPlugin.mjs";
 // import * as fs from "fs";
 
 export const environment = env.get("NODE_ENV") === "production"

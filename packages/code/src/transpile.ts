@@ -1,29 +1,26 @@
-import { build as esmBuild, BuildOptions, BuildResult, initialize, transform } from "esbuild-wasm";
+import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
-import { fetchPlugin } from "./fetchPlugin";
+import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
-import { wait } from "./wait";
+import {Mutex} from "async-mutex";
+const mutex = new Mutex();
 
 declare const self:
   & ServiceWorkerGlobalScope
   & {
     mod: {
-      init: boolean | Promise<boolean>;
-      initialize: (
-        wasmModule: WebAssembly.Module,
-      ) => Promise<boolean> | boolean;
+      init: boolean | Promise<boolean>
     };
   };
 
 const mod = self.mod = self.mod
   || {
     init: false as (boolean | Promise<void> | NodeJS.Timeout),
-    initialize: (wasmModule: WebAssembly.Module) =>
-      (self.mod.init as boolean) || initialize({
+    initialize: (wasmModule: WebAssembly.Module) =>  mutex.runExclusive(()=> self.mod.init as boolean) || initialize({
         wasmModule,
         worker: false,
-      }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
-  };
+      }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout
+    }
 
 export const cjs = async (code: string) => {
   const { code: cjs } = await transform(code, {
@@ -47,42 +44,20 @@ export const cjs = async (code: string) => {
   });
   return cjs;
 };
-const transpileMod = {
-  counter: 0,
-};
+
 export const transpile = async (
   code: string,
   origin: string,
   wasmModule?: WebAssembly.Module,
 ) => {
-  if (wasmModule) {
-    const initFinished = mod.initialize(wasmModule);
+ 
+  mod.init = mod.init || await initialize(wasmModule || {
+    wasmURL: `/${wasmFile}`,
+    worker: false,
+  }) || true;
 
-    if (initFinished !== true) await initFinished;
-  } else {
-    mod.init = mod.init || initialize({
-      wasmURL: `/${wasmFile}`,
-      worker: false,
-    }).then(() => {
-      return mod.init = true;
-    });
-
-    const offLoadToServer = (code: string) => {
-      const current = transpileMod.counter++;
-
-      wait(300).then(() =>
-        current === transpileMod.counter
-          ? fetch(`https://js.spike.land?v=${swVersion}`, {
-            method: "POST",
-            body: code,
-            headers: { TR_ORIGIN: origin },
-          }).then((resp) => resp.text())
-          : wait(2000).then(() => "waited too long")
-      );
-    };
-    if (mod.init !== true) await wait(1000);
-    if (mod.init !== true) return offLoadToServer(code);
-  }
+  if (mod.init  !== true) await mod.init;
+  
 
   return transform(code, {
     loader: "tsx",
@@ -114,18 +89,13 @@ export const build = async (
     wasmModule?: WebAssembly.Module;
   },
 ) => {
-  if (wasmModule) {
-    const initFinished = mod.initialize(wasmModule);
+  mod.init = mod.init || await initialize(wasmModule || {
+    wasmURL: `/${wasmFile}`,
+    worker: false,
+  }) || true;
 
-    if (initFinished !== true) await initFinished;
-  } else {
-    mod.init = mod.init || initialize({
-      wasmURL: `/${wasmFile}`,
-      worker: false,
-    }).then(() => {
-      return mod.init = true;
-    });
-  }
+  if (mod.init !== true) await mod.init;
+  
 
   const makeEnv = (environment: string) => ({
     "process.env.NODE_ENV": `"${environment}"`,
@@ -179,8 +149,8 @@ export const build = async (
       ".ttf",
     ],
     loader: {
-      ".js": "tsx",
-      ".mjs": "ts",
+      ".js": "js",
+      ".mjs": "js",
       ".json": "json",
       ".tsx": "tsx",
       ".css": "css",
@@ -195,7 +165,7 @@ export const build = async (
     // },
 
     target: "esnext",
-    outdir: `${location.origin}/live/${codeSpace}/`,
+    outdir: `${origin}/live/${codeSpace}/`,
     treeShaking: true,
     bundle: true,
     define,
@@ -217,10 +187,9 @@ export const build = async (
 
     plugins: [fetchPlugin],
   };
-  let b: BuildResult;
 
-  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) =>
-    fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) => fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "PUT",
       body: x,
       headers: {
@@ -228,7 +197,7 @@ export const build = async (
         "TR_ORIGIN": `origin`,
         "TR_BUNDLE": `true`,
       },
-    }).then((x) => x.text()).then((x) => console.log(x))
+    }).then(() => x)
   );
 };
 

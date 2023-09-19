@@ -3,7 +3,8 @@ importScripts("/swVersion.js");
 
 import { mkdir, readFile, writeFile } from "./memfs";
 
-import { init, transpile } from "./shared";
+import { init, transpile, build } from "./shared";
+
 
 // importScripts("/workerScripts/prettierEsm.js");
 
@@ -102,11 +103,30 @@ const fakeBackend = async (request: Request) => {
   const paths = url.pathname.split("/");
 
   if (paths[1] === "live") {
-    const codeSpace = paths[2];
+    const codeSpacePath = paths[2];
+    const isFile = codeSpacePath.indexOf(".") !== -1;
+    const codeSpace = isFile ? codeSpacePath.split(".")[0] : codeSpacePath;
+
+
 
     const { code, css, html, i } = await fetch(
       `${url.origin}/live/${codeSpace}/session.json`,
     ).then((x) => x.json() as unknown as ICodeSession);
+
+    if (codeSpacePath.endsWith(".mjs")) {
+
+      const resp = await build({codeSpace, origin});
+      return new Response(resp, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cross-Origin-Embedder-Policy": "require-corp",
+          "Cache-Control": "no-cache",
+
+          content_hash: md5(resp),
+          "Content-Type": "application/javascript; charset=UTF-8",
+        },
+      });
+    }
 
     if (
       url.pathname === `/live/${codeSpace}/iframe`

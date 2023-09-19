@@ -29,8 +29,8 @@ export const fetchPlugin = {
       if (
         url.pathname.indexOf("/live/") !== -1 && url.pathname.endsWith(".js")
       ) {
-        const { stat, readFile } = await import("./src/memfs");
-        if (await stat(utl.pathname)) {
+        const { stat, readFile } = await import("./memfs");
+        if (await stat(url.pathname)) {
           return {
             contents: await readFile(url.pathname),
           };
