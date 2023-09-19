@@ -1,15 +1,16 @@
-import { Mutex } from "async-mutex";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
-const mutex = new Mutex();
 
 declare const self:
   & ServiceWorkerGlobalScope
   & {
     mod: {
       init: boolean | Promise<boolean>;
+      initialize: (
+        wasmModule: WebAssembly.Module,
+      ) => Promise<boolean> | boolean;
     };
   };
 
@@ -17,12 +18,11 @@ const mod = self.mod = self.mod
   || {
     init: false as (boolean | Promise<void> | NodeJS.Timeout),
     initialize: (wasmModule: WebAssembly.Module) =>
-      mutex.runExclusive(() => self.mod.init as boolean) || initialize({
+      (self.mod.init as boolean) || initialize({
         wasmModule,
         worker: false,
       }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
   };
-
 export const cjs = async (code: string) => {
   const { code: cjs } = await transform(code, {
     loader: "tsx",
@@ -90,15 +90,20 @@ export const build = async (
     wasmModule?: WebAssembly.Module;
   },
 ) => {
-  mod.init = mod.init || await initialize(
-    wasmModule || {
+ 
+  if (wasmModule) {
+    const initFinished = mod.initialize(wasmModule);
+
+    if (initFinished !== true) await (initFinished);
+  } else {
+    mod.init = mod.init || initialize({
       wasmURL: `/${wasmFile}`,
       worker: false,
-    },
-  ) || true;
-
-  if (mod.init !== true) await mod.init;
-
+    }).then(() => {
+      return mod.init = true;
+    });
+  }
+  
   const makeEnv = (environment: string) => ({
     "process.env.NODE_ENV": `"${environment}"`,
     "process.env.NODE_DEBUG": JSON.stringify(false),
