@@ -1,6 +1,6 @@
 import type { Plugin } from "esbuild-wasm";
 import { oo } from "./importMap";
-export const fetchPlugin = (origin:string) => ({
+export const fetchPlugin = (origin: string) => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -30,7 +30,6 @@ export const fetchPlugin = (origin:string) => ({
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-    
       let contents = await fetch(args.path, { redirect: "follow" }).then(
         (res) => res.text(),
       );

@@ -1,26 +1,27 @@
+import { Mutex } from "async-mutex";
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
-import {Mutex} from "async-mutex";
 const mutex = new Mutex();
 
 declare const self:
   & ServiceWorkerGlobalScope
   & {
     mod: {
-      init: boolean | Promise<boolean>
+      init: boolean | Promise<boolean>;
     };
   };
 
 const mod = self.mod = self.mod
   || {
     init: false as (boolean | Promise<void> | NodeJS.Timeout),
-    initialize: (wasmModule: WebAssembly.Module) =>  mutex.runExclusive(()=> self.mod.init as boolean) || initialize({
+    initialize: (wasmModule: WebAssembly.Module) =>
+      mutex.runExclusive(() => self.mod.init as boolean) || initialize({
         wasmModule,
         worker: false,
-      }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout
-    }
+      }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
+  };
 
 export const cjs = async (code: string) => {
   const { code: cjs } = await transform(code, {
@@ -50,14 +51,14 @@ export const transpile = async (
   origin: string,
   wasmModule?: WebAssembly.Module,
 ) => {
- 
-  mod.init = mod.init || await initialize(wasmModule || {
-    wasmURL: `/${wasmFile}`,
-    worker: false,
-  }) || true;
+  mod.init = mod.init || await initialize(
+    wasmModule || {
+      wasmURL: `/${wasmFile}`,
+      worker: false,
+    },
+  ) || true;
 
-  if (mod.init  !== true) await mod.init;
-  
+  if (mod.init !== true) await mod.init;
 
   return transform(code, {
     loader: "tsx",
@@ -89,13 +90,14 @@ export const build = async (
     wasmModule?: WebAssembly.Module;
   },
 ) => {
-  mod.init = mod.init || await initialize(wasmModule || {
-    wasmURL: `/${wasmFile}`,
-    worker: false,
-  }) || true;
+  mod.init = mod.init || await initialize(
+    wasmModule || {
+      wasmURL: `/${wasmFile}`,
+      worker: false,
+    },
+  ) || true;
 
   if (mod.init !== true) await mod.init;
-  
 
   const makeEnv = (environment: string) => ({
     "process.env.NODE_ENV": `"${environment}"`,
@@ -188,8 +190,8 @@ export const build = async (
     plugins: [fetchPlugin],
   };
 
-
-  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) => fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) =>
+    fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "PUT",
       body: x,
       headers: {

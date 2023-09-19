@@ -44,7 +44,7 @@ export const build = (
 ) =>
   init(swVersion).rpc("build", {
     codeSpace,
-    origin
+    origin,
   }) as Promise<string>;
 
 export const connect = (codeSpace: string) => init(swVersion).signal("connect", codeSpace);

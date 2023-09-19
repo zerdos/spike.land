@@ -3,8 +3,7 @@ importScripts("/swVersion.js");
 
 import { mkdir, readFile, writeFile } from "./memfs";
 
-import { init, transpile, build } from "./shared";
-
+import { build, init, transpile } from "./shared";
 
 // importScripts("/workerScripts/prettierEsm.js");
 
@@ -107,15 +106,13 @@ const fakeBackend = async (request: Request) => {
     const isFile = codeSpacePath.indexOf(".") !== -1;
     const codeSpace = isFile ? codeSpacePath.split(".")[0] : codeSpacePath;
 
-
-
     const { code, css, html, i } = await fetch(
       `${url.origin}/live/${codeSpace}/session.json`,
     ).then((x) => x.json() as unknown as ICodeSession);
 
     if (codeSpacePath.endsWith(".mjs")) {
+      const resp = await build({ codeSpace, origin: url.origin });
 
-      const resp = await build({codeSpace, origin});
       return new Response(resp, {
         headers: {
           "Access-Control-Allow-Origin": "*",
