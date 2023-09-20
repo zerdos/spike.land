@@ -2,6 +2,11 @@ import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
+import { wait } from "./wait";
+
+const transpileMod = {
+  counter: 0,
+};
 
 declare const self:
   & ServiceWorkerGlobalScope
@@ -23,6 +28,7 @@ const mod = self.mod = self.mod
         worker: false,
       }).then(() => self.mod.init = true) as Promise<boolean> | NodeJS.Timeout,
   };
+
 export const cjs = async (code: string) => {
   const { code: cjs } = await transform(code, {
     loader: "tsx",
@@ -51,14 +57,34 @@ export const transpile = async (
   origin: string,
   wasmModule?: WebAssembly.Module,
 ) => {
-  mod.init = mod.init || await initialize(
-    wasmModule || {
+  if (wasmModule) {
+    const initFinished = mod.initialize(wasmModule);
+
+    if (initFinished !== true) await initFinished;
+  } else {
+    mod.init = mod.init || initialize({
       wasmURL: `/${wasmFile}`,
       worker: false,
-    },
-  ) || true;
+    }).then(() => {
+      return mod.init = true;
+    });
 
-  if (mod.init !== true) await mod.init;
+    const offLoadToServer = (code: string) => {
+      const current = transpileMod.counter++;
+
+      wait(300).then(() =>
+        current === transpileMod.counter
+          ? fetch(`https://js.spike.land?v=${swVersion}`, {
+            method: "POST",
+            body: code,
+            headers: { TR_ORIGIN: origin },
+          }).then((resp) => resp.text())
+          : wait(2000).then(() => "waited too long")
+      );
+    };
+    if (mod.init !== true) await wait(1000);
+    if (mod.init !== true) return offLoadToServer(code);
+  }
 
   return transform(code, {
     loader: "tsx",
