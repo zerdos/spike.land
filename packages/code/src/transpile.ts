@@ -116,7 +116,6 @@ export const build = async (
     wasmModule?: WebAssembly.Module;
   },
 ) => {
- 
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
@@ -129,7 +128,7 @@ export const build = async (
       return mod.init = true;
     });
   }
-  
+
   const makeEnv = (environment: string) => ({
     "process.env.NODE_ENV": `"${environment}"`,
     "process.env.NODE_DEBUG": JSON.stringify(false),
