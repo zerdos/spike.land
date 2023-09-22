@@ -1567,14 +1567,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.38.0":
-  version: 1.38.0
-  resolution: "@playwright/test@npm:1.38.0"
+"@playwright/test@npm:1.38.1":
+  version: 1.38.1
+  resolution: "@playwright/test@npm:1.38.1"
   dependencies:
-    playwright: "npm:1.38.0"
+    playwright: "npm:1.38.1"
   bin:
     playwright: cli.js
-  checksum: 8011cf50e75bc6d76ef6d12aca0aa6122aeb783e3692f997cf3e3bcc7c163dde505be0495cc6045267a2e5538b74892afb98ca664ced8ddf8c5a1395244535ab
+  checksum: 0a83c367347cb4cd9b558c93e0cfdd90c22ec084e2811285085b302ad6fc5d51dd26a23f75736074559dd8019b6eb5023c8498501a3ea228ca8ebbbf40bca22d
   languageName: node
   linkType: hard
 
@@ -1637,7 +1637,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.8.0"
+    openai: "npm:4.10.0"
     p-limit: "npm:4.0.0"
     simple-git: "npm:3.19.1"
   bin:
@@ -8662,7 +8662,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20230914.0"
     "@emotion/react": "npm:11.11.1"
-    "@playwright/test": "npm:1.38.0"
+    "@playwright/test": "npm:1.38.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.44.2"
     "@types/react": "npm:18.2.22"
@@ -8677,7 +8677,7 @@ __metadata:
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
     localforage: "npm:1.10.0"
-    playwright: "npm:1.38.0"
+    playwright: "npm:1.38.1"
     react: "npm:18.2.0"
     typescript: "npm:5.2.2"
     util: "npm:0.12.5"
@@ -9104,6 +9104,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"openai@npm:4.10.0":
+  version: 4.10.0
+  resolution: "openai@npm:4.10.0"
+  dependencies:
+    "@types/node": "npm:^18.11.18"
+    "@types/node-fetch": "npm:^2.6.4"
+    abort-controller: "npm:^3.0.0"
+    agentkeepalive: "npm:^4.2.1"
+    digest-fetch: "npm:^1.3.0"
+    form-data-encoder: "npm:1.7.2"
+    formdata-node: "npm:^4.3.2"
+    node-fetch: "npm:^2.6.7"
+  bin:
+    openai: bin/cli
+  checksum: 63cddfc504587aacb05c9b1d340d261166aabac75b9023e5a273cdb0079a54a62e6ba39ba169b579eeb3c138420405e475e1ba981e25de6a87465c98245ca943
+  languageName: node
+  linkType: hard
+
 "openai@npm:4.2.0":
   version: 4.2.0
   resolution: "openai@npm:4.2.0"
@@ -9119,24 +9137,6 @@ __metadata:
   bin:
     openai: bin/cli
   checksum: 4296a6d0efb74c296fd74dc3a3d1da30d096911aad743c1b57296925505f68b8a276d1c768ba95999ee16ed77f3b7c829a7db26dd81e38645cb8855df4c1c05f
-  languageName: node
-  linkType: hard
-
-"openai@npm:4.8.0":
-  version: 4.8.0
-  resolution: "openai@npm:4.8.0"
-  dependencies:
-    "@types/node": "npm:^18.11.18"
-    "@types/node-fetch": "npm:^2.6.4"
-    abort-controller: "npm:^3.0.0"
-    agentkeepalive: "npm:^4.2.1"
-    digest-fetch: "npm:^1.3.0"
-    form-data-encoder: "npm:1.7.2"
-    formdata-node: "npm:^4.3.2"
-    node-fetch: "npm:^2.6.7"
-  bin:
-    openai: bin/cli
-  checksum: 188fee30666559d0a0fc6f558a7d1894c3215085d0d42c1fb0481d3b6f9ef9deafb6eebdf64253390cf27c1f1803c3d9e9890145e40bee5415aea7e45ef48c81
   languageName: node
   linkType: hard
 
@@ -9593,27 +9593,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.38.0":
-  version: 1.38.0
-  resolution: "playwright-core@npm:1.38.0"
+"playwright-core@npm:1.38.1":
+  version: 1.38.1
+  resolution: "playwright-core@npm:1.38.1"
   bin:
     playwright-core: cli.js
-  checksum: 54118663e1bc2ee4d90d80380b68806e318186267b8688eae49d9e2c7496423ae979672bc10bf53be154939a92891e0904092f312b1ef9950b8355894c7c569c
+  checksum: c28bfd0ada5f00f564ed75216ccd785eff8d18bc69e9e568e3e8327211fc6e1b3562af715990a0420c91610d18f8227b125bbfcf2377996a37f4b2deafe5a3d7
   languageName: node
   linkType: hard
 
-"playwright@npm:1.38.0":
-  version: 1.38.0
-  resolution: "playwright@npm:1.38.0"
+"playwright@npm:1.38.1":
+  version: 1.38.1
+  resolution: "playwright@npm:1.38.1"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.38.0"
+    playwright-core: "npm:1.38.1"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: ee3a92ff0278a5c405ebaa9b31b5d6a8d8476b1c90f7aba68f1c6693e36529055bc8101a9fa6cfcdce1ff694353a67b32d6b9210a652f426fb7078681de68d67
+  checksum: c5eb030f191f912127292c61aa12eb904e50ad4005267d6c894e41a0ad551c4db512f70a2a2dbfa089ea9612715f1f1a1b2aad1e17f537fc9f0a3c2bbbff6486
   languageName: node
   linkType: hard
 
