@@ -21,9 +21,9 @@
     "node-fetch": "3.3.2",
     "openai": "4.10.0",
     "p-limit": "4.0.0",
-    "simple-git": "3.19.1"
+    "simple-git": "3.20.0"
   },
   "devDependencies": {
-    "@types/node": "20.6.3"
+    "@types/node": "20.6.4"
   }
 }

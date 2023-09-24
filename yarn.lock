@@ -1630,7 +1630,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.6.3"
+    "@types/node": "npm:20.6.4"
     axios: "npm:1.5.0"
     body-parser: "npm:1.20.2"
     commander: "npm:11.0.0"
@@ -1639,7 +1639,7 @@ __metadata:
     node-fetch: "npm:3.3.2"
     openai: "npm:4.10.0"
     p-limit: "npm:4.0.0"
-    simple-git: "npm:3.19.1"
+    simple-git: "npm:3.20.0"
   bin:
     ai-commit: ./index.mjs
   languageName: unknown
@@ -1668,7 +1668,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230914.0"
     "@spike-land/code": "npm:0.9.18"
-    "@types/node": "npm:20.6.3"
+    "@types/node": "npm:20.6.4"
     ai: "npm:2.2.13"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1699,7 +1699,7 @@ __metadata:
     "@types/jest": "npm:29.5.5"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.6.3"
+    "@types/node": "npm:20.6.4"
     "@types/react": "npm:18.2.22"
     "@types/react-dom": "npm:18.2.7"
     "@types/uuid": "npm:9.0.4"
@@ -1777,7 +1777,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.6.3"
+    "@types/node": "npm:20.6.4"
     esbuild-wasm: "npm:0.19.3"
   languageName: unknown
   linkType: soft
@@ -1947,13 +1947,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.44.2":
-  version: 8.44.2
-  resolution: "@types/eslint@npm:8.44.2"
+"@types/eslint@npm:8.44.3":
+  version: 8.44.3
+  resolution: "@types/eslint@npm:8.44.3"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 9fe07d4fba1ab9d53d0da404c5774c056deb4bb37a3712a11d35f40ec4389d5d8cc46f19387cf79a3054754e1b71f5dbb796ee6f7411449e9f2399aff8a94def
+  checksum: 53796ff6009512775490403647577946ff924dbef5339898e361e1b29527492e5738cbd67d94202d6ebd6d45e7ac5c5da1c95fe710f16476e2dda3316d1970f6
   languageName: node
   linkType: hard
 
@@ -2073,10 +2073,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.6.3":
+"@types/node@npm:*":
   version: 20.6.3
   resolution: "@types/node@npm:20.6.3"
   checksum: 2ccd82424cd43c452daaf8918dd40074652080fb813499e0353d3de7fa4620b73595c5a4fddd3651cb2fede21b6e19c5767449e401a744c95427ddeec556c8d0
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.6.4":
+  version: 20.6.4
+  resolution: "@types/node@npm:20.6.4"
+  checksum: 0cdef65f4982cffc44cc7d3b3f5fb979be06e35892d1f58ac22d46265be5aa97d9ac614e8310c974523ac8ce3f04c4ef94dcf9541360323725be80481943a039
   languageName: node
   linkType: hard
 
@@ -8664,7 +8671,7 @@ __metadata:
     "@emotion/react": "npm:11.11.1"
     "@playwright/test": "npm:1.38.1"
     "@spike-land/ai-devtools": "workspace:^"
-    "@types/eslint": "npm:8.44.2"
+    "@types/eslint": "npm:8.44.3"
     "@types/react": "npm:18.2.22"
     "@types/react-dom": "npm:18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:6.7.2"
@@ -10647,14 +10654,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-git@npm:3.19.1":
-  version: 3.19.1
-  resolution: "simple-git@npm:3.19.1"
+"simple-git@npm:3.20.0":
+  version: 3.20.0
+  resolution: "simple-git@npm:3.20.0"
   dependencies:
     "@kwsites/file-exists": "npm:^1.1.1"
     "@kwsites/promise-deferred": "npm:^1.1.1"
     debug: "npm:^4.3.4"
-  checksum: a8bf386761d5d67d3d3be50e48fa206a4a469d5943a52e09bf0a9f847adaefd4588e8fbc556b6857542c897ec97786c1c6e2db636c7d8996c6139002bedf7810
+  checksum: fabfdbabfec8c7a7484d22d0218fb4ff9c8acdecaadc34c4655cd10f2aacd40bd656284abdf1613831b692d7fe1be58314b23e9f1adfe380f2b910622cc2468e
   languageName: node
   linkType: hard
 
