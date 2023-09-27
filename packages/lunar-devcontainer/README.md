@@ -1,9 +1,9 @@
 ## Devcontainer
 
 - Base image: ubuntu:lunar
-- Node: 18.17.1
+- Node: 18.18.0
 - Yarn: 1.22.19
-- Cypress 13.2.0
+- Cypress 13.3.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!
