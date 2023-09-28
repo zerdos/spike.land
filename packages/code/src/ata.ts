@@ -42,7 +42,9 @@ export async function ata(
 
   // The substituted value will be contained in the result variable
 
-  Object.keys(impRes).filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https"))).map((
+  Object.keys(impRes).filter((x) =>
+    !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https"))
+  ).map((
     x,
   ) =>
     Object.keys(impRes).map((t) =>
@@ -101,7 +103,9 @@ export async function ata(
 
   const extraLibs = [
     ...(await Promise.all(
-      Object.keys(impRes).filter((x) => impRes[x].content.length && impRes[x].url)
+      Object.keys(impRes).filter((x) =>
+        impRes[x].content.length && impRes[x].url
+      )
         .map(async (x) => ({
           filePath: impRes[x].url!,
           content: (await prettierJs(impRes[x].content)).split(
@@ -118,7 +122,9 @@ export async function ata(
     ...extras,
   ];
 
-  return [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y));
+  return [...new Set(extraLibs.map((x) => x.filePath))].map((y) =>
+    extraLibs.find((p) => p.filePath === y)
+  );
 
   async function ata(code: string, baseUrl: string) {
     // const { tsx } = await import(`${location.origin}/live/w/index.js`);
@@ -158,12 +164,14 @@ export async function ata(
         ? new URL(r, baseUrl).toString()
         : r.indexOf("https://") !== -1
         ? r
-        : ((r.indexOf("data:text/javascript") === -1)
-          && await fetch(`${location.origin}/*${r}?bundle`, { redirect: "follow" })
+        : ((r.indexOf("data:text/javascript") === -1) &&
+          await fetch(`${location.origin}/*${r}?bundle`, { redirect: "follow" })
             .then(
               async (res) =>
-                res.headers.get("X-typescript-types")
-                || (await res.text()).split(`"`).find((x) => x.startsWith("https://") && x.indexOf(r) !== -1),
+                res.headers.get("X-typescript-types") ||
+                (await res.text()).split(`"`).find((x) =>
+                  x.startsWith("https://") && x.indexOf(r) !== -1
+                ),
             )) || null;
 
       // const rR = r.slice(0, 1) ==="."? newBase;
@@ -220,8 +228,8 @@ export async function ata(
           baseUrl,
         )
           .toString()
-      ]
-        || {
+      ] ||
+        {
           url: new URL(
             (r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1)
               ? r

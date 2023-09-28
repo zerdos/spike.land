@@ -1,12 +1,13 @@
-var te = ((t) =>
-  typeof require < "u"
-    ? require
-    : typeof Proxy < "u"
-    ? new Proxy(t, { get: (S, x) => (typeof require < "u" ? require : S)[x] })
-    : t)(function(t) {
-    if (typeof require < "u") return require.apply(this, arguments);
-    throw new Error("Dynamic require of \"" + t + "\" is not supported");
-  });
+var te =
+  ((t) =>
+    typeof require < "u"
+      ? require
+      : typeof Proxy < "u"
+      ? new Proxy(t, { get: (S, x) => (typeof require < "u" ? require : S)[x] })
+      : t)(function (t) {
+      if (typeof require < "u") return require.apply(this, arguments);
+      throw new Error('Dynamic require of "' + t + '" is not supported');
+    });
 var He = Object.create,
   ce = Object.defineProperty,
   Ve = Object.getOwnPropertyDescriptor,
@@ -18,8 +19,8 @@ var He = Object.create,
   tt = (t, S, x, o) => {
     if (S && typeof S == "object" || typeof S == "function") {
       for (let f of Ge(S)) {
-        !Ze.call(t, f) && f !== x
-          && ce(t, f, {
+        !Ze.call(t, f) && f !== x &&
+          ce(t, f, {
             get: () => S[f],
             enumerable: !(o = Ve(S, f)) || o.enumerable,
           });
@@ -41,26 +42,26 @@ var He = Object.create,
   Oe = et((t, S) => {
     "use strict";
     var x = typeof Reflect == "object" ? Reflect : null,
-      o = x && typeof x.apply == "function" ? x.apply : L(function(d, E, i) {
+      o = x && typeof x.apply == "function" ? x.apply : L(function (d, E, i) {
         return Function.prototype.apply.call(d, E, i);
       }, "ReflectApply"),
       f;
     x && typeof x.ownKeys == "function"
       ? f = x.ownKeys
       : Object.getOwnPropertySymbols
-      ? f = L(function(d) {
+      ? f = L(function (d) {
         return Object.getOwnPropertyNames(d).concat(
           Object.getOwnPropertySymbols(d),
         );
       }, "ReflectOwnKeys")
-      : f = L(function(d) {
+      : f = L(function (d) {
         return Object.getOwnPropertyNames(d);
       }, "ReflectOwnKeys");
     function v(d) {
       console && console.warn && console.warn(d);
     }
     L(v, "ProcessEmitWarning");
-    var c = Number.isNaN || L(function(d) {
+    var c = Number.isNaN || L(function (d) {
       return d !== d;
     }, "NumberIsNaN");
     function n() {
@@ -77,39 +78,39 @@ var He = Object.create,
     function r(d) {
       if (typeof d != "function") {
         throw new TypeError(
-          "The \"listener\" argument must be of type Function. Received type "
-            + typeof d,
+          'The "listener" argument must be of type Function. Received type ' +
+            typeof d,
         );
       }
     }
     L(r, "checkListener"),
       Object.defineProperty(n, "defaultMaxListeners", {
         enumerable: !0,
-        get: function() {
+        get: function () {
           return y;
         },
-        set: function(d) {
+        set: function (d) {
           if (typeof d != "number" || d < 0 || c(d)) {
             throw new RangeError(
-              "The value of \"defaultMaxListeners\" is out of range. It must be a non-negative number. Received "
-                + d
-                + ".",
+              'The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' +
+                d +
+                ".",
             );
           }
           y = d;
         },
       }),
-      n.init = function() {
-        (this._events === void 0
-          || this._events === Object.getPrototypeOf(this)._events)
-        && (this._events = Object.create(null), this._eventsCount = 0),
+      n.init = function () {
+        (this._events === void 0 ||
+          this._events === Object.getPrototypeOf(this)._events) &&
+        (this._events = Object.create(null), this._eventsCount = 0),
           this._maxListeners = this._maxListeners || void 0;
       },
-      n.prototype.setMaxListeners = L(function(d) {
+      n.prototype.setMaxListeners = L(function (d) {
         if (typeof d != "number" || d < 0 || c(d)) {
           throw new RangeError(
-            "The value of \"n\" is out of range. It must be a non-negative number. Received "
-              + d + ".",
+            'The value of "n" is out of range. It must be a non-negative number. Received ' +
+              d + ".",
           );
         }
         return this._maxListeners = d, this;
@@ -120,10 +121,10 @@ var He = Object.create,
         : d._maxListeners;
     }
     L(s, "_getMaxListeners"),
-      n.prototype.getMaxListeners = L(function() {
+      n.prototype.getMaxListeners = L(function () {
         return s(this);
       }, "getMaxListeners"),
-      n.prototype.emit = L(function(d) {
+      n.prototype.emit = L(function (d) {
         for (var E = [], i = 1; i < arguments.length; i++) E.push(arguments[i]);
         var m = d === "error", g = this._events;
         if (g !== void 0) m = m && g.error === void 0;
@@ -151,8 +152,9 @@ var He = Object.create,
           _ = d._events,
           _ === void 0
             ? (_ = d._events = Object.create(null), d._eventsCount = 0)
-            : (_.newListener !== void 0
-              && (d.emit("newListener", E, i.listener ? i.listener : i), _ = d._events),
+            : (_.newListener !== void 0 &&
+              (d.emit("newListener", E, i.listener ? i.listener : i),
+                _ = d._events),
               P = _[E]),
           P === void 0
       ) P = _[E] = i, ++d._eventsCount;
@@ -167,20 +169,24 @@ var He = Object.create,
       ) {
         P.warned = !0;
         var N = new Error(
-          "Possible EventEmitter memory leak detected. " + P.length + " "
-            + String(E)
-            + " listeners added. Use emitter.setMaxListeners() to increase limit",
+          "Possible EventEmitter memory leak detected. " + P.length + " " +
+            String(E) +
+            " listeners added. Use emitter.setMaxListeners() to increase limit",
         );
-        N.name = "MaxListenersExceededWarning", N.emitter = d, N.type = E, N.count = P.length, v(N);
+        N.name = "MaxListenersExceededWarning",
+          N.emitter = d,
+          N.type = E,
+          N.count = P.length,
+          v(N);
       }
       return d;
     }
     L(p, "_addListener"),
-      n.prototype.addListener = L(function(d, E) {
+      n.prototype.addListener = L(function (d, E) {
         return p(this, d, E, !1);
       }, "addListener"),
       n.prototype.on = n.prototype.addListener,
-      n.prototype.prependListener = L(function(d, E) {
+      n.prototype.prependListener = L(function (d, E) {
         return p(this, d, E, !0);
       }, "prependListener");
     function e() {
@@ -199,13 +205,13 @@ var He = Object.create,
       return g.listener = i, m.wrapFn = g, g;
     }
     L(a, "_onceWrap"),
-      n.prototype.once = L(function(d, E) {
+      n.prototype.once = L(function (d, E) {
         return r(E), this.on(d, a(this, d, E)), this;
       }, "once"),
-      n.prototype.prependOnceListener = L(function(d, E) {
+      n.prototype.prependOnceListener = L(function (d, E) {
         return r(E), this.prependListener(d, a(this, d, E)), this;
       }, "prependOnceListener"),
-      n.prototype.removeListener = L(function(d, E) {
+      n.prototype.removeListener = L(function (d, E) {
         var i, m, g, _, P;
         if (r(E), m = this._events, m === void 0) return this;
         if (i = m[d], i === void 0) return this;
@@ -213,8 +219,8 @@ var He = Object.create,
           --this._eventsCount === 0
             ? this._events = Object.create(null)
             : (delete m[d],
-              m.removeListener
-              && this.emit("removeListener", d, i.listener || E));
+              m.removeListener &&
+              this.emit("removeListener", d, i.listener || E));
         } else if (typeof i != "function") {
           for (g = -1, _ = i.length - 1; _ >= 0; _--) {
             if (i[_] === E || i[_].listener === E) {
@@ -225,13 +231,13 @@ var He = Object.create,
           if (g < 0) return this;
           g === 0 ? i.shift() : b(i, g),
             i.length === 1 && (m[d] = i[0]),
-            m.removeListener !== void 0
-            && this.emit("removeListener", d, P || E);
+            m.removeListener !== void 0 &&
+            this.emit("removeListener", d, P || E);
         }
         return this;
       }, "removeListener"),
       n.prototype.off = n.prototype.removeListener,
-      n.prototype.removeAllListeners = L(function(d) {
+      n.prototype.removeAllListeners = L(function (d) {
         var E, i, m;
         if (i = this._events, i === void 0) return this;
         if (i.removeListener === void 0) {
@@ -271,13 +277,13 @@ var He = Object.create,
         : T(g, g.length);
     }
     L(l, "_listeners"),
-      n.prototype.listeners = L(function(d) {
+      n.prototype.listeners = L(function (d) {
         return l(this, d, !0);
       }, "listeners"),
-      n.prototype.rawListeners = L(function(d) {
+      n.prototype.rawListeners = L(function (d) {
         return l(this, d, !1);
       }, "rawListeners"),
-      n.listenerCount = function(d, E) {
+      n.listenerCount = function (d, E) {
         return typeof d.listenerCount == "function"
           ? d.listenerCount(E)
           : u.call(d, E);
@@ -293,7 +299,7 @@ var He = Object.create,
       return 0;
     }
     L(u, "listenerCount"),
-      n.prototype.eventNames = L(function() {
+      n.prototype.eventNames = L(function () {
         return this._eventsCount > 0 ? f(this._events) : [];
       }, "eventNames");
     function T(d, E) {
@@ -314,15 +320,18 @@ var He = Object.create,
     }
     L(C, "unwrapListeners");
     function k(d, E) {
-      return new Promise(function(i, m) {
+      return new Promise(function (i, m) {
         function g(P) {
           d.removeListener(E, _), m(P);
         }
         L(g, "errorListener");
         function _() {
-          typeof d.removeListener == "function" && d.removeListener("error", g), i([].slice.call(arguments));
+          typeof d.removeListener == "function" && d.removeListener("error", g),
+            i([].slice.call(arguments));
         }
-        L(_, "resolver"), w(d, E, _, { once: !0 }), E !== "error" && A(d, g, { once: !0 });
+        L(_, "resolver"),
+          w(d, E, _, { once: !0 }),
+          E !== "error" && A(d, g, { once: !0 });
       });
     }
     L(k, "once");
@@ -340,8 +349,8 @@ var He = Object.create,
           }, "wrapListener"),
         );
       } else {throw new TypeError(
-          "The \"emitter\" argument must be of type EventEmitter. Received type "
-            + typeof d,
+          'The "emitter" argument must be of type EventEmitter. Received type ' +
+            typeof d,
         );}
     }
     L(w, "eventTargetAgnosticAddListener");
@@ -604,17 +613,18 @@ var Or = pe.default ?? pe,
   Fr = Object.getOwnPropertyNames,
   Kr = Object.getPrototypeOf,
   Ir = Object.prototype.hasOwnProperty,
-  Yr = ((t) =>
-    typeof te < "u"
-      ? te
-      : typeof Proxy < "u"
-      ? new Proxy(t, { get: (S, x) => (typeof te < "u" ? te : S)[x] })
-      : t)(
-      function(t) {
-        if (typeof te < "u") return te.apply(this, arguments);
-        throw new Error("Dynamic require of \"" + t + "\" is not supported");
-      },
-    ),
+  Yr =
+    ((t) =>
+      typeof te < "u"
+        ? te
+        : typeof Proxy < "u"
+        ? new Proxy(t, { get: (S, x) => (typeof te < "u" ? te : S)[x] })
+        : t)(
+        function (t) {
+          if (typeof te < "u") return te.apply(this, arguments);
+          throw new Error('Dynamic require of "' + t + '" is not supported');
+        },
+      ),
   F = (t, S) => () => (S || t((S = { exports: {} }).exports, S), S.exports),
   Lr = (t, S) => {
     for (var x in S) ge(t, x, { get: S[x], enumerable: !0 });
@@ -622,8 +632,8 @@ var Or = pe.default ?? pe,
   le = (t, S, x, o) => {
     if (S && typeof S == "object" || typeof S == "function") {
       for (let f of Fr(S)) {
-        !Ir.call(t, f) && f !== x
-          && ge(t, f, {
+        !Ir.call(t, f) && f !== x &&
+          ge(t, f, {
             get: () => S[f],
             enumerable: !(o = kr(S, f)) || o.enumerable,
           });
@@ -646,39 +656,40 @@ var Or = pe.default ?? pe,
   ie = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(r, s, p, e) {
+        ? function (r, s, p, e) {
           e === void 0 && (e = p);
           var a = Object.getOwnPropertyDescriptor(s, p);
-          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable))
-          && (a = {
+          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable)) &&
+          (a = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return s[p];
             },
           }), Object.defineProperty(r, e, a);
         }
-        : function(r, s, p, e) {
+        : function (r, s, p, e) {
           e === void 0 && (e = p), r[e] = s[p];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(r, s) {
+        ? function (r, s) {
           Object.defineProperty(r, "default", { enumerable: !0, value: s });
         }
-        : function(r, s) {
+        : function (r, s) {
           r.default = s;
         }),
-      o = t && t.__importStar || function(r) {
+      o = t && t.__importStar || function (r) {
         if (r && r.__esModule) return r;
         var s = {};
         if (r != null) {
           for (var p in r) {
-            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
-              && S(s, r, p);
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p) &&
+              S(s, r, p);
           }
         }
         return x(s, r), s;
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.typescriptVersionIsAtLeast = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.typescriptVersionIsAtLeast = void 0;
     var f = o(fe), v = o($);
     function c(r) {
       return f.satisfies(
@@ -710,39 +721,40 @@ var Or = pe.default ?? pe,
   ve = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(r, s, p, e) {
+        ? function (r, s, p, e) {
           e === void 0 && (e = p);
           var a = Object.getOwnPropertyDescriptor(s, p);
-          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable))
-          && (a = {
+          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable)) &&
+          (a = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return s[p];
             },
           }), Object.defineProperty(r, e, a);
         }
-        : function(r, s, p, e) {
+        : function (r, s, p, e) {
           e === void 0 && (e = p), r[e] = s[p];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(r, s) {
+        ? function (r, s) {
           Object.defineProperty(r, "default", { enumerable: !0, value: s });
         }
-        : function(r, s) {
+        : function (r, s) {
           r.default = s;
         }),
-      o = t && t.__importStar || function(r) {
+      o = t && t.__importStar || function (r) {
         if (r && r.__esModule) return r;
         var s = {};
         if (r != null) {
           for (var p in r) {
-            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
-              && S(s, r, p);
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p) &&
+              S(s, r, p);
           }
         }
         return x(s, r), s;
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.getDecorators = t.getModifiers = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.getDecorators = t.getModifiers = void 0;
     var f = o($), v = ie(), c = v.typescriptVersionIsAtLeast["4.8"];
     function n(r) {
       var s;
@@ -782,7 +794,7 @@ var Or = pe.default ?? pe,
     Object.defineProperty(t, "__esModule", { value: !0 }),
       t.xhtmlEntities = void 0,
       t.xhtmlEntities = {
-        quot: "\"",
+        quot: '"',
         amp: "&",
         apos: "'",
         lt: "<",
@@ -1039,9 +1051,10 @@ var Or = pe.default ?? pe,
   }),
   Me = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
     var S;
-    (function(o) {
+    (function (o) {
       o.AccessorProperty = "AccessorProperty",
         o.ArrayExpression = "ArrayExpression",
         o.ArrayPattern = "ArrayPattern",
@@ -1211,7 +1224,7 @@ var Or = pe.default ?? pe,
         o.TSVoidKeyword = "TSVoidKeyword";
     })(S = t.AST_NODE_TYPES || (t.AST_NODE_TYPES = {}));
     var x;
-    (function(o) {
+    (function (o) {
       o.Boolean = "Boolean",
         o.Identifier = "Identifier",
         o.JSXIdentifier = "JSXIdentifier",
@@ -1238,74 +1251,77 @@ var Or = pe.default ?? pe,
   qr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(f, v, c, n) {
+        ? function (f, v, c, n) {
           n === void 0 && (n = c);
           var y = Object.getOwnPropertyDescriptor(v, c);
-          (!y || ("get" in y ? !v.__esModule : y.writable || y.configurable))
-          && (y = {
+          (!y || ("get" in y ? !v.__esModule : y.writable || y.configurable)) &&
+          (y = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return v[c];
             },
           }), Object.defineProperty(f, n, y);
         }
-        : function(f, v, c, n) {
+        : function (f, v, c, n) {
           n === void 0 && (n = c), f[n] = v[c];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(f, v) {
+        ? function (f, v) {
           Object.defineProperty(f, "default", { enumerable: !0, value: v });
         }
-        : function(f, v) {
+        : function (f, v) {
           f.default = v;
         }),
-      o = t && t.__importStar || function(f) {
+      o = t && t.__importStar || function (f) {
         if (f && f.__esModule) return f;
         var v = {};
         if (f != null) {
           for (var c in f) {
-            c !== "default" && Object.prototype.hasOwnProperty.call(f, c)
-              && S(v, f, c);
+            c !== "default" && Object.prototype.hasOwnProperty.call(f, c) &&
+              S(v, f, c);
           }
         }
         return x(v, f), v;
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.TSESTree = void 0, t.TSESTree = o(Me());
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.TSESTree = void 0,
+      t.TSESTree = o(Me());
   }),
   Ur = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(f, v, c, n) {
+        ? function (f, v, c, n) {
           n === void 0 && (n = c);
           var y = Object.getOwnPropertyDescriptor(v, c);
-          (!y || ("get" in y ? !v.__esModule : y.writable || y.configurable))
-          && (y = {
+          (!y || ("get" in y ? !v.__esModule : y.writable || y.configurable)) &&
+          (y = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return v[c];
             },
           }), Object.defineProperty(f, n, y);
         }
-        : function(f, v, c, n) {
+        : function (f, v, c, n) {
           n === void 0 && (n = c), f[n] = v[c];
         }),
-      x = t && t.__exportStar || function(f, v) {
+      x = t && t.__exportStar || function (f, v) {
         for (var c in f) {
-          c !== "default" && !Object.prototype.hasOwnProperty.call(v, c)
-            && S(v, f, c);
+          c !== "default" && !Object.prototype.hasOwnProperty.call(v, c) &&
+            S(v, f, c);
         }
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
     var o = Me();
     Object.defineProperty(t, "AST_NODE_TYPES", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return o.AST_NODE_TYPES;
       },
     }),
       Object.defineProperty(t, "AST_TOKEN_TYPES", {
         enumerable: !0,
-        get: function() {
+        get: function () {
           return o.AST_TOKEN_TYPES;
         },
       }),
@@ -1324,43 +1340,44 @@ var Or = pe.default ?? pe,
   oe = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(f, v, c, n) {
+        ? function (f, v, c, n) {
           n === void 0 && (n = c);
           var y = Object.getOwnPropertyDescriptor(v, c);
-          (!y || ("get" in y ? !v.__esModule : y.writable || y.configurable))
-          && (y = {
+          (!y || ("get" in y ? !v.__esModule : y.writable || y.configurable)) &&
+          (y = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return v[c];
             },
           }), Object.defineProperty(f, n, y);
         }
-        : function(f, v, c, n) {
+        : function (f, v, c, n) {
           n === void 0 && (n = c), f[n] = v[c];
         }),
-      x = t && t.__exportStar || function(f, v) {
+      x = t && t.__exportStar || function (f, v) {
         for (var c in f) {
-          c !== "default" && !Object.prototype.hasOwnProperty.call(v, c)
-            && S(v, f, c);
+          c !== "default" && !Object.prototype.hasOwnProperty.call(v, c) &&
+            S(v, f, c);
         }
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.TSESTree = t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.TSESTree = t.AST_TOKEN_TYPES = t.AST_NODE_TYPES = void 0;
     var o = Ur();
     Object.defineProperty(t, "AST_NODE_TYPES", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return o.AST_NODE_TYPES;
       },
     }),
       Object.defineProperty(t, "AST_TOKEN_TYPES", {
         enumerable: !0,
-        get: function() {
+        get: function () {
           return o.AST_TOKEN_TYPES;
         },
       }),
       Object.defineProperty(t, "TSESTree", {
         enumerable: !0,
-        get: function() {
+        get: function () {
           return o.TSESTree;
         },
       }),
@@ -1370,34 +1387,34 @@ var Or = pe.default ?? pe,
   ae = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(h, D, j, I) {
+        ? function (h, D, j, I) {
           I === void 0 && (I = j);
           var X = Object.getOwnPropertyDescriptor(D, j);
-          (!X || ("get" in X ? !D.__esModule : X.writable || X.configurable))
-          && (X = {
+          (!X || ("get" in X ? !D.__esModule : X.writable || X.configurable)) &&
+          (X = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return D[j];
             },
           }), Object.defineProperty(h, I, X);
         }
-        : function(h, D, j, I) {
+        : function (h, D, j, I) {
           I === void 0 && (I = j), h[I] = D[j];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(h, D) {
+        ? function (h, D) {
           Object.defineProperty(h, "default", { enumerable: !0, value: D });
         }
-        : function(h, D) {
+        : function (h, D) {
           h.default = D;
         }),
-      o = t && t.__importStar || function(h) {
+      o = t && t.__importStar || function (h) {
         if (h && h.__esModule) return h;
         var D = {};
         if (h != null) {
           for (var j in h) {
-            j !== "default" && Object.prototype.hasOwnProperty.call(h, j)
-              && S(D, h, j);
+            j !== "default" && Object.prototype.hasOwnProperty.call(h, j) &&
+              S(D, h, j);
           }
         }
         return x(D, h), D;
@@ -1483,8 +1500,8 @@ var Or = pe.default ?? pe,
     }
     t.isComma = C;
     function k(h) {
-      return h.kind === s.SingleLineCommentTrivia
-        || h.kind === s.MultiLineCommentTrivia;
+      return h.kind === s.SingleLineCommentTrivia ||
+        h.kind === s.MultiLineCommentTrivia;
     }
     t.isComment = k;
     function A(h) {
@@ -1630,8 +1647,8 @@ var Or = pe.default ?? pe,
           : n.AST_TOKEN_TYPES.Keyword;
       }
       if (h.kind >= s.FirstKeyword && h.kind <= s.LastFutureReservedWord) {
-        return h.kind === s.FalseKeyword
-            || h.kind === s.TrueKeyword
+        return h.kind === s.FalseKeyword ||
+            h.kind === s.TrueKeyword
           ? n.AST_TOKEN_TYPES.Boolean
           : n.AST_TOKEN_TYPES.Keyword;
       }
@@ -1647,9 +1664,9 @@ var Or = pe.default ?? pe,
         case s.JsxText:
           return n.AST_TOKEN_TYPES.JSXText;
         case s.StringLiteral:
-          return h.parent
-              && (h.parent.kind === s.JsxAttribute
-                || h.parent.kind === s.JsxElement)
+          return h.parent &&
+              (h.parent.kind === s.JsxAttribute ||
+                h.parent.kind === s.JsxElement)
             ? n.AST_TOKEN_TYPES.JSXText
             : n.AST_TOKEN_TYPES.String;
         case s.RegularExpressionLiteral:
@@ -1660,8 +1677,8 @@ var Or = pe.default ?? pe,
         case s.SetKeyword:
         default:
       }
-      return h.parent && h.kind === s.Identifier
-          && (_(h.parent) || h.parent.kind === s.PropertyAccessExpression && J(h))
+      return h.parent && h.kind === s.Identifier &&
+          (_(h.parent) || h.parent.kind === s.PropertyAccessExpression && J(h))
         ? n.AST_TOKEN_TYPES.JSXIdentifier
         : n.AST_TOKEN_TYPES.Identifier;
     }
@@ -1732,8 +1749,8 @@ var Or = pe.default ?? pe,
     }
     t.firstDefined = Pe;
     function be(h) {
-      return (r ? f.identifierToKeywordKind(h) : h.originalKeywordKind)
-        === s.ThisKeyword;
+      return (r ? f.identifierToKeywordKind(h) : h.originalKeywordKind) ===
+        s.ThisKeyword;
     }
     t.identifierIsThisKeyword = be;
     function Ne(h) {
@@ -1750,39 +1767,40 @@ var Or = pe.default ?? pe,
   ke = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(e, a, l, u) {
+        ? function (e, a, l, u) {
           u === void 0 && (u = l);
           var T = Object.getOwnPropertyDescriptor(a, l);
-          (!T || ("get" in T ? !a.__esModule : T.writable || T.configurable))
-          && (T = {
+          (!T || ("get" in T ? !a.__esModule : T.writable || T.configurable)) &&
+          (T = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return a[l];
             },
           }), Object.defineProperty(e, u, T);
         }
-        : function(e, a, l, u) {
+        : function (e, a, l, u) {
           u === void 0 && (u = l), e[u] = a[l];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(e, a) {
+        ? function (e, a) {
           Object.defineProperty(e, "default", { enumerable: !0, value: a });
         }
-        : function(e, a) {
+        : function (e, a) {
           e.default = a;
         }),
-      o = t && t.__importStar || function(e) {
+      o = t && t.__importStar || function (e) {
         if (e && e.__esModule) return e;
         var a = {};
         if (e != null) {
           for (var l in e) {
-            l !== "default" && Object.prototype.hasOwnProperty.call(e, l)
-              && S(a, e, l);
+            l !== "default" && Object.prototype.hasOwnProperty.call(e, l) &&
+              S(a, e, l);
           }
         }
         return x(a, e), a;
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.Converter = t.convertError = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.Converter = t.convertError = void 0;
     var f = o($), v = ve(), c = ae(), n = oe(), y = ie(), r = f.SyntaxKind;
     function s(e) {
       return (0, c.createError)(
@@ -1813,9 +1831,13 @@ var Or = pe.default ?? pe,
       converter(e, a, l, u) {
         if (!e) return null;
         let T = this.inTypeMode, b = this.allowPattern;
-        l !== void 0 && (this.inTypeMode = l), u !== void 0 && (this.allowPattern = u);
+        l !== void 0 && (this.inTypeMode = l),
+          u !== void 0 && (this.allowPattern = u);
         let C = this.convertNode(e, a ?? e.parent);
-        return this.registerTSNodeInNodeMap(e, C), this.inTypeMode = T, this.allowPattern = b, C;
+        return this.registerTSNodeInNodeMap(e, C),
+          this.inTypeMode = T,
+          this.allowPattern = b,
+          C;
       }
       fixExports(e, a) {
         let l = (0, v.getModifiers)(e);
@@ -1828,7 +1850,9 @@ var Or = pe.default ?? pe,
               ? (0, c.findNextToken)(T, this.ast, this.ast)
               : (0, c.findNextToken)(u, this.ast, this.ast);
           if (
-            a.range[0] = C.getStart(this.ast), a.loc = (0, c.getLocFor)(a.range[0], a.range[1], this.ast), b
+            a.range[0] = C.getStart(this.ast),
+              a.loc = (0, c.getLocFor)(a.range[0], a.range[1], this.ast),
+              b
           ) {
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.ExportDefaultDeclaration,
@@ -1838,8 +1862,8 @@ var Or = pe.default ?? pe,
             });
           }
           {
-            let k = a.type === n.AST_NODE_TYPES.TSInterfaceDeclaration
-                || a.type === n.AST_NODE_TYPES.TSTypeAliasDeclaration,
+            let k = a.type === n.AST_NODE_TYPES.TSInterfaceDeclaration ||
+                a.type === n.AST_NODE_TYPES.TSTypeAliasDeclaration,
               A = "declare" in a && a.declare === !0;
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.ExportNamedDeclaration,
@@ -1855,9 +1879,9 @@ var Or = pe.default ?? pe,
         return a;
       }
       registerTSNodeInNodeMap(e, a) {
-        a && this.options.shouldPreserveNodeMaps
-          && (this.tsNodeToESTreeNodeMap.has(e)
-            || this.tsNodeToESTreeNodeMap.set(e, a));
+        a && this.options.shouldPreserveNodeMaps &&
+          (this.tsNodeToESTreeNodeMap.has(e) ||
+            this.tsNodeToESTreeNodeMap.set(e, a));
       }
       convertPattern(e, a) {
         return this.converter(e, a, this.inTypeMode, !0);
@@ -1872,14 +1896,15 @@ var Or = pe.default ?? pe,
         let l = a;
         return l.range || (l.range = (0, c.getRange)(e, this.ast)),
           l.loc || (l.loc = (0, c.getLocFor)(l.range[0], l.range[1], this.ast)),
-          l && this.options.shouldPreserveNodeMaps
-          && this.esTreeNodeToTSNodeMap.set(l, e),
+          l && this.options.shouldPreserveNodeMaps &&
+          this.esTreeNodeToTSNodeMap.set(l, e),
           l;
       }
       convertBindingNameWithTypeAnnotation(e, a, l) {
         let u = this.convertPattern(e);
-        return a
-          && (u.typeAnnotation = this.convertTypeAnnotation(a, l), this.fixParentLocation(u, u.typeAnnotation.range)),
+        return a &&
+          (u.typeAnnotation = this.convertTypeAnnotation(a, l),
+            this.fixParentLocation(u, u.typeAnnotation.range)),
           u;
       }
       convertTypeAnnotation(e, a) {
@@ -1901,8 +1926,8 @@ var Or = pe.default ?? pe,
           let T = this.convertChild(u);
           if (l) {
             if (
-              T?.expression && f.isExpressionStatement(u)
-              && f.isStringLiteral(u.expression)
+              T?.expression && f.isExpressionStatement(u) &&
+              f.isStringLiteral(u.expression)
             ) {
               let b = T.expression.raw;
               return T.directive = b.slice(1, -1), T;
@@ -1932,8 +1957,8 @@ var Or = pe.default ?? pe,
         return e?.length
           ? e.map((a) => {
             let l = this.convertChild(a), u = (0, v.getDecorators)(a);
-            return u?.length
-              && (l.decorators = u.map((T) => this.convertChild(T))),
+            return u?.length &&
+              (l.decorators = u.map((T) => this.convertChild(T))),
               l;
           })
           : [];
@@ -1975,22 +2000,24 @@ var Or = pe.default ?? pe,
           throw new Error(`Unknown AST_NODE_TYPE: "${a}"`);
         }
         let l = this.createNode(e, { type: a });
-        "type" in e
-        && (l.typeAnnotation = e.type && "kind" in e.type && f.isTypeNode(e.type)
+        "type" in e &&
+        (l.typeAnnotation = e.type && "kind" in e.type && f.isTypeNode(e.type)
           ? this.convertTypeAnnotation(e.type, e)
           : null),
-          "typeArguments" in e
-          && (l.typeParameters = e.typeArguments && "pos" in e.typeArguments
+          "typeArguments" in e &&
+          (l.typeParameters = e.typeArguments && "pos" in e.typeArguments
             ? this.convertTypeArgumentsToTypeParameters(e.typeArguments, e)
             : null),
-          "typeParameters" in e
-          && (l.typeParameters = e.typeParameters && "pos" in e.typeParameters
+          "typeParameters" in e &&
+          (l.typeParameters = e.typeParameters && "pos" in e.typeParameters
             ? this.convertTSTypeParametersToTypeParametersDeclaration(
               e.typeParameters,
             )
             : null);
         let u = (0, v.getDecorators)(e);
-        u?.length && (l.decorators = u.map((b) => this.convertChild(b)));
+        u?.length && (l.decorators = u.map((b) =>
+          this.convertChild(b)
+        ));
         let T = new Set([
           "_children",
           "decorators",
@@ -2095,8 +2122,8 @@ var Or = pe.default ?? pe,
         (0, c.isOptional)(e) && (a.optional = !0),
           e.type && (a.returnType = this.convertTypeAnnotation(e.type, e)),
           (0, c.hasModifier)(r.ReadonlyKeyword, e) && (a.readonly = !0),
-          e.typeParameters
-          && (a.typeParameters = this
+          e.typeParameters &&
+          (a.typeParameters = this
             .convertTSTypeParametersToTypeParametersDeclaration(
               e.typeParameters,
             ));
@@ -2131,10 +2158,12 @@ var Or = pe.default ?? pe,
         l.length > 0 && (e.modifiers = l);
       }
       fixParentLocation(e, a) {
-        a[0] < e.range[0]
-        && (e.range[0] = a[0], e.loc.start = (0, c.getLineAndCharacterFor)(e.range[0], this.ast)),
-          a[1] > e.range[1]
-          && (e.range[1] = a[1], e.loc.end = (0, c.getLineAndCharacterFor)(e.range[1], this.ast));
+        a[0] < e.range[0] &&
+        (e.range[0] = a[0],
+          e.loc.start = (0, c.getLineAndCharacterFor)(e.range[0], this.ast)),
+          a[1] > e.range[1] &&
+          (e.range[1] = a[1],
+            e.loc.end = (0, c.getLineAndCharacterFor)(e.range[1], this.ast));
       }
       assertModuleSpecifier(e, a) {
         var l;
@@ -2289,7 +2318,8 @@ var Or = pe.default ?? pe,
               left: this.convertPattern(e.initializer),
               right: this.convertChild(e.expression),
               body: this.convertChild(e.statement),
-              await: !!(e.awaitModifier && e.awaitModifier.kind === r.AwaitKeyword),
+              await:
+                !!(e.awaitModifier && e.awaitModifier.kind === r.AwaitKeyword),
             });
           case r.FunctionDeclaration: {
             let i = (0, c.hasModifier)(r.DeclareKeyword, e),
@@ -2304,10 +2334,10 @@ var Or = pe.default ?? pe,
                 params: this.convertParameters(e.parameters),
                 body: this.convertChild(e.body) || void 0,
               });
-            return e.type
-              && (m.returnType = this.convertTypeAnnotation(e.type, e)),
-              e.typeParameters
-              && (m.typeParameters = this
+            return e.type &&
+              (m.returnType = this.convertTypeAnnotation(e.type, e)),
+              e.typeParameters &&
+              (m.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )),
@@ -2325,10 +2355,13 @@ var Or = pe.default ?? pe,
           case r.VariableStatement: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.VariableDeclaration,
-              declarations: e.declarationList.declarations.map((m) => this.convertChild(m)),
+              declarations: e.declarationList.declarations.map((m) =>
+                this.convertChild(m)
+              ),
               kind: (0, c.getDeclarationKind)(e.declarationList),
             });
-            return (0, c.hasModifier)(r.DeclareKeyword, e) && (i.declare = !0), this.fixExports(e, i);
+            return (0, c.hasModifier)(r.DeclareKeyword, e) && (i.declare = !0),
+              this.fixExports(e, i);
           }
           case r.VariableDeclarationList:
             return this.createNode(e, {
@@ -2427,26 +2460,28 @@ var Or = pe.default ?? pe,
                 declare: (0, c.hasModifier)(r.DeclareKeyword, e),
                 override: (0, c.hasModifier)(r.OverrideKeyword, e),
               });
-            e.type
-              && (_.typeAnnotation = this.convertTypeAnnotation(e.type, e));
+            e.type &&
+              (_.typeAnnotation = this.convertTypeAnnotation(e.type, e));
             let P = (0, v.getDecorators)(e);
-            P && (_.decorators = P.map((M) => this.convertChild(M)));
+            P && (_.decorators = P.map((M) =>
+              this.convertChild(M)
+            ));
             let N = (0, c.getTSNodeAccessibility)(e);
             return N && (_.accessibility = N),
-              (e.name.kind === r.Identifier
-                || e.name.kind === r.ComputedPropertyName
-                || e.name.kind === r.PrivateIdentifier)
-              && e.questionToken && (_.optional = !0),
+              (e.name.kind === r.Identifier ||
+                e.name.kind === r.ComputedPropertyName ||
+                e.name.kind === r.PrivateIdentifier) &&
+              e.questionToken && (_.optional = !0),
               e.exclamationToken && (_.definite = !0),
-              _.key.type === n.AST_NODE_TYPES.Literal && e.questionToken
-              && (_.optional = !0),
+              _.key.type === n.AST_NODE_TYPES.Literal && e.questionToken &&
+              (_.optional = !0),
               _;
           }
           case r.GetAccessor:
           case r.SetAccessor:
             if (
-              e.parent.kind === r.InterfaceDeclaration
-              || e.parent.kind === r.TypeLiteral
+              e.parent.kind === r.InterfaceDeclaration ||
+              e.parent.kind === r.TypeLiteral
             ) {
               return this.convertMethodSignature(e);
             }
@@ -2464,8 +2499,8 @@ var Or = pe.default ?? pe,
               params: [],
             });
             e.type && (i.returnType = this.convertTypeAnnotation(e.type, e)),
-              e.typeParameters
-              && (i.typeParameters = this
+              e.typeParameters &&
+              (i.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 ),
@@ -2506,16 +2541,16 @@ var Or = pe.default ?? pe,
                 ? m.kind = "get"
                 : e.kind === r.SetAccessor
                 ? m.kind = "set"
-                : !m.static && e.name.kind === r.StringLiteral
-                  && e.name.text === "constructor"
-                  && m.type !== n.AST_NODE_TYPES.Property
-                  && (m.kind = "constructor"),
+                : !m.static && e.name.kind === r.StringLiteral &&
+                  e.name.text === "constructor" &&
+                  m.type !== n.AST_NODE_TYPES.Property &&
+                  (m.kind = "constructor"),
               m;
           }
           case r.Constructor: {
             let i = (0, c.getLastModifier)(e),
-              m = i && (0, c.findNextToken)(i, e, this.ast)
-                || e.getFirstToken(),
+              m = i && (0, c.findNextToken)(i, e, this.ast) ||
+                e.getFirstToken(),
               g = this.createNode(e, {
                 type: e.body
                   ? n.AST_NODE_TYPES.FunctionExpression
@@ -2528,8 +2563,8 @@ var Or = pe.default ?? pe,
                 body: this.convertChild(e.body),
                 range: [e.parameters.pos - 1, e.end],
               });
-            e.typeParameters
-            && (g.typeParameters = this
+            e.typeParameters &&
+            (g.typeParameters = this
               .convertTSTypeParametersToTypeParametersDeclaration(
                 e.typeParameters,
               ),
@@ -2565,10 +2600,10 @@ var Or = pe.default ?? pe,
               async: (0, c.hasModifier)(r.AsyncKeyword, e),
               expression: !1,
             });
-            return e.type
-              && (i.returnType = this.convertTypeAnnotation(e.type, e)),
-              e.typeParameters
-              && (i.typeParameters = this
+            return e.type &&
+              (i.returnType = this.convertTypeAnnotation(e.type, e)),
+              e.typeParameters &&
+              (i.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )),
@@ -2618,14 +2653,14 @@ var Or = pe.default ?? pe,
                     (u = e.propertyName) !== null && u !== void 0 ? u : e.name,
                   ),
                   value: this.convertChild(e.name),
-                  computed: !!(e.propertyName
-                    && e.propertyName.kind === r.ComputedPropertyName),
+                  computed: !!(e.propertyName &&
+                    e.propertyName.kind === r.ComputedPropertyName),
                   method: !1,
                   shorthand: !e.propertyName,
                   kind: "init",
                 }),
-                e.initializer
-                && (i.value = this.createNode(e, {
+                e.initializer &&
+                (i.value = this.createNode(e, {
                   type: n.AST_NODE_TYPES.AssignmentPattern,
                   left: this.convertChild(e.name),
                   right: this.convertChild(e.initializer),
@@ -2643,10 +2678,10 @@ var Or = pe.default ?? pe,
               async: (0, c.hasModifier)(r.AsyncKeyword, e),
               expression: e.body.kind !== r.Block,
             });
-            return e.type
-              && (i.returnType = this.convertTypeAnnotation(e.type, e)),
-              e.typeParameters
-              && (i.typeParameters = this
+            return e.type &&
+              (i.returnType = this.convertTypeAnnotation(e.type, e)),
+              e.typeParameters &&
+              (i.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )),
@@ -2688,7 +2723,8 @@ var Or = pe.default ?? pe,
               expressions: [],
             });
             return e.templateSpans.forEach((m) => {
-              i.expressions.push(this.convertChild(m.expression)), i.quasis.push(this.convertChild(m.literal));
+              i.expressions.push(this.convertChild(m.expression)),
+                i.quasis.push(this.convertChild(m.literal));
             }),
               i;
           }
@@ -2742,15 +2778,16 @@ var Or = pe.default ?? pe,
                   left: i,
                   right: this.convertChild(e.initializer),
                 }),
-                (0, v.getModifiers)(e)
-                && (m.range[0] = i.range[0], m.loc = (0, c.getLocFor)(m.range[0], m.range[1], this.ast)))
+                (0, v.getModifiers)(e) &&
+                (m.range[0] = i.range[0],
+                  m.loc = (0, c.getLocFor)(m.range[0], m.range[1], this.ast)))
               : i = m = this.convertChild(e.name, a),
-              e.type
-              && (i.typeAnnotation = this.convertTypeAnnotation(e.type, e),
+              e.type &&
+              (i.typeAnnotation = this.convertTypeAnnotation(e.type, e),
                 this.fixParentLocation(i, i.typeAnnotation.range)),
-              e.questionToken
-              && (e.questionToken.end > i.range[1]
-                && (i.range[1] = e.questionToken.end,
+              e.questionToken &&
+              (e.questionToken.end > i.range[1] &&
+                (i.range[1] = e.questionToken.end,
                   i.loc.end = (0, c.getLineAndCharacterFor)(
                     i.range[1],
                     this.ast,
@@ -2759,10 +2796,11 @@ var Or = pe.default ?? pe,
               (0, v.getModifiers)(e)
                 ? this.createNode(e, {
                   type: n.AST_NODE_TYPES.TSParameterProperty,
-                  accessibility: (T = (0, c.getTSNodeAccessibility)(e)) !== null
-                      && T !== void 0
-                    ? T
-                    : void 0,
+                  accessibility:
+                    (T = (0, c.getTSNodeAccessibility)(e)) !== null &&
+                      T !== void 0
+                      ? T
+                      : void 0,
                   readonly: (0, c.hasModifier)(r.ReadonlyKeyword, e) || void 0,
                   static: (0, c.hasModifier)(r.StaticKeyword, e) || void 0,
                   export: (0, c.hasModifier)(r.ExportKeyword, e) || void 0,
@@ -2799,15 +2837,15 @@ var Or = pe.default ?? pe,
                   "Classes can only extend a single class.",
                 );
               }
-              !((C = g.types[0]) === null || C === void 0) && C.typeArguments
-                && (P.superTypeParameters = this
+              !((C = g.types[0]) === null || C === void 0) && C.typeArguments &&
+                (P.superTypeParameters = this
                   .convertTypeArgumentsToTypeParameters(
                     g.types[0].typeArguments,
                     g.types[0],
                   ));
             }
-            e.typeParameters
-            && (P.typeParameters = this
+            e.typeParameters &&
+            (P.typeParameters = this
               .convertTSTypeParametersToTypeParametersDeclaration(
                 e.typeParameters,
               )),
@@ -2817,8 +2855,8 @@ var Or = pe.default ?? pe,
             let N = (0, v.getDecorators)(e);
             N && (P.decorators = N.map((K) => this.convertChild(K)));
             let M = e.members.filter(c.isESTreeClassMember);
-            return M.length
-              && (P.body.body = M.map((K) => this.convertChild(K))),
+            return M.length &&
+              (P.body.body = M.map((K) => this.convertChild(K))),
               this.fixExports(e, P);
           }
           case r.ModuleBlock:
@@ -2836,10 +2874,10 @@ var Or = pe.default ?? pe,
               assertions: this.convertAssertClasue(e.assertClause),
             });
             if (
-              e.importClause
-              && (e.importClause.isTypeOnly && (i.importKind = "type"),
-                e.importClause.name
-                && i.specifiers.push(this.convertChild(e.importClause)),
+              e.importClause &&
+              (e.importClause.isTypeOnly && (i.importKind = "type"),
+                e.importClause.name &&
+                i.specifiers.push(this.convertChild(e.importClause)),
                 e.importClause.namedBindings)
             ) {
               switch (e.importClause.namedBindings.kind) {
@@ -2850,7 +2888,9 @@ var Or = pe.default ?? pe,
                   break;
                 case r.NamedImports:
                   i.specifiers = i.specifiers.concat(
-                    e.importClause.namedBindings.elements.map((m) => this.convertChild(m)),
+                    e.importClause.namedBindings.elements.map((m) =>
+                      this.convertChild(m)
+                    ),
                   );
                   break;
               }
@@ -2887,7 +2927,9 @@ var Or = pe.default ?? pe,
                 this.createNode(e, {
                   type: n.AST_NODE_TYPES.ExportNamedDeclaration,
                   source: this.convertChild(e.moduleSpecifier),
-                  specifiers: e.exportClause.elements.map((i) => this.convertChild(i)),
+                  specifiers: e.exportClause.elements.map((i) =>
+                    this.convertChild(i)
+                  ),
                   exportKind: e.isTypeOnly ? "type" : "value",
                   declaration: null,
                   assertions: this.convertAssertClasue(e.assertClause),
@@ -2897,9 +2939,10 @@ var Or = pe.default ?? pe,
                   type: n.AST_NODE_TYPES.ExportAllDeclaration,
                   source: this.convertChild(e.moduleSpecifier),
                   exportKind: e.isTypeOnly ? "type" : "value",
-                  exported: e.exportClause && e.exportClause.kind === r.NamespaceExport
-                    ? this.convertChild(e.exportClause.name)
-                    : null,
+                  exported:
+                    e.exportClause && e.exportClause.kind === r.NamespaceExport
+                      ? this.convertChild(e.exportClause.name)
+                      : null,
                   assertions: this.convertAssertClasue(e.assertClause),
                 }));
           case r.ExportSpecifier:
@@ -2973,16 +3016,16 @@ var Or = pe.default ?? pe,
                   expressions: [],
                 }),
                 m = this.convertChild(e.left);
-              return m.type === n.AST_NODE_TYPES.SequenceExpression
-                  && e.left.kind !== r.ParenthesizedExpression
+              return m.type === n.AST_NODE_TYPES.SequenceExpression &&
+                  e.left.kind !== r.ParenthesizedExpression
                 ? i.expressions = i.expressions.concat(m.expressions)
                 : i.expressions.push(m),
                 i.expressions.push(this.convertChild(e.right)),
                 i;
             } else {
               let i = (0, c.getBinaryExpressionType)(e.operatorToken);
-              return this.allowPattern
-                  && i === n.AST_NODE_TYPES.AssignmentExpression
+              return this.allowPattern &&
+                  i === n.AST_NODE_TYPES.AssignmentExpression
                 ? this.createNode(e, {
                   type: n.AST_NODE_TYPES.AssignmentPattern,
                   left: this.convertPattern(e.left, e),
@@ -3051,8 +3094,8 @@ var Or = pe.default ?? pe,
                 arguments: m,
                 optional: e.questionDotToken !== void 0,
               });
-            return e.typeArguments
-              && (g.typeParameters = this.convertTypeArgumentsToTypeParameters(
+            return e.typeArguments &&
+              (g.typeParameters = this.convertTypeArgumentsToTypeParameters(
                 e.typeArguments,
                 e,
               )),
@@ -3066,8 +3109,8 @@ var Or = pe.default ?? pe,
                 ? e.arguments.map((m) => this.convertChild(m))
                 : [],
             });
-            return e.typeArguments
-              && (i.typeParameters = this.convertTypeArgumentsToTypeParameters(
+            return e.typeArguments &&
+              (i.typeParameters = this.convertTypeArgumentsToTypeParameters(
                 e.typeArguments,
                 e,
               )),
@@ -3192,7 +3235,9 @@ var Or = pe.default ?? pe,
                   : void 0,
                 selfClosing: !0,
                 name: this.convertJSXTagName(e.tagName, e),
-                attributes: e.attributes.properties.map((i) => this.convertChild(i)),
+                attributes: e.attributes.properties.map((i) =>
+                  this.convertChild(i)
+                ),
                 range: (0, c.getRange)(e, this.ast),
               }),
               closingElement: null,
@@ -3206,7 +3251,9 @@ var Or = pe.default ?? pe,
                 : void 0,
               selfClosing: !1,
               name: this.convertJSXTagName(e.tagName, e),
-              attributes: e.attributes.properties.map((i) => this.convertChild(i)),
+              attributes: e.attributes.properties.map((i) =>
+                this.convertChild(i)
+              ),
             });
           case r.JsxClosingElement:
             return this.createNode(e, {
@@ -3338,19 +3385,20 @@ var Or = pe.default ?? pe,
             return this.createNode(e, {
               type: n.AST_NODE_TYPES.TSTypeQuery,
               exprName: this.convertType(e.exprName),
-              typeParameters: e.typeArguments
-                && this.convertTypeArgumentsToTypeParameters(e.typeArguments, e),
+              typeParameters: e.typeArguments &&
+                this.convertTypeArgumentsToTypeParameters(e.typeArguments, e),
             });
           case r.MappedType: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSMappedType,
               typeParameter: this.convertType(e.typeParameter),
-              nameType: (d = this.convertType(e.nameType)) !== null && d !== void 0
-                ? d
-                : null,
+              nameType:
+                (d = this.convertType(e.nameType)) !== null && d !== void 0
+                  ? d
+                  : null,
             });
-            return e.readonlyToken
-              && (e.readonlyToken.kind === r.ReadonlyKeyword
+            return e.readonlyToken &&
+              (e.readonlyToken.kind === r.ReadonlyKeyword
                 ? i.readonly = !0
                 : i.readonly = (0, c.getTextForTokenKind)(
                   e.readonlyToken.kind,
@@ -3372,8 +3420,8 @@ var Or = pe.default ?? pe,
               typeAnnotation: this.convertType(e.type),
             });
             return (0, c.hasModifier)(r.DeclareKeyword, e) && (i.declare = !0),
-              e.typeParameters
-              && (i.typeParameters = this
+              e.typeParameters &&
+              (i.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )),
@@ -3403,8 +3451,8 @@ var Or = pe.default ?? pe,
               type: n.AST_NODE_TYPES.TSIndexSignature,
               parameters: e.parameters.map((g) => this.convertChild(g)),
             });
-            e.type
-            && (i.typeAnnotation = this.convertTypeAnnotation(e.type, e)),
+            e.type &&
+            (i.typeAnnotation = this.convertTypeAnnotation(e.type, e)),
               (0, c.hasModifier)(r.ReadonlyKeyword, e) && (i.readonly = !0);
             let m = (0, c.getTSNodeAccessibility)(e);
             return m && (i.accessibility = m),
@@ -3418,10 +3466,10 @@ var Or = pe.default ?? pe,
               params: this.convertParameters(e.parameters),
               abstract: (0, c.hasModifier)(r.AbstractKeyword, e),
             });
-            return e.type
-              && (i.returnType = this.convertTypeAnnotation(e.type, e)),
-              e.typeParameters
-              && (i.typeParameters = this
+            return e.type &&
+              (i.returnType = this.convertTypeAnnotation(e.type, e)),
+              e.typeParameters &&
+              (i.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )),
@@ -3439,10 +3487,10 @@ var Or = pe.default ?? pe,
                 type: i,
                 params: this.convertParameters(e.parameters),
               });
-            return e.type
-              && (m.returnType = this.convertTypeAnnotation(e.type, e)),
-              e.typeParameters
-              && (m.typeParameters = this
+            return e.type &&
+              (m.returnType = this.convertTypeAnnotation(e.type, e)),
+              e.typeParameters &&
+              (m.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )),
@@ -3459,8 +3507,8 @@ var Or = pe.default ?? pe,
                 type: m,
                 expression: this.convertChild(e.expression),
               });
-            return e.typeArguments
-              && (g.typeParameters = this.convertTypeArgumentsToTypeParameters(
+            return e.typeArguments &&
+              (g.typeParameters = this.convertTypeArgumentsToTypeParameters(
                 e.typeArguments,
                 e,
               )),
@@ -3478,8 +3526,8 @@ var Or = pe.default ?? pe,
                 id: this.convertChild(e.name),
               });
             if (
-              e.typeParameters
-              && (m.typeParameters = this
+              e.typeParameters &&
+              (m.typeParameters = this
                 .convertTSTypeParametersToTypeParametersDeclaration(
                   e.typeParameters,
                 )), i.length > 0
@@ -3492,8 +3540,8 @@ var Or = pe.default ?? pe,
               }
               g.length && (m.extends = g), _.length && (m.implements = _);
             }
-            return (0, c.hasModifier)(r.AbstractKeyword, e)
-              && (m.abstract = !0),
+            return (0, c.hasModifier)(r.AbstractKeyword, e) &&
+              (m.abstract = !0),
               (0, c.hasModifier)(r.DeclareKeyword, e) && (m.declare = !0),
               this.fixExports(e, m);
           }
@@ -3504,8 +3552,8 @@ var Or = pe.default ?? pe,
               parameterName: this.convertChild(e.parameterName),
               typeAnnotation: null,
             });
-            return e.type
-              && (i.typeAnnotation = this.convertTypeAnnotation(e.type, e),
+            return e.type &&
+              (i.typeAnnotation = this.convertTypeAnnotation(e.type, e),
                 i.typeAnnotation.loc = i.typeAnnotation.typeAnnotation.loc,
                 i.typeAnnotation.range = i.typeAnnotation.typeAnnotation.range),
               i;
@@ -3526,17 +3574,18 @@ var Or = pe.default ?? pe,
               id: this.convertChild(e.name),
               members: e.members.map((m) => this.convertChild(m)),
             });
-            return this.applyModifiersToResult(i, (0, v.getModifiers)(e)), this.fixExports(e, i);
+            return this.applyModifiersToResult(i, (0, v.getModifiers)(e)),
+              this.fixExports(e, i);
           }
           case r.EnumMember: {
             let i = this.createNode(e, {
               type: n.AST_NODE_TYPES.TSEnumMember,
               id: this.convertChild(e.name),
             });
-            return e.initializer
-              && (i.initializer = this.convertChild(e.initializer)),
-              e.name.kind === f.SyntaxKind.ComputedPropertyName
-              && (i.computed = !0),
+            return e.initializer &&
+              (i.initializer = this.convertChild(e.initializer)),
+              e.name.kind === f.SyntaxKind.ComputedPropertyName &&
+              (i.computed = !0),
               i;
           }
           case r.ModuleDeclaration: {
@@ -3549,8 +3598,8 @@ var Or = pe.default ?? pe,
                     g = this.convertChild(e.body);
                   if (e.flags & f.NodeFlags.GlobalAugmentation) {
                     if (
-                      g == null
-                      || g.type === n.AST_NODE_TYPES.TSModuleDeclaration
+                      g == null ||
+                      g.type === n.AST_NODE_TYPES.TSModuleDeclaration
                     ) {
                       throw new Error(
                         "Expected a valid module body",
@@ -3577,7 +3626,8 @@ var Or = pe.default ?? pe,
                 })(),
               ),
             );
-            return this.applyModifiersToResult(i, (0, v.getModifiers)(e)), this.fixExports(e, i);
+            return this.applyModifiersToResult(i, (0, v.getModifiers)(e)),
+              this.fixExports(e, i);
           }
           case r.ParenthesizedType:
             return this.convertType(e.type);
@@ -3603,8 +3653,8 @@ var Or = pe.default ?? pe,
               typeParameter: this.convertType(e.typeParameter),
             });
           case r.LiteralType:
-            return y.typescriptVersionIsAtLeast["4.0"]
-                && e.literal.kind === r.NullKeyword
+            return y.typescriptVersionIsAtLeast["4.0"] &&
+                e.literal.kind === r.NullKeyword
               ? this.createNode(e.literal, {
                 type: n.AST_NODE_TYPES.TSNullKeyword,
               })
@@ -3682,7 +3732,8 @@ var Or = pe.default ?? pe,
               types: [],
             });
             return e.templateSpans.forEach((m) => {
-              i.types.push(this.convertChild(m.type)), i.quasis.push(this.convertChild(m.literal));
+              i.types.push(this.convertChild(m.type)),
+                i.quasis.push(this.convertChild(m.literal));
             }),
               i;
           }
@@ -3713,39 +3764,40 @@ var Or = pe.default ?? pe,
   zr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(r, s, p, e) {
+        ? function (r, s, p, e) {
           e === void 0 && (e = p);
           var a = Object.getOwnPropertyDescriptor(s, p);
-          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable))
-          && (a = {
+          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable)) &&
+          (a = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return s[p];
             },
           }), Object.defineProperty(r, e, a);
         }
-        : function(r, s, p, e) {
+        : function (r, s, p, e) {
           e === void 0 && (e = p), r[e] = s[p];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(r, s) {
+        ? function (r, s) {
           Object.defineProperty(r, "default", { enumerable: !0, value: s });
         }
-        : function(r, s) {
+        : function (r, s) {
           r.default = s;
         }),
-      o = t && t.__importStar || function(r) {
+      o = t && t.__importStar || function (r) {
         if (r && r.__esModule) return r;
         var s = {};
         if (r != null) {
           for (var p in r) {
-            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
-              && S(s, r, p);
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p) &&
+              S(s, r, p);
           }
         }
         return x(s, r), s;
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.convertComments = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.convertComments = void 0;
     var f = Dr, v = o($), c = ae(), n = oe();
     function y(r, s) {
       let p = [];
@@ -3890,39 +3942,40 @@ var Or = pe.default ?? pe,
   Vr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(y, r, s, p) {
+        ? function (y, r, s, p) {
           p === void 0 && (p = s);
           var e = Object.getOwnPropertyDescriptor(r, s);
-          (!e || ("get" in e ? !r.__esModule : e.writable || e.configurable))
-          && (e = {
+          (!e || ("get" in e ? !r.__esModule : e.writable || e.configurable)) &&
+          (e = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return r[s];
             },
           }), Object.defineProperty(y, p, e);
         }
-        : function(y, r, s, p) {
+        : function (y, r, s, p) {
           p === void 0 && (p = s), y[p] = r[s];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(y, r) {
+        ? function (y, r) {
           Object.defineProperty(y, "default", { enumerable: !0, value: r });
         }
-        : function(y, r) {
+        : function (y, r) {
           y.default = r;
         }),
-      o = t && t.__importStar || function(y) {
+      o = t && t.__importStar || function (y) {
         if (y && y.__esModule) return y;
         var r = {};
         if (y != null) {
           for (var s in y) {
-            s !== "default" && Object.prototype.hasOwnProperty.call(y, s)
-              && S(r, y, s);
+            s !== "default" && Object.prototype.hasOwnProperty.call(y, s) &&
+              S(r, y, s);
           }
         }
         return x(r, y), r;
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.visitorKeys = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.visitorKeys = void 0;
     var f = o(Fe()),
       v = (() => {
         let y = ["typeParameters", "params", "returnType"],
@@ -4068,25 +4121,27 @@ var Or = pe.default ?? pe,
   }),
   Ke = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.visitorKeys = t.getKeys = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.visitorKeys = t.getKeys = void 0;
     var S = Hr();
     Object.defineProperty(t, "getKeys", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return S.getKeys;
       },
     });
     var x = Vr();
     Object.defineProperty(t, "visitorKeys", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return x.visitorKeys;
       },
     });
   }),
   Ie = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.simpleTraverse = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.simpleTraverse = void 0;
     var S = Ke();
     function x(c) {
       return c != null && typeof c == "object" && typeof c.type == "string";
@@ -4096,7 +4151,9 @@ var Or = pe.default ?? pe,
     }
     var f = class {
       constructor(c, n = !1) {
-        this.allVisitorKeys = S.visitorKeys, this.selectors = c, this.setParentPointers = n;
+        this.allVisitorKeys = S.visitorKeys,
+          this.selectors = c,
+          this.setParentPointers = n;
       }
       traverse(c, n) {
         if (!x(c)) return;
@@ -4121,7 +4178,8 @@ var Or = pe.default ?? pe,
   }),
   Gr = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.astConverter = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.astConverter = void 0;
     var S = ke(), x = zr(), o = ae(), f = Ie();
     function v(c, n, y) {
       let { parseDiagnostics: r } = c;
@@ -4146,39 +4204,39 @@ var Or = pe.default ?? pe,
   re = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(A, w, d, E) {
+        ? function (A, w, d, E) {
           E === void 0 && (E = d);
           var i = Object.getOwnPropertyDescriptor(w, d);
-          (!i || ("get" in i ? !w.__esModule : i.writable || i.configurable))
-          && (i = {
+          (!i || ("get" in i ? !w.__esModule : i.writable || i.configurable)) &&
+          (i = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return w[d];
             },
           }), Object.defineProperty(A, E, i);
         }
-        : function(A, w, d, E) {
+        : function (A, w, d, E) {
           E === void 0 && (E = d), A[E] = w[d];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(A, w) {
+        ? function (A, w) {
           Object.defineProperty(A, "default", { enumerable: !0, value: w });
         }
-        : function(A, w) {
+        : function (A, w) {
           A.default = w;
         }),
-      o = t && t.__importStar || function(A) {
+      o = t && t.__importStar || function (A) {
         if (A && A.__esModule) return A;
         var w = {};
         if (A != null) {
           for (var d in A) {
-            d !== "default" && Object.prototype.hasOwnProperty.call(A, d)
-              && S(w, A, d);
+            d !== "default" && Object.prototype.hasOwnProperty.call(A, d) &&
+              S(w, A, d);
           }
         }
         return x(w, A), w;
       },
-      f = t && t.__importDefault || function(A) {
+      f = t && t.__importDefault || function (A) {
         return A && A.__esModule ? A : { default: A };
       };
     Object.defineProperty(t, "__esModule", { value: !0 }),
@@ -4263,42 +4321,43 @@ var Or = pe.default ?? pe,
   Qr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(p, e, a, l) {
+        ? function (p, e, a, l) {
           l === void 0 && (l = a);
           var u = Object.getOwnPropertyDescriptor(e, a);
-          (!u || ("get" in u ? !e.__esModule : u.writable || u.configurable))
-          && (u = {
+          (!u || ("get" in u ? !e.__esModule : u.writable || u.configurable)) &&
+          (u = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return e[a];
             },
           }), Object.defineProperty(p, l, u);
         }
-        : function(p, e, a, l) {
+        : function (p, e, a, l) {
           l === void 0 && (l = a), p[l] = e[a];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(p, e) {
+        ? function (p, e) {
           Object.defineProperty(p, "default", { enumerable: !0, value: e });
         }
-        : function(p, e) {
+        : function (p, e) {
           p.default = e;
         }),
-      o = t && t.__importStar || function(p) {
+      o = t && t.__importStar || function (p) {
         if (p && p.__esModule) return p;
         var e = {};
         if (p != null) {
           for (var a in p) {
-            a !== "default" && Object.prototype.hasOwnProperty.call(p, a)
-              && S(e, p, a);
+            a !== "default" && Object.prototype.hasOwnProperty.call(p, a) &&
+              S(e, p, a);
           }
         }
         return x(e, p), e;
       },
-      f = t && t.__importDefault || function(p) {
+      f = t && t.__importDefault || function (p) {
         return p && p.__esModule ? p : { default: p };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.createDefaultProgram = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.createDefaultProgram = void 0;
     var v = f(V),
       c = f(Z),
       n = o($),
@@ -4322,8 +4381,9 @@ var Or = pe.default ?? pe,
         );
       if (!l) return;
       let u = n.createCompilerHost(l.options, !0);
-      p.moduleResolver
-        && (u.resolveModuleNames = (0, y.getModuleResolver)(p.moduleResolver).resolveModuleNames);
+      p.moduleResolver &&
+        (u.resolveModuleNames =
+          (0, y.getModuleResolver)(p.moduleResolver).resolveModuleNames);
       let T = u.readFile;
       u.readFile = (k) =>
         c.default.normalize(k) === c.default.normalize(p.filePath)
@@ -4338,42 +4398,43 @@ var Or = pe.default ?? pe,
   Ee = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(r, s, p, e) {
+        ? function (r, s, p, e) {
           e === void 0 && (e = p);
           var a = Object.getOwnPropertyDescriptor(s, p);
-          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable))
-          && (a = {
+          (!a || ("get" in a ? !s.__esModule : a.writable || a.configurable)) &&
+          (a = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return s[p];
             },
           }), Object.defineProperty(r, e, a);
         }
-        : function(r, s, p, e) {
+        : function (r, s, p, e) {
           e === void 0 && (e = p), r[e] = s[p];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(r, s) {
+        ? function (r, s) {
           Object.defineProperty(r, "default", { enumerable: !0, value: s });
         }
-        : function(r, s) {
+        : function (r, s) {
           r.default = s;
         }),
-      o = t && t.__importStar || function(r) {
+      o = t && t.__importStar || function (r) {
         if (r && r.__esModule) return r;
         var s = {};
         if (r != null) {
           for (var p in r) {
-            p !== "default" && Object.prototype.hasOwnProperty.call(r, p)
-              && S(s, r, p);
+            p !== "default" && Object.prototype.hasOwnProperty.call(r, p) &&
+              S(s, r, p);
           }
         }
         return x(s, r), s;
       },
-      f = t && t.__importDefault || function(r) {
+      f = t && t.__importDefault || function (r) {
         return r && r.__esModule ? r : { default: r };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.getLanguageVariant = t.getScriptKind = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.getLanguageVariant = t.getScriptKind = void 0;
     var v = f(Z), c = o($);
     function n(r, s) {
       switch (v.default.extname(r).toLowerCase()) {
@@ -4412,42 +4473,43 @@ var Or = pe.default ?? pe,
   Zr = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(p, e, a, l) {
+        ? function (p, e, a, l) {
           l === void 0 && (l = a);
           var u = Object.getOwnPropertyDescriptor(e, a);
-          (!u || ("get" in u ? !e.__esModule : u.writable || u.configurable))
-          && (u = {
+          (!u || ("get" in u ? !e.__esModule : u.writable || u.configurable)) &&
+          (u = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return e[a];
             },
           }), Object.defineProperty(p, l, u);
         }
-        : function(p, e, a, l) {
+        : function (p, e, a, l) {
           l === void 0 && (l = a), p[l] = e[a];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(p, e) {
+        ? function (p, e) {
           Object.defineProperty(p, "default", { enumerable: !0, value: e });
         }
-        : function(p, e) {
+        : function (p, e) {
           p.default = e;
         }),
-      o = t && t.__importStar || function(p) {
+      o = t && t.__importStar || function (p) {
         if (p && p.__esModule) return p;
         var e = {};
         if (p != null) {
           for (var a in p) {
-            a !== "default" && Object.prototype.hasOwnProperty.call(p, a)
-              && S(e, p, a);
+            a !== "default" && Object.prototype.hasOwnProperty.call(p, a) &&
+              S(e, p, a);
           }
         }
         return x(e, p), e;
       },
-      f = t && t.__importDefault || function(p) {
+      f = t && t.__importDefault || function (p) {
         return p && p.__esModule ? p : { default: p };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.createIsolatedProgram = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.createIsolatedProgram = void 0;
     var v = f(V),
       c = o($),
       n = Ee(),
@@ -4522,10 +4584,11 @@ var Or = pe.default ?? pe,
   }),
   en = F((t) => {
     "use strict";
-    var S = t && t.__importDefault || function(f) {
+    var S = t && t.__importDefault || function (f) {
       return f && f.__esModule ? f : { default: f };
     };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.describeFilePath = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.describeFilePath = void 0;
     var x = S(Z);
     function o(f, v) {
       let c = x.default.relative(v, f);
@@ -4540,42 +4603,43 @@ var Or = pe.default ?? pe,
   Ye = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(_, P, N, M) {
+        ? function (_, P, N, M) {
           M === void 0 && (M = N);
           var K = Object.getOwnPropertyDescriptor(P, N);
-          (!K || ("get" in K ? !P.__esModule : K.writable || K.configurable))
-          && (K = {
+          (!K || ("get" in K ? !P.__esModule : K.writable || K.configurable)) &&
+          (K = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return P[N];
             },
           }), Object.defineProperty(_, M, K);
         }
-        : function(_, P, N, M) {
+        : function (_, P, N, M) {
           M === void 0 && (M = N), _[M] = P[N];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(_, P) {
+        ? function (_, P) {
           Object.defineProperty(_, "default", { enumerable: !0, value: P });
         }
-        : function(_, P) {
+        : function (_, P) {
           _.default = P;
         }),
-      o = t && t.__importStar || function(_) {
+      o = t && t.__importStar || function (_) {
         if (_ && _.__esModule) return _;
         var P = {};
         if (_ != null) {
           for (var N in _) {
-            N !== "default" && Object.prototype.hasOwnProperty.call(_, N)
-              && S(P, _, N);
+            N !== "default" && Object.prototype.hasOwnProperty.call(_, N) &&
+              S(P, _, N);
           }
         }
         return x(P, _), P;
       },
-      f = t && t.__importDefault || function(_) {
+      f = t && t.__importDefault || function (_) {
         return _ && _.__esModule ? _ : { default: _ };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.getWatchProgramsForProjects = t.clearWatchCaches = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.getWatchProgramsForProjects = t.clearWatchCaches = void 0;
     var v = f(V),
       c = f(ne),
       n = f(fe),
@@ -4617,7 +4681,9 @@ var Or = pe.default ?? pe,
     function w(_, P, N) {
       let M = N.EXPERIMENTAL_useSourceOfProjectReferenceRedirect
         ? new Set(
-          P.getSourceFiles().map((K) => (0, r.getCanonicalFileName)(K.fileName)),
+          P.getSourceFiles().map((K) =>
+            (0, r.getCanonicalFileName)(K.fileName)
+          ),
         )
         : new Set(
           P.getRootFileNames().map((K) => (0, r.getCanonicalFileName)(K)),
@@ -4628,8 +4694,8 @@ var Or = pe.default ?? pe,
       let P = (0, r.getCanonicalFileName)(_.filePath), N = [];
       k.code = _.code, k.filePath = P;
       let M = e.get(P), K = (0, r.createHash)(_.code);
-      T.get(P) !== K && M && M.size > 0
-        && M.forEach((Y) => Y(P, y.FileWatcherEventKind.Changed));
+      T.get(P) !== K && M && M.size > 0 &&
+        M.forEach((Y) => Y(P, y.FileWatcherEventKind.Changed));
       let J = new Set(_.projects);
       for (let [Y, B] of p.entries()) {
         if (!J.has(Y)) continue;
@@ -4682,8 +4748,9 @@ var Or = pe.default ?? pe,
         A,
         () => {},
       );
-      P.moduleResolver
-        && (N.resolveModuleNames = (0, r.getModuleResolver)(P.moduleResolver).resolveModuleNames);
+      P.moduleResolver &&
+        (N.resolveModuleNames =
+          (0, r.getModuleResolver)(P.moduleResolver).resolveModuleNames);
       let M = N.readFile;
       N.readFile = (B, q) => {
         let R = (0, r.getCanonicalFileName)(B),
@@ -4702,7 +4769,8 @@ var Or = pe.default ?? pe,
       let K = N.onCachedDirectoryStructureHostCreate;
       N.onCachedDirectoryStructureHostCreate = (B) => {
         let q = B.readDirectory;
-        B.readDirectory = (R, U, z, ee, se) => q(R, U ? U.concat(P.extraFileExtensions) : void 0, z, ee, se), K(B);
+        B.readDirectory = (R, U, z, ee, se) =>
+          q(R, U ? U.concat(P.extraFileExtensions) : void 0, z, ee, se), K(B);
       },
         N.extraFileExtensions = P.extraFileExtensions.map((B) => ({
           extension: B,
@@ -4710,7 +4778,8 @@ var Or = pe.default ?? pe,
           scriptKind: y.ScriptKind.Deferred,
         })),
         N.trace = s,
-        N.useSourceOfProjectReferenceRedirect = () => P.EXPERIMENTAL_useSourceOfProjectReferenceRedirect;
+        N.useSourceOfProjectReferenceRedirect = () =>
+          P.EXPERIMENTAL_useSourceOfProjectReferenceRedirect;
       let J;
       E
         ? (N.setTimeout = void 0, N.clearTimeout = void 0)
@@ -4733,8 +4802,8 @@ var Or = pe.default ?? pe,
     function g(_, P, N) {
       let M = _.getProgram().getProgram();
       if (W.env.TSESTREE_NO_INVALIDATION === "true") return M;
-      m(N)
-        && (s("tsconfig has changed - triggering program update. %s", N),
+      m(N) &&
+        (s("tsconfig has changed - triggering program update. %s", N),
           e.get(N).forEach((z) => z(N, y.FileWatcherEventKind.Changed)),
           l.delete(N));
       let K = M.getSourceFile(P);
@@ -4745,12 +4814,14 @@ var Or = pe.default ?? pe,
         Y = B;
         let z = a.get(Y);
         z && (z.forEach((ee) => {
-          J !== Y && ee(J, y.FileWatcherEventKind.Changed), ee(Y, y.FileWatcherEventKind.Changed);
+          J !== Y && ee(J, y.FileWatcherEventKind.Changed),
+            ee(Y, y.FileWatcherEventKind.Changed);
         }),
           q = !0), B = (0, r.canonicalDirname)(Y);
       }
       if (!q) {
-        return s("No callback found for file, not part of this program. %s", P), null;
+        return s("No callback found for file, not part of this program. %s", P),
+          null;
       }
       if (
         l.delete(N), M = _.getProgram().getProgram(), K = M.getSourceFile(P), K
@@ -4779,42 +4850,43 @@ var Or = pe.default ?? pe,
   tn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(u, T, b, C) {
+        ? function (u, T, b, C) {
           C === void 0 && (C = b);
           var k = Object.getOwnPropertyDescriptor(T, b);
-          (!k || ("get" in k ? !T.__esModule : k.writable || k.configurable))
-          && (k = {
+          (!k || ("get" in k ? !T.__esModule : k.writable || k.configurable)) &&
+          (k = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return T[b];
             },
           }), Object.defineProperty(u, C, k);
         }
-        : function(u, T, b, C) {
+        : function (u, T, b, C) {
           C === void 0 && (C = b), u[C] = T[b];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(u, T) {
+        ? function (u, T) {
           Object.defineProperty(u, "default", { enumerable: !0, value: T });
         }
-        : function(u, T) {
+        : function (u, T) {
           u.default = T;
         }),
-      o = t && t.__importStar || function(u) {
+      o = t && t.__importStar || function (u) {
         if (u && u.__esModule) return u;
         var T = {};
         if (u != null) {
           for (var b in u) {
-            b !== "default" && Object.prototype.hasOwnProperty.call(u, b)
-              && S(T, u, b);
+            b !== "default" && Object.prototype.hasOwnProperty.call(u, b) &&
+              S(T, u, b);
           }
         }
         return x(T, u), T;
       },
-      f = t && t.__importDefault || function(u) {
+      f = t && t.__importDefault || function (u) {
         return u && u.__esModule ? u : { default: u };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.createProjectProgram = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.createProjectProgram = void 0;
     var v = f(V),
       c = f(Z),
       n = o($),
@@ -4854,12 +4926,12 @@ ${
         E = !1,
         i = u.extraFileExtensions || [];
       i.forEach((g) => {
-        g.startsWith(".")
-        || d.push(
+        g.startsWith(".") ||
+        d.push(
           `Found unexpected extension \`${g}\` specified with the \`parserOptions.extraFileExtensions\` option. Did you mean \`.${g}\`?`,
         ),
-          a.includes(g)
-          && d.push(
+          a.includes(g) &&
+          d.push(
             `You unnecessarily included the extension \`${g}\` with the \`parserOptions.extraFileExtensions\` option. This extension is already handled by the parser by default.`,
           );
       });
@@ -4867,8 +4939,8 @@ ${
       if (!a.includes(m)) {
         let g = `The extension for the file (\`${m}\`) is non-standard`;
         i.length > 0
-          ? i.includes(m)
-            || (d.push(
+          ? i.includes(m) ||
+            (d.push(
               `${g}. It should be added to your existing \`parserOptions.extraFileExtensions\`.`,
             ),
               E = !0)
@@ -4897,42 +4969,43 @@ ${
   rn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(s, p, e, a) {
+        ? function (s, p, e, a) {
           a === void 0 && (a = e);
           var l = Object.getOwnPropertyDescriptor(p, e);
-          (!l || ("get" in l ? !p.__esModule : l.writable || l.configurable))
-          && (l = {
+          (!l || ("get" in l ? !p.__esModule : l.writable || l.configurable)) &&
+          (l = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return p[e];
             },
           }), Object.defineProperty(s, a, l);
         }
-        : function(s, p, e, a) {
+        : function (s, p, e, a) {
           a === void 0 && (a = e), s[a] = p[e];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(s, p) {
+        ? function (s, p) {
           Object.defineProperty(s, "default", { enumerable: !0, value: p });
         }
-        : function(s, p) {
+        : function (s, p) {
           s.default = p;
         }),
-      o = t && t.__importStar || function(s) {
+      o = t && t.__importStar || function (s) {
         if (s && s.__esModule) return s;
         var p = {};
         if (s != null) {
           for (var e in s) {
-            e !== "default" && Object.prototype.hasOwnProperty.call(s, e)
-              && S(p, s, e);
+            e !== "default" && Object.prototype.hasOwnProperty.call(s, e) &&
+              S(p, s, e);
           }
         }
         return x(p, s), p;
       },
-      f = t && t.__importDefault || function(s) {
+      f = t && t.__importDefault || function (s) {
         return s && s.__esModule ? s : { default: s };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.createSourceFile = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.createSourceFile = void 0;
     var v = f(V),
       c = o($),
       n = Ee(),
@@ -4958,39 +5031,39 @@ ${
   Le = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(l, u, T, b) {
+        ? function (l, u, T, b) {
           b === void 0 && (b = T);
           var C = Object.getOwnPropertyDescriptor(u, T);
-          (!C || ("get" in C ? !u.__esModule : C.writable || C.configurable))
-          && (C = {
+          (!C || ("get" in C ? !u.__esModule : C.writable || C.configurable)) &&
+          (C = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return u[T];
             },
           }), Object.defineProperty(l, b, C);
         }
-        : function(l, u, T, b) {
+        : function (l, u, T, b) {
           b === void 0 && (b = T), l[b] = u[T];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(l, u) {
+        ? function (l, u) {
           Object.defineProperty(l, "default", { enumerable: !0, value: u });
         }
-        : function(l, u) {
+        : function (l, u) {
           l.default = u;
         }),
-      o = t && t.__importStar || function(l) {
+      o = t && t.__importStar || function (l) {
         if (l && l.__esModule) return l;
         var u = {};
         if (l != null) {
           for (var T in l) {
-            T !== "default" && Object.prototype.hasOwnProperty.call(l, T)
-              && S(u, l, T);
+            T !== "default" && Object.prototype.hasOwnProperty.call(l, T) &&
+              S(u, l, T);
           }
         }
         return x(u, l), u;
       },
-      f = t && t.__importDefault || function(l) {
+      f = t && t.__importDefault || function (l) {
         return l && l.__esModule ? l : { default: l };
       };
     Object.defineProperty(t, "__esModule", { value: !0 }),
@@ -5009,7 +5082,7 @@ ${
       for (let b of l) if (T = (0, r.getAstFromProgram)(b, u), T) break;
       if (!T) {
         let b = [
-          "\"parserOptions.programs\" has been provided for @typescript-eslint/parser.",
+          '"parserOptions.programs" has been provided for @typescript-eslint/parser.',
           `The file was not found in any of the provided program instance(s): ${
             n.relative(u.tsconfigRootDir || W.cwd(), u.filePath)
           }`,
@@ -5052,7 +5125,7 @@ ${
   }),
   Re = F((t) => {
     "use strict";
-    var S = t && t.__classPrivateFieldSet || function(n, y, r, s, p) {
+    var S = t && t.__classPrivateFieldSet || function (n, y, r, s, p) {
         if (s === "m") throw new TypeError("Private method is not writable");
         if (s === "a" && !p) {
           throw new TypeError("Private accessor was defined without a setter");
@@ -5064,7 +5137,7 @@ ${
         }
         return s === "a" ? p.call(n, r) : p ? p.value = r : y.set(n, r), r;
       },
-      x = t && t.__classPrivateFieldGet || function(n, y, r, s) {
+      x = t && t.__classPrivateFieldGet || function (n, y, r, s) {
         if (r === "a" && !s) {
           throw new TypeError("Private accessor was defined without a getter");
         }
@@ -5096,8 +5169,8 @@ ${
           let y = x(this, f, "f").get(n);
           if (y?.value != null) {
             if (
-              x(this, o, "f") === "Infinity"
-              || W.hrtime(y.lastSeen)[0] < x(this, o, "f")
+              x(this, o, "f") === "Infinity" ||
+              W.hrtime(y.lastSeen)[0] < x(this, o, "f")
             ) return y.value;
             x(this, f, "f").delete(n);
           }
@@ -5111,42 +5184,43 @@ ${
   nn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(s, p, e, a) {
+        ? function (s, p, e, a) {
           a === void 0 && (a = e);
           var l = Object.getOwnPropertyDescriptor(p, e);
-          (!l || ("get" in l ? !p.__esModule : l.writable || l.configurable))
-          && (l = {
+          (!l || ("get" in l ? !p.__esModule : l.writable || l.configurable)) &&
+          (l = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return p[e];
             },
           }), Object.defineProperty(s, a, l);
         }
-        : function(s, p, e, a) {
+        : function (s, p, e, a) {
           a === void 0 && (a = e), s[a] = p[e];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(s, p) {
+        ? function (s, p) {
           Object.defineProperty(s, "default", { enumerable: !0, value: p });
         }
-        : function(s, p) {
+        : function (s, p) {
           s.default = p;
         }),
-      o = t && t.__importStar || function(s) {
+      o = t && t.__importStar || function (s) {
         if (s && s.__esModule) return s;
         var p = {};
         if (s != null) {
           for (var e in s) {
-            e !== "default" && Object.prototype.hasOwnProperty.call(s, e)
-              && S(p, s, e);
+            e !== "default" && Object.prototype.hasOwnProperty.call(s, e) &&
+              S(p, s, e);
           }
         }
         return x(p, s), p;
       },
-      f = t && t.__importDefault || function(s) {
+      f = t && t.__importDefault || function (s) {
         return s && s.__esModule ? s : { default: s };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.getProjectConfigFiles = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.getProjectConfigFiles = void 0;
     var v = f(V),
       c = o(ne),
       n = o(Z),
@@ -5178,16 +5252,17 @@ ${
   }),
   on = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.inferSingleRun = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.inferSingleRun = void 0;
     var S = Z;
     function x(o) {
-      return o?.project == null || o?.programs != null
-          || W.env.TSESTREE_SINGLE_RUN === "false"
+      return o?.project == null || o?.programs != null ||
+          W.env.TSESTREE_SINGLE_RUN === "false"
         ? !1
-        : !!(W.env.TSESTREE_SINGLE_RUN === "true"
-          || o?.allowAutomaticSingleRunInference
-            && (W.env.CI === "true"
-              || W.argv[1].endsWith(
+        : !!(W.env.TSESTREE_SINGLE_RUN === "true" ||
+          o?.allowAutomaticSingleRunInference &&
+            (W.env.CI === "true" ||
+              W.argv[1].endsWith(
                 (0, S.normalize)("node_modules/.bin/eslint"),
               )));
     }
@@ -5195,7 +5270,7 @@ ${
   }),
   Be = F((t) => {
     "use strict";
-    var S = t && t.__importDefault || function(a) {
+    var S = t && t.__importDefault || function (a) {
       return a && a.__esModule ? a : { default: a };
     };
     Object.defineProperty(t, "__esModule", { value: !0 }),
@@ -5229,7 +5304,9 @@ ${
           : ["**/node_modules/**"]).reduce(
             (i, m) => (typeof m == "string" && i.push(m), i),
             [],
-          ).map((i) => i.startsWith("!") ? i : `!${i}`),
+          ).map((i) =>
+            i.startsWith("!") ? i : `!${i}`
+          ),
         k = p({
           project: b,
           projectFolderIgnoreList: C,
@@ -5283,42 +5360,43 @@ ${
   an = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(a, l, u, T) {
+        ? function (a, l, u, T) {
           T === void 0 && (T = u);
           var b = Object.getOwnPropertyDescriptor(l, u);
-          (!b || ("get" in b ? !l.__esModule : b.writable || b.configurable))
-          && (b = {
+          (!b || ("get" in b ? !l.__esModule : b.writable || b.configurable)) &&
+          (b = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return l[u];
             },
           }), Object.defineProperty(a, T, b);
         }
-        : function(a, l, u, T) {
+        : function (a, l, u, T) {
           T === void 0 && (T = u), a[T] = l[u];
         }),
       x = t && t.__setModuleDefault || (Object.create
-        ? function(a, l) {
+        ? function (a, l) {
           Object.defineProperty(a, "default", { enumerable: !0, value: l });
         }
-        : function(a, l) {
+        : function (a, l) {
           a.default = l;
         }),
-      o = t && t.__importStar || function(a) {
+      o = t && t.__importStar || function (a) {
         if (a && a.__esModule) return a;
         var l = {};
         if (a != null) {
           for (var u in a) {
-            u !== "default" && Object.prototype.hasOwnProperty.call(a, u)
-              && S(l, a, u);
+            u !== "default" && Object.prototype.hasOwnProperty.call(a, u) &&
+              S(l, a, u);
           }
         }
         return x(l, a), l;
       },
-      f = t && t.__importDefault || function(a) {
+      f = t && t.__importDefault || function (a) {
         return a && a.__esModule ? a : { default: a };
       };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.warnAboutTSVersion = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.warnAboutTSVersion = void 0;
     var v = f(fe),
       c = o($),
       n = ">=3.3.1 <5.1.0",
@@ -5330,8 +5408,8 @@ ${
       var l;
       if (!s && !p) {
         if (
-          !(typeof W > "u") && !((l = W.stdout) === null || l === void 0)
-          && l.isTTY
+          !(typeof W > "u") && !((l = W.stdout) === null || l === void 0) &&
+          l.isTTY
         ) {
           let u = "=============",
             T = [
@@ -5354,10 +5432,11 @@ ${
   }),
   Je = F((t) => {
     "use strict";
-    var S = t && t.__importDefault || function(u) {
+    var S = t && t.__importDefault || function (u) {
       return u && u.__esModule ? u : { default: u };
     };
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.clearTSConfigMatchCache = t.createParseSettings = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.clearTSConfigMatchCache = t.createParseSettings = void 0;
     var x = S(V),
       o = re(),
       f = Re(),
@@ -5385,9 +5464,10 @@ ${
             : new Set(),
           errorOnTypeScriptSyntacticAndSemanticIssues: !1,
           errorOnUnknownASTType: T.errorOnUnknownASTType === !0,
-          EXPERIMENTAL_useSourceOfProjectReferenceRedirect: T.EXPERIMENTAL_useSourceOfProjectReferenceRedirect === !0,
-          extraFileExtensions: Array.isArray(T.extraFileExtensions)
-              && T.extraFileExtensions.every((E) => typeof E == "string")
+          EXPERIMENTAL_useSourceOfProjectReferenceRedirect:
+            T.EXPERIMENTAL_useSourceOfProjectReferenceRedirect === !0,
+          extraFileExtensions: Array.isArray(T.extraFileExtensions) &&
+              T.extraFileExtensions.every((E) => typeof E == "string")
             ? T.extraFileExtensions
             : [],
           filePath: (0, o.ensureAbsolutePath)(
@@ -5426,9 +5506,9 @@ ${
       if (d.debugLevel.size > 0) {
         let E = [];
         d.debugLevel.has("typescript-eslint") && E.push("typescript-eslint:*"),
-          (d.debugLevel.has("eslint")
-            || x.default.enabled("eslint:*,-eslint:code-path"))
-          && E.push("eslint:*,-eslint:code-path"),
+          (d.debugLevel.has("eslint") ||
+            x.default.enabled("eslint:*,-eslint:code-path")) &&
+          E.push("eslint:*,-eslint:code-path"),
           x.default.enable(E.join(","));
       }
       if (Array.isArray(T.programs)) {
@@ -5439,8 +5519,8 @@ ${
         }
         r("parserOptions.programs was provided, so parserOptions.project will be ignored.");
       }
-      return d.programs
-        || (d.projects = (0, n.resolveProjectList)({
+      return d.programs ||
+        (d.projects = (0, n.resolveProjectList)({
           cacheLifetime: T.cacheLifetime,
           project: (0, v.getProjectConfigFiles)(d, T.project),
           projectFolderIgnoreList: T.projectFolderIgnoreList,
@@ -5464,7 +5544,8 @@ ${
   }),
   sn = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.getFirstSemanticOrSyntacticError = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.getFirstSemanticOrSyntacticError = void 0;
     var S = $;
     function x(v, c) {
       try {
@@ -5537,7 +5618,7 @@ ${
   }),
   Xe = F((t) => {
     "use strict";
-    var S = t && t.__importDefault || function(d) {
+    var S = t && t.__importDefault || function (d) {
       return d && d.__esModule ? d : { default: d };
     };
     Object.defineProperty(t, "__esModule", { value: !0 }),
@@ -5564,10 +5645,10 @@ ${
     }
     t.clearProgramCache = l;
     function u(d, E) {
-      return d.programs && (0, r.useProvidedPrograms)(d.programs, d)
-        || E && (0, n.createProjectProgram)(d)
-        || E && d.createDefaultProgram && (0, v.createDefaultProgram)(d)
-        || (0, c.createIsolatedProgram)(d);
+      return d.programs && (0, r.useProvidedPrograms)(d.programs, d) ||
+        E && (0, n.createProjectProgram)(d) ||
+        E && d.createDefaultProgram && (0, v.createDefaultProgram)(d) ||
+        (0, c.createIsolatedProgram)(d);
     }
     function T(d, E) {
       let { ast: i } = b(d, E, !1);
@@ -5578,7 +5659,7 @@ ${
       let m = (0, s.createParseSettings)(d, E);
       if (E?.errorOnTypeScriptSyntacticAndSemanticIssues) {
         throw new Error(
-          "\"errorOnTypeScriptSyntacticAndSemanticIssues\" is only supported for parseAndGenerateServices()",
+          '"errorOnTypeScriptSyntacticAndSemanticIssues" is only supported for parseAndGenerateServices()',
         );
       }
       let g = (0, y.createSourceFile)(m),
@@ -5601,13 +5682,13 @@ ${
     function w(d, E) {
       var i, m;
       let g = (0, s.createParseSettings)(d, E);
-      E !== void 0
-      && typeof E.errorOnTypeScriptSyntacticAndSemanticIssues == "boolean"
-      && E.errorOnTypeScriptSyntacticAndSemanticIssues
-      && (g.errorOnTypeScriptSyntacticAndSemanticIssues = !0),
-        g.singleRun && !g.programs
-        && ((i = g.projects) === null || i === void 0 ? void 0 : i.length) > 0
-        && (g.programs = {
+      E !== void 0 &&
+      typeof E.errorOnTypeScriptSyntacticAndSemanticIssues == "boolean" &&
+      E.errorOnTypeScriptSyntacticAndSemanticIssues &&
+      (g.errorOnTypeScriptSyntacticAndSemanticIssues = !0),
+        g.singleRun && !g.programs &&
+        ((i = g.projects) === null || i === void 0 ? void 0 : i.length) > 0 &&
+        (g.programs = {
           *[Symbol.iterator]() {
             for (let Y of g.projects) {
               let B = a.get(Y);
@@ -5623,12 +5704,13 @@ ${
             }
           },
         });
-      let _ = g.programs != null
-        || ((m = g.projects) === null || m === void 0 ? void 0 : m.length) > 0;
+      let _ = g.programs != null ||
+        ((m = g.projects) === null || m === void 0 ? void 0 : m.length) > 0;
       g.singleRun && E.filePath && (k[E.filePath] = (k[E.filePath] || 0) + 1);
-      let { ast: P, program: N } = g.singleRun && E.filePath && k[E.filePath] > 1
-          ? (0, c.createIsolatedProgram)(g)
-          : u(g, _),
+      let { ast: P, program: N } =
+          g.singleRun && E.filePath && k[E.filePath] > 1
+            ? (0, c.createIsolatedProgram)(g)
+            : u(g, _),
         M = typeof g.preserveNodeMaps == "boolean" ? g.preserveNodeMaps : !0,
         { estree: K, astMaps: J } = (0, o.astConverter)(P, g, M);
       if (N && g.errorOnTypeScriptSyntacticAndSemanticIssues) {
@@ -5649,10 +5731,14 @@ ${
   }),
   cn = F((t) => {
     "use strict";
-    Object.defineProperty(t, "__esModule", { value: !0 }), t.clearProgramCache = t.clearCaches = void 0;
+    Object.defineProperty(t, "__esModule", { value: !0 }),
+      t.clearProgramCache = t.clearCaches = void 0;
     var S = Ye(), x = Xe(), o = Je(), f = Be();
     function v() {
-      (0, x.clearProgramCache)(), (0, S.clearWatchCaches)(), (0, o.clearTSConfigMatchCache)(), (0, f.clearGlobCache)();
+      (0, x.clearProgramCache)(),
+        (0, S.clearWatchCaches)(),
+        (0, o.clearTSConfigMatchCache)(),
+        (0, f.clearGlobCache)();
     }
     t.clearCaches = v, t.clearProgramCache = v;
   }),
@@ -5660,7 +5746,8 @@ ${
     S.exports = {
       name: "@typescript-eslint/typescript-estree",
       version: "5.59.2",
-      description: "A parser that converts TypeScript source code into an ESTree compatible form",
+      description:
+        "A parser that converts TypeScript source code into an ESTree compatible form",
       main: "dist/index.js",
       types: "dist/index.d.ts",
       files: ["dist", "_ts3.4", "README.md", "LICENSE"],
@@ -5689,7 +5776,7 @@ ${
         clean: "tsc -b tsconfig.build.json --clean",
         postclean: "rimraf dist && rimraf _ts3.4 && rimraf coverage",
         format:
-          "prettier --write \"./**/*.{ts,mts,cts,tsx,js,mjs,cjs,jsx,json,md,css}\" --ignore-path ../../.prettierignore",
+          'prettier --write "./**/*.{ts,mts,cts,tsx,js,mjs,cjs,jsx,json,md,css}" --ignore-path ../../.prettierignore',
         lint: "nx lint",
         test: "jest --coverage",
         typecheck: "tsc -p tsconfig.json --noEmit",
@@ -5730,24 +5817,24 @@ ${
   pn = F((t) => {
     "use strict";
     var S = t && t.__createBinding || (Object.create
-        ? function(y, r, s, p) {
+        ? function (y, r, s, p) {
           p === void 0 && (p = s);
           var e = Object.getOwnPropertyDescriptor(r, s);
-          (!e || ("get" in e ? !r.__esModule : e.writable || e.configurable))
-          && (e = {
+          (!e || ("get" in e ? !r.__esModule : e.writable || e.configurable)) &&
+          (e = {
             enumerable: !0,
-            get: function() {
+            get: function () {
               return r[s];
             },
           }), Object.defineProperty(y, p, e);
         }
-        : function(y, r, s, p) {
+        : function (y, r, s, p) {
           p === void 0 && (p = s), y[p] = r[s];
         }),
-      x = t && t.__exportStar || function(y, r) {
+      x = t && t.__exportStar || function (y, r) {
         for (var s in y) {
-          s !== "default" && !Object.prototype.hasOwnProperty.call(r, s)
-            && S(r, y, s);
+          s !== "default" && !Object.prototype.hasOwnProperty.call(r, s) &&
+            S(r, y, s);
         }
       };
     Object.defineProperty(t, "__esModule", { value: !0 }),
@@ -5763,40 +5850,40 @@ ${
     var o = Xe();
     Object.defineProperty(t, "parse", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return o.parse;
       },
     }),
       Object.defineProperty(t, "parseAndGenerateServices", {
         enumerable: !0,
-        get: function() {
+        get: function () {
           return o.parseAndGenerateServices;
         },
       }),
       Object.defineProperty(t, "parseWithNodeMaps", {
         enumerable: !0,
-        get: function() {
+        get: function () {
           return o.parseWithNodeMaps;
         },
       });
     var f = Ie();
     Object.defineProperty(t, "simpleTraverse", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return f.simpleTraverse;
       },
     }), x(oe(), t);
     var v = Le();
     Object.defineProperty(t, "createProgram", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return v.createProgramFromConfigFile;
       },
     }), x(Ee(), t);
     var c = ie();
     Object.defineProperty(t, "typescriptVersionIsAtLeast", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return c.typescriptVersionIsAtLeast;
       },
     }),
@@ -5805,7 +5892,7 @@ ${
     var n = Ke();
     Object.defineProperty(t, "visitorKeys", {
       enumerable: !0,
-      get: function() {
+      get: function () {
         return n.visitorKeys;
       },
     }), t.version = ln().version;
@@ -5824,8 +5911,8 @@ ${
       return e.walk(n, (l) => {
         switch (l.type) {
           case "ImportExpression":
-            !y.skipAsyncImports && l.source && l.source.value
-              && a.push(l.source.value);
+            !y.skipAsyncImports && l.source && l.source.value &&
+              a.push(l.source.value);
             break;
           case "ImportDeclaration":
             if (s && l.importKind === "type") break;
@@ -5839,8 +5926,8 @@ ${
             l.expression && l.expression.value && a.push(l.expression.value);
             break;
           case "TSImportType":
-            !s && l.parameter.type === "TSLiteralType"
-              && a.push(l.parameter.literal.value);
+            !s && l.parameter.type === "TSLiteralType" &&
+              a.push(l.parameter.literal.value);
             break;
           case "CallExpression":
             if (!p || !f.isRequire(l) || !l.arguments || !l.arguments.length) {
@@ -5858,8 +5945,8 @@ ${
     }, S.exports.tsx = (n, y = {}) => S.exports(n, { ...y, jsx: !0 });
     function v(n) {
       if (
-        n.arguments[0].type === "Literal"
-        || n.arguments[0].type === "StringLiteral"
+        n.arguments[0].type === "Literal" ||
+        n.arguments[0].type === "StringLiteral"
       ) return n.arguments[0].value;
       if (n.arguments[0].type === "TemplateLiteral") {
         return n.arguments[0].quasis[0].value.raw;

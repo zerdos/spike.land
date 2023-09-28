@@ -43,8 +43,7 @@ export default function ParentSize({
   ...restProps
 }:
   & ParentSizeProps
-  & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ParentSizeProps>)
-{
+  & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ParentSizeProps>) {
   const target = useRef<HTMLDivElement | null>(null);
   const animationFrameID = useRef(0);
 
@@ -64,8 +63,12 @@ export default function ParentSize({
       (incoming: ParentSizeState) => {
         setState((existing) => {
           const stateKeys = Object.keys(existing) as (keyof ParentSizeState)[];
-          const keysWithChanges = stateKeys.filter((key) => existing[key] !== incoming[key]);
-          const shouldBail = keysWithChanges.every((key) => normalized.includes(key));
+          const keysWithChanges = stateKeys.filter((key) =>
+            existing[key] !== incoming[key]
+          );
+          const shouldBail = keysWithChanges.every((key) =>
+            normalized.includes(key)
+          );
 
           return shouldBail ? existing : incoming;
         });

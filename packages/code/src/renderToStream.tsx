@@ -36,7 +36,7 @@ export const renderToStream = async (codeSpace: string) => {
     });
   } catch (error) {
     return new Response(
-      "<!doctype html><p>Loading...</p><script src=\"clientrender.js\"></script>",
+      '<!doctype html><p>Loading...</p><script src="clientrender.js"></script>',
       {
         status: 500,
         headers: { "Content-Type": "text/html" },

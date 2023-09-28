@@ -126,10 +126,10 @@ const fakeBackend = async (request: Request) => {
     }
 
     if (
-      url.pathname === `/live/${codeSpace}/iframe`
-      || url.pathname === `/live/${codeSpace}/`
-      || url.pathname === `/live/${codeSpace}/public`
-      || url.pathname === `/live/${codeSpace}/dehydrated`
+      url.pathname === `/live/${codeSpace}/iframe` ||
+      url.pathname === `/live/${codeSpace}/` ||
+      url.pathname === `/live/${codeSpace}/public` ||
+      url.pathname === `/live/${codeSpace}/dehydrated`
     ) {
       // return renderToStream("clock3");
 
@@ -137,7 +137,7 @@ const fakeBackend = async (request: Request) => {
         "/**reset*/",
         resetCSS + css,
       ).replace(
-        "<script src=\"/swVersion.js\"></script>",
+        '<script src="/swVersion.js"></script>',
         `<script>
       window.swVersion = "${self.swVersion}"
       </script>`,
@@ -207,7 +207,10 @@ const fakeBackend = async (request: Request) => {
         // ) as string;
 
         const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
-          async () => fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) => x.text()),
+          async () =>
+            fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) =>
+              x.text()
+            ),
         );
 
         return new Response(trp, {

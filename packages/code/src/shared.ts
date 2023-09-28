@@ -10,8 +10,8 @@ export const getPort = () => workerPort;
 export const init = (swVersion: string, port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
 
-  workerPort = port
-    || (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
+  workerPort = port ||
+    (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
   rpc = new RpcProvider(
     (message) =>
       workerPort.postMessage(
@@ -26,7 +26,8 @@ export const init = (swVersion: string, port: MessagePort | null = null) => {
   return rpc;
 };
 
-export const prettier = (code: string) => init(swVersion).rpc("prettierJs", code) as Promise<string>;
+export const prettier = (code: string) =>
+  init(swVersion).rpc("prettierJs", code) as Promise<string>;
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
 ) =>
@@ -47,4 +48,5 @@ export const build = (
     origin,
   }) as Promise<string>;
 
-export const connect = (codeSpace: string) => init(swVersion).signal("connect", codeSpace);
+export const connect = (codeSpace: string) =>
+  init(swVersion).signal("connect", codeSpace);

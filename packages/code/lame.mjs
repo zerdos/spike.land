@@ -40,49 +40,49 @@ function N2() {
     this.ordinal = d;
   }
   function M1(d) {
-    this.ordinal = function() {
+    this.ordinal = function () {
       return d;
     };
   }
   function tt() {
-    this.getLameVersion = function() {
+    this.getLameVersion = function () {
       return "3.98.4";
     },
-      this.getLameShortVersion = function() {
+      this.getLameShortVersion = function () {
         return "3.98.4";
       },
-      this.getLameVeryShortVersion = function() {
+      this.getLameVeryShortVersion = function () {
         return "LAME3.98r";
       },
-      this.getPsyVersion = function() {
+      this.getPsyVersion = function () {
         return "0.93";
       },
-      this.getLameUrl = function() {
+      this.getLameUrl = function () {
         return "http://www.mp3dev.org/";
       },
-      this.getLameOsBitness = function() {
+      this.getLameOsBitness = function () {
         return "32bits";
       };
   }
   function a1() {
     function d(u, n, R, e, S, x) {
       for (; S-- != 0;) {
-        R[e] = 1e-10 + u[n + 0] * x[0] - R[e - 1] * x[1] + u[n - 1] * x[2]
-          - R[e - 2] * x[3] + u[n - 2] * x[4]
-          - R[e - 3] * x[5] + u[n - 3] * x[6] - R[e - 4] * x[7]
-          + u[n - 4] * x[8] - R[e - 5] * x[9] + u[n - 5] * x[10]
-          - R[e - 6] * x[11] + u[n - 6] * x[12] - R[e - 7] * x[13]
-          + u[n - 7] * x[14] - R[e - 8] * x[15]
-          + u[n - 8] * x[16] - R[e - 9] * x[17] + u[n - 9] * x[18]
-          - R[e - 10] * x[19] + u[n - 10] * x[20],
+        R[e] = 1e-10 + u[n + 0] * x[0] - R[e - 1] * x[1] + u[n - 1] * x[2] -
+          R[e - 2] * x[3] + u[n - 2] * x[4] -
+          R[e - 3] * x[5] + u[n - 3] * x[6] - R[e - 4] * x[7] +
+          u[n - 4] * x[8] - R[e - 5] * x[9] + u[n - 5] * x[10] -
+          R[e - 6] * x[11] + u[n - 6] * x[12] - R[e - 7] * x[13] +
+          u[n - 7] * x[14] - R[e - 8] * x[15] +
+          u[n - 8] * x[16] - R[e - 9] * x[17] + u[n - 9] * x[18] -
+          R[e - 10] * x[19] + u[n - 10] * x[20],
           ++e,
           ++n;
       }
     }
     function B(u, n, R, e, S, x) {
       for (; S-- != 0;) {
-        R[e] = u[n + 0] * x[0] - R[e - 1] * x[1] + u[n - 1] * x[2]
-          - R[e - 2] * x[3] + u[n - 2] * x[4],
+        R[e] = u[n + 0] * x[0] - R[e - 1] * x[1] + u[n - 1] * x[2] -
+          R[e - 2] * x[3] + u[n - 2] * x[4],
           ++e,
           ++n;
       }
@@ -356,7 +356,7 @@ function N2() {
           .94597685600279,
         ],
       ];
-    this.InitGainAnalysis = function(u, n) {
+    this.InitGainAnalysis = function (u, n) {
       t: {
         for (var R = 0; R < MAX_ORDER; R++) {
           u.linprebuf[R] =
@@ -417,7 +417,7 @@ function N2() {
           r0.fill(u.B, 0),
           INIT_GAIN_ANALYSIS_OK);
     },
-      this.AnalyzeSamples = function(u, n, R, e, S, x, r) {
+      this.AnalyzeSamples = function (u, n, R, e, S, x, r) {
         if (x == 0) return GAIN_ANALYSIS_OK;
         var l = 0, s = x;
         switch (r) {
@@ -431,7 +431,8 @@ function N2() {
         }
         for (
           x < MAX_ORDER
-            ? (i1.arraycopy(n, R, u.linprebuf, MAX_ORDER, x), i1.arraycopy(e, S, u.rinprebuf, MAX_ORDER, x))
+            ? (i1.arraycopy(n, R, u.linprebuf, MAX_ORDER, x),
+              i1.arraycopy(e, S, u.rinprebuf, MAX_ORDER, x))
             : (i1.arraycopy(n, R, u.linprebuf, MAX_ORDER, MAX_ORDER),
               i1.arraycopy(e, S, u.rinprebuf, MAX_ORDER, MAX_ORDER));
           0 < s;
@@ -470,22 +471,22 @@ function N2() {
             u.lsum += w(m[r++]), u.rsum += w(_[p++]);
           }
           for (i = h / 8; i-- != 0;) {
-            u.lsum += w(m[r + 0]) + w(m[r + 1]) + w(m[r + 2]) + w(m[r + 3])
-              + w(m[r + 4]) + w(m[r + 5]) + w(m[r + 6])
-              + w(m[r + 7]),
+            u.lsum += w(m[r + 0]) + w(m[r + 1]) + w(m[r + 2]) + w(m[r + 3]) +
+              w(m[r + 4]) + w(m[r + 5]) + w(m[r + 6]) +
+              w(m[r + 7]),
               r += 8,
-              u.rsum += w(_[p + 0]) + w(_[p + 1]) + w(_[p + 2]) + w(_[p + 3])
-                + w(_[p + 4]) + w(_[p + 5]) + w(_[p + 6])
-                + w(_[p + 7]),
+              u.rsum += w(_[p + 0]) + w(_[p + 1]) + w(_[p + 2]) + w(_[p + 3]) +
+                w(_[p + 4]) + w(_[p + 5]) + w(_[p + 6]) +
+                w(_[p + 7]),
               p += 8;
           }
           if (
             s -= h,
               l += h,
               u.totsamp += h,
-              u.totsamp == u.sampleWindow
-              && (r = 10 * a1.STEPS_per_dB
-                * Math.log10((u.lsum + u.rsum) / u.totsamp * .5 + 1e-37),
+              u.totsamp == u.sampleWindow &&
+              (r = 10 * a1.STEPS_per_dB *
+                Math.log10((u.lsum + u.rsum) / u.totsamp * .5 + 1e-37),
                 r = 0 >= r ? 0 : 0 | r,
                 r >= u.A.length && (r = u.A.length - 1),
                 u.A[r]++,
@@ -507,7 +508,7 @@ function N2() {
             i1.arraycopy(e, S + x - MAX_ORDER, u.rinprebuf, 0, MAX_ORDER)),
           GAIN_ANALYSIS_OK;
       },
-      this.GetTitleGain = function(u) {
+      this.GetTitleGain = function (u) {
         var n = u.A, R = u.A.length, e, S = 0;
         for (e = 0; e < R; e++) S += n[e];
         if (S == 0) n = GAIN_NOT_ENOUGH_SAMPLES;
@@ -586,25 +587,25 @@ function N2() {
           : 0 < Math.abs(n.quant_comp - -1) || (n.quant_comp = r.quant_comp),
         e != 0
           ? n.quant_comp_short = r.quant_comp_s
-          : 0 < Math.abs(n.quant_comp_short - -1)
-            || (n.quant_comp_short = r.quant_comp_s),
+          : 0 < Math.abs(n.quant_comp_short - -1) ||
+            (n.quant_comp_short = r.quant_comp_s),
         r.expY != 0 && (n.experimentalY = r.expY != 0),
         e != 0
           ? n.internal_flags.nsPsy.attackthre = r.st_lrm
-          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre - -1)
-            || (n.internal_flags.nsPsy.attackthre = r.st_lrm),
+          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre - -1) ||
+            (n.internal_flags.nsPsy.attackthre = r.st_lrm),
         e != 0
           ? n.internal_flags.nsPsy.attackthre_s = r.st_s
-          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre_s - -1)
-            || (n.internal_flags.nsPsy.attackthre_s = r.st_s),
+          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre_s - -1) ||
+            (n.internal_flags.nsPsy.attackthre_s = r.st_s),
         e != 0
           ? n.maskingadjust = r.masking_adj
-          : 0 < Math.abs(n.maskingadjust - 0)
-            || (n.maskingadjust = r.masking_adj),
+          : 0 < Math.abs(n.maskingadjust - 0) ||
+            (n.maskingadjust = r.masking_adj),
         e != 0
           ? n.maskingadjust_short = r.masking_adj_short
-          : 0 < Math.abs(n.maskingadjust_short - 0)
-            || (n.maskingadjust_short = r.masking_adj_short),
+          : 0 < Math.abs(n.maskingadjust_short - 0) ||
+            (n.maskingadjust_short = r.masking_adj_short),
         e != 0
           ? n.ATHlower = -r.ath_lower / 10
           : 0 < Math.abs(10 * -n.ATHlower) || (n.ATHlower = -r.ath_lower / 10),
@@ -613,10 +614,10 @@ function N2() {
           : 0 < Math.abs(n.ATHcurve - -1) || (n.ATHcurve = r.ath_curve),
         e != 0
           ? n.athaa_sensitivity = r.ath_sensitivity
-          : 0 < Math.abs(n.athaa_sensitivity - -1)
-            || (n.athaa_sensitivity = r.ath_sensitivity),
-        0 < r.interch
-        && (e != 0
+          : 0 < Math.abs(n.athaa_sensitivity - -1) ||
+            (n.athaa_sensitivity = r.ath_sensitivity),
+        0 < r.interch &&
+        (e != 0
           ? n.interChRatio = r.interch
           : 0 < Math.abs(n.interChRatio - -1) || (n.interChRatio = r.interch)),
         0 < r.safejoint && (n.exp_nspsytune |= r.safejoint),
@@ -647,50 +648,50 @@ function N2() {
         : 0 < Math.abs(n.quant_comp - -1) || (n.quant_comp = u[S].quant_comp),
         e != 0
           ? n.quant_comp_short = u[S].quant_comp_s
-          : 0 < Math.abs(n.quant_comp_short - -1)
-            || (n.quant_comp_short = u[S].quant_comp_s),
+          : 0 < Math.abs(n.quant_comp_short - -1) ||
+            (n.quant_comp_short = u[S].quant_comp_s),
         e != 0
           ? n.msfix = u[S].nsmsfix
           : 0 < Math.abs(n.msfix - -1) || (n.msfix = u[S].nsmsfix),
         e != 0
           ? n.internal_flags.nsPsy.attackthre = u[S].st_lrm
-          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre - -1)
-            || (n.internal_flags.nsPsy.attackthre = u[S].st_lrm),
+          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre - -1) ||
+            (n.internal_flags.nsPsy.attackthre = u[S].st_lrm),
         e != 0
           ? n.internal_flags.nsPsy.attackthre_s = u[S].st_s
-          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre_s - -1)
-            || (n.internal_flags.nsPsy.attackthre_s = u[S].st_s),
+          : 0 < Math.abs(n.internal_flags.nsPsy.attackthre_s - -1) ||
+            (n.internal_flags.nsPsy.attackthre_s = u[S].st_s),
         e != 0
           ? n.scale = u[S].scale
           : 0 < Math.abs(n.scale - -1) || (n.scale = u[S].scale),
         e != 0
           ? n.maskingadjust = u[S].masking_adj
-          : 0 < Math.abs(n.maskingadjust - 0)
-            || (n.maskingadjust = u[S].masking_adj),
+          : 0 < Math.abs(n.maskingadjust - 0) ||
+            (n.maskingadjust = u[S].masking_adj),
         0 < u[S].masking_adj
           ? e != 0
             ? n.maskingadjust_short = .9 * u[S].masking_adj
-            : 0 < Math.abs(n.maskingadjust_short - 0)
-              || (n.maskingadjust_short = .9 * u[S].masking_adj)
+            : 0 < Math.abs(n.maskingadjust_short - 0) ||
+              (n.maskingadjust_short = .9 * u[S].masking_adj)
           : e != 0
           ? n.maskingadjust_short = 1.1 * u[S].masking_adj
-          : 0 < Math.abs(n.maskingadjust_short - 0)
-            || (n.maskingadjust_short = 1.1 * u[S].masking_adj),
+          : 0 < Math.abs(n.maskingadjust_short - 0) ||
+            (n.maskingadjust_short = 1.1 * u[S].masking_adj),
         e != 0
           ? n.ATHlower = -u[S].ath_lower / 10
-          : 0 < Math.abs(10 * -n.ATHlower)
-            || (n.ATHlower = -u[S].ath_lower / 10),
+          : 0 < Math.abs(10 * -n.ATHlower) ||
+            (n.ATHlower = -u[S].ath_lower / 10),
         e != 0
           ? n.ATHcurve = u[S].ath_curve
           : 0 < Math.abs(n.ATHcurve - -1) || (n.ATHcurve = u[S].ath_curve),
         e != 0
           ? n.interChRatio = u[S].interch
-          : 0 < Math.abs(n.interChRatio - -1)
-            || (n.interChRatio = u[S].interch),
+          : 0 < Math.abs(n.interChRatio - -1) ||
+            (n.interChRatio = u[S].interch),
         R;
     }
     var L;
-    this.setModules = function(n) {
+    this.setModules = function (n) {
       L = n;
     };
     var P = [
@@ -738,7 +739,7 @@ function N2() {
         new B(256, 9, 9, 1, .97, 5.2, 125, 0, 1, -8, 10, 1, 0, 0),
         new B(320, 9, 9, 1, .9, 5.2, 125, 0, 1, -10, 12, 0, 0, 0),
       ];
-    this.apply_preset = function(n, R, e) {
+    this.apply_preset = function (n, R, e) {
       switch (R) {
         case s1.R3MIX:
           R = s1.V3, n.VBR = C.vbr_mtrh;
@@ -819,8 +820,13 @@ function N2() {
           o[c++] = 0 | A,
           o[c++] = 0 | V;
       }
-      t != 0
-        && (a = _[i++] * p, f = _[i++] * p, a += P.adj43[0 | a], f += P.adj43[0 | f], o[c++] = 0 | a, o[c++] = 0 | f);
+      t != 0 &&
+        (a = _[i++] * p,
+          f = _[i++] * p,
+          a += P.adj43[0 | a],
+          f += P.adj43[0 | f],
+          o[c++] = 0 | a,
+          o[c++] = 0 | f);
     }
     function X(m, p, _, i) {
       var o, c = p, t = o = 0;
@@ -837,7 +843,11 @@ function N2() {
           return i.bits += p, 1;
         case 2:
         case 3:
-          c = p, p = u[o - 1], o = 0, t = Y.ht[p].xlen, a = p == 2 ? Y.table23 : Y.table56;
+          c = p,
+            p = u[o - 1],
+            o = 0,
+            t = Y.ht[p].xlen,
+            a = p == 2 ? Y.table23 : Y.table56;
           do f = m[c + 0] * t + m[c + 1], c += 2, o += a[f]; while (c < _);
           return m = o & 65535, o >>= 16, o > m && (o = m, p++), i.bits += o, p;
         case 4:
@@ -858,7 +868,11 @@ function N2() {
             var V = m[c + 0] * f + m[c + 1];
             c += 2, o += E[V], t += A[V], a += I[V];
           } while (c < _);
-          return m = p, o > t && (o = t, m++), o > a && (o = a, m = p + 2), i.bits += o, m;
+          return m = p,
+            o > t && (o = t, m++),
+            o > a && (o = a, m = p + 2),
+            i.bits += o,
+            m;
         default:
           if (o > U1.IXMAX_VAL) return i.bits = U1.LARGE_BITS, -1;
           for (o -= 15, c = 24; 32 > c && !(Y.ht[c].linmax >= o); c++);
@@ -869,7 +883,11 @@ function N2() {
             f != 0 && (14 < f && (f = 15, t += a), f *= 16),
             E != 0 && (14 < E && (E = 15, t += a), f += E),
             t += Y.largetbl[f]; while (p < _);
-          return m = t & 65535, t >>= 16, t > m && (t = m, o = c), i.bits += t, o;
+          return m = t & 65535,
+            t >>= 16,
+            t > m && (t = m, o = c),
+            i.bits += t,
+            o;
       }
     }
     function L(m, p, _, i, o, c, t, a) {
@@ -881,8 +899,8 @@ function N2() {
         I = new d(I),
           A = X(i, A, f, I),
           I = I.bits,
-          _.part2_3_length <= I
-          || (_.assign(p),
+          _.part2_3_length <= I ||
+          (_.assign(p),
             _.part2_3_length = I,
             _.region0_count = c[E - 2],
             _.region1_count = E - 2 - c[E - 2],
@@ -893,7 +911,7 @@ function N2() {
     }
     var P = null;
     this.qupvt = null,
-      this.setModules = function(m) {
+      this.setModules = function (m) {
         P = this.qupvt = m;
       };
     var D = [
@@ -922,7 +940,7 @@ function N2() {
         [6, 7],
       ],
       u = [1, 2, 5, 7, 7, 10, 10, 13, 13, 13, 13, 13, 13, 13, 13];
-    this.noquant_count_bits = function(m, p, _) {
+    this.noquant_count_bits = function (m, p, _) {
       var i = p.l3_enc, o = Math.min(576, p.max_nonzero_coeff + 2 >> 1 << 1);
       for (
         _ != null && (_.sfb_count1 = 0);
@@ -932,8 +950,8 @@ function N2() {
       p.count1 = o;
       for (
         var c = 0, t = 0;
-        3 < o
-        && !(1 < ((i[o - 1] | i[o - 2] | i[o - 3] | i[o - 4]) & 2147483647));
+        3 < o &&
+        !(1 < ((i[o - 1] | i[o - 2] | i[o - 3] | i[o - 4]) & 2147483647));
         o -= 4
       ) {
         var a = 2 * (2 * (2 * i[o - 4] + i[o - 3]) + i[o - 2]) + i[o - 1];
@@ -949,14 +967,16 @@ function N2() {
       ) return a;
       if (
         p.block_type == v.SHORT_TYPE
-          ? (c = 3 * m.scalefac_band.s[3], c > p.big_values && (c = p.big_values), t = p.big_values)
+          ? (c = 3 * m.scalefac_band.s[3],
+            c > p.big_values && (c = p.big_values),
+            t = p.big_values)
           : p.block_type == v.NORM_TYPE
           ? (c = p.region0_count = m.bv_scf[o - 2],
             t = p.region1_count = m.bv_scf[o - 1],
             t = m.scalefac_band.l[c + t + 2],
             c = m.scalefac_band.l[c + 1],
-            t < o
-            && (a = new d(a), p.table_select[2] = X(i, t, o, a), a = a.bits))
+            t < o &&
+            (a = new d(a), p.table_select[2] = X(i, t, o, a), a = a.bits))
           : (p.region0_count = 7,
             p.region1_count = v.SBMAX_l - 1 - 7 - 1,
             c = m.scalefac_band.l[8],
@@ -964,12 +984,14 @@ function N2() {
             c > t && (c = t)),
           c = Math.min(c, o),
           t = Math.min(t, o),
-          0 < c
-          && (a = new d(a), p.table_select[0] = X(i, 0, c, a), a = a.bits),
-          c < t
-          && (a = new d(a), p.table_select[1] = X(i, c, t, a), a = a.bits),
-          m.use_best_huffman == 2
-          && (p.part2_3_length = a, best_huffman_divide(m, p), a = p.part2_3_length),
+          0 < c &&
+          (a = new d(a), p.table_select[0] = X(i, 0, c, a), a = a.bits),
+          c < t &&
+          (a = new d(a), p.table_select[1] = X(i, c, t, a), a = a.bits),
+          m.use_best_huffman == 2 &&
+          (p.part2_3_length = a,
+            best_huffman_divide(m, p),
+            a = p.part2_3_length),
           _ != null && p.block_type == v.NORM_TYPE
       ) {
         for (i = 0; m.scalefac_band.l[i] < p.big_values;) i++;
@@ -977,7 +999,7 @@ function N2() {
       }
       return a;
     },
-      this.count_bits = function(m, p, _, i) {
+      this.count_bits = function (m, p, _, i) {
         var o = _.l3_enc, c = U1.IXMAX_VAL / P.IPOW20(_.global_gain);
         if (_.xrpow_max > c) return U1.LARGE_BITS;
         c = P.IPOW20(_.global_gain);
@@ -996,44 +1018,50 @@ function N2() {
         for (t = 0; t <= b; t++) {
           var N = -1;
           if (
-            (T || _.block_type == v.NORM_TYPE)
-            && (N = _.global_gain
-              - (_.scalefac[t] + (_.preflag != 0 ? P.pretab[t] : 0)
-                << _.scalefac_scale + 1)
-              - 8 * _.subblock_gain[_.window[t]]), T && i.step[t] == N
+            (T || _.block_type == v.NORM_TYPE) &&
+            (N = _.global_gain -
+              (_.scalefac[t] + (_.preflag != 0 ? P.pretab[t] : 0) <<
+                _.scalefac_scale + 1) -
+              8 * _.subblock_gain[_.window[t]]), T && i.step[t] == N
           ) {
-            f != 0 && (w(f, c, g, M, V, H), f = 0), E != 0 && (B(E, c, g, M, V, H), E = 0);
+            f != 0 && (w(f, c, g, M, V, H), f = 0),
+              E != 0 && (B(E, c, g, M, V, H), E = 0);
           } else {
             var y = _.width[t];
             if (
-              a + _.width[t] > _.max_nonzero_coeff
-              && (t = _.max_nonzero_coeff - a + 1,
+              a + _.width[t] > _.max_nonzero_coeff &&
+              (t = _.max_nonzero_coeff - a + 1,
                 r0.fill(o, _.max_nonzero_coeff, 576, 0),
                 y = t,
                 0 > y && (y = 0),
                 t = b + 1),
                 f == 0 && E == 0 && (V = o, H = I, g = p, M = A),
-                i != null && 0 < i.sfb_count1 && t >= i.sfb_count1
-                  && 0 < i.step[t] && N >= i.step[t]
-                  ? (f != 0
-                    && (w(f, c, g, M, V, H), f = 0, V = o, H = I, g = p, M = A),
+                i != null && 0 < i.sfb_count1 && t >= i.sfb_count1 &&
+                  0 < i.step[t] && N >= i.step[t]
+                  ? (f != 0 &&
+                    (w(f, c, g, M, V, H), f = 0, V = o, H = I, g = p, M = A),
                     E += y)
-                  : (E != 0
-                    && (B(E, c, g, M, V, H), E = 0, V = o, H = I, g = p, M = A),
+                  : (E != 0 &&
+                    (B(E, c, g, M, V, H), E = 0, V = o, H = I, g = p, M = A),
                     f += y),
                 0 >= y
             ) {
-              E != 0 && (B(E, c, g, M, V, H), E = 0), f != 0 && (w(f, c, g, M, V, H), f = 0);
+              E != 0 && (B(E, c, g, M, V, H), E = 0),
+                f != 0 && (w(f, c, g, M, V, H), f = 0);
               break;
             }
           }
           t <= b && (I += _.width[t], A += _.width[t], a += _.width[t]);
         }
         if (
-          f != 0 && w(f, c, g, M, V, H), E != 0 && B(E, c, g, M, V, H), m.substep_shaping & 2
+          f != 0 && w(f, c, g, M, V, H),
+            E != 0 && B(E, c, g, M, V, H),
+            m.substep_shaping & 2
         ) {
           for (
-            c = 0, b = .634521682242439 / P.IPOW20(_.global_gain + _.scalefac_scale), a = 0;
+            c = 0,
+              b = .634521682242439 / P.IPOW20(_.global_gain + _.scalefac_scale),
+              a = 0;
             a < _.sfbmax;
             a++
           ) {
@@ -1046,7 +1074,7 @@ function N2() {
         }
         return this.noquant_count_bits(m, _, i);
       },
-      this.best_huffman_divide = function(m, p) {
+      this.best_huffman_divide = function (m, p) {
         var _ = new y2(),
           i = p.l3_enc,
           o = e1(23),
@@ -1070,23 +1098,25 @@ function N2() {
                   V = new d(V),
                   M = X(i, A, M, V),
                   V = V.bits,
-                  o[E + g] > V
-                  && (o[E + g] = V, c[E + g] = E, t[E + g] = H, a[E + g] = M);
+                  o[E + g] > V &&
+                  (o[E + g] = V, c[E + g] = E, t[E + g] = H, a[E + g] = M);
               }
             }
             L(m, _, p, i, o, c, t, a);
           }
           if (
             f = _.big_values,
-              !(f == 0 || 1 < (i[f - 2] | i[f - 1])
-                || (f = p.count1 + 2, 576 < f))
+              !(f == 0 || 1 < (i[f - 2] | i[f - 1]) ||
+                (f = p.count1 + 2, 576 < f))
           ) {
             for (
               _.assign(p), _.count1 = f, A = E = 0;
               f > _.big_values;
               f -= 4
             ) {
-              I = 2 * (2 * (2 * i[f - 4] + i[f - 3]) + i[f - 2]) + i[f - 1], E += Y.t32l[I], A += Y.t33l[I];
+              I = 2 * (2 * (2 * i[f - 4] + i[f - 3]) + i[f - 2]) + i[f - 1],
+                E += Y.t32l[I],
+                A += Y.t33l[I];
             }
             _.big_values = f,
               _.count1table_select = 0,
@@ -1097,10 +1127,14 @@ function N2() {
                 : (_.part2_3_length = E,
                   E = m.scalefac_band.l[8],
                   E > f && (E = f),
-                  0 < E
-                  && (m = new d(_.part2_3_length), _.table_select[0] = X(i, 0, E, m), _.part2_3_length = m.bits),
-                  f > E
-                  && (m = new d(_.part2_3_length), _.table_select[1] = X(i, E, f, m), _.part2_3_length = m.bits),
+                  0 < E &&
+                  (m = new d(_.part2_3_length),
+                    _.table_select[0] = X(i, 0, E, m),
+                    _.part2_3_length = m.bits),
+                  f > E &&
+                  (m = new d(_.part2_3_length),
+                    _.table_select[1] = X(i, E, f, m),
+                    _.part2_3_length = m.bits),
                   p.part2_3_length > _.part2_3_length && p.assign(_));
           }
         }
@@ -1111,7 +1145,7 @@ function N2() {
       S = [0, 1, 2, 3, 0, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3];
     E2.slen1_tab = e,
       E2.slen2_tab = S,
-      this.best_scalefac_store = function(m, p, _, i) {
+      this.best_scalefac_store = function (m, p, _, i) {
         var o = i.tt[p][_], c, t, a = 0;
         for (c = t = 0; c < o.sfbmax; c++) {
           var f = o.width[c];
@@ -1120,8 +1154,8 @@ function N2() {
         }
         if (o.scalefac_scale == 0 && o.preflag == 0) {
           for (c = t = 0; c < o.sfbmax; c++) {
-            0 < o.scalefac[c]
-              && (t |= o.scalefac[c]);
+            0 < o.scalefac[c] &&
+              (t |= o.scalefac[c]);
           }
           if (!(t & 1) && t != 0) {
             for (c = 0; c < o.sfbmax; c++) {
@@ -1133,8 +1167,8 @@ function N2() {
         if (o.preflag == 0 && o.block_type != v.SHORT_TYPE && m.mode_gr == 2) {
           for (
             c = 11;
-            c < v.SBPSY_l
-            && !(o.scalefac[c] < P.pretab[c] && o.scalefac[c] != -2);
+            c < v.SBPSY_l &&
+            !(o.scalefac[c] < P.pretab[c] && o.scalefac[c] != -2);
             c++
           );
           if (c == v.SBPSY_l) {
@@ -1146,8 +1180,8 @@ function N2() {
         }
         for (c = 0; 4 > c; c++) i.scfsi[_][c] = 0;
         if (
-          m.mode_gr == 2 && p == 1 && i.tt[0][_].block_type != v.SHORT_TYPE
-          && i.tt[1][_].block_type != v.SHORT_TYPE
+          m.mode_gr == 2 && p == 1 && i.tt[0][_].block_type != v.SHORT_TYPE &&
+          i.tt[1][_].block_type != v.SHORT_TYPE
         ) {
           for (
             p = i.tt[1][_], t = i.tt[0][_], a = 0;
@@ -1156,8 +1190,8 @@ function N2() {
           ) {
             for (
               c = Y.scfsi_band[a];
-              c < Y.scfsi_band[a + 1]
-              && !(t.scalefac[c] != p.scalefac[c] && 0 <= p.scalefac[c]);
+              c < Y.scfsi_band[a + 1] &&
+              !(t.scalefac[c] != p.scalefac[c] && 0 <= p.scalefac[c]);
               c++
             );
             if (c == Y.scfsi_band[a + 1]) {
@@ -1168,33 +1202,33 @@ function N2() {
             }
           }
           for (c = i = _ = 0; 11 > c; c++) {
-            p.scalefac[c] != -1
-              && (i++, _ < p.scalefac[c] && (_ = p.scalefac[c]));
+            p.scalefac[c] != -1 &&
+              (i++, _ < p.scalefac[c] && (_ = p.scalefac[c]));
           }
           for (f = t = 0; c < v.SBPSY_l; c++) {
-            p.scalefac[c] != -1
-              && (f++, t < p.scalefac[c] && (t = p.scalefac[c]));
+            p.scalefac[c] != -1 &&
+              (f++, t < p.scalefac[c] && (t = p.scalefac[c]));
           }
           for (a = 0; 16 > a; a++) {
-            _ < n[a] && t < R[a]
-              && (c = e[a] * i + S[a] * f,
-                p.part2_length > c
-                && (p.part2_length = c, p.scalefac_compress = a));
+            _ < n[a] && t < R[a] &&
+              (c = e[a] * i + S[a] * f,
+                p.part2_length > c &&
+                (p.part2_length = c, p.scalefac_compress = a));
           }
           a = 0;
         }
         for (c = 0; c < o.sfbmax; c++) {
           o.scalefac[c] == -2 && (o.scalefac[c] = 0);
         }
-        a != 0
-          && (m.mode_gr == 2
+        a != 0 &&
+          (m.mode_gr == 2
             ? this.scale_bitcount(o)
             : this.scale_bitcount_lsf(m, o));
       };
     var x = [0, 18, 36, 54, 54, 36, 54, 72, 54, 72, 90, 72, 90, 108, 108, 126],
       r = [0, 18, 36, 54, 51, 35, 53, 71, 52, 70, 88, 69, 87, 105, 104, 122],
       l = [0, 10, 20, 30, 33, 21, 31, 41, 32, 42, 52, 43, 53, 63, 64, 74];
-    this.scale_bitcount = function(m) {
+    this.scale_bitcount = function (m) {
       var p, _ = 0, i = 0, o = m.scalefac;
       if (m.block_type == v.SHORT_TYPE) {
         var c = x;
@@ -1208,8 +1242,8 @@ function N2() {
       for (p = 0; p < m.sfbdivide; p++) _ < o[p] && (_ = o[p]);
       for (; p < m.sfbmax; p++) i < o[p] && (i = o[p]);
       for (m.part2_length = U1.LARGE_BITS, p = 0; 16 > p; p++) {
-        _ < n[p] && i < R[p] && m.part2_length > c[p]
-          && (m.part2_length = c[p], m.scalefac_compress = p);
+        _ < n[p] && i < R[p] && m.part2_length > c[p] &&
+          (m.part2_length = c[p], m.scalefac_compress = p);
       }
       return m.part2_length == U1.LARGE_BITS;
     };
@@ -1219,7 +1253,7 @@ function N2() {
       7,
       0,
     ], [3, 3, 0, 0]];
-    this.scale_bitcount_lsf = function(m, p) {
+    this.scale_bitcount_lsf = function (m, p) {
       var _, i, o, c, t = e1(4), a = p.scalefac;
       for (m = p.preflag != 0 ? 2 : 0, o = 0; 4 > o; o++) t[o] = 0;
       if (p.block_type == v.SHORT_TYPE) {
@@ -1265,7 +1299,7 @@ function N2() {
       return A;
     };
     var h = [0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4];
-    this.huffman_init = function(m) {
+    this.huffman_init = function (m) {
       for (var p = 2; 576 >= p; p += 2) {
         for (var _ = 0, i; m.scalefac_band.l[++_] < p;);
         for (i = D[_][0]; m.scalefac_band.l[i + 1] > p;) i--;
@@ -1279,30 +1313,30 @@ function N2() {
   }
   function et() {
     var d;
-    this.setModules = function(B) {
+    this.setModules = function (B) {
       d = B;
     },
-      this.ResvFrameBegin = function(B, w) {
+      this.ResvFrameBegin = function (B, w) {
         var X = B.internal_flags, L = X.l3_side, P = d.getframebits(B);
         w.bits = (P - 8 * X.sideinfo_len) / X.mode_gr;
         var D = 2048 * X.mode_gr - 8;
         if (320 < B.brate) {
-          var u = 8
-            * int(1e3 * B.brate / (B.out_samplerate / 1152) / 8 + .5);
+          var u = 8 *
+            int(1e3 * B.brate / (B.out_samplerate / 1152) / 8 + .5);
         } else {u = 11520,
-            B.strict_ISO
-            && (u = 8 * int(32e4 / (B.out_samplerate / 1152) / 8 + .5));}
+            B.strict_ISO &&
+            (u = 8 * int(32e4 / (B.out_samplerate / 1152) / 8 + .5));}
         return X.ResvMax = u - P,
           X.ResvMax > D && (X.ResvMax = D),
           (0 > X.ResvMax || B.disable_reservoir) && (X.ResvMax = 0),
           B = w.bits * X.mode_gr + Math.min(X.ResvSize, X.ResvMax),
           B > u && (B = u),
           L.resvDrain_pre = 0,
-          X.pinfo != null
-          && (X.pinfo.mean_bits = w.bits / 2, X.pinfo.resvsize = X.ResvSize),
+          X.pinfo != null &&
+          (X.pinfo.mean_bits = w.bits / 2, X.pinfo.resvsize = X.ResvSize),
           B;
       },
-      this.ResvMaxBits = function(B, w, X, L) {
+      this.ResvMaxBits = function (B, w, X, L) {
         var P = B.internal_flags, D = P.ResvSize, u = P.ResvMax;
         return L != 0 && (D += w),
           P.substep_shaping & 1 && (u *= .9),
@@ -1311,17 +1345,17 @@ function N2() {
             ? (L = D - 9 * u / 10, X.bits += L, P.substep_shaping |= 128)
             : (L = 0,
               P.substep_shaping &= 127,
-              B.disable_reservoir || P.substep_shaping & 1
-              || (X.bits -= .1 * w)),
+              B.disable_reservoir || P.substep_shaping & 1 ||
+              (X.bits -= .1 * w)),
           B = D < 6 * P.ResvMax / 10 ? D : 6 * P.ResvMax / 10,
           B -= L,
           0 > B && (B = 0),
           B;
       },
-      this.ResvAdjust = function(B, w) {
+      this.ResvAdjust = function (B, w) {
         B.ResvSize -= w.part2_3_length + w.part2_length;
       },
-      this.ResvFrameEnd = function(B, w) {
+      this.ResvFrameEnd = function (B, w) {
         var X, L = B.l3_side;
         B.ResvSize += w * B.mode_gr,
           w = 0,
@@ -1372,13 +1406,16 @@ function N2() {
         }
       }
       for (; 1 <= i; --i) {
-        d(o, o.ancillary_flag, 1), o.ancillary_flag ^= _.disable_reservoir ? 0 : 1;
+        d(o, o.ancillary_flag, 1),
+          o.ancillary_flag ^= _.disable_reservoir ? 0 : 1;
       }
     }
     function w(_, i, o) {
       for (var c = _.header[_.h_ptr].ptr; 0 < o;) {
         var t = Math.min(o, 8 - (c & 7));
-        o -= t, _.header[_.h_ptr].buf[c >> 3] |= i >> o << 8 - (c & 7) - t, c += t;
+        o -= t,
+          _.header[_.h_ptr].buf[c >> 3] |= i >> o << 8 - (c & 7) - t,
+          c += t;
       }
       _.header[_.h_ptr].ptr = c;
     }
@@ -1423,8 +1460,8 @@ function N2() {
           g = t.l3_enc[o],
           M = t.l3_enc[o + 1];
         g != 0 && (0 > t.xr[o] && H++, E--),
-          15 < i
-          && (14 < g && (H |= g - 15 << 1, A = I, g = 15),
+          15 < i &&
+          (14 < g && (H |= g - 15 << 1, A = I, g = 15),
             14 < M && (V = M - 15, H <<= I, H |= V, A += I, M = 15),
             V = 16),
           M != 0 && (H <<= 1, 0 > t.xr[o + 1] && H++, E--),
@@ -1462,7 +1499,8 @@ function N2() {
       var a = o.header[t].write_timing - h;
       if (i.total = a, 0 <= a) {
         var f = 1 + t - c;
-        t < c && (f = 1 + t - c + S1.MAX_HEADER_BUF), a -= 8 * f * o.sideinfo_len;
+        t < c && (f = 1 + t - c + S1.MAX_HEADER_BUF),
+          a -= 8 * f * o.sideinfo_len;
       }
       return _ = e.getframebits(_),
         a += _,
@@ -1474,40 +1512,42 @@ function N2() {
         a;
     }
     var e = this, S = null, x = null, r = null, l = null;
-    this.setModules = function(_, i, o, c) {
+    this.setModules = function (_, i, o, c) {
       S = _, x = i, r = o, l = c;
     };
     var s = null, h = 0, m = 0, p = 0;
-    this.getframebits = function(_) {
+    this.getframebits = function (_) {
       var i = _.internal_flags;
-      return 8
-        * (0
-          | 72e3 * (_.version + 1) * (i.bitrate_index != 0
+      return 8 *
+        (0 |
+          72e3 * (_.version + 1) * (i.bitrate_index != 0
                   ? Y.bitrate_table[_.version][i.bitrate_index]
-                  : _.brate)
-                / _.out_samplerate + i.padding);
+                  : _.brate) /
+                _.out_samplerate + i.padding);
     },
-      this.CRC_writeheader = function(_, i) {
+      this.CRC_writeheader = function (_, i) {
         var o = X(i[2] & 255, 65535);
         o = X(i[3] & 255, o);
         for (var c = 6; c < _.sideinfo_len; c++) o = X(i[c] & 255, o);
         i[4] = byte(o >> 8), i[5] = byte(o & 255);
       },
-      this.flush_bitstream = function(_) {
+      this.flush_bitstream = function (_) {
         var i = _.internal_flags, o, c = i.l3_side;
-        0 > (o = R(_, new n()))
-          || (B(_, o),
+        0 > (o = R(_, new n())) ||
+          (B(_, o),
             i.ResvSize = 0,
             c.main_data_begin = 0,
-            i.findReplayGain
-            && (c = S.GetTitleGain(i.rgdata), i.RadioGain = Math.floor(10 * c + .5) | 0),
-            i.findPeakSample
-            && (i.noclipGainChange = Math.ceil(200 * Math.log10(i.PeakSample / 32767)) | 0,
+            i.findReplayGain &&
+            (c = S.GetTitleGain(i.rgdata),
+              i.RadioGain = Math.floor(10 * c + .5) | 0),
+            i.findPeakSample &&
+            (i.noclipGainChange =
+              Math.ceil(200 * Math.log10(i.PeakSample / 32767)) | 0,
               0 < i.noclipGainChange && (EQ(_.scale, 1) || EQ(_.scale, 0))
                 ? i.noclipScale = Math.floor(32767 / i.PeakSample * 100) / 100
                 : i.noclipScale = -1));
       },
-      this.add_dummy_byte = function(_, i, o) {
+      this.add_dummy_byte = function (_, i, o) {
         _ = _.internal_flags;
         for (var c; 0 < o--;) {
           c = i;
@@ -1519,7 +1559,7 @@ function N2() {
           for (c = 0; c < S1.MAX_HEADER_BUF; ++c) _.header[c].write_timing += 8;
         }
       },
-      this.format_bitstream = function(_) {
+      this.format_bitstream = function (_) {
         var i = _.internal_flags, o = i.l3_side, c = this.getframebits(_);
         B(_, o.resvDrain_pre);
         var t = _.internal_flags, a, f, E = t.l3_side;
@@ -1584,11 +1624,12 @@ function N2() {
             }
           }
         } else {for (
-            w(t, E.main_data_begin, 8), w(t, E.private_bits, t.channels_out), f = a = 0;
+            w(t, E.main_data_begin, 8),
+              w(t, E.private_bits, t.channels_out),
+              f = a = 0;
             f < t.channels_out;
             f++
-          )
-          {
+          ) {
             A = E.tt[a][f],
               w(t, A.part2_3_length + A.part2_length, 12),
               w(t, A.big_values / 2, 9),
@@ -1621,8 +1662,8 @@ function N2() {
           E = t.h_ptr,
           t.h_ptr = E + 1 & S1.MAX_HEADER_BUF - 1,
           t.header[t.h_ptr].write_timing = t.header[E].write_timing + c,
-          t.h_ptr == t.w_ptr
-          && i1.err.println(`Error: MAX_HEADER_BUF too small in bitstream.c 
+          t.h_ptr == t.w_ptr &&
+          i1.err.println(`Error: MAX_HEADER_BUF too small in bitstream.c 
 `),
           t = 8 * i.sideinfo_len;
         var I = 0, V = _.internal_flags, H = V.l3_side;
@@ -1632,11 +1673,13 @@ function N2() {
               var g = H.tt[E][f],
                 M = E2.slen1_tab[g.scalefac_compress],
                 T = E2.slen2_tab[g.scalefac_compress];
-              for (a = A = 0; a < g.sfbdivide; a++) {g.scalefac[a] != -1
-                  && (d(V, g.scalefac[a], M), A += M);}
-              for (; a < g.sfbmax; a++) {g.scalefac[a] != -1
-                  && (d(V, g.scalefac[a], T), A += T);}
-              A = g.block_type == v.SHORT_TYPE ? A + D(V, g) : A + u(V, g), A += L(V, g), I += A;
+              for (a = A = 0; a < g.sfbdivide; a++) {g.scalefac[a] != -1 &&
+                  (d(V, g.scalefac[a], M), A += M);}
+              for (; a < g.sfbmax; a++) {g.scalefac[a] != -1 &&
+                  (d(V, g.scalefac[a], T), A += T);}
+              A = g.block_type == v.SHORT_TYPE ? A + D(V, g) : A + u(V, g),
+                A += L(V, g),
+                I += A;
             }
           }
         } else {for (f = E = 0; f < V.channels_out; f++) {
@@ -1670,8 +1713,8 @@ function N2() {
             B(_, o.resvDrain_post),
             t += o.resvDrain_post,
             o.main_data_begin += (c - t) / 8,
-            R(_, new n()) != i.ResvSize
-            && i1.err.println(
+            R(_, new n()) != i.ResvSize &&
+            i1.err.println(
               "Internal buffer inconsistency. flushbits <> ResvSize",
             ),
             8 * o.main_data_begin != i.ResvSize && (i1.err.printf(
@@ -1711,7 +1754,7 @@ bitsperframe:             %d
         }
         return 0;
       },
-      this.copy_buffer = function(_, i, o, c, t) {
+      this.copy_buffer = function (_, i, o, c, t) {
         var a = m + 1;
         if (0 >= a) return 0;
         if (c != 0 && a > c) return -1;
@@ -1719,8 +1762,8 @@ bitsperframe:             %d
           i1.arraycopy(s, 0, i, o, a),
             m = -1,
             p = 0,
-            t != 0
-            && (c = e1(1),
+            t != 0 &&
+            (c = e1(1),
               c[0] = _.nMusicCRC,
               l.updateMusicCRC(c, i, o, a),
               _.nMusicCRC = c[0],
@@ -1730,7 +1773,10 @@ bitsperframe:             %d
           c = x1([2, 1152]), t = a;
           for (var f = -1, E; f != 0;) {
             if (
-              f = x.hip_decode1_unclipped(_.hip, i, o, t, c[0], c[1]), t = 0, f == -1 && (f = 0), 0 < f
+              f = x.hip_decode1_unclipped(_.hip, i, o, t, c[0], c[1]),
+                t = 0,
+                f == -1 && (f = 0),
+                0 < f
             ) {
               if (_.findPeakSample) {
                 for (E = 0; E < f; E++) {
@@ -1747,8 +1793,8 @@ bitsperframe:             %d
                 }
               }
               if (
-                _.findReplayGain
-                && S.AnalyzeSamples(
+                _.findReplayGain &&
+                S.AnalyzeSamples(
                     _.rgdata,
                     c[0],
                     0,
@@ -1763,7 +1809,7 @@ bitsperframe:             %d
         }
         return a;
       },
-      this.init_bit_stream_w = function(_) {
+      this.init_bit_stream_w = function (_) {
         s = new Int8Array(s1.LAME_MAXMP3BUFFER),
           _.h_ptr = _.w_ptr = 0,
           _.header[_.h_ptr].write_timing = 0,
@@ -1774,10 +1820,15 @@ bitsperframe:             %d
   function v2() {
     function d(r, l) {
       var s = r[l + 0] & 255;
-      return s = s << 8 | r[l + 1] & 255, s = s << 8 | r[l + 2] & 255, s = s << 8 | r[l + 3] & 255;
+      return s = s << 8 | r[l + 1] & 255,
+        s = s << 8 | r[l + 2] & 255,
+        s = s << 8 | r[l + 3] & 255;
     }
     function B(r, l, s) {
-      r[l + 0] = s >> 24 & 255, r[l + 1] = s >> 16 & 255, r[l + 2] = s >> 8 & 255, r[l + 3] = s & 255;
+      r[l + 0] = s >> 24 & 255,
+        r[l + 1] = s >> 16 & 255,
+        r[l + 2] = s >> 8 & 255,
+        r[l + 3] = s & 255;
     }
     function w(r, l, s) {
       r[l + 0] = s >> 8 & 255, r[l + 1] = s & 255;
@@ -1817,13 +1868,13 @@ bitsperframe:             %d
       return l = l >> 8 ^ x[(l ^ r) & 255];
     }
     var D, u, n;
-    this.setModules = function(r, l, s) {
+    this.setModules = function (r, l, s) {
       D = r, u = l, n = s;
     };
     var R = v2.NUMTOCENTRIES,
       e = v2.MAXFRAMESIZE,
-      S = R + 4 + 4 + 4 + 4 + 4 + 9 + 1 + 1 + 8 + 1 + 1 + 3 + 1 + 1 + 2 + 4
-        + 2 + 2,
+      S = R + 4 + 4 + 4 + 4 + 4 + 9 + 1 + 1 + 8 + 1 + 1 + 3 + 1 + 1 + 2 + 4 +
+        2 + 2,
       x = [
         0,
         49345,
@@ -2082,21 +2133,22 @@ bitsperframe:             %d
         32897,
         16448,
       ];
-    this.addVbrFrame = function(r) {
+    this.addVbrFrame = function (r) {
       var l = r.internal_flags, s = l.VBR_seek_table;
       if (
         r = Y.bitrate_table[r.version][l.bitrate_index],
           s.nVbrNumFrames++,
           s.sum += r,
           s.seen++,
-          !(s.seen < s.want)
-          && (s.pos < s.size && (s.bag[s.pos] = s.sum, s.pos++, s.seen = 0), s.pos == s.size)
+          !(s.seen < s.want) &&
+          (s.pos < s.size && (s.bag[s.pos] = s.sum, s.pos++, s.seen = 0),
+            s.pos == s.size)
       ) {
         for (r = 1; r < s.size; r += 2) s.bag[r / 2] = s.bag[r];
         s.want *= 2, s.pos /= 2;
       }
     },
-      this.getVbrTag = function(r) {
+      this.getVbrTag = function (r) {
         var l = new VBRTagData(), s = 0;
         l.flags = 0;
         var h = r[s + 1] >> 3 & 1,
@@ -2113,8 +2165,8 @@ bitsperframe:             %d
               : p != 3
               ? s + 21
               : s + 13,
-            !new String(r, m, 4(), null).equals("Xing")
-            && !new String(r, m, 4(), null).equals("Info")
+            !new String(r, m, 4(), null).equals("Xing") &&
+            !new String(r, m, 4(), null).equals("Info")
         ) return null;
         if (
           s += 4,
@@ -2142,10 +2194,11 @@ bitsperframe:             %d
           l.encPadding = _,
           l;
       },
-      this.InitVbrTag = function(r) {
+      this.InitVbrTag = function (r) {
         var l = r.internal_flags,
           s = r.version == 1 ? 128 : 16e3 > r.out_samplerate ? 32 : 64;
-        r.VBR == C.vbr_off && (s = r.brate), s = 72e3 * (r.version + 1) * s / r.out_samplerate;
+        r.VBR == C.vbr_off && (s = r.brate),
+          s = 72e3 * (r.version + 1) * s / r.out_samplerate;
         var h = l.sideinfo_len + S;
         if (l.VBR_seek_table.TotalFrameSize = s, s < h || s > e) {r
             .bWriteVbrTag = !1;} else {for (
@@ -2155,8 +2208,9 @@ bitsperframe:             %d
               l.VBR_seek_table.seen = 0,
               l.VBR_seek_table.want = 1,
               l.VBR_seek_table.pos = 0,
-              l.VBR_seek_table.bag == null
-              && (l.VBR_seek_table.bag = new int[400](), l.VBR_seek_table.size = 400),
+              l.VBR_seek_table.bag == null &&
+              (l.VBR_seek_table.bag = new int[400](),
+                l.VBR_seek_table.size = 400),
               s = new Int8Array(e),
               L(r, s),
               l = l.VBR_seek_table.TotalFrameSize,
@@ -2165,14 +2219,14 @@ bitsperframe:             %d
             ++h
           ) u.add_dummy_byte(r, s[h] & 255, 1);}
       },
-      this.updateMusicCRC = function(r, l, s, h) {
+      this.updateMusicCRC = function (r, l, s, h) {
         for (var m = 0; m < h; ++m) r[0] = P(l[s + m], r[0]);
       },
-      this.getLameTagFrame = function(r, l) {
+      this.getLameTagFrame = function (r, l) {
         var s = r.internal_flags;
         if (
-          !r.bWriteVbrTag || s.Class_ID != s1.LAME_ID
-          || 0 >= s.VBR_seek_table.pos
+          !r.bWriteVbrTag || s.Class_ID != s1.LAME_ID ||
+          0 >= s.VBR_seek_table.pos
         ) return 0;
         if (l.length < s.VBR_seek_table.TotalFrameSize) {return s.VBR_seek_table
             .TotalFrameSize;}
@@ -2185,7 +2239,10 @@ bitsperframe:             %d
           if (!(0 >= p.pos)) {
             for (m = 1; m < R; ++m) {
               var _ = 0 | Math.floor(m / R * p.pos);
-              _ > p.pos - 1 && (_ = p.pos - 1), _ = 0 | 256 * p.bag[_] / p.sum, 255 < _ && (_ = 255), h[m] = 255 & _;
+              _ > p.pos - 1 && (_ = p.pos - 1),
+                _ = 0 | 256 * p.bag[_] / p.sum,
+                255 < _ && (_ = 255),
+                h[m] = 255 & _;
             }
           }
         }
@@ -2214,8 +2271,8 @@ bitsperframe:             %d
           t = 100 - 10 * r.VBR_q - r.quality,
           a = n.getLameVeryShortVersion(),
           f = [1, 5, 3, 2, 4, 0, 3],
-          E = 0
-            | (255 < r.lowpassfreq / 100 + .5 ? 255 : r.lowpassfreq / 100 + .5),
+          E = 0 |
+            (255 < r.lowpassfreq / 100 + .5 ? 255 : r.lowpassfreq / 100 + .5),
           A = 0,
           I = 0,
           V = r.internal_flags.noise_shaping,
@@ -2239,16 +2296,16 @@ bitsperframe:             %d
         }
         switch (
           f = 0 + (r.VBR.ordinal() < f.length ? f[r.VBR.ordinal()] : 0),
-            o.findReplayGain
-            && (510 < o.RadioGain && (o.RadioGain = 510),
+            o.findReplayGain &&
+            (510 < o.RadioGain && (o.RadioGain = 510),
               -510 > o.RadioGain && (o.RadioGain = -510),
               I = 11264,
               I = 0 <= o.RadioGain ? I | o.RadioGain : I | 512 | -o.RadioGain),
-            o.findPeakSample
-            && (A = Math.abs(0 | o.PeakSample / 32767 * Math.pow(2, 23) + .5)),
+            o.findPeakSample &&
+            (A = Math.abs(0 | o.PeakSample / 32767 * Math.pow(2, 23) + .5)),
             N != -1 && (0 < y && (b = !0), y < N - 1 && (g = !0)),
-            M = O + ((M ? 1 : 0) << 4) + ((T ? 1 : 0) << 5)
-              + ((g ? 1 : 0) << 6) + ((b ? 1 : 0) << 7),
+            M = O + ((M ? 1 : 0) << 4) + ((T ? 1 : 0) << 5) +
+              ((g ? 1 : 0) << 6) + ((b ? 1 : 0) << 7),
             0 > t && (t = 0),
             r.mode
         ) {
@@ -2275,14 +2332,14 @@ bitsperframe:             %d
             : 48e3 < r.in_samplerate
             ? 3
             : 1,
-            (r.short_blocks == L1.short_block_forced
-              || r.short_blocks == L1.short_block_dispensed
-              || r.lowpassfreq == -1 && r.highpassfreq == -1
-              || r.scale_left < r.scale_right
-              || r.scale_left > r.scale_right
-              || r.disable_reservoir && 320 > r.brate || r.noATH || r.ATHonly
-              || O == 0
-              || 32e3 >= r.in_samplerate) && (H = 1),
+            (r.short_blocks == L1.short_block_forced ||
+              r.short_blocks == L1.short_block_dispensed ||
+              r.lowpassfreq == -1 && r.highpassfreq == -1 ||
+              r.scale_left < r.scale_right ||
+              r.scale_left > r.scale_right ||
+              r.disable_reservoir && 320 > r.brate || r.noATH || r.ATHonly ||
+              O == 0 ||
+              32e3 >= r.in_samplerate) && (H = 1),
             V = V + (T << 2) + (H << 5) + (g << 6),
             o = o.nMusicCRC,
             B(l, h + _, t),
@@ -2326,18 +2383,18 @@ bitsperframe:             %d
         ) m = P(l[h + r], m);
         return w(l, h + _, m), s.VBR_seek_table.TotalFrameSize;
       },
-      this.putVbrTag = function(r, l) {
+      this.putVbrTag = function (r, l) {
         if (
-          0 >= r.internal_flags.VBR_seek_table.pos
-          || (l.seek(l.length()), l.length() == 0)
+          0 >= r.internal_flags.VBR_seek_table.pos ||
+          (l.seek(l.length()), l.length() == 0)
         ) return -1;
         l.seek(0);
         var s = new Int8Array(10);
         return l.readFully(s),
           s = new String(s, "ISO-8859-1").startsWith("ID3")
             ? 0
-            : ((s[6] & 127) << 21 | (s[7] & 127) << 14 | (s[8] & 127) << 7
-              | s[9] & 127) + s.length,
+            : ((s[6] & 127) << 21 | (s[7] & 127) << 14 | (s[8] & 127) << 7 |
+              s[9] & 127) + s.length,
           l.seek(s),
           s = new Int8Array(e),
           r = getLameTagFrame(r, s),
@@ -2351,7 +2408,7 @@ bitsperframe:             %d
     this.bits = d;
   }
   function nt() {
-    this.setModules = function(d, B) {};
+    this.setModules = function (d, B) {};
   }
   function x2() {
     this.bits =
@@ -2454,7 +2511,7 @@ bitsperframe:             %d
   }
   function it(d) {
     this.quantize = d,
-      this.iteration_loop = function(B, w, X, L) {
+      this.iteration_loop = function (B, w, X, L) {
         var P = B.internal_flags,
           D = G(R0.SFBMAX),
           u = G(576),
@@ -2465,8 +2522,9 @@ bitsperframe:             %d
         for (var S = 0; S < P.mode_gr; S++) {
           var x = this.quantize.qupvt.on_pe(B, w, n, e, S, S);
           for (
-            P.mode_ext == v.MPG_MD_MS_LR
-            && (this.quantize.ms_convert(P.l3_side, S), this.quantize.qupvt.reduce_side(n, X[S], e, x)), x = 0;
+            P.mode_ext == v.MPG_MD_MS_LR &&
+            (this.quantize.ms_convert(P.l3_side, S),
+              this.quantize.qupvt.reduce_side(n, X[S], e, x)), x = 0;
             x < P.channels_out;
             x++
           ) {
@@ -2477,8 +2535,9 @@ bitsperframe:             %d
             } else l = 0, l = P.PSY.mask_adjust_short - l;
             P.masking_lower = Math.pow(10, .1 * l),
               this.quantize.init_outer_loop(P, r),
-              this.quantize.init_xrpow(P, r, u)
-              && (this.quantize.qupvt.calc_xmin(B, L[S][x], r, D), this.quantize.outer_loop(B, r, D, u, x, n[x])),
+              this.quantize.init_xrpow(P, r, u) &&
+              (this.quantize.qupvt.calc_xmin(B, L[S][x], r, D),
+                this.quantize.outer_loop(B, r, D, u, x, n[x])),
               this.quantize.iteration_finish_one(P, S, x);
           }
         }
@@ -2507,8 +2566,8 @@ bitsperframe:             %d
       this.psfb21 = e1(1 + v.PSFB21),
       this.psfb12 = e1(1 + v.PSFB12);
     var L = this.l, P = this.s;
-    arguments.length == 4
-      && (this.arrL = arguments[0],
+    arguments.length == 4 &&
+      (this.arrL = arguments[0],
         this.arrS = arguments[1],
         this.arr21 = arguments[2],
         this.arr12 = arguments[3],
@@ -2543,16 +2602,17 @@ bitsperframe:             %d
   }
   function U1() {
     function d(r, l) {
-      return l = L.ATHformula(l, r), l = Math.pow(10, (l - 100) / 10 + r.ATHlower);
+      return l = L.ATHformula(l, r),
+        l = Math.pow(10, (l - 100) / 10 + r.ATHlower);
     }
     function B(r) {
       this.s = r;
     }
     var w = null, X = null, L = null;
-    this.setModules = function(r, l, s) {
+    this.setModules = function (r, l, s) {
       w = r, X = l, L = s;
     },
-      this.IPOW20 = function(r) {
+      this.IPOW20 = function (r) {
         return e[r];
       };
     var P = U1.IXMAX_VAL + 2, D = U1.Q_MAX, u = U1.Q_MAX2;
@@ -2840,10 +2900,12 @@ bitsperframe:             %d
       ];
     var R = G(D + u + 1), e = G(D), S = G(P), x = G(P);
     this.adj43 = x,
-      this.iteration_init = function(r) {
+      this.iteration_init = function (r) {
         var l = r.internal_flags, s = l.l3_side;
         if (l.iteration_init_init == 0) {
-          l.iteration_init_init = 1, s.main_data_begin = 0, s = r.internal_flags.ATH.l;
+          l.iteration_init_init = 1,
+            s.main_data_begin = 0,
+            s = r.internal_flags.ATH.l;
           for (
             var h = r.internal_flags.ATH.psfb21,
               m = r.internal_flags.ATH.s,
@@ -2862,7 +2924,9 @@ bitsperframe:             %d
           }
           for (o = 0; o < v.PSFB21; o++) {
             for (
-              c = _.scalefac_band.psfb21[o], t = _.scalefac_band.psfb21[o + 1], h[o] = o2.MAX_VALUE;
+              c = _.scalefac_band.psfb21[o],
+                t = _.scalefac_band.psfb21[o + 1],
+                h[o] = o2.MAX_VALUE;
               c < t;
               c++
             ) {
@@ -2871,7 +2935,9 @@ bitsperframe:             %d
           }
           for (o = 0; o < v.SBMAX_s; o++) {
             for (
-              c = _.scalefac_band.s[o], t = _.scalefac_band.s[o + 1], m[o] = o2.MAX_VALUE;
+              c = _.scalefac_band.s[o],
+                t = _.scalefac_band.s[o + 1],
+                m[o] = o2.MAX_VALUE;
               c < t;
               c++
             ) {
@@ -2881,7 +2947,9 @@ bitsperframe:             %d
           }
           for (o = 0; o < v.PSFB12; o++) {
             for (
-              c = _.scalefac_band.psfb12[o], t = _.scalefac_band.psfb12[o + 1], p[o] = o2.MAX_VALUE;
+              c = _.scalefac_band.psfb12[o],
+                t = _.scalefac_band.psfb12[o + 1],
+                p[o] = o2.MAX_VALUE;
               c < t;
               c++
             ) {
@@ -2901,8 +2969,8 @@ bitsperframe:             %d
             s++
           ) S[s] = Math.pow(s, 4 / 3);
           for (s = 0; s < P - 1; s++) {
-            x[s] = s + 1
-              - Math.pow(.5 * (S[s] + S[s + 1]), .75);
+            x[s] = s + 1 -
+              Math.pow(.5 * (S[s] + S[s + 1]), .75);
           }
           for (x[s] = .5, s = 0; s < D; s++) {
             e[s] = Math.pow(2, -.1875 * (s - 210));
@@ -2926,19 +2994,22 @@ bitsperframe:             %d
             s < v.SBMAX_l;
             s++
           ) {
-            _ = 6 >= s ? h : 13 >= s ? m : 20 >= s ? p : r, l.nsPsy.longfact[s] = _;
+            _ = 6 >= s ? h : 13 >= s ? m : 20 >= s ? p : r,
+              l.nsPsy.longfact[s] = _;
           }
           for (s = 0; s < v.SBMAX_s; s++) {
-            _ = 5 >= s ? h : 10 >= s ? m : 11 >= s ? p : r, l.nsPsy.shortfact[s] = _;
+            _ = 5 >= s ? h : 10 >= s ? m : 11 >= s ? p : r,
+              l.nsPsy.shortfact[s] = _;
           }
         }
       },
-      this.on_pe = function(r, l, s, h, m, p) {
+      this.on_pe = function (r, l, s, h, m, p) {
         var _ = r.internal_flags, i = 0, o = e1(2), c;
         i = new J0(i), r = X.ResvMaxBits(r, h, i, p), i = i.bits;
         var t = i + r;
         for (
-          t > S1.MAX_BITS_PER_GRANULE && (t = S1.MAX_BITS_PER_GRANULE), c = p = 0;
+          t > S1.MAX_BITS_PER_GRANULE && (t = S1.MAX_BITS_PER_GRANULE),
+            c = p = 0;
           c < _.channels_out;
           ++c
         ) {
@@ -2946,25 +3017,26 @@ bitsperframe:             %d
             o[c] = 0 | s[c] * l[m][c] / 700 - s[c],
             o[c] > 3 * h / 4 && (o[c] = 3 * h / 4),
             0 > o[c] && (o[c] = 0),
-            o[c] + s[c] > S1.MAX_BITS_PER_CHANNEL
-            && (o[c] = Math.max(0, S1.MAX_BITS_PER_CHANNEL - s[c])),
+            o[c] + s[c] > S1.MAX_BITS_PER_CHANNEL &&
+            (o[c] = Math.max(0, S1.MAX_BITS_PER_CHANNEL - s[c])),
             p += o[c];
         }
         if (p > r) for (c = 0; c < _.channels_out; ++c) o[c] = r * o[c] / p;
         for (c = 0; c < _.channels_out; ++c) s[c] += o[c], r -= o[c];
         for (c = p = 0; c < _.channels_out; ++c) p += s[c];
         if (p > S1.MAX_BITS_PER_GRANULE) {
-          for (c = 0; c < _.channels_out; ++c) s[c] *= S1.MAX_BITS_PER_GRANULE, s[c] /= p;
+          for (c = 0; c < _.channels_out; ++c) {s[c] *= S1.MAX_BITS_PER_GRANULE,
+              s[c] /= p;}
         }
         return t;
       },
-      this.reduce_side = function(r, l, s, h) {
+      this.reduce_side = function (r, l, s, h) {
         l = .33 * (.5 - l) / .5,
           0 > l && (l = 0),
           .5 < l && (l = .5),
           l = 0 | .5 * l * (r[0] + r[1]),
-          l > S1.MAX_BITS_PER_CHANNEL - r[0]
-          && (l = S1.MAX_BITS_PER_CHANNEL - r[0]),
+          l > S1.MAX_BITS_PER_CHANNEL - r[0] &&
+          (l = S1.MAX_BITS_PER_CHANNEL - r[0]),
           0 > l && (l = 0),
           125 <= r[1] && (125 < r[1] - l
             ? (r[0] < s && (r[0] += l), r[1] -= l)
@@ -2972,7 +3044,7 @@ bitsperframe:             %d
           l = r[0] + r[1],
           l > h && (r[0] = h * r[0] / l, r[1] = h * r[1] / l);
       },
-      this.athAdjust = function(r, l, s) {
+      this.athAdjust = function (r, l, s) {
         l = r1.FAST_LOG10_X(l, 10), r *= r;
         var h = 0;
         return l -= s,
@@ -2980,7 +3052,7 @@ bitsperframe:             %d
           0 > h && (h = 0),
           Math.pow(10, .1 * (l * h + (s + 90.30873362 - 94.82444863)));
       },
-      this.calc_xmin = function(r, l, s, h) {
+      this.calc_xmin = function (r, l, s, h) {
         var m = 0,
           p = r.internal_flags,
           _,
@@ -3005,15 +3077,23 @@ bitsperframe:             %d
             g = 0;
           do {
             var M = t[i] * t[i];
-            g += M, V += M < I ? M : I, i++, M = t[i] * t[i], g += M, V += M < I ? M : I, i++;
+            g += M,
+              V += M < I ? M : I,
+              i++,
+              M = t[i] * t[i],
+              g += M,
+              V += M < I ? M : I,
+              i++;
           } while (0 < --H);
           g > E && o++,
             _ == v.SBPSY_l && (I = E * p.nsPsy.longfact[_], V < I && (V = I)),
             a != 0 && (E = V),
-            r.ATHonly
-            || (V = l.en.l[_],
-              0 < V
-              && (I = g * l.thm.l[_] * f / V, a != 0 && (I *= p.nsPsy.longfact[_]), E < I && (E = I))),
+            r.ATHonly ||
+            (V = l.en.l[_],
+              0 < V &&
+              (I = g * l.thm.l[_] * f / V,
+                a != 0 && (I *= p.nsPsy.longfact[_]),
+                E < I && (E = I))),
             a != 0 ? h[m++] = E : h[m++] = E * p.nsPsy.longfact[_];
         }
         if (g = 575, s.block_type != v.SHORT_TYPE) {for (
@@ -3037,24 +3117,26 @@ bitsperframe:             %d
               V += M < I ? M : I,
               i++; while (0 < --H);
             g > N && o++,
-              T == v.SBPSY_s
-              && (I = N * p.nsPsy.shortfact[T], V < I && (V = I)),
+              T == v.SBPSY_s &&
+              (I = N * p.nsPsy.shortfact[T], V < I && (V = I)),
               E = a != 0 ? V : N,
-              r.ATHonly || r.ATHshort
-              || (V = l.en.s[T][b],
-                0 < V
-                && (I = g * l.thm.s[T][b] * f / V, a != 0 && (I *= p.nsPsy.shortfact[T]), E < I && (E = I))),
+              r.ATHonly || r.ATHshort ||
+              (V = l.en.s[T][b],
+                0 < V &&
+                (I = g * l.thm.s[T][b] * f / V,
+                  a != 0 && (I *= p.nsPsy.shortfact[T]),
+                  E < I && (E = I))),
               a != 0 ? h[m++] = E : h[m++] = E * p.nsPsy.shortfact[T];
           }
-          r.useTemporal
-            && (h[m - 3] > h[m - 3 + 1]
-              && (h[m - 3 + 1] += (h[m - 3] - h[m - 3 + 1]) * p.decay),
-              h[m - 3 + 1] > h[m - 3 + 2]
-              && (h[m - 3 + 2] += (h[m - 3 + 1] - h[m - 3 + 2]) * p.decay));
+          r.useTemporal &&
+            (h[m - 3] > h[m - 3 + 1] &&
+              (h[m - 3 + 1] += (h[m - 3] - h[m - 3 + 1]) * p.decay),
+              h[m - 3 + 1] > h[m - 3 + 2] &&
+              (h[m - 3 + 2] += (h[m - 3 + 1] - h[m - 3 + 2]) * p.decay));
         }
         return o;
       },
-      this.calc_noise_core = function(r, l, s, h) {
+      this.calc_noise_core = function (r, l, s, h) {
         var m = 0, p = l.s, _ = r.l3_enc;
         if (p > r.count1) {
           for (; s-- != 0;) {
@@ -3064,14 +3146,24 @@ bitsperframe:             %d
         } else if (p > r.big_values) {
           var o = G(2);
           for (o[0] = 0, o[1] = h; s-- != 0;) {
-            i = Math.abs(r.xr[p]) - o[_[p]], p++, m += i * i, i = Math.abs(r.xr[p]) - o[_[p]], p++, m += i * i;
+            i = Math.abs(r.xr[p]) - o[_[p]],
+              p++,
+              m += i * i,
+              i = Math.abs(r.xr[p]) - o[_[p]],
+              p++,
+              m += i * i;
           }
         } else {for (; s-- != 0;) {
-            i = Math.abs(r.xr[p]) - S[_[p]] * h, p++, m += i * i, i = Math.abs(r.xr[p]) - S[_[p]] * h, p++, m += i * i;
+            i = Math.abs(r.xr[p]) - S[_[p]] * h,
+              p++,
+              m += i * i,
+              i = Math.abs(r.xr[p]) - S[_[p]] * h,
+              p++,
+              m += i * i;
           }}
         return l.s = p, m;
       },
-      this.calc_noise = function(r, l, s, h, m) {
+      this.calc_noise = function (r, l, s, h, m) {
         var p = 0,
           _ = 0,
           i,
@@ -3083,17 +3175,17 @@ bitsperframe:             %d
           E = r.scalefac,
           A = 0;
         for (i = h.over_SSD = 0; i < r.psymax; i++) {
-          var I = r.global_gain
-            - (E[A++] + (r.preflag != 0 ? n[i] : 0) << r.scalefac_scale + 1)
-            - 8 * r.subblock_gain[r.window[i]];
+          var I = r.global_gain -
+            (E[A++] + (r.preflag != 0 ? n[i] : 0) << r.scalefac_scale + 1) -
+            8 * r.subblock_gain[r.window[i]];
           if (m != null && m.step[i] == I) {
             var V = m.noise[i];
             f += r.width[i], s[p++] = V / l[_++], V = m.noise_log[i];
           } else {
             V = R[I + U1.Q_MAX2];
             var H = r.width[i] >> 1;
-            f + r.width[i] > r.max_nonzero_coeff
-            && (H = r.max_nonzero_coeff - f + 1, H = 0 < H ? H >> 1 : 0),
+            f + r.width[i] > r.max_nonzero_coeff &&
+            (H = r.max_nonzero_coeff - f + 1, H = 0 < H ? H >> 1 : 0),
               f = new B(f),
               V = this.calc_noise_core(r, f, H, V),
               f = f.s,
@@ -3104,13 +3196,20 @@ bitsperframe:             %d
           }
           m != null && (m.global_gain = r.global_gain),
             t += V,
-            0 < V
-            && (I = Math.max(0 | 10 * V + .5, 1), h.over_SSD += I * I, o++, c += V),
+            0 < V &&
+            (I = Math.max(0 | 10 * V + .5, 1),
+              h.over_SSD += I * I,
+              o++,
+              c += V),
             a = Math.max(a, V);
         }
-        return h.over_count = o, h.tot_noise = t, h.over_noise = c, h.max_noise = a, o;
+        return h.over_count = o,
+          h.tot_noise = t,
+          h.over_noise = c,
+          h.max_noise = a,
+          o;
       },
-      this.set_pinfo = function(r, l, s, h, m) {
+      this.set_pinfo = function (r, l, s, h, m) {
         var p = r.internal_flags,
           _,
           i,
@@ -3122,7 +3221,8 @@ bitsperframe:             %d
         calc_xmin(r, s, l, t), calc_noise(l, t, a, f, null);
         var E = 0, A = l.sfb_lmax;
         for (
-          l.block_type != v.SHORT_TYPE && l.mixed_block_flag == 0 && (A = 22), _ = 0;
+          l.block_type != v.SHORT_TYPE && l.mixed_block_flag == 0 && (A = 22),
+            _ = 0;
           _ < A;
           _++
         ) {
@@ -3149,11 +3249,11 @@ bitsperframe:             %d
                 p.pinfo.xfsf_s[h][m][3 * _ + M] = g * t[A] * a[A] / H,
                 i = 0 < s.en.s[_][M] ? i / s.en.s[_][M] : 0,
                 (r.ATHonly || r.ATHshort) && (i = 0),
-                p.pinfo.thr_s[h][m][3 * _ + M] = g
-                  * Math.max(i * s.thm.s[_][M], p.ATH.s[_]),
+                p.pinfo.thr_s[h][m][3 * _ + M] = g *
+                  Math.max(i * s.thm.s[_][M], p.ATH.s[_]),
                 p.pinfo.LAMEsfb_s[h][m][3 * _ + M] = -2 * l.subblock_gain[M],
-                _ < v.SBPSY_s
-                && (p.pinfo.LAMEsfb_s[h][m][3 * _ + M] -= o * c[A]),
+                _ < v.SBPSY_s &&
+                (p.pinfo.LAMEsfb_s[h][m][3 * _ + M] -= o * c[A]),
                 A++;
             }
           }
@@ -3169,7 +3269,10 @@ bitsperframe:             %d
       };
   }
   function lt() {
-    this.sfb_count1 = this.global_gain = 0, this.step = e1(39), this.noise = G(39), this.noise_log = G(39);
+    this.sfb_count1 = this.global_gain = 0,
+      this.step = e1(39),
+      this.noise = G(39),
+      this.noise_log = G(39);
   }
   function y2() {
     this.xr = G(576),
@@ -3206,7 +3309,7 @@ bitsperframe:             %d
       this.slen = e1(4),
       this.max_nonzero_coeff = 0;
     var d = this;
-    this.assign = function(B) {
+    this.assign = function (B) {
       d.xr = new Float32Array(B.xr),
         d.l3_enc = new Int32Array(B.l3_enc),
         d.scalefac = new Int32Array(B.scalefac),
@@ -3255,21 +3358,24 @@ bitsperframe:             %d
     var X;
     this.qupvt = null;
     var L, P = new nt(), D;
-    this.setModules = function(u, n, R, e) {
+    this.setModules = function (u, n, R, e) {
       w = u, this.rv = X = n, this.qupvt = L = R, D = e, P.setModules(L, D);
     },
-      this.ms_convert = function(u, n) {
+      this.ms_convert = function (u, n) {
         for (var R = 0; 576 > R; ++R) {
           var e = u.tt[n][0].xr[R], S = u.tt[n][1].xr[R];
-          u.tt[n][0].xr[R] = .5 * (e + S) * r1.SQRT2, u.tt[n][1].xr[R] = .5 * (e - S) * r1.SQRT2;
+          u.tt[n][0].xr[R] = .5 * (e + S) * r1.SQRT2,
+            u.tt[n][1].xr[R] = .5 * (e - S) * r1.SQRT2;
         }
       },
-      this.init_xrpow = function(u, n, R) {
+      this.init_xrpow = function (u, n, R) {
         var e = 0 | n.max_nonzero_coeff;
         n.xrpow_max = 0, r0.fill(R, e, 576, 0);
         for (var S, x = S = 0; x <= e; ++x) {
           var r = Math.abs(n.xr[x]);
-          S += r, R[x] = Math.sqrt(r * Math.sqrt(r)), R[x] > n.xrpow_max && (n.xrpow_max = R[x]);
+          S += r,
+            R[x] = Math.sqrt(r * Math.sqrt(r)),
+            R[x] > n.xrpow_max && (n.xrpow_max = R[x]);
         }
         if (1e-20 < S) {
           for (
@@ -3281,7 +3387,7 @@ bitsperframe:             %d
         }
         return r0.fill(n.l3_enc, 0, 576, 0), !1;
       },
-      this.init_outer_loop = function(u, n) {
+      this.init_outer_loop = function (u, n) {
         n.part2_3_length = 0,
           n.big_values = 0,
           n.count1 = 0,
@@ -3307,16 +3413,17 @@ bitsperframe:             %d
           n.sfbmax = n.sfb_lmax,
           n.sfbdivide = 11;
         for (var R = 0; R < v.SBMAX_l; R++) {
-          n.width[R] = u.scalefac_band.l[R + 1] - u.scalefac_band.l[R], n.window[R] = 3;
+          n.width[R] = u.scalefac_band.l[R + 1] - u.scalefac_band.l[R],
+            n.window[R] = 3;
         }
         if (n.block_type == v.SHORT_TYPE) {
           var e = G(576);
           n.sfb_smin = 0,
             n.sfb_lmax = 0,
-            n.mixed_block_flag != 0
-            && (n.sfb_smin = 3, n.sfb_lmax = 2 * u.mode_gr + 4),
-            n.psymax = n.sfb_lmax
-              + 3 * ((u.sfb21_extra ? v.SBMAX_s : v.SBPSY_s) - n.sfb_smin),
+            n.mixed_block_flag != 0 &&
+            (n.sfb_smin = 3, n.sfb_lmax = 2 * u.mode_gr + 4),
+            n.psymax = n.sfb_lmax +
+              3 * ((u.sfb21_extra ? v.SBMAX_s : v.SBPSY_s) - n.sfb_smin),
             n.sfbmax = n.sfb_lmax + 3 * (v.SBPSY_s - n.sfb_smin),
             n.sfbdivide = n.sfbmax - 18,
             n.psy_lmax = n.sfb_lmax;
@@ -3378,11 +3485,11 @@ bitsperframe:             %d
         } else {for (l = 0; 3 > l; l++) {
             for (n = !1, S = v.PSFB12 - 1; 0 <= S && !n; S--) {
               for (
-                x = 3 * u.scalefac_band.s[12]
-                  + (u.scalefac_band.s[13] - u.scalefac_band.s[12]) * l
-                  + (u.scalefac_band.psfb12[S] - u.scalefac_band.psfb12[0]),
-                  r = x
-                    + (u.scalefac_band.psfb12[S + 1] - u.scalefac_band.psfb12[S]),
+                x = 3 * u.scalefac_band.s[12] +
+                  (u.scalefac_band.s[13] - u.scalefac_band.s[12]) * l +
+                  (u.scalefac_band.psfb12[S] - u.scalefac_band.psfb12[0]),
+                  r = x +
+                    (u.scalefac_band.psfb12[S + 1] - u.scalefac_band.psfb12[S]),
                   s = L.athAdjust(R.adjust, R.psfb12[S], R.floor),
                   1e-12 < u.nsPsy.shortfact[12] && (s *= u.nsPsy.shortfact[12]),
                   --r;
@@ -3401,11 +3508,11 @@ bitsperframe:             %d
       d.BINSEARCH_NONE = new d(0),
       d.BINSEARCH_UP = new d(1),
       d.BINSEARCH_DOWN = new d(2),
-      this.trancate_smallspectrums = function(u, n, R, e) {
+      this.trancate_smallspectrums = function (u, n, R, e) {
         var S = G(R0.SFBMAX);
         if (
-          (u.substep_shaping & 4 || n.block_type != v.SHORT_TYPE)
-          && !(u.substep_shaping & 128)
+          (u.substep_shaping & 4 || n.block_type != v.SHORT_TYPE) &&
+          !(u.substep_shaping & 128)
         ) {
           L.calc_noise(n, R, S, new x2(), null);
           for (var x = 0; 576 > x; x++) {
@@ -3432,14 +3539,14 @@ bitsperframe:             %d
                 }
                 m -= _, p += s;
               } while (p < h);
-              if (!H1.EQ(l, 0)) {do Math.abs(n.xr[x - h]) <= l
-                  && (n.l3_enc[x - h] = 0); while (0 < --h);}
+              if (!H1.EQ(l, 0)) {do Math.abs(n.xr[x - h]) <= l &&
+                  (n.l3_enc[x - h] = 0); while (0 < --h);}
             }
           } while (++r < n.psymax);
           n.part2_3_length = D.noquant_count_bits(u, n, null);
         }
       },
-      this.outer_loop = function(u, n, R, e, S, x) {
+      this.outer_loop = function (u, n, R, e, S, x) {
         var r = u.internal_flags,
           l = new y2(),
           s = G(576),
@@ -3459,13 +3566,20 @@ bitsperframe:             %d
           var I = D.count_bits(r, e, n, null);
           if (a == 1 || I == t) break;
           I > t
-            ? (A == d.BINSEARCH_DOWN && (f = !0), f && (a /= 2), A = d.BINSEARCH_UP, I = a)
-            : (A == d.BINSEARCH_UP && (f = !0), f && (a /= 2), A = d.BINSEARCH_DOWN, I = -a),
+            ? (A == d.BINSEARCH_DOWN && (f = !0),
+              f && (a /= 2),
+              A = d.BINSEARCH_UP,
+              I = a)
+            : (A == d.BINSEARCH_UP && (f = !0),
+              f && (a /= 2),
+              A = d.BINSEARCH_DOWN,
+              I = -a),
             n.global_gain += I,
             0 > n.global_gain && (n.global_gain = 0, f = !0),
             255 < n.global_gain && (n.global_gain = 255, f = !0);
         }
-        for (; I > t && 255 > n.global_gain;) n.global_gain++, I = D.count_bits(r, e, n, null);
+        for (; I > t && 255 > n.global_gain;) {n.global_gain++,
+            I = D.count_bits(r, e, n, null);}
         if (
           r.CurrentStep[S] = 4 <= E - n.global_gain ? 4 : 2,
             r.OldValue[S] = n.global_gain,
@@ -3473,7 +3587,11 @@ bitsperframe:             %d
             r.noise_shaping == 0
         ) return 100;
         for (
-          L.calc_noise(n, R, h, m, p), m.bits = n.part2_3_length, l.assign(n), S = 0, i1.arraycopy(e, 0, s, 0, 576);
+          L.calc_noise(n, R, h, m, p),
+            m.bits = n.part2_3_length,
+            l.assign(n),
+            S = 0,
+            i1.arraycopy(e, 0, s, 0, 576);
           !i;
         ) {
           do {
@@ -3481,10 +3599,10 @@ bitsperframe:             %d
               t = new x2(),
                 f = 255,
                 a = r.substep_shaping & 2 ? 20 : 3,
-                r.sfb21_extra
-                && (1 < h[l.sfbmax]
-                  || l.block_type == v.SHORT_TYPE
-                    && (1 < h[l.sfbmax + 1] || 1 < h[l.sfbmax + 2]))
+                r.sfb21_extra &&
+                (1 < h[l.sfbmax] ||
+                  l.block_type == v.SHORT_TYPE &&
+                    (1 < h[l.sfbmax + 1] || 1 < h[l.sfbmax + 2]))
             ) break;
             E = l, I = e, A = u.internal_flags;
             for (
@@ -3514,11 +3632,13 @@ bitsperframe:             %d
               var O = V.width[N];
               if (y += O, !(H[N] < b)) {
                 if (
-                  M.substep_shaping & 2
-                  && (M.pseudohalf[N] = M.pseudohalf[N] == 0 ? 1 : 0, M.pseudohalf[N] == 0 && M.noise_shaping_amp == 2)
+                  M.substep_shaping & 2 &&
+                  (M.pseudohalf[N] = M.pseudohalf[N] == 0 ? 1 : 0,
+                    M.pseudohalf[N] == 0 && M.noise_shaping_amp == 2)
                 ) break;
                 for (V.scalefac[N]++, O = -O; 0 > O; O++) {
-                  g[y + O] *= T, g[y + O] > V.xrpow_max && (V.xrpow_max = g[y + O]);
+                  g[y + O] *= T,
+                    g[y + O] > V.xrpow_max && (V.xrpow_max = g[y + O]);
                 }
                 if (M.noise_shaping_amp == 2) break;
               }
@@ -3533,10 +3653,15 @@ bitsperframe:             %d
                 if (r0.fill(A.pseudohalf, 0), E.scalefac_scale == 0) {
                   for (T = E, H = V = 0; H < T.sfbmax; H++) {
                     if (
-                      M = T.width[H], g = T.scalefac[H], T.preflag != 0 && (g += L.pretab[H]), V += M, g & 1
+                      M = T.width[H],
+                        g = T.scalefac[H],
+                        T.preflag != 0 && (g += L.pretab[H]),
+                        V += M,
+                        g & 1
                     ) {
                       for (g++, M = -M; 0 > M; M++) {
-                        I[V + M] *= 1.2968395546510096, I[V + M] > T.xrpow_max && (T.xrpow_max = I[V + M]);
+                        I[V + M] *= 1.2968395546510096,
+                          I[V + M] > T.xrpow_max && (T.xrpow_max = I[V + M]);
                       }
                     }
                     T.scalefac[H] = g >> 1;
@@ -3569,32 +3694,43 @@ bitsperframe:             %d
                           break t;
                         }
                         for (
-                          V.subblock_gain[M]++, b = T.scalefac_band.l[V.sfb_lmax], I = V.sfb_lmax + M;
+                          V.subblock_gain[M]++,
+                            b = T.scalefac_band.l[V.sfb_lmax],
+                            I = V.sfb_lmax + M;
                           I < V.sfbmax;
                           I += 3
                         ) {
                           if (
-                            N = V.width[I], y = g[I], y -= 4 >> V.scalefac_scale, 0 <= y
+                            N = V.width[I],
+                              y = g[I],
+                              y -= 4 >> V.scalefac_scale,
+                              0 <= y
                           ) g[I] = y, b += 3 * N;
                           else {
                             for (
-                              g[I] = 0, y = L.IPOW20(210 + (y << V.scalefac_scale + 1)), b += N * (M + 1), O = -N;
+                              g[I] = 0,
+                                y = L.IPOW20(210 + (y << V.scalefac_scale + 1)),
+                                b += N * (M + 1),
+                                O = -N;
                               0 > O;
                               O++
                             ) {
                               H[b + O] *= y,
-                                H[b + O] > V.xrpow_max
-                                && (V.xrpow_max = H[b + O]);
+                                H[b + O] > V.xrpow_max &&
+                                (V.xrpow_max = H[b + O]);
                             }
                             b += N * (3 - M - 1);
                           }
                         }
                         for (
-                          y = L.IPOW20(202), b += V.width[I] * (M + 1), O = -V.width[I];
+                          y = L.IPOW20(202),
+                            b += V.width[I] * (M + 1),
+                            O = -V.width[I];
                           0 > O;
                           O++
                         ) {
-                          H[b + O] *= y, H[b + O] > V.xrpow_max && (V.xrpow_max = H[b + O]);
+                          H[b + O] *= y,
+                            H[b + O] > V.xrpow_max && (V.xrpow_max = H[b + O]);
                         }
                       }
                     }
@@ -3608,20 +3744,22 @@ bitsperframe:             %d
                 : D.scale_bitcount_lsf(A, E)), E = !T;
             } else E = !0;
             if (
-              !E
-              || (l.scalefac_scale != 0 && (f = 254), E = x - l.part2_length, 0 >= E)
+              !E ||
+              (l.scalefac_scale != 0 && (f = 254),
+                E = x - l.part2_length,
+                0 >= E)
             ) break;
             for (
               ;
-              (l.part2_3_length = D.count_bits(r, e, l, p)) > E
-              && l.global_gain <= f;
+              (l.part2_3_length = D.count_bits(r, e, l, p)) > E &&
+              l.global_gain <= f;
             ) l.global_gain++;
             if (l.global_gain > f) break;
             if (m.over_count == 0) {
               for (
                 ;
-                (l.part2_3_length = D.count_bits(r, e, l, p)) > _
-                && l.global_gain <= f;
+                (l.part2_3_length = D.count_bits(r, e, l, p)) > _ &&
+                l.global_gain <= f;
               ) l.global_gain++;
               if (l.global_gain > f) break;
             }
@@ -3640,16 +3778,17 @@ bitsperframe:             %d
               default:
               case 9:
                 0 < f.over_count
-                  ? (A = E.over_SSD <= f.over_SSD, E.over_SSD == f.over_SSD && (A = E.bits < f.bits))
-                  : A = 0 > E.max_noise
-                    && 10 * E.max_noise + E.bits <= 10 * f.max_noise + f.bits;
+                  ? (A = E.over_SSD <= f.over_SSD,
+                    E.over_SSD == f.over_SSD && (A = E.bits < f.bits))
+                  : A = 0 > E.max_noise &&
+                    10 * E.max_noise + E.bits <= 10 * f.max_noise + f.bits;
                 break;
               case 0:
-                A = E.over_count < f.over_count
-                  || E.over_count == f.over_count && E.over_noise < f.over_noise
-                  || E.over_count == f.over_count
-                    && H1.EQ(E.over_noise, f.over_noise)
-                    && E.tot_noise < f.tot_noise;
+                A = E.over_count < f.over_count ||
+                  E.over_count == f.over_count && E.over_noise < f.over_noise ||
+                  E.over_count == f.over_count &&
+                    H1.EQ(E.over_noise, f.over_noise) &&
+                    E.tot_noise < f.tot_noise;
                 break;
               case 8:
                 for (A = E, H = 1e-37, V = 0; V < T.psymax; V++) {
@@ -3666,51 +3805,61 @@ bitsperframe:             %d
                 A = E.tot_noise < f.tot_noise && E.max_noise < f.max_noise;
                 break;
               case 4:
-                A = 0 >= E.max_noise && .2 < f.max_noise
-                  || 0 >= E.max_noise && 0 > f.max_noise
-                    && f.max_noise > E.max_noise - .2
-                    && E.tot_noise < f.tot_noise
-                  || 0 >= E.max_noise && 0 < f.max_noise
-                    && f.max_noise > E.max_noise - .2
-                    && E.tot_noise < f.tot_noise + f.over_noise
-                  || 0 < E.max_noise && -.05 < f.max_noise
-                    && f.max_noise > E.max_noise - .1
-                    && E.tot_noise + E.over_noise < f.tot_noise + f.over_noise
-                  || 0 < E.max_noise && -.1 < f.max_noise
-                    && f.max_noise > E.max_noise - .15
-                    && E.tot_noise + E.over_noise + E.over_noise
-                      < f.tot_noise + f.over_noise + f.over_noise;
+                A = 0 >= E.max_noise && .2 < f.max_noise ||
+                  0 >= E.max_noise && 0 > f.max_noise &&
+                    f.max_noise > E.max_noise - .2 &&
+                    E.tot_noise < f.tot_noise ||
+                  0 >= E.max_noise && 0 < f.max_noise &&
+                    f.max_noise > E.max_noise - .2 &&
+                    E.tot_noise < f.tot_noise + f.over_noise ||
+                  0 < E.max_noise && -.05 < f.max_noise &&
+                    f.max_noise > E.max_noise - .1 &&
+                    E.tot_noise + E.over_noise < f.tot_noise + f.over_noise ||
+                  0 < E.max_noise && -.1 < f.max_noise &&
+                    f.max_noise > E.max_noise - .15 &&
+                    E.tot_noise + E.over_noise + E.over_noise <
+                      f.tot_noise + f.over_noise + f.over_noise;
                 break;
               case 5:
-                A = E.over_noise < f.over_noise
-                  || H1.EQ(E.over_noise, f.over_noise)
-                    && E.tot_noise < f.tot_noise;
+                A = E.over_noise < f.over_noise ||
+                  H1.EQ(E.over_noise, f.over_noise) &&
+                    E.tot_noise < f.tot_noise;
                 break;
               case 6:
-                A = E.over_noise < f.over_noise
-                  || H1.EQ(E.over_noise, f.over_noise)
-                    && (E.max_noise < f.max_noise
-                      || H1.EQ(E.max_noise, f.max_noise)
-                        && E.tot_noise <= f.tot_noise);
+                A = E.over_noise < f.over_noise ||
+                  H1.EQ(E.over_noise, f.over_noise) &&
+                    (E.max_noise < f.max_noise ||
+                      H1.EQ(E.max_noise, f.max_noise) &&
+                        E.tot_noise <= f.tot_noise);
                 break;
               case 7:
                 A = E.over_count < f.over_count || E.over_noise < f.over_noise;
             }
             if (
-              f.over_count == 0 && (A = A && E.bits < f.bits), A = A ? 1 : 0, A != 0
+              f.over_count == 0 && (A = A && E.bits < f.bits),
+                A = A ? 1 : 0,
+                A != 0
             ) {
-              _ = n.part2_3_length, m = t, n.assign(l), S = 0, i1.arraycopy(e, 0, s, 0, 576);
+              _ = n.part2_3_length,
+                m = t,
+                n.assign(l),
+                S = 0,
+                i1.arraycopy(e, 0, s, 0, 576);
             } else if (
-              r.full_outer_loop == 0
-              && (++S > a && m.over_count == 0
-                || r.noise_shaping_amp == 3 && o && 30 < S
-                || r.noise_shaping_amp == 3 && o && 15 < l.global_gain - c)
+              r.full_outer_loop == 0 &&
+              (++S > a && m.over_count == 0 ||
+                r.noise_shaping_amp == 3 && o && 30 < S ||
+                r.noise_shaping_amp == 3 && o && 15 < l.global_gain - c)
             ) break;
           } while (255 > l.global_gain + l.scalefac_scale);
           r.noise_shaping_amp == 3
             ? o
               ? i = !0
-              : (l.assign(n), i1.arraycopy(s, 0, e, 0, 576), S = 0, c = l.global_gain, o = !0)
+              : (l.assign(n),
+                i1.arraycopy(s, 0, e, 0, 576),
+                S = 0,
+                c = l.global_gain,
+                o = !0)
             : i = !0;
         }
         return u.VBR == C.vbr_rh || u.VBR == C.vbr_mtrh
@@ -3718,11 +3867,13 @@ bitsperframe:             %d
           : r.substep_shaping & 1 && trancate_smallspectrums(r, n, R, e),
           m.over_count;
       },
-      this.iteration_finish_one = function(u, n, R) {
+      this.iteration_finish_one = function (u, n, R) {
         var e = u.l3_side, S = e.tt[n][R];
-        D.best_scalefac_store(u, n, R, e), u.use_best_huffman == 1 && D.best_huffman_divide(u, S), X.ResvAdjust(u, S);
+        D.best_scalefac_store(u, n, R, e),
+          u.use_best_huffman == 1 && D.best_huffman_divide(u, S),
+          X.ResvAdjust(u, S);
       },
-      this.VBR_encode_granule = function(u, n, R, e, S, x, r) {
+      this.VBR_encode_granule = function (u, n, R, e, S, x, r) {
         var l = u.internal_flags,
           s = new y2(),
           h = G(576),
@@ -3742,18 +3893,27 @@ bitsperframe:             %d
               r -= 32,
               o = r - x,
               p = (r + x) / 2)
-            : (x = p + 32, o = r - x, p = (r + x) / 2, _ != 0 && (_ = 2, n.assign(s), i1.arraycopy(h, 0, e, 0, 576)));
+            : (x = p + 32,
+              o = r - x,
+              p = (r + x) / 2,
+              _ != 0 && (_ = 2, n.assign(s), i1.arraycopy(h, 0, e, 0, 576)));
         } while (12 < o);
-        l.sfb21_extra = i, _ == 2 && i1.arraycopy(s.l3_enc, 0, n.l3_enc, 0, 576);
+        l.sfb21_extra = i,
+          _ == 2 && i1.arraycopy(s.l3_enc, 0, n.l3_enc, 0, 576);
       },
-      this.get_framebits = function(u, n) {
+      this.get_framebits = function (u, n) {
         var R = u.internal_flags;
-        R.bitrate_index = R.VBR_min_bitrate, w.getframebits(u), R.bitrate_index = 1;
+        R.bitrate_index = R.VBR_min_bitrate,
+          w.getframebits(u),
+          R.bitrate_index = 1;
         for (var e = w.getframebits(u), S = 1; S <= R.VBR_max_bitrate; S++) {
-          R.bitrate_index = S, e = new J0(e), n[S] = X.ResvFrameBegin(u, e), e = e.bits;
+          R.bitrate_index = S,
+            e = new J0(e),
+            n[S] = X.ResvFrameBegin(u, e),
+            e = e.bits;
         }
       },
-      this.VBR_old_prepare = function(u, n, R, e, S, x, r, l, s) {
+      this.VBR_old_prepare = function (u, n, R, e, S, x, r, l, s) {
         var h = u.internal_flags, m = 1, p = 0;
         h.bitrate_index = h.VBR_max_bitrate;
         var _ = X.ResvFrameBegin(u, new J0(0)) / h.mode_gr;
@@ -3761,8 +3921,8 @@ bitsperframe:             %d
         for (var i = 0; i < h.mode_gr; i++) {
           var o = L.on_pe(u, n, l[i], _, i, 0);
           for (
-            h.mode_ext == v.MPG_MD_MS_LR
-            && (ms_convert(h.l3_side, i), L.reduce_side(l[i], R[i], _, o)), o = 0;
+            h.mode_ext == v.MPG_MD_MS_LR &&
+            (ms_convert(h.l3_side, i), L.reduce_side(l[i], R[i], _, o)), o = 0;
             o < h.channels_out;
             ++o
           ) {
@@ -3770,7 +3930,8 @@ bitsperframe:             %d
             if (c.block_type != v.SHORT_TYPE) {
               var t = 1.28 / (1 + Math.exp(3.5 - n[i][o] / 300)) - .05;
               t = h.PSY.mask_adjust - t;
-            } else t = 2.56 / (1 + Math.exp(3.5 - n[i][o] / 300)) - .14, t = h.PSY.mask_adjust_short - t;
+            } else {t = 2.56 / (1 + Math.exp(3.5 - n[i][o] / 300)) - .14,
+                t = h.PSY.mask_adjust_short - t;}
             h.masking_lower = Math.pow(10, .1 * t),
               init_outer_loop(h, c),
               s[i][o] = L.calc_xmin(u, e[i][o], c, S[i][o]),
@@ -3781,13 +3942,14 @@ bitsperframe:             %d
         }
         for (i = 0; i < h.mode_gr; i++) {
           for (o = 0; o < h.channels_out; o++) {
-            p > x[h.VBR_max_bitrate]
-            && (l[i][o] *= x[h.VBR_max_bitrate], l[i][o] /= p), r[i][o] > l[i][o] && (r[i][o] = l[i][o]);
+            p > x[h.VBR_max_bitrate] &&
+            (l[i][o] *= x[h.VBR_max_bitrate], l[i][o] /= p),
+              r[i][o] > l[i][o] && (r[i][o] = l[i][o]);
           }
         }
         return m;
       },
-      this.bitpressure_strategy = function(u, n, R, e) {
+      this.bitpressure_strategy = function (u, n, R, e) {
         for (var S = 0; S < u.mode_gr; S++) {
           for (var x = 0; x < u.channels_out; x++) {
             for (
@@ -3808,7 +3970,7 @@ bitsperframe:             %d
           }
         }
       },
-      this.VBR_new_prepare = function(u, n, R, e, S, x) {
+      this.VBR_new_prepare = function (u, n, R, e, S, x) {
         var r = u.internal_flags, l = 1, s = 0, h = 0;
         if (u.free_format) {
           r.bitrate_index = 0, s = new J0(s);
@@ -3821,7 +3983,8 @@ bitsperframe:             %d
             get_framebits(u, S),
             m = S[r.VBR_max_bitrate];}
         for (S = 0; S < r.mode_gr; S++) {
-          L.on_pe(u, n, x[S], s, S, 0), r.mode_ext == v.MPG_MD_MS_LR && ms_convert(r.l3_side, S);
+          L.on_pe(u, n, x[S], s, S, 0),
+            r.mode_ext == v.MPG_MD_MS_LR && ms_convert(r.l3_side, S);
           for (var p = 0; p < r.channels_out; ++p) {
             var _ = r.l3_side.tt[S][p];
             r.masking_lower = Math.pow(10, .1 * r.PSY.mask_adjust),
@@ -3837,7 +4000,7 @@ bitsperframe:             %d
           ) h > m && (x[S][p] *= m, x[S][p] /= h);}
         return l;
       },
-      this.calc_target_bits = function(u, n, R, e, S, x) {
+      this.calc_target_bits = function (u, n, R, e, S, x) {
         var r = u.internal_flags, l = r.l3_side;
         r.bitrate_index = r.VBR_max_bitrate;
         var s = new J0(0);
@@ -3861,8 +4024,8 @@ bitsperframe:             %d
                 p > 3 * s / 2 ? p = 3 * s / 2 : 0 > p && (p = 0),
                 e[u][S] += p;
             }
-            e[u][S] > S1.MAX_BITS_PER_CHANNEL
-            && (e[u][S] = S1.MAX_BITS_PER_CHANNEL), m += e[u][S];
+            e[u][S] > S1.MAX_BITS_PER_CHANNEL &&
+            (e[u][S] = S1.MAX_BITS_PER_CHANNEL), m += e[u][S];
           }
           if (m > S1.MAX_BITS_PER_GRANULE) {
             for (
@@ -3885,8 +4048,8 @@ bitsperframe:             %d
             S = 0;
             S < r.channels_out;
             S++
-          ) {e[u][S] > S1.MAX_BITS_PER_CHANNEL
-              && (e[u][S] = S1.MAX_BITS_PER_CHANNEL),
+          ) {e[u][S] > S1.MAX_BITS_PER_CHANNEL &&
+              (e[u][S] = S1.MAX_BITS_PER_CHANNEL),
               n += e[u][S];}
         }
         if (n > x[0]) {
@@ -4711,7 +4874,7 @@ bitsperframe:             %d
         30,
         31,
       ];
-    this.mdct_sub48 = function(n, R, e) {
+    this.mdct_sub48 = function (n, R, e) {
       for (var S = 286, x = 0; x < n.channels_out; x++) {
         for (var r = 0; r < n.mode_gr; r++) {
           for (
@@ -4735,7 +4898,8 @@ bitsperframe:             %d
             p = s.block_type, _ = n.sb_sample[x][r];
             var o = n.sb_sample[x][1 - r];
             if (
-              s.mixed_block_flag != 0 && 2 > l && (p = 0), 1e-12 > n.amp_filter[l]
+              s.mixed_block_flag != 0 && 2 > l && (p = 0),
+                1e-12 > n.amp_filter[l]
             ) r0.fill(h, m + 0, m + 18, 0);
             else {
               if (1 > n.amp_filter[l]) {
@@ -4755,12 +4919,13 @@ bitsperframe:             %d
                   var t = i[_ + 6] * w[v.SHORT_TYPE][0] - i[_ + 15];
                   o = i[_ + 0] * w[v.SHORT_TYPE][2] - i[_ + 9];
                   var a = t + o, f = t - o;
-                  t = i[_ + 15] * w[v.SHORT_TYPE][0] + i[_ + 6], o = i[_ + 9] * w[v.SHORT_TYPE][2] + i[_ + 0];
+                  t = i[_ + 15] * w[v.SHORT_TYPE][0] + i[_ + 6],
+                    o = i[_ + 9] * w[v.SHORT_TYPE][2] + i[_ + 0];
                   var E = t + o, A = -t + o;
-                  o = 2069978111953089e-26
-                    * (i[_ + 3] * w[v.SHORT_TYPE][1] - i[_ + 12]),
-                    t = 2069978111953089e-26
-                      * (i[_ + 12] * w[v.SHORT_TYPE][1] + i[_ + 3]),
+                  o = 2069978111953089e-26 *
+                    (i[_ + 3] * w[v.SHORT_TYPE][1] - i[_ + 12]),
+                    t = 2069978111953089e-26 *
+                      (i[_ + 12] * w[v.SHORT_TYPE][1] + i[_ + 3]),
                     i[_ + 0] = 190752519173728e-25 * a + o,
                     i[_ + 15] = 190752519173728e-25 * -E + t,
                     f *= 16519652744032674e-27,
@@ -4775,10 +4940,10 @@ bitsperframe:             %d
                 }
               } else {
                 for (c = G(18), i = -9; 0 > i; i++) {
-                  a = w[p][i + 27] * o[i + 9][u[l]]
-                    + w[p][i + 36] * o[8 - i][u[l]],
-                    f = w[p][i + 9] * _[i + 9][u[l]]
-                      - w[p][i + 18] * _[8 - i][u[l]],
+                  a = w[p][i + 27] * o[i + 9][u[l]] +
+                    w[p][i + 36] * o[8 - i][u[l]],
+                    f = w[p][i + 9] * _[i + 9][u[l]] -
+                      w[p][i + 18] * _[8 - i][u[l]],
                     c[i + 9] = a - f * X[3 + i + 9],
                     c[i + 18] = a * X[3 + i + 9] + f;
                 }
@@ -4863,15 +5028,21 @@ bitsperframe:             %d
       X = this.psy = null,
       L = null,
       P = null;
-    this.setModules = function(u, n, R, e) {
+    this.setModules = function (u, n, R, e) {
       w = u, X = this.psy = n, L = e, P = R;
     };
     var D = new ft();
-    this.lame_encode_mp3_frame = function(u, n, R, e, S, x) {
+    this.lame_encode_mp3_frame = function (u, n, R, e, S, x) {
       var r = Y2([2, 2]);
-      r[0][0] = new G0(), r[0][1] = new G0(), r[1][0] = new G0(), r[1][1] = new G0();
+      r[0][0] = new G0(),
+        r[0][1] = new G0(),
+        r[1][0] = new G0(),
+        r[1][1] = new G0();
       var l = Y2([2, 2]);
-      l[0][0] = new G0(), l[0][1] = new G0(), l[1][0] = new G0(), l[1][1] = new G0();
+      l[0][0] = new G0(),
+        l[0][1] = new G0(),
+        l[1][0] = new G0(),
+        l[1][1] = new G0();
       var s = [null, null],
         h = u.internal_flags,
         m = x1([2, 4]),
@@ -4903,8 +5074,8 @@ bitsperframe:             %d
       }
       if (
         h.padding = 0,
-          0 > (h.slot_lag -= h.frac_SpF)
-          && (h.slot_lag += u.out_samplerate, h.padding = 1),
+          0 > (h.slot_lag -= h.frac_SpF) &&
+          (h.slot_lag += u.out_samplerate, h.padding = 1),
           h.psymodel != 0
       ) {
         for (t = [null, null], o = 0, c = e1(2), R = 0; R < h.mode_gr; R++) {
@@ -4914,11 +5085,13 @@ bitsperframe:             %d
           if (
             n = u.VBR == C.vbr_mtrh || u.VBR == C.vbr_mt
               ? X.L3psycho_anal_vbr(u, t, o, R, r, l, _[R], i[R], m[R], c)
-              : X.L3psycho_anal_ns(u, t, o, R, r, l, _[R], i[R], m[R], c), n != 0
+              : X.L3psycho_anal_ns(u, t, o, R, r, l, _[R], i[R], m[R], c),
+              n != 0
           ) return -4;
           for (
-            u.mode == M1.JOINT_STEREO
-            && (p[R] = m[R][2] + m[R][3], 0 < p[R] && (p[R] = m[R][3] / p[R])), n = 0;
+            u.mode == M1.JOINT_STEREO &&
+            (p[R] = m[R][2] + m[R][3], 0 < p[R] && (p[R] = m[R][3] / p[R])),
+              n = 0;
             n < h.channels_out;
             n++
           ) {
@@ -4946,16 +5119,17 @@ bitsperframe:             %d
             .03125 < n
               ? (1 <= h.ATH.adjust
                 ? h.ATH.adjust = 1
-                : h.ATH.adjust < h.ATH.adjustLimit
-                  && (h.ATH.adjust = h.ATH.adjustLimit),
+                : h.ATH.adjust < h.ATH.adjustLimit &&
+                  (h.ATH.adjust = h.ATH.adjustLimit),
                 h.ATH.adjustLimit = 1)
               : (m = 31.98 * n + 625e-6,
                 h.ATH.adjust >= m
-                  ? (h.ATH.adjust *= .075 * m + .925, h.ATH.adjust < m && (h.ATH.adjust = m))
+                  ? (h.ATH.adjust *= .075 * m + .925,
+                    h.ATH.adjust < m && (h.ATH.adjust = m))
                   : h.ATH.adjustLimit >= m
                   ? h.ATH.adjust = m
-                  : h.ATH.adjust < h.ATH.adjustLimit
-                    && (h.ATH.adjust = h.ATH.adjustLimit),
+                  : h.ATH.adjust < h.ATH.adjustLimit &&
+                    (h.ATH.adjust = h.ATH.adjustLimit),
                 h.ATH.adjustLimit = m)),
           D.mdct_sub48(h, s[0], s[1]),
           h.mode_ext = v.MPG_MD_LR_LR,
@@ -4967,12 +5141,12 @@ bitsperframe:             %d
             m += i[R][n], t += _[R][n];
           }
         }
-        m <= 1 * t
-          && (m = h.l3_side.tt[0],
+        m <= 1 * t &&
+          (m = h.l3_side.tt[0],
             n = h.l3_side.tt[h.mode_gr - 1],
-            m[0].block_type == m[1].block_type
-            && n[0].block_type == n[1].block_type
-            && (h.mode_ext = v.MPG_MD_MS_LR));
+            m[0].block_type == m[1].block_type &&
+            n[0].block_type == n[1].block_type &&
+            (h.mode_ext = v.MPG_MD_MS_LR));
       }
       if (h.mode_ext == B && (r = l, _ = i), u.analysis && h.pinfo != null) {
         for (R = 0; R < h.mode_gr; R++) {
@@ -4982,8 +5156,8 @@ bitsperframe:             %d
               h.pinfo.blocktype[R][n] = h.l3_side.tt[R][n].block_type,
               h.pinfo.pe[R][n] = _[R][n],
               i1.arraycopy(h.l3_side.tt[R][n].xr, 0, h.pinfo.xr[R][n], 0, 576),
-              h.mode_ext == B
-              && (h.pinfo.ers[R][n] = h.pinfo.ers[R][n + 2],
+              h.mode_ext == B &&
+              (h.pinfo.ers[R][n] = h.pinfo.ers[R][n + 2],
                 i1.arraycopy(
                   h.pinfo.energy[R][n + 2],
                   0,
@@ -5036,8 +5210,9 @@ bitsperframe:             %d
       for (
         h.bitrate_stereoMode_Hist[h.bitrate_index][4]++,
           h.bitrate_stereoMode_Hist[15][4]++,
-          h.channels_out == 2
-          && (h.bitrate_stereoMode_Hist[h.bitrate_index][h.mode_ext]++, h.bitrate_stereoMode_Hist[15][h.mode_ext]++),
+          h.channels_out == 2 &&
+          (h.bitrate_stereoMode_Hist[h.bitrate_index][h.mode_ext]++,
+            h.bitrate_stereoMode_Hist[15][h.mode_ext]++),
           u = 0;
         u < h.mode_gr;
         ++u
@@ -5087,7 +5262,7 @@ bitsperframe:             %d
   function V2() {
     this.l = G(v.SBMAX_l), this.s = x1([v.SBMAX_s, 3]);
     var d = this;
-    this.assign = function(B) {
+    this.assign = function (B) {
       i1.arraycopy(B.l, 0, d.l, 0, v.SBMAX_l);
       for (var w = 0; w < v.SBMAX_s; w++) {
         for (var X = 0; 3 > X; X++) d.s[w][X] = B.s[w][X];
@@ -5238,7 +5413,10 @@ bitsperframe:             %d
             var E = f * P[h + r] - a * P[m + r];
             o = a * P[h + r] + f * P[m + r], p = P[h + 0] - o, _ = P[h + 0] + o;
             var A = P[m + 0] - E, I = P[m + 0] + E;
-            E = f * P[h + s] - a * P[m + s], o = a * P[h + s] + f * P[m + s], i = P[h + l] - o, o = P[h + l] + o;
+            E = f * P[h + s] - a * P[m + s],
+              o = a * P[h + s] + f * P[m + s],
+              i = P[h + l] - o,
+              o = P[h + l] + o;
             var V = P[m + l] - E, H = P[m + l] + E;
             E = t * o - c * V,
               o = c * o + t * V,
@@ -5255,7 +5433,9 @@ bitsperframe:             %d
               m += e,
               h += e;
           } while (h < R);
-          a = c, c = a * X[n + 0] - t * X[n + 1], t = a * X[n + 1] + t * X[n + 0];
+          a = c,
+            c = a * X[n + 0] - t * X[n + 1],
+            t = a * X[n + 1] + t * X[n + 0];
         }
         n += 2;
       } while (e < u);
@@ -5402,7 +5582,7 @@ bitsperframe:             %d
         126,
         254,
       ];
-    this.fft_short = function(P, D, u, n, R) {
+    this.fft_short = function (P, D, u, n, R) {
       for (P = 0; 3 > P; P++) {
         var e = v.BLKSIZE_s / 2,
           S = 65535 & 192 * (P + 1),
@@ -5438,7 +5618,7 @@ bitsperframe:             %d
         d(D[P], e, v.BLKSIZE_s / 2);
       }
     },
-      this.fft_long = function(P, D, u, n, R) {
+      this.fft_long = function (P, D, u, n, R) {
         P = v.BLKSIZE / 8 - 1;
         var e = v.BLKSIZE / 2;
         do {
@@ -5471,13 +5651,13 @@ bitsperframe:             %d
         } while (0 <= --P);
         d(D, e, v.BLKSIZE / 2);
       },
-      this.init_fft = function(P) {
+      this.init_fft = function (P) {
         for (P = 0; P < v.BLKSIZE; P++) {
-          B[P] = .42 - .5 * Math.cos(2 * Math.PI * (P + .5) / v.BLKSIZE)
-            + .08 * Math.cos(4 * Math.PI * (P + .5) / v.BLKSIZE);
+          B[P] = .42 - .5 * Math.cos(2 * Math.PI * (P + .5) / v.BLKSIZE) +
+            .08 * Math.cos(4 * Math.PI * (P + .5) / v.BLKSIZE);
         }
-        for (P = 0; P < v.BLKSIZE_s / 2; P++) {w[P] = .5
-            * (1 - Math.cos(2 * Math.PI * (P + .5) / v.BLKSIZE_s));}
+        for (P = 0; P < v.BLKSIZE_s / 2; P++) {w[P] = .5 *
+            (1 - Math.cos(2 * Math.PI * (P + .5) / v.BLKSIZE_s));}
       };
   }
   function D2() {
@@ -5502,7 +5682,10 @@ bitsperframe:             %d
               : N.ATH.cb_l[T] * N.ATH.adjust,
             g < o * M
               ? g > M
-                ? (T = 1, 13 >= b && (T = f[b]), M = r1.FAST_LOG10_X(g / M, 10 / 15), g * ((t[b] - T) * M + T))
+                ? (T = 1,
+                  13 >= b && (T = f[b]),
+                  M = r1.FAST_LOG10_X(g / M, 10 / 15),
+                  g * ((t[b] - T) * M + T))
                 : 13 < b
                 ? g
                 : g * f[b]
@@ -5568,8 +5751,8 @@ bitsperframe:             %d
           if (0 < y) {
             y *= M;
             var O = g.en.s[b][N];
-            O > y
-              && (T = O > 1e10 * y
+            O > y &&
+              (T = O > 1e10 * y
                 ? T + 23.02585092994046 * A[b]
                 : T + A[b] * r1.FAST_LOG10(O / y));
           }
@@ -5583,8 +5766,8 @@ bitsperframe:             %d
         if (0 < N) {
           N *= M;
           var y = g.en.l[b];
-          y > N
-            && (T = y > 1e10 * N
+          y > N &&
+            (T = y > 1e10 * N
               ? T + 23.02585092994046 * I[b]
               : T + I[b] * r1.FAST_LOG10(y / N));
         }
@@ -5607,8 +5790,8 @@ bitsperframe:             %d
       if (0 < O) {
         var Q = M[y];
         Q < M[y + 1] && (Q = M[y + 1]),
-          O = 20 * (2 * Q - O)
-            / (O * (g.numlines_l[y] + g.numlines_l[y + 1] - 1)),
+          O = 20 * (2 * Q - O) /
+            (O * (g.numlines_l[y] + g.numlines_l[y + 1] - 1)),
           O |= 0,
           O > N && (O = N),
           b[y] = O;
@@ -5619,10 +5802,10 @@ bitsperframe:             %d
             ? (Q = M[y - 1],
               Q < M[y] && (Q = M[y]),
               Q < M[y + 1] && (Q = M[y + 1]),
-              O = 20 * (3 * Q - O)
-                / (O
-                  * (g.numlines_l[y - 1] + g.numlines_l[y] + g.numlines_l[y + 1]
-                    - 1)),
+              O = 20 * (3 * Q - O) /
+                (O *
+                  (g.numlines_l[y - 1] + g.numlines_l[y] + g.numlines_l[y + 1] -
+                    1)),
               O |= 0,
               O > N && (O = N),
               b[y] = O)
@@ -5632,8 +5815,8 @@ bitsperframe:             %d
         0 < O
           ? (Q = M[y - 1],
             Q < M[y] && (Q = M[y]),
-            O = 20 * (2 * Q - O)
-              / (O * (g.numlines_l[y - 1] + g.numlines_l[y] - 1)),
+            O = 20 * (2 * Q - O) /
+              (O * (g.numlines_l[y - 1] + g.numlines_l[y] - 1)),
             O |= 0,
             O > N && (O = N),
             b[y] = O)
@@ -5650,10 +5833,12 @@ bitsperframe:             %d
           m1 = M[2][k],
           t1 = M[3][k];
         U <= 1.58 * Z && Z <= 1.58 * U
-          ? (W = T[k] * n1, K = Math.max(m1, Math.min(t1, T[k] * l1)), W = Math.max(t1, Math.min(m1, W)))
+          ? (W = T[k] * n1,
+            K = Math.max(m1, Math.min(t1, T[k] * l1)),
+            W = Math.max(t1, Math.min(m1, W)))
           : (K = m1, W = t1),
-          0 < y
-          && (t1 = b[k] * N,
+          0 < y &&
+          (t1 = b[k] * N,
             U = Math.min(Math.max(U, t1), Math.max(Z, t1)),
             m1 = Math.max(K, t1),
             t1 = Math.max(W, t1),
@@ -5668,10 +5853,13 @@ bitsperframe:             %d
       }
     }
     function S(g, M) {
-      return g = 0 <= g ? 27 * -g : g * M, -72 >= g ? 0 : Math.exp(.2302585093 * g);
+      return g = 0 <= g ? 27 * -g : g * M,
+        -72 >= g ? 0 : Math.exp(.2302585093 * g);
     }
     function x(g) {
-      return 0 > g && (g = 0), g *= .001, 13 * Math.atan(.76 * g) + 3.5 * Math.atan(g * g / 56.25);
+      return 0 > g && (g = 0),
+        g *= .001,
+        13 * Math.atan(.76 * g) + 3.5 * Math.atan(g * g / 56.25);
     }
     function r(g, M, T, b, N, y, O, Q, W, K, k, n1) {
       var l1 = G(v.CBANDS + 1),
@@ -5769,14 +5957,16 @@ bitsperframe:             %d
       return T;
     }
     function s(g) {
-      return g = x(g), g = Math.min(g, 15.5) / 15.5, Math.pow(10, 1.25 * (1 - Math.cos(Math.PI * g)) - 2.5);
+      return g = x(g),
+        g = Math.min(g, 15.5) / 15.5,
+        Math.pow(10, 1.25 * (1 - Math.cos(Math.PI * g)) - 2.5);
     }
     function h(g, M) {
       return -.3 > g && (g = 3410),
         g = Math.max(.1, g / 1e3),
-        3.64 * Math.pow(g, -.8) - 6.8 * Math.exp(-.6 * Math.pow(g - 3.4, 2))
-        + 6 * Math.exp(-.15 * Math.pow(g - 8.7, 2))
-        + .001 * (.6 + .04 * M) * Math.pow(g, 4);
+        3.64 * Math.pow(g, -.8) - 6.8 * Math.exp(-.6 * Math.pow(g - 3.4, 2)) +
+        6 * Math.exp(-.15 * Math.pow(g - 8.7, 2)) +
+        .001 * (.6 + .04 * M) * Math.pow(g, 4);
     }
     var m = new pt(),
       p = 1 / 217621504 / (v.BLKSIZE / 2),
@@ -5887,7 +6077,7 @@ bitsperframe:             %d
         -1104424e-22,
         -.627638,
       ];
-    this.L3psycho_anal_ns = function(g, M, T, b, N, y, O, Q, W, K) {
+    this.L3psycho_anal_ns = function (g, M, T, b, N, y, O, Q, W, K) {
       var k = g.internal_flags,
         n1 = x1([2, v.BLKSIZE]),
         l1 = x1([2, 3, v.BLKSIZE_s]),
@@ -5920,15 +6110,15 @@ bitsperframe:             %d
           var k1, O1 = t0[i0 + F + 10];
           for (p1 = k1 = 0; 9 > p1; p1 += 2) {
             O1 += V[p1] * (t0[i0 + F + p1] + t0[i0 + F + 21 - p1]),
-              k1 += V[p1 + 1]
-                * (t0[i0 + F + p1 + 1] + t0[i0 + F + 21 - p1 - 1]);
+              k1 += V[p1 + 1] *
+                (t0[i0 + F + p1 + 1] + t0[i0 + F + 21 - p1 - 1]);
           }
           K1[j][F] = O1 + k1;
         }
         N[b][j].en.assign(k.en[j]),
           N[b][j].thm.assign(k.thm[j]),
-          2 < B1
-          && (y[b][j].en.assign(k.en[j + 2]), y[b][j].thm.assign(k.thm[j + 2]));
+          2 < B1 &&
+          (y[b][j].en.assign(k.en[j + 2]), y[b][j].thm.assign(k.thm[j + 2]));
       }
       for (j = 0; j < B1; j++) {
         var A1 = G(12),
@@ -5975,12 +6165,12 @@ bitsperframe:             %d
           T1[F / 3] == 0 && X0[F] > f2 && (T1[F / 3] = F % 3 + 1);
         }
         for (F = 1; 4 > F; F++) {
-          1.7 > (Z1[F - 1] > Z1[F] ? Z1[F - 1] / Z1[F] : Z1[F] / Z1[F - 1])
-            && (T1[F] = 0, F == 1 && (T1[0] = 0));
+          1.7 > (Z1[F - 1] > Z1[F] ? Z1[F - 1] / Z1[F] : Z1[F] / Z1[F - 1]) &&
+            (T1[F] = 0, F == 1 && (T1[0] = 0));
         }
         T1[0] != 0 && k.nsPsy.lastAttacks[j] != 0 && (T1[0] = 0),
-          (k.nsPsy.lastAttacks[j] == 3 || T1[0] + T1[1] + T1[2] + T1[3] != 0)
-          && (L0 = 0,
+          (k.nsPsy.lastAttacks[j] == 3 || T1[0] + T1[1] + T1[2] + T1[3] != 0) &&
+          (L0 = 0,
             T1[1] != 0 && T1[0] != 0 && (T1[1] = 0),
             T1[2] != 0 && T1[1] != 0 && (T1[2] = 0),
             T1[3] != 0 && T1[2] != 0 && (T1[3] = 0)),
@@ -5999,11 +6189,13 @@ bitsperframe:             %d
           A2 = T,
           e0 = $.internal_flags;
         if (2 > V1) {
-          m.fft_long(e0, G1[M0], V1, d1, A2), m.fft_short(e0, s0[z1], V1, d1, A2);
+          m.fft_long(e0, G1[M0], V1, d1, A2),
+            m.fft_short(e0, s0[z1], V1, d1, A2);
         } else if (V1 == 2) {
           for (var f1 = v.BLKSIZE - 1; 0 <= f1; --f1) {
             var W0 = G1[M0 + 0][f1], Z0 = G1[M0 + 1][f1];
-            G1[M0 + 0][f1] = (W0 + Z0) * r1.SQRT2 * .5, G1[M0 + 1][f1] = (W0 - Z0) * r1.SQRT2 * .5;
+            G1[M0 + 0][f1] = (W0 + Z0) * r1.SQRT2 * .5,
+              G1[M0 + 1][f1] = (W0 - Z0) * r1.SQRT2 * .5;
           }
           for (var P1 = 2; 0 <= P1; --P1) {
             for (f1 = v.BLKSIZE_s - 1; 0 <= f1; --f1) {
@@ -6025,7 +6217,9 @@ bitsperframe:             %d
         }
         for (P1 = 2; 0 <= P1; --P1) {
           for (
-            t2[P1][0] = s0[z1 + 0][P1][0], t2[P1][0] *= t2[P1][0], f1 = v.BLKSIZE_s / 2 - 1;
+            t2[P1][0] = s0[z1 + 0][P1][0],
+              t2[P1][0] *= t2[P1][0],
+              f1 = v.BLKSIZE_s / 2 - 1;
             0 <= f1;
             --f1
           ) {
@@ -6038,13 +6232,15 @@ bitsperframe:             %d
         for (f1 = 11; f1 < v.HBLKSIZE; f1++) R1 += N1[f1];
         if (e0.tot_ener[V1] = R1, $.analysis) {
           for (f1 = 0; f1 < v.HBLKSIZE; f1++) {
-            e0.pinfo.energy[u0][V1][f1] = e0.pinfo.energy_save[V1][f1], e0.pinfo.energy_save[V1][f1] = N1[f1];
+            e0.pinfo.energy[u0][V1][f1] = e0.pinfo.energy_save[V1][f1],
+              e0.pinfo.energy_save[V1][f1] = N1[f1];
           }
           e0.pinfo.pe[u0][V1] = e0.pe[V1];
         }
         for (
-          $.athaa_loudapprox == 2 && 2 > V1
-          && (e0.loudness_sq[u0][V1] = e0.loudness_sq_save[V1], e0.loudness_sq_save[V1] = d(N1, e0)),
+          $.athaa_loudapprox == 2 && 2 > V1 &&
+          (e0.loudness_sq[u0][V1] = e0.loudness_sq_save[V1],
+            e0.loudness_sq_save[V1] = d(N1, e0)),
             n(k, g2, U, P2, l2),
             R(k, P2, l2, j1),
             J = 0;
@@ -6077,8 +6273,8 @@ bitsperframe:             %d
             }
             var V0 = 2 * Y1.nb_s1[y0][o1];
             l0[o1] = Math.min(a0, V0),
-              Y1.blocktype_old[y0 & 1] == v.SHORT_TYPE
-              && (V0 = 16 * Y1.nb_s2[y0][o1], l0[o1] = Math.min(V0, l0[o1])),
+              Y1.blocktype_old[y0 & 1] == v.SHORT_TYPE &&
+              (V0 = 16 * Y1.nb_s2[y0][o1], l0[o1] = Math.min(V0, l0[o1])),
               Y1.nb_s2[y0][o1] = Y1.nb_s1[y0][o1],
               Y1.nb_s1[y0][o1] = a0;
           }
@@ -6090,13 +6286,18 @@ bitsperframe:             %d
               X1 = P(k.thm[j].s[E1][k0], $1, .6 * z), $1 = Math.min($1, X1);
             }
             T1[J] == 1
-              ? (k0 = J != 0 ? J - 1 : 2, X1 = P(k.thm[j].s[E1][k0], $1, .3 * z), $1 = Math.min($1, X1))
-              : (J != 0 && T1[J - 1] == 3
-                || J == 0 && k.nsPsy.lastAttacks[j] == 3)
-                && (k0 = J != 2 ? J + 1 : 0, X1 = P(k.thm[j].s[E1][k0], $1, .3 * z), $1 = Math.min($1, X1));
+              ? (k0 = J != 0 ? J - 1 : 2,
+                X1 = P(k.thm[j].s[E1][k0], $1, .3 * z),
+                $1 = Math.min($1, X1))
+              : (J != 0 && T1[J - 1] == 3 ||
+                J == 0 && k.nsPsy.lastAttacks[j] == 3) &&
+                (k0 = J != 2 ? J + 1 : 0,
+                  X1 = P(k.thm[j].s[E1][k0], $1, .3 * z),
+                  $1 = Math.min($1, X1));
             var h2 = A1[3 * J + 3] + A1[3 * J + 4] + A1[3 * J + 5];
-            6 * A1[3 * J + 5] < h2
-            && ($1 *= .5, 6 * A1[3 * J + 4] < h2 && ($1 *= .5)), k.thm[j].s[E1][J] = $1;
+            6 * A1[3 * J + 5] < h2 &&
+            ($1 *= .5, 6 * A1[3 * J + 4] < h2 && ($1 *= .5)),
+              k.thm[j].s[E1][J] = $1;
           }
         }
         for (
@@ -6110,7 +6311,8 @@ bitsperframe:             %d
               A0 = k.s3_ll[Q1++] * z0;
             ++p0 <= k.s3ind[c1][1];
           ) {
-            z0 = U[p0] * c[j1[p0]], A0 = B(A0, k.s3_ll[Q1++] * z0, p0, p0 - c1, k, 0);
+            z0 = U[p0] * c[j1[p0]],
+              A0 = B(A0, k.s3_ll[Q1++] * z0, p0, p0 - c1, k, 0);
           }
           A0 *= .158489319246111,
             m1[c1] = k.blocktype_old[j & 1] == v.SHORT_TYPE ? A0 : P(
@@ -6146,8 +6348,8 @@ bitsperframe:             %d
       if (g.mode == M1.JOINT_STEREO) {
         for (var q1, u1 = 0; u1 < v.SBMAX_l; u1++) {
           if (
-            !(k.thm[0].l[u1] > 1.58 * k.thm[1].l[u1]
-              || k.thm[1].l[u1] > 1.58 * k.thm[0].l[u1])
+            !(k.thm[0].l[u1] > 1.58 * k.thm[1].l[u1] ||
+              k.thm[1].l[u1] > 1.58 * k.thm[0].l[u1])
           ) {
             var J1 = k.mld_l[u1] * k.en[3].l[u1],
               m0 = Math.max(k.thm[2].l[u1], Math.min(k.thm[3].l[u1], J1));
@@ -6158,9 +6360,9 @@ bitsperframe:             %d
         }
         for (u1 = 0; u1 < v.SBMAX_s; u1++) {
           for (var w1 = 0; 3 > w1; w1++) {
-            k.thm[0].s[u1][w1] > 1.58 * k.thm[1].s[u1][w1]
-              || k.thm[1].s[u1][w1] > 1.58 * k.thm[0].s[u1][w1]
-              || (J1 = k.mld_s[u1] * k.en[3].s[u1][w1],
+            k.thm[0].s[u1][w1] > 1.58 * k.thm[1].s[u1][w1] ||
+              k.thm[1].s[u1][w1] > 1.58 * k.thm[0].s[u1][w1] ||
+              (J1 = k.mld_s[u1] * k.en[3].s[u1][w1],
                 m0 = Math.max(
                   k.thm[2].s[u1][w1],
                   Math.min(k.thm[3].s[u1][w1], J1),
@@ -6189,7 +6391,8 @@ bitsperframe:             %d
               var E0 = _0 * T2 / (f0 + B0);
               f0 *= E0, B0 *= E0;
             }
-            k.thm[2].l[b1] = Math.min(f0, k.thm[2].l[b1]), k.thm[3].l[b1] = Math.min(B0, k.thm[3].l[b1]);
+            k.thm[2].l[b1] = Math.min(f0, k.thm[2].l[b1]),
+              k.thm[3].l[b1] = Math.min(B0, k.thm[3].l[b1]);
           }
           for (u2 *= v.BLKSIZE_s / v.BLKSIZE, b1 = 0; b1 < v.SBMAX_s; b1++) {
             for (var D1 = 0; 3 > D1; D1++) {
@@ -6200,8 +6403,8 @@ bitsperframe:             %d
                 ),
                 f0 = Math.max(k.thm[2].s[b1][D1], _1),
                 B0 = Math.max(k.thm[3].s[b1][D1], _1),
-                _0 * C0 < f0 + B0
-                && (E0 = _0 * C0 / (f0 + B0), f0 *= E0, B0 *= E0),
+                _0 * C0 < f0 + B0 &&
+                (E0 = _0 * C0 / (f0 + B0), f0 *= E0, B0 *= E0),
                 k.thm[2].s[b1][D1] = Math.min(k.thm[2].s[b1][D1], f0),
                 k.thm[3].s[b1][D1] = Math.min(k.thm[3].s[b1][D1], B0);
             }
@@ -6209,8 +6412,8 @@ bitsperframe:             %d
         }
       }
       var v0 = g.internal_flags;
-      g.short_blocks != L1.short_block_coupled || y1[0] != 0 && y1[1] != 0
-        || (y1[0] = y1[1] = 0);
+      g.short_blocks != L1.short_block_coupled || y1[0] != 0 && y1[1] != 0 ||
+        (y1[0] = y1[1] = 0);
       for (var F1 = 0; F1 < v0.channels_out; F1++) {
         t1[F1] = v.NORM_TYPE,
           g.short_blocks == L1.short_block_dispensed && (y1[F1] = 1),
@@ -6218,10 +6421,10 @@ bitsperframe:             %d
           y1[F1] != 0
             ? v0.blocktype_old[F1] == v.SHORT_TYPE && (t1[F1] = v.STOP_TYPE)
             : (t1[F1] = v.SHORT_TYPE,
-              v0.blocktype_old[F1] == v.NORM_TYPE
-              && (v0.blocktype_old[F1] = v.START_TYPE),
-              v0.blocktype_old[F1] == v.STOP_TYPE
-              && (v0.blocktype_old[F1] = v.SHORT_TYPE)),
+              v0.blocktype_old[F1] == v.NORM_TYPE &&
+              (v0.blocktype_old[F1] = v.START_TYPE),
+              v0.blocktype_old[F1] == v.STOP_TYPE &&
+              (v0.blocktype_old[F1] = v.SHORT_TYPE)),
           K[F1] = v0.blocktype_old[F1],
           v0.blocktype_old[F1] = t1[F1];
       }
@@ -6236,7 +6439,8 @@ bitsperframe:             %d
         } else U0 = O, I1 = 0, _2 = K[j], j0 = N[b][j];
         U0[I1 + j] = _2 == v.SHORT_TYPE
           ? D(j0, k.masking_lower)
-          : u(j0, k.masking_lower), g.analysis && (k.pinfo.pe[b][j] = U0[I1 + j]);
+          : u(j0, k.masking_lower),
+          g.analysis && (k.pinfo.pe[b][j] = U0[I1 + j]);
       }
       return 0;
     };
@@ -6252,7 +6456,7 @@ bitsperframe:             %d
       -1104424e-22,
       -.627638,
     ];
-    this.L3psycho_anal_vbr = function(g, M, T, b, N, y, O, Q, W, K) {
+    this.L3psycho_anal_vbr = function (g, M, T, b, N, y, O, Q, W, K) {
       for (
         var k = g.internal_flags,
           n1,
@@ -6279,15 +6483,15 @@ bitsperframe:             %d
         for (var B1 = T + 576 - 350 - 21 + 192, z = 0; 576 > z; z++) {
           for (var t0, i0 = firbuf[B1 + z + 10], k1 = t0 = 0; 9 > k1; k1 += 2) {
             i0 += H[k1] * (firbuf[B1 + z + k1] + firbuf[B1 + z + 21 - k1]),
-              t0 += H[k1 + 1]
-                * (firbuf[B1 + z + k1 + 1] + firbuf[B1 + z + 21 - k1 - 1]);
+              t0 += H[k1 + 1] *
+                (firbuf[B1 + z + k1 + 1] + firbuf[B1 + z + 21 - k1 - 1]);
           }
           E1[q][z] = i0 + t0;
         }
         N[b][q].en.assign(J.en[q]),
           N[b][q].thm.assign(J.thm[q]),
-          2 < j1
-          && (y[b][q].en.assign(J.en[q + 2]), y[b][q].thm.assign(J.thm[q + 2]));
+          2 < j1 &&
+          (y[b][q].en.assign(J.en[q + 2]), y[b][q].thm.assign(J.thm[q + 2]));
       }
       for (q = 0; q < j1; q++) {
         var O1 = G(12),
@@ -6323,8 +6527,8 @@ bitsperframe:             %d
         }
         for (z = 0; 3 > z; ++z) {
           var S2 = A1[3 * z + 3] + A1[3 * z + 4] + A1[3 * z + 5], a2 = 1;
-          6 * A1[3 * z + 5] < S2
-          && (a2 *= .5, 6 * A1[3 * z + 4] < S2 && (a2 *= .5)), c1[q][z] = a2;
+          6 * A1[3 * z + 5] < S2 &&
+          (a2 *= .5, 6 * A1[3 * z + 4] < S2 && (a2 *= .5)), c1[q][z] = a2;
         }
         if (g.analysis) {
           var H0 = O1[0];
@@ -6336,13 +6540,13 @@ bitsperframe:             %d
         }
         for (z = 1; 4 > z; z++) {
           var R2 = Z1[z - 1], X1 = Z1[z];
-          4e4 > Math.max(R2, X1) && R2 < 1.7 * X1 && X1 < 1.7 * R2
-            && (z == 1 && F[q][0] <= F[q][z] && (F[q][0] = 0), F[q][z] = 0);
+          4e4 > Math.max(R2, X1) && R2 < 1.7 * X1 && X1 < 1.7 * R2 &&
+            (z == 1 && F[q][0] <= F[q][z] && (F[q][0] = 0), F[q][z] = 0);
         }
         F[q][0] <= J.nsPsy.lastAttacks[q] && (F[q][0] = 0),
-          (J.nsPsy.lastAttacks[q] == 3
-            || F[q][0] + F[q][1] + F[q][2] + F[q][3] != 0)
-          && (l2 = 0,
+          (J.nsPsy.lastAttacks[q] == 3 ||
+            F[q][0] + F[q][1] + F[q][2] + F[q][3] != 0) &&
+          (l2 = 0,
             F[q][1] != 0 && F[q][0] != 0 && (F[q][1] = 0),
             F[q][2] != 0 && F[q][1] != 0 && (F[q][2] = 0),
             F[q][3] != 0 && F[q][2] != 0 && (F[q][3] = 0)),
@@ -6350,8 +6554,8 @@ bitsperframe:             %d
           W[q] = J.tot_ener[q];
       }
       var M2 = g.internal_flags;
-      g.short_blocks != L1.short_block_coupled || p1[0] != 0 && p1[1] != 0
-        || (p1[0] = p1[1] = 0);
+      g.short_blocks != L1.short_block_coupled || p1[0] != 0 && p1[1] != 0 ||
+        (p1[0] = p1[1] = 0);
       for (var f2 = 0; f2 < M2.channels_out; f2++) {
         g.short_blocks == L1.short_block_dispensed && (p1[f2] = 1),
           g.short_blocks == L1.short_block_forced && (p1[f2] = 0);
@@ -6370,7 +6574,8 @@ bitsperframe:             %d
         else if (G1 == 2) {
           for (var d1 = v.BLKSIZE - 1; 0 <= d1; --d1) {
             var A2 = z1[u0 + 0][d1], e0 = z1[u0 + 1][d1];
-            z1[u0 + 0][d1] = (A2 + e0) * r1.SQRT2 * .5, z1[u0 + 1][d1] = (A2 - e0) * r1.SQRT2 * .5;
+            z1[u0 + 0][d1] = (A2 + e0) * r1.SQRT2 * .5,
+              z1[u0 + 1][d1] = (A2 - e0) * r1.SQRT2 * .5;
           }
         }
         for (
@@ -6386,14 +6591,16 @@ bitsperframe:             %d
         for (d1 = 11; d1 < v.HBLKSIZE; d1++) Z0 += s0[d1];
         if (V1.tot_ener[G1] = Z0, t2.analysis) {
           for (d1 = 0; d1 < v.HBLKSIZE; d1++) {
-            V1.pinfo.energy[M0][G1][d1] = V1.pinfo.energy_save[G1][d1], V1.pinfo.energy_save[G1][d1] = s0[d1];
+            V1.pinfo.energy[M0][G1][d1] = V1.pinfo.energy_save[G1][d1],
+              V1.pinfo.energy_save[G1][d1] = s0[d1];
           }
           V1.pinfo.pe[M0][G1] = V1.pe[G1];
         }
         var P1 = $, s2 = U, x0 = g.internal_flags;
         if (
-          g.athaa_loudapprox == 2 && 2 > P1
-          && (x0.loudness_sq[b][P1] = x0.loudness_sq_save[P1], x0.loudness_sq_save[P1] = d(s2, x0)), p1[N1] != 0
+          g.athaa_loudapprox == 2 && 2 > P1 &&
+          (x0.loudness_sq[b][P1] = x0.loudness_sq_save[P1],
+            x0.loudness_sq_save[P1] = d(s2, x0)), p1[N1] != 0
         ) {
           var R1 = void 0,
             o1 = k,
@@ -6445,8 +6652,8 @@ bitsperframe:             %d
           }}
       }
       for (
-        p1[0] + p1[1] == 2 && g.mode == M1.JOINT_STEREO
-        && e(
+        p1[0] + p1[1] == 2 && g.mode == M1.JOINT_STEREO &&
+        e(
           y1,
           j,
           k.mld_cb_l,
@@ -6480,11 +6687,14 @@ bitsperframe:             %d
             ) {
               for (var w1 = v.BLKSIZE_s - 1; 0 <= w1; --w1) {
                 var C0 = J1[m0 + 0][q1][w1], T2 = J1[m0 + 1][q1][w1];
-                J1[m0 + 0][q1][w1] = (C0 + T2) * r1.SQRT2 * .5, J1[m0 + 1][q1][w1] = (C0 - T2) * r1.SQRT2 * .5;
+                J1[m0 + 0][q1][w1] = (C0 + T2) * r1.SQRT2 * .5,
+                  J1[m0 + 1][q1][w1] = (C0 - T2) * r1.SQRT2 * .5;
               }
             }
             for (
-              u1[q1][0] = J1[m0 + 0][q1][0], u1[q1][0] *= u1[q1][0], w1 = v.BLKSIZE_s / 2 - 1;
+              u1[q1][0] = J1[m0 + 0][q1][0],
+                u1[q1][0] *= u1[q1][0],
+                w1 = v.BLKSIZE_s / 2 - 1;
               0 <= w1;
               --w1
             ) {
@@ -6523,8 +6733,8 @@ bitsperframe:             %d
             if (0 < C1) {
               var h0 = T0[g1];
               h0 < T0[g1 + 1] && (h0 = T0[g1 + 1]),
-                C1 = 20 * (2 * h0 - C1)
-                  / (C1 * (Q0.numlines_s[g1] + Q0.numlines_s[g1 + 1] - 1));
+                C1 = 20 * (2 * h0 - C1) /
+                  (C1 * (Q0.numlines_s[g1] + Q0.numlines_s[g1 + 1] - 1));
               var w0 = 0 | C1;
               w0 > p2 && (w0 = p2), c2[g1] = w0;
             } else c2[g1] = 0;
@@ -6534,10 +6744,10 @@ bitsperframe:             %d
                   ? (h0 = T0[g1 - 1],
                     h0 < T0[g1] && (h0 = T0[g1]),
                     h0 < T0[g1 + 1] && (h0 = T0[g1 + 1]),
-                    C1 = 20 * (3 * h0 - C1)
-                      / (C1
-                        * (Q0.numlines_s[g1 - 1] + Q0.numlines_s[g1]
-                          + Q0.numlines_s[g1 + 1] - 1)),
+                    C1 = 20 * (3 * h0 - C1) /
+                      (C1 *
+                        (Q0.numlines_s[g1 - 1] + Q0.numlines_s[g1] +
+                          Q0.numlines_s[g1 + 1] - 1)),
                     w0 = 0 | C1,
                     w0 > p2 && (w0 = p2),
                     c2[g1] = w0)
@@ -6548,8 +6758,8 @@ bitsperframe:             %d
                 0 < C1
                   ? (h0 = T0[g1 - 1],
                     h0 < T0[g1] && (h0 = T0[g1]),
-                    C1 = 20 * (2 * h0 - C1)
-                      / (C1 * (Q0.numlines_s[g1 - 1] + Q0.numlines_s[g1] - 1)),
+                    C1 = 20 * (2 * h0 - C1) /
+                      (C1 * (Q0.numlines_s[g1 - 1] + Q0.numlines_s[g1] - 1)),
                     w0 = 0 | C1,
                     w0 > p2 && (w0 = p2),
                     c2[g1] = w0)
@@ -6586,8 +6796,8 @@ bitsperframe:             %d
           }
         }
         for (
-          p1[0] + p1[1] == 0 && g.mode == M1.JOINT_STEREO
-          && e(
+          p1[0] + p1[1] == 0 && g.mode == M1.JOINT_STEREO &&
+          e(
             y1,
             j,
             k.mld_cb_s,
@@ -6611,10 +6821,14 @@ bitsperframe:             %d
                   b2 = P(k.thm[$].s[i2][d2], g0, .36);
                 g0 = Math.min(g0, b2);
               } else {F[$][h1] == 1
-                  ? (d2 = h1 != 0 ? h1 - 1 : 2, b2 = P(k.thm[$].s[i2][d2], g0, .18), g0 = Math.min(g0, b2))
-                  : (h1 != 0 && F[$][h1 - 1] == 3
-                    || h1 == 0 && k.nsPsy.lastAttacks[$] == 3)
-                    && (d2 = h1 != 2 ? h1 + 1 : 0, b2 = P(k.thm[$].s[i2][d2], g0, .18), g0 = Math.min(g0, b2));}
+                  ? (d2 = h1 != 0 ? h1 - 1 : 2,
+                    b2 = P(k.thm[$].s[i2][d2], g0, .18),
+                    g0 = Math.min(g0, b2))
+                  : (h1 != 0 && F[$][h1 - 1] == 3 ||
+                    h1 == 0 && k.nsPsy.lastAttacks[$] == 3) &&
+                    (d2 = h1 != 2 ? h1 + 1 : 0,
+                      b2 = P(k.thm[$].s[i2][d2], g0, .18),
+                      g0 = Math.min(g0, b2));}
               g0 *= c1[$][h1], J2[h1] = g0;
             }
             for (h1 = 0; 3 > h1; h1++) k.thm[$].s[i2][h1] = J2[h1];
@@ -6627,10 +6841,10 @@ bitsperframe:             %d
         p1[d0] != 0
           ? $0.blocktype_old[d0] == v.SHORT_TYPE && (G2 = v.STOP_TYPE)
           : (G2 = v.SHORT_TYPE,
-            $0.blocktype_old[d0] == v.NORM_TYPE
-            && ($0.blocktype_old[d0] = v.START_TYPE),
-            $0.blocktype_old[d0] == v.STOP_TYPE
-            && ($0.blocktype_old[d0] = v.SHORT_TYPE)),
+            $0.blocktype_old[d0] == v.NORM_TYPE &&
+            ($0.blocktype_old[d0] = v.START_TYPE),
+            $0.blocktype_old[d0] == v.STOP_TYPE &&
+            ($0.blocktype_old[d0] = v.SHORT_TYPE)),
           K[d0] = $0.blocktype_old[d0],
           $0.blocktype_old[d0] = G2;
       }
@@ -6642,11 +6856,12 @@ bitsperframe:             %d
         } else W2 = O, Z2 = 0, z2 = K[$], C2 = N[b][$];
         W2[Z2 + $] = z2 == v.SHORT_TYPE
           ? D(C2, k.masking_lower)
-          : u(C2, k.masking_lower), g.analysis && (k.pinfo.pe[b][$] = W2[Z2 + $]);
+          : u(C2, k.masking_lower),
+          g.analysis && (k.pinfo.pe[b][$] = W2[Z2 + $]);
       }
       return 0;
     },
-      this.psymodel_init = function(g) {
+      this.psymodel_init = function (g) {
         var M = g.internal_flags,
           T,
           b = !0,
@@ -6674,14 +6889,19 @@ bitsperframe:             %d
             N = 8, y = -1.75, O = -.0125, Q = -8.25, W = -2.25;
         }
         for (
-          M.ms_ener_ratio_old = .25, M.blocktype_old[0] = M.blocktype_old[1] = v.NORM_TYPE, T = 0;
+          M.ms_ener_ratio_old = .25,
+            M.blocktype_old[0] = M.blocktype_old[1] = v.NORM_TYPE,
+            T = 0;
           4 > T;
           ++T
         ) {
           for (var U = 0; U < v.CBANDS; ++U) {
-            M.nb_1[T][U] = 1e20, M.nb_2[T][U] = 1e20, M.nb_s1[T][U] = M.nb_s2[T][U] = 1;
+            M.nb_1[T][U] = 1e20,
+              M.nb_2[T][U] = 1e20,
+              M.nb_s1[T][U] = M.nb_s2[T][U] = 1;
           }
-          for (var Z = 0; Z < v.SBMAX_l; Z++) M.en[T].l[Z] = 1e20, M.thm[T].l[Z] = 1e20;
+          for (var Z = 0; Z < v.SBMAX_l; Z++) {M.en[T].l[Z] = 1e20,
+              M.thm[T].l[Z] = 1e20;}
           for (U = 0; 3 > U; ++U) {
             for (Z = 0; Z < v.SBMAX_s; Z++) {
               M.en[T].s[Z][U] = 1e20, M.thm[T].s[Z][U] = 1e20;
@@ -6711,8 +6931,8 @@ bitsperframe:             %d
           T++
         ) {
           Z = y,
-            K[T] >= N
-            && (Z = O * (K[T] - N) / (24 - N) + y * (24 - K[T]) / (24 - N)),
+            K[T] >= N &&
+            (Z = O * (K[T] - N) / (24 - N) + y * (24 - K[T]) / (24 - N)),
             n1[T] = Math.pow(10, Z / 10),
             M.rnumlines_l[T] = 0 < M.numlines_l[T] ? 1 / M.numlines_l[T] : 0;
         }
@@ -6755,8 +6975,8 @@ bitsperframe:             %d
         ) {
           for (
             Z = Q,
-              K[T] >= N
-              && (Z = W * (K[T] - N) / (24 - N) + Q * (24 - K[T]) / (24 - N)),
+              K[T] >= N &&
+              (Z = W * (K[T] - N) / (24 - N) + Q * (24 - K[T]) / (24 - N)),
               n1[T] = Math.pow(10, Z / 10),
               O = o2.MAX_VALUE,
               Z = 0;
@@ -6803,7 +7023,9 @@ bitsperframe:             %d
             T < v.BLKSIZE / 2;
             ++T
           ) {
-            y += U, M.ATH.eql_w[T] = 1 / Math.pow(10, this.ATHformula(y, g) / 10), b += M.ATH.eql_w[T];
+            y += U,
+              M.ATH.eql_w[T] = 1 / Math.pow(10, this.ATHformula(y, g) / 10),
+              b += M.ATH.eql_w[T];
           }
           for (b = 1 / b, T = v.BLKSIZE / 2; 0 <= --T;) M.ATH.eql_w[T] *= b;
         }
@@ -6818,16 +7040,20 @@ bitsperframe:             %d
           }
         }
         for (T = U = 0; T < M.npart_l; T++) {
-          y = l1 * (U + M.numlines_l[T] / 2) / (1 * v.BLKSIZE), M.mld_cb_l[T] = s(y), U += M.numlines_l[T];
+          y = l1 * (U + M.numlines_l[T] / 2) / (1 * v.BLKSIZE),
+            M.mld_cb_l[T] = s(y),
+            U += M.numlines_l[T];
         }
         for (; T < v.CBANDS; ++T) M.mld_cb_l[T] = 1;
         for (T = U = 0; T < M.npart_s; T++) {
-          y = l1 * (U + M.numlines_s[T] / 2) / (1 * v.BLKSIZE_s), M.mld_cb_s[T] = s(y), U += M.numlines_s[T];
+          y = l1 * (U + M.numlines_s[T] / 2) / (1 * v.BLKSIZE_s),
+            M.mld_cb_s[T] = s(y),
+            U += M.numlines_s[T];
         }
         for (; T < v.CBANDS; ++T) M.mld_cb_s[T] = 1;
         return 0;
       },
-      this.ATHformula = function(g, M) {
+      this.ATHformula = function (g, M) {
         switch (M.ATHtype) {
           case 0:
             g = h(g, 9);
@@ -6852,7 +7078,9 @@ bitsperframe:             %d
   }
   function s1() {
     function d() {
-      this.mask_adjust_short = this.mask_adjust = 0, this.bo_l_weight = G(v.SBMAX_l), this.bo_s_weight = G(v.SBMAX_s);
+      this.mask_adjust_short = this.mask_adjust = 0,
+        this.bo_l_weight = G(v.SBMAX_l),
+        this.bo_s_weight = G(v.SBMAX_s);
     }
     function B() {
       this.lowerlimit = 0;
@@ -6890,9 +7118,9 @@ bitsperframe:             %d
     function P(t, a, f) {
       16e3 > f && (a = 2), f = Y.bitrate_table[a][1];
       for (var E = 2; 14 >= E; E++) {
-        0 < Y.bitrate_table[a][E]
-          && Math.abs(Y.bitrate_table[a][E] - t) < Math.abs(f - t)
-          && (f = Y.bitrate_table[a][E]);
+        0 < Y.bitrate_table[a][E] &&
+          Math.abs(Y.bitrate_table[a][E] - t) < Math.abs(f - t) &&
+          (f = Y.bitrate_table[a][E]);
       }
       return f;
     }
@@ -6935,7 +7163,11 @@ bitsperframe:             %d
       var b = s.copy_buffer(H, A, I, V, 0);
       if (0 > b) return b;
       if (
-        I += b, g += b, T[0] = a, T[1] = f, H1.NEQ(t.scale, 0) && H1.NEQ(t.scale, 1)
+        I += b,
+          g += b,
+          T[0] = a,
+          T[1] = f,
+          H1.NEQ(t.scale, 0) && H1.NEQ(t.scale, 1)
       ) {
         for (b = 0; b < E; ++b) {
           T[0][b] *= t.scale, H.channels_out == 2 && (T[1][b] *= t.scale);
@@ -6975,8 +7207,8 @@ bitsperframe:             %d
               J = 0,
               K1 = y.out_samplerate / x(y.out_samplerate, y.in_samplerate);
             K1 > S1.BPC && (K1 = S1.BPC);
-            var j1 = 1e-4
-                  > Math.abs(
+            var j1 = 1e-4 >
+                  Math.abs(
                     E1.resample_ratio - Math.floor(.5 + E1.resample_ratio),
                   )
                 ? 1
@@ -6985,7 +7217,10 @@ bitsperframe:             %d
             1 < q && (q = 1);
             var B1 = 31;
             if (
-              B1 % 2 == 0 && --B1, B1 += j1, j1 = B1 + 1, E1.fill_buffer_resample_init == 0
+              B1 % 2 == 0 && --B1,
+                B1 += j1,
+                j1 = B1 + 1,
+                E1.fill_buffer_resample_init == 0
             ) {
               for (
                 E1.inbuf_old[0] = G(j1), E1.inbuf_old[1] = G(j1), Z = 0;
@@ -7001,8 +7236,8 @@ bitsperframe:             %d
                     A1 = Math.PI * q;
                   O1 /= B1, 0 > O1 && (O1 = 0), 1 < O1 && (O1 = 1);
                   var Z1 = O1 - .5;
-                  O1 = .42 - .5 * Math.cos(2 * O1 * Math.PI)
-                    + .08 * Math.cos(4 * O1 * Math.PI),
+                  O1 = .42 - .5 * Math.cos(2 * O1 * Math.PI) +
+                    .08 * Math.cos(4 * O1 * Math.PI),
                     z += i0[k1] = 1e-9 > Math.abs(Z1)
                       ? A1 / Math.PI
                       : O1 * Math.sin(B1 * A1 * Z1) / (Math.PI * B1 * Z1);
@@ -7013,18 +7248,22 @@ bitsperframe:             %d
             }
             for (
               z = E1.inbuf_old[Q1], q = 0;
-              q < y1
-              && (Z = q * E1.resample_ratio, J = 0 | Math.floor(Z - E1.itime[Q1]), !(B1 + J - B1 / 2 >= F));
+              q < y1 &&
+              (Z = q * E1.resample_ratio,
+                J = 0 | Math.floor(Z - E1.itime[Q1]),
+                !(B1 + J - B1 / 2 >= F));
               q++
             ) {
               for (
-                t0 = Z - E1.itime[Q1] - (J + B1 % 2 * .5), t0 = 0 | Math.floor(2 * t0 * K1 + K1 + .5), Z = i0 = 0;
+                t0 = Z - E1.itime[Q1] - (J + B1 % 2 * .5),
+                  t0 = 0 | Math.floor(2 * t0 * K1 + K1 + .5),
+                  Z = i0 = 0;
                 Z <= B1;
                 ++Z
               ) {
                 k1 = 0 | Z + J - B1 / 2,
-                  i0 += (0 > k1 ? z[j1 + k1] : j[c1 + k1])
-                    * E1.blackfilt[t0][Z];
+                  i0 += (0 > k1 ? z[j1 + k1] : j[c1 + k1]) *
+                    E1.blackfilt[t0][Z];
               }
               m1[t1 + q] = i0;
             }
@@ -7045,15 +7284,15 @@ bitsperframe:             %d
             K.n_out = Math.min(y.framesize, W), K.n_in = K.n_out, y = 0;
             y < K.n_out;
             ++y
-          )
-          {
-            O[0][k.mf_size + y] = N[0][Q + y], k.channels_out == 2 && (O[1][k.mf_size + y] = N[1][Q + y]);
+          ) {
+            O[0][k.mf_size + y] = N[0][Q + y],
+              k.channels_out == 2 && (O[1][k.mf_size + y] = N[1][Q + y]);
           }}
         if (
           O = b.n_in,
             b = b.n_out,
-            H.findReplayGain && !H.decode_on_the_fly
-            && l.AnalyzeSamples(
+            H.findReplayGain && !H.decode_on_the_fly &&
+            l.AnalyzeSamples(
                 H.rgdata,
                 M[0],
                 H.mf_size,
@@ -7067,8 +7306,8 @@ bitsperframe:             %d
           E -= O,
             f += O,
             H.mf_size += b,
-            1 > H.mf_samples_to_encode
-            && (H.mf_samples_to_encode = v.ENCDELAY + v.POSTDELAY),
+            1 > H.mf_samples_to_encode &&
+            (H.mf_samples_to_encode = v.ENCDELAY + v.POSTDELAY),
             H.mf_samples_to_encode += b,
             H.mf_size >= a
         ) {
@@ -7082,7 +7321,11 @@ bitsperframe:             %d
               0 > b
           ) return b;
           for (
-            I += b, g += b, H.mf_size -= t.framesize, H.mf_samples_to_encode -= t.framesize, O = 0;
+            I += b,
+              g += b,
+              H.mf_size -= t.framesize,
+              H.mf_samples_to_encode -= t.framesize,
+              O = 0;
             O < H.channels_out;
             O++
           ) for (b = 0; b < H.mf_size; b++) M[O][b] = M[O][b + t.framesize];
@@ -7121,10 +7364,18 @@ bitsperframe:             %d
       s1.LAME_MAXMP3BUFFER = 147456;
     var l, s, h, m, p, _ = new D2(), i, o, c;
     this.enc = new v(),
-      this.setModules = function(t, a, f, E, A, I, V, H, g) {
-        l = t, s = a, h = f, m = E, p = A, i = I, o = H, c = g, this.enc.setModules(s, _, m, i);
+      this.setModules = function (t, a, f, E, A, I, V, H, g) {
+        l = t,
+          s = a,
+          h = f,
+          m = E,
+          p = A,
+          i = I,
+          o = H,
+          c = g,
+          this.enc.setModules(s, _, m, i);
       },
-      this.lame_init = function() {
+      this.lame_init = function () {
         var t = new _t();
         t.class_id = 4294479419;
         var a = t.internal_flags = new S1();
@@ -7185,7 +7436,7 @@ bitsperframe:             %d
           t.lame_allocated_gfp = 1,
           t;
       },
-      this.nearestBitrateFullIndex = function(t) {
+      this.nearestBitrateFullIndex = function (t) {
         for (
           var a = [
               8,
@@ -7221,7 +7472,7 @@ bitsperframe:             %d
         }
         return f - t > t - A ? I : E;
       },
-      this.lame_init_params = function(t) {
+      this.lame_init_params = function (t) {
         var a = t.internal_flags;
         if (
           a.Class_ID = 0,
@@ -7233,21 +7484,21 @@ bitsperframe:             %d
             a.channels_out = t.mode == M1.MONO ? 1 : 2,
             a.mode_ext = v.MPG_MD_MS_LR,
             t.mode == M1.MONO && (t.force_ms = !1),
-            t.VBR == C.vbr_off && t.VBR_mean_bitrate_kbps != 128
-            && t.brate == 0 && (t.brate = t.VBR_mean_bitrate_kbps),
-            t.VBR != C.vbr_off && t.VBR != C.vbr_mtrh && t.VBR != C.vbr_mt
-            && (t.free_format = !1),
-            t.VBR == C.vbr_off && t.brate == 0
-            && H1.EQ(t.compression_ratio, 0) && (t.compression_ratio = 11.025),
-            t.VBR == C.vbr_off && 0 < t.compression_ratio
-            && (t.out_samplerate == 0
-              && (t.out_samplerate = map2MP3Frequency(int(.97 * t.in_samplerate))),
-              t.brate = 0
-                | 16 * t.out_samplerate * a.channels_out
-                  / (1e3 * t.compression_ratio),
+            t.VBR == C.vbr_off && t.VBR_mean_bitrate_kbps != 128 &&
+            t.brate == 0 && (t.brate = t.VBR_mean_bitrate_kbps),
+            t.VBR != C.vbr_off && t.VBR != C.vbr_mtrh && t.VBR != C.vbr_mt &&
+            (t.free_format = !1),
+            t.VBR == C.vbr_off && t.brate == 0 &&
+            H1.EQ(t.compression_ratio, 0) && (t.compression_ratio = 11.025),
+            t.VBR == C.vbr_off && 0 < t.compression_ratio &&
+            (t.out_samplerate == 0 &&
+              (t.out_samplerate = map2MP3Frequency(int(.97 * t.in_samplerate))),
+              t.brate = 0 |
+                16 * t.out_samplerate * a.channels_out /
+                  (1e3 * t.compression_ratio),
               a.samplerate_index = L(t.out_samplerate, t),
-              t.free_format
-              || (t.brate = P(t.brate, t.version, t.out_samplerate))),
+              t.free_format ||
+              (t.brate = P(t.brate, t.version, t.out_samplerate))),
             t.out_samplerate != 0 && (16e3 > t.out_samplerate
               ? (t.VBR_mean_bitrate_kbps = Math.max(t.VBR_mean_bitrate_kbps, 8),
                 t.VBR_mean_bitrate_kbps = Math.min(t.VBR_mean_bitrate_kbps, 64))
@@ -7310,16 +7561,19 @@ bitsperframe:             %d
                 3950,
               ],
                 0 <= t.VBR_q && 9 >= t.VBR_q
-                  ? (f = E[t.VBR_q], E = E[t.VBR_q + 1], A = t.VBR_q_frac, f = linear_int(f, E, A))
+                  ? (f = E[t.VBR_q],
+                    E = E[t.VBR_q + 1],
+                    A = t.VBR_q_frac,
+                    f = linear_int(f, E, A))
                   : f = 19500;
           }
-          t.mode != M1.MONO || t.VBR != C.vbr_off && t.VBR != C.vbr_abr
-          || (f *= 1.5), t.lowpassfreq = f | 0;
+          t.mode != M1.MONO || t.VBR != C.vbr_off && t.VBR != C.vbr_abr ||
+          (f *= 1.5), t.lowpassfreq = f | 0;
         }
         if (
-          t.out_samplerate == 0
-          && (2 * t.lowpassfreq > t.in_samplerate
-            && (t.lowpassfreq = t.in_samplerate / 2),
+          t.out_samplerate == 0 &&
+          (2 * t.lowpassfreq > t.in_samplerate &&
+            (t.lowpassfreq = t.in_samplerate / 2),
             f = t.lowpassfreq | 0,
             E = t.in_samplerate,
             A = 44100,
@@ -7372,24 +7626,27 @@ bitsperframe:             %d
             t.out_samplerate = f),
             t.lowpassfreq = Math.min(20500, t.lowpassfreq),
             t.lowpassfreq = Math.min(t.out_samplerate / 2, t.lowpassfreq),
-            t.VBR == C.vbr_off
-            && (t.compression_ratio = 16 * t.out_samplerate * a.channels_out
-              / (1e3 * t.brate)),
-            t.VBR == C.vbr_abr
-            && (t.compression_ratio = 16 * t.out_samplerate * a.channels_out
-              / (1e3 * t.VBR_mean_bitrate_kbps)),
-            t.bWriteVbrTag
-            || (t.findReplayGain = !1, t.decode_on_the_fly = !1, a.findPeakSample = !1),
+            t.VBR == C.vbr_off &&
+            (t.compression_ratio = 16 * t.out_samplerate * a.channels_out /
+              (1e3 * t.brate)),
+            t.VBR == C.vbr_abr &&
+            (t.compression_ratio = 16 * t.out_samplerate * a.channels_out /
+              (1e3 * t.VBR_mean_bitrate_kbps)),
+            t.bWriteVbrTag ||
+            (t.findReplayGain = !1,
+              t.decode_on_the_fly = !1,
+              a.findPeakSample = !1),
             a.findReplayGain = t.findReplayGain,
             a.decode_on_the_fly = t.decode_on_the_fly,
             a.decode_on_the_fly && (a.findPeakSample = !0),
-            a.findReplayGain
-            && l.InitGainAnalysis(a.rgdata, t.out_samplerate)
-              == a1.INIT_GAIN_ANALYSIS_ERROR
+            a.findReplayGain &&
+            l.InitGainAnalysis(a.rgdata, t.out_samplerate) ==
+              a1.INIT_GAIN_ANALYSIS_ERROR
         ) return t.internal_flags = null, -6;
         switch (
-          a.decode_on_the_fly && !t.decode_only
-          && (a.hip != null && c.hip_decode_exit(a.hip), a.hip = c.hip_decode_init()),
+          a.decode_on_the_fly && !t.decode_only &&
+          (a.hip != null && c.hip_decode_exit(a.hip),
+            a.hip = c.hip_decode_init()),
             a.mode_gr = 24e3 >= t.out_samplerate ? 1 : 2,
             t.framesize = 576 * a.mode_gr,
             t.encoder_delay = v.ENCDELAY,
@@ -7399,15 +7656,16 @@ bitsperframe:             %d
           case C.vbr_mt:
           case C.vbr_rh:
           case C.vbr_mtrh:
-            t.compression_ratio = [5.7, 6.5, 7.3, 8.2, 10, 11.9, 13, 14, 15, 16.5][t.VBR_q];
+            t.compression_ratio =
+              [5.7, 6.5, 7.3, 8.2, 10, 11.9, 13, 14, 15, 16.5][t.VBR_q];
             break;
           case C.vbr_abr:
-            t.compression_ratio = 16 * t.out_samplerate * a.channels_out
-              / (1e3 * t.VBR_mean_bitrate_kbps);
+            t.compression_ratio = 16 * t.out_samplerate * a.channels_out /
+              (1e3 * t.VBR_mean_bitrate_kbps);
             break;
           default:
-            t.compression_ratio = 16 * t.out_samplerate * a.channels_out
-              / (1e3 * t.brate);
+            t.compression_ratio = 16 * t.out_samplerate * a.channels_out /
+              (1e3 * t.brate);
         }
         t.mode == M1.NOT_SET && (t.mode = M1.JOINT_STEREO),
           0 < t.highpassfreq
@@ -7421,7 +7679,8 @@ bitsperframe:             %d
           0 < t.lowpassfreq
             ? (a.lowpass2 = 2 * t.lowpassfreq,
               0 <= t.lowpasswidth
-                ? (a.lowpass1 = 2 * (t.lowpassfreq - t.lowpasswidth), 0 > a.lowpass1 && (a.lowpass1 = 0))
+                ? (a.lowpass1 = 2 * (t.lowpassfreq - t.lowpasswidth),
+                  0 > a.lowpass1 && (a.lowpass1 = 0))
                 : a.lowpass1 = 2 * t.lowpassfreq,
               a.lowpass1 /= t.out_samplerate,
               a.lowpass2 /= t.out_samplerate)
@@ -7435,11 +7694,12 @@ bitsperframe:             %d
               A >= f.lowpass2 && (I = Math.min(I, E)),
               f.lowpass1 < A && A < f.lowpass2 && (H = Math.min(H, E));
           }
-          f.lowpass1 = H == 999 ? (I - .75) / 31 : (H - .75) / 31, f.lowpass2 = I / 31;
+          f.lowpass1 = H == 999 ? (I - .75) / 31 : (H - .75) / 31,
+            f.lowpass2 = I / 31;
         }
         if (
-          0 < f.highpass2 && f.highpass2 < .75 / 31 * .9
-          && (f.highpass1 = 0,
+          0 < f.highpass2 && f.highpass2 < .75 / 31 * .9 &&
+          (f.highpass1 = 0,
             f.highpass2 = 0,
             i1.err.println(
               `Warning: highpass filter disabled.  highpass frequency too small
@@ -7451,7 +7711,8 @@ bitsperframe:             %d
               A <= f.highpass1 && (V = Math.max(V, E)),
               f.highpass1 < A && A < f.highpass2 && (I = Math.max(I, E));
           }
-          f.highpass1 = V / 31, f.highpass2 = I == -1 ? (V + .75) / 31 : (I + .75) / 31;
+          f.highpass1 = V / 31,
+            f.highpass2 = I == -1 ? (V + .75) / 31 : (I + .75) / 31;
         }
         for (E = 0; 32 > E; E++) {
           A = E / 31,
@@ -7478,8 +7739,8 @@ bitsperframe:             %d
           t.analysis && (t.bWriteVbrTag = !1),
             a.pinfo != null && (t.bWriteVbrTag = !1),
             s.init_bit_stream_w(a),
-            f = a.samplerate_index + 3 * t.version
-              + 6 * (16e3 > t.out_samplerate ? 1 : 0),
+            f = a.samplerate_index + 3 * t.version +
+              6 * (16e3 > t.out_samplerate ? 1 : 0),
             E = 0;
           E < v.SBMAX_l + 1;
           E++
@@ -7562,8 +7823,8 @@ bitsperframe:             %d
             a.VBR_min_bitrate = 1,
               a.VBR_max_bitrate = 14,
               16e3 > t.out_samplerate && (a.VBR_max_bitrate = 8),
-              t.VBR_min_bitrate_kbps != 0
-                && (t.VBR_min_bitrate_kbps = P(
+              t.VBR_min_bitrate_kbps != 0 &&
+                (t.VBR_min_bitrate_kbps = P(
                   t.VBR_min_bitrate_kbps,
                   t.version,
                   t.out_samplerate,
@@ -7573,9 +7834,9 @@ bitsperframe:             %d
                     t.version,
                     t.out_samplerate,
                   ),
-                  0 > a.VBR_min_bitrate)
-              || t.VBR_max_bitrate_kbps != 0
-                && (t.VBR_max_bitrate_kbps = P(
+                  0 > a.VBR_min_bitrate) ||
+              t.VBR_max_bitrate_kbps != 0 &&
+                (t.VBR_max_bitrate_kbps = P(
                   t.VBR_max_bitrate_kbps,
                   t.version,
                   t.out_samplerate,
@@ -7587,8 +7848,10 @@ bitsperframe:             %d
                   ),
                   0 > a.VBR_max_bitrate)
           ) return -1;
-          t.VBR_min_bitrate_kbps = Y.bitrate_table[t.version][a.VBR_min_bitrate],
-            t.VBR_max_bitrate_kbps = Y.bitrate_table[t.version][a.VBR_max_bitrate],
+          t.VBR_min_bitrate_kbps =
+            Y.bitrate_table[t.version][a.VBR_min_bitrate],
+            t.VBR_max_bitrate_kbps =
+              Y.bitrate_table[t.version][a.VBR_max_bitrate],
             t.VBR_mean_bitrate_kbps = Math.min(
               Y.bitrate_table[t.version][a.VBR_max_bitrate],
               t.VBR_mean_bitrate_kbps,
@@ -7599,8 +7862,9 @@ bitsperframe:             %d
             );
         }
         switch (
-          t.tune
-          && (a.PSY.mask_adjust += t.tune_value_a, a.PSY.mask_adjust_short += t.tune_value_a),
+          t.tune &&
+          (a.PSY.mask_adjust += t.tune_value_a,
+            a.PSY.mask_adjust_short += t.tune_value_a),
             f = t.internal_flags,
             t.quality
         ) {
@@ -7692,17 +7956,17 @@ bitsperframe:             %d
         return a.ATH.useAdjust = 0 > t.athaa_type ? 3 : t.athaa_type,
           a.ATH.aaSensitivityP = Math.pow(10, t.athaa_sensitivity / -10),
           t.short_blocks == null && (t.short_blocks = L1.short_block_allowed),
-          t.short_blocks != L1.short_block_allowed
-          || t.mode != M1.JOINT_STEREO && t.mode != M1.STEREO
-          || (t.short_blocks = L1.short_block_coupled),
+          t.short_blocks != L1.short_block_allowed ||
+          t.mode != M1.JOINT_STEREO && t.mode != M1.STEREO ||
+          (t.short_blocks = L1.short_block_coupled),
           0 > t.quant_comp && (t.quant_comp = 1),
           0 > t.quant_comp_short && (t.quant_comp_short = 0),
           0 > t.msfix && (t.msfix = 0),
           t.exp_nspsytune |= 1,
-          0 > t.internal_flags.nsPsy.attackthre
-          && (t.internal_flags.nsPsy.attackthre = D2.NSATTACKTHRE),
-          0 > t.internal_flags.nsPsy.attackthre_s
-          && (t.internal_flags.nsPsy.attackthre_s = D2.NSATTACKTHRE_S),
+          0 > t.internal_flags.nsPsy.attackthre &&
+          (t.internal_flags.nsPsy.attackthre = D2.NSATTACKTHRE),
+          0 > t.internal_flags.nsPsy.attackthre_s &&
+          (t.internal_flags.nsPsy.attackthre_s = D2.NSATTACKTHRE_S),
           0 > t.scale && (t.scale = 1),
           0 > t.ATHtype && (t.ATHtype = 4),
           0 > t.ATHcurve && (t.ATHcurve = 4),
@@ -7710,15 +7974,15 @@ bitsperframe:             %d
           0 > t.interChRatio && (t.interChRatio = 0),
           t.useTemporal == null && (t.useTemporal = !0),
           a.slot_lag = a.frac_SpF = 0,
-          t.VBR == C.vbr_off
-          && (a.slot_lag =
+          t.VBR == C.vbr_off &&
+          (a.slot_lag =
             a.frac_SpF =
               72e3 * (t.version + 1) * t.brate % t.out_samplerate | 0),
           m.iteration_init(t),
           _.psymodel_init(t),
           0;
       },
-      this.lame_encode_flush = function(t, a, f, E) {
+      this.lame_encode_flush = function (t, a, f, E) {
         var A = t.internal_flags,
           I = U2([2, 1152]),
           V = 0,
@@ -7726,11 +7990,13 @@ bitsperframe:             %d
           g = n(t);
         if (1 > A.mf_samples_to_encode) return 0;
         var M = 0;
-        t.in_samplerate != t.out_samplerate
-          && (H += 16 * t.out_samplerate / t.in_samplerate);
+        t.in_samplerate != t.out_samplerate &&
+          (H += 16 * t.out_samplerate / t.in_samplerate);
         var T = t.framesize - H % t.framesize;
         for (
-          576 > T && (T += t.framesize), t.encoder_padding = T, T = (H + T) / t.framesize;
+          576 > T && (T += t.framesize),
+            t.encoder_padding = T,
+            T = (H + T) / t.framesize;
           0 < T && 0 <= V;
         ) {
           var b = g - A.mf_size;
@@ -7748,8 +8014,12 @@ bitsperframe:             %d
         }
         if (
           A.mf_samples_to_encode = 0,
-            0 > V
-            || (V = E - M, E == 0 && (V = 0), s.flush_bitstream(t), V = s.copy_buffer(A, a, f, V, 1), 0 > V)
+            0 > V ||
+            (V = E - M,
+              E == 0 && (V = 0),
+              s.flush_bitstream(t),
+              V = s.copy_buffer(A, a, f, V, 1),
+              0 > V)
         ) return V;
         if (
           f += V, M += V, V = E - M, E == 0 && (V = 0), t.write_id3tag_automatic
@@ -7761,27 +8031,28 @@ bitsperframe:             %d
         }
         return M;
       },
-      this.lame_encode_buffer = function(t, a, f, E, A, I, V) {
+      this.lame_encode_buffer = function (t, a, f, E, A, I, V) {
         var H = t.internal_flags, g = [null, null];
         if (H.Class_ID != 4294479419) return -3;
         if (E == 0) return 0;
-        (H.in_buffer_0 == null || H.in_buffer_nsamples < E)
-        && (H.in_buffer_0 = G(E), H.in_buffer_1 = G(E), H.in_buffer_nsamples = E),
+        (H.in_buffer_0 == null || H.in_buffer_nsamples < E) &&
+        (H.in_buffer_0 = G(E), H.in_buffer_1 = G(E), H.in_buffer_nsamples = E),
           g[0] = H.in_buffer_0,
           g[1] = H.in_buffer_1;
-        for (var M = 0; M < E; M++) g[0][M] = a[M], 1 < H.channels_in && (g[1][M] = f[M]);
+        for (var M = 0; M < E; M++) {g[0][M] = a[M],
+            1 < H.channels_in && (g[1][M] = f[M]);}
         return R(t, g[0], g[1], E, A, I, V);
       };
   }
   function mt() {
-    this.setModules = function(d, B) {};
+    this.setModules = function (d, B) {};
   }
   function Et() {
-    this.setModules = function(d, B, w) {};
+    this.setModules = function (d, B, w) {};
   }
   function vt() {}
   function gt() {
-    this.setModules = function(d, B) {};
+    this.setModules = function (d, B) {};
   }
   function S0() {
     this.sampleRate =
@@ -7791,27 +8062,27 @@ bitsperframe:             %d
         0;
   }
   function k2(d) {
-    return d.charCodeAt(0) << 24 | d.charCodeAt(1) << 16
-      | d.charCodeAt(2) << 8 | d.charCodeAt(3);
+    return d.charCodeAt(0) << 24 | d.charCodeAt(1) << 16 |
+      d.charCodeAt(2) << 8 | d.charCodeAt(3);
   }
   var r0 = {
-      fill: function(d, B, w, X) {
+      fill: function (d, B, w, X) {
         if (arguments.length == 2) {
           for (var L = 0; L < d.length; L++) d[L] = arguments[1];
         } else for (L = B; L < w; L++) d[L] = X;
       },
     },
     i1 = {
-      arraycopy: function(d, B, w, X, L) {
+      arraycopy: function (d, B, w, X, L) {
         for (L = B + L; B < L;) w[X++] = d[B++];
       },
     },
     r1 = {
       SQRT2: 1.4142135623730951,
-      FAST_LOG10: function(d) {
+      FAST_LOG10: function (d) {
         return Math.log10(d);
       },
-      FAST_LOG10_X: function(d, B) {
+      FAST_LOG10_X: function (d, B) {
         return Math.log10(d) * B;
       },
     };
@@ -7843,14 +8114,15 @@ bitsperframe:             %d
     a1.MAX_SAMP_FREQ = 48e3,
     a1.RMS_WINDOW_TIME_NUMERATOR = 1,
     a1.RMS_WINDOW_TIME_DENOMINATOR = 20,
-    a1.MAX_SAMPLES_PER_WINDOW = a1.MAX_SAMP_FREQ * a1.RMS_WINDOW_TIME_NUMERATOR
-        / a1.RMS_WINDOW_TIME_DENOMINATOR + 1,
-    H1.EQ = function(d, B) {
+    a1.MAX_SAMPLES_PER_WINDOW =
+      a1.MAX_SAMP_FREQ * a1.RMS_WINDOW_TIME_NUMERATOR /
+        a1.RMS_WINDOW_TIME_DENOMINATOR + 1,
+    H1.EQ = function (d, B) {
       return Math.abs(d) > Math.abs(B)
         ? Math.abs(d - B) <= 1e-6 * Math.abs(d)
         : Math.abs(d - B) <= 1e-6 * Math.abs(B);
     },
-    H1.NEQ = function(d, B) {
+    H1.NEQ = function (d, B) {
       return !H1.EQ(d, B);
     },
     v2.NUMTOCENTRIES = 100,
@@ -11233,17 +11505,19 @@ bitsperframe:             %d
     S0.WAVE = k2("WAVE"),
     S0.fmt_ = k2("fmt "),
     S0.data = k2("data"),
-    S0.readHeader = function(d) {
+    S0.readHeader = function (d) {
       var B = new S0(), w = d.getUint32(0, !1);
       if (
-        S0.RIFF == w
-        && (d.getUint32(4, !0), S0.WAVE == d.getUint32(8, !1) && S0.fmt_ == d.getUint32(12, !1))
+        S0.RIFF == w &&
+        (d.getUint32(4, !0),
+          S0.WAVE == d.getUint32(8, !1) && S0.fmt_ == d.getUint32(12, !1))
       ) {
         var X = d.getUint32(16, !0), L = 20;
         switch (X) {
           case 16:
           case 18:
-            B.channels = d.getUint16(L + 2, !0), B.sampleRate = d.getUint32(L + 4, !0);
+            B.channels = d.getUint16(L + 2, !0),
+              B.sampleRate = d.getUint32(L + 4, !0);
             break;
           default:
             throw "extended fmt chunk not implemented";
@@ -11251,16 +11525,16 @@ bitsperframe:             %d
         L += X, X = S0.data;
         for (
           var P = 0;
-          X != w
-          && (w = d.getUint32(L, !1), P = d.getUint32(L + 4, !0), X != w);
+          X != w &&
+          (w = d.getUint32(L, !1), P = d.getUint32(L + 4, !0), X != w);
         ) L += P + 8;
         return B.dataLen = P, B.dataOffset = L + 8, B;
       }
     },
     R0.SFBMAX = 3 * v.SBMAX_s,
-    N2.Mp3Encoder = function(d, B, w) {
-      arguments.length != 3
-        && (console.error(
+    N2.Mp3Encoder = function (d, B, w) {
+      arguments.length != 3 &&
+        (console.error(
           "WARN: Mp3Encoder(channels, samplerate, kbps) not specified",
         ),
           d = 1,
@@ -11302,14 +11576,14 @@ bitsperframe:             %d
         m.write_id3tag_automatic = !1,
         X.lame_init_params(m);
       var p = 1152, _ = 0 | 1.25 * p + 7200, i = new Int8Array(_);
-      this.encodeBuffer = function(o, c) {
+      this.encodeBuffer = function (o, c) {
         return d == 1 && (c = o),
-          o.length > p
-          && (p = o.length, _ = 0 | 1.25 * p + 7200, i = new Int8Array(_)),
+          o.length > p &&
+          (p = o.length, _ = 0 | 1.25 * p + 7200, i = new Int8Array(_)),
           o = X.lame_encode_buffer(m, o, c, o.length, i, 0, _),
           new Int8Array(i.subarray(0, o));
       },
-        this.flush = function() {
+        this.flush = function () {
           var o = X.lame_encode_flush(m, i, 0, _);
           return new Int8Array(i.subarray(0, o));
         };

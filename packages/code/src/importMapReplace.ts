@@ -18,18 +18,18 @@ export function importMapReplace(code: string, origin: string): string {
     const packageName = p2.slice(1, -1); // Remove quotes
 
     if (
-      packageName.startsWith(origin + "/live")
-      && packageName.indexOf("index.js") === -1
+      packageName.startsWith(origin + "/live") &&
+      packageName.indexOf("index.js") === -1
     ) {
       // Ignore relative and absolute URLs
 
-      return p1 + "\"" + `${packageName}/index.js` + "\""
-        + String(p3).replace(/[0-9]/g, "");
+      return p1 + '"' + `${packageName}/index.js` + '"' +
+        String(p3).replace(/[0-9]/g, "");
     }
 
     if (packageName.startsWith("/")) {
-      return p1 + "\"" + `${origin}${packageName}` + "\""
-        + String(p3).replace(/[0-9]/g, "");
+      return p1 + '"' + `${origin}${packageName}` + '"' +
+        String(p3).replace(/[0-9]/g, "");
     }
 
     if (packageName.startsWith(".") || packageName.startsWith("http")) {
@@ -40,8 +40,8 @@ export function importMapReplace(code: string, origin: string): string {
 
         const newPackageName = new URL(oldUrl.pathname, origin);
 
-        return p1 + "\"" + newPackageName.toString() + "\""
-          + String(p3).replace(/[0-9]/g, "");
+        return p1 + '"' + newPackageName.toString() + '"' +
+          String(p3).replace(/[0-9]/g, "");
       }
 
       return match;
@@ -50,12 +50,12 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName.startsWith("/live")) {
       // Ignore relative and absolute URLs
 
-      return p1 + "\"" + `${origin}${packageName}/index.js` + "\""
-        + String(p3).replace(/[0-9]/g, "");
+      return p1 + '"' + `${origin}${packageName}/index.js` + '"' +
+        String(p3).replace(/[0-9]/g, "");
     }
 
-    return p1 + "\"" + `${origin}/*${packageName}?bundle` + "\""
-      + String(p3).replace(/[0-9]/g, "");
+    return p1 + '"' + `${origin}/*${packageName}?bundle` + '"' +
+      String(p3).replace(/[0-9]/g, "");
   };
 
   let str = code;

@@ -14,7 +14,9 @@ const characterMap: { [key: string]: string } = {
 };
 
 export const md5 = (input: string | object): string => {
-  const inputString = typeof input === "string" ? input : JSON.stringify(input) || "";
+  const inputString = typeof input === "string"
+    ? input
+    : JSON.stringify(input) || "";
   const fullHash = Md5.hashStr(inputString).toString();
   const hashWithoutZeros = fullHash.replace(/0/g, "");
   const modifiedHash = hashWithoutZeros.split("").map((char) => {

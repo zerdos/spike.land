@@ -66,9 +66,9 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   });
 
   const summariesFull = await Promise.allSettled(tasks);
-  const successfulSummaries = summariesFull.filter((result) => result.status === "fulfilled").map((result) =>
-    result.value
-  )
+  const successfulSummaries = summariesFull.filter((result) =>
+    result.status === "fulfilled"
+  ).map((result) => result.value)
     .filter((x) => x);
 
   try {
@@ -81,7 +81,9 @@ async function handleTLDRRequest(req, res, type = "tldr") {
       }
     } else sumOfSums.push(...successfulSummaries);
 
-    const summaries = (await Promise.allSettled(sumOfSums)).filter((result) => result.status === "fulfilled").map(
+    const summaries = (await Promise.allSettled(sumOfSums)).filter((result) =>
+      result.status === "fulfilled"
+    ).map(
       (result) => result.value,
     ).filter((x) => x);
 
@@ -142,7 +144,9 @@ function handleErrors(err, req, res, next) {
 async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
   if (cache[diffSection]) return cache[diffSection];
 
-  const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
+  const prompt = `GIT diff TLDR! (typo, error, etc)  ${
+    diffSection.slice(0, 2028)
+  }.`;
 
   try {
     const completion = await openai.createChatCompletion({

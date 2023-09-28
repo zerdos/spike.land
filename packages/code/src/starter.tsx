@@ -28,8 +28,8 @@ export async function appFactory(
 ): Promise<FC<{ width: number; height: number; top: number; left: number }>> {
   // }
 
-  const indexMjs = (await stat(`/live/${codeSpace}/index.mjs`))
-    && (await readFile(`/live/${codeSpace}/index.mjs`) as string);
+  const indexMjs = (await stat(`/live/${codeSpace}/index.mjs`)) &&
+    (await readFile(`/live/${codeSpace}/index.mjs`) as string);
 
   const trp: string = indexMjs || transpiled;
 

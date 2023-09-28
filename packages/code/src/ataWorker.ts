@@ -1,7 +1,13 @@
 import { rpcFactory } from "./workerRpc";
 
 import type { ata as Ata } from "./ata";
-import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
+import {
+  applyCodePatch,
+  createPatch,
+  ICodeSession,
+  makeHash,
+  makeSession,
+} from "./makeSess";
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 
@@ -52,12 +58,14 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "transpile",
-    ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
+    ({ code, originToUse }: { code: string; originToUse: string }) =>
+      transpile(code, originToUse),
   );
 
   rpcProvider.registerRpcHandler(
     "build",
-    ({ codeSpace, origin }: { codeSpace: string; origin: string }) => build({ codeSpace, origin }),
+    ({ codeSpace, origin }: { codeSpace: string; origin: string }) =>
+      build({ codeSpace, origin }),
   );
 
   rpcProvider.registerSignalHandler(
@@ -136,8 +144,8 @@ function setConnections(signal: string) {
             if (makeHash(c.oldSession) !== String(data.hashCode)) {
               c.oldSession = await (await fetch(`/live/${codeSpace}/session`))
                 .json();
-              const transpiled = data.transpiled
-                || await transpile(c.oldSession.code, location.origin);
+              const transpiled = data.transpiled ||
+                await transpile(c.oldSession.code, location.origin);
 
               BC.postMessage({ ...c.oldSession, transpiled });
               return;

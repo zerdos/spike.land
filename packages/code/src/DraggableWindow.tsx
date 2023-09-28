@@ -62,7 +62,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     .map((x) => Number(x) || 0);
   const [bg, setBG] = useState(bgColor);
   const [r, g, b, a] = bg;
-  const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r},${g},${b},${a})`;
+  const rgba = (r: number, g: number, b: number, a: number) =>
+    `rgba(${r},${g},${b},${a})`;
 
   useLayoutEffect(() => {
     const intervalHandler = setInterval(() => {
@@ -78,7 +79,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearInterval(intervalHandler);
   }, []);
 
-  const duration = sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
+  const duration =
+    sessionStorage && Number(sessionStorage.getItem("duration")) || 1;
   const type = sessionStorage?.getItem("type") || "spring";
 
   return (

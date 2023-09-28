@@ -25,7 +25,7 @@ describe("importMapReplace", () => {
   );
 
   it("should replace top-level imports", async () => {
-    const code = "import React from \"react\";";
+    const code = 'import React from "react";';
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
@@ -64,24 +64,24 @@ describe("importMapReplace", () => {
   });
 
   it("should ignore absolute URLs", async () => {
-    const code = "import MyComponent from \"http://example.com/MyComponent.js\";";
+    const code = 'import MyComponent from "http://example.com/MyComponent.js";';
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should apply custom mappings", async () => {
-    const code = "import CustomPackage from \"custom-package\";";
+    const code = 'import CustomPackage from "custom-package";';
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
   it("should replace dynamic imports", async () => {
-    const code = "const module = import(\"some-module\");";
+    const code = 'const module = import("some-module");';
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should replace dynamic imports with await", async () => {
-    const code = "const module = await import(\"some-module\");";
+    const code = 'const module = await import("some-module");';
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
