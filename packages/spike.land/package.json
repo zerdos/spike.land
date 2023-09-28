@@ -22,11 +22,11 @@
     "wrangler": "3.10.0"
   },
   "dependencies": {
-    "@types/node": "20.7.0",
+    "@types/node": "20.7.1",
     "ai": "2.2.13",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.19.3",
+    "esbuild-wasm": "0.19.4",
     "esm-worker": "0.132.1",
     "immutable": "5.0.0-beta.4",
     "openai-edge": "1.2.2",
