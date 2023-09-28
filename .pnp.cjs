@@ -2439,7 +2439,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@prefresh/core", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.1"],\
           ["@types/preact", null],\
-          ["preact", "npm:10.17.1"]\
+          ["preact", "npm:10.18.0"]\
         ],\
         "packagePeers": [\
           "@types/preact",\
@@ -2582,7 +2582,7 @@ const RAW_RUNTIME_STATE =
           ["p2pcf", "npm:1.3.13"],\
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
-          ["preact", "npm:10.17.1"],\
+          ["preact", "npm:10.18.0"],\
           ["prettier", "npm:3.0.3"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.11"],\
@@ -11819,10 +11819,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["preact", [\
-      ["npm:10.17.1", {\
-        "packageLocation": "./.yarn/global/cache/preact-npm-10.17.1-16d6613c68-10.zip/node_modules/preact/",\
+      ["npm:10.18.0", {\
+        "packageLocation": "./.yarn/global/cache/preact-npm-10.18.0-68557b822e-10.zip/node_modules/preact/",\
         "packageDependencies": [\
-          ["preact", "npm:10.17.1"]\
+          ["preact", "npm:10.18.0"]\
         ],\
         "linkType": "HARD"\
       }]\
