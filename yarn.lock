@@ -1649,7 +1649,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/bookworm-devcontainer@workspace:packages/bookworm-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.18"
+    "@spike-land/devcontainer-generator": "npm:0.9.30"
   languageName: unknown
   linkType: soft
 
@@ -1667,7 +1667,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20230922.0"
-    "@spike-land/code": "npm:0.9.18"
+    "@spike-land/code": "npm:0.9.30"
     "@types/node": "npm:20.7.2"
     ai: "npm:2.2.13"
     async-mutex: "npm:0.4.0"
@@ -1683,7 +1683,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/code@npm:0.9.18, @spike-land/code@workspace:packages/code":
+"@spike-land/code@npm:0.9.30, @spike-land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
@@ -1769,11 +1769,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cypress@workspace:packages/cypress"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.18"
+    "@spike-land/devcontainer-generator": "npm:0.9.30"
   languageName: unknown
   linkType: soft
 
-"@spike-land/devcontainer-generator@npm:*, @spike-land/devcontainer-generator@npm:0.9.18, @spike-land/devcontainer-generator@workspace:packages/devcontainer-generator":
+"@spike-land/devcontainer-generator@npm:*, @spike-land/devcontainer-generator@npm:0.9.30, @spike-land/devcontainer-generator@workspace:packages/devcontainer-generator":
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
@@ -1786,7 +1786,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.18"
+    "@spike-land/devcontainer-generator": "npm:0.9.30"
   languageName: unknown
   linkType: soft
 
@@ -1806,7 +1806,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/jammy-devcontainer@workspace:packages/jammy-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.18"
+    "@spike-land/devcontainer-generator": "npm:0.9.30"
   languageName: unknown
   linkType: soft
 
@@ -1820,7 +1820,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/lunar-devcontainer@workspace:packages/lunar-devcontainer"
   dependencies:
-    "@spike-land/devcontainer-generator": "npm:0.9.18"
+    "@spike-land/devcontainer-generator": "npm:0.9.30"
   languageName: unknown
   linkType: soft
 
@@ -2073,14 +2073,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 20.7.1
-  resolution: "@types/node@npm:20.7.1"
-  checksum: 00c816086fe4c771dbac9f5540d38c2dc741728dd47a819066b907c8b6d66bf9f4db048ef31a08ed2bca21ae31fcaef34d00847f746f301cfdcca2c946b3de3c
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:20.7.2":
+"@types/node@npm:*, @types/node@npm:20.7.2":
   version: 20.7.2
   resolution: "@types/node@npm:20.7.2"
   checksum: 8449dd0b5dd3a23fad83889f1df9d49641ca3fc4964d1b42e9d187539ef5e25fe77689d92fc74e43ef0adb108355654b5c4104514c646da9aa6aa6712df5b966
@@ -2088,9 +2081,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^18.11.18, @types/node@npm:^18.17.5":
-  version: 18.18.0
-  resolution: "@types/node@npm:18.18.0"
-  checksum: fa4b5db454feb4add61b01686a464539561fe683bd21bb8278f0a2f1b9528a34911bf5ade5fc0cfcdd79de0d0af4776aa8325a8f83d7647a567199b18d87ee67
+  version: 18.18.1
+  resolution: "@types/node@npm:18.18.1"
+  checksum: 1cf96d5eac11ca33d02f00297452b5b6a03dd635cc8cca89eb6e39029d21afab6c73ab1ba83fd72826c8b49a86880fa442d7f26526174c41d6009db60f294634
   languageName: node
   linkType: hard
 
@@ -2384,17 +2377,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.0-rc.51":
-  version: 4.0.0-rc.51
-  resolution: "@yarnpkg/core@npm:4.0.0-rc.51"
+"@yarnpkg/core@npm:^4.0.0-rc.52":
+  version: 4.0.0-rc.52
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.52"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
     "@types/treeify": "npm:^1.0.0"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
-    "@yarnpkg/libzip": "npm:^3.0.0-rc.51"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.51"
-    "@yarnpkg/shell": "npm:^4.0.0-rc.51"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
+    "@yarnpkg/libzip": "npm:^3.0.0-rc.52"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.52"
+    "@yarnpkg/shell": "npm:^4.0.0-rc.52"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
     ci-info: "npm:^3.2.0"
@@ -2414,49 +2407,49 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: 83d2e03b82e63f2f23cbbd317cfc79b153cf783c40b8be0fedcf277aabbc1762f147daf337ad582d9f24d2a0f690e2dad22005252d43119e72819e4ac0681aad
+  checksum: 530c3f4706f26334ba7e0e8c991a9d993f2dfb33ab6a5424ab466b36997a7c322af8ede6332732488aec31f51a5a7236ded1a7389f36c6b45930e28878b5e24a
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.51":
-  version: 3.0.0-rc.51
-  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.51"
+"@yarnpkg/fslib@npm:^3.0.0-rc.52":
+  version: 3.0.0-rc.52
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.52"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 82b1b86b31894c7238b5bd43000a42761f44ddf12a8dc1c8428d48f0248e969947ab04cae813eb03663961ad7e60caab2304f0a501f5b89b9b1af2bd0ada4786
+  checksum: 5a9ba335c68c24757e90b08b2050d4d5902676e760e035007616c7ae28b6a7113520942c423b9c842c705b4f82e8723d091cf7a4e8829fb6dda3bd3fc4eb60e1
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.0-rc.51":
-  version: 3.0.0-rc.51
-  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.51"
+"@yarnpkg/libzip@npm:^3.0.0-rc.52":
+  version: 3.0.0-rc.52
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.52"
   dependencies:
     "@types/emscripten": "npm:^1.39.6"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
     tslib: "npm:^2.4.0"
   peerDependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.51
-  checksum: 972757cba562f7c1077f6a6b3331620988924a0cddf0b7c591a0d239830a1a8d43217584e06d3b5f1d693786435d2e1504e90afa6ca696c127b2e82a666b748b
+    "@yarnpkg/fslib": ^3.0.0-rc.52
+  checksum: 5f1d58fd6fb6fcf2cf653110f7527cd09a35f41a40dda029b059c832a2648ad3920474f43bab09a9396c7ed227da7616a22faed6c8c4fe0fcbb9761f20c6752c
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.51":
-  version: 3.0.0-rc.51
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.51"
+"@yarnpkg/parsers@npm:^3.0.0-rc.52":
+  version: 3.0.0-rc.52
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.52"
   dependencies:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
-  checksum: 23055c9231f422780975af61b61f04b3a905186316017b5713166f9236a9b1d6fb46b8cd1eef1af4654779ca3e164ee46297a930fc1721b45ba12191511ec6be
+  checksum: 0e4077cf185829bd76f5c9712fc0e309b21de5c769629c97361254f1fbf5101ae7d8b05f50addf40e3e36eccaefc6c534e0b4a31aa99985fe912836f4f097b84
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.0.0-rc.51":
-  version: 3.0.0-rc.51
-  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.51"
+"@yarnpkg/sdks@npm:3.0.0-rc.52":
+  version: 3.0.0-rc.52
+  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.52"
   dependencies:
-    "@yarnpkg/core": "npm:^4.0.0-rc.51"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.51"
+    "@yarnpkg/core": "npm:^4.0.0-rc.52"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.52"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     comment-json: "npm:^2.2.0"
@@ -2464,16 +2457,16 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: 7756dcfd387387c281d071286284c2a6f9b8f8d92d0adcff5777df75fcefcbd5e07ebbabe2fd479217755ee4dabeb346130a689010ff40e389bb847dd3aab274
+  checksum: 9e5dc667b8c2d4a3f8a74b3c0b00ddd156fd4adb8a068a0e9d338bf1a91c05b48b89715e946494092d235b8b1e8568fbc9ab4960c31b4acdfc1edef6351c3be1
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^4.0.0-rc.51":
-  version: 4.0.0-rc.51
-  resolution: "@yarnpkg/shell@npm:4.0.0-rc.51"
+"@yarnpkg/shell@npm:^4.0.0-rc.52":
+  version: 4.0.0-rc.52
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.52"
   dependencies:
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.51"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.51"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.52"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     cross-spawn: "npm:7.0.3"
@@ -2482,7 +2475,7 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     shell: ./lib/cli.js
-  checksum: d4fb7b19b7bfd5b6c25318d29e34eeb05f8805b05fa16c5bc9b5c5802b579dc165c1d2509086ed2b1e7ba730f64e7665a0d7a7b3df032645382f53a569c21b27
+  checksum: c2040ee235d948eb69216bb3609f8ff8cf832d216ef08921707d88d3c3f17c063551732ed4bc9005dc1b1ae3afc81c0d19090159d4409ba761ef40dd3bae9f1e
   languageName: node
   linkType: hard
 
@@ -4623,9 +4616,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.535":
-  version: 1.4.536
-  resolution: "electron-to-chromium@npm:1.4.536"
-  checksum: f1eb977718e9a9e7fcb3b04cd8ecf434dd870a2b9c5d2729f01c451d27c4afb8759ddac8537cf9b4cedf83cf0f12dbdfaece3216a5907ffcf8767571c20bce5f
+  version: 1.4.537
+  resolution: "electron-to-chromium@npm:1.4.537"
+  checksum: 66eda80e8a01dc1ba8181de5c07e9794532333a34830d7fcc4247583446ab69a592323cc1a84cfee4f5c195208e072b4c8e4ecf63ffd7c1e21901e2390441e86
   languageName: node
   linkType: hard
 
@@ -5814,7 +5807,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:2.3.2":
+"fsevents@npm:2.3.2, fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
   version: 2.3.2
   resolution: "fsevents@npm:2.3.2"
   dependencies:
@@ -5824,28 +5817,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
-  version: 2.3.3
-  resolution: "fsevents@npm:2.3.3"
-  dependencies:
-    node-gyp: "npm:latest"
-  checksum: 4c1ade961ded57cdbfbb5cac5106ec17bc8bccd62e16343c569a0ceeca83b9dfef87550b4dc5cbb89642da412b20c5071f304c8c464b80415446e8e155a038c0
-  conditions: os=darwin
-  languageName: node
-  linkType: hard
-
-"fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
-  dependencies:
-    node-gyp: "npm:latest"
-  conditions: os=darwin
-  languageName: node
-  linkType: hard
-
-"fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>":
-  version: 2.3.3
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.3#optional!builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
     node-gyp: "npm:latest"
   conditions: os=darwin
@@ -8695,7 +8669,7 @@ __metadata:
     "@types/react-dom": "npm:18.2.8"
     "@typescript-eslint/eslint-plugin": "npm:6.7.3"
     "@typescript-eslint/parser": "npm:6.7.3"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.51"
+    "@yarnpkg/sdks": "npm:3.0.0-rc.52"
     constants: "npm:0.0.2"
     cypress: "npm:13.3.0"
     dprint: "npm:0.41.0"
