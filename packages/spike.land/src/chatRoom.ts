@@ -1,18 +1,8 @@
-import type {
-  DurableObject,
-  DurableObjectState,
-  Request as WRequest,
-  WebSocket,
-} from "@cloudflare/workers-types";
+import type { DurableObject, DurableObjectState, Request as WRequest, WebSocket } from "@cloudflare/workers-types";
 import { resetCSS } from "../../code/src/getResetCss";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import HTML from "./../../code/src/index.html";
-import {
-  applyCodePatch,
-  CodePatch,
-  ICodeSession,
-  makeSession,
-} from "./../../code/src/makeSess";
+import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
 import { makeHash, string_ } from "./../../code/src/makeSess";
 import { md5 } from "./../../code/src/md5";
 import { Delta } from "../../code/src/textDiff";
@@ -74,11 +64,10 @@ export class Code implements DurableObject {
       });
       this.state.storage.get(msg.oldHash).then(async (data: unknown) => {
         await this.state.storage.put(msg.oldHash, {
-          oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash ||
-            "",
-          reversePatch:
-            (data as { reversePatch?: string } || { reversePatch: "" })
-              .reversePatch || [],
+          oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash
+            || "",
+          reversePatch: (data as { reversePatch?: string } || { reversePatch: "" })
+            .reversePatch || [],
           newHash: msg.newHash,
           patch: msg.patch,
         });
@@ -175,9 +164,7 @@ export class Code implements DurableObject {
             body: code,
             headers: { TR_ORIGIN: this.#origin },
           },
-        ).then(async (resp) =>
-          this.#transpiled = importMapReplace(await resp.text(), url.origin)
-        );
+        ).then(async (resp) => this.#transpiled = importMapReplace(await resp.text(), url.origin));
 
         if (this.#transpiled.length === 0) await transpiledPromise;
         const path = url.pathname.slice(1).split("/");
@@ -201,9 +188,7 @@ export class Code implements DurableObject {
               };
               this.#wsSessions.push(session);
 
-              const users = this.#wsSessions.filter((x) => x.name).map((x) =>
-                x.name
-              );
+              const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
               webSocket.send(
                 JSON.stringify({
                   hashCode: makeHash(this.session),
@@ -218,8 +203,7 @@ export class Code implements DurableObject {
 
               webSocket.addEventListener(
                 "message",
-                (msg: { data: string | ArrayBuffer }) =>
-                  this.processWsMessage(msg, session),
+                (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
               );
 
               const closeOrErrorHandler = () => {
@@ -471,7 +455,7 @@ export class Code implements DurableObject {
               "/**reset*/",
               resetCSS + css,
             ).replace(
-              '<script src="/swVersion.js"></script>',
+              "<script src=\"/swVersion.js\"></script>",
               `<script>
               window.swVersion = "${ASSET_HASH}"
               </script>`,
@@ -529,8 +513,7 @@ export class Code implements DurableObject {
     const { name } = session;
     // session.lastSeen = Date.now();
 
-    const respondWith = (obj: unknown) =>
-      session.webSocket.send(JSON.stringify(obj));
+    const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
     let data: {
       name?: string;
@@ -613,9 +596,9 @@ export class Code implements DurableObject {
     try {
       try {
         if (
-          data.target &&
-          data.type &&
-          ["new-ice-candidate", "video-offer", "video-answer"].includes(
+          data.target
+          && data.type
+          && ["new-ice-candidate", "video-offer", "video-answer"].includes(
             data.type,
           )
         ) {

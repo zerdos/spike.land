@@ -3,13 +3,7 @@
 import AVLTree from "avl";
 import { connect } from "./shared";
 
-import {
-  CodePatch,
-  createPatch,
-  ICodeSession,
-  makeHash,
-  makeSession,
-} from "./makeSess";
+import { CodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 
 import { Mutex } from "async-mutex";
 globalThis.firstRender = globalThis.firstRender || {

@@ -1,9 +1,4 @@
-import {
-  build as esmBuild,
-  BuildOptions,
-  initialize,
-  transform,
-} from "esbuild-wasm";
+import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
@@ -24,8 +19,8 @@ declare const self:
     };
   };
 
-const mod = self.mod = self.mod ||
-  {
+const mod = self.mod = self.mod
+  || {
     init: false as (boolean | Promise<void> | NodeJS.Timeout),
     initialize: (wasmModule: WebAssembly.Module) =>
       (self.mod.init as boolean) || initialize({
@@ -141,7 +136,7 @@ export const build = async (
     "process.env.DEBUG": JSON.stringify(false),
     "isBrowser": JSON.stringify(true),
     "isJest": JSON.stringify(false),
-    "process.env.version": '"1.1.1"',
+    "process.env.version": "\"1.1.1\"",
     global: "globalThis",
 
     "WORKER_DOM_DEBUG": JSON.stringify(false),
@@ -225,9 +220,7 @@ export const build = async (
     plugins: [fetchPlugin],
   };
 
-  return esmBuild(defaultOpts).then((x) =>
-    importMapReplace(x.outputFiles![0].text, origin)
-  ).then((x) =>
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) =>
     fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "PUT",
       body: x,

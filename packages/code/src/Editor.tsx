@@ -69,8 +69,7 @@ const Editor: FC<
         ...x,
         started: true,
         code,
-        setValue: (code: string) =>
-          modz.setValue(code),
+        setValue: (code: string) => modz.setValue(code),
       }));
     };
     start();
@@ -148,8 +147,8 @@ const Editor: FC<
 
   BC.onmessage = ({ data }) => {
     if (
-      (!data || !data.i && data.code) || mod.i >= Number(data.i) ||
-      !(data.code || data.html)
+      (!data || !data.i && data.code) || mod.i >= Number(data.i)
+      || !(data.code || data.html)
     ) return;
     mod.i = Number(data.i);
     mod.code = data.code;
@@ -203,8 +202,7 @@ const Editor: FC<
     startedM = 1;
 
     const style = document.createElement("style");
-    style.innerHTML =
-      `@import url("${location.origin}/monaco-editor@${version}?css");`;
+    style.innerHTML = `@import url("${location.origin}/monaco-editor@${version}?css");`;
     document.head.appendChild(style);
 
     const { startMonaco } = await import("./startMonaco");

@@ -55,10 +55,10 @@
 
   function CanStructuredClone(o) {
     const type = typeof o;
-    return type === "undefined" || o === null || type === "boolean" ||
-      type === "number" || type === "string" ||
-      (o instanceof Blob) || (o instanceof ArrayBuffer) ||
-      (o instanceof ImageData);
+    return type === "undefined" || o === null || type === "boolean"
+      || type === "number" || type === "string"
+      || (o instanceof Blob) || (o instanceof ArrayBuffer)
+      || (o instanceof ImageData);
   }
 
   // Wrap an argument. This is used for sending values back to the controller. Anything that can be directly
@@ -101,7 +101,7 @@
   }
 
   // Called when receiving a message from the controller.
-  ViaReceiver.OnMessage = function (data) {
+  ViaReceiver.OnMessage = function(data) {
     switch (data.type) {
       case "cmds":
         OnCommandsMessage(data);

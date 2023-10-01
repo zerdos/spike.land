@@ -24,10 +24,10 @@ const ViaObjectHandler = {
   },
 };
 
-Via._MakeObject = function (id) {
+Via._MakeObject = function(id) {
   // For the apply and construct traps to work, the target must be callable.
   // So use a function object as the target, and stash the object ID on it.
-  const func = function () {};
+  const func = function() {};
   func._objectId = id;
   const ret = new Proxy(func, ViaObjectHandler);
 
@@ -111,11 +111,11 @@ const ViaPropertyHandler = {
   },
 };
 
-Via._MakeProperty = function (objectId, path) {
+Via._MakeProperty = function(objectId, path) {
   // For the apply and construct traps to work, the target must be callable.
   // So use a function object as the target, and stash the object ID and
   // the property path on it.
-  const func = function () {};
+  const func = function() {};
   func._objectId = objectId;
   func._path = path;
   func._nextCache = new Map(); // for recycling sub-property lookups

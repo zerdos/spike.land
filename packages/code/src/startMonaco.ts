@@ -148,8 +148,8 @@ export const startMonaco = async (
     onChange: (_code: string) => void;
   },
 ) =>
-  mod[codeSpace] = mod[codeSpace] ||
-    await startMonacoPristine({ code, container, codeSpace, onChange });
+  mod[codeSpace] = mod[codeSpace]
+    || await startMonacoPristine({ code, container, codeSpace, onChange });
 
 //  editor.getEditors().map((x) => x.dispose());
 
@@ -353,8 +353,7 @@ async function startMonacoPristine(
   let ctr = new AbortController();
 
   setInterval(async () => {
-    const typeScriptWorker =
-      await (await languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
 
     const diag2 = await typeScriptWorker.getSyntacticDiagnostics(
       uri.toString(),
@@ -394,9 +393,7 @@ async function startMonacoPristine(
 
     return typeScriptWorker
       .getSuggestionDiagnostics(uri.toString())
-      .then((diag) =>
-        diag.map((d) => false && console.error(d.messageText.toString()))
-      )
+      .then((diag) => diag.map((d) => false && console.error(d.messageText.toString())))
       .catch(
         (e) => {
           console.log("ts error, will retry", e);

@@ -145,9 +145,7 @@ async function handleFetchApi(
     }
     case "swVersion.js": {
       return new Response(
-        `self.swVersion = "${ASSET_HASH}"; self.files=${
-          JSON.stringify(files)
-        }; `,
+        `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)}; `,
         {
           headers: {
             "content-type": "application/javascript; charset=utf-8",
@@ -199,9 +197,7 @@ async function handleFetchApi(
 
           const object = await env.R2.get(key);
           if (!object) {
-            const paths = [...path.slice(1)].map((p) =>
-              p.replace(/\.mjs$/, ".js")
-            );
+            const paths = [...path.slice(1)].map((p) => p.replace(/\.mjs$/, ".js"));
 
             return handleApiRequest(
               ["room", ...paths],
@@ -264,10 +260,10 @@ async function handleFetchApi(
           const contentType = headers.get("Content-type");
 
           if (
-            request.url.indexOf(".wasm") === -1 &&
-            !request.url.endsWith(".map") &&
-            request.url.indexOf(".worker") === -1 &&
-            (contentType && contentType.indexOf("charset"))
+            request.url.indexOf(".wasm") === -1
+            && !request.url.endsWith(".map")
+            && request.url.indexOf(".worker") === -1
+            && (contentType && contentType.indexOf("charset"))
           ) {
             try {
               return new Response(
@@ -480,8 +476,8 @@ async function handleMainFetch(
   ctx: ExecutionContext,
 ): Promise<Response> {
   if (
-    request.cf && request.cf.asOrganization &&
-    (request.cf.asOrganization as unknown as string).startsWith("YANDEX")
+    request.cf && request.cf.asOrganization
+    && (request.cf.asOrganization as unknown as string).startsWith("YANDEX")
   ) {
     return handleUnauthorizedRequest();
   }
@@ -509,8 +505,8 @@ async function handleMainFetch(
       const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
       console.log({ asOrganization: request.cf?.asOrganization });
       const start = md5(
-        ((request.cf?.asOrganization as unknown as string) || "default") +
-          utcSecs + `
+        ((request.cf?.asOrganization as unknown as string) || "default")
+          + utcSecs + `
       and reset every 2 hours
       time`,
       );

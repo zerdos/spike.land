@@ -14,15 +14,15 @@ const latestTagname = `devimages/${p.tagname}:latest`;
     latestTagname,
   ]);
 
-  dockerBuild && dockerBuild.stdout &&
-    dockerBuild.stdout.pipe(process.stdout) && dockerBuild.stderr &&
-    dockerBuild.stderr.pipe(process.stderr);
+  dockerBuild && dockerBuild.stdout
+    && dockerBuild.stdout.pipe(process.stdout) && dockerBuild.stderr
+    && dockerBuild.stderr.pipe(process.stderr);
   await dockerBuild;
 
   const dockerPush = execa("docker", ["push", tagname]);
 
-  dockerPush && dockerPush.stdout && dockerPush.stdout.pipe(process.stdout) &&
-    dockerPush.stderr && dockerPush.stderr.pipe(process.stderr);
+  dockerPush && dockerPush.stdout && dockerPush.stdout.pipe(process.stdout)
+    && dockerPush.stderr && dockerPush.stderr.pipe(process.stderr);
 
   await execa("docker", ["push", latestTagname]);
   await dockerPush;

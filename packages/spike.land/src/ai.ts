@@ -1,9 +1,5 @@
 import { OpenAIStream, StreamingTextResponse } from "ai";
-import {
-  ChatCompletionRequestMessage,
-  Configuration,
-  OpenAIApi,
-} from "openai-edge";
+import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai-edge";
 
 import type { Request as WRequest } from "@cloudflare/workers-types";
 import Env from "./env";

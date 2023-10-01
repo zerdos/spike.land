@@ -8,8 +8,8 @@ const dbs: { [codeSpace: string]: LocalForage } = {};
 export async function initDb(codeSpace: string) {
   if (dbs[codeSpace]) return dbs[codeSpace];
 
-  promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`] ||
-    await (async () => {
+  promises[`db-init-${codeSpace}`] = promises[`db-init-${codeSpace}`]
+    || await (async () => {
       const dbInstance = createInstance({
         name: `/live/${codeSpace}`,
       });
