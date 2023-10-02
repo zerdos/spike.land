@@ -2546,6 +2546,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.24"],\
           ["@types/react-dom", "npm:18.2.8"],\
           ["@types/uuid", "npm:9.0.4"],\
+          ["@types/wicg-file-system-access", "npm:2020.9.8"],\
           ["@typescript-eslint/eslint-plugin", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.7.3"],\
           ["@typescript-eslint/parser", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.7.3"],\
           ["@typescript-eslint/typescript-estree", "virtual:e57e431185736f6121857e47ff7a9225efb2269159eb69a7ce8c2f3b15f142809c8f5bc3b70aba20123ed3b51f466931285e5582c0aaa37935c891d33b7013ff#npm:6.7.3"],\
@@ -3159,6 +3160,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-uuid-npm-9.0.4-ecc469cca8-10.zip/node_modules/@types/uuid/",\
         "packageDependencies": [\
           ["@types/uuid", "npm:9.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/wicg-file-system-access", [\
+      ["npm:2020.9.8", {\
+        "packageLocation": "./.yarn/global/cache/@types-wicg-file-system-access-npm-2020.9.8-797b66aec3-10.zip/node_modules/@types/wicg-file-system-access/",\
+        "packageDependencies": [\
+          ["@types/wicg-file-system-access", "npm:2020.9.8"]\
         ],\
         "linkType": "HARD"\
       }]\

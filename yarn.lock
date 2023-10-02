@@ -1703,6 +1703,7 @@ __metadata:
     "@types/react": "npm:18.2.24"
     "@types/react-dom": "npm:18.2.8"
     "@types/uuid": "npm:9.0.4"
+    "@types/wicg-file-system-access": "npm:^2020.9.8"
     "@typescript-eslint/eslint-plugin": "npm:6.7.3"
     "@typescript-eslint/parser": "npm:6.7.3"
     "@typescript-eslint/typescript-estree": "npm:6.7.3"
@@ -2203,6 +2204,13 @@ __metadata:
   version: 9.0.4
   resolution: "@types/uuid@npm:9.0.4"
   checksum: 356e2504456eaebbc43a5af5ca6c07d71f5ae5520b5767cb1c62cd0ec55475fc4ee3d16a2874f4a5fce78e40e8583025afd3a7d9ba41f82939de310665f53f0e
+  languageName: node
+  linkType: hard
+
+"@types/wicg-file-system-access@npm:^2020.9.8":
+  version: 2020.9.8
+  resolution: "@types/wicg-file-system-access@npm:2020.9.8"
+  checksum: 907e88adb8dc88e307e7e99ff7b734f872cbf509a4155f7600fe61a3d6b16b7dc9594e75a174571a58b5559545719c053a98890b4c1b93d5ade916b21b2af290
   languageName: node
   linkType: hard
 

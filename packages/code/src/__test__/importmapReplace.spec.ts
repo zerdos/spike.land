@@ -1,4 +1,4 @@
-import { importMapReplace } from ".././src/importMapReplace"; // replace with your actual module
+import { importMapReplace } from "../importMapReplace"; // replace with your actual module
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";

@@ -1,4 +1,4 @@
-import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../src/memfs";
+import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
 
 global.navigator = {
   storage: {

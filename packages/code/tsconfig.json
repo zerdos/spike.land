@@ -71,7 +71,7 @@
       "WebWorker.ImportScripts",
       "Webworker.Iterable"
     ],
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types", "@types/wicg-file-system-access", "@types/jest"]
   },
   "include": [
     "src",

@@ -1,9 +1,7 @@
-const textEncoder = new TextEncoder();
-
 type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string };
 
-const handleFile = async (handle: FileSystemHandle, nestedPath: string) => {
-  const file = await handle.getFile!();
+const handleFile = async (handle: FileSystemFileHandle, nestedPath: string) => {
+  const file = await handle.getFile();
   return {
     name: handle.name,
     kind: handle.kind,
@@ -12,7 +10,7 @@ const handleFile = async (handle: FileSystemHandle, nestedPath: string) => {
     lastModified: file.lastModified,
     relativePath: nestedPath,
     handle,
-  } as FileSystemEntry;
+  };
 };
 
 const handleDirectory = async (
@@ -38,11 +36,11 @@ export const getDirectoryEntriesRecursive = async (
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
       directoryEntryPromises.push(
-        handleFile(handle as FileSystemFileHandle, nestedPath),
+        handleFile(handle, nestedPath),
       );
     } else if (handle.kind === "directory") {
       directoryEntryPromises.push(
-        handleDirectory(handle as FileSystemDirectoryHandle, nestedPath),
+        handleDirectory(handle, nestedPath),
       );
     }
   }
@@ -77,6 +75,7 @@ export const getDirectoryHandleAndFileName = async (
 
 export const readdir = async (filePath: string): Promise<string[]> => {
   const { dirHandle } = await getDirectoryHandleAndFileName(filePath);
+ 
   const entries = await getDirectoryEntriesRecursive(dirHandle);
   return Object.keys(entries);
 };
@@ -89,6 +88,7 @@ export const writeFile = async (
   if (!fileName) throw new Error("Invalid file path");
   const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
   const accessHandle = await fileHandle.createWritable();
+  const textEncoder = new TextEncoder();
   const encodedContent = textEncoder.encode(content);
   await accessHandle.write(encodedContent);
   await accessHandle.close();
