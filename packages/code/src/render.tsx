@@ -1,11 +1,10 @@
 import { EmotionCache } from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
+import { CacheProvider } from "./emotion";
 import type { FC, ReactNode } from "react";
-import type { Root } from "react-dom/client";
-import { createRoot } from "react-dom/client";
+import { createRoot } from "./reactDomClient.mjs";
 import createCache from "./emotionCache";
 import { ICodeSession } from "./makeSess";
-import { stat } from "./memfs";
+import { stat } from "./memfs"; 
 import ParentSize from "./ParentSize";
 import type { ParentSizeState } from "./ParentSize";
 import { appFactory } from "./starter";
@@ -21,7 +20,7 @@ const mod = { i: 0 };
 const cache = createCache({ key: "css", speedy: false });
 cache.compat = undefined;
 
-let root: Root;
+let root: ReturnType<typeof createRoot>;
 globalThis.firstRender = globalThis.firstRender
   || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
