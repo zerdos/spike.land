@@ -56,7 +56,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20230922.0",
+    "@cloudflare/workers-types": "4.20231002.0",
     "@emotion/cache": "11.11.0",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
@@ -121,7 +121,7 @@
   "devDependencies": {
     "@types/lodash.debounce": "4.0.7",
     "@types/lodash.throttle": "4.1.7",
-    "@types/node": "20.8.0",
+    "@types/node": "20.8.2",
     "@types/react": "18.2.24",
     "@types/react-dom": "18.2.8",
     "@types/uuid": "9.0.4",

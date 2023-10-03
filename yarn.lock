@@ -486,10 +486,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20230922.0":
-  version: 4.20230922.0
-  resolution: "@cloudflare/workers-types@npm:4.20230922.0"
-  checksum: a2d357f1d96cad38b347b7404baafff9f081f7640d1df70676ed859ef3dc2180f38ebc6e23d30ffa25d5df79404798a021301ed93d5e99539cebb079472c977b
+"@cloudflare/workers-types@npm:4.20231002.0":
+  version: 4.20231002.0
+  resolution: "@cloudflare/workers-types@npm:4.20231002.0"
+  checksum: eba46be0fc42689920253af7763edc59751f7c756e086f884fcd0ccb9dbc1a76c61ac84e2f993c005c1e920da4ad22d7a913c1c348516f354700aca30ef25233
   languageName: node
   linkType: hard
 
@@ -1630,14 +1630,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.8.0"
+    "@types/node": "npm:20.8.2"
     axios: "npm:1.5.1"
     body-parser: "npm:1.20.2"
     commander: "npm:11.0.0"
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.11.0"
+    openai: "npm:4.11.1"
     p-limit: "npm:4.0.0"
     simple-git: "npm:3.20.0"
   bin:
@@ -1666,9 +1666,9 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230922.0"
+    "@cloudflare/workers-types": "npm:4.20231002.0"
     "@spike-land/code": "npm:0.9.30"
-    "@types/node": "npm:20.8.0"
+    "@types/node": "npm:20.8.2"
     ai: "npm:2.2.14"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
@@ -1687,7 +1687,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230922.0"
+    "@cloudflare/workers-types": "npm:4.20231002.0"
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.1"
     "@emotion/styled": "npm:11.11.0"
@@ -1699,7 +1699,7 @@ __metadata:
     "@types/jest": "npm:29.5.5"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.8.0"
+    "@types/node": "npm:20.8.2"
     "@types/react": "npm:18.2.24"
     "@types/react-dom": "npm:18.2.8"
     "@types/uuid": "npm:9.0.4"
@@ -1778,7 +1778,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.8.0"
+    "@types/node": "npm:20.8.2"
     esbuild-wasm: "npm:0.19.4"
   languageName: unknown
   linkType: soft
@@ -1858,7 +1858,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
-    "@cloudflare/workers-types": "npm:4.20230922.0"
+    "@cloudflare/workers-types": "npm:4.20231002.0"
     esbuild-wasm: "npm:0.19.4"
     typescript: "npm:5.2.2"
     wrangler: "npm:3.10.1"
@@ -2074,10 +2074,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.8.0":
+"@types/node@npm:*":
   version: 20.8.0
   resolution: "@types/node@npm:20.8.0"
   checksum: 04108e4e54b4a5f500934bfa1c4551d35398886c7e8b3e047d663b9a66f0c3243e4f6a0fe0515e0295a7cf5e0190b6d49d54b4a36ac09ea416918a880c2234f3
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.8.2":
+  version: 20.8.2
+  resolution: "@types/node@npm:20.8.2"
+  checksum: 61bd39870625d8afcbb4f21d6a0c3a9681f6d508dc6b06f2497e9ad3ec942092a120bcfdbc1757a8e4017308449bc2a9b9865b2b9840b158878a4e8cc0804a3c
   languageName: node
   linkType: hard
 
@@ -8678,7 +8685,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20230922.0"
+    "@cloudflare/workers-types": "npm:4.20231002.0"
     "@emotion/react": "npm:11.11.1"
     "@playwright/test": "npm:1.38.1"
     "@spike-land/ai-devtools": "workspace:^"
@@ -9122,9 +9129,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.11.0":
-  version: 4.11.0
-  resolution: "openai@npm:4.11.0"
+"openai@npm:4.11.1":
+  version: 4.11.1
+  resolution: "openai@npm:4.11.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9136,7 +9143,7 @@ __metadata:
     node-fetch: "npm:^2.6.7"
   bin:
     openai: bin/cli
-  checksum: e35dff01ae0d18c857541c9ff6bf44100497ff8abe39073f6681e75fb1384ce878b20bcca160dbae0160dc9de2d7c08778b6071b076e25cc1b3a9363525da183
+  checksum: 6153f67f96cd89f9b41864bd5ef5621f791af1ae27834fe281901244223b173f4e6b59f9cc27a46ffad0228226facf4c6569bbfaecabef4c8789ceaa791f2bf8
   languageName: node
   linkType: hard
 

@@ -97,7 +97,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20230922.0"],\
+          ["@cloudflare/workers-types", "npm:4.20231002.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.1"],\
           ["@playwright/test", "npm:1.38.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
@@ -997,10 +997,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cloudflare/workers-types", [\
-      ["npm:4.20230922.0", {\
-        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20230922.0-a1a7e28a49-10.zip/node_modules/@cloudflare/workers-types/",\
+      ["npm:4.20231002.0", {\
+        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20231002.0-3a0120cd48-10.zip/node_modules/@cloudflare/workers-types/",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20230922.0"]\
+          ["@cloudflare/workers-types", "npm:4.20231002.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2491,14 +2491,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.8.0"],\
+          ["@types/node", "npm:20.8.2"],\
           ["axios", "npm:1.5.1"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.0.0"],\
           ["dotenv", "npm:16.3.1"],\
           ["express", "npm:4.18.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "npm:4.11.0"],\
+          ["openai", "npm:4.11.1"],\
           ["p-limit", "npm:4.0.0"],\
           ["simple-git", "npm:3.20.0"]\
         ],\
@@ -2530,7 +2530,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/code/",\
         "packageDependencies": [\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@cloudflare/workers-types", "npm:4.20230922.0"],\
+          ["@cloudflare/workers-types", "npm:4.20231002.0"],\
           ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.1"],\
           ["@emotion/styled", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.11.0"],\
@@ -2542,7 +2542,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.5"],\
           ["@types/lodash.debounce", "npm:4.0.7"],\
           ["@types/lodash.throttle", "npm:4.1.7"],\
-          ["@types/node", "npm:20.8.0"],\
+          ["@types/node", "npm:20.8.2"],\
           ["@types/react", "npm:18.2.24"],\
           ["@types/react-dom", "npm:18.2.8"],\
           ["@types/uuid", "npm:9.0.4"],\
@@ -2616,9 +2616,9 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
-          ["@cloudflare/workers-types", "npm:4.20230922.0"],\
+          ["@cloudflare/workers-types", "npm:4.20231002.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:20.8.0"],\
+          ["@types/node", "npm:20.8.2"],\
           ["ai", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.2.14"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
@@ -2649,7 +2649,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.8.0"],\
+          ["@types/node", "npm:20.8.2"],\
           ["esbuild-wasm", "npm:0.19.4"]\
         ],\
         "linkType": "SOFT"\
@@ -2756,7 +2756,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
-          ["@cloudflare/workers-types", "npm:4.20230922.0"],\
+          ["@cloudflare/workers-types", "npm:4.20231002.0"],\
           ["esbuild-wasm", "npm:0.19.4"],\
           ["typescript", "patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
           ["wrangler", "npm:3.10.1"]\
@@ -3007,6 +3007,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.8.0-81ffdc4953-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.8.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.8.2", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.8.2-6691982ce3-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.8.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8977,7 +8984,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/isomorphic-fetch-npm-3.0.0-bce711adff-10.zip/node_modules/isomorphic-fetch/",\
         "packageDependencies": [\
           ["isomorphic-fetch", "npm:3.0.0"],\
-          ["node-fetch", "virtual:decac65729037646fded19f1e74064b03021fbe305dc24896359b060d5296a10136ebcce189796a02da60ba73a8fb1b540cb1f8b0114009a51670831b4c542ff#npm:2.7.0"],\
+          ["node-fetch", "virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0"],\
           ["whatwg-fetch", "npm:3.6.19"]\
         ],\
         "linkType": "HARD"\
@@ -10737,7 +10744,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["monorepo", "workspace:."],\
-          ["@cloudflare/workers-types", "npm:4.20230922.0"],\
+          ["@cloudflare/workers-types", "npm:4.20231002.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.1"],\
           ["@playwright/test", "npm:1.38.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
@@ -10858,10 +10865,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:decac65729037646fded19f1e74064b03021fbe305dc24896359b060d5296a10136ebcce189796a02da60ba73a8fb1b540cb1f8b0114009a51670831b4c542ff#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-3e51341edc/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-84dffa14ef/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:decac65729037646fded19f1e74064b03021fbe305dc24896359b060d5296a10136ebcce189796a02da60ba73a8fb1b540cb1f8b0114009a51670831b4c542ff#npm:2.7.0"],\
+          ["node-fetch", "virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -11227,10 +11234,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.11.0", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.11.0-decac65729-10.zip/node_modules/openai/",\
+      ["npm:4.11.1", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.11.1-16b7b8cbd7-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.11.0"],\
+          ["openai", "npm:4.11.1"],\
           ["@types/node", "npm:18.18.1"],\
           ["@types/node-fetch", "npm:2.6.6"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -11238,7 +11245,7 @@ const RAW_RUNTIME_STATE =
           ["digest-fetch", "npm:1.3.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:decac65729037646fded19f1e74064b03021fbe305dc24896359b060d5296a10136ebcce189796a02da60ba73a8fb1b540cb1f8b0114009a51670831b4c542ff#npm:2.7.0"]\
+          ["node-fetch", "virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
