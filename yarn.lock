@@ -1703,7 +1703,7 @@ __metadata:
     "@types/react": "npm:18.2.24"
     "@types/react-dom": "npm:18.2.8"
     "@types/uuid": "npm:9.0.4"
-    "@types/wicg-file-system-access": "npm:^2020.9.8"
+    "@types/wicg-file-system-access": "npm:^2023.10.0"
     "@typescript-eslint/eslint-plugin": "npm:6.7.4"
     "@typescript-eslint/parser": "npm:6.7.4"
     "@typescript-eslint/typescript-estree": "npm:6.7.4"
@@ -2214,10 +2214,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:^2020.9.8":
-  version: 2020.9.8
-  resolution: "@types/wicg-file-system-access@npm:2020.9.8"
-  checksum: 907e88adb8dc88e307e7e99ff7b734f872cbf509a4155f7600fe61a3d6b16b7dc9594e75a174571a58b5559545719c053a98890b4c1b93d5ade916b21b2af290
+"@types/wicg-file-system-access@npm:^2023.10.0":
+  version: 2023.10.0
+  resolution: "@types/wicg-file-system-access@npm:2023.10.0"
+  checksum: ca67f361c6b8003d00bf3d043aa7a0e212913391f0592b53a789e00cd653f66edeee39b72dfd14ac0650fc162d9bf16403b6b8978f715762d37ab30af9802891
   languageName: node
   linkType: hard
 
@@ -2403,17 +2403,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.0-rc.52":
-  version: 4.0.0-rc.52
-  resolution: "@yarnpkg/core@npm:4.0.0-rc.52"
+"@yarnpkg/core@npm:^4.0.0-rc.53":
+  version: 4.0.0-rc.53
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.53"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
     "@types/treeify": "npm:^1.0.0"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
-    "@yarnpkg/libzip": "npm:^3.0.0-rc.52"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.52"
-    "@yarnpkg/shell": "npm:^4.0.0-rc.52"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.53"
+    "@yarnpkg/libzip": "npm:^3.0.0-rc.53"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.53"
+    "@yarnpkg/shell": "npm:^4.0.0-rc.53"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
     ci-info: "npm:^3.2.0"
@@ -2433,49 +2433,49 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: 530c3f4706f26334ba7e0e8c991a9d993f2dfb33ab6a5424ab466b36997a7c322af8ede6332732488aec31f51a5a7236ded1a7389f36c6b45930e28878b5e24a
+  checksum: 16183c07099aa97aa92d88c32085d11297f569373dc09f73e3552f04181c4ff2b53b2622b79af0f65f6aa7c9384878be7b5817d642256ddbe8a9a49e7848a08b
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.52":
-  version: 3.0.0-rc.52
-  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.52"
+"@yarnpkg/fslib@npm:^3.0.0-rc.53":
+  version: 3.0.0-rc.53
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.53"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 5a9ba335c68c24757e90b08b2050d4d5902676e760e035007616c7ae28b6a7113520942c423b9c842c705b4f82e8723d091cf7a4e8829fb6dda3bd3fc4eb60e1
+  checksum: 6ba15975a0779381dda6c61a03ebd6a2515e908848d2ddf83e58bbcaf5f0875397957b3c4c87708d4ff09f3fd12729efe4c75e199dd76b52d0598593b7e9a15f
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.0-rc.52":
-  version: 3.0.0-rc.52
-  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.52"
+"@yarnpkg/libzip@npm:^3.0.0-rc.53":
+  version: 3.0.0-rc.53
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.53"
   dependencies:
     "@types/emscripten": "npm:^1.39.6"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.53"
     tslib: "npm:^2.4.0"
   peerDependencies:
-    "@yarnpkg/fslib": ^3.0.0-rc.52
-  checksum: 5f1d58fd6fb6fcf2cf653110f7527cd09a35f41a40dda029b059c832a2648ad3920474f43bab09a9396c7ed227da7616a22faed6c8c4fe0fcbb9761f20c6752c
+    "@yarnpkg/fslib": ^3.0.0-rc.53
+  checksum: 1d36e9922fc2c8c02c661a91734744c7054b6b3fe469dfa9c6eb78e97fd11910e8b6707a4dbb4ea6dce8d13d977ec391dc539e47fb90395a4993af529b89bee2
   languageName: node
   linkType: hard
 
-"@yarnpkg/parsers@npm:^3.0.0-rc.52":
-  version: 3.0.0-rc.52
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.52"
+"@yarnpkg/parsers@npm:^3.0.0-rc.53":
+  version: 3.0.0-rc.53
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.53"
   dependencies:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
-  checksum: 0e4077cf185829bd76f5c9712fc0e309b21de5c769629c97361254f1fbf5101ae7d8b05f50addf40e3e36eccaefc6c534e0b4a31aa99985fe912836f4f097b84
+  checksum: 44c63d60c6e26336b2e4bb563a4dd35b179d883c44d1a43a1e2c881df51a84cb8217f0455886a8b12c1999ac70349af981763e6f326cec2931b32d5b327b228a
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.0.0-rc.52":
-  version: 3.0.0-rc.52
-  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.52"
+"@yarnpkg/sdks@npm:3.0.0-rc.53":
+  version: 3.0.0-rc.53
+  resolution: "@yarnpkg/sdks@npm:3.0.0-rc.53"
   dependencies:
-    "@yarnpkg/core": "npm:^4.0.0-rc.52"
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.52"
+    "@yarnpkg/core": "npm:^4.0.0-rc.53"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.53"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.53"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     comment-json: "npm:^2.2.0"
@@ -2483,16 +2483,16 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: 9e5dc667b8c2d4a3f8a74b3c0b00ddd156fd4adb8a068a0e9d338bf1a91c05b48b89715e946494092d235b8b1e8568fbc9ab4960c31b4acdfc1edef6351c3be1
+  checksum: f94f73881d0fe55337797c82d9cda2dbcdd7f79ee92ee8db8480aeca4c971273360658c05178370e973a450117db17de0e3e7aff6313b8c983c62ea16417b7be
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^4.0.0-rc.52":
-  version: 4.0.0-rc.52
-  resolution: "@yarnpkg/shell@npm:4.0.0-rc.52"
+"@yarnpkg/shell@npm:^4.0.0-rc.53":
+  version: 4.0.0-rc.53
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.53"
   dependencies:
-    "@yarnpkg/fslib": "npm:^3.0.0-rc.52"
-    "@yarnpkg/parsers": "npm:^3.0.0-rc.52"
+    "@yarnpkg/fslib": "npm:^3.0.0-rc.53"
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.53"
     chalk: "npm:^3.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     cross-spawn: "npm:7.0.3"
@@ -2501,7 +2501,7 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     shell: ./lib/cli.js
-  checksum: c2040ee235d948eb69216bb3609f8ff8cf832d216ef08921707d88d3c3f17c063551732ed4bc9005dc1b1ae3afc81c0d19090159d4409ba761ef40dd3bae9f1e
+  checksum: de931722c6562f6827d23128e1eee06ac9b0fbf0805e765b18f8b0a8ac825e1995223da12856dc5d0da97a37ca2e0e9f8ddecaf32d4153a742ecaf7c5ccd5089
   languageName: node
   linkType: hard
 
@@ -8694,7 +8694,7 @@ __metadata:
     "@types/react-dom": "npm:18.2.8"
     "@typescript-eslint/eslint-plugin": "npm:6.7.4"
     "@typescript-eslint/parser": "npm:6.7.4"
-    "@yarnpkg/sdks": "npm:3.0.0-rc.52"
+    "@yarnpkg/sdks": "npm:3.0.0-rc.53"
     constants: "npm:0.0.2"
     cypress: "npm:13.3.0"
     dprint: "npm:0.41.0"
