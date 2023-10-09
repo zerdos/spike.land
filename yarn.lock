@@ -950,10 +950,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.50.0":
-  version: 8.50.0
-  resolution: "@eslint/js@npm:8.50.0"
-  checksum: 1600a84ea1635cb46ae9f9cbc7c4cb054e54b8032707531b3b812d6096e46c54c449e8ecec7eb99725c3aa6da1ebbd4a60ca4fda925200395d5839ded09a0da8
+"@eslint/js@npm:8.51.0":
+  version: 8.51.0
+  resolution: "@eslint/js@npm:8.51.0"
+  checksum: 1641f02c787a6477bf4b054afb8113abdca552b8c222520b5ee44d85352294dafd4a34f0e510b1e38a02fc27c1f68547cb6c2abbea891d20688f474440266af3
   languageName: node
   linkType: hard
 
@@ -1637,7 +1637,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.8.2"
+    "@types/node": "npm:20.8.3"
     axios: "npm:1.5.1"
     body-parser: "npm:1.20.2"
     commander: "npm:11.0.0"
@@ -1675,12 +1675,12 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20231002.0"
     "@spike-land/code": "npm:0.9.30"
-    "@types/node": "npm:20.8.2"
+    "@types/node": "npm:20.8.3"
     ai: "npm:2.2.14"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.19.4"
-    esm-worker: "npm:0.132.1"
+    esm-worker: "npm:0.133.0"
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:6.0.0"
@@ -1706,15 +1706,15 @@ __metadata:
     "@types/jest": "npm:29.5.5"
     "@types/lodash.debounce": "npm:4.0.7"
     "@types/lodash.throttle": "npm:4.1.7"
-    "@types/node": "npm:20.8.2"
+    "@types/node": "npm:20.8.3"
     "@types/react": "npm:18.2.25"
-    "@types/react-dom": "npm:18.2.10"
-    "@types/uuid": "npm:9.0.4"
-    "@types/wicg-file-system-access": "npm:^2023.10.0"
+    "@types/react-dom": "npm:18.2.11"
+    "@types/uuid": "npm:9.0.5"
+    "@types/wicg-file-system-access": "npm:^2023.10.1"
     "@typescript-eslint/eslint-plugin": "npm:6.7.4"
     "@typescript-eslint/parser": "npm:6.7.4"
     "@typescript-eslint/typescript-estree": "npm:6.7.4"
-    ace-builds: "npm:1.28.0"
+    ace-builds: "npm:1.29.0"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -1726,7 +1726,7 @@ __metadata:
     csstype: "npm:3.1.2"
     detective-typescript: "npm:11.1.0"
     esbuild-wasm: "npm:0.19.4"
-    eslint: "npm:8.50.0"
+    eslint: "npm:8.51.0"
     eslint-plugin-react: "npm:7.33.2"
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
@@ -1740,7 +1740,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.43.0"
+    monaco-editor: "npm:0.44.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:6.0.0"
@@ -1785,7 +1785,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.8.2"
+    "@types/node": "npm:20.8.3"
     esbuild-wasm: "npm:0.19.4"
   languageName: unknown
   linkType: soft
@@ -2081,10 +2081,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.8.2":
+"@types/node@npm:*":
   version: 20.8.2
   resolution: "@types/node@npm:20.8.2"
   checksum: 61bd39870625d8afcbb4f21d6a0c3a9681f6d508dc6b06f2497e9ad3ec942092a120bcfdbc1757a8e4017308449bc2a9b9865b2b9840b158878a4e8cc0804a3c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.8.3":
+  version: 20.8.3
+  resolution: "@types/node@npm:20.8.3"
+  checksum: 6f69c2fc4b2f95764317fc23c6b92b0c3480e5026d47dcb7b882308908dd6beab3dd02c54344811c8db44f84abd3ef00e35097e2f6d2b79cff21f33981a504a1
   languageName: node
   linkType: hard
 
@@ -2109,12 +2116,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.10":
-  version: 18.2.10
-  resolution: "@types/react-dom@npm:18.2.10"
+"@types/react-dom@npm:18.2.11":
+  version: 18.2.11
+  resolution: "@types/react-dom@npm:18.2.11"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 9c057ce6609f603560c716475bcbd926878e06e3d4106b64a00b64dd2a56b25f62547706daa1fcea8795e47283a85f6e4cbc224c90735b63e44110a968d87460
+  checksum: 255c30c8a00b5da4806715c8e5c1cb4e443196c980f3c031212f61bc438316bbcdb48edc517f6df19af0ba36a1508c42bdbd736df1d94d5efd19a874e8f71888
   languageName: node
   linkType: hard
 
@@ -2196,17 +2203,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:9.0.4":
-  version: 9.0.4
-  resolution: "@types/uuid@npm:9.0.4"
-  checksum: 356e2504456eaebbc43a5af5ca6c07d71f5ae5520b5767cb1c62cd0ec55475fc4ee3d16a2874f4a5fce78e40e8583025afd3a7d9ba41f82939de310665f53f0e
+"@types/uuid@npm:9.0.5":
+  version: 9.0.5
+  resolution: "@types/uuid@npm:9.0.5"
+  checksum: 7577940949619768303c0bf0a7cc235fac3cfae1c0bb4a2e85bfb87b2eb1024955ab446f775394d259442cd769b663b6ce43c39bdfc955d946bf833804ddb421
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:^2023.10.0":
-  version: 2023.10.0
-  resolution: "@types/wicg-file-system-access@npm:2023.10.0"
-  checksum: ca67f361c6b8003d00bf3d043aa7a0e212913391f0592b53a789e00cd653f66edeee39b72dfd14ac0650fc162d9bf16403b6b8978f715762d37ab30af9802891
+"@types/wicg-file-system-access@npm:^2023.10.1":
+  version: 2023.10.1
+  resolution: "@types/wicg-file-system-access@npm:2023.10.1"
+  checksum: 53d9c85cc27eac692e3d4310bb95e2a0c8179a9c23e93a6ff4b90b950a530c85fc6625a92d819afd3e1fb63d9d170f17a59396edf31889e5908b97b55c131eaa
   languageName: node
   linkType: hard
 
@@ -2520,10 +2527,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.28.0":
-  version: 1.28.0
-  resolution: "ace-builds@npm:1.28.0"
-  checksum: 7f9cf80d8035307eb459737bf2211cdcdd5cc24e5187534d706758fb10d2903b78a581320176f4f78a0feaa5240e8a9c7aa4fc72efedcb87e512f3415d1fe53c
+"ace-builds@npm:1.29.0":
+  version: 1.29.0
+  resolution: "ace-builds@npm:1.29.0"
+  checksum: 0e1f401444f78fba773d03d596a766c746c3e246c400d37a479a7e2a760f749979c37f8d8a0ab254e4f214c9faea0d9acec940d90300a68e11986f27f03e07eb
   languageName: node
   linkType: hard
 
@@ -4998,14 +5005,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.50.0":
-  version: 8.50.0
-  resolution: "eslint@npm:8.50.0"
+"eslint@npm:8.51.0":
+  version: 8.51.0
+  resolution: "eslint@npm:8.51.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.6.1"
     "@eslint/eslintrc": "npm:^2.1.2"
-    "@eslint/js": "npm:8.50.0"
+    "@eslint/js": "npm:8.51.0"
     "@humanwhocodes/config-array": "npm:^0.11.11"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@nodelib/fs.walk": "npm:^1.2.8"
@@ -5041,14 +5048,14 @@ __metadata:
     text-table: "npm:^0.2.0"
   bin:
     eslint: bin/eslint.js
-  checksum: 181f26677a80f21431e68a469470485467a5c847d14d8822c1041efc52905772816546ca4e3fc87b963b7b267d8faf960322df16a30a57044161a32199b0dcfa
+  checksum: 1f3720dd2a8e25198815c33720dd66ceee88d7527b3b6f2da57b57d0476440af29da2a1d9f28515660afb3345e4f84438562772d6b5fc19b6fab7c77c478ebca
   languageName: node
   linkType: hard
 
-"esm-worker@npm:0.132.1":
-  version: 0.132.1
-  resolution: "esm-worker@npm:0.132.1"
-  checksum: 12914c37b53a93b9c57ab2272092f81e30533788337f8fc9ef122cb78a2f50400757cc147ea3fd3af01598c10ffd4b937e665ba2937671f295f59c534b0bffd8
+"esm-worker@npm:0.133.0":
+  version: 0.133.0
+  resolution: "esm-worker@npm:0.133.0"
+  checksum: d1b6142416a2e4d7963ab088aad699b5a3d6d4e0f301381bc184b12ecfa9c13f59073b48c5627db4ea86565ba10a8daa6649b75aa23e39940d791c47764a6350
   languageName: node
   linkType: hard
 
@@ -8671,10 +8678,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.43.0":
-  version: 0.43.0
-  resolution: "monaco-editor@npm:0.43.0"
-  checksum: 81eb16ce22f6379d77a675e2f106f4f121013af6ebdfa0aa1b85263e8ff0b5c0db06bd14349ec9f3b39d1d29cc0a0160038150f7fbd08e83fc8ef21c2181c654
+"monaco-editor@npm:0.44.0":
+  version: 0.44.0
+  resolution: "monaco-editor@npm:0.44.0"
+  checksum: 759ea7f2af47ba3dac2f3594f20b358e4633a963ccee6f21b9a55bafb5c3404fd88113f2492af291aebd7895cdb2680ca61ce54166c6e9e106c3b3edb28ed6c2
   languageName: node
   linkType: hard
 
@@ -8688,14 +8695,14 @@ __metadata:
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.44.3"
     "@types/react": "npm:18.2.25"
-    "@types/react-dom": "npm:18.2.10"
+    "@types/react-dom": "npm:18.2.11"
     "@typescript-eslint/eslint-plugin": "npm:6.7.4"
     "@typescript-eslint/parser": "npm:6.7.4"
     "@yarnpkg/sdks": "npm:3.0.0-rc.53"
     constants: "npm:0.0.2"
     cypress: "npm:13.3.0"
     dprint: "npm:0.41.0"
-    eslint: "npm:8.50.0"
+    eslint: "npm:8.51.0"
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
     localforage: "npm:1.10.0"
