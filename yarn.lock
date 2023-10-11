@@ -1644,7 +1644,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.11.1"
+    openai: "npm:4.12.0"
     p-limit: "npm:4.0.0"
     simple-git: "npm:3.20.0"
   bin:
@@ -9146,9 +9146,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.11.1":
-  version: 4.11.1
-  resolution: "openai@npm:4.11.1"
+"openai@npm:4.12.0":
+  version: 4.12.0
+  resolution: "openai@npm:4.12.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9160,7 +9160,7 @@ __metadata:
     node-fetch: "npm:^2.6.7"
   bin:
     openai: bin/cli
-  checksum: 6153f67f96cd89f9b41864bd5ef5621f791af1ae27834fe281901244223b173f4e6b59f9cc27a46ffad0228226facf4c6569bbfaecabef4c8789ceaa791f2bf8
+  checksum: 7375d6269e7dcd0a6a72eb9105d7f8b931ebb937b6d5f05d6d9df5942cc707deb15bcff2c2197ef89b0f58cc7a81aba855112743bd1badcf70932c49536c755a
   languageName: node
   linkType: hard
 

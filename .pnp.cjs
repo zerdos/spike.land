@@ -2507,7 +2507,7 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.3.1"],\
           ["express", "npm:4.18.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "npm:4.11.1"],\
+          ["openai", "npm:4.12.0"],\
           ["p-limit", "npm:4.0.0"],\
           ["simple-git", "npm:3.20.0"]\
         ],\
@@ -8991,7 +8991,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/isomorphic-fetch-npm-3.0.0-bce711adff-10.zip/node_modules/isomorphic-fetch/",\
         "packageDependencies": [\
           ["isomorphic-fetch", "npm:3.0.0"],\
-          ["node-fetch", "virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0"],\
+          ["node-fetch", "virtual:659f5088c1dac792427cf26ad94879e98ae1594861bc1f76b0dfeec4e8160f8568847bb911df5119dbd077ff7bb02a29db1851da1dd871246b51bcd8531698d7#npm:2.7.0"],\
           ["whatwg-fetch", "npm:3.6.19"]\
         ],\
         "linkType": "HARD"\
@@ -10872,10 +10872,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-84dffa14ef/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:659f5088c1dac792427cf26ad94879e98ae1594861bc1f76b0dfeec4e8160f8568847bb911df5119dbd077ff7bb02a29db1851da1dd871246b51bcd8531698d7#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-5575e7841d/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0"],\
+          ["node-fetch", "virtual:659f5088c1dac792427cf26ad94879e98ae1594861bc1f76b0dfeec4e8160f8568847bb911df5119dbd077ff7bb02a29db1851da1dd871246b51bcd8531698d7#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -11241,10 +11241,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.11.1", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.11.1-16b7b8cbd7-10.zip/node_modules/openai/",\
+      ["npm:4.12.0", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.12.0-659f5088c1-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.11.1"],\
+          ["openai", "npm:4.12.0"],\
           ["@types/node", "npm:18.18.3"],\
           ["@types/node-fetch", "npm:2.6.6"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -11252,7 +11252,7 @@ const RAW_RUNTIME_STATE =
           ["digest-fetch", "npm:1.3.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:16b7b8cbd777be3bbd7bbf14c855f91234628e965385fab63ed639e14439df38522c94a6f6ecefd58e1865e3f8f2bf8f8ed87786b87e10993dfb5e5854af048b#npm:2.7.0"]\
+          ["node-fetch", "virtual:659f5088c1dac792427cf26ad94879e98ae1594861bc1f76b0dfeec4e8160f8568847bb911df5119dbd077ff7bb02a29db1851da1dd871246b51bcd8531698d7#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
