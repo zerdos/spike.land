@@ -116,6 +116,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/motion.ts",
       "src/hydrate.ts",
       "src/emotion.ts",
+      "src/startMonaco.ts",
       "src/cf-workers.mjs",
       "src/cf-esbuild.mjs",
       // "src/Editor.tsx",
@@ -151,7 +152,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "/dist.shasum.js",
       // "/monaco-editor",
 
-      "/monaco-editor/*",
+      // "/monaco-editor/*",
 
       //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",

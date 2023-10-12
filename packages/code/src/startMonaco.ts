@@ -1,8 +1,17 @@
-import type {} from "monaco-editor";
+// import type {} from "monaco-editor";
+// // import 'monaco-editor/esm/vs/basic-languages/monaco.contribution';
+// import 'monaco-editor/esm/vs/language/css/monaco.contribution';
+// import 'monaco-editor/esm/vs/language/html/monaco.contribution';
+// import 'monaco-editor/esm/vs/language/json/monaco.contribution';
+// import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
 import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
+
+import * as monaco from 'monaco-editor';
+
 // import TSWorkerFactory from "/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016";
 // import EditorWorkerFactory from "/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016";
+
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
@@ -474,7 +483,7 @@ async function startMonacoPristine(
   // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
   // viewState: myEditor.saveViewState()};
   BC.onmessage = (
-    { data }: { data: { changes?: editor.IModelContentChange[] } },
+    { data }: { data: { changes?: monaco.editor.IModelContentChange[] } },
   ) => {
     if (mod.silent) return;
     if (data.changes) {

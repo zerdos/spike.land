@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 
 // import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
-import { version } from "monaco-editor/package.json";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
@@ -202,7 +201,7 @@ const Editor: FC<
     startedM = 1;
 
     const style = document.createElement("style");
-    style.innerHTML = `@import url("${location.origin}/monaco-editor@${version}?css");`;
+    style.innerHTML = `@import url("${location.origin}/startMonaco.css");`;
     document.head.appendChild(style);
 
     const { startMonaco } = await import("./startMonaco");
