@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:lunar
-- Node: 18.18.1
+- Node: 18.18.2
 - Yarn: 1.22.19
 - Cypress 13.3.1
 - With noVNC - XFCE trough noVNC (http://localhost:6080)

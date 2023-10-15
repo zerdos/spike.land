@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:rolling
-- Node: 18.18.1
+- Node: 18.18.2
 - Yarn: 1.22.19
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome

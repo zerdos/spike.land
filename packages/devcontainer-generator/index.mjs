@@ -3,8 +3,8 @@ import { readFile } from "fs/promises";
 
 // versions.json
 var node = {
-  lts: "18.18.1",
-  current: "20.8.0"
+  lts: "18.18.2",
+  current: "20.8.1"
 };
 var deno = "1.37.1";
 var git = "2.42.0";
