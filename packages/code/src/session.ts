@@ -1,5 +1,5 @@
 import { Mutex } from "async-mutex";
-import { Record } from "immutable";
+import type { Record } from "immutable";
 import imap from "./importMap";
 import HTML from "./index.html";
 import { CodePatch, ICodeSession } from "./makeSess";
@@ -90,10 +90,6 @@ export function db(
     },
   };
   return mod;
-}
-
-export function initSession(room: string, u: IUserJSON) {
-  return Record({ ...u, room, state: Record(u.state)() });
 }
 
 type SetItem<T> = (
