@@ -22,7 +22,7 @@
     "wrangler": "3.14.0"
   },
   "dependencies": {
-    "@types/node": "20.8.7",
+    "@types/node": "20.8.8",
     "ai": "2.2.17",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
