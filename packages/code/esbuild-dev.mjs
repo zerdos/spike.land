@@ -20,13 +20,22 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "iife",
 
     charset: "utf8",
+
+    keepNames: false,
+    minify: true,
+    treeShaking: true,
+    
+
+    alias: {
+      ...buildOptions.alias,
+    },
     minifySyntax: true,
     minifyIdentifiers: true,
-    minifyWhitespace: false,
-
-    ignoreAnnotations: false,
-    keepNames: true,
-    treeShaking: true,
+    minifyWhitespace: true,
+    ignoreAnnotations: true,
+    keepNames: false,
+    legalComments: "none",
+    platform: "browser",
     // outbase: '../../node_modules/monaco-editor/esm/',
     outdir: "dist",
   });
@@ -52,15 +61,18 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     sourcemap: false,
     outExtension: { ".js": ".js" },
     mangleQuoted: false,
+    minify: true,
+    treeShaking: true,
+    
 
     alias: {
       ...buildOptions.alias,
     },
     minifySyntax: true,
     minifyIdentifiers: true,
-    minifyWhitespace: false,
-
-    keepNames: true,
+    minifyWhitespace: true,
+    ignoreAnnotations: true,
+    keepNames: false,
     legalComments: "none",
     platform: "browser",
     format: "iife",
