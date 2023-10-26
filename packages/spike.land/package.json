@@ -16,14 +16,14 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.0",
-    "@cloudflare/workers-types": "4.20231016.0",
+    "@cloudflare/workers-types": "4.20231025.0",
     "@spike-land/code": "0.9.30",
     "typescript": "5.2.2",
     "wrangler": "3.14.0"
   },
   "dependencies": {
-    "@types/node": "20.8.8",
-    "ai": "2.2.18",
+    "@types/node": "20.8.9",
+    "ai": "2.2.19",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.19.5",
