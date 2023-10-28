@@ -95,7 +95,7 @@
     "node-source-walk": "6.0.2",
     "os-browserify": "0.3.0",
     "p-map": "6.0.0",
-    "p2pcf": "1.3.13",
+    "p2pcf": "1.3.14",
     "path-browserify": "1.0.1",
     "preact": "10.18.1",
     "prettier": "3.0.3",
