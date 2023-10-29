@@ -5,5 +5,5 @@ declare module "__STATIC_CONTENT_MANIFEST" {
 }
 
 declare module "monaco-editor/esm/vs/editor/editor.main.js" {
-   export const editor: monaco.editor;
+  export const editor: monaco.editor;
 }

@@ -24,7 +24,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     keepNames: false,
     minify: true,
     treeShaking: true,
-    
 
     alias: {
       ...buildOptions.alias,
@@ -63,7 +62,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     mangleQuoted: false,
     minify: true,
     treeShaking: true,
-    
 
     alias: {
       ...buildOptions.alias,

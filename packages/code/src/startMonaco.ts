@@ -7,7 +7,7 @@
 import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
 
-import * as monaco from 'monaco-editor';
+import * as monaco from "monaco-editor";
 
 // import TSWorkerFactory from "/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016";
 // import EditorWorkerFactory from "/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016";

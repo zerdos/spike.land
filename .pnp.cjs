@@ -109,7 +109,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.0.0"],\
           ["constants", "npm:0.0.2"],\
           ["cypress", "npm:13.3.3"],\
-          ["dprint", "npm:0.42.3"],\
+          ["dprint", "npm:0.42.5"],\
           ["eslint", "npm:8.52.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.33.2"],\
           ["execa", "npm:8.0.1"],\
@@ -1053,55 +1053,64 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@dprint/darwin-arm64", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-darwin-arm64-npm-0.42.3-da2312c38c/node_modules/@dprint/darwin-arm64/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-darwin-arm64-npm-0.42.5-cd11568556/node_modules/@dprint/darwin-arm64/",\
         "packageDependencies": [\
-          ["@dprint/darwin-arm64", "npm:0.42.3"]\
+          ["@dprint/darwin-arm64", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/darwin-x64", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-darwin-x64-npm-0.42.3-c6517890b6/node_modules/@dprint/darwin-x64/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-darwin-x64-npm-0.42.5-7b015a4a42/node_modules/@dprint/darwin-x64/",\
         "packageDependencies": [\
-          ["@dprint/darwin-x64", "npm:0.42.3"]\
+          ["@dprint/darwin-x64", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-arm64-glibc", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-glibc-npm-0.42.3-3cec7cc7d7/node_modules/@dprint/linux-arm64-glibc/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-glibc-npm-0.42.5-c1ab31bbb6/node_modules/@dprint/linux-arm64-glibc/",\
         "packageDependencies": [\
-          ["@dprint/linux-arm64-glibc", "npm:0.42.3"]\
+          ["@dprint/linux-arm64-glibc", "npm:0.42.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dprint/linux-arm64-musl", [\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-musl-npm-0.42.5-3166c0c980/node_modules/@dprint/linux-arm64-musl/",\
+        "packageDependencies": [\
+          ["@dprint/linux-arm64-musl", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-x64-glibc", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-glibc-npm-0.42.3-b066dfa0f3/node_modules/@dprint/linux-x64-glibc/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-glibc-npm-0.42.5-0f3cf80db6/node_modules/@dprint/linux-x64-glibc/",\
         "packageDependencies": [\
-          ["@dprint/linux-x64-glibc", "npm:0.42.3"]\
+          ["@dprint/linux-x64-glibc", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-x64-musl", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-musl-npm-0.42.3-377c465162/node_modules/@dprint/linux-x64-musl/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-musl-npm-0.42.5-e7c3c337d6/node_modules/@dprint/linux-x64-musl/",\
         "packageDependencies": [\
-          ["@dprint/linux-x64-musl", "npm:0.42.3"]\
+          ["@dprint/linux-x64-musl", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/win32-x64", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-win32-x64-npm-0.42.3-20aef53cb2/node_modules/@dprint/win32-x64/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-win32-x64-npm-0.42.5-73253157be/node_modules/@dprint/win32-x64/",\
         "packageDependencies": [\
-          ["@dprint/win32-x64", "npm:0.42.3"]\
+          ["@dprint/win32-x64", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6152,16 +6161,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dprint", [\
-      ["npm:0.42.3", {\
-        "packageLocation": "./.yarn/unplugged/dprint-npm-0.42.3-452c26da60/node_modules/dprint/",\
+      ["npm:0.42.5", {\
+        "packageLocation": "./.yarn/unplugged/dprint-npm-0.42.5-52cd5db5a8/node_modules/dprint/",\
         "packageDependencies": [\
-          ["dprint", "npm:0.42.3"],\
-          ["@dprint/darwin-arm64", "npm:0.42.3"],\
-          ["@dprint/darwin-x64", "npm:0.42.3"],\
-          ["@dprint/linux-arm64-glibc", "npm:0.42.3"],\
-          ["@dprint/linux-x64-glibc", "npm:0.42.3"],\
-          ["@dprint/linux-x64-musl", "npm:0.42.3"],\
-          ["@dprint/win32-x64", "npm:0.42.3"]\
+          ["dprint", "npm:0.42.5"],\
+          ["@dprint/darwin-arm64", "npm:0.42.5"],\
+          ["@dprint/darwin-x64", "npm:0.42.5"],\
+          ["@dprint/linux-arm64-glibc", "npm:0.42.5"],\
+          ["@dprint/linux-arm64-musl", "npm:0.42.5"],\
+          ["@dprint/linux-x64-glibc", "npm:0.42.5"],\
+          ["@dprint/linux-x64-musl", "npm:0.42.5"],\
+          ["@dprint/win32-x64", "npm:0.42.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10775,7 +10785,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.0.0"],\
           ["constants", "npm:0.0.2"],\
           ["cypress", "npm:13.3.3"],\
-          ["dprint", "npm:0.42.3"],\
+          ["dprint", "npm:0.42.5"],\
           ["eslint", "npm:8.52.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.33.2"],\
           ["execa", "npm:8.0.1"],\

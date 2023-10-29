@@ -75,7 +75,7 @@ export const getDirectoryHandleAndFileName = async (
 
 export const readdir = async (filePath: string): Promise<string[]> => {
   const { dirHandle } = await getDirectoryHandleAndFileName(filePath);
- 
+
   const entries = await getDirectoryEntriesRecursive(dirHandle);
   return Object.keys(entries);
 };
