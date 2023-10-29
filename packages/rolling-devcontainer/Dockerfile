@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.5.2
 
 FROM node:alpine as node-builder
-ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.0.0.cjs /usr/local/bin/yarn
+ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.0.1.cjs /usr/local/bin/yarn
 
 RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
