@@ -1727,7 +1727,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.8"
     "@types/lodash.throttle": "npm:4.1.8"
     "@types/node": "npm:20.8.10"
-    "@types/react": "npm:18.2.33"
+    "@types/react": "npm:18.2.34"
     "@types/react-dom": "npm:18.2.14"
     "@types/uuid": "npm:9.0.6"
     "@types/wicg-file-system-access": "npm:^2023.10.2"
@@ -2162,7 +2162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.2.33":
+"@types/react@npm:*":
   version: 18.2.33
   resolution: "@types/react@npm:18.2.33"
   dependencies:
@@ -2170,6 +2170,17 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 7f84dcf70eed3644973c7a47a63669d9e9ecc8d15b331fb272940a5c7cc322df11995eeeae1edfab5c278083cc3527477aa682c79f26667cfe8cd74481621884
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.34":
+  version: 18.2.34
+  resolution: "@types/react@npm:18.2.34"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 6d16f86b384e829edc3710b1dd9ec4eb1d6b26bc079c5cf605bd0cbf77ae6224f15c76949afadb7f53df4544cfe4025c1111fbe36732cd7f660a320fbc2e5866
   languageName: node
   linkType: hard
 
@@ -8656,7 +8667,7 @@ __metadata:
     "@playwright/test": "npm:1.39.0"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.44.6"
-    "@types/react": "npm:18.2.33"
+    "@types/react": "npm:18.2.34"
     "@types/react-dom": "npm:18.2.14"
     "@typescript-eslint/eslint-plugin": "npm:6.9.1"
     "@typescript-eslint/parser": "npm:6.9.1"
