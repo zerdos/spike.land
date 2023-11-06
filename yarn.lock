@@ -1664,7 +1664,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.15.0"
+    openai: "npm:4.15.4"
     p-limit: "npm:5.0.0"
     simple-git: "npm:3.20.0"
   bin:
@@ -1727,7 +1727,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.8"
     "@types/lodash.throttle": "npm:4.1.8"
     "@types/node": "npm:20.8.10"
-    "@types/react": "npm:18.2.34"
+    "@types/react": "npm:18.2.36"
     "@types/react-dom": "npm:18.2.14"
     "@types/uuid": "npm:9.0.6"
     "@types/wicg-file-system-access": "npm:^2023.10.2"
@@ -2173,14 +2173,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.34":
-  version: 18.2.34
-  resolution: "@types/react@npm:18.2.34"
+"@types/react@npm:18.2.36":
+  version: 18.2.36
+  resolution: "@types/react@npm:18.2.36"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 6d16f86b384e829edc3710b1dd9ec4eb1d6b26bc079c5cf605bd0cbf77ae6224f15c76949afadb7f53df4544cfe4025c1111fbe36732cd7f660a320fbc2e5866
+  checksum: 4dac0a9f808b0da01029146efe7eeed454da68d01f0f73d417c95d691460f210b9baeb5fa756015f5a048825a1145a7dcb6c6d9c3e4e7876c683edf9892c383b
   languageName: node
   linkType: hard
 
@@ -8667,7 +8667,7 @@ __metadata:
     "@playwright/test": "npm:1.39.0"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.44.6"
-    "@types/react": "npm:18.2.34"
+    "@types/react": "npm:18.2.36"
     "@types/react-dom": "npm:18.2.14"
     "@typescript-eslint/eslint-plugin": "npm:6.9.1"
     "@typescript-eslint/parser": "npm:6.9.1"
@@ -9093,9 +9093,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.15.0":
-  version: 4.15.0
-  resolution: "openai@npm:4.15.0"
+"openai@npm:4.15.4":
+  version: 4.15.4
+  resolution: "openai@npm:4.15.4"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9108,7 +9108,7 @@ __metadata:
     web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: 98d38fc3242711bb54ab0fd44c1da852ea44d0cc0504e5f803869853e2e9e7e831a41a3be45279e02c482e241e67e759a03e60fa88d9ef2ffdbbb26707261013
+  checksum: ce4181311d251416a4598feee4034fb6137b471a6822e801f0fa4653b108bf0d863c224bb37d31c3f2e9cc15caf6704232bd7db6312b6c19a0f2d0239a8e06df
   languageName: node
   linkType: hard
 
