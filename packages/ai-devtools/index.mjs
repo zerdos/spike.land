@@ -4,6 +4,8 @@ import { exec } from "child_process";
 import { Command } from "commander";
 import fetch from "node-fetch";
 import { promisify } from "util";
+import process from "process";
+
 const program = new Command();
 
 const exe = promisify(exec);
@@ -13,6 +15,7 @@ program
   .description("CLI tool to execute a special git commit command")
   .action(async () => {
     exec("git diff --cached", async (error, stdout, stderr) => {
+
       let diff = stdout;
       if (diff.length === 0) {
         await exe("git add .");

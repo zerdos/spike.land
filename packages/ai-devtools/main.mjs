@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { Configuration, OpenAIApi } from "openai";
 import pLimit from "p-limit";
+import process from "process";
 
 dotenv.config();
 
@@ -85,7 +86,7 @@ async function handleTLDRRequest(req, res, type = "tldr") {
       (result) => result.value,
     ).filter((x) => x);
 
-    const promt = type === "tldr"
+    const prompt = type === "tldr"
       ? `
   If you find any issue, you have the developers to double check things just for making sure that everything is correct, please not even write a summary about the features.
   In case of issue, typo, error, your message starts:
@@ -106,14 +107,14 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   Please try hard to write the best commit message possible!
   `;
 
-    if (cache[promt]) return res.json(cache[promt]);
+    if (cache[prompt]) return res.json(cache[prompt]);
 
-    console.log(promt);
+    console.log(prompt);
     const finalSummary = await openai.createChatCompletion({
       model: "gpt-4",
       messages: [{
         role: "user",
-        content: promt,
+        content: prompt,
       }],
       max_tokens: 3600,
     }).catch(async () =>
@@ -121,14 +122,14 @@ async function handleTLDRRequest(req, res, type = "tldr") {
         model: "gpt-4",
         messages: [{
           role: "user",
-          content: promt,
+          content: prompt,
         }],
         max_tokens: 3600,
       })
     );
-    cache[promt] = finalSummary.data.choices[0].message.content;
+    cache[prompt] = finalSummary.data.choices[0].message.content;
 
-    res.json(cache[promt]);
+    res.json(cache[prompt]);
   } catch (e) {
     res.status(500).json({ error: "Failed to generate final summary." });
   }
