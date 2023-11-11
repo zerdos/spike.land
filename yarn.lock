@@ -1664,7 +1664,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.17.0"
+    openai: "npm:4.17.4"
     p-limit: "npm:5.0.0"
     simple-git: "npm:3.20.0"
   bin:
@@ -1696,7 +1696,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20231025.0"
     "@spike-land/code": "npm:0.9.30"
     "@types/node": "npm:20.9.0"
-    ai: "npm:2.2.21"
+    ai: "npm:2.2.22"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.19.5"
@@ -2652,9 +2652,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:2.2.21":
-  version: 2.2.21
-  resolution: "ai@npm:2.2.21"
+"ai@npm:2.2.22":
+  version: 2.2.22
+  resolution: "ai@npm:2.2.22"
   dependencies:
     eventsource-parser: "npm:1.0.0"
     nanoid: "npm:3.3.6"
@@ -2677,7 +2677,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: 502534e42c8e58513bddad94d84ff5649dda70eb2b59daaeb5182e12ee09bf7b33d5e3caae70a777a97ac8ea17a42d28d5179276d362b2eaf17c5759548cec0a
+  checksum: c750555caf5dd017ae8754e6d99da9d73093063cb2c2c5342b96073137777a186ae41be883a4c6a4a8921201eb7b9ae7c01efe16491d39b3a378f4ee0263437d
   languageName: node
   linkType: hard
 
@@ -9086,9 +9086,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.17.0":
-  version: 4.17.0
-  resolution: "openai@npm:4.17.0"
+"openai@npm:4.17.4":
+  version: 4.17.4
+  resolution: "openai@npm:4.17.4"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9101,7 +9101,7 @@ __metadata:
     web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: e630eea990fdd7aa430bdf8c755d0ac85c321e33787457b0ecd41cf4d2d86d9b2a8807ed4bffe66b1a21139cdb63fefbad911873532482b86a3d307682a5a726
+  checksum: 63bde61db287e55764b4fd86141d459cca4f805255065022d388f4483bf313c86972d0fa3e8a39e5a333d456f23a9787986fb35fa99584d6771f8d34adb84c99
   languageName: node
   linkType: hard
 
