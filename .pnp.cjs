@@ -2471,7 +2471,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@prefresh/core", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.2"],\
           ["@types/preact", null],\
-          ["preact", "npm:10.18.2"]\
+          ["preact", "npm:10.19.1"]\
         ],\
         "packagePeers": [\
           "@types/preact",\
@@ -2599,7 +2599,7 @@ const RAW_RUNTIME_STATE =
           ["events", "npm:3.3.0"],\
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:5.0.6"],\
-          ["file-type", "npm:18.6.0"],\
+          ["file-type", "npm:18.7.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:10.16.4"],\
           ["immutable", "npm:5.0.0-beta.4"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
@@ -2615,7 +2615,7 @@ const RAW_RUNTIME_STATE =
           ["p2pcf", "npm:1.3.14"],\
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
-          ["preact", "npm:10.18.2"],\
+          ["preact", "npm:10.19.1"],\
           ["prettier", "npm:3.0.3"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.11"],\
@@ -7147,10 +7147,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["file-type", [\
-      ["npm:18.6.0", {\
-        "packageLocation": "./.yarn/global/cache/file-type-npm-18.6.0-8e6a4bbcca-10.zip/node_modules/file-type/",\
+      ["npm:18.7.0", {\
+        "packageLocation": "./.yarn/global/cache/file-type-npm-18.7.0-b585ca87df-10.zip/node_modules/file-type/",\
         "packageDependencies": [\
-          ["file-type", "npm:18.6.0"],\
+          ["file-type", "npm:18.7.0"],\
           ["readable-web-to-node-stream", "npm:3.0.2"],\
           ["strtok3", "npm:7.0.0"],\
           ["token-types", "npm:5.0.1"]\
@@ -11768,10 +11768,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["preact", [\
-      ["npm:10.18.2", {\
-        "packageLocation": "./.yarn/global/cache/preact-npm-10.18.2-1a5914efe3-10.zip/node_modules/preact/",\
+      ["npm:10.19.1", {\
+        "packageLocation": "./.yarn/global/cache/preact-npm-10.19.1-591d3c30f1-10.zip/node_modules/preact/",\
         "packageDependencies": [\
-          ["preact", "npm:10.18.2"]\
+          ["preact", "npm:10.19.1"]\
         ],\
         "linkType": "HARD"\
       }]\
