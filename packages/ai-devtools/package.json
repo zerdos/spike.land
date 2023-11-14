@@ -19,7 +19,7 @@
     "dotenv": "16.3.1",
     "express": "4.18.2",
     "node-fetch": "3.3.2",
-    "openai": "4.17.4",
+    "openai": "4.17.5",
     "p-limit": "5.0.0",
     "simple-git": "3.20.0"
   },
