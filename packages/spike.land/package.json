@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@types/node": "20.9.0",
-    "ai": "2.2.22",
+    "ai": "2.2.23",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.19.5",
-    "esm-worker": "0.133.0",
+    "esm-worker": "0.134.0",
     "immutable": "5.0.0-beta.4",
     "openai-edge": "1.2.2",
     "p-map": "6.0.0",
