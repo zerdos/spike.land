@@ -44,7 +44,7 @@
     "@yarnpkg/sdks": "3.1.0",
     "constants": "0.0.2",
     "cypress": "13.5.1",
-    "dprint": "0.42.5",
+    "dprint": "0.43.0",
     "eslint": "8.54.0",
     "eslint-plugin-react": "7.33.2",
     "execa": "8.0.1",
