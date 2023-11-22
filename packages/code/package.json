@@ -56,7 +56,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20231025.0",
+    "@cloudflare/workers-types": "4.20231121.0",
     "@emotion/cache": "11.11.0",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
@@ -65,7 +65,7 @@
     "@okikio/sharedworker": "1.0.4",
     "@prefresh/core": "1.5.2",
     "@types/isomorphic-fetch": "0.0.39",
-    "@types/jest": "29.5.9",
+    "@types/jest": "29.5.10",
     "@typescript-eslint/typescript-estree": "6.12.0",
     "ace-builds": "1.31.2",
     "assert": "2.1.0",
@@ -121,9 +121,9 @@
   "devDependencies": {
     "@types/lodash.debounce": "4.0.9",
     "@types/lodash.throttle": "4.1.9",
-    "@types/node": "20.9.3",
+    "@types/node": "20.9.4",
     "@types/react": "18.2.38",
-    "@types/react-dom": "18.2.16",
+    "@types/react-dom": "18.2.17",
     "@types/uuid": "9.0.7",
     "@types/wicg-file-system-access": "^2023.10.4",
     "@typescript-eslint/eslint-plugin": "6.12.0",
