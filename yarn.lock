@@ -536,51 +536,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/darwin-arm64@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/darwin-arm64@npm:0.43.0"
+"@dprint/darwin-arm64@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/darwin-arm64@npm:0.43.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@dprint/darwin-x64@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/darwin-x64@npm:0.43.0"
+"@dprint/darwin-x64@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/darwin-x64@npm:0.43.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-glibc@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/linux-arm64-glibc@npm:0.43.0"
+"@dprint/linux-arm64-glibc@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/linux-arm64-glibc@npm:0.43.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-musl@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/linux-arm64-musl@npm:0.43.0"
+"@dprint/linux-arm64-musl@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/linux-arm64-musl@npm:0.43.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-glibc@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/linux-x64-glibc@npm:0.43.0"
+"@dprint/linux-x64-glibc@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/linux-x64-glibc@npm:0.43.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-musl@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/linux-x64-musl@npm:0.43.0"
+"@dprint/linux-x64-musl@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/linux-x64-musl@npm:0.43.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/win32-x64@npm:0.43.0":
-  version: 0.43.0
-  resolution: "@dprint/win32-x64@npm:0.43.0"
+"@dprint/win32-x64@npm:0.43.1":
+  version: 0.43.1
+  resolution: "@dprint/win32-x64@npm:0.43.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -1657,7 +1657,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.9.4"
+    "@types/node": "npm:20.10.0"
     axios: "npm:1.6.2"
     body-parser: "npm:1.20.2"
     commander: "npm:11.1.0"
@@ -1695,18 +1695,18 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.0"
     "@cloudflare/workers-types": "npm:4.20231121.0"
     "@spike-land/code": "npm:0.9.30"
-    "@types/node": "npm:20.9.4"
+    "@types/node": "npm:20.10.0"
     ai: "npm:2.2.25"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.19.7"
-    esm-worker: "npm:0.134.0"
+    esm-worker: "npm:0.135.1"
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:6.0.0"
     p-queue: "npm:7.4.1"
     typescript: "npm:5.3.2"
-    wrangler: "npm:3.17.0"
+    wrangler: "npm:3.17.1"
   languageName: unknown
   linkType: soft
 
@@ -1726,7 +1726,7 @@ __metadata:
     "@types/jest": "npm:29.5.10"
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/lodash.throttle": "npm:4.1.9"
-    "@types/node": "npm:20.9.4"
+    "@types/node": "npm:20.10.0"
     "@types/react": "npm:18.2.38"
     "@types/react-dom": "npm:18.2.17"
     "@types/uuid": "npm:9.0.7"
@@ -1805,7 +1805,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.9.4"
+    "@types/node": "npm:20.10.0"
     esbuild-wasm: "npm:0.19.7"
   languageName: unknown
   linkType: soft
@@ -1888,7 +1888,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20231121.0"
     esbuild-wasm: "npm:0.19.7"
     typescript: "npm:5.3.2"
-    wrangler: "npm:3.17.0"
+    wrangler: "npm:3.17.1"
   languageName: unknown
   linkType: soft
 
@@ -2112,12 +2112,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.9.4":
-  version: 20.9.4
-  resolution: "@types/node@npm:20.9.4"
+"@types/node@npm:20.10.0":
+  version: 20.10.0
+  resolution: "@types/node@npm:20.10.0"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: d567855b48e453b443499c17fc6c939d154732b54319a05b9b31db6e475e6458f053838635b201b1bb493d349d9b1af0aecc58b28fd6062e564e9fbf593199eb
+  checksum: c7d5ddbdbf3491e2363135c9611eb6bfae90eda2957279237fa232bcb29cd0df1cc3ee149d6de9915b754262a531ee2d57d33c9ecd58d763e8ad4856113822f3
   languageName: node
   linkType: hard
 
@@ -4569,17 +4569,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.43.0":
-  version: 0.43.0
-  resolution: "dprint@npm:0.43.0"
+"dprint@npm:0.43.1":
+  version: 0.43.1
+  resolution: "dprint@npm:0.43.1"
   dependencies:
-    "@dprint/darwin-arm64": "npm:0.43.0"
-    "@dprint/darwin-x64": "npm:0.43.0"
-    "@dprint/linux-arm64-glibc": "npm:0.43.0"
-    "@dprint/linux-arm64-musl": "npm:0.43.0"
-    "@dprint/linux-x64-glibc": "npm:0.43.0"
-    "@dprint/linux-x64-musl": "npm:0.43.0"
-    "@dprint/win32-x64": "npm:0.43.0"
+    "@dprint/darwin-arm64": "npm:0.43.1"
+    "@dprint/darwin-x64": "npm:0.43.1"
+    "@dprint/linux-arm64-glibc": "npm:0.43.1"
+    "@dprint/linux-arm64-musl": "npm:0.43.1"
+    "@dprint/linux-x64-glibc": "npm:0.43.1"
+    "@dprint/linux-x64-musl": "npm:0.43.1"
+    "@dprint/win32-x64": "npm:0.43.1"
   dependenciesMeta:
     "@dprint/darwin-arm64":
       optional: true
@@ -4597,7 +4597,7 @@ __metadata:
       optional: true
   bin:
     dprint: bin.js
-  checksum: df953110da317fda45cbb11136d81d6a03c01cd46b1636c77d7c8a55b16ae3620798b1d92397367bebf807dab1a1e5a17d1cc633ff6e11eb5282eb30eff87b2d
+  checksum: 00d06e73d2194c1104f200adc706da02bcc6433486fbdcc4a2b38b20310b5b9930dbdce3aa5a94660d47ef68e8389978d21860fa1e9cfa33d8fe4d6c018edc66
   languageName: node
   linkType: hard
 
@@ -5063,10 +5063,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm-worker@npm:0.134.0":
-  version: 0.134.0
-  resolution: "esm-worker@npm:0.134.0"
-  checksum: 02745236ddd551beed5ca37ff7b6212401a4450e964a19230c825434546d4032b602efd15186e154dce0b364aff68928687415195811df9e7466d96ebb9ad76c
+"esm-worker@npm:0.135.1":
+  version: 0.135.1
+  resolution: "esm-worker@npm:0.135.1"
+  checksum: b9fa931532df727f649d1399c98613e1b0352cd8b3ed10f4ff56bcaf0be7bdf4e7b12d8dac12b18c07bc1c48d67a198f95168c65c64b70d557e8de7bff4a1b69
   languageName: node
   linkType: hard
 
@@ -8671,7 +8671,7 @@ __metadata:
     "@yarnpkg/sdks": "npm:3.1.0"
     constants: "npm:0.0.2"
     cypress: "npm:13.6.0"
-    dprint: "npm:0.43.0"
+    dprint: "npm:0.43.1"
     eslint: "npm:8.54.0"
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
@@ -12254,9 +12254,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.17.0":
-  version: 3.17.0
-  resolution: "wrangler@npm:3.17.0"
+"wrangler@npm:3.17.1":
+  version: 3.17.1
+  resolution: "wrangler@npm:3.17.1"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12279,7 +12279,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 62139687f1b7887158336a6c3caa37aac05305665252c5dd87e01fda7cfac92f8530986f0859dc4215411827f1961d8673d15bc6d6d182aa4258fdd070fbc0eb
+  checksum: 44ccfbaabe18e882d692791587966b372a0d38b7742c93a7d99242cd25287a675f452c8a3a21bbb6bea8294d9eaf13e9991a7cc2533608bf95dca744cacfa156
   languageName: node
   linkType: hard
 
