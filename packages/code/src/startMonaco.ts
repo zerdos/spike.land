@@ -368,7 +368,7 @@ async function startMonacoPristine(
       uri.toString(),
     );
 
-    diag2.map((d) => false && console.error(d.messageText.toString()));
+    diag2.map((d) => console.error(d.messageText.toString()));
 
     const diag3 = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
 
@@ -402,7 +402,7 @@ async function startMonacoPristine(
 
     return typeScriptWorker
       .getSuggestionDiagnostics(uri.toString())
-      .then((diag) => diag.map((d) => false && console.error(d.messageText.toString())))
+      .then((diag) => diag.map((d) => console.error(d.messageText.toString())))
       .catch(
         (e) => {
           console.log("ts error, will retry", e);

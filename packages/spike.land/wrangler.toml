@@ -2,7 +2,6 @@
 name = "spike-land"
 # Add your account ID here
 account_id = "1f98921051196545ebe79a450d3c71ed"
-usage_model = "unbound"
 compatibility_date = "2021-10-16"
 main = "../code/dist/cf-workers.mjs"
 
@@ -46,8 +45,8 @@ new_classes = ["Users"] # Array of new classes
 bucket = "../code/dist" # Add the directory with your static assets
  
 [env.testing]
+
 name = "testing-spike-land"
-usage_model = "unbound"
 
 kv_namespaces = [
     { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3" }
@@ -71,6 +70,7 @@ bindings = [
 
 
 [env.testing.vars]
+OPENAI_API_KEY = "sk-xxx" # change to your openai api key if needed
 ESM_ORIGIN = "https://esm.sh" # change to your self-hosting esm.sh server if needed
 NPM_REGISTRY = "https://registry.npmjs.org/" # change to your private npm registry if needed
 
