@@ -35,7 +35,6 @@ RUN apt-get update \
     libgtk2.0-0 \
   libgtk-3-0 \
   libnotify-dev \
-  libgconf-2-4 \
   libgbm-dev \
   libnss3 \
   libxss1 \
@@ -186,11 +185,7 @@ RUN apt-get update \
 
     
 ### chromium.Dockerfile
-RUN  (curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update && apt-get install -y --no-install-recommends \  
-    ## firefox 
-    google-chrome-stable ) \
+RUN  ( apt-get install -y wget && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt-get install -y ./google-chrome-stable_current_amd64.deb) \
     ||  (apt-get install -y chromium ||  echo "this arch is not supported") \
      && apt-get autoremove -y \
   && apt-get clean -y \
