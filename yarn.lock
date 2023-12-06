@@ -1739,10 +1739,10 @@ __metadata:
     esm-worker: "npm:0.135.3"
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
-    p-map: "npm:6.0.0"
+    p-map: "npm:7.0.0"
     p-queue: "npm:7.4.1"
     typescript: "npm:5.3.2"
-    wrangler: "npm:3.18.0"
+    wrangler: "npm:3.19.0"
   languageName: unknown
   linkType: soft
 
@@ -1759,7 +1759,7 @@ __metadata:
     "@okikio/sharedworker": "npm:1.0.4"
     "@prefresh/core": "npm:1.5.2"
     "@types/isomorphic-fetch": "npm:0.0.39"
-    "@types/jest": "npm:29.5.10"
+    "@types/jest": "npm:29.5.11"
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/lodash.throttle": "npm:4.1.9"
     "@types/node": "npm:20.10.3"
@@ -1788,7 +1788,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:5.0.6"
     file-type: "npm:18.7.0"
-    framer-motion: "npm:10.16.12"
+    framer-motion: "npm:10.16.14"
     immutable: "npm:5.0.0-beta.4"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -1799,7 +1799,7 @@ __metadata:
     monaco-editor: "npm:0.44.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
-    p-map: "npm:6.0.0"
+    p-map: "npm:7.0.0"
     p2pcf: "npm:1.3.14"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
@@ -1924,7 +1924,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20231121.0"
     esbuild-wasm: "npm:0.19.8"
     typescript: "npm:5.3.2"
-    wrangler: "npm:3.18.0"
+    wrangler: "npm:3.19.0"
   languageName: unknown
   linkType: soft
 
@@ -2069,13 +2069,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.5.10":
-  version: 29.5.10
-  resolution: "@types/jest@npm:29.5.10"
+"@types/jest@npm:29.5.11":
+  version: 29.5.11
+  resolution: "@types/jest@npm:29.5.11"
   dependencies:
     expect: "npm:^29.0.0"
     pretty-format: "npm:^29.0.0"
-  checksum: f31cdc9cf840a3bc2230148bb5cba1e0369e3180ae75d85804038905300dd8cfa1d989a4dbbd909633c04568d0c1a9251b2ee5c4197309ec033403dd2a08ea42
+  checksum: 798f4c89407d9457bea1256de74c26f2b279f6c789c0e3311cd604cc75cdab333b9a29b00c51b0090d31abdf11cc788b4103282851a653bef6daf72edf97eef2
   languageName: node
   linkType: hard
 
@@ -4336,9 +4336,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.6.0":
-  version: 13.6.0
-  resolution: "cypress@npm:13.6.0"
+"cypress@npm:13.6.1":
+  version: 13.6.1
+  resolution: "cypress@npm:13.6.1"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -4385,7 +4385,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 345e295c305a9574f5de433c216c9734eab5c8594bd32b7c1a74e2d71a6c7aa5a8228f7031c3fc6bd488319c0f50c906d323d00dab5c9445c43594a41af0d23d
+  checksum: 22e3431faf87b31f57a1afbcb92eb8f2bf366468f0a47399545af772a89acc198df2ce80c3d3169e3a82649811ee60685fbd7a512e0ec9ffb9ddbe13f21ecfd0
   languageName: node
   linkType: hard
 
@@ -5887,9 +5887,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:10.16.12":
-  version: 10.16.12
-  resolution: "framer-motion@npm:10.16.12"
+"framer-motion@npm:10.16.14":
+  version: 10.16.14
+  resolution: "framer-motion@npm:10.16.14"
   dependencies:
     "@emotion/is-prop-valid": "npm:^0.8.2"
     tslib: "npm:^2.4.0"
@@ -5904,7 +5904,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 6cee595d8d1611a007e9df3fa088459e02d08b45d683ca930f06a9205907d4d6a84c47429707ebade592713f9b774e1de71b072ba8117def443b5d56fb0858bb
+  checksum: 0ab7892b469d059082cfc8a8595c9370e17a62a94c13c1a7a3cdc253d26c99b2412de9ead90d49966cd71cc066eba8f9a663c28b8f3ca590577f27202611df19
   languageName: node
   linkType: hard
 
@@ -8641,9 +8641,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:3.20231030.2":
-  version: 3.20231030.2
-  resolution: "miniflare@npm:3.20231030.2"
+"miniflare@npm:3.20231030.3":
+  version: 3.20231030.3
+  resolution: "miniflare@npm:3.20231030.3"
   dependencies:
     acorn: "npm:^8.8.0"
     acorn-walk: "npm:^8.2.0"
@@ -8659,7 +8659,7 @@ __metadata:
     zod: "npm:^3.20.6"
   bin:
     miniflare: bootstrap.js
-  checksum: 0eb924473fe95bdcfab7adae777ce20f1bbf8a08509615bccd14e748e16b555011570a0a2ce0bb752428604baa12a0ec08b2ad5dd229b00bbe3db06175af2e60
+  checksum: 988bec15ebef26770c5e6f3b8d1012748fcac404cb1040a2a806a097918c6cb3b45170238abca8b48060dfef74c433f66d50c422dac2995f7ad6000d6fa48e92
   languageName: node
   linkType: hard
 
@@ -8831,7 +8831,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:6.13.2"
     "@yarnpkg/sdks": "npm:3.1.0"
     constants: "npm:0.0.2"
-    cypress: "npm:13.6.0"
+    cypress: "npm:13.6.1"
     dprint: "npm:0.43.2"
     eslint: "npm:8.55.0"
     eslint-plugin-react: "npm:7.33.2"
@@ -9410,10 +9410,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:6.0.0, p-map@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "p-map@npm:6.0.0"
-  checksum: 1fd59257b3828a4c4def676ef64acb0edb7809b161ada25efd9a0c8db312ad81c66bcaa9e5d8fd982fd20d412609aabcb8da9b090e81f6c449bc1203752ba0eb
+"p-map@npm:7.0.0":
+  version: 7.0.0
+  resolution: "p-map@npm:7.0.0"
+  checksum: 2ff3cdf6de518e5c714172ed704bb567b097f94d3ee865e92fbe110e038322826d48205c779b5e35062568815b2a1e7d75928d7c74ce8d3840aa820c10ce32ca
   languageName: node
   linkType: hard
 
@@ -9423,6 +9423,13 @@ __metadata:
   dependencies:
     aggregate-error: "npm:^3.0.0"
   checksum: 7ba4a2b1e24c05e1fc14bbaea0fc6d85cf005ae7e9c9425d4575550f37e2e584b1af97bcde78eacd7559208f20995988d52881334db16cf77bc1bcf68e48ed7c
+  languageName: node
+  linkType: hard
+
+"p-map@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "p-map@npm:6.0.0"
+  checksum: 1fd59257b3828a4c4def676ef64acb0edb7809b161ada25efd9a0c8db312ad81c66bcaa9e5d8fd982fd20d412609aabcb8da9b090e81f6c449bc1203752ba0eb
   languageName: node
   linkType: hard
 
@@ -12427,9 +12434,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.18.0":
-  version: 3.18.0
-  resolution: "wrangler@npm:3.18.0"
+"wrangler@npm:3.19.0":
+  version: 3.19.0
+  resolution: "wrangler@npm:3.19.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12438,7 +12445,7 @@ __metadata:
     chokidar: "npm:^3.5.3"
     esbuild: "npm:0.17.19"
     fsevents: "npm:~2.3.2"
-    miniflare: "npm:3.20231030.2"
+    miniflare: "npm:3.20231030.3"
     nanoid: "npm:^3.3.3"
     path-to-regexp: "npm:^6.2.0"
     resolve.exports: "npm:^2.0.2"
@@ -12452,7 +12459,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: db38a340b14136becd38646ac0c5d9e45a55db92ac181b997c89a1e9457232fa168c1a808ae9a85446dfb0112cb7675f479d2738171fea367a3cac765dcc8295
+  checksum: 18ff7dfce24c34c077e77162f978a74021324a7f21653352436956915e7ceaa45220823bf5982bb11bb78233f5ea99c61b88c923f9021ef866709cbf75e12a52
   languageName: node
   linkType: hard
 

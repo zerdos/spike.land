@@ -43,7 +43,7 @@
     "@typescript-eslint/parser": "6.13.2",
     "@yarnpkg/sdks": "3.1.0",
     "constants": "0.0.2",
-    "cypress": "13.6.0",
+    "cypress": "13.6.1",
     "dprint": "0.43.2",
     "eslint": "8.55.0",
     "eslint-plugin-react": "7.33.2",
