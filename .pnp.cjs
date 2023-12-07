@@ -2646,7 +2646,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.44.0"],\
+          ["monaco-editor", "npm:0.45.0"],\
           ["node-source-walk", "npm:6.0.2"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:7.0.0"],\
@@ -2697,7 +2697,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:5.0.0-beta.4"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:7.0.0"],\
-          ["p-queue", "npm:7.4.1"],\
+          ["p-queue", "npm:8.0.0"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
           ["wrangler", "npm:3.19.0"]\
         ],\
@@ -10881,10 +10881,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.44.0", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.44.0-888dafb151-10.zip/node_modules/monaco-editor/",\
+      ["npm:0.45.0", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.45.0-6146cd5541-10.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.44.0"]\
+          ["monaco-editor", "npm:0.45.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11567,21 +11567,21 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["p-queue", [\
-      ["npm:7.4.1", {\
-        "packageLocation": "./.yarn/global/cache/p-queue-npm-7.4.1-e0cf0a6f17-10.zip/node_modules/p-queue/",\
+      ["npm:8.0.0", {\
+        "packageLocation": "./.yarn/global/cache/p-queue-npm-8.0.0-9a8b5fe657-10.zip/node_modules/p-queue/",\
         "packageDependencies": [\
-          ["p-queue", "npm:7.4.1"],\
+          ["p-queue", "npm:8.0.0"],\
           ["eventemitter3", "npm:5.0.1"],\
-          ["p-timeout", "npm:5.1.0"]\
+          ["p-timeout", "npm:6.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["p-timeout", [\
-      ["npm:5.1.0", {\
-        "packageLocation": "./.yarn/global/cache/p-timeout-npm-5.1.0-11ca554b60-10.zip/node_modules/p-timeout/",\
+      ["npm:6.1.2", {\
+        "packageLocation": "./.yarn/global/cache/p-timeout-npm-6.1.2-865f078862-10.zip/node_modules/p-timeout/",\
         "packageDependencies": [\
-          ["p-timeout", "npm:5.1.0"]\
+          ["p-timeout", "npm:6.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
