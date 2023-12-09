@@ -9,6 +9,7 @@ import type { ParentSizeState } from "./ParentSize";
 import { createRoot } from "./reactDomClient.mjs";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
+import { transpile } from "./shared";
 
 const runtime = require("react-refresh/runtime");
 runtime.injectIntoGlobalHook(window);
@@ -92,6 +93,8 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
         "</div>",
       ].join("");
 
+      if (signal.aborted) return;
+      if (!data.transpiled) data.transpiled = await transpile({code: data.code, originToUse: location.origin});
       if (signal.aborted) return;
       const App = await appFactory(data.transpiled);
 
