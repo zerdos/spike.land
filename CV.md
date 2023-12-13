@@ -9,15 +9,18 @@ Passionate and dedicated Full Stack Developer with a strong focus on frontend de
 
 # Work Experience
 
-## March 2023 – September 2023: Frontend Developer (Contractor), Virgin Media Company
+## March 2023 – December 2023: Frontend Developer (Contractor), Virgin Media O2 Limited
+- Led a small team under tight deadlines to deliver four critical user journeys on the new "My O2" mobile customer platform: Install SIM, Spend Caps, My Documents, and additional undisclosed journey.
+- Significantly improved site performance and responsiveness.
+- Supplied comprehensive data for product team's A/B testing, impacting future product enhancements.
 - Developed and maintained the Component Library, creating a pipeline that enabled design changes in Figma to automatically trigger pull requests, visualizing visual changes in real-time.
+
 - Reduced CSS build size by 80% via implementation of PostCSS plugins to remove unused tokens.
-- Played a key role in the migration of the virginmedia.com site from on-premise to the cloud.
-- Provided mentorship and guidance to graduate students.
-- Collaborated with the O2 care team to implement the 'Install sim' journey.
+- Played a key role in the migration of the virginmediao2.co.uk site from on-premise to the cloud.
+- Mastered Angular 16, driving modern frontend development practices and updates.
 
 ## 2018 – 2023: Full Stack Developer (Long-term Contractor), Investec Bank
-- Played a crucial role in establishing test automation and cloud deployment for the corporate-facing web app (Investex IX).
+- Played a crucial role in establishing test automation and cloud deployment for the corporate-facing web app (Investec IX).
 - Developed new Azure functions for data migration.
 - Contributed to both the frontend and backend of the application in an Agile team environment.
 - Kept the tech stack up to date and introduced new automated testing tools.
