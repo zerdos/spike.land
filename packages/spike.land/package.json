@@ -19,7 +19,7 @@
     "@cloudflare/workers-types": "4.20231121.0",
     "@spike-land/code": "0.9.55",
     "typescript": "5.3.3",
-    "wrangler": "3.20.0"
+    "wrangler": "3.21.0"
   },
   "dependencies": {
     "@types/node": "20.10.4",
@@ -31,7 +31,7 @@
     "immutable": "5.0.0-beta.4",
     "openai-edge": "1.2.2",
     "p-map": "7.0.0",
-    "p-queue": "8.0.0"
+    "p-queue": "8.0.1"
   },
   "publishConfig": {
     "access": "public"
