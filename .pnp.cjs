@@ -2170,7 +2170,7 @@ const RAW_RUNTIME_STATE =
           ["detect-libc", "npm:2.0.2"],\
           ["https-proxy-agent", "npm:5.0.1"],\
           ["make-dir", "npm:3.1.0"],\
-          ["node-fetch", "virtual:9947a2840db2202f5c4e4d40a1cb44fb9e38953e6d82f7075b3c995b1cc12033ca91926f06abdd1cc390bc1881537b06baa02c18d7d68a00ab850669382b4928#npm:2.7.0"],\
+          ["node-fetch", "virtual:ef8a962ccd2bfe20b41c3f8463f63f2610e8637162678aab7a5e93410298f01899ca964118e7e01e63fe4d1cc1d735dd412776745d281eaa14686149e73f4e8d#npm:2.7.0"],\
           ["nopt", "npm:5.0.0"],\
           ["npmlog", "npm:5.0.1"],\
           ["rimraf", "npm:3.0.2"],\
@@ -2595,7 +2595,7 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.3.1"],\
           ["express", "npm:4.18.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "npm:4.22.1"],\
+          ["openai", "npm:4.23.0"],\
           ["p-limit", "npm:5.0.0"],\
           ["simple-git", "npm:3.21.0"]\
         ],\
@@ -9159,7 +9159,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/isomorphic-fetch-npm-3.0.0-bce711adff-10.zip/node_modules/isomorphic-fetch/",\
         "packageDependencies": [\
           ["isomorphic-fetch", "npm:3.0.0"],\
-          ["node-fetch", "virtual:9947a2840db2202f5c4e4d40a1cb44fb9e38953e6d82f7075b3c995b1cc12033ca91926f06abdd1cc390bc1881537b06baa02c18d7d68a00ab850669382b4928#npm:2.7.0"],\
+          ["node-fetch", "virtual:ef8a962ccd2bfe20b41c3f8463f63f2610e8637162678aab7a5e93410298f01899ca964118e7e01e63fe4d1cc1d735dd412776745d281eaa14686149e73f4e8d#npm:2.7.0"],\
           ["whatwg-fetch", "npm:3.6.19"]\
         ],\
         "linkType": "HARD"\
@@ -11027,10 +11027,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:9947a2840db2202f5c4e4d40a1cb44fb9e38953e6d82f7075b3c995b1cc12033ca91926f06abdd1cc390bc1881537b06baa02c18d7d68a00ab850669382b4928#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-a1ead62405/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:ef8a962ccd2bfe20b41c3f8463f63f2610e8637162678aab7a5e93410298f01899ca964118e7e01e63fe4d1cc1d735dd412776745d281eaa14686149e73f4e8d#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-deb09eb600/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:9947a2840db2202f5c4e4d40a1cb44fb9e38953e6d82f7075b3c995b1cc12033ca91926f06abdd1cc390bc1881537b06baa02c18d7d68a00ab850669382b4928#npm:2.7.0"],\
+          ["node-fetch", "virtual:ef8a962ccd2bfe20b41c3f8463f63f2610e8637162678aab7a5e93410298f01899ca964118e7e01e63fe4d1cc1d735dd412776745d281eaa14686149e73f4e8d#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -11412,10 +11412,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.22.1", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.22.1-9947a2840d-10.zip/node_modules/openai/",\
+      ["npm:4.23.0", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.23.0-ef8a962ccd-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.22.1"],\
+          ["openai", "npm:4.23.0"],\
           ["@types/node", "npm:18.19.3"],\
           ["@types/node-fetch", "npm:2.6.9"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -11423,7 +11423,7 @@ const RAW_RUNTIME_STATE =
           ["digest-fetch", "npm:1.3.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:9947a2840db2202f5c4e4d40a1cb44fb9e38953e6d82f7075b3c995b1cc12033ca91926f06abdd1cc390bc1881537b06baa02c18d7d68a00ab850669382b4928#npm:2.7.0"],\
+          ["node-fetch", "virtual:ef8a962ccd2bfe20b41c3f8463f63f2610e8637162678aab7a5e93410298f01899ca964118e7e01e63fe4d1cc1d735dd412776745d281eaa14686149e73f4e8d#npm:2.7.0"],\
           ["web-streams-polyfill", "npm:3.2.1"]\
         ],\
         "linkType": "HARD"\
