@@ -7,12 +7,12 @@ import { stat } from "./memfs";
 import ParentSize from "./ParentSize";
 import type { ParentSizeState } from "./ParentSize";
 import { createRoot } from "./reactDomClient.mjs";
+import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
-import { transpile } from "./shared";
 
-const runtime = require("react-refresh/runtime");
-runtime.injectIntoGlobalHook(window);
+// const runtime = require("react-refresh/runtime");
+// runtime.injectIntoGlobalHook(window);
 
 const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -93,8 +93,13 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
         "</div>",
       ].join("");
 
-      if (signal.aborted) return;
-      if (!data.transpiled) data.transpiled = await transpile({code: data.code, originToUse: location.origin});
+      if (!data.transpiled) {
+        data.transpiled = await transpile({
+          code: data.code,
+          originToUse: location.origin,
+        });
+      }
+
       if (signal.aborted) return;
       const App = await appFactory(data.transpiled);
 
