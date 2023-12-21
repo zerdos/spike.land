@@ -32,11 +32,11 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20231121.0",
+    "@cloudflare/workers-types": "4.20231218.0",
     "@emotion/react": "11.11.1",
     "@playwright/test": "1.40.1",
     "@spike-land/ai-devtools": "workspace:^",
-    "@types/eslint": "8.44.9",
+    "@types/eslint": "8.56.0",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
     "@typescript-eslint/eslint-plugin": "6.15.0",

@@ -56,12 +56,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20231121.0",
+    "@cloudflare/workers-types": "4.20231218.0",
     "@emotion/cache": "11.11.0",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@github/stable-socket": "1.1.0",
-    "@mui/material": "5.15.0",
+    "@mui/material": "5.15.1",
     "@okikio/sharedworker": "1.0.6",
     "@prefresh/core": "1.5.2",
     "@types/isomorphic-fetch": "0.0.39",
