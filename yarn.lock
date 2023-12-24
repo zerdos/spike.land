@@ -495,7 +495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20231218.0":
+"@cloudflare/workers-types@npm:4.20231218.0, @cloudflare/workers-types@npm:^4.20231218.0":
   version: 4.20231218.0
   resolution: "@cloudflare/workers-types@npm:4.20231218.0"
   checksum: f6b84026ec22b4011661287be2fddb3f07157fb8566423081919b7ada73d46a726ca761e5609a68b5ac708113b25888f78d54700e6bd920f8045d98ae284eabd
@@ -674,14 +674,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:11.11.1":
-  version: 11.11.1
-  resolution: "@emotion/react@npm:11.11.1"
+"@emotion/react@npm:11.11.3":
+  version: 11.11.3
+  resolution: "@emotion/react@npm:11.11.3"
   dependencies:
     "@babel/runtime": "npm:^7.18.3"
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/cache": "npm:^11.11.0"
-    "@emotion/serialize": "npm:^1.1.2"
+    "@emotion/serialize": "npm:^1.1.3"
     "@emotion/use-insertion-effect-with-fallbacks": "npm:^1.0.1"
     "@emotion/utils": "npm:^1.2.1"
     "@emotion/weak-memoize": "npm:^0.3.1"
@@ -691,7 +691,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: dfc140718d0a8051a74e51c379226d9de6b19f6a5dd595fb282ef72f4413695a2d012ba919f1e9eeff761c6659e6f7398da8e0e36eb7997a4fdf54cef88644ae
+  checksum: f7b98557b7d5236296dda48c2fc8a6cde4af7399758496e9f710f85a80c7d66fee1830966caabd7b237601bfdaca4e1add8c681d1ae4cc3d497fe88958d541c4
   languageName: node
   linkType: hard
 
@@ -705,6 +705,19 @@ __metadata:
     "@emotion/utils": "npm:^1.2.1"
     csstype: "npm:^3.0.2"
   checksum: 71ed270ee4e9678d6d1c541cb111f8247aef862a28729e511f7036f22b12822e976b5843f5829a1c2a7b959a9728dcac831f39de3084664725eba1345a03b4a0
+  languageName: node
+  linkType: hard
+
+"@emotion/serialize@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@emotion/serialize@npm:1.1.3"
+  dependencies:
+    "@emotion/hash": "npm:^0.9.1"
+    "@emotion/memoize": "npm:^0.8.1"
+    "@emotion/unitless": "npm:^0.8.1"
+    "@emotion/utils": "npm:^1.2.1"
+    csstype: "npm:^3.0.2"
+  checksum: 48d88923663273ae70359bc1a1f30454136716cbe0ddd9664be08e257ce56acedab911f125b627627358e37c9f450bbac3ea09b534ef42f9f67325d47b1e2a7b
   languageName: node
   linkType: hard
 
@@ -1728,7 +1741,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     express: "npm:4.18.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.24.0"
+    openai: "npm:4.24.1"
     p-limit: "npm:5.0.0"
     simple-git: "npm:3.21.0"
   bin:
@@ -1760,7 +1773,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20231218.0"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:20.10.5"
-    ai: "npm:2.2.29"
+    ai: "npm:2.2.30"
     async-mutex: "npm:0.4.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.19.10"
@@ -1780,7 +1793,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20231218.0"
     "@emotion/cache": "npm:11.11.0"
-    "@emotion/react": "npm:11.11.1"
+    "@emotion/react": "npm:11.11.3"
     "@emotion/styled": "npm:11.11.0"
     "@github/stable-socket": "npm:1.1.0"
     "@mui/material": "npm:5.15.1"
@@ -2743,9 +2756,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:2.2.29":
-  version: 2.2.29
-  resolution: "ai@npm:2.2.29"
+"ai@npm:2.2.30":
+  version: 2.2.30
+  resolution: "ai@npm:2.2.30"
   dependencies:
     eventsource-parser: "npm:1.0.0"
     nanoid: "npm:3.3.6"
@@ -2768,7 +2781,7 @@ __metadata:
       optional: true
     vue:
       optional: true
-  checksum: e01b8687d43fe695bea0dada228a327d8532709c5e1b7bdbf2538807bcc10013790f5399f92990a1f598b3376adef947ccbdadff7d806257ddcf1004ea333b3c
+  checksum: 6d1b19ef0baa136ba316be60d23822cea62a3a6db87ab706a02602281661dcf13722ef0c3d0bad5f2270e6956f8de74d5bbcab5d0a9f0d4098be1d6ed07fb0f9
   languageName: node
   linkType: hard
 
@@ -8848,8 +8861,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20231218.0"
-    "@emotion/react": "npm:11.11.1"
+    "@cloudflare/workers-types": "npm:^4.20231218.0"
+    "@emotion/react": "npm:11.11.3"
     "@playwright/test": "npm:1.40.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.0"
@@ -9313,9 +9326,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.24.0":
-  version: 4.24.0
-  resolution: "openai@npm:4.24.0"
+"openai@npm:4.24.1":
+  version: 4.24.1
+  resolution: "openai@npm:4.24.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -9328,7 +9341,7 @@ __metadata:
     web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: be9dbaff3b2e790dfe7b59da402d8866c4164c57ac000d6c4cbc7bdc286faf5411c1f84161d0229791ab920715661d3846585e07fd149f697704ac53fcaf1fe8
+  checksum: 30769c66e62129bfe0e5caedb760d9885019cf69bea9d8bcd370e88b6c32311c81a4d895e84ada96da035b6710dd880d67b747a630369c4e3c2b2a08bc8484e9
   languageName: node
   linkType: hard
 
