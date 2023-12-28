@@ -1735,7 +1735,7 @@ __metadata:
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
     "@types/node": "npm:20.10.5"
-    axios: "npm:1.6.2"
+    axios: "npm:1.6.3"
     body-parser: "npm:1.20.2"
     commander: "npm:11.1.0"
     dotenv: "npm:16.3.1"
@@ -1780,7 +1780,7 @@ __metadata:
     esm-worker: "npm:0.135.3"
     immutable: "npm:5.0.0-beta.4"
     openai-edge: "npm:1.2.2"
-    p-map: "npm:7.0.0"
+    p-map: "npm:7.0.1"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.3.3"
     wrangler: "npm:3.22.1"
@@ -1840,7 +1840,7 @@ __metadata:
     monaco-editor: "npm:0.45.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
-    p-map: "npm:7.0.0"
+    p-map: "npm:7.0.1"
     p2pcf: "npm:1.3.14"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
@@ -3327,14 +3327,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.6.2":
-  version: 1.6.2
-  resolution: "axios@npm:1.6.2"
+"axios@npm:1.6.3":
+  version: 1.6.3
+  resolution: "axios@npm:1.6.3"
   dependencies:
     follow-redirects: "npm:^1.15.0"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 612bc93f8f738a518e7c5f9de9cc782bcd36aac6bae279160ef6a10260378e21c1786520eab3336898e3d66e0839ebdf739f327fb6d0431baa4d3235703a7652
+  checksum: 78e72ec40ee49b85f076758e65d04dd966361cbf82f3789e53c5a1b6814ef57825098f8a997ec1846cf004fb7407655c7b96c496d8133d88ca0f73a98a9c452b
   languageName: node
   linkType: hard
 
@@ -4378,9 +4378,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.6.1":
-  version: 13.6.1
-  resolution: "cypress@npm:13.6.1"
+"cypress@npm:13.6.2":
+  version: 13.6.2
+  resolution: "cypress@npm:13.6.2"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -4427,7 +4427,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 22e3431faf87b31f57a1afbcb92eb8f2bf366468f0a47399545af772a89acc198df2ce80c3d3169e3a82649811ee60685fbd7a512e0ec9ffb9ddbe13f21ecfd0
+  checksum: b6b27f94d98c873cde18a466ab3763e13ee157b78307ae3e3cf93b4fc04cbe1f616c2b7da8cc3354aed1ab2636629ce208533d70bd60cf38ad01675e19e3058d
   languageName: node
   linkType: hard
 
@@ -8873,7 +8873,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:6.16.0"
     "@yarnpkg/sdks": "npm:3.1.0"
     constants: "npm:0.0.2"
-    cypress: "npm:13.6.1"
+    cypress: "npm:13.6.2"
     dprint: "npm:0.45.0"
     eslint: "npm:8.56.0"
     eslint-plugin-react: "npm:7.33.2"
@@ -9452,10 +9452,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:7.0.0":
-  version: 7.0.0
-  resolution: "p-map@npm:7.0.0"
-  checksum: 2ff3cdf6de518e5c714172ed704bb567b097f94d3ee865e92fbe110e038322826d48205c779b5e35062568815b2a1e7d75928d7c74ce8d3840aa820c10ce32ca
+"p-map@npm:7.0.1":
+  version: 7.0.1
+  resolution: "p-map@npm:7.0.1"
+  checksum: df984b759764ebb268887ac0dec9f4b9c29c89dffb66cb001f31cab8a204db26e0f044783bc39ae1c225e2c0ad0b9c4d70a0ef8219dbb2588dc715d11cec433b
   languageName: node
   linkType: hard
 

@@ -30,7 +30,7 @@
     "esm-worker": "0.135.3",
     "immutable": "5.0.0-beta.4",
     "openai-edge": "1.2.2",
-    "p-map": "7.0.0",
+    "p-map": "7.0.1",
     "p-queue": "8.0.1"
   },
   "publishConfig": {
