@@ -2,6 +2,7 @@ import { Configuration, OpenAIApi } from "openai";
 import simpleGit from "simple-git";
 
 const configuration = new Configuration({
+  // eslint-disable-next-line no-undef
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
@@ -66,5 +67,5 @@ git.diff(["--cached", "--name-only"])
     );
   })
   .catch((err) => {
-    console.error("err3");
+    console.error("err3", {err});
   });

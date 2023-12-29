@@ -60,11 +60,11 @@ if ("serviceWorker" in navigator) {
 // Create directories for the code space
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
-
+mkdir("/live").then(async() => await mkdir(`/live/${codeSpace}`)).then(
+async() =>{
 // Check if on live page, and if so, run the code
 if (location.pathname === `/live/${codeSpace}`) {
-  run();
+  await run();
 } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
@@ -82,8 +82,14 @@ if (location.pathname === `/live/${codeSpace}`) {
   };
 } else {
   // Render the code
-  render(
+  await render(
     document.getElementById(`${codeSpace}-css`)!,
     codeSpace,
   );
 }
+
+}
+
+);
+
+
