@@ -1,11 +1,10 @@
 // Import necessary modules
 import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
-import { run } from "./ws";
 
 import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
-import { render } from "./render";
+
 
 // Set up service worker version
 const { swVersion } = self;
@@ -60,11 +59,11 @@ if ("serviceWorker" in navigator) {
 // Create directories for the code space
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-mkdir("/live").then(async() => await mkdir(`/live/${codeSpace}`)).then(
-async() =>{
+mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
+
 // Check if on live page, and if so, run the code
 if (location.pathname === `/live/${codeSpace}`) {
-  await run();
+  import("./ws").then(({run})=>run());
 } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
@@ -82,14 +81,9 @@ if (location.pathname === `/live/${codeSpace}`) {
   };
 } else {
   // Render the code
-  await render(
+  //import { render } from "./render";
+  import("./render").then(({render})=>render(
     document.getElementById(`${codeSpace}-css`)!,
     codeSpace,
-  );
+  ));
 }
-
-}
-
-);
-
-

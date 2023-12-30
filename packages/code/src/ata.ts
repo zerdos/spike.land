@@ -81,7 +81,7 @@ export async function ata(
   );
 
   const extras = [{
-    filePath: `${location.origin}/@emotion/react/css-prop.d.ts`,
+    filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
     content: `import {} from 'react'
   import { Interpolation } from '@emotion/serialize'
   import { Theme } from '.'
@@ -92,10 +92,10 @@ export async function ata(
     }
   }`,
   }, {
-    filePath: `${location.origin}/@emotion/react/jsx-runtime.d.ts`,
+    filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
     content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
   }, {
-    filePath: `${location.origin}/@emotion/react/jsx-dev-runtime.d.ts`,
+    filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
     content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
   }];
 
@@ -121,7 +121,7 @@ export async function ata(
   return [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y));
 
   async function ata(code: string, baseUrl: string) {
-    // const { tsx } = await import(`${location.origin}/live/w/index.js`);
+    // const { tsx } = await import(`${originToUse}/live/w/index.js`);
     //  const detective = (await import("https://esm.sh/*detective-typescript?bundle&target=es2020&keep-names=true&dev=true")).default
     // let res = tsx(prettierJs(prettierJs(code).split(`/// <reference path="`).map(x=> {
     //   const xx = x.split(`"`);
@@ -159,7 +159,7 @@ export async function ata(
         : r.indexOf("https://") !== -1
         ? r
         : ((r.indexOf("data:text/javascript") === -1)
-          && await fetch(`${location.origin}/*${r}?bundle`, { redirect: "follow" })
+          && await fetch(`${originToUse}/*${r}?bundle`, { redirect: "follow" })
             .then(
               async (res) =>
                 res.headers.get("X-typescript-types")

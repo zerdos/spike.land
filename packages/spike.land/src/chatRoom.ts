@@ -219,6 +219,22 @@ export class Code implements DurableObject {
 
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
+          // case "ata": {
+          //   const {prettierJs} = await import("../../code/src/prettierEsm");
+          //   const {ata} = await import("../../code/src/ata");
+          //   const resp = JSON.stringify(await ata({code, originToUse: this.#origin , prettierJs}));
+          //   return new Response(resp, {
+          //     status: 200,
+          //     headers: {
+          //       "Access-Control-Allow-Origin": "*",
+          //       "Cross-Origin-Embedder-Policy": "require-corp",
+          //       "Cache-Control": "no-cache",
+          //       "Content-Encoding": "gzip",
+          //       content_hash: md5(resp),
+          //       "Content-Type": "application/json; charset=UTF-8",
+          //     },
+          //   });
+          // }
           case "code":
           case "index.tsx": {
             return new Response(code, {

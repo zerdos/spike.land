@@ -9,7 +9,7 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler deploy --env=testing ../code/dist/cf-workers.mjs",
+    "deploy:dev": "wrangler deploy --env=testing --minify ../code/dist/cf-workers.mjs",
     "prepublishOnly": "wrangler deploy ../code/dist/cf-workers.mjs",
     "predeploy": "yarn x:build",
     "x:build": "echo ok"
@@ -22,11 +22,11 @@
     "wrangler": "3.22.1"
   },
   "dependencies": {
-    "@types/node": "20.10.5",
+    "@types/node": "20.10.6",
     "ai": "2.2.30",
     "async-mutex": "0.4.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.19.10",
+    "esbuild-wasm": "0.19.11",
     "esm-worker": "0.135.3",
     "immutable": "5.0.0-beta.4",
     "openai-edge": "1.2.2",
