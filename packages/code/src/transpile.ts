@@ -21,7 +21,7 @@ declare const self:
 
 const mod = self.mod = self.mod
   || {
-    init: false as (boolean | Promise<void> | NodeJS.Timeout),
+    init: false as (boolean | Promise<void> | NodeJS.Timeout ),
     initialize: (wasmModule: WebAssembly.Module) =>
       (self.mod.init as boolean) || initialize({
         wasmModule,
@@ -42,12 +42,11 @@ export const cjs = async (code: string) => {
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
-        useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "chrome88",
+    target: "es2022",
   });
   return cjs;
 };
@@ -98,12 +97,11 @@ export const transpile = async (
     tsconfigRaw: {
       compilerOptions: {
         jsx: "react-jsx",
-        useDefineForClassFields: false,
         jsxFragmentFactory: "Fragment",
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "chrome88",
+    target: "es2022",
   }).then((x) => importMapReplace(x.code, origin));
 };
 
@@ -196,7 +194,7 @@ export const build = async (
     //  ...importMap.imports,
     // },
 
-    target: "esnext",
+    target: "es2022",
     outdir: `${origin}/live/${codeSpace}/`,
     treeShaking: true,
     bundle: true,

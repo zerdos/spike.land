@@ -12,7 +12,6 @@
     "declaration": true,
     "noEmit": true,
     "checkJs": false,
-    "useDefineForClassFields": false,
     "outDir": "dist",
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
@@ -60,7 +59,7 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": false, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "target": "ESNext",
+    "target": "es2022",
     "lib": [
       "ESNext",
       "DOM",
@@ -71,7 +70,7 @@
       "WebWorker.ImportScripts",
       "Webworker.Iterable"
     ],
-    "types": ["@cloudflare/workers-types", "@types/wicg-file-system-access", "@types/jest"]
+    "types": ["@cloudflare/workers-types", "@types/wicg-file-system-access", "@types/jest", "node"]
   },
   "include": [
     "src",

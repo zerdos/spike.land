@@ -315,7 +315,7 @@ async function startMonacoPristine(
     },
 
     automaticLayout: true,
-
+    links: false,
     useShadowDOM: false,
     tabSize: 2,
     insertSpaces: true,
