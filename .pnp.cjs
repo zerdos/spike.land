@@ -2581,7 +2581,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/node", "npm:20.10.6"],\
-          ["axios", "npm:1.6.3"],\
+          ["axios", "npm:1.6.4"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.1.0"],\
           ["dotenv", "npm:16.3.1"],\
@@ -4572,11 +4572,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["axios", [\
-      ["npm:1.6.3", {\
-        "packageLocation": "./.yarn/global/cache/axios-npm-1.6.3-9277f36de0-10.zip/node_modules/axios/",\
+      ["npm:1.6.4", {\
+        "packageLocation": "./.yarn/global/cache/axios-npm-1.6.4-27c7f05730-10.zip/node_modules/axios/",\
         "packageDependencies": [\
-          ["axios", "npm:1.6.3"],\
-          ["follow-redirects", "virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.4"],\
+          ["axios", "npm:1.6.4"],\
+          ["follow-redirects", "virtual:27c7f05730106654135928f3127b1630b42850fc1970cfbbd4f84a3e27fac87c73bfdd899eb2d41f55c61fe416a3330b56ed1e56aec4be1e3b4a2982f32f3909#npm:1.15.4"],\
           ["form-data", "npm:4.0.0"],\
           ["proxy-from-env", "npm:1.1.0"]\
         ],\
@@ -7441,10 +7441,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.4", {\
-        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-49b4a80ff9/0/global/cache/follow-redirects-npm-1.15.4-3384d6a415-10.zip/node_modules/follow-redirects/",\
+      ["virtual:27c7f05730106654135928f3127b1630b42850fc1970cfbbd4f84a3e27fac87c73bfdd899eb2d41f55c61fe416a3330b56ed1e56aec4be1e3b4a2982f32f3909#npm:1.15.4", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-8db6281d15/0/global/cache/follow-redirects-npm-1.15.4-3384d6a415-10.zip/node_modules/follow-redirects/",\
         "packageDependencies": [\
-          ["follow-redirects", "virtual:9277f36de0de51601211a12a2dcaba6488d347002383dc5cdedd739edff124fcfe82505dc1a85b8b6809cad1691f45361146fefc471f868c27c0e0a8b4b76609#npm:1.15.4"],\
+          ["follow-redirects", "virtual:27c7f05730106654135928f3127b1630b42850fc1970cfbbd4f84a3e27fac87c73bfdd899eb2d41f55c61fe416a3330b56ed1e56aec4be1e3b4a2982f32f3909#npm:1.15.4"],\
           ["@types/debug", null],\
           ["debug", null]\
         ],\
