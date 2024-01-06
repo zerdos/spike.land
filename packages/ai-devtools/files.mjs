@@ -67,5 +67,5 @@ git.diff(["--cached", "--name-only"])
     );
   })
   .catch((err) => {
-    console.error("err3", {err});
+    console.error("err3", { err });
   });

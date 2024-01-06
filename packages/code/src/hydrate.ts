@@ -5,7 +5,6 @@ import { getPort, init } from "./shared";
 import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
 
-
 // Set up service worker version
 const { swVersion } = self;
 export const sw = new Workbox(`/sw.js`);
@@ -63,7 +62,7 @@ mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
 
 // Check if on live page, and if so, run the code
 if (location.pathname === `/live/${codeSpace}`) {
-  import("./ws").then(({run})=>run());
+  import("./ws").then(({ run }) => run());
 } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
@@ -81,9 +80,11 @@ if (location.pathname === `/live/${codeSpace}`) {
   };
 } else {
   // Render the code
-  //import { render } from "./render";
-  import("./render").then(({render})=>render(
-    document.getElementById(`${codeSpace}-css`)!,
-    codeSpace,
-  ));
+  // import { render } from "./render";
+  import("./render").then(({ render }) =>
+    render(
+      document.getElementById(`${codeSpace}-css`)!,
+      codeSpace,
+    )
+  );
 }
