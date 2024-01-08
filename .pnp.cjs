@@ -2577,7 +2577,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.10.6"],\
+          ["@types/node", "npm:20.10.7"],\
           ["axios", "npm:1.6.5"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:11.1.0"],\
@@ -2628,7 +2628,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jest", "npm:29.5.11"],\
           ["@types/lodash.debounce", "npm:4.0.9"],\
           ["@types/lodash.throttle", "npm:4.1.9"],\
-          ["@types/node", "npm:20.10.6"],\
+          ["@types/node", "npm:20.10.7"],\
           ["@types/react", "npm:18.2.47"],\
           ["@types/react-dom", "npm:18.2.18"],\
           ["@types/uuid", "npm:9.0.7"],\
@@ -2651,7 +2651,7 @@ const RAW_RUNTIME_STATE =
           ["events", "npm:3.3.0"],\
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:5.0.6"],\
-          ["file-type", "npm:18.7.0"],\
+          ["file-type", "npm:19.0.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:10.17.9"],\
           ["immutable", "npm:5.0.0-beta.4"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
@@ -2702,7 +2702,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
           ["@cloudflare/workers-types", "npm:4.20231218.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:20.10.6"],\
+          ["@types/node", "npm:20.10.7"],\
           ["ai", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.2.31"],\
           ["async-mutex", "npm:0.4.0"],\
           ["avl", "npm:1.5.3"],\
@@ -2733,7 +2733,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.10.6"],\
+          ["@types/node", "npm:20.10.7"],\
           ["esbuild-wasm", "npm:0.19.11"]\
         ],\
         "linkType": "SOFT"\
@@ -3083,6 +3083,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.10.6-59a7d708ba-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.10.6"],\
+          ["undici-types", "npm:5.26.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.10.7", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.10.7-2d1f5de3e9-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.10.7"],\
           ["undici-types", "npm:5.26.5"]\
         ],\
         "linkType": "HARD"\
@@ -7026,10 +7034,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["file-type", [\
-      ["npm:18.7.0", {\
-        "packageLocation": "./.yarn/global/cache/file-type-npm-18.7.0-b585ca87df-10.zip/node_modules/file-type/",\
+      ["npm:19.0.0", {\
+        "packageLocation": "./.yarn/global/cache/file-type-npm-19.0.0-4bd3efdf69-10.zip/node_modules/file-type/",\
         "packageDependencies": [\
-          ["file-type", "npm:18.7.0"],\
+          ["file-type", "npm:19.0.0"],\
           ["readable-web-to-node-stream", "npm:3.0.2"],\
           ["strtok3", "npm:7.0.0"],\
           ["token-types", "npm:5.0.1"]\
