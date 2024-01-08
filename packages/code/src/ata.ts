@@ -1,5 +1,21 @@
-import { tsx } from "detective-typescript";
+//import { tsx } from "detective-typescript";
+  import { tsx } from "detective-typescript";
 
+
+// export async function ata(
+//   { code, originToUse, prettierJs }: {
+//     code: string;
+//     originToUse: string;
+//     prettierJs: (code: string) => Promise<string>;
+//   },
+// ) {
+//   process.cwd = () => "/";
+
+//   console.log(`ATA run: ${originToUse} ${code}`);
+
+//   const impRes: {
+//     [ref: string]: { url: string | null; content: string; ref: string };
+//   } = {};
 export async function ata(
   { code, originToUse, prettierJs }: {
     code: string;
@@ -8,22 +24,22 @@ export async function ata(
   },
 ) {
   process.cwd = () => "/";
-
-  console.log(`ATA run: ${originToUse} ${code}`);
+ console.log 
+  // console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: {
     [ref: string]: { url: string | null; content: string; ref: string };
   } = {};
 
-  // console.log(
-  await ata(
-    `/** @jsx jsx */
-      import { jsx } from "@emotion/react";
+//   // console.log(
+//   await ata(
+//     `/** @jsx jsx */
+//       import { jsx } from "@emotion/react";
 
       
-      ${code}`,
-    originToUse,
-  );
+//       ${code}`,
+//     originToUse,
+//   );
 
   // );
 
