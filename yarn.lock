@@ -1826,7 +1826,7 @@ __metadata:
     re-resizable: "npm:6.9.11"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
-    react-icons: "npm:5.0.0"
+    react-icons: "npm:5.0.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.0"
     react-reverse-portal: "npm:2.1.1"
@@ -10100,12 +10100,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:5.0.0":
-  version: 5.0.0
-  resolution: "react-icons@npm:5.0.0"
+"react-icons@npm:5.0.1":
+  version: 5.0.1
+  resolution: "react-icons@npm:5.0.1"
   peerDependencies:
     react: "*"
-  checksum: d0afbe7d7efdcd1e933a521482964f8431caa0db90657b7f0130bf5aefcb9f523aea9c15d7c2e6065d9095be462a36ee818801e20aa52a0ae1d0a052b5dbed0a
+  checksum: c4458c643ae32a793ddebc5fa1235c7ec051be1b131205510e8199d15a4c89221a501f95a71fa21c2da93e8dd225290e2e24bb80abd3fb85801e43009e692098
   languageName: node
   linkType: hard
 
