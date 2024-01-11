@@ -181,7 +181,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
               }}
               animate={{
                 height: window.innerHeight * scale,
-                width: window.innerWidth * scale,
+                width: width * scale,
               }}
             >
               <motion.div
@@ -202,7 +202,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 }}
                 animate={{
                   height: window.innerHeight,
-                  width: window.innerWidth,
+                  width: width,
                   scale: 1 * scale,
                 }}
               >
@@ -228,6 +228,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 exclusive
                 onChange={(_e: unknown, newSize: number) => {
                   if (newSize) {
+                    console.log(newSize)
                     setWidth(newSize);
                   }
                 }}
