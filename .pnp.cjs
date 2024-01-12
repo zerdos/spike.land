@@ -3766,10 +3766,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["acorn-walk", [\
-      ["npm:8.3.1", {\
-        "packageLocation": "./.yarn/global/cache/acorn-walk-npm-8.3.1-2a7e2dbd77-10.zip/node_modules/acorn-walk/",\
+      ["npm:8.3.2", {\
+        "packageLocation": "./.yarn/global/cache/acorn-walk-npm-8.3.2-df039a42bf-10.zip/node_modules/acorn-walk/",\
         "packageDependencies": [\
-          ["acorn-walk", "npm:8.3.1"]\
+          ["acorn-walk", "npm:8.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4392,7 +4392,7 @@ const RAW_RUNTIME_STATE =
           ["@types/ava__typescript", null],\
           ["@vercel/nft", "npm:0.24.4"],\
           ["acorn", "npm:8.11.3"],\
-          ["acorn-walk", "npm:8.3.1"],\
+          ["acorn-walk", "npm:8.3.2"],\
           ["ansi-styles", "npm:6.2.1"],\
           ["arrgv", "npm:1.0.2"],\
           ["arrify", "npm:3.0.0"],\
@@ -4479,7 +4479,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/axios-npm-1.6.5-87404a12d6-10.zip/node_modules/axios/",\
         "packageDependencies": [\
           ["axios", "npm:1.6.5"],\
-          ["follow-redirects", "virtual:87404a12d617a0f284f46fa368966665b2913bbd41d7ad24d282540aefa3360d8754e9717ae9b8aa4b57d1893372657e94658e9e39b9d068bbcf6ea38c2ceb2f#npm:1.15.4"],\
+          ["follow-redirects", "virtual:87404a12d617a0f284f46fa368966665b2913bbd41d7ad24d282540aefa3360d8754e9717ae9b8aa4b57d1893372657e94658e9e39b9d068bbcf6ea38c2ceb2f#npm:1.15.5"],\
           ["form-data", "npm:4.0.0"],\
           ["proxy-from-env", "npm:1.1.0"]\
         ],\
@@ -4821,7 +4821,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["browserslist", "npm:4.22.2"],\
           ["caniuse-lite", "npm:1.0.30001576"],\
-          ["electron-to-chromium", "npm:1.4.628"],\
+          ["electron-to-chromium", "npm:1.4.629"],\
           ["node-releases", "npm:2.0.14"],\
           ["update-browserslist-db", "virtual:87e70d802146e5a0e8f2a12b5ab64004040c6640441dba54229a7db766cb1b88edabd3d3c814ce33d6ba839c4e517b12e9b0a7febfca22ac2a64177042bf3ee6#npm:1.0.13"]\
         ],\
@@ -6220,10 +6220,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["electron-to-chromium", [\
-      ["npm:1.4.628", {\
-        "packageLocation": "./.yarn/global/cache/electron-to-chromium-npm-1.4.628-c01da12faa-10.zip/node_modules/electron-to-chromium/",\
+      ["npm:1.4.629", {\
+        "packageLocation": "./.yarn/global/cache/electron-to-chromium-npm-1.4.629-b3d2460fb3-10.zip/node_modules/electron-to-chromium/",\
         "packageDependencies": [\
-          ["electron-to-chromium", "npm:1.4.628"]\
+          ["electron-to-chromium", "npm:1.4.629"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -6376,7 +6376,7 @@ const RAW_RUNTIME_STATE =
           ["object.assign", "npm:4.1.5"],\
           ["regexp.prototype.flags", "npm:1.5.1"],\
           ["safe-array-concat", "npm:1.0.1"],\
-          ["safe-regex-test", "npm:1.0.1"],\
+          ["safe-regex-test", "npm:1.0.2"],\
           ["string.prototype.trim", "npm:1.2.8"],\
           ["string.prototype.trimend", "npm:1.0.7"],\
           ["string.prototype.trimstart", "npm:1.0.7"],\
@@ -7337,17 +7337,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["follow-redirects", [\
-      ["npm:1.15.4", {\
-        "packageLocation": "./.yarn/global/cache/follow-redirects-npm-1.15.4-3384d6a415-10.zip/node_modules/follow-redirects/",\
+      ["npm:1.15.5", {\
+        "packageLocation": "./.yarn/global/cache/follow-redirects-npm-1.15.5-9d14db76ca-10.zip/node_modules/follow-redirects/",\
         "packageDependencies": [\
-          ["follow-redirects", "npm:1.15.4"]\
+          ["follow-redirects", "npm:1.15.5"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:87404a12d617a0f284f46fa368966665b2913bbd41d7ad24d282540aefa3360d8754e9717ae9b8aa4b57d1893372657e94658e9e39b9d068bbcf6ea38c2ceb2f#npm:1.15.4", {\
-        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-74c4962fb5/0/global/cache/follow-redirects-npm-1.15.4-3384d6a415-10.zip/node_modules/follow-redirects/",\
+      ["virtual:87404a12d617a0f284f46fa368966665b2913bbd41d7ad24d282540aefa3360d8754e9717ae9b8aa4b57d1893372657e94658e9e39b9d068bbcf6ea38c2ceb2f#npm:1.15.5", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-1897902bf4/0/global/cache/follow-redirects-npm-1.15.5-9d14db76ca-10.zip/node_modules/follow-redirects/",\
         "packageDependencies": [\
-          ["follow-redirects", "virtual:87404a12d617a0f284f46fa368966665b2913bbd41d7ad24d282540aefa3360d8754e9717ae9b8aa4b57d1893372657e94658e9e39b9d068bbcf6ea38c2ceb2f#npm:1.15.4"],\
+          ["follow-redirects", "virtual:87404a12d617a0f284f46fa368966665b2913bbd41d7ad24d282540aefa3360d8754e9717ae9b8aa4b57d1893372657e94658e9e39b9d068bbcf6ea38c2ceb2f#npm:1.15.5"],\
           ["@types/debug", null],\
           ["debug", null]\
         ],\
@@ -10617,7 +10617,7 @@ const RAW_RUNTIME_STATE =
           ["miniflare", "npm:3.20231218.1"],\
           ["@cspotcode/source-map-support", "npm:0.8.1"],\
           ["acorn", "npm:8.11.3"],\
-          ["acorn-walk", "npm:8.3.1"],\
+          ["acorn-walk", "npm:8.3.2"],\
           ["capnp-ts", "npm:0.7.0"],\
           ["exit-hook", "npm:2.2.1"],\
           ["glob-to-regexp", "npm:0.4.1"],\
@@ -12894,10 +12894,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["safe-regex-test", [\
-      ["npm:1.0.1", {\
-        "packageLocation": "./.yarn/global/cache/safe-regex-test-npm-1.0.1-61b42bb704-10.zip/node_modules/safe-regex-test/",\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/global/cache/safe-regex-test-npm-1.0.2-e7d7164d44-10.zip/node_modules/safe-regex-test/",\
         "packageDependencies": [\
-          ["safe-regex-test", "npm:1.0.1"],\
+          ["safe-regex-test", "npm:1.0.2"],\
           ["call-bind", "npm:1.0.5"],\
           ["get-intrinsic", "npm:1.2.2"],\
           ["is-regex", "npm:1.1.4"]\
