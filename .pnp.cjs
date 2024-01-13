@@ -2162,7 +2162,7 @@ const RAW_RUNTIME_STATE =
           ["detect-libc", "npm:2.0.2"],\
           ["https-proxy-agent", "npm:5.0.1"],\
           ["make-dir", "npm:3.1.0"],\
-          ["node-fetch", "virtual:83fbf3afbbd61b61e603fda66ace00508c5bd9c2c09c475e22af95ae632f1817c4535df7c9534f333830a15199c9902daa13b23a2cec7335217790870015f3b7#npm:2.7.0"],\
+          ["node-fetch", "virtual:f178d5da4bcd6ec31810cffa5111d9e508e33434d33ad942627aa5744f8747fa39f9b3757b7cb7ad6a8748afaaa0762e82e5bade734fccf706c89f945eb8537a#npm:2.7.0"],\
           ["nopt", "npm:5.0.0"],\
           ["npmlog", "npm:5.0.1"],\
           ["rimraf", "npm:3.0.2"],\
@@ -2587,7 +2587,7 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.3.1"],\
           ["express", "npm:4.18.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "npm:4.24.4"],\
+          ["openai", "npm:4.24.7"],\
           ["p-limit", "npm:5.0.0"],\
           ["simple-git", "npm:3.22.0"]\
         ],\
@@ -2671,7 +2671,7 @@ const RAW_RUNTIME_STATE =
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
           ["preact", "npm:10.19.3"],\
-          ["prettier", "npm:3.1.1"],\
+          ["prettier", "npm:3.2.1"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.11"],\
           ["react", "npm:18.2.0"],\
@@ -9046,7 +9046,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/isomorphic-fetch-npm-3.0.0-bce711adff-10.zip/node_modules/isomorphic-fetch/",\
         "packageDependencies": [\
           ["isomorphic-fetch", "npm:3.0.0"],\
-          ["node-fetch", "virtual:83fbf3afbbd61b61e603fda66ace00508c5bd9c2c09c475e22af95ae632f1817c4535df7c9534f333830a15199c9902daa13b23a2cec7335217790870015f3b7#npm:2.7.0"],\
+          ["node-fetch", "virtual:f178d5da4bcd6ec31810cffa5111d9e508e33434d33ad942627aa5744f8747fa39f9b3757b7cb7ad6a8748afaaa0762e82e5bade734fccf706c89f945eb8537a#npm:2.7.0"],\
           ["whatwg-fetch", "npm:3.6.20"]\
         ],\
         "linkType": "HARD"\
@@ -10914,10 +10914,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:83fbf3afbbd61b61e603fda66ace00508c5bd9c2c09c475e22af95ae632f1817c4535df7c9534f333830a15199c9902daa13b23a2cec7335217790870015f3b7#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-1fe0f16dcf/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:f178d5da4bcd6ec31810cffa5111d9e508e33434d33ad942627aa5744f8747fa39f9b3757b7cb7ad6a8748afaaa0762e82e5bade734fccf706c89f945eb8537a#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-17f3d39e9d/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:83fbf3afbbd61b61e603fda66ace00508c5bd9c2c09c475e22af95ae632f1817c4535df7c9534f333830a15199c9902daa13b23a2cec7335217790870015f3b7#npm:2.7.0"],\
+          ["node-fetch", "virtual:f178d5da4bcd6ec31810cffa5111d9e508e33434d33ad942627aa5744f8747fa39f9b3757b7cb7ad6a8748afaaa0762e82e5bade734fccf706c89f945eb8537a#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -11299,10 +11299,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.24.4", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.24.4-83fbf3afbb-10.zip/node_modules/openai/",\
+      ["npm:4.24.7", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.24.7-f178d5da4b-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.24.4"],\
+          ["openai", "npm:4.24.7"],\
           ["@types/node", "npm:18.19.6"],\
           ["@types/node-fetch", "npm:2.6.10"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -11310,7 +11310,7 @@ const RAW_RUNTIME_STATE =
           ["digest-fetch", "npm:1.3.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:83fbf3afbbd61b61e603fda66ace00508c5bd9c2c09c475e22af95ae632f1817c4535df7c9534f333830a15199c9902daa13b23a2cec7335217790870015f3b7#npm:2.7.0"],\
+          ["node-fetch", "virtual:f178d5da4bcd6ec31810cffa5111d9e508e33434d33ad942627aa5744f8747fa39f9b3757b7cb7ad6a8748afaaa0762e82e5bade734fccf706c89f945eb8537a#npm:2.7.0"],\
           ["web-streams-polyfill", "npm:3.3.2"]\
         ],\
         "linkType": "HARD"\
@@ -11887,10 +11887,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["prettier", [\
-      ["npm:3.1.1", {\
-        "packageLocation": "./.yarn/unplugged/prettier-npm-3.1.1-072c31ec21/node_modules/prettier/",\
+      ["npm:3.2.1", {\
+        "packageLocation": "./.yarn/unplugged/prettier-npm-3.2.1-b8f2326238/node_modules/prettier/",\
         "packageDependencies": [\
-          ["prettier", "npm:3.1.1"]\
+          ["prettier", "npm:3.2.1"]\
         ],\
         "linkType": "HARD"\
       }]\
