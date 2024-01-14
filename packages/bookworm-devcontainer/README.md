@@ -6,5 +6,5 @@
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!
-- Deno: 1.38.5
+- Deno: 1.39.0
 - github: https://github.com/zerdos/spike.land
