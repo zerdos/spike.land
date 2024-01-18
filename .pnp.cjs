@@ -97,7 +97,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20231218.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.3"],\
           ["@playwright/test", "npm:1.41.0"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
@@ -997,10 +997,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cloudflare/workers-types", [\
-      ["npm:4.20231218.0", {\
-        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20231218.0-cd08006b63-10.zip/node_modules/@cloudflare/workers-types/",\
+      ["npm:4.20240117.0", {\
+        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20240117.0-2e3fac5712-10.zip/node_modules/@cloudflare/workers-types/",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20231218.0"]\
+          ["@cloudflare/workers-types", "npm:4.20240117.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2619,7 +2619,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/code/",\
         "packageDependencies": [\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@cloudflare/workers-types", "npm:4.20231218.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.3"],\
           ["@emotion/styled", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.11.0"],\
@@ -2641,7 +2641,7 @@ const RAW_RUNTIME_STATE =
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:5.0.0"],\
-          ["async-mutex", "npm:0.4.0"],\
+          ["async-mutex", "npm:0.4.1"],\
           ["ava", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.0.1"],\
           ["avl", "npm:1.5.3"],\
           ["buffer", "npm:6.0.3"],\
@@ -2703,11 +2703,11 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
-          ["@cloudflare/workers-types", "npm:4.20231218.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
           ["@types/node", "npm:20.11.5"],\
           ["ai", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.2.31"],\
-          ["async-mutex", "npm:0.4.0"],\
+          ["async-mutex", "npm:0.4.1"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.19.11"],\
           ["esm-worker", "npm:0.135.4"],\
@@ -2843,7 +2843,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
-          ["@cloudflare/workers-types", "npm:4.20231218.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["esbuild-wasm", "npm:0.19.11"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
           ["wrangler", "npm:3.22.5"]\
@@ -4339,10 +4339,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["async-mutex", [\
-      ["npm:0.4.0", {\
-        "packageLocation": "./.yarn/global/cache/async-mutex-npm-0.4.0-f5a25d4255-10.zip/node_modules/async-mutex/",\
+      ["npm:0.4.1", {\
+        "packageLocation": "./.yarn/global/cache/async-mutex-npm-0.4.1-c82a3de01f-10.zip/node_modules/async-mutex/",\
         "packageDependencies": [\
-          ["async-mutex", "npm:0.4.0"],\
+          ["async-mutex", "npm:0.4.1"],\
           ["tslib", "npm:2.6.2"]\
         ],\
         "linkType": "HARD"\
@@ -10810,7 +10810,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["monorepo", "workspace:."],\
-          ["@cloudflare/workers-types", "npm:4.20231218.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.3"],\
           ["@playwright/test", "npm:1.41.0"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\

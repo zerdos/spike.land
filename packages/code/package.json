@@ -56,7 +56,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20231218.0",
+    "@cloudflare/workers-types": "4.20240117.0",
     "@emotion/cache": "11.11.0",
     "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",
@@ -71,7 +71,7 @@
     "assert": "2.1.0",
     "assert-browserify": "2.0.0",
     "ast-module-types": "5.0.0",
-    "async-mutex": "0.4.0",
+    "async-mutex": "0.4.1",
     "ava": "6.0.1",
     "avl": "1.5.3",
     "buffer": "6.0.3",
