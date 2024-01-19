@@ -433,12 +433,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/kv-asset-handler@npm:0.3.0":
-  version: 0.3.0
-  resolution: "@cloudflare/kv-asset-handler@npm:0.3.0"
+"@cloudflare/kv-asset-handler@npm:0.3.1":
+  version: 0.3.1
+  resolution: "@cloudflare/kv-asset-handler@npm:0.3.1"
   dependencies:
     mime: "npm:^3.0.0"
-  checksum: 92a28e39fc1c2efc81b32cecd19ed748e91180cc3854e749b9d1f6c25bb4a10c7ff3a260d3b953de334d9101adad8633274ed84bdd55ebfff1d31114dbbfd803
+  checksum: 4238acf8ecaf61ab2350f686e2a0e4b011b14fe9a657960063c0064557a7c42f39f1c3db4ff01516697466f583b08ac34b16c319f6556385aac3108cc388a23d
   languageName: node
   linkType: hard
 
@@ -1747,7 +1747,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@cloudflare/kv-asset-handler": "npm:0.3.0"
+    "@cloudflare/kv-asset-handler": "npm:0.3.1"
     "@cloudflare/workers-types": "npm:4.20240117.0"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:20.11.5"
@@ -1761,7 +1761,7 @@ __metadata:
     p-map: "npm:7.0.1"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.3.3"
-    wrangler: "npm:3.22.5"
+    wrangler: "npm:3.23.0"
   languageName: unknown
   linkType: soft
 
@@ -1937,11 +1937,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
-    "@cloudflare/kv-asset-handler": "npm:0.3.0"
+    "@cloudflare/kv-asset-handler": "npm:0.3.1"
     "@cloudflare/workers-types": "npm:4.20240117.0"
     esbuild-wasm: "npm:0.19.11"
     typescript: "npm:5.3.3"
-    wrangler: "npm:3.22.5"
+    wrangler: "npm:3.23.0"
   languageName: unknown
   linkType: soft
 
@@ -12441,9 +12441,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.22.5":
-  version: 3.22.5
-  resolution: "wrangler@npm:3.22.5"
+"wrangler@npm:3.23.0":
+  version: 3.23.0
+  resolution: "wrangler@npm:3.23.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12466,7 +12466,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 7a4697d6a162ff658fe1091f76dd35fdfe22d7121c0f86273611649b2382cbea89cf024b6025598aadc1dfe23e16855792f7b952a44e1d4d37af0517c02fc857
+  checksum: 14bea49d47eb6955d9930ddbec8e33446251ac7ec75be822c1a98be0981b9d92c8d31a643eaa18edcda0205c0d63557f8c405bd7e6585f51f2a4a00faa7c4607
   languageName: node
   linkType: hard
 

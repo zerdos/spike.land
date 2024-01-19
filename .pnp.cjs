@@ -942,10 +942,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:0.3.0", {\
-        "packageLocation": "./.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.3.0-982933551f-10.zip/node_modules/@cloudflare/kv-asset-handler/",\
+      ["npm:0.3.1", {\
+        "packageLocation": "./.yarn/global/cache/@cloudflare-kv-asset-handler-npm-0.3.1-aa905170a3-10.zip/node_modules/@cloudflare/kv-asset-handler/",\
         "packageDependencies": [\
-          ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
+          ["@cloudflare/kv-asset-handler", "npm:0.3.1"],\
           ["mime", "npm:3.0.0"]\
         ],\
         "linkType": "HARD"\
@@ -1338,16 +1338,16 @@ const RAW_RUNTIME_STATE =
     ]],\
     ["@esbuild-plugins/node-globals-polyfill", [\
       ["npm:0.2.3", {\
-        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-f37b3a4e98/node_modules/@esbuild-plugins/node-globals-polyfill/",\
+        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-6f802233fa/node_modules/@esbuild-plugins/node-globals-polyfill/",\
         "packageDependencies": [\
           ["@esbuild-plugins/node-globals-polyfill", "npm:0.2.3"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:681f4e9c672844ae54d270efb9cc31d8518b009ce9f88f94ee8befd2526027892e02da7f5685b9426f2764e2a865a7bf4333595865060b6f14ba9784d5a1aa33#npm:0.2.3", {\
-        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-f37b3a4e98/node_modules/@esbuild-plugins/node-globals-polyfill/",\
+      ["virtual:0535eb65d077a459c0b57b7463de34deceeaed3dd92fb6c681aa3938254935ee65a2b39e6250bba9e709f7753f859220a7e2ab7bec19b31776c2bf077f365c66#npm:0.2.3", {\
+        "packageLocation": "./.yarn/unplugged/@esbuild-plugins-node-globals-polyfill-virtual-6f802233fa/node_modules/@esbuild-plugins/node-globals-polyfill/",\
         "packageDependencies": [\
-          ["@esbuild-plugins/node-globals-polyfill", "virtual:681f4e9c672844ae54d270efb9cc31d8518b009ce9f88f94ee8befd2526027892e02da7f5685b9426f2764e2a865a7bf4333595865060b6f14ba9784d5a1aa33#npm:0.2.3"],\
+          ["@esbuild-plugins/node-globals-polyfill", "virtual:0535eb65d077a459c0b57b7463de34deceeaed3dd92fb6c681aa3938254935ee65a2b39e6250bba9e709f7753f859220a7e2ab7bec19b31776c2bf077f365c66#npm:0.2.3"],\
           ["@types/esbuild", null],\
           ["esbuild", "npm:0.17.19"]\
         ],\
@@ -1366,10 +1366,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:681f4e9c672844ae54d270efb9cc31d8518b009ce9f88f94ee8befd2526027892e02da7f5685b9426f2764e2a865a7bf4333595865060b6f14ba9784d5a1aa33#npm:0.2.2", {\
-        "packageLocation": "./.yarn/__virtual__/@esbuild-plugins-node-modules-polyfill-virtual-37d0652ef5/0/global/cache/@esbuild-plugins-node-modules-polyfill-npm-0.2.2-f612681798-10.zip/node_modules/@esbuild-plugins/node-modules-polyfill/",\
+      ["virtual:0535eb65d077a459c0b57b7463de34deceeaed3dd92fb6c681aa3938254935ee65a2b39e6250bba9e709f7753f859220a7e2ab7bec19b31776c2bf077f365c66#npm:0.2.2", {\
+        "packageLocation": "./.yarn/__virtual__/@esbuild-plugins-node-modules-polyfill-virtual-bb6bd607c0/0/global/cache/@esbuild-plugins-node-modules-polyfill-npm-0.2.2-f612681798-10.zip/node_modules/@esbuild-plugins/node-modules-polyfill/",\
         "packageDependencies": [\
-          ["@esbuild-plugins/node-modules-polyfill", "virtual:681f4e9c672844ae54d270efb9cc31d8518b009ce9f88f94ee8befd2526027892e02da7f5685b9426f2764e2a865a7bf4333595865060b6f14ba9784d5a1aa33#npm:0.2.2"],\
+          ["@esbuild-plugins/node-modules-polyfill", "virtual:0535eb65d077a459c0b57b7463de34deceeaed3dd92fb6c681aa3938254935ee65a2b39e6250bba9e709f7753f859220a7e2ab7bec19b31776c2bf077f365c66#npm:0.2.2"],\
           ["@types/esbuild", null],\
           ["esbuild", "npm:0.17.19"],\
           ["escape-string-regexp", "npm:4.0.0"],\
@@ -2702,7 +2702,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/spike.land/",\
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
-          ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
+          ["@cloudflare/kv-asset-handler", "npm:0.3.1"],\
           ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
           ["@types/node", "npm:20.11.5"],\
@@ -2716,7 +2716,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:7.0.1"],\
           ["p-queue", "npm:8.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
-          ["wrangler", "npm:3.22.5"]\
+          ["wrangler", "npm:3.23.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -2842,11 +2842,11 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/js.spike.land/",\
         "packageDependencies": [\
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
-          ["@cloudflare/kv-asset-handler", "npm:0.3.0"],\
+          ["@cloudflare/kv-asset-handler", "npm:0.3.1"],\
           ["@cloudflare/workers-types", "npm:4.20240117.0"],\
           ["esbuild-wasm", "npm:0.19.11"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
-          ["wrangler", "npm:3.22.5"]\
+          ["wrangler", "npm:3.23.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -14999,13 +14999,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["wrangler", [\
-      ["npm:3.22.5", {\
-        "packageLocation": "./.yarn/global/cache/wrangler-npm-3.22.5-681f4e9c67-10.zip/node_modules/wrangler/",\
+      ["npm:3.23.0", {\
+        "packageLocation": "./.yarn/global/cache/wrangler-npm-3.23.0-0535eb65d0-10.zip/node_modules/wrangler/",\
         "packageDependencies": [\
-          ["wrangler", "npm:3.22.5"],\
+          ["wrangler", "npm:3.23.0"],\
           ["@cloudflare/kv-asset-handler", "npm:0.2.0"],\
-          ["@esbuild-plugins/node-globals-polyfill", "virtual:681f4e9c672844ae54d270efb9cc31d8518b009ce9f88f94ee8befd2526027892e02da7f5685b9426f2764e2a865a7bf4333595865060b6f14ba9784d5a1aa33#npm:0.2.3"],\
-          ["@esbuild-plugins/node-modules-polyfill", "virtual:681f4e9c672844ae54d270efb9cc31d8518b009ce9f88f94ee8befd2526027892e02da7f5685b9426f2764e2a865a7bf4333595865060b6f14ba9784d5a1aa33#npm:0.2.2"],\
+          ["@esbuild-plugins/node-globals-polyfill", "virtual:0535eb65d077a459c0b57b7463de34deceeaed3dd92fb6c681aa3938254935ee65a2b39e6250bba9e709f7753f859220a7e2ab7bec19b31776c2bf077f365c66#npm:0.2.3"],\
+          ["@esbuild-plugins/node-modules-polyfill", "virtual:0535eb65d077a459c0b57b7463de34deceeaed3dd92fb6c681aa3938254935ee65a2b39e6250bba9e709f7753f859220a7e2ab7bec19b31776c2bf077f365c66#npm:0.2.2"],\
           ["blake3-wasm", "npm:2.1.5"],\
           ["chokidar", "npm:3.5.3"],\
           ["esbuild", "npm:0.17.19"],\
