@@ -19,7 +19,7 @@
     "@cloudflare/workers-types": "4.20240117.0",
     "@spike-land/code": "0.9.55",
     "typescript": "5.3.3",
-    "wrangler": "3.24.0"
+    "wrangler": "3.25.0"
   },
   "dependencies": {
     "@types/node": "20.11.7",
@@ -28,7 +28,7 @@
     "avl": "1.5.3",
     "esbuild-wasm": "0.19.12",
     "esm-worker": "0.135.4",
-    "immutable": "5.0.0-beta.4",
+    "immutable": "5.0.0-beta.5",
     "openai-edge": "1.2.2",
     "p-map": "7.0.1",
     "p-queue": "8.0.1"
