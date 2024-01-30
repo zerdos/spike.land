@@ -25,7 +25,6 @@ export async function ata(
     originToUse,
   );
 
-
   // );
 
   const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;

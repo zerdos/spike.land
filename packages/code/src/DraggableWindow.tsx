@@ -228,7 +228,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 exclusive
                 onChange={(_e: unknown, newSize: number) => {
                   if (newSize) {
-                    console.log(newSize)
+                    console.log(newSize);
                     setWidth(newSize);
                   }
                 }}
