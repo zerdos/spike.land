@@ -1,12 +1,19 @@
 # Zoltan Erdos
-Email: zoltan.erdos@me.com  
-Phone: +447514727998  
+Email: zoltan.erdos@me.com
+Phone: +447514727998
 GitHub: [github.com/zerdos](https://github.com/zerdos)
 
 # Summary
 
 Passionate and dedicated Full Stack Developer with a strong focus on frontend development backed by substantial experience in backend technologies. Proven track record of producing high-quality code, advocating for Test-Driven Development (TDD), and staying current with the latest tech trends. Skilled at adapting to various environments, from startups to major corporations, and eager to contribute to a long-term role that leverages diverse skills and experiences.
 
+# Technical Skills
+- Proficient in modern JavaScript development, including ES6+ and TypeScript, ensuring type safety and maintainable codebases.
+- Extensive experience with server-side development using Node.js for building scalable and efficient web applications.
+- Familiar with Deno as a secure runtime for JavaScript and TypeScript, focusing on productivity and ease of use.
+- Expertise in containerization with Docker to create, deploy, and run applications by using containers, ensuring consistency across multiple developments and release cycles.
+- Skilled in cloud computing services, proficient with Google Cloud Platform (GCP), Microsoft Azure, and AWS for deploying, managing, and operating scalable applications.
+- Knowledgeable in orchestrating containerized applications with Kubernetes, improving deployment workflows and system scalability.
 # Work Experience
 
 ## March 2023 – December 2023: Frontend Developer (Contractor), Virgin Media O2 Limited
