@@ -19,11 +19,11 @@
     "@cloudflare/workers-types": "4.20240129.0",
     "@spike-land/code": "0.9.55",
     "typescript": "5.3.3",
-    "wrangler": "3.25.0"
+    "wrangler": "3.26.0"
   },
   "dependencies": {
-    "@types/node": "20.11.13",
-    "ai": "2.2.32",
+    "@types/node": "20.11.15",
+    "ai": "2.2.33",
     "async-mutex": "0.4.1",
     "avl": "1.5.3",
     "esbuild-wasm": "0.20.0",
