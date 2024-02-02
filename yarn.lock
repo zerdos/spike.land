@@ -1618,10 +1618,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@okikio/sharedworker@npm:1.0.6":
-  version: 1.0.6
-  resolution: "@okikio/sharedworker@npm:1.0.6"
-  checksum: 10/d1518cf8c341dc069d75fa83af3db65d3825d92a74cd892299cb37a28f9af0a363b62d05b62e58710f755d3f48d8897c56f381bd3d49f75c6033f606ba6af4d2
+"@okikio/sharedworker@npm:1.0.7":
+  version: 1.0.7
+  resolution: "@okikio/sharedworker@npm:1.0.7"
+  checksum: 10/e131e6779bd0d49df4938357e25dd0478c142d9793fd8203991933f6c7a84915a2c55d82637ddb2cdc10a19a591d455d51ba164dd5b0cd4c11ff838fb21caf5b
   languageName: node
   linkType: hard
 
@@ -1632,14 +1632,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.41.1":
-  version: 1.41.1
-  resolution: "@playwright/test@npm:1.41.1"
+"@playwright/test@npm:1.41.2":
+  version: 1.41.2
+  resolution: "@playwright/test@npm:1.41.2"
   dependencies:
-    playwright: "npm:1.41.1"
+    playwright: "npm:1.41.2"
   bin:
     playwright: cli.js
-  checksum: 10/68d652462cf1cfcaa91886937a5d860c4ec4caefadf30ba6eb41f498e01ea097b084b956439b112eaa4e5a52a7421d100d3f125f5c1d864468bbe40389c2c9fd
+  checksum: 10/e87405987fa024f75acc223c47fcb2da0a66b2fa0cd9a583ca5b02aac12be353d0c262bf6a22b9bc40550c86c8b7629e70cd27f508ec370d9c92bb72f74581e7
   languageName: node
   linkType: hard
 
@@ -1712,7 +1712,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.11.15"
+    "@types/node": "npm:20.11.16"
     axios: "npm:1.6.7"
     body-parser: "npm:1.20.2"
     commander: "npm:11.1.0"
@@ -1750,7 +1750,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.1"
     "@cloudflare/workers-types": "npm:4.20240129.0"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:20.11.15"
+    "@types/node": "npm:20.11.16"
     ai: "npm:2.2.33"
     async-mutex: "npm:0.4.1"
     avl: "npm:1.5.3"
@@ -1775,13 +1775,13 @@ __metadata:
     "@emotion/styled": "npm:11.11.0"
     "@github/stable-socket": "npm:1.1.0"
     "@mui/material": "npm:5.15.7"
-    "@okikio/sharedworker": "npm:1.0.6"
+    "@okikio/sharedworker": "npm:1.0.7"
     "@prefresh/core": "npm:1.5.2"
     "@types/isomorphic-fetch": "npm:0.0.39"
-    "@types/jest": "npm:29.5.11"
+    "@types/jest": "npm:29.5.12"
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/lodash.throttle": "npm:4.1.9"
-    "@types/node": "npm:20.11.15"
+    "@types/node": "npm:20.11.16"
     "@types/react": "npm:18.2.51"
     "@types/react-dom": "npm:18.2.18"
     "@types/uuid": "npm:9.0.8"
@@ -1858,7 +1858,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.11.15"
+    "@types/node": "npm:20.11.16"
     esbuild-wasm: "npm:0.20.0"
   languageName: unknown
   linkType: soft
@@ -2086,13 +2086,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.5.11":
-  version: 29.5.11
-  resolution: "@types/jest@npm:29.5.11"
+"@types/jest@npm:29.5.12":
+  version: 29.5.12
+  resolution: "@types/jest@npm:29.5.12"
   dependencies:
     expect: "npm:^29.0.0"
     pretty-format: "npm:^29.0.0"
-  checksum: 10/798f4c89407d9457bea1256de74c26f2b279f6c789c0e3311cd604cc75cdab333b9a29b00c51b0090d31abdf11cc788b4103282851a653bef6daf72edf97eef2
+  checksum: 10/312e8dcf92cdd5a5847d6426f0940829bca6fe6b5a917248f3d7f7ef5d85c9ce78ef05e47d2bbabc40d41a930e0e36db2d443d2610a9e3db9062da2d5c904211
   languageName: node
   linkType: hard
 
@@ -2156,12 +2156,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.11.15":
+"@types/node@npm:*":
   version: 20.11.15
   resolution: "@types/node@npm:20.11.15"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/ec670ab67382b3a45511de0ff1a57640eb51e62dd2f2c3b4484ee35caef18c1d346bba64bd58189e9445cecbfcf9b458ca7850635eb56df2c49472dac656029f
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.11.16":
+  version: 20.11.16
+  resolution: "@types/node@npm:20.11.16"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/751f50ec5c9332b11515e82fe37c71479ac4449b711280aa3c7910edf67b1e3f5ac00041512add543f9a892096a68356406998bf02a2c809a73d176c44c28414
   languageName: node
   linkType: hard
 
@@ -8848,7 +8857,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:^4.20240129.0"
     "@emotion/react": "npm:11.11.3"
-    "@playwright/test": "npm:1.41.1"
+    "@playwright/test": "npm:1.41.2"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.2"
     "@types/react": "npm:18.2.51"
@@ -8863,7 +8872,7 @@ __metadata:
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
     localforage: "npm:1.10.0"
-    playwright: "npm:1.41.1"
+    playwright: "npm:1.41.2"
     react: "npm:18.2.0"
     typescript: "npm:5.3.3"
     util: "npm:0.12.5"
@@ -9765,27 +9774,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.41.1":
-  version: 1.41.1
-  resolution: "playwright-core@npm:1.41.1"
+"playwright-core@npm:1.41.2":
+  version: 1.41.2
+  resolution: "playwright-core@npm:1.41.2"
   bin:
     playwright-core: cli.js
-  checksum: 10/12019f53bda0f0fcef9a9b68f5bcf3b7169330d657e091617b103e841963142c4101e8ced110fe92b0b8f0e3df698eb2f37af5189fe45e00e7549b2f8a22a6ed
+  checksum: 10/77ff881ebb9cc0654edd00c5ff202f5f61aee7a5318e1f12a82e30a3636de21e8b5982fae6138e5bb90115ae509c15a640cf85b10b3e2daebb2bb286da54fd4c
   languageName: node
   linkType: hard
 
-"playwright@npm:1.41.1":
-  version: 1.41.1
-  resolution: "playwright@npm:1.41.1"
+"playwright@npm:1.41.2":
+  version: 1.41.2
+  resolution: "playwright@npm:1.41.2"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.41.1"
+    playwright-core: "npm:1.41.2"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10/7667d73e406549156200d0d1b6361eadc4037816e9020e68e86d4249e302963e6e645cb95de2da8cadb5e52080f9f25020e65dc020655ae0e52d2a12d7a03642
+  checksum: 10/272399f622dc2df90fbef147b9b1cfab5d7a78cc364bdfa98d2bf08faa9894346f58629fe4fef41b108ca2cb203b3970d7886b7f392cb0399c75b521478e2920
   languageName: node
   linkType: hard
 
