@@ -19,7 +19,7 @@
     "@cloudflare/workers-types": "4.20240129.0",
     "@spike-land/code": "0.9.55",
     "typescript": "5.3.3",
-    "wrangler": "3.26.0"
+    "wrangler": "3.27.0"
   },
   "dependencies": {
     "@types/node": "20.11.16",
