@@ -1784,11 +1784,11 @@ __metadata:
     "@types/lodash.throttle": "npm:4.1.9"
     "@types/node": "npm:20.11.16"
     "@types/react": "npm:18.2.55"
-    "@types/react-dom": "npm:18.2.18"
+    "@types/react-dom": "npm:18.2.19"
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.4"
     "@typescript-eslint/typescript-estree": "npm:6.21.0"
-    ace-builds: "npm:1.32.5"
+    ace-builds: "npm:1.32.6"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -2198,12 +2198,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.18":
-  version: 18.2.18
-  resolution: "@types/react-dom@npm:18.2.18"
+"@types/react-dom@npm:18.2.19":
+  version: 18.2.19
+  resolution: "@types/react-dom@npm:18.2.19"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10/4ef7725b4cebd4a32e049097ddfdfd855a178e63ead97ab6d3084872e7d6c1acd71aa923488123cd1015f0e0b11489d2b44f674a1df8fe82d7827eabbec6dbf1
+  checksum: 10/98eb760ce78f1016d97c70f605f0b1a53873a548d3c2192b40c897f694fd9c8bb12baeada16581a9c7b26f5022c1d2613547be98284d8f1b82d1611b1e3e7df0
   languageName: node
   linkType: hard
 
@@ -2657,10 +2657,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.32.5":
-  version: 1.32.5
-  resolution: "ace-builds@npm:1.32.5"
-  checksum: 10/2b3d90ab4dd09b02a1bbdbd2da6d0b740b8f590c2ca6d81754681c3fe10fa57cb14f4eafea7133b600107f20841998b9f802f7dd853f3fba785249737ec69941
+"ace-builds@npm:1.32.6":
+  version: 1.32.6
+  resolution: "ace-builds@npm:1.32.6"
+  checksum: 10/7b034277e95de63684626cd0427ca47a2def4bd818297126cbc6dc6f49930fc43100ecdb69fec4f7e286f7c651adc44e63e25166e3f1fb0452eae3762a09c07d
   languageName: node
   linkType: hard
 
@@ -8873,7 +8873,7 @@ __metadata:
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.2"
     "@types/react": "npm:18.2.55"
-    "@types/react-dom": "npm:18.2.18"
+    "@types/react-dom": "npm:18.2.19"
     "@typescript-eslint/eslint-plugin": "npm:6.21.0"
     "@typescript-eslint/parser": "npm:6.21.0"
     "@yarnpkg/sdks": "npm:3.1.0"
