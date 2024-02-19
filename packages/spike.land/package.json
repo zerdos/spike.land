@@ -26,7 +26,7 @@
     "ai": "2.2.35",
     "async-mutex": "0.4.1",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.20.0",
+    "esbuild-wasm": "0.20.1",
     "esm-worker": "0.135.4",
     "immutable": "5.0.0-beta.5",
     "openai-edge": "1.2.2",
