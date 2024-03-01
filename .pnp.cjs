@@ -10686,7 +10686,7 @@ const RAW_RUNTIME_STATE =
           ["exit-hook", "npm:2.2.1"],\
           ["glob-to-regexp", "npm:0.4.1"],\
           ["stoppable", "npm:1.1.0"],\
-          ["undici", "npm:5.28.2"],\
+          ["undici", "npm:5.28.3"],\
           ["workerd", "npm:1.20240223.1"],\
           ["ws", "virtual:50edbfe9bcaae048f5c1457aaaaf73fcd7584ac6220e7cb0b793fcace2bf4ffe6dc974140215a92ffe48016a62c353b9a9fcf11645b9af49e0ad7ac533478118#npm:8.16.0"],\
           ["youch", "npm:3.3.3"],\
@@ -14454,10 +14454,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["undici", [\
-      ["npm:5.28.2", {\
-        "packageLocation": "./.yarn/global/cache/undici-npm-5.28.2-35e326d9a1-10.zip/node_modules/undici/",\
+      ["npm:5.28.3", {\
+        "packageLocation": "./.yarn/global/cache/undici-npm-5.28.3-fb5b0fbd18-10.zip/node_modules/undici/",\
         "packageDependencies": [\
-          ["undici", "npm:5.28.2"],\
+          ["undici", "npm:5.28.3"],\
           ["@fastify/busboy", "npm:2.1.0"]\
         ],\
         "linkType": "HARD"\
