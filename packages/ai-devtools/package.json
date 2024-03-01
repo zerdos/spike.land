@@ -24,6 +24,6 @@
     "simple-git": "3.22.0"
   },
   "devDependencies": {
-    "@types/node": "20.11.23"
+    "@types/node": "20.11.24"
   }
 }
