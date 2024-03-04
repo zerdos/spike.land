@@ -1623,14 +1623,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.42.0":
-  version: 1.42.0
-  resolution: "@playwright/test@npm:1.42.0"
+"@playwright/test@npm:1.42.1":
+  version: 1.42.1
+  resolution: "@playwright/test@npm:1.42.1"
   dependencies:
-    playwright: "npm:1.42.0"
+    playwright: "npm:1.42.1"
   bin:
     playwright: cli.js
-  checksum: 10/bb696e89da47dd1ab46201fa4652f331bea3b75e9c804e358f83216f69d83a972a302d249a8e4c08cbc8fc72110a6e62562e679a474b5ed6246f09a9fc9bda6b
+  checksum: 10/5bd7f1c77963cacc6f44cf4c1ef46f9ad41e79a3e6f34eb81398afaa09b1b08a4cbe0f7064f03c71c094414d1c4507d6183b61c63aa4b6a93846d386f7c651a2
   languageName: node
   linkType: hard
 
@@ -1742,7 +1742,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240222.0"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:20.11.24"
-    ai: "npm:3.0.0"
+    ai: "npm:3.0.2"
     async-mutex: "npm:0.4.1"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.20.1"
@@ -1778,7 +1778,7 @@ __metadata:
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.4"
     "@typescript-eslint/typescript-estree": "npm:7.1.0"
-    ace-builds: "npm:1.32.6"
+    ace-builds: "npm:1.32.7"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:5.0.0"
@@ -2654,10 +2654,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.32.6":
-  version: 1.32.6
-  resolution: "ace-builds@npm:1.32.6"
-  checksum: 10/7b034277e95de63684626cd0427ca47a2def4bd818297126cbc6dc6f49930fc43100ecdb69fec4f7e286f7c651adc44e63e25166e3f1fb0452eae3762a09c07d
+"ace-builds@npm:1.32.7":
+  version: 1.32.7
+  resolution: "ace-builds@npm:1.32.7"
+  checksum: 10/9767247cb48079d06e965590ef39ddcec2715638be0f61906d6c3931cbce94596d383f584ebe6074f9dd3c7295cdaffc0ba3409f19c34c1d1291b92e6483bfb2
   languageName: node
   linkType: hard
 
@@ -2741,9 +2741,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai@npm:3.0.0":
-  version: 3.0.0
-  resolution: "ai@npm:3.0.0"
+"ai@npm:3.0.2":
+  version: 3.0.2
+  resolution: "ai@npm:3.0.2"
   dependencies:
     eventsource-parser: "npm:1.0.0"
     jsondiffpatch: "npm:^0.6.0"
@@ -2771,7 +2771,7 @@ __metadata:
       optional: true
     zod:
       optional: true
-  checksum: 10/74843d82595b9e72aeb0f54c4eee12bbaef749d04620c69c20f15f132de7f26b40ab0590f9a687dbb9b7afc781c72edc3cc5415c3441583918efbe5353900729
+  checksum: 10/9dcae17558f158f3021389748c673b4fd45b729ca06ec795e09dd862b710dcb095e03db4f937c74a3395b1effe222eb79e9302d293591abedf3dae0c05295d3f
   languageName: node
   linkType: hard
 
@@ -8878,7 +8878,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:^4.20240222.0"
     "@emotion/react": "npm:11.11.4"
-    "@playwright/test": "npm:1.42.0"
+    "@playwright/test": "npm:1.42.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.5"
     "@types/react": "npm:18.2.61"
@@ -8893,7 +8893,7 @@ __metadata:
     eslint-plugin-react: "npm:7.33.2"
     execa: "npm:8.0.1"
     localforage: "npm:1.10.0"
-    playwright: "npm:1.42.0"
+    playwright: "npm:1.42.1"
     react: "npm:18.2.0"
     typescript: "npm:5.3.3"
     util: "npm:0.12.5"
@@ -9795,27 +9795,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.42.0":
-  version: 1.42.0
-  resolution: "playwright-core@npm:1.42.0"
+"playwright-core@npm:1.42.1":
+  version: 1.42.1
+  resolution: "playwright-core@npm:1.42.1"
   bin:
     playwright-core: cli.js
-  checksum: 10/18caeb7e0a1194be7a0c6178d49a5960c55230958dea16be14da2c1f5426427f9f195b59a4c481d0f530d585fa381fc5fc7c82f2a45edd3628ee745df63e9e69
+  checksum: 10/6a71d2e2aa5b054d6e83836f09e139a0ff4de3aa9b6aebe0e03de3ab828c735d23a20a60fafcee91c1658da490cc390f05af463325ac842beaff58a173f7ad9e
   languageName: node
   linkType: hard
 
-"playwright@npm:1.42.0":
-  version: 1.42.0
-  resolution: "playwright@npm:1.42.0"
+"playwright@npm:1.42.1":
+  version: 1.42.1
+  resolution: "playwright@npm:1.42.1"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.42.0"
+    playwright-core: "npm:1.42.1"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10/a900d377e20106f539ae3fde0e89468089d1bcdb766ecf00b883de49f6f164254df568971994eecec339238430656a17c8cbf28f881ceea42a62a143347bfa5c
+  checksum: 10/1f866a6820e19feaaeb12cd87bfa93299d6d72e1287413098c5ae0349c7e7953eb0a303bdfbb99c12173a3493e6fdb642f89a166cfcfd8295254a520abf6eb7f
   languageName: node
   linkType: hard
 

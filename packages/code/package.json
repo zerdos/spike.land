@@ -67,7 +67,7 @@
     "@types/isomorphic-fetch": "0.0.39",
     "@types/jest": "29.5.12",
     "@typescript-eslint/typescript-estree": "7.1.0",
-    "ace-builds": "1.32.6",
+    "ace-builds": "1.32.7",
     "assert": "2.1.0",
     "assert-browserify": "2.0.0",
     "ast-module-types": "5.0.0",

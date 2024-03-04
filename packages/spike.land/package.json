@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@types/node": "20.11.24",
-    "ai": "3.0.0",
+    "ai": "3.0.2",
     "async-mutex": "0.4.1",
     "avl": "1.5.3",
     "esbuild-wasm": "0.20.1",
