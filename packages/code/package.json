@@ -61,7 +61,7 @@
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.0",
     "@github/stable-socket": "1.1.0",
-    "@mui/material": "5.15.11",
+    "@mui/material": "5.15.12",
     "@okikio/sharedworker": "1.0.7",
     "@prefresh/core": "1.5.2",
     "@types/isomorphic-fetch": "0.0.39",
@@ -121,16 +121,16 @@
   "devDependencies": {
     "@types/lodash.debounce": "4.0.9",
     "@types/lodash.throttle": "4.1.9",
-    "@types/node": "20.11.24",
-    "@types/react": "18.2.62",
-    "@types/react-dom": "18.2.19",
+    "@types/node": "20.11.25",
+    "@types/react": "18.2.64",
+    "@types/react-dom": "18.2.21",
     "@types/uuid": "9.0.8",
     "@types/wicg-file-system-access": "^2023.10.4",
     "eslint": "8.57.0",
     "eslint-plugin-react": "7.34.0",
     "popmotion": "11.0.5",
     "tslib": "2.6.2",
-    "typescript": "5.3.3",
+    "typescript": "5.4.2",
     "uvu": "0.5.6"
   }
 }
