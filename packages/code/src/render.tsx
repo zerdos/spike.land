@@ -11,9 +11,6 @@ import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
 
-// const runtime = require("react-refresh/runtime");
-// runtime.injectIntoGlobalHook(window);
-
 const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 let controller = new AbortController();
@@ -22,32 +19,28 @@ const cache = createCache({ key: "css", speedy: false });
 cache.compat = undefined;
 
 let root: ReturnType<typeof createRoot>;
-globalThis.firstRender = globalThis.firstRender
-  || { html: "", css: "", code: "" };
+globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
 
 export const render = async (
   _rootEl: HTMLElement,
   codeSpace: string,
-  mApp = null,
-  signal = null as any,
-  data = null as any,
+  mApp: FC<{
+    width?: number;
+    height?: number;
+    top?: number;
+    left?: number;
+    ref?: HTMLDivElement;
+    resize?: (state: ParentSizeState) => void;
+    children?: ReactNode;
+  }> | null = null,
+  signal: AbortSignal | null = null,
+  data: ICodeSession | null = null,
 ) => {
   __rootEl = _rootEl;
   if (!__rootEl) return;
-  let App: FC<
-    {
-      width?: number;
-      height?: number;
-      top?: number;
-      left?: number;
-      ref?: HTMLDivElement;
-      resize?: (state: ParentSizeState) => void;
-      children?: ReactNode;
-    }
-  > = mApp as any;
 
-  App = await getApp(App, codeSpace);
+  let App = await getApp(mApp, codeSpace);
 
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
@@ -73,8 +66,7 @@ export const render = async (
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
   try {
-    if (data.i) {
-      if (mod.i >= data.i) return;
+    if (data.i && data.i > mod.i) {
       console.log("rerender", { i: data.i });
       mod.i = data.i;
 
@@ -93,12 +85,10 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
         "</div>",
       ].join("");
 
-      if (!data.transpiled) {
-        data.transpiled = await transpile({
-          code: data.code,
-          originToUse: location.origin,
-        });
-      }
+      data.transpiled = data.transpiled || await transpile({
+        code: data.code,
+        originToUse: location.origin,
+      });
 
       if (signal.aborted) return;
       const App = await appFactory(data.transpiled);
@@ -112,7 +102,6 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
         signal,
         data,
       );
-      return;
     }
   } catch (error) {
     console.error("Error during rerendering:", error);
@@ -123,54 +112,58 @@ function getCodeSpace() {
   return location.pathname.slice(1).split("/")[1];
 }
 
-async function getApp(App: any, codeSpace: string) {
+type IFC = FC<{width: number; height: number; left: number; top: number}>
+
+async function getApp(App: FC | null, codeSpace: string) {
   if (!App) {
     try {
-      App = (await import(
-        (location.href.endsWith("iframe")
-            || await stat(`/live/${codeSpace}/index.mjs`))
-          ? `${location.origin}/live/${codeSpace}/index.mjs`
-          : `${location.origin}/live/${codeSpace}/index.js`
-      )).default;
+      const isIframe = location.href.endsWith("iframe");
+      const hasIndex = await stat(`/live/${codeSpace}/index.mjs`);
+      const moduleUrl = isIframe || hasIndex
+        ? `${location.origin}/live/${codeSpace}/index.mjs`
+        : `${location.origin}/live/${codeSpace}/index.js`;
+
+      return (await import(moduleUrl)).default as IFC;
     } catch (err) {
-      App = () => (
+     return (() => (
         <div>
           <h1>Error</h1>
-          <pre>{JSON.stringify({err})}</pre>
+          <pre>{JSON.stringify({ err })}</pre>
         </div>
-      );
+      )) as IFC ;
     }
   }
-  return App;
+
+  return App as IFC;
 }
 
 async function handleRender(
   _rootEl: HTMLElement,
-  signal: any,
-  data: any,
+  signal: AbortSignal | null,
+  data: ICodeSession | null,
   cache: EmotionCache,
 ) {
-  let ii = (location.href.endsWith("iframe") || location.href.endsWith("/")
-      || location.href.endsWith("public"))
-    ? 100
-    : 0;
-  while (ii-- > 0) {
-    if (signal && signal.aborted) return;
+  const isIframe = location.href.endsWith("iframe")
+    || location.href.endsWith("/")
+    || location.href.endsWith("public");
+
+  let attempts = isIframe ? 100 : 0;
+
+  while (attempts-- > 0) {
+    if (signal?.aborted) return;
 
     const html = _rootEl.innerHTML;
-    if (html && html !== "") {
+    if (html) {
       const css = mineFromCaches(cache, html);
 
       if (data) {
-        if (!signal.aborted) {
+        if (!signal?.aborted) {
           BC.postMessage({ ...data, html, css });
         }
         return;
       }
 
-      globalThis.firstRender.html = html;
-      globalThis.firstRender.css = css;
-
+      globalThis.firstRender = { html, css, code: data!.code || "" };
       window?.parent?.postMessage({ type: "firstRender", html, css });
 
       return { html, css };
@@ -185,36 +178,45 @@ async function handleRender(
 function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = _cache.key || "css";
   try {
-    return Array.from(document.querySelectorAll("style[data-styled-jsx]")).map((
-      x,
-    ) => x.textContent)
-      + Array.from(
-        new Set(
-          Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
-            .map((x) => x.textContent),
-        ),
-      ).join("\n");
+    const styledJSXStyles = Array.from(document.querySelectorAll("style[data-styled-jsx]"))
+      .map((style) => style.textContent);
+
+    const emotionStyles = Array.from(new Set(
+      Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
+        .map((style) => style.textContent)
+    )).join("\n");
+
+    return styledJSXStyles.concat(emotionStyles).join("\n");
   } catch {
-    return Array.from(document.styleSheets).map((x) => {
-      try {
-        return x.cssRules[0] as CSSPageRule;
-      } catch {
-        return null;
-      }
-    }).filter((x) =>
-      x?.selectorText && x.selectorText.indexOf(key) !== -1
-      && html.indexOf(x.selectorText.slice(4, 11)) !== -1
-    )
-      .map((x) => x!.cssText).join("\n");
+    return Array.from(document.styleSheets)
+      .map((sheet) => {
+        try {
+          return sheet.cssRules[0] as CSSPageRule;
+        } catch {
+          return null;
+        }
+      })
+      .filter((rule) =>
+        rule?.selectorText
+        && rule.selectorText.includes(key)
+        && html.includes(rule.selectorText.slice(4, 11))
+      )
+      .map((rule) => rule!.cssText)
+      .join("\n");
   }
 }
 
 if (
-  location.pathname.endsWith("/iframe") || location.pathname.endsWith("/")
+  location.pathname.endsWith("/iframe")
+  || location.pathname.endsWith("/")
   || location.pathname.endsWith("/public")
 ) {
   window.onmessage = async ({ data }) => {
-    rerender(data);
+    await rerender(data);
   };
-  BC.onmessage = ({ data }) => data.html && data.i && rerender(data);
+  BC.onmessage = async ({ data }) => {
+    if (data.html && data.i) {
+      await rerender(data);
+    }
+  };
 }

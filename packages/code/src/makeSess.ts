@@ -9,7 +9,7 @@ const aPC = (sess: ICodeSession, mess: CodePatch) =>
 export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   const newSess = aPC(sess, mess);
   if (makeHash(newSess) !== mess.newHash) {
-    throw new Error("we cant even calculate CodePatch");
+    throw new Error("Unable to calculate CodePatch");
   }
 
   return newSess;
@@ -17,18 +17,21 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
 
 export const makeHash = (cx: ICodeSession) => String(hash(string_(makeSession(cx))));
 
-export const makeSession: (p: ICodeSession) => ICodeSession = (
-  p = { i: 0, code: "", html: "", css: "" },
-) =>
-  Record({ i: 0, code: "", html: "", css: "" })({
+export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
+  Record<ICodeSession>({
+    i: 0,
+    code: "",
+    html: "",
+    css: "",
+  })({
     i: p.i || 0,
     code: p.code || "export default ()=> <>Nothing</>",
     html: p.html || "",
-    css: (p.css || "").split(".css-").filter((x) =>
-      x.startsWith("html") || (p.html || "").indexOf(x.slice(0, 5)) !== -1
-    )
+    css: (p.css || "")
+      .split(".css-")
+      .filter((x) => x.startsWith("html") || (p.html || "").includes(x.slice(0, 5)))
       .join(".css-"),
-  }).toJS();
+  }).toJS() as ICodeSession;
 
 export type CodePatch = {
   oldHash: string;
@@ -36,7 +39,8 @@ export type CodePatch = {
   patch: Delta[];
   reversePatch: Delta[];
 };
-export const createPatch = (oldSess: ICodeSession, newSess: ICodeSession) => {
+
+export const createPatch = (oldSess: ICodeSession, newSess: ICodeSession): CodePatch => {
   const oldRec = makeSession(oldSess);
   const oldHash = makeHash(oldRec);
   const newRec = makeSession(newSess);
@@ -48,22 +52,17 @@ export const createPatch = (oldSess: ICodeSession, newSess: ICodeSession) => {
   const patch = createDelta(oldString, newString);
   const reversePatch = createDelta(newString, oldString);
 
-  // const oldString = string_(oldRec);
-  // const newString = string_(newRec);
-
-  // const patch = createDelta(oldRec.code, newRec.code);
-  // const reversePatch = createDelta(newRec.code, oldRec.code);
-  const codePatch = {
+  const codePatch: CodePatch = {
     oldHash,
     newHash,
     reversePatch,
     patch,
-  } as CodePatch;
+  };
 
   const newSess2 = applyCodePatch(oldSess, codePatch);
 
   if (makeHash(newSess2) !== codePatch.newHash) {
-    throw new Error("we cant even calculate CodePatch");
+    throw new Error("Unable to calculate CodePatch");
   }
 
   return codePatch;
@@ -75,7 +74,8 @@ export type ICodeSession = {
   html: string;
   css: string;
 };
-export function string_(s: ICodeSession) {
+
+export function string_(s: ICodeSession): string {
   const { i, code, html, css } = s;
   return JSON.stringify({ i, code, html, css });
 }
