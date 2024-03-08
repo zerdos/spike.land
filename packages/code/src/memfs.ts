@@ -35,13 +35,9 @@ export const getDirectoryEntriesRecursive = async (
   for await (const handle of directoryIterator) {
     const nestedPath = `${relativePath}/${handle.name}`;
     if (handle.kind === "file") {
-      directoryEntryPromises.push(
-        handleFile(handle, nestedPath),
-      );
+      directoryEntryPromises.push(handleFile(handle, nestedPath));
     } else if (handle.kind === "directory") {
-      directoryEntryPromises.push(
-        handleDirectory(handle, nestedPath),
-      );
+      directoryEntryPromises.push(handleDirectory(handle, nestedPath));
     }
   }
   const directoryEntries = await Promise.all(directoryEntryPromises);
@@ -54,20 +50,16 @@ export const getDirectoryEntriesRecursive = async (
 
 export const getDirectoryHandleAndFileName = async (
   filePath: string,
-): Promise<
-  { dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }
-> => {
+): Promise<{ dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }> => {
   const pathParts = filePath.split("/").filter((x) => x);
   const fileName = pathParts.pop()?.trim();
 
   let currentHandle = await navigator.storage.getDirectory();
 
-  if (pathParts && pathParts.length) {
-    for (const part of pathParts) {
-      currentHandle = await currentHandle.getDirectoryHandle(part, {
-        create: true,
-      });
-    }
+  for (const part of pathParts) {
+    currentHandle = await currentHandle.getDirectoryHandle(part, {
+      create: true,
+    });
   }
 
   return { dirHandle: currentHandle, fileName };
@@ -87,11 +79,9 @@ export const writeFile = async (
   const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
   if (!fileName) throw new Error("Invalid file path");
   const fileHandle = await dirHandle.getFileHandle(fileName, { create: true });
-  const accessHandle = await fileHandle.createWritable();
-  const textEncoder = new TextEncoder();
-  const encodedContent = textEncoder.encode(content);
-  await accessHandle.write(encodedContent);
-  await accessHandle.close();
+  const writable = await fileHandle.createWritable();
+  await writable.write(content);
+  await writable.close();
 };
 
 export const readFile = async (filePath: string): Promise<string> => {
@@ -109,21 +99,34 @@ export const unlink = async (filePath: string): Promise<void> => {
 };
 
 export const mkdir = async (filePath: string): Promise<void> => {
-  const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
-  if (!fileName) throw new Error("Invalid file path");
-  await dirHandle.getDirectoryHandle(fileName, { create: true });
+  const pathParts = filePath.split("/").filter((x) => x);
+  const folderName = pathParts.pop()?.trim();
+  if (!folderName) throw new Error("Invalid directory path");
+
+  let currentHandle = await navigator.storage.getDirectory();
+
+  for (const part of pathParts) {
+    currentHandle = await currentHandle.getDirectoryHandle(part, {
+      create: true,
+    });
+  }
+
+  await currentHandle.getDirectoryHandle(folderName, { create: true });
 };
 
-export const stat = async (filePath: string): Promise<boolean> => {
+export const stat = async (filePath: string): Promise<FileSystemEntry | null> => {
   try {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
-      filePath,
-    );
-    if (!fileName) throw new Error("Invalid file path");
-    const fileHandle = await dirHandle.getFileHandle(fileName);
-    return fileHandle ? true : false;
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    if (!fileName) {
+      // If fileName is undefined, it means the path points to a directory
+      return await handleDirectory(dirHandle);
+    } else {
+      // If fileName is defined, it means the path points to a file
+      const fileHandle = await dirHandle.getFileHandle(fileName);
+      return await handleFile(fileHandle, filePath);
+    }
   } catch {
-    return false;
+    return null;
   }
 };
 

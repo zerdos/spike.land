@@ -1,62 +1,29 @@
-// import type {} from "monaco-editor";
-// // import 'monaco-editor/esm/vs/basic-languages/monaco.contribution';
-// import 'monaco-editor/esm/vs/language/css/monaco.contribution';
-// import 'monaco-editor/esm/vs/language/html/monaco.contribution';
-// import 'monaco-editor/esm/vs/language/json/monaco.contribution';
-// import 'monaco-editor/esm/vs/language/typescript/monaco.contribution';
 import { editor, languages, Uri } from "monaco-editor";
 import { ata, prettier } from "./shared";
-
 import * as monaco from "monaco-editor";
-
-// import TSWorkerFactory from "/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016";
-// import EditorWorkerFactory from "/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016";
 
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
-const lib = [
-  "dom",
-  "dom.iterable",
-  "es2015",
-  "es2016",
-  "esnext",
-];
-function fetchAndCreateExtraModels(
-  code: string,
-  originToUse: string,
-): Promise<any>[] {
-  const extraModels: Promise<any>[] = [];
-  const search = new RegExp(
-    ` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`,
-    "gm",
-  );
+const lib = ["dom", "dom.iterable", "es2015", "es2016", "esnext"];
 
+async function fetchAndCreateExtraModels(code: string, originToUse: string): Promise<void> {
+  const search = new RegExp(` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`, "gm");
   const models = code.matchAll(search);
+
   for (const match of models) {
     const codeSpace = match[0].split("/live/").pop();
-    const extraModel = new URL(
-      `/live/${codeSpace}/index.tsx`,
-      originToUse,
-    ).toString();
-
+    const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse).toString();
     const mUri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
 
-    extraModels.push(
-      fetch(extraModel)
-        .then((res) => res.text())
-        .then((content) => {
-          editor.getModel(mUri) || createModel(content, "typescript", mUri);
-          return true;
-        }),
-    );
+    const res = await fetch(extraModel);
+    const content = await res.text();
+    editor.getModel(mUri) || createModel(content, "typescript", mUri);
   }
-
-  return extraModels;
 }
 
-const monacoContribution = (code: string) => {
+const monacoContribution = async (code: string) => {
   languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse,
     target: languages.typescript.ScriptTarget.Latest,
@@ -89,122 +56,68 @@ const monacoContribution = (code: string) => {
     include: [`${originToUse}/`],
   });
 
-  const extraModels = fetchAndCreateExtraModels(code, originToUse);
+  await fetchAndCreateExtraModels(code, originToUse);
 
-  ata({ code, originToUse }).then(async (extraLibs) => {
-    console.log({ extraLibs });
-    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
-    if (extraModels.length) await Promise.all(extraModels);
+  const extraLibs = await ata({ code, originToUse });
+  console.log({ extraLibs });
+  languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
-    languages.typescript.typescriptDefaults
-      .setDiagnosticsOptions({
-        noSuggestionDiagnostics: false,
-        noSemanticValidation: false,
-        noSyntaxValidation: false,
-        diagnosticCodesToIgnore: [2691],
-      });
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    noSuggestionDiagnostics: false,
+    noSemanticValidation: false,
+    noSyntaxValidation: false,
+    diagnosticCodesToIgnore: [2691],
   });
+  languages.typescript.typescriptDefaults.setEagerModelSync(true);
 
-  // })();
-
-  // languages.typescript.getTypeScriptWorker().then(ts=>setupTypeAcquisition({
-  //   typescript: ts
-  // })(code));
-
-  // return code.split(";\n").map((x) =>
-  // x.slice(0, 6) === "import"
-  // ? x.replace(`from '/live/`, `from '${originToUse}/live/`)
-  // : x
-  // ).join(";\n");
   return code;
 };
 
 self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_moduleId: string, label: string) => {
-    if (label === "json") {
-      // return (await import(`${originToUse}/monaco-editor/esm/vs/language/json/json.worker.js?worker&target=es2016`)).default();
-    }
-
-    if (label === "css" || label === "scss" || label === "less") {
-      //   return (await import(`${originToUse}/monaco-editor/esm/vs/language/css/css.worker.js?worker&target=es2016`)).default();
-    }
-
-    if (label === "html" || label === "handlebars" || label === "razor") {
-      //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/html/html.worker.js?worker&target=es2016`)).default();
-    }
-
     if (label === "typescript" || label === "javascript") {
       return `${originToUse}/language/typescript/ts.worker.mjs`;
-      //  return (await import(`${originToUse}/monaco-editor/esm/vs/language/typescript/ts.worker.js?worker&target=es2016`)).default();
     }
-
     return `${originToUse}/editor/editor.worker.mjs`;
-
-    // (await import(`${originToUse}/monaco-editor/esm/vs/editor/editor.worker.js?worker&target=es2016`)).default();
   },
 };
 
 const mod: Record<string, Record<string, unknown>> = {};
 
-export const startMonaco = async (
-  { code, container, codeSpace, onChange }: {
-    code: string;
-    i: number;
-    container: HTMLDivElement;
-    codeSpace: string;
-    onChange: (_code: string) => void;
-  },
-) =>
-  mod[codeSpace] = mod[codeSpace]
-    || await startMonacoPristine({ code, container, codeSpace, onChange });
+export const startMonaco = async ({
+  code,
+  container,
+  codeSpace,
+  onChange,
+}: {
+  code: string;
+  container: HTMLDivElement;
+  codeSpace: string;
+  onChange: (_code: string) => void;
+}) => {
+  if (!mod[codeSpace]) {
+    mod[codeSpace] = await startMonacoPristine({ code, container, codeSpace, onChange });
+  }
+  return mod[codeSpace];
+};
 
-//  editor.getEditors().map((x) => x.dispose());
-
-// const returnValue = await startMonacoPristine({ code, container, codeSpace, onChange });
-// mod[name] = returnValue;xp
-
-async function startMonacoPristine(
-  { code, container, codeSpace, onChange }: {
-    code: string;
-    container: HTMLDivElement;
-    codeSpace: string;
-    onChange: (_code: string) => void;
-  },
-) {
+async function startMonacoPristine({
+  code,
+  container,
+  codeSpace,
+  onChange,
+}: {
+  code: string;
+  container: HTMLDivElement;
+  codeSpace: string;
+  onChange: (_code: string) => void;
+}) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-  // If (mod[name]) return mod[name];
 
-  // Const innerStyle = document.createElement("style");
-  // monacoCss
-  // innerStyle.innerText = `@import url(${originToUse}/monaco-editor@${version}/?css);`;
-  // container.appendChild(innerStyle);
-
-  const replaced = await monacoContribution(
-    code,
-  );
-
-  // Editor.createModel(JSON.stringify(packageJson) , "json", Uri.parse(`${originToUse}/package.json`))
-  // languages.typescript.typescriptDefaults.inlayHintsOptions
-
-  languages.typescript.typescriptDefaults
-    .setDiagnosticsOptions({
-      noSuggestionDiagnostics: true,
-      noSemanticValidation: true,
-      noSyntaxValidation: true,
-      diagnosticCodesToIgnore: [2691],
-    });
-
-  // startMonaco.
-
+  const replaced = await monacoContribution(code);
   const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
-
-  const model = editor.getModel(uri) || createModel(
-    replaced,
-    "typescript",
-    uri,
-  );
+  const model = editor.getModel(uri) || createModel(replaced, "typescript", uri);
 
   const myEditor = create(container, {
     model,
@@ -213,202 +126,57 @@ async function startMonacoPristine(
       alwaysConsumeMouseWheel: false,
     },
     scrollBeyondLastLine: true,
-    scrollPredominantAxis: false,
-
-    smoothScrolling: true,
-    suggest: {
-      /**
-       * Overwrite word ends on accept. Default to false.
-       */
-      insertMode: "replace",
-      /**
-       * Enable graceful matching. Defaults to true.
-       */
-      filterGraceful: true,
-      /**
-       * Prevent quick suggestions when a snippet is active. Defaults to true.
-       */
-      snippetsPreventQuickSuggestions: true,
-      /**
-       * Favors words that appear close to the cursor.
-       */
-      localityBonus: true,
-      /**
-       * Enable using global storage for remembering suggestions.
-       */
-      shareSuggestSelections: true,
-      /**
-       * Enable or disable icons in suggestions. Defaults to true.
-       */
-      showIcons: true,
-      /**
-       * Enable or disable the suggest status bar.
-       */
-      showStatusBar: true,
-      /**
-       * Enable or disable the rendering of the suggestion preview.
-       */
-      preview: true,
-      /**
-       * Configures the mode of the preview.
-       */
-      previewMode: "subwordSmart",
-      /**
-       * Show details inline with the label. Defaults to true.
-       */
-      showInlineDetails: true,
-
-      /**
-       * Show method-suggestions.
-       */
-      showMethods: true,
-      /**
-       * Show function-suggestions.
-       */
-      showFunctions: true,
-      /**
-       * Show constructor-suggestions.
-       */
-      showConstructors: true,
-      /**
-       * Show deprecated-suggestions.
-       */
-
-      /**
-       * Show field-suggestions.
-       */
-      showFields: true,
-      showModules: true,
-
-      /**
-       * Show color-suggestions.
-       */
-      showColors: true,
-      /**
-       * Show file-suggestions.
-       */
-      showFiles: true,
-      /**
-       * Show reference-suggestions.
-       */
-      showReferences: true,
-      /**
-       * Show folder-suggestions.
-       */
-      showFolders: false,
-      /**
-       * Show typeParameter-suggestions.
-       */
-      showTypeParameters: true,
-      /**
-       * Show issue-suggestions.
-       */
-      showIssues: true,
-      /**
-       * Show user-suggestions.
-       */
-      showUsers: true,
-      /**
-       * Show snippet-suggestions.
-       */
-      showSnippets: true,
-    },
-
+    scrollPredominantAxis: true,
     automaticLayout: true,
     links: false,
     useShadowDOM: false,
     tabSize: 2,
     insertSpaces: true,
-
-    contextmenu: true,
-    stablePeek: true,
-
-    roundedSelection: true,
-    //  Editing: true,
     bracketPairColorization: {
       independentColorPoolPerBracketType: true,
       enabled: true,
     },
-    // bracketPairGuides: {
-    // bracketPairs: true,
-    // bracketPairsHorizontal : true,
-    // highlightActiveBracketPair: true,
-    ///  indentation: true,
-    // highlightActiveIndentation:  'always'
-    // },
-    codeLens: true,
-    "semanticHighlighting.enabled": true,
-    dragAndDrop: true,
-    codeActionsOnSaveTimeout: 100,
-    dropIntoEditor: { enabled: true },
-    // GotoLocation: true,]]
-    mouseStyle: "default",
     definitionLinkOpensInPeek: true,
     theme: "vs-dark",
-    autoClosingBrackets: "beforeWhitespace",
+    autoClosingBrackets: "languageDefined",
   });
-  // if (globalThis[codeSpace]){
-  // globalThis[codeSpace]!.model  && myEditor.setModel( globalThis[codeSpace]!.model );
-  //   globalThis[codeSpace].viewState && myEditor.restoreViewState(globalThis[codeSpace].viewState);
-  // }
-  //  languages.typescript.typescriptDefaults.setEagerModelSync(true);
-
-  // setTimeout(() => w.extraStuff(code, uri, languages.typescript), 1000);
-
-  // const memoryCache = localForage.createInstance({
-  //   name: "model-" + codeSpace,
-  // });
 
   let ctr = new AbortController();
 
-  setInterval(async () => {
+  const tsCheck = (async () => {
     const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
+    const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(uri.toString());
+    syntacticDiagnostics.forEach((d) => console.error(d));
 
-    const diag2 = await typeScriptWorker.getSyntacticDiagnostics(
-      uri.toString(),
-    );
-
-    diag2.map((d) => console.error(d.messageText.toString()));
-
-    const diag3 = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
-
-    diag3.map(async (d) => {
+    const semanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
+    semanticDiagnostics.forEach(async (d) => {
       const message = d.messageText.toString();
-
-      if (message.indexOf("Cannot find module") !== -1) {
+      if (message.includes("Cannot find module")) {
         const pkg = message.split("'")[1];
-        if (pkg.indexOf("https://")) return;
-        const cnt = await fetch(originToUse + "/" + pkg, {
-          redirect: "follow",
-        });
-
-        if (cnt.headers.has("X-TypeScript-Types")) {
-          languages.typescript.typescriptDefaults.addExtraLib(
-            await (await fetch(cnt.headers.get("X-TypeScript-Types")!)).text(),
-            `${originToUse}/${pkg}/index.d.ts`,
-          );
+        if (!pkg.startsWith("https://")) {
+          const cnt = await fetch(originToUse + "/" + pkg, { redirect: "follow" });
+          if (cnt.headers.has("X-TypeScript-Types")) {
+            const typesUrl = cnt.headers.get("X-TypeScript-Types")!;
+            const typesContent = await (await fetch(typesUrl)).text();
+            languages.typescript.typescriptDefaults.addExtraLib(typesContent, `${originToUse}/${pkg}/index.d.ts`);
+          }
+          if (cnt.headers.has("X-TypeScript-Types")) {
+            const content = await cnt.text();
+            languages.typescript.typescriptDefaults.addExtraLib(content, `/${pkg}/index.ts`);
+          }
+          console.error({ pkg });
         }
-
-        if (cnt.headers.has("X-TypeScript-Types")) {
-          languages.typescript.typescriptDefaults.addExtraLib(
-            await cnt.text(),
-            `/${pkg}/index.ts`,
-          );
-        }
-
-        console.error({ pkg });
       }
     });
 
     return typeScriptWorker
       .getSuggestionDiagnostics(uri.toString())
-      .then((diag) => diag.map((d) => console.error(d.messageText.toString())))
-      .catch(
-        (e) => {
-          console.log("ts error, will retry", e);
-        },
-      );
-  }, 5000);
+      .then((diag) => diag.forEach((d) => console.error(d.messageText.toString())))
+      .catch((e) => {
+        console.log("ts error, will retry", e);
+      });
+  });
+
   const mod = {
     getValue: () => model.getValue(),
     silent: false,
@@ -416,41 +184,33 @@ async function startMonacoPristine(
       return (await (await languages.typescript.getTypeScriptWorker())(uri))
         .getSuggestionDiagnostics(uri.toString())
         .then((diag) => diag.map((d) => d.messageText.toString()))
-        .catch(
-          (e) => {
-            console.log("ts error, will retry", e);
-          },
-        );
+        .catch((e) => {
+          console.log("ts error, will retry", e);
+        });
     },
     isEdit: false,
     setValue: (code: string) => {
       myEditor.getDomNode()?.blur();
-      // console.log("setValue! ", code);
       if (mod.isEdit) return;
       mod.silent = true;
       let state = null;
       try {
-        // console.log("trying to change code");
-        try {
-          state = myEditor.saveViewState();
-        } catch {
-          console.error("error while saving monaco state");
-        }
-
-        // console.log("changing the code!");
+        state = myEditor.saveViewState();
         model.setValue(code);
         if (state) {
           myEditor.restoreViewState(state);
         }
-      } catch {
-        console.error("error while saving the state");
+      } catch (error) {
+        console.error("Error while saving the state:", error);
       } finally {
         setTimeout(() => {
           mod.silent = false;
+          tsCheck();
         }, 500);
       }
     },
   };
+
   myEditor.getDomNode()?.blur();
 
   myEditor.onDidFocusEditorText(() => {
@@ -462,29 +222,13 @@ async function startMonacoPristine(
       mod.isEdit = false;
     }, 200);
   });
+
   myEditor.onDidBlurEditorText(async () => {
     mod.setValue(await prettier(model.getValue()));
     mod.isEdit = true;
   });
 
-  // let start = await memoryCache.getItem("start");
-
-  // if (!start) {
-  //   memoryCache.setItem("start", model.getValue());
-  //   memoryCache.setItem("versionId", model.getVersionId());
-  // } else {
-  //   let i;
-  //   const versionId = await memoryCache.getItem("versionId");
-  //  const evs =await Promise.all( new Array(versionId).fill(0).map((_,i)=>memoryCache.getItem(i.toString())))
-  //  evs.map(ev=>model.applyEdits(ev.changes));
-
-  // }
-
-  // globalThis[codeSpace] =  globalThis[codeSpace] = {model:  myEditor.getModel(),
-  // viewState: myEditor.saveViewState()};
-  BC.onmessage = (
-    { data }: { data: { changes?: monaco.editor.IModelContentChange[] } },
-  ) => {
+  BC.onmessage = ({ data }: { data: { changes?: monaco.editor.IModelContentChange[] } }) => {
     if (mod.silent) return;
     if (data.changes) {
       mod.silent = true;
@@ -493,10 +237,8 @@ async function startMonacoPristine(
     }
   };
 
-  model.onDidChangeContent((_ev) => {
+  model.onDidChangeContent(() => {
     const newCode = model.getValue();
-
-    // console.log("onDidChangeContent", model.getValue());
     mod.isEdit = true;
     ctr.abort();
     ctr = new AbortController();
@@ -505,13 +247,10 @@ async function startMonacoPristine(
       if (ctr.signal.aborted) return;
       mod.isEdit = false;
     }, 1000);
-    // globalThis[codeSpace].model = myEditor.getModel();
-    // globalThis[codeSpace].viewState = myEditor.saveViewState();
+
     if (!mod.silent) {
       onChange(newCode);
-      // BC.postMessage(JSON.parse(JSON.stringify({ changes: ev.changes })));
     }
-    // console.log({ version: model.getVersionId(), ev });
   });
 
   return mod;
