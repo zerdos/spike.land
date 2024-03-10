@@ -2627,7 +2627,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.64"],\
           ["@types/react-dom", "npm:18.2.21"],\
           ["@types/uuid", "npm:9.0.8"],\
-          ["@types/wicg-file-system-access", "npm:2023.10.4"],\
+          ["@types/wicg-file-system-access", "npm:2023.10.5"],\
           ["@typescript-eslint/typescript-estree", "virtual:312dbca8a46f9c203a79e88a2126abad2a6d11f9f7ba79b35045f264e0770d4735b29668bfa64b816d6d16f910162477d68c634a36d9e98e5bee95314764855d#npm:7.1.1"],\
           ["ace-builds", "npm:1.32.7"],\
           ["assert", "npm:2.1.0"],\
@@ -2655,7 +2655,7 @@ const RAW_RUNTIME_STATE =
           ["lodash.debounce", "npm:4.0.8"],\
           ["lodash.throttle", "npm:4.1.1"],\
           ["module", "npm:1.2.5"],\
-          ["monaco-editor", "npm:0.46.0"],\
+          ["monaco-editor", "npm:0.47.0"],\
           ["node-source-walk", "npm:6.0.2"],\
           ["os-browserify", "npm:0.3.0"],\
           ["p-map", "npm:7.0.1"],\
@@ -3246,10 +3246,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/wicg-file-system-access", [\
-      ["npm:2023.10.4", {\
-        "packageLocation": "./.yarn/global/cache/@types-wicg-file-system-access-npm-2023.10.4-96a8d75efc-10.zip/node_modules/@types/wicg-file-system-access/",\
+      ["npm:2023.10.5", {\
+        "packageLocation": "./.yarn/global/cache/@types-wicg-file-system-access-npm-2023.10.5-66b8f42522-10.zip/node_modules/@types/wicg-file-system-access/",\
         "packageDependencies": [\
-          ["@types/wicg-file-system-access", "npm:2023.10.4"]\
+          ["@types/wicg-file-system-access", "npm:2023.10.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10936,10 +10936,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["monaco-editor", [\
-      ["npm:0.46.0", {\
-        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.46.0-fb69b10c11-10.zip/node_modules/monaco-editor/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/global/cache/monaco-editor-npm-0.47.0-7810d3fc36-10.zip/node_modules/monaco-editor/",\
         "packageDependencies": [\
-          ["monaco-editor", "npm:0.46.0"]\
+          ["monaco-editor", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\

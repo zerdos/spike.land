@@ -1776,7 +1776,7 @@ __metadata:
     "@types/react": "npm:18.2.64"
     "@types/react-dom": "npm:18.2.21"
     "@types/uuid": "npm:9.0.8"
-    "@types/wicg-file-system-access": "npm:^2023.10.4"
+    "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.1.1"
     ace-builds: "npm:1.32.7"
     assert: "npm:2.1.0"
@@ -1804,7 +1804,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.46.0"
+    monaco-editor: "npm:0.47.0"
     node-source-walk: "npm:6.0.2"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.1"
@@ -2280,10 +2280,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:^2023.10.4":
-  version: 2023.10.4
-  resolution: "@types/wicg-file-system-access@npm:2023.10.4"
-  checksum: 10/ca116c5eb51071e374a082cec37920500317e540557dd2bf62f75b7db1206e68d902a17cee463dc93667da9d6d6a86a0774d842c574a7758a27f7c59ea5db919
+"@types/wicg-file-system-access@npm:^2023.10.5":
+  version: 2023.10.5
+  resolution: "@types/wicg-file-system-access@npm:2023.10.5"
+  checksum: 10/f161b76d0c53b3e72238acf7ed5af3893018a845cd9e0a507394ba219607808d34957f6247e1ef091a8ea9131495dca8f12804c6bd75c5c34bf0b990f561be57
   languageName: node
   linkType: hard
 
@@ -8946,10 +8946,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.46.0":
-  version: 0.46.0
-  resolution: "monaco-editor@npm:0.46.0"
-  checksum: 10/827b8e8e73a2032c14c4f5c7f112e6a42467c1f43ae3b9d63eec68539345156ccef91fd2efcb65b063c960692efe44b8b482832e5d078a781cdff2b0fe5c906c
+"monaco-editor@npm:0.47.0":
+  version: 0.47.0
+  resolution: "monaco-editor@npm:0.47.0"
+  checksum: 10/d4c21c9011dbe419f9474ccec525f29089f3d785314cf5643259d339e374d6bfde9db651cb084d4ea8942028f242cfe05d726c29a26894a827c368e9ec41e80e
   languageName: node
   linkType: hard
 

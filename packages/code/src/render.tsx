@@ -40,7 +40,9 @@ export const render = async (
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
-  let App = await getApp(mApp, codeSpace);
+  type IFC = FC<{width: number; height: number; left: number; top: number}>
+
+  let App = await getApp(mApp, codeSpace) as unknown as IFC;
 
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
@@ -112,8 +114,6 @@ function getCodeSpace() {
   return location.pathname.slice(1).split("/")[1];
 }
 
-type IFC = FC<{width: number; height: number; left: number; top: number}>
-
 async function getApp(App: FC | null, codeSpace: string) {
   if (!App) {
     try {
@@ -123,18 +123,18 @@ async function getApp(App: FC | null, codeSpace: string) {
         ? `${location.origin}/live/${codeSpace}/index.mjs`
         : `${location.origin}/live/${codeSpace}/index.js`;
 
-      return (await import(moduleUrl)).default as IFC;
+      App = (await import(moduleUrl)).default;
     } catch (err) {
-     return (() => (
+      App = () => (
         <div>
           <h1>Error</h1>
           <pre>{JSON.stringify({ err })}</pre>
         </div>
-      )) as IFC ;
+      );
     }
   }
 
-  return App as IFC;
+  return App;
 }
 
 async function handleRender(
@@ -163,7 +163,7 @@ async function handleRender(
         return;
       }
 
-      globalThis.firstRender = { html, css, code: data!.code || "" };
+      globalThis.firstRender = { html, css, code: "" };
       window?.parent?.postMessage({ type: "firstRender", html, css });
 
       return { html, css };
