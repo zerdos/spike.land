@@ -16,15 +16,15 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.1",
-    "@cloudflare/workers-types": "4.20240222.0",
+    "@cloudflare/workers-types": "4.20240312.0",
     "@spike-land/code": "0.9.55",
     "typescript": "5.4.2",
-    "wrangler": "3.32.0"
+    "wrangler": "3.33.0"
   },
   "dependencies": {
-    "@types/node": "20.11.25",
-    "ai": "3.0.7",
-    "async-mutex": "0.4.1",
+    "@types/node": "20.11.27",
+    "ai": "3.0.9",
+    "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.20.1",
     "esm-worker": "0.135.11",
