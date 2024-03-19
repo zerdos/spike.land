@@ -22,8 +22,8 @@
     "wrangler": "3.34.2"
   },
   "dependencies": {
-    "@types/node": "20.11.28",
-    "ai": "3.0.12",
+    "@types/node": "20.11.29",
+    "ai": "3.0.13",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.20.2",
