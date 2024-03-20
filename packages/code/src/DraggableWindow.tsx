@@ -165,7 +165,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   overflow: hidden;
                 `}
                 initial={{ scale: 1 }}
-                animate={{ height: window.innerHeight, width: width, scale: 1 * scale }}
+                animate={{ height: window.innerHeight, width, scale: 1 * scale }}
               >
                 {children}
               </motion.div>
