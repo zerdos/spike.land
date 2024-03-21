@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.1",
-    "@cloudflare/workers-types": "4.20240314.0",
+    "@cloudflare/workers-types": "4.20240320.1",
     "@spike-land/code": "0.9.55",
-    "typescript": "5.4.2",
-    "wrangler": "3.35.0"
+    "typescript": "5.4.3",
+    "wrangler": "3.36.0"
   },
   "dependencies": {
     "@types/node": "20.11.30",
