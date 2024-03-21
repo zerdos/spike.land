@@ -144,7 +144,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               </ToggleButtonGroup>
             </motion.div>
             <motion.div
-              transition={{ scale: { type: "spring" } }}
+              transition={{ scale: { type } }}
               css={css`
                 display: block;
                 border-radius: 8px;
@@ -154,18 +154,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               animate={{ height: window.innerHeight * scale, width: width * scale }}
             >
               <motion.div
-                transition={{ zoom: { type: "spring" } }}
+                transition={{ zoom: { type: "spring" }, delay: 0 }}
                 css={css`
                   transform-origin: top left;
                   display: inline-block;
-                  height: 100%;
-                  width: 100%;
                   border-radius: 8px;
                   background-color: ${rgba(r, g, b, 0.7)};
                   overflow: hidden;
                 `}
-                initial={{ scale: 1 }}
-                animate={{ height: window.innerHeight, width, scale: 1 * scale }}
+                initial={{ height:  window.innerHeight, width: window.innerWidth, scale: 1 }}
+                animate={{ height: window.innerHeight, width, scale }}
               >
                 {children}
               </motion.div>
