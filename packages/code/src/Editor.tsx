@@ -61,7 +61,7 @@ const Editor: FC<
       if (container === null) return;
 
       const modz = await (engine === "monaco"
-        ? setMonaco(container, codeSpace, code, i)
+        ? setMonaco(container, codeSpace, code)
         : setAce(container, code)) as { setValue: (code: string) => null };
 
       changeContent((x) => ({
@@ -194,8 +194,7 @@ const Editor: FC<
   async function setMonaco(
     container: HTMLDivElement,
     codeSpace: string,
-    code: string,
-    i: number,
+    code: string
   ) {
     if (startedM) return;
     startedM = 1;
@@ -208,7 +207,6 @@ const Editor: FC<
     return await startMonaco({
       container,
       codeSpace,
-      i,
       code,
       onChange,
     });
