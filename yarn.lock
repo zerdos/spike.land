@@ -1758,7 +1758,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/lodash.throttle": "npm:4.1.9"
     "@types/node": "npm:20.11.30"
-    "@types/react": "npm:18.2.69"
+    "@types/react": "npm:18.2.70"
     "@types/react-dom": "npm:18.2.22"
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
@@ -2209,14 +2209,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.69":
-  version: 18.2.69
-  resolution: "@types/react@npm:18.2.69"
+"@types/react@npm:18.2.70":
+  version: 18.2.70
+  resolution: "@types/react@npm:18.2.70"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/5cc185f00ad5a4c2261e127ad25241448492f391e2206738b0477cbdba6aa75692e18ece5e75854ed513342d95c9ee83315744cb6b1470d488772cef1f8b40c8
+  checksum: 10/ddf235dfa6abe0075b40e66d3119ca3d0af330045cd12ebea8f335e07e6d71882535bfab2b7ae33c1709a6c1cf06eab2e5587c9d4c2333d25f781f9fd34c83e5
   languageName: node
   linkType: hard
 
@@ -8973,7 +8973,7 @@ __metadata:
     "@playwright/test": "npm:1.42.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.6"
-    "@types/react": "npm:18.2.69"
+    "@types/react": "npm:18.2.70"
     "@types/react-dom": "npm:18.2.22"
     "@typescript-eslint/eslint-plugin": "npm:7.3.1"
     "@typescript-eslint/parser": "npm:7.3.1"
