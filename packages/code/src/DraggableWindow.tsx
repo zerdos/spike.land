@@ -34,7 +34,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
       setScaleRange(Math.min(50, 50 / (1 / devicePixelRatio)));
       setWidth(innerWidth);
       setPositions({ bottom: 20, right: 20 });
-      setTimeout(() => setDelay(0), 2000);
+      setDelay(0);
+      // setTimeout(() => setDelay(0), 2000);
     };
     const timeoutId = setTimeout(reveal, 2000);
     return () => clearTimeout(timeoutId);
