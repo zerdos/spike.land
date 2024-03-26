@@ -1,9 +1,9 @@
 ## Devcontainer
 
 - Base image: ubuntu:jammy
-- Node: 20.11.0
+- Node: 20.11.1
 - Yarn: 1.22.19
-- Cypress 13.6.3
+- Cypress 13.7.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!
