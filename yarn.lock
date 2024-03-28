@@ -1737,7 +1737,7 @@ __metadata:
     p-map: "npm:7.0.1"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.4.3"
-    wrangler: "npm:3.37.0"
+    wrangler: "npm:3.39.0"
   languageName: unknown
   linkType: soft
 
@@ -1758,7 +1758,7 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/lodash.throttle": "npm:4.1.9"
     "@types/node": "npm:20.11.30"
-    "@types/react": "npm:18.2.71"
+    "@types/react": "npm:18.2.73"
     "@types/react-dom": "npm:18.2.22"
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
@@ -1816,7 +1816,7 @@ __metadata:
     util: "npm:0.12.5"
     uuid: "npm:9.0.1"
     uvu: "npm:0.5.6"
-    webrtc-adapter: "npm:8.2.3"
+    webrtc-adapter: "npm:9.0.0"
     workbox-window: "npm:7.0.0"
     worker-rpc: "npm:0.2.0"
   languageName: unknown
@@ -1917,7 +1917,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240320.1"
     esbuild-wasm: "npm:0.20.2"
     typescript: "npm:5.4.3"
-    wrangler: "npm:3.37.0"
+    wrangler: "npm:3.39.0"
   languageName: unknown
   linkType: soft
 
@@ -2209,14 +2209,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.71":
-  version: 18.2.71
-  resolution: "@types/react@npm:18.2.71"
+"@types/react@npm:18.2.73":
+  version: 18.2.73
+  resolution: "@types/react@npm:18.2.73"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/b9473a30b541de7ddd603fef65240c09459c04ede28959f9499d779c3dfb6bcb8fd969b377e097eb5b6bc3182ff094548bff47a2c8b8f57a7b601de22a225eb6
+  checksum: 10/799e30e73464dff40e04f4eb7499ebc31f99b1711a69263b9af340af738e35c9cdf53084e3dacc3b21c031aaa0cba1b51f4ba60490204b7abb75f115b841583f
   languageName: node
   linkType: hard
 
@@ -8973,7 +8972,7 @@ __metadata:
     "@playwright/test": "npm:1.42.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.6"
-    "@types/react": "npm:18.2.71"
+    "@types/react": "npm:18.2.73"
     "@types/react-dom": "npm:18.2.22"
     "@typescript-eslint/eslint-plugin": "npm:7.4.0"
     "@typescript-eslint/parser": "npm:7.4.0"
@@ -12417,12 +12416,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webrtc-adapter@npm:8.2.3":
-  version: 8.2.3
-  resolution: "webrtc-adapter@npm:8.2.3"
+"webrtc-adapter@npm:9.0.0":
+  version: 9.0.0
+  resolution: "webrtc-adapter@npm:9.0.0"
   dependencies:
     sdp: "npm:^3.2.0"
-  checksum: 10/13a988ac12e0bd89abe66aa578f3d2ba9c93d222ca1c3b0b2e00bb784b771fb964f0fa1b6a2d68663c6307d17719878b164211008a9546a57c930fecc421c2be
+  checksum: 10/fb5b12a236d4b9834d1e14379d6e4d4336fa5f708bde5f2c212365f3d455f57297453824e19190bdf3cee5cd4e2991336c7c8b24cf53496bdf5b499fad8cd77f
   languageName: node
   linkType: hard
 
@@ -12607,9 +12606,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.37.0":
-  version: 3.37.0
-  resolution: "wrangler@npm:3.37.0"
+"wrangler@npm:3.39.0":
+  version: 3.39.0
+  resolution: "wrangler@npm:3.39.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.1"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12637,7 +12636,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/4efb4ea0e29c0667fe6022bbb69d255141bf6cf0a6749f45985fbb6ebe1b96ce9da3c436c3d7d992ad13a4270b207327b97b9b930820a0f228b2a9023dfd7015
+  checksum: 10/6ebeaf3700bb4966b860fcb4439269df0af5fb2c85bc043a1ca27de35cd1857edb804f88dd24f8eef68e74a6b1cc6fb6a38ed7dcab083b0d1ae09c6e8452d074
   languageName: node
   linkType: hard
 
