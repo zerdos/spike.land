@@ -228,14 +228,16 @@ export class Code implements DurableObject {
               this.#wsSessions.push(session);
 
               const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
+              
               webSocket.send(
                 "Ello Ello"
               );
-
+                
               webSocket.addEventListener(
                 "message",
                 (msg: { data: string | ArrayBuffer }) => webSocket.send("Gotcha"),
               );
+
 
               const closeOrErrorHandler = () => {
                 session.quit = true;
