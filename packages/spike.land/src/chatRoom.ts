@@ -28,10 +28,34 @@ export interface WebsocketSession {
 //   html: string;
 // }
 
+interface IData  {
+  name?: string;
+  changes?: object[];
+  codeSpace?: string;
+  target?: string;
+  type?:
+    | "new-ice-candidate"
+    | "video-offer"
+    | "video-answer"
+    | "handshake"
+    | "fetch";
+  patch?: Delta[];
+  reversePatch: Delta[];
+  address?: string;
+  hashCode?: string;
+  i: number;
+  candidate?: string;
+  answer?: string;
+  offer?: string;
+  newHash?: string;
+  oldHash?: string;
+}
+
 export class Code implements DurableObject {
   // mutex: Mutex;
 
   #wsSessions: WebsocketSession[] = [];
+  #userSessions: WebsocketSession[] = [];
   #transpiled = "";
   #origin = "";
 
@@ -186,15 +210,26 @@ export class Code implements DurableObject {
                 webSocket,
                 blockedMessages: [] as string[],
               };
-              this.#wsSessions.push(session);
+              this.#userSessions.push(session);
 
-              const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
-              webSocket.send( "HELLO"
-              );
+              const users = this.#userSessions.filter((x) => x.name).map((x) => x.name);
+              webSocket.send(JSON.stringify(users))
+              
 
               webSocket.addEventListener(
                 "message",
-                (msg: { data: string | ArrayBuffer }) => webSocket.send("GOTCHA"),
+                (msg: { data: string | ArrayBuffer }) => {
+                  const data: IData = JSON.parse(msg.data as string);
+
+                  if (!session.name && data.name) {
+                    session.name = data.name;
+                  }
+                  
+                  if (data.target && data.target!==session.name) {
+                    this.#userSessions.filter(x=>x.name === data.target)[0].webSocket.send(msg.data)
+                  }
+
+                }
               );
 
               const closeOrErrorHandler = () => {
@@ -228,17 +263,23 @@ export class Code implements DurableObject {
               this.#wsSessions.push(session);
 
               const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
-              
               webSocket.send(
-                "Ello Ello"
+                JSON.stringify({
+                  hashCode: makeHash(this.session),
+                  i: this.session.i,
+                  // sessionI: JSON.parse(JSON.stringify(this.session)).i || JSON.stringify(this.session),
+                  users,
+                  // runner: this.#codeShaSum,
+                  // codeShaSum,
+                  type: "handshake",
+                }),
               );
-                
+
               webSocket.addEventListener(
                 "message",
-                (msg: { data: string | ArrayBuffer }) => webSocket.send("Gotcha"),
+                (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
               );
-
-
+              
               const closeOrErrorHandler = () => {
                 session.quit = true;
                 // this.users.remove(session.name);
@@ -564,28 +605,7 @@ export class Code implements DurableObject {
 
     const respondWith = (obj: unknown) => session.webSocket.send(JSON.stringify(obj));
 
-    let data: {
-      name?: string;
-      changes?: object[];
-      codeSpace?: string;
-      target?: string;
-      type?:
-        | "new-ice-candidate"
-        | "video-offer"
-        | "video-answer"
-        | "handshake"
-        | "fetch";
-      patch?: Delta[];
-      reversePatch: Delta[];
-      address?: string;
-      hashCode?: string;
-      i: number;
-      candidate?: string;
-      answer?: string;
-      offer?: string;
-      newHash?: string;
-      oldHash?: string;
-    };
+    let data: IData;
     try {
       data = typeof msg.data === "string"
         ? JSON.parse(msg.data)
@@ -738,3 +758,4 @@ export class Code implements DurableObject {
     }
   }
 }
+
