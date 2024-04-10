@@ -171,6 +171,45 @@ export class Code implements DurableObject {
         if (path.length === 0) path.push("");
 
         switch (path[0]) {
+          case "users": {
+            if (request.headers.get("Upgrade") != "websocket") {
+              return new Response("expected websocket", { status: 400 });
+            }
+
+            const pair = new WebSocketPair();
+
+            const handleSession = async (webSocket: WebSocket) => {
+              webSocket.accept();
+              const session = {
+                name: "",
+                quit: false,
+                webSocket,
+                blockedMessages: [] as string[],
+              };
+              this.#wsSessions.push(session);
+
+              const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
+              webSocket.send( "HELLO"
+              );
+
+              webSocket.addEventListener(
+                "message",
+                (msg: { data: string | ArrayBuffer }) => webSocket.send("GOTCHA"),
+              );
+
+              const closeOrErrorHandler = () => {
+                session.quit = true;
+                // this.users.remove(session.name);
+              };
+              webSocket.addEventListener("close", closeOrErrorHandler);
+              webSocket.addEventListener("error", closeOrErrorHandler);
+            };
+
+            await handleSession(pair[1] as unknown as WebSocket);
+            // await signaller(this.#wsSessions, pair[1] as unknown as WebSocket);
+
+            return new Response(null, { status: 101, webSocket: pair[0] });
+          }
           case "websocket": {
             if (request.headers.get("Upgrade") != "websocket") {
               return new Response("expected websocket", { status: 400 });
@@ -190,20 +229,12 @@ export class Code implements DurableObject {
 
               const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
               webSocket.send(
-                JSON.stringify({
-                  hashCode: makeHash(this.session),
-                  i: this.session.i,
-                  // sessionI: JSON.parse(JSON.stringify(this.session)).i || JSON.stringify(this.session),
-                  users,
-                  // runner: this.#codeShaSum,
-                  // codeShaSum,
-                  type: "handshake",
-                }),
+                "Ello Ello"
               );
 
               webSocket.addEventListener(
                 "message",
-                (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
+                (msg: { data: string | ArrayBuffer }) => webSocket.send("Gotcha"),
               );
 
               const closeOrErrorHandler = () => {
