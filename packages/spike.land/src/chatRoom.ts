@@ -212,9 +212,27 @@ export class Code implements DurableObject {
               };
               this.#userSessions.push(session);
 
-              const users = this.#userSessions.filter((x) => x.name).map((x) => x.name);
-              webSocket.send(JSON.stringify(users))
-              
+//              webSocket.send(JSON.stringify(users))
+
+              webSocket.addEventListener("close", ()=>{
+                this.#userSessions = this.#userSessions.filter(x=>x!=session);
+                broadcastUsers();
+              })
+
+              const broadcastUsers = ()=>             this.#userSessions.map(sess=>{
+                const users = this.#userSessions.filter((x) => x.name).map((x) => x.name);
+
+                try {
+                  sess.webSocket.send(JSON.stringify(users))
+                } catch {
+                  sess.quit = true;
+                  // this.users.remove(s.name);
+                  this.#userSessions = this.#userSessions.filter(session => session!==sess);
+                }
+                              
+              });
+
+              broadcastUsers();
 
               webSocket.addEventListener(
                 "message",
@@ -222,7 +240,14 @@ export class Code implements DurableObject {
                   const data: IData = JSON.parse(msg.data as string);
 
                   if (!session.name && data.name) {
+                    this.#userSessions.filter(sess=>sess.name===data.name).map(sess=>{
+                      sess.webSocket.close();
+                      sess.name = ''
+                    }
+                    )
                     session.name = data.name;
+                    broadcastUsers();
+
                   }
                   
                   if (data.target && data.target!==session.name) {
@@ -758,4 +783,3 @@ export class Code implements DurableObject {
     }
   }
 }
-
