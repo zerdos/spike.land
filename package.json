@@ -37,7 +37,7 @@
     "@playwright/test": "1.43.0",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "8.56.7",
-    "@types/react": "18.2.74",
+    "@types/react": "18.2.75",
     "@types/react-dom": "18.2.24",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
