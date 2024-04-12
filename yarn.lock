@@ -1737,7 +1737,7 @@ __metadata:
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.4.5"
-    wrangler: "npm:3.49.0"
+    wrangler: "npm:3.50.0"
   languageName: unknown
   linkType: soft
 
@@ -1758,12 +1758,12 @@ __metadata:
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/lodash.throttle": "npm:4.1.9"
     "@types/node": "npm:20.12.7"
-    "@types/react": "npm:18.2.75"
-    "@types/react-dom": "npm:18.2.24"
+    "@types/react": "npm:18.2.77"
+    "@types/react-dom": "npm:18.2.25"
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.6.0"
-    ace-builds: "npm:1.32.9"
+    ace-builds: "npm:1.33.0"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -1805,7 +1805,7 @@ __metadata:
     react-icons: "npm:5.0.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.0"
-    react-reverse-portal: "npm:2.1.1"
+    react-reverse-portal: "npm:2.1.2"
     react-rnd: "npm:10.4.1"
     stream-browserify: "npm:3.0.0"
     transferables: "npm:1.0.3"
@@ -1917,7 +1917,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240405.0"
     esbuild-wasm: "npm:0.20.2"
     typescript: "npm:5.4.5"
-    wrangler: "npm:3.49.0"
+    wrangler: "npm:3.50.0"
   languageName: unknown
   linkType: soft
 
@@ -2004,13 +2004,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.56.7":
-  version: 8.56.7
-  resolution: "@types/eslint@npm:8.56.7"
+"@types/eslint@npm:8.56.9":
+  version: 8.56.9
+  resolution: "@types/eslint@npm:8.56.9"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
-  checksum: 10/4c90f30a19bc5a01b27afc4f7e3efa28d191b7c9505fd4f6373d1dcdf8e93b939628d92ae730c3ef77bf2a094622296bb307cbecbad7cb6b43ef31dd722f6944
+  checksum: 10/fde20e8f3e5384f0ac78897b04cbaf1c78f4ba6cbdae9aeba876c00b665b498670cfcdf84a39eb4e44a6e27d6de80e24b5833d51a09d5d7e410229feb8b9c401
   languageName: node
   linkType: hard
 
@@ -2180,12 +2180,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.24":
-  version: 18.2.24
-  resolution: "@types/react-dom@npm:18.2.24"
+"@types/react-dom@npm:18.2.25":
+  version: 18.2.25
+  resolution: "@types/react-dom@npm:18.2.25"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10/bbd4005f2f65b7606505e9b8759b6e99e222d503602765594ea327893fb7061de8951279baef47a1932f04d94d1865daea05a32f9fcf6f9f1143dbabce5b33de
+  checksum: 10/0e45856a2fdbf09e74632b132b3af773c6b18fc2ab0bd04595c9f2bcc0bb04d5e732ac8156d145b712dedab7484a8fe9dce5cf720a5437b5d26099c7060c7ba4
   languageName: node
   linkType: hard
 
@@ -2208,13 +2208,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.75":
-  version: 18.2.75
-  resolution: "@types/react@npm:18.2.75"
+"@types/react@npm:18.2.77":
+  version: 18.2.77
+  resolution: "@types/react@npm:18.2.77"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/d609cdc52d3c89871e0b1b0a77ed2d4077c1393709d0ac51a03b04c17704eb337484405aa646b193ac0c54f4fb286e311739b243ce50023ef8ba5bed422a0e8b
+  checksum: 10/80d7ad9cf13e15895a857c66f5b0c1ce758c1e7580a76936d8d1b19c71e4485fa4b35d762a1de98de4eb91506cbc8507582c9a979f357b6f5f75f86009d8ca07
   languageName: node
   linkType: hard
 
@@ -2588,10 +2588,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.32.9":
-  version: 1.32.9
-  resolution: "ace-builds@npm:1.32.9"
-  checksum: 10/1a8db24712ace427a31f02212efc3c84a3a3e8d2c0db54c52b10c9c4903401e515275239e8ee2acce3323a0b049235cca3ce6aa708fb1ff63591f3cbc8d872b1
+"ace-builds@npm:1.33.0":
+  version: 1.33.0
+  resolution: "ace-builds@npm:1.33.0"
+  checksum: 10/5260c5e40c692a3b1f951f3bbf91e739888af25b1594a646a387e3994aae370b02f948c4033d1395c023f68bd86eeb2f901da8d04f8da8097c8b728f83380dd7
   languageName: node
   linkType: hard
 
@@ -4290,9 +4290,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.7.2":
-  version: 13.7.2
-  resolution: "cypress@npm:13.7.2"
+"cypress@npm:13.7.3":
+  version: 13.7.3
+  resolution: "cypress@npm:13.7.3"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -4338,7 +4338,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10/072c93c8f10b520ff29d7ec49c42a9ccfa3f3dd579d3429e508fda67ee29ff1013091bdab81f779961910a04fe7e33e1b61ea4e9f24f56b43ca08b056609dfcb
+  checksum: 10/eca6f204b59523fb22c6e55811e8506ff22559f01d6bc3aafa4c4fcda1613518f895169c480b5a53910878549143d9b9529cc4ce6f2948d5e6c233683ca360ec
   languageName: node
   linkType: hard
 
@@ -8702,9 +8702,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:3.20240405.0":
-  version: 3.20240405.0
-  resolution: "miniflare@npm:3.20240405.0"
+"miniflare@npm:3.20240405.1":
+  version: 3.20240405.1
+  resolution: "miniflare@npm:3.20240405.1"
   dependencies:
     "@cspotcode/source-map-support": "npm:0.8.1"
     acorn: "npm:^8.8.0"
@@ -8720,7 +8720,7 @@ __metadata:
     zod: "npm:^3.20.6"
   bin:
     miniflare: bootstrap.js
-  checksum: 10/9ca1888fe5518709c23e84aca501f9b639e1d9e6b3cbb0c06e620ae11f7500d1cde4ad1ba17db2b1142bb7dac0a2edbd508f21cd798e155c3528aaa794c29a03
+  checksum: 10/3b4d8353f9190d94cfb2fb8a4dfbe7fe5e12e0ef7953143424c511b093e9bf618d5b7cc2204077996b56ae39f28db21ed1df88171561f84dbf6fb5193f738e59
   languageName: node
   linkType: hard
 
@@ -8894,14 +8894,14 @@ __metadata:
     "@emotion/react": "npm:11.11.4"
     "@playwright/test": "npm:1.43.0"
     "@spike-land/ai-devtools": "workspace:^"
-    "@types/eslint": "npm:8.56.7"
-    "@types/react": "npm:18.2.75"
-    "@types/react-dom": "npm:18.2.24"
+    "@types/eslint": "npm:8.56.9"
+    "@types/react": "npm:18.2.77"
+    "@types/react-dom": "npm:18.2.25"
     "@typescript-eslint/eslint-plugin": "npm:7.6.0"
     "@typescript-eslint/parser": "npm:7.6.0"
     "@yarnpkg/sdks": "npm:3.1.0"
     constants: "npm:0.0.2"
-    cypress: "npm:13.7.2"
+    cypress: "npm:13.7.3"
     dprint: "npm:0.45.1"
     eslint: "npm:9.0.0"
     eslint-plugin-react: "npm:7.34.1"
@@ -10210,13 +10210,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-reverse-portal@npm:2.1.1":
-  version: 2.1.1
-  resolution: "react-reverse-portal@npm:2.1.1"
+"react-reverse-portal@npm:2.1.2":
+  version: 2.1.2
+  resolution: "react-reverse-portal@npm:2.1.2"
   peerDependencies:
     react: ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/0159d85eee715e891c71181e718b7fc5a373acacc2d41b9d8c5d32265bd024b1d37b5e7af5962d7361a9f1d0b84aeec0175ed9748903d08595eaf8e6b6592c04
+  checksum: 10/4b24fdb1a6727b6585aa63a03ef0e366064f062418555d847ef53645ee3ea91346481897eb90ab5f6b7da2898096da54d6fbde949bc159a8f4296e3b4ba5d904
   languageName: node
   linkType: hard
 
@@ -12531,9 +12531,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.49.0":
-  version: 3.49.0
-  resolution: "wrangler@npm:3.49.0"
+"wrangler@npm:3.50.0":
+  version: 3.50.0
+  resolution: "wrangler@npm:3.50.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.1"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12542,7 +12542,7 @@ __metadata:
     chokidar: "npm:^3.5.3"
     esbuild: "npm:0.17.19"
     fsevents: "npm:~2.3.2"
-    miniflare: "npm:3.20240405.0"
+    miniflare: "npm:3.20240405.1"
     nanoid: "npm:^3.3.3"
     path-to-regexp: "npm:^6.2.0"
     resolve: "npm:^1.22.8"
@@ -12562,7 +12562,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/2b2b73e8d887dcc3835b8ff9063afebd15f0a633a01fd59d08520a51d86642963af880bd0f7ff2f4b621ea744fc2542a79881870beaca6bd3801aeac3257b278
+  checksum: 10/4092fc70ea1fc47727fe9c744e4fac6add2dbf9ada0fc6eb4e7c3a42af63e585720410ad76bd5460ba09427633bcab35c7d9ce91c296aca38a23722047bb8ad3
   languageName: node
   linkType: hard
 
