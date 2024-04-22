@@ -32,7 +32,7 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240405.0",
+    "@cloudflare/workers-types": "^4.20240419.0",
     "@emotion/react": "11.11.4",
     "@playwright/test": "1.43.1",
     "@spike-land/ai-devtools": "workspace:^",
@@ -45,7 +45,7 @@
     "constants": "0.0.2",
     "cypress": "13.8.0",
     "dprint": "0.45.1",
-    "eslint": "9.0.0",
+    "eslint": "9.1.0",
     "eslint-plugin-react": "7.34.1",
     "execa": "8.0.1",
     "localforage": "1.10.0",
