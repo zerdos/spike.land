@@ -5,8 +5,10 @@ export function importMapReplace(code: string, origin: string): string {
     return code;
   }
 
-  const topLevelImportPattern = /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
-  const topLevelExportPattern = /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  const topLevelImportPattern =
+    /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
+  const topLevelExportPattern =
+    /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
 
   const replacer = (match: string, p1: string, p2: string, p3char: string) => {

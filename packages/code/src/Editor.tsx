@@ -194,7 +194,7 @@ const Editor: FC<
   async function setMonaco(
     container: HTMLDivElement,
     codeSpace: string,
-    code: string
+    code: string,
   ) {
     if (startedM) return;
     startedM = 1;

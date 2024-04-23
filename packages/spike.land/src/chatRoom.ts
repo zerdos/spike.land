@@ -28,7 +28,7 @@ export interface WebsocketSession {
 //   html: string;
 // }
 
-interface IData  {
+interface IData {
   name?: string;
   changes?: object[];
   codeSpace?: string;
@@ -212,25 +212,25 @@ export class Code implements DurableObject {
               };
               this.#userSessions.push(session);
 
-//              webSocket.send(JSON.stringify(users))
+              //              webSocket.send(JSON.stringify(users))
 
-              webSocket.addEventListener("close", ()=>{
-                this.#userSessions = this.#userSessions.filter(x=>x!=session);
+              webSocket.addEventListener("close", () => {
+                this.#userSessions = this.#userSessions.filter(x => x != session);
                 broadcastUsers();
-              })
-
-              const broadcastUsers = ()=>             this.#userSessions.map(sess=>{
-                const users = this.#userSessions.filter((x) => x.name).map((x) => x.name);
-
-                try {
-                  sess.webSocket.send(JSON.stringify(users))
-                } catch {
-                  sess.quit = true;
-                  // this.users.remove(s.name);
-                  this.#userSessions = this.#userSessions.filter(session => session!==sess);
-                }
-                              
               });
+
+              const broadcastUsers = () =>
+                this.#userSessions.map(sess => {
+                  const users = this.#userSessions.filter((x) => x.name).map((x) => x.name);
+
+                  try {
+                    sess.webSocket.send(JSON.stringify(users));
+                  } catch {
+                    sess.quit = true;
+                    // this.users.remove(s.name);
+                    this.#userSessions = this.#userSessions.filter(session => session !== sess);
+                  }
+                });
 
               broadcastUsers();
 
@@ -240,21 +240,18 @@ export class Code implements DurableObject {
                   const data: IData = JSON.parse(msg.data as string);
 
                   if (!session.name && data.name) {
-                    this.#userSessions.filter(sess=>sess.name===data.name).map(sess=>{
+                    this.#userSessions.filter(sess => sess.name === data.name).map(sess => {
                       sess.webSocket.close();
-                      sess.name = ''
-                    }
-                    )
+                      sess.name = "";
+                    });
                     session.name = data.name;
                     broadcastUsers();
-
-                  }
-                  
-                  if (data.target && data.target!==session.name) {
-                    this.#userSessions.filter(x=>x.name === data.target)[0].webSocket.send(msg.data)
                   }
 
-                }
+                  if (data.target && data.target !== session.name) {
+                    this.#userSessions.filter(x => x.name === data.target)[0].webSocket.send(msg.data);
+                  }
+                },
               );
 
               const closeOrErrorHandler = () => {
@@ -304,7 +301,7 @@ export class Code implements DurableObject {
                 "message",
                 (msg: { data: string | ArrayBuffer }) => this.processWsMessage(msg, session),
               );
-              
+
               const closeOrErrorHandler = () => {
                 session.quit = true;
                 // this.users.remove(session.name);

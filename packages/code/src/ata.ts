@@ -1,15 +1,24 @@
 import { tsx } from "detective-typescript";
 
-export async function ata({ code, originToUse, prettierJs }: { code: string; originToUse: string; prettierJs: (code: string) => Promise<string> }) {
+export async function ata(
+  { code, originToUse, prettierJs }: {
+    code: string;
+    originToUse: string;
+    prettierJs: (code: string) => Promise<string>;
+  },
+) {
   process.cwd = () => "/";
 
   console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: { [ref: string]: { url: string | null; content: string; ref: string } } = {};
 
-  await ata(`/** @jsx jsx */
+  await ata(
+    `/** @jsx jsx */
     import { jsx } from "@emotion/react";
-    ${code}`, originToUse);
+    ${code}`,
+    originToUse,
+  );
 
   const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
   const vNumbers = /\/(v)[0-9]+\//gm;
@@ -89,7 +98,7 @@ declare module 'react' {
             .join(`import mod from "`)
             .split(`export * from "/`)
             .join(`export * from "`),
-        }))
+        })),
     )),
     ...extras,
   ];
@@ -104,7 +113,9 @@ declare module 'react' {
       const [, ...refs] = refParts;
       res = [
         ...res,
-        ...refs.map((r) => r.split(`"`)[0]).map((r) => (r.startsWith(".") || r.startsWith("https://") ? r : new URL(r.slice(1), originToUse).toString())),
+        ...refs.map((r) => r.split(`"`)[0]).map((
+          r,
+        ) => (r.startsWith(".") || r.startsWith("https://") ? r : new URL(r.slice(1), originToUse).toString())),
       ];
     }
 
@@ -112,16 +123,17 @@ declare module 'react' {
 
     await Promise.all(
       res.map(async (r: string) => {
-        const newBase =
-          r.slice(0, 1) === "."
-            ? new URL(r, baseUrl).toString()
-            : r.indexOf("https://") !== -1
-            ? r
-            : (r.indexOf("data:text/javascript") === -1 &&
-                (await fetch(`${originToUse}/*${r}?bundle`, { redirect: "follow" }).then(
-                  async (res) => res.headers.get("X-typescript-types") || (await res.text()).split(`"`).find((x) => x.startsWith("https://") && x.indexOf(r) !== -1)
-                ))) ||
-              null;
+        const newBase = r.slice(0, 1) === "."
+          ? new URL(r, baseUrl).toString()
+          : r.indexOf("https://") !== -1
+          ? r
+          : (r.indexOf("data:text/javascript") === -1
+            && (await fetch(`${originToUse}/*${r}?bundle`, { redirect: "follow" }).then(
+              async (res) =>
+                res.headers.get("X-typescript-types")
+                || (await res.text()).split(`"`).find((x) => x.startsWith("https://") && x.indexOf(r) !== -1),
+            )))
+            || null;
 
         if (impRes[newBase!] || newBase === null) {
           return;
@@ -148,17 +160,21 @@ declare module 'react' {
           }
         }
 
-        impRes[new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString()] =
-          impRes[new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString()] || {
-            url: new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString(),
-            content: `
+        impRes[
+          new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString()
+        ] = impRes[
+          new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString()
+        ] || {
+          url: new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl)
+            .toString(),
+          content: `
             import mod from "${newBase}";
             export * from "${newBase}";
             export default mod;
             `,
-            ref: r,
-          };
-      })
+          ref: r,
+        };
+      }),
     );
   }
 }

@@ -120,9 +120,9 @@ async function handleFetchApi(
       //
       const pair = new WebSocketPair();
       (pair[1] as unknown as { accept: () => void }).accept();
-      pair[1].addEventListener('open', (msg=>{
+      pair[1].addEventListener("open", msg => {
         pair[1].send("hello");
-      }))
+      });
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
     case "files.json":

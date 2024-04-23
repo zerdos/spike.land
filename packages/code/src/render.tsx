@@ -25,22 +25,24 @@ let __rootEl: HTMLElement;
 export const render = async (
   _rootEl: HTMLElement,
   codeSpace: string,
-  mApp: FC<{
-    width?: number;
-    height?: number;
-    top?: number;
-    left?: number;
-    ref?: HTMLDivElement;
-    resize?: (state: ParentSizeState) => void;
-    children?: ReactNode;
-  }> | null = null,
+  mApp:
+    | FC<{
+      width?: number;
+      height?: number;
+      top?: number;
+      left?: number;
+      ref?: HTMLDivElement;
+      resize?: (state: ParentSizeState) => void;
+      children?: ReactNode;
+    }>
+    | null = null,
   signal: AbortSignal | null = null,
   data: ICodeSession | null = null,
 ) => {
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
-  type IFC = FC<{width: number; height: number; left: number; top: number}>
+  type IFC = FC<{ width: number; height: number; left: number; top: number }>;
 
   let App = await getApp(mApp, codeSpace) as unknown as IFC;
 
@@ -181,10 +183,12 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
     const styledJSXStyles = Array.from(document.querySelectorAll("style[data-styled-jsx]"))
       .map((style) => style.textContent);
 
-    const emotionStyles = Array.from(new Set(
-      Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
-        .map((style) => style.textContent)
-    )).join("\n");
+    const emotionStyles = Array.from(
+      new Set(
+        Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
+          .map((style) => style.textContent),
+      ),
+    ).join("\n");
 
     return styledJSXStyles.concat(emotionStyles).join("\n");
   } catch {

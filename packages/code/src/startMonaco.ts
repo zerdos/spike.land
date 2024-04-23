@@ -1,6 +1,6 @@
 import { editor, languages, Uri } from "monaco-editor";
-import { ata, prettier } from "./shared";
 import * as monaco from "monaco-editor";
+import { ata, prettier } from "./shared";
 
 const { createModel } = editor;
 const create = editor.create;
@@ -143,7 +143,7 @@ async function startMonacoPristine({
 
   let ctr = new AbortController();
 
-  const tsCheck = (async () => {
+  const tsCheck = async () => {
     const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
     const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(uri.toString());
     syntacticDiagnostics.forEach((d) => console.error(d));
@@ -175,7 +175,7 @@ async function startMonacoPristine({
       .catch((e) => {
         console.log("ts error, will retry", e);
       });
-  });
+  };
 
   const mod = {
     getValue: () => model.getValue(),

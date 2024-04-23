@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { MotionConfig, motion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
@@ -128,7 +128,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                 }}
               >
                 {Array.from(
-                  new Set([...(sizes.filter((x) => x < maxScaleRange)), scaleRange, maxScaleRange])
+                  new Set([...(sizes.filter((x) => x < maxScaleRange)), scaleRange, maxScaleRange]),
                 )
                   .sort((a, b) => a - b)
                   .map((size) => (
@@ -163,7 +163,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   background-color: ${rgba(r, g, b, 0.7)};
                   overflow: hidden;
                 `}
-                initial={{ height:  window.innerHeight, width: window.innerWidth, scale: 1 }}
+                initial={{ height: window.innerHeight, width: window.innerWidth, scale: 1 }}
                 animate={{ height: window.innerHeight, width, scale }}
               >
                 {children}
@@ -189,37 +189,52 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               >
                 {breakPoints.map((size) => (
                   <ToggleButton key={size} value={size}>
-                    {size === breakPoints[0] ? (
-                      <span
-                        css={css`
-                          color: ${width === breakPoints[0] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                    {size === breakPoints[0]
+                      ? (
+                        <span
+                          css={css`
+                          color: ${
+                            width === breakPoints[0] ? "var(--text-color-highlight)" : "var(--text-color-normal)"
+                          };
                         `}
-                      >
-                        <Phone />
-                      </span>
-                    ) : size === breakPoints[1] ? (
-                      <span
-                        css={css`
-                          color: ${width === breakPoints[1] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        >
+                          <Phone />
+                        </span>
+                      )
+                      : size === breakPoints[1]
+                      ? (
+                        <span
+                          css={css`
+                          color: ${
+                            width === breakPoints[1] ? "var(--text-color-highlight)" : "var(--text-color-normal)"
+                          };
                         `}
-                      >
-                        <Tablet />
-                      </span>
-                    ) : (
-                      <span
-                        css={css`
-                          color: ${width === breakPoints[2] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        >
+                          <Tablet />
+                        </span>
+                      )
+                      : (
+                        <span
+                          css={css`
+                          color: ${
+                            width === breakPoints[2] ? "var(--text-color-highlight)" : "var(--text-color-normal)"
+                          };
                         `}
-                      >
-                        <Tv />
-                      </span>
-                    )}
+                        >
+                          <Tv />
+                        </span>
+                      )}
                   </ToggleButton>
                 ))}
               </ToggleButtonGroup>
             </motion.div>
           </div>
-          <motion.div layout css={css`overflow: hidden;`} initial={{ height: "0%", width: "0px" }} animate={{ height: "100%", width: "88px" }}>
+          <motion.div
+            layout
+            css={css`overflow: hidden;`}
+            initial={{ height: "0%", width: "0px" }}
+            animate={{ height: "100%", width: "88px" }}
+          >
             <div
               css={css`
                 padding: 16px;
