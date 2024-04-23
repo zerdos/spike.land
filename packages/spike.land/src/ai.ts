@@ -1,4 +1,4 @@
-import { OpenAIStream, StreamingTextResponse } from "ai";
+// import { OpenAIStream, StreamingTextResponse } from "ai";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai-edge";
 
 import type { Request as WRequest } from "@cloudflare/workers-types";
@@ -32,9 +32,9 @@ export async function handleAiFetchApi(
       messages,
     });
     // Convert the response into a friendly text-stream
-    const stream = OpenAIStream(response);
+    // const stream = openai.createTextStream(response);
     // Respond with the stream
-    return new Response(stream);
+    return response;
   }
 
   return new Response("401", { status: 401 });
