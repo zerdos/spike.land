@@ -478,10 +478,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20240419.0, @cloudflare/workers-types@npm:^4.20240419.0":
-  version: 4.20240419.0
-  resolution: "@cloudflare/workers-types@npm:4.20240419.0"
-  checksum: 10/a19af236370356e3e6ea5f53c39ce9df1338aad9743278cf6304de51c07e7161dde5c5a0c6a76e8584ea1bd809be0977970252c1e5f228d2c61899d3258e87ff
+"@cloudflare/workers-types@npm:4.20240423.0, @cloudflare/workers-types@npm:^4.20240423.0":
+  version: 4.20240423.0
+  resolution: "@cloudflare/workers-types@npm:4.20240423.0"
+  checksum: 10/70beae06cf929b01883c847d0a41aee8ac6734350785a8d1b913fe8b7ceb050b0d339967e373b7016da0b7697bf8d58dfb69de5c8a3b79cf2bbc72f2681695eb
   languageName: node
   linkType: hard
 
@@ -1731,7 +1731,7 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.1"
-    "@cloudflare/workers-types": "npm:4.20240419.0"
+    "@cloudflare/workers-types": "npm:4.20240423.0"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:20.12.7"
     async-mutex: "npm:0.5.0"
@@ -1751,7 +1751,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240419.0"
+    "@cloudflare/workers-types": "npm:4.20240423.0"
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.4"
     "@emotion/styled": "npm:11.11.5"
@@ -1769,7 +1769,7 @@ __metadata:
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.7.1"
-    ace-builds: "npm:1.33.0"
+    ace-builds: "npm:1.33.1"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -1795,7 +1795,7 @@ __metadata:
     lodash.debounce: "npm:4.0.8"
     lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.47.0"
+    monaco-editor: "npm:0.48.0"
     node-source-walk: "npm:7.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.2"
@@ -1920,7 +1920,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.1"
-    "@cloudflare/workers-types": "npm:4.20240419.0"
+    "@cloudflare/workers-types": "npm:4.20240423.0"
     esbuild-wasm: "npm:0.20.2"
     typescript: "npm:5.4.5"
     wrangler: "npm:3.51.2"
@@ -2623,10 +2623,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.33.0":
-  version: 1.33.0
-  resolution: "ace-builds@npm:1.33.0"
-  checksum: 10/5260c5e40c692a3b1f951f3bbf91e739888af25b1594a646a387e3994aae370b02f948c4033d1395c023f68bd86eeb2f901da8d04f8da8097c8b728f83380dd7
+"ace-builds@npm:1.33.1":
+  version: 1.33.1
+  resolution: "ace-builds@npm:1.33.1"
+  checksum: 10/5af47d318f7b85b5b515d482179153b8e772b49e658198d4e72dbdc42b35fa0780e5a8768388a239b76006fcae656e453a2f5e3f930c1f00a1027449ff03578b
   languageName: node
   linkType: hard
 
@@ -8847,10 +8847,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.47.0":
-  version: 0.47.0
-  resolution: "monaco-editor@npm:0.47.0"
-  checksum: 10/d4c21c9011dbe419f9474ccec525f29089f3d785314cf5643259d339e374d6bfde9db651cb084d4ea8942028f242cfe05d726c29a26894a827c368e9ec41e80e
+"monaco-editor@npm:0.48.0":
+  version: 0.48.0
+  resolution: "monaco-editor@npm:0.48.0"
+  checksum: 10/19de201705a60695c42cca65157654da3881ed24882e6d5dce33e063c6c9505c9fa6bd42be4d6807d5b1c5d3ad18e2d019c4f7f6adbe66ce8a9428a78d74b3f6
   languageName: node
   linkType: hard
 
@@ -8858,7 +8858,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:^4.20240419.0"
+    "@cloudflare/workers-types": "npm:^4.20240423.0"
     "@emotion/react": "npm:11.11.4"
     "@playwright/test": "npm:1.43.1"
     "@spike-land/ai-devtools": "workspace:^"
