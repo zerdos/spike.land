@@ -115,7 +115,7 @@
     "util": "0.12.5",
     "uuid": "9.0.1",
     "webrtc-adapter": "9.0.1",
-    "workbox-window": "7.0.0",
+    "workbox-window": "7.1.0",
     "worker-rpc": "0.2.0"
   },
   "devDependencies": {
