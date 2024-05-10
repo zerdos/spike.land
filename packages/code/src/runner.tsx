@@ -1,5 +1,6 @@
 import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
+// import { offLoadToServer } from "./transpile";
 
 // import { wait } from "./wait";
 // import { sess as oldSess } from "./ws";
@@ -43,6 +44,8 @@ export async function runner({ code, counter, signal }: {
 
     const bundle = await stat(`/live/${codeSpace}/index.mjs`);
     const transpiled = await transpile({ code, originToUse: location.origin });
+
+    console.log({transpiled});
 
     if (bundle) {
       try {

@@ -2,11 +2,6 @@ import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
-import { wait } from "./wait";
-
-const transpileMod = {
-  counter: 0,
-};
 
 declare const self:
   & ServiceWorkerGlobalScope
@@ -51,11 +46,30 @@ export const cjs = async (code: string) => {
   return cjs;
 };
 
+
+const offLoadToServer = async (code: string) => {
+
+  const resp = await fetch(`https://js.spike.land?v=${swVersion}`, {
+        method: "POST",
+        body: code,
+        headers: { TR_ORIGIN: origin },
+      });
+  if (!resp.ok) {
+    return 'JS spike land: api call error';
+  }
+
+  const transpiled = await resp.text();
+
+  return '/** js.spike.land */'+transpiled;
+};
+
 export const transpile = async (
   code: string,
   origin: string,
   wasmModule?: WebAssembly.Module,
 ) => {
+
+
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
@@ -68,20 +82,8 @@ export const transpile = async (
       return mod.init = true;
     });
 
-    const offLoadToServer = (code: string) => {
-      const current = transpileMod.counter++;
 
-      wait(300).then(() =>
-        current === transpileMod.counter
-          ? fetch(`https://js.spike.land?v=${swVersion}`, {
-            method: "POST",
-            body: code,
-            headers: { TR_ORIGIN: origin },
-          }).then((resp) => resp.text())
-          : wait(2000).then(() => "waited too long")
-      );
-    };
-    if (mod.init !== true) await wait(1000);
+    // if (mod.init !== true) await wait(1000);
     if (mod.init !== true) return offLoadToServer(code);
   }
 
@@ -102,7 +104,12 @@ export const transpile = async (
       },
     },
     target: "es2022",
-  }).then((x) => importMapReplace(x.code, origin));
+  }).then((x) => importMapReplace(x.code, origin)).catch(()=>{
+    console.log("offloading to server");
+
+    return offLoadToServer(code);
+
+  });
 };
 
 Object.assign(self, { transpile });
