@@ -32,28 +32,28 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240423.0",
+    "@cloudflare/workers-types": "^4.20240502.0",
     "@emotion/react": "11.11.4",
-    "@playwright/test": "1.43.1",
+    "@playwright/test": "1.44.0",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "8.56.10",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.8.0",
     "@typescript-eslint/parser": "7.8.0",
-    "@yarnpkg/sdks": "3.1.0",
+    "@yarnpkg/sdks": "3.1.2",
     "constants": "0.0.2",
-    "cypress": "13.8.1",
+    "cypress": "13.9.0",
     "dprint": "0.45.1",
-    "eslint": "9.1.1",
+    "eslint": "9.2.0",
     "eslint-plugin-react": "7.34.1",
-    "execa": "8.0.1",
+    "execa": "9.0.2",
     "localforage": "1.10.0",
-    "playwright": "1.43.1",
+    "playwright": "1.44.0",
     "react": "18.3.1",
     "typescript": "5.4.5",
     "util": "0.12.5",
     "utils": "0.3.1"
   },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.2.2"
 }

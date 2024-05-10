@@ -16,12 +16,12 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.2",
-    "@cloudflare/workers-types": "4.20240423.0",
+    "@cloudflare/workers-types": "4.20240502.0",
     "typescript": "5.4.5",
-    "wrangler": "3.53.0"
+    "wrangler": "3.55.0"
   },
   "dependencies": {
-    "esbuild-wasm": "0.20.2"
+    "esbuild-wasm": "0.21.1"
   },
   "publishConfig": {
     "access": "public"
