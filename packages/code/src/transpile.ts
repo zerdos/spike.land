@@ -2,6 +2,7 @@ import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
+import { writeFile } from "./memfs";
 
 declare const self:
   & ServiceWorkerGlobalScope
@@ -218,15 +219,17 @@ export const build = async (
     format: "esm",
     platform: "browser",
     entryPoints: [
-      `${origin}/live/${codeSpace}/index.js`,
+      `${origin}/live/${codeSpace}/index.js`,   
     ],
     packages: "external",
 
     plugins: [fetchPlugin],
   };
 
-  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then((x) =>
-    fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(async(x) =>
+    {
+    await writeFile(`/live/${codeSpace}/index.mjs`, x);
+    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "PUT",
       body: x,
       headers: {
@@ -234,7 +237,9 @@ export const build = async (
         "TR_ORIGIN": `origin`,
         "TR_BUNDLE": `true`,
       },
-    }).then(() => x)
+    });
+    return x;
+  }
   );
 };
 

@@ -58,17 +58,27 @@ const monacoContribution = async (code: string) => {
 
   await fetchAndCreateExtraModels(code, originToUse);
 
-  const extraLibs = await ata({ code, originToUse });
-  console.log({ extraLibs });
-  languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
-
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-    noSuggestionDiagnostics: false,
-    noSemanticValidation: false,
-    noSyntaxValidation: false,
+    noSuggestionDiagnostics: true,
+    noSemanticValidation: true,
+    noSyntaxValidation: true,
     diagnosticCodesToIgnore: [2691],
   });
-  languages.typescript.typescriptDefaults.setEagerModelSync(true);
+
+  ata({ code, originToUse }).then(extraLibs=>{
+
+    console.log({ extraLibs });
+    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+  
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+      diagnosticCodesToIgnore: [2691],
+    });
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  });
+ 
 
   return code;
 };
