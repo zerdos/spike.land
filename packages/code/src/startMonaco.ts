@@ -65,11 +65,10 @@ const monacoContribution = async (code: string) => {
     diagnosticCodesToIgnore: [2691],
   });
 
-  ata({ code, originToUse }).then(extraLibs=>{
-
+  ata({ code, originToUse }).then(extraLibs => {
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
-  
+
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -78,7 +77,6 @@ const monacoContribution = async (code: string) => {
     });
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
   });
- 
 
   return code;
 };

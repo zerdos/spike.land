@@ -47,21 +47,19 @@ export const cjs = async (code: string) => {
   return cjs;
 };
 
-
 const offLoadToServer = async (code: string) => {
-
   const resp = await fetch(`https://js.spike.land?v=${swVersion}`, {
-        method: "POST",
-        body: code,
-        headers: { TR_ORIGIN: origin },
-      });
+    method: "POST",
+    body: code,
+    headers: { TR_ORIGIN: origin },
+  });
   if (!resp.ok) {
-    return 'JS spike land: api call error';
+    return "JS spike land: api call error";
   }
 
   const transpiled = await resp.text();
 
-  return '/** js.spike.land */'+transpiled;
+  return "/** js.spike.land */" + transpiled;
 };
 
 export const transpile = async (
@@ -69,8 +67,6 @@ export const transpile = async (
   origin: string,
   wasmModule?: WebAssembly.Module,
 ) => {
-
-
   if (wasmModule) {
     const initFinished = mod.initialize(wasmModule);
 
@@ -82,7 +78,6 @@ export const transpile = async (
     }).then(() => {
       return mod.init = true;
     });
-
 
     // if (mod.init !== true) await wait(1000);
     if (mod.init !== true) return offLoadToServer(code);
@@ -105,11 +100,10 @@ export const transpile = async (
       },
     },
     target: "es2022",
-  }).then((x) => importMapReplace(x.code, origin)).catch(()=>{
+  }).then((x) => importMapReplace(x.code, origin)).catch(() => {
     console.log("offloading to server");
 
     return offLoadToServer(code);
-
   });
 };
 
@@ -219,15 +213,14 @@ export const build = async (
     format: "esm",
     platform: "browser",
     entryPoints: [
-      `${origin}/live/${codeSpace}/index.js`,   
+      `${origin}/live/${codeSpace}/index.js`,
     ],
     packages: "external",
 
     plugins: [fetchPlugin],
   };
 
-  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(async(x) =>
-    {
+  return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(async (x) => {
     await writeFile(`/live/${codeSpace}/index.mjs`, x);
     await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "PUT",
@@ -239,8 +232,7 @@ export const build = async (
       },
     });
     return x;
-  }
-  );
+  });
 };
 
 Object.assign(self, { transpile, build });
