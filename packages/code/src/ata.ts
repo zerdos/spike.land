@@ -12,6 +12,9 @@ export async function ata(
   console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: { [ref: string]: { url: string | null; content: string; ref: string } } = {};
+  const npmPackages:{
+    [pkg: string]: Boolean
+  } = {};
 
   await ata(
     `/** @jsx jsx */
@@ -103,9 +106,13 @@ declare module 'react' {
     ...extras,
   ];
 
-  return [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y));
+  return [...new Set(extraLibs.map((x) => x.filePath))]
+  .map((y) => extraLibs.find((p) => p.filePath === y))
+  .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
+
 
   async function ata(code: string, baseUrl: string) {
+    // if (impRes[baseUrl]) return;
     let res = tsx(await prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
@@ -123,57 +130,69 @@ declare module 'react' {
 
     await Promise.all(
       res.map(async (r: string) => {
+        if (r.indexOf(".")===-1) {
+          if (npmPackages[r]) return;
+          npmPackages[r] = true;
+        }
+
         const newBase = r.slice(0, 1) === "."
           ? new URL(r, baseUrl).toString()
           : r.indexOf("https://") !== -1
           ? r
           : (r.indexOf("data:text/javascript") === -1
-            && (await fetch(`${originToUse}/*${r}?bundle`, { redirect: "follow" }).then(
+            && (await fetch(`${originToUse}/*${r}`, { redirect: "follow" }).then(
               async (res) =>
                 res.headers.get("X-typescript-types")
                 || (await res.text()).split(`"`).find((x) => x.startsWith("https://") && x.indexOf(r) !== -1),
             )))
             || null;
+        if (newBase===null) return; 
 
-        if (impRes[newBase!] || newBase === null) {
+
+        console.log({r, newBase});
+
+ 
+        if (impRes[newBase] ) {
           return;
         }
 
         impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
-        const url = new URL(newBase);
+        const url = newBase
 
-        impRes[newBase].content = await fetch(url, { redirect: "follow" }).then((dtsRes) => {
+        impRes[newBase].content = await (fetch(url, { redirect: "follow" }).then((dtsRes) => {
           impRes[newBase!].url = dtsRes.url;
           return dtsRes.text();
-        });
+        }));
+
 
         if (impRes[newBase].content.length > 0) {
           try {
             await ata(impRes[newBase].content, impRes[newBase].url!);
           } catch {
-            try {
-              await ata(impRes[newBase].content, impRes[newBase].url!);
-            } catch {
-              console.error("ata error");
-            }
+            console.error("ata error");
           }
+        } 
+  
+        const fileName = new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, r.indexOf(".")!==-1?baseUrl:origin).toString()
+
+        if (!impRes[fileName]) {
+          impRes[fileName] = {
+            url: fileName,
+            content: `
+              import mod from "${newBase}";
+              export * from "${newBase}";
+              export default mod;
+              `,
+            ref: r,
+          };
+          console.log(`virtual file: ${fileName}`, impRes[fileName]);  
         }
 
-        impRes[
-          new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString()
-        ] = impRes[
-          new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl).toString()
-        ] || {
-          url: new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, baseUrl)
-            .toString(),
-          content: `
-            import mod from "${newBase}";
-            export * from "${newBase}";
-            export default mod;
-            `,
-          ref: r,
-        };
+
+  
+
+    
       }),
     );
   }

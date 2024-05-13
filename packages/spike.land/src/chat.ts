@@ -265,6 +265,7 @@ async function handleFetchApi(
           if (
             request.url.indexOf(".wasm") === -1
             && !request.url.endsWith(".map")
+            && !request.url.endsWith(".ts")
             && request.url.indexOf(".worker") === -1
             && (contentType && contentType.indexOf("charset"))
           ) {

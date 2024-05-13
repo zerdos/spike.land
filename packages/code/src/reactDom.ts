@@ -3,6 +3,7 @@ import ReactDOM from "preact/compat";
 export const {
   createPortal,
   render,
+  flushSync,
   findDOMNode,
   hydrate,
   unmountComponentAtNode,
