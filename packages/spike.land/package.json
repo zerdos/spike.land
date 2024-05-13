@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.2",
-    "@cloudflare/workers-types": "4.20240502.0",
+    "@cloudflare/workers-types": "4.20240512.0",
     "@spike-land/code": "0.9.55",
     "typescript": "5.4.5",
     "wrangler": "3.55.0"
@@ -27,7 +27,7 @@
     "avl": "1.5.3",
     "esbuild-wasm": "0.21.2",
     "esm-worker": "0.135.16",
-    "immutable": "5.0.0-beta.5",
+    "immutable": "4.3.6",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1"
