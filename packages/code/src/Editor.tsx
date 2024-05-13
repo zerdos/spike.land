@@ -117,7 +117,7 @@ const Editor: FC<
   );
 
   const onChange = async (_code: string) => {
-     console.log("onChange", _code);
+    //  console.log("onChange", _code);
     // mod.i = Number(mod.i) + 1;
     // mod.code = _code;
 

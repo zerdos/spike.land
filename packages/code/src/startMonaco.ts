@@ -6,6 +6,21 @@ const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
+const refreshAta = (code: string, originToUse: string) =>{
+  ata({ code, originToUse }).then(extraLibs => {
+    console.log({ extraLibs });
+    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSuggestionDiagnostics: false,
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+      diagnosticCodesToIgnore: [2691],
+    });
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
+  });
+}
+
 const lib = ["dom", "dom.iterable", "es2015", "es2016", "esnext"];
 
 async function fetchAndCreateExtraModels(code: string, originToUse: string): Promise<void> {
@@ -65,18 +80,7 @@ const monacoContribution = async (code: string) => {
     diagnosticCodesToIgnore: [2691],
   });
 
-  ata({ code, originToUse }).then(extraLibs => {
-    console.log({ extraLibs });
-    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
-
-    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-      noSuggestionDiagnostics: false,
-      noSemanticValidation: false,
-      noSyntaxValidation: false,
-      diagnosticCodesToIgnore: [2691],
-    });
-    languages.typescript.typescriptDefaults.setEagerModelSync(true);
-  });
+  refreshAta(code, originToUse);
 
   return code;
 };
@@ -152,28 +156,16 @@ async function startMonacoPristine({
   let ctr = new AbortController();
 
   const tsCheck = async () => {
+    console.log("tsCheck");
     const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
-    const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(uri.toString());
-    syntacticDiagnostics.forEach((d) => console.error(d));
+    typeScriptWorker.getSyntacticDiagnostics(uri.toString()).then(syntacticDiagnostics=>syntacticDiagnostics.forEach((d) => console.error(d)));
 
     const semanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
     semanticDiagnostics.forEach(async (d) => {
       const message = d.messageText.toString();
       if (message.includes("Cannot find module")) {
-        const pkg = message.split("'")[1];
-        if (!pkg.startsWith("https://")) {
-          const cnt = await fetch(originToUse + "/" + pkg, { redirect: "follow" });
-          if (cnt.headers.has("X-TypeScript-Types")) {
-            const typesUrl = cnt.headers.get("X-TypeScript-Types")!;
-            const typesContent = await (await fetch(typesUrl)).text();
-            languages.typescript.typescriptDefaults.addExtraLib(typesContent, `${originToUse}/${pkg}/index.d.ts`);
-          }
-          if (cnt.headers.has("X-TypeScript-Types")) {
-            const content = await cnt.text();
-            languages.typescript.typescriptDefaults.addExtraLib(content, `/${pkg}/index.ts`);
-          }
-          console.error({ pkg });
-        }
+        
+        refreshAta(model.getValue(), originToUse);
       }
     });
 

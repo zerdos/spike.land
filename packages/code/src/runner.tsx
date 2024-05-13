@@ -42,10 +42,10 @@ export async function runner({ code, counter, signal }: {
     const transpiled = await transpile({ code, originToUse: location.origin });
     if (!transpiled) return;
 
-    console.log({ transpiled });
+    // console.log({ transpiled });
 
     if (bundle) {
-      try {
+      try { 
         await writeFile(`/live/${codeSpace}/index.js`, transpiled);
         await build({ codeSpace, origin: location.origin });
       } catch {
