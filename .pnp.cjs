@@ -2625,7 +2625,6 @@ const RAW_RUNTIME_STATE =
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/lodash.debounce", "npm:4.0.9"],\
-          ["@types/lodash.throttle", "npm:4.1.9"],\
           ["@types/node", "npm:20.12.11"],\
           ["@types/react", "npm:18.3.2"],\
           ["@types/react-dom", "npm:18.3.0"],\
@@ -2656,7 +2655,6 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
-          ["lodash.throttle", "npm:4.1.1"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.48.0"],\
           ["node-source-walk", "npm:7.0.0"],\
@@ -3052,16 +3050,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-lodash.debounce-npm-4.0.9-dcafdcd4bd-10.zip/node_modules/@types/lodash.debounce/",\
         "packageDependencies": [\
           ["@types/lodash.debounce", "npm:4.0.9"],\
-          ["@types/lodash", "npm:4.17.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["@types/lodash.throttle", [\
-      ["npm:4.1.9", {\
-        "packageLocation": "./.yarn/global/cache/@types-lodash.throttle-npm-4.1.9-64930c2c38-10.zip/node_modules/@types/lodash.throttle/",\
-        "packageDependencies": [\
-          ["@types/lodash.throttle", "npm:4.1.9"],\
           ["@types/lodash", "npm:4.17.1"]\
         ],\
         "linkType": "HARD"\
@@ -10184,15 +10172,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["lodash.templatesettings", "npm:4.2.0"],\
           ["lodash._reinterpolate", "npm:3.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["lodash.throttle", [\
-      ["npm:4.1.1", {\
-        "packageLocation": "./.yarn/global/cache/lodash.throttle-npm-4.1.1-856641af92-10.zip/node_modules/lodash.throttle/",\
-        "packageDependencies": [\
-          ["lodash.throttle", "npm:4.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\

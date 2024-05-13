@@ -211,10 +211,11 @@ async function startMonacoPristine({
       } catch (error) {
         console.error("Error while saving the state:", error);
       } finally {
-        setTimeout(() => {
-          mod.silent = false;
-          tsCheck();
-        }, 500);
+        mod.silent = false;
+        tsCheck();
+        // setTimeout(() => {
+        //   tsCheck();
+        // }, 500);
       }
     },
   };
@@ -228,7 +229,7 @@ async function startMonacoPristine({
     setTimeout(() => {
       if (ctr.signal.aborted) return;
       mod.isEdit = false;
-    }, 200);
+    }, 50);
   });
 
   myEditor.onDidBlurEditorText(async () => {

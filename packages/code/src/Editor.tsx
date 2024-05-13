@@ -117,18 +117,18 @@ const Editor: FC<
   );
 
   const onChange = async (_code: string) => {
-    //  console.log("onChange", _code);
-    if (mod.code === _code) return;
+     console.log("onChange", _code);
+    // mod.i = Number(mod.i) + 1;
+    // mod.code = _code;
 
     const c = await prettier(_code);
-
     if (mod.code === c) return;
+    mod.i = Number(mod.i) + 1;
+    mod.code = c;
 
     mod.controller.abort();
     mod.controller = new AbortController();
     const { signal } = mod.controller;
-    mod.i = Number(mod.i) + 1;
-    mod.code = c;
 
     // changeContent((x) => ({
     //   ...x,
@@ -145,24 +145,23 @@ const Editor: FC<
   };
 
   BC.onmessage = ({ data }) => {
-    if (
-      (!data || !data.i && data.code) || mod.i >= Number(data.i)
-      || !(data.code || data.html)
-    ) return;
+
+    if (!data.i || !data.code || data.code ===mod.code) return;
     mod.i = Number(data.i);
     mod.code = data.code;
     // cSess.session = makeSession(data);
     // mod.controller.abort();
     // mod.controller = new AbortController();
     const { signal } = mod.controller;
+    changeContent((x) => ({ ...x, ...mod }));
+    setValue(mod.code);
     runner({
       ...mod,
       counter: mod.i,
       codeSpace,
       signal,
     });
-    setValue(mod.code);
-    changeContent((x) => ({ ...x, ...mod }));
+
   };
 
   if (engine === "ace") return EditorNode;

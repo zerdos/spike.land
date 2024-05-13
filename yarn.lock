@@ -1769,7 +1769,6 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/jest": "npm:29.5.12"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/lodash.throttle": "npm:4.1.9"
     "@types/node": "npm:20.12.11"
     "@types/react": "npm:18.3.2"
     "@types/react-dom": "npm:18.3.0"
@@ -1800,7 +1799,6 @@ __metadata:
     jest: "npm:29.7.0"
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
-    lodash.throttle: "npm:4.1.1"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.48.0"
     node-source-walk: "npm:7.0.0"
@@ -2107,15 +2105,6 @@ __metadata:
   dependencies:
     "@types/lodash": "npm:*"
   checksum: 10/8183a152e01928e3b97ca773f6ae6038b8695e76493ba8bf6b743ec143948a62294fbc9d49fa4a78b52265b3ba4892ef57534e0c13d04aa0f111671b5a944feb
-  languageName: node
-  linkType: hard
-
-"@types/lodash.throttle@npm:4.1.9":
-  version: 4.1.9
-  resolution: "@types/lodash.throttle@npm:4.1.9"
-  dependencies:
-    "@types/lodash": "npm:*"
-  checksum: 10/6d330072387f062d408747f0dbe62869820ee3f3fbec43965f703ce9c9083e4ff9082faa4fe92aea000d6367b7645955e9c8db6a4e04e6bd769697fdd19c12b1
   languageName: node
   linkType: hard
 
@@ -8246,13 +8235,6 @@ __metadata:
   dependencies:
     lodash._reinterpolate: "npm:^3.0.0"
   checksum: 10/ef470fa8b66b6370b08fb0709c1577e4bf72cc3d1e8639196577db827915808ec138861cbc791b295a24fbfe7b78dd26bcfc8f237e5d94df383a3125ae6f5339
-  languageName: node
-  linkType: hard
-
-"lodash.throttle@npm:4.1.1":
-  version: 4.1.1
-  resolution: "lodash.throttle@npm:4.1.1"
-  checksum: 10/9be9fb2ffd686c20543167883305542f4564062a5f712a40e8c6f2f0d9fd8254a6e9d801c2470b1b24e0cdf2ae83c1277b55aa0fb4799a2db6daf545f53820e1
   languageName: node
   linkType: hard
 

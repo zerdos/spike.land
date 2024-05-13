@@ -40,6 +40,7 @@ export async function runner({ code, counter, signal }: {
 
     const bundle = await stat(`/live/${codeSpace}/index.mjs`);
     const transpiled = await transpile({ code, originToUse: location.origin });
+    if (!transpiled) return;
 
     console.log({ transpiled });
 
