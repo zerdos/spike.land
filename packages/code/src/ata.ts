@@ -70,6 +70,19 @@ export async function ata(
 import { Interpolation } from '@emotion/serialize';
 import { Theme } from '.';
 
+
+declare namespace React {
+  type ReactNode =
+    | ReactElement
+    | string
+    | number
+    | ReactFragment
+    | ReactPortal
+    | boolean
+    | null
+    | undefined;
+}
+
 declare module 'react' {
   interface Attributes {
     css?: Interpolation<Theme>;
