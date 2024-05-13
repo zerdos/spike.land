@@ -25,7 +25,7 @@
     "@types/node": "20.12.11",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.21.1",
+    "esbuild-wasm": "0.21.2",
     "esm-worker": "0.135.16",
     "immutable": "5.0.0-beta.5",
     "openai-edge": "1.2.2",
