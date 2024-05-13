@@ -9,14 +9,14 @@ export async function ata(
 ) {
   process.cwd = () => "/";
 
-  console.log(`ATA run: ${originToUse} ${code}`);
+  // console.log(`ATA run: ${originToUse} ${code}`);
 
-  const impRes: { [ref: string]: { url: string | null; content: string; ref: string } } = {};
+  const impRes: { [ref: string]: { url: string; content: string; ref: string } } = {};
   const npmPackages:{
     [pkg: string]: Boolean
   } = {};
 
-  await ata(
+  await ataRecursive(
     `/** @jsx jsx */
     import { jsx } from "@emotion/react";
     ${code}`,
@@ -43,14 +43,10 @@ export async function ata(
             .replace(vNumbers, subst)
             .split("/@types/")
             .join("/")
-            .split("/types/")
-            .join("/")
             .replaceAll(versionNumbers, ""),
           url: impRes[t].url!
             .replace(vNumbers, subst)
             .split("/@types/")
-            .join("/")
-            .split("/types/")
             .join("/")
             .replaceAll(versionNumbers, "")
             .split("/dist/")
@@ -111,21 +107,27 @@ declare module 'react' {
   .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
 
 
-  async function ata(code: string, baseUrl: string) {
+  async function ataRecursive(code: string, baseUrl: string) {
     // if (impRes[baseUrl]) return;
     let res = tsx(await prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
+    
     if (refParts.length > 1) {
       const [, ...refs] = refParts;
+      
       res = [
         ...res,
-        ...refs.map((r) => r.split(`"`)[0]).map((
-          r,
-        ) => (r.startsWith(".") || r.startsWith("https://") ? r : new URL(r.slice(1), originToUse).toString())),
+        ...refs.map((r) => r.split(`"`)[0]).map((r) => {
+          if (r.startsWith(".") || r.startsWith("https://")) {
+            return r;
+          } else {
+            return new URL(r.slice(1), originToUse).toString();
+          }
+        }),
       ];
     }
-
+    
     res = [...new Set(res)];
 
     await Promise.all(
@@ -135,21 +137,40 @@ declare module 'react' {
           npmPackages[r] = true;
         }
 
-        const newBase = r.slice(0, 1) === "."
-          ? new URL(r, baseUrl).toString()
-          : r.indexOf("https://") !== -1
-          ? r
-          : (r.indexOf("data:text/javascript") === -1
-            && (await fetch(`${originToUse}/*${r}`, { redirect: "follow" }).then(
-              async (res) =>
-                res.headers.get("X-typescript-types")
-                || (await res.text()).split(`"`).find((x) => x.startsWith("https://") && x.indexOf(r) !== -1),
-            )))
-            || null;
-        if (newBase===null) return; 
+        let newBase: null | string;
+
+        if (r.slice(0, 1) === ".") {
+          newBase = new URL(r, baseUrl).toString();
+        } else if (r.indexOf("https://") !== -1) {
+          newBase = r;
+        } else {
+          if (r.indexOf("data:text/javascript") === -1) {
+            try {
+              const response = await fetch(`${originToUse}/*${r}`, { redirect: "follow" });
+              const typescriptTypes = response.headers.get("X-typescript-types");
+              
+              if (typescriptTypes) {
+                newBase = typescriptTypes;
+              } else {
+                const responseText = await response.text();
 
 
-        console.log({r, newBase});
+                const urlPattern = /(https?:\/\/[^\s]+)/g;
+                const urlMatch = responseText.match(urlPattern);
+                newBase = (urlMatch ? urlMatch.find((url) => url.indexOf(r) !== -1) : null) || null;
+
+              }
+            } catch (error) {
+              newBase = null;
+            }
+          } else {
+            newBase = null;
+          }
+        }
+        
+        if (newBase === null) {
+          return;
+        }
 
  
         if (impRes[newBase] ) {
@@ -165,15 +186,6 @@ declare module 'react' {
           return dtsRes.text();
         }));
 
-
-        if (impRes[newBase].content.length > 0) {
-          try {
-            await ata(impRes[newBase].content, impRes[newBase].url!);
-          } catch {
-            console.error("ata error");
-          }
-        } 
-  
         const fileName = new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, r.indexOf(".")!==-1?baseUrl:origin).toString()
 
         if (!impRes[fileName]) {
@@ -189,6 +201,17 @@ declare module 'react' {
           console.log(`virtual file: ${fileName}`, impRes[fileName]);  
         }
 
+
+
+        if (impRes[newBase].content.length > 0) {
+          try {
+            await ataRecursive(impRes[newBase].content, impRes[newBase].url);
+          } catch {
+            console.error("ata error");
+          }
+        } 
+  
+  
 
   
 

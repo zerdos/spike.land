@@ -6,8 +6,8 @@ const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
-const refreshAta = (code: string, originToUse: string) =>{
-  ata({ code, originToUse }).then(extraLibs => {
+const refreshAta = async(code: string, originToUse: string) =>{
+  return await ata({ code, originToUse }).then(extraLibs => {
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
@@ -155,26 +155,37 @@ async function startMonacoPristine({
 
   let ctr = new AbortController();
 
+  const ttt = {
+    checking: 0
+  }
+  
   const tsCheck = async () => {
+    if (ttt.checking) return;
+    ttt.checking = 1;
     console.log("tsCheck");
     const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
     typeScriptWorker.getSyntacticDiagnostics(uri.toString()).then(syntacticDiagnostics=>syntacticDiagnostics.forEach((d) => console.error(d)));
 
     const semanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
+    let needNewAta = false;
     semanticDiagnostics.forEach(async (d) => {
       const message = d.messageText.toString();
       if (message.includes("Cannot find module")) {
-        
-        refreshAta(model.getValue(), originToUse);
+        needNewAta = true;
+       
       }
     });
 
-    return typeScriptWorker
+    if (needNewAta)  await refreshAta(model.getValue(), originToUse);;
+
+     await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString())
       .then((diag) => diag.forEach((d) => console.error(d.messageText.toString())))
       .catch((e) => {
         console.log("ts error, will retry", e);
       });
+
+      ttt.checking=0;
   };
 
   const mod = {
