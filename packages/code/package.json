@@ -66,7 +66,7 @@
     "@prefresh/core": "1.5.2",
     "@types/isomorphic-fetch": "0.0.39",
     "@types/jest": "29.5.12",
-    "@typescript-eslint/typescript-estree": "7.8.0",
+    "@typescript-eslint/typescript-estree": "7.9.0",
     "ace-builds": "1.33.2",
     "assert": "2.1.0",
     "assert-browserify": "2.0.0",
