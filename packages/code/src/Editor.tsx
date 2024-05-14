@@ -145,8 +145,7 @@ const Editor: FC<
   };
 
   BC.onmessage = ({ data }) => {
-
-    if (!data.i || !data.code || data.code ===mod.code) return;
+    if (!data.i || !data.code || data.code === mod.code) return;
     mod.i = Number(data.i);
     mod.code = data.code;
     // cSess.session = makeSession(data);
@@ -161,7 +160,6 @@ const Editor: FC<
       codeSpace,
       signal,
     });
-
   };
 
   if (engine === "ace") return EditorNode;

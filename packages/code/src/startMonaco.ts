@@ -6,18 +6,18 @@ const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
-const refreshAta = async(code: string, originToUse: string) =>{
+const refreshAta = async (code: string, originToUse: string) => {
   return await ata({ code, originToUse }).then(extraLibs => {
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
-    const mjs = Object.keys(extraLibs).filter(x=>x.indexOf(".mjs")!==-1)
+    const mjs = Object.keys(extraLibs).filter(x => x.indexOf(".mjs") !== -1);
 
-    mjs.map(x=>{
-      const lib = extraLibs.find(lib=>lib.filePath==x)!;
+    mjs.map(x => {
+      const lib = extraLibs.find(lib => lib.filePath == x)!;
 
       const myUri = Uri.parse(lib.filePath!);
-      createModel(lib.content, 'typescript',  myUri);
-    })
+      createModel(lib.content, "typescript", myUri);
+    });
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -26,7 +26,7 @@ const refreshAta = async(code: string, originToUse: string) =>{
     });
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
   });
-}
+};
 
 const lib = ["dom", "dom.iterable", "es2015", "es2016", "esnext"];
 
@@ -163,15 +163,17 @@ async function startMonacoPristine({
   let ctr = new AbortController();
 
   const ttt = {
-    checking: 0
-  }
-  
+    checking: 0,
+  };
+
   const tsCheck = async () => {
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
     const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
-    typeScriptWorker.getSyntacticDiagnostics(uri.toString()).then(syntacticDiagnostics=>syntacticDiagnostics.forEach((d) => console.error(d)));
+    typeScriptWorker.getSyntacticDiagnostics(uri.toString()).then(syntacticDiagnostics =>
+      syntacticDiagnostics.forEach((d) => console.error(d))
+    );
 
     const semanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
     let needNewAta = false;
@@ -179,20 +181,19 @@ async function startMonacoPristine({
       const message = d.messageText.toString();
       if (message.includes("Cannot find module")) {
         needNewAta = true;
-       
       }
     });
 
-    if (needNewAta)  await refreshAta(model.getValue(), originToUse);;
+    if (needNewAta) await refreshAta(model.getValue(), originToUse);
 
-     await typeScriptWorker
+    await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString())
       .then((diag) => diag.forEach((d) => console.error(d.messageText.toString())))
       .catch((e) => {
         console.log("ts error, will retry", e);
       });
 
-      ttt.checking=0;
+    ttt.checking = 0;
   };
 
   const mod = {

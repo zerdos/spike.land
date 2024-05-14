@@ -45,7 +45,7 @@ export async function runner({ code, counter, signal }: {
     // console.log({ transpiled });
 
     if (bundle) {
-      try { 
+      try {
         await writeFile(`/live/${codeSpace}/index.js`, transpiled);
         await build({ codeSpace, origin: location.origin });
       } catch {

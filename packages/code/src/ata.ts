@@ -12,8 +12,8 @@ export async function ata(
   // console.log(`ATA run: ${originToUse} ${code}`);
 
   const impRes: { [ref: string]: { url: string; content: string; ref: string } } = {};
-  const npmPackages:{
-    [pkg: string]: Boolean
+  const npmPackages: {
+    [pkg: string]: Boolean;
   } = {};
 
   await ataRecursive(
@@ -116,19 +116,18 @@ declare module 'react' {
   ];
 
   return [...new Set(extraLibs.map((x) => x.filePath))]
-  .map((y) => extraLibs.find((p) => p.filePath === y))
-  .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
-
+    .map((y) => extraLibs.find((p) => p.filePath === y))
+    .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
 
   async function ataRecursive(code: string, baseUrl: string) {
     // if (impRes[baseUrl]) return;
     let res = tsx(await prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
-    
+
     if (refParts.length > 1) {
       const [, ...refs] = refParts;
-      
+
       res = [
         ...res,
         ...refs.map((r) => r.split(`"`)[0]).map((r) => {
@@ -140,12 +139,12 @@ declare module 'react' {
         }),
       ];
     }
-    
+
     res = [...new Set(res)];
 
     await Promise.all(
       res.map(async (r: string) => {
-        if (r.indexOf(".")===-1) {
+        if (r.indexOf(".") === -1) {
           if (npmPackages[r]) return;
           npmPackages[r] = true;
         }
@@ -163,51 +162,51 @@ declare module 'react' {
               if (!response.ok) throw new Error("yay");
               const typescriptTypes = response.headers.get("X-typescript-types");
 
-              
-              
               if (typescriptTypes) {
                 newBase = typescriptTypes;
               } else {
                 const responseText = await response.text();
                 const urlInText = responseText.split(`"`).find(
-                  (x) => x.startsWith("https://") && x.indexOf(r) !== -1
+                  (x) => x.startsWith("https://") && x.indexOf(r) !== -1,
                 );
-                newBase = urlInText
+                newBase = urlInText;
               }
             } catch (error) {
               const response = await fetch(`${originToUse}/${r}`, { redirect: "follow" });
               const typescriptTypes = response.headers.get("X-typescript-types");
-              
+
               if (typescriptTypes) {
                 newBase = typescriptTypes;
               } else {
-                newBase = `${originToUse}/${r}` 
+                newBase = `${originToUse}/${r}`;
               }
             }
           } else {
             newBase = null;
           }
         }
-        
+
         if (!newBase) {
           return;
         }
 
- 
-        if (impRes[newBase] ) {
+        if (impRes[newBase]) {
           return;
         }
 
         impRes[newBase] = { ref: r, url: newBase || "", content: "" };
 
-        const url = newBase
+        const url = newBase;
 
         impRes[newBase].content = await (fetch(url, { redirect: "follow" }).then((dtsRes) => {
           impRes[newBase!].url = dtsRes.url;
           return dtsRes.text();
         }));
 
-        const fileName = new URL(r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`, r.indexOf(".")!==-1?baseUrl:origin).toString()
+        const fileName = new URL(
+          r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`,
+          r.indexOf(".") !== -1 ? baseUrl : origin,
+        ).toString();
 
         if (!impRes[fileName]) {
           impRes[fileName] = {
@@ -219,10 +218,8 @@ declare module 'react' {
               `,
             ref: r,
           };
-          console.log(`virtual file: ${fileName}`, impRes[fileName]);  
+          console.log(`virtual file: ${fileName}`, impRes[fileName]);
         }
-
-
 
         if (impRes[newBase].content.length > 0) {
           try {
@@ -230,13 +227,7 @@ declare module 'react' {
           } catch {
             console.error("ata error");
           }
-        } 
-  
-  
-
-  
-
-    
+        }
       }),
     );
   }

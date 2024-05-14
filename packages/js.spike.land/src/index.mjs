@@ -48,7 +48,7 @@ export default {
           await request.text(),
           request.headers.get("TR_ORIGIN"),
           ASSET_HASH,
-        ).catch(() =>''),
+        ).catch(() => ""),
         {
           ...request,
           headers: {
