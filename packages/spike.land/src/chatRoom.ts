@@ -10,15 +10,21 @@ import ASSET_HASH from "./dist.shasum";
 import shasum from "./dist.shasum";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
+import * as map from 'lib0/map'
+import { websocket } from "lib0";
 
 export { md5 };
 
 export interface WebsocketSession {
-  name: string;
+  name: string; 
   webSocket: WebSocket;
   quit?: boolean;
+  subscribedTopics: Set<string>;
+  pongReceived: boolean;
   blockedMessages: string[];
 }
+const pingTimeout = 30000
+
 
 // export interface IFirstRender {
 //   type: "firstRender";
@@ -51,9 +57,16 @@ interface IData {
   oldHash?: string;
 }
 
+interface YMessage{
+  type: 'subscribe' | 'unsubscribe' | 'publish' | 'ping' | 'pong';
+  topics: string[],
+  topic: string,
+  clients: number
+ }
+
 export class Code implements DurableObject {
   // mutex: Mutex;
-
+  topics= new Map<string, Set<WebSocket>>();
   #wsSessions: WebsocketSession[] = [];
   #userSessions: WebsocketSession[] = [];
   #transpiled = "";
@@ -207,9 +220,10 @@ export class Code implements DurableObject {
               const session = {
                 name: "",
                 quit: false,
+                subscribedTopics: new Set(),
                 webSocket,
                 blockedMessages: [] as string[],
-              };
+              } as WebsocketSession;
               this.#userSessions.push(session);
 
               //              webSocket.send(JSON.stringify(users))
@@ -280,8 +294,11 @@ export class Code implements DurableObject {
                 name: "",
                 quit: false,
                 webSocket,
+                pongReceived: true,
+                subscribedTopics: new Set(),
+                
                 blockedMessages: [] as string[],
-              };
+              } as WebsocketSession;
               this.#wsSessions.push(session);
 
               const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
@@ -296,6 +313,23 @@ export class Code implements DurableObject {
                   type: "handshake",
                 }),
               );
+
+            
+              const pingInterval = setInterval(() => {
+                if (!session.pongReceived) {
+                  webSocket.close()
+                  clearInterval(pingInterval)
+                } else {
+                  session.pongReceived = false
+                  try {
+                    webSocket.send(JSON.stringify({type: 'ping'}));
+                  } catch (e) {
+                    webSocket.close()
+                  }
+                }
+              }, pingTimeout)
+
+
 
               webSocket.addEventListener(
                 "message",
@@ -610,6 +644,23 @@ export class Code implements DurableObject {
       }) as unknown as () => Promise<Response>,
     );
   }
+ send (conn: WebSocket, message: YMessage | {type: 'pong'})  {
+
+
+const wsReadyStateConnecting = 0
+const wsReadyStateOpen = 1
+const wsReadyStateClosing = 2 // eslint-disable-line
+const wsReadyStateClosed = 3 // eslint-disable-line
+
+    if (conn.readyState !== wsReadyStateConnecting && conn.readyState !== wsReadyStateOpen) {
+      conn.close()
+    }
+    try {
+      conn.send(JSON.stringify(message))
+    } catch (e) {
+      conn.close()
+    }
+  }
 
   async processWsMessage(
     msg: { data: string | ArrayBuffer },
@@ -638,6 +689,48 @@ export class Code implements DurableObject {
         exp: exp || {},
       });
     }
+
+     const message = data as unknown as YMessage;
+
+    if (message && message.type) {
+      switch (message.type) {
+        case 'subscribe':
+          /** @type {Array<string>} */ (message.topics || []).forEach(topicName => {
+            if (typeof topicName === 'string') {
+              // add conn to topic
+              const topic = map.setIfUndefined(this.topics, topicName, () => new Set())
+              topic.add(session.webSocket)
+              // add topic to conn
+              session.subscribedTopics.add(topicName)
+            }
+          })
+          break
+        case 'unsubscribe':
+          /** @type {Array<string>} */ (message.topics || []).forEach(topicName => {
+            const subs = this.topics.get(topicName)
+            if (subs) {
+              subs.delete(session.webSocket)
+            }
+          })
+          break
+        case 'publish':
+          if (message.topic) {
+            const receivers = this.topics.get(message.topic)
+            if (receivers) {
+              message.clients = receivers.size
+              receivers.forEach(receiver =>
+                this.send(receiver, message)
+              )
+            }
+          }
+          break
+        case 'pong': 
+          session.pongReceived = true;
+        case 'ping':
+          this.send(session.webSocket, { type: 'pong' })
+      }
+    }
+
 
     if (data.changes) {
       // this.state.storage.put()
