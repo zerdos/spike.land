@@ -1702,7 +1702,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.12.11"
+    "@types/node": "npm:20.12.12"
     axios: "npm:1.6.8"
     body-parser: "npm:1.20.2"
     commander: "npm:12.0.0"
@@ -1740,7 +1740,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.2"
     "@cloudflare/workers-types": "npm:4.20240512.0"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:20.12.11"
+    "@types/node": "npm:20.12.12"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.21.2"
@@ -1769,7 +1769,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/jest": "npm:29.5.12"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/node": "npm:20.12.11"
+    "@types/node": "npm:20.12.12"
     "@types/react": "npm:18.3.2"
     "@types/react-dom": "npm:18.3.0"
     "@types/uuid": "npm:9.0.8"
@@ -1793,7 +1793,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.0.0"
-    framer-motion: "npm:11.0.12"
+    framer-motion: "npm:11.1.9"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -1845,7 +1845,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.12.11"
+    "@types/node": "npm:20.12.12"
     esbuild-wasm: "npm:0.21.2"
   languageName: unknown
   linkType: soft
@@ -2134,12 +2134,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.12.11":
+"@types/node@npm:*":
   version: 20.12.11
   resolution: "@types/node@npm:20.12.11"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/c6afe7c2c4504a4f488814d7b306ebad16bf42cbb43bf9db9fe1aed8c5fb99235593c3be5088979a64526b106cf022256688e2f002811be8273d87dc2e0d484f
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.12.12":
+  version: 20.12.12
+  resolution: "@types/node@npm:20.12.12"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/e3945da0a3017bdc1f88f15bdfb823f526b2a717bd58d4640082d6eb0bd2794b5c99bfb914b9e9324ec116dce36066990353ed1c777e8a7b0641f772575793c4
   languageName: node
   linkType: hard
 
@@ -5853,9 +5862,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.0.12":
-  version: 11.0.12
-  resolution: "framer-motion@npm:11.0.12"
+"framer-motion@npm:11.1.9":
+  version: 11.1.9
+  resolution: "framer-motion@npm:11.1.9"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -5869,7 +5878,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/132ff8141666fb4cd7d42386f45e5b0c0330ad2a8cc28985110d5ba78406c3066722c3221988a5cde58efea4481381a391be666a6b1feb1b1bfc2cb45ede8b2b
+  checksum: 10/fadd08af0879c7dd9abe07d6a27409bb6b657a41f0addbcc23357a09a243052e592da6a5b0b8c0e4a842b813b0bb29f3f29f54abcfa9949a81c9a00c509b1c91
   languageName: node
   linkType: hard
 

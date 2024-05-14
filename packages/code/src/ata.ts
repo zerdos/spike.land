@@ -150,7 +150,7 @@ declare module 'react' {
           npmPackages[r] = true;
         }
 
-        let newBase: null | string;
+        let newBase;
 
         if (r.slice(0, 1) === ".") {
           newBase = new URL(r, baseUrl).toString();
@@ -166,12 +166,10 @@ declare module 'react' {
                 newBase = typescriptTypes;
               } else {
                 const responseText = await response.text();
-
-
-                const urlPattern = /(https?:\/\/[^\s]+)/g;
-                const urlMatch = responseText.match(urlPattern);
-                newBase = (urlMatch ? urlMatch.find((url) => url.indexOf(r) !== -1) : null) || null;
-
+                const urlInText = responseText.split(`"`).find(
+                  (x) => x.startsWith("https://") && x.indexOf(r) !== -1
+                );
+                newBase = urlInText || null;
               }
             } catch (error) {
               newBase = null;
