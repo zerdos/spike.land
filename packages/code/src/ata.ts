@@ -150,7 +150,7 @@ declare module 'react' {
           npmPackages[r] = true;
         }
 
-        let newBase;
+        let newBase: string | null | undefined;
 
         if (r.slice(0, 1) === ".") {
           newBase = new URL(r, baseUrl).toString();
@@ -160,7 +160,10 @@ declare module 'react' {
           if (r.indexOf("data:text/javascript") === -1) {
             try {
               const response = await fetch(`${originToUse}/*${r}`, { redirect: "follow" });
+              if (!response.ok) throw new Error("yay");
               const typescriptTypes = response.headers.get("X-typescript-types");
+
+              
               
               if (typescriptTypes) {
                 newBase = typescriptTypes;
@@ -169,17 +172,24 @@ declare module 'react' {
                 const urlInText = responseText.split(`"`).find(
                   (x) => x.startsWith("https://") && x.indexOf(r) !== -1
                 );
-                newBase = urlInText || null;
+                newBase = urlInText
               }
             } catch (error) {
-              newBase = null;
+              const response = await fetch(`${originToUse}/${r}`, { redirect: "follow" });
+              const typescriptTypes = response.headers.get("X-typescript-types");
+              
+              if (typescriptTypes) {
+                newBase = typescriptTypes;
+              } else {
+                newBase = `${originToUse}/${r}` 
+              }
             }
           } else {
             newBase = null;
           }
         }
         
-        if (newBase === null) {
+        if (!newBase) {
           return;
         }
 

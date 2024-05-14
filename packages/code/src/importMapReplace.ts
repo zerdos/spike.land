@@ -36,6 +36,10 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + "\"" + `${origin}${packageName}/index.js` + "\"" + p3;
     }
 
+    if (packageName.indexOf(".")!==-1) {
+      return p1 + "\"" + `${origin}/${packageName}` + "\"" + p3;
+    }
+
     return p1 + "\"" + `${origin}/*${packageName}?bundle` + "\"" + p3;
   };
 

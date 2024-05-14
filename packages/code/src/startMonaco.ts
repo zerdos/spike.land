@@ -10,7 +10,14 @@ const refreshAta = async(code: string, originToUse: string) =>{
   return await ata({ code, originToUse }).then(extraLibs => {
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+    const mjs = Object.keys(extraLibs).filter(x=>x.indexOf(".mjs")!==-1)
 
+    mjs.map(x=>{
+      const lib = extraLibs.find(lib=>lib.filePath==x)!;
+
+      const myUri = Uri.parse(lib.filePath!);
+      createModel(lib.content, 'typescript',  myUri);
+    })
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
