@@ -11,7 +11,6 @@ import shasum from "./dist.shasum";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import * as map from 'lib0/map'
-import { websocket } from "lib0";
 
 export { md5 };
 
