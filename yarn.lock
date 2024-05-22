@@ -1776,7 +1776,7 @@ __metadata:
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.10.0"
-    ace-builds: "npm:1.34.0"
+    ace-builds: "npm:1.33.3"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -1794,7 +1794,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.0.0"
-    framer-motion: "npm:11.2.6"
+    framer-motion: "npm:11.2.5"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -2560,10 +2560,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.34.0":
-  version: 1.34.0
-  resolution: "ace-builds@npm:1.34.0"
-  checksum: 10/bf15b5f9fb3d71687a6b1a3085768a1ac814d106bde0e8c1665a6bd317aade0f5cad74ff1aa3937dabede97bbf5794248804de397845a02e43228b86b286fb26
+"ace-builds@npm:1.33.3":
+  version: 1.33.3
+  resolution: "ace-builds@npm:1.33.3"
+  checksum: 10/101c45a85d73bcb8cd6af63442f22029b3a34537ad20cbe81b7432e8499d67b15cff53afc467f8003a850c8035e0164db411d28808c0f8e71bb3995928567c49
   languageName: node
   linkType: hard
 
@@ -5818,9 +5818,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.2.6":
-  version: 11.2.6
-  resolution: "framer-motion@npm:11.2.6"
+"framer-motion@npm:11.2.5":
+  version: 11.2.5
+  resolution: "framer-motion@npm:11.2.5"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -5834,7 +5834,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/ae3c55a55b113018be4e45345e94cc65db2f4b03861bd6809cca282518e05b6ef458af1368b0321dc5b12f4fcb8c4fc8c433e5398b10066145ab75c6249493ea
+  checksum: 10/d0eaaa7af919f3984e055911e891a0bf4211eb1aefdf2bc2ad8f377296014933c6886c56ff155c2e437c63c05b871689e881c3949a5e3f304c6204582fef8f96
   languageName: node
   linkType: hard
 
