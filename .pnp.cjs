@@ -2631,7 +2631,7 @@ const RAW_RUNTIME_STATE =
           ["@types/uuid", "npm:9.0.8"],\
           ["@types/wicg-file-system-access", "npm:2023.10.5"],\
           ["@typescript-eslint/typescript-estree", "virtual:0265cacf91d75d46ed37384cfd8fcecca73e0ee3af993c41fb439b4f9049e4df5f87dcfd0d26a1e26de7406e780490ed75f701146424c385a988aba8b0eb8839#npm:7.10.0"],\
-          ["ace-builds", "npm:1.33.3"],\
+          ["ace-builds", "npm:1.34.0"],\
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:6.0.0"],\
@@ -2649,7 +2649,7 @@ const RAW_RUNTIME_STATE =
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
           ["file-type", "npm:19.0.0"],\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.5"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.6"],\
           ["immutable", "npm:4.3.6"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
@@ -3636,10 +3636,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ace-builds", [\
-      ["npm:1.33.3", {\
-        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.33.3-b867081aea-10.zip/node_modules/ace-builds/",\
+      ["npm:1.34.0", {\
+        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.34.0-2cbec6f92e-10.zip/node_modules/ace-builds/",\
         "packageDependencies": [\
-          ["ace-builds", "npm:1.33.3"]\
+          ["ace-builds", "npm:1.34.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7413,17 +7413,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["framer-motion", [\
-      ["npm:11.2.5", {\
-        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.2.5-f430dd0da8-10.zip/node_modules/framer-motion/",\
+      ["npm:11.2.6", {\
+        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.2.6-a15f135da0-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "npm:11.2.5"]\
+          ["framer-motion", "npm:11.2.6"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.5", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-c35087b316/0/global/cache/framer-motion-npm-11.2.5-f430dd0da8-10.zip/node_modules/framer-motion/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.6", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-033826d03b/0/global/cache/framer-motion-npm-11.2.6-a15f135da0-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.5"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.6"],\
           ["@emotion/is-prop-valid", null],\
           ["@types/emotion__is-prop-valid", null],\
           ["@types/react", "npm:18.3.2"],\
