@@ -85,41 +85,41 @@ export class Code implements DurableObject {
         }
       });
   }
-  // private users:
-  broadcast(msg: CodePatch | string) {
+
+  
+  async broadcast(msg: CodePatch | string, session: ICodeSession) {
     let message: string;
+  
     if (typeof msg === "string") {
       message = msg;
     } else {
-      const head = makeHash(this.session);
-
-      this.state.storage.put(head, {
-        ...this.session,
+      const head = makeHash(session);
+  
+      await this.state.storage.put(head, {
+        ...session,
         oldHash: msg.oldHash,
         reversePatch: msg.reversePatch,
       });
-      this.state.storage.get(msg.oldHash).then(async (data: unknown) => {
-        await this.state.storage.put(msg.oldHash, {
-          oldHash: (data as { oldHash?: string } || { oldHash: "" }).oldHash
-            || "",
-          reversePatch: (data as { reversePatch?: string } || { reversePatch: "" })
-            .reversePatch || [],
-          newHash: msg.newHash,
-          patch: msg.patch,
-        });
-        await this.state.storage.put("head", head);
+  
+      const data = await this.state.storage.get(msg.oldHash) as { oldHash?: string, reversePatch?: string[] };
+      await this.state.storage.put(msg.oldHash, {
+        oldHash: data?.oldHash || "",
+        reversePatch: data?.reversePatch || [],
+        newHash: msg.newHash,
+        patch: msg.patch,
       });
-
+  
+      await this.state.storage.put("head", head);
+  
       this.#transpiled = "";
       message = JSON.stringify({ ...msg, i: this.session.i });
     }
-
-    this.#wsSessions.map((s) => {
+  
+    this.#wsSessions.forEach((s) => {
       try {
         s.webSocket.send(message);
       } catch {
         s.quit = true;
-        // this.users.remove(s.name);
         s.blockedMessages.push(message);
       }
     });
@@ -261,9 +261,11 @@ export class Code implements DurableObject {
                     broadcastUsers();
                   }
 
-                  if (data.target && data.target !== session.name) {
-                    this.#userSessions.filter(x => x.name === data.target)[0].webSocket.send(msg.data);
+                  const targetSession = this.#userSessions.find(x => x.name === data.target);
+                  if (targetSession) {
+                    targetSession.webSocket.send(msg.data);
                   }
+                  
                 },
               );
 
@@ -733,7 +735,7 @@ const wsReadyStateClosed = 3 // eslint-disable-line
 
     if (data.changes) {
       // this.state.storage.put()
-      return this.broadcast(msg.data as string);
+      return this.broadcast(msg.data as string, this.session);
     }
 
     if (!name) {
@@ -826,7 +828,7 @@ const wsReadyStateClosed = 3 // eslint-disable-line
             this.session = newState;
             await this.state.storage.put("session", this.session);
 
-            this.broadcast(data as CodePatch);
+            this.broadcast(data as CodePatch, this.session);  
 
             //
 
