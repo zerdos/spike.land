@@ -109,7 +109,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.10.0"],\
           ["@yarnpkg/sdks", "npm:3.1.2"],\
           ["constants", "npm:0.0.2"],\
-          ["cypress", "npm:13.9.0"],\
+          ["cypress", "npm:13.10.0"],\
           ["dprint", "npm:0.45.1"],\
           ["eslint", "npm:9.3.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.1"],\
@@ -5639,10 +5639,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["cypress", [\
-      ["npm:13.9.0", {\
-        "packageLocation": "./.yarn/unplugged/cypress-npm-13.9.0-bf3ff542de/node_modules/cypress/",\
+      ["npm:13.10.0", {\
+        "packageLocation": "./.yarn/unplugged/cypress-npm-13.10.0-fb5477ef47/node_modules/cypress/",\
         "packageDependencies": [\
-          ["cypress", "npm:13.9.0"],\
+          ["cypress", "npm:13.10.0"],\
           ["@cypress/request", "npm:3.0.1"],\
           ["@cypress/xvfb", "npm:1.2.4"],\
           ["@types/sinonjs__fake-timers", "npm:8.1.1"],\
@@ -5659,7 +5659,7 @@ const RAW_RUNTIME_STATE =
           ["commander", "npm:6.2.1"],\
           ["common-tags", "npm:1.8.2"],\
           ["dayjs", "npm:1.11.11"],\
-          ["debug", "virtual:bf3ff542def5126c780d7593ec8c93a23c6310670d796c1adbfbd3e5038d9b244481ab2072d3477d2600735f2be0b66c2997b4bb9b9b230b1fd8ba89a36597f9#npm:4.3.4"],\
+          ["debug", "virtual:fb5477ef476039700e4d5f6041153c4c1a40f36147d005f790aee0679027372e2e719b028b4a8b34fe722af5b3331283e2d5bc64964de0537ca155f1ae9de46c#npm:4.3.4"],\
           ["enquirer", "npm:2.4.1"],\
           ["eventemitter2", "npm:6.4.7"],\
           ["execa", "npm:4.1.0"],\
@@ -5671,7 +5671,7 @@ const RAW_RUNTIME_STATE =
           ["is-ci", "npm:3.0.1"],\
           ["is-installed-globally", "npm:0.4.0"],\
           ["lazy-ass", "npm:1.6.0"],\
-          ["listr2", "virtual:bf3ff542def5126c780d7593ec8c93a23c6310670d796c1adbfbd3e5038d9b244481ab2072d3477d2600735f2be0b66c2997b4bb9b9b230b1fd8ba89a36597f9#npm:3.14.0"],\
+          ["listr2", "virtual:fb5477ef476039700e4d5f6041153c4c1a40f36147d005f790aee0679027372e2e719b028b4a8b34fe722af5b3331283e2d5bc64964de0537ca155f1ae9de46c#npm:3.14.0"],\
           ["lodash", "npm:4.17.21"],\
           ["log-symbols", "npm:4.1.0"],\
           ["minimist", "npm:1.2.8"],\
@@ -5820,20 +5820,6 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:bf3ff542def5126c780d7593ec8c93a23c6310670d796c1adbfbd3e5038d9b244481ab2072d3477d2600735f2be0b66c2997b4bb9b9b230b1fd8ba89a36597f9#npm:4.3.4", {\
-        "packageLocation": "./.yarn/__virtual__/debug-virtual-ceae1fc546/0/global/cache/debug-npm-4.3.4-4513954577-10.zip/node_modules/debug/",\
-        "packageDependencies": [\
-          ["debug", "virtual:bf3ff542def5126c780d7593ec8c93a23c6310670d796c1adbfbd3e5038d9b244481ab2072d3477d2600735f2be0b66c2997b4bb9b9b230b1fd8ba89a36597f9#npm:4.3.4"],\
-          ["@types/supports-color", null],\
-          ["ms", "npm:2.1.2"],\
-          ["supports-color", "npm:8.1.1"]\
-        ],\
-        "packagePeers": [\
-          "@types/supports-color",\
-          "supports-color"\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["virtual:c9e1a4b59e37cb479517edede3bf2093b28c0ca1a9d0e517f3c345075bd1e468980b94b4957e389116607ee7155441dfd7d09e19a4229d5d09bcf06244401590#npm:4.3.4", {\
         "packageLocation": "./.yarn/__virtual__/debug-virtual-11377b508d/0/global/cache/debug-npm-4.3.4-4513954577-10.zip/node_modules/debug/",\
         "packageDependencies": [\
@@ -5841,6 +5827,20 @@ const RAW_RUNTIME_STATE =
           ["@types/supports-color", null],\
           ["ms", "npm:2.1.2"],\
           ["supports-color", null]\
+        ],\
+        "packagePeers": [\
+          "@types/supports-color",\
+          "supports-color"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:fb5477ef476039700e4d5f6041153c4c1a40f36147d005f790aee0679027372e2e719b028b4a8b34fe722af5b3331283e2d5bc64964de0537ca155f1ae9de46c#npm:4.3.4", {\
+        "packageLocation": "./.yarn/__virtual__/debug-virtual-319333cb66/0/global/cache/debug-npm-4.3.4-4513954577-10.zip/node_modules/debug/",\
+        "packageDependencies": [\
+          ["debug", "virtual:fb5477ef476039700e4d5f6041153c4c1a40f36147d005f790aee0679027372e2e719b028b4a8b34fe722af5b3331283e2d5bc64964de0537ca155f1ae9de46c#npm:4.3.4"],\
+          ["@types/supports-color", null],\
+          ["ms", "npm:2.1.2"],\
+          ["supports-color", "npm:8.1.1"]\
         ],\
         "packagePeers": [\
           "@types/supports-color",\
@@ -10040,10 +10040,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:bf3ff542def5126c780d7593ec8c93a23c6310670d796c1adbfbd3e5038d9b244481ab2072d3477d2600735f2be0b66c2997b4bb9b9b230b1fd8ba89a36597f9#npm:3.14.0", {\
-        "packageLocation": "./.yarn/__virtual__/listr2-virtual-8618fd6428/0/global/cache/listr2-npm-3.14.0-446f504112-10.zip/node_modules/listr2/",\
+      ["virtual:fb5477ef476039700e4d5f6041153c4c1a40f36147d005f790aee0679027372e2e719b028b4a8b34fe722af5b3331283e2d5bc64964de0537ca155f1ae9de46c#npm:3.14.0", {\
+        "packageLocation": "./.yarn/__virtual__/listr2-virtual-791d87a538/0/global/cache/listr2-npm-3.14.0-446f504112-10.zip/node_modules/listr2/",\
         "packageDependencies": [\
-          ["listr2", "virtual:bf3ff542def5126c780d7593ec8c93a23c6310670d796c1adbfbd3e5038d9b244481ab2072d3477d2600735f2be0b66c2997b4bb9b9b230b1fd8ba89a36597f9#npm:3.14.0"],\
+          ["listr2", "virtual:fb5477ef476039700e4d5f6041153c4c1a40f36147d005f790aee0679027372e2e719b028b4a8b34fe722af5b3331283e2d5bc64964de0537ca155f1ae9de46c#npm:3.14.0"],\
           ["@types/enquirer", null],\
           ["cli-truncate", "npm:2.1.0"],\
           ["colorette", "npm:2.0.20"],\
@@ -10811,7 +10811,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/parser", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.10.0"],\
           ["@yarnpkg/sdks", "npm:3.1.2"],\
           ["constants", "npm:0.0.2"],\
-          ["cypress", "npm:13.9.0"],\
+          ["cypress", "npm:13.10.0"],\
           ["dprint", "npm:0.45.1"],\
           ["eslint", "npm:9.3.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.1"],\
