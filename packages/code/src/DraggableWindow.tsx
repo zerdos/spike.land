@@ -7,6 +7,7 @@ import { Phone, Share, Tablet, Tv } from "./icons";
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 import { QRButton } from "./Qr.lazy";
 
+// Define breakpoints and sizes
 const breakPoints = [
   innerWidth < 750 ? innerWidth : 750,
   innerWidth < 1025 && innerWidth > 750 ? innerWidth : 1024,
@@ -23,32 +24,26 @@ type DraggableWindowProps = {
 export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
+  const [width, setWidth] = useState(innerWidth);
+  const [bgColor, setBgColor] = useState([0, 0, 0, 0]);
   const maxScaleRange = 100;
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
-  const [width, setWidth] = useState(innerWidth);
   const scale = scaleRange / 100;
 
+  // Set initial positions and scale range
   useEffect(() => {
     const reveal = () => {
       setScaleRange(Math.min(50, 50 / (1 / devicePixelRatio)));
       setWidth(innerWidth);
       setPositions({ bottom: 20, right: 20 });
       setDelay(0);
-      // setTimeout(() => setDelay(0), 2000);
     };
     const timeoutId = setTimeout(reveal, 2000);
     return () => clearTimeout(timeoutId);
   }, []);
 
-  const [bgColor, setBgColor] = useState(() => {
-    const [r, g, b, a] = getComputedStyle(document.body).backgroundColor
-      .slice(4, -1)
-      .split(",")
-      .map(Number);
-    return [r || 0, g || 0, b || 0, a || 0];
-  });
-
+  // Update background color periodically
   useEffect(() => {
     const intervalId = setInterval(() => {
       const [r, g, b, a] = getComputedStyle(document.body).backgroundColor
@@ -109,6 +104,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               align-items: center;
             `}
           >
+            {/* Scale range buttons */}
             <motion.div
               layout
               css={css`
@@ -127,9 +123,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   if (newScale) setScaleRange(newScale);
                 }}
               >
-                {Array.from(
-                  new Set([...(sizes.filter((x) => x < maxScaleRange)), scaleRange, maxScaleRange]),
-                )
+                {Array.from(new Set([...(sizes.filter((x) => x < maxScaleRange)), scaleRange, maxScaleRange]))
                   .sort((a, b) => a - b)
                   .map((size) => (
                     <ToggleButton key={size} value={size}>
@@ -144,6 +138,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   ))}
               </ToggleButtonGroup>
             </motion.div>
+            {/* Content area with scale */}
             <motion.div
               transition={{ scale: { type } }}
               css={css`
@@ -169,6 +164,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                 {children}
               </motion.div>
             </motion.div>
+            {/* Breakpoint buttons */}
             <motion.div
               layout
               css={css`
@@ -189,46 +185,37 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               >
                 {breakPoints.map((size) => (
                   <ToggleButton key={size} value={size}>
-                    {size === breakPoints[0]
-                      ? (
-                        <span
-                          css={css`
-                          color: ${
-                            width === breakPoints[0] ? "var(--text-color-highlight)" : "var(--text-color-normal)"
-                          };
+                    {size === breakPoints[0] ? (
+                      <span
+                        css={css`
+                          color: ${width === breakPoints[0] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `}
-                        >
-                          <Phone />
-                        </span>
-                      )
-                      : size === breakPoints[1]
-                      ? (
-                        <span
-                          css={css`
-                          color: ${
-                            width === breakPoints[1] ? "var(--text-color-highlight)" : "var(--text-color-normal)"
-                          };
+                      >
+                        <Phone />
+                      </span>
+                    ) : size === breakPoints[1] ? (
+                      <span
+                        css={css`
+                          color: ${width === breakPoints[1] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `}
-                        >
-                          <Tablet />
-                        </span>
-                      )
-                      : (
-                        <span
-                          css={css`
-                          color: ${
-                            width === breakPoints[2] ? "var(--text-color-highlight)" : "var(--text-color-normal)"
-                          };
+                      >
+                        <Tablet />
+                      </span>
+                    ) : (
+                      <span
+                        css={css`
+                          color: ${width === breakPoints[2] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
                         `}
-                        >
-                          <Tv />
-                        </span>
-                      )}
+                      >
+                        <Tv />
+                      </span>
+                    )}
                   </ToggleButton>
                 ))}
               </ToggleButtonGroup>
             </motion.div>
           </div>
+          {/* Action buttons */}
           <motion.div
             layout
             css={css`overflow: hidden;`}

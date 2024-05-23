@@ -4,33 +4,39 @@ import { lazy, Suspense } from "react";
 
 import type { FabProps, ToggleButtonGroupProps, ToggleButtonProps } from "@mui/material";
 
-const FabLazy = lazy(async () => import("@mui/material/Fab"));
+// Lazy load Material-UI Fab component
+const FabLazy = lazy(() => import("@mui/material/Fab"));
+
 export const Fab: FC<FabProps> = (props) => (
-  <Suspense
-    fallback={
-      <div
-        css={css`
-        width: 28px; 
-        height:28px;
-        `}
-      >
-      </div>
-    }
-  >
+  <Suspense fallback={<Placeholder />}>
     <FabLazy {...props} />
   </Suspense>
 );
 
-const ToggleButtonLazy = lazy(async () => import("@mui/material/ToggleButton"));
+// Lazy load Material-UI ToggleButton component
+const ToggleButtonLazy = lazy(() => import("@mui/material/ToggleButton"));
+
 export const ToggleButton: FC<ToggleButtonProps> = (props) => (
-  <Suspense fallback={<div css={css`width: 28px; height:28px;`} />}>
+  <Suspense fallback={<Placeholder />}>
     <ToggleButtonLazy {...props} />
   </Suspense>
 );
 
-const ToggleButtonGroupLazy = lazy(async () => import("@mui/material/ToggleButtonGroup"));
+// Lazy load Material-UI ToggleButtonGroup component
+const ToggleButtonGroupLazy = lazy(() => import("@mui/material/ToggleButtonGroup"));
+
 export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = (props) => (
-  <Suspense fallback={<div css={css`width: 28px; height:28px;`} />}>
+  <Suspense fallback={<Placeholder />}>
     <ToggleButtonGroupLazy {...props} />
   </Suspense>
+);
+
+// Placeholder component to be shown while the component is loading
+const Placeholder: FC = () => (
+  <div
+    css={css`
+      width: 28px;
+      height: 28px;
+    `}
+  />
 );
