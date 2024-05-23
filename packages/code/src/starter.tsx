@@ -1,18 +1,10 @@
 import type { FC } from "react";
-
-// import { upgradeElement } from "@ampproject/worker-dom/dist/main.mjs";
 import type { EmotionCache } from "@emotion/cache";
 import { css } from "@emotion/react";
-// import createCache from "./emotionCache";
 import { readFile, stat } from "./memfs";
-// import { buildT } from "./esbuildEsm";
 import { md5 } from "./md5";
 
-// const myApps: { [key: string]: FC } = {};
-// const myAppCounters: { [key: string]: number } = {};
-
-export { md5 };
-
+// Ensure global objects for caching apps and Emotion caches
 if (!Object.hasOwn(globalThis, "apps")) {
   Object.assign(globalThis, { apps: {}, eCaches: {} });
 }
@@ -22,87 +14,65 @@ export const { apps, eCaches } = globalThis as unknown as {
   eCaches: Record<string, EmotionCache>;
 };
 
-const codeSpace = location.pathname.slice(1).split("/")[1];
+const codeSpace = getCodeSpace();
+
+/**
+ * Factory function to create an application component from transpiled code.
+ * @param {string} transpiled - The transpiled code to create the application from.
+ * @returns {Promise<FC<{ width: number; height: number; top: number; left: number }>>} The application component.
+ */
 export async function appFactory(
   transpiled: string,
 ): Promise<FC<{ width: number; height: number; top: number; left: number }>> {
-  // }
-
   const indexMjs = (await stat(`/live/${codeSpace}/index.mjs`))
     && (await readFile(`/live/${codeSpace}/index.mjs`) as string);
-
   const trp: string = indexMjs || transpiled;
-
   const hash = md5(transpiled);
 
-  // if (!apps[hash] || !eCaches[hash]) {
   try {
-    // eCaches[hash] = eCaches[hash] ||
-    // const cache = createCache({
-    //   key: "css",
-    //   speedy: false,
-    // });
-
-    //    cache.compat = undefined;
-
-    // if (terminal && terminal.clear) {r
-    //   terminal.clear();
-    // }
     const blobUrl = createJsBlob(trp);
-    const App = (await import(blobUrl))
-      .default;
+    const App = (await import(blobUrl)).default;
     URL.revokeObjectURL(blobUrl);
     return App;
-
-    // return ({ width, height, top, left }) => (
-    //   <CacheProvider key={hash} value={cache}>
-    //     <App
-    //       {...(width ? { width } : { width: window.innerWidth })}
-    //       {...(height ? { height } : { height: window.innerHeight })}
-    //       {...(top ? { top } : { top: 0 })}
-    //       {...(left ? { left } : { left: 0 })}
-    //     />
-    //   </CacheProvider>
-    //  );
   } catch (error) {
-    if (error instanceof SyntaxError) {
-      const name = error.name;
-      const message = error.message;
-      return () => (
-        <div css={css`background-color: orange;`}>
-          <h1>Syntax Error</h1>
-
-          <h2>{hash}</h2>
-          <h2>{name}: {message}</h2>
-          <p>{JSON.stringify({ err: error })}</p>
-        </div>
-      );
-    } else if (error instanceof Error) {
-      const name = error.name;
-      const message = error.message;
-
-      return () => (
-        <div css={css`background-color: orange;`}>
-          <h1>Syntax Error</h1>
-          <h2>{name}: {message}</h2>
-          <p>{JSON.stringify({ err: error })}</p>
-        </div>
-      );
-    }
+    return handleAppError(error as Error, hash);
   }
-  return () => (
-    <div css={css`background-color: orange;`}>
-      <h1>Unknown Error: ${hash}</h1>
-    </div>
-  );
-
-  // if (transpiled !== "") return apps[hash];
-  // }
-
-  // return apps[hash];
 }
 
-export function createJsBlob(code: string | Uint8Array) {
+/**
+ * Handle errors encountered during application creation.
+ * @param {Error} error - The error encountered.
+ * @param {string} hash - The hash of the transpiled code.
+ * @returns {FC} The error component.
+ */
+function handleAppError(error: Error, hash: string): FC {
+  const errorMessage = error instanceof SyntaxError
+    ? `Syntax Error: ${error.message}`
+    : `Error: ${error.message}`;
+
+  return () => (
+    <div css={css`background-color: orange;`}>
+      <h1>{errorMessage}</h1>
+      <h2>{hash}</h2>
+      <p>{JSON.stringify({ err: error })}</p>
+    </div>
+  );
+}
+
+/**
+ * Get the code space from the current URL.
+ * @returns {string} The code space.
+ */
+function getCodeSpace(): string {
+  return location.pathname.slice(1).split("/")[1];
+}
+
+/**
+ * Create a JavaScript Blob URL from the given code.
+ * @param {string | Uint8Array} code - The code to create the Blob from.
+ * @returns {string} The Blob URL.
+ */
+export function createJsBlob(code: string | Uint8Array): string {
   return URL.createObjectURL(
     new Blob([code], {
       type: "application/javascript",
@@ -110,8 +80,15 @@ export function createJsBlob(code: string | Uint8Array) {
   );
 }
 
-export function createHTML(code: string) {
+/**
+ * Create an HTML Blob URL from the given code.
+ * @param {string} code - The code to create the Blob from.
+ * @returns {string} The Blob URL.
+ */
+export function createHTML(code: string): string {
   return URL.createObjectURL(
     new Blob([code], { type: "text/html" }),
   );
 }
+
+export { md5 };

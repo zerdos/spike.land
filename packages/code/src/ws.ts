@@ -6,43 +6,51 @@ import { md5 } from "./md5";
 import { ldb } from "./createDb";
 import { syncStorage } from "./session";
 
+// Initialize global state for first render
 globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
 
-const codeSpace = location.pathname.slice(1).split("/")[1];
+const codeSpace = getCodeSpace();
 const mutex = new Mutex();
 
 class Code {
-  session = makeSession({ i: 0, code: "", html: "", css: "" });
-  head = makeHash(this.session);
-  user = localStorage.getItem(`${codeSpace} user`) || md5(self.crypto.randomUUID());
-  users = new AVLTree((a: string, b: string) => (a === b ? 0 : a < b ? 1 : -1), true);
+  session: ICodeSession;
+  head: string;
+  user: string;
+  users: AVLTree<string, string>;
   ignoreUsers: string[] = [];
   waiting: (() => boolean)[] = [];
   buffy: Promise<void>[] = [];
   i = 0;
 
   constructor() {
-    (async () => {
-      localStorage.setItem(`${codeSpace} user`, this.user!);
-      connect(`${codeSpace} ${this.user}`);
+    this.session = makeSession({ i: 0, code: "", html: "", css: "" });
+    this.head = makeHash(this.session);
+    this.user = localStorage.getItem(`${codeSpace} user`) || md5(self.crypto.randomUUID());
+    this.users = new AVLTree((a: string, b: string) => (a === b ? 0 : a < b ? 1 : -1), true);
 
-      await mutex.runExclusive(async () => {
-        const head = Number((await ldb(codeSpace).getItem("head")) || 0);
-        const startSess = await fetch(`${origin}/live/${codeSpace}/session`).then(resp => resp.json<ICodeSession>());
+    this.init();
+  }
 
-        if (head === 0) {
-          this.session = makeSession(startSess);
-          this.head = makeHash(this.session);
+  async init() {
+    localStorage.setItem(`${codeSpace} user`, this.user);
+    connect(`${codeSpace} ${this.user}`);
 
-          await ldb(codeSpace).setItem("head", Number(this.head));
-          await ldb(codeSpace).setItem(String(this.head), this.session);
-        } else {
-          const startSessLocal = (await ldb(codeSpace).getItem(String(head))) as ICodeSession;
-          this.session = makeSession(startSess.i > startSessLocal.i ? startSess : startSessLocal);
-          this.head = makeHash(this.session);
-        }
-      });
-    })();
+    await mutex.runExclusive(async () => {
+      const head = Number(await ldb(codeSpace).getItem("head") || 0);
+      const startSess = await fetch(`${location.origin}/live/${codeSpace}/session`).then(resp => resp.json<ICodeSession>());
+
+      if (head === 0) {
+        this.session = makeSession(startSess);
+        this.head = makeHash(this.session);
+
+        await ldb(codeSpace).setItem("head", Number(this.head));
+        await ldb(codeSpace).setItem(String(this.head), this.session);
+      } else {
+        const startSessLocal = (await ldb(codeSpace).getItem(String(head))) as ICodeSession;
+        this.session = makeSession(startSess.i > startSessLocal.i ? startSess : startSessLocal);
+        this.head = makeHash(this.session);
+      }
+    });
   }
 
   syncKV(oldSession: ICodeSession, newSess: ICodeSession, message: CodePatch) {
@@ -58,7 +66,6 @@ class Code {
   async syncWS(newSession: ICodeSession) {
     const oldSession = this.session;
     const newSess = makeSession(newSession);
-
     const message = createPatch(oldSession, newSess);
 
     await mutex.runExclusive(async () => {
@@ -90,3 +97,11 @@ const { cSess } = globalThis;
 export const sess = cSess.session;
 export const syncWS = async (sess: ICodeSession) => await cSess.syncWS(sess);
 export const run = () => cSess.run();
+
+/**
+ * Get the code space from the current URL.
+ * @returns {string} The code space.
+ */
+function getCodeSpace(): string {
+  return location.pathname.slice(1).split("/")[1];
+}
