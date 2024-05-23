@@ -212,7 +212,7 @@ RUN apt-get update && \
     # Clean up
     apt-get autoremove -y && \
     apt-get clean -y && \
-    rm -rf /var/lib/apt/lists/* /   -chrome-stable_current_amd64.deb
+    rm -rf /var/lib/apt/lists/* /google-chrome-stable_current_amd64.deb
 
 # Set environment variables
 ENV QT_X11_NO_MITSHM=1
