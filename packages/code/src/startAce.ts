@@ -24,8 +24,6 @@ export async function startAce(
     value: code,
     mode: "ace/mode/typescript",
 
-    scrollPastEnd: true,
-
     copyWithEmptySelection: false,
   });
   editor.setTheme("ace/theme/monokai");

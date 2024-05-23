@@ -7,17 +7,17 @@ const create = editor.create;
 const originToUse = location.origin;
 
 const refreshAta = async (code: string, originToUse: string) => {
-  return await ata({ code, originToUse }).then(extraLibs => {
+  try {
+    const extraLibs = await ata({ code, originToUse });
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
-    const mjs = Object.keys(extraLibs).filter(x => x.indexOf(".mjs") !== -1);
 
-    mjs.map(x => {
-      const lib = extraLibs.find(lib => lib.filePath == x)!;
-
+    const mjsFiles = extraLibs.filter(lib => lib.filePath.endsWith(".mjs"));
+    mjsFiles.forEach(lib => {
       const myUri = Uri.parse(lib.filePath!);
       createModel(lib.content, "typescript", myUri);
     });
+
     languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
@@ -25,13 +25,15 @@ const refreshAta = async (code: string, originToUse: string) => {
       diagnosticCodesToIgnore: [2691],
     });
     languages.typescript.typescriptDefaults.setEagerModelSync(true);
-  });
+  } catch (error) {
+    console.error("Error refreshing ATA:", error);
+  }
 };
 
 const lib = ["dom", "dom.iterable", "es2015", "es2016", "esnext"];
 
 async function fetchAndCreateExtraModels(code: string, originToUse: string): Promise<void> {
-  const search = new RegExp(` from "(${originToUse})?/live/[a-zA-Z0-9\-\_]+`, "gm");
+  const search = new RegExp(` from "(${originToUse})?/live/[a-zA-Z0-9\\-_]+`, "gm");
   const models = code.matchAll(search);
 
   for (const match of models) {
@@ -79,6 +81,7 @@ const monacoContribution = async (code: string) => {
   });
 
   await fetchAndCreateExtraModels(code, originToUse);
+  refreshAta(code, originToUse);
 
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
@@ -86,8 +89,6 @@ const monacoContribution = async (code: string) => {
     noSyntaxValidation: true,
     diagnosticCodesToIgnore: [2691],
   });
-
-  refreshAta(code, originToUse);
 
   return code;
 };
@@ -102,7 +103,7 @@ self.MonacoEnvironment = {
   },
 };
 
-const mod: Record<string, Record<string, unknown>> = {};
+const mod:  Record<string, Awaited<ReturnType<typeof startMonacoPristine>> >  = {};
 
 export const startMonaco = async ({
   code,
@@ -133,10 +134,9 @@ async function startMonacoPristine({
   onChange: (_code: string) => void;
 }) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-  const replaced = await monacoContribution(code);
+  const replacedCode = await monacoContribution(code);
   const uri = Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
-  const model = editor.getModel(uri) || createModel(replaced, "typescript", uri);
+  const model = editor.getModel(uri) || createModel(replacedCode, "typescript", uri);
 
   const myEditor = create(container, {
     model,
@@ -160,73 +160,58 @@ async function startMonacoPristine({
     autoClosingBrackets: "languageDefined",
   });
 
-  let ctr = new AbortController();
-
-  const ttt = {
-    checking: 0,
-  };
+  let abortController = new AbortController();
+  const ttt = { checking: 0 };
 
   const tsCheck = async () => {
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
     const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
-    typeScriptWorker.getSyntacticDiagnostics(uri.toString()).then(syntacticDiagnostics =>
-      syntacticDiagnostics.forEach((d) => console.error(d))
-    );
+    
+    const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(uri.toString());
+    syntacticDiagnostics.forEach(d => console.error(d));
 
     const semanticDiagnostics = await typeScriptWorker.getSemanticDiagnostics(uri.toString());
     let needNewAta = false;
-    semanticDiagnostics.forEach(async (d) => {
-      const message = d.messageText.toString();
-      if (message.includes("Cannot find module")) {
+    for (const d of semanticDiagnostics) {
+      if (d.messageText.toString().includes("Cannot find module")) {
         needNewAta = true;
       }
-    });
+    }
 
     if (needNewAta) await refreshAta(model.getValue(), originToUse);
 
-    await typeScriptWorker
-      .getSuggestionDiagnostics(uri.toString())
-      .then((diag) => diag.forEach((d) => console.error(d.messageText.toString())))
-      .catch((e) => {
-        console.log("ts error, will retry", e);
-      });
+    const suggestionDiagnostics = await typeScriptWorker.getSuggestionDiagnostics(uri.toString());
+    suggestionDiagnostics.forEach(d => console.error(d.messageText.toString()));
 
     ttt.checking = 0;
   };
 
-  const mod = {
+  const editorModel = {
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      return (await (await languages.typescript.getTypeScriptWorker())(uri))
-        .getSuggestionDiagnostics(uri.toString())
-        .then((diag) => diag.map((d) => d.messageText.toString()))
-        .catch((e) => {
-          console.log("ts error, will retry", e);
-        });
+      const diagnostics = await (await (await languages.typescript.getTypeScriptWorker())(uri)).getSuggestionDiagnostics(uri.toString());
+      return diagnostics.map(d => d.messageText.toString());
     },
     isEdit: false,
-    setValue: (code: string) => {
+    setValue: (newCode: string) => {
       myEditor.getDomNode()?.blur();
-      if (mod.isEdit) return;
-      mod.silent = true;
+      if (editorModel.isEdit) return;
+      editorModel.silent = true;
       let state = null;
       try {
         state = myEditor.saveViewState();
-        model.setValue(code);
+        model.setValue(newCode);
         if (state) {
           myEditor.restoreViewState(state);
         }
       } catch (error) {
         console.error("Error while saving the state:", error);
       } finally {
-        mod.silent = false;
+        editorModel.silent = false;
         tsCheck();
-        // setTimeout(() => {
-        //   tsCheck();
-        // }, 500);
       }
     },
   };
@@ -234,44 +219,44 @@ async function startMonacoPristine({
   myEditor.getDomNode()?.blur();
 
   myEditor.onDidFocusEditorText(() => {
-    mod.isEdit = true;
-    ctr.abort();
-    ctr = new AbortController();
+    editorModel.isEdit = true;
+    abortController.abort();
+    abortController = new AbortController();
     setTimeout(() => {
-      if (ctr.signal.aborted) return;
-      mod.isEdit = false;
+      if (abortController.signal.aborted) return;
+      editorModel.isEdit = false;
     }, 50);
   });
 
   myEditor.onDidBlurEditorText(async () => {
-    mod.setValue(await prettier(model.getValue()));
-    mod.isEdit = true;
+    editorModel.setValue(await prettier(model.getValue()));
+    editorModel.isEdit = true;
   });
 
   BC.onmessage = ({ data }: { data: { changes?: monaco.editor.IModelContentChange[] } }) => {
-    if (mod.silent) return;
+    if (editorModel.silent) return;
     if (data.changes) {
-      mod.silent = true;
+      editorModel.silent = true;
       model.applyEdits(data.changes);
-      mod.silent = false;
+      editorModel.silent = false;
     }
   };
 
   model.onDidChangeContent(() => {
     const newCode = model.getValue();
-    mod.isEdit = true;
-    ctr.abort();
-    ctr = new AbortController();
+    editorModel.isEdit = true;
+    abortController.abort();
+    abortController = new AbortController();
 
     setTimeout(() => {
-      if (ctr.signal.aborted) return;
-      mod.isEdit = false;
+      if (abortController.signal.aborted) return;
+      editorModel.isEdit = false;
     }, 1000);
 
-    if (!mod.silent) {
+    if (!editorModel.silent) {
       onChange(newCode);
     }
   });
 
-  return mod;
+  return editorModel;
 }

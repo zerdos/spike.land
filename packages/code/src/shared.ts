@@ -32,7 +32,7 @@ export const ata = (
 ) =>
   init(swVersion).rpc("ata", { code, originToUse }) as Promise<{
     content: string;
-    filePath?: string;
+    filePath: string;
   }[]>;
 
 export const transpile = (

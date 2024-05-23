@@ -100,7 +100,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@cloudflare/workers-types", "npm:4.20240512.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.4"],\
-          ["@playwright/test", "npm:1.44.0"],\
+          ["@playwright/test", "npm:1.44.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:8.56.10"],\
           ["@types/react", "npm:18.3.2"],\
@@ -115,7 +115,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.1"],\
           ["execa", "npm:9.1.0"],\
           ["localforage", "npm:1.10.0"],\
-          ["playwright", "npm:1.44.0"],\
+          ["playwright", "npm:1.44.1"],\
           ["react", "npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["util", "npm:0.12.5"],\
@@ -2456,11 +2456,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@playwright/test", [\
-      ["npm:1.44.0", {\
-        "packageLocation": "./.yarn/global/cache/@playwright-test-npm-1.44.0-fd70aacf58-10.zip/node_modules/@playwright/test/",\
+      ["npm:1.44.1", {\
+        "packageLocation": "./.yarn/global/cache/@playwright-test-npm-1.44.1-5cd8170a08-10.zip/node_modules/@playwright/test/",\
         "packageDependencies": [\
-          ["@playwright/test", "npm:1.44.0"],\
-          ["playwright", "npm:1.44.0"]\
+          ["@playwright/test", "npm:1.44.1"],\
+          ["playwright", "npm:1.44.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2631,7 +2631,7 @@ const RAW_RUNTIME_STATE =
           ["@types/uuid", "npm:9.0.8"],\
           ["@types/wicg-file-system-access", "npm:2023.10.5"],\
           ["@typescript-eslint/typescript-estree", "virtual:0265cacf91d75d46ed37384cfd8fcecca73e0ee3af993c41fb439b4f9049e4df5f87dcfd0d26a1e26de7406e780490ed75f701146424c385a988aba8b0eb8839#npm:7.10.0"],\
-          ["ace-builds", "npm:1.33.3"],\
+          ["ace-builds", "npm:1.34.0"],\
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:6.0.0"],\
@@ -2649,7 +2649,7 @@ const RAW_RUNTIME_STATE =
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
           ["file-type", "npm:19.0.0"],\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.5"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.6"],\
           ["immutable", "npm:4.3.6"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
@@ -3636,10 +3636,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ace-builds", [\
-      ["npm:1.33.3", {\
-        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.33.3-b867081aea-10.zip/node_modules/ace-builds/",\
+      ["npm:1.34.0", {\
+        "packageLocation": "./.yarn/global/cache/ace-builds-npm-1.34.0-2cbec6f92e-10.zip/node_modules/ace-builds/",\
         "packageDependencies": [\
-          ["ace-builds", "npm:1.33.3"]\
+          ["ace-builds", "npm:1.34.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7413,17 +7413,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["framer-motion", [\
-      ["npm:11.2.5", {\
-        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.2.5-f430dd0da8-10.zip/node_modules/framer-motion/",\
+      ["npm:11.2.6", {\
+        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.2.6-a15f135da0-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "npm:11.2.5"]\
+          ["framer-motion", "npm:11.2.6"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.5", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-c35087b316/0/global/cache/framer-motion-npm-11.2.5-f430dd0da8-10.zip/node_modules/framer-motion/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.6", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-033826d03b/0/global/cache/framer-motion-npm-11.2.6-a15f135da0-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.5"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.6"],\
           ["@emotion/is-prop-valid", null],\
           ["@types/emotion__is-prop-valid", null],\
           ["@types/react", "npm:18.3.2"],\
@@ -10758,7 +10758,7 @@ const RAW_RUNTIME_STATE =
           ["monorepo", "workspace:."],\
           ["@cloudflare/workers-types", "npm:4.20240512.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.4"],\
-          ["@playwright/test", "npm:1.44.0"],\
+          ["@playwright/test", "npm:1.44.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:8.56.10"],\
           ["@types/react", "npm:18.3.2"],\
@@ -10773,7 +10773,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.1"],\
           ["execa", "npm:9.1.0"],\
           ["localforage", "npm:1.10.0"],\
-          ["playwright", "npm:1.44.0"],\
+          ["playwright", "npm:1.44.1"],\
           ["react", "npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["util", "npm:0.12.5"],\
@@ -11766,21 +11766,21 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["playwright", [\
-      ["npm:1.44.0", {\
-        "packageLocation": "./.yarn/global/cache/playwright-npm-1.44.0-8405de4c80-10.zip/node_modules/playwright/",\
+      ["npm:1.44.1", {\
+        "packageLocation": "./.yarn/global/cache/playwright-npm-1.44.1-48cda4a2b6-10.zip/node_modules/playwright/",\
         "packageDependencies": [\
-          ["playwright", "npm:1.44.0"],\
+          ["playwright", "npm:1.44.1"],\
           ["fsevents", "patch:fsevents@npm%3A2.3.2#optional!builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"],\
-          ["playwright-core", "npm:1.44.0"]\
+          ["playwright-core", "npm:1.44.1"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["playwright-core", [\
-      ["npm:1.44.0", {\
-        "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.44.0-9c7b9d5046/node_modules/playwright-core/",\
+      ["npm:1.44.1", {\
+        "packageLocation": "./.yarn/unplugged/playwright-core-npm-1.44.1-20a69ac9fc/node_modules/playwright-core/",\
         "packageDependencies": [\
-          ["playwright-core", "npm:1.44.0"]\
+          ["playwright-core", "npm:1.44.1"]\
         ],\
         "linkType": "HARD"\
       }]\

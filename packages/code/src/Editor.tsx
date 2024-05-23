@@ -1,21 +1,13 @@
 import { css } from "@emotion/react";
-
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
-
-// import { IModelContentChangedEvent, IRange, ISingleEditOperation } from "monaco-editor";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
 import { prettier } from "./shared";
-// import { sess } from "./ws";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-// Export type IStandaloneCodeEditor = editor.Ist;
-let startedM = 0;
-let startedAce = 0;
 
 const mod = {
   i: 0,
@@ -23,155 +15,101 @@ const mod = {
   controller: new AbortController(),
 };
 
-const Editor: FC<
-  {
-    codeSpace: string;
-  }
-> = (
-  { codeSpace },
-) => {
+const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const ref = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
-
-  const [
-    { i, code, started, setValue },
-    changeContent,
-  ] = useState({
-    code: globalThis.cSess.session.code,
+  const [editorState, setEditorState] = useState({
     i: globalThis.cSess.session.i,
+    code: globalThis.cSess.session.code,
     started: false,
-    setValue: (_code: string) => null,
+    setValue: (_code: string) => {}
   });
 
   useEffect(() => {
-    if (started) return;
+    if (editorState.started) return;
 
-    const start = async () => {
-      // const code = await prettier(_code);
-      if (!ref?.current || started) {
-        return;
-      }
+    const initializeEditor = async () => {
+      if (!ref.current) return;
 
-      mod.i = Number(cSess.session.i);
-      mod.code = cSess.session.code;
+      mod.i = Number(globalThis.cSess.session.i);
+      mod.code = globalThis.cSess.session.code;
 
-      // const code = await ky(`${origin}/live/${codeSpace}/index.tsx`).text();
+      const container = ref.current;
+      if (!container) return;
 
-      const container = ref?.current;
-      if (container === null) return;
+      const editorModule = await (engine === "monaco"
+        ? initializeMonaco(container, codeSpace, mod.code)
+        : initializeAce(container, mod.code));
 
-      const modz = await (engine === "monaco"
-        ? setMonaco(container, codeSpace, code)
-        : setAce(container, code)) as { setValue: (code: string) => null };
-
-      changeContent((x) => ({
-        ...x,
+      setEditorState({
+        ...editorState,
         started: true,
-        code,
-        setValue: (code: string) => modz.setValue(code),
-      }));
+        code: mod.code,
+        setValue: editorModule.setValue,
+      });
     };
-    start();
-  }, [started, ref.current]);
 
-  // UseInsertionEffect(()=>{
+    initializeEditor();
+  }, [editorState.started, ref]);
 
-  // })
-  // useEffect(
-  //   () => {
-  //     // mod.getErrors().then(console.log);
-  //     onChange(() =>
-  //       mod.getValue().then(() =>
-  //         changeContent((x: typeof mySession) => ({
-  //           ...x,
-  //           counter: mod.counter,
-  //           myCode: mod.code,
-  //         }))
-  //       )
-  //     );
-  //   },
-  //   [onChange, myCode, changeContent],
-  // );
+  const handleContentChange = async (_code: string) => {
+    const formattedCode = await prettier(_code);
+    if (mod.code === formattedCode) return;
+
+    mod.i += 1;
+    mod.code = formattedCode;
+
+    mod.controller.abort();
+    mod.controller = new AbortController();
+    const { signal } = mod.controller;
+
+    runner({ code: mod.code, counter: mod.i, codeSpace, signal });
+  };
+
+  BC.onmessage = ({ data }) => {
+    if (!data.i || !data.code || data.code === mod.code) return;
+    
+    mod.i = Number(data.i);
+    mod.code = data.code;
+
+    setEditorState({ ...editorState, ...mod });
+    editorState.setValue(mod.code);
+
+    const { signal } = mod.controller;
+    runner({ ...mod, counter: mod.i, codeSpace, signal });
+  };
 
   const EditorNode = (
     <div
       data-test-id="editor"
       ref={ref}
       css={css`
-    ${
-        (engine === "ace") ? "" : `
-    border-right: 4px dashed gray;
-    border-bottom: 4px dashed gray;`
-      }
-
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    `}
+        ${engine === "ace" ? "" : `
+          border-right: 4px dashed gray;
+          border-bottom: 4px dashed gray;
+        `}
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      `}
     />
   );
-
-  const onChange = async (_code: string) => {
-    //  console.log("onChange", _code);
-    // mod.i = Number(mod.i) + 1;
-    // mod.code = _code;
-
-    const c = await prettier(_code);
-    if (mod.code === c) return;
-    mod.i = Number(mod.i) + 1;
-    mod.code = c;
-
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    const { signal } = mod.controller;
-
-    // changeContent((x) => ({
-    //   ...x,
-    //   i: mod.i,
-    //   code: mod.code,
-    // }));
-
-    runner({
-      code: mod.code,
-      counter: mod.i,
-      codeSpace,
-      signal,
-    });
-  };
-
-  BC.onmessage = ({ data }) => {
-    if (!data.i || !data.code || data.code === mod.code) return;
-    mod.i = Number(data.i);
-    mod.code = data.code;
-    // cSess.session = makeSession(data);
-    // mod.controller.abort();
-    // mod.controller = new AbortController();
-    const { signal } = mod.controller;
-    changeContent((x) => ({ ...x, ...mod }));
-    setValue(mod.code);
-    runner({
-      ...mod,
-      counter: mod.i,
-      codeSpace,
-      signal,
-    });
-  };
 
   if (engine === "ace") return EditorNode;
 
   return (
     <Rnd
-      enableResizing={true}
-      disableDragging={true}
+      enableResizing
+      disableDragging
       minWidth={800}
-      minHeight={"100vh"}
-      bounds={"body"}
-      allowAnyClick={true}
+      minHeight="100vh"
+      bounds="body"
+      allowAnyClick
       lockAspectRatio={false}
       enable={{
         top: false,
@@ -188,14 +126,11 @@ const Editor: FC<
     </Rnd>
   );
 
-  async function setMonaco(
+  async function initializeMonaco(
     container: HTMLDivElement,
     codeSpace: string,
-    code: string,
+    code: string
   ) {
-    if (startedM) return;
-    startedM = 1;
-
     const style = document.createElement("style");
     style.innerHTML = `@import url("${location.origin}/startMonaco.css");`;
     document.head.appendChild(style);
@@ -205,23 +140,16 @@ const Editor: FC<
       container,
       codeSpace,
       code,
-      onChange,
+      onChange: handleContentChange,
     });
   }
 
-  async function setAce(container: HTMLDivElement, code: string) {
-    if (startedAce) return;
-    startedAce = 1;
-    const { startAce } = await import("./startAce");
+  async function initializeAce(container: HTMLDivElement, code: string) {
 
-    return await startAce(
-      code,
-      onChange,
-      container,
-    );
+
+    const { startAce } = await import("./startAce");
+    return await startAce(code, handleContentChange, container);
   }
 };
-export default Editor;
-// let room = new AbortController();
 
-// room.abort();
+export default Editor;
