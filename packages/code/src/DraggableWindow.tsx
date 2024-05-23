@@ -25,7 +25,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
   const [width, setWidth] = useState(innerWidth);
-  const [bgColor, setBgColor] = useState([0, 0, 0, 0]);
+  const [bgColor, setBgColor] = useState<[number, number, number, number]>([0, 0, 0, 0]);
   const maxScaleRange = 100;
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
@@ -45,15 +45,20 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
 
   // Update background color periodically
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const [r, g, b, a] = getComputedStyle(document.body).backgroundColor
+    const updateBgColor = () => {
+      const bgColorString = getComputedStyle(document.body).backgroundColor;
+      const bgColorArray = bgColorString
         .slice(4, -1)
         .split(",")
-        .map(Number);
-      if (bgColor.join(",") !== [r, g, b, a].join(",")) {
-        setBgColor([r || 0, g || 0, b || 0, a || 0]);
+        .map(Number)
+        .map((value) => (isNaN(value) ? 0 : value));
+
+      if (bgColor.join(",") !== bgColorArray.join(",")) {
+        setBgColor(bgColorArray as [number, number, number, number]);
       }
-    }, 500);
+    };
+
+    const intervalId = setInterval(updateBgColor, 500);
     return () => clearInterval(intervalId);
   }, [bgColor]);
 
@@ -78,7 +83,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
           padding: 8,
           top: bottom,
           right: right,
-          backgroundColor: rgba(r | 96, g | 66, b || 160, a || 0.7),
+          backgroundColor: rgba(r || 96, g || 66, b || 160, a || 0.7),
           borderRadius: 16,
         }}
         css={css`
