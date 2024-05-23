@@ -1,32 +1,30 @@
 import { tsx } from "detective-typescript";
 
-export async function ata(
-  { code, originToUse, prettierJs }: {
-    code: string;
-    originToUse: string;
-    prettierJs: (code: string) => Promise<string>;
-  },
-) {
+export async function ata({
+  code,
+  originToUse,
+  prettierJs,
+}: {
+  code: string;
+  originToUse: string;
+  prettierJs: (code: string) => Promise<string>;
+}) {
   process.cwd = () => "/";
 
-  // console.log(`ATA run: ${originToUse} ${code}`);
-
-  const impRes: { [ref: string]: { url: string; content: string; ref: string } } = {};
-  const npmPackages: {
-    [pkg: string]: Boolean;
-  } = {};
+  const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
   await ataRecursive(
     `/** @jsx jsx */
     import { jsx } from "@emotion/react";
     ${code}`,
-    originToUse,
+    originToUse
   );
 
   const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
   const vNumbers = /\/(v)[0-9]+\//gm;
   const subst = "/";
 
+  // Process import results to clean up paths and references
   Object.keys(impRes)
     .filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https")))
     .forEach((x) => {
@@ -55,6 +53,7 @@ export async function ata(
       });
     });
 
+  // Replace origin in URLs
   Object.keys(impRes).forEach((x) => {
     impRes[x] = {
       url: impRes[x].url!,
@@ -69,7 +68,6 @@ export async function ata(
       content: `import {} from 'react';
 import { Interpolation } from '@emotion/serialize';
 import { Theme } from '.';
-
 
 declare namespace React {
   type ReactNode =
@@ -110,24 +108,22 @@ declare module 'react' {
             .join(`import mod from "`)
             .split(`export * from "/`)
             .join(`export * from "`),
-        })),
+        }))
     )),
     ...extras,
   ];
 
+  // Deduplicate and sort extra libs
   return [...new Set(extraLibs.map((x) => x.filePath))]
     .map((y) => extraLibs.find((p) => p.filePath === y))
     .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
 
   async function ataRecursive(code: string, baseUrl: string) {
-    // if (impRes[baseUrl]) return;
     let res = tsx(await prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
-
     if (refParts.length > 1) {
       const [, ...refs] = refParts;
-
       res = [
         ...res,
         ...refs.map((r) => r.split(`"`)[0]).map((r) => {
@@ -144,92 +140,76 @@ declare module 'react' {
 
     await Promise.all(
       res.map(async (r: string) => {
-        if (r.indexOf(".") === -1) {
-          if (npmPackages[r]) return;
-          npmPackages[r] = true;
-        }
+        if (!impRes[r]) {
+          let newBase: string | null | undefined = null;
 
-        let newBase: string | null | undefined;
-
-        if (r.slice(0, 1) === ".") {
-          newBase = new URL(r, baseUrl).toString();
-        } else if (r.indexOf("https://") !== -1) {
-          newBase = r;
-        } else {
-          if (r.indexOf("data:text/javascript") === -1) {
+          if (r.startsWith(".")) {
+            newBase = new URL(r, baseUrl).toString();
+          } else if (r.startsWith("https://")) {
+            newBase = r;
+          } else {
             try {
               const response = await fetch(`${originToUse}/*${r}`, { redirect: "follow" });
-              if (!response.ok) throw new Error("yay");
+              if (!response.ok) throw new Error("Failed to fetch");
               const typescriptTypes = response.headers.get("X-typescript-types");
 
-              if (typescriptTypes) {
-                newBase = typescriptTypes;
-              } else {
-                const responseText = await response.text();
-                const urlInText = responseText.split(`"`).find(
-                  (x) => x.startsWith("https://") && x.indexOf(r) !== -1,
-                );
-                newBase = urlInText;
-              }
+              newBase = typescriptTypes || await extractUrlFromResponse(response, r);
             } catch (error) {
               const response = await fetch(`${originToUse}/${r}`, { redirect: "follow" });
               const typescriptTypes = response.headers.get("X-typescript-types");
 
-              if (typescriptTypes) {
-                newBase = typescriptTypes;
-              } else {
-                newBase = `${originToUse}/${r}`;
-              }
+              newBase = typescriptTypes || `${originToUse}/${r}`;
             }
-          } else {
-            newBase = null;
+          }
+
+          if (newBase) {
+            await handleNewBase(newBase, r, baseUrl);
           }
         }
-
-        if (!newBase) {
-          return;
-        }
-
-        if (impRes[newBase]) {
-          return;
-        }
-
-        impRes[newBase] = { ref: r, url: newBase || "", content: "" };
-
-        const url = newBase;
-
-        impRes[newBase].content = await (fetch(url, { redirect: "follow" }).then((dtsRes) => {
-          impRes[newBase!].url = dtsRes.url;
-          return dtsRes.text();
-        }));
-
-        const fileName = new URL(
-          r.indexOf("d.ts") !== -1 || r.indexOf(".mjs") !== -1 ? r : `${r}/index.d.ts`,
-          r.indexOf(".") !== -1 ? baseUrl : origin,
-        ).toString();
-
-        if (!impRes[fileName]) {
-          impRes[fileName] = {
-            url: fileName,
-            content: `
-              import mod from "${newBase}";
-              export * from "${newBase}";
-              export default mod;
-              `,
-            ref: r,
-          };
-          console.log(`virtual file: ${fileName}`, impRes[fileName]);
-        }
-
-        if (impRes[newBase].content.length > 0) {
-          try {
-            await ataRecursive(impRes[newBase].content, impRes[newBase].url);
-          } catch {
-            console.error("ata error");
-          }
-        }
-      }),
+      })
     );
+  }
+
+  async function extractUrlFromResponse(response: Response, ref: string): Promise<string | null> {
+    const responseText = await response.text();
+    return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
+  }
+
+  async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
+    if (!impRes[newBase]) {
+      impRes[newBase] = { ref, url: newBase, content: "" };
+
+      impRes[newBase].content = await fetch(newBase, { redirect: "follow" }).then((dtsRes) => {
+        impRes[newBase].url = dtsRes.url;
+        return dtsRes.text();
+      });
+
+      const fileName = new URL(
+        ref.includes("d.ts") || ref.includes(".mjs") ? ref : `${ref}/index.d.ts`,
+        ref.startsWith(".") ? baseUrl : originToUse
+      ).toString();
+
+      if (!impRes[fileName]) {
+        impRes[fileName] = {
+          url: fileName,
+          content: `
+            import mod from "${newBase}";
+            export * from "${newBase}";
+            export default mod;
+          `,
+          ref,
+        };
+        console.log(`virtual file: ${fileName}`, impRes[fileName]);
+      }
+
+      if (impRes[newBase].content.length > 0) {
+        try {
+          await ataRecursive(impRes[newBase].content, impRes[newBase].url);
+        } catch (error) {
+          console.error("ata error", error);
+        }
+      }
+    }
   }
 }
 

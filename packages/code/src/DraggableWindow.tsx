@@ -62,8 +62,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
     return () => clearInterval(intervalId);
   }, [bgColor]);
 
-  const [r, g, b, a] = bgColor;
-  const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r}, ${g}, ${b}, ${a})`;
+
+
+  while (bgColor.length < 4) bgColor.push(1);
+  const [r, g, b, a] = bgColor.includes(NaN) ? [0, 0, 0, 0] : bgColor.map((x) => x?x:1);
+  const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r||1}, ${g||1}, ${b||1}, ${a||0.7})`;
 
   const duration = sessionStorage?.getItem("duration") ? Number(sessionStorage.getItem("duration")) : 1;
   const type = sessionStorage?.getItem("type") || "spring";
@@ -76,16 +79,16 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
           padding: 0,
           top: 0,
           right: 0,
-          backgroundColor: "rgba(0, 0, 0, 0)",
           borderRadius: 0,
         }}
         animate={{
           padding: 8,
           top: bottom,
           right: right,
-          backgroundColor: rgba(r || 96, g || 66, b || 160, a || 0.7),
+          backgroundColor: rgba(r , g , b , a ),
           borderRadius: 16,
         }}
+        style={{backgroundColor: rgba(r , g , b , a )}}
         css={css`
           z-index: 10;
           backdrop-filter: blur(15px);
@@ -149,7 +152,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               css={css`
                 display: block;
                 border-radius: 8px;
-                background-color: ${rgba(r, g, b, 0.7)};
+                background-color: rgba(r, g, b, 0.7);
               `}
               initial={{ height: window.innerHeight, width: window.innerWidth }}
               animate={{ height: window.innerHeight * scale, width: width * scale }}
@@ -160,7 +163,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   transform-origin: top left;
                   display: inline-block;
                   border-radius: 8px;
-                  background-color: ${rgba(r, g, b, 0.7)};
+                  background-color: rgba(r, g, b, 0.7);
                   overflow: hidden;
                 `}
                 initial={{ height: window.innerHeight, width: window.innerWidth, scale: 1 }}
@@ -177,8 +180,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                 display: flex;
                 justify-content: space-evenly;
               `}
-              initial={{ height: "0px", width: "0%" }}
-              animate={{ height: "42px", width: "100%" }}
+              initial={{ height: 0, width: "0%" }}
+              animate={{ height: 42, width: "100%" }}
             >
               <ToggleButtonGroup
                 value={width}
