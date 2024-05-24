@@ -49,4 +49,4 @@ export async function initDb(codeSpace: string): Promise<LocalForage> {
  * @param {string} codeSpace - The code space to create the database instance for.
  * @returns {ReturnType<typeof db>} - The database instance.
  */
-export const ldb = (codeSpace: string) => db(codeSpace, initDb);
+export const ldb = (codeSpace: string) => db(codeSpace, initDb);  

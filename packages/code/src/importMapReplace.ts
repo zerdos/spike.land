@@ -18,6 +18,9 @@ export function importMapReplace(code: string, origin: string): string {
     const p3 = String(p3char).replace(/[0-9]/g, ""); // Remove numeric characters from p3
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
+    if (packageName.startsWith("data:text")) {
+      return p1 + `"${packageName}/index.js"` + p3;
+    }
     if (packageName.startsWith(`${origin}/live`) && !packageName.includes("index.js")) {
       return p1 + `"${packageName}/index.js"` + p3;
     }

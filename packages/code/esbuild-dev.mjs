@@ -131,8 +131,8 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/cf-esbuild.mjs",
       // "src/Editor.tsx",
 
-      // "src/reactDom.ts",
-
+      "src/prettierEsm.ts",
+      "src/dts.ts",
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",
       // "src/emotionJsxRuntime.ts",i

@@ -1,0 +1,1 @@
+export { tsx } from "detective-typescript";
