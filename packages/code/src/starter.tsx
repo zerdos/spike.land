@@ -49,6 +49,8 @@ function handleAppError(error: Error, hash: string): FC {
   const errorMessage = error instanceof SyntaxError
     ? `Syntax Error: ${error.message}`
     : `Error: ${error.message}`;
+    
+  console.error(errorMessage, { err: error });
 
   return () => (
     <div css={css`background-color: orange;`}>

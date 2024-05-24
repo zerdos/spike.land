@@ -15,6 +15,10 @@ const refreshAta = async (code: string, originToUse: string) => {
     const mjsFiles = extraLibs.filter(lib => lib.filePath.endsWith(".mjs"));
     mjsFiles.forEach(lib => {
       const myUri = Uri.parse(lib.filePath!);
+      if (editor.getModel(myUri)) {
+        editor.getModel(myUri)?.setValue(lib.content);
+        return;
+      };
       createModel(lib.content, "typescript", myUri);
     });
 

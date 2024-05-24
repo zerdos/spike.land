@@ -1,16 +1,14 @@
-import { tsx } from "detective-typescript";
-
 export async function ata({
   code,
   originToUse,
   prettierJs,
+  tsx
 }: {
   code: string;
   originToUse: string;
   prettierJs: (code: string) => Promise<string>;
+  tsx: (code: string) => Promise<string[]>;
 }) {
-  process.cwd = () => "/";
-
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
   await ataRecursive(
@@ -119,7 +117,7 @@ declare module 'react' {
     .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
 
   async function ataRecursive(code: string, baseUrl: string) {
-    let res = tsx(await prettierJs(code));
+    let res = await tsx(await prettierJs(code));
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {

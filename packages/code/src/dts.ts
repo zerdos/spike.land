@@ -1,1 +1,7 @@
-export { tsx } from "detective-typescript";
+
+
+import { tsx } from "detective-typescript";
+process.cwd = () => "/";
+
+
+Object.assign(self, { tsx });

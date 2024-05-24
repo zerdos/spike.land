@@ -22,15 +22,19 @@ declare var self:
     prettierJs: typeof Prettier;
   }
   & { transpile: typeof Transpile }
-  & { build: typeof Build };
+  & { build: typeof Build }
+  & { tsx: (code: string) => Promise<string[]> };
+  ;
+
 
 // Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");
+importScripts("/workerScripts/dts.js");
 importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/transpile.js");
 
-const { ata, prettierJs, transpile, build } = self;
+const { ata, prettierJs, transpile, build, tsx } = self;
 const start = (port: MessagePort) => {
   // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
@@ -46,7 +50,7 @@ const start = (port: MessagePort) => {
   rpcProvider.registerRpcHandler(
     "ata",
     ({ code, originToUse }: { code: string; originToUse: string }) => {
-      return ata({ code, originToUse, prettierJs });
+      return ata({ code, originToUse, prettierJs, tsx });
     },
   );
 

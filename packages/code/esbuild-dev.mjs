@@ -49,6 +49,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/transpile.ts",
       "src/memfs.ts",
       "src/ata.ts",
+      "src/dts.ts",
       // "src/ts.worker.ts",
       "src/ataWorker.ts",
       // "src/ipfs-core.ts",
@@ -125,14 +126,15 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
 
       "src/motion.ts",
       "src/hydrate.ts",
+      "src/shared.ts",
       "src/emotion.ts",
       "src/startMonaco.ts",
       "src/cf-workers.mjs",
       "src/cf-esbuild.mjs",
       // "src/Editor.tsx",
 
-      "src/prettierEsm.ts",
-      "src/dts.ts",
+      // "src/prettierEsm.ts",
+      // "src/dts.ts",
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",
       // "src/emotionJsxRuntime.ts",i
