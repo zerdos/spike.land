@@ -35,7 +35,8 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
   useEffect(() => {
     const reveal = () => {
       setScaleRange(Math.min(50, 50 / (1 / devicePixelRatio)));
-      setWidth(innerWidth);
+      setWidth(breakPoints[1]);
+      setBgColor([66, 66, 66, .5]);
       setPositions({ bottom: 20, right: 20 });
       setDelay(0);
     };
@@ -44,23 +45,23 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
   }, []);
 
   // Update background color periodically
-  useEffect(() => {
-    const updateBgColor = () => {
-      const bgColorString = getComputedStyle(document.body).backgroundColor;
-      const bgColorArray = bgColorString
-        .slice(4, -1)
-        .split(",")
-        .map(Number)
-        .map((value) => (isNaN(value) ? 0 : value));
+  // useEffect(() => {
+  //   const updateBgColor = () => {
+  //     const bgColorString = getComputedStyle(document.body).backgroundColor;
+  //     const bgColorArray = bgColorString
+  //       .slice(4, -1)
+  //       .split(",")
+  //       .map(Number)
+  //       .map((value) => (isNaN(value) ? 0 : value));
 
-      if (bgColor.join(",") !== bgColorArray.join(",")) {
-        setBgColor(bgColorArray as [number, number, number, number]);
-      }
-    };
+  //     if (bgColor.join(",") !== bgColorArray.join(",")) {
+  //       setBgColor(bgColorArray as [number, number, number, number]);
+  //     }
+  //   };
 
-    const intervalId = setInterval(updateBgColor, 500);
-    return () => clearInterval(intervalId);
-  }, [bgColor]);
+  //   const intervalId = setInterval(updateBgColor, 500);
+  //   return () => clearInterval(intervalId);
+  // }, [bgColor]);
 
 
 

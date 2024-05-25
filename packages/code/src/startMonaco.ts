@@ -84,15 +84,15 @@ const monacoContribution = async (code: string) => {
     include: [`${originToUse}/`],
   });
 
-  await fetchAndCreateExtraModels(code, originToUse);
-  refreshAta(code, originToUse);
-
   languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
     noSyntaxValidation: true,
     diagnosticCodesToIgnore: [2691],
-  });
+  })
+
+ fetchAndCreateExtraModels(code, originToUse).then(()=>refreshAta(code, originToUse))
+  
 
   return code;
 };
