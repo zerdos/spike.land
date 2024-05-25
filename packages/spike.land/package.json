@@ -25,7 +25,7 @@
     "@types/node": "20.12.12",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
-    "esbuild-wasm": "0.21.3",
+    "esbuild-wasm": "0.21.4",
     "esm-worker": "0.135.16",
     "immutable": "4.3.6",
     "lib0": "^0.2.94",

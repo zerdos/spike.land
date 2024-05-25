@@ -1729,7 +1729,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.21.3"
+    esbuild-wasm: "npm:0.21.4"
   languageName: unknown
   linkType: soft
 
@@ -1743,7 +1743,7 @@ __metadata:
     "@types/node": "npm:20.12.12"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.21.3"
+    esbuild-wasm: "npm:0.21.4"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.6"
     lib0: "npm:^0.2.94"
@@ -1771,12 +1771,12 @@ __metadata:
     "@types/jest": "npm:29.5.12"
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/node": "npm:20.12.12"
-    "@types/react": "npm:18.3.2"
+    "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.10.0"
-    ace-builds: "npm:1.34.0"
+    ace-builds: "npm:1.34.1"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -1787,7 +1787,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.3"
     detective-typescript: "npm:13.0.0"
-    esbuild-wasm: "npm:0.21.3"
+    esbuild-wasm: "npm:0.21.4"
     eslint: "npm:9.3.0"
     eslint-plugin-react: "npm:7.34.1"
     events: "npm:3.3.0"
@@ -1801,7 +1801,7 @@ __metadata:
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
     module: "npm:1.2.5"
-    monaco-editor: "npm:0.48.0"
+    monaco-editor: "npm:0.49.0"
     node-source-walk: "npm:7.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.2"
@@ -1847,7 +1847,7 @@ __metadata:
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.12.12"
-    esbuild-wasm: "npm:0.21.3"
+    esbuild-wasm: "npm:0.21.4"
   languageName: unknown
   linkType: soft
 
@@ -1927,7 +1927,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.2"
     "@cloudflare/workers-types": "npm:4.20240512.0"
-    esbuild-wasm: "npm:0.21.3"
+    esbuild-wasm: "npm:0.21.4"
     typescript: "npm:5.4.5"
     wrangler: "npm:3.57.1"
   languageName: unknown
@@ -2185,13 +2185,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.3.2":
+"@types/react@npm:*":
   version: 18.3.2
   resolution: "@types/react@npm:18.3.2"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10/a85eed82c1009dc9d979281d9ea1f5322255003de3378390f35d897b4bdaf1d34ea748636c03e9e9b4b7cc97c2f4582993d2d60e40846226ad497d97c7d8565a
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.3.3":
+  version: 18.3.3
+  resolution: "@types/react@npm:18.3.3"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 10/68e203b7f1f91d6cf21f33fc7af9d6d228035a26c83f514981e54aa3da695d0ec6af10c277c6336de1dd76c4adbe9563f3a21f80c4462000f41e5f370b46e96c
   languageName: node
   linkType: hard
 
@@ -2560,10 +2570,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.34.0":
-  version: 1.34.0
-  resolution: "ace-builds@npm:1.34.0"
-  checksum: 10/bf15b5f9fb3d71687a6b1a3085768a1ac814d106bde0e8c1665a6bd317aade0f5cad74ff1aa3937dabede97bbf5794248804de397845a02e43228b86b286fb26
+"ace-builds@npm:1.34.1":
+  version: 1.34.1
+  resolution: "ace-builds@npm:1.34.1"
+  checksum: 10/04efe6a34bcadfd37b5c51b8a98e4d1b8cb85293def96ee69dc95dabca3ed734845f86fb359b3d2206ff332a9c88a6f0534e23fce37d9560d070c1cd86111fb3
   languageName: node
   linkType: hard
 
@@ -4903,12 +4913,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.21.3":
-  version: 0.21.3
-  resolution: "esbuild-wasm@npm:0.21.3"
+"esbuild-wasm@npm:0.21.4":
+  version: 0.21.4
+  resolution: "esbuild-wasm@npm:0.21.4"
   bin:
     esbuild: bin/esbuild
-  checksum: 10/c44d83ac7b7ada1075da2aec773d64b75802d63ea6d5ab956beec4b9be3a74609ab53d12a5f088aa84c0bd986a082ec2c82cac9c731ddf0d90f7b1fa6e7f5565
+  checksum: 10/2a55834925c33a78ffa1f2b7d1971defc88cffc308a814f619dc26f7c35e8cc3306be65b31d538fa83eae413422f6c007b25faf9a2d8846b2ef55b1db29e00cc
   languageName: node
   linkType: hard
 
@@ -8774,10 +8784,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.48.0":
-  version: 0.48.0
-  resolution: "monaco-editor@npm:0.48.0"
-  checksum: 10/19de201705a60695c42cca65157654da3881ed24882e6d5dce33e063c6c9505c9fa6bd42be4d6807d5b1c5d3ad18e2d019c4f7f6adbe66ce8a9428a78d74b3f6
+"monaco-editor@npm:0.49.0":
+  version: 0.49.0
+  resolution: "monaco-editor@npm:0.49.0"
+  checksum: 10/7b39c4bcc98a18ad178b70bc9e950e015a7a4124b85125da59d14a41e88f2909339708ea09366b6532360c58e1ec812c1c7c6f9df6c9786204a46133042c3263
   languageName: node
   linkType: hard
 
@@ -8790,7 +8800,7 @@ __metadata:
     "@playwright/test": "npm:1.44.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.10"
-    "@types/react": "npm:18.3.2"
+    "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@typescript-eslint/eslint-plugin": "npm:7.10.0"
     "@typescript-eslint/parser": "npm:7.10.0"
