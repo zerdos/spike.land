@@ -7,7 +7,7 @@ export const environment = env.get("NODE_ENV") === "production"
   : "development";
 
 export const outdir = "dist";
-export const target = "chrome88";
+export const target = "chrome125";
 export const isDevelopment = environment !== "production";
 
 export const workerEntryPoints = [
