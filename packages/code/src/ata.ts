@@ -2,7 +2,7 @@ export async function ata({
   code,
   originToUse,
   prettierJs,
-  tsx
+  tsx,
 }: {
   code: string;
   originToUse: string;
@@ -15,7 +15,7 @@ export async function ata({
     `/** @jsx jsx */
     import { jsx } from "@emotion/react";
     ${code}`,
-    originToUse
+    originToUse,
   );
 
   const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
@@ -106,7 +106,7 @@ declare module 'react' {
             .join(`import mod from "`)
             .split(`export * from "/`)
             .join(`export * from "`),
-        }))
+        })),
     )),
     ...extras,
   ];
@@ -147,14 +147,23 @@ declare module 'react' {
             newBase = r;
           } else {
             try {
-              const response = await fetch(`${originToUse}/*${r}`, { redirect: "follow" });
+              const response = await fetch(`${originToUse}/*${r}`, {
+                redirect: "follow",
+              });
               if (!response.ok) throw new Error("Failed to fetch");
-              const typescriptTypes = response.headers.get("X-typescript-types");
+              const typescriptTypes = response.headers.get(
+                "X-typescript-types",
+              );
 
-              newBase = typescriptTypes || await extractUrlFromResponse(response, r);
+              newBase = typescriptTypes
+                || await extractUrlFromResponse(response, r);
             } catch (error) {
-              const response = await fetch(`${originToUse}/${r}`, { redirect: "follow" });
-              const typescriptTypes = response.headers.get("X-typescript-types");
+              const response = await fetch(`${originToUse}/${r}`, {
+                redirect: "follow",
+              });
+              const typescriptTypes = response.headers.get(
+                "X-typescript-types",
+              );
 
               newBase = typescriptTypes || `${originToUse}/${r}`;
             }
@@ -164,11 +173,14 @@ declare module 'react' {
             await handleNewBase(newBase, r, baseUrl);
           }
         }
-      })
+      }),
     );
   }
 
-  async function extractUrlFromResponse(response: Response, ref: string): Promise<string | null> {
+  async function extractUrlFromResponse(
+    response: Response,
+    ref: string,
+  ): Promise<string | null> {
     const responseText = await response.text();
     return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
@@ -177,14 +189,17 @@ declare module 'react' {
     if (!impRes[newBase]) {
       impRes[newBase] = { ref, url: newBase, content: "" };
 
-      impRes[newBase].content = await fetch(newBase, { redirect: "follow" }).then((dtsRes) => {
-        impRes[newBase].url = dtsRes.url;
-        return dtsRes.text();
-      });
+      impRes[newBase].content = await fetch(newBase, { redirect: "follow" })
+        .then((dtsRes) => {
+          impRes[newBase].url = dtsRes.url;
+          return dtsRes.text();
+        });
 
       const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs") ? ref : `${ref}/index.d.ts`,
-        ref.startsWith(".") ? baseUrl : originToUse
+        ref.includes("d.ts") || ref.includes(".mjs")
+          ? ref
+          : `${ref}/index.d.ts`,
+        ref.startsWith(".") ? baseUrl : originToUse,
       ).toString();
 
       if (!impRes[fileName]) {

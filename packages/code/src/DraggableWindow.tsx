@@ -21,11 +21,18 @@ type DraggableWindowProps = {
   codeSpace: string;
 };
 
-export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
+export const DraggableWindow: FC<DraggableWindowProps> = (
+  { children, codeSpace },
+) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
   const [width, setWidth] = useState(innerWidth);
-  const [bgColor, setBgColor] = useState<[number, number, number, number]>([0, 0, 0, 0]);
+  const [bgColor, setBgColor] = useState<[number, number, number, number]>([
+    0,
+    0,
+    0,
+    0,
+  ]);
   const maxScaleRange = 100;
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
@@ -63,13 +70,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
   //   return () => clearInterval(intervalId);
   // }, [bgColor]);
 
-
-
   while (bgColor.length < 4) bgColor.push(1);
-  const [r, g, b, a] = bgColor.includes(NaN) ? [0, 0, 0, 0] : bgColor.map((x) => x?x:1);
-  const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r||1}, ${g||1}, ${b||1}, ${a||0.7})`;
+  const [r, g, b, a] = bgColor.includes(NaN)
+    ? [0, 0, 0, 0]
+    : bgColor.map((x) => x ? x : 1);
+  const rgba = (r: number, g: number, b: number, a: number) => `rgba(${r || 1}, ${g || 1}, ${b || 1}, ${a || 0.7})`;
 
-  const duration = sessionStorage?.getItem("duration") ? Number(sessionStorage.getItem("duration")) : 1;
+  const duration = sessionStorage?.getItem("duration")
+    ? Number(sessionStorage.getItem("duration"))
+    : 1;
   const type = sessionStorage?.getItem("type") || "spring";
 
   return (
@@ -86,10 +95,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
           padding: 8,
           top: bottom,
           right: right,
-          backgroundColor: rgba(r , g , b , a ),
+          backgroundColor: rgba(r, g, b, a),
           borderRadius: 16,
         }}
-        style={{backgroundColor: rgba(r , g , b , a )}}
+        style={{ backgroundColor: rgba(r, g, b, a) }}
         css={css`
           z-index: 10;
           backdrop-filter: blur(15px);
@@ -132,13 +141,23 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   if (newScale) setScaleRange(newScale);
                 }}
               >
-                {Array.from(new Set([...(sizes.filter((x) => x < maxScaleRange)), scaleRange, maxScaleRange]))
+                {Array.from(
+                  new Set([
+                    ...(sizes.filter((x) => x < maxScaleRange)),
+                    scaleRange,
+                    maxScaleRange,
+                  ]),
+                )
                   .sort((a, b) => a - b)
                   .map((size) => (
                     <ToggleButton key={size} value={size}>
                       <span
                         css={css`
-                          color: ${size === scaleRange ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                          color: ${
+                          size === scaleRange
+                            ? "var(--text-color-highlight)"
+                            : "var(--text-color-normal)"
+                        };
                         `}
                       >
                         {size}%
@@ -156,7 +175,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                 background-color: rgba(r, g, b, 0.7);
               `}
               initial={{ height: window.innerHeight, width: window.innerWidth }}
-              animate={{ height: window.innerHeight * scale, width: width * scale }}
+              animate={{
+                height: window.innerHeight * scale,
+                width: width * scale,
+              }}
             >
               <motion.div
                 transition={{ zoom: { type: "spring" }, delay: 0 }}
@@ -167,7 +189,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                   background-color: rgba(r, g, b, 0.7);
                   overflow: hidden;
                 `}
-                initial={{ height: window.innerHeight, width: window.innerWidth, scale: 1 }}
+                initial={{
+                  height: window.innerHeight,
+                  width: window.innerWidth,
+                  scale: 1,
+                }}
                 animate={{ height: window.innerHeight, width, scale }}
               >
                 {children}
@@ -194,31 +220,47 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
               >
                 {breakPoints.map((size) => (
                   <ToggleButton key={size} value={size}>
-                    {size === breakPoints[0] ? (
-                      <span
-                        css={css`
-                          color: ${width === breakPoints[0] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                    {size === breakPoints[0]
+                      ? (
+                        <span
+                          css={css`
+                          color: ${
+                            width === breakPoints[0]
+                              ? "var(--text-color-highlight)"
+                              : "var(--text-color-normal)"
+                          };
                         `}
-                      >
-                        <Phone />
-                      </span>
-                    ) : size === breakPoints[1] ? (
-                      <span
-                        css={css`
-                          color: ${width === breakPoints[1] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        >
+                          <Phone />
+                        </span>
+                      )
+                      : size === breakPoints[1]
+                      ? (
+                        <span
+                          css={css`
+                          color: ${
+                            width === breakPoints[1]
+                              ? "var(--text-color-highlight)"
+                              : "var(--text-color-normal)"
+                          };
                         `}
-                      >
-                        <Tablet />
-                      </span>
-                    ) : (
-                      <span
-                        css={css`
-                          color: ${width === breakPoints[2] ? "var(--text-color-highlight)" : "var(--text-color-normal)"};
+                        >
+                          <Tablet />
+                        </span>
+                      )
+                      : (
+                        <span
+                          css={css`
+                          color: ${
+                            width === breakPoints[2]
+                              ? "var(--text-color-highlight)"
+                              : "var(--text-color-normal)"
+                          };
                         `}
-                      >
-                        <Tv />
-                      </span>
-                    )}
+                        >
+                          <Tv />
+                        </span>
+                      )}
                   </ToggleButton>
                 ))}
               </ToggleButtonGroup>
@@ -255,7 +297,10 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
                 </span>
               </Fab>
               <QRButton url={`${location.origin}/live/${codeSpace}/public`} />
-              <Fab key="Share" onClick={() => window.open(`/live/${codeSpace}/public`)}>
+              <Fab
+                key="Share"
+                onClick={() => window.open(`/live/${codeSpace}/public`)}
+              >
                 <Share />
               </Fab>
             </div>

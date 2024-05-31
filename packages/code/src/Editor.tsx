@@ -22,7 +22,7 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     i: globalThis.cSess.session.i,
     code: globalThis.cSess.session.code,
     started: false,
-    setValue: (_code: string) => {}
+    setValue: (_code: string) => {},
   });
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   BC.onmessage = ({ data }) => {
     if (!data.i || !data.code || data.code === mod.code) return;
-    
+
     mod.i = Number(data.i);
     mod.code = data.code;
 
@@ -84,10 +84,12 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
       data-test-id="editor"
       ref={ref}
       css={css`
-        ${engine === "ace" ? "" : `
+        ${
+        engine === "ace" ? "" : `
           border-right: 4px dashed gray;
           border-bottom: 4px dashed gray;
-        `}
+        `
+      }
         width: 100%;
         height: 100%;
         display: block;
@@ -129,7 +131,7 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   async function initializeMonaco(
     container: HTMLDivElement,
     codeSpace: string,
-    code: string
+    code: string,
   ) {
     const style = document.createElement("style");
     style.innerHTML = `@import url("${location.origin}/startMonaco.css");`;
@@ -145,8 +147,6 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   }
 
   async function initializeAce(container: HTMLDivElement, code: string) {
-
-
     const { startAce } = await import("./startAce");
     return await startAce(code, handleContentChange, container);
   }

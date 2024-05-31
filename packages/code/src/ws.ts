@@ -1,13 +1,14 @@
-import AVLTree from "avl";
-import { connect } from "./shared";
-import { CodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import { Mutex } from "async-mutex";
-import { md5 } from "./md5";
+import AVLTree from "avl";
 import { ldb } from "./createDb";
+import { CodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
+import { md5 } from "./md5";
 import { syncStorage } from "./session";
+import { connect } from "./shared";
 
 // Initialize global state for first render
-globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
+globalThis.firstRender = globalThis.firstRender
+  || { html: "", css: "", code: "" };
 
 const codeSpace = getCodeSpace();
 const mutex = new Mutex();
@@ -25,8 +26,12 @@ class Code {
   constructor() {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.head = makeHash(this.session);
-    this.user = localStorage.getItem(`${codeSpace} user`) || md5(self.crypto.randomUUID());
-    this.users = new AVLTree((a: string, b: string) => (a === b ? 0 : a < b ? 1 : -1), true);
+    this.user = localStorage.getItem(`${codeSpace} user`)
+      || md5(self.crypto.randomUUID());
+    this.users = new AVLTree(
+      (a: string, b: string) => (a === b ? 0 : a < b ? 1 : -1),
+      true,
+    );
 
     this.init();
   }
@@ -37,7 +42,9 @@ class Code {
 
     await mutex.runExclusive(async () => {
       const head = Number(await ldb(codeSpace).getItem("head") || 0);
-      const startSess = await fetch(`${location.origin}/live/${codeSpace}/session`).then(resp => resp.json<ICodeSession>());
+      const startSess = await fetch(
+        `${location.origin}/live/${codeSpace}/session`,
+      ).then((resp) => resp.json<ICodeSession>());
 
       if (head === 0) {
         this.session = makeSession(startSess);
@@ -47,7 +54,9 @@ class Code {
         await ldb(codeSpace).setItem(String(this.head), this.session);
       } else {
         const startSessLocal = (await ldb(codeSpace).getItem(String(head))) as ICodeSession;
-        this.session = makeSession(startSess.i > startSessLocal.i ? startSess : startSessLocal);
+        this.session = makeSession(
+          startSess.i > startSessLocal.i ? startSess : startSessLocal,
+        );
         this.head = makeHash(this.session);
       }
     });

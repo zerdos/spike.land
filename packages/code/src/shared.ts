@@ -35,13 +35,13 @@ export const ata = (
     filePath: string;
   }[]>;
 
-  export const tsx = (
-   code: string,
-  ) =>
-    init(swVersion).rpc("tsc", code) as Promise<{
-      content: string;
-      filePath: string;
-    }[]>;
+export const tsx = (
+  code: string,
+) =>
+  init(swVersion).rpc("tsc", code) as Promise<{
+    content: string;
+    filePath: string;
+  }[]>;
 
 export const transpile = (
   { code, originToUse }: { code: string; originToUse: string },

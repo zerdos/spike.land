@@ -1,8 +1,8 @@
-import type { FC } from "react";
 import type { EmotionCache } from "@emotion/cache";
 import { css } from "@emotion/react";
-import { readFile, stat } from "./memfs";
+import type { FC } from "react";
 import { md5 } from "./md5";
+import { readFile, stat } from "./memfs";
 
 // Ensure global objects for caching apps and Emotion caches
 if (!Object.hasOwn(globalThis, "apps")) {
@@ -49,7 +49,7 @@ function handleAppError(error: Error, hash: string): FC {
   const errorMessage = error instanceof SyntaxError
     ? `Syntax Error: ${error.message}`
     : `Error: ${error.message}`;
-    
+
   console.error(errorMessage, { err: error });
 
   return () => (

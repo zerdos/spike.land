@@ -21,7 +21,10 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName.startsWith("data:text")) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
-    if (packageName.startsWith(`${origin}/live`) && !packageName.includes("index.js")) {
+    if (
+      packageName.startsWith(`${origin}/live`)
+      && !packageName.includes("index.js")
+    ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
 
@@ -50,7 +53,9 @@ export function importMapReplace(code: string, origin: string): string {
   };
 
   // Convert code to string if it's not already a string
-  const str = typeof code === "string" ? code : new TextDecoder().decode(new Uint8Array(code));
+  const str = typeof code === "string"
+    ? code
+    : new TextDecoder().decode(new Uint8Array(code));
 
   // Replace import paths using the replacer function
   let replaced = str
@@ -60,7 +65,9 @@ export function importMapReplace(code: string, origin: string): string {
 
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(origin + oo[pkg as keyof typeof oo]);
+    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
+      origin + oo[pkg as keyof typeof oo],
+    );
   });
 
   return replaced;

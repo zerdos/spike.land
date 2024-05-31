@@ -1,4 +1,5 @@
 import type { DurableObject, DurableObjectState, Request as WRequest, WebSocket } from "@cloudflare/workers-types";
+import * as map from "lib0/map";
 import { resetCSS } from "../../code/src/getResetCss";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import HTML from "./../../code/src/index.html";
@@ -10,20 +11,18 @@ import ASSET_HASH from "./dist.shasum";
 import shasum from "./dist.shasum";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
-import * as map from 'lib0/map'
 
 export { md5 };
 
 export interface WebsocketSession {
-  name: string; 
+  name: string;
   webSocket: WebSocket;
   quit?: boolean;
   subscribedTopics: Set<string>;
   pongReceived: boolean;
   blockedMessages: string[];
 }
-const pingTimeout = 30000
-
+const pingTimeout = 30000;
 
 // export interface IFirstRender {
 //   type: "firstRender";
@@ -56,16 +55,16 @@ interface IData {
   oldHash?: string;
 }
 
-interface YMessage{
-  type: 'subscribe' | 'unsubscribe' | 'publish' | 'ping' | 'pong';
-  topics: string[],
-  topic: string,
-  clients: number
- }
+interface YMessage {
+  type: "subscribe" | "unsubscribe" | "publish" | "ping" | "pong";
+  topics: string[];
+  topic: string;
+  clients: number;
+}
 
 export class Code implements DurableObject {
   // mutex: Mutex;
-  topics= new Map<string, Set<WebSocket>>();
+  topics = new Map<string, Set<WebSocket>>();
   #wsSessions: WebsocketSession[] = [];
   #userSessions: WebsocketSession[] = [];
   #transpiled = "";
@@ -228,20 +227,22 @@ export class Code implements DurableObject {
               //              webSocket.send(JSON.stringify(users))
 
               webSocket.addEventListener("close", () => {
-                this.#userSessions = this.#userSessions.filter(x => x != session);
+                this.#userSessions = this.#userSessions.filter((x) => x != session);
                 broadcastUsers();
               });
 
               const broadcastUsers = () =>
-                this.#userSessions.map(sess => {
-                  const users = this.#userSessions.filter((x) => x.name).map((x) => x.name);
+                this.#userSessions.map((sess) => {
+                  const users = this.#userSessions.filter((x) => x.name).map((
+                    x,
+                  ) => x.name);
 
                   try {
                     sess.webSocket.send(JSON.stringify(users));
                   } catch {
                     sess.quit = true;
                     // this.users.remove(s.name);
-                    this.#userSessions = this.#userSessions.filter(session => session !== sess);
+                    this.#userSessions = this.#userSessions.filter((session) => session !== sess);
                   }
                 });
 
@@ -253,16 +254,18 @@ export class Code implements DurableObject {
                   const data: IData = JSON.parse(msg.data as string);
 
                   if (!session.name && data.name) {
-                    this.#userSessions.filter(sess => sess.name === data.name).map(sess => {
-                      sess.webSocket.close();
-                      sess.name = "";
-                    });
+                    this.#userSessions.filter((sess) => sess.name === data.name)
+                      .map((sess) => {
+                        sess.webSocket.close();
+                        sess.name = "";
+                      });
                     session.name = data.name;
                     broadcastUsers();
                   }
 
                   if (data.target && data.target !== session.name) {
-                    this.#userSessions.filter(x => x.name === data.target)[0].webSocket.send(msg.data);
+                    this.#userSessions.filter((x) => x.name === data.target)[0]
+                      .webSocket.send(msg.data);
                   }
                 },
               );
@@ -295,7 +298,7 @@ export class Code implements DurableObject {
                 webSocket,
                 pongReceived: true,
                 subscribedTopics: new Set(),
-                
+
                 blockedMessages: [] as string[],
               } as WebsocketSession;
               this.#wsSessions.push(session);
@@ -313,22 +316,19 @@ export class Code implements DurableObject {
                 }),
               );
 
-            
               const pingInterval = setInterval(() => {
                 if (!session.pongReceived) {
-                  webSocket.close()
-                  clearInterval(pingInterval)
+                  webSocket.close();
+                  clearInterval(pingInterval);
                 } else {
-                  session.pongReceived = false
+                  session.pongReceived = false;
                   try {
-                    webSocket.send(JSON.stringify({type: 'ping'}));
+                    webSocket.send(JSON.stringify({ type: "ping" }));
                   } catch (e) {
-                    webSocket.close()
+                    webSocket.close();
                   }
                 }
-              }, pingTimeout)
-
-
+              }, pingTimeout);
 
               webSocket.addEventListener(
                 "message",
@@ -643,21 +643,22 @@ export class Code implements DurableObject {
       }) as unknown as () => Promise<Response>,
     );
   }
- send (conn: WebSocket, message: YMessage | {type: 'pong'})  {
+  send(conn: WebSocket, message: YMessage | { type: "pong" }) {
+    const wsReadyStateConnecting = 0;
+    const wsReadyStateOpen = 1;
+    const wsReadyStateClosing = 2; // eslint-disable-line
+    const wsReadyStateClosed = 3; // eslint-disable-line
 
-
-const wsReadyStateConnecting = 0
-const wsReadyStateOpen = 1
-const wsReadyStateClosing = 2 // eslint-disable-line
-const wsReadyStateClosed = 3 // eslint-disable-line
-
-    if (conn.readyState !== wsReadyStateConnecting && conn.readyState !== wsReadyStateOpen) {
-      conn.close()
+    if (
+      conn.readyState !== wsReadyStateConnecting
+      && conn.readyState !== wsReadyStateOpen
+    ) {
+      conn.close();
     }
     try {
-      conn.send(JSON.stringify(message))
+      conn.send(JSON.stringify(message));
     } catch (e) {
-      conn.close()
+      conn.close();
     }
   }
 
@@ -689,47 +690,52 @@ const wsReadyStateClosed = 3 // eslint-disable-line
       });
     }
 
-     const message = data as unknown as YMessage;
+    const message = data as unknown as YMessage;
 
     if (message && message.type) {
       switch (message.type) {
-        case 'subscribe':
-          /** @type {Array<string>} */ (message.topics || []).forEach(topicName => {
-            if (typeof topicName === 'string') {
-              // add conn to topic
-              const topic = map.setIfUndefined(this.topics, topicName, () => new Set())
-              topic.add(session.webSocket)
-              // add topic to conn
-              session.subscribedTopics.add(topicName)
-            }
-          })
-          break
-        case 'unsubscribe':
-          /** @type {Array<string>} */ (message.topics || []).forEach(topicName => {
-            const subs = this.topics.get(topicName)
-            if (subs) {
-              subs.delete(session.webSocket)
-            }
-          })
-          break
-        case 'publish':
+        case "subscribe":
+          /** @type {Array<string>} */ (message.topics || []).forEach(
+            (topicName) => {
+              if (typeof topicName === "string") {
+                // add conn to topic
+                const topic = map.setIfUndefined(
+                  this.topics,
+                  topicName,
+                  () => new Set(),
+                );
+                topic.add(session.webSocket);
+                // add topic to conn
+                session.subscribedTopics.add(topicName);
+              }
+            },
+          );
+          break;
+        case "unsubscribe":
+          /** @type {Array<string>} */ (message.topics || []).forEach(
+            (topicName) => {
+              const subs = this.topics.get(topicName);
+              if (subs) {
+                subs.delete(session.webSocket);
+              }
+            },
+          );
+          break;
+        case "publish":
           if (message.topic) {
-            const receivers = this.topics.get(message.topic)
+            const receivers = this.topics.get(message.topic);
             if (receivers) {
-              message.clients = receivers.size
-              receivers.forEach(receiver =>
-                this.send(receiver, message)
-              )
+              message.clients = receivers.size;
+              receivers.forEach((receiver) => this.send(receiver, message));
             }
           }
-          break
-        case 'pong': 
+          break;
+        case "pong":
           session.pongReceived = true;
-        case 'ping':
-          this.send(session.webSocket, { type: 'pong' })
+        case "ping":
+          this.send(session.webSocket, { type: "pong" });
       }
     }
-
 
     if (data.changes) {
       // this.state.storage.put()

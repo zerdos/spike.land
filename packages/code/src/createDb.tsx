@@ -28,7 +28,9 @@ export async function initDb(codeSpace: string): Promise<LocalForage> {
       try {
         session = globalThis.cSess.session;
       } catch {
-        session = await fetch(`${location.origin}/live/${codeSpace}/session.json`).then((x) => x.json());
+        session = await fetch(
+          `${location.origin}/live/${codeSpace}/session.json`,
+        ).then((x) => x.json());
       }
 
       if (!head) {
@@ -49,4 +51,4 @@ export async function initDb(codeSpace: string): Promise<LocalForage> {
  * @param {string} codeSpace - The code space to create the database instance for.
  * @returns {ReturnType<typeof db>} - The database instance.
  */
-export const ldb = (codeSpace: string) => db(codeSpace, initDb);  
+export const ldb = (codeSpace: string) => db(codeSpace, initDb);

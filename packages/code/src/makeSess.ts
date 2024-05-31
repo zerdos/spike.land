@@ -40,7 +40,10 @@ export type CodePatch = {
   reversePatch: Delta[];
 };
 
-export const createPatch = (oldSess: ICodeSession, newSess: ICodeSession): CodePatch => {
+export const createPatch = (
+  oldSess: ICodeSession,
+  newSess: ICodeSession,
+): CodePatch => {
   const oldRec = makeSession(oldSess);
   const oldHash = makeHash(oldRec);
   const newRec = makeSession(newSess);

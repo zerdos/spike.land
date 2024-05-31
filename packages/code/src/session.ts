@@ -41,14 +41,29 @@ export type IUserJSON = {
   state: ICodeSession;
 };
 
-export type IUser = Record<IUserJSON & { room: string; state: Record<ICodeSession> }>;
+export type IUser = Record<
+  IUserJSON & { room: string; state: Record<ICodeSession> }
+>;
 
 // Database utility functions
-export function db(codeSpace: string, initDb: (codeSpace: string) => Promise<LocalForage>) {
+export function db(
+  codeSpace: string,
+  initDb: (codeSpace: string) => Promise<LocalForage>,
+) {
   const mod = {
-    syncDb: async (oldSession: ICodeSession, newSession: ICodeSession, message: CodePatch) => {
+    syncDb: async (
+      oldSession: ICodeSession,
+      newSession: ICodeSession,
+      message: CodePatch,
+    ) => {
       const { getItem, setItem } = mod;
-      return await syncStorage(setItem, getItem, oldSession, newSession, message);
+      return await syncStorage(
+        setItem,
+        getItem,
+        oldSession,
+        newSession,
+        message,
+      );
     },
     getItem: async (key: string) => {
       const db = await initDb(codeSpace);
@@ -63,8 +78,15 @@ export function db(codeSpace: string, initDb: (codeSpace: string) => Promise<Loc
 }
 
 // Type definitions for storage operations
-type SetItem<T> = (key: string, value: T, callback?: (err: Error, value: T) => void) => Promise<T>;
-type GetItem<T> = (key: string, callback?: (err: Error, value: T | null) => void) => Promise<T | null>;
+type SetItem<T> = (
+  key: string,
+  value: T,
+  callback?: (err: Error, value: T) => void,
+) => Promise<T>;
+type GetItem<T> = (
+  key: string,
+  callback?: (err: Error, value: T | null) => void,
+) => Promise<T | null>;
 
 const storageMutex = new Mutex();
 
@@ -98,19 +120,23 @@ export const syncStorage = async (
       reversePatch: message.reversePatch,
     });
 
-    const oldNode = (await getItem(String(historyHead))) as unknown as ICodeSession & Partial<CodePatch>;
+    const oldNode = (await getItem(String(historyHead))) as unknown as
+      & ICodeSession
+      & Partial<CodePatch>;
     await setItem(String(historyHead), {
       newHash: message.newHash,
       patch: message.patch,
-      ...(oldNode ? {
-        i: oldNode.i,
-        oldHash: oldNode.oldHash,
-        reversePatch: oldNode.reversePatch,
-      } : {
-        code: oldSession.code,
-        html: oldSession.html,
-        css: oldSession.css,
-      }),
+      ...(oldNode
+        ? {
+          i: oldNode.i,
+          oldHash: oldNode.oldHash,
+          reversePatch: oldNode.reversePatch,
+        }
+        : {
+          code: oldSession.code,
+          html: oldSession.html,
+          css: oldSession.css,
+        }),
     });
     await setItem("head", message.newHash);
   });

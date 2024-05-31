@@ -24,8 +24,6 @@ declare var self:
   & { transpile: typeof Transpile }
   & { build: typeof Build }
   & { tsx: (code: string) => Promise<string[]> };
-  ;
-
 
 // Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");

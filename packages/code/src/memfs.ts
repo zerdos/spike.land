@@ -50,7 +50,9 @@ export const getDirectoryEntriesRecursive = async (
 
 export const getDirectoryHandleAndFileName = async (
   filePath: string,
-): Promise<{ dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }> => {
+): Promise<
+  { dirHandle: FileSystemDirectoryHandle; fileName: string | undefined }
+> => {
   const pathParts = filePath.split("/").filter((x) => x);
   const fileName = pathParts.pop()?.trim();
 
@@ -114,9 +116,13 @@ export const mkdir = async (filePath: string): Promise<void> => {
   await currentHandle.getDirectoryHandle(folderName, { create: true });
 };
 
-export const stat = async (filePath: string): Promise<FileSystemEntry | null> => {
+export const stat = async (
+  filePath: string,
+): Promise<FileSystemEntry | null> => {
   try {
-    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(filePath);
+    const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
+      filePath,
+    );
     if (!fileName) {
       // If fileName is undefined, it means the path points to a directory
       return await handleDirectory(dirHandle);

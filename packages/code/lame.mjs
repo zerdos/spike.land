@@ -2125,7 +2125,7 @@ bitsperframe:             %d
             m & 2 && (l.bytes = d(r, s), s += 4),
             m & 4
         ) {
-          if (l.toc != null) for (p = 0; p < R; p++) l.toc[p] = r[s + p];
+          if (l.toc != null) { for (p = 0; p < R; p++) l.toc[p] = r[s + p]; }
           s += R;
         }
         return l.vbrScale = -1,
@@ -2950,7 +2950,7 @@ bitsperframe:             %d
             && (o[c] = Math.max(0, S1.MAX_BITS_PER_CHANNEL - s[c])),
             p += o[c];
         }
-        if (p > r) for (c = 0; c < _.channels_out; ++c) o[c] = r * o[c] / p;
+        if (p > r) { for (c = 0; c < _.channels_out; ++c) o[c] = r * o[c] / p; }
         for (c = 0; c < _.channels_out; ++c) s[c] += o[c], r -= o[c];
         for (c = p = 0; c < _.channels_out; ++c) p += s[c];
         if (p > S1.MAX_BITS_PER_GRANULE) {
@@ -5487,7 +5487,7 @@ bitsperframe:             %d
     }
     function B(g, M, T, b, N, y) {
       if (M > g) {
-        if (M < g * i) var O = M / g;
+        if (M < g * i) { var O = M / g; }
         else return g + M;
       } else {
         if (g >= M * i) return g + M;
@@ -7032,8 +7032,9 @@ bitsperframe:             %d
               p1.num_used = Math.min(F, B1 + J - B1 / 2),
                 E1.itime[Q1] += p1.num_used - q * E1.resample_ratio,
                 p1.num_used >= j1
-            ) for (Z = 0; Z < j1; Z++) z[Z] = j[c1 + p1.num_used + Z - j1];
-            else {
+            ) {
+              for (Z = 0; Z < j1; Z++) z[Z] = j[c1 + p1.num_used + Z - j1];
+            } else {
               for (m1 = j1 - p1.num_used, Z = 0; Z < m1; ++Z) {
                 z[Z] = z[Z + p1.num_used];
               }

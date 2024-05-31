@@ -19,7 +19,8 @@ const cache = createCache({ key: "css", speedy: false });
 cache.compat = undefined;
 
 let root: ReturnType<typeof createRoot>;
-globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
+globalThis.firstRender = globalThis.firstRender
+  || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
 
 export const render = async (
@@ -180,7 +181,9 @@ async function handleRender(
 function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = _cache.key || "css";
   try {
-    const styledJSXStyles = Array.from(document.querySelectorAll("style[data-styled-jsx]"))
+    const styledJSXStyles = Array.from(
+      document.querySelectorAll("style[data-styled-jsx]"),
+    )
       .map((style) => style.textContent);
 
     const emotionStyles = Array.from(

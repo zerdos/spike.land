@@ -1,12 +1,12 @@
 // Import necessary scripts and functions
 // import { precacheAndRoute } from 'workbox-precaching';
 importScripts("/swVersion.js");
-import { mkdir, readFile, writeFile } from "./memfs";
-import { build, init, transpile } from "./shared";
 import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
+import { mkdir, readFile, writeFile } from "./memfs";
+import { build, init, transpile } from "./shared";
 
 declare const self:
   & ServiceWorkerGlobalScope
@@ -81,11 +81,19 @@ const fakeBackend = async (request: Request) => {
     }
 
     // Serve HTML for specific paths
-    if (["/iframe", "/", "/public", "/dehydrated"].some((suffix) => url.pathname.endsWith(suffix))) {
+    if (
+      ["/iframe", "/", "/public", "/dehydrated"].some((suffix) => url.pathname.endsWith(suffix))
+    ) {
       const respText = HTML.replace("/**reset*/", resetCSS + css)
-        .replace('<script src="/swVersion.js"></script>', `<script>window.swVersion = "${self.swVersion}"</script>`)
+        .replace(
+          "<script src=\"/swVersion.js\"></script>",
+          `<script>window.swVersion = "${self.swVersion}"</script>`,
+        )
         .replace("ASSET_HASH", self.swVersion)
-        .replace('<div id="root"></div>', `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`);
+        .replace(
+          "<div id=\"root\"></div>",
+          `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`,
+        );
 
       return new Response(respText, {
         status: 200,

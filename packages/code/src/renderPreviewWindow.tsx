@@ -1,6 +1,6 @@
+import { css } from "@emotion/react";
 import type { FC, ReactNode } from "react";
 import { lazy, Suspense, useState } from "react";
-import { css } from "@emotion/react";
 import { createRoot } from "react-dom/client";
 import DraggableWindow from "./DraggableWindow";
 
@@ -127,7 +127,9 @@ const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
 const singleton = { started: false };
 
-export const renderPreviewWindow = async ({ codeSpace }: { codeSpace: string }) => {
+export const renderPreviewWindow = async (
+  { codeSpace }: { codeSpace: string },
+) => {
   if (singleton.started) return;
   singleton.started = true;
 
@@ -145,4 +147,5 @@ export const renderPreviewWindow = async ({ codeSpace }: { codeSpace: string }) 
     rootEl.style.opacity = "1";
   };
 
-  root.render(<AppToRender codeSpace={codeSpace} />);};
+  root.render(<AppToRender codeSpace={codeSpace} />);
+};
