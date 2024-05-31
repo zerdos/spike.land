@@ -471,10 +471,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20240524.0, @cloudflare/workers-types@npm:^4.20240524.0":
-  version: 4.20240524.0
-  resolution: "@cloudflare/workers-types@npm:4.20240524.0"
-  checksum: 10/5f96d8bc6d3c5f70e5021655cc95026978894be6c81c28225f3665437eb1b1a1516522b4be16222e8bc81b3d4c53bc5d8fa8a9ae48bd5452b949f3a5df88e821
+"@cloudflare/workers-types@npm:4.20240529.0, @cloudflare/workers-types@npm:^4.20240529.0":
+  version: 4.20240529.0
+  resolution: "@cloudflare/workers-types@npm:4.20240529.0"
+  checksum: 10/dd69f058e1d4dfd315f346796bc1174104edd89755268b7443e331ec2d880550e5706e994ad4c610aa8f46a945c9100913ac99393d730d7c09e2db7cdf5d583b
   languageName: node
   linkType: hard
 
@@ -1738,7 +1738,7 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.2"
-    "@cloudflare/workers-types": "npm:4.20240524.0"
+    "@cloudflare/workers-types": "npm:4.20240529.0"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:20.12.13"
     async-mutex: "npm:0.5.0"
@@ -1759,7 +1759,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240524.0"
+    "@cloudflare/workers-types": "npm:4.20240529.0"
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.4"
     "@emotion/styled": "npm:11.11.5"
@@ -1794,7 +1794,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.0.0"
-    framer-motion: "npm:11.2.9"
+    framer-motion: "npm:11.2.10"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -1926,7 +1926,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.2"
-    "@cloudflare/workers-types": "npm:4.20240524.0"
+    "@cloudflare/workers-types": "npm:4.20240529.0"
     esbuild-wasm: "npm:0.21.4"
     typescript: "npm:5.4.5"
     wrangler: "npm:3.57.2"
@@ -5873,9 +5873,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.2.9":
-  version: 11.2.9
-  resolution: "framer-motion@npm:11.2.9"
+"framer-motion@npm:11.2.10":
+  version: 11.2.10
+  resolution: "framer-motion@npm:11.2.10"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -5889,7 +5889,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/9667084fd8f66c63e25ff4caf3402e5a30c98b536acf3dcf920af0803ea748f618361a8ae0d899f0dfadf8631858803bfb65672c94d513d737f770a2c1aae4e8
+  checksum: 10/3f09356c08700f5f405b6259617d9eb3f49d49770efe15a81211bc41625001485f242fe2b44f6de657e707cd2ac766ca243bab72192dc948672525d331628a5d
   languageName: node
   linkType: hard
 
@@ -8840,7 +8840,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:^4.20240524.0"
+    "@cloudflare/workers-types": "npm:^4.20240529.0"
     "@emotion/react": "npm:11.11.4"
     "@playwright/test": "npm:1.44.1"
     "@spike-land/ai-devtools": "workspace:^"

@@ -98,7 +98,7 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.4"],\
           ["@playwright/test", "npm:1.44.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
@@ -982,10 +982,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cloudflare/workers-types", [\
-      ["npm:4.20240524.0", {\
-        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20240524.0-c85a94f68d-10.zip/node_modules/@cloudflare/workers-types/",\
+      ["npm:4.20240529.0", {\
+        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20240529.0-b2807e47ad-10.zip/node_modules/@cloudflare/workers-types/",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"]\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2614,7 +2614,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/code/",\
         "packageDependencies": [\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"],\
           ["@emotion/cache", "npm:11.11.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.4"],\
           ["@emotion/styled", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.11.5"],\
@@ -2649,7 +2649,7 @@ const RAW_RUNTIME_STATE =
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
           ["file-type", "npm:19.0.0"],\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.9"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.10"],\
           ["immutable", "npm:4.3.6"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
@@ -2696,7 +2696,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.2"],\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
           ["@types/node", "npm:20.12.13"],\
           ["async-mutex", "npm:0.5.0"],\
@@ -2836,7 +2836,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.2"],\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"],\
           ["esbuild-wasm", "npm:0.21.4"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.57.2"]\
@@ -7474,17 +7474,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["framer-motion", [\
-      ["npm:11.2.9", {\
-        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.2.9-26dec312b4-10.zip/node_modules/framer-motion/",\
+      ["npm:11.2.10", {\
+        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.2.10-3bbc864848-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "npm:11.2.9"]\
+          ["framer-motion", "npm:11.2.10"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.9", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-66fe1e1f1f/0/global/cache/framer-motion-npm-11.2.9-26dec312b4-10.zip/node_modules/framer-motion/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.10", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-4728bf48b7/0/global/cache/framer-motion-npm-11.2.10-3bbc864848-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.9"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.10"],\
           ["@emotion/is-prop-valid", null],\
           ["@types/emotion__is-prop-valid", null],\
           ["@types/react", "npm:18.3.3"],\
@@ -10817,7 +10817,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["monorepo", "workspace:."],\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.4"],\
           ["@playwright/test", "npm:1.44.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
@@ -14829,7 +14829,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.57.2"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.2"],\
-          ["@cloudflare/workers-types", "npm:4.20240524.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240529.0"],\
           ["@esbuild-plugins/node-globals-polyfill", "virtual:8a92958138f18eea4e3c323e4879fe28938e63945786e03547eb257f63cae28520f7a8f05f17db7370073c175873f2348433df19223dca0a44c5c2b7afd5b2f4#npm:0.2.3"],\
           ["@esbuild-plugins/node-modules-polyfill", "virtual:8a92958138f18eea4e3c323e4879fe28938e63945786e03547eb257f63cae28520f7a8f05f17db7370073c175873f2348433df19223dca0a44c5c2b7afd5b2f4#npm:0.2.2"],\
           ["@types/cloudflare__workers-types", null],\
