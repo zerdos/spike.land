@@ -6,7 +6,7 @@ const environment = Deno.env.get("NODE_ENV") === "production"
 const isDevelopment = environment !== "production";
 
 const outdir = "dist";
-const target = "chrome88";
+const target = "es2022";
 
 console.log(`
 -------------------------------------------------

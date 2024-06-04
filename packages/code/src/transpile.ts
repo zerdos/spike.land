@@ -42,7 +42,7 @@ export const cjs = async (code: string) => {
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "chrome125",
+    target: "es2022",
   });
   return cjs;
 };
@@ -100,7 +100,7 @@ export const transpile = async (
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "chrome125",
+    target: "es2022",
   }).then((x) => importMapReplace(x.code, origin)).catch(() => {
     console.log("offloading to server");
 
@@ -197,7 +197,7 @@ export const build = async (
     //  ...importMap.imports,
     // },
 
-    target: "chrome125",
+    target: "es2022",
     outdir: `${origin}/live/${codeSpace}/`,
     treeShaking: true,
     bundle: true,
