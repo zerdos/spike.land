@@ -32,15 +32,15 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240529.0",
+    "@cloudflare/workers-types": "^4.20240603.0",
     "@emotion/react": "11.11.4",
     "@playwright/test": "1.44.1",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "8.56.10",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "7.11.0",
-    "@typescript-eslint/parser": "7.11.0",
+    "@typescript-eslint/eslint-plugin": "7.12.0",
+    "@typescript-eslint/parser": "7.12.0",
     "@yarnpkg/sdks": "3.1.2",
     "constants": "0.0.2",
     "cypress": "13.10.0",
