@@ -43,7 +43,12 @@ const cacheFirst = async (request: Request) => {
     }
   }
   const responseFromNetwork = await fetch(request);
-  putInCache(request, responseFromNetwork.clone());
+  if (responseFromNetwork.ok && responseFromNetwork.status === 200) {
+    putInCache(request, responseFromNetwork.clone());
+  }
+  if (!responseFromNetwork.ok) {
+    console.error("Error fetching:", request.url, responseFromNetwork.status, responseFromNetwork.statusText);
+  }
   return responseFromNetwork;
 };
 
@@ -52,7 +57,17 @@ const fakeBackend = async (request: Request) => {
   const url = new URL(request.url);
 
   if (url.origin !== self.location.origin || request.method === "POST") {
-    return fetch(request);
+    try {
+      const resp = await fetch(request);
+      if (!resp.ok) {
+        console.error("Error fetching:", request.url, resp.status, resp.statusText);
+      }
+
+      return resp;
+    } catch (err) {
+      console.error("Error fetching:", request.url, err);
+      return fetch(request);
+    }
   }
 
   const paths = url.pathname.split("/");
@@ -62,93 +77,97 @@ const fakeBackend = async (request: Request) => {
     const codeSpace = isFile ? codeSpacePath.split(".")[0] : codeSpacePath;
 
     // Fetch the session data for the codeSpace
-    const session = await fetch(`${url.origin}/live/${codeSpace}/session.json`)
-      .then((x) => x.json() as unknown as ICodeSession);
-    const { code, css, html, i } = session;
-
-    // Serve the built JavaScript file
-    if (codeSpacePath.endsWith(".mjs")) {
-      const resp = await build({ codeSpace, origin: url.origin });
-      return new Response(resp, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-          "Cache-Control": "no-cache",
-          "Content-Type": "application/javascript; charset=UTF-8",
-          content_hash: md5(resp),
-        },
-      });
-    }
-
-    // Serve HTML for specific paths
-    if (
-      ["/iframe", "/", "/public", "/dehydrated"].some((suffix) => url.pathname.endsWith(suffix))
-    ) {
-      const respText = HTML.replace("/**reset*/", resetCSS + css)
-        .replace(
-          "<script src=\"/swVersion.js\"></script>",
-          `<script>window.swVersion = "${self.swVersion}"</script>`,
-        )
-        .replace("ASSET_HASH", self.swVersion)
-        .replace(
-          "<div id=\"root\"></div>",
-          `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`,
-        );
-
-      return new Response(respText, {
-        status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cross-Origin-Embedder-Policy": "require-corp",
-          "Cross-Origin-Opener-Policy": "same-origin",
-          "Cache-Control": "no-cache",
-          "Content-Type": "text/html; charset=UTF-8",
-          content_hash: md5(respText),
-        },
-      });
-    }
-
-    // Handle transpiling and serving the JavaScript file
     try {
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.js`) && started) {
-        const trp = await Promise.race([
-          fetch(`${url.origin}/live/${codeSpace}/index.js`).then((x) => x.text()),
-          (async () => {
-            const trp = await transpile({ code, originToUse: location.origin });
-            await mkdir(`/live/${codeSpace}`);
-            await writeFile(`/live/${codeSpace}/index.js`, trp);
-            return trp;
-          })(),
-        ]);
+      const session = await fetch(`${url.origin}/live/${codeSpace}/session.json`)
+        .then((x) => x.json() as unknown as ICodeSession);
+      const { code, css, html, i } = session;
 
-        return new Response(trp, {
+      // Serve the built JavaScript file
+      if (codeSpacePath.endsWith(".mjs")) {
+        const resp = await build({ codeSpace, origin: url.origin });
+        return new Response(resp, {
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Cross-Origin-Embedder-Policy": "require-corp",
             "Cache-Control": "no-cache",
             "Content-Type": "application/javascript; charset=UTF-8",
-            content_hash: md5(trp),
+            content_hash: md5(resp),
           },
         });
       }
 
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
-        const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
-          async () => fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) => x.text()),
-        );
+      // Serve HTML for specific paths
+      if (
+        ["/iframe", "/", "/public", "/dehydrated"].some((suffix) => url.pathname.endsWith(suffix))
+      ) {
+        const respText = HTML.replace("/**reset*/", resetCSS + css)
+          .replace(
+            "<script src=\"/swVersion.js\"></script>",
+            `<script>window.swVersion = "${self.swVersion}"</script>`,
+          )
+          .replace("ASSET_HASH", self.swVersion)
+          .replace(
+            "<div id=\"root\"></div>",
+            `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`,
+          );
 
-        return new Response(trp, {
+        return new Response(respText, {
+          status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
             "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Opener-Policy": "same-origin",
             "Cache-Control": "no-cache",
-            "Content-Type": "application/javascript; charset=UTF-8",
-            content_hash: md5(trp),
+            "Content-Type": "text/html; charset=UTF-8",
+            content_hash: md5(respText),
           },
         });
+      }
+
+      // Handle transpiling and serving the JavaScript file
+      try {
+        if (url.pathname.startsWith(`/live/${codeSpace}/index.js`) && started) {
+          const trp = await Promise.race([
+            fetch(`${url.origin}/live/${codeSpace}/index.js`).then((x) => x.text()),
+            (async () => {
+              const trp = await transpile({ code, originToUse: location.origin });
+              await mkdir(`/live/${codeSpace}`);
+              await writeFile(`/live/${codeSpace}/index.js`, trp);
+              return trp;
+            })(),
+          ]);
+
+          return new Response(trp, {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+              content_hash: md5(trp),
+            },
+          });
+        }
+
+        if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
+          const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
+            async () => fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) => x.text()),
+          );
+
+          return new Response(trp, {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/javascript; charset=UTF-8",
+              content_hash: md5(trp),
+            },
+          });
+        }
+      } catch (err) {
+        console.error("Error serving file:", err);
       }
     } catch (err) {
-      console.error("Error serving file:", err);
+      console.error("Error fetching session data:", err);
     }
   }
 
