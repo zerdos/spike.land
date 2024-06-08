@@ -9,7 +9,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@cloudflare/workers-types@4.20240603.0",
+        "npm:@cloudflare/workers-types@4.20240605.0",
         "npm:@emotion/cache@11.11.0",
         "npm:@emotion/react@11.11.4",
         "npm:@emotion/styled@11.11.5",
