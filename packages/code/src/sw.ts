@@ -47,7 +47,12 @@ const cacheFirst = async (request: Request) => {
     putInCache(request, responseFromNetwork.clone());
   }
   if (!responseFromNetwork.ok) {
-    console.error("Error fetching:", request.url, responseFromNetwork.status, responseFromNetwork.statusText);
+    console.error(
+      "Error fetching:",
+      request.url,
+      responseFromNetwork.status,
+      responseFromNetwork.statusText,
+    );
   }
   return responseFromNetwork;
 };
@@ -60,7 +65,12 @@ const fakeBackend = async (request: Request) => {
     try {
       const resp = await fetch(request);
       if (!resp.ok) {
-        console.error("Error fetching:", request.url, resp.status, resp.statusText);
+        console.error(
+          "Error fetching:",
+          request.url,
+          resp.status,
+          resp.statusText,
+        );
       }
 
       return resp;
@@ -78,7 +88,9 @@ const fakeBackend = async (request: Request) => {
 
     // Fetch the session data for the codeSpace
     try {
-      const session = await fetch(`${url.origin}/live/${codeSpace}/session.json`)
+      const session = await fetch(
+        `${url.origin}/live/${codeSpace}/session.json`,
+      )
         .then((x) => x.json() as unknown as ICodeSession);
       const { code, css, html, i } = session;
 
@@ -130,7 +142,10 @@ const fakeBackend = async (request: Request) => {
           const trp = await Promise.race([
             fetch(`${url.origin}/live/${codeSpace}/index.js`).then((x) => x.text()),
             (async () => {
-              const trp = await transpile({ code, originToUse: location.origin });
+              const trp = await transpile({
+                code,
+                originToUse: location.origin,
+              });
               await mkdir(`/live/${codeSpace}`);
               await writeFile(`/live/${codeSpace}/index.js`, trp);
               return trp;
@@ -150,7 +165,10 @@ const fakeBackend = async (request: Request) => {
 
         if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
           const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
-            async () => fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((x) => x.text()),
+            async () =>
+              fetch(location.origin + `/live/${codeSpace}/index.mjs`).then((
+                x,
+              ) => x.text()),
           );
 
           return new Response(trp, {
