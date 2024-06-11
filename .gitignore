@@ -118,3 +118,4 @@ importMap.json5
 **/.DS_Store
 packages/code/src/.DS_Store
 packages/code/src/.DS_Store
+deno.lock
