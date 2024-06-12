@@ -4714,7 +4714,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["browserslist", "npm:4.23.1"],\
           ["caniuse-lite", "npm:1.0.30001632"],\
-          ["electron-to-chromium", "npm:1.4.798"],\
+          ["electron-to-chromium", "npm:1.4.799"],\
           ["node-releases", "npm:2.0.14"],\
           ["update-browserslist-db", "virtual:5d546adfd40497567a2beaa05ac4b4ad48276a2420121d97df67ea4556d0bdf92c4336a43dcb6a63e246890704267e5510f16f5288829796be62a2f7fd8b1ff5#npm:1.0.16"]\
         ],\
@@ -6150,10 +6150,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["electron-to-chromium", [\
-      ["npm:1.4.798", {\
-        "packageLocation": "./.yarn/global/cache/electron-to-chromium-npm-1.4.798-3ab1f280ea-10.zip/node_modules/electron-to-chromium/",\
+      ["npm:1.4.799", {\
+        "packageLocation": "./.yarn/global/cache/electron-to-chromium-npm-1.4.799-6a0c95dd42-10.zip/node_modules/electron-to-chromium/",\
         "packageDependencies": [\
-          ["electron-to-chromium", "npm:1.4.798"]\
+          ["electron-to-chromium", "npm:1.4.799"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7352,10 +7352,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["foreground-child", [\
-      ["npm:3.1.1", {\
-        "packageLocation": "./.yarn/global/cache/foreground-child-npm-3.1.1-77e78ed774-10.zip/node_modules/foreground-child/",\
+      ["npm:3.2.0", {\
+        "packageLocation": "./.yarn/global/cache/foreground-child-npm-3.2.0-67c4f78608-10.zip/node_modules/foreground-child/",\
         "packageDependencies": [\
-          ["foreground-child", "npm:3.1.1"],\
+          ["foreground-child", "npm:3.2.0"],\
           ["cross-spawn", "npm:7.0.3"],\
           ["signal-exit", "npm:4.1.0"]\
         ],\
@@ -7722,7 +7722,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/glob-npm-10.4.1-a0d030e0a9-10.zip/node_modules/glob/",\
         "packageDependencies": [\
           ["glob", "npm:10.4.1"],\
-          ["foreground-child", "npm:3.1.1"],\
+          ["foreground-child", "npm:3.2.0"],\
           ["jackspeak", "npm:3.4.0"],\
           ["minimatch", "npm:9.0.4"],\
           ["minipass", "npm:7.1.2"],\
