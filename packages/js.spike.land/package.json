@@ -18,7 +18,7 @@
     "@cloudflare/kv-asset-handler": "0.3.2",
     "@cloudflare/workers-types": "4.20240605.0",
     "typescript": "5.4.5",
-    "wrangler": "3.60.1"
+    "wrangler": "3.60.2"
   },
   "dependencies": {
     "esbuild-wasm": "0.21.5"

@@ -1754,7 +1754,7 @@ __metadata:
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.4.5"
-    wrangler: "npm:3.60.1"
+    wrangler: "npm:3.60.2"
   languageName: unknown
   linkType: soft
 
@@ -1779,7 +1779,7 @@ __metadata:
     "@types/uuid": "npm:9.0.8"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.13.0"
-    ace-builds: "npm:1.34.2"
+    ace-builds: "npm:1.35.0"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -1932,7 +1932,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240605.0"
     esbuild-wasm: "npm:0.21.5"
     typescript: "npm:5.4.5"
-    wrangler: "npm:3.60.1"
+    wrangler: "npm:3.60.2"
   languageName: unknown
   linkType: soft
 
@@ -2563,10 +2563,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.34.2":
-  version: 1.34.2
-  resolution: "ace-builds@npm:1.34.2"
-  checksum: 10/dad3d70d5891bc32a471d77a2112c555aee6faefb5070fc38c6ad544d7056aa97fb729cd1356c239004698a9a18eed101f7ae5026e39e558c5334e315214292e
+"ace-builds@npm:1.35.0":
+  version: 1.35.0
+  resolution: "ace-builds@npm:1.35.0"
+  checksum: 10/230d62e9766feb2c1203b613eaed114c9c2568c25554b4431cdf01375a221684fb6548c488b02a01eceade366ded45e1bdb08b79a17934dde38ebd5db94f1dd6
   languageName: node
   linkType: hard
 
@@ -12346,9 +12346,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.60.1":
-  version: 3.60.1
-  resolution: "wrangler@npm:3.60.1"
+"wrangler@npm:3.60.2":
+  version: 3.60.2
+  resolution: "wrangler@npm:3.60.2"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.2"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -12377,7 +12377,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/00f762ec8edaff4eae2983c0e12aeae39cbb7fe51e282f1eca46cbcae9853520c9676b6a3ab916041d9d31dfcf619bbdcf2201936823bf657990820b67fc37a6
+  checksum: 10/63fb8d4c31d78ab47d47793422394ed05cbd7afc7f27007fd11a40055984c62fbea15e40709e37384ba0a47bb74076ca2c28348f5638d3b3be9016ff8e481cbb
   languageName: node
   linkType: hard
 
