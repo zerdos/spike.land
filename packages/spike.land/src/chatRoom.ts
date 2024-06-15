@@ -646,8 +646,8 @@ export class Code implements DurableObject {
   send(conn: WebSocket, message: YMessage | { type: "pong" }) {
     const wsReadyStateConnecting = 0;
     const wsReadyStateOpen = 1;
-    const wsReadyStateClosing = 2; // eslint-disable-line
-    const wsReadyStateClosed = 3; // eslint-disable-line
+    // const wsReadyStateClosing = 2; // eslint-disable-line
+    // const wsReadyStateClosed = 3; // eslint-disable-line
 
     if (
       conn.readyState !== wsReadyStateConnecting
@@ -732,8 +732,10 @@ export class Code implements DurableObject {
           break;
         case "pong":
           session.pongReceived = true;
+          break;
         case "ping":
           this.send(session.webSocket, { type: "pong" });
+          break;
       }
     }
 

@@ -12,7 +12,7 @@ export const runtime = "edge";
 export async function handleAiFetchApi(
   path: string[],
   request: WRequest,
-  env: Env,
+  _env: Env,
 ) {
   if (path[0] !== "generate" && path[0] !== "chat") {
     new Response("401", { status: 401 });
