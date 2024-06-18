@@ -15,51 +15,35 @@ const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 let controller = new AbortController();
 const mod = { i: 0 };
-const cache = createCache({ key: "css", speedy: false });
-cache.compat = undefined;
 
 let root: ReturnType<typeof createRoot>;
-globalThis.firstRender = globalThis.firstRender
-  || { html: "", css: "", code: "" };
+globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
 
 export const render = async (
   _rootEl: HTMLElement,
   codeSpace: string,
-  mApp:
-    | FC<{
-      width?: number;
-      height?: number;
-      top?: number;
-      left?: number;
-      ref?: HTMLDivElement;
-      resize?: (state: ParentSizeState) => void;
-      children?: ReactNode;
-    }>
-    | null = null,
+  mApp: FC<AppProps> | null = null,
   signal: AbortSignal | null = null,
   data: ICodeSession | null = null,
 ) => {
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
-  type IFC = FC<{ width: number; height: number; left: number; top: number }>;
-
-  let App = await getApp(mApp, codeSpace) as unknown as IFC;
+  const App = (await getApp(mApp, codeSpace)) as FC<AppProps>;
 
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
-  cache.compat = undefined;
 
   root.render(
     <CacheProvider value={cache}>
       <ParentSize>
         {({ width, height, top, left }) => (
           <App
-            {...(width ? { width } : { width: window.innerWidth })}
-            {...(height ? { height } : { height: window.innerHeight })}
-            {...(top ? { top } : { top: 0 })}
-            {...(left ? { left } : { left: 0 })}
+            width={width || window.innerWidth}
+            height={height || window.innerHeight}
+            top={top || 0}
+            left={left || 0}
           />
         )}
       </ParentSize>
@@ -117,7 +101,7 @@ function getCodeSpace() {
   return location.pathname.slice(1).split("/")[1];
 }
 
-async function getApp(App: FC | null, codeSpace: string) {
+async function getApp(App: FC<AppProps> | null, codeSpace: string) {
   if (!App) {
     try {
       const isIframe = location.href.endsWith("iframe");
@@ -183,8 +167,7 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   try {
     const styledJSXStyles = Array.from(
       document.querySelectorAll("style[data-styled-jsx]"),
-    )
-      .map((style) => style.textContent);
+    ).map((style) => style.textContent);
 
     const emotionStyles = Array.from(
       new Set(
@@ -227,3 +210,13 @@ if (
     }
   };
 }
+
+type AppProps = {
+  width?: number;
+  height?: number;
+  top?: number;
+  left?: number;
+  ref?: HTMLDivElement;
+  resize?: (state: ParentSizeState) => void;
+  children?: ReactNode;
+};
