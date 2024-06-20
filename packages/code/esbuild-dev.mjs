@@ -32,6 +32,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     minifyIdentifiers: true,
     minifyWhitespace: true,
     ignoreAnnotations: true,
+    mangleQuoted: true,
     keepNames: false,
     legalComments: "none",
     platform: "browser",
@@ -60,7 +61,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     define: makeEnv("production"),
     sourcemap: false,
     outExtension: { ".js": ".js" },
-    mangleQuoted: false,
+    mangleQuoted: true,
     minify: true,
     treeShaking: true,
 
@@ -91,13 +92,13 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     outExtension: { ".js": ".js" },
     minifySyntax: true,
     minifyIdentifiers: true,
-    minifyWhitespace: false,
+    minifyWhitespace: true,
 
     mangleQuoted: false,
     charset: "utf8",
     legalComments: "none",
     keepNames: true,
-    treeShaking: false,
+    treeShaking: true,
     legalComments: "none",
     outdir: "dist",
   });
@@ -113,8 +114,9 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "esm",
     minifySyntax: true,
     minifyIdentifiers: true,
-    minifyWhitespace: false,
+    minifyWhitespace: true,
     bundle: true,
+    mangleQuoted: true,
     sourcemap: false,
     legalComments: "none",
 

@@ -55,10 +55,13 @@ kv_namespaces = [
 
 
 [[env.testing.migrations]]
-tag = "v4" 
+tag = "v2" 
 new_classes= ["Users", "Code", "CodeRateLimiter"]
 
 
+[[env.testing.migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["Users"] # Array of new classes
 
 
 [env.testing.durable_objects]
@@ -66,7 +69,6 @@ bindings = [
     { name = "CODE", class_name = "Code" },
     { name = "LIMITERS", class_name = "CodeRateLimiter" }
 ]
-
 
 
 [env.testing.vars]
