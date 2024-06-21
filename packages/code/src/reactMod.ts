@@ -1,5 +1,5 @@
 // import isCallable from "is-callable";
-import * as React from "preact/compat";
+import * as React from "react";
 export const {
   Children,
   Component,

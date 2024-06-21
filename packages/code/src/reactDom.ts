@@ -1,14 +1,3 @@
-import ReactDOM from "preact/compat";
-
-export const {
-  createPortal,
-  render,
-  flushSync,
-  findDOMNode,
-  hydrate,
-  unmountComponentAtNode,
-  unstable_batchedUpdates,
-  version,
-} = ReactDOM;
-
+export * from "react-dom";
+import ReactDOM from "react-dom";
 export default ReactDOM;

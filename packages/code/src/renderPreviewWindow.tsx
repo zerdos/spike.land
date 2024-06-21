@@ -1,5 +1,5 @@
 
-import { createRoot } from "react-dom/client";
+import { createRoot } from "./reactDomClient";
 import { AppToRender } from "./AppToRender";
 
 

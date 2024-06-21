@@ -123,7 +123,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     entryPoints: [
       "src/reactMod.ts",
       "src/reactDom.ts",
-      "src/reactDomClient.mjs",
+      "src/reactDomClient.ts",
       "src/jsx.mjs",
 
       "src/motion.ts",
@@ -144,16 +144,16 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ],
     alias: {
       ...buildOptions.alias,
-      "react": "preact/compat",
+      // "react": "preact/compat",
       // "monaco-editor": "/f*monaco-editor?bundle=true",
 
       // "monaco-editor": "/monaco-editor",
-      "react-dom/test-utils": "preact/test-utils",
-      "react-dom": "preact/compat",
-      "react/jsx-runtime": "preact/jsx-runtime",
+      // "react-dom/test-utils": "preact/test-utils",
+      // "react-dom": "preact/compat",
+      // "react/jsx-runtime": "preact/jsx-runtime",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
       // "react/jsx-runtime": "./dist/jsx.js",
-      "react-dom/client": "preact/compat/client",
+      // "react-dom/client": "preact/compat/client",
     },
     loader: { ...buildOptions.loader },
     tsconfig: "./tsconfig.json",
