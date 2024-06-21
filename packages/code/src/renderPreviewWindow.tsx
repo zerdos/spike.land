@@ -1,6 +1,7 @@
 
 import { createRoot } from "./reactDomClient";
-import { AppToRender } from "./AppToRender";
+// import { AppToRender } from "./AppToRender";
+// import {EmbeddableEditor} from "./EmbeddableEditor";
 
 
 
@@ -18,7 +19,17 @@ export const renderPreviewWindow = async (
 
   const root = createRoot(rootEl);
   document.getElementById("root")!.appendChild(rootEl);
+
+  if (sessionStorage.getItem("z") !== null) {
+    const {reveal} = await import("./reveal");
+    const {EmbeddableEditor} = await import("./EmbeddableEditor");
+
+  root.render(<EmbeddableEditor />);
+  reveal();
+  return;
+  }
   
 
+  const {AppToRender} = await import("./AppToRender");
   root.render(<AppToRender codeSpace={codeSpace} />);
 };

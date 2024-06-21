@@ -3,15 +3,7 @@ import { lazy, Suspense, useState } from "react";
 import DraggableWindow from "./DraggableWindow";
 
 import type { FC, ReactNode } from "react";
-
-let reveal = () => {
-    const re = document.getElementById("root");
-    const rootEl = re!.lastElementChild as HTMLElement;
-    rootEl.style.height = "100%";
-    re?.removeChild(re.firstElementChild!);
-
-    rootEl.style.opacity = "1";
-  };
+import { reveal } from "./reveal";
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div

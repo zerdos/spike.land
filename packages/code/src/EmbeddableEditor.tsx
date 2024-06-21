@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { Resizable } from 're-resizable';
 import { Play, RotateCcw, Share2 } from 'lucide-react';
 
-const EmbeddableEditor = () => {
+export const EmbeddableEditor: FC<{}> = () => {
   const [code, setCode] = useState(`
 // Edit this code!
 function App() {
@@ -14,6 +14,8 @@ function App() {
     </div>
   );
 }
+
+render(<App />);
   `);
 
   const [editorWidth, setEditorWidth] = useState('50%');
@@ -100,5 +102,3 @@ const buttonStyle = {
     color: '#61dafb',
   },
 };
-
-export default EmbeddableEditor;
