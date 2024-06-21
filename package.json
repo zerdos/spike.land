@@ -32,7 +32,7 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240614.0",
+    "@cloudflare/workers-types": "^4.20240620.0",
     "@emotion/react": "11.11.4",
     "@playwright/test": "1.44.1",
     "@spike-land/ai-devtools": "workspace:^",
@@ -51,7 +51,7 @@
     "localforage": "1.10.0",
     "playwright": "1.44.1",
     "react": "18.3.1",
-    "typescript": "5.4.5",
+    "typescript": "5.5.2",
     "util": "0.12.5",
     "utils": "0.3.1"
   },
