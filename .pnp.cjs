@@ -2476,28 +2476,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@prefresh/core", [\
-      ["npm:1.5.2", {\
-        "packageLocation": "./.yarn/global/cache/@prefresh-core-npm-1.5.2-2a021cdfa1-10.zip/node_modules/@prefresh/core/",\
-        "packageDependencies": [\
-          ["@prefresh/core", "npm:1.5.2"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.2", {\
-        "packageLocation": "./.yarn/__virtual__/@prefresh-core-virtual-a3bfb9a3d0/0/global/cache/@prefresh-core-npm-1.5.2-2a021cdfa1-10.zip/node_modules/@prefresh/core/",\
-        "packageDependencies": [\
-          ["@prefresh/core", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.2"],\
-          ["@types/preact", null],\
-          ["preact", "npm:10.22.0"]\
-        ],\
-        "packagePeers": [\
-          "@types/preact",\
-          "preact"\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@rollup/pluginutils", [\
       ["npm:4.2.1", {\
         "packageLocation": "./.yarn/global/cache/@rollup-pluginutils-npm-4.2.1-0f52a5eba2-10.zip/node_modules/@rollup/pluginutils/",\
@@ -2623,7 +2601,6 @@ const RAW_RUNTIME_STATE =
           ["@github/stable-socket", "npm:1.1.0"],\
           ["@mui/material", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.15.20"],\
           ["@okikio/sharedworker", "npm:1.0.7"],\
-          ["@prefresh/core", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.2"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/lodash.debounce", "npm:4.0.9"],\
@@ -2665,7 +2642,6 @@ const RAW_RUNTIME_STATE =
           ["p2pcf", "npm:1.3.14"],\
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
-          ["preact", "npm:10.22.0"],\
           ["prettier", "npm:3.3.2"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.17"],\
@@ -11862,15 +11838,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/possible-typed-array-names-npm-1.0.0-3a8176348a-10.zip/node_modules/possible-typed-array-names/",\
         "packageDependencies": [\
           ["possible-typed-array-names", "npm:1.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["preact", [\
-      ["npm:10.22.0", {\
-        "packageLocation": "./.yarn/global/cache/preact-npm-10.22.0-5d8eaaf0bc-10.zip/node_modules/preact/",\
-        "packageDependencies": [\
-          ["preact", "npm:10.22.0"]\
         ],\
         "linkType": "HARD"\
       }]\

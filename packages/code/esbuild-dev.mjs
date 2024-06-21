@@ -144,16 +144,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ],
     alias: {
       ...buildOptions.alias,
-      // "react": "preact/compat",
-      // "monaco-editor": "/f*monaco-editor?bundle=true",
-
-      // "monaco-editor": "/monaco-editor",
-      // "react-dom/test-utils": "preact/test-utils",
-      // "react-dom": "preact/compat",
-      // "react/jsx-runtime": "preact/jsx-runtime",
-      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      // "react/jsx-runtime": "./dist/jsx.js",
-      // "react-dom/client": "preact/compat/client",
+      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`
     },
     loader: { ...buildOptions.loader },
     tsconfig: "./tsconfig.json",

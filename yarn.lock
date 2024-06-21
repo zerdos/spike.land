@@ -1629,15 +1629,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prefresh/core@npm:1.5.2":
-  version: 1.5.2
-  resolution: "@prefresh/core@npm:1.5.2"
-  peerDependencies:
-    preact: ^10.0.0
-  checksum: 10/5cbd0b1f348c25993e35a83fbf8b4c5ffe5fb8c95c85292aedafe41d17e561dc1861d7afeec99bddba7183b1c5b510c69642d8259ab774bd1658df686675610a
-  languageName: node
-  linkType: hard
-
 "@rollup/pluginutils@npm:^4.0.0":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
@@ -1769,13 +1760,12 @@ __metadata:
     "@github/stable-socket": "npm:1.1.0"
     "@mui/material": "npm:5.15.20"
     "@okikio/sharedworker": "npm:1.0.7"
-    "@prefresh/core": "npm:1.5.2"
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/jest": "npm:29.5.12"
     "@types/lodash.debounce": "npm:4.0.9"
     "@types/node": "npm:20.14.7"
-    "@types/react": "npm:18.3.3"
-    "@types/react-dom": "npm:18.3.0"
+    "@types/react": "npm:^18.3.3"
+    "@types/react-dom": "npm:^18.3.0"
     "@types/uuid": "npm:10.0.0"
     "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.13.1"
@@ -1811,7 +1801,6 @@ __metadata:
     p2pcf: "npm:1.3.14"
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
-    preact: "npm:10.22.0"
     prettier: "npm:3.3.2"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.17"
@@ -2170,7 +2159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.3.0":
+"@types/react-dom@npm:18.3.0, @types/react-dom@npm:^18.3.0":
   version: 18.3.0
   resolution: "@types/react-dom@npm:18.3.0"
   dependencies:
@@ -2188,7 +2177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.3.3":
+"@types/react@npm:*, @types/react@npm:18.3.3, @types/react@npm:^18.3.3":
   version: 18.3.3
   resolution: "@types/react@npm:18.3.3"
   dependencies:
@@ -9777,13 +9766,6 @@ __metadata:
   version: 1.0.0
   resolution: "possible-typed-array-names@npm:1.0.0"
   checksum: 10/8ed3e96dfeea1c5880c1f4c9cb707e5fb26e8be22f14f82ef92df20fd2004e635c62ba47fbe8f2bb63bfd80dac1474be2fb39798da8c2feba2815435d1f749af
-  languageName: node
-  linkType: hard
-
-"preact@npm:10.22.0":
-  version: 10.22.0
-  resolution: "preact@npm:10.22.0"
-  checksum: 10/0f3092916a538fa47d205d603bb5c513f9368a59bcbf881b457641ea6b88470b6a07960da8727db1287c232cb0f3a6292963917fa5cf09864be5eb50bf2a294e
   languageName: node
   linkType: hard
 
