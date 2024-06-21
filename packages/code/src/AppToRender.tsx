@@ -1,96 +1,77 @@
-import { css } from "@emotion/react";
-import { lazy, Suspense, useState } from "react";
+import { css, keyframes } from "@emotion/react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import DraggableWindow from "./DraggableWindow";
-
 import type { FC, ReactNode } from "react";
 import { reveal } from "./reveal";
+
+// Define a type for the gradient colors
+type GradientColor = {
+  color: string;
+  percentage: number;
+};
+
+// Define a function to create the gradient string
+const createGradientString = (colors: GradientColor[]): string => {
+  return colors.map((color) => `${color.color} 0, ${color.color} ${color.percentage}%`).join(", ");
+};
+
+// Define the gradient colors
+const gradientColors: GradientColor[] = [
+  { color: "#fedc00", percentage: 5.5555555556 },
+  { color: "#fcb712", percentage: 11.1111111111 },
+  { color: "#f7921e", percentage: 16.6666666667 },
+  { color: "#e87f24", percentage: 22.2222222222 },
+  { color: "#dd6227", percentage: 27.7777777778 },
+  { color: "#dc4c27", percentage: 33.3333333333 },
+  { color: "#ca3435", percentage: 38.8888888889 },
+  { color: "#b82841", percentage: 44.4444444444 },
+  { color: "#953751", percentage: 50 },
+  { color: "#364c88", percentage: 55.5555555556 },
+  { color: "#16599d", percentage: 61.1111111111 },
+  { color: "#02609e", percentage: 66.6666666667 },
+  { color: "#0073a9", percentage: 72.2222222222 },
+  { color: "#008aa4", percentage: 77.7777777778 },
+  { color: "#239a87", percentage: 83.3333333333 },
+  { color: "#7cba6d", percentage: 88.8888888889 },
+  { color: "#becc2f", percentage: 94.4444444444 },
+  { color: "#e0d81d", percentage: 100 },
+];
+
+const Rainbow = () => {
+  const rotateAnimation = keyframes`
+    0% { background-position: 0% 50%; } 
+    100% { background-position: 100% 50%; }
+  `;
+
+  const gradientStyle = css`
+    height: 100vh;
+    width: 100vw;
+    background-blend-mode: overlay;
+    background: 
+      repeating-radial-gradient(
+        circle at bottom left,
+        ${createGradientString(gradientColors)}
+      ),
+      repeating-radial-gradient(
+        circle at bottom right,
+        ${createGradientString(gradientColors)}
+      );
+    background-size: 200% 200%;
+    animation: ${rotateAnimation} 10s forwards;
+    animation-delay: 2s;
+  `;
+
+  return <div css={gradientStyle}></div>;
+};
 
 const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   <div
     css={css`
       height: 100%;
       width: 100%;
-      background-blend-mode: overlay;
-      background: repeating-radial-gradient(
-          circle at bottom left,
-          #fedc00 0,
-          #fedc00 5.5555555556%,
-          #fcb712 0,
-          #fcb712 11.1111111111%,
-          #f7921e 0,
-          #f7921e 16.6666666667%,
-          #e87f24 0,
-          #e87f24 22.2222222222%,
-          #dd6227 0,
-          #dd6227 27.7777777778%,
-          #dc4c27 0,
-          #dc4c27 33.3333333333%,
-          #ca3435 0,
-          #ca3435 38.8888888889%,
-          #b82841 0,
-          #b82841 44.4444444444%,
-          #953751 0,
-          #953751 50%,
-          #364c88 0,
-          #364c88 55.5555555556%,
-          #16599d 0,
-          #16599d 61.1111111111%,
-          #02609e 0,
-          #02609e 66.6666666667%,
-          #0073a9 0,
-          #0073a9 72.2222222222%,
-          #008aa4 0,
-          #008aa4 77.7777777778%,
-          #239a87 0,
-          #239a87 83.3333333333%,
-          #7cba6d 0,
-          #7cba6d 88.8888888889%,
-          #becc2f 0,
-          #becc2f 94.4444444444%,
-          #e0d81d 0,
-          #e0d81d 100%
-        ),
-        repeating-radial-gradient(
-          circle at bottom right,
-          #fedc00 0,
-          #fedc00 5.5555555556%,
-          #fcb712 0,
-          #fcb712 11.1111111111%,
-          #f7921e 0,
-          #f7921e 16.6666666667%,
-          #e87f24 0,
-          #e87f24 22.2222222222%,
-          #dd6227 0,
-          #dd6227 27.7777777778%,
-          #dc4c27 0,
-          #dc4c27 33.3333333333%,
-          #ca3435 0,
-          #ca3435 38.8888888889%,
-          #b82841 0,
-          #b82841 44.4444444444%,
-          #953751 0,
-          #953751 50%,
-          #364c88 0,
-          #364c88 55.5555555556%,
-          #16599d 0,
-          #16599d 61.1111111111%,
-          #02609e 0,
-          #02609e 66.6666666667%,
-          #0073a9 0,
-          #0073a9 72.2222222222%,
-          #008aa4 0,
-          #008aa4 77.7777777778%,
-          #239a87 0,
-          #239a87 83.3333333333%,
-          #7cba6d 0,
-          #7cba6d 88.8888888889%,
-          #becc2f 0,
-          #becc2f 94.4444444444%,
-          #e0d81d 0,
-          #e0d81d 100%
-        );
     `}
   >
+    <Rainbow />
     {children}
   </div>
 );
@@ -102,15 +83,24 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   const Editor = lazy(() => import("./Editor"));
 
+  // Use useEffect to reveal the content after the iframe loads
+  useEffect(() => {
+    if (!onlyEdit) {
+      const iframe = document.querySelector(`iframe[src="/live/${codeSpace}/"]`);
+      if (iframe) {
+        iframe.addEventListener("load", () => {
+          setHideRest(false);
+          reveal();
+        });
+      }
+    }
+  }, [codeSpace, onlyEdit]);
+
   return (
     <>
       {!onlyEdit && (
         <DraggableWindow codeSpace={codeSpace}>
           <iframe
-            onLoad={() => {
-              setHideRest(false);
-              reveal();
-            }}
             css={css`height: 100%; width: 100%; border: 0;`}
             src={`/live/${codeSpace}/`}
           />
