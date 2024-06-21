@@ -95,8 +95,7 @@ const RainbowContainer: FC<{ children: ReactNode }> = ({ children }) => (
   </div>
 );
 
-
-export const AppToRender: FC<{ codeSpace: string; }> = ({ codeSpace }) => {
+export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
@@ -108,9 +107,13 @@ export const AppToRender: FC<{ codeSpace: string; }> = ({ codeSpace }) => {
       {!onlyEdit && (
         <DraggableWindow codeSpace={codeSpace}>
           <iframe
-            onLoad={() => {setHideRest(false); reveal(); }}
+            onLoad={() => {
+              setHideRest(false);
+              reveal();
+            }}
             css={css`height: 100%; width: 100%; border: 0;`}
-            src={`/live/${codeSpace}/`} />
+            src={`/live/${codeSpace}/`}
+          />
         </DraggableWindow>
       )}
 

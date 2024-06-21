@@ -144,7 +144,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ],
     alias: {
       ...buildOptions.alias,
-      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`
+      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
     },
     loader: { ...buildOptions.loader },
     tsconfig: "./tsconfig.json",
