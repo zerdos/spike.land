@@ -109,4 +109,28 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
+
+  it("should replace dynamic imports at the end", async () => {
+    const code = `
+    import{Buffer as De}from"/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
+    let { Mp3Encoder: t } = await import("lamejs");
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"d3-time";
+      async function loadModule() {
+        let{default:c}=await import("axios");
+        let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
+        
+        const module = await import("some-module");
+        // do something with module
+      }
+        import"react/jsx-runtime";
+        import"react";
+        async function y(s){await s(m)}
+        export{n as Particles,n as default,y as initParticlesEngine};
+    `;
+
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
 });
+
+

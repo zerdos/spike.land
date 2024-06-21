@@ -70,5 +70,13 @@ export function importMapReplace(code: string, origin: string): string {
     );
   });
 
-  return replaced;
+  Object.keys(oo).forEach((pkg) => {
+    replaced = replaced.split(`"${pkg}"`).join(
+      '"'+origin + oo[pkg as keyof typeof oo]+'"',
+    );
+  });
+
+  /***** */
+
+  return "/** importMapReplace */"+replaced;
 }
