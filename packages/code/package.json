@@ -86,6 +86,7 @@
     "jest": "29.7.0",
     "localforage": "1.10.0",
     "lodash.debounce": "4.0.8",
+    "lucide-react": "^0.395.0",
     "module": "1.2.5",
     "monaco-editor": "0.50.0",
     "node-source-walk": "7.0.0",
