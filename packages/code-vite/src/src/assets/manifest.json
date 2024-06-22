@@ -1,0 +1,10 @@
+{
+  "name": "spike.land",
+  "short_name": "spike it, stream it, share it",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+}
