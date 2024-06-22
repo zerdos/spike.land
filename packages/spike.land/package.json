@@ -22,7 +22,7 @@
     "wrangler": "3.61.0"
   },
   "dependencies": {
-    "@types/node": "20.14.7",
+    "@types/node": "20.14.8",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.21.5",

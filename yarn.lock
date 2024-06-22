@@ -1696,7 +1696,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:20.14.7"
+    "@types/node": "npm:20.14.8"
     axios: "npm:1.7.2"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
@@ -1734,7 +1734,7 @@ __metadata:
     "@cloudflare/kv-asset-handler": "npm:0.3.3"
     "@cloudflare/workers-types": "npm:4.20240620.0"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:20.14.7"
+    "@types/node": "npm:20.14.8"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.21.5"
@@ -1763,7 +1763,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/jest": "npm:29.5.12"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/node": "npm:20.14.7"
+    "@types/node": "npm:20.14.8"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     "@types/uuid": "npm:10.0.0"
@@ -1793,7 +1793,7 @@ __metadata:
     jest: "npm:29.7.0"
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:^0.395.0"
+    lucide-react: "npm:^0.396.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.50.0"
     node-source-walk: "npm:7.0.0"
@@ -1840,7 +1840,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:20.14.7"
+    "@types/node": "npm:20.14.8"
     esbuild-wasm: "npm:0.21.5"
   languageName: unknown
   linkType: soft
@@ -2129,12 +2129,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:20.14.7":
+"@types/node@npm:*":
   version: 20.14.7
   resolution: "@types/node@npm:20.14.7"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10/f2cb458126a136719d9da6febdbc7afc9bb622047a30c5e6163db4206ff8c8002ec56b340d722fe1ad6280ebe7a505e0a5a10a39a3b5718837200201b94d5d07
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:20.14.8":
+  version: 20.14.8
+  resolution: "@types/node@npm:20.14.8"
+  dependencies:
+    undici-types: "npm:~5.26.4"
+  checksum: 10/73822f66f269ce865df7e2f586787ac7444bd1169fd265cbed1e851b72787f1170517c5b616e0308ec2fbc0934ec6403b0f28d4152acbb0486071aec41167d51
   languageName: node
   linkType: hard
 
@@ -5284,9 +5293,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:9.2.0":
-  version: 9.2.0
-  resolution: "execa@npm:9.2.0"
+"execa@npm:9.3.0":
+  version: 9.3.0
+  resolution: "execa@npm:9.3.0"
   dependencies:
     "@sindresorhus/merge-streams": "npm:^4.0.0"
     cross-spawn: "npm:^7.0.3"
@@ -5300,7 +5309,7 @@ __metadata:
     signal-exit: "npm:^4.1.0"
     strip-final-newline: "npm:^4.0.0"
     yoctocolors: "npm:^2.0.0"
-  checksum: 10/6fd8daf0297578c1013e4c67d4f2c35d8af76763ac8ad773e9c693ba3e6e3ae8cb71773b4e29d07b267f899c6df9d36f7be3b0a590ed0c11c7d429d29c190c95
+  checksum: 10/07cf570a8482b124971e7a01ba047a3d3f80c7ebf7a6c937a65d9cd593f6487b419ba9e7cf4388464e4a605ea4849d4c266d57465bb0496d8fa9275a063ce842
   languageName: node
   linkType: hard
 
@@ -8363,12 +8372,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.395.0":
-  version: 0.395.0
-  resolution: "lucide-react@npm:0.395.0"
+"lucide-react@npm:^0.396.0":
+  version: 0.396.0
+  resolution: "lucide-react@npm:0.396.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0
-  checksum: 10/6ba49ba045b250e2d5de9ce431ac146fab3464f082ddfd6ffc7d1e8ccdd74f5d5d82e3288a1c965dff90fa0353aba116549ffc5349041c068be65cb48dd890e2
+  checksum: 10/a6361f652f444c08bdf081cc7c9b6bf489c772be0325c8d8b16920530cfc1ae4349b2d909002c2a3227837c5f81e4c0cbe2d7fb7b45ea094a50cd11b5f0b8d6f
   languageName: node
   linkType: hard
 
@@ -8841,7 +8850,7 @@ __metadata:
     dprint: "npm:0.46.3"
     eslint: "npm:9.5.0"
     eslint-plugin-react: "npm:7.34.3"
-    execa: "npm:9.2.0"
+    execa: "npm:9.3.0"
     localforage: "npm:1.10.0"
     playwright: "npm:1.44.1"
     react: "npm:18.3.1"

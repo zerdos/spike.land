@@ -113,7 +113,7 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.46.3"],\
           ["eslint", "npm:9.5.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.3"],\
-          ["execa", "npm:9.2.0"],\
+          ["execa", "npm:9.3.0"],\
           ["localforage", "npm:1.10.0"],\
           ["playwright", "npm:1.44.1"],\
           ["react", "npm:18.3.1"],\
@@ -2555,7 +2555,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:20.14.7"],\
+          ["@types/node", "npm:20.14.8"],\
           ["axios", "npm:1.7.2"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:12.1.0"],\
@@ -2604,7 +2604,7 @@ const RAW_RUNTIME_STATE =
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/jest", "npm:29.5.12"],\
           ["@types/lodash.debounce", "npm:4.0.9"],\
-          ["@types/node", "npm:20.14.7"],\
+          ["@types/node", "npm:20.14.8"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["@types/uuid", "npm:10.0.0"],\
@@ -2634,7 +2634,7 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.395.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.396.0"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.50.0"],\
           ["node-source-walk", "npm:7.0.0"],\
@@ -2678,7 +2678,7 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/kv-asset-handler", "npm:0.3.3"],\
           ["@cloudflare/workers-types", "npm:4.20240620.0"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:20.14.7"],\
+          ["@types/node", "npm:20.14.8"],\
           ["async-mutex", "npm:0.5.0"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.21.5"],\
@@ -2709,7 +2709,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:20.14.7"],\
+          ["@types/node", "npm:20.14.8"],\
           ["esbuild-wasm", "npm:0.21.5"]\
         ],\
         "linkType": "SOFT"\
@@ -3049,6 +3049,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-20.14.7-5bbf751584-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.14.7"],\
+          ["undici-types", "npm:5.26.5"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:20.14.8", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-20.14.8-e4f4af022f-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:20.14.8"],\
           ["undici-types", "npm:5.26.5"]\
         ],\
         "linkType": "HARD"\
@@ -6817,10 +6825,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:9.2.0", {\
-        "packageLocation": "./.yarn/global/cache/execa-npm-9.2.0-f2b4182aa7-10.zip/node_modules/execa/",\
+      ["npm:9.3.0", {\
+        "packageLocation": "./.yarn/global/cache/execa-npm-9.3.0-238a82e660-10.zip/node_modules/execa/",\
         "packageDependencies": [\
-          ["execa", "npm:9.2.0"],\
+          ["execa", "npm:9.3.0"],\
           ["@sindresorhus/merge-streams", "npm:4.0.0"],\
           ["cross-spawn", "npm:7.0.3"],\
           ["figures", "npm:6.1.0"],\
@@ -10295,17 +10303,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["lucide-react", [\
-      ["npm:0.395.0", {\
-        "packageLocation": "./.yarn/global/cache/lucide-react-npm-0.395.0-e84f5d70dd-10.zip/node_modules/lucide-react/",\
+      ["npm:0.396.0", {\
+        "packageLocation": "./.yarn/global/cache/lucide-react-npm-0.396.0-c6c5117e6d-10.zip/node_modules/lucide-react/",\
         "packageDependencies": [\
-          ["lucide-react", "npm:0.395.0"]\
+          ["lucide-react", "npm:0.396.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.395.0", {\
-        "packageLocation": "./.yarn/__virtual__/lucide-react-virtual-ebb6df2b91/0/global/cache/lucide-react-npm-0.395.0-e84f5d70dd-10.zip/node_modules/lucide-react/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.396.0", {\
+        "packageLocation": "./.yarn/__virtual__/lucide-react-virtual-0c9c06748d/0/global/cache/lucide-react-npm-0.396.0-c6c5117e6d-10.zip/node_modules/lucide-react/",\
         "packageDependencies": [\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.395.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.396.0"],\
           ["@types/react", "npm:18.3.3"],\
           ["react", "npm:18.3.1"]\
         ],\
@@ -10818,7 +10826,7 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.46.3"],\
           ["eslint", "npm:9.5.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.3"],\
-          ["execa", "npm:9.2.0"],\
+          ["execa", "npm:9.3.0"],\
           ["localforage", "npm:1.10.0"],\
           ["playwright", "npm:1.44.1"],\
           ["react", "npm:18.3.1"],\
