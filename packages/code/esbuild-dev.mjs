@@ -20,6 +20,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "iife",
 
     charset: "utf8",
+    define: makeEnv("production"),
 
     keepNames: false,
     minify: true,
@@ -88,6 +89,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     platform: "browser",
     plugins: [],
     bundle: true,
+    define: makeEnv("production"),
     format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: true,
@@ -113,6 +115,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     splitting: true,
     format: "esm",
     minifySyntax: true,
+    define: makeEnv("production"),
     minifyIdentifiers: true,
     minifyWhitespace: true,
     bundle: true,
