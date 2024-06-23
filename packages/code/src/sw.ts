@@ -2,7 +2,7 @@
 // import { precacheAndRoute } from 'workbox-precaching';
 importScripts("/swVersion.js");
 import { resetCSS } from "./getResetCss";
-import HTML from "./index.html?raw";
+import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
 import { mkdir, readFile, writeFile } from "./memfs";
