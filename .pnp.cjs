@@ -14351,6 +14351,7 @@ const RAW_RUNTIME_STATE =
           ["my-react-ts-pwa", "workspace:packages/code-pwa"],\
           ["@emotion/babel-plugin", "npm:11.11.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.11.4"],\
+          ["@okikio/sharedworker", "npm:1.0.7"],\
           ["@types/prop-types", "npm:15.7.12"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
@@ -14367,6 +14368,8 @@ const RAW_RUNTIME_STATE =
           ["react-accessible-treeview", "virtual:e9fbd22c7b4f9d9418edd0debfb334ed74a83863b91b0a4905c7e0dc2dabb39aca2522b0d1ff16a03945d0274a7add79a9350d27047c110407d68dc864207e22#npm:2.9.1"],\
           ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.3.1"],\
           ["react-icons", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.2.1"],\
+          ["transferables", "npm:1.0.3"],\
+          ["ts-md5", "npm:1.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>::version=5.5.2&hash=379a07"],\
           ["vite", "virtual:e9fbd22c7b4f9d9418edd0debfb334ed74a83863b91b0a4905c7e0dc2dabb39aca2522b0d1ff16a03945d0274a7add79a9350d27047c110407d68dc864207e22#npm:5.3.1"],\
           ["vite-plugin-pwa", "virtual:e9fbd22c7b4f9d9418edd0debfb334ed74a83863b91b0a4905c7e0dc2dabb39aca2522b0d1ff16a03945d0274a7add79a9350d27047c110407d68dc864207e22#npm:0.20.0"],\
@@ -14374,7 +14377,8 @@ const RAW_RUNTIME_STATE =
           ["workbox-precaching", "npm:7.1.0"],\
           ["workbox-routing", "npm:7.1.0"],\
           ["workbox-strategies", "npm:7.1.0"],\
-          ["workbox-window", "npm:7.1.0"]\
+          ["workbox-window", "npm:7.1.0"],\
+          ["worker-rpc", "npm:0.2.0"]\
         ],\
         "linkType": "SOFT"\
       }]\

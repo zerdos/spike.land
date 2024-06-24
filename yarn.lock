@@ -3001,7 +3001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@okikio/sharedworker@npm:1.0.7":
+"@okikio/sharedworker@npm:1.0.7, @okikio/sharedworker@npm:^1.0.7":
   version: 1.0.7
   resolution: "@okikio/sharedworker@npm:1.0.7"
   checksum: 10/e131e6779bd0d49df4938357e25dd0478c142d9793fd8203991933f6c7a84915a2c55d82637ddb2cdc10a19a591d455d51ba164dd5b0cd4c11ff838fb21caf5b
@@ -11169,6 +11169,7 @@ __metadata:
   dependencies:
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.4"
+    "@okikio/sharedworker": "npm:^1.0.7"
     "@types/prop-types": "npm:^15"
     "@types/react": "npm:^18.3.1"
     "@types/react-dom": "npm:^18.3.0"
@@ -11185,6 +11186,8 @@ __metadata:
     react-accessible-treeview: "npm:^2.9.1"
     react-dom: "npm:^18.3.1"
     react-icons: "npm:^5.2.1"
+    transferables: "npm:^1.0.3"
+    ts-md5: "npm:^1.3.1"
     typescript: "npm:^5.2.2"
     vite: "npm:^5.2.10"
     vite-plugin-pwa: "npm:^0.20.0"
@@ -11193,6 +11196,7 @@ __metadata:
     workbox-routing: "npm:^7.1.0"
     workbox-strategies: "npm:^7.1.0"
     workbox-window: "npm:^7.1.0"
+    worker-rpc: "npm:^0.2.0"
   languageName: unknown
   linkType: soft
 
@@ -14573,7 +14577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"transferables@npm:1.0.3":
+"transferables@npm:1.0.3, transferables@npm:^1.0.3":
   version: 1.0.3
   resolution: "transferables@npm:1.0.3"
   checksum: 10/80c3019cff7cdcbb5baa6aad73b0faadcc04cbdac7d58d5be675fb8c434767d3726a2d8b47c1a6cad6da9e0d5044817f19ec90a4d25a5b3018e534c9c6f83fd6
@@ -14639,7 +14643,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-md5@npm:1.3.1":
+"ts-md5@npm:1.3.1, ts-md5@npm:^1.3.1":
   version: 1.3.1
   resolution: "ts-md5@npm:1.3.1"
   checksum: 10/e9f074d287c3fbbad8dd2d17e5179f99f514f268d9a5e4ea0697f0c8a9b94d54ce299bcaef41e8b0ecdec3680667b020c98b347a96ec61ec8d2db961d3b3883e
@@ -15661,7 +15665,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"worker-rpc@npm:0.2.0":
+"worker-rpc@npm:0.2.0, worker-rpc@npm:^0.2.0":
   version: 0.2.0
   resolution: "worker-rpc@npm:0.2.0"
   dependencies:
