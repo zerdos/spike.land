@@ -1,10 +1,8 @@
+import { css } from "@emotion/react";
 import React from "react";
+import TreeView, { flattenTree } from "react-accessible-treeview";
 import { DiCss3, DiJavascript, DiNpm } from "react-icons/di";
 import { FaList, FaRegFolder, FaRegFolderOpen } from "react-icons/fa";
-import TreeView, { flattenTree } from "react-accessible-treeview";
-import { css } from "@emotion/react";
-
-
 
 const folder = {
   name: "",
@@ -76,7 +74,8 @@ const directoryStyles = css`
   }
 `;
 
-const treeNodeContentStyles = (level: number) => css`
+const treeNodeContentStyles = (level: number) =>
+  css`
   display: flex;
   align-items: center;
   padding-left: ${level * 20}px !important;
@@ -86,7 +85,7 @@ const iconStyles = css`
   vertical-align: middle;
   padding-right: 5px;
 `;
-  
+
 function DirectoryTreeView() {
   return (
     <div css={directoryStyles}>
@@ -101,11 +100,7 @@ function DirectoryTreeView() {
           level,
         }) => (
           <div {...getNodeProps()} css={treeNodeContentStyles(level - 1)}>
-            {isBranch ? (
-              <FolderIcon isOpen={isExpanded} />
-            ) : (
-              <FileIcon filename={element.name} />
-            )}
+            {isBranch ? <FolderIcon isOpen={isExpanded} /> : <FileIcon filename={element.name} />}
             {element.name}
           </div>
         )}
@@ -114,14 +109,10 @@ function DirectoryTreeView() {
   );
 }
 
-const FolderIcon: React.FC<{isOpen:boolean}> = ({isOpen}) =>
-  isOpen ? (
-    <FaRegFolderOpen css={iconStyles} color="e8a87c" />
-  ) : (
-    <FaRegFolder css={iconStyles} color="e8a87c" />
-  );
+const FolderIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) =>
+  isOpen ? <FaRegFolderOpen css={iconStyles} color="e8a87c" /> : <FaRegFolder css={iconStyles} color="e8a87c" />;
 
-const FileIcon: React.FC<{filename: string}> = ({ filename }) => {
+const FileIcon: React.FC<{ filename: string }> = ({ filename }) => {
   const extension = filename.slice(filename.lastIndexOf(".") + 1);
   switch (extension) {
     case "js":
