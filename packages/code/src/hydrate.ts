@@ -101,6 +101,7 @@ if (location.pathname === `/live/${codeSpace}`) {
 } else {
   // Render the code
   // import { render } from "./render";
+  
   import("./render").then(({ render }) =>
     render(
       document.getElementById(`${codeSpace}-css`)!,

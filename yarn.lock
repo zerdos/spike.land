@@ -1694,7 +1694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:11.11.5":
+"@emotion/styled@npm:11.11.5, @emotion/styled@npm:^11.11.5":
   version: 11.11.5
   resolution: "@emotion/styled@npm:11.11.5"
   dependencies:
@@ -2823,7 +2823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.15.20":
+"@mui/material@npm:5.15.20, @mui/material@npm:^5.15.20":
   version: 5.15.20
   resolution: "@mui/material@npm:5.15.20"
   dependencies:
@@ -3722,7 +3722,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.debounce@npm:4.0.9":
+"@types/lodash.debounce@npm:4.0.9, @types/lodash.debounce@npm:^4":
   version: 4.0.9
   resolution: "@types/lodash.debounce@npm:4.0.9"
   dependencies:
@@ -4234,7 +4234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.35.0":
+"ace-builds@npm:1.35.0, ace-builds@npm:^1.35.0":
   version: 1.35.0
   resolution: "ace-builds@npm:1.35.0"
   checksum: 10/230d62e9766feb2c1203b613eaed114c9c2568c25554b4431cdf01375a221684fb6548c488b02a01eceade366ded45e1bdb08b79a17934dde38ebd5db94f1dd6
@@ -4773,7 +4773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-mutex@npm:0.5.0":
+"async-mutex@npm:0.5.0, async-mutex@npm:^0.5.0":
   version: 0.5.0
   resolution: "async-mutex@npm:0.5.0"
   dependencies:
@@ -4883,7 +4883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"avl@npm:1.5.3":
+"avl@npm:1.5.3, avl@npm:^1.5.3":
   version: 1.5.3
   resolution: "avl@npm:1.5.3"
   checksum: 10/42990a827087761031c3b9c7eb4d59f9b49fc1b5dc90a849701886bff54aee5d71a317200c45cff5f9def7c39afcd9bc6b3f700d8ff71d00837059e5305e4f59
@@ -7582,7 +7582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-diff@npm:1.3.0, fast-diff@npm:^1.2.0":
+"fast-diff@npm:1.3.0, fast-diff@npm:^1.2.0, fast-diff@npm:^1.3.0":
   version: 1.3.0
   resolution: "fast-diff@npm:1.3.0"
   checksum: 10/9e57415bc69cd6efcc720b3b8fe9fdaf42dcfc06f86f0f45378b1fa512598a8aac48aa3928c8751d58e2f01bb4ba4f07e4f3d9bc0d57586d45f1bd1e872c6cde
@@ -7967,7 +7967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.2.11":
+"framer-motion@npm:11.2.11, framer-motion@npm:^11.2.11":
   version: 11.2.11
   resolution: "framer-motion@npm:11.2.11"
   dependencies:
@@ -8789,7 +8789,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutable@npm:4.3.6":
+"immutable@npm:4.3.6, immutable@npm:^4.3.6":
   version: 4.3.6
   resolution: "immutable@npm:4.3.6"
   checksum: 10/59fedb67f26e265035616b27e33ef90b53b434cf76fb09212ec2d6ae32ee8d2fe2641e6dc32dbc78498c521fbf5f72c6740d39affba63a0a36a3884272371857
@@ -10622,7 +10622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:0.396.0":
+"lucide-react@npm:0.396.0, lucide-react@npm:^0.396.0":
   version: 0.396.0
   resolution: "lucide-react@npm:0.396.0"
   peerDependencies:
@@ -11090,7 +11090,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:0.50.0":
+"monaco-editor@npm:0.50.0, monaco-editor@npm:^0.50.0":
   version: 0.50.0
   resolution: "monaco-editor@npm:0.50.0"
   checksum: 10/594f2a3812147c1ef41c4dba444c649c32af95c3eb09529049bb7a2cb38e1747facbae0a459a07140e77cf9d73df41f034399804f9123f9cfff45394321a3983
@@ -11168,8 +11168,12 @@ __metadata:
   resolution: "my-react-ts-pwa@workspace:packages/code-pwa"
   dependencies:
     "@emotion/babel-plugin": "npm:^11.11.0"
+    "@emotion/cache": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.4"
+    "@emotion/styled": "npm:^11.11.5"
+    "@mui/material": "npm:^5.15.20"
     "@okikio/sharedworker": "npm:^1.0.7"
+    "@types/lodash.debounce": "npm:^4"
     "@types/prop-types": "npm:^15"
     "@types/react": "npm:^18.3.1"
     "@types/react-dom": "npm:^18.3.0"
@@ -11177,15 +11181,29 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.8.0"
     "@vite-pwa/assets-generator": "npm:^0.2.4"
     "@vitejs/plugin-react": "npm:^4.2.1"
+    ace-builds: "npm:^1.35.0"
+    async-mutex: "npm:^0.5.0"
+    avl: "npm:^1.5.3"
     classnames: "npm:^2.5.1"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-react-refresh: "npm:^0.4.6"
+    fast-diff: "npm:^1.3.0"
+    framer-motion: "npm:^11.2.11"
+    immutable: "npm:^4.3.6"
+    lodash.debounce: "npm:^4.0.8"
+    lucide-react: "npm:^0.396.0"
+    monaco-editor: "npm:^0.50.0"
     prop-types: "npm:^15.8.1"
+    qrious: "npm:^4.0.2"
+    re-resizable: "npm:^6.9.17"
     react: "npm:^18.3.1"
     react-accessible-treeview: "npm:^2.9.1"
     react-dom: "npm:^18.3.1"
     react-icons: "npm:^5.2.1"
+    react-live: "npm:^4.1.6"
+    react-qrious: "npm:^2.5.6"
+    react-rnd: "npm:^10.4.11"
     transferables: "npm:^1.0.3"
     ts-md5: "npm:^1.3.1"
     typescript: "npm:^5.2.2"
@@ -12426,7 +12444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qrious@npm:4.0.2":
+"qrious@npm:4.0.2, qrious@npm:^4.0.2":
   version: 4.0.2
   resolution: "qrious@npm:4.0.2"
   checksum: 10/413faf21b69411878996dec63672149c720648b4fb3834e1dfcf7598949a73426e994e9814c805cff578a1d26287c34b22c7b4d23cec7b913f4d038ec29f5a88
@@ -12539,7 +12557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"re-resizable@npm:6.9.17":
+"re-resizable@npm:6.9.17, re-resizable@npm:^6.9.17":
   version: 6.9.17
   resolution: "re-resizable@npm:6.9.17"
   peerDependencies:
@@ -12609,7 +12627,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-live@npm:4.1.6":
+"react-live@npm:4.1.6, react-live@npm:^4.1.6":
   version: 4.1.6
   resolution: "react-live@npm:4.1.6"
   dependencies:
@@ -12623,7 +12641,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-qrious@npm:2.5.6":
+"react-qrious@npm:2.5.6, react-qrious@npm:^2.5.6":
   version: 2.5.6
   resolution: "react-qrious@npm:2.5.6"
   peerDependencies:
@@ -12650,7 +12668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-rnd@npm:10.4.11":
+"react-rnd@npm:10.4.11, react-rnd@npm:^10.4.11":
   version: 10.4.11
   resolution: "react-rnd@npm:10.4.11"
   dependencies:
