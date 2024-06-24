@@ -82,6 +82,7 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Update HTML and CSS on message received
   BC.onmessage = ({ data }) => {
     const { html, css } = data;
+    debugger;
     document.getElementById("root")!.innerHTML = [
       `<div id="${codeSpace}-css" style="height:100%;">`,
       "<style>",

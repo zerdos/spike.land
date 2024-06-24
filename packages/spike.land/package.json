@@ -18,7 +18,7 @@
     "@cloudflare/kv-asset-handler": "0.3.3",
     "@cloudflare/workers-types": "4.20240620.0",
     "@spike-land/code": "0.9.55",
-    "typescript": "5.4.5",
+    "typescript": "5.5.2",
     "wrangler": "3.61.0"
   },
   "dependencies": {
@@ -28,7 +28,7 @@
     "esbuild-wasm": "0.21.5",
     "esm-worker": "0.135.16",
     "immutable": "4.3.6",
-    "lib0": "^0.2.94",
+    "lib0": "0.2.94",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1"
