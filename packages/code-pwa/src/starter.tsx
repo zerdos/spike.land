@@ -31,7 +31,7 @@ export async function appFactory(
 
   try {
     const blobUrl = createJsBlob(trp);
-    const App = (await import(blobUrl)).default;
+    const App = (await import( /* @vite-ignore */ blobUrl)).default;
     URL.revokeObjectURL(blobUrl);
     return App;
   } catch (error) {

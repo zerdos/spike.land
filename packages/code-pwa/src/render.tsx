@@ -11,14 +11,17 @@ import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
 
+const origin = location.origin.includes("localhost")? "https://testing.spike.land" : location.origin;
+
 const codeSpace = getCodeSpace();
-const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+const BC = new BroadcastChannel(`${origin}/live/${codeSpace}/`);
 let controller = new AbortController();
 const mod = { i: 0 };
 
 let root: ReturnType<typeof createRoot>;
 globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
+
 
 export const render = async (
   _rootEl: HTMLElement,
@@ -27,6 +30,7 @@ export const render = async (
   signal: AbortSignal | null = null,
   data: ICodeSession | null = null,
 ) => {
+  console.log("render", { codeSpace }); 
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
@@ -76,7 +80,7 @@ async function rerender(data: ICodeSession & { transpiled: string }) {
 
       data.transpiled = data.transpiled || await transpile({
         code: data.code,
-        originToUse: location.origin,
+        originToUse: origin,
       });
 
       if (signal.aborted) return;
@@ -107,10 +111,10 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
       const isIframe = location.href.endsWith("iframe");
       const hasIndex = await stat(`/live/${codeSpace}/index.mjs`);
       const moduleUrl = isIframe || hasIndex
-        ? `${location.origin}/live/${codeSpace}/index.mjs`
-        : `${location.origin}/live/${codeSpace}/index.js`;
+        ? `${origin}/live/${codeSpace}/index.mjs`
+        : `${origin}/live/${codeSpace}/index.js`;
 
-      App = (await import(moduleUrl)).default;
+      App = (await import( /* @vite-ignore */ moduleUrl)).default;
     } catch (err) {
       App = () => (
         <div>
