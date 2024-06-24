@@ -329,6 +329,9 @@ async function handleFetchApi(
           }
           headers.append("Cross-Origin-Embedder-Policy", "require-corp");
 
+          headers.append("Access-Control-Allow-Origin", "*");
+
+
           kvResp = new Response(kvResp.body, { ...kvResp, headers });
 
           return kvResp;
