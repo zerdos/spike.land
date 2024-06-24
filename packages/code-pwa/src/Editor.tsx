@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
-import { isMobile } from "./isMobile.mjs";
+import { isMobile } from "./isMobile";
 import { runner } from "./runner";
 import { prettier } from "./shared";
 

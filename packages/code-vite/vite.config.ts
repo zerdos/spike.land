@@ -1,5 +1,5 @@
 import react from "@vitejs/plugin-react";
-import fs from "fs/promises";
+import wasm from "vite-plugin-wasm";
 import path from "path";
 import { defineConfig, Plugin } from "vite";
 
@@ -23,6 +23,7 @@ export default defineConfig({
   },
   appType: "spa",
   plugins: [
+    wasm(),
     react({
       jsxImportSource: "@emotion/react",
       babel: {
@@ -38,6 +39,7 @@ export default defineConfig({
     //   })
   ],
   build: {
+ 
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),

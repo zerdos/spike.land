@@ -1,6 +1,6 @@
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
-import { fetchPlugin } from "./fetchPlugin.mjs";
+import { fetchPlugin } from "./fetchPlugin";
 import { importMapReplace } from "./importMapReplace";
 import { writeFile } from "./memfs";
 
@@ -218,7 +218,7 @@ export const build = async (
     ],
     packages: "external",
 
-    plugins: [fetchPlugin],
+    plugins: [fetchPlugin(origin)],
   };
 
   return esmBuild(defaultOpts).then((x) => importMapReplace(x.outputFiles![0].text, origin)).then(async (x) => {

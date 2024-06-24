@@ -2,7 +2,7 @@
 import { mkdir } from "./memfs";
 
 // Set up service worker version
-const { swVersion } = self;
+// const { swVersion } = self;
 
 
 // Create directories for the code space

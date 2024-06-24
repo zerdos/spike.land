@@ -1,6 +1,6 @@
-import { Play, RotateCcw, Share2 } from "lucide-react";
+import {  RotateCcw, Share2 } from "lucide-react";
 import { Resizable } from "re-resizable";
-import React, { FC, useEffect, useState } from "react";
+import  { FC, useState } from "react";
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
 
 export const EmbeddableEditor: FC<{}> = () => {
@@ -20,7 +20,7 @@ render(<App />);
 
   const [editorWidth, setEditorWidth] = useState("50%");
 
-  const handleCodeChange = (newCode) => {
+  const handleCodeChange = (newCode: string) => {
     setCode(newCode);
   };
 
@@ -73,6 +73,7 @@ function App() {
           <Resizable
             size={{ width: editorWidth, height: "100%" }}
             onResizeStop={(e, direction, ref, d) => {
+              console.log({e, direction, ref, d});
               setEditorWidth(ref.style.width);
             }}
             minWidth="30%"

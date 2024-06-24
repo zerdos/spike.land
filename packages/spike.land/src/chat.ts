@@ -328,6 +328,7 @@ async function handleFetchApi(
             );
           }
           headers.append("Cross-Origin-Embedder-Policy", "require-corp");
+          headers.append("Access-Control-Allow-Origin", "*");
 
           headers.append("Access-Control-Allow-Origin", "*");
 

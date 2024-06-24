@@ -2209,7 +2209,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@github/stable-socket@npm:1.1.0":
+"@github/stable-socket@npm:1.1.0, @github/stable-socket@npm:^1.1.0":
   version: 1.1.0
   resolution: "@github/stable-socket@npm:1.1.0"
   checksum: 10/4e516066c602fb88e02dbb0c7f5db428521ee52188309d345de5c594e150295edd7bf75db80ef0b8658ed6da4cd4ae0f9f0e75feecae91f9a178b9124fb47293
@@ -3889,7 +3889,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:2023.10.5":
+"@types/wicg-file-system-access@npm:2023.10.5, @types/wicg-file-system-access@npm:^2023.10.5":
   version: 2023.10.5
   resolution: "@types/wicg-file-system-access@npm:2023.10.5"
   checksum: 10/f161b76d0c53b3e72238acf7ed5af3893018a845cd9e0a507394ba219607808d34957f6247e1ef091a8ea9131495dca8f12804c6bd75c5c34bf0b990f561be57
@@ -6835,7 +6835,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.21.5":
+"esbuild-wasm@npm:0.21.5, esbuild-wasm@npm:^0.21.5":
   version: 0.21.5
   resolution: "esbuild-wasm@npm:0.21.5"
   bin:
@@ -7660,7 +7660,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-retry@npm:6.0.0":
+"fetch-retry@npm:6.0.0, fetch-retry@npm:^6.0.0":
   version: 6.0.0
   resolution: "fetch-retry@npm:6.0.0"
   checksum: 10/0c8d3082e2d76fff2df75adef6280bc854bc36fd3ef38506674f0216d0d819e2efd14da7477d3f1732415aea1d2cfde7cd3e1aeae46f45f2adbfc5133296e8de
@@ -7703,7 +7703,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:19.0.0":
+"file-type@npm:19.0.0, file-type@npm:^19.0.0":
   version: 19.0.0
   resolution: "file-type@npm:19.0.0"
   dependencies:
@@ -9494,7 +9494,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isomorphic-fetch@npm:3.0.0":
+"isomorphic-fetch@npm:3.0.0, isomorphic-fetch@npm:^3.0.0":
   version: 3.0.0
   resolution: "isomorphic-fetch@npm:3.0.0"
   dependencies:
@@ -11171,12 +11171,14 @@ __metadata:
     "@emotion/cache": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.4"
     "@emotion/styled": "npm:^11.11.5"
+    "@github/stable-socket": "npm:^1.1.0"
     "@mui/material": "npm:^5.15.20"
     "@okikio/sharedworker": "npm:^1.0.7"
     "@types/lodash.debounce": "npm:^4"
     "@types/prop-types": "npm:^15"
     "@types/react": "npm:^18.3.1"
     "@types/react-dom": "npm:^18.3.0"
+    "@types/wicg-file-system-access": "npm:^2023.10.5"
     "@typescript-eslint/eslint-plugin": "npm:^7.8.0"
     "@typescript-eslint/parser": "npm:^7.8.0"
     "@vite-pwa/assets-generator": "npm:^0.2.4"
@@ -11185,15 +11187,20 @@ __metadata:
     async-mutex: "npm:^0.5.0"
     avl: "npm:^1.5.3"
     classnames: "npm:^2.5.1"
+    esbuild-wasm: "npm:^0.21.5"
     eslint: "npm:^8.57.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-react-refresh: "npm:^0.4.6"
     fast-diff: "npm:^1.3.0"
+    fetch-retry: "npm:^6.0.0"
+    file-type: "npm:^19.0.0"
     framer-motion: "npm:^11.2.11"
     immutable: "npm:^4.3.6"
+    isomorphic-fetch: "npm:^3.0.0"
     lodash.debounce: "npm:^4.0.8"
     lucide-react: "npm:^0.396.0"
     monaco-editor: "npm:^0.50.0"
+    prettier: "npm:^3.3.2"
     prop-types: "npm:^15.8.1"
     qrious: "npm:^4.0.2"
     re-resizable: "npm:^6.9.17"
@@ -11209,6 +11216,7 @@ __metadata:
     typescript: "npm:^5.2.2"
     vite: "npm:^5.2.10"
     vite-plugin-pwa: "npm:^0.20.0"
+    vite-plugin-wasm: "npm:^3.3.0"
     workbox-core: "npm:^7.1.0"
     workbox-precaching: "npm:^7.1.0"
     workbox-routing: "npm:^7.1.0"
@@ -12261,7 +12269,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.3.2":
+"prettier@npm:3.3.2, prettier@npm:^3.3.2":
   version: 3.3.2
   resolution: "prettier@npm:3.3.2"
   bin:
@@ -15264,6 +15272,15 @@ __metadata:
     "@vite-pwa/assets-generator":
       optional: true
   checksum: 10/8850b1f73580ea392821960096ec2cd107059fd0198c7a0ddfcd3d0b2d6be78ea089ecd13f71952871715e3ed1803200230b131b6dc3097818a77d2397ea9bd0
+  languageName: node
+  linkType: hard
+
+"vite-plugin-wasm@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "vite-plugin-wasm@npm:3.3.0"
+  peerDependencies:
+    vite: ^2 || ^3 || ^4 || ^5
+  checksum: 10/1bcfb50f03280f1966247a4bf9e6ab3a4a76a26fa58fd178708cb3758629cffea544a13c87d0982de0a95a4b41bfc2ad46ae51d3b22080eec965ebfaa17e0454
   languageName: node
   linkType: hard
 

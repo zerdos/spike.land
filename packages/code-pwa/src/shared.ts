@@ -1,4 +1,5 @@
 import SharedWorker from "@okikio/sharedworker";
+/// @ts-ignore
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
 

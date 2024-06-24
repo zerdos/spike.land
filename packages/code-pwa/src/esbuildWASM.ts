@@ -1,2 +1,2 @@
-import wasmFile from "esbuild-wasm/esbuild.wasm";
+import wasmFile from "esbuild-wasm";
 export { wasmFile };
