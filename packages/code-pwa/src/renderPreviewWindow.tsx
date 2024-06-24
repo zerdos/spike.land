@@ -11,8 +11,8 @@ export const renderPreviewWindow = async (
   singleton.started = true;
 
   const rootEl = document.createElement("div");
-  rootEl.style.opacity = "0";
-  rootEl.style.height = "0px";
+  // rootEl.style.opacity = "0";
+  // rootEl.style.height = "0px";
 
   const root = createRoot(rootEl);
   document.getElementById("root")!.appendChild(rootEl);
