@@ -1,7 +1,7 @@
 import { css, keyframes } from "@emotion/react";
-import { lazy, Suspense, useState, useEffect } from "react";
-import DraggableWindow from "./src/DraggableWindow";
+import { lazy, Suspense, useEffect, useState } from "react";
 import type { FC, ReactNode } from "react";
+import DraggableWindow from "./src/DraggableWindow";
 import { reveal } from "./src/reveal";
 
 // Define a type for the gradient colors

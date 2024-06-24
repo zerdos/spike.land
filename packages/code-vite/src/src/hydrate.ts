@@ -8,13 +8,10 @@ import { mkdir } from "./memfs";
 // Set up service worker version
 const { swVersion } = self;
 
-
-
 // setTimeout(async () => {
 
 //   try {
 // const sw = new Workbox(`/sw.js`);
-
 
 // init(swVersion, null);
 // const port = getPort();
@@ -65,8 +62,6 @@ const { swVersion } = self;
 //   console.error(e);
 // }
 // });
-
-
 
 // Create directories for the code space
 const paths = location.pathname.split("/");

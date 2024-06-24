@@ -103,7 +103,6 @@ const monacoContribution = async (code: string) => {
   return code;
 };
 
-
 // import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 // import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
 // import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
@@ -111,26 +110,26 @@ const monacoContribution = async (code: string) => {
 // import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
 
 self.MonacoEnvironment = {
-  getWorker: async (_: any, label: string) =>   {
-		if (label === 'json') {
-      const jsonWorker = (await import('monaco-editor/esm/vs/language/json/json.worker?worker')).default;
-			return new jsonWorker();
-		}
-		if (label === 'css' || label === 'scss' || label === 'less') {
-      const cssWorker = (await import('monaco-editor/esm/vs/language/css/css.worker?worker')).default;
+  getWorker: async (_: any, label: string) => {
+    if (label === "json") {
+      const jsonWorker = (await import("monaco-editor/esm/vs/language/json/json.worker?worker")).default;
+      return new jsonWorker();
+    }
+    if (label === "css" || label === "scss" || label === "less") {
+      const cssWorker = (await import("monaco-editor/esm/vs/language/css/css.worker?worker")).default;
       return new cssWorker();
-		}
-		if (label === 'html' || label === 'handlebars' || label === 'razor') {
-			const htmlWorker = (await import('monaco-editor/esm/vs/language/html/html.worker?worker')).default;
+    }
+    if (label === "html" || label === "handlebars" || label === "razor") {
+      const htmlWorker = (await import("monaco-editor/esm/vs/language/html/html.worker?worker")).default;
       return new htmlWorker();
-		}
-		if (label === 'typescript' || label === 'javascript') {
-			const tsWorker = (await import('monaco-editor/esm/vs/language/typescript/ts.worker?worker')).default;
+    }
+    if (label === "typescript" || label === "javascript") {
+      const tsWorker = (await import("monaco-editor/esm/vs/language/typescript/ts.worker?worker")).default;
       return new tsWorker();
-		}
-    const editorWorker = (await import('monaco-editor/esm/vs/editor/editor.worker?worker')).default;
-		return new editorWorker();
-	}
+    }
+    const editorWorker = (await import("monaco-editor/esm/vs/editor/editor.worker?worker")).default;
+    return new editorWorker();
+  },
 };
 
 const mod: Record<string, Awaited<ReturnType<typeof startMonacoPristine>>> = {};

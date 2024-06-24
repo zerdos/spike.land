@@ -15,7 +15,7 @@ console.log(`
 -------------------------------------------------`);
 
 export const makeEnv = (environment) => ({
-  'process.env.NODE_ENV': environment === 'production' ? '"production"': '"development"',
+  "process.env.NODE_ENV": environment === "production" ? "\"production\"" : "\"development\"",
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
   "process.env.DEBUG": JSON.stringify(false),

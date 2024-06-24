@@ -110,7 +110,7 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
         ? `${location.origin}/live/${codeSpace}/index.mjs`
         : `${location.origin}/live/${codeSpace}/index.js`;
 
-      App = (await import( /* @vite-ignore */moduleUrl)).default;
+      App = (await import(/* @vite-ignore */ moduleUrl)).default;
     } catch (err) {
       App = () => (
         <div>

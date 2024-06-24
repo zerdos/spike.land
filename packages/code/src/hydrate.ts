@@ -8,70 +8,76 @@ import { mkdir } from "./memfs";
 // Set up service worker version
 const { swVersion } = self;
 
+if (navigator.serviceWorker) {
+  setTimeout(() => {
+    try {
+      const sw = new Workbox(`/sw.js`);
 
+      init(swVersion, null);
+      const port = getPort();
 
-  // setTimeout(() => {
+      // Set up service worker event listeners
+      sw.getSW().then((sw) => {
+        const swPort = new MessageChannel();
+        port.addEventListener(
+          "message",
+          ({ data }) =>
+            swPort.port1.postMessage(
+              data,
+              (hasTransferables(data)
+                ? getTransferables(data)
+                : undefined) as unknown as Transferable[],
+            ),
+        );
+        swPort.port1.addEventListener(
+          "message",
+          ({ data }) =>
+            swPort.port1.postMessage(
+              data,
+              (hasTransferables(data)
+                ? getTransferables(data)
+                : undefined) as unknown as Transferable[],
+            ),
+        );
+        sw.postMessage({ type: "sharedworker", sharedWorkerPort: swPort.port1 }, [
+          swPort.port1,
+        ]);
+      });
 
-  //   try {
-  // const sw = new Workbox(`/sw.js`);
-
-
-  // init(swVersion, null);
-  // const port = getPort();
-
-  // // Set up service worker event listeners
-  // sw.getSW().then((sw) => {
-  //   const swPort = new MessageChannel();
-  //   port.addEventListener(
-  //     "message",
-  //     ({ data }) =>
-  //       swPort.port1.postMessage(
-  //         data,
-  //         (hasTransferables(data)
-  //           ? getTransferables(data)
-  //           : undefined) as unknown as Transferable[],
-  //       ),
-  //   );
-  //   swPort.port1.addEventListener(
-  //     "message",
-  //     ({ data }) =>
-  //       swPort.port1.postMessage(
-  //         data,
-  //         (hasTransferables(data)
-  //           ? getTransferables(data)
-  //           : undefined) as unknown as Transferable[],
-  //       ),
-  //   );
-  //   sw.postMessage({ type: "sharedworker", sharedWorkerPort: swPort.port1 }, [
-  //     swPort.port1,
-  //   ]);
-  // });
-
-  // // Register service worker
-  // if ("serviceWorker" in navigator) {
-  //   sw.register().then(() =>
-  //     navigator.serviceWorker.register("/sw.js").then((sw) => {
-  //       navigator.serviceWorker.getRegistrations().then(
-  //         (workers) =>
-  //           Promise.all(
-  //             workers.filter(
-  //               (x) => x !== sw,
-  //             ).map((x) => x.unregister()),
-  //           ),
-  //       );
-  //     })
-  //   );
-  // }} catch (e) {
-  //   console.error(e);
-  // }
-  // });
-
-
+      // Register service worker
+      if ("serviceWorker" in navigator) {
+        sw.register().then(() =>
+          navigator.serviceWorker.register("/sw.js").then((sw) => {
+            navigator.serviceWorker.getRegistrations().then(
+              (workers) =>
+                Promise.all(
+                  workers.filter(
+                    (x) => x !== sw,
+                  ).map((x) => x.unregister()),
+                ),
+            );
+          })
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}
 
 // Create directories for the code space
+
 const paths = location.pathname.split("/");
+
 const codeSpace = paths[2];
-mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
+
+(async () => {
+  try {
+    await mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
+  } catch (e) {
+    console.error("no local storage available");
+  }
+})();
 
 // Check if on live page, and if so, run the code
 if (location.pathname === `/live/${codeSpace}`) {

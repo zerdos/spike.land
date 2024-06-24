@@ -91,8 +91,6 @@ class Code {
     if (location.pathname === `/live/${codeSpace}`) {
       connect(`${codeSpace} ${this.user}`);
 
-      
-
       const { renderPreviewWindow } = await import("./renderPreviewWindow");
       renderPreviewWindow({ codeSpace });
     }
