@@ -83,6 +83,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:packages/monorepo-modules"\
     },\
     {\
+      "name": "my-api",\
+      "reference": "workspace:packages/my-api"\
+    },\
+    {\
       "name": "@spike-land/node-chrome",\
       "reference": "workspace:packages/node-chrome"\
     },\
@@ -11389,6 +11393,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["hono", [\
+      ["npm:4.4.7", {\
+        "packageLocation": "./.yarn/global/cache/hono-npm-4.4.7-352712d8fa-10.zip/node_modules/hono/",\
+        "packageDependencies": [\
+          ["hono", "npm:4.4.7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["hosted-git-info", [\
       ["npm:2.8.9", {\
         "packageLocation": "./.yarn/global/cache/hosted-git-info-npm-2.8.9-62c44fa93f-10.zip/node_modules/hosted-git-info/",\
@@ -14293,6 +14306,18 @@ const RAW_RUNTIME_STATE =
           ["mustache", "npm:4.2.0"]\
         ],\
         "linkType": "HARD"\
+      }]\
+    ]],\
+    ["my-api", [\
+      ["workspace:packages/my-api", {\
+        "packageLocation": "./packages/my-api/",\
+        "packageDependencies": [\
+          ["my-api", "workspace:packages/my-api"],\
+          ["@cloudflare/workers-types", "npm:4.20240620.0"],\
+          ["hono", "npm:4.4.7"],\
+          ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.61.0"]\
+        ],\
+        "linkType": "SOFT"\
       }]\
     ]],\
     ["my-react-ts", [\
