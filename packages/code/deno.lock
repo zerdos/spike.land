@@ -24,7 +24,7 @@
         "npm:@types/react@18.3.3",
         "npm:@types/uuid@10.0.0",
         "npm:@types/wicg-file-system-access@2023.10.5",
-        "npm:@typescript-eslint/typescript-estree@7.13.1",
+        "npm:@typescript-eslint/typescript-estree@7.14.1",
         "npm:ace-builds@1.35.0",
         "npm:assert-browserify@2.0.0",
         "npm:assert@2.1.0",
