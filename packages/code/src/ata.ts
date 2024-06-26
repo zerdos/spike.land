@@ -1,3 +1,5 @@
+import { importMapReplace } from "./importMapReplace";
+
 export async function ata({
   code,
   originToUse,
@@ -181,7 +183,7 @@ declare module 'react' {
     response: Response,
     ref: string,
   ): Promise<string | null> {
-    const responseText = await response.text();
+    const responseText = importMapReplace(await prettierJs(await response.text()), originToUse);
     return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
 
