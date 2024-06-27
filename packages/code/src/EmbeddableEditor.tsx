@@ -20,7 +20,7 @@ render(<App />);
 
   const [editorWidth, setEditorWidth] = useState("50%");
 
-  const handleCodeChange = (newCode) => {
+  const handleCodeChange = (newCode: string) => {
     setCode(newCode);
   };
 
