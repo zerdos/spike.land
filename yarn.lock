@@ -3378,7 +3378,7 @@ __metadata:
     "@types/uuid": "npm:10.0.0"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.14.1"
-    ace-builds: "npm:1.35.0"
+    ace-builds: "npm:1.35.1"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -4234,10 +4234,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.35.0":
-  version: 1.35.0
-  resolution: "ace-builds@npm:1.35.0"
-  checksum: 10/230d62e9766feb2c1203b613eaed114c9c2568c25554b4431cdf01375a221684fb6548c488b02a01eceade366ded45e1bdb08b79a17934dde38ebd5db94f1dd6
+"ace-builds@npm:1.35.1":
+  version: 1.35.1
+  resolution: "ace-builds@npm:1.35.1"
+  checksum: 10/4b3c09d56635ba7e43fd7c6cb06e94ae2a45bc70d63c6bd3024291eadbba0e3178976ba2551e2b72dcc60f0b751e19e1ddf47a2907e39777ac1769e26459f675
   languageName: node
   linkType: hard
 
@@ -8621,10 +8621,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.4.8":
-  version: 4.4.8
-  resolution: "hono@npm:4.4.8"
-  checksum: 10/b278a1159fbcaed7abbefb28b9dc1f423cf17c6c0dfdc039e5591ff1c09c799adf4faf698819c516a2dd3c027571046654924e00382151ef3509587048ee5597
+"hono@npm:4.4.9":
+  version: 4.4.9
+  resolution: "hono@npm:4.4.9"
+  checksum: 10/cfe1a163c92b5bba790928b823d85c8158e45f9e4deda3061033974215bcf3be188f388c3fe9b00ce817ab1cef08fa5e5e5108d88c3680a5798b837cebeb8a33
   languageName: node
   linkType: hard
 
@@ -11182,7 +11182,7 @@ __metadata:
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240620.0"
-    hono: "npm:4.4.8"
+    hono: "npm:4.4.9"
     wrangler: "npm:3.62.0"
   languageName: unknown
   linkType: soft
@@ -11207,7 +11207,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:7.14.1"
     "@vite-pwa/assets-generator": "npm:0.2.4"
     "@vitejs/plugin-react": "npm:4.3.1"
-    ace-builds: "npm:1.35.0"
+    ace-builds: "npm:1.35.1"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     classnames: "npm:2.5.1"
@@ -11238,7 +11238,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     typescript: "npm:5.5.2"
-    vite: "npm:5.3.1"
+    vite: "npm:5.3.2"
     vite-plugin-pwa: "npm:0.20.0"
     vite-plugin-wasm: "npm:3.3.0"
     workbox-core: "npm:7.1.0"
@@ -11267,7 +11267,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:7.14.1"
     "@typescript-eslint/parser": "npm:7.14.1"
     "@vitejs/plugin-react": "npm:4.3.1"
-    ace-builds: "npm:1.35.0"
+    ace-builds: "npm:1.35.1"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     eslint: "npm:8.57.0"
@@ -11290,7 +11290,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     typescript: "npm:5.5.2"
-    vite: "npm:5.3.1"
+    vite: "npm:5.3.2"
     vite-plugin-pwa: "npm:0.20.0"
     workbox-window: "npm:7.1.0"
     worker-rpc: "npm:0.2.0"
@@ -15308,9 +15308,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:5.3.1":
-  version: 5.3.1
-  resolution: "vite@npm:5.3.1"
+"vite@npm:5.3.2":
+  version: 5.3.2
+  resolution: "vite@npm:5.3.2"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
@@ -15344,7 +15344,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/180ca1795389f1ebc0b09f2ce61846943d34df597c4719e68d1d5ecba3e6cbd5b3313a4a321119b18290de3ef543df433659ba8b678de84df152e0386342697f
+  checksum: 10/77b284938921da6c2c4055a5edd916ab221a973aa1403dba2aef303db1bd54ac7325db13f3fad13d77a7ac55cac7ffef49dffaa69bcadcc3caf2cae32ca03127
   languageName: node
   linkType: hard
 

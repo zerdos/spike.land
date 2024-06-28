@@ -62,22 +62,7 @@ const fakeBackend = async (request: Request) => {
   const url = new URL(request.url);
 
   if (url.origin !== self.location.origin || request.method === "POST") {
-    try {
-      const resp = await fetch(request);
-      if (!resp.ok) {
-        console.error(
-          "Error fetching:",
-          request.url,
-          resp.status,
-          resp.statusText,
-        );
-      }
-
-      return resp;
-    } catch (err) {
-      console.error("Error fetching:", request.url, err);
-      return fetch(request);
-    }
+    return fetch(request);
   }
 
   const paths = url.pathname.split("/");

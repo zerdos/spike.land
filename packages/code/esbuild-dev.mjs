@@ -1,5 +1,5 @@
 import { build, stop } from "./buildOperations.mjs";
-import { buildOptions, environment, workerEntryPoints } from "./config.mjs";
+import { buildOptions, environment, target, workerEntryPoints } from "./config.mjs";
 import { copyFiles } from "./copyFiles.mjs";
 import { getWasmFile, makeEnv } from "./helpers.mjs";
 
@@ -95,7 +95,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: true,
-
+    target: "es2022",
     mangleQuoted: false,
     charset: "utf8",
     legalComments: "none",
@@ -131,7 +131,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
 
       "src/motion.ts",
       "src/hydrate.ts",
-      "src/shared.ts",
       "src/emotion.ts",
       "src/startMonaco.ts",
       "src/cf-workers.mjs",
