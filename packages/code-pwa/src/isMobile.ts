@@ -13,7 +13,7 @@ export function isMobile() {
     ) {
       check = true;
     }
-  })(navigator.userAgent || navigator.vendor );
+  })(navigator.userAgent || navigator.vendor);
 
   return check && !isIOS;
 }

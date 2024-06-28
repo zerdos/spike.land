@@ -4,11 +4,10 @@ import { mkdir } from "./memfs";
 // Set up service worker version
 // const { swVersion } = self;
 
-
 // Create directories for the code space
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
-const origin = location.origin.includes("localhost")? "https://testing.spike.land" : location.origin;
+const origin = location.origin.includes("localhost") ? "https://testing.spike.land" : location.origin;
 
 mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
 
@@ -33,20 +32,17 @@ if (location.pathname === `/live/${codeSpace}`) {
 } else {
   // Render the code
   // import { render } from "./render";
-  import("./render").then(({ render }) =>
-    {
+  import("./render").then(({ render }) => {
     let divToRender = document.getElementById(`${codeSpace}-css`);
-  if (!divToRender) {
-    divToRender = document.createElement("div");
-    divToRender.id = `${codeSpace}-css`;
-    document.body.appendChild(document.getElementById('root')!);
-  }
-
+    if (!divToRender) {
+      divToRender = document.createElement("div");
+      divToRender.id = `${codeSpace}-css`;
+      document.body.appendChild(document.getElementById("root")!);
+    }
 
     render(
       divToRender,
       codeSpace,
-    )
-  }
-  );
+    );
+  });
 }

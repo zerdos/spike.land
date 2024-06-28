@@ -12,7 +12,7 @@ globalThis.firstRender = globalThis.firstRender
 
 const codeSpace = getCodeSpace();
 const mutex = new Mutex();
-const origin = location.origin.includes("localhost")? "https://testing.spike.land" : location.origin;
+const origin = location.origin.includes("localhost") ? "https://testing.spike.land" : location.origin;
 
 class Code {
   session: ICodeSession;

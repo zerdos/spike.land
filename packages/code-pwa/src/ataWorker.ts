@@ -15,8 +15,7 @@ const policy = {
   maxDelay: 60000,
 };
 
-const origin = location.origin.includes("localhost")? "testing.spike.land" : location.hostname;
-
+const origin = location.origin.includes("localhost") ? "testing.spike.land" : location.hostname;
 
 declare var self:
   & SharedWorkerGlobalScope

@@ -2,7 +2,7 @@ import { oo } from "./importMap";
 
 export function importMapReplace(code: string, _origin: string): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
-  const origin = _origin.includes(".spike") ? _origin :  "https://testing.spike.land/";
+  const origin = _origin.includes(".spike") ? _origin : "https://testing.spike.land/";
 
   if (code.includes("importMapReplace")) {
     return code;

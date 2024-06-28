@@ -1,7 +1,7 @@
 import react from "@vitejs/plugin-react";
-import wasm from "vite-plugin-wasm";
 import path from "path";
 import { defineConfig, Plugin } from "vite";
+import wasm from "vite-plugin-wasm";
 
 const __dirname = path.resolve();
 
@@ -39,7 +39,6 @@ export default defineConfig({
     //   })
   ],
   build: {
- 
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "index.html"),

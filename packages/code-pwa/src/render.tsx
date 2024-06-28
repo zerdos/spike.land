@@ -11,7 +11,7 @@ import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
 
-const origin = location.origin.includes("localhost")? "https://testing.spike.land" : location.origin;
+const origin = location.origin.includes("localhost") ? "https://testing.spike.land" : location.origin;
 
 const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${origin}/live/${codeSpace}/`);
@@ -22,7 +22,6 @@ let root: ReturnType<typeof createRoot>;
 globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
 
-
 export const render = async (
   _rootEl: HTMLElement,
   codeSpace: string,
@@ -30,7 +29,7 @@ export const render = async (
   signal: AbortSignal | null = null,
   data: ICodeSession | null = null,
 ) => {
-  console.log("render", { codeSpace }); 
+  console.log("render", { codeSpace });
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
@@ -114,7 +113,7 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
         ? `${origin}/live/${codeSpace}/index.mjs`
         : `${origin}/live/${codeSpace}/index.js`;
 
-      App = (await import( /* @vite-ignore */ moduleUrl)).default;
+      App = (await import(/* @vite-ignore */ moduleUrl)).default;
     } catch (err) {
       App = () => (
         <div>
