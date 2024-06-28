@@ -35,21 +35,4 @@ export const {
   version,
 } = React;
 
-// const originalUseState = React.useState;
-
-// export function useState<S>(
-//   initialState: (() => S) | S,
-// ) {
-//   if ((globalThis as unknown as { workerDom: boolean }).workerDom) {
-//     const [state, setState] = originalUseState(initialState);
-//     // const delayedSetState = (updates: (() => S) | S) =>
-//       // setTimeout(() => isCallable(updates) ? setState(() => updates()) : setState(updates));
-//     return [state, delayedSetState];
-//   }
-
-//   return originalUseState(initialState);
-// }
-
-// Object.assign(React, { useState });
-
 export default React;

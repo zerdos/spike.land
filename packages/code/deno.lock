@@ -49,7 +49,7 @@
         "npm:jest@29.7.0",
         "npm:localforage@1.10.0",
         "npm:lodash.debounce@4.0.8",
-        "npm:lucide-react@0.397.0",
+        "npm:lucide-react@0.399.0",
         "npm:module@1.2.5",
         "npm:monaco-editor@0.50.0",
         "npm:node-jq@^4.4.0",

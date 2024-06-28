@@ -5270,7 +5270,7 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
           ["localforage", "npm:1.10.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.397.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.399.0"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.50.0"],\
           ["node-jq", "npm:4.4.0"],\
@@ -14204,17 +14204,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["lucide-react", [\
-      ["npm:0.397.0", {\
-        "packageLocation": "./.yarn/global/cache/lucide-react-npm-0.397.0-991bb844b0-10.zip/node_modules/lucide-react/",\
+      ["npm:0.399.0", {\
+        "packageLocation": "./.yarn/global/cache/lucide-react-npm-0.399.0-bd83386a15-10.zip/node_modules/lucide-react/",\
         "packageDependencies": [\
-          ["lucide-react", "npm:0.397.0"]\
+          ["lucide-react", "npm:0.399.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.397.0", {\
-        "packageLocation": "./.yarn/__virtual__/lucide-react-virtual-227826fd44/0/global/cache/lucide-react-npm-0.397.0-991bb844b0-10.zip/node_modules/lucide-react/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.399.0", {\
+        "packageLocation": "./.yarn/__virtual__/lucide-react-virtual-ae13459487/0/global/cache/lucide-react-npm-0.399.0-bd83386a15-10.zip/node_modules/lucide-react/",\
         "packageDependencies": [\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.397.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.399.0"],\
           ["@types/react", "npm:18.3.3"],\
           ["react", "npm:18.3.1"]\
         ],\
@@ -14844,7 +14844,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.2.12"],\
           ["immutable", "npm:4.3.6"],\
           ["lodash.debounce", "npm:4.0.8"],\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.397.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.399.0"],\
           ["monaco-editor", "npm:0.50.0"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.17"],\
@@ -14901,7 +14901,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:4.3.6"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
           ["lodash.debounce", "npm:4.0.8"],\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.397.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.399.0"],\
           ["monaco-editor", "npm:0.50.0"],\
           ["prettier", "npm:3.3.2"],\
           ["prop-types", "npm:15.8.1"],\
