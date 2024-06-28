@@ -15,7 +15,7 @@
     ".": "./"
   },
   "scripts": {
-    "hash": "cd dist && find .  -type f -exec shasum -a 256 {} \";\" | jq -R -s -c 'split(\"\n\")[:-1]'>dist.json",
+    "hash": "cd dist && find .  -type f -exec shasum -a 256 {} \";\" | yarn node-jq -R -s -c 'split(\"\n\")[:-1]'>dist.json",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) -u",
     "types": "tsc || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
@@ -124,6 +124,7 @@
     "@types/wicg-file-system-access": "2023.10.5",
     "eslint": "9.5.0",
     "eslint-plugin-react": "7.34.3",
+    "node-jq": "^4.4.0",
     "popmotion": "11.0.5",
     "tslib": "2.6.3",
     "typescript": "5.5.2",

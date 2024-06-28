@@ -52,6 +52,7 @@
         "npm:lucide-react@0.397.0",
         "npm:module@1.2.5",
         "npm:monaco-editor@0.50.0",
+        "npm:node-jq@^4.4.0",
         "npm:node-source-walk@7.0.0",
         "npm:os-browserify@0.3.0",
         "npm:p-map@7.0.2",
