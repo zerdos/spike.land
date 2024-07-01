@@ -122,7 +122,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.1.3"],\
           ["constants", "npm:0.0.2"],\
           ["cypress", "npm:13.12.0"],\
-          ["dprint", "npm:0.46.3"],\
+          ["dprint", "npm:0.47.0"],\
           ["eslint", "npm:9.6.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.3"],\
           ["execa", "npm:9.3.0"],\
@@ -2922,64 +2922,64 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@dprint/darwin-arm64", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-darwin-arm64-npm-0.46.3-2cc9a1e8d1/node_modules/@dprint/darwin-arm64/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-darwin-arm64-npm-0.47.0-801aa1cfa0/node_modules/@dprint/darwin-arm64/",\
         "packageDependencies": [\
-          ["@dprint/darwin-arm64", "npm:0.46.3"]\
+          ["@dprint/darwin-arm64", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/darwin-x64", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-darwin-x64-npm-0.46.3-7f48431dc3/node_modules/@dprint/darwin-x64/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-darwin-x64-npm-0.47.0-1640845686/node_modules/@dprint/darwin-x64/",\
         "packageDependencies": [\
-          ["@dprint/darwin-x64", "npm:0.46.3"]\
+          ["@dprint/darwin-x64", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-arm64-glibc", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-glibc-npm-0.46.3-096c631cbf/node_modules/@dprint/linux-arm64-glibc/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-glibc-npm-0.47.0-b1cf4697e9/node_modules/@dprint/linux-arm64-glibc/",\
         "packageDependencies": [\
-          ["@dprint/linux-arm64-glibc", "npm:0.46.3"]\
+          ["@dprint/linux-arm64-glibc", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-arm64-musl", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-musl-npm-0.46.3-37d5d98fbb/node_modules/@dprint/linux-arm64-musl/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-arm64-musl-npm-0.47.0-72e3e048d9/node_modules/@dprint/linux-arm64-musl/",\
         "packageDependencies": [\
-          ["@dprint/linux-arm64-musl", "npm:0.46.3"]\
+          ["@dprint/linux-arm64-musl", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-x64-glibc", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-glibc-npm-0.46.3-d963871a29/node_modules/@dprint/linux-x64-glibc/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-glibc-npm-0.47.0-5ef822d353/node_modules/@dprint/linux-x64-glibc/",\
         "packageDependencies": [\
-          ["@dprint/linux-x64-glibc", "npm:0.46.3"]\
+          ["@dprint/linux-x64-glibc", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/linux-x64-musl", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-musl-npm-0.46.3-7305a7a3f4/node_modules/@dprint/linux-x64-musl/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-linux-x64-musl-npm-0.47.0-a6ab3c35c9/node_modules/@dprint/linux-x64-musl/",\
         "packageDependencies": [\
-          ["@dprint/linux-x64-musl", "npm:0.46.3"]\
+          ["@dprint/linux-x64-musl", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@dprint/win32-x64", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/@dprint-win32-x64-npm-0.46.3-451eb42b0a/node_modules/@dprint/win32-x64/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/@dprint-win32-x64-npm-0.47.0-4796887a93/node_modules/@dprint/win32-x64/",\
         "packageDependencies": [\
-          ["@dprint/win32-x64", "npm:0.46.3"]\
+          ["@dprint/win32-x64", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4398,7 +4398,7 @@ const RAW_RUNTIME_STATE =
           ["detect-libc", "npm:2.0.3"],\
           ["https-proxy-agent", "npm:5.0.1"],\
           ["make-dir", "npm:3.1.0"],\
-          ["node-fetch", "virtual:4e7def6a2d6c2eb5c6585cab9283d531f7de33be29dfdb65362452eaaf541d70893e2c1b6621cb32b382adc30870f70b84433427a71c2794d7ba6f6bcc553e91#npm:2.7.0"],\
+          ["node-fetch", "virtual:2dd30c51e1a5ddfa8b160038f7db62066f06ade427c3a6f3a02fbe6031fb1cce2b5a056ffa01c6c75d9117be1c180cc6bd098ab538e66eb2a07342c0384cf2bb#npm:2.7.0"],\
           ["nopt", "npm:5.0.0"],\
           ["npmlog", "npm:5.0.1"],\
           ["rimraf", "npm:3.0.2"],\
@@ -5140,7 +5140,7 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.4.5"],\
           ["express", "npm:4.19.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "npm:4.52.1"],\
+          ["openai", "npm:4.52.2"],\
           ["p-limit", "npm:5.0.0"],\
           ["simple-git", "npm:3.25.0"]\
         ],\
@@ -5162,7 +5162,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/cf-npm-site/",\
         "packageDependencies": [\
           ["@spike-land/cf-npm-site", "workspace:packages/cf-npm-site"],\
-          ["esbuild-wasm", "npm:0.21.5"]\
+          ["esbuild-wasm", "npm:0.22.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5199,7 +5199,7 @@ const RAW_RUNTIME_STATE =
           ["constants", "npm:0.0.2"],\
           ["csstype", "npm:3.1.3"],\
           ["detective-typescript", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:13.0.0"],\
-          ["esbuild-wasm", "npm:0.21.5"],\
+          ["esbuild-wasm", "npm:0.22.0"],\
           ["eslint", "npm:9.6.0"],\
           ["eslint-plugin-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.34.3"],\
           ["events", "npm:3.3.0"],\
@@ -5260,7 +5260,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:20.14.9"],\
           ["async-mutex", "npm:0.5.0"],\
           ["avl", "npm:1.5.3"],\
-          ["esbuild-wasm", "npm:0.21.5"],\
+          ["esbuild-wasm", "npm:0.22.0"],\
           ["esm-worker", "npm:0.135.16"],\
           ["immutable", "npm:4.3.6"],\
           ["lib0", "npm:0.2.94"],\
@@ -5289,7 +5289,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
           ["@types/node", "npm:20.14.9"],\
-          ["esbuild-wasm", "npm:0.21.5"]\
+          ["esbuild-wasm", "npm:0.22.0"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -5396,7 +5396,7 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
           ["@cloudflare/workers-types", "npm:4.20240620.0"],\
-          ["esbuild-wasm", "npm:0.21.5"],\
+          ["esbuild-wasm", "npm:0.22.0"],\
           ["typescript", "patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>::version=5.5.2&hash=379a07"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.62.0"]\
         ],\
@@ -9313,17 +9313,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["dprint", [\
-      ["npm:0.46.3", {\
-        "packageLocation": "./.yarn/unplugged/dprint-npm-0.46.3-be820bc4b0/node_modules/dprint/",\
+      ["npm:0.47.0", {\
+        "packageLocation": "./.yarn/unplugged/dprint-npm-0.47.0-6479ed54e8/node_modules/dprint/",\
         "packageDependencies": [\
-          ["dprint", "npm:0.46.3"],\
-          ["@dprint/darwin-arm64", "npm:0.46.3"],\
-          ["@dprint/darwin-x64", "npm:0.46.3"],\
-          ["@dprint/linux-arm64-glibc", "npm:0.46.3"],\
-          ["@dprint/linux-arm64-musl", "npm:0.46.3"],\
-          ["@dprint/linux-x64-glibc", "npm:0.46.3"],\
-          ["@dprint/linux-x64-musl", "npm:0.46.3"],\
-          ["@dprint/win32-x64", "npm:0.46.3"]\
+          ["dprint", "npm:0.47.0"],\
+          ["@dprint/darwin-arm64", "npm:0.47.0"],\
+          ["@dprint/darwin-x64", "npm:0.47.0"],\
+          ["@dprint/linux-arm64-glibc", "npm:0.47.0"],\
+          ["@dprint/linux-arm64-musl", "npm:0.47.0"],\
+          ["@dprint/linux-x64-glibc", "npm:0.47.0"],\
+          ["@dprint/linux-x64-musl", "npm:0.47.0"],\
+          ["@dprint/win32-x64", "npm:0.47.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9724,10 +9724,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["esbuild-wasm", [\
-      ["npm:0.21.5", {\
-        "packageLocation": "./.yarn/global/cache/esbuild-wasm-npm-0.21.5-ebb825fbec-10.zip/node_modules/esbuild-wasm/",\
+      ["npm:0.22.0", {\
+        "packageLocation": "./.yarn/global/cache/esbuild-wasm-npm-0.22.0-2dd3f8ffc8-10.zip/node_modules/esbuild-wasm/",\
         "packageDependencies": [\
-          ["esbuild-wasm", "npm:0.21.5"]\
+          ["esbuild-wasm", "npm:0.22.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11622,10 +11622,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["hono", [\
-      ["npm:4.4.9", {\
-        "packageLocation": "./.yarn/global/cache/hono-npm-4.4.9-d25dea219a-10.zip/node_modules/hono/",\
+      ["npm:4.4.10", {\
+        "packageLocation": "./.yarn/global/cache/hono-npm-4.4.10-cacc3358e8-10.zip/node_modules/hono/",\
         "packageDependencies": [\
-          ["hono", "npm:4.4.9"]\
+          ["hono", "npm:4.4.10"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12692,7 +12692,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/isomorphic-fetch-npm-3.0.0-bce711adff-10.zip/node_modules/isomorphic-fetch/",\
         "packageDependencies": [\
           ["isomorphic-fetch", "npm:3.0.0"],\
-          ["node-fetch", "virtual:4e7def6a2d6c2eb5c6585cab9283d531f7de33be29dfdb65362452eaaf541d70893e2c1b6621cb32b382adc30870f70b84433427a71c2794d7ba6f6bcc553e91#npm:2.7.0"],\
+          ["node-fetch", "virtual:2dd30c51e1a5ddfa8b160038f7db62066f06ade427c3a6f3a02fbe6031fb1cce2b5a056ffa01c6c75d9117be1c180cc6bd098ab538e66eb2a07342c0384cf2bb#npm:2.7.0"],\
           ["whatwg-fetch", "npm:3.6.20"]\
         ],\
         "linkType": "HARD"\
@@ -14584,7 +14584,7 @@ const RAW_RUNTIME_STATE =
           ["@yarnpkg/sdks", "npm:3.1.3"],\
           ["constants", "npm:0.0.2"],\
           ["cypress", "npm:13.12.0"],\
-          ["dprint", "npm:0.46.3"],\
+          ["dprint", "npm:0.47.0"],\
           ["eslint", "npm:9.6.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.34.3"],\
           ["execa", "npm:9.3.0"],\
@@ -14645,7 +14645,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["my-api", "workspace:packages/my-api"],\
           ["@cloudflare/workers-types", "npm:4.20240620.0"],\
-          ["hono", "npm:4.4.9"],\
+          ["hono", "npm:4.4.10"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.62.0"]\
         ],\
         "linkType": "SOFT"\
@@ -14725,7 +14725,7 @@ const RAW_RUNTIME_STATE =
           ["async-mutex", "npm:0.5.0"],\
           ["avl", "npm:1.5.3"],\
           ["classnames", "npm:2.5.1"],\
-          ["esbuild-wasm", "npm:0.21.5"],\
+          ["esbuild-wasm", "npm:0.22.0"],\
           ["eslint", "npm:9.6.0"],\
           ["eslint-plugin-react-hooks", "virtual:e9fbd22c7b4f9d9418edd0debfb334ed74a83863b91b0a4905c7e0dc2dabb39aca2522b0d1ff16a03945d0274a7add79a9350d27047c110407d68dc864207e22#npm:4.6.2"],\
           ["eslint-plugin-react-refresh", "virtual:e9fbd22c7b4f9d9418edd0debfb334ed74a83863b91b0a4905c7e0dc2dabb39aca2522b0d1ff16a03945d0274a7add79a9350d27047c110407d68dc864207e22#npm:0.4.7"],\
@@ -14869,10 +14869,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:4e7def6a2d6c2eb5c6585cab9283d531f7de33be29dfdb65362452eaaf541d70893e2c1b6621cb32b382adc30870f70b84433427a71c2794d7ba6f6bcc553e91#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-521c56f3ad/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:2dd30c51e1a5ddfa8b160038f7db62066f06ade427c3a6f3a02fbe6031fb1cce2b5a056ffa01c6c75d9117be1c180cc6bd098ab538e66eb2a07342c0384cf2bb#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-24e1f91ed9/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:4e7def6a2d6c2eb5c6585cab9283d531f7de33be29dfdb65362452eaaf541d70893e2c1b6621cb32b382adc30870f70b84433427a71c2794d7ba6f6bcc553e91#npm:2.7.0"],\
+          ["node-fetch", "virtual:2dd30c51e1a5ddfa8b160038f7db62066f06ade427c3a6f3a02fbe6031fb1cce2b5a056ffa01c6c75d9117be1c180cc6bd098ab538e66eb2a07342c0384cf2bb#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -15291,17 +15291,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.52.1", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.52.1-4e7def6a2d-10.zip/node_modules/openai/",\
+      ["npm:4.52.2", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.52.2-2dd30c51e1-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.52.1"],\
+          ["openai", "npm:4.52.2"],\
           ["@types/node", "npm:18.19.39"],\
           ["@types/node-fetch", "npm:2.6.11"],\
           ["abort-controller", "npm:3.0.0"],\
           ["agentkeepalive", "npm:4.5.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:4e7def6a2d6c2eb5c6585cab9283d531f7de33be29dfdb65362452eaaf541d70893e2c1b6621cb32b382adc30870f70b84433427a71c2794d7ba6f6bcc553e91#npm:2.7.0"],\
+          ["node-fetch", "virtual:2dd30c51e1a5ddfa8b160038f7db62066f06ade427c3a6f3a02fbe6031fb1cce2b5a056ffa01c6c75d9117be1c180cc6bd098ab538e66eb2a07342c0384cf2bb#npm:2.7.0"],\
           ["web-streams-polyfill", "npm:3.3.3"]\
         ],\
         "linkType": "HARD"\
