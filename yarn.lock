@@ -3329,7 +3329,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/cf-npm-site@workspace:packages/cf-npm-site"
   dependencies:
-    esbuild-wasm: "npm:0.22.0"
+    esbuild-wasm: "npm:0.23.0"
   languageName: unknown
   linkType: soft
 
@@ -3343,14 +3343,14 @@ __metadata:
     "@types/node": "npm:20.14.9"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
-    esbuild-wasm: "npm:0.22.0"
+    esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.6"
     lib0: "npm:0.2.94"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
-    typescript: "npm:5.5.2"
+    typescript: "npm:5.5.3"
     wrangler: "npm:3.62.0"
   languageName: unknown
   linkType: soft
@@ -3386,7 +3386,7 @@ __metadata:
     constants: "npm:0.0.2"
     csstype: "npm:3.1.3"
     detective-typescript: "npm:13.0.0"
-    esbuild-wasm: "npm:0.22.0"
+    esbuild-wasm: "npm:0.23.0"
     eslint: "npm:9.6.0"
     eslint-plugin-react: "npm:7.34.3"
     events: "npm:3.3.0"
@@ -3399,7 +3399,7 @@ __metadata:
     jest: "npm:29.7.0"
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.399.0"
+    lucide-react: "npm:0.400.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.50.0"
     node-jq: "npm:^4.4.0"
@@ -3425,7 +3425,7 @@ __metadata:
     ts-jest: "npm:29.1.5"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.3"
-    typescript: "npm:5.5.2"
+    typescript: "npm:5.5.3"
     util: "npm:0.12.5"
     uuid: "npm:10.0.0"
     uvu: "npm:0.5.6"
@@ -3448,7 +3448,7 @@ __metadata:
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
     "@types/node": "npm:20.14.9"
-    esbuild-wasm: "npm:0.22.0"
+    esbuild-wasm: "npm:0.23.0"
   languageName: unknown
   linkType: soft
 
@@ -3528,8 +3528,8 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240620.0"
-    esbuild-wasm: "npm:0.22.0"
-    typescript: "npm:5.5.2"
+    esbuild-wasm: "npm:0.23.0"
+    typescript: "npm:5.5.3"
     wrangler: "npm:3.62.0"
   languageName: unknown
   linkType: soft
@@ -6212,9 +6212,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.12.0":
-  version: 13.12.0
-  resolution: "cypress@npm:13.12.0"
+"cypress@npm:13.13.0":
+  version: 13.13.0
+  resolution: "cypress@npm:13.13.0"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -6255,12 +6255,12 @@ __metadata:
     request-progress: "npm:^3.0.0"
     semver: "npm:^7.5.3"
     supports-color: "npm:^8.1.1"
-    tmp: "npm:~0.2.1"
+    tmp: "npm:~0.2.3"
     untildify: "npm:^4.0.0"
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10/cf25219d336669a93541f4df5f415ad35fa944014157c12793db359c48946f0843fd6499315deb5b95f095a5319086df21fe2870461944931d0bca1e6cfcce77
+  checksum: 10/8d92fa511dbfe5429b119827f3eec0043d23861a814e307b53da3a885efc8495de789c44fd57da6a4d69390ffa5306ba181ec42f784afdbd1a78d14591d2f7c3
   languageName: node
   linkType: hard
 
@@ -7038,12 +7038,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.22.0":
-  version: 0.22.0
-  resolution: "esbuild-wasm@npm:0.22.0"
+"esbuild-wasm@npm:0.23.0":
+  version: 0.23.0
+  resolution: "esbuild-wasm@npm:0.23.0"
   bin:
     esbuild: bin/esbuild
-  checksum: 10/5334fdad084e381e53b4fbc5dbff18829a8ec30cbdd9246970dcc3cc64d040225c1ff1365255710df15410e871f5cedf3791fccbc64ed5a2b983daae3919495f
+  checksum: 10/1ab1ba5eb31b3705d22800e8cb70f3912390ef2af6a2f0335f1b580b467482717d7133cfffafea0fd8b1c9e45d3f36f68a6aaeb0ecce5f4c3899c6421bb310ed
   languageName: node
   linkType: hard
 
@@ -10957,12 +10957,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:0.399.0":
-  version: 0.399.0
-  resolution: "lucide-react@npm:0.399.0"
+"lucide-react@npm:0.400.0":
+  version: 0.400.0
+  resolution: "lucide-react@npm:0.400.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/89212e54dc58c99f6d7593fc4ac5020771ec57bf334a4f5c1280df131cfb99b2c2ffabcf44a7c26670bee29979d687e7b4318b5d8681d404714faa1e9cc2a6ce
+  checksum: 10/6ed8234119658fee998945f39e31d78f4fa05df5216eb1d269fc211c84a382928e4e4705f75ce85dcb056d493e9cf7810303d08c56eb40dce5066c3182ec5e7f
   languageName: node
   linkType: hard
 
@@ -11456,7 +11456,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:7.15.0"
     "@yarnpkg/sdks": "npm:3.1.3"
     constants: "npm:0.0.2"
-    cypress: "npm:13.12.0"
+    cypress: "npm:13.13.0"
     dprint: "npm:0.47.0"
     eslint: "npm:9.6.0"
     eslint-plugin-react: "npm:7.34.3"
@@ -11464,7 +11464,7 @@ __metadata:
     localforage: "npm:1.10.0"
     playwright: "npm:1.45.0"
     react: "npm:18.3.1"
-    typescript: "npm:5.5.2"
+    typescript: "npm:5.5.3"
     util: "npm:0.12.5"
     utils: "npm:0.3.1"
   languageName: unknown
@@ -11541,7 +11541,7 @@ __metadata:
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     classnames: "npm:2.5.1"
-    esbuild-wasm: "npm:0.22.0"
+    esbuild-wasm: "npm:0.23.0"
     eslint: "npm:9.6.0"
     eslint-plugin-react-hooks: "npm:4.6.2"
     eslint-plugin-react-refresh: "npm:0.4.7"
@@ -11552,7 +11552,7 @@ __metadata:
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.399.0"
+    lucide-react: "npm:0.400.0"
     monaco-editor: "npm:0.50.0"
     prettier: "npm:3.3.2"
     prop-types: "npm:15.8.1"
@@ -11567,7 +11567,7 @@ __metadata:
     react-rnd: "npm:10.4.11"
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
-    typescript: "npm:5.5.2"
+    typescript: "npm:5.5.3"
     vite: "npm:5.3.2"
     vite-plugin-pwa: "npm:0.20.0"
     vite-plugin-wasm: "npm:3.3.0"
@@ -11607,7 +11607,7 @@ __metadata:
     framer-motion: "npm:11.2.12"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.399.0"
+    lucide-react: "npm:0.400.0"
     monaco-editor: "npm:0.50.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.17"
@@ -11619,7 +11619,7 @@ __metadata:
     react-rnd: "npm:10.4.11"
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
-    typescript: "npm:5.5.2"
+    typescript: "npm:5.5.3"
     vite: "npm:5.3.2"
     vite-plugin-pwa: "npm:0.20.0"
     workbox-window: "npm:7.1.0"
@@ -15113,7 +15113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tmp@npm:~0.2.1":
+"tmp@npm:~0.2.3":
   version: 0.2.3
   resolution: "tmp@npm:0.2.3"
   checksum: 10/7b13696787f159c9754793a83aa79a24f1522d47b87462ddb57c18ee93ff26c74cbb2b8d9138f571d2e0e765c728fb2739863a672b280528512c6d83d511c6fa
@@ -15450,23 +15450,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.5.2":
-  version: 5.5.2
-  resolution: "typescript@npm:5.5.2"
+"typescript@npm:5.5.3":
+  version: 5.5.3
+  resolution: "typescript@npm:5.5.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/9118b20f248e76b0dbff8737fef65dfa89d02668d4e633d2c5ceac99033a0ca5e8a1c1a53bc94da68e8f67677a88f318663dde859c9e9a09c1e116415daec2ba
+  checksum: 10/11a867312419ed497929aafd2f1d28b2cd41810a5eb6c6e9e169559112e9ea073d681c121a29102e67cd4478d0a4ae37a306a5800f3717f59c4337e6a9bd5e8d
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>":
-  version: 5.5.2
-  resolution: "typescript@patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>::version=5.5.2&hash=379a07"
+"typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>":
+  version: 5.5.3
+  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10/ac3145f65cf9e72ab29f2196e05d5816b355dc1a9195b9f010d285182a12457cfacd068be2dd22c877f88ebc966ac6e0e83f51c8586412b16499a27e3670ff4b
+  checksum: 10/7cf7acb78a80f749b82842f2ffe01e90e7b3e709a6f4268588e0b7599c41dca1059be217f47778fe1a380bfaf60933021ef20d002c426d4d7745e1b36c11467b
   languageName: node
   linkType: hard
 

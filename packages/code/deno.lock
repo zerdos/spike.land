@@ -5,7 +5,8 @@
     "https://deno.land/x/denoflate@1.2.1/pkg/denoflate.js": "b9f9ad9457d3f12f28b1fb35c555f57443427f74decb403113d67364e4f2caf4",
     "https://deno.land/x/denoflate@1.2.1/pkg/denoflate_bg.wasm.js": "d581956245407a2115a3d7e8d85a9641c032940a8e810acbd59ca86afd34d44d",
     "https://deno.land/x/esbuild@v0.21.5/mod.js": "f391d2907ca95fff70cc0bea3eb690d1687d069e6559cad1017af942f7b76d4d",
-    "https://deno.land/x/esbuild@v0.22.0/mod.js": "60352c3a9ab1b8f8afaf8834fc2448e50c1cd4d6a89fd79dfc48cd234811e4b8"
+    "https://deno.land/x/esbuild@v0.22.0/mod.js": "60352c3a9ab1b8f8afaf8834fc2448e50c1cd4d6a89fd79dfc48cd234811e4b8",
+    "https://deno.land/x/esbuild@v0.23.0/mod.js": "46f2e569b50e4d1f1b379b2f9785a9b9437d52911b849df8797d9ca40ce3e1c9"
   },
   "workspace": {
     "packageJson": {
@@ -37,7 +38,7 @@
         "npm:constants@0.0.2",
         "npm:csstype@3.1.3",
         "npm:detective-typescript@13.0.0",
-        "npm:esbuild-wasm@0.22.0",
+        "npm:esbuild-wasm@0.23.0",
         "npm:eslint-plugin-react@7.34.3",
         "npm:eslint@9.6.0",
         "npm:events@3.3.0",
@@ -50,7 +51,7 @@
         "npm:jest@29.7.0",
         "npm:localforage@1.10.0",
         "npm:lodash.debounce@4.0.8",
-        "npm:lucide-react@0.399.0",
+        "npm:lucide-react@0.400.0",
         "npm:module@1.2.5",
         "npm:monaco-editor@0.50.0",
         "npm:node-jq@^4.4.0",
@@ -76,7 +77,7 @@
         "npm:ts-jest@29.1.5",
         "npm:ts-md5@1.3.1",
         "npm:tslib@2.6.3",
-        "npm:typescript@5.5.2",
+        "npm:typescript@5.5.3",
         "npm:util@0.12.5",
         "npm:uuid@10.0.0",
         "npm:uvu@0.5.6",
