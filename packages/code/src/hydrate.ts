@@ -7,6 +7,9 @@ import { mkdir } from "./memfs";
 
 // Set up service worker version
 const { swVersion } = self;
+setTimeout(() => {
+  import("./tw.mjs");
+});
 
 if (navigator.serviceWorker) {
   setTimeout(() => {
