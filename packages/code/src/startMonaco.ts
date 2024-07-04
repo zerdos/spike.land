@@ -1,5 +1,5 @@
 import { editor, languages, Uri } from "monaco-editor";
-import * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor";
 import { ata, prettier } from "./shared";
 
 const { createModel } = editor;
