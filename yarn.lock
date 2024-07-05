@@ -3310,7 +3310,7 @@ __metadata:
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
     openai: "npm:4.52.3"
-    p-limit: "npm:5.0.0"
+    p-limit: "npm:6.0.0"
     simple-git: "npm:3.25.0"
   bin:
     ai-commit: ./index.mjs
@@ -3351,7 +3351,7 @@ __metadata:
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.5.3"
-    wrangler: "npm:3.63.0"
+    wrangler: "npm:3.63.1"
   languageName: unknown
   linkType: soft
 
@@ -3393,7 +3393,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.0.0"
-    framer-motion: "npm:11.2.12"
+    framer-motion: "npm:11.2.13"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -3530,7 +3530,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240620.0"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.3"
-    wrangler: "npm:3.63.0"
+    wrangler: "npm:3.63.1"
   languageName: unknown
   linkType: soft
 
@@ -8154,9 +8154,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.2.12":
-  version: 11.2.12
-  resolution: "framer-motion@npm:11.2.12"
+"framer-motion@npm:11.2.13":
+  version: 11.2.13
+  resolution: "framer-motion@npm:11.2.13"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8170,7 +8170,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/34afcc8dc43665c9277d109b76d4a28197d5bf62628891957a2aedb93af24360a9b6903fcb85b9db1fdd021535945f1b858d12a83b16ea9a2b58d29a8f02f6f5
+  checksum: 10/41aa8a84cfa5747b305668e45dde6c5a92d995861c7b59a89b7f1e281413fcc8a9e8ff9d4e92bf20e83ab665992fe84a912da052610f8fe583a21025c7c2691e
   languageName: node
   linkType: hard
 
@@ -11513,7 +11513,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240620.0"
     hono: "npm:4.4.11"
-    wrangler: "npm:3.63.0"
+    wrangler: "npm:3.63.1"
   languageName: unknown
   linkType: soft
 
@@ -11548,7 +11548,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.0.0"
-    framer-motion: "npm:11.2.12"
+    framer-motion: "npm:11.2.13"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
@@ -11604,7 +11604,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:4.6.2"
     eslint-plugin-react-refresh: "npm:0.4.7"
     fast-diff: "npm:1.3.0"
-    framer-motion: "npm:11.2.12"
+    framer-motion: "npm:11.2.13"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
     lucide-react: "npm:0.400.0"
@@ -12212,12 +12212,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:5.0.0":
-  version: 5.0.0
-  resolution: "p-limit@npm:5.0.0"
+"p-limit@npm:6.0.0":
+  version: 6.0.0
+  resolution: "p-limit@npm:6.0.0"
   dependencies:
-    yocto-queue: "npm:^1.0.0"
-  checksum: 10/87bf5837dee6942f0dbeff318436179931d9a97848d1b07dbd86140a477a5d2e6b90d9701b210b4e21fe7beaea2979dfde366e4f576fa644a59bd4d6a6371da7
+    yocto-queue: "npm:^1.1.1"
+  checksum: 10/395b82eb776dbfdfba8171ae1d60f94a0ee19cd682182a152f915c60f674d0519688dffe9b7a3f6fa8ba0b6ec7c6b115c6f64a5d6ad5ddfd250362629d77c450
   languageName: node
   linkType: hard
 
@@ -16391,9 +16391,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.63.0":
-  version: 3.63.0
-  resolution: "wrangler@npm:3.63.0"
+"wrangler@npm:3.63.1":
+  version: 3.63.1
+  resolution: "wrangler@npm:3.63.1"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -16423,7 +16423,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/f207b7f69f2f68d4ee032411d985302caa6eaf70b00051bd39c5c305db012f886ca5806a82fcdc9e6e5972f399c8ba5f6f81a108d16aa5aa20efa0d97dfa6345
+  checksum: 10/bbe7e7145c83f28ba92ce0b48b6e9977d7fc371acca488bc15591390ed0927248e463dacba117097f8ecb24f990000702e48cd42c94a6e9b3ef6c23a0baff660
   languageName: node
   linkType: hard
 
@@ -16637,10 +16637,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yocto-queue@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "yocto-queue@npm:1.0.0"
-  checksum: 10/2cac84540f65c64ccc1683c267edce396b26b1e931aa429660aefac8fbe0188167b7aee815a3c22fa59a28a58d898d1a2b1825048f834d8d629f4c2a5d443801
+"yocto-queue@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "yocto-queue@npm:1.1.1"
+  checksum: 10/f2e05b767ed3141e6372a80af9caa4715d60969227f38b1a4370d60bffe153c9c5b33a862905609afc9b375ec57cd40999810d20e5e10229a204e8bde7ef255c
   languageName: node
   linkType: hard
 

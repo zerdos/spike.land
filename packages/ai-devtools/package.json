@@ -20,7 +20,7 @@
     "express": "4.19.2",
     "node-fetch": "3.3.2",
     "openai": "4.52.3",
-    "p-limit": "5.0.0",
+    "p-limit": "6.0.0",
     "simple-git": "3.25.0"
   },
   "devDependencies": {
