@@ -4659,7 +4659,7 @@ const RAW_RUNTIME_STATE =
           ["agent-base", "npm:7.1.1"],\
           ["http-proxy-agent", "npm:7.0.2"],\
           ["https-proxy-agent", "npm:7.0.5"],\
-          ["lru-cache", "npm:10.3.1"],\
+          ["lru-cache", "npm:10.4.0"],\
           ["socks-proxy-agent", "npm:8.0.4"]\
         ],\
         "linkType": "HARD"\
@@ -7728,7 +7728,7 @@ const RAW_RUNTIME_STATE =
           ["@npmcli/fs", "npm:3.1.1"],\
           ["fs-minipass", "npm:3.0.3"],\
           ["glob", "npm:10.4.3"],\
-          ["lru-cache", "npm:10.3.1"],\
+          ["lru-cache", "npm:10.4.0"],\
           ["minipass", "npm:7.1.2"],\
           ["minipass-collect", "npm:2.0.1"],\
           ["minipass-flush", "npm:1.0.5"],\
@@ -13952,10 +13952,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["lru-cache", [\
-      ["npm:10.3.1", {\
-        "packageLocation": "./.yarn/global/cache/lru-cache-npm-10.3.1-d688e68766-10.zip/node_modules/lru-cache/",\
+      ["npm:10.4.0", {\
+        "packageLocation": "./.yarn/global/cache/lru-cache-npm-10.4.0-e149332e7d-10.zip/node_modules/lru-cache/",\
         "packageDependencies": [\
-          ["lru-cache", "npm:10.3.1"]\
+          ["lru-cache", "npm:10.4.0"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -15648,7 +15648,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/path-scurry-npm-1.11.1-aaf8c339af-10.zip/node_modules/path-scurry/",\
         "packageDependencies": [\
           ["path-scurry", "npm:1.11.1"],\
-          ["lru-cache", "npm:10.3.1"],\
+          ["lru-cache", "npm:10.4.0"],\
           ["minipass", "npm:7.1.2"]\
         ],\
         "linkType": "HARD"\
