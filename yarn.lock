@@ -1540,51 +1540,51 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/darwin-arm64@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/darwin-arm64@npm:0.47.0"
+"@dprint/darwin-arm64@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/darwin-arm64@npm:0.47.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@dprint/darwin-x64@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/darwin-x64@npm:0.47.0"
+"@dprint/darwin-x64@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/darwin-x64@npm:0.47.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-glibc@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/linux-arm64-glibc@npm:0.47.0"
+"@dprint/linux-arm64-glibc@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/linux-arm64-glibc@npm:0.47.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-musl@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/linux-arm64-musl@npm:0.47.0"
+"@dprint/linux-arm64-musl@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/linux-arm64-musl@npm:0.47.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-glibc@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/linux-x64-glibc@npm:0.47.0"
+"@dprint/linux-x64-glibc@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/linux-x64-glibc@npm:0.47.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-musl@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/linux-x64-musl@npm:0.47.0"
+"@dprint/linux-x64-musl@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/linux-x64-musl@npm:0.47.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/win32-x64@npm:0.47.0":
-  version: 0.47.0
-  resolution: "@dprint/win32-x64@npm:0.47.0"
+"@dprint/win32-x64@npm:0.47.1":
+  version: 0.47.1
+  resolution: "@dprint/win32-x64@npm:0.47.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -2199,22 +2199,6 @@ __metadata:
     normalize-path: "npm:^2.0.1"
     through2: "npm:^2.0.3"
   checksum: 10/13bdb3003d34dcb69969d8fa426009d12bc53535e930d5f3cc375a343f8066a31ca15437ccd1de4b4f588dd57fb34d45fe1209a76911abf2724a2696eaa37f9e
-  languageName: node
-  linkType: hard
-
-"@hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.3.0":
-  version: 9.3.0
-  resolution: "@hapi/hoek@npm:9.3.0"
-  checksum: 10/ad83a223787749f3873bce42bd32a9a19673765bf3edece0a427e138859ff729469e68d5fdf9ff6bbee6fb0c8e21bab61415afa4584f527cfc40b59ea1957e70
-  languageName: node
-  linkType: hard
-
-"@hapi/topo@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "@hapi/topo@npm:5.1.0"
-  dependencies:
-    "@hapi/hoek": "npm:^9.0.0"
-  checksum: 10/084bfa647015f4fd3fdd51fadb2747d09ef2f5e1443d6cbada2988b0c88494f85edf257ec606c790db146ac4e34ff57f3fcb22e3299b8e06ed5c87ba7583495c
   languageName: node
   linkType: hard
 
@@ -3229,29 +3213,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sideway/address@npm:^4.1.5":
-  version: 4.1.5
-  resolution: "@sideway/address@npm:4.1.5"
-  dependencies:
-    "@hapi/hoek": "npm:^9.0.0"
-  checksum: 10/c4c73ac0339504f34e016d3a687118e7ddf197c1c968579572123b67b230be84caa705f0f634efdfdde7f2e07a6e0224b3c70665dc420d8bc95bf400cfc4c998
-  languageName: node
-  linkType: hard
-
-"@sideway/formula@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@sideway/formula@npm:3.0.1"
-  checksum: 10/8d3ee7f80df4e5204b2cbe92a2a711ca89684965a5c9eb3b316b7051212d3522e332a65a0bb2a07cc708fcd1d0b27fcb30f43ff0bcd5089d7006c7160a89eefe
-  languageName: node
-  linkType: hard
-
-"@sideway/pinpoint@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@sideway/pinpoint@npm:2.0.0"
-  checksum: 10/1ed21800128b2b23280ba4c9db26c8ff6142b97a8683f17639fd7f2128aa09046461574800b30fb407afc5b663c2331795ccf3b654d4b38fa096e41a5c786bf8
-  languageName: node
-  linkType: hard
-
 "@sinclair/typebox@npm:^0.27.8":
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
@@ -3399,10 +3360,10 @@ __metadata:
     jest: "npm:29.7.0"
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.400.0"
+    lucide-react: "npm:0.401.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.50.0"
-    node-jq: "npm:^4.4.0"
+    node-jq: "npm:^6.0.0"
     node-source-walk: "npm:7.0.0"
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.2"
@@ -6670,17 +6631,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.47.0":
-  version: 0.47.0
-  resolution: "dprint@npm:0.47.0"
+"dprint@npm:0.47.1":
+  version: 0.47.1
+  resolution: "dprint@npm:0.47.1"
   dependencies:
-    "@dprint/darwin-arm64": "npm:0.47.0"
-    "@dprint/darwin-x64": "npm:0.47.0"
-    "@dprint/linux-arm64-glibc": "npm:0.47.0"
-    "@dprint/linux-arm64-musl": "npm:0.47.0"
-    "@dprint/linux-x64-glibc": "npm:0.47.0"
-    "@dprint/linux-x64-musl": "npm:0.47.0"
-    "@dprint/win32-x64": "npm:0.47.0"
+    "@dprint/darwin-arm64": "npm:0.47.1"
+    "@dprint/darwin-x64": "npm:0.47.1"
+    "@dprint/linux-arm64-glibc": "npm:0.47.1"
+    "@dprint/linux-arm64-musl": "npm:0.47.1"
+    "@dprint/linux-x64-glibc": "npm:0.47.1"
+    "@dprint/linux-x64-musl": "npm:0.47.1"
+    "@dprint/win32-x64": "npm:0.47.1"
   dependenciesMeta:
     "@dprint/darwin-arm64":
       optional: true
@@ -6698,7 +6659,7 @@ __metadata:
       optional: true
   bin:
     dprint: bin.js
-  checksum: 10/4c88f410109e0421993b2cef62e28c07960ec1472b87475f682352f13a58d36b47d0ac190b6924d9134e80ca80507e4e61ba6833196256e894185588f794a2ad
+  checksum: 10/f2ddd3daee0de0ed38fb1946c7dd280c11374f390c0ad141bfeeb0d8c662c039175114a26b59241f2637c4be920570bdbfc48872d0e52748ba3ebbe0dee11fcd
   languageName: node
   linkType: hard
 
@@ -10340,19 +10301,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"joi@npm:^17.4.0":
-  version: 17.13.3
-  resolution: "joi@npm:17.13.3"
-  dependencies:
-    "@hapi/hoek": "npm:^9.3.0"
-    "@hapi/topo": "npm:^5.1.0"
-    "@sideway/address": "npm:^4.1.5"
-    "@sideway/formula": "npm:^3.0.1"
-    "@sideway/pinpoint": "npm:^2.0.0"
-  checksum: 10/4c150db0c820c3a52f4a55c82c1fc5e144a5b5f4da9ffebc7339a15469d1a447ebb427ced446efcb9709ab56bd71a06c4c67c9381bc1b9f9ae63fc7c89209bdf
-  languageName: node
-  linkType: hard
-
 "js-string-escape@npm:^1.0.1":
   version: 1.0.1
   resolution: "js-string-escape@npm:1.0.1"
@@ -10921,12 +10869,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:0.400.0":
-  version: 0.400.0
-  resolution: "lucide-react@npm:0.400.0"
+"lucide-react@npm:0.401.0":
+  version: 0.401.0
+  resolution: "lucide-react@npm:0.401.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/6ed8234119658fee998945f39e31d78f4fa05df5216eb1d269fc211c84a382928e4e4705f75ce85dcb056d493e9cf7810303d08c56eb40dce5066c3182ec5e7f
+  checksum: 10/904e5a72978e9c9d7fe52613d63ee41c303e14e4bdf3e222229bb21aff10ec0f2d1ff85b8f6f73486ab677b4ec19fd64b69c505d7f34f7e2f3bcacc1c736e058
   languageName: node
   linkType: hard
 
@@ -11421,7 +11369,7 @@ __metadata:
     "@yarnpkg/sdks": "npm:3.1.3"
     constants: "npm:0.0.2"
     cypress: "npm:13.13.0"
-    dprint: "npm:0.47.0"
+    dprint: "npm:0.47.1"
     eslint: "npm:9.6.0"
     eslint-plugin-react: "npm:7.34.3"
     execa: "npm:9.3.0"
@@ -11516,7 +11464,7 @@ __metadata:
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.400.0"
+    lucide-react: "npm:0.401.0"
     monaco-editor: "npm:0.50.0"
     prettier: "npm:3.3.2"
     prop-types: "npm:15.8.1"
@@ -11571,7 +11519,7 @@ __metadata:
     framer-motion: "npm:11.2.13"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.400.0"
+    lucide-react: "npm:0.401.0"
     monaco-editor: "npm:0.50.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.17"
@@ -11743,19 +11691,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-jq@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "node-jq@npm:4.4.0"
+"node-jq@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "node-jq@npm:6.0.0"
   dependencies:
     bin-build: "npm:^3.0.0"
     is-valid-path: "npm:^0.1.1"
-    joi: "npm:^17.4.0"
     node-downloader-helper: "npm:^2.1.6"
     strip-final-newline: "npm:^2.0.0"
     tempfile: "npm:^3.0.0"
+    zod: "npm:^3.23.8"
   bin:
     node-jq: bin/jq
-  checksum: 10/dc5fec1285707f977c0e26ae6226b2c9b370a6543d15c8b8669ecc1bb37c11b43d1784b92276ce246f59e99096d4628551ad4b638a3822a803d8cd795e110a97
+  checksum: 10/4043ffd817c705e54b05e9b0284b15e17a53d4bc6a025a1c342d1d3ff8c29ddeb4a005a34b1c2720f2693e6bea924b7c39d1d483825e50cbeace8ccf27972814
   languageName: node
   linkType: hard
 
@@ -16626,7 +16574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.3":
+"zod@npm:^3.22.3, zod@npm:^3.23.8":
   version: 3.23.8
   resolution: "zod@npm:3.23.8"
   checksum: 10/846fd73e1af0def79c19d510ea9e4a795544a67d5b34b7e1c4d0425bf6bfd1c719446d94cdfa1721c1987d891321d61f779e8236fde517dc0e524aa851a6eff1
