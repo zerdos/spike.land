@@ -3312,7 +3312,7 @@ __metadata:
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.5.3"
-    wrangler: "npm:3.63.1"
+    wrangler: "npm:3.63.2"
   languageName: unknown
   linkType: soft
 
@@ -3354,13 +3354,13 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.1.0"
-    framer-motion: "npm:11.2.13"
+    framer-motion: "npm:11.2.14"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
     localforage: "npm:1.10.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.404.0"
+    lucide-react: "npm:0.407.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.50.0"
     node-jq: "npm:^6.0.0"
@@ -3491,7 +3491,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240620.0"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.3"
-    wrangler: "npm:3.63.1"
+    wrangler: "npm:3.63.2"
   languageName: unknown
   linkType: soft
 
@@ -7216,12 +7216,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-refresh@npm:0.4.7":
-  version: 0.4.7
-  resolution: "eslint-plugin-react-refresh@npm:0.4.7"
+"eslint-plugin-react-refresh@npm:0.4.8":
+  version: 0.4.8
+  resolution: "eslint-plugin-react-refresh@npm:0.4.8"
   peerDependencies:
     eslint: ">=7"
-  checksum: 10/acbbe24e40b2b6fe96656e9407e275fdda6db031814674117e7a65d49a7a713f05b0d79dc6426d927b7622ce310a261cff385821c80b2e97089068dcd30bda52
+  checksum: 10/f502cd803a43dac83db43a924defe543a3ed57b545a4b5a9fc74c578c05903ffcb4f2988848b8d02672cf9443e390ef831ba5a1577f64617b68b3746229172b4
   languageName: node
   linkType: hard
 
@@ -8115,9 +8115,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.2.13":
-  version: 11.2.13
-  resolution: "framer-motion@npm:11.2.13"
+"framer-motion@npm:11.2.14":
+  version: 11.2.14
+  resolution: "framer-motion@npm:11.2.14"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8131,7 +8131,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/41aa8a84cfa5747b305668e45dde6c5a92d995861c7b59a89b7f1e281413fcc8a9e8ff9d4e92bf20e83ab665992fe84a912da052610f8fe583a21025c7c2691e
+  checksum: 10/741ad03761780fe6103c02f39bc86addba6900a4f395f94b06361285adc7bcb1c6bc21eb88b791a1ce303b4ededb29c5c262e9d86e3afd27915dedc3673a0842
   languageName: node
   linkType: hard
 
@@ -10905,12 +10905,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:0.404.0":
-  version: 0.404.0
-  resolution: "lucide-react@npm:0.404.0"
+"lucide-react@npm:0.407.0":
+  version: 0.407.0
+  resolution: "lucide-react@npm:0.407.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/7dd226caf9ace63791a8ab027901b100f9289ba17253d201485141c1e83f044bad84f2dc504ab26773a53e42e9aebcf078c45f6a3fe94481853e4d04b858b6c6
+  checksum: 10/57d45e970c1512635571e2a28b27298a4acdee70f3dca4ff6fe6a6ee906f3f1f8299a7e653ec5b778128fed1568dce2ce348b95a7f19a80714ebfcd735652cfa
   languageName: node
   linkType: hard
 
@@ -11461,7 +11461,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240620.0"
     hono: "npm:4.4.12"
-    wrangler: "npm:3.63.1"
+    wrangler: "npm:3.63.2"
   languageName: unknown
   linkType: soft
 
@@ -11492,15 +11492,15 @@ __metadata:
     esbuild-wasm: "npm:0.23.0"
     eslint: "npm:9.6.0"
     eslint-plugin-react-hooks: "npm:4.6.2"
-    eslint-plugin-react-refresh: "npm:0.4.7"
+    eslint-plugin-react-refresh: "npm:0.4.8"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.1.0"
-    framer-motion: "npm:11.2.13"
+    framer-motion: "npm:11.2.14"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.404.0"
+    lucide-react: "npm:0.407.0"
     monaco-editor: "npm:0.50.0"
     prettier: "npm:3.3.2"
     prop-types: "npm:15.8.1"
@@ -11550,12 +11550,12 @@ __metadata:
     avl: "npm:1.5.3"
     eslint: "npm:9.6.0"
     eslint-plugin-react-hooks: "npm:4.6.2"
-    eslint-plugin-react-refresh: "npm:0.4.7"
+    eslint-plugin-react-refresh: "npm:0.4.8"
     fast-diff: "npm:1.3.0"
-    framer-motion: "npm:11.2.13"
+    framer-motion: "npm:11.2.14"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:0.404.0"
+    lucide-react: "npm:0.407.0"
     monaco-editor: "npm:0.50.0"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.17"
@@ -16337,9 +16337,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.63.1":
-  version: 3.63.1
-  resolution: "wrangler@npm:3.63.1"
+"wrangler@npm:3.63.2":
+  version: 3.63.2
+  resolution: "wrangler@npm:3.63.2"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -16369,7 +16369,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/bbe7e7145c83f28ba92ce0b48b6e9977d7fc371acca488bc15591390ed0927248e463dacba117097f8ecb24f990000702e48cd42c94a6e9b3ef6c23a0baff660
+  checksum: 10/ef923fe12dcecedf4ca872d15a11b120ac8cddbb14cf8c95564a998c65130e37e7678605f0d7095f9632decdc0776d47caba96cb79fc753b5eef096827fca804
   languageName: node
   linkType: hard
 
