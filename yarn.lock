@@ -3277,7 +3277,7 @@ __metadata:
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.52.5"
+    openai: "npm:4.52.6"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -3361,7 +3361,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.1.1"
-    framer-motion: "npm:11.3.1"
+    framer-motion: "npm:11.3.2"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -8125,9 +8125,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.1":
-  version: 11.3.1
-  resolution: "framer-motion@npm:11.3.1"
+"framer-motion@npm:11.3.2":
+  version: 11.3.2
+  resolution: "framer-motion@npm:11.3.2"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8141,7 +8141,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/00dd058a51489c61fc5545dbabeb52767cd4a4da57b7e2ff5ad9b6da1d297c43bf2cd84aa1ca9dd6f71148b239cedfb9131a4dc2cf56a77ba81d167ed8f31236
+  checksum: 10/81303fc53fe436cbaeb4727bf8be6755b14e3f5c35b4b37cb1e4801b78e654dc41f19df05b9ff1a610b7fe3daa093dfff4c83e2ce3a8d24429bef4d9c7b7102a
   languageName: node
   linkType: hard
 
@@ -11506,7 +11506,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.1.1"
-    framer-motion: "npm:11.3.1"
+    framer-motion: "npm:11.3.2"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
@@ -11562,7 +11562,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:4.6.2"
     eslint-plugin-react-refresh: "npm:0.4.8"
     fast-diff: "npm:1.3.0"
-    framer-motion: "npm:11.3.1"
+    framer-motion: "npm:11.3.2"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
     lucide-react: "npm:0.407.0"
@@ -12068,9 +12068,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.52.5":
-  version: 4.52.5
-  resolution: "openai@npm:4.52.5"
+"openai@npm:4.52.6":
+  version: 4.52.6
+  resolution: "openai@npm:4.52.6"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -12082,7 +12082,7 @@ __metadata:
     web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: 10/652cbdab182cd2357f12bde362c44e250c28c1e3887ec40fc4ae0b4959f2645cf6523562b1d22555cecdf272e57d406a76f9c0f92d245054fd7f6204015f3eb1
+  checksum: 10/d1e9ec1e281e8dbcb2cdd4cc6925ef548abb2228d3963fab4fc4a238f2eceae883e70c154e99b06aa956149a72bd987cec87891cfbba229210450f5d9d55011f
   languageName: node
   linkType: hard
 
