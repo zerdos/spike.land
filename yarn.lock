@@ -1540,51 +1540,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dprint/darwin-arm64@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/darwin-arm64@npm:0.47.1"
+"@dprint/darwin-arm64@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/darwin-arm64@npm:0.47.2"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@dprint/darwin-x64@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/darwin-x64@npm:0.47.1"
+"@dprint/darwin-x64@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/darwin-x64@npm:0.47.2"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-glibc@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/linux-arm64-glibc@npm:0.47.1"
+"@dprint/linux-arm64-glibc@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/linux-arm64-glibc@npm:0.47.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-arm64-musl@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/linux-arm64-musl@npm:0.47.1"
+"@dprint/linux-arm64-musl@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/linux-arm64-musl@npm:0.47.2"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-glibc@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/linux-x64-glibc@npm:0.47.1"
+"@dprint/linux-x64-glibc@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/linux-x64-glibc@npm:0.47.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@dprint/linux-x64-musl@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/linux-x64-musl@npm:0.47.1"
+"@dprint/linux-x64-musl@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/linux-x64-musl@npm:0.47.2"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@dprint/win32-x64@npm:0.47.1":
-  version: 0.47.1
-  resolution: "@dprint/win32-x64@npm:0.47.1"
+"@dprint/win32-arm64@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/win32-arm64@npm:0.47.2"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@dprint/win32-x64@npm:0.47.2":
+  version: 0.47.2
+  resolution: "@dprint/win32-x64@npm:0.47.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -3270,7 +3277,7 @@ __metadata:
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.52.4"
+    openai: "npm:4.52.5"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -3353,8 +3360,8 @@ __metadata:
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
-    file-type: "npm:19.1.0"
-    framer-motion: "npm:11.2.14"
+    file-type: "npm:19.1.1"
+    framer-motion: "npm:11.3.1"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -3383,7 +3390,7 @@ __metadata:
     react-rnd: "npm:10.4.11"
     stream-browserify: "npm:3.0.0"
     transferables: "npm:1.0.3"
-    ts-jest: "npm:29.2.0"
+    ts-jest: "npm:29.2.2"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.3"
     typescript: "npm:5.5.3"
@@ -6667,17 +6674,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dprint@npm:0.47.1":
-  version: 0.47.1
-  resolution: "dprint@npm:0.47.1"
+"dprint@npm:0.47.2":
+  version: 0.47.2
+  resolution: "dprint@npm:0.47.2"
   dependencies:
-    "@dprint/darwin-arm64": "npm:0.47.1"
-    "@dprint/darwin-x64": "npm:0.47.1"
-    "@dprint/linux-arm64-glibc": "npm:0.47.1"
-    "@dprint/linux-arm64-musl": "npm:0.47.1"
-    "@dprint/linux-x64-glibc": "npm:0.47.1"
-    "@dprint/linux-x64-musl": "npm:0.47.1"
-    "@dprint/win32-x64": "npm:0.47.1"
+    "@dprint/darwin-arm64": "npm:0.47.2"
+    "@dprint/darwin-x64": "npm:0.47.2"
+    "@dprint/linux-arm64-glibc": "npm:0.47.2"
+    "@dprint/linux-arm64-musl": "npm:0.47.2"
+    "@dprint/linux-x64-glibc": "npm:0.47.2"
+    "@dprint/linux-x64-musl": "npm:0.47.2"
+    "@dprint/win32-arm64": "npm:0.47.2"
+    "@dprint/win32-x64": "npm:0.47.2"
   dependenciesMeta:
     "@dprint/darwin-arm64":
       optional: true
@@ -6691,11 +6699,13 @@ __metadata:
       optional: true
     "@dprint/linux-x64-musl":
       optional: true
+    "@dprint/win32-arm64":
+      optional: true
     "@dprint/win32-x64":
       optional: true
   bin:
     dprint: bin.js
-  checksum: 10/f2ddd3daee0de0ed38fb1946c7dd280c11374f390c0ad141bfeeb0d8c662c039175114a26b59241f2637c4be920570bdbfc48872d0e52748ba3ebbe0dee11fcd
+  checksum: 10/045f599b748113f09f0d55575a86fbd1986e807791705bbfef2d1e428c05b3246533119bd08224d80dad8759543e0cefc701c1da58e5f3392702b0a44b8698cb
   languageName: node
   linkType: hard
 
@@ -6742,7 +6752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.1.6":
+"ejs@npm:^3.0.0, ejs@npm:^3.1.6":
   version: 3.1.10
   resolution: "ejs@npm:3.1.10"
   dependencies:
@@ -7823,14 +7833,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:19.1.0":
-  version: 19.1.0
-  resolution: "file-type@npm:19.1.0"
+"file-type@npm:19.1.1":
+  version: 19.1.1
+  resolution: "file-type@npm:19.1.1"
   dependencies:
     strtok3: "npm:^7.1.0"
     token-types: "npm:^6.0.0"
     uint8array-extras: "npm:^1.3.0"
-  checksum: 10/eccbab06c4f0acb6943af716ac0d814d48ef31bdf8cfdf7ecee1049899c239a490c7371bbf31c32dc12df9357d8f42bd50abf18e59440a6d5baa6889a9d50ece
+  checksum: 10/8a9ddca99b7e41c1bc0776b8b2eb143e2057e81f3661551ffbe8a9cafe37cfd000c6e54cc3b509f1761ee858c8bf266347baf9409fbb1cc9b9138f449ad14299
   languageName: node
   linkType: hard
 
@@ -8115,9 +8125,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.2.14":
-  version: 11.2.14
-  resolution: "framer-motion@npm:11.2.14"
+"framer-motion@npm:11.3.1":
+  version: 11.3.1
+  resolution: "framer-motion@npm:11.3.1"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8131,7 +8141,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/741ad03761780fe6103c02f39bc86addba6900a4f395f94b06361285adc7bcb1c6bc21eb88b791a1ce303b4ededb29c5c262e9d86e3afd27915dedc3673a0842
+  checksum: 10/00dd058a51489c61fc5545dbabeb52767cd4a4da57b7e2ff5ad9b6da1d297c43bf2cd84aa1ca9dd6f71148b239cedfb9131a4dc2cf56a77ba81d167ed8f31236
   languageName: node
   linkType: hard
 
@@ -8817,10 +8827,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.4.12":
-  version: 4.4.12
-  resolution: "hono@npm:4.4.12"
-  checksum: 10/523ffa331b1ed92b221a34ba8529453349bf2f4dff10850383bb7fdf6409bae3da706b9638649a0222bcf3e8fa6a159711752d10aeb233b555aa415a783fce71
+"hono@npm:4.4.13":
+  version: 4.4.13
+  resolution: "hono@npm:4.4.13"
+  checksum: 10/28b0fc355eb4bb7a358eaf1d62e8b840bc36d61550902d38a0b0124be71a24c15b25c10e9816410351910dba0f5f9c8613c53ceae69647e1722d525148687277
   languageName: node
   linkType: hard
 
@@ -11405,7 +11415,7 @@ __metadata:
     "@yarnpkg/sdks": "npm:3.1.3"
     constants: "npm:0.0.2"
     cypress: "npm:13.13.0"
-    dprint: "npm:0.47.1"
+    dprint: "npm:0.47.2"
     eslint: "npm:9.6.0"
     eslint-plugin-react: "npm:7.34.3"
     execa: "npm:9.3.0"
@@ -11460,7 +11470,7 @@ __metadata:
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240620.0"
-    hono: "npm:4.4.12"
+    hono: "npm:4.4.13"
     wrangler: "npm:3.63.2"
   languageName: unknown
   linkType: soft
@@ -11495,8 +11505,8 @@ __metadata:
     eslint-plugin-react-refresh: "npm:0.4.8"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
-    file-type: "npm:19.1.0"
-    framer-motion: "npm:11.2.14"
+    file-type: "npm:19.1.1"
+    framer-motion: "npm:11.3.1"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
@@ -11552,7 +11562,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:4.6.2"
     eslint-plugin-react-refresh: "npm:0.4.8"
     fast-diff: "npm:1.3.0"
-    framer-motion: "npm:11.2.14"
+    framer-motion: "npm:11.3.1"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
     lucide-react: "npm:0.407.0"
@@ -12058,9 +12068,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.52.4":
-  version: 4.52.4
-  resolution: "openai@npm:4.52.4"
+"openai@npm:4.52.5":
+  version: 4.52.5
+  resolution: "openai@npm:4.52.5"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -12072,7 +12082,7 @@ __metadata:
     web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: 10/76400ba9cf83d252be42a366fd7eb16fdfdc41fa5518270daee49e632e6c387ac1965b6b6801daf36ba9b52a712d406659c473284178a505cd6aa108d7b731d8
+  checksum: 10/652cbdab182cd2357f12bde362c44e250c28c1e3887ec40fc4ae0b4959f2645cf6523562b1d22555cecdf272e57d406a76f9c0f92d245054fd7f6204015f3eb1
   languageName: node
   linkType: hard
 
@@ -15189,11 +15199,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:29.2.0":
-  version: 29.2.0
-  resolution: "ts-jest@npm:29.2.0"
+"ts-jest@npm:29.2.2":
+  version: 29.2.2
+  resolution: "ts-jest@npm:29.2.2"
   dependencies:
     bs-logger: "npm:0.x"
+    ejs: "npm:^3.0.0"
     fast-json-stable-stringify: "npm:2.x"
     jest-util: "npm:^29.0.0"
     json5: "npm:^2.2.3"
@@ -15221,7 +15232,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10/a94725c313f7e019281835e32c9b2791d3f5fb9a4e6a19e6c51cbf8939cd17a0426e667c19849fed608149d1ec5198da9fd55fefe74c6ed4cff2172442b8288c
+  checksum: 10/6523de2d78493a7901dfc37f2a491b259f5d30beac7a2179ddf8524da0c8e4a7f488aad2d22eca8d074bcc54d7b06a90153fdbf6e9c245f5fc1e484788f0c9d8
   languageName: node
   linkType: hard
 
