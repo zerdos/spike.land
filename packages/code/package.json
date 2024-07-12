@@ -54,12 +54,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "4.20240620.0",
+    "@cloudflare/workers-types": "4.20240701.0",
     "@emotion/cache": "11.11.0",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
     "@github/stable-socket": "1.1.0",
-    "@mui/material": "5.16.0",
+    "@mui/material": "5.16.1",
     "@okikio/sharedworker": "1.0.7",
     "@types/isomorphic-fetch": "0.0.39",
     "@types/jest": "29.5.12",
@@ -86,7 +86,7 @@
     "jest": "29.7.0",
     "localforage": "1.10.0",
     "lodash.debounce": "4.0.8",
-    "lucide-react": "0.407.0",
+    "lucide-react": "0.408.0",
     "module": "1.2.5",
     "monaco-editor": "0.50.0",
     "node-source-walk": "7.0.0",
