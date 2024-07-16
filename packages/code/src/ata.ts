@@ -168,11 +168,24 @@ declare module 'react' {
               );
 
               newBase = typescriptTypes || `${originToUse}/${r}`;
+              const newBaseIsDownloadable = await fetch(newBase).then((res) => res.ok);
+              if (!newBaseIsDownloadable) {
+                newBase = null;
+              }
+
             }
           }
 
-          if (newBase) {
+          
+          if (newBase === null) {
+            await tryToExtractUrlFromPackageJson(r);
+          }else {
+
+
+            
             await handleNewBase(newBase, r, baseUrl);
+
+            
           }
         }
       }),
@@ -186,6 +199,25 @@ declare module 'react' {
     const responseText = importMapReplace(await prettierJs(await response.text()), originToUse);
     return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
+
+  async function tryToExtractUrlFromPackageJson(npmPackage: string) {
+
+      try{
+      const packageJson = await(await fetch(`${originToUse}/${npmPackage}/package.json`)).json<{typings?: string}>();
+      if (packageJson.typings) {
+        const url = new URL(packageJson.typings, originToUse+ npmPackage);
+        const content = await fetch(url).then((res) => res.text());
+        if (content) {
+          impRes[npmPackage].content = content;
+          impRes[npmPackage].url = url.toString();
+        }
+      }
+    } catch (error) {
+      
+      console.error("error fetching package.json", {error, npmPackage, originToUse,  impRes});
+    }}
+  
+  
 
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
     if (!impRes[newBase]) {
@@ -216,6 +248,8 @@ declare module 'react' {
         };
         console.log(`virtual file: ${fileName}`, impRes[fileName]);
       }
+
+    
 
       if (impRes[newBase].content.length > 0) {
         try {
