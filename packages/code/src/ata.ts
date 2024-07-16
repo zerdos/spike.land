@@ -172,20 +172,13 @@ declare module 'react' {
               if (!newBaseIsDownloadable) {
                 newBase = null;
               }
-
             }
           }
 
-          
           if (newBase === null) {
             await tryToExtractUrlFromPackageJson(r);
-          }else {
-
-
-            
+          } else {
             await handleNewBase(newBase, r, baseUrl);
-
-            
           }
         }
       }),
@@ -201,11 +194,10 @@ declare module 'react' {
   }
 
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
-
-      try{
-      const packageJson = await(await fetch(`${originToUse}/${npmPackage}/package.json`)).json<{typings?: string}>();
+    try {
+      const packageJson = await (await fetch(`${originToUse}/${npmPackage}/package.json`)).json<{ typings?: string }>();
       if (packageJson.typings) {
-        const url = new URL(packageJson.typings, originToUse+ npmPackage);
+        const url = new URL(packageJson.typings, originToUse + npmPackage);
         const content = await fetch(url).then((res) => res.text());
         if (content) {
           impRes[npmPackage].content = content;
@@ -213,11 +205,9 @@ declare module 'react' {
         }
       }
     } catch (error) {
-      
-      console.error("error fetching package.json", {error, npmPackage, originToUse,  impRes});
-    }}
-  
-  
+      console.error("error fetching package.json", { error, npmPackage, originToUse, impRes });
+    }
+  }
 
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
     if (!impRes[newBase]) {
@@ -248,8 +238,6 @@ declare module 'react' {
         };
         console.log(`virtual file: ${fileName}`, impRes[fileName]);
       }
-
-    
 
       if (impRes[newBase].content.length > 0) {
         try {

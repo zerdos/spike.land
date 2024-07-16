@@ -1,12 +1,11 @@
-import { FC, useEffect, useState } from "react";
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
+import { Moon, Play, RotateCcw, Share2, Sun } from "lucide-react";
 import { Resizable } from "re-resizable";
-import {  RotateCcw, Share2, Moon, Sun } from "lucide-react";
-import { themes } from "prism-react-renderer";
+import React, { FC, useEffect, useState } from "react";
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
 
 export const EnhancedEmbeddableEditor: FC = () => {
   const [code, setCode] = useState(() => {
-    const savedCode = localStorage.getItem('editorCode');
+    const savedCode = localStorage.getItem("editorCode");
     return savedCode || `
 // Edit this code!
 function App() {
@@ -23,10 +22,10 @@ render(<App />);
   });
 
   const [editorWidth, setEditorWidth] = useState("50%");
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    localStorage.setItem('editorCode', code);
+    localStorage.setItem("editorCode", code);
   }, [code]);
 
   const handleCodeChange = (newCode: string) => {
@@ -56,7 +55,7 @@ render(<App />);
   };
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setTheme(prevTheme => prevTheme === "light" ? "dark" : "light");
   };
 
   const styles = {
@@ -64,12 +63,12 @@ render(<App />);
       display: "flex",
       flexDirection: "column",
       height: "100vh",
-      backgroundColor: theme === 'dark' ? "#1e1e1e" : "#ffffff",
-      color: theme === 'dark' ? "#fff" : "#000",
+      backgroundColor: theme === "dark" ? "#1e1e1e" : "#ffffff",
+      color: theme === "dark" ? "#fff" : "#000",
     },
     toolbar: {
       padding: "10px",
-      backgroundColor: theme === 'dark' ? "#252525" : "#f0f0f0",
+      backgroundColor: theme === "dark" ? "#252525" : "#f0f0f0",
       display: "flex",
       justifyContent: "flex-end",
     },
@@ -83,7 +82,7 @@ render(<App />);
       flex: 1,
       overflow: "auto",
       padding: "20px",
-      backgroundColor: theme === 'dark' ? "#2d2d2d" : "#f8f8f8",
+      backgroundColor: theme === "dark" ? "#2d2d2d" : "#f8f8f8",
     },
   };
 
@@ -101,11 +100,11 @@ render(<App />);
           <Share2 size={16} />
         </button>
         <button onClick={toggleTheme} css={buttonStyle}>
-          {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
         </button>
       </div>
       <div css={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <LiveProvider code={code} noInline={true} theme={theme === 'dark' ? undefined : themes.github}>
+        <LiveProvider code={code} noInline={true} theme={theme === "dark" ? undefined : githubLight}>
           <Resizable
             size={{ width: editorWidth, height: "100%" }}
 
@@ -146,4 +145,4 @@ const buttonStyle = {
 };
 
 
-export default EnhancedEmbeddableEditor;  
+export default EnhancedEmbeddableEditor;
