@@ -1,7 +1,6 @@
 // import { OpenAIStream, StreamingTextResponse } from "ai";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai-edge";
 
-import type { Request as WRequest } from "@cloudflare/workers-types";
 import Env from "./env";
 
 // Create an OpenAI API client (that's edge friendly!)
@@ -11,7 +10,7 @@ export const runtime = "edge";
 
 export async function handleAiFetchApi(
   path: string[],
-  request: WRequest,
+  request: Request,
   _env: Env,
 ) {
   if (path[0] !== "generate" && path[0] !== "chat") {
@@ -41,7 +40,7 @@ export async function handleAiFetchApi(
 }
 
 async function handleMainFetch(
-  request: WRequest<unknown, CfProperties<unknown>>,
+  request: Request,
   env: Env,
 ): Promise<Response> {
   const url = new URL(request.url);

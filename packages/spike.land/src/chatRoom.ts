@@ -1,4 +1,4 @@
-import type { DurableObject, DurableObjectState, Request as WRequest, WebSocket } from "@cloudflare/workers-types";
+import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
 import * as map from "lib0/map";
 import { resetCSS } from "../../code/src/getResetCss";
 import { importMapReplace } from "../../code/src/importMapReplace";
@@ -65,16 +65,16 @@ interface YMessage {
 export class Code implements DurableObject {
   // mutex: Mutex;
   topics = new Map<string, Set<WebSocket>>();
-  #wsSessions: WebsocketSession[] = [];
-  #userSessions: WebsocketSession[] = [];
-  #transpiled = "";
-  #origin = "";
+  wsSessions: WebsocketSession[] = [];
+  userSessions: WebsocketSession[] = [];
+  transpiled = "";
+  origin = "";
 
   user2user(to: string, msg: unknown | string) {
     const message = typeof msg !== "string" ? JSON.stringify(msg) : msg;
 
     // Iterate over all the sessions sending them messages.
-    this.#wsSessions
+    this.wsSessions
       .filter((session) => session.name === to)
       .map((s) => {
         try {
@@ -109,11 +109,11 @@ export class Code implements DurableObject {
         await this.state.storage.put("head", head);
       });
 
-      this.#transpiled = "";
+      this.transpiled = "";
       message = JSON.stringify({ ...msg, i: this.session.i });
     }
 
-    this.#wsSessions.map((s) => {
+    this.wsSessions.map((s) => {
       try {
         s.webSocket.send(message);
       } catch {
@@ -126,7 +126,7 @@ export class Code implements DurableObject {
 
   session = makeSession({ i: 0, code: "", html: "", css: "" });
 
-  #backupSession = makeSession({
+  backupSession = makeSession({
     code: `export default () => (
         <div>
           <h1>404 - for now.</h1>
@@ -149,16 +149,16 @@ export class Code implements DurableObject {
           const backupCode = await fetch(
             "https://spike.land/live/code-main/index.tsx",
           ).then((r) => r.text());
-          this.#backupSession.code = backupCode;
-          await this.state.storage.put("session", this.#backupSession);
-          s = this.#backupSession;
+          this.backupSession.code = backupCode;
+          await this.state.storage.put("session", this.backupSession);
+          s = this.backupSession;
           const head = makeHash(s as ICodeSession);
           // await this.state.storage.put("session", this);
           await this.state.storage.put("head", head);
         }
         this.session = s as unknown as ICodeSession;
       } catch {
-        this.session = this.#backupSession;
+        this.session = this.backupSession;
       }
       //      this.state.storage.put("session", this.session);
       // const head = makeHash(this.session);
@@ -167,7 +167,8 @@ export class Code implements DurableObject {
     });
   }
 
-  fetch(request: WRequest<unknown, CfProperties<unknown>>) {
+  fetch(request: Request
+  ) {
     return handleErrors(
       request,
       (async () => {
@@ -179,7 +180,7 @@ export class Code implements DurableObject {
         // if (this.#mjs === "") {
         //   this.state.storage.get("mjs").
 
-        //   then((mjs) => mjs && mjs .text()).then((mjs) => this.#mjs = mjs?mjs:this.#transpiled));
+        //   then((mjs) => mjs && mjs .text()).then((mjs) => this.#mjs = mjs?mjs:this.transpiled));
 
         //   }
 
@@ -189,19 +190,19 @@ export class Code implements DurableObject {
 
         const { code, css, html, i } = this.session;
 
-        if (this.#origin.length === 0) {
-          this.#origin = url.origin;
+        if (this.origin.length === 0) {
+          this.origin = url.origin;
         }
         const transpiledPromise = fetch(
           `https://js.spike.land?v=${shasum}`,
           {
             method: "POST",
             body: code,
-            headers: { TR_ORIGIN: this.#origin },
+            headers: { TR_ORIGIN: this.origin },
           },
-        ).then(async (resp) => this.#transpiled = importMapReplace(await resp.text(), url.origin));
+        ).then(async (resp) => this.transpiled = importMapReplace(await resp.text(), url.origin));
 
-        if (this.#transpiled.length === 0) await transpiledPromise;
+        if (this.transpiled.length === 0) await transpiledPromise;
         const path = url.pathname.slice(1).split("/");
         if (path.length === 0) path.push("");
 
@@ -222,18 +223,18 @@ export class Code implements DurableObject {
                 webSocket,
                 blockedMessages: [] as string[],
               } as WebsocketSession;
-              this.#userSessions.push(session);
+              this.userSessions.push(session);
 
               //              webSocket.send(JSON.stringify(users))
 
               webSocket.addEventListener("close", () => {
-                this.#userSessions = this.#userSessions.filter((x) => x != session);
+                this.userSessions = this.userSessions.filter((x) => x != session);
                 broadcastUsers();
               });
 
               const broadcastUsers = () =>
-                this.#userSessions.map((sess) => {
-                  const users = this.#userSessions.filter((x) => x.name).map((
+                this.userSessions.map((sess) => {
+                  const users = this.userSessions.filter((x) => x.name).map((
                     x,
                   ) => x.name);
 
@@ -242,7 +243,7 @@ export class Code implements DurableObject {
                   } catch {
                     sess.quit = true;
                     // this.users.remove(s.name);
-                    this.#userSessions = this.#userSessions.filter((session) => session !== sess);
+                    this.userSessions = this.userSessions.filter((session) => session !== sess);
                   }
                 });
 
@@ -254,7 +255,7 @@ export class Code implements DurableObject {
                   const data: IData = JSON.parse(msg.data as string);
 
                   if (!session.name && data.name) {
-                    this.#userSessions.filter((sess) => sess.name === data.name)
+                    this.userSessions.filter((sess) => sess.name === data.name)
                       .map((sess) => {
                         sess.webSocket.close();
                         sess.name = "";
@@ -264,7 +265,7 @@ export class Code implements DurableObject {
                   }
 
                   if (data.target && data.target !== session.name) {
-                    this.#userSessions.filter((x) => x.name === data.target)[0]
+                    this.userSessions.filter((x) => x.name === data.target)[0]
                       .webSocket.send(msg.data);
                   }
                 },
@@ -279,7 +280,7 @@ export class Code implements DurableObject {
             };
 
             await handleSession(pair[1] as unknown as WebSocket);
-            // await signaller(this.#wsSessions, pair[1] as unknown as WebSocket);
+            // await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
 
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
@@ -301,9 +302,9 @@ export class Code implements DurableObject {
 
                 blockedMessages: [] as string[],
               } as WebsocketSession;
-              this.#wsSessions.push(session);
+              this.wsSessions.push(session);
 
-              const users = this.#wsSessions.filter((x) => x.name).map((x) => x.name);
+              const users = this.wsSessions.filter((x) => x.name).map((x) => x.name);
               webSocket.send(
                 JSON.stringify({
                   hashCode: makeHash(this.session),
@@ -344,14 +345,14 @@ export class Code implements DurableObject {
             };
 
             await handleSession(pair[1] as unknown as WebSocket);
-            // await signaller(this.#wsSessions, pair[1] as unknown as WebSocket);
+            // await signaller(this.wsSessions, pair[1] as unknown as WebSocket);
 
             return new Response(null, { status: 101, webSocket: pair[0] });
           }
           // case "ata": {
           //   const {prettierJs} = await import("../../code/src/prettierEsm");
           //   const {ata} = await import("../../code/src/ata");
-          //   const resp = JSON.stringify(await ata({code, originToUse: this.#origin , prettierJs}));
+          //   const resp = JSON.stringify(await ata({code, originToUse: this.origin , prettierJs}));
           //   return new Response(resp, {
           //     status: 200,
           //     headers: {
@@ -536,23 +537,23 @@ export class Code implements DurableObject {
           case "index.mjs":
           case "index.js":
           case "js": {
-            this.#transpiled = this.#transpiled.length > 0
-              ? this.#transpiled
+            this.transpiled = this.transpiled.length > 0
+              ? this.transpiled
               : await fetch(`https://js.spike.land`, {
                 method: "POST",
                 body: this.session.code,
-                headers: { TR_ORIGIN: this.#origin },
+                headers: { TR_ORIGIN: this.origin },
               }).then((resp) => resp.text());
 
-            const replaced = this.#transpiled.split("https://spike.land/").join(
-              `${this.#origin}/`,
+            const replaced = this.transpiled.split("https://spike.land/").join(
+              `${this.origin}/`,
             );
             return new Response(replaced, {
               headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Cross-Origin-Embedder-Policy": "require-corp",
                 "Cache-Control": "no-cache",
-                "x-typescript-types": this.#origin + "/live/index.tsx",
+                "x-typescript-types": this.origin + "/live/index.tsx",
                 content_hash: md5(replaced),
                 "Content-Type": "application/javascript; charset=UTF-8",
               },
@@ -752,10 +753,10 @@ export class Code implements DurableObject {
         });
       }
 
-      this.#wsSessions.filter((x) => x.name === data.name).map((x) =>
+      this.wsSessions.filter((x) => x.name === data.name).map((x) =>
         x.blockedMessages.reverse().map((m) => session.webSocket.send(m)) && x
       ).map((x) => x.quit = true);
-      this.#wsSessions = this.#wsSessions.filter((x) => !x.quit);
+      this.wsSessions = this.wsSessions.filter((x) => !x.quit);
 
       session.name = data.name;
     }

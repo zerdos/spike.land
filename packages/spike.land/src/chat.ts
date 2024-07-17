@@ -1,5 +1,4 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import type { Request as WRequest } from "@cloudflare/workers-types";
 import { importMap } from "../../code/src/importMap";
 import { importMapReplace } from "../../code/src/importMapReplace";
 import { md5 } from "../../code/src/md5";
@@ -16,10 +15,10 @@ function isChunk(link: string) {
   return link.indexOf("chunk-") !== -1 || chunkRegExp.test(link);
 }
 
-// Function to handle API requests
+// Function to handle API ChatCompletionRequestMessage
 async function handleApiRequest(
   path: string[],
-  request: WRequest<unknown, CfProperties<unknown>>,
+  request: Request,
   env: Env,
 ) {
   // Logic for handling API requests
@@ -85,7 +84,7 @@ function isUrlFile(pathname: string) {
 
 async function handleFetchApi(
   path: string[],
-  request: WRequest,
+  request: Request,
   env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
@@ -478,13 +477,13 @@ function handleRedirectResponse(url: URL, start: string): Response {
 
 // Function to handle the main fetch logic
 async function handleMainFetch(
-  request: WRequest<unknown, CfProperties<unknown>>,
+  request: Request,
   env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
+  const {cf} = request as unknown as { cf?: { asOrganization?: string } };
   if (
-    request.cf && request.cf.asOrganization
-    && (request.cf.asOrganization as unknown as string).startsWith("YANDEX")
+   cf?.asOrganization?.startsWith("YANDEX")
   ) {
     return handleUnauthorizedRequest();
   }
@@ -510,9 +509,10 @@ async function handleMainFetch(
 
     if (!path[0]) {
       const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
-      console.log({ asOrganization: request.cf?.asOrganization });
+      const {cf} = request as unknown as { cf?: { asOrganization?: string } };
+    
       const start = md5(
-        ((request.cf?.asOrganization as unknown as string) || "default")
+        ((cf?.asOrganization) || "default")
           + utcSecs + `
       and reset every 2 hours
       time`,
