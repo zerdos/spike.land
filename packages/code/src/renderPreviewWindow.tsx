@@ -19,9 +19,9 @@ export const renderPreviewWindow = async (
 
   if (sessionStorage.getItem("z") !== null) {
     const { reveal } = await import("./reveal");
-    const { EmbeddableEditor } = await import("./EmbeddableEditor");
+    const { EnhancedEmbeddableEditor } = await import("./EmbeddableEditor");
 
-    root.render(<EmbeddableEditor />);
+    root.render(<EnhancedEmbeddableEditor  />);
     reveal();
     return;
   }

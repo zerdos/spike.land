@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
 import { Resizable } from "re-resizable";
-import { Play, RotateCcw, Share2, Moon, Sun } from "lucide-react";
+import {  RotateCcw, Share2, Moon, Sun } from "lucide-react";
+import { themes } from "prism-react-renderer";
 
 export const EnhancedEmbeddableEditor: FC = () => {
   const [code, setCode] = useState(() => {
@@ -78,7 +79,7 @@ render(<App />);
       height: "100%",
       overflow: "auto",
     },
-    preview: {
+    preview: { 
       flex: 1,
       overflow: "auto",
       padding: "20px",
@@ -87,7 +88,11 @@ render(<App />);
   };
 
   return (
-    <div style={styles.container}>
+    <div style={{  display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+      backgroundColor: theme === 'dark' ? "#1e1e1e" : "#ffffff",
+      color: theme === 'dark' ? "#fff" : "#000",}}>
       <div style={styles.toolbar}>
         <button onClick={handleReset} css={buttonStyle}>
           <RotateCcw size={16} />
@@ -100,11 +105,14 @@ render(<App />);
         </button>
       </div>
       <div css={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <LiveProvider code={code} noInline={true} theme={theme === 'dark' ? undefined : githubLight}>
+        <LiveProvider code={code} noInline={true} theme={theme === 'dark' ? undefined : themes.github}>
           <Resizable
             size={{ width: editorWidth, height: "100%" }}
-            onResizeStop={(e, direction, ref, d) => {
-              setEditorWidth(ref.style.width);
+
+          
+            onResizeStop={(_e, _direction, _ref, d) => {
+              setEditorWidth(editorWidth +d.width);
+   
             }}
             minWidth="30%"
             maxWidth="70%"
@@ -137,12 +145,5 @@ const buttonStyle = {
   },
 };
 
-const githubLight = {
-  plain: {
-    color: "#24292e",
-    backgroundColor: "#ffffff",
-  },
-  // ... (include the rest of the light theme styles here)
-};
 
 export default EnhancedEmbeddableEditor;  

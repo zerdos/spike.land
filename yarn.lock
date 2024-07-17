@@ -3321,6 +3321,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     popmotion: "npm:11.0.5"
     prettier: "npm:3.3.3"
+    prism-react-renderer: "npm:^2.3.1"
     qrious: "npm:4.0.2"
     re-resizable: "npm:6.9.17"
     react: "npm:18.3.1"
@@ -12267,7 +12268,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prism-react-renderer@npm:^2.0.6":
+"prism-react-renderer@npm:^2.0.6, prism-react-renderer@npm:^2.3.1":
   version: 2.3.1
   resolution: "prism-react-renderer@npm:2.3.1"
   dependencies:

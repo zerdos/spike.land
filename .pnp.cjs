@@ -5097,6 +5097,7 @@ const RAW_RUNTIME_STATE =
           ["path-browserify", "npm:1.0.1"],\
           ["popmotion", "npm:11.0.5"],\
           ["prettier", "npm:3.3.3"],\
+          ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1"],\
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.17"],\
           ["react", "npm:18.3.1"],\
@@ -15508,10 +15509,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:42ff06a1576893a7bb14bd2997bc45eb47466301c3f111839180eb243518d04410c564a0aad7a7ad069b4923fd8f154d202a85472191f0ad60d41f4218eaae3a#npm:2.3.1", {\
-        "packageLocation": "./.yarn/__virtual__/prism-react-renderer-virtual-6146b6fc3f/0/global/cache/prism-react-renderer-npm-2.3.1-79c80bb723-10.zip/node_modules/prism-react-renderer/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1", {\
+        "packageLocation": "./.yarn/__virtual__/prism-react-renderer-virtual-44a9615cae/0/global/cache/prism-react-renderer-npm-2.3.1-79c80bb723-10.zip/node_modules/prism-react-renderer/",\
         "packageDependencies": [\
-          ["prism-react-renderer", "virtual:42ff06a1576893a7bb14bd2997bc45eb47466301c3f111839180eb243518d04410c564a0aad7a7ad069b4923fd8f154d202a85472191f0ad60d41f4218eaae3a#npm:2.3.1"],\
+          ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1"],\
           ["@types/prismjs", "npm:1.26.4"],\
           ["@types/react", "npm:18.3.3"],\
           ["clsx", "npm:2.1.1"],\
@@ -15960,7 +15961,7 @@ const RAW_RUNTIME_STATE =
           ["react-live", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.1.7"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
-          ["prism-react-renderer", "virtual:42ff06a1576893a7bb14bd2997bc45eb47466301c3f111839180eb243518d04410c564a0aad7a7ad069b4923fd8f154d202a85472191f0ad60d41f4218eaae3a#npm:2.3.1"],\
+          ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.3.1"],\
           ["sucrase", "npm:3.35.0"],\
