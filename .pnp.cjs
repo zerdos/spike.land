@@ -5079,7 +5079,7 @@ const RAW_RUNTIME_STATE =
           ["events", "npm:3.3.0"],\
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
-          ["file-type", "npm:19.1.1"],\
+          ["file-type", "npm:19.2.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.6"],\
           ["immutable", "npm:4.3.6"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
@@ -10257,11 +10257,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["file-type", [\
-      ["npm:19.1.1", {\
-        "packageLocation": "./.yarn/global/cache/file-type-npm-19.1.1-65e81b2a77-10.zip/node_modules/file-type/",\
+      ["npm:19.2.0", {\
+        "packageLocation": "./.yarn/global/cache/file-type-npm-19.2.0-eb0c2fc81f-10.zip/node_modules/file-type/",\
         "packageDependencies": [\
-          ["file-type", "npm:19.1.1"],\
-          ["strtok3", "npm:7.1.0"],\
+          ["file-type", "npm:19.2.0"],\
+          ["strtok3", "npm:8.0.0"],\
           ["token-types", "npm:6.0.0"],\
           ["uint8array-extras", "npm:1.3.0"]\
         ],\
@@ -14296,7 +14296,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-refresh", "virtual:e9fbd22c7b4f9d9418edd0debfb334ed74a83863b91b0a4905c7e0dc2dabb39aca2522b0d1ff16a03945d0274a7add79a9350d27047c110407d68dc864207e22#npm:0.4.8"],\
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
-          ["file-type", "npm:19.1.1"],\
+          ["file-type", "npm:19.2.0"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.6"],\
           ["immutable", "npm:4.3.6"],\
           ["isomorphic-fetch", "npm:3.0.0"],\
@@ -15231,10 +15231,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["peek-readable", [\
-      ["npm:5.1.1", {\
-        "packageLocation": "./.yarn/global/cache/peek-readable-npm-5.1.1-b343614c6c-10.zip/node_modules/peek-readable/",\
+      ["npm:5.1.3", {\
+        "packageLocation": "./.yarn/global/cache/peek-readable-npm-5.1.3-8cb44283b9-10.zip/node_modules/peek-readable/",\
         "packageDependencies": [\
-          ["peek-readable", "npm:5.1.1"]\
+          ["peek-readable", "npm:5.1.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -17567,12 +17567,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["strtok3", [\
-      ["npm:7.1.0", {\
-        "packageLocation": "./.yarn/global/cache/strtok3-npm-7.1.0-b900f526d1-10.zip/node_modules/strtok3/",\
+      ["npm:8.0.0", {\
+        "packageLocation": "./.yarn/global/cache/strtok3-npm-8.0.0-e344a886ed-10.zip/node_modules/strtok3/",\
         "packageDependencies": [\
-          ["strtok3", "npm:7.1.0"],\
+          ["strtok3", "npm:8.0.0"],\
           ["@tokenizer/token", "npm:0.3.0"],\
-          ["peek-readable", "npm:5.1.1"]\
+          ["peek-readable", "npm:5.1.3"]\
         ],\
         "linkType": "HARD"\
       }]\
