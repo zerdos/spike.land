@@ -167,8 +167,7 @@ export class Code implements DurableObject {
     });
   }
 
-  fetch(request: Request
-  ) {
+  fetch(request: Request) {
     return handleErrors(
       request,
       (async () => {

@@ -1,6 +1,5 @@
 import { importMapReplace } from "./importMapReplace";
 
-
 export async function ata({
   code,
   originToUse,
@@ -13,7 +12,6 @@ export async function ata({
   tsx: (code: string) => Promise<string[]>;
 }) {
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
-  
 
   await ataRecursive(
     `/** @jsx jsx */
@@ -149,13 +147,11 @@ declare module 'react' {
           } else if (r.startsWith("https://")) {
             newBase = r;
           } else {
-            try{
-            
+            try {
               await tryToExtractUrlFromPackageJson(r);
               if (impRes[r]) {
                 return;
               }
-          
 
               const response = await fetch(`${originToUse}/*${r}`, {
                 redirect: "follow",
@@ -176,13 +172,23 @@ declare module 'react' {
               );
 
               newBase = typescriptTypes || `${originToUse}/${r}`;
-              const newBaseIsDownloadable = await fetch(newBase).then((res) => res.ok);
+              let newBaseIsDownloadable = true;
+              const newBaseReq = await fetch(newBase);
+              if (!newBaseReq.ok) {
+                             newBaseIsDownloadable = false;
+
+              }
+
+              const rawContent = await newBaseReq.text();
+
+              if (rawContent === "Module not found") {
+                newBaseIsDownloadable = false
+              }
               if (!newBaseIsDownloadable) {
                 newBase = null;
               }
             }
           }
-          if (impRes[r]) return;
 
           if (newBase !== null) {
             await handleNewBase(newBase, r, baseUrl);
@@ -200,22 +206,26 @@ declare module 'react' {
     return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
 
-    async function tryToExtractUrlFromPackageJson(npmPackage: string) {
-      if (impRes[npmPackage]) return;
-      try {
-        const packageJson = await (await fetch(`${originToUse}/${npmPackage}/package.json`)).json<{ typings?: string; types?: string, module?: string }>();
+  async function tryToExtractUrlFromPackageJson(npmPackage: string) {
+    if (impRes[npmPackage]) return;
+    try {
+      const pjFeq = await fetch(`${originToUse}/${npmPackage}/package.json`);
+      if (pjFeq.ok) {
+        const packageJson = await pjFeq.json<{ typings?: string; types?: string; module?: string }>();
         const types = packageJson.typings || packageJson.types;
         if (types) {
-          const url = new URL(npmPackage+ '/' + types, originToUse);
-          const content = await fetch(url).then((res) => res.text());
-          if (content) {
-            impRes[npmPackage  + '/' + types] = { url: url.toString(), content, ref: npmPackage }
-            
-            const defaultIndexDtsUrl = new URL(npmPackage + '/index.d.ts', originToUse);
+          const url = new URL(npmPackage + "/" + types, originToUse);
+          const rawContent = await fetch(url).then((res) => res.text());
+          const content = importMapReplace(await prettierJs(rawContent), originToUse);
+          if (content && rawContent !== "Module not found" && content!=="Module not found") {
+            impRes[npmPackage + "/" + types] = { url: url.toString(), content, ref: npmPackage };
+            await ataRecursive(content, url.toString());
+
+            const defaultIndexDtsUrl = new URL(npmPackage + "/index.d.ts", originToUse);
             if (defaultIndexDtsUrl.toString() !== url.toString()) {
               const fileName = defaultIndexDtsUrl.toString();
-              const newBase = npmPackage  + '/' + types
-              const ref  = npmPackage;
+              const newBase = npmPackage + "/" + types;
+              const ref = npmPackage;
 
               impRes[npmPackage] = {
                 url: fileName,
@@ -226,17 +236,31 @@ declare module 'react' {
                 `,
                 ref,
               };
-            }
 
+              await ataRecursive(impRes[npmPackage].content, url.toString());
+            }
 
             await ataRecursive(impRes[npmPackage].content, impRes[npmPackage].url);
           }
         }
-
-      } catch (error) {
-        console.error("error fetching package.json", { error, npmPackage, originToUse, impRes });
       }
+      const DTSurl = `${originToUse}/${npmPackage}.d.ts`
+      const dtsReq = await fetch(DTSurl
+        );
+      if (dtsReq.ok) {
+        const rawContent = await dtsReq.text();
+        if (rawContent !== "Module not found") {
+          const content = importMapReplace(await prettierJs(rawContent), originToUse);
+          if (content && content!== "Module not found") {
+            impRes[`${npmPackage}.d.ts`] = { url: dtsReq.url, content, ref: npmPackage };
+            await ataRecursive(content, DTSurl);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("error fetching package.json", { error, npmPackage, originToUse, impRes });
     }
+  }
 
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
     if (!impRes[newBase]) {
@@ -248,12 +272,22 @@ declare module 'react' {
           return dtsRes.text();
         });
 
+    
+
       const fileName = new URL(
         ref.includes("d.ts") || ref.includes(".mjs")
           ? ref
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,
       ).toString();
+
+      if (impRes[newBase].content !== "Module not found") {
+        await ataRecursive(impRes[newBase].content , newBase);
+
+      } else {
+        delete impRes[newBase]; 
+        return;
+      }
 
       if (!impRes[fileName]) {
         impRes[fileName] = {

@@ -78,7 +78,7 @@ render(<App />);
       height: "100%",
       overflow: "auto",
     },
-    preview: { 
+    preview: {
       flex: 1,
       overflow: "auto",
       padding: "20px",
@@ -87,11 +87,15 @@ render(<App />);
   };
 
   return (
-    <div style={{  display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      backgroundColor: theme === 'dark' ? "#1e1e1e" : "#ffffff",
-      color: theme === 'dark' ? "#fff" : "#000",}}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        backgroundColor: theme === "dark" ? "#1e1e1e" : "#ffffff",
+        color: theme === "dark" ? "#fff" : "#000",
+      }}
+    >
       <div style={styles.toolbar}>
         <button onClick={handleReset} css={buttonStyle}>
           <RotateCcw size={16} />
@@ -107,11 +111,8 @@ render(<App />);
         <LiveProvider code={code} noInline={true} theme={theme === "dark" ? undefined : githubLight}>
           <Resizable
             size={{ width: editorWidth, height: "100%" }}
-
-          
             onResizeStop={(_e, _direction, _ref, d) => {
-              setEditorWidth(editorWidth +d.width);
-   
+              setEditorWidth(editorWidth + d.width);
             }}
             minWidth="30%"
             maxWidth="70%"
@@ -143,6 +144,5 @@ const buttonStyle = {
     color: "#61dafb",
   },
 };
-
 
 export default EnhancedEmbeddableEditor;

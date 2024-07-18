@@ -21,7 +21,7 @@ export const renderPreviewWindow = async (
     const { reveal } = await import("./reveal");
     const { EnhancedEmbeddableEditor } = await import("./EmbeddableEditor");
 
-    root.render(<EnhancedEmbeddableEditor  />);
+    root.render(<EnhancedEmbeddableEditor />);
     reveal();
     return;
   }

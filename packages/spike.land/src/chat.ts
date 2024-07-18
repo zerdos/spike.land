@@ -481,9 +481,9 @@ async function handleMainFetch(
   env: Env,
   ctx: ExecutionContext,
 ): Promise<Response> {
-  const {cf} = request as unknown as { cf?: { asOrganization?: string } };
+  const { cf } = request as unknown as { cf?: { asOrganization?: string } };
   if (
-   cf?.asOrganization?.startsWith("YANDEX")
+    cf?.asOrganization?.startsWith("YANDEX")
   ) {
     return handleUnauthorizedRequest();
   }
@@ -509,8 +509,8 @@ async function handleMainFetch(
 
     if (!path[0]) {
       const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
-      const {cf} = request as unknown as { cf?: { asOrganization?: string } };
-    
+      const { cf } = request as unknown as { cf?: { asOrganization?: string } };
+
       const start = md5(
         ((cf?.asOrganization) || "default")
           + utcSecs + `
