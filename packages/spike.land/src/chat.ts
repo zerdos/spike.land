@@ -240,15 +240,57 @@ async function handleFetchApi(
     default:
       {
         if (!isUrlFile(path.join("/"))) {
+          const paths = [...path.slice(1)];
+          const lastPath = paths.pop() || "";
+
           const esmResp = esmWorker.fetch(request, env, ctx);
           const isUnpFile = await fetch(
             ["https://unpkg.com", ...path].join("/"),
+          );
+          const isUnpFileDts = await fetch(
+            ["https://unpkg.com", ...path].join("/") + ".d.ts",
           );
           if (isUnpFile.ok) {
             return new Response(await isUnpFile.blob(), {
               headers: isUnpFile.headers,
             });
           }
+          if (isUnpFileDts.ok) {
+            return new Response(await isUnpFileDts.blob(), {
+              headers: isUnpFileDts.headers,
+            });
+          }
+
+          if (lastPath  === 'index.d.ts')
+
+            try {
+            
+              const packageJsonReq =  await fetch(
+                ["https://unpkg.com", ...paths, "package.json"].join("/"),
+              );
+              if (packageJsonReq.ok) {
+                const pck = await packageJsonReq.json<{typings: string; types: string}>();
+                
+                const types = pck.types || pck.typings;
+
+                return new Response(`
+                         export * from "./${types}";
+                         export { default } from "./${types}";
+                        `, {
+                  headers: {
+                    "content-type": "application/javascript; charset=utf-8",
+                    "Cache-Control": "no-cache",
+                    "Content-Encoding": "gzip",
+                  },
+                });
+              }
+
+
+
+            }catch(e){
+              console.log(e);
+            }
+        
 
           const resp = await esmResp;
           if (!resp.ok) return resp;
