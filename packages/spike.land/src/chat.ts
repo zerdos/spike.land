@@ -5,7 +5,7 @@ import { md5 } from "../../code/src/md5";
 import { handleAiFetchApi } from "./ai";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
-import esmWorker from "./esm.worker";
+
 import { handleErrors } from "./handleErrors";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
 
@@ -91,15 +91,15 @@ async function handleFetchApi(
   const u = new URL(request.url);
   const newUrl = new URL(path.join("/"), u.origin);
 
-  const cacheKey = new Request(request.url);
-  const cache = await caches.open(ASSET_HASH);
+  // const cacheKey = new Request(request.url);
+  // const cache = await caches.open(ASSET_HASH);
 
-  const response = await cache.match(cacheKey);
-  if (
-    response && response.ok && !response.bodyUsed && response.status === 200
-  ) {
-    return response;
-  }
+  // const response = await cache.match(cacheKey);
+  // if (
+  //   response && response.ok && !response.bodyUsed && response.status === 200
+  // ) {
+  //   return response;
+  // }
 
   switch (path[0]) {
     case "ping":
@@ -239,11 +239,12 @@ async function handleFetchApi(
     }
     default:
       {
-        if (!isUrlFile(path.join("/"))) {
+        if (!isUrlFile(path.join("/")) || path.includes('.d.ts')) {
           const paths = [...path.slice(1)];
           const lastPath = paths.pop() || "";
+          const withVersion = paths.pop()?.split("@")[0];
+          paths.push(withVersion!);
 
-          const esmResp = esmWorker.fetch(request, env, ctx);
           const isUnpFile = await fetch(
             ["https://unpkg.com", ...path].join("/"),
           );
@@ -252,7 +253,7 @@ async function handleFetchApi(
           );
           if (isUnpFile.ok) {
             return new Response(await isUnpFile.blob(), {
-              headers: isUnpFile.headers,
+              headers: isUnpFile.headers, 
             });
           }
           if (isUnpFileDts.ok) {
@@ -261,38 +262,68 @@ async function handleFetchApi(
             });
           }
 
-          if (lastPath  === 'index.d.ts')
-
+          if (lastPath === "index.d.ts") {
             try {
-            
-              const packageJsonReq =  await fetch(
-                ["https://unpkg.com", ...paths, "package.json"].join("/"),
+              const packageJsonReq = await fetch(
+                ["https://unpkg.com", path.join('/').replace('index.d.ts', 'package.json')].join("/"),
               );
               if (packageJsonReq.ok) {
-                const pck = await packageJsonReq.json<{typings: string; types: string}>();
-                
+                const pck = await packageJsonReq.json<{ typings: string; types: string }>();
+
                 const types = pck.types || pck.typings;
 
-                return new Response(`
+                if(types) {
+
+                return new Response(
+                  `
                          export * from "./${types}";
                          export { default } from "./${types}";
-                        `, {
-                  headers: {
-                    "content-type": "application/javascript; charset=utf-8",
-                    "Cache-Control": "no-cache",
-                    "Content-Encoding": "gzip",
+                        `,
+                  {
+                    headers: {
+                      "content-type": "application/javascript; charset=utf-8",
+                      "Cache-Control": "no-cache",
+                      "Content-Encoding": "gzip",
+                    },
                   },
-                });
+                );
               }
 
+            
+
+                const defTyped =await handleMainFetch(new Request( [u.origin,'@types', ...path].join('/')), env,ctx);
+                if (defTyped.ok) {
+
+                  const txt = await defTyped.text();
+                  if (!txt.includes('throw new Error')){
+                    return new Response(
+                      `
+                             export * from "${['@types', ...path].join('/')}";
+                             export { default } from "${['@types', ...path].join('/')}";
+                            `,
+                      {
+                        headers: {
+                          "content-type": "application/javascript; charset=utf-8",
+                          "Cache-Control": "no-cache",
+                          "Content-Encoding": "gzip",
+                        },
+                      },
+                    );
+                  }
+                }
 
 
-            }catch(e){
+
+              }
+            
+            } catch (e) {
+              
               console.log(e);
             }
-        
+          }
 
-          const resp = await esmResp;
+          const esmWorker = (await import ("./esm.worker")).default;
+          const resp = await esmWorker.fetch(request, env, ctx);
           if (!resp.ok) return resp;
 
           const headers = new Headers(resp.headers);
@@ -326,16 +357,6 @@ async function handleFetchApi(
 
           // return esmPackage;
 
-          // new Response(
-          //   importMapReplace(
-          //     await esmPackage.text(),
-          //     u.origin,
-          //     ASSET_HASH,
-          //   ),
-          //   {
-          //     headers: esmPackage.headers,
-          //   },
-          // );
         }
 
         const file = newUrl.pathname.slice(0, 7) === ("/assets/")

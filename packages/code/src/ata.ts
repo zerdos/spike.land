@@ -19,8 +19,7 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
   async function processCode(code: string, baseUrlA: string) {
     const baseUrlParts = new URL(baseUrlA).href.split("/");
     baseUrlParts.pop();
-const    baseUrl = baseUrlParts.join("/")
-    
+    const baseUrl = baseUrlParts.join("/");
 
     const prettifiedCode = await prettierJs(code);
     const imports = await tsx(prettifiedCode);
@@ -31,11 +30,11 @@ const    baseUrl = baseUrlParts.join("/")
   }
 
   function extractReferences(code: string): string[] {
-    const refParts = code.split('/// <reference path="');
+    const refParts = code.split("/// <reference path=\"");
     if (refParts.length <= 1) return [];
 
     return refParts.slice(1).map(part => {
-      const ref = part.split('"')[0];
+      const ref = part.split("\"")[0];
       return ref.startsWith(".") || ref.startsWith("https://")
         ? ref
         : new URL(ref.slice(1), originToUse).toString();
@@ -89,11 +88,12 @@ const    baseUrl = baseUrlParts.join("/")
 
   async function extractUrlFromResponse(response: Response, ref: string): Promise<string | null> {
     const responseText = importMapReplace(await prettierJs(await response.text()), ref);
-    return responseText.split('"').find(x => x.startsWith("https://") && x.includes(ref)) || null;
+    return responseText.split("\"").find(x => x.startsWith("https://") && x.includes(ref)) || null;
   }
 
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
     if (importResults[npmPackage]) return;
+    if (!npmPackage.includes('.')) {
     try {
       const pjFeq = await fetch(`${originToUse}/${npmPackage}/package.json`);
       if (pjFeq.ok) {
@@ -130,23 +130,24 @@ const    baseUrl = baseUrlParts.join("/")
             await processCode(importResults[npmPackage].content, importResults[npmPackage].url);
           }
         }
-      } 
-      if (!npmPackage.endsWith(".d.ts")){
-      const DTSurl = `${originToUse}/${npmPackage}.d.ts`;
-      const dtsReq = await fetch(DTSurl);
-      if (dtsReq.ok) {
-        const rawContent = await dtsReq.text();
-        if (rawContent !== "Module not found") {
-          const content = importMapReplace(await prettierJs(rawContent), DTSurl);
-          if (content && content !== "Module not found") {
-            importResults[`${npmPackage}.d.ts`] = { url: dtsReq.url, content, ref: npmPackage };
-            await processCode(content, DTSurl);
+      }
+      if (!npmPackage.endsWith(".d.ts")) {
+        const DTSurl = `${originToUse}/${npmPackage}.d.ts`;
+        const dtsReq = await fetch(DTSurl);
+        if (dtsReq.ok) {
+          const rawContent = await dtsReq.text();
+          if (rawContent !== "Module not found") {
+            const content = importMapReplace(await prettierJs(rawContent), DTSurl);
+            if (content && content !== "Module not found") {
+              importResults[`${npmPackage}.d.ts`] = { url: dtsReq.url, content, ref: npmPackage };
+              await processCode(content, DTSurl);
+            }
           }
         }
       }
-    }
     } catch (error) {
       console.error("error fetching package.json", { error, npmPackage, originToUse, importResults });
+    }
     }
   }
 
@@ -198,44 +199,24 @@ const    baseUrl = baseUrlParts.join("/")
     }
   }
 
-  function cleanupImportResults() {
-    const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
-    const vNumbers = /\/(v)[0-9]+\//gm;
-    const subst = "/";
-
-    Object.keys(importResults)
-      .filter((x) => !(importResults[x].ref.startsWith(".") || importResults[x].ref.startsWith("https")))
-      .forEach((x) => {
-        Object.keys(importResults).forEach((t) => {
-          importResults[t] = {
-            ref: importResults[t].ref,
-            content: importResults[t].content,
-            url: importResults[t].url
-          };
-        });
-      });
-
-    Object.keys(importResults).forEach((x) => {
-      importResults[x] = {
-        url: importResults[x].url!,
-        ref: importResults[x].ref,
-        content: importResults[x].content.split(originToUse).join(""),
-      };
-    });
-  }
-
   // Main execution
-  await processCode(`/** @jsx jsx */
+  await processCode(
+    `/** @jsx jsx */
     import { jsx } from "@emotion/react";
-    ${code}`, originToUse);
+    ${code}`,
+    originToUse,
+  );
 
-  cleanupImportResults();
-
+ 
   // Process and return extra libraries
   return processExtraLibraries(originToUse, importResults, prettierJs);
 }
 
-async function processExtraLibraries(originToUse: string, importResults:  Record<string, ImportResult>,  prettierJs: (code: string) => Promise<string> ) {
+async function processExtraLibraries(
+  originToUse: string,
+  importResults: Record<string, ImportResult>,
+  prettierJs: (code: string) => Promise<string>,
+) {
   const extras = [
     {
       filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
