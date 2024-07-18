@@ -250,6 +250,46 @@ async function handleFetchApi(
             });
           }
 
+          if (request.url.endsWith("index.d.ts")) {
+            const packageJson = await fetch(
+              ["https://unpkg.com", ...path].join("/").replace("/index.d.ts", "/package.json")
+            );
+            if (packageJson.ok) {
+              const packageJsonData = await packageJson.json<{
+                types?: string;
+                typings?: string;
+              }>();
+              const types = packageJsonData.types || packageJsonData.typings;
+              if (types) {
+                const typesUrl = new URL(
+                  ["https://unpkg.com", ...path].join("/").replace("/index.d.ts", `/${types}`)
+                );
+                const typesResponse = await fetch(typesUrl.toString());
+                if (typesResponse.ok) {
+                  
+                  const npmPath = [path.join('/').replace("/index.d.ts", ""), types].join("/");
+
+                  return new Response(
+                    `
+
+                  export * from "${npmPath}";
+                  export { default } from "${npmPath}";
+                  `,
+                    {
+                      headers: {
+                        "content-type": "application/javascript; charset=utf-8",
+                        "Content-Encoding": "gzip",
+                        "Cache-Control": "no-cache",
+                      },
+                    },
+                  );
+                }
+                
+  
+            }
+
+          }
+
           const resp = await esmResp;
           if (!resp.ok) return resp;
 
@@ -295,7 +335,7 @@ async function handleFetchApi(
           //   },
           // );
         }
-
+      }
         const file = newUrl.pathname.slice(0, 7) === ("/assets/")
           ? newUrl.pathname.slice(8)
           : newUrl.pathname.slice(1);
