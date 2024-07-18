@@ -1481,10 +1481,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20240712.0":
-  version: 4.20240712.0
-  resolution: "@cloudflare/workers-types@npm:4.20240712.0"
-  checksum: 10/96b58f08f1e17e6422b901ec9858f53d63c1db3ab84df2772eb7007aa9bc7cd363ef4cd957f0af37a286d361bd85e8a9da15b6b9e815772e65089e6e20c168a5
+"@cloudflare/workers-types@npm:4.20240718.0":
+  version: 4.20240718.0
+  resolution: "@cloudflare/workers-types@npm:4.20240718.0"
+  checksum: 10/2e33b74c63039807abf9e27a32be115429e0eb812df7d507ff5790ee42d9d94636ea3405d8ea9a09d883f56296c44f5bf52815c8a4b109694d43299051e0b7be
   languageName: node
   linkType: hard
 
@@ -3249,7 +3249,7 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20240712.0"
+    "@cloudflare/workers-types": "npm:4.20240718.0"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:20.14.11"
     async-mutex: "npm:0.5.0"
@@ -3270,7 +3270,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240712.0"
+    "@cloudflare/workers-types": "npm:4.20240718.0"
     "@emotion/cache": "npm:11.11.0"
     "@emotion/react": "npm:11.11.4"
     "@emotion/styled": "npm:11.11.5"
@@ -3286,7 +3286,7 @@ __metadata:
     "@types/uuid": "npm:10.0.0"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/typescript-estree": "npm:7.16.1"
-    ace-builds: "npm:1.35.2"
+    ace-builds: "npm:1.35.3"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -3304,7 +3304,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.2.0"
-    framer-motion: "npm:11.3.6"
+    framer-motion: "npm:11.3.7"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     jest: "npm:29.7.0"
@@ -3334,7 +3334,7 @@ __metadata:
     react-rnd: "npm:10.4.11"
     stream-browserify: "npm:3.0.0"
     transferables: "npm:1.0.3"
-    ts-jest: "npm:29.2.2"
+    ts-jest: "npm:29.2.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.3"
     typescript: "npm:5.5.3"
@@ -3439,7 +3439,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20240712.0"
+    "@cloudflare/workers-types": "npm:4.20240718.0"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.3"
     wrangler: "npm:3.65.0"
@@ -4189,10 +4189,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.35.2":
-  version: 1.35.2
-  resolution: "ace-builds@npm:1.35.2"
-  checksum: 10/dca440312d85e85cf3e0cac5ee1ffad2d282b31fbcffbd5b6d72cfdd5037cdb85b43d41ef3e3557ab5d446009233c37a4b26b99f7b1cf1f043210d27a8abf571
+"ace-builds@npm:1.35.3":
+  version: 1.35.3
+  resolution: "ace-builds@npm:1.35.3"
+  checksum: 10/859603dac83f9a43e0a3055e625ecb70eaa41fa67fe55f983d2c8fc760c26143ab88dee1b18e9860c5f024c90350274ccd35d0f5d0d30d5d3ea4f745bd4c6851
   languageName: node
   linkType: hard
 
@@ -6559,7 +6559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.0.0, ejs@npm:^3.1.6":
+"ejs@npm:^3.1.10, ejs@npm:^3.1.6":
   version: 3.1.10
   resolution: "ejs@npm:3.1.10"
   dependencies:
@@ -7858,9 +7858,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.6":
-  version: 11.3.6
-  resolution: "framer-motion@npm:11.3.6"
+"framer-motion@npm:11.3.7":
+  version: 11.3.7
+  resolution: "framer-motion@npm:11.3.7"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -7874,7 +7874,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/855334c66286fc050f11545f5e5d1e87dbff3023d8746aca9f8029a79a50fbf58aeff13f56960b93882c1201321b662ffbd744395c2b9d67aaebcc2b7cb6fe33
+  checksum: 10/f16d06255eaa655d001ba8cb49b1f60b2bbcd800b4e83bb27fbe8eef7bff8c9264115fc17b1ed3e9558b391549c59d02852a651d6a6ce904885d8060a7729116
   languageName: node
   linkType: hard
 
@@ -11036,7 +11036,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240712.0"
+    "@cloudflare/workers-types": "npm:4.20240718.0"
     "@emotion/react": "npm:11.11.4"
     "@playwright/test": "npm:1.45.2"
     "@spike-land/ai-devtools": "workspace:^"
@@ -11102,7 +11102,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240712.0"
+    "@cloudflare/workers-types": "npm:4.20240718.0"
     hono: "npm:4.5.0"
     wrangler: "npm:3.65.0"
   languageName: unknown
@@ -11128,7 +11128,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:7.16.1"
     "@vite-pwa/assets-generator": "npm:0.2.4"
     "@vitejs/plugin-react": "npm:4.3.1"
-    ace-builds: "npm:1.35.2"
+    ace-builds: "npm:1.35.3"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     classnames: "npm:2.5.1"
@@ -11139,7 +11139,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.2.0"
-    framer-motion: "npm:11.3.6"
+    framer-motion: "npm:11.3.7"
     immutable: "npm:4.3.6"
     isomorphic-fetch: "npm:3.0.0"
     lodash.debounce: "npm:4.0.8"
@@ -11188,14 +11188,14 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:7.16.1"
     "@typescript-eslint/parser": "npm:7.16.1"
     "@vitejs/plugin-react": "npm:4.3.1"
-    ace-builds: "npm:1.35.2"
+    ace-builds: "npm:1.35.3"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     eslint: "npm:8.57.0"
     eslint-plugin-react-hooks: "npm:4.6.2"
     eslint-plugin-react-refresh: "npm:0.4.8"
     fast-diff: "npm:1.3.0"
-    framer-motion: "npm:11.3.6"
+    framer-motion: "npm:11.3.7"
     immutable: "npm:4.3.6"
     lodash.debounce: "npm:4.0.8"
     lucide-react: "npm:0.408.0"
@@ -14613,12 +14613,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:29.2.2":
-  version: 29.2.2
-  resolution: "ts-jest@npm:29.2.2"
+"ts-jest@npm:29.2.3":
+  version: 29.2.3
+  resolution: "ts-jest@npm:29.2.3"
   dependencies:
     bs-logger: "npm:0.x"
-    ejs: "npm:^3.0.0"
+    ejs: "npm:^3.1.10"
     fast-json-stable-stringify: "npm:2.x"
     jest-util: "npm:^29.0.0"
     json5: "npm:^2.2.3"
@@ -14646,7 +14646,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 10/6523de2d78493a7901dfc37f2a491b259f5d30beac7a2179ddf8524da0c8e4a7f488aad2d22eca8d074bcc54d7b06a90153fdbf6e9c245f5fc1e484788f0c9d8
+  checksum: 10/d3c3388cea8ea4a7f52c7c97e34a1abf1d83152fa0625ddea7b82c0e3599a786185b95d3e12a09eb27521adedc90780a3dc9df29156ca83f1094e163113ede62
   languageName: node
   linkType: hard
 

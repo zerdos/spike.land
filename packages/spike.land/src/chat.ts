@@ -276,8 +276,9 @@ async function handleFetchApi(
 
                 return new Response(
                   `
-                         export * from "./${types}";
-                         export { default } from "./${types}";
+                        import mod from "${cleanPath([ path[0], ...paths].join('/') + '/' +types)}";
+                         export * from "${cleanPath([ path[0], ...paths].join('/') + '/' +types)}";
+                        export default mod;
                         `,
                   {
                     headers: {
@@ -290,6 +291,8 @@ async function handleFetchApi(
               }
 
             
+        
+              
 
                 const defTyped =await handleMainFetch(new Request( [u.origin,'@types', ...path].join('/')), env,ctx);
                 if (defTyped.ok) {
@@ -298,8 +301,9 @@ async function handleFetchApi(
                   if (!txt.includes('throw new Error')){
                     return new Response(
                       `
+                             import mod from "${['@types', ...path].join('/')}";
                              export * from "${['@types', ...path].join('/')}";
-                             export { default } from "${['@types', ...path].join('/')}";
+                            export default mod;
                             `,
                       {
                         headers: {
@@ -588,3 +592,11 @@ async function handleMainFetch(
 }
 
 api.fetch = handleMainFetch;
+
+
+function cleanPath(path: string) {
+  path = path.replace(/\/{2,}/g, '/');
+  path = path.replace(/\/\.+\/\.+\/+/g, '/');
+  
+  return path;
+}

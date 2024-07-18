@@ -82,6 +82,7 @@ const monacoContribution = async (code: string) => {
     sourceMap: true,
     maxNodeModuleJsDepth: 20,
     rootDir: `${originToUse}/`,
+    typeRoots: ["@types"],
     paths: {
       "tslib": ["/tslib"],
     },
@@ -102,6 +103,7 @@ const monacoContribution = async (code: string) => {
 
   return code;
 };
+
 
 self.MonacoEnvironment = {
   baseUrl: originToUse,

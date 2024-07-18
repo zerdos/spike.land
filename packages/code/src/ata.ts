@@ -16,10 +16,9 @@ interface ImportResult {
 export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
   const importResults: Record<string, ImportResult> = {};
 
-  async function processCode(code: string, baseUrlA: string) {
-    const baseUrlParts = new URL(baseUrlA).href.split("/");
-    baseUrlParts.pop();
-    const baseUrl = baseUrlParts.join("/");
+  async function processCode(code: string, baseUrl: string) {
+
+
 
     const prettifiedCode = await prettierJs(code);
     const imports = await tsx(prettifiedCode);
@@ -46,7 +45,7 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
 
     const newBase = await resolveImportPath(importPath, baseUrl);
     if (newBase) {
-      await handleNewBase(newBase, importPath, baseUrl);
+      await handleNewBase(newBase, importPath, baseUrl, originToUse);
     }
   }
 
@@ -65,7 +64,7 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
       await tryToExtractUrlFromPackageJson(npmPackage);
       if (importResults[npmPackage]) return null;
 
-      const response = await fetch(`${originToUse}/*${npmPackage}`);
+      const response = await fetch(`${originToUse}/*${npmPackage}`,{redirect: 'follow'});
       if (!response.ok) throw new Error("Failed to fetch");
 
       return response.headers.get("X-typescript-types") || await extractUrlFromResponse(response, npmPackage);
@@ -79,7 +78,7 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
     const typescriptTypes = response.headers.get("X-typescript-types");
     const newBase = typescriptTypes || `${originToUse}/${npmPackage}`;
 
-    const newBaseReq = await fetch(newBase);
+    const newBaseReq = await fetch(newBase, {redirect: 'follow'});
     if (!newBaseReq.ok) return null;
 
     const rawContent = await newBaseReq.text();
@@ -92,58 +91,23 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
   }
 
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
+    // if (npmPackage === 'react') return;
+
     if (importResults[npmPackage]) return;
     if (!npmPackage.includes('.')) {
     try {
-      const pjFeq = await fetch(`${originToUse}/${npmPackage}/package.json`);
+      const dtsUrl = `${originToUse}/${npmPackage}/index.d.ts`;;
+      const pjFeq = await fetch(dtsUrl);
+
       if (pjFeq.ok) {
-        const packageJson = await pjFeq.json<{ typings?: string; types?: string; module?: string }>();
-        const types = packageJson.typings || packageJson.types;
-        if (types) {
-          const url = new URL(npmPackage + "/" + types, originToUse);
-          const uRLSTR = url.toString();
-          const rawContent = await fetch(uRLSTR).then((res) => res.text());
-          const content = importMapReplace(await prettierJs(rawContent), uRLSTR);
-          if (content && rawContent !== "Module not found" && content !== "Module not found") {
-            importResults[uRLSTR] = { url: uRLSTR, content, ref: uRLSTR };
-            await processCode(content, uRLSTR);
+        const content = await pjFeq.text()
+        if (content.includes('esm.sh - error')) return;
 
-            const defaultIndexDtsUrl = new URL(npmPackage + "/index.d.ts", originToUse);
-            if (defaultIndexDtsUrl.toString() !== url.toString()) {
-              const fileName = defaultIndexDtsUrl.toString();
-              const newBase = npmPackage + "/" + types;
-              const ref = npmPackage;
+        importResults[npmPackage] = { url:dtsUrl, content, ref: `${originToUse}/${npmPackage}` };
+        await processCode(content, `${originToUse}/${npmPackage}`);
 
-              importResults[npmPackage] = {
-                url: fileName,
-                content: `
-                  import mod from "${newBase}";
-                  export * from "${newBase}";
-                  export default mod;
-                `,
-                ref,
-              };
-
-              await processCode(importResults[npmPackage].content, url.toString());
-            }
-
-            await processCode(importResults[npmPackage].content, importResults[npmPackage].url);
-          }
-        }
-      }
-      if (!npmPackage.endsWith(".d.ts")) {
-        const DTSurl = `${originToUse}/${npmPackage}.d.ts`;
-        const dtsReq = await fetch(DTSurl);
-        if (dtsReq.ok) {
-          const rawContent = await dtsReq.text();
-          if (rawContent !== "Module not found") {
-            const content = importMapReplace(await prettierJs(rawContent), DTSurl);
-            if (content && content !== "Module not found") {
-              importResults[`${npmPackage}.d.ts`] = { url: dtsReq.url, content, ref: npmPackage };
-              await processCode(content, DTSurl);
-            }
-          }
-        }
+          
+        
       }
     } catch (error) {
       console.error("error fetching package.json", { error, npmPackage, originToUse, importResults });
@@ -151,11 +115,11 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
     }
   }
 
-  async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
+  async function handleNewBase(newBase: string, ref: string, baseUrl: string, originToUse: string) {
     if (!importResults[newBase]) {
       importResults[newBase] = { ref, url: newBase, content: "" };
 
-      importResults[newBase].content = await fetch(newBase)
+      importResults[newBase].content = await fetch(newBase, {redirect: 'follow'})
         .then((dtsRes) => {
           importResults[newBase].url = dtsRes.url;
           return dtsRes.text();
@@ -168,7 +132,7 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
         ref.startsWith(".") ? baseUrl : originToUse,
       ).toString();
 
-      if (importResults[newBase].content !== "Module not found") {
+      if (importResults[newBase].content !== "Module not found" && !importResults[newBase].content.includes("esm.sh - error")) {
         await processCode(importResults[newBase].content, newBase);
       } else {
         delete importResults[newBase];
@@ -176,12 +140,13 @@ export async function ata({ code, originToUse, prettierJs, tsx }: ATAOptions) {
       }
 
       if (!importResults[fileName]) {
+        const npmBase = newBase.replace(originToUse, '');
         importResults[fileName] = {
           url: fileName,
           content: `
-            import mod from "${newBase}";
-            export * from "${newBase}";
-            export default mod;
+            import type mod from "${npmBase}";
+            export type * from "${npmBase}";
+            export default mod";
           `,
           ref,
         };
@@ -217,6 +182,11 @@ async function processExtraLibraries(
   importResults: Record<string, ImportResult>,
   prettierJs: (code: string) => Promise<string>,
 ) {
+
+  const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
+  const vNumbers = /\/(v)[0-9]+\//gm;
+  const subst = "/";
+
   const extras = [
     {
       filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
@@ -267,6 +237,36 @@ declare module 'react' {
     )),
     ...extras,
   ];
+
+
+  Object.keys(importResults)
+  .filter((x) => !(importResults[x].ref.startsWith(".") || importResults[x].ref.startsWith("https")))
+  .forEach((x) => {
+    Object.keys(importResults).forEach((t) => {
+      importResults[t] = {
+        ref: importResults[t].ref,
+        content: importResults[t].content
+          .split(importResults[x].url!)
+          .join(x)
+          .split(`https://${originToUse}/${x}`)
+          .join(importResults[x].ref)
+          .replace(vNumbers, subst)
+          .split("@types/")
+          .join("")
+          .split("/index.d.ts")
+          .join("")
+          
+          .replaceAll(versionNumbers, ""),
+        url: importResults[t].url!
+          .replace(vNumbers, subst)
+          .split("@types/")
+          .join("")
+          .replaceAll(versionNumbers, "")
+          .split("/index.d.ts")
+          .join(""),
+      };
+    });
+  });
 
   // Deduplicate and sort extra libs
   return [...new Set(extraLibs.map((x) => x.filePath))]
