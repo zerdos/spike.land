@@ -110,34 +110,7 @@ async function handleFetchApi(
   // }
 
   switch (path[0]) {
-    case "anthropic": {
-      try {
-        // Get the request body
-        const body = JSON.parse( await readRequestBody(request)) as unknown as { messages: string[] } as unknown as  { messages: MessageParam[] };
-
-        const anthropic = new Anthropic({
-          apiKey: env.ANTHROPIC_API_KEY
-        });
-
-        const msg = await anthropic.messages.create({
-          model: "claude-3-5-sonnet-20240620",
-          max_tokens: 1000,
-          temperature: 0,
-          messages: body.messages
-        });
-        
     
-        // Return the response to the client
-        return new Response(JSON.stringify(msg), {
-          headers: { 'Content-Type': 'application/json' }
-        })
-      } catch (error) {
-        return new Response(JSON.stringify({ error: 'An error occurred', message: {error}, key: env.ANTHROPIC_API_KEY}), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        })
-      }
-    }
     case "ping":
       return new Response("ping" + Math.random(), {
         headers: {
@@ -557,6 +530,55 @@ export default {
   async fetch( request: Request,
     env: Env,
     ctx: ExecutionContext) {
+
+if(request.url.includes('anthropic')) {
+  handleCORS(request)
+
+          const body = JSON.parse(await readRequestBody(request)) as { messages: MessageParam[] };
+      
+          const anthropic = new Anthropic({
+            apiKey: env.ANTHROPIC_API_KEY
+          });
+      
+ 
+    // Create a TransformStream to handle streaming data
+    const { readable, writable } = new TransformStream();
+    const writer = writable.getWriter();
+    const textEncoder = new TextEncoder();
+
+    ctx.waitUntil((async () => {
+      try {
+        const stream = await anthropic.messages.create({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 1000,
+          temperature: 0,
+          messages: body.messages,
+          stream: true,
+        });
+
+        // Loop over the data as it is streamed and write to the writable
+        for await (const part of stream) {
+          if (part.type === 'content_block_start' || part.type === 'content_block_delta') {
+            writer.write(textEncoder.encode(part.delta?.text || ''));
+          }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        writer.write(textEncoder.encode("An error occurred while processing your request."));
+      } finally {
+        await writer.close();
+      }
+    })());
+
+    // Send the readable back to the browser
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "text/plain",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+}
+
     return handleMainFetch(request, env, ctx);
   }
 }
