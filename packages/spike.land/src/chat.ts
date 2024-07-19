@@ -8,6 +8,9 @@ import Env from "./env";
 
 import { handleErrors } from "./handleErrors";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
+import Anthropic from "@anthropic-ai/sdk";
+import { MessageParam } from "@anthropic-ai/sdk/resources/messages";
+
 
 // Helper function to check if a link is a chunk
 function isChunk(link: string) {
@@ -21,6 +24,7 @@ async function handleApiRequest(
   request: Request,
   env: Env,
 ) {
+
   // Logic for handling API requests
   switch (path[0]) {
     case "generate":
@@ -91,6 +95,10 @@ async function handleFetchApi(
   const u = new URL(request.url);
   const newUrl = new URL(path.join("/"), u.origin);
 
+  if (request.method === 'OPTIONS') {
+    return handleCORS(request);
+  }
+
   // const cacheKey = new Request(request.url);
   // const cache = await caches.open(ASSET_HASH);
 
@@ -102,6 +110,34 @@ async function handleFetchApi(
   // }
 
   switch (path[0]) {
+    case "anthropic": {
+      try {
+        // Get the request body
+        const body = JSON.parse( await readRequestBody(request)) as unknown as { messages: string[] } as unknown as  { messages: MessageParam[] };
+
+        const anthropic = new Anthropic({
+          apiKey: env.ANTHROPIC_API_KEY
+        });
+
+        const msg = await anthropic.messages.create({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 1000,
+          temperature: 0,
+          messages: body.messages
+        });
+        
+    
+        // Return the response to the client
+        return new Response(JSON.stringify(msg), {
+          headers: { 'Content-Type': 'application/json' }
+        })
+      } catch (error) {
+        return new Response(JSON.stringify({ error: 'An error occurred', message: {error}, key: env.ANTHROPIC_API_KEY}), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        })
+      }
+    }
     case "ping":
       return new Response("ping" + Math.random(), {
         headers: {
@@ -239,92 +275,93 @@ async function handleFetchApi(
     }
     default:
       {
-        if (!isUrlFile(path.join("/")) || path.includes('.d.ts')) {
-          const paths = [...path.slice(1)];
-          const lastPath = paths.pop() || "";
-          const withVersion = paths.pop()?.split("@")[0];
-          paths.push(withVersion!);
+        if (!isUrlFile(path.join("/"))// || path.includes('.d.ts')
+        ) {
+          // const paths = [...path.slice(1)];
+          // const lastPath = paths.pop() || "";
+          // const withVersion = paths.pop()?.split("@")[0];
+          // paths.push(withVersion!);
 
-          const isUnpFile = await fetch(
-            ["https://unpkg.com", ...path].join("/"),
-          );
-          const isUnpFileDts = await fetch(
-            ["https://unpkg.com", ...path].join("/") + ".d.ts",
-          );
-          if (isUnpFile.ok) {
-            return new Response(await isUnpFile.blob(), {
-              headers: isUnpFile.headers, 
-            });
-          }
-          if (isUnpFileDts.ok) {
-            return new Response(await isUnpFileDts.blob(), {
-              headers: isUnpFileDts.headers,
-            });
-          }
+          // const isUnpFile = await fetch(
+          //   ["https://unpkg.com", ...path].join("/"),
+          // );
+          // const isUnpFileDts = await fetch(
+          //   ["https://unpkg.com", ...path].join("/") + ".d.ts",
+          // );
+          // if (isUnpFile.ok) {
+          //   return new Response(await isUnpFile.blob(), {
+          //     headers: isUnpFile.headers, 
+          //   });
+          // }
+          // if (isUnpFileDts.ok) {
+          //   return new Response(await isUnpFileDts.blob(), {
+          //     headers: isUnpFileDts.headers,
+          //   });
+          // }
 
-          if (lastPath === "index.d.ts") {
-            try {
-              const packageJsonReq = await fetch(
-                ["https://unpkg.com", path.join('/').replace('index.d.ts', 'package.json')].join("/"),
-              );
-              if (packageJsonReq.ok) {
-                const pck = await packageJsonReq.json<{ typings: string; types: string }>();
+          // if (lastPath === "index.d.ts") {
+          //   try {
+          //     const packageJsonReq = await fetch(
+          //       ["https://unpkg.com", path.join('/').replace('index.d.ts', 'package.json')].join("/"),
+          //     );
+          //     if (packageJsonReq.ok) {
+          //       const pck = await packageJsonReq.json<{ typings: string; types: string }>();
 
-                const types = pck.types || pck.typings;
+          //       const types = pck.types || pck.typings;
 
-                if(types) {
+          //       if(types) {
 
-                return new Response(
-                  `
-                        import mod from "${cleanPath([ path[0], ...paths].join('/') + '/' +types)}";
-                         export * from "${cleanPath([ path[0], ...paths].join('/') + '/' +types)}";
-                        export default mod;
-                        `,
-                  {
-                    headers: {
-                      "content-type": "application/javascript; charset=utf-8",
-                      "Cache-Control": "no-cache",
-                      "Content-Encoding": "gzip",
-                    },
-                  },
-                );
-              }
+          //       return new Response(
+          //         `
+          //               import mod from "${cleanPath([ path[0], ...paths].join('/') + '/' +types)}";
+          //                export * from "${cleanPath([ path[0], ...paths].join('/') + '/' +types)}";
+          //               export default mod;
+          //               `,
+          //         {
+          //           headers: {
+          //             "content-type": "application/javascript; charset=utf-8",
+          //             "Cache-Control": "no-cache",
+          //             "Content-Encoding": "gzip",
+          //           },
+          //         },
+          //       );
+          //     }
 
             
         
               
 
-                const defTyped =await handleMainFetch(new Request( [u.origin,'@types', ...path].join('/')), env,ctx);
-                if (defTyped.ok) {
+          //       const defTyped =await handleMainFetch(new Request( [u.origin,'@types', ...path].join('/')), env,ctx);
+          //       if (defTyped.ok) {
 
-                  const txt = await defTyped.text();
-                  if (!txt.includes('throw new Error')){
-                    return new Response(
-                      `
-                             import mod from "${['@types', ...path].join('/')}";
-                             export * from "${['@types', ...path].join('/')}";
-                            export default mod;
-                            `,
-                      {
-                        headers: {
-                          "content-type": "application/javascript; charset=utf-8",
-                          "Cache-Control": "no-cache",
-                          "Content-Encoding": "gzip",
-                        },
-                      },
-                    );
-                  }
-                }
+          //         const txt = await defTyped.text();
+          //         if (!txt.includes('throw new Error')){
+          //           return new Response(
+          //             `
+          //                    import mod from "${['@types', ...path].join('/')}";
+          //                    export * from "${['@types', ...path].join('/')}";
+          //                   export default mod;
+          //                   `,
+          //             {
+          //               headers: {
+          //                 "content-type": "application/javascript; charset=utf-8",
+          //                 "Cache-Control": "no-cache",
+          //                 "Content-Encoding": "gzip",
+          //               },
+          //             },
+          //           );
+          //         }
+          //       }
 
 
 
-              }
+          //     }
             
-            } catch (e) {
+          //   } catch (e) {
               
-              console.log(e);
-            }
-          }
+          //     console.log(e);
+          //   }
+          // }
 
           const esmWorker = (await import ("./esm.worker")).default;
           const resp = await esmWorker.fetch(request, env, ctx);
@@ -516,9 +553,13 @@ async function handleFetchApi(
   }
 }
 
-const api: ExportedHandler<Env> = {};
-
-export default api;
+export default {
+  async fetch( request: Request,
+    env: Env,
+    ctx: ExecutionContext) {
+    return handleMainFetch(request, env, ctx);
+  }
+}
 
 // Function to handle unauthorized requests
 function handleUnauthorizedRequest(): Response {
@@ -544,6 +585,7 @@ function handleRedirectResponse(url: URL, start: string): Response {
 
 // Function to handle the main fetch logic
 async function handleMainFetch(
+  
   request: Request,
   env: Env,
   ctx: ExecutionContext,
@@ -554,20 +596,7 @@ async function handleMainFetch(
   ) {
     return handleUnauthorizedRequest();
   }
-
-  //  const url = new URL(request.url);
-  // if (url.pathname.endsWith(".d.ts")) {
-  //   const apiUrl = new URL(`https://esm.sh${url.pathname}`);
-
-  //   const response = await fetch(new Request(apiUrl, request));
-  //   let body = await response.text();
-
-  //   // Replace esm.sh with the original origin
-  //   body = body.replace(/esm\.sh/g, url.origin);
-
-  //   return new Response(body, response);
-  // }
-
+  
   return handleErrors(request, async () => {
     console.log(`handling request: ${request.url}`);
 
@@ -591,12 +620,63 @@ async function handleMainFetch(
   });
 }
 
-api.fetch = handleMainFetch;
+// api.fetch = handleMainFetch;
 
 
-function cleanPath(path: string) {
-  path = path.replace(/\/{2,}/g, '/');
-  path = path.replace(/\/\.+\/\.+\/+/g, '/');
+// function cleanPath(path: string) {
+//   path = path.replace(/\/{2,}/g, '/');
+//   path = path.replace(/\/\.+\/\.+\/+/g, '/');
   
-  return path;
+//   return path;
+// }
+function handleCORS(request: Request) {
+  // Make sure the necessary headers are present
+  // for this to be a valid pre-flight request
+  const headers = request.headers;
+  if (
+    headers.get("Origin") !== null &&
+    headers.get("Access-Control-Request-Method") !== null &&
+    headers.get("Access-Control-Request-Headers") !== null
+  ) {
+    // Handle CORS pre-flight request.
+    // If you want to check the requested method + headers
+    // you can do that here.
+    return new Response(null, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    })
+  } else {
+    // Handle standard OPTIONS request.
+    return new Response(null, {
+      headers: {
+        Allow: "POST, OPTIONS",
+      },
+    })
+  }
 }
+
+async function readRequestBody(request: Request) {
+  const contentType = request.headers.get("content-type");
+  if (contentType!.includes("application/json")) {
+    return JSON.stringify(await request.json());
+  } else if (contentType!.includes("application/text")) {
+    return request.text();
+  } else if (contentType!.includes("text/html")) {
+    return request.text();
+  } else if (contentType!.includes("form")) {
+    const formData = await request.formData();
+    const body: { [key: string]: unknown } = {};
+    for (const entry of formData.entries()) {
+      body[entry[0]] = entry[1];
+    }
+    return JSON.stringify(body);
+  } else {
+    // Perhaps some other type of data was submitted in the form
+    // like an image, or some other binary data.
+    return "a file";
+  }
+}
+

@@ -156,6 +156,23 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@anthropic-ai/sdk", [\
+      ["npm:0.24.3", {\
+        "packageLocation": "./.yarn/global/cache/@anthropic-ai-sdk-npm-0.24.3-f61cee94e9-10.zip/node_modules/@anthropic-ai/sdk/",\
+        "packageDependencies": [\
+          ["@anthropic-ai/sdk", "npm:0.24.3"],\
+          ["@types/node", "npm:18.19.39"],\
+          ["@types/node-fetch", "npm:2.6.11"],\
+          ["abort-controller", "npm:3.0.0"],\
+          ["agentkeepalive", "npm:4.5.0"],\
+          ["form-data-encoder", "npm:1.7.2"],\
+          ["formdata-node", "npm:4.4.1"],\
+          ["node-fetch", "virtual:973e9a019182fa8d421179b7e9b426d7ae46b4e7b5c3921f202da08ec9ff7dc3d5ded9786b7f5aacbe789fd54f67f695b1e06c799553b7d08118e0b20db8284e#npm:2.7.0"],\
+          ["web-streams-polyfill", "npm:3.3.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@apideck/better-ajv-errors", [\
       ["npm:0.3.6", {\
         "packageLocation": "./.yarn/global/cache/@apideck-better-ajv-errors-npm-0.3.6-8c1868a017-10.zip/node_modules/@apideck/better-ajv-errors/",\
@@ -5129,6 +5146,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/spike.land/",\
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
+          ["@anthropic-ai/sdk", "npm:0.24.3"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
           ["@cloudflare/workers-types", "npm:4.20240718.0"],\
           ["@spike-land/code", "workspace:packages/code"],\

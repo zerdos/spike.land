@@ -22,6 +22,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@anthropic-ai/sdk@npm:^0.24.3":
+  version: 0.24.3
+  resolution: "@anthropic-ai/sdk@npm:0.24.3"
+  dependencies:
+    "@types/node": "npm:^18.11.18"
+    "@types/node-fetch": "npm:^2.6.4"
+    abort-controller: "npm:^3.0.0"
+    agentkeepalive: "npm:^4.2.1"
+    form-data-encoder: "npm:1.7.2"
+    formdata-node: "npm:^4.3.2"
+    node-fetch: "npm:^2.6.7"
+    web-streams-polyfill: "npm:^3.2.1"
+  checksum: 10/afc865e89a49b4608f4c3db3ad05dcecbfd8799236788d798d690338cf3301c2dec6654671573dc681091339357e285e3ae3988652c9133dbb09c1cc8a4820ae
+  languageName: node
+  linkType: hard
+
 "@apideck/better-ajv-errors@npm:^0.3.1":
   version: 0.3.6
   resolution: "@apideck/better-ajv-errors@npm:0.3.6"
@@ -3248,6 +3264,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
+    "@anthropic-ai/sdk": "npm:^0.24.3"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240718.0"
     "@spike-land/code": "npm:0.9.55"

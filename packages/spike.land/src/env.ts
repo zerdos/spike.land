@@ -6,6 +6,7 @@ export default interface Env {
   ESM_TOKEN?: string;
   OPENAI_API_KEY: string;
   NPM_REGISTRY?: string;
+  ANTHROPIC_API_KEY: string;
   NPM_TOKEN?: string;
   CODE: DurableObjectNamespace;
   __STATIC_CONTENT: KVNamespace;
