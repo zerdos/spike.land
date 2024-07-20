@@ -1,4 +1,4 @@
-import { EmotionCache } from "@emotion/cache";
+import { EmotionCache } from "./emotionCache";
 import { CacheProvider } from "./emotion";
 import createCache from "./emotionCache";
 import { createRoot } from "./reactDomClient";

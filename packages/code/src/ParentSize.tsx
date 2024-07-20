@@ -1,5 +1,5 @@
 import debounce from "lodash.debounce";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "./reactMod";
 
 export type ParentSizeProps = {
   /** Optional `className` to add to the parent `div` wrapper used for size measurement. */

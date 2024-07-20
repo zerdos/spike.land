@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 
-import { EmotionCache,CacheProvider, createCache, createRoot } from "./renderHelpers";
+import type { createRoot as CR } from "./renderHelpers";
 
 import { ICodeSession } from "./makeSess";
 import { stat } from "./memfs";
@@ -16,7 +16,7 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 let controller = new AbortController();
 const mod = { i: 0 };
 
-let root: ReturnType<typeof createRoot>;
+let root: ReturnType<typeof CR>;
 globalThis.firstRender = globalThis.firstRender || { html: "", css: "", code: "" };
 let __rootEl: HTMLElement;
 
@@ -30,23 +30,19 @@ export const render = async (
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
-  const App = (await getApp(mApp, codeSpace)) as FC<AppProps>;
+  const {App, createRoot, createCache, CacheProvider} = await getApp(mApp, codeSpace)
 
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
 
   root.render(
     <CacheProvider value={cache}>
-      <ParentSize>
-        {({ width, height, top, left }) => (
-          <App
+     <App
             width={width || window.innerWidth}
             height={height || window.innerHeight}
             top={top || 0}
             left={left || 0}
           />
-        )}
-      </ParentSize>
     </CacheProvider>,
   );
 
@@ -101,7 +97,17 @@ function getCodeSpace() {
   return location.pathname.slice(1).split("/")[1];
 }
 
+const m: {
+  createRoot?: typeof CR;
+  createCache?: unknown;
+  CacheProvider?: unknown
+  EmotionCache?: unknown
+} = {
+
+}
 async function getApp(App: FC<AppProps> | null, codeSpace: string) {
+
+
   if (!App) {
     try {
       const isIframe = location.href.endsWith("iframe");
@@ -110,7 +116,14 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
         ? `${location.origin}/live/${codeSpace}/index.mjs`
         : `${location.origin}/live/${codeSpace}/index.js`;
 
-      App = (await import(moduleUrl)).default;
+      const mod = (await import(moduleUrl));
+      App = mod.default;
+
+      m.createCache = m.createCache  || mod.createCache;
+      m.createRoot = m.createRoot || mod.createRoot;
+      m.CacheProvider = m.CacheProvider || mod.CacheProvider;
+      m.EmotionCache =m.EmotionCache || mod.EmotionCache;
+
     } catch (err) {
       App = () => (
         <div>
@@ -121,7 +134,10 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
     }
   }
 
-  return App;
+  return {
+    App,
+    ...m
+  };
 }
 
 async function handleRender(

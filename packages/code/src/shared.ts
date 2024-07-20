@@ -43,20 +43,8 @@ export const tsx = (
     filePath: string;
   }[]>;
 
-export const transpile: ({ code, originToUse
 
- }: { 
-  code: string; originToUse: string }) => Promise<string> = (
-    { code, originToUse }
-) =>transpileFN({ code: `
-  //** someHack **/
-
-  export * from "/renderHelpers.mjs"
-
-   //** someHack **/
-  `+code, originToUse });
-
-export const transpileFN = (
+export const transpile = (
   { code, originToUse }: { code: string; originToUse: string },
 ) => init(swVersion).rpc("transpile", { code, originToUse }) as Promise<string>;
 

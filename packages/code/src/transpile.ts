@@ -47,6 +47,21 @@ export const cjs = async (code: string) => {
   return cjs;
 };
 
+ const decorateCodeStr= `
+  //** someHack **/
+  import {
+  EmotionCache:ec, CacheProvider: cp ,createCache: cc, createRoot: cr,
+  } from "/renderHelpers.js";
+   export { 
+   EmotionCache: ec,
+   CacheProvider: cp, 
+   createCache: cc, 
+   createRoot:c cr };
+
+   //** someHack **/
+  `;
+
+
 const offLoadToServer = async (code: string) => {
   const resp = await fetch(`https://js.spike.land?v=${swVersion}`, {
     method: "POST",
@@ -84,7 +99,7 @@ export const transpile = async (
     if (mod.init !== true) return offLoadToServer(code);
   }
 
-  return transform(code, {
+  return transform( decorateCodeStr + code, {
     loader: "tsx",
     format: "esm",
     treeShaking: true,
@@ -214,7 +229,7 @@ export const build = async (
     format: "esm",
     platform: "browser",
     entryPoints: [
-      `${origin}/live/${codeSpace}/index.js`,
+      `${origin}/live/${codeSpace}/index.js`, 
     ],
     packages: "external",
 
