@@ -60,7 +60,7 @@ const offLoadToServer = async (code: string) => {
   const transpiled = await resp.text();
   if (transpiled === "") return "";
 
-  return "/** js.spike.land */" + transpiled;
+  return transpiled;
 };
 
 export const transpile = async (

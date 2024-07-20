@@ -129,8 +129,8 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/reactDom.ts",
       "src/reactDomClient.ts",
       "src/jsx.mjs",
-
       "src/motion.ts",
+      "src/renderHelpers.ts",
       "src/hydrate.ts",
       "src/emotion.ts",
       "src/startMonaco.ts",

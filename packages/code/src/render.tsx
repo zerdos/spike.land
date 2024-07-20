@@ -1,12 +1,12 @@
-import { EmotionCache } from "@emotion/cache";
 import type { FC, ReactNode } from "react";
-import { CacheProvider } from "./emotion";
-import createCache from "./emotionCache";
+
+import { EmotionCache,CacheProvider, createCache, createRoot } from "./renderHelpers";
+
 import { ICodeSession } from "./makeSess";
 import { stat } from "./memfs";
 import ParentSize from "./ParentSize";
 import type { ParentSizeState } from "./ParentSize";
-import { createRoot } from "./reactDomClient";
+
 import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
