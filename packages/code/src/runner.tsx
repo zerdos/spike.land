@@ -62,6 +62,7 @@ const runnerSession = {
 
       // Transpile the code
       const transpiled = await transpile({ code, originToUse: location.origin });
+      console.log({transpiled});      
       if (!transpiled) return;
 
       // Write the transpiled code to index.js and build if bundle exists

@@ -78,5 +78,7 @@ export function importMapReplace(code: string, origin: string): string {
 
   /***** */
 
-  return "/** importMapReplace */" + replaced;
+  return `
+  /** importMapReplace */
+  ` + replaced;
 }

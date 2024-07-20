@@ -120,3 +120,4 @@ packages/code/src/.DS_Store
 packages/code/src/.DS_Store
 deno.lock
 packages/code/deno.lock
+.aider*

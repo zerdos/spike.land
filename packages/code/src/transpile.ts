@@ -48,19 +48,21 @@ export const cjs = async (code: string) => {
 };
 
  const decorateCodeStr= `
-  //** someHack **/
-  import {
-  EmotionCache:ec, CacheProvider: cp ,createCache: cc, createRoot: cr,
-  renderApp: rra
-  } from "/renderHelpers.mjs";
-   export { 
-   EmotionCache: ec,
-   CacheProvider: cp, 
-   createCache: cc, 
-   createRoot:c cr,
-   renderApp: rra};
+//** someHack **/
+import {
+  CacheProvider as cp,
+  createCache as cc,
+  createRoot as cr,
+  renderApp as rra
+} from "/renderHelpers.mjs";
 
-   //** someHack **/
+export {
+  cp as CacheProvider,
+  cc as createCache,
+  cr as createRoot,
+  rra as renderApp
+};
+//** someHack **/
   `;
 
 

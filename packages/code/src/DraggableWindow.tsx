@@ -7,6 +7,7 @@ import { Phone, Share, Tablet, Tv } from "./icons";
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 import { QRButton } from "./Qr.lazy";
 import { FaDownload } from 'react-icons/fa';
+import {stat, readFile} from "./memfs"
 
 
 // Define breakpoints and sizes
@@ -64,7 +65,11 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     : 1;
   const type = sessionStorage?.getItem("type") || "spring";
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
+
+    const indexMjs =  await stat(`/live/${codeSpace}/index.mjs`)?btoa(await readFile(`/live/${codeSpace}/index.mjs`)): btoa( await(await fetch(  `${location.origin}/live/${codeSpace}/index.mjs`
+    )).text());
+
     const content = `
      <!DOCTYPE html>
 <html lang="en">
@@ -121,8 +126,20 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 <body>
   <div id="root"></div>
   <script type="module">
-  import {renderApp} from "${location.origin}/live/${codeSpace}/index.mjs";
-  renderApp();
+
+  const mod = atob('${indexMjs}');
+
+    const blobUrl = createJsBlob(mod);
+    const {renderApp} = (await import(blobUrl));
+    renderApp();
+
+  function createJsBlob(code){
+  return URL.createObjectURL(
+    new Blob([code], {
+      type: "application/javascript",
+    }),
+  );
+}
   </script>
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->

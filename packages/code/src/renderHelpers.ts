@@ -1,4 +1,4 @@
-import { EmotionCache } from "./emotionCache";
+
 import { CacheProvider } from "./emotion";
 import createCache from "./emotionCache";
 import { createRoot } from "./reactDomClient";
@@ -10,7 +10,7 @@ const codeSpace = getCodeSpace();
 
 
 
-export { createCache, createRoot, EmotionCache, CacheProvider };
+export { createCache, createRoot, CacheProvider };
 export const renderApp = ()=>{
     let root = document.getElementById("root")!;
     if (!root) {

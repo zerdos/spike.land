@@ -100,7 +100,6 @@ const m: {
   createRoot?: typeof CR;
   createCache?: unknown;
   CacheProvider?: unknown
-  EmotionCache?: unknown
 } = {
 
 }
@@ -115,7 +114,6 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
       m.createCache = m.createCache  || mod.createCache;
       m.createRoot = m.createRoot || mod.createRoot;
       m.CacheProvider = m.CacheProvider || mod.CacheProvider;
-      m.EmotionCache =m.EmotionCache || mod.EmotionCache;
 
     } catch (err) {
       App = () => (
