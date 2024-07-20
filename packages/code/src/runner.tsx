@@ -22,59 +22,72 @@ const runnerSession = {
  * @param {number} params.counter - The current counter value.
  * @param {AbortSignal} params.signal - The abort signal to handle cancellation.
  */
-export async function runner({ code, counter, signal }: {
-  code: string;
-  codeSpace: string;
-  counter: number;
-  signal: AbortSignal;
-}) {
-  console.log({ counter });
+  export async function runner({ code, counter, signal }: {
+    code: string;
+    codeSpace: string;
+    counter: number;
+    signal: AbortSignal;
+  }) {
+    console.log({ counter });
 
-  if (counter <= runnerSession.counterMax || signal.aborted) return;
+    if (counter <= runnerSession.counterMax || signal.aborted) return;
 
-  runnerSession.counterMax = counter;
-  runnerSession.i = counter;
-  runnerSession.code = code;
+    runnerSession.counterMax = counter;
+    runnerSession.i = counter;
+    runnerSession.code = code;
 
-  try {
-    if (signal.aborted) return;
+    try {
+      if (signal.aborted) return;
 
-    // Remove existing index.js file if it exists
-    if (await stat(`/live/${codeSpace}/index.js`)) {
-      await unlink(`/live/${codeSpace}/index.js`);
-    }
-
-    // Check if index.mjs exists
-    const bundleExists = await stat(`/live/${codeSpace}/index.mjs`);
-
-    // Transpile the code
-    const transpiled = await transpile({ code, originToUse: location.origin });
-    if (!transpiled) return;
-
-    // Write the transpiled code to index.js and build if bundle exists
-    if (bundleExists) {
-      try {
-        await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-        await build({ codeSpace, origin: location.origin });
-      } catch (error) {
-        console.error("Error during build:", error);
-        await cleanupFiles();
+      // Remove existing index.js file if it exists
+      if (await stat(`/live/${codeSpace}/index.js`)) {
+        await unlink(`/live/${codeSpace}/index.js`);
       }
+
+      // Check if index.mjs exists
+      const bundleExists = await stat(`/live/${codeSpace}/index.mjs`);
+
+      await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/javascript",
+          "TR_ORIGIN": `origin`,
+          "TR_BUNDLE": `true`,
+        },
+      });
+
+      if (bundleExists){
+         await unlink(`/live/${codeSpace}/index.mjs`);
+      }
+
+      // Transpile the code
+      const transpiled = await transpile({ code, originToUse: location.origin });
+      if (!transpiled) return;
+
+      // Write the transpiled code to index.js and build if bundle exists
+      if (bundleExists) {
+        try {
+          await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+          await build({ codeSpace, origin: location.origin });
+        } catch (error) {
+          console.error("Error during build:", error);
+          await cleanupFiles();
+        }
+      }
+
+      if (signal.aborted) return;
+
+      // Send message to the iframe with the transpiled code
+      document.querySelector("iframe")?.contentWindow?.postMessage({
+        code,
+        i: counter,
+        type: "prerender",
+        transpiled: transpiled,
+      });
+    } catch (error) {
+      console.error("Error during runner execution:", error);
     }
-
-    if (signal.aborted) return;
-
-    // Send message to the iframe with the transpiled code
-    document.querySelector("iframe")?.contentWindow?.postMessage({
-      code,
-      i: counter,
-      type: "prerender",
-      transpiled: transpiled,
-    });
-  } catch (error) {
-    console.error("Error during runner execution:", error);
   }
-}
 
 /**
  * Get the code space from the current URL.

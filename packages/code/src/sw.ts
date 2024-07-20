@@ -121,6 +121,33 @@ const fakeBackend = async (request: Request) => {
         });
       }
 
+      if (
+        ["/bundle"].some((suffix) => url.pathname.endsWith(suffix))
+      ) {
+        const respText = HTML.replace("/**reset*/", resetCSS + css)
+          .replace(
+            "<script src=\"/swVersion.js\"></script>",
+            `<script>window.swVersion = "${self.swVersion}"</script>`,
+          )
+          .replace("ASSET_HASH", self.swVersion)
+          .replace(
+            "<div id=\"root\"></div>",
+            `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`,
+          );
+
+        return new Response(respText, {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cache-Control": "no-cache",
+            "Content-Type": "text/html; charset=UTF-8",
+            content_hash: md5(respText),
+          },
+        });
+      }
+
       // Handle transpiling and serving the JavaScript file
       try {
         if (url.pathname.startsWith(`/live/${codeSpace}/index.js`) && started) {

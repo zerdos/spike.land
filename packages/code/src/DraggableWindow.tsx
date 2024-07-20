@@ -6,6 +6,8 @@ import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { Phone, Share, Tablet, Tv } from "./icons";
 import { Fab, ToggleButton, ToggleButtonGroup } from "./mui";
 import { QRButton } from "./Qr.lazy";
+import { FaDownload } from 'react-icons/fa';
+
 
 // Define breakpoints and sizes
 const breakPoints = [
@@ -51,25 +53,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     return () => clearTimeout(timeoutId);
   }, []);
 
-  // Update background color periodically
-  // useEffect(() => {
-  //   const updateBgColor = () => {
-  //     const bgColorString = getComputedStyle(document.body).backgroundColor;
-  //     const bgColorArray = bgColorString
-  //       .slice(4, -1)
-  //       .split(",")
-  //       .map(Number)
-  //       .map((value) => (isNaN(value) ? 0 : value));
-
-  //     if (bgColor.join(",") !== bgColorArray.join(",")) {
-  //       setBgColor(bgColorArray as [number, number, number, number]);
-  //     }
-  //   };
-
-  //   const intervalId = setInterval(updateBgColor, 500);
-  //   return () => clearInterval(intervalId);
-  // }, [bgColor]);
-
   while (bgColor.length < 4) bgColor.push(1);
   const [r, g, b, a] = bgColor.includes(NaN)
     ? [0, 0, 0, 0]
@@ -80,6 +63,83 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     ? Number(sessionStorage.getItem("duration"))
     : 1;
   const type = sessionStorage?.getItem("type") || "spring";
+
+  const handleDownload = () => {
+    const content = `
+     <!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+  <meta name="sharedArrayBuffer" description="using cross-origin-isolation in the web browser">
+  <base href="/">
+  <link rel="shortcut icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
+  <title>Instant React Editor</title>
+ 
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      margin: 0;
+      height: 100%;
+      --webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+    }
+
+    q {
+      display: none;
+    }
+
+
+    @media screen and (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        ;
+        color: hsl(210, 10%, 62%);
+        --text-color-normal: hsl(210, 10%, 62%);
+        --text-color-light: hsl(210, 15%, 35%);
+        --text-color-richer: hsl(210, 50%, 72%);
+        --text-color-highlight: hsl(25, 70%, 45%);
+      }
+    }
+
+
+    @media screen and (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+        --text-color-normal: #0a244d;
+        --text-color-light: #8cabd9;
+      }
+    }
+
+    /**reset*/
+  </style>
+    <!-- <script async src="/workerScripts/superFetch.js"></script> -->
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+  import {renderApp} from "${location.origin}/live/${codeSpace}/index.mjs";
+  renderApp();
+  </script>
+
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
+    `;
+
+    const blob = new Blob([content], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'hello_world.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <MotionConfig transition={{ delay, type, duration }}>
@@ -302,6 +362,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
                 onClick={() => window.open(`/live/${codeSpace}/public`)}
               >
                 <Share />
+              </Fab>
+              <Fab
+                key="Download"
+                onClick={handleDownload}
+              >
+                <FaDownload />
               </Fab>
             </div>
           </motion.div>

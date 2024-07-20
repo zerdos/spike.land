@@ -3,8 +3,7 @@ import type { FC, ReactNode } from "react";
 import type { createRoot as CR } from "./renderHelpers";
 
 import { ICodeSession } from "./makeSess";
-import { stat } from "./memfs";
-import ParentSize from "./ParentSize";
+
 import type { ParentSizeState } from "./ParentSize";
 
 import { transpile } from "./shared";
@@ -110,13 +109,7 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
 
   if (!App) {
     try {
-      const isIframe = location.href.endsWith("iframe");
-      const hasIndex = await stat(`/live/${codeSpace}/index.mjs`);
-      const moduleUrl = isIframe || hasIndex
-        ? `${location.origin}/live/${codeSpace}/index.mjs`
-        : `${location.origin}/live/${codeSpace}/index.js`;
-
-      const mod = (await import(moduleUrl));
+      const mod = (await import(`${location.origin}/live/${codeSpace}/index.mjs`));
       App = mod.default;
 
       m.createCache = m.createCache  || mod.createCache;

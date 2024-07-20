@@ -203,6 +203,11 @@ async function handleFetchApi(
 
           await env.R2.put(key, request.body);
           return new Response(`Put ${key} successfully!`);
+        }  if (request.method === "DELETE") {
+          const key = request.url;
+
+          await env.R2.delete(key);
+          return new Response(`DEL ${key} successfully!`);
         } else if (request.method === "GET") {
           const key = request.url;
 

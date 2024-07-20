@@ -51,12 +51,14 @@ export const cjs = async (code: string) => {
   //** someHack **/
   import {
   EmotionCache:ec, CacheProvider: cp ,createCache: cc, createRoot: cr,
-  } from "/renderHelpers.js";
+  renderApp: rra
+  } from "/renderHelpers.mjs";
    export { 
    EmotionCache: ec,
    CacheProvider: cp, 
    createCache: cc, 
-   createRoot:c cr };
+   createRoot:c cr,
+   renderApp: rra};
 
    //** someHack **/
   `;
