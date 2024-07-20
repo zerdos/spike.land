@@ -65,16 +65,18 @@ const runnerSession = {
       console.log({transpiled});      
       if (!transpiled) return;
 
+
+      await cleanupFiles();
       // Write the transpiled code to index.js and build if bundle exists
-      if (bundleExists) {
-        try {
-          await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-          await build({ codeSpace, origin: location.origin });
-        } catch (error) {
-          console.error("Error during build:", error);
-          await cleanupFiles();
-        }
-      }
+      // if (bundleExists) {
+      //   try {
+      //     await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+      //     await build({ codeSpace, origin: location.origin });
+      //   } catch (error) {
+      //     console.error("Error during build:", error);
+        
+      //   }
+      // }
 
       if (signal.aborted) return;
 

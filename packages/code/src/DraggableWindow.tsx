@@ -21,13 +21,14 @@ type DraggableWindowProps = {
 export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
+  const { innerWidth, innerHeight } = useWindowSize();
+
   const [width, setWidth] = useState(innerWidth);
   const { bgColor, setBgColor, rgba } = useBgColor();
   const maxScaleRange = 100;
   const startPositions = { bottom: 0, right: 0 };
   const [{ bottom, right }, setPositions] = useState(startPositions);
   const scale = scaleRange / 100;
-  const { innerWidth, innerHeight } = useWindowSize();
   const handleDownload = useDownload(codeSpace);
 
   useEffect(() => {
