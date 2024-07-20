@@ -38,12 +38,12 @@ export const render = async (
   root.render(
     <CacheProvider value={cache}>
      <App
-            width={width || window.innerWidth}
-            height={height || window.innerHeight}
-            top={top || 0}
-            left={left || 0}
+            width={ window.innerWidth}
+            height={ window.innerHeight}
+            top={ 0}
+            left={ 0}
           />
-    </CacheProvider>,
+    </CacheProvider>, 
   );
 
   return await handleRender(_rootEl, signal, data, cache);

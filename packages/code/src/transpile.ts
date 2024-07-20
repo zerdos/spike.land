@@ -217,6 +217,7 @@ export const build = async (
     treeShaking: true,
     bundle: true,
     define,
+
     keepNames: false,
     ignoreAnnotations: true,
 
