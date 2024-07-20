@@ -1,4 +1,4 @@
-import { stat, unlink, writeFile } from "./memfs";
+import { stat, unlink } from "./memfs";
 import { build, transpile } from "./shared";
 
 // Extend the global object with build and transpile functions

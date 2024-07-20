@@ -5,10 +5,14 @@ import type { createRoot as CR } from "./renderHelpers";
 import { ICodeSession } from "./makeSess";
 
 import type { ParentSizeState } from "./ParentSize";
+import type {CacheProvider as CHP} from "./renderHelpers"
+
+import type  EMCH from "./emotionCache";
 
 import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
+import { EmotionCache } from "./emotionCache";
 
 const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -97,38 +101,49 @@ function getCodeSpace() {
 }
 
 const m: {
-  createRoot?: typeof CR;
-  createCache?: unknown;
-  CacheProvider?: unknown
+  createRoot: typeof CR;
+  createCache: typeof EMCH;
+  CacheProvider: typeof CHP
+  App: FC<AppProps> 
 } = {
-
+  App: () => <div>loading...</div>,
+  createRoot: null as any,
+  createCache: null as any,
+  CacheProvider: null as any
 }
+
 async function getApp(App: FC<AppProps> | null, codeSpace: string) {
 
 
   if (!App) {
     try {
       const mod = (await import(`${location.origin}/live/${codeSpace}/index.mjs`));
-      App = mod.default;
+      m.App = mod.default;
 
       m.createCache = m.createCache  || mod.createCache;
       m.createRoot = m.createRoot || mod.createRoot;
       m.CacheProvider = m.CacheProvider || mod.CacheProvider;
 
     } catch (err) {
-      App = () => (
+      m.App = () => (
         <div>
           <h1>Error</h1>
           <pre>{JSON.stringify({ err })}</pre>
         </div>
       );
     }
+  } else {
+    m.App = App;
+    const mod = (await import(`${location.origin}/renderHelpers.mjs`));
+
+    m.createCache = m.createCache  || mod.createCache;
+    m.createRoot = m.createRoot || mod.createRoot;
+    m.CacheProvider = m.CacheProvider || mod.CacheProvider;
+
+ 
   }
 
-  return {
-    App,
-    ...m
-  };
+  return m
 }
 
 async function handleRender(

@@ -1,7 +1,9 @@
-import { Moon, Play, RotateCcw, Share2, Sun } from "lucide-react";
+import { Moon, RotateCcw, Share2, Sun } from "lucide-react";
 import { Resizable } from "re-resizable";
-import React, { FC, useEffect, useState } from "react";
+import  { FC, useEffect, useState } from "react";
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
+import {  themes } from 'prism-react-renderer';
+
 
 export const EnhancedEmbeddableEditor: FC = () => {
   const [code, setCode] = useState(() => {
@@ -108,7 +110,7 @@ render(<App />);
         </button>
       </div>
       <div css={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <LiveProvider code={code} noInline={true} theme={theme === "dark" ? undefined : githubLight}>
+        <LiveProvider code={code} noInline={true} theme={theme === "dark" ? undefined : themes.github}>
           <Resizable
             size={{ width: editorWidth, height: "100%" }}
             onResizeStop={(_e, _direction, _ref, d) => {
