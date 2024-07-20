@@ -24,14 +24,14 @@ export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
         justify-content: space-evenly;
       `}
       initial={{ height: 0, width: 0 }}
-      animate={{ height: "42px", width: "100%" }}
+      animate={{ height: 42, width: "100%" }}
     >
       <ToggleButtonGroup
         value={scaleRange}
         size="small"
         exclusive
         onChange={(_e, newScale) => {
-          if (newScale) setScaleRange(newScale);
+          if (newScale !== null) setScaleRange(newScale);
         }}
       >
         {Array.from(

@@ -22,7 +22,7 @@ export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
         display: flex;
         justify-content: space-evenly;
       `}
-      initial={{ height: 0, width: "0%" }}
+      initial={{ height: 0, width: 0 }}
       animate={{ height: 42, width: "100%" }}
     >
       <ToggleButtonGroup
@@ -30,7 +30,7 @@ export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
         size="small"
         exclusive
         onChange={(_e, newSize) => {
-          if (newSize) setWidth(newSize);
+          if (newSize !== null) setWidth(newSize);
         }}
       >
         {breakPoints.map((size, index) => (

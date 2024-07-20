@@ -19,8 +19,8 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
     <motion.div
       layout
       css={css`overflow: hidden;`}
-      initial={{ height: "0%", width: "0px" }}
-      animate={{ height: "100%", width: "88px" }}
+      initial={{ height: 0, width: 0 }}
+      animate={{ height: "100%", width: 88 }}
     >
       <div
         css={css`
@@ -32,7 +32,6 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         `}
       >
         <Fab
-          key="fullscreen"
           onClick={() => {
             document.querySelector("#root")?.requestFullscreen();
           }}
@@ -42,18 +41,16 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
               font-size: 20pt;
             `}
           >
-            <FullscreenIcon key="fs" />
+            <FullscreenIcon />
           </span>
         </Fab>
         <QRButton url={`${location.origin}/live/${codeSpace}/public`} />
         <Fab
-          key="Share"
           onClick={() => window.open(`/live/${codeSpace}/public`)}
         >
           <Share />
         </Fab>
         <Fab
-          key="Download"
           onClick={handleDownload}
         >
           <FaDownload />
