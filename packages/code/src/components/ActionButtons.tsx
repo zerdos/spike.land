@@ -31,28 +31,16 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
           flex-direction: column;
         `}
       >
-        <Fab
-          onClick={() => {
-            document.querySelector("#root")?.requestFullscreen();
-          }}
-        >
-          <span
-            css={css`
-              font-size: 20pt;
-            `}
-          >
+        <Fab onClick={() => document.querySelector("#root")?.requestFullscreen()}>
+          <span css={css`font-size: 20pt;`}>
             <FullscreenIcon />
           </span>
         </Fab>
         <QRButton url={`${location.origin}/live/${codeSpace}/public`} />
-        <Fab
-          onClick={() => window.open(`/live/${codeSpace}/public`)}
-        >
+        <Fab onClick={() => window.open(`/live/${codeSpace}/public`)}>
           <Share />
         </Fab>
-        <Fab
-          onClick={handleDownload}
-        >
+        <Fab onClick={handleDownload}>
           <FaDownload />
         </Fab>
       </div>
