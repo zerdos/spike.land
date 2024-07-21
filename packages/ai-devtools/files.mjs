@@ -48,7 +48,7 @@ git.diff(["--cached", "--name-only"])
           })
           .then((response) => {
             // console.log({response})
-            const summary = response.data.choices[0].text;
+            const summary = response.choices[0].text;
 
             // Add the summary to the commit message
             if (summary) {

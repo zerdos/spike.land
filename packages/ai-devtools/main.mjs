@@ -103,9 +103,7 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   
   `
       : `
-  You are an expert software developer, and you know how to write short and expressing commit messages - in convictional commit format. 
-  The repo has the following changes:   ${summaries.join(`\n`)}
-  Please try hard to write the best commit message possible!
+  You are a software dev, and your job is to TLDR some commit messages, and come up with a new commit message. The changes so far:   ${summaries.join(`\n`)}
   `;
 
     if (cache[prompt]) return res.json(cache[prompt]);
@@ -120,7 +118,10 @@ async function handleTLDRRequest(req, res, type = "tldr") {
     }).catch(async () =>
       console.log("Failed to generate final summary. Trying with gpt-4o.")
     );
-    cache[prompt] = finalSummary.data.choices[0].message.content;
+    if (!finalSummary) { 
+      return res.status(500).json({ error: "Failed to generate final summary." });
+    }
+    cache[prompt] = finalSummary.choices[0].message.content;
 
     res.json(cache[prompt]);
   } catch (e) {
@@ -144,7 +145,7 @@ async function generateSummary(diffSection, model = "gpt-4o-mini") {
       messages: [{ role: "user", content: prompt }],
       max_tokens: 800,
     });
-    cache[diffSection] = completion.data.choices[0].message.content;
+    cache[diffSection] = completion.choices[0].message.content;
     return cache[diffSection];
   } catch (e) {
     console.error(
