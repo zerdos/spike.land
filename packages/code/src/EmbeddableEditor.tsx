@@ -1,9 +1,8 @@
 import { Moon, RotateCcw, Share2, Sun } from "lucide-react";
+import { themes } from "prism-react-renderer";
 import { Resizable } from "re-resizable";
-import  { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
-import {  themes } from 'prism-react-renderer';
-
 
 export const EnhancedEmbeddableEditor: FC = () => {
   const [code, setCode] = useState(() => {

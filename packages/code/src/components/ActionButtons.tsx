@@ -1,10 +1,10 @@
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import { Fab } from "../mui";
+import { FaDownload } from "react-icons/fa";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { Share } from "../icons";
+import { Fab } from "../mui";
 import { QRButton } from "../Qr.lazy";
-import { FaDownload } from 'react-icons/fa';
-import { css } from "@emotion/react";
 
 type ActionButtonsProps = {
   codeSpace: string;

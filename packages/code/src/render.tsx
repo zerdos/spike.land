@@ -5,14 +5,14 @@ import type { createRoot as CR } from "./renderHelpers";
 import { ICodeSession } from "./makeSess";
 
 import type { ParentSizeState } from "./ParentSize";
-import type {CacheProvider as CHP} from "./renderHelpers"
+import type { CacheProvider as CHP } from "./renderHelpers";
 
-import type  EMCH from "./emotionCache";
+import type EMCH from "./emotionCache";
 
+import { EmotionCache } from "./emotionCache";
 import { transpile } from "./shared";
 import { appFactory } from "./starter";
 import { wait } from "./wait";
-import { EmotionCache } from "./emotionCache";
 
 const codeSpace = getCodeSpace();
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -33,19 +33,19 @@ export const render = async (
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
-  const {App, createRoot, createCache, CacheProvider} = await getApp(mApp, codeSpace);
+  const { App, createRoot, createCache, CacheProvider } = await getApp(mApp, codeSpace);
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
 
   root.render(
     <CacheProvider value={cache}>
-     <App
-            width={ window.innerWidth}
-            height={ window.innerHeight}
-            top={ 0}
-            left={ 0}
-          />
-    </CacheProvider>, 
+      <App
+        width={window.innerWidth}
+        height={window.innerHeight}
+        top={0}
+        left={0}
+      />
+    </CacheProvider>,
   );
 
   return await handleRender();
@@ -102,27 +102,24 @@ function getCodeSpace() {
 const m: {
   createRoot: typeof CR;
   createCache: typeof EMCH;
-  CacheProvider: typeof CHP
-  App: FC<AppProps> 
+  CacheProvider: typeof CHP;
+  App: FC<AppProps>;
 } = {
   App: () => <div>loading...</div>,
   createRoot: null as any,
   createCache: null as any,
-  CacheProvider: null as any
-}
+  CacheProvider: null as any,
+};
 
 async function getApp(App: FC<AppProps> | null, codeSpace: string) {
-
-
   if (!App) {
     try {
-      const mod = (await import(`${location.origin}/live/${codeSpace}/index.mjs`));
+      const mod = await import(`${location.origin}/live/${codeSpace}/index.mjs`);
       m.App = mod.default;
 
-      m.createCache = m.createCache  || mod.createCache;
+      m.createCache = m.createCache || mod.createCache;
       m.createRoot = m.createRoot || mod.createRoot;
       m.CacheProvider = m.CacheProvider || mod.CacheProvider;
-
     } catch (err) {
       m.App = () => (
         <div>
@@ -133,22 +130,20 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
     }
   } else {
     m.App = App;
-    const mod = (await import(`${location.origin}/renderHelpers.mjs`));
+    const mod = await import(`${location.origin}/renderHelpers.mjs`);
 
-    m.createCache = m.createCache  || mod.createCache;
+    m.createCache = m.createCache || mod.createCache;
     m.createRoot = m.createRoot || mod.createRoot;
     m.CacheProvider = m.CacheProvider || mod.CacheProvider;
-
- 
   }
 
-  return m
+  return m;
 }
 
-export async function handleRender(){
+export async function handleRender() {
   const _rootEl = document.getElementById("root");
   if (!_rootEl) return;
-  const cache: EmotionCache = (globalThis as unknown as {cssCache: EmotionCache}).cssCache;
+  const cache: EmotionCache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
 
   const isIframe = location.href.endsWith("iframe")
     || location.href.endsWith("/")
@@ -157,24 +152,20 @@ export async function handleRender(){
   let attempts = isIframe ? 100 : 0;
 
   while (attempts-- > 0) {
-
     const html = _rootEl.innerHTML;
     if (html) {
       const css = mineFromCaches(cache, html);
 
+      // BC.postMessage({...cSess.session, html, css });
+      // globalThis.firstRender = { html, css, code: "" };
+      // window?.parent?.postMessage({ type: "firstRender", html, css });
 
-
-          // BC.postMessage({...cSess.session, html, css });
-          // globalThis.firstRender = { html, css, code: "" };
-          // window?.parent?.postMessage({ type: "firstRender", html, css });
-      
-        return;
-      }
-
+      return;
     }
-
-    await wait(10);
   }
+
+  await wait(10);
+}
 
 function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = _cache.key || "css";
@@ -209,7 +200,6 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
       .join("\n");
   }
 }
-
 
 type AppProps = {
   width?: number;

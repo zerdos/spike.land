@@ -47,7 +47,7 @@ export const cjs = async (code: string) => {
   return cjs;
 };
 
- const decorateCodeStr= `
+const decorateCodeStr = `
 //** someHack **/
 import {
   CacheProvider,
@@ -82,7 +82,6 @@ export const renderApp = async ()=>{
 }
 //** someHack **/
   `;
-
 
 const offLoadToServer = async (code: string) => {
   const resp = await fetch(`https://js.spike.land?v=${swVersion}`, {
@@ -121,32 +120,38 @@ export const transpile = async (
     if (mod.init !== true) return offLoadToServer(code);
   }
 
-  return transform( decorateCodeStr + code.replace(`export default `, `const module = {}; 
-    module.default = `) + `
+  return transform(
+    decorateCodeStr + code.replace(
+      `export default `,
+      `const module = {}; 
+    module.default = `,
+    ) + `
 
 
 // Export the module object
 export default module.default;
 
 // Named export for accessing the module object
-export { module };`, {
-    loader: "tsx",
-    format: "esm",
-    treeShaking: true,
-    platform: "browser",
-    minify: false,
-    charset: "utf8",
-    //   globalName: md5(code),
-    keepNames: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: "react-jsx",
-        jsxFragmentFactory: "Fragment",
-        jsxImportSource: "@emotion/react",
+export { module };`,
+    {
+      loader: "tsx",
+      format: "esm",
+      treeShaking: true,
+      platform: "browser",
+      minify: false,
+      charset: "utf8",
+      //   globalName: md5(code),
+      keepNames: true,
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          jsxFragmentFactory: "Fragment",
+          jsxImportSource: "@emotion/react",
+        },
       },
+      target: "es2022",
     },
-    target: "es2022",
-  }).then((x) => importMapReplace(x.code, origin)).catch(() => {
+  ).then((x) => importMapReplace(x.code, origin)).catch(() => {
     console.log("offloading to server");
 
     return offLoadToServer(code);
@@ -260,7 +265,7 @@ export const build = async (
     format: "esm",
     platform: "browser",
     entryPoints: [
-      `${origin}/live/${codeSpace}/index.js`, 
+      `${origin}/live/${codeSpace}/index.js`,
     ],
     packages: "external",
 

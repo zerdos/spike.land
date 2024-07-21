@@ -1,8 +1,8 @@
-import { handleErrors } from "./handleErrors";
-import { handleUnauthorizedRequest, handleRedirectResponse } from "./utils";
-import { handleFetchApi } from "./fetchHandler";
 import { md5 } from "../../code/src/md5";
 import Env from "./env";
+import { handleFetchApi } from "./fetchHandler";
+import { handleErrors } from "./handleErrors";
+import { handleRedirectResponse, handleUnauthorizedRequest } from "./utils";
 
 export async function handleMainFetch(
   request: Request,
@@ -13,7 +13,7 @@ export async function handleMainFetch(
   if (cf?.asOrganization?.startsWith("YANDEX")) {
     return handleUnauthorizedRequest();
   }
-  
+
   return handleErrors(request, async () => {
     console.log(`handling request: ${request.url}`);
 

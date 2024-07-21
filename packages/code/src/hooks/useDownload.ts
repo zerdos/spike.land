@@ -1,10 +1,12 @@
-import { stat, readFile } from "../memfs";
+import { readFile, stat } from "../memfs";
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
-    const indexMjs =window.btoa(unescape(encodeURIComponent( await stat(`/live/${codeSpace}/index.mjs`)
-      ? await readFile(`/live/${codeSpace}/index.mjs`)
-      : await (await fetch(`/live/${codeSpace}/index.mjs`)).text())));
+    const indexMjs = window.btoa(unescape(encodeURIComponent(
+      await stat(`/live/${codeSpace}/index.mjs`)
+        ? await readFile(`/live/${codeSpace}/index.mjs`)
+        : await (await fetch(`/live/${codeSpace}/index.mjs`)).text(),
+    )));
 
     const content = `
       <!DOCTYPE html>
@@ -83,11 +85,11 @@ export const useDownload = (codeSpace: string) => {
       </html>
     `;
 
-    const blob = new Blob([content], { type: 'text/html' });
+    const blob = new Blob([content], { type: "text/html" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'hello_world.html';
+    a.download = "hello_world.html";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

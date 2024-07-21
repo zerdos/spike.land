@@ -104,7 +104,6 @@ const monacoContribution = async (code: string) => {
   return code;
 };
 
-
 self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_moduleId: string, label: string) => {

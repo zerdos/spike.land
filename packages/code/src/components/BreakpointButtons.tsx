@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { ToggleButton, ToggleButtonGroup } from "../mui";
-import { Phone, Tablet, Tv } from "../icons";
 import { css } from "@emotion/react";
+import { motion } from "framer-motion";
+import { Phone, Tablet, Tv } from "../icons";
+import { ToggleButton, ToggleButtonGroup } from "../mui";
 
 type BreakpointButtonsProps = {
   width: number;
@@ -38,10 +38,10 @@ export const BreakpointButtons: React.FC<BreakpointButtonsProps> = ({
             <span
               css={css`
                 color: ${
-                  width === size
-                    ? "var(--text-color-highlight)"
-                    : "var(--text-color-normal)"
-                };
+                width === size
+                  ? "var(--text-color-highlight)"
+                  : "var(--text-color-normal)"
+              };
               `}
             >
               {index === 0 ? <Phone /> : index === 1 ? <Tablet /> : <Tv />}

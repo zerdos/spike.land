@@ -1,6 +1,6 @@
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { ToggleButton, ToggleButtonGroup } from "../mui";
-import { css } from "@emotion/react";
 
 type ScaleRangeButtonsProps = {
   scaleRange: number;
@@ -39,7 +39,7 @@ export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
             ...sizes.filter((x) => x < maxScaleRange),
             scaleRange,
             maxScaleRange,
-          ])
+          ]),
         )
           .sort((a, b) => a - b)
           .map((size) => (
@@ -47,10 +47,10 @@ export const ScaleRangeButtons: React.FC<ScaleRangeButtonsProps> = ({
               <span
                 css={css`
                   color: ${
-                    size === scaleRange
-                      ? "var(--text-color-highlight)"
-                      : "var(--text-color-normal)"
-                  };
+                  size === scaleRange
+                    ? "var(--text-color-highlight)"
+                    : "var(--text-color-normal)"
+                };
                 `}
               >
                 {size}%

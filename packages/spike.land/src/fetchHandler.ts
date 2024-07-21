@@ -1,10 +1,10 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { importMap } from "../../code/src/importMap";
 import { importMapReplace } from "../../code/src/importMapReplace";
+import { handleApiRequest } from "./apiHandler";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
 import { ASSET_MANIFEST, files } from "./staticContent.mjs";
-import { handleApiRequest } from "./apiHandler";
 import { handleCORS } from "./utils";
 import { isChunk, isUrlFile } from "./utils";
 
@@ -17,7 +17,7 @@ export async function handleFetchApi(
   const u = new URL(request.url);
   const newUrl = new URL(path.join("/"), u.origin);
 
-  if (request.method === 'OPTIONS') {
+  if (request.method === "OPTIONS") {
     return handleCORS(request);
   }
 
@@ -131,7 +131,7 @@ async function handleLiveIndexRequest(request: Request, env: Env) {
     case "GET":
       const object = await env.R2.get(key);
       if (!object) {
-        const paths = key.split('/').slice(-2).map((p) => p.replace(/\.mjs$/, ".js"));
+        const paths = key.split("/").slice(-2).map((p) => p.replace(/\.mjs$/, ".js"));
         return handleApiRequest(["room", ...paths], request, env);
       }
       const headers = new Headers();
@@ -153,7 +153,7 @@ async function handleDefaultCase(
   env: Env,
   ctx: ExecutionContext,
   u: URL,
-  newUrl: URL
+  newUrl: URL,
 ) {
   if (!isUrlFile(path.join("/"))) {
     const esmWorker = (await import("./esm.worker")).default;

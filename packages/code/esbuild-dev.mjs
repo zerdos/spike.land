@@ -1,4 +1,3 @@
-
 import { build, stop } from "./buildOperations.mjs";
 import { buildOptions, environment, target, workerEntryPoints } from "./config.mjs";
 import { copyFiles } from "./copyFiles.mjs";

@@ -6,14 +6,14 @@ import { handleCORS, readRequestBody } from "./utils";
 export async function handleAnthropicRequest(
   request: Request,
   env: Env,
-  ctx: ExecutionContext
+  ctx: ExecutionContext,
 ) {
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as { messages: MessageParam[] };
 
   const anthropic = new Anthropic({
-    apiKey: env.ANTHROPIC_API_KEY
+    apiKey: env.ANTHROPIC_API_KEY,
   });
 
   const { readable, writable } = new TransformStream();
@@ -31,9 +31,9 @@ export async function handleAnthropicRequest(
       });
 
       for await (const part of stream) {
-        if (part.type === 'content_block_start' || part.type === 'content_block_delta') {
-          const text = 'delta' in part ? (part.delta as TextDelta).text : '';
-          writer.write(textEncoder.encode(text || ''));
+        if (part.type === "content_block_start" || part.type === "content_block_delta") {
+          const text = "delta" in part ? (part.delta as TextDelta).text : "";
+          writer.write(textEncoder.encode(text || ""));
         }
       }
     } catch (error) {

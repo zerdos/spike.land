@@ -6,7 +6,6 @@ import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
 import { handleRender } from "./render";
 
-
 // Set up service worker version
 const { swVersion } = self;
 setTimeout(() => {
@@ -107,23 +106,20 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Render the code
   // import { render } from "./render";
 
-
-  const rerender =(t = 0)=> import(`/live/${codeSpace}/index.mjs/${t}`).then(({renderApp})=>renderApp()).then(()=>handleRender());
+  const rerender = (t = 0) =>
+    import(`/live/${codeSpace}/index.mjs/${t}`).then(({ renderApp }) => renderApp()).then(() => handleRender());
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
   BC.onmessage = ({ data }) => {
     const now = Date.now();
     rerender(now);
-
-  }
+  };
 
   window.onmessage = () => {
     const now = Date.now();
     rerender(now);
-  }
-  
+  };
+
   rerender();
-
-
 }

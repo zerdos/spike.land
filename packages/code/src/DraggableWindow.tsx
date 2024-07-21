@@ -2,12 +2,12 @@ import { css } from "@emotion/react";
 import { motion, MotionConfig } from "framer-motion";
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { ScaleRangeButtons } from "./components/ScaleRangeButtons";
-import { BreakpointButtons } from "./components/BreakpointButtons";
 import { ActionButtons } from "./components/ActionButtons";
-import { useWindowSize } from "./hooks/useWindowSize";
+import { BreakpointButtons } from "./components/BreakpointButtons";
+import { ScaleRangeButtons } from "./components/ScaleRangeButtons";
 import { useBgColor } from "./hooks/useBgColor";
 import { useDownload } from "./hooks/useDownload";
+import { useWindowSize } from "./hooks/useWindowSize";
 
 // Define breakpoints and sizes
 const breakPoints = [750, 1024, 1920];
@@ -35,7 +35,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
     const reveal = () => {
       setScaleRange(Math.min(50, 50 / (1 / devicePixelRatio)));
       setWidth(breakPoints[1]);
-      setBgColor([66,66,66,.5]);
+      setBgColor([66, 66, 66, .5]);
       setPositions({ bottom: 20, right: 20 });
       setDelay(0);
     };
