@@ -1,7 +1,7 @@
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import express from "express";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import pLimit from "p-limit";
 import process from "process";
 
@@ -12,10 +12,11 @@ if (!process.env.OPENAI_API_KEY) {
   process.exit(1);
 }
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI(
+  {
+    organization: "org-iMeNwBXOvbwVSfnaOb89U7gt",
+    project: "proj_GfNHjREIhyw39p4t5ZI7udlO",
+    apiKey: process.env.OPENAI_API_KEY});
 
 const app = express();
 app.use(bodyParser.text());
@@ -59,7 +60,7 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   const tasks = sections.map((section) => {
     if (section.trim() === "") return Promise.resolve("");
     return limit(() =>
-      generateSummary(section, "gpt-3.5-turbo").then((x) => {
+      generateSummary(section, "gpt-4o-mini").then((x) => {
         console.log(x);
         return x;
       })
@@ -111,7 +112,7 @@ async function handleTLDRRequest(req, res, type = "tldr") {
 
     console.log(prompt);
     const finalSummary = await openai.createChatCompletion({
-      model: "gpt-4",
+      model: "gpt-4o-mini",
       messages: [{
         role: "user",
         content: prompt,
@@ -140,7 +141,7 @@ function handleErrors(err, req, res, next) {
   res.status(500).send("Something broke!");
 }
 
-async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
+async function generateSummary(diffSection, model = "gpt-4o-mini") {
   if (cache[diffSection]) return cache[diffSection];
 
   const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
@@ -157,7 +158,6 @@ async function generateSummary(diffSection, model = "gpt-3.5-turbo") {
     console.error(
       `Failed to generate summary with model ${model}: ${e.message}`,
     );
-    // return generateSummary(diffSection, "gpt-3.5-turbo").catch(()=>'');
   }
 }
 

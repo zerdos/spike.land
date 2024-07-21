@@ -23,7 +23,7 @@
     "push:prod": "NODE_ENV=production yarn build-and-push",
     "re:build": "NODE_ENV=production yarn clean && yarn build",
     "build:all": "yarn workspaces foreach --all run   run re:build",
-    "build:prod": "NODE_ENV=production yarn build:all",
+    "build:prod": "au0p=production yarn build:all",
     "docker:build": "yarn workspaces foreach --all run   docker:build",
     "docker:push": "yarn workspaces foreach --all run   docker:push",
     "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",

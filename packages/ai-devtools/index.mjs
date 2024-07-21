@@ -5,7 +5,7 @@ import { Command } from "commander";
 import fetch from "node-fetch";
 import process from "process";
 import { promisify } from "util";
-
+import "./main.mjs";
 const program = new Command();
 
 const exe = promisify(exec);
