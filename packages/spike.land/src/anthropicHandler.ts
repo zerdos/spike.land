@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { MessageParam } from "@anthropic-ai/sdk/resources/messages";
+import { MessageParam, TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 
@@ -32,7 +32,8 @@ export async function handleAnthropicRequest(
 
       for await (const part of stream) {
         if (part.type === 'content_block_start' || part.type === 'content_block_delta') {
-          writer.write(textEncoder.encode(part.delta?.text || ''));
+          const text = 'delta' in part ? (part.delta as TextDelta).text : '';
+          writer.write(textEncoder.encode(text || ''));
         }
       }
     } catch (error) {

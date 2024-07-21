@@ -5,7 +5,7 @@ import { createRoot } from "./reactDomClient";
 
 import {render} from "./render";
 
-const codeSpace = getCodeSpace();
+const codeSpace = getCodeSpace();;
 
 
 

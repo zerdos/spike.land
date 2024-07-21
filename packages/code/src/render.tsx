@@ -33,8 +33,8 @@ export const render = async (
   __rootEl = _rootEl;
   if (!__rootEl) return;
 
-  const {App, createRoot, createCache, CacheProvider} = await getApp(mApp, codeSpace)
-
+  const {App, createRoot, createCache, CacheProvider} = await getApp(mApp, codeSpace);
+  
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
 
