@@ -56,6 +56,8 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   const diff = req.body;
   const sections = diff.split("diff --git");
 
+  console.log({ sections });
+
   const limit = pLimit(3);
   const tasks = sections.map((section) => {
     if (section.trim() === "") return Promise.resolve("");
