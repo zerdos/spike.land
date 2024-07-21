@@ -47,7 +47,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
-async function handleTLDRRequest(req, res, type = "tldr") {
+async function handleTLDRRequest(req, res) {
   if (typeof req.body !== "string") {
     res.status(400).json({ error: "Invalid input format. Expected a string." });
     return;
@@ -89,24 +89,12 @@ async function handleTLDRRequest(req, res, type = "tldr") {
       (result) => result.value,
     ).filter((x) => x);
 
-    const prompt = type === "tldr"
-      ? `
-  If you find any issue, you have the developers to double check things just for making sure that everything is correct, please not even write a summary about the features.
-  In case of issue, typo, error, your message starts:
-  "ACTIONS NEEDED!!!" 
-  Otherwise, if there are no issues: Your job is summarizing the reviews in a short, but effective message.
-  
-  ${
-        summaries.join(`
-  
-  ----agent-report:
-  `)
-      }
-  
-  `
-      : `
-  You are a software dev, and your job is to TLDR some commit messages, and come up with a new commit message. The changes so far:   ${summaries.join(`\n`)}
-  `;
+    const prompt = `Please create a git conventional commit from this changes:  ${summaries.join(`\n`)}
+
+Your answer should be a short, but effective commit message. Just the commit message, no need for the commit body or footer.
+for example: 
+fix: typo in the README.md file
+`;
 
     if (cache[prompt]) return res.json(cache[prompt]);
 
@@ -131,7 +119,7 @@ async function handleTLDRRequest(req, res, type = "tldr") {
   }
 }
 
-function handleErrors(err, req, res, next) {
+function handleErrors(err, req, res) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 }
@@ -139,7 +127,9 @@ function handleErrors(err, req, res, next) {
 async function generateSummary(diffSection, model = "gpt-4o-mini") {
   if (cache[diffSection]) return cache[diffSection];
 
-  const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
+  const prompt = `Hey! Please create a git conventional commit from this changes:  ${diffSection.slice(0, 10000)}.
+  
+  Your answer should be a short, but effective commit message.`;
 
   try {
     const completion = await openai.chat.completions.create({
@@ -155,7 +145,7 @@ async function generateSummary(diffSection, model = "gpt-4o-mini") {
   }
 }
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });

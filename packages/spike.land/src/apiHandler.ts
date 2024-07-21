@@ -1,4 +1,4 @@
-import { handleAiFetchApi } from "./ai";
+
 import Env from "./env";
 
 export async function handleApiRequest(
@@ -8,9 +8,6 @@ export async function handleApiRequest(
 ) {
   switch (path[0]) {
     case "generate":
-    case "chat": {
-      return handleAiFetchApi(path, request, env);
-    }
     case "room": {
       if (!path[1]) {
         if (request.method === "POST") {
