@@ -140,7 +140,7 @@ async function generateSummary(diffSection, model = "gpt-4o-mini") {
   const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
 
   try {
-    const completion = openai.chat.completions.create({
+    const completion = await openai.chat.completions.create({
       model,
       messages: [{ role: "user", content: prompt }],
     });
