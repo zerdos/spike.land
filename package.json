@@ -34,9 +34,11 @@
   "devDependencies": {
     "@cloudflare/workers-types": "4.20240718.0",
     "@emotion/react": "11.13.0",
+    "@eslint/js": "^9.7.0",
     "@playwright/test": "1.45.2",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "8.56.10",
+    "@types/eslint__js": "^8.42.3",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "7.16.1",
@@ -52,6 +54,7 @@
     "playwright": "1.45.2",
     "react": "18.3.1",
     "typescript": "5.5.3",
+    "typescript-eslint": "7.16.1",
     "util": "0.12.5",
     "utils": "0.3.1"
   },

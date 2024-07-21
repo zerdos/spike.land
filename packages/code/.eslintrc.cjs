@@ -1,9 +1,8 @@
 module.exports = {
   "env": {
     "browser": true,
-    "ESNEXT": true,
+    "es2022": true
   },
-  globalThis: {},
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -12,12 +11,10 @@ module.exports = {
   "overrides": [],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "sourceType": "module",
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-  ],
   "rules": {},
 };
