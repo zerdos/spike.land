@@ -92,8 +92,12 @@ async function handleTLDRRequest(req, res) {
     const prompt = `Please create a git conventional commit from this changes:  ${summaries.join(`\n`)}
 
 Your answer should be a short, but effective commit message. Just the commit message, no need for the commit body or footer.
-for example: 
-fix: typo in the README.md file
+In one line, no line breaks or "' characters. For example: fix: typo in the README.md file
+for example: fix: typo in the README.md file
+chore: update the package.json file
+feat: add a new feature
+
+
 `;
 
     if (cache[prompt]) return res.json(cache[prompt]);
