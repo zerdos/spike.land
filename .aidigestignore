@@ -121,5 +121,5 @@ packages/code/src/.DS_Store
 deno.lock
 packages/code/deno.lock
 .aider*
+.yarn 
 files.md
-codebase.md
