@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20240718.0",
-    "@emotion/react": "11.12.0",
+    "@emotion/react": "11.13.0",
     "@playwright/test": "1.45.2",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "8.56.10",
@@ -46,7 +46,7 @@
     "cypress": "13.13.1",
     "dprint": "0.47.2",
     "eslint": "8.57.0",
-    "eslint-plugin-react": "7.34.4",
+    "eslint-plugin-react": "7.35.0",
     "execa": "9.3.0",
     "localforage": "1.10.0",
     "playwright": "1.45.2",
