@@ -34,7 +34,7 @@ program
       let response;
       try {
         response = await fetch(
-          "https://git-diff-tldt-ozv5gnkbfa-uc.a.run.app/commit",
+          "http://localhost:3000/commit",
           {
             method: "POST",
             headers: {

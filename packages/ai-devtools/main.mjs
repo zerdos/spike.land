@@ -12,7 +12,7 @@ if (!process.env.OPENAI_API_KEY) {
   process.exit(1);
 }
 
-const openai = new OpenAI(
+export const openai = new OpenAI(
   {
     organization: "org-iMeNwBXOvbwVSfnaOb89U7gt",
     project: "proj_GfNHjREIhyw39p4t5ZI7udlO",
@@ -111,22 +111,14 @@ async function handleTLDRRequest(req, res, type = "tldr") {
     if (cache[prompt]) return res.json(cache[prompt]);
 
     console.log(prompt);
-    const finalSummary = await openai.createChatCompletion({
+    const finalSummary = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{
         role: "user",
         content: prompt,
       }],
-      max_tokens: 3600,
     }).catch(async () =>
-      await openai.createChatCompletion({
-        model: "gpt-4",
-        messages: [{
-          role: "user",
-          content: prompt,
-        }],
-        max_tokens: 3600,
-      })
+      console.log("Failed to generate final summary. Trying with gpt-4o.")
     );
     cache[prompt] = finalSummary.data.choices[0].message.content;
 
@@ -147,7 +139,7 @@ async function generateSummary(diffSection, model = "gpt-4o-mini") {
   const prompt = `GIT diff TLDR! (typo, error, etc)  ${diffSection.slice(0, 2028)}.`;
 
   try {
-    const completion = await openai.createChatCompletion({
+    const completion = openai.chat.completions.create({
       model,
       messages: [{ role: "user", content: prompt }],
       max_tokens: 800,

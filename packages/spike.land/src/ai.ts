@@ -1,6 +1,6 @@
 // import { OpenAIStream, StreamingTextResponse } from "ai";
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai-edge";
-
+// import OpenAI from "./";
+//
 import Env from "./env";
 
 // Create an OpenAI API client (that's edge friendly!)
@@ -16,17 +16,17 @@ export async function handleAiFetchApi(
   if (path[0] !== "generate" && path[0] !== "chat") {
     new Response("401", { status: 401 });
   }
-  const config = new Configuration({
-    apiKey: "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",
+
+  const openai = new OpenAIApi({
+    apiKey: _env.OPENAI_API_KEY,
   });
-  const openai = new OpenAIApi(config);
 
   if (request.method === "POST") {
     const { messages } = await request.json<
       { messages: ChatCompletionRequestMessage[] }
     >();
-    const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+    const response = await openai.chat.completions.create ({
+      model: "gpt-4o-mini",
       stream: true,
       messages,
     });
