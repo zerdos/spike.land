@@ -50,18 +50,36 @@ export const cjs = async (code: string) => {
  const decorateCodeStr= `
 //** someHack **/
 import {
-  CacheProvider as cp,
-  createCache as cc,
-  createRoot as cr,
-  renderApp as rra
+  CacheProvider,
+  createCache,
+  createRoot,
 } from "/renderHelpers.mjs";
 
-export {
-  cp as CacheProvider,
-  cc as createCache,
-  cr as createRoot,
-  rra as renderApp
-};
+export const renderApp = async ()=>{
+  
+    let root = document.getElementById("root")!;
+    if (!root) {
+        root = document.createElement("div");
+        root.id = "root";
+        document.body.appendChild(root);
+        
+    }
+    const App  = module.default;
+    const rRoot = createRoot(root);
+    const cache = createCache({ key: "css", speedy: false });
+    globalThis.cssCache = cache;
+  
+    rRoot.render(
+      <CacheProvider value={cache}>
+       <App
+              width={ window.innerWidth}
+              height={ window.innerHeight}
+              top={ 0}
+              left={ 0}
+            />
+      </CacheProvider>);
+
+}
 //** someHack **/
   `;
 
@@ -103,7 +121,15 @@ export const transpile = async (
     if (mod.init !== true) return offLoadToServer(code);
   }
 
-  return transform( decorateCodeStr + code, {
+  return transform( decorateCodeStr + code.replace(`export default `, `const module = {}; 
+    module.default = `) + `
+
+
+// Export the module object
+export default module.default;
+
+// Named export for accessing the module object
+export { module };`, {
     loader: "tsx",
     format: "esm",
     treeShaking: true,

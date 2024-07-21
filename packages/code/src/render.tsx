@@ -34,7 +34,6 @@ export const render = async (
   if (!__rootEl) return;
 
   const {App, createRoot, createCache, CacheProvider} = await getApp(mApp, codeSpace);
-  
   root = createRoot(_rootEl);
   const cache = createCache({ key: "css", speedy: false });
 
@@ -49,7 +48,7 @@ export const render = async (
     </CacheProvider>, 
   );
 
-  return await handleRender(_rootEl, signal, data, cache);
+  return await handleRender();
 };
 
 async function rerender(data: ICodeSession & { transpiled: string }) {
@@ -146,12 +145,11 @@ async function getApp(App: FC<AppProps> | null, codeSpace: string) {
   return m
 }
 
-async function handleRender(
-  _rootEl: HTMLElement,
-  signal: AbortSignal | null,
-  data: ICodeSession | null,
-  cache: EmotionCache,
-) {
+export async function handleRender(){
+  const _rootEl = document.getElementById("root");
+  if (!_rootEl) return;
+  const cache: EmotionCache = (globalThis as unknown as {cssCache: EmotionCache}).cssCache;
+
   const isIframe = location.href.endsWith("iframe")
     || location.href.endsWith("/")
     || location.href.endsWith("public");
@@ -159,30 +157,24 @@ async function handleRender(
   let attempts = isIframe ? 100 : 0;
 
   while (attempts-- > 0) {
-    if (signal?.aborted) return;
 
     const html = _rootEl.innerHTML;
     if (html) {
       const css = mineFromCaches(cache, html);
 
-      if (data) {
-        if (!signal?.aborted) {
-          BC.postMessage({ ...data, html, css });
-        }
+
+
+          // BC.postMessage({...cSess.session, html, css });
+          // globalThis.firstRender = { html, css, code: "" };
+          // window?.parent?.postMessage({ type: "firstRender", html, css });
+      
         return;
       }
 
-      globalThis.firstRender = { html, css, code: "" };
-      window?.parent?.postMessage({ type: "firstRender", html, css });
-
-      return { html, css };
     }
 
     await wait(10);
   }
-
-  return root;
-}
 
 function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = _cache.key || "css";
@@ -218,20 +210,6 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   }
 }
 
-if (
-  location.pathname.endsWith("/iframe")
-  || location.pathname.endsWith("/")
-  || location.pathname.endsWith("/public")
-) {
-  window.onmessage = async ({ data }) => {
-    await rerender(data);
-  };
-  BC.onmessage = async ({ data }) => {
-    if (data.html && data.i) {
-      await rerender(data);
-    }
-  };
-}
 
 type AppProps = {
   width?: number;

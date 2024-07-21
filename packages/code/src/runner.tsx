@@ -6,6 +6,9 @@ Object.assign(globalThis, { build, transpile });
 
 const codeSpace = getCodeSpace();
 
+
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+
 // Runner session to keep track of current state
 const runnerSession = {
   i: 0,
@@ -66,7 +69,7 @@ const runnerSession = {
       if (!transpiled) return;
 
 
-      await cleanupFiles();
+      // await cleanupFiles();
       // Write the transpiled code to index.js and build if bundle exists
       // if (bundleExists) {
       //   try {
@@ -81,6 +84,8 @@ const runnerSession = {
       if (signal.aborted) return;
 
       // Send message to the iframe with the transpiled code
+      BC.postMessage({...cSess.session, code, transpiled, i: counter});
+    
       document.querySelector("iframe")?.contentWindow?.postMessage({
         code,
         i: counter,

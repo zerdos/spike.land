@@ -2,9 +2,9 @@ import { stat, readFile } from "../memfs";
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
-    const indexMjs = await stat(`/live/${codeSpace}/index.mjs`)
-      ? btoa(await readFile(`/live/${codeSpace}/index.mjs`))
-      : btoa(await (await fetch(`${location.origin}/live/${codeSpace}/index.mjs`)).text());
+    const indexMjs =window.btoa(unescape(encodeURIComponent( await stat(`/live/${codeSpace}/index.mjs`)
+      ? await readFile(`/live/${codeSpace}/index.mjs`)
+      : await (await fetch(`/live/${codeSpace}/index.mjs`)).text())));
 
     const content = `
       <!DOCTYPE html>
@@ -63,7 +63,7 @@ export const useDownload = (codeSpace: string) => {
         <div id="root"></div>
         <script type="module">
       
-        const mod = atob('${indexMjs}');
+        const mod = decodeURIComponent(escape(window.atob('${indexMjs}')));
       
           const blobUrl = createJsBlob(mod);
           const {renderApp} = (await import(blobUrl));
