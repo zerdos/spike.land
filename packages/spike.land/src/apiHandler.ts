@@ -1,3 +1,4 @@
+import { handleAiFetchApi } from "./ai";
 import Env from "./env";
 
 export async function handleApiRequest(
