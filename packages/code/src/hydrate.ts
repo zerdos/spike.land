@@ -105,10 +105,7 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Render the code
   // import { render } from "./render";
 
-  import("./render").then(({ render }) =>
-    render(
-      document.getElementById(`${codeSpace}-css`)!,
-      codeSpace,
-    )
-  );
+
+  import(`/live/${codeSpace}/index.mjs`).then(({renderApp})=>renderApp());
+
 }

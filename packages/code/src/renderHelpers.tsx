@@ -3,15 +3,15 @@ import { CacheProvider } from "./emotion";
 import createCache from "./emotionCache";
 import { createRoot } from "./reactDomClient";
 
-import {render} from "./render";
-
 const codeSpace = getCodeSpace();;
 
 
 
 
 export { createCache, createRoot, CacheProvider };
-export const renderApp = ()=>{
+
+export const renderApp = async ()=>{
+  
     let root = document.getElementById("root")!;
     if (!root) {
         root = document.createElement("div");
@@ -19,10 +19,20 @@ export const renderApp = ()=>{
         document.body.appendChild(root);
         
     }
-    render(
-      document.getElementById(`root`)!,
-      codeSpace,
-    );
+    const App  = (await import(`/live/${codeSpace}/index.mjs`)).default;
+    const rRoot = createRoot(root);
+    const cache = createCache({ key: "css", speedy: false });
+  
+    rRoot.render(
+      <CacheProvider value={cache}>
+       <App
+              width={ window.innerWidth}
+              height={ window.innerHeight}
+              top={ 0}
+              left={ 0}
+            />
+      </CacheProvider>);
+
 }
 
 
