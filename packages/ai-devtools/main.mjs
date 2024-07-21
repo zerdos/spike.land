@@ -143,7 +143,6 @@ async function generateSummary(diffSection, model = "gpt-4o-mini") {
     const completion = openai.chat.completions.create({
       model,
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 800,
     });
     cache[diffSection] = completion.choices[0].message.content;
     return cache[diffSection];
