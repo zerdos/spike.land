@@ -5,7 +5,7 @@
   "description": "spike.land",
   "entry": "dist/modules.mjs",
   "source": "src/modules.ts",
-  "types": "dts/code/src/modules.d.ts ",
+  "types": "dts/src/modules.d.ts",
   "module": "dist/modules.mjs",
   "files": [
     "dist",

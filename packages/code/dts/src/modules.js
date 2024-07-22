@@ -1,0 +1,14 @@
+import { importMap } from "./importMap";
+import { importMapReplace } from "./importMapReplace";
+import { md5 } from "./md5";
+import MyHTML from "./index.html";
+import { resetCSS } from "./getResetCss";
+import { applyCodePatch, makeSession, makeHash, string_ } from "./makeSess";
+export { resetCSS };
+export { makeHash, string_ };
+export { applyCodePatch, makeSession };
+const HTML = MyHTML;
+export { HTML };
+export { importMapReplace };
+export { md5 };
+export { importMap };

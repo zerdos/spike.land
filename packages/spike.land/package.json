@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",
-    "@spike-land/code": "workspace:^",
+    "@spike-land/code": "0.9.55",
     "@types/node": "20.14.11",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
