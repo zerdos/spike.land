@@ -36,7 +36,8 @@ export const useDownload = (codeSpace: string) => {
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+
   <base href="/">
   <title>Instant React Editor</title>
   <style>
@@ -47,6 +48,10 @@ export const useDownload = (codeSpace: string) => {
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: none;
     }
+      #root {
+        height: 100%;
+        width: 100%;
+      }
 
     q { display: none; }
 
