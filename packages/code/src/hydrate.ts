@@ -107,7 +107,7 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Render the code
   // import { render } from "./render";
 
-  import(`/live/${codeSpace}/index.mjs`).then(({ renderApp }) => renderApp());
+  import(`/live/${codeSpace}/index.mjs`).then(({ renderApp }) => renderApp()).then(() => handleRender());;
 
   const rerender = (t = 0) => import(`/live/${codeSpace}/index.js/${t}`).then(({ renderApp }) => renderApp()).then(() => handleRender());
 

@@ -104,6 +104,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@cloudflare/workers-types", "npm:4.20240718.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.0"],\
+          ["@heroicons/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:2.1.5"],\
           ["@playwright/test", "npm:1.45.2"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:8.56.10"],\
@@ -1698,6 +1699,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@heroicons/react", [\
+      ["npm:2.1.5", {\
+        "packageLocation": "./.yarn/global/cache/@heroicons-react-npm-2.1.5-9eaf1101ac-10.zip/node_modules/@heroicons/react/",\
+        "packageDependencies": [\
+          ["@heroicons/react", "npm:2.1.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:2.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/@heroicons-react-virtual-d7890dd83d/0/global/cache/@heroicons-react-npm-2.1.5-9eaf1101ac-10.zip/node_modules/@heroicons/react/",\
+        "packageDependencies": [\
+          ["@heroicons/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:2.1.5"],\
+          ["@types/react", "npm:18.3.3"],\
+          ["react", "npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@humanwhocodes/config-array", [\
       ["npm:0.11.14", {\
         "packageLocation": "./.yarn/global/cache/@humanwhocodes-config-array-npm-0.11.14-94a02fcc87-10.zip/node_modules/@humanwhocodes/config-array/",\
@@ -2554,6 +2577,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/eslint-plugin", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.16.1"],\
           ["@typescript-eslint/typescript-estree", "virtual:2453213502275313c49f4262ff734e615df7e5186c1f52fae0a2a4d8406ef1830d6e248e32f2ec633b2b73178898dab3f250f316df7ab0bc33b746fbf0853767#npm:7.16.1"],\
           ["ace-builds", "npm:1.35.3"],\
+          ["ai-digest", "npm:1.0.4"],\
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:6.0.0"],\
@@ -3848,6 +3872,20 @@ const RAW_RUNTIME_STATE =
           ["aggregate-error", "npm:3.1.0"],\
           ["clean-stack", "npm:2.2.0"],\
           ["indent-string", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["ai-digest", [\
+      ["npm:1.0.4", {\
+        "packageLocation": "./.yarn/global/cache/ai-digest-npm-1.0.4-171f9d11e2-10.zip/node_modules/ai-digest/",\
+        "packageDependencies": [\
+          ["ai-digest", "npm:1.0.4"],\
+          ["commander", "npm:12.1.0"],\
+          ["glob", "npm:11.0.0"],\
+          ["ignore", "npm:5.3.1"],\
+          ["isbinaryfile", "npm:5.0.2"],\
+          ["js-tiktoken", "npm:1.0.12"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7282,6 +7320,19 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
+      ["npm:11.0.0", {\
+        "packageLocation": "./.yarn/global/cache/glob-npm-11.0.0-3be4126bf5-10.zip/node_modules/glob/",\
+        "packageDependencies": [\
+          ["glob", "npm:11.0.0"],\
+          ["foreground-child", "npm:3.2.1"],\
+          ["jackspeak", "npm:4.0.1"],\
+          ["minimatch", "npm:10.0.1"],\
+          ["minipass", "npm:7.1.2"],\
+          ["package-json-from-dist", "npm:1.0.0"],\
+          ["path-scurry", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:5.0.15", {\
         "packageLocation": "./.yarn/global/cache/glob-npm-5.0.15-59b17ec4cb-10.zip/node_modules/glob/",\
         "packageDependencies": [\
@@ -8467,6 +8518,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["isbinaryfile", [\
+      ["npm:5.0.2", {\
+        "packageLocation": "./.yarn/global/cache/isbinaryfile-npm-5.0.2-3cb4869f50-10.zip/node_modules/isbinaryfile/",\
+        "packageDependencies": [\
+          ["isbinaryfile", "npm:5.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["isexe", [\
       ["npm:2.0.0", {\
         "packageLocation": "./.yarn/global/cache/isexe-npm-2.0.0-b58870bd2e-10.zip/node_modules/isexe/",\
@@ -8602,6 +8662,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/jackspeak-npm-3.4.3-546bfad080-10.zip/node_modules/jackspeak/",\
         "packageDependencies": [\
           ["jackspeak", "npm:3.4.3"],\
+          ["@isaacs/cliui", "npm:8.0.2"],\
+          ["@pkgjs/parseargs", "npm:0.11.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:4.0.1", {\
+        "packageLocation": "./.yarn/global/cache/jackspeak-npm-4.0.1-47021b0734-10.zip/node_modules/jackspeak/",\
+        "packageDependencies": [\
+          ["jackspeak", "npm:4.0.1"],\
           ["@isaacs/cliui", "npm:8.0.2"],\
           ["@pkgjs/parseargs", "npm:0.11.0"]\
         ],\
@@ -9159,6 +9228,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["js-tiktoken", [\
+      ["npm:1.0.12", {\
+        "packageLocation": "./.yarn/global/cache/js-tiktoken-npm-1.0.12-fc1a424b08-10.zip/node_modules/js-tiktoken/",\
+        "packageDependencies": [\
+          ["js-tiktoken", "npm:1.0.12"],\
+          ["base64-js", "npm:1.5.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["js-tokens", [\
       ["npm:4.0.0", {\
         "packageLocation": "./.yarn/global/cache/js-tokens-npm-4.0.0-0ac852e9e2-10.zip/node_modules/js-tokens/",\
@@ -9597,6 +9676,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
+      ["npm:11.0.0", {\
+        "packageLocation": "./.yarn/global/cache/lru-cache-npm-11.0.0-92d560d9d6-10.zip/node_modules/lru-cache/",\
+        "packageDependencies": [\
+          ["lru-cache", "npm:11.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:5.1.1", {\
         "packageLocation": "./.yarn/global/cache/lru-cache-npm-5.1.1-f475882a51-10.zip/node_modules/lru-cache/",\
         "packageDependencies": [\
@@ -9928,6 +10014,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["minimatch", [\
+      ["npm:10.0.1", {\
+        "packageLocation": "./.yarn/global/cache/minimatch-npm-10.0.1-eabcc0d3a0-10.zip/node_modules/minimatch/",\
+        "packageDependencies": [\
+          ["minimatch", "npm:10.0.1"],\
+          ["brace-expansion", "npm:2.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:3.1.2", {\
         "packageLocation": "./.yarn/global/cache/minimatch-npm-3.1.2-9405269906-10.zip/node_modules/minimatch/",\
         "packageDependencies": [\
@@ -10115,6 +10209,7 @@ const RAW_RUNTIME_STATE =
           ["monorepo", "workspace:."],\
           ["@cloudflare/workers-types", "npm:4.20240718.0"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.0"],\
+          ["@heroicons/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:2.1.5"],\
           ["@playwright/test", "npm:1.45.2"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:8.56.10"],\
@@ -10934,6 +11029,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["path-scurry", "npm:1.11.1"],\
           ["lru-cache", "npm:10.4.3"],\
+          ["minipass", "npm:7.1.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.0.0", {\
+        "packageLocation": "./.yarn/global/cache/path-scurry-npm-2.0.0-5a556e8161-10.zip/node_modules/path-scurry/",\
+        "packageDependencies": [\
+          ["path-scurry", "npm:2.0.0"],\
+          ["lru-cache", "npm:11.0.0"],\
           ["minipass", "npm:7.1.2"]\
         ],\
         "linkType": "HARD"\

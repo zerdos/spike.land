@@ -5,15 +5,21 @@ import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { Share } from "../icons";
 import { Fab } from "../mui";
 import { QRButton } from "../Qr.lazy";
+import { RiChatSmile3Line } from "react-icons/ri";
+import { FC } from "react";
 
 type ActionButtonsProps = {
   codeSpace: string;
   handleDownload: () => void;
+  showChat: boolean;
+  setShowChat: (show: boolean) => void;
 };
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({
+export const ActionButtons: FC<ActionButtonsProps> = ({
   codeSpace,
   handleDownload,
+  showChat,
+  setShowChat,
 }) => {
   return (
     <motion.div
@@ -42,6 +48,9 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         </Fab>
         <Fab onClick={handleDownload}>
           <FaDownload />
+        </Fab>
+        <Fab onClick={() => setShowChat(!showChat)}>
+          <RiChatSmile3Line />
         </Fab>
       </div>
     </motion.div>
