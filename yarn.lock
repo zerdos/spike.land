@@ -1736,7 +1736,6 @@ __metadata:
     esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.6"
-    lib0: "npm:0.2.94"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -6884,13 +6883,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isomorphic.js@npm:^0.2.4":
-  version: 0.2.5
-  resolution: "isomorphic.js@npm:0.2.5"
-  checksum: 10/d8d1b083f05f3c337a06628b982ac3ce6db953bbef14a9de8ad49131250c3592f864b73c12030fdc9ef138ce97b76ef55c7d96a849561ac215b1b4b9d301c8e9
-  languageName: node
-  linkType: hard
-
 "istanbul-lib-coverage@npm:^3.0.0, istanbul-lib-coverage@npm:^3.2.0":
   version: 3.2.2
   resolution: "istanbul-lib-coverage@npm:3.2.2"
@@ -7646,19 +7638,6 @@ __metadata:
     prelude-ls: "npm:^1.2.1"
     type-check: "npm:~0.4.0"
   checksum: 10/2e4720ff79f21ae08d42374b0a5c2f664c5be8b6c8f565bb4e1315c96ed3a8acaa9de788ffed82d7f2378cf36958573de07ef92336cb5255ed74d08b8318c9ee
-  languageName: node
-  linkType: hard
-
-"lib0@npm:0.2.94":
-  version: 0.2.94
-  resolution: "lib0@npm:0.2.94"
-  dependencies:
-    isomorphic.js: "npm:^0.2.4"
-  bin:
-    0ecdsa-generate-keypair: bin/0ecdsa-generate-keypair.js
-    0gentesthtml: bin/gentesthtml.js
-    0serve: bin/0serve.js
-  checksum: 10/0df17d71d6ecdadf3379fe80eda5e2a84b34b9e368d164244e3a243aba8226d56f24ba1b25c4eba696846ecca69046b1f178c06d0d6e337ca843a1f8d5dde2ad
   languageName: node
   linkType: hard
 

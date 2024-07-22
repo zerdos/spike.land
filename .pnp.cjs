@@ -2664,7 +2664,6 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.23.0"],\
           ["esm-worker", "npm:0.135.16"],\
           ["immutable", "npm:4.3.6"],\
-          ["lib0", "npm:0.2.94"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:7.0.2"],\
           ["p-queue", "npm:8.0.1"],\
@@ -8669,15 +8668,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["isomorphic.js", [\
-      ["npm:0.2.5", {\
-        "packageLocation": "./.yarn/global/cache/isomorphic.js-npm-0.2.5-5d4ede8887-10.zip/node_modules/isomorphic.js/",\
-        "packageDependencies": [\
-          ["isomorphic.js", "npm:0.2.5"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["istanbul-lib-coverage", [\
       ["npm:3.2.2", {\
         "packageLocation": "./.yarn/global/cache/istanbul-lib-coverage-npm-3.2.2-5c0526e059-10.zip/node_modules/istanbul-lib-coverage/",\
@@ -9557,16 +9547,6 @@ const RAW_RUNTIME_STATE =
           ["levn", "npm:0.4.1"],\
           ["prelude-ls", "npm:1.2.1"],\
           ["type-check", "npm:0.4.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["lib0", [\
-      ["npm:0.2.94", {\
-        "packageLocation": "./.yarn/global/cache/lib0-npm-0.2.94-07cbfe778e-10.zip/node_modules/lib0/",\
-        "packageDependencies": [\
-          ["lib0", "npm:0.2.94"],\
-          ["isomorphic.js", "npm:0.2.5"]\
         ],\
         "linkType": "HARD"\
       }]\

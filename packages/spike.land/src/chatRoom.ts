@@ -1,5 +1,4 @@
 import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
-import * as map from "lib0/map";
 
 import { importMapReplace, md5,   makeHash, string_, resetCSS, HTML, Delta, applyCodePatch, CodePatch, ICodeSession, makeSession  } from "@spike-land/code";
 import {ASSET_HASH} from "./staticContent.mjs";
@@ -689,23 +688,23 @@ export class Code implements DurableObject {
 
     if (message && message.type) {
       switch (message.type) {
-        case "subscribe":
-          /** @type {Array<string>} */ (message.topics || []).forEach(
-            (topicName) => {
-              if (typeof topicName === "string") {
-                // add conn to topic
-                const topic = map.setIfUndefined(
-                  this.topics,
-                  topicName,
-                  () => new Set(),
-                );
-                topic.add(session.webSocket);
-                // add topic to conn
-                session.subscribedTopics.add(topicName);
-              }
-            },
-          );
-          break;
+        // case "subscribe":
+        //   /** @type {Array<string>} */ (message.topics || []).forEach(
+        //     (topicName) => {
+        //       if (typeof topicName === "string") {
+        //         // add conn to topic
+        //         const topic = map.setIfUndefined(
+        //           this.topics,
+        //           topicName,
+        //           () => new Set(),
+        //         );
+        //         topic.add(session.webSocket);
+        //         // add topic to conn
+        //         session.subscribedTopics.add(topicName);
+        //       }
+        //     },
+        //   );
+        //   break;
         case "unsubscribe":
           /** @type {Array<string>} */ (message.topics || []).forEach(
             (topicName) => {
