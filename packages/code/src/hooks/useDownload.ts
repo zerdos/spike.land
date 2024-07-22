@@ -1,12 +1,25 @@
-import { readFile, stat } from "../memfs";
+import {build } from "../shared";
+import { wait } from "../wait";
+
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
-    const indexMjs = window.btoa(unescape(encodeURIComponent(
-      await stat(`/live/${codeSpace}/index.mjs`)
-        ? await readFile(`/live/${codeSpace}/index.mjs`)
-        : await (await fetch(`/live/${codeSpace}/index.mjs`)).text(),
-    )));
+    let indexMjs;
+    try{
+      indexMjs = await build({
+      codeSpace, origin: location.origin, format: 'iife'
+    });
+  } catch(e){
+    await wait(1000);
+    indexMjs = await build({
+      codeSpace, origin: location.origin, format: 'iife'
+    });
+  }
+
+  if(!indexMjs){
+    return;
+  }
+
 
     const content = `
       <!DOCTYPE html>
@@ -65,19 +78,11 @@ export const useDownload = (codeSpace: string) => {
         <div id="root"></div>
         <script type="module">
       
-        const mod = decodeURIComponent(escape(window.atob('${indexMjs}')));
+        ${indexMjs}
+
+         globalThis.module.renderApp();
       
-          const blobUrl = createJsBlob(mod);
-          const {renderApp} = (await import(blobUrl));
-          renderApp();
-      
-        function createJsBlob(code){
-        return URL.createObjectURL(
-          new Blob([code], {
-            type: "application/javascript",
-          }),
-        );
-      }
+     
         </script>
       
         <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->

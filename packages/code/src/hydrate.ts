@@ -6,6 +6,7 @@ import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
 import { handleRender } from "./render";
 
+
 // Set up service worker version
 const { swVersion } = self;
 setTimeout(() => {

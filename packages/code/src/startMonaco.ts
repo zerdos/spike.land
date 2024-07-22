@@ -1,4 +1,4 @@
-import { editor, languages, Uri } from "monaco-editor";
+import { editor, languages, Uri, KeyMod, Range, KeyCode } from "monaco-editor";
 import type * as monaco from "monaco-editor";
 import { ata, prettier } from "./shared";
 
@@ -179,17 +179,17 @@ async function startMonacoPristine({
   });
 
   // Add custom key bindings
-  myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyA, () => {
+  myEditor.addCommand(KeyMod.CtrlCmd | KeyCode.KeyA, () => {
     const model = myEditor.getModel();
     if (model) {
       const lastLineNumber = model.getLineCount();
       const lastColumn = model.getLineMaxColumn(lastLineNumber);
-      myEditor.setSelection(new monaco.Range(1, 1, lastLineNumber, lastColumn));
+      myEditor.setSelection(new Range(1, 1, lastLineNumber, lastColumn));
     }
   });
 
   // Enable paste for all platforms
-  myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => {
+  myEditor.addCommand(KeyMod.CtrlCmd | KeyCode.KeyV, () => {
     navigator.clipboard.readText().then(text => {
       myEditor.trigger('keyboard', 'paste', { text: text });
     });

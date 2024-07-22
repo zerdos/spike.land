@@ -123,7 +123,7 @@ export const transpile = async (
   return transform(
     decorateCodeStr + code.replace(
       `export default `,
-      `const module = {}; 
+      `const module = {renderApp}; 
     module.default = `,
     ) + `
 
@@ -132,7 +132,8 @@ export const transpile = async (
 export default module.default;
 
 // Named export for accessing the module object
-export { module };`,
+export { module };
+globalThis.module = module;`,
     {
       loader: "tsx",
       format: "esm",
@@ -161,8 +162,9 @@ export { module };`,
 Object.assign(self, { transpile });
 
 export const build = async (
-  { codeSpace, origin, wasmModule }: {
+  { codeSpace, origin, format = 'esm', wasmModule }: {
     codeSpace: string;
+    format: "esm" | "iife"; 
     origin: string;
     wasmModule?: WebAssembly.Module;
   },
@@ -262,7 +264,7 @@ export const build = async (
 
     splitting: false,
 
-    format: "esm",
+    format,
     platform: "browser",
     entryPoints: [
       `${origin}/live/${codeSpace}/index.js`,

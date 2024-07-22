@@ -9,10 +9,10 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "rm -rf packages/code/dist && yarn workspaces foreach run clean",
-    "build": "yarn workspaces foreach run build",
-    "types": "yarn workspaces foreach run types",
-    "test": "yarn workspaces foreach run test",
+    "clean": "rm -rf packages/code/dist && yarn workspaces foreach -A run clean",
+    "build": "yarn workspaces foreach -A run build",
+    "types": "yarn workspaces foreach -A run types",
+    "test": "yarn workspaces foreach -A run test",
     "shasum": "find ./packages/code/dist -type f -print0 | sort -z | xargs -0 shasum | shasum | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
