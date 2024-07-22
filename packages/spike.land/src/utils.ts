@@ -1,5 +1,4 @@
-import ASSET_HASH from "./dist.shasum";
-import { files } from "./staticContent.mjs";
+import { files, ASSET_HASH } from "./staticContent.mjs";
 
 export function isChunk(link: string) {
   const chunkRegExp = /[.]{1}[a-f0-9]{10}[.]+/gm;

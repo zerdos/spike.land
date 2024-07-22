@@ -3,20 +3,15 @@
   "version": "0.9.55",
   "type": "module",
   "description": "spike.land",
-  "entry": "./index.js",
-  "source": "index.js",
-  "main": "public/static/bundle.mjs",
+  "entry": "dist/modules.mjs",
+  "source": "src/modules.ts",
+  "types": "dts/code/src/modules.d.ts ",
   "module": "dist/modules.mjs",
   "files": [
-    "dist"
+    "dist",
+    "dts"
   ],
-  "exports": {
-    "./package.json": "./package.json",
-    "./session": "./src/session.mjs",
-    ".": "./"
-  },
   "scripts": {
-    "hash": "cd dist && find .  -type f -exec shasum -a 256 {} \";\" | yarn node-jq -R -s -c 'split(\"\n\")[:-1]'>dist.json",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) -u",
     "types": "tsc || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
@@ -25,7 +20,7 @@
     "push": "cd ../../.. && yarn push",
     "build:framer-motion": "yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build && yarn hash ",
+    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build ",
     "es:build": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run esbuild-dev.mjs",
     "favicons": "mkdir -p ./dist/assets && cp -af src/assets/. ./dist/assets/",
     "sw": "echo ok"

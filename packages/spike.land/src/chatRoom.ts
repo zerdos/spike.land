@@ -1,14 +1,8 @@
 import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
 import * as map from "lib0/map";
-import { resetCSS } from "../../code/src/getResetCss";
-import { importMapReplace } from "../../code/src/importMapReplace";
-import HTML from "./../../code/src/index.html";
-import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
-import { makeHash, string_ } from "./../../code/src/makeSess";
-import { md5 } from "./../../code/src/md5";
-import { Delta } from "../../code/src/textDiff";
-import ASSET_HASH from "./dist.shasum";
-import shasum from "./dist.shasum";
+
+import { importMapReplace, md5,   makeHash, string_, resetCSS, HTML, Delta, applyCodePatch, CodePatch, ICodeSession, makeSession  } from "@spike-land/code";
+import {ASSET_HASH} from "./staticContent.mjs";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
 
@@ -193,7 +187,7 @@ export class Code implements DurableObject {
           this.origin = url.origin;
         }
         const transpiledPromise = fetch(
-          `https://js.spike.land?v=${shasum}`,
+          `https://js.spike.land?v=${ASSET_HASH}`,
           {
             method: "POST",
             body: code,

@@ -81,7 +81,8 @@ const fakeBackend = async (request: Request) => {
 
       // Serve the built JavaScript file
       if (codeSpacePath.endsWith(".mjs")) {
-        const resp = await build({ codeSpace, origin: url.origin });
+        const resp = await build({ codeSpace, origin: url.origin, format: "esm"
+         });
         return new Response(resp, {
           headers: {
             "Access-Control-Allow-Origin": "*",

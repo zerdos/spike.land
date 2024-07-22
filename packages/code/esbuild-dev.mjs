@@ -159,7 +159,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/hydrate.ts",
       "src/emotion.ts",
       "src/startMonaco.ts",
-      "src/cf-workers.mjs",
       "src/cf-esbuild.mjs",
 
       "src/emotionCache.ts",
@@ -177,14 +176,12 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     assetNames: "chunk-[name]-[hash]",
     external: [
       "/swVersion.mjs",
-      "/dist.shasum.js",
       // "/monaco-editor",
 
       // "/monaco-editor/*",
 
       //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
-      "./dist.shasum",
       `./${wasmFile}`,
       "./dist/reactDomClient.js",
       "./dist/reactDom.js",
