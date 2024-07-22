@@ -252,7 +252,8 @@ const ChatInterface = () => {
         <div className="flex items-center space-x-2">
           <button
             onClick={handleResetChat}
-            className="p-1 rounded-full bg-red-400/20 text-red-100 hover:bg-red-400/40 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/40 backdrop-blur-sm transition-all duration-300">
+            className="p-1 rounded-full bg-red-400/20 text-red-100 hover:bg-red-400/40 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/40 backdrop-blur-sm transition-all duration-300"
+          >
             <TrashIcon className="h-4 w-4" />
           </button>
           <ColorModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
@@ -264,42 +265,47 @@ const ChatInterface = () => {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+          >
             <div
               className={`max-w-[75%] ${
                 message.role === "user"
                   ? "bg-blue-500/40 text-white"
                   : "bg-white/30 dark:bg-gray-800/30 text-gray-800 dark:text-white"
-              } rounded-lg p-2 text-sm shadow-lg backdrop-blur-sm border border-white/20 dark:border-gray-700/20`}>
-              {editingMessageId === message.id ? (
-                <div className="space-y-1">
-                  <textarea
-                    value={editInput}
-                    onChange={(e) => setEditInput(e.target.value)}
-                    className="w-full p-1 text-xs rounded border bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm text-gray-800 dark:text-white"
-                    rows={2}
-                  />
-                  <div className="flex justify-end space-x-1">
-                    <button
-                      onClick={handleCancelEdit}
-                      className="p-1 rounded bg-gray-300/30 dark:bg-gray-600/30 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300">
-                      <XMarkIcon className="h-3 w-3" />
-                    </button>
-                    <button
-                      onClick={() => handleSaveEdit(message.id)}
-                      className="p-1 rounded bg-green-500/30 text-white hover:bg-green-500/50 backdrop-blur-sm transition-all duration-300">
-                      <CheckIcon className="h-3 w-3" />
-                    </button>
+              } rounded-lg p-2 text-sm shadow-lg backdrop-blur-sm border border-white/20 dark:border-gray-700/20`}
+            >
+              {editingMessageId === message.id
+                ? (
+                  <div className="space-y-1">
+                    <textarea
+                      value={editInput}
+                      onChange={(e) => setEditInput(e.target.value)}
+                      className="w-full p-1 text-xs rounded border bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm text-gray-800 dark:text-white"
+                      rows={2}
+                    />
+                    <div className="flex justify-end space-x-1">
+                      <button
+                        onClick={handleCancelEdit}
+                        className="p-1 rounded bg-gray-300/30 dark:bg-gray-600/30 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300"
+                      >
+                        <XMarkIcon className="h-3 w-3" />
+                      </button>
+                      <button
+                        onClick={() => handleSaveEdit(message.id)}
+                        className="p-1 rounded bg-green-500/30 text-white hover:bg-green-500/50 backdrop-blur-sm transition-all duration-300"
+                      >
+                        <CheckIcon className="h-3 w-3" />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <p className="break-words">{message.content}</p>
-              )}
+                )
+                : <p className="break-words">{message.content}</p>}
             </div>
             {message.role === "user" && !isStreaming && !editingMessageId && (
               <button
                 onClick={() => handleEditMessage(message.id)}
-                className="ml-1 p-1 rounded-full bg-gray-200/30 dark:bg-gray-700/30 text-gray-600 dark:text-gray-300 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300">
+                className="ml-1 p-1 rounded-full bg-gray-200/30 dark:bg-gray-700/30 text-gray-600 dark:text-gray-300 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300"
+              >
                 <PencilIcon className="h-3 w-3" />
               </button>
             )}
@@ -324,12 +330,11 @@ const ChatInterface = () => {
           <button
             onClick={() => handleSendMessage(input)}
             disabled={!input.trim() || isStreaming}
-            className="bg-blue-500/40 text-white rounded-full p-1 hover:bg-blue-600/60 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 backdrop-blur-sm transition-all duration-300">
-            {isStreaming ? (
-              <ChatBubbleLeftIcon className="h-4 w-4 animate-pulse" />
-            ) : (
-              <PaperAirplaneIcon className="h-4 w-4" />
-            )}
+            className="bg-blue-500/40 text-white rounded-full p-1 hover:bg-blue-600/60 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 backdrop-blur-sm transition-all duration-300"
+          >
+            {isStreaming
+              ? <ChatBubbleLeftIcon className="h-4 w-4 animate-pulse" />
+              : <PaperAirplaneIcon className="h-4 w-4" />}
           </button>
         </div>
       </div>

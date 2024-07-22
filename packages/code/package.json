@@ -106,6 +106,7 @@
     "react-refresh": "0.14.2",
     "react-reverse-portal": "2.1.2",
     "react-rnd": "10.4.11",
+    "react-use": "^17.5.1",
     "stream-browserify": "3.0.0",
     "transferables": "1.0.3",
     "ts-jest": "29.2.3",

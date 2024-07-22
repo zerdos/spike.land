@@ -1,27 +1,23 @@
-import { css } from "@emotion/react";
-import { motion, MotionConfig } from "framer-motion";
+import { MotionConfig } from "framer-motion";
 import { FC, useEffect, useState } from "react";
-import { ActionButtons } from "./components/ActionButtons";
-import { BreakpointButtons } from "./components/BreakpointButtons";
+import { useWindowSize } from "react-use";
 import { DraggableChat } from "./components/DraggableChat";
-import { ScaleRangeButtons } from "./components/ScaleRangeButtons";
+import { DraggableWindowContent } from "./components/DraggableWindowContent";
+import { MotionContainer } from "./components/MotionContainer";
 import { useBgColor } from "./hooks/useBgColor";
 import { useDownload } from "./hooks/useDownload";
-import { useWindowSize } from "./hooks/useWindowSize";
-
-// Define breakpoints and sizes
-const breakPoints = [750, 1024, 1920];
-const sizes = [10, 25, 50, 75, 100];
 
 type DraggableWindowProps = {
   children: JSX.Element;
   codeSpace: string;
 };
 
+const breakPoints = [750, 1024, 1920];
+const sizes = [10, 25, 50, 75, 100];
 export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
-  const { innerWidth, innerHeight } = useWindowSize();
+  const { width: innerWidth, height: innerHeight } = useWindowSize();
   const [showChat, setShowChat] = useState(false);
 
   const [width, setWidth] = useState(innerWidth);
@@ -49,96 +45,29 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
 
   return (
     <MotionConfig transition={{ delay, type, duration }}>
-      <motion.div
-        layout
-        initial={{ padding: 0, top: 0, right: 0, borderRadius: 0 }}
-        animate={{
-          padding: 8,
-          top: bottom,
-          right: right,
-          backgroundColor: rgba(...bgColor),
-          borderRadius: 16,
-        }}
-        style={{ backgroundColor: rgba(...bgColor) }}
-        css={css`
-          z-index: 10;
-          backdrop-filter: blur(15px);
-          position: fixed;
-        `}
-        drag
-        dragMomentum={false}
-        dragConstraints={{
-          left: -innerWidth,
-          right: width - 20 - width / 6,
-          bottom: innerHeight,
-        }}
-        dragElastic={0.5}
-      >
-        <div style={{ display: "flex" }}>
-          <div
-            css={css`
-              display: flex;
-              width: 100%;
-              flex-direction: column;
-              align-items: center;
-            `}
-          >
-            <ScaleRangeButtons
-              scaleRange={scaleRange}
-              setScaleRange={setScaleRange}
-              sizes={sizes}
-              maxScaleRange={maxScaleRange}
-            />
-            <motion.div
-              transition={{ scale: { type } }}
-              css={css`
-                display: block;
-                border-radius: 8px;
-                background-color: ${rgba(...bgColor)};
-              `}
-              initial={{ height: innerHeight, width: innerWidth }}
-              animate={{
-                height: innerHeight * scale,
-                width: width * scale,
-              }}
-            >
-              <motion.div
-                transition={{ zoom: { type: "spring" }, delay: 0 }}
-                css={css`
-                  transform-origin: top left;
-                  display: inline-block;
-                  border-radius: 8px;
-                  background-color: ${rgba(...bgColor)};
-                  overflow: hidden;
-                `}
-                initial={{
-                  height: innerHeight,
-                  width: innerWidth,
-                  scale: 1,
-                }}
-                animate={{ height: innerHeight, width, scale }}
-              >
-                {children}
-              </motion.div>
-            </motion.div>
-            <BreakpointButtons
-              width={width}
-              setWidth={setWidth}
-              breakPoints={breakPoints}
-            />
-          </div>
-          <ActionButtons
-            codeSpace={codeSpace}
-            handleDownload={handleDownload}
-            showChat={showChat}
-            setShowChat={setShowChat}
-          />
-        </div>
-      </motion.div>
+      <MotionContainer bottom={bottom} right={right} bgColor={bgColor} rgba={rgba}>
+        <DraggableWindowContent
+          scaleRange={scaleRange}
+          setScaleRange={setScaleRange}
+          width={width}
+          setWidth={setWidth}
+          codeSpace={codeSpace}
+          handleDownload={handleDownload}
+          showChat={showChat}
+          setShowChat={setShowChat}
+          scale={scale}
+          sizes={sizes}
+          maxScaleRange={maxScaleRange}
+          breakPoints={breakPoints}
+          innerHeight={innerHeight}
+          rgba={rgba}
+          bgColor={bgColor}
+        >
+          {children}
+        </DraggableWindowContent>
+      </MotionContainer>
 
-      {showChat && <DraggableChat />}
+      {showChat && <DraggableChat onClose={() => setShowChat(false)} />}
     </MotionConfig>
   );
 };
-
-export default DraggableWindow;
