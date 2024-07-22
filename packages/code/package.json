@@ -6,6 +6,7 @@
   "entry": "./index.js",
   "source": "index.js",
   "main": "public/static/bundle.mjs",
+  "module": "dist/modules.mjs",
   "files": [
     "dist"
   ],

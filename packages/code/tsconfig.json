@@ -10,9 +10,7 @@
 
     "jsx": "react-jsx",
     "declaration": true,
-    "noEmit": true,
     "checkJs": false,
-    "outDir": "dist",
     "jsxImportSource": "@emotion/react",
     "sourceMap": false,
     "noUnusedLocals": true,
@@ -37,6 +35,8 @@
     "importHelpers": true,
     "moduleResolution": "node",
     // "noEmit": true,
+    "outDir": "dts",
+
 
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
     // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */

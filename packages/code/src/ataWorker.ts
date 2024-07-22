@@ -25,7 +25,6 @@ declare var self:
   & { build: typeof Build }
   & { tsx: (code: string) => Promise<string[]> };
 
-// Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");
 importScripts("/workerScripts/dts.js");
 importScripts("/workerScripts/ata.js");

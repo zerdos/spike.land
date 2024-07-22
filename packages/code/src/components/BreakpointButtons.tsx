@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { Phone, Tablet, Tv } from "../icons";
-import { ToggleButton, ToggleButtonGroup } from "../mui";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 type BreakpointButtonsProps = {
   width: number;
