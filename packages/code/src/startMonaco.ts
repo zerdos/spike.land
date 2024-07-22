@@ -175,6 +175,24 @@ async function startMonacoPristine({
     definitionLinkOpensInPeek: true,
     theme: "vs-dark",
     autoClosingBrackets: "languageDefined",
+    extraEditorClassName: "custom-monaco-editor", // Add this line
+  });
+
+  // Add custom key bindings
+  myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyA, () => {
+    const model = myEditor.getModel();
+    if (model) {
+      const lastLineNumber = model.getLineCount();
+      const lastColumn = model.getLineMaxColumn(lastLineNumber);
+      myEditor.setSelection(new monaco.Range(1, 1, lastLineNumber, lastColumn));
+    }
+  });
+
+  // Enable paste for all platforms
+  myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => {
+    navigator.clipboard.readText().then(text => {
+      myEditor.trigger('keyboard', 'paste', { text: text });
+    });
   });
 
   let abortController = new AbortController();
