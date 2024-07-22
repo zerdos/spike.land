@@ -1,9 +1,8 @@
-import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { Resizable } from "re-resizable";
 import { FC, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import ChatInterface from "../Chat";
+import ChatInterface from "../ChatInterface";
 
 interface DraggableChatProps {
   onClose: () => void;
@@ -44,47 +43,17 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose }) => {
         minWidth={250}
         minHeight={300}
       >
-        <div
-          css={css`
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-          `}
-        >
-          <div
-            css={css`
-              padding: 10px;
-              background-color: #4a148c;
-              color: white;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            `}
-          >
+        <div className="w-full h-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <div className="p-2 bg-purple-900 text-white flex justify-between items-center">
             <span>AI Chat</span>
             <button
               onClick={onClose}
-              css={css`
-                background: none;
-                border: none;
-                color: white;
-                cursor: pointer;
-                font-size: 20px;
-              `}
+              className="bg-transparent border-none text-white cursor-pointer text-xl"
             >
               <IoClose />
             </button>
           </div>
-          <div
-            css={css`
-              flex-grow: 1;
-            `}
-          >
+          <div className="flex-grow overflow-hidden">
             <ChatInterface />
           </div>
         </div>

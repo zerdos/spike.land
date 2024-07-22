@@ -243,74 +243,64 @@ const ChatInterface = () => {
     });
   };
   return (
-    <div
-      ref={chatContainerRef}
-      className="flex flex-col bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 dark:from-gray-900 dark:via-purple-900 dark:to-violet-900 overflow-hidden"
-      style={{ height: `${viewportHeight}px` }}
-    >
+    <div className="flex flex-col h-full bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 dark:from-gray-900 dark:via-purple-900 dark:to-violet-900">
       {/* Header */}
-      <header className="p-4 bg-white/10 dark:bg-black/10 backdrop-blur-md shadow-lg flex justify-between items-center z-10 border-b border-white/20 dark:border-gray-700/20">
-        <h1 className="text-xl font-bold text-white dark:text-gray-200">
+      <header className="p-2 bg-white/10 dark:bg-black/10 backdrop-blur-md shadow-lg flex justify-between items-center z-10 border-b border-white/20 dark:border-gray-700/20">
+        <h1 className="text-sm font-bold text-white dark:text-gray-200">
           Fancy Glass Chat!!!
         </h1>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2">
           <button
             onClick={handleResetChat}
-            className="p-2 rounded-full bg-red-400/20 text-red-100 hover:bg-red-400/40 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/40 backdrop-blur-sm transition-all duration-300"
-          >
-            <TrashIcon className="h-5 w-5" />
+            className="p-1 rounded-full bg-red-400/20 text-red-100 hover:bg-red-400/40 dark:bg-red-900/20 dark:text-red-300 dark:hover:bg-red-900/40 backdrop-blur-sm transition-all duration-300">
+            <TrashIcon className="h-4 w-4" />
           </button>
           <ColorModeToggle isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
         </div>
       </header>
 
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-grow overflow-y-auto p-2 space-y-2">
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-          >
+            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl ${
+              className={`max-w-[75%] ${
                 message.role === "user"
                   ? "bg-blue-500/40 text-white"
                   : "bg-white/30 dark:bg-gray-800/30 text-gray-800 dark:text-white"
-              } rounded-lg p-3 shadow-lg backdrop-blur-sm border border-white/20 dark:border-gray-700/20`}
-            >
-              {editingMessageId === message.id
-                ? (
-                  <div className="space-y-2">
-                    <textarea
-                      value={editInput}
-                      onChange={(e) => setEditInput(e.target.value)}
-                      className="w-full p-2 rounded border bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm text-gray-800 dark:text-white"
-                      rows={3}
-                    />
-                    <div className="flex justify-end space-x-2">
-                      <button
-                        onClick={handleCancelEdit}
-                        className="p-1 rounded bg-gray-300/30 dark:bg-gray-600/30 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300"
-                      >
-                        <XMarkIcon className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleSaveEdit(message.id)}
-                        className="p-1 rounded bg-green-500/30 text-white hover:bg-green-500/50 backdrop-blur-sm transition-all duration-300"
-                      >
-                        <CheckIcon className="h-4 w-4" />
-                      </button>
-                    </div>
+              } rounded-lg p-2 text-sm shadow-lg backdrop-blur-sm border border-white/20 dark:border-gray-700/20`}>
+              {editingMessageId === message.id ? (
+                <div className="space-y-1">
+                  <textarea
+                    value={editInput}
+                    onChange={(e) => setEditInput(e.target.value)}
+                    className="w-full p-1 text-xs rounded border bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm text-gray-800 dark:text-white"
+                    rows={2}
+                  />
+                  <div className="flex justify-end space-x-1">
+                    <button
+                      onClick={handleCancelEdit}
+                      className="p-1 rounded bg-gray-300/30 dark:bg-gray-600/30 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300">
+                      <XMarkIcon className="h-3 w-3" />
+                    </button>
+                    <button
+                      onClick={() => handleSaveEdit(message.id)}
+                      className="p-1 rounded bg-green-500/30 text-white hover:bg-green-500/50 backdrop-blur-sm transition-all duration-300">
+                      <CheckIcon className="h-3 w-3" />
+                    </button>
                   </div>
-                )
-                : <p>{message.content}</p>}
+                </div>
+              ) : (
+                <p className="break-words">{message.content}</p>
+              )}
             </div>
             {message.role === "user" && !isStreaming && !editingMessageId && (
               <button
                 onClick={() => handleEditMessage(message.id)}
-                className="ml-2 p-1 rounded-full bg-gray-200/30 dark:bg-gray-700/30 text-gray-600 dark:text-gray-300 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300"
-              >
-                <PencilIcon className="h-4 w-4" />
+                className="ml-1 p-1 rounded-full bg-gray-200/30 dark:bg-gray-700/30 text-gray-600 dark:text-gray-300 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 backdrop-blur-sm transition-all duration-300">
+                <PencilIcon className="h-3 w-3" />
               </button>
             )}
           </div>
@@ -319,26 +309,27 @@ const ChatInterface = () => {
       </div>
 
       {/* Input area */}
-      <div className="p-4 bg-white/10 dark:bg-black/10 backdrop-blur-md border-t border-white/20 dark:border-gray-700/20 z-10">
-        <div className="flex space-x-3">
+      <div className="p-2 bg-white/10 dark:bg-black/10 backdrop-blur-md border-t border-white/20 dark:border-gray-700/20 z-10">
+        <div className="flex space-x-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
             placeholder="Type a message..."
-            className="flex-1 bg-white/20 dark:bg-gray-800/20 text-gray-800 dark:text-white rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50 backdrop-blur-sm placeholder-gray-500 dark:placeholder-gray-400"
+            className="flex-1 bg-white/20 dark:bg-gray-800/20 text-gray-800 dark:text-white text-sm rounded-full py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 backdrop-blur-sm placeholder-gray-500 dark:placeholder-gray-400"
             disabled={isStreaming}
             ref={inputRef}
           />
           <button
             onClick={() => handleSendMessage(input)}
             disabled={!input.trim() || isStreaming}
-            className="bg-blue-500/40 text-white rounded-full p-2 hover:bg-blue-600/60 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 backdrop-blur-sm transition-all duration-300"
-          >
-            {isStreaming
-              ? <ChatBubbleLeftIcon className="h-5 w-5 animate-pulse" />
-              : <PaperAirplaneIcon className="h-5 w-5" />}
+            className="bg-blue-500/40 text-white rounded-full p-1 hover:bg-blue-600/60 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 backdrop-blur-sm transition-all duration-300">
+            {isStreaming ? (
+              <ChatBubbleLeftIcon className="h-4 w-4 animate-pulse" />
+            ) : (
+              <PaperAirplaneIcon className="h-4 w-4" />
+            )}
           </button>
         </div>
       </div>
