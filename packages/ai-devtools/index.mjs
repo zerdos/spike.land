@@ -4,8 +4,8 @@ import { exec } from "child_process";
 import { Command } from "commander";
 import fetch from "node-fetch";
 import process from "process";
-import { promisify } from "util";
 import readline from "readline";
+import { promisify } from "util";
 
 import "./main.mjs";
 const program = new Command();
@@ -56,11 +56,11 @@ program
 
       const rl = readline.createInterface({
         input: process.stdin,
-        output: process.stdout
+        output: process.stdout,
       });
 
-      rl.question('Do you want to commit? (y/n) ', async (answer) => {
-        if (answer.toLowerCase() === 'y') {
+      rl.question("Do you want to commit? (y/n) ", async (answer) => {
+        if (answer.toLowerCase() === "y") {
           exec(`git commit -m ${body}`, (error, stdout, stderr) => {
             if (error) {
               console.error(`exec error: ${error}`);
@@ -70,7 +70,7 @@ program
             console.error(`stderr: ${stderr}`);
           });
         } else {
-          console.log('Commit aborted.');
+          console.log("Commit aborted.");
         }
         rl.close();
       });

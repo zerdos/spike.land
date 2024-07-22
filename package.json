@@ -5,17 +5,19 @@
   "repository": "git@github.com:zerdos/spike.land.git",
   "author": "Zoltan Erdos <zoliika84@gmail.com>",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "clean": "rm -rf packages/code/dist && yarn workspaces foreach run clean",  
-    "build": "yarn workspaces foreach run build", 
+    "clean": "rm -rf packages/code/dist && yarn workspaces foreach run clean",
+    "build": "yarn workspaces foreach run build",
     "types": "yarn workspaces foreach run types",
     "test": "yarn workspaces foreach run test",
     "shasum": "find ./packages/code/dist -type f -print0 | sort -z | xargs -0 shasum | shasum | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
-    "c:build": "yarn workspace @spike-land/code build",  
-    "c:deploy": "yarn workspace @spike-land/code-worker deploy", 
-    "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types", 
-    "importMap": "yarn workspaces foreach run importMap", 
+    "c:build": "yarn workspace @spike-land/code build",
+    "c:deploy": "yarn workspace @spike-land/code-worker deploy",
+    "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types",
+    "importMap": "yarn workspaces foreach run importMap",
     "build:code": "yarn workspaces foreach run build:code",
     "yarn:publish": "yarn workspaces foreach run publish",
     "push:prod": "NODE_ENV=production yarn build-and-push",
@@ -24,7 +26,7 @@
     "build:prod": "NODE_ENV=production yarn build:all",
     "docker:build": "yarn workspaces foreach run docker:build",
     "docker:push": "yarn workspaces foreach run docker:push",
-    "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push", 
+    "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
     "ai-commit": "ai-commit"
@@ -46,8 +48,7 @@
     "localforage": "1.10.0",
     "playwright": "1.45.2",
     "react": "18.3.1",
-    "typescript": "5.5.3" 
+    "typescript": "5.5.3"
   },
   "packageManager": "yarn@4.3.1"
 }
-

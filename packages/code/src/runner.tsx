@@ -4,7 +4,8 @@ import { build, transpile } from "./shared";
 // Extend the global object with build and transpile functions
 Object.assign(globalThis, { build, transpile });
 
-const codeSpace = getCodeSpace();``
+const codeSpace = getCodeSpace();
+``;
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 

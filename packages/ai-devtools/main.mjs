@@ -16,7 +16,9 @@ export const openai = new OpenAI(
   {
     organization: "org-iMeNwBXOvbwVSfnaOb89U7gt",
     project: "proj_GfNHjREIhyw39p4t5ZI7udlO",
-    apiKey: process.env.OPENAI_API_KEY});
+    apiKey: process.env.OPENAI_API_KEY,
+  },
+);
 
 const app = express();
 app.use(bodyParser.text());
@@ -109,10 +111,8 @@ feat: add a new feature
         role: "user",
         content: prompt,
       }],
-    }).catch(async () =>
-      console.log("Failed to generate final summary. Trying with gpt-4o.")
-    );
-    if (!finalSummary) { 
+    }).catch(async () => console.log("Failed to generate final summary. Trying with gpt-4o."));
+    if (!finalSummary) {
       return res.status(500).json({ error: "Failed to generate final summary." });
     }
     cache[prompt] = finalSummary.choices[0].message.content;
