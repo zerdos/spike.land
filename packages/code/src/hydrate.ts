@@ -107,8 +107,9 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Render the code
   // import { render } from "./render";
 
-  const rerender = (t = 0) =>
-    import(`/live/${codeSpace}/index.mjs/${t}`).then(({ renderApp }) => renderApp()).then(() => handleRender());
+  import(`/live/${codeSpace}/index.mjs`).then(({ renderApp }) => renderApp());
+
+  const rerender = (t = 0) => import(`/live/${codeSpace}/index.js/${t}`).then(({ renderApp }) => renderApp()).then(() => handleRender());
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
@@ -122,5 +123,4 @@ if (location.pathname === `/live/${codeSpace}`) {
     rerender(now);
   };
 
-  rerender();
 }
