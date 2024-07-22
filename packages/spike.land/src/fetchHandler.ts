@@ -1,6 +1,7 @@
-import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
+import { getAssetFromKV } from "@cl oudflare/kv-asset-handler";
 import { importMap } from "../../code/src/importMap";
-import { importMapReplace } from "../../code/src/importMapReplace";
+``;
+import { importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import ASSET_HASH from "./dist.shasum";
 import Env from "./env";

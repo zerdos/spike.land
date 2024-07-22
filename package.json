@@ -8,6 +8,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "typings": "dst/src/modules.d.ts",
   "scripts": {
     "clean": "rm -rf packages/code/dist && yarn workspaces foreach -A run clean",
     "build": "yarn workspaces foreach -A run build",

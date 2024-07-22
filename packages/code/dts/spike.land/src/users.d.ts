@@ -1,3 +1,3 @@
 export declare class Users {
-    fetch(): Promise<Response>;
+  fetch(): Promise<Response>;
 }

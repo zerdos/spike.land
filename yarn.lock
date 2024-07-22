@@ -1729,7 +1729,7 @@ __metadata:
     "@anthropic-ai/sdk": "npm:^0.24.3"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240718.0"
-    "@spike-land/code": "npm:0.9.55"
+    "@spike-land/code": "workspace:^"
     "@types/node": "npm:20.14.11"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
@@ -1745,7 +1745,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/code@npm:0.9.55, @spike-land/code@workspace:packages/code":
+"@spike-land/code@workspace:^, @spike-land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:

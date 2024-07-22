@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
+import { Fab, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import { FC } from "react";
 import { FaDownload } from "react-icons/fa";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { RiChatSmile3Line } from "react-icons/ri";
 import { Share } from "../icons";
-import { Fab, Tooltip } from "@mui/material";
 import { QRButton } from "../Qr.lazy";
 
 type ActionButtonsProps = {
@@ -57,7 +57,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
         <Tooltip title="Download Project" placement="left">
           <Fab onClick={handleDownload}>
             <FaDownload />
-          </Fab>  
+          </Fab>
         </Tooltip>
         <Tooltip title="Toggle Chat" placement="left">
           <Fab onClick={() => setShowChat(!showChat)}>

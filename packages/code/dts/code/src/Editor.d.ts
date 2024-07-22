@@ -1,5 +1,5 @@
 import type { FC } from "react";
 declare const Editor: FC<{
-    codeSpace: string;
+  codeSpace: string;
 }>;
 export default Editor;

@@ -9,15 +9,15 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler deploy --env=testing --minify ../code/dist/cf-workers.mjs --experimental-versions ",
-    "prepublishOnly": "wrangler deploy ../code/dist/cf-workers.mjs",
+    "deploy:dev": "wrangler deploy --env=testing --minify ./src/cf-workers.ts --experimental-versions ",
+    "prepublishOnly": "wrangler deploy ./src/cf-workers.ts",
     "predeploy": "yarn x:build",
     "x:build": "echo ok"
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20240718.0",
-    "@spike-land/code": "0.9.55",
+    "@spike-land/code": "workspace:^",
     "typescript": "5.5.3",
     "wrangler": "3.65.1"
   },

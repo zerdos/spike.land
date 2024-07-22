@@ -1,4 +1,4 @@
 export declare const useWindowSize: () => {
-    innerWidth: number;
-    innerHeight: number;
+  innerWidth: number;
+  innerHeight: number;
 };
