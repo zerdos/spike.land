@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import React, { FC, useState } from "react";
 import { Resizable } from "re-resizable";
-import ChatInterface from "../Chat";
+import { FC, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import ChatInterface from "../Chat";
 
 interface DraggableChatProps {
   onClose: () => void;
@@ -17,7 +17,12 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose }) => {
     <motion.div
       drag
       dragMomentum={false}
-      dragConstraints={{ left: 0, right: window.innerWidth - size.width, top: 0, bottom: window.innerHeight - size.height }}
+      dragConstraints={{
+        left: 0,
+        right: window.innerWidth - size.width,
+        top: 0,
+        bottom: window.innerHeight - size.height,
+      }}
       style={{
         position: "fixed",
         zIndex: 1000,
@@ -78,7 +83,6 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose }) => {
           <div
             css={css`
               flex-grow: 1;
-              overflow-y: auto;
             `}
           >
             <ChatInterface />

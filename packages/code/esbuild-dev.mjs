@@ -83,7 +83,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ...buildOptions,
     entryPoints: [
       "src/transpile.ts",
-     
     ],
 
     plugins: [],
@@ -108,7 +107,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "iife",
     outdir: "dist/workerScripts",
   });
-
 
   await build({
     ...buildOptions,

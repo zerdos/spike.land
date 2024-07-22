@@ -3,12 +3,11 @@ import { motion, MotionConfig } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 import { ActionButtons } from "./components/ActionButtons";
 import { BreakpointButtons } from "./components/BreakpointButtons";
+import { DraggableChat } from "./components/DraggableChat";
 import { ScaleRangeButtons } from "./components/ScaleRangeButtons";
 import { useBgColor } from "./hooks/useBgColor";
 import { useDownload } from "./hooks/useDownload";
 import { useWindowSize } from "./hooks/useWindowSize";
-import { DraggableChat } from "./components/DraggableChat";
-
 
 // Define breakpoints and sizes
 const breakPoints = [750, 1024, 1920];
@@ -24,7 +23,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
   const [delay, setDelay] = useState(2);
   const { innerWidth, innerHeight } = useWindowSize();
   const [showChat, setShowChat] = useState(false);
-
 
   const [width, setWidth] = useState(innerWidth);
   const { bgColor, setBgColor, rgba } = useBgColor();
@@ -130,15 +128,14 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
             />
           </div>
           <ActionButtons
-          codeSpace={codeSpace}
-          handleDownload={handleDownload}
-          showChat={showChat}
-          setShowChat={setShowChat}
-        />
-              </div>
-
+            codeSpace={codeSpace}
+            handleDownload={handleDownload}
+            showChat={showChat}
+            setShowChat={setShowChat}
+          />
+        </div>
       </motion.div>
-      
+
       {showChat && <DraggableChat />}
     </MotionConfig>
   );

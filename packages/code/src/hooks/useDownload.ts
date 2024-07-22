@@ -1,7 +1,7 @@
-import { build } from "../shared";
-import { wait } from "../wait";
 import { resetCSS } from "../getResetCss";
-import TW from '../tw.html';
+import { build } from "../shared";
+import TW from "../tw.html";
+import { wait } from "../wait";
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
@@ -12,7 +12,7 @@ export const useDownload = (codeSpace: string) => {
         return await build({
           codeSpace,
           origin: location.origin,
-          format: 'iife'
+          format: "iife",
         });
       } catch (e) {
         console.error("Build failed, retrying after 1 second:", e);
@@ -20,7 +20,7 @@ export const useDownload = (codeSpace: string) => {
         return await build({
           codeSpace,
           origin: location.origin,
-          format: 'iife'
+          format: "iife",
         });
       }
     };

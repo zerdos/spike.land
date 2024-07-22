@@ -5,25 +5,23 @@ import { build, transpile } from "./shared";
 
 const codeSpace = getCodeSpace();
 
+Object.assign(globalThis, {
+  build: async () => {
+    const file = await build({ codeSpace, origin: location.origin, format: "esm" });
 
-Object.assign(globalThis, { build: async()=>{
-
-  const file = await build({ codeSpace, origin: location.origin, format: "esm" });
-  
-  await writeFile(`/live/${codeSpace}/index.mjs`, file);
-  await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
-    method: "PUT",
-    body: file,
-    headers: {
-      "Content-Type": "application/javascript",
-      "TR_ORIGIN": origin,
-      "TR_BUNDLE": "true",
-    },
-  });
-
-}
-  , transpile });
-
+    await writeFile(`/live/${codeSpace}/index.mjs`, file);
+    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+      method: "PUT",
+      body: file,
+      headers: {
+        "Content-Type": "application/javascript",
+        "TR_ORIGIN": origin,
+        "TR_BUNDLE": "true",
+      },
+    });
+  },
+  transpile,
+});
 
 ``;
 
@@ -64,7 +62,6 @@ export async function runner({ code, counter, signal }: {
 
     // Remove existing index.js file if it exists
     await cleanupFiles();
-
 
     // Transpile the code
     const transpiled = await transpile({ code, originToUse: location.origin });

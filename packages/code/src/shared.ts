@@ -48,12 +48,12 @@ export const transpile = (
 ) => init(swVersion).rpc("transpile", { code, originToUse }) as Promise<string>;
 
 export const build = (
-  { codeSpace, origin, format = 'esm' }: { codeSpace: string; origin: string, format: 'esm' | 'iife'  },
+  { codeSpace, origin, format = "esm" }: { codeSpace: string; origin: string; format: "esm" | "iife" },
 ) =>
   init(swVersion).rpc("build", {
     codeSpace,
     origin,
-    format
+    format,
   }) as Promise<string>;
 
 export const connect = (codeSpace: string) => init(swVersion).signal("connect", codeSpace);

@@ -1,4 +1,4 @@
-import { editor, languages, Uri, KeyMod, Range, KeyCode } from "monaco-editor";
+import { editor, KeyCode, KeyMod, languages, Range, Uri } from "monaco-editor";
 import type * as monaco from "monaco-editor";
 import { ata, prettier } from "./shared";
 
@@ -191,7 +191,7 @@ async function startMonacoPristine({
   // Enable paste for all platforms
   myEditor.addCommand(KeyMod.CtrlCmd | KeyCode.KeyV, () => {
     navigator.clipboard.readText().then(text => {
-      myEditor.trigger('keyboard', 'paste', { text: text });
+      myEditor.trigger("keyboard", "paste", { text: text });
     });
   });
 
