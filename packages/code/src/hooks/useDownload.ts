@@ -1,6 +1,7 @@
 import { build } from "../shared";
 import { wait } from "../wait";
 import { resetCSS } from "../getResetCss";
+import TW from '../tw.html';
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
@@ -80,6 +81,7 @@ export const useDownload = (codeSpace: string) => {
 </head>
 <body>
   <div id="root"></div>
+  <script>${TW}</script>
   <script type="module">
     ${indexMjs}
     globalThis.module.renderApp();

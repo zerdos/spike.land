@@ -1,10 +1,30 @@
-import { stat, unlink } from "./memfs";
+import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
 
 // Extend the global object with build and transpile functions
-Object.assign(globalThis, { build, transpile });
 
 const codeSpace = getCodeSpace();
+
+
+Object.assign(globalThis, { build: async()=>{
+
+  const file = await build({ codeSpace, origin: location.origin, format: "esm" });
+  
+  await writeFile(`/live/${codeSpace}/index.mjs`, file);
+  await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+    method: "PUT",
+    body: file,
+    headers: {
+      "Content-Type": "application/javascript",
+      "TR_ORIGIN": origin,
+      "TR_BUNDLE": "true",
+    },
+  });
+
+}
+  , transpile });
+
+
 ``;
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -43,28 +63,12 @@ export async function runner({ code, counter, signal }: {
     if (signal.aborted) return;
 
     // Remove existing index.js file if it exists
-    if (await stat(`/live/${codeSpace}/index.js`)) {
-      await unlink(`/live/${codeSpace}/index.js`);
-    }
+    await cleanupFiles();
 
-    // Check if index.mjs exists
-    const bundleExists = await stat(`/live/${codeSpace}/index.mjs`);
-
-    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/javascript",
-        "TR_ORIGIN": `origin`,
-        "TR_BUNDLE": `true`,
-      },
-    });
-
-    if (bundleExists) {
-      await unlink(`/live/${codeSpace}/index.mjs`);
-    }
 
     // Transpile the code
     const transpiled = await transpile({ code, originToUse: location.origin });
+    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     console.log({ transpiled });
     if (!transpiled) return;
 
@@ -115,6 +119,14 @@ async function cleanupFiles() {
     if (await stat(`/live/${codeSpace}/index.mjs`)) {
       await unlink(`/live/${codeSpace}/index.mjs`);
     }
+    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/javascript",
+        "TR_ORIGIN": `origin`,
+        "TR_BUNDLE": `true`,
+      },
+    });
   } catch (error) {
     console.error("Error during cleanup:", error);
   }

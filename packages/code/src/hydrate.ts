@@ -112,7 +112,7 @@ if (location.pathname === `/live/${codeSpace}`) {
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-  BC.onmessage = ({ data }) => {
+  BC.onmessage = () => {
     const now = Date.now();
     rerender(now);
   };

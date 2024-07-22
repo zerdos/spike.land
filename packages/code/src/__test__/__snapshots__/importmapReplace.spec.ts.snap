@@ -1,13 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`importMapReplace should apply custom mappings 1`] = `"/** importMapReplace */import CustomPackage from "http://localhost:3000/*custom-package?bundle";"`;
+exports[`importMapReplace should apply custom mappings 1`] = `
+"
+  /** importMapReplace */
+  import CustomPackage from "http://localhost:3000/*custom-package?bundle";"
+`;
 
-exports[`importMapReplace should ignore absolute URLs 1`] = `"/** importMapReplace */import MyComponent from "http://localhost:3000/MyComponent.js";"`;
+exports[`importMapReplace should ignore absolute URLs 1`] = `
+"
+  /** importMapReplace */
+  import MyComponent from "http://localhost:3000/MyComponent.js";"
+`;
 
-exports[`importMapReplace should ignore relative URLs 1`] = `"/** importMapReplace */import MyComponent from "./MyComponent";"`;
+exports[`importMapReplace should ignore relative URLs 1`] = `
+"
+  /** importMapReplace */
+  import MyComponent from "./MyComponent";"
+`;
 
 exports[`importMapReplace should replace coder44  1`] = `
-"/** importMapReplace */
+"
+  /** importMapReplace */
+  
     import { css } from "http://localhost:3000/emotion.mjs";
     import $ from "http://localhost:3000/reactMod.mjs";
 
@@ -19,12 +33,22 @@ exports[`importMapReplace should replace coder44  1`] = `
     "
 `;
 
-exports[`importMapReplace should replace dynamic imports 1`] = `"/** importMapReplace */const React = import("http://localhost:3000/reactMod.mjs");"`;
+exports[`importMapReplace should replace dynamic imports 1`] = `
+"
+  /** importMapReplace */
+  const React = import("http://localhost:3000/reactMod.mjs");"
+`;
 
-exports[`importMapReplace should replace dynamic imports 2`] = `"/** importMapReplace */const module = import("http://localhost:3000/*some-module?bundle");"`;
+exports[`importMapReplace should replace dynamic imports 2`] = `
+"
+  /** importMapReplace */
+  const module = import("http://localhost:3000/*some-module?bundle");"
+`;
 
 exports[`importMapReplace should replace dynamic imports at the end 1`] = `
-"/** importMapReplace */
+"
+  /** importMapReplace */
+  
     import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
@@ -43,7 +67,9 @@ exports[`importMapReplace should replace dynamic imports at the end 1`] = `
 `;
 
 exports[`importMapReplace should replace dynamic imports inside a function 1`] = `
-"/** importMapReplace */
+"
+  /** importMapReplace */
+  
     import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
@@ -57,10 +83,26 @@ exports[`importMapReplace should replace dynamic imports inside a function 1`] =
     "
 `;
 
-exports[`importMapReplace should replace dynamic imports with await 1`] = `"/** importMapReplace */const module = await import("http://localhost:3000/*some-module?bundle");"`;
+exports[`importMapReplace should replace dynamic imports with await 1`] = `
+"
+  /** importMapReplace */
+  const module = await import("http://localhost:3000/*some-module?bundle");"
+`;
 
-exports[`importMapReplace should replace the live urls 1`] = `"/** importMapReplace */import Box from "http://localhost:3000/live/Box";"`;
+exports[`importMapReplace should replace the live urls 1`] = `
+"
+  /** importMapReplace */
+  import Box from "http://localhost:3000/live/Box";"
+`;
 
-exports[`importMapReplace should replace top-level exports 1`] = `"/** importMapReplace */export { default } from "http://localhost:3000/reactMod.mjs";"`;
+exports[`importMapReplace should replace top-level exports 1`] = `
+"
+  /** importMapReplace */
+  export { default } from "http://localhost:3000/reactMod.mjs";"
+`;
 
-exports[`importMapReplace should replace top-level imports 1`] = `"/** importMapReplace */import React from "http://localhost:3000/reactMod.mjs";"`;
+exports[`importMapReplace should replace top-level imports 1`] = `
+"
+  /** importMapReplace */
+  import React from "http://localhost:3000/reactMod.mjs";"
+`;

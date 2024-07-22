@@ -59,7 +59,7 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "build",
-    ({ codeSpace, origin }: { codeSpace: string; origin: string }) => build({ codeSpace, origin }),
+    ({ codeSpace, origin, format }: { codeSpace: string; origin: string, format: 'esm' | 'iife' }) => build({ codeSpace, origin, format }),
   );
 
   rpcProvider.registerSignalHandler(

@@ -48,7 +48,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     entryPoints: [
       "src/superFetch.ts",
       "src/prettierEsm.ts",
-      "src/transpile.ts",
       "src/memfs.ts",
       "src/ata.ts",
       "src/dts.ts",
@@ -79,6 +78,37 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "iife",
     outdir: "dist/workerScripts",
   });
+
+  await build({
+    ...buildOptions,
+    entryPoints: [
+      "src/transpile.ts",
+     
+    ],
+
+    plugins: [],
+    bundle: true,
+    define: makeEnv("production"),
+    sourcemap: false,
+    outExtension: { ".js": ".js" },
+    mangleQuoted: true,
+    minify: false,
+    treeShaking: false,
+
+    alias: {
+      ...buildOptions.alias,
+    },
+    minifySyntax: false,
+    minifyIdentifiers: false,
+    minifyWhitespace: false,
+    ignoreAnnotations: false,
+    keepNames: true,
+    legalComments: "none",
+    platform: "browser",
+    format: "iife",
+    outdir: "dist/workerScripts",
+  });
+
 
   await build({
     ...buildOptions,

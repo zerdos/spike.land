@@ -2,7 +2,6 @@ import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
-import { writeFile } from "./memfs";
 
 declare const self: {
   swVersion: string;
@@ -229,20 +228,9 @@ export const build = async ({
 
   try {
     const result = await esmBuild(defaultOpts);
-    const processedCode = await importMapReplace(result.outputFiles![0].text, origin);
+    //const processedCode = await importMapReplace(result.outputFiles![0].text, origin);
     
-    await writeFile(`/live/${codeSpace}/index.mjs`, processedCode);
-    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
-      method: "PUT",
-      body: processedCode,
-      headers: {
-        "Content-Type": "application/javascript",
-        "TR_ORIGIN": origin,
-        "TR_BUNDLE": "true",
-      },
-    });
-
-    return processedCode;
+    return result.outputFiles![0].text;
   } catch (error) {
     console.error("Error during build:", error);
     throw error;

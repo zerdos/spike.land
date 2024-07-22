@@ -118,7 +118,7 @@ render(<App />);
             minWidth="30%"
             maxWidth="70%"
           >
-            <LiveEditor
+            <LiveEditor   
               onChange={handleCodeChange}
               style={styles.editor}
             />
