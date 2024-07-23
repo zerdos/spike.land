@@ -7,7 +7,7 @@ export const buildOptions = {
   outdir: "dist",
   bundle: true,
   outExtension: { ".js": ".mjs" },
-   alias: {
+  alias: {
     path: "path-browserify",
     buffer: "buffer/",
     "node:buffer": "buffer/",
@@ -34,7 +34,8 @@ export const buildOptions = {
     "/swVersion.mjs",
 
     "__STATIC_CONTENT_MANIFEST",
-  ], legalComments: "none",
+  ],
+  legalComments: "none",
   resolveExtensions: [
     ".tsx",
     ".ttf",
@@ -56,11 +57,11 @@ export const buildOptions = {
     ".ico": "file",
     ".wasm": "file",
     ".html": "text",
-  }
+  },
 };
 
 export const getCommonBuildOptions = (environment) => ({
-    ...buildOptions,
-    define: makeEnv(environment),
-    plugins: [fetchPlugin],
-  });
+  ...buildOptions,
+  define: makeEnv(environment),
+  plugins: [fetchPlugin],
+});

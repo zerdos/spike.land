@@ -1,19 +1,19 @@
 // esbuild-dev.mjs
+import {
+  buildMainBundle,
+  buildMainScripts,
+  buildServiceWorker,
+  buildTranspileScript,
+  buildWorkers,
+} from "./build-tasks.mjs";
 import { stop } from "./buildOperations.mjs";
 import { copyFiles } from "./copyFiles.mjs";
 import { getWasmFile } from "./helpers.mjs";
-import {
-  buildWorkers,
-  buildMainScripts,
-  buildTranspileScript,
-  buildServiceWorker,
-  buildMainBundle,
-} from "./build-tasks.mjs";
 
 async function main() {
   try {
     await copyFiles();
-     await buildWorkers();
+    await buildWorkers();
     await buildMainScripts();
     await buildTranspileScript();
     await buildServiceWorker();

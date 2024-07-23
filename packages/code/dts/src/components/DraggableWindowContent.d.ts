@@ -1,4 +1,22 @@
-export declare const DraggableWindowContent: ({ children, scaleRange, setScaleRange, width, setWidth, codeSpace, handleDownload, showChat, setShowChat, scale, sizes, maxScaleRange, breakPoints, innerHeight, bgColor, rgba, }: {
+export declare const DraggableWindowContent: (
+  {
+    children,
+    scaleRange,
+    setScaleRange,
+    width,
+    setWidth,
+    codeSpace,
+    handleDownload,
+    showChat,
+    setShowChat,
+    scale,
+    sizes,
+    maxScaleRange,
+    breakPoints,
+    innerHeight,
+    bgColor,
+    rgba,
+  }: {
     children: JSX.Element;
     scaleRange: number;
     setScaleRange: (scaleRange: number) => void;
@@ -15,4 +33,5 @@ export declare const DraggableWindowContent: ({ children, scaleRange, setScaleRa
     innerHeight: number;
     bgColor: number[];
     rgba: (r: number, g: number, b: number, a: number) => string;
-}) => import("@emotion/react/jsx-runtime").JSX.Element;
+  },
+) => import("@emotion/react/jsx-runtime").JSX.Element;

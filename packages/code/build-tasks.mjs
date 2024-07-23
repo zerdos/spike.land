@@ -1,6 +1,6 @@
 // build-tasks.mjs
-import { build } from "./buildOperations.mjs";
 import { getCommonBuildOptions } from "./build-config.mjs";
+import { build } from "./buildOperations.mjs";
 import { getWasmFile } from "./helpers.mjs";
 
 export async function buildWorkers() {
@@ -13,14 +13,13 @@ export async function buildWorkers() {
   ];
 
   await build({
-
     ...getCommonBuildOptions("production"),
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
 
     format: "iife",
     outdir: "dist",
-    minify: true
+    minify: true,
   });
 }
 
@@ -34,7 +33,6 @@ export async function buildMainScripts() {
   ];
 
   await build({
-
     ...getCommonBuildOptions("production"),
     entryPoints,
     format: "iife",
@@ -46,7 +44,6 @@ export async function buildMainScripts() {
 
 export async function buildTranspileScript() {
   await build({
-
     ...getCommonBuildOptions("production"),
     entryPoints: ["src/transpile.ts"],
     outExtension: { ".js": ".js" },
@@ -67,7 +64,6 @@ export async function buildServiceWorker() {
     minifyIdentifiers: true,
     minifyWhitespace: true,
     target: "es2022",
-
   });
 }
 
@@ -120,7 +116,7 @@ export async function buildMainBundle(wasmFile) {
     "toast",
     "toggle",
     "toggle-group",
-    "tooltip"
+    "tooltip",
   ];
   await build({
     ...buildOptions,
@@ -132,9 +128,9 @@ export async function buildMainBundle(wasmFile) {
     bundle: true,
     mangleQuoted: true,
     sourcemap: false,
-    legalComments: "none",  
+    legalComments: "none",
     entryPoints: [
-      ...components.filter(x=>x).map((component) => `src/@/components/ui/${component}.tsx`),
+      ...components.filter(x => x).map((component) => `src/@/components/ui/${component}.tsx`),
       "src/modules.ts",
       "src/reactMod.ts",
       "src/reactDom.ts",
@@ -157,8 +153,6 @@ export async function buildMainBundle(wasmFile) {
       ...buildOptions.external,
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
-
-    ]
-
+    ],
   });
 }
