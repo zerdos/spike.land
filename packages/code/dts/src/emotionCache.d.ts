@@ -1,5 +1,5 @@
 import createEmotionCache from "@emotion/cache";
-import { EmotionCache } from "@emotion/cache";
-export { EmotionCache };
+import type { EmotionCache } from "@emotion/cache";
+export type { EmotionCache };
 declare const cache: typeof createEmotionCache;
 export default cache;

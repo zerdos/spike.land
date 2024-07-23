@@ -1,18 +1,4 @@
 import { readDir } from "./esbuild-depts.mjs";
-const environment = Deno.env.get("NODE_ENV") === "production"
-  ? "production"
-  : "development";
-
-const isDevelopment = environment !== "production";
-
-const outdir = "dist";
-const target = "es2022";
-
-console.log(`
--------------------------------------------------
---------------${environment}---------------------   
--------------------------------------------------
--------------------------------------------------`);
 
 export const makeEnv = (environment) => ({
   "process.env.NODE_ENV": environment === "production" ? "\"production\"" : "\"development\"",
@@ -51,7 +37,12 @@ export const makeEnv = (environment) => ({
     browser: true,
   }),
 });
-const define = makeEnv(environment);
+
+const environment = Deno.env.get("NODE_ENV") === "production"
+  ? "production"
+  : "development";
+
+const isDevelopment = environment !== "production";
 
 export const getWasmFile = async () => {
   const dir = await readDir("./dist");
@@ -60,4 +51,5 @@ export const getWasmFile = async () => {
       return file.name;
     }
   }
+  throw new Error("WASM file not found");
 };

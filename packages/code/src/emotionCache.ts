@@ -1,7 +1,7 @@
 import createEmotionCache from "@emotion/cache";
 
-import { EmotionCache } from "@emotion/cache";
-export { EmotionCache };
+  import type { EmotionCache } from "@emotion/cache";
+export type{ EmotionCache };
 
 const emotionCacheWithExtraDefault = (createEmotionCache as unknown as { default: typeof createEmotionCache })
   .default;
