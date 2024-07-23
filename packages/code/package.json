@@ -3,19 +3,15 @@
   "version": "0.9.55",
   "type": "module",
   "description": "spike.land",
-  "entry": "./index.js",
-  "source": "index.js",
-  "main": "public/static/bundle.mjs",
+  "entry": "dist/modules.mjs",
+  "source": "src/modules.ts",
+  "types": "dts/src/modules.d.ts",
+  "module": "dist/modules.mjs",
   "files": [
-    "dist"
+    "dist",
+    "dts"
   ],
-  "exports": {
-    "./package.json": "./package.json",
-    "./session": "./src/session.mjs",
-    ".": "./"
-  },
   "scripts": {
-    "hash": "cd dist && find .  -type f -exec shasum -a 256 {} \";\" | yarn node-jq -R -s -c 'split(\"\n\")[:-1]'>dist.json",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) -u",
     "types": "tsc || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist src/monaco-workers && yarn favicons",
@@ -24,7 +20,7 @@
     "push": "cd ../../.. && yarn push",
     "build:framer-motion": "yarn esbuild --bundle src/motion.tsx  --target=esnext --minify --format=esm  --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\" --external:react --external:@emotion/is-prop-valid  --external:react --outfile=./dist/framer-motion.mjs",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build && yarn hash ",
+    "build": "rm -rf dist src/monaco-workers && yarn favicons && yarn es:build ",
     "es:build": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run esbuild-dev.mjs",
     "favicons": "mkdir -p ./dist/assets && cp -af src/assets/. ./dist/assets/",
     "sw": "echo ok"
@@ -112,6 +108,7 @@
     "react-refresh": "0.14.2",
     "react-reverse-portal": "2.1.2",
     "react-rnd": "10.4.11",
+    "react-use": "^17.5.1",
     "stream-browserify": "3.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
@@ -134,6 +131,7 @@
     "@types/uuid": "10.0.0",
     "@types/wicg-file-system-access": "2023.10.5",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "ai-digest": "^1.0.4",
     "eslint": "8.57.0",
     "eslint-plugin-react": "7.35.0",
     "node-jq": "^6.0.1",

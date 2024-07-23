@@ -3,14 +3,17 @@ import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
 
-declare const self: {
-  swVersion: string;
-} & ServiceWorkerGlobalScope & {
-  mod: {
-    init: boolean | Promise<boolean>;
-    initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
+declare const self:
+  & {
+    swVersion: string;
+  }
+  & ServiceWorkerGlobalScope
+  & {
+    mod: {
+      init: boolean | Promise<boolean>;
+      initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
+    };
   };
-};
 
 const { swVersion } = self;
 
@@ -110,11 +113,13 @@ export const transpile = async (
 
     const transformedCode = await transform(
       `${decorateCodeStr}
-      ${code.replace(
-        `export default `,
-        `const module = {renderApp}; 
-        module.default = `
-      )}
+      ${
+        code.replace(
+          `export default `,
+          `const module = {renderApp}; 
+        module.default = `,
+        )
+      }
       export default module.default;
       export { module };
       globalThis.module = module;`,
@@ -134,7 +139,7 @@ export const transpile = async (
           },
         },
         target: "es2022",
-      }
+      },
     );
 
     return importMapReplace(transformedCode.code, origin);
@@ -149,8 +154,8 @@ Object.assign(self, { transpile });
 export const build = async ({
   codeSpace,
   origin,
-  format = 'esm',
-  wasmModule
+  format = "esm",
+  wasmModule,
 }: {
   codeSpace: string;
   format: "esm" | "iife";
@@ -228,8 +233,8 @@ export const build = async ({
 
   try {
     const result = await esmBuild(defaultOpts);
-    //const processedCode = await importMapReplace(result.outputFiles![0].text, origin);
-    
+    // const processedCode = await importMapReplace(result.outputFiles![0].text, origin);
+
     return result.outputFiles![0].text;
   } catch (error) {
     console.error("Error during build:", error);

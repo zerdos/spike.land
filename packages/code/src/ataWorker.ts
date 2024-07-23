@@ -25,7 +25,6 @@ declare var self:
   & { build: typeof Build }
   & { tsx: (code: string) => Promise<string[]> };
 
-// Object.assign(self, { fetch: globalThis.superFetch });
 importScripts("/swVersion.js");
 importScripts("/workerScripts/dts.js");
 importScripts("/workerScripts/ata.js");
@@ -59,7 +58,8 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "build",
-    ({ codeSpace, origin, format }: { codeSpace: string; origin: string, format: 'esm' | 'iife' }) => build({ codeSpace, origin, format }),
+    ({ codeSpace, origin, format }: { codeSpace: string; origin: string; format: "esm" | "iife" }) =>
+      build({ codeSpace, origin, format }),
   );
 
   rpcProvider.registerSignalHandler(

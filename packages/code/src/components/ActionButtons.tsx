@@ -1,19 +1,25 @@
 import { css } from "@emotion/react";
+import { Fab, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
+import { FC } from "react";
 import { FaDownload } from "react-icons/fa";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
+import { RiChatSmile3Line } from "react-icons/ri";
 import { Share } from "../icons";
-import { Fab } from "../mui";
 import { QRButton } from "../Qr.lazy";
 
 type ActionButtonsProps = {
   codeSpace: string;
   handleDownload: () => void;
+  showChat: boolean;
+  setShowChat: (show: boolean) => void;
 };
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({
+export const ActionButtons: FC<ActionButtonsProps> = ({
   codeSpace,
   handleDownload,
+  showChat,
+  setShowChat,
 }) => {
   return (
     <motion.div
@@ -31,18 +37,33 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
           flex-direction: column;
         `}
       >
-        <Fab onClick={() => document.querySelector("#root")?.requestFullscreen()}>
-          <span css={css`font-size: 20pt;`}>
-            <FullscreenIcon />
-          </span>
-        </Fab>
-        <QRButton url={`${location.origin}/live/${codeSpace}/public`} />
-        <Fab onClick={() => window.open(`/live/${codeSpace}/public`)}>
-          <Share />
-        </Fab>
-        <Fab onClick={handleDownload}>
-          <FaDownload />
-        </Fab>
+        <Tooltip title="Toggle Fullscreen" placement="left">
+          <Fab onClick={() => document.querySelector("#root")?.requestFullscreen()}>
+            <span css={css`font-size: 20pt;`}>
+              <FullscreenIcon />
+            </span>
+          </Fab>
+        </Tooltip>
+        <Tooltip title="Show QR Code" placement="left">
+          <div>
+            <QRButton url={`${location.origin}/live/${codeSpace}/public`} />
+          </div>
+        </Tooltip>
+        <Tooltip title="Open in New Window" placement="left">
+          <Fab onClick={() => window.open(`/live/${codeSpace}/public`)}>
+            <Share />
+          </Fab>
+        </Tooltip>
+        <Tooltip title="Download Project" placement="left">
+          <Fab onClick={handleDownload}>
+            <FaDownload />
+          </Fab>
+        </Tooltip>
+        <Tooltip title="Toggle Chat" placement="left">
+          <Fab onClick={() => setShowChat(!showChat)}>
+            <RiChatSmile3Line />
+          </Fab>
+        </Tooltip>
       </div>
     </motion.div>
   );

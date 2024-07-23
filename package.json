@@ -13,10 +13,9 @@
     "build": "yarn workspaces foreach -A run build",
     "types": "yarn workspaces foreach -A run types",
     "test": "yarn workspaces foreach -A run test",
-    "shasum": "find ./packages/code/dist -type f -print0 | sort -z | xargs -0 shasum | shasum | awk '{print \"export default `\"; print $1; print\"`.trim();\" }'  > packages/code/dist/dist.shasum.js",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
-    "deploy": "yarn clean && yarn c:build && yarn shasum && yarn c:deploy && yarn types",
+    "deploy": "yarn clean && yarn c:build && yarn c:deploy && yarn types",
     "importMap": "yarn workspaces foreach run importMap",
     "build:code": "yarn workspaces foreach run build:code",
     "yarn:publish": "yarn workspaces foreach run publish",
@@ -50,5 +49,8 @@
     "react": "18.3.1",
     "typescript": "5.5.3"
   },
-  "packageManager": "yarn@4.3.1"
+  "packageManager": "yarn@4.3.1",
+  "dependencies": {
+    "@heroicons/react": "^2.1.5"
+  }
 }

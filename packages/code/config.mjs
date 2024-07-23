@@ -55,7 +55,6 @@ export const buildOptions = {
     "/swVersion.mjs",
 
     "__STATIC_CONTENT_MANIFEST",
-    "/dist.shasum.js",
   ],
   legalComments: "none",
   resolveExtensions: [

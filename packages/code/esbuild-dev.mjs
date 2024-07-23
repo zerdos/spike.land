@@ -46,14 +46,11 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
   await build({
     ...buildOptions,
     entryPoints: [
-      "src/superFetch.ts",
       "src/prettierEsm.ts",
       "src/memfs.ts",
       "src/ata.ts",
       "src/dts.ts",
-      // "src/ts.worker.ts",
       "src/ataWorker.ts",
-      // "src/ipfs-core.ts",
     ],
 
     plugins: [],
@@ -83,7 +80,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     ...buildOptions,
     entryPoints: [
       "src/transpile.ts",
-     
     ],
 
     plugins: [],
@@ -108,7 +104,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     format: "iife",
     outdir: "dist/workerScripts",
   });
-
 
   await build({
     ...buildOptions,
@@ -154,6 +149,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     legalComments: "none",
 
     entryPoints: [
+      "src/modules.ts",
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
@@ -163,16 +159,10 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/hydrate.ts",
       "src/emotion.ts",
       "src/startMonaco.ts",
-      "src/cf-workers.mjs",
       "src/cf-esbuild.mjs",
-      // "src/Editor.tsx",
 
-      // "src/prettierEsm.ts",
-      // "src/dts.ts",
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",
-      // "src/emotionJsxRuntime.ts",i
-      // "src/jsx.mjs",
     ],
     alias: {
       ...buildOptions.alias,
@@ -186,14 +176,12 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     assetNames: "chunk-[name]-[hash]",
     external: [
       "/swVersion.mjs",
-      "/dist.shasum.js",
       // "/monaco-editor",
 
       // "/monaco-editor/*",
 
       //      "/monaco-editor",
       "__STATIC_CONTENT_MANIFEST",
-      "./dist.shasum",
       `./${wasmFile}`,
       "./dist/reactDomClient.js",
       "./dist/reactDom.js",

@@ -1,0 +1,15 @@
+import { resetCSS } from "./getResetCss";
+import { importMap } from "./importMap";
+import { importMapReplace } from "./importMapReplace";
+import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, string_ } from "./makeSess";
+import { md5 } from "./md5";
+import { Delta } from "./textDiff";
+export { resetCSS };
+export { makeHash, string_ };
+export type { CodePatch, Delta, ICodeSession };
+export { applyCodePatch, makeSession };
+declare const HTML: string;
+export { HTML };
+export { importMapReplace };
+export { md5 };
+export { importMap };

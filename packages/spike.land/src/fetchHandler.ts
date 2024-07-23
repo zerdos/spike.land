@@ -1,10 +1,8 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
-import { importMap } from "../../code/src/importMap";
-import { importMapReplace } from "../../code/src/importMapReplace";
+import { importMap, importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
-import ASSET_HASH from "./dist.shasum";
 import Env from "./env";
-import { ASSET_MANIFEST, files } from "./staticContent.mjs";
+import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 import { handleCORS } from "./utils";
 import { isChunk, isUrlFile } from "./utils";
 

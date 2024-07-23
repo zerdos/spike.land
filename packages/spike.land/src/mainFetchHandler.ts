@@ -1,4 +1,4 @@
-import { md5 } from "../../code/src/md5";
+import { md5 } from "@spike-land/code";
 import Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleErrors } from "./handleErrors";

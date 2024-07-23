@@ -1,0 +1,7 @@
+files.mds
+src/tw.mjs
+src/lib.ts
+src/tw.html
+src/ipfsWorker.tsx
+.aidigestignore 
+dist

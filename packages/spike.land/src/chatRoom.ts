@@ -1,16 +1,21 @@
 import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
-import * as map from "lib0/map";
-import { resetCSS } from "../../code/src/getResetCss";
-import { importMapReplace } from "../../code/src/importMapReplace";
-import HTML from "./../../code/src/index.html";
-import { applyCodePatch, CodePatch, ICodeSession, makeSession } from "./../../code/src/makeSess";
-import { makeHash, string_ } from "./../../code/src/makeSess";
-import { md5 } from "./../../code/src/md5";
-import { Delta } from "../../code/src/textDiff";
-import ASSET_HASH from "./dist.shasum";
-import shasum from "./dist.shasum";
+
+import {
+  applyCodePatch,
+  CodePatch,
+  Delta,
+  HTML,
+  ICodeSession,
+  importMapReplace,
+  makeHash,
+  makeSession,
+  md5,
+  resetCSS,
+  string_,
+} from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
+import { ASSET_HASH } from "./staticContent.mjs";
 
 export { md5 };
 
@@ -193,7 +198,7 @@ export class Code implements DurableObject {
           this.origin = url.origin;
         }
         const transpiledPromise = fetch(
-          `https://js.spike.land?v=${shasum}`,
+          `https://js.spike.land?v=${ASSET_HASH}`,
           {
             method: "POST",
             body: code,
@@ -695,23 +700,23 @@ export class Code implements DurableObject {
 
     if (message && message.type) {
       switch (message.type) {
-        case "subscribe":
-          /** @type {Array<string>} */ (message.topics || []).forEach(
-            (topicName) => {
-              if (typeof topicName === "string") {
-                // add conn to topic
-                const topic = map.setIfUndefined(
-                  this.topics,
-                  topicName,
-                  () => new Set(),
-                );
-                topic.add(session.webSocket);
-                // add topic to conn
-                session.subscribedTopics.add(topicName);
-              }
-            },
-          );
-          break;
+        // case "subscribe":
+        //   /** @type {Array<string>} */ (message.topics || []).forEach(
+        //     (topicName) => {
+        //       if (typeof topicName === "string") {
+        //         // add conn to topic
+        //         const topic = map.setIfUndefined(
+        //           this.topics,
+        //           topicName,
+        //           () => new Set(),
+        //         );
+        //         topic.add(session.webSocket);
+        //         // add topic to conn
+        //         session.subscribedTopics.add(topicName);
+        //       }
+        //     },
+        //   );
+        //   break;
         case "unsubscribe":
           /** @type {Array<string>} */ (message.topics || []).forEach(
             (topicName) => {

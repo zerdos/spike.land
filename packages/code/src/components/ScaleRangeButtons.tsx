@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { motion } from "framer-motion";
-import { ToggleButton, ToggleButtonGroup } from "../mui";
 
 type ScaleRangeButtonsProps = {
   scaleRange: number;

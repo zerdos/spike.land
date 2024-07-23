@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { AlertCircle, Maximize, QrCode, ExternalLink, Download, Sun, Moon } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Resizable } from 're-resizable';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { AlertCircle, Download, ExternalLink, Maximize, Moon, QrCode, Sun } from "lucide-react";
+import { Resizable } from "re-resizable";
+import { useEffect, useState } from "react";
 
 const EmbeddableEditor = () => {
-  const [code, setCode] = useState('// Your code here');
-  const [output, setOutput] = useState('');
-  const [error, setError] = useState(null);
+  const [code, setCode] = useState("// Your code here");
+  const [output, setOutput] = useState("");
+  const [error, seterror] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -16,15 +16,15 @@ const EmbeddableEditor = () => {
     try {
       const result = eval(code); // Note: eval is used for demonstration. In a real app, use a safer method.
       setOutput(String(result));
-      setError(null);
+      seterror(null);
     } catch (err) {
-      setError(err.message);
+      seterror((err as { message: string }).message);
     }
   }, [code]);
 
-  const handleEditorChange = (value) => {
-    setCode(value);
-  };
+  // const handleEditorChange = (value) => {
+  //   setCode(value);
+  // };
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -37,11 +37,11 @@ const EmbeddableEditor = () => {
 
   const generateQRCode = () => {
     // Implement QR code generation here
-    console.log('Generating QR Code');
+    console.log("Generating QR Code");
   };
 
   const openInNewWindow = () => {
-    const newWindow = window.open('', '_blank')!;
+    const newWindow = window.open("", "_blank")!;
     newWindow.document.write(`
       <html>
         <body>
@@ -55,7 +55,7 @@ const EmbeddableEditor = () => {
   };
 
   const downloadApp = () => {
-    const element = document.createElement('a');
+    const element = document.createElement("a");
     const file = new Blob([`
       <html>
         <body>
@@ -65,20 +65,17 @@ const EmbeddableEditor = () => {
           </script>
         </body>
       </html>
-    `], { type: 'text/html' });
+    `], { type: "text/html" });
     element.href = URL.createObjectURL(file);
-    element.download = 'app.html';
+    element.download = "app.html";
     document.body.appendChild(element);
     element.click();
   };
 
   return (
-    <div className={`h-screen flex ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`h-screen flex ${isDarkMode ? "dark" : ""}`}>
       <div className="w-1/2 h-full bg-gray-100 dark:bg-gray-800 p-4">
-        <div
-         
-       
-        >MONACOMONACO</div>
+        <div>MONACOMONACO</div>
       </div>
       <div className="w-1/2 h-full flex flex-col">
         <div className="flex justify-end p-2 bg-gray-200 dark:bg-gray-700">
@@ -99,10 +96,19 @@ const EmbeddableEditor = () => {
           </Button>
         </div>
         <Resizable
-          defaultSize={{ width: '100%', height: '50%' }}
+          defaultSize={{ width: "100%", height: "50%" }}
           minHeight="20%"
           maxHeight="80%"
-          enable={{ top: true, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+          enable={{
+            top: true,
+            right: false,
+            bottom: false,
+            left: false,
+            topRight: false,
+            bottomRight: false,
+            bottomLeft: false,
+            topLeft: false,
+          }}
         >
           <div className="bg-white dark:bg-gray-900 p-4 h-full overflow-auto">
             <h2 className="text-xl font-bold mb-2 dark:text-white">Output</h2>

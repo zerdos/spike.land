@@ -1,6 +1,5 @@
 import wasmModule from "esbuild-wasm/esbuild.wasm";
 import { build, transpile } from "../../code/src/transpile";
-import ASSET_HASH from "./dist.shasum";
 
 Object.assign(globalThis, {
   performance: {
@@ -47,7 +46,6 @@ export default {
         await initAndTransform(
           await request.text(),
           request.headers.get("TR_ORIGIN"),
-          ASSET_HASH,
         ).catch(() => ""),
         {
           ...request,
