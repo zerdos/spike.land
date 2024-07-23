@@ -37,26 +37,7 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
       <Resizable
         size={size}
         onResizeStart={() => setIsResizing(true)}
-        handleStyles={{
-          top: { cursor: 'ns-resize' },
-          right: { cursor: 'ew-resize' },
-          bottom: { cursor: 'ns-resize' },
-          left: { cursor: 'ew-resize' },
-          topRight: { cursor: 'nesw-resize' },
-          bottomRight: { cursor: 'nwse-resize' },
-          bottomLeft: { cursor: 'nesw-resize' },
-          topLeft: { cursor: 'nwse-resize' }
-        }}
-        handleClasses={{
-          top: 'bg-gray-200 h-1',
-          right: 'bg-gray-200 w-1',
-          bottom: 'bg-gray-200 h-1',
-          left: 'bg-gray-200 w-1',
-          topRight: 'bg-gray-200 w-2 h-2',
-          bottomRight: 'bg-gray-200 w-2 h-2',
-          bottomLeft: 'bg-gray-200 w-2 h-2',
-          topLeft: 'bg-gray-200 w-2 h-2'
-        }}
+    
         onResizeStop={(e, direction, ref, d) => {
           setSize({
             width: size.width + d.width,
@@ -71,14 +52,14 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
         minWidth={250}
         minHeight={300}
         enable={{
-          top: true,
+          top: false,
           right: true,
           bottom: true,
-          left: true,
-          topRight: true,
+          left: false,
+          topRight: false,
           bottomRight: true,
-          bottomLeft: true,
-          topLeft: true
+          bottomLeft: false,
+          topLeft: false
         }}
       >
         <div className="w-full h-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
