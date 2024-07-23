@@ -160,14 +160,26 @@ declare module 'react' {
               newBase = typescriptTypes
                 || await extractUrlFromResponse(response, r);
             } catch (error) {
-              const response = await fetch(`${originToUse}/${r}`, {
-                redirect: "follow",
-              });
+              let response;
+              try {
+                response = await fetch(`${originToUse}/${r}`, {
+                  redirect: "follow",
+                });
+              } catch {
+                console.error("error fetching", { error, r, originToUse });
+              }
+
+              if (!response || !response.ok) {
+                response = await fetch(`${originToUse}/${r}.d.ts`, {
+                  redirect: "follow",
+                });
+              }
+
               const typescriptTypes = response.headers.get(
                 "X-typescript-types",
               );
 
-              newBase = typescriptTypes || `${originToUse}/${r}`;
+              newBase = typescriptTypes || response.url;
               const newBaseIsDownloadable = await fetch(newBase).then((res) => res.ok);
               if (!newBaseIsDownloadable) {
                 newBase = null;

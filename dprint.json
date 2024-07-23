@@ -8,6 +8,11 @@
     "**/.yarn",
     "**/.pnp.*",
     "**/dist",
+    "**/dts",
+    "**/node_modules",
+    "**/vendor",
+    "*.config.js",
+    "**/*.d.ts",
     "**/public",
     "**/monaco-workers",
     "**/build"

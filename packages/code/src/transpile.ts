@@ -7,7 +7,6 @@ declare const self:
   & {
     swVersion: string;
   }
-  & ServiceWorkerGlobalScope
   & {
     mod: {
       init: boolean | Promise<boolean>;
