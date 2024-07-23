@@ -1,149 +1,126 @@
-import { Moon, RotateCcw, Share2, Sun } from "lucide-react";
-import { themes } from "prism-react-renderer";
-import { Resizable } from "re-resizable";
-import { FC, useEffect, useState } from "react";
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
+import React, { useState, useEffect } from 'react';
+import { AlertCircle, Maximize, QrCode, ExternalLink, Download, Sun, Moon } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Resizable } from 're-resizable';
 
-export const EnhancedEmbeddableEditor: FC = () => {
-  const [code, setCode] = useState(() => {
-    const savedCode = localStorage.getItem("editorCode");
-    return savedCode || `
-// Edit this code!
-function App() {
-  return (
-    <div style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>
-      <h1>Hello, World!</h1>
-      <p>Start editing to see some magic happen!</p>
-    </div>
-  );
-}
-
-render(<App />);
-    `;
-  });
-
-  const [editorWidth, setEditorWidth] = useState("50%");
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+const EmbeddableEditor = () => {
+  const [code, setCode] = useState('// Your code here');
+  const [output, setOutput] = useState('');
+  const [error, setError] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("editorCode", code);
+    // Simulating code execution and error checking
+    try {
+      const result = eval(code); // Note: eval is used for demonstration. In a real app, use a safer method.
+      setOutput(String(result));
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    }
   }, [code]);
 
-  const handleCodeChange = (newCode: string) => {
-    setCode(newCode);
+  const handleEditorChange = (value) => {
+    setCode(value);
   };
 
-  const handleReset = () => {
-    setCode(`
-// Edit this code!
-function App() {
-  return (
-    <div style={{ fontFamily: 'sans-serif', textAlign: 'center' }}>
-      <h1>Hello, World!</h1>
-      <p>Start editing to see some magic happen!</p>
-    </div>
-  );
-}
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    setIsFullScreen(!isFullScreen);
+  };
 
-render(<App />);
+  const generateQRCode = () => {
+    // Implement QR code generation here
+    console.log('Generating QR Code');
+  };
+
+  const openInNewWindow = () => {
+    const newWindow = window.open('', '_blank')!;
+    newWindow.document.write(`
+      <html>
+        <body>
+          <div id="root"></div>
+          <script>
+            ${code}
+          </script>
+        </body>
+      </html>
     `);
   };
 
-  const handleShare = () => {
-    const encodedCode = encodeURIComponent(code);
-    const shareableUrl = `${window.location.origin}?code=${encodedCode}`;
-    alert(`Share this URL: ${shareableUrl}`);
-  };
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === "light" ? "dark" : "light");
-  };
-
-  const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "column",
-      height: "100vh",
-      backgroundColor: theme === "dark" ? "#1e1e1e" : "#ffffff",
-      color: theme === "dark" ? "#fff" : "#000",
-    },
-    toolbar: {
-      padding: "10px",
-      backgroundColor: theme === "dark" ? "#252525" : "#f0f0f0",
-      display: "flex",
-      justifyContent: "flex-end",
-    },
-    editor: {
-      fontFamily: "\"Fira code\", \"Fira Mono\", monospace",
-      fontSize: 14,
-      height: "100%",
-      overflow: "auto",
-    },
-    preview: {
-      flex: 1,
-      overflow: "auto",
-      padding: "20px",
-      backgroundColor: theme === "dark" ? "#2d2d2d" : "#f8f8f8",
-    },
+  const downloadApp = () => {
+    const element = document.createElement('a');
+    const file = new Blob([`
+      <html>
+        <body>
+          <div id="root"></div>
+          <script>
+            ${code}
+          </script>
+        </body>
+      </html>
+    `], { type: 'text/html' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'app.html';
+    document.body.appendChild(element);
+    element.click();
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        backgroundColor: theme === "dark" ? "#1e1e1e" : "#ffffff",
-        color: theme === "dark" ? "#fff" : "#000",
-      }}
-    >
-      <div style={styles.toolbar}>
-        <button onClick={handleReset} css={buttonStyle}>
-          <RotateCcw size={16} />
-        </button>
-        <button onClick={handleShare} css={buttonStyle}>
-          <Share2 size={16} />
-        </button>
-        <button onClick={toggleTheme} css={buttonStyle}>
-          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
+    <div className={`h-screen flex ${isDarkMode ? 'dark' : ''}`}>
+      <div className="w-1/2 h-full bg-gray-100 dark:bg-gray-800 p-4">
+        <div
+         
+       
+        >MONACOMONACO</div>
       </div>
-      <div css={{ display: "flex", flex: 1, overflow: "hidden" }}>
-        <LiveProvider code={code} noInline={true} theme={theme === "dark" ? undefined : themes.github}>
-          <Resizable
-            size={{ width: editorWidth, height: "100%" }}
-            onResizeStop={(_e, _direction, _ref, d) => {
-              setEditorWidth(editorWidth + d.width);
-            }}
-            minWidth="30%"
-            maxWidth="70%"
-          >
-            <LiveEditor   
-              onChange={handleCodeChange}
-              style={styles.editor}
-            />
-          </Resizable>
-          <div css={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            <LiveError css={{ padding: "10px", color: "#ff5555", fontFamily: "sans-serif" }} />
-            <LivePreview style={styles.preview} />
+      <div className="w-1/2 h-full flex flex-col">
+        <div className="flex justify-end p-2 bg-gray-200 dark:bg-gray-700">
+          <Button onClick={() => setIsDarkMode(!isDarkMode)} variant="ghost" size="icon">
+            {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </Button>
+          <Button onClick={toggleFullScreen} variant="ghost" size="icon">
+            <Maximize className="h-4 w-4" />
+          </Button>
+          <Button onClick={generateQRCode} variant="ghost" size="icon">
+            <QrCode className="h-4 w-4" />
+          </Button>
+          <Button onClick={openInNewWindow} variant="ghost" size="icon">
+            <ExternalLink className="h-4 w-4" />
+          </Button>
+          <Button onClick={downloadApp} variant="ghost" size="icon">
+            <Download className="h-4 w-4" />
+          </Button>
+        </div>
+        <Resizable
+          defaultSize={{ width: '100%', height: '50%' }}
+          minHeight="20%"
+          maxHeight="80%"
+          enable={{ top: true, right: false, bottom: false, left: false, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false }}
+        >
+          <div className="bg-white dark:bg-gray-900 p-4 h-full overflow-auto">
+            <h2 className="text-xl font-bold mb-2 dark:text-white">Output</h2>
+            <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded">{output}</pre>
           </div>
-        </LiveProvider>
+        </Resizable>
+        <div className="flex-grow bg-gray-50 dark:bg-gray-900 p-4 overflow-auto">
+          {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-const buttonStyle = {
-  backgroundColor: "transparent",
-  border: "none",
-  color: "inherit",
-  cursor: "pointer",
-  marginLeft: "10px",
-  padding: "5px",
-  transition: "color 0.3s ease",
-  "&:hover": {
-    color: "#61dafb",
-  },
-};
-
-export default EnhancedEmbeddableEditor;
+export default EmbeddableEditor;
