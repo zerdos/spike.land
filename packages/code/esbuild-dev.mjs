@@ -149,6 +149,7 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
     legalComments: "none",
 
     entryPoints: [
+      "src/@/components/ui/button.tsx",
       "src/modules.ts",
       "src/reactMod.ts",
       "src/reactDom.ts",
@@ -160,7 +161,6 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       "src/emotion.ts",
       "src/startMonaco.ts",
       "src/cf-esbuild.mjs",
-
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",
     ],
@@ -206,6 +206,5 @@ import { getWasmFile, makeEnv } from "./helpers.mjs";
       // "react/",
     ],
   });
-
   stop();
 })();

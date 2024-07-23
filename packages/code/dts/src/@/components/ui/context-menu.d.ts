@@ -1,0 +1,20 @@
+import * as React from "react";
+declare const ContextMenu: any;
+declare const ContextMenuTrigger: any;
+declare const ContextMenuGroup: any;
+declare const ContextMenuPortal: any;
+declare const ContextMenuSub: any;
+declare const ContextMenuRadioGroup: any;
+declare const ContextMenuSubTrigger: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuSubContent: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuContent: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuItem: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuCheckboxItem: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuRadioItem: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuLabel: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuSeparator: React.ForwardRefExoticComponent<any>;
+declare const ContextMenuShortcut: {
+    ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>): import("@emotion/react/jsx-runtime").JSX.Element;
+    displayName: string;
+};
+export { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuRadioItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuGroup, ContextMenuPortal, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuRadioGroup, };

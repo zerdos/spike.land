@@ -1,0 +1,21 @@
+import * as React from "react";
+declare const MenubarMenu: any;
+declare const MenubarGroup: any;
+declare const MenubarPortal: any;
+declare const MenubarSub: any;
+declare const MenubarRadioGroup: any;
+declare const Menubar: React.ForwardRefExoticComponent<any>;
+declare const MenubarTrigger: React.ForwardRefExoticComponent<any>;
+declare const MenubarSubTrigger: React.ForwardRefExoticComponent<any>;
+declare const MenubarSubContent: React.ForwardRefExoticComponent<any>;
+declare const MenubarContent: React.ForwardRefExoticComponent<any>;
+declare const MenubarItem: React.ForwardRefExoticComponent<any>;
+declare const MenubarCheckboxItem: React.ForwardRefExoticComponent<any>;
+declare const MenubarRadioItem: React.ForwardRefExoticComponent<any>;
+declare const MenubarLabel: React.ForwardRefExoticComponent<any>;
+declare const MenubarSeparator: React.ForwardRefExoticComponent<any>;
+declare const MenubarShortcut: {
+    ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>): import("@emotion/react/jsx-runtime").JSX.Element;
+    displayname: string;
+};
+export { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarLabel, MenubarCheckboxItem, MenubarRadioGroup, MenubarRadioItem, MenubarPortal, MenubarSubContent, MenubarSubTrigger, MenubarGroup, MenubarSub, MenubarShortcut, };

@@ -1,0 +1,11 @@
+import * as React from "react";
+declare const NavigationMenu: React.ForwardRefExoticComponent<any>;
+declare const NavigationMenuList: React.ForwardRefExoticComponent<any>;
+declare const NavigationMenuItem: any;
+declare const navigationMenuTriggerStyle: (props?: import("class-variance-authority/dist/types").ClassProp | undefined) => string;
+declare const NavigationMenuTrigger: React.ForwardRefExoticComponent<any>;
+declare const NavigationMenuContent: React.ForwardRefExoticComponent<any>;
+declare const NavigationMenuLink: any;
+declare const NavigationMenuViewport: React.ForwardRefExoticComponent<any>;
+declare const NavigationMenuIndicator: React.ForwardRefExoticComponent<any>;
+export { navigationMenuTriggerStyle, NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuContent, NavigationMenuTrigger, NavigationMenuLink, NavigationMenuIndicator, NavigationMenuViewport, };

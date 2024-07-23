@@ -1,0 +1,20 @@
+import * as React from "react";
+declare const DropdownMenu: any;
+declare const DropdownMenuTrigger: any;
+declare const DropdownMenuGroup: any;
+declare const DropdownMenuPortal: any;
+declare const DropdownMenuSub: any;
+declare const DropdownMenuRadioGroup: any;
+declare const DropdownMenuSubTrigger: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuSubContent: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuContent: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuItem: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuCheckboxItem: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuRadioItem: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuLabel: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuSeparator: React.ForwardRefExoticComponent<any>;
+declare const DropdownMenuShortcut: {
+    ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>): import("@emotion/react/jsx-runtime").JSX.Element;
+    displayName: string;
+};
+export { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuGroup, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuRadioGroup, };
