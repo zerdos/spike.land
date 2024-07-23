@@ -16,19 +16,19 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/workers-types": "4.20240718.0",
-    "typescript": "5.5.3",
-    "wrangler": "3.65.1"
+    "@cloudflare/workers-types": "4.20240722.0",
+    "typescript": "5.5.4",
+    "wrangler": "3.66.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",
     "@spike-land/code": "0.9.55",
-    "@types/node": "20.14.11",
+    "@types/node": "20.14.12",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.23.0",
     "esm-worker": "0.135.16",
-    "immutable": "4.3.6",
+    "immutable": "4.3.7",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1"
