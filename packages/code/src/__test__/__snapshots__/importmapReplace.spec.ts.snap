@@ -134,3 +134,9 @@ exports[`importMapReplace should replace top-level imports 1`] = `
   /** importMapReplace */
   import React from "http://localhost:3000/reactMod.mjs";"
 `;
+
+exports[`importMapReplace should replace top-level imports with dot in the path 1`] = `
+"
+  /** importMapReplace */
+  import React from "http://localhost:3000/*react.gl?bundle";"
+`;
