@@ -1,7 +1,7 @@
 // build-tasks.mjs
 import { build } from "./buildOperations.mjs";
 import { getCommonBuildOptions } from "./build-config.mjs";
-import { getWasmFile } from "./helpers.mjs"; 
+import { getWasmFile } from "./helpers.mjs";
 
 export async function buildWorkers() {
   const workerEntryPoints = [
@@ -17,7 +17,7 @@ export async function buildWorkers() {
     ...getCommonBuildOptions("production"),
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
-    
+
     format: "iife",
     outdir: "dist",
     minify: true
@@ -67,12 +67,61 @@ export async function buildServiceWorker() {
     minifyIdentifiers: true,
     minifyWhitespace: true,
     target: "es2022",
- 
+
   });
 }
 
 export async function buildMainBundle(wasmFile) {
   const buildOptions = getCommonBuildOptions("production");
+
+  const components = [
+    "accordion",
+    "alert",
+    "alert-dialog",
+    "aspect-ratio",
+    "avatar",
+    "badge",
+    "breadcrumb",
+    "button",
+    "calendar",
+    "card",
+    "carousel",
+    "chart",
+    "checkbox",
+    "collapsible",
+    "command",
+    "context-menu",
+    "dialog",
+    "drawer",
+    "dropdown-menu",
+    "form",
+    "hover-card",
+    "input",
+    "input-otp",
+    "label",
+    "menubar",
+    "navigation-menu",
+    "pagination",
+    "popover",
+    "progress",
+    "radio-group",
+    "resizable",
+    "scroll-area",
+    "select",
+    "separator",
+    "sheet",
+    "skeleton",
+    "slider",
+    "sonner",
+    "switch",
+    "table",
+    "tabs",
+    "textarea",
+    "toast",
+    "toggle",
+    "toggle-group",
+    "tooltip"
+  ];
   await build({
     ...buildOptions,
     splitting: true,
@@ -83,9 +132,9 @@ export async function buildMainBundle(wasmFile) {
     bundle: true,
     mangleQuoted: true,
     sourcemap: false,
-    legalComments: "none",
+    legalComments: "none",  
     entryPoints: [
-      "src/@/components/ui/button.tsx",
+      ...components.filter(x=>x).map((component) => `src/@/components/ui/${component}.tsx`),
       "src/modules.ts",
       "src/reactMod.ts",
       "src/reactDom.ts",
@@ -108,7 +157,7 @@ export async function buildMainBundle(wasmFile) {
       ...buildOptions.external,
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
-      
+
     ]
 
   });

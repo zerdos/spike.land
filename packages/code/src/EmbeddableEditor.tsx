@@ -4,7 +4,7 @@ import { AlertCircle, Download, ExternalLink, Maximize, Moon, QrCode, Sun } from
 import { Resizable } from "re-resizable";
 import { useEffect, useState } from "react";
 
-const EmbeddableEditor = () => {
+export const EmbeddableEditor = () => {
   const [code, setCode] = useState("// Your code here");
   const [output, setOutput] = useState("");
   const [error, seterror] = useState<string | null>(null);

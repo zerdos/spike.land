@@ -84,7 +84,6 @@
   
   
   "include": [
-    "@",
     "src"
   ],
   "exclude": [".yarn", "dist"]

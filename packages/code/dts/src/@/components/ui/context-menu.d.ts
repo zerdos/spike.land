@@ -1,18 +1,25 @@
 import * as React from "react";
-declare const ContextMenu: any;
-declare const ContextMenuTrigger: any;
-declare const ContextMenuGroup: any;
-declare const ContextMenuPortal: any;
-declare const ContextMenuSub: any;
-declare const ContextMenuRadioGroup: any;
-declare const ContextMenuSubTrigger: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuSubContent: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuContent: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuItem: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuCheckboxItem: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuRadioItem: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuLabel: React.ForwardRefExoticComponent<any>;
-declare const ContextMenuSeparator: React.ForwardRefExoticComponent<any>;
+import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
+declare const ContextMenu: React.FC<ContextMenuPrimitive.ContextMenuProps>;
+declare const ContextMenuTrigger: React.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuTriggerProps & React.RefAttributes<HTMLSpanElement>>;
+declare const ContextMenuGroup: React.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuGroupProps & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuPortal: React.FC<ContextMenuPrimitive.ContextMenuPortalProps>;
+declare const ContextMenuSub: React.FC<ContextMenuPrimitive.ContextMenuSubProps>;
+declare const ContextMenuRadioGroup: React.ForwardRefExoticComponent<ContextMenuPrimitive.ContextMenuRadioGroupProps & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuSubTrigger: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubTriggerProps & React.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean;
+} & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuSubContent: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSubContentProps & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuContent: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuContentProps & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuItem: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuItemProps & React.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean;
+} & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuCheckboxItem: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuCheckboxItemProps & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuRadioItem: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuRadioItemProps & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuLabel: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuLabelProps & React.RefAttributes<HTMLDivElement>, "ref"> & {
+    inset?: boolean;
+} & React.RefAttributes<HTMLDivElement>>;
+declare const ContextMenuSeparator: React.ForwardRefExoticComponent<Omit<ContextMenuPrimitive.ContextMenuSeparatorProps & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 declare const ContextMenuShortcut: {
     ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>): import("@emotion/react/jsx-runtime").JSX.Element;
     displayName: string;
