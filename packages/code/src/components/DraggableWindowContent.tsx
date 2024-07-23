@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { ContentWrapper } from "./ContentWrapper";
 import { ScaleRangeButtons } from "./ScaleRangeButtons";
-
 import { ActionButtons } from "./ActionButtons";
 import { BreakpointButtons } from "./BreakpointButtons";
 import { ScaledContent } from "./ScaledContent";
@@ -17,6 +16,7 @@ export const DraggableWindowContent = (
     handleDownload,
     showChat,
     setShowChat,
+    handleAIModify,
     scale,
     sizes,
     maxScaleRange,
@@ -34,6 +34,7 @@ export const DraggableWindowContent = (
     handleDownload: () => void;
     showChat: boolean;
     setShowChat: (show: boolean) => void;
+    handleAIModify: () => void;
     scale: number;
     sizes: number[];
     maxScaleRange: number;
@@ -74,6 +75,7 @@ export const DraggableWindowContent = (
       handleDownload={handleDownload}
       showChat={showChat}
       setShowChat={setShowChat}
+      handleAIModify={handleAIModify}
     />
   </div>
 );

@@ -6,9 +6,10 @@ import ChatInterface from "../ChatInterface";
 
 interface DraggableChatProps {
   onClose: () => void;
+  onCodeUpdate: (code: string) => void;
 }
 
-export const DraggableChat: FC<DraggableChatProps> = ({ onClose }) => {
+export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate }) => {
   const [position, setPosition] = useState({ x: window.innerWidth - 320, y: window.innerHeight - 420 });
   const [size, setSize] = useState({ width: 300, height: 400 });
 
@@ -54,7 +55,7 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose }) => {
             </button>
           </div>
           <div className="flex-grow overflow-hidden">
-            <ChatInterface />
+            <ChatInterface onCodeUpdate={onCodeUpdate} />
           </div>
         </div>
       </Resizable>

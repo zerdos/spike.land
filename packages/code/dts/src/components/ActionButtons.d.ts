@@ -4,6 +4,7 @@ type ActionButtonsProps = {
     handleDownload: () => void;
     showChat: boolean;
     setShowChat: (show: boolean) => void;
+    handleAIModify: () => void;
 };
 export declare const ActionButtons: FC<ActionButtonsProps>;
 export {};

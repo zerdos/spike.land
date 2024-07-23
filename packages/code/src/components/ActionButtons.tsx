@@ -5,6 +5,7 @@ import { FC } from "react";
 import { FaDownload } from "react-icons/fa";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { RiChatSmile3Line } from "react-icons/ri";
+import { AiOutlineRobot } from "react-icons/ai";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
 
@@ -13,6 +14,7 @@ type ActionButtonsProps = {
   handleDownload: () => void;
   showChat: boolean;
   setShowChat: (show: boolean) => void;
+  handleAIModify: () => void;
 };
 
 export const ActionButtons: FC<ActionButtonsProps> = ({
@@ -20,6 +22,7 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
   handleDownload,
   showChat,
   setShowChat,
+  handleAIModify,
 }) => {
   return (
     <motion.div
@@ -62,6 +65,11 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
         <Tooltip title="Toggle Chat" placement="left">
           <Fab onClick={() => setShowChat(!showChat)}>
             <RiChatSmile3Line />
+          </Fab>
+        </Tooltip>
+        <Tooltip title="AI Modify Code" placement="left">
+          <Fab onClick={handleAIModify}>
+            <AiOutlineRobot />
           </Fab>
         </Tooltip>
       </div>

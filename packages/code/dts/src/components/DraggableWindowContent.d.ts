@@ -1,4 +1,4 @@
-export declare const DraggableWindowContent: ({ children, scaleRange, setScaleRange, width, setWidth, codeSpace, handleDownload, showChat, setShowChat, scale, sizes, maxScaleRange, breakPoints, innerHeight, bgColor, rgba, }: {
+export declare const DraggableWindowContent: ({ children, scaleRange, setScaleRange, width, setWidth, codeSpace, handleDownload, showChat, setShowChat, handleAIModify, scale, sizes, maxScaleRange, breakPoints, innerHeight, bgColor, rgba, }: {
     children: JSX.Element;
     scaleRange: number;
     setScaleRange: (scaleRange: number) => void;
@@ -8,6 +8,7 @@ export declare const DraggableWindowContent: ({ children, scaleRange, setScaleRa
     handleDownload: () => void;
     showChat: boolean;
     setShowChat: (show: boolean) => void;
+    handleAIModify: () => void;
     scale: number;
     sizes: number[];
     maxScaleRange: number;

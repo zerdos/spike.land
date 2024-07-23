@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import type { FC } from "react";
-import { useEffect, useRef, useState } from "react";
+import type { FC, ForwardRefRenderFunction } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
@@ -15,9 +15,27 @@ const mod = {
   controller: new AbortController(),
 };
 
-const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
-  const ref = useRef<HTMLDivElement>(null);
+interface EditorProps {
+  codeSpace: string;
+  onCodeUpdate: (newCode: string) => void;
+}
+
+export interface EditorRef {
+  setValue: (code: string) => void;
+}
+
+const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace, onCodeUpdate }, ref) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
+
+  useImperativeHandle(ref, () => ({
+    setValue: (code: string) => {
+      editorState.setValue(code);
+      handleContentChange(code);
+    }
+  }));
+
+  
   const [editorState, setEditorState] = useState({
     i: globalThis.cSess.session.i,
     code: globalThis.cSess.session.code,
@@ -29,17 +47,15 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     if (editorState.started) return;
 
     const initializeEditor = async () => {
-      if (!ref.current) return;
 
       mod.i = Number(globalThis.cSess.session.i);
       mod.code = globalThis.cSess.session.code;
 
-      const container = ref.current;
-      if (!container) return;
+      if (!containerRef || !containerRef.current) return;
 
       const editorModule = await (engine === "monaco"
-        ? initializeMonaco(container, codeSpace, mod.code)
-        : initializeAce(container, mod.code));
+        ? initializeMonaco(containerRef.current, codeSpace, mod.code)
+        : initializeAce(containerRef.current, mod.code));
 
       setEditorState({
         ...editorState,
@@ -66,6 +82,18 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     runner({ code: mod.code, counter: mod.i, codeSpace, signal });
   };
 
+  const handleAIModify = () => {
+    // This function will be called when the AI Modify button is clicked
+    // It should open the chat interface and prompt the user to ask for code modifications
+    console.log("AI Modify button clicked");
+  };
+
+  const handleCodeUpdate = (newCode: string) => {
+    // This function will be called when the AI suggests code modifications
+    editorState.setValue(newCode);
+    handleContentChange(newCode);
+  };
+
   BC.onmessage = ({ data }) => {
     if (!data.i || !data.code || data.code === mod.code) return;
 
@@ -82,7 +110,7 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const EditorNode = (
     <div
       data-test-id="editor"
-      ref={ref}
+      ref={containerRef}
       css={css`
         ${
         engine === "ace" ? "" : `
@@ -151,5 +179,7 @@ const Editor: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     return await startAce(code, handleContentChange, container);
   }
 };
+
+const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
 
 export default Editor;

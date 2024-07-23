@@ -9,17 +9,20 @@ import { useDownload } from "./hooks/useDownload";
 
 type DraggableWindowProps = {
   children: JSX.Element;
+  handleAIModify: () => void;
   codeSpace: string;
+  showChat: boolean;
+  setShowChat: (show: boolean) => void;
+  onCodeUpdate: (newCode: string) => void;
 };
 
 const breakPoints = [750, 1024, 1920];
 const sizes = [10, 25, 50, 75, 100];
-export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace }) => {
+export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace, handleAIModify, setShowChat, showChat, onCodeUpdate}) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
   const { width: innerWidth, height: innerHeight } = useWindowSize();
-  const [showChat, setShowChat] = useState(false);
-
+ 
   const [width, setWidth] = useState(innerWidth);
   const { bgColor, setBgColor, rgba } = useBgColor();
   const maxScaleRange = 100;
@@ -40,6 +43,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
     return () => clearTimeout(timeoutId);
   }, []);
 
+
   const duration = Number(sessionStorage?.getItem("duration")) || 1;
   const type = sessionStorage?.getItem("type") || "spring";
 
@@ -54,6 +58,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
           codeSpace={codeSpace}
           handleDownload={handleDownload}
           showChat={showChat}
+          handleAIModify={handleAIModify}
           setShowChat={setShowChat}
           scale={scale}
           sizes={sizes}
@@ -67,7 +72,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace 
         </DraggableWindowContent>
       </MotionContainer>
 
-      {showChat && <DraggableChat onClose={() => setShowChat(false)} />}
+      {showChat && <DraggableChat onCodeUpdate={onCodeUpdate} onClose={() => setShowChat(false)} />}
     </MotionConfig>
   );
 };

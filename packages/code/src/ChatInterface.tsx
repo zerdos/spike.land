@@ -7,6 +7,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
+import { css } from "@emotion/react";
 
 interface Message {
   id: string;
@@ -37,7 +38,70 @@ const ColorModeToggle = ({
   </button>
 );
 
-const ChatInterface = () => {
+
+const initialMessage = `You are an AI assistant helping a user with an online code editor. The user is working on a page that already contains some code. Your task is to assist with modifying or creating React components based on the existing code and any additional requirements.
+
+You will be provided with two pieces of information:
+1. The filename of the current file
+2. The content of the file
+
+Here's the filename of the current file:
+<filename>
+{{FILENAME}}
+</filename>
+
+Here's the existing content of the file:
+<file_content>
+{{FILE_CONTENT}}
+</file_content>
+
+Your task is to create or modify a React component based on the existing code and any additional requirements the user might specify. Keep the following points in mind:
+
+1. You can use any npm package supported by the platform.
+2. The component must be a default export JSX component.
+3. For styling, you can use one of the following options:
+   a. import {css} from "@emotion/react"
+   b. Tailwind CSS
+   c. Any component from shadcn-ui
+   d. Any other npm package for component libraries
+
+When providing your response, follow these guidelines:
+1. Always reply with the full block of code for the entire file.
+2. As the first line of your response, include a comment with the filename.
+3. Ensure that the component is exported as a default export.
+4. If you're using any npm packages or specific styling methods, make sure to include the necessary imports at the top of the file.
+5. If you're modifying existing code, make sure to preserve any important functionality while implementing the requested changes.
+6. If you're creating a new component, ensure it follows React best practices and is well-structured.
+
+Here's an example of how your response should be formatted:
+\`\`\`tsx
+// Filename: ExampleComponent.tsx
+
+import React from 'react';
+import { css } from '@emotion/react';
+
+const ExampleComponent = () => {
+  return (
+    <div css={css\`
+      background-color: #f0f0f0;
+      padding: 20px;
+    \`}>
+      <h1>Example Component</h1>
+      <p>This is an example of a React component.</p>
+    </div>
+  );
+};
+
+export default ExampleComponent;
+\`\`\`
+
+Remember to provide the entire code for the file, including any necessary imports, the component definition, and the default export statement. If you need any clarification or have any questions about the task, please ask before providing the code.
+
+The user first message:
+
+`
+
+const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -134,6 +198,12 @@ const ChatInterface = () => {
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
+
+    const isFirstMessage = messages.length === 0;
+    if (isFirstMessage) {
+      content = initialMessage.replace(/{{FILENAME}}/g, codeSpace+".tsx").replace(/{{FILE_CONTENT}}/g, cSess.session.code) + content;
+    }
+
     const newMessage: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -144,6 +214,7 @@ const ChatInterface = () => {
     saveMessages([...messages, newMessage]);
     setInput("");
     setIsStreaming(true);
+
 
     try {
       const response = await fetch("/anthropic", {
@@ -178,11 +249,14 @@ const ChatInterface = () => {
 
       setMessages((prev) => [...prev, assistantMessage]);
 
+      let fullResponse = "";
+
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunk = decoder.decode(value);
+        fullResponse += chunk;
         setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages];
           const lastMessage = updatedMessages[updatedMessages.length - 1];
@@ -191,8 +265,17 @@ const ChatInterface = () => {
         });
       }
 
+      // Check if the response contains code modifications
+      const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
+      const matches = fullResponse.match(codeModificationRegex);
+
+      if (matches) {
+        const modifiedCode = matches[matches.length - 1].replace(/```(?:jsx?|tsx?)\n|```/g, '');
+        onCodeUpdate(modifiedCode);
+      }
+
       saveMessages([...messages, newMessage, assistantMessage]);
-    } catch (error) {
+    } catch (error) {    
       console.error("Error:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -205,6 +288,7 @@ const ChatInterface = () => {
       setIsStreaming(false);
     }
   };
+
 
   const handleResetChat = () => {
     setMessages([]);
@@ -242,6 +326,8 @@ const ChatInterface = () => {
       isDarkMode: newMode,
     });
   };
+
+  
   return (
     <div className="flex flex-col h-full bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 dark:from-gray-900 dark:via-purple-900 dark:to-violet-900">
       {/* Header */}

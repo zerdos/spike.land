@@ -1,5 +1,5 @@
-import { css, keyframes } from "@emotion/react";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { css , keyframes} from "@emotion/react";
+import { lazy, Suspense, useEffect, useState, useRef } from "react";
 import type { FC, ReactNode } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { reveal } from "./reveal";
@@ -80,10 +80,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
+  const [showChat, setShowChat] = useState(false);
+  const editorRef = useRef<any>(null);
 
   const Editor = lazy(() => import("./Editor"));
 
-  // Use useEffect to reveal the content after the iframe loads
   useEffect(() => {
     if (!onlyEdit) {
       const iframe = document.querySelector(`iframe[src="/live/${codeSpace}/"]`);
@@ -96,10 +97,20 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     }
   }, [codeSpace, onlyEdit]);
 
+  const handleAIModify = () => {
+    setShowChat(true);
+  };
+
+  const handleCodeUpdate = (newCode: string) => {
+    if (editorRef.current) {
+      editorRef.current.setValue(newCode);
+    }
+  };
+
   return (
     <>
       {!onlyEdit && (
-        <DraggableWindow codeSpace={codeSpace}>
+        <DraggableWindow onCodeUpdate={handleCodeUpdate} codeSpace={codeSpace} handleAIModify={handleAIModify} showChat={showChat} setShowChat={setShowChat}>
           <iframe
             css={css`height: 100%; width: 100%; border: 0;`}
             src={`/live/${codeSpace}/`}
@@ -110,7 +121,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
       {!hideRest && (
         <RainbowContainer>
           <Suspense fallback={<></>}>
-            <Editor codeSpace={codeSpace} />
+            <Editor 
+              codeSpace={codeSpace} 
+              ref={editorRef} 
+              onCodeUpdate={handleCodeUpdate}
+            />
           </Suspense>
         </RainbowContainer>
       )}
