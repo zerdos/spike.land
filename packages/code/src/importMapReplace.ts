@@ -1,3 +1,5 @@
+// src/importMapReplace.ts
+
 import { oo } from "./importMap";
 
 export function importMapReplace(code: string, origin: string): string {
@@ -45,6 +47,10 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${origin}${packageName}/index.js"` + p3;
     }
 
+    if (packageName.startsWith("@/")) {
+      return p1 + `"${origin}/${packageName}.mjs"` + p3;
+    }
+
     if (packageName.includes(".")) {
       return p1 + `"${origin}/${packageName}"` + p3;
     }
@@ -75,8 +81,6 @@ export function importMapReplace(code: string, origin: string): string {
       "\"" + origin + oo[pkg as keyof typeof oo] + "\"",
     );
   });
-
-  /***** */
 
   return `
   /** importMapReplace */

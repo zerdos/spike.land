@@ -18,6 +18,12 @@ exports[`importMapReplace should ignore relative URLs 1`] = `
   import MyComponent from "./MyComponent";"
 `;
 
+exports[`importMapReplace should replace DYNAMID shadcdn imports 1`] = `
+"
+  /** importMapReplace */
+  import React from "http://localhost:3000/@/components/ui/alert.mjs";"
+`;
+
 exports[`importMapReplace should replace coder44  1`] = `
 "
   /** importMapReplace */
@@ -40,6 +46,12 @@ exports[`importMapReplace should replace dynamic imports 1`] = `
 `;
 
 exports[`importMapReplace should replace dynamic imports 2`] = `
+"
+  /** importMapReplace */
+  const React = import("http://localhost:3000/reactMod.mjs");"
+`;
+
+exports[`importMapReplace should replace dynamic imports 3`] = `
 "
   /** importMapReplace */
   const module = import("http://localhost:3000/*some-module?bundle");"
@@ -87,6 +99,22 @@ exports[`importMapReplace should replace dynamic imports with await 1`] = `
 "
   /** importMapReplace */
   const module = await import("http://localhost:3000/*some-module?bundle");"
+`;
+
+exports[`importMapReplace should replace shadcdn  1`] = `
+"
+  /** importMapReplace */
+  
+    import { css } from "http://localhost:3000/emotion.mjs";
+    import $ from "http://localhost:3000/reactMod.mjs";
+    import { Button } from "http://localhost:3000/@/components/ui/button.mjs";
+
+    import { css  as $kdkd } from "http://localhost:3000/emotion.mjs";
+
+    import { useEffect, useState, useRef } from "http://localhost:3000/reactMod.mjs";
+    import type { FC } from "http://localhost:3000/reactMod.mjs";
+    import QRTerminal from "http://localhost:3000/*qrcode-terminal?bundle";
+    "
 `;
 
 exports[`importMapReplace should replace the live urls 1`] = `

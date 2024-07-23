@@ -30,6 +30,24 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
+
+
+  it("should replace shadcdn ", async () => {
+    const code = `
+    import { css } from "@emotion/react";
+    import $ from "react";
+    import { Button } from "@/components/ui/button";
+
+    import { css  as $kdkd } from "@emotion/react";
+
+    import { useEffect, useState, useRef } from "react";
+    import type { FC } from "react";
+    import QRTerminal from "qrcode-terminal";
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
   it("should replace coder44 ", async () => {
     const code = `
     import { css } from "@emotion/react";
@@ -55,6 +73,19 @@ describe("importMapReplace", () => {
     const code = `const React = import("react");`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
+  });
+
+  it("should replace DYNAMID shadcdn imports", async () => {
+    const code = "import React from \"@/components/ui/alert\";";
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should replace dynamic imports", async () => {
+    const code = `const React = import("react");`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  
   });
 
   it("should ignore relative URLs", async () => {
