@@ -15,7 +15,8 @@
     "**/*.d.ts",
     "**/public",
     "**/monaco-workers",
-    "**/build"
+    "**/build",
+    "**/devcontainer-generator/index.mjs"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.91.0.wasm",
