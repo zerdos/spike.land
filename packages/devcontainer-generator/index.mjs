@@ -30,7 +30,7 @@ var getDistro = (b) => b === "gitpod/workspace-full" ? "gitpod/workspace-full" :
 var DevcontainerGenerator = class {
   constructor(base) {
     this.base = base;
-  }
+  } 
   _dockerfile = "";
   _readme = "";
   _dockerTemplates = {};

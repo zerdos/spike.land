@@ -6,3 +6,4 @@ src/ipfsWorker.tsx
 .aidigestignore 
 dist
 dts
+src/@
