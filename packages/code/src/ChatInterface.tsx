@@ -7,7 +7,16 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
-import { css } from "@emotion/react";
+
+
+interface Artifact {
+  identifier: string;
+  type: string;
+  language: string;
+  title: string;
+  content: string;
+}
+
 
 interface Message {
   id: string;
@@ -55,51 +64,50 @@ Here's the existing content of the file:
 {{FILE_CONTENT}}
 </file_content>
 
-Your task is to create or modify a React component based on the existing code and any additional requirements the user might specify. Keep the following points in mind:
+
+Important: This system uses artifacts for managing code files. Always create or update artifacts when working with code. Here's how to use artifacts:
+1. To create a new file, use the <antArtifact> tag with a unique identifier, appropriate type, and title. For example:
+
+   <antArtifact identifier="example-component" type="application/vnd.ant.code" language="tsx" title="Example React Component">
+   // Code content here
+   
+    </antArtifact>
+
+2. To update an existing file, use the same <antArtifact> tag with the original identifier. The system will recognize this as an update to the existing file.
+3. Always include the full content of the file within the artifact, not just the changes.
+4. Use the identifier to refer to specific files in future interactions.
+
+When creating or modifying React components, keep the following points in mind:
 
 1. You can use any npm package supported by the platform.
 2. The component must be a default export JSX component.
 3. For styling, you can use one of the following options:
-   a. import {css} from "@emotion/react"
-   b. Tailwind CSS
-   c. Any component from shadcn-ui
-   d. Any other npm package for component libraries
+a. import {css} from "@emotion/react"
+b. Tailwind CSS
+c. Any component from shadcn-ui
+d. Any other npm package for component libraries
+
 
 When providing your response, follow these guidelines:
-1. Always reply with the full block of code for the entire file.
-2. As the first line of your response, include a comment with the filename.
+
+1. Always use the <antArtifact> tag to encapsulate the full code for the entire file.
+2. As the first line inside the artifact, include a comment with the filename.
 3. Ensure that the component is exported as a default export.
 4. If you're using any npm packages or specific styling methods, make sure to include the necessary imports at the top of the file.
-5. If you're modifying existing code, make sure to preserve any important functionality while implementing the requested changes.
+5.If you're modifying existing code, make sure to preserve any important functionality while implementing the requested changes.
 6. If you're creating a new component, ensure it follows React best practices and is well-structured.
+7. After the artifact, provide explanations of your changes or additions, and offer suggestions for further improvements or features.
+8. Do not provide installation instructions or package.json modifications. The system will handle these automatically.
 
-Here's an example of how your response should be formatted:
-\`\`\`tsx
-// Filename: ExampleComponent.tsx
-
-import React from 'react';
-import { css } from '@emotion/react';
-
-const ExampleComponent = () => {
-  return (
-    <div css={css\`
-      background-color: #f0f0f0;
-      padding: 20px;
-    \`}>
-      <h1>Example Component</h1>
-      <p>This is an example of a React component.</p>
-    </div>
-  );
-};
-
-export default ExampleComponent;
-\`\`\`
 
 Remember to provide the entire code for the file, including any necessary imports, the component definition, and the default export statement. If you need any clarification or have any questions about the task, please ask before providing the code.
+After providing the code, please explain your changes or additions, and offer suggestions for further improvements or features that could be added to the component.
+If the user asks for modifications, always provide the full updated code, not just the changes. This ensures clarity and prevents any misunderstandings.
+If you're unsure about any aspect of the user's request, don't hesitate to ask for clarification before proceeding with the code changes.
+The user's first message follows:
 
-The user first message:
+`;
 
-`
 
 const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -197,96 +205,131 @@ const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
-
-
+  
     const isFirstMessage = messages.length === 0;
     if (isFirstMessage) {
       content = initialMessage.replace(/{{FILENAME}}/g, codeSpace+".tsx").replace(/{{FILE_CONTENT}}/g, cSess.session.code) + content;
     }
-
+  
     const newMessage: Message = {
       id: Date.now().toString(),
       role: "user",
       content: content.trim(),
     };
-
+  
     setMessages((prev) => [...prev, newMessage]);
     saveMessages([...messages, newMessage]);
     setInput("");
     setIsStreaming(true);
-
-
-    try {
-      const response = await fetch("/anthropic", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: [...messages, newMessage].map((msg) => ({
-            role: msg.role,
-            content: msg.content,
-          })),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
-
-      if (!reader) {
-        throw new Error("Response body is not readable!");
-      }
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: "",
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-
-      let fullResponse = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value);
-        fullResponse += chunk;
-        setMessages((prevMessages) => {
-          const updatedMessages = [...prevMessages];
-          const lastMessage = updatedMessages[updatedMessages.length - 1];
-          lastMessage.content += chunk;
-          return updatedMessages;
+  
+    let fullResponse = "";
+    let isResponseComplete = false;
+    const maxRetries = 3;
+    let retryCount = 0;
+  
+    const assistantMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "assistant",
+      content: "",
+    };
+  
+    setMessages((prev) => [...prev, assistantMessage]);
+  
+    while (!isResponseComplete && retryCount < maxRetries) {
+      try {
+        const response = await fetch("/anthropic", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            messages: [...messages, newMessage, { ...assistantMessage, content: fullResponse }].map((msg) => ({
+              role: msg.role,
+              content: msg.content,
+            })),
+          }),
         });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+  
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
+  
+        if (!reader) {
+          throw new Error("Response body is not readable!");
+        }
+  
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            isResponseComplete = true;
+            break;
+          }
+  
+          const chunk = decoder.decode(value);
+          fullResponse += chunk;
+          setMessages((prevMessages) => {
+            const updatedMessages = [...prevMessages];
+            const lastMessage = updatedMessages[updatedMessages.length - 1];
+            lastMessage.content = fullResponse;
+            return updatedMessages;
+          });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        retryCount++;
+        if (retryCount >= maxRetries) {
+          const errorMessage = "Sorry, there was an error processing your request. The response may be incomplete.";
+          fullResponse += "\n\n" + errorMessage;
+          setMessages((prev) => {
+            const updatedMessages = [...prev];
+            const lastMessage = updatedMessages[updatedMessages.length - 1];
+            lastMessage.content = fullResponse;
+            return updatedMessages;
+          });
+        } else {
+          await new Promise(resolve => setTimeout(resolve, 1000 * retryCount)); // Exponential backoff
+        }
       }
-
-      // Check if the response contains code modifications
-      const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
-      const matches = fullResponse.match(codeModificationRegex);
-
-      if (matches) {
-        const modifiedCode = matches[matches.length - 1].replace(/```(?:jsx?|tsx?)\n|```/g, '');
-        onCodeUpdate(modifiedCode);
-      }
-
-      saveMessages([...messages, newMessage, assistantMessage]);
-    } catch (error) {    
-      console.error("Error:", error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: "Sorry, there was an error processing your request.",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-      saveMessages([...messages, newMessage, errorMessage]);
-    } finally {
-      setIsStreaming(false);
     }
+  
+
+  const extractArtifacts = (content: string): Artifact[] => {
+    const artifactRegex = /<antArtifact\s+identifier="([^"]+)"\s+type="([^"]+)"\s+language="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/antArtifact>/g;
+    const extractedArtifacts: Artifact[] = [];
+    let match;
+
+    while ((match = artifactRegex.exec(content)) !== null) {
+      extractedArtifacts.push({
+        identifier: match[1],
+        type: match[2],
+        language: match[3],
+        title: match[4],
+        content: match[5].trim()
+      });
+    }
+
+    return extractedArtifacts;
+  };
+const artifacts = extractArtifacts(fullResponse);
+
+if (artifacts.length > 0) {
+  onCodeUpdate(artifacts[0].content);
+}
+
+    // Check if the response contains code modifications
+    const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
+    const matches = fullResponse.match(codeModificationRegex);
+  
+    if (matches) {
+      const modifiedCode = matches[matches.length - 1].replace(/```(?:jsx?|tsx?)\n|```/g, '');
+      onCodeUpdate(modifiedCode);
+    }
+  
+    saveMessages([...messages, newMessage, { ...assistantMessage, content: fullResponse }]);
+    setIsStreaming(false);
   };
 
 
