@@ -53,6 +53,7 @@ import {
   createCache,
   createRoot,
 } from "/renderHelpers.mjs";
+ import { ParentSize } from "@visx/responsive";
 
 export const renderApp = async () => {
   let root = document.getElementById("root");
@@ -65,15 +66,17 @@ export const renderApp = async () => {
   const rRoot = createRoot(root);
   const cache = createCache({ key: "css", speedy: false });
   globalThis.cssCache = cache;
-
+ 
   rRoot.render(
     <CacheProvider value={cache}>
-      <App
-        width={window.innerWidth}
-        height={window.innerHeight}
-        top={0}
-        left={0}
-      />
+    <ParentSize>
+      {(parent) => <App
+        width={parent.width || window.innerWidth}
+        height={parent.height || window.innerHeight}
+        top={ parent.top || 0 }
+        left={ parent.left || 0 }
+      />}
+        </ParentSize>
     </CacheProvider>
   );
 }
