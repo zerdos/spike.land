@@ -132,14 +132,14 @@ declare module 'react' {
   }
 }`,
     },
-    {
-      filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
-      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    },
-    {
-      filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
-      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    },
+    // {
+    //   filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
+    //   content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+    // },
+    // {
+    //   filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
+    //   content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+    // },
   ];
   const extraLibs = [
     ...(await Promise.all(
@@ -154,7 +154,7 @@ declare module 'react' {
             .join(`export * from "`),
         })),
     )),
-    // ...extras,
+    ...extras,
   ];
 
   // Deduplicate and sort extra libs
@@ -191,7 +191,7 @@ declare module 'react' {
           let newBase: string | null | undefined = null;
 
           if (r.startsWith(".")) {
-            newBase = new URL(r, baseUrl).toString();
+            newBase = new URL(`${baseUrl}/${r}`).toString();
           } else if (r.startsWith("https://")) {
             newBase = r;
           } else {
@@ -206,7 +206,8 @@ declare module 'react' {
                 "X-typescript-types",
               );
 
-              newBase = typescriptTypes|| await extractUrlFromResponse(response, r);
+              newBase =  typescriptTypes|| await extractUrlFromResponse(response, r);
+              if (newBase) newBase = new URL(newBase).toString();
             } catch (error) {
               let response;
               try {
@@ -272,14 +273,16 @@ declare module 'react' {
       }
       const packageJson = await response.json() as { typings?: string; types?: string };
       if (packageJson.typings || packageJson.types) {
-        const typingsPath = packageJson.typings || packageJson.types;
+        let typingsPath = packageJson.typings || packageJson.types;
+        if (typingsPath ==='index.d.mts') typingsPath=`index.d.ts`;
         const url = new URL(`https://unpkg.com/${npmPackage}/${typingsPath}`);
         const typingsResponse = await queuedFetch.fetch(url.toString(), { redirect: "follow" });
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
         const content = (await typingsResponse.text()).split('https://unpkg.com/').join();
-        if (content.startsWith('Cannot find ')) return;
+        if (content.startsWith('Cannot find')) return;
+       
     
         const typeUrl = typingsResponse.url.replace('https://unpkg.com', originToUse);
         if (content) {
@@ -303,7 +306,7 @@ declare module 'react' {
           }
             
           
-          await ataRecursive(content, npmPackage);
+          await ataRecursive(content, new URL(typeUrl + "/../").toString());
       
   
         }
@@ -323,11 +326,13 @@ declare module 'react' {
         });
 
       const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs")
+        ref.includes("d.ts") || ref.includes(".mjs")  || ref.includes(".js") ||  ref.includes(".mts") 
           ? ref
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,
-      ).toString();
+      ).toString().replace('.js', '.d.ts').replace('.mjs', '.d.ts').replace('.mts', '.d.ts');
+
+      
 
 
       if (!impRes[fileName]) {
