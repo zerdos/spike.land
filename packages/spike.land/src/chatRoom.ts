@@ -6,12 +6,12 @@ import {
   Delta,
   HTML,
   ICodeSession,
-  importMapReplace,
   makeHash,
   makeSession,
   md5,
   resetCSS,
   string_,
+  TW,
 } from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -197,16 +197,17 @@ export class Code implements DurableObject {
         if (this.origin.length === 0) {
           this.origin = url.origin;
         }
-        const transpiledPromise = fetch(
-          `https://js.spike.land?v=${ASSET_HASH}`,
-          {
-            method: "POST",
-            body: code,
-            headers: { TR_ORIGIN: this.origin },
-          },
-        ).then(async (resp) => this.transpiled = importMapReplace(await resp.text(), url.origin));
 
-        if (this.transpiled.length === 0) await transpiledPromise;
+        if (!this.transpiled) {
+          const resp = await fetch(`https://js.spike.land`, {
+            method: "POST",
+            body: this.session.code,
+            headers: { TR_ORIGIN: this.origin },
+          });
+
+          this.transpiled = await resp.text();
+        }
+
         const path = url.pathname.slice(1).split("/");
         if (path.length === 0) path.push("");
 
@@ -541,14 +542,6 @@ export class Code implements DurableObject {
           case "index.mjs":
           case "index.js":
           case "js": {
-            this.transpiled = this.transpiled.length > 0
-              ? this.transpiled
-              : await fetch(`https://js.spike.land`, {
-                method: "POST",
-                body: this.session.code,
-                headers: { TR_ORIGIN: this.origin },
-              }).then((resp) => resp.text());
-
             const replaced = this.transpiled.split("https://spike.land/").join(
               `${this.origin}/`,
             );
@@ -635,6 +628,49 @@ export class Code implements DurableObject {
 
             headers.set("Content-Encoding", "gzip");
             headers.set("Content-Type", "text/html; charset=UTF-8");
+            headers.set("content_hash", md5(respText));
+
+            return new Response(respText, {
+              status: 200,
+              headers: headers,
+            });
+          }
+          case "instant": {
+            const headers = new Headers();
+            headers.set("Access-Control-Allow-Origin", "*");
+
+            headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+            headers.set("Cross-Origin-Resource-Policy", "cross-origin");
+
+            headers.set("Cross-Origin-Opener-Policy", "same-origin");
+            headers.set(
+              "Cache-Control",
+              "no-cache",
+            );
+
+            headers.set("Content-Encoding", "gzip");
+            headers.set("Content-Type", "text/html; charset=UTF-8");
+
+            const respText = HTML.replace(
+              "/**reset*/",
+              resetCSS + this.session.css,
+            ).replace(
+              "<script src=\"/swVersion.js\"></script>",
+              "",
+            ).replace(
+              `<div id="root"></div>`,
+              `<div id="root" style="height: 100%;">
+                          <div id="${codeSpace}-css" data-i="${this.session.i}" style="height: 100%;">
+                            ${this.session.html}
+                          </div>
+                  </div>
+                         <script>${TW}</script>
+  <script type="module">
+    ${this.transpiled}
+    globalThis.module.renderApp();
+  </script>`,
+            );
+
             headers.set("content_hash", md5(respText));
 
             return new Response(respText, {

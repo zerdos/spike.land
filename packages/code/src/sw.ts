@@ -1,6 +1,7 @@
 // Import necessary scripts and functions
 // import { precacheAndRoute } from 'workbox-precaching';
 importScripts("/swVersion.js");
+import { red } from "@mui/material/colors";
 import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
@@ -67,18 +68,18 @@ const fakeBackend = async (request: Request) => {
 
   const pathName = new URL(request.url).pathname;
   const fileStat = await stat(pathName);
-  if (fileStat!==null) {
-    return new Response(await fileStat.handle.getFile(), {
+  if (fileStat !== null) {
+    const resp = await readFile(pathName);
+    return new Response(resp, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cache-Control": "no-cache",
-        "Content-Type": fileStat.type + "; charset=UTF-8",
+        "Content-Type": "application/javascript; charset=UTF-8",
+        content_hash: md5(resp),
       },
     });
   }
-
- 
 
   const paths = url.pathname.split("/");
   if (paths[1] === "live") {
@@ -213,7 +214,8 @@ const fakeBackend = async (request: Request) => {
       }
     } catch (err) {
       console.error("Error fetching session data:", err);
-    } }
+    }
+  }
 
   return cacheFirst(request);
 };

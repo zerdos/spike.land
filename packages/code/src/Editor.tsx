@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import type { FC, ForwardRefRenderFunction } from "react";
+import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
@@ -80,22 +80,22 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     runner({ code: mod.code, counter: mod.i, codeSpace, signal });
   };
 
-  const handleAIModify = () => {
-    // This function will be called when the AI Modify button is clicked
-    // It should open the chat interface and prompt the user to ask for code modifications
-    console.log("AI Modify button clicked");
-  };
+  // const handleAIModify = () => {
+  //   // This function will be called when the AI Modify button is clicked
+  //   // It should open the chat interface and prompt the user to ask for code modifications
+  //   console.log("AI Modify button clicked");
+  // };
 
-  const handleCodeUpdate = (newCode: string) => {
-    // This function will be called when the AI suggests code modifications
-    editorState.setValue(newCode);
-    handleContentChange(newCode);
-  };
+  // const handleCodeUpdate = (newCode: string) => {
+  //   // This function will be called when the AI suggests code modifications
+  //   editorState.setValue(newCode);
+  //   handleContentChange(newCode);
+  // };
 
   BC.onmessage = ({ data }) => {
     if (!data.i || !data.code || data.code === mod.code) return;
     if (mod.i >= data.i) return;
-    
+
     mod.i = Number(data.i);
     mod.code = data.code;
 

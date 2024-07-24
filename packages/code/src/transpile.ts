@@ -111,7 +111,7 @@ export const transpile = async (
  
  
   }
-   globalThis.cssCache = createCache({ key: "css", speedy: false });
+   globalThis.cssCache = createCache({ key: "css", speedy: true });
   const App = module.default;
  
  
