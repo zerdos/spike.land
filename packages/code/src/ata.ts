@@ -58,6 +58,8 @@ export async function ata({
 
   await ataRecursive(
     `/** @jsx jsx */
+    import JSX from "@emotion/react/jsx-runtime";
+    import JSXDEV from "@emotion/react/jsx-dev-runtime"
     import { jsx } from "@emotion/react";
     ${code}`,
     originToUse,
@@ -77,8 +79,8 @@ export async function ata({
           content: impRes[t].content
             .split(impRes[x].url!)
             .join(x)
-            .split("/dist/")
-            .join("/")
+            // .split("/dist/")
+            // .join("/")
             .split(`https://${originToUse}/${x}`)
             .join(impRes[x].ref)
             .replace(vNumbers, subst)
@@ -90,8 +92,8 @@ export async function ata({
             .split("/@types/")
             .join("/")
             .replaceAll(versionNumbers, "")
-            .split("/dist/")
-            .join("/"),
+            // .split("/dist/")
+            // .join("/"),
         };
       });
     });
@@ -139,7 +141,6 @@ declare module 'react' {
       content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
     },
   ];
-
   const extraLibs = [
     ...(await Promise.all(
       Object.keys(impRes)
@@ -153,7 +154,7 @@ declare module 'react' {
             .join(`export * from "`),
         })),
     )),
-    ...extras,
+    // ...extras,
   ];
 
   // Deduplicate and sort extra libs
@@ -272,20 +273,24 @@ declare module 'react' {
       const packageJson = await response.json() as { typings?: string; types?: string };
       if (packageJson.typings || packageJson.types) {
         const typingsPath = packageJson.typings || packageJson.types;
-        const url = new URL(`${npmPackage}/${typingsPath}`, `https://unpkg.com`);
-        const typingsResponse = await queuedFetch.fetch(url, { redirect: "follow" });
+        const url = new URL(`https://unpkg.com/${npmPackage}/${typingsPath}`);
+        const typingsResponse = await queuedFetch.fetch(url.toString(), { redirect: "follow" });
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
-        const content = await typingsResponse.text();
+        const content = (await typingsResponse.text()).split('https://unpkg.com/').join();
+        if (content.startsWith('Cannot find ')) return;
+    
+        const typeUrl = typingsResponse.url.replace('https://unpkg.com', originToUse);
         if (content) {
+
           impRes[typingsPath==='index.d.ts' ? npmPackage :`${npmPackage}/${typingsPath}`] = {
             content,
-            url: `${originToUse}/${npmPackage}/${typingsPath}`,
+            url: typeUrl,
             ref: `${npmPackage}/${typingsPath}`
           };
           if (typingsPath!=='index.d.ts') {
-            const newBase = `${npmPackage}/${typingsPath}`;
+            const newBase = new URL(typeUrl).pathname;
             impRes[npmPackage] = {
               url: `${originToUse}/${npmPackage}/index.d.ts`,
               content: `
@@ -298,7 +303,7 @@ declare module 'react' {
           }
             
           
-          await ataRecursive(content, `${originToUse}/${npmPackage}/${typingsPath}`);
+          await ataRecursive(content, npmPackage);
       
   
         }
@@ -323,6 +328,7 @@ declare module 'react' {
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,
       ).toString();
+
 
       if (!impRes[fileName]) {
         impRes[fileName] = {
