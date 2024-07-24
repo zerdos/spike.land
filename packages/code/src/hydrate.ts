@@ -114,7 +114,7 @@ if (location.pathname === `/live/${codeSpace}`) {
 
   renderApp();
 
-  const rerender = async (t = 0) => {
+  const rerender = async () => {
     const { renderApp } = await import(`/live/${codeSpace}/index.js`);
 
     renderApp();
@@ -130,7 +130,7 @@ if (location.pathname === `/live/${codeSpace}`) {
       console.log("rerender");
       mod.counter = i;
       mod.code = code;
-      await rerender(i);
+      await rerender();
     }
   };
 
