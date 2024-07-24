@@ -1,6 +1,6 @@
 import { resetCSS } from "../getResetCss";
 import { build } from "../shared";
-import TW from "../tw.html";
+import TW from "./tw.html";
 import { wait } from "../wait";
 
 export const useDownload = (codeSpace: string) => {

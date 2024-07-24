@@ -65,6 +65,7 @@ export async function runner({ code, counter, signal }: {
 
     // Transpile the code
     const transpiled = await transpile({ code, originToUse: location.origin });
+    if (signal.aborted) return;
     await writeFile(`/live/${codeSpace}/index.js`, transpiled);
     console.log({ transpiled });
     if (!transpiled) return;

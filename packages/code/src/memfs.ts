@@ -118,7 +118,7 @@ export const mkdir = async (filePath: string): Promise<void> => {
 
 export const stat = async (
   filePath: string,
-): Promise<FileSystemEntry | null> => {
+) => {
   try {
     const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
       filePath,

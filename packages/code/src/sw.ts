@@ -5,7 +5,7 @@ import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
-import { mkdir, readFile, writeFile } from "./memfs";
+import { mkdir, readFile, stat, writeFile } from "./memfs";
 import { build, init, transpile } from "./shared";
 
 declare const self:
@@ -64,6 +64,21 @@ const fakeBackend = async (request: Request) => {
   if (request.method === "POST") {
     return fetch(request);
   }
+
+  const pathName = new URL(request.url).pathname;
+  const fileStat = await stat(pathName);
+  if (fileStat!==null) {
+    return new Response(await fileStat.handle.getFile(), {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        "Content-Type": fileStat.type + "; charset=UTF-8",
+      },
+    });
+  }
+
+ 
 
   const paths = url.pathname.split("/");
   if (paths[1] === "live") {
@@ -198,8 +213,7 @@ const fakeBackend = async (request: Request) => {
       }
     } catch (err) {
       console.error("Error fetching session data:", err);
-    }
-  }
+    } }
 
   return cacheFirst(request);
 };

@@ -13,7 +13,23 @@ export declare const writeFile: (filePath: string, content: string) => Promise<v
 export declare const readFile: (filePath: string) => Promise<string>;
 export declare const unlink: (filePath: string) => Promise<void>;
 export declare const mkdir: (filePath: string) => Promise<void>;
-export declare const stat: (filePath: string) => Promise<FileSystemEntry | null>;
+export declare const stat: (filePath: string) => Promise<{
+    name: string;
+    kind: "file";
+    size: number;
+    type: string;
+    lastModified: number;
+    relativePath: string;
+    handle: FileSystemFileHandle;
+} | {
+    name: string;
+    kind: "directory";
+    relativePath: string;
+    entries: {
+        [key: string]: FileSystemEntry;
+    };
+    handle: FileSystemDirectoryHandle;
+} | null>;
 export declare const cwd: () => Promise<string>;
 declare const FS: {
     readFile: (filePath: string) => Promise<string>;
@@ -21,7 +37,23 @@ declare const FS: {
     mkdir: (filePath: string) => Promise<void>;
     writeFile: (filePath: string, content: string) => Promise<void>;
     readdir: (filePath: string) => Promise<string[]>;
-    stat: (filePath: string) => Promise<FileSystemEntry | null>;
+    stat: (filePath: string) => Promise<{
+        name: string;
+        kind: "file";
+        size: number;
+        type: string;
+        lastModified: number;
+        relativePath: string;
+        handle: FileSystemFileHandle;
+    } | {
+        name: string;
+        kind: "directory";
+        relativePath: string;
+        entries: {
+            [key: string]: FileSystemEntry;
+        };
+        handle: FileSystemDirectoryHandle;
+    } | null>;
     cwd: () => Promise<string>;
 };
 export default FS;

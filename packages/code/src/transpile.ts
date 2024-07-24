@@ -108,10 +108,10 @@ export const transpile = async (
 
   const rRoot = createRoot(root);
   globalThis.rRoot =rRoot;
-  globalThis.cssCache = createCache({ key: "css", speedy: false });;
+ 
  
   }
-
+   globalThis.cssCache = createCache({ key: "css", speedy: false });
   const App = module.default;
  
  
