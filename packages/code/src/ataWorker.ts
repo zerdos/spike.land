@@ -214,7 +214,7 @@ function setConnections(signal: string) {
       if (data.changes) {
         ws.send(JSON.stringify({ ...data, name: c.user }));
       }
-      if (data.i > c.oldSession.i && data.html && data.code) {
+      if (data.i >= c.oldSession.i && data.html && data.code) {
         const oldSession = makeSession(c.oldSession);
 
         const newSession = makeSession(data);

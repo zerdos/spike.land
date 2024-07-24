@@ -97,19 +97,26 @@ export const transpile = async (
       }
 
   export const renderApp = () => {
+
+  if (!globalThis.rRoot){
   let root = document.getElementById("root");
   if (!root) {
     root = document.createElement("div");
     root.id = "root";
     document.body.appendChild(root);
   }
-  const App = module.default;
+
   const rRoot = createRoot(root);
-  const cache = createCache({ key: "css", speedy: false });
-  globalThis.cssCache = cache;
+  globalThis.rRoot =rRoot;
+  globalThis.cssCache = createCache({ key: "css", speedy: false });;
  
-  rRoot.render(
-    <CacheProvider value={cache}>
+  }
+
+  const App = module.default;
+ 
+ 
+  globalThis.rRoot.render(
+    <CacheProvider value={globalThis.cssCache}>
     <ParentSize>
       {(parent) => <App
         width={parent.width || window.innerWidth}

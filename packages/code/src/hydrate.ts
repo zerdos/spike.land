@@ -4,7 +4,8 @@ import { getPort, init } from "./shared";
 
 import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
-import { handleRender } from "./render";
+import type { EmotionCache } from "@emotion/cache";
+import { wait } from "./wait";
 
 // Set up service worker version
 const { swVersion } = self;
@@ -83,6 +84,8 @@ const codeSpace = paths[2];
   }
 })();
 
+const mod = {counter: 0, code: ''};
+
 // Check if on live page, and if so, run the code
 if (location.pathname === `/live/${codeSpace}`) {
   import("./ws").then(({ run }) => run());
@@ -106,20 +109,105 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Render the code
   // import { render } from "./render";
 
-  import(`/live/${codeSpace}/index.mjs`).then(({ renderApp }) => renderApp()).then(() => handleRender());
+  console.log("render");
+  const {renderApp} =  await import(`/live/${codeSpace}/index.mjs`);
 
-  const rerender = (t = 0) =>
-    import(`/live/${codeSpace}/index.js/${t}`).then(({ renderApp }) => renderApp()).then(() => handleRender());
+  renderApp();
+  
 
+
+  const rerender = async(t = 0) => {
+
+
+  const {renderApp} =  await import(`/live/${codeSpace}/index.js`);
+  
+  renderApp();
+  
+  handleRender()
+  }
+  
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-  BC.onmessage = () => {
-    const now = Date.now();
-    rerender(now);
+  BC.onmessage = async ({data}) => {
+    const {i, code} = data;
+    if (i > mod.counter) {
+      console.log('rerender')
+      mod.counter = i;
+      mod.code = code;
+      await rerender(i);
+    }
   };
 
-  window.onmessage = () => {
-    const now = Date.now();
-    rerender(now);
-  };
+  // window.onmessage = () => {
+  //   const now = Date.now();
+  //   rerender(now);
+  // };
+
+
+
+async function handleRender() {
+  console.log('handleRender');
+  const counter = mod.counter;
+  const _rootEl = document.getElementById("root");
+  if (!_rootEl) return;
+
+  const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
+
+  let attempts = 100 
+
+  while (attempts-- > 0) {
+    const html = _rootEl.innerHTML;
+    if (html) {
+      const css = mineFromCaches(cache, html);
+
+      if (mod.counter !== counter) return;
+      BC.postMessage({html, css, i : counter, code: mod.code});
+      // globalThis.firstRender = { html, css, code: "" };
+      // window?.parent?.postMessage({ type: "firstRender", html, css });
+
+      return;
+    }
+  }
+
+  await wait(10);
+
+  function mineFromCaches(_cache: EmotionCache, html: string) {
+    const key = _cache.key || "css";
+    try {
+      const styledJSXStyles = Array.from(
+        document.querySelectorAll("style[data-styled-jsx]"),
+      ).map((style) => style.textContent);
+  
+      const emotionStyles = Array.from(
+        new Set(
+          Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
+            .map((style) => style.textContent),
+        ),
+      ).join("\n");
+  
+      return styledJSXStyles.concat(emotionStyles).join("\n");
+    } catch {
+      return Array.from(document.styleSheets)
+        .map((sheet) => {
+          try {
+            return sheet.cssRules[0] as CSSPageRule;
+          } catch {
+            return null;
+          }
+        })
+        .filter((rule) =>
+          rule?.selectorText
+          && rule.selectorText.includes(key)
+          && html.includes(rule.selectorText.slice(4, 11))
+        )
+        .map((rule) => rule!.cssText)
+        .join("\n");
+    }
+  }
 }
+
+
+}
+
+
+
