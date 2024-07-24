@@ -11,16 +11,6 @@ export const EmbeddableEditor = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  useEffect(() => {
-    // Simulating code execution and error checking
-    try {
-      const result = eval(code); // Note: eval is used for demonstration. In a real app, use a safer method.
-      setOutput(String(result));
-      seterror(null);
-    } catch (err) {
-      seterror((err as { message: string }).message);
-    }
-  }, [code]);
 
   // const handleEditorChange = (value) => {
   //   setCode(value);

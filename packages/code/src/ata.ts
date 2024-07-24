@@ -1,7 +1,7 @@
 import { importMapReplace } from "./importMapReplace";
 
 class QueuedFetch {
-  private queue: (() => Promise<Response>)[] = [];
+  private queue: (() => Promise<void>)[] = [];
   private ongoingRequests = 0;
   private maxConcurrent: number;
 
@@ -253,6 +253,15 @@ declare module 'react' {
   }
 
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
+    if (impRes[npmPackage]) return;
+    if (npmPackage.includes("https://")) return;
+    if (npmPackage.includes(".")) {
+      const extension = npmPackage.split(".").pop();
+
+      const extensionList = ["d.ts", "mjs", "ts", "tsx", "jsx", "js", "json", "css"];
+      if (extensionList.includes(extension!)) return;
+    
+    }
     try {
       const response = await queuedFetch.fetch(`${originToUse}/${npmPackage}/package.json`, {
         redirect: "follow",
@@ -270,11 +279,28 @@ declare module 'react' {
         }
         const content = await typingsResponse.text();
         if (content) {
-          impRes[npmPackage] = {
+          impRes[typingsPath==='index.d.ts' ? npmPackage :`${npmPackage}/${typingsPath}`] = {
             content,
-            url: `${originToUse}/${npmPackage}/index.d.ts`,
-            ref: npmPackage
+            url: `${originToUse}/${npmPackage}/${typingsPath}`,
+            ref: `${npmPackage}/${typingsPath}`
           };
+          if (typingsPath!=='index.d.ts') {
+            const newBase = `${npmPackage}/${typingsPath}`;
+            impRes[npmPackage] = {
+              url: `${originToUse}/${npmPackage}/index.d.ts`,
+              content: `
+                import mod from "${newBase}";
+                export * from "${newBase}";
+                export default mod;
+              `,
+              ref: npmPackage
+            };
+          }
+            
+          
+          await ataRecursive(content, `${originToUse}/${npmPackage}/${typingsPath}`);
+      
+  
         }
       }
     } catch (error) {

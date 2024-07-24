@@ -48,38 +48,11 @@ export const cjs = async (code: string) => {
 
 const decorateCodeStr = `
 // Render helpers import
-import {
-  CacheProvider,
-  createCache,
-  createRoot,
-} from "/renderHelpers.mjs";
- import { ParentSize } from "@visx/responsive";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import { createRoot } from "react-dom/client";
+import { ParentSize } from "@visx/responsive";
 
-export const renderApp = async () => {
-  let root = document.getElementById("root");
-  if (!root) {
-    root = document.createElement("div");
-    root.id = "root";
-    document.body.appendChild(root);
-  }
-  const App = module.default;
-  const rRoot = createRoot(root);
-  const cache = createCache({ key: "css", speedy: false });
-  globalThis.cssCache = cache;
- 
-  rRoot.render(
-    <CacheProvider value={cache}>
-    <ParentSize>
-      {(parent) => <App
-        width={parent.width || window.innerWidth}
-        height={parent.height || window.innerHeight}
-        top={ parent.top || 0 }
-        left={ parent.left || 0 }
-      />}
-        </ParentSize>
-    </CacheProvider>
-  );
-}
 `;
 
 const offLoadToServer = async (code: string, origin: string) => {
@@ -118,10 +91,37 @@ export const transpile = async (
       ${
         code.replace(
           `export default `,
-          `const module = {renderApp}; 
+          `const module = {}; 
         module.default = `,
         )
       }
+
+  export const renderApp = () => {
+  let root = document.getElementById("root");
+  if (!root) {
+    root = document.createElement("div");
+    root.id = "root";
+    document.body.appendChild(root);
+  }
+  const App = module.default;
+  const rRoot = createRoot(root);
+  const cache = createCache({ key: "css", speedy: false });
+  globalThis.cssCache = cache;
+ 
+  rRoot.render(
+    <CacheProvider value={cache}>
+    <ParentSize>
+      {(parent) => <App
+        width={parent.width || window.innerWidth}
+        height={parent.height || window.innerHeight}
+        top={ parent.top || 0 }
+        left={ parent.left || 0 }
+      />}
+        </ParentSize>
+    </CacheProvider>
+  );
+}
+  module.renderApp = renderApp;
       export default module.default;
       export { module };
       globalThis.module = module;`,

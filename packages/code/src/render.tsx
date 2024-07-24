@@ -154,9 +154,9 @@ export async function handleRender() {
   while (attempts-- > 0) {
     const html = _rootEl.innerHTML;
     if (html) {
-      // const css = mineFromCaches(cache, html);
+      //const css = mineFromCaches(cache, html);
 
-      // BC.postMessage({...cSess.session, html, css });
+     // BC.postMessage({...cSess.session, html, css });
       // globalThis.firstRender = { html, css, code: "" };
       // window?.parent?.postMessage({ type: "firstRender", html, css });
 

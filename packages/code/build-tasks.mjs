@@ -138,7 +138,6 @@ export async function buildMainBundle(wasmFile) {
       "src/reactDomClient.ts",
       "src/jsx.mjs",
       "src/motion.ts",
-      "src/renderHelpers.tsx",
       "src/hydrate.ts",
       "src/emotion.ts",
       "src/startMonaco.ts",
