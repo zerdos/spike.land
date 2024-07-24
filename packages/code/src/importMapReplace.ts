@@ -51,10 +51,10 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${origin}/${packageName}.mjs"` + p3;
     }
 
-    if (packageName.includes(".") ) {
+    if (packageName.includes(".")) {
       const extension = packageName.split(".").pop()!;
       if (extension in ["js", "mjs", "ts", "tsx"]) {
-      return p1 + `"${origin}/${packageName}"` + p3;
+        return p1 + `"${origin}/${packageName}"` + p3;
       }
     }
 

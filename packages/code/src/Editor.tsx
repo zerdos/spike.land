@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import type { FC, ForwardRefRenderFunction } from "react";
-import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { isMobile } from "./isMobile.mjs";
 import { runner } from "./runner";
@@ -32,10 +32,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     setValue: (code: string) => {
       editorState.setValue(code);
       handleContentChange(code);
-    }
+    },
   }));
 
-  
   const [editorState, setEditorState] = useState({
     i: globalThis.cSess.session.i,
     code: globalThis.cSess.session.code,
@@ -47,7 +46,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     if (editorState.started) return;
 
     const initializeEditor = async () => {
-
       mod.i = Number(globalThis.cSess.session.i);
       mod.code = globalThis.cSess.session.code;
 

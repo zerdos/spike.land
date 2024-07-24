@@ -8,7 +8,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { useEffect, useRef, useState } from "react";
 
-
 interface Artifact {
   identifier: string;
   type: string;
@@ -16,7 +15,6 @@ interface Artifact {
   title: string;
   content: string;
 }
-
 
 interface Message {
   id: string;
@@ -47,8 +45,8 @@ const ColorModeToggle = ({
   </button>
 );
 
-
-const initialMessage = `You are an AI assistant helping a user with an online code editor. The user is working on a page that already contains some code. Your task is to assist with modifying or creating React components based on the existing code and any additional requirements.
+const initialMessage =
+  `You are an AI assistant helping a user with an online code editor. The user is working on a page that already contains some code. Your task is to assist with modifying or creating React components based on the existing code and any additional requirements.
 
 You will be provided with two pieces of information:
 1. The filename of the current file
@@ -108,8 +106,7 @@ The user's first message follows:
 
 `;
 
-
-const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  => {
+const ChatInterface = ({ onCodeUpdate }: { onCodeUpdate: (code: string) => void }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -205,36 +202,38 @@ const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
-  
+
     const isFirstMessage = messages.length === 0;
     if (isFirstMessage) {
-      content = initialMessage.replace(/{{FILENAME}}/g, codeSpace+".tsx").replace(/{{FILE_CONTENT}}/g, cSess.session.code) + content;
+      content =
+        initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(/{{FILE_CONTENT}}/g, cSess.session.code)
+        + content;
     }
-  
+
     const newMessage: Message = {
       id: Date.now().toString(),
       role: "user",
       content: content.trim(),
     };
-  
+
     setMessages((prev) => [...prev, newMessage]);
     saveMessages([...messages, newMessage]);
     setInput("");
     setIsStreaming(true);
-  
+
     let fullResponse = "";
     let isResponseComplete = false;
     const maxRetries = 3;
     let retryCount = 0;
-  
+
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
       role: "assistant",
       content: "",
     };
-  
+
     setMessages((prev) => [...prev, assistantMessage]);
-  
+
     while (!isResponseComplete && retryCount < maxRetries) {
       try {
         const response = await fetch("/anthropic", {
@@ -249,25 +248,25 @@ const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  
             })),
           }),
         });
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-  
+
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
-  
+
         if (!reader) {
           throw new Error("Response body is not readable!");
         }
-  
+
         while (true) {
           const { done, value } = await reader.read();
           if (done) {
             isResponseComplete = true;
             break;
           }
-  
+
           const chunk = decoder.decode(value);
           fullResponse += chunk;
           setMessages((prevMessages) => {
@@ -294,44 +293,43 @@ const ChatInterface = ({onCodeUpdate}: {onCodeUpdate: (code: string) => void})  
         }
       }
     }
-  
 
-  const extractArtifacts = (content: string): Artifact[] => {
-    const artifactRegex = /<antArtifact\s+identifier="([^"]+)"\s+type="([^"]+)"\s+language="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/antArtifact>/g;
-    const extractedArtifacts: Artifact[] = [];
-    let match;
+    const extractArtifacts = (content: string): Artifact[] => {
+      const artifactRegex =
+        /<antArtifact\s+identifier="([^"]+)"\s+type="([^"]+)"\s+language="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/antArtifact>/g;
+      const extractedArtifacts: Artifact[] = [];
+      let match;
 
-    while ((match = artifactRegex.exec(content)) !== null) {
-      extractedArtifacts.push({
-        identifier: match[1],
-        type: match[2],
-        language: match[3],
-        title: match[4],
-        content: match[5].trim()
-      });
+      while ((match = artifactRegex.exec(content)) !== null) {
+        extractedArtifacts.push({
+          identifier: match[1],
+          type: match[2],
+          language: match[3],
+          title: match[4],
+          content: match[5].trim(),
+        });
+      }
+
+      return extractedArtifacts;
+    };
+    const artifacts = extractArtifacts(fullResponse);
+
+    if (artifacts.length > 0) {
+      onCodeUpdate(artifacts[0].content);
     }
-
-    return extractedArtifacts;
-  };
-const artifacts = extractArtifacts(fullResponse);
-
-if (artifacts.length > 0) {
-  onCodeUpdate(artifacts[0].content);
-}
 
     // Check if the response contains code modifications
     const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
     const matches = fullResponse.match(codeModificationRegex);
-  
+
     if (matches) {
-      const modifiedCode = matches[matches.length - 1].replace(/```(?:jsx?|tsx?)\n|```/g, '');
+      const modifiedCode = matches[matches.length - 1].replace(/```(?:jsx?|tsx?)\n|```/g, "");
       onCodeUpdate(modifiedCode);
     }
-  
+
     saveMessages([...messages, newMessage, { ...assistantMessage, content: fullResponse }]);
     setIsStreaming(false);
   };
-
 
   const handleResetChat = () => {
     setMessages([]);
@@ -370,7 +368,6 @@ if (artifacts.length > 0) {
     });
   };
 
-  
   return (
     <div className="flex flex-col h-full bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 dark:from-gray-900 dark:via-purple-900 dark:to-violet-900">
       {/* Header */}

@@ -30,7 +30,6 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
-
   it("should replace top-level imports with dot in the path", async () => {
     const code = "import React from \"react.gl\";";
     const result = importMapReplace(code, origin);
@@ -90,7 +89,6 @@ describe("importMapReplace", () => {
     const code = `const React = import("react");`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
-  
   });
 
   it("should ignore relative URLs", async () => {

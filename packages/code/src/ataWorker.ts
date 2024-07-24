@@ -9,8 +9,7 @@ import { Mutex } from "async-mutex";
 
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 
-
-import {wait} from "./wait"
+import { wait } from "./wait";
 const policy = {
   timeout: 4000,
   attempts: Infinity,
@@ -213,7 +212,7 @@ function setConnections(signal: string) {
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
 
-    const mod = {controller: new AbortController()};
+    const mod = { controller: new AbortController() };
     BC.onmessage = async ({ data }) => {
       if (data.changes) {
         ws.send(JSON.stringify({ ...data, name: c.user }));

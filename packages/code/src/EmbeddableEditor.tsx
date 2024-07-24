@@ -11,7 +11,6 @@ export const EmbeddableEditor = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-
   // const handleEditorChange = (value) => {
   //   setCode(value);
   // };

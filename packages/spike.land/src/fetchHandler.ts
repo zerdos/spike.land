@@ -154,7 +154,6 @@ async function handleDefaultCase(
   newUrl: URL,
 ) {
   if (!isUrlFile(path.join("/"))) {
-
     const esmWorker = (await import("./esm.worker")).default;
     const resp = await esmWorker.fetch(request, env, ctx);
     if (!resp.ok) return resp;

@@ -1,5 +1,5 @@
-import { css , keyframes} from "@emotion/react";
-import { lazy, Suspense, useEffect, useState, useRef } from "react";
+import { css, keyframes } from "@emotion/react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC, ReactNode } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { reveal } from "./reveal";
@@ -110,7 +110,13 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   return (
     <>
       {!onlyEdit && (
-        <DraggableWindow onCodeUpdate={handleCodeUpdate} codeSpace={codeSpace} handleAIModify={handleAIModify} showChat={showChat} setShowChat={setShowChat}>
+        <DraggableWindow
+          onCodeUpdate={handleCodeUpdate}
+          codeSpace={codeSpace}
+          handleAIModify={handleAIModify}
+          showChat={showChat}
+          setShowChat={setShowChat}
+        >
           <iframe
             css={css`height: 100%; width: 100%; border: 0;`}
             src={`/live/${codeSpace}/`}
@@ -121,9 +127,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
       {!hideRest && (
         <RainbowContainer>
           <Suspense fallback={<></>}>
-            <Editor 
-              codeSpace={codeSpace} 
-              ref={editorRef} 
+            <Editor
+              codeSpace={codeSpace}
+              ref={editorRef}
               onCodeUpdate={handleCodeUpdate}
             />
           </Suspense>

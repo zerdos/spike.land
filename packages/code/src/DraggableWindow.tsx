@@ -18,11 +18,13 @@ type DraggableWindowProps = {
 
 const breakPoints = [750, 1024, 1920];
 const sizes = [10, 25, 50, 75, 100];
-export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace, handleAIModify, setShowChat, showChat, onCodeUpdate}) => {
+export const DraggableWindow: FC<DraggableWindowProps> = (
+  { children, codeSpace, handleAIModify, setShowChat, showChat, onCodeUpdate },
+) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
   const { width: innerWidth, height: innerHeight } = useWindowSize();
- 
+
   const [width, setWidth] = useState(innerWidth);
   const { bgColor, setBgColor, rgba } = useBgColor();
   const maxScaleRange = 100;
@@ -42,7 +44,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = ({ children, codeSpace,
     const timeoutId = setTimeout(reveal, 2000);
     return () => clearTimeout(timeoutId);
   }, []);
-
 
   const duration = Number(sessionStorage?.getItem("duration")) || 1;
   const type = sessionStorage?.getItem("type") || "spring";

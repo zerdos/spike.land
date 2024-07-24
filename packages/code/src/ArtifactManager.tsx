@@ -1,8 +1,8 @@
 // ArtifactManager.tsx
 
-import React, { useState, useEffect } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import React, { useEffect, useState } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface Artifact {
   identifier: string;
@@ -25,7 +25,8 @@ const ArtifactManager: React.FC<ArtifactManagerProps> = ({ rawContent }) => {
   }, [rawContent]);
 
   const extractArtifacts = (content: string): Artifact[] => {
-    const artifactRegex = /<antArtifact\s+identifier="([^"]+)"\s+type="([^"]+)"\s+language="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/antArtifact>/g;
+    const artifactRegex =
+      /<antArtifact\s+identifier="([^"]+)"\s+type="([^"]+)"\s+language="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/antArtifact>/g;
     const extractedArtifacts: Artifact[] = [];
     let match;
 
@@ -35,7 +36,7 @@ const ArtifactManager: React.FC<ArtifactManagerProps> = ({ rawContent }) => {
         type: match[2],
         language: match[3],
         title: match[4],
-        content: match[5].trim()
+        content: match[5].trim(),
       });
     }
 
@@ -47,9 +48,15 @@ const ArtifactManager: React.FC<ArtifactManagerProps> = ({ rawContent }) => {
       {artifacts.map((artifact, index) => (
         <div key={index} className="mb-6 border rounded p-4">
           <h2 className="text-xl font-bold mb-2">{artifact.title}</h2>
-          <p><strong>Identifier:</strong> {artifact.identifier}</p>
-          <p><strong>Type:</strong> {artifact.type}</p>
-          <p><strong>Language:</strong> {artifact.language}</p>
+          <p>
+            <strong>Identifier:</strong> {artifact.identifier}
+          </p>
+          <p>
+            <strong>Type:</strong> {artifact.type}
+          </p>
+          <p>
+            <strong>Language:</strong> {artifact.language}
+          </p>
           <SyntaxHighlighter language={artifact.language} style={tomorrow}>
             {artifact.content}
           </SyntaxHighlighter>

@@ -2,10 +2,10 @@ import { css } from "@emotion/react";
 import { Fab, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import { FC } from "react";
+import { AiOutlineRobot } from "react-icons/ai";
 import { FaDownload } from "react-icons/fa";
 import { MdFullscreen as FullscreenIcon } from "react-icons/md";
 import { RiChatSmile3Line } from "react-icons/ri";
-import { AiOutlineRobot } from "react-icons/ai";
 import { Share } from "../icons";
 import { QRButton } from "../Qr.lazy";
 

@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
-import { ContentWrapper } from "./ContentWrapper";
-import { ScaleRangeButtons } from "./ScaleRangeButtons";
 import { ActionButtons } from "./ActionButtons";
 import { BreakpointButtons } from "./BreakpointButtons";
+import { ContentWrapper } from "./ContentWrapper";
 import { ScaledContent } from "./ScaledContent";
+import { ScaleRangeButtons } from "./ScaleRangeButtons";
 
 export const DraggableWindowContent = (
   {

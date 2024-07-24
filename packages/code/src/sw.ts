@@ -61,7 +61,7 @@ const cacheFirst = async (request: Request) => {
 const fakeBackend = async (request: Request) => {
   const url = new URL(request.url);
 
-  if ( request.method === "POST") {
+  if (request.method === "POST") {
     return fetch(request);
   }
 

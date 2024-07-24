@@ -37,15 +37,14 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
       <Resizable
         size={size}
         onResizeStart={() => setIsResizing(true)}
-    
         onResizeStop={(e, direction, ref, d) => {
           setSize({
             width: size.width + d.width,
             height: size.height + d.height,
           });
           setPosition(prevPosition => ({
-            x: prevPosition.x - (direction.includes('left') ? d.width : 0),
-            y: prevPosition.y - (direction.includes('top') ? d.height : 0)
+            x: prevPosition.x - (direction.includes("left") ? d.width : 0),
+            y: prevPosition.y - (direction.includes("top") ? d.height : 0),
           }));
           setIsResizing(false);
         }}
@@ -59,7 +58,7 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
           topRight: false,
           bottomRight: true,
           bottomLeft: false,
-          topLeft: false
+          topLeft: false,
         }}
       >
         <div className="w-full h-full bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">

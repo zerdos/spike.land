@@ -41,8 +41,6 @@ class QueuedFetch {
 
 const queuedFetch = new QueuedFetch(3);
 
-
-
 export async function ata({
   code,
   originToUse,
@@ -91,9 +89,9 @@ export async function ata({
             .replace(vNumbers, subst)
             .split("/@types/")
             .join("/")
-            .replaceAll(versionNumbers, "")
-            // .split("/dist/")
-            // .join("/"),
+            .replaceAll(versionNumbers, ""),
+          // .split("/dist/")
+          // .join("/"),
         };
       });
     });
@@ -206,7 +204,7 @@ declare module 'react' {
                 "X-typescript-types",
               );
 
-              newBase =  typescriptTypes|| await extractUrlFromResponse(response, r);
+              newBase = typescriptTypes || await extractUrlFromResponse(response, r);
               if (newBase) newBase = new URL(newBase).toString();
             } catch (error) {
               let response;
@@ -262,7 +260,6 @@ declare module 'react' {
 
       const extensionList = ["d.ts", "mjs", "ts", "tsx", "jsx", "js", "json", "css"];
       if (extensionList.includes(extension!)) return;
-    
     }
     try {
       const response = await queuedFetch.fetch(`${originToUse}/${npmPackage}/package.json`, {
@@ -274,25 +271,23 @@ declare module 'react' {
       const packageJson = await response.json() as { typings?: string; types?: string };
       if (packageJson.typings || packageJson.types) {
         let typingsPath = packageJson.typings || packageJson.types;
-        if (typingsPath ==='index.d.mts') typingsPath=`index.d.ts`;
+        if (typingsPath === "index.d.mts") typingsPath = `index.d.ts`;
         const url = new URL(`https://unpkg.com/${npmPackage}/${typingsPath}`);
         const typingsResponse = await queuedFetch.fetch(url.toString(), { redirect: "follow" });
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
-        const content = (await typingsResponse.text()).split('https://unpkg.com/').join();
-        if (content.startsWith('Cannot find')) return;
-       
-    
-        const typeUrl = typingsResponse.url.replace('https://unpkg.com', originToUse);
-        if (content) {
+        const content = (await typingsResponse.text()).split("https://unpkg.com/").join();
+        if (content.startsWith("Cannot find")) return;
 
-          impRes[typingsPath==='index.d.ts' ? npmPackage :`${npmPackage}/${typingsPath}`] = {
+        const typeUrl = typingsResponse.url.replace("https://unpkg.com", originToUse);
+        if (content) {
+          impRes[typingsPath === "index.d.ts" ? npmPackage : `${npmPackage}/${typingsPath}`] = {
             content,
             url: typeUrl,
-            ref: `${npmPackage}/${typingsPath}`
+            ref: `${npmPackage}/${typingsPath}`,
           };
-          if (typingsPath!=='index.d.ts') {
+          if (typingsPath !== "index.d.ts") {
             const newBase = new URL(typeUrl).pathname;
             impRes[npmPackage] = {
               url: `${originToUse}/${npmPackage}/index.d.ts`,
@@ -301,14 +296,11 @@ declare module 'react' {
                 export * from "${newBase}";
                 export default mod;
               `,
-              ref: npmPackage
+              ref: npmPackage,
             };
           }
-            
-          
+
           await ataRecursive(content, new URL(typeUrl + "/../").toString());
-      
-  
         }
       }
     } catch (error) {
@@ -326,14 +318,11 @@ declare module 'react' {
         });
 
       const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs")  || ref.includes(".js") ||  ref.includes(".mts") 
+        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") || ref.includes(".mts")
           ? ref
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,
-      ).toString().replace('.js', '.d.ts').replace('.mjs', '.d.ts').replace('.mts', '.d.ts');
-
-      
-
+      ).toString().replace(".js", ".d.ts").replace(".mjs", ".d.ts").replace(".mts", ".d.ts");
 
       if (!impRes[fileName]) {
         impRes[fileName] = {
