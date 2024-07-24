@@ -9,6 +9,8 @@ import { Mutex } from "async-mutex";
 
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 
+
+import {wait} from "./wait"
 const policy = {
   timeout: 4000,
   attempts: Infinity,
@@ -210,11 +212,19 @@ function setConnections(signal: string) {
     c.ws = ws;
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
+
+    const mod = {controller: new AbortController()};
     BC.onmessage = async ({ data }) => {
       if (data.changes) {
         ws.send(JSON.stringify({ ...data, name: c.user }));
       }
       if (data.i >= c.oldSession.i && data.html && data.code) {
+        mod.controller.abort();
+        mod.controller = new AbortController();
+        const signal = mod.controller.signal;
+        await wait(300);
+        if (signal.aborted) return;
+
         const oldSession = makeSession(c.oldSession);
 
         const newSession = makeSession(data);
