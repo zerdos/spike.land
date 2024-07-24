@@ -3872,7 +3872,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.3.3":
+"@types/react@npm:*, @types/react@npm:18.3.3, @types/react@npm:^18.3.3":
   version: 18.3.3
   resolution: "@types/react@npm:18.3.3"
   dependencies:
@@ -10343,7 +10343,7 @@ __metadata:
     "@playwright/test": "npm:1.45.3"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:8.56.11"
-    "@types/react": "npm:18.3.3"
+    "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@typescript-eslint/eslint-plugin": "npm:7.17.0"
     "@typescript-eslint/parser": "npm:7.17.0"

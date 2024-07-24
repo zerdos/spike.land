@@ -75,7 +75,6 @@
       "Webworker.Iterable"
     ],
     "types": [
-      "@cloudflare/workers-types",
       "@types/wicg-file-system-access",
       "@types/jest",
       "node"
