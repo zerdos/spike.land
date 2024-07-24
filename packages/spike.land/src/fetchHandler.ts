@@ -154,6 +154,7 @@ async function handleDefaultCase(
   newUrl: URL,
 ) {
   if (!isUrlFile(path.join("/"))) {
+
     const esmWorker = (await import("./esm.worker")).default;
     const resp = await esmWorker.fetch(request, env, ctx);
     if (!resp.ok) return resp;
@@ -169,6 +170,7 @@ async function handleDefaultCase(
     if (
       request.url.indexOf(".wasm") === -1
       && !request.url.endsWith(".map")
+      && !request.url.endsWith(".json")
       && !request.url.endsWith(".ts")
       && request.url.indexOf(".worker") === -1
       && (contentType && contentType.indexOf("charset"))

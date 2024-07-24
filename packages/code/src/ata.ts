@@ -1,5 +1,48 @@
 import { importMapReplace } from "./importMapReplace";
 
+class QueuedFetch {
+  private queue: (() => Promise<Response>)[] = [];
+  private ongoingRequests = 0;
+  private maxConcurrent: number;
+
+  constructor(maxConcurrent = 5) {
+    this.maxConcurrent = maxConcurrent;
+  }
+
+  async fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
+    return new Promise((resolve, reject) => {
+      const request = async () => {
+        try {
+          const response = await fetch(input, init);
+          resolve(response);
+        } catch (error) {
+          reject(error);
+        } finally {
+          this.ongoingRequests--;
+          this.processQueue();
+        }
+      };
+
+      this.queue.push(request);
+      this.processQueue();
+    });
+  }
+
+  private processQueue() {
+    while (this.ongoingRequests < this.maxConcurrent && this.queue.length > 0) {
+      const request = this.queue.shift();
+      if (request) {
+        this.ongoingRequests++;
+        request();
+      }
+    }
+  }
+}
+
+const queuedFetch = new QueuedFetch(3);
+
+
+
 export async function ata({
   code,
   originToUse,
@@ -102,7 +145,7 @@ declare module 'react' {
       Object.keys(impRes)
         .filter((x) => impRes[x].content.length && impRes[x].url)
         .map(async (x) => ({
-          filePath: impRes[x].url!,
+          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse),
           content: (await prettierJs(impRes[x].content))
             .split(`import mod from "/`)
             .join(`import mod from "`)
@@ -141,6 +184,9 @@ declare module 'react' {
     await Promise.all(
       res.map(async (r: string) => {
         if (!impRes[r]) {
+          await tryToExtractUrlFromPackageJson(r);
+          if (impRes[r]) return;
+
           let newBase: string | null | undefined = null;
 
           if (r.startsWith(".")) {
@@ -149,28 +195,29 @@ declare module 'react' {
             newBase = r;
           } else {
             try {
-              const response = await fetch(`${originToUse}/*${r}`, {
+              const response = await queuedFetch.fetch(`${originToUse}/*${r}`, {
                 redirect: "follow",
               });
-              if (!response.ok) throw new Error("Failed to fetch");
+
+              if (!response.ok) throw new Error("Failed to queuedFetch");
+
               const typescriptTypes = response.headers.get(
                 "X-typescript-types",
               );
 
-              newBase = typescriptTypes
-                || await extractUrlFromResponse(response, r);
+              newBase = typescriptTypes|| await extractUrlFromResponse(response, r);
             } catch (error) {
               let response;
               try {
-                response = await fetch(`${originToUse}/${r}`, {
+                response = await queuedFetch.fetch(`${originToUse}/${r}`, {
                   redirect: "follow",
                 });
               } catch {
-                console.error("error fetching", { error, r, originToUse });
+                console.error("error queuedFetching", { error, r, originToUse });
               }
 
               if (!response || !response.ok) {
-                response = await fetch(`${originToUse}/${r}.d.ts`, {
+                response = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`, {
                   redirect: "follow",
                 });
               }
@@ -180,14 +227,14 @@ declare module 'react' {
               );
 
               newBase = typescriptTypes || response.url;
-              const newBaseIsDownloadable = await fetch(newBase).then((res) => res.ok);
+              const newBaseIsDownloadable = await queuedFetch.fetch(newBase).then((res) => res.ok);
               if (!newBaseIsDownloadable) {
                 newBase = null;
               }
             }
           }
 
-          if (newBase === null) {
+          if (newBase === null || newBase === undefined) {
             await tryToExtractUrlFromPackageJson(r);
           } else {
             await handleNewBase(newBase, r, baseUrl);
@@ -207,25 +254,38 @@ declare module 'react' {
 
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
     try {
-      const packageJson = await (await fetch(`${originToUse}/${npmPackage}/package.json`)).json<{ typings?: string }>();
-      if (packageJson.typings) {
-        const url = new URL(packageJson.typings, originToUse + npmPackage);
-        const content = await fetch(url).then((res) => res.text());
+      const response = await queuedFetch.fetch(`${originToUse}/${npmPackage}/package.json`, {
+        redirect: "follow",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to queuedFetch package.json for ${npmPackage}`);
+      }
+      const packageJson = await response.json() as { typings?: string; types?: string };
+      if (packageJson.typings || packageJson.types) {
+        const typingsPath = packageJson.typings || packageJson.types;
+        const url = new URL(`${npmPackage}/${typingsPath}`, `https://unpkg.com`);
+        const typingsResponse = await queuedFetch.fetch(url, { redirect: "follow" });
+        if (!typingsResponse.ok) {
+          throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
+        }
+        const content = await typingsResponse.text();
         if (content) {
-          impRes[npmPackage].content = content;
-          impRes[npmPackage].url = url.toString();
+          impRes[npmPackage] = {
+            content,
+            url: `${originToUse}/${npmPackage}/index.d.ts`,
+            ref: npmPackage
+          };
         }
       }
     } catch (error) {
-      console.error("error fetching package.json", { error, npmPackage, originToUse, impRes });
+      console.error("Error queuedFetching package.json or typings", { error, npmPackage, originToUse });
     }
   }
-
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
     if (!impRes[newBase]) {
       impRes[newBase] = { ref, url: newBase, content: "" };
 
-      impRes[newBase].content = await fetch(newBase, { redirect: "follow" })
+      impRes[newBase].content = await queuedFetch.fetch(newBase, { redirect: "follow" })
         .then((dtsRes) => {
           impRes[newBase].url = dtsRes.url;
           return dtsRes.text();
