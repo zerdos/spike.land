@@ -3339,7 +3339,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.3.0"
-    framer-motion: "npm:11.3.12"
+    framer-motion: "npm:11.3.17"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
     jest: "npm:29.7.0"
@@ -3358,7 +3358,7 @@ __metadata:
     qrious: "npm:4.0.2"
     re-resizable: "npm:^6.9.17"
     react: "npm:18.3.1"
-    react-day-picker: "npm:9.0.3"
+    react-day-picker: "npm:9.0.4"
     react-dom: "npm:18.3.1"
     react-hook-form: "npm:^7.52.1"
     react-icons: "npm:5.2.1"
@@ -7440,9 +7440,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.12":
-  version: 11.3.12
-  resolution: "framer-motion@npm:11.3.12"
+"framer-motion@npm:11.3.17":
+  version: 11.3.17
+  resolution: "framer-motion@npm:11.3.17"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -7456,7 +7456,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/baf9b3532acbbf3e1dcdd381bb7d0b6510687bf0100cf9f19d0c284c134746b958f5da4661b785f16a0c5bd62555b454f8ecd76d0e520654f35f3971a05a2df9
+  checksum: 10/3a967b71b3417926744308e41f6ad8cf16f61ca36640c006bb3e5068261c89cab7c19d679357bacf2ab04f9b5aa930b243e0527554324c32606d7433d5d42b2a
   languageName: node
   linkType: hard
 
@@ -10352,7 +10352,7 @@ __metadata:
     eslint: "npm:8.57.0"
     eslint-plugin-react: "npm:7.35.0"
     localforage: "npm:1.10.0"
-    playwright: "npm:1.45.2"
+    playwright: "npm:1.45.3"
     react: "npm:18.3.1"
     typescript: "npm:5.5.4"
   languageName: unknown
@@ -11270,36 +11270,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.45.2":
-  version: 1.45.2
-  resolution: "playwright-core@npm:1.45.2"
-  bin:
-    playwright-core: cli.js
-  checksum: 10/ce35af648efca3f0c34630e76e2137cda183491ddfe04aadcff2217f44fcdb15e73e0334754b01ff60de799d745b2e5478c61e2693d7b9bdd9ccf73fe07df426
-  languageName: node
-  linkType: hard
-
 "playwright-core@npm:1.45.3":
   version: 1.45.3
   resolution: "playwright-core@npm:1.45.3"
   bin:
     playwright-core: cli.js
   checksum: 10/6540ae149a8deaceb3dc6f60ea7a7052894aebb651b8c187c97c5532b50ee6c812e7f9644a15ecbfb146d5e7880dbb23010df2bac012493bd75b5624710df6bd
-  languageName: node
-  linkType: hard
-
-"playwright@npm:1.45.2":
-  version: 1.45.2
-  resolution: "playwright@npm:1.45.2"
-  dependencies:
-    fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.45.2"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    playwright: cli.js
-  checksum: 10/3e21c453cfc33b41c545eac2c6386ff2a39265088409200bf045cba38f1661f1aba10e80902354cdce86e964084b6c9dbfb5d3af94326aa2a7cb8800ae1a1e3f
   languageName: node
   linkType: hard
 
@@ -11582,14 +11558,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:9.0.3":
-  version: 9.0.3
-  resolution: "react-day-picker@npm:9.0.3"
+"react-day-picker@npm:9.0.4":
+  version: 9.0.4
+  resolution: "react-day-picker@npm:9.0.4"
   dependencies:
     date-fns: "npm:^3.6.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10/89260d80807ad720ba58d729914f4a5fdfd6389df8451f08c9d6f5883df0a615aec86549d8f5f5cb629e5a0e2fc0420446050ebef2900308ed983308bb07b83b
+  checksum: 10/0bc2f8ef94077443fe14e5be48352535580624e1a4321495c0fb969ced0b3fea9c83cd21d53f47f07f482cf4cab415e8e8ef9dd1c55eee1ce9fa93a7ab22affe
   languageName: node
   linkType: hard
 
