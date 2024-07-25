@@ -6,6 +6,20 @@ export async function handleApiRequest(
   env: Env,
 ) {
   switch (path[0]) {
+    case "server-fetch": {
+      if (request.method === "POST") {
+        const { url, options } = await request.json<{url: 'string';options: RequestInit}>();
+
+        try {
+          return await fetch(url, options);
+        
+        } catch (error) {
+          return new Response( 'Server-side fetch failed', {status: 500 })
+        }
+      }
+    
+    }
+    break;
     case "generate":
     case "room": {
       if (!path[1]) {

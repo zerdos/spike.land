@@ -93,6 +93,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
   // };
 
   BC.onmessage = ({ data }) => {
+    console.table(data);
     if (!data.i || !data.code || data.code === mod.code) return;
     if (mod.i >= data.i) return;
 

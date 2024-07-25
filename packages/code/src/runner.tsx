@@ -1,11 +1,12 @@
 import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
-
+import {enhancedFetch } from './enhancedFetch'
 // Extend the global object with build and transpile functions
 
 const codeSpace = getCodeSpace();
 
 Object.assign(globalThis, {
+  enhancedFetch ,
   build: async () => {
     const file = await build({ codeSpace, origin: location.origin, format: "esm" });
 
@@ -37,7 +38,7 @@ const runnerSession = {
 };
 
 /**
- * The runner function compiles and builds the code and handles the session state.
+ * The runner f qunction compiles and builds the code and handles the session state.
  * @param {object} params - The parameters for the runner function.
  * @param {string} params.code - The code to transpile and build.
  * @param {number} params.counter - The current counter value.
@@ -85,14 +86,14 @@ export async function runner({ code, counter, signal }: {
     if (signal.aborted) return;
 
     // Send message to the iframe with the transpiled code
-    BC.postMessage({ ...cSess.session, code, transpiled, i: counter });
+    BC.postMessage({ code, transpiled, i: counter, sender: 'RUnner' });
 
-    document.querySelector("iframe")?.contentWindow?.postMessage({
-      code,
-      i: counter,
-      type: "prerender",
-      transpiled: transpiled,
-    });
+    // document.querySelector("iframe")?.contentWindow?.postMessage({
+    //   code,
+    //   i: counter,
+    //   type: "prerender",
+    //   t  ranspiled: transpiled,
+    // });
   } catch (error) {
     console.error("Error during runner execution:", error);
   }
