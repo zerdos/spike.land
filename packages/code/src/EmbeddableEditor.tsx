@@ -2,12 +2,10 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Download, ExternalLink, Maximize, Moon, QrCode, Sun } from "lucide-react";
 import { Resizable } from "re-resizable";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 export const EmbeddableEditor = () => {
-  const [code, setCode] = useState("// Your code here");
-  const [output, setOutput] = useState("");
-  const [error, seterror] = useState<string | null>(null);
+
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -36,7 +34,7 @@ export const EmbeddableEditor = () => {
         <body>
           <div id="root"></div>
           <script>
-            ${code}
+            code
           </script>
         </body>
       </html>
@@ -50,7 +48,7 @@ export const EmbeddableEditor = () => {
         <body>
           <div id="root"></div>
           <script>
-            ${code}
+            code
           </script>
         </body>
       </html>
@@ -101,17 +99,17 @@ export const EmbeddableEditor = () => {
         >
           <div className="bg-white dark:bg-gray-900 p-4 h-full overflow-auto">
             <h2 className="text-xl font-bold mb-2 dark:text-white">Output</h2>
-            <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded">{output}</pre>
+            <pre className="bg-gray-100 dark:bg-gray-800 p-2 rounded"></pre>
           </div>
         </Resizable>
         <div className="flex-grow bg-gray-50 dark:bg-gray-900 p-4 overflow-auto">
-          {error && (
+      
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription></AlertDescription>
             </Alert>
-          )}
+        
         </div>
       </div>
     </div>

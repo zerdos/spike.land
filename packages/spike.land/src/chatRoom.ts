@@ -4,7 +4,6 @@ import {
   applyCodePatch,
   CodePatch,
   Delta,
-  HTML,
   ICodeSession,
   makeHash,
   makeSession,
@@ -192,7 +191,7 @@ export class Code implements DurableObject {
 
         const codeSpace = url.searchParams.get("room");
 
-        const { code, css, html, i } = this.session;
+        const { code, css, html } = this.session;
 
         if (this.origin.length === 0) {
           this.origin = url.origin;
@@ -642,7 +641,7 @@ export class Code implements DurableObject {
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">${html}</div>
   <script>
               window.swVersion = "${ASSET_HASH}"
   </script>
@@ -653,7 +652,10 @@ export class Code implements DurableObject {
   <script src="/hydrate.mjs?v=${ASSET_HASH}" type="module"></script>
   <script type="module">
     ${this.transpiled}
+
+    if (location.pathname.split("/").length>3) {
     globalThis.module.renderApp();
+  } 
   </script>
 </body>
 </html>`

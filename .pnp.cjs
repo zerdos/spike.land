@@ -4707,6 +4707,7 @@ const RAW_RUNTIME_STATE =
           ["@types/wicg-file-system-access", "npm:2023.10.5"],\
           ["@typescript-eslint/eslint-plugin", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.17.0"],\
           ["@typescript-eslint/typescript-estree", "virtual:264055209c701e414d506113c54891c59d8123dab79d2c1b207eccf6ecc0b44ae9a25f890077b52adbf545088fa252f0c48cd5b2bf7e9767f8f4f7555e463054#npm:7.17.0"],\
+          ["@typescript/ata", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.9.6"],\
           ["ace-builds", "npm:1.35.4"],\
           ["ai-digest", "npm:1.0.4"],\
           ["assert", "npm:2.1.0"],\
@@ -5848,6 +5849,28 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/visitor-keys", "npm:7.17.0"],\
           ["@typescript-eslint/types", "npm:7.17.0"],\
           ["eslint-visitor-keys", "npm:3.4.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@typescript/ata", [\
+      ["npm:0.9.6", {\
+        "packageLocation": "./.yarn/global/cache/@typescript-ata-npm-0.9.6-31cb750051-10.zip/node_modules/@typescript/ata/",\
+        "packageDependencies": [\
+          ["@typescript/ata", "npm:0.9.6"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.9.6", {\
+        "packageLocation": "./.yarn/__virtual__/@typescript-ata-virtual-3ee79274cd/0/global/cache/@typescript-ata-npm-0.9.6-31cb750051-10.zip/node_modules/@typescript/ata/",\
+        "packageDependencies": [\
+          ["@typescript/ata", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.9.6"],\
+          ["@types/typescript", null],\
+          ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"]\
+        ],\
+        "packagePeers": [\
+          "@types/typescript",\
+          "typescript"\
         ],\
         "linkType": "HARD"\
       }]\

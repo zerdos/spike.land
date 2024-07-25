@@ -3315,6 +3315,7 @@ __metadata:
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@typescript-eslint/eslint-plugin": "npm:^7.17.0"
     "@typescript-eslint/typescript-estree": "npm:7.17.0"
+    "@typescript/ata": "npm:^0.9.6"
     ace-builds: "npm:1.35.4"
     ai-digest: "npm:^1.0.4"
     assert: "npm:2.1.0"
@@ -3379,7 +3380,7 @@ __metadata:
     ts-jest: "npm:29.2.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.6.3"
-    typescript: "npm:5.5.4"
+    typescript: "npm:^5.5.4"
     typescript-eslint: "npm:7.17.0"
     util: "npm:0.12.5"
     uuid: "npm:10.0.0"
@@ -4107,6 +4108,15 @@ __metadata:
     "@typescript-eslint/types": "npm:7.17.0"
     eslint-visitor-keys: "npm:^3.4.3"
   checksum: 10/a8bef372e212baab67ec4e074a8b4983348fc554874d40d1fc22c10ce2693609cdef4a215391e8b428a67b3e2dcbda12d821b4ed668394b0b001ba03a08c5145
+  languageName: node
+  linkType: hard
+
+"@typescript/ata@npm:^0.9.6":
+  version: 0.9.6
+  resolution: "@typescript/ata@npm:0.9.6"
+  peerDependencies:
+    typescript: ">=4.4.4"
+  checksum: 10/4f410a61a966e0305d72912e6966fcac00237acf8501f86f325dad7e707423463a69c878fd4a3f49c7eae6bad7ab1ba47f482daeca7a26efbd9077c65c16e8e2
   languageName: node
   linkType: hard
 
@@ -13562,7 +13572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.5.4":
+"typescript@npm:5.5.4, typescript@npm:^5.5.4":
   version: 5.5.4
   resolution: "typescript@npm:5.5.4"
   bin:
@@ -13572,7 +13582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.4#optional!builtin<compat/typescript>":
   version: 5.5.4
   resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"
   bin:

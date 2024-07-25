@@ -307,6 +307,8 @@ declare module 'react' {
       console.error("Error queuedFetching package.json or typings", { error, npmPackage, originToUse });
     }
   }
+
+
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
     if (!impRes[newBase]) {
       impRes[newBase] = { ref, url: newBase, content: "" };
