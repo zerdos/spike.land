@@ -10,9 +10,6 @@ import { wait } from "./wait";
 
 // Set up service worker version
 const { swVersion } = self;
-setTimeout(() => {
-  import("./tw.mjs");
-});
 
 if (navigator.serviceWorker) {
   setTimeout(() => {
@@ -109,10 +106,10 @@ if (location.pathname === `/live/${codeSpace}`) {
   // Render the code
   // import { render } from "./render";
 
-  console.log("render");
-  const { renderApp } = await import(`/live/${codeSpace}/index.mjs`);
+  // console.log("render");
+  // const { renderApp } = await import(`/live/${codeSpace}/index.mjs`);
 
-  renderApp();
+  // renderApp();
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 

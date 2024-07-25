@@ -594,25 +594,70 @@ export class Code implements DurableObject {
           case "dehydrated":
           case "iframe":
           case "public": {
-            const respText = HTML.replace(
-              "/**reset*/",
-              resetCSS + css,
-            ).replace(
-              "<script src=\"/swVersion.js\"></script>",
-              `<script>
+            const respText = `
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+
+  <base href="/">
+  <title>Instant React Editor</title>
+  <style>
+    html, body {
+      overflow: hidden;
+      margin: 0;
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+    }
+      #root {
+        height: 100%;
+        width: 100%;
+      }
+
+    q { display: none; }
+
+    @media screen and (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: hsl(210, 10%, 62%);
+        --text-color-normal: hsl(210, 10%, 62%);
+        --text-color-light: hsl(210, 15%, 35%);
+        --text-color-richer: hsl(210, 50%, 72%);
+        --text-color-highlight: hsl(25, 70%, 45%);
+      }
+    }
+
+    @media screen and (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+        --text-color-normal: #0a244d;
+        --text-color-light: #8cabd9;
+      }
+    }
+
+    ${resetCSS} ${css}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
               window.swVersion = "${ASSET_HASH}"
-              </script>`,
-            )
-              .replace("ASSET_HASH", ASSET_HASH)
-              .replace(
-                `<div id="root"></div>`,
-                `<div id="root" style="height: 100%;">
-                        <div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">
-                          ${html}
-                        </div>
-                </div>              
-              `,
-              );
+  </script>
+  <script>
+  ${TW}
+  </script>
+    <script src="/swVersion.js"></script>
+  <script src="/hydrate.mjs?v=${ASSET_HASH}" type="module"></script>
+  <script type="module">
+    ${this.transpiled}
+    globalThis.module.renderApp();
+  </script>
+</body>
+</html>`
+            
 
             const headers = new Headers();
             headers.set("Access-Control-Allow-Origin", "*");
@@ -651,25 +696,64 @@ export class Code implements DurableObject {
             headers.set("Content-Encoding", "gzip");
             headers.set("Content-Type", "text/html; charset=UTF-8");
 
-            const respText = HTML.replace(
-              "/**reset*/",
-              resetCSS + this.session.css,
-            ).replace(
-              "<script src=\"/swVersion.js\"></script>",
-              "",
-            ).replace(
-              `<div id="root"></div>`,
-              `<div id="root" style="height: 100%;">
-                          <div id="${codeSpace}-css" data-i="${this.session.i}" style="height: 100%;">
-                            ${this.session.html}
-                          </div>
-                  </div>
-                         <script>${TW}</script>
+            const respText = `
+            <!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+
+  <base href="/">
+  <title>Instant React Editor</title>
+  <style>
+    html, body {
+      overflow: hidden;
+      margin: 0;
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: none;
+    }
+      #root {
+        height: 100%;
+        width: 100%;
+      }
+
+    q { display: none; }
+
+    @media screen and (prefers-color-scheme: dark) {
+      body {
+        background-color: #121212;
+        color: hsl(210, 10%, 62%);
+        --text-color-normal: hsl(210, 10%, 62%);
+        --text-color-light: hsl(210, 15%, 35%);
+        --text-color-richer: hsl(210, 50%, 72%);
+        --text-color-highlight: hsl(25, 70%, 45%);
+      }
+    }
+
+    @media screen and (prefers-color-scheme: light) {
+      body {
+        background-color: white;
+        color: black;
+        --text-color-normal: #0a244d;
+        --text-color-light: #8cabd9;
+      }
+    }
+
+    ${resetCSS}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>${TW}</script>
   <script type="module">
     ${this.transpiled}
     globalThis.module.renderApp();
-  </script>`,
-            );
+  </script>
+</body>
+</html>`
+            
+          
 
             headers.set("content_hash", md5(respText));
 
