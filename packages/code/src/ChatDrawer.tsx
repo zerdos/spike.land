@@ -1,8 +1,8 @@
-import  { useState } from "react";
-import { Send, Bot, X, Check, X as XMark } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Bot, Check, Send, X, X as XMark } from "lucide-react";
+import { useState } from "react";
 
 const mockResponses = [
   "Hello! How can I assist you today?",
@@ -12,7 +12,15 @@ const mockResponses = [
   "That's a great point! I hadn't considered that perspective before.",
 ];
 
-const ChatMessage = ({ message, isUser, onDoubleClick, isSelected, onEdit }: { message: string, isUser: boolean, onDoubleClick: () => void, isSelected: boolean, onEdit: (newText: string) => void }) => {
+const ChatMessage = (
+  { message, isUser, onDoubleClick, isSelected, onEdit }: {
+    message: string;
+    isUser: boolean;
+    onDoubleClick: () => void;
+    isSelected: boolean;
+    onEdit: (newText: string) => void;
+  },
+) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedMessage, setEditedMessage] = useState(message);
 
@@ -37,44 +45,46 @@ const ChatMessage = ({ message, isUser, onDoubleClick, isSelected, onEdit }: { m
   return (
     <div
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
-      onDoubleClick={handleDoubleClick}>
+      onDoubleClick={handleDoubleClick}
+    >
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
             ? "bg-primary text-primary-foreground"
             : isSelected
-              ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
-              : "bg-secondary text-secondary-foreground"
-        }`}>
-        {isEditing ? (
-          <div className="flex flex-col space-y-2">
-            <Input
-              value={editedMessage}
-              onChange={(e) => setEditedMessage(e.target.value)}
-              className="bg-background text-foreground"
-            />
-            <div className="flex justify-end space-x-2">
-              <Button size="sm" onClick={handleSaveEdit}>
-                <Check className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-                <XMark className="h-4 w-4" />
-              </Button>
+            ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
+            : "bg-secondary text-secondary-foreground"
+        }`}
+      >
+        {isEditing
+          ? (
+            <div className="flex flex-col space-y-2">
+              <Input
+                value={editedMessage}
+                onChange={(e) => setEditedMessage(e.target.value)}
+                className="bg-background text-foreground"
+              />
+              <div className="flex justify-end space-x-2">
+                <Button size="sm" onClick={handleSaveEdit}>
+                  <Check className="h-4 w-4" />
+                </Button>
+                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                  <XMark className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-          </div>
-        ) : (
-          message   
-        )}
+          )
+          : message}
       </div>
     </div>
   );
 };
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState<{ id: number; text: string; isUser: boolean; }[]>([]);
+  const [messages, setMessages] = useState<{ id: number; text: string; isUser: boolean }[]>([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedMessage, setSelectedMessage] = useState<null|number>(null);
+  const [selectedMessage, setSelectedMessage] = useState<null | number>(null);
 
   const handleSendMessage = () => {
     if (inputMessage.trim() === "") return;
@@ -104,12 +114,16 @@ const ChatWindow = () => {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0">
+        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
+      >
         <Bot className="h-6 w-6" />
       </Button>
 
       <div
-        className={`fixed inset-y-0 right-0 w-96 max-w-full bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+        className={`fixed inset-y-0 right-0 w-96 max-w-full bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
         <div className="flex flex-col h-full border-l border-input">
           <div className="bg-secondary p-4 font-bold flex justify-between items-center">
             <span>Chat Window</span>

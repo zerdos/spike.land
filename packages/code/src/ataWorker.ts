@@ -124,7 +124,7 @@ function setConnections(signal: string) {
         const data = JSON.parse(message);
         (async () => {
           if (data.changes) {
-            BC.postMessage({...data, sender: 'ATA WORKER1'});
+            BC.postMessage({ ...data, sender: "ATA WORKER1" });
           }
           if (data.strSess) {
             const sess = makeSession(data.strSess);
@@ -142,7 +142,7 @@ function setConnections(signal: string) {
               const transpiled = data.transpiled
                 || await transpile(c.oldSession.code, location.origin);
 
-              BC.postMessage({ ...c.oldSession, transpiled, sender: 'ATA WORKER2' });
+              BC.postMessage({ ...c.oldSession, transpiled, sender: "ATA WORKER2" });
               return;
             }
             return;
@@ -175,7 +175,7 @@ function setConnections(signal: string) {
                 );
 
                 console.log(c.oldSession);
-                BC.postMessage({...c.oldSession, sender: 'ATA WORKER3'});
+                BC.postMessage({ ...c.oldSession, sender: "ATA WORKER3" });
                 return;
               }
 
@@ -185,7 +185,7 @@ function setConnections(signal: string) {
               if (data.newHash === newHash) {
                 c.oldSession = newSession;
                 console.log(newSession);
-                BC.postMessage({...newSession, sender: 'ATA WORKER4'});
+                BC.postMessage({ ...newSession, sender: "ATA WORKER4" });
                 return;
               }
 
@@ -194,7 +194,7 @@ function setConnections(signal: string) {
               );
 
               console.log(c.oldSession);
-              BC.postMessage({...c.oldSession,  sender: 'ATA WORKER5'});
+              BC.postMessage({ ...c.oldSession, sender: "ATA WORKER5" });
             });
           }
         })();
@@ -212,12 +212,12 @@ function setConnections(signal: string) {
     const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
     c.BC = BC;
 
-    const mod = { controller: new AbortController(), i:0 };
+    const mod = { controller: new AbortController(), i: 0 };
     BC.onmessage = async ({ data }) => {
       if (data.changes) {
         ws.send(JSON.stringify({ ...data, name: c.user }));
       }
-      if (data.i > c.oldSession.i && data.i>mod.i && data.html && data.code) {
+      if (data.i > c.oldSession.i && data.i > mod.i && data.html && data.code) {
         mod.i = data.i;
         mod.controller.abort();
         mod.controller = new AbortController();

@@ -5,9 +5,8 @@ import { resetCSS } from "./getResetCss";
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
-import { mkdir, readFile, writeFile, stat } from "./memfs";
+import { mkdir, readFile, stat, writeFile } from "./memfs";
 import { build, init, transpile } from "./shared";
-
 
 declare const self:
   & ServiceWorkerGlobalScope

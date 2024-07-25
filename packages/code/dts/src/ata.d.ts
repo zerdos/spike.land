@@ -3,7 +3,7 @@ export declare function ata({ code, originToUse, prettierJs, tsx, }: {
     originToUse: string;
     prettierJs: (code: string) => Promise<string>;
     tsx: (code: string) => Promise<string[]>;
-}): Promise<({
+}): Promise<{
     filePath: string;
     content: string;
-} | undefined)[]>;
+}[]>;

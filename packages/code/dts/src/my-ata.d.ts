@@ -1,1 +1,4 @@
-export declare const myATA: (code: string) => Promise<void>;
+export declare const myATA: (code: string) => Promise<{
+    filePath: string;
+    content: string;
+}[]>;

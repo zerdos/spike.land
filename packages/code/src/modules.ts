@@ -5,9 +5,13 @@ import { importMapReplace } from "./importMapReplace";
 import MyHTML from "./index.html";
 import { md5 } from "./md5";
 import { Delta } from "./textDiff";
+import { myATA } from "./my-ata";
+
 export { importMapReplace };
 
+
 import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, string_ } from "./makeSess";
+export { myATA };
 
 export { resetCSS };
 export { importMap };

@@ -1,6 +1,6 @@
+import { enhancedFetch } from "./enhancedFetch";
 import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
-import {enhancedFetch } from './enhancedFetch'
 // Extend the global object with build and transpile functions
 
 const codeSpace = getCodeSpace();
@@ -92,7 +92,7 @@ export async function runner({ code, counter, signal }: {
     if (signal.aborted) return;
 
     // Send message to the iframe with the transpiled code
-    BC.postMessage({ code, transpiled, i: counter, sender: 'RUnner' });
+    BC.postMessage({ code, transpiled, i: counter, sender: "RUnner" });
 
     // document.querySelector("iframe")?.contentWindow?.postMessage({
     //   code,

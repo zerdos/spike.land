@@ -1,5 +1,7 @@
 import { importMapReplace } from "./importMapReplace";
 
+import {myATA} from "./my-ata"
+
 class QueuedFetch {
   private queue: (() => Promise<void>)[] = [];
   private ongoingRequests = 0;
@@ -54,15 +56,21 @@ export async function ata({
 }) {
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
-  await ataRecursive(
-    `/** @jsx jsx */
-    import JSX from "@emotion/react/jsx-runtime";
-    import JSXDEV from "@emotion/react/jsx-dev-runtime"
-    import { jsx } from "@emotion/react";
-    ${code}`,
-    originToUse,
-  );
-
+  let res = (await tsx(await prettierJs(code))).filter((x) => x.includes("@/components"));
+  
+  await Promise.all(
+    res.map(async (r) => {
+      const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
+      const content = await resp.text();
+      impRes[r] = {
+        url: resp.url,
+        ref: '',
+        content
+      };
+      await ataRecursive(content, new URL(resp.url+'/../' ).toString())
+      
+    }))
+  
   const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
   const vNumbers = /\/(v)[0-9]+\//gm;
   const subst = "/";
@@ -130,21 +138,21 @@ declare module 'react' {
   }
 }`,
     },
-    // {
-    //   filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
-    //   content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    // },
-    // {
-    //   filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
-    //   content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    // },
+    {
+      filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
+      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+    },
+    {
+      filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
+      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+    },
   ];
   const extraLibs = [
     ...(await Promise.all(
       Object.keys(impRes)
         .filter((x) => impRes[x].content.length && impRes[x].url)
         .map(async (x) => ({
-          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse),
+          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse).replace(originToUse, ''),
           content: (await prettierJs(impRes[x].content))
             .split(`import mod from "/`)
             .join(`import mod from "`)
@@ -155,10 +163,16 @@ declare module 'react' {
     ...extras,
   ];
 
-  // Deduplicate and sort extra libs
-  return [...new Set(extraLibs.map((x) => x.filePath))]
-    .map((y) => extraLibs.find((p) => p.filePath === y))
-    .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? ""));
+const thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
+.sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(c=>({
+  content: c!.content,
+  filePath: c!.filePath.replace(originToUse, '').replace(originToUse, '')
+}))
+
+const ataBIG = await myATA(code);
+return [ ...ataBIG, ...thisATA];
+
+
 
   async function ataRecursive(code: string, baseUrl: string) {
     let res = await tsx(await prettierJs(code));

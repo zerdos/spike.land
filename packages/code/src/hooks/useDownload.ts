@@ -1,7 +1,7 @@
 import { resetCSS } from "../getResetCss";
 import { build } from "../shared";
-import TW from "./tw.html";
 import { wait } from "../wait";
+import TW from "./tw.html";
 
 export const useDownload = (codeSpace: string) => {
   return async () => {

@@ -16,9 +16,9 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/workers-types": "4.20240722.0",
+    "@cloudflare/workers-types": "4.20240725.0",
     "typescript": "5.5.4",
-    "wrangler": "3.66.0"
+    "wrangler": "3.67.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.24.3",

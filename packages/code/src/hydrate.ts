@@ -90,7 +90,6 @@ if (location.pathname === `/live/${codeSpace}`) {
 
   // Update HTML and CSS on message received
   BC.onmessage = ({ data }) => {
-    
     const { html, css } = data;
     debugger;
     document.getElementById("root")!.innerHTML = [
@@ -133,7 +132,7 @@ if (location.pathname === `/live/${codeSpace}`) {
     async function handleRender() {
       console.log("handleRender");
       const counter = mod.counter;
-      const   _rootEl = document.getElementById("root");
+      const _rootEl = document.getElementById("root");
       if (!_rootEl) return;
 
       const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
@@ -146,7 +145,7 @@ if (location.pathname === `/live/${codeSpace}`) {
           const css = mineFromCaches(cache, html);
 
           if (mod.counter !== counter) return;
-          BC.postMessage({ html, css, i: counter, code: mod.code, transpiled: mod.transpiled,  sender: 'Hydrater' });
+          BC.postMessage({ html, css, i: counter, code: mod.code, transpiled: mod.transpiled, sender: "Hydrater" });
           // globalThis.firstRender = { html, css, code: "" };
           // window?.parent?.postMessage({ type: "firstRender", html, css });
 
@@ -154,8 +153,6 @@ if (location.pathname === `/live/${codeSpace}`) {
         }
         await wait(10);
       }
-
-      
 
       function mineFromCaches(_cache: EmotionCache, html: string) {
         const key = _cache.key || "css";

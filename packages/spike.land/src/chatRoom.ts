@@ -416,6 +416,21 @@ export class Code implements DurableObject {
           //   );
           // }
 
+          case "ata": {
+            const { myATA } = await import("@spike-land/code");
+            const ata = await myATA(code);
+            return new Response(JSON.stringify(ata), {
+              status: 200,
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cache-Control": "no-cache",
+                "Content-Encoding": "gzip",
+                content_hash: md5(ata),
+                "Content-Type": "application/json; charset=UTF-8",
+              },
+            });
+          }
           case "session.json":
           case "session": {
             if (path[1]) {
@@ -658,8 +673,7 @@ export class Code implements DurableObject {
   } 
   </script>
 </body>
-</html>`
-            
+</html>`;
 
             const headers = new Headers();
             headers.set("Access-Control-Allow-Origin", "*");
@@ -753,9 +767,7 @@ export class Code implements DurableObject {
     globalThis.module.renderApp();
   </script>
 </body>
-</html>`
-            
-          
+</html>`;
 
             headers.set("content_hash", md5(respText));
 

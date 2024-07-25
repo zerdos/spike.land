@@ -1,14 +1,19 @@
 import { editor, KeyCode, KeyMod, languages, Range, Uri } from "monaco-editor";
 import type * as monaco from "monaco-editor";
-import { ata, prettier } from "./shared";
+import { prettier, ata } from "./shared";
+
 
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
+
 const refreshAta = async (code: string, originToUse: string) => {
   try {
-    const extraLibs = await ata({ code, originToUse });
+    const extraLibs= (await ata({code, originToUse})).map(({filePath, content}) => ({
+      filePath: originToUse + filePath,
+      content
+    }));
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
@@ -67,10 +72,21 @@ const monacoContribution = async (code: string) => {
     module: languages.typescript.ModuleKind.ESNext,
     importHelpers: true,
     lib,
-    allowJs: true,
+    esModuleInterop: false,
+    strictNullChecks: false,
+    strict: false,
+    strictFunctionTypes: false,
+    strictPropertyInitialization: false,
+    strictBindCallApply: false,
+    noImplicitAny: false,
+    noImplicitThis: false,
+    noImplicitReturns: false,
+    checkJs: false,
+    allowJs: false,
+    experimentalDecorators: false,
+    emitDecoratorMetadata: false,
     skipLibCheck: false,
     downlevelIteration: true,
-    esModuleInterop: true,
     allowSyntheticDefaultImports: true,
     forceConsistentCasingInFileNames: true,
     noFallthroughCasesInSwitch: true,
@@ -87,7 +103,7 @@ const monacoContribution = async (code: string) => {
       "tslib": ["/tslib"],
     },
     jsxImportSource: "@emotion/react",
-    jsx: languages.typescript.JsxEmit.ReactJSXDev,
+    jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
   });

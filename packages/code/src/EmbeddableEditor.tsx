@@ -2,10 +2,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Download, ExternalLink, Maximize, Moon, QrCode, Sun } from "lucide-react";
 import { Resizable } from "re-resizable";
-import {  useState } from "react";
+import { useState } from "react";
 
 export const EmbeddableEditor = () => {
-
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -103,13 +102,11 @@ export const EmbeddableEditor = () => {
           </div>
         </Resizable>
         <div className="flex-grow bg-gray-50 dark:bg-gray-900 p-4 overflow-auto">
-      
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription></AlertDescription>
-            </Alert>
-        
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription></AlertDescription>
+          </Alert>
         </div>
       </div>
     </div>
