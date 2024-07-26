@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./ChatDrawer";
 import { initialMessage } from "./initialMessage";
 import {prettier} from "./shared";
-import { set } from "immutable";
 
 // Types
 interface Artifact {
