@@ -42,19 +42,24 @@ export const useDownload = (codeSpace: string) => {
   <base href="/">
   <title>Instant React Editor</title>
   <style>
-    html, body {
-      overflow: hidden;
-      margin: 0;
-      height: 100%;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: none;
-    }
-      #root {
-        height: 100%;
-        width: 100%;
-      }
+  
+ body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif; /* You can customize this */
+  box-sizing: border-box;
+}
 
-    q { display: none; }
+/* Make sure the root element covers the entire viewport */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
 
     @media screen and (prefers-color-scheme: dark) {
       body {

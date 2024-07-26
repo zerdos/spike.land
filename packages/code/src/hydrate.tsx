@@ -13,6 +13,9 @@ import { wait } from "./wait";
 const { swVersion } = self;
 
 if (!location.pathname.startsWith("/live/")) {
+
+  import("./tw.mjs");
+
   const Page = (await import("./pages/index")).default;
 
   const root = document.getElementById("root");
