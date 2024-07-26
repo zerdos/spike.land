@@ -11,7 +11,13 @@ declare const self:
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string };
 
+importScripts("/swVersion.js");
+
 let started = false;
+
+// Constants for cache names
+const FILE_CACHE_NAME = 'file-cache-';
+const GENERAL_CACHE_NAME = 'general-cache-';
 
 // Initialize the shared worker when receiving a message of type "sharedworker"
 self.onmessage = async (event: ExtendableMessageEvent) => {
@@ -22,19 +28,78 @@ self.onmessage = async (event: ExtendableMessageEvent) => {
 
     init(self.swVersion, port);
     started = true;
+
+    // Start periodic check
+    setInterval(checkAssetHash, 10 * 60 * 1000); // Check every 10 minutes
   }
 };
 
-// Put the response in cache
+async function fetchAssetHash(): Promise<string> {
+  try {
+    const response = await fetch('/files.json');
+    const data = await response.json<{ASSET_HASH: string}>();
+    return data.ASSET_HASH;
+  } catch (error) {
+    console.error('Failed to fetch ASSET_HASH:', error);
+    return '';
+  }
+}
+
+// Check if ASSET_HASH has changed and update cache if necessary
+async function checkAssetHash() {
+  const newAssetHash = await fetchAssetHash(); 
+  if (self.swVersion !== newAssetHash) {
+    console.log('ASSET_HASH changed. Updating cache...');
+    await updateCache(newAssetHash);
+    self.swVersion = newAssetHash;
+  }
+}
+
+// Update cache with new version
+async function updateCache(newAssetHash: string) {
+  const oldFileCacheName = FILE_CACHE_NAME + self.swVersion;
+  const newFileCacheName = FILE_CACHE_NAME + newAssetHash;
+
+  // Open both old and new file caches
+  const [oldFileCache, newFileCache] = await Promise.all([
+    caches.open(oldFileCacheName),
+    caches.open(newFileCacheName),
+  ]);
+
+  // Copy all files from old cache to new cache
+  const oldKeys = await oldFileCache.keys();
+  await Promise.all(
+    oldKeys.map(async (request) => {
+      const response = await oldFileCache.match(request);
+      if (response) {
+        await newFileCache.put(request, response);
+      }
+    })
+  );
+
+  // Delete the old file cache
+  await caches.delete(oldFileCacheName);
+
+  console.log('File cache updated successfully');
+}
+
+const isFileInList = (pathname: string): boolean => {
+  return pathname.slice(1) in self.files 
+};
+// Put the response in the appropriate cache
+// Put the response in the appropriate cache
 const putInCache = async (request: Request, response: Response): Promise<void> => {
-  const cache = await caches.open(self.swVersion);
+  const url = new URL(request.url);
+  const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME + self.swVersion;
+  const cache = await caches.open(cacheName);
   await cache.put(request, response);
 };
 
-// Serve the cached response first, if available
 const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
-    const cache = await caches.open(self.swVersion);
+    const url = new URL(request.url);
+    const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME + self.swVersion;
+    const cache = await caches.open(cacheName);
     const responseFromCache = await cache.match(request);
     if (responseFromCache) {
       return responseFromCache;
@@ -192,7 +257,7 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== self.swVersion) {
+          if (cacheName.startsWith(FILE_CACHE_NAME) && cacheName !== FILE_CACHE_NAME + self.swVersion) {
             return caches.delete(cacheName);
           }
           return Promise.resolve();
