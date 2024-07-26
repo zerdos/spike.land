@@ -27,7 +27,6 @@ export const myATA = async (code: string) => {
 
     ata(code);
   });
-  
 
   const filed = await myPromise;
 

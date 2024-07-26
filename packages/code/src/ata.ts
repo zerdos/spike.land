@@ -1,6 +1,6 @@
 import { importMapReplace } from "./importMapReplace";
 
-import {myATA} from "./my-ata"
+import { myATA } from "./my-ata";
 
 class QueuedFetch {
   private queue: (() => Promise<void>)[] = [];
@@ -57,20 +57,20 @@ export async function ata({
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
   let res = (await tsx(await prettierJs(code))).filter((x) => x.includes("@/components"));
-  
+
   await Promise.all(
     res.map(async (r) => {
       const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
       const content = await resp.text();
       impRes[r] = {
         url: resp.url,
-        ref: '',
-        content
+        ref: "",
+        content,
       };
-      await ataRecursive(content, new URL(resp.url+'/../' ).toString())
-      
-    }))
-  
+      await ataRecursive(content, new URL(resp.url + "/../").toString());
+    }),
+  );
+
   const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
   const vNumbers = /\/(v)[0-9]+\//gm;
   const subst = "/";
@@ -152,7 +152,7 @@ declare module 'react' {
       Object.keys(impRes)
         .filter((x) => impRes[x].content.length && impRes[x].url)
         .map(async (x) => ({
-          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse).replace(originToUse, ''),
+          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse).replace(originToUse, ""),
           content: (await prettierJs(impRes[x].content))
             .split(`import mod from "/`)
             .join(`import mod from "`)
@@ -163,16 +163,14 @@ declare module 'react' {
     ...extras,
   ];
 
-const thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
-.sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(c=>({
-  content: c!.content,
-  filePath: c!.filePath.replace(originToUse, '').replace(originToUse, '')
-}))
+  const thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
+    .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(c => ({
+      content: c!.content,
+      filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
+    }));
 
-const ataBIG = await myATA(code);
-return [ ...ataBIG, ...thisATA];
-
-
+  const ataBIG = await myATA(code);
+  return [...ataBIG, ...thisATA];
 
   async function ataRecursive(code: string, baseUrl: string) {
     let res = await tsx(await prettierJs(code));
@@ -321,7 +319,6 @@ return [ ...ataBIG, ...thisATA];
       console.error("Error queuedFetching package.json or typings", { error, npmPackage, originToUse });
     }
   }
-
 
   async function handleNewBase(newBase: string, ref: string, baseUrl: string) {
     if (!impRes[newBase]) {

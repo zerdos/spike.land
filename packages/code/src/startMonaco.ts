@@ -1,18 +1,16 @@
 import { editor, KeyCode, KeyMod, languages, Range, Uri } from "monaco-editor";
 import type * as monaco from "monaco-editor";
-import { prettier, ata } from "./shared";
-
+import { ata, prettier } from "./shared";
 
 const { createModel } = editor;
 const create = editor.create;
 const originToUse = location.origin;
 
-
 const refreshAta = async (code: string, originToUse: string) => {
   try {
-    const extraLibs= (await ata({code, originToUse})).map(({filePath, content}) => ({
+    const extraLibs = (await ata({ code, originToUse })).map(({ filePath, content }) => ({
       filePath: originToUse + filePath,
-      content
+      content,
     }));
     console.log({ extraLibs });
     languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);

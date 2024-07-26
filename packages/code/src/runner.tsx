@@ -6,12 +6,10 @@ import { build, transpile } from "./shared";
 const codeSpace = getCodeSpace();
 
 Object.assign(globalThis, {
-  enhancedFetch ,
-  myATA: async()=>{
-
-    const {myATA} = await import('./my-ata');
-    return  myATA(cSess.session.code);
-
+  enhancedFetch,
+  myATA: async () => {
+    const { myATA } = await import("./my-ata");
+    return myATA(cSess.session.code);
   },
   build: async () => {
     const file = await build({ codeSpace, origin: location.origin, format: "esm" });
