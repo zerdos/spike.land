@@ -1,13 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  ChatBubbleLeftIcon,
-  CheckIcon,
-  PaperAirplaneIcon,
-  PencilIcon,
-  TrashIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
 import { initialMessage } from "./initialMessage";
+import { ChatWindow, ChatHeader, ChatContainer, MessageInput } from './ChatDrawer';
 
 // Types
 interface Artifact {
@@ -18,7 +11,7 @@ interface Artifact {
   content: string;
 }
 
-interface Message {
+export interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
@@ -45,10 +38,11 @@ const ColorModeToggle: React.FC<{ isDarkMode: boolean; toggleDarkMode: () => voi
 
 
 // Main Component: ChatInterface
-const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void }> = ({ onCodeUpdate }) => {
+const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void, isOpen: boolean, onClose: ()=>void  }> = ({ onCodeUpdate, onClose, isOpen }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -139,6 +133,7 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void }> = ({ onC
     const maxRetries = 3;
     let retryCount = 0;
 
+    
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
       role: "assistant",
@@ -282,13 +277,13 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void }> = ({ onC
   };
 
   return (
-    <ChatWindow>
+    <ChatWindow isOpen={isOpen}>
       <ChatHeader
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
-        handleResetChat={handleResetChat}
+        handleResetChat={handleResetChat} 
+        onClose={ ()=>onClose()}
       />
-
       <ChatContainer
         messages={messages}
         editingMessageId={editingMessageId}

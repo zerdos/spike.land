@@ -24,7 +24,7 @@ declare const CommandInput: React.ForwardRefExoticComponent<Omit<Omit<Pick<Pick<
     ref?: React.Ref<HTMLInputElement>;
 } & {
     asChild?: boolean;
-}, "key" | keyof React.InputHTMLAttributes<HTMLInputElement> | "asChild">, "type" | "value" | "onChange"> & {
+}, "key" | "asChild" | keyof React.InputHTMLAttributes<HTMLInputElement>>, "onChange" | "type" | "value"> & {
     value?: string;
     onValueChange?: (search: string) => void;
 } & React.RefAttributes<HTMLInputElement>, "ref"> & React.RefAttributes<HTMLInputElement>>;
@@ -68,7 +68,7 @@ declare const CommandItem: React.ForwardRefExoticComponent<Omit<{
     ref?: React.Ref<HTMLDivElement>;
 } & {
     asChild?: boolean;
-}, "key" | keyof React.HTMLAttributes<HTMLDivElement> | "asChild">, "disabled" | "value" | "onSelect"> & {
+}, "key" | keyof React.HTMLAttributes<HTMLDivElement> | "asChild">, "onSelect" | "disabled" | "value"> & {
     disabled?: boolean;
     onSelect?: (value: string) => void;
     value?: string;

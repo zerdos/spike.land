@@ -3,6 +3,10 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC, ReactNode } from "react";
 import { DraggableWindow } from "./DraggableWindow";
 import { reveal } from "./reveal";
+import {  Bot } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import ChatInterface from "./ChatInterface";
 
 // Define a type for the gradient colors
 type GradientColor = {
@@ -83,6 +87,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const [showChat, setShowChat] = useState(false);
   const editorRef = useRef<any>(null);
 
+  const [isOpen, setIsOpen] = useState(false);
   const Editor = lazy(() => import("./Editor"));
 
   useEffect(() => {
@@ -133,6 +138,13 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               onCodeUpdate={handleCodeUpdate}
             />
           </Suspense>
+          <Button
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0">
+        <Bot className="h-6 w-6" />
+      </Button>
+
+          <ChatInterface isOpen={isOpen} onCodeUpdate={handleCodeUpdate} onClose={()=>setIsOpen(false)} />
         </RainbowContainer>
       )}
     </>

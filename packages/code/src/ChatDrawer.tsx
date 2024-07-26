@@ -1,10 +1,14 @@
-// chatDrawer.tsx
 import React, { useState, useEffect, useRef } from "react";
 import { Send, Bot, X, Check, X as XMark, Moon, Sun, RefreshCw } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import type {FC, ReactNode} from "react"
+import type { FC, ReactNode } from "react"
+import type { Message } from "./ChatInterface"
+import { css } from "@emotion/react"
+import { CodeTS } from "./CodeBlock";
+
+
 const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
 ];
@@ -30,25 +34,37 @@ export const ChatMessage = ({
   editInput: string;
   setEditInput: (value: string) => void;
   handleCancelEdit: () => void;
-  handleSaveEdit: () => void;
+  handleSaveEdit: (id: string) => void;
 }) => {
-  const renderMessage = (text: string) => {
+  const renderMessage = (t: string) => {
+    const ddd = t.split("The user's first message follows:");
+    const text = ddd.pop()!;
+
     if (isUser) {
       return text;
     }
 
-    const parts = text.split(/(```[\s\S]*?```)/);
+    const cleanedText = text.replace(/<antArtifact.*?>/g, "```tsx").replace(/<\/antArtifact>/g, '```');
+
+    const parts = cleanedText.split("```tsx");
+    if (parts.length>1){
     return parts.map((part, index) => {
-      if (part.startsWith("```") && part.endsWith("```")) {
-        const code = part.slice(3, -3).trim();
-        return (
-          <pre key={index} className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
-            <code>{code}</code>
-          </pre>
-        );
+      if (index === 0) {
+        return <span key={index}>{part}</span>
       }
-      return <span key={index}>{part}</span>;
-    });
+      const nextParts = part.split("```");
+        return (<>
+          <pre key={index} className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
+            <CodeTS code={nextParts[0]} />
+          </pre>
+         { nextParts.length==2 &&  <span key={index}>{nextParts[1]}</span>}
+          </>
+        );
+      
+      
+
+    });}
+    return <span> {cleanedText}</span>
   };
 
   return (
@@ -71,7 +87,7 @@ export const ChatMessage = ({
               className="bg-background text-foreground"
             />
             <div className="flex justify-end space-x-2">
-              <Button size="sm" onClick={handleSaveEdit}>
+              <Button size="sm" onClick={()=>handleSaveEdit(Date.now().toString())}>
                 <Check className="h-4 w-4" />
               </Button>
               <Button size="sm" variant="outline" onClick={handleCancelEdit}>
@@ -100,7 +116,7 @@ export const ChatHeader = ({
 }) => {
   return (
     <div className="bg-secondary p-4 font-bold flex justify-between items-center">
-      <span>Chat Window</span>
+      <span>AI spike pilot</span>
       <div className="flex items-center space-x-2">
         <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
           {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -127,13 +143,13 @@ export const ChatContainer = ({
   isStreaming,
   messagesEndRef,
 }: {
-  messages: { id: number; text: string; isUser: boolean }[];
-  editingMessageId: number | null;
+  messages: Message[];
+  editingMessageId: string | null;
   editInput: string;
   setEditInput: (value: string) => void;
   handleCancelEdit: () => void;
-  handleSaveEdit: () => void;
-  handleEditMessage: (id: number) => void;
+  handleSaveEdit: (messageId: string) => void;
+  handleEditMessage: (id: string) => void;
   isStreaming: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement>;
 }) => {
@@ -142,13 +158,13 @@ export const ChatContainer = ({
       {messages.map((message) => (
         <ChatMessage
           key={message.id}
-          message={message.text}
-          isUser={message.isUser}
+          message={message.content}
+          isUser={message.role === "user"}
           isSelected={editingMessageId === message.id}
           onDoubleClick={() => handleEditMessage(message.id)}
           onEdit={(newText) => {
             setEditInput(newText);
-            handleSaveEdit();
+            handleSaveEdit(message.id);
           }}
           isEditing={editingMessageId === message.id}
           editInput={editInput}
@@ -172,7 +188,7 @@ export const MessageInput = ({
 }: {
   input: string;
   setInput: (value: string) => void;
-  handleSendMessage: () => void;
+  handleSendMessage:( content: string) => void;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
 }) => {
@@ -183,13 +199,14 @@ export const MessageInput = ({
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+          onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
           placeholder="Type a message..."
           className="flex-1"
           ref={inputRef}
           disabled={isStreaming}
         />
-        <Button onClick={handleSendMessage} size="icon" disabled={isStreaming}>
+        <Button onClick={()=>handleSendMessage(input)}
+         size="icon" disabled={isStreaming}>
           <Send className="h-4 w-4" />
         </Button>
       </div>
@@ -197,20 +214,25 @@ export const MessageInput = ({
   );
 };
 
-export const ChatWindow: FC<{isOpen: boolean, children: ReactNode}> = ({children, isOpen}) =>    <div
-className={`fixed inset-y-0 right-0 w-96 max-w-full bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
-<div className="flex flex-col h-full border-l border-input">
-  {children}
+export const ChatWindow: FC<{isOpen: boolean, children: ReactNode}> = ({children, isOpen}) => (
+  <div css={css`
+    z-index: 999;
+    transition: width 0.3s ease-in-out;
+  `}
+  className={`fixed inset-y-0 right-0 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
+    isOpen ? "w-1/2 translate-x-0" : "w-96 translate-x-full"
+  }`}>
+    <div className="flex flex-col h-full border-l border-input">
+      {children}
+    </div>
   </div>
-  </div>
+)
 
 const ChatInterface = () => {
-  const [messages, setMessages] = useState<
-    { id: number; text: string; isUser: boolean }[]
-  >([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [editingMessageId, setEditingMessageId] = useState<number | null>(null);
+  const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -223,26 +245,39 @@ const ChatInterface = () => {
     }
   }, [messages]);
 
+  useEffect(() => {
+    const draggableWindow = document.getElementById('DraggableWindow');
+    if (draggableWindow) {
+      if (isOpen) {
+        draggableWindow.style.transition = 'left 0.3s ease-in-out';
+        draggableWindow.style.left = '0';
+      } else {
+        draggableWindow.style.transition = 'left 0.3s ease-in-out';
+        draggableWindow.style.left = '';
+      }
+    }
+  }, [isOpen]);
+
   const handleSendMessage = () => {
     if (input.trim() === "") return;
 
-    const newMessages = [...messages, { id: Date.now(), text: input, isUser: true }];
+    const newMessages = [...messages, { id: Date.now(), content: input, role: 'user' } as unknown as Message];
     setMessages(newMessages);
     setInput("");
     setIsStreaming(true);
 
     setTimeout(() => {
       const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      setMessages([...newMessages, { id: Date.now(), text: aiResponse, isUser: false }]);
+      setMessages([...newMessages, { id: Date.now().toString(), content: aiResponse, role: "user"} as Message]);
       setIsStreaming(false);
     }, 1000);
   };
 
-  const handleEditMessage = (id: number) => {
+  const handleEditMessage = (id: string) => {
     const messageToEdit = messages.find((msg) => msg.id === id);
-    if (messageToEdit && messageToEdit.isUser) {
+    if (messageToEdit && messageToEdit.role === "user") {
       setEditingMessageId(id);
-      setEditInput(messageToEdit.text);
+      setEditInput(messageToEdit.content);
     }
   };
 
@@ -286,31 +321,31 @@ const ChatInterface = () => {
       </Button>
 
       <ChatWindow isOpen={isOpen}>
-          <ChatHeader
-            isDarkMode={isDarkMode}
-            toggleDarkMode={toggleDarkMode}
-            handleResetChat={handleResetChat}
-            onClose={() => setIsOpen(false)}
-          />
-          <ChatContainer
-            messages={messages}
-            editingMessageId={editingMessageId}
-            editInput={editInput}
-            setEditInput={setEditInput}
-            handleCancelEdit={handleCancelEdit}
-            handleSaveEdit={handleSaveEdit}
-            handleEditMessage={handleEditMessage}
-            isStreaming={isStreaming}
-            messagesEndRef={messagesEndRef}
-          />
-          <MessageInput
-            input={input}
-            setInput={setInput}
-            handleSendMessage={handleSendMessage}
-            isStreaming={isStreaming}
-            inputRef={inputRef}
-          />
-       </ChatWindow>
+        <ChatHeader
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+          handleResetChat={handleResetChat}
+          onClose={() => setIsOpen(false)}
+        />
+        <ChatContainer
+          messages={messages}
+          editingMessageId={editingMessageId}
+          editInput={editInput}
+          setEditInput={setEditInput}
+          handleCancelEdit={handleCancelEdit}
+          handleSaveEdit={handleSaveEdit}
+          handleEditMessage={handleEditMessage}
+          isStreaming={isStreaming}
+          messagesEndRef={messagesEndRef}
+        />
+        <MessageInput
+          input={input}
+          setInput={setInput}
+          handleSendMessage={handleSendMessage}
+          isStreaming={isStreaming}
+          inputRef={inputRef}
+        />
+      </ChatWindow>
     </>
   );
 };

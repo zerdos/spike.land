@@ -71,9 +71,6 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
               <IoClose />
             </button>
           </div>
-          <div className="flex-grow overflow-hidden">
-            <ChatInterface onCodeUpdate={onCodeUpdate} />
-          </div>
         </div>
       </Resizable>
     </motion.div>

@@ -17,7 +17,7 @@ let started = false;
 
 // Constants for cache names
 const FILE_CACHE_NAME = 'file-cache-';
-const GENERAL_CACHE_NAME = 'general-cache-';
+const GENERAL_CACHE_NAME = 'general-cache';
 
 // Initialize the shared worker when receiving a message of type "sharedworker"
 self.onmessage = async (event: ExtendableMessageEvent) => {
@@ -90,7 +90,7 @@ const isFileInList = (pathname: string): boolean => {
 // Put the response in the appropriate cache
 const putInCache = async (request: Request, response: Response): Promise<void> => {
   const url = new URL(request.url);
-  const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME + self.swVersion;
+  const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME;
   const cache = await caches.open(cacheName);
   await cache.put(request, response);
 };
@@ -98,7 +98,7 @@ const putInCache = async (request: Request, response: Response): Promise<void> =
 const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
-    const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME + self.swVersion;
+    const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME;
     const cache = await caches.open(cacheName);
     const responseFromCache = await cache.match(request);
     if (responseFromCache) {

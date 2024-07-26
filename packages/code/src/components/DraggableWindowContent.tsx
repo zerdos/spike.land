@@ -44,7 +44,7 @@ export const DraggableWindowContent = (
     rgba: (r: number, g: number, b: number, a: number) => string;
   },
 ) => (
-  <div style={{ display: "flex" }}>
+  <div id={"DraggableWindow"} style={{ display: "flex" }}>
     <div
       css={css`
           display: flex;

@@ -390,7 +390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.3.1":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.24.8, @babel/runtime@npm:^7.3.1":
   version: 7.24.8
   resolution: "@babel/runtime@npm:7.24.8"
   dependencies:
@@ -3317,6 +3317,7 @@ __metadata:
     "@radix-ui/react-toggle-group": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.2"
     "@shadcn/ui": "npm:^0.0.4"
+    "@tabler/icons-react": "npm:^3.11.0"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/jest": "npm:29.5.12"
@@ -3355,6 +3356,7 @@ __metadata:
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.3.0"
     framer-motion: "npm:11.3.17"
+    i18next: "npm:^23.12.2"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
     jest: "npm:29.7.0"
@@ -3363,6 +3365,7 @@ __metadata:
     lucide-react: "npm:^0.416.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:0.50.0"
+    next-i18next: "npm:^15.3.0"
     next-themes: "npm:^0.3.0"
     node-source-walk: "npm:7.0.0"
     os-browserify: "npm:0.3.0"
@@ -3376,6 +3379,7 @@ __metadata:
     react-day-picker: "npm:9.0.4"
     react-dom: "npm:18.3.1"
     react-hook-form: "npm:^7.52.1"
+    react-i18next: "npm:^15.0.0"
     react-icons: "npm:5.2.1"
     react-live: "npm:4.1.7"
     react-qrious: "npm:2.5.6"
@@ -3512,6 +3516,24 @@ __metadata:
   dependencies:
     defer-to-connect: "npm:^2.0.0"
   checksum: 10/c29df3bcec6fc3bdec2b17981d89d9c9fc9bd7d0c9bcfe92821dc533f4440bc890ccde79971838b4ceed1921d456973c4180d7175ee1d0023ad0562240a58d95
+  languageName: node
+  linkType: hard
+
+"@tabler/icons-react@npm:^3.11.0":
+  version: 3.11.0
+  resolution: "@tabler/icons-react@npm:3.11.0"
+  dependencies:
+    "@tabler/icons": "npm:3.11.0"
+  peerDependencies:
+    react: ">= 16"
+  checksum: 10/1011b55f0a1efe327a863c6fdaf6522685d6492b3cddef0e8dfc2fa8326a88c661e13417f3b07a5710b4bbbde6c6830cb3c2309db81a7b20c0b2242f3e89a982
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:3.11.0":
+  version: 3.11.0
+  resolution: "@tabler/icons@npm:3.11.0"
+  checksum: 10/1815b5ba0b1016db4902248f5fbc79dff217b9f41ece950bfa0222cfd92d75740bc9d08ab227d7b9fee93e972df57c0c4d8da8b9769a92e065067aa7d8370a13
   languageName: node
   linkType: hard
 
@@ -3702,6 +3724,16 @@ __metadata:
   dependencies:
     "@types/unist": "npm:^2"
   checksum: 10/41531b7fbf590b02452996fc63272479c20a07269e370bd6514982cbcd1819b4b84d3ea620f2410d1b9541a23d08ce2eeb0a592145d05e00e249c3d56700d460
+  languageName: node
+  linkType: hard
+
+"@types/hoist-non-react-statics@npm:^3.3.4":
+  version: 3.3.5
+  resolution: "@types/hoist-non-react-statics@npm:3.3.5"
+  dependencies:
+    "@types/react": "npm:*"
+    hoist-non-react-statics: "npm:^3.3.0"
+  checksum: 10/b645b062a20cce6ab1245ada8274051d8e2e0b2ee5c6bd58215281d0ec6dae2f26631af4e2e7c8abe238cdcee73fcaededc429eef569e70908f82d0cc0ea31d7
   languageName: node
   linkType: hard
 
@@ -5765,6 +5797,13 @@ __metadata:
   dependencies:
     toggle-selection: "npm:^1.0.6"
   checksum: 10/e0a325e39b7615108e6c1c8ac110ae7b829cdc4ee3278b1df6a0e4228c490442cc86444cd643e2da344fbc424b3aab8909e2fec82f8bc75e7e5b190b7c24eecf
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3":
+  version: 3.37.1
+  resolution: "core-js@npm:3.37.1"
+  checksum: 10/25d6bd15fcc6ffd2a0ec0be57a78ff3358b3e1fdffdb6800fc93dcfdb3854037aee41f3d101aed8c37905d107daf98218b3e7ee95cec383710d2a66a5d9e541b
   languageName: node
   linkType: hard
 
@@ -8056,7 +8095,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -8083,6 +8122,15 @@ __metadata:
   version: 2.0.2
   resolution: "html-escaper@npm:2.0.2"
   checksum: 10/034d74029dcca544a34fb6135e98d427acd73019796ffc17383eaa3ec2fe1c0471dcbbc8f8ed39e46e86d43ccd753a160631615e4048285e313569609b66d5b7
+  languageName: node
+  linkType: hard
+
+"html-parse-stringify@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "html-parse-stringify@npm:3.0.1"
+  dependencies:
+    void-elements: "npm:3.1.0"
+  checksum: 10/8743b76cc50e46d1956c1ad879d18eb9613b0d2d81e24686d633f9f69bb26b84676f64a926973de793cca479997017a63219278476d617b6c42d68246d7c07fe
   languageName: node
   linkType: hard
 
@@ -8173,6 +8221,22 @@ __metadata:
   version: 1.1.0
   resolution: "hyphenate-style-name@npm:1.1.0"
   checksum: 10/b9ed74e29181d96bd58a2d0e62fc4a19879db591dba268275829ff0ae595fcdf11faafaeaa63330a45c3004664d7db1f0fc7cdb372af8ee4615ed8260302c207
+  languageName: node
+  linkType: hard
+
+"i18next-fs-backend@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "i18next-fs-backend@npm:2.3.1"
+  checksum: 10/ebabf882c3a295887b82dd15fb84414da5e4aca4a59246db618965fbdc2be585e7c4699c9bb280940c04487cd33a568d3a972f794c079def320f15482f2dc6ca
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^23.12.2":
+  version: 23.12.2
+  resolution: "i18next@npm:23.12.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.2"
+  checksum: 10/d7a743c54b83acc1203315e547bfe830bfe825dddd7706646aec2a49cb74254bcda70645b568d1bed55ee3610ba5e6f6012fb3c13f03080c1dd0f99db2c45478
   languageName: node
   linkType: hard
 
@@ -10375,6 +10439,7 @@ __metadata:
     dprint: "npm:0.47.2"
     eslint: "npm:8.57.0"
     eslint-plugin-react: "npm:7.35.0"
+    i18next: "npm:^23.12.2"
     localforage: "npm:1.10.0"
     playwright: "npm:1.45.3"
     react: "npm:18.3.1"
@@ -10479,6 +10544,24 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: 10/2723fb822a17ad55c93a588a4bc44d53b22855bf4be5499916ca0cab1e7165409d0b288ba2577d7b029f10ce18cf2ed8e703e5af31c984e1e2304277ef979837
+  languageName: node
+  linkType: hard
+
+"next-i18next@npm:^15.3.0":
+  version: 15.3.0
+  resolution: "next-i18next@npm:15.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.2"
+    "@types/hoist-non-react-statics": "npm:^3.3.4"
+    core-js: "npm:^3"
+    hoist-non-react-statics: "npm:^3.3.2"
+    i18next-fs-backend: "npm:^2.3.1"
+  peerDependencies:
+    i18next: ">= 23.7.13"
+    next: ">= 12.0.0"
+    react: ">= 17.0.2"
+    react-i18next: ">= 13.5.0"
+  checksum: 10/72e4c570395a5a16ab15ed7e19d3e0ce5daa1060e1de23445d29f3561ae8885e12a660e0a04daa831498f9f567d89335921dc547bddf66c7f59b2ab88a902845
   languageName: node
   linkType: hard
 
@@ -11624,6 +11707,24 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
   checksum: 10/5d117cb767114749163f3c52cc09e6dbefca8b450c91abe9958884b4df505a44f0b088046d1c98504bfcd5d4104126cfeb8917c25cb25b0610d89f713b4b2080
+  languageName: node
+  linkType: hard
+
+"react-i18next@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "react-i18next@npm:15.0.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.24.8"
+    html-parse-stringify: "npm:^3.0.1"
+  peerDependencies:
+    i18next: ">= 23.2.3"
+    react: ">= 16.8.0"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 10/5f3e60250179a6e28c61396099b4a9b66f65a484415b1f1c86e538a9242a84a0bf706e5218b9909351c95c28dda423dd741c014a0b503641e1ce03994b81df19
   languageName: node
   linkType: hard
 
@@ -13933,6 +14034,13 @@ __metadata:
     clone-stats: "npm:^0.0.1"
     replace-ext: "npm:0.0.1"
   checksum: 10/08c4e1ad3d94dfefcdac2259535e4a9be52e96e9b8ba31a265b81f002da79b36dcc791e3f4e4881d85807b4e559e92847c990aa7b3cecbecc0d5e37b310c920b
+  languageName: node
+  linkType: hard
+
+"void-elements@npm:3.1.0":
+  version: 3.1.0
+  resolution: "void-elements@npm:3.1.0"
+  checksum: 10/0390f818107fa8fce55bb0a5c3f661056001c1d5a2a48c28d582d4d847347c2ab5b7f8272314cac58acf62345126b6b09bea623a185935f6b1c3bbce0dfd7f7f
   languageName: node
   linkType: hard
 
