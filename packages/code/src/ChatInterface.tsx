@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./ChatDrawer";
 import { initialMessage } from "./initialMessage";
+import {prettier} from "./shared";
+import { set } from "immutable";
 
 // Types
 interface Artifact {
@@ -51,6 +53,7 @@ const ChatInterface: React.FC<
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [codeWhatAiSeen, setAICode ] = useState("");
 
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
@@ -123,13 +126,17 @@ const ChatInterface: React.FC<
     if (!content.trim()) return;
 
     const isFirstMessage = messages.length === 0;
-    if (isFirstMessage) {
+   const codeNow = await prettier(cSess.session.code);
+   
+    if (isFirstMessage || codeNow !== codeWhatAiSeen) {
       content = initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
         /{{FILE_CONTENT}}/g,
-        cSess.session.code,
+        codeNow,
       )
         + content;
+        setAICode(codeNow );
     }
+    
 
     const newMessage: Message = {
       id: Date.now().toString(),
@@ -239,7 +246,9 @@ const ChatInterface: React.FC<
     const artifacts = extractArtifacts(fullResponse);
 
     if (artifacts.length > 0) {
+
       onCodeUpdate(artifacts[0].content);
+      setAICode( await prettier(artifacts[0].content) );  
     }
 
     // Check if the response contains code modifications
