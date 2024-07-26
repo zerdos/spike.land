@@ -14,7 +14,7 @@ declare const self:
 let started = false;
 
 // Initialize the shared worker when receiving a message of type "sharedworker"
-self.onmessage = async (event) => {
+self.onmessage = async (event: ExtendableMessageEvent) => {
   if (event.data.type === "sharedworker") {
     globalThis.sharedWorker = event.data;
     const port = event.data.sharedWorkerPort;
@@ -48,7 +48,7 @@ const cacheFirst = async (request: Request): Promise<Response> => {
     return responseFromNetwork;
   } catch (error) {
     console.error(`Failed to fetch ${request.url}:`, error);
-    throw error;
+    return createErrorResponse('Failed to fetch resource', 500);
   }
 };
 
@@ -89,7 +89,7 @@ const fakeBackend = async (request: Request): Promise<Response> => {
       }
 
       if (["/bundle"].some((suffix) => url.pathname.endsWith(suffix))) {
-        const respText = createBundleResponse(HTML, css, codeSpace, i, html);
+        const respText = createBundleResponse(HTML, css, codeSpace, i.toString(), html);
         return createResponse(respText, 'text/html');
       }
 
@@ -147,7 +147,7 @@ const createErrorResponse = (message: string, status: number): Response => {
   });
 };
 
-const createBundleResponse = (HTML: string, css: string, codeSpace: string, i: number, html: string): string => {
+const createBundleResponse = (HTML: string, css: string, codeSpace: string, i: string, html: string): string => {
   return HTML.replace("/**reset*/", resetCSS + css)
     .replace(
       "<script src=\"/swVersion.js\"></script>",
@@ -177,7 +177,7 @@ const transpileAndServe = async (origin: string, codeSpace: string, code: string
     return trp;
   } catch (error) {
     console.error("Error transpiling and serving:", error);
-    throw error;
+    return createErrorResponse('Failed to transpile and serve', 500).text();
   }
 };
 
@@ -195,6 +195,7 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
           if (cacheName !== self.swVersion) {
             return caches.delete(cacheName);
           }
+          return Promise.resolve();
         })
       );
     })
