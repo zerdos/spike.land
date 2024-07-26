@@ -1,1 +1,1 @@
-declare module "esbuild-wasm/esbuild.wasm" ;
+declare module "esbuild-wasm/esbuild.wasm";

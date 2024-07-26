@@ -27,7 +27,7 @@
     // "noUncheckedIndexedAccess": true,      /* Include 'undefined' in index signature results */
 
     /* Module Resolution Options */
-    // "rootDirs": [".", "../../../node_modules"],       
+    // "rootDirs": [".", "../../../node_modules"],
     "strict": true,
     "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
@@ -36,7 +36,6 @@
     "moduleResolution": "node",
     // "noEmit": true,
     "outDir": "dts",
-
 
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
     // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
@@ -54,7 +53,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/@/*"]
-},
+    },
 
     "isolatedModules": true,
     "removeComments": true,
@@ -80,8 +79,7 @@
       "node"
     ]
   },
-  
-  
+
   "include": [
     "src"
   ],

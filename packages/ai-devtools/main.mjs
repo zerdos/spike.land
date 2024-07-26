@@ -113,7 +113,9 @@ feat: add a new feature
       }],
     }).catch(async () => console.log("Failed to generate final summary. Trying with gpt-4o."));
     if (!finalSummary) {
-      return res.status(500).json({ error: "Failed to generate final summary." });
+      return res.status(500).json({
+        error: "Failed to generate final summary.",
+      });
     }
     cache[prompt] = finalSummary.choices[0].message.content;
 

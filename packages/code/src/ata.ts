@@ -152,7 +152,8 @@ declare module 'react' {
       Object.keys(impRes)
         .filter((x) => impRes[x].content.length && impRes[x].url)
         .map(async (x) => ({
-          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse).replace(originToUse, ""),
+          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse)
+            .replace(originToUse, ""),
           content: (await prettierJs(impRes[x].content))
             .split(`import mod from "/`)
             .join(`import mod from "`)
@@ -164,10 +165,12 @@ declare module 'react' {
   ];
 
   const thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
-    .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(c => ({
-      content: c!.content,
-      filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
-    }));
+    .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
+      (c) => ({
+        content: c!.content,
+        filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
+      }),
+    );
 
   const ataBIG = await myATA(code);
   return [...ataBIG, ...thisATA];
@@ -216,7 +219,8 @@ declare module 'react' {
                 "X-typescript-types",
               );
 
-              newBase = typescriptTypes || await extractUrlFromResponse(response, r);
+              newBase = typescriptTypes
+                || await extractUrlFromResponse(response, r);
               if (newBase) newBase = new URL(newBase).toString();
             } catch (error) {
               let response;
@@ -225,7 +229,11 @@ declare module 'react' {
                   redirect: "follow",
                 });
               } catch {
-                console.error("error queuedFetching", { error, r, originToUse });
+                console.error("error queuedFetching", {
+                  error,
+                  r,
+                  originToUse,
+                });
               }
 
               if (!response || !response.ok) {
@@ -239,7 +247,8 @@ declare module 'react' {
               );
 
               newBase = typescriptTypes || response.url;
-              const newBaseIsDownloadable = await queuedFetch.fetch(newBase).then((res) => res.ok);
+              const newBaseIsDownloadable = await queuedFetch.fetch(newBase)
+                .then((res) => res.ok);
               if (!newBaseIsDownloadable) {
                 newBase = null;
               }
@@ -260,7 +269,10 @@ declare module 'react' {
     response: Response,
     ref: string,
   ): Promise<string | null> {
-    const responseText = importMapReplace(await prettierJs(await response.text()), originToUse);
+    const responseText = importMapReplace(
+      await prettierJs(await response.text()),
+      originToUse,
+    );
     return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
 
@@ -270,31 +282,57 @@ declare module 'react' {
     if (npmPackage.includes(".")) {
       const extension = npmPackage.split(".").pop();
 
-      const extensionList = ["d.ts", "mjs", "ts", "tsx", "jsx", "js", "json", "css"];
+      const extensionList = [
+        "d.ts",
+        "mjs",
+        "ts",
+        "tsx",
+        "jsx",
+        "js",
+        "json",
+        "css",
+      ];
       if (extensionList.includes(extension!)) return;
     }
     try {
-      const response = await queuedFetch.fetch(`${originToUse}/${npmPackage}/package.json`, {
-        redirect: "follow",
-      });
+      const response = await queuedFetch.fetch(
+        `${originToUse}/${npmPackage}/package.json`,
+        {
+          redirect: "follow",
+        },
+      );
       if (!response.ok) {
         throw new Error(`Failed to queuedFetch package.json for ${npmPackage}`);
       }
-      const packageJson = await response.json() as { typings?: string; types?: string };
+      const packageJson = await response.json() as {
+        typings?: string;
+        types?: string;
+      };
       if (packageJson.typings || packageJson.types) {
         let typingsPath = packageJson.typings || packageJson.types;
         if (typingsPath === "index.d.mts") typingsPath = `index.d.ts`;
         const url = new URL(`https://unpkg.com/${npmPackage}/${typingsPath}`);
-        const typingsResponse = await queuedFetch.fetch(url.toString(), { redirect: "follow" });
+        const typingsResponse = await queuedFetch.fetch(url.toString(), {
+          redirect: "follow",
+        });
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
-        const content = (await typingsResponse.text()).split("https://unpkg.com/").join();
+        const content = (await typingsResponse.text()).split(
+          "https://unpkg.com/",
+        ).join();
         if (content.startsWith("Cannot find")) return;
 
-        const typeUrl = typingsResponse.url.replace("https://unpkg.com", originToUse);
+        const typeUrl = typingsResponse.url.replace(
+          "https://unpkg.com",
+          originToUse,
+        );
         if (content) {
-          impRes[typingsPath === "index.d.ts" ? npmPackage : `${npmPackage}/${typingsPath}`] = {
+          impRes[
+            typingsPath === "index.d.ts"
+              ? npmPackage
+              : `${npmPackage}/${typingsPath}`
+          ] = {
             content,
             url: typeUrl,
             ref: `${npmPackage}/${typingsPath}`,
@@ -316,7 +354,11 @@ declare module 'react' {
         }
       }
     } catch (error) {
-      console.error("Error queuedFetching package.json or typings", { error, npmPackage, originToUse });
+      console.error("Error queuedFetching package.json or typings", {
+        error,
+        npmPackage,
+        originToUse,
+      });
     }
   }
 
@@ -324,18 +366,24 @@ declare module 'react' {
     if (!impRes[newBase]) {
       impRes[newBase] = { ref, url: newBase, content: "" };
 
-      impRes[newBase].content = await queuedFetch.fetch(newBase, { redirect: "follow" })
+      impRes[newBase].content = await queuedFetch.fetch(newBase, {
+        redirect: "follow",
+      })
         .then((dtsRes) => {
           impRes[newBase].url = dtsRes.url;
           return dtsRes.text();
         });
 
       const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") || ref.includes(".mts")
+        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js")
+          || ref.includes(".mts")
           ? ref
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,
-      ).toString().replace(".js", ".d.ts").replace(".mjs", ".d.ts").replace(".mts", ".d.ts");
+      ).toString().replace(".js", ".d.ts").replace(".mjs", ".d.ts").replace(
+        ".mts",
+        ".d.ts",
+      );
 
       if (!impRes[fileName]) {
         impRes[fileName] = {

@@ -59,8 +59,13 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "build",
-    ({ codeSpace, origin, format }: { codeSpace: string; origin: string; format: "esm" | "iife" }) =>
-      build({ codeSpace, origin, format }),
+    (
+      { codeSpace, origin, format }: {
+        codeSpace: string;
+        origin: string;
+        format: "esm" | "iife";
+      },
+    ) => build({ codeSpace, origin, format }),
   );
 
   rpcProvider.registerSignalHandler(
@@ -142,7 +147,11 @@ function setConnections(signal: string) {
               const transpiled = data.transpiled
                 || await transpile(c.oldSession.code, location.origin);
 
-              BC.postMessage({ ...c.oldSession, transpiled, sender: "ATA WORKER2" });
+              BC.postMessage({
+                ...c.oldSession,
+                transpiled,
+                sender: "ATA WORKER2",
+              });
               return;
             }
             return;

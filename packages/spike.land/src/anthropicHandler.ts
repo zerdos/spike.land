@@ -10,7 +10,9 @@ export async function handleAnthropicRequest(
 ) {
   handleCORS(request);
 
-  const body = JSON.parse(await readRequestBody(request)) as { messages: MessageParam[] };
+  const body = JSON.parse(await readRequestBody(request)) as {
+    messages: MessageParam[];
+  };
 
   const anthropic = new Anthropic({
     apiKey: env.ANTHROPIC_API_KEY,
@@ -31,14 +33,19 @@ export async function handleAnthropicRequest(
       });
 
       for await (const part of stream) {
-        if (part.type === "content_block_start" || part.type === "content_block_delta") {
+        if (
+          part.type === "content_block_start"
+          || part.type === "content_block_delta"
+        ) {
           const text = "delta" in part ? (part.delta as TextDelta).text : "";
           writer.write(textEncoder.encode(text || ""));
         }
       }
     } catch (error) {
       console.error("Error:", error);
-      writer.write(textEncoder.encode("An error occurred while processing your request."));
+      writer.write(
+        textEncoder.encode("An error occurred while processing your request."),
+      );
     } finally {
       await writer.close();
     }

@@ -12,7 +12,11 @@ Object.assign(globalThis, {
     return myATA(cSess.session.code);
   },
   build: async () => {
-    const file = await build({ codeSpace, origin: location.origin, format: "esm" });
+    const file = await build({
+      codeSpace,
+      origin: location.origin,
+      format: "esm",
+    });
 
     await writeFile(`/live/${codeSpace}/index.mjs`, file);
     await fetch(`${origin}/live/${codeSpace}/index.mjs`, {

@@ -5,7 +5,9 @@ const originToUse = location.origin;
 
 const refreshAta = async (code: string, originToUse: string) => {
   try {
-    const extraLibs = (await ata({ code, originToUse })).map(({ filePath, content }) => ({
+    const extraLibs = (await ata({ code, originToUse })).map((
+      { filePath, content },
+    ) => ({
       filePath: originToUse + filePath,
       content,
     }));
@@ -54,7 +56,8 @@ async function fetchAndCreateExtraModels(
 
     const res = await fetch(extraModel);
     const content = await res.text();
-    monaco.editor.getModel(mUri) || monaco.editor.createModel(content, "typescript", mUri);
+    monaco.editor.getModel(mUri)
+      || monaco.editor.createModel(content, "typescript", mUri);
   }
 }
 
@@ -201,7 +204,7 @@ async function startMonacoPristine({
 
   // Enable paste for all platforms
   myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => {
-    navigator.clipboard.readText().then(text => {
+    navigator.clipboard.readText().then((text) => {
       myEditor.trigger("keyboard", "paste", { text: text });
     });
   });
@@ -243,7 +246,9 @@ async function startMonacoPristine({
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      const diagnostics = await (await (await monaco.languages.typescript.getTypeScriptWorker())(uri))
+      const diagnostics = await (await (await monaco.languages.typescript.getTypeScriptWorker())(
+        uri,
+      ))
         .getSuggestionDiagnostics(uri.toString());
       return diagnostics.map((d) => d.messageText.toString());
     },

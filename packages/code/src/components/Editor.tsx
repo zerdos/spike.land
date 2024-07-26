@@ -82,13 +82,11 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     const newVersion = { timestamp: Date.now(), code: formattedCode };
     const updatedVersions = addVersion(codeSpace, newVersion, versions);
     setVersions(updatedVersions);
-    
 
     mod.controller.abort();
     mod.controller = new AbortController();
     const { signal } = mod.controller;
 
-    
     runner({ code: mod.code, counter: mod.i, codeSpace, signal });
   };
 
@@ -116,14 +114,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     editorState.setValue(mod.code);
 
     const { signal } = mod.controller;
-     // Load version history and add initial version if it's empty
-     const loadedVersions = loadVersionHistory(codeSpace);
-     if (loadedVersions.length === 0) {
-       const initialVersion = { timestamp: Date.now(), code: data.code };
-       setVersions([initialVersion]);
-     } else {
-       setVersions(loadedVersions);
-     }
+    // Load version history and add initial version if it's empty
+    const loadedVersions = loadVersionHistory(codeSpace);
+    if (loadedVersions.length === 0) {
+      const initialVersion = { timestamp: Date.now(), code: data.code };
+      setVersions([initialVersion]);
+    } else {
+      setVersions(loadedVersions);
+    }
     runner({ ...mod, counter: mod.i, codeSpace, signal });
   };
 

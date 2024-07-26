@@ -50,7 +50,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   return (
     <MotionConfig transition={{ delay, type, duration }}>
-      <MotionContainer bottom={bottom} right={right} bgColor={bgColor} rgba={rgba}>
+      <MotionContainer
+        bottom={bottom}
+        right={right}
+        bgColor={bgColor}
+        rgba={rgba}
+      >
         <DraggableWindowContent
           scaleRange={scaleRange}
           setScaleRange={setScaleRange}
@@ -73,7 +78,12 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         </DraggableWindowContent>
       </MotionContainer>
 
-      {showChat && <DraggableChat onCodeUpdate={onCodeUpdate} onClose={() => setShowChat(false)} />}
+      {showChat && (
+        <DraggableChat
+          onCodeUpdate={onCodeUpdate}
+          onClose={() => setShowChat(false)}
+        />
+      )}
     </MotionConfig>
   );
 };

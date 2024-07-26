@@ -71,7 +71,10 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
-    const fileName = window.prompt(t("Enter file name") || "", suggestedFileName);
+    const fileName = window.prompt(
+      t("Enter file name") || "",
+      suggestedFileName,
+    );
 
     if (!fileName) {
       // user pressed cancel on prompt
@@ -111,7 +114,11 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
         </div>
       </div>
 
-      <SyntaxHighlighter language={language} style={oneDark} customStyle={{ margin: 0, fontSize: 12 }}>
+      <SyntaxHighlighter
+        language={language}
+        style={oneDark}
+        customStyle={{ margin: 0, fontSize: 12 }}
+      >
         {value}
       </SyntaxHighlighter>
     </div>

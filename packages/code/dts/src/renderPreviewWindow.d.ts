@@ -1,3 +1,3 @@
 export declare const renderPreviewWindow: ({ codeSpace }: {
-    codeSpace: string;
+  codeSpace: string;
 }) => Promise<void>;

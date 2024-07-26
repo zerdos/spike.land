@@ -43,7 +43,10 @@ export const ChatMessage = ({
       return text;
     }
 
-    const cleanedText = text.replace(/<antArtifact.*?>/g, "```tsx").replace(/<\/antArtifact>/g, "```");
+    const cleanedText = text.replace(/<antArtifact.*?>/g, "```tsx").replace(
+      /<\/antArtifact>/g,
+      "```",
+    );
 
     const parts = cleanedText.split("```tsx");
     if (parts.length > 1) {
@@ -54,7 +57,10 @@ export const ChatMessage = ({
         const nextParts = part.split("```");
         return (
           <>
-            <pre key={index} className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
+            <pre
+              key={index}
+              className="bg-gray-100 p-2 rounded my-2 overflow-x-auto"
+            >
             <CodeTS code={nextParts[0]} />
             </pre>
             {nextParts.length == 2 && <span key={index}>{nextParts[1]}</span>}
@@ -88,7 +94,10 @@ export const ChatMessage = ({
                 className="bg-background text-foreground"
               />
               <div className="flex justify-end space-x-2">
-                <Button size="sm" onClick={() => handleSaveEdit(Date.now().toString())}>
+                <Button
+                  size="sm"
+                  onClick={() => handleSaveEdit(Date.now().toString())}
+                >
                   <Check className="h-4 w-4" />
                 </Button>
                 <Button size="sm" variant="outline" onClick={handleCancelEdit}>
@@ -121,7 +130,9 @@ export const ChatHeader = ({
       <span>AI spike pilot</span>
       <div className="flex items-center space-x-2">
         <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
-          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {isDarkMode
+            ? <Sun className="h-4 w-4" />
+            : <Moon className="h-4 w-4" />}
         </Button>
         <Button variant="ghost" size="icon" onClick={handleResetChat}>
           <RefreshCw className="h-4 w-4" />
@@ -207,7 +218,11 @@ export const MessageInput = ({
           ref={inputRef}
           disabled={isStreaming}
         />
-        <Button onClick={() => handleSendMessage(input)} size="icon" disabled={isStreaming}>
+        <Button
+          onClick={() => handleSendMessage(input)}
+          size="icon"
+          disabled={isStreaming}
+        >
           <Send className="h-4 w-4" />
         </Button>
       </div>
@@ -215,7 +230,9 @@ export const MessageInput = ({
   );
 };
 
-export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = ({ children, isOpen }) => (
+export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
+  { children, isOpen },
+) => (
   <div
     css={css`
     z-index: 999;
@@ -264,14 +281,24 @@ const ChatInterface = () => {
   const handleSendMessage = () => {
     if (input.trim() === "") return;
 
-    const newMessages = [...messages, { id: Date.now(), content: input, role: "user" } as unknown as Message];
+    const newMessages = [
+      ...messages,
+      { id: Date.now(), content: input, role: "user" } as unknown as Message,
+    ];
     setMessages(newMessages);
     setInput("");
     setIsStreaming(true);
 
     setTimeout(() => {
       const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      setMessages([...newMessages, { id: Date.now().toString(), content: aiResponse, role: "user" } as Message]);
+      setMessages([
+        ...newMessages,
+        {
+          id: Date.now().toString(),
+          content: aiResponse,
+          role: "user",
+        } as Message,
+      ]);
       setIsStreaming(false);
     }, 1000);
   };

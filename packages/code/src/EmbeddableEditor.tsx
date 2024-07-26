@@ -65,8 +65,14 @@ export const EmbeddableEditor = () => {
       </div>
       <div className="w-1/2 h-full flex flex-col">
         <div className="flex justify-end p-2 bg-gray-200 dark:bg-gray-700">
-          <Button onClick={() => setIsDarkMode(!isDarkMode)} variant="ghost" size="icon">
-            {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          <Button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            variant="ghost"
+            size="icon"
+          >
+            {isDarkMode
+              ? <Sun className="h-4 w-4" />
+              : <Moon className="h-4 w-4" />}
           </Button>
           <Button onClick={toggleFullScreen} variant="ghost" size="icon">
             <Maximize className="h-4 w-4" />

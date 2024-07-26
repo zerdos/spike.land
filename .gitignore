@@ -123,3 +123,4 @@ packages/code/deno.lock
 .aider*
 files.md
 codebase.md
+*.d.ts

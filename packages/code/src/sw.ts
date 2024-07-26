@@ -88,9 +88,14 @@ const isFileInList = (pathname: string): boolean => {
 };
 // Put the response in the appropriate cache
 // Put the response in the appropriate cache
-const putInCache = async (request: Request, response: Response): Promise<void> => {
+const putInCache = async (
+  request: Request,
+  response: Response,
+): Promise<void> => {
   const url = new URL(request.url);
-  const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME;
+  const cacheName = isFileInList(url.pathname)
+    ? FILE_CACHE_NAME + self.swVersion
+    : GENERAL_CACHE_NAME;
   const cache = await caches.open(cacheName);
   await cache.put(request, response);
 };
@@ -98,7 +103,9 @@ const putInCache = async (request: Request, response: Response): Promise<void> =
 const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
-    const cacheName = isFileInList(url.pathname) ? FILE_CACHE_NAME + self.swVersion : GENERAL_CACHE_NAME;
+    const cacheName = isFileInList(url.pathname)
+      ? FILE_CACHE_NAME + self.swVersion
+      : GENERAL_CACHE_NAME;
     const cache = await caches.open(cacheName);
     const responseFromCache = await cache.match(request);
     if (responseFromCache) {
@@ -149,12 +156,22 @@ const fakeBackend = async (request: Request): Promise<Response> => {
 
       // Serve the built JavaScript file
       if (codeSpacePath.endsWith(".mjs")) {
-        const resp = await build({ codeSpace, origin: url.origin, format: "esm" });
+        const resp = await build({
+          codeSpace,
+          origin: url.origin,
+          format: "esm",
+        });
         return createResponse(resp, "application/javascript");
       }
 
       if (["/bundle"].some((suffix) => url.pathname.endsWith(suffix))) {
-        const respText = createBundleResponse(HTML, css, codeSpace, i.toString(), html);
+        const respText = createBundleResponse(
+          HTML,
+          css,
+          codeSpace,
+          i.toString(),
+          html,
+        );
         return createResponse(respText, "text/html");
       }
 
@@ -179,7 +196,10 @@ const fakeBackend = async (request: Request): Promise<Response> => {
   return fetch(request);
 };
 
-const fetchSession = async (origin: string, codeSpace: string): Promise<ICodeSession | null> => {
+const fetchSession = async (
+  origin: string,
+  codeSpace: string,
+): Promise<ICodeSession | null> => {
   try {
     const response = await fetch(`${origin}/live/${codeSpace}/session.json`);
     if (!response.ok) {
@@ -212,7 +232,13 @@ const createErrorResponse = (message: string, status: number): Response => {
   });
 };
 
-const createBundleResponse = (HTML: string, css: string, codeSpace: string, i: string, html: string): string => {
+const createBundleResponse = (
+  HTML: string,
+  css: string,
+  codeSpace: string,
+  i: string,
+  html: string,
+): string => {
   return HTML.replace("/**reset*/", resetCSS + css)
     .replace(
       "<script src=\"/swVersion.js\"></script>",
@@ -225,7 +251,11 @@ const createBundleResponse = (HTML: string, css: string, codeSpace: string, i: s
     );
 };
 
-const transpileAndServe = async (origin: string, codeSpace: string, code: string): Promise<string> => {
+const transpileAndServe = async (
+  origin: string,
+  codeSpace: string,
+  code: string,
+): Promise<string> => {
   try {
     const trp = await Promise.race([
       fetch(`${origin}/live/${codeSpace}/index.js`).then((x) => x.text()),
@@ -254,10 +284,13 @@ self.addEventListener("fetch", (event: FetchEvent) => {
 // Clear old caches
 self.addEventListener("activate", (event: ExtendableEvent) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName.startsWith(FILE_CACHE_NAME) && cacheName !== FILE_CACHE_NAME + self.swVersion) {
+        cacheNames.map((cacheName) => {
+          if (
+            cacheName.startsWith(FILE_CACHE_NAME)
+            && cacheName !== FILE_CACHE_NAME + self.swVersion
+          ) {
             return caches.delete(cacheName);
           }
           return Promise.resolve();

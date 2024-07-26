@@ -130,7 +130,7 @@ export async function buildMainBundle(wasmFile) {
     sourcemap: false,
     legalComments: "none",
     entryPoints: [
-      ...components.filter(x => x).map((component) => `src/@/components/ui/${component}.tsx`),
+      ...components.filter((x) => x).map((component) => `src/@/components/ui/${component}.tsx`),
       "src/@/lib/utils.ts",
       "src/modules.ts",
       "src/reactMod.ts",

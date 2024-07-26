@@ -25,13 +25,17 @@ const getCodeSpace = (): string => {
 const codeSpace = getCodeSpace();
 
 // Component: ColorModeToggle
-const ColorModeToggle: React.FC<{ isDarkMode: boolean; toggleDarkMode: () => void }> = (
+const ColorModeToggle: React.FC<
+  { isDarkMode: boolean; toggleDarkMode: () => void }
+> = (
   { isDarkMode, toggleDarkMode },
 ) => (
   <button
     onClick={toggleDarkMode}
     className={`p-2 rounded-full backdrop-blur-sm ${
-      isDarkMode ? "bg-gray-800/30 text-yellow-400" : "bg-yellow-100/30 text-gray-800"
+      isDarkMode
+        ? "bg-gray-800/30 text-yellow-400"
+        : "bg-yellow-100/30 text-gray-800"
     } hover:bg-opacity-50 transition-all duration-300`}
   >
     {isDarkMode ? "🌙" : "☀️"}
@@ -39,7 +43,9 @@ const ColorModeToggle: React.FC<{ isDarkMode: boolean; toggleDarkMode: () => voi
 );
 
 // Main Component: ChatInterface
-const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }> = (
+const ChatInterface: React.FC<
+  { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }
+> = (
   { onCodeUpdate, onClose, isOpen },
 ) => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -103,7 +109,10 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: bo
   };
 
   const saveMessages = (newMessages: Message[]) => {
-    localStorage.setItem(`chatMessages-${codeSpace}`, JSON.stringify(newMessages));
+    localStorage.setItem(
+      `chatMessages-${codeSpace}`,
+      JSON.stringify(newMessages),
+    );
     broadcastChannel.current?.postMessage({
       type: `update_messages-${codeSpace}`,
       messages: newMessages,
@@ -115,8 +124,10 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: bo
 
     const isFirstMessage = messages.length === 0;
     if (isFirstMessage) {
-      content =
-        initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(/{{FILE_CONTENT}}/g, cSess.session.code)
+      content = initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
+        /{{FILE_CONTENT}}/g,
+        cSess.session.code,
+      )
         + content;
     }
 
@@ -152,7 +163,10 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: bo
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            messages: [...messages, newMessage, { ...assistantMessage, content: fullResponse }].map((msg) => ({
+            messages: [...messages, newMessage, {
+              ...assistantMessage,
+              content: fullResponse,
+            }].map((msg) => ({
               role: msg.role,
               content: msg.content,
             })),
@@ -199,7 +213,7 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: bo
             return updatedMessages;
           });
         } else {
-          await new Promise(resolve => setTimeout(resolve, 1000 * retryCount)); // Exponential backoff
+          await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount)); // Exponential backoff
         }
       }
     }
@@ -233,18 +247,27 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: bo
     const matches = fullResponse.match(codeModificationRegex);
 
     if (matches) {
-      const modifiedCode = matches[matches.length - 1].replace(/```(?:jsx?|tsx?)\n|```/g, "");
+      const modifiedCode = matches[matches.length - 1].replace(
+        /```(?:jsx?|tsx?)\n|```/g,
+        "",
+      );
       onCodeUpdate(modifiedCode);
     }
 
-    saveMessages([...messages, newMessage, { ...assistantMessage, content: fullResponse }]);
+    saveMessages([...messages, newMessage, {
+      ...assistantMessage,
+      content: fullResponse,
+    }]);
     setIsStreaming(false);
   };
 
   const handleResetChat = () => {
     setMessages([]);
     localStorage.removeItem(`chatMessages-${codeSpace}`);
-    broadcastChannel.current?.postMessage({ type: `update_messages-${codeSpace}`, messages: [] });
+    broadcastChannel.current?.postMessage({
+      type: `update_messages-${codeSpace}`,
+      messages: [],
+    });
   };
 
   const handleEditMessage = (messageId: string) => {
@@ -261,7 +284,9 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: bo
   };
 
   const handleSaveEdit = (messageId: string) => {
-    const updatedMessages = messages.map((msg) => (msg.id === messageId ? { ...msg, content: editInput } : msg));
+    const updatedMessages = messages.map((
+      msg,
+    ) => (msg.id === messageId ? { ...msg, content: editInput } : msg));
     setMessages(updatedMessages);
     saveMessages(updatedMessages);
     setEditingMessageId(null);

@@ -5,7 +5,14 @@ import { md5 } from "./md5";
 import { myATA } from "./my-ata";
 import { Delta } from "./textDiff";
 export { importMapReplace };
-import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, string_ } from "./makeSess";
+import {
+  applyCodePatch,
+  CodePatch,
+  ICodeSession,
+  makeHash,
+  makeSession,
+  string_,
+} from "./makeSess";
 export { myATA };
 export { resetCSS };
 export { importMap };

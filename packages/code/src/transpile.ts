@@ -10,7 +10,9 @@ declare const self:
   & {
     mod: {
       init: boolean | Promise<boolean>;
-      initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
+      initialize: (
+        wasmModule: WebAssembly.Module,
+      ) => Promise<boolean> | boolean;
     };
   };
 
@@ -211,7 +213,18 @@ export const build = async ({
 
   const define = makeEnv("production");
   const defaultOpts: BuildOptions = {
-    resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".d.ts", ".css", ".json", ".mjs", ".wasm", ".ttf"],
+    resolveExtensions: [
+      ".tsx",
+      ".ts",
+      ".jsx",
+      ".js",
+      ".d.ts",
+      ".css",
+      ".json",
+      ".mjs",
+      ".wasm",
+      ".ttf",
+    ],
     loader: {
       ".js": "js",
       ".mjs": "js",

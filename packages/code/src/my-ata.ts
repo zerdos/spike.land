@@ -33,7 +33,10 @@ export const myATA = async (code: string) => {
   const monacoExtraLibs: { filePath: string; content: string }[] = [];
 
   for (const [filePath, content] of filed.entries()) {
-    monacoExtraLibs.push({ filePath: filePath.slice(13).split("@types/").join(""), content });
+    monacoExtraLibs.push({
+      filePath: filePath.slice(13).split("@types/").join(""),
+      content,
+    });
   }
   return monacoExtraLibs;
 };

@@ -42,9 +42,12 @@ if (navigator.serviceWorker) {
                 : undefined) as unknown as Transferable[],
             ),
         );
-        sw.postMessage({ type: "sharedworker", sharedWorkerPort: swPort.port1 }, [
-          swPort.port1,
-        ]);
+        sw.postMessage(
+          { type: "sharedworker", sharedWorkerPort: swPort.port1 },
+          [
+            swPort.port1,
+          ],
+        );
       });
 
       // Register service worker
@@ -145,7 +148,14 @@ if (location.pathname === `/live/${codeSpace}`) {
           const css = mineFromCaches(cache, html);
 
           if (mod.counter !== counter) return;
-          BC.postMessage({ html, css, i: counter, code: mod.code, transpiled: mod.transpiled, sender: "Hydrater" });
+          BC.postMessage({
+            html,
+            css,
+            i: counter,
+            code: mod.code,
+            transpiled: mod.transpiled,
+            sender: "Hydrater",
+          });
           // globalThis.firstRender = { html, css, code: "" };
           // window?.parent?.postMessage({ type: "firstRender", html, css });
 
@@ -163,7 +173,9 @@ if (location.pathname === `/live/${codeSpace}`) {
 
           const emotionStyles = Array.from(
             new Set(
-              Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
+              Array.from(
+                document.querySelectorAll(`style[data-emotion="${key}"]`),
+              )
                 .map((style) => style.textContent),
             ),
           ).join("\n");

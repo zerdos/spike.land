@@ -1,6 +1,6 @@
 import React from "react";
 interface ArtifactManagerProps {
-    rawContent: string;
+  rawContent: string;
 }
 declare const ArtifactManager: React.FC<ArtifactManagerProps>;
 export default ArtifactManager;
