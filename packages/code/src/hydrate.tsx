@@ -3,6 +3,7 @@ import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
 
 import type { EmotionCache } from "@emotion/cache";
+import { createRoot } from "react-dom/client";
 import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
 import { createJsBlob } from "./starter";
@@ -10,6 +11,13 @@ import { wait } from "./wait";
 
 // Set up service worker version
 const { swVersion } = self;
+
+if (!location.pathname.startsWith("/live/")) {
+  const Page = (await import("./pages/index")).default;
+
+  const root = document.getElementById("root");
+  createRoot(root!).render(<Page />);
+}
 
 if (navigator.serviceWorker) {
   setTimeout(() => {

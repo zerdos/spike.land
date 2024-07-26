@@ -1,8 +1,8 @@
-import { md5 } from "@spike-land/code";
+import { HTML, resetCSS, TW } from "@spike-land/code";
 import Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleErrors } from "./handleErrors";
-import { handleRedirectResponse, handleUnauthorizedRequest } from "./utils";
+import { handleUnauthorizedRequest } from "./utils";
 
 export async function handleMainFetch(
   request: Request,
@@ -21,16 +21,11 @@ export async function handleMainFetch(
     const path = url.pathname.slice(1).split("/");
 
     if (!path[0]) {
-      const utcSecs = Math.floor(Math.floor(Date.now() / 1000) / 7200);
-      const { cf } = request as unknown as { cf?: { asOrganization?: string } };
-
-      const start = md5(
-        ((cf?.asOrganization) || "default")
-          + utcSecs + `
-      and reset every 2 hours
-      time`,
-      );
-      return handleRedirectResponse(url, start);
+      return new Response(HTML.replace("/**reset*/", resetCSS).replace("/**TW**/", TW), {
+        headers: {
+          "content-type": "text/html",
+        },
+      });
     }
 
     return handleFetchApi(path, request, env, ctx);

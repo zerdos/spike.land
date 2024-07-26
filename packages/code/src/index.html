@@ -11,19 +11,25 @@
   <title>Instant React Editor</title>
  
   <style>
-    html,
-    body {
-      margin: 0;
-      height: 100%;
-      margin: 0;
-            padding: 0;
-            overflow: auto;
-      --webkit-overflow-scrolling: touch;
-    }
+ body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif; /* You can customize this */
+  box-sizing: border-box;
+}
 
-    #root {
-            min-height: 100%;
-        }
+/* Make sure the root element covers the entire viewport */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Additional custom styles can go here */
 
     @media screen and (prefers-color-scheme: dark) {
       body {
@@ -54,7 +60,10 @@
 <body>
   <div id="root"></div>
   <script src="/swVersion.js"></script>
-  <script src="/hydrate.mjs?v=ASSET_HASH" type="module"></script>
+  <script>/**TW**/</script>
+  <script type="module">
+    import("/hydrate.mjs?"+swVersion);
+  </script>
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
