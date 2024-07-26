@@ -1,4 +1,4 @@
 declare function _default(url: any, module?: {
-  exports: {};
+    exports: {};
 }): Promise<{}>;
 export default _default;

@@ -2,18 +2,9 @@ import { resetCSS } from "./getResetCss";
 import { importMap } from "./importMap";
 import { importMapReplace } from "./importMapReplace";
 import { md5 } from "./md5";
-import { myATA } from "./my-ata";
 import { Delta } from "./textDiff";
 export { importMapReplace };
-import {
-  applyCodePatch,
-  CodePatch,
-  ICodeSession,
-  makeHash,
-  makeSession,
-  string_,
-} from "./makeSess";
-export { myATA };
+import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, string_ } from "./makeSess";
 export { resetCSS };
 export { importMap };
 export { makeHash, string_ };
