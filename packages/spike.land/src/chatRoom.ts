@@ -6,15 +6,13 @@ import {
   Delta,
   ICodeSession,
   makeHash,
+  HTML,
   makeSession,
   md5,
-  resetCSS,
   string_,
-  TW,
 } from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
-import { ASSET_HASH } from "./staticContent.mjs";
 
 export { md5 };
 
@@ -382,55 +380,6 @@ export class Code implements DurableObject {
               }),
             });
           }
-          // case "tokens": {
-          //   const tokens = Array.from(jsTokens(code, { jsx: true }));
-
-          //   return new Response(
-          //     JSON.stringify(tokens.filter((x) => x.type !== "WhiteSpace")),
-          //     {
-          //       status: 200,
-          //       headers: new Headers({
-          //         "Access-Control-Allow-Origin": "*",
-          //         "Cross-Origin-Embedder-Policy": "require-corp",
-          //         "Cache-Control": "no-cache",
-          //         "Content-Type": "application/json; charset=UTF-8",
-          //       }),
-          //     },
-          //   );
-          // }
-          // case "token2": {
-          //   const tokens = Array.from(jsTokens(code, { jsx: true }));
-
-          //   return new Response(
-          //     tokens.filter((x) => x.type !== "WhiteSpace").map((x) => x.value)
-          //       .join(" "),
-          //     {
-          //       status: 200,
-          //       headers: {
-          //         "Access-Control-Allow-Origin": "*",
-          //         "Cross-Origin-Embedder-Policy": "require-corp",
-          //         "Cache-Control": "no-cache",
-          //         "Content-Type": "application/javascript; charset=UTF-8",
-          //       },
-          //     },
-          //   );
-          // }
-
-          case "ata": {
-            const { myATA } = await import("@spike-land/code");
-            const ata = await myATA(code);
-            return new Response(JSON.stringify(ata), {
-              status: 200,
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cache-Control": "no-cache",
-                "Content-Encoding": "gzip",
-                content_hash: md5(ata),
-                "Content-Type": "application/json; charset=UTF-8",
-              },
-            });
-          }
           case "session.json":
           case "session": {
             if (path[1]) {
@@ -608,70 +557,14 @@ export class Code implements DurableObject {
           case "dehydrated":
           case "iframe":
           case "public": {
-            const respText = `
-<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-
-  <base href="/">
-  <title>Instant React Editor</title>
-  <style>
-     html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        #root {
-            min-height: 100%;
-        }
-
-    @media screen and (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        color: hsl(210, 10%, 62%);
-        --text-color-normal: hsl(210, 10%, 62%);
-        --text-color-light: hsl(210, 15%, 35%);
-        --text-color-richer: hsl(210, 50%, 72%);
-        --text-color-highlight: hsl(25, 70%, 45%);
-      }
-    }
-
-    @media screen and (prefers-color-scheme: light) {
-      body {
-        background-color: white;
-        color: black;
-        --text-color-normal: #0a244d;
-        --text-color-light: #8cabd9;
-      }
-    }
-
-    ${resetCSS} ${css}
-  </style>
-</head>
-<body>
-  <div id="root">${html}</div>
-  <script>
-              window.swVersion = "${ASSET_HASH}"
-  </script>
-  <script>
-  ${TW}
-  </script>
-    <script src="/swVersion.js"></script>
-  <script src="/hydrate.mjs?v=${ASSET_HASH}" type="module"></script>
-  <script type="module">
-    ${this.transpiled}
-
-    if (location.pathname.split("/").length>3) {
+            const respText = HTML.replace("/**reset*/", css).replace("<div id=\"root\"></div>", `<div id="root">${html}</div>   <script type="module">    
+                    ${this.transpiled}
+                    
+                        if (location.pathname.split("/").length>3) {
     globalThis.module.renderApp();
   } 
-  </script>
-</body>
-</html>`;
 
+                    </script>`);
             const headers = new Headers();
             headers.set("Access-Control-Allow-Origin", "*");
 
@@ -693,86 +586,7 @@ export class Code implements DurableObject {
               headers: headers,
             });
           }
-          case "instant": {
-            const headers = new Headers();
-            headers.set("Access-Control-Allow-Origin", "*");
-
-            headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-            headers.set("Cross-Origin-Resource-Policy", "cross-origin");
-
-            headers.set("Cross-Origin-Opener-Policy", "same-origin");
-            headers.set(
-              "Cache-Control",
-              "no-cache",
-            );
-
-            headers.set("Content-Encoding", "gzip");
-            headers.set("Content-Type", "text/html; charset=UTF-8");
-
-            const respText = `
-            <!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-
-  <base href="/">
-  <title>Instant React Editor</title>
-  <style>
-    html, body {
-      overflow: hidden;
-      margin: 0;
-      height: 100%;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: none;
-    }
-      #root {
-        height: 100%;
-        width: 100%;
-      }
-
-    q { display: none; }
-
-    @media screen and (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        color: hsl(210, 10%, 62%);
-        --text-color-normal: hsl(210, 10%, 62%);
-        --text-color-light: hsl(210, 15%, 35%);
-        --text-color-richer: hsl(210, 50%, 72%);
-        --text-color-highlight: hsl(25, 70%, 45%);
-      }
-    }
-
-    @media screen and (prefers-color-scheme: light) {
-      body {
-        background-color: white;
-        color: black;
-        --text-color-normal: #0a244d;
-        --text-color-light: #8cabd9;
-      }
-    }
-
-    ${resetCSS}
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-  <script>${TW}</script>
-  <script type="module">
-    ${this.transpiled}
-    globalThis.module.renderApp();
-  </script>
-</body>
-</html>`;
-
-            headers.set("content_hash", md5(respText));
-
-            return new Response(respText, {
-              status: 200,
-              headers: headers,
-            });
-          }
+      
 
           default:
             return new Response("Not found", { status: 404 });

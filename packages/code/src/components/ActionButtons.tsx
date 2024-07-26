@@ -62,16 +62,6 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
             <FaDownload />
           </Fab>
         </Tooltip>
-        <Tooltip title="Toggle Chat" placement="left">
-          <Fab onClick={() => setShowChat(!showChat)}>
-            <RiChatSmile3Line />
-          </Fab>
-        </Tooltip>
-        <Tooltip title="AI Modify Code" placement="left">
-          <Fab onClick={handleAIModify}>
-            <AiOutlineRobot />
-          </Fab>
-        </Tooltip>
       </div>
     </motion.div>
   );

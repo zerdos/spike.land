@@ -5,7 +5,7 @@ export default () => (
   <header
     css={css`
       background-color: #282c34;
-      min-height: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;

@@ -14,7 +14,7 @@ const { swVersion } = self;
 
 if (!location.pathname.startsWith("/live/")) {
 
-  import("./tw.mjs");
+  import("./assets/tw.js");
 
   const Page = (await import("./pages/index")).default;
 

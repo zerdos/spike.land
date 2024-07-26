@@ -21,7 +21,7 @@ export async function handleMainFetch(
     const path = url.pathname.slice(1).split("/");
 
     if (!path[0]) {
-      return new Response(HTML.replace("/**reset*/", resetCSS).replace("/**TW**/", TW), {
+      return new Response(HTML, {
         headers: {
           "content-type": "text/html",
         },
