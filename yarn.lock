@@ -3228,7 +3228,7 @@ __metadata:
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.53.0"
+    openai: "npm:4.53.1"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -3270,7 +3270,7 @@ __metadata:
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     typescript: "npm:5.5.4"
-    wrangler: "npm:3.67.0"
+    wrangler: "npm:3.67.1"
   languageName: unknown
   linkType: soft
 
@@ -3355,7 +3355,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.3.0"
-    framer-motion: "npm:11.3.17"
+    framer-motion: "npm:11.3.18"
     i18next: "npm:^23.12.2"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -3506,7 +3506,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240725.0"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.4"
-    wrangler: "npm:3.67.0"
+    wrangler: "npm:3.67.1"
   languageName: unknown
   linkType: soft
 
@@ -7503,9 +7503,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.17":
-  version: 11.3.17
-  resolution: "framer-motion@npm:11.3.17"
+"framer-motion@npm:11.3.18":
+  version: 11.3.18
+  resolution: "framer-motion@npm:11.3.18"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -7519,7 +7519,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/3a967b71b3417926744308e41f6ad8cf16f61ca36640c006bb3e5068261c89cab7c19d679357bacf2ab04f9b5aa930b243e0527554324c32606d7433d5d42b2a
+  checksum: 10/71aee2eb07f64b18969ac4ae4e04f4b7f1dbd592fe67d21b52cea970da64d02cb2f3d0797aa72f3a653bfd2f064860ad725b6661062725852c946b69ce9686de
   languageName: node
   linkType: hard
 
@@ -10228,9 +10228,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:3.20240718.0":
-  version: 3.20240718.0
-  resolution: "miniflare@npm:3.20240718.0"
+"miniflare@npm:3.20240718.1":
+  version: 3.20240718.1
+  resolution: "miniflare@npm:3.20240718.1"
   dependencies:
     "@cspotcode/source-map-support": "npm:0.8.1"
     acorn: "npm:^8.8.0"
@@ -10246,7 +10246,7 @@ __metadata:
     zod: "npm:^3.22.3"
   bin:
     miniflare: bootstrap.js
-  checksum: 10/1ed306112a0712130e2e1732ef5e6a43dcee4d3955735e33e7809c496c5155ea95669096e27f6793a756a3e7f8de6ba79bcb26734771dd749f5ce82854c0246a
+  checksum: 10/82e1afd1a522a0a4bbb26c353b36a493bbd9bd3859c50bd2e72a686e4393cb98efeceb470f003088de8badf1a8be56235c945015a593a22929636de3c193b255
   languageName: node
   linkType: hard
 
@@ -10490,7 +10490,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240725.0"
     hono: "npm:4.5.1"
-    wrangler: "npm:3.67.0"
+    wrangler: "npm:3.67.1"
   languageName: unknown
   linkType: soft
 
@@ -10913,9 +10913,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.53.0":
-  version: 4.53.0
-  resolution: "openai@npm:4.53.0"
+"openai@npm:4.53.1":
+  version: 4.53.1
+  resolution: "openai@npm:4.53.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -10924,10 +10924,9 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-    web-streams-polyfill: "npm:^3.2.1"
   bin:
     openai: bin/cli
-  checksum: 10/b3a84f3d2b2775f0d2e149fd8c5c6faa1cb7474547b9d8716d3df8a6340e4759fbbba848b20a0c7dbe6e42d01d4c06dc3257641c56fde3af84d944a6ea01d071
+  checksum: 10/c61cb4e2090481e48acc209f046e3bf97e9cf4e6a7eb7a54c46d6736cd187808480e3d71cfc03f46a898d9545ab7f301a55de8ca4c6f51c3c9f2fe413b14d11d
   languageName: node
   linkType: hard
 
@@ -14266,9 +14265,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.67.0":
-  version: 3.67.0
-  resolution: "wrangler@npm:3.67.0"
+"wrangler@npm:3.67.1":
+  version: 3.67.1
+  resolution: "wrangler@npm:3.67.1"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -14278,7 +14277,7 @@ __metadata:
     date-fns: "npm:^3.6.0"
     esbuild: "npm:0.17.19"
     fsevents: "npm:~2.3.2"
-    miniflare: "npm:3.20240718.0"
+    miniflare: "npm:3.20240718.1"
     nanoid: "npm:^3.3.3"
     path-to-regexp: "npm:^6.2.0"
     resolve: "npm:^1.22.8"
@@ -14299,7 +14298,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/c89ae10bfeb3b1cb4fd1be795dbfc137bd92a60d4b64660a83f8b739553441df1f3dcf21bdd231402eeecd97c08092fc1876b32b634e75613c8383431d7ed56b
+  checksum: 10/79d4e457c5fd1705d2c538fe6bae161e0fdc4f00b9ca4b24e979e40d05db7920c0a673a392a3cc5e927d5106dbb8e4f7bc2f4f9ac7f4d6a6b4079a3fb3802df9
   languageName: node
   linkType: hard
 
