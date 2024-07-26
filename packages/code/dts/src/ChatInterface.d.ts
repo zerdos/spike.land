@@ -1,4 +1,5 @@
-declare const ChatInterface: ({ onCodeUpdate }: {
+import React from 'react';
+declare const ChatInterface: React.FC<{
     onCodeUpdate: (code: string) => void;
-}) => import("@emotion/react/jsx-runtime").JSX.Element;
+}>;
 export default ChatInterface;
