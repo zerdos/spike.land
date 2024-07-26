@@ -63,8 +63,9 @@ const offLoadToServer = async (code: string, origin: string) => {
     body: code,
     headers: { TR_ORIGIN: origin },
   });
+
   if (!resp.ok) {
-    return "JS spike land: API call error";
+    return " ////JS spike land: API call error";
   }
 
   const transpiled = await resp.text();

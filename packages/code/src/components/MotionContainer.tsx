@@ -1,20 +1,24 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 
-export const MotionContainer = ({ children, bottom, right, bgColor, rgba }: {
+export const MotionContainer = ({ children, bottom, right, bgColor, rgba, isChatOpen }: {
   children: JSX.Element;
   bottom: number;
   right: number;
   bgColor: number[];
+  isChatOpen: boolean;
   rgba: (r: number, g: number, b: number, a: number) => string;
-}) => (
-  <motion.div
+}) => {
+
+
+
+  return <motion.div
     layout
     initial={{ padding: 0, top: 0, right: 0, borderRadius: 0 }}
     animate={{
       padding: 8,
       top: bottom,
-      right: right,
+      right: isChatOpen ? window.innerWidth/2 : 0+  right,
       backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5),
       borderRadius: 16,
     }}
@@ -35,4 +39,5 @@ export const MotionContainer = ({ children, bottom, right, bgColor, rgba }: {
   >
     {children}
   </motion.div>
-);
+}
+;

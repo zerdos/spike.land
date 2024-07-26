@@ -12,6 +12,7 @@ type DraggableWindowProps = {
   handleAIModify: () => void;
   codeSpace: string;
   showChat: boolean;
+  isChatOpen: boolean;  
   setShowChat: (show: boolean) => void;
   onCodeUpdate: (newCode: string) => void;
 };
@@ -19,7 +20,7 @@ type DraggableWindowProps = {
 const breakPoints = [750, 1024, 1920];
 const sizes = [10, 25, 50, 75, 100];
 export const DraggableWindow: FC<DraggableWindowProps> = (
-  { children, codeSpace, handleAIModify, setShowChat, showChat, onCodeUpdate },
+  { children, codeSpace, handleAIModify, setShowChat, showChat, isChatOpen, onCodeUpdate },
 ) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);
@@ -52,6 +53,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     <MotionConfig transition={{ delay, type, duration }}>
       <MotionContainer
         bottom={bottom}
+        isChatOpen={isChatOpen}
         right={right}
         bgColor={bgColor}
         rgba={rgba}

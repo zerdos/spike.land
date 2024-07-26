@@ -558,7 +558,7 @@ export class Code implements DurableObject {
           case "iframe":
           case "public": {
             const respText = HTML.replace("/**reset*/", css).replace("<div id=\"root\"></div>", `<div id="root">${html}</div>   <script type="module">    
-                    ${this.transpiled}
+                    ${this.transpiled.includes('ike land: API call error')?`import('/live/${codeSpace}/index.js').then(m=>m.renderApp());`:this.transpiled}
                     
                         if (location.pathname.split("/").length>3) {
     globalThis.module.renderApp();

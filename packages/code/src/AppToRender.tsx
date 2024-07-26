@@ -118,6 +118,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     <>
       {!onlyEdit && (
         <DraggableWindow
+        isChatOpen={isOpen}
           onCodeUpdate={handleCodeUpdate}
           codeSpace={codeSpace}
           handleAIModify={handleAIModify}

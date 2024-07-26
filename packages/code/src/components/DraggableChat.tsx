@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useDragControls } from "framer-motion";
 import { Resizable } from "re-resizable";
 import { FC, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -12,6 +12,8 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
   const [position, setPosition] = useState({ x: window.innerWidth - 320, y: window.innerHeight - 420 });
   const [size, setSize] = useState({ width: 300, height: 400 });
   const [isResizing, setIsResizing] = useState(false);
+  
+
 
   return (
     <motion.div
