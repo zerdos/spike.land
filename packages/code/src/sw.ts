@@ -110,8 +110,8 @@ const fakeBackend = async (request: Request): Promise<Response> => {
     return cacheFirst(request);
   } catch (err) {
     console.error("Error handling request:", err);
-    return createErrorResponse('Internal server error', 500);
   }
+  return fetch(request)
 };
 
 const fetchSession = async (origin: string, codeSpace: string): Promise<ICodeSession | null> => {

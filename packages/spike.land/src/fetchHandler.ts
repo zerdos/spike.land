@@ -49,6 +49,7 @@ export async function handleFetchApi(
         },
       });
     case "swVersion.mjs":
+    case "node_modules": return fetch(new URL(path.slice(1).join('/'), "https://unpkg.com").toString());
     case "swVersion.js":
       return handleSwVersionResponse(path[0], ASSET_HASH, files);
     case "importMap.json":
