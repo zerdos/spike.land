@@ -19,6 +19,12 @@ let started = false;
 const FILE_CACHE_NAME = "file-cache-";
 const GENERAL_CACHE_NAME = "general-cache";
 
+const BC = new BroadcastChannel("sw-channel");
+BC.onmessage = ((event) => {
+  checkAssetHash();
+});
+
+
 // Initialize the shared worker when receiving a message of type "sharedworker"
 self.onmessage = async (event: ExtendableMessageEvent) => {
   if (event.data.type === "sharedworker") {
@@ -53,6 +59,7 @@ async function checkAssetHash() {
     await updateCache(newAssetHash);
     self.swVersion = newAssetHash;
   }
+  console.log('swVersion!' )
 }
 
 // Update cache with new version
