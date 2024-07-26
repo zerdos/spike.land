@@ -121,13 +121,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
 
     const { signal } = mod.controller;
     // Load version history and add initial version if it's empty
-    const loadedVersions = loadVersionHistory(codeSpace);
-    if (loadedVersions.length === 0) {
-      const initialVersion = { timestamp: Date.now(), code: data.code };
-      setVersions([initialVersion]);
-    } else {
-      setVersions(loadedVersions);
+    const asyncLoadHistory = async() =>{
+      const loadedVersions = await loadVersionHistory(codeSpace);
+      if (loadedVersions.length === 0) {
+        const initialVersion = { timestamp: Date.now(), code: data.code };
+        setVersions([initialVersion]);
+      } else {
+        setVersions(loadedVersions);
+      }
     }
+    asyncLoadHistory()
     runner({ ...mod, counter: mod.i, codeSpace, signal });
   };
 

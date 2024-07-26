@@ -9,10 +9,10 @@ const VERSION_HISTORY_KEY = "codeVersionHistory";
 const MAX_VERSIONS = 250; // Maximum number of versions to store
 const SAVE_INTERVAL = 60000; // 1 minute in milliseconds
 
-export const loadVersionHistory = (codeSpace: string): Version[] => {
-  const key = `${VERSION_HISTORY_KEY}_${codeSpace}`;
-  const savedHistory = localStorage.getItem(key);
-  return savedHistory ? JSON.parse(savedHistory) : [];
+export const loadVersionHistory = async (codeSpace: string): Promise<Version[]> => {
+  const res = fetch(`/live/${codeSpace}/auto-save/history`);
+
+  return (await res).json()
 };
 
 export const saveVersionHistory = (codeSpace: string, versions: Version[]): void => {
