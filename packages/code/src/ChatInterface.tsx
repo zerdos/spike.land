@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
+import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./ChatDrawer";
 import { initialMessage } from "./initialMessage";
-import { ChatWindow, ChatHeader, ChatContainer, MessageInput } from './ChatDrawer';
 
 // Types
 interface Artifact {
@@ -25,7 +25,9 @@ const getCodeSpace = (): string => {
 const codeSpace = getCodeSpace();
 
 // Component: ColorModeToggle
-const ColorModeToggle: React.FC<{ isDarkMode: boolean; toggleDarkMode: () => void }> = ({ isDarkMode, toggleDarkMode }) => (
+const ColorModeToggle: React.FC<{ isDarkMode: boolean; toggleDarkMode: () => void }> = (
+  { isDarkMode, toggleDarkMode },
+) => (
   <button
     onClick={toggleDarkMode}
     className={`p-2 rounded-full backdrop-blur-sm ${
@@ -36,9 +38,10 @@ const ColorModeToggle: React.FC<{ isDarkMode: boolean; toggleDarkMode: () => voi
   </button>
 );
 
-
 // Main Component: ChatInterface
-const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void, isOpen: boolean, onClose: ()=>void  }> = ({ onCodeUpdate, onClose, isOpen }) => {
+const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }> = (
+  { onCodeUpdate, onClose, isOpen },
+) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -133,7 +136,6 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void, isOpen: bo
     const maxRetries = 3;
     let retryCount = 0;
 
-    
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
       role: "assistant",
@@ -281,8 +283,8 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void, isOpen: bo
       <ChatHeader
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
-        handleResetChat={handleResetChat} 
-        onClose={ ()=>onClose()}
+        handleResetChat={handleResetChat}
+        onClose={() => onClose()}
       />
       <ChatContainer
         messages={messages}
@@ -303,7 +305,7 @@ const ChatInterface: React.FC<{ onCodeUpdate: (code: string) => void, isOpen: bo
         isStreaming={isStreaming}
         inputRef={inputRef}
       />
-</ChatWindow>
+    </ChatWindow>
   );
 };
 

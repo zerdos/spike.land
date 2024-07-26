@@ -1,10 +1,14 @@
+import { Button } from "@/components/ui/button";
 import { css } from "@emotion/react";
+import { HistoryIcon } from "lucide-react";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
-import { isMobile } from "./isMobile.mjs";
-import { runner } from "./runner";
-import { prettier } from "./shared";
+import { isMobile } from "../isMobile.mjs";
+import { runner } from "../runner";
+import { prettier } from "../shared";
+import { addVersion, loadVersionHistory, Version } from "../utils/versionHistoryUtils";
+import VersionHistory from "./VersionHistory";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -24,9 +28,11 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
-const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace, onCodeUpdate }, ref) => {
+const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
+  const [showVersionHistory, setShowVersionHistory] = useState(false);
+  const [versions, setVersions] = useState<Version[]>([]);
 
   useImperativeHandle(ref, () => ({
     setValue: (code: string) => {
@@ -73,10 +79,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     mod.i += 1;
     mod.code = formattedCode;
 
+    const newVersion = { timestamp: Date.now(), code: formattedCode };
+    const updatedVersions = addVersion(codeSpace, newVersion, versions);
+    setVersions(updatedVersions);
+    
+
     mod.controller.abort();
     mod.controller = new AbortController();
     const { signal } = mod.controller;
 
+    
     runner({ code: mod.code, counter: mod.i, codeSpace, signal });
   };
 
@@ -104,20 +116,38 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     editorState.setValue(mod.code);
 
     const { signal } = mod.controller;
+     // Load version history and add initial version if it's empty
+     const loadedVersions = loadVersionHistory(codeSpace);
+     if (loadedVersions.length === 0) {
+       const initialVersion = { timestamp: Date.now(), code: data.code };
+       setVersions([initialVersion]);
+     } else {
+       setVersions(loadedVersions);
+     }
     runner({ ...mod, counter: mod.i, codeSpace, signal });
   };
 
+  const handleRestore = (code: string) => {
+    editorState.setValue(code);
+    mod.i++;
+    mod.code = code;
+    const { signal } = mod.controller;
+    runner({ ...mod, counter: mod.i, codeSpace, signal });
+    setShowVersionHistory(false);
+  };
+
   const EditorNode = (
-    <div
-      data-test-id="editor"
-      ref={containerRef}
-      css={css`
+    <>
+      <div
+        data-test-id="editor"
+        ref={containerRef}
+        css={css`
         ${
-        engine === "ace" ? "" : `
+          engine === "ace" ? "" : `
           border-right: 4px dashed gray;
           border-bottom: 4px dashed gray;
         `
-      }
+        }
         width: 100%;
         height: 100%;
         display: block;
@@ -127,7 +157,22 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         left: 0;
         right: 0;
       `}
-    />
+      />
+      <Button
+        onClick={() => setShowVersionHistory(true)}
+        className="absolute top-4 right-4 z-50"
+        size="sm"
+      >
+        <HistoryIcon className="mr-2 h-4 w-4" /> Version History
+      </Button>
+      {showVersionHistory && (
+        <VersionHistory
+          versions={versions}
+          onRestore={handleRestore}
+          onClose={() => setShowVersionHistory(false)}
+        />
+      )}
+    </>
   );
 
   if (engine === "ace") return EditorNode;
@@ -165,7 +210,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     style.innerHTML = `@import url("${location.origin}/startMonaco.css");`;
     document.head.appendChild(style);
 
-    const { startMonaco } = await import("./startMonaco");
+    const { startMonaco } = await import("../startMonaco");
     return await startMonaco({
       container,
       codeSpace,
@@ -175,7 +220,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
   }
 
   async function initializeAce(container: HTMLDivElement, code: string) {
-    const { startAce } = await import("./startAce");
+    const { startAce } = await import("../startAce");
     return await startAce(code, handleContentChange, container);
   }
 };

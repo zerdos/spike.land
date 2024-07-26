@@ -13,17 +13,17 @@
   <style>
     html,
     body {
-      overflow: hidden;
       margin: 0;
       height: 100%;
+      margin: 0;
+            padding: 0;
+            overflow: auto;
       --webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: none;
     }
 
-    q {
-      display: none;
-    }
-
+    #root {
+            min-height: 100%;
+        }
 
     @media screen and (prefers-color-scheme: dark) {
       body {

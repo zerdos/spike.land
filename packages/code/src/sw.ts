@@ -16,8 +16,8 @@ importScripts("/swVersion.js");
 let started = false;
 
 // Constants for cache names
-const FILE_CACHE_NAME = 'file-cache-';
-const GENERAL_CACHE_NAME = 'general-cache';
+const FILE_CACHE_NAME = "file-cache-";
+const GENERAL_CACHE_NAME = "general-cache";
 
 // Initialize the shared worker when receiving a message of type "sharedworker"
 self.onmessage = async (event: ExtendableMessageEvent) => {
@@ -36,20 +36,20 @@ self.onmessage = async (event: ExtendableMessageEvent) => {
 
 async function fetchAssetHash(): Promise<string> {
   try {
-    const response = await fetch('/files.json');
-    const data = await response.json<{ASSET_HASH: string}>();
+    const response = await fetch("/files.json");
+    const data = await response.json<{ ASSET_HASH: string }>();
     return data.ASSET_HASH;
   } catch (error) {
-    console.error('Failed to fetch ASSET_HASH:', error);
-    return '';
+    console.error("Failed to fetch ASSET_HASH:", error);
+    return "";
   }
 }
 
 // Check if ASSET_HASH has changed and update cache if necessary
 async function checkAssetHash() {
-  const newAssetHash = await fetchAssetHash(); 
+  const newAssetHash = await fetchAssetHash();
   if (self.swVersion !== newAssetHash) {
-    console.log('ASSET_HASH changed. Updating cache...');
+    console.log("ASSET_HASH changed. Updating cache...");
     await updateCache(newAssetHash);
     self.swVersion = newAssetHash;
   }
@@ -74,17 +74,17 @@ async function updateCache(newAssetHash: string) {
       if (response) {
         await newFileCache.put(request, response);
       }
-    })
+    }),
   );
 
   // Delete the old file cache
   await caches.delete(oldFileCacheName);
 
-  console.log('File cache updated successfully');
+  console.log("File cache updated successfully");
 }
 
 const isFileInList = (pathname: string): boolean => {
-  return pathname.slice(1) in self.files 
+  return pathname.slice(1) in self.files;
 };
 // Put the response in the appropriate cache
 // Put the response in the appropriate cache
@@ -113,7 +113,7 @@ const cacheFirst = async (request: Request): Promise<Response> => {
     return responseFromNetwork;
   } catch (error) {
     console.error(`Failed to fetch ${request.url}:`, error);
-    return createErrorResponse('Failed to fetch resource', 500);
+    return createErrorResponse("Failed to fetch resource", 500);
   }
 };
 
@@ -130,7 +130,7 @@ const fakeBackend = async (request: Request): Promise<Response> => {
     const fileStat = await stat(pathName);
     if (fileStat !== null) {
       const resp = await readFile(pathName);
-      return createResponse(resp, 'application/javascript');
+      return createResponse(resp, "application/javascript");
     }
 
     const paths = url.pathname.split("/");
@@ -142,7 +142,7 @@ const fakeBackend = async (request: Request): Promise<Response> => {
       // Fetch the session data for the codeSpace
       const session = await fetchSession(url.origin, codeSpace);
       if (!session) {
-        return createErrorResponse('Failed to fetch session data', 500);
+        return createErrorResponse("Failed to fetch session data", 500);
       }
 
       const { code, css, html, i } = session;
@@ -150,25 +150,25 @@ const fakeBackend = async (request: Request): Promise<Response> => {
       // Serve the built JavaScript file
       if (codeSpacePath.endsWith(".mjs")) {
         const resp = await build({ codeSpace, origin: url.origin, format: "esm" });
-        return createResponse(resp, 'application/javascript');
+        return createResponse(resp, "application/javascript");
       }
 
       if (["/bundle"].some((suffix) => url.pathname.endsWith(suffix))) {
         const respText = createBundleResponse(HTML, css, codeSpace, i.toString(), html);
-        return createResponse(respText, 'text/html');
+        return createResponse(respText, "text/html");
       }
 
       // Handle transpiling and serving the JavaScript file
       if (url.pathname.startsWith(`/live/${codeSpace}/index.js`) && started) {
         const trp = await transpileAndServe(url.origin, codeSpace, code);
-        return createResponse(trp, 'application/javascript');
+        return createResponse(trp, "application/javascript");
       }
 
       if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
         const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
-          async () => fetch(`${url.origin}/live/${codeSpace}/index.mjs`).then((x) => x.text())
+          async () => fetch(`${url.origin}/live/${codeSpace}/index.mjs`).then((x) => x.text()),
         );
-        return createResponse(trp, 'application/javascript');
+        return createResponse(trp, "application/javascript");
       }
     }
 
@@ -176,7 +176,7 @@ const fakeBackend = async (request: Request): Promise<Response> => {
   } catch (err) {
     console.error("Error handling request:", err);
   }
-  return fetch(request)
+  return fetch(request);
 };
 
 const fetchSession = async (origin: string, codeSpace: string): Promise<ICodeSession | null> => {
@@ -216,12 +216,12 @@ const createBundleResponse = (HTML: string, css: string, codeSpace: string, i: s
   return HTML.replace("/**reset*/", resetCSS + css)
     .replace(
       "<script src=\"/swVersion.js\"></script>",
-      `<script>window.swVersion = "${self.swVersion}"</script>`
+      `<script>window.swVersion = "${self.swVersion}"</script>`,
     )
     .replace("ASSET_HASH", self.swVersion)
     .replace(
       "<div id=\"root\"></div>",
-      `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`
+      `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`,
     );
 };
 
@@ -242,7 +242,7 @@ const transpileAndServe = async (origin: string, codeSpace: string, code: string
     return trp;
   } catch (error) {
     console.error("Error transpiling and serving:", error);
-    return createErrorResponse('Failed to transpile and serve', 500).text();
+    return createErrorResponse("Failed to transpile and serve", 500).text();
   }
 };
 
@@ -252,7 +252,7 @@ self.addEventListener("fetch", (event: FetchEvent) => {
 });
 
 // Clear old caches
-self.addEventListener('activate', (event: ExtendableEvent) => {
+self.addEventListener("activate", (event: ExtendableEvent) => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
@@ -261,8 +261,8 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
             return caches.delete(cacheName);
           }
           return Promise.resolve();
-        })
+        }),
       );
-    })
+    }),
   );
 });

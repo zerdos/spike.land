@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Send, Bot, X, Check, X as XMark, Moon, Sun, RefreshCw } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import type { FC, ReactNode } from "react"
-import type { Message } from "./ChatInterface"
-import { css } from "@emotion/react"
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { css } from "@emotion/react";
+import { Bot, Check, Moon, RefreshCw, Send, Sun, X, X as XMark } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import type { FC, ReactNode } from "react";
+import type { Message } from "./ChatInterface";
 import { CodeTS } from "./CodeBlock";
-
 
 const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
@@ -44,60 +43,63 @@ export const ChatMessage = ({
       return text;
     }
 
-    const cleanedText = text.replace(/<antArtifact.*?>/g, "```tsx").replace(/<\/antArtifact>/g, '```');
+    const cleanedText = text.replace(/<antArtifact.*?>/g, "```tsx").replace(/<\/antArtifact>/g, "```");
 
     const parts = cleanedText.split("```tsx");
-    if (parts.length>1){
-    return parts.map((part, index) => {
-      if (index === 0) {
-        return <span key={index}>{part}</span>
-      }
-      const nextParts = part.split("```");
-        return (<>
-          <pre key={index} className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
+    if (parts.length > 1) {
+      return parts.map((part, index) => {
+        if (index === 0) {
+          return <span key={index}>{part}</span>;
+        }
+        const nextParts = part.split("```");
+        return (
+          <>
+            <pre key={index} className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
             <CodeTS code={nextParts[0]} />
-          </pre>
-         { nextParts.length==2 &&  <span key={index}>{nextParts[1]}</span>}
+            </pre>
+            {nextParts.length == 2 && <span key={index}>{nextParts[1]}</span>}
           </>
         );
-      
-      
-
-    });}
-    return <span> {cleanedText}</span>
+      });
+    }
+    return <span>{cleanedText}</span>;
   };
 
   return (
     <div
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
-      onDoubleClick={onDoubleClick}>
+      onDoubleClick={onDoubleClick}
+    >
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
             ? "bg-primary text-primary-foreground"
             : isSelected
-              ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
-              : "bg-secondary text-secondary-foreground"
-        }`}>
-        {isEditing ? (
-          <div className="flex flex-col space-y-2">
-            <Input
-              value={editInput}
-              onChange={(e) => setEditInput(e.target.value)}
-              className="bg-background text-foreground"
-            />
-            <div className="flex justify-end space-x-2">
-              <Button size="sm" onClick={()=>handleSaveEdit(Date.now().toString())}>
-                <Check className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-                <XMark className="h-4 w-4" />
-              </Button>
+            ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
+            : "bg-secondary text-secondary-foreground"
+        }`}
+      >
+        {isEditing
+          ? (
+            <div className="flex flex-col space-y-2">
+              <Input
+                value={editInput}
+                onChange={(e) => setEditInput(e.target.value)}
+                className="bg-background text-foreground"
+              />
+              <div className="flex justify-end space-x-2">
+                <Button size="sm" onClick={() => handleSaveEdit(Date.now().toString())}>
+                  <Check className="h-4 w-4" />
+                </Button>
+                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                  <XMark className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-          </div>
-        ) : (
-          renderMessage(message)
-        )}
+          )
+          : (
+            renderMessage(message)
+          )}
       </div>
     </div>
   );
@@ -188,7 +190,7 @@ export const MessageInput = ({
 }: {
   input: string;
   setInput: (value: string) => void;
-  handleSendMessage:( content: string) => void;
+  handleSendMessage: (content: string) => void;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
 }) => {
@@ -205,8 +207,7 @@ export const MessageInput = ({
           ref={inputRef}
           disabled={isStreaming}
         />
-        <Button onClick={()=>handleSendMessage(input)}
-         size="icon" disabled={isStreaming}>
+        <Button onClick={() => handleSendMessage(input)} size="icon" disabled={isStreaming}>
           <Send className="h-4 w-4" />
         </Button>
       </div>
@@ -214,19 +215,21 @@ export const MessageInput = ({
   );
 };
 
-export const ChatWindow: FC<{isOpen: boolean, children: ReactNode}> = ({children, isOpen}) => (
-  <div css={css`
+export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = ({ children, isOpen }) => (
+  <div
+    css={css`
     z-index: 999;
     transition: width 0.3s ease-in-out;
   `}
-  className={`fixed inset-y-0 right-0 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
-    isOpen ? "w-1/2 translate-x-0" : "w-96 translate-x-full"
-  }`}>
+    className={`fixed inset-y-0 right-0 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
+      isOpen ? "w-1/2 translate-x-0" : "w-96 translate-x-full"
+    }`}
+  >
     <div className="flex flex-col h-full border-l border-input">
       {children}
     </div>
   </div>
-)
+);
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -246,14 +249,14 @@ const ChatInterface = () => {
   }, [messages]);
 
   useEffect(() => {
-    const draggableWindow = document.getElementById('DraggableWindow');
+    const draggableWindow = document.getElementById("DraggableWindow");
     if (draggableWindow) {
       if (isOpen) {
-        draggableWindow.style.transition = 'left 0.3s ease-in-out';
-        draggableWindow.style.left = '0';
+        draggableWindow.style.transition = "left 0.3s ease-in-out";
+        draggableWindow.style.left = "0";
       } else {
-        draggableWindow.style.transition = 'left 0.3s ease-in-out';
-        draggableWindow.style.left = '';
+        draggableWindow.style.transition = "left 0.3s ease-in-out";
+        draggableWindow.style.left = "";
       }
     }
   }, [isOpen]);
@@ -261,14 +264,14 @@ const ChatInterface = () => {
   const handleSendMessage = () => {
     if (input.trim() === "") return;
 
-    const newMessages = [...messages, { id: Date.now(), content: input, role: 'user' } as unknown as Message];
+    const newMessages = [...messages, { id: Date.now(), content: input, role: "user" } as unknown as Message];
     setMessages(newMessages);
     setInput("");
     setIsStreaming(true);
 
     setTimeout(() => {
       const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      setMessages([...newMessages, { id: Date.now().toString(), content: aiResponse, role: "user"} as Message]);
+      setMessages([...newMessages, { id: Date.now().toString(), content: aiResponse, role: "user" } as Message]);
       setIsStreaming(false);
     }, 1000);
   };
@@ -289,9 +292,7 @@ const ChatInterface = () => {
   const handleSaveEdit = () => {
     if (editingMessageId !== null) {
       setMessages(
-        messages.map((msg) =>
-          msg.id === editingMessageId ? { ...msg, text: editInput } : msg,
-        ),
+        messages.map((msg) => msg.id === editingMessageId ? { ...msg, text: editInput } : msg),
       );
       setEditingMessageId(null);
       setEditInput("");
@@ -316,7 +317,8 @@ const ChatInterface = () => {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0">
+        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
+      >
         <Bot className="h-6 w-6" />
       </Button>
 

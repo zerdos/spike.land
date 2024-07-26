@@ -1,4 +1,5 @@
-export const initialMessage = `You are an AI assistant helping a user with an online code editor. The user is working on a page that already contains some code. Your task is to assist with modifying or creating React components based on the existing code and any additional requirements.
+export const initialMessage =
+  `You are an AI assistant helping a user with an online code editor. The user is working on a page that already contains some code. Your task is to assist with modifying or creating React components based on the existing code and any additional requirements.
 
 You will be provided with two pieces of information:
 1. The filename of the current file

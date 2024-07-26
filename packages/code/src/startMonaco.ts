@@ -59,12 +59,12 @@ async function fetchAndCreateExtraModels(
 }
 
 const monacoContribution = async (code: string) => {
- monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse,
-    target:monaco.languages.typescript.ScriptTarget.Latest,
+    target: monaco.languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
-    moduleResolution:monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-    module:monaco.languages.typescript.ModuleKind.ESNext,
+    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+    module: monaco.languages.typescript.ModuleKind.ESNext,
     importHelpers: true,
     lib,
     esModuleInterop: false,
@@ -98,12 +98,12 @@ const monacoContribution = async (code: string) => {
       "tslib": ["/tslib"],
     },
     jsxImportSource: "@emotion/react",
-    jsx:monaco.languages.typescript.JsxEmit.ReactJSX,
+    jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
   });
 
- monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+  monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
     noSyntaxValidation: true,
@@ -162,11 +162,11 @@ async function startMonacoPristine({
 }) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   const replacedCode = await monacoContribution(code);
-  const uri =monaco.Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
-  const model =monaco.editor.getModel(uri)
-    ||monaco.editor.createModel(replacedCode, "typescript", uri);
+  const uri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+  const model = monaco.editor.getModel(uri)
+    || monaco.editor.createModel(replacedCode, "typescript", uri);
 
-  const myEditor =monaco.editor.create(container, {
+  const myEditor = monaco.editor.create(container, {
     model,
     scrollbar: {
       scrollByPage: false,
@@ -213,7 +213,7 @@ async function startMonacoPristine({
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
-    const typeScriptWorker = await (  await monaco.languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker = await (await monaco.languages.typescript.getTypeScriptWorker())(uri);
 
     const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(
       uri.toString(),
@@ -243,14 +243,14 @@ async function startMonacoPristine({
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      const diagnostics = await (await (  await monaco.languages.typescript.getTypeScriptWorker())(uri))
+      const diagnostics = await (await (await monaco.languages.typescript.getTypeScriptWorker())(uri))
         .getSuggestionDiagnostics(uri.toString());
       return diagnostics.map((d) => d.messageText.toString());
     },
     isEdit: false,
     setValue: (newCode: string) => {
       myEditor.getDomNode()?.blur();
-      if (  editorModel.isEdit) return;
+      if (editorModel.isEdit) return;
       editorModel.silent = true;
       let state = null;
       try {
@@ -288,7 +288,7 @@ async function startMonacoPristine({
   BC.onmessage = (
     { data }: { data: { changes?: monaco.editor.IModelContentChange[] } },
   ) => {
-    if (  editorModel.silent) return;
+    if (editorModel.silent) return;
     if (data.changes) {
       editorModel.silent = true;
       model.applyEdits(data.changes);
@@ -307,10 +307,10 @@ async function startMonacoPristine({
       editorModel.isEdit = false;
     }, 1000);
 
-    if (!  editorModel.silent) {
+    if (!editorModel.silent) {
       onChange(newCode);
     }
   });
 
-  return  editorModel;
+  return editorModel;
 }

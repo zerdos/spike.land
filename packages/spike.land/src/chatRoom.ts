@@ -618,19 +618,16 @@ export class Code implements DurableObject {
   <base href="/">
   <title>Instant React Editor</title>
   <style>
-    html, body {
-      overflow: hidden;
-      margin: 0;
-      height: 100%;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-x: none;
-    }
-      #root {
-        height: 100%;
-        width: 100%;
-      }
-
-    q { display: none; }
+     html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        #root {
+            min-height: 100%;
+        }
 
     @media screen and (prefers-color-scheme: dark) {
       body {

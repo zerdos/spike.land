@@ -7,3 +7,8 @@ src/ipfsWorker.tsx
 dist
 dts
 src/@
+styles
+tw.html
+tw.js
+*.d.ts
+getResetCss.ts

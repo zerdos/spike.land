@@ -15,20 +15,20 @@ export declare const unlink: (filePath: string) => Promise<void>;
 export declare const mkdir: (filePath: string) => Promise<void>;
 export declare const stat: (filePath: string) => Promise<{
     name: string;
-    kind: "file";
-    size: number;
-    type: string;
-    lastModified: number;
-    relativePath: string;
-    handle: FileSystemFileHandle;
-} | {
-    name: string;
     kind: "directory";
     relativePath: string;
     entries: {
         [key: string]: FileSystemEntry;
     };
     handle: FileSystemDirectoryHandle;
+} | {
+    name: string;
+    kind: "file";
+    size: number;
+    type: string;
+    lastModified: number;
+    relativePath: string;
+    handle: FileSystemFileHandle;
 } | null>;
 export declare const cwd: () => Promise<string>;
 declare const FS: {
@@ -39,20 +39,20 @@ declare const FS: {
     readdir: (filePath: string) => Promise<string[]>;
     stat: (filePath: string) => Promise<{
         name: string;
-        kind: "file";
-        size: number;
-        type: string;
-        lastModified: number;
-        relativePath: string;
-        handle: FileSystemFileHandle;
-    } | {
-        name: string;
         kind: "directory";
         relativePath: string;
         entries: {
             [key: string]: FileSystemEntry;
         };
         handle: FileSystemDirectoryHandle;
+    } | {
+        name: string;
+        kind: "file";
+        size: number;
+        type: string;
+        lastModified: number;
+        relativePath: string;
+        handle: FileSystemFileHandle;
     } | null>;
     cwd: () => Promise<string>;
 };
