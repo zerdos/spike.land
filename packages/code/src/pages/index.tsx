@@ -1,9 +1,8 @@
 // shadTod.tsx
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Code, Zap, Bot, Share2, Package, Download } from "lucide-react";
 import { css } from "@emotion/react";
+import { Bot, Code, Download, Package, Share2, Zap } from "lucide-react";
 
 const Feature = ({ icon: Icon, title, description, color }) => (
   <div
@@ -22,7 +21,8 @@ const Feature = ({ icon: Icon, title, description, color }) => (
       .animate-fade-in-up {
         animation: fadeInUp 0.5s ease-out;
       }
-    `}>
+    `}
+  >
     <Card className="hover:shadow-md transition-all duration-300 border border-gray-200">
       <CardContent className="p-6 flex flex-col items-center text-center group">
         <Icon
@@ -41,22 +41,19 @@ const LandingPage = () => {
     {
       icon: Code,
       title: "Online Code Editor & Runner",
-      description:
-        "Edit and run your code directly in the browser with our powerful online IDE.",
+      description: "Edit and run your code directly in the browser with our powerful online IDE.",
       color: "text-blue-600",
     },
     {
       icon: Zap,
       title: "Instant Setup & Deployment",
-      description:
-        "No installation or build time. Your projects are ready to run and deploy in real-time.",
+      description: "No installation or build time. Your projects are ready to run and deploy in real-time.",
       color: "text-yellow-600",
     },
     {
       icon: Bot,
       title: "AI-Powered Code Modification",
-      description:
-        "Let AI assist you in modifying your code, with instant execution of changes.",
+      description: "Let AI assist you in modifying your code, with instant execution of changes.",
       color: "text-green-600",
     },
     {
@@ -68,15 +65,13 @@ const LandingPage = () => {
     {
       icon: Package,
       title: "Comprehensive Package Support",
-      description:
-        "Access all npm packages with built-in TypeScript support for enhanced development.",
+      description: "Access all npm packages with built-in TypeScript support for enhanced development.",
       color: "text-red-600",
     },
     {
       icon: Download,
       title: "Portable HTML Export",
-      description:
-        "Download your project as a self-contained HTML file for easy sharing and deployment.",
+      description: "Download your project as a self-contained HTML file for easy sharing and deployment.",
       color: "text-indigo-600",
     },
   ];
@@ -88,21 +83,19 @@ const LandingPage = () => {
           Revolutionize Your <span className="text-blue-600">Coding Experience</span>
         </h1>
         <p className="text-xl text-gray-700 mb-10 animate-fade-in-up">
-          Discover a new way to code, collaborate, and create with our cutting-edge
-          development platform.
+          Discover a new way to code, collaborate, and create with our cutting-edge development platform.
         </p>
         <Button
           size="lg"
-          className="bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 px-10 rounded-md transition-all duration-300 hover:shadow-md animate-fade-in-up">
+          className="bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 px-10 rounded-md transition-all duration-300 hover:shadow-md animate-fade-in-up"
+        >
           Get Started
         </Button>
       </header>
 
       <main className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Feature key={index} {...feature} />
-          ))}
+          {features.map((feature, index) => <Feature key={index} {...feature} />)}
         </div>
       </main>
 
@@ -112,17 +105,20 @@ const LandingPage = () => {
           <nav className="mt-4 md:mt-0">
             <a
               href="/privacy-policy"
-              className="mx-3 hover:text-blue-600 transition-colors duration-300">
+              className="mx-3 hover:text-blue-600 transition-colors duration-300"
+            >
               Privacy Policy
             </a>
             <a
               href="/terms-of-service"
-              className="mx-3 hover:text-blue-600 transition-colors duration-300">
+              className="mx-3 hover:text-blue-600 transition-colors duration-300"
+            >
               Terms of Service
             </a>
             <a
               href="/contact"
-              className="mx-3 hover:text-blue-600 transition-colors duration-300">
+              className="mx-3 hover:text-blue-600 transition-colors duration-300"
+            >
               Contact
             </a>
           </nav>

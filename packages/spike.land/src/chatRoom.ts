@@ -1,14 +1,14 @@
-import type { DurableObject, DurableObjectState } from "@cloudflare/workers-types";
+import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
 import {
-  
+  applyCodePatch,
   CodePatch,
-
+  Delta,
+  HTML,
   ICodeSession,
   makeHash,
-  
   makeSession,
   md5,
-  
+  string_,
 } from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -17,14 +17,22 @@ import { WebSocketHandler } from "./websocketHandler";
 
 export { md5 };
 
+interface AutoSaveEntry {
+  timestamp: number;
+  code: string;
+}
+
 export class Code implements DurableObject {
   private routeHandler: RouteHandler;
-wsHandler: WebSocketHandler;
+  wsHandler: WebSocketHandler;
   private transpiled = "";
   private origin = "";
   private codeSpace = "";
   session: ICodeSession;
   private backupSession: ICodeSession;
+  private autoSaveInterval: number = 60000; // 1 minute in milliseconds
+  private lastAutoSave: number = 0;
+  private autoSaveHistory: AutoSaveEntry[] = [];
 
   constructor(private state: DurableObjectState, private env: Env) {
     this.backupSession = makeSession({
@@ -45,6 +53,7 @@ wsHandler: WebSocketHandler;
     this.routeHandler = new RouteHandler(this);
     this.wsHandler = new WebSocketHandler(this);
     this.initializeSession();
+    this.setupAutoSave();
   }
 
   private async initializeSession() {
@@ -61,11 +70,50 @@ wsHandler: WebSocketHandler;
           const head = makeHash(this.session);
           await this.state.storage.put("head", head);
         }
+
+        // Initialize auto-save history
+        const savedHistory = await this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory");
+        if (savedHistory) {
+          this.autoSaveHistory = savedHistory;
+        }
       } catch (error) {
         console.error("Error initializing session:", error);
         this.session = this.backupSession;
       }
     });
+  }
+
+  private setupAutoSave() {
+    setInterval(() => this.autoSave(), this.autoSaveInterval);
+  }
+
+  private async autoSave() {
+    const currentTime = Date.now();
+    if (currentTime - this.lastAutoSave >= this.autoSaveInterval) {
+      const currentCode = this.session.code;
+
+      // Check if the code has changed since the last auto-save
+      if (
+        this.autoSaveHistory.length === 0 || currentCode !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
+      ) {
+        // Remove entries older than 1 minute
+        this.autoSaveHistory = this.autoSaveHistory.filter(entry => currentTime - entry.timestamp <= 60);
+
+        // Add new entry
+        this.autoSaveHistory.push({
+          timestamp: currentTime,
+          code: currentCode,
+        });
+
+        // Save the updated history
+        await this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
+
+        // Update last auto-save time
+        this.lastAutoSave = currentTime;
+
+        console.log("Auto-saved code at", new Date(currentTime).toISOString());
+      }
+    }
   }
 
   async fetch(request: Request): Promise<Response> {
@@ -110,6 +158,9 @@ wsHandler: WebSocketHandler;
 
     await this.state.storage.put("head", head);
     this.transpiled = "";
+
+    // Trigger auto-save after updating session storage
+    await this.autoSave();
   }
 
   getState() {
@@ -130,5 +181,22 @@ wsHandler: WebSocketHandler;
 
   getCodeSpace() {
     return this.codeSpace;
+  }
+
+  // New method to get auto-save history
+  async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
+    return this.autoSaveHistory;
+  }
+
+  // New method to restore code from a specific auto-save entry
+  async restoreFromAutoSave(timestamp: number): Promise<boolean> {
+    const entry = this.autoSaveHistory.find(e => e.timestamp === timestamp);
+    if (entry) {
+      this.session.code = entry.code;
+      await this.state.storage.put("session", this.session);
+      this.transpiled = ""; // Reset transpiled code
+      return true;
+    }
+    return false;
   }
 }

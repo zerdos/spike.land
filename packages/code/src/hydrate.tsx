@@ -13,7 +13,6 @@ import { wait } from "./wait";
 const { swVersion } = self;
 
 if (!location.pathname.startsWith("/live/")) {
-
   import("./assets/tw.js");
 
   const Page = (await import("./pages/index")).default;

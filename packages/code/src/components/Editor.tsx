@@ -55,7 +55,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       mod.i = Number(globalThis.cSess.session.i);
       mod.code = globalThis.cSess.session.code;
 
-      if (versions.length===0) {
+      if (versions.length === 0) {
         const newVersion = { timestamp: Date.now(), code: mod.code };
         const updatedVersions = addVersion(codeSpace, newVersion, versions);
         setVersions(updatedVersions);

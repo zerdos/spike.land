@@ -1,6 +1,6 @@
 import { makeSession, md5, string_ } from "@spike-land/code";
-import { Code } from "./code";
 import { HTML } from "@spike-land/code";
+import { Code } from "./chatRoom";
 
 export class RouteHandler {
   constructor(private code: Code) {}
@@ -36,9 +36,46 @@ export class RouteHandler {
       dehydrated: this.handleDefaultRoute.bind(this),
       iframe: this.handleDefaultRoute.bind(this),
       public: this.handleDefaultRoute.bind(this),
+      // New routes for auto-save functionality
+      "auto-save": this.handleAutoSaveRoute.bind(this),
     };
 
     return routes[route] || null;
+  }
+  private async handleAutoSaveRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+    const action = path[1];
+
+    switch (action) {
+      case "history":
+        return this.getAutoSaveHistory();
+      case "restore": {
+        const { timestamp } = await request.json<{ timestamp: number }>();
+
+        if (!timestamp) {
+          return new Response("Timestamp is required", { status: 400 });
+        }
+
+        const success = await this.code.restoreFromAutoSave(timestamp);
+        if (success) {
+          return new Response("Code restored successfully", { status: 200 });
+        } else {
+          return new Response("Failed to restore code", { status: 404 });
+        }
+      }
+      default:
+        return new Response("Invalid auto-save action", { status: 400 });
+    }
+  }
+
+  private async getAutoSaveHistory(): Promise<Response> {
+    const history = await this.code.getAutoSaveHistory();
+    return new Response(JSON.stringify(history), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
   }
 
   private async handleUsersRoute(request: Request): Promise<Response> {
@@ -217,7 +254,9 @@ export class RouteHandler {
 
   private async handleHashCodeRoute(request: Request, url: URL, path: string[]): Promise<Response> {
     const hashCode = String(Number(path[1]));
-    const patch = await this.code.getState().storage.get<{ patch: string; oldHash: number }>(hashCode, { allowConcurrency: true });
+    const patch = await this.code.getState().storage.get<{ patch: string; oldHash: number }>(hashCode, {
+      allowConcurrency: true,
+    });
 
     return new Response(JSON.stringify(patch || {}), {
       status: 200,
@@ -232,15 +271,20 @@ export class RouteHandler {
 
   private async handleDefaultRoute(): Promise<Response> {
     const { css, html } = this.code.session;
-    const respText = HTML.replace("/**reset*/", css).replace("<div id=\"root\"></div>", `<div id="root">${html}</div>
+    const respText = HTML.replace("/**reset*/", css).replace(
+      "<div id=\"root\"></div>",
+      `<div id="root">${html}</div>
       <script type="module">
-        ${this.code.getTranspiled().includes('ike land: API call error')
+        ${
+        this.code.getTranspiled().includes("ike land: API call error")
           ? `import('/live/${this.code.getCodeSpace()}/index.js').then(m=>m.renderApp());`
-          : this.code.getTranspiled()}
+          : this.code.getTranspiled()
+      }
         if (location.pathname.split("/").length>3) {
           globalThis.module.renderApp();
         }
-      </script>`);
+      </script>`,
+    );
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",

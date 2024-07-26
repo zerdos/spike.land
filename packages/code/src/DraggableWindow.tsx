@@ -12,7 +12,7 @@ type DraggableWindowProps = {
   handleAIModify: () => void;
   codeSpace: string;
   showChat: boolean;
-  isChatOpen: boolean;  
+  isChatOpen: boolean;
   setShowChat: (show: boolean) => void;
   onCodeUpdate: (newCode: string) => void;
 };

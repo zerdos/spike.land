@@ -99,10 +99,10 @@ export const transpile = async (
         )
       }
 
-  export const renderApp = () => {
+  export const renderApp = (rootElement=null) => {
 
   if (!globalThis.rRoot){
-  let root = document.getElementById("root");
+  let root = rootElement || document.getElementById("root");
   if (!root) {
     root = document.createElement("div");
     root.id = "root";

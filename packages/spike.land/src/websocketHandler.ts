@@ -1,6 +1,6 @@
 import { WebSocket } from "@cloudflare/workers-types";
-import { CodePatch, Delta, makeHash, applyCodePatch } from "@spike-land/code";
-import { Code } from "./code";
+import { applyCodePatch, CodePatch, Delta, makeHash } from "@spike-land/code";
+import { Code } from "./chatRoom";
 
 const PING_TIMEOUT = 30000;
 
@@ -172,7 +172,9 @@ export class WebSocketHandler {
 
     let data: IData;
     try {
-      data = typeof msg.data === "string" ? JSON.parse(msg.data) : JSON.parse(new TextDecoder().decode(msg.data as ArrayBuffer));
+      data = typeof msg.data === "string"
+        ? JSON.parse(msg.data)
+        : JSON.parse(new TextDecoder().decode(msg.data as ArrayBuffer));
     } catch (exp) {
       return respondWith({ error: "JSON parse error", exp: exp || {} });
     }
@@ -253,7 +255,9 @@ export class WebSocketHandler {
     const commit = data.hashCode;
     while (commit && commit !== makeHash(this.code.session)) {
       const oldNode = await this.code.getState().storage.get<CodePatch>("" + commit, { allowConcurrency: true });
-      const newNode = await this.code.getState().storage.get<CodePatch>("" + oldNode!.newHash, { allowConcurrency: true });
+      const newNode = await this.code.getState().storage.get<CodePatch>("" + oldNode!.newHash, {
+        allowConcurrency: true,
+      });
       return respondWith({
         oldHash: commit,
         newHash: oldNode!.newHash,
