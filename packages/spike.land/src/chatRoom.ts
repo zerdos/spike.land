@@ -87,7 +87,7 @@ export class Code implements DurableObject {
     setInterval(() => this.autoSave(), this.autoSaveInterval);
   }
 
-  private async autoSave() {
+  public async autoSave() {
     const currentTime = Date.now();
     if (currentTime - this.lastAutoSave >= this.autoSaveInterval) {
       const currentCode = this.session.code;

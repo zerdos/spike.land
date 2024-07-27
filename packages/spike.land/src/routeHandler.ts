@@ -63,7 +63,8 @@ export class RouteHandler {
           }
         }
         default:
-          return new Response(`Invalid auto-save action: ${action}`, { status: 400 });
+          await this.code.autoSave();
+          return new Response("Code current state is saved", { status: 200 });
       }
     } catch (error) {
       console.error("Error in handleAutoSaveRoute:", error);

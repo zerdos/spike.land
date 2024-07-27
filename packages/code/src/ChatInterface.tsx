@@ -121,6 +121,8 @@ const ChatInterface: React.FC<
     const isFirstMessage = messages.length === 0;
     const codeNow = await prettier(cSess.session.code);
 
+    fetch(`/live/${codeSpace}/auto-save`);
+
     if (isFirstMessage || codeNow !== codeWhatAiSeen) {
       content = initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
         /{{FILE_CONTENT}}/g,
