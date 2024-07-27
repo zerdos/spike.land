@@ -143,7 +143,8 @@ const cacheFirst = async (request: Request): Promise<Response> => {
       return responseFromCache;
     }
   }
-  return cacheAndFetch(request);
+  const response = await cacheAndFetch(request);
+  return response;
 };
 
 const cacheAndFetch = async (request: Request): Promise<Response> => {
