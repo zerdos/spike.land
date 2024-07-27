@@ -121,20 +121,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     setShowVersionHistory(false);
   };
 
-  const fetchAutoSaveHistory = async () => {
-    try {
-      const response = await fetch(`/live/${codeSpace}/auto-save/history`);
-      if (response.ok) {
-        const data = await response.json();
-        setVersions(data);
-      } else {
-        console.error("Failed to fetch auto-save history");
-      }
-    } catch (error) {
-      console.error("Error fetching auto-save history:", error);
-    }
-  };
-
   const EditorNode = (
     <>
       <div
@@ -158,10 +144,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       `}
       />
       <Button
-        onClick={() => {
-          fetchAutoSaveHistory();
-          setShowVersionHistory(true);
-        }}
+        onClick={() => setShowVersionHistory(true)}
         className="absolute top-4 right-4 z-50"
         size="sm"
       >
