@@ -1,7 +1,5 @@
-// Import necessary modules
 import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
-
 import type { EmotionCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import { Mutex } from "async-mutex";
@@ -11,123 +9,91 @@ import { mkdir } from "./memfs";
 import { createJsBlob } from "./starter";
 import { wait } from "./wait";
 
-// Set up service worker version
 const { swVersion } = self;
+const paths = location.pathname.split("/");
+const codeSpace = paths[2];
 
-if (!location.pathname.startsWith("/live/")) {
-  import("./assets/tw.js").then(() =>
-    import("./pages/index").then((mod) => {
-      const root = document.getElementById("root");
-      const Page = mod.default;
-      createRoot(root!).render(<Page />);
-    })
-  );
-}
 
-if (navigator.serviceWorker) {
-  setTimeout(() => {
+function setupServiceWorker() {
+  if (!navigator.serviceWorker) return;
+
+  setTimeout(async () => {
     try {
       const sw = new Workbox(`/sw.js`);
-
       init(swVersion, null);
       const port = getPort();
 
-      // Set up service worker event listeners
-      sw.getSW().then((sw) => {
-        const swPort = new MessageChannel();
-        port.addEventListener(
-          "message",
-          ({ data }) =>
-            swPort.port1.postMessage(
-              data,
-              (hasTransferables(data)
-                ? getTransferables(data)
-                : undefined) as unknown as Transferable[],
-            ),
+      const activeSW = await sw.getSW();
+      const swPort = new MessageChannel();
+      const messageHandler = ({ data }: MessageEvent) => {
+        swPort.port1.postMessage(
+          data,
+          (hasTransferables(data)
+            ? getTransferables(data)
+            : undefined) as unknown as Transferable[]
         );
-        swPort.port1.addEventListener(
-          "message",
-          ({ data }) =>
-            swPort.port1.postMessage(
-              data,
-              (hasTransferables(data)
-                ? getTransferables(data)
-                : undefined) as unknown as Transferable[],
-            ),
-        );
-        sw.postMessage(
-          { type: "sharedworker", sharedWorkerPort: swPort.port1 },
-          [
-            swPort.port1,
-          ],
-        );
-      });
+      };
 
-      // Register service worker
+      port.addEventListener("message", messageHandler);
+      swPort.port1.addEventListener("message", messageHandler);
+
+      activeSW.postMessage(
+        { type: "sharedworker", sharedWorkerPort: swPort.port1 },
+        [swPort.port1]
+      );
+
       if ("serviceWorker" in navigator) {
-        sw.register().then(() =>
-          navigator.serviceWorker.register("/sw.js").then((sw) => {
-            navigator.serviceWorker.getRegistrations().then(
-              (workers) =>
-                Promise.all(
-                  workers.filter(
-                    (x) => x !== sw,
-                  ).map((x) => x.unregister()),
-                ),
-            );
-          })
+        await sw.register();
+        const registeredSW = await navigator.serviceWorker.register("/sw.js");
+        const workers = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(
+          workers
+            .filter((x) => x !== registeredSW)
+            .map((x) => x.unregister())
         );
       }
     } catch (e) {
-      console.error(e);
+      console.error("Error setting up service worker:", e);
     }
   });
 }
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+setupServiceWorker();
 
-// Create directories for the code space
 
-const paths = location.pathname.split("/");
-
-const codeSpace = paths[2];
-
-(async () => {
+async function createDirectories() {
   try {
-    await mkdir("/live").then(() => mkdir(`/live/${codeSpace}`));
+    await mkdir("/live");
+    await mkdir(`/live/${codeSpace}`);
   } catch (e) {
-    console.error("no local storage available");
+    console.error("Error creating directories:", e);
   }
-})();
+}
 
-// Check if on live page, and if so, run the code
-if (location.pathname === `/live/${codeSpace}`) {
-  import("./ws").then(({ run }) => run());
-} else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
-  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+createDirectories();
 
-  // Update HTML and CSS on message received
+async function handleLivePage() {
+  const { run } = await import("./ws");
+  run();
+}
+
+function handleDehydratedPage() {
+
   BC.onmessage = ({ data }) => {
     const { html, css } = data;
-    debugger;
-    document.getElementById("root")!.innerHTML = [
-      `<div id="${codeSpace}-css" style="height:100%;">`,
-      "<style>",
-      css,
-      "</style>",
-      html,
-      "</div>",
-    ].join("");
+    const root = document.getElementById("root");
+    if (root) {
+      root.innerHTML = `
+        <div id="${codeSpace}-css" style="height:100%;">
+          <style>${css}</style>
+          ${html}
+        </div>
+      `;
+    }
   };
-} else {
-  // Render the code
-  // import { render } from "./render";
+}
 
-  // console.log("render");
-  // const { renderApp } = await import(`/live/${codeSpace}/index.mjs`);
-
-  // renderApp();
-
-  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
+function handleDefaultPage() {
   const mod = { counter: 0, code: "", transpiled: "", controller: new AbortController() };
   const mutex = new Mutex();
 
@@ -135,32 +101,31 @@ if (location.pathname === `/live/${codeSpace}`) {
     const { i, transpiled, html } = data;
     if (i > mod.counter && transpiled && html) {
       const blobUrl = createJsBlob(transpiled);
-      const renderApp = (await import(blobUrl)).renderApp;
+      const { renderApp } = await import(blobUrl);
       renderApp();
     }
   };
 
   window.onmessage = async ({ data }) => {
     const { i, code, transpiled } = data;
-
     console.log({ i, code, transpiled });
 
     if (i > mod.counter && transpiled) {
       console.log("rerender");
       mod.controller.abort();
-      const { signal } = mod.controller = new AbortController();
+      const { signal } = (mod.controller = new AbortController());
 
       mod.counter = i;
       mod.code = code;
       mod.transpiled = transpiled;
 
-      if (signal.aborted) return;
+      if (signal.aborted) return false;
 
-      mutex.runExclusive(async () => {
+      await mutex.runExclusive(async () => {
         if (signal.aborted) return;
 
         const blobUrl = createJsBlob(transpiled);
-        const renderApp = (await import(blobUrl)).renderApp;
+        const { renderApp } = await import(blobUrl);
 
         if (signal.aborted) return;
         const el = document.createElement("div");
@@ -173,8 +138,8 @@ if (location.pathname === `/live/${codeSpace}`) {
         globalThis.rRoot = rRoot;
         globalThis.cssCache = cssCache;
         renderApp();
-        // const _rootEl = document.getElementById("root");
-        const success = await handleRender(el, signal);
+
+        const success = await handleRender(el, signal, mod);
 
         globalThis.rRoot = swappedRoot;
         globalThis.cssCache = swappedCache;
@@ -184,80 +149,86 @@ if (location.pathname === `/live/${codeSpace}`) {
         await wait(100);
       });
     }
-    async function handleRender(_rootEl: HTMLDivElement, signal: AbortSignal) {
-      console.log("handleRender");
-      const counter = mod.counter;
-
-      if (!_rootEl) return;
-
-      const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
-
-      let attempts = 100;
-
-      while (attempts-- > 0) {
-        if (signal.aborted) return 0;
-        const html = _rootEl.innerHTML;
-        if (html) {
-          const css = mineFromCaches(cache, html);
-
-          if (mod.counter !== counter) return;
-          BC.postMessage({
-            html,
-            css,
-            i: counter,
-            code: mod.code,
-            transpiled: mod.transpiled,
-            sender: "Hydrater",
-          });
-          // globalThis.firstRender = { html, css, code: "" };
-          // window?.parent?.postMessage({ type: "firstRender", html, css });
-
-          return true;
-        }
-        await wait(10);
-      }
-
-      function mineFromCaches(_cache: EmotionCache, html: string) {
-        const key = _cache.key || "css";
-        try {
-          const styledJSXStyles = Array.from(
-            document.querySelectorAll("style[data-styled-jsx]"),
-          ).map((style) => style.textContent);
-
-          const emotionStyles = Array.from(
-            new Set(
-              Array.from(
-                document.querySelectorAll(`style[data-emotion="${key}"]`),
-              )
-                .map((style) => style.textContent),
-            ),
-          ).join("\n");
-
-          return styledJSXStyles.concat(emotionStyles).join("\n");
-        } catch {
-          return Array.from(document.styleSheets)
-            .map((sheet) => {
-              try {
-                return sheet.cssRules[0] as CSSPageRule;
-              } catch {
-                return null;
-              }
-            })
-            .filter((rule) =>
-              rule?.selectorText
-              && rule.selectorText.includes(key)
-              && html.includes(rule.selectorText.slice(4, 11))
-            )
-            .map((rule) => rule!.cssText)
-            .join("\n");
-        }
-      }
-    }
     return false;
   };
+}
 
-  // window.onmessage = () => {
-  //   const now = Date.now();
-  //   rerender(now);
-  // };
+async function handleRender(_rootEl: HTMLDivElement, signal: AbortSignal, mod: {
+  counter: number;
+  code: string;
+  transpiled: string;
+  controller: AbortController;
+}) {
+  console.log("handleRender");
+  const counter = mod.counter;
+
+  if (!_rootEl) return false;
+
+  const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
+
+  for (let attempts = 100; attempts > 0; attempts--) {
+    if (signal.aborted) return false;
+    const html = _rootEl.innerHTML;
+    if (html) {
+      const css = mineFromCaches(cache, html);
+
+      if (mod.counter !== counter) return false;
+      BC.postMessage({
+        html,
+        css,
+        i: counter,
+        code: mod.code,
+        transpiled: mod.transpiled,
+        sender: "Hydrator",
+      });
+
+      return true;
+    }
+    await wait(10);
+  }
+  return false;
+}
+
+function mineFromCaches(_cache: EmotionCache, html: string) {
+  const key = _cache.key || "css";
+  try {
+    const styledJSXStyles = Array.from(
+      document.querySelectorAll("style[data-styled-jsx]")
+    ).map((style) => style.textContent);
+
+    const emotionStyles = Array.from(
+      new Set(
+        Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`)).map(
+          (style) => style.textContent
+        )
+      )
+    ).join("\n");
+
+    return styledJSXStyles.concat(emotionStyles).join("\n");
+  } catch {
+    return Array.from(document.styleSheets)
+      .map((sheet) => {
+        try {
+          return sheet.cssRules[0] as CSSPageRule;
+        } catch {
+          return null;
+        }
+      })
+      .filter(
+        (rule): rule is CSSPageRule =>
+          rule?.selectorText !== undefined &&
+          rule.selectorText.includes(key) &&
+          html.includes(rule.selectorText.slice(4, 11))
+      )
+      .map((rule) => rule.cssText)
+      .join("\n");
+  }
+}
+
+if (location.pathname === `/live/${codeSpace}`) {
+  handleLivePage();
+} else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
+  handleDehydratedPage();
+} else {
+  handleDefaultPage();
 }

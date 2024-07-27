@@ -1,7 +1,6 @@
 import { enhancedFetch } from "./enhancedFetch";
 import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
-// Extend the global object with build and transpile functions
 
 const codeSpace = getCodeSpace();
 
@@ -32,9 +31,6 @@ Object.assign(globalThis, {
   transpile,
 });
 
-``;
-
-// Runner session to keep track of current state
 const runnerSession = {
   i: 0,
   codeSpace,
@@ -44,13 +40,13 @@ const runnerSession = {
 };
 
 /**
- * The runner f qunction compiles and builds the code and handles the session state.
- * @param {object} params - The parameters for the runner function.
- * @param {string} params.code - The code to transpile and build.
- * @param {number} params.counter - The current counter value.
- * @param {AbortSignal} params.signal - The abort signal to handle cancellation.
+ * Compiles and builds the code and handles the session state.
  */
-export async function runner({ code, counter, signal }: {
+export async function runner({
+  code,
+  counter,
+  signal,
+}: {
   code: string;
   codeSpace: string;
   counter: number;
@@ -67,48 +63,23 @@ export async function runner({ code, counter, signal }: {
   try {
     if (signal.aborted) return;
 
-    // Remove existing index.js file if it exists
-    try {
-      await cleanupFiles();
-    } catch (error) {
-      console.error("Error during cleanup:", error);
-    }
+    await cleanupFiles();
 
-    // Transpile the code
     const transpiled = await transpile({ code, originToUse: location.origin });
     if (signal.aborted) return;
 
-    try {
-      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-    } catch (e) {
-      console.error(e);
-    }
+    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
 
     console.log({ transpiled });
     if (!transpiled) return;
 
-    // await cleanupFiles();
-    // Write the transpiled code to index.js and build if bundle exists
-    // if (bundleExists) {
-    //   try {
-    //     await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-    //     await build({ codeSpace, origin: location.origin });
-    //   } catch (error) {
-    //     console.error("Error during build:", error);
-
-    //   }
-    // }
-
     if (signal.aborted) return;
-
-    // Send message to the iframe with the transpiled code
-    // BC.postMessage({ code, transpiled, i: counter, sender: "RUnner" });
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
       code,
       transpiled,
       i: counter,
-      sender: "RUnner",
+      sender: "Runner",
     });
   } catch (error) {
     console.error("Error during runner execution:", error);
@@ -117,29 +88,30 @@ export async function runner({ code, counter, signal }: {
 
 /**
  * Get the code space from the current URL.
- * @returns {string} The code space.
  */
 function getCodeSpace(): string {
   return location.pathname.slice(1).split("/")[1];
 }
 
 /**
- * Cleanup function to remove index.js and index.mjs files if they exist.
+ * Remove index.js and index.mjs files if they exist.
  */
 async function cleanupFiles() {
   try {
-    if (await stat(`/live/${codeSpace}/index.js`)) {
-      await unlink(`/live/${codeSpace}/index.js`);
+    const files = [`/live/${codeSpace}/index.js`, `/live/${codeSpace}/index.mjs`];
+    
+    for (const file of files) {
+      if (await stat(file)) {
+        await unlink(file);
+      }
     }
-    if (await stat(`/live/${codeSpace}/index.mjs`)) {
-      await unlink(`/live/${codeSpace}/index.mjs`);
-    }
+
     await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/javascript",
-        "TR_ORIGIN": `origin`,
-        "TR_BUNDLE": `true`,
+        "TR_ORIGIN": origin,
+        "TR_BUNDLE": "true",
       },
     });
   } catch (error) {

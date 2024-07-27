@@ -49,11 +49,11 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
         </Tooltip>
         <Tooltip title="Show QR Code" placement="left">
           <div>
-            <QRButton url={`${location.origin}/live/${codeSpace}/public`} />
+            <QRButton url={`${location.origin}/live/${codeSpace}/`} />
           </div>
         </Tooltip>
         <Tooltip title="Open in New Window" placement="left">
-          <Fab onClick={() => window.open(`/live/${codeSpace}/public`)}>
+          <Fab onClick={() => window.open(`/live/${codeSpace}/`)}>
             <Share />
           </Fab>
         </Tooltip>
