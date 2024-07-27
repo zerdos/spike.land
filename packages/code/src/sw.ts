@@ -19,6 +19,12 @@ let started = false;
 const FILE_CACHE_NAME = "file-cache-";
 const GENERAL_CACHE_NAME = "general-cache";
 const ASSET_HASH_KEY = "current-asset-hash";
+const MY_CACHE_NAME = "my-cache";
+
+// Open 'my-cache'
+caches.open(MY_CACHE_NAME).then(cache => {
+  console.log('My cache opened successfully');
+});
 
 const BC = new BroadcastChannel("sw-channel");
 BC.onmessage = () => {
