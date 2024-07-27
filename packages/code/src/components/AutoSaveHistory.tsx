@@ -41,7 +41,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     try {
       const response = await fetch(`https://testing.spike.land/live/${codeSpace}/auto-save/history`);
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json<Version[]>();
         setVersions(data);
       } else {
         console.error("Failed to fetch version history");

@@ -1,15 +1,16 @@
-import { setupTypeAcquisition } from "@typescript/ata";
+import * as ATA from "@typescript/ata";
 import ts from "typescript";
 import { QueuedFetch } from "./QueuedFetch";
 
 const limitedFetch = new QueuedFetch(4, 1000);
 
 export const myATA = async (code: string) => {
+  const a = (ATA as unknown as { setupTypeAcquisition: typeof ATA.a }).setupTypeAcquisition;
   const myPromise = new Promise<Map<string, string>>((resolve) => {
-    const ata = setupTypeAcquisition({
+    const ata = a({
       projectName: "My ATA Project,",
       logger: console,
-      fetcher: limitedFetch.fetch.bind(limitedFetch),
+      fetcher: limitedFetch.fetch.bind(limitedFetch) as unknown as typeof fetch ,
       typescript: ts,
       delegate: {
         receivedFile: (code: string, path: string) => {

@@ -88,6 +88,8 @@ export class Code implements DurableObject {
   }
 
   public async autoSave() {
+    if (this.autoSaveHistory.find(x=>x.code === this.session.code)) return;
+    
     const currentTime = Date.now();
     if (currentTime - this.lastAutoSave >= this.autoSaveInterval) {
       const currentCode = this.session.code;
@@ -97,7 +99,7 @@ export class Code implements DurableObject {
         this.autoSaveHistory.length === 0 || currentCode !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
       ) {
         // Remove entries younger than 1 minutes
-        this.autoSaveHistory = this.autoSaveHistory.filter(entry => currentTime - entry.timestamp >= 60000);
+        this.autoSaveHistory = this.autoSaveHistory.filter(entry => currentTime - entry.timestamp >= 60_00);
 
         // Remove entries older than 2 months
         this.autoSaveHistory = this.autoSaveHistory.filter(entry =>

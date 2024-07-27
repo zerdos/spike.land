@@ -2,15 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, Message, MessageInput } from "./ChatDrawer";
 import { initialMessage } from "./initialMessage";
 import { prettier } from "./shared";
+import {extractArtifacts} from "./utils/extractArtifacts"
 
 // Types
-interface Artifact {
-  identifier: string;
-  type: string;
-  language: string;
-  title: string;
-  content: string;
-}
 
 // Utility Functions
 const getCodeSpace = (): string => {
@@ -44,6 +38,7 @@ const ChatInterface: React.FC<
   { onCodeUpdate, onClose, isOpen },
 ) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [codeFound, setCodeFound] = useState(false);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
@@ -122,6 +117,7 @@ const ChatInterface: React.FC<
     const codeNow = await prettier(cSess.session.code);
 
     fetch(`/live/${codeSpace}/auto-save`);
+    setCodeFound(false);
 
     if (isFirstMessage || codeNow !== codeWhatAiSeen) {
       content = initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
@@ -138,9 +134,11 @@ const ChatInterface: React.FC<
       content: content.trim(),
     };
 
+
     setMessages((prev) => [...prev, newMessage]);
     saveMessages([...messages, newMessage]);
     setInput("");
+    
     setIsStreaming(true);
 
     let fullResponse = "";
@@ -194,6 +192,19 @@ const ChatInterface: React.FC<
 
           const chunk = decoder.decode(value);
           fullResponse += chunk;
+          if ( !codeFound &&  fullResponse.includes("</antArtifact>")){
+            const artifacts = extractArtifacts(fullResponse);
+
+            if (artifacts.length > 0) {
+              const code = await prettier(artifacts[0].content)
+              onCodeUpdate(code);
+              setAICode(code);
+              setCodeFound(true);
+           
+            }
+        
+            
+          }
           setMessages((prevMessages) => {
             const updatedMessages = [...prevMessages];
             const lastMessage = updatedMessages[updatedMessages.length - 1];
@@ -219,30 +230,13 @@ const ChatInterface: React.FC<
       }
     }
 
-    const extractArtifacts = (content: string): Artifact[] => {
-      const artifactRegex =
-        /<antArtifact\s+identifier="([^"]+)"\s+type="([^"]+)"\s+language="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/antArtifact>/g;
-      const extractedArtifacts: Artifact[] = [];
-      let match;
+  
+    // const artifacts = extractArtifacts(fullResponse);
 
-      while ((match = artifactRegex.exec(content)) !== null) {
-        extractedArtifacts.push({
-          identifier: match[1],
-          type: match[2],
-          language: match[3],
-          title: match[4],
-          content: match[5].trim(),
-        });
-      }
-
-      return extractedArtifacts;
-    };
-    const artifacts = extractArtifacts(fullResponse);
-
-    if (artifacts.length > 0) {
-      onCodeUpdate(artifacts[0].content);
-      setAICode(await prettier(artifacts[0].content));
-    }
+    // if (artifacts.length > 0) {
+    //   onCodeUpdate(artifacts[0].content);
+    //   setAICode(await prettier(artifacts[0].content));
+    // }
 
     // Check if the response contains code modifications
     const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
