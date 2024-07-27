@@ -81,24 +81,32 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     initializeEditor();
   }, [editorState.started, ref, codeSpace]);
 
-  const handleContentChange = async (_code: string) => {
-    const formattedCode = await prettier(_code);
-    if (mod.code === formattedCode) return;
+  const handleContentChange = (() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+    return async (_code: string) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(async () => {
+        const formattedCode = await prettier(_code);
+        if (mod.code === formattedCode) return;
 
-    mod.i += 1;
-    mod.code = formattedCode;
+        mod.i += 1;
+        mod.code = formattedCode;
 
-    const newVersion = { timestamp: Date.now(), code: formattedCode };
-    const updatedVersions = addVersion(codeSpace, newVersion, versions);
-    setVersions(updatedVersions);
+        const newVersion = { timestamp: Date.now(), code: formattedCode };
+        const updatedVersions = addVersion(codeSpace, newVersion, versions);
+        setVersions(updatedVersions);
 
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    const { signal } = mod.controller;
+        mod.controller.abort();
+        mod.controller = new AbortController();
+        const { signal } = mod.controller;
 
-    runner({ code: mod.code, counter: mod.i, codeSpace, signal });
-    onCodeUpdate(formattedCode);
-  };
+        runner({ code: mod.code, counter: mod.i, codeSpace, signal });
+        onCodeUpdate(formattedCode);
+      }, 300); // 300ms throttle
+    };
+  })();
 
   BC.onmessage = ({ data }) => {
     console.table(data);
