@@ -5,14 +5,19 @@ import PomodoroTimer from "./templates/pomodoro";
 import Todo from "./templates/todo";
 import WeatherDashboard from "./templates/weather-dashboard";
 
-const DeviceFrame = ({ children }: { children: React.ReactNode }) => (
-  <div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
-    <div className="h-[32px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[72px] rounded-l-lg"></div>
-    <div className="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[124px] rounded-l-lg"></div>
-    <div className="h-[46px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -left-[17px] top-[178px] rounded-l-lg"></div>
-    <div className="h-[64px] w-[3px] bg-gray-800 dark:bg-gray-800 absolute -right-[17px] top-[142px] rounded-r-lg">
+const BrowserFrame = ({ children }: { children: React.ReactNode }) => (
+  <div className="border border-gray-300 rounded-lg overflow-hidden shadow-md">
+    <div className="bg-gray-100 p-2 flex items-center space-x-2">
+      <div className="flex space-x-1">
+        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+      </div>
+      <div className="flex-grow bg-white rounded px-2 py-1 text-sm text-gray-600">
+        example.com
+      </div>
     </div>
-    <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800">
+    <div className="bg-white p-4">
       <div className="w-full h-full scale-[0.75] origin-top-left">{children}</div>
     </div>
   </div>
@@ -60,9 +65,9 @@ const TemplateCard = ({ template, onSelect }: { template: Template; onSelect: (t
     <CardContent>
       <div className="mb-4 h-[300px] flex justify-center items-center">
         <div className="scale-[0.4] origin-center">
-          <DeviceFrame>
+          <BrowserFrame>
             {typeof template.preview === "function" ? template.preview() : template.preview}
-          </DeviceFrame>
+          </BrowserFrame>
         </div>
       </div>
       <p className="mb-4">{template.description}</p>
