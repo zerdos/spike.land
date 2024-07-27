@@ -12,7 +12,7 @@ const SAVE_INTERVAL = 60000; // 1 minute in milliseconds
 export const loadVersionHistory = async (codeSpace: string): Promise<Version[]> => {
   const res = fetch(`/live/${codeSpace}/auto-save/history`);
 
-  return (await res).json()
+  return (await res).json();
 };
 
 export const saveVersionHistory = (codeSpace: string, versions: Version[]): void => {

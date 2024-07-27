@@ -1,43 +1,45 @@
-import React, { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Bold, Italic, List, ListOrdered, Image, Link } from 'lucide-react';
+import { Bold, Image, Italic, Link, List, ListOrdered } from "lucide-react";
+import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 const MarkdownEditor = () => {
-  const [markdownText, setMarkdownText] = useState('# Welcome to Markdown Editor\n\nStart typing your markdown here...');
+  const [markdownText, setMarkdownText] = useState(
+    "# Welcome to Markdown Editor\n\nStart typing your markdown here...",
+  );
 
   const insertMarkdown = (syntax) => {
-    const textarea = document.getElementById('markdown-textarea');
+    const textarea = document.getElementById("markdown-textarea");
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const text = textarea.value;
     const before = text.substring(0, start);
     const after = text.substring(end);
-    let insertion = '';
+    let insertion = "";
 
-    switch(syntax) {
-      case 'bold':
-        insertion = `**${text.substring(start, end) || 'bold text'}**`;
+    switch (syntax) {
+      case "bold":
+        insertion = `**${text.substring(start, end) || "bold text"}**`;
         break;
-      case 'italic':
-        insertion = `*${text.substring(start, end) || 'italic text'}*`;
+      case "italic":
+        insertion = `*${text.substring(start, end) || "italic text"}*`;
         break;
-      case 'ul':
+      case "ul":
         insertion = `\n- List item`;
         break;
-      case 'ol':
+      case "ol":
         insertion = `\n1. List item`;
         break;
-      case 'image':
+      case "image":
         insertion = `![Alt text](https://example.com/image.jpg)`;
         break;
-      case 'link':
+      case "link":
         insertion = `[Link text](https://example.com)`;
         break;
       default:
-        insertion = '';
+        insertion = "";
     }
 
     setMarkdownText(before + insertion + after);
@@ -49,22 +51,22 @@ const MarkdownEditor = () => {
       <Card className="mb-4">
         <CardContent className="p-4">
           <div className="flex space-x-2 mb-4">
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown('bold')}>
+            <Button variant="outline" size="icon" onClick={() => insertMarkdown("bold")}>
               <Bold className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown('italic')}>
+            <Button variant="outline" size="icon" onClick={() => insertMarkdown("italic")}>
               <Italic className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown('ul')}>
+            <Button variant="outline" size="icon" onClick={() => insertMarkdown("ul")}>
               <List className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown('ol')}>
+            <Button variant="outline" size="icon" onClick={() => insertMarkdown("ol")}>
               <ListOrdered className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown('image')}>
+            <Button variant="outline" size="icon" onClick={() => insertMarkdown("image")}>
               <Image className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown('link')}>
+            <Button variant="outline" size="icon" onClick={() => insertMarkdown("link")}>
               <Link className="h-4 w-4" />
             </Button>
           </div>

@@ -1,8 +1,8 @@
 // src/components/AutoSaveHistory.tsx
-import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import * as monaco from 'monaco-editor';
+import * as monaco from "monaco-editor";
+import React, { useEffect, useState } from "react";
 
 interface Version {
   timestamp: number;
@@ -44,15 +44,15 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         const data = await response.json();
         setVersions(data);
       } else {
-        console.error('Failed to fetch version history');
+        console.error("Failed to fetch version history");
       }
     } catch (error) {
-      console.error('Error fetching version history:', error);
+      console.error("Error fetching version history:", error);
     }
   };
 
   const initDiffEditor = () => {
-    const editor = monaco.editor.createDiffEditor(document.getElementById('diffEditor')!, {
+    const editor = monaco.editor.createDiffEditor(document.getElementById("diffEditor")!, {
       automaticLayout: true,
       readOnly: true,
       renderSideBySide: false,
@@ -63,8 +63,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const updateDiffEditor = () => {
     if (!diffEditor || !selectedVersion) return;
 
-    const originalModel = monaco.editor.createModel(versions[0].code, 'typescript');
-    const modifiedModel = monaco.editor.createModel(selectedVersion.code, 'typescript');
+    const originalModel = monaco.editor.createModel(versions[0].code, "typescript");
+    const modifiedModel = monaco.editor.createModel(selectedVersion.code, "typescript");
 
     diffEditor.setModel({
       original: originalModel,
@@ -77,8 +77,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
 
     try {
       const response = await fetch(`https://testing.spike.land/live/${codeSpace}/auto-save/restore`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ timestamp: selectedVersion.timestamp }),
       });
 
@@ -86,10 +86,10 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         onRestore(selectedVersion.code);
         onClose();
       } else {
-        console.error('Failed to restore version');
+        console.error("Failed to restore version");
       }
     } catch (error) {
-      console.error('Error restoring version:', error);
+      console.error("Error restoring version:", error);
     }
   };
 
@@ -103,7 +103,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
               <div
                 key={version.timestamp}
                 className={`p-2 cursor-pointer ${
-                  selectedVersion === version ? 'bg-accent text-accent-foreground' : ''
+                  selectedVersion === version ? "bg-accent text-accent-foreground" : ""
                 }`}
                 onClick={() => setSelectedVersion(version)}
               >

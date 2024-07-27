@@ -158,8 +158,8 @@ export const transpile = async (
   } catch (error) {
     console.error("Error during transpilation:", error);
     return {
-      error
-    }
+      error,
+    };
   }
 };
 

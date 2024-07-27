@@ -3,27 +3,25 @@ import { Workbox } from "workbox-window";
 import { getPort, init } from "./shared";
 
 import type { EmotionCache } from "@emotion/cache";
+import createCache from "@emotion/cache";
+import { Mutex } from "async-mutex";
 import { createRoot } from "react-dom/client";
 import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
 import { createJsBlob } from "./starter";
 import { wait } from "./wait";
-import createCache from "@emotion/cache";
-import { Mutex } from "async-mutex";
 
 // Set up service worker version
 const { swVersion } = self;
 
 if (!location.pathname.startsWith("/live/")) {
-
-  import("./assets/tw.js").then(()=>import("./pages/index").then((mod) =>{
-    const root = document.getElementById("root");
-    const Page = mod.default;
-    createRoot(root!).render(<Page />);
-
-  }));
-
-
+  import("./assets/tw.js").then(() =>
+    import("./pages/index").then((mod) => {
+      const root = document.getElementById("root");
+      const Page = mod.default;
+      createRoot(root!).render(<Page />);
+    })
+  );
 }
 
 if (navigator.serviceWorker) {
@@ -139,9 +137,7 @@ if (location.pathname === `/live/${codeSpace}`) {
       const blobUrl = createJsBlob(transpiled);
       const renderApp = (await import(blobUrl)).renderApp;
       renderApp();
-
     }
-
   };
 
   window.onmessage = async ({ data }) => {
@@ -152,7 +148,7 @@ if (location.pathname === `/live/${codeSpace}`) {
     if (i > mod.counter && transpiled) {
       console.log("rerender");
       mod.controller.abort();
-      const {signal} = mod.controller = new AbortController();
+      const { signal } = mod.controller = new AbortController();
 
       mod.counter = i;
       mod.code = code;
@@ -160,28 +156,25 @@ if (location.pathname === `/live/${codeSpace}`) {
 
       if (signal.aborted) return;
 
-
-      mutex.runExclusive(async ()=>{
+      mutex.runExclusive(async () => {
         if (signal.aborted) return;
-    
+
         const blobUrl = createJsBlob(transpiled);
         const renderApp = (await import(blobUrl)).renderApp;
 
         if (signal.aborted) return;
         const el = document.createElement("div");
         const rRoot = createRoot(el);
-  
-  
+
         const swappedRoot = globalThis.rRoot;
         const cssCache = createCache({ key: "css", speedy: false });
         const swappedCache = globalThis.cssCache;
-  
+
         globalThis.rRoot = rRoot;
         globalThis.cssCache = cssCache;
         renderApp();
         // const _rootEl = document.getElementById("root");
-       const success = await handleRender(el, signal);
-       
+        const success = await handleRender(el, signal);
 
         globalThis.rRoot = swappedRoot;
         globalThis.cssCache = swappedCache;
@@ -189,13 +182,12 @@ if (location.pathname === `/live/${codeSpace}`) {
         rRoot.unmount();
         el.remove();
         await wait(100);
-      })
-      
+      });
     }
     async function handleRender(_rootEl: HTMLDivElement, signal: AbortSignal) {
       console.log("handleRender");
       const counter = mod.counter;
-    
+
       if (!_rootEl) return;
 
       const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;

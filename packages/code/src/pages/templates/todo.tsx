@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
+  const [newTodo, setNewTodo] = useState("");
 
   const addTodo = () => {
-    if (newTodo.trim() !== '') {
+    if (newTodo.trim() !== "") {
       setTodos([...todos, { id: Date.now(), text: newTodo, completed: false }]);
-      setNewTodo('');
+      setNewTodo("");
     }
   };
 
   const toggleTodo = (id) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
   };
 
   return (
@@ -41,7 +39,7 @@ const TodoList = () => {
             <li
               key={todo.id}
               onClick={() => toggleTodo(todo.id)}
-              className={`cursor-pointer p-2 ${todo.completed ? 'line-through text-gray-500' : ''}`}
+              className={`cursor-pointer p-2 ${todo.completed ? "line-through text-gray-500" : ""}`}
             >
               {todo.text}
             </li>

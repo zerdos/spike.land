@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Sun, Cloud, CloudRain, Wind } from 'lucide-react';
+import { Cloud, CloudRain, Sun, Wind } from "lucide-react";
+import React, { useState } from "react";
 
 const WeatherIcon = ({ condition }) => {
   switch (condition) {
-    case 'Sunny':
+    case "Sunny":
       return <Sun className="w-12 h-12 text-yellow-400" />;
-    case 'Cloudy':
+    case "Cloudy":
       return <Cloud className="w-12 h-12 text-gray-400" />;
-    case 'Rainy':
+    case "Rainy":
       return <CloudRain className="w-12 h-12 text-blue-400" />;
     default:
       return <Wind className="w-12 h-12 text-gray-600" />;
@@ -18,22 +18,22 @@ const WeatherIcon = ({ condition }) => {
 };
 
 const WeatherDashboard = () => {
-  const [city, setCity] = useState('New York');
-  
+  const [city, setCity] = useState("New York");
+
   // Mock weather data
   const currentWeather = {
     temperature: 72,
-    condition: 'Sunny',
+    condition: "Sunny",
     humidity: 60,
     windSpeed: 5,
   };
 
   const forecast = [
-    { day: 'Mon', temperature: 70, condition: 'Sunny' },
-    { day: 'Tue', temperature: 68, condition: 'Cloudy' },
-    { day: 'Wed', temperature: 72, condition: 'Rainy' },
-    { day: 'Thu', temperature: 75, condition: 'Sunny' },
-    { day: 'Fri', temperature: 71, condition: 'Cloudy' },
+    { day: "Mon", temperature: 70, condition: "Sunny" },
+    { day: "Tue", temperature: 68, condition: "Cloudy" },
+    { day: "Wed", temperature: 72, condition: "Rainy" },
+    { day: "Thu", temperature: 75, condition: "Sunny" },
+    { day: "Fri", temperature: 71, condition: "Cloudy" },
   ];
 
   return (
@@ -43,10 +43,10 @@ const WeatherDashboard = () => {
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
             <h1 className="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Weather Dashboard</h1>
             <div className="flex w-full md:w-auto">
-              <Input 
-                type="text" 
-                placeholder="Enter city" 
-                value={city} 
+              <Input
+                type="text"
+                placeholder="Enter city"
+                value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="mr-2"
               />

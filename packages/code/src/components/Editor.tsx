@@ -128,10 +128,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         const data = await response.json();
         setVersions(data);
       } else {
-        console.error('Failed to fetch auto-save history');
+        console.error("Failed to fetch auto-save history");
       }
     } catch (error) {
-      console.error('Error fetching auto-save history:', error);
+      console.error("Error fetching auto-save history:", error);
     }
   };
 

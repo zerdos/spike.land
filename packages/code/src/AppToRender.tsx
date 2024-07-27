@@ -1,13 +1,13 @@
 // src/AppToRender.tsx
+import { Button } from "@/components/ui/button";
 import { css, keyframes } from "@emotion/react";
+import { Bot } from "lucide-react";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC, ReactNode } from "react";
-import { DraggableWindow } from "./DraggableWindow";
-import { reveal } from "./reveal";
-import { Bot } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ChatInterface from "./ChatInterface";
 import AutoSaveHistory from "./components/AutoSaveHistory";
+import { DraggableWindow } from "./DraggableWindow";
+import { reveal } from "./reveal";
 
 // Define a type for the gradient colors
 type GradientColor = {
@@ -116,7 +116,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   return (
     <>
-      {onlyEdit? <iframe
+      {onlyEdit
+        ? (
+          <iframe
             css={css`
             display: none;
               height: 0;
@@ -126,27 +128,29 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               -webkit-overflow-scrolling: touch;
             `}
             src={`/live/${codeSpace}/`}
-          />: (
-        <DraggableWindow
-          isChatOpen={isOpen}
-          onCodeUpdate={handleCodeUpdate}
-          codeSpace={codeSpace}
-          handleAIModify={handleAIModify}
-          showChat={showChat}
-          setShowChat={setShowChat}
-        >
-          <iframe
-            css={css`
+          />
+        )
+        : (
+          <DraggableWindow
+            isChatOpen={isOpen}
+            onCodeUpdate={handleCodeUpdate}
+            codeSpace={codeSpace}
+            handleAIModify={handleAIModify}
+            showChat={showChat}
+            setShowChat={setShowChat}
+          >
+            <iframe
+              css={css`
               height: 100%;
               width: 100%;
               border: 0;
               overflow: auto;
               -webkit-overflow-scrolling: touch;
             `}
-            src={`/live/${codeSpace}/`}
-          />
-        </DraggableWindow>
-      )}
+              src={`/live/${codeSpace}/`}
+            />
+          </DraggableWindow>
+        )}
 
       {!hideRest && (
         <RainbowContainer>

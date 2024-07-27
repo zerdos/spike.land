@@ -43,21 +43,18 @@ export const tsx = (
     filePath: string;
   }[]>;
 
- const transpileID = (
+const transpileID = (
   { code, originToUse }: { code: string; originToUse: string },
 ) => init(swVersion).rpc("transpile", { code, originToUse }) as Promise<string>;
 
 export const transpile = async (
   { code, originToUse }: { code: string; originToUse: string },
 ) => {
-const transpiled = await transpileID({code, originToUse});
+  const transpiled = await transpileID({ code, originToUse });
 
-if (typeof transpiled !== "string") throw new Error("transpile error",{cause: transpiled});
-return transpiled
-
-}
-
-
+  if (typeof transpiled !== "string") throw new Error("transpile error", { cause: transpiled });
+  return transpiled;
+};
 
 export const build = (
   { codeSpace, origin, format = "esm" }: {

@@ -68,12 +68,22 @@ export async function runner({ code, counter, signal }: {
     if (signal.aborted) return;
 
     // Remove existing index.js file if it exists
-    await cleanupFiles();
+    try {
+      await cleanupFiles();
+    } catch (error) {
+      console.error("Error during cleanup:", error);
+    }
 
     // Transpile the code
     const transpiled = await transpile({ code, originToUse: location.origin });
     if (signal.aborted) return;
-    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+
+    try {
+      await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+    } catch (e) {
+      console.error(e);
+    }
+
     console.log({ transpiled });
     if (!transpiled) return;
 
@@ -95,7 +105,10 @@ export async function runner({ code, counter, signal }: {
     // BC.postMessage({ code, transpiled, i: counter, sender: "RUnner" });
 
     document.querySelector("iframe")?.contentWindow?.postMessage({
-      code, transpiled, i: counter, sender: "RUnner" 
+      code,
+      transpiled,
+      i: counter,
+      sender: "RUnner",
     });
   } catch (error) {
     console.error("Error during runner execution:", error);
