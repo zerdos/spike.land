@@ -11,6 +11,6 @@ export { Code, CodeRateLimiter, Users };
 // Main export
 export default chat;
 
-// TODO: Uncomment and update path if R2 functionality is needed
-// import R2 from "../r2bucket";
-// export { R2 };
+// Import and export R2 functionality
+import R2BucketHandler from "./r2bucket";
+export { R2BucketHandler };
