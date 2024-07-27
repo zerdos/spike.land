@@ -1,5 +1,4 @@
-import { resetCSS } from "./getResetCss";
-import MyTV from "./hooks/tw.html";
+
 import { importMap } from "./importMap";
 import { importMapReplace } from "./importMapReplace";
 import MyHTML from "./index.html";
@@ -10,7 +9,6 @@ export { importMapReplace };
 
 import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 
-export { resetCSS };
 export { importMap };
 
 export { makeHash, stringifySession };
@@ -19,8 +17,7 @@ export { applyCodePatch, makeSession };
 
 const HTML: string = MyHTML as unknown as string;
 
-const TW: string = MyTV as unknown as string;
 
-export { HTML, TW };
+export { HTML };
 
 export { md5 };

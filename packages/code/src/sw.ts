@@ -212,7 +212,6 @@ const fakeBackend = async (request: Request): Promise<Response> => {
           HTML,
           css,
           codeSpace,
-          i.toString(),
           html,
         );
         return createResponse(respText, "text/html");
@@ -279,7 +278,6 @@ const createBundleResponse = (
   HTML: string,
   css: string,
   codeSpace: string,
-  i: string,
   html: string,
 ): string => {
   return HTML.replace("/**reset*/", css).replace(
