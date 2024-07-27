@@ -58,12 +58,13 @@ async function fetchAssetHash(): Promise<string> {
 // Check if ASSET_HASH has changed and update cache if necessary
 async function checkAssetHash() {
   const newAssetHash = await fetchAssetHash();
-  const currentAssetHash = await self.registration.storage.get(ASSET_HASH_KEY) || self.swVersion;
+  const cache = await caches.open(GENERAL_CACHE_NAME);
+  const currentAssetHash = await cache.match(ASSET_HASH_KEY).then(response => response?.text()) || self.swVersion;
 
   if (currentAssetHash !== newAssetHash) {
     console.log("ASSET_HASH changed. Updating cache...");
     await updateCache(newAssetHash);
-    await self.registration.storage.set(ASSET_HASH_KEY, newAssetHash);
+    await cache.put(ASSET_HASH_KEY, new Response(newAssetHash));
     self.swVersion = newAssetHash;
     self.clients.claim(); // Force clients to use the new service worker
   }
@@ -123,8 +124,10 @@ const putInCache = async (
 const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
+    const generalCache = await caches.open(GENERAL_CACHE_NAME);
+    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then(response => response?.text()) || self.swVersion;
     const cacheName = isFileInList(url.pathname)
-      ? FILE_CACHE_NAME + (await self.registration.storage.get(ASSET_HASH_KEY) || self.swVersion)
+      ? FILE_CACHE_NAME + currentAssetHash
       : GENERAL_CACHE_NAME;
     const cache = await caches.open(cacheName);
     const responseFromCache = await cache.match(request);
@@ -143,8 +146,10 @@ const fetchAndUpdateCache = async (request: Request, cache?: Cache): Promise<Res
     if (responseFromNetwork.ok && responseFromNetwork.status === 200) {
       if (!cache) {
         const url = new URL(request.url);
+        const generalCache = await caches.open(GENERAL_CACHE_NAME);
+        const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then(response => response?.text()) || self.swVersion;
         const cacheName = isFileInList(url.pathname)
-          ? FILE_CACHE_NAME + (await self.registration.storage.get(ASSET_HASH_KEY) || self.swVersion)
+          ? FILE_CACHE_NAME + currentAssetHash
           : GENERAL_CACHE_NAME;
         cache = await caches.open(cacheName);
       }
