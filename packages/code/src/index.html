@@ -20,7 +20,11 @@
   <script src="/assets/tw.js"></script>
   <script type="module">
     import("/hydrate.mjs?" + swVersion);
-  </script>
+    const paths = location.pathname.split("/").slice(1);
+    if (paths.length > 2 && paths[0]=='live') {
+      import([ ,paths[0],paths[1],'index.js'].join('/')).then(m=>m.renderApp());
+    }
+ </script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
   <!-- End Cloudflare Web Analytics -->

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, Message, MessageInput } from "./ChatDrawer";
 import { initialMessage } from "./initialMessage";
 import { prettier } from "./shared";
-import {extractArtifacts} from "./utils/extractArtifacts"
+import { extractArtifacts } from "./utils/extractArtifacts";
 
 // Types
 
@@ -134,11 +134,10 @@ const ChatInterface: React.FC<
       content: content.trim(),
     };
 
-
     setMessages((prev) => [...prev, newMessage]);
     saveMessages([...messages, newMessage]);
     setInput("");
-    
+
     setIsStreaming(true);
 
     let fullResponse = "";
@@ -192,18 +191,15 @@ const ChatInterface: React.FC<
 
           const chunk = decoder.decode(value);
           fullResponse += chunk;
-          if ( !codeFound &&  fullResponse.includes("</antArtifact>")){
+          if (!codeFound && fullResponse.includes("</antArtifact>")) {
             const artifacts = extractArtifacts(fullResponse);
 
             if (artifacts.length > 0) {
-              const code = await prettier(artifacts[0].content)
+              const code = await prettier(artifacts[0].content);
               onCodeUpdate(code);
               setAICode(code);
               setCodeFound(true);
-           
             }
-        
-            
           }
           setMessages((prevMessages) => {
             const updatedMessages = [...prevMessages];
@@ -230,14 +226,14 @@ const ChatInterface: React.FC<
       }
     }
 
-  
-    // const artifacts = extractArtifacts(fullResponse);
+    if (!codeFound) {
+      const artifacts = extractArtifacts(fullResponse);
 
-    // if (artifacts.length > 0) {
-    //   onCodeUpdate(artifacts[0].content);
-    //   setAICode(await prettier(artifacts[0].content));
-    // }
-
+      if (artifacts.length > 0) {
+        onCodeUpdate(artifacts[0].content);
+        setAICode(await prettier(artifacts[0].content));
+      }
+    }
     // Check if the response contains code modifications
     const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
     const matches = fullResponse.match(codeModificationRegex);

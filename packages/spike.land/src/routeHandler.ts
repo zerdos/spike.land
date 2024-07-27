@@ -283,17 +283,7 @@ export class RouteHandler {
     const { css, html } = this.code.session;
     const respText = HTML.replace("/**reset*/", css).replace(
       "<div id=\"root\"></div>",
-      `<div id="root">${html}</div>
-      <script type="module">
-        ${
-        this.code.getTranspiled().includes("ike land: API call error")
-          ? `import('/live/${this.code.getCodeSpace()}/index.js').then(m=>m.renderApp());`
-          : this.code.getTranspiled()
-      }
-        if (location.pathname.split("/").length>3) {
-          globalThis.module.renderApp();
-        }
-      </script>`,
+      `<div id="root">${html}</div>`,
     );
 
     const headers = new Headers({

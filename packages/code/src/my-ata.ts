@@ -10,7 +10,7 @@ export const myATA = async (code: string) => {
     const ata = a({
       projectName: "My ATA Project,",
       logger: console,
-      fetcher: limitedFetch.fetch.bind(limitedFetch) as unknown as typeof fetch ,
+      fetcher: limitedFetch.fetch.bind(limitedFetch) as unknown as typeof fetch,
       typescript: ts,
       delegate: {
         receivedFile: (code: string, path: string) => {

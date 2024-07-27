@@ -1,15 +1,5 @@
 import type { DurableObject, DurableObjectState, WebSocket } from "@cloudflare/workers-types";
-import {
-  applyCodePatch,
-  CodePatch,
-  Delta,
-  HTML,
-  ICodeSession,
-  makeHash,
-  makeSession,
-  md5,
-  stringifySession,
-} from "@spike-land/code";
+import { CodePatch, ICodeSession, makeHash, makeSession, md5 } from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { RouteHandler } from "./routeHandler";
@@ -88,8 +78,8 @@ export class Code implements DurableObject {
   }
 
   public async autoSave() {
-    if (this.autoSaveHistory.find(x=>x.code === this.session.code)) return;
-    
+    if (this.autoSaveHistory.find(x => x.code === this.session.code)) return;
+
     const currentTime = Date.now();
     if (currentTime - this.lastAutoSave >= this.autoSaveInterval) {
       const currentCode = this.session.code;

@@ -278,15 +278,11 @@ const createErrorResponse = (message: string, status: number): Response => {
 const createBundleResponse = (
   HTML: string,
   css: string,
-  codeSpace: string,
   html: string,
 ): string => {
   return HTML.replace("/**reset*/", css).replace(
     `<div id="root"></div>`,
-    `<div id="root">${html}</div>
-    <script type="module">
-      import('/live/${codeSpace}/index.js').then(m=>m.renderApp());
-    </script>`,
+    `<div id="root">${html}</div>`,
   );
 };
 
