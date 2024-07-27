@@ -139,11 +139,35 @@ const cacheFirst = async (request: Request): Promise<Response> => {
     const responseFromCache = await cache.match(request);
     if (responseFromCache) {
       // Return cached response, but fetch and update cache in background
-      fetchAndUpdateCache(request, cache);
+      cacheAndFetch(request);
       return responseFromCache;
     }
   }
-  return fetchAndUpdateCache(request);
+  return cacheAndFetch(request);
+};
+
+const cacheAndFetch = async (request: Request): Promise<Response> => {
+  try {
+    // Fetch the resource from the network
+    const networkResponse = await fetch(request);
+
+    // Open the 'my-cache' cache
+    const cache = await caches.open(MY_CACHE_NAME);
+
+    // Add the fetched resource to the 'my-cache' cache
+    await cache.put(request, networkResponse.clone());
+
+    return networkResponse;
+  } catch (error) {
+    // If the network fetch fails, try to get the resource from the 'my-cache' cache
+    const cache = await caches.open(MY_CACHE_NAME);
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    } else {
+      throw error;
+    }
+  }
 };
 
 const fetchAndUpdateCache = async (request: Request, cache?: Cache): Promise<Response> => {
