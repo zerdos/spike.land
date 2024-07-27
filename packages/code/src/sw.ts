@@ -346,9 +346,13 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     (async () => {
       try {
+        const response = await cacheFirst(event.request);
+        if (response) {
+          return response;
+        }
         return await fakeBackend(event.request);
       } catch (error) {
-        console.error('Error in fakeBackend:', error);
+        console.error('Error handling fetch:', error);
         return new Response('An error occurred', { status: 500 });
       }
     })()
