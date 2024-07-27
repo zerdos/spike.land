@@ -1,4 +1,4 @@
-import { makeSession, md5, string_ } from "@spike-land/code";
+import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { HTML } from "@spike-land/code";
 import { Code } from "./chatRoom";
 
@@ -45,37 +45,46 @@ export class RouteHandler {
   private async handleAutoSaveRoute(request: Request, url: URL, path: string[]): Promise<Response> {
     const action = path[1];
 
-    switch (action) {
-      case "history":
-        return this.getAutoSaveHistory();
-      case "restore": {
-        const { timestamp } = await request.json<{ timestamp: number }>();
+    try {
+      switch (action) {
+        case "history":
+          return this.getAutoSaveHistory();
+        case "restore": {
+          const body = await request.json();
+          if (!body || typeof body.timestamp !== 'number') {
+            return new Response("Invalid request body. Expected { timestamp: number }", { status: 400 });
+          }
 
-        if (!timestamp) {
-          return new Response("Timestamp is required", { status: 400 });
+          const success = await this.code.restoreFromAutoSave(body.timestamp);
+          if (success) {
+            return new Response("Code restored successfully", { status: 200 });
+          } else {
+            return new Response("Failed to restore code. Snapshot not found.", { status: 404 });
+          }
         }
-
-        const success = await this.code.restoreFromAutoSave(timestamp);
-        if (success) {
-          return new Response("Code restored successfully", { status: 200 });
-        } else {
-          return new Response("Failed to restore code", { status: 404 });
-        }
+        default:
+          return new Response(`Invalid auto-save action: ${action}`, { status: 400 });
       }
-      default:
-        return new Response("Invalid auto-save action", { status: 400 });
+    } catch (error) {
+      console.error("Error in handleAutoSaveRoute:", error);
+      return new Response("Internal server error", { status: 500 });
     }
   }
 
   private async getAutoSaveHistory(): Promise<Response> {
-    const history = await this.code.getAutoSaveHistory();
-    return new Response(JSON.stringify(history), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+    try {
+      const history = await this.code.getAutoSaveHistory();
+      return new Response(JSON.stringify(history), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error) {
+      console.error("Error in getAutoSaveHistory:", error);
+      return new Response("Failed to retrieve auto-save history", { status: 500 });
+    }
   }
 
   private async handleUsersRoute(request: Request): Promise<Response> {
@@ -140,7 +149,7 @@ export class RouteHandler {
         });
       }
     }
-    const body = string_(this.code.session);
+    const body = stringifySession(this.code.session);
     return new Response(body, {
       status: 200,
       headers: {
