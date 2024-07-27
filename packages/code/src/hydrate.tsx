@@ -8,6 +8,8 @@ import { getTransferables, hasTransferables } from "transferables";
 import { mkdir } from "./memfs";
 import { createJsBlob } from "./starter";
 import { wait } from "./wait";
+import createCache from "@emotion/cache";
+import { Mutex } from "async-mutex";
 
 // Set up service worker version
 const { swVersion } = self;
@@ -128,7 +130,8 @@ if (location.pathname === `/live/${codeSpace}`) {
 
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-  const mod = { counter: 0, code: "", transpiled: "" };
+  const mod = { counter: 0, code: "", transpiled: "", controller: new AbortController() };
+  const mutex = new Mutex();
   BC.onmessage = async ({ data }) => {
     const { i, code, transpiled } = data;
 
@@ -142,13 +145,38 @@ if (location.pathname === `/live/${codeSpace}`) {
 
       const blobUrl = createJsBlob(transpiled);
       const renderApp = (await import(blobUrl)).renderApp;
-      renderApp();
-      handleRender();
+
+      mutex.runExclusive(async ()=>{
+        mod.controller.abort();
+       const {signal} = mod.controller = new AbortController();
+
+        const el = document.createElement("div");
+        const rRoot = createRoot(el);
+  
+  
+        const swappedRoot = globalThis.rRoot;
+        const cssCache = createCache({ key: "css", speedy: false });
+        const swappedCache = globalThis.cssCache;
+  
+        globalThis.rRoot = rRoot;
+        globalThis.cssCache = cssCache;
+        renderApp();
+        // const _rootEl = document.getElementById("root");
+       const success = await handleRender(el, signal);
+       
+
+        globalThis.rRoot = swappedRoot;
+        globalThis.cssCache = swappedCache;
+        if (success) renderApp();
+        rRoot.unmount();
+        el.remove();
+      })
+      
     }
-    async function handleRender() {
+    async function handleRender(_rootEl: HTMLDivElement, signal: AbortSignal) {
       console.log("handleRender");
       const counter = mod.counter;
-      const _rootEl = document.getElementById("root");
+    
       if (!_rootEl) return;
 
       const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
@@ -156,6 +184,7 @@ if (location.pathname === `/live/${codeSpace}`) {
       let attempts = 100;
 
       while (attempts-- > 0) {
+        if (signal.aborted) return 0;
         const html = _rootEl.innerHTML;
         if (html) {
           const css = mineFromCaches(cache, html);
@@ -172,7 +201,7 @@ if (location.pathname === `/live/${codeSpace}`) {
           // globalThis.firstRender = { html, css, code: "" };
           // window?.parent?.postMessage({ type: "firstRender", html, css });
 
-          return;
+          return true;
         }
         await wait(10);
       }
@@ -213,6 +242,7 @@ if (location.pathname === `/live/${codeSpace}`) {
         }
       }
     }
+    return false;
   };
 
   // window.onmessage = () => {

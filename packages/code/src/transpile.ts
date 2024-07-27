@@ -157,7 +157,9 @@ export const transpile = async (
     return importMapReplace(transformedCode.code, origin);
   } catch (error) {
     console.error("Error during transpilation:", error);
-    return offLoadToServer(code, origin);
+    return {
+      error
+    }
   }
 };
 
