@@ -312,7 +312,7 @@ const transpileAndServe = async (
 };
 
 // Handle fetch events
-self.addEventListener("fetch", (event: FetchEvent) => {
+self.addEventListener('fetch', event => {
   event.respondWith(fakeBackend(event.request));
 });
 
