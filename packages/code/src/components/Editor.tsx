@@ -209,7 +209,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     code: string,
   ) {
     const style = document.createElement("style");
-    style.innerHTML = `@import url("${location.origin}/startMonaco.css");`;
+    style.innerHTML = `@import url("${location.origin}/node_modules/monaco-editor/min/vs/editor/editor.main.css");`;
     document.head.appendChild(style);
 
     const { startMonaco } = await import("../startMonaco");

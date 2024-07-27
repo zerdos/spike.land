@@ -140,7 +140,6 @@ export async function buildMainBundle(wasmFile) {
       "src/motion.ts",
       "src/hydrate.tsx",
       "src/emotion.ts",
-      "src/startMonaco.ts",
       "src/cf-esbuild.mjs",
       "src/emotionCache.ts",
       "src/emotionStyled.mjs",

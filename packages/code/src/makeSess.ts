@@ -4,7 +4,7 @@ import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 export { aPatch };
 
 const aPC = (sess: ICodeSession, mess: CodePatch) =>
-  makeSession(JSON.parse(aPatch(string_(makeSession(sess)), mess.patch)));
+  makeSession(JSON.parse(aPatch(stringifySession(makeSession(sess)), mess.patch)));
 
 export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   const newSess = aPC(sess, mess);
@@ -15,7 +15,7 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   return newSess;
 }
 
-export const makeHash = (cx: ICodeSession) => String(hash(string_(makeSession(cx))));
+export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
 
 export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
   Record<ICodeSession>({
@@ -49,8 +49,8 @@ export const createPatch = (
   const newRec = makeSession(newSess);
   const newHash = makeHash(newRec);
 
-  const oldString = string_(oldRec);
-  const newString = string_(newRec);
+  const oldString = stringifySession(oldRec);
+  const newString = stringifySession(newRec);
 
   const patch = createDelta(oldString, newString);
   const reversePatch = createDelta(newString, oldString);
@@ -78,7 +78,7 @@ export type ICodeSession = {
   css: string;
 };
 
-export function string_(s: ICodeSession): string {
+export function stringifySession(s: ICodeSession): string {
   const { i, code, html, css } = s;
   return JSON.stringify({ i, code, html, css });
 }

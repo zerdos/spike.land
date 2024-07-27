@@ -3,8 +3,7 @@ import { importMap, importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
-import { handleCORS } from "./utils";
-import { isChunk, isUrlFile } from "./utils";
+import { handleCORS, isChunk, isUrlFile } from "./utils";
 
 export async function handleFetchApi(
   path: string[],
@@ -19,62 +18,73 @@ export async function handleFetchApi(
     return handleCORS(request);
   }
 
-  switch (path[0]) {
-    case "ping":
-      return new Response("ping" + Math.random(), {
-        headers: {
-          "Content-Type": "text/html;charset=UTF-8",
-          "Content-Encoding": "gzip",
-          "Cache-Control": "no-cache",
-        },
-      });
-    case "websocket": {
-      if (request.headers.get("Upgrade") != "websocket") {
-        return new Response("expected websocket", { status: 400 });
-      }
-      const pair = new WebSocketPair();
-      (pair[1] as unknown as { accept: () => void }).accept();
-      pair[1].addEventListener("open", () => {
-        pair[1].send("hello");
-      });
-      return new Response(null, { status: 101, webSocket: pair[0] });
-    }
-    case "files.json":
-      return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Content-Encoding": "gzip",
-          "Cache-Control": "no-cache",
-          ASSET_HASH,
-        },
-      });
-    case "swVersion.mjs":
-    case "node_modules":
-      return fetch(
-        new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
-      );
-    case "swVersion.js":
-      return handleSwVersionResponse(path[0], ASSET_HASH, files);
-    case "importMap.json":
-      return new Response(JSON.stringify(importMap), {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Cache-Control": "no-cache",
-          "Content-Encoding": "gzip",
-          ASSET_HASH,
-        },
-      });
-    case "api":
-    case "ata":
-      return handleApiRequest(path.slice(1), request, env);
-    case "ipns":
-    case "ipfs":
-      return handleIpfsRequest(request);
-    case "live":
-      return handleLiveRequest(path, request, env);
-    default:
-      return handleDefaultCase(path, request, env, ctx, u, newUrl);
+  const handlers: Record<string, () => Promise<Response>> = {
+    ping: () => handlePing(),
+    websocket: () => handleWebSocket(request),
+    "files.json": () => handleFilesJson(),
+    "swVersion.mjs": () => handleUnpkg(path),
+    "node_modules": () => handleUnpkg(path),
+    "swVersion.js": () => handleSwVersionResponse(path[0], ASSET_HASH, files),
+    "importMap.json": () => handleImportMapJson(),
+    api: () => handleApiRequest(path.slice(1), request, env),
+    ata: () => handleApiRequest(path.slice(1), request, env),
+    ipns: () => handleIpfsRequest(request),
+    ipfs: () => handleIpfsRequest(request),
+    live: () => handleLiveRequest(path, request, env),
+  };
+
+  const handler = handlers[path[0]];
+  return handler ? handler() : handleDefaultCase(path, request, env, ctx, u, newUrl);
+}
+
+function handlePing(): Response {
+  return new Response("ping" + Math.random(), {
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Content-Encoding": "gzip",
+      "Cache-Control": "no-cache",
+    },
+  });
+}
+
+function handleWebSocket(request: Request): Response {
+  if (request.headers.get("Upgrade") !== "websocket") {
+    return new Response("expected websocket", { status: 400 });
   }
+  const pair = new WebSocketPair();
+  (pair[1] as unknown as { accept: () => void }).accept();
+  pair[1].addEventListener("open", () => {
+    pair[1].send("hello");
+  });
+  return new Response(null, { status: 101, webSocket: pair[0] });
+}
+
+function handleFilesJson(): Response {
+  return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Content-Encoding": "gzip",
+      "Cache-Control": "no-cache",
+      ASSET_HASH,
+    },
+  });
+}
+
+function handleUnpkg(path: string[]): Promise<Response> {
+  return fetch(
+    new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
+  );
+}
+
+function handleImportMapJson(): Response {
+  return new Response(JSON.stringify(importMap), {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Cache-Control": "no-cache",
+      "Content-Encoding": "gzip",
+      ASSET_HASH,
+    },
+  });
 }
 
 function handleSwVersionResponse(type: string, ASSET_HASH: string, files: any) {
@@ -105,20 +115,62 @@ async function handleIpfsRequest(request: Request) {
 }
 
 async function handleLiveRequest(path: string[], request: Request, env: Env) {
+  const [_, codeSpace, ...remainingPath] = path;
+
+  if (!codeSpace) {
+    return new Response("Invalid codeSpace", { status: 400 });
+  }
+
+  if (remainingPath[0] === "public") {
+    return handlePublicRequest(codeSpace, remainingPath.slice(1), request, env);
+  }
+
   if (request.url.endsWith("index.mjs")) {
     return handleLiveIndexRequest(request, env);
   }
-  const paths = [...path.slice(1)];
+
   return handleApiRequest(
-    ["room", ...paths],
+    ["room", codeSpace, ...remainingPath],
     request,
     env,
   ).catch((e) =>
-    new Response("Error," + e?.message, {
+    new Response("Error: " + e?.message, {
       status: 500,
       statusText: e?.message,
     })
   );
+}
+
+async function handlePublicRequest(codeSpace: string, path: string[], request: Request, env: Env) {
+  const key = `live/${codeSpace}/public/${path.join("/")}`;
+  
+  switch (request.method) {
+    case "GET":
+      const object = await env.R2.get(key);
+      if (!object) {
+        return new Response("File not found", { status: 404 });
+      }
+      const headers = new Headers();
+      object.writeHttpMetadata(headers);
+      headers.set("etag", object.httpEtag);
+      headers.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+      headers.set("Access-Control-Allow-Origin", "*");
+      return new Response(object.body, { headers });
+
+    case "PUT":
+      if (!request.body) {
+        return new Response("Missing request body", { status: 400 });
+      }
+      await env.R2.put(key, request.body);
+      return new Response(`File ${key} uploaded successfully`, { status: 200 });
+
+    case "DELETE":
+      await env.R2.delete(key);
+      return new Response(`File ${key} deleted successfully`, { status: 200 });
+
+    default:
+      return new Response("Method not allowed", { status: 405 });
+  }
 }
 
 async function handleLiveIndexRequest(request: Request, env: Env) {

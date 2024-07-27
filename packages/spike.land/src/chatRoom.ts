@@ -8,7 +8,7 @@ import {
   makeHash,
   makeSession,
   md5,
-  string_,
+  stringifySession,
 } from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
