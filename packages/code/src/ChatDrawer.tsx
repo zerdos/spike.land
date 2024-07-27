@@ -5,8 +5,13 @@ import { css } from "@emotion/react";
 import { Bot, Check, Moon, RefreshCw, Send, Sun, X, X as XMark } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import type { FC, ReactNode } from "react";
-import type { Message } from "./ChatInterface";
 import { CodeTS } from "./CodeBlock";
+
+export interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}
 
 const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
@@ -43,32 +48,58 @@ export const ChatMessage = ({
       return text;
     }
 
-    const cleanedText = text.replace(/<antArtifact.*?>/g, "```tsx").replace(
+    const cleanedText = text.replace(/<antArtifact.*?>/g, "**```tsx").replace(
       /<\/antArtifact>/g,
-      "```",
+      "```**",
     );
 
-    const parts = cleanedText.split("```tsx");
+    const parts = cleanedText.split("**```tsx");
     if (parts.length > 1) {
       return parts.map((part, index) => {
         if (index === 0) {
-          return <span key={index}>{part}</span>;
+          return (
+            <pre
+              css={`
+            font-size: 8pt !important;
+          `}
+              key={index}
+            >{part}</pre>
+          );
         }
-        const nextParts = part.split("```");
+        const nextParts = part.split("```**");
         return (
           <>
             <pre
+              css={`
+                font-size: 8pt !important;
+              `}
               key={index}
               className="bg-gray-100 p-2 rounded my-2 overflow-x-auto"
             >
             <CodeTS code={nextParts[0]} />
             </pre>
-            {nextParts.length == 2 && <span key={index}>{nextParts[1]}</span>}
+            <br />
+
+            {nextParts.length == 2 && (
+              <pre
+                css={`
+            font-size: 8pt !important;
+          `}
+                key={index}
+              >{nextParts[1]}</pre>
+            )}
           </>
         );
       });
     }
-    return <span>{cleanedText}</span>;
+    return (
+      <pre
+        css={`
+      font-size: 8pt !important;
+      max-width: 100%;
+    `}
+      >{cleanedText}</pre>
+    );
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./ChatDrawer";
+import { ChatContainer, ChatHeader, ChatWindow, Message, MessageInput } from "./ChatDrawer";
 import { initialMessage } from "./initialMessage";
 import { prettier } from "./shared";
 
@@ -9,12 +9,6 @@ interface Artifact {
   type: string;
   language: string;
   title: string;
-  content: string;
-}
-
-export interface Message {
-  id: string;
-  role: "user" | "assistant";
   content: string;
 }
 

@@ -20,7 +20,7 @@ export async function handleMainFetch(
     const url = new URL(request.url);
     const path = url.pathname.slice(1).split("/");
 
-    if (!path[0]) {
+    if (!path[0] || path[0] === "start") {
       return new Response(HTML, {
         headers: {
           "content-type": "text/html",

@@ -2,7 +2,7 @@ import { makeEnv } from "./helpers.mjs";
 import { fetchPlugin } from "./src/fetchPlugin.mjs";
 
 export const buildOptions = {
-  target: "es2020",
+  target: "es2022",
   sourcemap: false,
   outdir: "dist",
   bundle: true,

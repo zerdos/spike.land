@@ -43,7 +43,7 @@ export const cjs = async (code: string) => {
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2020",
+    target: "es2022",
   });
   return cjs;
 };
@@ -150,7 +150,7 @@ export const transpile = async (
             jsxImportSource: "@emotion/react",
           },
         },
-        target: "es2020",
+        target: "es2022",
       },
     );
 
@@ -238,7 +238,7 @@ export const build = async ({
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    target: "es2020",
+    target: "es2022",
     outdir: `${origin}/live/${codeSpace}/`,
     treeShaking: true,
     bundle: true,

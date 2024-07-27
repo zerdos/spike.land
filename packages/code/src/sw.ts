@@ -22,7 +22,7 @@ const ASSET_HASH_KEY = "current-asset-hash";
 const MY_CACHE_NAME = "my-cache";
 
 // Open 'my-cache'
-caches.open(MY_CACHE_NAME).then(cache => {
+caches.open(MY_CACHE_NAME).then(() => {
   console.log("My cache opened successfully");
 });
 
@@ -196,7 +196,7 @@ const fakeBackend = async (request: Request): Promise<Response> => {
         return createErrorResponse("Failed to fetch session data", 500);
       }
 
-      const { code, css, html, i } = session;
+      const { code, css, html } = session;
 
       // Serve the built JavaScript file
       if (codeSpacePath.endsWith(".mjs")) {

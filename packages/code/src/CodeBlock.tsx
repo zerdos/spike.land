@@ -1,7 +1,8 @@
 import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
 import { FC, useState } from "react";
+
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import { useTranslation } from "next-i18next";
 
@@ -114,17 +115,13 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
         </div>
       </div>
 
-      <SyntaxHighlighter
-        language={language}
-        style={oneDark}
-        customStyle={{ margin: 0, fontSize: 12 }}
-      >
+      <SyntaxHighlighter language={language} style={tomorrow} customStyle={{ margin: 0, fontSize: 12 }}>
         {value}
       </SyntaxHighlighter>
     </div>
   );
 };
 
-export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language=".ts" />;
+export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />;
 
 export default () => <CodeTS code="" />;

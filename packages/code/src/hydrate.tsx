@@ -1,11 +1,11 @@
-import { Workbox } from "workbox-window";
-import { getPort, init } from "./shared";
 import type { EmotionCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { createRoot } from "react-dom/client";
 import { getTransferables, hasTransferables } from "transferables";
+import { Workbox } from "workbox-window";
 import { mkdir } from "./memfs";
+import { getPort, init } from "./shared";
 import { createJsBlob } from "./starter";
 import { wait } from "./wait";
 
@@ -13,6 +13,21 @@ const { swVersion } = self;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
+if (paths[1] !== "live") {
+  if (location.pathname === "/") {
+    import("./pages/index").then((m) => {
+      const App = m.default;
+      createRoot(document.getElementById("root")!).render(<App />);
+    });
+  }
+
+  if (location.pathname === "/start") {
+    import("./pages/templates").then((m) => {
+      const App = m.default;
+      createRoot(document.getElementById("root")!).render(<App />);
+    });
+  }
+}
 
 function setupServiceWorker() {
   if (!navigator.serviceWorker) return;
@@ -30,7 +45,7 @@ function setupServiceWorker() {
           data,
           (hasTransferables(data)
             ? getTransferables(data)
-            : undefined) as unknown as Transferable[]
+            : undefined) as unknown as Transferable[],
         );
       };
 
@@ -39,7 +54,7 @@ function setupServiceWorker() {
 
       activeSW.postMessage(
         { type: "sharedworker", sharedWorkerPort: swPort.port1 },
-        [swPort.port1]
+        [swPort.port1],
       );
 
       if ("serviceWorker" in navigator) {
@@ -49,7 +64,7 @@ function setupServiceWorker() {
         await Promise.all(
           workers
             .filter((x) => x !== registeredSW)
-            .map((x) => x.unregister())
+            .map((x) => x.unregister()),
         );
       }
     } catch (e) {
@@ -59,7 +74,6 @@ function setupServiceWorker() {
 }
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 setupServiceWorker();
-
 
 async function createDirectories() {
   try {
@@ -78,7 +92,6 @@ async function handleLivePage() {
 }
 
 function handleDehydratedPage() {
-
   BC.onmessage = ({ data }) => {
     const { html, css } = data;
     const root = document.getElementById("root");
@@ -193,15 +206,15 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   const key = _cache.key || "css";
   try {
     const styledJSXStyles = Array.from(
-      document.querySelectorAll("style[data-styled-jsx]")
+      document.querySelectorAll("style[data-styled-jsx]"),
     ).map((style) => style.textContent);
 
     const emotionStyles = Array.from(
       new Set(
         Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`)).map(
-          (style) => style.textContent
-        )
-      )
+          (style) => style.textContent,
+        ),
+      ),
     ).join("\n");
 
     return styledJSXStyles.concat(emotionStyles).join("\n");
@@ -216,9 +229,9 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
       })
       .filter(
         (rule): rule is CSSPageRule =>
-          rule?.selectorText !== undefined &&
-          rule.selectorText.includes(key) &&
-          html.includes(rule.selectorText.slice(4, 11))
+          rule?.selectorText !== undefined
+          && rule.selectorText.includes(key)
+          && html.includes(rule.selectorText.slice(4, 11)),
       )
       .map((rule) => rule.cssText)
       .join("\n");

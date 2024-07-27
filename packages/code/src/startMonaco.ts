@@ -178,7 +178,6 @@ async function startMonacoPristine({
     scrollBeyondLastLine: true,
     scrollPredominantAxis: true,
     automaticLayout: true,
-    links: false,
     useShadowDOM: false,
     tabSize: 2,
     insertSpaces: true,
