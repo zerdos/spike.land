@@ -3,8 +3,7 @@ import { importMap, importMapReplace } from "@spike-land/code";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
-import { handleCORS } from "./utils";
-import { isChunk, isUrlFile } from "./utils";
+import { handleCORS, isChunk, isUrlFile } from "./utils";
 
 export async function handleFetchApi(
   path: string[],
@@ -19,62 +18,73 @@ export async function handleFetchApi(
     return handleCORS(request);
   }
 
-  switch (path[0]) {
-    case "ping":
-      return new Response("ping" + Math.random(), {
-        headers: {
-          "Content-Type": "text/html;charset=UTF-8",
-          "Content-Encoding": "gzip",
-          "Cache-Control": "no-cache",
-        },
-      });
-    case "websocket": {
-      if (request.headers.get("Upgrade") != "websocket") {
-        return new Response("expected websocket", { status: 400 });
-      }
-      const pair = new WebSocketPair();
-      (pair[1] as unknown as { accept: () => void }).accept();
-      pair[1].addEventListener("open", () => {
-        pair[1].send("hello");
-      });
-      return new Response(null, { status: 101, webSocket: pair[0] });
-    }
-    case "files.json":
-      return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Content-Encoding": "gzip",
-          "Cache-Control": "no-cache",
-          ASSET_HASH,
-        },
-      });
-    case "swVersion.mjs":
-    case "node_modules":
-      return fetch(
-        new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
-      );
-    case "swVersion.js":
-      return handleSwVersionResponse(path[0], ASSET_HASH, files);
-    case "importMap.json":
-      return new Response(JSON.stringify(importMap), {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          "Cache-Control": "no-cache",
-          "Content-Encoding": "gzip",
-          ASSET_HASH,
-        },
-      });
-    case "api":
-    case "ata":
-      return handleApiRequest(path.slice(1), request, env);
-    case "ipns":
-    case "ipfs":
-      return handleIpfsRequest(request);
-    case "live":
-      return handleLiveRequest(path, request, env);
-    default:
-      return handleDefaultCase(path, request, env, ctx, u, newUrl);
+  const handlers: Record<string, () => Promise<Response>> = {
+    ping: () => handlePing(),
+    websocket: () => handleWebSocket(request),
+    "files.json": () => handleFilesJson(),
+    "swVersion.mjs": () => handleUnpkg(path),
+    "node_modules": () => handleUnpkg(path),
+    "swVersion.js": () => handleSwVersionResponse(path[0], ASSET_HASH, files),
+    "importMap.json": () => handleImportMapJson(),
+    api: () => handleApiRequest(path.slice(1), request, env),
+    ata: () => handleApiRequest(path.slice(1), request, env),
+    ipns: () => handleIpfsRequest(request),
+    ipfs: () => handleIpfsRequest(request),
+    live: () => handleLiveRequest(path, request, env),
+  };
+
+  const handler = handlers[path[0]];
+  return handler ? handler() : handleDefaultCase(path, request, env, ctx, u, newUrl);
+}
+
+function handlePing(): Response {
+  return new Response("ping" + Math.random(), {
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "Content-Encoding": "gzip",
+      "Cache-Control": "no-cache",
+    },
+  });
+}
+
+function handleWebSocket(request: Request): Response {
+  if (request.headers.get("Upgrade") !== "websocket") {
+    return new Response("expected websocket", { status: 400 });
   }
+  const pair = new WebSocketPair();
+  (pair[1] as unknown as { accept: () => void }).accept();
+  pair[1].addEventListener("open", () => {
+    pair[1].send("hello");
+  });
+  return new Response(null, { status: 101, webSocket: pair[0] });
+}
+
+function handleFilesJson(): Response {
+  return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Content-Encoding": "gzip",
+      "Cache-Control": "no-cache",
+      ASSET_HASH,
+    },
+  });
+}
+
+function handleUnpkg(path: string[]): Promise<Response> {
+  return fetch(
+    new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
+  );
+}
+
+function handleImportMapJson(): Response {
+  return new Response(JSON.stringify(importMap), {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Cache-Control": "no-cache",
+      "Content-Encoding": "gzip",
+      ASSET_HASH,
+    },
+  });
 }
 
 function handleSwVersionResponse(type: string, ASSET_HASH: string, files: any) {
