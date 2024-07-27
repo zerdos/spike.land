@@ -122,7 +122,7 @@ describe("importMapReplace", () => {
 
   it("should replace dynamic imports inside a function", async () => {
     const code = `
-    import{Buffer as De}from"/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
+    import{Buffer as De}from"/v125/buffer@6.0.3/es2020/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("lamejs");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"d3-time";
       async function loadModule() {
@@ -146,7 +146,7 @@ describe("importMapReplace", () => {
 
   it("should replace dynamic imports at the end", async () => {
     const code = `
-    import{Buffer as De}from"/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
+    import{Buffer as De}from"/v125/buffer@6.0.3/es2020/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("lamejs");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"d3-time";
       async function loadModule() {

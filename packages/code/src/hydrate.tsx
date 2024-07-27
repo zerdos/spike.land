@@ -13,12 +13,15 @@ import { wait } from "./wait";
 const { swVersion } = self;
 
 if (!location.pathname.startsWith("/live/")) {
-  import("./assets/tw.js");
 
-  const Page = (await import("./pages/index")).default;
+  import("./assets/tw.js").then(()=>import("./pages/index").then((mod) =>{
+    const root = document.getElementById("root");
+    const Page = mod.default;
+    createRoot(root!).render(<Page />);
 
-  const root = document.getElementById("root");
-  createRoot(root!).render(<Page />);
+  }));
+
+
 }
 
 if (navigator.serviceWorker) {

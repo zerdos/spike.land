@@ -63,7 +63,7 @@ export async function buildServiceWorker() {
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: true,
-    target: "es2022",
+    target: "es2020",
   });
 }
 

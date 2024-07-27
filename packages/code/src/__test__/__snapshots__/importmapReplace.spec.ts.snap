@@ -61,7 +61,7 @@ exports[`importMapReplace should replace dynamic imports at the end 1`] = `
 "
   /** importMapReplace */
   
-    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
+    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2020/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
       async function loadModule() {
@@ -82,7 +82,7 @@ exports[`importMapReplace should replace dynamic imports inside a function 1`] =
 "
   /** importMapReplace */
   
-    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
+    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2020/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
       async function loadModule() {

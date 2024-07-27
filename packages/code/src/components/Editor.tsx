@@ -28,7 +28,7 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
-const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace }, ref) => {
+const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace, onCodeUpdate }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
   const [showVersionHistory, setShowVersionHistory] = useState(false);
@@ -55,12 +55,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       mod.i = Number(globalThis.cSess.session.i);
       mod.code = globalThis.cSess.session.code;
 
-      if (versions.length === 0) {
-        const newVersion = { timestamp: Date.now(), code: mod.code };
-        const updatedVersions = addVersion(codeSpace, newVersion, versions);
-        setVersions(updatedVersions);
-      }
-
       if (!containerRef || !containerRef.current) return;
 
       const editorModule = await (engine === "monaco"
@@ -73,10 +67,19 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         code: mod.code,
         setValue: editorModule.setValue,
       });
+
+      // Load version history
+      const loadedVersions = await loadVersionHistory(codeSpace);
+      if (loadedVersions.length === 0) {
+        const initialVersion = { timestamp: Date.now(), code: mod.code };
+        setVersions([initialVersion]);
+      } else {
+        setVersions(loadedVersions);
+      }
     };
 
     initializeEditor();
-  }, [editorState.started, ref]);
+  }, [editorState.started, ref, codeSpace]);
 
   const handleContentChange = async (_code: string) => {
     const formattedCode = await prettier(_code);
@@ -94,19 +97,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     const { signal } = mod.controller;
 
     runner({ code: mod.code, counter: mod.i, codeSpace, signal });
+    onCodeUpdate(formattedCode);
   };
-
-  // const handleAIModify = () => {
-  //   // This function will be called when the AI Modify button is clicked
-  //   // It should open the chat interface and prompt the user to ask for code modifications
-  //   console.log("AI Modify button clicked");
-  // };
-
-  // const handleCodeUpdate = (newCode: string) => {
-  //   // This function will be called when the AI suggests code modifications
-  //   editorState.setValue(newCode);
-  //   handleContentChange(newCode);
-  // };
 
   BC.onmessage = ({ data }) => {
     console.table(data);
@@ -120,27 +112,27 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     editorState.setValue(mod.code);
 
     const { signal } = mod.controller;
-    // Load version history and add initial version if it's empty
-    const asyncLoadHistory = async() =>{
-      const loadedVersions = await loadVersionHistory(codeSpace);
-      if (loadedVersions.length === 0) {
-        const initialVersion = { timestamp: Date.now(), code: data.code };
-        setVersions([initialVersion]);
-      } else {
-        setVersions(loadedVersions);
-      }
-    }
-    asyncLoadHistory()
     runner({ ...mod, counter: mod.i, codeSpace, signal });
   };
 
   const handleRestore = (code: string) => {
     editorState.setValue(code);
-    mod.i++;
-    mod.code = code;
-    const { signal } = mod.controller;
-    runner({ ...mod, counter: mod.i, codeSpace, signal });
+    handleContentChange(code);
     setShowVersionHistory(false);
+  };
+
+  const fetchAutoSaveHistory = async () => {
+    try {
+      const response = await fetch(`/live/${codeSpace}/auto-save/history`);
+      if (response.ok) {
+        const data = await response.json();
+        setVersions(data);
+      } else {
+        console.error('Failed to fetch auto-save history');
+      }
+    } catch (error) {
+      console.error('Error fetching auto-save history:', error);
+    }
   };
 
   const EditorNode = (
@@ -166,7 +158,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       `}
       />
       <Button
-        onClick={() => setShowVersionHistory(true)}
+        onClick={() => {
+          fetchAutoSaveHistory();
+          setShowVersionHistory(true);
+        }}
         className="absolute top-4 right-4 z-50"
         size="sm"
       >
