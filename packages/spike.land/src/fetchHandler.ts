@@ -115,20 +115,62 @@ async function handleIpfsRequest(request: Request) {
 }
 
 async function handleLiveRequest(path: string[], request: Request, env: Env) {
+  const [_, codeSpace, ...remainingPath] = path;
+
+  if (!codeSpace) {
+    return new Response("Invalid codeSpace", { status: 400 });
+  }
+
+  if (remainingPath[0] === "public") {
+    return handlePublicRequest(codeSpace, remainingPath.slice(1), request, env);
+  }
+
   if (request.url.endsWith("index.mjs")) {
     return handleLiveIndexRequest(request, env);
   }
-  const paths = [...path.slice(1)];
+
   return handleApiRequest(
-    ["room", ...paths],
+    ["room", codeSpace, ...remainingPath],
     request,
     env,
   ).catch((e) =>
-    new Response("Error," + e?.message, {
+    new Response("Error: " + e?.message, {
       status: 500,
       statusText: e?.message,
     })
   );
+}
+
+async function handlePublicRequest(codeSpace: string, path: string[], request: Request, env: Env) {
+  const key = `live/${codeSpace}/public/${path.join("/")}`;
+  
+  switch (request.method) {
+    case "GET":
+      const object = await env.R2.get(key);
+      if (!object) {
+        return new Response("File not found", { status: 404 });
+      }
+      const headers = new Headers();
+      object.writeHttpMetadata(headers);
+      headers.set("etag", object.httpEtag);
+      headers.set("Cache-Control", "public, max-age=3600"); // Cache for 1 hour
+      headers.set("Access-Control-Allow-Origin", "*");
+      return new Response(object.body, { headers });
+
+    case "PUT":
+      if (!request.body) {
+        return new Response("Missing request body", { status: 400 });
+      }
+      await env.R2.put(key, request.body);
+      return new Response(`File ${key} uploaded successfully`, { status: 200 });
+
+    case "DELETE":
+      await env.R2.delete(key);
+      return new Response(`File ${key} deleted successfully`, { status: 200 });
+
+    default:
+      return new Response("Method not allowed", { status: 405 });
+  }
 }
 
 async function handleLiveIndexRequest(request: Request, env: Env) {
