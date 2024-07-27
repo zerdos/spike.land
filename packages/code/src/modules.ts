@@ -8,12 +8,12 @@ import { Delta } from "./textDiff";
 
 export { importMapReplace };
 
-import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, string_ } from "./makeSess";
+import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 
 export { resetCSS };
 export { importMap };
 
-export { makeHash, string_ };
+export { makeHash, stringifySession };
 export type { CodePatch, Delta, ICodeSession };
 export { applyCodePatch, makeSession };
 

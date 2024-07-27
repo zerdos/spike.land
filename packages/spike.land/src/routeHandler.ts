@@ -125,7 +125,7 @@ export class RouteHandler {
       const session = await this.code.getState().storage.get<string | object>(path[1], { allowConcurrency: false });
       if (session) {
         const s = makeSession(typeof session === "string" ? JSON.parse(session) : session);
-        return new Response(string_(s), {
+        return new Response(stringifySession(s), {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
