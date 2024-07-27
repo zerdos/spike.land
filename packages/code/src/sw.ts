@@ -313,7 +313,16 @@ const transpileAndServe = async (
 
 // Handle fetch events
 self.addEventListener('fetch', event => {
-  event.respondWith(fakeBackend(event.request));
+  event.respondWith(
+    (async () => {
+      try {
+        return await fakeBackend(event.request);
+      } catch (error) {
+        console.error('Error in fakeBackend:', error);
+        return new Response('An error occurred', { status: 500 });
+      }
+    })()
+  );
 });
 
 // Clear old caches
