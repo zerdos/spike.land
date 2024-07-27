@@ -1,47 +1,9 @@
 import { importMapReplace } from "./importMapReplace";
 
 import { myATA } from "./my-ata";
+import { QueuedFetch } from "./QueuedFetch";
 
-class QueuedFetch {
-  private queue: (() => Promise<void>)[] = [];
-  private ongoingRequests = 0;
-  private maxConcurrent: number;
-
-  constructor(maxConcurrent = 5) {
-    this.maxConcurrent = maxConcurrent;
-  }
-
-  async fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
-    return new Promise((resolve, reject) => {
-      const request = async () => {
-        try {
-          const response = await fetch(input, init);
-          resolve(response);
-        } catch (error) {
-          reject(error);
-        } finally {
-          this.ongoingRequests--;
-          this.processQueue();
-        }
-      };
-
-      this.queue.push(request);
-      this.processQueue();
-    });
-  }
-
-  private processQueue() {
-    while (this.ongoingRequests < this.maxConcurrent && this.queue.length > 0) {
-      const request = this.queue.shift();
-      if (request) {
-        this.ongoingRequests++;
-        request();
-      }
-    }
-  }
-}
-
-const queuedFetch = new QueuedFetch(3);
+const queuedFetch = new QueuedFetch(3, 1000);
 
 export async function ata({
   code,
