@@ -115,17 +115,7 @@ const isFileInList = (pathname: string): boolean => {
 };
 // Put the response in the appropriate cache
 // Put the response in the appropriate cache
-const putInCache = async (
-  request: Request,
-  response: Response,
-): Promise<void> => {
-  const url = new URL(request.url);
-  const cacheName = isFileInList(url.pathname)
-    ? FILE_CACHE_NAME + self.swVersion
-    : GENERAL_CACHE_NAME;
-  const cache = await caches.open(cacheName);
-  await cache.put(request, response);
-};
+// Removed unused function
 
 const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
@@ -175,27 +165,7 @@ const cacheAndFetch = async (request: Request): Promise<Response> => {
   }
 };
 
-const fetchAndUpdateCache = async (request: Request, cache?: Cache): Promise<Response> => {
-  try {
-    const responseFromNetwork = await fetch(request);
-    if (responseFromNetwork.ok && responseFromNetwork.status === 200) {
-      if (!cache) {
-        const url = new URL(request.url);
-        const generalCache = await caches.open(GENERAL_CACHE_NAME);
-        const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then(response => response?.text()) || self.swVersion;
-        const cacheName = isFileInList(url.pathname)
-          ? FILE_CACHE_NAME + currentAssetHash
-          : GENERAL_CACHE_NAME;
-        cache = await caches.open(cacheName);
-      }
-      await cache.put(request, responseFromNetwork.clone());
-    }
-    return responseFromNetwork;
-  } catch (error) {
-    console.error(`Failed to fetch ${request.url}:`, error);
-    return createErrorResponse("Failed to fetch resource", 500);
-  }
-};
+// Removed unused function
 
 // Handle requests to the "live" path
 const fakeBackend = async (request: Request): Promise<Response> => {
