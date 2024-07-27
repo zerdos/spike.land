@@ -51,7 +51,7 @@ export class RouteHandler {
           return this.getAutoSaveHistory();
         case "restore": {
           const body = await request.json();
-          if (!body || typeof body.timestamp !== 'number') {
+          if (!body || typeof body.timestamp !== "number") {
             return new Response("Invalid request body. Expected { timestamp: number }", { status: 400 });
           }
 

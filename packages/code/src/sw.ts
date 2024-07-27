@@ -23,7 +23,7 @@ const MY_CACHE_NAME = "my-cache";
 
 // Open 'my-cache'
 caches.open(MY_CACHE_NAME).then(cache => {
-  console.log('My cache opened successfully');
+  console.log("My cache opened successfully");
 });
 
 const BC = new BroadcastChannel("sw-channel");
@@ -96,7 +96,7 @@ async function updateCache(newAssetHash: string) {
         const newResponse = new Response(response.body, {
           headers: {
             ...response.headers,
-            'Cache-Control': 'no-cache', // Ensure the browser always revalidates
+            "Cache-Control": "no-cache", // Ensure the browser always revalidates
           },
         });
         await newFileCache.put(request, newResponse);
@@ -121,7 +121,8 @@ const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
     const generalCache = await caches.open(GENERAL_CACHE_NAME);
-    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then(response => response?.text()) || self.swVersion;
+    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then(response => response?.text())
+      || self.swVersion;
     const cacheName = isFileInList(url.pathname)
       ? FILE_CACHE_NAME + currentAssetHash
       : GENERAL_CACHE_NAME;
@@ -143,7 +144,7 @@ const cacheAndFetch = async (request: Request): Promise<Response> => {
     const networkResponse = await fetch(request);
 
     // Only cache GET requests
-    if (request.method === 'GET') {
+    if (request.method === "GET") {
       // Open the 'my-cache' cache
       const cache = await caches.open(MY_CACHE_NAME);
 
@@ -154,7 +155,7 @@ const cacheAndFetch = async (request: Request): Promise<Response> => {
     return networkResponse;
   } catch (error) {
     // If the network fetch fails, try to get the resource from the 'my-cache' cache
-    if (request.method === 'GET') {
+    if (request.method === "GET") {
       const cache = await caches.open(MY_CACHE_NAME);
       const cachedResponse = await cache.match(request);
       if (cachedResponse) {
@@ -315,7 +316,7 @@ const transpileAndServe = async (
 };
 
 // Handle fetch events
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", event => {
   event.respondWith(
     (async () => {
       try {
@@ -325,10 +326,10 @@ self.addEventListener('fetch', event => {
         }
         return await fakeBackend(event.request);
       } catch (error) {
-        console.error('Error handling fetch:', error);
-        return new Response('An error occurred', { status: 500 });
+        console.error("Error handling fetch:", error);
+        return new Response("An error occurred", { status: 500 });
       }
-    })()
+    })(),
   );
 });
 

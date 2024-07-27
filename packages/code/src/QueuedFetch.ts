@@ -2,10 +2,8 @@ export class QueuedFetch {
   private queue: (() => Promise<void>)[] = [];
   private ongoingRequests = 0;
   private maxConcurrent: number;
-  private limitedNumberOfRequests = false; 
+  private limitedNumberOfRequests = false;
   private maxNumberOfRequests: number;
-
-
 
   constructor(maxConcurrent = 5, maxNumberOfRequests = 0) {
     this.maxNumberOfRequests = maxNumberOfRequests;
@@ -16,15 +14,13 @@ export class QueuedFetch {
   }
 
   async fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
-
     return new Promise((resolve, reject) => {
-
       if (this.limitedNumberOfRequests) {
         if (this.maxNumberOfRequests-- < 0) {
           return reject(new Error("Too many requests"));
         }
       }
-      
+
       const request = async () => {
         try {
           const response = await fetch(input, init);

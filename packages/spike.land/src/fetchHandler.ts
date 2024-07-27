@@ -143,7 +143,7 @@ async function handleLiveRequest(path: string[], request: Request, env: Env) {
 
 async function handlePublicRequest(codeSpace: string, path: string[], request: Request, env: Env) {
   const key = `live/${codeSpace}/public/${path.join("/")}`;
-  
+
   switch (request.method) {
     case "GET":
       const object = await env.R2.get(key);

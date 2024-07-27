@@ -1,4 +1,3 @@
-
 import { importMap } from "./importMap";
 import { importMapReplace } from "./importMapReplace";
 import MyHTML from "./index.html";
@@ -16,7 +15,6 @@ export type { CodePatch, Delta, ICodeSession };
 export { applyCodePatch, makeSession };
 
 const HTML: string = MyHTML as unknown as string;
-
 
 export { HTML };
 
