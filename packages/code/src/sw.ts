@@ -18,6 +18,7 @@ let started = false;
 // Constants for cache names
 const FILE_CACHE_NAME = "file-cache-";
 const GENERAL_CACHE_NAME = "general-cache";
+const ASSET_HASH_KEY = "current-asset-hash";
 
 const BC = new BroadcastChannel("sw-channel");
 BC.onmessage = () => {
@@ -31,17 +32,21 @@ self.onmessage = async (event: ExtendableMessageEvent) => {
     const port = event.data.sharedWorkerPort;
     port.start();
 
+    await checkAssetHash();
     init(self.swVersion, port);
     started = true;
 
     // Start periodic check
-    setInterval(checkAssetHash, 10 * 60 * 1000); // Check every 10 minutes
+    setInterval(checkAssetHash, 5 * 60 * 1000); // Check every 5 minutes
   }
 };
 
 async function fetchAssetHash(): Promise<string> {
   try {
-    const response = await fetch("/files.json");
+    const response = await fetch("/files.json", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json<{ ASSET_HASH: string }>();
     return data.ASSET_HASH;
   } catch (error) {
@@ -53,12 +58,15 @@ async function fetchAssetHash(): Promise<string> {
 // Check if ASSET_HASH has changed and update cache if necessary
 async function checkAssetHash() {
   const newAssetHash = await fetchAssetHash();
-  if (self.swVersion !== newAssetHash) {
+  const currentAssetHash = await self.registration.storage.get(ASSET_HASH_KEY) || self.swVersion;
+
+  if (currentAssetHash !== newAssetHash) {
     console.log("ASSET_HASH changed. Updating cache...");
     await updateCache(newAssetHash);
+    await self.registration.storage.set(ASSET_HASH_KEY, newAssetHash);
     self.swVersion = newAssetHash;
+    self.clients.claim(); // Force clients to use the new service worker
   }
-  console.log("swVersion!");
 }
 
 // Update cache with new version
@@ -78,7 +86,13 @@ async function updateCache(newAssetHash: string) {
     oldKeys.map(async (request) => {
       const response = await oldFileCache.match(request);
       if (response) {
-        await newFileCache.put(request, response);
+        const newResponse = new Response(response.body, {
+          headers: {
+            ...response.headers,
+            'Cache-Control': 'no-cache', // Ensure the browser always revalidates
+          },
+        });
+        await newFileCache.put(request, newResponse);
       }
     }),
   );
@@ -110,18 +124,31 @@ const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
     const cacheName = isFileInList(url.pathname)
-      ? FILE_CACHE_NAME + self.swVersion
+      ? FILE_CACHE_NAME + (await self.registration.storage.get(ASSET_HASH_KEY) || self.swVersion)
       : GENERAL_CACHE_NAME;
     const cache = await caches.open(cacheName);
     const responseFromCache = await cache.match(request);
     if (responseFromCache) {
+      // Return cached response, but fetch and update cache in background
+      fetchAndUpdateCache(request, cache);
       return responseFromCache;
     }
   }
+  return fetchAndUpdateCache(request);
+};
+
+const fetchAndUpdateCache = async (request: Request, cache?: Cache): Promise<Response> => {
   try {
     const responseFromNetwork = await fetch(request);
     if (responseFromNetwork.ok && responseFromNetwork.status === 200) {
-      await putInCache(request, responseFromNetwork.clone());
+      if (!cache) {
+        const url = new URL(request.url);
+        const cacheName = isFileInList(url.pathname)
+          ? FILE_CACHE_NAME + (await self.registration.storage.get(ASSET_HASH_KEY) || self.swVersion)
+          : GENERAL_CACHE_NAME;
+        cache = await caches.open(cacheName);
+      }
+      await cache.put(request, responseFromNetwork.clone());
     }
     return responseFromNetwork;
   } catch (error) {
