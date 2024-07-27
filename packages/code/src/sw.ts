@@ -1,5 +1,5 @@
 // Import necessary scripts and functions
-import { resetCSS } from "./getResetCss";
+
 import HTML from "./index.html";
 import { ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
@@ -245,16 +245,13 @@ const createBundleResponse = (
   i: string,
   html: string,
 ): string => {
-  return HTML.replace("/**reset*/", resetCSS + css)
-    .replace(
-      "<script src=\"/swVersion.js\"></script>",
-      `<script>window.swVersion = "${self.swVersion}"</script>`,
-    )
-    .replace("ASSET_HASH", self.swVersion)
-    .replace(
-      "<div id=\"root\"></div>",
-      `<div id="root" style="height: 100%;"><div id="${codeSpace}-css" data-i="${i}" style="height: 100%;">${html}</div></div>`,
-    );
+  return HTML.replace("/**reset*/", css).replace(
+    `<div id="root"></div>`,
+    `<div id="root">${html}</div>
+    <script type="module">
+      import('/live/${codeSpace}/index.js').then(m=>m.renderApp());
+    </script>`,
+  );
 };
 
 const transpileAndServe = async (

@@ -116,7 +116,17 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   return (
     <>
-      {!onlyEdit && (
+      {onlyEdit? <iframe
+            css={css`
+            display: none;
+              height: 0;
+              width: 0;
+              border: 0;
+              overflow: auto;
+              -webkit-overflow-scrolling: touch;
+            `}
+            src={`/live/${codeSpace}/`}
+          />: (
         <DraggableWindow
           isChatOpen={isOpen}
           onCodeUpdate={handleCodeUpdate}

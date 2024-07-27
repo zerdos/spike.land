@@ -34,8 +34,6 @@ Object.assign(globalThis, {
 
 ``;
 
-const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
 // Runner session to keep track of current state
 const runnerSession = {
   i: 0,
@@ -94,14 +92,11 @@ export async function runner({ code, counter, signal }: {
     if (signal.aborted) return;
 
     // Send message to the iframe with the transpiled code
-    BC.postMessage({ code, transpiled, i: counter, sender: "RUnner" });
+    // BC.postMessage({ code, transpiled, i: counter, sender: "RUnner" });
 
-    // document.querySelector("iframe")?.contentWindow?.postMessage({
-    //   code,
-    //   i: counter,
-    //   type: "prerender",
-    //   t  ranspiled: transpiled,
-    // });
+    document.querySelector("iframe")?.contentWindow?.postMessage({
+      code, transpiled, i: counter, sender: "RUnner" 
+    });
   } catch (error) {
     console.error("Error during runner execution:", error);
   }

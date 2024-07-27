@@ -132,24 +132,42 @@ if (location.pathname === `/live/${codeSpace}`) {
 
   const mod = { counter: 0, code: "", transpiled: "", controller: new AbortController() };
   const mutex = new Mutex();
+
   BC.onmessage = async ({ data }) => {
+    const { i, transpiled, html } = data;
+    if (i > mod.counter && transpiled && html) {
+      const blobUrl = createJsBlob(transpiled);
+      const renderApp = (await import(blobUrl)).renderApp;
+      renderApp();
+
+    }
+
+  };
+
+  window.onmessage = async ({ data }) => {
     const { i, code, transpiled } = data;
 
     console.log({ i, code, transpiled });
 
     if (i > mod.counter && transpiled) {
       console.log("rerender");
+      mod.controller.abort();
+      const {signal} = mod.controller = new AbortController();
+
       mod.counter = i;
       mod.code = code;
       mod.transpiled = transpiled;
 
-      const blobUrl = createJsBlob(transpiled);
-      const renderApp = (await import(blobUrl)).renderApp;
+      if (signal.aborted) return;
+
 
       mutex.runExclusive(async ()=>{
-        mod.controller.abort();
-       const {signal} = mod.controller = new AbortController();
+        if (signal.aborted) return;
+    
+        const blobUrl = createJsBlob(transpiled);
+        const renderApp = (await import(blobUrl)).renderApp;
 
+        if (signal.aborted) return;
         const el = document.createElement("div");
         const rRoot = createRoot(el);
   
@@ -170,6 +188,7 @@ if (location.pathname === `/live/${codeSpace}`) {
         if (success) renderApp();
         rRoot.unmount();
         el.remove();
+        await wait(100);
       })
       
     }
