@@ -45,38 +45,6 @@ export type IUser = Record<
   IUserJSON & { room: string; state: Record<ICodeSession> }
 >;
 
-// Database utility functions
-export function db(
-  codeSpace: string,
-  initDb: (codeSpace: string) => Promise<LocalForage>,
-) {
-  const mod = {
-    syncDb: async (
-      oldSession: ICodeSession,
-      newSession: ICodeSession,
-      message: CodePatch,
-    ) => {
-      const { getItem, setItem } = mod;
-      return await syncStorage(
-        setItem,
-        getItem,
-        oldSession,
-        newSession,
-        message,
-      );
-    },
-    getItem: async (key: string) => {
-      const db = await initDb(codeSpace);
-      return await db.getItem(key) as unknown as object | string | number;
-    },
-    setItem: async <T>(key: string, value: T) => {
-      const db = await initDb(codeSpace);
-      return await db.setItem(key, value) as T;
-    },
-  };
-  return mod;
-}
-
 // Type definitions for storage operations
 type SetItem<T> = (
   key: string,

@@ -62,12 +62,12 @@ const Rainbow = () => {
   return <div css={gradientStyle}></div>;
 };
 
-export const RainbowContainer = styled.div`
+const RainbowContainer = styled.div`
     height: 100%;
     width: 100%;
   `;
 
-const RainbowWrapper: FC<{ children: ReactNode }> = ({ children }) => (
+export const RainbowWrapper: FC<{ children: ReactNode }> = ({ children }) => (
   <RainbowContainer>
     <Rainbow />
     {children}

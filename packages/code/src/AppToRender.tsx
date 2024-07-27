@@ -6,7 +6,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import AutoSaveHistory from "./components/AutoSaveHistory";
-import { RainbowContainer } from "./components/Rainbow";
+import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { reveal } from "./reveal";
 
@@ -82,7 +82,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         )}
 
       {!hideRest && (
-        <RainbowContainer>
+        <RainbowWrapper>
           <Suspense fallback={<></>}>
             <Editor
               codeSpace={codeSpace}
@@ -118,7 +118,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               </div>
             </div>
           )}
-        </RainbowContainer>
+        </RainbowWrapper>
       )}
     </>
   );
