@@ -290,7 +290,9 @@ const chatWindowStyles = css`
 const chatContentStyles = css`
   height: 100%;
   min-width: 320px;
+  width: 100%;
   border-left: 1px solid var(--input);
+  overflow-x: auto;
 `;
 
 export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
