@@ -28,6 +28,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const rowVirtualizer = useVirtualizer({
     count: versions.length,
     getScrollElement: () => parentRef.current,
+    scrollPaddingStart: 8,
+    scrollPaddingEnd: 8,
     estimateSize: () => 150,
     overscan: 5,
   });
@@ -196,15 +198,16 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                       height: `${virtualItem.size}px`,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
-                    onClick={() => setSelectedVersion(version)}
+                    onClick={useCallback(() => setSelectedVersion(version), [version])}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
                     </p>
                     <div
-                      id={`module-container-${virtualItem.index}`}
                       className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
-                    ></div>
+                    >
+                      <div id={`module-container-${virtualItem.index}`} className="w-full h-full"></div>
+                    </div>
                   </div>
                 );
               })}
@@ -217,7 +220,9 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         </div>
         <div className="mt-4 flex justify-end space-x-2">
           <Button variant="outline" onClick={onClose}>Close</Button>
-          <Button onClick={handleRestore} disabled={!selectedVersion}>Restore Selected Version</Button>
+          <Button onClick={handleRestore} disabled={!selectedVersion}>
+            Restore {selectedVersion ? `Version from ${new Date(selectedVersion.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}` : 'Selected Version'}
+          </Button>
         </div>
       </div>
     </div>
