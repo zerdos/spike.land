@@ -71,14 +71,17 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
   }, []);
 
-  const rowVirtualizer = useMemo(() => useVirtualizer({
-    count: versions?.length || 0,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 150,
-    overscan: 5,
-    scrollPaddingStart: 8,
-    scrollPaddingEnd: 8,
-  }), [versions]);
+  const rowVirtualizer = useMemo(() => {
+    if (!versions) return null;
+    return useVirtualizer({
+      count: versions.length,
+      getScrollElement: () => parentRef.current,
+      estimateSize: () => 150,
+      overscan: 5,
+      scrollPaddingStart: 8,
+      scrollPaddingEnd: 8,
+    });
+  }, [versions]);
 
   useEffect(() => {
     fetchVersions();
