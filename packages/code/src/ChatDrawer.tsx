@@ -277,7 +277,7 @@ const chatWindowStyles = css`
   bottom: 0;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   background-color: var(--background);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
