@@ -25,6 +25,14 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [transpiledModules, setTranspiledModules] = useState<string[]>([]);
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const handleSetSelectedVersion = useCallback((version: Version) => {
+    setSelectedVersion(version);
+  }, []);
+
+  const formatDate = useCallback((timestamp: number) => {
+    return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+  }, []);
+
   const rowVirtualizer = useMemo(() => useVirtualizer({
     count: versions.length,
     getScrollElement: () => parentRef.current,
@@ -194,7 +202,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                 const version = versions[virtualItem.index];
                 return (
                   <div
-                    key={version.timestamp}
+                    key={virtualItem.key}
                     className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
                       selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
                     }`}
@@ -205,7 +213,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                     onClick={() => handleSetSelectedVersion(version)}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
-                      {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
+                      {formatDate(version.timestamp)}
                     </p>
                     <div
                       className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
