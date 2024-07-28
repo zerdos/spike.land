@@ -151,36 +151,29 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         <h2 className="text-2xl font-bold mb-4">Version History</h2>
         <div className="flex-grow flex">
           <ScrollArea className="w-1/3 pr-4">
-            {versions.map((version, index) => (
-              <div
-                key={version.timestamp}
-                className={`p-2 cursor-pointer ${
-                  selectedVersion === version ? "bg-accent text-accent-foreground" : ""
-                }`}
-                onClick={() => setSelectedVersion(version)}
-              >
-                <p className="text-sm text-muted-foreground mb-2">
-                  {new Date(version.timestamp).toLocaleString()}
-                </p>
+            <div className="space-y-4">
+              {versions.map((version, index) => (
                 <div
-                  id={`module-container-${index}`}
-                  css={css`
-                    border: 1px solid #eee;
-                    border-radius: 4px;
-                    padding: 8px;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100px;
-                  `}
-                ></div>
-              </div>
-            ))}
+                  key={version.timestamp}
+                  className={`p-2 cursor-pointer rounded-lg transition-colors ${
+                    selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+                  }`}
+                  onClick={() => setSelectedVersion(version)}
+                >
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {new Date(version.timestamp).toLocaleString()}
+                  </p>
+                  <div
+                    id={`module-container-${index}`}
+                    className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
+                  ></div>
+                </div>
+              ))}
+            </div>
           </ScrollArea>
-          <div className="w-2/3 pl-4">
+          <div className="w-2/3 pl-4 flex flex-col">
             <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-            <div id="diffEditor" className="h-[calc(100%-6rem)]"></div>
+            <div id="diffEditor" className="flex-grow"></div>
           </div>
         </div>
         <div className="mt-4 flex justify-end space-x-2">
