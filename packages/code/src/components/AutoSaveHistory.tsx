@@ -22,8 +22,10 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [versions, setVersions] = useState<Version[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
   const [diffEditor, setDiffEditor] = useState<monaco.editor.IStandaloneDiffEditor | null>(null);
-  const [transpiledModules, setTranspiledModules] = useState<string[]>([]);
+  const [transpiledModules, setTranspiledModules] = useState<Map<number, string>>(new Map());
   const parentRef = useRef<HTMLDivElement>(null);
+  const transpileQueue = useRef<number[]>([]);
+  const isTranspiling = useRef(false);
 
   const handleSetSelectedVersion = useCallback((version: Version) => {
     setSelectedVersion(version);
@@ -74,15 +76,17 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   useEffect(() => {
     const virtualItems = rowVirtualizer.getVirtualItems();
     virtualItems.forEach((virtualItem) => {
-      const moduleUrl = transpiledModules[virtualItem.index];
+      const moduleUrl = transpiledModules.get(virtualItem.index);
       if (moduleUrl) {
         renderModule(moduleUrl, virtualItem.index);
+      } else {
+        queueTranspile(virtualItem.index);
       }
     });
 
     return () => {
       virtualItems.forEach((virtualItem) => {
-        const moduleUrl = transpiledModules[virtualItem.index];
+        const moduleUrl = transpiledModules.get(virtualItem.index);
         if (moduleUrl) {
           URL.revokeObjectURL(moduleUrl);
         }
@@ -101,7 +105,6 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       if (response.ok) {
         const data = await response.json<Version[]>();
         setVersions(data);
-        transpileAndCreateModules(data);
       } else {
         console.error("Failed to fetch version history");
       }
@@ -110,21 +113,37 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   };
 
-  const transpileAndCreateModules = async (historyItems: Version[]) => {
-    const modules = await Promise.all(
-      historyItems.map(async (item) => {
-        const transpiled = await transpile({
-          code: item.code,
-          originToUse: location.origin,
-        });
-        return URL.createObjectURL(
-          new Blob([transpiled], {
-            type: "application/javascript",
-          }),
-        );
-      }),
-    );
-    setTranspiledModules(modules);
+  const queueTranspile = (index: number) => {
+    if (!transpileQueue.current.includes(index)) {
+      transpileQueue.current.push(index);
+      processTranspileQueue();
+    }
+  };
+
+  const processTranspileQueue = async () => {
+    if (isTranspiling.current || transpileQueue.current.length === 0) return;
+
+    isTranspiling.current = true;
+    const index = transpileQueue.current.shift()!;
+    const version = versions[index];
+
+    try {
+      const transpiled = await transpile({
+        code: version.code,
+        originToUse: location.origin,
+      });
+      const moduleUrl = URL.createObjectURL(
+        new Blob([transpiled], {
+          type: "application/javascript",
+        }),
+      );
+      setTranspiledModules(prev => new Map(prev).set(index, moduleUrl));
+    } catch (error) {
+      console.error(`Error transpiling version ${index}:`, error);
+    } finally {
+      isTranspiling.current = false;
+      processTranspileQueue();
+    }
   };
 
   const initDiffEditor = () => {
