@@ -26,6 +26,17 @@ global.fetch = jest.fn(() =>
   })
 ) as jest.Mock;
 
+// Mock the useVirtualizer hook
+jest.mock('@tanstack/react-virtual', () => ({
+  useVirtualizer: jest.fn().mockReturnValue({
+    getVirtualItems: () => [
+      { index: 0, key: '0', size: 150, start: 0 },
+      { index: 1, key: '1', size: 150, start: 150 },
+    ],
+    getTotalSize: () => 300,
+  }),
+}));
+
 describe('AutoSaveHistory', () => {
   const mockOnRestore = jest.fn();
   const mockOnClose = jest.fn();
@@ -34,9 +45,9 @@ describe('AutoSaveHistory', () => {
     jest.clearAllMocks();
   });
 
-  it('renders loading state initially', () => {
+  it('renders loading state initially', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    expect(screen.getByText('Loading versions...')).toBeInTheDocument();
+    expect(await screen.findByText('Loading versions...')).toBeInTheDocument();
   });
 
   it('fetches and displays versions', async () => {
@@ -56,9 +67,11 @@ describe('AutoSaveHistory', () => {
     expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
   });
 
-  it('calls onClose when close button is clicked', () => {
+  it('calls onClose when close button is clicked', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    fireEvent.click(screen.getByText('Close'));
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Close'));
+    });
     expect(mockOnClose).toHaveBeenCalled();
   });
 
