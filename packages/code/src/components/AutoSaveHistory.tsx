@@ -233,7 +233,11 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                     <div
                       className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
                     >
-                      <div id={`module-container-${virtualItem.index}`} className="w-full h-full"></div>
+                      {transpiledModules.has(virtualItem.index) ? (
+                        <div id={`module-container-${virtualItem.index}`} className="w-full h-full"></div>
+                      ) : (
+                        <div className="text-sm text-muted-foreground">Loading...</div>
+                      )}
                     </div>
                   </div>
                 );
