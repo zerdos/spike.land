@@ -36,13 +36,13 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   }, []);
 
   const rowVirtualizer = useMemo(() => useVirtualizer({
-    count: versions.length,
+    count: versions?.length || 0,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 150,
     overscan: 5,
     scrollPaddingStart: 8,
     scrollPaddingEnd: 8,
-  }), [versions.length]);
+  }), [versions]);
 
   useEffect(() => {
     fetchVersions();
@@ -233,29 +233,35 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
         <h2 className="text-2xl font-bold mb-4">Version History</h2>
-        <div className="flex-grow flex">
-          <ScrollArea className="w-1/3 pr-4">
-            <div
-              ref={parentRef}
-              className="relative"
-              style={{
-                height: `${rowVirtualizer.getTotalSize()}px`,
-              }}
-            >
-              {rowVirtualizer.getVirtualItems().map((virtualItem) => (
-                <VersionItem
-                  key={virtualItem.key}
-                  virtualItem={virtualItem}
-                  version={versions[virtualItem.index]}
-                />
-              ))}
+        {versions ? (
+          <div className="flex-grow flex">
+            <ScrollArea className="w-1/3 pr-4">
+              <div
+                ref={parentRef}
+                className="relative"
+                style={{
+                  height: `${rowVirtualizer.getTotalSize()}px`,
+                }}
+              >
+                {rowVirtualizer.getVirtualItems().map((virtualItem) => (
+                  <VersionItem
+                    key={virtualItem.key}
+                    virtualItem={virtualItem}
+                    version={versions[virtualItem.index]}
+                  />
+                ))}
+              </div>
+            </ScrollArea>
+            <div className="w-2/3 pl-4 flex flex-col">
+              <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
+              <div id="diffEditor" style={{ height: 'calc(100% - 2rem)' }}></div>
             </div>
-          </ScrollArea>
-          <div className="w-2/3 pl-4 flex flex-col">
-            <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-            <div id="diffEditor" style={{ height: 'calc(100% - 2rem)' }}></div>
           </div>
-        </div>
+        ) : (
+          <div className="flex-grow flex items-center justify-center">
+            <p className="text-lg text-muted-foreground">Loading versions...</p>
+          </div>
+        )}
         <div className="mt-4 flex justify-end space-x-2">
           <Button variant="outline" onClick={onClose}>Close</Button>
           <Button onClick={handleRestore} disabled={!selectedVersion}>
