@@ -52,21 +52,21 @@ describe('AutoSaveHistory', () => {
   });
 
   it('renders loading state initially', async () => {
-    const { findByText } = render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    await findByText('Loading versions...');
+    render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    await screen.findByText('Loading versions...');
   });
 
   it('fetches and displays versions', async () => {
-    const { findByText, getByText } = render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    await findByText('Jul 1, 2021, 12:00 AM');
-    expect(getByText('Jul 2, 2021, 12:00 AM')).toBeTruthy();
+    render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    await screen.findByText('Jul 1, 2021, 12:00 AM');
+    expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeTruthy();
   });
 
   it('calls onRestore when restore button is clicked', async () => {
-    const { findByText } = render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    const versionButton = await findByText('Jul 1, 2021, 12:00 AM');
+    render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    const versionButton = await screen.findByText('Jul 1, 2021, 12:00 AM');
     fireEvent.click(versionButton);
-    const restoreButton = await findByText('Restore Selected Version');
+    const restoreButton = await screen.findByText('Restore Selected Version');
     fireEvent.click(restoreButton);
     await waitFor(() => {
       expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
@@ -74,8 +74,8 @@ describe('AutoSaveHistory', () => {
   });
 
   it('calls onClose when close button is clicked', async () => {
-    const { findByText } = render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    const closeButton = await findByText('Close');
+    render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    const closeButton = await screen.findByText('Close');
     fireEvent.click(closeButton);
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalled();
@@ -83,8 +83,8 @@ describe('AutoSaveHistory', () => {
   });
 
   it('updates diff editor when a version is selected', async () => {
-    const { findByText } = render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    const versionButton = await findByText('Jul 1, 2021, 12:00 AM');
+    render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    const versionButton = await screen.findByText('Jul 1, 2021, 12:00 AM');
     fireEvent.click(versionButton);
     await waitFor(() => {
       expect(monaco.editor.createModel).toHaveBeenCalledTimes(2);
