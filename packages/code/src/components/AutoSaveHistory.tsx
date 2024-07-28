@@ -242,7 +242,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
         <h2 className="text-2xl font-bold mb-4">Version History</h2>
-        {versions ? (
+        {versions && rowVirtualizer ? (
           <div className="flex-grow flex">
             <ScrollArea className="w-1/3 pr-4">
               <div
