@@ -1,4 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import AutoSaveHistory from './AutoSaveHistory';
 import * as monaco from 'monaco-editor';
@@ -58,7 +59,7 @@ describe('AutoSaveHistory', () => {
   it('fetches and displays versions', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
     await screen.findByText('Jul 1, 2021, 12:00 AM');
-    expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeInTheDocument();
+    expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeTruthy();
   });
 
   it('calls onRestore when restore button is clicked', async () => {
