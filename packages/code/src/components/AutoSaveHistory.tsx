@@ -27,11 +27,10 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
 
   const rowVirtualizer = useVirtualizer({
     count: versions.length,
-      getScrollElement: () => parentRef.current,
-      estimateSize: () => 150,
-      overscan: 5,
-    });
-  }, [versions.length]);
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 150,
+    overscan: 5,
+  });
 
   useEffect(() => {
     fetchVersions();
@@ -51,17 +50,20 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   }, [selectedVersion, versions]);
 
   const renderModule = useCallback((moduleUrl: string, index: number) => {
-    import(moduleUrl).then((module) => {
-      const container = document.getElementById(`module-container-${index}`);
-      if (container) {
+    const container = document.getElementById(`module-container-${index}`);
+    if (container) {
+      import(moduleUrl).then((module) => {
         const root = createRoot(container);
         root.render(React.createElement(module.default));
-      }
-    });
+      }).catch((error) => {
+        console.error(`Error rendering module ${index}:`, error);
+      });
+    }
   }, []);
 
   useEffect(() => {
-    rowVirtualizer.getVirtualItems().forEach((virtualItem) => {
+    const virtualItems = rowVirtualizer.getVirtualItems();
+    virtualItems.forEach((virtualItem) => {
       const moduleUrl = transpiledModules[virtualItem.index];
       if (moduleUrl) {
         renderModule(moduleUrl, virtualItem.index);
@@ -69,7 +71,12 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     });
 
     return () => {
-      transpiledModules.forEach((moduleUrl) => URL.revokeObjectURL(moduleUrl));
+      virtualItems.forEach((virtualItem) => {
+        const moduleUrl = transpiledModules[virtualItem.index];
+        if (moduleUrl) {
+          URL.revokeObjectURL(moduleUrl);
+        }
+      });
     };
   }, [transpiledModules, rowVirtualizer.getVirtualItems()]);
 
@@ -169,8 +176,9 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
         <h2 className="text-2xl font-bold mb-4">Version History</h2>
         <div className="flex-grow flex">
-          <div ref={parentRef} className="w-1/3 pr-4 overflow-auto">
+          <ScrollArea className="w-1/3 pr-4">
             <div
+              ref={parentRef}
               className="relative"
               style={{
                 height: `${rowVirtualizer.getTotalSize()}px`,
@@ -188,7 +196,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                       height: `${virtualItem.size}px`,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
-                    onClick={useCallback(() => setSelectedVersion(version), [version])}
+                    onClick={() => setSelectedVersion(version)}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
@@ -201,7 +209,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                 );
               })}
             </div>
-          </div>
+          </ScrollArea>
           <div className="w-2/3 pl-4 flex flex-col">
             <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
             <div id="diffEditor" style={{ height: 'calc(100% - 2rem)' }}></div>
