@@ -263,14 +263,16 @@ export const MessageInput = ({
   );
 };
 
+const chatWindowStyles = css`
+  z-index: 999;
+  transition: width 0.3s ease-in-out;
+`;
+
 export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
   { children, isOpen },
 ) => (
   <div
-    css={css`
-    z-index: 999;
-    transition: width 0.3s ease-in-out;
-  `}
+    css={chatWindowStyles}
     className={`fixed inset-y-0 right-0 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
       isOpen ? "w-1/2 translate-x-0" : "w-96 translate-x-full"
     }`}
