@@ -1,0 +1,23 @@
+{
+  "name": "spike-land-renderer",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "dev:remote": "wrangler dev --remote",
+    "start": "wrangler dev",
+    "test": "vitest",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.4.5",
+    "@cloudflare/workers-types": "^4.20240725.0",
+    "typescript": "^5.5.2",
+    "vitest": "1.5.0",
+    "wrangler": "^3.67.1"
+  },
+  "dependencies": {
+    "@cloudflare/puppeteer": "^0.0.11"
+  }
+}
