@@ -38,6 +38,8 @@ export class RouteHandler {
       public: this.handleDefaultRoute.bind(this),
       // New routes for auto-save functionality
       "auto-save": this.handleAutoSaveRoute.bind(this),
+      // New route for serving saved versions
+      live: this.handleLiveRoute.bind(this),
     };
 
     return routes[route] || null;
@@ -236,8 +238,45 @@ export class RouteHandler {
     });
   }
 
+  private async handleLiveRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+    if (path[3] === "index.tsx" && path[4]) {
+      const timestamp = parseInt(path[4]);
+      const savedVersion = await this.code.getState().storage.get(`savedVersion_${timestamp}`);
+      
+      if (savedVersion) {
+        return new Response(savedVersion as string, {
+          status: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cache-Control": "no-cache",
+            "Content-Type": "application/javascript; charset=UTF-8",
+          },
+        });
+      }
+    }
+    
+    return new Response("Not found", { status: 404 });
+  }
+
   private async handleJsRoute(): Promise<Response> {
-    const replaced = this.code.getTranspiled().replace(/https:\/\/spike\.land\//g, `${this.code.getOrigin()}/`);
+    let code = this.code.session.code;
+    const timestamp = new URL(request.url).searchParams.get("timestamp");
+    
+    if (timestamp) {
+      const savedVersion = await this.code.getState().storage.get(`savedVersion_${timestamp}`);
+      if (savedVersion) {
+        code = savedVersion as string;
+      }
+    }
+    
+    const transpiled = await fetch(`https://js.spike.land`, {
+      method: "POST",
+      body: code,
+      headers: { TR_ORIGIN: this.code.getOrigin() },
+    }).then(r => r.text());
+    
+    const replaced = transpiled.replace(/https:\/\/spike\.land\//g, `${this.code.getOrigin()}/`);
     return new Response(replaced, {
       headers: {
         "Access-Control-Allow-Origin": "*",

@@ -105,6 +105,9 @@ export class Code implements DurableObject {
         // Save the updated history
         await this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
 
+        // Save the current version with timestamp
+        await this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
+
         // Update last auto-save time
         this.lastAutoSave = currentTime;
 
