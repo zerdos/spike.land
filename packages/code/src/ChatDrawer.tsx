@@ -293,6 +293,7 @@ const chatContentStyles = css`
   width: 100%;
   border-left: 1px solid var(--input);
   overflow-x: auto;
+  overflow-y: hidden;
 `;
 
 export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
