@@ -27,33 +27,39 @@ interface VersionItemProps {
   isModuleTranspiled: (index: number) => boolean;
 }
 
-const VersionItem = React.memo(({ virtualItem, version, selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled }: VersionItemProps) => (
-  <div
-    className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
-      selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
-    }`}
-    style={{
-      height: `${virtualItem.size}px`,
-      transform: `translateY(${virtualItem.start}px)`,
-    }}
-    onClick={() => handleSetSelectedVersion(version)}
-  >
-    <p className="text-sm text-muted-foreground mb-2">
-      {formatDate(version.timestamp)}
-    </p>
+const VersionItem = React.memo(({ virtualItem, version, selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled }: VersionItemProps) => {
+  const isSelected = selectedVersion === version;
+  const moduleContainerId = `module-container-${virtualItem.index}`;
+
+  return (
     <div
-      className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
+      className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
+        isSelected ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+      }`}
+      style={{
+        height: `${virtualItem.size}px`,
+        transform: `translateY(${virtualItem.start}px)`,
+      }}
+      onClick={() => handleSetSelectedVersion(version)}
     >
-      {isModuleTranspiled(virtualItem.index) ? (
-        <div id={`module-container-${virtualItem.index}`} className="w-full h-full"></div>
-      ) : (
-        <div className="text-sm text-muted-foreground">Loading...</div>
-      )}
+      <p className="text-sm text-muted-foreground mb-2">
+        {formatDate(version.timestamp)}
+      </p>
+      <div className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden">
+        {isModuleTranspiled(virtualItem.index) ? (
+          <div id={moduleContainerId} className="w-full h-full"></div>
+        ) : (
+          <div className="text-sm text-muted-foreground">Loading...</div>
+        )}
+      </div>
     </div>
-  </div>
-));
+  );
+});
 
 const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore, onClose }) => {
+  const formatDate = useCallback((timestamp: number) => {
+    return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+  }, []);
   const [versions, setVersions] = useState<Version[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
   const [diffEditor, setDiffEditor] = useState<monaco.editor.IStandaloneDiffEditor | null>(null);
