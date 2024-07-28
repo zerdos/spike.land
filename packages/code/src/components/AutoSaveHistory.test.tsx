@@ -10,6 +10,12 @@ import * as monaco from 'monaco-editor';
 
 /// <reference types="@testing-library/jest-dom" />
 
+/// <reference types="@testing-library/jest-dom" />
+
+/// <reference types="@testing-library/jest-dom" />
+
+/// <reference types="@testing-library/jest-dom" />
+
 // Mock the monaco editor
 jest.mock('monaco-editor', () => ({
   editor: {
