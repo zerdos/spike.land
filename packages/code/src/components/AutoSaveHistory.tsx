@@ -51,7 +51,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, [selectedVersion, versions]);
 
-  const renderModule = useCallback((moduleUrl: string, index: number) => {
+  const renderModule = useMemo(() => (moduleUrl: string, index: number) => {
     const container = document.getElementById(`module-container-${index}`);
     if (container) {
       import(moduleUrl).then((module) => {
@@ -152,7 +152,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   };
 
-  const handleRestore = async () => {
+  const handleRestore = useCallback(async () => {
     if (!selectedVersion) return;
 
     try {
@@ -171,7 +171,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     } catch (error) {
       console.error("Error restoring version:", error);
     }
-  };
+  }, [selectedVersion, codeSpace, onRestore, onClose]);
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
@@ -198,7 +198,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                       height: `${virtualItem.size}px`,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
-                    onClick={useCallback(() => setSelectedVersion(version), [version])}
+                    onClick={() => setSelectedVersion(version)}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
