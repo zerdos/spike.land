@@ -2,6 +2,7 @@ import * as monaco from "monaco-editor";
 import { ata } from "./shared";
 
 const originToUse = location.origin;
+const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const refreshAta = async (code: string, originToUse: string) => {
   try {
@@ -55,10 +56,10 @@ async function fetchAndCreateExtraModels(
   const models2 = code.matchAll(search2);
 
   for (const match of [...models, ...models2]) {
-    const codeSpace = match[0].split("/live/").pop();
+    const codeSpace = match[0].split("/").pop();
     const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
       .toString();
-    const mUri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+    const mUri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
 
     const res = await fetch(extraModel);
     const content = await res.text();
@@ -106,6 +107,7 @@ const monacoContribution = async (code: string) => {
     paths: {
       "tslib": ["/tslib"],
       "./*": ["/live/*"],
+      "/*": [`${originToUse}/`],
     },
     jsxImportSource: "@emotion/react",
     jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
