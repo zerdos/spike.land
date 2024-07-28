@@ -1,5 +1,5 @@
 import * as monaco from "monaco-editor";
-import { ata, prettier } from "./shared";
+import { ata } from "./shared";
 
 const originToUse = location.origin;
 
@@ -285,8 +285,7 @@ async function startMonacoPristine({
   });
 
   myEditor.onDidBlurEditorText(async () => {
-    editorModel.setValue(await prettier(model.getValue()));
-    editorModel.isEdit = true;
+    editorModel.isEdit = false;
   });
 
   BC.onmessage = (

@@ -7,7 +7,7 @@ const codeSpace = getCodeSpace();
 // Throttle function
 function throttle(func: Function, limit: number) {
   let inThrottle: boolean;
-  return function(...args: any[]) {
+  return function(this: any, ...args: any[]) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;

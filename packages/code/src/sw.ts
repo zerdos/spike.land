@@ -212,7 +212,6 @@ const fakeBackend = async (request: Request): Promise<Response> => {
         const respText = createBundleResponse(
           HTML,
           css,
-          codeSpace,
           html,
         );
         return createResponse(respText, "text/html");
