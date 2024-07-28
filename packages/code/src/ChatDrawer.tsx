@@ -270,7 +270,27 @@ export const MessageInput = ({
 
 const chatWindowStyles = css`
   z-index: 999;
-  transition: width 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: var(--background);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+`;
+
+const chatContentStyles = css`
+  height: 100%;
+  min-width: 320px;
+  border-left: 1px solid var(--input);
 `;
 
 export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
@@ -278,11 +298,11 @@ export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
 ) => (
   <div
     css={chatWindowStyles}
-    className={`fixed inset-y-0 right-0 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
-      isOpen ? "w-1/2 translate-x-0" : "w-96 translate-x-full"
-    }`}
+    style={{
+      transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+    }}
   >
-    <div className="flex flex-col h-full border-l border-input">
+    <div css={chatContentStyles}>
       {children}
     </div>
   </div>
