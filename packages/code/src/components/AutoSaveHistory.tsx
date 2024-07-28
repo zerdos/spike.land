@@ -92,7 +92,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         }
       });
     };
-  }, [transpiledModules, rowVirtualizer.getVirtualItems()]);
+  }, [transpiledModules, rowVirtualizer.getVirtualItems(), renderModule, queueTranspile]);
 
   const getPreviousVersion = (currentVersion: Version): Version | null => {
     const currentIndex = versions.findIndex(v => v.timestamp === currentVersion.timestamp);
@@ -113,12 +113,12 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   };
 
-  const queueTranspile = (index: number) => {
+  const queueTranspile = useCallback((index: number) => {
     if (!transpileQueue.current.includes(index)) {
       transpileQueue.current.push(index);
       processTranspileQueue();
     }
-  };
+  }, []);
 
   const processTranspileQueue = async () => {
     if (isTranspiling.current || transpileQueue.current.length === 0) return;
