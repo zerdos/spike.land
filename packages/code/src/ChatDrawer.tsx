@@ -205,9 +205,18 @@ export const ChatContainer = ({
   messagesEndRef: React.RefObject<HTMLDivElement>;
 }) => {
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    const scrollToBottom = () => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    scrollToBottom();
+    
+    // Use a timeout to ensure the scroll happens after the DOM has updated
+    const timeoutId = setTimeout(scrollToBottom, 100);
+
+    return () => clearTimeout(timeoutId);
   }, [messages, isStreaming]);
 
   return (
