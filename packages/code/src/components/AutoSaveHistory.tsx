@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import * as monaco from "monaco-editor";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { transpile } from "../shared";
 import { createRoot } from "react-dom/client";
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -25,12 +25,14 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [transpiledModules, setTranspiledModules] = useState<string[]>([]);
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const rowVirtualizer = useVirtualizer({
-    count: versions.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: useCallback(() => 150, []),
-    overscan: 5,
-  });
+  const rowVirtualizer = useMemo(() => {
+    return useVirtualizer({
+      count: versions.length,
+      getScrollElement: () => parentRef.current,
+      estimateSize: () => 150,
+      overscan: 5,
+    });
+  }, [versions.length]);
 
   useEffect(() => {
     fetchVersions();
@@ -187,7 +189,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                       height: `${virtualItem.size}px`,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
-                    onClick={useCallback(() => setSelectedVersion(version), [version])}
+                    onClick={() => setSelectedVersion(version)}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
