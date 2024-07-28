@@ -1,11 +1,25 @@
 // src/components/AutoSaveHistory.tsx
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import * as monaco from "monaco-editor";
-import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { transpile } from "../shared";
 import { createRoot } from "react-dom/client";
 import { useVirtualizer } from '@tanstack/react-virtual';
+import type * as Monaco from 'monaco-editor';
+
+
+const monaco = (global as unknown as {
+  monaco?: typeof Monaco;
+}).monaco || {
+  editor: {
+    createDiffEditor: ()=> ({
+      setModel: ()=>{},
+      dispose: ()=>{},
+    }),
+    createModel: ()=>{},
+  }
+}
+
 
 interface Version {
   timestamp: number;
@@ -65,20 +79,13 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     setSelectedVersion(version);
   }, []);
   const [versions, setVersions] = useState<Version[]>([]);
+  const diffEditorRef = useRef<HTMLDivElement>(null);
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
-  const [diffEditor, setDiffEditor] = useState<monaco.editor.IStandaloneDiffEditor | null>(null);
+  const [diffEditor, setDiffEditor] = useState<Monaco.editor.IStandaloneDiffEditor | null>(null);
   const [transpiledModules, setTranspiledModules] = useState<Map<number, string>>(new Map());
   const parentRef = useRef<HTMLDivElement>(null);
   const transpileQueue = useRef<number[]>([]);
   const isTranspiling = useRef(false);
-
-  const handleSetSelectedVersion = useCallback((version: Version) => {
-    setSelectedVersion(version);
-  }, []);
-
-  const formatDate = useCallback((timestamp: number) => {
-    return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
-  }, []);
 
   const rowVirtualizer = useVirtualizer({
     count: versions?.length || 0,
@@ -142,7 +149,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       virtualItems.forEach((virtualItem) => {
         const moduleUrl = transpiledModules.get(virtualItem.index);
         if (moduleUrl) {
-          URL.revokeObjectURL(moduleUrl);
+          global.URL.revokeObjectURL(moduleUrl);
         }
       });
     };
@@ -194,12 +201,15 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   };
 
   const initDiffEditor = () => {
-    const editor = monaco.editor.createDiffEditor(document.getElementById("diffEditor")!, {
+    if (!diffEditorRef.current) return;
+  
+
+    const editor = monaco.editor.createDiffEditor(diffEditorRef.current!, {
       automaticLayout: true,
       readOnly: true,
       renderSideBySide: false,
     });
-    setDiffEditor(editor);
+    setDiffEditor(editor as Monaco.editor.IStandaloneDiffEditor);
   };
 
   const updateDiffEditor = () => {
@@ -209,8 +219,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     const originalModel = monaco.editor.createModel(
       previousVersion ? previousVersion.code : "",
       "typescript"
-    );
-    const modifiedModel = monaco.editor.createModel(selectedVersion.code, "typescript");
+    )!;
+    const modifiedModel = monaco.editor.createModel(selectedVersion.code, "typescript")!;
 
     diffEditor.setModel({
       original: originalModel,
@@ -278,7 +288,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
             </ScrollArea>
             <div className="w-2/3 pl-4 flex flex-col">
               <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-              <div id="diffEditor" style={{ height: 'calc(100% - 2rem)' }}></div>
+              <div id="diffEditor" ref={diffEditorRef} style={{ height: 'calc(100% - 2rem)' }}></div>
             </div>
           </div>
         ) : (
