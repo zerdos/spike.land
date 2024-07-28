@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import * as monaco from "monaco-editor";
 import React, { useEffect, useState } from "react";
+import { css } from "@emotion/react";
+import { transpile } from "/shared.mjs";
+import { createRoot } from "/reactDomClient.mjs";
 
 interface Version {
   timestamp: number;
@@ -19,6 +22,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [versions, setVersions] = useState<Version[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
   const [diffEditor, setDiffEditor] = useState<monaco.editor.IStandaloneDiffEditor | null>(null);
+  const [transpiledModules, setTranspiledModules] = useState<string[]>([]);
 
   useEffect(() => {
     fetchVersions();
@@ -37,6 +41,19 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, [selectedVersion, versions]);
 
+  useEffect(() => {
+    transpiledModules.forEach((moduleUrl, index) => {
+      import(moduleUrl).then((module) => {
+        const root = createRoot(document.getElementById(`module-container-${index}`));
+        root.render(React.createElement(module.default));
+      });
+    });
+
+    return () => {
+      transpiledModules.forEach((moduleUrl) => URL.revokeObjectURL(moduleUrl));
+    };
+  }, [transpiledModules]);
+
   const getPreviousVersion = (currentVersion: Version): Version | null => {
     const currentIndex = versions.findIndex(v => v.timestamp === currentVersion.timestamp);
     return currentIndex < versions.length - 1 ? versions[currentIndex + 1] : null;
@@ -48,12 +65,30 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       if (response.ok) {
         const data = await response.json<Version[]>();
         setVersions(data);
+        transpileAndCreateModules(data);
       } else {
         console.error("Failed to fetch version history");
       }
     } catch (error) {
       console.error("Error fetching version history:", error);
     }
+  };
+
+  const transpileAndCreateModules = async (historyItems: Version[]) => {
+    const modules = await Promise.all(
+      historyItems.map(async (item) => {
+        const transpiled = await transpile({
+          code: item.code,
+          originToUse: location.origin,
+        });
+        return URL.createObjectURL(
+          new Blob([transpiled], {
+            type: "application/javascript",
+          }),
+        );
+      }),
+    );
+    setTranspiledModules(modules);
   };
 
   const initDiffEditor = () => {
@@ -112,11 +147,11 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
-      <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex">
-        <div className="w-1/3 pr-4">
-          <h2 className="text-2xl font-bold mb-4">Version History</h2>
-          <ScrollArea className="h-[calc(100%-6rem)]">
-            {versions.map((version) => (
+      <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
+        <h2 className="text-2xl font-bold mb-4">Version History</h2>
+        <div className="flex-grow flex">
+          <ScrollArea className="w-1/3 pr-4">
+            {versions.map((version, index) => (
               <div
                 key={version.timestamp}
                 className={`p-2 cursor-pointer ${
@@ -124,18 +159,33 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                 }`}
                 onClick={() => setSelectedVersion(version)}
               >
-                {new Date(version.timestamp).toLocaleString()}
+                <p className="text-sm text-muted-foreground mb-2">
+                  {new Date(version.timestamp).toLocaleString()}
+                </p>
+                <div
+                  id={`module-container-${index}`}
+                  css={css`
+                    border: 1px solid #eee;
+                    border-radius: 4px;
+                    padding: 8px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100px;
+                  `}
+                ></div>
               </div>
             ))}
           </ScrollArea>
-        </div>
-        <div className="w-2/3 pl-4">
-          <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-          <div id="diffEditor" className="h-[calc(100%-6rem)]"></div>
-          <div className="mt-4 flex justify-end space-x-2">
-            <Button variant="outline" onClick={onClose}>Close</Button>
-            <Button onClick={handleRestore} disabled={!selectedVersion}>Restore Selected Version</Button>
+          <div className="w-2/3 pl-4">
+            <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
+            <div id="diffEditor" className="h-[calc(100%-6rem)]"></div>
           </div>
+        </div>
+        <div className="mt-4 flex justify-end space-x-2">
+          <Button variant="outline" onClick={onClose}>Close</Button>
+          <Button onClick={handleRestore} disabled={!selectedVersion}>Restore Selected Version</Button>
         </div>
       </div>
     </div>
