@@ -63,7 +63,9 @@ describe('AutoSaveHistory', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText('Jul 1, 2021, 12:00 AM'));
     });
-    fireEvent.click(screen.getByText('Restore Selected Version'));
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Restore Selected Version'));
+    });
     expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
   });
 
@@ -80,7 +82,9 @@ describe('AutoSaveHistory', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText('Jul 1, 2021, 12:00 AM'));
     });
-    expect(monaco.editor.createModel).toHaveBeenCalledTimes(2);
-    expect(monaco.editor.createDiffEditor).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(monaco.editor.createModel).toHaveBeenCalledTimes(2);
+      expect(monaco.editor.createDiffEditor).toHaveBeenCalled();
+    });
   });
 });
