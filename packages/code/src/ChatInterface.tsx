@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, Message, MessageInput } from "./ChatDrawer";
-import { initialMessage } from "./initialMessage";
+import { gentleReminder, initialMessage } from "./initialMessage";
 import { prettier } from "./shared";
 import { extractArtifacts } from "./utils/extractArtifacts";
 
@@ -13,23 +13,7 @@ const getCodeSpace = (): string => {
 
 const codeSpace = getCodeSpace();
 
-// Component: ColorModeToggle
-const ColorModeToggle: React.FC<
-  { isDarkMode: boolean; toggleDarkMode: () => void }
-> = (
-  { isDarkMode, toggleDarkMode },
-) => (
-  <button
-    onClick={toggleDarkMode}
-    className={`p-2 rounded-full backdrop-blur-sm ${
-      isDarkMode
-        ? "bg-gray-800/30 text-yellow-400"
-        : "bg-yellow-100/30 text-gray-800"
-    } hover:bg-opacity-50 transition-all duration-300`}
-  >
-    {isDarkMode ? "🌙" : "☀️"}
-  </button>
-);
+
 
 // Main Component: ChatInterface
 const ChatInterface: React.FC<
@@ -114,7 +98,7 @@ const ChatInterface: React.FC<
     if (!content.trim()) return;
 
     const isFirstMessage = messages.length === 0;
-    const codeNow = await prettier(cSess.session.code);
+    const codeNow = await prettier(await fetch(`/live/${codeSpace}/code/index.tsx`).then((res) => res.text()));
 
     fetch(`/live/${codeSpace}/auto-save`);
     setCodeFound(false);
@@ -126,6 +110,8 @@ const ChatInterface: React.FC<
       )
         + content;
       setAICode(codeNow);
+    } else {
+      content = content + gentleReminder;
     }
 
     const newMessage: Message = {

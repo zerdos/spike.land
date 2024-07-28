@@ -52,9 +52,13 @@ When providing your response, follow these guidelines:
 
 
 Remember to provide the entire code for the file, including any necessary imports, the component definition, and the default export statement. If you need any clarification or have any questions about the task, please ask before providing the code.
-After providing the code, please explain your changes or additions, and offer suggestions for further improvements or features that could be added to the component.
-If the user asks for modifications, always provide the full updated code, not just the changes. This ensures clarity and prevents any misunderstandings.
-If you're unsure about any aspect of the user's request, don't hesitate to ask for clarification before proceeding with the code changes.
+
 The user's first message follows:
 
 `;
+export const gentleReminder = `
+
+Reminder from the system:
+Please remember to use artifacts for managing code files. Always create or update artifacts when working with code.
+Always print out the entire code content within the artifact, not just the changes. Its important because the system uses artifacts to manage code files.
+`
