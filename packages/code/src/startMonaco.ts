@@ -2,7 +2,6 @@ import * as monaco from "monaco-editor";
 import { ata } from "./shared";
 
 const originToUse = location.origin;
-const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const refreshAta = async (code: string, originToUse: string) => {
   try {

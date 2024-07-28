@@ -3259,6 +3259,7 @@ __metadata:
     os-browserify: "npm:0.3.0"
     p-map: "npm:7.0.2"
     path-browserify: "npm:1.0.1"
+    preact: "npm:^10.23.1"
     prettier: "npm:3.3.3"
     prism-react-renderer: "npm:^2.3.1"
     qrious: "npm:4.0.2"
@@ -11924,6 +11925,13 @@ __metadata:
   version: 1.0.0
   resolution: "possible-typed-array-names@npm:1.0.0"
   checksum: 10/8ed3e96dfeea1c5880c1f4c9cb707e5fb26e8be22f14f82ef92df20fd2004e635c62ba47fbe8f2bb63bfd80dac1474be2fb39798da8c2feba2815435d1f749af
+  languageName: node
+  linkType: hard
+
+"preact@npm:^10.23.1":
+  version: 10.23.1
+  resolution: "preact@npm:10.23.1"
+  checksum: 10/ab90545445e805005627f0cf5cbd505b553877a5fc98e7bad8e93a7e223b973d38c8fb3368f75bb60265d23fee98b7086c738bf8ee06b7ff8527fb0c00d0698f
   languageName: node
   linkType: hard
 

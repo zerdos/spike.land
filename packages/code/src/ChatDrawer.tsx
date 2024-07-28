@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { css } from "@emotion/react";
 import { Bot, Check, Moon, RefreshCw, Send, Sun, X, X as XMark } from "lucide-react";
@@ -15,8 +15,6 @@ const smallFontWithMaxWidthStyle = css`
   font-size: 8pt !important;
   max-width: 100%;
 `;
-
-
 
 export interface Message {
   id: string;
@@ -61,20 +59,18 @@ export const ChatMessage = ({
       return text;
     }
 
-    const cleanedText = text.replace(/<antArtifact.*?>/g, "**```tsx").replace(
-      /<\/antArtifact>/g,
-      "```**",
-    );
+    const cleanedText = text
+      .replace(/<antArtifact.*?>/g, "**```tsx")
+      .replace(/<\/antArtifact>/g, "```**");
 
     const parts = cleanedText.split("**```tsx");
     if (parts.length > 1) {
       return parts.map((part, index) => {
         if (index === 0) {
           return (
-            <pre
-              css={smallFontStyle}
-              key={index}
-            >{part}</pre>
+            <pre css={smallFontStyle} key={index}>
+              {part}
+            </pre>
           );
         }
         const nextParts = part.split("```**");
@@ -83,67 +79,54 @@ export const ChatMessage = ({
             <pre
               css={smallFontStyle}
               key={index}
-              className="bg-gray-100 p-2 rounded my-2 overflow-x-auto"
-            >
-            <CodeTS code={nextParts[0]} />
+              className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
+              <CodeTS code={nextParts[0]} />
             </pre>
             <br />
 
             {nextParts.length === 2 && (
-              <pre  
-                css={smallFontStyle}
-                key={index}
-              >{nextParts[1]}</pre>
+              <pre css={smallFontStyle} key={index}>
+                {nextParts[1]}
+              </pre>
             )}
           </>
         );
       });
     }
-    return (
-      <pre
-        css={smallFontWithMaxWidthStyle}
-      >{cleanedText}</pre>
-    );
+    return <pre css={smallFontWithMaxWidthStyle}>{cleanedText}</pre>;
   };
 
   return (
     <div
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
-      onDoubleClick={onDoubleClick}
-    >
+      onDoubleClick={onDoubleClick}>
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
             ? "bg-primary text-primary-foreground"
             : isSelected
-            ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
-            : "bg-secondary text-secondary-foreground"
-        }`}
-      >
-        {isEditing
-          ? (
-            <div className="flex flex-col space-y-2">
-              <Input
-                value={editInput}
-                onChange={(e) => setEditInput(e.target.value)}
-                className="bg-background text-foreground"
-              />
-              <div className="flex justify-end space-x-2">
-                <Button
-                  size="sm"
-                  onClick={() => handleSaveEdit(Date.now().toString())}
-                >
-                  <Check className="h-4 w-4" />
-                </Button>
-                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-                  <XMark className="h-4 w-4" />
-                </Button>
-              </div>
+              ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
+              : "bg-secondary text-secondary-foreground"
+        }`}>
+        {isEditing ? (
+          <div className="flex flex-col space-y-2">
+            <Textarea
+              value={editInput}
+              onChange={(e) => setEditInput(e.target.value)}
+              className="bg-background text-foreground"
+            />
+            <div className="flex justify-end space-x-2">
+              <Button size="sm" onClick={() => handleSaveEdit(Date.now().toString())}>
+                <Check className="h-4 w-4" />
+              </Button>
+              <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                <XMark className="h-4 w-4" />
+              </Button>
             </div>
-          )
-          : (
-            renderMessage(message)
-          )}
+          </div>
+        ) : (
+          renderMessage(message)
+        )}
       </div>
     </div>
   );
@@ -165,9 +148,7 @@ export const ChatHeader = ({
       <span>AI spike pilot</span>
       <div className="flex items-center space-x-2">
         <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
-          {isDarkMode
-            ? <Sun className="h-4 w-4" />
-            : <Moon className="h-4 w-4" />}
+          {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </Button>
         <Button variant="ghost" size="icon" onClick={handleResetChat}>
           <RefreshCw className="h-4 w-4" />
@@ -209,7 +190,7 @@ export const ChatContainer = ({
     };
 
     scrollToBottom();
-    
+
     // Use a timeout to ensure the scroll happens after the DOM has updated
     const timeoutId = setTimeout(scrollToBottom, 100);
 
@@ -255,27 +236,31 @@ export const MessageInput = ({
   setInput: (value: string) => void;
   handleSendMessage: (content: string) => void;
   isStreaming: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLTextAreaElement>;
 }) => {
   return (
     <div className="p-4 bg-background">
-      <div className="flex items-center space-x-2">
-        <Input
-          type="text"
+      <div className="flex flex-col space-y-2">
+        <Textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSendMessage(input);
+            }
+          }}
           placeholder="Type a message..."
-          className="flex-1"
+          className="flex-1 min-h-[100px] resize-none"
           ref={inputRef}
           disabled={isStreaming}
         />
         <Button
           onClick={() => handleSendMessage(input)}
-          size="icon"
           disabled={isStreaming}
-        >
-          <Send className="h-4 w-4" />
+          className="self-end">
+          <Send className="h-4 w-4 mr-2" />
+          Send
         </Button>
       </div>
     </div>
@@ -309,20 +294,19 @@ const chatContentStyles = css`
   border-left: 1px solid var(--input);
   overflow-x: auto;
   overflow-y: hidden;
+  background-color: #f0f0f0;
 `;
 
-export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = (
-  { children, isOpen },
-) => (
+export const ChatWindow: FC<{ isOpen: boolean; children: ReactNode }> = ({
+  children,
+  isOpen,
+}) => (
   <div
     css={chatWindowStyles}
     style={{
-      transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-    }}
-  >
-    <div css={chatContentStyles}>
-      {children}
-    </div>
+      transform: isOpen ? "translateX(0)" : "translateX(100%)",
+    }}>
+    <div css={chatContentStyles}>{children}</div>
   </div>
 );
 
@@ -335,7 +319,7 @@ const ChatInterface = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -361,7 +345,7 @@ const ChatInterface = () => {
 
     const newMessages = [
       ...messages,
-      { id: Date.now(), content: input, role: "user" } as unknown as Message,
+      { id: Date.now().toString(), content: input, role: "user" } as Message,
     ];
     setMessages(newMessages);
     setInput("");
@@ -394,14 +378,12 @@ const ChatInterface = () => {
     setEditInput("");
   };
 
-  const handleSaveEdit = () => {
-    if (editingMessageId !== null) {
-      setMessages(
-        messages.map((msg) => msg.id === editingMessageId ? { ...msg, text: editInput } : msg),
-      );
-      setEditingMessageId(null);
-      setEditInput("");
-    }
+  const handleSaveEdit = (id: string) => {
+    setMessages(
+      messages.map((msg) => (msg.id === id ? { ...msg, content: editInput } : msg)),
+    );
+    setEditingMessageId(null);
+    setEditInput("");
   };
 
   const handleResetChat = () => {
@@ -422,8 +404,7 @@ const ChatInterface = () => {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
-      >
+        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0">
         <Bot className="h-6 w-6" />
       </Button>
 
@@ -457,4 +438,18 @@ const ChatInterface = () => {
   );
 };
 
-export default ChatInterface;
+export default () => (
+  <div
+    css={css`
+      height: 100%;
+      width: 100%;
+      background-color: darkred;
+      font-size: 2rem;
+      :hover {
+        cursor: pointer;
+      }
+    `}>
+    s{" uuu"}
+    <ChatInterface />
+  </div>
+);
