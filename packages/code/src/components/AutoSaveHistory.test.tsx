@@ -1,5 +1,4 @@
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AutoSaveHistory from './AutoSaveHistory';
 import * as monaco from 'monaco-editor';
