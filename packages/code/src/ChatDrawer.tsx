@@ -101,7 +101,7 @@ const renderMessage = (text: string, isUser: boolean) => {
           <pre
             css={styles.smallFont}
             className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
-            <CodeTS code={code} />
+            <CodeTS code={code}  />
           </pre>
           {rest.map((text, i) => (
             <pre css={styles.smallFont} key={`${index}-${i}`}>

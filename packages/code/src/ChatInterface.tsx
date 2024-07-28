@@ -31,7 +31,7 @@ const ChatInterface: React.FC<
   const [editInput, setEditInput] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const broadcastChannel = useRef<BroadcastChannel | null>(null);
 
   useEffect(() => {
