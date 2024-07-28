@@ -29,7 +29,6 @@ interface VersionItemProps {
 
 const VersionItem = React.memo(({ virtualItem, version, selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled }: VersionItemProps) => (
   <div
-    key={virtualItem.key}
     className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
       selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
     }`}
