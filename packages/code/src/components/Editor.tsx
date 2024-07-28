@@ -1,10 +1,12 @@
+// src/components/Editor.tsx
 import { css } from "@emotion/react";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { isMobile } from "../isMobile.mjs";
 import { runner } from "../runner";
 import { prettier } from "../shared";
+import debounce from 'lodash/debounce';
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -27,22 +29,23 @@ export interface EditorRef {
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace, onCodeUpdate }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
-  // const [showVersionHistory, setShowVersionHistory] = useState(false);
-  // const [versions, setVersions] = useState<Version[]>([]);
-
-  useImperativeHandle(ref, () => ({
-    setValue: (code: string) => {
-      editorState.setValue(code);
-      handleContentChange(code);
-    },
-  }));
-
   const [editorState, setEditorState] = useState({
     i: globalThis.cSess.session.i,
     code: globalThis.cSess.session.code,
     started: false,
     setValue: (_code: string) => {},
   });
+
+  const [localCode, setLocalCode] = useState(globalThis.cSess.session.code);
+  const isUpdatingRef = useRef(false);
+
+  useImperativeHandle(ref, () => ({
+    setValue: (code: string) => {
+      editorState.setValue(code);
+      setLocalCode(code);
+      handleContentChange(code);
+    },
+  }));
 
   useEffect(() => {
     if (editorState.started) return;
@@ -63,68 +66,71 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         code: mod.code,
         setValue: editorModule.setValue,
       });
-
-      
     };
 
     initializeEditor();
   }, [editorState.started, ref, codeSpace]);
 
-  const handleContentChange = (() => {
-    let timeoutId: NodeJS.Timeout | null = null;
-    return async (_code: string) => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      timeoutId = setTimeout(async () => {
-        const formattedCode = await prettier(_code);
-        if (mod.code === formattedCode) return;
+  const debouncedRunner = useCallback(
+    debounce((code: string, i: number) => {
+      runner({ code, counter: i, codeSpace, signal: mod.controller.signal });
+      onCodeUpdate(code);
+    }, 300),
+    [codeSpace, onCodeUpdate]
+  );
 
-        mod.i += 1;
-        mod.code = formattedCode;
+  const handleContentChange = useCallback(async (newCode: string) => {
+    if (isUpdatingRef.current) return;
 
-        // const newVersion = { timestamp: Date.now(), code: formattedCode };
-        // const updatedVersions = addVersion(codeSpace, newVersion, versions);
-        // setVersions(updatedVersions);
+    const formattedCode = await prettier(newCode);
+    if (mod.code === formattedCode) return;
 
-        mod.controller.abort();
-        mod.controller = new AbortController();
-        const { signal } = mod.controller;
+    mod.i += 1;
+    mod.code = formattedCode;
+    setLocalCode(formattedCode);
 
-        runner({ code: mod.code, counter: mod.i, codeSpace, signal });
-        onCodeUpdate(formattedCode);
-      }, 300); // 300ms throttle
+    mod.controller.abort();
+    mod.controller = new AbortController();
+
+    debouncedRunner(formattedCode, mod.i);
+  }, [debouncedRunner]);
+
+  useEffect(() => {
+    const handleBroadcastMessage = ({ data }: MessageEvent) => {
+      if (!data.i || !data.code || data.code === mod.code || mod.i >= data.i) return;
+
+      isUpdatingRef.current = true;
+      mod.i = Number(data.i);
+      mod.code = data.code;
+
+      setEditorState((prevState) => ({ ...prevState, ...mod }));
+      editorState.setValue(mod.code);
+      setLocalCode(mod.code);
+
+      const { signal } = mod.controller;
+      runner({ ...mod, counter: mod.i, codeSpace, signal });
+
+      setTimeout(() => {
+        isUpdatingRef.current = false;
+      }, 0);
     };
-  })();
 
-  BC.onmessage = ({ data }) => {
-    console.table(data);
-    if (!data.i || !data.code || data.code === mod.code) return;
-    if (mod.i >= data.i) return;
+    BC.addEventListener('message', handleBroadcastMessage);
 
-    mod.i = Number(data.i);
-    mod.code = data.code;
-
-    setEditorState({ ...editorState, ...mod });
-    editorState.setValue(mod.code);
-
-    const { signal } = mod.controller;
-    runner({ ...mod, counter: mod.i, codeSpace, signal });
-  };
-
+    return () => {
+      BC.removeEventListener('message', handleBroadcastMessage);
+    };
+  }, [codeSpace]);
 
   const EditorNode = (
-    <>
-      <div
-        data-test-id="editor"
-        ref={containerRef}
-        css={css`
-        ${
-          engine === "ace" ? "" : `
+    <div
+      data-test-id="editor"
+      ref={containerRef}
+      css={css`
+        ${engine === "ace" ? "" : `
           border-right: 4px dashed gray;
           border-bottom: 4px dashed gray;
-        `
-        }
+        `}
         width: 100%;
         height: 100%;
         display: block;
@@ -134,8 +140,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         left: 0;
         right: 0;
       `}
-      />
-    </>
+    />
   );
 
   if (engine === "ace") return EditorNode;
@@ -169,10 +174,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     codeSpace: string,
     code: string,
   ) {
-    // const style = document.createElement("style");
-    // style.innerHTML = `@import url("${location.origin}/node_modules/monaco-editor/min/vs/editor/editor.main.css");`;
-    // document.head.appendChild(style);
-
     const { startMonaco } = await import("../startMonaco");
     return await startMonaco({
       container,
