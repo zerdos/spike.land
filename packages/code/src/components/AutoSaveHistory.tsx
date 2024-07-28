@@ -200,6 +200,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, [selectedVersion, codeSpace, onRestore, onClose]);
 
+  const isModuleTranspiled = useCallback((index: number) => transpiledModules.has(index), [transpiledModules]);
+
   const VersionItem = useCallback(({ virtualItem, version }: { virtualItem: any, version: Version }) => (
     <div
       key={virtualItem.key}
@@ -218,14 +220,14 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       <div
         className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
       >
-        {transpiledModules.has(virtualItem.index) ? (
+        {isModuleTranspiled(virtualItem.index) ? (
           <div id={`module-container-${virtualItem.index}`} className="w-full h-full"></div>
         ) : (
           <div className="text-sm text-muted-foreground">Loading...</div>
         )}
       </div>
     </div>
-  ), [selectedVersion, handleSetSelectedVersion, formatDate]);
+  ), [selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled]);
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
