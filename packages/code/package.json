@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "test": "yarn node --experimental-vm-modules $(yarn bin jest) -u",
+    "codebase": "ai-digest -i $(pwd) --show-output-files",
     "types": "tsc --emitDeclarationOnly || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist dts src/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
