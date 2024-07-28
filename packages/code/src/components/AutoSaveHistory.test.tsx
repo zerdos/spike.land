@@ -7,6 +7,8 @@ import * as monaco from 'monaco-editor';
 
 /// <reference types="@testing-library/jest-dom" />
 
+/// <reference types="@testing-library/jest-dom" />
+
 // Mock the monaco editor
 jest.mock('monaco-editor', () => ({
   editor: {
@@ -50,13 +52,12 @@ describe('AutoSaveHistory', () => {
 
   it('renders loading state initially', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    expect(await screen.findByText('Loading versions...')).toBeInTheDocument();
+    await screen.findByText('Loading versions...');
   });
 
   it('fetches and displays versions', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
     await screen.findByText('Jul 1, 2021, 12:00 AM');
-    expect(screen.getByText('Jul 1, 2021, 12:00 AM')).toBeInTheDocument();
     expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeInTheDocument();
   });
 
@@ -75,7 +76,9 @@ describe('AutoSaveHistory', () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
     const closeButton = await screen.findByText('Close');
     fireEvent.click(closeButton);
-    expect(mockOnClose).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockOnClose).toHaveBeenCalled();
+    });
   });
 
   it('updates diff editor when a version is selected', async () => {
