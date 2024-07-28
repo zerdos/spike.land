@@ -2,9 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import * as monaco from "monaco-editor";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { transpile } from "../shared";
 import { createRoot } from "react-dom/client";
+import { useVirtualizer } from '@tanstack/react-virtual';
 
 interface Version {
   timestamp: number;
@@ -22,6 +23,14 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
   const [diffEditor, setDiffEditor] = useState<monaco.editor.IStandaloneDiffEditor | null>(null);
   const [transpiledModules, setTranspiledModules] = useState<string[]>([]);
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const rowVirtualizer = useVirtualizer({
+    count: versions.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 150,
+    overscan: 5,
+  });
 
   useEffect(() => {
     fetchVersions();
@@ -40,18 +49,28 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, [selectedVersion, versions]);
 
-  useEffect(() => {
-    transpiledModules.forEach((moduleUrl, index) => {
-      import(moduleUrl).then((module) => {
-        const root = createRoot(document.getElementById(`module-container-${index}`));
+  const renderModule = useCallback((moduleUrl: string, index: number) => {
+    import(moduleUrl).then((module) => {
+      const container = document.getElementById(`module-container-${index}`);
+      if (container) {
+        const root = createRoot(container);
         root.render(React.createElement(module.default));
-      });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    rowVirtualizer.getVirtualItems().forEach((virtualItem) => {
+      const moduleUrl = transpiledModules[virtualItem.index];
+      if (moduleUrl) {
+        renderModule(moduleUrl, virtualItem.index);
+      }
     });
 
     return () => {
       transpiledModules.forEach((moduleUrl) => URL.revokeObjectURL(moduleUrl));
     };
-  }, [transpiledModules]);
+  }, [transpiledModules, rowVirtualizer.getVirtualItems()]);
 
   const getPreviousVersion = (currentVersion: Version): Version | null => {
     const currentIndex = versions.findIndex(v => v.timestamp === currentVersion.timestamp);
@@ -149,30 +168,42 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
         <h2 className="text-2xl font-bold mb-4">Version History</h2>
         <div className="flex-grow flex">
-          <ScrollArea className="w-1/3 pr-4">
-            <div className="space-y-4">
-              {versions.map((version, index) => (
-                <div
-                  key={version.timestamp}
-                  className={`p-2 cursor-pointer rounded-lg transition-colors ${
-                    selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
-                  }`}
-                  onClick={() => setSelectedVersion(version)}
-                >
-                  <p className="text-sm text-muted-foreground mb-2">
-                    {new Date(version.timestamp).toLocaleString()}
-                  </p>
+          <div ref={parentRef} className="w-1/3 pr-4 overflow-auto">
+            <div
+              className="relative"
+              style={{
+                height: `${rowVirtualizer.getTotalSize()}px`,
+              }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualItem) => {
+                const version = versions[virtualItem.index];
+                return (
                   <div
-                    id={`module-container-${index}`}
-                    className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
-                  ></div>
-                </div>
-              ))}
+                    key={version.timestamp}
+                    className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
+                      selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+                    }`}
+                    style={{
+                      height: `${virtualItem.size}px`,
+                      transform: `translateY(${virtualItem.start}px)`,
+                    }}
+                    onClick={() => setSelectedVersion(version)}
+                  >
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {new Date(version.timestamp).toLocaleString()}
+                    </p>
+                    <div
+                      id={`module-container-${virtualItem.index}`}
+                      className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
+                    ></div>
+                  </div>
+                );
+              })}
             </div>
-          </ScrollArea>
+          </div>
           <div className="w-2/3 pl-4 flex flex-col">
             <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-            <div id="diffEditor" className="flex-grow"></div>
+            <div id="diffEditor" style={{ height: 'calc(100% - 2rem)' }}></div>
           </div>
         </div>
         <div className="mt-4 flex justify-end space-x-2">
