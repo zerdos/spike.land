@@ -25,14 +25,18 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [transpiledModules, setTranspiledModules] = useState<string[]>([]);
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const rowVirtualizer = useVirtualizer({
+  const rowVirtualizer = useMemo(() => useVirtualizer({
     count: versions.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 150,
     overscan: 5,
     scrollPaddingStart: 8,
     scrollPaddingEnd: 8,
-  });
+  }), [versions.length]);
+
+  const handleSetSelectedVersion = useCallback((version: Version) => {
+    setSelectedVersion(version);
+  }, []);
 
   useEffect(() => {
     fetchVersions();
@@ -198,7 +202,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                       height: `${virtualItem.size}px`,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
-                    onClick={() => setSelectedVersion(version)}
+                    onClick={() => handleSetSelectedVersion(version)}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
