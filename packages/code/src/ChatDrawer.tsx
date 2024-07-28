@@ -204,6 +204,12 @@ export const ChatContainer = ({
   isStreaming: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement>;
 }) => {
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isStreaming]);
+
   return (
     <ScrollArea className="flex-1 p-4">
       {messages.map((message) => (
