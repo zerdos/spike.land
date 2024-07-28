@@ -238,33 +238,6 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
 
   const isModuleTranspiled = useCallback((index: number) => transpiledModules.has(index), [transpiledModules]);
 
-  const VersionItem = useCallback(({ virtualItem, version }: { virtualItem: any, version: Version }) => (
-    <div
-      key={virtualItem.key}
-      className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
-        selectedVersion === version ? "bg-accent text-accent-foreground" : "hover:bg-muted"
-      }`}
-      style={{
-        height: `${virtualItem.size}px`,
-        transform: `translateY(${virtualItem.start}px)`,
-      }}
-      onClick={() => handleSetSelectedVersion(version)}
-    >
-      <p className="text-sm text-muted-foreground mb-2">
-        {formatDate(version.timestamp)}
-      </p>
-      <div
-        className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden"
-      >
-        {isModuleTranspiled(virtualItem.index) ? (
-          <div id={`module-container-${virtualItem.index}`} className="w-full h-full"></div>
-        ) : (
-          <div className="text-sm text-muted-foreground">Loading...</div>
-        )}
-      </div>
-    </div>
-  ), [selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled]);
-
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
