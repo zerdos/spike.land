@@ -198,7 +198,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                       height: `${virtualItem.size}px`,
                       transform: `translateY(${virtualItem.start}px)`,
                     }}
-                    onClick={useCallback(() => setSelectedVersion(version), [version])}
+                    onClick={() => setSelectedVersion(version)}
                   >
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(version.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
