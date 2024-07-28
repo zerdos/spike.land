@@ -16,10 +16,7 @@ const smallFontWithMaxWidthStyle = css`
   max-width: 100%;
 `;
 
-const chatWindowStyles = css`
-  z-index: 999;
-  transition: width 0.3s ease-in-out;
-`;
+
 
 export interface Message {
   id: string;
@@ -301,6 +298,7 @@ const chatWindowStyles = css`
 
   @media (min-width: 768px) {
     width: 50%;
+    max-width: 600px;
   }
 `;
 

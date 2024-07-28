@@ -3,9 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import * as monaco from "monaco-editor";
 import React, { useEffect, useState } from "react";
-import { css } from "@emotion/react";
-import { transpile } from "/shared.mjs";
-import { createRoot } from "/reactDomClient.mjs";
+import { transpile } from "../shared";
+import { createRoot } from "react-dom/client";
 
 interface Version {
   timestamp: number;
