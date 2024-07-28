@@ -42,10 +42,6 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     scrollPaddingEnd: 8,
   }), [versions.length]);
 
-  const handleSetSelectedVersion = useCallback((version: Version) => {
-    setSelectedVersion(version);
-  }, []);
-
   useEffect(() => {
     fetchVersions();
     initDiffEditor();
@@ -234,7 +230,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
           <Button variant="outline" onClick={onClose}>Close</Button>
           <Button onClick={handleRestore} disabled={!selectedVersion}>
             {selectedVersion
-              ? `Restore Version from ${new Date(selectedVersion.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`
+              ? `Restore Version from ${formatDate(selectedVersion.timestamp)}`
               : 'Restore Selected Version'}
           </Button>
         </div>
