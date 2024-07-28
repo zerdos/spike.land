@@ -10,5 +10,6 @@ src/@
 styles
 tw.html
 tw.js
+*.css
 *.d.ts
 assets

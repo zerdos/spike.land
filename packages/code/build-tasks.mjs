@@ -1,7 +1,6 @@
 // build-tasks.mjs
 import { getCommonBuildOptions } from "./build-config.mjs";
 import { build } from "./buildOperations.mjs";
-import { getWasmFile } from "./helpers.mjs";
 
 export async function buildWorkers() {
   const workerEntryPoints = [

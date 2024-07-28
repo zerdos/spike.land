@@ -1,4 +1,4 @@
-import { buildOptions, environment, isDevelopment, outdir, target } from "./config.mjs";
+import { buildOptions } from "./build-config.mjs";
 import { esbuild } from "./esbuild-depts.mjs";
 import { makeEnv } from "./helpers.mjs";
 
