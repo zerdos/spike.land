@@ -5,6 +5,8 @@ import * as monaco from 'monaco-editor';
 
 /// <reference types="@testing-library/jest-dom" />
 
+/// <reference types="@testing-library/jest-dom" />
+
 // Mock the monaco editor
 jest.mock('monaco-editor', () => ({
   editor: {
@@ -53,18 +55,17 @@ describe('AutoSaveHistory', () => {
 
   it('fetches and displays versions', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    await waitFor(() => {
-      expect(screen.getByText('Jul 1, 2021, 12:00 AM')).toBeInTheDocument();
-      expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeInTheDocument();
-    });
+    await screen.findByText('Jul 1, 2021, 12:00 AM');
+    expect(screen.getByText('Jul 1, 2021, 12:00 AM')).toBeInTheDocument();
+    expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeInTheDocument();
   });
 
   it('calls onRestore when restore button is clicked', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    await screen.findByText('Jul 1, 2021, 12:00 AM');
-    fireEvent.click(screen.getByText('Jul 1, 2021, 12:00 AM'));
-    await screen.findByText('Restore Selected Version');
-    fireEvent.click(screen.getByText('Restore Selected Version'));
+    const versionButton = await screen.findByText('Jul 1, 2021, 12:00 AM');
+    fireEvent.click(versionButton);
+    const restoreButton = await screen.findByText('Restore Selected Version');
+    fireEvent.click(restoreButton);
     await waitFor(() => {
       expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
     });
@@ -72,17 +73,15 @@ describe('AutoSaveHistory', () => {
 
   it('calls onClose when close button is clicked', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    await screen.findByText('Close');
-    fireEvent.click(screen.getByText('Close'));
-    await waitFor(() => {
-      expect(mockOnClose).toHaveBeenCalled();
-    });
+    const closeButton = await screen.findByText('Close');
+    fireEvent.click(closeButton);
+    expect(mockOnClose).toHaveBeenCalled();
   });
 
   it('updates diff editor when a version is selected', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    await screen.findByText('Jul 1, 2021, 12:00 AM');
-    fireEvent.click(screen.getByText('Jul 1, 2021, 12:00 AM'));
+    const versionButton = await screen.findByText('Jul 1, 2021, 12:00 AM');
+    fireEvent.click(versionButton);
     await waitFor(() => {
       expect(monaco.editor.createModel).toHaveBeenCalledTimes(2);
       expect(monaco.editor.createDiffEditor).toHaveBeenCalled();
