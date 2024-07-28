@@ -21,7 +21,7 @@ export const EditorNode: React.FC<
       />
       <motion.div
         className="flex-grow relative"
-        animate={{ marginTop: 0 }}
+        animate={{ marginTop: errorHeight }}
         transition={{ duration: 0.3 }}
       >
         <div

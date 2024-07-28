@@ -75,11 +75,24 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
 
   const debouncedRunner = useCallback(
     debounce(async (code: string, i: number) => {
+      let formattedCode;
+
       try {
-        await runner({ code, counter: i, codeSpace, signal: mod.controller.signal });
+        if (mod.controller.signal.aborted) return;
+        formattedCode = await prettierToThrow({ code, toThrow: true });
+        if (errorType === "prettier") {
+          setErrorType(null);
+        }
+      } catch (error) {
+        setErrorType("prettier");
+        throw error;
+      }
+      try {
+        if (mod.controller.signal.aborted) return;
+        await runner({ code: formattedCode, counter: i, codeSpace, signal: mod.controller.signal });
         console.log("Runner succeeded");
         // Since runner doesn't return anything, we assume it succeeded if it didn't throw an error
-        onCodeUpdate(code);
+        onCodeUpdate(formattedCode);
         if (errorType === "transpile") {
           setErrorType(null);
         }
@@ -113,27 +126,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
   const handleContentChange = useCallback(async (newCode: string) => {
     if (isUpdatingRef.current) return;
 
-    let formattedCode;
-    try {
-      formattedCode = await prettierToThrow({ code: newCode, toThrow: true });
-      if (errorType === "prettier") {
-        setErrorType(null);
-      }
-    } catch (error) {
-      setErrorType("prettier");
-      throw error;
-    }
-
-    if (mod.code === formattedCode) return;
+    if (mod.code === newCode) return;
 
     mod.i += 1;
-    mod.code = formattedCode;
+    mod.code = newCode;
     // setLocalCode(formattedCode);
 
     mod.controller.abort();
     mod.controller = new AbortController();
 
-    debouncedRunner(formattedCode, mod.i);
+    debouncedRunner(newCode, mod.i);
     debouncedTypeCheck();
   }, [debouncedRunner, debouncedTypeCheck]);
 

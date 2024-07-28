@@ -8,7 +8,7 @@ const refreshAta = async (code: string, originToUse: string) => {
     const extraLibs = (await ata({ code, originToUse })).map((
       { filePath, content },
     ) => ({
-      filePath: originToUse + filePath,
+      filePath: originToUse + "/live" + filePath,
       content,
     }));
     console.log({ extraLibs });
@@ -48,7 +48,13 @@ async function fetchAndCreateExtraModels(
   );
   const models = code.matchAll(search);
 
-  for (const match of models) {
+  const search2 = new RegExp(
+    ` from "\./[a-zA-Z0-9\\-_]+`,
+    "gm",
+  );
+  const models2 = code.matchAll(search2);
+
+  for (const match of [...models, ...models2]) {
     const codeSpace = match[0].split("/live/").pop();
     const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
       .toString();
@@ -63,7 +69,7 @@ async function fetchAndCreateExtraModels(
 
 const monacoContribution = async (code: string) => {
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl: originToUse,
+    baseUrl: originToUse + "/live",
     target: monaco.languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
     moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
@@ -99,6 +105,7 @@ const monacoContribution = async (code: string) => {
     typeRoots: ["@types"],
     paths: {
       "tslib": ["/tslib"],
+      "./*": ["/live/*"],
     },
     jsxImportSource: "@emotion/react",
     jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
@@ -165,7 +172,7 @@ async function startMonacoPristine({
 }) {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   const replacedCode = await monacoContribution(code);
-  const uri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}/index.tsx`);
+  const uri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
   const model = monaco.editor.getModel(uri)
     || monaco.editor.createModel(replacedCode, "typescript", uri);
 

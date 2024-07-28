@@ -4,6 +4,7 @@ import {
   buildMainScripts,
   buildServiceWorker,
   buildTranspileScript,
+  buildWasm,
   buildWorkers,
 } from "./build-tasks.mjs";
 import { stop } from "./buildOperations.mjs";
@@ -15,7 +16,9 @@ async function main() {
     await copyFiles();
     await buildWorkers();
     await buildMainScripts();
+    await buildWasm();
     await buildTranspileScript();
+
     await buildServiceWorker();
 
     const wasmFile = await getWasmFile();

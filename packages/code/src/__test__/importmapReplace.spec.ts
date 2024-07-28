@@ -36,6 +36,12 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
+  it("should replace top-leveldd imports with dot in the path", async () => {
+    const code = "import React from \"./box\";";
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
   it("should replace shadcdn ", async () => {
     const code = `
     import { css } from "@emotion/react";

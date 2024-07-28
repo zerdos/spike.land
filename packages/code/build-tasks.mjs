@@ -53,10 +53,20 @@ export async function buildTranspileScript() {
   });
 }
 
+export const buildWasm = async () => {
+  await build({
+    ...getCommonBuildOptions("production"),
+    entryPoints: ["src/esbuildWASM.ts"],
+    format: "esm",
+    outdir: "dist",
+    minify: true,
+  });
+};
+
 export async function buildServiceWorker() {
   await build({
     ...getCommonBuildOptions("production"),
-    entryPoints: ["src/sw.ts", "src/esbuildWASM.ts"],
+    entryPoints: ["src/sw.ts"],
     format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: true,

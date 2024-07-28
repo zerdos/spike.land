@@ -82,7 +82,7 @@ export const transpile = async (
       await mod.initialize(wasmModule);
     } else {
       mod.init = mod.init || initialize({
-        wasmURL: `/${wasmFile}`,
+        wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
         worker: false,
       }).then(() => true);
 

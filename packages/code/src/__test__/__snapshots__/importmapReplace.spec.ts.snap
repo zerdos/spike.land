@@ -15,7 +15,7 @@ exports[`importMapReplace should ignore absolute URLs 1`] = `
 exports[`importMapReplace should ignore relative URLs 1`] = `
 "
   /** importMapReplace */
-  import MyComponent from "./MyComponent";"
+  import MyComponent from "http://localhost:3000/live/MyComponent/index.js";"
 `;
 
 exports[`importMapReplace should replace DYNAMID shadcdn imports 1`] = `
@@ -139,4 +139,10 @@ exports[`importMapReplace should replace top-level imports with dot in the path 
 "
   /** importMapReplace */
   import React from "http://localhost:3000/*react.gl?bundle";"
+`;
+
+exports[`importMapReplace should replace top-leveldd imports with dot in the path 1`] = `
+"
+  /** importMapReplace */
+  import React from "http://localhost:3000/live/box/index.js";"
 `;
