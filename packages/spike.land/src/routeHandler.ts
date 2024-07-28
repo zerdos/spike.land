@@ -259,7 +259,7 @@ export class RouteHandler {
     return new Response("Not found", { status: 404 });
   }
 
-  private async handleJsRoute(): Promise<Response> {
+  private async handleJsRoute(request: Request): Promise<Response> {
     let code = this.code.session.code;
     const timestamp = new URL(request.url).searchParams.get("timestamp");
     
