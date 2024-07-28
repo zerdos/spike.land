@@ -61,6 +61,13 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, [selectedVersion, versions]);
 
+  const queueTranspile = useCallback((index: number) => {
+    if (!transpileQueue.current.includes(index)) {
+      transpileQueue.current.push(index);
+      processTranspileQueue();
+    }
+  }, []);
+
   const renderModule = useMemo(() => (moduleUrl: string, index: number) => {
     const container = document.getElementById(`module-container-${index}`);
     if (container) {
@@ -112,13 +119,6 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       console.error("Error fetching version history:", error);
     }
   };
-
-  const queueTranspile = useCallback((index: number) => {
-    if (!transpileQueue.current.includes(index)) {
-      transpileQueue.current.push(index);
-      processTranspileQueue();
-    }
-  }, []);
 
   const processTranspileQueue = async () => {
     if (isTranspiling.current || transpileQueue.current.length === 0) return;
