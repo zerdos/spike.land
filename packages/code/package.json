@@ -90,6 +90,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@shadcn/ui": "^0.0.4",
     "@tabler/icons-react": "^3.11.0",
+    "@tanstack/react-virtual": "^3.8.3",
     "@types/isomorphic-fetch": "0.0.39",
     "@types/jest": "29.5.12",
     "@typescript-eslint/typescript-estree": "7.17.0",
