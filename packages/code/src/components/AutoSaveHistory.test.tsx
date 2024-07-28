@@ -66,7 +66,9 @@ describe('AutoSaveHistory', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText('Restore Selected Version'));
     });
-    expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
+    await waitFor(() => {
+      expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
+    });
   });
 
   it('calls onClose when close button is clicked', async () => {
@@ -74,7 +76,9 @@ describe('AutoSaveHistory', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText('Close'));
     });
-    expect(mockOnClose).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockOnClose).toHaveBeenCalled();
+    });
   });
 
   it('updates diff editor when a version is selected', async () => {
