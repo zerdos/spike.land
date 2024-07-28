@@ -1,10 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import  { useState } from "react";
+
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState("");
 
   const addTodo = () => {
@@ -14,7 +20,7 @@ const TodoList = () => {
     }
   };
 
-  const toggleTodo = (id) => {
+  const toggleTodo = (id: number) => {
     setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
   };
 

@@ -1,5 +1,5 @@
 import { createRoot } from "./reactDomClient";
-// import { AppToRender } from "./AppToRender";
+import { AppToRender } from "./AppToRender";
 // import {EmbeddableEditor} from "./EmbeddableEditor";
 
 const singleton = { started: false };
@@ -7,6 +7,7 @@ const singleton = { started: false };
 export const renderPreviewWindow = async (
   { codeSpace }: { codeSpace: string },
 ) => {
+  addCSSFile('/hydrate.css');
   if (singleton.started) return;
   singleton.started = true;
 
@@ -26,6 +27,14 @@ export const renderPreviewWindow = async (
     return;
   }
 
-  const { AppToRender } = await import("./AppToRender");
+  // const { AppToRender } = await import("./AppToRender");
   root.render(<AppToRender codeSpace={codeSpace} />);
 };
+
+function addCSSFile(filename: string) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = filename;
+  document.head.appendChild(link);
+}

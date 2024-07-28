@@ -1,4 +1,4 @@
-import resetCSS from "../assets/g.css";
+import resetCSS from "../assets/g.html";
 import { build } from "../shared";
 import { wait } from "../wait";
 import TW from "./tw.html";

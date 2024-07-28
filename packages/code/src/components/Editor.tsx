@@ -1,14 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { css } from "@emotion/react";
-import { HistoryIcon } from "lucide-react";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { isMobile } from "../isMobile.mjs";
 import { runner } from "../runner";
 import { prettier } from "../shared";
-import { addVersion, loadVersionHistory, Version } from "../utils/versionHistoryUtils";
-import VersionHistory from "./VersionHistory";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -31,8 +27,8 @@ export interface EditorRef {
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace, onCodeUpdate }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
-  const [showVersionHistory, setShowVersionHistory] = useState(false);
-  const [versions, setVersions] = useState<Version[]>([]);
+  // const [showVersionHistory, setShowVersionHistory] = useState(false);
+  // const [versions, setVersions] = useState<Version[]>([]);
 
   useImperativeHandle(ref, () => ({
     setValue: (code: string) => {
@@ -68,14 +64,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         setValue: editorModule.setValue,
       });
 
-      // Load version history
-      const loadedVersions = await loadVersionHistory(codeSpace);
-      if (loadedVersions.length === 0) {
-        const initialVersion = { timestamp: Date.now(), code: mod.code };
-        setVersions([initialVersion]);
-      } else {
-        setVersions(loadedVersions);
-      }
+      
     };
 
     initializeEditor();
@@ -94,9 +83,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         mod.i += 1;
         mod.code = formattedCode;
 
-        const newVersion = { timestamp: Date.now(), code: formattedCode };
-        const updatedVersions = addVersion(codeSpace, newVersion, versions);
-        setVersions(updatedVersions);
+        // const newVersion = { timestamp: Date.now(), code: formattedCode };
+        // const updatedVersions = addVersion(codeSpace, newVersion, versions);
+        // setVersions(updatedVersions);
 
         mod.controller.abort();
         mod.controller = new AbortController();
@@ -123,11 +112,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     runner({ ...mod, counter: mod.i, codeSpace, signal });
   };
 
-  const handleRestore = (code: string) => {
-    editorState.setValue(code);
-    handleContentChange(code);
-    setShowVersionHistory(false);
-  };
 
   const EditorNode = (
     <>
@@ -151,20 +135,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         right: 0;
       `}
       />
-      <Button
-        onClick={() => setShowVersionHistory(true)}
-        className="absolute top-4 right-4 z-50"
-        size="sm"
-      >
-        <HistoryIcon className="mr-2 h-4 w-4" /> Version History
-      </Button>
-      {showVersionHistory && (
-        <VersionHistory
-          versions={versions}
-          onRestore={handleRestore}
-          onClose={() => setShowVersionHistory(false)}
-        />
-      )}
     </>
   );
 
@@ -199,9 +169,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     codeSpace: string,
     code: string,
   ) {
-    const style = document.createElement("style");
-    style.innerHTML = `@import url("${location.origin}/node_modules/monaco-editor/min/vs/editor/editor.main.css");`;
-    document.head.appendChild(style);
+    // const style = document.createElement("style");
+    // style.innerHTML = `@import url("${location.origin}/node_modules/monaco-editor/min/vs/editor/editor.main.css");`;
+    // document.head.appendChild(style);
 
     const { startMonaco } = await import("../startMonaco");
     return await startMonaco({
