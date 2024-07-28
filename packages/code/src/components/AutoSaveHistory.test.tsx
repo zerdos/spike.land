@@ -1,7 +1,6 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AutoSaveHistory } from './AutoSaveHistory';
+import AutoSaveHistory from './AutoSaveHistory';
 import * as monaco from 'monaco-editor';
 
 // Mock the monaco editor
@@ -47,14 +46,14 @@ describe('AutoSaveHistory', () => {
 
   it('renders loading state initially', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
-    expect(await screen.findByText('Loading versions...')).toBeInTheDocument();
+    expect(await screen.findByText('Loading versions...')).toBeTruthy();
   });
 
   it('fetches and displays versions', async () => {
     render(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
     await waitFor(() => {
-      expect(screen.getByText('Jul 1, 2021, 12:00 AM')).toBeInTheDocument();
-      expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeInTheDocument();
+      expect(screen.getByText('Jul 1, 2021, 12:00 AM')).toBeTruthy();
+      expect(screen.getByText('Jul 2, 2021, 12:00 AM')).toBeTruthy();
     });
   });
 
@@ -92,3 +91,4 @@ describe('AutoSaveHistory', () => {
     });
   });
 });
+/// <reference types="@testing-library/jest-dom" />
