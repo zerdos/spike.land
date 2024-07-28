@@ -221,26 +221,28 @@ export const ChatContainer = ({
 
   return (
     <ScrollArea className="flex-1 p-4">
-      {messages.map((message) => (
-        <ChatMessage
-          key={message.id}
-          message={message.content}
-          isUser={message.role === "user"}
-          isSelected={editingMessageId === message.id}
-          onDoubleClick={() => handleEditMessage(message.id)}
-          onEdit={(newText) => {
-            setEditInput(newText);
-            handleSaveEdit(message.id);
-          }}
-          isEditing={editingMessageId === message.id}
-          editInput={editInput}
-          setEditInput={setEditInput}
-          handleCancelEdit={handleCancelEdit}
-          handleSaveEdit={handleSaveEdit}
-        />
-      ))}
-      {isStreaming && <div className="text-sm text-gray-500">AI is typing...</div>}
-      <div ref={messagesEndRef} />
+      <div className="space-y-4">
+        {messages.map((message) => (
+          <ChatMessage
+            key={message.id}
+            message={message.content}
+            isUser={message.role === "user"}
+            isSelected={editingMessageId === message.id}
+            onDoubleClick={() => handleEditMessage(message.id)}
+            onEdit={(newText) => {
+              setEditInput(newText);
+              handleSaveEdit(message.id);
+            }}
+            isEditing={editingMessageId === message.id}
+            editInput={editInput}
+            setEditInput={setEditInput}
+            handleCancelEdit={handleCancelEdit}
+            handleSaveEdit={handleSaveEdit}
+          />
+        ))}
+        {isStreaming && <div className="text-sm text-gray-500">AI is typing...</div>}
+        <div ref={messagesEndRef} />
+      </div>
     </ScrollArea>
   );
 };
