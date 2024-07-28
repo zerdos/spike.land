@@ -26,7 +26,12 @@ export const init = (swVersion: string, port: MessagePort | null = null) => {
   return rpc;
 };
 
-export const prettier = (code: string) => init(swVersion).rpc("prettierJs", code) as Promise<string>;
+export const prettierToThrow = (
+  { code, toThrow }: { code: string; toThrow: boolean },
+) => init(swVersion).rpc("prettierJs", { code, toThrow }) as Promise<string>;
+
+export const prettier = (code: string) => prettierToThrow({ code, toThrow: false });
+
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
 ) =>
@@ -51,7 +56,7 @@ export const transpile = async (
   { code, originToUse }: { code: string; originToUse: string },
 ) => {
   const transpiled = await transpileID({ code, originToUse });
-
+  if (transpiled === "/** js.spike.land */\n[object Object]") throw new Error("transpile error", { cause: transpiled });
   if (typeof transpiled !== "string") throw new Error("transpile error", { cause: transpiled });
   return transpiled;
 };

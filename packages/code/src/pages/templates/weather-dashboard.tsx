@@ -3,10 +3,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Cloud, CloudRain, Sun, Wind } from "lucide-react";
 import { useState } from "react";
-import type {FC} from "react";
+import type { FC } from "react";
 
-
-const WeatherIcon: FC<{condition: string}> = ({ condition }) => {
+const WeatherIcon: FC<{ condition: string }> = ({ condition }) => {
   switch (condition) {
     case "Sunny":
       return <Sun className="w-12 h-12 text-yellow-400" />;

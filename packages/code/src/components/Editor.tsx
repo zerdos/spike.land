@@ -1,12 +1,13 @@
 // src/components/Editor.tsx
-import { css } from "@emotion/react";
+
+import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { isMobile } from "../isMobile.mjs";
 import { runner } from "../runner";
-import { prettier } from "../shared";
-import debounce from 'lodash/debounce';
+import { prettierToThrow } from "../shared";
+import { EditorNode } from "./ErrorReminder";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
@@ -36,13 +37,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     setValue: (_code: string) => {},
   });
 
-  const [localCode, setLocalCode] = useState(globalThis.cSess.session.code);
+  // const [localCode, setLocalCode] = useState(globalThis.cSess.session.code);
   const isUpdatingRef = useRef(false);
+  const [errorType, setErrorType] = useState<"typescript" | "prettier" | "transpile" | "render" | null>(null);
 
   useImperativeHandle(ref, () => ({
     setValue: (code: string) => {
       editorState.setValue(code);
-      setLocalCode(code);
+      // setLocalCode(code);
       handleContentChange(code);
     },
   }));
@@ -72,28 +74,68 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
   }, [editorState.started, ref, codeSpace]);
 
   const debouncedRunner = useCallback(
-    debounce((code: string, i: number) => {
-      runner({ code, counter: i, codeSpace, signal: mod.controller.signal });
-      onCodeUpdate(code);
+    debounce(async (code: string, i: number) => {
+      try {
+        await runner({ code, counter: i, codeSpace, signal: mod.controller.signal });
+        console.log("Runner succeeded");
+        // Since runner doesn't return anything, we assume it succeeded if it didn't throw an error
+        onCodeUpdate(code);
+        if (errorType === "transpile") {
+          setErrorType(null);
+        }
+      } catch (error) {
+        console.error("Error in runner:", error);
+        setErrorType("transpile");
+      }
     }, 300),
-    [codeSpace, onCodeUpdate]
+    [codeSpace, onCodeUpdate],
+  );
+
+  const debouncedTypeCheck = useCallback(
+    debounce(async () => {
+      if (engine === "monaco") {
+        const monaco = await import("monaco-editor");
+        const model = monaco.editor.getModels()[0];
+        const worker = await monaco.languages.typescript.getTypeScriptWorker();
+        const client = await worker(model.uri);
+        const diagnostics = await client.getSemanticDiagnostics(model.uri.toString());
+
+        if (diagnostics.length > 0) {
+          setErrorType("typescript");
+        } else {
+          setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
+        }
+      }
+    }, 1000),
+    [],
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
     if (isUpdatingRef.current) return;
 
-    const formattedCode = await prettier(newCode);
+    let formattedCode;
+    try {
+      formattedCode = await prettierToThrow({ code: newCode, toThrow: true });
+      if (errorType === "prettier") {
+        setErrorType(null);
+      }
+    } catch (error) {
+      setErrorType("prettier");
+      throw error;
+    }
+
     if (mod.code === formattedCode) return;
 
     mod.i += 1;
     mod.code = formattedCode;
-    setLocalCode(formattedCode);
+    // setLocalCode(formattedCode);
 
     mod.controller.abort();
     mod.controller = new AbortController();
 
     debouncedRunner(formattedCode, mod.i);
-  }, [debouncedRunner]);
+    debouncedTypeCheck();
+  }, [debouncedRunner, debouncedTypeCheck]);
 
   useEffect(() => {
     const handleBroadcastMessage = ({ data }: MessageEvent) => {
@@ -105,7 +147,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
 
       setEditorState((prevState) => ({ ...prevState, ...mod }));
       editorState.setValue(mod.code);
-      setLocalCode(mod.code);
+      // setLocalCode(mod.code);
 
       const { signal } = mod.controller;
       runner({ ...mod, counter: mod.i, codeSpace, signal });
@@ -115,35 +157,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       }, 0);
     };
 
-    BC.addEventListener('message', handleBroadcastMessage);
+    BC.addEventListener("message", handleBroadcastMessage);
 
     return () => {
-      BC.removeEventListener('message', handleBroadcastMessage);
+      BC.removeEventListener("message", handleBroadcastMessage);
     };
   }, [codeSpace]);
 
-  const EditorNode = (
-    <div
-      data-test-id="editor"
-      ref={containerRef}
-      css={css`
-        ${engine === "ace" ? "" : `
-          border-right: 4px dashed gray;
-          border-bottom: 4px dashed gray;
-        `}
-        width: 100%;
-        height: 100%;
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      `}
-    />
-  );
-
-  if (engine === "ace") return EditorNode;
+  if (engine === "ace") return <EditorNode engine="ace" errorType={errorType} containerRef={containerRef} />;
 
   return (
     <Rnd
@@ -160,12 +181,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         right: true,
         left: false,
       }}
-      defaultSize={{
-        width: "800px",
-        height: "100vh",
+      default={{
+        x: 0,
+        y: 0,
+        width: 800,
+        height: window.innerHeight,
       }}
+      style={{ height: "100vh" }}
     >
-      {EditorNode}
+      <EditorNode engine="monaco" errorType={errorType} containerRef={containerRef} />
     </Rnd>
   );
 

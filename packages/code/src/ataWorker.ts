@@ -42,7 +42,7 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "prettierJs",
-    (code: string) => prettierJs(code),
+    ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
   );
 
   rpcProvider.registerRpcHandler(

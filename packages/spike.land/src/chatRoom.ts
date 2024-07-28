@@ -89,7 +89,7 @@ export class Code implements DurableObject {
         this.autoSaveHistory.length === 0 || currentCode !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
       ) {
         // Remove entries younger than 1 minutes
-        this.autoSaveHistory = this.autoSaveHistory.filter(entry => currentTime - entry.timestamp >= 60_00);
+        this.autoSaveHistory = this.autoSaveHistory.filter(entry => currentTime - entry.timestamp >= 60_000);
 
         // Remove entries older than 2 months
         this.autoSaveHistory = this.autoSaveHistory.filter(entry =>

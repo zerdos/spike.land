@@ -9,7 +9,7 @@ import { format } from "prettier/standalone";
 
 // let lastSuccessful: string | null = null;
 
-export const prettierJs = async (code: string) => {
+export const prettierJs = async (code: string, toThrow = false) => {
   // return code;
   // console.log(`prettierJS: ${code}`);
   try {
@@ -41,6 +41,7 @@ export const prettierJs = async (code: string) => {
     });
     // return lastSuccessful = current;
   } catch (error) {
+    if (toThrow) throw error;
     if (code === "Types not found") return "export {}";
     console.error("prettier error"), console.error({ err: error, code });
 

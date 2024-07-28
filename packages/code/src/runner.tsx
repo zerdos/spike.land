@@ -4,18 +4,6 @@ import { build, transpile } from "./shared";
 
 const codeSpace = getCodeSpace();
 
-// Throttle function
-function throttle(func: Function, limit: number) {
-  let inThrottle: boolean;
-  return function(this: any, ...args: any[]) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
-    }
-  }
-}
-
 Object.assign(globalThis, {
   enhancedFetch,
   myATA: async () => {
@@ -54,7 +42,7 @@ const runnerSession = {
 /**
  * Compiles and builds the code and handles the session state.
  */
-export const runner = throttle(async ({
+export const runner = async ({
   code,
   counter,
   signal,
@@ -95,8 +83,9 @@ export const runner = throttle(async ({
     });
   } catch (error) {
     console.error("Error during runner execution:", error);
+    throw error;
   }
-}, 333); // 333ms delay to allow max 3 calls per second
+};
 
 /**
  * Get the code space from the current URL.
