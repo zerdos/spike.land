@@ -223,7 +223,9 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         <div className="mt-4 flex justify-end space-x-2">
           <Button variant="outline" onClick={onClose}>Close</Button>
           <Button onClick={handleRestore} disabled={!selectedVersion}>
-            Restore {selectedVersion ? `Version from ${new Date(selectedVersion.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}` : 'Selected Version'}
+            {selectedVersion
+              ? `Restore Version from ${new Date(selectedVersion.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`
+              : 'Restore Selected Version'}
           </Button>
         </div>
       </div>
