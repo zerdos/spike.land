@@ -15,6 +15,8 @@ export interface Message {
 
 const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
+  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
+  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
 ];
 
 export const ChatMessage = ({
@@ -327,7 +329,7 @@ const ChatInterface = () => {
         {
           id: Date.now().toString(),
           content: aiResponse,
-          role: "user",
+          role: "assistant",
         } as Message,
       ]);
       setIsStreaming(false);
