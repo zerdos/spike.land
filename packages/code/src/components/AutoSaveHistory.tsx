@@ -32,8 +32,6 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     overscan: 5,
     scrollPaddingStart: 8,
     scrollPaddingEnd: 8,
-    estimateSize: () => 150,
-    overscan: 5,
   });
 
   useEffect(() => {
