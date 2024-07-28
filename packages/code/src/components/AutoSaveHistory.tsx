@@ -35,7 +35,12 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     if (diffEditor && selectedVersion) {
       updateDiffEditor();
     }
-  }, [selectedVersion]);
+  }, [selectedVersion, versions]);
+
+  const getPreviousVersion = (currentVersion: Version): Version | null => {
+    const currentIndex = versions.findIndex(v => v.timestamp === currentVersion.timestamp);
+    return currentIndex < versions.length - 1 ? versions[currentIndex + 1] : null;
+  };
 
   const fetchVersions = async () => {
     try {
@@ -63,13 +68,25 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const updateDiffEditor = () => {
     if (!diffEditor || !selectedVersion) return;
 
-    const originalModel = monaco.editor.createModel(versions[0].code, "typescript");
+    const previousVersion = getPreviousVersion(selectedVersion);
+    const originalModel = monaco.editor.createModel(
+      previousVersion ? previousVersion.code : "",
+      "typescript"
+    );
     const modifiedModel = monaco.editor.createModel(selectedVersion.code, "typescript");
 
     diffEditor.setModel({
       original: originalModel,
       modified: modifiedModel,
     });
+
+    // Update the diff editor title
+    const titleElement = document.getElementById("diffEditorTitle");
+    if (titleElement) {
+      titleElement.textContent = previousVersion
+        ? `Changes since ${new Date(previousVersion.timestamp).toLocaleString()}`
+        : "Initial version";
+    }
   };
 
   const handleRestore = async () => {
@@ -113,7 +130,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
           </ScrollArea>
         </div>
         <div className="w-2/3 pl-4">
-          <div id="diffEditor" className="h-[calc(100%-4rem)]"></div>
+          <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
+          <div id="diffEditor" className="h-[calc(100%-6rem)]"></div>
           <div className="mt-4 flex justify-end space-x-2">
             <Button variant="outline" onClick={onClose}>Close</Button>
             <Button onClick={handleRestore} disabled={!selectedVersion}>Restore Selected Version</Button>
