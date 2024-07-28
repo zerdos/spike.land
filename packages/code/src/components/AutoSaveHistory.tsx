@@ -47,7 +47,7 @@ const VersionItem = React.memo(({ virtualItem, version, selectedVersion, handleS
       </p>
       <div className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden">
         {isModuleTranspiled(virtualItem.index) ? (
-          <div id={moduleContainerId} className="w-full h-full"></div>
+          <div id={moduleContainerId} className="w-full h-full" />
         ) : (
           <div className="text-sm text-muted-foreground">Loading...</div>
         )}
@@ -59,6 +59,10 @@ const VersionItem = React.memo(({ virtualItem, version, selectedVersion, handleS
 const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore, onClose }) => {
   const formatDate = useCallback((timestamp: number) => {
     return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+  }, []);
+
+  const handleSetSelectedVersion = useCallback((version: Version) => {
+    setSelectedVersion(version);
   }, []);
   const [versions, setVersions] = useState<Version[]>([]);
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
