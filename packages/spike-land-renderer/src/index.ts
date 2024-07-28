@@ -1,4 +1,5 @@
-import puppeteer from "@cloudflare/puppeteer";
+import puppeteer, { BrowserWorker } from "@cloudflare/puppeteer";
+
 
 interface Env {
 	MY_WORKER_BROWSER: Fetcher;
@@ -9,12 +10,12 @@ export default {
 	async fetch(request, env): Promise<Response> {
 		const { searchParams } = new URL(request.url);
 		let url = searchParams.get("url");
-		let img: Buffer;
+		let img: ArrayBuffer | null = null;
 		if (url) {
 			url = new URL(url).toString(); // normalize
 			img = await env.BROWSER_KV_SPIKE_LAND.get(url, { type: "arrayBuffer" });
 			if (img === null) {
-				const browser = await puppeteer.launch(env.MY_WORKER_BROWSER);
+				const browser = await puppeteer.launch(env.MY_WORKER_BROWSER as unknown as BrowserWorker);
 				const page = await browser.newPage();
 				await page.goto(url);
 				await wait(1000);
