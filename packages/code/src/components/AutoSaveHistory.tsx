@@ -70,17 +70,14 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
   }, []);
 
-  const rowVirtualizer = useMemo(() => {
-    if (!versions) return null;
-    return useVirtualizer({
-      count: versions.length,
-      getScrollElement: () => parentRef.current,
-      estimateSize: () => 150,
-      overscan: 5,
-      scrollPaddingStart: 8,
-      scrollPaddingEnd: 8,
-    });
-  }, [versions]);
+  const rowVirtualizer = useVirtualizer({
+    count: versions?.length || 0,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 150,
+    overscan: 5,
+    scrollPaddingStart: 8,
+    scrollPaddingEnd: 8,
+  });
 
   useEffect(() => {
     fetchVersions();
@@ -106,7 +103,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, []);
 
-  const renderModule = useMemo(() => (moduleUrl: string, index: number) => {
+  const renderModule = useCallback((moduleUrl: string, index: number) => {
     const container = document.getElementById(`module-container-${index}`);
     if (container) {
       import(moduleUrl).then((module) => {
@@ -119,6 +116,8 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   }, []);
 
   useEffect(() => {
+    if (!rowVirtualizer) return;
+
     const virtualItems = rowVirtualizer.getVirtualItems();
     virtualItems.forEach((virtualItem) => {
       const moduleUrl = transpiledModules.get(virtualItem.index);
@@ -137,7 +136,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
         }
       });
     };
-  }, [transpiledModules, rowVirtualizer.getVirtualItems(), renderModule, queueTranspile]);
+  }, [transpiledModules, rowVirtualizer, renderModule, queueTranspile]);
 
   const getPreviousVersion = (currentVersion: Version): Version | null => {
     const currentIndex = versions.findIndex(v => v.timestamp === currentVersion.timestamp);
