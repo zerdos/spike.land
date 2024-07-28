@@ -7,6 +7,20 @@ import React, { useEffect, useRef, useState } from "react";
 import type { FC, ReactNode } from "react";
 import { CodeTS } from "./CodeBlock";
 
+const smallFontStyle = css`
+  font-size: 8pt !important;
+`;
+
+const smallFontWithMaxWidthStyle = css`
+  font-size: 8pt !important;
+  max-width: 100%;
+`;
+
+const chatWindowStyles = css`
+  z-index: 999;
+  transition: width 0.3s ease-in-out;
+`;
+
 export interface Message {
   id: string;
   role: "user" | "assistant";
@@ -61,9 +75,7 @@ export const ChatMessage = ({
         if (index === 0) {
           return (
             <pre
-              css={`
-            font-size: 8pt !important;
-          `}
+              css={smallFontStyle}
               key={index}
             >{part}</pre>
           );
@@ -72,9 +84,7 @@ export const ChatMessage = ({
         return (
           <>
             <pre
-              css={`
-                font-size: 8pt !important;
-              `}
+              css={smallFontStyle}
               key={index}
               className="bg-gray-100 p-2 rounded my-2 overflow-x-auto"
             >
@@ -83,10 +93,8 @@ export const ChatMessage = ({
             <br />
 
             {nextParts.length === 2 && (
-              <pre
-                css={`
-            font-size: 8pt !important;
-          `}
+              <pre  
+                css={smallFontStyle}
                 key={index}
               >{nextParts[1]}</pre>
             )}
@@ -96,10 +104,7 @@ export const ChatMessage = ({
     }
     return (
       <pre
-        css={`
-      font-size: 8pt !important;
-      max-width: 100%;
-    `}
+        css={smallFontWithMaxWidthStyle}
       >{cleanedText}</pre>
     );
   };
