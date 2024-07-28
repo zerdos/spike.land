@@ -82,7 +82,7 @@ export const ChatMessage = ({
             </pre>
             <br />
 
-            {nextParts.length == 2 && (
+            {nextParts.length === 2 && (
               <pre
                 css={`
             font-size: 8pt !important;
