@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { motion } from "framer-motion";
 import { CodeTS } from "../CodeBlock";
 import { styles } from "./styles";
@@ -65,34 +65,28 @@ export const renderMessage = (text: string, isUser: boolean) => {
       }
       const [code, ...rest] = part.split("```**");
       return (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <CodeTS code={code} />
 
           {rest.join().trim().split("\n").map((line, j) => (
-            <>
+            <Fragment key={j}>
               <br />
-              <span
-                key={j}
-                css={styles.smallFontWithMaxWidth}
-              >
+              <span css={styles.smallFontWithMaxWidth}>
                 {line}
               </span>
-            </>
+            </Fragment>
           ))}
-        </React.Fragment>
+        </Fragment>
       );
     });
   }
   return cleanedText.split("\n").map((line, j) => (
-    <>
+    <Fragment key={j}>
       <br />
-      <span
-        key={j}
-        css={styles.smallFontWithMaxWidth}
-      >
+      <span css={styles.smallFontWithMaxWidth}>
         {line}
       </span>
-    </>
+    </Fragment>
   ));
 };
 
