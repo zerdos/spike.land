@@ -3,7 +3,7 @@
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-  <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+  <link rel="manifest" href="/manifest.json" type="application/manifest+json">
   <meta name="sharedArrayBuffer" content="using cross-origin-isolation in the web browser">
   <base href="/">
   <link rel="shortcut icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
@@ -17,7 +17,7 @@
 <body>
   <div id="root"></div>
   <script src="/swVersion.js"></script>
-  <script src="/assets/tw.js"></script>
+  <script defer src="/assets/tw.js"></script>
   <script type="module">
     import("/hydrate.mjs?" + swVersion);
     const paths = location.pathname.split("/").slice(1);

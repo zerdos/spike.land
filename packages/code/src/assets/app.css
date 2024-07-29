@@ -1,41 +1,119 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: Arial, sans-serif; /* You can customize this */
+/* Apply a border-box model to all elements */
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
-/* Make sure the root element covers the entire viewport */
-#root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+/* Reset margin and padding on body */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure the root div takes up full height */
+html, body, #root {
   height: 100%;
 }
 
-/* Additional custom styles can go here */
+/* Set a default font size and line height */
+html {
+  font-size: 16px;
+  line-height: 1.5;
+}
 
-    @media screen and (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        ;
-        color: hsl(210, 10%, 62%);
-        --text-color-normal: hsl(210, 10%, 62%);
-        --text-color-light: hsl(210, 15%, 35%);
-        --text-color-richer: hsl(210, 50%, 72%);
-        --text-color-highlight: hsl(25, 70%, 45%);
-      }
-    }
+/* Improve text rendering */
+body {
+  text-rendering: optimizeLegibility;
+}
 
+/* Make images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
 
-    @media screen and (prefers-color-scheme: light) {
-      body {
-        background-color: white;
-        color: black;
-        --text-color-normal: #0a244d;
-        --text-color-light: #8cabd9;
-      }
-    }
+/* Optional: Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Theme variables */
+:root {
+  /* Light theme (default) */
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --border-color: #dddddd;
+
+  /* Dark theme */
+  --dark-bg-color: #1a1a1a;
+  --dark-text-color: #f0f0f0;
+  --dark-primary-color: #4da3ff;
+  --dark-secondary-color: #a1a1a1;
+  --dark-border-color: #444444;
+}
+
+/* Dark theme class */
+.dark-theme {
+  --bg-color: var(--dark-bg-color);
+  --text-color: var(--dark-text-color);
+  --primary-color: var(--dark-primary-color);
+  --secondary-color: var(--dark-secondary-color);
+  --border-color: var(--dark-border-color);
+}
+
+/* Apply theme to body */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Apply some basic styles to the root div */
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Example usage of theme colors */
+a {
+  color: var(--primary-color);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Media query for preferred color scheme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: var(--dark-bg-color);
+    --text-color: var(--dark-text-color);
+    --primary-color: var(--dark-primary-color);
+    --secondary-color: var(--dark-secondary-color);
+    --border-color: var(--dark-border-color);
+  }
+}
+
+button, .clickable {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px;
+  touch-action: manipulation;
+}
+
+input, select, textarea {
+  font-size: 16px; /* Prevents iOS from zooming in on focus */
+}
+
+/* Add space between clickable elements */
+.clickable + .clickable {
+  margin-left: 10px;
+}
