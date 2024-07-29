@@ -16,11 +16,11 @@ const getCodeSpace = (): string => {
 const codeSpace = getCodeSpace();
 
 // Main Component: ChatInterface
-const ChatInterface: React.FC<
-  { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }
-> = (
-  { onCodeUpdate, onClose, isOpen },
-): React.ReactElement => {
+const ChatInterface: React.FC<{
+  onCodeUpdate: (code: string) => void;
+  isOpen: boolean;
+  onClose: () => void;
+}> = ({ onCodeUpdate, onClose, isOpen }): React.ReactElement => {
   const {
     messages,
     setMessages,
@@ -62,28 +62,28 @@ const ChatInterface: React.FC<
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  return (
-    <ChatFC
-      isOpen={isOpen}
-      onClose={onClose}
-      handleEditMessage={handleEditMessage}
-      handleResetChat={handleResetChat}
-      handleSaveEdit={handleSaveEdit}
-      handleSendMessage={handleSendMessage}
-      isStreaming={isStreaming}
-      messages={messages}
-      messagesEndRef={messagesEndRef}
-      isDarkMode={isDarkMode}
-      toggleDarkMode={toggleDarkMode}
-      editingMessageId={editingMessageId}
-      editInput={editInput}
-      setEditInput={setEditInput}
-      input={input}
-      setInput={setInput}
-      inputRef={inputRef}
-      handleCancelEdit={handleCancelEdit}
-    /> as React.ReactElement
-  );
+  const chatProps = {
+    isOpen,
+    onClose,
+    handleEditMessage,
+    handleResetChat,
+    handleSaveEdit,
+    handleSendMessage,
+    isStreaming,
+    messages,
+    messagesEndRef,
+    isDarkMode,
+    toggleDarkMode,
+    editingMessageId,
+    editInput,
+    setEditInput,
+    input,
+    setInput,
+    inputRef,
+    handleCancelEdit,
+  };
+
+  return <ChatFC {...chatProps} /> as React.ReactElement;
 };
 
 export default ChatInterface;
