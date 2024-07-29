@@ -6,12 +6,36 @@ import { css } from "@emotion/react";
 import { Bot, Check, Moon, RefreshCw, Send, Sun, X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { CodeTS } from "./CodeBlock";
+import { motion } from "framer-motion";
 
 export interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
 }
+
+const TypingIndicator: React.FC = () => (
+  <div className="flex space-x-2 items-center p-2">
+    <span className="text-sm text-gray-500">AI is typing</span>
+    <div className="flex space-x-1">
+      {[0, 1, 2].map((dot) => (
+        <motion.div
+          key={dot}
+          className="w-2 h-2 bg-gray-400 rounded-full"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            delay: dot * 0.2,
+          }}
+        />
+      ))}
+    </div>
+  </div>
+);
 
 // Component: ColorModeToggle
 const ColorModeToggle: React.FC<
@@ -228,28 +252,27 @@ export const ChatContainer: React.FC<{
   }, [messages, isStreaming, messagesEndRef]);
 
   return (
-    <ScrollArea className="flex-1 p-4">
-      <div className="space-y-4">
-        {messages.map((message) => (
-          <ChatMessage
-            key={message.id}
-            message={message}
-            isSelected={editingMessageId === message.id}
-            onDoubleClick={() => handleEditMessage(message.id)}
-            isEditing={editingMessageId === message.id}
-            editInput={editInput}
-            setEditInput={setEditInput}
-            handleCancelEdit={handleCancelEdit}
-            handleSaveEdit={handleSaveEdit}
-          />
-        ))}
-        {isStreaming && <div className="text-sm text-gray-500">AI is typing...</div>}
-        <div ref={messagesEndRef} />
-      </div>
-    </ScrollArea>
+    <ScrollArea className="flex-grow p-4">
+    <div className="space-y-4">
+      {messages.map((message) => (
+        <ChatMessage
+          key={message.id}
+          message={message}
+          isSelected={editingMessageId === message.id}
+          onDoubleClick={() => handleEditMessage(message.id)}
+          isEditing={editingMessageId === message.id}
+          editInput={editInput}
+          setEditInput={setEditInput}
+          handleCancelEdit={handleCancelEdit}
+          handleSaveEdit={handleSaveEdit}
+        />
+      ))}
+      {isStreaming && <TypingIndicator />}
+      <div ref={messagesEndRef} />
+    </div>
+  </ScrollArea>
   );
 };
-
 export const MessageInput: React.FC<{
   input: string;
   setInput: (value: string) => void;
@@ -257,7 +280,7 @@ export const MessageInput: React.FC<{
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
 }> = ({ input, setInput, handleSendMessage, isStreaming, inputRef }) => (
-  <div className="p-4 bg-background">
+  <div className="p-4 bg-background mt-auto">
     <div className="flex flex-col space-y-2">
       <Textarea
         value={input}
@@ -271,9 +294,12 @@ export const MessageInput: React.FC<{
         placeholder="Type a message..."
         className="flex-1 min-h-[100px] resize-none"
         ref={inputRef}
-        disabled={isStreaming}
       />
-      <Button onClick={handleSendMessage} disabled={isStreaming} className="self-end">
+      <Button 
+        onClick={() => handleSendMessage(input)} 
+        disabled={isStreaming || input.trim() === ""} 
+        className="self-end"
+      >
         <Send className="h-4 w-4 mr-2" />
         Send
       </Button>
@@ -286,13 +312,22 @@ export const ChatWindow: React.FC<{ isOpen: boolean; children: React.ReactNode }
   isOpen,
 }) => (
   <div
-    css={styles.chatWindow}
-    style={{
-      transform: isOpen ? "translateX(0)" : "translateX(100%)",
-    }}
-  >
-    <div css={styles.chatContent}>{children}</div>
+  css={[styles.chatWindow, css`
+    display: flex;
+    flex-direction: column;
+  `]}
+  style={{
+    transform: isOpen ? "translateX(0)" : "translateX(100%)",
+  }}
+>
+  <div css={[styles.chatContent, css`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  `]}>
+    {children}
   </div>
+</div>
 );
 
 const ChatInterface: React.FC = () => {
@@ -315,7 +350,7 @@ const ChatInterface: React.FC = () => {
   }, [isOpen]);
 
   const handleSendMessage = useCallback(() => {
-    if (input.trim() === "") return;
+    if (input.trim() === "" || isStreaming) return;
 
     const newMessage: Message = {
       id: Date.now().toString(),
@@ -326,15 +361,15 @@ const ChatInterface: React.FC = () => {
     setInput("");
     setIsStreaming(true);
 
-    setTimeout(() => {
-      const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      setMessages((prev) => [
-        ...prev,
-        { id: Date.now().toString(), content: aiResponse, role: "assistant" },
-      ]);
-      setIsStreaming(false);
-    }, 1000);
-  }, [input]);
+  //   setTimeout(() => {
+  //     const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+  //     setMessages((prev) => [
+  //       ...prev,
+  //       { id: Date.now().toString(), content: aiResponse, role: "assistant" },
+  //     ]);
+  //     setIsStreaming(false);
+  //   }, 1000);
+  // }, [input, isStreaming]);
 
   const handleEditMessage = useCallback(
     (id: string) => {
