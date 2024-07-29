@@ -41,9 +41,6 @@ describe('AutoSaveHistory', () => {
   ) as jest.Mock;
   
   
-  (global as unknown as typeof window).URL = (global as unknown as typeof window).URL || {revokeObjectURL: jest.fn()};
-  const mockOnRestore = jest.fn();
-  const mockOnClose = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();

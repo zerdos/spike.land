@@ -30,47 +30,65 @@ if (paths[1] !== "live") {
 }
 
 function setupServiceWorker() {
-  if (!navigator.serviceWorker) return;
-
-  setTimeout(async () => {
-    try {
-      const sw = new Workbox(`/sw.js`);
-      init(swVersion, null);
-      const port = getPort();
-
-      const activeSW = await sw.getSW();
-      const swPort = new MessageChannel();
-      const messageHandler = ({ data }: MessageEvent) => {
-        swPort.port1.postMessage(
-          data,
-          (hasTransferables(data)
-            ? getTransferables(data)
-            : undefined) as unknown as Transferable[],
-        );
-      };
-
-      port.addEventListener("message", messageHandler);
-      swPort.port1.addEventListener("message", messageHandler);
-
-      activeSW.postMessage(
-        { type: "sharedworker", sharedWorkerPort: swPort.port1 },
-        [swPort.port1],
-      );
-
-      if ("serviceWorker" in navigator) {
-        await sw.register();
-        const registeredSW = await navigator.serviceWorker.register("/sw.js");
-        const workers = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(
-          workers
-            .filter((x) => x !== registeredSW)
-            .map((x) => x.unregister()),
-        );
+  if (navigator.serviceWorker) {
+    setTimeout(() => {
+      try {
+        const sw = new Workbox(`/sw.js`);
+  
+        init(swVersion, null);
+        const port = getPort();
+  
+        // Set up service worker event listeners
+        sw.getSW().then((sw) => {
+          const swPort = new MessageChannel();
+          port.addEventListener(
+            "message",
+            ({ data }) =>
+              swPort.port1.postMessage(
+                data,
+                (hasTransferables(data)
+                  ? getTransferables(data)
+                  : undefined) as unknown as Transferable[],
+              ),
+          );
+          swPort.port1.addEventListener(
+            "message",
+            ({ data }) =>
+              swPort.port1.postMessage(
+                data,
+                (hasTransferables(data)
+                  ? getTransferables(data)
+                  : undefined) as unknown as Transferable[],
+              ),
+          );
+          sw.postMessage(
+            { type: "sharedworker", sharedWorkerPort: swPort.port1 },
+            [
+              swPort.port1,
+            ],
+          );
+        });
+  
+        // Register service worker
+        if ("serviceWorker" in navigator) {
+          sw.register().then(() =>
+            navigator.serviceWorker.register("/sw.js").then((sw) => {
+              navigator.serviceWorker.getRegistrations().then(
+                (workers) =>
+                  Promise.all(
+                    workers.filter(
+                      (x) => x !== sw,
+                    ).map((x) => x.unregister()),
+                  ),
+              );
+            })
+          );
+        }
+      } catch (e) {
+        console.error(e);
       }
-    } catch (e) {
-      console.error("Error setting up service worker:", e);
-    }
-  });
+    });
+  }
 }
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 setupServiceWorker();
