@@ -1,5 +1,3 @@
-// src/components/Editor.tsx
-
 import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
@@ -40,16 +38,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setValue: (_code: string) => {},
   });
 
-  // const [localCode, setLocalCode] = useState(globalThis.cSess.session.code);
   const isUpdatingRef = useRef(false);
   const [errorType, setErrorType] = useState<
     "typescript" | "prettier" | "transpile" | "render" | null
   >(null);
+  const initialLoadRef = useRef(true);
+  const lastTypingTimestampRef = useRef(Date.now());
 
   useImperativeHandle(ref, () => ({
     setValue: (code: string) => {
       editorState.setValue(code);
-      // setLocalCode(code);
       handleContentChange(code);
     },
   }));
@@ -101,7 +99,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           signal: mod.controller.signal,
         });
         console.log("Runner succeeded");
-        // Since runner doesn't return anything, we assume it succeeded if it didn't throw an error
         onCodeUpdate(formattedCode);
         if (errorType === "transpile") {
           setErrorType(null);
@@ -110,8 +107,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         console.error("Error in runner:", error);
         setErrorType("transpile");
       }
+
+      // Update editor with formatted code after 5 seconds of inactivity
+      const currentTime = Date.now();
+      if (currentTime - lastTypingTimestampRef.current >= 5000) {
+        editorState.setValue(formattedCode);
+      }
     }, 300),
-    [codeSpace, onCodeUpdate],
+    [codeSpace, onCodeUpdate, editorState, errorType],
   );
 
   const debouncedTypeCheck = useCallback(
@@ -125,12 +128,13 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           model.uri.toString(),
         );
 
-        if (diagnostics.length > 0) {
+        if (diagnostics.length > 0 && !initialLoadRef.current) {
           setErrorType("typescript");
         } else {
           setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
         }
       }
+      initialLoadRef.current = false;
     }, 1000),
     [],
   );
@@ -142,11 +146,11 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     mod.i += 1;
     mod.code = newCode;
-    // setLocalCode(formattedCode);
 
     mod.controller.abort();
     mod.controller = new AbortController();
 
+    lastTypingTimestampRef.current = Date.now();
     debouncedRunner(newCode, mod.i);
     debouncedTypeCheck();
   }, [debouncedRunner, debouncedTypeCheck]);

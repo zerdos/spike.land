@@ -157,11 +157,11 @@ export async function buildMainBundle(wasmFile) {
     alias: {
       ...buildOptions.alias,
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      "react": "preact/compat",
-      "react-dom/test-utils": "preact/test-utils",
-      "react/jsx-runtime": "preact/jsx-runtime",
-      "react-dom/server": "preact/compat",
-      "react-dom": "preact/compat", // Must be below test-utils
+      // "react": "preact/compat",
+      // "react-dom/test-utils": "preact/test-utils",
+      // "react/jsx-runtime": "preact/jsx-runtime",
+      // "react-dom/server": "preact/compat",
+      // "react-dom": "preact/compat", // Must be below test-utils
     },
     external: [
       ...buildOptions.external,
