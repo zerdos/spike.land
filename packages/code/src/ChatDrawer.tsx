@@ -62,6 +62,7 @@ const styles = {
   `,
   smallFontWithMaxWidth: css`
     font-size: 8pt !important;
+    font-family: monospace;
     max-width: 100%;
   `,
   chatWindow: css`
@@ -125,22 +126,34 @@ const renderMessage = (text: string, isUser: boolean) => {
       const [code, ...rest] = part.split("```**");
       return (
         <React.Fragment key={index}>
-          <pre
-            css={styles.smallFont}
-            className="bg-gray-100 p-2 rounded my-2 overflow-x-auto"
-          >
-            <CodeTS code={code}  />
-          </pre>
-          {rest.map((text, i) => (
-            <pre css={styles.smallFont} key={`${index}-${i}`}>
-              {text}
-            </pre>
+          <CodeTS code={code} />
+
+          {rest.join().trim().split("\n").map((line, j) => (
+            <>
+              <br />
+              <span
+                key={j}
+                css={styles.smallFontWithMaxWidth}
+              >
+                {line}
+              </span>
+            </>
           ))}
         </React.Fragment>
       );
     });
   }
-  return <pre css={styles.smallFontWithMaxWidth}>{cleanedText}</pre>;
+  return cleanedText.split("\n").map((line, j) => (
+    <>
+      <br />
+      <span
+        key={j}
+        css={styles.smallFontWithMaxWidth}
+      >
+        {line}
+      </span>
+    </>
+  ));
 };
 
 // Sub-components

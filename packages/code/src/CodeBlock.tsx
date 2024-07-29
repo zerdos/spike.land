@@ -1,9 +1,10 @@
 import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+import { css } from "@emotion/react";
 import { useTranslation } from "next-i18next";
 
 export const generateRandomString = (length: number, lowercase = false) => {
@@ -72,10 +73,7 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
-    const fileName = window.prompt(
-      t("Enter file name") || "",
-      suggestedFileName,
-    );
+    const fileName = window.prompt(t("Enter file name") || "", suggestedFileName);
 
     if (!fileName) {
       // user pressed cancel on prompt
@@ -95,10 +93,24 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   };
   return (
     <div className="codeblock relative font-sans text-[16px]">
-      <div className="flex items-center justify-between py-1.5 px-4 bg-darkred">
+      <div
+        css={css`
+                background-color: darkred;
+                font-size: 2rem;
+                :hover{
+                  cursor:pointer;
+                }
+              `}
+        className="flex items-center justify-between "
+      >
         <span className="text-xs lowercase text-white">{language}</span>
-
-        <div className="flex items-center">
+        <div
+          css={css`
+                background-color: navy;
+             
+              `}
+          className="flex items-center"
+        >
           <button
             className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-white"
             onClick={copyToClipboard}
@@ -128,4 +140,12 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
 
 export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />;
 
-export default () => <CodeTS code="" />;
+export default () => {
+  const [code, setCode] = useState(``);
+  useEffect(() => {
+    fetch(`https://testing.spike.land/live/CodeBlock/index.tsx`)
+      .then((x) => x.text())
+      .then(setCode);
+  });
+  return <CodeTS code={code} />;
+};

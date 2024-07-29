@@ -47,9 +47,10 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   return (
     <div className="relative">
-      {onlyEdit ? (
-        <iframe
-          css={css`
+      {onlyEdit
+        ? (
+          <iframe
+            css={css`
             display: none;
             height: 0;
             width: 0;
@@ -57,29 +58,30 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             overflow: auto;
             -webkit-overflow-scrolling: touch;
           `}
-          src={`/live/${codeSpace}/`}
-        />
-      ) : (
-        <DraggableWindow
-          isChatOpen={isOpen}
-          onCodeUpdate={handleCodeUpdate}
-          codeSpace={codeSpace}
-          handleAIModify={handleAIModify}
-          showChat={showChat}
-          setShowChat={setShowChat}
-        >
-          <iframe
-            css={css`
+            src={`/live/${codeSpace}/`}
+          />
+        )
+        : (
+          <DraggableWindow
+            isChatOpen={isOpen}
+            onCodeUpdate={handleCodeUpdate}
+            codeSpace={codeSpace}
+            handleAIModify={handleAIModify}
+            showChat={showChat}
+            setShowChat={setShowChat}
+          >
+            <iframe
+              css={css`
               height: 100%;
               width: 100%;
               border: 0;
               overflow: auto;
               -webkit-overflow-scrolling: touch;
             `}
-            src={`/live/${codeSpace}/`}
-          />
-        </DraggableWindow>
-      )}
+              src={`/live/${codeSpace}/`}
+            />
+          </DraggableWindow>
+        )}
 
       {!hideRest && (
         <RainbowWrapper>

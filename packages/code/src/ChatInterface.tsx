@@ -281,7 +281,7 @@ const ChatInterface: React.FC<
     });
   };
 
- return (
+  return (
     <ChatWindow isOpen={isOpen}>
       <ChatHeader
         isDarkMode={isDarkMode}
