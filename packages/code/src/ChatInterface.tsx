@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ChatFC, Message, ChatFCProps } from "./ChatDrawer";
+import { ChatFC, Message } from "./ChatDrawer";
 import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
 import { extractArtifacts } from "./utils/extractArtifacts";
