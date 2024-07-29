@@ -103,145 +103,91 @@ const ChatInterface: React.FC<
     fetch(`/live/${codeSpace}/auto-save`);
     setCodeFound(false);
 
+    let claudeContent = content;
     if (isFirstMessage || codeNow !== codeWhatAiSeen) {
-      content = antropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
-        /{{FILE_CONTENT}}/g, codeNow,
-        
-      ).replace(/{{USERPROMT}}/g, content);
-      
+      claudeContent = antropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
+        .replace(/{{FILE_CONTENT}}/g, codeNow)
+        .replace(/{{USERPROMT}}/g, content);
       setAICode(codeNow);
-
     } else {
-      content = content + reminder;
+      claudeContent = content + reminder;
     }
 
     const newMessage: Message = {
       id: Date.now().toString(),
       role: "user",
-      content: content.trim(),
+      content: claudeContent.trim(),
     };
 
     setMessages((prev) => [...prev, newMessage]);
     saveMessages([...messages, newMessage]);
     setInput("");
-
     setIsStreaming(true);
 
-    let fullResponse = "";
-    let isResponseComplete = false;
-    const maxRetries = 3;
-    let retryCount = 0;
+    let claudeResponse = "";
+    try {
+      claudeResponse = await sendToAnthropic(claudeContent, messages);
+    } catch (error) {
+      console.error("Error with Claude:", error);
+      claudeResponse = "Sorry, there was an error processing your request with Claude.";
+    }
 
     const assistantMessage: Message = {
       id: (Date.now() + 1).toString(),
       role: "assistant",
-      content: "",
+      content: claudeResponse,
     };
 
     setMessages((prev) => [...prev, assistantMessage]);
+    saveMessages([...messages, newMessage, assistantMessage]);
 
-    while (!isResponseComplete && retryCount < maxRetries) {
-      try {
-
-        const now =[...messages, newMessage, {
-          ...assistantMessage,
-          content: fullResponse,
-        }].map((msg) => ({
-          role: msg.role,
-          content: msg.content,
-        }));
-
-        if (now[now.length - 1].role === "assistant") {
-          now.pop();
-        }
-
-        const response = await fetch("/anthropic", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            messages: now
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
-
-        if (!reader) {
-          throw new Error("Response body is not readable!");
-        }
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            isResponseComplete = true;
-           
-            break;
-          }
-
-          const chunk = decoder.decode(value);
-          fullResponse += chunk;
-          // if (!codeFound && fullResponse.includes("</antArtifact>")) {
-          //   const artifacts = extractArtifacts(fullResponse);
-
-          //   if (artifacts.length > 0) {
-          //     const code = await prettier(artifacts[0].content);
-          //     onCodeUpdate(code);
-          //     setAICode(code);
-          //     setCodeFound(true);
-          //   }
-          // }
-
-          setMessages((prevMessages) => {
-            const updatedMessages = [...prevMessages];
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
-            lastMessage.content = fullResponse;
-            return updatedMessages;
-          });
-        }
-        
-      } catch (error) {
-        console.error("Error:", error);
-        retryCount++;
-        if (retryCount >= maxRetries) {
-          const errorMessage = "Sorry, there was an error processing your request. The response may be incomplete.";
-          fullResponse += "\n\n" + errorMessage;
-          setMessages((prev) => {
-            const updatedMessages = [...prev];
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
-            lastMessage.content = fullResponse;
-            return updatedMessages;
-          });
-        } else {
-          await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount)); // Exponential backoff
-        }
-      }
-    }
-
-    
     if (!codeFound) {
-      const artifacts = extractArtifacts(fullResponse);
-
+      const artifacts = extractArtifacts(claudeResponse);
       if (artifacts.length > 0) {
         onCodeUpdate(artifacts[0].content);
         setAICode(await prettier(artifacts[0].content));
       }
     }
-    // Check if the response contains code modifications
-    
 
-    saveMessages([...messages, newMessage, {
-      ...assistantMessage,
-      content: fullResponse,
-    }]);
     setIsStreaming(false);
-    await continueWithOpenAI(fullResponse, codeNow);
+    await continueWithOpenAI(claudeResponse, codeNow);
+  };
 
+  const sendToAnthropic = async (content: string, prevMessages: Message[]): Promise<string> => {
+    const response = await fetch("/anthropic", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [...prevMessages, { role: "user", content }]
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
+    let fullResponse = "";
+
+    if (!reader) {
+      throw new Error("Response body is not readable!");
+    }
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value);
+      fullResponse += chunk;
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        const lastMessage = updatedMessages[updatedMessages.length - 1];
+        lastMessage.content = fullResponse;
+        return updatedMessages;
+      });
+    }
+
+    return fullResponse;
   };
 
  async function continueWithOpenAI(fullResponse: string, codeNow:string) {
