@@ -1,10 +1,10 @@
 // chatDrawer.tsx
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { css } from "@emotion/react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
+import { css } from "@emotion/react";
 import { Bot, Check, Moon, RefreshCw, Send, Sun, X } from "lucide-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { CodeTS } from "./CodeBlock";
 
 export interface Message {
@@ -12,7 +12,6 @@ export interface Message {
   role: "user" | "assistant";
   content: string;
 }
-
 
 // Component: ColorModeToggle
 const ColorModeToggle: React.FC<
@@ -71,7 +70,6 @@ const styles = {
   `,
 };
 
-
 // Mock responses (moved outside of component to avoid re-creation on each render)
 const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
@@ -100,7 +98,8 @@ const renderMessage = (text: string, isUser: boolean) => {
         <React.Fragment key={index}>
           <pre
             css={styles.smallFont}
-            className="bg-gray-100 p-2 rounded my-2 overflow-x-auto">
+            className="bg-gray-100 p-2 rounded my-2 overflow-x-auto"
+          >
             <CodeTS code={code}  />
           </pre>
           {rest.map((text, i) => (
@@ -139,34 +138,38 @@ const ChatMessage: React.FC<{
   return (
     <div
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
-      onDoubleClick={onDoubleClick}>
+      onDoubleClick={onDoubleClick}
+    >
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
             ? "bg-primary text-primary-foreground"
             : isSelected
-              ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
-              : "bg-secondary text-secondary-foreground"
-        }`}>
-        {isEditing ? (
-          <div className="flex flex-col space-y-2">
-            <Textarea
-              value={editInput}
-              onChange={(e) => setEditInput(e.target.value)}
-              className="bg-background text-foreground"
-            />
-            <div className="flex justify-end space-x-2">
-              <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
-                <Check className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="outline" onClick={handleCancelEdit}>
-                <X className="h-4 w-4" />
-              </Button>
+            ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
+            : "bg-secondary text-secondary-foreground"
+        }`}
+      >
+        {isEditing
+          ? (
+            <div className="flex flex-col space-y-2">
+              <Textarea
+                value={editInput}
+                onChange={(e) => setEditInput(e.target.value)}
+                className="bg-background text-foreground"
+              />
+              <div className="flex justify-end space-x-2">
+                <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
+                  <Check className="h-4 w-4" />
+                </Button>
+                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-          </div>
-        ) : (
-          renderMessage(message.content, isUser)
-        )}
+          )
+          : (
+            renderMessage(message.content, isUser)
+          )}
       </div>
     </div>
   );
@@ -247,7 +250,6 @@ export const ChatContainer: React.FC<{
   );
 };
 
-
 export const MessageInput: React.FC<{
   input: string;
   setInput: (value: string) => void;
@@ -287,7 +289,8 @@ export const ChatWindow: React.FC<{ isOpen: boolean; children: React.ReactNode }
     css={styles.chatWindow}
     style={{
       transform: isOpen ? "translateX(0)" : "translateX(100%)",
-    }}>
+    }}
+  >
     <div css={styles.chatContent}>{children}</div>
   </div>
 );
@@ -351,9 +354,7 @@ const ChatInterface: React.FC = () => {
 
   const handleSaveEdit = useCallback(
     (id: string) => {
-      setMessages((prev) =>
-        prev.map((msg) => (msg.id === id ? { ...msg, content: editInput } : msg)),
-      );
+      setMessages((prev) => prev.map((msg) => (msg.id === id ? { ...msg, content: editInput } : msg)));
       setEditingMessageId(null);
       setEditInput("");
     },
@@ -377,7 +378,8 @@ const ChatInterface: React.FC = () => {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0">
+        className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
+      >
         <Bot className="h-6 w-6" />
       </Button>
 

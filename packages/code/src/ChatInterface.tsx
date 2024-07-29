@@ -13,8 +13,6 @@ const getCodeSpace = (): string => {
 
 const codeSpace = getCodeSpace();
 
-
-
 // Main Component: ChatInterface
 const ChatInterface: React.FC<
   { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }

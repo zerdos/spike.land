@@ -61,4 +61,4 @@ export const gentleReminder = `
 Reminder from the system:
 Please remember to use artifacts for managing code files. Always create or update artifacts when working with code.
 Always print out the entire code content within the artifact, not just the changes. Its important because the system uses artifacts to manage code files.
-`
+`;

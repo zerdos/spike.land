@@ -242,7 +242,7 @@ export class RouteHandler {
     if (path[3] === "index.tsx" && path[4]) {
       const timestamp = parseInt(path[4]);
       const savedVersion = await this.code.getState().storage.get(`savedVersion_${timestamp}`);
-      
+
       if (savedVersion) {
         return new Response(savedVersion as string, {
           status: 200,
@@ -255,27 +255,27 @@ export class RouteHandler {
         });
       }
     }
-    
+
     return new Response("Not found", { status: 404 });
   }
 
   private async handleJsRoute(request: Request): Promise<Response> {
     let code = this.code.session.code;
     const timestamp = new URL(request.url).searchParams.get("timestamp");
-    
+
     if (timestamp) {
       const savedVersion = await this.code.getState().storage.get(`savedVersion_${timestamp}`);
       if (savedVersion) {
         code = savedVersion as string;
       }
     }
-    
+
     const transpiled = await fetch(`https://js.spike.land`, {
       method: "POST",
       body: code,
       headers: { TR_ORIGIN: this.code.getOrigin() },
     }).then(r => r.text());
-    
+
     const replaced = transpiled.replace(/https:\/\/spike\.land\//g, `${this.code.getOrigin()}/`);
     return new Response(replaced, {
       headers: {

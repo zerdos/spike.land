@@ -1,25 +1,23 @@
 // src/components/AutoSaveHistory.tsx
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import { transpile } from "../shared";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import type * as Monaco from "monaco-editor";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { useVirtualizer } from '@tanstack/react-virtual';
-import type * as Monaco from 'monaco-editor';
-
+import { transpile } from "../shared";
 
 const monaco = (global as unknown as {
   monaco?: typeof Monaco;
 }).monaco || {
   editor: {
-    createDiffEditor: ()=> ({
-      setModel: ()=>{},
-      dispose: ()=>{},
+    createDiffEditor: () => ({
+      setModel: () => {},
+      dispose: () => {},
     }),
-    createModel: ()=>{},
-  }
-}
-
+    createModel: () => {},
+  },
+};
 
 interface Version {
   timestamp: number;
@@ -41,38 +39,41 @@ interface VersionItemProps {
   isModuleTranspiled: (index: number) => boolean;
 }
 
-const VersionItem = React.memo(({ virtualItem, version, selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled }: VersionItemProps) => {
-  const isSelected = selectedVersion === version;
-  const moduleContainerId = `module-container-${virtualItem.index}`;
+const VersionItem = React.memo(
+  (
+    { virtualItem, version, selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled }:
+      VersionItemProps,
+  ) => {
+    const isSelected = selectedVersion === version;
+    const moduleContainerId = `module-container-${virtualItem.index}`;
 
-  return (
-    <div
-      className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
-        isSelected ? "bg-accent text-accent-foreground" : "hover:bg-muted"
-      }`}
-      style={{
-        height: `${virtualItem.size}px`,
-        transform: `translateY(${virtualItem.start}px)`,
-      }}
-      onClick={() => handleSetSelectedVersion(version)}
-    >
-      <p className="text-sm text-muted-foreground mb-2">
-        {formatDate(version.timestamp)}
-      </p>
-      <div className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden">
-        {isModuleTranspiled(virtualItem.index) ? (
-          <div id={moduleContainerId} className="w-full h-full" />
-        ) : (
-          <div className="text-sm text-muted-foreground">Loading...</div>
-        )}
+    return (
+      <div
+        className={`absolute top-0 left-0 w-full p-2 cursor-pointer rounded-lg transition-colors ${
+          isSelected ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+        }`}
+        style={{
+          height: `${virtualItem.size}px`,
+          transform: `translateY(${virtualItem.start}px)`,
+        }}
+        onClick={() => handleSetSelectedVersion(version)}
+      >
+        <p className="text-sm text-muted-foreground mb-2">
+          {formatDate(version.timestamp)}
+        </p>
+        <div className="border border-input rounded-md p-2 h-24 flex items-center justify-center overflow-hidden">
+          {isModuleTranspiled(virtualItem.index)
+            ? <div id={moduleContainerId} className="w-full h-full" />
+            : <div className="text-sm text-muted-foreground">Loading...</div>}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore, onClose }) => {
   const formatDate = useCallback((timestamp: number) => {
-    return new Date(timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+    return new Date(timestamp).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
   }, []);
 
   const handleSetSelectedVersion = useCallback((version: Version) => {
@@ -202,7 +203,6 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
 
   const initDiffEditor = () => {
     if (!diffEditorRef.current) return;
-  
 
     const editor = monaco.editor.createDiffEditor(diffEditorRef.current!, {
       automaticLayout: true,
@@ -218,7 +218,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     const previousVersion = getPreviousVersion(selectedVersion);
     const originalModel = monaco.editor.createModel(
       previousVersion ? previousVersion.code : "",
-      "typescript"
+      "typescript",
     )!;
     const modifiedModel = monaco.editor.createModel(selectedVersion.code, "typescript")!;
 
@@ -263,45 +263,47 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-card text-card-foreground rounded-lg shadow-lg p-6 w-11/12 h-5/6 flex flex-col">
         <h2 className="text-2xl font-bold mb-4">Version History</h2>
-        {versions && rowVirtualizer ? (
-          <div className="flex-grow flex">
-            <ScrollArea className="w-1/3 pr-4">
-              <div
-                ref={parentRef}
-                className="relative"
-                style={{
-                  height: `${rowVirtualizer.getTotalSize()}px`,
-                }}
-              >
-                {rowVirtualizer.getVirtualItems().map((virtualItem) => (
-                  <VersionItem
-                    key={virtualItem.key}
-                    virtualItem={virtualItem}
-                    version={versions[virtualItem.index]}
-                    selectedVersion={selectedVersion}
-                    handleSetSelectedVersion={handleSetSelectedVersion}
-                    formatDate={formatDate}
-                    isModuleTranspiled={isModuleTranspiled}
-                  />
-                ))}
+        {versions && rowVirtualizer
+          ? (
+            <div className="flex-grow flex">
+              <ScrollArea className="w-1/3 pr-4">
+                <div
+                  ref={parentRef}
+                  className="relative"
+                  style={{
+                    height: `${rowVirtualizer.getTotalSize()}px`,
+                  }}
+                >
+                  {rowVirtualizer.getVirtualItems().map((virtualItem) => (
+                    <VersionItem
+                      key={virtualItem.key}
+                      virtualItem={virtualItem}
+                      version={versions[virtualItem.index]}
+                      selectedVersion={selectedVersion}
+                      handleSetSelectedVersion={handleSetSelectedVersion}
+                      formatDate={formatDate}
+                      isModuleTranspiled={isModuleTranspiled}
+                    />
+                  ))}
+                </div>
+              </ScrollArea>
+              <div className="w-2/3 pl-4 flex flex-col">
+                <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
+                <div id="diffEditor" ref={diffEditorRef} style={{ height: "calc(100% - 2rem)" }}></div>
               </div>
-            </ScrollArea>
-            <div className="w-2/3 pl-4 flex flex-col">
-              <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-              <div id="diffEditor" ref={diffEditorRef} style={{ height: 'calc(100% - 2rem)' }}></div>
             </div>
-          </div>
-        ) : (
-          <div className="flex-grow flex items-center justify-center">
-            <p className="text-lg text-muted-foreground">Loading versions...</p>
-          </div>
-        )}
+          )
+          : (
+            <div className="flex-grow flex items-center justify-center">
+              <p className="text-lg text-muted-foreground">Loading versions...</p>
+            </div>
+          )}
         <div className="mt-4 flex justify-end space-x-2">
           <Button variant="outline" onClick={onClose}>Close</Button>
           <Button onClick={handleRestore} disabled={!selectedVersion}>
             {selectedVersion
               ? `Restore Version from ${formatDate(selectedVersion.timestamp)}`
-              : 'Restore Selected Version'}
+              : "Restore Selected Version"}
           </Button>
         </div>
       </div>

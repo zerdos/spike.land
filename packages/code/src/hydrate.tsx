@@ -34,10 +34,10 @@ function setupServiceWorker() {
     setTimeout(() => {
       try {
         const sw = new Workbox(`/sw.js`);
-  
+
         init(swVersion, null);
         const port = getPort();
-  
+
         // Set up service worker event listeners
         sw.getSW().then((sw) => {
           const swPort = new MessageChannel();
@@ -68,7 +68,7 @@ function setupServiceWorker() {
             ],
           );
         });
-  
+
         // Register service worker
         if ("serviceWorker" in navigator) {
           sw.register().then(() =>

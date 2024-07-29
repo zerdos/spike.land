@@ -5,6 +5,7 @@
     "**/*.{ts,tsx,js,jsx,mjs,json.Dockerfile}"
   ],
   "excludes": [
+    ".yarn",
     "**/.yarn",
     "**/.pnp.*",
     "**/dist",

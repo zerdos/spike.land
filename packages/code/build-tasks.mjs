@@ -161,9 +161,7 @@ export async function buildMainBundle(wasmFile) {
       "react-dom/test-utils": "preact/test-utils",
       "react/jsx-runtime": "preact/jsx-runtime",
       "react-dom/server": "preact/compat",
-      "react-dom": "preact/compat",     // Must be below test-utils
-
-
+      "react-dom": "preact/compat", // Must be below test-utils
     },
     external: [
       ...buildOptions.external,
