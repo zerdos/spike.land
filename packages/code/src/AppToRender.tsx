@@ -46,42 +46,40 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   };
 
   return (
-    <>
-      {onlyEdit
-        ? (
+    <div className="relative">
+      {onlyEdit ? (
+        <iframe
+          css={css`
+            display: none;
+            height: 0;
+            width: 0;
+            border: 0;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+          `}
+          src={`/live/${codeSpace}/`}
+        />
+      ) : (
+        <DraggableWindow
+          isChatOpen={isOpen}
+          onCodeUpdate={handleCodeUpdate}
+          codeSpace={codeSpace}
+          handleAIModify={handleAIModify}
+          showChat={showChat}
+          setShowChat={setShowChat}
+        >
           <iframe
             css={css`
-            display: none;
-              height: 0;
-              width: 0;
-              border: 0;
-              overflow: auto;
-              -webkit-overflow-scrolling: touch;
-            `}
-            src={`/live/${codeSpace}/`}
-          />
-        )
-        : (
-          <DraggableWindow
-            isChatOpen={isOpen}
-            onCodeUpdate={handleCodeUpdate}
-            codeSpace={codeSpace}
-            handleAIModify={handleAIModify}
-            showChat={showChat}
-            setShowChat={setShowChat}
-          >
-            <iframe
-              css={css`
               height: 100%;
               width: 100%;
               border: 0;
               overflow: auto;
               -webkit-overflow-scrolling: touch;
             `}
-              src={`/live/${codeSpace}/`}
-            />
-          </DraggableWindow>
-        )}
+            src={`/live/${codeSpace}/`}
+          />
+        </DraggableWindow>
+      )}
 
       {!hideRest && (
         <RainbowWrapper>
@@ -94,7 +92,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           </Suspense>
           <Button
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
+            className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-50"
           >
             <Bot className="h-6 w-6" />
           </Button>
@@ -126,6 +124,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           )}
         </RainbowWrapper>
       )}
-    </>
+    </div>
   );
 };

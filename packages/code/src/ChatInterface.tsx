@@ -281,13 +281,13 @@ const ChatInterface: React.FC<
     });
   };
 
-  return (
+ return (
     <ChatWindow isOpen={isOpen}>
       <ChatHeader
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
         handleResetChat={handleResetChat}
-        onClose={() => onClose()}
+        onClose={onClose}
       />
       <ChatContainer
         messages={messages}
@@ -300,7 +300,6 @@ const ChatInterface: React.FC<
         isStreaming={isStreaming}
         messagesEndRef={messagesEndRef}
       />
-
       <MessageInput
         input={input}
         setInput={setInput}
