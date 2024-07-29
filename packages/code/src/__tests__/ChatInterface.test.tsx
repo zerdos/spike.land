@@ -5,15 +5,17 @@ import ChatInterface from '../ChatInterface';
 
 // Mock the ChatFC component
 jest.mock('../ChatDrawer', () => ({
-  ChatFC: ({ handleSendMessage, input, setInput }) => (
-    <div>
-      <input
-        data-testid="chat-input"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={() => handleSendMessage(input)}>Send</button>
-    </div>
+  ChatFC: ({ handleSendMessage, input, setInput, isOpen }) => (
+    isOpen ? (
+      <div>
+        <textarea
+          data-testid="chat-input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button onClick={() => handleSendMessage(input)}>Send</button>
+      </div>
+    ) : null
   ),
 }));
 
@@ -21,7 +23,7 @@ describe('ChatInterface', () => {
   const mockOnCodeUpdate = jest.fn();
   const mockOnClose = jest.fn();
 
-  it('renders without crashing', () => {
+  it('renders when isOpen is true', () => {
     const { getByTestId } = render(
       <ChatInterface onCodeUpdate={mockOnCodeUpdate} isOpen={true} onClose={mockOnClose} />
     );
@@ -42,7 +44,7 @@ describe('ChatInterface', () => {
     });
   });
 
-  it('closes when isOpen is false', () => {
+  it('does not render when isOpen is false', () => {
     const { queryByTestId } = render(
       <ChatInterface onCodeUpdate={mockOnCodeUpdate} isOpen={false} onClose={mockOnClose} />
     );
