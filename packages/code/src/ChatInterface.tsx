@@ -317,7 +317,7 @@ const ChatInterface: React.FC<
       setInput={setInput}
       inputRef={inputRef}
       handleCancelEdit={handleCancelEdit}
-    />
+    /> as React.ReactElement
   );
 };
 
