@@ -19,6 +19,8 @@ const monaco = (global as unknown as {
   },
 };
 
+const fetch = global.fetch;
+
 interface Version {
   timestamp: number;
   code: string;
@@ -184,7 +186,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = (
         `https://testing.spike.land/live/${codeSpace}/auto-save/history`,
       );
       if (response.ok) {
-        const data = await response.json<Version[]>();
+        const data: Version[] = await response.json();
         setVersions(data);
       } else {
         console.error("Failed to fetch version history");
@@ -206,7 +208,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = (
         code: version.code,
         originToUse: location.origin,
       });
-      const moduleUrl = URL.createObjectURL(
+      const moduleUrl = window.URL.createObjectURL(
         new Blob([transpiled], {
           type: "application/javascript",
         }),

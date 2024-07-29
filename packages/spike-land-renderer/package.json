@@ -7,7 +7,7 @@
     "dev": "wrangler dev",
     "dev:remote": "wrangler dev --remote",
     "start": "wrangler dev",
-    "test": "vitest",
+    "xtest": "vitest",
     "cf-typegen": "wrangler types"
   },
   "devDependencies": {

@@ -1,6 +1,8 @@
+import { last } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { ChatContainer, ChatHeader, ChatWindow, Message, MessageInput } from "./ChatDrawer";
-import { gentleReminder, initialMessage } from "./initialMessage";
+import { set } from "wright/lib/config";
+import { ChatFC, Message } from "./ChatDrawer";
+import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
 import { extractArtifacts } from "./utils/extractArtifacts";
 
@@ -12,6 +14,7 @@ const getCodeSpace = (): string => {
 };
 
 const codeSpace = getCodeSpace();
+const loadMessages = () => JSON.parse(localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]") as Message[];
 
 // Main Component: ChatInterface
 const ChatInterface: React.FC<
@@ -19,7 +22,7 @@ const ChatInterface: React.FC<
 > = (
   { onCodeUpdate, onClose, isOpen },
 ) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, __setMessages] = useState<Message[]>(loadMessages());
   const [codeFound, setCodeFound] = useState(false);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -33,14 +36,13 @@ const ChatInterface: React.FC<
   const broadcastChannel = useRef<BroadcastChannel | null>(null);
 
   useEffect(() => {
-    loadMessages();
     const storedMode = localStorage.getItem("darkMode");
     setIsDarkMode(storedMode === "true");
 
     broadcastChannel.current = new BroadcastChannel("chat_sync");
     broadcastChannel.current.onmessage = (event) => {
       if (event.data.type === `update_messages-${codeSpace}`) {
-        setMessages(event.data.messages);
+        __setMessages(event.data.messages);
       } else if (event.data.type === `update_dark_mode-${codeSpace}`) {
         setIsDarkMode(event.data.isDarkMode);
       }
@@ -74,13 +76,6 @@ const ChatInterface: React.FC<
     }
   };
 
-  const loadMessages = () => {
-    const storedMessages = localStorage.getItem(`chatMessages-${codeSpace}`);
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
-    }
-  };
-
   const saveMessages = (newMessages: Message[]) => {
     localStorage.setItem(
       `chatMessages-${codeSpace}`,
@@ -90,157 +85,213 @@ const ChatInterface: React.FC<
       type: `update_messages-${codeSpace}`,
       messages: newMessages,
     });
+    __setMessages(newMessages);
   };
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
-    const isFirstMessage = messages.length === 0;
     const codeNow = await prettier(
       await fetch(`/live/${codeSpace}/code/index.tsx`).then((res) => res.text()),
     );
 
-    fetch(`/live/${codeSpace}/auto-save`);
+    await fetch(`/live/${codeSpace}/auto-save`);
     setCodeFound(false);
 
-    if (isFirstMessage || codeNow !== codeWhatAiSeen) {
-      content = initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
-        /{{FILE_CONTENT}}/g,
-        codeNow,
-      )
-        + content;
+    let claudeContent = content;
+    const messages = loadMessages();
+
+    if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
+      claudeContent = antropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
+        .replace(/{{FILE_CONTENT}}/g, codeNow)
+        .replace(/{{USERPROMT}}/g, content);
       setAICode(codeNow);
     } else {
-      content = content + gentleReminder;
+      claudeContent = content + reminder;
     }
 
     const newMessage: Message = {
       id: Date.now().toString(),
       role: "user",
-      content: content.trim(),
+      content: claudeContent.trim(),
     };
 
-    setMessages((prev) => [...prev, newMessage]);
-    saveMessages([...messages, newMessage]);
-    setInput("");
+    if (messages[messages.length - 1]?.role === "user") {
+      messages.push({
+        "id": (Date.now() + 1).toString(),
+        "role": "assistant",
+        "content": "Sorry, something went wrong. Please try again.",
+      });
+    }
 
+    messages.push(newMessage);
+
+    saveMessages(messages);
+
+    setInput("");
     setIsStreaming(true);
 
-    let fullResponse = "";
-    let isResponseComplete = false;
-    const maxRetries = 3;
-    let retryCount = 0;
+    try {
+      messages.push(await sendToAnthropic(messages));
+    } catch (error) {
+      messages.push({
+        "id": (Date.now() + 1).toString(),
+        "role": "assistant",
+        "content": "Sorry, there was an error processing your request with Claude.",
+      });
+    }
+
+    saveMessages(messages);
+
+    setIsStreaming(false);
+
+    continueWithOpenAI(messages[messages.length - 1].content, codeNow);
+  };
+
+  const sendToAnthropic = async (messages: Message[]) => {
+    const response = await fetch("/anthropic", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: messages.map(x => ({ role: x.role, content: x.content })) }),
+    });
 
     const assistantMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "assistant",
-      content: "",
+      "id": (Date.now() + 1).toString(),
+      "role": "assistant",
+      "content": "",
     };
 
-    setMessages((prev) => [...prev, assistantMessage]);
-
-    while (!isResponseComplete && retryCount < maxRetries) {
-      try {
-        const response = await fetch("/anthropic", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            messages: [...messages, newMessage, {
-              ...assistantMessage,
-              content: fullResponse,
-            }].map((msg) => ({
-              role: msg.role,
-              content: msg.content,
-            })),
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
-
-        if (!reader) {
-          throw new Error("Response body is not readable!");
-        }
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            isResponseComplete = true;
-            break;
-          }
-
-          const chunk = decoder.decode(value);
-          fullResponse += chunk;
-          if (!codeFound && fullResponse.includes("</antArtifact>")) {
-            const artifacts = extractArtifacts(fullResponse);
-
-            if (artifacts.length > 0) {
-              const code = await prettier(artifacts[0].content);
-              onCodeUpdate(code);
-              setAICode(code);
-              setCodeFound(true);
-            }
-          }
-          setMessages((prevMessages) => {
-            const updatedMessages = [...prevMessages];
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
-            lastMessage.content = fullResponse;
-            return updatedMessages;
-          });
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        retryCount++;
-        if (retryCount >= maxRetries) {
-          const errorMessage = "Sorry, there was an error processing your request. The response may be incomplete.";
-          fullResponse += "\n\n" + errorMessage;
-          setMessages((prev) => {
-            const updatedMessages = [...prev];
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
-            lastMessage.content = fullResponse;
-            return updatedMessages;
-          });
-        } else {
-          await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount)); // Exponential backoff
-        }
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    if (!codeFound) {
-      const artifacts = extractArtifacts(fullResponse);
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
 
-      if (artifacts.length > 0) {
-        onCodeUpdate(artifacts[0].content);
-        setAICode(await prettier(artifacts[0].content));
-      }
+    if (!reader) {
+      throw new Error("Response body is not readable!");
     }
-    // Check if the response contains code modifications
-    const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
-    const matches = fullResponse.match(codeModificationRegex);
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value);
+      assistantMessage.id = (Date.now() + 1).toString();
+      assistantMessage.content += chunk;
+      __setMessages([...messages, assistantMessage]);
+    }
+
+    saveMessages([...messages, assistantMessage]);
+    return assistantMessage;
+  };
+
+  async function continueWithOpenAI(fullResponse: string, codeNow: string) {
+    console.log(fullResponse);
+    globalThis.fullResponse = fullResponse;
+    globalThis.codeNow = codeNow;
+
+    if (!fullResponse.includes("```")) return;
+
+    setIsStreaming(true);
+    let code = "";
+    let isResponseComplete = false;
+    const responseOpenAI = await fetch("/openai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: [{
+          "role": "system",
+          "content": gptSystem,
+        }, {
+          "role": "user",
+          "content": codeNow + `
+            **** instructions ****
+          ` + fullResponse,
+        }],
+      }),
+    });
+
+    if (!responseOpenAI.ok) {
+      throw new Error(`HTTP error! status: ${responseOpenAI.status}`);
+    }
+
+    const reader = responseOpenAI.body?.getReader();
+    const decoder = new TextDecoder();
+
+    let guessedCode = "";
+
+    if (!reader) {
+      throw new Error("Response body is not readable!");
+    }
+
+    const codeNowTrimmed = codeNow.split("\n").map(x => x.trim()).join("\n");
+
+    const updatePartialCode = (code: string) => {
+      // let get out the code block, even if it is not complete
+      const codeModificationRegex = /```(?:typescript?|javascript?)\n([\s\S]*?)```/g;
+      const matches = code.match(codeModificationRegex);
+
+      if (matches) {
+        const modifiedCode = matches[matches.length - 1].replace(
+          /```(?:typescript?|javascript?)\n|```/g,
+          "",
+        ).split("\n").map(x => x.trim()).join("\n");
+
+        //        lets find in code now the last 40 same characters, which will indicate how much code was already processed
+
+        const saveToCut = codeNowTrimmed.split(modifiedCode.slice(-40));
+        if (saveToCut.length !== 2) return;
+
+        const updatedCode = modifiedCode + saveToCut[1];
+        if (updatedCode !== guessedCode) {
+          guessedCode = updatedCode;
+          console.log("guessedCode", guessedCode);
+          onCodeUpdate(updatedCode);
+        }
+      }
+    };
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        isResponseComplete = true;
+        break;
+      }
+
+      const chunk = decoder.decode(value);
+      code += chunk;
+
+      updatePartialCode(code);
+
+      __setMessages((prevMessages) => {
+        const lastMessage = prevMessages.pop()!;
+
+        lastMessage.content = fullResponse + `\n` + code;
+        return [...prevMessages, lastMessage];
+      });
+    }
+
+    console.log("code", code);
+
+    const codeModificationRegex = /```(?:typescript?|javascript?)\n([\s\S]*?)```/g;
+    const matches = code.match(codeModificationRegex);
 
     if (matches) {
       const modifiedCode = matches[matches.length - 1].replace(
-        /```(?:jsx?|tsx?)\n|```/g,
+        /```(?:typescript?|javascript?)\n|```/g,
         "",
       );
+      console.log("modifiedCode", modifiedCode);
       onCodeUpdate(modifiedCode);
+      setAICode(modifiedCode);
     }
-
-    saveMessages([...messages, newMessage, {
-      ...assistantMessage,
-      content: fullResponse,
-    }]);
     setIsStreaming(false);
-  };
+  }
 
   const handleResetChat = () => {
-    setMessages([]);
+    __setMessages([]);
     localStorage.removeItem(`chatMessages-${codeSpace}`);
     broadcastChannel.current?.postMessage({
       type: `update_messages-${codeSpace}`,
@@ -265,7 +316,7 @@ const ChatInterface: React.FC<
     const updatedMessages = messages.map((
       msg,
     ) => (msg.id === messageId ? { ...msg, content: editInput } : msg));
-    setMessages(updatedMessages);
+    __setMessages(updatedMessages);
     saveMessages(updatedMessages);
     setEditingMessageId(null);
     setEditInput("");
@@ -282,32 +333,26 @@ const ChatInterface: React.FC<
   };
 
   return (
-    <ChatWindow isOpen={isOpen}>
-      <ChatHeader
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        handleResetChat={handleResetChat}
-        onClose={onClose}
-      />
-      <ChatContainer
-        messages={messages}
-        editingMessageId={editingMessageId}
-        editInput={editInput}
-        setEditInput={setEditInput}
-        handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
-        handleEditMessage={handleEditMessage}
-        isStreaming={isStreaming}
-        messagesEndRef={messagesEndRef}
-      />
-      <MessageInput
-        input={input}
-        setInput={setInput}
-        handleSendMessage={handleSendMessage}
-        isStreaming={isStreaming}
-        inputRef={inputRef}
-      />
-    </ChatWindow>
+    <ChatFC
+      isOpen={isOpen}
+      onClose={onClose}
+      handleEditMessage={handleEditMessage}
+      handleResetChat={handleResetChat}
+      handleSaveEdit={handleSaveEdit}
+      handleSendMessage={handleSendMessage}
+      isStreaming={isStreaming}
+      messages={messages}
+      messagesEndRef={messagesEndRef}
+      isDarkMode={isDarkMode}
+      toggleDarkMode={toggleDarkMode}
+      editingMessageId={editingMessageId}
+      editInput={editInput}
+      setEditInput={setEditInput}
+      input={input}
+      setInput={setInput}
+      inputRef={inputRef}
+      handleCancelEdit={handleCancelEdit}
+    />
   );
 };
 

@@ -29,6 +29,7 @@
     "esbuild-wasm": "0.23.0",
     "esm-worker": "0.135.16",
     "immutable": "4.3.7",
+    "openai": "^4.53.2",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1"

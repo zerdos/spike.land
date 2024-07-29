@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/dom";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "monaco-editor";
@@ -36,7 +36,7 @@ describe("AutoSaveHistory", () => {
           { timestamp: 1625184000000, code: "console.log(\"Version 2\");" },
         ]),
     })
-  ) as jest.Mock;
+  ) as unknown as jest.MockedFunction<typeof fetch>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -53,6 +53,9 @@ describe("AutoSaveHistory", () => {
       </div>,
     );
   };
+
+  const mockOnRestore = jest.fn();
+  const mockOnClose = jest.fn();
 
   it("renders loading state initially", async () => {
     renderWithProvider(
@@ -125,4 +128,3 @@ describe("AutoSaveHistory", () => {
     });
   });
 });
-/// <reference types="@testing-library/jest-dom" />

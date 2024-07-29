@@ -3456,6 +3456,7 @@ __metadata:
     esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.7"
+    openai: "npm:^4.53.2"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -3514,10 +3515,10 @@ __metadata:
     "@testing-library/react": "npm:^16.0.0"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/isomorphic-fetch": "npm:0.0.39"
-    "@types/jest": "npm:29.5.12"
+    "@types/jest": "npm:^29.5.12"
     "@types/lodash": "npm:^4.17.7"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/node": "npm:22.0.0"
+    "@types/node": "npm:^22.0.0"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
@@ -4068,7 +4069,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.5.12":
+"@types/jest@npm:^29.5.12":
   version: 29.5.12
   resolution: "@types/jest@npm:29.5.12"
   dependencies:
@@ -4161,7 +4162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.0.0":
+"@types/node@npm:22.0.0, @types/node@npm:^22.0.0":
   version: 22.0.0
   resolution: "@types/node@npm:22.0.0"
   dependencies:
@@ -12014,7 +12015,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.53.2":
+"openai@npm:4.53.2, openai@npm:^4.53.2":
   version: 4.53.2
   resolution: "openai@npm:4.53.2"
   dependencies:

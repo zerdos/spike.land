@@ -46,9 +46,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   const lastTypingTimestampRef = useRef(Date.now());
 
   useImperativeHandle(ref, () => ({
-    setValue: (code: string) => {
-      editorState.setValue(code);
-      handleContentChange(code);
+    setValue: async (code: string) => {
+      const formatted = await prettierToThrow({ code, toThrow: true });
+      editorState.setValue(formatted);
+      handleContentChange(formatted);
     },
   }));
 
