@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
-import { CodeTS } from "../CodeBlock";
+import { programmingLanguages, CodeBlock  } from "../CodeBlock";
 import { styles } from "./styles";
 
 export const TypingIndicator: React.FC = () => (
@@ -44,51 +44,67 @@ export const ColorModeToggle: React.FC<
   </button>
 );
 
+
 export const renderMessage = (text: string, isUser: boolean) => {
   const cleanedText = isUser
     ? text.split("The user's first message follows:").pop()!.trim().split(
       "Reminder from the system:",
     )[0].trim()
-    : text.replace(/<antArtifact.*?>/g, "**```tsx").replace(
+    : text.replace(/<antArtifact.*?>/g, "**```").replace(
       /<\/antArtifact>/g,
       "```**",
     );
 
-  const parts = cleanedText.split("```");
-  if (parts.length > 1) {
-    return parts.map((part, index) => {
-      if (index === 0) {
-        return (
-          <span css={styles.smallFontWithMaxWidth}>
-                   {part}
-          </span>
-        );
-      }
-      const [code, ...rest] = part.split("```");
-      return (
-        <Fragment key={index}>
-          <CodeTS code={code.split("\n").slice(1).join("\n")} />
+  const codeBlockRegex = /```(\w+)?\s*([\s\S]*?)```/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
 
-          {rest.join().trim().split("\n").map((line, j) => (
-            <Fragment key={j}>
-              <br />
-              <span css={styles.smallFontWithMaxWidth}>
-                {line}
-              </span>
-            </Fragment>
-          ))}
-        </Fragment>
-      );
+  while ((match = codeBlockRegex.exec(cleanedText)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({
+        type: 'text',
+        content: cleanedText.slice(lastIndex, match.index)
+      });
+    }
+
+    const language = match[1] ? programmingLanguages[match[1].toLowerCase()] || match[1].toLowerCase() : 'plaintext';
+    const code = match[2].trim();
+
+    parts.push({
+      type: 'code',
+      language,
+      content: code
+    });
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < cleanedText.length) {
+    parts.push({
+      type: 'text',
+      content: cleanedText.slice(lastIndex)
     });
   }
-  return cleanedText.split("\n").map((line, j) => (
-    <Fragment key={j}>
-      <br />
-      <span css={styles.smallFontWithMaxWidth}>
-        {line}
-      </span>
-    </Fragment>
-  ));
+
+  return (
+      <>
+        {parts.map((part: { type: string; content: string; }, index: number) => (
+          <Fragment key={index}>
+            {part.type === 'text' ? (
+              part.content.split('\n').map((line, j) => (
+                <Fragment key={j}>
+                  {j > 0 && <br />}
+                  <span css={styles.smallFontWithMaxWidth}>{line}</span>
+                </Fragment>
+              ))
+            ) : (
+              <CodeBlock value={part.content} language={part.language} />
+            )}
+          </Fragment>
+        ))}
+      </>
+    );
 };
 
 export const mockResponses = [
