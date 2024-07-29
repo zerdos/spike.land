@@ -298,26 +298,26 @@ const ChatInterface: React.FC<
   };
 
   return (
-    <ChatFC 
-    isOpen={isOpen} onClose={onClose}
-    handleEditMessage={handleEditMessage}
-    handleResetChat={handleResetChat}
-    handleSaveEdit={handleSaveEdit}
-    handleSendMessage={handleSendMessage}
-    isStreaming={isStreaming}
-    messages={messages}
-    messagesEndRef={messagesEndRef}
-    isDarkMode={isDarkMode}
-    toggleDarkMode={toggleDarkMode}
-    editingMessageId={editingMessageId}
-    editInput={editInput}
-    setEditInput={setEditInput}
-    input={input}
-    setInput={setInput}
-    inputRef={inputRef}
-    handleCancelEdit={handleCancelEdit}
+    <ChatFC
+      isOpen={isOpen}
+      onClose={onClose}
+      handleEditMessage={handleEditMessage}
+      handleResetChat={handleResetChat}
+      handleSaveEdit={handleSaveEdit}
+      handleSendMessage={handleSendMessage}
+      isStreaming={isStreaming}
+      messages={messages}
+      messagesEndRef={messagesEndRef}
+      isDarkMode={isDarkMode}
+      toggleDarkMode={toggleDarkMode}
+      editingMessageId={editingMessageId}
+      editInput={editInput}
+      setEditInput={setEditInput}
+      input={input}
+      setInput={setInput}
+      inputRef={inputRef}
+      handleCancelEdit={handleCancelEdit}
     />
-   
   );
 };
 
