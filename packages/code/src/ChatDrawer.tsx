@@ -3,6 +3,74 @@ import { Button } from "@/components/ui/button";
 import { Bot } from "lucide-react";
 import { ChatHeader, ChatContainer, MessageInput, ChatWindow } from "./chat/components";
 import { Message } from "./chat/types";
+export type {Message}
+
+interface ChatFCProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+  handleResetChat: () => void;
+  messages: Message[]; 
+  editingMessageId: string | null;
+  editInput: string;
+  setEditInput: (input: string) => void;
+  handleCancelEdit: () => void;
+  handleSaveEdit: (messageId: string) => void;
+  handleEditMessage: (messageId: string) => void;
+  isStreaming: boolean;
+  messagesEndRef: React.RefObject<HTMLDivElement>;
+  input: string;
+  setInput: (input: string) => void;
+  handleSendMessage: (content: string) => void;
+  inputRef: React.RefObject<HTMLTextAreaElement>;
+}
+
+export const ChatFC: React.FC<ChatFCProps> = ({
+  isOpen,
+  onClose,
+  isDarkMode,
+  toggleDarkMode,
+  handleResetChat,
+  messages,
+  editingMessageId,
+  editInput,
+  setEditInput,
+  handleCancelEdit,
+  handleSaveEdit,
+  handleEditMessage,
+  isStreaming,
+  messagesEndRef,
+  input,
+  setInput,
+  handleSendMessage,
+  inputRef
+}) =>  <ChatWindow isOpen={isOpen}>
+<ChatHeader
+  isDarkMode={isDarkMode}
+  toggleDarkMode={toggleDarkMode}
+  handleResetChat={handleResetChat}
+  onClose={onClose}
+/>
+<ChatContainer
+  messages={messages}
+  editingMessageId={editingMessageId}
+  editInput={editInput}
+  setEditInput={setEditInput}
+  handleCancelEdit={handleCancelEdit}
+  handleSaveEdit={handleSaveEdit}
+  handleEditMessage={handleEditMessage}
+  isStreaming={isStreaming}
+  messagesEndRef={messagesEndRef}
+/>
+<MessageInput
+  input={input}
+  setInput={setInput}
+  handleSendMessage={handleSendMessage}
+  isStreaming={isStreaming}
+  inputRef={inputRef}
+/>
+</ChatWindow>
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -118,3 +186,4 @@ const ChatInterface: React.FC = () => {
 };
 
 export default ChatInterface;
+export { ChatHeader, ChatContainer, MessageInput, ChatWindow }

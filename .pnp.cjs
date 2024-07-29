@@ -5076,6 +5076,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.23.0"],\
           ["esm-worker", "npm:0.135.16"],\
           ["immutable", "npm:4.3.7"],\
+          ["openai", "npm:4.53.2"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:7.0.2"],\
           ["p-queue", "npm:8.0.1"],\

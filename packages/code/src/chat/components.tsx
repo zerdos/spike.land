@@ -7,7 +7,6 @@ import { css } from "@emotion/react";
 import { styles } from "./styles";
 import { renderMessage, TypingIndicator } from "./utils";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, Message, MessageInputProps } from "./types";
-import { CodeTS } from "../CodeBlock";
 
 export const ChatMessage: React.FC<{
   message: Message;

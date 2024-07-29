@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ChatContainer, ChatHeader, ChatWindow, Message, MessageInput } from "./ChatDrawer";
-import { gentleReminder, initialMessage } from "./initialMessage";
+import { ChatFC, Message } from "./ChatDrawer";
+import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
 import { extractArtifacts } from "./utils/extractArtifacts";
 
@@ -104,14 +104,15 @@ const ChatInterface: React.FC<
     setCodeFound(false);
 
     if (isFirstMessage || codeNow !== codeWhatAiSeen) {
-      content = initialMessage.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
-        /{{FILE_CONTENT}}/g,
-        codeNow,
-      )
-        + content;
+      content = antropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx").replace(
+        /{{FILE_CONTENT}}/g, codeNow,
+        
+      ).replace(/{{USERPROMT}}/g, content);
+      
       setAICode(codeNow);
+
     } else {
-      content = content + gentleReminder;
+      content = content + reminder;
     }
 
     const newMessage: Message = {
@@ -141,19 +142,26 @@ const ChatInterface: React.FC<
 
     while (!isResponseComplete && retryCount < maxRetries) {
       try {
+
+        const now =[...messages, newMessage, {
+          ...assistantMessage,
+          content: fullResponse,
+        }].map((msg) => ({
+          role: msg.role,
+          content: msg.content,
+        }));
+
+        if (now[now.length - 1].role === "assistant") {
+          now.pop();
+        }
+
         const response = await fetch("/anthropic", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            messages: [...messages, newMessage, {
-              ...assistantMessage,
-              content: fullResponse,
-            }].map((msg) => ({
-              role: msg.role,
-              content: msg.content,
-            })),
+            messages: now
           }),
         });
 
@@ -172,21 +180,23 @@ const ChatInterface: React.FC<
           const { done, value } = await reader.read();
           if (done) {
             isResponseComplete = true;
+           
             break;
           }
 
           const chunk = decoder.decode(value);
           fullResponse += chunk;
-          if (!codeFound && fullResponse.includes("</antArtifact>")) {
-            const artifacts = extractArtifacts(fullResponse);
+          // if (!codeFound && fullResponse.includes("</antArtifact>")) {
+          //   const artifacts = extractArtifacts(fullResponse);
 
-            if (artifacts.length > 0) {
-              const code = await prettier(artifacts[0].content);
-              onCodeUpdate(code);
-              setAICode(code);
-              setCodeFound(true);
-            }
-          }
+          //   if (artifacts.length > 0) {
+          //     const code = await prettier(artifacts[0].content);
+          //     onCodeUpdate(code);
+          //     setAICode(code);
+          //     setCodeFound(true);
+          //   }
+          // }
+
           setMessages((prevMessages) => {
             const updatedMessages = [...prevMessages];
             const lastMessage = updatedMessages[updatedMessages.length - 1];
@@ -194,6 +204,7 @@ const ChatInterface: React.FC<
             return updatedMessages;
           });
         }
+        
       } catch (error) {
         console.error("Error:", error);
         retryCount++;
@@ -212,6 +223,7 @@ const ChatInterface: React.FC<
       }
     }
 
+    
     if (!codeFound) {
       const artifacts = extractArtifacts(fullResponse);
 
@@ -221,23 +233,81 @@ const ChatInterface: React.FC<
       }
     }
     // Check if the response contains code modifications
-    const codeModificationRegex = /```(?:jsx?|tsx?)\n([\s\S]*?)```/g;
-    const matches = fullResponse.match(codeModificationRegex);
-
-    if (matches) {
-      const modifiedCode = matches[matches.length - 1].replace(
-        /```(?:jsx?|tsx?)\n|```/g,
-        "",
-      );
-      onCodeUpdate(modifiedCode);
-    }
+    
 
     saveMessages([...messages, newMessage, {
       ...assistantMessage,
       content: fullResponse,
     }]);
     setIsStreaming(false);
+    await continueWithOpenAI(fullResponse, codeNow);
+
   };
+
+ async function continueWithOpenAI(fullResponse: string, codeNow:string) {
+  setIsStreaming(true);
+  let code = '';
+  let isResponseComplete = false;
+    const responseOpenAI = await fetch("/openai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: [  {
+          "role": "system",
+          "content": gptSystem
+        },{
+          "role": "user",
+          "content": codeNow + `
+            **** instructions ****
+          `+ fullResponse
+        }]})});
+
+        if (!responseOpenAI.ok) {
+          throw new Error(`HTTP error! status: ${responseOpenAI.status}`);
+        }
+
+        const reader = responseOpenAI.body?.getReader();
+        const decoder = new TextDecoder();
+
+        if (!reader) {
+          throw new Error("Response body is not readable!");
+        }
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            isResponseComplete = true;
+            break;
+          }
+
+          const chunk = decoder.decode(value);
+          code += chunk;
+          
+        
+          setMessages((prevMessages) => {
+            const updatedMessages = [...prevMessages];
+            const lastMessage = updatedMessages[updatedMessages.length - 1];
+            lastMessage.content = fullResponse + `
+              
+            ` + code ;
+            return updatedMessages;
+          });
+        }
+        const codeModificationRegex = /```(?:typescript?|javascript?)\n([\s\S]*?)```/g;
+    const matches = code.match(codeModificationRegex);
+
+    if (matches) {
+      const modifiedCode = matches[matches.length - 1].replace(
+        /```(?:typescript?|javascript?)\n|```/g,
+        "",
+      );
+      onCodeUpdate(modifiedCode);
+      setAICode(modifiedCode);
+    }
+        setIsStreaming(false)
+      }
 
   const handleResetChat = () => {
     setMessages([]);
@@ -282,33 +352,28 @@ const ChatInterface: React.FC<
   };
 
   return (
-    <ChatWindow isOpen={isOpen}>
-      <ChatHeader
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        handleResetChat={handleResetChat}
-        onClose={onClose}
-      />
-      <ChatContainer
-        messages={messages}
-        editingMessageId={editingMessageId}
-        editInput={editInput}
-        setEditInput={setEditInput}
-        handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
-        handleEditMessage={handleEditMessage}
-        isStreaming={isStreaming}
-        messagesEndRef={messagesEndRef}
-      />
-      <MessageInput
-        input={input}
-        setInput={setInput}
-        handleSendMessage={handleSendMessage}
-        isStreaming={isStreaming}
-        inputRef={inputRef}
-      />
-    </ChatWindow>
+    <ChatFC 
+    isOpen={isOpen} onClose={onClose}
+    handleEditMessage={handleEditMessage}
+    handleResetChat={handleResetChat}
+    handleSaveEdit={handleSaveEdit}
+    handleSendMessage={handleSendMessage}
+    isStreaming={isStreaming}
+    messages={messages}
+    messagesEndRef={messagesEndRef}
+    isDarkMode={isDarkMode}
+    toggleDarkMode={toggleDarkMode}
+    editingMessageId={editingMessageId}
+    editInput={editInput}
+    setEditInput={setEditInput}
+    input={input}
+    setInput={setInput}
+    inputRef={inputRef}
+    handleCancelEdit={handleCancelEdit}
+    />
+   
   );
 };
 
 export default ChatInterface;
+
