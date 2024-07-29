@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { motion } from "framer-motion";
 import { CodeTS } from "../CodeBlock";
 import { styles } from "./styles";
+import { css } from "@emotion/react";
 
 export const TypingIndicator: React.FC = () => (
   <div className="flex space-x-2 items-center p-2">
