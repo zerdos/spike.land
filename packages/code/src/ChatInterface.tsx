@@ -83,7 +83,7 @@ const ChatInterface: React.FC<{
     handleCancelEdit,
   };
 
-  return <ChatFC {...chatProps} /> as React.ReactElement;
+  return <ChatFC {...chatProps} />;
 };
 
 export default ChatInterface;
