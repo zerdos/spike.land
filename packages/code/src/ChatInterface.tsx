@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ChatFC, Message } from "./ChatDrawer";
+import { ChatFC, Message, ChatFCProps } from "./ChatDrawer";
 import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
 import { extractArtifacts } from "./utils/extractArtifacts";
@@ -18,7 +18,7 @@ const ChatInterface: React.FC<
   { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }
 > = (
   { onCodeUpdate, onClose, isOpen },
-) => {
+): React.ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [codeFound, setCodeFound] = useState(false);
   const [input, setInput] = useState("");
