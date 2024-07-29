@@ -191,8 +191,6 @@ const ChatInterface: React.FC<
     globalThis.fullResponse = fullResponse;
     globalThis.codeNow = codeNow;
 
-    if (!fullResponse.includes("```")) return;
-
     setIsStreaming(true);
     let code = "";
     let isResponseComplete = false;

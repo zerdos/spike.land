@@ -54,20 +54,20 @@ export const renderMessage = (text: string, isUser: boolean) => {
       "```**",
     );
 
-  const parts = cleanedText.split("**```tsx");
+  const parts = cleanedText.split("```");
   if (parts.length > 1) {
     return parts.map((part, index) => {
       if (index === 0) {
         return (
-          <pre css={styles.smallFont} key={index}>
-            {part}
-          </pre>
+          <span css={styles.smallFontWithMaxWidth}>
+                   {part}
+          </span>
         );
       }
-      const [code, ...rest] = part.split("```**");
+      const [code, ...rest] = part.split("```");
       return (
         <Fragment key={index}>
-          <CodeTS code={code} />
+          <CodeTS code={code.split("\n").slice(1).join("\n")} />
 
           {rest.join().trim().split("\n").map((line, j) => (
             <Fragment key={j}>
