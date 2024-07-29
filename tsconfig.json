@@ -40,8 +40,5 @@
     "**/monaco-workers"
   ],
   "include": [
-    "packages/code",
-    "packages/spike.land/src",
-    "packages/js.spike.land/src"
   ]
 }

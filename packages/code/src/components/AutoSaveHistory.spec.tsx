@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/dom";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "monaco-editor";
@@ -36,7 +36,7 @@ describe("AutoSaveHistory", () => {
           { timestamp: 1625184000000, code: "console.log(\"Version 2\");" },
         ]),
     })
-  ) as jest.Mock;
+  ) as unknown as jest.MockedFunction<typeof fetch>;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -47,12 +47,16 @@ describe("AutoSaveHistory", () => {
       <div
         ref={(el) =>
           el
-          && (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))}
+            && (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))
+        }
       >
         {ui}
-      </div>,
+      </div>
     );
   };
+
+  const mockOnRestore = jest.fn();
+  const mockOnClose = jest.fn();
 
   it("renders loading state initially", async () => {
     renderWithProvider(
@@ -60,7 +64,7 @@ describe("AutoSaveHistory", () => {
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
-      />,
+      />
     );
     await screen.findByText("Loading versions...");
   });
@@ -71,7 +75,7 @@ describe("AutoSaveHistory", () => {
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
-      />,
+      />
     );
     await screen.findByText("Jul 1, 2021, 12:00 AM");
     expect(screen.getByText("Jul 2, 2021, 12:00 AM")).toBeTruthy();
@@ -83,7 +87,7 @@ describe("AutoSaveHistory", () => {
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
-      />,
+      />
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
     fireEvent.click(versionButton);
@@ -100,7 +104,7 @@ describe("AutoSaveHistory", () => {
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
-      />,
+      />
     );
     const closeButton = await screen.findByText("Close");
     fireEvent.click(closeButton);
@@ -115,7 +119,7 @@ describe("AutoSaveHistory", () => {
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
-      />,
+      />
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
     fireEvent.click(versionButton);
@@ -125,4 +129,3 @@ describe("AutoSaveHistory", () => {
     });
   });
 });
-/// <reference types="@testing-library/jest-dom" />

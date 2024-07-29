@@ -67,6 +67,7 @@
       "ESNext",
       "DOM",
       "ESNext.String",
+      "DOM.AsyncIterable",
       "ESNext.AsyncIterable",
       "DOM.Iterable",
       "WebWorker",
@@ -75,13 +76,11 @@
     ],
     "types": [
       "@types/wicg-file-system-access",
-      "@types/jest",
-      "node"
     ]
   },
 
   "include": [
-    "src"
+    "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"
   ],
-  "exclude": [".yarn", "dist"]
+  "exclude": [".yarn", "dist", "*/**.spec.ts", "__tests__", "node_modules"]
 }
