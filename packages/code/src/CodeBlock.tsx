@@ -92,7 +92,10 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
     URL.revokeObjectURL(url);
   };
   return (
-    <div className="codeblock relative font-sans text-[16px]">
+    <div 
+    css={css`
+  max-width: 568px;
+    `}  className="codeblock relative font-sans text-[16px]">
       <div
         css={css`
                 background-color: darkred;
