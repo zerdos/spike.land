@@ -4,3 +4,4 @@ monaco-workers
 .yarn
 certs
 deno.lock
+dts
