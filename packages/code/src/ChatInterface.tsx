@@ -158,7 +158,7 @@ const ChatInterface: React.FC<
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        messages: [...prevMessages, { role: "user", content }]
+        messages: [...prevMessages.filter(msg => msg.role !== "user"), { role: "user", content }]
       }),
     });
 
