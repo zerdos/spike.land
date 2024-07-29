@@ -104,7 +104,7 @@ const mockResponses = [
 // Helper function to render message content
 const renderMessage = (text: string, isUser: boolean) => {
   const cleanedText = isUser
-    ? text
+    ? text.split("The user's first message follows:").pop()!.trim().split("Reminder from the system:")[0].trim()
     : text.replace(/<antArtifact.*?>/g, "**```tsx").replace(/<\/antArtifact>/g, "```**");
 
   const parts = cleanedText.split("**```tsx");
@@ -167,7 +167,7 @@ const ChatMessage: React.FC<{
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
-            ? "bg-primary text-primary-foreground"
+            ? "bg-primary text-primary-foreground ml-auto" // Added ml-auto here
             : isSelected
             ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
             : "bg-secondary text-secondary-foreground"
@@ -192,7 +192,9 @@ const ChatMessage: React.FC<{
             </div>
           )
           : (
-            renderMessage(message.content, isUser)
+            <div className="break-words"> {/* Added this wrapper */}
+              {renderMessage(message.content, isUser)}
+            </div>
           )}
       </div>
     </div>
@@ -361,15 +363,15 @@ const ChatInterface: React.FC = () => {
     setInput("");
     setIsStreaming(true);
 
-  //   setTimeout(() => {
-  //     const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-  //     setMessages((prev) => [
-  //       ...prev,
-  //       { id: Date.now().toString(), content: aiResponse, role: "assistant" },
-  //     ]);
-  //     setIsStreaming(false);
-  //   }, 1000);
-  // }, [input, isStreaming]);
+    // setTimeout(() => {
+    //   const aiResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     { id: Date.now().toString(), content: aiResponse, role: "assistant" },
+    //   ]);
+    //   setIsStreaming(false);
+    // }, 1000);
+  }, [input, isStreaming]);
 
   const handleEditMessage = useCallback(
     (id: string) => {
