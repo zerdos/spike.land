@@ -1,15 +1,17 @@
 import { motion } from "framer-motion";
 import { css } from "../emotion";
 
-export const ContentWrapper = ({ children, scale, innerHeight, width, bgColor, rgba, type }: {
-  children: JSX.Element;
-  scale: number;
-  innerHeight: number;
-  width: number;
-  bgColor: number[];
-  rgba: (r: number, g: number, b: number, a: number) => string;
-  type: string;
-}) => (
+export const ContentWrapper = (
+  { children, scale, innerHeight, width, bgColor, rgba, type }: {
+    children: JSX.Element;
+    scale: number;
+    innerHeight: number;
+    width: number;
+    bgColor: number[];
+    rgba: (r: number, g: number, b: number, a: number) => string;
+    type: string;
+  },
+) => (
   <motion.div
     transition={{ scale: { type } }}
     css={css`

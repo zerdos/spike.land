@@ -41,7 +41,9 @@ export const ActionButtons: FC<ActionButtonsProps> = ({
         `}
       >
         <Tooltip title="Toggle Fullscreen" placement="left">
-          <Fab onClick={() => document.querySelector("#root")?.requestFullscreen()}>
+          <Fab
+            onClick={() => document.querySelector("#root")?.requestFullscreen()}
+          >
             <span css={css`font-size: 20pt;`}>
               <FullscreenIcon />
             </span>

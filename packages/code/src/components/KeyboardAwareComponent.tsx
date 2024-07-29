@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 const KeyboardAwareComponent = ({ children }) => {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
@@ -9,12 +9,14 @@ const KeyboardAwareComponent = ({ children }) => {
       setIsKeyboardVisible(isKeyboard);
     };
 
-    window.visualViewport.addEventListener('resize', detectKeyboard);
-    return () => window.visualViewport.removeEventListener('resize', detectKeyboard);
+    window.visualViewport.addEventListener("resize", detectKeyboard);
+    return () => window.visualViewport.removeEventListener("resize", detectKeyboard);
   }, []);
 
   return (
-    <div className={`app-container ${isKeyboardVisible ? 'keyboard-visible' : ''}`}>
+    <div
+      className={`app-container ${isKeyboardVisible ? "keyboard-visible" : ""}`}
+    >
       {children}
     </div>
   );

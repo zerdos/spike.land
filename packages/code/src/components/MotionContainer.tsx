@@ -1,14 +1,16 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 
-export const MotionContainer = ({ children, bottom, right, bgColor, rgba, isChatOpen }: {
-  children: JSX.Element;
-  bottom: number;
-  right: number;
-  bgColor: number[];
-  isChatOpen: boolean;
-  rgba: (r: number, g: number, b: number, a: number) => string;
-}) => {
+export const MotionContainer = (
+  { children, bottom, right, bgColor, rgba, isChatOpen }: {
+    children: JSX.Element;
+    bottom: number;
+    right: number;
+    bgColor: number[];
+    isChatOpen: boolean;
+    rgba: (r: number, g: number, b: number, a: number) => string;
+  },
+) => {
   return (
     <motion.div
       layout

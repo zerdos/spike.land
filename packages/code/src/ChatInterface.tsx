@@ -96,7 +96,9 @@ const ChatInterface: React.FC<
     if (!content.trim()) return;
 
     const isFirstMessage = messages.length === 0;
-    const codeNow = await prettier(await fetch(`/live/${codeSpace}/code/index.tsx`).then((res) => res.text()));
+    const codeNow = await prettier(
+      await fetch(`/live/${codeSpace}/code/index.tsx`).then((res) => res.text()),
+    );
 
     fetch(`/live/${codeSpace}/auto-save`);
     setCodeFound(false);

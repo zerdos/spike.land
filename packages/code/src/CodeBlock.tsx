@@ -115,7 +115,11 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
         </div>
       </div>
 
-      <SyntaxHighlighter language={language} style={tomorrow} customStyle={{ margin: 0, fontSize: 12 }}>
+      <SyntaxHighlighter
+        language={language}
+        style={tomorrow}
+        customStyle={{ margin: 0, fontSize: 12 }}
+      >
         {value}
       </SyntaxHighlighter>
     </div>

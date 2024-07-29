@@ -8,8 +8,13 @@ interface DraggableChatProps {
   onCodeUpdate: (code: string) => void;
 }
 
-export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate }) => {
-  const [position, setPosition] = useState({ x: window.innerWidth - 320, y: window.innerHeight - 420 });
+export const DraggableChat: FC<DraggableChatProps> = (
+  { onClose, onCodeUpdate },
+) => {
+  const [position, setPosition] = useState({
+    x: window.innerWidth - 320,
+    y: window.innerHeight - 420,
+  });
   const [size, setSize] = useState({ width: 300, height: 400 });
   const [isResizing, setIsResizing] = useState(false);
 
@@ -41,7 +46,7 @@ export const DraggableChat: FC<DraggableChatProps> = ({ onClose, onCodeUpdate })
             width: size.width + d.width,
             height: size.height + d.height,
           });
-          setPosition(prevPosition => ({
+          setPosition((prevPosition) => ({
             x: prevPosition.x - (direction.includes("left") ? d.width : 0),
             y: prevPosition.y - (direction.includes("top") ? d.height : 0),
           }));

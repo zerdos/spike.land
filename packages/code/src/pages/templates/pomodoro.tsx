@@ -71,7 +71,11 @@ const PomodoroTimer = () => {
   }, [timeLeft]);
 
   const progressPercentage = () => {
-    const totalTime = sessionType === "work" ? 25 * 60 : sessionType === "shortBreak" ? 5 * 60 : 15 * 60;
+    const totalTime = sessionType === "work"
+      ? 25 * 60
+      : sessionType === "shortBreak"
+      ? 5 * 60
+      : 15 * 60;
     return ((totalTime - timeLeft) / totalTime) * 100;
   };
 
@@ -80,7 +84,11 @@ const PomodoroTimer = () => {
       <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
         <CardContent className="p-6">
           <h2 className="text-3xl font-bold text-center mb-6">
-            {sessionType === "work" ? "Work Session" : sessionType === "shortBreak" ? "Short Break" : "Long Break"}
+            {sessionType === "work"
+              ? "Work Session"
+              : sessionType === "shortBreak"
+              ? "Short Break"
+              : "Long Break"}
           </h2>
           <div className="relative w-64 h-64 mx-auto mb-6">
             <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -106,23 +114,41 @@ const PomodoroTimer = () => {
                 transform="rotate(-90 50 50)"
               >
               </circle>
-              <text x="50" y="50" fontFamily="Verdana" fontSize="20" textAnchor="middle" alignmentBaseline="central">
+              <text
+                x="50"
+                y="50"
+                fontFamily="Verdana"
+                fontSize="20"
+                textAnchor="middle"
+                alignmentBaseline="central"
+              >
                 {formatTime(timeLeft)}
               </text>
             </svg>
           </div>
           <div className="flex justify-center space-x-4 mb-6">
-            <Button onClick={isActive ? pauseTimer : startTimer} className="flex items-center">
-              {isActive ? <Pause className="mr-2" /> : <Play className="mr-2" />}
+            <Button
+              onClick={isActive ? pauseTimer : startTimer}
+              className="flex items-center"
+            >
+              {isActive
+                ? <Pause className="mr-2" />
+                : <Play className="mr-2" />}
               {isActive ? "Pause" : "Start"}
             </Button>
-            <Button onClick={resetTimer} variant="outline" className="flex items-center">
+            <Button
+              onClick={resetTimer}
+              variant="outline"
+              className="flex items-center"
+            >
               <RotateCcw className="mr-2" />
               Reset
             </Button>
           </div>
           <div className="text-center">
-            <p className="text-lg font-semibold mb-2">Sessions Completed: {sessionsCompleted}</p>
+            <p className="text-lg font-semibold mb-2">
+              Sessions Completed: {sessionsCompleted}
+            </p>
             <Progress value={progressPercentage()} className="w-full h-2" />
           </div>
         </CardContent>

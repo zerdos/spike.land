@@ -51,22 +51,46 @@ const MarkdownEditor = () => {
       <Card className="mb-4">
         <CardContent className="p-4">
           <div className="flex space-x-2 mb-4">
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown("bold")}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => insertMarkdown("bold")}
+            >
               <Bold className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown("italic")}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => insertMarkdown("italic")}
+            >
               <Italic className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown("ul")}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => insertMarkdown("ul")}
+            >
               <List className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown("ol")}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => insertMarkdown("ol")}
+            >
               <ListOrdered className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown("image")}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => insertMarkdown("image")}
+            >
               <Image className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" onClick={() => insertMarkdown("link")}>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => insertMarkdown("link")}
+            >
               <Link className="h-4 w-4" />
             </Button>
           </div>

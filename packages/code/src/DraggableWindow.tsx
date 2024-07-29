@@ -20,7 +20,15 @@ type DraggableWindowProps = {
 const breakPoints = [750, 1024, 1920];
 const sizes = [10, 25, 50, 75, 100];
 export const DraggableWindow: FC<DraggableWindowProps> = (
-  { children, codeSpace, handleAIModify, setShowChat, showChat, isChatOpen, onCodeUpdate },
+  {
+    children,
+    codeSpace,
+    handleAIModify,
+    setShowChat,
+    showChat,
+    isChatOpen,
+    onCodeUpdate,
+  },
 ) => {
   const [scaleRange, setScaleRange] = useState(100);
   const [delay, setDelay] = useState(2);

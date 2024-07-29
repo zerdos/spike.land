@@ -59,8 +59,21 @@ export const DraggableWindowContent = (
         sizes={sizes}
         maxScaleRange={maxScaleRange}
       />
-      <ContentWrapper scale={scale} innerHeight={innerHeight} width={width} bgColor={bgColor} rgba={rgba} type="spring">
-        <ScaledContent innerHeight={innerHeight} width={width} scale={scale} bgColor={bgColor} rgba={rgba}>
+      <ContentWrapper
+        scale={scale}
+        innerHeight={innerHeight}
+        width={width}
+        bgColor={bgColor}
+        rgba={rgba}
+        type="spring"
+      >
+        <ScaledContent
+          innerHeight={innerHeight}
+          width={width}
+          scale={scale}
+          bgColor={bgColor}
+          rgba={rgba}
+        >
           {children}
         </ScaledContent>
       </ContentWrapper>

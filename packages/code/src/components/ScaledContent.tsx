@@ -1,14 +1,16 @@
 import { css } from "../emotion";
 import { motion } from "../motion";
 
-export const ScaledContent = ({ children, innerHeight, width, scale, bgColor, rgba }: {
-  children: JSX.Element;
-  innerHeight: number;
-  width: number;
-  scale: number;
-  bgColor: number[];
-  rgba: (r: number, g: number, b: number, a: number) => string;
-}) => (
+export const ScaledContent = (
+  { children, innerHeight, width, scale, bgColor, rgba }: {
+    children: JSX.Element;
+    innerHeight: number;
+    width: number;
+    scale: number;
+    bgColor: number[];
+    rgba: (r: number, g: number, b: number, a: number) => string;
+  },
+) => (
   <motion.div
     transition={{ zoom: { type: "spring" }, delay: 0 }}
     css={css`

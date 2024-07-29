@@ -49,11 +49,15 @@ export class Code implements DurableObject {
   private async initializeSession() {
     await this.state.blockConcurrencyWhile(async () => {
       try {
-        const storedSession = await this.state.storage.get<ICodeSession>("session");
+        const storedSession = await this.state.storage.get<ICodeSession>(
+          "session",
+        );
         if (storedSession && storedSession.i) {
           this.session = storedSession;
         } else {
-          const backupCode = await fetch("https://spike.land/live/code-main/index.tsx").then(r => r.text());
+          const backupCode = await fetch(
+            "https://spike.land/live/code-main/index.tsx",
+          ).then((r) => r.text());
           this.backupSession.code = backupCode;
           await this.state.storage.put("session", this.backupSession);
           this.session = this.backupSession;
@@ -62,7 +66,9 @@ export class Code implements DurableObject {
         }
 
         // Initialize auto-save history
-        const savedHistory = await this.state.storage.get<AutoSaveEntry[]>("autoSaveHistory");
+        const savedHistory = await this.state.storage.get<AutoSaveEntry[]>(
+          "autoSaveHistory",
+        );
         if (savedHistory) {
           this.autoSaveHistory = savedHistory;
         }
@@ -78,7 +84,7 @@ export class Code implements DurableObject {
   }
 
   public async autoSave() {
-    if (this.autoSaveHistory.find(x => x.code === this.session.code)) return;
+    if (this.autoSaveHistory.find((x) => x.code === this.session.code)) return;
 
     const currentTime = Date.now();
     if (currentTime - this.lastAutoSave >= this.autoSaveInterval) {
@@ -86,13 +92,15 @@ export class Code implements DurableObject {
 
       // Check if the code has changed since the last auto-save
       if (
-        this.autoSaveHistory.length === 0 || currentCode !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
+        this.autoSaveHistory.length === 0
+        || currentCode
+          !== this.autoSaveHistory[this.autoSaveHistory.length - 1].code
       ) {
         // Remove entries younger than 1 minutes
-        this.autoSaveHistory = this.autoSaveHistory.filter(entry => currentTime - entry.timestamp >= 60_000);
+        this.autoSaveHistory = this.autoSaveHistory.filter((entry) => currentTime - entry.timestamp >= 60_000);
 
         // Remove entries older than 2 months
-        this.autoSaveHistory = this.autoSaveHistory.filter(entry =>
+        this.autoSaveHistory = this.autoSaveHistory.filter((entry) =>
           currentTime - entry.timestamp <= 60000 * 60 * 24 * 60
         );
 
@@ -106,7 +114,10 @@ export class Code implements DurableObject {
         await this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
 
         // Save the current version with timestamp
-        await this.state.storage.put(`savedVersion_${currentTime}`, currentCode);
+        await this.state.storage.put(
+          `savedVersion_${currentTime}`,
+          currentCode,
+        );
 
         // Update last auto-save time
         this.lastAutoSave = currentTime;
@@ -120,7 +131,10 @@ export class Code implements DurableObject {
     const url = new URL(request.url);
     this.codeSpace = url.searchParams.get("room")!;
     return handleErrors(request, async () => {
-      this.session.code = this.session.code.replace(/https:\/\/spike\.land\//g, `${url.origin}/`);
+      this.session.code = this.session.code.replace(
+        /https:\/\/spike\.land\//g,
+        `${url.origin}/`,
+      );
 
       if (!this.origin) {
         this.origin = url.origin;
@@ -148,7 +162,10 @@ export class Code implements DurableObject {
       reversePatch: msg.reversePatch,
     });
 
-    const oldData = await this.state.storage.get(msg.oldHash) as { oldHash?: string; reversePatch?: string } | null;
+    const oldData = await this.state.storage.get(msg.oldHash) as {
+      oldHash?: string;
+      reversePatch?: string;
+    } | null;
     await this.state.storage.put(msg.oldHash, {
       oldHash: oldData?.oldHash || "",
       reversePatch: oldData?.reversePatch || [],
@@ -190,7 +207,7 @@ export class Code implements DurableObject {
 
   // New method to restore code from a specific auto-save entry
   async restoreFromAutoSave(timestamp: number): Promise<boolean> {
-    const entry = this.autoSaveHistory.find(e => e.timestamp === timestamp);
+    const entry = this.autoSaveHistory.find((e) => e.timestamp === timestamp);
     if (entry) {
       this.session.code = entry.code;
       await this.state.storage.put("session", this.session);

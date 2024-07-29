@@ -42,7 +42,9 @@ const WeatherDashboard = () => {
       <Card className="max-w-4xl mx-auto bg-white/80 backdrop-blur-md">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Weather Dashboard</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-4 md:mb-0">
+              Weather Dashboard
+            </h1>
             <div className="flex w-full md:w-auto">
               <Input
                 type="text"
@@ -61,7 +63,9 @@ const WeatherDashboard = () => {
                 <h2 className="text-2xl font-semibold mb-4">{city}</h2>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-5xl font-bold">{currentWeather.temperature}°F</p>
+                    <p className="text-5xl font-bold">
+                      {currentWeather.temperature}°F
+                    </p>
                     <p className="text-gray-600">{currentWeather.condition}</p>
                   </div>
                   <WeatherIcon condition={currentWeather.condition} />
@@ -69,11 +73,15 @@ const WeatherDashboard = () => {
                 <div className="mt-4 grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-gray-600">Humidity</p>
-                    <p className="text-xl font-semibold">{currentWeather.humidity}%</p>
+                    <p className="text-xl font-semibold">
+                      {currentWeather.humidity}%
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-600">Wind Speed</p>
-                    <p className="text-xl font-semibold">{currentWeather.windSpeed} mph</p>
+                    <p className="text-xl font-semibold">
+                      {currentWeather.windSpeed} mph
+                    </p>
                   </div>
                 </div>
               </CardContent>

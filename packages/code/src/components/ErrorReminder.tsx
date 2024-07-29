@@ -53,7 +53,9 @@ interface ErrorReminderProps {
   onHeightChange: (height: number) => void;
 }
 
-export const ErrorReminder: React.FC<ErrorReminderProps> = ({ errorType, onHeightChange }) => {
+export const ErrorReminder: React.FC<ErrorReminderProps> = (
+  { errorType, onHeightChange },
+) => {
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {

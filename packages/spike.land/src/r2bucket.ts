@@ -1,7 +1,11 @@
 import { ExportedHandler } from "@cloudflare/workers-types";
 import MyEnv from "./env";
 
-const handlePut = async (key: string, body: ReadableStream | null, env: MyEnv): Promise<Response> => {
+const handlePut = async (
+  key: string,
+  body: ReadableStream | null,
+  env: MyEnv,
+): Promise<Response> => {
   if (!body) {
     return new Response("Missing request body", { status: 400 });
   }

@@ -41,8 +41,14 @@ interface VersionItemProps {
 
 const VersionItem = React.memo(
   (
-    { virtualItem, version, selectedVersion, handleSetSelectedVersion, formatDate, isModuleTranspiled }:
-      VersionItemProps,
+    {
+      virtualItem,
+      version,
+      selectedVersion,
+      handleSetSelectedVersion,
+      formatDate,
+      isModuleTranspiled,
+    }: VersionItemProps,
   ) => {
     const isSelected = selectedVersion === version;
     const moduleContainerId = `module-container-${virtualItem.index}`;
@@ -71,9 +77,14 @@ const VersionItem = React.memo(
   },
 );
 
-const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore, onClose }) => {
+const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = (
+  { codeSpace, onRestore, onClose },
+) => {
   const formatDate = useCallback((timestamp: number) => {
-    return new Date(timestamp).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+    return new Date(timestamp).toLocaleString(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
   }, []);
 
   const handleSetSelectedVersion = useCallback((version: Version) => {
@@ -82,8 +93,12 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   const [versions, setVersions] = useState<Version[]>([]);
   const diffEditorRef = useRef<HTMLDivElement>(null);
   const [selectedVersion, setSelectedVersion] = useState<Version | null>(null);
-  const [diffEditor, setDiffEditor] = useState<Monaco.editor.IStandaloneDiffEditor | null>(null);
-  const [transpiledModules, setTranspiledModules] = useState<Map<number, string>>(new Map());
+  const [diffEditor, setDiffEditor] = useState<
+    Monaco.editor.IStandaloneDiffEditor | null
+  >(null);
+  const [transpiledModules, setTranspiledModules] = useState<
+    Map<number, string>
+  >(new Map());
   const parentRef = useRef<HTMLDivElement>(null);
   const transpileQueue = useRef<number[]>([]);
   const isTranspiling = useRef(false);
@@ -157,13 +172,17 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
   }, [transpiledModules, rowVirtualizer, renderModule, queueTranspile]);
 
   const getPreviousVersion = (currentVersion: Version): Version | null => {
-    const currentIndex = versions.findIndex(v => v.timestamp === currentVersion.timestamp);
-    return currentIndex < versions.length - 1 ? versions[currentIndex + 1] : null;
+    const currentIndex = versions.findIndex((v) => v.timestamp === currentVersion.timestamp);
+    return currentIndex < versions.length - 1
+      ? versions[currentIndex + 1]
+      : null;
   };
 
   const fetchVersions = async () => {
     try {
-      const response = await fetch(`https://testing.spike.land/live/${codeSpace}/auto-save/history`);
+      const response = await fetch(
+        `https://testing.spike.land/live/${codeSpace}/auto-save/history`,
+      );
       if (response.ok) {
         const data = await response.json<Version[]>();
         setVersions(data);
@@ -192,7 +211,7 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
           type: "application/javascript",
         }),
       );
-      setTranspiledModules(prev => new Map(prev).set(index, moduleUrl));
+      setTranspiledModules((prev) => new Map(prev).set(index, moduleUrl));
     } catch (error) {
       console.error(`Error transpiling version ${index}:`, error);
     } finally {
@@ -220,7 +239,10 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
       previousVersion ? previousVersion.code : "",
       "typescript",
     )!;
-    const modifiedModel = monaco.editor.createModel(selectedVersion.code, "typescript")!;
+    const modifiedModel = monaco.editor.createModel(
+      selectedVersion.code,
+      "typescript",
+    )!;
 
     diffEditor.setModel({
       original: originalModel,
@@ -240,11 +262,14 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     if (!selectedVersion) return;
 
     try {
-      const response = await fetch(`https://testing.spike.land/live/${codeSpace}/auto-save/restore`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ timestamp: selectedVersion.timestamp }),
-      });
+      const response = await fetch(
+        `https://testing.spike.land/live/${codeSpace}/auto-save/restore`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ timestamp: selectedVersion.timestamp }),
+        },
+      );
 
       if (response.ok) {
         onRestore(selectedVersion.code);
@@ -257,7 +282,10 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
     }
   }, [selectedVersion, codeSpace, onRestore, onClose]);
 
-  const isModuleTranspiled = useCallback((index: number) => transpiledModules.has(index), [transpiledModules]);
+  const isModuleTranspiled = useCallback(
+    (index: number) => transpiledModules.has(index),
+    [transpiledModules],
+  );
 
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
@@ -288,14 +316,22 @@ const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = ({ codeSpace, onRestore,
                 </div>
               </ScrollArea>
               <div className="w-2/3 pl-4 flex flex-col">
-                <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2"></h3>
-                <div id="diffEditor" ref={diffEditorRef} style={{ height: "calc(100% - 2rem)" }}></div>
+                <h3 id="diffEditorTitle" className="text-lg font-semibold mb-2">
+                </h3>
+                <div
+                  id="diffEditor"
+                  ref={diffEditorRef}
+                  style={{ height: "calc(100% - 2rem)" }}
+                >
+                </div>
               </div>
             </div>
           )
           : (
             <div className="flex-grow flex items-center justify-center">
-              <p className="text-lg text-muted-foreground">Loading versions...</p>
+              <p className="text-lg text-muted-foreground">
+                Loading versions...
+              </p>
             </div>
           )}
         <div className="mt-4 flex justify-end space-x-2">

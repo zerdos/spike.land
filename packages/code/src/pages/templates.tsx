@@ -18,7 +18,9 @@ const BrowserFrame = ({ children }: { children: React.ReactNode }) => (
       </div>
     </div>
     <div className="bg-white p-4">
-      <div className="w-full h-full scale-[0.75] origin-top-left">{children}</div>
+      <div className="w-full h-full scale-[0.75] origin-top-left">
+        {children}
+      </div>
     </div>
   </div>
 );
@@ -57,7 +59,12 @@ const templates = [
   },
 ];
 
-const TemplateCard = ({ template, onSelect }: { template: Template; onSelect: (templateId: number) => void }) => (
+const TemplateCard = (
+  { template, onSelect }: {
+    template: Template;
+    onSelect: (templateId: number) => void;
+  },
+) => (
   <Card className="hover:shadow-lg transition-shadow duration-300">
     <CardHeader>
       <h2 className="text-xl font-semibold">{template.name}</h2>
@@ -66,7 +73,9 @@ const TemplateCard = ({ template, onSelect }: { template: Template; onSelect: (t
       <div className="mb-4 h-[300px] flex justify-center items-center">
         <div className="scale-[0.4] origin-center">
           <BrowserFrame>
-            {typeof template.preview === "function" ? template.preview() : template.preview}
+            {typeof template.preview === "function"
+              ? template.preview()
+              : template.preview}
           </BrowserFrame>
         </div>
       </div>

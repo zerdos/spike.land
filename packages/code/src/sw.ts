@@ -65,7 +65,8 @@ async function fetchAssetHash(): Promise<string> {
 async function checkAssetHash() {
   const newAssetHash = await fetchAssetHash();
   const cache = await caches.open(GENERAL_CACHE_NAME);
-  const currentAssetHash = await cache.match(ASSET_HASH_KEY).then(response => response?.text()) || self.swVersion;
+  const currentAssetHash = await cache.match(ASSET_HASH_KEY).then((response) => response?.text())
+    || self.swVersion;
 
   if (currentAssetHash !== newAssetHash) {
     console.log("ASSET_HASH changed. Updating cache...");
@@ -121,7 +122,7 @@ const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
     const generalCache = await caches.open(GENERAL_CACHE_NAME);
-    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then(response => response?.text())
+    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then((response) => response?.text())
       || self.swVersion;
     const cacheName = isFileInList(url.pathname)
       ? FILE_CACHE_NAME + currentAssetHash
@@ -311,7 +312,7 @@ const transpileAndServe = async (
 };
 
 // Handle fetch events
-self.addEventListener("fetch", event => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
       try {

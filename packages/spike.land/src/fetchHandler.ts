@@ -34,7 +34,9 @@ export async function handleFetchApi(
   };
 
   const handler = handlers[path[0]];
-  return handler ? handler() : handleDefaultCase(path, request, env, ctx, u, newUrl);
+  return handler
+    ? handler()
+    : handleDefaultCase(path, request, env, ctx, u, newUrl);
 }
 
 function handlePing(): Response {
@@ -141,7 +143,12 @@ async function handleLiveRequest(path: string[], request: Request, env: Env) {
   );
 }
 
-async function handlePublicRequest(codeSpace: string, path: string[], request: Request, env: Env) {
+async function handlePublicRequest(
+  codeSpace: string,
+  path: string[],
+  request: Request,
+  env: Env,
+) {
   const key = `live/${codeSpace}/${path.join("/")}`;
 
   switch (request.method) {

@@ -23,7 +23,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   useEffect(() => {
     if (!onlyEdit) {
-      const iframe = document.querySelector(`iframe[src="/live/${codeSpace}/"]`);
+      const iframe = document.querySelector(
+        `iframe[src="/live/${codeSpace}/"]`,
+      );
       if (iframe) {
         iframe.addEventListener("load", () => {
           setHideRest(false);
@@ -97,7 +99,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             <Bot className="h-6 w-6" />
           </Button>
 
-          <ChatInterface isOpen={isOpen} onCodeUpdate={handleCodeUpdate} onClose={() => setIsOpen(false)} />
+          <ChatInterface
+            isOpen={isOpen}
+            onCodeUpdate={handleCodeUpdate}
+            onClose={() => setIsOpen(false)}
+          />
 
           <Button
             onClick={() => setShowAutoSaveHistory(true)}

@@ -56,8 +56,12 @@ export const transpile = async (
   { code, originToUse }: { code: string; originToUse: string },
 ) => {
   const transpiled = await transpileID({ code, originToUse });
-  if (transpiled === "/** js.spike.land */\n[object Object]") throw new Error("transpile error", { cause: transpiled });
-  if (typeof transpiled !== "string") throw new Error("transpile error", { cause: transpiled });
+  if (transpiled === "/** js.spike.land */\n[object Object]") {
+    throw new Error("transpile error", { cause: transpiled });
+  }
+  if (typeof transpiled !== "string") {
+    throw new Error("transpile error", { cause: transpiled });
+  }
   return transpiled;
 };
 

@@ -4,7 +4,9 @@ import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 export { aPatch };
 
 const aPC = (sess: ICodeSession, mess: CodePatch) =>
-  makeSession(JSON.parse(aPatch(stringifySession(makeSession(sess)), mess.patch)));
+  makeSession(
+    JSON.parse(aPatch(stringifySession(makeSession(sess)), mess.patch)),
+  );
 
 export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   const newSess = aPC(sess, mess);

@@ -21,7 +21,9 @@ const TodoList = () => {
   };
 
   const toggleTodo = (id: number) => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+    setTodos(
+      todos.map((todo) => todo.id === id ? { ...todo, completed: !todo.completed } : todo),
+    );
   };
 
   return (
@@ -41,7 +43,7 @@ const TodoList = () => {
           <Button onClick={addTodo}>Add</Button>
         </div>
         <ul>
-          {todos.map(todo => (
+          {todos.map((todo) => (
             <li
               key={todo.id}
               onClick={() => toggleTodo(todo.id)}

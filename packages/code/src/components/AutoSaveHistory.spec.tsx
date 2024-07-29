@@ -44,25 +44,47 @@ describe("AutoSaveHistory", () => {
 
   const renderWithProvider = (ui: React.ReactElement) => {
     return render(
-      <div ref={(el) => el && (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))}>
+      <div
+        ref={(el) =>
+          el
+          && (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))}
+      >
         {ui}
       </div>,
     );
   };
 
   it("renders loading state initially", async () => {
-    renderWithProvider(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    renderWithProvider(
+      <AutoSaveHistory
+        codeSpace="test"
+        onRestore={mockOnRestore}
+        onClose={mockOnClose}
+      />,
+    );
     await screen.findByText("Loading versions...");
   });
 
   it("fetches and displays versions", async () => {
-    renderWithProvider(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    renderWithProvider(
+      <AutoSaveHistory
+        codeSpace="test"
+        onRestore={mockOnRestore}
+        onClose={mockOnClose}
+      />,
+    );
     await screen.findByText("Jul 1, 2021, 12:00 AM");
     expect(screen.getByText("Jul 2, 2021, 12:00 AM")).toBeTruthy();
   });
 
   it("calls onRestore when restore button is clicked", async () => {
-    renderWithProvider(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    renderWithProvider(
+      <AutoSaveHistory
+        codeSpace="test"
+        onRestore={mockOnRestore}
+        onClose={mockOnClose}
+      />,
+    );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
     fireEvent.click(versionButton);
     const restoreButton = await screen.findByText("Restore Selected Version");
@@ -73,7 +95,13 @@ describe("AutoSaveHistory", () => {
   });
 
   it("calls onClose when close button is clicked", async () => {
-    renderWithProvider(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    renderWithProvider(
+      <AutoSaveHistory
+        codeSpace="test"
+        onRestore={mockOnRestore}
+        onClose={mockOnClose}
+      />,
+    );
     const closeButton = await screen.findByText("Close");
     fireEvent.click(closeButton);
     await waitFor(() => {
@@ -82,7 +110,13 @@ describe("AutoSaveHistory", () => {
   });
 
   it("updates diff editor when a version is selected", async () => {
-    renderWithProvider(<AutoSaveHistory codeSpace="test" onRestore={mockOnRestore} onClose={mockOnClose} />);
+    renderWithProvider(
+      <AutoSaveHistory
+        codeSpace="test"
+        onRestore={mockOnRestore}
+        onClose={mockOnClose}
+      />,
+    );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
     fireEvent.click(versionButton);
     await waitFor(() => {

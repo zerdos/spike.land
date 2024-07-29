@@ -99,7 +99,10 @@ function getCodeSpace(): string {
  */
 async function cleanupFiles() {
   try {
-    const files = [`/live/${codeSpace}/index.js`, `/live/${codeSpace}/index.mjs`];
+    const files = [
+      `/live/${codeSpace}/index.js`,
+      `/live/${codeSpace}/index.mjs`,
+    ];
 
     for (const file of files) {
       if (await stat(file)) {

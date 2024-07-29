@@ -14,7 +14,9 @@ export default {
       url = new URL(url).toString(); // normalize
       img = await env.BROWSER_KV_SPIKE_LAND.get(url, { type: "arrayBuffer" });
       if (img === null) {
-        const browser = await puppeteer.launch(env.MY_WORKER_BROWSER as unknown as BrowserWorker);
+        const browser = await puppeteer.launch(
+          env.MY_WORKER_BROWSER as unknown as BrowserWorker,
+        );
         const page = await browser.newPage();
         await page.goto(url);
         await wait(1000);

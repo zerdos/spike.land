@@ -27,7 +27,10 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
-const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ codeSpace, onCodeUpdate }, ref) => {
+const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
+  { codeSpace, onCodeUpdate },
+  ref,
+) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engine = isMobile() ? "ace" : "monaco";
   const [editorState, setEditorState] = useState({
@@ -39,7 +42,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
 
   // const [localCode, setLocalCode] = useState(globalThis.cSess.session.code);
   const isUpdatingRef = useRef(false);
-  const [errorType, setErrorType] = useState<"typescript" | "prettier" | "transpile" | "render" | null>(null);
+  const [errorType, setErrorType] = useState<
+    "typescript" | "prettier" | "transpile" | "render" | null
+  >(null);
 
   useImperativeHandle(ref, () => ({
     setValue: (code: string) => {
@@ -89,7 +94,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       }
       try {
         if (mod.controller.signal.aborted) return;
-        await runner({ code: formattedCode, counter: i, codeSpace, signal: mod.controller.signal });
+        await runner({
+          code: formattedCode,
+          counter: i,
+          codeSpace,
+          signal: mod.controller.signal,
+        });
         console.log("Runner succeeded");
         // Since runner doesn't return anything, we assume it succeeded if it didn't throw an error
         onCodeUpdate(formattedCode);
@@ -111,7 +121,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
         const model = monaco.editor.getModels()[0];
         const worker = await monaco.languages.typescript.getTypeScriptWorker();
         const client = await worker(model.uri);
-        const diagnostics = await client.getSemanticDiagnostics(model.uri.toString());
+        const diagnostics = await client.getSemanticDiagnostics(
+          model.uri.toString(),
+        );
 
         if (diagnostics.length > 0) {
           setErrorType("typescript");
@@ -141,7 +153,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
 
   useEffect(() => {
     const handleBroadcastMessage = ({ data }: MessageEvent) => {
-      if (!data.i || !data.code || data.code === mod.code || mod.i >= data.i) return;
+      if (!data.i || !data.code || data.code === mod.code || mod.i >= data.i) {
+        return;
+      }
 
       isUpdatingRef.current = true;
       mod.i = Number(data.i);
@@ -166,7 +180,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
     };
   }, [codeSpace]);
 
-  if (engine === "ace") return <EditorNode engine="ace" errorType={errorType} containerRef={containerRef} />;
+  if (engine === "ace") {
+    return (
+      <EditorNode
+        engine="ace"
+        errorType={errorType}
+        containerRef={containerRef}
+      />
+    );
+  }
 
   return (
     <Rnd
@@ -191,7 +213,11 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = ({ cod
       }}
       style={{ height: "100vh" }}
     >
-      <EditorNode engine="monaco" errorType={errorType} containerRef={containerRef} />
+      <EditorNode
+        engine="monaco"
+        errorType={errorType}
+        containerRef={containerRef}
+      />
     </Rnd>
   );
 

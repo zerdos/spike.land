@@ -125,7 +125,12 @@ function handleDehydratedPage() {
 }
 
 function handleDefaultPage() {
-  const mod = { counter: 0, code: "", transpiled: "", controller: new AbortController() };
+  const mod = {
+    counter: 0,
+    code: "",
+    transpiled: "",
+    controller: new AbortController(),
+  };
   const mutex = new Mutex();
 
   BC.onmessage = async ({ data }) => {
@@ -229,9 +234,10 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
 
     const emotionStyles = Array.from(
       new Set(
-        Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`)).map(
-          (style) => style.textContent,
-        ),
+        Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
+          .map(
+            (style) => style.textContent,
+          ),
       ),
     ).join("\n");
 

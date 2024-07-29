@@ -5,7 +5,8 @@ import { QueuedFetch } from "./QueuedFetch";
 const limitedFetch = new QueuedFetch(4, 1000);
 
 export const myATA = async (code: string) => {
-  const a = (ATA as unknown as { setupTypeAcquisition: typeof ATA.a }).setupTypeAcquisition;
+  const a = (ATA as unknown as { setupTypeAcquisition: typeof ATA.a })
+    .setupTypeAcquisition;
   const myPromise = new Promise<Map<string, string>>((resolve) => {
     const ata = a({
       projectName: "My ATA Project,",

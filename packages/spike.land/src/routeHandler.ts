@@ -5,13 +5,27 @@ import { Code } from "./chatRoom";
 export class RouteHandler {
   constructor(private code: Code) {}
 
-  async handleRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+  async handleRoute(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
     const routeHandler = this.getRouteHandler(path[0]);
-    return routeHandler ? routeHandler(request, url, path) : new Response("Not found", { status: 404 });
+    return routeHandler
+      ? routeHandler(request, url, path)
+      : new Response("Not found", { status: 404 });
   }
 
-  private getRouteHandler(route: string): ((req: Request, url: URL, path: string[]) => Promise<Response>) | null {
-    const routes: { [key: string]: (req: Request, url: URL, path: string[]) => Promise<Response> } = {
+  private getRouteHandler(
+    route: string,
+  ): ((req: Request, url: URL, path: string[]) => Promise<Response>) | null {
+    const routes: {
+      [key: string]: (
+        req: Request,
+        url: URL,
+        path: string[],
+      ) => Promise<Response>;
+    } = {
       users: this.handleUsersRoute.bind(this),
       websocket: this.handleWebsocketRoute.bind(this),
       code: this.handleCodeRoute.bind(this),
@@ -44,7 +58,11 @@ export class RouteHandler {
 
     return routes[route] || null;
   }
-  private async handleAutoSaveRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+  private async handleAutoSaveRoute(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
     const action = path[1];
 
     try {
@@ -54,14 +72,19 @@ export class RouteHandler {
         case "restore": {
           const body = await request.json<{ timestamp?: number }>();
           if (!body || typeof body.timestamp !== "number") {
-            return new Response("Invalid request body. Expected { timestamp: number }", { status: 400 });
+            return new Response(
+              "Invalid request body. Expected { timestamp: number }",
+              { status: 400 },
+            );
           }
 
           const success = await this.code.restoreFromAutoSave(body.timestamp);
           if (success) {
             return new Response("Code restored successfully", { status: 200 });
           } else {
-            return new Response("Failed to restore code. Snapshot not found.", { status: 404 });
+            return new Response("Failed to restore code. Snapshot not found.", {
+              status: 404,
+            });
           }
         }
         default:
@@ -86,7 +109,9 @@ export class RouteHandler {
       });
     } catch (error) {
       console.error("Error in getAutoSaveHistory:", error);
-      return new Response("Failed to retrieve auto-save history", { status: 500 });
+      return new Response("Failed to retrieve auto-save history", {
+        status: 500,
+      });
     }
   }
 
@@ -123,11 +148,20 @@ export class RouteHandler {
     });
   }
 
-  private async handleSessionRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+  private async handleSessionRoute(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
     if (path[1]) {
-      const session = await this.code.getState().storage.get<string | object>(path[1], { allowConcurrency: false });
+      const session = await this.code.getState().storage.get<string | object>(
+        path[1],
+        { allowConcurrency: false },
+      );
       if (session) {
-        const s = makeSession(typeof session === "string" ? JSON.parse(session) : session);
+        const s = makeSession(
+          typeof session === "string" ? JSON.parse(session) : session,
+        );
         return new Response(stringifySession(s), {
           status: 200,
           headers: {
@@ -140,16 +174,19 @@ export class RouteHandler {
           },
         });
       } else {
-        return new Response(JSON.stringify({ success: false, statusCode: 404 }), {
-          status: 404,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Cross-Origin-Embedder-Policy": "require-corp",
-            "Content-Encoding": "gzip",
-            "Cache-Control": "no-cache",
-            "Content-Type": "application/json; charset=UTF-8",
+        return new Response(
+          JSON.stringify({ success: false, statusCode: 404 }),
+          {
+            status: 404,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Cross-Origin-Embedder-Policy": "require-corp",
+              "Content-Encoding": "gzip",
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
           },
-        });
+        );
       }
     }
     const body = stringifySession(this.code.session);
@@ -200,7 +237,9 @@ export class RouteHandler {
   }
 
   private async handleListRoute(): Promise<Response> {
-    const list = await this.code.getState().storage.list({ allowConcurrency: true });
+    const list = await this.code.getState().storage.list({
+      allowConcurrency: true,
+    });
     return new Response(JSON.stringify({ ...list }), {
       status: 200,
       headers: {
@@ -226,7 +265,11 @@ export class RouteHandler {
     });
   }
 
-  private async handlePathRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+  private async handlePathRoute(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
     return new Response(path.join("----"), {
       status: 200,
       headers: {
@@ -238,10 +281,16 @@ export class RouteHandler {
     });
   }
 
-  private async handleLiveRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+  private async handleLiveRoute(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
     if (path[3] === "index.tsx" && path[4]) {
       const timestamp = parseInt(path[4]);
-      const savedVersion = await this.code.getState().storage.get(`savedVersion_${timestamp}`);
+      const savedVersion = await this.code.getState().storage.get(
+        `savedVersion_${timestamp}`,
+      );
 
       if (savedVersion) {
         return new Response(savedVersion as string, {
@@ -264,7 +313,9 @@ export class RouteHandler {
     const timestamp = new URL(request.url).searchParams.get("timestamp");
 
     if (timestamp) {
-      const savedVersion = await this.code.getState().storage.get(`savedVersion_${timestamp}`);
+      const savedVersion = await this.code.getState().storage.get(
+        `savedVersion_${timestamp}`,
+      );
       if (savedVersion) {
         code = savedVersion as string;
       }
@@ -274,9 +325,12 @@ export class RouteHandler {
       method: "POST",
       body: code,
       headers: { TR_ORIGIN: this.code.getOrigin() },
-    }).then(r => r.text());
+    }).then((r) => r.text());
 
-    const replaced = transpiled.replace(/https:\/\/spike\.land\//g, `${this.code.getOrigin()}/`);
+    const replaced = transpiled.replace(
+      /https:\/\/spike\.land\//g,
+      `${this.code.getOrigin()}/`,
+    );
     return new Response(replaced, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -301,9 +355,15 @@ export class RouteHandler {
     });
   }
 
-  private async handleHashCodeRoute(request: Request, url: URL, path: string[]): Promise<Response> {
+  private async handleHashCodeRoute(
+    request: Request,
+    url: URL,
+    path: string[],
+  ): Promise<Response> {
     const hashCode = String(Number(path[1]));
-    const patch = await this.code.getState().storage.get<{ patch: string; oldHash: number }>(hashCode, {
+    const patch = await this.code.getState().storage.get<
+      { patch: string; oldHash: number }
+    >(hashCode, {
       allowConcurrency: true,
     });
 

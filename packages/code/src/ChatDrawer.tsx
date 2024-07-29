@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { css } from "@emotion/react";
+import { motion } from "framer-motion";
 import { Bot, Check, Moon, RefreshCw, Send, Sun, X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { CodeTS } from "./CodeBlock";
-import { motion } from "framer-motion";
 
 export interface Message {
   id: string;
@@ -104,8 +104,13 @@ const mockResponses = [
 // Helper function to render message content
 const renderMessage = (text: string, isUser: boolean) => {
   const cleanedText = isUser
-    ? text.split("The user's first message follows:").pop()!.trim().split("Reminder from the system:")[0].trim()
-    : text.replace(/<antArtifact.*?>/g, "**```tsx").replace(/<\/antArtifact>/g, "```**");
+    ? text.split("The user's first message follows:").pop()!.trim().split(
+      "Reminder from the system:",
+    )[0].trim()
+    : text.replace(/<antArtifact.*?>/g, "**```tsx").replace(
+      /<\/antArtifact>/g,
+      "```**",
+    );
 
   const parts = cleanedText.split("**```tsx");
   if (parts.length > 1) {
@@ -192,8 +197,8 @@ const ChatMessage: React.FC<{
             </div>
           )
           : (
-            <div className="break-words"> {/* Added this wrapper */}
-              {renderMessage(message.content, isUser)}
+            <div className="break-words">
+              {/* Added this wrapper */} {renderMessage(message.content, isUser)}
             </div>
           )}
       </div>
@@ -211,7 +216,9 @@ export const ChatHeader: React.FC<{
     <span>AI spike pilot</span>
     <div className="flex items-center space-x-2">
       <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
-        {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        {isDarkMode
+          ? <Sun className="h-4 w-4" />
+          : <Moon className="h-4 w-4" />}
       </Button>
       <Button variant="ghost" size="icon" onClick={handleResetChat}>
         <RefreshCw className="h-4 w-4" />
@@ -255,24 +262,24 @@ export const ChatContainer: React.FC<{
 
   return (
     <ScrollArea className="flex-grow p-4">
-    <div className="space-y-4">
-      {messages.map((message) => (
-        <ChatMessage
-          key={message.id}
-          message={message}
-          isSelected={editingMessageId === message.id}
-          onDoubleClick={() => handleEditMessage(message.id)}
-          isEditing={editingMessageId === message.id}
-          editInput={editInput}
-          setEditInput={setEditInput}
-          handleCancelEdit={handleCancelEdit}
-          handleSaveEdit={handleSaveEdit}
-        />
-      ))}
-      {isStreaming && <TypingIndicator />}
-      <div ref={messagesEndRef} />
-    </div>
-  </ScrollArea>
+      <div className="space-y-4">
+        {messages.map((message) => (
+          <ChatMessage
+            key={message.id}
+            message={message}
+            isSelected={editingMessageId === message.id}
+            onDoubleClick={() => handleEditMessage(message.id)}
+            isEditing={editingMessageId === message.id}
+            editInput={editInput}
+            setEditInput={setEditInput}
+            handleCancelEdit={handleCancelEdit}
+            handleSaveEdit={handleSaveEdit}
+          />
+        ))}
+        {isStreaming && <TypingIndicator />}
+        <div ref={messagesEndRef} />
+      </div>
+    </ScrollArea>
   );
 };
 export const MessageInput: React.FC<{
@@ -297,9 +304,9 @@ export const MessageInput: React.FC<{
         className="flex-1 min-h-[100px] resize-none"
         ref={inputRef}
       />
-      <Button 
-        onClick={() => handleSendMessage(input)} 
-        disabled={isStreaming || input.trim() === ""} 
+      <Button
+        onClick={() => handleSendMessage(input)}
+        disabled={isStreaming || input.trim() === ""}
         className="self-end"
       >
         <Send className="h-4 w-4 mr-2" />
@@ -309,27 +316,37 @@ export const MessageInput: React.FC<{
   </div>
 );
 
-export const ChatWindow: React.FC<{ isOpen: boolean; children: React.ReactNode }> = ({
+export const ChatWindow: React.FC<
+  { isOpen: boolean; children: React.ReactNode }
+> = ({
   children,
   isOpen,
 }) => (
   <div
-  css={[styles.chatWindow, css`
+    css={[
+      styles.chatWindow,
+      css`
     display: flex;
     flex-direction: column;
-  `]}
-  style={{
-    transform: isOpen ? "translateX(0)" : "translateX(100%)",
-  }}
->
-  <div css={[styles.chatContent, css`
+  `,
+    ]}
+    style={{
+      transform: isOpen ? "translateX(0)" : "translateX(100%)",
+    }}
+  >
+    <div
+      css={[
+        styles.chatContent,
+        css`
     display: flex;
     flex-direction: column;
     height: 100%;
-  `]}>
-    {children}
+  `,
+      ]}
+    >
+      {children}
+    </div>
   </div>
-</div>
 );
 
 const ChatInterface: React.FC = () => {
@@ -391,7 +408,11 @@ const ChatInterface: React.FC = () => {
 
   const handleSaveEdit = useCallback(
     (id: string) => {
-      setMessages((prev) => prev.map((msg) => (msg.id === id ? { ...msg, content: editInput } : msg)));
+      setMessages((prev) =>
+        prev.map((
+          msg,
+        ) => (msg.id === id ? { ...msg, content: editInput } : msg))
+      );
       setEditingMessageId(null);
       setEditInput("");
     },
