@@ -5,6 +5,7 @@ import { ChatFC, Message } from "./ChatDrawer";
 import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
 import { extractArtifacts } from "./utils/extractArtifacts";
+import { on } from "events";
 
 // Types
 
@@ -226,33 +227,6 @@ const ChatInterface: React.FC<
       throw new Error("Response body is not readable!");
     }
 
-    const codeNowTrimmed = codeNow.split("\n").map(x => x.trim()).join("\n");
-
-    const updatePartialCode = (code: string) => {
-      // let get out the code block, even if it is not complete
-      const codeModificationRegex = /```(?:typescript?|javascript?)\n([\s\S]*?)```/g;
-      const matches = code.match(codeModificationRegex);
-
-      if (matches) {
-        const modifiedCode = matches[matches.length - 1].replace(
-          /```(?:typescript?|javascript?)\n|```/g,
-          "",
-        ).split("\n").map(x => x.trim()).join("\n");
-
-        //        lets find in code now the last 40 same characters, which will indicate how much code was already processed
-
-        const saveToCut = codeNowTrimmed.split(modifiedCode.slice(-40));
-        if (saveToCut.length !== 2) return;
-
-        const updatedCode = modifiedCode + saveToCut[1];
-        if (updatedCode !== guessedCode) {
-          guessedCode = updatedCode;
-          console.log("guessedCode", guessedCode);
-          onCodeUpdate(updatedCode);
-        }
-      }
-    };
-
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -263,8 +237,6 @@ const ChatInterface: React.FC<
       const chunk = decoder.decode(value);
       code += chunk;
 
-      updatePartialCode(code);
-
       __setMessages((prevMessages) => {
         const lastMessage = prevMessages.pop()!;
 
@@ -272,7 +244,6 @@ const ChatInterface: React.FC<
         return [...prevMessages, lastMessage];
       });
     }
-
     console.log("code", code);
 
     const codeModificationRegex = /```(?:typescript?|javascript?)\n([\s\S]*?)```/g;
