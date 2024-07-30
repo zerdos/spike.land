@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
 import { CodeBlock, programmingLanguages } from "../CodeBlock";
@@ -115,8 +114,7 @@ export const renderMessage = (text: string, isUser: boolean) => {
             : (
               <CodeBlock
                 value={part.content}
-                language={part.language}
-                isStreaming={part.isStreaming}
+                language={part.language || 'typescript'}
               />
             )}
         </Fragment>

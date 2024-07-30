@@ -80,7 +80,7 @@
   },
 
   "include": [
-    "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"
+    "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.mjs" 
   ],
   "exclude": [".yarn", "dist", "*/**.spec.ts", "__tests__", "node_modules"]
 }

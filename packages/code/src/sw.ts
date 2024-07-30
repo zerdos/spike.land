@@ -1,8 +1,8 @@
 // Purpose: Service worker to cache files and update cache when ASSET_HASH changes
-declare const self:
-  & ServiceWorkerGlobalScope
-  & { swVersion: string }
-  & { files: { [key: string]: string }; fileCacheName: string };
+// Remove the duplicate declaration of 'self'
+const sw = self as unknown as ServiceWorkerGlobalScope
+& { swVersion: string }
+& { files: { [key: string]: string }; fileCacheName: string } ;
 
 importScripts("/swVersion.js");
 
@@ -49,16 +49,16 @@ async function checkAssetHash() {
     console.log("ASSET_HASH changed. Updating cache...");
     await updateCache(newAssetHash);
     await cache.put(assetHashReq, new Response(newAssetHash));
-    self.swVersion = newAssetHash;
+    sw.swVersion = newAssetHash;
     // Force clients to use the new service worker
   }
 }
 
 // Update cache with new version
 async function updateCache(newAssetHash: string) {
-  if (newAssetHash === self.swVersion) return;
+  if (newAssetHash === sw.swVersion) return;
 
-  const oldFileCacheName = FILE_CACHE_NAME + self.swVersion;
+  const oldFileCacheName = FILE_CACHE_NAME + sw.swVersion;
   const newFileCacheName = FILE_CACHE_NAME + newAssetHash;
 
   // Open both old and new file caches
@@ -91,7 +91,7 @@ async function updateCache(newAssetHash: string) {
 }
 
 const isFileInList = (pathname: string): boolean => {
-  return pathname.slice(1) in self.files;
+  return pathname.slice(1) in sw.files;
 };
 // Put the response in the appropriate cache
 // Put the response in the appropriate cache
@@ -130,7 +130,7 @@ const createErrorResponse = (message: string, status: number): Response => {
 };
 
 // Handle fetch events
-self.addEventListener("fetch", (event) => {
+sw.addEventListener("fetch", (event) => {
   event.respondWith(
     (async () => {
       try {
@@ -147,27 +147,27 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-self.addEventListener("install", (event) => {
+sw.addEventListener("install", (event) => {
   event.waitUntil(
-    checkAssetHash().then(() => self.skipWaiting()),
+    checkAssetHash().then(() => sw.skipWaiting()),
   );
 });
 
 // Clear old caches
-self.addEventListener("activate", (event: ExtendableEvent) => {
+sw.addEventListener("activate", (event: ExtendableEvent) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (
             cacheName.startsWith(FILE_CACHE_NAME)
-            && cacheName !== FILE_CACHE_NAME + self.swVersion
+            && cacheName !== FILE_CACHE_NAME + sw.swVersion
           ) {
             return caches.delete(cacheName);
           }
           return Promise.resolve();
         }),
       );
-    }).then(() => self.clients.claim()),
+    }).then(() => sw.clients.claim()),
   );
 });
