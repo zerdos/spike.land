@@ -65,20 +65,25 @@ async function fetchAssetHash(): Promise<string> {
 async function checkAssetHash() {
   const newAssetHash = await fetchAssetHash();
   const cache = await caches.open(GENERAL_CACHE_NAME);
-  const currentAssetHash = await cache.match(ASSET_HASH_KEY).then((response) => response?.text())
-    || self.swVersion;
+  const assetHashReq = new Request(ASSET_HASH_KEY);
+  const currentAssetHash = await cache.match(assetHashReq).then((response) => response?.text());
+
 
   if (currentAssetHash !== newAssetHash) {
     console.log("ASSET_HASH changed. Updating cache...");
     await updateCache(newAssetHash);
-    await cache.put(ASSET_HASH_KEY, new Response(newAssetHash));
+    await cache.put(assetHashReq, new Response(newAssetHash));
     self.swVersion = newAssetHash;
-    self.clients.claim(); // Force clients to use the new service worker
+   // Force clients to use the new service worker
   }
+ 
 }
 
 // Update cache with new version
 async function updateCache(newAssetHash: string) {
+  if (newAssetHash === self.swVersion) {return}
+
+
   const oldFileCacheName = FILE_CACHE_NAME + self.swVersion;
   const newFileCacheName = FILE_CACHE_NAME + newAssetHash;
 
@@ -122,21 +127,26 @@ const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
     const generalCache = await caches.open(GENERAL_CACHE_NAME);
-    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then((response) => response?.text())
-      || self.swVersion;
+    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then((response) => response?.text());
     const cacheName = isFileInList(url.pathname)
       ? FILE_CACHE_NAME + currentAssetHash
       : GENERAL_CACHE_NAME;
     const cache = await caches.open(cacheName);
     const responseFromCache = await cache.match(request);
-    if (responseFromCache) {
+    if (responseFromCache && responseFromCache.ok) {
       // Return cached response, but fetch and update cache in background
-      cacheAndFetch(request);
+      // cacheAndFetch(request);
       return responseFromCache;
     }
+    const response = await fetch(request);
+    if (response.ok && request.method === "GET") {
+      await cache.put(request, response.clone());
+    }
+    return response;
   }
-  const response = await cacheAndFetch(request);
-  return response;
+
+
+  return fakeBackend(request);
 };
 
 const cacheAndFetch = async (request: Request): Promise<Response> => {
@@ -232,7 +242,7 @@ const fakeBackend = async (request: Request): Promise<Response> => {
       }
     }
 
-    return cacheFirst(request);
+    return fetch(request);
   } catch (err) {
     console.error("Error handling request:", err);
   }
@@ -320,12 +330,18 @@ self.addEventListener("fetch", (event) => {
         if (response) {
           return response;
         }
-        return await fakeBackend(event.request);
+        return fetch(event.request);
       } catch (error) {
         console.error("Error handling fetch:", error);
         return new Response("An error occurred", { status: 500 });
       }
     })(),
+  );
+});
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    checkAssetHash().then(() => self.skipWaiting())
   );
 });
 
@@ -344,6 +360,6 @@ self.addEventListener("activate", (event: ExtendableEvent) => {
           return Promise.resolve();
         }),
       );
-    }),
+    }).then(()=>self.clients.claim())
   );
 });
