@@ -2,7 +2,7 @@ import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
-import { isMobile } from "../isMobile.mjs";
+import { isMobile } from "../isMobile";
 import { runner } from "../runner";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
@@ -38,7 +38,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setValue: (_code: string) => {},
   });
 
-  const isUpdatingRef = useRef(false);
   const [errorType, setErrorType] = useState<
     "typescript" | "prettier" | "transpile" | "render" | null
   >(null);
@@ -47,8 +46,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
+      lastTypingTimestampRef.current = Date.now();
       const formatted = await prettierToThrow({ code, toThrow: true });
-      editorState.setValue(formatted);
+      // editorState.setValue(formatted);
       handleContentChange(formatted);
     },
   }));
@@ -110,11 +110,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       }
 
       // Update editor with formatted code after 5 seconds of inactivity
-      const currentTime = Date.now();
+      
+const lastSignal = mod.controller.signal;;
+      setTimeout(() => {
+        if (lastSignal.aborted) return;
+        const currentTime = Date.now();
       if (currentTime - lastTypingTimestampRef.current >= 5000) {
         editorState.setValue(formattedCode);
-      }
-    }, 300),
+      
+      }}, 6000);
+    }, 300, { leading: true, trailing: true }),
     [codeSpace, onCodeUpdate, editorState, errorType],
   );
 
@@ -136,12 +141,11 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         }
       }
       initialLoadRef.current = false;
-    }, 1000),
+    }, 1000, { leading: true, trailing: true }),
     [],
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
-    if (isUpdatingRef.current) return;
 
     if (mod.code === newCode) return;
 
@@ -162,20 +166,18 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         return;
       }
 
-      isUpdatingRef.current = true;
+      
       mod.i = Number(data.i);
       mod.code = data.code;
 
       setEditorState((prevState) => ({ ...prevState, ...mod }));
+      console.log("Updating editor with new code: ", data.i, mod.i);
       editorState.setValue(mod.code);
       // setLocalCode(mod.code);
 
       const { signal } = mod.controller;
       runner({ ...mod, counter: mod.i, codeSpace, signal });
 
-      setTimeout(() => {
-        isUpdatingRef.current = false;
-      }, 0);
     };
 
     BC.addEventListener("message", handleBroadcastMessage);
