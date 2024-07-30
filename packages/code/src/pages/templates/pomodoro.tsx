@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Coffee, Pause, Play, RotateCcw } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import {  Pause, Play, RotateCcw } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const PomodoroTimer = () => {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
   const [sessionType, setSessionType] = useState("work");
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
-  const intervalRef = useRef(null);
+  const intervalRef = useRef<number | null>(null);
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
@@ -79,8 +79,7 @@ const PomodoroTimer = () => {
     return ((totalTime - timeLeft) / totalTime) * 100;
   };
 
-  return (
-    <div className="container mx-auto p-4 max-w-md">
+  return ( <div className="container mx-auto p-4 max-w-md">
       <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
         <CardContent className="p-6">
           <h2 className="text-3xl font-bold text-center mb-6">
