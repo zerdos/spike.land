@@ -90,7 +90,7 @@ Please remember to use artifacts for managing code files. Always create or updat
 Always print out the entire code content within the artifact, not just the changes. Its important because the system uses artifacts to manage code files.
 `;
 
-export const reminder = `
+export const reminder = `Reminder from the system:
   Please remember that just give the user instructions what to do, don't provide the full code.
 `;
 
