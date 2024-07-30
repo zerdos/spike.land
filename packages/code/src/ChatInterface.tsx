@@ -1,11 +1,8 @@
-import { last } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { set } from "wright/lib/config";
 import { ChatFC, Message } from "./ChatDrawer";
 import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
-import { extractArtifacts } from "./utils/extractArtifacts";
-import { on } from "events";
+import { runner } from "./runner";
 
 // Types
 
@@ -92,9 +89,12 @@ const ChatInterface: React.FC<
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
-    const codeNow = await prettier(
-      await fetch(`/live/${codeSpace}/code/index.tsx`).then((res) => res.text()),
-    );
+    const {code, i}: {code: string, i: number} =  await fetch(`/live/${codeSpace}/session.json`).then((res) => res.json());
+    const codeNow = await prettier(code);
+
+
+    const nextCounter = i + 1;
+
 
     await fetch(`/live/${codeSpace}/auto-save`);
     setCodeFound(false);
@@ -146,7 +146,7 @@ const ChatInterface: React.FC<
 
     setIsStreaming(false);
 
-    continueWithOpenAI(messages[messages.length - 1].content, codeNow);
+    continueWithOpenAI(messages[messages.length - 1].content, codeNow, nextCounter);
   };
 
   const sendToAnthropic = async (messages: Message[]) => {
@@ -186,7 +186,7 @@ const ChatInterface: React.FC<
     return assistantMessage;
   };
 
-  async function continueWithOpenAI(fullResponse: string, codeNow: string) {
+  async function continueWithOpenAI(fullResponse: string, codeNow: string, nextCounter: number) {
     console.log(fullResponse);
     globalThis.fullResponse = fullResponse;
     globalThis.codeNow = codeNow;
@@ -244,17 +244,25 @@ const ChatInterface: React.FC<
     }
     console.log("code", code);
 
-    const codeModificationRegex = /```(?:typescript?|javascript?)\n([\s\S]*?)```/g;
+    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = code.match(codeModificationRegex);
 
     if (matches) {
       const modifiedCode = matches[matches.length - 1].replace(
-        /```(?:typescript?|javascript?)\n|```/g,
+        /```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g,
         "",
       );
-      console.log("modifiedCode", modifiedCode);
-      onCodeUpdate(modifiedCode);
-      setAICode(modifiedCode);
+
+      try{
+        console.log("modifiedCode", modifiedCode);
+        const prettyCode = await prettier(modifiedCode);
+        onCodeUpdate(prettyCode);
+        // await runner({ code: prettyCode, counter: nextCounter, codeSpace, signal: new AbortController().signal });
+      setAICode(prettyCode);
+      } catch (error) {
+        console.error("Error in runner:", error);
+
+      }
     }
     setIsStreaming(false);
   }

@@ -9,6 +9,7 @@ import AutoSaveHistory from "./components/AutoSaveHistory";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { reveal } from "./reveal";
+import { Editor } from "./components/Editor";
 
 export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
@@ -19,7 +20,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const editorRef = useRef<any>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const Editor = lazy(() => import("./components/Editor"));
 
   useEffect(() => {
     if (!onlyEdit) {

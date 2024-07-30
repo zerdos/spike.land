@@ -60,15 +60,16 @@ export const runner = async ({
   runnerSession.i = counter;
   runnerSession.code = code;
 
+  let transpiled = "";
   try {
     if (signal.aborted) return;
 
-    await cleanupFiles();
 
-    const transpiled = await transpile({ code, originToUse: location.origin });
+
+    transpiled = await transpile({ code, originToUse: location.origin });
     if (signal.aborted) return;
 
-    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+
 
     console.log({ transpiled });
     if (!transpiled) return;
@@ -84,6 +85,13 @@ export const runner = async ({
   } catch (error) {
     console.error("Error during runner execution:", error);
     throw error;
+  }
+  try{
+    await cleanupFiles();
+    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
+  } catch (error) {
+    console.error("Error during origin file system:", error);
+
   }
 };
 

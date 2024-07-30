@@ -46,9 +46,13 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
-      lastTypingTimestampRef.current = Date.now();
+      console.log("Setting value from parent");
+
       const formatted = await prettierToThrow({ code, toThrow: true });
-      // editorState.setValue(formatted);
+
+      //lastTypingTimestampRef.current = Date.now();
+      
+      editorState.setValue(formatted);
       handleContentChange(formatted);
     },
   }));
@@ -70,7 +74,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         ...editorState,
         started: true,
         code: mod.code,
-        setValue: editorModule.setValue,
+        setValue: (code: string)=>editorModule.setValue(code),
       });
     };
 
@@ -169,14 +173,17 @@ const lastSignal = mod.controller.signal;;
       
       mod.i = Number(data.i);
       mod.code = data.code;
+      editorState.setValue(data.code);
 
-      setEditorState((prevState) => ({ ...prevState, ...mod }));
-      console.log("Updating editor with new code: ", data.i, mod.i);
-      editorState.setValue(mod.code);
+     // setEditorState((prevState) => ({ ...prevState, ...mod }));
+     // console.log("Updating editor with new code: ", data.i, mod.i);
+     // editorState.setValue(mod.code);
       // setLocalCode(mod.code);
+      mod.controller.abort();
+      mod.controller = new AbortController();
 
-      const { signal } = mod.controller;
-      runner({ ...mod, counter: mod.i, codeSpace, signal });
+     const { signal } = mod.controller;
+     runner({ ...mod, counter: mod.i, codeSpace, signal });
 
     };
 
@@ -185,7 +192,7 @@ const lastSignal = mod.controller.signal;;
     return () => {
       BC.removeEventListener("message", handleBroadcastMessage);
     };
-  }, [codeSpace]);
+  }, [editorState]);
 
   if (engine === "ace") {
     return (
@@ -248,6 +255,6 @@ const lastSignal = mod.controller.signal;;
   }
 };
 
-const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
+export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
 
-export default Editor;
+
