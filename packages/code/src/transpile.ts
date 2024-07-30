@@ -16,8 +16,6 @@ declare const self:
     };
   };
 
-const { swVersion } = self;
-
 const mod = self.mod = self.mod || {
   init: false as boolean | Promise<boolean>,
   initialize: async (wasmModule: WebAssembly.Module) => {
@@ -57,20 +55,6 @@ import { ParentSize } from "@visx/responsive";
 
 `;
 
-const offLoadToServer = async (code: string, origin: string) => {
-  const resp = await fetch(`https://js.spike.land?v=${swVersion}`, {
-    method: "POST",
-    body: code,
-    headers: { TR_ORIGIN: origin },
-  });
-
-  if (!resp.ok) {
-    return " ////JS spike land: API call error";
-  }
-
-  const transpiled = await resp.text();
-  return transpiled ? `/** js.spike.land */\n${transpiled}` : "";
-};
 
 export const transpile = async (
   code: string,

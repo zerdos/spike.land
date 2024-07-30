@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { css } from "@emotion/react";
 import { Bot } from "lucide-react";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import AutoSaveHistory from "./components/AutoSaveHistory";
