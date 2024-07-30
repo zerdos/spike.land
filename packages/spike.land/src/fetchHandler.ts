@@ -22,6 +22,7 @@ export async function handleFetchApi(
     ping: () => handlePing(),
     websocket: () => handleWebSocket(request),
     "files.json": () => handleFilesJson(),
+    "assetHash.json": () => handleFilesJson(false),
     "swVersion.mjs": () => handleUnpkg(path),
     "node_modules": () => handleUnpkg(path),
     "swVersion.js": () => handleSwVersionResponse(path[0], ASSET_HASH, files),
@@ -61,8 +62,9 @@ function handleWebSocket(request: Request): Response {
   return new Response(null, { status: 101, webSocket: pair[0] });
 }
 
-function handleFilesJson(): Response {
-  return new Response(JSON.stringify({ ...files, ASSET_HASH }), {
+function handleFilesJson(withFiles=true): Response {
+  const f = withFiles ? files : [];
+  return new Response(JSON.stringify({ ...f, ASSET_HASH }), {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Content-Encoding": "gzip",

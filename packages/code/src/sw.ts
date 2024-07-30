@@ -1,11 +1,4 @@
-// Import necessary scripts and functions
-
-import HTML from "./index.html";
-import { ICodeSession } from "./makeSess";
-import { md5 } from "./md5";
-import { mkdir, readFile, stat, writeFile } from "./memfs";
-import { build, init, transpile } from "./shared";
-
+// Purpose: Service worker to cache files and update cache when ASSET_HASH changes
 declare const self:
   & ServiceWorkerGlobalScope
   & { swVersion: string }
@@ -31,25 +24,10 @@ BC.onmessage = () => {
   checkAssetHash();
 };
 
-// Initialize the shared worker when receiving a message of type "sharedworker"
-self.onmessage = async (event: ExtendableMessageEvent) => {
-  if (event.data.type === "sharedworker") {
-    globalThis.sharedWorker = event.data;
-    const port = event.data.sharedWorkerPort;
-    port.start();
-
-    await checkAssetHash();
-    init(self.swVersion, port);
-    started = true;
-
-    // Start periodic check
-    setInterval(checkAssetHash, 5 * 60 * 1000); // Check every 5 minutes
-  }
-};
 
 async function fetchAssetHash(): Promise<string> {
   try {
-    const response = await fetch("/files.json", { cache: "no-store" });
+    const response = await fetch("/assetHash.json", { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -146,179 +124,16 @@ const cacheFirst = async (request: Request): Promise<Response> => {
   }
 
 
-  return fakeBackend(request);
-};
-
-const cacheAndFetch = async (request: Request): Promise<Response> => {
-  try {
-    // Fetch the resource from the network
-    const networkResponse = await fetch(request);
-
-    // Only cache GET requests
-    if (request.method === "GET") {
-      // Open the 'my-cache' cache
-      const cache = await caches.open(MY_CACHE_NAME);
-
-      // Add the fetched resource to the 'my-cache' cache
-      await cache.put(request, networkResponse.clone());
-    }
-
-    return networkResponse;
-  } catch (error) {
-    // If the network fetch fails, try to get the resource from the 'my-cache' cache
-    if (request.method === "GET") {
-      const cache = await caches.open(MY_CACHE_NAME);
-      const cachedResponse = await cache.match(request);
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-    }
-    throw error;
-  }
-};
-
-// Removed unused function
-
-// Handle requests to the "live" path
-const fakeBackend = async (request: Request): Promise<Response> => {
-  try {
-    const url = new URL(request.url);
-
-    if (request.method === "POST") {
-      return fetch(request);
-    }
-
-    const pathName = url.pathname;
-    const fileStat = await stat(pathName);
-    if (fileStat !== null) {
-      const resp = await readFile(pathName);
-      return createResponse(resp, "application/javascript");
-    }
-
-    const paths = url.pathname.split("/");
-    if (paths[1] === "live") {
-      const codeSpacePath = paths[2];
-      const isFile = codeSpacePath.includes(".");
-      const codeSpace = isFile ? codeSpacePath.split(".")[0] : codeSpacePath;
-
-      // Fetch the session data for the codeSpace
-      const session = await fetchSession(url.origin, codeSpace);
-      if (!session) {
-        return createErrorResponse("Failed to fetch session data", 500);
-      }
-
-      const { code, css, html } = session;
-
-      // Serve the built JavaScript file
-      if (codeSpacePath.endsWith(".mjs")) {
-        const resp = await build({
-          codeSpace,
-          origin: url.origin,
-          format: "esm",
-        });
-        return createResponse(resp, "application/javascript");
-      }
-
-      if (["/bundle"].some((suffix) => url.pathname.endsWith(suffix))) {
-        const respText = createBundleResponse(
-          HTML,
-          css,
-          html,
-        );
-        return createResponse(respText, "text/html");
-      }
-
-      // Handle transpiling and serving the JavaScript file
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.js`) && started) {
-        const trp = await transpileAndServe(url.origin, codeSpace, code);
-        return createResponse(trp, "application/javascript");
-      }
-
-      if (url.pathname.startsWith(`/live/${codeSpace}/index.mjs`)) {
-        const trp = await readFile(`/live/${codeSpace}/index.mjs`).catch(
-          async () => fetch(`${url.origin}/live/${codeSpace}/index.mjs`).then((x) => x.text()),
-        );
-        return createResponse(trp, "application/javascript");
-      }
-    }
-
-    return fetch(request);
-  } catch (err) {
-    console.error("Error handling request:", err);
-  }
   return fetch(request);
 };
 
-const fetchSession = async (
-  origin: string,
-  codeSpace: string,
-): Promise<ICodeSession | null> => {
-  try {
-    const response = await fetch(`${origin}/live/${codeSpace}/session.json`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json() as ICodeSession;
-  } catch (error) {
-    console.error("Error fetching session data:", error);
-    return null;
-  }
-};
 
-const createResponse = (body: string, contentType: string): Response => {
-  return new Response(body, {
-    headers: {
-      "Access-Control-Allow-Origin": location.origin, // Restrict CORS to same origin
-      "Cross-Origin-Embedder-Policy": "require-corp",
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cache-Control": "no-cache",
-      "Content-Type": `${contentType}; charset=UTF-8`,
-      "content_hash": md5(body),
-    },
-  });
-};
 
 const createErrorResponse = (message: string, status: number): Response => {
   return new Response(JSON.stringify({ error: message }), {
     status,
     headers: { "Content-Type": "application/json" },
   });
-};
-
-const createBundleResponse = (
-  HTML: string,
-  css: string,
-  html: string,
-): string => {
-  return HTML.replace("/**reset*/", css).replace(
-    `<div id="root"></div>`,
-    `<div id="root">${html}</div>`,
-  );
-};
-
-const transpileAndServe = async (
-  origin: string,
-  codeSpace: string,
-  code: string,
-): Promise<string> => {
-  try {
-    const trp = await Promise.race([
-      fetch(`${origin}/live/${codeSpace}/index.js`).then((x) => x.text()),
-      (async () => {
-        const trp = await transpile({
-          code,
-          originToUse: location.origin,
-        });
-        await mkdir(`/live/${codeSpace}`);
-        await writeFile(`/live/${codeSpace}/index.js`, trp);
-        return trp;
-      })(),
-    ]);
-    return trp;
-  } catch (error) {
-    console.error("Error transpiling and serving:", error);
-    return createErrorResponse("Failed to transpile and serve", 500).text();
-  }
 };
 
 // Handle fetch events
