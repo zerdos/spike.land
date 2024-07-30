@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChatFC, Message } from "./ChatDrawer";
 import { antropic, gptSystem, reminder } from "./initialMessage";
 import { prettier } from "./shared";
-import { runner } from "./runner";
 
 // Types
 
@@ -89,12 +88,12 @@ const ChatInterface: React.FC<
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
-    const {code, i}: {code: string, i: number} =  await fetch(`/live/${codeSpace}/session.json`).then((res) => res.json());
+    const { code, i }: { code: string; i: number } = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
+      res.json()
+    );
     const codeNow = await prettier(code);
 
-
     const nextCounter = i + 1;
-
 
     await fetch(`/live/${codeSpace}/auto-save`);
     setCodeFound(false);
@@ -253,15 +252,14 @@ const ChatInterface: React.FC<
         "",
       );
 
-      try{
+      try {
         console.log("modifiedCode", modifiedCode);
         const prettyCode = await prettier(modifiedCode);
         onCodeUpdate(prettyCode);
         // await runner({ code: prettyCode, counter: nextCounter, codeSpace, signal: new AbortController().signal });
-      setAICode(prettyCode);
+        setAICode(prettyCode);
       } catch (error) {
         console.error("Error in runner:", error);
-
       }
     }
     setIsStreaming(false);

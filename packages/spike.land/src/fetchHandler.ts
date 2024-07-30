@@ -62,7 +62,7 @@ function handleWebSocket(request: Request): Response {
   return new Response(null, { status: 101, webSocket: pair[0] });
 }
 
-function handleFilesJson(withFiles=true): Response {
+function handleFilesJson(withFiles = true): Response {
   const f = withFiles ? files : [];
   return new Response(JSON.stringify({ ...f, ASSET_HASH }), {
     headers: {

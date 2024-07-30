@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
-import { programmingLanguages, CodeBlock  } from "../CodeBlock";
+import { CodeBlock, programmingLanguages } from "../CodeBlock";
 import { styles } from "./styles";
 
 export const TypingIndicator: React.FC = () => (
@@ -44,7 +44,6 @@ export const ColorModeToggle: React.FC<
   </button>
 );
 
-
 export const renderMessage = (text: string, isUser: boolean) => {
   const cleanedText = isUser
     ? text.split("The user's first message follows:").pop()!.trim().split(
@@ -63,18 +62,18 @@ export const renderMessage = (text: string, isUser: boolean) => {
   while ((match = codeBlockRegex.exec(cleanedText)) !== null) {
     if (match.index > lastIndex) {
       parts.push({
-        type: 'text',
-        content: cleanedText.slice(lastIndex, match.index)
+        type: "text",
+        content: cleanedText.slice(lastIndex, match.index),
       });
     }
 
-    const language = match[1] ? programmingLanguages[match[1].toLowerCase()] || match[1].toLowerCase() : 'plaintext';
+    const language = match[1] ? programmingLanguages[match[1].toLowerCase()] || match[1].toLowerCase() : "plaintext";
     const code = match[2].trim();
 
     parts.push({
-      type: 'code',
+      type: "code",
       language,
-      content: code
+      content: code,
     });
 
     lastIndex = match.index + match[0].length;
@@ -83,18 +82,20 @@ export const renderMessage = (text: string, isUser: boolean) => {
   // Check if there's an open code block at the end
   const lastOpenBlockMatch = cleanedText.slice(lastIndex).match(/```(\w+)?\s*([\s\S]*)/);
   if (lastOpenBlockMatch) {
-    const language = lastOpenBlockMatch[1] ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()] || lastOpenBlockMatch[1].toLowerCase() : 'plaintext';
+    const language = lastOpenBlockMatch[1]
+      ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()] || lastOpenBlockMatch[1].toLowerCase()
+      : "plaintext";
     const code = lastOpenBlockMatch[2].trim();
     parts.push({
-      type: 'code',
+      type: "code",
       language,
       content: code,
-      isStreaming: true
+      isStreaming: true,
     });
   } else if (lastIndex < cleanedText.length) {
     parts.push({
-      type: 'text',
-      content: cleanedText.slice(lastIndex)
+      type: "text",
+      content: cleanedText.slice(lastIndex),
     });
   }
 
@@ -102,20 +103,22 @@ export const renderMessage = (text: string, isUser: boolean) => {
     <>
       {parts.map((part, index) => (
         <Fragment key={index}>
-          {part.type === 'text' ? (
-            part.content.split('\n').map((line, j) => (
-              <Fragment key={j}>
-                {j > 0 && <br />}
-                <span css={styles.smallFontWithMaxWidth}>{line}</span>
-              </Fragment>
-            ))
-          ) : (
-            <CodeBlock 
-              value={part.content} 
-              language={part.language} 
-              isStreaming={part.isStreaming}
-            />
-          )}
+          {part.type === "text"
+            ? (
+              part.content.split("\n").map((line, j) => (
+                <Fragment key={j}>
+                  {j > 0 && <br />}
+                  <span css={styles.smallFontWithMaxWidth}>{line}</span>
+                </Fragment>
+              ))
+            )
+            : (
+              <CodeBlock
+                value={part.content}
+                language={part.language}
+                isStreaming={part.isStreaming}
+              />
+            )}
         </Fragment>
       ))}
     </>

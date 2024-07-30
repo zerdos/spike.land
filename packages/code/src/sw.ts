@@ -24,7 +24,6 @@ BC.onmessage = () => {
   checkAssetHash();
 };
 
-
 async function fetchAssetHash(): Promise<string> {
   try {
     const response = await fetch("/assetHash.json", { cache: "no-store" });
@@ -46,21 +45,18 @@ async function checkAssetHash() {
   const assetHashReq = new Request(ASSET_HASH_KEY);
   const currentAssetHash = await cache.match(assetHashReq).then((response) => response?.text());
 
-
   if (currentAssetHash !== newAssetHash) {
     console.log("ASSET_HASH changed. Updating cache...");
     await updateCache(newAssetHash);
     await cache.put(assetHashReq, new Response(newAssetHash));
     self.swVersion = newAssetHash;
-   // Force clients to use the new service worker
+    // Force clients to use the new service worker
   }
- 
 }
 
 // Update cache with new version
 async function updateCache(newAssetHash: string) {
-  if (newAssetHash === self.swVersion) {return}
-
+  if (newAssetHash === self.swVersion) return;
 
   const oldFileCacheName = FILE_CACHE_NAME + self.swVersion;
   const newFileCacheName = FILE_CACHE_NAME + newAssetHash;
@@ -123,11 +119,8 @@ const cacheFirst = async (request: Request): Promise<Response> => {
     return response;
   }
 
-
   return fetch(request);
 };
-
-
 
 const createErrorResponse = (message: string, status: number): Response => {
   return new Response(JSON.stringify({ error: message }), {
@@ -154,9 +147,9 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    checkAssetHash().then(() => self.skipWaiting())
+    checkAssetHash().then(() => self.skipWaiting()),
   );
 });
 
@@ -175,6 +168,6 @@ self.addEventListener("activate", (event: ExtendableEvent) => {
           return Promise.resolve();
         }),
       );
-    }).then(()=>self.clients.claim())
+    }).then(() => self.clients.claim()),
   );
 });

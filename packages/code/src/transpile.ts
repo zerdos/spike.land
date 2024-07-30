@@ -79,13 +79,14 @@ export const transpile = async (
 ) => {
   try {
     if (wasmModule) {
-      if (!mod.init)      await mod.initialize(wasmModule);
+      if (!mod.init) await mod.initialize(wasmModule);
     } else {
-
-   if (!mod.init)  await initialize({
-        wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
-        worker: false,
-      });
+      if (!mod.init) {
+        await initialize({
+          wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
+          worker: false,
+        });
+      }
       mod.init = true;
     }
 

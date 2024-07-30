@@ -50,8 +50,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       const formatted = await prettierToThrow({ code, toThrow: true });
 
-      //lastTypingTimestampRef.current = Date.now();
-      
+      // lastTypingTimestampRef.current = Date.now();
+
       editorState.setValue(formatted);
       handleContentChange(formatted);
     },
@@ -74,7 +74,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         ...editorState,
         started: true,
         code: mod.code,
-        setValue: (code: string)=>editorModule.setValue(code),
+        setValue: (code: string) => editorModule.setValue(code),
       });
     };
 
@@ -82,75 +82,82 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   }, [editorState.started, ref, codeSpace]);
 
   const debouncedRunner = useCallback(
-    debounce(async (code: string, i: number) => {
-      let formattedCode;
+    debounce(
+      async (code: string, i: number) => {
+        let formattedCode;
 
-      try {
-        if (mod.controller.signal.aborted) return;
-        formattedCode = await prettierToThrow({ code, toThrow: true });
-        if (errorType === "prettier") {
-          setErrorType(null);
+        try {
+          if (mod.controller.signal.aborted) return;
+          formattedCode = await prettierToThrow({ code, toThrow: true });
+          if (errorType === "prettier") {
+            setErrorType(null);
+          }
+        } catch (error) {
+          setErrorType("prettier");
+          throw error;
         }
-      } catch (error) {
-        setErrorType("prettier");
-        throw error;
-      }
-      try {
-        if (mod.controller.signal.aborted) return;
-        await runner({
-          code: formattedCode,
-          counter: i,
-          codeSpace,
-          signal: mod.controller.signal,
-        });
-        console.log("Runner succeeded");
-        onCodeUpdate(formattedCode);
-        if (errorType === "transpile") {
-          setErrorType(null);
+        try {
+          if (mod.controller.signal.aborted) return;
+          await runner({
+            code: formattedCode,
+            counter: i,
+            codeSpace,
+            signal: mod.controller.signal,
+          });
+          console.log("Runner succeeded");
+          onCodeUpdate(formattedCode);
+          if (errorType === "transpile") {
+            setErrorType(null);
+          }
+        } catch (error) {
+          console.error("Error in runner:", error);
+          setErrorType("transpile");
         }
-      } catch (error) {
-        console.error("Error in runner:", error);
-        setErrorType("transpile");
-      }
 
-      // Update editor with formatted code after 5 seconds of inactivity
-      
-const lastSignal = mod.controller.signal;;
-      setTimeout(() => {
-        if (lastSignal.aborted) return;
-        const currentTime = Date.now();
-      if (currentTime - lastTypingTimestampRef.current >= 5000) {
-        editorState.setValue(formattedCode);
-      
-      }}, 6000);
-    }, 300, { leading: true, trailing: true }),
+        // Update editor with formatted code after 5 seconds of inactivity
+
+        const lastSignal = mod.controller.signal;
+        setTimeout(() => {
+          if (lastSignal.aborted) return;
+          const currentTime = Date.now();
+          if (currentTime - lastTypingTimestampRef.current >= 5000) {
+            editorState.setValue(formattedCode);
+          }
+        }, 6000);
+      },
+      300,
+      { leading: true, trailing: true },
+    ),
     [codeSpace, onCodeUpdate, editorState, errorType],
   );
 
   const debouncedTypeCheck = useCallback(
-    debounce(async () => {
-      if (engine === "monaco") {
-        const monaco = await import("monaco-editor");
-        const model = monaco.editor.getModels()[0];
-        const worker = await monaco.languages.typescript.getTypeScriptWorker();
-        const client = await worker(model.uri);
-        const diagnostics = await client.getSemanticDiagnostics(
-          model.uri.toString(),
-        );
+    debounce(
+      async () => {
+        if (engine === "monaco") {
+          const monaco = await import("monaco-editor");
+          const model = monaco.editor.getModels()[0];
+          const worker = await monaco.languages.typescript.getTypeScriptWorker();
+          const client = await worker(model.uri);
+          const diagnostics = await client.getSemanticDiagnostics(
+            model.uri.toString(),
+          );
 
-        if (diagnostics.length > 0 && !initialLoadRef.current) {
-          setErrorType("typescript");
-        } else {
-          setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
+          if (diagnostics.length > 0 && !initialLoadRef.current) {
+            setErrorType("typescript");
+          } else {
+            setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
+          }
         }
-      }
-      initialLoadRef.current = false;
-    }, 1000, { leading: true, trailing: true }),
+        initialLoadRef.current = false;
+      },
+      1000,
+      { leading: true, trailing: true },
+    ),
     [],
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
-
     if (mod.code === newCode) return;
 
     mod.i += 1;
@@ -170,21 +177,19 @@ const lastSignal = mod.controller.signal;;
         return;
       }
 
-      
       mod.i = Number(data.i);
       mod.code = data.code;
       editorState.setValue(data.code);
 
-     // setEditorState((prevState) => ({ ...prevState, ...mod }));
-     // console.log("Updating editor with new code: ", data.i, mod.i);
-     // editorState.setValue(mod.code);
+      // setEditorState((prevState) => ({ ...prevState, ...mod }));
+      // console.log("Updating editor with new code: ", data.i, mod.i);
+      // editorState.setValue(mod.code);
       // setLocalCode(mod.code);
       mod.controller.abort();
       mod.controller = new AbortController();
 
-     const { signal } = mod.controller;
-     runner({ ...mod, counter: mod.i, codeSpace, signal });
-
+      const { signal } = mod.controller;
+      runner({ ...mod, counter: mod.i, codeSpace, signal });
     };
 
     BC.addEventListener("message", handleBroadcastMessage);
@@ -256,5 +261,3 @@ const lastSignal = mod.controller.signal;;
 };
 
 export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
-
-
