@@ -94,6 +94,7 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   return (
     <div
       css={css`
+      margin-top: 20px;
   max-width: 568px;
     `}
       className="codeblock relative font-sans text-[16px]"

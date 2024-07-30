@@ -80,7 +80,18 @@ export const renderMessage = (text: string, isUser: boolean) => {
     lastIndex = match.index + match[0].length;
   }
 
-  if (lastIndex < cleanedText.length) {
+  // Check if there's an open code block at the end
+  const lastOpenBlockMatch = cleanedText.slice(lastIndex).match(/```(\w+)?\s*([\s\S]*)/);
+  if (lastOpenBlockMatch) {
+    const language = lastOpenBlockMatch[1] ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()] || lastOpenBlockMatch[1].toLowerCase() : 'plaintext';
+    const code = lastOpenBlockMatch[2].trim();
+    parts.push({
+      type: 'code',
+      language,
+      content: code,
+      isStreaming: true
+    });
+  } else if (lastIndex < cleanedText.length) {
     parts.push({
       type: 'text',
       content: cleanedText.slice(lastIndex)
@@ -88,25 +99,28 @@ export const renderMessage = (text: string, isUser: boolean) => {
   }
 
   return (
-      <>
-        {parts.map((part: { type: string; content: string; }, index: number) => (
-          <Fragment key={index}>
-            {part.type === 'text' ? (
-              part.content.split('\n').map((line, j) => (
-                <Fragment key={j}>
-                  {j > 0 && <br />}
-                  <span css={styles.smallFontWithMaxWidth}>{line}</span>
-                </Fragment>
-              ))
-            ) : (
-              <CodeBlock value={part.content} language={part.language} />
-            )}
-          </Fragment>
-        ))}
-      </>
-    );
+    <>
+      {parts.map((part, index) => (
+        <Fragment key={index}>
+          {part.type === 'text' ? (
+            part.content.split('\n').map((line, j) => (
+              <Fragment key={j}>
+                {j > 0 && <br />}
+                <span css={styles.smallFontWithMaxWidth}>{line}</span>
+              </Fragment>
+            ))
+          ) : (
+            <CodeBlock 
+              value={part.content} 
+              language={part.language} 
+              isStreaming={part.isStreaming}
+            />
+          )}
+        </Fragment>
+      ))}
+    </>
+  );
 };
-
 export const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
   "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
