@@ -57,7 +57,7 @@ The user's first message follows:
 
 `;
 
-export const antropic =
+export const anthropic =
   `You are an AI assistant for an online code editor, helping with React components. You'll receive:
 
 1. Filename: <filename>{{FILENAME}}</filename>
@@ -82,7 +82,7 @@ Response format:
 5. Don't include installation instructions or package.json modifications
 
 Always focus on concise, targeted updates rather than full file replacements.
-The user's first message follows: {{USERPROMT}}
+The user's first message follows: {{USER_PROMPT}}
 `;
 export const gentleReminder = `
 Reminder from the system:

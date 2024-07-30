@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChatFC, Message } from "./ChatDrawer";
-import { antropic, gptSystem, reminder } from "./initialMessage";
-import { prettier, prettierToThrow } from "./shared";
+import { anthropic, gptSystem, reminder } from "./initialMessage";
+import { prettierToThrow } from "./shared";
 
 // Types
 
@@ -20,7 +20,7 @@ const ChatInterface: React.FC<
   { onCodeUpdate, onClose, isOpen },
 ) => {
   const [messages, __setMessages] = useState<Message[]>(loadMessages());
-  const [codeFound, setCodeFound] = useState(false);
+ 
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
@@ -96,15 +96,14 @@ const ChatInterface: React.FC<
     const nextCounter = i + 1;
 
     await fetch(`/live/${codeSpace}/auto-save`);
-    setCodeFound(false);
 
     let claudeContent = content;
     const messages = loadMessages();
 
     if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
-      claudeContent = antropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
+      claudeContent = anthropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
         .replace(/{{FILE_CONTENT}}/g, codeNow)
-        .replace(/{{USERPROMT}}/g, content);
+        .replace(/{{USER_PROMPT}}/g, content);
       setAICode(codeNow);
     } else {
       claudeContent = content + reminder;
