@@ -5,8 +5,9 @@ import { createRoot, Root } from "react-dom/client";
 import { createJsBlob } from "./starter";
 
 interface IRenderApp {
-  rootElement?: HTMLElement;
+  rootElement?: HTMLDivElement;
   rRoot?: Root;
+  App?: React.ComponentType<any>;
   codeSpace?: string;
   transpiled?: string;
 }
