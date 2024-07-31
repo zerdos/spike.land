@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { continueWithOpenAI, prepareClaudeContent, sendToAnthropic } from "./AIHandler";
 import { ChatFC, Message } from "./ChatDrawer";
-import { anthropic, gptSystem, reminder } from "./initialMessage";
 import { prettierToThrow } from "./shared";
 
 // Types
+
 
 // Utility Functions
 const getCodeSpace = (): string => {
@@ -97,16 +98,11 @@ const ChatInterface: React.FC<
 
     await fetch(`/live/${codeSpace}/auto-save`);
 
-    let claudeContent = content;
     const messages = loadMessages();
+    const claudeContent = prepareClaudeContent(content, messages, codeNow, codeSpace);
 
     if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
-      claudeContent = anthropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
-        .replace(/{{FILE_CONTENT}}/g, codeNow)
-        .replace(/{{USER_PROMPT}}/g, content);
       setAICode(codeNow);
-    } else {
-      claudeContent = content + reminder;
     }
 
     const newMessage: Message = {
@@ -131,153 +127,29 @@ const ChatInterface: React.FC<
     setIsStreaming(true);
 
     try {
-      messages.push(await sendToAnthropic(messages));
+      const assistantMessage = await sendToAnthropic(messages);
+      messages.push(assistantMessage);
+      saveMessages(messages);
+
+      await continueWithOpenAI(
+        assistantMessage.content,
+        codeNow,
+        nextCounter,
+        onCodeUpdate,
+        __setMessages,
+        setAICode,
+      );
     } catch (error) {
       messages.push({
         "id": (Date.now() + 1).toString(),
         "role": "assistant",
         "content": "Sorry, there was an error processing your request with Claude.",
       });
+      saveMessages(messages);
     }
-
-    saveMessages(messages);
 
     setIsStreaming(false);
-
-    continueWithOpenAI(messages[messages.length - 1].content, codeNow, nextCounter);
   };
-
-  const sendToAnthropic = async (messages: Message[]) => {
-    const response = await fetch("/anthropic", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: messages.map(x => ({ role: x.role, content: x.content })) }),
-    });
-
-    const assistantMessage: Message = {
-      "id": (Date.now() + 1).toString(),
-      "role": "assistant",
-      "content": "",
-    };
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const reader = response.body?.getReader();
-    const decoder = new TextDecoder();
-
-    if (!reader) {
-      throw new Error("Response body is not readable!");
-    }
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value);
-      assistantMessage.id = (Date.now() + 1).toString();
-      assistantMessage.content += chunk;
-      __setMessages([...messages, assistantMessage]);
-    }
-
-    saveMessages([...messages, assistantMessage]);
-    return assistantMessage;
-  };
-
-  async function continueWithOpenAI(fullResponse: string, codeNow: string, nextCounter: number, isRetry = false) {
-    console.log(fullResponse);
-
-    setIsStreaming(true);
-    let code = "";
-    const responseOpenAI = await fetch("/openai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: [{
-          "role": "system",
-          "content": gptSystem,
-        }, {
-          "role": "user",
-          "content": codeNow + `
-            **** instructions ****
-          ` + fullResponse,
-        }],
-      }),
-    });
-
-    if (!responseOpenAI.ok) {
-      throw new Error(`HTTP error! status: ${responseOpenAI.status}`);
-    }
-
-    const reader = responseOpenAI.body?.getReader();
-    const decoder = new TextDecoder();
-
-    if (!reader) {
-      throw new Error("Response body is not readable!");
-    }
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
-      }
-
-      const chunk = decoder.decode(value);
-      code += chunk;
-
-      __setMessages((prevMessages) => {
-        const lastMessage = prevMessages.pop()!;
-
-        lastMessage.content = fullResponse + `\n` + code;
-        return [...prevMessages, lastMessage];
-      });
-    }
-    console.log("code", code);
-
-    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
-    const matches = code.match(codeModificationRegex);
-
-    if (matches) {
-      const modifiedCode = matches[matches.length - 1].replace(
-        /```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g,
-        "",
-      );
-
-      try {
-        console.log("modifiedCode", modifiedCode);
-
-        const prettyCode = await prettierToThrow({ code: modifiedCode, toThrow: true });
-        onCodeUpdate(prettyCode);
-        // await runner({ code: prettyCode, counter: nextCounter, codeSpace, signal: new AbortController().signal });
-        setAICode(prettyCode);
-      } catch (error) {
-        if (!isRetry) {
-          const errorTextWithAllTheCode = { error }.toString() + `\n` + code;
-          const message: Message = {
-            "id": (Date.now() + 1).toString(),
-            "role": "user",
-            "content": errorTextWithAllTheCode + `
-            
-            here is the code that was being processed:
-
-            ${modifiedCode}
-            `,
-          };
-          messages.push(message);
-          __setMessages(messages);
-          const answer = await sendToAnthropic(messages);
-          messages.push(answer);
-          __setMessages(messages);
-          await continueWithOpenAI(answer.content, modifiedCode, nextCounter, true);
-        } else {
-          console.error("Error in runner:", error);
-        }
-      }
-    }
-    setIsStreaming(false);
-  }
 
   const handleResetChat = () => {
     __setMessages([]);

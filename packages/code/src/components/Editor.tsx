@@ -39,16 +39,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   });
 
   const setEditorContent = (formattedCode: string) => {
-      const lastSignal = mod.controller.signal;
-     const current =  lastTypingTimestampRef.current = lastTypingTimestampRef.current || Date.now();
-  setTimeout(() => {
-    if (lastSignal.aborted) return;
-    const currentTime = Date.now();
-    if (currentTime - lastTypingTimestampRef.current >= 5000) {
-      editorState.setValue(formattedCode);
-    }
-  }, 6000);
-}
+    const lastSignal = mod.controller.signal;
+    const current = lastTypingTimestampRef.current = lastTypingTimestampRef.current || Date.now();
+    setTimeout(() => {
+      if (lastSignal.aborted) return;
+      const currentTime = Date.now();
+      if (currentTime - lastTypingTimestampRef.current >= 5000) {
+        editorState.setValue(formattedCode);
+      }
+    }, 6000);
+  };
 
   const [errorType, setErrorType] = useState<
     "typescript" | "prettier" | "transpile" | "render" | null
@@ -61,8 +61,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       console.log("Setting value from parent");
 
       const formatted = await prettierToThrow({ code, toThrow: true });
-
-
 
       setEditorContent(formatted);
       handleContentChange(formatted);
@@ -128,7 +126,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
         // Update editor with formatted code after 5 seconds of inactivity
 
-         setEditorContent(formattedCode); 
+        setEditorContent(formattedCode);
       },
       300,
       { leading: true, trailing: true },
@@ -163,7 +161,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
-    
     if (mod.code === newCode) return;
 
     mod.i += 1;
@@ -173,7 +170,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     mod.controller.abort();
     mod.controller = new AbortController();
-
 
     debouncedRunner(newCode, mod.i);
     debouncedTypeCheck();
