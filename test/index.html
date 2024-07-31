@@ -11,21 +11,37 @@
             margin: 10px;
             border: 1px solid #ccc;
         }
+        #eventLog {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
     <h1>Iframe Experiment</h1>
     <iframe id="proxyFrame" src="proxy.html"></iframe>
     <iframe id="reactFrame" src="react-app.html"></iframe>
+    
+    <div id="eventLog">
+        <h3>Event Log:</h3>
+        <pre id="eventDisplay"></pre>
+    </div>
 
     <script>
+        const eventDisplay = document.getElementById('eventDisplay');
+        
         // Setup communication between iframes
         window.addEventListener('message', (event) => {
             if (event.data.from === 'proxy') {
                 document.getElementById('reactFrame').contentWindow.postMessage(event.data, '*');
+                // Log the event
             } else if (event.data.from === 'react') {
                 document.getElementById('proxyFrame').contentWindow.postMessage(event.data, '*');
             }
+            eventDisplay.textContent = JSON.stringify(event.data, null, 2) + '\n' + eventDisplay.textContent;
+
         });
     </script>
 </body>

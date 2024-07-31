@@ -1,36 +1,51 @@
 
+
 // react-app.js
 const App = () => {
     const [count, setCount] = React.useState(0);
-    const [lastEvent, setLastEvent] = React.useState(null);
+    const [inputValue, setInputValue] = React.useState('');
+    const inputRef = React.useRef(null);
 
     React.useEffect(() => {
+        let lastFocusedElementId = null;
+        let lastSelectionStart = null;
+        let lastSelectionEnd = null;
+
         const sendContent = () => {
             const content = document.getElementById('root').innerHTML;
             window.parent.postMessage({ from: 'react', html: content }, '*');
         };
 
-        // Send initial content
         sendContent();
 
-        // Setup event listener
         window.addEventListener('message', (event) => {
             if (event.data.from === 'proxy') {
-                setLastEvent(event.data);
-
-                // Apply the event to the React app
                 const targetElement = document.querySelector(`${event.data.target.tagName.toLowerCase()}[id="${event.data.target.id}"]`);
                 if (targetElement) {
                     if (event.data.type === 'click') {
                         targetElement.click();
-                    } else if (event.data.type === 'input') {
-                        targetElement.value = event.data.target.value;
-                        targetElement.dispatchEvent(new Event('input', { bubbles: true }));
+                    } else if (event.data.type === 'input' || event.data.type === 'focus') {
+                        setInputValue(event.data.target.value);
+                        lastFocusedElementId = event.data.target.id;
+                        lastSelectionStart = event.data.target.selectionStart;
+                        lastSelectionEnd = event.data.target.selectionEnd;
                     }
                 }
-
-                // Send updated content back to proxy
-                setTimeout(sendContent, 0);
+                setTimeout(() => {
+                    sendContent();
+                    // Restore focus and selection after content update
+                    if (lastFocusedElementId) {
+                        const elementToFocus = document.getElementById(lastFocusedElementId);
+                        if (elementToFocus) {
+                            elementToFocus.focus();
+                            if (elementToFocus.setSelectionRange && 
+                                typeof lastSelectionStart === 'number' && 
+                                typeof lastSelectionEnd === 'number') {
+                                elementToFocus.setSelectionRange(lastSelectionStart, lastSelectionEnd);
+                            }
+                        }
+                    }
+                }, 0);
             }
         });
     }, []);
@@ -42,13 +57,14 @@ const App = () => {
             <button id="incrementButton" onClick={() => setCount(count + 1)}>
                 Click me: {count}
             </button>
-            <input id="testInput" type="text" placeholder="Type here" />
-            {lastEvent && (
-                <div>
-                    <h3>Last Received Event:</h3>
-                    <pre>{JSON.stringify(lastEvent, null, 2)}</pre>
-                </div>
-            )}
+            <input 
+                id="testInput" 
+                ref={inputRef}
+                type="text" 
+                placeholder="Type here" 
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+            />
         </div>
     );
 };
