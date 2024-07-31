@@ -199,15 +199,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     };
   }, [editorState]);
 
-  if (engine === "ace") {
-    return (
-      <EditorNode
-        engine="ace"
-        errorType={errorType}
-        containerRef={containerRef}
-      />
-    );
-  }
 
   return (
     <Rnd
@@ -216,6 +207,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       minWidth={800}
       minHeight="100vh"
       bounds="body"
+    
       allowAnyClick
       lockAspectRatio={false}
       enable={{
@@ -233,7 +225,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       style={{ height: "100vh" }}
     >
       <EditorNode
-        engine="monaco"
+        engine={engine}
         errorType={errorType}
         containerRef={containerRef}
       />
