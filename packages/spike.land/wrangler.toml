@@ -6,7 +6,7 @@ compatibility_date = "2021-10-16"
 main = "./src/cf-workers.ts"
 
 kv_namespaces = [
-    { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5" }
+    { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5", preview_id = "9db106837d4d437a962612dd04197581" }
 ]
 
 
@@ -49,7 +49,7 @@ bucket = "../code/dist" # Add the directory with your static assets
 name = "testing-spike-land"
 
 kv_namespaces = [
-    { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3" }
+    { binding = "KV", id = "7cafeba860c9485bbfca337099c82ce3", preview_id = "e2b898af453c46e2ac584745ea92424d" }
 ]
 
 
