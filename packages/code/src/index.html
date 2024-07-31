@@ -22,7 +22,8 @@
     import("/hydrate.mjs?" + swVersion);
     const paths = location.pathname.split("/").slice(1);
     if (paths.length > 2 && paths[0]=='live') {
-      import([ ,paths[0],paths[1],'index.js'].join('/')).then(m=>m.renderApp());
+      const codeSpace = paths[1];
+      import("/Wrapper.mjs").then(m=>m.renderApp({codeSpace, rootElement: document.getElementById("root")}));
     }
  </script>
   <!-- Cloudflare Web Analytics -->

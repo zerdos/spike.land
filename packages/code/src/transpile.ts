@@ -46,15 +46,6 @@ export const cjs = async (code: string) => {
   return cjs;
 };
 
-const decorateCodeStr = `
-// Render helpers import
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import { createRoot } from "react-dom/client";
-import { ParentSize } from "@visx/responsive";
-
-`;
-
 export const transpile = async (
   code: string,
   origin: string,
@@ -73,52 +64,7 @@ export const transpile = async (
       mod.init = true;
     }
 
-    const transformedCode = await transform(
-      `${decorateCodeStr}
-      ${
-        code.replace(
-          `export default `,
-          `const module = {}; 
-        module.default = `,
-        )
-      }
-
-  export const renderApp = (rootElement=null) => {
-
-  if (!globalThis.rRoot){
-  let root = rootElement || document.getElementById("root");
-  if (!root) {
-    root = document.createElement("div");
-    root.id = "root";
-    document.body.appendChild(root);
-  }
-
-  const rRoot = createRoot(root);
-  globalThis.rRoot =rRoot;
- 
- 
-  }
-   globalThis.cssCache = createCache({ key: "css", speedy: false });
-  const App = module.default;
- 
- 
-  globalThis.rRoot.render(
-    <CacheProvider value={globalThis.cssCache}>
-    <ParentSize>
-      {(parent) => <App
-        width={parent.width || window.innerWidth}
-        height={parent.height || window.innerHeight}
-        top={ parent.top || 0 }
-        left={ parent.left || 0 }
-      />}
-        </ParentSize>
-    </CacheProvider>
-  );
-}
-  module.renderApp = renderApp;
-      export default module.default;
-      export { module };
-      globalThis.module = module;`,
+    const transformedCode = await transform(code,
       {
         loader: "tsx",
         format: "esm",
@@ -235,7 +181,7 @@ export const build = async ({
     splitting: false,
     format,
     platform: "browser",
-    entryPoints: [`${origin}/live/${codeSpace}/index.js`],
+    entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`],
     packages: "external",
     plugins: [fetchPlugin],
   };

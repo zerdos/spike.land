@@ -12,9 +12,9 @@ interface IRenderApp {
 }
 
 interface RenderedApp {
-  rootElement: HTMLElement;
+  rootElement: HTMLDivElement;
   rRoot: Root;
-  App: React.ComponentType<any>;
+  App?: React.ComponentType<any>;
   cssCache: ReturnType<typeof createCache>;
   cleanup: () => void;
 }
@@ -23,7 +23,7 @@ declare global {
   var renderedAPPS: Map<HTMLElement, RenderedApp>;
 }
 
-export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled }: IRenderApp): Promise<RenderedApp | null> => {
+export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled, App }: IRenderApp): Promise<RenderedApp | null> => {
   try {
     // Ensure rootElement exists and is in the DOM
     let rootEl = rootElement;
@@ -34,7 +34,7 @@ export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled }: I
     }
 
     // Initialize or get the global renderedAPPS map
-    globalThis.renderedAPPS = globalThis.renderedAPPS || new Map<HTMLElement, RenderedApp>();
+    globalThis.renderedAPPS = globalThis.renderedAPPS || new Map<HTMLDivElement, RenderedApp>();
 
     // Check if an app is already rendered to this element
     if (globalThis.renderedAPPS.has(rootEl)) {
@@ -45,8 +45,7 @@ export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled }: I
     }
 
     // Import App component
-    const App = await import(transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`)
-      .then(module => module.default);
+    const AppToRender = App || await import(transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`).then(module => module.default);
 
     // Create CSS cache
     const cssCache = createCache({ key: "css", speedy: false });
@@ -59,7 +58,7 @@ export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled }: I
       <CacheProvider value={cssCache}>
         <ParentSize>
           {({ width, height, top, left }) => (
-            <App
+            <AppToRender
               width={width || window.innerWidth}
               height={height || window.innerHeight}
               top={top || 0}

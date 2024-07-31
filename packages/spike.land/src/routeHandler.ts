@@ -39,6 +39,7 @@ export class RouteHandler {
       path: this.handlePathRoute.bind(this),
       "index.mjs": this.handleJsRoute.bind(this),
       "index.js": this.handleJsRoute.bind(this),
+      "wrapper.js": this.handleWrapRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
@@ -308,6 +309,30 @@ export class RouteHandler {
 
     return new Response("Not found", { status: 404 });
   }
+
+  private async handleWrapRoute(request: Request, url: URL): Promise<Response> {
+    const codeSpace = url.searchParams.get("room");
+    let code = `import App from "/live/${codeSpace}/index.js";
+    import { renderApp } from "/Wrapper.mjs";
+
+    const render =  () => renderApp({ App, rootElement: document.getElementById("root") });
+    render();
+    
+    `;
+  ;
+
+    return new Response(code, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        "x-typescript-types": this.code.getOrigin() + "/live/index.tsx",
+        content_hash: md5(code),
+        "Content-Type": "application/javascript; charset=UTF-8",
+      },
+    });
+  }
+
 
   private async handleJsRoute(request: Request): Promise<Response> {
     let code = this.code.session.code;

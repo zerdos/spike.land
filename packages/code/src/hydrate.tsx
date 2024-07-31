@@ -1,13 +1,13 @@
 import type { EmotionCache } from "@emotion/cache";
-import createCache from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { createRoot } from "react-dom/client";
 import { getTransferables, hasTransferables } from "transferables";
 import { Workbox } from "workbox-window";
 import { mkdir } from "./memfs";
 import { getPort, init } from "./shared";
-import { createJsBlob } from "./starter";
+
 import { wait } from "./wait";
+import { renderApp } from "./Wrapper";
 
 const { swVersion } = self;
 const paths = location.pathname.split("/");
@@ -137,9 +137,7 @@ function handleDefaultPage() {
   BC.onmessage = async ({ data }) => {
     const { i, transpiled, html } = data;
     if (i > mod.counter && transpiled && html) {
-      const blobUrl = createJsBlob(transpiled);
-      const { renderApp } = await import(blobUrl);
-      renderApp();
+      renderApp({transpiled, rootElement: document.getElementById("root")!});
     }
   };
 
@@ -161,36 +159,22 @@ function handleDefaultPage() {
       await mutex.runExclusive(async () => {
         if (signal.aborted) return;
 
-        const blobUrl = createJsBlob(transpiled);
-        const { renderApp } = await import(blobUrl);
+        // const rootElement = document.createElement("div");
 
-        if (signal.aborted) return;
-        const el = document.createElement("div");
-        const rRoot = createRoot(el);
 
-        const swappedRoot = globalThis.rRoot;
-        const cssCache = createCache({ key: "css", speedy: false });
-        const swappedCache = globalThis.cssCache;
+        const rendered = (await  renderApp({transpiled, rootElement: document.getElementById('root')!}))!;
+        const { rootElement, cssCache } = rendered;
 
-        globalThis.rRoot = rRoot;
-        globalThis.cssCache = cssCache;
-        renderApp();
+        await handleRender(rootElement, cssCache, signal, mod);
 
-        const success = await handleRender(el, signal, mod);
-
-        globalThis.rRoot = swappedRoot;
-        globalThis.cssCache = swappedCache;
-        if (success) renderApp();
-        rRoot.unmount();
-        el.remove();
-        await wait(100);
+     
       });
     }
     return false;
   };
 }
 
-async function handleRender(_rootEl: HTMLDivElement, signal: AbortSignal, mod: {
+async function handleRender(_rootEl: HTMLDivElement, cache: EmotionCache, signal: AbortSignal, mod: {
   counter: number;
   code: string;
   transpiled: string;
@@ -201,7 +185,6 @@ async function handleRender(_rootEl: HTMLDivElement, signal: AbortSignal, mod: {
 
   if (!_rootEl) return false;
 
-  const cache = (globalThis as unknown as { cssCache: EmotionCache }).cssCache;
 
   for (let attempts = 100; attempts > 0; attempts--) {
     if (signal.aborted) return false;

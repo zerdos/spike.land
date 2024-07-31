@@ -6,8 +6,12 @@ export const useDownload = (codeSpace: string) => {
     //     import TW from "../tw.js?text";
     // import resetCSS from "../assets/g.css?text";
 
-    const TW = (await import("../assets/tw.js?text")).default;
-    const resetCSS = (await import("../assets/g.css?text")).default;
+
+    const TW = await ((await fetch("/assets/tw.js")).text());
+    
+    const appCss = await((await fetch("/assets/app.css")).text());
+    
+    const resetCSS = await ((await fetch("/assets/g.css")).text());
     let indexMjs: string;
 
     const buildWithRetry = async () => {
@@ -45,54 +49,15 @@ export const useDownload = (codeSpace: string) => {
   <base href="/">
   <title>Instant React Editor</title>
   <style>
-  
- body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: Arial, sans-serif; /* You can customize this */
-  box-sizing: border-box;
-}
-
-/* Make sure the root element covers the entire viewport */
-#root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-    @media screen and (prefers-color-scheme: dark) {
-      body {
-        background-color: #121212;
-        color: hsl(210, 10%, 62%);
-        --text-color-normal: hsl(210, 10%, 62%);
-        --text-color-light: hsl(210, 15%, 35%);
-        --text-color-richer: hsl(210, 50%, 72%);
-        --text-color-highlight: hsl(25, 70%, 45%);
-      }
-    }
-
-    @media screen and (prefers-color-scheme: light) {
-      body {
-        background-color: white;
-        color: black;
-        --text-color-normal: #0a244d;
-        --text-color-light: #8cabd9;
-      }
-    }
-
-    ${resetCSS}
+  ${appCss}
+  ${resetCSS}
   </style>
 </head>
 <body>
   <div id="root"></div>
-  <script>${TW}</script>
-  <script type="module">
+  <script>
+    ${TW}
     ${indexMjs}
-    globalThis.module.renderApp();
   </script>
 </body>
 </html>`;
