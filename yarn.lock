@@ -3466,7 +3466,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spike-land/code@npm:0.9.55, @spike-land/code@workspace:packages/code":
+"@spike-land/code@npm:0.9.55, @spike-land/code@workspace:^, @spike-land/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
@@ -3704,6 +3704,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240725.0"
+    "@spike-land/code": "workspace:^"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.4"
     wrangler: "npm:3.67.1"
