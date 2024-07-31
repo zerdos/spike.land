@@ -319,7 +319,6 @@ export class RouteHandler {
     render();
     
     `;
-  ;
 
     return new Response(code, {
       headers: {
@@ -332,7 +331,6 @@ export class RouteHandler {
       },
     });
   }
-
 
   private async handleJsRoute(request: Request): Promise<Response> {
     let code = this.code.session.code;

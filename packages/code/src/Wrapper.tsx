@@ -1,5 +1,5 @@
-import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import { createRoot, Root } from "react-dom/client";
 import { createJsBlob } from "./starter";
@@ -24,7 +24,9 @@ declare global {
   var renderedAPPS: Map<HTMLElement, RenderedApp>;
 }
 
-export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled, App }: IRenderApp): Promise<RenderedApp | null> => {
+export const renderApp = async (
+  { rootElement, rRoot, codeSpace, transpiled, App }: IRenderApp,
+): Promise<RenderedApp | null> => {
   try {
     // Ensure rootElement exists and is in the DOM
     let rootEl = rootElement;
@@ -46,7 +48,10 @@ export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled, App
     }
 
     // Import App component
-    const AppToRender = App || await import(transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`).then(module => module.default);
+    const AppToRender = App
+      || await import(transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`).then(module =>
+        module.default
+      );
 
     // Create CSS cache
     const cssCache = createCache({ key: "css", speedy: false });
@@ -67,14 +72,14 @@ export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled, App
             />
           )}
         </ParentSize>
-      </CacheProvider>
+      </CacheProvider>,
     );
 
     // Create a cleanup function
     const cleanup = () => {
       root.unmount();
       if (document.body.contains(rootEl)) {
-        rootEl.innerHTML = ''; // Clear the contents of the element
+        rootEl.innerHTML = ""; // Clear the contents of the element
       }
       globalThis.renderedAPPS.delete(rootEl);
     };
@@ -88,7 +93,7 @@ export const renderApp = async ({ rootElement, rRoot, codeSpace, transpiled, App
     // Set up a MutationObserver to watch for removal of the rootEl
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
+        if (mutation.type === "childList") {
           mutation.removedNodes.forEach((node) => {
             if (node === rootEl || rootEl.contains(node)) {
               cleanup();

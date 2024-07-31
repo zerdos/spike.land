@@ -6,11 +6,10 @@ export const useDownload = (codeSpace: string) => {
     //     import TW from "../tw.js?text";
     // import resetCSS from "../assets/g.css?text";
 
-
     const TW = await ((await fetch("/assets/tw.js")).text());
-    
-    const appCss = await((await fetch("/assets/app.css")).text());
-    
+
+    const appCss = await ((await fetch("/assets/app.css")).text());
+
     const resetCSS = await ((await fetch("/assets/g.css")).text());
     let indexMjs: string;
 

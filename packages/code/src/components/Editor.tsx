@@ -38,6 +38,18 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setValue: (_code: string) => {},
   });
 
+  const setEditorContent = (formattedCode: string) => {
+      const lastSignal = mod.controller.signal;
+     const current =  lastTypingTimestampRef.current = lastTypingTimestampRef.current || Date.now();
+  setTimeout(() => {
+    if (lastSignal.aborted) return;
+    const currentTime = Date.now();
+    if (currentTime - lastTypingTimestampRef.current >= 5000) {
+      editorState.setValue(formattedCode);
+    }
+  }, 6000);
+}
+
   const [errorType, setErrorType] = useState<
     "typescript" | "prettier" | "transpile" | "render" | null
   >(null);
@@ -50,9 +62,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       const formatted = await prettierToThrow({ code, toThrow: true });
 
-      // lastTypingTimestampRef.current = Date.now();
 
-      editorState.setValue(formatted);
+
+      setEditorContent(formatted);
       handleContentChange(formatted);
     },
   }));
@@ -116,14 +128,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
         // Update editor with formatted code after 5 seconds of inactivity
 
-        const lastSignal = mod.controller.signal;
-        setTimeout(() => {
-          if (lastSignal.aborted) return;
-          const currentTime = Date.now();
-          if (currentTime - lastTypingTimestampRef.current >= 5000) {
-            editorState.setValue(formattedCode);
-          }
-        }, 6000);
+         setEditorContent(formattedCode); 
       },
       300,
       { leading: true, trailing: true },
@@ -158,15 +163,18 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
+    
     if (mod.code === newCode) return;
 
     mod.i += 1;
+    lastTypingTimestampRef.current = Date.now();
+
     mod.code = newCode;
 
     mod.controller.abort();
     mod.controller = new AbortController();
 
-    lastTypingTimestampRef.current = Date.now();
+
     debouncedRunner(newCode, mod.i);
     debouncedTypeCheck();
   }, [debouncedRunner, debouncedTypeCheck]);
@@ -179,7 +187,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       mod.i = Number(data.i);
       mod.code = data.code;
-      editorState.setValue(data.code);
+      setEditorContent(data.code);
 
       // setEditorState((prevState) => ({ ...prevState, ...mod }));
       // console.log("Updating editor with new code: ", data.i, mod.i);
@@ -199,7 +207,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     };
   }, [editorState]);
 
-
   return (
     <Rnd
       enableResizing
@@ -207,7 +214,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       minWidth={800}
       minHeight="100vh"
       bounds="body"
-    
       allowAnyClick
       lockAspectRatio={false}
       enable={{

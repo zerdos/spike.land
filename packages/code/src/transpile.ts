@@ -64,25 +64,23 @@ export const transpile = async (
       mod.init = true;
     }
 
-    const transformedCode = await transform(code,
-      {
-        loader: "tsx",
-        format: "esm",
-        treeShaking: true,
-        platform: "browser",
-        minify: false,
-        charset: "utf8",
-        keepNames: true,
-        tsconfigRaw: {
-          compilerOptions: {
-            jsx: "react-jsx",
-            jsxFragmentFactory: "Fragment",
-            jsxImportSource: "@emotion/react",
-          },
+    const transformedCode = await transform(code, {
+      loader: "tsx",
+      format: "esm",
+      treeShaking: true,
+      platform: "browser",
+      minify: false,
+      charset: "utf8",
+      keepNames: true,
+      tsconfigRaw: {
+        compilerOptions: {
+          jsx: "react-jsx",
+          jsxFragmentFactory: "Fragment",
+          jsxImportSource: "@emotion/react",
         },
-        target: "es2022",
       },
-    );
+      target: "es2022",
+    });
 
     return importMapReplace(transformedCode.code, origin);
   } catch (error) {
