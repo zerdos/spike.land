@@ -32,6 +32,7 @@ if (paths[1] !== "live") {
 function setupServiceWorker() {
   if (navigator.serviceWorker) {
     setTimeout(() => {
+      if (localStorage.getItem("sw") === "false") return;
       try {
         const sw = new Workbox(`/sw.js`);
 
