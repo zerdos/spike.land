@@ -151,8 +151,7 @@ export async function buildMainBundle(wasmFile) {
       "src/hydrate.tsx",
       "src/emotion.ts",
       "src/cf-esbuild.mjs",
-      "src/emotionCache.ts",
-      "src/emotionStyled.mjs",
+      "src/Wrapper.tsx"
     ],
     alias: {
       ...buildOptions.alias,
