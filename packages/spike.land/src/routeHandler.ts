@@ -51,7 +51,7 @@ export class RouteHandler {
       iframe: this.handleDefaultRoute.bind(this),
       public: this.handleDefaultRoute.bind(this),
       // New routes for auto-save functionality
-      
+
       "auto-save": this.handleAutoSaveRoute.bind(this),
       // New route for serving saved versions
       live: this.handleLiveRoute.bind(this),

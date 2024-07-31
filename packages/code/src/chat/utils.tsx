@@ -114,7 +114,7 @@ export const renderMessage = (text: string, isUser: boolean) => {
             : (
               <CodeBlock
                 value={part.content}
-                language={part.language || 'typescript'}
+                language={part.language || "typescript"}
               />
             )}
         </Fragment>

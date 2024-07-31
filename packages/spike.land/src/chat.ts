@@ -11,7 +11,7 @@ export default {
     if (request.url.includes("openai")) {
       return handleGPT4Request(request, env, ctx);
     }
-    if (request.url.includes(('/my-cms/'))){
+    if (request.url.includes("/my-cms/")) {
       return handleCMSIndexRequest(request, env);
     }
 
@@ -30,11 +30,10 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
       return new Response(`DEL ${key} successfully!`);
     case "GET":
       const object = await env.R2.get(key);
-      
-      if (!object) {
-        //404
-        return new Response("File not found", { status: 404 });
 
+      if (!object) {
+        // 404
+        return new Response("File not found", { status: 404 });
       }
       const headers = new Headers();
       object.writeHttpMetadata(headers);

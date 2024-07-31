@@ -20,7 +20,7 @@ const ChatInterface: React.FC<
   { onCodeUpdate, onClose, isOpen },
 ) => {
   const [messages, __setMessages] = useState<Message[]>(loadMessages());
- 
+
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
@@ -91,7 +91,7 @@ const ChatInterface: React.FC<
     const { code, i }: { code: string; i: number } = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
       res.json()
     );
-    const codeNow = await prettierToThrow({code, toThrow: true});
+    const codeNow = await prettierToThrow({ code, toThrow: true });
 
     const nextCounter = i + 1;
 
@@ -214,7 +214,6 @@ const ChatInterface: React.FC<
     const reader = responseOpenAI.body?.getReader();
     const decoder = new TextDecoder();
 
-
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
@@ -248,36 +247,34 @@ const ChatInterface: React.FC<
 
       try {
         console.log("modifiedCode", modifiedCode);
-    
-        const prettyCode = await prettierToThrow({code: modifiedCode, toThrow: true});  
+
+        const prettyCode = await prettierToThrow({ code: modifiedCode, toThrow: true });
         onCodeUpdate(prettyCode);
         // await runner({ code: prettyCode, counter: nextCounter, codeSpace, signal: new AbortController().signal });
         setAICode(prettyCode);
-        } catch (error) {
-          if (!isRetry) {
-          const errorTextWithAllTheCode = {error}.toString() + `\n` + code;
+      } catch (error) {
+        if (!isRetry) {
+          const errorTextWithAllTheCode = { error }.toString() + `\n` + code;
           const message: Message = {
             "id": (Date.now() + 1).toString(),
             "role": "user",
-            "content":  errorTextWithAllTheCode +`
+            "content": errorTextWithAllTheCode + `
             
             here is the code that was being processed:
 
             ${modifiedCode}
-            `
+            `,
           };
-            messages.push(message);
-            __setMessages(messages);
-           const answer = await sendToAnthropic(messages);
-            messages.push(answer);
-           __setMessages(messages);
-            await continueWithOpenAI(answer.content, modifiedCode, nextCounter, true);
-        }else {
+          messages.push(message);
+          __setMessages(messages);
+          const answer = await sendToAnthropic(messages);
+          messages.push(answer);
+          __setMessages(messages);
+          await continueWithOpenAI(answer.content, modifiedCode, nextCounter, true);
+        } else {
           console.error("Error in runner:", error);
         }
-          }
-        
-      
+      }
     }
     setIsStreaming(false);
   }

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import {  Pause, Play, RotateCcw } from "lucide-react";
+import { Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const PomodoroTimer = () => {
@@ -79,7 +79,8 @@ const PomodoroTimer = () => {
     return ((totalTime - timeLeft) / totalTime) * 100;
   };
 
-  return ( <div className="container mx-auto p-4 max-w-md">
+  return (
+    <div className="container mx-auto p-4 max-w-md">
       <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
         <CardContent className="p-6">
           <h2 className="text-3xl font-bold text-center mb-6">
