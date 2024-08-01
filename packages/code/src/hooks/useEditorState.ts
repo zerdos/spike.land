@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { isMobile } from '../isMobile';
+import { useRef, useState } from "react";
+import { isMobile } from "../isMobile";
 
 export const useEditorState = (codeSpace: string) => {
   const containerRef = useRef<HTMLDivElement>(null);
