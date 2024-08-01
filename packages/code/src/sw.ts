@@ -1,4 +1,3 @@
-
 importScripts("/swVersion.js");
 
 import * as workbox from "workbox-sw/controllers/WorkboxSW";

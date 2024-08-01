@@ -3,8 +3,8 @@ import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { transpile } from "./shared";
 import { AppRenderer } from "./components/AppRenderer";
+import { transpile } from "./shared";
 
 const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = React.useState("");

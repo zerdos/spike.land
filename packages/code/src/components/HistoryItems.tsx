@@ -5,9 +5,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
 import React from "react";
-import { ScaledWrapper } from "./ScaledWrapper";
 import { useCodeHistory } from "../hooks/useCodeHistory";
 import { useRestoreVersion } from "../hooks/useRestoreVersion";
+import { ScaledWrapper } from "./ScaledWrapper";
 
 interface HistoryItem {
   code: string;

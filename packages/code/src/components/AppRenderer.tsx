@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
@@ -27,5 +27,5 @@ export const AppRenderer: React.FC<AppRendererProps> = React.memo(
         />
       </React.Suspense>
     );
-  }
+  },
 );
