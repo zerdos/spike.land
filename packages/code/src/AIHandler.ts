@@ -1,6 +1,8 @@
+import debounce from "lodash/debounce";
 import { Message } from "./ChatDrawer";
 import { anthropic, gptSystem, reminder } from "./initialMessage";
 import { prettierToThrow } from "./shared";
+
 const loadMessages = () =>
   JSON.parse(
     localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]",
@@ -34,14 +36,19 @@ export const sendToAnthropic = async (messages: Message[]) => {
     throw new Error("Response body is not readable!");
   }
 
+  const debouncedUpdate = debounce((content: string) => {
+    assistantMessage.id = (Date.now() + 1).toString();
+    assistantMessage.content = content;
+  }, 100); // Debounce for 100ms
+
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
     const chunk = decoder.decode(value);
-    assistantMessage.id = (Date.now() + 1).toString();
-    assistantMessage.content += chunk;
+    debouncedUpdate(assistantMessage.content + chunk);
   }
 
+  debouncedUpdate.flush(); // Ensure the last update is applied
   return assistantMessage;
 };
 
@@ -86,6 +93,17 @@ export const continueWithOpenAI = async (
     throw new Error("Response body is not readable!");
   }
 
+  const debouncedSetMessages = debounce((newCode: string) => {
+    setMessages((prevMessages) => {
+      const lastMessage = prevMessages[prevMessages.length - 1];
+      const updatedLastMessage = {
+        ...lastMessage,
+        content: fullResponse + `\n` + newCode,
+      };
+      return [...prevMessages.slice(0, -1), updatedLastMessage];
+    });
+  }, 100); // Debounce for 100ms
+
   while (true) {
     const { done, value } = await reader.read();
     if (done) {
@@ -95,15 +113,10 @@ export const continueWithOpenAI = async (
     const chunk = decoder.decode(value);
     code += chunk;
 
-    setMessages((prevMessages) => {
-      const lastMessage = prevMessages[prevMessages.length - 1];
-      const updatedLastMessage = {
-        ...lastMessage,
-        content: fullResponse + `\n` + code,
-      };
-      return [...prevMessages.slice(0, -1), updatedLastMessage];
-    });
+    debouncedSetMessages(code);
   }
+
+  debouncedSetMessages.flush(); // Ensure the last update is applied
   console.log("code", code);
 
   const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;

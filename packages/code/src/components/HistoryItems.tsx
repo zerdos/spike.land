@@ -45,7 +45,7 @@ const ScaledWrapper: FC<{ code: string }> = ({ code }) => {
   );
 };
 
-export const CodeHistory = ({ codeSpace, onRestore, onClose }: {
+export const CodeHistory = ({ codeSpace }: {
   codeSpace: string;
   onRestore: (code: string) => void;
   onClose: () => void;
@@ -53,7 +53,9 @@ export const CodeHistory = ({ codeSpace, onRestore, onClose }: {
   const [history, setHistory] = useState<{ code: string; timestamp: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [restoreStatus, setRestoreStatus] = useState(null);
+  const [restoreStatus, setRestoreStatus] = useState<{ type: string; message: string } | null>(
+    { type: "", message: "" } | null,
+  );
 
   useEffect(() => {
     fetchHistory();
@@ -71,13 +73,13 @@ export const CodeHistory = ({ codeSpace, onRestore, onClose }: {
         ),
       );
     } catch (err) {
-      setError(err && err.message);
+      setError(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const restoreVersion = async (timestamp) => {
+  const restoreVersion = async (timestamp: number) => {
     try {
       setRestoreStatus({ type: "loading", message: "Restoring..." });
       const response = await fetch(`/live/${codeSpace}/auto-save/restore`, {
@@ -87,7 +89,7 @@ export const CodeHistory = ({ codeSpace, onRestore, onClose }: {
       });
       if (!response.ok) throw new Error("Failed to restore version");
       setRestoreStatus({ type: "success", message: "Version restored successfully!" });
-    } catch (err) {
+    } catch (err: any) {
       setRestoreStatus({ type: "error", message: err.message });
     }
   };

@@ -1,20 +1,37 @@
 import { handleAnthropicRequest } from "./anthropicHandler";
 import Env from "./env";
+import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    const logger = new KVLogger("myapp", env.KV);
+
+    env.KV.put("lastRequest", request.url);
+
     if (request.url.includes("anthropic")) {
+      await logger.log(`Request for ${request.url}`);
       return handleAnthropicRequest(request, env, ctx);
     }
     if (request.url.includes("openai")) {
+      await logger.log(`Request for ${request.url}`);
       return handleGPT4Request(request, env, ctx);
+    }
+    if (request.url.includes("/my-kv-cms/")) {
+      // ("2022-01-01"
+      const today = new Date().toISOString().split("T")[0];
+      const value = logger.getLogs(today);
+
+      Object.assign(value, { today });
+
+      return new Response(JSON.stringify(value));
     }
     if (request.url.includes("/my-cms/")) {
       return handleCMSIndexRequest(request, env);
     }
 
+    await logger.log(`Request for ${request.url}`);
     return handleMainFetch(request, env, ctx);
   },
 };

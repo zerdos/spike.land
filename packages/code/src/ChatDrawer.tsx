@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "lucide-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./chat/components";
 import { Message } from "./chat/types";
 export type { Message };
@@ -26,7 +26,7 @@ interface ChatFCProps {
   inputRef: React.RefObject<HTMLTextAreaElement>;
 }
 
-export const ChatFC: React.FC<ChatFCProps> = ({
+export const ChatFC: React.FC<ChatFCProps> = memo(({
   isOpen,
   onClose,
   isDarkMode,
@@ -72,7 +72,7 @@ export const ChatFC: React.FC<ChatFCProps> = ({
       inputRef={inputRef}
     />
   </ChatWindow>
-);
+));
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -189,5 +189,25 @@ const ChatInterface: React.FC = () => {
   );
 };
 
+// Memoize sub-components
+const MemoizedChatHeader = memo(ChatHeader);
+const MemoizedChatContainer = memo(ChatContainer);
+const MemoizedMessageInput = memo(MessageInput);
+
+const ChatButton = memo(({ onClick }: { onClick: () => void }) => (
+  <Button
+    onClick={onClick}
+    className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
+  >
+    <Bot className="h-6 w-6" />
+  </Button>
+));
+
 export default ChatInterface;
-export { ChatContainer, ChatHeader, ChatWindow, MessageInput };
+
+export {
+  ChatButton,
+  MemoizedChatContainer as ChatContainer,
+  MemoizedChatHeader as ChatHeader,
+  MemoizedMessageInput as MessageInput,
+};

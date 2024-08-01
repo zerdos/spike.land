@@ -70,12 +70,6 @@ function getCodeSpace(): string {
 }
 
 /**
- * Create a JavaScript Blob URL from the given code.
- * @param {string | Uint8Array} code - The code to create the Blob from.
- * @returns {string} The Blob URL.
- */
-
-/**
  * Create an HTML Blob URL from the given code.
  * @param {string} code - The code to create the Blob from.
  * @returns {string} The Blob URL.

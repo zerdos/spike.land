@@ -91,7 +91,24 @@ export class RouteHandler {
         }
         default:
           await this.code.autoSave();
-          return new Response("Code current state is saved", { status: 200 });
+          const { css, html } = this.code.session;
+          const respText = HTML.replace("/**reset*/", css).replace(
+            "<div id=\"root\"></div>",
+            `<div id="root">${html}</div>`,
+          );
+
+          const headers = new Headers({
+            "Access-Control-Allow-Origin": "*",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+            "Cross-Origin-Resource-Policy": "cross-origin",
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cache-Control": "no-cache",
+            "Content-Encoding": "gzip",
+            "Content-Type": "text/html; charset=UTF-8",
+            "content_hash": md5(respText),
+          });
+
+          return new Response(respText, { status: 200, headers });
       }
     } catch (error) {
       console.error("Error in handleAutoSaveRoute:", error);

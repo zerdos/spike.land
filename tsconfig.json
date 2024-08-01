@@ -31,7 +31,5 @@
   },
   "exclude": [
   ],
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"]
 }

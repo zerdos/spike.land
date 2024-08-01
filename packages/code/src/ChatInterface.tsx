@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { continueWithOpenAI, prepareClaudeContent, sendToAnthropic } from "./AIHandler";
 import { ChatFC, Message } from "./ChatDrawer";
 import { prettierToThrow } from "./shared";
@@ -19,15 +19,11 @@ const loadMessages = () =>
 // Main Component: ChatInterface
 const ChatInterface: React.FC<
   { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }
-> = (
-  { onCodeUpdate, onClose, isOpen },
-) => {
+> = React.memo(({ onCodeUpdate, onClose, isOpen }) => {
   const [messages, __setMessages] = useState<Message[]>(loadMessages());
-
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
-
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -76,7 +72,7 @@ const ChatInterface: React.FC<
     }
   };
 
-  const saveMessages = (newMessages: Message[]) => {
+  const saveMessages = useCallback((newMessages: Message[]) => {
     localStorage.setItem(
       `chatMessages-${codeSpace}`,
       JSON.stringify(newMessages),
@@ -86,9 +82,9 @@ const ChatInterface: React.FC<
       messages: newMessages,
     });
     __setMessages(newMessages);
-  };
+  }, []);
 
-  const handleSendMessage = async (content: string) => {
+  const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
     const { code, i }: { code: string; i: number } = await fetch(
@@ -156,41 +152,39 @@ const ChatInterface: React.FC<
     }
 
     setIsStreaming(false);
-  };
+  }, [codeWhatAiSeen, onCodeUpdate]);
 
-  const handleResetChat = () => {
+  const handleResetChat = useCallback(() => {
     __setMessages([]);
     localStorage.removeItem(`chatMessages-${codeSpace}`);
     broadcastChannel.current?.postMessage({
       type: `update_messages-${codeSpace}`,
       messages: [],
     });
-  };
+  }, []);
 
-  const handleEditMessage = (messageId: string) => {
+  const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
     if (messageToEdit) {
       setEditingMessageId(messageId);
       setEditInput(messageToEdit.content);
     }
-  };
+  }, [messages]);
 
-  const handleCancelEdit = () => {
+  const handleCancelEdit = useCallback(() => {
     setEditingMessageId(null);
     setEditInput("");
-  };
+  }, []);
 
-  const handleSaveEdit = (messageId: string) => {
-    const updatedMessages = messages.map((
-      msg,
-    ) => (msg.id === messageId ? { ...msg, content: editInput } : msg));
+  const handleSaveEdit = useCallback((messageId: string) => {
+    const updatedMessages = messages.map((msg) => msg.id === messageId ? { ...msg, content: editInput } : msg);
     __setMessages(updatedMessages);
     saveMessages(updatedMessages);
     setEditingMessageId(null);
     setEditInput("");
-  };
+  }, [messages, editInput, saveMessages]);
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = useCallback(() => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     localStorage.setItem("darkMode", newMode.toString());
@@ -198,30 +192,45 @@ const ChatInterface: React.FC<
       type: `update_dark_mode-${codeSpace}`,
       isDarkMode: newMode,
     });
-  };
+  }, [isDarkMode]);
 
-  return (
-    <ChatFC
-      isOpen={isOpen}
-      onClose={onClose}
-      handleEditMessage={handleEditMessage}
-      handleResetChat={handleResetChat}
-      handleSaveEdit={handleSaveEdit}
-      handleSendMessage={handleSendMessage}
-      isStreaming={isStreaming}
-      messages={messages}
-      messagesEndRef={messagesEndRef}
-      isDarkMode={isDarkMode}
-      toggleDarkMode={toggleDarkMode}
-      editingMessageId={editingMessageId}
-      editInput={editInput}
-      setEditInput={setEditInput}
-      input={input}
-      setInput={setInput}
-      inputRef={inputRef}
-      handleCancelEdit={handleCancelEdit}
-    />
-  );
-};
+  const memoizedChatFCProps = useMemo(() => ({
+    isOpen,
+    onClose,
+    handleEditMessage,
+    handleResetChat,
+    handleSaveEdit,
+    handleSendMessage,
+    isStreaming,
+    messages,
+    messagesEndRef,
+    isDarkMode,
+    toggleDarkMode,
+    editingMessageId,
+    editInput,
+    setEditInput,
+    input,
+    setInput,
+    inputRef,
+    handleCancelEdit,
+  }), [
+    isOpen,
+    onClose,
+    handleEditMessage,
+    handleResetChat,
+    handleSaveEdit,
+    handleSendMessage,
+    isStreaming,
+    messages,
+    isDarkMode,
+    toggleDarkMode,
+    editingMessageId,
+    editInput,
+    input,
+    handleCancelEdit,
+  ]);
+
+  return <ChatFC {...memoizedChatFCProps} />;
+});
 
 export default ChatInterface;

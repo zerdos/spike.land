@@ -12,14 +12,6 @@ interface AutoSaveHistoryProps {
   onClose: () => void;
 }
 
-interface VersionItemProps {
-  virtualItem: any;
-  version: Version;
-  selectedVersion: Version | null;
-  handleSetSelectedVersion: (version: Version) => void;
-  formatDate: (timestamp: number) => string;
-  isModuleTranspiled: (index: number) => boolean;
-}
 const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = (
   { codeSpace, onRestore, onClose },
 ) => {

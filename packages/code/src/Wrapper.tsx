@@ -22,22 +22,32 @@ const useTranspile = (code: string) => {
 };
 
 // Memoized AppRenderer component
-const AppRenderer = React.memo(({ transpiled, width, height, top, left }) => {
-  const AppToRender = useMemo(() => (
-    React.lazy(() => import(createJsBlob(transpiled)))
-  ), [transpiled]);
+const AppRenderer = React.memo(
+  (
+    { transpiled, width, height, top, left }: {
+      transpiled: string;
+      width: number;
+      height: number;
+      top: number;
+      left: number;
+    },
+  ) => {
+    const AppToRender = useMemo(() => (
+      React.lazy(() => import(createJsBlob(transpiled)))
+    ), [transpiled]);
 
-  return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <AppToRender
-        width={width || window.innerWidth}
-        height={height || window.innerHeight}
-        top={top || 0}
-        left={left || 0}
-      />
-    </React.Suspense>
-  );
-});
+    return (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <AppToRender
+          width={width || window.innerWidth}
+          height={height || window.innerHeight}
+          top={top || 0}
+          left={left || 0}
+        />
+      </React.Suspense>
+    );
+  },
+);
 
 // Optimized Wrapper component
 export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
@@ -75,7 +85,7 @@ interface IRenderApp {
 }
 
 interface RenderedApp {
-  rootElement: HTMLDivElement;
+  rootElement: HTMLDivElement & { align: string };
   code?: string;
   rRoot: Root;
   App?: React.ComponentType<any>;
