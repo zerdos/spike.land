@@ -5068,6 +5068,7 @@ const RAW_RUNTIME_STATE =
           ["uvu", "npm:0.5.6"],\
           ["vaul", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.9.1"],\
           ["webrtc-adapter", "npm:9.0.1"],\
+          ["workbox-sw", "npm:7.1.0"],\
           ["workbox-window", "npm:7.1.0"],\
           ["worker-rpc", "npm:0.2.0"],\
           ["zod", "npm:3.23.8"]\
@@ -19656,6 +19657,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/workbox-core-npm-7.1.0-2fe6da9059-10.zip/node_modules/workbox-core/",\
         "packageDependencies": [\
           ["workbox-core", "npm:7.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["workbox-sw", [\
+      ["npm:7.1.0", {\
+        "packageLocation": "./.yarn/global/cache/workbox-sw-npm-7.1.0-8b3106e426-10.zip/node_modules/workbox-sw/",\
+        "packageDependencies": [\
+          ["workbox-sw", "npm:7.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
