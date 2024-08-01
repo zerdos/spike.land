@@ -177,6 +177,7 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/eslint__js": "^8.42.3",
     "@types/lodash": "^4.17.7",
     "@types/lodash.debounce": "4.0.9",
