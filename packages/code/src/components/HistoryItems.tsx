@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Wrapper } from "../Wrapper";
 
 interface HistoryItem {
@@ -62,9 +62,9 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
 
   useEffect(() => {
     fetchHistory();
-  }, [codeSpace]);
+  }, [codeSpace, fetchHistory]);
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/live/${codeSpace}/auto-save/history`);
@@ -80,9 +80,9 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
     } finally {
       setLoading(false);
     }
-  };
+  }, [codeSpace]);
 
-  const restoreVersion = async (timestamp: number) => {
+  const restoreVersion = useCallback(async (timestamp: number) => {
     try {
       setRestoreStatus({ type: "loading", message: "Restoring..." });
       const response = await fetch(`/live/${codeSpace}/auto-save/restore`, {
@@ -98,7 +98,7 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
         message: err instanceof Error ? err.message : "An unknown error occurred",
       });
     }
-  };
+  }, [codeSpace]);
 
   if (loading) return <div>Loading history...</div>;
   if (error) return <div>Error: {error}</div>;
