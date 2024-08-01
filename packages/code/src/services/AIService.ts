@@ -8,12 +8,12 @@ import debounce from "lodash.debounce";
 export class AIService {
   private localStorageService: LocalStorageService;
 
-  constructor(localStorageService: LocalStorageService) {
-    this.localStorageService = localStorageService;
+  constructor(private codeSpace: string) {
+    this.localStorageService = new LocalStorageService(codeSpace);
   }
 
-  async sendToAnthropic(messages: Message[]): Promise<Message> {
-    const response = await fetch("/anthropic", {
+  async sendMessage(messages: Message[]): Promise<Message> {
+    const response = await fetch("/ai", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -34,46 +34,44 @@ export class AIService {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
-    let c=""
+    let content = "";
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
 
-    const debouncedUpdate = debounce((content: string) => {
+    const debouncedUpdate = debounce((newContent: string) => {
       assistantMessage.id = (Date.now() + 1).toString();
-      assistantMessage.content = content;
+      assistantMessage.content = newContent;
     }, 100);
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = decoder.decode(value);
-      c+=chunk;
-      debouncedUpdate(c)
+      content += chunk;
+      debouncedUpdate(content);
     }
 
-    debouncedUpdate(c);
+    debouncedUpdate.flush();
 
-    assistantMessage.content =c.trim();
+    assistantMessage.content = content.trim();
 
     this.localStorageService.saveAIInteraction(messages[messages.length - 1].content, assistantMessage.content);
 
     return assistantMessage;
   }
 
-  async continueWithOpenAI(
+  async continueConversation(
     fullResponse: string,
-    codeNow: string,
-    nextCounter: number,
+    currentCode: string,
     onCodeUpdate: (code: string) => void,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
-    isRetry = false,
   ): Promise<string | void> {
     console.log(fullResponse);
 
     let code = "";
-    const responseOpenAI = await fetch("/openai", {
+    const response = await fetch("/ai", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,18 +82,18 @@ export class AIService {
           "content": gptSystem,
         }, {
           "role": "user",
-          "content": codeNow + `
+          "content": currentCode + `
             **** instructions ****
           ` + fullResponse,
         }],
       }),
     });
 
-    if (!responseOpenAI.ok) {
-      throw new Error(`HTTP error! status: ${responseOpenAI.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const reader = responseOpenAI.body?.getReader();
+    const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
     if (!reader) {
@@ -113,8 +111,6 @@ export class AIService {
       });
     }, 100);
 
-
-
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -127,9 +123,19 @@ export class AIService {
       debouncedSetMessages(code); 
     }
 
-
     this.localStorageService.saveAIInteraction(fullResponse, code);
 
+    return this.processCodeResponse(code, currentCode, fullResponse, onCodeUpdate, setMessages, setAICode);
+  }
+
+  private async processCodeResponse(
+    code: string,
+    currentCode: string,
+    fullResponse: string,
+    onCodeUpdate: (code: string) => void,
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setAICode: (code: string) => void,
+  ): Promise<string | void> {
     const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = code.match(codeModificationRegex);
 
@@ -153,70 +159,64 @@ export class AIService {
         return prettyCode;
       } catch (error) {
         console.error("Error AI code with prettier:", error);
-
-        if (!isRetry) {
-          console.log("asking for help, from Claude");
-          const errorTextWithAllTheCode = { error }.toString();
-          const message: Message = {
-            "id": (Date.now() + 1).toString(),
-            "role": "user",
-            "content":  `
-            ${codeNow} 
-            
-            **** instructions ****  
-            ${fullResponse}
-
-
-            ***** result *****
-
-            ${modifiedCode}
-
-            **** error ****
-
-            ${errorTextWithAllTheCode}
-
-            Could you help me with this error? I'm stuck.
-            `,
-          };
-
-          setMessages((prevMessages) => [...prevMessages, message]);
-
-          const prevMessages = this.localStorageService.loadMessages();
-
-          const answer = await this.sendToAnthropic([...prevMessages, message]);
-          setMessages((prevMessages) => [...prevMessages, answer]);
-          await this.continueWithOpenAI(
-            answer.content,
-            modifiedCode,
-            nextCounter,
-            onCodeUpdate,
-            setMessages,
-            setAICode,
-            true,
-          );
-        } else {
-          console.error("Error in runner:", error);
-        }
+        return this.handleCodeError(error, currentCode, fullResponse, modifiedCode, setMessages);
       }
     }
   }
 
-  prepareClaudeContent(
+  private async handleCodeError(
+    error: any,
+    currentCode: string,
+    fullResponse: string,
+    modifiedCode: string,
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+  ): Promise<void> {
+    console.log("asking for help");
+    const errorTextWithAllTheCode = { error }.toString();
+    const message: Message = {
+      "id": (Date.now() + 1).toString(),
+      "role": "user",
+      "content":  `
+      ${currentCode} 
+      
+      **** instructions ****  
+      ${fullResponse}
+
+      ***** result *****
+
+      ${modifiedCode}
+
+      **** error ****
+
+      ${errorTextWithAllTheCode}
+
+      Could you help me with this error? I'm stuck.
+      `,
+    };
+
+    setMessages((prevMessages) => [...prevMessages, message]);
+
+    const prevMessages = this.localStorageService.loadMessages();
+
+    const answer = await this.sendMessage([...prevMessages, message]);
+    setMessages((prevMessages) => [...prevMessages, answer]);
+  }
+
+  prepareContent(
     content: string,
     messages: Message[],
-    codeNow: string,
+    currentCode: string,
     codeSpace: string,
   ): string {
     if (
-      messages.length == 0 || codeNow !== messages[messages.length - 1]?.content
+      messages.length === 0 || currentCode !== messages[messages.length - 1]?.content
     ) {
-
       return anthropic(
           {
               fileName: codeSpace, 
-              fileContent: codeNow,
+              fileContent: currentCode,
               userPrompt: content
-          })
+          });
     } else {
       return reminder({userPrompt: content});
     }

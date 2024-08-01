@@ -1,46 +1,39 @@
 import { AIService } from "./services/AIService";
-import { LocalStorageService } from "./services/LocalStorageService";
 import { Message } from "./types/Message";
 
 class AIHandler {
   private aiService: AIService;
 
   constructor(private codeSpace: string, aiService?: AIService) {
-    const localStorageService = new LocalStorageService(codeSpace);
-    this.aiService = aiService || new AIService(localStorageService);
+    this.aiService = aiService || new AIService(codeSpace);
   }
 
-  async sendToAnthropic(messages: Message[]): Promise<Message> {
-    return this.aiService.sendToAnthropic(messages);
+  async sendMessage(messages: Message[]): Promise<Message> {
+    return this.aiService.sendMessage(messages);
   }
 
-  async continueWithOpenAI(
+  async continueConversation(
     fullResponse: string,
     currentCode: string,
-    nextCounter: number,
     onCodeUpdate: (code: string) => void,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
-    isRetry = false,
   ): Promise<string | void> {
-    return this.aiService.continueWithOpenAI(
+    return this.aiService.continueConversation(
       fullResponse,
       currentCode,
-      nextCounter,
       onCodeUpdate,
       setMessages,
       setAICode,
-      isRetry,
     );
   }
 
-  prepareClaudeContent(
+  prepareContent(
     content: string,
     messages: Message[],
     currentCode: string,
-    codeSpace: string,
-  ) {
-    return this.aiService.prepareClaudeContent(content, messages, currentCode, this.codeSpace);
+  ): string {
+    return this.aiService.prepareContent(content, messages, currentCode, this.codeSpace);
   }
 }
 
