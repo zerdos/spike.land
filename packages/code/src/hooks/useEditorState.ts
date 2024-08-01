@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isMobile } from "../isMobile";
 
 export const useEditorState = (codeSpace: string) => {
