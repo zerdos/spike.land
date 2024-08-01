@@ -71,6 +71,6 @@ describe("AIHandler", () => {
     const result = aiHandler.prepareClaudeContent(content, messages, currentCode);
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
-    expect(result).toEqual(preparedContent);
+    expect(result).toBe(preparedContent);
   });
 });

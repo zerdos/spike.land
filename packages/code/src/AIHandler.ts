@@ -34,7 +34,7 @@ class AIHandler {
     );
   }
 
-  async prepareClaudeContent(
+  prepareClaudeContent(
     content: string,
     messages: Message[],
     currentCode: string,
