@@ -1,13 +1,13 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AppRenderer } from "./components/AppRenderer";
 import { transpile } from "./shared";
 
 const useTranspile = (code: string) => {
-  const [transpiled, setTranspiled] = React.useState("");
+  const [transpiled, setTranspiled] = useState("");
 
   useEffect(() => {
     transpile({ code, originToUse: window.location.origin }).then(setTranspiled);
@@ -26,19 +26,27 @@ export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
     const cssCache = createCache({ key: "css", speedy: false });
     const root = createRoot(containerRef.current);
 
-    root.render(
-      <CacheProvider value={cssCache}>
-        <ParentSize>
-          {(props) => <AppRenderer transpiled={transpiled} {...props} />}
-        </ParentSize>
-      </CacheProvider>,
-    );
+    const renderApp = () => {
+      root.render(
+        <CacheProvider value={cssCache}>
+          <ParentSize>
+            {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+          </ParentSize>
+        </CacheProvider>
+      );
+    };
 
-    return () => root.unmount();
+    renderApp();
+
+    return () => {
+      root.unmount();
+    };
   }, [transpiled]);
 
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} data-testid="wrapper-container" />;
 });
+
+export { useTranspile };
 
 // Types
 interface IRenderApp {
