@@ -209,7 +209,7 @@ export default {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
-module.exports = {
+export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
