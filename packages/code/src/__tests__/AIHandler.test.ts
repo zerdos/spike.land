@@ -65,11 +65,12 @@ describe("AIHandler", () => {
     const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
     const currentCode = "Current code";
 
-    mockAIService.prepareClaudeContent.mockReturnValue("Prepared content");
+    const preparedContent = { content: "Prepared content" };
+    mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
 
     const result = aiHandler.prepareClaudeContent(content, messages, currentCode);
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
-    expect(result).toBe("Prepared content");
+    expect(result).toEqual(preparedContent);
   });
 });
