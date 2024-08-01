@@ -17,7 +17,7 @@ const codeSpace = paths[2];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 // Handle non-live routes
-import React from 'react';
+import React from "react";
 
 async function handleNonLiveRoutes() {
   if (paths[1] !== "live") {
@@ -46,7 +46,7 @@ async function setupServiceWorker() {
     const postMessageWithTransferables = (data: any) => {
       swPort.port1.postMessage(
         data,
-        (hasTransferables(data) ? getTransferables(data) : undefined) as Transferable[]
+        (hasTransferables(data) ? getTransferables(data) : undefined) as Transferable[],
       );
     };
 
@@ -55,7 +55,7 @@ async function setupServiceWorker() {
 
     swInstance.postMessage(
       { type: "sharedworker", sharedWorkerPort: swPort.port1 },
-      [swPort.port1]
+      [swPort.port1],
     );
 
     if ("serviceWorker" in navigator) {
@@ -63,7 +63,7 @@ async function setupServiceWorker() {
       const registration = await navigator.serviceWorker.register("/sw.js");
       const workers = await navigator.serviceWorker.getRegistrations();
       await Promise.all(
-        workers.filter((x) => x !== registration).map((x) => x.unregister())
+        workers.filter((x) => x !== registration).map((x) => x.unregister()),
       );
     }
   } catch (e) {

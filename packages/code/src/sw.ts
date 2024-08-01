@@ -3,13 +3,12 @@
 
 importScripts("/swVersion.js");
 
-import workbox from "workbox-sw";
+import * as workbox from "workbox-sw";
 
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string };
-
 
 const { routing, strategies, expiration, backgroundSync, precaching } = workbox;
 
@@ -49,53 +48,53 @@ async function updateCache(newAssetHash) {
 }
 
 // Periodic background sync
-const backgroundSyncPlugin = new backgroundSync.BackgroundSyncPlugin('periodic-sync', {
-  maxRetentionTime: 24 * 60 // Retry for max of 24 Hours (specified in minutes)
+const backgroundSyncPlugin = new backgroundSync.BackgroundSyncPlugin("periodic-sync", {
+  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours (specified in minutes)
 });
 
 // Register route for files in files.json
 routing.registerRoute(
-  ({url}) => url.pathname in self.files,
+  ({ url }) => url.pathname in self.files,
   new strategies.CacheFirst({
-    cacheName: 'files-cache',
+    cacheName: "files-cache",
     plugins: [
       new expiration.ExpirationPlugin({
         maxEntries: 250, // Adjust based on your needs
-        maxAgeSeconds: 24 * 60 * 60 // 1 day
+        maxAgeSeconds: 24 * 60 * 60, // 1 day
       }),
-      backgroundSyncPlugin
-    ]
-  })
+      backgroundSyncPlugin,
+    ],
+  }),
 );
 
 // Default cache-first strategy for other routes
 routing.setDefaultHandler(
   new strategies.CacheFirst({
-    cacheName: 'default-cache',
+    cacheName: "default-cache",
     plugins: [
       new expiration.ExpirationPlugin({
         maxEntries: 100, // Adjust based on your needs
-        maxAgeSeconds: 7 * 24 * 60 * 60 // 1 week
-      })
-    ]
-  })
+        maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+      }),
+    ],
+  }),
 );
 
 // Periodic cache refresh
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'refresh-files') {
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "refresh-files") {
     event.waitUntil(checkAssetHash());
   }
 });
 
 // Initial installation
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    checkAssetHash().then(() => self.skipWaiting())
+    checkAssetHash().then(() => self.skipWaiting()),
   );
 });
 
 // Activate new service worker
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
 });

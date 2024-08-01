@@ -5,7 +5,7 @@ import { Bot } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
-import {CodeHistoryCarousel} from "./components/AutoSaveHistory";
+import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
@@ -106,7 +106,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           />
 
           <Button
-            onClick={() => setShowAutoSaveHistory(x=>!x)}
+            onClick={() => setShowAutoSaveHistory(x => !x)}
             className="fixed top-4 right-4 z-50"
             size="sm"
           >
@@ -118,7 +118,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
                 <CodeHistoryCarousel
                   codeSpace={codeSpace}
-
                 />
               </div>
             </div>

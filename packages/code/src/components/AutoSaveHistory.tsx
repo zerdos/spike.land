@@ -1,23 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
-import { format } from 'date-fns';
-import { Wrapper } from '../Wrapper';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { format } from "date-fns";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Wrapper } from "../Wrapper";
 
 interface HistoryItem {
   code: string;
@@ -25,7 +13,7 @@ interface HistoryItem {
 }
 
 interface RestoreStatus {
-  type: 'loading' | 'success' | 'error';
+  type: "loading" | "success" | "error";
   message: string;
 }
 
@@ -43,8 +31,8 @@ const ScaledWrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
     };
 
     updateScale();
-    window.addEventListener('resize', updateScale);
-    return () => window.removeEventListener('resize', updateScale);
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
   }, []);
 
   return (
@@ -52,10 +40,10 @@ const ScaledWrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
       <div
         style={{
           transform: `scale(${scale})`,
-          transformOrigin: 'top left',
+          transformOrigin: "top left",
           width: `${100 / scale}%`,
           height: `${100 / scale}%`,
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
         }}
@@ -66,7 +54,7 @@ const ScaledWrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
   );
 });
 
-ScaledWrapper.displayName = 'ScaledWrapper';
+ScaledWrapper.displayName = "ScaledWrapper";
 
 const HistoryItem: React.FC<{
   item: HistoryItem;
@@ -82,7 +70,7 @@ const HistoryItem: React.FC<{
         </CardHeader>
         <CardContent className="flex-grow flex flex-col">
           <p className="text-sm text-gray-500 mb-2">
-            {format(new Date(item.timestamp), 'PPpp')}
+            {format(new Date(item.timestamp), "PPpp")}
           </p>
           <div className="flex-grow mb-4">
             <ScaledWrapper code={item.code} />
@@ -109,7 +97,7 @@ const HistoryItem: React.FC<{
   );
 });
 
-HistoryItem.displayName = 'HistoryItem';
+HistoryItem.displayName = "HistoryItem";
 
 export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -121,15 +109,15 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
     try {
       setLoading(true);
       const response = await fetch(`/live/${codeSpace}/auto-save/history`);
-      if (!response.ok) throw new Error('Failed to fetch history');
+      if (!response.ok) throw new Error("Failed to fetch history");
       const data: HistoryItem[] = await response.json();
       setHistory(
         data
-          .filter((x) => !x.code.includes('History') && !x.code.includes('e/pp'))
-          .sort((a, b) => b.timestamp - a.timestamp)
+          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
+          .sort((a, b) => b.timestamp - a.timestamp),
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
     } finally {
       setLoading(false);
     }
@@ -141,18 +129,18 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
 
   const restoreVersion = useCallback(async (timestamp: number) => {
     try {
-      setRestoreStatus({ type: 'loading', message: 'Restoring...' });
+      setRestoreStatus({ type: "loading", message: "Restoring..." });
       const response = await fetch(`/live/${codeSpace}/auto-save/restore`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ timestamp }),
       });
-      if (!response.ok) throw new Error('Failed to restore version');
-      setRestoreStatus({ type: 'success', message: 'Version restored successfully!' });
+      if (!response.ok) throw new Error("Failed to restore version");
+      setRestoreStatus({ type: "success", message: "Version restored successfully!" });
     } catch (err) {
       setRestoreStatus({
-        type: 'error',
-        message: err instanceof Error ? err.message : 'An unknown error occurred',
+        type: "error",
+        message: err instanceof Error ? err.message : "An unknown error occurred",
       });
     }
   }, [codeSpace]);
@@ -166,13 +154,13 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
     <div className="space-y-4">
       <h2 className="text-2xl font-bold mb-4">Code History</h2>
       {restoreStatus && (
-        <Alert variant={restoreStatus.type === 'error' ? 'destructive' : 'default'}>
+        <Alert variant={restoreStatus.type === "error" ? "destructive" : "default"}>
           <AlertTitle>
-            {restoreStatus.type === 'loading'
-              ? 'Restoring'
-              : restoreStatus.type === 'success'
-              ? 'Success'
-              : 'Error'}
+            {restoreStatus.type === "loading"
+              ? "Restoring"
+              : restoreStatus.type === "success"
+              ? "Success"
+              : "Error"}
           </AlertTitle>
           <AlertDescription>{restoreStatus.message}</AlertDescription>
         </Alert>

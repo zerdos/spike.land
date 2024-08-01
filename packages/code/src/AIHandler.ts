@@ -7,7 +7,7 @@ const codeSpace = location.pathname.slice(1).split("/")[1];
 
 const loadMessages = () =>
   JSON.parse(
-    localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]"
+    localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]",
   ) as Message[];
 
 // New function to save AI interactions
@@ -56,10 +56,10 @@ export const sendToAnthropic = async (messages: Message[]) => {
   }
 
   debouncedUpdate.flush();
-  
+
   // Save the Anthropic interaction
   saveAIInteraction(messages[messages.length - 1].content, assistantMessage.content);
-  
+
   return assistantMessage;
 };
 
@@ -154,7 +154,6 @@ export const continueWithOpenAI = async (
       setAICode(prettyCode);
 
       return prettyCode;
-
     } catch (error) {
       if (!isRetry) {
         const errorTextWithAllTheCode = { error }.toString() + `\n` + code;
