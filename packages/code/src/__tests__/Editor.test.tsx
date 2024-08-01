@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, act } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom";
 import { Editor } from "../components/Editor";
@@ -66,7 +66,7 @@ describe("Editor Component", () => {
     mockPrettierToThrow.mockRejectedValueOnce(new Error("Prettier error"));
 
     render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
-    
+
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
     });
@@ -85,7 +85,7 @@ describe("Editor Component", () => {
     mockRunner.mockRejectedValueOnce(new Error("Transpile error"));
 
     render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
-    
+
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
     });
@@ -107,7 +107,7 @@ describe("Editor Component", () => {
     });
 
     render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
-    
+
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
     });

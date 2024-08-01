@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-const createJsBlob = (code: string | Uint8Array): string =>
+export const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 interface AppRendererProps {

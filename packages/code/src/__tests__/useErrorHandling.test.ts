@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));

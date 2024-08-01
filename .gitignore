@@ -8,6 +8,7 @@ bc
 client_id§
 videos/
 screenshots/
+.aider.chat.history.md
 .eslintcache
 ipfs_data
 telemetry.json

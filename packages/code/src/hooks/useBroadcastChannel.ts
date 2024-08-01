@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const useBroadcastChannel = (codeSpace: string, handleBroadcastMessage: (event: MessageEvent) => void) => {
   useEffect(() => {

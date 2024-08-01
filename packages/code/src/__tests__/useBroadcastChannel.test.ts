@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 
 describe("useBroadcastChannel", () => {
@@ -9,7 +9,7 @@ describe("useBroadcastChannel", () => {
     mockAddEventListener = jest.fn();
     mockRemoveEventListener = jest.fn();
 
-    global.BroadcastChannel = jest.fn().mockImplementation(() => ({
+    (global as any).BroadcastChannel = jest.fn().mockImplementation(() => ({
       addEventListener: mockAddEventListener,
       removeEventListener: mockRemoveEventListener,
     }));
@@ -21,7 +21,7 @@ describe("useBroadcastChannel", () => {
 
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
-    expect(global.BroadcastChannel).toHaveBeenCalledWith(`${location.origin}/live/${codeSpace}/`);
+    expect((global as any).BroadcastChannel).toHaveBeenCalledWith(`${location.origin}/live/${codeSpace}/`);
   });
 
   test("adds event listener for 'message' event", () => {

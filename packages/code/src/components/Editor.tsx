@@ -2,13 +2,13 @@ import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
+import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
+import { useEditorState } from "../hooks/useEditorState";
+import { useErrorHandling } from "../hooks/useErrorHandling";
 import { isMobile } from "../isMobile";
 import { runner } from "../runner";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
-import { useEditorState } from "../hooks/useEditorState";
-import { useErrorHandling } from "../hooks/useErrorHandling";
-import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 
 interface EditorProps {
   codeSpace: string;

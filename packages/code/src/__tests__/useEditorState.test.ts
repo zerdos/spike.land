@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 import { useEditorState } from "../hooks/useEditorState";
 
 jest.mock("../isMobile", () => ({
@@ -8,7 +8,7 @@ jest.mock("../isMobile", () => ({
 describe("useEditorState", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    global.cSess = {
+    (global as any).cSess = {
       session: {
         i: "0",
         code: "initial code",
@@ -43,10 +43,12 @@ describe("useEditorState", () => {
   test("setEditorState updates the state correctly", () => {
     const { result } = renderHook(() => useEditorState("test-code-space"));
 
-    result.current.setEditorState({
-      ...result.current.editorState,
-      started: true,
-      code: "updated code",
+    act(() => {
+      result.current.setEditorState({
+        ...result.current.editorState,
+        started: true,
+        code: "updated code",
+      });
     });
 
     expect(result.current.editorState).toEqual({

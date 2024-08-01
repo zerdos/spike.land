@@ -3,7 +3,8 @@ import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { AppRenderer } from "./components/AppRenderer";
+import type { Root } from "react-dom/client";
+import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import { transpile } from "./shared";
 
 const useTranspile = (code: string) => {
@@ -32,7 +33,7 @@ export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
           <ParentSize>
             {(props) => <AppRenderer transpiled={transpiled} {...props} />}
           </ParentSize>
-        </CacheProvider>
+        </CacheProvider>,
       );
     };
 
@@ -97,9 +98,9 @@ export const renderApp = async ({
     }
 
     const AppToRender = App
-      || await import(
+      || (await import(
         transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`
-      ).then((m) => m.default);
+      )).default;
     const cssCache = createCache({ key: "css", speedy: false });
     const root = rRoot || createRoot(rootEl);
 

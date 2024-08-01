@@ -1,7 +1,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import * as sharedModule from "../shared";
-import { Wrapper, useTranspile } from "../Wrapper";
+import { useTranspile, Wrapper } from "../Wrapper";
 
 jest.mock("../shared", () => ({
   transpile: jest.fn(),
