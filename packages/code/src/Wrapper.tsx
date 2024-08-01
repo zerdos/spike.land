@@ -1,55 +1,22 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createRoot, Root } from "react-dom/client";
+import React, { useEffect, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import type { Root } from "react-dom/client";
+import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import { transpile } from "./shared";
-
-// Helper functions
-const createJsBlob = (code: string | Uint8Array): string =>
-  URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = useState("");
 
   useEffect(() => {
-    transpile({ code, originToUse: window.location.origin }).then(
-      setTranspiled,
-    );
+    transpile({ code, originToUse: window.location.origin }).then(setTranspiled);
   }, [code]);
 
   return transpiled;
 };
 
-// Memoized AppRenderer component
-const AppRenderer = React.memo(
-  (
-    { transpiled, width, height, top, left }: {
-      transpiled: string;
-      width: number;
-      height: number;
-      top: number;
-      left: number;
-    },
-  ) => {
-    const AppToRender = useMemo(() => (
-      React.lazy(() => import(createJsBlob(transpiled)))
-    ), [transpiled]);
-
-    return (
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <AppToRender
-          width={width || window.innerWidth}
-          height={height || window.innerHeight}
-          top={top || 0}
-          left={left || 0}
-        />
-      </React.Suspense>
-    );
-  },
-);
-
-// Optimized Wrapper component
 export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
   const transpiled = useTranspile(code);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,19 +27,27 @@ export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
     const cssCache = createCache({ key: "css", speedy: false });
     const root = createRoot(containerRef.current);
 
-    root.render(
-      <CacheProvider value={cssCache}>
-        <ParentSize>
-          {(props) => <AppRenderer transpiled={transpiled} {...props} />}
-        </ParentSize>
-      </CacheProvider>,
-    );
+    const renderApp = () => {
+      root.render(
+        <CacheProvider value={cssCache}>
+          <ParentSize>
+            {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+          </ParentSize>
+        </CacheProvider>,
+      );
+    };
 
-    return () => root.unmount();
+    renderApp();
+
+    return () => {
+      root.unmount();
+    };
   }, [transpiled]);
 
-  return <div ref={containerRef} />;
+  return <div ref={containerRef} data-testid="wrapper-container" />;
 });
+
+export { useTranspile };
 
 // Types
 interface IRenderApp {
@@ -123,9 +98,9 @@ export const renderApp = async ({
     }
 
     const AppToRender = App
-      || await import(
+      || (await import(
         transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`
-      ).then((m) => m.default);
+      )).default;
     const cssCache = createCache({ key: "css", speedy: false });
     const root = rRoot || createRoot(rootEl);
 

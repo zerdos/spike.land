@@ -2,23 +2,18 @@ import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
+import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
+import { useEditorState } from "../hooks/useEditorState";
+import { useErrorHandling } from "../hooks/useErrorHandling";
 import { isMobile } from "../isMobile";
 import { runner } from "../runner";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
 
-const codeSpace = location.pathname.slice(1).split("/")[1];
-const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
-
-const mod = {
-  i: 0,
-  code: "",
-  controller: new AbortController(),
-};
-
 interface EditorProps {
   codeSpace: string;
   onCodeUpdate: (newCode: string) => void;
+  readOnly?: boolean;
 }
 
 export interface EditorRef {
@@ -29,17 +24,25 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace, onCodeUpdate },
   ref,
 ) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const engine = isMobile() ? "ace" : "monaco";
-  const [editorState, setEditorState] = useState({
-    i: globalThis.cSess.session.i,
-    code: globalThis.cSess.session.code,
-    started: false,
-    setValue: (_code: string) => {},
+  const {
+    containerRef,
+    engine,
+    editorState,
+    setEditorState,
+    initialLoadRef,
+    lastTypingTimestampRef,
+  } = useEditorState(codeSpace);
+
+  const { errorType, setErrorType, debouncedTypeCheck } = useErrorHandling(engine);
+
+  const mod = useRef({
+    i: 0,
+    code: "",
+    controller: new AbortController(),
   });
 
-  const setEditorContent = (formattedCode: string) => {
-    const lastSignal = mod.controller.signal;
+  const setEditorContent = useCallback((formattedCode: string) => {
+    const lastSignal = mod.current.controller.signal;
     const current = lastTypingTimestampRef.current = lastTypingTimestampRef.current || Date.now();
     setTimeout(() => {
       if (lastSignal.aborted) return;
@@ -48,48 +51,40 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         editorState.setValue(formattedCode);
       }
     }, 6000);
-  };
-
-  const [errorType, setErrorType] = useState<
-    "typescript" | "prettier" | "transpile" | "render" | null
-  >(null);
-  const initialLoadRef = useRef(true);
-  const lastTypingTimestampRef = useRef(Date.now());
+  }, [editorState, lastTypingTimestampRef]);
 
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
       console.log("Setting value from parent");
-
       const formatted = await prettierToThrow({ code, toThrow: true });
-
       setEditorContent(formatted);
       handleContentChange(formatted);
     },
-  }));
+  }), [setEditorContent]);
 
   useEffect(() => {
     if (editorState.started) return;
 
     const initializeEditor = async () => {
-      mod.i = Number(globalThis.cSess.session.i);
-      mod.code = globalThis.cSess.session.code;
+      mod.current.i = Number(globalThis.cSess.session.i);
+      mod.current.code = globalThis.cSess.session.code;
 
       if (!containerRef || !containerRef.current) return;
 
       const editorModule = await (engine === "monaco"
-        ? initializeMonaco(containerRef.current, codeSpace, mod.code)
-        : initializeAce(containerRef.current, mod.code));
+        ? initializeMonaco(containerRef.current, codeSpace, mod.current.code)
+        : initializeAce(containerRef.current, mod.current.code));
 
       setEditorState({
         ...editorState,
         started: true,
-        code: mod.code,
+        code: mod.current.code,
         setValue: (code: string) => editorModule.setValue(code),
       });
     };
 
     initializeEditor();
-  }, [editorState.started, ref, codeSpace]);
+  }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
   const debouncedRunner = useCallback(
     debounce(
@@ -97,7 +92,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         let formattedCode;
 
         try {
-          if (mod.controller.signal.aborted) return;
+          if (mod.current.controller.signal.aborted) return;
           formattedCode = await prettierToThrow({ code, toThrow: true });
           if (errorType === "prettier") {
             setErrorType(null);
@@ -107,12 +102,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           throw error;
         }
         try {
-          if (mod.controller.signal.aborted) return;
+          if (mod.current.controller.signal.aborted) return;
           await runner({
             code: formattedCode,
             counter: i,
             codeSpace,
-            signal: mod.controller.signal,
+            signal: mod.current.controller.signal,
           });
           console.log("Runner succeeded");
           onCodeUpdate(formattedCode);
@@ -124,84 +119,46 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           setErrorType("transpile");
         }
 
-        // Update editor with formatted code after 5 seconds of inactivity
-
         setEditorContent(formattedCode);
       },
       300,
       { leading: true, trailing: true },
     ),
-    [codeSpace, onCodeUpdate, editorState, errorType],
-  );
-
-  const debouncedTypeCheck = useCallback(
-    debounce(
-      async () => {
-        if (engine === "monaco") {
-          const monaco = await import("monaco-editor");
-          const model = monaco.editor.getModels()[0];
-          const worker = await monaco.languages.typescript.getTypeScriptWorker();
-          const client = await worker(model.uri);
-          const diagnostics = await client.getSemanticDiagnostics(
-            model.uri.toString(),
-          );
-
-          if (diagnostics.length > 0 && !initialLoadRef.current) {
-            setErrorType("typescript");
-          } else {
-            setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
-          }
-        }
-        initialLoadRef.current = false;
-      },
-      1000,
-      { leading: true, trailing: true },
-    ),
-    [],
+    [codeSpace, onCodeUpdate, errorType, setErrorType, setEditorContent],
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
-    if (mod.code === newCode) return;
+    if (mod.current.code === newCode) return;
 
-    mod.i += 1;
+    mod.current.i += 1;
     lastTypingTimestampRef.current = Date.now();
 
-    mod.code = newCode;
+    mod.current.code = newCode;
 
-    mod.controller.abort();
-    mod.controller = new AbortController();
+    mod.current.controller.abort();
+    mod.current.controller = new AbortController();
 
-    debouncedRunner(newCode, mod.i);
-    debouncedTypeCheck();
-  }, [debouncedRunner, debouncedTypeCheck]);
+    debouncedRunner(newCode, mod.current.i);
+    debouncedTypeCheck(initialLoadRef);
+  }, [debouncedRunner, debouncedTypeCheck, initialLoadRef, lastTypingTimestampRef]);
 
-  useEffect(() => {
-    const handleBroadcastMessage = ({ data }: MessageEvent) => {
-      if (!data.i || !data.code || data.code === mod.code || mod.i >= data.i) {
-        return;
-      }
+  const handleBroadcastMessage = useCallback(({ data }: MessageEvent) => {
+    if (!data.i || !data.code || data.code === mod.current.code || mod.current.i >= data.i) {
+      return;
+    }
 
-      mod.i = Number(data.i);
-      mod.code = data.code;
-      setEditorContent(data.code);
+    mod.current.i = Number(data.i);
+    mod.current.code = data.code;
+    setEditorContent(data.code);
 
-      // setEditorState((prevState) => ({ ...prevState, ...mod }));
-      // console.log("Updating editor with new code: ", data.i, mod.i);
-      // editorState.setValue(mod.code);
-      // setLocalCode(mod.code);
-      mod.controller.abort();
-      mod.controller = new AbortController();
+    mod.current.controller.abort();
+    mod.current.controller = new AbortController();
 
-      const { signal } = mod.controller;
-      runner({ ...mod, counter: mod.i, codeSpace, signal });
-    };
+    const { signal } = mod.current.controller;
+    runner({ ...mod.current, counter: mod.current.i, codeSpace, signal });
+  }, [codeSpace, setEditorContent]);
 
-    BC.addEventListener("message", handleBroadcastMessage);
-
-    return () => {
-      BC.removeEventListener("message", handleBroadcastMessage);
-    };
-  }, [editorState]);
+  useBroadcastChannel(codeSpace, handleBroadcastMessage);
 
   return (
     <Rnd
@@ -230,6 +187,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         engine={engine}
         errorType={errorType}
         containerRef={containerRef}
+        data-testid="editor-container"
       />
     </Rnd>
   );

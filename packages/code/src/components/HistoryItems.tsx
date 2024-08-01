@@ -4,101 +4,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import React, { useEffect, useRef, useState } from "react";
-import { Wrapper } from "../Wrapper";
+import React from "react";
+import { useCodeHistory } from "../hooks/useCodeHistory";
+import { useRestoreVersion } from "../hooks/useRestoreVersion";
+import { ScaledWrapper } from "./ScaledWrapper";
 
 interface HistoryItem {
   code: string;
   timestamp: number;
 }
 
-interface RestoreStatus {
-  type: "loading" | "success" | "error";
-  message: string;
-}
-
-const ScaledWrapper: React.FC<{ code: string }> = ({ code }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.3);
-
-  useEffect(() => {
-    const updateScale = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        const targetWidth = window.innerWidth / 3;
-        setScale(Math.min(0.3, containerWidth / targetWidth));
-      }
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, []);
-
-  return (
-    <div ref={containerRef} className="w-full h-0 pb-[56.25%] relative overflow-hidden">
-      <div
-        style={{
-          transform: `scale(${scale})`,
-          transformOrigin: "top left",
-          width: `${100 / scale}%`,
-          height: `${100 / scale}%`,
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
-      >
-        <Wrapper code={code} />
-      </div>
-    </div>
-  );
-};
-
 export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(null);
-
-  useEffect(() => {
-    fetchHistory();
-  }, [codeSpace]);
-
-  const fetchHistory = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/live/${codeSpace}/auto-save/history`);
-      if (!response.ok) throw new Error("Failed to fetch history");
-      const data: HistoryItem[] = await response.json();
-      setHistory(
-        data
-          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
-          .sort((a, b) => b.timestamp - a.timestamp),
-      );
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const restoreVersion = async (timestamp: number) => {
-    try {
-      setRestoreStatus({ type: "loading", message: "Restoring..." });
-      const response = await fetch(`/live/${codeSpace}/auto-save/restore`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ timestamp }),
-      });
-      if (!response.ok) throw new Error("Failed to restore version");
-      setRestoreStatus({ type: "success", message: "Version restored successfully!" });
-    } catch (err) {
-      setRestoreStatus({
-        type: "error",
-        message: err instanceof Error ? err.message : "An unknown error occurred",
-      });
-    }
-  };
+  const { history, loading, error } = useCodeHistory(codeSpace);
+  const { restoreStatus, restoreVersion } = useRestoreVersion(codeSpace);
 
   if (loading) return <div>Loading history...</div>;
   if (error) return <div>Error: {error}</div>;
