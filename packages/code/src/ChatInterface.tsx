@@ -135,9 +135,11 @@ const ChatInterface: React.FC<
 
       try {
         const response = await aiHandler.sendMessage(messages);
-   
-
-     
+        
+        if (response) {
+          messages.push(response);
+          saveMessages(messages);
+        }
       } catch (error) {
         messages.push({
           "id": (Date.now() + 1).toString(),
