@@ -38,6 +38,7 @@ class AIHandler {
     content: string,
     messages: Message[],
     currentCode: string,
+    codeSpace: string,
   ) {
     return this.aiService.prepareClaudeContent(content, messages, currentCode, this.codeSpace);
   }

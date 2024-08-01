@@ -1,5 +1,4 @@
 import { enhancedFetch } from "./enhancedFetch";
-import { stat, unlink, writeFile } from "./memfs";
 import { build, transpile } from "./shared";
 
 const codeSpace = getCodeSpace();
@@ -17,8 +16,9 @@ Object.assign(globalThis, {
       format: "esm",
     });
 
-    await writeFile(`/live/${codeSpace}/index.mjs`, file);
-    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
+   // await writeFile(`/live/${codeSpace}/index.mjs`, file);
+
+    await fetch(`${origin}/live/${codeSpace}Bundled/index.mjs`, {
       method: "PUT",
       body: file,
       headers: {
@@ -82,12 +82,6 @@ export const runner = async ({
     console.error("Error during runner execution:", error);
     throw error;
   }
-  try {
-    await cleanupFiles();
-    await writeFile(`/live/${codeSpace}/index.js`, transpiled);
-  } catch (error) {
-    console.error("Error during origin file system:", error);
-  }
 };
 
 /**
@@ -95,33 +89,4 @@ export const runner = async ({
  */
 function getCodeSpace(): string {
   return location.pathname.slice(1).split("/")[1];
-}
-
-/**
- * Remove index.js and index.mjs files if they exist.
- */
-async function cleanupFiles() {
-  try {
-    const files = [
-      `/live/${codeSpace}/index.js`,
-      `/live/${codeSpace}/index.mjs`,
-    ];
-
-    for (const file of files) {
-      if (await stat(file)) {
-        await unlink(file);
-      }
-    }
-
-    await fetch(`${origin}/live/${codeSpace}/index.mjs`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/javascript",
-        "TR_ORIGIN": origin,
-        "TR_BUNDLE": "true",
-      },
-    });
-  } catch (error) {
-    console.error("Error during cleanup:", error);
-  }
 }

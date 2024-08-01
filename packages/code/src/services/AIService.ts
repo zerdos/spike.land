@@ -1,8 +1,9 @@
-import debounce from "lodash/debounce";
+
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { Message } from "../types/Message";
-import { prettierToThrow } from "../utils/codeFormatter";
+import { prettierToThrow } from "../shared";
 import { LocalStorageService } from "./LocalStorageService";
+import debounce from "lodash.debounce";
 
 export class AIService {
   private localStorageService: LocalStorageService;
@@ -33,6 +34,7 @@ export class AIService {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
+    let c=""
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
@@ -46,10 +48,13 @@ export class AIService {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = decoder.decode(value);
-      debouncedUpdate(assistantMessage.content + chunk);
+      c+=chunk;
+      debouncedUpdate(c)
     }
 
-    debouncedUpdate.flush();
+    debouncedUpdate(c);
+
+    assistantMessage.content =c.trim();
 
     this.localStorageService.saveAIInteraction(messages[messages.length - 1].content, assistantMessage.content);
 
@@ -108,6 +113,8 @@ export class AIService {
       });
     }, 100);
 
+
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -117,11 +124,9 @@ export class AIService {
       const chunk = decoder.decode(value);
       code += chunk;
 
-      debouncedSetMessages(code);
+      debouncedSetMessages(code); 
     }
 
-    debouncedSetMessages.flush();
-    console.log("code", code);
 
     this.localStorageService.saveAIInteraction(fullResponse, code);
 
@@ -147,16 +152,30 @@ export class AIService {
 
         return prettyCode;
       } catch (error) {
+        console.error("Error AI code with prettier:", error);
+
         if (!isRetry) {
-          const errorTextWithAllTheCode = { error }.toString() + `\n` + code;
+          console.log("asking for help, from Claude");
+          const errorTextWithAllTheCode = { error }.toString();
           const message: Message = {
             "id": (Date.now() + 1).toString(),
             "role": "user",
-            "content": errorTextWithAllTheCode + `
+            "content":  `
+            ${codeNow} 
             
-            here is the code that was being processed:
+            **** instructions ****  
+            ${fullResponse}
+
+
+            ***** result *****
 
             ${modifiedCode}
+
+            **** error ****
+
+            ${errorTextWithAllTheCode}
+
+            Could you help me with this error? I'm stuck.
             `,
           };
 
@@ -191,11 +210,15 @@ export class AIService {
     if (
       messages.length == 0 || codeNow !== messages[messages.length - 1]?.content
     ) {
-      return anthropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
-        .replace(/{{FILE_CONTENT}}/g, codeNow)
-        .replace(/{{USER_PROMPT}}/g, content);
+
+      return anthropic(
+          {
+              fileName: codeSpace, 
+              fileContent: codeNow,
+              userPrompt: content
+          })
     } else {
-      return content + reminder;
+      return reminder({userPrompt: content});
     }
   }
 }
