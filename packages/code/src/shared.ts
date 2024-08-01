@@ -1,6 +1,9 @@
 import SharedWorker from "@okikio/sharedworker";
+import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
+
+const mutex = new Mutex();
 
 const swVersion = self.swVersion || Math.random().toString();
 
@@ -30,7 +33,8 @@ export const prettierToThrow = (
   { code, toThrow }: { code: string; toThrow: boolean },
 ) => init(swVersion).rpc("prettierJs", { code, toThrow }) as Promise<string>;
 
-export const prettier = (code: string) => prettierToThrow({ code, toThrow: false });
+export const prettier = (code: string) =>
+  mutex.runExclusive(async () => await prettierToThrow({ code, toThrow: false }));
 
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
@@ -55,14 +59,21 @@ const transpileID = (
 export const transpile = async (
   { code, originToUse }: { code: string; originToUse: string },
 ) => {
-  const transpiled = await transpileID({ code, originToUse });
-  if (transpiled === "/** js.spike.land */\n[object Object]") {
-    throw new Error("transpile error", { cause: transpiled });
+  try {
+    return await mutex.runExclusive(async () => {
+      const transpiled = await transpileID({ code, originToUse });
+      if (transpiled === "/** js.spike.land */\n[object Object]") {
+        throw new Error("transpile error", { cause: transpiled });
+      }
+      if (typeof transpiled !== "string") {
+        throw new Error("transpile error", { cause: transpiled });
+      }
+      return transpiled;
+    });
+  } catch (e) {
+    console.error(e);
+    throw new Error("transpile error", { cause: e });
   }
-  if (typeof transpiled !== "string") {
-    throw new Error("transpile error", { cause: transpiled });
-  }
-  return transpiled;
 };
 
 export const build = (

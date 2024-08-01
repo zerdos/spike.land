@@ -74,13 +74,6 @@ function getCodeSpace(): string {
  * @param {string | Uint8Array} code - The code to create the Blob from.
  * @returns {string} The Blob URL.
  */
-export function createJsBlob(code: string | Uint8Array): string {
-  return URL.createObjectURL(
-    new Blob([code], {
-      type: "application/javascript",
-    }),
-  );
-}
 
 /**
  * Create an HTML Blob URL from the given code.

@@ -30,15 +30,8 @@
     "types": []
   },
   "exclude": [
-    ".git",
-    "cypress",
-    ".fixtures",
-    "*/node_modules",
-    ".yarn",
-    "**/dist",
-    "**/build",
-    "**/monaco-workers"
   ],
   "include": [
+    "src"
   ]
 }

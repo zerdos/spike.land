@@ -137,7 +137,7 @@ function handleDefaultPage() {
   BC.onmessage = async ({ data }) => {
     const { i, transpiled, html } = data;
     if (i > mod.counter && transpiled && html) {
-      renderApp({ transpiled, rootElement: document.getElementById("root")! });
+      renderApp({ transpiled, rootElement: document.getElementById("root")! as HTMLDivElement });
     }
   };
 
@@ -161,7 +161,8 @@ function handleDefaultPage() {
 
         // const rootElement = document.createElement("div");
 
-        const rendered = (await renderApp({ transpiled, rootElement: document.getElementById("root")! }))!;
+        const rendered =
+          (await renderApp({ transpiled, rootElement: document.getElementById("root")! as HTMLDivElement }))!;
         const { rootElement, cssCache } = rendered;
 
         await handleRender(rootElement, cssCache, signal, mod);

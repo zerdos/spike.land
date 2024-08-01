@@ -5,7 +5,6 @@ import { prettierToThrow } from "./shared";
 
 // Types
 
-
 // Utility Functions
 const getCodeSpace = (): string => {
   return location.pathname.slice(1).split("/")[1];

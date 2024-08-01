@@ -5,7 +5,6 @@ const loadMessages = () => JSON.parse(localStorage.getItem(`chatMessages-${codeS
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
-
 export const sendToAnthropic = async (messages: Message[]) => {
   const response = await fetch("/anthropic", {
     method: "POST",
@@ -127,11 +126,11 @@ export const continueWithOpenAI = async (
           ${modifiedCode}
           `,
         };
-        
+
         setMessages(prevMessages => [...prevMessages, message]);
-        
+
         const prevMessages = loadMessages();
-        
+
         const answer = await sendToAnthropic([...prevMessages, message]);
         setMessages(prevMessages => [...prevMessages, answer]);
         await continueWithOpenAI(answer.content, modifiedCode, nextCounter, onCodeUpdate, setMessages, setAICode, true);
