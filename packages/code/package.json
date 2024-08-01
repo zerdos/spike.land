@@ -165,6 +165,7 @@
     "uuid": "10.0.0",
     "vaul": "^0.9.1",
     "webrtc-adapter": "9.0.1",
+    "workbox-sw": "^7.1.0",
     "workbox-window": "7.1.0",
     "worker-rpc": "0.2.0",
     "zod": "^3.23.8"

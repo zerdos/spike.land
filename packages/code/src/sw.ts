@@ -1,14 +1,15 @@
 // Purpose: Service worker to cache files and update cache when ASSET_HASH changes
 // Remove the duplicate declaration of 'self'
+
+importScripts("/swVersion.js");
+
+import workbox from "workbox-sw";
+
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string };
 
-
-importScripts("/swVersion.js");
-// Service Worker using Workbox
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js');
 
 const { routing, strategies, expiration, backgroundSync, precaching } = workbox;
 
