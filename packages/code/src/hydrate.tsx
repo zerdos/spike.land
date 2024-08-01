@@ -17,14 +17,16 @@ const codeSpace = paths[2];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 // Handle non-live routes
+import React from 'react';
+
 async function handleNonLiveRoutes() {
   if (paths[1] !== "live") {
     if (location.pathname === "/") {
       const { default: App } = await import("./pages/index");
-      createRoot(document.getElementById("root")!).render(<App />);
+      createRoot(document.getElementById("root")!).render(React.createElement(App));
     } else if (location.pathname === "/start") {
       const { default: App } = await import("./pages/templates");
-      createRoot(document.getElementById("root")!).render(<App />);
+      createRoot(document.getElementById("root")!).render(React.createElement(App));
     }
   }
 }
