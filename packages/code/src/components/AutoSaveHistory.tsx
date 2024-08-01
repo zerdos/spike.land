@@ -1,5 +1,5 @@
 import React from "react";
-import CodeHistory from "./HistoryItems";
+import { CodeHistoryCarousel } from "./HistoryItems";
 
 interface Version {
   timestamp: number;
@@ -13,11 +13,11 @@ interface AutoSaveHistoryProps {
 }
 
 const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = (
-  { codeSpace, onRestore, onClose },
+  { codeSpace },
 ) => {
   return (
     <div className="container mx-auto p-4">
-      <CodeHistory codeSpace={codeSpace} onRestore={onRestore} onClose={onClose} />
+      <CodeHistoryCarousel codeSpace={codeSpace}  />
     </div>
   );
 };

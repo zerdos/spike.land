@@ -1,21 +1,30 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
-import type { FC } from "react";
 import { Wrapper } from "../Wrapper";
 
-const ScaledWrapper: FC<{ code: string }> = ({ code }) => {
+interface HistoryItem {
+  code: string;
+  timestamp: number;
+}
+
+interface RestoreStatus {
+  type: "loading" | "success" | "error";
+  message: string;
+}
+
+const ScaledWrapper: React.FC<{ code: string }> = ({ code }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.3);
 
   useEffect(() => {
     const updateScale = () => {
-      const currentContainer = containerRef.current;
-      if (currentContainer !== null) {
-        const containerWidth = currentContainer.offsetWidth;
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
         const targetWidth = window.innerWidth / 3;
         setScale(Math.min(0.3, containerWidth / targetWidth));
       }
@@ -45,17 +54,11 @@ const ScaledWrapper: FC<{ code: string }> = ({ code }) => {
   );
 };
 
-export const CodeHistory = ({ codeSpace }: {
-  codeSpace: string;
-  onRestore: (code: string) => void;
-  onClose: () => void;
-}) => {
-  const [history, setHistory] = useState<{ code: string; timestamp: number }[]>([]);
+export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [restoreStatus, setRestoreStatus] = useState<{ type: string; message: string } | null>(
-    { type: "", message: "" } | null,
-  );
+  const [error, setError] = useState<string | null>(null);
+  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(null);
 
   useEffect(() => {
     fetchHistory();
@@ -66,14 +69,14 @@ export const CodeHistory = ({ codeSpace }: {
       setLoading(true);
       const response = await fetch(`/live/${codeSpace}/auto-save/history`);
       if (!response.ok) throw new Error("Failed to fetch history");
-      const data = await response.json<{ code: string; timestamp: number }[]>();
+      const data: HistoryItem[] = await response.json();
       setHistory(
-        data.filter(x => !x.code.includes("History") && !x.code.includes("e/pp")).sort((a, b) =>
-          b.timestamp - a.timestamp
-        ),
+        data
+          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
+          .sort((a, b) => b.timestamp - a.timestamp),
       );
     } catch (err) {
-      setError(err);
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
     } finally {
       setLoading(false);
     }
@@ -89,71 +92,71 @@ export const CodeHistory = ({ codeSpace }: {
       });
       if (!response.ok) throw new Error("Failed to restore version");
       setRestoreStatus({ type: "success", message: "Version restored successfully!" });
-    } catch (err: any) {
-      setRestoreStatus({ type: "error", message: err.message });
+    } catch (err) {
+      setRestoreStatus({
+        type: "error",
+        message: err instanceof Error ? err.message : "An unknown error occurred",
+      });
     }
   };
 
   if (loading) return <div>Loading history...</div>;
-  if (error) {
-    return (
-      <Alert variant="destructive">
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  }
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="space-y-4">
       <h2 className="text-2xl font-bold mb-4">Code History</h2>
       {restoreStatus && (
         <Alert variant={restoreStatus.type === "error" ? "destructive" : "default"}>
           <AlertTitle>
-            {restoreStatus.type === "loading" ? "Restoring" : (restoreStatus.type === "success" ? "Success" : "Error")}
+            {restoreStatus.type === "loading"
+              ? "Restoring"
+              : restoreStatus.type === "success"
+              ? "Success"
+              : "Error"}
           </AlertTitle>
           <AlertDescription>{restoreStatus.message}</AlertDescription>
         </Alert>
       )}
-      <div className="flex-grow overflow-y-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      <Carousel opts={{ loop: true }} className="w-full max-w-4xl">
+        <CarouselContent>
           {history.map((item, index) => (
-            <Card key={item.timestamp} className="flex flex-col">
-              <CardHeader>
-                <CardTitle>Version {history.length - index}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow flex flex-col">
-                <p className="text-sm text-gray-500 mb-2">
-                  {format(new Date(item.timestamp), "PPpp")}
-                </p>
-                <div className="flex-grow mb-4">
-                  <ScaledWrapper code={item.code} />
-                </div>
-                <div className="space-x-2">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline">View Source</Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle>Source Code - Version {history.length - index}</DialogTitle>
-                      </DialogHeader>
-                      <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                        <code>{item.code}</code>
-                      </pre>
-                    </DialogContent>
-                  </Dialog>
-                  <Button onClick={() => restoreVersion(item.timestamp)}>
-                    Restore
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <CarouselItem key={item.timestamp} className="md:basis-1/2 lg:basis-1/3">
+              <Card className="flex flex-col h-full">
+                <CardHeader>
+                  <CardTitle>Version {history.length - index}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow flex flex-col">
+                  <p className="text-sm text-gray-500 mb-2">
+                    {format(new Date(item.timestamp), "PPpp")}
+                  </p>
+                  <div className="flex-grow mb-4">
+                    <ScaledWrapper code={item.code} />
+                  </div>
+                  <div className="space-x-2">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline">View Source</Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle>Source Code - Version {history.length - index}</DialogTitle>
+                        </DialogHeader>
+                        <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+                          <code>{item.code}</code>
+                        </pre>
+                      </DialogContent>
+                    </Dialog>
+                    <Button onClick={() => restoreVersion(item.timestamp)}>Restore</Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </CarouselItem>
           ))}
-        </div>
-      </div>
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
     </div>
   );
 };
-
-export default CodeHistory;
