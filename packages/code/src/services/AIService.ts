@@ -67,9 +67,12 @@ export class AIService {
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
   ): Promise<string | void> {
-    console.log(fullResponse);
+    console.log("Starting continueConversation");
+    console.log("Full response:", fullResponse);
+    console.log("Current code:", currentCode);
 
     let code = "";
+    console.log("Sending request to /ai");
     const response = await fetch("/ai", {
       method: "POST",
       headers: {
@@ -89,16 +92,20 @@ export class AIService {
     });
 
     if (!response.ok) {
+      console.error(`HTTP error! status: ${response.status}`);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+    console.log("Response received, starting to read");
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
     if (!reader) {
+      console.error("Response body is not readable!");
       throw new Error("Response body is not readable!");
     }
 
+    console.log("Setting up debounced message update");
     const debouncedSetMessages = debounce((newCode: string) => {
       setMessages((prevMessages) => {
         const lastMessage = prevMessages[prevMessages.length - 1];
@@ -113,17 +120,21 @@ export class AIService {
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
+        console.log("Finished reading response");
         break;
       }
 
       const chunk = decoder.decode(value);
       code += chunk;
 
+      console.log("Received chunk:", chunk);
       debouncedSetMessages(code);
     }
 
+    console.log("Final code received:", code);
     this.localStorageService.saveAIInteraction(fullResponse, code);
 
+    console.log("Processing code response");
     return this.processCodeResponse(code, currentCode, fullResponse, onCodeUpdate, setMessages, setAICode);
   }
 
@@ -135,31 +146,38 @@ export class AIService {
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
   ): Promise<string | void> {
+    console.log("Searching for code blocks in response");
     const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = code.match(codeModificationRegex);
 
     if (matches) {
+      console.log("Found code blocks:", matches.length);
       const modifiedCode = matches[matches.length - 1].replace(
         /```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g,
         "",
       );
 
-      try {
-        console.log("modifiedCode", modifiedCode);
+      console.log("Extracted modified code:", modifiedCode);
 
+      try {
+        console.log("Attempting to prettify code");
         const prettyCode = await prettierToThrow({
           code: modifiedCode,
           toThrow: true,
         });
 
+        console.log("Code prettified successfully");
         onCodeUpdate(prettyCode);
         setAICode(prettyCode);
 
         return prettyCode;
       } catch (error) {
-        console.error("Error AI code with prettier:", error);
+        console.error("Error prettifying AI code:", error);
         return this.handleCodeError(error, currentCode, fullResponse, modifiedCode, setMessages);
       }
+    } else {
+      console.warn("No code blocks found in the response");
+      return this.handleCodeError(new Error("No code blocks found"), currentCode, fullResponse, code, setMessages);
     }
   }
 
