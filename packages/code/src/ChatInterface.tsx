@@ -134,7 +134,7 @@ const ChatInterface: React.FC<
       setIsStreaming(true);
 
       try {
-        const = await aiHandler.sendMessage(messages);
+        const response = await aiHandler.sendMessage(messages);
    
 
      
