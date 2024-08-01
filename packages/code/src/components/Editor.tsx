@@ -231,6 +231,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         engine={engine}
         errorType={errorType}
         containerRef={containerRef}
+        data-testid="editor-container"
       />
     </Rnd>
   );
