@@ -19,6 +19,7 @@ const mod = {
 interface EditorProps {
   codeSpace: string;
   onCodeUpdate: (newCode: string) => void;
+  readOnly?: boolean;
 }
 
 export interface EditorRef {
