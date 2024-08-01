@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { continueWithOpenAI, prepareClaudeContent, sendToAnthropic } from "./AIHandler";
+import AiHandler from "./AIHandler";
 import { ChatFC, Message } from "./ChatDrawer";
 import { prettierToThrow } from "./shared";
+
 
 // Types
 
@@ -11,6 +12,8 @@ const getCodeSpace = (): string => {
 };
 
 const codeSpace = getCodeSpace();
+
+const aiHandler = new AiHandler(codeSpace);
 const loadMessages = () =>
   JSON.parse(
     localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]",
@@ -19,7 +22,7 @@ const loadMessages = () =>
 // Main Component: ChatInterface
 const ChatInterface: React.FC<
   { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }
-> = React.memo(({ onCodeUpdate, onClose, isOpen }) => {
+> = React.memo(({ onCodeUpdate, onClose, isOpen }: { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }) => {
   const [messages, __setMessages] = useState<Message[]>(loadMessages());
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -97,7 +100,7 @@ const ChatInterface: React.FC<
     await fetch(`/live/${codeSpace}/auto-save`);
 
     const messages = loadMessages();
-    const claudeContent = prepareClaudeContent(
+    const claudeContent = aiHandler.prepareClaudeContent(
       content,
       messages,
       codeNow,
@@ -130,11 +133,11 @@ const ChatInterface: React.FC<
     setIsStreaming(true);
 
     try {
-      const assistantMessage = await sendToAnthropic(messages);
+      const assistantMessage = await aiHandler.sendToAnthropic(messages);
       messages.push(assistantMessage);
       saveMessages(messages);
 
-      await continueWithOpenAI(
+      await aiHandler.continueWithOpenAI(
         assistantMessage.content,
         codeNow,
         nextCounter,

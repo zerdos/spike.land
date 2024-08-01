@@ -34,11 +34,11 @@ class AIHandler {
     );
   }
 
-  prepareClaudeContent(
+  async prepareClaudeContent(
     content: string,
     messages: Message[],
     currentCode: string,
-  ): string {
+  ){
     return this.aiService.prepareClaudeContent(content, messages, currentCode, this.codeSpace);
   }
 }

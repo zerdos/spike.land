@@ -2,10 +2,11 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import ChatInterface from "../ChatInterface";
+import jest from "jest";
 
 // Mock the ChatFC component
 jest.mock("../ChatDrawer", () => ({
-  ChatFC: ({ handleSendMessage, input, setInput, isOpen }) => (
+  ChatFC: ({ handleSendMessage, input, setInput, isOpen }: {readonly}) => (
     isOpen
       ? (
         <div>

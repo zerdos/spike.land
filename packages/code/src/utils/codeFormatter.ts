@@ -1,12 +1,12 @@
-import prettier from 'prettier';
+import prettier from "prettier";
 
 export const prettierToThrow = async ({ code, toThrow }: { code: string; toThrow: boolean }): Promise<string> => {
   try {
     const formattedCode = await prettier.format(code, {
-      parser: 'typescript',
+      parser: "typescript",
       semi: true,
       singleQuote: true,
-      trailingComma: 'es5',
+      trailingComma: "es5",
     });
     return formattedCode;
   } catch (error) {
