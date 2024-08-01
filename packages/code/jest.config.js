@@ -13,26 +13,16 @@ export default {
     ],
   },
 
-    testMatch: [
-      "**/__test__/**/*.[jt]s?(x)",
+  testMatch: [
+    "**/__test__/**/*.[jt]s?(x)",
     "**/__tests__/**/*.[jt]s?(x)",
     "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 
-  // All imported modules in your tests should be mocked automatically
-  // automock: false,
-
-  // tsconfig: 'tsconfig.test.json',
-  // Stop running tests after `n` failures
-  // bail: 0,
-
-  // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/private/var/folders/1t/w4pcn7td1qb2_hb233pkpgcc0000gn/T/jest_dx",
-
-  // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 
   "preset": "ts-jest",
+  "testEnvironment": "jsdom",
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
 

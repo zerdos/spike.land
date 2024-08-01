@@ -191,6 +191,7 @@
     "ai-digest": "^1.0.4",
     "eslint": "9.8.0",
     "eslint-plugin-react": "7.35.0",
+    "jest-environment-jsdom": "^29.7.0",
     "tslib": "2.6.3",
     "typescript": "^5.5.4",
     "typescript-eslint": "8.0.0",
