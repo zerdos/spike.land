@@ -102,11 +102,10 @@ const ChatInterface: React.FC<
       await fetch(`/live/${codeSpace}/auto-save`);
 
       const messages = loadMessages();
-      const claudeContent = aiHandler.prepareClaudeContent(
+      const claudeContent = aiHandler.prepareContent(
         content,
         messages,
-        codeNow,
-        codeSpace,
+        codeNow
       );
 
       if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
@@ -135,18 +134,10 @@ const ChatInterface: React.FC<
       setIsStreaming(true);
 
       try {
-        const assistantMessage = await aiHandler.sendToAnthropic(messages);
-        messages.push(assistantMessage);
-        saveMessages(messages);
+        const = await aiHandler.sendMessage(messages);
+   
 
-        await aiHandler.continueWithOpenAI(
-          assistantMessage.content,
-          codeNow,
-          nextCounter,
-          onCodeUpdate,
-          __setMessages,
-          setAICode,
-        );
+     
       } catch (error) {
         messages.push({
           "id": (Date.now() + 1).toString(),
