@@ -37,35 +37,8 @@ async function setupServiceWorker() {
 
   try {
     const sw = new Workbox(`/sw.js`);
-    init(swVersion, null);
-    const port = getPort();
-
-    const swInstance = await sw.getSW();
-    const swPort = new MessageChannel();
-
-    const postMessageWithTransferables = (data: any) => {
-      swPort.port1.postMessage(
-        data,
-        (hasTransferables(data) ? getTransferables(data) : undefined) as Transferable[],
-      );
-    };
-
-    port.addEventListener("message", ({ data }) => postMessageWithTransferables(data));
-    swPort.port1.addEventListener("message", ({ data }) => postMessageWithTransferables(data));
-
-    swInstance.postMessage(
-      { type: "sharedworker", sharedWorkerPort: swPort.port1 },
-      [swPort.port1],
-    );
-
-    if ("serviceWorker" in navigator) {
-      await sw.register();
-      const registration = await navigator.serviceWorker.register("/sw.js");
-      const workers = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(
-        workers.filter((x) => x !== registration).map((x) => x.unregister()),
-      );
-    }
+    sw.register();
+    return sw;
   } catch (e) {
     console.error("Error setting up service worker:", e);
   }
@@ -74,7 +47,8 @@ async function setupServiceWorker() {
 // Initialize the application
 async function initializeApp() {
   await handleNonLiveRoutes();
-  await setupServiceWorker();
+ const sw =  await setupServiceWorker();
+ sw?.messageSkipWaiting();
 }
 
 initializeApp();
