@@ -2,40 +2,46 @@ import { AIService } from "./services/AIService";
 import { LocalStorageService } from "./services/LocalStorageService";
 import { Message } from "./types/Message";
 
-const codeSpace = location.pathname.slice(1).split("/")[1];
+class AIHandler {
+  private aiService: AIService;
 
-const localStorageService = new LocalStorageService(codeSpace);
-const aiService = new AIService(localStorageService);
+  constructor(codeSpace: string) {
+    const localStorageService = new LocalStorageService(codeSpace);
+    this.aiService = new AIService(localStorageService);
+  }
 
-export const sendToAnthropic = async (messages: Message[]): Promise<Message> => {
-  return aiService.sendToAnthropic(messages);
-};
+  async sendToAnthropic(messages: Message[]): Promise<Message> {
+    return this.aiService.sendToAnthropic(messages);
+  }
 
-export const continueWithOpenAI = async (
-  fullResponse: string,
-  codeNow: string,
-  nextCounter: number,
-  onCodeUpdate: (code: string) => void,
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  setAICode: (code: string) => void,
-  isRetry = false,
-): Promise<string | void> => {
-  return aiService.continueWithOpenAI(
-    fullResponse,
-    codeNow,
-    nextCounter,
-    onCodeUpdate,
-    setMessages,
-    setAICode,
-    isRetry,
-  );
-};
+  async continueWithOpenAI(
+    fullResponse: string,
+    currentCode: string,
+    nextCounter: number,
+    onCodeUpdate: (code: string) => void,
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setAICode: (code: string) => void,
+    isRetry = false,
+  ): Promise<string | void> {
+    return this.aiService.continueWithOpenAI(
+      fullResponse,
+      currentCode,
+      nextCounter,
+      onCodeUpdate,
+      setMessages,
+      setAICode,
+      isRetry,
+    );
+  }
 
-export const prepareClaudeContent = (
-  content: string,
-  messages: Message[],
-  codeNow: string,
-  codeSpace: string,
-): string => {
-  return aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
-};
+  prepareClaudeContent(
+    content: string,
+    messages: Message[],
+    currentCode: string,
+    codeSpace: string,
+  ): string {
+    return this.aiService.prepareClaudeContent(content, messages, currentCode, codeSpace);
+  }
+}
+
+export default AIHandler;
