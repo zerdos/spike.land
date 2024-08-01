@@ -9,11 +9,11 @@ jest.mock("../services/LocalStorageService");
 describe("AIHandler", () => {
   let aiHandler: AIHandler;
   let mockAIService: jest.Mocked<AIService>;
+  const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
-    mockAIService = new AIService(new LocalStorageService("test")) as jest.Mocked<AIService>;
-    AIService.prototype.constructor = jest.fn().mockReturnValue(mockAIService);
-    aiHandler = new AIHandler("test-code-space");
+    mockAIService = new AIService(new LocalStorageService(testCodeSpace)) as jest.Mocked<AIService>;
+    aiHandler = new AIHandler(testCodeSpace, mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
@@ -64,13 +64,12 @@ describe("AIHandler", () => {
     const content = "Content";
     const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
     const currentCode = "Current code";
-    const codeSpace = "test-code-space";
 
     mockAIService.prepareClaudeContent.mockReturnValue("Prepared content");
 
-    const result = aiHandler.prepareClaudeContent(content, messages, currentCode, codeSpace);
+    const result = aiHandler.prepareClaudeContent(content, messages, currentCode);
 
-    expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, codeSpace);
+    expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
     expect(result).toBe("Prepared content");
   });
 });

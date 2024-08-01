@@ -5,9 +5,9 @@ import { Message } from "./types/Message";
 class AIHandler {
   private aiService: AIService;
 
-  constructor(codeSpace: string) {
+  constructor(private codeSpace: string, aiService?: AIService) {
     const localStorageService = new LocalStorageService(codeSpace);
-    this.aiService = new AIService(localStorageService);
+    this.aiService = aiService || new AIService(localStorageService);
   }
 
   async sendToAnthropic(messages: Message[]): Promise<Message> {
@@ -38,9 +38,8 @@ class AIHandler {
     content: string,
     messages: Message[],
     currentCode: string,
-    codeSpace: string,
   ): string {
-    return this.aiService.prepareClaudeContent(content, messages, currentCode, codeSpace);
+    return this.aiService.prepareClaudeContent(content, messages, currentCode, this.codeSpace);
   }
 }
 
