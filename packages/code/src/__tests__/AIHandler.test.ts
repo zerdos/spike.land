@@ -1,24 +1,24 @@
-import AIHandler from '../AIHandler';
-import { AIService } from '../services/AIService';
-import { LocalStorageService } from '../services/LocalStorageService';
-import { Message } from '../types/Message';
+import AIHandler from "../AIHandler";
+import { AIService } from "../services/AIService";
+import { LocalStorageService } from "../services/LocalStorageService";
+import { Message } from "../types/Message";
 
-jest.mock('../services/AIService');
-jest.mock('../services/LocalStorageService');
+jest.mock("../services/AIService");
+jest.mock("../services/LocalStorageService");
 
-describe('AIHandler', () => {
+describe("AIHandler", () => {
   let aiHandler: AIHandler;
   let mockAIService: jest.Mocked<AIService>;
 
   beforeEach(() => {
-    mockAIService = new AIService(new LocalStorageService('test')) as jest.Mocked<AIService>;
+    mockAIService = new AIService(new LocalStorageService("test")) as jest.Mocked<AIService>;
     AIService.prototype.constructor = jest.fn().mockReturnValue(mockAIService);
-    aiHandler = new AIHandler('test-code-space');
+    aiHandler = new AIHandler("test-code-space");
   });
 
-  test('sendToAnthropic calls AIService.sendToAnthropic', async () => {
-    const messages: Message[] = [{ id: '1', role: 'user', content: 'Hello' }];
-    const expectedResponse: Message = { id: '2', role: 'assistant', content: 'Hi there!' };
+  test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
+    const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
+    const expectedResponse: Message = { id: "2", role: "assistant", content: "Hi there!" };
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
 
@@ -28,15 +28,15 @@ describe('AIHandler', () => {
     expect(result).toEqual(expectedResponse);
   });
 
-  test('continueWithOpenAI calls AIService.continueWithOpenAI', async () => {
-    const fullResponse = 'Full response';
-    const currentCode = 'Current code';
+  test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
+    const fullResponse = "Full response";
+    const currentCode = "Current code";
     const nextCounter = 1;
     const onCodeUpdate = jest.fn();
     const setMessages = jest.fn();
     const setAICode = jest.fn();
 
-    mockAIService.continueWithOpenAI.mockResolvedValue('Updated code');
+    mockAIService.continueWithOpenAI.mockResolvedValue("Updated code");
 
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
@@ -45,7 +45,7 @@ describe('AIHandler', () => {
       onCodeUpdate,
       setMessages,
       setAICode,
-      false
+      false,
     );
 
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
@@ -55,22 +55,22 @@ describe('AIHandler', () => {
       onCodeUpdate,
       setMessages,
       setAICode,
-      false
+      false,
     );
-    expect(result).toBe('Updated code');
+    expect(result).toBe("Updated code");
   });
 
-  test('prepareClaudeContent calls AIService.prepareClaudeContent', () => {
-    const content = 'Content';
-    const messages: Message[] = [{ id: '1', role: 'user', content: 'Hello' }];
-    const currentCode = 'Current code';
-    const codeSpace = 'test-code-space';
+  test("prepareClaudeContent calls AIService.prepareClaudeContent", () => {
+    const content = "Content";
+    const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
+    const currentCode = "Current code";
+    const codeSpace = "test-code-space";
 
-    mockAIService.prepareClaudeContent.mockReturnValue('Prepared content');
+    mockAIService.prepareClaudeContent.mockReturnValue("Prepared content");
 
     const result = aiHandler.prepareClaudeContent(content, messages, currentCode, codeSpace);
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, codeSpace);
-    expect(result).toBe('Prepared content');
+    expect(result).toBe("Prepared content");
   });
 });
