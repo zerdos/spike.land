@@ -1,6 +1,6 @@
 import debounce from "lodash/debounce";
-import { Message } from "../types/Message";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
+import { Message } from "../types/Message";
 import { prettierToThrow } from "../utils/codeFormatter";
 import { LocalStorageService } from "./LocalStorageService";
 
@@ -191,9 +191,7 @@ export class AIService {
     if (
       messages.length == 0 || codeNow !== messages[messages.length - 1]?.content
     ) {
-      return anthropic.replace(/{{FILENAME}}/g, code
-
-Space + ".tsx")
+      return anthropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
         .replace(/{{FILE_CONTENT}}/g, codeNow)
         .replace(/{{USER_PROMPT}}/g, content);
     } else {

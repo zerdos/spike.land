@@ -3,7 +3,7 @@
 
 importScripts("/swVersion.js");
 
-import * as workbox from "workbox-sw";
+import workbox from "workbox-sw/controllers/WorkboxSW";
 
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
@@ -21,7 +21,7 @@ async function fetchAssetHash() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = await response.json()! as { ASSET_HASH: string };
     return data.ASSET_HASH;
   } catch (error) {
     console.error("Failed to fetch ASSET_HASH:", error);
@@ -30,7 +30,7 @@ async function fetchAssetHash() {
 }
 
 async function checkAssetHash() {
-  const newAssetHash = await fetchAssetHash();
+  const newAssetHash: string = await fetchAssetHash();
   const cache = await caches.open(workbox.core.cacheNames.runtime);
   const currentAssetHash = await cache.match(ASSET_HASH_KEY).then(response => response?.text());
 
@@ -41,7 +41,7 @@ async function checkAssetHash() {
   }
 }
 
-async function updateCache(newAssetHash) {
+async function updateCache(newAssetHash: string) {
   // Implement your cache update logic here
   // This might involve clearing old caches and precaching new files
   console.log("Updating cache with new asset hash:", newAssetHash);

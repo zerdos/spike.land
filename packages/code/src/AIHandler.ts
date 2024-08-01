@@ -1,9 +1,6 @@
-import debounce from "lodash/debounce";
-import { Message } from "./types/Message";
-import { anthropic, gptSystem, reminder } from "./config/aiConfig";
-import { prettierToThrow } from "./utils/codeFormatter";
 import { AIService } from "./services/AIService";
 import { LocalStorageService } from "./services/LocalStorageService";
+import { Message } from "./types/Message";
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
@@ -30,7 +27,7 @@ export const continueWithOpenAI = async (
     onCodeUpdate,
     setMessages,
     setAICode,
-    isRetry
+    isRetry,
   );
 };
 

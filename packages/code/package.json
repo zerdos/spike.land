@@ -94,6 +94,7 @@
     "@tanstack/react-virtual": "^3.8.4",
     "@types/isomorphic-fetch": "0.0.39",
     "@types/jest": "^29.5.12",
+    "@types/workbox-sw": "^4.3.7",
     "@typescript-eslint/typescript-estree": "8.0.0",
     "@typescript/ata": "^0.9.6",
     "@visx/responsive": "^3.10.2",

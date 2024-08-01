@@ -9,7 +9,7 @@ export class LocalStorageService {
 
   loadMessages(): Message[] {
     return JSON.parse(
-      localStorage.getItem(`chatMessages-${this.codeSpace}`) ?? "[]"
+      localStorage.getItem(`chatMessages-${this.codeSpace}`) ?? "[]",
     ) as Message[];
   }
 
