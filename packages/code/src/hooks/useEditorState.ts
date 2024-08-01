@@ -14,6 +14,11 @@ export const useEditorState = (codeSpace: string) => {
   const initialLoadRef = useRef(true);
   const lastTypingTimestampRef = useRef(Date.now());
 
+  useEffect(() => {
+    // Use codeSpace here, for example:
+    console.log(`Editor state initialized for codeSpace: ${codeSpace}`);
+  }, [codeSpace]);
+
   return {
     containerRef,
     engine,

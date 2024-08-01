@@ -2,6 +2,18 @@ import { act, renderHook } from "@testing-library/react";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
+jest.mock("monaco-editor", () => ({
+  editor: {
+    getModels: jest.fn().mockReturnValue([{ uri: { toString: jest.fn() } }]),
+  },
+  languages: {
+    typescript: {
+      getTypeScriptWorker: jest.fn().mockResolvedValue(() => ({
+        getSemanticDiagnostics: jest.fn().mockResolvedValue([]),
+      })),
+    },
+  },
+}));
 
 describe("useErrorHandling", () => {
   test("initializes with null error type", () => {

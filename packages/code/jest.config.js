@@ -109,7 +109,7 @@ export default {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
   },
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 

@@ -74,10 +74,6 @@ describe("AIHandler", () => {
     expect(result).toBe(preparedContent);
   });
 });
-import AIHandler from "../AIHandler";
-import { AIService } from "../services/AIService";
-import { LocalStorageService } from "../services/LocalStorageService";
-import { Message } from "../types/Message";
 
 jest.mock("../services/AIService");
 jest.mock("../services/LocalStorageService");
