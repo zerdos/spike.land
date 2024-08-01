@@ -126,7 +126,11 @@ const ChatInterface: React.FC = () => {
 
   const handleSaveEdit = useCallback(
     (id: string) => {
-      setMessages((prev) => prev.map((msg) => (msg.id === id ? { ...msg, content: editInput } : msg)));
+      setMessages((prev) =>
+        prev.map((
+          msg,
+        ) => (msg.id === id ? { ...msg, content: editInput } : msg))
+      );
       setEditingMessageId(null);
       setEditInput("");
     },

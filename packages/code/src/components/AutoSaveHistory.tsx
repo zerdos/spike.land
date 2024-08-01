@@ -1,7 +1,6 @@
 import React from "react";
 import CodeHistory from "./HistoryItems";
 
-
 interface Version {
   timestamp: number;
   code: string;
@@ -24,11 +23,10 @@ interface VersionItemProps {
 const AutoSaveHistory: React.FC<AutoSaveHistoryProps> = (
   { codeSpace, onRestore, onClose },
 ) => {
-
   return (
     <div className="container mx-auto p-4">
-    <CodeHistory codeSpace={codeSpace} onRestore={onRestore} onClose={onClose} />
-  </div>
+      <CodeHistory codeSpace={codeSpace} onRestore={onRestore} onClose={onClose} />
+    </div>
   );
 };
 

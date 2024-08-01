@@ -137,7 +137,10 @@ function handleDefaultPage() {
   BC.onmessage = async ({ data }) => {
     const { i, transpiled, html } = data;
     if (i > mod.counter && transpiled && html) {
-      renderApp({ transpiled, rootElement: document.getElementById("root")! as HTMLDivElement });
+      renderApp({
+        transpiled,
+        rootElement: document.getElementById("root")! as HTMLDivElement,
+      });
     }
   };
 
@@ -161,8 +164,10 @@ function handleDefaultPage() {
 
         // const rootElement = document.createElement("div");
 
-        const rendered =
-          (await renderApp({ transpiled, rootElement: document.getElementById("root")! as HTMLDivElement }))!;
+        const rendered = (await renderApp({
+          transpiled,
+          rootElement: document.getElementById("root")! as HTMLDivElement,
+        }))!;
         const { rootElement, cssCache } = rendered;
 
         await handleRender(rootElement, cssCache, signal, mod);
@@ -172,12 +177,17 @@ function handleDefaultPage() {
   };
 }
 
-async function handleRender(_rootEl: HTMLDivElement, cache: EmotionCache, signal: AbortSignal, mod: {
-  counter: number;
-  code: string;
-  transpiled: string;
-  controller: AbortController;
-}) {
+async function handleRender(
+  _rootEl: HTMLDivElement,
+  cache: EmotionCache,
+  signal: AbortSignal,
+  mod: {
+    counter: number;
+    code: string;
+    transpiled: string;
+    controller: AbortController;
+  },
+) {
   console.log("handleRender");
   const counter = mod.counter;
 

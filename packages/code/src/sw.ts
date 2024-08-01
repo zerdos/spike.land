@@ -102,7 +102,9 @@ const cacheFirst = async (request: Request): Promise<Response> => {
   if (!request.url.includes("/live/")) {
     const url = new URL(request.url);
     const generalCache = await caches.open(GENERAL_CACHE_NAME);
-    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then((response) => response?.text());
+    const currentAssetHash = await generalCache.match(ASSET_HASH_KEY).then((
+      response,
+    ) => response?.text());
     const cacheName = isFileInList(url.pathname)
       ? FILE_CACHE_NAME + currentAssetHash
       : GENERAL_CACHE_NAME;

@@ -1,7 +1,10 @@
 import { Message } from "./ChatDrawer";
 import { anthropic, gptSystem, reminder } from "./initialMessage";
 import { prettierToThrow } from "./shared";
-const loadMessages = () => JSON.parse(localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]") as Message[];
+const loadMessages = () =>
+  JSON.parse(
+    localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]",
+  ) as Message[];
 
 const codeSpace = location.pathname.slice(1).split("/")[1];
 
@@ -9,7 +12,9 @@ export const sendToAnthropic = async (messages: Message[]) => {
   const response = await fetch("/anthropic", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages: messages.map(x => ({ role: x.role, content: x.content })) }),
+    body: JSON.stringify({
+      messages: messages.map((x) => ({ role: x.role, content: x.content })),
+    }),
   });
 
   const assistantMessage: Message = {
@@ -92,7 +97,10 @@ export const continueWithOpenAI = async (
 
     setMessages((prevMessages) => {
       const lastMessage = prevMessages[prevMessages.length - 1];
-      const updatedLastMessage = { ...lastMessage, content: fullResponse + `\n` + code };
+      const updatedLastMessage = {
+        ...lastMessage,
+        content: fullResponse + `\n` + code,
+      };
       return [...prevMessages.slice(0, -1), updatedLastMessage];
     });
   }
@@ -110,7 +118,10 @@ export const continueWithOpenAI = async (
     try {
       console.log("modifiedCode", modifiedCode);
 
-      const prettyCode = await prettierToThrow({ code: modifiedCode, toThrow: true });
+      const prettyCode = await prettierToThrow({
+        code: modifiedCode,
+        toThrow: true,
+      });
       onCodeUpdate(prettyCode);
       setAICode(prettyCode);
     } catch (error) {
@@ -127,13 +138,21 @@ export const continueWithOpenAI = async (
           `,
         };
 
-        setMessages(prevMessages => [...prevMessages, message]);
+        setMessages((prevMessages) => [...prevMessages, message]);
 
         const prevMessages = loadMessages();
 
         const answer = await sendToAnthropic([...prevMessages, message]);
-        setMessages(prevMessages => [...prevMessages, answer]);
-        await continueWithOpenAI(answer.content, modifiedCode, nextCounter, onCodeUpdate, setMessages, setAICode, true);
+        setMessages((prevMessages) => [...prevMessages, answer]);
+        await continueWithOpenAI(
+          answer.content,
+          modifiedCode,
+          nextCounter,
+          onCodeUpdate,
+          setMessages,
+          setAICode,
+          true,
+        );
       } else {
         console.error("Error in runner:", error);
       }
@@ -141,8 +160,15 @@ export const continueWithOpenAI = async (
   }
 };
 
-export const prepareClaudeContent = (content: string, messages: Message[], codeNow: string, codeSpace: string) => {
-  if (messages.length == 0 || codeNow !== messages[messages.length - 1]?.content) {
+export const prepareClaudeContent = (
+  content: string,
+  messages: Message[],
+  codeNow: string,
+  codeSpace: string,
+) => {
+  if (
+    messages.length == 0 || codeNow !== messages[messages.length - 1]?.content
+  ) {
     return anthropic.replace(/{{FILENAME}}/g, codeSpace + ".tsx")
       .replace(/{{FILE_CONTENT}}/g, codeNow)
       .replace(/{{USER_PROMPT}}/g, content);

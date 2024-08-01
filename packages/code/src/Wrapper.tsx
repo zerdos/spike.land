@@ -1,21 +1,23 @@
-import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { createRoot, Root } from "react-dom/client";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createRoot, Root } from "react-dom/client";
 import { transpile } from "./shared";
 
 // Helper functions
-const createJsBlob = (code: string | Uint8Array): string => 
+const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = useState("");
-  
+
   useEffect(() => {
-    transpile({ code, originToUse: window.location.origin }).then(setTranspiled);
+    transpile({ code, originToUse: window.location.origin }).then(
+      setTranspiled,
+    );
   }, [code]);
-  
+
   return transpiled;
 };
 
@@ -53,7 +55,7 @@ export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
         <ParentSize>
           {(props) => <AppRenderer transpiled={transpiled} {...props} />}
         </ParentSize>
-      </CacheProvider>
+      </CacheProvider>,
     );
 
     return () => root.unmount();
@@ -91,16 +93,18 @@ export const renderApp = async ({
   rRoot,
   codeSpace,
   transpiled,
-  App
+  App,
 }: IRenderApp): Promise<RenderedApp | null> => {
   try {
-    const rootEl = rootElement || document.getElementById('root') || document.createElement('div');
+    const rootEl = rootElement || document.getElementById("root")
+      || document.createElement("div");
     if (!document.body.contains(rootEl)) {
-      rootEl.id = 'root';
+      rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
 
-    globalThis.renderedAPPS = globalThis.renderedAPPS || new Map<HTMLElement, RenderedApp>();
+    globalThis.renderedAPPS = globalThis.renderedAPPS
+      || new Map<HTMLElement, RenderedApp>();
 
     if (globalThis.renderedAPPS.has(rootEl)) {
       console.warn("Cleaning up existing app before rendering new one.");
@@ -108,7 +112,10 @@ export const renderApp = async ({
       globalThis.renderedAPPS.delete(rootEl);
     }
 
-    const AppToRender = App || await import(transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`).then(m => m.default);
+    const AppToRender = App
+      || await import(
+        transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`
+      ).then((m) => m.default);
     const cssCache = createCache({ key: "css", speedy: false });
     const root = rRoot || createRoot(rootEl);
 
@@ -123,14 +130,20 @@ export const renderApp = async ({
         <ParentSize>
           {(props) => <AppToRender {...props} />}
         </ParentSize>
-      </CacheProvider>
+      </CacheProvider>,
     );
 
-    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup };
+    const renderedApp: RenderedApp = {
+      rootElement: rootEl,
+      rRoot: root,
+      App,
+      cssCache,
+      cleanup,
+    };
     globalThis.renderedAPPS.set(rootEl, renderedApp);
 
     const observer = new MutationObserver((mutations) => {
-      if (mutations.some(m => Array.from(m.removedNodes).includes(rootEl))) {
+      if (mutations.some((m) => Array.from(m.removedNodes).includes(rootEl))) {
         cleanup();
         observer.disconnect();
       }

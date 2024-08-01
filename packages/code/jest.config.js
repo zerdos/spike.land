@@ -8,9 +8,9 @@ export default {
     "^.+\\.(ts|tsx)$": [
       "ts-jest",
       {
-        "tsconfig": "tsconfig.spec.json"
-      }
-    ]
+        "tsconfig": "tsconfig.spec.json",
+      },
+    ],
   },
   // All imported modules in your tests should be mocked automatically
   // automock: false,

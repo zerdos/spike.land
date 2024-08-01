@@ -75,12 +75,16 @@
       "Webworker.Iterable"
     ],
     "types": [
-      "@types/wicg-file-system-access",
+      "@types/wicg-file-system-access"
     ]
   },
 
   "include": [
-    "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.mjs" 
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.mjs"
   ],
   "exclude": [".yarn", "dist", "*/**.spec.ts", "__tests__"]
 }

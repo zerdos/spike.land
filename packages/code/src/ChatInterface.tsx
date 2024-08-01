@@ -11,7 +11,10 @@ const getCodeSpace = (): string => {
 };
 
 const codeSpace = getCodeSpace();
-const loadMessages = () => JSON.parse(localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]") as Message[];
+const loadMessages = () =>
+  JSON.parse(
+    localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]",
+  ) as Message[];
 
 // Main Component: ChatInterface
 const ChatInterface: React.FC<
@@ -88,9 +91,9 @@ const ChatInterface: React.FC<
   const handleSendMessage = async (content: string) => {
     if (!content.trim()) return;
 
-    const { code, i }: { code: string; i: number } = await fetch(`/live/${codeSpace}/session.json`).then((res) =>
-      res.json()
-    );
+    const { code, i }: { code: string; i: number } = await fetch(
+      `/live/${codeSpace}/session.json`,
+    ).then((res) => res.json());
     const codeNow = await prettierToThrow({ code, toThrow: true });
 
     const nextCounter = i + 1;
@@ -98,7 +101,12 @@ const ChatInterface: React.FC<
     await fetch(`/live/${codeSpace}/auto-save`);
 
     const messages = loadMessages();
-    const claudeContent = prepareClaudeContent(content, messages, codeNow, codeSpace);
+    const claudeContent = prepareClaudeContent(
+      content,
+      messages,
+      codeNow,
+      codeSpace,
+    );
 
     if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
       setAICode(codeNow);
