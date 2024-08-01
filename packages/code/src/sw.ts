@@ -3,7 +3,7 @@
 
 importScripts("/swVersion.js");
 
-import workbox from "workbox-sw/controllers/WorkboxSW";
+import * as workbox from "workbox-sw/controllers/WorkboxSW";
 
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
