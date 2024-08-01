@@ -30,7 +30,7 @@ export const buildOptions = {
   },
   external: [
     "esm-worker",
-    "/swVersion.mjs",
+    "/swVersion.js",
 
     "__STATIC_CONTENT_MANIFEST",
   ],
