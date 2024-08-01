@@ -9,6 +9,8 @@ export class AIService {
 
   constructor(private codeSpace: string) {
     this.localStorageService = new LocalStorageService(codeSpace);
+    // Use codeSpace in some way to avoid the unused parameter warning
+    console.log(`AIService initialized for codeSpace: ${this.codeSpace}`);
   }
 
   async sendMessage(messages: Message[]): Promise<Message> {

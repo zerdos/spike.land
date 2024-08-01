@@ -16,7 +16,7 @@ Object.assign(globalThis, {
       format: "esm",
     });
 
-   // await writeFile(`/live/${codeSpace}/index.mjs`, file);
+    // await writeFile(`/live/${codeSpace}/index.mjs`, file);
 
     await fetch(`${origin}/live/${codeSpace}Bundled/index.mjs`, {
       method: "PUT",

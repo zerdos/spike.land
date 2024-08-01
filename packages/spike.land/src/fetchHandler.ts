@@ -23,7 +23,7 @@ export async function handleFetchApi(
     websocket: () => handleWebSocket(request),
     "files.json": () => handleFilesJson(),
     "assetHash.json": () => handleFilesJson(false),
-    "swVersion.mjs": () => handleUnpkg(path),
+    "swVersion.mjs": () => handleSwVersionResponse(path, ASSET_HASH),  
     "node_modules": () => handleUnpkg(path),
     "swVersion.js": () => handleSwVersionResponse(path[0], ASSET_HASH, files),
     "importMap.json": () => handleImportMapJson(),
@@ -92,8 +92,8 @@ function handleImportMapJson(): Response {
 }
 
 function handleSwVersionResponse(type: string, ASSET_HASH: string, files: any) {
-  const content = type === "swVersion.mjs"
-    ? `export const swVersion = "${ASSET_HASH}";`
+  
+  const content =  files === undefined ? `export const swVersion = "${ASSET_HASH}";`
     : `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)};`;
 
   return new Response(content, {

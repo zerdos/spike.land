@@ -11,7 +11,7 @@ describe("AIService", () => {
 
   beforeEach(() => {
     localStorageService = new LocalStorageService("testCodeSpace") as jest.Mocked<LocalStorageService>;
-    aiService = new AIService(localStorageService);
+    aiService = new AIService("test-code-space");
   });
 
   describe("sendToAnthropic", () => {
@@ -31,7 +31,7 @@ describe("AIService", () => {
         },
       } as any);
 
-      const result = await aiService.sendToAnthropic(mockMessages);
+      const result = await aiService.sendMessage(mockMessages);
 
       expect(result.role).toBe("assistant");
       expect(result.content).toBe("Assistant");

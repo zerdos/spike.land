@@ -105,7 +105,7 @@ const ChatInterface: React.FC<
       const claudeContent = aiHandler.prepareContent(
         content,
         messages,
-        codeNow
+        codeNow,
       );
 
       if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
@@ -135,7 +135,7 @@ const ChatInterface: React.FC<
 
       try {
         const response = await aiHandler.sendMessage(messages);
-        
+
         if (response) {
           messages.push(response);
           saveMessages(messages);
