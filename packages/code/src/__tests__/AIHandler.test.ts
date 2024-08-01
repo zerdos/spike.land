@@ -65,7 +65,7 @@ describe("AIHandler", () => {
     const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
     const currentCode = "Current code";
 
-    const preparedContent = {};
+    const preparedContent = "Prepared content";
     mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
 
     const result = aiHandler.prepareClaudeContent(content, messages, currentCode);
