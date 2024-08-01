@@ -3413,7 +3413,7 @@ __metadata:
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
     "@types/node": "npm:22.0.2"
-    axios: "npm:1.7.2"
+    axios: "npm:1.7.3"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
@@ -3555,7 +3555,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.3.0"
-    framer-motion: "npm:11.3.20"
+    framer-motion: "npm:11.3.21"
     i18next: "npm:^23.12.2"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -3563,7 +3563,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:^0.418.0"
+    lucide-react: "npm:^0.419.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:^0.50.0"
     next-i18next: "npm:^15.3.1"
@@ -5476,14 +5476,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.7.2":
-  version: 1.7.2
-  resolution: "axios@npm:1.7.2"
+"axios@npm:1.7.3":
+  version: 1.7.3
+  resolution: "axios@npm:1.7.3"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/6ae80dda9736bb4762ce717f1a26ff997d94672d3a5799ad9941c24d4fb019c1dff45be8272f08d1975d7950bac281f3ba24aff5ecd49ef5a04d872ec428782f
+  checksum: 10/7f92af205705a8fb4a9d35666b663729507657f252a1d39d83582590119941872d49078017cf992e32f47aa3b7317f5439f77be772a173dac2ae0fedd38f43ae
   languageName: node
   linkType: hard
 
@@ -8441,9 +8441,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.20":
-  version: 11.3.20
-  resolution: "framer-motion@npm:11.3.20"
+"framer-motion@npm:11.3.21":
+  version: 11.3.21
+  resolution: "framer-motion@npm:11.3.21"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8457,7 +8457,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/5da0c551fcd72dbf16bf2984e410bbc5aa58daaeb613b008a2ab5bb278898fdc2c1b283782597b52322f6410498eede9fd9c3ae0cd3e20c572a73f183c982bc8
+  checksum: 10/759390b72c10bb65ade22255de1a3b0277620b29f1e1bd2173851f630585c0c0c9084eaeafff3b510702e61a20d2bf7818a42abc869b74a05e14f14da94ed85b
   languageName: node
   linkType: hard
 
@@ -11076,12 +11076,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.418.0":
-  version: 0.418.0
-  resolution: "lucide-react@npm:0.418.0"
+"lucide-react@npm:^0.419.0":
+  version: 0.419.0
+  resolution: "lucide-react@npm:0.419.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/704d62b2a05004d6737cabf66ad5b66c645feab1ab9f3262f167c6b0212f6605a218c2e3154529d937a53c0e46919ddeb5f327e3fe17287ab0693609858b33a7
+  checksum: 10/6c9f48125a9dc370be0f595fcdb861ad5135e104571bd17f491169da6d177215754fd41ce671969983e7783565bf231aa4f4702dc74a809686125917c29c0346
   languageName: node
   linkType: hard
 
