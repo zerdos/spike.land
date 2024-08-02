@@ -105,7 +105,7 @@ export const build = async ({
   wasmModule?: WebAssembly.Module;
 }) => {
   if (wasmModule) {
-    await mod.initialize(wasmModule);
+    if (!mod.init) await mod.initialize(wasmModule);
   } else {
     mod.init = mod.init || initialize({
       wasmURL: `/${wasmFile}`,
@@ -181,7 +181,7 @@ export const build = async ({
     platform: "browser",
     entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`],
     packages: "external",
-    plugins: [fetchPlugin],
+    plugins: [fetchPlugin(origin)],
   };
 
   try {

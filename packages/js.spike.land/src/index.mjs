@@ -12,21 +12,28 @@ const initAndTransform = (
   origin,
 ) => transpile(code, origin, wasmModule);
 
+
 export default {
   async fetch(request) {
     const params = new URL(request.url).searchParams;
-    const { codeSpace, origin } = Object.fromEntries(params.entries());
+    const codeSpace = params.get("codeSpace");
+
+    const origin  = params.get("origin");
+
 
     if (request.method === "GET") {
       try {
+
+        const text =  await build({
+          codeSpace,
+          origin: origin
+            ? `https://${origin}.spike.land`
+            : "https://spike.land",
+          wasmModule,
+        });
+
         return new Response(
-          await build({
-            codeSpace,
-            origin: origin
-              ? `https://${origin}.spike.land`
-              : "https://spike.land",
-            wasmModule,
-          }),
+         text
         ),
           {
             headers: {
@@ -37,7 +44,7 @@ export default {
             },
           };
       } catch (e) {
-        return new Response("500");
+        return new Response(`500 ${e}`);
       }
     }
 
