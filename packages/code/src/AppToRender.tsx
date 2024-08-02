@@ -1,4 +1,7 @@
 // src/AppToRender.tsx
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
+
 import { Button } from "@/components/ui/button";
 import { css } from "@emotion/react";
 import { Bot } from "lucide-react";
@@ -45,8 +48,17 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     }
   };
 
-  return (
+  return (<>
+    <header>
+    <SignedOut>
+      <SignInButton />
+    </SignedOut>
+    <SignedIn>
+      <UserButton />
+    </SignedIn>
+  </header>
     <div className="relative">
+
       {onlyEdit
         ? (
           <iframe
@@ -117,6 +129,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
                 <CodeHistoryCarousel
+                  onRestore={() => {
+                    setShowAutoSaveHistory(false);
+                  }}
                   codeSpace={codeSpace}
                 />
               </div>
@@ -124,6 +139,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           )}
         </RainbowWrapper>
       )}
-    </div>
+    </div></>
   );
 };

@@ -1,32 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
-  <link rel="manifest" href="/manifest.json" type="application/manifest+json">
-  <base href="/">
-  <link rel="shortcut icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
-  <title>Instant React Editor</title>
-  <link rel="stylesheet" href="/assets/app.css">
-  <link rel="stylesheet" href="/assets/g.css">
-  <style>
-    /**reset*/
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-  <script src="/swVersion.js"></script>
-  <script defer src="/assets/tw.js"></script>
-  <script type="module">
-    import("/hydrate.mjs?" + swVersion);
-    const paths = location.pathname.split("/").slice(1);
-    if (paths.length > 2 && paths[0]=='live') {
-      const codeSpace = paths[1];
-      import("/Wrapper.mjs").then(m=>m.renderApp({codeSpace, rootElement: document.getElementById("root")}));
-    }
- </script>
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
-  <!-- End Cloudflare Web Analytics -->
-</body>
-</html>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+    <link rel="manifest" href="/manifest.json" type="application/manifest+json">
+    <base href="/">
+    <link rel="shortcut icon" type="image/png" href="/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png">
+    <title>Instant React Editor</title>
+    <link rel="stylesheet" href="/assets/app.css">
+    <link rel="stylesheet" href="/assets/g.css">
+    <style>
+      /**reset*/
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/swVersion.js"></script>
+    <script defer src="/assets/tw.js"></script>
+    <script type="module">
+      import("/hydrate.mjs?" + swVersion);
+      const paths = location.pathname.split("/").slice(1);
+      if (paths.length > 2 && paths[0]=='live') {
+        const codeSpace = paths[1];
+        import("/Wrapper.mjs").then(m=>m.renderApp({codeSpace, rootElement: document.getElementById("root")}));
+      }
+  </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+  </html>

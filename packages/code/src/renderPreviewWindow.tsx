@@ -1,3 +1,5 @@
+
+import { ClerkProvider } from '@clerk/clerk-react'
 import { AppToRender } from "./AppToRender";
 import { createRoot } from "./reactDomClient";
 // import {EmbeddableEditor} from "./EmbeddableEditor";
@@ -27,8 +29,12 @@ export const renderPreviewWindow = async (
     return;
   }
 
+  const PUBLISHABLE_KEY="pk_test_ZmVhc2libGUtd2FscnVzLTM3LmNsZXJrLmFjY291bnRzLmRldiQ"
+
   // const { AppToRender } = await import("./AppToRender");
-  root.render(<AppToRender codeSpace={codeSpace} />);
+  root.render(<ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+    <AppToRender codeSpace={codeSpace} />
+  </ClerkProvider>);
 };
 
 function addCSSFile(filename: string) {
