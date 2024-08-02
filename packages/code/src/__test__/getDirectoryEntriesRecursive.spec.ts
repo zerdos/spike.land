@@ -1,10 +1,28 @@
 import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
 
+// Mock the FileSystemDirectoryHandle
+class MockFileSystemDirectoryHandle {
+  async *values() {
+    yield { kind: 'file', name: 'file1.txt' };
+    yield { kind: 'directory', name: 'subdir' };
+  }
+}
+
+// Mock the navigator.storage API
+Object.defineProperty(global, 'navigator', {
+  value: {
+    storage: {
+      getDirectory: jest.fn().mockResolvedValue(new MockFileSystemDirectoryHandle()),
+    },
+  },
+  writable: true,
+});
+
 global.navigator = {
   storage: {
-    getDirectory: jest.fn().mockResolvedValue({
+    getDirectory: jest.fn().mockResolvedValue( Promise.resolve( {
       getDirectoryHandle: jest.fn().mockResolvedValue({
-        // Mock other necessary properties and methods here
+        getDirectory: jest.fn().mockResolvedValue({}),
       }),
       values: jest.fn().mockReturnValue([
         {
@@ -22,7 +40,7 @@ global.navigator = {
           values: jest.fn().mockReturnValue([]),
         },
       ]),
-    }),
+    })),
   },
 } as any;
 
@@ -46,6 +64,7 @@ jest.mock("navigator.storage", () => ({
     ]),
   }),
 }), { virtual: true });
+
 
 describe("getDirectoryEntriesRecursive", () => {
   afterEach(() => {

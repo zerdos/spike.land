@@ -1,5 +1,7 @@
 type FileSystemEntry = Partial<FileSystemHandle> & { relativePath: string };
 
+
+
 const handleFile = async (handle: FileSystemFileHandle, nestedPath: string) => {
   const file = await handle.getFile();
   return {

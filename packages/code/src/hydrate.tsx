@@ -8,8 +8,8 @@ import { getPort, init } from "./shared";
 
 import { wait } from "./wait";
 import { renderApp } from "./Wrapper";
+import { swVersion } from "@src/swVersion";
 
-const { swVersion } = self;
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 

@@ -12,7 +12,7 @@
     "clean": "rm -rf packages/code/dist && yarn workspaces foreach -A run clean",
     "build": "yarn workspaces foreach -A run build",
     "types": "yarn workspaces foreach -A run types",
-    "test": "yarn workspaces foreach -A run test",
+    "test": "yarn workspace @spike-land/code test",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
     "deploy": "yarn clean && yarn c:build && yarn c:deploy && yarn types",

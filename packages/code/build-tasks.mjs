@@ -155,6 +155,7 @@ export async function buildMainBundle(wasmFile) {
     ],
     alias: {
       ...buildOptions.alias,
+      "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
       // "react": "preact/compat",
       // "react-dom/test-utils": "preact/test-utils",
@@ -163,6 +164,7 @@ export async function buildMainBundle(wasmFile) {
       // "react-dom": "preact/compat", // Must be below test-utils
     },
     external: [
+      "/swVersion.mjs",
       ...buildOptions.external,
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",

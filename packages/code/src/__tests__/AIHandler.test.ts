@@ -68,7 +68,7 @@ describe("AIHandler", () => {
     const preparedContent = "Prepared content";
     mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
 
-    const result = aiHandler.prepareClaudeContent(content, messages, currentCode);
+    const result = aiHandler.prepareClaudeContent(content, messages, currentCode, testCodeSpace);
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
     expect(result).toBe(preparedContent);
@@ -140,7 +140,7 @@ describe("AIHandler", () => {
     const preparedContent = "Prepared content";
     mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
 
-    const result = aiHandler.prepareClaudeContent(content, messages, currentCode);
+    const result = aiHandler.prepareClaudeContent(content, messages, currentCode, testCodeSpace);
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
     expect(result).toBe(preparedContent);

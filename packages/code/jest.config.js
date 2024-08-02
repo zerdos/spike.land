@@ -98,9 +98,13 @@ export default {
   moduleFileExtensions: ["ts", "tsx", "js", "json", "node"],
   testMatch: ["**/*.spec.ts", "**/*.test.ts"],
   moduleNameMapper: {
+
     "^@/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
+   "^@src/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
+   
+    
   },
-  testEnvironment: "jsdom",
+  testEnvironment: "jsdom", 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 

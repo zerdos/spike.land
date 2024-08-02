@@ -4,9 +4,10 @@ import { Message } from "./types/Message";
 
 class AIHandler {
   private aiService: AIService;
-
   constructor(private codeSpace: string, aiService?: AIService) {
-    const localStorageService = new LocalStorageService(codeSpace);
+
+    this.codeSpace = codeSpace;
+    const localStorageService = new LocalStorageService(this.codeSpace);
     this.aiService = aiService || new AIService(localStorageService);
   }
 
@@ -40,7 +41,7 @@ class AIHandler {
     currentCode: string,
     codeSpace: string,
   ) {
-    return this.aiService.prepareClaudeContent(content, messages, currentCode, this.codeSpace);
+    return this.aiService.prepareClaudeContent(content, messages, currentCode, codeSpace);
   }
 }
 
