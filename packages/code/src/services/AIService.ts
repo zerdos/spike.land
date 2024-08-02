@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class AIService {
+export class AIService {
   static async processQuery(query: string, codeContext: string): Promise<string> {
     try {
       const response = await axios.post('/api/ai-assistant', { query, codeContext });
@@ -16,5 +16,3 @@ class AIService {
     return `Analyzed context: ${code.substring(0, 100)}...`;
   }
 }
-
-export default AIService;
