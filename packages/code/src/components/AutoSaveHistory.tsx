@@ -122,8 +122,8 @@ const HistoryItem: React.FC<{
 
 HistoryItem.displayName = "HistoryItem";
 
-export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = (
-  { codeSpace },
+export const CodeHistoryCarousel: React.FC<{ codeSpace: string, onRestore: ()=>void }> = (
+  { codeSpace, onRestore },
 ) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -171,6 +171,7 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = (
         type: "success",
         message: "Version restored successfully!",
       });
+      onRestore()
     } catch (err) {
       setRestoreStatus({
         type: "error",
@@ -221,3 +222,4 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = (
     </div>
   );
 };
+export default CodeHistoryCarousel;

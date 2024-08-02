@@ -16,7 +16,7 @@ jest.mock("@tanstack/react-virtual", () => ({
 }));
 
 describe("AutoSaveHistory", () => {
-  const monaco = (global as unknown as { monaco: typeof Monaco }).monaco = {
+  const monaco = (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
     editor: {
       createDiffEditor: jest.fn().mockReturnValue({
         setModel: jest.fn(),
@@ -27,7 +27,7 @@ describe("AutoSaveHistory", () => {
   } as unknown as typeof Monaco;
 
   // Mock the fetch function
-  global.fetch = jest.fn(() =>
+  globalThis.fetch = jest.fn(() =>
     Promise.resolve({
       ok: true,
       json: () =>
