@@ -13,6 +13,8 @@ export const useEditorState = (codeSpace: string) => {
 
   const initialLoadRef = useRef(true);
   const lastTypingTimestampRef = useRef(Date.now());
+  const [aiSuggestion, setAISuggestion] = useState('');
+  const [isAIAssistantVisible, setIsAIAssistantVisible] = useState(false);
 
   useEffect(() => {
     // Use codeSpace here, for example:
@@ -26,5 +28,9 @@ export const useEditorState = (codeSpace: string) => {
     setEditorState,
     initialLoadRef,
     lastTypingTimestampRef,
+    aiSuggestion,
+    setAISuggestion,
+    isAIAssistantVisible,
+    setIsAIAssistantVisible,
   };
 };

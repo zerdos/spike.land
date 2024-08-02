@@ -1,6 +1,6 @@
 import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { useEditorState } from "../hooks/useEditorState";
@@ -8,6 +8,8 @@ import { useErrorHandling } from "../hooks/useErrorHandling";
 import { runner } from "../runner";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
+import AIAssistantButton from './AIAssistantButton';
+import AIAssistantPanel from './AIAssistantPanel';
 
 interface EditorProps {
   codeSpace: string;
@@ -39,6 +41,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     code: "",
     controller: new AbortController(),
   });
+
+  const [showAIAssistant, setShowAIAssistant] = useState(false);
+
+  const toggleAIAssistant = () => {
+    setShowAIAssistant(!showAIAssistant);
+  };
 
   const setEditorContent = useCallback((formattedCode: string) => {
     const lastSignal = mod.current.controller.signal;

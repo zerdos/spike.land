@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import AiHandler from "./AIHandler";
 import { ChatFC, Message } from "./ChatDrawer";
 import { prettierToThrow } from "./shared";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 // Types
 
@@ -35,6 +37,14 @@ const ChatInterface: React.FC<
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const broadcastChannel = useRef<BroadcastChannel | null>(null);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!input.trim()) return;
+      const aiResponse = await aiHandler.sendToAnthropic([...messages, { role: 'user', content: input, id: Date.now().toString() }]);
+      __setMessages(prevMessages => [...prevMessages, { role: 'user', content: input, id: Date.now().toString() }, aiResponse]);
+      setInput('');
+    };
 
     useEffect(() => {
       const storedMode = localStorage.getItem("darkMode");

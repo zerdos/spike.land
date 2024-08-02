@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import type { Root } from "react-dom/client";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import { transpile } from "./shared";
+import AIAssistantPanel from './components/AIAssistantPanel';
 
 const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = useState("");
@@ -20,6 +21,7 @@ const useTranspile = (code: string) => {
 export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
   const transpiled = useTranspile(code);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showAIAssistant, setShowAIAssistant] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current || !transpiled) return;
@@ -44,7 +46,17 @@ export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
     };
   }, [transpiled]);
 
-  return <div ref={containerRef} data-testid="wrapper-container" />;
+  const toggleAIAssistant = () => {
+    setShowAIAssistant(!showAIAssistant);
+  };
+
+  return (
+    <div>
+      <div ref={containerRef} data-testid="wrapper-container" />
+      <button onClick={toggleAIAssistant}>Toggle AI Assistant</button>
+      {showAIAssistant && <AIAssistantPanel />}
+    </div>
+  );
 });
 
 export { useTranspile };
