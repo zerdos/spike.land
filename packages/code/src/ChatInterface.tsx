@@ -6,6 +6,14 @@ import { prettierToThrow } from "./shared";
 // Types
 
 // Utility Functions
+
+function replacePreservingWhitespace(text: string, search: string, replace: string) {
+  const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(\\s*)${escapedSearch}(\\s*)`, 'g');
+  return text.replace(regex, (match, preWhitespace, postWhitespace) => {
+    return `${preWhitespace}${replace}${postWhitespace}`;
+  });
+}
 const getCodeSpace = (): string => {
   return location.pathname.slice(1).split("/")[1];
 };
@@ -176,16 +184,23 @@ const ChatInterface: React.FC<
 
             const modz = codeToReplace.split(">>>>>>> REPLACE\n\n<<<<<<< SEARCH") || [codeToReplace];
     
-            const modifications = modz.filter(mod => mod.includes('=======') || mod.includes(">>>>>>> REPLACE") || mod.includes("<<<<<<< SEARCH")).map(mod => mod.split(">>>>>>> REPLACE").join("\n").split("\n<<<<<<< SEARCH").join("\n"));
+            const modifications = modz.filter(mod => mod.includes('=======') || mod.includes(">>>>>>> REPLACE") || mod.includes("<<<<<<< SEARCH")).map(mod => mod.split(">>>>>>> REPLACE").join("").split("<<<<<<< SEARCH").join(""));
             
             console.log("Parsed modifications:", modifications);
     
             modifications.forEach((modification, index) => {
               console.log(`Applying modification ${index + 1}:`, modification);
-              const [search, replaced] = modification.split("\n=======\n");
+              const [search, replaced] = modification.split("=======\n");
               console.log("Search:", search);
               console.log("Replace:", replaced);
-              starterCode = starterCode.split(search).join(replaced);
+              const now = starterCode;
+              starterCode = replacePreservingWhitespace(starterCode, search.trim(), replaced);
+              if (now === starterCode) {
+                console.log({ search, replaced, starterCode });
+                throw new Error("Code didn't change after modification"
+                );
+              }
+
             });
     
             console.log("Formatting modified code...");
