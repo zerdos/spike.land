@@ -1,4 +1,4 @@
-import { readDir } from "./esbuild-depts.mjs";
+import { readDir } from "./esbuild-depts.ts";
 
 export const makeEnv = (environment) => ({
   "process.env.NODE_ENV": environment === "production"
@@ -40,9 +40,7 @@ export const makeEnv = (environment) => ({
   }),
 });
 
-const environment = Deno.env.get("NODE_ENV") === "production"
-  ? "production"
-  : "development";
+const environment ='production';
 
 const isDevelopment = environment !== "production";
 

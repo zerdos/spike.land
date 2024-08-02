@@ -6,10 +6,10 @@ import {
   buildTranspileScript,
   buildWasm,
   buildWorkers,
-} from "./build-tasks.mjs";
-import { stop } from "./buildOperations.mjs";
-import { copyFiles } from "./copyFiles.mjs";
-import { getWasmFile } from "./helpers.mjs";
+} from "./build-tasks.ts";
+import { stop } from "./buildOperations.ts";
+import { copyFiles } from "./copyFiles.ts";
+import { getWasmFile } from "./helpers.ts";
 
 async function main() {
   try {

@@ -1,5 +1,5 @@
 // copyFiles.mjs
-import { copyFile } from "./esbuild-depts.mjs";
+import { copyFile } from "./esbuild-depts.ts";
 
 const filesToCopy = [
   ["./src/favicon.ico", "./dist/favicon.ico"],

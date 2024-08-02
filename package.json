@@ -15,7 +15,7 @@
     "test": "yarn workspace @spike-land/code test",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
-    "deploy": "yarn clean && yarn c:build && yarn c:deploy && yarn types",
+    "deploy": "yarn clean && yarn types && yarn c:build && yarn c:deploy && yarn types",
     "importMap": "yarn workspaces foreach run importMap",
     "build:code": "yarn workspaces foreach run build:code",
     "yarn:publish": "yarn workspaces foreach run publish",

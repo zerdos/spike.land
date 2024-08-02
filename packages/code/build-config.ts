@@ -1,7 +1,8 @@
-import { makeEnv } from "./helpers.mjs";
+import type { BuildOptions } from "esbuild-wasm";
+import { makeEnv } from "./helpers.ts";
 import { fetchPlugin } from "./src/fetchPlugin.mjs";
 
-export const buildOptions = {
+export const buildOptions: BuildOptions = {
   target: "es2024",
   sourcemap: false,
   outdir: "dist",

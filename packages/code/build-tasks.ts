@@ -1,6 +1,8 @@
+
+
 // build-tasks.mjs
-import { getCommonBuildOptions } from "./build-config.mjs";
-import { build } from "./buildOperations.mjs";
+import { getCommonBuildOptions } from "./build-config.ts";
+import { build } from "./buildOperations.ts";
 
 export async function buildWorkers() {
   const workerEntryPoints = [
@@ -129,7 +131,7 @@ export async function buildMainBundle(wasmFile) {
   ];
   await build({
     ...buildOptions,
-    splitting: true,
+    splitting: false,
     format: "esm",
     minifySyntax: false,
     minifyIdentifiers: false,
@@ -163,9 +165,11 @@ export async function buildMainBundle(wasmFile) {
       // "react-dom/server": "preact/compat",
       // "react-dom": "preact/compat", // Must be below test-utils
     },
+ 
     external: [
+      ...(buildOptions.external?.length ? buildOptions.external : []),
       "/swVersion.mjs",
-      ...buildOptions.external,
+ 
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],
