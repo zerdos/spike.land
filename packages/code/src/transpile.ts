@@ -181,7 +181,7 @@ export const build = async ({
     platform: "browser",
     entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`],
     packages: "external",
-    plugins: [fetchPlugin(origin)],
+    plugins: [fetchPlugin],
   };
 
   try {
