@@ -42,7 +42,7 @@ describe("useErrorHandling", () => {
     const mockGetTypeScriptWorker = jest.fn().mockResolvedValue(() => ({
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
-    
+
     require("monaco-editor").languages.typescript.getTypeScriptWorker.mockImplementation(mockGetTypeScriptWorker);
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
@@ -60,7 +60,7 @@ describe("useErrorHandling", () => {
     const mockGetTypeScriptWorker = jest.fn().mockResolvedValue(() => ({
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
-    
+
     require("monaco-editor").languages.typescript.getTypeScriptWorker.mockImplementation(mockGetTypeScriptWorker);
 
     const { result } = renderHook(() => useErrorHandling("monaco"));

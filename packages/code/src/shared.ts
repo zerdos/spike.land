@@ -1,11 +1,10 @@
 import SharedWorker from "@okikio/sharedworker";
+import { swVersion } from "@src/swVersion";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
-import { swVersion }  from "@src/swVersion";
 
 const mutex = new Mutex();
-
 
 let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;

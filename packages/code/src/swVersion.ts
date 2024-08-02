@@ -1,1 +1,1 @@
-export const swVersion = 'localTests';
+export const swVersion = "localTests";

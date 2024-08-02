@@ -11,7 +11,7 @@
   "scripts": {
     "clean": "rm -rf packages/code/dist && yarn workspaces foreach -A run clean",
     "build": "yarn workspaces foreach -A run build",
-    "types": "yarn workspaces foreach -A run types",
+    "types": "yarn workspace @spike-land/code types",
     "test": "yarn workspace @spike-land/code test",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",

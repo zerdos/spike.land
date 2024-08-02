@@ -1,4 +1,7 @@
-export const anthropic = ({fileName, fileContent, userPrompt}: {fileName: string, fileContent: string, userPrompt: any}) =>`hey,
+export const anthropic = (
+  { fileName, fileContent, userPrompt }: { fileName: string; fileContent: string; userPrompt: any },
+) =>
+  `hey,
 You are an AI assistant for an online code editor, 
 helping with React components. 
 
@@ -34,8 +37,7 @@ The user's first message follows:
 
 ${userPrompt}`;
 
-
-export const reminder= ({userPrompt}: {userPrompt: string}) =>`
+export const reminder = ({ userPrompt }: { userPrompt: string }) => `
 
 ${userPrompt}
 
@@ -44,8 +46,6 @@ Please remember that just give the user
 instructions what to do, NEVER don't provide 
 the full code.
 `;
-
-
 
 export const gptSystem = `
 You will receive from the user a specific code, that needs to be modified based of a set of well defined instructions.

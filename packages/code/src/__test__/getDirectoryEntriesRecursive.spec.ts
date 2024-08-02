@@ -3,13 +3,13 @@ import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../
 // Mock the FileSystemDirectoryHandle
 class MockFileSystemDirectoryHandle {
   async *values() {
-    yield { kind: 'file', name: 'file1.txt' };
-    yield { kind: 'directory', name: 'subdir' };
+    yield { kind: "file", name: "file1.txt" };
+    yield { kind: "directory", name: "subdir" };
   }
 }
 
 // Mock the navigator.storage API
-Object.defineProperty(global, 'navigator', {
+Object.defineProperty(global, "navigator", {
   value: {
     storage: {
       getDirectory: jest.fn().mockResolvedValue(new MockFileSystemDirectoryHandle()),
@@ -20,7 +20,7 @@ Object.defineProperty(global, 'navigator', {
 
 global.navigator = {
   storage: {
-    getDirectory: jest.fn().mockResolvedValue( Promise.resolve( {
+    getDirectory: jest.fn().mockResolvedValue(Promise.resolve({
       getDirectoryHandle: jest.fn().mockResolvedValue({
         getDirectory: jest.fn().mockResolvedValue({}),
       }),
@@ -64,7 +64,6 @@ jest.mock("navigator.storage", () => ({
     ]),
   }),
 }), { virtual: true });
-
 
 describe("getDirectoryEntriesRecursive", () => {
   afterEach(() => {

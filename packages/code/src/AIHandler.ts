@@ -5,7 +5,6 @@ import { Message } from "./types/Message";
 class AIHandler {
   private aiService: AIService;
   constructor(private codeSpace: string, aiService?: AIService) {
-
     this.codeSpace = codeSpace;
     const localStorageService = new LocalStorageService(this.codeSpace);
     this.aiService = aiService || new AIService(localStorageService);

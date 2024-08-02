@@ -11,7 +11,7 @@ describe("AIService", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Create a mocked instance of LocalStorageService
     localStorageService = {
       loadMessages: jest.fn().mockReturnValue([]),

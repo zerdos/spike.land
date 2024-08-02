@@ -1,9 +1,8 @@
-
-import { anthropic, gptSystem, reminder } from "../config/aiConfig";
-import { Message } from "../types/Message";
-import { prettierToThrow } from "../shared";
-import { LocalStorageService } from "./LocalStorageService";
 import debounce from "lodash.debounce";
+import { anthropic, gptSystem, reminder } from "../config/aiConfig";
+import { prettierToThrow } from "../shared";
+import { Message } from "../types/Message";
+import { LocalStorageService } from "./LocalStorageService";
 
 export class AIService {
   private localStorageService: LocalStorageService;
@@ -34,7 +33,7 @@ export class AIService {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
-    let c=""
+    let c = "";
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
@@ -48,13 +47,13 @@ export class AIService {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = decoder.decode(value);
-      c+=chunk;
-      debouncedUpdate(c)
+      c += chunk;
+      debouncedUpdate(c);
     }
 
     debouncedUpdate(c);
 
-    assistantMessage.content =c.trim();
+    assistantMessage.content = c.trim();
 
     this.localStorageService.saveAIInteraction(messages[messages.length - 1].content, assistantMessage.content);
 
@@ -113,8 +112,6 @@ export class AIService {
       });
     }, 100);
 
-
-
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -124,9 +121,8 @@ export class AIService {
       const chunk = decoder.decode(value);
       code += chunk;
 
-      debouncedSetMessages(code); 
+      debouncedSetMessages(code);
     }
-
 
     this.localStorageService.saveAIInteraction(fullResponse, code);
 
@@ -160,7 +156,7 @@ export class AIService {
           const message: Message = {
             "id": (Date.now() + 1).toString(),
             "role": "user",
-            "content":  `
+            "content": `
             ${codeNow} 
             
             **** instructions ****  
@@ -210,15 +206,15 @@ export class AIService {
     if (
       messages.length == 0 || codeNow !== messages[messages.length - 1]?.content
     ) {
-
       return anthropic(
-          {
-              fileName: codeSpace, 
-              fileContent: codeNow,
-              userPrompt: content
-          })
+        {
+          fileName: codeSpace,
+          fileContent: codeNow,
+          userPrompt: content,
+        },
+      );
     } else {
-      return reminder({userPrompt: content});
+      return reminder({ userPrompt: content });
     }
   }
 }

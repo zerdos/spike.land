@@ -6,9 +6,9 @@ import { Workbox } from "workbox-window";
 import { mkdir } from "./memfs";
 import { getPort, init } from "./shared";
 
+import { swVersion } from "@src/swVersion";
 import { wait } from "./wait";
 import { renderApp } from "./Wrapper";
-import { swVersion } from "@src/swVersion";
 
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];

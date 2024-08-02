@@ -14,6 +14,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules $(yarn bin jest)",
     "codebase": "ai-digest -i $(pwd) --show-output-files",
+    "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
     "types": "mkdir -p dts && tsc --emitDeclarationOnly || echo ok",
     "clean": "rm -rf .tsBuildInfo src/vendor dist dts src/monaco-workers && yarn favicons",
     "build:sw": "esbuild --outfile=../packages/.spike.land/public/sw.js --platform=browser --bundle --minify ./src/sw.js && yarn sw",
@@ -193,6 +194,7 @@
     "@types/wicg-file-system-access": "2023.10.5",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "ai-digest": "^1.0.4",
+    "dprint": "^0.47.2",
     "eslint": "9.8.0",
     "eslint-plugin-react": "7.35.0",
     "tslib": "2.6.3",
