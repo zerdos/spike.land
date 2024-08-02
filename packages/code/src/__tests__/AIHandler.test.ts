@@ -1,4 +1,4 @@
-import { AIHandler } from '../services/AIHandler';
+import AIHandler from '../AIHandler';
 import { AIService } from '../services/AIService';
 
 jest.mock('../services/AIService');
