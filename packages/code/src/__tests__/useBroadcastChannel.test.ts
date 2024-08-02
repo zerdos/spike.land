@@ -21,7 +21,9 @@ describe("useBroadcastChannel", () => {
 
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
-    expect((global as any).BroadcastChannel).toHaveBeenCalledWith(`${location.origin}/live/${codeSpace}/`);
+    expect((global as any).BroadcastChannel).toHaveBeenCalledWith(
+      `${location.origin}/live/${codeSpace}/`,
+    );
   });
 
   test("adds event listener for 'message' event", () => {
@@ -30,17 +32,25 @@ describe("useBroadcastChannel", () => {
 
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
-    expect(mockAddEventListener).toHaveBeenCalledWith("message", handleBroadcastMessage);
+    expect(mockAddEventListener).toHaveBeenCalledWith(
+      "message",
+      handleBroadcastMessage,
+    );
   });
 
   test("removes event listener on cleanup", () => {
     const codeSpace = "test-code-space";
     const handleBroadcastMessage = jest.fn();
 
-    const { unmount } = renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
+    const { unmount } = renderHook(() =>
+      useBroadcastChannel(codeSpace, handleBroadcastMessage)
+    );
 
     unmount();
 
-    expect(mockRemoveEventListener).toHaveBeenCalledWith("message", handleBroadcastMessage);
+    expect(mockRemoveEventListener).toHaveBeenCalledWith(
+      "message",
+      handleBroadcastMessage,
+    );
   });
 });

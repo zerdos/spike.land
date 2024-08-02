@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom";
 import { Editor } from "../components/Editor";
@@ -38,7 +44,9 @@ describe("Editor Component", () => {
   });
 
   test("initializes with correct code", async () => {
-    const { getByTestId } = render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
+    const { getByTestId } = render(
+      <Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />,
+    );
     await waitFor(() => {
       const editorContainer = getByTestId("editor-container");
       expect(editorContainer).toBeInTheDocument();
@@ -46,14 +54,18 @@ describe("Editor Component", () => {
   });
 
   test("calls onCodeUpdate when code changes", async () => {
-    const { getByTestId } = render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
+    const { getByTestId } = render(
+      <Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />,
+    );
     await waitFor(() => {
       const editorContainer = getByTestId("editor-container");
       expect(editorContainer).toBeInTheDocument();
     });
 
     act(() => {
-      fireEvent.input(getByTestId("editor-container"), { target: { textContent: "new code" } });
+      fireEvent.input(getByTestId("editor-container"), {
+        target: { textContent: "new code" },
+      });
     });
 
     await waitFor(() => {
@@ -72,7 +84,9 @@ describe("Editor Component", () => {
     });
 
     act(() => {
-      fireEvent.input(screen.getByTestId("editor-container"), { target: { textContent: "invalid code" } });
+      fireEvent.input(screen.getByTestId("editor-container"), {
+        target: { textContent: "invalid code" },
+      });
     });
 
     await waitFor(() => {
@@ -91,7 +105,9 @@ describe("Editor Component", () => {
     });
 
     act(() => {
-      fireEvent.input(screen.getByTestId("editor-container"), { target: { textContent: "invalid code" } });
+      fireEvent.input(screen.getByTestId("editor-container"), {
+        target: { textContent: "invalid code" },
+      });
     });
 
     await waitFor(() => {
@@ -117,7 +133,9 @@ describe("Editor Component", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("editor-container")).toHaveTextContent("broadcasted code");
+      expect(screen.getByTestId("editor-container")).toHaveTextContent(
+        "broadcasted code",
+      );
     });
   });
 });

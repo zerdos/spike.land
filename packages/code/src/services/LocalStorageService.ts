@@ -14,8 +14,13 @@ export class LocalStorageService {
   }
 
   saveAIInteraction(input: string, response: string): void {
-    const interactions = JSON.parse(localStorage.getItem(`aiInteractions-${this.codeSpace}`) ?? "[]");
+    const interactions = JSON.parse(
+      localStorage.getItem(`aiInteractions-${this.codeSpace}`) ?? "[]",
+    );
     interactions.push({ input, response, timestamp: Date.now() });
-    localStorage.setItem(`aiInteractions-${this.codeSpace}`, JSON.stringify(interactions));
+    localStorage.setItem(
+      `aiInteractions-${this.codeSpace}`,
+      JSON.stringify(interactions),
+    );
   }
 }

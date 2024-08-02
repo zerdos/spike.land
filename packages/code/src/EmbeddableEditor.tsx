@@ -1,6 +1,14 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Download, ExternalLink, Maximize, Moon, QrCode, Sun } from "lucide-react";
+import {
+  AlertCircle,
+  Download,
+  ExternalLink,
+  Maximize,
+  Moon,
+  QrCode,
+  Sun,
+} from "lucide-react";
 import { Resizable } from "re-resizable";
 import { useState } from "react";
 

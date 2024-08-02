@@ -41,37 +41,43 @@ const LandingPage = () => {
     {
       icon: Code,
       title: "Online Code Editor & Runner",
-      description: "Edit and run your code directly in the browser with our powerful online IDE.",
+      description:
+        "Edit and run your code directly in the browser with our powerful online IDE.",
       color: "text-blue-600",
     },
     {
       icon: Zap,
       title: "Instant Setup & Deployment",
-      description: "No installation or build time. Your projects are ready to run and deploy in real-time.",
+      description:
+        "No installation or build time. Your projects are ready to run and deploy in real-time.",
       color: "text-yellow-600",
     },
     {
       icon: Bot,
       title: "AI-Powered Code Modification",
-      description: "Let AI assist you in modifying your code, with instant execution of changes.",
+      description:
+        "Let AI assist you in modifying your code, with instant execution of changes.",
       color: "text-green-600",
     },
     {
       icon: Share2,
       title: "Real-Time Code Sharing",
-      description: "Collaborate seamlessly with real-time code sharing capabilities.",
+      description:
+        "Collaborate seamlessly with real-time code sharing capabilities.",
       color: "text-purple-600",
     },
     {
       icon: Package,
       title: "Comprehensive Package Support",
-      description: "Access all npm packages with built-in TypeScript support for enhanced development.",
+      description:
+        "Access all npm packages with built-in TypeScript support for enhanced development.",
       color: "text-red-600",
     },
     {
       icon: Download,
       title: "Portable HTML Export",
-      description: "Download your project as a self-contained HTML file for easy sharing and deployment.",
+      description:
+        "Download your project as a self-contained HTML file for easy sharing and deployment.",
       color: "text-indigo-600",
     },
   ];
@@ -80,10 +86,12 @@ const LandingPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <header className="container mx-auto px-4 py-20 text-center">
         <h1 className="text-5xl font-bold mb-6 text-gray-900 animate-fade-in-up">
-          Revolutionize Your <span className="text-blue-600">Coding Experience</span>
+          Revolutionize Your{" "}
+          <span className="text-blue-600">Coding Experience</span>
         </h1>
         <p className="text-xl text-gray-700 mb-10 animate-fade-in-up">
-          Discover a new way to code, collaborate, and create with our cutting-edge development platform.
+          Discover a new way to code, collaborate, and create with our
+          cutting-edge development platform.
         </p>
         <Button
           size="lg"

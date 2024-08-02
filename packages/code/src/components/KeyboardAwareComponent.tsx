@@ -10,7 +10,8 @@ const KeyboardAwareComponent = ({ children }) => {
     };
 
     window.visualViewport.addEventListener("resize", detectKeyboard);
-    return () => window.visualViewport.removeEventListener("resize", detectKeyboard);
+    return () =>
+      window.visualViewport.removeEventListener("resize", detectKeyboard);
   }, []);
 
   return (

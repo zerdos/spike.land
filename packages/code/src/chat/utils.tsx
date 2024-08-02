@@ -66,7 +66,9 @@ export const renderMessage = (text: string, isUser: boolean) => {
       });
     }
 
-    const language = match[1] ? programmingLanguages[match[1].toLowerCase()] || match[1].toLowerCase() : "plaintext";
+    const language = match[1]
+      ? programmingLanguages[match[1].toLowerCase()] || match[1].toLowerCase()
+      : "plaintext";
     const code = match[2].trim();
 
     parts.push({
@@ -79,10 +81,13 @@ export const renderMessage = (text: string, isUser: boolean) => {
   }
 
   // Check if there's an open code block at the end
-  const lastOpenBlockMatch = cleanedText.slice(lastIndex).match(/```(\w+)?\s*([\s\S]*)/);
+  const lastOpenBlockMatch = cleanedText.slice(lastIndex).match(
+    /```(\w+)?\s*([\s\S]*)/,
+  );
   if (lastOpenBlockMatch) {
     const language = lastOpenBlockMatch[1]
-      ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()] || lastOpenBlockMatch[1].toLowerCase()
+      ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()] ||
+        lastOpenBlockMatch[1].toLowerCase()
       : "plaintext";
     const code = lastOpenBlockMatch[2].trim();
     parts.push({

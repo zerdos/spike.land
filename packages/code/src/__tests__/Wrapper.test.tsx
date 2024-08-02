@@ -22,7 +22,9 @@ describe("Wrapper", () => {
   });
 
   it("calls transpile with correct arguments", async () => {
-    const mockTranspile = sharedModule.transpile as jest.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as jest.MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     await act(async () => {
@@ -36,7 +38,9 @@ describe("Wrapper", () => {
   });
 
   it("renders AppRenderer with transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as jest.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as jest.MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     await act(async () => {
@@ -51,7 +55,9 @@ describe("Wrapper", () => {
 
 describe("useTranspile", () => {
   it("returns transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as jest.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as jest.MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     let result: string | undefined;

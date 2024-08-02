@@ -12,13 +12,19 @@ describe("AIHandler", () => {
   const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
-    mockAIService = new AIService(new LocalStorageService(testCodeSpace)) as jest.Mocked<AIService>;
+    mockAIService = new AIService(
+      new LocalStorageService(testCodeSpace),
+    ) as jest.Mocked<AIService>;
     aiHandler = new AIHandler(testCodeSpace, mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
     const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
-    const expectedResponse: Message = { id: "2", role: "assistant", content: "Hi there!" };
+    const expectedResponse: Message = {
+      id: "2",
+      role: "assistant",
+      content: "Hi there!",
+    };
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
 
@@ -68,9 +74,19 @@ describe("AIHandler", () => {
     const preparedContent = "Prepared content";
     mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
 
-    const result = aiHandler.prepareClaudeContent(content, messages, currentCode, testCodeSpace);
+    const result = aiHandler.prepareClaudeContent(
+      content,
+      messages,
+      currentCode,
+      testCodeSpace,
+    );
 
-    expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
+    expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(
+      content,
+      messages,
+      currentCode,
+      testCodeSpace,
+    );
     expect(result).toBe(preparedContent);
   });
 });
@@ -84,13 +100,19 @@ describe("AIHandler", () => {
   const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
-    mockAIService = new AIService(new LocalStorageService(testCodeSpace)) as jest.Mocked<AIService>;
+    mockAIService = new AIService(
+      new LocalStorageService(testCodeSpace),
+    ) as jest.Mocked<AIService>;
     aiHandler = new AIHandler(testCodeSpace, mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
     const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
-    const expectedResponse: Message = { id: "2", role: "assistant", content: "Hi there!" };
+    const expectedResponse: Message = {
+      id: "2",
+      role: "assistant",
+      content: "Hi there!",
+    };
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
 
@@ -140,9 +162,19 @@ describe("AIHandler", () => {
     const preparedContent = "Prepared content";
     mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
 
-    const result = aiHandler.prepareClaudeContent(content, messages, currentCode, testCodeSpace);
+    const result = aiHandler.prepareClaudeContent(
+      content,
+      messages,
+      currentCode,
+      testCodeSpace,
+    );
 
-    expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(content, messages, currentCode, testCodeSpace);
+    expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(
+      content,
+      messages,
+      currentCode,
+      testCodeSpace,
+    );
     expect(result).toBe(preparedContent);
   });
 });

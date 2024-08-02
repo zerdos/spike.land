@@ -12,8 +12,8 @@ export const getPort = () => workerPort;
 export const init = (swVersion: string, port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
 
-  workerPort = port
-    || (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
+  workerPort = port ||
+    (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
   rpc = new RpcProvider(
     (message) =>
       workerPort.postMessage(
@@ -33,7 +33,9 @@ export const prettierToThrow = (
 ) => init(swVersion).rpc("prettierJs", { code, toThrow }) as Promise<string>;
 
 export const prettier = (code: string) =>
-  mutex.runExclusive(async () => await prettierToThrow({ code, toThrow: false }));
+  mutex.runExclusive(async () =>
+    await prettierToThrow({ code, toThrow: false })
+  );
 
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
@@ -88,4 +90,5 @@ export const build = (
     format,
   }) as Promise<string>;
 
-export const connect = (codeSpace: string) => init(swVersion).signal("connect", codeSpace);
+export const connect = (codeSpace: string) =>
+  init(swVersion).signal("connect", codeSpace);

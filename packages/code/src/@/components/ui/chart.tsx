@@ -87,8 +87,8 @@ ${
               colorConfig
                 .map(([key, itemConfig]) => {
                   const color = itemConfig.theme
-                    ?.[theme as keyof typeof itemConfig.theme]
-                    || itemConfig.color;
+                    ?.[theme as keyof typeof itemConfig.theme] ||
+                    itemConfig.color;
                   return color ? `  --color-${key}: ${color};` : null;
                 })
                 .join("\n")
@@ -214,7 +214,8 @@ const ChartTooltipContent = React.forwardRef<
                               {
                                 "h-2.5 w-2.5": indicator === "dot",
                                 "w-1": indicator === "line",
-                                "w-0 border-[1.5px] border-dashed bg-transparent": indicator === "dashed",
+                                "w-0 border-[1.5px] border-dashed bg-transparent":
+                                  indicator === "dashed",
                                 "my-0.5": nestLabel && indicator === "dashed",
                               },
                             )}
@@ -324,23 +325,23 @@ function getPayloadConfigFromPayload(
     return undefined;
   }
 
-  const payloadPayload = "payload" in payload
-      && typeof payload.payload === "object"
-      && payload.payload !== null
+  const payloadPayload = "payload" in payload &&
+      typeof payload.payload === "object" &&
+      payload.payload !== null
     ? payload.payload
     : undefined;
 
   let configLabelKey: string = key;
 
   if (
-    key in payload
-    && typeof payload[key as keyof typeof payload] === "string"
+    key in payload &&
+    typeof payload[key as keyof typeof payload] === "string"
   ) {
     configLabelKey = payload[key as keyof typeof payload] as string;
   } else if (
-    payloadPayload
-    && key in payloadPayload
-    && typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
+    payloadPayload &&
+    key in payloadPayload &&
+    typeof payloadPayload[key as keyof typeof payloadPayload] === "string"
   ) {
     configLabelKey = payloadPayload[
       key as keyof typeof payloadPayload
@@ -352,4 +353,11 @@ function getPayloadConfigFromPayload(
     : config[key as keyof typeof config];
 }
 
-export { ChartContainer, ChartLegend, ChartLegendContent, ChartStyle, ChartTooltip, ChartTooltipContent };
+export {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+  ChartTooltip,
+  ChartTooltipContent,
+};

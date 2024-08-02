@@ -330,7 +330,7 @@ export class RouteHandler {
   private async handleWrapRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
-    
+
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
     import { renderApp } from "${origin}/Wrapper.mjs";
 

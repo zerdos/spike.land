@@ -1,6 +1,12 @@
 import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { useEditorState } from "../hooks/useEditorState";
@@ -32,7 +38,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     lastTypingTimestampRef,
   } = useEditorState(codeSpace);
 
-  const { errorType, setErrorType, debouncedTypeCheck } = useErrorHandling(engine);
+  const { errorType, setErrorType, debouncedTypeCheck } = useErrorHandling(
+    engine,
+  );
 
   const mod = useRef({
     i: 0,
@@ -42,7 +50,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   const setEditorContent = useCallback((formattedCode: string) => {
     const lastSignal = mod.current.controller.signal;
-    const current = lastTypingTimestampRef.current = lastTypingTimestampRef.current || Date.now();
+    const current = lastTypingTimestampRef.current =
+      lastTypingTimestampRef.current || Date.now();
     setTimeout(() => {
       if (lastSignal.aborted) return;
       const currentTime = Date.now();
@@ -78,7 +87,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         ...editorState,
         started: true,
         code: mod.current.code,
-        setValue: (code: string) => editorModule.setValue(code),
+        setValue: (code: string) =>
+          editorModule.setValue(code),
       });
     };
 
@@ -139,10 +149,18 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     debouncedRunner(newCode, mod.current.i);
     debouncedTypeCheck(initialLoadRef);
-  }, [debouncedRunner, debouncedTypeCheck, initialLoadRef, lastTypingTimestampRef]);
+  }, [
+    debouncedRunner,
+    debouncedTypeCheck,
+    initialLoadRef,
+    lastTypingTimestampRef,
+  ]);
 
   const handleBroadcastMessage = useCallback(({ data }: MessageEvent) => {
-    if (!data.i || !data.code || data.code === mod.current.code || mod.current.i >= data.i) {
+    if (
+      !data.i || !data.code || data.code === mod.current.code ||
+      mod.current.i >= data.i
+    ) {
       return;
     }
 

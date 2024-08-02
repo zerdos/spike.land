@@ -3579,7 +3579,7 @@ __metadata:
     qrious: "npm:4.0.2"
     re-resizable: "npm:^6.9.17"
     react: "npm:18.3.1"
-    react-day-picker: "npm:9.0.6"
+    react-day-picker: "npm:8.10.1"
     react-dom: "npm:18.3.1"
     react-hook-form: "npm:^7.52.1"
     react-i18next: "npm:^15.0.0"
@@ -13271,14 +13271,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:9.0.6":
-  version: 9.0.6
-  resolution: "react-day-picker@npm:9.0.6"
-  dependencies:
-    date-fns: "npm:^3.6.0"
+"react-day-picker@npm:8.10.1":
+  version: 8.10.1
+  resolution: "react-day-picker@npm:8.10.1"
   peerDependencies:
-    react: ">=16.8.0"
-  checksum: 10/0c1f6af6a912cec3cf811fb09383d756e5af2f7565b4bf68625f77ab659a887b0f62afbd60d8836215162dd993404cf8a59ef0aaf0617e0dab51892202e4be02
+    date-fns: ^2.28.0 || ^3.0.0
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 10/374056dca7fed70a154a3b0e98c6c746c26b4fc868548fa8f285ef3cab9679537e84c0c21ba7b6db67b3f7f54cc562f5d83efba2c7f2c7bd3705ac8992869607
   languageName: node
   linkType: hard
 

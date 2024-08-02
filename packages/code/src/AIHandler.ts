@@ -40,7 +40,12 @@ class AIHandler {
     currentCode: string,
     codeSpace: string,
   ) {
-    return this.aiService.prepareClaudeContent(content, messages, currentCode, codeSpace);
+    return this.aiService.prepareClaudeContent(
+      content,
+      messages,
+      currentCode,
+      codeSpace,
+    );
   }
 }
 

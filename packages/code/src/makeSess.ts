@@ -17,7 +17,8 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   return newSess;
 }
 
-export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
+export const makeHash = (cx: ICodeSession) =>
+  String(hash(stringifySession(makeSession(cx))));
 
 export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
   Record<ICodeSession>({
@@ -31,7 +32,9 @@ export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
     html: p.html || "",
     css: (p.css || "")
       .split(".css-")
-      .filter((x) => x.startsWith("html") || (p.html || "").includes(x.slice(0, 5)))
+      .filter((x) =>
+        x.startsWith("html") || (p.html || "").includes(x.slice(0, 5))
+      )
       .join(".css-"),
   }).toJS() as ICodeSession;
 

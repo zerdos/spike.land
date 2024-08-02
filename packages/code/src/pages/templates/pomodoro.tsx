@@ -14,7 +14,9 @@ const PomodoroTimer = () => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    return `${mins.toString().padStart(2, "0")}:${
+      secs.toString().padStart(2, "0")
+    }`;
   };
 
   const startTimer = () => {
@@ -27,7 +29,7 @@ const PomodoroTimer = () => {
         }
         return prevTime - 1;
       });
-    }, 1000);
+    }, 1000) as unknown as number;
   };
 
   const pauseTimer = () => {

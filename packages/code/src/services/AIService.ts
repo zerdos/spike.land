@@ -55,7 +55,10 @@ export class AIService {
 
     assistantMessage.content = c.trim();
 
-    this.localStorageService.saveAIInteraction(messages[messages.length - 1].content, assistantMessage.content);
+    this.localStorageService.saveAIInteraction(
+      messages[messages.length - 1].content,
+      assistantMessage.content,
+    );
 
     return assistantMessage;
   }
@@ -126,7 +129,8 @@ export class AIService {
 
     this.localStorageService.saveAIInteraction(fullResponse, code);
 
-    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
+    const codeModificationRegex =
+      /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = code.match(codeModificationRegex);
 
     if (matches) {

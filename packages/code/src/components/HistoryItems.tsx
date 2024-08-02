@@ -1,8 +1,20 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { format } from "date-fns";
 import React from "react";
 import { useCodeHistory } from "../hooks/useCodeHistory";
@@ -14,7 +26,9 @@ interface HistoryItem {
   timestamp: number;
 }
 
-export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
+export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = (
+  { codeSpace },
+) => {
   const { history, loading, error } = useCodeHistory(codeSpace);
   const { restoreStatus, restoreVersion } = useRestoreVersion(codeSpace);
 
@@ -25,7 +39,9 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
     <div className="space-y-4">
       <h2 className="text-2xl font-bold mb-4">Code History</h2>
       {restoreStatus && (
-        <Alert variant={restoreStatus.type === "error" ? "destructive" : "default"}>
+        <Alert
+          variant={restoreStatus.type === "error" ? "destructive" : "default"}
+        >
           <AlertTitle>
             {restoreStatus.type === "loading"
               ? "Restoring"
@@ -39,7 +55,10 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
       <Carousel opts={{ loop: true }} className="w-full max-w-4xl">
         <CarouselContent>
           {history.map((item, index) => (
-            <CarouselItem key={item.timestamp} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem
+              key={item.timestamp}
+              className="md:basis-1/2 lg:basis-1/3"
+            >
               <Card className="flex flex-col h-full">
                 <CardHeader>
                   <CardTitle>Version {history.length - index}</CardTitle>
@@ -58,14 +77,18 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
                       </DialogTrigger>
                       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
                         <DialogHeader>
-                          <DialogTitle>Source Code - Version {history.length - index}</DialogTitle>
+                          <DialogTitle>
+                            Source Code - Version {history.length - index}
+                          </DialogTitle>
                         </DialogHeader>
                         <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                           <code>{item.code}</code>
                         </pre>
                       </DialogContent>
                     </Dialog>
-                    <Button onClick={() => restoreVersion(item.timestamp)}>Restore</Button>
+                    <Button onClick={() => restoreVersion(item.timestamp)}>
+                      Restore
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

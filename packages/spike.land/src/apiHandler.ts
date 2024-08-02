@@ -63,7 +63,6 @@ export async function handleApiRequest(
       return new Response("Not found", { status: 404 });
   }
 
-
   const respText = HTML;
 
   const headers = new Headers({

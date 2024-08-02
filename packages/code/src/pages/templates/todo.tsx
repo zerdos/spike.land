@@ -22,7 +22,9 @@ const TodoList = () => {
 
   const toggleTodo = (id: number) => {
     setTodos(
-      todos.map((todo) => todo.id === id ? { ...todo, completed: !todo.completed } : todo),
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      ),
     );
   };
 
@@ -47,7 +49,9 @@ const TodoList = () => {
             <li
               key={todo.id}
               onClick={() => toggleTodo(todo.id)}
-              className={`cursor-pointer p-2 ${todo.completed ? "line-through text-gray-500" : ""}`}
+              className={`cursor-pointer p-2 ${
+                todo.completed ? "line-through text-gray-500" : ""
+              }`}
             >
               {todo.text}
             </li>

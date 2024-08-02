@@ -1,12 +1,17 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
-import React from "react";
+import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import jest from "jest";
 import ChatInterface from "../ChatInterface";
 
 // Mock the ChatFC component
 jest.mock("../ChatDrawer", () => ({
-  ChatFC: ({ handleSendMessage, input, setInput, isOpen }: { readonly }) => (
+  ChatFC: (
+    { handleSendMessage, input, setInput, isOpen }: {
+      handleSendMessage: any;
+      input: string;
+      setInput: (value: string) => void;
+      isOpen: boolean;
+    },
+  ) => (
     isOpen
       ? (
         <div>
@@ -28,14 +33,22 @@ describe("ChatInterface", () => {
 
   it("renders when isOpen is true", () => {
     const { getByTestId } = render(
-      <ChatInterface onCodeUpdate={mockOnCodeUpdate} isOpen={true} onClose={mockOnClose} />,
+      <ChatInterface
+        onCodeUpdate={mockOnCodeUpdate}
+        isOpen={true}
+        onClose={mockOnClose}
+      />,
     );
     expect(getByTestId("chat-input")).toBeInTheDocument();
   });
 
   it("handles sending a message", async () => {
     const { getByTestId, getByText } = render(
-      <ChatInterface onCodeUpdate={mockOnCodeUpdate} isOpen={true} onClose={mockOnClose} />,
+      <ChatInterface
+        onCodeUpdate={mockOnCodeUpdate}
+        isOpen={true}
+        onClose={mockOnClose}
+      />,
     );
 
     const input = getByTestId("chat-input");
@@ -48,7 +61,11 @@ describe("ChatInterface", () => {
 
   it("does not render when isOpen is false", () => {
     const { queryByTestId } = render(
-      <ChatInterface onCodeUpdate={mockOnCodeUpdate} isOpen={false} onClose={mockOnClose} />,
+      <ChatInterface
+        onCodeUpdate={mockOnCodeUpdate}
+        isOpen={false}
+        onClose={mockOnClose}
+      />,
     );
     expect(queryByTestId("chat-input")).not.toBeInTheDocument();
   });

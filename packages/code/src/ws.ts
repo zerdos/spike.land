@@ -4,8 +4,8 @@ import { md5 } from "./md5";
 import { connect } from "./shared";
 
 // Initialize global state for first render
-globalThis.firstRender = globalThis.firstRender
-  || { html: "", css: "", code: "" };
+globalThis.firstRender = globalThis.firstRender ||
+  { html: "", css: "", code: "" };
 
 const codeSpace = getCodeSpace();
 
@@ -21,15 +21,17 @@ class Code {
   constructor() {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.head = makeHash(this.session);
-    this.user = localStorage.getItem(`${codeSpace} user`)
-      || md5(self.crypto.randomUUID());
+    this.user = localStorage.getItem(`${codeSpace} user`) ||
+      md5(self.crypto.randomUUID());
 
     this.init();
   }
 
   async init() {
     this.session = makeSession(
-      await fetch(`/live/${codeSpace}/session`).then((resp) => resp.json<ICodeSession>()),
+      await fetch(`/live/${codeSpace}/session`).then((resp) =>
+        resp.json<ICodeSession>()
+      ),
     );
   }
 

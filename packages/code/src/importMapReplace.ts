@@ -24,8 +24,8 @@ export function importMapReplace(code: string, origin: string): string {
       return p1 + `"${packageName}/index.js"` + p3;
     }
     if (
-      packageName.startsWith(`${origin}/live`)
-      && !packageName.includes("index.js")
+      packageName.startsWith(`${origin}/live`) &&
+      !packageName.includes("index.js")
     ) {
       return p1 + `"${packageName}/index.js"` + p3;
     }
@@ -84,7 +84,7 @@ export function importMapReplace(code: string, origin: string): string {
 
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`"${pkg}"`).join(
-      "\"" + origin + oo[pkg as keyof typeof oo] + "\"",
+      '"' + origin + oo[pkg as keyof typeof oo] + '"',
     );
   });
 

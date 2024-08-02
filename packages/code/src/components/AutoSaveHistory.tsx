@@ -1,10 +1,28 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { format } from "date-fns";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Wrapper } from "../Wrapper";
 
 interface HistoryItem {
@@ -36,7 +54,10 @@ const ScaledWrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-0 pb-[56.25%] relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="w-full h-0 pb-[56.25%] relative overflow-hidden"
+    >
       <div
         style={{
           transform: `scale(${scale})`,
@@ -82,7 +103,9 @@ const HistoryItem: React.FC<{
               </DialogTrigger>
               <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle>Source Code - Version {totalItems - index}</DialogTitle>
+                  <DialogTitle>
+                    Source Code - Version {totalItems - index}
+                  </DialogTitle>
                 </DialogHeader>
                 <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
                   <code>{item.code}</code>
@@ -99,11 +122,15 @@ const HistoryItem: React.FC<{
 
 HistoryItem.displayName = "HistoryItem";
 
-export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
+export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = (
+  { codeSpace },
+) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(null);
+  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(
+    null,
+  );
 
   const fetchHistory = useCallback(async () => {
     try {
@@ -113,11 +140,15 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
       const data: HistoryItem[] = await response.json();
       setHistory(
         data
-          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
+          .filter((x) =>
+            !x.code.includes("History") && !x.code.includes("e/pp")
+          )
           .sort((a, b) => b.timestamp - a.timestamp),
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred");
+      setError(
+        err instanceof Error ? err.message : "An unknown error occurred",
+      );
     } finally {
       setLoading(false);
     }
@@ -136,11 +167,16 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
         body: JSON.stringify({ timestamp }),
       });
       if (!response.ok) throw new Error("Failed to restore version");
-      setRestoreStatus({ type: "success", message: "Version restored successfully!" });
+      setRestoreStatus({
+        type: "success",
+        message: "Version restored successfully!",
+      });
     } catch (err) {
       setRestoreStatus({
         type: "error",
-        message: err instanceof Error ? err.message : "An unknown error occurred",
+        message: err instanceof Error
+          ? err.message
+          : "An unknown error occurred",
       });
     }
   }, [codeSpace]);
@@ -154,7 +190,9 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace
     <div className="space-y-4">
       <h2 className="text-2xl font-bold mb-4">Code History</h2>
       {restoreStatus && (
-        <Alert variant={restoreStatus.type === "error" ? "destructive" : "default"}>
+        <Alert
+          variant={restoreStatus.type === "error" ? "destructive" : "default"}
+        >
           <AlertTitle>
             {restoreStatus.type === "loading"
               ? "Restoring"

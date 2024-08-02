@@ -23,17 +23,23 @@ async function handleNonLiveRoutes() {
   if (paths[1] !== "live") {
     if (location.pathname === "/") {
       const { default: App } = await import("./pages/index");
-      createRoot(document.getElementById("root")!).render(React.createElement(App));
+      createRoot(document.getElementById("root")!).render(
+        React.createElement(App),
+      );
     } else if (location.pathname === "/start") {
       const { default: App } = await import("./pages/templates");
-      createRoot(document.getElementById("root")!).render(React.createElement(App));
+      createRoot(document.getElementById("root")!).render(
+        React.createElement(App),
+      );
     }
   }
 }
 
 // Setup Service Worker
 async function setupServiceWorker() {
-  if (!navigator.serviceWorker || localStorage.getItem("sw") === "false") return;
+  if (!navigator.serviceWorker || localStorage.getItem("sw") === "false") {
+    return;
+  }
 
   try {
     const sw = new Workbox(`/sw.js`);
@@ -47,8 +53,8 @@ async function setupServiceWorker() {
 // Initialize the application
 async function initializeApp() {
   await handleNonLiveRoutes();
- const sw =  await setupServiceWorker();
- sw?.messageSkipWaiting();
+  const sw = await setupServiceWorker();
+  sw?.messageSkipWaiting();
 }
 
 initializeApp();
@@ -203,9 +209,9 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
       })
       .filter(
         (rule): rule is CSSPageRule =>
-          rule?.selectorText !== undefined
-          && rule.selectorText.includes(key)
-          && html.includes(rule.selectorText.slice(4, 11)),
+          rule?.selectorText !== undefined &&
+          rule.selectorText.includes(key) &&
+          html.includes(rule.selectorText.slice(4, 11)),
       )
       .map((rule) => rule.cssText)
       .join("\n");

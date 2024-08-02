@@ -32,8 +32,8 @@ describe("AutoSaveHistory", () => {
       ok: true,
       json: () =>
         Promise.resolve([
-          { timestamp: 1625097600000, code: "console.log(\"Version 1\");" },
-          { timestamp: 1625184000000, code: "console.log(\"Version 2\");" },
+          { timestamp: 1625097600000, code: 'console.log("Version 1");' },
+          { timestamp: 1625184000000, code: 'console.log("Version 2");' },
         ]),
     })
   ) as unknown as jest.MockedFunction<typeof fetch>;
@@ -46,8 +46,8 @@ describe("AutoSaveHistory", () => {
     return render(
       <div
         ref={(el) =>
-          el
-          && (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))}
+          el &&
+          (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))}
       >
         {ui}
       </div>,
@@ -93,7 +93,7 @@ describe("AutoSaveHistory", () => {
     const restoreButton = await screen.findByText("Restore Selected Version");
     fireEvent.click(restoreButton);
     await waitFor(() => {
-      expect(mockOnRestore).toHaveBeenCalledWith("console.log(\"Version 1\");");
+      expect(mockOnRestore).toHaveBeenCalledWith('console.log("Version 1");');
     });
   });
 

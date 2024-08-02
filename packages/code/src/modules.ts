@@ -6,7 +6,14 @@ import { Delta } from "./textDiff";
 
 export { importMapReplace };
 
-import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
+import {
+  applyCodePatch,
+  CodePatch,
+  ICodeSession,
+  makeHash,
+  makeSession,
+  stringifySession,
+} from "./makeSess";
 
 export { importMap };
 

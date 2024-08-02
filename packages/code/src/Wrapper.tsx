@@ -11,7 +11,9 @@ const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = useState("");
 
   useEffect(() => {
-    transpile({ code, originToUse: window.location.origin }).then(setTranspiled);
+    transpile({ code, originToUse: window.location.origin }).then(
+      setTranspiled,
+    );
   }, [code]);
 
   return transpiled;
@@ -81,15 +83,16 @@ export const renderApp = async ({
   App,
 }: IRenderApp): Promise<RenderedApp | null> => {
   try {
-    const rootEl = rootElement || document.getElementById("root") as HTMLDivElement
-      || document.createElement("div");
+    const rootEl = rootElement ||
+      document.getElementById("root") as HTMLDivElement ||
+      document.createElement("div");
     if (!document.body.contains(rootEl)) {
       rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
 
-    globalThis.renderedAPPS = globalThis.renderedAPPS
-      || new Map<HTMLElement, RenderedApp>();
+    globalThis.renderedAPPS = globalThis.renderedAPPS ||
+      new Map<HTMLElement, RenderedApp>();
 
     if (globalThis.renderedAPPS.has(rootEl)) {
       console.warn("Cleaning up existing app before rendering new one.");
@@ -97,8 +100,8 @@ export const renderApp = async ({
       globalThis.renderedAPPS.delete(rootEl);
     }
 
-    const AppToRender = App
-      || (await import(
+    const AppToRender = App ||
+      (await import(
         transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`
       )).default;
     const cssCache = createCache({ key: "css", speedy: false });

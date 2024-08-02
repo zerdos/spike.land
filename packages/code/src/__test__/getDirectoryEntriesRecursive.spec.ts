@@ -1,4 +1,7 @@
-import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
+import {
+  getDirectoryEntriesRecursive,
+  getDirectoryHandleAndFileName,
+} from "../memfs";
 
 // Mock the FileSystemDirectoryHandle
 class MockFileSystemDirectoryHandle {
@@ -12,7 +15,9 @@ class MockFileSystemDirectoryHandle {
 Object.defineProperty(global, "navigator", {
   value: {
     storage: {
-      getDirectory: jest.fn().mockResolvedValue(new MockFileSystemDirectoryHandle()),
+      getDirectory: jest.fn().mockResolvedValue(
+        new MockFileSystemDirectoryHandle(),
+      ),
     },
   },
   writable: true,

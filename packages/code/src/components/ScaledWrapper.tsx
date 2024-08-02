@@ -20,7 +20,10 @@ export const ScaledWrapper: React.FC<{ code: string }> = ({ code }) => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-0 pb-[56.25%] relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="w-full h-0 pb-[56.25%] relative overflow-hidden"
+    >
       <div
         style={{
           transform: `scale(${scale})`,

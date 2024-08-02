@@ -11,7 +11,11 @@ This format helps to clearly identify the changes to be made.
 `;
 
 export const anthropic = (
-  { fileName, fileContent, userPrompt }: { fileName: string; fileContent: string; userPrompt: any },
+  { fileName, fileContent, userPrompt }: {
+    fileName: string;
+    fileContent: string;
+    userPrompt: any;
+  },
 ) =>
   `hey,
 You are an AI assistant for an online code editor, 
@@ -63,7 +67,6 @@ Please remember that just give the user
 instructions what to do, NEVER don't provide 
 the full code.
 `;
-
 
 export const gptSystem = `
 You will receive from the user a specific code, that needs to be modified based of a set of well defined instructions.

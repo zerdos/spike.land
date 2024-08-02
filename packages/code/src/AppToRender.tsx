@@ -106,7 +106,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           />
 
           <Button
-            onClick={() => setShowAutoSaveHistory(x => !x)}
+            onClick={() => setShowAutoSaveHistory((x) => !x)}
             className="fixed top-4 right-4 z-50"
             size="sm"
           >

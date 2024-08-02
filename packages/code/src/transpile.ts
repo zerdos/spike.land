@@ -1,4 +1,9 @@
-import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
+import {
+  build as esmBuild,
+  BuildOptions,
+  initialize,
+  transform,
+} from "esbuild-wasm";
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";

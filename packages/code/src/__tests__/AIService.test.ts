@@ -32,7 +32,10 @@ describe("AIService", () => {
         body: {
           getReader: () => ({
             read: jest.fn()
-              .mockResolvedValueOnce({ done: false, value: new TextEncoder().encode("Assistant") })
+              .mockResolvedValueOnce({
+                done: false,
+                value: new TextEncoder().encode("Assistant"),
+              })
               .mockResolvedValueOnce({ done: true }),
           }),
         },
@@ -42,7 +45,10 @@ describe("AIService", () => {
 
       expect(result.role).toBe("assistant");
       expect(result.content).toBe("Assistant");
-      expect(localStorageService.saveAIInteraction).toHaveBeenCalledWith("Hello", "Assistant");
+      expect(localStorageService.saveAIInteraction).toHaveBeenCalledWith(
+        "Hello",
+        "Assistant",
+      );
     });
 
     it("should throw an error when the response is not OK", async () => {
@@ -55,7 +61,9 @@ describe("AIService", () => {
         status: 500,
       } as Response);
 
-      await expect(aiService.sendToAnthropic(mockMessages)).rejects.toThrow("HTTP error! status: 500");
+      await expect(aiService.sendToAnthropic(mockMessages)).rejects.toThrow(
+        "HTTP error! status: 500",
+      );
     });
   });
 

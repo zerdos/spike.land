@@ -5,7 +5,13 @@ import { css } from "@emotion/react";
 import { Check, Moon, RefreshCw, Send, Sun, X } from "lucide-react";
 import React, { useEffect } from "react";
 import { styles } from "./styles";
-import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, Message, MessageInputProps } from "./types";
+import {
+  ChatContainerProps,
+  ChatHeaderProps,
+  ChatWindowProps,
+  Message,
+  MessageInputProps,
+} from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
 
 export const ChatMessage: React.FC<{
@@ -70,7 +76,9 @@ export const ChatMessage: React.FC<{
   );
 };
 
-export const ChatHeader: React.FC<ChatHeaderProps> = ({ isDarkMode, toggleDarkMode, handleResetChat, onClose }) => (
+export const ChatHeader: React.FC<ChatHeaderProps> = (
+  { isDarkMode, toggleDarkMode, handleResetChat, onClose },
+) => (
   <div className="bg-secondary p-4 font-bold flex justify-between items-center">
     <span>AI spike pilot</span>
     <div className="flex items-center space-x-2">

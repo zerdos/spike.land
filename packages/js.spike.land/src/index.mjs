@@ -12,19 +12,16 @@ const initAndTransform = (
   origin,
 ) => transpile(code, origin, wasmModule);
 
-
 export default {
   async fetch(request) {
     const params = new URL(request.url).searchParams;
     const codeSpace = params.get("codeSpace");
 
-    const origin  = params.get("origin");
-
+    const origin = params.get("origin");
 
     if (request.method === "GET") {
       try {
-
-        const text =  await build({
+        const text = await build({
           codeSpace,
           origin: origin
             ? `https://${origin}.spike.land`
@@ -33,7 +30,7 @@ export default {
         });
 
         return new Response(
-         text
+          text,
         ),
           {
             headers: {

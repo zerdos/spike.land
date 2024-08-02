@@ -38,12 +38,15 @@ describe("useErrorHandling", () => {
   });
 
   test("debouncedTypeCheck sets typescript error for monaco engine", async () => {
-    const mockGetSemanticDiagnostics = jest.fn().mockResolvedValue([{ message: "Error" }]);
+    const mockGetSemanticDiagnostics = jest.fn().mockResolvedValue([{
+      message: "Error",
+    }]);
     const mockGetTypeScriptWorker = jest.fn().mockResolvedValue(() => ({
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
 
-    require("monaco-editor").languages.typescript.getTypeScriptWorker.mockImplementation(mockGetTypeScriptWorker);
+    require("monaco-editor").languages.typescript.getTypeScriptWorker
+      .mockImplementation(mockGetTypeScriptWorker);
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
     const initialLoadRef = { current: false };
@@ -61,7 +64,8 @@ describe("useErrorHandling", () => {
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
 
-    require("monaco-editor").languages.typescript.getTypeScriptWorker.mockImplementation(mockGetTypeScriptWorker);
+    require("monaco-editor").languages.typescript.getTypeScriptWorker
+      .mockImplementation(mockGetTypeScriptWorker);
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
     const initialLoadRef = { current: false };

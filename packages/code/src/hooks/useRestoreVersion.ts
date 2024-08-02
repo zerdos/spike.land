@@ -6,7 +6,9 @@ interface RestoreStatus {
 }
 
 export const useRestoreVersion = (codeSpace: string) => {
-  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(null);
+  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(
+    null,
+  );
 
   const restoreVersion = useCallback(async (timestamp: number) => {
     try {
@@ -17,11 +19,16 @@ export const useRestoreVersion = (codeSpace: string) => {
         body: JSON.stringify({ timestamp }),
       });
       if (!response.ok) throw new Error("Failed to restore version");
-      setRestoreStatus({ type: "success", message: "Version restored successfully!" });
+      setRestoreStatus({
+        type: "success",
+        message: "Version restored successfully!",
+      });
     } catch (err) {
       setRestoreStatus({
         type: "error",
-        message: err instanceof Error ? err.message : "An unknown error occurred",
+        message: err instanceof Error
+          ? err.message
+          : "An unknown error occurred",
       });
     }
   }, [codeSpace]);

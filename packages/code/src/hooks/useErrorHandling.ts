@@ -12,7 +12,8 @@ export const useErrorHandling = (engine: string) => {
         if (engine === "monaco") {
           const monaco = await import("monaco-editor");
           const model = monaco.editor.getModels()[0];
-          const worker = await monaco.languages.typescript.getTypeScriptWorker();
+          const worker = await monaco.languages.typescript
+            .getTypeScriptWorker();
           const client = await worker(model.uri);
           const diagnostics = await client.getSemanticDiagnostics(
             model.uri.toString(),
@@ -21,7 +22,9 @@ export const useErrorHandling = (engine: string) => {
           if (diagnostics.length > 0 && !initialLoadRef.current) {
             setErrorType("typescript");
           } else {
-            setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
+            setErrorType((prevErrorType) =>
+              prevErrorType === "typescript" ? null : prevErrorType
+            );
           }
         }
         initialLoadRef.current = false;
