@@ -1,63 +1,43 @@
-import { AIService } from "../services/AIService";
-import { LocalStorageService } from "../services/LocalStorageService";
-import { Message } from "../types/Message";
+import { AIService } from '../services/AIService';
+import axios from 'axios';
 
-// Mock the entire LocalStorageService module
-jest.mock("../services/LocalStorageService");
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("AIService", () => {
-  let aiService: AIService;
-  let localStorageService: jest.Mocked<LocalStorageService>;
+describe('AIService', () => {
+  describe('processQuery', () => {
+    it('should send a request to AI assistant API and return the response', async () => {
+      const mockQuery = 'Hello';
+      const mockCodeContext = 'console.log("Hello World");';
+      const mockResponse = { data: { suggestion: 'Hi there!' } };
+      mockedAxios.post.mockResolvedValue(mockResponse);
 
-  beforeEach(() => {
-    jest.clearAllMocks();
+      const result = await AIService.processQuery(mockQuery, mockCodeContext);
 
-    // Create a mocked instance of LocalStorageService
-    localStorageService = {
-      loadMessages: jest.fn().mockReturnValue([]),
-      saveAIInteraction: jest.fn(),
-    } as unknown as jest.Mocked<LocalStorageService>;
-
-    aiService = new AIService(localStorageService);
-  });
-
-  describe("sendToAnthropic", () => {
-    it("should send messages to Anthropic and return an assistant message", async () => {
-      const mockMessages: Message[] = [
-        { id: "1", role: "user", content: "Hello" },
-      ];
-
-      global.fetch = jest.fn().mockResolvedValue({
-        ok: true,
-        body: {
-          getReader: () => ({
-            read: jest.fn()
-              .mockResolvedValueOnce({ done: false, value: new TextEncoder().encode("Assistant") })
-              .mockResolvedValueOnce({ done: true }),
-          }),
-        },
-      } as unknown as Response);
-
-      const result = await aiService.sendToAnthropic(mockMessages);
-
-      expect(result.role).toBe("assistant");
-      expect(result.content).toBe("Assistant");
-      expect(localStorageService.saveAIInteraction).toHaveBeenCalledWith("Hello", "Assistant");
+      expect(result).toBe('Hi there!');
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        '/api/ai-assistant',
+        { query: mockQuery, codeContext: mockCodeContext }
+      );
     });
 
-    it("should throw an error when the response is not OK", async () => {
-      const mockMessages: Message[] = [
-        { id: "1", role: "user", content: "Hello" },
-      ];
+    it('should return an error message if the API request fails', async () => {
+      const mockQuery = 'Hello';
+      const mockCodeContext = 'console.log("Hello World");';
+      mockedAxios.post.mockRejectedValue(new Error('HTTP error! status: 500'));
 
-      global.fetch = jest.fn().mockResolvedValue({
-        ok: false,
-        status: 500,
-      } as Response);
+      const result = await AIService.processQuery(mockQuery, mockCodeContext);
 
-      await expect(aiService.sendToAnthropic(mockMessages)).rejects.toThrow("HTTP error! status: 500");
+      expect(result).toBe('Sorry, I encountered an error while processing your request.');
     });
   });
 
-  // Add more tests for other methods in AIService
+  describe('analyzeCodeContext', () => {
+    it('should return an analyzed context string', () => {
+      const mockCode = 'function test() { console.log("Hello World"); }';
+      const result = AIService.analyzeCodeContext(mockCode);
+
+      expect(result).toBe('Analyzed context: function test() { console.log("Hello World"); }...');
+    });
+  });
 });
