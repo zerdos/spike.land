@@ -60,7 +60,7 @@ interface IRenderApp {
 }
 
 interface RenderedApp {
-  rootElement: HTMLDivElement & { align: string };
+  rootElement?: HTMLDivElement;
   code?: string;
   rRoot: Root;
   App?: React.ComponentType<any>;
@@ -81,7 +81,7 @@ export const renderApp = async ({
   App,
 }: IRenderApp): Promise<RenderedApp | null> => {
   try {
-    const rootEl = rootElement || document.getElementById("root")
+    const rootEl = rootElement || document.getElementById("root") as HTMLDivElement
       || document.createElement("div");
     if (!document.body.contains(rootEl)) {
       rootEl.id = "root";

@@ -1,3 +1,4 @@
+import { HTML, md5 } from "@spike-land/code";
 import Env from "./env";
 
 export async function handleApiRequest(
@@ -61,4 +62,20 @@ export async function handleApiRequest(
     default:
       return new Response("Not found", { status: 404 });
   }
+
+
+  const respText = HTML;
+
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": "*",
+    "Cross-Origin-Embedder-Policy": "require-corp",
+    "Cross-Origin-Resource-Policy": "cross-origin",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cache-Control": "no-cache",
+    "Content-Encoding": "gzip",
+    "Content-Type": "text/html; charset=UTF-8",
+    "content_hash": md5(respText),
+  });
+
+  return new Response(respText, { status: 200, headers });
 }

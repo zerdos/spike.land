@@ -19,19 +19,19 @@ export async function handleFetchApi(
   }
 
   const handlers: Record<string, () => Promise<Response>> = {
-    ping: () => handlePing(),
-    websocket: () => handleWebSocket(request),
-    "files.json": () => handleFilesJson(),
-    "assetHash.json": () => handleFilesJson(false),
-    "swVersion.mjs": () => handleSwVersionResponse(path[0], ASSET_HASH),
-    "node_modules": () => handleUnpkg(path),
-    "swVersion.js": () => handleSwVersionResponse(path[0], ASSET_HASH, files),
-    "importMap.json": () => handleImportMapJson(),
-    api: () => handleApiRequest(path.slice(1), request, env),
-    ata: () => handleApiRequest(path.slice(1), request, env),
-    ipns: () => handleIpfsRequest(request),
-    ipfs: () => handleIpfsRequest(request),
-    live: () => handleLiveRequest(path, request, env),
+    ping: async () => handlePing(),
+    websocket: async () => handleWebSocket(request),
+    "files.json": async () => handleFilesJson(),
+    "assetHash.json": async () => handleFilesJson(false),
+    "swVersion.mjs": async () => handleSwVersionResponse(path[0], ASSET_HASH, undefined),
+    "node_modules": async () => handleUnpkg(path),
+    "swVersion.js": async () => handleSwVersionResponse(path[0], ASSET_HASH, files),
+    "importMap.json": async () => handleImportMapJson(),
+    api: async () => handleApiRequest(path.slice(1), request, env),
+    ata: async () => handleApiRequest(path.slice(1), request, env),
+    ipns: async () => handleIpfsRequest(request),
+    ipfs: async () => handleIpfsRequest(request),
+    live: async () => handleLiveRequest(path, request, env),
   };
 
   const handler = handlers[path[0]];
@@ -91,7 +91,7 @@ function handleImportMapJson(): Response {
   });
 }
 
-function handleSwVersionResponse(type: string, ASSET_HASH: string, files: any) {
+function handleSwVersionResponse(type: string, ASSET_HASH: string, files: unknown) {
   const content = files === undefined
     ? `export const swVersion = "${ASSET_HASH}";`
     : `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)};`;
