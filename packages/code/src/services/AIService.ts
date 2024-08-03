@@ -180,7 +180,7 @@ export class AIService {
 
           const prevMessages = this.localStorageService.loadMessages();
 
-          const answer = await this.sendToAnthropic([...prevMessages, message]);
+          const answer = await this.sendToAnthropic([...prevMessages, message], debouncedSetMessages);
           setMessages((prevMessages) => [...prevMessages, answer]);
           await this.continueWithOpenAI(
             answer.content,

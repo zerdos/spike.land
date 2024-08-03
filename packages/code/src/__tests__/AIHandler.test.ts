@@ -27,10 +27,10 @@ describe("AIHandler", () => {
     };
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
+const updates = jest.fn()
+    const result = await aiHandler.sendToAnthropic(messages, updates);
 
-    const result = await aiHandler.sendToAnthropic(messages);
-
-    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(messages);
+    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(messages, updates);
     expect(result).toEqual(expectedResponse);
   });
 
@@ -116,9 +116,10 @@ describe("AIHandler", () => {
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
 
-    const result = await aiHandler.sendToAnthropic(messages);
+    const updates = jest.fn()
+    const result = await aiHandler.sendToAnthropic(messages, updates);
 
-    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(messages);
+    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(messages, updates);
     expect(result).toEqual(expectedResponse);
   });
 

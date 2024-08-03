@@ -2,8 +2,10 @@ import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
 
+// Remove the invalid import statement
 // Mock the entire LocalStorageService module
 jest.mock("../services/LocalStorageService");
+
 
 describe("AIService", () => {
   let aiService: AIService;
@@ -27,7 +29,7 @@ describe("AIService", () => {
         { id: "1", role: "user", content: "Hello" },
       ];
 
-      global.fetch = jest.fn().mockResolvedValue({
+      globalThis.fetch = jest.fn().mockResolvedValue({
         ok: true,
         body: {
           getReader: () => ({
@@ -41,7 +43,7 @@ describe("AIService", () => {
         },
       } as unknown as Response);
 
-      const result = await aiService.sendToAnthropic(mockMessages);
+      const result = await aiService.sendToAnthropic(mockMessages, jest.fn());
 
       expect(result.role).toBe("assistant");
       expect(result.content).toBe("Assistant");
@@ -56,12 +58,12 @@ describe("AIService", () => {
         { id: "1", role: "user", content: "Hello" },
       ];
 
-      global.fetch = jest.fn().mockResolvedValue({
+      globalThis.fetch = jest.fn().mockResolvedValue({
         ok: false,
         status: 500,
       } as Response);
 
-      await expect(aiService.sendToAnthropic(mockMessages)).rejects.toThrow(
+      await expect(aiService.sendToAnthropic(mockMessages, jest.fn())).rejects.toThrow(
         "HTTP error! status: 500",
       );
     });

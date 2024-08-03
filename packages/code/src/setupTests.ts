@@ -1,4 +1,5 @@
-import { TextDecoder, TextEncoder } from "util";
+import  {TextEncoder, TextDecoder} from 'text-encoding';
+
 
 globalThis.TextEncoder = TextEncoder;
-globalThis.TextDecoder = TextDecoder as any;
+globalThis.TextDecoder = TextDecoder;

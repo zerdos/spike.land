@@ -55,14 +55,14 @@ describe("AutoSaveHistory", () => {
   };
 
   const mockOnRestore = jest.fn();
-  const mockOnClose =  jest.fn();
+  const mockOnClose =  (code: string) => {}
 
   it("renders loading state initially", async () => {
     renderWithProvider(
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={mockOnClose}
+
       />,
     );
     await screen.findByText("Loading versions...");
@@ -73,7 +73,6 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={mockOnClose}
       />,
     );
     await screen.findByText("Jul 1, 2021, 12:00 AM");
@@ -85,7 +84,6 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={mockOnClose}
       />,
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
@@ -102,7 +100,6 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={mockOnClose}
       />,
     );
     const closeButton = await screen.findByText("Close");
@@ -117,7 +114,6 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={mockOnClose}
       />,
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
