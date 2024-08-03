@@ -334,7 +334,6 @@ export class WebSocketHandler {
         }
       });
   }
-  
 
   private broadcast(msg: CodePatch | string) {
     const message = typeof msg === "string"
