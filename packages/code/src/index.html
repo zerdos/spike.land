@@ -15,10 +15,11 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="/swVersion.js"></script>
     <script defer src="/assets/tw.js"></script>
     <script type="module">
-      import("/hydrate.mjs?" + swVersion);
+      import "/hydrate.mjs";
+
+      
       const paths = location.pathname.split("/").slice(1);
       if (paths.length > 2 && paths[0]=='live') {
         const codeSpace = paths[1];

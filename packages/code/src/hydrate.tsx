@@ -1,16 +1,14 @@
 import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { createRoot } from "react-dom/client";
-import { getTransferables, hasTransferables } from "transferables";
 import { Workbox } from "workbox-window";
 import { mkdir } from "./memfs";
-import { getPort, init } from "./shared";
 
-import { swVersion } from "@src/swVersion";
 import { wait } from "./wait";
 import { renderApp } from "./Wrapper";
+import { runTests, deleteAllServiceWorkers } from "./swUtils";
 
-const paths = location.pathname.split("/");
+const paths = location.pathname.split("/"); 
 const codeSpace = paths[2];
 
 // Setup BroadcastChannel
@@ -18,7 +16,6 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 // Handle non-live routes
 import React from "react";
-
 async function handleNonLiveRoutes() {
   if (paths[1] !== "live") {
     if (location.pathname === "/") {
@@ -33,6 +30,7 @@ async function handleNonLiveRoutes() {
       );
     }
   }
+  return; // Add a return statement at the end of the function
 }
 
 // Setup Service Worker
@@ -52,9 +50,15 @@ async function setupServiceWorker() {
 
 // Initialize the application
 async function initializeApp() {
+  await deleteAllServiceWorkers()
+
+
   await handleNonLiveRoutes();
-  const sw = await setupServiceWorker();
-  sw?.messageSkipWaiting();
+  // deleteAllServiceWorkers()
+
+  // const sw = await setupServiceWorker();
+  // sw?.messageSkipWaiting();
+  // runTests();
 }
 
 initializeApp();
@@ -135,7 +139,7 @@ function handleDefaultPage() {
         }))!;
         const { rootElement, cssCache } = rendered;
 
-        await handleRender(rootElement, cssCache, signal, mod);
+        await handleRender(rootElement!, cssCache, signal, mod);
       });
     }
     return false;
