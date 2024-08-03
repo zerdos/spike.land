@@ -3576,7 +3576,7 @@ __metadata:
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
-    "@types/text-encoding": "npm:^0"
+    "@types/text-encoding": "npm:^0.0.39"
     "@types/uuid": "npm:10.0.0"
     "@types/wicg-file-system-access": "npm:2023.10.5"
     "@types/workbox-sw": "npm:^4.3.7"
@@ -4352,7 +4352,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/text-encoding@npm:^0":
+"@types/text-encoding@npm:^0.0.39":
   version: 0.0.39
   resolution: "@types/text-encoding@npm:0.0.39"
   checksum: 10/a310f06c27f7848661114534e6e48927f47f5b32d2aa30a6ee668aba3a0c747c3b24069a1e0286415767956760cacf5173902728396223a2128be4b9ec415790
