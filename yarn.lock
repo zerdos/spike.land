@@ -3395,6 +3395,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sec-ant/readable-stream@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@sec-ant/readable-stream@npm:0.4.1"
+  checksum: 10/aac89581652ac85debe7c5303451c2ebf8bf25ca25db680e4b9b73168f6940616d9a4bbe3348981827b1159b14e2f2e6af4b7bd5735cac898c12d5c51909c102
+  languageName: node
+  linkType: hard
+
 "@shadcn/ui@npm:^0.0.4":
   version: 0.0.4
   resolution: "@shadcn/ui@npm:0.0.4"
@@ -3574,7 +3581,7 @@ __metadata:
     "@types/workbox-sw": "npm:^4.3.7"
     "@typescript-eslint/eslint-plugin": "npm:^8.0.0"
     "@typescript-eslint/typescript-estree": "npm:8.0.0"
-    "@typescript/ata": "npm:^0.9.6"
+    "@typescript/ata": "npm:^0.9.7"
     "@visx/responsive": "npm:^3.10.2"
     ace-builds: "npm:1.35.4"
     ai-digest: "npm:^1.0.4"
@@ -3600,7 +3607,7 @@ __metadata:
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
-    file-type: "npm:19.3.0"
+    file-type: "npm:19.4.0"
     framer-motion: "npm:11.3.21"
     i18next: "npm:^23.12.2"
     immutable: "npm:4.3.7"
@@ -3624,9 +3631,9 @@ __metadata:
     qrious: "npm:4.0.2"
     re-resizable: "npm:^6.9.17"
     react: "npm:18.3.1"
-    react-day-picker: "npm:8.10.1"
+    react-day-picker: "npm:9.0.6"
     react-dom: "npm:18.3.1"
-    react-hook-form: "npm:^7.52.1"
+    react-hook-form: "npm:^7.52.2"
     react-i18next: "npm:^15.0.0"
     react-icons: "npm:5.2.1"
     react-live: "npm:4.1.7"
@@ -3635,7 +3642,7 @@ __metadata:
     react-refresh: "npm:0.14.2"
     react-resizable-panels: "npm:^2.0.22"
     react-reverse-portal: "npm:2.1.2"
-    react-rnd: "npm:10.4.11"
+    react-rnd: "npm:10.4.12"
     react-syntax-highlighter: "npm:^15.5.0"
     react-use: "npm:^17.5.1"
     recharts: "npm:^2.12.7"
@@ -4691,12 +4698,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript/ata@npm:^0.9.6":
-  version: 0.9.6
-  resolution: "@typescript/ata@npm:0.9.6"
+"@typescript/ata@npm:^0.9.7":
+  version: 0.9.7
+  resolution: "@typescript/ata@npm:0.9.7"
   peerDependencies:
     typescript: ">=4.4.4"
-  checksum: 10/4f410a61a966e0305d72912e6966fcac00237acf8501f86f325dad7e707423463a69c878fd4a3f49c7eae6bad7ab1ba47f482daeca7a26efbd9077c65c16e8e2
+  checksum: 10/e0a75310cf227998079a370553e8c6b01a4165eaec95279c3f7deeb78eb9babff9fa5824d58b800f7ebbeb44f9728e56fc5bbb2d4d61294188571d5f2b2f9f55
   languageName: node
   linkType: hard
 
@@ -4813,9 +4820,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.1.0":
-  version: 4.1.1
-  resolution: "@yarnpkg/core@npm:4.1.1"
+"@yarnpkg/core@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@yarnpkg/core@npm:4.1.2"
   dependencies:
     "@arcanis/slice-ansi": "npm:^1.1.1"
     "@types/semver": "npm:^7.1.0"
@@ -4826,7 +4833,7 @@ __metadata:
     "@yarnpkg/shell": "npm:^4.0.2"
     camelcase: "npm:^5.3.1"
     chalk: "npm:^3.0.0"
-    ci-info: "npm:^3.2.0"
+    ci-info: "npm:^4.0.0"
     clipanion: "npm:^4.0.0-rc.2"
     cross-spawn: "npm:7.0.3"
     diff: "npm:^5.1.0"
@@ -4843,7 +4850,7 @@ __metadata:
     treeify: "npm:^1.1.0"
     tslib: "npm:^2.4.0"
     tunnel: "npm:^0.0.6"
-  checksum: 10/f4b52a9c568e28c5ffb43699c09662908ce42b321a0956b34167532b759fa6bb8c953ee8832738b7e7d544f15b7794349a29832f3611ef83a62f622fc111f7c1
+  checksum: 10/ec7d02e00e776d171fb9b13c49437b2a5489e131a2b7b11a219574caf9794dc02241981aaa816d80e957f7f33c9f63849ed761b4208e31b2ddf9e6408d3b8037
   languageName: node
   linkType: hard
 
@@ -4879,11 +4886,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/sdks@npm:3.1.3":
-  version: 3.1.3
-  resolution: "@yarnpkg/sdks@npm:3.1.3"
+"@yarnpkg/sdks@npm:3.2.0":
+  version: 3.2.0
+  resolution: "@yarnpkg/sdks@npm:3.2.0"
   dependencies:
-    "@yarnpkg/core": "npm:^4.1.0"
+    "@yarnpkg/core": "npm:^4.1.2"
     "@yarnpkg/fslib": "npm:^3.1.0"
     "@yarnpkg/parsers": "npm:^3.0.2"
     chalk: "npm:^3.0.0"
@@ -4893,7 +4900,7 @@ __metadata:
     tslib: "npm:^2.4.0"
   bin:
     sdks: ./lib/cli.js
-  checksum: 10/462365e86c1ad0b65198e6afec5e88f19140d535677f2141f6ea9cb6db767f8103b98e38a444182404c74aeb78fe492b97a168ccc257748f6890285dc1bf2640
+  checksum: 10/36890284ce523b6766300234f4006998d5b747fbfc3846f4d8bc14ccaecbd0ce11f03243994bdc279b28233a04e4010fc9c8add314c5ef9d7244563177fea34b
   languageName: node
   linkType: hard
 
@@ -8269,14 +8276,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-type@npm:19.3.0":
-  version: 19.3.0
-  resolution: "file-type@npm:19.3.0"
+"file-type@npm:19.4.0":
+  version: 19.4.0
+  resolution: "file-type@npm:19.4.0"
   dependencies:
+    get-stream: "npm:^9.0.1"
     strtok3: "npm:^8.0.0"
     token-types: "npm:^6.0.0"
     uint8array-extras: "npm:^1.3.0"
-  checksum: 10/4b3a4ca36eef2620d33add81f7f6737eda00da4319ecfd984055a62c42e8effce77113fd3e1b712adf0313e392b145f529bb719b708379d2d33fe9b7a44601d3
+  checksum: 10/cb39020680504b22ef533d080882dec48861e1a0bca38c3feb856507ef2f2edfe35322bd3033565a8e12388c5c3ecc097b92381f03452ffcaf6a3d8d055373a3
   languageName: node
   linkType: hard
 
@@ -8733,6 +8741,16 @@ __metadata:
   version: 8.0.1
   resolution: "get-stream@npm:8.0.1"
   checksum: 10/dde5511e2e65a48e9af80fea64aff11b4921b14b6e874c6f8294c50975095af08f41bfb0b680c887f28b566dd6ec2cb2f960f9d36a323359be324ce98b766e9e
+  languageName: node
+  linkType: hard
+
+"get-stream@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "get-stream@npm:9.0.1"
+  dependencies:
+    "@sec-ant/readable-stream": "npm:^0.4.1"
+    is-stream: "npm:^4.0.1"
+  checksum: 10/ce56e6db6bcd29ca9027b0546af035c3e93dcd154ca456b54c298901eb0e5b2ce799c5d727341a100c99e14c523f267f1205f46f153f7b75b1f4da6d98a21c5e
   languageName: node
   linkType: hard
 
@@ -9951,6 +9969,13 @@ __metadata:
   version: 3.0.0
   resolution: "is-stream@npm:3.0.0"
   checksum: 10/172093fe99119ffd07611ab6d1bcccfe8bc4aa80d864b15f43e63e54b7abc71e779acd69afdb854c4e2a67fdc16ae710e370eda40088d1cfc956a50ed82d8f16
+  languageName: node
+  linkType: hard
+
+"is-stream@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "is-stream@npm:4.0.1"
+  checksum: 10/cbea3f1fc271b21ceb228819d0c12a0965a02b57f39423925f99530b4eb86935235f258f06310b67cd02b2d10b49e9a0998f5ececf110ab7d3760bae4055ad23
   languageName: node
   linkType: hard
 
@@ -12006,7 +12031,7 @@ __metadata:
     "@types/react-dom": "npm:18.3.0"
     "@typescript-eslint/eslint-plugin": "npm:8.0.0"
     "@typescript-eslint/parser": "npm:8.0.0"
-    "@yarnpkg/sdks": "npm:3.1.3"
+    "@yarnpkg/sdks": "npm:3.2.0"
     dprint: "npm:0.47.2"
     eslint: "npm:9.8.0"
     eslint-plugin-react: "npm:7.35.0"
@@ -13337,13 +13362,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:8.10.1":
-  version: 8.10.1
-  resolution: "react-day-picker@npm:8.10.1"
+"react-day-picker@npm:9.0.6":
+  version: 9.0.6
+  resolution: "react-day-picker@npm:9.0.6"
+  dependencies:
+    date-fns: "npm:^3.6.0"
   peerDependencies:
-    date-fns: ^2.28.0 || ^3.0.0
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/374056dca7fed70a154a3b0e98c6c746c26b4fc868548fa8f285ef3cab9679537e84c0c21ba7b6db67b3f7f54cc562f5d83efba2c7f2c7bd3705ac8992869607
+    react: ">=16.8.0"
+  checksum: 10/0c1f6af6a912cec3cf811fb09383d756e5af2f7565b4bf68625f77ab659a887b0f62afbd60d8836215162dd993404cf8a59ef0aaf0617e0dab51892202e4be02
   languageName: node
   linkType: hard
 
@@ -13372,12 +13398,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.52.1":
-  version: 7.52.1
-  resolution: "react-hook-form@npm:7.52.1"
+"react-hook-form@npm:^7.52.2":
+  version: 7.52.2
+  resolution: "react-hook-form@npm:7.52.2"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10/5d117cb767114749163f3c52cc09e6dbefca8b450c91abe9958884b4df505a44f0b088046d1c98504bfcd5d4104126cfeb8917c25cb25b0610d89f713b4b2080
+  checksum: 10/91a738881d9463fb73794374a5aec17b3fac41aac92ddf64ccfa205fd2ebc211376a6a41a8c579fd256cda4aae4d64b0c1f3e872e361b9673edef5e2f0b75c35
   languageName: node
   linkType: hard
 
@@ -13555,9 +13581,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-rnd@npm:10.4.11":
-  version: 10.4.11
-  resolution: "react-rnd@npm:10.4.11"
+"react-rnd@npm:10.4.12":
+  version: 10.4.12
+  resolution: "react-rnd@npm:10.4.12"
   dependencies:
     re-resizable: "npm:6.9.17"
     react-draggable: "npm:4.4.6"
@@ -13565,7 +13591,7 @@ __metadata:
   peerDependencies:
     react: ">=16.3.0"
     react-dom: ">=16.3.0"
-  checksum: 10/b1362efc490e593c336ceb8c4b19ce266976f96c7a4fcef4e06703f12a16731fbc50143f5bf6532d9262603f6ef81d740747a62c06c2ec372089947d96cd98e4
+  checksum: 10/f29429a9ceafdf19c3b50571882c36eee29430a22d526fe2aaf641e38146e1bf5a1337639e0c9eba7c6ddaa85721cff9f390cf8d807a62634a27a77e49e2653c
   languageName: node
   linkType: hard
 
