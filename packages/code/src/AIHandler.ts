@@ -10,8 +10,8 @@ class AIHandler {
     this.aiService = aiService || new AIService(localStorageService);
   }
 
-  async sendToAnthropic(messages: Message[]): Promise<Message> {
-    return this.aiService.sendToAnthropic(messages);
+  async sendToAnthropic(messages: Message[], onUpdate: (code: string)=>void): Promise<Message> {
+    return this.aiService.sendToAnthropic(messages, onUpdate);
   }
 
   async continueWithOpenAI(

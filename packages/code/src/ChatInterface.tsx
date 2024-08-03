@@ -185,7 +185,13 @@ const ChatInterface: React.FC<
 
       try {
         console.log("Sending message to Anthropic...");
-        const assistantMessage = await aiHandler.sendToAnthropic(messages);
+        const sentMSGs = [...messages];
+
+
+        const onUpd = (code: string) =>{
+          __setMessages([...sentMSGs, { id: Date.now().toString(), role: "assistant", content: code }])
+        };
+        const assistantMessage = await aiHandler.sendToAnthropic(messages, onUpd);
         console.log("Received assistant message:", assistantMessage);
         messages.push(assistantMessage);
         saveMessages(messages);
