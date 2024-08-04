@@ -49,7 +49,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = useCallback((formattedCode: string) => {
+  const setEditorContent = useCallback((formattedCode: string, ignoreSignals= false) => {
+    if (ignoreSignals) {
+      return editorState.setValue(formattedCode);
+    }
     const lastSignal = mod.current.controller.signal;
     setTimeout(() => {
       if (lastSignal.aborted) return;
