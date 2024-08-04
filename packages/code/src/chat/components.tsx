@@ -140,11 +140,16 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   );
 };
 
-export const MessageInput: React.FC<MessageInputProps> = (
-  { input, setInput, handleSendMessage, isStreaming, inputRef },
-) => (
-  <div className="p-4 bg-background mt-auto">
-    <div className="flex flex-col space-y-2">
+
+export const MessageInput: React.FC<MessageInputProps> = ({
+  input,
+  setInput,
+  handleSendMessage,
+  isStreaming,
+  inputRef,
+}) => (
+  <div className="p-2 bg-background mt-auto">
+    <div className="flex items-end space-x-2">
       <Textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -155,16 +160,15 @@ export const MessageInput: React.FC<MessageInputProps> = (
           }
         }}
         placeholder="Type a message..."
-        className="flex-1 min-h-[100px] resize-none"
+        className="flex-1 min-h-[40px] max-h-[120px] resize-none"
         ref={inputRef}
       />
       <Button
         onClick={() => handleSendMessage(input)}
         disabled={isStreaming || input.trim() === ""}
-        className="self-end"
+        size="icon"
       >
-        <Send className="h-4 w-4 mr-2" />
-        Send
+        <Send className="h-4 w-4" />
       </Button>
     </div>
   </div>

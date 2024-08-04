@@ -180,7 +180,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     <Rnd
       enableResizing
       disableDragging
-      minWidth={800}
+      minWidth={engine==="ace"?window.innerWidth:800}
       minHeight="100vh"
       bounds="body"
       allowAnyClick
@@ -194,7 +194,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       default={{
         x: 0,
         y: 0,
-        width: 800,
+        width: engine==="ace"?window.innerWidth:800,
         height: window.innerHeight,
       }}
       style={{ height: "100vh" }}
