@@ -7,6 +7,7 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Editor } from "../components/Editor";
+import { runner as mockRunner } from "../runner";
 
 import   { useBroadcastChannel }  from "../hooks/useBroadcastChannel";
  
@@ -30,7 +31,7 @@ describe("Editor Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    global.cSess = {
+    globalThis.cSess = {
       session: {
         i: "0",
         code: "initial code",
@@ -93,7 +94,6 @@ describe("Editor Component", () => {
   });
 
   test("handles transpile errors correctly", async () => {
-    const mockRunner = require("../runner").runner;
     mockRunner.mockRejectedValueOnce(new Error("Transpile error"));
 
     render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);

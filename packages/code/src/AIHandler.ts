@@ -17,7 +17,6 @@ class AIHandler {
   async continueWithOpenAI(
     fullResponse: string,
     currentCode: string,
-    nextCounter: number,
     onCodeUpdate: (code: string) => void,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
@@ -26,7 +25,6 @@ class AIHandler {
     return this.aiService.continueWithOpenAI(
       fullResponse,
       currentCode,
-      nextCounter,
       onCodeUpdate,
       setMessages,
       setAICode,

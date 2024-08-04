@@ -63,7 +63,6 @@ export class AIService {
   async continueWithOpenAI(
     fullResponse: string,
     codeNow: string,
-    nextCounter: number,
     onCodeUpdate: (code: string) => void,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
@@ -185,7 +184,6 @@ export class AIService {
           await this.continueWithOpenAI(
             answer.content,
             modifiedCode,
-            nextCounter,
             onCodeUpdate,
             setMessages,
             setAICode,

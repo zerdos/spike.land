@@ -3,6 +3,8 @@ import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
+import { handleReplicateRequest } from "./replicateHandler";
+
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -18,15 +20,12 @@ export default {
       await logger.log(`Request for ${request.url}`);
       return handleGPT4Request(request, env, ctx);
     }
-    if (request.url.includes("/my-kv-cms/")) {
-      // ("2022-01-01"
-      const today = new Date().toISOString().split("T")[0];
-      const value = logger.getLogs(today);
+    if (request.url.includes("replicate")){
+      await  logger.log(`Request for ${request.url}`);
+      return handleReplicateRequest(request, env, ctx);
 
-      Object.assign(value, { today });
-
-      return new Response(JSON.stringify(value));
     }
+  
     if (request.url.includes("/my-cms/")) {
       return handleCMSIndexRequest(request, env);
     }

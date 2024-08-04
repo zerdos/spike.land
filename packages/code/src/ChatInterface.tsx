@@ -1,354 +1,294 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import AiHandler from "./AIHandler";
 import { ChatFC, Message } from "./ChatDrawer";
 import { prettierToThrow } from "./shared";
 import { replacePreservingWhitespace } from "./replacePreservingWhitespace";
+import { debounce } from "lodash";
 
-const getCodeSpace = (): string => {
-  return location.pathname.slice(1).split("/")[1];
-};
-
+const getCodeSpace = (): string => location.pathname.slice(1).split("/")[1];
 const codeSpace = getCodeSpace();
 
-const extractCodeModification = (response: string) => {
+const extractCodeModification = (response: string): string => {
   const regex = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
-  const matches = response.match(regex);
-  return matches ? matches.join("\n\n") : "";
+  return response.match(regex)?.join("\n\n") || "";
 };
 
 const aiHandler = new AiHandler(codeSpace);
-const loadMessages = () =>
-  JSON.parse(
-    localStorage.getItem(`chatMessages-${codeSpace}`) ?? "[]",
-  ) as Message[];
+const loadMessages = (): Message[] => JSON.parse(localStorage.getItem(`chatMessages-${codeSpace}`) || "[]");
 
-// Main Component: ChatInterface
-const ChatInterface: React.FC<
-  { onCodeUpdate: (code: string) => void; isOpen: boolean; onClose: () => void }
-> = React.memo(
-  (
-    { onCodeUpdate, onClose, isOpen }: {
-      onCodeUpdate: (_code: string) => void;
-      isOpen: boolean;
-      onClose: () => void;
-    },
-  ) => {
-    const [messages, __setMessages] = useState<Message[]>(loadMessages());
-    const [input, setInput] = useState("");
-    const [isStreaming, setIsStreaming] = useState(false);
-    const [codeWhatAiSeen, setAICode] = useState("");
-    const [editingMessageId, setEditingMessageId] = useState<string | null>(
-      null,
-    );
-    const [editInput, setEditInput] = useState("");
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLTextAreaElement>(null);
-    const broadcastChannel = useRef<BroadcastChannel | null>(null);
+const ChatInterface: React.FC<{
+  onCodeUpdate: (code: string) => void;
+  isOpen: boolean;
+  onClose: () => void;
+}> = React.memo(({ onCodeUpdate, onClose, isOpen }) => {
+  const [messages, setMessages] = useState<Message[]>(loadMessages());
+  const [input, setInput] = useState("");
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [codeWhatAiSeen, setAICode] = useState("");
+  const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
+  const [editInput, setEditInput] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const broadcastChannel = useRef<BroadcastChannel | null>(null);
 
-    useEffect(() => {
-      const storedMode = localStorage.getItem("darkMode");
-      setIsDarkMode(storedMode === "true");
-      const BroadcastChannel = globalThis.BroadcastChannel;
+  useEffect(() => {
+    setIsDarkMode(localStorage.getItem("darkMode") === "true");
+    broadcastChannel.current = new BroadcastChannel("chat_sync");
+    broadcastChannel.current.onmessage = handleBroadcastMessage;
+    window.addEventListener("storage", handleStorageChange);
 
-      broadcastChannel.current = new BroadcastChannel("chat_sync");
-      broadcastChannel.current.onmessage = (event) => {
-        if (event.data.type === `update_messages-${codeSpace}`) {
-          __setMessages(event.data.messages);
-        } else if (event.data.type === `update_dark_mode-${codeSpace}`) {
-          setIsDarkMode(event.data.isDarkMode);
-        }
-      };
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      broadcastChannel.current?.close();
+    };
+  }, []);
 
-      window.addEventListener("storage", handleStorageChange);
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
 
-      return () => {
-        window.removeEventListener("storage", handleStorageChange);
-        broadcastChannel.current?.close();
-      };
-    }, []);
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
-    useEffect(() => {
-      if (isDarkMode) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }, [isDarkMode]);
+  const handleBroadcastMessage = (event: MessageEvent) => {
+    if (event.data.type === `update_messages-${codeSpace}`) {
+      setMessages(event.data.messages);
+    } else if (event.data.type === `update_dark_mode-${codeSpace}`) {
+      setIsDarkMode(event.data.isDarkMode);
+    }
+  };
 
-    useEffect(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+  const handleStorageChange = (event: StorageEvent) => {
+    if (event.key === `chatMessages-${codeSpace}`) {
+      setMessages(loadMessages());
+    } else if (event.key === "darkMode") {
+      setIsDarkMode(event.newValue === "true");
+    }
+  };
 
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === `chatMessages-${codeSpace}`) {
-        loadMessages();
-      } else if (event.key === "darkMode") {
-        setIsDarkMode(event.newValue === "true");
-      }
+  const saveMessages = useCallback((newMessages: Message[]) => {
+    localStorage.setItem(`chatMessages-${codeSpace}`, JSON.stringify(newMessages));
+    broadcastChannel.current?.postMessage({
+      type: `update_messages-${codeSpace}`,
+      messages: newMessages,
+    });
+    setMessages(newMessages);
+  }, []);
+
+  const handleSendMessage = useCallback(async (content: string) => {
+    if (!content.trim()) return;
+
+    const { code, i } = await fetch(`/live/${codeSpace}/session.json`).then(res => res.json<{i: number, code: string}>());
+    const codeNow = await prettierToThrow({ code, toThrow: true });
+
+    await fetch(`/live/${codeSpace}/auto-save`);
+
+    const messages = loadMessages();
+    const claudeContent = aiHandler.prepareClaudeContent(content, messages, codeNow, codeSpace);
+
+    if (messages.length === 0 || codeNow !== codeWhatAiSeen) {
+      setAICode(codeNow);
+    }
+
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      role: "user",
+      content: claudeContent.trim(),
     };
 
-    const saveMessages = useCallback((newMessages: Message[]) => {
-      localStorage.setItem(
-        `chatMessages-${codeSpace}`,
-        JSON.stringify(newMessages),
-      );
-      broadcastChannel.current?.postMessage({
-        type: `update_messages-${codeSpace}`,
-        messages: newMessages,
+    if (messages[messages.length - 1]?.role === "user") {
+      messages.push({
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "Sorry, something went wrong. Please try again.",
       });
-      __setMessages(newMessages);
-    }, []);
+    }
 
-    const handleSendMessage = useCallback(async (content: string) => {
-      console.log("handleSendMessage called with content:", content);
-      if (!content.trim()) return;
+    messages.push(newMessage);
+    saveMessages(messages);
 
-      console.log("Fetching session data...");
-      const { code, i }: { code: string; i: number } = await fetch(
-        `/live/${codeSpace}/session.json`,
-      ).then((res) => res.json());
-      console.log("Fetched session data:", { code, i });
+    setInput("");
+    setIsStreaming(true);
 
-      console.log("Formatting code with prettier...");
-      const codeNow = await prettierToThrow({ code, toThrow: true });
-      console.log("Formatted code:", codeNow);
+    try {
+      const sentMSGs = [...messages];
+      let preUps = { last: -1, lastCode: codeNow , count: 0 };
 
-      const nextCounter = i + 1;
-      console.log("Next counter:", nextCounter);
+      const onUpd = (code: string) => {
+        const lastChunk = code.slice(preUps.last + 10);
+        if (lastChunk.includes('>>>>>>> REPLACE')) {
+          console.table({ lastChunk, processed:  preUps.last, len: code.length });
+        
+          const nstr = code.slice(preUps.last + 1);
+          preUps.last = lastChunk.indexOf('>>>>>>> REPLACE') + preUps.last + 10;
+          const lastCode = updateSearchReplace(nstr, preUps.lastCode);
 
-      console.log("Triggering auto-save...");
-      await fetch(`/live/${codeSpace}/auto-save`);
-
-      console.log("Loading messages...");
-      const messages = loadMessages();
-      console.log("Loaded messages:", messages);
-
-      console.log("Preparing Claude content...");
-      const claudeContent = aiHandler.prepareClaudeContent(
-        content,
-        messages,
-        codeNow,
-        codeSpace,
-      );
-      console.log("Prepared Claude content:", claudeContent);
-
-      if (messages.length == 0 || codeNow !== codeWhatAiSeen) {
-        console.log("Updating AI code...");
-        setAICode(codeNow);
-      }
-
-      const newMessage: Message = {
-        id: Date.now().toString(),
-        role: "user",
-        content: claudeContent.trim(),
+          if (lastCode !== preUps.lastCode) {
+            preUps.lastCode = lastCode;
+            preUps.count += 1;
+            prettierToThrow({ code: lastCode, toThrow: true }).then((code) => onCodeUpdate(code));
+          }
+        }
+        setMessages([...sentMSGs, { id: Date.now().toString(), role: "assistant", content: code }]);
       };
-      console.log("New message:", newMessage);
+      const debpunced = debounce(onUpd, 200)
 
-      if (messages[messages.length - 1]?.role === "user") {
-        console.log("Adding error message due to consecutive user messages");
-        messages.push({
-          "id": (Date.now() + 1).toString(),
-          "role": "assistant",
-          "content": "Sorry, something went wrong. Please try again.",
-        });
-      }
-
-      messages.push(newMessage);
-      console.log("Updated messages:", messages);
-
-      console.log("Saving messages...");
+      const assistantMessage = await aiHandler.sendToAnthropic(messages, debpunced);
+      messages.push(assistantMessage);
       saveMessages(messages);
 
-      setInput("");
-      setIsStreaming(true);
-      console.log("Streaming started");
+      try{
+      const starterCode =  updateSearchReplace(assistantMessage.content, codeNow);
+      if (starterCode !== codeNow) {
+        const formattedCode = await prettierToThrow({ code: starterCode, toThrow: true });
+       
+        onCodeUpdate(formattedCode);
 
-      try {
-        console.log("Sending message to Anthropic...");
-        const sentMSGs = [...messages];
+        if (assistantMessage.content.includes("```")) {
+          const fromTheLastReplace = assistantMessage.content.split(">>>>>>> REPLACE\n").pop()!;
 
+          await aiHandler.continueWithOpenAI(
+            fromTheLastReplace,
+            formattedCode,
+            onCodeUpdate,
+            setMessages,
+            setAICode,
+          );
 
-        const onUpd = (code: string) =>{
-          __setMessages([...sentMSGs, { id: Date.now().toString(), role: "assistant", content: code }])
-        };
-        const assistantMessage = await aiHandler.sendToAnthropic(messages, onUpd);
-        console.log("Received assistant message:", assistantMessage);
-        messages.push(assistantMessage);
-        saveMessages(messages);
-
-        if (assistantMessage.content.includes("<<<<<<< SEARCH")) {
-          console.log("Code modification detected in assistant message");
-          try {
-            let starterCode = codeNow;
-            console.log("Extracting code modifications...");  
-            const codeToReplace = extractCodeModification(
-              assistantMessage.content,
-            );
-            console.log("Extracted code to replace:", codeToReplace);
-
-            const modz =
-              codeToReplace.split(">>>>>>> REPLACE\n\n<<<<<<< SEARCH") ||
-              [codeToReplace];
-
-            const modifications = modz.filter((mod) =>
-              mod.includes("=======") || mod.includes(">>>>>>> REPLACE") ||
-              mod.includes("<<<<<<< SEARCH")
-            ).map((mod) =>
-              mod.split(">>>>>>> REPLACE").join("").split("<<<<<<< SEARCH")
-                .join("")
-            );
-
-            console.log("Parsed modifications:", modifications);
-
-            modifications.forEach((modification, index) => {
-              console.log(`Applying modification ${index + 1}:`, modification);
-              const [search, replaced] = modification.split("=======\n");
-              console.log("Search:", search);
-              console.log("Replace:", replaced);
-              const before = starterCode;
-             const after = replacePreservingWhitespace(
-                starterCode,
-                search.trim(),
-                replaced,
-              );
-              starterCode = after;
-              if (before === after) {
-                const beforeAfter = { before, after };
-                console.error("Code didn't change after modification", {search, replaced, beforeAfter });
-                // console.error();
-                // throw new Error("Code didn't change after modification");
-              }
-            });
-
-            console.log("Formatting modified code...");
-            console.log("Unformatted code:", starterCode);
-            starterCode = await prettierToThrow({
-              code: starterCode,
-              toThrow: true,
-            });
-            console.log("Formatted modified code:", starterCode);
-            console.log("Updating code...");
-            i;
-            setIsStreaming(false);
-            if (starterCode !== codeNow) onCodeUpdate(starterCode);
-            console.log("Code didn't change, not updating");
-          } catch (error) {
-            console.error("Error during code modification:", error);
-          }
-          return;
         }
-
-        console.log("Continuing with OpenAI...");
-        await aiHandler.continueWithOpenAI(
-          assistantMessage.content,
-          codeNow,
-          nextCounter,
-          onCodeUpdate,
-          __setMessages,
-          setAICode,
-        );
-      } catch (error) {
-        console.error("Error processing request with Claude:", error);
-        messages.push({
-          "id": (Date.now() + 1).toString(),
-          "role": "assistant",
-          "content":
-            "Sorry, there was an error processing your request with Claude.",
-        });
         saveMessages(messages);
+        setIsStreaming(false);
+        return;
       }
+    } catch (error) {
+      console.error("Error during code modification:", error);
+    }
 
-      setIsStreaming(false);
-      console.log("Streaming ended");
-    }, [codeWhatAiSeen, onCodeUpdate]);
-
-    const handleResetChat = useCallback(() => {
-      __setMessages([]);
-      localStorage.removeItem(`chatMessages-${codeSpace}`);
-      broadcastChannel.current?.postMessage({
-        type: `update_messages-${codeSpace}`,
-        messages: [],
-      });
-    }, []);
-
-    const handleEditMessage = useCallback((messageId: string) => {
-      const messageToEdit = messages.find((msg) => msg.id === messageId);
-      if (messageToEdit) {
-        setEditingMessageId(messageId);
-        setEditInput(messageToEdit.content);
-      }
-    }, [messages]);
-
-    const handleCancelEdit = useCallback(() => {
-      setEditingMessageId(null);
-      setEditInput("");
-    }, []);
-
-    const handleSaveEdit = useCallback((messageId: string) => {
-      const updatedMessages = messages.map((msg) =>
-        msg.id === messageId ? { ...msg, content: editInput } : msg
+      await aiHandler.continueWithOpenAI(
+        assistantMessage.content,
+        codeNow,
+        onCodeUpdate,
+        setMessages,
+        setAICode,
       );
-      __setMessages(updatedMessages);
-      saveMessages(updatedMessages);
-      setEditingMessageId(null);
-      setEditInput("");
-    }, [messages, editInput, saveMessages]);
-
-    const toggleDarkMode = useCallback(() => {
-      const newMode = !isDarkMode;
-      setIsDarkMode(newMode);
-      localStorage.setItem("darkMode", newMode.toString());
-      broadcastChannel.current?.postMessage({
-        type: `update_dark_mode-${codeSpace}`,
-        isDarkMode: newMode,
+    } catch (error) {
+      console.error("Error processing request with Claude:", error);
+      messages.push({
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "Sorry, there was an error processing your request with Claude.",
       });
-    }, [isDarkMode]);
+      saveMessages(messages);
+    }
 
-    const memoizedChatFCProps = useMemo(() => ({
-      isOpen,
-      onClose,
-      handleEditMessage,
-      handleResetChat,
-      handleSaveEdit,
-      handleSendMessage,
-      isStreaming,
-      messages,
-      messagesEndRef,
-      isDarkMode,
-      toggleDarkMode,
-      editingMessageId,
-      editInput,
-      setEditInput,
-      input,
-      setInput,
-      inputRef,
-      handleCancelEdit,
-    }), [
-      isOpen,
-      onClose,
-      handleEditMessage,
-      handleResetChat,
-      handleSaveEdit,
-      handleSendMessage,
-      isStreaming,
-      messages,
-      isDarkMode,
-      toggleDarkMode,
-      editingMessageId,
-      editInput,
-      input,
-      handleCancelEdit,
-    ]);
+    setIsStreaming(false);
+  }, [codeWhatAiSeen, onCodeUpdate, saveMessages]);
 
-    return <ChatFC {...memoizedChatFCProps} />;
-  },
-);
+  const handleResetChat = useCallback(() => {
+    setMessages([]);
+    localStorage.removeItem(`chatMessages-${codeSpace}`);
+    broadcastChannel.current?.postMessage({
+      type: `update_messages-${codeSpace}`,
+      messages: [],
+    });
+  }, []);
+
+  const handleEditMessage = useCallback((messageId: string) => {
+    const messageToEdit = messages.find((msg) => msg.id === messageId);
+    if (messageToEdit) {
+      setEditingMessageId(messageId);
+      setEditInput(messageToEdit.content);
+    }
+  }, [messages]);
+
+  const handleCancelEdit = useCallback(() => {
+    setEditingMessageId(null);
+    setEditInput("");
+  }, []);
+
+  const handleSaveEdit = useCallback((messageId: string) => {
+    const updatedMessages = messages.map((msg) =>
+      msg.id === messageId ? { ...msg, content: editInput } : msg
+    );
+    setMessages(updatedMessages);
+    saveMessages(updatedMessages);
+    setEditingMessageId(null);
+    setEditInput("");
+  }, [messages, editInput, saveMessages]);
+
+  const toggleDarkMode = useCallback(() => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem("darkMode", newMode.toString());
+    broadcastChannel.current?.postMessage({
+      type: `update_dark_mode-${codeSpace}`,
+      isDarkMode: newMode,
+    });
+  }, [isDarkMode]);
+
+  const memoizedChatFCProps = useMemo(() => ({
+    isOpen,
+    onClose,
+    handleEditMessage,
+    handleResetChat,
+    handleSaveEdit,
+    handleSendMessage,
+    isStreaming,
+    messages,
+    messagesEndRef,
+    isDarkMode,
+    toggleDarkMode,
+    editingMessageId,
+    editInput,
+    setEditInput,
+    input,
+    setInput,
+    inputRef,
+    handleCancelEdit,
+  }), [
+    isOpen,
+    onClose,
+    handleEditMessage,
+    handleResetChat,
+    handleSaveEdit,
+    handleSendMessage,
+    isStreaming,
+    messages,
+    isDarkMode,
+    toggleDarkMode,
+    editingMessageId,
+    editInput,
+    input,
+    handleCancelEdit,
+  ]);
+
+  return <ChatFC {...memoizedChatFCProps} />;
+});
 
 export default ChatInterface;
+
+function updateSearchReplace(codeeee: string, codeNow: string) {
+  let starterCode = codeNow;
+  if (codeeee.includes("<<<<<<< SEARCH")) {
+    try {
+      const codeToReplace = extractCodeModification(codeeee);
+      const modz = codeToReplace.split(">>>>>>> REPLACE\n\n<<<<<<< SEARCH") || [codeToReplace];
+
+      const modifications = modz
+        .filter((mod) => mod.includes("=======") || mod.includes(">>>>>>> REPLACE") || mod.includes("<<<<<<< SEARCH"))
+        .map((mod) => mod.split(">>>>>>> REPLACE").join("").split("<<<<<<< SEARCH").join(""));
+
+      modifications.forEach((modification) => {
+        const [search, replaced] = modification.split("=======\n");
+        starterCode = replacePreservingWhitespace(starterCode, search.trim(), replaced);
+      });
+
+      
+    } catch (error) {
+      console.error("Error during code modification:", error);
+    }
+  }
+  return starterCode;
+}

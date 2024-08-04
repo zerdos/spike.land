@@ -32,7 +32,8 @@
     "openai": "^4.54.0",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
-    "p-queue": "8.0.1"
+    "p-queue": "8.0.1",
+    "replicate": "^0.32.0"
   },
   "publishConfig": {
     "access": "public"
