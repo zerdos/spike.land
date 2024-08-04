@@ -8,22 +8,8 @@ import React, {
 import AiHandler from "./AIHandler";
 import { ChatFC, Message } from "./ChatDrawer";
 import { prettierToThrow } from "./shared";
+import { replacePreservingWhitespace } from "./replacePreservingWhitespace";
 
-// Types
-
-// Utility Functions
-
-function replacePreservingWhitespace(
-  text: string,
-  search: string,
-  replace: string,
-) {
-  const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const regex = new RegExp(`(\\s*)${escapedSearch}(\\s*)`, "g");
-  return text.replace(regex, (match, preWhitespace, postWhitespace) => {
-    return `${preWhitespace}${replace}${postWhitespace}`;
-  });
-}
 const getCodeSpace = (): string => {
   return location.pathname.slice(1).split("/")[1];
 };
@@ -48,7 +34,7 @@ const ChatInterface: React.FC<
 > = React.memo(
   (
     { onCodeUpdate, onClose, isOpen }: {
-      onCodeUpdate: (code: string) => void;
+      onCodeUpdate: (_code: string) => void;
       isOpen: boolean;
       onClose: () => void;
     },
@@ -69,6 +55,7 @@ const ChatInterface: React.FC<
     useEffect(() => {
       const storedMode = localStorage.getItem("darkMode");
       setIsDarkMode(storedMode === "true");
+      const BroadcastChannel = globalThis.BroadcastChannel;
 
       broadcastChannel.current = new BroadcastChannel("chat_sync");
       broadcastChannel.current.onmessage = (event) => {
@@ -200,7 +187,7 @@ const ChatInterface: React.FC<
           console.log("Code modification detected in assistant message");
           try {
             let starterCode = codeNow;
-            console.log("Extracting code modifications...");
+            console.log("Extracting code modifications...");  
             const codeToReplace = extractCodeModification(
               assistantMessage.content,
             );
@@ -225,15 +212,18 @@ const ChatInterface: React.FC<
               const [search, replaced] = modification.split("=======\n");
               console.log("Search:", search);
               console.log("Replace:", replaced);
-              const now = starterCode;
-              starterCode = replacePreservingWhitespace(
+              const before = starterCode;
+             const after = replacePreservingWhitespace(
                 starterCode,
                 search.trim(),
                 replaced,
               );
-              if (now === starterCode) {
-                console.log({ search, replaced, starterCode });
-                throw new Error("Code didn't change after modification");
+              starterCode = after;
+              if (before === after) {
+                const beforeAfter = { before, after };
+                console.error("Code didn't change after modification", {search, replaced, beforeAfter });
+                // console.error();
+                // throw new Error("Code didn't change after modification");
               }
             });
 

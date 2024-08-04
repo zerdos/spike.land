@@ -96,7 +96,7 @@ export default {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleFileExtensions: ["ts", "tsx", "js", "json", "node"],
-  testMatch: ["**/*.spec.ts", "**/*.test.ts"],
+  testMatch: ["**/*.spec.ts", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.tsx",],
   moduleNameMapper: {
 
     "^@/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths

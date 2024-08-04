@@ -1,9 +1,11 @@
 import { fireEvent, render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-import ChatInterface from "../ChatInterface";
+import ChatInterface from "./ChatInterface";
+
+
+
 
 // Mock the ChatFC component
-jest.mock("../ChatDrawer", () => ({
+jest.mock("./ChatDrawer", () => ({
   ChatFC: (
     { handleSendMessage, input, setInput, isOpen }: {
       handleSendMessage: any;
@@ -72,3 +74,4 @@ describe("ChatInterface", () => {
 
   // Add more tests as needed for other functionalities
 });
+

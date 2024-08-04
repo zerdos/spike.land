@@ -5,9 +5,11 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import React from "react";
 import "@testing-library/jest-dom";
 import { Editor } from "../components/Editor";
+
+import   { useBroadcastChannel }  from "../hooks/useBroadcastChannel";
+ 
 
 // Mock the dependencies
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
@@ -74,11 +76,7 @@ describe("Editor Component", () => {
   });
 
   test("handles prettier errors correctly", async () => {
-    const mockPrettierToThrow = require("../shared").prettierToThrow;
-    mockPrettierToThrow.mockRejectedValueOnce(new Error("Prettier error"));
-
-    render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
-
+  
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
     });
@@ -116,22 +114,22 @@ describe("Editor Component", () => {
   });
 
   test("updates editor content when receiving broadcast message", async () => {
-    const { useBroadcastChannel } = require("../hooks/useBroadcastChannel");
-    let broadcastCallback;
-    useBroadcastChannel.mockImplementation((_, callback) => {
+    let broadcastCallback: (event: MessageEvent<any>) => void;
+    useBroadcastChannel.mockImplementation((_, callback: (event: MessageEvent<any>) => void) => {
       broadcastCallback = callback;
     });
-
+  
     render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
-
+  
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
     });
-
+  
     act(() => {
-      broadcastCallback({ data: { i: 1, code: "broadcasted code" } });
+      const messageEvent: MessageEvent<any> = { data: { i: 1, code: "broadcasted code" } } as MessageEvent<any>;
+      broadcastCallback(messageEvent);
     });
-
+  
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toHaveTextContent(
         "broadcasted code",

@@ -1,9 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import { CodeHistoryCarousel } from "../components/HistoryItems";
 
 // Mock fetch
-global.fetch = jest.fn(() =>
+globalThis.fetch = jest.fn(() =>
   Promise.resolve({
     ok: true,
     json: () =>
