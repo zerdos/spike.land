@@ -31,11 +31,6 @@ export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
     code: p.code || "export default ()=> <>Nothing</>",
     html: p.html || "",
     css: (p.css || "")
-      .split(".css-")
-      .filter((x) =>
-        x.startsWith("html") || (p.html || "").includes(x.slice(0, 5))
-      )
-      .join(".css-"),
   }).toJS() as ICodeSession;
 
 export type CodePatch = {

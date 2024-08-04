@@ -170,6 +170,7 @@ async function handleRender(
 }
 
 function mineFromCaches(cache: EmotionCache, html: string) {
+  console.log("mineFromCaches");
   const key = cache.key || "css";
   try {
     const styledJSXStyles = Array.from(

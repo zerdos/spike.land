@@ -239,7 +239,6 @@ function setConnections(signal: string) {
         mod.controller.abort();
         mod.controller = new AbortController();
         const signal = mod.controller.signal;
-        await wait(300);
         if (signal.aborted) return;
 
         const oldSession = makeSession(c.oldSession);
