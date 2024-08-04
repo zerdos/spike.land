@@ -14,7 +14,7 @@ test("screens test", async ({ page }) => {
   await wait(500);
   await expect(page).toHaveURL("https://testing.spike.land/live/pwtest1");
 
-  const editor = page.locator("[data-test-id=editor]");
+  const editor = page.locator("[data-testid=editor]");
 
   const message = "HELLO" + Math.random() + "Foo..." + Math.random();
   await editor.dblclick();
@@ -28,7 +28,7 @@ test("screens test", async ({ page }) => {
   export default () => <header css>${message}</header>`);
 
   await wait(1500);
-  await expect(page.locator("[data-test-id=z-body]")).toHaveText(message, {
+  await expect(page.locator("[data-testid=z-body]")).toHaveText(message, {
     timeout: 1000,
   });
 });
@@ -40,7 +40,7 @@ test("rca test", async ({ page }) => {
 
   await expect(page).toHaveURL("https://testing.spike.land/live/pwtest2");
 
-  const editor = page.locator("[data-test-id=editor]");
+  const editor = page.locator("[data-testid=editor]");
 
   const RCA = await fetch("https://testing.spike.land/live/rca/index.tsx").then(
     (res) => res.text(),
@@ -56,7 +56,7 @@ test("rca test", async ({ page }) => {
 
   await wait(1500);
 
-  await expect(page.locator("[data-test-id=z-body]")).toHaveText("Hello", {
+  await expect(page.locator("[data-testid=z-body]")).toHaveText("Hello", {
     timeout: 1000,
   });
 });
