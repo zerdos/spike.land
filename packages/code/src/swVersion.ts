@@ -1,3 +1,6 @@
 import * as SW from "@src/swVersion";
 
-export const swVersion : string =  (SW && SW.swVersion) || "localTests";
+export const mock  = "localTests";
+export const swVersion = SW.mock || "localTests";
+
+

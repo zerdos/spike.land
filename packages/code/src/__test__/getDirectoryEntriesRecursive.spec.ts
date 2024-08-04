@@ -23,7 +23,7 @@ Object.defineProperty(global, "navigator", {
   writable: true,
 });
 
-global.navigator = {
+globalThis.navigator = {
   storage: {
     getDirectory: jest.fn().mockResolvedValue(Promise.resolve({
       getDirectoryHandle: jest.fn().mockResolvedValue({

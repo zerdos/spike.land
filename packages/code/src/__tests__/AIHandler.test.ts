@@ -1,4 +1,4 @@
-import AIHandler from "../AIHandler";
+import {AIHandler} from "../AIHandler";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
@@ -37,7 +37,6 @@ const updates = jest.fn()
   test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
     const fullResponse = "Full response";
     const currentCode = "Current code";
-    const nextCounter = 1;
     const onCodeUpdate = jest.fn();
     const setMessages = jest.fn();
     const setAICode = jest.fn();
@@ -47,17 +46,14 @@ const updates = jest.fn()
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
       currentCode,
-      nextCounter,
       onCodeUpdate,
       setMessages,
       setAICode,
-      false,
     );
 
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
       fullResponse,
       currentCode,
-      nextCounter,
       onCodeUpdate,
       setMessages,
       setAICode,
@@ -126,7 +122,6 @@ describe("AIHandler", () => {
   test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
     const fullResponse = "Full response";
     const currentCode = "Current code";
-    const nextCounter = 1;
     const onCodeUpdate = jest.fn();
     const setMessages = jest.fn();
     const setAICode = jest.fn();
@@ -136,17 +131,14 @@ describe("AIHandler", () => {
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
       currentCode,
-      nextCounter,
       onCodeUpdate,
       setMessages,
       setAICode,
-      false,
     );
 
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
       fullResponse,
       currentCode,
-      nextCounter,
       onCodeUpdate,
       setMessages,
       setAICode,

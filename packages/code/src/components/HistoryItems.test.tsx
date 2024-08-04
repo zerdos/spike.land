@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { CodeHistoryCarousel } from "../components/HistoryItems";
+import { CodeHistoryCarousel } from "./HistoryItems";
 
 // Mock fetch
 globalThis.fetch = jest.fn(() =>

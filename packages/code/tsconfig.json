@@ -76,8 +76,10 @@
       "WebWorker.ImportScripts",
       "Webworker.Iterable"
     ],
+    "allowUmdGlobalAccess": true,
     "types": [
-      "@types/wicg-file-system-access"
+      "@types/wicg-file-system-access",
+      "@types/jest"
     ]
   },
 
@@ -88,5 +90,5 @@
     "src/**/*.jsx",
     "src/**/*.mjs"
   ],
-  "exclude": [".yarn", "dist", "*/**.spec.ts", "__tests__"]
+  "exclude": [".yarn", "dist"]
 }

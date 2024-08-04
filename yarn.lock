@@ -3523,7 +3523,6 @@ __metadata:
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
     "@clerk/clerk-react": "npm:^5.3.1"
-    "@cloudflare/workers-types": "npm:4.20240729.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/react": "npm:11.13.0"
     "@emotion/styled": "npm:11.13.0"

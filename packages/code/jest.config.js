@@ -8,7 +8,7 @@ export default {
     "^.+\\.(ts|tsx)$": [
       "ts-jest",
       {
-        "tsconfig": "tsconfig.spec.json",
+        "tsconfig": "tsconfig.json",
       },
     ],
   },
@@ -24,6 +24,7 @@ export default {
   "preset": "ts-jest",
   "testEnvironment": "jsdom",
   "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"],
+  // "typescript": {}
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
 
@@ -39,7 +40,7 @@ export default {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  // coverageProvider: "v8",
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
   //   "json",
@@ -99,8 +100,9 @@ export default {
   testMatch: ["**/*.spec.ts", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.tsx",],
   moduleNameMapper: {
 
-    "^@/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
-   "^@src/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
+    "^@/(.*)$": "<rootDir>/src/@/$1", // This should align with your TypeScript paths
+ 
+    "^@src/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
    
     
   },

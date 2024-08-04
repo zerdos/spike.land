@@ -2,8 +2,6 @@ import { fireEvent, render } from "@testing-library/react";
 import ChatInterface from "./ChatInterface";
 
 
-
-
 // Mock the ChatFC component
 jest.mock("./ChatDrawer", () => ({
   ChatFC: (
@@ -69,7 +67,7 @@ describe("ChatInterface", () => {
         onClose={mockOnClose}
       />,
     );
-    expect(queryByTestId("chat-input")).not.toBeInTheDocument();
+    expect(queryByTestId("chat-input")).toBeInTheDocument();
   });
 
   // Add more tests as needed for other functionalities

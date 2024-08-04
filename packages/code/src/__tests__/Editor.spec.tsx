@@ -5,7 +5,6 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import { Editor } from "../components/Editor";
 import { runner as mockRunner } from "../runner";
 
@@ -94,7 +93,7 @@ describe("Editor Component", () => {
   });
 
   test("handles transpile errors correctly", async () => {
-    mockRunner.mockRejectedValueOnce(new Error("Transpile error"));
+    (mockRunner as jest.Mock).mockRejectedValueOnce(new Error("Transpile error"));
 
     render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
 
@@ -115,7 +114,7 @@ describe("Editor Component", () => {
 
   test("updates editor content when receiving broadcast message", async () => {
     let broadcastCallback: (event: MessageEvent<any>) => void;
-    useBroadcastChannel.mockImplementation((_, callback: (event: MessageEvent<any>) => void) => {
+    (useBroadcastChannel as jest.Mock).mockImplementation((_, callback: (event: MessageEvent<any>) => void) => {
       broadcastCallback = callback;
     });
   
@@ -126,7 +125,7 @@ describe("Editor Component", () => {
     });
   
     act(() => {
-      const messageEvent: MessageEvent<any> = { data: { i: 1, code: "broadcasted code" } } as MessageEvent<any>;
+      const messageEvent: MessageEvent<any> = { data: { i: 1, code: "broadcasted code" } } as unknown as MessageEvent<any>;
       broadcastCallback(messageEvent);
     });
   

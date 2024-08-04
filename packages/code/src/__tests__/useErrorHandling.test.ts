@@ -1,6 +1,9 @@
 import { act, renderHook } from "@testing-library/react";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 
+let tsWorkerMock =  jest.fn().mockResolvedValue(() => ({
+  getSemanticDiagnostics: jest.fn().mockResolvedValue([]),
+}))
 // Mock the entire monaco-editor module
 jest.mock("monaco-editor", () => {
   return {
@@ -9,9 +12,7 @@ jest.mock("monaco-editor", () => {
     },
     languages: {
       typescript: {
-        getTypeScriptWorker: jest.fn().mockResolvedValue(() => ({
-          getSemanticDiagnostics: jest.fn().mockResolvedValue([]),
-        })),
+        getTypeScriptWorker: tsWorkerMock,
       },
     },
   };
@@ -45,8 +46,8 @@ describe("useErrorHandling", () => {
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
 
-    require("monaco-editor").languages.typescript.getTypeScriptWorker
-      .mockImplementation(mockGetTypeScriptWorker);
+    tsWorkerMock = mockGetTypeScriptWorker;
+
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
     const initialLoadRef = { current: false };

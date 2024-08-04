@@ -2,7 +2,7 @@ import { AIService } from "./services/AIService";
 import { LocalStorageService } from "./services/LocalStorageService";
 import { Message } from "./types/Message";
 
-class AIHandler {
+export class AIHandler {
   private aiService: AIService;
   constructor(private codeSpace: string, aiService?: AIService) {
     this.codeSpace = codeSpace;
@@ -47,4 +47,4 @@ class AIHandler {
   }
 }
 
-export default AIHandler;
+

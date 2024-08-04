@@ -14,6 +14,7 @@ import { useErrorHandling } from "../hooks/useErrorHandling";
 import { runner } from "../runner";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
+import { ICodeSession } from "@src/makeSess";
 
 interface EditorProps {
   codeSpace: string;
@@ -50,8 +51,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   const setEditorContent = useCallback((formattedCode: string) => {
     const lastSignal = mod.current.controller.signal;
-    const current = lastTypingTimestampRef.current =
-      lastTypingTimestampRef.current || Date.now();
     setTimeout(() => {
       if (lastSignal.aborted) return;
       const currentTime = Date.now();
@@ -156,7 +155,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     lastTypingTimestampRef,
   ]);
 
-  const handleBroadcastMessage = useCallback(({ data }: MessageEvent) => {
+  const handleBroadcastMessage = useCallback(({ data }: {data: ICodeSession}) => {
     if (
       !data.i || !data.code || data.code === mod.current.code ||
       mod.current.i >= data.i
@@ -175,7 +174,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     runner({ ...mod.current, counter: mod.current.i, codeSpace, signal });
   }, [codeSpace, setEditorContent]);
 
-  useBroadcastChannel(codeSpace, handleBroadcastMessage);
+  useBroadcastChannel(codeSpace, handleBroadcastMessage as unknown as (event: MessageEvent<any>) => void);
 
   return (
     <Rnd

@@ -1,8 +1,9 @@
 import { act, renderHook } from "@testing-library/react";
 import { useEditorState } from "../hooks/useEditorState";
 
+let isMobileMockValue = false;
 jest.mock("../isMobile", () => ({
-  isMobile: jest.fn(),
+  isMobile:  isMobileMockValue
 }));
 
 describe("useEditorState", () => {
@@ -29,12 +30,10 @@ describe("useEditorState", () => {
     });
     expect(result.current.initialLoadRef.current).toBe(true);
     expect(result.current.lastTypingTimestampRef.current).toBeDefined();
-  });
+  })
 
-  test("uses ace engine on mobile", () => {
-    const { isMobile } = require("../isMobile");
-    isMobile.mockReturnValue(true);
-
+  test("uses ace engine on mobile", async () => {
+    isMobileMockValue= true;
     const { result } = renderHook(() => useEditorState("test-code-space"));
 
     expect(result.current.engine).toBe("ace");

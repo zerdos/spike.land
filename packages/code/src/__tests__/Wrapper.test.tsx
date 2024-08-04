@@ -1,5 +1,4 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import * as sharedModule from "../shared";
 import { useTranspile, Wrapper } from "../Wrapper";
 
@@ -60,7 +59,7 @@ describe("useTranspile", () => {
     >;
     mockTranspile.mockResolvedValue("transpiled code");
 
-    let result: string | undefined;
+    let result: string | undefined | null;
 
     function TestComponent() {
       result = useTranspile("test code");
