@@ -3,37 +3,32 @@ import { Mutex } from "async-mutex";
 import { createRoot } from "react-dom/client";
 import { Workbox } from "workbox-window";
 import { mkdir } from "./memfs";
-
 import { wait } from "./wait";
 import { renderApp } from "./Wrapper";
-import { runTests, deleteAllServiceWorkers } from "./swUtils";
+import { deleteAllServiceWorkers } from "./swUtils";
+import React from "react";
 
-const paths = location.pathname.split("/"); 
+const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
 // Setup BroadcastChannel
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-// Handle non-live routes
-import React from "react";
 async function handleNonLiveRoutes() {
   if (paths[1] !== "live") {
+    const root = document.getElementById("root");
+    if (!root) return;
+
     if (location.pathname === "/") {
       const { default: App } = await import("./pages/index");
-      createRoot(document.getElementById("root")!).render(
-        React.createElement(App),
-      );
+      createRoot(root).render(React.createElement(App));
     } else if (location.pathname === "/start") {
       const { default: App } = await import("./pages/templates");
-      createRoot(document.getElementById("root")!).render(
-        React.createElement(App),
-      );
+      createRoot(root).render(React.createElement(App));
     }
   }
-  return; // Add a return statement at the end of the function
 }
 
-// Setup Service Worker
 async function setupServiceWorker() {
   if (!navigator.serviceWorker || localStorage.getItem("sw") === "false") {
     return;
@@ -41,27 +36,20 @@ async function setupServiceWorker() {
 
   try {
     const sw = new Workbox(`/sw.js`);
-    sw.register();
-    return sw;
+    return sw.register();
   } catch (e) {
     console.error("Error setting up service worker:", e);
   }
 }
 
-// Initialize the application
 async function initializeApp() {
-  await deleteAllServiceWorkers()
-
-
+  await deleteAllServiceWorkers();
   await handleNonLiveRoutes();
-  // deleteAllServiceWorkers()
-
+  // Uncomment the following lines if you want to use service worker and run tests
   // const sw = await setupServiceWorker();
   // sw?.messageSkipWaiting();
   // runTests();
 }
-
-initializeApp();
 
 async function createDirectories() {
   try {
@@ -71,8 +59,6 @@ async function createDirectories() {
     console.error("Error creating directories:", e);
   }
 }
-
-createDirectories();
 
 async function handleLivePage() {
   const { run } = await import("./ws");
@@ -131,8 +117,6 @@ function handleDefaultPage() {
       await mutex.runExclusive(async () => {
         if (signal.aborted) return;
 
-        // const rootElement = document.createElement("div");
-
         const rendered = (await renderApp({
           transpiled,
           rootElement: document.getElementById("root")! as HTMLDivElement,
@@ -147,7 +131,7 @@ function handleDefaultPage() {
 }
 
 async function handleRender(
-  _rootEl: HTMLDivElement,
+  rootEl: HTMLDivElement,
   cache: EmotionCache,
   signal: AbortSignal,
   mod: {
@@ -160,11 +144,11 @@ async function handleRender(
   console.log("handleRender");
   const counter = mod.counter;
 
-  if (!_rootEl) return false;
+  if (!rootEl) return false;
 
   for (let attempts = 100; attempts > 0; attempts--) {
     if (signal.aborted) return false;
-    const html = _rootEl.innerHTML;
+    const html = rootEl.innerHTML;
     if (html) {
       const css = mineFromCaches(cache, html);
 
@@ -185,8 +169,8 @@ async function handleRender(
   return false;
 }
 
-function mineFromCaches(_cache: EmotionCache, html: string) {
-  const key = _cache.key || "css";
+function mineFromCaches(cache: EmotionCache, html: string) {
+  const key = cache.key || "css";
   try {
     const styledJSXStyles = Array.from(
       document.querySelectorAll("style[data-styled-jsx]"),
@@ -195,9 +179,7 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
     const emotionStyles = Array.from(
       new Set(
         Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
-          .map(
-            (style) => style.textContent,
-          ),
+          .map((style) => style.textContent),
       ),
     ).join("\n");
 
@@ -222,10 +204,16 @@ function mineFromCaches(_cache: EmotionCache, html: string) {
   }
 }
 
-if (location.pathname === `/live/${codeSpace}`) {
-  handleLivePage();
-} else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
-  handleDehydratedPage();
-} else {
-  handleDefaultPage();
-}
+// Main execution
+(async () => {
+  await initializeApp();
+  await createDirectories();
+
+  if (location.pathname === `/live/${codeSpace}`) {
+    handleLivePage();
+  } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
+    handleDehydratedPage();
+  } else {
+    handleDefaultPage();
+  }
+})();
