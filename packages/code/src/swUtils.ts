@@ -1,13 +1,14 @@
+import { swVersion } from './swVersion';
 async function testRegistration() {
     if ('serviceWorker' in navigator) {
       try {
         const registration = await navigator.serviceWorker.register('/sw.js');
         console.log('SW registered:', registration);
   
-        await new Promise((resolve) => {    
+        await new Promise<void>((resolve) => {    
           if (registration.installing) {
             registration.installing.addEventListener('statechange', (e) => {
-              if (e.target && e.target.state === 'activated') {
+              if (e.target && (e.target as ServiceWorker).state === 'activated') {
                 console.log('SW activated');
                 resolve();
               }
@@ -25,13 +26,13 @@ async function testRegistration() {
   
   // 2. Caching Behavior
   async function testCaching() {
-    const cacheName = 'file-cache-' + sw.swVersion;
+    const cacheName = 'file-cache-' + swVersion;
     const cache = await caches.open(cacheName);
     const cachedResponses = await cache.matchAll();
     console.log('Cached resources:', cachedResponses.map(r => r.url));
   
     // Test offline functionality
-    await new Promise(resolve => {
+    await new Promise<void>(resolve => {
       const iframe = document.createElement('iframe');
       iframe.src = '/some-cached-page';
       iframe.onload = () => {

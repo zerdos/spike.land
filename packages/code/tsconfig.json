@@ -68,6 +68,7 @@
       "ESNext",
       "DOM",
       "ESNext.String",
+      "ESNext.Promise",
       "DOM.AsyncIterable",
       "ESNext.AsyncIterable",
       "DOM.Iterable",

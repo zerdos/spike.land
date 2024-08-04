@@ -3,7 +3,7 @@
     "allowJs": true,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext", "ESNext.Promise", "ES2015", "es2024.Promise"],
+    "lib": ["ESNext", "ESNext.Promise", "ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021", "DOM"],
     "isolatedModules": true,
     "strict": true,
     "noEmit": false,
