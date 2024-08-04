@@ -3,6 +3,8 @@ import { Message } from '../types/Message';
 import { prettierToThrow } from '../shared';
 import { updateSearchReplace } from '../utils/chatUtils';
 import { debounce } from 'lodash';
+import {Mutex} from "async-mutex";
+
 
 interface UseMessageHandlingProps {
   codeSpace: string;
@@ -40,6 +42,7 @@ export const useMessageHandling = ({
   broadcastChannel,
 }: UseMessageHandlingProps) => {
   const handleSendMessage = useCallback(async (content: string) => {
+    console.log("Sending message");
     if (!content.trim()) return;
 
     const { code } = await fetch(`/live/${codeSpace}/session.json`).then(res => res.json<{i: number, code: string}>());
@@ -68,23 +71,38 @@ export const useMessageHandling = ({
     try {
       const sentMSGs = [...updatedMessages];
       let preUps = { last: -1, lastCode: codeNow, count: 0 };
+      const mutex = new Mutex();
+      const onUpd = async (code: string) => {
+        mutex.runExclusive(async () => {
 
-      const onUpd = (code: string) => {
-        const lastChunk = code.slice(preUps.last + 10);
+        console.table({preUps, code});
+        const lastChunk = code.slice(preUps.last+1);
         if (lastChunk.includes('>>>>>>> REPLACE')) {
           const nstr = code.slice(preUps.last + 1);
-          preUps.last = lastChunk.indexOf('>>>>>>> REPLACE') + preUps.last + 10;
+          preUps.last = lastChunk.indexOf('>>>>>>> REPLACE') + preUps.last + 17;
+          console.table({nstr, lastCode: preUps.lastCode});
           const lastCode = updateSearchReplace(nstr, preUps.lastCode);
+          console.table({nstr, lastCode: preUps.lastCode, newCode: lastCode});
 
           if (lastCode !== preUps.lastCode) {
             preUps.lastCode = lastCode;
             preUps.count += 1;
-            prettierToThrow({ code: lastCode, toThrow: true }).then((code) => onCodeUpdate(code));
+            try{            await prettierToThrow({ code: lastCode, toThrow: true }).then((c) => {
+              console.table({preUps});  
+              onCodeUpdate(c);
+            
+            });
+          } catch (error) {
+            console.error("Error in runner:", error);
+          }
+          
           }
         }
+        
         setMessages([...sentMSGs, { id: Date.now().toString(), role: "assistant", content: code }]);
+      });
       };
-      const debouncedOnUpd = debounce(onUpd, 200);
+      const debouncedOnUpd = debounce(onUpd, 100);
 
       const assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, debouncedOnUpd);
       updatedMessages.push(assistantMessage);

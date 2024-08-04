@@ -50,4 +50,14 @@ describe('replacePreservingWhitespace', () => {
       const result = replacePreservingWhitespace('The quick brown fox', 'quick', 'very slow');
       expect(result).toEqual('The very slow brown fox');
     });
+
+    it('11. should deal with tricky ones', () => {
+      const result = replacePreservingWhitespace(`The 
+        quick 
+        brown 
+        fox`, 'quick brown', 'very slow');
+      expect(result).toEqual(`The 
+        very slow 
+        fox`);
+    });
   });

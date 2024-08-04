@@ -38,17 +38,17 @@ export class AIService {
       throw new Error("Response body is not readable!");
     }
 
-    const debouncedUpdate = debounce(onUpdate, 100);
+    
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = decoder.decode(value);
       c += chunk;
-      debouncedUpdate(c);
+      onUpdate(c);
     }
 
-    debouncedUpdate(c);
+    onUpdate(c);
 
     assistantMessage.content = c.trim();
 
