@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
+import type { FC } from "react";
 
-const KeyboardAwareComponent = ({ children }) => {
+const KeyboardAwareComponent: FC<{children: React.ReactNode}> = ({ children }) => {
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   useEffect(() => {
     const detectKeyboard = () => {
-      const isKeyboard = window.screen.height > window.visualViewport.height;
+      const isKeyboard = visualViewport!==null &&  window.screen.height > visualViewport.height;
       setIsKeyboardVisible(isKeyboard);
     };
 
-    window.visualViewport.addEventListener("resize", detectKeyboard);
+    visualViewport?.addEventListener("resize", detectKeyboard);
     return () =>
-      window.visualViewport.removeEventListener("resize", detectKeyboard);
+      visualViewport?.removeEventListener("resize", detectKeyboard);
   }, []);
 
   return (

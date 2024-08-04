@@ -9,7 +9,7 @@ jest.mock("../isMobile", () => ({
 describe("useEditorState", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (global as any).cSess = {
+    globalThis.cSess = {
       session: {
         i: "0",
         code: "initial code",

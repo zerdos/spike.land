@@ -25,7 +25,7 @@ export const EditorNode: React.FC<
         transition={{ duration: 0.3 }}
       >
         <div
-          data-test-id="editor"
+          data-testid="editor-container"
           ref={containerRef}
           css={css`
               ${
@@ -59,7 +59,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = (
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: number;
     if (errorType) {
       timer = setTimeout(() => {
         setShowError(true);
