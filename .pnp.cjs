@@ -7959,7 +7959,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/browserslist-npm-4.23.3-4e727c7b5b-10.zip/node_modules/browserslist/",\
         "packageDependencies": [\
           ["browserslist", "npm:4.23.3"],\
-          ["caniuse-lite", "npm:1.0.30001647"],\
+          ["caniuse-lite", "npm:1.0.30001649"],\
           ["electron-to-chromium", "npm:1.5.4"],\
           ["node-releases", "npm:2.0.18"],\
           ["update-browserslist-db", "virtual:4e727c7b5b033f8d5ac7299f9860cb61f5802656f7b4fea2accd32d68dc1a767387a6d23f0724065d3c65e61cb31b9eec2438ae937ce36e7602b4586ede55af6#npm:1.1.0"]\
@@ -8132,10 +8132,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["caniuse-lite", [\
-      ["npm:1.0.30001647", {\
-        "packageLocation": "./.yarn/global/cache/caniuse-lite-npm-1.0.30001647-ad375193cb-10.zip/node_modules/caniuse-lite/",\
+      ["npm:1.0.30001649", {\
+        "packageLocation": "./.yarn/global/cache/caniuse-lite-npm-1.0.30001649-f371b9b86d-10.zip/node_modules/caniuse-lite/",\
         "packageDependencies": [\
-          ["caniuse-lite", "npm:1.0.30001647"]\
+          ["caniuse-lite", "npm:1.0.30001649"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8860,10 +8860,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["core-js", [\
-      ["npm:3.37.1", {\
-        "packageLocation": "./.yarn/unplugged/core-js-npm-3.37.1-b1db5e7c23/node_modules/core-js/",\
+      ["npm:3.38.0", {\
+        "packageLocation": "./.yarn/unplugged/core-js-npm-3.38.0-3f7d7cec9a/node_modules/core-js/",\
         "packageDependencies": [\
-          ["core-js", "npm:3.37.1"]\
+          ["core-js", "npm:3.38.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15232,7 +15232,7 @@ const RAW_RUNTIME_STATE =
           ["@types/next", null],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-i18next", null],\
-          ["core-js", "npm:3.37.1"],\
+          ["core-js", "npm:3.38.0"],\
           ["hoist-non-react-statics", "npm:3.3.2"],\
           ["i18next", "npm:23.12.2"],\
           ["i18next-fs-backend", "npm:2.3.2"],\
