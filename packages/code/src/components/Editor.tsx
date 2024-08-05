@@ -67,7 +67,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setValue: async (code: string) => {
       console.log("Setting value from parent");
       const formatted = await prettierToThrow({ code, toThrow: true });
-      setEditorContent(formatted);
+      setEditorContent(formatted, true);
       handleContentChange(formatted);
     },
   }), [setEditorContent]);
