@@ -7,7 +7,10 @@ import { wait } from "./wait";
 import { renderApp } from "./Wrapper";
 import { deleteAllServiceWorkers } from "./swUtils";
 import React from "react";
+import registerBroadcastLogger from "./BroadcastLogger";
 
+
+registerBroadcastLogger();
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
