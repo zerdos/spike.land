@@ -56,6 +56,7 @@ async function fetchAndSaveImage(
   return new Response(response.body, {
     headers: {
       "Content-Type": `image/${outputFormat}`,
+      "cache-control": "public, max-age=31536000, immutable",
       "Access-Control-Allow-Origin": "*",
     },
   });
@@ -77,11 +78,13 @@ export async function handleReplicateRequest(request: Request, env: Env, ctx: Ex
     }
 
     const replicate = new Replicate({ auth: env.REPLICATE_API_TOKEN });
-    const imageUrl = await replicate.run(REPLICATE_MODEL, { input });
+    const imageU = await replicate.run(REPLICATE_MODEL, { input });
+
+   const imageUrl = imageU.toString(); // Ensure it's a string
 
     if (typeof imageUrl !== "string" || !imageUrl) {
       console.error("Invalid image URL:", imageUrl);
-      throw new Error("Invalid image URL from Replicate API");
+      throw new Error("Invalid image URL from Replicate API" + imageUrl);
     }
 
     return await fetchAndSaveImage(imageUrl, env, md5Prompt, input.output_format);
