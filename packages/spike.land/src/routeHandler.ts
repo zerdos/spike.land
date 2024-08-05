@@ -187,7 +187,7 @@ export class RouteHandler {
         const s = makeSession(
           typeof session === "string" ? JSON.parse(session) : session,
         );
-        return new Response(stringifySession({...s, html:"", css:""}), {
+        return new Response(stringifySession({ ...s, html: "", css: "" }), {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -214,7 +214,9 @@ export class RouteHandler {
         );
       }
     }
-    const body =  request.url.endsWith('.json')? stringifySession(this.code.session): JSON.stringify({ ...this.code.session, html: "", css: "" });  
+    const body = request.url.endsWith(".json")
+      ? stringifySession(this.code.session)
+      : JSON.stringify({ ...this.code.session, html: "", css: "" });
     return new Response(body, {
       status: 200,
       headers: {

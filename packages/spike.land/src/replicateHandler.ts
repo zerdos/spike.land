@@ -80,7 +80,7 @@ export async function handleReplicateRequest(request: Request, env: Env, ctx: Ex
     const replicate = new Replicate({ auth: env.REPLICATE_API_TOKEN });
     const imageU = await replicate.run(REPLICATE_MODEL, { input });
 
-   const imageUrl = imageU.toString(); // Ensure it's a string
+    const imageUrl = imageU.toString(); // Ensure it's a string
 
     if (typeof imageUrl !== "string" || !imageUrl) {
       console.error("Invalid image URL:", imageUrl);
