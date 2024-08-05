@@ -40,7 +40,7 @@ export class RouteHandler {
       "index.mjs": this.handleJsRoute.bind(this),
       "index.js": this.handleJsRoute.bind(this),
       "index.css": this.handleCssRoute.bind(this),
-      
+
       "wrapper.js": this.handleWrapRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
@@ -95,8 +95,10 @@ export class RouteHandler {
           await this.code.autoSave();
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
-          const respText = HTML.replace(`<!-- <link rel="stylesheet" href="/app.css"> -->`,
-             `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`).replace(
+          const respText = HTML.replace(
+            `<!-- <link rel="stylesheet" href="/app.css"> -->`,
+            `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
+          ).replace(
             "<div id=\"root\"></div>",
             `<div id="root">${html}</div>`,
           );
@@ -185,7 +187,7 @@ export class RouteHandler {
         const s = makeSession(
           typeof session === "string" ? JSON.parse(session) : session,
         );
-        return new Response(stringifySession(s), {
+        return new Response(stringifySession({...s, html:"", css:""}), {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -212,7 +214,7 @@ export class RouteHandler {
         );
       }
     }
-    const body = stringifySession(this.code.session);
+    const body =  request.url.endsWith('.json')? stringifySession(this.code.session): JSON.stringify({ ...this.code.session, html: "", css: "" });  
     return new Response(body, {
       status: 200,
       headers: {
@@ -278,9 +280,11 @@ export class RouteHandler {
   private async handleDefaultRoute(_request: Request, url: URL): Promise<Response> {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
-    const {  html } = this.code.session;
-    const respText = HTML.replace(`<!-- <link rel="stylesheet" href="/app.css"> -->`,
-      `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`).replace(
+    const { html } = this.code.session;
+    const respText = HTML.replace(
+      `<!-- <link rel="stylesheet" href="/app.css"> -->`,
+      `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
+    ).replace(
       "<div id=\"root\"></div>",
       `<div id="root">${html}</div>`,
     );
@@ -415,7 +419,6 @@ export class RouteHandler {
   }
 
   private async handleCssRoute(request: Request): Promise<Response> {
-    
     return new Response(this.code.session.css, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -461,6 +464,4 @@ export class RouteHandler {
       },
     });
   }
-
-
 }

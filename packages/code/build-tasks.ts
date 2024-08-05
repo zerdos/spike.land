@@ -155,14 +155,22 @@ export async function buildMainBundle(wasmFile) {
       "src/cf-esbuild.mjs",
       "src/Wrapper.tsx",
 
-
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
       "src/jsx.mjs",
+      "src/motion.ts",
+      "src/shared.ts",
+
+      
+      "src/hydrate.tsx",
+
+      "src/emotion.ts",
+      "src/reactDomClient.ts",
     ],
     alias: {
       ...buildOptions.alias,
+      // Must be below test-utils
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
       // "react": "../dist/reactMod.mjs",
@@ -181,53 +189,6 @@ export async function buildMainBundle(wasmFile) {
   });
 
 
-  await build({
-    ...buildOptions,
-    splitting: true,
-    format: "esm",
-    minifySyntax: true,
-    minifyIdentifiers: true,
-    minifyWhitespace: true,
-    bundle: true,
-    treeShaking: true,
-    mangleQuoted: true,
-    sourcemap: false,
-    legalComments: "none",
-    platform: "browser",
-    ignoreAnnotations: true,
-    entryPoints: [
-     
-      "src/reactMod.ts",
-      "src/reactDom.ts",
-      "src/reactDomClient.ts",
-      "src/jsx.mjs",
-      "src/motion.ts",
-      "src/shared.ts",
-
-      
-      "src/hydrate.tsx",
-
-      "src/emotion.ts",
-    ],
-    alias: {
-      ...buildOptions.alias,
-      "@src/swVersion": "/swVersion.mjs",
-      "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      // "react": "preact/compat",
-      // "react-dom/test-utils": "preact/test-utils",
-      // "react/jsx-runtime": "preact/jsx-runtime",
-      // "react-dom/server": "preact/compat",
-      // "react-dom": "preact/compat", // Must be below test-utils
-    },
- 
-    external: [
-      ...(buildOptions.external?.length ? buildOptions.external : []),
-      "/swVersion.mjs",
- 
-      `./${wasmFile}`,
-      "esbuild-wasm/esbuild.wasm",
-    ],
-  });
 
 
 }
