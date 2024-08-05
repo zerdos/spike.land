@@ -1,5 +1,5 @@
 import { rpcFactory } from "./workerRpc";
-
+// import register from "./BroadcastLogger";
 import type { ata as Ata } from "./ata";
 import {
   applyCodePatch,
@@ -16,6 +16,7 @@ import { Mutex } from "async-mutex";
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 
 import { wait } from "./wait";
+//register();
 const policy = {
   timeout: 4000,
   attempts: Infinity,

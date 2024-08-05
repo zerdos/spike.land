@@ -9,7 +9,7 @@ dts
 src/@
 styles
 tw.html
-tw.js
+tw-chunk-be5bad.js
 *.css
 *.d.ts
 assets
@@ -25,9 +25,9 @@ components.json
 .vscode/settings.json
 src/favicon.ico
 src/assets/manifest.json
-src/assets/g.css
+src/assets/g-chunk-72a597.css
 src/assets/app.css
-src/assets/tw.js
+src/assets/tw-chunk-be5bad.js
 src/__test__/__snapshots__/importmapReplace.spec.ts.snap
 src/__test__/getDirectoryEntriesRecursive.spec.ts
 src/__test__/importmapReplace.spec.ts

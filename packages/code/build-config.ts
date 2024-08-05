@@ -63,5 +63,5 @@ export const buildOptions: BuildOptions = {
 export const getCommonBuildOptions = (environment) => ({
   ...buildOptions,
   define: makeEnv(environment),
-  plugins: [fetchPlugin],
+  plugins: [fetchPlugin("/")],
 });

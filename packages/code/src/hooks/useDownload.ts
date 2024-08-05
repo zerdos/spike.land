@@ -3,14 +3,12 @@ import { wait } from "../wait";
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
-    //     import TW from "../tw.js?text";
-    // import resetCSS from "../assets/g.css?text";
+    //     import TW from "../tw-chunk-be5bad.js?text";
+    // import resetCSS from "../assets/g-chunk-72a597.css?text";
 
-    const TW = await ((await fetch("/assets/tw.js")).text());
+    const TW = await ((await fetch("/assets/tw-chunk-be5bad.js")).text());
 
-    const appCss = await ((await fetch("/assets/app.css")).text());
-
-    const resetCSS = await ((await fetch("/assets/g.css")).text());
+    const resetCSS = await ((await fetch("/assets/g-chunk-72a597.css")).text());
     let indexMjs: string;
 
     const buildWithRetry = async () => {
@@ -48,7 +46,6 @@ export const useDownload = (codeSpace: string) => {
   <base href="/">
   <title>Instant React Editor</title>
   <style>
-  ${appCss}
   ${resetCSS}
   </style>
 </head>

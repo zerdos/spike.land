@@ -1,4 +1,4 @@
-export const fetchPlugin = {
+export const fetchPlugin = (origin) => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so
@@ -25,17 +25,8 @@ export const fetchPlugin = {
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-      const url = new URL(args.path);
-      if (
-        url.pathname.indexOf("/live/") !== -1 && url.pathname.endsWith(".js")
-      ) {
-        const { stat, readFile } = await import("./memfs");
-        if (await stat(url.pathname)) {
-          return {
-            contents: await readFile(url.pathname),
-          };
-        }
-      }
+    
+      const url = (args.path).startsWith("http") ? args.path : origin + args.path;
       let contents = await fetch(args.path, { redirect: "follow" }).then(
         (res) => res.text(),
       );
@@ -43,4 +34,4 @@ export const fetchPlugin = {
       return { contents };
     });
   },
-};
+});

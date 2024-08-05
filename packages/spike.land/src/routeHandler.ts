@@ -39,6 +39,8 @@ export class RouteHandler {
       path: this.handlePathRoute.bind(this),
       "index.mjs": this.handleJsRoute.bind(this),
       "index.js": this.handleJsRoute.bind(this),
+      "index.css": this.handleCssRoute.bind(this),
+      
       "wrapper.js": this.handleWrapRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
@@ -91,8 +93,10 @@ export class RouteHandler {
         }
         default:
           await this.code.autoSave();
-          const { css, html } = this.code.session;
-          const respText = HTML.replace("/**reset*/", css).replace(
+          const codeSpace = url.searchParams.get("room");
+          const { html } = this.code.session;
+          const respText = HTML.replace(`<!-- <link rel="stylesheet" href="/app.css"> -->`,
+             `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`).replace(
             "<div id=\"root\"></div>",
             `<div id="root">${html}</div>`,
           );
@@ -271,6 +275,30 @@ export class RouteHandler {
     });
   }
 
+  private async handleDefaultRoute(_request: Request, url: URL): Promise<Response> {
+    // const url = new URL(r);
+    const codeSpace = url.searchParams.get("room");
+    const {  html } = this.code.session;
+    const respText = HTML.replace(`<!-- <link rel="stylesheet" href="/app.css"> -->`,
+      `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`).replace(
+      "<div id=\"root\"></div>",
+      `<div id="root">${html}</div>`,
+    );
+
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Resource-Policy": "cross-origin",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cache-Control": "no-cache",
+      "Content-Encoding": "gzip",
+      "Content-Type": "text/html; charset=UTF-8",
+      "content_hash": md5(respText),
+    });
+
+    return new Response(respText, { status: 200, headers });
+  }
+
   private async handleRoomRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     return new Response(JSON.stringify({ codeSpace }), {
@@ -285,7 +313,7 @@ export class RouteHandler {
   }
 
   private async handlePathRoute(
-    request: Request,
+    _request: Request,
     url: URL,
     path: string[],
   ): Promise<Response> {
@@ -386,6 +414,19 @@ export class RouteHandler {
     });
   }
 
+  private async handleCssRoute(request: Request): Promise<Response> {
+    
+    return new Response(this.code.session.css, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        content_hash: md5(this.code.session.css),
+        "Content-Type": "text/css; charset=UTF-8",
+      },
+    });
+  }
+
   private async handleEnvRoute(): Promise<Response> {
     return new Response(JSON.stringify(this.code.getEnv()), {
       status: 200,
@@ -421,24 +462,5 @@ export class RouteHandler {
     });
   }
 
-  private async handleDefaultRoute(): Promise<Response> {
-    const { css, html } = this.code.session;
-    const respText = HTML.replace("/**reset*/", css).replace(
-      "<div id=\"root\"></div>",
-      `<div id="root">${html}</div>`,
-    );
 
-    const headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
-      "Cross-Origin-Embedder-Policy": "require-corp",
-      "Cross-Origin-Resource-Policy": "cross-origin",
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cache-Control": "no-cache",
-      "Content-Encoding": "gzip",
-      "Content-Type": "text/html; charset=UTF-8",
-      "content_hash": md5(respText),
-    });
-
-    return new Response(respText, { status: 200, headers });
-  }
 }

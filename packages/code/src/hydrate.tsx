@@ -7,10 +7,10 @@ import { wait } from "./wait";
 import { renderApp } from "./Wrapper";
 import { deleteAllServiceWorkers } from "./swUtils";
 import React from "react";
-import registerBroadcastLogger from "./BroadcastLogger";
+//import registerBroadcastLogger from "./BroadcastLogger";
 
 
-registerBroadcastLogger();
+//registerBroadcastLogger();
 const paths = location.pathname.split("/");
 const codeSpace = paths[2];
 
@@ -176,6 +176,10 @@ function mineFromCaches(cache: EmotionCache, html: string) {
   console.log("mineFromCaches");
   const key = cache.key || "css";
   try {
+    const tailwindCss = Array.from(
+      document.querySelectorAll("style"),
+    ).map((style) => style.textContent).filter((style) => style?.startsWith("/* ! tailwindcss"))[0] || "";
+
     const styledJSXStyles = Array.from(
       document.querySelectorAll("style[data-styled-jsx]"),
     ).map((style) => style.textContent);
@@ -187,7 +191,7 @@ function mineFromCaches(cache: EmotionCache, html: string) {
       ),
     ).join("\n");
 
-    return styledJSXStyles.concat(emotionStyles).join("\n");
+    return [tailwindCss, styledJSXStyles, emotionStyles].join("\n");
   } catch {
     return Array.from(document.styleSheets)
       .map((sheet) => {
