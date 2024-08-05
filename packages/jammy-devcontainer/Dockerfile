@@ -4,7 +4,7 @@
 FROM node:alpine as node-builder
 
 # Add yarn
-ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.3.1.cjs /usr/local/bin/yarn
+ADD https://raw.githubusercontent.com/zerdos/spike.land/main/.yarn/releases/yarn-4.4.0.cjs /usr/local/bin/yarn
 RUN chmod 755 /usr/local/bin/yarn && apk add --no-cache git unzip
 
 # Uncomment the following lines if you need to install Cypress during the build
