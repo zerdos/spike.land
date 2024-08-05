@@ -11,7 +11,7 @@ import { transpile } from "./shared";
 if (!Object.hasOwn(globalThis, "renderedAPPS")) {
 Object.assign(globalThis, { renderedAPPS: new Map<HTMLElement, RenderedApp>() });
 }
-const renderedAPPS = (globalThis as unknown as {renderedAPPS: Map<HTMLElement, RenderedApp>}).renderedAPPS;
+export const renderedAPPS = (globalThis as unknown as {renderedAPPS: Map<HTMLElement, RenderedApp>}).renderedAPPS;
 
 // Types
 interface IRenderApp {
@@ -64,20 +64,20 @@ const useTranspile = (code: string) => {
 };
 
 // Components
-export const Wrapper: React.FC<{ code: string }> = React.memo(({ code }) => {
-  const transpiled = useTranspile(code);
+export const Wrapper: React.FC<{ code?: string; transpiled?: string }> = React.memo(({ code, transpiled }) => {
+  const trans = transpiled || useTranspile(code!);
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<Root | null>(null);
 
   const cssCache = useMemo(() => createCache({ key: "css", speedy: false }), []);
 
   const renderApp = useCallback(() => {
-    if (!rootRef.current || !transpiled) return;
+    if (!rootRef.current || !trans) return;
 
     rootRef.current.render(
       <CacheProvider value={cssCache}>
         <ParentSize>
-          {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+          {(props) => <AppRenderer transpiled={trans} {...props} />}
         </ParentSize>
       </CacheProvider>
     );

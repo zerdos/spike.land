@@ -4,10 +4,9 @@ import { createRoot } from "react-dom/client";
 import { Workbox } from "workbox-window";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
-import { renderApp } from "./Wrapper";
+import { renderApp, renderedAPPS, Wrapper } from "./Wrapper";
 import { deleteAllServiceWorkers } from "./swUtils";
 import React from "react";
-//import registerBroadcastLogger from "./BroadcastLogger";
 
 
 //registerBroadcastLogger();
@@ -120,13 +119,44 @@ function handleDefaultPage() {
       await mutex.runExclusive(async () => {
         if (signal.aborted) return;
 
-        const rendered = (await renderApp({
-          transpiled,
-          rootElement: document.getElementById("root")! as HTMLDivElement,
-        }))!;
-        const { rootElement, cssCache } = rendered;
+        const myEl = document.createElement("div")! as HTMLDivElement;
+        myEl.style.height = "0";
+        myEl.style.width = "0";
+        document.body.appendChild(myEl); 
+        console.log({myEl});
 
-        await handleRender(rootElement!, cssCache, signal, mod);
+      
+        const rendered = await renderApp({rootElement:myEl,transpiled});
+        const App: React.ComponentType = rendered?.App!;
+
+        if (signal.aborted) {
+          rendered?.cleanup();
+          document.body.removeChild(myEl);
+          myEl.remove();
+
+          return;}
+
+       const success = await handleRender( myEl, rendered?.cssCache!, signal, mod);
+          
+
+       console.log({success});
+       if (!success) return rendered?.cleanup();
+       const old = document.getElementById("root")!;
+       renderedAPPS!.get(old!)!.cleanup();
+       myEl.style.height = "100%";
+       myEl.style.width = "100%";
+       document.body.removeChild(old);
+
+       old.remove();
+
+
+      
+          myEl.id = "root";
+       
+    
+
+
+   
       });
     }
     return false;

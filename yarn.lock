@@ -3631,9 +3631,9 @@ __metadata:
     prism-react-renderer: "npm:^2.3.1"
     qrious: "npm:4.0.2"
     re-resizable: "npm:^6.9.17"
-    react: "npm:18.3.1"
+    react: "npm:19.0.0-rc-65903583-20240805"
     react-day-picker: "npm:9.0.6"
-    react-dom: "npm:18.3.1"
+    react-dom: "npm:19.0.0-rc-65903583-20240805"
     react-hook-form: "npm:^7.52.2"
     react-i18next: "npm:^15.0.0"
     react-icons: "npm:5.2.1"
@@ -13380,15 +13380,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.3.1":
-  version: 18.3.1
-  resolution: "react-dom@npm:18.3.1"
+"react-dom@npm:19.0.0-rc-65903583-20240805":
+  version: 19.0.0-rc-65903583-20240805
+  resolution: "react-dom@npm:19.0.0-rc-65903583-20240805"
   dependencies:
-    loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.2"
+    scheduler: "npm:0.25.0-rc-65903583-20240805"
   peerDependencies:
-    react: ^18.3.1
-  checksum: 10/3f4b73a3aa083091173b29812b10394dd06f4ac06aff410b74702cfb3aa29d7b0ced208aab92d5272919b612e5cda21aeb1d54191848cf6e46e9e354f3541f81
+    react: 19.0.0-rc-65903583-20240805
+  checksum: 10/a37d2d75aaf2457f0661c4c12135731b6623a85b9e45d0a55caa4a043ac63f14f2af93ae2414b7d5b6076423eae8f2c658fe5665e6c86445eb5de42a6407318b
   languageName: node
   linkType: hard
 
@@ -13704,6 +13703,13 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
+  languageName: node
+  linkType: hard
+
+"react@npm:19.0.0-rc-65903583-20240805":
+  version: 19.0.0-rc-65903583-20240805
+  resolution: "react@npm:19.0.0-rc-65903583-20240805"
+  checksum: 10/ff8c157516e0e56257ee85ad2ef7d1a98f8fa92a187b924c3b1e750971cc2bb53caf4ad4ae8c0df886a2c0aea466f29cf7085061aa753414af01df10b58ed6a3
   languageName: node
   linkType: hard
 
@@ -14299,12 +14305,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.2":
-  version: 0.23.2
-  resolution: "scheduler@npm:0.23.2"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/e8d68b89d18d5b028223edf090092846868a765a591944760942b77ea1f69b17235f7e956696efbb62c8130ab90af7e0949bfb8eba7896335507317236966bc9
+"scheduler@npm:0.25.0-rc-65903583-20240805":
+  version: 0.25.0-rc-65903583-20240805
+  resolution: "scheduler@npm:0.25.0-rc-65903583-20240805"
+  checksum: 10/9c587deb22056aceb501c826c87cfd87b2f1523fc4df5fc1c10e3f3b6725d5191a110b1935940ce2fc646cc0107b2b64390d5aaa8832c2e24d6821fa10566e48
   languageName: node
   linkType: hard
 
