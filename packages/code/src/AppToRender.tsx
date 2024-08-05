@@ -44,7 +44,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   const handleCodeUpdate = (newCode: string) => {
     if (editorRef.current) {
-      editorRef.current.setValue(newCode);
+      editorRef.current.setValue(newCode, true);
     }
   };
 
@@ -129,7 +129,8 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
                 <CodeHistoryCarousel
-                  onRestore={() => {
+                  onRestore={ (code: string) => {
+                    handleCodeUpdate(code);
                     setShowAutoSaveHistory(false);
                   }}
                   codeSpace={codeSpace}

@@ -64,20 +64,20 @@ const useTranspile = (code: string) => {
 };
 
 // Components
-export const Wrapper: React.FC<{ code?: string; transpiled?: string }> = React.memo(({ code, transpiled }) => {
-  const trans = transpiled || useTranspile(code!);
+export const Wrapper: React.FC<{ code?: string; transpiled?: string }> = React.memo(({ code, transpiled:t }) => {
+  const transpiled = t || useTranspile(code!);
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<Root | null>(null);
 
   const cssCache = useMemo(() => createCache({ key: "css", speedy: false }), []);
 
   const renderApp = useCallback(() => {
-    if (!rootRef.current || !trans) return;
+    if (!rootRef.current || !transpiled) return;
 
     rootRef.current.render(
       <CacheProvider value={cssCache}>
         <ParentSize>
-          {(props) => <AppRenderer transpiled={trans} {...props} />}
+          {(props) => <AppRenderer transpiled={transpiled} {...props} />}
         </ParentSize>
       </CacheProvider>
     );

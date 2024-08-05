@@ -13,7 +13,7 @@ interface RestoreStatus {
   message: string;
 }
 
-export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: () => void }> = ({
+export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (code: string) => void }> = ({
   codeSpace,
   onRestore,
 }) => {
@@ -45,7 +45,7 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: () =>
   }, [fetchHistory]);
 
   const restoreVersion = useCallback(
-    async (timestamp: number) => {
+    async (timestamp: number, code: string) => {
       try {
         setRestoreStatus({ type: "loading", message: "Restoring..." });
         const response = await fetch(`/live/${codeSpace}/auto-save/restore`, {
@@ -58,7 +58,7 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: () =>
           type: "success",
           message: "Version restored successfully!",
         });
-        onRestore();
+        onRestore(code);
       } catch (err) {
         setRestoreStatus({
           type: "error",
@@ -87,7 +87,7 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: () =>
               index={index}
               totalItems={memoizedHistory.length}
               onRestore={()=>{
-                restoreVersion(item.timestamp);
+                restoreVersion(item.timestamp, item.code);
               }}
             />
           ))}
