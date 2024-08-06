@@ -6,6 +6,8 @@ import { Delta } from "./textDiff";
 
 export { importMapReplace };
 
+export {serverFetchUrl} from "./enhancedFetch"
+
 import {
   applyCodePatch,
   CodePatch,

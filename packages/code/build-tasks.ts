@@ -143,37 +143,34 @@ export async function buildMainBundle(wasmFile) {
     legalComments: "none",
     platform: "browser",
     ignoreAnnotations: true,
-    plugins: [  
+    // plugins: [  
     //   ReactCompilerEsbuildPlugin({
     //   filter: /\.(jsx|tsx|mjs|ts)$/,
     //   sourceMaps: true,
     //   runtimeModulePath: "/Users/z/github.com/zerdos/spike.land/node_modules/react/compiler-runtime.js"
     // })
-  ],
+  // ],
     entryPoints: [
       ...components.filter((x) => x).map((component) =>
         `src/@/components/ui/${component}.tsx`
       ),
       "src/@/lib/utils.ts",
       "src/modules.ts",
-      //      "src/motion.ts",
+      "src/motion.ts",
       "src/shared.ts",
       "src/hydrate.tsx",
-      //    "src/emotion.ts",
+      "src/emotion.ts",
       "src/cf-esbuild.mjs",
-      "src/Wrapper.tsx",
-
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
+      "src/reactDomClient.ts",
       "src/jsx.mjs",
-      "src/motion.ts",
       "src/shared.ts",
 
       "src/hydrate.tsx",
+      "src/Wrapper.tsx",
 
-      "src/emotion.ts",
-      "src/reactDomClient.ts",
     ],
     alias: {
       ...buildOptions.alias,

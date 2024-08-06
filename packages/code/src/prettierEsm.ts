@@ -43,7 +43,6 @@ const prettierConfig: Options = {
   trailingComma: "all",
   useTabs: false,
   parser: "typescript",
-  experimentalTernaries: true,
   singleAttributePerLine: true,
   plugins: [pluginEstree, pluginTypescript],
 };
@@ -52,19 +51,8 @@ export const prettierJs = async (
   code: string,
   toThrow = false,
 ): Promise<string> => {
-  let formatted = code;
-  let appliedFixes = false;
-  try {
-    formatted = await format(code, prettierConfig);
-    formatted = addSomeFixesIfNeeded(formatted);
-    appliedFixes = true;
-    return await format(formatted, prettierConfig);
-  } catch (error) {
-    console.error("Prettier error", { error, code });
-  
-    if (!appliedFixes) {
       try{
-        return  formatted = await format( addSomeFixesIfNeeded(code), prettierConfig);
+        return await format( addSomeFixesIfNeeded(code), prettierConfig);
       } catch (error) {
 
           console.error("Prettier error", { error, code });
@@ -74,11 +62,5 @@ export const prettierJs = async (
       }
 
     }
-    if (toThrow) throw error;
-    if (code === "Types not found") return "export {}";
-    return code;
-
-  }
-};
 
 Object.assign(self, { prettierJs });

@@ -105,6 +105,12 @@ const templates: Template[] = [
     description: "Build a real-time communication app using WebRTC",
     codeSpace: "cube",
   },
+  {
+    id: 6,
+    name: "React Spring",
+    description: "Demo of React Spring animations",
+    codeSpace: "reactSpring",
+  },
 ];
 
 const TemplateSelectionPage: React.FC = () => {

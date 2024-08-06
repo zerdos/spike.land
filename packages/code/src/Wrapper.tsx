@@ -10,7 +10,11 @@ import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
-import { transpile } from "./shared";
+import { transpile } from "./shared"; 
+import {md5} from "./md5";
+
+
+export { md5 };
 
 if (!Object.hasOwn(globalThis, "renderedAPPS")) {
   Object.assign(globalThis, {

@@ -18,11 +18,11 @@
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20240729.0",
     "typescript": "5.5.4",
-    "wrangler": "3.68.0"
+    "wrangler": "3.69.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.25.0",
-    "@clerk/clerk-sdk-node": "^5.0.24",
+    "@clerk/clerk-sdk-node": "^5.0.25",
     "@spike-land/code": "0.9.55",
     "@types/node": "22.1.0",
     "async-mutex": "0.5.0",

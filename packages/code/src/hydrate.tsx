@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import type { EmotionCache } from "@emotion/cache";
+import {enhancedFetch} from "./enhancedFetch";
 
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
@@ -243,6 +244,7 @@ const handleDefaultPage = () => {
 
 // Main execution
 const main = async () => {
+Object.assign(window, { enhancedFetch });
   await initializeApp();
   await createDirectories();
 
