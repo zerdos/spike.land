@@ -7,8 +7,6 @@ export async function handleApiRequest(
   env: Env,
 ) {
   switch (path[0]) {
-
-
     case "server-fetch":
       {
         if (request.method === "POST") {
@@ -25,9 +23,6 @@ export async function handleApiRequest(
       }
       break;
 
-
-
-      
     case "generate":
     case "room": {
       if (!path[1]) {

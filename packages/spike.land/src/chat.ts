@@ -1,10 +1,10 @@
+import { serverFetchUrl } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
 import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
-import {serverFetchUrl }from "@spike-land/code"
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -12,8 +12,7 @@ export default {
 
     env.KV.put("lastRequest", request.url);
 
-
-    const url = new URL(request.url)
+    const url = new URL(request.url);
     if (url.pathname === serverFetchUrl) {
       return handleServerFetch(request);
     }
@@ -68,11 +67,6 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
       return new Response("Method not allowed", { status: 405 });
   }
 }
-
-
-
-
-
 
 async function* streamResponse(response: Response): AsyncGenerator<Uint8Array, void, unknown> {
   const reader = response.body!.getReader();
@@ -167,4 +161,3 @@ async function handleRequest(request: Request): Promise<Response> {
     body: request.body,
   });
 }
-

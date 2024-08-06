@@ -1,9 +1,9 @@
 import { HTML } from "@spike-land/code";
+import { isJSDocReturnTag } from "typescript";
 import Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
 import { handleErrors } from "./handleErrors";
 import { handleUnauthorizedRequest } from "./utils";
-import { isJSDocReturnTag } from "typescript";
 
 export async function handleMainFetch(
   request: Request,
@@ -22,18 +22,12 @@ export async function handleMainFetch(
     const path = url.pathname.slice(1).split("/");
 
     if (!path[0]) {
-      
-      
-      return handleFetchApi(['live','landing'], request, env, ctx); 
+      return handleFetchApi(["live", "landing"], request, env, ctx);
     }
-
 
     if (path[0] === "start") {
-      return handleFetchApi(['live', 'temp'], request, env, ctx);
+      return handleFetchApi(["live", "temp"], request, env, ctx);
     }
-      
-    
-    
 
     return handleFetchApi(path, request, env, ctx);
   });
