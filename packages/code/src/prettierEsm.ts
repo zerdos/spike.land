@@ -1,5 +1,5 @@
 import type { Options } from "prettier";
-import { format } from "prettier/standalone";
+import { format,  } from "prettier/standalone";
 import pluginTypescript from "prettier/plugins/typescript";
 import pluginEstree from "prettier/plugins/estree";
 import emotion from "@emotion/css-prettifier";
@@ -72,13 +72,32 @@ export const prettierJs = async (
   code: string,
   toThrow = false,
 ): Promise<string> => {
+  let formatted = code;
+  let appliedFixes = false;
   try {
-    return await format(addSomeFixesIfNeeded(code), prettierConfig);
+    formatted = await format(code, prettierConfig);
+    formatted = addSomeFixesIfNeeded(formatted);
+    appliedFixes = true;
+    return await format(formatted, prettierConfig);
   } catch (error) {
     console.error("Prettier error", { error, code });
+  
+    if (!appliedFixes) {
+      try{
+        return  formatted = await format( addSomeFixesIfNeeded(code), prettierConfig);
+      } catch (error) {
+
+          console.error("Prettier error", { error, code });
+          if (toThrow) throw error;
+          if (code === "Types not found") return "export {}";
+          return code;
+      }
+
+    }
     if (toThrow) throw error;
     if (code === "Types not found") return "export {}";
     return code;
+
   }
 };
 
