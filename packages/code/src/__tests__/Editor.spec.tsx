@@ -6,14 +6,12 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { Editor } from "../components/Editor";
-// import { runner as mockRunner } from "../runner";
 
 // import   { useBroadcastChannel }  from "../hooks/useBroadcastChannel";
 
 // Mock the dependencies
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../isMobile", () => ({ isMobile: () => false }));
-jest.mock("../runner", () => ({ runner: jest.fn() }));
 jest.mock("../shared", () => ({ prettierToThrow: jest.fn() }));
 jest.mock("../startMonaco", () => ({
   startMonaco: jest.fn().mockResolvedValue({

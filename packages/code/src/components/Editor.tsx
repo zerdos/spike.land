@@ -12,8 +12,7 @@ import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { useEditorState } from "../hooks/useEditorState";
 import { useErrorHandling } from "../hooks/useErrorHandling";
-import { runner } from "../runner";
-import { prettierToThrow } from "../shared";
+import { prettierToThrow, transpile } from "../shared";
 import { EditorNode } from "./ErrorReminder";
 import { ICodeSession } from "@src/makeSess";
 import { Mutex } from "async-mutex";
@@ -111,7 +110,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         let formattedCode;
 
         try {
-          if (mod.current.controller.signal.aborted) return;
+          if (signal.aborted) return;
           formattedCode = await prettierToThrow({ code, toThrow: true });
           if (errorType === "prettier") {
             setErrorType(null);
@@ -121,15 +120,21 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           throw error;
         }
         try {
-          if (mod.current.controller.signal.aborted) return;
-          await runner({
+          if (signal.aborted) return;
+
+          const transpiled = await transpile({ code: formattedCode, originToUse: location.origin });
+
+          document.querySelector("iframe")?.contentWindow?.postMessage({
             code: formattedCode,
-            counter: i,
-            codeSpace,
-            signal: mod.current.controller.signal,
+            transpiled,
+            i,
+            sender: "Runner / Editor",
           });
+
+          mod.current.controller.abort();
+
           console.log("Runner succeeded");
-          onCodeUpdate(formattedCode);
+   
           if (errorType === "transpile") {
             setErrorType(null);
           }
@@ -137,8 +142,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           console.error("Error in runner:", error);
           setErrorType("transpile");
         }
-        
-        setEditorContent(formattedCode);
       },
       300,
       { leading: true, trailing: true },
@@ -151,14 +154,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
    return  mutex.runExclusive(async () => {
     
-    mod.current.i += 1;
+
     setLastTypingTimestamp(Date.now());
 
-    mod.current.code = newCode;
+    mod.current.code = await prettierToThrow({code: newCode, toThrow: true});
 
     mod.current.controller.abort();
     mod.current.controller = new AbortController();
     const { signal } = mod.current.controller;
+    mod.current.i += 1;
 
     await  debouncedRunner(newCode, mod.current.i, signal);
     });
@@ -171,7 +175,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   ]);
 
   const handleBroadcastMessage = useCallback(
-    ({ data }: { data: ICodeSession }) => {
+async    ({ data }: { data: ICodeSession }) => {
       if (
         !data.i || !data.code || data.code === mod.current.code ||
         mod.current.i >= data.i
@@ -181,13 +185,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       mod.current.i = Number(data.i);
       mod.current.code = data.code;
-      setEditorContent(data.code);
+  
 
       mod.current.controller.abort();
       mod.current.controller = new AbortController();
 
-      const { signal } = mod.current.controller;
-      runner({ ...mod.current, counter: mod.current.i, codeSpace, signal });
+//      const { signal } = mod.current.controller;
+   //   await debouncedRunner(data.code, mod.current.i, signal);
+      const formattedCode = await prettierToThrow({ code: data.code, toThrow: true });
+   setEditorContent(formattedCode, true);
     },
     [codeSpace, setEditorContent],
   );
