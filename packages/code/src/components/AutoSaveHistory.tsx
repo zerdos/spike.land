@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-
-import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import {  HistoryItem, RestoreStatusAlert } from "./History/HistoryFComponents";
+import React, { useCallback, useEffect, useState } from "react";
+import { HistoryItem, RestoreStatusAlert, FullScreenHistoryView } from "./History/HistoryFComponents";
 
 interface HistoryItem {
   code: string;
@@ -13,14 +11,16 @@ interface RestoreStatus {
   message: string;
 }
 
-export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (code: string) => void }> = ({
+export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (item: HistoryItem) => void, onClose: ()=>void }> = ({
   codeSpace,
   onRestore,
+  onClose
 }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(null);
+  const [isFullScreen, setIsFullScreen] = useState(true);
 
   const fetchHistory = useCallback(async () => {
     try {
@@ -58,7 +58,7 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (code
           type: "success",
           message: "Version restored successfully!",
         });
-        onRestore(code);
+        onRestore({ timestamp, code }); 
       } catch (err) {
         setRestoreStatus({
           type: "error",
@@ -69,33 +69,15 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (code
     [codeSpace, onRestore]
   );
 
-  const memoizedHistory = useMemo(() => history, [history]);
-
   if (loading) return <div>Loading history...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold mb-4">Code History</h2>
-      {restoreStatus && <RestoreStatusAlert status={restoreStatus} />}
-      <Carousel opts={{ loop: true }} className="w-full max-w-4xl">
-        <CarouselContent>
-          {memoizedHistory.map((item, index) => (
-            <HistoryItem
-              key={item.timestamp}
-              item={item}
-              index={index}
-              totalItems={memoizedHistory.length}
-              onRestore={()=>{
-                restoreVersion(item.timestamp, item.code);
-              }}
-            />
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
-    </div>
+    <FullScreenHistoryView
+          history={history}
+          onRestore={(item: HistoryItem) => restoreVersion(item.timestamp, item.code)}
+          onClose={() => onClose()}
+        />
   );
 };
 

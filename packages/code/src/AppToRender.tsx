@@ -129,8 +129,10 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             <div className="fixed inset-0 flex items-center justify-center z-50">
               <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
                 <CodeHistoryCarousel
-                  onRestore={ (code: string) => {
-                    handleCodeUpdate(code);
+                  onClose={() => setShowAutoSaveHistory(false)}
+
+                  onRestore={ (item: {code: string}) => {
+                    handleCodeUpdate(item.code);
                     setShowAutoSaveHistory(false);
                   }}
                   codeSpace={codeSpace}

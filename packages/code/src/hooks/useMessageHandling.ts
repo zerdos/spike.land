@@ -2,9 +2,8 @@ import { useCallback } from 'react';
 import { Message } from '../types/Message';
 import { prettierToThrow } from '../shared';
 import { updateSearchReplace } from '../utils/chatUtils';
-import { debounce } from 'lodash';
-import {Mutex} from "async-mutex";
-
+import debounce from 'lodash/debounce';
+import { Mutex } from "async-mutex";
 
 interface UseMessageHandlingProps {
   codeSpace: string;
@@ -16,7 +15,11 @@ interface UseMessageHandlingProps {
   setAICode: React.Dispatch<React.SetStateAction<string>>;
   saveMessages: (newMessages: Message[]) => void;
   onCodeUpdate: (code: string) => void;
-  aiHandler: any; // Replace 'any' with the correct type for aiHandler
+  aiHandler: {
+    prepareClaudeContent: (content: string, messages: Message[], codeNow: string, codeSpace: string) => string;
+    sendToAnthropic: (messages: Message[], onUpdate: (code: string) => void) => Promise<Message>;
+    continueWithOpenAI: (content: string, code: string, onCodeUpdate: (code: string) => void, setMessages: React.Dispatch<React.SetStateAction<Message[]>>, setAICode: React.Dispatch<React.SetStateAction<string>>) => Promise<void>;
+  };
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
@@ -42,10 +45,9 @@ export const useMessageHandling = ({
   broadcastChannel,
 }: UseMessageHandlingProps) => {
   const handleSendMessage = useCallback(async (content: string) => {
-    console.log("Sending message");
     if (!content.trim()) return;
 
-    const { code } = await fetch(`/live/${codeSpace}/session.json`).then(res => res.json<{i: number, code: string}>());
+    const { code } = await fetch(`/live/${codeSpace}/session.json`).then(res => res.json<{ code: string }>());
     const codeNow = await prettierToThrow({ code, toThrow: true });
 
     await fetch(`/live/${codeSpace}/auto-save`);
@@ -69,42 +71,37 @@ export const useMessageHandling = ({
     setIsStreaming(true);
 
     try {
-      const sentMSGs = [...updatedMessages];
-      let preUps = { last: -1, lastCode: codeNow, count: 0 };
+      const sentMessages = [...updatedMessages];
+      let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
       const mutex = new Mutex();
-      const onUpd = async (code: string) => {
-        mutex.runExclusive(async () => {
 
-        console.table({preUps, code});
-        const lastChunk = code.slice(preUps.last+1);
-        if (lastChunk.includes('>>>>>>> REPLACE')) {
-          const nstr = code.slice(preUps.last + 1);
-          preUps.last = lastChunk.indexOf('>>>>>>> REPLACE') + preUps.last + 17;
-          console.table({nstr, lastCode: preUps.lastCode});
-          const lastCode = updateSearchReplace(nstr, preUps.lastCode);
-          console.table({nstr, lastCode: preUps.lastCode, newCode: lastCode});
+      const onUpdate = async (code: string) => {
+        await mutex.runExclusive(async () => {
+          const lastChunk = code.slice(preUpdates.last + 1);
+          if (lastChunk.includes('>>>>>>> REPLACE')) {
+            const nextStr = code.slice(preUpdates.last + 1);
+            preUpdates.last = lastChunk.indexOf('>>>>>>> REPLACE') + preUpdates.last + 17;
+            const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
 
-          if (lastCode !== preUps.lastCode) {
-            preUps.lastCode = lastCode;
-            preUps.count += 1;
-            try{            await prettierToThrow({ code: lastCode, toThrow: true }).then((c) => {
-              console.table({preUps});  
-              onCodeUpdate(c);
-            
-            });
-          } catch (error) {
-            console.error("Error in runner:", error);
+            if (lastCode !== preUpdates.lastCode) {
+              preUpdates.lastCode = lastCode;
+              preUpdates.count += 1;
+              try {
+                const formattedCode = await prettierToThrow({ code: lastCode, toThrow: true });
+                onCodeUpdate(formattedCode);
+              } catch (error) {
+                console.error("Error in runner:", error);
+              }
+            }
           }
-          
-          }
-        }
-        
-        setMessages([...sentMSGs, { id: Date.now().toString(), role: "assistant", content: code }]);
-      });
+
+          setMessages([...sentMessages, { id: Date.now().toString(), role: "assistant", content: code }]);
+        });
       };
-      const debouncedOnUpd = debounce(onUpd, 100);
 
-      const assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, debouncedOnUpd);
+      const debouncedOnUpdate = debounce(onUpdate, 100);
+
+      const assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, debouncedOnUpdate);
       updatedMessages.push(assistantMessage);
       saveMessages(updatedMessages);
 
@@ -115,22 +112,10 @@ export const useMessageHandling = ({
 
         if (assistantMessage.content.includes("```")) {
           const fromTheLastReplace = assistantMessage.content.split(">>>>>>> REPLACE\n").pop()!;
-          await aiHandler.continueWithOpenAI(
-            fromTheLastReplace,
-            formattedCode,
-            onCodeUpdate,
-            setMessages,
-            setAICode,
-          );
+          await aiHandler.continueWithOpenAI(fromTheLastReplace, formattedCode, onCodeUpdate, setMessages, setAICode);
         }
       } else {
-        await aiHandler.continueWithOpenAI(
-          assistantMessage.content,
-          codeNow,
-          onCodeUpdate,
-          setMessages,
-          setAICode,
-        );
+        await aiHandler.continueWithOpenAI(assistantMessage.content, codeNow, onCodeUpdate, setMessages, setAICode);
       }
     } catch (error) {
       console.error("Error processing request:", error);
@@ -143,7 +128,7 @@ export const useMessageHandling = ({
     }
 
     setIsStreaming(false);
-  }, [codeWhatAiSeen, onCodeUpdate, saveMessages, messages, setAICode, setMessages, aiHandler]);
+  }, [codeSpace, messages, setMessages, setInput, setIsStreaming, codeWhatAiSeen, setAICode, saveMessages, onCodeUpdate, aiHandler]);
 
   const handleResetChat = useCallback(() => {
     setMessages([]);
