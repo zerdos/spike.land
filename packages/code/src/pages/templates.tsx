@@ -1,95 +1,98 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import MarkdownEditor from "./templates/markdown-editor";
-import PomodoroTimer from "./templates/pomodoro";
-import Todo from "./templates/todo";
-import WeatherDashboard from "./templates/weather-dashboard";
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
+import { Wrapper } from "https://testing.spike.land/Wrapper.mjs";
 
-const BrowserFrame = ({ children }: { children: React.ReactNode }) => (
+interface Template {
+  id: number;
+  name: string;
+  description: string;
+  codeSpace: string;
+}
+
+const BrowserFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="border border-gray-300 rounded-lg overflow-hidden shadow-md">
     <div className="bg-gray-100 p-2 flex items-center space-x-2">
       <div className="flex space-x-1">
-        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+        {["red", "yellow", "green"].map((color) => (
+          <div
+            key={color}
+            className={`w-3 h-3 rounded-full bg-${color}-500`}
+          />
+        ))}
       </div>
       <div className="flex-grow bg-white rounded px-2 py-1 text-sm text-gray-600">
         example.com
       </div>
     </div>
-    <div className="bg-white p-4">
-      <div className="w-full h-full scale-[0.75] origin-top-left">
+    <div className="bg-white p-4 h-[300px] overflow-hidden">
+      <div className="w-[300%] h-[300%] origin-top-left scale-[0.33] overflow-y-auto">
         {children}
       </div>
     </div>
   </div>
 );
 
-interface Template {
-  id: number;
-  name: string;
-  description: string;
-  preview: JSX.Element | (() => JSX.Element);
-}
+const TemplateCard: React.FC<{
+  template: Template;
+  onSelect: (templateId: number) => void;
+}> = ({ template, onSelect }) => (
+  <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
+    <CardHeader>
+      <h2 className="text-xl font-semibold">{template.name}</h2>
+    </CardHeader>
+    <CardContent className="flex-grow flex flex-col">
+      <div className="mb-4 flex-shrink-0">
+        <BrowserFrame>
+          <Wrapper
+            codeSpace={template.codeSpace}
+            scale={1}
+          />
+        </BrowserFrame>
+      </div>
+      <p className="mb-4 flex-grow">{template.description}</p>
+    </CardContent>
+    <CardFooter>
+      <Button
+        onClick={() => onSelect(template.id)}
+        className="w-full">
+        Select Template
+      </Button>
+    </CardFooter>
+  </Card>
+);
 
-const templates = [
+const templates: Template[] = [
   {
     id: 1,
     name: "Todo List App",
     description: "Learn basic state management and UI interactions",
-    preview: <Todo />,
+    codeSpace: "todo",
   },
   {
     id: 2,
-    name: "Weather Dashboard",
-    description: "Work with APIs and display dynamic data",
-    preview: <WeatherDashboard />,
+    name: "Voronoi Diagram",
+    description: "Explore geometric algorithms and visualizations",
+    codeSpace: "voronoi",
   },
   {
     id: 3,
-    name: "Pomodoro Timer ",
-    description: "Pomodoro timer",
-    preview: <PomodoroTimer />,
+    name: "Zoli Project",
+    description: "Dive into advanced React patterns and state management",
+    codeSpace: "zoli",
   },
   {
     id: 4,
-    name: "Markdown Editor",
-    description: "Markdown editor",
-    preview: <MarkdownEditor />,
+    name: "WebRTC Chat",
+    description: "Build a real-time communication app using WebRTC",
+    codeSpace: "peerz",
   },
 ];
 
-const TemplateCard = (
-  { template, onSelect }: {
-    template: Template;
-    onSelect: (templateId: number) => void;
-  },
-) => (
-  <Card className="hover:shadow-lg transition-shadow duration-300">
-    <CardHeader>
-      <h2 className="text-xl font-semibold">{template.name}</h2>
-    </CardHeader>
-    <CardContent>
-      <div className="mb-4 h-[300px] flex justify-center items-center">
-        <div className="scale-[0.4] origin-center">
-          <BrowserFrame>
-            {typeof template.preview === "function"
-              ? template.preview()
-              : template.preview}
-          </BrowserFrame>
-        </div>
-      </div>
-      <p className="mb-4">{template.description}</p>
-      <Button onClick={() => onSelect(template.id)} className="w-full">
-        Select Template
-      </Button>
-    </CardContent>
-  </Card>
-);
-
-const TemplateSelectionPage = () => {
+const TemplateSelectionPage: React.FC = () => {
   const handleSelectTemplate = (templateId: number) => {
     console.log(`Selected template: ${templateId}`);
+    // Implement your template selection logic here
   };
 
   return (

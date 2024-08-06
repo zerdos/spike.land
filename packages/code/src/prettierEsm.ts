@@ -14,7 +14,6 @@ const addImportIfMissing = (code: string, condition: string, importStatement: st
 export const addSomeFixesIfNeeded = (code: string): string => {
   code = addImportIfMissing(code, "css={css`", `import { css } from "@emotion/react";`);
   code = addImportIfMissing(code, " FC<{", `import type { FC } from "react";`);
-  code = addImportIfMissing(code, "useState(", `import { useState } from "react";`);
 
   if (!code.includes("export default") && code.includes("const App")) {
     code += "\nexport default App;";
