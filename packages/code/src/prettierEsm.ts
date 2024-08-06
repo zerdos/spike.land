@@ -6,15 +6,6 @@ import emotion from "@emotion/css-prettifier";
 
 const createSpaceString = (n: number): string => " ".repeat(n);
 
-const addImportIfMissing = (
-  code: string,
-  condition: string,
-  importStatement: string,
-): string =>
-  code.includes(condition) && !code.includes(importStatement)
-    ? `${importStatement}\n${code}`
-    : code;
-
 export const addSomeFixesIfNeeded = (code: string): string => {
   const [start, ...rest] = code.split("css={css`");
   let prevIndent = start.split("\n").pop()?.length || 0 + 2;
@@ -27,10 +18,10 @@ export const addSomeFixesIfNeeded = (code: string): string => {
       prevIndent = second.split("\n").pop()?.length || 0 + 2;
 
       return [
-        emotion(first).split("\n")!.map((l: string) => indent + l).join("\n"),
+        emotion(first).split("\n")!.map((l: string) => indent + '  ' + l).join("\n"),
         second,
-      ].join("\n`");
-    }),
+      ].join(`\n${indent}\``);
+    })
   ].join("css={css`\n");
 };
 
