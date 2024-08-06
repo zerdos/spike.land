@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { HistoryItem, RestoreStatusAlert, FullScreenHistoryView } from "./History/HistoryFComponents";
+import {
+  FullScreenHistoryView,
+  HistoryItem,
+  RestoreStatusAlert,
+} from "./History/HistoryFComponents";
 
 interface HistoryItem {
   code: string;
@@ -11,15 +15,23 @@ interface RestoreStatus {
   message: string;
 }
 
-export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (item: HistoryItem) => void, onClose: ()=>void }> = ({
+export const CodeHistoryCarousel: React.FC<
+  {
+    codeSpace: string;
+    onRestore: (item: HistoryItem) => void;
+    onClose: () => void;
+  }
+> = ({
   codeSpace,
   onRestore,
-  onClose
+  onClose,
 }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(null);
+  const [restoreStatus, setRestoreStatus] = useState<RestoreStatus | null>(
+    null,
+  );
   const [isFullScreen, setIsFullScreen] = useState(true);
 
   const fetchHistory = useCallback(async () => {
@@ -30,11 +42,15 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (item
       const data: HistoryItem[] = await response.json();
       setHistory(
         data
-          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
-          .sort((a, b) => b.timestamp - a.timestamp)
+          .filter((x) =>
+            !x.code.includes("History") && !x.code.includes("e/pp")
+          )
+          .sort((a, b) => b.timestamp - a.timestamp),
       );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred");
+      setError(
+        err instanceof Error ? err.message : "An unknown error occurred",
+      );
     } finally {
       setLoading(false);
     }
@@ -58,15 +74,17 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (item
           type: "success",
           message: "Version restored successfully!",
         });
-        onRestore({ timestamp, code }); 
+        onRestore({ timestamp, code });
       } catch (err) {
         setRestoreStatus({
           type: "error",
-          message: err instanceof Error ? err.message : "An unknown error occurred",
+          message: err instanceof Error
+            ? err.message
+            : "An unknown error occurred",
         });
       }
     },
-    [codeSpace, onRestore]
+    [codeSpace, onRestore],
   );
 
   if (loading) return <div>Loading history...</div>;
@@ -74,10 +92,11 @@ export const CodeHistoryCarousel: React.FC<{ codeSpace: string; onRestore: (item
 
   return (
     <FullScreenHistoryView
-          history={history}
-          onRestore={(item: HistoryItem) => restoreVersion(item.timestamp, item.code)}
-          onClose={() => onClose()}
-        />
+      history={history}
+      onRestore={(item: HistoryItem) =>
+        restoreVersion(item.timestamp, item.code)}
+      onClose={() => onClose()}
+    />
   );
 };
 

@@ -33,17 +33,15 @@ export const prettierToThrow = (
 ) => init(swVersion).rpc("prettierJs", { code, toThrow }) as Promise<string>;
 
 const prettierMemo = new Map<string, string>();
-export const prettier =async  (code: string) =>{
+export const prettier = async (code: string) => {
   if (prettierMemo.has(code)) return prettierMemo.get(code)!;
 
-return mutex.runExclusive(async () =>{
- const c =    await prettierToThrow({ code, toThrow: false })
-  prettierMemo.set(code, c);
-  return c;
-}
-  );
-
-}
+  return mutex.runExclusive(async () => {
+    const c = await prettierToThrow({ code, toThrow: false });
+    prettierMemo.set(code, c);
+    return c;
+  });
+};
 
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },

@@ -10,7 +10,10 @@ export class AIHandler {
     this.aiService = aiService || new AIService(localStorageService);
   }
 
-  async sendToAnthropic(messages: Message[], onUpdate: (code: string)=>void): Promise<Message> {
+  async sendToAnthropic(
+    messages: Message[],
+    onUpdate: (code: string) => void,
+  ): Promise<Message> {
     return this.aiService.sendToAnthropic(messages, onUpdate);
   }
 
@@ -46,5 +49,3 @@ export class AIHandler {
     );
   }
 }
-
-

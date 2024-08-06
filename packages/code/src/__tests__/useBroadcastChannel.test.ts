@@ -9,10 +9,11 @@ describe("useBroadcastChannel", () => {
     mockAddEventListener = jest.fn();
     mockRemoveEventListener = jest.fn();
 
-    (globalThis as unknown as {BroadcastChannel: ()=>{}} ).BroadcastChannel = jest.fn().mockImplementation(() => ({
-      addEventListener: mockAddEventListener,
-      removeEventListener: mockRemoveEventListener,
-    }));
+    (globalThis as unknown as { BroadcastChannel: () => {} }).BroadcastChannel =
+      jest.fn().mockImplementation(() => ({
+        addEventListener: mockAddEventListener,
+        removeEventListener: mockRemoveEventListener,
+      }));
   });
 
   test("creates a BroadcastChannel with the correct name", () => {
@@ -21,7 +22,10 @@ describe("useBroadcastChannel", () => {
 
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
-    expect((globalThis as unknown as {BroadcastChannel: ()=>{}} ).BroadcastChannel).toHaveBeenCalledWith(
+    expect(
+      (globalThis as unknown as { BroadcastChannel: () => {} })
+        .BroadcastChannel,
+    ).toHaveBeenCalledWith(
       `${location.origin}/live/${codeSpace}/`,
     );
   });

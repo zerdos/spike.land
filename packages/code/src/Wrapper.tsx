@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createRoot, type Root } from "react-dom/client";
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
@@ -6,12 +12,14 @@ import { ParentSize } from "@visx/responsive";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import { transpile } from "./shared";
 
-
-
 if (!Object.hasOwn(globalThis, "renderedAPPS")) {
-Object.assign(globalThis, { renderedAPPS: new Map<HTMLElement, RenderedApp>() });
+  Object.assign(globalThis, {
+    renderedAPPS: new Map<HTMLElement, RenderedApp>(),
+  });
 }
-export const renderedAPPS = (globalThis as unknown as {renderedAPPS: Map<HTMLElement, RenderedApp>}).renderedAPPS;
+export const renderedAPPS =
+  (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> })
+    .renderedAPPS;
 
 // Types
 interface IRenderApp {
@@ -40,8 +48,13 @@ const useCodeSpace = (codeSpace: string) => {
 
     const doTranspile = async () => {
       try {
-        const code = await fetch(window.location.origin+`/live/${codeSpace}/index.tsx`).then((res) => res.text());
-        const result = await transpile({ code, originToUse: window.location.origin });
+        const code = await fetch(
+          window.location.origin + `/live/${codeSpace}/index.tsx`,
+        ).then((res) => res.text());
+        const result = await transpile({
+          code,
+          originToUse: window.location.origin,
+        });
         if (!isCancelled) {
           setTranspiled(result);
         }
@@ -71,7 +84,10 @@ const useTranspile = (code: string) => {
 
     const doTranspile = async () => {
       try {
-        const result = await transpile({ code, originToUse: window.location.origin });
+        const result = await transpile({
+          code,
+          originToUse: window.location.origin,
+        });
         if (!isCancelled) {
           setTranspiled(result);
         }
@@ -94,26 +110,34 @@ const useTranspile = (code: string) => {
 };
 
 // Components
-export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string, scale?: number }> = React.memo(({ code, codeSpace,transpiled:t, scale = 1 }) => {
+export const Wrapper: React.FC<
+  { codeSpace?: string; code?: string; transpiled?: string; scale?: number }
+> = React.memo(({ code, codeSpace, transpiled: t, scale = 1 }) => {
   if (codeSpace) {
-    return  <iframe
-    css={css`
-    height: ${100/scale}%;
-    width: ${100/scale}%;
+    return (
+      <iframe
+        css={css`
+    height: ${100 / scale}%;
+    width: ${100 / scale}%;
     border: 0;
     overflow: 'scroll';
     -webkit-overflow-scrolling: touch;
     
   `}
-    src={`/live/${codeSpace}/`}
-  />
-  }  
-  
-  const transpiled = t || (code && useTranspile(code)) || (codeSpace && useCodeSpace(codeSpace));
+        src={`/live/${codeSpace}/`}
+      />
+    );
+  }
+
+  const transpiled = t || (code && useTranspile(code)) ||
+    (codeSpace && useCodeSpace(codeSpace));
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<Root | null>(null);
 
-  const cssCache = useMemo(() => createCache({ key: "css", speedy: false }), []);
+  const cssCache = useMemo(
+    () => createCache({ key: "css", speedy: false }),
+    [],
+  );
 
   const renderApp = useCallback(() => {
     if (!rootRef.current || !transpiled) return;
@@ -123,7 +147,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
         <ParentSize>
           {(props) => <AppRenderer transpiled={transpiled} {...props} />}
         </ParentSize>
-      </CacheProvider>
+      </CacheProvider>,
     );
   }, [transpiled, cssCache]);
 
@@ -145,9 +169,15 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
     };
   }, [transpiled, renderApp]);
 
-  return <div ref={containerRef} css={css`
+  return (
+    <div
+      ref={containerRef}
+      css={css`
   width: 100%; 
-  height: 100%;`} data-testid="wrapper-container" />;
+  height: 100%;`}
+      data-testid="wrapper-container"
+    />
+  );
 });
 
 // Optimized renderApp function
@@ -162,13 +192,11 @@ export const renderApp = async ({
     const rootEl = rootElement ||
       document.getElementById("root") as HTMLDivElement ||
       document.createElement("div");
-    
+
     if (!document.body.contains(rootEl)) {
       rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
-
-   
 
     if (renderedAPPS.has(rootEl)) {
       console.warn("Cleaning up existing app before rendering new one.");
@@ -194,7 +222,7 @@ export const renderApp = async ({
         <ParentSize>
           {(props) => <AppToRender {...props} />}
         </ParentSize>
-      </CacheProvider>
+      </CacheProvider>,
     );
 
     const renderedApp: RenderedApp = {

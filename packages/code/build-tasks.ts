@@ -1,5 +1,3 @@
-
-
 // build-tasks.mjs
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
@@ -145,13 +143,15 @@ export async function buildMainBundle(wasmFile) {
     platform: "browser",
     ignoreAnnotations: true,
     entryPoints: [
-      ...components.filter((x) => x).map((component) => `src/@/components/ui/${component}.tsx`),
+      ...components.filter((x) => x).map((component) =>
+        `src/@/components/ui/${component}.tsx`
+      ),
       "src/@/lib/utils.ts",
       "src/modules.ts",
-//      "src/motion.ts",
+      //      "src/motion.ts",
       "src/shared.ts",
       "src/hydrate.tsx",
-//    "src/emotion.ts",
+      //    "src/emotion.ts",
       "src/cf-esbuild.mjs",
       "src/Wrapper.tsx",
 
@@ -162,7 +162,6 @@ export async function buildMainBundle(wasmFile) {
       "src/motion.ts",
       "src/shared.ts",
 
-      
       "src/hydrate.tsx",
 
       "src/emotion.ts",
@@ -178,17 +177,13 @@ export async function buildMainBundle(wasmFile) {
       //  "react-dom/client": "/reactDomClient.mjs",
       //  "react-dom": "/reactDom.mjs", // Must be below test-utils
     },
- 
+
     external: [
       ...(buildOptions.external?.length ? buildOptions.external : []),
       "/swVersion.mjs",
- 
+
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],
   });
-
-
-
-
 }

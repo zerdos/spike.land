@@ -279,7 +279,10 @@ export class RouteHandler {
     });
   }
 
-  private async handleDefaultRoute(_request: Request, url: URL): Promise<Response> {
+  private async handleDefaultRoute(
+    _request: Request,
+    url: URL,
+  ): Promise<Response> {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;

@@ -2,9 +2,8 @@ import {
   build as esmBuild,
   BuildOptions,
   initialize,
-  transform
+  transform,
 } from "esbuild-wasm";
-
 
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";

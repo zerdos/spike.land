@@ -1,7 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
-import { Message } from '../types/Message';
+import { useEffect, useRef, useState } from "react";
+import { Message } from "../types/Message";
 
-export const useChat = (codeSpace: string, loadMessages: (codeSpace: string) => Message[]) => {
+export const useChat = (
+  codeSpace: string,
+  loadMessages: (codeSpace: string) => Message[],
+) => {
   const [messages, setMessages] = useState<Message[]>(loadMessages(codeSpace));
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -40,7 +43,10 @@ export const useChat = (codeSpace: string, loadMessages: (codeSpace: string) => 
   };
 
   const saveMessages = (newMessages: Message[]) => {
-    localStorage.setItem(`chatMessages-${codeSpace}`, JSON.stringify(newMessages));
+    localStorage.setItem(
+      `chatMessages-${codeSpace}`,
+      JSON.stringify(newMessages),
+    );
     broadcastChannel.current?.postMessage({
       type: `update_messages-${codeSpace}`,
       messages: newMessages,

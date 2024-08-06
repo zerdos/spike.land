@@ -6,7 +6,6 @@ import { Message } from "../types/Message";
 // Mock the entire LocalStorageService module
 jest.mock("../services/LocalStorageService");
 
-
 describe("AIService", () => {
   let aiService: AIService;
   let localStorageService: jest.Mocked<LocalStorageService>;
@@ -63,9 +62,10 @@ describe("AIService", () => {
         status: 500,
       } as Response);
 
-      await expect(aiService.sendToAnthropic(mockMessages, jest.fn())).rejects.toThrow(
-        "HTTP error! status: 500",
-      );
+      await expect(aiService.sendToAnthropic(mockMessages, jest.fn())).rejects
+        .toThrow(
+          "HTTP error! status: 500",
+        );
     });
   });
 

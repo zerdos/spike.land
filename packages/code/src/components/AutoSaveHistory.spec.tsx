@@ -55,14 +55,13 @@ describe("AutoSaveHistory", () => {
   };
 
   const mockOnRestore = jest.fn();
-  const mockOnClose = (_code: string) => {}
+  const mockOnClose = (_code: string) => {};
 
   it("renders loading state initially", async () => {
     renderWithProvider(
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-
       />,
     );
     await screen.findByText("Loading versions...");

@@ -3,11 +3,17 @@ import { format } from "date-fns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Wrapper } from '@src/Wrapper';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Wrapper } from "@src/Wrapper";
 
 // ScaledWrapper component
-const ScaledWrapper = ({ code, scale }: { code: string, scale: number }) => (
+const ScaledWrapper = ({ code, scale }: { code: string; scale: number }) => (
   <div className="w-full h-0 pb-[56.25%] relative overflow-hidden">
     <div
       style={{
@@ -20,7 +26,7 @@ const ScaledWrapper = ({ code, scale }: { code: string, scale: number }) => (
         left: 0,
       }}
     >
-      <Wrapper code={code} scale={.6}/>
+      <Wrapper code={code} scale={.6} />
     </div>
   </div>
 );
@@ -38,7 +44,9 @@ interface HistoryItemProps {
 }
 
 // HistoryItem component
-const HistoryItem: React.FC<HistoryItemProps> = ({ item, index, totalItems, onRestore }) => (
+const HistoryItem: React.FC<HistoryItemProps> = (
+  { item, index, totalItems, onRestore },
+) => (
   <Card className="flex flex-col h-full">
     <CardHeader>
       <CardTitle>Version {totalItems - index}</CardTitle>
@@ -57,7 +65,9 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ item, index, totalItems, onRe
           </DialogTrigger>
           <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Source Code - Version {totalItems - index}</DialogTitle>
+              <DialogTitle>
+                Source Code - Version {totalItems - index}
+              </DialogTitle>
             </DialogHeader>
             <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
               <code>{item.code}</code>
@@ -74,7 +84,11 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ item, index, totalItems, onRe
 const RestoreStatusAlert = ({ status }: { status: any }) => (
   <Alert variant={status.type === "error" ? "destructive" : "default"}>
     <AlertTitle>
-      {status.type === "loading" ? "Restoring" : status.type === "success" ? "Success" : "Error"}
+      {status.type === "loading"
+        ? "Restoring"
+        : status.type === "success"
+        ? "Success"
+        : "Error"}
     </AlertTitle>
     <AlertDescription>{status.message}</AlertDescription>
   </Alert>
@@ -108,8 +122,8 @@ const FullScreenHistoryView: React.FC<{
 );
 
 export {
-  ScaledWrapper,
+  FullScreenHistoryView,
   HistoryItem,
   RestoreStatusAlert,
-  FullScreenHistoryView
+  ScaledWrapper,
 };

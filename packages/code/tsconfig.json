@@ -53,7 +53,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/@/*"],
-      "@src/*": ["./src/*"],
+      "@src/*": ["./src/*"]
     },
 
     "isolatedModules": true,

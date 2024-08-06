@@ -12,7 +12,7 @@ declare var URL: {
   canParse(url: string | URL, base?: string): boolean;
   createObjectURL(obj: Blob | MediaSource): string;
   revokeObjectURL(url: string): void;
-}
+};
 declare global {
   interface Window {
     URL: typeof URL;

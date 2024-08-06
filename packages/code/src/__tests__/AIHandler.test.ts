@@ -1,4 +1,4 @@
-import {AIHandler} from "../AIHandler";
+import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
@@ -27,10 +27,13 @@ describe("AIHandler", () => {
     };
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
-const updates = jest.fn()
+    const updates = jest.fn();
     const result = await aiHandler.sendToAnthropic(messages, updates);
 
-    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(messages, updates);
+    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(
+      messages,
+      updates,
+    );
     expect(result).toEqual(expectedResponse);
   });
 
@@ -112,10 +115,13 @@ describe("AIHandler", () => {
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
 
-    const updates = jest.fn()
+    const updates = jest.fn();
     const result = await aiHandler.sendToAnthropic(messages, updates);
 
-    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(messages, updates);
+    expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(
+      messages,
+      updates,
+    );
     expect(result).toEqual(expectedResponse);
   });
 

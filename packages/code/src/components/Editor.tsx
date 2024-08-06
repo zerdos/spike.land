@@ -49,19 +49,22 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = useCallback((formattedCode: string, ignoreSignals= false) => {
-    if (ignoreSignals) {
-      return editorState.setValue(formattedCode);
-    }
-    const lastSignal = mod.current.controller.signal;
-    setTimeout(() => {
-      if (lastSignal.aborted) return;
-      const currentTime = Date.now();
-      if (currentTime - lastTypingTimestampRef.current >= 5000) {
-        editorState.setValue(formattedCode);
+  const setEditorContent = useCallback(
+    (formattedCode: string, ignoreSignals = false) => {
+      if (ignoreSignals) {
+        return editorState.setValue(formattedCode);
       }
-    }, 6000);
-  }, [editorState, lastTypingTimestampRef]);
+      const lastSignal = mod.current.controller.signal;
+      setTimeout(() => {
+        if (lastSignal.aborted) return;
+        const currentTime = Date.now();
+        if (currentTime - lastTypingTimestampRef.current >= 5000) {
+          editorState.setValue(formattedCode);
+        }
+      }, 6000);
+    },
+    [editorState, lastTypingTimestampRef],
+  );
 
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
@@ -158,32 +161,38 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     lastTypingTimestampRef,
   ]);
 
-  const handleBroadcastMessage = useCallback(({ data }: {data: ICodeSession}) => {
-    if (
-      !data.i || !data.code || data.code === mod.current.code ||
-      mod.current.i >= data.i
-    ) {
-      return;
-    }
+  const handleBroadcastMessage = useCallback(
+    ({ data }: { data: ICodeSession }) => {
+      if (
+        !data.i || !data.code || data.code === mod.current.code ||
+        mod.current.i >= data.i
+      ) {
+        return;
+      }
 
-    mod.current.i = Number(data.i);
-    mod.current.code = data.code;
-    setEditorContent(data.code);
+      mod.current.i = Number(data.i);
+      mod.current.code = data.code;
+      setEditorContent(data.code);
 
-    mod.current.controller.abort();
-    mod.current.controller = new AbortController();
+      mod.current.controller.abort();
+      mod.current.controller = new AbortController();
 
-    const { signal } = mod.current.controller;
-    runner({ ...mod.current, counter: mod.current.i, codeSpace, signal });
-  }, [codeSpace, setEditorContent]);
+      const { signal } = mod.current.controller;
+      runner({ ...mod.current, counter: mod.current.i, codeSpace, signal });
+    },
+    [codeSpace, setEditorContent],
+  );
 
-  useBroadcastChannel(codeSpace, handleBroadcastMessage as unknown as (event: MessageEvent<any>) => void);
+  useBroadcastChannel(
+    codeSpace,
+    handleBroadcastMessage as unknown as (event: MessageEvent<any>) => void,
+  );
 
   return (
     <Rnd
       enableResizing
       disableDragging
-      minWidth={engine==="ace"?window.innerWidth:800}
+      minWidth={engine === "ace" ? window.innerWidth : 800}
       minHeight="100vh"
       bounds="body"
       allowAnyClick
@@ -197,7 +206,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       default={{
         x: 0,
         y: 0,
-        width: engine==="ace"?window.innerWidth:800,
+        width: engine === "ace" ? window.innerWidth : 800,
         height: window.innerHeight,
       }}
       style={{ height: "100vh" }}

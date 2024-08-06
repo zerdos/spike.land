@@ -44,8 +44,15 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
   useEffect(() => {
     const reveal = () => {
-      setScaleRange(Math.min(50, Math.floor(50*(1/2 -  152/( devicePixelRatio * window.innerWidth)))));
-      setWidth(devicePixelRatio >2? breakPoints[0]: breakPoints[1]);
+      setScaleRange(
+        Math.min(
+          50,
+          Math.floor(
+            50 * (1 / 2 - 152 / (devicePixelRatio * window.innerWidth)),
+          ),
+        ),
+      );
+      setWidth(devicePixelRatio > 2 ? breakPoints[0] : breakPoints[1]);
       setBgColor([66, 66, 66, .5]);
       setPositions({ bottom: 20, right: 20 });
       setDelay(0);

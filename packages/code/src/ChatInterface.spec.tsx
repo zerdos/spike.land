@@ -1,7 +1,6 @@
 import { fireEvent, render } from "@testing-library/react";
 import ChatInterface from "./ChatInterface";
 
-
 // Mock the ChatFC component
 jest.mock("./ChatDrawer", () => ({
   ChatFC: (
@@ -72,4 +71,3 @@ describe("ChatInterface", () => {
 
   // Add more tests as needed for other functionalities
 });
-

@@ -2,14 +2,14 @@ import { readDir } from "./esbuild-depts.ts";
 
 export const makeEnv = (environment) => ({
   "process.env.NODE_ENV": environment === "production"
-    ? "\"production\""
-    : "\"development\"",
+    ? '"production"'
+    : '"development"',
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.browser": JSON.stringify(true),
   "process.env.DEBUG": JSON.stringify(false),
   "isBrowser": JSON.stringify(true),
   "isJest": JSON.stringify(false),
-  "process.env.version": "\"1.1.1\"",
+  "process.env.version": '"1.1.1"',
   global: "globalThis",
 
   "WORKER_DOM_DEBUG": JSON.stringify(false),
@@ -20,14 +20,14 @@ export const makeEnv = (environment) => ({
     versions: {
       node: "v20.3.1",
     },
-    cwd: function() {
+    cwd: function () {
       return "/";
     },
 
     env: {
       NODE_ENV: `${environment}`,
       version: "v20.3.0",
-      cwd: function() {
+      cwd: function () {
         return "/";
       },
       browser: true,
@@ -40,7 +40,7 @@ export const makeEnv = (environment) => ({
   }),
 });
 
-const environment ='production';
+const environment = "production";
 
 const isDevelopment = environment !== "production";
 

@@ -91,7 +91,11 @@ function handleImportMapJson(): Response {
   });
 }
 
-function handleSwVersionResponse(type: string, ASSET_HASH: string, files: unknown) {
+function handleSwVersionResponse(
+  type: string,
+  ASSET_HASH: string,
+  files: unknown,
+) {
   const content = files === undefined
     ? `export const swVersion = "${ASSET_HASH}";`
     : `self.swVersion = "${ASSET_HASH}"; self.files=${JSON.stringify(files)};`;

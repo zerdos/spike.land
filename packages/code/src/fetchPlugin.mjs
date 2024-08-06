@@ -25,8 +25,7 @@ export const fetchPlugin = (origin) => ({
     // handle the example import from unpkg.com but in reality this
     // would probably need to be more complex.
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-    
-      const url = (args.path).startsWith("http") ? args.path : origin + args.path;
+      const url = args.path.startsWith("http") ? args.path : origin + args.path;
       let contents = await fetch(args.path, { redirect: "follow" }).then(
         (res) => res.text(),
       );

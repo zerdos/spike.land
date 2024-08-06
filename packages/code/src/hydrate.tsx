@@ -90,14 +90,14 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       .filter((style) => style?.startsWith("/* ! tailwindcss"))[0] || "";
 
     const styledJSXStyles = Array.from(
-      document.querySelectorAll("style[data-styled-jsx]")
+      document.querySelectorAll("style[data-styled-jsx]"),
     ).map((style) => style.textContent);
 
     const emotionStyles = Array.from(
       new Set(
         Array.from(document.querySelectorAll(`style[data-emotion="${key}"]`))
-          .map((style) => style.textContent)
-      )
+          .map((style) => style.textContent),
+      ),
     ).join("\n");
 
     return [tailwindCss, styledJSXStyles, emotionStyles].join("\n");
@@ -114,7 +114,7 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
         (rule): rule is CSSPageRule =>
           rule?.selectorText !== undefined &&
           rule.selectorText.includes(key) &&
-          html.includes(rule.selectorText.slice(4, 11))
+          html.includes(rule.selectorText.slice(4, 11)),
       )
       .map((rule) => rule.cssText)
       .join("\n");
@@ -130,7 +130,7 @@ const handleRender = async (
     code: string;
     transpiled: string;
     controller: AbortController;
-  }
+  },
 ) => {
   console.log("handleRender");
   const counter = mod.counter;
@@ -217,7 +217,7 @@ const handleDefaultPage = () => {
           myEl,
           rendered?.cssCache!,
           signal,
-          mod
+          mod,
         );
 
         console.log({ success });

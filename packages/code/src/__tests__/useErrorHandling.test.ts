@@ -1,9 +1,9 @@
 import { act, renderHook } from "@testing-library/react";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 
-let tsWorkerMock =  jest.fn().mockResolvedValue(() => ({
+let tsWorkerMock = jest.fn().mockResolvedValue(() => ({
   getSemanticDiagnostics: jest.fn().mockResolvedValue([]),
-}))
+}));
 // Mock the entire monaco-editor module
 jest.mock("monaco-editor", () => {
   return {
@@ -47,7 +47,6 @@ describe("useErrorHandling", () => {
     }));
 
     tsWorkerMock = mockGetTypeScriptWorker;
-
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
     const initialLoadRef = { current: false };

@@ -1,6 +1,5 @@
-
 import { act, render, screen, waitFor } from "@testing-library/react";
-import { unmountComponentAtNode } from 'react-dom';
+import { unmountComponentAtNode } from "react-dom";
 
 import * as sharedModule from "../shared";
 import { useTranspile, Wrapper } from "../Wrapper";
@@ -22,7 +21,7 @@ describe("Wrapper", () => {
   let container: HTMLElement | null = null;
 
   beforeEach(() => {
-    container = document.createElement('div');
+    container = document.createElement("div");
     document.body.appendChild(container);
     jest.clearAllMocks();
   });
@@ -43,13 +42,17 @@ describe("Wrapper", () => {
   });
 
   it("calls transpile with correct arguments", async () => {
-    const mockTranspile = sharedModule.transpile as jest.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as jest.MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
     (useTranspile as jest.Mock).mockReturnValue("mocked transpiled code");
 
     await act(async () => {
-      render(<Wrapper code="test code" />, { container: container as HTMLElement });     
-       await new Promise((resolve) => setTimeout(resolve, 0));   
+      render(<Wrapper code="test code" />, {
+        container: container as HTMLElement,
+      });
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     expect(mockTranspile).toHaveBeenCalledWith({
@@ -59,12 +62,16 @@ describe("Wrapper", () => {
   });
 
   it("renders AppRenderer with transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as jest.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as jest.MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
     (useTranspile as jest.Mock).mockReturnValue("mocked transpiled code");
 
     await act(async () => {
-      render(<Wrapper code="test code" />, { container: container as HTMLElement });
+      render(<Wrapper code="test code" />, {
+        container: container as HTMLElement,
+      });
     });
 
     await waitFor(() => {
@@ -75,7 +82,9 @@ describe("Wrapper", () => {
 
 describe("useTranspile", () => {
   it("returns transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as jest.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as jest.MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     let result: string | undefined | null;
@@ -95,4 +104,3 @@ describe("useTranspile", () => {
     });
   });
 });
-

@@ -16,7 +16,7 @@ export default {
   testMatch: [
     "**/__test__/**/*.[jt]s?(x)",
     "**/__tests__/**/*.[jt]s?(x)",
-    "**/?(*.)+(spec|test).[tj]s?(x)"
+    "**/?(*.)+(spec|test).[tj]s?(x)",
   ],
 
   clearMocks: true,
@@ -97,16 +97,13 @@ export default {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleFileExtensions: ["ts", "tsx", "js", "json", "node"],
-  testMatch: ["**/*.spec.ts", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.tsx",],
+  testMatch: ["**/*.spec.ts", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.tsx"],
   moduleNameMapper: {
-
     "^@/(.*)$": "<rootDir>/src/@/$1", // This should align with your TypeScript paths
- 
+
     "^@src/(.*)$": "<rootDir>/src/$1", // This should align with your TypeScript paths
-   
-    
   },
-  testEnvironment: "jsdom", 
+  testEnvironment: "jsdom",
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 

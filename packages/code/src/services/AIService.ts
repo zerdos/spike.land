@@ -11,7 +11,10 @@ export class AIService {
     this.localStorageService = localStorageService;
   }
 
-  async sendToAnthropic(messages: Message[], onUpdate: (code: string)=> void): Promise<Message> {
+  async sendToAnthropic(
+    messages: Message[],
+    onUpdate: (code: string) => void,
+  ): Promise<Message> {
     const response = await fetch("/anthropic", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,8 +40,6 @@ export class AIService {
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
-
-    
 
     while (true) {
       const { done, value } = await reader.read();
@@ -179,7 +180,10 @@ export class AIService {
 
           const prevMessages = this.localStorageService.loadMessages();
 
-          const answer = await this.sendToAnthropic([...prevMessages, message], debouncedSetMessages);
+          const answer = await this.sendToAnthropic(
+            [...prevMessages, message],
+            debouncedSetMessages,
+          );
           setMessages((prevMessages) => [...prevMessages, answer]);
           await this.continueWithOpenAI(
             answer.content,

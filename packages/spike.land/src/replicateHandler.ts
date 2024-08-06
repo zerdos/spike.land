@@ -31,7 +31,9 @@ function parseInputFromUrl(url: string): InputDefaults {
   return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
     const value = urlParams.get(key);
     if (value !== null) {
-      acc[key as keyof InputDefaults] = typeof defaultValue === "number" ? Number(value) : value;
+      acc[key as keyof InputDefaults] = typeof defaultValue === "number"
+        ? Number(value)
+        : value;
     }
     return acc;
   }, { ...INPUT_DEFAULTS });
@@ -62,7 +64,11 @@ async function fetchAndSaveImage(
   });
 }
 
-export async function handleReplicateRequest(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+export async function handleReplicateRequest(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+): Promise<Response> {
   try {
     const input = parseInputFromUrl(request.url);
     const md5Prompt = md5("replicate salt " + JSON.stringify(input));
@@ -87,9 +93,17 @@ export async function handleReplicateRequest(request: Request, env: Env, ctx: Ex
       throw new Error("Invalid image URL from Replicate API" + imageUrl);
     }
 
-    return await fetchAndSaveImage(imageUrl, env, md5Prompt, input.output_format);
+    return await fetchAndSaveImage(
+      imageUrl,
+      env,
+      md5Prompt,
+      input.output_format,
+    );
   } catch (e: unknown) {
     console.error("Error in handleReplicateRequest:", e);
-    return new Response(`Error: ${e instanceof Error ? e.message : "Unknown error"}`, { status: 500 });
+    return new Response(
+      `Error: ${e instanceof Error ? e.message : "Unknown error"}`,
+      { status: 500 },
+    );
   }
 }

@@ -1,6 +1,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Wrapper } from "../Wrapper";
 import { md5 } from "@src/md5";
 
@@ -11,7 +16,9 @@ interface Template {
   codeSpace: string;
 }
 
-const BrowserFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+const BrowserFrame: React.FC<{ children: React.ReactNode }> = (
+  { children },
+) => (
   <div className="border border-gray-300 rounded-lg overflow-hidden shadow-md">
     <div className="bg-gray-100 p-2 flex items-center space-x-2">
       <div className="flex space-x-1">
@@ -55,8 +62,12 @@ const TemplateCard: React.FC<{
     </CardContent>
     <CardFooter>
       <Button
-        onClick={() => location.href = `${location.origin}/live/${template.codeSpace}-${md5(Date.now().toString() + Math.random().toString())}`}
-        className="w-full">
+        onClick={() =>
+          location.href = `${location.origin}/live/${template.codeSpace}-${
+            md5(Date.now().toString() + Math.random().toString())
+          }`}
+        className="w-full"
+      >
         Select Template
       </Button>
     </CardFooter>

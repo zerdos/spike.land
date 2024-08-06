@@ -9,7 +9,6 @@ import { Editor } from "../components/Editor";
 // import { runner as mockRunner } from "../runner";
 
 // import   { useBroadcastChannel }  from "../hooks/useBroadcastChannel";
- 
 
 // Mock the dependencies
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
@@ -76,7 +75,7 @@ describe("Editor Component", () => {
   });
 
   // test("handles prettier errors correctly", async () => {
-  
+
   //   await waitFor(() => {
   //     expect(screen.getByTestId("editor-container")).toBeInTheDocument();
   //   });
@@ -118,18 +117,18 @@ describe("Editor Component", () => {
   //   (useBroadcastChannel as jest.Mock).mockImplementation((_, callback: (event: MessageEvent<any>) => void) => {
   //     broadcastCallback = callback;
   //   });
-  
+
   //   render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
-  
+
   //   await waitFor(() => {
   //     expect(screen.getByTestId("editor-container")).toBeInTheDocument();
   //   });
-  
+
   //   act(() => {
   //     const messageEvent: MessageEvent<any> = { data: { i: 1, code: "broadcasted code" } } as unknown as MessageEvent<any>;
   //     broadcastCallback(messageEvent);
   //   });
-  
+
   //   await waitFor(() => {
   //     expect(screen.getByTestId("editor-container")).toHaveTextContent(
   //       "broadcasted code",

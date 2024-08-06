@@ -21,8 +21,6 @@ import { useCodeHistory } from "../hooks/useCodeHistory";
 import { useRestoreVersion } from "../hooks/useRestoreVersion";
 import { ScaledWrapper } from "./ScaledWrapper";
 
-
-
 export const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = (
   { codeSpace },
 ) => {

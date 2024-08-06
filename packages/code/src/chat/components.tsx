@@ -140,7 +140,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   );
 };
 
-
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
   setInput,

@@ -10,8 +10,7 @@ const MarkdownEditor = () => {
   const [markdownText, setMarkdownText] = useState(
     "# Welcome to Markdown Editor\n\nStart typing your markdown here...",
   );
- const insertMarkdown = React.useCallback((syntax: string) => {
-
+  const insertMarkdown = React.useCallback((syntax: string) => {
     if (!markdownTextAreaRef.current) return;
     const textarea = markdownTextAreaRef.current;
     const start = textarea.selectionStart;
@@ -42,17 +41,16 @@ const MarkdownEditor = () => {
         break;
       default:
         insertion = "";
-      }
-    
-  
+    }
+
     setMarkdownText(before + insertion + after);
     textarea?.focus();
-  
   }, [markdownTextAreaRef]);
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
-      <Card className="mb-4">x
+      <Card className="mb-4">
+        x
         <CardContent className="p-4">
           <div className="flex space-x-2 mb-4">
             <Button
@@ -105,7 +103,7 @@ const MarkdownEditor = () => {
             </TabsList>
             <TabsContent value="edit">
               <textarea
-               ref={markdownTextAreaRef}
+                ref={markdownTextAreaRef}
                 className="w-full h-[calc(100vh-250px)] p-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={markdownText}
                 onChange={(e) => setMarkdownText(e.target.value)}

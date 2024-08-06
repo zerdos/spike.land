@@ -7,7 +7,10 @@ export class KVLogger {
     this.store = store;
   }
 
-  async log(message: string, level: "info" | "warn" | "error" = "info"): Promise<void> {
+  async log(
+    message: string,
+    level: "info" | "warn" | "error" = "info",
+  ): Promise<void> {
     const timestamp = new Date();
     const kv = this.store;
     const dateString = timestamp.toISOString().split("T")[0]; // YYYY-MM-DD
@@ -24,7 +27,9 @@ export class KVLogger {
     }
   }
 
-  async getLogs(date: string): Promise<Array<{ timestamp: string; level: string; message: string }>> {
+  async getLogs(
+    date: string,
+  ): Promise<Array<{ timestamp: string; level: string; message: string }>> {
     const pattern = `${this.prefix}:${date}:*`;
     const kv = this.store;
 
