@@ -16,17 +16,6 @@ const addImportIfMissing = (
     : code;
 
 export const addSomeFixesIfNeeded = (code: string): string => {
-  code = addImportIfMissing(
-    code,
-    "css={css`",
-    `import { css } from "@emotion/react";`,
-  );
-  code = addImportIfMissing(code, " FC<{", `import type { FC } from "react";`);
-
-  if (!code.includes("export default") && code.includes("const App")) {
-    code += "\nexport default App;";
-  }
-
   const [start, ...rest] = code.split("css={css`");
   let prevIndent = start.split("\n").pop()?.length || 0 + 2;
 
