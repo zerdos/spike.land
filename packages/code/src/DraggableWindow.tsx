@@ -48,7 +48,7 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
         Math.min(
           50,
           Math.floor(
-            50 * (1 / 2 - 152 / (devicePixelRatio * window.innerWidth)),
+            100 * (1 / 2 - 152 / (devicePixelRatio * window.innerWidth)),
           ),
         ),
       );

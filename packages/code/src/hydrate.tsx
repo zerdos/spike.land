@@ -93,9 +93,9 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       document.querySelectorAll("style[data-styled-jsx]"),
     ).map((style) => style.textContent);
 
-    const globalStyles = Array.from(
+    const globalStyles =    Array.from(new Set(Array.from(
       document.querySelectorAll(`style[data-emotion*="${key}-global"]`),
-    ).map((style) => style.textContent);
+    ).map((style) => style.textContent?.trim()).map(s=>s?.endsWith(";")? s.slice(0,-1):s))).join("\n"); 
 
     const emotionStyles = Array.from(
       new Set(
@@ -104,7 +104,7 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       ),
     ).join("\n");
 
-    return [tailwindCss, globalStyles, styledJSXStyles, emotionStyles].join("\n");
+    return [globalStyles, tailwindCss , styledJSXStyles, emotionStyles].join("\n");
   } catch {
     return Array.from(document.styleSheets)
       .map((sheet) => {

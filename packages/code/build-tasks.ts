@@ -1,6 +1,7 @@
 // build-tasks.mjs
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
+// import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
 
 export async function buildWorkers() {
   const workerEntryPoints = [
@@ -142,6 +143,13 @@ export async function buildMainBundle(wasmFile) {
     legalComments: "none",
     platform: "browser",
     ignoreAnnotations: true,
+    plugins: [  
+    //   ReactCompilerEsbuildPlugin({
+    //   filter: /\.(jsx|tsx|mjs|ts)$/,
+    //   sourceMaps: true,
+    //   runtimeModulePath: "/Users/z/github.com/zerdos/spike.land/node_modules/react/compiler-runtime.js"
+    // })
+  ],
     entryPoints: [
       ...components.filter((x) => x).map((component) =>
         `src/@/components/ui/${component}.tsx`
