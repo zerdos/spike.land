@@ -21,12 +21,19 @@
     <script type="module">
 
       (async () => {
+        try{
         const paths = location.pathname.split("/").slice(1);
         if (paths.length > 2 && paths[0] == 'live') {
           const codeSpace = paths[1];
           await import("/Wrapper.mjs").then(m => m.renderApp({ codeSpace, rootElement: document.getElementById("root") }));
+        }}catch(e){
+          console.error(e);
+          
+        } finally {
+          await import("/hydrate.mjs");
         }
-        await import("/hydrate.mjs");
+
+
       })()
     </script>
     <!-- Cloudflare Web Analytics -->

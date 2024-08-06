@@ -49,15 +49,15 @@ const useCodeSpace = (codeSpace: string) => {
     const doTranspile = async () => {
       try {
         const code = await fetch(
-          window.location.origin + `/live/${codeSpace}/index.tsx`,
+          window.location.origin + `/live/${codeSpace}/index.js`,
         ).then((res) => res.text());
-        const result = await transpile({
-          code,
-          originToUse: window.location.origin,
-        });
-        if (!isCancelled) {
-          setTranspiled(result);
-        }
+        // const result = await transpile({
+        //   code,
+        //   originToUse: window.location.origin,
+        // });
+        // if (!isCancelled) {
+          setTranspiled(code);
+        // }
       } catch (error) {
         console.error("Transpilation error:", error);
         if (!isCancelled) {
