@@ -94,7 +94,8 @@ const LandingPage = () => {
           cutting-edge development platform.
         </p>
         <Button
-          size="lg"
+          onClick={() => location.href = "/start"}
+            size="lg"
           className="bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 px-10 rounded-md transition-all duration-300 hover:shadow-md animate-fade-in-up"
         >
           Get Started

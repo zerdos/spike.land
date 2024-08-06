@@ -109,7 +109,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
   />
   }  
   
-  const transpiled = t || code? useTranspile(code!): useCodeSpace(codeSpace!);
+  const transpiled = t || (code && useTranspile(code)) || (codeSpace && useCodeSpace(codeSpace));
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<Root | null>(null);
 

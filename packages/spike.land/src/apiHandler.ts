@@ -56,7 +56,6 @@ export async function handleApiRequest(
         newUrl.pathname += "/index.js";
       }
       newUrl.searchParams.append("room", name);
-
       return roomObject.fetch(new Request(newUrl.toString(), request));
     }
     default:

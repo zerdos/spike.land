@@ -17,6 +17,7 @@ export class Code implements DurableObject {
   wsHandler: WebSocketHandler;
   private transpiled = "";
   private origin = "";
+  private initialized = false;
   private codeSpace = "";
   session: ICodeSession;
   private backupSession: ICodeSession;
@@ -42,8 +43,7 @@ export class Code implements DurableObject {
     this.session = this.backupSession;
     this.routeHandler = new RouteHandler(this);
     this.wsHandler = new WebSocketHandler(this);
-    this.initializeSession();
-    this.setupAutoSave();
+  
   }
 
   private async initializeSession() {
@@ -55,8 +55,17 @@ export class Code implements DurableObject {
         if (storedSession && storedSession.i) {
           this.session = storedSession;
         } else {
-          const backupCode = await fetch(
-            "https://spike.land/live/code-main/index.tsx",
+
+          // const codeSpaceDashed =  this.codeSpace.includes("-");
+          const codeSpaceParts = this.codeSpace.split("-");
+          if (codeSpaceParts.length > 2) {
+            throw new Error("Invalid codeSpace");
+          } 
+
+        const source = codeSpaceParts.length === 2 ? `https://spike.land/live/${codeSpaceParts[0]}/index.tsx` : `https://spike.land/code-main/index.tsx`;
+        
+          const backupCode = await fetch( 
+        source
           ).then((r) => r.text());
           this.backupSession.code = backupCode;
           await this.state.storage.put("session", this.backupSession);
@@ -148,6 +157,14 @@ export class Code implements DurableObject {
         });
         this.transpiled = await resp.text();
       }
+
+
+      if (!this.initialized) {
+        await     this.initializeSession();
+      await this.setupAutoSave();
+        this.initialized = true;
+    }
+  
 
       const path = url.pathname.slice(1).split("/");
       return this.routeHandler.handleRoute(request, url, path);

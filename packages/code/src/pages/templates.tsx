@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
-import { Wrapper } from "https://testing.spike.land/Wrapper.mjs";
+import { Wrapper } from "../Wrapper";
+import { md5 } from "@src/md5";
 
 interface Template {
   id: number;
@@ -54,7 +55,7 @@ const TemplateCard: React.FC<{
     </CardContent>
     <CardFooter>
       <Button
-        onClick={() => onSelect(template.id)}
+        onClick={() => location.href = `${location.origin}/live/${template.codeSpace}-${md5(Date.now().toString() + Math.random().toString())}`}
         className="w-full">
         Select Template
       </Button>
