@@ -73,9 +73,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
       console.log("Setting value from parent");
-      const formatted = await prettierToThrow({ code, toThrow: true });
-      setEditorContent(formatted, true);
-      handleContentChange(formatted);
+      mod.current.i += 1;
+      mod.current.controller.abort();
+    
+      mod.current.controller = new AbortController();;
+      const { signal } = mod.current.controller;
+      
+      await debouncedRunner(code, mod.current.i, signal);
+      if (signal.aborted) return;
+      setEditorContent(code, true);
     },
   }), [setEditorContent]);
 
