@@ -12,7 +12,7 @@ class MockFileSystemDirectoryHandle {
 }
 
 // Mock the navigator.storage API
-Object.defineProperty(global, "navigator", {
+Object.defineProperty(globalThis, "navigator", {
   value: {
     storage: {
       getDirectory: jest.fn().mockResolvedValue(

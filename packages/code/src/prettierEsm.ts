@@ -1,64 +1,71 @@
-// import parserBabel from "prettier/parser-babel";
-import pluginTypescript from "prettier/plugins/typescript";
-// @ts-ignore
-import pluginEstree from "prettier/plugins/estree";
+import type {Options} from "prettier";
 import { format } from "prettier/standalone";
-// export type * as Prettier from "prettier/standalone"
-// import parserHtml from "prettier/parser-html";
-// import parserPostcss from "prettier/parser-postcss";
+import pluginTypescript from "prettier/plugins/typescript";
+import pluginEstree from "prettier/plugins/estree";
+import emotion from "@emotion/css-prettifier";
 
-// let lastSuccessful: string | null = null;
+const createSpaceString = (n: number): string => " ".repeat(n);
 
-export const prettierJs = async (code: string, toThrow = false) => {
-  // return code;
-  // console.log(`prettierJS: ${code}`);
+const addImportIfMissing = (code: string, condition: string, importStatement: string): string =>
+  code.includes(condition) && !code.includes(importStatement)
+    ? `${importStatement}\n${code}`
+    : code;
+
+export const addSomeFixesIfNeeded = (code: string): string => {
+  code = addImportIfMissing(code, "css={css`", `import { css } from "@emotion/react";`);
+  code = addImportIfMissing(code, " FC<{", `import type { FC } from "react";`);
+  code = addImportIfMissing(code, "useState(", `import { useState } from "react";`);
+
+  if (!code.includes("export default") && code.includes("const App")) {
+    code += "\nexport default App;";
+  }
+
+  const [start, ...rest] = code.split("css={css`");
+  let prevIndent = start.split("\n").pop()?.length || 0;
+
+  return [
+    start,
+    ...rest.map((x) => {
+      const [first, ...r] = x.split("`");
+      const indent = createSpaceString(prevIndent);
+      prevIndent = r[r.length - 1].split("\n").pop()?.length || 0;
+      return [emotion(first).split("\n").map(line => indent + line).join("\n"), ...r].join("`\n");
+    }),
+  ].join("css={css`\n");
+};
+
+const prettierConfig: Options = {
+  arrowParens: "always",
+  bracketSpacing: true,
+  embeddedLanguageFormatting: "auto",
+  insertPragma: false,
+  bracketSameLine: true,
+  jsxSingleQuote: false,
+  htmlWhitespaceSensitivity: "strict",
+  printWidth: 90,
+  proseWrap: "preserve",
+  quoteProps: "as-needed",
+  requirePragma: false,
+  semi: true,
+  singleQuote: false,
+  tabWidth: 2,
+  trailingComma: "all",
+  useTabs: false,
+  parser: "typescript",
+  experimentalTernaries: true,
+  singleAttributePerLine: true,
+  plugins: [pluginEstree, pluginTypescript],
+};
+
+export const prettierJs = async (code: string, toThrow = false): Promise<string> => {
   try {
-    return await format(code, {
-      arrowParens: "always",
-      bracketSpacing: true,
-      embeddedLanguageFormatting: "auto",
-      insertPragma: false,
-      // bracketSpacing: true,
-
-      bracketSameLine: true,
-      jsxSingleQuote: false,
-
-      htmlWhitespaceSensitivity: "strict",
-      printWidth: 90,
-      proseWrap: "preserve",
-      quoteProps: "as-needed",
-      requirePragma: false,
-      semi: true,
-
-      singleQuote: false,
-
-      tabWidth: 2,
-      trailingComma: "all",
-      useTabs: false,
-      parser: "typescript",
-      plugins: [pluginEstree, pluginTypescript /// parserHtml, parserPostcss
-      ],
-    });
-    // return lastSuccessful = current;
+    return await format(addSomeFixesIfNeeded(code), prettierConfig);
   } catch (error) {
+    console.error("Prettier error", { error, code });
     if (toThrow) throw error;
     if (code === "Types not found") return "export {}";
-    console.error("prettier error"), console.error({ err: error, code });
-
     return code;
   }
 };
 
 Object.assign(self, { prettierJs });
-
-// export const prettierCss = (code: string) =>
-//   Prettier.format(code, {
-//     parser: "css",
-//     plugins: [parserPostcss],
-//   });
-// export const prettierHtml = (code: string) =>
-//   Prettier.format(code, {
-//     htmlWhitespaceSensitivity: "css",
-//     parser: "html",
-//     plugins: [parserHtml, parserPostcss],
-//   });

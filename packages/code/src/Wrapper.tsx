@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import createCache from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
+import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import { transpile } from "./shared";
@@ -32,6 +32,36 @@ interface RenderedApp {
   cleanup: () => void;
 }
 
+const useCodeSpace = (codeSpace: string) => {
+  const [transpiled, setTranspiled] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const doTranspile = async () => {
+      try {
+        const code = await fetch(window.location.origin+`/live/${codeSpace}/index.tsx`).then((res) => res.text());
+        const result = await transpile({ code, originToUse: window.location.origin });
+        if (!isCancelled) {
+          setTranspiled(result);
+        }
+      } catch (error) {
+        console.error("Transpilation error:", error);
+        if (!isCancelled) {
+          setTranspiled(null);
+        }
+      }
+    };
+
+    doTranspile();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [codeSpace]);
+
+  return transpiled;
+};
 // Hooks
 const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = useState<string | null>(null);
@@ -64,8 +94,22 @@ const useTranspile = (code: string) => {
 };
 
 // Components
-export const Wrapper: React.FC<{ code?: string; transpiled?: string }> = React.memo(({ code, transpiled:t }) => {
-  const transpiled = t || useTranspile(code!);
+export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string, scale?: number }> = React.memo(({ code, codeSpace,transpiled:t, scale = 1 }) => {
+  if (codeSpace) {
+    return  <iframe
+    css={css`
+    height: ${100/scale}%;
+    width: ${100/scale}%;
+    border: 0;
+    overflow: 'scroll';
+    -webkit-overflow-scrolling: touch;
+    
+  `}
+    src={`/live/${codeSpace}/`}
+  />
+  }  
+  
+  const transpiled = t || code? useTranspile(code!): useCodeSpace(codeSpace!);
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<Root | null>(null);
 
@@ -101,7 +145,9 @@ export const Wrapper: React.FC<{ code?: string; transpiled?: string }> = React.m
     };
   }, [transpiled, renderApp]);
 
-  return <div ref={containerRef} data-testid="wrapper-container" />;
+  return <div ref={containerRef} css={css`
+  width: 100%; 
+  height: 100%;`} data-testid="wrapper-container" />;
 });
 
 // Optimized renderApp function

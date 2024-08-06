@@ -1264,6 +1264,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@emotion/css-prettifier", [\
+      ["npm:1.1.4", {\
+        "packageLocation": "./.yarn/global/cache/@emotion-css-prettifier-npm-1.1.4-849a301a6c-10.zip/node_modules/@emotion/css-prettifier/",\
+        "packageDependencies": [\
+          ["@emotion/css-prettifier", "npm:1.1.4"],\
+          ["@emotion/memoize", "npm:0.9.0"],\
+          ["stylis", "npm:4.2.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@emotion/hash", [\
       ["npm:0.9.2", {\
         "packageLocation": "./.yarn/global/cache/@emotion-hash-npm-0.9.2-21b49040cb-10.zip/node_modules/@emotion/hash/",\
@@ -5063,6 +5074,7 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/code", "workspace:packages/code"],\
           ["@clerk/clerk-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.3.2"],\
           ["@emotion/cache", "npm:11.13.1"],\
+          ["@emotion/css-prettifier", "npm:1.1.4"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.0"],\
           ["@emotion/styled", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.13.0"],\
           ["@eslint/js", "npm:9.8.0"],\

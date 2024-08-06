@@ -53,6 +53,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.3.2",
     "@emotion/cache": "11.13.1",
+    "@emotion/css-prettifier": "^1.1.4",
     "@emotion/react": "11.13.0",
     "@emotion/styled": "11.13.0",
     "@github/stable-socket": "1.1.0",

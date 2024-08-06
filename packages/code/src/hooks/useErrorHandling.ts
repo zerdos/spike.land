@@ -20,6 +20,7 @@ export const useErrorHandling = (engine: string) => {
           );
 
           if (diagnostics.length > 0 && !initialLoadRef.current) {
+            console.error("TypeScript error:", diagnostics);
             setErrorType("typescript");
           } else {
             setErrorType((prevErrorType) =>

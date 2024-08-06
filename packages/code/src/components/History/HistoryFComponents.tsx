@@ -34,7 +34,7 @@ const ScaledWrapper = ({ code, scale }: { code: string, scale: number }) => (
         left: 0,
       }}
     >
-      <Wrapper code={code} />
+      <Wrapper code={code}  scale={.6}/>
     </div>
   </div>
 );

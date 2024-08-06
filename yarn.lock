@@ -664,6 +664,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/css-prettifier@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@emotion/css-prettifier@npm:1.1.4"
+  dependencies:
+    "@emotion/memoize": "npm:^0.9.0"
+    stylis: "npm:4.2.0"
+  checksum: 10/e80e143e5bcdd8775319825496a4bd5e12a04eadb344a3ddba8a211584ba26bbec014b470e224d94c93a8cd206f21f5e6c81c65b1517fe1f4b5d6e928ead2620
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.9.2":
   version: 0.9.2
   resolution: "@emotion/hash@npm:0.9.2"
@@ -3550,6 +3560,7 @@ __metadata:
   dependencies:
     "@clerk/clerk-react": "npm:^5.3.2"
     "@emotion/cache": "npm:11.13.1"
+    "@emotion/css-prettifier": "npm:^1.1.4"
     "@emotion/react": "npm:11.13.0"
     "@emotion/styled": "npm:11.13.0"
     "@eslint/js": "npm:^9.8.0"

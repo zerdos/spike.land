@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 
-export const createJsBlob = (code: string | Uint8Array): string =>
-  globalThis.URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
+export const createJsBlob = (code: string | Uint8Array): string => URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 interface AppRendererProps {
   transpiled: string;
