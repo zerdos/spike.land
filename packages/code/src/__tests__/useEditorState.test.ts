@@ -29,7 +29,6 @@ describe("useEditorState", () => {
       setValue: expect.any(Function),
     });
     expect(result.current.initialLoadRef.current).toBe(true);
-    expect(result.current.lastTypingTimestampRef.current).toBeDefined();
   });
 
   test("uses ace engine on mobile", async () => {

@@ -6,6 +6,7 @@ import {
   useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
@@ -15,6 +16,7 @@ import { runner } from "../runner";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
 import { ICodeSession } from "@src/makeSess";
+import { Mutex } from "async-mutex";
 
 interface EditorProps {
   codeSpace: string;
@@ -35,13 +37,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     engine,
     editorState,
     setEditorState,
-    initialLoadRef,
-    lastTypingTimestampRef,
+    initialLoadRef
   } = useEditorState(codeSpace);
 
   const { errorType, setErrorType, debouncedTypeCheck } = useErrorHandling(
     engine,
   );
+
+  const [lastTypingTimestamp, setLastTypingTimestamp] = useState(Date.now());
 
   const mod = useRef({
     i: 0,
@@ -49,21 +52,23 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
+  const mutex = new Mutex();
+
   const setEditorContent = useCallback(
     (formattedCode: string, ignoreSignals = false) => {
       if (ignoreSignals) {
         return editorState.setValue(formattedCode);
       }
-      const lastSignal = mod.current.controller.signal;
+      const {signal} = mod.current.controller;
       setTimeout(() => {
-        if (lastSignal.aborted) return;
+        if (signal.aborted) return;
         const currentTime = Date.now();
-        if (currentTime - lastTypingTimestampRef.current >= 5000) {
+        if (currentTime - lastTypingTimestamp >= 5000) {
           editorState.setValue(formattedCode);
         }
       }, 6000);
     },
-    [editorState, lastTypingTimestampRef],
+    [editorState, lastTypingTimestamp],
   );
 
   useImperativeHandle(ref, () => ({
@@ -102,7 +107,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   const debouncedRunner = useCallback(
     debounce(
-      async (code: string, i: number) => {
+      async (code: string, i: number, signal: AbortSignal) => {
         let formattedCode;
 
         try {
@@ -132,7 +137,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           console.error("Error in runner:", error);
           setErrorType("transpile");
         }
-
+        
         setEditorContent(formattedCode);
       },
       300,
@@ -144,21 +149,25 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   const handleContentChange = useCallback(async (newCode: string) => {
     if (mod.current.code === newCode) return;
 
+   return  mutex.runExclusive(async () => {
+    
     mod.current.i += 1;
-    lastTypingTimestampRef.current = Date.now();
+    setLastTypingTimestamp(Date.now());
 
     mod.current.code = newCode;
 
     mod.current.controller.abort();
     mod.current.controller = new AbortController();
+    const { signal } = mod.current.controller;
 
-    debouncedRunner(newCode, mod.current.i);
-    debouncedTypeCheck(initialLoadRef);
+    await  debouncedRunner(newCode, mod.current.i, signal);
+    });
+
   }, [
     debouncedRunner,
     debouncedTypeCheck,
     initialLoadRef,
-    lastTypingTimestampRef,
+    lastTypingTimestamp,
   ]);
 
   const handleBroadcastMessage = useCallback(

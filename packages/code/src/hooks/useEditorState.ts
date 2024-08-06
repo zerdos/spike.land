@@ -16,7 +16,7 @@ export const useEditorState = (codeSpace: string) => {
   });
 
   const initialLoadRef = useRef(true);
-  const lastTypingTimestampRef = useRef(Date.now());
+
 
   useEffect(() => {
     // Use codeSpace here, for example:
@@ -29,6 +29,5 @@ export const useEditorState = (codeSpace: string) => {
     editorState,
     setEditorState,
     initialLoadRef,
-    lastTypingTimestampRef,
   };
 };
