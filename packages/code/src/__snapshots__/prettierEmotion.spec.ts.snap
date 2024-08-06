@@ -4,7 +4,7 @@ exports[`addSomeFixesIfNeeded adds default export if 'export default' is missing
 
 exports[`addSomeFixesIfNeeded adds import statement for '@emotion/react' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
 "css={css\`
-  color: red;
+    color: red;
   \`}"
 `;
 
@@ -16,6 +16,6 @@ exports[`addSomeFixesIfNeeded handles multiple occurrences of 'css={css\`' corre
 "css={css\`
     color: red;
   \`} css={css\`
-  font-size: 16px;
+    font-size: 16px;
   \`}"
 `;
