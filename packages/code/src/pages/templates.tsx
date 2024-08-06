@@ -99,6 +99,12 @@ const templates: Template[] = [
     description: "Build a real-time communication app using WebRTC",
     codeSpace: "peerz",
   },
+  {
+    id: 5,
+    name: "Cube, Three.js",
+    description: "Build a real-time communication app using WebRTC",
+    codeSpace: "cube",
+  },
 ];
 
 const TemplateSelectionPage: React.FC = () => {
