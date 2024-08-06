@@ -21,15 +21,16 @@ export const addSomeFixesIfNeeded = (code: string): string => {
   }
 
   const [start, ...rest] = code.split("css={css`");
-  let prevIndent = start.split("\n").pop()?.length || 0;
+  let prevIndent = start.split("\n").pop()?.length || 0 + 2;
 
   return [
     start,
     ...rest.map((x) => {
-      const [first, ...r] = x.split("`");
+      const [first, second] = x.split("`");
       const indent = createSpaceString(prevIndent);
-      prevIndent = r[r.length - 1].split("\n").pop()?.length || 0;
-      return [emotion(first).split("\n").map(line => indent + line).join("\n"), ...r].join("`\n");
+      prevIndent = second.split("\n").pop()?.length || 0 +2;
+
+      return [emotion(first).split("\n")!.map((l: string)=>indent+l).join("\n"), second].join("\n`");
     }),
   ].join("css={css`\n");
 };
