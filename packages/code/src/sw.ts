@@ -41,8 +41,8 @@ registerRoute(
 
 sw.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(sw.fileCacheName).then((cache) => {
-      return cache.addAll(Object.keys(sw.files));
+    caches.open('file-cache-'+sw.swVersion).then((cache) => {
+      return cache.addAll(['/files.json' ,...Object.keys(sw.files)]);
     }),
   );
 });
