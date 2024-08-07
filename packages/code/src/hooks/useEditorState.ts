@@ -17,7 +17,6 @@ export const useEditorState = (codeSpace: string) => {
 
   const initialLoadRef = useRef(true);
 
-
   useEffect(() => {
     // Use codeSpace here, for example:
     console.log(`Editor state initialized for codeSpace: ${codeSpace}`);
