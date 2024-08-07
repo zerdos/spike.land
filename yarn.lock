@@ -3722,7 +3722,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.4.0"
-    framer-motion: "npm:11.3.21"
+    framer-motion: "npm:11.3.22"
     i18next: "npm:^23.12.2"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -8677,9 +8677,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.21":
-  version: 11.3.21
-  resolution: "framer-motion@npm:11.3.21"
+"framer-motion@npm:11.3.22":
+  version: 11.3.22
+  resolution: "framer-motion@npm:11.3.22"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8693,7 +8693,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/759390b72c10bb65ade22255de1a3b0277620b29f1e1bd2173851f630585c0c0c9084eaeafff3b510702e61a20d2bf7818a42abc869b74a05e14f14da94ed85b
+  checksum: 10/c96be9ece257d44c4884d9c9d01da7769a3ccb08124ec483f35ff91339c31ffcf46ff36ce70583ad66525d0372967df198d2d16b5522b8a1b9ddf985eb14ec9c
   languageName: node
   linkType: hard
 

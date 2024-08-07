@@ -5250,7 +5250,7 @@ const RAW_RUNTIME_STATE =
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
           ["file-type", "npm:19.4.0"],\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.21"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.22"],\
           ["i18next", "npm:23.12.2"],\
           ["immutable", "npm:4.3.7"],\
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
@@ -11232,17 +11232,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["framer-motion", [\
-      ["npm:11.3.21", {\
-        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.3.21-8c105c7792-10.zip/node_modules/framer-motion/",\
+      ["npm:11.3.22", {\
+        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.3.22-7a75ffd0f7-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "npm:11.3.21"]\
+          ["framer-motion", "npm:11.3.22"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.21", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-6eec6500f4/0/global/cache/framer-motion-npm-11.3.21-8c105c7792-10.zip/node_modules/framer-motion/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.22", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-bfd01e1a18/0/global/cache/framer-motion-npm-11.3.22-7a75ffd0f7-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.21"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.22"],\
           ["@emotion/is-prop-valid", null],\
           ["@types/emotion__is-prop-valid", null],\
           ["@types/react", "npm:18.3.3"],\
