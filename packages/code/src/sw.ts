@@ -1,7 +1,7 @@
 importScripts("/swVersion.js");
 
 import { registerRoute } from "workbox-routing";
-import { CacheFirst } from "workbox-strategies";
+import { CacheFirst, CacheOnly } from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 const sw = self as unknown as
@@ -9,12 +9,10 @@ const sw = self as unknown as
   & { swVersion: string }
   & { files: { [key: string]: string }; fileCacheName: string };
 
-const files = Object.keys(sw.files);
+const files = new Set(Object.keys(sw.files));
 
 registerRoute(
-  ({ url }) =>
-    sw.files.hasOwnProperty(url.pathname) && 
-    ['/swVersion.mjs', '/sw.js'].indexOf(url.pathname) === -1,   
+  ({ url }) => files.has(url.pathname.slice(1)),
   new CacheFirst({
     cacheName: "file-cache-" + sw.swVersion,
     plugins: [
@@ -27,8 +25,7 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/live/") &&
-    files.indexOf(url.pathname.split("?")[0].slice(1)) === -1,
+    !url.pathname.startsWith("/live/") && !files.has(url.pathname.slice(1)),
   new CacheFirst({
     cacheName: "esm-cache-124",
     plugins: [
