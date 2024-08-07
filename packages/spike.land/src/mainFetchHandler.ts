@@ -1,4 +1,4 @@
-import { HTML } from "@spike-land/code";
+import { HTML, routes } from "@spike-land/code";
 import { isJSDocReturnTag } from "typescript";
 import Env from "./env";
 import { handleFetchApi } from "./fetchHandler";
@@ -19,16 +19,13 @@ export async function handleMainFetch(
     console.log(`handling request: ${request.url}`);
 
     const url = new URL(request.url);
+
+    const redirect = routes[url.pathname as keyof typeof routes];
+    if (redirect) {
+      return handleFetchApi(["live", redirect], request, env, ctx);
+    }
+
     const path = url.pathname.slice(1).split("/");
-
-    if (!path[0]) {
-      return handleFetchApi(["live", "landing"], request, env, ctx);
-    }
-
-    if (path[0] === "start") {
-      return handleFetchApi(["live", "temp"], request, env, ctx);
-    }
-
     return handleFetchApi(path, request, env, ctx);
   });
 }

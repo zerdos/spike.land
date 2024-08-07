@@ -45,7 +45,10 @@ export class Code implements DurableObject {
     this.wsHandler = new WebSocketHandler(this);
   }
 
-  private async initializeSession() {
+  private async initializeSession(url: URL) {
+    this.origin = url.origin;
+    this.codeSpace = url.searchParams.get("room")!;
+
     await this.state.blockConcurrencyWhile(async () => {
       try {
         const storedSession = await this.state.storage.get<ICodeSession>(
@@ -61,8 +64,8 @@ export class Code implements DurableObject {
           }
 
           const source = codeSpaceParts.length === 2
-            ? `https://spike.land/live/${codeSpaceParts[0]}/index.tsx`
-            : `https://spike.land/code-main/index.tsx`;
+            ? `${this.origin}/live/${codeSpaceParts[0]}/index.tsx`
+            : `${this.origin}/live/code-main/index.tsx`;
 
           const backupCode = await fetch(
             source,
@@ -138,6 +141,7 @@ export class Code implements DurableObject {
 
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
+    this.origin = url.origin;
     this.codeSpace = url.searchParams.get("room")!;
     return handleErrors(request, async () => {
       this.session.code = this.session.code.replace(
@@ -159,7 +163,7 @@ export class Code implements DurableObject {
       }
 
       if (!this.initialized) {
-        await this.initializeSession();
+        await this.initializeSession(url);
         await this.setupAutoSave();
         this.initialized = true;
       }

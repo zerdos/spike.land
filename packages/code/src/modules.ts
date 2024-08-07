@@ -3,10 +3,9 @@ import { importMapReplace } from "./importMapReplace";
 import MyHTML from "./index.html";
 import { md5 } from "./md5";
 import { Delta } from "./textDiff";
-
 export { importMapReplace };
-
-export {serverFetchUrl} from "./enhancedFetch"
+export { routes } from "./routes";
+export { serverFetchUrl } from "./enhancedFetch";
 
 import {
   applyCodePatch,

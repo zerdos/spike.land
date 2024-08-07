@@ -1,5 +1,5 @@
 import type { Options } from "prettier";
-import { format,  } from "prettier/standalone";
+import { format } from "prettier/standalone";
 import pluginTypescript from "prettier/plugins/typescript";
 import pluginEstree from "prettier/plugins/estree";
 import emotion from "@emotion/css-prettifier";
@@ -18,10 +18,12 @@ export const addSomeFixesIfNeeded = (code: string): string => {
       prevIndent = second.split("\n").pop()?.length || 0 + 2;
 
       return [
-        emotion(first).split("\n")!.map((l: string) => indent + '  ' + l).join("\n"),
+        emotion(first).split("\n")!.map((l: string) => indent + "  " + l).join(
+          "\n",
+        ),
         second,
       ].join(`\n${indent}\``);
-    })
+    }),
   ].join("css={css`\n");
 };
 
@@ -51,16 +53,14 @@ export const prettierJs = async (
   code: string,
   toThrow = false,
 ): Promise<string> => {
-      try{
-        return await format( addSomeFixesIfNeeded(code), prettierConfig);
-      } catch (error) {
-
-          console.error("Prettier error", { error, code });
-          if (toThrow) throw error;
-          if (code === "Types not found") return "export {}";
-          return code;
-      }
-
-    }
+  try {
+    return await format(addSomeFixesIfNeeded(code), prettierConfig);
+  } catch (error) {
+    console.error("Prettier error", { error, code });
+    if (toThrow) throw error;
+    if (code === "Types not found") return "export {}";
+    return code;
+  }
+};
 
 Object.assign(self, { prettierJs });

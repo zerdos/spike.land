@@ -1,6 +1,8 @@
 export const serverFetchUrl = "/api/server-fetch";
 
-async function* streamResponse(response: Response): AsyncGenerator<Uint8Array, void, unknown> {
+async function* streamResponse(
+  response: Response,
+): AsyncGenerator<Uint8Array, void, unknown> {
   const reader = response.body!.getReader();
   try {
     while (true) {
@@ -26,7 +28,9 @@ const serverResponse: typeof fetch = async (url, options = {}) => {
       url,
       options: {
         ...options,
-        headers: options.headers ? Object.fromEntries(new Headers(options.headers)) : undefined,
+        headers: options.headers
+          ? Object.fromEntries(new Headers(options.headers))
+          : undefined,
       },
     }),
     signal,
@@ -78,13 +82,13 @@ export const enhancedFetch: typeof fetch = async (url, options = {}) => {
   try {
     const response = await fetch(url, enhancedOptions);
     if (response.ok) return response;
-   // console.log("Client-side fetch failed, trying server-side fetch");
+    // console.log("Client-side fetch failed, trying server-side fetch");
     return serverResponse(url, enhancedOptions);
   } catch (error) {
-//    if (error instanceof TypeError && error.message.includes('NetworkError')) {
-  ///    console.log("Network error occurred, trying server-side fetch");
-      return serverResponse(url, enhancedOptions);
-  //  }
+    //    if (error instanceof TypeError && error.message.includes('NetworkError')) {
+    ///    console.log("Network error occurred, trying server-side fetch");
+    return serverResponse(url, enhancedOptions);
+    //  }
     //throw error;
   } finally {
     controller.abort();
@@ -99,7 +103,9 @@ function anySignal(signals: AbortSignal[]): AbortSignal {
       controller.abort(signal.reason);
       return controller.signal;
     }
-    signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true });
+    signal.addEventListener("abort", () => controller.abort(signal.reason), {
+      once: true,
+    });
   }
   return controller.signal;
 }

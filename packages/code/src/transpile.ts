@@ -9,15 +9,14 @@ import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin.mjs";
 import { importMapReplace } from "./importMapReplace";
 
-declare const self:
-  & {
-    mod: {
-      init: boolean | Promise<boolean>;
-      initialize: (
-        wasmModule: WebAssembly.Module,
-      ) => Promise<boolean> | boolean;
-    };
+declare const self: {
+  mod: {
+    init: boolean | Promise<boolean>;
+    initialize: (
+      wasmModule: WebAssembly.Module,
+    ) => Promise<boolean> | boolean;
   };
+};
 
 const mod = self.mod = self.mod || {
   init: false as boolean | Promise<boolean>,

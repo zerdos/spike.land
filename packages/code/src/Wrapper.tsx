@@ -10,9 +10,8 @@ import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
-import { transpile } from "./shared"; 
-import {md5} from "./md5";
-
+import { transpile } from "./shared";
+import { md5 } from "./md5";
 
 export { md5 };
 
@@ -60,7 +59,7 @@ const useCodeSpace = (codeSpace: string) => {
         //   originToUse: window.location.origin,
         // });
         // if (!isCancelled) {
-          setTranspiled(code);
+        setTranspiled(code);
         // }
       } catch (error) {
         console.error("Transpilation error:", error);

@@ -32,9 +32,9 @@ export const renderPreviewWindow = async (
   // const { AppToRender } = await import("./AppToRender");
   root.render(
     // <StrictMode>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-        <AppToRender codeSpace={codeSpace} />
-      </ClerkProvider>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <AppToRender codeSpace={codeSpace} />
+    </ClerkProvider>,
     // </StrictMode>,
   );
 };

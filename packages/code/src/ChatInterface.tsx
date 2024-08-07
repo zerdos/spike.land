@@ -6,8 +6,6 @@ import { useDarkMode } from "./hooks/useDarkMode";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { AIHandler } from "./AIHandler";
 
-
-
 const codeSpace = getCodeSpace();
 const aiHandler = new AIHandler(codeSpace);
 

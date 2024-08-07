@@ -87,40 +87,35 @@ export async function deleteAllServiceWorkers() {
   if ("serviceWorker" in navigator) {
     try {
       const cacheNames = await caches.keys();
-      const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
+      const fileCaches = cacheNames.filter((cacheName) =>
+        cacheName.startsWith("file-cache-")
+      );
       const currentCache = "file-cache-" + swVersion;
       const isCurrentFilesInCache = fileCaches.includes(currentCache);
       if (isCurrentFilesInCache) {
+        const deleteCachePromises = fileCaches.filter((cacheName) =>
+          cacheName !== currentCache
+        ).map((cacheName) => caches.delete(cacheName));
 
-
-
-
-        const deleteCachePromises = fileCaches.filter(cacheName=>cacheName!==currentCache).map((cacheName) =>
-          caches.delete(cacheName)
-        );
-  
         // Wait for all cache delete operations to complete
         await Promise.all(deleteCachePromises);
 
         console.log("All caches have been cleared.");
-
-
       }
-     
+
       // Get all service worker registrations
       const registrations = await navigator.serviceWorker.getRegistrations();
 
       // Unregister each service worker
       const unregisterPromises = registrations.map((registration) => {
-
-        if  (registration.active && !isCurrentFilesInCache) {
+        if (registration.active && !isCurrentFilesInCache) {
           registration.unregister();
         }
 
         if (registration.waiting && isCurrentFilesInCache) {
           return registration.waiting.postMessage("skipWaiting");
         }
-    });
+      });
 
       // Wait for all unregister operations to complete
       await Promise.all(unregisterPromises);

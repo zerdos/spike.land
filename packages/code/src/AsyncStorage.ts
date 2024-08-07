@@ -1,58 +1,69 @@
-import { getItem, setItem, removeItem, clear, mergeItem, getAllkeys, multiGet, multiMerge, multiRemove, multiSet } from 'window-async-local-storage';
+import {
+  clear,
+  getAllkeys,
+  getItem,
+  mergeItem,
+  multiGet,
+  multiMerge,
+  multiRemove,
+  multiSet,
+  removeItem,
+  setItem,
+} from "window-async-local-storage";
 
 export const getStore = async () => {
-    const keys = (await getAllkeys() as string[]).filter(k => k) ;
-    const stores = (await multiGet(keys)) as string[] ;
-    const store = {};
+  const keys = (await getAllkeys() as string[]).filter((k) => k);
+  const stores = (await multiGet(keys)) as string[];
+  const store = {};
 
-    stores.forEach(([key, value]) => {
-        Object.assign(store, {[key]: value});
-    });
-    return store;
-}
+  stores.forEach(([key, value]) => {
+    Object.assign(store, { [key]: value });
+  });
+  return store;
+};
 
 export {
-    getItem,
-    setItem,
-    removeItem,
-    clear,
-    mergeItem,
-    getAllkeys,
-    multiGet,
-    multiMerge,
-    multiRemove,
-    multiSet
+  clear,
+  getAllkeys,
+  getItem,
+  mergeItem,
+  multiGet,
+  multiMerge,
+  multiRemove,
+  multiSet,
+  removeItem,
+  setItem,
 };
 
 export class AsyncLocalStorage {
-    private currentStore: any = null;
+  private currentStore: any = null;
 
-    constructor() {
-        console.log('AsyncStorage constructor');
+  constructor() {
+    console.log("AsyncStorage constructor");
+  }
+
+  getItem = getItem;
+  setItem = setItem;
+  removeItem = removeItem;
+  clear = clear;
+  getStore = () => this.currentStore;
+
+  run(store: any, callback: Function, ...args: any[]): any {
+    const previousStore = this.currentStore;
+    this.currentStore = store;
+
+    try {
+      return callback(...args);
+    } finally {
+      this.currentStore = previousStore;
     }
+  }
 
-    getItem = getItem;
-    setItem = setItem;
-    removeItem = removeItem;
-    clear = clear;
-    getStore = () => this.currentStore;
-
-    run(store: any, callback: Function, ...args: any[]): any {
-        const previousStore = this.currentStore;
-        this.currentStore = store;
-
-        try {
-            return callback(...args);
-        } finally {
-            this.currentStore = previousStore;
-        }
-    }
-
-    // This method mimics the behavior of asyncLocalStorage.getStore()
-    // in the Node.js implementation
-    getStoreSync(): any {
-        return this.currentStore;
-    }
+  // This method mimics the behavior of asyncLocalStorage.getStore()
+  // in the Node.js implementation
+  getStoreSync(): any {
+    return this.currentStore;
+  }
 }
 
 export default AsyncLocalStorage;

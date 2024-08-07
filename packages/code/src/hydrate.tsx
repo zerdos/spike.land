@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import type { EmotionCache } from "@emotion/cache";
-import {enhancedFetch} from "./enhancedFetch";
+import { enhancedFetch } from "./enhancedFetch";
 
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
@@ -39,38 +39,11 @@ const setupServiceWorker = async () => {
   }
 };
 
-const handleNonLiveRoutes = async () => {
-  if (paths[1] !== "live") {
-    const root = document.getElementById("root");
-    if (!root) return;
-
-    if (location.pathname === "/") {
-      const { default: App } = await import("./pages/index");
-      createRoot(root).render(React.createElement(App));
-    } else if (location.pathname === "/start") {
-      const { default: App } = await import("./pages/templates");
-      createRoot(root).render(React.createElement(App));
-    }
-  }
-};
-
 const initializeApp = async () => {
-//  import { createWorkflow } from "./LangChain";
-
   const { createWorkflow } = await import("./LangChain");
   Object.assign(globalThis, { createWorkflow });
-  
 
   await setupServiceWorker();
-  await handleNonLiveRoutes();
-  
-  // await wait(30000);
-  // await deleteAllServiceWorkers();
-  
-  // Uncomment the following lines if you want to use service worker and run tests
-
-  // sw?.messageSkipWaiting();
-  // runTests();
 };
 
 const handleLivePage = async () => {
@@ -104,9 +77,15 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       document.querySelectorAll("style[data-styled-jsx]"),
     ).map((style) => style.textContent);
 
-    const globalStyles =    Array.from(new Set(Array.from(
-      document.querySelectorAll(`style[data-emotion*="${key}-global"]`),
-    ).map((style) => style.textContent?.trim()).map(s=>s?.endsWith(";")? s.slice(0,-1):s))).join("\n"); 
+    const globalStyles = Array.from(
+      new Set(
+        Array.from(
+          document.querySelectorAll(`style[data-emotion*="${key}-global"]`),
+        ).map((style) => style.textContent?.trim()).map((s) =>
+          s?.endsWith(";") ? s.slice(0, -1) : s
+        ),
+      ),
+    ).join("\n");
 
     const emotionStyles = Array.from(
       new Set(
@@ -115,7 +94,9 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       ),
     ).join("\n");
 
-    return [globalStyles, tailwindCss , styledJSXStyles, emotionStyles].join("\n");
+    return [globalStyles, tailwindCss, styledJSXStyles, emotionStyles].join(
+      "\n",
+    );
   } catch {
     return Array.from(document.styleSheets)
       .map((sheet) => {
@@ -254,7 +235,7 @@ const handleDefaultPage = () => {
 
 // Main execution
 const main = async () => {
-Object.assign(window, { enhancedFetch });
+  Object.assign(window, { enhancedFetch });
   await initializeApp();
   await createDirectories();
 

@@ -36,7 +36,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     engine,
     editorState,
     setEditorState,
-    initialLoadRef
+    initialLoadRef,
   } = useEditorState(codeSpace);
 
   const { errorType, setErrorType, debouncedTypeCheck } = useErrorHandling(
@@ -58,7 +58,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       if (ignoreSignals) {
         return editorState.setValue(formattedCode);
       }
-      const {signal} = mod.current.controller;
+      const { signal } = mod.current.controller;
       setTimeout(() => {
         if (signal.aborted) return;
         const currentTime = Date.now();
@@ -75,10 +75,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       console.log("Setting value from parent");
       mod.current.i += 1;
       mod.current.controller.abort();
-    
-      mod.current.controller = new AbortController();;
+
+      mod.current.controller = new AbortController();
       const { signal } = mod.current.controller;
-      
+
       await debouncedRunner(code, mod.current.i, signal);
       if (signal.aborted) return;
       setEditorContent(code, true);
@@ -128,7 +128,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         try {
           if (signal.aborted) return;
 
-          const transpiled = await transpile({ code: formattedCode, originToUse: location.origin });
+          const transpiled = await transpile({
+            code: formattedCode,
+            originToUse: location.origin,
+          });
 
           document.querySelector("iframe")?.contentWindow?.postMessage({
             code: formattedCode,
@@ -140,7 +143,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           mod.current.controller.abort();
 
           console.log("Runner succeeded");
-   
+
           if (errorType === "transpile") {
             setErrorType(null);
           }
@@ -158,21 +161,21 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   const handleContentChange = useCallback(async (newCode: string) => {
     if (mod.current.code === newCode) return;
 
-   return  mutex.runExclusive(async () => {
-    
+    return mutex.runExclusive(async () => {
+      setLastTypingTimestamp(Date.now());
 
-    setLastTypingTimestamp(Date.now());
+      mod.current.code = await prettierToThrow({
+        code: newCode,
+        toThrow: true,
+      });
 
-    mod.current.code = await prettierToThrow({code: newCode, toThrow: true});
+      mod.current.controller.abort();
+      mod.current.controller = new AbortController();
+      const { signal } = mod.current.controller;
+      mod.current.i += 1;
 
-    mod.current.controller.abort();
-    mod.current.controller = new AbortController();
-    const { signal } = mod.current.controller;
-    mod.current.i += 1;
-
-    await  debouncedRunner(newCode, mod.current.i, signal);
+      await debouncedRunner(newCode, mod.current.i, signal);
     });
-
   }, [
     debouncedRunner,
     debouncedTypeCheck,
@@ -181,7 +184,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   ]);
 
   const handleBroadcastMessage = useCallback(
-async    ({ data }: { data: ICodeSession }) => {
+    async ({ data }: { data: ICodeSession }) => {
       if (
         !data.i || !data.code || data.code === mod.current.code ||
         mod.current.i >= data.i
@@ -191,15 +194,17 @@ async    ({ data }: { data: ICodeSession }) => {
 
       mod.current.i = Number(data.i);
       mod.current.code = data.code;
-  
 
       mod.current.controller.abort();
       mod.current.controller = new AbortController();
 
-//      const { signal } = mod.current.controller;
-   //   await debouncedRunner(data.code, mod.current.i, signal);
-      const formattedCode = await prettierToThrow({ code: data.code, toThrow: true });
-   setEditorContent(formattedCode, true);
+      //      const { signal } = mod.current.controller;
+      //   await debouncedRunner(data.code, mod.current.i, signal);
+      const formattedCode = await prettierToThrow({
+        code: data.code,
+        toThrow: true,
+      });
+      setEditorContent(formattedCode, true);
     },
     [codeSpace, setEditorContent],
   );
@@ -262,7 +267,6 @@ async    ({ data }: { data: ICodeSession }) => {
 };
 
 export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
-
 
 function addCSSFile(filename: string) {
   const link = document.createElement("link");
