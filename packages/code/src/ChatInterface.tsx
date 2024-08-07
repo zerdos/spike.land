@@ -5,6 +5,10 @@ import { useChat } from "./hooks/useChat";
 import { useDarkMode } from "./hooks/useDarkMode";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { AIHandler } from "./AIHandler";
+import { createWorkflow } from "./LangChain";
+
+
+Object.assign(globalThis, { createWorkflow });
 
 const codeSpace = getCodeSpace();
 const aiHandler = new AIHandler(codeSpace);

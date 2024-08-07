@@ -32,7 +32,7 @@ interface UseMessageHandlingProps {
       onCodeUpdate: (code: string) => void,
       setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
       setAICode: React.Dispatch<React.SetStateAction<string>>,
-    ) => Promise<void>;
+    ) => Promise< string | void>;
   };
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;

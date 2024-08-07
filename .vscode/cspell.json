@@ -93,6 +93,8 @@
     "keyvalue",
     "kubernetes",
     "Labelledby",
+    "langchain",
+    "langgraph",
     "libp",
     "linedelimiters",
     "localforage",
