@@ -72,10 +72,12 @@ sw.addEventListener("activate", (event) => {
       }
 
       // Determine which files are still missing
-      const stillMissing = Object.keys(filesJson).filter(file => !addedFiles.has(file));
+    //  const stillMissing = Object.keys(filesJson).filter(file => !addedFiles.has(file));
       
       // Add all new files to the cache
-      const filesToCache = ['/files.json', ...stillMissing.map(file => '/' + file)];
+      //const filesToCache = ['/files.json', ...stillMissing.map(file => '/' + file)];
+      const filesToCache = ['/files.json'];
+      
       await cache.addAll(filesToCache);
       await sw.skipWaiting();
       // Delete old caches
