@@ -1,7 +1,7 @@
 importScripts("/swVersion.js");
 
 import { registerRoute } from "workbox-routing";
-import { CacheFirst, CacheOnly } from "workbox-strategies";
+import { CacheFirst } from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 const sw = self as unknown as

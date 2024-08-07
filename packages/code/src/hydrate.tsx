@@ -62,9 +62,11 @@ const initializeApp = async () => {
   
 
   await setupServiceWorker();
+  await handleNonLiveRoutes();
+  
+  await wait(30000);
   await deleteAllServiceWorkers();
   
-  await handleNonLiveRoutes();
   // Uncomment the following lines if you want to use service worker and run tests
 
   // sw?.messageSkipWaiting();

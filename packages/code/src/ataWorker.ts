@@ -33,7 +33,7 @@ declare var self:
   & { build: typeof Build }
   & { tsx: (code: string) => Promise<string[]> };
 
-importScripts("/swVersion.js");
+
 importScripts("/workerScripts/dts.js");
 importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/prettierEsm.js");

@@ -11,9 +11,6 @@ import { importMapReplace } from "./importMapReplace";
 
 declare const self:
   & {
-    swVersion: string;
-  }
-  & {
     mod: {
       init: boolean | Promise<boolean>;
       initialize: (

@@ -1,5 +1,4 @@
 import SharedWorker from "@okikio/sharedworker";
-import { swVersion } from "@src/swVersion";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
@@ -54,14 +53,14 @@ export const ata = (
 export const tsx = (
   code: string,
 ) =>
-  init(swVersion).rpc("tsc", code) as Promise<{
+  init().rpc("tsc", code) as Promise<{
     content: string;
     filePath: string;
   }[]>;
 
 const transpileID = (
   { code, originToUse }: { code: string; originToUse: string },
-) => init(swVersion).rpc("transpile", { code, originToUse }) as Promise<string>;
+) => init().rpc("transpile", { code, originToUse }) as Promise<string>;
 
 export const transpile = async (
   { code, originToUse }: { code: string; originToUse: string },
@@ -90,11 +89,11 @@ export const build = (
     format: "esm" | "iife";
   },
 ) =>
-  init(swVersion).rpc("build", {
+  init().rpc("build", {
     codeSpace,
     origin,
     format,
   }) as Promise<string>;
 
 export const connect = (codeSpace: string) =>
-  init(swVersion).signal("connect", codeSpace);
+  init().signal("connect", codeSpace);
