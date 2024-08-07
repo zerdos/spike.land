@@ -161,8 +161,6 @@ export async function buildMainBundle(wasmFile) {
       "src/@/lib/utils.ts",
       "src/modules.ts",
       "src/motion.ts",
-      "src/shared.ts",
-      "src/hydrate.tsx",
       "src/emotion.ts",
       "src/cf-esbuild.mjs",
       "src/reactMod.ts",
@@ -172,7 +170,6 @@ export async function buildMainBundle(wasmFile) {
       "src/jsx.mjs",
       "src/shared.ts",
 
-      "src/hydrate.tsx",
       "src/Wrapper.tsx",
 
     ],

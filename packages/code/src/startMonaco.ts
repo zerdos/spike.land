@@ -1,5 +1,5 @@
-import * as monaco from "monaco-editor";
 import { ata } from "./shared";
+import * as monaco from "./monacoEditor";
 
 const originToUse = location.origin;
 

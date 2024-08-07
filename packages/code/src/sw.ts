@@ -13,8 +13,8 @@ const files = Object.keys(sw.files);
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/live/") &&
-    files.indexOf(url.pathname.split("?")[0].slice(1)) !== -1,
+    sw.files.hasOwnProperty(url.pathname) && 
+    ['/swVersion.mjs', '/sw.js'].indexOf(url.pathname) === -1,   
   new CacheFirst({
     cacheName: "file-cache-" + sw.swVersion,
     plugins: [
@@ -38,3 +38,17 @@ registerRoute(
     ],
   }),
 );
+
+sw.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(sw.fileCacheName).then((cache) => {
+      return cache.addAll(Object.keys(sw.files));
+    }),
+  );
+});
+
+sw.onmessage = async (event) => {
+  if (event.data === "skipWaiting") {
+    await sw.skipWaiting();
+  }
+}

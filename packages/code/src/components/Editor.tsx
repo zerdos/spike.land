@@ -245,6 +245,7 @@ async    ({ data }: { data: ICodeSession }) => {
     codeSpace: string,
     code: string,
   ) {
+    addCSSFile("/monacoEditor.css");
     const { startMonaco } = await import("../startMonaco");
     return await startMonaco({
       container,
@@ -261,3 +262,12 @@ async    ({ data }: { data: ICodeSession }) => {
 };
 
 export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
+
+
+function addCSSFile(filename: string) {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = filename;
+  document.head.appendChild(link);
+}

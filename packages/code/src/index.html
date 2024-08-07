@@ -17,27 +17,10 @@
   </head>
   <body>
     <div id="root"></div>
+    <script type="module" src="/start.mjs"></script>
     <script defer src="/assets/tw-chunk-be5bad.js"></script>
-    <script type="module">
-
-      (async () => {
-        try{
-        const paths = location.pathname.split("/").slice(1);
-        if (paths.length > 2 && paths[0] == 'live') {
-          const codeSpace = paths[1];
-          await import("/Wrapper.mjs").then(m => m.renderApp({ codeSpace, rootElement: document.getElementById("root") }));
-        }}catch(e){
-          console.error(e);
-          
-        } finally {
-          await import("/hydrate.mjs");
-        }
-
-
-      })()
-    </script>
     <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cc7e2ceaa75d4111b26b0ec989795375"}'></script>
     <!-- End Cloudflare Web Analytics -->
   </body>
   </html>

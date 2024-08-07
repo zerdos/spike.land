@@ -1,7 +1,7 @@
+// import motion from "framer-motion";
 export * from "framer-motion";
-export { createDomMotionComponent } from "framer-motion";
-export { default } from "framer-motion";
-
+// export { createDomMotionComponent } from "framer-motion";
+// export default motion;
 // export const { createDomMotionComponent, motion } = fm; // ./render/dom/motion.mjs';
 // export const { m } = fm; // ./render/dom/motion-minimal.mjs';
 // export const { AnimatePresence } = fm; // ./components/AnimatePresence/index.mjs';

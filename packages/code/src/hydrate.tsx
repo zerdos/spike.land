@@ -61,10 +61,12 @@ const initializeApp = async () => {
   Object.assign(globalThis, { createWorkflow });
   
 
+  await setupServiceWorker();
   await deleteAllServiceWorkers();
+  
   await handleNonLiveRoutes();
   // Uncomment the following lines if you want to use service worker and run tests
-  // const sw = await setupServiceWorker();
+
   // sw?.messageSkipWaiting();
   // runTests();
 };
