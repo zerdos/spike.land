@@ -78,6 +78,15 @@ describe("Wrapper", () => {
       expect(screen.getByTestId("mock-app-renderer")).toBeInTheDocument();
     });
   });
+
+  // New test case
+  it("calls the transpile function with the correct arguments", async () => {
+    const code = "const a = 1;";
+    await act(async () => {
+      render(<Wrapper code={code} />, { container: container as HTMLElement });
+    });
+    expect(sharedModule.transpile).toHaveBeenCalledWith(code);
+  });
 });
 
 describe("useTranspile", () => {

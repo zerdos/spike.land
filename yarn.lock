@@ -12227,7 +12227,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240806.0"
     "@emotion/react": "npm:11.13.0"
     "@heroicons/react": "npm:^2.1.5"
     "@langchain/anthropic": "npm:^0.2.13"

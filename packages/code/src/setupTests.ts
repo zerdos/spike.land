@@ -1,6 +1,15 @@
 import "@testing-library/jest-dom";
-
 import { TextDecoder, TextEncoder } from "text-encoding";
+
+// Add type definitions for ResizeObserver
+declare global {
+  interface Global {
+    ResizeObserver: jest.Mock;
+  }
+
+  var TextEncoder: typeof TextEncoder;
+  var TextDecoder: typeof TextDecoder;
+}
 
 globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),
@@ -8,5 +17,5 @@ globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }));
 
-self.TextEncoder = TextEncoder;
-self.TextDecoder = TextDecoder;
+globalThis.TextEncoder = TextEncoder;
+globalThis.TextDecoder = TextDecoder;
