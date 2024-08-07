@@ -51,6 +51,7 @@
   },
   "packageManager": "yarn@4.4.0",
   "dependencies": {
+    "@babel/runtime": "^7.25.0",
     "@heroicons/react": "^2.1.5",
     "@langchain/anthropic": "^0.2.13",
     "i18next": "^23.12.2",

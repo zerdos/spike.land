@@ -10,6 +10,7 @@ import { ToolNode } from "@langchain/langgraph/prebuilt";
 interface AgentState {
   messages: BaseMessage[];
 }
+export const createWorkflow = async (prompt: string) => {
 
 // Define the graph state
 const graphState: StateGraphArgs<AgentState>["channels"] = {
@@ -41,8 +42,11 @@ const toolNode = new ToolNode<AgentState>(tools);
 
 const model = new ChatAnthropic({
   model: "claude-3-5-sonnet-20240620",
+  anthropicApiKey: "MY_API_KEY",
+  streaming: true,
   anthropicApiUrl: location.origin + "/anthropic",
   temperature: 0,
+
 }).bindTools(tools);
 
 // Define the function that determines whether to continue or not
@@ -67,7 +71,6 @@ async function callModel(state: AgentState) {
   return { messages: [response] };
 }
 
-export const createWorkflow = async (prompt: string) => {
   // Define a new graph
   const workflow = new StateGraph<AgentState>({ channels: graphState })
     .addNode("agent", callModel)

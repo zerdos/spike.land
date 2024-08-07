@@ -12,7 +12,7 @@ export const buildOptions: BuildOptions = {
     path: "path-browserify",
     buffer: "buffer/",
     "node:buffer": "buffer/",
-
+    "node:async_hooks": "src/AsyncStorage.ts",
     util: "util",
     constants: "constants/",
     module: "module/",
@@ -65,3 +65,5 @@ export const getCommonBuildOptions = (environment) => ({
   define: makeEnv(environment),
   plugins: [fetchPlugin("/")],
 });
+
+
