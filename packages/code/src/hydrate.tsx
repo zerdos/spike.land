@@ -8,7 +8,7 @@ import {enhancedFetch} from "./enhancedFetch";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS, Wrapper } from "./Wrapper";
-import { deleteAllServiceWorkers } from "./swUtils";
+//import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants
 const paths = location.pathname.split("/");
@@ -64,8 +64,8 @@ const initializeApp = async () => {
   await setupServiceWorker();
   await handleNonLiveRoutes();
   
-  await wait(30000);
-  await deleteAllServiceWorkers();
+  // await wait(30000);
+  // await deleteAllServiceWorkers();
   
   // Uncomment the following lines if you want to use service worker and run tests
 

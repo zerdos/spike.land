@@ -37,7 +37,7 @@ registerRoute(
 );
 
 
-sw.addEventListener("install", (event) => {
+sw.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.open('file-cache-'+sw.swVersion).then(async (cache) => {
       const cacheNames = await caches.keys();
@@ -56,7 +56,7 @@ sw.addEventListener("install", (event) => {
         const oldFileJsonResponse = await oldCacheInstance.match('/files.json');
         if (!oldFileJsonResponse) continue;
         
-        const oldFiles = await oldFileJsonResponse.json();
+        const oldFiles: typeof sw.files = await oldFileJsonResponse.json();
         
         await Promise.all(Object.keys(filesJson).map(async (file) => {
           if (addedFiles.has(file)) return;
@@ -77,9 +77,9 @@ sw.addEventListener("install", (event) => {
       // Add all new files to the cache
       const filesToCache = ['/files.json', ...stillMissing.map(file => '/' + file)];
       await cache.addAll(filesToCache);
-      
+      await sw.skipWaiting();
       // Delete old caches
-      await Promise.all(otherCaches.map(cacheName => caches.delete(cacheName)));
+     // await Promise.all(otherCaches.map(cacheName => caches.delete(cacheName)));
       
       return cache;
     }),
@@ -91,3 +91,13 @@ sw.onmessage = async (event) => {
     await sw.skipWaiting();
   }
 }
+
+sw.addEventListener("install", async() => {
+  const cacheNames = await caches.keys();
+  const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
+  const currentCache = "file-cache-" + sw.swVersion;
+  
+  const otherCaches = fileCaches.filter(cacheName => cacheName !== currentCache);
+  otherCaches.forEach(cacheName => caches.delete(cacheName));
+
+});
