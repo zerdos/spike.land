@@ -1,9 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  FullScreenHistoryView,
-  HistoryItem,
-  RestoreStatusAlert,
-} from "./History/HistoryFComponents";
+import { FullScreenHistoryView, HistoryItem, RestoreStatusAlert } from "./History/HistoryFComponents";
 
 interface HistoryItem {
   code: string;
@@ -42,9 +38,7 @@ export const CodeHistoryCarousel: React.FC<
       const data: HistoryItem[] = await response.json();
       setHistory(
         data
-          .filter((x) =>
-            !x.code.includes("History") && !x.code.includes("e/pp")
-          )
+          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
           .sort((a, b) => b.timestamp - a.timestamp),
       );
     } catch (err) {
@@ -93,8 +87,7 @@ export const CodeHistoryCarousel: React.FC<
   return (
     <FullScreenHistoryView
       history={history}
-      onRestore={(item: HistoryItem) =>
-        restoreVersion(item.timestamp, item.code)}
+      onRestore={(item: HistoryItem) => restoreVersion(item.timestamp, item.code)}
       onClose={() => onClose()}
     />
   );

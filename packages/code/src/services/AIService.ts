@@ -126,8 +126,7 @@ export class AIService {
 
     this.localStorageService.saveAIInteraction(fullResponse, code);
 
-    const codeModificationRegex =
-      /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
+    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = code.match(codeModificationRegex);
 
     if (matches) {

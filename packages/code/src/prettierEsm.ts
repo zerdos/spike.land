@@ -1,8 +1,8 @@
-import type { Options } from "prettier";
-import { format } from "prettier/standalone";
-import pluginTypescript from "prettier/plugins/typescript";
-import pluginEstree from "prettier/plugins/estree";
 import emotion from "@emotion/css-prettifier";
+import type { Options } from "prettier";
+import pluginEstree from "prettier/plugins/estree";
+import pluginTypescript from "prettier/plugins/typescript";
+import { format } from "prettier/standalone";
 
 const createSpaceString = (n: number): string => " ".repeat(n);
 

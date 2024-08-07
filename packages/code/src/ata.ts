@@ -16,12 +16,9 @@ export async function ata({
   prettierJs: (code: string) => Promise<string>;
   tsx: (code: string) => Promise<string[]>;
 }) {
-  const impRes: Record<string, { url: string; content: string; ref: string }> =
-    {};
+  const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
-  let res = (await tsx(await prettierJs(code))).filter((x) =>
-    x.includes("@/components")
-  );
+  let res = (await tsx(await prettierJs(code))).filter((x) => x.includes("@/components"));
 
   await Promise.all(
     res.map(async (r) => {
@@ -42,9 +39,7 @@ export async function ata({
 
   // Process import results to clean up paths and references
   Object.keys(impRes)
-    .filter((x) =>
-      !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https"))
-    )
+    .filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https")))
     .forEach((x) => {
       Object.keys(impRes).forEach((t) => {
         impRes[t] = {
@@ -131,9 +126,7 @@ declare module 'react' {
     ...extras,
   ];
 
-  const thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) =>
-    extraLibs.find((p) => p.filePath === y)
-  )
+  const thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
     .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
       (c) => ({
         content: c!.content,
@@ -188,8 +181,8 @@ declare module 'react' {
                 "X-typescript-types",
               );
 
-              newBase = typescriptTypes ||
-                await extractUrlFromResponse(response, r);
+              newBase = typescriptTypes
+                || await extractUrlFromResponse(response, r);
               if (newBase) newBase = new URL(newBase).toString();
             } catch (error) {
               let response;
@@ -242,9 +235,7 @@ declare module 'react' {
       await prettierJs(await response.text()),
       originToUse,
     );
-    return responseText.split(`"`).find((x) =>
-      x.startsWith("https://") && x.includes(ref)
-    ) || null;
+    return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
 
   async function tryToExtractUrlFromPackageJson(npmPackage: string) {
@@ -346,8 +337,8 @@ declare module 'react' {
         });
 
       const fileName = new URL(
-        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js") ||
-          ref.includes(".mts")
+        ref.includes("d.ts") || ref.includes(".mjs") || ref.includes(".js")
+          || ref.includes(".mts")
           ? ref
           : `${ref}/index.d.ts`,
         ref.startsWith(".") ? baseUrl : originToUse,

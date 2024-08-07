@@ -1,17 +1,11 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { createRoot, type Root } from "react-dom/client";
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createRoot, type Root } from "react-dom/client";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
-import { transpile } from "./shared";
 import { md5 } from "./md5";
+import { transpile } from "./shared";
 
 export { md5 };
 
@@ -20,9 +14,8 @@ if (!Object.hasOwn(globalThis, "renderedAPPS")) {
     renderedAPPS: new Map<HTMLElement, RenderedApp>(),
   });
 }
-export const renderedAPPS =
-  (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> })
-    .renderedAPPS;
+export const renderedAPPS = (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> })
+  .renderedAPPS;
 
 // Types
 interface IRenderApp {
@@ -132,8 +125,8 @@ export const Wrapper: React.FC<
     );
   }
 
-  const transpiled = t || (code && useTranspile(code)) ||
-    (codeSpace && useCodeSpace(codeSpace));
+  const transpiled = t || (code && useTranspile(code))
+    || (codeSpace && useCodeSpace(codeSpace));
   const containerRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<Root | null>(null);
 
@@ -192,9 +185,9 @@ export const renderApp = async ({
   App,
 }: IRenderApp): Promise<RenderedApp | null> => {
   try {
-    const rootEl = rootElement ||
-      document.getElementById("root") as HTMLDivElement ||
-      document.createElement("div");
+    const rootEl = rootElement
+      || document.getElementById("root") as HTMLDivElement
+      || document.createElement("div");
 
     if (!document.body.contains(rootEl)) {
       rootEl.id = "root";

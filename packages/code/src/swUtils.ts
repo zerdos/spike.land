@@ -87,15 +87,13 @@ export async function deleteAllServiceWorkers() {
   if ("serviceWorker" in navigator) {
     try {
       const cacheNames = await caches.keys();
-      const fileCaches = cacheNames.filter((cacheName) =>
-        cacheName.startsWith("file-cache-")
-      );
+      const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
       const currentCache = "file-cache-" + swVersion;
       const isCurrentFilesInCache = fileCaches.includes(currentCache);
       if (isCurrentFilesInCache) {
-        const deleteCachePromises = fileCaches.filter((cacheName) =>
-          cacheName !== currentCache
-        ).map((cacheName) => caches.delete(cacheName));
+        const deleteCachePromises = fileCaches.filter((cacheName) => cacheName !== currentCache).map((cacheName) =>
+          caches.delete(cacheName)
+        );
 
         // Wait for all cache delete operations to complete
         await Promise.all(deleteCachePromises);

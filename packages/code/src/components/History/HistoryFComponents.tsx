@@ -1,16 +1,10 @@
-import React from "react";
-import { format } from "date-fns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Wrapper } from "@src/Wrapper";
+import { format } from "date-fns";
+import React from "react";
 
 // ScaledWrapper component
 const ScaledWrapper = ({ code, scale }: { code: string; scale: number }) => (
@@ -121,9 +115,4 @@ const FullScreenHistoryView: React.FC<{
   </div>
 );
 
-export {
-  FullScreenHistoryView,
-  HistoryItem,
-  RestoreStatusAlert,
-  ScaledWrapper,
-};
+export { FullScreenHistoryView, HistoryItem, RestoreStatusAlert, ScaledWrapper };

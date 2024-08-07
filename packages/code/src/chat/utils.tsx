@@ -86,8 +86,8 @@ export const renderMessage = (text: string, isUser: boolean) => {
   );
   if (lastOpenBlockMatch) {
     const language = lastOpenBlockMatch[1]
-      ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()] ||
-        lastOpenBlockMatch[1].toLowerCase()
+      ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()]
+        || lastOpenBlockMatch[1].toLowerCase()
       : "plaintext";
     const code = lastOpenBlockMatch[2].trim();
     parts.push({

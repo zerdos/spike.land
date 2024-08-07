@@ -1,13 +1,8 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Wrapper } from "../Wrapper";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { md5 } from "@src/md5";
+import React from "react";
+import { Wrapper } from "../Wrapper";
 
 interface Template {
   id: number;

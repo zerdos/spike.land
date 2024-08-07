@@ -23,9 +23,7 @@ export const useErrorHandling = (engine: string) => {
             console.error("TypeScript error:", diagnostics);
             setErrorType("typescript");
           } else {
-            setErrorType((prevErrorType) =>
-              prevErrorType === "typescript" ? null : prevErrorType
-            );
+            setErrorType((prevErrorType) => prevErrorType === "typescript" ? null : prevErrorType);
           }
         }
         initialLoadRef.current = false;

@@ -1,8 +1,8 @@
 importScripts("/swVersion.js");
 
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
 import { CacheFirst } from "workbox-strategies";
-import { CacheableResponsePlugin } from "workbox-cacheable-response";
 
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
@@ -24,8 +24,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) =>
-    !url.pathname.startsWith("/live/") && !files.has(url.pathname.slice(1)),
+  ({ url }) => !url.pathname.startsWith("/live/") && !files.has(url.pathname.slice(1)),
   new CacheFirst({
     cacheName: "esm-cache-124",
     plugins: [
@@ -40,14 +39,10 @@ sw.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.open("file-cache-" + sw.swVersion).then(async (cache) => {
       const cacheNames = await caches.keys();
-      const fileCaches = cacheNames.filter((cacheName) =>
-        cacheName.startsWith("file-cache-")
-      );
+      const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
       const currentCache = "file-cache-" + sw.swVersion;
 
-      const otherCaches = fileCaches.filter((cacheName) =>
-        cacheName !== currentCache
-      );
+      const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
 
       // Use the files from sw.files
       const filesJson = sw.files;
@@ -80,7 +75,7 @@ sw.addEventListener("activate", (event) => {
       //  const stillMissing = Object.keys(filesJson).filter(file => !addedFiles.has(file));
 
       // Add all new files to the cache
-      //const filesToCache = ['/files.json', ...stillMissing.map(file => '/' + file)];
+      // const filesToCache = ['/files.json', ...stillMissing.map(file => '/' + file)];
       const filesToCache = ["/files.json"];
 
       await cache.addAll(filesToCache);
@@ -101,13 +96,9 @@ sw.onmessage = async (event) => {
 
 sw.addEventListener("install", async () => {
   const cacheNames = await caches.keys();
-  const fileCaches = cacheNames.filter((cacheName) =>
-    cacheName.startsWith("file-cache-")
-  );
+  const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
   const currentCache = "file-cache-" + sw.swVersion;
 
-  const otherCaches = fileCaches.filter((cacheName) =>
-    cacheName !== currentCache
-  );
+  const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
   otherCaches.forEach((cacheName) => caches.delete(cacheName));
 });

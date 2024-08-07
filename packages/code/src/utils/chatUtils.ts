@@ -1,8 +1,7 @@
 import { replacePreservingWhitespace } from "@src/replacePreservingWhitespace";
 import { Message } from "../types/Message";
 
-export const getCodeSpace = (): string =>
-  location.pathname.slice(1).split("/")[1];
+export const getCodeSpace = (): string => location.pathname.slice(1).split("/")[1];
 
 export const extractCodeModification = (response: string): string => {
   const regex = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
@@ -20,17 +19,15 @@ export const updateSearchReplace = (
   if (codeeee.includes("<<<<<<< SEARCH")) {
     try {
       const codeToReplace = extractCodeModification(codeeee);
-      const modz = codeToReplace.split(">>>>>>> REPLACE\n\n<<<<<<< SEARCH") ||
-        [codeToReplace];
+      const modz = codeToReplace.split(">>>>>>> REPLACE\n\n<<<<<<< SEARCH")
+        || [codeToReplace];
 
       const modifications = modz
         .filter((mod) =>
-          mod.includes("=======") || mod.includes(">>>>>>> REPLACE") ||
-          mod.includes("<<<<<<< SEARCH")
+          mod.includes("=======") || mod.includes(">>>>>>> REPLACE")
+          || mod.includes("<<<<<<< SEARCH")
         )
-        .map((mod) =>
-          mod.split(">>>>>>> REPLACE").join("").split("<<<<<<< SEARCH").join("")
-        );
+        .map((mod) => mod.split(">>>>>>> REPLACE").join("").split("<<<<<<< SEARCH").join(""));
 
       modifications.forEach((modification) => {
         const [search, replaced] = modification.split("=======");

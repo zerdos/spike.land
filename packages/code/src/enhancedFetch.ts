@@ -89,7 +89,7 @@ export const enhancedFetch: typeof fetch = async (url, options = {}) => {
     ///    console.log("Network error occurred, trying server-side fetch");
     return serverResponse(url, enhancedOptions);
     //  }
-    //throw error;
+    // throw error;
   } finally {
     controller.abort();
   }

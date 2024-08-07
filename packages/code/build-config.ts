@@ -65,5 +65,3 @@ export const getCommonBuildOptions = (environment) => ({
   define: makeEnv(environment),
   plugins: [fetchPlugin("/")],
 });
-
-

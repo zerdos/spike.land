@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Editor } from "../components/Editor";
 
 // import   { useBroadcastChannel }  from "../hooks/useBroadcastChannel";

@@ -1,19 +1,10 @@
 // landing.tsx
-import { createContext, useContext, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Bot,
-  Code,
-  Download,
-  Moon,
-  Package,
-  Share2,
-  Sun,
-  Zap,
-} from "lucide-react";
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
+import { Bot, Code, Download, Moon, Package, Share2, Sun, Zap } from "lucide-react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 // Create a context for the theme
 const ThemeContext = createContext({
@@ -53,9 +44,7 @@ const Feature = ({ icon: Icon, title, description, color }) => {
             />
           </div>
           <h3
-            className={`text-xl font-semibold mb-2 ${
-              isDarkMode ? "text-gray-100" : "text-gray-800"
-            }`}
+            className={`text-xl font-semibold mb-2 ${isDarkMode ? "text-gray-100" : "text-gray-800"}`}
           >
             {title}
           </h3>
@@ -75,9 +64,7 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       variant="outline"
       size="icon"
-      className={`rounded-full ${
-        isDarkMode ? "bg-gray-800 text-yellow-400" : "bg-white text-gray-800"
-      }`}
+      className={`rounded-full ${isDarkMode ? "bg-gray-800 text-yellow-400" : "bg-white text-gray-800"}`}
     >
       {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </Button>
@@ -96,52 +83,44 @@ const LandingPage = () => {
     {
       icon: Code,
       title: "Online Code Editor & Runner",
-      description:
-        "Edit and run your code directly in the browser with our powerful online IDE.",
+      description: "Edit and run your code directly in the browser with our powerful online IDE.",
       color: "text-blue-600",
     },
     {
       icon: Zap,
       title: "Instant Setup & Deployment",
-      description:
-        "No installation or build time. Your projects are ready to run and deploy in real-time.",
+      description: "No installation or build time. Your projects are ready to run and deploy in real-time.",
       color: "text-yellow-600",
     },
     {
       icon: Bot,
       title: "AI-Powered Code Modification",
-      description:
-        "Let AI assist you in modifying your code, with instant execution of changes.",
+      description: "Let AI assist you in modifying your code, with instant execution of changes.",
       color: "text-green-600",
     },
     {
       icon: Share2,
       title: "Real-Time Code Sharing",
-      description:
-        "Collaborate seamlessly with real-time code sharing capabilities.",
+      description: "Collaborate seamlessly with real-time code sharing capabilities.",
       color: "text-purple-600",
     },
     {
       icon: Package,
       title: "Comprehensive Package Support",
-      description:
-        "Access all npm packages with built-in TypeScript support for enhanced development.",
+      description: "Access all npm packages with built-in TypeScript support for enhanced development.",
       color: "text-red-600",
     },
     {
       icon: Download,
       title: "Portable HTML Export",
-      description:
-        "Download your project as a self-contained HTML file for easy sharing and deployment.",
+      description: "Download your project as a self-contained HTML file for easy sharing and deployment.",
       color: "text-indigo-600",
     },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentFeatureIndex((prevIndex) =>
-        prevIndex === features.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentFeatureIndex((prevIndex) => prevIndex === features.length - 1 ? 0 : prevIndex + 1);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -165,19 +144,15 @@ const LandingPage = () => {
             transition={{ duration: 0.8 }}
             className="text-5xl font-bold mb-6"
           >
-            Revolutionize Your{" "}
-            <span className="text-blue-600">Coding Experience</span>
+            Revolutionize Your <span className="text-blue-600">Coding Experience</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className={`text-xl mb-10 ${
-              isDarkMode ? "text-gray-300" : "text-gray-700"
-            }`}
+            className={`text-xl mb-10 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
           >
-            Discover a new way to code, collaborate, and create with our
-            cutting-edge development platform.
+            Discover a new way to code, collaborate, and create with our cutting-edge development platform.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -196,9 +171,7 @@ const LandingPage = () => {
         <main className="container mx-auto px-4 py-16">
           <div className="text-center mb-16">
             <h2
-              className={`text-3xl font-bold mb-4 ${
-                isDarkMode ? "text-gray-100" : "text-gray-800"
-              }`}
+              className={`text-3xl font-bold mb-4 ${isDarkMode ? "text-gray-100" : "text-gray-800"}`}
             >
               Featured Capability
             </h2>
@@ -208,17 +181,13 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className={`p-8 rounded-lg shadow-md ${
-                isDarkMode ? "bg-gray-800" : "bg-white"
-              }`}
+              className={`p-8 rounded-lg shadow-md ${isDarkMode ? "bg-gray-800" : "bg-white"}`}
             >
               <Feature {...features[currentFeatureIndex]} />
             </motion.div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Feature key={index} {...feature} />
-            ))}
+            {features.map((feature, index) => <Feature key={index} {...feature} />)}
           </div>
         </main>
 

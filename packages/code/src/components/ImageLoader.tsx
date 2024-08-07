@@ -25,7 +25,7 @@ const defaultProps: {
 } = {
   cfg: 3.5,
   steps: 28,
-  prompt: 'a photo of vibrant artistic graffiti on a wall saying "SD3 medium"',
+  prompt: "a photo of vibrant artistic graffiti on a wall saying \"SD3 medium\"",
   aspect_ratio: "16:9",
   output_format: "webp",
   output_quality: 90,

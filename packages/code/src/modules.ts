@@ -4,17 +4,10 @@ import MyHTML from "./index.html";
 import { md5 } from "./md5";
 import { Delta } from "./textDiff";
 export { importMapReplace };
-export { routes } from "./routes";
 export { serverFetchUrl } from "./enhancedFetch";
+export { routes } from "./routes";
 
-import {
-  applyCodePatch,
-  CodePatch,
-  ICodeSession,
-  makeHash,
-  makeSession,
-  stringifySession,
-} from "./makeSess";
+import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 
 export { importMap };
 

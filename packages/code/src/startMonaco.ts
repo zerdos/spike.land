@@ -1,5 +1,5 @@
-import { ata } from "./shared";
 import * as monaco from "./monacoEditor";
+import { ata } from "./shared";
 
 const originToUse = location.origin;
 
@@ -62,8 +62,8 @@ async function fetchAndCreateExtraModels(
 
     const res = await fetch(extraModel);
     const content = await res.text();
-    monaco.editor.getModel(mUri) ||
-      monaco.editor.createModel(content, "typescript", mUri);
+    monaco.editor.getModel(mUri)
+      || monaco.editor.createModel(content, "typescript", mUri);
   }
 }
 
@@ -121,9 +121,7 @@ const monacoContribution = async (code: string) => {
     diagnosticCodesToIgnore: [2691],
   });
 
-  fetchAndCreateExtraModels(code, originToUse).then(() =>
-    refreshAta(code, originToUse)
-  );
+  fetchAndCreateExtraModels(code, originToUse).then(() => refreshAta(code, originToUse));
 
   return code;
 };
@@ -176,8 +174,8 @@ async function startMonacoPristine({
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   const replacedCode = await monacoContribution(code);
   const uri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
-  const model = monaco.editor.getModel(uri) ||
-    monaco.editor.createModel(replacedCode, "typescript", uri);
+  const model = monaco.editor.getModel(uri)
+    || monaco.editor.createModel(replacedCode, "typescript", uri);
 
   const myEditor = monaco.editor.create(container, {
     model,
@@ -225,8 +223,7 @@ async function startMonacoPristine({
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
-    const typeScriptWorker =
-      await (await monaco.languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker = await (await monaco.languages.typescript.getTypeScriptWorker())(uri);
 
     const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(
       uri.toString(),
@@ -247,9 +244,7 @@ async function startMonacoPristine({
 
     const suggestionDiagnostics = await typeScriptWorker
       .getSuggestionDiagnostics(uri.toString());
-    suggestionDiagnostics.forEach((d) =>
-      console.error(d.messageText.toString())
-    );
+    suggestionDiagnostics.forEach((d) => console.error(d.messageText.toString()));
 
     ttt.checking = 0;
   };
@@ -258,11 +253,10 @@ async function startMonacoPristine({
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      const diagnostics =
-        await (await (await monaco.languages.typescript.getTypeScriptWorker())(
-          uri,
-        ))
-          .getSuggestionDiagnostics(uri.toString());
+      const diagnostics = await (await (await monaco.languages.typescript.getTypeScriptWorker())(
+        uri,
+      ))
+        .getSuggestionDiagnostics(uri.toString());
       return diagnostics.map((d) => d.messageText.toString());
     },
     isEdit: false,

@@ -18,9 +18,7 @@ export const useCodeHistory = (codeSpace: string) => {
       const data: HistoryItem[] = await response.json();
       setHistory(
         data
-          .filter((x) =>
-            !x.code.includes("History") && !x.code.includes("e/pp")
-          )
+          .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
           .sort((a, b) => b.timestamp - a.timestamp),
       );
     } catch (err) {

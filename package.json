@@ -29,7 +29,7 @@
     "docker:push": "yarn workspaces foreach run docker:push",
     "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
     "p:test": "playwright test tests/*.spec.ts",
-    "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
+    "fmt": "yarn dprint fmt",
     "ai-commit": "ai-commit"
   },
   "devDependencies": {

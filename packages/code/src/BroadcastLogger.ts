@@ -43,9 +43,7 @@ export class BroadcastLogger {
       type,
       timestamp,
       url,
-      message: args.map((arg) =>
-        typeof arg === "object" ? JSON.stringify(arg) : String(arg)
-      ).join(" "),
+      message: args.map((arg) => typeof arg === "object" ? JSON.stringify(arg) : String(arg)).join(" "),
     };
   }
 

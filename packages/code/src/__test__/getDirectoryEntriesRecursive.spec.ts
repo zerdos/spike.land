@@ -1,7 +1,4 @@
-import {
-  getDirectoryEntriesRecursive,
-  getDirectoryHandleAndFileName,
-} from "../memfs";
+import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
 
 // Mock the FileSystemDirectoryHandle
 class MockFileSystemDirectoryHandle {

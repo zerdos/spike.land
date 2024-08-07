@@ -5,13 +5,7 @@ import { css } from "@emotion/react";
 import { Check, Moon, RefreshCw, Send, Sun, X } from "lucide-react";
 import React, { useEffect } from "react";
 import { styles } from "./styles";
-import {
-  ChatContainerProps,
-  ChatHeaderProps,
-  ChatWindowProps,
-  Message,
-  MessageInputProps,
-} from "./types";
+import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, Message, MessageInputProps } from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
 
 export const ChatMessage: React.FC<{

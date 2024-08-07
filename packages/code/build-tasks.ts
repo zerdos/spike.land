@@ -3,9 +3,8 @@ import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
 
-
 const environment: "development" | "production" = "development";
-const isProduction = (environment as string === "production") ;
+const isProduction = environment as string === "production";
 
 export async function buildWorkers() {
   const workerEntryPoints = [
@@ -137,7 +136,7 @@ export async function buildMainBundle(wasmFile) {
     ...buildOptions,
     splitting: true,
     format: "esm",
-    minifySyntax:  isProduction,
+    minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
     minifyWhitespace: isProduction,
     bundle: true,
@@ -147,17 +146,15 @@ export async function buildMainBundle(wasmFile) {
     legalComments: "none",
     platform: "browser",
     ignoreAnnotations: true,
-    // plugins: [  
+    // plugins: [
     //   ReactCompilerEsbuildPlugin({
     //   filter: /\.(jsx|tsx|mjs|ts)$/,
     //   sourceMaps: true,
     //   runtimeModulePath: "/Users/z/github.com/zerdos/spike.land/node_modules/react/compiler-runtime.js"
     // })
-  // ],
+    // ],
     entryPoints: [
-      ...components.filter((x) => x).map((component) =>
-        `src/@/components/ui/${component}.tsx`
-      ),
+      ...components.filter((x) => x).map((component) => `src/@/components/ui/${component}.tsx`),
       "src/@/lib/utils.ts",
       "src/modules.ts",
       "src/motion.ts",
@@ -173,7 +170,6 @@ export async function buildMainBundle(wasmFile) {
       "src/shared.ts",
 
       "src/Wrapper.tsx",
-
     ],
     alias: {
       ...buildOptions.alias,

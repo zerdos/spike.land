@@ -1,10 +1,5 @@
 // src/AppToRender.tsx
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 import { Button } from "@/components/ui/button";
 import { css } from "@emotion/react";

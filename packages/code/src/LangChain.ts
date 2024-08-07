@@ -1,10 +1,10 @@
+import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
 import { tool } from "@langchain/core/tools";
-import { z } from "zod";
-import { ChatAnthropic } from "@langchain/anthropic";
 import { StateGraph, StateGraphArgs } from "@langchain/langgraph";
 import { MemorySaver } from "@langchain/langgraph";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
+import { z } from "zod";
 
 // Define the state interface
 interface AgentState {
@@ -22,8 +22,8 @@ export const createWorkflow = async (prompt: string) => {
   const weatherTool = tool(async ({ query }) => {
     // This is a placeholder for the actual implementation
     if (
-      query.toLowerCase().includes("sf") ||
-      query.toLowerCase().includes("san francisco")
+      query.toLowerCase().includes("sf")
+      || query.toLowerCase().includes("san francisco")
     ) {
       return "It's 60 degrees and foggy.";
     }

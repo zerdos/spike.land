@@ -17,8 +17,7 @@ export function applyCodePatch(sess: ICodeSession, mess: CodePatch) {
   return newSess;
 }
 
-export const makeHash = (cx: ICodeSession) =>
-  String(hash(stringifySession(makeSession(cx))));
+export const makeHash = (cx: ICodeSession) => String(hash(stringifySession(makeSession(cx))));
 
 export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
   Record<ICodeSession>({

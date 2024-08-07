@@ -1,9 +1,9 @@
-import { useCallback } from "react";
-import { Message } from "../types/Message";
-import { prettierToThrow } from "../shared";
-import { updateSearchReplace } from "../utils/chatUtils";
-import debounce from "lodash/debounce";
 import { Mutex } from "async-mutex";
+import debounce from "lodash/debounce";
+import { useCallback } from "react";
+import { prettierToThrow } from "../shared";
+import { Message } from "../types/Message";
+import { updateSearchReplace } from "../utils/chatUtils";
 
 interface UseMessageHandlingProps {
   codeSpace: string;
@@ -101,8 +101,8 @@ export const useMessageHandling = ({
           const lastChunk = code.slice(preUpdates.last + 1);
           if (lastChunk.includes(">>>>>>> REPLACE")) {
             const nextStr = code.slice(preUpdates.last + 1);
-            preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE") +
-              preUpdates.last + 17;
+            preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE")
+              + preUpdates.last + 17;
             const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
 
             if (lastCode !== preUpdates.lastCode) {
@@ -216,9 +216,7 @@ export const useMessageHandling = ({
   }, [setEditingMessageId, setEditInput]);
 
   const handleSaveEdit = useCallback((messageId: string) => {
-    const updatedMessages = messages.map((msg) =>
-      msg.id === messageId ? { ...msg, content: editInput } : msg
-    );
+    const updatedMessages = messages.map((msg) => msg.id === messageId ? { ...msg, content: editInput } : msg);
     setMessages(updatedMessages);
     saveMessages(updatedMessages);
     setEditingMessageId(null);

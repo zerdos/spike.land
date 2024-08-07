@@ -11,8 +11,8 @@ export const getPort = () => workerPort;
 export const init = (port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
 
-  workerPort = port ||
-    (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
+  workerPort = port
+    || (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
   rpc = new RpcProvider(
     (message) =>
       workerPort.postMessage(
@@ -95,5 +95,4 @@ export const build = (
     format,
   }) as Promise<string>;
 
-export const connect = (codeSpace: string) =>
-  init().signal("connect", codeSpace);
+export const connect = (codeSpace: string) => init().signal("connect", codeSpace);

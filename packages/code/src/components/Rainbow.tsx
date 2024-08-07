@@ -10,9 +10,7 @@ type GradientColor = {
 
 // Define a function to create the gradient string
 const createGradientString = (colors: GradientColor[]): string => {
-  return colors.map((color) =>
-    `${color.color} 0, ${color.color} ${color.percentage}%`
-  ).join(", ");
+  return colors.map((color) => `${color.color} 0, ${color.color} ${color.percentage}%`).join(", ");
 };
 
 // Define the gradient colors

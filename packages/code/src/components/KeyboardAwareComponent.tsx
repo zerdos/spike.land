@@ -8,8 +8,8 @@ const KeyboardAwareComponent: FC<{ children: React.ReactNode }> = (
 
   useEffect(() => {
     const detectKeyboard = () => {
-      const isKeyboard = visualViewport !== null &&
-        window.screen.height > visualViewport.height;
+      const isKeyboard = visualViewport !== null
+        && window.screen.height > visualViewport.height;
       setIsKeyboardVisible(isKeyboard);
     };
 

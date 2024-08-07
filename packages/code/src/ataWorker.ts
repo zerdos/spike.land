@@ -1,13 +1,7 @@
 import { rpcFactory } from "./workerRpc";
 // import register from "./BroadcastLogger";
 import type { ata as Ata } from "./ata";
-import {
-  applyCodePatch,
-  createPatch,
-  ICodeSession,
-  makeHash,
-  makeSession,
-} from "./makeSess";
+import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import type { prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 
@@ -16,7 +10,7 @@ import { Mutex } from "async-mutex";
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 
 import { wait } from "./wait";
-//register();
+// register();
 const policy = {
   timeout: 4000,
   attempts: Infinity,
@@ -48,8 +42,7 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "prettierJs",
-    ({ code, toThrow }: { code: string; toThrow: boolean }) =>
-      prettierJs(code, toThrow),
+    ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
   );
 
   rpcProvider.registerRpcHandler(
@@ -61,8 +54,7 @@ const start = (port: MessagePort) => {
 
   rpcProvider.registerRpcHandler(
     "transpile",
-    ({ code, originToUse }: { code: string; originToUse: string }) =>
-      transpile(code, originToUse),
+    ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
   );
 
   rpcProvider.registerRpcHandler(
@@ -152,8 +144,8 @@ function setConnections(signal: string) {
             if (makeHash(c.oldSession) !== String(data.hashCode)) {
               c.oldSession = await (await fetch(`/live/${codeSpace}/session`))
                 .json();
-              const transpiled = data.transpiled ||
-                await transpile(c.oldSession.code, location.origin);
+              const transpiled = data.transpiled
+                || await transpile(c.oldSession.code, location.origin);
 
               BC.postMessage({
                 ...c.oldSession,

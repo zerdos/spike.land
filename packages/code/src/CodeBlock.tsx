@@ -72,9 +72,7 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   };
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
-    const suggestedFileName = `file-${
-      generateRandomString(3, true)
-    }${fileExtension}`;
+    const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
     const fileName = window.prompt(
       t("Enter file name") || "",
       suggestedFileName,
@@ -149,9 +147,7 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   );
 };
 
-export const CodeTS = ({ code }: { code: string }) => (
-  <CodeBlock value={code} language="typescript" />
-);
+export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />;
 
 export default () => {
   const [code, setCode] = useState(``);

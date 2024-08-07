@@ -1,14 +1,14 @@
+import type { EmotionCache } from "@emotion/cache";
+import { Mutex } from "async-mutex";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
-import type { EmotionCache } from "@emotion/cache";
 import { enhancedFetch } from "./enhancedFetch";
 
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS, Wrapper } from "./Wrapper";
-//import { deleteAllServiceWorkers } from "./swUtils";
+// import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants
 const paths = location.pathname.split("/");
@@ -81,9 +81,7 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       new Set(
         Array.from(
           document.querySelectorAll(`style[data-emotion*="${key}-global"]`),
-        ).map((style) => style.textContent?.trim()).map((s) =>
-          s?.endsWith(";") ? s.slice(0, -1) : s
-        ),
+        ).map((style) => style.textContent?.trim()).map((s) => s?.endsWith(";") ? s.slice(0, -1) : s),
       ),
     ).join("\n");
 
@@ -108,9 +106,9 @@ const mineFromCaches = (cache: EmotionCache, html: string) => {
       })
       .filter(
         (rule): rule is CSSPageRule =>
-          rule?.selectorText !== undefined &&
-          rule.selectorText.includes(key) &&
-          html.includes(rule.selectorText.slice(4, 11)),
+          rule?.selectorText !== undefined
+          && rule.selectorText.includes(key)
+          && html.includes(rule.selectorText.slice(4, 11)),
       )
       .map((rule) => rule.cssText)
       .join("\n");

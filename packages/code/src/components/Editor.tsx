@@ -1,21 +1,14 @@
+import { ICodeSession } from "@src/makeSess";
+import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { useEditorState } from "../hooks/useEditorState";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { prettierToThrow, transpile } from "../shared";
 import { EditorNode } from "./ErrorReminder";
-import { ICodeSession } from "@src/makeSess";
-import { Mutex } from "async-mutex";
 
 interface EditorProps {
   codeSpace: string;
@@ -102,8 +95,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         ...editorState,
         started: true,
         code: mod.current.code,
-        setValue: (code: string) =>
-          editorModule.setValue(code),
+        setValue: (code: string) => editorModule.setValue(code),
       });
     };
 
@@ -186,8 +178,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   const handleBroadcastMessage = useCallback(
     async ({ data }: { data: ICodeSession }) => {
       if (
-        !data.i || !data.code || data.code === mod.current.code ||
-        mod.current.i >= data.i
+        !data.i || !data.code || data.code === mod.current.code
+        || mod.current.i >= data.i
       ) {
         return;
       }
