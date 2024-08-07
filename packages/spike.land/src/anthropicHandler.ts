@@ -22,15 +22,30 @@ export async function handleAnthropicRequest(
   const writer = writable.getWriter();
   const textEncoder = new TextEncoder();
 
+  const conf = {
+    model: "claude-3-5-sonnet-20240620",
+    max_tokens: 4096,
+    temperature: 0,
+    stream: true,
+    ...body
+  };
+
+  if (conf.stream === false) {
+        const response = await anthropic.messages.create(conf);
+        return new Response(JSON.stringify(response), {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+  }
+  
   ctx.waitUntil((async () => {
     try {
-      const stream = await anthropic.messages.create({
-        model: "claude-3-5-sonnet-20240620",
-        max_tokens: 4096,
-        temperature: 0,
-        messages: body.messages,
-        stream: true,
-      });
+      
+      const stream = await anthropic.messages.create(conf);
+
+      
 
       for await (const part of stream) {
         if (

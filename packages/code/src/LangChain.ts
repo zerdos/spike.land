@@ -43,7 +43,7 @@ const toolNode = new ToolNode<AgentState>(tools);
 const model = new ChatAnthropic({
   model: "claude-3-5-sonnet-20240620",
   anthropicApiKey: "MY_API_KEY",
-  streaming: true,
+  streaming: false,
   anthropicApiUrl: location.origin + "/anthropic",
   temperature: 0,
 
