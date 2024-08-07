@@ -32,7 +32,7 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20240729.0",
+    "@cloudflare/workers-types": "4.20240806.0",
     "@emotion/react": "11.13.0",
     "@playwright/test": "1.46.0",
     "@spike-land/ai-devtools": "workspace:^",
