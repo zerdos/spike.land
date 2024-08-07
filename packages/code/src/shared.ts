@@ -9,11 +9,11 @@ const mutex = new Mutex();
 let rpc: RpcProvider | null = null;
 let workerPort: MessagePort;
 export const getPort = () => workerPort;
-export const init = (swVersion: string, port: MessagePort | null = null) => {
+export const init = (port: MessagePort | null = null) => {
   if (rpc !== null) return rpc;
 
   workerPort = port ||
-    (new SharedWorker(`/workerScripts/ataWorker.js?v=${swVersion}`)).port;
+    (new SharedWorker(`/workerScripts/ataWorker.js`)).port;
   rpc = new RpcProvider(
     (message) =>
       workerPort.postMessage(
@@ -30,7 +30,7 @@ export const init = (swVersion: string, port: MessagePort | null = null) => {
 
 export const prettierToThrow = (
   { code, toThrow }: { code: string; toThrow: boolean },
-) => init(swVersion).rpc("prettierJs", { code, toThrow }) as Promise<string>;
+) => init().rpc("prettierJs", { code, toThrow }) as Promise<string>;
 
 const prettierMemo = new Map<string, string>();
 export const prettier = async (code: string) => {
@@ -46,7 +46,7 @@ export const prettier = async (code: string) => {
 export const ata = (
   { code, originToUse }: { code: string; originToUse: string },
 ) =>
-  init(swVersion).rpc("ata", { code, originToUse }) as Promise<{
+  init().rpc("ata", { code, originToUse }) as Promise<{
     content: string;
     filePath: string;
   }[]>;

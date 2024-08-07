@@ -3,9 +3,8 @@ import { wait } from "../wait";
 
 export const useDownload = (codeSpace: string) => {
   return async () => {
-    //     import TW from "../tw-chunk-be5bad.js?text";
-    // import resetCSS from "../assets/g-chunk-72a597.css?text";
 
+    
     const TW = await ((await fetch("/assets/tw-chunk-be5bad.js")).text());
 
     const resetCSS = await ((await fetch("/assets/g-chunk-72a597.css")).text());
