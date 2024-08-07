@@ -253,7 +253,9 @@ export class WebSocketHandler {
     try {
       if (
         data.target && data.type
-        && ["new-ice-candidate", "video-offer", "video-answer"].includes(data.type)
+        && ["new-ice-candidate", "video-offer", "video-answer"].includes(
+          data.type,
+        )
       ) {
         return this.user2user(data.target, { ...data, name: session.name });
       }

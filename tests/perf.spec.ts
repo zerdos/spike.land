@@ -20,6 +20,7 @@ async function measurePerformance(page: Page, TestInfo: TestInfo) {
   // Add the performance annotation to the HTML report
   test.info().annotations.push({
     type: "Performance",
-    description: `"${TestInfo.project.name}" - Navigation start to load event end: ${startToLoadEventEnd}ms`,
+    description:
+      `"${TestInfo.project.name}" - Navigation start to load event end: ${startToLoadEventEnd}ms`,
   });
 }

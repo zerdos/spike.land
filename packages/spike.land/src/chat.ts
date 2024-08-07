@@ -68,7 +68,9 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
   }
 }
 
-async function* streamResponse(response: Response): AsyncGenerator<Uint8Array, void, unknown> {
+async function* streamResponse(
+  response: Response,
+): AsyncGenerator<Uint8Array, void, unknown> {
   const reader = response.body!.getReader();
   try {
     while (true) {
@@ -81,7 +83,10 @@ async function* streamResponse(response: Response): AsyncGenerator<Uint8Array, v
   }
 }
 
-const serverResponse = async (url: string, options: RequestInit = {}): Promise<Response> => {
+const serverResponse = async (
+  url: string,
+  options: RequestInit = {},
+): Promise<Response> => {
   const serverOptions: RequestInit = {
     method: "POST",
     headers: {
@@ -91,7 +96,9 @@ const serverResponse = async (url: string, options: RequestInit = {}): Promise<R
       url,
       options: {
         ...options,
-        headers: options.headers ? Object.fromEntries(new Headers(options.headers)) : undefined,
+        headers: options.headers
+          ? Object.fromEntries(new Headers(options.headers))
+          : undefined,
       },
     }),
   };
@@ -112,7 +119,10 @@ const serverResponse = async (url: string, options: RequestInit = {}): Promise<R
   });
 };
 
-export const enhancedFetch = async (url: string, options: RequestInit = {}): Promise<Response> => {
+export const enhancedFetch = async (
+  url: string,
+  options: RequestInit = {},
+): Promise<Response> => {
   try {
     const response = await fetch(url, options);
     if (response.ok) return response;
@@ -130,7 +140,9 @@ async function handleServerFetch(request: Request): Promise<Response> {
   }
 
   try {
-    const { url, options } = await request.json<{ url: string; options: RequestInit }>();
+    const { url, options } = await request.json<
+      { url: string; options: RequestInit }
+    >();
     const response = await fetch(url, options);
 
     const { readable, writable } = new TransformStream();

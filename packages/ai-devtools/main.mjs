@@ -72,9 +72,9 @@ async function handleTLDRRequest(req, res) {
   });
 
   const summariesFull = await Promise.allSettled(tasks);
-  const successfulSummaries = summariesFull.filter((result) => result.status === "fulfilled").map((result) =>
-    result.value
-  )
+  const successfulSummaries = summariesFull.filter((result) =>
+    result.status === "fulfilled"
+  ).map((result) => result.value)
     .filter((x) => x);
 
   try {
@@ -87,11 +87,15 @@ async function handleTLDRRequest(req, res) {
       }
     } else sumOfSums.push(...successfulSummaries);
 
-    const summaries = (await Promise.allSettled(sumOfSums)).filter((result) => result.status === "fulfilled").map(
+    const summaries = (await Promise.allSettled(sumOfSums)).filter((result) =>
+      result.status === "fulfilled"
+    ).map(
       (result) => result.value,
     ).filter((x) => x);
 
-    const prompt = `Please create a git conventional commit from this changes:  ${summaries.join(`\n`)}
+    const prompt = `Please create a git conventional commit from this changes:  ${
+      summaries.join(`\n`)
+    }
 
 Your answer should be a short, but effective commit message. Just the commit message, no need for the commit body or footer.
 In one line, no line breaks or "' characters. For example: fix: typo in the README.md file
@@ -111,7 +115,9 @@ feat: add a new feature
         role: "user",
         content: prompt,
       }],
-    }).catch(async () => console.log("Failed to generate final summary. Trying with gpt-4o."));
+    }).catch(async () =>
+      console.log("Failed to generate final summary. Trying with gpt-4o.")
+    );
     if (!finalSummary) {
       return res.status(500).json({
         error: "Failed to generate final summary.",
@@ -133,7 +139,9 @@ function handleErrors(err, req, res) {
 async function generateSummary(diffSection, model = "gpt-4o-mini") {
   if (cache[diffSection]) return cache[diffSection];
 
-  const prompt = `Hey! Please create a git conventional commit from this changes:  ${diffSection.slice(0, 10000)}.
+  const prompt = `Hey! Please create a git conventional commit from this changes:  ${
+    diffSection.slice(0, 10000)
+  }.
   
   Your answer should be a short, but effective commit message.`;
 

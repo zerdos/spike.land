@@ -24,7 +24,9 @@ const App = () => {
         if (targetElement) {
           if (event.data.type === "click") {
             targetElement.click();
-          } else if (event.data.type === "input" || event.data.type === "focus") {
+          } else if (
+            event.data.type === "input" || event.data.type === "focus"
+          ) {
             setInputValue(event.data.target.value);
             lastFocusedElementId = event.data.target.id;
             lastSelectionStart = event.data.target.selectionStart;
@@ -35,7 +37,9 @@ const App = () => {
           sendContent();
           // Restore focus and selection after content update
           if (lastFocusedElementId) {
-            const elementToFocus = document.getElementById(lastFocusedElementId);
+            const elementToFocus = document.getElementById(
+              lastFocusedElementId,
+            );
             if (elementToFocus) {
               elementToFocus.focus();
               if (
@@ -43,7 +47,10 @@ const App = () => {
                 && typeof lastSelectionStart === "number"
                 && typeof lastSelectionEnd === "number"
               ) {
-                elementToFocus.setSelectionRange(lastSelectionStart, lastSelectionEnd);
+                elementToFocus.setSelectionRange(
+                  lastSelectionStart,
+                  lastSelectionEnd,
+                );
               }
             }
           }
@@ -55,7 +62,9 @@ const App = () => {
   return (
     <div>
       <h2>React App Iframe</h2>
-      <p>This is the React app iframe. It processes events from the proxy iframe.</p>
+      <p>
+        This is the React app iframe. It processes events from the proxy iframe.
+      </p>
       <button id="incrementButton" onClick={() => setCount(count + 1)}>
         Click me: {count}
       </button>

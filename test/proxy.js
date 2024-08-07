@@ -44,7 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
             && typeof lastFocusedElement.selectionStart === "number"
             && typeof lastFocusedElement.selectionEnd === "number"
           ) {
-            elementToFocus.setSelectionRange(lastFocusedElement.selectionStart, lastFocusedElement.selectionEnd);
+            elementToFocus.setSelectionRange(
+              lastFocusedElement.selectionStart,
+              lastFocusedElement.selectionEnd,
+            );
           }
         }
       }
