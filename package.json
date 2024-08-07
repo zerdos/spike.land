@@ -16,6 +16,7 @@
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
     "deploy": "yarn clean && yarn types && yarn c:build && yarn c:deploy && yarn types",
+    "fastdeploy": "cd packages/code yarn es:build && cd ../spike.land && yarn deploy ",
     "importMap": "yarn workspaces foreach run importMap",
     "build:code": "yarn workspaces foreach run build:code",
     "yarn:publish": "yarn workspaces foreach run publish",
@@ -51,7 +52,6 @@
   },
   "packageManager": "yarn@4.4.0",
   "dependencies": {
-    "@babel/runtime": "^7.25.0",
     "@heroicons/react": "^2.1.5",
     "@langchain/anthropic": "^0.2.13",
     "i18next": "^23.12.2",

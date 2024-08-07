@@ -3,6 +3,10 @@ import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
 
+
+const environment: "development" | "production" = "development";
+const isProduction = (environment as string === "production") ;
+
 export async function buildWorkers() {
   const workerEntryPoints = [
     "vs/language/json/json.worker.js",
@@ -13,7 +17,7 @@ export async function buildWorkers() {
   ];
 
   await build({
-    ...getCommonBuildOptions("production"),
+    ...getCommonBuildOptions(environment),
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
 
@@ -33,7 +37,7 @@ export async function buildMainScripts() {
   ];
 
   await build({
-    ...getCommonBuildOptions("production"),
+    ...getCommonBuildOptions(environment),
     entryPoints,
     format: "iife",
     outdir: "dist/workerScripts",
@@ -44,7 +48,7 @@ export async function buildMainScripts() {
 
 export async function buildTranspileScript() {
   await build({
-    ...getCommonBuildOptions("production"),
+    ...getCommonBuildOptions(environment),
     entryPoints: ["src/transpile.ts"],
     outExtension: { ".js": ".js" },
     format: "iife",
@@ -56,7 +60,7 @@ export async function buildTranspileScript() {
 
 export const buildWasm = async () => {
   await build({
-    ...getCommonBuildOptions("production"),
+    ...getCommonBuildOptions(environment),
     entryPoints: ["src/esbuildWASM.ts"],
     format: "esm",
     outdir: "dist",
@@ -66,7 +70,7 @@ export const buildWasm = async () => {
 
 export async function buildServiceWorker() {
   await build({
-    ...getCommonBuildOptions("production"),
+    ...getCommonBuildOptions(environment),
     entryPoints: ["src/sw.ts"],
     format: "iife",
     outExtension: { ".js": ".js" },
@@ -78,7 +82,7 @@ export async function buildServiceWorker() {
 }
 
 export async function buildMainBundle(wasmFile) {
-  const buildOptions = getCommonBuildOptions("production");
+  const buildOptions = getCommonBuildOptions(environment);
 
   const components = [
     "accordion",
@@ -133,12 +137,12 @@ export async function buildMainBundle(wasmFile) {
     ...buildOptions,
     splitting: true,
     format: "esm",
-    minifySyntax: true,
-    minifyIdentifiers: true,
-    minifyWhitespace: true,
+    minifySyntax:  isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: isProduction,
     bundle: true,
-    treeShaking: true,
-    mangleQuoted: true,
+    treeShaking: isProduction,
+    mangleQuoted: isProduction,
     sourcemap: false,
     legalComments: "none",
     platform: "browser",

@@ -1681,15 +1681,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lepont/async-storage@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@lepont/async-storage@npm:0.4.2"
-  peerDependencies:
-    lepont: ">=0.11.1"
-  checksum: 10/f5af6b63e98899572fcc6c65819b643b57477fc8222acf9e4095d9e4609696c59d29a15d4b55f68b3f64788b9c531df16194dddc1045e1bdffddc2371c50c610
-  languageName: node
-  linkType: hard
-
 "@mapbox/node-pre-gyp@npm:^1.0.5":
   version: 1.0.11
   resolution: "@mapbox/node-pre-gyp@npm:1.0.11"
@@ -3388,18 +3379,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/async-storage@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "@react-native-community/async-storage@npm:1.12.1"
-  dependencies:
-    deep-assign: "npm:^3.0.0"
-  peerDependencies:
-    react: ^16.8
-    react-native: ">=0.59"
-  checksum: 10/a4549c930e47fc1cbdb5c45fe6ca4d8487ecd94ce17c76109ed710845ba42f21e78653ecea142dbedfd9e4687995237a9e1585d7400ed8fd5efe0d0c4f2a017e
-  languageName: node
-  linkType: hard
-
 "@rollup/pluginutils@npm:^4.0.0":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
@@ -3662,7 +3641,6 @@ __metadata:
     "@langchain/anthropic": "npm:^0.2.13"
     "@langchain/core": "npm:^0.2.21"
     "@langchain/langgraph": "npm:^0.0.33"
-    "@lepont/async-storage": "npm:^0.4.2"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:5.16.6"
     "@okikio/sharedworker": "npm:1.0.7"
@@ -3694,7 +3672,6 @@ __metadata:
     "@radix-ui/react-toggle": "npm:^1.1.0"
     "@radix-ui/react-toggle-group": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.2"
-    "@react-native-community/async-storage": "npm:^1.12.1"
     "@shadcn/ui": "npm:^0.0.4"
     "@tabler/icons-react": "npm:^3.11.0"
     "@tanstack/react-virtual": "npm:^3.8.4"
@@ -3751,7 +3728,6 @@ __metadata:
     input-otp: "npm:^1.2.4"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
-    lepont: "npm:^0.11.4"
     lodash: "npm:^4.17.21"
     lodash.debounce: "npm:4.0.8"
     lucide-react: "npm:^0.424.0"
@@ -3800,6 +3776,7 @@ __metadata:
     uvu: "npm:0.5.6"
     vaul: "npm:^0.9.1"
     webrtc-adapter: "npm:9.0.1"
+    window-async-local-storage: "npm:^1.1.0"
     workbox-cacheable-response: "npm:^7.1.0"
     workbox-routing: "npm:^7.1.0"
     workbox-strategies: "npm:^7.1.0"
@@ -7116,15 +7093,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-assign@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "deep-assign@npm:3.0.0"
-  dependencies:
-    is-obj: "npm:^1.0.0"
-  checksum: 10/9041ccc72ae1980f014d4b745d6135d8f0e71d60ac433397550789c27e6b4d14bc0de2af69777e09f97e1d0da3007a8d78de36f7bf9df931c9968b68fc9546ab
-  languageName: node
-  linkType: hard
-
 "deep-eql@npm:^5.0.1":
   version: 5.0.2
   resolution: "deep-eql@npm:5.0.2"
@@ -10073,13 +10041,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-obj@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "is-obj@npm:1.0.1"
-  checksum: 10/3ccf0efdea12951e0b9c784e2b00e77e87b2f8bd30b42a498548a8afcc11b3287342a2030c308e473e93a7a19c9ea7854c99a8832a476591c727df2a9c79796c
-  languageName: node
-  linkType: hard
-
 "is-path-inside@npm:^3.0.3":
   version: 3.0.3
   resolution: "is-path-inside@npm:3.0.3"
@@ -11158,13 +11119,6 @@ __metadata:
   dependencies:
     invert-kv: "npm:^1.0.0"
   checksum: 10/e8c7a4db07663068c5c44b650938a2bc41aa992037eebb69376214320f202c1250e70b50c32f939e28345fd30c2d35b8e8cd9a19d5932c398246a864ce54843d
-  languageName: node
-  linkType: hard
-
-"lepont@npm:^0.11.4":
-  version: 0.11.4
-  resolution: "lepont@npm:0.11.4"
-  checksum: 10/8fe02c90a75489821775d6d283ba123262a730c8913b17690326095cf7b01b88ae99da55d633190b70f45f03e8e49a31e170e027cf7a690331b6ae7e8ca1a968
   languageName: node
   linkType: hard
 
@@ -12273,7 +12227,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monorepo@workspace:."
   dependencies:
-    "@babel/runtime": "npm:^7.25.0"
     "@cloudflare/workers-types": "npm:4.20240806.0"
     "@emotion/react": "npm:11.13.0"
     "@heroicons/react": "npm:^2.1.5"
@@ -16890,6 +16843,13 @@ __metadata:
   dependencies:
     string-width: "npm:^1.0.2 || 2 || 3 || 4"
   checksum: 10/d5f8027b9a8255a493a94e4ec1b74a27bff6679d5ffe29316a3215e4712945c84ef73ca4045c7e20ae7d0c72f5f57f296e04a4928e773d4276a2f1222e4c2e99
+  languageName: node
+  linkType: hard
+
+"window-async-local-storage@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "window-async-local-storage@npm:1.1.0"
+  checksum: 10/f2f628808cb80af59fe5cd772212b66493db84eeacf67872d6c5b2873571a54eeda31abd4839aba9c2981e55a33290cfc573f324ee8ba1a7262e3f7e09461359
   languageName: node
   linkType: hard
 

@@ -1,27 +1,58 @@
+import { getItem, setItem, removeItem, clear, mergeItem, getAllkeys, multiGet, multiMerge, multiRemove, multiSet } from 'window-async-local-storage';
 
-//import "@babel/runtime/helpers/createClass";
-//import { AsyncStorageBridge } from '@lepont/async-storage/bridge'
+export const getStore = async () => {
+    const keys = (await getAllkeys() as string[]).filter(k => k) ;
+    const stores = (await multiGet(keys)) as string[] ;
+    const store = {};
 
-// import {useAsyncStorage} from '@react-native-community/async-storage'
-// import { setItem, getItem } from '@lepont/async-storage'
+    stores.forEach(([key, value]) => {
+        Object.assign(store, {[key]: value});
+    });
+    return store;
+}
 
-// declare type AsyncStorageStat = {
-//     setItem: (k: string, v: string) => Promise<void>;
-//     getItem: (k: string) => Promise<string>;
-// };
+export {
+    getItem,
+    setItem,
+    removeItem,
+    clear,
+    mergeItem,
+    getAllkeys,
+    multiGet,
+    multiMerge,
+    multiRemove,
+    multiSet
+};
 
-//export const bridge = AsyncStorageBridge(AsyncLocalStorage as unknown as AsyncStorageStat) ;
-
-// const asyncStorage = useAsyncStorage("asyncStorage");
-
-//export {AsyncLocalStorage}
 export class AsyncLocalStorage {
+    private currentStore: any = null;
+
     constructor() {
-        return (globalThis as unknown as {asyncStorage: object}).asyncStorage;
+        console.log('AsyncStorage constructor');
+    }
+
+    getItem = getItem;
+    setItem = setItem;
+    removeItem = removeItem;
+    clear = clear;
+    getStore = () => this.currentStore;
+
+    run(store: any, callback: Function, ...args: any[]): any {
+        const previousStore = this.currentStore;
+        this.currentStore = store;
+
+        try {
+            return callback(...args);
+        } finally {
+            this.currentStore = previousStore;
+        }
+    }
+
+    // This method mimics the behavior of asyncLocalStorage.getStore()
+    // in the Node.js implementation
+    getStoreSync(): any {
+        return this.currentStore;
     }
 }
 
-// export default AsyncStorage
-
-
-//export {AsyncLocalStorage}
+export default AsyncLocalStorage;

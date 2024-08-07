@@ -99,20 +99,20 @@ export async function deleteAllServiceWorkers() {
 
       console.log("All Service Workers have been unregistered.");
 
-      // Clear all caches
-      const cacheNames = await caches.keys();
-      const deleteCachePromises = cacheNames.map((cacheName) =>
-        caches.delete(cacheName)
-      );
+      // // Clear all caches
+      // const cacheNames = await caches.keys();
+      // const deleteCachePromises = cacheNames.map((cacheName) =>
+      //   caches.delete(cacheName)
+      // );
 
       // Wait for all cache delete operations to complete
-      await Promise.all(deleteCachePromises);
+      // await Promise.all(deleteCachePromises);
 
-      console.log("All caches have been cleared.");
+      // console.log("All caches have been cleared.");
 
-      console.log(
-        "Service Worker cleanup complete. You may need to reload the page or close all tabs of this site for changes to take full effect.",
-      );
+      // console.log(
+      //   "Service Worker cleanup complete. You may need to reload the page or close all tabs of this site for changes to take full effect.",
+      // );
     } catch (error) {
       console.error("Error during Service Worker cleanup:", error);
     }

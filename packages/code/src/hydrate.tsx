@@ -55,6 +55,12 @@ const handleNonLiveRoutes = async () => {
 };
 
 const initializeApp = async () => {
+//  import { createWorkflow } from "./LangChain";
+
+  const { createWorkflow } = await import("./LangChain");
+  Object.assign(globalThis, { createWorkflow });
+  
+
   await deleteAllServiceWorkers();
   await handleNonLiveRoutes();
   // Uncomment the following lines if you want to use service worker and run tests
@@ -249,6 +255,7 @@ Object.assign(window, { enhancedFetch });
   await createDirectories();
 
   if (location.pathname === `/live/${codeSpace}`) {
+    console.log("live page");
     handleLivePage();
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
     handleDehydratedPage();
