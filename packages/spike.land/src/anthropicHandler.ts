@@ -27,25 +27,22 @@ export async function handleAnthropicRequest(
     max_tokens: 4096,
     temperature: 0,
     stream: true,
-    ...body
+    ...body,
   };
 
   if (conf.stream === false) {
-        const response = await anthropic.messages.create(conf);
-        return new Response(JSON.stringify(response), {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        });
+    const response = await anthropic.messages.create(conf);
+    return new Response(JSON.stringify(response), {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
   }
-  
+
   ctx.waitUntil((async () => {
     try {
-      
       const stream = await anthropic.messages.create(conf);
-
-      
 
       for await (const part of stream) {
         if (
