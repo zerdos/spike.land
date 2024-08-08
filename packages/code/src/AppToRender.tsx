@@ -2,8 +2,8 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 import { Button } from "@/components/ui/button";
-import { css } from "@emotion/react";
 import { Bot } from "@/external/lucideReact";
+import { css } from "@emotion/react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";

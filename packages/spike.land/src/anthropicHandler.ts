@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
-import {  MessageParam, TextDelta } from "@anthropic-ai/sdk/resources/messages";
-import Env from "./env";
+import { MessageParam, TextDelta } from "@anthropic-ai/sdk/resources/messages";
 import type { Stream } from "@anthropic-ai/sdk/streaming";
+import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 
 export async function handleAnthropicRequest(
@@ -43,7 +43,9 @@ export async function handleAnthropicRequest(
 
   ctx.waitUntil((async () => {
     try {
-      const stream = await anthropic.messages.create(conf) as Stream<Anthropic.Messages.RawMessageStreamEvent> ;
+      const stream = await anthropic.messages.create(conf) as Stream<
+        Anthropic.Messages.RawMessageStreamEvent
+      >;
 
       for await (const part of stream) {
         if (

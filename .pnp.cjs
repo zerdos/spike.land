@@ -5288,7 +5288,7 @@ const RAW_RUNTIME_STATE =
           ["qrious", "npm:4.0.2"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.17"],\
           ["react", "npm:18.3.1"],\
-          ["react-day-picker", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:9.0.8"],\
+          ["react-day-picker", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.10.1"],\
           ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.3.1"],\
           ["react-hook-form", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.52.2"],\
           ["react-i18next", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:15.0.1"],\
@@ -17172,23 +17172,26 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["react-day-picker", [\
-      ["npm:9.0.8", {\
-        "packageLocation": "./.yarn/global/cache/react-day-picker-npm-9.0.8-426d5b0602-10.zip/node_modules/react-day-picker/",\
+      ["npm:8.10.1", {\
+        "packageLocation": "./.yarn/global/cache/react-day-picker-npm-8.10.1-708bfe7c0e-10.zip/node_modules/react-day-picker/",\
         "packageDependencies": [\
-          ["react-day-picker", "npm:9.0.8"]\
+          ["react-day-picker", "npm:8.10.1"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:9.0.8", {\
-        "packageLocation": "./.yarn/__virtual__/react-day-picker-virtual-96805934ad/0/global/cache/react-day-picker-npm-9.0.8-426d5b0602-10.zip/node_modules/react-day-picker/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.10.1", {\
+        "packageLocation": "./.yarn/__virtual__/react-day-picker-virtual-13bf6c6f9c/0/global/cache/react-day-picker-npm-8.10.1-708bfe7c0e-10.zip/node_modules/react-day-picker/",\
         "packageDependencies": [\
-          ["react-day-picker", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:9.0.8"],\
+          ["react-day-picker", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.10.1"],\
+          ["@types/date-fns", null],\
           ["@types/react", "npm:18.3.3"],\
           ["date-fns", "npm:3.6.0"],\
           ["react", "npm:18.3.1"]\
         ],\
         "packagePeers": [\
+          "@types/date-fns",\
           "@types/react",\
+          "date-fns",\
           "react"\
         ],\
         "linkType": "HARD"\

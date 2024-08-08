@@ -1,7 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle } from "@/external/lucideReact";
 import React, { useEffect, useState } from "react";
 
 export const EditorNode: React.FC<

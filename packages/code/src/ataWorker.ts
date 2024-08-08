@@ -111,9 +111,7 @@ function setConnections(signal: string) {
   };
 
   if (!c.ws) {
-    fetch(`/live/${codeSpace}/session`).then((s) =>
-      s.json().then((ss) => c.oldSession = makeSession(ss))
-    );
+    fetch(`/live/${codeSpace}/session`).then((s) => s.json().then((ss) => c.oldSession = makeSession(ss)));
 
     const delegate = {
       socketDidOpen(_socket: Socket) {

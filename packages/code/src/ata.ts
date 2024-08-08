@@ -5,7 +5,6 @@ import { QueuedFetch } from "./QueuedFetch";
 
 const queuedFetch = new QueuedFetch(3, 1000);
 
-
 export async function ata({
   code,
   originToUse,
@@ -18,74 +17,70 @@ export async function ata({
   tsx: (code: string) => Promise<string[]>;
 }) {
   let thisATA: { content: string; filePath: string }[] = [];
- 
 
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
-
-
   let res = (await tsx(await prettierJs(code))).filter((x) => x.includes("@/components"));
   try {
-    
-  await Promise.all(
-    res.map(async (r) => {
-      const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
-      const content = await prettierJs( await resp.text());
-      impRes[r] = {
-        url: resp.url,
-        ref: "",
-        content,
-      };
-      await ataRecursive(content, new URL(resp.url + "/../").toString());
-    }),
-  );
-
-  const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
-  const vNumbers = /\/(v)[0-9]+\//gm;
-  const subst = "/";
-
-  // Process import results to clean up paths and references
-  Object.keys(impRes)
-    .filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https")))
-    .forEach((x) => {
-      Object.keys(impRes).forEach((t) => {
-        impRes[t] = {
-          ref: impRes[t].ref,
-          content: impRes[t].content
-            .split(impRes[x].url!)
-            .join(x)
-            // .split("/dist/")
-            // .join("/")
-            .split(`https://${originToUse}/${x}`)
-            .join(impRes[x].ref)
-            .replace(vNumbers, subst)
-            .split("/@types/")
-            .join("/")
-            .replaceAll(versionNumbers, ""),
-          url: impRes[t].url!
-            .replace(vNumbers, subst)
-            .split("/@types/")
-            .join("/")
-            .replaceAll(versionNumbers, ""),
-          // .split("/dist/")
-          // .join("/"),
+    await Promise.all(
+      res.map(async (r) => {
+        const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
+        const content = await prettierJs(await resp.text());
+        impRes[r] = {
+          url: resp.url,
+          ref: "",
+          content,
         };
+        await ataRecursive(content, new URL(resp.url + "/../").toString());
+      }),
+    );
+
+    const versionNumbers = /@(\^)?\d+(\.)?\d+(\.)?\d+/gm;
+    const vNumbers = /\/(v)[0-9]+\//gm;
+    const subst = "/";
+
+    // Process import results to clean up paths and references
+    Object.keys(impRes)
+      .filter((x) => !(impRes[x].ref.startsWith(".") || impRes[x].ref.startsWith("https")))
+      .forEach((x) => {
+        Object.keys(impRes).forEach((t) => {
+          impRes[t] = {
+            ref: impRes[t].ref,
+            content: impRes[t].content
+              .split(impRes[x].url!)
+              .join(x)
+              // .split("/dist/")
+              // .join("/")
+              .split(`https://${originToUse}/${x}`)
+              .join(impRes[x].ref)
+              .replace(vNumbers, subst)
+              .split("/@types/")
+              .join("/")
+              .replaceAll(versionNumbers, ""),
+            url: impRes[t].url!
+              .replace(vNumbers, subst)
+              .split("/@types/")
+              .join("/")
+              .replaceAll(versionNumbers, ""),
+            // .split("/dist/")
+            // .join("/"),
+          };
+        });
       });
+
+    // Replace origin in URLs
+    Object.keys(impRes).forEach((x) => {
+      impRes[x] = {
+        url: impRes[x].url!,
+        ref: impRes[x].ref,
+        content: impRes[x].content.split(originToUse).join(""),
+      };
     });
 
-  // Replace origin in URLs
-  Object.keys(impRes).forEach((x) => {
-    impRes[x] = {
-      url: impRes[x].url!,
-      ref: impRes[x].ref,
-      content: impRes[x].content.split(originToUse).join(""),
-    };
-  });
-
-  const extras = [
-    {
-      filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
-      content: `import {} from 'react';
+    const extras = [
+      {
+        filePath: `${originToUse}/@emotion/react/css-prop.d.ts`,
+        content: `import {} from 'react';
 import { Interpolation } from '@emotion/serialize';
 import { Theme } from '.';
 
@@ -106,47 +101,46 @@ declare module 'react' {
     css?: Interpolation<Theme>;
   }
 }`,
-    },
-    {
-      filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
-      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    },
-    {
-      filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
-      content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
-    },
-  ];
-  const extraLibs = [
-    ...(await Promise.all(
-      Object.keys(impRes)
-        .filter((x) => impRes[x].content.length && impRes[x].url)
-        .map(async (x) => ({
-          filePath: impRes[x].url!.replace("https://unpkg.com", originToUse)
-            .replace(originToUse, ""),
-          content: (await prettierJs(impRes[x].content))
-            .split(`import mod from "/`)
-            .join(`import mod from "`)
-            .split(`export * from "/`)
-            .join(`export * from "`),
-        })),
-    )),
-    ...extras,
-  ];
+      },
+      {
+        filePath: `${originToUse}/@emotion/react/jsx-runtime.d.ts`,
+        content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+      },
+      {
+        filePath: `${originToUse}/@emotion/react/jsx-dev-runtime.d.ts`,
+        content: `export { EmotionJSX as JSX } from "./jsx-namespace";`,
+      },
+    ];
+    const extraLibs = [
+      ...(await Promise.all(
+        Object.keys(impRes)
+          .filter((x) => impRes[x].content.length && impRes[x].url)
+          .map(async (x) => ({
+            filePath: impRes[x].url!.replace("https://unpkg.com", originToUse)
+              .replace(originToUse, ""),
+            content: (await prettierJs(impRes[x].content))
+              .split(`import mod from "/`)
+              .join(`import mod from "`)
+              .split(`export * from "/`)
+              .join(`export * from "`),
+          })),
+      )),
+      ...extras,
+    ];
 
-   thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
-    .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
-      (c) => ({
-        content: c!.content,
-        filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
-      }),
-    );
+    thisATA = [...new Set(extraLibs.map((x) => x.filePath))].map((y) => extraLibs.find((p) => p.filePath === y))
+      .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
+        (c) => ({
+          content: c!.content,
+          filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
+        }),
+      );
   } catch (error) {
     console.error("error", error);
   }
 
   const ataBIG = await myATA(code);
-  
-  
+
   return [...ataBIG, ...thisATA];
 
   async function ataRecursive(code: string, baseUrl: string) {
@@ -292,7 +286,7 @@ declare module 'react' {
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
-        const content = (await prettierJs( await typingsResponse.text())).split(
+        const content = (await prettierJs(await typingsResponse.text())).split(
           "https://unpkg.com/",
         ).join();
         if (content.startsWith("Cannot find")) return;
@@ -343,9 +337,9 @@ declare module 'react' {
       impRes[newBase].content = await queuedFetch.fetch(newBase, {
         redirect: "follow",
       })
-        .then( async (dtsRes) => {
+        .then(async (dtsRes) => {
           impRes[newBase].url = dtsRes.url;
-          return  prettierJs( await  dtsRes.text());
+          return prettierJs(await dtsRes.text());
         });
 
       const fileName = new URL(
