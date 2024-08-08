@@ -1,30 +1,37 @@
 import emotion from "@emotion/css-prettifier";
 import type { Options } from "prettier";
+import pluginTypescript from "prettier/plugins/babel";
 import pluginEstree from "prettier/plugins/estree";
-import pluginTypescript from "prettier/plugins/typescript";
-import { format } from "prettier/standalone";
+import Prettier from "prettier/standalone";
 
-const createSpaceString = (n: number): string => " ".repeat(n);
+
+// Helper function to create a string of spaces of a given length
+const createSpaceString = (length: number): string => ' '.repeat(length);
 
 export const addSomeFixesIfNeeded = (code: string): string => {
-  const [start, ...rest] = code.split("css={css`");
-  let prevIndent = start.split("\n").pop()?.length || 0 + 2;
+  try {
+    const [start, ...rest] = code.split("css={css`");
+    let prevIndent = (start.split("\n").pop()?.length || 0) + 2;
 
-  return [
-    start,
-    ...rest.map((x) => {
-      const [first, second] = x.split("`");
-      const indent = createSpaceString(prevIndent);
-      prevIndent = second.split("\n").pop()?.length || 0 + 2;
+    return [
+      start,
+      ...rest.map((x) => {
+        const [first, second, ...rest] = x.split("`");
+        const indent = createSpaceString(prevIndent);
+        prevIndent = (second.split("\n").pop()?.length || 0) + 2;
 
-      return [
-        emotion(first).split("\n")!.map((l: string) => indent + "  " + l).join(
-          "\n",
-        ),
-        second,
-      ].join(`\n${indent}\``);
-    }),
-  ].join("css={css`\n");
+        const indentedFirst = emotion(first)
+          .split("\n")
+          .map((line: string) => (line.trim() ? indent + "  " + line : line))
+          .join("\n");
+
+        return [indentedFirst, second].join(`\n${indent}\``).concat([, ...rest].join("`"));
+      }),
+    ].join("css={css`\n");
+  } catch (error) {
+    console.error("addSomeFixesIfNeeded error", { error, code });
+    return code;
+  }
 };
 
 const prettierConfig: Options = {
@@ -33,7 +40,7 @@ const prettierConfig: Options = {
   embeddedLanguageFormatting: "auto",
   insertPragma: false,
   bracketSameLine: true,
-  jsxSingleQuote: false,
+  jsxSingleQuote: true,
   htmlWhitespaceSensitivity: "strict",
   printWidth: 90,
   proseWrap: "preserve",
@@ -44,7 +51,7 @@ const prettierConfig: Options = {
   tabWidth: 2,
   trailingComma: "all",
   useTabs: false,
-  parser: "typescript",
+  parser: "babel-ts",
   singleAttributePerLine: true,
   plugins: [pluginEstree, pluginTypescript],
 };
@@ -54,10 +61,11 @@ export const prettierJs = async (
   toThrow = false,
 ): Promise<string> => {
   try {
-    return await format(addSomeFixesIfNeeded(code), prettierConfig);
+    return await Prettier.format(addSomeFixesIfNeeded(code), prettierConfig);
   } catch (error) {
-    console.error("Prettier error", { error, code });
-    if (toThrow) throw error;
+    const msg = JSON.stringify({ message: (error as unknown as {message: string})?.message, error, code });
+    console.error("Prettier error", msg);
+    if (toThrow) throw Error(msg);
     if (code === "Types not found") return "export {}";
     return code;
   }

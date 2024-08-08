@@ -27,9 +27,20 @@ export const init = (port: MessagePort | null = null) => {
   return rpc;
 };
 
-export const prettierToThrow = (
+export const prettierToThrow = async (
   { code, toThrow }: { code: string; toThrow: boolean },
-) => init().rpc("prettierJs", { code, toThrow }) as Promise<string>;
+) => {
+  try {
+    const res = await (init().rpc("prettierJs", { code, toThrow }) as Promise<string>);
+
+    return res;
+  } catch (error) {
+    console.error("prettierToThrow error", { error, code });
+    console.error(JSON.parse(error.message));
+    if (toThrow) throw error;
+    return code;
+  }
+};
 
 const prettierMemo = new Map<string, string>();
 export const prettier = async (code: string) => {
