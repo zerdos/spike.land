@@ -242,7 +242,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     codeSpace: string,
     code: string,
   ) {
-    addCSSFile("/monacoEditor.css");
+    addCSSFile("/monaco-editor@0.50.0/min/vs/editor/editor.main.css");
     const { startMonaco } = await import("../startMonaco");
     return await startMonaco({
       container,

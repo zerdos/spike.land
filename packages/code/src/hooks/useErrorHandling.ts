@@ -10,7 +10,7 @@ export const useErrorHandling = (engine: string) => {
     debounce(
       async (initialLoadRef: React.MutableRefObject<boolean>) => {
         if (engine === "monaco") {
-          const { editor, languages } = await import("../monacoEditor");
+          const { editor, languages } = await import("@/external/monacoEditor");
           const model = editor.getModels()[0];
           const worker = await languages.typescript
             .getTypeScriptWorker();

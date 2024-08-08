@@ -20,6 +20,13 @@ export async function buildWorkers() {
     ...getCommonBuildOptions(environment),
     entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
     bundle: true,
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    footer: {'js': '// build time: 1'},
+    minifyWhitespace: true,
+    treeShaking: true,
+    mangleQuoted: true,
+    platform: "browser",
 
     format: "iife",
     outdir: "dist",
@@ -77,7 +84,7 @@ export async function buildServiceWorker() {
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: true,
-    target: "es2024",
+    target: "es2020",
   });
 }
 
@@ -135,16 +142,20 @@ export async function buildMainBundle(wasmFile) {
 
   await build({
     ...buildOptions,
-    splitting: true,
+    splitting: false,
     format: "esm",
     minifySyntax: isProduction,
     minifyIdentifiers: isProduction,
     minifyWhitespace: isProduction,
-    bundle: true,
+    bundle: false,
     treeShaking: isProduction,
     mangleQuoted: isProduction,
     sourcemap: false,
     legalComments: "none",
+    target: "es2020",
+    external: undefined,
+    alias: undefined,
+    outdir: "dist/@/",
     platform: "browser",
     ignoreAnnotations: true,
     // plugins: [
@@ -157,9 +168,37 @@ export async function buildMainBundle(wasmFile) {
     entryPoints: [
       ...components.filter((x) => x).map((component) => `src/@/components/ui/${component}.tsx`),
       "src/@/lib/utils.ts",
+      "src/@/external/monacoEditor.ts",
+      "src/@/external/reactSyntaxHighlighter.ts",
+      "src/@/external/reactSyntaxHighlighterPrism.ts",
+    ],
+  });
+
+  await build({
+    ...buildOptions,
+    splitting: true,
+    format: "esm",
+    minifySyntax: isProduction,
+    minifyIdentifiers: isProduction,
+    minifyWhitespace: isProduction,
+    bundle: true,
+    treeShaking: isProduction,
+    mangleQuoted: isProduction,
+    sourcemap: false,
+    target: "es2020",
+    legalComments: "none",
+    platform: "browser",
+    ignoreAnnotations: true,
+    // plugins: [
+    //   ReactCompilerEsbuildPlugin({
+    //   filter: /\.(jsx|tsx|mjs|ts)$/,
+    //   sourceMaps: true,
+    //   runtimeModulePath: "/Users/z/github.com/zerdos/spike.land/node_modules/react/compiler-runtime.js"
+    // })
+    // ],
+    entryPoints: [
       "src/modules.ts",
       "src/motion.ts",
-      "src/monacoEditor.ts",
       "src/start.ts",
       "src/emotion.ts",
       "src/cf-esbuild.mjs",
@@ -177,6 +216,9 @@ export async function buildMainBundle(wasmFile) {
       // Must be below test-utils
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
+      '@/external/reactSyntaxHighlighterPrism': '/@/external/reactSyntaxHighlighterPrism.mjs',
+      '@/external/monacoEditor': '/@/external/monacoEditor.mjs',
+      '@/external/reactSyntaxHighlighter': '/@/external/reactSyntaxHighlighter.mjs',
       // "react": "../dist/reactMod.mjs",
       //  "react/jsx-runtime": "/jsx.mjs",
       //  "react-dom/client": "/reactDomClient.mjs",
@@ -186,7 +228,9 @@ export async function buildMainBundle(wasmFile) {
     external: [
       ...(buildOptions.external?.length ? buildOptions.external : []),
       "/swVersion.mjs",
-
+      "/@/external/reactSyntaxHighlighterPrism.mjs",
+      "/@/external/monacoEditor.mjs",
+      "/@/external/reactSyntaxHighlighter.mjs",
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],

@@ -1,4 +1,4 @@
-import * as monaco from "./monacoEditor";
+import * as monaco from "@/external/monacoEditor";
 import { ata } from "./shared";
 
 const originToUse = location.origin;

@@ -1,8 +1,8 @@
 import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
 import { FC, useEffect, useState } from "react";
 
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
+import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 
 import { css } from "@emotion/react";
 import { useTranslation } from "next-i18next";

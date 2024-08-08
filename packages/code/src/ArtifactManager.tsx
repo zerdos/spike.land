@@ -1,8 +1,8 @@
 // ArtifactManager.tsx
 
 import React, { useEffect, useState } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
+import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 
 interface Artifact {
   identifier: string;

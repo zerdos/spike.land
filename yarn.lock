@@ -3576,7 +3576,7 @@ __metadata:
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.55.0"
+    openai: "npm:4.55.1"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -3615,7 +3615,7 @@ __metadata:
     esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.7"
-    openai: "npm:^4.55.0"
+    openai: "npm:^4.55.1"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -3722,7 +3722,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.4.0"
-    framer-motion: "npm:11.3.22"
+    framer-motion: "npm:11.3.23-alpha.2"
     i18next: "npm:^23.12.2"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -3745,10 +3745,10 @@ __metadata:
     qrious: "npm:4.0.2"
     re-resizable: "npm:^6.9.17"
     react: "npm:18.3.1"
-    react-day-picker: "npm:9.0.7"
+    react-day-picker: "npm:9.0.8"
     react-dom: "npm:18.3.1"
     react-hook-form: "npm:^7.52.2"
-    react-i18next: "npm:^15.0.0"
+    react-i18next: "npm:^15.0.1"
     react-icons: "npm:5.2.1"
     react-live: "npm:4.1.7"
     react-markdown: "npm:^9.0.1"
@@ -8677,9 +8677,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.3.22":
-  version: 11.3.22
-  resolution: "framer-motion@npm:11.3.22"
+"framer-motion@npm:11.3.23-alpha.2":
+  version: 11.3.23-alpha.2
+  resolution: "framer-motion@npm:11.3.23-alpha.2"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -8693,7 +8693,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/c96be9ece257d44c4884d9c9d01da7769a3ccb08124ec483f35ff91339c31ffcf46ff36ce70583ad66525d0372967df198d2d16b5522b8a1b9ddf985eb14ec9c
+  checksum: 10/44cb46f81bbc09567cdbce15de59ae61ddc41a1de194185e1394ba3dc3b30ca263823957ad43b83e96eeacd008a78641abde9d6228945fe3d29a6b060cceacf9
   languageName: node
   linkType: hard
 
@@ -12732,9 +12732,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.55.0, openai@npm:^4.55.0":
-  version: 4.55.0
-  resolution: "openai@npm:4.55.0"
+"openai@npm:4.55.1, openai@npm:^4.55.1":
+  version: 4.55.1
+  resolution: "openai@npm:4.55.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -12750,7 +12750,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10/f561f137302fa376ef962be46e1ff3d84e50594c24fd529b45df565dd7aaf58c1531a16e33d0c40d12c1a1f6dc8bdbe4787980c8b8236f629980c54fd0600b3f
+  checksum: 10/2a6a3293dce7ae341d4ea45d437c04e93e49943c356801dff36ae6a165867a64da19d1579acb7a2ae1665c7fe955e3f01ce1d0011964b18cbfbf133db15336c8
   languageName: node
   linkType: hard
 
@@ -13627,14 +13627,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-day-picker@npm:9.0.7":
-  version: 9.0.7
-  resolution: "react-day-picker@npm:9.0.7"
+"react-day-picker@npm:9.0.8":
+  version: 9.0.8
+  resolution: "react-day-picker@npm:9.0.8"
   dependencies:
     date-fns: "npm:^3.6.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10/5e1a67fc307f821673bcd46c5296ecdda4deff157dbbea3d0d1a92753f1f20616e3fcfd33863ffe99d33426221ea9dc21bac63afcc04a4b729664e9fe6467350
+  checksum: 10/8a941b71e29a07a6ef40e35e5f6f46a332537184b4d67d90093415c4ade6c66dc787c0f26ca0841b4ee8bca40b05fa881cd73d69a263720c4c3da1e3c0a7bb37
   languageName: node
   linkType: hard
 
@@ -13672,9 +13672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "react-i18next@npm:15.0.0"
+"react-i18next@npm:^15.0.1":
+  version: 15.0.1
+  resolution: "react-i18next@npm:15.0.1"
   dependencies:
     "@babel/runtime": "npm:^7.24.8"
     html-parse-stringify: "npm:^3.0.1"
@@ -13686,7 +13686,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 10/5f3e60250179a6e28c61396099b4a9b66f65a484415b1f1c86e538a9242a84a0bf706e5218b9909351c95c28dda423dd741c014a0b503641e1ce03994b81df19
+  checksum: 10/2998565bdcdc37ba8d2b3531e36441e00c8bb7fb7c1cac35364a81722cb4e5a363288906566c91f3ad835abc5b0b78e14d8511f57b154a8e5c057a8e6096cb07
   languageName: node
   linkType: hard
 
