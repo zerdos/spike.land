@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { AIHandler } from "./AIHandler";
 import { ChatFC } from "./ChatDrawer";
 import { useChat } from "./hooks/useChat";
 import { useDarkMode } from "./hooks/useDarkMode";
@@ -7,7 +6,6 @@ import { useMessageHandling } from "./hooks/useMessageHandling";
 import { getCodeSpace, loadMessages } from "./utils/chatUtils";
 
 const codeSpace = getCodeSpace();
-const aiHandler = new AIHandler(codeSpace);
 
 interface ChatInterfaceProps {
   onCodeUpdate: (code: string) => void;
@@ -54,7 +52,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
       setAICode,
       saveMessages,
       onCodeUpdate,
-      aiHandler,
       editingMessageId,
       setEditingMessageId,
       editInput,

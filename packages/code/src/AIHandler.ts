@@ -17,6 +17,13 @@ export class AIHandler {
     return this.aiService.sendToAnthropic(messages, onUpdate);
   }
 
+  async sendToGpt4o(
+    messages: Message[],
+    onUpdate: (code: string) => void,
+  ): Promise<Message> {
+    return this.aiService.sendToGpt4o(messages, onUpdate);
+  }
+
   async continueWithOpenAI(
     fullResponse: string,
     currentCode: string,

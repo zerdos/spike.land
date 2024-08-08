@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
+import { AIHandler } from "@src/AIHandler";
 
 interface UseMessageHandlingProps {
   codeSpace: string;
@@ -15,25 +16,6 @@ interface UseMessageHandlingProps {
   setAICode: React.Dispatch<React.SetStateAction<string>>;
   saveMessages: (newMessages: Message[]) => void;
   onCodeUpdate: (code: string) => void;
-  aiHandler: {
-    prepareClaudeContent: (
-      content: string,
-      messages: Message[],
-      codeNow: string,
-      codeSpace: string,
-    ) => string;
-    sendToAnthropic: (
-      messages: Message[],
-      onUpdate: (code: string) => void,
-    ) => Promise<Message>;
-    continueWithOpenAI: (
-      content: string,
-      code: string,
-      onCodeUpdate: (code: string) => void,
-      setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-      setAICode: React.Dispatch<React.SetStateAction<string>>,
-    ) => Promise<string | void>;
-  };
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
@@ -51,7 +33,6 @@ export const useMessageHandling = ({
   setAICode,
   saveMessages,
   onCodeUpdate,
-  aiHandler,
   editingMessageId,
   setEditingMessageId,
   editInput,
@@ -59,6 +40,7 @@ export const useMessageHandling = ({
   broadcastChannel,
 }: UseMessageHandlingProps) => {
   const handleSendMessage = useCallback(async (content: string) => {
+    const aiHandler = new AIHandler(codeSpace);
     if (!content.trim()) return;
 
     const { code } = await fetch(`/live/${codeSpace}/session.json`).then(
@@ -130,11 +112,18 @@ export const useMessageHandling = ({
 
       const debouncedOnUpdate = debounce(onUpdate, 100);
 
-      const assistantMessage = await aiHandler.sendToAnthropic(
+      let assistantMessage = await aiHandler.sendToAnthropic(
         updatedMessages,
         debouncedOnUpdate,
       );
-      updatedMessages.push(assistantMessage);
+      if (assistantMessage.content.includes("An error occurred while processing")) {
+          assistantMessage=   await aiHandler.sendToGpt4o(
+          updatedMessages,
+          debouncedOnUpdate,
+        );
+
+      }
+      updatedMessages.push(assistantMessage)
       saveMessages(updatedMessages);
 
       const starterCode = updateSearchReplace(
@@ -190,7 +179,6 @@ export const useMessageHandling = ({
     setAICode,
     saveMessages,
     onCodeUpdate,
-    aiHandler,
   ]);
 
   const handleResetChat = useCallback(() => {

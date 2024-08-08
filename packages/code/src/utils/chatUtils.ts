@@ -3,6 +3,9 @@ import { Message } from "../types/Message";
 
 export const getCodeSpace = (): string => location.pathname.slice(1).split("/")[1];
 
+const SEARCH = "<<<<<<< SEARCH";
+const REPLACE = ">>>>>>> REPLACE";
+
 export const extractCodeModification = (response: string): string => {
   const regex = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
   return response.match(regex)?.join("\n\n") || "";

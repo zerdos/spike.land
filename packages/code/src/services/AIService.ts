@@ -11,6 +11,57 @@ export class AIService {
     this.localStorageService = localStorageService;
   }
 
+  async sendToGpt4o(
+    messages: Message[],
+    onUpdate: (code: string) => void,
+  ): Promise<Message> {
+    const response = await fetch("/api/openai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        messages: messages.map((x) => ({ role: x.role, content: x.content })),
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const assistantMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "assistant",
+      content: "",
+    };
+
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
+
+    let c = "";
+    if (!reader) {
+      throw new Error("Response body is not readable!");
+    }
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value);
+      c += chunk;
+      onUpdate(c);
+    }
+
+    onUpdate(c);
+
+    assistantMessage.content = c.trim();
+
+    this.localStorageService.saveAIInteraction(
+      messages[messages.length - 1].content,
+      assistantMessage.content,
+    );
+
+    return assistantMessage;
+  }
+
   async sendToAnthropic(
     messages: Message[],
     onUpdate: (code: string) => void,
@@ -78,6 +129,7 @@ export class AIService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        model: "gpt-4o-mini",
         messages: [{
           "role": "system",
           "content": gptSystem,
