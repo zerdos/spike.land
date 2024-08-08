@@ -43,7 +43,7 @@ export const createWorkflow = async (prompt: string) => {
     model: "claude-3-5-sonnet-20240620",
     anthropicApiKey: "MY_API_KEY",
     streaming: false,
-    anthropicApiUrl: location.origin + "/anthropic",
+    anthropicApiUrl: location.origin + "/api/anthropic",
     temperature: 0,
   }).bindTools(tools);
 

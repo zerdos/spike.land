@@ -49,7 +49,7 @@ export const ImageLoader: FC<typeof defaultProps> = (props) => {
         }
       });
 
-      const url = `/replicate?${params.toString()}`;
+      const url = `/api/replicate?${params.toString()}`;
       setImageUrl(url);
       setIsLoading(false);
     };

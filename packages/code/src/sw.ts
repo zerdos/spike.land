@@ -2,7 +2,7 @@ importScripts("/swVersion.js");
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst } from "workbox-strategies";
+import { CacheFirst, StaleWhileRevalidate} from "workbox-strategies";
 
 const sw = self as unknown as
   & ServiceWorkerGlobalScope
@@ -24,8 +24,8 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => !url.pathname.startsWith("/live/") && !files.has(url.pathname.slice(1)),
-  new CacheFirst({
+  ({ url }) => !url.pathname.startsWith("/live/")  && !url.pathname.startsWith("/api/")  && !files.has(url.pathname.slice(1)),
+  new StaleWhileRevalidate({
     cacheName: "esm-cache-124",
     plugins: [
       new CacheableResponsePlugin({

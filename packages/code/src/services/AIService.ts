@@ -15,7 +15,7 @@ export class AIService {
     messages: Message[],
     onUpdate: (code: string) => void,
   ): Promise<Message> {
-    const response = await fetch("/anthropic", {
+    const response = await fetch("/api/anthropic", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -72,7 +72,7 @@ export class AIService {
     console.log(fullResponse);
 
     let code = "";
-    const responseOpenAI = await fetch("/openai", {
+    const responseOpenAI = await fetch("/api/openai", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
