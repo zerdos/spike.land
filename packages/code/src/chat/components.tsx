@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { css } from "@emotion/react";
-import { Check, Moon, RefreshCw, Send, Sun, X } from "lucide-react";
+import { Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import React, { useEffect } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, Message, MessageInputProps } from "./types";

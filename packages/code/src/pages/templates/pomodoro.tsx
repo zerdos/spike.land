@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Pause, Play, RotateCcw } from "lucide-react";
+import { Pause, Play, RotateCcw } from "@/external/lucideReact";
 import { useEffect, useRef, useState } from "react";
 
 const PomodoroTimer = () => {

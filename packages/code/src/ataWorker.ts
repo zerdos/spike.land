@@ -112,7 +112,7 @@ function setConnections(signal: string) {
 
   if (!c.ws) {
     fetch(`/live/${codeSpace}/session`).then((s) =>
-      s.json<ICodeSession>().then((ss) => c.oldSession = makeSession(ss))
+      s.json().then((ss) => c.oldSession = makeSession(ss))
     );
 
     const delegate = {

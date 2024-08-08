@@ -3,7 +3,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 
 import { Button } from "@/components/ui/button";
 import { css } from "@emotion/react";
-import { Bot } from "lucide-react";
+import { Bot } from "@/external/lucideReact";
 import { Suspense, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";

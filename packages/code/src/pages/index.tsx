@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
-import { Bot, Code, Download, Moon, Package, Share2, Sun, Zap } from "lucide-react";
+import { Bot, Code, Download, Moon, Package, Share2, Sun, Zap } from "@/external/lucideReact";
 import { createContext, useContext, useEffect, useState } from "react";
 
 // Create a context for the theme

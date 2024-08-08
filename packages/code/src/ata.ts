@@ -5,6 +5,7 @@ import { QueuedFetch } from "./QueuedFetch";
 
 const queuedFetch = new QueuedFetch(3, 1000);
 
+
 export async function ata({
   code,
   originToUse,
@@ -23,7 +24,7 @@ export async function ata({
   await Promise.all(
     res.map(async (r) => {
       const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
-      const content = await resp.text();
+      const content = await prettierJs( await resp.text());
       impRes[r] = {
         url: resp.url,
         ref: "",
@@ -280,7 +281,7 @@ declare module 'react' {
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
-        const content = (await typingsResponse.text()).split(
+        const content = (await prettierJs( await typingsResponse.text())).split(
           "https://unpkg.com/",
         ).join();
         if (content.startsWith("Cannot find")) return;
@@ -331,9 +332,9 @@ declare module 'react' {
       impRes[newBase].content = await queuedFetch.fetch(newBase, {
         redirect: "follow",
       })
-        .then((dtsRes) => {
+        .then( async (dtsRes) => {
           impRes[newBase].url = dtsRes.url;
-          return dtsRes.text();
+          return  prettierJs( await  dtsRes.text());
         });
 
       const fileName = new URL(

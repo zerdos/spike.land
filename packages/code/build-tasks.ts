@@ -168,12 +168,23 @@ export async function buildMainBundle(wasmFile) {
     entryPoints: [
       ...components.filter((x) => x).map((component) => `src/@/components/ui/${component}.tsx`),
       "src/@/lib/utils.ts",
+    "src/@/external/lucideReact.ts",
       "src/@/external/monacoEditor.ts",
       "src/@/external/reactSyntaxHighlighter.ts",
       "src/@/external/reactSyntaxHighlighterPrism.ts",
     ],
   });
 
+
+  const extraAliases= {};
+  components.forEach((component) => {
+    const key =  `@/components/ui/${component}`;
+    const value = `/@/components/ui/${component}.mjs`;
+
+    Object.assign(extraAliases, {
+      [key]: value,
+    });
+  });
   await build({
     ...buildOptions,
     splitting: true,
@@ -218,7 +229,11 @@ export async function buildMainBundle(wasmFile) {
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
       '@/external/reactSyntaxHighlighterPrism': '/@/external/reactSyntaxHighlighterPrism.mjs',
       '@/external/monacoEditor': '/@/external/monacoEditor.mjs',
+      '@/external/lucideReact': '/@/external/lucideReact.mjs',
+
+   
       '@/external/reactSyntaxHighlighter': '/@/external/reactSyntaxHighlighter.mjs',
+      ...extraAliases
       // "react": "../dist/reactMod.mjs",
       //  "react/jsx-runtime": "/jsx.mjs",
       //  "react-dom/client": "/reactDomClient.mjs",
@@ -231,6 +246,9 @@ export async function buildMainBundle(wasmFile) {
       "/@/external/reactSyntaxHighlighterPrism.mjs",
       "/@/external/monacoEditor.mjs",
       "/@/external/reactSyntaxHighlighter.mjs",
+      "/@/external/lucideReact.mjs",
+      
+      ...(components.map((component) => `/@/components/ui/${component}.mjs`)),
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],
