@@ -1,6 +1,6 @@
 import { ClerkProvider } from "@clerk/clerk-react";
-import { AppToRender } from "./AppToRender";
 import { createRoot } from "./reactDomClient";
+
 // import {EmbeddableEditor} from "./EmbeddableEditor";
 // import { StrictMode } from "react";
 const singleton = { started: false };
@@ -28,6 +28,8 @@ export const renderPreviewWindow = async (
   }
 
   const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
+
+   const {AppToRender} = await import("./AppToRender");
 
   // const { AppToRender } = await import("./AppToRender");
   root.render(

@@ -5,6 +5,7 @@ import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
+import { handleRemixRequest } from "./remixHandler";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -24,6 +25,10 @@ export default {
     if (request.url.includes("openai")) {
       await logger.log(`Request for ${request.url}`);
       return handleGPT4Request(request, env, ctx);
+    }
+    if (request.url.includes("remix")) {
+      await logger.log(`Request for ${request.url}`);
+      // return handleRemixRequest(request, env, ctx);
     }
     if (request.url.includes("replicate")) {
       await logger.log(`Request for ${request.url}`);

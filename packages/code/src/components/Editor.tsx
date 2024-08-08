@@ -1,7 +1,5 @@
 import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
-import { Mutex } from "async-mutex";
-import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
@@ -10,6 +8,8 @@ import { useEditorState } from "../hooks/useEditorState";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 import { prettierToThrow, transpile } from "../shared";
 import { EditorNode } from "./ErrorReminder";
+import { createJsBlob } from "./AppRenderer";
+import {toString} from "../renderToString";
 
 interface EditorProps {
   codeSpace: string;
@@ -20,6 +20,10 @@ interface EditorProps {
 export interface EditorRef {
   setValue: (code: string) => void;
 }
+
+const paths = location.pathname.split("/");
+const codeSpace = paths[2];
+const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace, onCodeUpdate },
@@ -39,13 +43,17 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   const [lastTypingTimestamp, setLastTypingTimestamp] = useState(Date.now());
 
+ const getCssStr = (html: string)=> html.split('"css-').slice(1).map(x=>x.slice(0,7)).join("")
+
+
   const mod = useRef({
     i: 0,
     code: "",
+    html: "",
+    cssIds: "",
     controller: new AbortController(),
   });
 
-  const mutex = new Mutex();
 
   const setEditorContent = useCallback(
     (formattedCode: string, ignoreSignals = false) => {
@@ -85,6 +93,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     const initializeEditor = async () => {
       mod.current.i = Number(globalThis.cSess.session.i);
       mod.current.code = globalThis.cSess.session.code;
+      mod.current.html = globalThis.cSess.session.html;
+      mod.current.cssIds = getCssStr(mod.current.html);
+     
 
       if (!containerRef || !containerRef.current) return;
 
@@ -114,7 +125,23 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           code,
           originToUse: location.origin,
         });
+        if (errorType === "transpile") {
+          setErrorType(null);
+        }
 
+        const App = (await import(createJsBlob(transpiled))).default;
+        const html = toString(App);
+        if (!html) {
+          console.error("Error in runner: no html");
+          setErrorType("render");
+          return;
+        }
+        if (errorType === "render") {
+          setErrorType(null);
+        }
+
+        if (cSess.session.css ==='' ||  mod.current.cssIds !== getCssStr(html)) {
+      
         document.querySelector("iframe")?.contentWindow?.postMessage({
           code,
           transpiled,
@@ -122,14 +149,26 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           sender: "Runner / Editor",
         });
 
+      } else {
+        mod.current.html = html;
+        mod.current.cssIds = getCssStr(html);
+
+        BC.postMessage({
+          code,
+          transpiled,
+          html,
+          css: cSess.session.css,
+          i,
+          sender: "Editor",
+        })
+      }
+
         mod.current.controller.abort();
 
         console.log("Runner succeeded");
 
-        if (errorType === "transpile") {
-          setErrorType(null);
-        }
-        return;
+
+    
       } catch (error) {
         console.error("Error in runner:", error);
         setErrorType("transpile");

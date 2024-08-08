@@ -5,6 +5,7 @@
     "strict": true,
     "declaration": true,
     "noEmit": true,
+    "jsx": "react-jsx",
     "importHelpers": true,
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,

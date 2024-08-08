@@ -215,7 +215,7 @@ export async function buildMainBundle(wasmFile) {
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
-      "src/reactDomClient.ts",
+      "src/reactDomServer.ts",
       "src/jsx.mjs",
       "src/shared.ts",
 

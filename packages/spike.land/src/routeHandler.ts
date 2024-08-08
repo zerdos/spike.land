@@ -40,7 +40,7 @@ export class RouteHandler {
       "index.mjs": this.handleJsRoute.bind(this),
       "index.js": this.handleJsRoute.bind(this),
       "index.css": this.handleCssRoute.bind(this),
-
+      "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
       js: this.handleJsRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
@@ -374,6 +374,72 @@ export class RouteHandler {
     const render =  () => renderApp({ App, rootElement: document.getElementById("root") });
     render();
     
+    `;
+
+    return new Response(code, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        "x-typescript-types": this.code.getOrigin() + "/live/index.tsx",
+        content_hash: md5(code),
+        "Content-Type": "application/javascript; charset=UTF-8",
+      },
+    });
+  }
+
+  private async handleRenderToStr(request: Request, url: URL): Promise<Response> {
+    const codeSpace = url.searchParams.get("room");
+    const origin: string = this.code.getOrigin();
+
+
+    let code = `import App from "${origin}/live/${codeSpace}/index.js";
+    import  { jsx as _jsx } from "${origin}/jsx.mjs";
+    import {createEmotionServer, createCache, CacheProvider} from "${origin}/emotion.mjs";
+     import { renderToString, renderToStaticMarkup, renderToReadableStream } from "${origin}/reactDomServer.mjs";
+    
+     const key = 'css'
+const cache = createCache({ key })
+const { extractCritical } = createEmotionServer(cache)
+
+
+     let element = /*#__PURE__*/_jsx(CacheProvider, {
+  value: cache,
+  children: /*#__PURE__*/_jsx(App, {})
+});
+
+export const toStr =  () => {
+  const key = 'custom'
+const cache = createCache({ key })
+
+let { html, css, ids } = extractCritical(renderToString(element))
+
+    return { html, css, ids };
+
+}
+    export const toStatic =  () => {
+    const markup = renderToStaticMarkup( /*#__PURE__*/_jsx(App, {}));
+   
+    let { html, css, ids } = extractCritical(renderToStaticMarkup(element))
+
+    return { html, css, ids };
+    return markup;
+  }
+
+
+  export const toStream = async () => {
+  
+    const stream = await renderToReadableStream( /*#__PURE__*/_jsx(App, {}), {
+  
+
+  });
+  return new Response(stream, {
+    headers: { 'content-type': 'text/html' },
+  })
+    
+  
+  ;
+  }
     `;
 
     return new Response(code, {
