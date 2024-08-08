@@ -65,5 +65,4 @@ describe("addSomeFixesIfNeeded", () => {
 
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
-
 });

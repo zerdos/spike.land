@@ -1,4 +1,5 @@
 import { ICodeSession } from "@src/makeSess";
+import { md5 } from "@src/md5";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
 import type { ForwardRefRenderFunction } from "react";
@@ -103,71 +104,70 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
   const debouncedRunner = useCallback(
-    debounce(
-      async (code: string, i: number, signal: AbortSignal) => {
-        let formattedCode;
+    async (code: string, i: number, signal: AbortSignal) => {
+      if (i < mod.current.i) return;
 
-        try {
-          if (signal.aborted) return;
-          formattedCode = await prettierToThrow({ code, toThrow: true });
-          if (errorType === "prettier") {
-            setErrorType(null);
-          }
-        } catch (error) {
-          setErrorType("prettier");
-          throw error;
+      try {
+        if (signal.aborted) return;
+
+        const transpiled = await transpile({
+          code,
+          originToUse: location.origin,
+        });
+
+        document.querySelector("iframe")?.contentWindow?.postMessage({
+          code,
+          transpiled,
+          i,
+          sender: "Runner / Editor",
+        });
+
+        mod.current.controller.abort();
+
+        console.log("Runner succeeded");
+
+        if (errorType === "transpile") {
+          setErrorType(null);
         }
-        try {
-          if (signal.aborted) return;
-
-          const transpiled = await transpile({
-            code: formattedCode,
-            originToUse: location.origin,
-          });
-
-          document.querySelector("iframe")?.contentWindow?.postMessage({
-            code: formattedCode,
-            transpiled,
-            i,
-            sender: "Runner / Editor",
-          });
-
-          mod.current.controller.abort();
-
-          console.log("Runner succeeded");
-
-          if (errorType === "transpile") {
-            setErrorType(null);
-          }
-        } catch (error) {
-          console.error("Error in runner:", error);
-          setErrorType("transpile");
-        }
-      },
-      300,
-      { leading: true, trailing: true },
-    ),
+        return;
+      } catch (error) {
+        console.error("Error in runner:", error);
+        setErrorType("transpile");
+      }
+    },
     [codeSpace, onCodeUpdate, errorType, setErrorType, setEditorContent],
   );
 
   const handleContentChange = useCallback(async (newCode: string) => {
+    console.log("Content change", mod.current.i, md5(newCode));
+
     if (mod.current.code === newCode) return;
 
-    return mutex.runExclusive(async () => {
-      setLastTypingTimestamp(Date.now());
+    setLastTypingTimestamp(Date.now());
 
-      mod.current.code = await prettierToThrow({
-        code: newCode,
-        toThrow: true,
-      });
+    console.log("before prettier");
+    mod.current.controller.abort();
+    mod.current.controller = new AbortController();
+    const { signal } = mod.current.controller;
 
-      mod.current.controller.abort();
-      mod.current.controller = new AbortController();
-      const { signal } = mod.current.controller;
-      mod.current.i += 1;
+    try {
+      if (signal.aborted) return;
+      mod.current.code = await prettierToThrow({ code: newCode, toThrow: true });
+      if (signal.aborted) return;
+      if (errorType === "prettier") {
+        setErrorType(null);
+      }
+    } catch (error) {
+      setErrorType("prettier");
+      throw error;
+    }
+    console.log("Prettier succeeded");
 
-      await debouncedRunner(newCode, mod.current.i, signal);
-    });
+    mod.current.i += 1;
+
+    console.log("Running debounced runner");
+    await debouncedRunner(mod.current.code, mod.current.i, signal);
+    console.log("Runner succeeded");
   }, [
     debouncedRunner,
     debouncedTypeCheck,

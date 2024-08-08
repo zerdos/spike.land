@@ -1,12 +1,11 @@
 import emotion from "@emotion/css-prettifier";
 import type { Options } from "prettier";
-import pluginTypescript from "prettier/plugins/babel";
 import pluginEstree from "prettier/plugins/estree";
-import Prettier from "prettier/standalone";
-
+import pluginTypescript from "prettier/plugins/typescript";
+import { format } from "prettier/standalone";
 
 // Helper function to create a string of spaces of a given length
-const createSpaceString = (length: number): string => ' '.repeat(length);
+const createSpaceString = (length: number): string => " ".repeat(length);
 
 export const addSomeFixesIfNeeded = (code: string): string => {
   try {
@@ -51,7 +50,7 @@ const prettierConfig: Options = {
   tabWidth: 2,
   trailingComma: "all",
   useTabs: false,
-  parser: "babel-ts",
+  parser: "typescript",
   singleAttributePerLine: true,
   plugins: [pluginEstree, pluginTypescript],
 };
@@ -61,9 +60,9 @@ export const prettierJs = async (
   toThrow = false,
 ): Promise<string> => {
   try {
-    return await Prettier.format(addSomeFixesIfNeeded(code), prettierConfig);
+    return await format(addSomeFixesIfNeeded(code), prettierConfig);
   } catch (error) {
-    const msg = JSON.stringify({ message: (error as unknown as {message: string})?.message, error, code });
+    const msg = JSON.stringify({ message: (error as unknown as { message: string })?.message, error, code });
     console.error("Prettier error", msg);
     if (toThrow) throw Error(msg);
     if (code === "Types not found") return "export {}";

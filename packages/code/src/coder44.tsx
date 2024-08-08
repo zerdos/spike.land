@@ -130,7 +130,7 @@ const Fireworks: React.FC = () => {
           className="absolute"
           style={{
             top: 12,
-            left: `${ Math.random() * 100 }%`,
+            left: `${Math.random() * 100}%`,
             width: "4px",
             height: "4px",
             borderRadius: "50%",
