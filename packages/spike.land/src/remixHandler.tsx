@@ -1,4 +1,3 @@
-
 import type { Options as KvAssetHandlerOptions } from "@cloudflare/kv-asset-handler";
 import {
   getAssetFromKV,
@@ -16,17 +15,16 @@ import { createRequestHandler as createRemixRequestHandler } from "@remix-run/cl
  * environment/platform-specific values through to your loader/action.
  */
 export type GetLoadContextFunction = (
-  event: FetchEvent
+  event: FetchEvent,
 ) => Promise<AppLoadContext> | AppLoadContext;
 
-
 export const handleRemixRequest = (
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  )=> {
-    return 
-}
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+) => {
+  return;
+};
 export type RequestHandler = (event: FetchEvent) => Promise<Response>;
 
 /**
@@ -54,7 +52,7 @@ export function createRequestHandler({
 export async function handleAsset(
   event: FetchEvent,
   build: ServerBuild,
-  options?: Partial<KvAssetHandlerOptions>
+  options?: Partial<KvAssetHandlerOptions>,
 ) {
   try {
     if (process.env.NODE_ENV === "development") {
@@ -94,8 +92,8 @@ export async function handleAsset(
     });
   } catch (error: unknown) {
     if (
-      error instanceof MethodNotAllowedError ||
-      error instanceof NotFoundError
+      error instanceof MethodNotAllowedError
+      || error instanceof NotFoundError
     ) {
       return null;
     }
@@ -137,7 +135,7 @@ export function createEventHandler({
         event.respondWith(
           new Response(e.message || e.toString(), {
             status: 500,
-          })
+          }),
         );
         return;
       }

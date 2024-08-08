@@ -6,10 +6,10 @@ import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { useEditorState } from "../hooks/useEditorState";
 import { useErrorHandling } from "../hooks/useErrorHandling";
+import { toString } from "../renderToString";
 import { prettierToThrow, transpile } from "../shared";
-import { EditorNode } from "./ErrorReminder";
 import { createJsBlob } from "./AppRenderer";
-import {toString} from "../renderToString";
+import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {
   codeSpace: string;
@@ -43,8 +43,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   const [lastTypingTimestamp, setLastTypingTimestamp] = useState(Date.now());
 
- const getCssStr = (html: string)=> html.split('"css-').slice(1).map(x=>x.slice(0,7)).join("")
-
+  const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
   const mod = useRef({
     i: 0,
@@ -53,7 +52,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     cssIds: "",
     controller: new AbortController(),
   });
-
 
   const setEditorContent = useCallback(
     (formattedCode: string, ignoreSignals = false) => {
@@ -95,7 +93,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       mod.current.code = globalThis.cSess.session.code;
       mod.current.html = globalThis.cSess.session.html;
       mod.current.cssIds = getCssStr(mod.current.html);
-     
 
       if (!containerRef || !containerRef.current) return;
 
@@ -140,35 +137,30 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           setErrorType(null);
         }
 
-        if (cSess.session.css ==='' ||  mod.current.cssIds !== getCssStr(html)) {
-      
-        document.querySelector("iframe")?.contentWindow?.postMessage({
-          code,
-          transpiled,
-          i,
-          sender: "Runner / Editor",
-        });
+        if (cSess.session.css === "" || mod.current.cssIds !== getCssStr(html)) {
+          document.querySelector("iframe")?.contentWindow?.postMessage({
+            code,
+            transpiled,
+            i,
+            sender: "Runner / Editor",
+          });
+        } else {
+          mod.current.html = html;
+          mod.current.cssIds = getCssStr(html);
 
-      } else {
-        mod.current.html = html;
-        mod.current.cssIds = getCssStr(html);
-
-        BC.postMessage({
-          code,
-          transpiled,
-          html,
-          css: cSess.session.css,
-          i,
-          sender: "Editor",
-        })
-      }
+          BC.postMessage({
+            code,
+            transpiled,
+            html,
+            css: cSess.session.css,
+            i,
+            sender: "Editor",
+          });
+        }
 
         mod.current.controller.abort();
 
         console.log("Runner succeeded");
-
-
-    
       } catch (error) {
         console.error("Error in runner:", error);
         setErrorType("transpile");

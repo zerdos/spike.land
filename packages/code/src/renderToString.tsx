@@ -1,4 +1,3 @@
+import { renderToString } from "./reactDomServer";
 
-    import { renderToString } from "./reactDomServer";
-    
-export    const toString = (App: React.FC)=> renderToString( <App />)
+export const toString = (App: React.FC) => renderToString(<App />);

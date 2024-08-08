@@ -32,7 +32,7 @@ export async function handleGPT4Request(
       const stream = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         stream: true,
-        ...body
+        ...body,
       });
 
       for await (const part of stream) {

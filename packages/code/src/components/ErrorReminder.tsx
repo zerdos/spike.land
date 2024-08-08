@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 export const EditorNode: React.FC<
   {
     engine: "monaco" | "ace";
-    errorType: "typescript" | "prettier" | "transpile" | "render"  | null;
+    errorType: "typescript" | "prettier" | "transpile" | "render" | null;
     containerRef: React.Ref<HTMLDivElement>;
   }
 > = ({ engine, errorType, containerRef }) => {

@@ -392,7 +392,6 @@ export class RouteHandler {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 
-
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
     import  { jsx as _jsx } from "${origin}/jsx.mjs";
     import {createEmotionServer, createCache, CacheProvider} from "${origin}/emotion.mjs";

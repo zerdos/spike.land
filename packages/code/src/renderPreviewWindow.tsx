@@ -29,7 +29,7 @@ export const renderPreviewWindow = async (
 
   const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
 
-   const {AppToRender} = await import("./AppToRender");
+  const { AppToRender } = await import("./AppToRender");
 
   // const { AppToRender } = await import("./AppToRender");
   root.render(

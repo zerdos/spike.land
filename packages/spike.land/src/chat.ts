@@ -4,8 +4,8 @@ import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
-import { handleReplicateRequest } from "./replicateHandler";
 import { handleRemixRequest } from "./remixHandler";
+import { handleReplicateRequest } from "./replicateHandler";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {

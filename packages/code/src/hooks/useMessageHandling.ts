@@ -1,10 +1,10 @@
+import { AIHandler } from "@src/AIHandler";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
 import { useCallback } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
-import { AIHandler } from "@src/AIHandler";
 
 interface UseMessageHandlingProps {
   codeSpace: string;
@@ -117,13 +117,12 @@ export const useMessageHandling = ({
         debouncedOnUpdate,
       );
       if (assistantMessage.content.includes("An error occurred while processing")) {
-          assistantMessage=   await aiHandler.sendToGpt4o(
+        assistantMessage = await aiHandler.sendToGpt4o(
           updatedMessages,
           debouncedOnUpdate,
         );
-
       }
-      updatedMessages.push(assistantMessage)
+      updatedMessages.push(assistantMessage);
       saveMessages(updatedMessages);
 
       const starterCode = updateSearchReplace(

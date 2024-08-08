@@ -2,7 +2,7 @@ export const oo = {
   "@emotion/react/jsx-runtime": "/emotion.mjs",
   "react/jsx-runtime": "/jsx.mjs",
   "react-dom/server": "/reactDomServer.mjs",
-  
+
   "react-dom/client": "/reactDomClient.mjs",
   "@emotion/react": "/emotion.mjs",
   "react": "/reactMod.mjs",
