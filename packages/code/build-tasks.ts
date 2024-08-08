@@ -3,8 +3,10 @@ import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
 
-const environment: "development" | "production" = "development";
-const isProduction = environment as string === "production";
+
+const environment: "development" | "production" = (Deno as unknown as any).env.get("NODE_ENV") as any;
+
+const isProduction = (environment as string === "production") ;
 
 export async function buildWorkers() {
   const workerEntryPoints = [
