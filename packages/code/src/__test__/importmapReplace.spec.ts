@@ -1,30 +1,33 @@
-import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { importMapReplace } from "../importMapReplace"; // replace with your actual module
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
   beforeAll(() => {
-    vi.stubGlobal('fetch', vi.fn().mockImplementation(() =>
-      Promise.resolve({
-        ok: true,
-        json: () =>
-          Promise.resolve({
-            "name": "some-module",
-            "version": "1.0.0",
-            "main": "index.js",
-            "browser": "browser.js",
-            "module": "module.js",
-            "types": "index.d.ts",
-            "files": [
-              "index.js",
-              "browser.js",
-              "module.js",
-              "index.d.ts",
-            ],
-          }),
-      })
-    ));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(() =>
+        Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              "name": "some-module",
+              "version": "1.0.0",
+              "main": "index.js",
+              "browser": "browser.js",
+              "module": "module.js",
+              "types": "index.d.ts",
+              "files": [
+                "index.js",
+                "browser.js",
+                "module.js",
+                "index.d.ts",
+              ],
+            }),
+        })
+      ),
+    );
   });
 
   afterAll(() => {

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
 
 // Mock the FileSystemDirectoryHandle
@@ -36,7 +36,7 @@ const mockNavigator = {
   },
 };
 
-vi.stubGlobal('navigator', mockNavigator);
+vi.stubGlobal("navigator", mockNavigator);
 
 vi.mock("navigator.storage", () => ({
   getDirectory: vi.fn().mockResolvedValue({

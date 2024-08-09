@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach, vi, expect } from 'vitest';
 import { act, render, screen, waitFor } from "@testing-library/react";
-import { useTranspile, Wrapper } from "../Wrapper";
+import { afterEach, beforeEach, describe, expect, expect, it, vi } from "vitest";
 import * as sharedModule from "../shared";
+import { useTranspile, Wrapper } from "../Wrapper";
 
 // Set up the DOM environment
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 vi.mock("../shared", () => ({
   transpile: vi.fn(),

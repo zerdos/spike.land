@@ -1,5 +1,4 @@
-
-import { describe, it, expect, vi, afterEach, beforeEach, test } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
