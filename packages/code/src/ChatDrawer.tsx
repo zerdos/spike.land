@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./chat/components";
-import { Message } from "./chat/types";
+import { Message } from "./chat/types/Message";
 export type { Message };
 
 interface ChatFCProps {
@@ -22,7 +22,7 @@ interface ChatFCProps {
   messagesEndRef: React.RefObject<HTMLDivElement>;
   input: string;
   setInput: (input: string) => void;
-  handleSendMessage: (content: string) => void;
+  handleSendMessage: (content: string, screenshot?: string) => void;
   inputRef: React.RefObject<HTMLTextAreaElement>;
 }
 
@@ -93,7 +93,8 @@ const ChatInterface: React.FC = () => {
     }
   }, [isOpen]);
 
-  const handleSendMessage = useCallback(() => {
+
+  const handleSendMessage = useCallback((_inp: string, screenshot?: string) => {
     if (input.trim() === "" || isStreaming) return;
 
     const newMessage: Message = {

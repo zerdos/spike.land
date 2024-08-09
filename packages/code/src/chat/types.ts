@@ -1,10 +1,7 @@
 import { ReactNode } from "react";
 
-export interface Message {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-}
+import { Message } from "../types/Message";
+export type { Message };
 
 export interface ChatHeaderProps {
   isDarkMode: boolean;
@@ -28,7 +25,7 @@ export interface ChatContainerProps {
 export interface MessageInputProps {
   input: string;
   setInput: (value: string) => void;
-  handleSendMessage: (value: string) => void;
+  handleSendMessage: (value: string, screenshot?:  string) => void;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
 }
