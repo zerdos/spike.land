@@ -1,13 +1,14 @@
 import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
-import React from "react";
-import { createRoot } from "react-dom/client";
 import { Workbox } from "workbox-window";
 import { enhancedFetch } from "./enhancedFetch";
-
+import { downloadFromHelia, uploadToHelia, addFile, bundleAndUpload } from "./helia";
+import { useArchive } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
-import { renderApp, renderedAPPS, Wrapper } from "./Wrapper";
+import { renderApp, renderedAPPS,  } from "./Wrapper";
+
+Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive });
 // import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants
@@ -198,7 +199,6 @@ const handleDefaultPage = () => {
         console.log({ myEl });
 
         const rendered = await renderApp({ rootElement: myEl, transpiled });
-        const App: React.ComponentType = rendered?.App!;
 
         if (signal.aborted) {
           rendered?.cleanup();

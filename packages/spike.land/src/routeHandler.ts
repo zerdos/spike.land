@@ -43,6 +43,7 @@ export class RouteHandler {
       "to-string.js": this.handleRenderToStr.bind(this),
       "wrapper.js": this.handleWrapRoute.bind(this),
       js: this.handleJsRoute.bind(this),
+      htm: this.handleHtmlRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
       "": this.handleDefaultRoute.bind(this),
@@ -452,6 +453,21 @@ let { html, css, ids } = extractCritical(renderToString(element))
       },
     });
   }
+
+  private async handleHtmlRoute(request: Request): Promise<Response> {
+    let html = this.code.session.html;
+
+    return new Response(html, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cache-Control": "no-cache",
+        content_hash: md5(html),
+        "Content-Type": "text; charset=UTF-8",
+      },
+    });
+  }
+
 
   private async handleJsRoute(request: Request): Promise<Response> {
     let code = this.code.session.code;

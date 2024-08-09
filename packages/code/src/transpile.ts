@@ -176,6 +176,7 @@ export const build = async ({
     target: "es2020",
     outdir: `${origin}/live/${codeSpace}/`,
     treeShaking: true,
+    legalComments: "none",
     bundle: true,
     define,
     keepNames: false,

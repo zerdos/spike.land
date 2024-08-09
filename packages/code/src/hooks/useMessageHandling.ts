@@ -135,19 +135,8 @@ export const useMessageHandling = ({
           toThrow: true,
         });
         onCodeUpdate(formattedCode);
-
-        if (assistantMessage.content.includes("```")) {
-          const fromTheLastReplace = assistantMessage.content.split(
-            ">>>>>>> REPLACE\n",
-          ).pop()!;
-          await aiHandler.continueWithOpenAI(
-            fromTheLastReplace,
-            formattedCode,
-            onCodeUpdate,
-            setMessages,
-            setAICode,
-          );
-        }
+        setIsStreaming(false);
+        return;
       } else {
         await aiHandler.continueWithOpenAI(
           assistantMessage.content,
