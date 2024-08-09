@@ -41,10 +41,10 @@ export const uploadToHelia = async (html: string) => {
 };
 
 export const downloadFromHelia = async (address: string) => {
-    const {CID} = await import("multiformats/cid");
+  const { CID } = await import("multiformats/cid");
   const { str: j } = await init();
 
-  const addr = CID.parse(address);  
+  const addr = CID.parse(address);
   const data = await j.get(addr);
   console.log(data);
 };
@@ -67,30 +67,24 @@ export const addFile = async (content: Uint8Array, path: string) => {
   return updateDirCid;
 };
 
-
 export const bundleAndUpload = async (codeSpace: string) => {
-    const {useDownload} = await import("./hooks/useDownload");   
-    
-    const str = await useDownload(codeSpace, true)();
+  const { useDownload } = await import("./hooks/useDownload");
 
-    const md = md5(str!);
+  const str = await useDownload(codeSpace, true)();
 
-    fetch(`/my-cms/${md}/${codeSpace}.html`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "text/html",
-            
-        },
-        body: str,
-    })
-    console.log(`${window.location.origin}/my-cms/${md}/${codeSpace}.html`);
+  const md = md5(str!);
 
-    const textEncoder = new TextEncoder();
-    const content = textEncoder.encode(str);
+  fetch(`/my-cms/${md}/${codeSpace}.html`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "text/html",
+    },
+    body: str,
+  });
+  console.log(`${window.location.origin}/my-cms/${md}/${codeSpace}.html`);
 
+  const textEncoder = new TextEncoder();
+  const content = textEncoder.encode(str);
 
-
-  await  addFile(content, "index.html");
-
-  
+  await addFile(content, "index.html");
 };

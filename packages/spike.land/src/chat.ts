@@ -55,7 +55,7 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
       await env.R2.delete(key);
       return new Response(`DEL ${key} successfully!`);
     case "GET":
-      const object = await env.R2.get(url.origin+path);
+      const object = await env.R2.get(url.origin + path);
 
       if (!object) {
         // 404
@@ -67,7 +67,12 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
       headers.set("Cache-Control", "public, max-age=31536000");
       headers.set("Access-Control-Allow-Origin", "*");
       headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-      headers.set("Content-Type", key.endsWith('js')? "application/javascript; charset=UTF-8" : "text/html; charset=UTF-8");
+      headers.set(
+        "Content-Type",
+        key.endsWith("js")
+          ? "application/javascript; charset=UTF-8"
+          : "text/html; charset=UTF-8",
+      );
       return new Response(object.body, { headers });
     default:
       return new Response("Method not allowed", { status: 405 });

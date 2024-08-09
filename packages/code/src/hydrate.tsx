@@ -2,11 +2,11 @@ import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import { enhancedFetch } from "./enhancedFetch";
-import { downloadFromHelia, uploadToHelia, addFile, bundleAndUpload } from "./helia";
+import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
 import { useArchive } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
-import { renderApp, renderedAPPS,  } from "./Wrapper";
+import { renderApp, renderedAPPS } from "./Wrapper";
 
 Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive });
 // import { deleteAllServiceWorkers } from "./swUtils";

@@ -14,7 +14,7 @@ interface AppRendererProps {
 export const AppRenderer: React.FC<AppRendererProps> = React.memo(
   ({ transpiled, width, height, top, left }) => {
     const AppToRender = useMemo(() => (
-    React.lazy(() => import(createJsBlob(transpiled)))
+      React.lazy(() => import(createJsBlob(transpiled)))
     ), [transpiled]);
 
     return (

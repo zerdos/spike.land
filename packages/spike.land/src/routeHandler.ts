@@ -468,7 +468,6 @@ let { html, css, ids } = extractCritical(renderToString(element))
     });
   }
 
-
   private async handleJsRoute(request: Request): Promise<Response> {
     let code = this.code.session.code;
     const timestamp = new URL(request.url).searchParams.get("timestamp");

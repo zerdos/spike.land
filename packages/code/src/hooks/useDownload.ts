@@ -1,7 +1,7 @@
 import { build } from "../shared";
 import { wait } from "../wait";
 
-export const useDownload = (codeSpace: string, onlyReturn=false) => {
+export const useDownload = (codeSpace: string, onlyReturn = false) => {
   return async () => {
     const TW = await ((await fetch("/assets/tw-chunk-be5bad.js")).text());
 
@@ -55,9 +55,9 @@ export const useDownload = (codeSpace: string, onlyReturn=false) => {
 </body>
 </html>`;
 
-if (onlyReturn) {
-  return content
-}
+    if (onlyReturn) {
+      return content;
+    }
 
     const blob = new Blob([content], { type: "text/html" });
     const url = URL.createObjectURL(blob);
