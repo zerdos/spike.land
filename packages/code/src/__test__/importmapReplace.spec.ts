@@ -1,28 +1,35 @@
+import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
 import { importMapReplace } from "../importMapReplace"; // replace with your actual module
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
 
-  globalThis.fetch = jest.fn().mockImplementation(() =>
-    Promise.resolve({
-      ok: true,
-      json: () =>
-        Promise.resolve({
-          "name": "some-module",
-          "version": "1.0.0",
-          "main": "index.js",
-          "browser": "browser.js",
-          "module": "module.js",
-          "types": "index.d.ts",
-          "files": [
-            "index.js",
-            "browser.js",
-            "module.js",
-            "index.d.ts",
-          ],
-        }),
-    })
-  );
+  beforeAll(() => {
+    vi.stubGlobal('fetch', vi.fn().mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            "name": "some-module",
+            "version": "1.0.0",
+            "main": "index.js",
+            "browser": "browser.js",
+            "module": "module.js",
+            "types": "index.d.ts",
+            "files": [
+              "index.js",
+              "browser.js",
+              "module.js",
+              "index.d.ts",
+            ],
+          }),
+      })
+    ));
+  });
+
+  afterAll(() => {
+    vi.unstubAllGlobals();
+  });
 
   it("should replace top-level imports", async () => {
     const code = "import React from \"react\";";
@@ -114,6 +121,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
+
   it("should replace dynamic imports", async () => {
     const code = "const module = import(\"some-module\");";
     const result = importMapReplace(code, origin);

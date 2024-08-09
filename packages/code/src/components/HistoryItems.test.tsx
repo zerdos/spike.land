@@ -1,8 +1,9 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from "@testing-library/react";
 import { CodeHistoryCarousel } from "./HistoryItems";
 
 // Mock fetch
-globalThis.fetch = jest.fn(() =>
+globalThis.fetch = vi.fn(() =>
   Promise.resolve({
     ok: true,
     json: () =>
@@ -11,11 +12,11 @@ globalThis.fetch = jest.fn(() =>
         { code: "test code 2", timestamp: 1628000100000 },
       ]),
   })
-) as jest.Mock;
+) as unknown as typeof fetch;
 
 describe("CodeHistoryCarousel", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("renders without crashing", () => {
@@ -24,7 +25,6 @@ describe("CodeHistoryCarousel", () => {
 
   it("fetches and displays history items", async () => {
     render(<CodeHistoryCarousel codeSpace="test" />);
-
     await waitFor(() => {
       expect(screen.getByText("Version 2")).toBeInTheDocument();
       expect(screen.getByText("Version 1")).toBeInTheDocument();

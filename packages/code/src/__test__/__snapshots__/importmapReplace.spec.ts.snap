@@ -1,30 +1,30 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`importMapReplace should apply custom mappings 1`] = `
+exports[`importMapReplace > should apply custom mappings 1`] = `
 "
   /** importMapReplace */
   import CustomPackage from "http://localhost:3000/*custom-package?bundle";"
 `;
 
-exports[`importMapReplace should ignore absolute URLs 1`] = `
+exports[`importMapReplace > should ignore absolute URLs 1`] = `
 "
   /** importMapReplace */
   import MyComponent from "http://localhost:3000/MyComponent.js";"
 `;
 
-exports[`importMapReplace should ignore relative URLs 1`] = `
+exports[`importMapReplace > should ignore relative URLs 1`] = `
 "
   /** importMapReplace */
   import MyComponent from "http://localhost:3000/live/MyComponent/index.js";"
 `;
 
-exports[`importMapReplace should replace DYNAMID shadcdn imports 1`] = `
+exports[`importMapReplace > should replace DYNAMID shadcdn imports 1`] = `
 "
   /** importMapReplace */
   import React from "http://localhost:3000/@/components/ui/alert.mjs";"
 `;
 
-exports[`importMapReplace should replace coder44  1`] = `
+exports[`importMapReplace > should replace coder44  1`] = `
 "
   /** importMapReplace */
   
@@ -39,25 +39,25 @@ exports[`importMapReplace should replace coder44  1`] = `
     "
 `;
 
-exports[`importMapReplace should replace dynamic imports 1`] = `
+exports[`importMapReplace > should replace dynamic imports 1`] = `
 "
   /** importMapReplace */
   const React = import("http://localhost:3000/reactMod.mjs");"
 `;
 
-exports[`importMapReplace should replace dynamic imports 2`] = `
+exports[`importMapReplace > should replace dynamic imports 2`] = `
 "
   /** importMapReplace */
   const React = import("http://localhost:3000/reactMod.mjs");"
 `;
 
-exports[`importMapReplace should replace dynamic imports 3`] = `
+exports[`importMapReplace > should replace dynamic imports 3`] = `
 "
   /** importMapReplace */
   const module = import("http://localhost:3000/*some-module?bundle");"
 `;
 
-exports[`importMapReplace should replace dynamic imports at the end 1`] = `
+exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
 "
   /** importMapReplace */
   
@@ -78,7 +78,7 @@ exports[`importMapReplace should replace dynamic imports at the end 1`] = `
     "
 `;
 
-exports[`importMapReplace should replace dynamic imports inside a function 1`] = `
+exports[`importMapReplace > should replace dynamic imports inside a function 1`] = `
 "
   /** importMapReplace */
   
@@ -95,13 +95,13 @@ exports[`importMapReplace should replace dynamic imports inside a function 1`] =
     "
 `;
 
-exports[`importMapReplace should replace dynamic imports with await 1`] = `
+exports[`importMapReplace > should replace dynamic imports with await 1`] = `
 "
   /** importMapReplace */
   const module = await import("http://localhost:3000/*some-module?bundle");"
 `;
 
-exports[`importMapReplace should replace shadcdn  1`] = `
+exports[`importMapReplace > should replace shadcdn  1`] = `
 "
   /** importMapReplace */
   
@@ -117,31 +117,31 @@ exports[`importMapReplace should replace shadcdn  1`] = `
     "
 `;
 
-exports[`importMapReplace should replace the live urls 1`] = `
+exports[`importMapReplace > should replace the live urls 1`] = `
 "
   /** importMapReplace */
   import Box from "http://localhost:3000/live/Box";"
 `;
 
-exports[`importMapReplace should replace top-level exports 1`] = `
+exports[`importMapReplace > should replace top-level exports 1`] = `
 "
   /** importMapReplace */
   export { default } from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace should replace top-level imports 1`] = `
+exports[`importMapReplace > should replace top-level imports 1`] = `
 "
   /** importMapReplace */
   import React from "http://localhost:3000/reactMod.mjs";"
 `;
 
-exports[`importMapReplace should replace top-level imports with dot in the path 1`] = `
+exports[`importMapReplace > should replace top-level imports with dot in the path 1`] = `
 "
   /** importMapReplace */
   import React from "http://localhost:3000/*react.gl?bundle";"
 `;
 
-exports[`importMapReplace should replace top-leveldd imports with dot in the path 1`] = `
+exports[`importMapReplace > should replace top-leveldd imports with dot in the path 1`] = `
 "
   /** importMapReplace */
   import React from "http://localhost:3000/live/box/index.js";"

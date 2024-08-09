@@ -1,10 +1,12 @@
+
+import { describe, it, expect, vi, afterEach, beforeEach, test } from 'vitest';
 import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
 
-jest.mock("../services/AIService");
-jest.mock("../services/LocalStorageService");
+vi.mock("../services/AIService");
+vi.mock("../services/LocalStorageService");
 
 describe("AIHandler", () => {
   let aiHandler: AIHandler;
@@ -27,7 +29,7 @@ describe("AIHandler", () => {
     };
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
-    const updates = jest.fn();
+    const updates = vi.fn();
     const result = await aiHandler.sendToAnthropic(messages, updates);
 
     expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(
@@ -40,9 +42,9 @@ describe("AIHandler", () => {
   test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
     const fullResponse = "Full response";
     const currentCode = "Current code";
-    const onCodeUpdate = jest.fn();
-    const setMessages = jest.fn();
-    const setAICode = jest.fn();
+    const onCodeUpdate = vi.fn();
+    const setMessages = vi.fn();
+    const setAICode = vi.fn();
 
     mockAIService.continueWithOpenAI.mockResolvedValue("Updated code");
 
@@ -90,8 +92,8 @@ describe("AIHandler", () => {
   });
 });
 
-jest.mock("../services/AIService");
-jest.mock("../services/LocalStorageService");
+vi.mock("../services/AIService");
+vi.mock("../services/LocalStorageService");
 
 describe("AIHandler", () => {
   let aiHandler: AIHandler;
@@ -115,7 +117,7 @@ describe("AIHandler", () => {
 
     mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
 
-    const updates = jest.fn();
+    const updates = vi.fn();
     const result = await aiHandler.sendToAnthropic(messages, updates);
 
     expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(
@@ -128,9 +130,9 @@ describe("AIHandler", () => {
   test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
     const fullResponse = "Full response";
     const currentCode = "Current code";
-    const onCodeUpdate = jest.fn();
-    const setMessages = jest.fn();
-    const setAICode = jest.fn();
+    const onCodeUpdate = vi.fn();
+    const setMessages = vi.fn();
+    const setAICode = vi.fn();
 
     mockAIService.continueWithOpenAI.mockResolvedValue("Updated code");
 

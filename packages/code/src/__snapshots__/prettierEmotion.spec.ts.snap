@@ -1,18 +1,18 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`addSomeFixesIfNeeded adds default export if 'export default' is missing and 'const App' is present 1`] = `"const App = () => {};"`;
+exports[`addSomeFixesIfNeeded > adds default export if 'export default' is missing and 'const App' is present 1`] = `"const App = () => {};"`;
 
-exports[`addSomeFixesIfNeeded adds import statement for '@emotion/react' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
+exports[`addSomeFixesIfNeeded > adds import statement for '@emotion/react' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
 "css={css\`
     color: red;
   \`}"
 `;
 
-exports[`addSomeFixesIfNeeded adds import statement for 'FC' if ' FC<{' is present and 'import type { FC }' is missing 1`] = `"FC<{ prop: string }>"`;
+exports[`addSomeFixesIfNeeded > adds import statement for 'FC' if ' FC<{' is present and 'import type { FC }' is missing 1`] = `"FC<{ prop: string }>"`;
 
-exports[`addSomeFixesIfNeeded adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `"useState(0)"`;
+exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `"useState(0)"`;
 
-exports[`addSomeFixesIfNeeded doesnt don stupid things 1`] = `
+exports[`addSomeFixesIfNeeded > doesnt don stupid things 1`] = `
 "
     <motion.pre
       className="absolute bottom-24 left-24 font-mono text-xs text-yellow-400"
@@ -29,8 +29,8 @@ exports[`addSomeFixesIfNeeded doesnt don stupid things 1`] = `
             key={i}
             className="absolute"
             style={{
-              top: \`44.84212184303884%\`,
-              left: \`71.14420684844825%\`,
+              top: \`12.977214744045206%\`,
+              left: \`97.67268284323222%\`,
               width: "4px",
               height: "4px",
               borderRadius: "50%",
@@ -49,7 +49,7 @@ exports[`addSomeFixesIfNeeded doesnt don stupid things 1`] = `
   "
 `;
 
-exports[`addSomeFixesIfNeeded handles multiple occurrences of 'css={css\`' correctly 1`] = `
+exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
 "css={css\`
     color: red;
   \`} css={css\`

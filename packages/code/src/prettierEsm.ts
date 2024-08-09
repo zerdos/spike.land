@@ -70,4 +70,4 @@ export const prettierJs = async (
   }
 };
 
-Object.assign(self, { prettierJs });
+Object.assign(globalThis, { prettierJs });

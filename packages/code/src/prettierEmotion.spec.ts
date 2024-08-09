@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { addSomeFixesIfNeeded } from "./prettierEsm";
 
 describe("addSomeFixesIfNeeded", () => {
@@ -23,7 +24,6 @@ describe("addSomeFixesIfNeeded", () => {
 
   it("handles multiple occurrences of 'css={css`' correctly", () => {
     const code = "css={css`color: red;`} css={css`font-size: 16px;`}";
-
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
 
@@ -62,7 +62,6 @@ describe("addSomeFixesIfNeeded", () => {
       </motion.div>
     </motion.pre>
   `;
-
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
 });

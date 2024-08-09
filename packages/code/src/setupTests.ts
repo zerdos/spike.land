@@ -11,10 +11,10 @@ declare global {
   var TextDecoder: typeof TextDecoder;
 }
 
-globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+globalThis.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
 }));
 
 globalThis.TextEncoder = TextEncoder;

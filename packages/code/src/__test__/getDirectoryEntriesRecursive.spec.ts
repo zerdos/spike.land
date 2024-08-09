@@ -1,3 +1,4 @@
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
 
 // Mock the FileSystemDirectoryHandle
@@ -9,28 +10,17 @@ class MockFileSystemDirectoryHandle {
 }
 
 // Mock the navigator.storage API
-Object.defineProperty(globalThis, "navigator", {
-  value: {
-    storage: {
-      getDirectory: jest.fn().mockResolvedValue(
-        new MockFileSystemDirectoryHandle(),
-      ),
-    },
-  },
-  writable: true,
-});
-
-globalThis.navigator = {
+const mockNavigator = {
   storage: {
-    getDirectory: jest.fn().mockResolvedValue(Promise.resolve({
-      getDirectoryHandle: jest.fn().mockResolvedValue({
-        getDirectory: jest.fn().mockResolvedValue({}),
+    getDirectory: vi.fn().mockResolvedValue({
+      getDirectoryHandle: vi.fn().mockResolvedValue({
+        getDirectory: vi.fn().mockResolvedValue({}),
       }),
-      values: jest.fn().mockReturnValue([
+      values: vi.fn().mockReturnValue([
         {
           kind: "file",
           name: "test.txt",
-          getFile: jest.fn().mockResolvedValue({
+          getFile: vi.fn().mockResolvedValue({
             size: 100,
             type: "text/plain",
             lastModified: Date.now(),
@@ -39,20 +29,22 @@ globalThis.navigator = {
         {
           kind: "directory",
           name: "test",
-          values: jest.fn().mockReturnValue([]),
+          values: vi.fn().mockReturnValue([]),
         },
       ]),
-    })),
+    }),
   },
-} as any;
+};
 
-jest.mock("navigator.storage", () => ({
-  getDirectory: jest.fn().mockResolvedValue({
-    values: jest.fn().mockReturnValue([
+vi.stubGlobal('navigator', mockNavigator);
+
+vi.mock("navigator.storage", () => ({
+  getDirectory: vi.fn().mockResolvedValue({
+    values: vi.fn().mockReturnValue([
       {
         kind: "file",
         name: "test.txt",
-        getFile: jest.fn().mockResolvedValue({
+        getFile: vi.fn().mockResolvedValue({
           size: 100,
           type: "text/plain",
           lastModified: Date.now(),
@@ -61,7 +53,7 @@ jest.mock("navigator.storage", () => ({
       {
         kind: "directory",
         name: "test",
-        values: jest.fn().mockReturnValue([]),
+        values: vi.fn().mockReturnValue([]),
       },
     ]),
   }),
@@ -69,7 +61,7 @@ jest.mock("navigator.storage", () => ({
 
 describe("getDirectoryEntriesRecursive", () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should return all entries in directory", async () => {
