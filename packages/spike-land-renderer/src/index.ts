@@ -9,6 +9,9 @@ export default {
   async fetch(request, env): Promise<Response> {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
+    let sleep = searchParams.get("sleep");
+    // let scrollTop	= searchParams.get("scrollTop");
+
     let img: ArrayBuffer | null = null;
     if (url) {
       url = new URL(url).toString(); // normalize
@@ -19,10 +22,11 @@ export default {
         );
         const page = await browser.newPage();
         await page.goto(url);
-        await wait(1000);
-        img = (await page.screenshot()) as Buffer;
+        await wait(sleep ? parseInt(sleep) ?? 0 : 1000);
+
+        img = (await page.screenshot({ fullPage: true, type: "jpeg" })) as Buffer;
         await env.BROWSER_KV_SPIKE_LAND.put(url, img, {
-          expirationTtl: 60 * 60 * 24,
+          expirationTtl: 60,
         });
         await browser.close();
       }

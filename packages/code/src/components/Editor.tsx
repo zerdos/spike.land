@@ -113,9 +113,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   const debouncedRunner = useCallback(
     async (code: string, i: number, signal: AbortSignal) => {
-
-
-
       if (i < mod.current.i) return;
 
       try {

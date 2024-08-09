@@ -9,7 +9,6 @@ import { transpile } from "./shared";
 
 export { md5 };
 
-
 if (!Object.hasOwn(globalThis, "renderedAPPS")) {
   Object.assign(globalThis, {
     renderedAPPS: new Map<HTMLElement, RenderedApp>(),
@@ -213,7 +212,6 @@ export const renderApp = async ({
       rootEl.innerHTML = "";
       renderedAPPS.delete(rootEl);
     };
-
 
     root.render(
       <CacheProvider value={cssCache}>

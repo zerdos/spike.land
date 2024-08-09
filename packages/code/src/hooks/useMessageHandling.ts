@@ -1,4 +1,6 @@
 import { AIHandler } from "@src/AIHandler";
+import { enhancedFetch } from "@src/enhancedFetch";
+import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
 import { useCallback } from "react";
@@ -61,13 +63,48 @@ export const useMessageHandling = ({
       setAICode(codeNow);
     }
 
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: claudeContent.trim(),
-    };
+    let newMessage: Message;
+
+    if (content.includes("screenshot")) {
+      let base64 = "";
+      await enhancedFetch(
+        `https://spike-land-renderer.spikeland.workers.dev/?url=${location.origin}/live/${codeSpace}/&sleep=4000`,
+      )
+        .then(response => response.blob())
+        .then(blob => {
+          var reader = new FileReader();
+          reader.onload = function() {
+            base64 = this.result as string;
+          }; // <--- `this.result` contains a base64 data URI
+          reader.readAsDataURL(blob);
+        });
+
+      await wait(1000);
+
+      newMessage = {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": base64.slice(23),
+            },
+          },
+          { "type": "text", "text": claudeContent.trim() },
+        ],
+      };
+    } else {
+      newMessage = {
+        id: Date.now().toString(),
+        role: "user",
+        content: claudeContent.trim(),
+      };
+    }
 
     const updatedMessages = [...messages, newMessage];
+
     saveMessages(updatedMessages);
 
     setInput("");

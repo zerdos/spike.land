@@ -62,7 +62,7 @@ export const ChatMessage: React.FC<{
           )
           : (
             <div className="break-words">
-              {renderMessage(message.content, isUser)}
+              {renderMessage(typeof message.content === "string" ? message.content : message.content[1].text, isUser)}
             </div>
           )}
       </div>

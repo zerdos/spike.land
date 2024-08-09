@@ -38,4 +38,4 @@ export const useErrorHandling = (engine: string) => {
   return { errorType, setErrorType, debouncedTypeCheck };
 };
 
-Object.assign(globalThis, { useErrorHandling });  
+Object.assign(globalThis, { useErrorHandling });

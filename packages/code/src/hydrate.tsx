@@ -2,11 +2,11 @@ import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import { enhancedFetch } from "./enhancedFetch";
-import { downloadFromHelia, uploadToHelia, addFile, bundleAndUpload } from "./helia";
+import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
 import { useArchive } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
-import { renderApp, renderedAPPS,  } from "./Wrapper";
+import { renderApp, renderedAPPS } from "./Wrapper";
 
 Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive });
 // import { deleteAllServiceWorkers } from "./swUtils";
@@ -43,17 +43,22 @@ const setupServiceWorker = async () => {
 const createLangChainWorkflow = async (prompt: string) => {
   const { createWorkflow } = await import("./LangChain");
   return createWorkflow(prompt);
-}
-
+};
 
 const initializeApp = async () => {
-
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
 
   await setupServiceWorker();
 };
 
 const handleLivePage = async () => {
+  // Script to be placed in the parent window
+  window.addEventListener("message", function(event) {
+    if (event.data && event.data.type === "console") {
+      console[event.data.method].apply(console, event.data.args);
+    }
+  });
+
   const { run } = await import("./ws");
   run();
 };
@@ -157,6 +162,48 @@ const handleRender = async (
 };
 
 const handleDefaultPage = () => {
+  (function() {
+    if (window.parent !== window) {
+      // Store the original console methods
+      var originalConsole = {
+        log: console.log,
+        info: console.info,
+        warn: console.warn,
+        error: console.error,
+      };
+
+      // Function to safely stringify objects
+      function safeStringify(obj) {
+        if (obj && typeof obj === "object") {
+          return JSON.stringify(obj, function(key, value) {
+            if (value instanceof Node) return "[DOM Element]";
+            if (value instanceof Error) return `[${value.name}: ${value.message}]`;
+            return value;
+          });
+        }
+        return obj;
+      }
+
+      // Override console methods
+      ["log", "info", "warn", "error"].forEach(function(method) {
+        console[method] = function() {
+          // Call the original method
+          originalConsole[method].apply(console, arguments);
+
+          // Safely stringify the arguments
+          var args = Array.prototype.slice.call(arguments).map(safeStringify);
+
+          // Send the log to the parent window
+          window.parent.postMessage({
+            type: "console",
+            method: method,
+            args: args,
+          }, "*");
+        };
+      });
+    }
+  })();
+
   const mod = {
     counter: 0,
     code: "",
@@ -177,7 +224,6 @@ const handleDefaultPage = () => {
 
   window.onmessage = async ({ data }) => {
     const { i, code, transpiled } = data;
-    console.log({ i, code, transpiled });
 
     if (i > mod.counter && transpiled) {
       console.log("rerender");
@@ -197,7 +243,6 @@ const handleDefaultPage = () => {
         myEl.style.height = "0";
         myEl.style.width = "0";
         document.body.appendChild(myEl);
-        console.log({ myEl });
 
         const rendered = await renderApp({ rootElement: myEl, transpiled });
 
