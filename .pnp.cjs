@@ -195,10 +195,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:0.25.0", {\
-        "packageLocation": "./.yarn/global/cache/@anthropic-ai-sdk-npm-0.25.0-9f96b7edc0-10.zip/node_modules/@anthropic-ai/sdk/",\
+      ["npm:0.25.1", {\
+        "packageLocation": "./.yarn/global/cache/@anthropic-ai-sdk-npm-0.25.1-ad2e5429ea-10.zip/node_modules/@anthropic-ai/sdk/",\
         "packageDependencies": [\
-          ["@anthropic-ai/sdk", "npm:0.25.0"],\
+          ["@anthropic-ai/sdk", "npm:0.25.1"],\
           ["@types/node", "npm:18.19.43"],\
           ["@types/node-fetch", "npm:2.6.11"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -6393,7 +6393,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-tooltip", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.1.2"],\
           ["@shadcn/ui", "npm:0.0.4"],\
           ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.12.0"],\
-          ["@tanstack/react-virtual", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.8.4"],\
+          ["@tanstack/react-virtual", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.8.6"],\
           ["@testing-library/dom", "npm:10.4.0"],\
           ["@testing-library/jest-dom", "npm:6.4.8"],\
           ["@testing-library/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.0.0"],\
@@ -6519,7 +6519,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/spike.land/",\
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
-          ["@anthropic-ai/sdk", "npm:0.25.0"],\
+          ["@anthropic-ai/sdk", "npm:0.25.1"],\
           ["@clerk/clerk-sdk-node", "npm:5.0.26"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
           ["@cloudflare/workers-types", "npm:4.20240806.0"],\
@@ -6716,18 +6716,18 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@tanstack/react-virtual", [\
-      ["npm:3.8.4", {\
-        "packageLocation": "./.yarn/global/cache/@tanstack-react-virtual-npm-3.8.4-48ab772f31-10.zip/node_modules/@tanstack/react-virtual/",\
+      ["npm:3.8.6", {\
+        "packageLocation": "./.yarn/global/cache/@tanstack-react-virtual-npm-3.8.6-9289548995-10.zip/node_modules/@tanstack/react-virtual/",\
         "packageDependencies": [\
-          ["@tanstack/react-virtual", "npm:3.8.4"]\
+          ["@tanstack/react-virtual", "npm:3.8.6"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.8.4", {\
-        "packageLocation": "./.yarn/__virtual__/@tanstack-react-virtual-virtual-2ce9923633/0/global/cache/@tanstack-react-virtual-npm-3.8.4-48ab772f31-10.zip/node_modules/@tanstack/react-virtual/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.8.6", {\
+        "packageLocation": "./.yarn/__virtual__/@tanstack-react-virtual-virtual-b7d63df81c/0/global/cache/@tanstack-react-virtual-npm-3.8.6-9289548995-10.zip/node_modules/@tanstack/react-virtual/",\
         "packageDependencies": [\
-          ["@tanstack/react-virtual", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.8.4"],\
-          ["@tanstack/virtual-core", "npm:3.8.4"],\
+          ["@tanstack/react-virtual", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.8.6"],\
+          ["@tanstack/virtual-core", "npm:3.8.6"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["react", "npm:18.3.1"],\
@@ -6743,10 +6743,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@tanstack/virtual-core", [\
-      ["npm:3.8.4", {\
-        "packageLocation": "./.yarn/global/cache/@tanstack-virtual-core-npm-3.8.4-70e5dd763e-10.zip/node_modules/@tanstack/virtual-core/",\
+      ["npm:3.8.6", {\
+        "packageLocation": "./.yarn/global/cache/@tanstack-virtual-core-npm-3.8.6-577082781e-10.zip/node_modules/@tanstack/virtual-core/",\
         "packageDependencies": [\
-          ["@tanstack/virtual-core", "npm:3.8.4"]\
+          ["@tanstack/virtual-core", "npm:3.8.6"]\
         ],\
         "linkType": "HARD"\
       }]\

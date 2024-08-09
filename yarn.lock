@@ -66,9 +66,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:^0.25.0":
-  version: 0.25.0
-  resolution: "@anthropic-ai/sdk@npm:0.25.0"
+"@anthropic-ai/sdk@npm:^0.25.1":
+  version: 0.25.1
+  resolution: "@anthropic-ai/sdk@npm:0.25.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -77,7 +77,7 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-  checksum: 10/4b360184e67bf831bf0c524411a3b2448c755d3353adeed232ab0fb360031047b56b8f467f771c35729fca512af6603bb02e60dac0f21fc060b4d7c3ce66d439
+  checksum: 10/3276cb23c1c76700ab393bde4dee16db1c5f447efdf2d6c3a6903792a7094662549b12d86b5e038bfc9e3285bd25dae19e4768281f6d3e359f84e0c429844d5b
   languageName: node
   linkType: hard
 
@@ -4664,7 +4664,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@anthropic-ai/sdk": "npm:^0.25.0"
+    "@anthropic-ai/sdk": "npm:^0.25.1"
     "@clerk/clerk-sdk-node": "npm:^5.0.26"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240806.0"
@@ -4738,7 +4738,7 @@ __metadata:
     "@radix-ui/react-tooltip": "npm:^1.1.2"
     "@shadcn/ui": "npm:^0.0.4"
     "@tabler/icons-react": "npm:^3.12.0"
-    "@tanstack/react-virtual": "npm:^3.8.4"
+    "@tanstack/react-virtual": "npm:^3.8.6"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.4.8"
     "@testing-library/react": "npm:^16.0.0"
@@ -4984,22 +4984,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:^3.8.4":
-  version: 3.8.4
-  resolution: "@tanstack/react-virtual@npm:3.8.4"
+"@tanstack/react-virtual@npm:^3.8.6":
+  version: 3.8.6
+  resolution: "@tanstack/react-virtual@npm:3.8.6"
   dependencies:
-    "@tanstack/virtual-core": "npm:3.8.4"
+    "@tanstack/virtual-core": "npm:3.8.6"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/297bcc941d307662f513eb724431ca863857872f6c77805049dff5633c57620feb43a51b2d4da988c6c8dc607ea4144e42eed6e1ea2561e6b607b2af998bf7f3
+  checksum: 10/fe630ead037945c9c0f7d6c8c30880a0d3ac0464862dccbb6f7adc5594f35bacf81ce460167e04c21c00792af14687958a4370c6ed74f4b6e4f6037d86e029e0
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:3.8.4":
-  version: 3.8.4
-  resolution: "@tanstack/virtual-core@npm:3.8.4"
-  checksum: 10/165bb2ad18d76e72efc11237f34b036f7e36c9ecc33d57ea13ba45bdbf1a689d18ebc705052c42b645d1bdc18d93af4559a235d7c18ec4b506f5707b065d5983
+"@tanstack/virtual-core@npm:3.8.6":
+  version: 3.8.6
+  resolution: "@tanstack/virtual-core@npm:3.8.6"
+  checksum: 10/13f5f787788ca445be675197c5309bc7735b39e1c5362fff245e55257bee2091e72f936c75fa5c2da269ad8018d9c324bc1d10b386848e024a2c7758aa4ebb9e
   languageName: node
   linkType: hard
 
