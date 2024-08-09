@@ -20,6 +20,7 @@ export const useErrorHandling = (engine: string) => {
           );
 
           if (diagnostics.length > 0 && !initialLoadRef.current) {
+            Object.assign(globalThis, { diagnostics });
             console.error("TypeScript error:", diagnostics);
             setErrorType("typescript");
           } else {
@@ -36,3 +37,5 @@ export const useErrorHandling = (engine: string) => {
 
   return { errorType, setErrorType, debouncedTypeCheck };
 };
+
+Object.assign(globalThis, { useErrorHandling });  

@@ -2,11 +2,11 @@ import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import { enhancedFetch } from "./enhancedFetch";
-import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
+import { downloadFromHelia, uploadToHelia, addFile, bundleAndUpload } from "./helia";
 import { useArchive } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
-import { renderApp, renderedAPPS } from "./Wrapper";
+import { renderApp, renderedAPPS,  } from "./Wrapper";
 
 Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive });
 // import { deleteAllServiceWorkers } from "./swUtils";
@@ -40,9 +40,15 @@ const setupServiceWorker = async () => {
   }
 };
 
-const initializeApp = async () => {
+const createLangChainWorkflow = async (prompt: string) => {
   const { createWorkflow } = await import("./LangChain");
-  Object.assign(globalThis, { createWorkflow });
+  return createWorkflow(prompt);
+}
+
+
+const initializeApp = async () => {
+
+  Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
 
   await setupServiceWorker();
 };
@@ -57,12 +63,7 @@ const handleDehydratedPage = () => {
     const { html, css } = data;
     const root = document.getElementById("root");
     if (root) {
-      root.innerHTML = `
-        <div id="${codeSpace}-css" style="height:100%;">
-          <style>${css}</style>
-          ${html}
-        </div>
-      `;
+      root.innerHTML = `<style>${css}</style>${html}`;
     }
   };
 };

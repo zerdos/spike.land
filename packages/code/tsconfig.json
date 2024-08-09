@@ -90,5 +90,5 @@
     "src/**/*.jsx",
     "src/**/*.mjs"
   ],
-  "exclude": [".yarn", "dist"]
+  "exclude": [".yarn", "dist", "esbuild-depts.ts"]
 }
