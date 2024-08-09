@@ -16,24 +16,23 @@ const mod: {
   controller: AbortController;
 } = {
   ...cSess.session,
-  css: '',
+  css: "",
   cssIds: getCssStr(cSess.session.html),
   controller: new AbortController(),
 };
 
 fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) => mod.css = css),
-
-BC.onmessage = ({ data }) => {
-  if (data.i > mod.i) {
-    mod.i = data.i;
-    mod.code = data.code;
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    mod.css = data.css;
-    mod.html = data.html;
-    mod.cssIds = getCssStr(data.html);
-  }
-};
+  BC.onmessage = ({ data }) => {
+    if (data.i > mod.i) {
+      mod.i = data.i;
+      mod.code = data.code;
+      mod.controller.abort();
+      mod.controller = new AbortController();
+      mod.css = data.css;
+      mod.html = data.html;
+      mod.cssIds = getCssStr(data.html);
+    }
+  };
 
 export const runner = async (code: string, i = 0) => {
   if (i === 0) i = mod.i + 3;
@@ -62,7 +61,7 @@ export const runner = async (code: string, i = 0) => {
     }
 
     if (cSess.session.css === "" || mod.cssIds !== getCssStr(html)) {
-    console.log("Sending message iframe first to calculate css");
+      console.log("Sending message iframe first to calculate css");
       document.querySelector("iframe")?.contentWindow?.postMessage({
         code,
         transpiled,
@@ -70,8 +69,8 @@ export const runner = async (code: string, i = 0) => {
         sender: "Runner / Editor",
       });
     } else {
-        console.log("Sending message to BC", i);
-        
+      console.log("Sending message to BC", i);
+
       mod.html = html;
       mod.cssIds = getCssStr(html);
 
