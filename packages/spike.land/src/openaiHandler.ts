@@ -20,6 +20,7 @@ export async function handleGPT4Request(
   };
 
   const openai = new OpenAI({
+    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/openai",
     apiKey: env.OPENAI_API_KEY,
   });
 

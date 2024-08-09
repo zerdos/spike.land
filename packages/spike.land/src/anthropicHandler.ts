@@ -16,6 +16,7 @@ export async function handleAnthropicRequest(
   };
 
   const anthropic = new Anthropic({
+    baseURL: 'https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic',  
     apiKey: env.ANTHROPIC_API_KEY,
   });
 
