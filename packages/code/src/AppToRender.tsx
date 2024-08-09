@@ -75,7 +75,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           : (
             <DraggableWindow
               isChatOpen={isOpen}
-              onCodeUpdate={handleCodeUpdate}
               codeSpace={codeSpace}
               handleAIModify={handleAIModify}
               showChat={showChat}
@@ -100,7 +99,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               <Editor
                 codeSpace={codeSpace}
                 ref={editorRef}
-                onCodeUpdate={handleCodeUpdate}
               />
             </Suspense>
             <Button
@@ -112,7 +110,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
             <ChatInterface
               isOpen={isOpen}
-              onCodeUpdate={handleCodeUpdate}
               onClose={() => setIsOpen(false)}
             />
 

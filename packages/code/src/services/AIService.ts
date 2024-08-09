@@ -3,6 +3,7 @@ import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { LocalStorageService } from "./LocalStorageService";
+import { runner } from "./runner";
 
 export class AIService {
   private localStorageService: LocalStorageService;
@@ -115,7 +116,6 @@ export class AIService {
   async continueWithOpenAI(
     fullResponse: string,
     codeNow: string,
-    onCodeUpdate: (code: string) => void,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
     isRetry = false,
@@ -195,7 +195,7 @@ export class AIService {
           toThrow: true,
         });
 
-        onCodeUpdate(prettyCode);
+        runner(prettyCode);
         setAICode(prettyCode);
 
         return prettyCode;
@@ -239,7 +239,6 @@ export class AIService {
           await this.continueWithOpenAI(
             answer.content,
             modifiedCode,
-            onCodeUpdate,
             setMessages,
             setAICode,
             true,

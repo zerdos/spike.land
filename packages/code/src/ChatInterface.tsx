@@ -8,13 +8,12 @@ import { getCodeSpace, loadMessages } from "./utils/chatUtils";
 const codeSpace = getCodeSpace();
 
 interface ChatInterfaceProps {
-  onCodeUpdate: (code: string) => void;
   isOpen: boolean;
   onClose: () => void;
 }
 
 const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
-  ({ onCodeUpdate, onClose, isOpen }) => {
+  ({ onClose, isOpen }) => {
     const {
       messages,
       setMessages,
@@ -51,7 +50,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
       codeWhatAiSeen,
       setAICode,
       saveMessages,
-      onCodeUpdate,
       editingMessageId,
       setEditingMessageId,
       editInput,

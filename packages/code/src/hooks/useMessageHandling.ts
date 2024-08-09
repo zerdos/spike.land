@@ -1,5 +1,6 @@
 import { AIHandler } from "@src/AIHandler";
 import { enhancedFetch } from "@src/enhancedFetch";
+import { runner } from "@src/services/runner";
 import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
@@ -17,7 +18,6 @@ interface UseMessageHandlingProps {
   codeWhatAiSeen: string;
   setAICode: React.Dispatch<React.SetStateAction<string>>;
   saveMessages: (newMessages: Message[]) => void;
-  onCodeUpdate: (code: string) => void;
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
@@ -34,7 +34,6 @@ export const useMessageHandling = ({
   codeWhatAiSeen,
   setAICode,
   saveMessages,
-  onCodeUpdate,
   editingMessageId,
   setEditingMessageId,
   editInput,
@@ -132,7 +131,7 @@ export const useMessageHandling = ({
                   code: lastCode,
                   toThrow: true,
                 });
-                onCodeUpdate(formattedCode);
+                runner(formattedCode);
               } catch (error) {
                 console.error("Error in runner:", error);
               }
@@ -171,14 +170,13 @@ export const useMessageHandling = ({
           code: starterCode,
           toThrow: true,
         });
-        onCodeUpdate(formattedCode);
+        runner(formattedCode);
         setIsStreaming(false);
         return;
       } else {
         await aiHandler.continueWithOpenAI(
           assistantMessage.content,
           codeNow,
-          onCodeUpdate,
           setMessages,
           setAICode,
         );
@@ -203,7 +201,6 @@ export const useMessageHandling = ({
     codeWhatAiSeen,
     setAICode,
     saveMessages,
-    onCodeUpdate,
   ]);
 
   const handleResetChat = useCallback(() => {

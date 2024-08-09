@@ -14,7 +14,6 @@ type DraggableWindowProps = {
   showChat: boolean;
   isChatOpen: boolean;
   setShowChat: (show: boolean) => void;
-  onCodeUpdate: (newCode: string) => void;
 };
 
 const breakPoints = [750, 1024, 1920];
@@ -27,7 +26,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
     setShowChat,
     showChat,
     isChatOpen,
-    onCodeUpdate,
   },
 ) => {
   const [scaleRange, setScaleRange] = useState(100);
@@ -97,7 +95,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
 
       {showChat && (
         <DraggableChat
-          onCodeUpdate={onCodeUpdate}
           onClose={() => setShowChat(false)}
         />
       )}

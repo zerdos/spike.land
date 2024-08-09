@@ -27,7 +27,6 @@ export class AIHandler {
   async continueWithOpenAI(
     fullResponse: string,
     currentCode: string,
-    onCodeUpdate: (code: string) => void,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
     isRetry = false,
@@ -35,7 +34,6 @@ export class AIHandler {
     return this.aiService.continueWithOpenAI(
       fullResponse,
       currentCode,
-      onCodeUpdate,
       setMessages,
       setAICode,
       isRetry,

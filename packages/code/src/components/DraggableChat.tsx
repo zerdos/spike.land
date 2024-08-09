@@ -5,7 +5,6 @@ import { IoClose } from "react-icons/io5";
 
 interface DraggableChatProps {
   onClose: () => void;
-  onCodeUpdate: (code: string) => void;
 }
 
 export const DraggableChat: FC<DraggableChatProps> = (
