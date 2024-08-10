@@ -30,13 +30,16 @@ export const fetchPlugin = (origin: string) => ({
       let type = 'text';  
       let contents = await new Promise((resolve, reject) => {
        
-         fetch(new URL(args.path, origin).toString(), { redirect: 'follow' }).then(async (res) => {
+         fetch(args.path, { redirect: 'follow' }).then(async (res) => {
           if (!res.ok) {
             reject(`HTTP error ${res.status}`)
             return
           }
+       
           resolveDir = res.url;
           if (res === null) reject('Fetch failed');
+          const result =   await res.text();
+       
 
           if (res.headers && res.headers.get('content-type') && res.headers.get('content-type')!.includes('application/json')) {
             type = 'json'
@@ -53,14 +56,16 @@ export const fetchPlugin = (origin: string) => ({
           if (res.headers && res.headers.get('content-type') && res.headers.get('content-type')!.includes('image')) {
             type = 'image'
           }
+
       
 
-          resolve(await res.text())
+          resolve(result);
         }
         )
       }
       )
 
+  
       return { contents, resolveDir, loader: type }
     })
   },

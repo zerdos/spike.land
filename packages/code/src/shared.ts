@@ -89,16 +89,19 @@ export const transpile = async (
 };
 
 export const build = (
-  { codeSpace, origin, format = "esm", splitting = false }: {
+  { codeSpace, origin, format = "esm", splitting = false, entryPoint = "" }:  {
     codeSpace: string;
     splitting?: boolean;
     origin: string;
+    entryPoint?: string;
     format: "esm" | "iife";
   },
 ) =>
   init().rpc("build", { 
     codeSpace,
     origin,
+    splitting,
+    entryPoint,
     format,
   }) as Promise<string>;
 

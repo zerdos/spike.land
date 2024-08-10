@@ -3,6 +3,7 @@ import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin";
 import { importMapReplace } from "./importMapReplace";
+import { entries } from "lodash";
 
 declare const self: {
   mod: {
@@ -94,6 +95,7 @@ Object.assign(self, { transpile });
 export const build = async ({
   codeSpace,
   origin,
+  entryPoint = "",
   splitting = false,
   format = "esm",
   wasmModule,
@@ -101,6 +103,7 @@ export const build = async ({
   codeSpace: string;
   format: "esm" | "iife";
   origin: string;
+  entryPoint?: string;
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
 }) => {
@@ -181,10 +184,12 @@ export const build = async ({
       ".eot": "dataurl",
       ".otf": "dataurl",
       ".webp": "dataurl",
-      ".css": "css",
+      ".css": "dataurl",
       ".ttf": "dataurl",
     },
-    outExtension: { ".js": ".mjs" },
+    outExtension: { ".js": ".mjs",
+      ".css": ".css"
+     },
     write: false,
     target: "es2022",
     outdir: `${origin}/live/${codeSpace}/`,
@@ -200,7 +205,10 @@ export const build = async ({
     splitting,
     format,
     platform: "browser",
-    entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`, `${origin}/live/${codeSpace}/index.css`],
+    entryPoints:  entryPoint? [entryPoint] :[ 
+      `${origin}/live/${codeSpace}/wrapper.js`, 
+    //  `${origin}/live/${codeSpace}/index.css`
+    ],
     packages: "external",
     plugins: [fetchPlugin(origin)],
   };

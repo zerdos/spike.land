@@ -2,6 +2,7 @@ import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
 
+
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {
     try {
@@ -65,11 +66,12 @@ export const useArchive = async (codeSpace: string) => {
 };
 
 export const useSpeedy = async (codeSpace: string) => {
-  const buildWithRetry = async () => {
+  const buildWithRetry = async (entryPoint='') => {
     try {
       return await build({
         codeSpace,
         splitting: true,
+        entryPoint,
         origin: location.origin,
         format: "esm",
       });
@@ -79,17 +81,22 @@ export const useSpeedy = async (codeSpace: string) => {
       return await build({
         codeSpace,
         splitting: true,
+        entryPoint,
         origin: location.origin,
         format: "esm",
       });
     }
   };
 
-  const indexMjs = await buildWithRetry();
-  console.log({ indexMjs });
+  const indexMjs = (await buildWithRetry())[0].text;
+
+  const indexCss = (await buildWithRetry(origin+`/live/${codeSpace}/index.css`))[0].text;
+  
+  console.log({ indexMjs, indexCss });
+
 
   const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
-  const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
+  const css = indexCss;
   const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
@@ -111,8 +118,10 @@ export const useSpeedy = async (codeSpace: string) => {
   <div id="root">${htm}</div>
   <script type="module">
   ${indexMjs}
-  ${twJS}
   </script>
+  <script>
+    ${twJS}
+</script>
 </body>
 </html>`;
 

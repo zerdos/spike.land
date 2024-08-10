@@ -1,6 +1,6 @@
 import type { BuildOptions } from "esbuild-wasm";
 import { makeEnv } from "./helpers.ts";
-import { fetchPlugin } from "./src/fetchPlugin.mjs";
+import { fetchPlugin } from "./src/fetchPlugin.ts";
 
 export const buildOptions: BuildOptions = {
   target: "es2022",
