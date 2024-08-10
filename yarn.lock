@@ -657,9 +657,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/vitest-pool-workers@npm:^0.4.20":
-  version: 0.4.20
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.20"
+"@cloudflare/vitest-pool-workers@npm:^0.4.21":
+  version: 0.4.21
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.21"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
@@ -673,7 +673,7 @@ __metadata:
     "@vitest/runner": 1.3.x - 1.5.x
     "@vitest/snapshot": 1.3.x - 1.5.x
     vitest: 1.3.x - 1.5.x
-  checksum: 10/388d5979a11465a771793ed1af2b5fa0ced102e39659008b33c0f35ecc82671ad29771e8696b1a9ddb837bd2f8aaa213f7bd23b5a6b98f4acb34d3176e28a6ab
+  checksum: 10/4bf2513e4681607d586f44696702e775e9b2607b2b5e5d1be9bc4363396863a6a066e3410ef81373e30b1f83320d2358d88d93d655755541d5562e97c8b4cb2a
   languageName: node
   linkType: hard
 
@@ -1329,10 +1329,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.8.0, @eslint/js@npm:^9.8.0":
-  version: 9.8.0
-  resolution: "@eslint/js@npm:9.8.0"
-  checksum: 10/1c6ddbcc9f45f0165d9e218c085543536c03b4b650449a6f38f4e2b65b1d6bcd5f24f7feae72fca14d3697073cbdb413f270baef0f744cb0fb9e11ce9c84dbcc
+"@eslint/js@npm:9.9.0, @eslint/js@npm:^9.9.0":
+  version: 9.9.0
+  resolution: "@eslint/js@npm:9.9.0"
+  checksum: 10/9d6e94d0334aecaa7e5c78e654297d9b11679f56c8ec1b64db122cbecf64b5a04138617e901d0c79727d03abce8a898cce4288259435bde78460ebdab202998f
   languageName: node
   linkType: hard
 
@@ -2012,9 +2012,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:^0.2.22":
-  version: 0.2.22
-  resolution: "@langchain/core@npm:0.2.22"
+"@langchain/core@npm:^0.2.23":
+  version: 0.2.23
+  resolution: "@langchain/core@npm:0.2.23"
   dependencies:
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
@@ -2027,7 +2027,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10/1fa2e64bc1b81be17d518dfecd8e6a2d6d55ec913c11b84efc1096ce69454fd6c50e22650593dd927fcc55082ff7afef1bf4794141bc462d151e02f6012c1467
+  checksum: 10/d74f94c3d792a19e4fe5d79030136894773135c21e69f57fd69b87cd07c7af6cfeba016c622ba43cbe4114c85994c476ed9215b7385d838663cd7d221963fc31
   languageName: node
   linkType: hard
 
@@ -4629,14 +4629,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.1.0"
+    "@types/node": "npm:22.2.0"
     axios: "npm:1.7.3"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.55.3"
+    openai: "npm:4.55.4"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -4671,13 +4671,13 @@ __metadata:
     "@remix-run/cloudflare": "npm:^2.11.1"
     "@remix-run/react": "npm:^2.11.1"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:22.1.0"
+    "@types/node": "npm:22.2.0"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.7"
-    openai: "npm:^4.55.3"
+    openai: "npm:^4.55.4"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -4697,13 +4697,13 @@ __metadata:
     "@emotion/css-prettifier": "npm:^1.1.4"
     "@emotion/react": "npm:11.13.0"
     "@emotion/styled": "npm:11.13.0"
-    "@eslint/js": "npm:^9.8.0"
+    "@eslint/js": "npm:^9.9.0"
     "@github/stable-socket": "npm:1.1.0"
     "@helia/strings": "npm:^3.0.5"
     "@helia/unixfs": "npm:^3.0.7"
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.2.13"
-    "@langchain/core": "npm:^0.2.22"
+    "@langchain/core": "npm:^0.2.23"
     "@langchain/langgraph": "npm:^0.0.33"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:5.16.7"
@@ -4748,7 +4748,7 @@ __metadata:
     "@types/jest": "npm:^29.5.12"
     "@types/lodash": "npm:^4.17.7"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/node": "npm:^22.1.0"
+    "@types/node": "npm:^22.2.0"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
@@ -4782,7 +4782,7 @@ __metadata:
     dprint: "npm:^0.47.2"
     embla-carousel-react: "npm:^8.1.8"
     esbuild-wasm: "npm:0.23.0"
-    eslint: "npm:9.8.0"
+    eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
@@ -4870,7 +4870,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.1.0"
+    "@types/node": "npm:22.2.0"
     esbuild-wasm: "npm:0.23.0"
   languageName: unknown
   linkType: soft
@@ -5469,12 +5469,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.1.0, @types/node@npm:^22.1.0":
+"@types/node@npm:*":
   version: 22.1.0
   resolution: "@types/node@npm:22.1.0"
   dependencies:
     undici-types: "npm:~6.13.0"
   checksum: 10/c2ac1340509646b6c673b27fae2a46e501a97e540e7221be4dd2e0be7a0f61efefb5bf3be8bedf2dbce245fa49cfc49bba77bce73fa3c4296d0d19521ced3222
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:22.2.0, @types/node@npm:^22.2.0":
+  version: 22.2.0
+  resolution: "@types/node@npm:22.2.0"
+  dependencies:
+    undici-types: "npm:~6.13.0"
+  checksum: 10/2957c5c81f1a07a1210f28382adae65c11070c301e395fa819448516f1a2a710054b29e0ec7d8e28624afbcd90dae810403a497109545dea835b554fc76edf6c
   languageName: node
   linkType: hard
 
@@ -9402,15 +9411,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.8.0":
-  version: 9.8.0
-  resolution: "eslint@npm:9.8.0"
+"eslint@npm:9.9.0":
+  version: 9.9.0
+  resolution: "eslint@npm:9.9.0"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.11.0"
     "@eslint/config-array": "npm:^0.17.1"
     "@eslint/eslintrc": "npm:^3.1.0"
-    "@eslint/js": "npm:9.8.0"
+    "@eslint/js": "npm:9.9.0"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
     "@humanwhocodes/retry": "npm:^0.3.0"
     "@nodelib/fs.walk": "npm:^1.2.8"
@@ -9440,9 +9449,14 @@ __metadata:
     optionator: "npm:^0.9.3"
     strip-ansi: "npm:^6.0.1"
     text-table: "npm:^0.2.0"
+  peerDependencies:
+    jiti: "*"
+  peerDependenciesMeta:
+    jiti:
+      optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/b1dd864170ca359249c92d1d8e09a628497efcf8a4293b571308460125fb0367a15612b2b0f135ff21b92453bf324ce75843fcaac3e01734f4bee2ff79919cc3
+  checksum: 10/88616421c9cb873d8f116d1ef6aa665cc898d35361351739c8041f11c30fe004bcfa641a2b6074655393eac7e7e5f9a661675dd1c01a24cf1e65cc6b556e06b3
   languageName: node
   linkType: hard
 
@@ -14369,7 +14383,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:8.0.1"
     "@yarnpkg/sdks": "npm:3.2.0"
     dprint: "npm:0.47.2"
-    eslint: "npm:9.8.0"
+    eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
     i18next: "npm:^23.12.2"
     playwright: "npm:1.46.0"
@@ -14961,9 +14975,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.55.3, openai@npm:^4.55.3":
-  version: 4.55.3
-  resolution: "openai@npm:4.55.3"
+"openai@npm:4.55.4, openai@npm:^4.55.4":
+  version: 4.55.4
+  resolution: "openai@npm:4.55.4"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -14979,7 +14993,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10/b970396943666a154d805927f350ed3a7f886c5845924e832d0d8b79383949a7ce3fedc120f339df37822babe2a73ccec750016f17e35c558341b56cef4221a2
+  checksum: 10/d4f537682619c818345bfdf278feceabfd2d25c655fec962d973fa7dcc3c08490b81af759b3a4400efc945d36f3b26e8819c08bbe5126fbf7a313eb5f4f72cfb
   languageName: node
   linkType: hard
 
@@ -17492,7 +17506,7 @@ __metadata:
   resolution: "spike-land-renderer@workspace:packages/spike-land-renderer"
   dependencies:
     "@cloudflare/puppeteer": "npm:^0.0.12"
-    "@cloudflare/vitest-pool-workers": "npm:^0.4.20"
+    "@cloudflare/vitest-pool-workers": "npm:^0.4.21"
     "@cloudflare/workers-types": "npm:^4.20240806.0"
     typescript: "npm:^5.5.4"
     vitest: "npm:2.0.5"
