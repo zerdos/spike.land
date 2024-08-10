@@ -1,6 +1,6 @@
 import { Plugin } from "esbuild-wasm";
 
-export const fetchPlugin = (origin: string) => ({
+export const fetchPlugin = () => ({
   name: "http",
   setup(build) {
     // Intercept import paths starting with "http:" and "https:" so

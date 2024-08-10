@@ -209,7 +209,7 @@ export const build = async ({
         `${origin}/live/${codeSpace}/index.css`, // Add this line to include CSS
       ],
     packages: "external",
-    plugins: [fetchPlugin(origin)],
+    plugins: [fetchPlugin()],
     assetNames: "assets/[name]-[hash]",
     publicPath: "/",
   };
