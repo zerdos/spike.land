@@ -208,12 +208,10 @@ export const build = async ({
   try {
     const result = await esmBuild(defaultOpts);
     // const processedCode = await importMapReplace(result.outputFiles![0].text, origin);
-    if (!splitting){
-       return result.outputFiles![0].text;
-    } 
+    if (!splitting) {
+      return result.outputFiles![0].text;
+    }
     return result.outputFiles;
-
-
   } catch (error) {
     console.error("Error during build:", error);
     throw error;

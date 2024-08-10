@@ -156,19 +156,17 @@ describe("importMapReplace", () => {
   });
 
   it("should process this", async () => {
-    const code = `eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement(On,{cache:t,serialized:m,isStringTag:typeof c=="string"}),O.createElement(c,d))}),dr=Rn;import"react";var va=Y(Yr());var xa=Z.Fragment;function Sa(e,t,a){return me.call(t,"css")?Z.jsx(dr,pr(e,t),a):Z.jsx(e,t,a)}function Ea(e,t,a){return me.call(t,"css")?Z.jsxs(dr,pr(e,t),a):Z.jsxs(e,t,a)}";`;
+    const code =
+      `eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement(On,{cache:t,serialized:m,isStringTag:typeof c=="string"}),O.createElement(c,d))}),dr=Rn;import"react";var va=Y(Yr());var xa=Z.Fragment;function Sa(e,t,a){return me.call(t,"css")?Z.jsx(dr,pr(e,t),a):Z.jsx(e,t,a)}function Ea(e,t,a){return me.call(t,"css")?Z.jsxs(dr,pr(e,t),a):Z.jsxs(e,t,a)}";`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
-
 
   it("should replace the live urls", async () => {
     const code = `import Box from "/live/Box";`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
-
-
 
   it("should not do anything", async () => {
     const code = ` eturn e[t] === r ||
@@ -180,7 +178,6 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
-
 
   it("should replace dynamic imports at the end", async () => {
     const code = `

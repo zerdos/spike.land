@@ -291,8 +291,7 @@ async function handleDefaultCase(
     headers.append("Cross-Origin-Embedder-Policy", "require-corp");
     headers.append("Access-Control-Allow-Origin", "*");
 
-    // if (request.url.indexOf("/@/") !== -1) {
-     if (request.url.endsWith("js")) {
+    if (request.url.indexOf("/@/") !== -1) {
       const content = await kvResp.text();
       const transformed = importMapReplace(content, u.origin);
       return new Response(transformed, { ...kvResp, headers });

@@ -11,28 +11,26 @@ export function importMapReplace(code: string, origin: string): string {
   // Define regex patterns for different types of imports
   const topLevelImportPattern =
     /(import\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
-  const topLeveNoFromPattern =  /(?<![.\"@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
+  const topLeveNoFromPattern = /(?<![.\"@\w-])import\s*(['"`])(?:(?!\1).)*\1/g;
 
-
-    const topLevelExportPattern =
+  const topLevelExportPattern =
     /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
 
   // Define a replacer function to modify the import paths
-  const replacer = (match: string, p1: string, p2: string, p3char: string) => { 
+  const replacer = (match: string, p1: string, p2: string, p3char: string) => {
     const p3 = String(p3char).replace(/[0-9]/g, ""); // Remove numeric characters from p3
-   
-    if (typeof p2 !== "string") { 
-      
-      const pkg = match.split('"')[1]
+
+    if (typeof p2 !== "string") {
+      const pkg = match.split("\"")[1];
       if (pkg.startsWith("http")) return match;
       if (pkg.startsWith("/")) return match;
       if (pkg.startsWith("./")) return match;
       if (pkg.startsWith(",")) return match;
 
-     return `import "${origin}/*${match.split('"')[1]}?bundle";`;; 
-      match; //`import "${origin}/*${p1.slice(1).slice(0,-1)}?bundle"`   
-      }
+      return `import "${origin}/*${match.split("\"")[1]}?bundle";`;
+      match; // `import "${origin}/*${p1.slice(1).slice(0,-1)}?bundle"`
+    }
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
     if (packageName.startsWith("data:text")) {

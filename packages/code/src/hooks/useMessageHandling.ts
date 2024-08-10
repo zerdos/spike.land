@@ -131,7 +131,7 @@ export const useMessageHandling = ({
                   code: lastCode,
                   toThrow: true,
                 });
-                runner(formattedCode);
+                await runner(formattedCode);
               } catch (error) {
                 console.error("Error in runner:", error);
               }

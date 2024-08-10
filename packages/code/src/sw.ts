@@ -5,13 +5,11 @@ const sw = self as unknown as
   & { files: { [key: string]: string }; fileCacheName: string };
 sw.__WB_DISABLE_DEV_LOGS = true;
 
-
 importScripts("/swVersion.js");
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
 import { CacheFirst } from "workbox-strategies";
-
 
 const files = new Set(Object.keys(sw.files));
 
@@ -29,7 +27,8 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/api/")  && !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/") && !files.has(url.pathname.slice(1)),
+    !url.pathname.startsWith("/api/") && !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/")
+    && !files.has(url.pathname.slice(1)),
   new CacheFirst({
     cacheName: "esm-cache-124",
     plugins: [

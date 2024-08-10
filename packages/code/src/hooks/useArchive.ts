@@ -86,7 +86,7 @@ export const useSpeedy = async (codeSpace: string) => {
   };
 
   const indexMjs = await buildWithRetry();
-  console.log({indexMjs});
+  console.log({ indexMjs });
 
   const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
