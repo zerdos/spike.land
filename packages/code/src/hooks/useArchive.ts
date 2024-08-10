@@ -79,7 +79,7 @@ export const useSpeedy = async (codeSpace: string) => {
       await wait(1000);
       return await build({
         codeSpace,
-        splitting: false,
+        splitting: true,
         entryPoint,
         origin: location.origin,
         format: "esm",

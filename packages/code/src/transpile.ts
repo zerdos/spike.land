@@ -183,12 +183,12 @@ export const build = async ({
       ".woff2": "file",
       ".eot": "file",
       ".otf": "file",
-      ".ttf": "file",
+      ".ttf": "dataurl",
       ".css": "css",
     },
     write: false,
     target: "es2022",
-    outdir: `${origin}/live/${codeSpace}/`,
+    outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
     treeShaking: true,
     legalComments: "none",
     bundle: true,
@@ -211,7 +211,7 @@ export const build = async ({
     packages: "external",
     plugins: [fetchPlugin()],
     assetNames: "assets/[name]-[hash]",
-    publicPath: "/",
+    publicPath: "/api/my-cms/",
   };
 
   try {
