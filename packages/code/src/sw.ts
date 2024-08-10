@@ -1,13 +1,17 @@
+const sw = self as unknown as
+  & ServiceWorkerGlobalScope
+  & { __WB_DISABLE_DEV_LOGS: boolean }
+  & { swVersion: string }
+  & { files: { [key: string]: string }; fileCacheName: string };
+sw.__WB_DISABLE_DEV_LOGS = true;
+
+
 importScripts("/swVersion.js");
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst } from "workbox-strategies";
 
-const sw = self as unknown as
-  & ServiceWorkerGlobalScope
-  & { swVersion: string }
-  & { files: { [key: string]: string }; fileCacheName: string };
 
 const files = new Set(Object.keys(sw.files));
 
@@ -25,8 +29,8 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/") && !files.has(url.pathname.slice(1)),
-  new StaleWhileRevalidate({
+    !url.pathname.startsWith("/api/")  && !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/") && !files.has(url.pathname.slice(1)),
+  new CacheFirst({
     cacheName: "esm-cache-124",
     plugins: [
       new CacheableResponsePlugin({

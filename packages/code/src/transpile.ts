@@ -29,6 +29,7 @@ export const cjs = async (code: string) => {
     treeShaking: true,
     platform: "browser",
     minify: false,
+
     charset: "utf8",
     keepNames: true,
     tsconfigRaw: {
@@ -38,7 +39,7 @@ export const cjs = async (code: string) => {
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2020",
+    target: "es2022",
   });
   return cjs;
 };
@@ -76,7 +77,7 @@ export const transpile = async (
           jsxImportSource: "@emotion/react",
         },
       },
-      target: "es2020",
+      target: "es2022",
     });
 
     return importMapReplace(transformedCode.code, origin);
@@ -93,12 +94,14 @@ Object.assign(self, { transpile });
 export const build = async ({
   codeSpace,
   origin,
+  splitting = false,
   format = "esm",
   wasmModule,
 }: {
   codeSpace: string;
   format: "esm" | "iife";
   origin: string;
+  splitting?: boolean;
   wasmModule?: WebAssembly.Module;
 }) => {
   if (wasmModule) {
@@ -150,6 +153,16 @@ export const build = async ({
       ".css",
       ".json",
       ".mjs",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".svg",
+      ".woff",
+      ".woff2",
+      ".eot",
+      ".otf",
+      ".webp",
       ".wasm",
       ".ttf",
     ],
@@ -173,7 +186,7 @@ export const build = async ({
     },
     outExtension: { ".js": ".mjs" },
     write: false,
-    target: "es2020",
+    target: "es2022",
     outdir: `${origin}/live/${codeSpace}/`,
     treeShaking: true,
     legalComments: "none",
@@ -184,7 +197,7 @@ export const build = async ({
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: true,
-    splitting: false,
+    splitting,
     format,
     platform: "browser",
     entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`],
@@ -195,8 +208,12 @@ export const build = async ({
   try {
     const result = await esmBuild(defaultOpts);
     // const processedCode = await importMapReplace(result.outputFiles![0].text, origin);
+    if (!splitting){
+       return result.outputFiles![0].text;
+    } 
+    return result.outputFiles;
 
-    return result.outputFiles![0].text;
+
   } catch (error) {
     console.error("Error during build:", error);
     throw error;

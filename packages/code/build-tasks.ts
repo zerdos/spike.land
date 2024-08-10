@@ -86,7 +86,7 @@ export async function buildServiceWorker() {
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: true,
-    target: "es2020",
+    target: "es2022",
   });
 }
 
@@ -154,7 +154,7 @@ export async function buildMainBundle(wasmFile) {
     mangleQuoted: isProduction,
     sourcemap: false,
     legalComments: "none",
-    target: "es2020",
+    target: "es2022",
     external: undefined,
     alias: undefined,
     outdir: "dist/@/",
@@ -197,7 +197,7 @@ export async function buildMainBundle(wasmFile) {
     treeShaking: isProduction,
     mangleQuoted: isProduction,
     sourcemap: false,
-    target: "es2020",
+    target: "es2022",
     legalComments: "none",
     platform: "browser",
     ignoreAnnotations: true,
@@ -219,7 +219,7 @@ export async function buildMainBundle(wasmFile) {
           to: "./dist",
         }, {
           from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-          to: "./dist/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+          to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
         }],
       }),
     ],
@@ -260,7 +260,6 @@ export async function buildMainBundle(wasmFile) {
       //  "react-dom/client": "/reactDomClient.mjs",
       //  "react-dom": "/reactDom.mjs", // Must be below test-utils
     },
-
     external: [
       ...(buildOptions.external?.length ? buildOptions.external : []),
       "/swVersion.mjs",

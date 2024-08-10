@@ -3,12 +3,12 @@ import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import { enhancedFetch } from "./enhancedFetch";
 import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
-import { useArchive } from "./hooks/useArchive";
+import { useArchive, useSpeedy } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
 
-Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive });
+Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive, useSpeedy });
 // import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants

@@ -83,8 +83,9 @@ export const transpile = async (
 };
 
 export const build = (
-  { codeSpace, origin, format = "esm" }: {
+  { codeSpace, origin, format = "esm", splitting = false }: {
     codeSpace: string;
+    splitting?: boolean;
     origin: string;
     format: "esm" | "iife";
   },

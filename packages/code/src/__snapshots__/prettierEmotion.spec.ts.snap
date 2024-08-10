@@ -29,8 +29,8 @@ exports[`addSomeFixesIfNeeded > doesnt don stupid things 1`] = `
             key={i}
             className="absolute"
             style={{
-              top: \`12.977214744045206%\`,
-              left: \`97.67268284323222%\`,
+              top: \`31.9230526873425%\`,
+              left: \`80.89876255945518%\`,
               width: "4px",
               height: "4px",
               borderRadius: "50%",

@@ -18,6 +18,23 @@ exports[`importMapReplace > should ignore relative URLs 1`] = `
   import MyComponent from "http://localhost:3000/live/MyComponent/index.js";"
 `;
 
+exports[`importMapReplace > should not do anything 1`] = `
+"
+  /** importMapReplace */
+   eturn e[t] === r ||
+              (e[t] = r,
+                (t === "prop" || t === "value" || t === "name" ||
+                  t === "params" || t === "important" || t === "text") &&
+                e.markDirty()),
+              !0;"
+`;
+
+exports[`importMapReplace > should process this 1`] = `
+"
+  /** importMapReplace */
+  eturn d.className=f,a&&(d.ref=a),O.createElement(O.Fragment,null,O.createElement(On,{cache:t,serialized:m,isStringTag:typeof c=="string"}),O.createElement(c,d))}),dr=Rn;import "http://localhost:3000/*react?bundle";;var va=Y(Yr());var xa=Z.Fragment;function Sa(e,t,a){return me.call(t,"css")?Z.jsx(dr,pr(e,t),a):Z.jsx(e,t,a)}function Ea(e,t,a){return me.call(t,"css")?Z.jsxs(dr,pr(e,t),a):Z.jsxs(e,t,a)}";"
+`;
+
 exports[`importMapReplace > should replace DYNAMID shadcdn imports 1`] = `
 "
   /** importMapReplace */
@@ -28,13 +45,13 @@ exports[`importMapReplace > should replace coder44  1`] = `
 "
   /** importMapReplace */
   
-    import { css } from "http://localhost:3000/emotion.mjs";
-    import $ from "http://localhost:3000/reactMod.mjs";
+    import { css } from "http://localhost:3000/*@emotion/react?bundle";
+    import $ from "http://localhost:3000/*react?bundle";
 
-    import { css  as $kdkd } from "http://localhost:3000/emotion.mjs";
+    import { css  as $kdkd } from "http://localhost:3000/*@emotion/react?bundle";
 
-    import { useEffect, useState, useRef } from "http://localhost:3000/reactMod.mjs";
-    import type { FC } from "http://localhost:3000/reactMod.mjs";
+    import { useEffect, useState, useRef } from "http://localhost:3000/*react?bundle";
+    import type { FC } from "http://localhost:3000/*react?bundle";
     import QRTerminal from "http://localhost:3000/*qrcode-terminal?bundle";
     "
 `;
@@ -42,13 +59,13 @@ exports[`importMapReplace > should replace coder44  1`] = `
 exports[`importMapReplace > should replace dynamic imports 1`] = `
 "
   /** importMapReplace */
-  const React = import("http://localhost:3000/reactMod.mjs");"
+  const React = import("http://localhost:3000/*react?bundle");"
 `;
 
 exports[`importMapReplace > should replace dynamic imports 2`] = `
 "
   /** importMapReplace */
-  const React = import("http://localhost:3000/reactMod.mjs");"
+  const React = import("http://localhost:3000/*react?bundle");"
 `;
 
 exports[`importMapReplace > should replace dynamic imports 3`] = `
@@ -61,7 +78,7 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
 "
   /** importMapReplace */
   
-    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2020/buffer.bundle.mjs"
+    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
       async function loadModule() {
@@ -71,8 +88,8 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
         const module = await import("http://localhost:3000/*some-module?bundle");
         // do something with module
       }
-        import"http://localhost:3000/jsx.mjs";
-        import"http://localhost:3000/reactMod.mjs";
+        import "http://localhost:3000/*react/jsx-runtime?bundle";;
+        import "http://localhost:3000/*react?bundle";;
         async function y(s){await s(m)}
         export{n as Particles,n as default,y as initParticlesEngine};
     "
@@ -82,7 +99,7 @@ exports[`importMapReplace > should replace dynamic imports inside a function 1`]
 "
   /** importMapReplace */
   
-    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2020/buffer.bundle.mjs"
+    import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2022/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
     import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle";
       async function loadModule() {
@@ -105,14 +122,14 @@ exports[`importMapReplace > should replace shadcdn  1`] = `
 "
   /** importMapReplace */
   
-    import { css } from "http://localhost:3000/emotion.mjs";
-    import $ from "http://localhost:3000/reactMod.mjs";
+    import { css } from "http://localhost:3000/*@emotion/react?bundle";
+    import $ from "http://localhost:3000/*react?bundle";
     import { Button } from "http://localhost:3000/@/components/ui/button.mjs";
 
-    import { css  as $kdkd } from "http://localhost:3000/emotion.mjs";
+    import { css  as $kdkd } from "http://localhost:3000/*@emotion/react?bundle";
 
-    import { useEffect, useState, useRef } from "http://localhost:3000/reactMod.mjs";
-    import type { FC } from "http://localhost:3000/reactMod.mjs";
+    import { useEffect, useState, useRef } from "http://localhost:3000/*react?bundle";
+    import type { FC } from "http://localhost:3000/*react?bundle";
     import QRTerminal from "http://localhost:3000/*qrcode-terminal?bundle";
     "
 `;
@@ -126,13 +143,13 @@ exports[`importMapReplace > should replace the live urls 1`] = `
 exports[`importMapReplace > should replace top-level exports 1`] = `
 "
   /** importMapReplace */
-  export { default } from "http://localhost:3000/reactMod.mjs";"
+  export { default } from "http://localhost:3000/*react?bundle";"
 `;
 
 exports[`importMapReplace > should replace top-level imports 1`] = `
 "
   /** importMapReplace */
-  import React from "http://localhost:3000/reactMod.mjs";"
+  import React from "http://localhost:3000/*react?bundle";"
 `;
 
 exports[`importMapReplace > should replace top-level imports with dot in the path 1`] = `

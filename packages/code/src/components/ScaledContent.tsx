@@ -1,5 +1,5 @@
-import { css } from "../emotion";
-import { motion } from "../motion";
+import { css } from "@emotion/react";
+import { motion } from "framer-motion";
 
 export const ScaledContent = (
   { children, innerHeight, width, scale, bgColor, rgba }: {
