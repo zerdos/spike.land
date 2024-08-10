@@ -1,36 +1,42 @@
-import { motion } from "framer-motion";
 import React, { Fragment } from "react";
+import { motion } from "framer-motion";
 import { CodeBlock, programmingLanguages } from "../CodeBlock";
 import { styles } from "./styles";
 
 export const TypingIndicator: React.FC = () => (
   <div className="flex space-x-2 items-center p-2">
     <span className="text-sm text-gray-500">AI is typing</span>
-    <div className="flex space-x-1">
-      {[0, 1, 2].map((dot) => (
-        <motion.div
-          key={dot}
-          className="w-2 h-2 bg-gray-400 rounded-full"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            delay: dot * 0.2,
-          }}
-        />
-      ))}
-    </div>
+    <TypingDots />
   </div>
 );
 
-export const ColorModeToggle: React.FC<
-  { isDarkMode: boolean; toggleDarkMode: () => void }
-> = (
-  { isDarkMode, toggleDarkMode },
-) => (
+const TypingDots: React.FC = () => (
+  <div className="flex space-x-1">
+    {[0, 1, 2].map((dot) => (
+      <AnimatedDot key={dot} delay={dot * 0.2} />
+    ))}
+  </div>
+);
+
+const AnimatedDot: React.FC<{ delay: number }> = ({ delay }) => (
+  <motion.div
+    className="w-2 h-2 bg-gray-400 rounded-full"
+    animate={{
+      scale: [1, 1.2, 1],
+      opacity: [0.5, 1, 0.5],
+    }}
+    transition={{
+      duration: 1,
+      repeat: Infinity,
+      delay,
+    }}
+  />
+);
+
+export const ColorModeToggle: React.FC<{
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}> = ({ isDarkMode, toggleDarkMode }) => (
   <button
     onClick={toggleDarkMode}
     className={`p-2 rounded-full backdrop-blur-sm ${
@@ -44,25 +50,52 @@ export const ColorModeToggle: React.FC<
 );
 
 export const renderMessage = (text: string, isUser: boolean) => {
-  const cleanedText = isUser
-    ? text.split("The user's first message follows:").pop()!.trim().split(
-      "Reminder from the system:",
-    )[0].trim()
-    : text.replace(/<antArtifact.*?>/g, "**```").replace(
-      /<\/antArtifact>/g,
-      "```**",
-    );
+  const cleanedText = cleanMessageText(text, isUser);
+  const parts = parseMessageParts(cleanedText);
 
+  return (
+    <>
+      {parts.map((part, index) => (
+        <Fragment key={index}>
+          {part.type === "text" ? (
+            <TextPart content={part.content} />
+          ) : (
+            <CodeBlock
+              value={part.content}
+              language={part.language || "typescript"}
+            />
+          )}
+        </Fragment>
+      ))}
+    </>
+  );
+};
+
+const cleanMessageText = (text: string, isUser: boolean): string => {
+  if (isUser) {
+    return text
+      .split("The user's first message follows:")
+      .pop()!
+      .trim()
+      .split("Reminder from the system:")[0]
+      .trim();
+  }
+  return text
+    .replace(/<antArtifact.*?>/g, "**```")
+    .replace(/<\/antArtifact>/g, "```**");
+};
+
+const parseMessageParts = (text: string) => {
   const codeBlockRegex = /```(\w+)?\s*([\s\S]*?)```/g;
   const parts = [];
   let lastIndex = 0;
   let match;
 
-  while ((match = codeBlockRegex.exec(cleanedText)) !== null) {
+  while ((match = codeBlockRegex.exec(text)) !== null) {
     if (match.index > lastIndex) {
       parts.push({
         type: "text",
-        content: cleanedText.slice(lastIndex, match.index),
+        content: text.slice(lastIndex, match.index),
       });
     }
 
@@ -80,53 +113,40 @@ export const renderMessage = (text: string, isUser: boolean) => {
     lastIndex = match.index + match[0].length;
   }
 
-  // Check if there's an open code block at the end
-  const lastOpenBlockMatch = cleanedText.slice(lastIndex).match(
-    /```(\w+)?\s*([\s\S]*)/,
-  );
+  const lastOpenBlockMatch = text.slice(lastIndex).match(/```(\w+)?\s*([\s\S]*)/);
   if (lastOpenBlockMatch) {
-    const language = lastOpenBlockMatch[1]
-      ? programmingLanguages[lastOpenBlockMatch[1].toLowerCase()]
-        || lastOpenBlockMatch[1].toLowerCase()
-      : "plaintext";
-    const code = lastOpenBlockMatch[2].trim();
     parts.push({
       type: "code",
-      language,
-      content: code,
+      language: getLanguage(lastOpenBlockMatch[1]),
+      content: lastOpenBlockMatch[2].trim(),
       isStreaming: true,
     });
-  } else if (lastIndex < cleanedText.length) {
+  } else if (lastIndex < text.length) {
     parts.push({
       type: "text",
-      content: cleanedText.slice(lastIndex),
+      content: text.slice(lastIndex),
     });
   }
 
-  return (
-    <>
-      {parts.map((part, index) => (
-        <Fragment key={index}>
-          {part.type === "text"
-            ? (
-              part.content.split("\n").map((line, j) => (
-                <Fragment key={j}>
-                  {j > 0 && <br />}
-                  <span css={styles.smallFontWithMaxWidth}>{line}</span>
-                </Fragment>
-              ))
-            )
-            : (
-              <CodeBlock
-                value={part.content}
-                language={part.language || "typescript"}
-              />
-            )}
-        </Fragment>
-      ))}
-    </>
-  );
+  return parts;
 };
+
+const getLanguage = (lang?: string): string => {
+  if (!lang) return "plaintext";
+  return programmingLanguages[lang.toLowerCase()] || lang.toLowerCase();
+};
+
+const TextPart: React.FC<{ content: string }> = ({ content }) => (
+  <>
+    {content.split("\n").map((line, j) => (
+      <Fragment key={j}>
+        {j > 0 && <br />}
+        <span css={styles.smallFontWithMaxWidth}>{line}</span>
+      </Fragment>
+    ))}
+  </>
+);
+
 export const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
   "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",

@@ -1,4 +1,5 @@
 // build-tasks.mjs
+import { copy } from 'esbuild-plugin-copy';
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
@@ -6,6 +7,7 @@ import { build } from "./buildOperations.ts";
 const environment: "development" | "production" = (Deno as unknown as any).env.get("NODE_ENV") as any;
 
 const isProduction = environment as string === "production";
+const watch = false;
 
 export async function buildWorkers() {
   const workerEntryPoints = [
@@ -198,7 +200,29 @@ export async function buildMainBundle(wasmFile) {
     target: "es2020",
     legalComments: "none",
     platform: "browser",
-    ignoreAnnotations: true,
+    ignoreAnnotations: true,  
+    plugins: [
+      ...buildOptions.plugins,
+      copy({
+        resolveFrom: 'cwd',
+        assets: [{
+          from: ['./src/assets/*'],
+          to: ['./dist/assets']
+        },{
+          from: './src/assets/manifest.json',
+          to: './dist'
+
+        }, {
+          from: './src/index.html',
+          to: './dist'
+
+        }, {
+          from: './src/assets/favicons/favicon.ico',
+          to: './dist'
+
+        }]
+      })
+    ],
     // plugins: [
     //   ReactCompilerEsbuildPlugin({
     //   filter: /\.(jsx|tsx|mjs|ts)$/,
@@ -218,7 +242,6 @@ export async function buildMainBundle(wasmFile) {
       "src/reactDomServer.ts",
       "src/jsx.mjs",
       "src/shared.ts",
-
       "src/Wrapper.tsx",
     ],
     alias: {

@@ -8,12 +8,10 @@ import {
   buildWorkers,
 } from "./build-tasks.ts";
 import { stop } from "./buildOperations.ts";
-import { copyFiles } from "./copyFiles.ts";
 import { getWasmFile } from "./helpers.ts";
 
 async function main() {
   try {
-    await copyFiles();
     await buildWorkers();
     await buildMainScripts();
     await buildWasm();
