@@ -183,7 +183,7 @@ export const build = async ({
       ".woff2": "file",
       ".eot": "file",
       ".otf": "file",
-      ".ttf": "dataurl",
+      ".ttf": "file",
       ".css": "css",
     },
     write: false,
