@@ -108,7 +108,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.0"],\
           ["@heroicons/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:2.1.5"],\
-          ["@langchain/anthropic", "npm:0.2.13"],\
+          ["@langchain/anthropic", "npm:0.2.14"],\
           ["@playwright/test", "npm:1.46.0"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:9.6.0"],\
@@ -2905,10 +2905,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@langchain/anthropic", [\
-      ["npm:0.2.13", {\
-        "packageLocation": "./.yarn/global/cache/@langchain-anthropic-npm-0.2.13-99afc96e87-10.zip/node_modules/@langchain/anthropic/",\
+      ["npm:0.2.14", {\
+        "packageLocation": "./.yarn/global/cache/@langchain-anthropic-npm-0.2.14-e51bf6704a-10.zip/node_modules/@langchain/anthropic/",\
         "packageDependencies": [\
-          ["@langchain/anthropic", "npm:0.2.13"],\
+          ["@langchain/anthropic", "npm:0.2.14"],\
           ["@anthropic-ai/sdk", "npm:0.22.0"],\
           ["@langchain/core", "npm:0.2.21"],\
           ["fast-xml-parser", "npm:4.4.1"],\
@@ -6357,7 +6357,7 @@ const RAW_RUNTIME_STATE =
           ["@helia/strings", "npm:3.0.5"],\
           ["@helia/unixfs", "npm:3.0.7"],\
           ["@hookform/resolvers", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.9.0"],\
-          ["@langchain/anthropic", "npm:0.2.13"],\
+          ["@langchain/anthropic", "npm:0.2.14"],\
           ["@langchain/core", "npm:0.2.23"],\
           ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.0.33"],\
           ["@monaco-editor/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.6.0"],\
@@ -17808,7 +17808,7 @@ const RAW_RUNTIME_STATE =
           ["monorepo", "workspace:."],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.0"],\
           ["@heroicons/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:2.1.5"],\
-          ["@langchain/anthropic", "npm:0.2.13"],\
+          ["@langchain/anthropic", "npm:0.2.14"],\
           ["@playwright/test", "npm:1.46.0"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/eslint", "npm:9.6.0"],\

@@ -1,7 +1,7 @@
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 
 import { wasmFile } from "./esbuildWASM";
-import { fetchPlugin } from "./fetchPlugin.mjs";
+import { fetchPlugin } from "./fetchPlugin";
 import { importMapReplace } from "./importMapReplace";
 
 declare const self: {
@@ -200,7 +200,7 @@ export const build = async ({
     splitting,
     format,
     platform: "browser",
-    entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`],
+    entryPoints: [`${origin}/live/${codeSpace}/wrapper.js`, `${origin}/live/${codeSpace}/index.css`],
     packages: "external",
     plugins: [fetchPlugin(origin)],
   };

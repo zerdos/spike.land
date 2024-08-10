@@ -69,7 +69,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       console.log("Setting value from parent");
       mod.current.i += 1;
 
-      await runner(code, mod.current.i);
+      const formattedCode = await prettierToThrow({ code, toThrow: true });
+      
+      if (mod.current.code === formattedCode) return;
+      mod.current.code = formattedCode;
+
+      await runner(formattedCode, mod.current.i);
 
       setEditorContent(code, true);
     },
@@ -135,24 +140,21 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     lastTypingTimestamp,
   ]);
 
-  const handleBroadcastMessage = useCallback(
-    async ({ data }: { data: ICodeSession }) => {
+  const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
       console.log("Broadcast message", data.i, md5(data.code));
-      if (
-        !data.i || !data.code || data.code === mod.current.code
-        || mod.current.i >= data.i
-      ) {
-        return;
-      }
+      if (data.i <= mod.current.i) return;
+      if (data.i > mod.current.i) {
+        mod.current.i = Number(data.i);
+    
+      if (mod.current.code === data.code) return;
 
-      mod.current.i = Number(data.i);
+
       mod.current.code = data.code;
 
       console.log("Setting editor content", data.i);
       setEditorContent(data.code, true);
-    },
-    [codeSpace, setEditorContent],
-  );
+    }}
+
 
   useBroadcastChannel(
     codeSpace,

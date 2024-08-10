@@ -1,6 +1,7 @@
 import emotion from "@emotion/css-prettifier";
 import type { Options } from "prettier";
 import pluginEstree from "prettier/plugins/estree";
+import cssParser from "prettier/plugins/postcss";
 import pluginTypescript from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 
@@ -70,4 +71,14 @@ export const prettierJs = async (
   }
 };
 
-Object.assign(globalThis, { prettierJs });
+export const prettierCss = async  (inputCSS: string) => format(inputCSS, {
+  parser: "css",
+  printWidth: 80,
+  tabWidth: 2,
+  useTabs: false,
+  singleQuote: false,
+  trailingComma: "none",
+  plugins: [cssParser],
+});
+
+Object.assign(globalThis, { prettierJs, prettierCss });

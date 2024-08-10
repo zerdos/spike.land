@@ -7,6 +7,7 @@ import { useArchive, useSpeedy } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
+import { prettierCss } from "./shared";
 
 Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive, useSpeedy });
 // import { deleteAllServiceWorkers } from "./swUtils";
@@ -144,7 +145,15 @@ const handleRender = async (
     if (signal.aborted) return false;
     const html = rootEl.innerHTML;
     if (html) {
-      const css = mineFromCaches(cache, html);
+      let css = mineFromCaches(cache, html);
+
+      try {
+        console.log("Prettifying CSS");
+        css = await prettierCss(css);
+      } catch (error) {
+        console.error("Error prettifying CSS:", error);
+
+      }
 
       if (mod.counter !== counter) return false;
       BC.postMessage({

@@ -38,6 +38,46 @@ export default {
       return handleCMSIndexRequest(request, env);
     }
 
+    if (request.url.includes("/api/my-turn")) {
+      async function generateTURNCredentials() {
+        const url = 'https://rtc.live.cloudflare.com/v1/turn/keys/88ad1e0d43c4cf72414a8541fccd52a0/credentials/generate';
+        
+        const headers = {
+          'Authorization': 'Bearer '+env['CF_REAL_TURN_TOKEN'],
+          'Content-Type': 'application/json'
+        };
+        
+        const body = JSON.stringify({
+          ttl: 86400
+        });
+      
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: body
+          });
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+      
+          const data = await response.json();
+          return new Response(JSON.stringify(data), {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+        } catch (error) {
+          console.error('Error generating TURN credentials:', error);
+        }
+      }
+      
+      // Call the function
+     return generateTURNCredentials();
+    }
+
     await logger.log(`Request for ${request.url}`);
     return handleMainFetch(request, env, ctx);
   },

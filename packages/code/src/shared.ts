@@ -50,6 +50,12 @@ export const ata = (
     filePath: string;
   }[]>;
 
+export const prettierCss =  (
+  code: string,
+) =>
+  init().rpc("prettierCss", code) as Promise<string>;
+
+  
 export const tsx = (
   code: string,
 ) =>
@@ -90,7 +96,7 @@ export const build = (
     format: "esm" | "iife";
   },
 ) =>
-  init().rpc("build", {
+  init().rpc("build", { 
     codeSpace,
     origin,
     format,

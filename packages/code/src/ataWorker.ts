@@ -2,14 +2,14 @@ import { rpcFactory } from "./workerRpc";
 // import register from "./BroadcastLogger";
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
-import type { prettierJs as Prettier } from "./prettierEsm";
+import type { prettierJs as Prettier, prettierCss as PrettierCSS } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 
 import { Mutex } from "async-mutex";
 
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 
-import { wait } from "./wait";
+
 // register();
 const policy = {
   timeout: 4000,
@@ -20,6 +20,7 @@ const policy = {
 declare var self:
   & SharedWorkerGlobalScope
   & { ata: typeof Ata }
+  & { prettierCss: typeof PrettierCSS }
   & {
     prettierJs: typeof Prettier;
   }
@@ -32,7 +33,7 @@ importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/transpile.js");
 
-const { ata, prettierJs, transpile, build, tsx } = self;
+const { ata, prettierJs, transpile, build, tsx , prettierCss} = self;
 const start = (port: MessagePort) => {
   // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
@@ -44,6 +45,13 @@ const start = (port: MessagePort) => {
     "prettierJs",
     ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
   );
+
+  rpcProvider.registerRpcHandler(
+    "prettierCss",
+    (code: string) => prettierCss(code),
+  );
+
+
 
   rpcProvider.registerRpcHandler(
     "ata",

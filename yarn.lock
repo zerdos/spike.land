@@ -1980,16 +1980,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/anthropic@npm:^0.2.13":
-  version: 0.2.13
-  resolution: "@langchain/anthropic@npm:0.2.13"
+"@langchain/anthropic@npm:^0.2.14":
+  version: 0.2.14
+  resolution: "@langchain/anthropic@npm:0.2.14"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.22.0"
     "@langchain/core": "npm:>=0.2.21 <0.3.0"
     fast-xml-parser: "npm:^4.4.1"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.4"
-  checksum: 10/b2d5b096329c85f75da0b9c89ffbea6e2f24de324057a6f6078ad5528c9da6786eda3e462a3b9b23b2c296f650543be0919be0271150025c4614424797ac371f
+  checksum: 10/d80eef3662a177a3a43196f62fa7495ff09697b478682ed247ea363d89063dd929b6fb449503d34760b513ae6749e6561b30331409fe10f5775e1e648a17bbca
   languageName: node
   linkType: hard
 
@@ -4702,7 +4702,7 @@ __metadata:
     "@helia/strings": "npm:^3.0.5"
     "@helia/unixfs": "npm:^3.0.7"
     "@hookform/resolvers": "npm:^3.9.0"
-    "@langchain/anthropic": "npm:^0.2.13"
+    "@langchain/anthropic": "npm:^0.2.14"
     "@langchain/core": "npm:^0.2.23"
     "@langchain/langgraph": "npm:^0.0.33"
     "@monaco-editor/react": "npm:^4.6.0"
@@ -14449,7 +14449,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:11.13.0"
     "@heroicons/react": "npm:^2.1.5"
-    "@langchain/anthropic": "npm:^0.2.13"
+    "@langchain/anthropic": "npm:^0.2.14"
     "@playwright/test": "npm:1.46.0"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:9.6.0"
