@@ -69,7 +69,7 @@ export const useSpeedy = async (codeSpace: string) => {
     try {
       return await build({
         codeSpace,
-        splitting: true,
+        splitting: false,
         entryPoint,
         origin: location.origin,
         format: "esm",
@@ -79,7 +79,7 @@ export const useSpeedy = async (codeSpace: string) => {
       await wait(1000);
       return await build({
         codeSpace,
-        splitting: true,
+        splitting: false,
         entryPoint,
         origin: location.origin,
         format: "esm",
@@ -87,7 +87,7 @@ export const useSpeedy = async (codeSpace: string) => {
     }
   };
 
-  const indexMjs = (await buildWithRetry())[0].text;
+  const indexMjs = (await buildWithRetry())
 
   const indexCss = (await buildWithRetry(origin + `/live/${codeSpace}/index.css`))[0].text;
 

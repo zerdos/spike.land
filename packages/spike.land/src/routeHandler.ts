@@ -370,6 +370,7 @@ export class RouteHandler {
     const origin: string = this.code.getOrigin();
 
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
+    import "${origin}/live/${codeSpace}/index.css";
     import { renderApp } from "${origin}/Wrapper.mjs";
     
     const render =  () => renderApp({ App, rootElement: document.getElementById("root") });

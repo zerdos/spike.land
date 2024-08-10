@@ -1,4 +1,5 @@
 import { Plugin } from "esbuild-wasm";
+import { enhancedFetch } from "./enhancedFetch.ts";
 
 export const fetchPlugin = () => ({
   name: "http",
@@ -60,7 +61,7 @@ async function processCSS(css: string, baseURL: string): Promise<string> {
   for (const match of imports) {
     const importUrl = match[1] || match[2];
     const absoluteUrl = new URL(importUrl, baseURL).toString();
-    const importedCSS = await fetch(absoluteUrl).then(res => res.text());
+    const importedCSS = await enhancedFetch(absoluteUrl).then(res => res.text());
     const processedImportedCSS = await processCSS(importedCSS, absoluteUrl);
     css = css.replace(match[0], processedImportedCSS);
   }

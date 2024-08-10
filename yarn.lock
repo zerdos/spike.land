@@ -4764,7 +4764,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.1"
     "@vitest/ui": "npm:^2.0.5"
     ace-builds: "npm:1.35.4"
-    ai-digest: "npm:^1.0.4"
+    ai-digest: "npm:^1.0.5"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
     ast-module-types: "npm:6.0.0"
@@ -6394,9 +6394,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ai-digest@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "ai-digest@npm:1.0.4"
+"ai-digest@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "ai-digest@npm:1.0.5"
   dependencies:
     commander: "npm:^12.1.0"
     glob: "npm:^11.0.0"
@@ -6405,7 +6405,7 @@ __metadata:
     js-tiktoken: "npm:^1.0.12"
   bin:
     ai-digest: dist/index.js
-  checksum: 10/17ad3d148aae94ef68a11aacd4ad573e9bee6c26b797344a99b5f21342435a779171eddfc1cf74b6ed55fe5eed88c870940be17e0f80578d4cf5561c7446add4
+  checksum: 10/86ecf3774671048119e5c4c23a51588e416e7512344fd268a35a64ea1c2530a73690048b245d0bebd80ec3d1eb87c496c34c6c36595d4ef0dc1c9b0146504afa
   languageName: node
   linkType: hard
 

@@ -6419,7 +6419,7 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.3.1"],\
           ["@vitest/ui", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.0.5"],\
           ["ace-builds", "npm:1.35.4"],\
-          ["ai-digest", "npm:1.0.4"],\
+          ["ai-digest", "npm:1.0.5"],\
           ["assert", "npm:2.1.0"],\
           ["assert-browserify", "npm:2.0.0"],\
           ["ast-module-types", "npm:6.0.0"],\
@@ -8612,10 +8612,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["ai-digest", [\
-      ["npm:1.0.4", {\
-        "packageLocation": "./.yarn/global/cache/ai-digest-npm-1.0.4-171f9d11e2-10.zip/node_modules/ai-digest/",\
+      ["npm:1.0.5", {\
+        "packageLocation": "./.yarn/global/cache/ai-digest-npm-1.0.5-243f336626-10.zip/node_modules/ai-digest/",\
         "packageDependencies": [\
-          ["ai-digest", "npm:1.0.4"],\
+          ["ai-digest", "npm:1.0.5"],\
           ["commander", "npm:12.1.0"],\
           ["glob", "npm:11.0.0"],\
           ["ignore", "npm:5.3.1"],\
