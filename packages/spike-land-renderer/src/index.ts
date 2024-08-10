@@ -10,7 +10,7 @@ export default {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
     let sleep = searchParams.get("sleep");
-		let top = searchParams.get("top");
+    let top = searchParams.get("top");
 
     // let scrollTop	= searchParams.get("scrollTop");
 
@@ -26,14 +26,14 @@ export default {
         await page.goto(url);
         await wait(sleep ? parseInt(sleep) ?? 0 : 1000);
 
-				if (top){
-					await page.evaluate((_) => {
-						window.scrollBy({
-								top,
-								behavior: "smooth",
-						});
-				});
-			}
+        if (top) {
+          await page.evaluate((_) => {
+            window.scrollBy({
+              top,
+              behavior: "smooth",
+            });
+          });
+        }
 
         img = (await page.screenshot({ type: "jpeg" })) as Buffer;
         await env.BROWSER_KV_SPIKE_LAND.put(url, img, {

@@ -1,5 +1,5 @@
 // build-tasks.mjs
-import { copy } from 'esbuild-plugin-copy';
+import { copy } from "esbuild-plugin-copy";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
@@ -177,8 +177,6 @@ export async function buildMainBundle(wasmFile) {
     ],
   });
 
-
-
   const extraAliases = {};
   components.forEach((component) => {
     const key = `@/components/ui/${component}`;
@@ -202,31 +200,28 @@ export async function buildMainBundle(wasmFile) {
     target: "es2020",
     legalComments: "none",
     platform: "browser",
-    ignoreAnnotations: true,  
+    ignoreAnnotations: true,
     plugins: [
       ...buildOptions.plugins,
       copy({
-        resolveFrom: 'cwd',
+        resolveFrom: "cwd",
         assets: [{
-          from: ['./src/assets/*'],
-          to: ['./dist/assets']
-        },{
-          from: './src/assets/manifest.json',
-          to: './dist'
-
+          from: ["./src/assets/*"],
+          to: ["./dist/assets"],
         }, {
-          from: './src/index.html',
-          to: './dist'
-
+          from: "./src/assets/manifest.json",
+          to: "./dist",
         }, {
-          from: './src/assets/favicons/favicon.ico',
-          to: './dist'
-
-        },{
-          from: './src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png',
-          to: './dist/favicons/chunk-chunk-fe2f7da4f9ccc2.png'
-        }]
-      })
+          from: "./src/index.html",
+          to: "./dist",
+        }, {
+          from: "./src/assets/favicons/favicon.ico",
+          to: "./dist",
+        }, {
+          from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+          to: "./dist/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+        }],
+      }),
     ],
     // plugins: [
     //   ReactCompilerEsbuildPlugin({

@@ -25,7 +25,7 @@ export interface ChatContainerProps {
 export interface MessageInputProps {
   input: string;
   setInput: (value: string) => void;
-  handleSendMessage: (value: string, screenshot?:  string) => void;
+  handleSendMessage: (value: string, screenshot?: string) => void;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
 }

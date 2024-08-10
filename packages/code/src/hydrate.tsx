@@ -27,7 +27,9 @@ const createDirectories = async () => {
 };
 
 const setupServiceWorker = async () => {
-  if (!navigator.serviceWorker || localStorage.getItem("sw") === "false" || location.origin.indexOf('localhost')!==-1  ) {
+  if (
+    !navigator.serviceWorker || localStorage.getItem("sw") === "false" || location.origin.indexOf("localhost") !== -1
+  ) {
     return null;
   }
 
@@ -186,7 +188,7 @@ const handleDefaultPage = () => {
 
       // Override console methods
       ["log", "info", "warn", "error"].forEach(function(method) {
-      (console as any)[method] = function() {
+        (console as any)[method] = function() {
           // Call the original method
           (originalConsole as any)[method].apply(console, arguments);
 

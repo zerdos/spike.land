@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
 import { motion } from "framer-motion";
+import React, { Fragment } from "react";
 import { CodeBlock, programmingLanguages } from "../CodeBlock";
 import { styles } from "./styles";
 
@@ -12,9 +12,7 @@ export const TypingIndicator: React.FC = () => (
 
 const TypingDots: React.FC = () => (
   <div className="flex space-x-1">
-    {[0, 1, 2].map((dot) => (
-      <AnimatedDot key={dot} delay={dot * 0.2} />
-    ))}
+    {[0, 1, 2].map((dot) => <AnimatedDot key={dot} delay={dot * 0.2} />)}
   </div>
 );
 
@@ -57,9 +55,7 @@ export const renderMessage = (text: string, isUser: boolean) => {
     <>
       {parts.map((part, index) => (
         <Fragment key={index}>
-          {part.type === "text" ? (
-            <TextPart content={part.content} />
-          ) : (
+          {part.type === "text" ? <TextPart content={part.content} /> : (
             <CodeBlock
               value={part.content}
               language={part.language || "typescript"}

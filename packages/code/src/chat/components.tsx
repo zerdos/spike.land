@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
+import { Message } from "@src/types/Message";
+import { wait } from "@src/wait";
+import { set } from "lodash";
 import React, { useEffect } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Message } from "@src/types/Message";
-import { set } from "lodash";
-import { wait } from "@src/wait";
 
 export const ChatMessage: React.FC<{
   message: Message;
@@ -66,7 +66,14 @@ export const ChatMessage: React.FC<{
           )
           : (
             <div className="break-words">
-              {renderMessage(typeof message.content === "string" ? message.content : message.content[1].type==='text'? message.content[1].text: '' as string, isUser)}
+              {renderMessage(
+                typeof message.content === "string"
+                  ? message.content
+                  : message.content[1].type === "text"
+                  ? message.content[1].text
+                  : "" as string,
+                isUser,
+              )}
             </div>
           )}
       </div>
@@ -140,26 +147,24 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
 
 const codeSpace = location.pathname.split("/")[2];
 
-const screenshotToBase64Maker = async() =>{
+const screenshotToBase64Maker = async () => {
+  let base64 = "";
+  await globalThis.enhancedFetch(
+    `https://spike-land-renderer.spikeland.workers.dev/?url=${location.origin}/live/${codeSpace}/&sleep=4000`,
+  )
+    .then(response => response.blob())
+    .then(blob => {
+      var reader = new FileReader();
+      reader.onload = function() {
+        base64 = this.result as string;
+      }; // <--- `this.result` contains a base64 data URI
+      reader.readAsDataURL(blob);
+    });
 
-    let base64 = "";
-    await globalThis.enhancedFetch(
-      `https://spike-land-renderer.spikeland.workers.dev/?url=${location.origin}/live/${codeSpace}/&sleep=4000`,
-    )
-      .then(response => response.blob())
-      .then(blob => {
-        var reader = new FileReader();
-        reader.onload = function() {
-          base64 = this.result as string;
-        }; // <--- `this.result` contains a base64 data URI
-        reader.readAsDataURL(blob);
-      });
+  await wait(1000);
 
-    await wait(1000);
-
-    return base64;
-
-}
+  return base64;
+};
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -168,63 +173,62 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   isStreaming,
   inputRef,
 }) => {
-  const [isScreenshotAttached, setIsScreenshotAttached] = React.useState<boolean | string>(false );  
+  const [isScreenshotAttached, setIsScreenshotAttached] = React.useState<boolean | string>(false);
   const [screenshotLoaded, setScreenshotLoaded] = React.useState(false);
 
-
-  useEffect(()=>{
-    if (isScreenshotAttached && !screenshotLoaded){
-      setScreenshotLoaded(true)
-      screenshotToBase64Maker().then((base64:string)=>{
-      
+  useEffect(() => {
+    if (isScreenshotAttached && !screenshotLoaded) {
+      setScreenshotLoaded(true);
+      screenshotToBase64Maker().then((base64: string) => {
         setIsScreenshotAttached(base64);
-      } )
-
+      });
     }
-  return ()=>{}
-  }, [isScreenshotAttached])
-  
-  return <div className="p-2 bg-background mt-auto">
-    <div className="flex items-end space-x-2">
-      <Textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyPress={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSendMessage(input, isScreenshotAttached);
-          }
-        }}
-        placeholder="Type a message..."
-        className="flex-1 min-h-[40px] max-h-[120px] resize-none"
-        ref={inputRef}
-      />
-      <div className="flex items-center space-x-2">
+    return () => {};
+  }, [isScreenshotAttached]);
+
+  return (
+    <div className="p-2 bg-background mt-auto">
+      <div className="flex items-end space-x-2">
+        <Textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSendMessage(input, isScreenshotAttached);
+            }
+          }}
+          placeholder="Type a message..."
+          className="flex-1 min-h-[40px] max-h-[120px] resize-none"
+          ref={inputRef}
+        />
         <div className="flex items-center space-x-2">
-          <Checkbox
-            id="screenshot"
-            checked={isScreenshotAttached}
-            onCheckedChange={(checked) => setIsScreenshotAttached(checked as boolean)}
-          />
-          <label
-            htmlFor="screenshot"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="screenshot"
+              checked={isScreenshotAttached}
+              onCheckedChange={(checked) => setIsScreenshotAttached(checked as boolean)}
+            />
+            <label
+              htmlFor="screenshot"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              <div className="h-4 w-4" />
+            </label>
+          </div>
+          <Button
+            onClick={() => handleSendMessage(input, isScreenshotAttached)}
+            disabled={isStreaming || input.trim() === ""}
+            size="icon"
           >
-            <div className="h-4 w-4" />
-          </label>
+            <Send className="h-4 w-4" />
+          </Button>
         </div>
-        <Button
-          onClick={() => handleSendMessage(input, isScreenshotAttached)}
-          disabled={isStreaming || input.trim() === ""}
-          size="icon"
-        >
-          <Send className="h-4 w-4" />
-        </Button>
       </div>
     </div>
-  </div>
-}  
-    
+  );
+};
+
 export const ChatWindow: React.FC<ChatWindowProps> = ({
   children,
   isOpen,
