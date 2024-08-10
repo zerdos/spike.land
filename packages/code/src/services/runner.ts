@@ -1,6 +1,6 @@
 import { createJsBlob } from "@src/components/AppRenderer";
 import { transpile } from "@src/shared";
-
+import {toString} from "@src/renderToString";
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
 const codeSpace = location.pathname.split("/")[2];
@@ -54,7 +54,7 @@ export const runner = async (code: string, i = 0) => {
     const App = (await import(createJsBlob(transpiled))).default;
 
     const html = toString(App);
-    if (!html) {
+    if (!html || html.includes("ops! Something went wrong")) {
       console.error("Error in runner: no html");
 
       return;
