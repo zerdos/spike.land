@@ -1,7 +1,7 @@
 import { createJsBlob } from "@src/components/AppRenderer";
-import { prettierToThrow, transpile } from "@src/shared";
-import {toString} from "@src/renderToString";
 import { prettierJs } from "@src/prettierEsm";
+import { toString } from "@src/renderToString";
+import { prettierToThrow, transpile } from "@src/shared";
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
 const codeSpace = location.pathname.split("/")[2];
@@ -36,13 +36,11 @@ fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) 
   };
 
 export const runner = async (code: string, i = 0) => {
-
   let formattedCode = "";
   try {
-    formattedCode = await prettierToThrow({code, toThrow: true});
-    
-    if (formattedCode === mod.code)  return;
+    formattedCode = await prettierToThrow({ code, toThrow: true });
 
+    if (formattedCode === mod.code) return;
   } catch (error) {
     console.error("Error in runner:", error);
   }
@@ -55,7 +53,6 @@ export const runner = async (code: string, i = 0) => {
     mod.controller = new AbortController();
     const signal = mod.controller.signal;
     if (signal.aborted) return;
-
 
     console.log("Running code", i);
 

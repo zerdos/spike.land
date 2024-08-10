@@ -50,12 +50,10 @@ export const ata = (
     filePath: string;
   }[]>;
 
-export const prettierCss =  (
+export const prettierCss = (
   code: string,
-) =>
-  init().rpc("prettierCss", code) as Promise<string>;
+) => init().rpc("prettierCss", code) as Promise<string>;
 
-  
 export const tsx = (
   code: string,
 ) =>
@@ -89,7 +87,7 @@ export const transpile = async (
 };
 
 export const build = (
-  { codeSpace, origin, format = "esm", splitting = false, entryPoint = "" }:  {
+  { codeSpace, origin, format = "esm", splitting = false, entryPoint = "" }: {
     codeSpace: string;
     splitting?: boolean;
     origin: string;
@@ -97,7 +95,7 @@ export const build = (
     format: "esm" | "iife";
   },
 ) =>
-  init().rpc("build", { 
+  init().rpc("build", {
     codeSpace,
     origin,
     splitting,

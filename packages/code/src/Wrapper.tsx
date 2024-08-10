@@ -4,9 +4,9 @@ import { ParentSize } from "@visx/responsive";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { md5 } from "./md5";
 import { transpile } from "./shared";
-import ErrorBoundary from "./components/ErrorBoundary";
 
 export { md5 };
 
@@ -216,11 +216,11 @@ export const renderApp = async ({
 
     root.render(
       <ErrorBoundary>
-      <CacheProvider value={cssCache}>
-        <ParentSize>
-          {(props) => <AppToRender {...props} />}
-        </ParentSize>
-      </CacheProvider>
+        <CacheProvider value={cssCache}>
+          <ParentSize>
+            {(props) => <AppToRender {...props} />}
+          </ParentSize>
+        </CacheProvider>
       </ErrorBoundary>,
     );
 

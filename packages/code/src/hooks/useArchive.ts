@@ -2,7 +2,6 @@ import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
 
-
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {
     try {
@@ -66,7 +65,7 @@ export const useArchive = async (codeSpace: string) => {
 };
 
 export const useSpeedy = async (codeSpace: string) => {
-  const buildWithRetry = async (entryPoint='') => {
+  const buildWithRetry = async (entryPoint = "") => {
     try {
       return await build({
         codeSpace,
@@ -90,10 +89,9 @@ export const useSpeedy = async (codeSpace: string) => {
 
   const indexMjs = (await buildWithRetry())[0].text;
 
-  const indexCss = (await buildWithRetry(origin+`/live/${codeSpace}/index.css`))[0].text;
-  
-  console.log({ indexMjs, indexCss });
+  const indexCss = (await buildWithRetry(origin + `/live/${codeSpace}/index.css`))[0].text;
 
+  console.log({ indexMjs, indexCss });
 
   const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
   const css = indexCss;

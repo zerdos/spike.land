@@ -1,9 +1,9 @@
 import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-wasm";
 
+import { entries } from "lodash";
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin";
 import { importMapReplace } from "./importMapReplace";
-import { entries } from "lodash";
 
 declare const self: {
   mod: {
@@ -179,17 +179,13 @@ export const build = async ({
       ".jpeg": "dataurl",
       ".gif": "dataurl",
       ".svg": "dataurl",
-      ".woff": "dataurl",
-      ".woff2": "dataurl",
-      ".eot": "dataurl",
-      ".otf": "dataurl",
-      ".webp": "dataurl",
-      ".css": "dataurl",
-      ".ttf": "dataurl",
+      ".woff": "file",
+      ".woff2": "file",
+      ".eot": "file",
+      ".otf": "file",
+      ".ttf": "file",
+      ".css": "css",
     },
-    outExtension: { ".js": ".mjs",
-      ".css": ".css"
-     },
     write: false,
     target: "es2022",
     outdir: `${origin}/live/${codeSpace}/`,
@@ -205,12 +201,17 @@ export const build = async ({
     splitting,
     format,
     platform: "browser",
-    entryPoints:  entryPoint? [entryPoint] :[ 
-      `${origin}/live/${codeSpace}/wrapper.js`, 
-    //  `${origin}/live/${codeSpace}/index.css`
-    ],
+    outExtension: { ".js": ".mjs", ".css": ".css" },
+    entryPoints: entryPoint
+      ? [entryPoint]
+      : [
+        `${origin}/live/${codeSpace}/wrapper.js`,
+        `${origin}/live/${codeSpace}/index.css`, // Add this line to include CSS
+      ],
     packages: "external",
     plugins: [fetchPlugin(origin)],
+    assetNames: "assets/[name]-[hash]",
+    publicPath: "/",
   };
 
   try {

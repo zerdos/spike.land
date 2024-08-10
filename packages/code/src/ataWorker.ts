@@ -2,13 +2,12 @@ import { rpcFactory } from "./workerRpc";
 // import register from "./BroadcastLogger";
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
-import type { prettierJs as Prettier, prettierCss as PrettierCSS } from "./prettierEsm";
+import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 
 import { Mutex } from "async-mutex";
 
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
-
 
 // register();
 const policy = {
@@ -33,7 +32,7 @@ importScripts("/workerScripts/ata.js");
 importScripts("/workerScripts/prettierEsm.js");
 importScripts("/workerScripts/transpile.js");
 
-const { ata, prettierJs, transpile, build, tsx , prettierCss} = self;
+const { ata, prettierJs, transpile, build, tsx, prettierCss } = self;
 const start = (port: MessagePort) => {
   // All your normal Worker and SharedWorker stuff can be placed here and should just work, with no extra setup required
 
@@ -51,8 +50,6 @@ const start = (port: MessagePort) => {
     (code: string) => prettierCss(code),
   );
 
-
-
   rpcProvider.registerRpcHandler(
     "ata",
     ({ code, originToUse }: { code: string; originToUse: string }) => {
@@ -68,7 +65,7 @@ const start = (port: MessagePort) => {
   rpcProvider.registerRpcHandler(
     "build",
     (
-      { codeSpace, origin, format, splitting, entryPoint}: {
+      { codeSpace, origin, format, splitting, entryPoint }: {
         codeSpace: string;
         splitting?: boolean;
         entryPoint?: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -13,8 +13,8 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     // You can log the error to an error reporting service
-    console.log('Error:', error);
-    console.log('Error Info:', errorInfo);
+    console.log("Error:", error);
+    console.log("Error Info:", errorInfo);
   }
 
   render() {
@@ -23,7 +23,10 @@ export class ErrorBoundary extends React.Component {
       return (
         <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
           <h1 className="text-lg font-bold mb-2">Oops! Something went wrong.</h1>
-          <p>We're sorry for the inconvenience. Please try refreshing the page or contact support if the problem persists.</p>
+          <p>
+            We're sorry for the inconvenience. Please try refreshing the page or contact support if the problem
+            persists.
+          </p>
         </div>
       );
     }

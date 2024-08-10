@@ -70,7 +70,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       mod.current.i += 1;
 
       const formattedCode = await prettierToThrow({ code, toThrow: true });
-      
+
       if (mod.current.code === formattedCode) return;
       mod.current.code = formattedCode;
 
@@ -141,20 +141,19 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   ]);
 
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
-      console.log("Broadcast message", data.i, md5(data.code));
-      if (data.i <= mod.current.i) return;
-      if (data.i > mod.current.i) {
-        mod.current.i = Number(data.i);
-    
-      if (mod.current.code === data.code) return;
+    console.log("Broadcast message", data.i, md5(data.code));
+    if (data.i <= mod.current.i) return;
+    if (data.i > mod.current.i) {
+      mod.current.i = Number(data.i);
 
+      if (mod.current.code === data.code) return;
 
       mod.current.code = data.code;
 
       console.log("Setting editor content", data.i);
       setEditorContent(data.code, true);
-    }}
-
+    }
+  };
 
   useBroadcastChannel(
     codeSpace,

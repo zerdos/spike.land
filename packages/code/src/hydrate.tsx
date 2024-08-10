@@ -5,9 +5,9 @@ import { enhancedFetch } from "./enhancedFetch";
 import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
 import { useArchive, useSpeedy } from "./hooks/useArchive";
 import { mkdir } from "./memfs";
+import { prettierCss } from "./shared";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
-import { prettierCss } from "./shared";
 
 Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive, useSpeedy });
 // import { deleteAllServiceWorkers } from "./swUtils";
@@ -152,7 +152,6 @@ const handleRender = async (
         css = await prettierCss(css);
       } catch (error) {
         console.error("Error prettifying CSS:", error);
-
       }
 
       if (mod.counter !== counter) return false;

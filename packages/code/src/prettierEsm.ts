@@ -71,14 +71,15 @@ export const prettierJs = async (
   }
 };
 
-export const prettierCss = async  (inputCSS: string) => format(inputCSS, {
-  parser: "css",
-  printWidth: 80,
-  tabWidth: 2,
-  useTabs: false,
-  singleQuote: false,
-  trailingComma: "none",
-  plugins: [cssParser],
-});
+export const prettierCss = async (inputCSS: string) =>
+  format(inputCSS, {
+    parser: "css",
+    printWidth: 80,
+    tabWidth: 2,
+    useTabs: false,
+    singleQuote: false,
+    trailingComma: "none",
+    plugins: [cssParser],
+  });
 
 Object.assign(globalThis, { prettierJs, prettierCss });
