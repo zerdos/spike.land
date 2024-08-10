@@ -1,9 +1,17 @@
 import { md5 } from "./md5";
 
-let stringHelia = null;
+let stringHelia: {
+  helia: any;
+  fs: any;
+  str: any;
+} = {
+  helia: null,
+  fs: null,
+  str: null,
+};
 
 const init = async () => {
-  if (stringHelia === null) {
+  if (stringHelia.fs === null) {
     const { createHelia } = await import("helia");
     // import { json } from "@helia/json";
     const { strings } = await import("@helia/strings");
@@ -53,7 +61,7 @@ export const addFile = async (content: Uint8Array, path: string) => {
   const { fs } = await init();
   // create an empty dir and a file, then add the file to the dir
   const emptyDirCid = await fs.addDirectory();
-  const fileCid = await fs.addBytes(content);
+  // const fileCid = await fs.addBytes(content);
   const updateDirCid = await fs.cp(content, emptyDirCid, path);
 
   // or doing the same thing as a stream

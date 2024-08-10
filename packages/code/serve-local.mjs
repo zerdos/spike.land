@@ -1,9 +1,10 @@
 import handler from 'serve-handler';
 import http from 'http';
 import { promises as fs } from 'fs';
-import {importMap} from "./dist/modules.mjs"
+import {importMap, importMapReplace} from "./dist/modules.mjs"
 
 const importMapFiles = Object.values(importMap.imports)
+const importMapLibs = Object.keys(importMap.imports);
 console.log(importMapFiles)
 
 const proxyHandler = async(request, response) => {
@@ -14,7 +15,19 @@ const proxyHandler = async(request, response) => {
     
     // Fetch the resource from the proxy server
     const proxyResponse = await fetch(proxyUrl);
-    const content = await proxyResponse.arrayBuffer();
+    
+    const conte = await proxyResponse.text();
+
+    let needReplace = false;
+    importMapLibs.forEach((lib)=>{
+        if (conte.includes(lib)){
+            needReplace = true
+        }
+    })
+    const rep1 = conte.split('https://testing.spike.land/').join("/");
+    const content = needReplace? importMapReplace(rep1, 'http://localhost:3000'): rep1;
+    const textEncoder = new TextEncoder();
+    const arrayBu = textEncoder.encode(content);
 
     // Set the response headers from the proxy response
     for (const [key, value] of proxyResponse.headers.entries()) {
@@ -27,7 +40,7 @@ const proxyHandler = async(request, response) => {
     response.statusCode = proxyResponse.status;
 
     // Convert the blob to a buffer and send it
-    const buffer = Buffer.from(content);
+    const buffer = Buffer.from(arrayBu);
     response.end(buffer);
 }
 
@@ -52,7 +65,31 @@ return        await proxyHandler(request, response);
 
     try {
         // Check if the file exists locally
+        console.log('chaek if it is local')
         await fs.access(localPath);
+        console.log('trying to serve locally')
+        if (localPath.endsWith(".mjs") && localPath.indexOf('chunk') ===-1  && localPath.indexOf('worker')===-1  ) {
+            const textfile = await fs.readFile(localPath)
+            const str = await textfile.toString()
+
+            let needReplace = false;
+            importMapLibs.forEach((lib)=>{
+                if (content.includes(lib)){
+                    needReplace = true
+                }
+            })
+
+            const imapped = needReplace?importMapReplace(str, 'http://localhost:3000'):str;
+            const arrBuff = new TextEncoder().encode(imapped)
+            const buffer = Buffer.from(arrBuff);
+
+            response.setHeader('content-type', "application/javascript; charset=utf-8")
+            response.setHeader('cache-control', 'no-cache')
+
+            // Set the status code from the proxy response
+            response.statusCode = 200;
+         return   response.end(buffer);
+        }
         
         console.log('File found locally:', localPath);
      return   await handler(request, response, { public: './dist' });

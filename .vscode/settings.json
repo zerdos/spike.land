@@ -38,6 +38,7 @@
     "esbuild-wasm",
     "esms",
     "filecache",
+    "Helia",
     "ipfs",
     "jsximportsource",
     "metafile",

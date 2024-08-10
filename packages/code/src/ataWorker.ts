@@ -211,7 +211,8 @@ function setConnections(signal: string) {
         return code !== 1008;
       },
     };
-    const url = `wss://${location.host}/live/${codeSpace}/websocket`;
+    const host = location.host === 'localhost'? 'testing.spike.land': location.host;
+    const url = `wss://${host}/live/${codeSpace}/websocket`;
     const ws = new BufferedSocket(new StableSocket(url, delegate, policy));
     ws.open();
 

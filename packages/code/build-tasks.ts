@@ -177,6 +177,8 @@ export async function buildMainBundle(wasmFile) {
     ],
   });
 
+
+
   const extraAliases = {};
   components.forEach((component) => {
     const key = `@/components/ui/${component}`;
@@ -220,6 +222,9 @@ export async function buildMainBundle(wasmFile) {
           from: './src/assets/favicons/favicon.ico',
           to: './dist'
 
+        },{
+          from: './src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png',
+          to: './dist/favicons/chunk-chunk-fe2f7da4f9ccc2.png'
         }]
       })
     ],

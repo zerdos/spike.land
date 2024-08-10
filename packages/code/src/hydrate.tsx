@@ -27,7 +27,7 @@ const createDirectories = async () => {
 };
 
 const setupServiceWorker = async () => {
-  if (!navigator.serviceWorker || localStorage.getItem("sw") === "false") {
+  if (!navigator.serviceWorker || localStorage.getItem("sw") === "false" || location.origin.indexOf('localhost')!==-1  ) {
     return null;
   }
 
@@ -55,7 +55,7 @@ const handleLivePage = async () => {
   // Script to be placed in the parent window
   window.addEventListener("message", function(event) {
     if (event.data && event.data.type === "console") {
-      console[event.data.method].apply(console, event.data.args);
+      (console as any)[event.data.method].apply(console, event.data.args);
     }
   });
 
@@ -173,9 +173,9 @@ const handleDefaultPage = () => {
       };
 
       // Function to safely stringify objects
-      function safeStringify(obj) {
+      function safeStringify(obj: unknown) {
         if (obj && typeof obj === "object") {
-          return JSON.stringify(obj, function(key, value) {
+          return JSON.stringify(obj, function(_key, value) {
             if (value instanceof Node) return "[DOM Element]";
             if (value instanceof Error) return `[${value.name}: ${value.message}]`;
             return value;
@@ -186,9 +186,9 @@ const handleDefaultPage = () => {
 
       // Override console methods
       ["log", "info", "warn", "error"].forEach(function(method) {
-        console[method] = function() {
+      (console as any)[method] = function() {
           // Call the original method
-          originalConsole[method].apply(console, arguments);
+          (originalConsole as any)[method].apply(console, arguments);
 
           // Safely stringify the arguments
           var args = Array.prototype.slice.call(arguments).map(safeStringify);
