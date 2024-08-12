@@ -394,7 +394,9 @@ export class RouteHandler {
   private async handleScreenShotRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
-    return fetch(`https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/&sleep=4000`);
+    return fetch(
+      `https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/&sleep=4000`,
+    );
   }
 
   private async handleRenderToStr(request: Request, url: URL): Promise<Response> {

@@ -145,7 +145,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   );
 };
 
-
 const screenshotToBase64Maker = async () => {
   let base64 = "";
   await fetch(
