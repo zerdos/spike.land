@@ -145,12 +145,11 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   );
 };
 
-const codeSpace = location.pathname.split("/")[2];
 
 const screenshotToBase64Maker = async () => {
   let base64 = "";
   await fetch(
-    `/api/screenshot?codeSpace=${codeSpace}`,
+    `/api/screenshot`,
   )
     .then(response => response.blob())
     .then(blob => {
