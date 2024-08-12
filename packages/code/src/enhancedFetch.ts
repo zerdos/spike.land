@@ -1,4 +1,3 @@
-
 export const serverFetchUrl = "/api/server-fetch";
 
 export async function enhancedFetch(url: RequestInfo | URL, options: RequestInit = {}) {
@@ -9,8 +8,7 @@ export async function enhancedFetch(url: RequestInfo | URL, options: RequestInit
     ? anySignal([originalSignal, controller.signal])
     : controller.signal;
 
- return  fetch(serverFetchUrl, { signal: combinedSignal, method: 'POST', body: JSON.stringify({options, url}) });
-  
+  return fetch(serverFetchUrl, { signal: combinedSignal, method: "POST", body: JSON.stringify({ options, url }) });
 }
 
 async function serverFetch(url: RequestInfo | URL, options: RequestInit = {}): Promise<Response> {
@@ -20,7 +18,7 @@ async function serverFetch(url: RequestInfo | URL, options: RequestInit = {}): P
   const serverUrl = new URL(serverFetchUrl);
 
   const response = await fetch(serverUrl.toString(), {
-    method: options.method || 'GET',
+    method: options.method || "GET",
     body: body,
     headers: options.headers,
   });
@@ -57,7 +55,7 @@ function anySignal(signals: AbortSignal[]): AbortSignal {
       controller.abort(signal.reason);
       return controller.signal;
     }
-    signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true });
+    signal.addEventListener("abort", () => controller.abort(signal.reason), { once: true });
   }
   return controller.signal;
 }

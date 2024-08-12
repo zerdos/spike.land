@@ -1,11 +1,11 @@
 import { serverFetchUrl } from "@spike-land/code";
 import { handleAnthropicRequest } from "./anthropicHandler";
+import { handleEnhancedFetch } from "./enhancedFetchHandler";
 import Env from "./env";
 import { KVLogger } from "./Logs";
 import { handleMainFetch } from "./mainFetchHandler";
 import { handleGPT4Request } from "./openaiHandler";
 import { handleReplicateRequest } from "./replicateHandler";
-import { handleEnhancedFetch } from "./enhancedFetchHandler";
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -14,9 +14,8 @@ export default {
     env.KV.put("lastRequest", request.url);
 
     const url = new URL(request.url);
-    
-    if (url.pathname === serverFetchUrl) {
 
+    if (url.pathname === serverFetchUrl) {
       return handleEnhancedFetch(request);
     }
 

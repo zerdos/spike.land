@@ -64,7 +64,6 @@ export const useArchive = async (codeSpace: string) => {
   location.href = `${window.location.origin}/my-cms/${md}/${codeSpace}.html`;
 };
 
-
 export const useSpeedy = async (codeSpace: string) => {
   const buildWithRetry = async (entryPoint = "") => {
     try {
@@ -97,12 +96,9 @@ export const useSpeedy = async (codeSpace: string) => {
   //   reader.readAsDataURL(files[0])
   // }
 
-  const indexCss = (await buildWithRetry(origin + `/live/${codeSpace}/index.css`));
+  const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
 
-
-  const indexMjs = await buildWithRetry()
-
-
+  const indexMjs = await buildWithRetry();
 
   console.log({ indexMjs, indexCss });
 
