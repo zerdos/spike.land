@@ -1,5 +1,4 @@
 import { createJsBlob } from "@src/components/AppRenderer";
-import { prettierJs } from "@src/prettierEsm";
 import { toString } from "@src/renderToString";
 import { prettierToThrow, transpile } from "@src/shared";
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
