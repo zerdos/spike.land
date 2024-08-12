@@ -66,8 +66,8 @@ export const useMessageHandling = ({
 
     if (content.includes("screenshot")) {
       let base64 = "";
-      await enhancedFetch(
-        `https://spike-land-renderer.spikeland.workers.dev/?url=${location.origin}/live/${codeSpace}/&sleep=4000`,
+      await fetch(
+        `/live/${codeSpace}/screenshot`,
       )
         .then(response => response.blob())
         .then(blob => {

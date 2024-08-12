@@ -149,8 +149,8 @@ const codeSpace = location.pathname.split("/")[2];
 
 const screenshotToBase64Maker = async () => {
   let base64 = "";
-  await globalThis.enhancedFetch(
-    `https://spike-land-renderer.spikeland.workers.dev/?url=${location.origin}/live/${codeSpace}/&sleep=4000`,
+  await fetch(
+    `/api/screenshot?codeSpace=${codeSpace}`,
   )
     .then(response => response.blob())
     .then(blob => {

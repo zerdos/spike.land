@@ -45,6 +45,7 @@ export class RouteHandler {
       js: this.handleJsRoute.bind(this),
       htm: this.handleHtmlRoute.bind(this),
       env: this.handleEnvRoute.bind(this),
+      screenshot: this.handleScreenShotRoute.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
       "": this.handleDefaultRoute.bind(this),
       undefined: this.handleDefaultRoute.bind(this),
@@ -388,6 +389,12 @@ export class RouteHandler {
         "Content-Type": "application/javascript; charset=UTF-8",
       },
     });
+  }
+
+  private async handleScreenShotRoute(request: Request, url: URL): Promise<Response> {
+    const codeSpace = url.searchParams.get("room");
+    const origin: string = this.code.getOrigin();
+    return fetch(`https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/&sleep=4000`);
   }
 
   private async handleRenderToStr(request: Request, url: URL): Promise<Response> {
