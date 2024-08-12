@@ -96,14 +96,76 @@ export const useSpeedy = async (codeSpace: string) => {
   //   reader.readAsDataURL(files[0])
   // }
 
-  const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
+  // const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
 
   const indexMjs = await buildWithRetry();
 
-  console.log({ indexMjs, indexCss });
+  console.log({ indexMjs });
 
   const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
-  const css = indexCss;
+ 
+//   if (indexCss.length > 0 ) {
+//   const assets = indexCss.filter((f) => f.path.includes("/assets/"));
+//  assets.forEach(async (f) => {
+//     const assetU8Array = f.contents;
+//     const base64TTF = btoa(String.fromCharCode(...assetU8Array));
+//     const path = f.path.split("api/my-cms").pop();
+//     css= css.split(path).join(`data:font/ttf;base64,${base64TTF}`);
+//   });}
+
+
+const getMimeType = (extension: string) => {
+  const mimeTypes: { [key: string]: string } = {
+    'woff': 'font/woff',
+    'woff2': 'font/woff2',
+    'ttf': 'font/ttf',
+    'otf': 'font/otf',
+    'eot': 'application/vnd.ms-fontobject',
+    'svg': 'image/svg+xml'
+  };
+  return mimeTypes[extension] || `font/${extension}`;
+};
+
+// 2. Proper error handling and logging
+indexMjs.filter((f) => !f.path.endsWith(".css") && !f.path.endsWith(".mjs")).forEach(async (f) => {
+  try {
+    const body = f.contents;
+    const extension = f.path.split(".").pop();
+    const mimeType = getMimeType(extension);
+
+    const response = await fetch(f.path.slice(1), {
+      method: "PUT",
+      body,
+      headers: {"Content-Type": mimeType}
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to upload font: ${f.path}, Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(`Error processing font: ${f.path}`, error);
+  }
+});
+
+// 4. Update CSS to use correct paths
+const updateCssPaths = (css, codeSpace) => {
+  return css.replace(
+    /url\((["']?)\/assets\//g, 
+    `url($1https:/testing.spike.land/live/${codeSpace}/api/my-cms/assets/`
+  );
+};
+let updatedCss = ''
+// Usage in your main function:
+const css = indexMjs.find((f) => f.path.endsWith("/api/my-cms/index.css"))?.text;
+if (css) {
+  updatedCss = updateCssPaths(css, codeSpace);
+  // Use updatedCss in your HTML template
+}
+
+
+
+//await fetch(f.path.slice(1), {method: "PUT", body, headers: {"Content-Type": `font/${extension}`}});
+
   const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
@@ -118,13 +180,15 @@ export const useSpeedy = async (codeSpace: string) => {
   <title>CodeSpace archive for ${codeSpace} </title>
   <style>
     ${gJunk}
-    ${css}
+  </style>
+  <style>  
+    ${updatedCss}
   </style>
 </head>
 <body>
   <div id="root">${htm}</div>
   <script type="module">
-  ${indexMjs}
+  ${indexMjs[0].text.split('@import url(').join('//@import url(')}
   </script>
   <script>
     ${twJS}
