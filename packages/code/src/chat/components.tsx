@@ -5,13 +5,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
+import { getCodeSpace } from "@src/utils/chatUtils";
 import { wait } from "@src/wait";
-import { set } from "lodash";
 import React, { useEffect } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
-import { getCodeSpace } from "@src/utils/chatUtils";
 
 export const ChatMessage: React.FC<{
   message: Message;
@@ -216,7 +215,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </label>
           </div>
           <Button
-            onClick={() => handleSendMessage(input, isScreenshotAttached? isScreenshotAttached as string : undefined)}
+            onClick={() => handleSendMessage(input, isScreenshotAttached ? isScreenshotAttached as string : undefined)}
             disabled={isStreaming || input.trim() === ""}
             size="icon"
           >

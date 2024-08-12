@@ -1,5 +1,3 @@
-import { createJsBlob } from "@src/components/AppRenderer";
-import { toString } from "@src/renderToString";
 import { prettierToThrow, transpile } from "@src/shared";
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
@@ -34,7 +32,7 @@ fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) 
     }
   };
 
-export const runner = async (code: string, i = 0) => {
+export const runner = async (code: string, counter = 0) => {
   let formattedCode = "";
   try {
     formattedCode = await prettierToThrow({ code, toThrow: true });
@@ -44,8 +42,8 @@ export const runner = async (code: string, i = 0) => {
     console.error("Error in runner:", error);
   }
 
-  if (i === 0) i = mod.i + 3;
-  if (i < mod.i) return;
+  if (counter === 0) counter = mod.i + 3;
+  if (counter < mod.i) return;
 
   try {
     mod.controller.abort();
@@ -53,45 +51,98 @@ export const runner = async (code: string, i = 0) => {
     const signal = mod.controller.signal;
     if (signal.aborted) return;
 
-    console.log("Running code", i);
+    // console.log("Running code", i);
 
     const transpiled = await transpile({
-      code,
+      code: formattedCode,
       originToUse: location.origin,
     });
 
-    const App = (await import(createJsBlob(transpiled))).default;
+    // const App = (await import(createJsBlob(transpiled))).default;
 
-    const html = toString(App);
-    if (!html || html.includes("ops! Something went wrong")) {
-      console.error("Error in runner: no html");
+    // let html = '';
+    // let htmlConsole = ''
+    // const originalConsole = window.console;
 
-      return;
-    }
+    // try{
+    //   window.console = {
+    //     ...window.console,
+    //     log: (...args) => {
+    //       // originalConsole.log(...args);
+    //       htmlConsole +=  args.join(" ") + "\n";
+    //     },
+    //     error: (...args) => {
+    //       // originalConsole.error(...args);
+    //       htmlConsole += args.join(" ") + "\n";
+    //     },
+    //     warn: (...args) => {
+    //       // originalConsole.warn(...args);
+    //       htmlConsole += args.join(" ") + "\n";
+    //     },
+    //     info: (...args) => {
+    //       // originalConsole.info(...args);
+    //       htmlConsole += args.join(" ") + "\n";
+    //     }
+    //   };
 
-    if (cSess.session.css === "" || mod.cssIds !== getCssStr(html)) {
-      console.log("Sending message iframe first to calculate css");
-      document.querySelector("iframe")?.contentWindow?.postMessage({
-        code,
-        transpiled,
-        i,
-        sender: "Runner / Editor",
-      });
-    } else {
-      console.log("Sending message to BC", i);
+    //   html = toString(App);
+    // } catch (error) {
+    //   console.error("Error in runner:", error);
+    // }
+    // finally {
+    //   window.console = originalConsole;
+    //   // console.table(htmlConsole);
+    //   if (signal.aborted) return;
 
-      mod.html = html;
-      mod.cssIds = getCssStr(html);
+    // }
 
-      BC.postMessage({
-        code,
-        transpiled,
-        html,
-        css: await fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()),
-        i,
-        sender: "Editor",
-      });
-    }
+    // if (!html || html.includes("ops! Something went wrong")) {
+    //   console.error("Error in runner: no html");
+
+    //   return;
+    // }
+
+    let resolve: (v: {
+      i: number;
+      html: string;
+      css: string;
+    }) => void;
+    const promise = new Promise<{ i: number; html: string; css: string }>((_resolve) => {
+      resolve = _resolve;
+    });
+
+    window.onmessage = (ev) => {
+      const data: { i: number; html: string; css: string } = ev.data;
+
+      const { i, html, css } = data;
+      if (i === counter) {
+        resolve({ i, html, css });
+      }
+    };
+
+    console.log("Sending message iframe first to calculate css");
+    document.querySelector("iframe")?.contentWindow?.postMessage({
+      transpiled,
+      i: counter,
+      sender: "Runner / Editor",
+    });
+
+    const { i, html, css } = await promise;
+
+    console.log("Sending message to BC", i);
+
+    mod.html = html;
+    const toPost = {
+      code: formattedCode,
+      transpiled,
+      html,
+      css,
+      i,
+      sender: "Editor",
+    };
+    console.log("Sending message to BC", toPost);
+
+    BC.postMessage(toPost);
 
     mod.controller.abort();
 

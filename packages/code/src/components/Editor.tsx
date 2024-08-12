@@ -104,7 +104,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     initializeEditor();
   }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
-  const handleContentChange = useCallback(async (newCode: string) => {
+  const handleContentChange = async (newCode: string) => {
     console.log("Content change", mod.current.i, md5(newCode));
 
     if (mod.current.code === newCode) return;
@@ -134,11 +134,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     console.log("Running debounced runner");
     await runner(mod.current.code, mod.current.i);
     console.log("Runner succeeded");
-  }, [
-    debouncedTypeCheck,
-    initialLoadRef,
-    lastTypingTimestamp,
-  ]);
+  };
 
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
     console.log("Broadcast message", data.i, md5(data.code));

@@ -152,10 +152,12 @@ export const useMessageHandling = ({
         debouncedOnUpdate,
       );
       if (typeof assistantMessage.content !== "string") {
-        throw new Error("Error: Assistant message content is not a string - we don't know how to handle this: "  +  JSON.stringify(assistantMessage));
-        return; 
+        throw new Error(
+          "Error: Assistant message content is not a string - we don't know how to handle this: "
+            + JSON.stringify(assistantMessage),
+        );
+        return;
       }
-
 
       if (assistantMessage.content.includes("An error occurred while processing")) {
         assistantMessage = await aiHandler.sendToGpt4o(
@@ -168,8 +170,11 @@ export const useMessageHandling = ({
       saveMessages(updatedMessages);
 
       if (typeof assistantMessage.content !== "string") {
-        throw new Error("Error: Assistant message content is not a string - we don't know how to handle this: "  +  JSON.stringify(assistantMessage));
-        return; 
+        throw new Error(
+          "Error: Assistant message content is not a string - we don't know how to handle this: "
+            + JSON.stringify(assistantMessage),
+        );
+        return;
       }
 
       const starterCode = updateSearchReplace(
@@ -223,26 +228,21 @@ export const useMessageHandling = ({
     });
   }, [codeSpace, setMessages, broadcastChannel]);
 
-
-
-
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
 
     if (!messageToEdit) {
-
       throw new Error("Error: Could not find message to edit with id: " + messageId);
       return;
-    
-    
     }
 
     if (typeof messageToEdit.content !== "string") {
-      throw new Error("Error:  Message content is not a string - we don't know how to handle this: "  +  JSON.stringify(messageToEdit));
-      return; 
+      throw new Error(
+        "Error:  Message content is not a string - we don't know how to handle this: " + JSON.stringify(messageToEdit),
+      );
+      return;
     }
 
-    
     if (messageToEdit) {
       setEditingMessageId(messageId);
       setEditInput(messageToEdit.content);

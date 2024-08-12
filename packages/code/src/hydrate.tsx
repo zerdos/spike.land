@@ -155,16 +155,7 @@ const handleRender = async (
       }
 
       if (mod.counter !== counter) return false;
-      BC.postMessage({
-        html,
-        css,
-        i: counter,
-        code: mod.code,
-        transpiled: mod.transpiled,
-        sender: "Hydrator",
-      });
-
-      return true;
+      return { css, html };
     }
     await wait(10);
   }
@@ -235,54 +226,58 @@ const handleDefaultPage = () => {
   window.onmessage = async ({ data }) => {
     const { i, code, transpiled } = data;
 
-    if (i > mod.counter && transpiled) {
-      console.log("rerender");
-      mod.controller.abort();
-      const { signal } = (mod.controller = new AbortController());
+    console.log("window.onmessage", i, code, transpiled);
+    // if (i > mod.counter && transpiled) {
+    console.log("rerender");
+    mod.controller.abort();
+    const { signal } = (mod.controller = new AbortController());
 
-      mod.counter = i;
-      mod.code = code;
-      mod.transpiled = transpiled;
+    mod.counter = i;
+    mod.code = code;
+    mod.transpiled = transpiled;
 
-      if (signal.aborted) return false;
+    if (signal.aborted) return false;
 
-      await mutex.runExclusive(async () => {
-        if (signal.aborted) return;
+    await mutex.runExclusive(async () => {
+      if (signal.aborted) return;
 
-        const myEl = document.createElement("div")! as HTMLDivElement;
-        myEl.style.height = "0";
-        myEl.style.width = "0";
-        document.body.appendChild(myEl);
+      const myEl = document.createElement("div")! as HTMLDivElement;
+      myEl.style.height = "0";
+      myEl.style.width = "0";
+      document.body.appendChild(myEl);
 
-        const rendered = await renderApp({ rootElement: myEl, transpiled });
+      const rendered = await renderApp({ rootElement: myEl, transpiled });
 
-        if (signal.aborted) {
-          rendered?.cleanup();
-          document.body.removeChild(myEl);
-          myEl.remove();
-          return;
-        }
+      if (signal.aborted) {
+        rendered?.cleanup();
+        document.body.removeChild(myEl);
+        myEl.remove();
+        return;
+      }
 
-        const success = await handleRender(
-          myEl,
-          rendered?.cssCache!,
-          signal,
-          mod,
-        );
+      const res = await handleRender(
+        myEl,
+        rendered?.cssCache!,
+        signal,
+        mod,
+      );
 
-        console.log({ success });
-        if (!success) return rendered?.cleanup();
-        const old = document.getElementById("root")!;
-        renderedAPPS!.get(old!)!.cleanup();
-        myEl.style.height = "100%";
-        myEl.style.width = "100%";
-        document.body.removeChild(old);
+      if (!res) return rendered?.cleanup();
 
-        old.remove();
+      const { css, html } = res;
+      window.parent.postMessage({ i, code, css, html }, "*");
 
-        myEl.id = "root";
-      });
-    }
+      const old = document.getElementById("root")!;
+      renderedAPPS!.get(old!)!.cleanup();
+      myEl.style.height = "100%";
+      myEl.style.width = "100%";
+      document.body.removeChild(old);
+
+      old.remove();
+
+      myEl.id = "root";
+    });
+    // }
     return false;
   };
 };
