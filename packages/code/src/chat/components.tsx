@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
+import { getCodeSpace } from "@src/utils/chatUtils";
 
 export const ChatMessage: React.FC<{
   message: Message;
@@ -148,7 +149,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
 const screenshotToBase64Maker = async () => {
   let base64 = "";
   await fetch(
-    `/api/screenshot`,
+    `/live/${getCodeSpace()}/screenshot`,
   )
     .then(response => response.blob())
     .then(blob => {
@@ -193,7 +194,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           onKeyPress={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
-              handleSendMessage(input, isScreenshotAttached);
+              handleSendMessage(input, isScreenshotAttached as string);
             }
           }}
           placeholder="Type a message..."
@@ -204,7 +205,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           <div className="flex items-center space-x-2">
             <Checkbox
               id="screenshot"
-              checked={isScreenshotAttached}
+              checked={!!isScreenshotAttached}
               onCheckedChange={(checked) => setIsScreenshotAttached(checked as boolean)}
             />
             <label
@@ -215,7 +216,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </label>
           </div>
           <Button
-            onClick={() => handleSendMessage(input, isScreenshotAttached)}
+            onClick={() => handleSendMessage(input, isScreenshotAttached? isScreenshotAttached as string : undefined)}
             disabled={isStreaming || input.trim() === ""}
             size="icon"
           >

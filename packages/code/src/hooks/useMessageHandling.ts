@@ -1,5 +1,4 @@
 import { AIHandler } from "@src/AIHandler";
-import { enhancedFetch } from "@src/enhancedFetch";
 import { runner } from "@src/services/runner";
 import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
@@ -34,7 +33,6 @@ export const useMessageHandling = ({
   codeWhatAiSeen,
   setAICode,
   saveMessages,
-  editingMessageId,
   setEditingMessageId,
   editInput,
   setEditInput,
@@ -45,7 +43,7 @@ export const useMessageHandling = ({
     if (!content.trim()) return;
 
     const { code } = await fetch(`/live/${codeSpace}/session.json`).then(
-      (res) => res.json<{ code: string }>(),
+      (res) => res.json(),
     );
     const codeNow = await prettierToThrow({ code, toThrow: true });
 
@@ -81,6 +79,7 @@ export const useMessageHandling = ({
       await wait(1000);
 
       newMessage = {
+        "id": Date.now().toString(),
         "role": "user",
         "content": [
           {
@@ -152,14 +151,26 @@ export const useMessageHandling = ({
         updatedMessages,
         debouncedOnUpdate,
       );
+      if (typeof assistantMessage.content !== "string") {
+        throw new Error("Error: Assistant message content is not a string - we don't know how to handle this: "  +  JSON.stringify(assistantMessage));
+        return; 
+      }
+
+
       if (assistantMessage.content.includes("An error occurred while processing")) {
         assistantMessage = await aiHandler.sendToGpt4o(
           updatedMessages,
           debouncedOnUpdate,
         );
       }
+
       updatedMessages.push(assistantMessage);
       saveMessages(updatedMessages);
+
+      if (typeof assistantMessage.content !== "string") {
+        throw new Error("Error: Assistant message content is not a string - we don't know how to handle this: "  +  JSON.stringify(assistantMessage));
+        return; 
+      }
 
       const starterCode = updateSearchReplace(
         assistantMessage.content,
@@ -212,8 +223,26 @@ export const useMessageHandling = ({
     });
   }, [codeSpace, setMessages, broadcastChannel]);
 
+
+
+
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
+
+    if (!messageToEdit) {
+
+      throw new Error("Error: Could not find message to edit with id: " + messageId);
+      return;
+    
+    
+    }
+
+    if (typeof messageToEdit.content !== "string") {
+      throw new Error("Error:  Message content is not a string - we don't know how to handle this: "  +  JSON.stringify(messageToEdit));
+      return; 
+    }
+
+    
     if (messageToEdit) {
       setEditingMessageId(messageId);
       setEditInput(messageToEdit.content);
