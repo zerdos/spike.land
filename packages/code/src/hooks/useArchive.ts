@@ -64,12 +64,13 @@ export const useArchive = async (codeSpace: string) => {
   location.href = `${window.location.origin}/my-cms/${md}/${codeSpace}.html`;
 };
 
+
 export const useSpeedy = async (codeSpace: string) => {
   const buildWithRetry = async (entryPoint = "") => {
     try {
       return await build({
         codeSpace,
-        splitting: false,
+        splitting: true,
         entryPoint,
         origin: location.origin,
         format: "esm",
@@ -87,9 +88,21 @@ export const useSpeedy = async (codeSpace: string) => {
     }
   };
 
-  const indexMjs = (await buildWithRetry())
+  // function base64convert (files) {
+  //   console.clear()
+  //   const reader = new FileReader()
+  //   reader.onload = (e) => {
+  //     console.log(e.target.result)
+  //   }
+  //   reader.readAsDataURL(files[0])
+  // }
 
-  const indexCss = (await buildWithRetry(origin + `/live/${codeSpace}/index.css`))[0].text;
+  const indexCss = (await buildWithRetry(origin + `/live/${codeSpace}/index.css`));
+
+
+  const indexMjs = await buildWithRetry()
+
+
 
   console.log({ indexMjs, indexCss });
 

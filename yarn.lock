@@ -4834,7 +4834,7 @@ __metadata:
     serve-handler: "npm:^6.1.5"
     sonner: "npm:^1.5.0"
     stream-browserify: "npm:3.0.0"
-    tailwind-merge: "npm:^2.4.0"
+    tailwind-merge: "npm:^2.5.0"
     tailwindcss-animate: "npm:^1.0.7"
     text-encoding: "npm:^0.7.0"
     transferables: "npm:1.0.3"
@@ -11003,10 +11003,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.5.4":
-  version: 4.5.4
-  resolution: "hono@npm:4.5.4"
-  checksum: 10/3762981030f96516acf7b9bf5ac7e3d1545ea813cf986267bd8aa0d6df29c5f8c1ed056d1b01f0574931b7e8ab36d8e3dd2c3880ff418ba77d12dc05d09c720f
+"hono@npm:4.5.5":
+  version: 4.5.5
+  resolution: "hono@npm:4.5.5"
+  checksum: 10/33229f903ef4ddb6da513a24d4208bbfd54aa1d87d2d9fb0a8199cfa916a8691a10e61b620c81ef64581dd27c1e660c9c814beae12e23f597ebd919f7b6e7419
   languageName: node
   linkType: hard
 
@@ -14562,7 +14562,7 @@ __metadata:
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240806.0"
-    hono: "npm:4.5.4"
+    hono: "npm:4.5.5"
     wrangler: "npm:3.70.0"
   languageName: unknown
   linkType: soft
@@ -18196,10 +18196,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "tailwind-merge@npm:2.4.0"
-  checksum: 10/dda331a95146c9943dd18f152156fe7a5daf450a686d0562fb521ebc027273bd0c8f9503742668b3e90d27e887aa794ea5e79c38faa51216e19e9d0f1ec55925
+"tailwind-merge@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "tailwind-merge@npm:2.5.0"
+  checksum: 10/c4c598c171b4514f42fbfc3c930abd369000b69e2d5daf952460798d3dc2d0a40e93590f2008ac2d122c75d335e6a02765186a86afddd5c40acaea173c4dfb9a
   languageName: node
   linkType: hard
 

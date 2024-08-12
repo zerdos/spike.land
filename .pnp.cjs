@@ -6489,7 +6489,7 @@ const RAW_RUNTIME_STATE =
           ["serve-handler", "npm:6.1.5"],\
           ["sonner", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.0"],\
           ["stream-browserify", "npm:3.0.0"],\
-          ["tailwind-merge", "npm:2.4.0"],\
+          ["tailwind-merge", "npm:2.5.0"],\
           ["tailwindcss-animate", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.7"],\
           ["text-encoding", "npm:0.7.0"],\
           ["transferables", "npm:1.0.3"],\
@@ -13850,10 +13850,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["hono", [\
-      ["npm:4.5.4", {\
-        "packageLocation": "./.yarn/global/cache/hono-npm-4.5.4-a7efeda597-10.zip/node_modules/hono/",\
+      ["npm:4.5.5", {\
+        "packageLocation": "./.yarn/global/cache/hono-npm-4.5.5-b1d0f4f9c1-10.zip/node_modules/hono/",\
         "packageDependencies": [\
-          ["hono", "npm:4.5.4"]\
+          ["hono", "npm:4.5.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -17933,7 +17933,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["my-api", "workspace:packages/my-api"],\
           ["@cloudflare/workers-types", "npm:4.20240806.0"],\
-          ["hono", "npm:4.5.4"],\
+          ["hono", "npm:4.5.5"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.70.0"]\
         ],\
         "linkType": "SOFT"\
@@ -22307,10 +22307,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["tailwind-merge", [\
-      ["npm:2.4.0", {\
-        "packageLocation": "./.yarn/global/cache/tailwind-merge-npm-2.4.0-be8d0b173f-10.zip/node_modules/tailwind-merge/",\
+      ["npm:2.5.0", {\
+        "packageLocation": "./.yarn/global/cache/tailwind-merge-npm-2.5.0-5a4dc1f976-10.zip/node_modules/tailwind-merge/",\
         "packageDependencies": [\
-          ["tailwind-merge", "npm:2.4.0"]\
+          ["tailwind-merge", "npm:2.5.0"]\
         ],\
         "linkType": "HARD"\
       }]\

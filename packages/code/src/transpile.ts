@@ -179,11 +179,11 @@ export const build = async ({
       ".jpeg": "dataurl",
       ".gif": "dataurl",
       ".svg": "dataurl",
-      ".woff": "file",
-      ".woff2": "file",
-      ".eot": "file",
-      ".otf": "file",
-      ".ttf": "file",
+      ".woff": "dataurl",
+      ".woff2": "dataurl",
+      ".eot": "dataurl",
+      ".otf": "dataurl",
+      ".ttf": "dataurl",
       ".css": "css",
     },
     write: false,
@@ -211,7 +211,7 @@ export const build = async ({
     packages: "external",
     plugins: [fetchPlugin()],
     assetNames: "assets/[name]-[hash]",
-    publicPath: "/api/my-cms/",
+    publicPath: "/",
   };
 
   try {

@@ -9,6 +9,7 @@ export default interface Env {
   NPM_REGISTRY?: string;
   REPLICATE_API_TOKEN: string;
   ANTHROPIC_API_KEY: string;
+  CF_REAL_TURN_TOKEN: string;
   NPM_TOKEN?: string;
   CODE: DurableObjectNamespace;
   __STATIC_CONTENT: KVNamespace;
