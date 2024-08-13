@@ -61,6 +61,8 @@ const initializeApp = async () => {
     import("./hooks/useArchive"),
   ]);
 
+
+
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
   Object.assign(globalThis, {
     uploadToHelia,
@@ -245,19 +247,19 @@ const handleDefaultPage = () => {
   };
 
   window.onmessage = async ({ data }) => {
-    const { i, code, transpiled } = data;
+    const { i, transpiled } = data;
 
-    if (!i || !code || !transpiled) return;
-    if (i === 'undefined' || code === 'undefined' || transpiled === 'undefined') return;
-    console.log("window.onmessage", i, code, transpiled);
+    if (!i || !transpiled) return;
+    if (i === "undefined" || transpiled === "undefined") return;
+    console.log("window.onmessage", i, transpiled);
     // if (i > mod.counter && transpiled) {
     console.log("rerender");
     if (mod.counter >= i) return;
+    mod.counter = i;
     mod.controller.abort();
     const { signal } = (mod.controller = new AbortController());
- 
+
     mod.counter = i;
-    mod.code = code;
     mod.transpiled = transpiled;
 
     if (signal.aborted) return false;
@@ -289,7 +291,7 @@ const handleDefaultPage = () => {
       if (!res) return rendered?.cleanup();
 
       const { css, html } = res;
-      window.parent.postMessage({ i, code, css, html }, "*");
+      window.parent.postMessage({ i, css, html }, "*");
 
       const old = document.getElementById("root")!;
       renderedAPPS!.get(old!)!.cleanup();
@@ -308,8 +310,10 @@ const handleDefaultPage = () => {
 
 // Main execution
 const main = async () => {
-  await initializeApp();
+
   // await createDirectories();
+  console.log("main "  + location.pathname);
+  console.log("main "  + codeSpace);
 
   if (location.pathname === `/live/${codeSpace}`) {
     document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
@@ -317,9 +321,11 @@ const main = async () => {
     handleLivePage();
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
     handleDehydratedPage();
-  } else {
+  } else  if (location.pathname === `/live/${codeSpace}/`) {
     handleDefaultPage();
   }
+
+  await initializeApp();
 };
 
 if (location.pathname.startsWith("/live")) {

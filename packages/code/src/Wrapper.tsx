@@ -204,7 +204,7 @@ export const renderApp = async ({
     }
 
     const AppToRender = App || (await import(
-      transpiled ? createJsBlob(transpiled) : codeSpace? `/live/${codeSpace}/index.js` :`/live/empty/index.js` 
+      transpiled ? createJsBlob(transpiled) : codeSpace ? `/live/${codeSpace}/index.js` : `/live/empty/index.js`
     )).default;
 
     const cssCache = createCache({ key: "css", speedy: false });
