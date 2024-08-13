@@ -31,6 +31,8 @@ fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) 
       mod.css = data.css;
       mod.html = data.html;
       mod.cssIds = getCssStr(data.html);
+    } else {
+      mod.i = data.i;
     }
   };
 

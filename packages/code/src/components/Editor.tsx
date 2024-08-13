@@ -136,7 +136,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
     console.log("Broadcast message: ", data.i);
 
-    if (data.i <= mod.current.i) return;
+    if (data.i <= mod.current.i) mod.current.i = data.i;
     if (data.i > mod.current.i) {
       mod.current.i = data.i;
 
