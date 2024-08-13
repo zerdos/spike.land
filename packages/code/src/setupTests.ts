@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import { TextDecoder, TextEncoder } from "text-encoding";
+import { vi } from "vitest";
 
 // Add type definitions for ResizeObserver
 declare global {
