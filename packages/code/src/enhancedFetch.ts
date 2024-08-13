@@ -1,51 +1,37 @@
 export const serverFetchUrl = "/api/server-fetch";
 
-export async function enhancedFetch(url: RequestInfo | URL, options: RequestInit = {}) {
-  const controller = new AbortController();
+export const enhancedFetch = async (url: RequestInfo | URL, options: RequestInit = {}) => {
+  const controller = new AbortController()
   const { signal: originalSignal } = options;
 
   const combinedSignal = originalSignal
     ? anySignal([originalSignal, controller.signal])
     : controller.signal;
 
-  return fetch(serverFetchUrl, { signal: combinedSignal, method: "POST", body: JSON.stringify({ options, url }) });
-}
+  try {
 
-async function serverFetch(url: RequestInfo | URL, options: RequestInit = {}): Promise<Response> {
-  const targetUrl = url.toString();
-  const { body, ...restOptions } = options;
-  const encodedOptions = encodeURIComponent(JSON.stringify(restOptions));
-  const serverUrl = new URL(serverFetchUrl);
-
-  const response = await fetch(serverUrl.toString(), {
-    method: options.method || "GET",
-    body: body,
-    headers: options.headers,
-  });
-
-  if (!response.ok) {
-    throw new Error(`Server fetch failed: ${response.status} ${response.statusText}`);
+    const res =  await fetch(url, {
+      signal: combinedSignal,
+      ...options,
+      });
+    if (res.ok) {
+      const clone = res.clone();
+      const body = await res.blob();
+      return new Response(body, clone);
+    }
+    throw new Error(res.statusText);
   }
+  catch (error) {
+    // console.error("Error in enhancedFetch", error);
+       
 
-  // Create a new ReadableStream to handle the streamed response
-  const reader = response.body!.getReader();
-  const stream = new ReadableStream({
-    async start(controller) {
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        controller.enqueue(value);
-      }
-      controller.close();
-    },
-  });
-
-  // Create a new response with the streamed body
-  return new Response(stream, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: response.headers,
-  });
+  return  fetch(serverFetchUrl, { signal: combinedSignal, method: "POST", body: JSON.stringify({ options: {
+    method:  "GET",
+    ...options,
+  }, url }) });
+  controller.abort();
+  throw error;
+}
 }
 
 function anySignal(signals: AbortSignal[]): AbortSignal {

@@ -2,6 +2,8 @@ import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
 
+globalThis.build = build;
+
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {
     try {

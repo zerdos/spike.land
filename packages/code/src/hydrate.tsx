@@ -1,10 +1,12 @@
+
+
 import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 import { enhancedFetch } from "./enhancedFetch";
 import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
 import { useArchive, useSpeedy } from "./hooks/useArchive";
-import { mkdir } from "./memfs";
+// import { mkdir } from "./memfs";
 import { prettierCss } from "./shared";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
@@ -18,14 +20,14 @@ const codeSpace = paths[2];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 // Utility functions
-const createDirectories = async () => {
-  try {
-    await mkdir("/live");
-    await mkdir(`/live/${codeSpace}`);
-  } catch (e) {
-    console.error("Error creating directories:", e);
-  }
-};
+// const createDirectories = async () => {
+  // try {
+    // await mkdir("/live");
+    // await mkdir(`/live/${codeSpace}`);
+  // } catch (e) {
+    // console.error("Error creating directories:", e);
+  // }
+// };
 
 const setupServiceWorker = async () => {
   if (
@@ -286,7 +288,7 @@ const handleDefaultPage = () => {
 const main = async () => {
   Object.assign(window, { enhancedFetch });
   await initializeApp();
-  await createDirectories();
+  // await createDirectories();
 
   if (location.pathname === `/live/${codeSpace}`) {
     console.log("live page");

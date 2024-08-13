@@ -1,5 +1,7 @@
 import { Plugin } from "esbuild-wasm";
-import { enhancedFetch } from "./enhancedFetch.ts";
+import processCSS from "./hooks/processCSS.ts";
+//import { enhancedFetch } from "./enhancedFetch.ts";
+// import { enhancedFetch } from "./enhancedFetch.ts";
 
 export const fetchPlugin = () => ({
   name: "http",
@@ -29,7 +31,7 @@ export const fetchPlugin = () => ({
     // would probably need to be more complex.
 
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
-      const response = await fetch(args.path);
+      const response = await fetch(args.path, { redirect: "follow" });
       const contents = await response.text();
       const contentType = response.headers.get("content-type") || "";
 
@@ -37,6 +39,7 @@ export const fetchPlugin = () => ({
 
       if (contentType.includes("text/css") || args.path.endsWith(".css")) {
         loader = "css";
+        
         // Process @import statements in CSS
         return { contents: await processCSS(contents, args.path), loader };
       } else if (
@@ -54,41 +57,6 @@ export const fetchPlugin = () => ({
   },
 } as Plugin);
 
-async function processCSS(css: string, baseURL: string): Promise<string> {
-  const importRegex = /@import\s+(?:url\(['"]?(.+?)['"]?\)|['"](.+?)['"])/g;
-  const imports = Array.from(css.matchAll(importRegex));
 
-  for (const match of imports) {
-    const importUrl = match[1] || match[2];
-    const absoluteUrl = new URL(importUrl, baseURL).toString();
-    const importedCSS = await enhancedFetch(absoluteUrl).then(res => res.text());
-    const processedImportedCSS = await processCSS(importedCSS, absoluteUrl);
-    css = css.split(match[0]).join(processedImportedCSS);
-  }
-
-  // Process url() references
-  const urlRegex = /url\(['"]?(.+?)['"]?\)/g;
-  const matches = css.match(urlRegex);
-  if (matches) {
-    for (const match of matches) {
-      const url = match.match(/url\(['"]?(.+?)['"]?\)/)?.[1];
-      if (url && !url.startsWith("data:")) {
-        const absoluteUrl = new URL(url, baseURL).toString();
-        const req  = await enhancedFetch(absoluteUrl);
-        const contentType = req.headers.get("content-type") || "";
-        let content;
-         
-        if (contentType.includes("font/")) {
-          content = await req.arrayBuffer();
-          const fontType = contentType.split("/").pop();
-          css = css.replace(match, `url("data:font/${fontType};base64,${btoa(String.fromCharCode(...new Uint8Array(content)))}")`);
-        } else {
-          content = await enhancedFetch(absoluteUrl).then(res => res.text());
-          css = css.replace(match, `url("${absoluteUrl}")`);
-        }
-      }
-    }
-  }
-
-  return css;
-}
+//   return css;
+// }
