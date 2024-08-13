@@ -21,7 +21,7 @@
     "wrangler": "3.70.0"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.25.1",
+    "@anthropic-ai/sdk": "^0.25.2",
     "@clerk/clerk-sdk-node": "^5.0.26",
     "@remix-run/cloudflare": "^2.11.1",
     "@remix-run/react": "^2.11.1",
@@ -32,7 +32,7 @@
     "esbuild-wasm": "0.23.0",
     "esm-worker": "0.135.16",
     "immutable": "4.3.7",
-    "openai": "^4.55.4",
+    "openai": "^4.55.5",
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1",
