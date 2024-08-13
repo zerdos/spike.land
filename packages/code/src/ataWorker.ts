@@ -1,10 +1,10 @@
-import { rpcFactory } from "./workerRpc";
+import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
+import { Mutex } from "async-mutex";
 import type { ata as Ata } from "./ata";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
 import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
-import { Mutex } from "async-mutex";
-import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
+import { rpcFactory } from "./workerRpc";
 
 declare var self: SharedWorkerGlobalScope & {
   ata: typeof Ata;
@@ -15,7 +15,12 @@ declare var self: SharedWorkerGlobalScope & {
   tsx: (code: string) => Promise<string[]>;
 };
 
-importScripts("/workerScripts/dts.js", "/workerScripts/ata.js", "/workerScripts/prettierEsm.js", "/workerScripts/transpile.js");
+importScripts(
+  "/workerScripts/dts.js",
+  "/workerScripts/ata.js",
+  "/workerScripts/prettierEsm.js",
+  "/workerScripts/transpile.js",
+);
 
 const { ata, prettierJs, transpile, build, tsx, prettierCss } = self;
 
@@ -44,11 +49,24 @@ function start(port: MessagePort) {
 }
 
 function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
-  rpcProvider.registerRpcHandler("prettierJs", ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow));
+  rpcProvider.registerRpcHandler(
+    "prettierJs",
+    ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
+  );
   rpcProvider.registerRpcHandler("prettierCss", (code: string) => prettierCss(code));
-  rpcProvider.registerRpcHandler("ata", ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs, tsx }));
-  rpcProvider.registerRpcHandler("transpile", ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse));
-  rpcProvider.registerRpcHandler("build", (params: { codeSpace: string; splitting?: boolean; entryPoint?: string; origin: string; format: "esm" | "iife" }) => build(params));
+  rpcProvider.registerRpcHandler(
+    "ata",
+    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs, tsx }),
+  );
+  rpcProvider.registerRpcHandler(
+    "transpile",
+    ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
+  );
+  rpcProvider.registerRpcHandler(
+    "build",
+    (params: { codeSpace: string; splitting?: boolean; entryPoint?: string; origin: string; format: "esm" | "iife" }) =>
+      build(params),
+  );
   rpcProvider.registerSignalHandler("connect", (signal: string) => setConnections(signal));
 }
 
