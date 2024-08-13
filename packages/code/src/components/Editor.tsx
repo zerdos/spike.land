@@ -56,7 +56,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       const currentTime = Date.now();
       if (currentTime - lastTypingTimestamp >= 200) {
         console.log("Setting editor content: ", counter);
-        editorState.setValue(formattedCode);
+
+        editorState.setValue(formattedCode + `\n  /** $counter */ \n`);
+        setTimeout(() => {
+          if (signal.aborted) return;
+          editorState.setValue(formattedCode);
+        }, 100);
       }
     }, 259);
   };
