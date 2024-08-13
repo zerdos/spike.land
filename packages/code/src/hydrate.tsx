@@ -40,7 +40,7 @@ const setupServiceWorker = async () => {
     const sw = new Workbox(`/sw.js`);
     return sw.register();
   } catch (e) {
-    console.error("Error setting up service worker:", e);
+    // console.error("Error setting up service worker:", e);
     return null;
   }
 };
@@ -159,7 +159,7 @@ const handleRender = async (
     controller: AbortController;
   },
 ) => {
-  console.log("handleRender");
+  // console.log("handleRender");
   const counter = mod.counter;
 
   if (!rootEl) return false;
@@ -251,9 +251,9 @@ const handleDefaultPage = () => {
 
     if (!i || !transpiled) return;
     if (i === "undefined" || transpiled === "undefined") return;
-    console.log("window.onmessage", i, transpiled);
+    // console.log("window.onmessage", i, transpiled);
     // if (i > mod.counter && transpiled) {
-    console.log("rerender");
+    // console.log("rerender");
     if (mod.counter >= i) return;
     mod.counter = i;
     mod.controller.abort();
@@ -312,12 +312,12 @@ const handleDefaultPage = () => {
 const main = async () => {
 
   // await createDirectories();
-  console.log("main "  + location.pathname);
-  console.log("main "  + codeSpace);
+  // console.log("main "  + location.pathname);
+  // console.log("main "  + codeSpace);
 
   if (location.pathname === `/live/${codeSpace}`) {
     document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
-    console.log("live page");
+    // console.log("live page");
     handleLivePage();
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
     handleDehydratedPage();
