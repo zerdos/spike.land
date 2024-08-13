@@ -98,6 +98,7 @@ const connections: {
   [key: string]: {
     BC: BroadcastChannel;
     ws: Socket;
+    controller: AbortController;
     user: string;
     oldSession: ICodeSession;
   };
@@ -114,6 +115,7 @@ function setConnections(signal: string) {
 
   const c = connections[codeSpace] = connections[codeSpace] || {
     user,
+    controller: new AbortController(),
     oldSession: makeSession({ i: 0, html: "", css: "", code: "" }),
   };
 
@@ -179,6 +181,8 @@ function setConnections(signal: string) {
 
           // ^? a
           if (data.newHash && data.oldHash) {
+            c.controller.abort();
+            const signal = c.controller.signal;
             await mutex.runExclusive(async () => {
               const oldSession = makeSession(c.oldSession);
               const oldHash = makeHash(oldSession);
@@ -189,9 +193,13 @@ function setConnections(signal: string) {
                 );
 
                 console.log(c.oldSession);
+                if (signal.aborted) return;
+                const transpiled = await transpile(c.oldSession.code, location.origin);
+                if (signal.aborted) return;
+
                 BC.postMessage({
                   ...c.oldSession,
-                  transpiled: await transpile(c.oldSession.code, location.origin),
+                  transpiled,
                   sender: "ATA WORKER3",
                 });
                 return;
@@ -199,21 +207,26 @@ function setConnections(signal: string) {
 
               const newSession = applyCodePatch(oldSession, data);
               const newHash = makeHash(newSession);
-
+              if (signal.aborted) return;
+              const transpiled = await transpile(newSession.code, location.origin);
+              if (signal.aborted) return;
               if (data.newHash === newHash) {
                 c.oldSession = newSession;
                 console.log(newSession);
                 BC.postMessage({
                   ...newSession,
-                  transpiled: await transpile(newSession.code, location.origin),
+                  transpiled,
                   sender: "ATA WORKER4",
                 });
                 return;
               }
 
+              if (signal.aborted) return;
+
               c.oldSession = makeSession(
                 await (await fetch(`/live/${codeSpace}/session`)).json(),
               );
+              if (signal.aborted) return;
 
               console.log(c.oldSession);
               BC.postMessage({ ...c.oldSession, sender: "ATA WORKER5" });

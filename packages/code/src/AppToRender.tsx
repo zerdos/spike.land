@@ -32,6 +32,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         iframe.addEventListener("load", () => {
           setHideRest(false);
           reveal();
+          document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
         });
       }
     }

@@ -325,7 +325,6 @@ const main = async () => {
   // console.log("main "  + codeSpace);
 
   if (location.pathname === `/live/${codeSpace}`) {
-    document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
     // console.log("live page");
     handleLivePage();
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
