@@ -35,6 +35,7 @@ const mutex = new Mutex();
 
 interface Connection {
   BC: BroadcastChannel;
+  codeSpace: string;
   ws: Socket;
   controller: AbortController;
   user: string;
@@ -81,6 +82,7 @@ async function setConnections(signal: string) {
 
   const connection = connections[codeSpace] || {
     user,
+    codeSpace,
     controller: new AbortController(),
     oldSession: makeSession({ i: 0, html: "", css: "", code: "" }),
   };
@@ -88,6 +90,7 @@ async function setConnections(signal: string) {
   if (!connection.ws) {
     connection.oldSession = await fetchInitialSession(codeSpace);
     connection.ws = createWebSocket(codeSpace, connection);
+    connection.codeSpace = codeSpace;
     connection.BC = createBroadcastChannel(codeSpace, connection);
   }
 
@@ -191,7 +194,7 @@ async function handleHashMatch(data: any, connection: Connection, oldSession: IC
     connection.BC.postMessage({ ...newSession, transpiled, sender: "ATA WORKER4" });
   } else {
     if (signal.aborted) return;
-    connection.oldSession = await fetchInitialSession(codeSpace);
+    connection.oldSession = await fetchInitialSession(connection.codeSpace);
     if (signal.aborted) return;
     connection.BC.postMessage({ ...connection.oldSession, sender: "ATA WORKER5" });
   }
