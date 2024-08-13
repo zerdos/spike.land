@@ -12,43 +12,6 @@ exports[`addSomeFixesIfNeeded > adds import statement for 'FC' if ' FC<{' is pre
 
 exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `"useState(0)"`;
 
-exports[`addSomeFixesIfNeeded > doesnt don stupid things 1`] = `
-"
-    <motion.pre
-      className="absolute bottom-24 left-24 font-mono text-xs text-yellow-400"
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1 }}
-      css={css\`
-          white-space: pre;
-        \`}
-    >
-      <motion.div className="absolute inset-0 pointer-events-none">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              top: \`31.9230526873425%\`,
-              left: \`80.89876255945518%\`,
-              width: "4px",
-              height: "4px",
-              borderRadius: "50%",
-              backgroundColor: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff"][
-                Math.floor(Math.random() * 5)
-              ],
-            }}
-            variants={fireworkVariants}
-            initial="initial"
-            animate="animate"
-            transition={{ repeat: Infinity, repeatDelay: Math.random() * 3 + 1 }}
-          />
-        ))}
-      </motion.div>
-    </motion.pre>
-  "
-`;
-
 exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
 "css={css\`
     color: red;

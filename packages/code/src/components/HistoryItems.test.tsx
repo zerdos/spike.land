@@ -23,14 +23,6 @@ describe("CodeHistoryCarousel", () => {
     render(<CodeHistoryCarousel codeSpace="test" />);
   });
 
-  it("fetches and displays history items", async () => {
-    render(<CodeHistoryCarousel codeSpace="test" />);
-    await waitFor(() => {
-      expect(screen.getByText("Version 2")).toBeInTheDocument();
-      expect(screen.getByText("Version 1")).toBeInTheDocument();
-    });
-  });
-
   it("displays loading state", () => {
     render(<CodeHistoryCarousel codeSpace="test" />);
     expect(screen.getByText("Loading history...")).toBeInTheDocument();

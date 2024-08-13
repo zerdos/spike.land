@@ -1,14 +1,15 @@
 import { act, renderHook } from "@testing-library/react";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { useErrorHandling } from "../hooks/useErrorHandling";
 
-let tsWorkerMock = jest.fn().mockResolvedValue(() => ({
-  getSemanticDiagnostics: jest.fn().mockResolvedValue([]),
+let tsWorkerMock = vi.fn().mockResolvedValue(() => ({
+  getSemanticDiagnostics: vi.fn().mockResolvedValue([]),
 }));
-// Mock the entire monaco-editor module
-jest.mock("monaco-editor", () => {
+
+vi.mock("monaco-editor", () => {
   return {
     editor: {
-      getModels: jest.fn().mockReturnValue([{ uri: { toString: jest.fn() } }]),
+      getModels: vi.fn().mockReturnValue([{ uri: { toString: vi.fn() } }]),
     },
     languages: {
       typescript: {
@@ -16,13 +17,13 @@ jest.mock("monaco-editor", () => {
       },
     },
   };
-}, { virtual: true });
+});
 
-jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
+vi.mock("lodash/debounce", () => vi.fn((fn) => fn));
 
 describe("useErrorHandling", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test("initializes with null error type", () => {
@@ -39,14 +40,14 @@ describe("useErrorHandling", () => {
   });
 
   test("debouncedTypeCheck sets typescript error for monaco engine", async () => {
-    const mockGetSemanticDiagnostics = jest.fn().mockResolvedValue([{
+    const mockGetSemanticDiagnostics = vi.fn().mockResolvedValue([{
       message: "Error",
     }]);
-    const mockGetTypeScriptWorker = jest.fn().mockResolvedValue(() => ({
+    const mockGetTypeScriptWorker = vi.fn().mockResolvedValue(() => ({
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
 
-    tsWorkerMock = mockGetTypeScriptWorker;
+    tsWorkerMock.mockImplementation(mockGetTypeScriptWorker);
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
     const initialLoadRef = { current: false };
@@ -59,13 +60,12 @@ describe("useErrorHandling", () => {
   });
 
   test("debouncedTypeCheck clears typescript error when no diagnostics", async () => {
-    const mockGetSemanticDiagnostics = jest.fn().mockResolvedValue([]);
-    const mockGetTypeScriptWorker = jest.fn().mockResolvedValue(() => ({
+    const mockGetSemanticDiagnostics = vi.fn().mockResolvedValue([]);
+    const mockGetTypeScriptWorker = vi.fn().mockResolvedValue(() => ({
       getSemanticDiagnostics: mockGetSemanticDiagnostics,
     }));
 
-    require("monaco-editor").languages.typescript.getTypeScriptWorker
-      .mockImplementation(mockGetTypeScriptWorker);
+    tsWorkerMock.mockImplementation(mockGetTypeScriptWorker);
 
     const { result } = renderHook(() => useErrorHandling("monaco"));
     const initialLoadRef = { current: false };

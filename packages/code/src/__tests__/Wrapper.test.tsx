@@ -1,5 +1,5 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, Mock, MockedFunction, vi } from "vitest";
 import * as sharedModule from "../shared";
 import { useTranspile, Wrapper } from "../Wrapper";
 
@@ -13,14 +13,6 @@ vi.mock("../shared", () => ({
 vi.mock("../components/AppRenderer", () => ({
   AppRenderer: () => <div data-testid="mock-app-renderer" />,
 }));
-
-vi.mock("../Wrapper", async (importOriginal) => {
-  const actual = await importOriginal();
-  return {
-    ...actual,
-    useTranspile: vi.fn(),
-  };
-});
 
 describe("Wrapper", () => {
   let container: HTMLElement;
@@ -43,9 +35,9 @@ describe("Wrapper", () => {
   });
 
   it("calls transpile with correct arguments", async () => {
-    const mockTranspile = sharedModule.transpile as vi.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
     mockTranspile.mockResolvedValue("transpiled code");
-    (useTranspile as vi.Mock).mockReturnValue("mocked transpiled code");
+    expect(useTranspile("test code")).toBe("mocked transpiled code");
 
     await act(async () => {
       render(<Wrapper code="test code" />, { container });
@@ -58,9 +50,9 @@ describe("Wrapper", () => {
   });
 
   it("renders AppRenderer with transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as vi.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
     mockTranspile.mockResolvedValue("transpiled code");
-    (useTranspile as vi.Mock).mockReturnValue("mocked transpiled code");
+    // (useTranspile). mockReturnValue("mocked transpiled code");
 
     await act(async () => {
       render(<Wrapper code="test code" />, { container });
@@ -72,11 +64,18 @@ describe("Wrapper", () => {
   });
 
   it("calls the transpile function with the correct arguments", async () => {
+    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    mockTranspile.mockResolvedValue("transpiled code");
     const code = "const a = 1;";
+
     await act(async () => {
       render(<Wrapper code={code} />, { container });
     });
-    expect(sharedModule.transpile).toHaveBeenCalledWith(code);
+
+    expect(mockTranspile).toHaveBeenCalledWith({
+      code,
+      originToUse: window.location.origin,
+    });
   });
 });
 

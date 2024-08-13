@@ -1,23 +1,21 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
 
-// Remove the invalid import statement
-// Mock the entire LocalStorageService module
-jest.mock("../services/LocalStorageService");
+vi.mock("../services/LocalStorageService");
 
 describe("AIService", () => {
   let aiService: AIService;
-  let localStorageService: jest.Mocked<LocalStorageService>;
+  let localStorageService: vi.Mocked<LocalStorageService>;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
-    // Create a mocked instance of LocalStorageService
     localStorageService = {
-      loadMessages: jest.fn().mockReturnValue([]),
-      saveAIInteraction: jest.fn(),
-    } as unknown as jest.Mocked<LocalStorageService>;
+      loadMessages: vi.fn().mockReturnValue([]),
+      saveAIInteraction: vi.fn(),
+    } as unknown as vi.Mocked<LocalStorageService>;
 
     aiService = new AIService(localStorageService);
   });
@@ -28,11 +26,11 @@ describe("AIService", () => {
         { id: "1", role: "user", content: "Hello" },
       ];
 
-      globalThis.fetch = jest.fn().mockResolvedValue({
+      globalThis.fetch = vi.fn().mockResolvedValue({
         ok: true,
         body: {
           getReader: () => ({
-            read: jest.fn()
+            read: vi.fn()
               .mockResolvedValueOnce({
                 done: false,
                 value: new TextEncoder().encode("Assistant"),
@@ -42,7 +40,7 @@ describe("AIService", () => {
         },
       } as unknown as Response);
 
-      const result = await aiService.sendToAnthropic(mockMessages, jest.fn());
+      const result = await aiService.sendToAnthropic(mockMessages, vi.fn());
 
       expect(result.role).toBe("assistant");
       expect(result.content).toBe("Assistant");
@@ -57,12 +55,12 @@ describe("AIService", () => {
         { id: "1", role: "user", content: "Hello" },
       ];
 
-      globalThis.fetch = jest.fn().mockResolvedValue({
+      globalThis.fetch = vi.fn().mockResolvedValue({
         ok: false,
         status: 500,
       } as Response);
 
-      await expect(aiService.sendToAnthropic(mockMessages, jest.fn())).rejects
+      await expect(aiService.sendToAnthropic(mockMessages, vi.fn())).rejects
         .toThrow(
           "HTTP error! status: 500",
         );

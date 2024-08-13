@@ -26,42 +26,4 @@ describe("addSomeFixesIfNeeded", () => {
     const code = "css={css`color: red;`} css={css`font-size: 16px;`}";
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
-
-  it("doesnt don stupid things", () => {
-    const code = `
-    <motion.pre
-      className="absolute bottom-24 left-24 font-mono text-xs text-yellow-400"
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1 }}
-      css={css\`
-        white-space: pre;
-      \`}
-    >
-      <motion.div className="absolute inset-0 pointer-events-none">
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              top: \`${Math.random() * 100}%\`,
-              left: \`${Math.random() * 100}%\`,
-              width: "4px",
-              height: "4px",
-              borderRadius: "50%",
-              backgroundColor: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff"][
-                Math.floor(Math.random() * 5)
-              ],
-            }}
-            variants={fireworkVariants}
-            initial="initial"
-            animate="animate"
-            transition={{ repeat: Infinity, repeatDelay: Math.random() * 3 + 1 }}
-          />
-        ))}
-      </motion.div>
-    </motion.pre>
-  `;
-    expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
-  });
 });

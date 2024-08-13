@@ -1,4 +1,6 @@
 import { prettierToThrow, transpile } from "@src/shared";
+import { cSess } from "@src/ws";
+
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
 const codeSpace = location.pathname.split("/")[2];

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./chat/components";
-import { Message } from "./chat/types/Message";
+import { Message } from "./types/Message";
 export type { Message };
 
 interface ChatFCProps {

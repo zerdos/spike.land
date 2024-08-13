@@ -1,23 +1,24 @@
 import { act, renderHook } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useEditorState } from "../hooks/useEditorState";
+import { isMobile } from "../isMobile";
 
-let isMobileMockValue = false;
-jest.mock("../isMobile", () => ({
-  isMobile: isMobileMockValue,
-}));
+vi.mock("../isMobile");
 
 describe("useEditorState", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    globalThis.cSess = {
+    vi.resetAllMocks();
+    vi.unstubAllGlobals();
+    vi.stubGlobal("cSess", {
       session: {
         i: "0",
         code: "initial code",
       },
-    };
+    });
   });
 
-  test("initializes with correct values", () => {
+  it("initializes with correct values", () => {
+    vi.mocked(isMobile).mockReturnValue(false);
     const { result } = renderHook(() => useEditorState("test-code-space"));
 
     expect(result.current.containerRef.current).toBe(null);
@@ -31,14 +32,15 @@ describe("useEditorState", () => {
     expect(result.current.initialLoadRef.current).toBe(true);
   });
 
-  test("uses ace engine on mobile", async () => {
-    isMobileMockValue = true;
+  it("uses ace engine on mobile", () => {
+    vi.mocked(isMobile).mockReturnValue(true);
     const { result } = renderHook(() => useEditorState("test-code-space"));
 
     expect(result.current.engine).toBe("ace");
   });
 
-  test("setEditorState updates the state correctly", () => {
+  it("setEditorState updates the state correctly", () => {
+    vi.mocked(isMobile).mockReturnValue(false);
     const { result } = renderHook(() => useEditorState("test-code-space"));
 
     act(() => {

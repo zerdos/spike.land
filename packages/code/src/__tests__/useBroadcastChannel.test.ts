@@ -1,23 +1,24 @@
 import { renderHook } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 
 describe("useBroadcastChannel", () => {
-  let mockAddEventListener: jest.Mock;
-  let mockRemoveEventListener: jest.Mock;
+  let mockAddEventListener: ReturnType<typeof vi.fn>;
+  let mockRemoveEventListener: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    mockAddEventListener = jest.fn();
-    mockRemoveEventListener = jest.fn();
+    mockAddEventListener = vi.fn();
+    mockRemoveEventListener = vi.fn();
 
-    (globalThis as unknown as { BroadcastChannel: () => {} }).BroadcastChannel = jest.fn().mockImplementation(() => ({
+    (globalThis as unknown as { BroadcastChannel: () => {} }).BroadcastChannel = vi.fn().mockImplementation(() => ({
       addEventListener: mockAddEventListener,
       removeEventListener: mockRemoveEventListener,
     }));
   });
 
-  test("creates a BroadcastChannel with the correct name", () => {
+  it("creates a BroadcastChannel with the correct name", () => {
     const codeSpace = "test-code-space";
-    const handleBroadcastMessage = jest.fn();
+    const handleBroadcastMessage = vi.fn();
 
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
@@ -29,9 +30,9 @@ describe("useBroadcastChannel", () => {
     );
   });
 
-  test("adds event listener for 'message' event", () => {
+  it("adds event listener for 'message' event", () => {
     const codeSpace = "test-code-space";
-    const handleBroadcastMessage = jest.fn();
+    const handleBroadcastMessage = vi.fn();
 
     renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 
@@ -41,9 +42,9 @@ describe("useBroadcastChannel", () => {
     );
   });
 
-  test("removes event listener on cleanup", () => {
+  it("removes event listener on cleanup", () => {
     const codeSpace = "test-code-space";
-    const handleBroadcastMessage = jest.fn();
+    const handleBroadcastMessage = vi.fn();
 
     const { unmount } = renderHook(() => useBroadcastChannel(codeSpace, handleBroadcastMessage));
 

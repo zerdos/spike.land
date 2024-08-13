@@ -47,7 +47,7 @@ if (!globalThis.cSess) {
   globalThis.cSess = new Code();
 }
 
-const { cSess } = globalThis;
+export const { cSess } = globalThis;
 
 export const sess = cSess.session;
 
