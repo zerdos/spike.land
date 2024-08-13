@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.25.2",
-    "@clerk/clerk-sdk-node": "^5.0.26",
+    "@clerk/clerk-sdk-node": "^5.0.27",
     "@remix-run/cloudflare": "^2.11.1",
     "@remix-run/react": "^2.11.1",
     "@spike-land/code": "0.9.55",

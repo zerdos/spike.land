@@ -556,50 +556,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.6.2":
-  version: 1.6.2
-  resolution: "@clerk/backend@npm:1.6.2"
+"@clerk/backend@npm:1.6.3":
+  version: 1.6.3
+  resolution: "@clerk/backend@npm:1.6.3"
   dependencies:
-    "@clerk/shared": "npm:2.5.0"
-    "@clerk/types": "npm:4.13.0"
+    "@clerk/shared": "npm:2.5.1"
+    "@clerk/types": "npm:4.13.1"
     cookie: "npm:0.5.0"
     snakecase-keys: "npm:5.4.4"
     tslib: "npm:2.4.1"
-  checksum: 10/c85b6e2f15c9895b6ff30b9a268c854814f6c2a9bdb5181aa134763c2cbfedf59331a2ea5cea0ed7db5c47b998f1f4b030496ea2696b283f5a510a772945be33
+  checksum: 10/ae62ca53a574d4b743431d8d8c28f53227707033a718181ab3c3b5e2b1b6c052fe1967155634cf0c92abf72fde2c6caffc6fd67fd46438ddb4b4e31f66a92aa3
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:^5.4.0":
-  version: 5.4.0
-  resolution: "@clerk/clerk-react@npm:5.4.0"
+"@clerk/clerk-react@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "@clerk/clerk-react@npm:5.4.1"
   dependencies:
-    "@clerk/shared": "npm:2.5.0"
-    "@clerk/types": "npm:4.13.0"
+    "@clerk/shared": "npm:2.5.1"
+    "@clerk/types": "npm:4.13.1"
     tslib: "npm:2.4.1"
   peerDependencies:
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10/990ec643aec462bc5f815d29b7d1a4cfdd995d0557bb81a270a20716416cd449a74fd21a0dfe615ad67f144c855bfb996fe4917b45a5b977c7b66e02716f8107
+  checksum: 10/f0ee0a3a1cdca358ae272d289025ea8d01e611e96910aca2cf5cfd7d7e4c0973c4b29abc234fa7b450ab2e0e00ad7ee6256e1e727058e40489cdb17e90cc1190
   languageName: node
   linkType: hard
 
-"@clerk/clerk-sdk-node@npm:^5.0.26":
-  version: 5.0.26
-  resolution: "@clerk/clerk-sdk-node@npm:5.0.26"
+"@clerk/clerk-sdk-node@npm:^5.0.27":
+  version: 5.0.27
+  resolution: "@clerk/clerk-sdk-node@npm:5.0.27"
   dependencies:
-    "@clerk/backend": "npm:1.6.2"
-    "@clerk/shared": "npm:2.5.0"
-    "@clerk/types": "npm:4.13.0"
+    "@clerk/backend": "npm:1.6.3"
+    "@clerk/shared": "npm:2.5.1"
+    "@clerk/types": "npm:4.13.1"
     tslib: "npm:2.4.1"
-  checksum: 10/f3cc58c084c2202d5b451e6bdaf89cbba635a98d9445729859a698607fdd10f1258563f2745f76da7622f306ed3987d30f7e29c1cfee62d3ba5346c9bf939f2d
+  checksum: 10/d7e90975524d983def4af1123c21d8649c8729ece96fe555fc4094672892cf9b1f7d5cbd8c5e57edb9a1feb7ecbacd59ead66dcd9927e4374dae7b717c10beaf
   languageName: node
   linkType: hard
 
-"@clerk/shared@npm:2.5.0":
-  version: 2.5.0
-  resolution: "@clerk/shared@npm:2.5.0"
+"@clerk/shared@npm:2.5.1":
+  version: 2.5.1
+  resolution: "@clerk/shared@npm:2.5.1"
   dependencies:
-    "@clerk/types": "npm:4.13.0"
+    "@clerk/types": "npm:4.13.1"
     glob-to-regexp: "npm:0.4.1"
     js-cookie: "npm:3.0.5"
     std-env: "npm:^3.7.0"
@@ -612,16 +612,16 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/0b9ddcf0718b0a950bc6c5157a8c397993de0d7fda70d1faf225814c854c4b92d795bd3463f7274a4bbff12c3e335f1c35b2f1907b9cee9332b5ec4397960735
+  checksum: 10/d64ac6913c9ed29452328726b917b6a403a6bdd3f2b77a6ce4eefd8f5d2ff3f2846dc75ddc27d56b3f31d3e9103f2258bb1b90c155bb4fb9c98c3c8e97b1c127
   languageName: node
   linkType: hard
 
-"@clerk/types@npm:4.13.0":
-  version: 4.13.0
-  resolution: "@clerk/types@npm:4.13.0"
+"@clerk/types@npm:4.13.1":
+  version: 4.13.1
+  resolution: "@clerk/types@npm:4.13.1"
   dependencies:
     csstype: "npm:3.1.1"
-  checksum: 10/de7d6941225d01e7ac9fd673137a88e648e23a5085df9bd75d0905530c3a6fbfd273ec8c3c4233999ab2fab07a7015e0cfd860ef4c5d789a136fa396571a0e6a
+  checksum: 10/4dc3d577d8ba87748466fd8a26a8287bbe7bdf0a9c750d1efd8d0adf2e8c372473e995c3b873a995d213111e1730e0247819c7fa470f44d736bcdff03940d460
   languageName: node
   linkType: hard
 
@@ -4665,7 +4665,7 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.25.2"
-    "@clerk/clerk-sdk-node": "npm:^5.0.26"
+    "@clerk/clerk-sdk-node": "npm:^5.0.27"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240806.0"
     "@remix-run/cloudflare": "npm:^2.11.1"
@@ -4692,7 +4692,7 @@ __metadata:
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
-    "@clerk/clerk-react": "npm:^5.4.0"
+    "@clerk/clerk-react": "npm:^5.4.1"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
     "@emotion/react": "npm:11.13.0"
