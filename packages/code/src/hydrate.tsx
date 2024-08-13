@@ -1,20 +1,22 @@
 import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
-import { enhancedFetch } from "./enhancedFetch";
-import { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia } from "./helia";
-import { useArchive, useSpeedy } from "./hooks/useArchive";
+
 // import { mkdir } from "./memfs";
+import { routes } from "./routes";
 import { prettierCss } from "./shared";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
 
-Object.assign(globalThis, { uploadToHelia, downloadFromHelia, addFile, bundleAndUpload, useArchive, useSpeedy });
 // import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants
-const paths = location.pathname.split("/");
-const codeSpace = paths[2];
+const redirect = Object.hasOwn(routes, location.pathname)
+  ? routes[location.pathname as unknown as keyof typeof routes]
+  : null;
+const paths = location.pathname.split("/").slice(1);
+const codeSpace = redirect || paths[1];
+
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 // Utility functions
@@ -49,7 +51,26 @@ const createLangChainWorkflow = async (prompt: string) => {
 };
 
 const initializeApp = async () => {
+  const [
+    { enhancedFetch },
+    { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia },
+    { useArchive, useSpeedy },
+  ] = await Promise.all([
+    import("./enhancedFetch"),
+    import("./helia"),
+    import("./hooks/useArchive"),
+  ]);
+
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
+  Object.assign(globalThis, {
+    uploadToHelia,
+    enhancedFetch,
+    downloadFromHelia,
+    addFile,
+    bundleAndUpload,
+    useArchive,
+    useSpeedy,
+  });
 
   await setupServiceWorker();
 };
@@ -284,7 +305,6 @@ const handleDefaultPage = () => {
 
 // Main execution
 const main = async () => {
-  Object.assign(window, { enhancedFetch });
   await initializeApp();
   // await createDirectories();
 
@@ -299,4 +319,6 @@ const main = async () => {
   }
 };
 
-main();
+if (location.pathname.startsWith("/live")) {
+  main();
+}
