@@ -20,15 +20,11 @@ const codeSpace = redirect || paths[1];
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 const bcLogging = () => {
-
-  BC.onmessage = ({data}) => {
-    const {i, code, sender} = data;
-    console.table({i, sender, code});
-
-
-    }
-
-}
+  BC.onmessage = ({ data }) => {
+    const { i, code, sender } = data;
+    console.table({ i, sender, code });
+  };
+};
 
 Object.assign(globalThis, { BC, bcLogging });
 

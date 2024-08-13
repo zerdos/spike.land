@@ -189,7 +189,7 @@ export class RouteHandler {
         const s = makeSession(
           typeof session === "string" ? JSON.parse(session) : session,
         );
-        return new Response(stringifySession({ ...s}), {
+        return new Response(stringifySession({ ...s }), {
           status: 200,
           headers: {
             "Access-Control-Allow-Origin": "*",

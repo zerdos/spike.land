@@ -189,7 +189,11 @@ function setConnections(signal: string) {
                 );
 
                 console.log(c.oldSession);
-                BC.postMessage({ ...c.oldSession, transpiled: await transpile(c.oldSession.code, location.origin), sender: "ATA WORKER3" });
+                BC.postMessage({
+                  ...c.oldSession,
+                  transpiled: await transpile(c.oldSession.code, location.origin),
+                  sender: "ATA WORKER3",
+                });
                 return;
               }
 
@@ -199,7 +203,11 @@ function setConnections(signal: string) {
               if (data.newHash === newHash) {
                 c.oldSession = newSession;
                 console.log(newSession);
-                BC.postMessage({ ...newSession, transpiled: await transpile(newSession.code, location.origin), sender: "ATA WORKER4" });
+                BC.postMessage({
+                  ...newSession,
+                  transpiled: await transpile(newSession.code, location.origin),
+                  sender: "ATA WORKER4",
+                });
                 return;
               }
 
