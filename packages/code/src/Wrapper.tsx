@@ -121,7 +121,7 @@ export const Wrapper: React.FC<
     -webkit-overflow-scrolling: touch;
     
   `}
-        src={`/live/${codeSpace}/`}
+        src={`/live/${codeSpace}/iframe`}
       />
     );
   }
@@ -204,7 +204,7 @@ export const renderApp = async ({
     }
 
     const AppToRender = App || (await import(
-      transpiled ? createJsBlob(transpiled) : `/live/${codeSpace}/index.js`
+      transpiled ? createJsBlob(transpiled) : codeSpace? `/live/${codeSpace}/index.js` :`/live/empty/index.js` 
     )).default;
 
     const cssCache = createCache({ key: "css", speedy: false });
