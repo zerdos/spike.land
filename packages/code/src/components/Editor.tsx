@@ -57,11 +57,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       if (currentTime - lastTypingTimestamp >= 200) {
         console.log("Setting editor content: ", counter);
 
-        editorState.setValue(formattedCode + `\n  /** ${counter} */ \n`);
         setTimeout(() => {
           if (signal.aborted) return;
           editorState.setValue(formattedCode);
         }, 100);
+
+        editorState.setValue(formattedCode + `\n  /** invalid ${counter} */ \n`);
       }
     }, 259);
   };
@@ -109,6 +110,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   const handleContentChange = async (newCode: string) => {
     console.log("Content change", mod.current.i, md5(newCode));
 
+    if (newCode.includes("/** invalid")) return;
     if (mod.current.code === newCode) return;
 
     setLastTypingTimestamp(Date.now());
