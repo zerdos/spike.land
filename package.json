@@ -15,7 +15,7 @@
     "test": "yarn workspace @spike-land/code vitest",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
-    "deploy": "yarn c:build && yarn c:deploy && yarn types",
+    "deploy": "yarn fmt && yarn build && yarn c:deploy && git add . && git commit -m deploy && git pull  && git push",
     "fastdeploy": "cd packages/code yarn es:build && cd ../spike.land && yarn deploy ",
     "importMap": "yarn workspaces foreach run importMap",
     "build:code": "yarn workspaces foreach run build:code",

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCodeSpace } from "./useCodeSpace";
 
 export const useDarkMode = () => {
   const [isDarkMode, setIsDarkMode] = useState(
@@ -18,6 +19,7 @@ export const useDarkMode = () => {
     setIsDarkMode(newMode);
     localStorage.setItem("darkMode", newMode.toString());
     const broadcastChannel = new BroadcastChannel("chat_sync");
+    const codeSpace = useCodeSpace();
     broadcastChannel.postMessage({
       type: `update_dark_mode-${codeSpace}`,
       isDarkMode: newMode,
