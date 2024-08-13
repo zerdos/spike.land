@@ -47,7 +47,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = (formattedCode: string, ignoreSignals = false) => {
+  const setEditorContent = (formattedCode: string, counter: number) => {
     mod.current.controller.abort();
     mod.current.controller = new AbortController();
     const { signal } = mod.current.controller;
@@ -55,6 +55,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       if (signal.aborted) return;
       const currentTime = Date.now();
       if (currentTime - lastTypingTimestamp >= 200) {
+        console.log("Setting editor content: ", counter);
         editorState.setValue(formattedCode);
       }
     }, 259);
@@ -72,7 +73,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       await runner(formattedCode, mod.current.i);
 
-      setEditorContent(code, true);
+      setEditorContent(code, mod.current.i);
     },
   }), [setEditorContent]);
 
@@ -133,15 +134,17 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   };
 
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
-    console.log("Broadcast message", data.i, md5(data.code));
+    console.log("Broadcast message: ", data.i);
+
     if (data.i <= mod.current.i) return;
     if (data.i > mod.current.i) {
       mod.current.i = data.i;
 
       mod.current.code = data.code;
 
-      console.log("Setting editor content", data.i);
-      setEditorContent(data.code, true);
+      console.log("delaying setting Editor", data.i);
+
+      setEditorContent(data.code, data.i);
     }
   };
 
