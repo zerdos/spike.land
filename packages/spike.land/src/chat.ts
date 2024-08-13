@@ -113,25 +113,24 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
         "Content-Type",
         key.endsWith("js")
           ? "application/javascript; charset=UTF-8"
-        : key.endsWith("css")
+          : key.endsWith("css")
           ? "text/css; charset=UTF-8"
-        : key.endsWith("html")
+          : key.endsWith("html")
           ? "text/html; charset=UTF-8"
-        : key.endsWith("json")
+          : key.endsWith("json")
           ? "application/json; charset=UTF-8"
-        : key.endsWith("ttf")
+          : key.endsWith("ttf")
           ? "font/ttf"
-        : key.endsWith("woff")
+          : key.endsWith("woff")
           ? "font/woff"
-        : key.endsWith("woff2")
+          : key.endsWith("woff2")
           ? "font/woff2"
-        : key.endsWith("eot")
+          : key.endsWith("eot")
           ? "font/eot"
-        : key.endsWith("otf")
+          : key.endsWith("otf")
           ? "font/otf"
-        : key.endsWith("svg")
+          : key.endsWith("svg")
           ? "image/svg+xml"
-          
           : "text/html; charset=UTF-8",
       );
       return new Response(object.body, { headers });

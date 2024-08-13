@@ -4,14 +4,14 @@ export const handleEnhancedFetch = async (request: Request) => {
 
     // Perform the fetch
     const response = await fetch(optionsParam.url, optionsParam);
-    
+
     // if (response.body instanceof ReadableStream) {
     //   // convert it to arrayBuffer
-    
+
     //   const reader = response.body.getReader();
     //   const contentLength = response.headers.get("content-length");
     //   const totalBytes = contentLength ? parseInt(contentLength, 10) : 0;
-    //   let receivedBytes = 0;  
+    //   let receivedBytes = 0;
     //   const chunks: Uint8Array[] = [];
     //   while (true) {
     //     const { done, value } = await reader.read();
@@ -45,7 +45,7 @@ export const handleEnhancedFetch = async (request: Request) => {
     //   });
 
     //   return newBodyResp;
-      
+
     // }
 
     // Create a TransformStream to modify headers

@@ -1,6 +1,6 @@
 import { Plugin } from "esbuild-wasm";
 import processCSS from "./hooks/processCSS.ts";
-//import { enhancedFetch } from "./enhancedFetch.ts";
+// import { enhancedFetch } from "./enhancedFetch.ts";
 // import { enhancedFetch } from "./enhancedFetch.ts";
 
 export const fetchPlugin = () => ({
@@ -35,11 +35,25 @@ export const fetchPlugin = () => ({
       const contents = await response.text();
       const contentType = response.headers.get("content-type") || "";
 
-      let loader: "js" | "css" | "json" | "text" | "base64" | "file" | "dataurl" | "binary" | 'woff' | "woff2" | "ttf" | "eot" | "otf" |  "default" = "text";
+      let loader:
+        | "js"
+        | "css"
+        | "json"
+        | "text"
+        | "base64"
+        | "file"
+        | "dataurl"
+        | "binary"
+        | "woff"
+        | "woff2"
+        | "ttf"
+        | "eot"
+        | "otf"
+        | "default" = "text";
 
       if (contentType.includes("text/css") || args.path.endsWith(".css")) {
         loader = "css";
-        
+
         // Process @import statements in CSS
         return { contents: await processCSS(contents, args.path), loader };
       } else if (
@@ -52,11 +66,10 @@ export const fetchPlugin = () => ({
         loader = "binary";
       }
 
-      return { contents, loader,   };
+      return { contents, loader };
     });
   },
 } as Plugin);
-
 
 //   return css;
 // }

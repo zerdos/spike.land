@@ -1,7 +1,7 @@
 export const serverFetchUrl = "/api/server-fetch";
 
 export const enhancedFetch = async (url: RequestInfo | URL, options: RequestInit = {}) => {
-  const controller = new AbortController()
+  const controller = new AbortController();
   const { signal: originalSignal } = options;
 
   const combinedSignal = originalSignal
@@ -9,30 +9,34 @@ export const enhancedFetch = async (url: RequestInfo | URL, options: RequestInit
     : controller.signal;
 
   try {
-
-    const res =  await fetch(url, {
+    const res = await fetch(url, {
       signal: combinedSignal,
       ...options,
-      });
+    });
     if (res.ok) {
       const clone = res.clone();
       const body = await res.blob();
       return new Response(body, clone);
     }
     throw new Error(res.statusText);
-  }
-  catch (error) {
+  } catch (error) {
     // console.error("Error in enhancedFetch", error);
-       
 
-  return  fetch(serverFetchUrl, { signal: combinedSignal, method: "POST", body: JSON.stringify({ options: {
-    method:  "GET",
-    ...options,
-  }, url }) });
-  controller.abort();
-  throw error;
-}
-}
+    return fetch(serverFetchUrl, {
+      signal: combinedSignal,
+      method: "POST",
+      body: JSON.stringify({
+        options: {
+          method: "GET",
+          ...options,
+        },
+        url,
+      }),
+    });
+    controller.abort();
+    throw error;
+  }
+};
 
 function anySignal(signals: AbortSignal[]): AbortSignal {
   const controller = new AbortController();

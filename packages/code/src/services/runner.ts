@@ -128,11 +128,11 @@ export const runner = async (code: string, counter = 0) => {
     });
 
     const { i, html, css } = await promise;
-    
+
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
 
-      return false; 
+      return false;
     }
 
     console.log("Sending message to BC", i);

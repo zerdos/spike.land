@@ -10,11 +10,11 @@ async function processCSS(css: string, baseURL: string, depth: number = 0): Prom
     // Handle @import statements
     const importRegex = /@import\s+(?:url\(['"]?(.+?)['"]?\)|['"](.+?)['"])/g;
     const imports = Array.from(css.matchAll(importRegex));
-    
+
     const processedImports = await Promise.all(imports.map(async (match) => {
       const importUrl = match[1] || match[2];
       const absoluteUrl = new URL(importUrl, baseURL).toString();
-      
+
       if (urlCache.has(absoluteUrl)) {
         return urlCache.get(absoluteUrl);
       }
@@ -25,18 +25,18 @@ async function processCSS(css: string, baseURL: string, depth: number = 0): Prom
       return processedImportedCSS;
     }));
 
-    css = css.replace(importRegex, () => processedImports.shift() || '');
+    css = css.replace(importRegex, () => processedImports.shift() || "");
 
     // Handle url() references
     const urlRegex = /url\(['"]?(.+?)['"]?\)/g;
     const matches = css.match(urlRegex);
-    
+
     if (matches) {
       for (const match of matches) {
         const url = match.match(/url\(['"]?(.+?)['"]?\)/)?.[1];
         if (url && !url.startsWith("data:")) {
           const absoluteUrl = new URL(url, baseURL).toString();
-          
+
           if (urlCache.has(absoluteUrl)) {
             css = css.replace(match, urlCache.get(absoluteUrl)!);
             continue;
@@ -44,12 +44,14 @@ async function processCSS(css: string, baseURL: string, depth: number = 0): Prom
 
           const req = await fetch(absoluteUrl);
           const contentType = req.headers.get("content-type") || "";
-          
+
           let newUrlValue: string;
           if (contentType.includes("font/")) {
             const content = await req.arrayBuffer();
             const fontType = contentType.split("/").pop();
-            newUrlValue = `url("data:font/${fontType};base64,${btoa(String.fromCharCode(...new Uint8Array(content)))}")`;
+            newUrlValue = `url("data:font/${fontType};base64,${
+              btoa(String.fromCharCode(...new Uint8Array(content)))
+            }")`;
           } else {
             newUrlValue = `url("${absoluteUrl}")`;
           }

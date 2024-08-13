@@ -1,5 +1,3 @@
-
-
 import type { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
@@ -21,12 +19,12 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 // Utility functions
 // const createDirectories = async () => {
-  // try {
-    // await mkdir("/live");
-    // await mkdir(`/live/${codeSpace}`);
-  // } catch (e) {
-    // console.error("Error creating directories:", e);
-  // }
+// try {
+// await mkdir("/live");
+// await mkdir(`/live/${codeSpace}`);
+// } catch (e) {
+// console.error("Error creating directories:", e);
+// }
 // };
 
 const setupServiceWorker = async () => {

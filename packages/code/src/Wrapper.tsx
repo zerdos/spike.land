@@ -141,11 +141,11 @@ export const Wrapper: React.FC<
 
     rootRef.current.render(
       <ErrorBoundary>
-      <CacheProvider value={cssCache}>
-        <ParentSize>
-          {(props) => <AppRenderer transpiled={transpiled} {...props} />}
-        </ParentSize>
-      </CacheProvider>
+        <CacheProvider value={cssCache}>
+          <ParentSize>
+            {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+          </ParentSize>
+        </CacheProvider>
       </ErrorBoundary>,
     );
   }, [transpiled, cssCache]);
