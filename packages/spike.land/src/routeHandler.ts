@@ -47,7 +47,7 @@ export class RouteHandler {
       env: this.handleEnvRoute.bind(this),
       screenshot: this.handleScreenShotRoute.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
-      "": this.handleEditorRoute.bind(this),
+      "": this.handleDefaultRoute.bind(this),
       undefined: this.handleDefaultRoute.bind(this),
       "null": this.handleDefaultRoute.bind(this),
       hydrated: this.handleDefaultRoute.bind(this),
@@ -310,30 +310,6 @@ export class RouteHandler {
     return new Response(respText, { status: 200, headers });
   }
 
-  private async handleEditorRoute(
-    _request: Request,
-    url: URL,
-  ): Promise<Response> {
-    // const url = new URL(r);
-    const codeSpace = url.searchParams.get("room");
-    const respText = HTML.replace(
-      "<div id=\"root\"></div>",
-      `<div id="root"><iframe src="/live/${codeSpace}/" height="100%" width="100%" style="border: none;" /></div>`,
-    );
-
-    const headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
-      "Cross-Origin-Embedder-Policy": "require-corp",
-      "Cross-Origin-Resource-Policy": "cross-origin",
-      "Cross-Origin-Opener-Policy": "same-origin",
-      "Cache-Control": "no-cache",
-      "Content-Encoding": "gzip",
-      "Content-Type": "text/html; charset=UTF-8",
-      "content_hash": md5(respText),
-    });
-
-    return new Response(respText, { status: 200, headers });
-  }
 
 
   private async handleRoomRoute(request: Request, url: URL): Promise<Response> {
@@ -540,7 +516,10 @@ let { html, css, ids } = extractCritical(renderToString(element))
   }
 
   private async handleCssRoute(request: Request): Promise<Response> {
-    return new Response(this.code.session.css, {
+    return new Response(
+      `#root { 
+      ${this.code.session.css}
+    }`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
