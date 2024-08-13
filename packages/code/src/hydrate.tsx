@@ -244,12 +244,15 @@ const handleDefaultPage = () => {
   const mutex = new Mutex();
 
   BC.onmessage = async ({ data }) => {
-    const { i, transpiled, html } = data;
-    if (i > mod.counter && transpiled && html) {
-      renderApp({
-        transpiled,
-        rootElement: document.getElementById("root")! as HTMLDivElement,
-      });
+    const { i, transpiled } = data;
+    if (transpiled) {
+      if (mod.counter !== i) {
+        mod.counter = i;
+        renderApp({
+          transpiled,
+          rootElement: document.getElementById("root")! as HTMLDivElement,
+        });
+      }
     }
   };
 
