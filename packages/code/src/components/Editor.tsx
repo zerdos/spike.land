@@ -57,7 +57,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       if (currentTime - lastTypingTimestamp >= 200) {
         console.log("Setting editor content: ", counter);
 
-        editorState.setValue(formattedCode + `\n  /** $counter */ \n`);
+        editorState.setValue(formattedCode + `\n  /** ${counter} */ \n`);
         setTimeout(() => {
           if (signal.aborted) return;
           editorState.setValue(formattedCode);
