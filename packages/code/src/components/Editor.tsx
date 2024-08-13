@@ -48,14 +48,13 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   });
 
   const setEditorContent = (formattedCode: string, ignoreSignals = false) => {
-    if (ignoreSignals) {
-      return editorState.setValue(formattedCode);
-    }
+    mod.current.controller.abort();
+    mod.current.controller = new AbortController();
     const { signal } = mod.current.controller;
     setTimeout(() => {
       if (signal.aborted) return;
       const currentTime = Date.now();
-      if (currentTime - lastTypingTimestamp >= 5000) {
+      if (currentTime - lastTypingTimestamp >= 200) {
         editorState.setValue(formattedCode);
       }
     }, 6000);
