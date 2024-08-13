@@ -47,22 +47,19 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = useCallback(
-    (formattedCode: string, ignoreSignals = false) => {
-      if (ignoreSignals) {
-        return editorState.setValue(formattedCode);
+  const setEditorContent = (formattedCode: string, ignoreSignals = false) => {
+    if (ignoreSignals) {
+      return editorState.setValue(formattedCode);
+    }
+    const { signal } = mod.current.controller;
+    setTimeout(() => {
+      if (signal.aborted) return;
+      const currentTime = Date.now();
+      if (currentTime - lastTypingTimestamp >= 5000) {
+        editorState.setValue(formattedCode);
       }
-      const { signal } = mod.current.controller;
-      setTimeout(() => {
-        if (signal.aborted) return;
-        const currentTime = Date.now();
-        if (currentTime - lastTypingTimestamp >= 5000) {
-          editorState.setValue(formattedCode);
-        }
-      }, 6000);
-    },
-    [editorState, lastTypingTimestamp],
-  );
+    }, 6000);
+  };
 
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
@@ -140,9 +137,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     console.log("Broadcast message", data.i, md5(data.code));
     if (data.i <= mod.current.i) return;
     if (data.i > mod.current.i) {
-      mod.current.i = Number(data.i);
-
-      if (mod.current.code === data.code) return;
+      mod.current.i = data.i;
 
       mod.current.code = data.code;
 
