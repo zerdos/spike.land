@@ -30,16 +30,8 @@ You got this starter code file to work with:
 ${fileContent}
 \`\`\`
 
-If the user provides you with specific instructions, and the code is easy to modify with some search replace commands,
+If the user provides you with specific instructions, you must modify the code using the following format:
 ${codeModificationPrompt}
-In this case do not provide further instructions, just return the changes in this format.
-
-If it needs to be modified in a more complex way:
-- Provide ONLY the necessary updates, never the full file content
-- Describe changes precisely, specifying exact locations in the file
-- Use line numbers or function names to indicate where changes should be made
-- For new additions, specify where they should be inserted
-- If it makes sense you can update the code in this format:
 
 React component guidelines:
 - Components should be default export JSX

@@ -195,7 +195,7 @@ export class AIService {
           toThrow: true,
         });
 
-        runner(prettyCode);
+        if (await runner(prettyCode) === false) throw new Error("Error in runner");
         setAICode(prettyCode);
 
         return prettyCode;

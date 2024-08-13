@@ -310,8 +310,6 @@ export class RouteHandler {
     return new Response(respText, { status: 200, headers });
   }
 
-
-
   private async handleRoomRoute(request: Request, url: URL): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     return new Response(JSON.stringify({ codeSpace }), {
@@ -516,10 +514,7 @@ let { html, css, ids } = extractCritical(renderToString(element))
   }
 
   private async handleCssRoute(request: Request): Promise<Response> {
-    return new Response(
-      `#root { 
-      ${this.code.session.css}
-    }`, {
+    return new Response(this.code.session.css, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Cross-Origin-Embedder-Policy": "require-corp",
