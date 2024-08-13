@@ -57,7 +57,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       if (currentTime - lastTypingTimestamp >= 200) {
         editorState.setValue(formattedCode);
       }
-    }, 6000);
+    }, 259);
   };
 
   useImperativeHandle(ref, () => ({
