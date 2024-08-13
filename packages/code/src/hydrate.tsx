@@ -21,8 +21,8 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 const bcLogging = () => {
   BC.onmessage = ({ data }) => {
-    const { i, code, sender } = data;
-    console.table({ i, sender, code });
+    const { i, code, sender, transpiled } = data;
+    console.table({ i, sender, code, transpiled });
   };
 };
 
