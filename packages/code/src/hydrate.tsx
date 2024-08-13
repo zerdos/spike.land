@@ -61,8 +61,6 @@ const initializeApp = async () => {
     import("./hooks/useArchive"),
   ]);
 
-
-
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
   Object.assign(globalThis, {
     uploadToHelia,
@@ -310,7 +308,6 @@ const handleDefaultPage = () => {
 
 // Main execution
 const main = async () => {
-
   // await createDirectories();
   // console.log("main "  + location.pathname);
   // console.log("main "  + codeSpace);
@@ -321,7 +318,7 @@ const main = async () => {
     handleLivePage();
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
     handleDehydratedPage();
-  } else  if (location.pathname === `/live/${codeSpace}/`) {
+  } else if (location.pathname === `/live/${codeSpace}/`) {
     handleDefaultPage();
   }
 

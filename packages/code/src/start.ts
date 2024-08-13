@@ -1,6 +1,6 @@
 import { routes } from "./routes";
 
-if (location.pathname.endsWith("iframe")===false) import("./hydrate");
+if (location.pathname.endsWith("iframe") === false) import("./hydrate");
 
 const paths = location.pathname.split("/").slice(1);
 
