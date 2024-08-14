@@ -67,6 +67,7 @@
     "lib": [
       "ESNext",
       "DOM",
+      "ESNext.BigInt",
       "ESNext.String",
       "ESNext.Promise",
       "DOM.AsyncIterable",
