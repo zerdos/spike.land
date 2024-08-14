@@ -13,13 +13,12 @@
     "ai-commit": "./index.mjs"
   },
   "dependencies": {
-    "axios": "1.7.3",
     "body-parser": "1.20.2",
     "commander": "12.1.0",
     "dotenv": "16.4.5",
     "express": "4.19.2",
     "node-fetch": "3.3.2",
-    "openai": "4.55.5",
+    "openai": "4.55.7",
     "p-limit": "6.1.0",
     "simple-git": "3.25.0"
   },

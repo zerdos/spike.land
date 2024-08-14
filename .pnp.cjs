@@ -6308,13 +6308,12 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
           ["@types/node", "npm:22.2.0"],\
-          ["axios", "npm:1.7.3"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:12.1.0"],\
           ["dotenv", "npm:16.4.5"],\
           ["express", "npm:4.19.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.5"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.7"],\
           ["p-limit", "npm:6.1.0"],\
           ["simple-git", "npm:3.25.0"]\
         ],\
@@ -6536,7 +6535,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.23.0"],\
           ["esm-worker", "npm:0.135.16"],\
           ["immutable", "npm:4.3.7"],\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.5"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.7"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:7.0.2"],\
           ["p-queue", "npm:8.0.1"],\
@@ -9178,18 +9177,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/avl-npm-1.5.3-ee43491243-10.zip/node_modules/avl/",\
         "packageDependencies": [\
           ["avl", "npm:1.5.3"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["axios", [\
-      ["npm:1.7.3", {\
-        "packageLocation": "./.yarn/global/cache/axios-npm-1.7.3-a63743a582-10.zip/node_modules/axios/",\
-        "packageDependencies": [\
-          ["axios", "npm:1.7.3"],\
-          ["follow-redirects", "virtual:a63743a5822c3f4f0080debf0a45615212b5bd005b763a14221b5559794a4eab59edf521118fa1c78a2444ffb22b1d205323e984eccd051abda1334fb302f130#npm:1.15.6"],\
-          ["form-data", "npm:4.0.0"],\
-          ["proxy-from-env", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12891,28 +12878,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/flatted-npm-3.3.1-458870f59b-10.zip/node_modules/flatted/",\
         "packageDependencies": [\
           ["flatted", "npm:3.3.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["follow-redirects", [\
-      ["npm:1.15.6", {\
-        "packageLocation": "./.yarn/global/cache/follow-redirects-npm-1.15.6-50635fe51d-10.zip/node_modules/follow-redirects/",\
-        "packageDependencies": [\
-          ["follow-redirects", "npm:1.15.6"]\
-        ],\
-        "linkType": "SOFT"\
-      }],\
-      ["virtual:a63743a5822c3f4f0080debf0a45615212b5bd005b763a14221b5559794a4eab59edf521118fa1c78a2444ffb22b1d205323e984eccd051abda1334fb302f130#npm:1.15.6", {\
-        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-74498d9869/0/global/cache/follow-redirects-npm-1.15.6-50635fe51d-10.zip/node_modules/follow-redirects/",\
-        "packageDependencies": [\
-          ["follow-redirects", "virtual:a63743a5822c3f4f0080debf0a45615212b5bd005b763a14221b5559794a4eab59edf521118fa1c78a2444ffb22b1d205323e984eccd051abda1334fb302f130#npm:1.15.6"],\
-          ["@types/debug", null],\
-          ["debug", null]\
-        ],\
-        "packagePeers": [\
-          "@types/debug",\
-          "debug"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -18530,17 +18495,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.55.5", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.55.5-234417f6df-10.zip/node_modules/openai/",\
+      ["npm:4.55.7", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.55.7-9346ea4d54-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.55.5"]\
+          ["openai", "npm:4.55.7"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.5", {\
-        "packageLocation": "./.yarn/__virtual__/openai-virtual-84cfbfaab3/0/global/cache/openai-npm-4.55.5-234417f6df-10.zip/node_modules/openai/",\
+      ["virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.7", {\
+        "packageLocation": "./.yarn/__virtual__/openai-virtual-8cdc076ae3/0/global/cache/openai-npm-4.55.7-9346ea4d54-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.5"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.7"],\
           ["@types/node", "npm:18.19.43"],\
           ["@types/node-fetch", "npm:2.6.11"],\
           ["@types/zod", null],\

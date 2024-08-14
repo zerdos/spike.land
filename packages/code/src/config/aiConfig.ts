@@ -1,6 +1,6 @@
 export const codeModificationPrompt = `
-When suggesting code modifications, please use the following format:
-
+You must modify the code using string replace tools. The sting replace block is applied on the whole code. 
+The format is as follows:
 <<<<<<< SEARCH
 [Original code to be replaced]
 =======
@@ -8,6 +8,7 @@ When suggesting code modifications, please use the following format:
 >>>>>>> REPLACE
 
 This format helps to clearly identify the changes to be made.
+Also, the block will be executed one by one, so you can't use the the replaced block in the next search block.
 `;
 
 export const anthropic = (

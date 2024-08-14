@@ -4630,13 +4630,12 @@ __metadata:
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
     "@types/node": "npm:22.2.0"
-    axios: "npm:1.7.3"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.55.5"
+    openai: "npm:4.55.7"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -4677,7 +4676,7 @@ __metadata:
     esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.7"
-    openai: "npm:^4.55.5"
+    openai: "npm:^4.55.7"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -6899,17 +6898,6 @@ __metadata:
   version: 1.5.3
   resolution: "avl@npm:1.5.3"
   checksum: 10/42990a827087761031c3b9c7eb4d59f9b49fc1b5dc90a849701886bff54aee5d71a317200c45cff5f9def7c39afcd9bc6b3f700d8ff71d00837059e5305e4f59
-  languageName: node
-  linkType: hard
-
-"axios@npm:1.7.3":
-  version: 1.7.3
-  resolution: "axios@npm:1.7.3"
-  dependencies:
-    follow-redirects: "npm:^1.15.6"
-    form-data: "npm:^4.0.0"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10/7f92af205705a8fb4a9d35666b663729507657f252a1d39d83582590119941872d49078017cf992e32f47aa3b7317f5439f77be772a173dac2ae0fedd38f43ae
   languageName: node
   linkType: hard
 
@@ -10135,16 +10123,6 @@ __metadata:
   version: 3.3.1
   resolution: "flatted@npm:3.3.1"
   checksum: 10/7b8376061d5be6e0d3658bbab8bde587647f68797cf6bfeae9dea0e5137d9f27547ab92aaff3512dd9d1299086a6d61be98e9d48a56d17531b634f77faadbc49
-  languageName: node
-  linkType: hard
-
-"follow-redirects@npm:^1.15.6":
-  version: 1.15.6
-  resolution: "follow-redirects@npm:1.15.6"
-  peerDependenciesMeta:
-    debug:
-      optional: true
-  checksum: 10/70c7612c4cab18e546e36b991bbf8009a1a41cf85354afe04b113d1117569abf760269409cb3eb842d9f7b03d62826687086b081c566ea7b1e6613cf29030bf7
   languageName: node
   linkType: hard
 
@@ -15059,9 +15037,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.55.5, openai@npm:^4.55.5":
-  version: 4.55.5
-  resolution: "openai@npm:4.55.5"
+"openai@npm:4.55.7, openai@npm:^4.55.7":
+  version: 4.55.7
+  resolution: "openai@npm:4.55.7"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -15077,7 +15055,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10/a02db4233cf650d294a0627cd65c9e90641d0b32b97559518e8278dcfa9ea33f721b508c89e74ce558ffac81ff3c00b2bc9833d95855f51ed1f8cb36cadfe02b
+  checksum: 10/22e0762bea26f440aab93629143f6f3fdc4922812471d9fad72780a50ff6f23711265e6663f2c55de212d7ea03447fa559d40e423997ae06f711d5d373267523
   languageName: node
   linkType: hard
 
