@@ -19,8 +19,6 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
-const paths = location.pathname.split("/");
-
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace },
   ref,
@@ -30,10 +28,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     engine,
     editorState,
     setEditorState,
-    initialLoadRef,
   } = useEditorState(codeSpace);
 
-  const { errorType, setErrorType, debouncedTypeCheck } = useErrorHandling(
+  const { errorType, setErrorType } = useErrorHandling(
     engine,
   );
 
@@ -62,7 +59,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
           editorState.setValue(formattedCode);
         }, 100);
 
-        editorState.setValue(formattedCode + `\n  /** invalid ${counter} */ \n`);
+        editorState.setValue(formattedCode.replace("export default", "// export default"));
       }
     }, 259);
   };

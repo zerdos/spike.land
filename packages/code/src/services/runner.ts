@@ -1,9 +1,10 @@
+import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { prettierToThrow, transpile } from "@src/shared";
 import { cSess } from "@src/ws";
 
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
-const codeSpace = location.pathname.split("/")[2];
+const codeSpace = useCodeSpace();
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
@@ -16,8 +17,7 @@ const mod: {
   controller: AbortController;
 } = {
   ...cSess.session,
-  css: "",
-  cssIds: getCssStr(cSess.session.html),
+  css: cSess.session.css,
   controller: new AbortController(),
 };
 
