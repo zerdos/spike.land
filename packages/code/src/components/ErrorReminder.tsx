@@ -59,7 +59,7 @@ export const ErrorReminder: React.FC<ErrorReminderProps> = (
   const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    let timer: number;
+    let timer: NodeJS.Timeout;
     if (errorType) {
       timer = setTimeout(() => {
         setShowError(true);

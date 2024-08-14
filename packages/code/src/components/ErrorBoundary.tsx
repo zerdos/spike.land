@@ -1,4 +1,5 @@
 import React from "react";
+import { useErrorHandling } from "../hooks/useErrorHandling";
 
 type ErrorBoundaryState = {
   hasError: boolean;
@@ -12,12 +13,15 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
 
   static getDerivedStateFromError(error: any) {
     // Update state so the next render will show the fallback UI.
+
     return { hasError: true };
   }
 
   componentDidCatch(error: any, errorInfo: any) {
     // You can log the error to an error reporting service
     console.log("Error:", error);
+    const { setErrorType } = useErrorHandling("errorBoundary");
+    setErrorType("render");
     console.log("Error Info:", errorInfo);
   }
 

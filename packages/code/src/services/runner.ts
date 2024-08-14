@@ -44,16 +44,17 @@ export const runner = async (code: string, counter = 0) => {
     if (formattedCode === mod.code) return;
   } catch (error) {
     console.error("Error in runner:", error);
+    return false;
   }
 
   if (counter === 0) counter = mod.i + 3;
-  if (counter < mod.i) return;
+  if (counter < mod.i) return false;
 
   try {
     mod.controller.abort();
     mod.controller = new AbortController();
     const signal = mod.controller.signal;
-    if (signal.aborted) return;
+    if (signal.aborted) return false;
 
     // console.log("Running code", i);
 
@@ -157,7 +158,9 @@ export const runner = async (code: string, counter = 0) => {
     mod.controller.abort();
 
     console.log("Runner succeeded");
+    return true;
   } catch (error) {
     console.error("Error in runner:", error);
+    return false;
   }
 };

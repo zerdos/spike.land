@@ -55,8 +55,10 @@ export class AIService {
 
     assistantMessage.content = c.trim();
 
+    const userMessage = messages[messages.length - 1].content;
+    const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
     this.localStorageService.saveAIInteraction(
-      messages[messages.length - 1].content,
+      msgToSave,
       assistantMessage.content,
     );
 
@@ -105,8 +107,10 @@ export class AIService {
 
     assistantMessage.content = c.trim();
 
+    const userMessage = messages[messages.length - 1].content;
+    const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
     this.localStorageService.saveAIInteraction(
-      messages[messages.length - 1].content,
+      msgToSave,
       assistantMessage.content,
     );
 
@@ -236,8 +240,12 @@ export class AIService {
             debouncedSetMessages,
           );
           setMessages((prevMessages) => [...prevMessages, answer]);
+
+          const answerContent = answer.content;
+          const msgToSend = typeof answerContent === "string" ? answerContent : JSON.stringify(answerContent);
+
           await this.continueWithOpenAI(
-            answer.content,
+            msgToSend,
             modifiedCode,
             setMessages,
             setAICode,
