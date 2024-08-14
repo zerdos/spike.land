@@ -11,8 +11,8 @@ export const makeEnv = (environment: Environment) => ({
   "process.platform": JSON.stringify("browser"),
   "process.browser": JSON.stringify(true),
   "process.env.DEBUG": JSON.stringify(false),
-  "process.versions.node.version": JSON.stringify("v20.3.1"),
-  "process.versions.node.pnp": JSON.stringify(false),
+  "process.versions.node": JSON.stringify("v20.3.1"),
+  "process.versions.pnp": JSON.stringify(false),
 
   "process.version.node": JSON.stringify("v20.3.1"),
   "process.env.isBrowser": JSON.stringify(true),
