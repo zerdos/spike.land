@@ -79,7 +79,9 @@
     "allowUmdGlobalAccess": true,
     "types": [
       "@types/wicg-file-system-access",
-      "@types/jest"
+      "@types/react",
+      "@types/react-dom",
+      "vitest"
     ]
   },
 

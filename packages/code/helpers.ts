@@ -1,4 +1,7 @@
-import { readdir } from "fs/promises";
+import type { Environment } from "./build-tasks";
+
+import { promises } from "node:fs";
+const { readdir } = promises;
 
 export const makeEnv = (environment) => ({
   "process.env.NODE_ENV": environment === "production"
@@ -40,7 +43,7 @@ export const makeEnv = (environment) => ({
   }),
 });
 
-const environment = process.env.NODE_ENV || "development";
+const environment = process.env.NODE_ENV as Environment;
 
 const isDevelopment = environment !== "production";
 
