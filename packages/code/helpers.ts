@@ -40,6 +40,7 @@ const processInfo = safeStringify({
 export const makeEnv = (environment: Environment) => ({
   "process.env.NODE_ENV": JSON.stringify(environment || "development"),
   "process.env.NODE_DEBUG": JSON.stringify(false),
+  "process.platform": JSON.stringify("browser"),
   "process.browser": JSON.stringify(true),
   "process.env.DEBUG": JSON.stringify(false),
   "isBrowser": JSON.stringify(true),
