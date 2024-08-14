@@ -67,9 +67,23 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
       console.log("Setting value from parent");
+      mod.current.controller.abort();
+      mod.current.controller = new AbortController();
+      const { signal } = mod.current.controller;
       mod.current.i += 1;
-
-      const formattedCode = await prettierToThrow({ code, toThrow: true });
+      let formattedCode = code;
+      try {
+        if (signal.aborted) return;
+        formattedCode = await prettierToThrow({ code, toThrow: true });
+        if (signal.aborted) return;
+        if (errorType === "prettier") {
+          setErrorType(null);
+        }
+      } catch (error) {
+        setErrorType("prettier");
+        return;
+      }
+      console.log("Prettier succeeded");
 
       if (mod.current.code === formattedCode) return;
       mod.current.code = formattedCode;
@@ -126,7 +140,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       }
     } catch (error) {
       setErrorType("prettier");
-      throw error;
     }
     console.log("Prettier succeeded");
 
