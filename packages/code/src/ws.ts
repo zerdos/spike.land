@@ -29,7 +29,7 @@ class Code {
 
   async init() {
     this.session = makeSession(
-      await fetch(`/live/${codeSpace}/session`).then((resp) => resp.json<ICodeSession>()),
+      await fetch(`/live/${codeSpace}/session`).then((resp) => resp.json()),
     );
   }
 

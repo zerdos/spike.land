@@ -1,4 +1,4 @@
-import { readDir } from "./esbuild-depts.ts";
+import { readdir } from "fs/promises";
 
 export const makeEnv = (environment) => ({
   "process.env.NODE_ENV": environment === "production"
@@ -40,15 +40,15 @@ export const makeEnv = (environment) => ({
   }),
 });
 
-const environment = "production";
+const environment = process.env.NODE_ENV || "development";
 
 const isDevelopment = environment !== "production";
 
 export const getWasmFile = async () => {
-  const dir = await readDir("./dist");
+  const dir = await readdir("./dist");
   for await (const file of dir) {
-    if (file.name.includes("esbuild") && file.name.includes(".wasm")) {
-      return file.name;
+    if (file.includes("esbuild") && file.includes(".wasm")) {
+      return file;
     }
   }
   throw new Error("WASM file not found");

@@ -3,8 +3,8 @@ import { copy } from "esbuild-plugin-copy";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
-
-const environment: "development" | "production" = (Deno as unknown as any).env.get("NODE_ENV") as any;
+type Environment = "development" | "production";
+const environment = process.env.NODE_ENV as Environment;
 
 const isProduction = environment as string === "production";
 const watch = false;
