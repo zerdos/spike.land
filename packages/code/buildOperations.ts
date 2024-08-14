@@ -1,8 +1,8 @@
-import type { BuildOptions } from "esbuild-wasm";
-import { buildOptions } from "./build-config.ts";
-import { esbuild } from "./esbuild-depts.ts";
+import * as esbuild from "esbuild";
+import { buildOptions } from "./build-config";
+import { Environment } from "./build-tasks.ts";
 import { makeEnv } from "./helpers.ts";
 
 export const stop = () => esbuild.stop();
-export const build = (opts: BuildOptions) =>
+export const build = (opts: esbuild.BuildOptions) =>
   esbuild.build({ ...buildOptions, define: makeEnv("development"), ...opts });
