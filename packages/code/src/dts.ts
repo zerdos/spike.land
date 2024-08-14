@@ -1,7 +1,12 @@
 import { tsx } from "detective-typescript";
 
-process.cwd = () => "/";
-
-process.emitWarning = () => {};
+Object.assign(globalThis, {
+  process: {
+    cwd: () => "/",
+    emitWarning: () => {},
+    env: { NODE_ENV: "development" },
+    platform: "browser",
+  },
+});
 
 Object.assign(self, { tsx });
