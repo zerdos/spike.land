@@ -171,7 +171,6 @@ async function startMonacoPristine({
   codeSpace: string;
   onChange: (_code: string) => void;
 }) {
-  const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   const replacedCode = await monacoContribution(code);
   const uri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
   const model = monaco.editor.getModel(uri)
@@ -262,7 +261,7 @@ async function startMonacoPristine({
     isEdit: false,
     setValue: (newCode: string) => {
       myEditor.getDomNode()?.blur();
-      if (editorModel.isEdit) return;
+      //      if (editorModel.isEdit) return;
       editorModel.silent = true;
       let state = null;
       try {
@@ -295,17 +294,6 @@ async function startMonacoPristine({
   myEditor.onDidBlurEditorText(async () => {
     editorModel.isEdit = false;
   });
-
-  BC.onmessage = (
-    { data }: { data: { changes?: monaco.editor.IModelContentChange[] } },
-  ) => {
-    if (editorModel.silent) return;
-    if (data.changes) {
-      editorModel.silent = true;
-      model.applyEdits(data.changes);
-      editorModel.silent = false;
-    }
-  };
 
   model.onDidChangeContent(() => {
     const newCode = model.getValue();
