@@ -1,5 +1,6 @@
 import * as monaco from "@/external/monacoEditor";
 import { ata } from "./shared";
+import { cSess } from "./ws";
 
 const originToUse = location.origin;
 
@@ -260,6 +261,7 @@ async function startMonacoPristine({
     },
     isEdit: false,
     setValue: (newCode: string) => {
+      if (newCode !== cSess.session.code) return;
       myEditor.getDomNode()?.blur();
       //      if (editorModel.isEdit) return;
       editorModel.silent = true;
