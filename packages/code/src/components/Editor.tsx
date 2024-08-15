@@ -44,10 +44,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = (formattedCode: string, counter: number) => {
-    mod.current.controller.abort();
-    mod.current.controller = new AbortController();
-    const { signal } = mod.current.controller;
+  const setEditorContent = (formattedCode: string, counter: number, signal: AbortSignal) => {
     setTimeout(
       ((formattedCode: string, signal: AbortSignal) => async () => {
         if (signal.aborted) return;
@@ -98,7 +95,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       await runner(formattedCode, mod.current.i);
 
-      setEditorContent(code, mod.current.i);
+      setEditorContent(code, mod.current.i, signal);
     },
   }), [setEditorContent]);
 
@@ -164,12 +161,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     if (data.i <= mod.current.i) mod.current.i = data.i;
     if (data.i > mod.current.i) {
       mod.current.i = data.i;
+      mod.current.controller.abort();
+      mod.current.controller = new AbortController();
+      const { signal } = mod.current.controller;
 
       mod.current.code = data.code;
 
       console.log("delaying setting Editor", data.i);
 
-      setEditorContent(data.code, data.i);
+      setEditorContent(data.code, data.i, signal);
     }
   };
 
