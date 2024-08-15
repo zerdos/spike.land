@@ -260,8 +260,9 @@ async function startMonacoPristine({
       return diagnostics.map((d) => d.messageText.toString());
     },
     isEdit: false,
-    setValue: (newCode: string) => {
-      if (cSess && cSess.session && cSess.session.code && newCode !== cSess.session.code) return;
+    setValue: (_newCode: string) => {
+      const newCode = cSess.session.code;
+      //      if (cSess && cSess.session && cSess.session.code && newCode !== cSess.session.code) return;
       myEditor.getDomNode()?.blur();
       //      if (editorModel.isEdit) return;
       editorModel.silent = true;
