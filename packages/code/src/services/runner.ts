@@ -76,7 +76,7 @@ export const runner = async (code: string, counter = 0) => {
       }
     };
 
-    console.log("Sending message iframe first to calculate css");
+    console.log("Sending message iframe first to calculate css", counter);
     document.querySelector("iframe")?.contentWindow?.postMessage({
       transpiled,
       i: counter,
