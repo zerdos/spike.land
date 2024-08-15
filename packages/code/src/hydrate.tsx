@@ -240,8 +240,9 @@ const handleDefaultPage = async () => {
       if (signal.aborted) return;
 
       const myEl = document.createElement("div")! as HTMLDivElement;
-      myEl.style.height = "0";
-      myEl.style.width = "0";
+      myEl.style.height = "600px";
+      myEl.style.width = "800px";
+      myEl.style.display = "none";
       document.body.appendChild(myEl);
 
       const rendered = await renderApp({ rootElement: myEl, transpiled });
