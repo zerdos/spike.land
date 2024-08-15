@@ -58,50 +58,6 @@ export const runner = async (code: string, counter = 0) => {
       originToUse: location.origin,
     });
 
-    // const App = (await import(createJsBlob(transpiled))).default;
-
-    // let html = '';
-    // let htmlConsole = ''
-    // const originalConsole = window.console;
-
-    // try{
-    //   window.console = {
-    //     ...window.console,
-    //     log: (...args) => {
-    //       // originalConsole.log(...args);
-    //       htmlConsole +=  args.join(" ") + "\n";
-    //     },
-    //     error: (...args) => {
-    //       // originalConsole.error(...args);
-    //       htmlConsole += args.join(" ") + "\n";
-    //     },
-    //     warn: (...args) => {
-    //       // originalConsole.warn(...args);
-    //       htmlConsole += args.join(" ") + "\n";
-    //     },
-    //     info: (...args) => {
-    //       // originalConsole.info(...args);
-    //       htmlConsole += args.join(" ") + "\n";
-    //     }
-    //   };
-
-    //   html = toString(App);
-    // } catch (error) {
-    //   console.error("Error in runner:", error);
-    // }
-    // finally {
-    //   window.console = originalConsole;
-    //   // console.table(htmlConsole);
-    //   if (signal.aborted) return;
-
-    // }
-
-    // if (!html || html.includes("ops! Something went wrong")) {
-    //   console.error("Error in runner: no html");
-
-    //   return;
-    // }
-
     let resolve: (v: {
       i: number;
       html: string;
@@ -148,10 +104,10 @@ export const runner = async (code: string, counter = 0) => {
     };
     console.log("Sending message to BC", toPost);
 
+    cSess.session.code = formattedCode;
     BC.postMessage(toPost);
 
     mod.controller.abort();
-
     console.log("Runner succeeded");
     return true;
   } catch (error) {
