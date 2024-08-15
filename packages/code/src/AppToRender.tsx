@@ -25,7 +25,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   useEffect(() => {
     console.log("AppToRender mounted");
-    if (!onlyEdit) {
+    if (!onlyEdit && hideRest) {
       const iframe = document.querySelector(
         `iframe[src="/live/${codeSpace}/"]`,
       );
@@ -35,6 +35,13 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           reveal();
           document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
         });
+        setTimeout(() => {
+          if (!hideRest) {
+            setHideRest(false);
+            reveal();
+            document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
+          }
+        }, 2000);
       }
     }
   }, [codeSpace, onlyEdit]);
