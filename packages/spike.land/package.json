@@ -16,15 +16,15 @@
   },
   "devDependencies": {
     "@cloudflare/kv-asset-handler": "0.3.4",
-    "@cloudflare/workers-types": "4.20240806.0",
+    "@cloudflare/workers-types": "4.20240815.0",
     "typescript": "5.5.4",
     "wrangler": "3.71.0"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.26.0",
     "@clerk/clerk-sdk-node": "^5.0.27",
-    "@remix-run/cloudflare": "^2.11.1",
-    "@remix-run/react": "^2.11.1",
+    "@remix-run/cloudflare": "^2.11.2",
+    "@remix-run/react": "^2.11.2",
     "@spike-land/code": "0.9.55",
     "@types/node": "22.3.0",
     "async-mutex": "0.5.0",

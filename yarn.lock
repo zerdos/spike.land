@@ -751,10 +751,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20240806.0, @cloudflare/workers-types@npm:^4.20240806.0":
-  version: 4.20240806.0
-  resolution: "@cloudflare/workers-types@npm:4.20240806.0"
-  checksum: 10/63234eec30e88b94fcf29c2849e016ea924a7ae787b509669d6e34fc5282eb93d309f977f810248a90cad8464d2c30d9cf0982155e6c5c6f17802061c146505f
+"@cloudflare/workers-types@npm:4.20240815.0, @cloudflare/workers-types@npm:^4.20240815.0":
+  version: 4.20240815.0
+  resolution: "@cloudflare/workers-types@npm:4.20240815.0"
+  checksum: 10/7b3b2c18ecac20738c4cca7c8bdb6b41858cec18b9be74abf365f928a8b6bd6f34edc1bc0c24a4766ae9837ee6eb81ef55bf1d9ef1aee4e0e7c1b4b39cbe956c
   languageName: node
   linkType: hard
 
@@ -4550,31 +4550,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/cloudflare@npm:^2.11.1":
-  version: 2.11.1
-  resolution: "@remix-run/cloudflare@npm:2.11.1"
+"@remix-run/cloudflare@npm:^2.11.2":
+  version: 2.11.2
+  resolution: "@remix-run/cloudflare@npm:2.11.2"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:^0.1.3"
-    "@remix-run/server-runtime": "npm:2.11.1"
+    "@remix-run/server-runtime": "npm:2.11.2"
   peerDependencies:
     "@cloudflare/workers-types": ^4.0.0
     typescript: ^5.1.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/4921828d32c270b2037569e5cf853128f3b4715530864435dce3c7ac35109ac88b7b8d2a3b71b922e2e99e450c84901ebcb89c2100373237e574a3984a5746d5
+  checksum: 10/a1fbfcf0d227ebe68095a9a10f0ffa9456ed499a1a7f90384d7b44b292dee84a8c04bf5b5f4250f6044cea46724d3565d787cf679a2b7eb427bc58bb0c0bc7b3
   languageName: node
   linkType: hard
 
-"@remix-run/react@npm:^2.11.1":
-  version: 2.11.1
-  resolution: "@remix-run/react@npm:2.11.1"
+"@remix-run/react@npm:^2.11.2":
+  version: 2.11.2
+  resolution: "@remix-run/react@npm:2.11.2"
   dependencies:
-    "@remix-run/router": "npm:1.19.0"
-    "@remix-run/server-runtime": "npm:2.11.1"
-    react-router: "npm:6.26.0"
-    react-router-dom: "npm:6.26.0"
-    turbo-stream: "npm:2.2.0"
+    "@remix-run/router": "npm:1.19.1"
+    "@remix-run/server-runtime": "npm:2.11.2"
+    react-router: "npm:6.26.1"
+    react-router-dom: "npm:6.26.1"
+    turbo-stream: "npm:2.3.0"
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
@@ -4582,34 +4582,34 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/849cadb6fd778d6c66474a4c6d5d3b664ff351cebcbfc7841182f37395b66d64287ee5ef9667da4de0f8d7a380adeef8fe9ba869a5eac22f321f67690e4fd3a8
+  checksum: 10/d8abc2daa1578798b4cf193ace042013310097720f3017b04d4a9693fcd2d87c85db0c438673b4a238efabbf6f0ad87e83341da340783949340c2f9bfd4b6c8c
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:1.19.0":
-  version: 1.19.0
-  resolution: "@remix-run/router@npm:1.19.0"
-  checksum: 10/13a881fc47ca3571dcad298f6f19218c84f09f0dda38695d874a9fb1b496e42b6b37b777169d283cd1f5098a1470fa76c5143c53eb5a4078202bd12ea1541d29
+"@remix-run/router@npm:1.19.1":
+  version: 1.19.1
+  resolution: "@remix-run/router@npm:1.19.1"
+  checksum: 10/2800c2f6567a982fe942aacc4cb5b170e7cc89bd455960e3bea2424161ff7dac32d01886322d88dd19b88d1bea711f39566d17f02b73eeb74999affb471f8f52
   languageName: node
   linkType: hard
 
-"@remix-run/server-runtime@npm:2.11.1":
-  version: 2.11.1
-  resolution: "@remix-run/server-runtime@npm:2.11.1"
+"@remix-run/server-runtime@npm:2.11.2":
+  version: 2.11.2
+  resolution: "@remix-run/server-runtime@npm:2.11.2"
   dependencies:
-    "@remix-run/router": "npm:1.19.0"
+    "@remix-run/router": "npm:1.19.1"
     "@types/cookie": "npm:^0.6.0"
     "@web3-storage/multipart-parser": "npm:^1.0.0"
     cookie: "npm:^0.6.0"
     set-cookie-parser: "npm:^2.4.8"
     source-map: "npm:^0.7.3"
-    turbo-stream: "npm:2.2.0"
+    turbo-stream: "npm:2.3.0"
   peerDependencies:
     typescript: ^5.1.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/af53b68ef2c67404484b8ab35772cdeefcfca27e8ff80ffc232828434b39f0fd44c4ed46229301e8a6b4cf7709ce5517b041270bb8c8a0bbbecd4d37fa331ca4
+  checksum: 10/50399f76369ff6f5e3eaa5e4ce5fc6fff2187212caacc5d60ff8af475a2c60815017e66a68c40d0e1f0bde42a122d90021ec1e415e6a1759e1ee0f425a4f6826
   languageName: node
   linkType: hard
 
@@ -4847,9 +4847,9 @@ __metadata:
     "@anthropic-ai/sdk": "npm:^0.26.0"
     "@clerk/clerk-sdk-node": "npm:^5.0.27"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20240806.0"
-    "@remix-run/cloudflare": "npm:^2.11.1"
-    "@remix-run/react": "npm:^2.11.1"
+    "@cloudflare/workers-types": "npm:4.20240815.0"
+    "@remix-run/cloudflare": "npm:^2.11.2"
+    "@remix-run/react": "npm:^2.11.2"
     "@spike-land/code": "npm:0.9.55"
     "@types/node": "npm:22.3.0"
     async-mutex: "npm:0.5.0"
@@ -4974,7 +4974,7 @@ __metadata:
     file-type: "npm:19.4.1"
     framer-motion: "npm:11.3.28"
     helia: "npm:^4.2.5"
-    i18next: "npm:^23.12.6"
+    i18next: "npm:^23.12.7"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
     jest: "npm:29.7.0"
@@ -5007,7 +5007,7 @@ __metadata:
     react-markdown: "npm:^9.0.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.2"
-    react-resizable-panels: "npm:^2.0.23"
+    react-resizable-panels: "npm:^2.1.0"
     react-reverse-portal: "npm:2.1.2"
     react-rnd: "npm:10.4.12"
     react-syntax-highlighter: "npm:^15.5.0"
@@ -5137,7 +5137,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20240806.0"
+    "@cloudflare/workers-types": "npm:4.20240815.0"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.4"
     wrangler: "npm:3.71.0"
@@ -11451,12 +11451,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.12.6":
-  version: 23.12.6
-  resolution: "i18next@npm:23.12.6"
+"i18next@npm:^23.12.7":
+  version: 23.12.7
+  resolution: "i18next@npm:23.12.7"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10/6bb7faa2f1645dd7fc8d04c485707221edcf14911756d94faa8f5b7ffb5507995e00dca01f3c516ced9e986effb0073b06e9c55c2d762d400841cc557002abb1
+  checksum: 10/7c542b7fc67622ac35fb9c503f7683f8d764f6d17988b237b3f017790fd73c07b5b013885b874cbfd2eae36b12ea38b376764a927d391d57b21bad96b29c42b6
   languageName: node
   linkType: hard
 
@@ -14739,7 +14739,7 @@ __metadata:
     dprint: "npm:0.47.2"
     eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
-    i18next: "npm:^23.12.6"
+    i18next: "npm:^23.12.7"
     playwright: "npm:1.46.0"
     react: "npm:18.3.1"
     typescript: "npm:5.5.4"
@@ -14839,7 +14839,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240806.0"
+    "@cloudflare/workers-types": "npm:4.20240815.0"
     hono: "npm:4.5.5"
     wrangler: "npm:3.71.0"
   languageName: unknown
@@ -16640,13 +16640,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resizable-panels@npm:^2.0.23":
-  version: 2.0.23
-  resolution: "react-resizable-panels@npm:2.0.23"
+"react-resizable-panels@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-resizable-panels@npm:2.1.0"
   peerDependencies:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/a36016576bf67f84fad5308f6f25176a7149bf12b9c697474dba80d40a03ab47835fbda7e1d329f70c62534e1f6773dbaeb70173ded7203036da2aae1374f653
+  checksum: 10/ed867dfabc7f63d2a4c7b33aca3e48006dbd9d1b2af3de5ce969a9036b4f21d02118be3073c9fb22f8e802e2879838f55851587ecced7fce21d4f4dbb53e363d
   languageName: node
   linkType: hard
 
@@ -16674,27 +16674,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:6.26.0":
-  version: 6.26.0
-  resolution: "react-router-dom@npm:6.26.0"
+"react-router-dom@npm:6.26.1":
+  version: 6.26.1
+  resolution: "react-router-dom@npm:6.26.1"
   dependencies:
-    "@remix-run/router": "npm:1.19.0"
-    react-router: "npm:6.26.0"
+    "@remix-run/router": "npm:1.19.1"
+    react-router: "npm:6.26.1"
   peerDependencies:
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: 10/be433029a0759d5faa2cd2cb28dd3c88106cdb46042c2e804e301aefad3db17aa9021b4e3d533e0fdcde5767ed0e1d296c04fecbc3e41231c3d8be9cc307018a
+  checksum: 10/1bd255d1ff88f477699c72656e7c07702a907e644388a1bea1c648f2df0c3c86db2e90bea945b1d43eaf84ebab194f3868f3788502965ad5f20c508c6874f1fe
   languageName: node
   linkType: hard
 
-"react-router@npm:6.26.0":
-  version: 6.26.0
-  resolution: "react-router@npm:6.26.0"
+"react-router@npm:6.26.1":
+  version: 6.26.1
+  resolution: "react-router@npm:6.26.1"
   dependencies:
-    "@remix-run/router": "npm:1.19.0"
+    "@remix-run/router": "npm:1.19.1"
   peerDependencies:
     react: ">=16.8"
-  checksum: 10/d0c79a0f95a88730c0d2bfd098da9d6bdd4d7f08d4e1ddd152b5d013d3c01064afdd6fed57d4d3fa50c42c412e6d00e9217b2abd6cdbf4aaf810b7c33e728400
+  checksum: 10/b3761515c75da65a1678f005d08a6285ceccd9df7237ae6fdd9ab2ab816ef328435b75610f705ecd9ecd41c6878fd22eb9b44c5391cdef2e1ed99ddbc78de8a4
   languageName: node
   linkType: hard
 
@@ -17923,7 +17923,7 @@ __metadata:
   dependencies:
     "@cloudflare/puppeteer": "npm:^0.0.12"
     "@cloudflare/vitest-pool-workers": "npm:^0.4.22"
-    "@cloudflare/workers-types": "npm:^4.20240806.0"
+    "@cloudflare/workers-types": "npm:^4.20240815.0"
     typescript: "npm:^5.5.4"
     vitest: "npm:2.0.5"
     wrangler: "npm:^3.71.0"
@@ -19034,10 +19034,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo-stream@npm:2.2.0":
-  version: 2.2.0
-  resolution: "turbo-stream@npm:2.2.0"
-  checksum: 10/1a61be95585d6c901c7f626497765e28c38332f6562f4206e8a295dca87297d044f2413f369764365a6cbb13aae3c21fee2aace4525ff32c1e787e418916914e
+"turbo-stream@npm:2.3.0":
+  version: 2.3.0
+  resolution: "turbo-stream@npm:2.3.0"
+  checksum: 10/68fd6d4b39a865a82e484563f4134c061b25c784ef80f4d8a8f909074a37162bd9b4466b5bd6b929ea9261fca09b7481d1a50b282383458d928c8bdbf5be7d18
   languageName: node
   linkType: hard
 
