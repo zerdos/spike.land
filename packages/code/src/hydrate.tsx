@@ -273,6 +273,7 @@ const handleDefaultPage = async () => {
       renderedAPPS!.get(old!)!.cleanup();
       myEl.style.height = "100%";
       myEl.style.width = "100%";
+      myEl.style.display = "block";
       document.body.removeChild(old);
 
       old.remove();
