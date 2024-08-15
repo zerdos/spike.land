@@ -2179,9 +2179,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:^0.2.23":
-  version: 0.2.23
-  resolution: "@langchain/core@npm:0.2.23"
+"@langchain/core@npm:^0.2.24":
+  version: 0.2.24
+  resolution: "@langchain/core@npm:0.2.24"
   dependencies:
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
@@ -2194,7 +2194,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10/d74f94c3d792a19e4fe5d79030136894773135c21e69f57fd69b87cd07c7af6cfeba016c622ba43cbe4114c85994c476ed9215b7385d838663cd7d221963fc31
+  checksum: 10/7aad3a5891b5f42632a8749cfa3b66bda058c283c82221ddd128e249f7165252c52d0b651069e46c4826e917721ed6d85eb46dce0177b313ea28afc11ec0ae92
   languageName: node
   linkType: hard
 
@@ -4869,7 +4869,7 @@ __metadata:
     "@helia/unixfs": "npm:^3.0.7"
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.2.15"
-    "@langchain/core": "npm:^0.2.23"
+    "@langchain/core": "npm:^0.2.24"
     "@langchain/langgraph": "npm:^0.0.34"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:5.16.7"
