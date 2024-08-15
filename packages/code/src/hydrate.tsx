@@ -245,7 +245,8 @@ const handleDefaultPage = async () => {
       document.body.appendChild(myEl);
 
       const rendered = await renderApp({ rootElement: myEl, transpiled });
-      await wait(100);
+      await wait(300);
+
       if (signal.aborted) {
         rendered?.cleanup();
         document.body.removeChild(myEl);
