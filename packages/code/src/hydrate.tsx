@@ -240,8 +240,8 @@ const handleDefaultPage = async () => {
       if (signal.aborted) return;
 
       const myEl = document.createElement("div")! as HTMLDivElement;
-      myEl.style.height = "600px";
-      myEl.style.width = "800px";
+      myEl.style.height = "100%";
+      myEl.style.width = "100%";
       myEl.style.display = "none";
       document.body.appendChild(myEl);
 
@@ -271,8 +271,6 @@ const handleDefaultPage = async () => {
 
       const old = document.getElementById("root")!;
       renderedAPPS!.get(old!)!.cleanup();
-      myEl.style.height = "100%";
-      myEl.style.width = "100%";
       myEl.style.display = "block";
       document.body.removeChild(old);
 
