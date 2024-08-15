@@ -3,7 +3,7 @@ import { Mutex } from "async-mutex";
 import { Workbox } from "workbox-window";
 
 // import { mkdir } from "./memfs";
-import { routes } from "./routes";
+import { useCodeSpace } from "./hooks/useCodeSpace";
 import { prettierCss } from "./shared";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
@@ -11,11 +11,7 @@ import { renderApp, renderedAPPS } from "./Wrapper";
 // import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants
-const redirect = Object.hasOwn(routes, location.pathname)
-  ? routes[location.pathname as unknown as keyof typeof routes]
-  : null;
-const paths = location.pathname.split("/").slice(1);
-const codeSpace = redirect || paths[1];
+const codeSpace = useCodeSpace();
 
 const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 

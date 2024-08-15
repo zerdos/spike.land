@@ -5,39 +5,13 @@ const sw = self as unknown as
   & { files: { [key: string]: string }; fileCacheName: string };
 sw.__WB_DISABLE_DEV_LOGS = true;
 
-importScripts("/swVersion.js");
-
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
 import { CacheFirst } from "workbox-strategies";
 
-const files = new Set(Object.keys(sw.files));
+importScripts("/swVersion.js");
 
-registerRoute(
-  ({ url }) => files.has(url.pathname.slice(1)),
-  new CacheFirst({
-    cacheName: "file-cache-" + sw.swVersion,
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  }),
-);
-
-registerRoute(
-  ({ url }) =>
-    !url.pathname.startsWith("/api/") && !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/")
-    && !files.has(url.pathname.slice(1)),
-  new CacheFirst({
-    cacheName: "esm-cache-124",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  }),
-);
+const files = new Set(sw.files ? Object.keys(sw.files) : []);
 
 sw.addEventListener("activate", (event) => {
   event.waitUntil(
@@ -48,8 +22,8 @@ sw.addEventListener("activate", (event) => {
 
       const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
 
-      // Use the files from sw.files
-      const filesJson = sw.files;
+      // Ensure sw.files exists before using it
+      const filesJson = sw.files || {};
       const addedFiles = new Set(["files.json"]);
 
       // Copy matching files from old caches to the new cache
@@ -92,17 +66,53 @@ sw.addEventListener("activate", (event) => {
   );
 });
 
+// Add error handling to onmessage event
 sw.onmessage = async (event) => {
-  if (event.data === "skipWaiting") {
-    await sw.skipWaiting();
+  try {
+    if (event.data === "skipWaiting") {
+      await sw.skipWaiting();
+    }
+  } catch (error) {
+    console.error("Error in onmessage event:", error);
   }
 };
 
-sw.addEventListener("install", async () => {
-  const cacheNames = await caches.keys();
-  const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
-  const currentCache = "file-cache-" + sw.swVersion;
+// Add error handling to install event
+sw.addEventListener("install", async (event) => {
+  try {
+    const cacheNames = await caches.keys();
+    const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
+    const currentCache = "file-cache-" + sw.swVersion;
 
-  const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
-  otherCaches.forEach((cacheName) => caches.delete(cacheName));
+    const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
+    await Promise.all(otherCaches.map(cacheName => caches.delete(cacheName)));
+  } catch (error) {
+    console.error("Error in install event:", error);
+  }
 });
+
+registerRoute(
+  ({ url }) => files.has(url.pathname.slice(1)),
+  new CacheFirst({
+    cacheName: "file-cache-" + sw.swVersion,
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  }),
+);
+
+registerRoute(
+  ({ url }) =>
+    !url.pathname.startsWith("/api/") && !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/")
+    && !files.has(url.pathname.slice(1)),
+  new CacheFirst({
+    cacheName: "esm-cache-124",
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  }),
+);

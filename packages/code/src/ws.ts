@@ -1,3 +1,4 @@
+import { useCodeSpace } from "./hooks/useCodeSpace";
 import { ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 
@@ -7,7 +8,7 @@ import { connect } from "./shared";
 globalThis.firstRender = globalThis.firstRender
   || { html: "", css: "", code: "" };
 
-const codeSpace = getCodeSpace();
+const codeSpace = useCodeSpace();
 
 class Code {
   session: ICodeSession;
@@ -52,11 +53,3 @@ export const { cSess } = globalThis;
 export const sess = cSess.session;
 
 export const run = () => cSess.run();
-
-/**
- * Get the code space from the current URL.
- * @returns {string} The code space.
- */
-function getCodeSpace(): string {
-  return location.pathname.slice(1).split("/")[1];
-}

@@ -1,11 +1,12 @@
 import React, { useMemo } from "react";
 import { ChatFC } from "./ChatDrawer";
 import { useChat } from "./hooks/useChat";
+import { useCodeSpace } from "./hooks/useCodeSpace";
 import { useDarkMode } from "./hooks/useDarkMode";
 import { useMessageHandling } from "./hooks/useMessageHandling";
-import { getCodeSpace, loadMessages } from "./utils/chatUtils";
+import { loadMessages } from "./utils/chatUtils";
 
-const codeSpace = getCodeSpace();
+const codeSpace = useCodeSpace();
 
 interface ChatInterfaceProps {
   isOpen: boolean;

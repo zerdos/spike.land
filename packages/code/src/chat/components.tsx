@@ -5,9 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
-import { getCodeSpace } from "@src/utils/chatUtils";
 import { wait } from "@src/wait";
 import React, { useEffect } from "react";
+import { useCodeSpace } from "../hooks/useCodeSpace";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
@@ -148,7 +148,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
 const screenshotToBase64Maker = async () => {
   let base64 = "";
   await fetch(
-    `/live/${getCodeSpace()}/screenshot`,
+    `/live/${useCodeSpace()}/screenshot`,
   )
     .then(response => response.blob())
     .then(blob => {

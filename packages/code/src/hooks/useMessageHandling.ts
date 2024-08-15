@@ -4,7 +4,6 @@ import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
 import { useCallback } from "react";
-import { aw } from "vitest/dist/chunks/reporters.C_zwCd4j";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";

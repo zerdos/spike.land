@@ -113,7 +113,7 @@ const ChatInterface: React.FC = () => {
       const messageToEdit = messages.find((msg) => msg.id === id);
       if (messageToEdit && messageToEdit.role === "user") {
         setEditingMessageId(id);
-        setEditInput(messageToEdit.content);
+        setEditInput(JSON.stringify(messageToEdit.content));
       }
     },
     [messages],
