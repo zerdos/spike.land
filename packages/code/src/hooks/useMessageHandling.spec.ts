@@ -50,6 +50,7 @@ describe("useMessageHandling", () => {
     setEditingMessageId: vi.fn(),
     editInput: "",
     setEditInput: vi.fn(),
+    cSess: { session: { code: "initial code" } },
     broadcastChannel: { current: null },
   };
 

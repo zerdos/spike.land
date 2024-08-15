@@ -6658,6 +6658,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/dom", "npm:10.4.0"],\
           ["@testing-library/jest-dom", "npm:6.4.8"],\
           ["@testing-library/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.0.0"],\
+          ["@testing-library/react-hooks", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.0.1"],\
           ["@testing-library/user-event", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:14.5.2"],\
           ["@types/eslint__js", "npm:8.42.3"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
@@ -7078,6 +7079,38 @@ const RAW_RUNTIME_STATE =
           "@types/react",\
           "@types/testing-library__dom",\
           "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@testing-library/react-hooks", [\
+      ["npm:8.0.1", {\
+        "packageLocation": "./.yarn/global/cache/@testing-library-react-hooks-npm-8.0.1-e0c7be6ffb-10.zip/node_modules/@testing-library/react-hooks/",\
+        "packageDependencies": [\
+          ["@testing-library/react-hooks", "npm:8.0.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/@testing-library-react-hooks-virtual-788a185051/0/global/cache/@testing-library-react-hooks-npm-8.0.1-e0c7be6ffb-10.zip/node_modules/@testing-library/react-hooks/",\
+        "packageDependencies": [\
+          ["@testing-library/react-hooks", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.0.1"],\
+          ["@babel/runtime", "npm:7.25.0"],\
+          ["@types/react", "npm:18.3.3"],\
+          ["@types/react-dom", "npm:18.3.0"],\
+          ["@types/react-test-renderer", null],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.3.1"],\
+          ["react-error-boundary", "virtual:788a1850518ccf741c0506bf1bd492f8ae39baa547397b5e42ab7826b491d0d3ef03d42908cacd35a492ed12b9882a9610ef96c92b5527078e335d0b58eaf6dc#npm:3.1.4"],\
+          ["react-test-renderer", null]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react-test-renderer",\
+          "@types/react",\
+          "react-dom",\
+          "react-test-renderer",\
           "react"\
         ],\
         "linkType": "HARD"\
@@ -20106,6 +20139,29 @@ const RAW_RUNTIME_STATE =
           "@types/react-dom",\
           "@types/react",\
           "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-error-boundary", [\
+      ["npm:3.1.4", {\
+        "packageLocation": "./.yarn/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-10.zip/node_modules/react-error-boundary/",\
+        "packageDependencies": [\
+          ["react-error-boundary", "npm:3.1.4"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:788a1850518ccf741c0506bf1bd492f8ae39baa547397b5e42ab7826b491d0d3ef03d42908cacd35a492ed12b9882a9610ef96c92b5527078e335d0b58eaf6dc#npm:3.1.4", {\
+        "packageLocation": "./.yarn/__virtual__/react-error-boundary-virtual-196aa47d1c/0/global/cache/react-error-boundary-npm-3.1.4-2310dba89e-10.zip/node_modules/react-error-boundary/",\
+        "packageDependencies": [\
+          ["react-error-boundary", "virtual:788a1850518ccf741c0506bf1bd492f8ae39baa547397b5e42ab7826b491d0d3ef03d42908cacd35a492ed12b9882a9610ef96c92b5527078e335d0b58eaf6dc#npm:3.1.4"],\
+          ["@babel/runtime", "npm:7.25.0"],\
+          ["@types/react", "npm:18.3.3"],\
+          ["react", "npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
           "react"\
         ],\
         "linkType": "HARD"\

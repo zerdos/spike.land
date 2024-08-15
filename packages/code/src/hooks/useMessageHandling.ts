@@ -7,6 +7,7 @@ import { useCallback } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
+import { useAutoSave } from "./useAutoSave";
 
 interface UseMessageHandlingProps {
   codeSpace: string;
@@ -20,6 +21,7 @@ interface UseMessageHandlingProps {
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
+  cSess?: { session: { code: string } };
   setEditInput: React.Dispatch<React.SetStateAction<string>>;
   broadcastChannel: React.MutableRefObject<BroadcastChannel | null>;
 }
@@ -35,6 +37,7 @@ export const useMessageHandling = ({
   saveMessages,
   setEditingMessageId,
   editInput,
+  cSess,
   setEditInput,
   broadcastChannel,
 }: UseMessageHandlingProps) => {
@@ -42,12 +45,10 @@ export const useMessageHandling = ({
     const aiHandler = new AIHandler(codeSpace);
     if (!content.trim()) return;
 
-    const { code } = await fetch(`/live/${codeSpace}/session.json`).then(
-      (res) => res.json(),
-    );
+    const { code } = (cSess || globalThis.cSess)?.session || { code: "" };
     const codeNow = await prettierToThrow({ code, toThrow: true });
 
-    await fetch(`/live/${codeSpace}/auto-save`);
+    useAutoSave(codeSpace);
 
     const claudeContent = aiHandler.prepareClaudeContent(
       content,

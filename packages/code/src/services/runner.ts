@@ -1,6 +1,5 @@
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { transpile } from "@src/shared";
-import { cSess } from "@src/ws";
 
 const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
 
@@ -16,26 +15,25 @@ const mod: {
   cssIds: string;
   controller: AbortController;
 } = {
-  ...cSess.session,
-  css: cSess.session.css,
+  ...(globalThis.cSess || { session: {} }).session,
+  css: (globalThis.cSess || { session: {} }).session.css,
   controller: new AbortController(),
 };
 
-fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) => mod.css = css),
-  BC.onmessage = ({ data }) => {
-    // if (data.i > mod.i) {
-    cSess.session.code = data.code;
-    mod.i = data.i;
-    mod.code = data.code;
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    mod.css = data.css;
-    mod.html = data.html;
-    mod.cssIds = getCssStr(data.html);
-    // } else {
-    // mod.i = data.i;
-    // }
-  };
+BC.onmessage = ({ data }) => {
+  // if (data.i > mod.i) {
+  cSess.session.code = data.code;
+  mod.i = data.i;
+  mod.code = data.code;
+  mod.controller.abort();
+  mod.controller = new AbortController();
+  mod.css = data.css;
+  mod.html = data.html;
+  mod.cssIds = getCssStr(data.html);
+  // } else {
+  // mod.i = data.i;
+  // }
+};
 
 export const runner = async (code: string, counter = 0) => {
   const formattedCode = code;
