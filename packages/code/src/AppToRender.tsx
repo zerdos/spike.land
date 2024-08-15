@@ -24,6 +24,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    console.log("AppToRender mounted");
     if (!onlyEdit) {
       const iframe = document.querySelector(
         `iframe[src="/live/${codeSpace}/"]`,
