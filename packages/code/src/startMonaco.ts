@@ -261,7 +261,7 @@ async function startMonacoPristine({
     },
     isEdit: false,
     setValue: (newCode: string) => {
-      if (newCode !== cSess.session.code) return;
+      if (cSess && cSess.session && cSess.session.code && newCode !== cSess.session.code) return;
       myEditor.getDomNode()?.blur();
       //      if (editorModel.isEdit) return;
       editorModel.silent = true;
