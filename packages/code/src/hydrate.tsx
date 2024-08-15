@@ -266,6 +266,8 @@ const handleDefaultPage = async () => {
       const { css, html } = res;
       if (html === "<div style=\"width: 100%; height: 100%;\"></div>") return rendered?.cleanup();
 
+      window.parent.postMessage({ i, css, html }, "*");
+
       const old = document.getElementById("root")!;
       renderedAPPS!.get(old!)!.cleanup();
       myEl.style.display = "block";
@@ -274,9 +276,6 @@ const handleDefaultPage = async () => {
       old.remove();
 
       myEl.id = "root";
-      await wait(300);
-
-      window.parent.postMessage({ i, css, html: myEl.innerHTML }, "*");
     });
     // }
     return false;
