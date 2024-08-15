@@ -121,7 +121,7 @@ export const Wrapper: React.FC<
     -webkit-overflow-scrolling: touch;
     
   `}
-        src={`/live/${codeSpace}/iframe`}
+        src={`/live/${codeSpace}/embed`}
       />
     );
   }

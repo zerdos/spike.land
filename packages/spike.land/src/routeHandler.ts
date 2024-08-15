@@ -54,6 +54,8 @@ export class RouteHandler {
       worker: this.handleDefaultRoute.bind(this),
       dehydrated: this.handleDefaultRoute.bind(this),
       iframe: this.handleDefaultRoute.bind(this),
+      embed: this.handleDefaultRoute.bind(this),
+
       public: this.handleDefaultRoute.bind(this),
       // New routes for auto-save functionality
 

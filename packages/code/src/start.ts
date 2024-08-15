@@ -1,6 +1,6 @@
 import { useCodeSpace } from "./hooks/useCodeSpace";
 
-if (location.pathname.endsWith("iframe") === false) {
+if (location.pathname.endsWith("embed") === false) {
   setTimeout(() => {
     import("./hydrate");
   }, 0);
