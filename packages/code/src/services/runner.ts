@@ -23,17 +23,18 @@ const mod: {
 
 fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) => mod.css = css),
   BC.onmessage = ({ data }) => {
-    if (data.i > mod.i) {
-      mod.i = data.i;
-      mod.code = data.code;
-      mod.controller.abort();
-      mod.controller = new AbortController();
-      mod.css = data.css;
-      mod.html = data.html;
-      mod.cssIds = getCssStr(data.html);
-    } else {
-      mod.i = data.i;
-    }
+    // if (data.i > mod.i) {
+    cSess.session.code = data.code;
+    mod.i = data.i;
+    mod.code = data.code;
+    mod.controller.abort();
+    mod.controller = new AbortController();
+    mod.css = data.css;
+    mod.html = data.html;
+    mod.cssIds = getCssStr(data.html);
+    // } else {
+    // mod.i = data.i;
+    // }
   };
 
 export const runner = async (code: string, counter = 0) => {
