@@ -38,18 +38,10 @@ fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) 
   };
 
 export const runner = async (code: string, counter = 0) => {
-  let formattedCode = "";
-  try {
-    formattedCode = await prettierToThrow({ code, toThrow: true });
-
-    if (formattedCode === mod.code) return;
-  } catch (error) {
-    console.error("Error in runner:", error);
-    return false;
-  }
+  const formattedCode = code;
 
   if (counter === 0) counter = mod.i + 3;
-  if (counter < mod.i) return false;
+  if (counter <= mod.i) return false;
 
   try {
     mod.controller.abort();
