@@ -127,7 +127,7 @@
     "file-type": "19.4.1",
     "framer-motion": "11.3.28",
     "helia": "^4.2.5",
-    "i18next": "^23.12.3",
+    "i18next": "^23.12.6",
     "immutable": "4.3.7",
     "input-otp": "^1.2.4",
     "jest": "29.7.0",

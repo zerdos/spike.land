@@ -120,7 +120,7 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.47.2"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.9.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.35.0"],\
-          ["i18next", "npm:23.12.3"],\
+          ["i18next", "npm:23.12.6"],\
           ["playwright", "npm:1.46.0"],\
           ["react", "npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
@@ -6709,7 +6709,7 @@ const RAW_RUNTIME_STATE =
           ["file-type", "npm:19.4.1"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.28"],\
           ["helia", "npm:4.2.5"],\
-          ["i18next", "npm:23.12.3"],\
+          ["i18next", "npm:23.12.6"],\
           ["immutable", "npm:4.3.7"],\
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
           ["jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
@@ -14309,10 +14309,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["i18next", [\
-      ["npm:23.12.3", {\
-        "packageLocation": "./.yarn/global/cache/i18next-npm-23.12.3-e9fa18a5c9-10.zip/node_modules/i18next/",\
+      ["npm:23.12.6", {\
+        "packageLocation": "./.yarn/global/cache/i18next-npm-23.12.6-6540f1334b-10.zip/node_modules/i18next/",\
         "packageDependencies": [\
-          ["i18next", "npm:23.12.3"],\
+          ["i18next", "npm:23.12.6"],\
           ["@babel/runtime", "npm:7.25.0"]\
         ],\
         "linkType": "HARD"\
@@ -18071,7 +18071,7 @@ const RAW_RUNTIME_STATE =
           ["dprint", "npm:0.47.2"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.9.0"],\
           ["eslint-plugin-react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:7.35.0"],\
-          ["i18next", "npm:23.12.3"],\
+          ["i18next", "npm:23.12.6"],\
           ["playwright", "npm:1.46.0"],\
           ["react", "npm:18.3.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
@@ -18301,7 +18301,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-i18next", null],\
           ["core-js", "npm:3.38.0"],\
           ["hoist-non-react-statics", "npm:3.3.2"],\
-          ["i18next", "npm:23.12.3"],\
+          ["i18next", "npm:23.12.6"],\
           ["i18next-fs-backend", "npm:2.3.2"],\
           ["next", null],\
           ["react", "npm:18.3.1"],\
@@ -20151,7 +20151,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.3.0"],\
           ["@types/react-native", null],\
           ["html-parse-stringify", "npm:3.0.1"],\
-          ["i18next", "npm:23.12.3"],\
+          ["i18next", "npm:23.12.6"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.3.1"],\
           ["react-native", null]\

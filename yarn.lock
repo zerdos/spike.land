@@ -4973,7 +4973,7 @@ __metadata:
     file-type: "npm:19.4.1"
     framer-motion: "npm:11.3.28"
     helia: "npm:^4.2.5"
-    i18next: "npm:^23.12.3"
+    i18next: "npm:^23.12.6"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
     jest: "npm:29.7.0"
@@ -11428,12 +11428,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.12.3":
-  version: 23.12.3
-  resolution: "i18next@npm:23.12.3"
+"i18next@npm:^23.12.6":
+  version: 23.12.6
+  resolution: "i18next@npm:23.12.6"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10/f89fc19a3f6e23f7b5f8043f3915207e72495d0f22bcab1964a8dea678955332aa7844b8c37cc681015ae62a5793c1708cedbc84e9175347d55cf7fdc912ece0
+  checksum: 10/6bb7faa2f1645dd7fc8d04c485707221edcf14911756d94faa8f5b7ffb5507995e00dca01f3c516ced9e986effb0073b06e9c55c2d762d400841cc557002abb1
   languageName: node
   linkType: hard
 
@@ -14716,7 +14716,7 @@ __metadata:
     dprint: "npm:0.47.2"
     eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
-    i18next: "npm:^23.12.3"
+    i18next: "npm:^23.12.6"
     playwright: "npm:1.46.0"
     react: "npm:18.3.1"
     typescript: "npm:5.5.4"
