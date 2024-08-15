@@ -246,7 +246,7 @@ const handleDefaultPage = async () => {
 
   BC.onmessage = async ({ data }) => {
     const { i, transpiled, code } = data;
-    console.log("BC.onmessage", i, transpiled, code);
+
     if (transpiled) {
       cSess.session.code = code;
       if (mod.counter !== i) {
