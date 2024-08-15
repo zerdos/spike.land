@@ -47,9 +47,9 @@ export class RouteHandler {
       env: this.handleEnvRoute.bind(this),
       screenshot: this.handleScreenShotRoute.bind(this),
       hashCode: this.handleHashCodeRoute.bind(this),
-      "": this.handleDefaultRoute.bind(this),
-      undefined: this.handleDefaultRoute.bind(this),
-      "null": this.handleDefaultRoute.bind(this),
+      "": this.handleEditorRoute.bind(this),
+      undefined: this.handleEditorRoute.bind(this),
+      "null": this.handleEditorRoute.bind(this),
       hydrated: this.handleDefaultRoute.bind(this),
       worker: this.handleDefaultRoute.bind(this),
       dehydrated: this.handleDefaultRoute.bind(this),
@@ -295,6 +295,29 @@ export class RouteHandler {
       "<div id=\"root\"></div>",
       `<div id="root">${html}</div>`,
     );
+
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Resource-Policy": "cross-origin",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cache-Control": "no-cache",
+      "Content-Encoding": "gzip",
+      "Content-Type": "text/html; charset=UTF-8",
+      "content_hash": md5(respText),
+    });
+
+    return new Response(respText, { status: 200, headers });
+  }
+
+  private async handleEditorRoute(
+    _request: Request,
+    url: URL,
+  ): Promise<Response> {
+    // const url = new URL(r);
+    const codeSpace = url.searchParams.get("room");
+    const { html } = this.code.session;
+    const respText = HTML;
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",

@@ -27,7 +27,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     console.log("AppToRender mounted");
     if (!onlyEdit && hideRest) {
       const iframe = document.querySelector(
-        `iframe[src="/live/${codeSpace}/"]`,
+        `iframe[src="/live/${codeSpace}/iframe"]`,
       );
       if (iframe) {
         iframe.addEventListener("load", () => {
@@ -78,7 +78,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             overflow: auto;
             -webkit-overflow-scrolling: touch;
           `}
-              src={`/live/${codeSpace}/`}
+              src={`/live/${codeSpace}/iframe`}
             />
           )
           : (
@@ -97,7 +97,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               overflow: auto;
               -webkit-overflow-scrolling: touch;
             `}
-                src={`/live/${codeSpace}/`}
+                src={`/live/${codeSpace}/iframe`}
               />
             </DraggableWindow>
           )}
