@@ -48,25 +48,28 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     mod.current.controller.abort();
     mod.current.controller = new AbortController();
     const { signal } = mod.current.controller;
-    setTimeout(() => {
-      if (signal.aborted) return;
-      const currentTime = Date.now();
-      if (currentTime - lastTypingTimestamp >= 200) {
-        console.log("Setting editor content: ", counter);
+    setTimeout(
+      ((formattedCode: string, signal: AbortSignal) => async () => {
+        if (signal.aborted) return;
+        const currentTime = Date.now();
+        if (currentTime - lastTypingTimestamp >= 200) {
+          console.log("Setting editor content: ", counter);
 
-        setTimeout(() => {
-          if (signal.aborted) return;
-          editorState.setValue(formattedCode);
-        }, 100);
+          setTimeout(() => {
+            if (signal.aborted) return;
+            editorState.setValue(formattedCode);
+          }, 100);
 
-        const md5Code: string = md5(formattedCode);
-        editorState.setValue(formattedCode.replace(
-          "export default",
-          `export const md5Code = "${md5Code}";
-export default`,
-        ));
-      }
-    }, 259);
+          //         const md5Code: string = md5(formattedCode);
+          //         editorState.setValue(formattedCode.replace(
+          //           "export default",
+          //           `export const md5Code = "${md5Code}";
+          // export default`,
+          //         ));
+        }
+      })(formattedCode, signal),
+      250,
+    );
   };
 
   useImperativeHandle(ref, () => ({
