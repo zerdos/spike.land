@@ -62,9 +62,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         const md5Code: string = md5(formattedCode);
         editorState.setValue(formattedCode.replace(
           "export default",
-          `
-          export const md5Code = "${md5Code}";
-          export default`,
+          `export const md5Code = "${md5Code}";
+export default`,
         ));
       }
     }, 259);
