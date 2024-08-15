@@ -244,8 +244,9 @@ const handleDefaultPage = () => {
   const mutex = new Mutex();
 
   BC.onmessage = async ({ data }) => {
-    const { i, transpiled } = data;
+    const { i, transpiled, code } = data;
     if (transpiled) {
+      cSess.session.code = code;
       if (mod.counter !== i) {
         mod.counter = i;
         renderApp({
