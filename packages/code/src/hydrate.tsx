@@ -304,6 +304,8 @@ const handleDefaultPage = async () => {
       if (!res) return rendered?.cleanup();
 
       const { css, html } = res;
+      if (html === "<div style=\"width: 100%; height: 100%;\"></div>") return;
+
       window.parent.postMessage({ i, css, html }, "*");
 
       const old = document.getElementById("root")!;
