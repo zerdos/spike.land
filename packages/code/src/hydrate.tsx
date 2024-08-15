@@ -101,7 +101,7 @@ const handleDehydratedPage = () => {
     const { html, css } = data;
     const root = document.getElementById("root");
     if (root) {
-      root.innerHTML = `<style>${css}</style>${html}`;
+      root.innerHTML = `<style>${css}</style><div>${html}</div>`;
     }
   };
 };
