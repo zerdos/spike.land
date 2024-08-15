@@ -167,7 +167,7 @@ const handleRender = async (
     controller: AbortController;
   },
 ) => {
-  // console.log("handleRender");
+  console.log("handleRender");
   const counter = mod.counter;
 
   if (!rootEl) return false;
