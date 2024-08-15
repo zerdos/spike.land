@@ -193,48 +193,6 @@ const handleRender = async (
 };
 
 const handleDefaultPage = async () => {
-  // (function() {
-  //   if (window.parent !== window) {
-  //     // Store the original console methods
-  //     var originalConsole = {
-  //       log: console.log,
-  //       info: console.info,
-  //       warn: console.warn,
-  //       error: console.error,
-  //     };
-
-  //     // Function to safely stringify objects
-  //     function safeStringify(obj: unknown) {
-  //       if (obj && typeof obj === "object") {
-  //         return JSON.stringify(obj, function(_key, value) {
-  //           if (value instanceof Node) return "[DOM Element]";
-  //           if (value instanceof Error) return `[${value.name}: ${value.message}]`;
-  //           return value;
-  //         });
-  //       }
-  //       return obj;
-  //     }
-
-  //     // Override console methods
-  //     ["log", "info", "warn", "error"].forEach(function(method) {
-  //       (console as any)[method] = function() {
-  //         // Call the original method
-  //         (originalConsole as any)[method].apply(console, arguments);
-
-  //         // Safely stringify the arguments
-  //         var args = Array.prototype.slice.call(arguments).map(safeStringify);
-
-  //         // Send the log to the parent window
-  //         window.parent.postMessage({
-  //           type: "console",
-  //           method: method,
-  //           args: args,
-  //         }, "*");
-  //       };
-  //     });
-  //   }
-  // })();
-
   const mod = {
     counter: 0,
     code: "",
