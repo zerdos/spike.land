@@ -152,7 +152,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     console.log("Running debounced runner");
     await runner(mod.current.code, mod.current.i);
-    console.log("Runner succeeded");
+    console.log("From Editor, Runner succeeded");
   };
 
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
