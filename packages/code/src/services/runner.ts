@@ -42,6 +42,8 @@ export const runner = async (code: string, counter = 0) => {
 
   if (counter === 0) counter = mod.i + 3;
   if (counter <= mod.i) return false;
+  mod.i = counter;
+  console.log("Running code", counter);
 
   try {
     mod.controller.abort();
