@@ -65,6 +65,7 @@ sw.addEventListener("activate", (event) => {
         return cache;
       } catch (e) {
         console.error("Error in activate event:", e);
+        return null;
       }
     }),
   );
