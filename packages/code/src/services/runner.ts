@@ -39,6 +39,7 @@ fetch("/live/" + codeSpace + "/index.css").then((res) => res.text()).then((css) 
 
 export const runner = async (code: string, counter = 0) => {
   const formattedCode = code;
+  if (code === cSess.session.code) return true;
 
   if (counter === 0) counter = mod.i + 3;
   if (counter <= mod.i) return false;
