@@ -21,7 +21,7 @@
     "wrangler": "3.71.0"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.25.2",
+    "@anthropic-ai/sdk": "^0.26.0",
     "@clerk/clerk-sdk-node": "^5.0.27",
     "@remix-run/cloudflare": "^2.11.1",
     "@remix-run/react": "^2.11.1",
