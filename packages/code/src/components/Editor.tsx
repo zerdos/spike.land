@@ -2,7 +2,7 @@ import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { useEditorState } from "../hooks/useEditorState";
