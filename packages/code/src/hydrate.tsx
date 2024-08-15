@@ -334,7 +334,7 @@ const main = async () => {
     handleLivePage();
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
     handleDehydratedPage();
-  } else if (location.pathname === `/live/${codeSpace}/`) {
+  } else if (location.pathname === `/live/${codeSpace}/iframe`) {
     await handleDefaultPage();
   }
 
