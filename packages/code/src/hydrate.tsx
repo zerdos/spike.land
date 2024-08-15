@@ -192,7 +192,7 @@ const handleRender = async (
   return false;
 };
 
-const handleDefaultPage = () => {
+const handleDefaultPage = async () => {
   // (function() {
   //   if (window.parent !== window) {
   //     // Store the original console methods
@@ -242,6 +242,7 @@ const handleDefaultPage = () => {
     controller: new AbortController(),
   };
   const mutex = new Mutex();
+  const { cSess } = await import("./ws");
 
   BC.onmessage = async ({ data }) => {
     const { i, transpiled, code } = data;
@@ -332,7 +333,7 @@ const main = async () => {
   } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
     handleDehydratedPage();
   } else if (location.pathname === `/live/${codeSpace}/`) {
-    handleDefaultPage();
+    await handleDefaultPage();
   }
 
   await initializeApp();
