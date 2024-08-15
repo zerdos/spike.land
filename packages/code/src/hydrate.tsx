@@ -100,7 +100,8 @@ const handleDehydratedPage = () => {
   BC.onmessage = ({ data }) => {
     const { html, css } = data;
     const root = document.getElementById("root");
-    if (root) {
+
+    if (root && html && css) {
       root.innerHTML = `<style>${css}</style><div>${html}</div>`;
     }
   };
