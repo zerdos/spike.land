@@ -11,6 +11,7 @@ import { stop } from "./buildOperations.ts";
 import { getWasmFile } from "./helpers.ts";
 
 async function main() {
+  console.log("Building... " + process.env.NODE_ENV);
   try {
     await buildWorkers();
     await buildMainScripts();
