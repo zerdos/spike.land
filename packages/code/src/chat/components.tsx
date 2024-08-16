@@ -38,10 +38,17 @@ export const ChatMessage: React.FC<{
     } else if (Array.isArray(message.content)) {
       return message.content.map((item, index) => {
         if (item.type === "text") {
-          return <div key={index}>{renderMessage(item.text, isUser)}</div>;
-        } else if (item.type === "image_url") {
+          return <div key={index}>{renderMessage(item.text!, isUser)}</div>;
+        } else if (item.type === "image" && item.source?.type === "base64") {
+          const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
+
           return (
-            <img key={index} src={item.image_url.url} alt="Screenshot" className="max-w-full h-auto mt-2 rounded-lg" />
+            <img
+              key={index}
+              src={imageUrlFromBase64String}
+              alt="Screenshot"
+              className="max-w-full h-auto mt-2 rounded-lg"
+            />
           );
         }
         return null;
