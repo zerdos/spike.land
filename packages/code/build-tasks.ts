@@ -270,7 +270,6 @@ export async function buildMainBundle(wasmFile) {
     external: [
       ...(buildOptions.external?.length ? buildOptions.external : []),
       "/swVersion.mjs",
-      "@langchain/anthropic",
       "/@/external/reactSyntaxHighlighterPrism.mjs",
       "/@/external/monacoEditor.mjs",
       "/@/external/reactSyntaxHighlighter.mjs",
