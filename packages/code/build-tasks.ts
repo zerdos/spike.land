@@ -1,5 +1,6 @@
 // build-tasks.mjs
 import { copy } from "esbuild-plugin-copy";
+import { replace } from "esbuild-plugin-replace";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
@@ -204,6 +205,9 @@ export async function buildMainBundle(wasmFile) {
     ignoreAnnotations: true,
     plugins: [
       ...buildOptions.plugins,
+      replace({
+        "isRunningInBrowser()": `false`,
+      }),
       copy({
         resolveFrom: "cwd",
         assets: [{

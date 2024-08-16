@@ -4985,6 +4985,7 @@ __metadata:
     embla-carousel-react: "npm:^8.1.8"
     esbuild: "npm:^0.23.0"
     esbuild-plugin-copy: "npm:^2.1.1"
+    esbuild-plugin-replace: "npm:^1.4.0"
     esbuild-wasm: "npm:0.23.0"
     eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
@@ -9278,6 +9279,15 @@ __metadata:
   peerDependencies:
     esbuild: ">= 0.14.0"
   checksum: 10/29b89f5b7f67830d6297583ab8cc327b9114ace6122f0cff1edc1ea1cbd28f1ae73cd9c9d8ddbc4da16a060f447f96a6707b5f6d24aad062e078e5d8cf110217
+  languageName: node
+  linkType: hard
+
+"esbuild-plugin-replace@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "esbuild-plugin-replace@npm:1.4.0"
+  dependencies:
+    magic-string: "npm:^0.25.7"
+  checksum: 10/425625d0c0d38a9349941e51780f5d39799dabc5d3084ab867fa784eb5bbe09c5e5b76ba475d94be88ca9a7bdddfdf1fe1e5d1a3cb6c627895946439cffedede
   languageName: node
   linkType: hard
 
@@ -13785,7 +13795,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.25.3":
+"magic-string@npm:^0.25.3, magic-string@npm:^0.25.7":
   version: 0.25.9
   resolution: "magic-string@npm:0.25.9"
   dependencies:

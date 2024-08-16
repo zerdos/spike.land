@@ -6720,6 +6720,7 @@ const RAW_RUNTIME_STATE =
           ["embla-carousel-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.1.8"],\
           ["esbuild", "npm:0.23.0"],\
           ["esbuild-plugin-copy", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.1"],\
+          ["esbuild-plugin-replace", "npm:1.4.0"],\
           ["esbuild-wasm", "npm:0.23.0"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.9.0"],\
           ["eslint-plugin-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.35.0"],\
@@ -12173,6 +12174,16 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/esbuild",\
           "esbuild"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["esbuild-plugin-replace", [\
+      ["npm:1.4.0", {\
+        "packageLocation": "./.yarn/global/cache/esbuild-plugin-replace-npm-1.4.0-ba9418729b-10.zip/node_modules/esbuild-plugin-replace/",\
+        "packageDependencies": [\
+          ["esbuild-plugin-replace", "npm:1.4.0"],\
+          ["magic-string", "npm:0.25.9"]\
         ],\
         "linkType": "HARD"\
       }]\
