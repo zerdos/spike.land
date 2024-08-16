@@ -6707,6 +6707,8 @@ const RAW_RUNTIME_STATE =
           ["async-mutex", "npm:0.5.0"],\
           ["ava", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.1.3"],\
           ["avl", "npm:1.5.3"],\
+          ["browser-crypto", "npm:2.1.0"],\
+          ["browser-http", "npm:4.0.2"],\
           ["buffer", "npm:6.0.3"],\
           ["class-variance-authority", "npm:0.7.0"],\
           ["clsx", "npm:2.1.1"],\
@@ -6737,9 +6739,11 @@ const RAW_RUNTIME_STATE =
           ["lodash", "npm:4.17.21"],\
           ["lodash.debounce", "npm:4.0.8"],\
           ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.428.0"],\
+          ["miniflare", "npm:3.20240806.1"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.50.0"],\
           ["multiformats", "npm:13.2.2"],\
+          ["net", "npm:1.0.2"],\
           ["next-i18next", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:15.3.1"],\
           ["next-themes", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.3.0"],\
           ["node-source-walk", "npm:7.0.0"],\
@@ -6750,6 +6754,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.3.3"],\
           ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1"],\
           ["qrious", "npm:4.0.2"],\
+          ["querystring", "npm:0.2.1"],\
           ["re-resizable", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.9.17"],\
           ["react", "npm:18.3.1"],\
           ["react-day-picker", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:9.0.8"],\
@@ -6769,10 +6774,12 @@ const RAW_RUNTIME_STATE =
           ["recharts", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.12.7"],\
           ["serve-handler", "npm:6.1.5"],\
           ["sonner", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.5.0"],\
+          ["stream", "npm:0.0.3"],\
           ["stream-browserify", "npm:3.0.0"],\
           ["tailwind-merge", "npm:2.5.2"],\
           ["tailwindcss-animate", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.7"],\
           ["text-encoding", "npm:0.7.0"],\
+          ["threads", "npm:1.7.0"],\
           ["transferables", "npm:1.0.3"],\
           ["ts-jest", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.2.4"],\
           ["ts-md5", "npm:1.3.1"],\
@@ -9852,6 +9859,26 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["browser-crypto", [\
+      ["npm:2.1.0", {\
+        "packageLocation": "./.yarn/global/cache/browser-crypto-npm-2.1.0-59023d4808-10.zip/node_modules/browser-crypto/",\
+        "packageDependencies": [\
+          ["browser-crypto", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["browser-http", [\
+      ["npm:4.0.2", {\
+        "packageLocation": "./.yarn/global/cache/browser-http-npm-4.0.2-036537fad2-10.zip/node_modules/browser-http/",\
+        "packageDependencies": [\
+          ["browser-http", "npm:4.0.2"],\
+          ["escape-regexp", "npm:0.0.1"],\
+          ["events", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["browser-readablestream-to-it", [\
       ["npm:2.0.7", {\
         "packageLocation": "./.yarn/global/cache/browser-readablestream-to-it-npm-2.0.7-6d8f8e8269-10.zip/node_modules/browser-readablestream-to-it/",\
@@ -10692,6 +10719,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/common-path-prefix-npm-3.0.0-68b78785c1-10.zip/node_modules/common-path-prefix/",\
         "packageDependencies": [\
           ["common-path-prefix", "npm:3.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["component-emitter", [\
+      ["npm:2.0.0", {\
+        "packageLocation": "./.yarn/global/cache/component-emitter-npm-2.0.0-c0940bc1cd-10.zip/node_modules/component-emitter/",\
+        "packageDependencies": [\
+          ["component-emitter", "npm:2.0.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12317,6 +12353,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["escape-regexp", [\
+      ["npm:0.0.1", {\
+        "packageLocation": "./.yarn/global/cache/escape-regexp-npm-0.0.1-7eb3cb9cd0-10.zip/node_modules/escape-regexp/",\
+        "packageDependencies": [\
+          ["escape-regexp", "npm:0.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["escape-string-regexp", [\
       ["npm:1.0.5", {\
         "packageLocation": "./.yarn/global/cache/escape-string-regexp-npm-1.0.5-3284de402f-10.zip/node_modules/escape-string-regexp/",\
@@ -12514,6 +12559,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["esm", [\
+      ["npm:3.2.25", {\
+        "packageLocation": "./.yarn/global/cache/esm-npm-3.2.25-762b3ebd40-10.zip/node_modules/esm/",\
+        "packageDependencies": [\
+          ["esm", "npm:3.2.25"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["esm-worker", [\
       ["npm:0.135.16", {\
         "packageLocation": "./.yarn/global/cache/esm-worker-npm-0.135.16-e9c3302a0e-10.zip/node_modules/esm-worker/",\
@@ -12666,6 +12720,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["events", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/global/cache/events-npm-1.0.2-7a7f0a2e55-10.zip/node_modules/events/",\
+        "packageDependencies": [\
+          ["events", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:3.3.0", {\
         "packageLocation": "./.yarn/global/cache/events-npm-3.3.0-c280bc7e48-10.zip/node_modules/events/",\
         "packageDependencies": [\
@@ -15170,6 +15231,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["is-number-object", "npm:1.0.7"],\
           ["has-tostringtag", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["is-observable", [\
+      ["npm:2.1.0", {\
+        "packageLocation": "./.yarn/global/cache/is-observable-npm-2.1.0-f5cc32df88-10.zip/node_modules/is-observable/",\
+        "packageDependencies": [\
+          ["is-observable", "npm:2.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -18350,6 +18420,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["net", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/global/cache/net-npm-1.0.2-1d5514df5b-10.zip/node_modules/net/",\
+        "packageDependencies": [\
+          ["net", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["netmask", [\
       ["npm:2.0.2", {\
         "packageLocation": "./.yarn/global/cache/netmask-npm-2.0.2-2299510a4d-10.zip/node_modules/netmask/",\
@@ -18797,6 +18876,15 @@ const RAW_RUNTIME_STATE =
           ["call-bind", "npm:1.0.7"],\
           ["define-properties", "npm:1.2.1"],\
           ["es-object-atoms", "npm:1.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["observable-fns", [\
+      ["npm:0.6.1", {\
+        "packageLocation": "./.yarn/global/cache/observable-fns-npm-0.6.1-305598d6d4-10.zip/node_modules/observable-fns/",\
+        "packageDependencies": [\
+          ["observable-fns", "npm:0.6.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -19951,6 +20039,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["qs", "npm:6.11.0"],\
           ["side-channel", "npm:1.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["querystring", [\
+      ["npm:0.2.1", {\
+        "packageLocation": "./.yarn/global/cache/querystring-npm-0.2.1-15cb60859d-10.zip/node_modules/querystring/",\
+        "packageDependencies": [\
+          ["querystring", "npm:0.2.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -22177,6 +22274,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["stream", [\
+      ["npm:0.0.3", {\
+        "packageLocation": "./.yarn/global/cache/stream-npm-0.0.3-0129b4ad50-10.zip/node_modules/stream/",\
+        "packageDependencies": [\
+          ["stream", "npm:0.0.3"],\
+          ["component-emitter", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["stream-browserify", [\
       ["npm:3.0.0", {\
         "packageLocation": "./.yarn/global/cache/stream-browserify-npm-3.0.0-4c0bd97245-10.zip/node_modules/stream-browserify/",\
@@ -22829,6 +22936,20 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["threads", [\
+      ["npm:1.7.0", {\
+        "packageLocation": "./.yarn/global/cache/threads-npm-1.7.0-c432dbb3e9-10.zip/node_modules/threads/",\
+        "packageDependencies": [\
+          ["threads", "npm:1.7.0"],\
+          ["callsites", "npm:3.1.0"],\
+          ["debug", "virtual:c9e1a4b59e37cb479517edede3bf2093b28c0ca1a9d0e517f3c345075bd1e468980b94b4957e389116607ee7155441dfd7d09e19a4229d5d09bcf06244401590#npm:4.3.6"],\
+          ["is-observable", "npm:2.1.0"],\
+          ["observable-fns", "npm:0.6.1"],\
+          ["tiny-worker", "npm:2.3.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["throttle-debounce", [\
       ["npm:3.0.1", {\
         "packageLocation": "./.yarn/global/cache/throttle-debounce-npm-3.0.1-1785e6b767-10.zip/node_modules/throttle-debounce/",\
@@ -22939,6 +23060,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/tiny-invariant-npm-1.3.3-e622f1447c-10.zip/node_modules/tiny-invariant/",\
         "packageDependencies": [\
           ["tiny-invariant", "npm:1.3.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tiny-worker", [\
+      ["npm:2.3.0", {\
+        "packageLocation": "./.yarn/global/cache/tiny-worker-npm-2.3.0-38c7100e1d-10.zip/node_modules/tiny-worker/",\
+        "packageDependencies": [\
+          ["tiny-worker", "npm:2.3.0"],\
+          ["esm", "npm:3.2.25"]\
         ],\
         "linkType": "HARD"\
       }]\
