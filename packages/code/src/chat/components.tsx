@@ -251,13 +251,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               <Camera className="h-4 w-4" />
             </Button>
             <Button
-              onClick={() =>
+              onClick={() => {
                 handleSendMessage(
                   input,
                   isScreenshotAttached
                     ? isScreenshotAttached as string
                     : "",
-                )}
+                );
+                setScreenshotLoaded(false);
+                setIsScreenshotAttached(false);
+              }}
               disabled={isStreaming || (input.trim() === "" && !isScreenshotAttached)}
               size="icon"
             >
