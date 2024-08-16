@@ -232,7 +232,7 @@ export async function buildMainBundle(wasmFile) {
     // ],
     entryPoints: [
       "src/modules.ts",
-      "src/motion.ts",
+      // "src/motion.ts",
       "src/start.ts",
       "src/emotion.ts",
       "src/cf-esbuild.mjs",

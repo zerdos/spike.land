@@ -6,7 +6,7 @@ export const oo = {
   "react-dom/client": "/reactDomClient.mjs",
   "@emotion/react": "/emotion.mjs",
   "react": "/reactMod.mjs",
-  "framer-motion": "/motion.mjs",
+  // "framer-motion": "/motion.mjs",
   "react-dom": "/reactDom.mjs",
   "foo-bar": "/fooBar.mjs",
 };
