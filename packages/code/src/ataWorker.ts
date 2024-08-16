@@ -24,7 +24,7 @@ importScripts(
   "/workerScripts/LangChain.js",
 );
 
-const { ata, prettierJs, transpile, build, tsx, prettierCss } = self;
+const { ata, prettierJs, transpile, build, tsx, prettierCss, createWorkflow } = self;
 
 const SOCKET_POLICY = {
   timeout: 4000,
