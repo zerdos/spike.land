@@ -65,9 +65,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "@anthropic-ai/sdk@npm:0.26.0"
+"@anthropic-ai/sdk@npm:^0.26.1":
+  version: 0.26.1
+  resolution: "@anthropic-ai/sdk@npm:0.26.1"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -76,7 +76,7 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-  checksum: 10/e8aed470bdfd49f2b6e73201b8c4336858fad88e60540acf49a1c0d616ce0b10f76ec69398a7a57ed94e8645326a90fe6ce9ffe009010d9be216e2bf47e123ea
+  checksum: 10/528bbcf81fffeccb9aa02570c40d2e100968cd1d1f3d8cb5c3cdf52cf48184e5cbb57b7bcf0505f3d3fbe904df618b74ddfa3fa2554bf0b81eb43cc7ee1b4e0d
   languageName: node
   linkType: hard
 
@@ -689,23 +689,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/vitest-pool-workers@npm:^0.4.22":
-  version: 0.4.22
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.22"
+"@cloudflare/vitest-pool-workers@npm:^0.4.23":
+  version: 0.4.23
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.23"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
     devalue: "npm:^4.3.0"
     esbuild: "npm:0.17.19"
-    miniflare: "npm:3.20240806.0"
+    miniflare: "npm:3.20240806.1"
     semver: "npm:^7.5.1"
-    wrangler: "npm:3.71.0"
+    wrangler: "npm:3.72.0"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 1.3.x - 1.5.x
     "@vitest/snapshot": 1.3.x - 1.5.x
     vitest: 1.3.x - 1.5.x
-  checksum: 10/98691347c4cba160e1844f7db5df1ff18131cc8f8cb5ad624827e7fb33bd92049f64dd8619cb48ece024d47c939a7a6583dabfd16c1aaa6806802823243b5017
+  checksum: 10/1f665a6ad0998e8c5aaed4919540dc01d50b4174e658ca09be58607f4cca8cfbcc550efd1e78614210e32e81bfd84459432358168422470fd5a5b3554bd964e7
   languageName: node
   linkType: hard
 
@@ -744,10 +744,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-shared@npm:0.1.0":
-  version: 0.1.0
-  resolution: "@cloudflare/workers-shared@npm:0.1.0"
-  checksum: 10/b59857801f896912ddce58aca6343df704c8e131b344edcdb8607b2282cbaa3f957a331cce2e954da236e936b7b2d4ec7f17128676ad19ad9c5f1bfbc3e33e98
+"@cloudflare/workers-shared@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@cloudflare/workers-shared@npm:0.2.0"
+  checksum: 10/5950232b5b67394a23c2badc743d229197b31c6c3f58499a59ab2ff813e32e20840c21c9a137f61f16dee0089644dbdf5adb46bf5edaf91197dd8b5acc60bc10
   languageName: node
   linkType: hard
 
@@ -4816,7 +4816,7 @@ __metadata:
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.55.7"
+    openai: "npm:4.55.9"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.25.0"
   bin:
@@ -4844,7 +4844,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@anthropic-ai/sdk": "npm:^0.26.0"
+    "@anthropic-ai/sdk": "npm:^0.26.1"
     "@clerk/clerk-sdk-node": "npm:^5.0.27"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240815.0"
@@ -4857,13 +4857,13 @@ __metadata:
     esbuild-wasm: "npm:0.23.0"
     esm-worker: "npm:0.135.16"
     immutable: "npm:4.3.7"
-    openai: "npm:^4.55.7"
+    openai: "npm:^4.55.9"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
     replicate: "npm:^0.32.0"
     typescript: "npm:5.5.4"
-    wrangler: "npm:3.71.0"
+    wrangler: "npm:3.72.0"
   languageName: unknown
   linkType: soft
 
@@ -4974,7 +4974,7 @@ __metadata:
     file-type: "npm:19.4.1"
     framer-motion: "npm:11.3.28"
     helia: "npm:^4.2.5"
-    i18next: "npm:^23.12.7"
+    i18next: "npm:^23.13.0"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
     jest: "npm:29.7.0"
@@ -4982,7 +4982,7 @@ __metadata:
     jsdom: "npm:^24.1.1"
     lodash: "npm:^4.17.21"
     lodash.debounce: "npm:4.0.8"
-    lucide-react: "npm:^0.427.0"
+    lucide-react: "npm:^0.428.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:^0.50.0"
     multiformats: "npm:^13.2.2"
@@ -5140,7 +5140,7 @@ __metadata:
     "@cloudflare/workers-types": "npm:4.20240815.0"
     esbuild-wasm: "npm:0.23.0"
     typescript: "npm:5.5.4"
-    wrangler: "npm:3.71.0"
+    wrangler: "npm:3.72.0"
   languageName: unknown
   linkType: soft
 
@@ -11451,12 +11451,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^23.12.7":
-  version: 23.12.7
-  resolution: "i18next@npm:23.12.7"
+"i18next@npm:^23.13.0":
+  version: 23.13.0
+  resolution: "i18next@npm:23.13.0"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10/7c542b7fc67622ac35fb9c503f7683f8d764f6d17988b237b3f017790fd73c07b5b013885b874cbfd2eae36b12ea38b376764a927d391d57b21bad96b29c42b6
+  checksum: 10/73b11880354626aa82b41b1ad5a2d77abe8248c8be7a260ad27d89146d7a7fa7ad384da60459e975d1e4bf115518232e060af4b1be67e7d67b59c8dfbf99809b
   languageName: node
   linkType: hard
 
@@ -13820,12 +13820,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.427.0":
-  version: 0.427.0
-  resolution: "lucide-react@npm:0.427.0"
+"lucide-react@npm:^0.428.0":
+  version: 0.428.0
+  resolution: "lucide-react@npm:0.428.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
-  checksum: 10/2c15b89d01e6050a9f36795d236a16432e3c78e6622d58ff813dce4f538afff9bcf1cf90b1eb1c66830a187c3e453af75f7e73d01c80d01490d2a0ab1a349e68
+  checksum: 10/902e2c44f8de99d5f005b289a8cbbf17f290bf8de2f3f4ba0f38a2c3dc08b1ae15bc8e50ac8fdc4ebffdb1a72ddf14f315c88210b21d61740a0ed9834f37ba52
   languageName: node
   linkType: hard
 
@@ -14514,9 +14514,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:3.20240806.0":
-  version: 3.20240806.0
-  resolution: "miniflare@npm:3.20240806.0"
+"miniflare@npm:3.20240806.1":
+  version: 3.20240806.1
+  resolution: "miniflare@npm:3.20240806.1"
   dependencies:
     "@cspotcode/source-map-support": "npm:0.8.1"
     acorn: "npm:^8.8.0"
@@ -14532,7 +14532,7 @@ __metadata:
     zod: "npm:^3.22.3"
   bin:
     miniflare: bootstrap.js
-  checksum: 10/f0b5e7248d990e4ffada51ea355e1f20f5dd844e5d35a0c5a5425120e2b4563e2cd30a2014dfc081cef77c7347624770aa7535359d79922e1bb420d82142bd00
+  checksum: 10/dea7dc51085cb2b3c6d5dd236da6c0971821384de4075f719570856cc30dc489a9988f7dda5dda94b1bda3bbf42ee90c3ce86a8754e14e3b75689c4e06796084
   languageName: node
   linkType: hard
 
@@ -14739,7 +14739,7 @@ __metadata:
     dprint: "npm:0.47.2"
     eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
-    i18next: "npm:^23.12.7"
+    i18next: "npm:^23.13.0"
     playwright: "npm:1.46.0"
     react: "npm:18.3.1"
     typescript: "npm:5.5.4"
@@ -14841,7 +14841,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240815.0"
     hono: "npm:4.5.5"
-    wrangler: "npm:3.71.0"
+    wrangler: "npm:3.72.0"
   languageName: unknown
   linkType: soft
 
@@ -15329,9 +15329,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.55.7, openai@npm:^4.55.7":
-  version: 4.55.7
-  resolution: "openai@npm:4.55.7"
+"openai@npm:4.55.9, openai@npm:^4.55.9":
+  version: 4.55.9
+  resolution: "openai@npm:4.55.9"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -15347,7 +15347,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10/22e0762bea26f440aab93629143f6f3fdc4922812471d9fad72780a50ff6f23711265e6663f2c55de212d7ea03447fa559d40e423997ae06f711d5d373267523
+  checksum: 10/a95311b61ed9b2d32475598d61154a74fb90466809bbd51258eb0a53f19ffd24ec24a40a5c35af5e144dd087ded15ea5f9a0ea875141b85dd7e89564e1a37271
   languageName: node
   linkType: hard
 
@@ -17922,11 +17922,11 @@ __metadata:
   resolution: "spike-land-renderer@workspace:packages/spike-land-renderer"
   dependencies:
     "@cloudflare/puppeteer": "npm:^0.0.12"
-    "@cloudflare/vitest-pool-workers": "npm:^0.4.22"
+    "@cloudflare/vitest-pool-workers": "npm:^0.4.23"
     "@cloudflare/workers-types": "npm:^4.20240815.0"
     typescript: "npm:^5.5.4"
     vitest: "npm:2.0.5"
-    wrangler: "npm:^3.71.0"
+    wrangler: "npm:^3.72.0"
   languageName: unknown
   linkType: soft
 
@@ -20200,12 +20200,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.71.0, wrangler@npm:^3.71.0":
-  version: 3.71.0
-  resolution: "wrangler@npm:3.71.0"
+"wrangler@npm:3.72.0, wrangler@npm:^3.72.0":
+  version: 3.72.0
+  resolution: "wrangler@npm:3.72.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-shared": "npm:0.1.0"
+    "@cloudflare/workers-shared": "npm:0.2.0"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
     "@esbuild-plugins/node-modules-polyfill": "npm:^0.2.2"
     blake3-wasm: "npm:^2.1.5"
@@ -20213,7 +20213,7 @@ __metadata:
     date-fns: "npm:^3.6.0"
     esbuild: "npm:0.17.19"
     fsevents: "npm:~2.3.2"
-    miniflare: "npm:3.20240806.0"
+    miniflare: "npm:3.20240806.1"
     nanoid: "npm:^3.3.3"
     path-to-regexp: "npm:^6.2.0"
     resolve: "npm:^1.22.8"
@@ -20234,7 +20234,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/0792a19b5a52699cbb66998efe8653a93d3fe4c43912490c1b47a9ae63adeca930c218f740d44d234c6c85e4f5a1d33e344a5085dcd92855afc5b636e41c403c
+  checksum: 10/e20806a68549a206250c9d6c3b74a81fb437f17dab060454d75dc84b74434d5ea1bfc8e03ede81a3d3305cd0a319e2873bcae852bdab5c92c671d6b54daf35a5
   languageName: node
   linkType: hard
 
