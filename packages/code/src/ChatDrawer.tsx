@@ -22,7 +22,7 @@ interface ChatFCProps {
   messagesEndRef: React.RefObject<HTMLDivElement>;
   input: string;
   setInput: (input: string) => void;
-  handleSendMessage: (content: string, screenshot?: string) => void;
+  handleSendMessage: (content: string, screenshot: string) => void;
   inputRef: React.RefObject<HTMLTextAreaElement>;
 }
 

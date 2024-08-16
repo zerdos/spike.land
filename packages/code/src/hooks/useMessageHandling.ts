@@ -40,7 +40,7 @@ export const useMessageHandling = ({
   setEditInput,
   broadcastChannel,
 }: UseMessageHandlingProps) => {
-  const handleSendMessage = useCallback(async (content: string) => {
+  const handleSendMessage = useCallback(async (content: string, screenshot: string) => {
     if (!content.trim()) return;
 
     const aiHandler = new AIHandler(codeSpace);
@@ -60,7 +60,7 @@ export const useMessageHandling = ({
       setAICode(codeNow);
     }
 
-    const newMessage = await createNewMessage(content, claudeContent, codeSpace);
+    const newMessage = await createNewMessage(content, screenshot, claudeContent, codeSpace);
     const updatedMessages = [...messages, newMessage];
 
     saveMessages(updatedMessages);
@@ -132,9 +132,13 @@ export const useMessageHandling = ({
 
 // Helper functions
 
-async function createNewMessage(content: string, claudeContent: string, codeSpace: string): Promise<Message> {
-  if (content.includes("screenshot")) {
-    const base64 = await captureScreenshot(codeSpace);
+async function createNewMessage(
+  content: string,
+  screenshot: string,
+  claudeContent: string,
+  codeSpace: string,
+): Promise<Message> {
+  if (screenshot) {
     return {
       id: Date.now().toString(),
       role: "user",
@@ -144,7 +148,7 @@ async function createNewMessage(content: string, claudeContent: string, codeSpac
           source: {
             type: "base64",
             media_type: "image/jpeg",
-            data: base64.slice(23),
+            data: screenshot.slice(23),
           },
         },
         { type: "text", text: claudeContent.trim() },

@@ -19,7 +19,7 @@ jest.mock("./ChatDrawer", () => ({
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
-          <button onClick={() => handleSendMessage(input)}>Send</button>
+          <button onClick={() => handleSendMessage(input, "")}>Send</button>
         </div>
       )
       : null

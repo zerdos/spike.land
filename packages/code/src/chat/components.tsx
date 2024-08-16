@@ -163,24 +163,21 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   );
 };
 
-const screenshotToBase64Maker = async () => {
-  let base64 = "";
-  await fetch(
+const screenshotToBase64Maker = () =>
+  fetch(
     `/live/${useCodeSpace()}/screenshot`,
   )
     .then((response) => response.blob())
-    .then((blob) => {
-      var reader = new FileReader();
-      reader.onload = function() {
-        base64 = this.result as string;
-      }; // <--- `this.result` contains a base64 data URI
-      reader.readAsDataURL(blob);
-    });
-
-  await wait(1000);
-
-  return base64;
-};
+    .then((blob) =>
+      new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.onload = function() {
+          const base64 = this.result as string;
+          resolve(base64);
+        }; // <--- `this.result` contains a base64 data URI
+        reader.readAsDataURL(blob);
+      }).then((base64) => base64 as string)
+    );
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -258,7 +255,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                   input,
                   isScreenshotAttached
                     ? isScreenshotAttached as string
-                    : undefined,
+                    : "",
                 )}
               disabled={isStreaming || (input.trim() === "" && !isScreenshotAttached)}
               size="icon"
