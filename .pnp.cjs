@@ -3216,6 +3216,24 @@ const RAW_RUNTIME_STATE =
           ["zod-to-json-schema", "virtual:9149cd6b9d2dc71d4b7664e7c6ca656a529a1dc468f7ceae5662b3ef4302b19f5d80361f89ced36454bf755afe936cda03da7dc5c1dbb061f420591d2c162815#npm:3.23.2"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.2.25", {\
+        "packageLocation": "./.yarn/global/cache/@langchain-core-npm-0.2.25-c5eaa35f62-10.zip/node_modules/@langchain/core/",\
+        "packageDependencies": [\
+          ["@langchain/core", "npm:0.2.25"],\
+          ["ansi-styles", "npm:5.2.0"],\
+          ["camelcase", "npm:6.3.0"],\
+          ["decamelize", "npm:1.2.0"],\
+          ["js-tiktoken", "npm:1.0.12"],\
+          ["langsmith", "virtual:c5eaa35f629d9bea3d9f0406adb10436708ed70c40baff586c4145170a37f780243f3b0abe911dc07fa091c378d5d6c5eae2c27d0833b1fbf36b8116b655b117#npm:0.1.41"],\
+          ["mustache", "npm:4.2.0"],\
+          ["p-queue", "npm:6.6.2"],\
+          ["p-retry", "npm:4.6.2"],\
+          ["uuid", "npm:10.0.0"],\
+          ["zod", "npm:3.23.8"],\
+          ["zod-to-json-schema", "virtual:9149cd6b9d2dc71d4b7664e7c6ca656a529a1dc468f7ceae5662b3ef4302b19f5d80361f89ced36454bf755afe936cda03da7dc5c1dbb061f420591d2c162815#npm:3.23.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@langchain/langgraph", [\
@@ -6619,7 +6637,7 @@ const RAW_RUNTIME_STATE =
           ["@helia/unixfs", "npm:3.0.7"],\
           ["@hookform/resolvers", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.9.0"],\
           ["@langchain/anthropic", "npm:0.2.15"],\
-          ["@langchain/core", "npm:0.2.24"],\
+          ["@langchain/core", "npm:0.2.25"],\
           ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.0.34"],\
           ["@monaco-editor/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.6.0"],\
           ["@mui/material", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.16.7"],\
@@ -16708,6 +16726,33 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["langsmith", "virtual:9149cd6b9d2dc71d4b7664e7c6ca656a529a1dc468f7ceae5662b3ef4302b19f5d80361f89ced36454bf755afe936cda03da7dc5c1dbb061f420591d2c162815#npm:0.1.41"],\
           ["@langchain/core", "npm:0.2.24"],\
+          ["@types/langchain", null],\
+          ["@types/langchain__core", null],\
+          ["@types/openai", null],\
+          ["@types/uuid", "npm:9.0.8"],\
+          ["commander", "npm:10.0.1"],\
+          ["langchain", null],\
+          ["openai", null],\
+          ["p-queue", "npm:6.6.2"],\
+          ["p-retry", "npm:4.6.2"],\
+          ["semver", "npm:7.6.3"],\
+          ["uuid", "npm:9.0.1"]\
+        ],\
+        "packagePeers": [\
+          "@langchain/core",\
+          "@types/langchain",\
+          "@types/langchain__core",\
+          "@types/openai",\
+          "langchain",\
+          "openai"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:c5eaa35f629d9bea3d9f0406adb10436708ed70c40baff586c4145170a37f780243f3b0abe911dc07fa091c378d5d6c5eae2c27d0833b1fbf36b8116b655b117#npm:0.1.41", {\
+        "packageLocation": "./.yarn/__virtual__/langsmith-virtual-87da71c5ea/0/global/cache/langsmith-npm-0.1.41-84d4ae40ed-10.zip/node_modules/langsmith/",\
+        "packageDependencies": [\
+          ["langsmith", "virtual:c5eaa35f629d9bea3d9f0406adb10436708ed70c40baff586c4145170a37f780243f3b0abe911dc07fa091c378d5d6c5eae2c27d0833b1fbf36b8116b655b117#npm:0.1.41"],\
+          ["@langchain/core", "npm:0.2.25"],\
           ["@types/langchain", null],\
           ["@types/langchain__core", null],\
           ["@types/openai", null],\
