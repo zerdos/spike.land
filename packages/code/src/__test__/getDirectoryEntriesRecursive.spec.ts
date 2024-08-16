@@ -1,14 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
 
-// Mock the FileSystemDirectoryHandle
-class MockFileSystemDirectoryHandle {
-  async *values() {
-    yield { kind: "file", name: "file1.txt" };
-    yield { kind: "directory", name: "subdir" };
-  }
-}
-
 // Mock the navigator.storage API
 const mockNavigator = {
   storage: {
@@ -57,7 +49,7 @@ vi.mock("navigator.storage", () => ({
       },
     ]),
   }),
-}), { virtual: true });
+}));
 
 describe("getDirectoryEntriesRecursive", () => {
   afterEach(() => {

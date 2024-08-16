@@ -27,13 +27,11 @@ jest.mock("./ChatDrawer", () => ({
 }));
 
 describe("ChatInterface", () => {
-  const mockOnCodeUpdate = jest.fn();
   const mockOnClose = jest.fn();
 
   it("renders when isOpen is true", () => {
     const { getByTestId } = render(
       <ChatInterface
-        onCodeUpdate={mockOnCodeUpdate}
         isOpen={true}
         onClose={mockOnClose}
       />,
@@ -44,7 +42,6 @@ describe("ChatInterface", () => {
   it("handles sending a message", async () => {
     const { getByTestId, getByText } = render(
       <ChatInterface
-        onCodeUpdate={mockOnCodeUpdate}
         isOpen={true}
         onClose={mockOnClose}
       />,
@@ -61,7 +58,6 @@ describe("ChatInterface", () => {
   it("does not render when isOpen is false", () => {
     const { queryByTestId } = render(
       <ChatInterface
-        onCodeUpdate={mockOnCodeUpdate}
         isOpen={false}
         onClose={mockOnClose}
       />,

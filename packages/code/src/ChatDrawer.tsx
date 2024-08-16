@@ -93,7 +93,7 @@ const ChatInterface: React.FC = () => {
     }
   }, [isOpen]);
 
-  const handleSendMessage = useCallback((_inp: string, screenshot?: string) => {
+  const handleSendMessage = useCallback(() => {
     if (input.trim() === "" || isStreaming) return;
 
     const newMessage: Message = {

@@ -83,7 +83,7 @@ sw.onmessage = async (event) => {
 };
 
 // Add error handling to install event
-sw.addEventListener("install", async (event) => {
+sw.addEventListener("install", async () => {
   try {
     const cacheNames = await caches.keys();
     const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));

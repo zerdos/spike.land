@@ -62,6 +62,9 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
+        onClose={function(): void {
+          throw new Error("Function not implemented.");
+        }}
       />,
     );
     await screen.findByText("Loading versions...");
@@ -72,6 +75,9 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
+        onClose={function(): void {
+          throw new Error("Function not implemented.");
+        }}
       />,
     );
     await screen.findByText("Jul 1, 2021, 12:00 AM");
@@ -83,6 +89,9 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
+        onClose={function(): void {
+          throw new Error("Function not implemented.");
+        }}
       />,
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
@@ -99,6 +108,9 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
+        onClose={function(): void {
+          throw new Error("Function not implemented.");
+        }}
       />,
     );
     const closeButton = await screen.findByText("Close");
@@ -113,6 +125,9 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
+        onClose={function(): void {
+          throw new Error("Function not implemented.");
+        }}
       />,
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");

@@ -36,7 +36,7 @@ export const createWorkflow = async (prompt: string) => {
     }),
   });
 
-  const tools = [weatherTool];
+  const tools = [weatherTool] as ToolNode<AgentState>["tools"];
   const toolNode = new ToolNode<AgentState>(tools);
 
   const model = new ChatAnthropic({
