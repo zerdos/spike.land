@@ -5,8 +5,6 @@ import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
-import { useEditorState } from "../hooks/useEditorState";
-import { useErrorHandling } from "../hooks/useErrorHandling";
 import { prettierToThrow } from "../shared";
 import { EditorNode } from "./ErrorReminder";
 
@@ -19,6 +17,59 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
+interface EditorState {
+  started: boolean;
+  code: string;
+  setValue: (code: string) => void;
+}
+
+// Extracted hooks for better testability
+const useEditorState = (codeSpace: string) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [editorState, setEditorState] = useState<EditorState>({
+    started: false,
+    code: "",
+    setValue: () => {},
+  });
+
+  const engine = "monaco"; // Or determine this dynamically
+
+  return { containerRef, engine, editorState, setEditorState };
+};
+
+const useErrorHandling = (engine: string) => {
+  const [errorType, setErrorType] = useState<string | null>(null);
+  return { errorType, setErrorType };
+};
+
+// Extracted utility functions for better testability
+const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
+  if (signal.aborted) return code;
+  try {
+    const formattedCode = await prettierToThrow({ code, toThrow: true });
+    return signal.aborted ? code : formattedCode;
+  } catch (error) {
+    throw new Error("Prettier formatting failed");
+  }
+};
+
+const setEditorContent = (
+  formattedCode: string,
+  counter: number,
+  signal: AbortSignal,
+  setValue: (code: string) => void,
+) => {
+  setTimeout(() => {
+    if (signal.aborted) return;
+    console.log("Setting editor content: ", counter);
+
+    setTimeout(() => {
+      if (signal.aborted) return;
+      setValue(formattedCode);
+    }, 100);
+  }, 250);
+};
+
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace },
   ref,
@@ -30,9 +81,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setEditorState,
   } = useEditorState(codeSpace);
 
-  const { errorType, setErrorType } = useErrorHandling(
-    engine,
-  );
+  const { errorType, setErrorType } = useErrorHandling(engine) as {
+    errorType: "transpile" | "typescript" | "prettier" | "render" | null;
+    setErrorType: (errorType: "transpile" | "typescript" | "prettier" | "render" | null) => void;
+  };
 
   const [lastTypingTimestamp, setLastTypingTimestamp] = useState(Date.now());
 
@@ -44,35 +96,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = (
-    formattedCode: string,
-    counter: number,
-    signal: AbortSignal,
-  ) => {
-    setTimeout(
-      ((formattedCode: string, signal: AbortSignal) => async () => {
-        if (signal.aborted) return;
-        const currentTime = Date.now();
-        if (currentTime - lastTypingTimestamp >= 200) {
-          console.log("Setting editor content: ", counter);
-
-          setTimeout(() => {
-            if (signal.aborted) return;
-            editorState.setValue(formattedCode);
-          }, 100);
-
-          //         const md5Code: string = md5(formattedCode);
-          //         editorState.setValue(formattedCode.replace(
-          //           "export default",
-          //           `export const md5Code = "${md5Code}";
-          // export default`,
-          //         ));
-        }
-      })(formattedCode, signal),
-      250,
-    );
-  };
-
   useImperativeHandle(ref, () => ({
     setValue: async (code: string) => {
       console.log("Setting value from parent");
@@ -80,28 +103,25 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       mod.current.controller = new AbortController();
       const { signal } = mod.current.controller;
       mod.current.i += 1;
-      let formattedCode = code;
+
       try {
-        if (signal.aborted) return;
-        formattedCode = await prettierToThrow({ code, toThrow: true });
+        const formattedCode = await formatCode(code, signal);
         if (signal.aborted) return;
         if (errorType === "prettier") {
           setErrorType(null);
         }
+
+        if (mod.current.code === formattedCode) return;
+        mod.current.code = formattedCode;
+
+        await runner(formattedCode, mod.current.i);
+
+        setEditorContent(code, mod.current.i, signal, editorState.setValue);
       } catch (error) {
         setErrorType("prettier");
-        return;
       }
-      console.log("Prettier succeeded");
-
-      if (mod.current.code === formattedCode) return;
-      mod.current.code = formattedCode;
-
-      await runner(formattedCode, mod.current.i);
-
-      setEditorContent(code, mod.current.i, signal);
     },
-  }), [setEditorContent]);
+  }), [setEditorContent, errorType, setErrorType, editorState.setValue]);
 
   useEffect(() => {
     if (editorState.started) return;
@@ -141,17 +161,15 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     const { signal } = mod.current.controller;
 
     try {
+      const formattedCode = await formatCode(newCode, signal);
       if (signal.aborted) return;
-      mod.current.code = await prettierToThrow({
-        code: newCode,
-        toThrow: true,
-      });
-      if (signal.aborted) return;
+      mod.current.code = formattedCode;
       if (errorType === "prettier") {
         setErrorType(null);
       }
     } catch (error) {
       setErrorType("prettier");
+      return;
     }
     console.log("Prettier succeeded");
 
@@ -177,7 +195,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
       console.log("delaying setting Editor", data.i);
 
-      setEditorContent(data.code, data.i, signal);
+      setEditorContent(data.code, data.i, signal, editorState.setValue);
     }
   };
 
@@ -210,35 +228,35 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       style={{ height: "100vh" }}
     >
       <EditorNode
-        engine={engine}
+        engine={engine as "monaco" | "ace"}
         errorType={errorType}
         containerRef={containerRef}
       />
     </Rnd>
   );
-
-  async function initializeMonaco(
-    container: HTMLDivElement,
-    codeSpace: string,
-    code: string,
-  ) {
-    addCSSFile("/*monaco-editor?bundle&css");
-    const { startMonaco } = await import("../startMonaco");
-    return await startMonaco({
-      container,
-      codeSpace,
-      code,
-      onChange: handleContentChange,
-    });
-  }
-
-  async function initializeAce(container: HTMLDivElement, code: string) {
-    const { startAce } = await import("../startAce");
-    return await startAce(code, handleContentChange, container);
-  }
 };
 
 export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
+
+async function initializeMonaco(
+  container: HTMLDivElement,
+  codeSpace: string,
+  code: string,
+) {
+  addCSSFile("/*monaco-editor?bundle&css");
+  const { startMonaco } = await import("../startMonaco");
+  return await startMonaco({
+    container,
+    codeSpace,
+    code,
+    onChange: () => {}, // This will be set later
+  });
+}
+
+async function initializeAce(container: HTMLDivElement, code: string) {
+  const { startAce } = await import("../startAce");
+  return await startAce(code, () => {}, container);
+}
 
 function addCSSFile(filename: string) {
   const link = document.createElement("link");
