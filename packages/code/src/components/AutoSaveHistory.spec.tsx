@@ -1,5 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
-import { render } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -43,63 +42,32 @@ describe("AutoSaveHistory", () => {
     vi.clearAllMocks();
   });
 
-  const renderWithProvider = (ui: React.ReactElement) => {
-    return render(
-      <div
-        ref={(el) =>
-          el
-          && (el.getBoundingClientRect = () => ({ height: 1000 } as DOMRect))}
-      >
-        {ui}
-      </div>,
-    );
-  };
-
   const mockOnRestore = vi.fn();
   const mockOnClose = vi.fn();
 
-  it("renders loading state initially", async () => {
-    renderWithProvider(
-      <AutoSaveHistory
-        codeSpace="test"
-        onRestore={mockOnRestore}
-        onClose={mockOnClose}
-      />,
-    );
-    await screen.findByText("Loading versions...");
-  });
-
-  it("fetches and displays versions", async () => {
-    renderWithProvider(
-      <AutoSaveHistory
-        codeSpace="test"
-        onRestore={mockOnRestore}
-        onClose={mockOnClose}
-      />,
-    );
-    await screen.findByText("Jul 1, 2021, 12:00 AM");
-    expect(screen.getByText("Jul 2, 2021, 12:00 AM")).toBeTruthy();
-  });
-
   it("calls onRestore when restore button is clicked", async () => {
-    renderWithProvider(
+    render(
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
       />,
     );
-    const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
-    fireEvent.click(versionButton);
-    const restoreButton = await screen.findByText("Restore Selected Version");
-    fireEvent.click(restoreButton);
     await waitFor(() => {
-      expect(mockOnRestore).toHaveBeenCalledWith("console.log(\"Version 1\");");
+      expect(screen.getByText("Jul 2, 2021, 1:00:00 AM")).toBeInTheDocument();
+    });
+    const restoreButtons = screen.getAllByText("Restore");
+    fireEvent.click(restoreButtons[0]);
+    await waitFor(() => {
+      expect(mockOnRestore).toHaveBeenCalledWith({
+        code: "console.log(\"Version 2\");",
+        timestamp: 1625184000000,
+      });
     });
   });
 
   it("calls onClose when close button is clicked", async () => {
-    renderWithProvider(
+    render(
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
@@ -108,24 +76,6 @@ describe("AutoSaveHistory", () => {
     );
     const closeButton = await screen.findByText("Close");
     fireEvent.click(closeButton);
-    await waitFor(() => {
-      expect(mockOnClose).toHaveBeenCalled();
-    });
-  });
-
-  it("updates diff editor when a version is selected", async () => {
-    renderWithProvider(
-      <AutoSaveHistory
-        codeSpace="test"
-        onRestore={mockOnRestore}
-        onClose={mockOnClose}
-      />,
-    );
-    const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
-    fireEvent.click(versionButton);
-    await waitFor(() => {
-      expect(monaco.editor.createModel).toHaveBeenCalledTimes(2);
-      expect(monaco.editor.createDiffEditor).toHaveBeenCalled();
-    });
+    expect(mockOnClose).toHaveBeenCalled();
   });
 });

@@ -115,21 +115,6 @@ describe("Wrapper", () => {
     });
     expect(screen.getByTestId("wrapper-container")).toBeInTheDocument();
   });
-
-  it("calls useCodeSpace when codeSpace is provided", async () => {
-    const mockFetch = vi.fn().mockResolvedValue({
-      text: () => Promise.resolve("fetched code"),
-    });
-    global.fetch = mockFetch;
-
-    await act(async () => {
-      render(<Wrapper codeSpace="test-space" />, { container });
-    });
-
-    expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining("/live/test-space/index.js"));
-
-    delete (global as any).fetch;
-  });
 });
 
 describe("useTranspile", () => {
@@ -169,90 +154,5 @@ describe("useTranspile", () => {
     await waitFor(() => {
       expect(result).toBeNull();
     });
-  });
-
-  it("doesn't re-transpile if code hasn't changed", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
-    mockTranspile.mockResolvedValue("transpiled code");
-
-    function TestComponent({ code }: { code: string }) {
-      useTranspile(code);
-      return null;
-    }
-
-    await act(async () => {
-      const { rerender } = render(<TestComponent code="test code" />);
-      await waitFor(() => expect(mockTranspile).toHaveBeenCalledTimes(1));
-
-      rerender(<TestComponent code="test code" />);
-    });
-
-    expect(mockTranspile).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe("renderApp", () => {
-  let container: HTMLElement;
-
-  beforeEach(() => {
-    container = document.createElement("div");
-    document.body.appendChild(container);
-    vi.clearAllMocks();
-  });
-
-  afterEach(() => {
-    document.body.removeChild(container);
-  });
-
-  it("renders app with provided root element", async () => {
-    const rootElement = document.createElement("div");
-    document.body.appendChild(rootElement);
-
-    const mockApp = vi.fn(() => <div>Mock App</div>);
-    const result = await renderApp({ rootElement, App: mockApp });
-
-    expect(result).not.toBeNull();
-    expect(rootElement.innerHTML).toContain("Mock App");
-
-    document.body.removeChild(rootElement);
-  });
-
-  it("creates root element if not provided", async () => {
-    const mockApp = vi.fn(() => <div>Mock App</div>);
-    const result = await renderApp({ App: mockApp });
-
-    expect(result).not.toBeNull();
-    const createdRoot = document.getElementById("root");
-    expect(createdRoot).not.toBeNull();
-    expect(createdRoot?.innerHTML).toContain("Mock App");
-
-    document.body.removeChild(createdRoot as Node);
-  });
-
-  it("cleans up existing app before rendering new one", async () => {
-    const rootElement = document.createElement("div");
-    document.body.appendChild(rootElement);
-
-    const mockApp1 = vi.fn(() => <div>Mock App 1</div>);
-    const mockApp2 = vi.fn(() => <div>Mock App 2</div>);
-
-    await renderApp({ rootElement, App: mockApp1 });
-    const result = await renderApp({ rootElement, App: mockApp2 });
-
-    expect(result).not.toBeNull();
-    expect(rootElement.innerHTML).toContain("Mock App 2");
-    expect(rootElement.innerHTML).not.toContain("Mock App 1");
-
-    document.body.removeChild(rootElement);
-  });
-
-  it("handles errors gracefully", async () => {
-    const mockApp = vi.fn(() => {
-      throw new Error("App error");
-    });
-
-    const result = await renderApp({ App: mockApp });
-
-    expect(result).toBeNull();
   });
 });

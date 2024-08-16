@@ -12,7 +12,7 @@
     "dts"
   ],
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest --no-color --silent --reporter basic run",
     "codebase": "ai-digest -i $(pwd) --show-output-files",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
     "types": "mkdir -p dts && tsc --emitDeclarationOnly || echo ok",
@@ -213,6 +213,7 @@
     "@types/wicg-file-system-access": "2023.10.5",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/browser": "^2.0.5",
     "@vitest/ui": "^2.0.5",
     "ai-digest": "^1.0.5",
     "dprint": "^0.47.2",
