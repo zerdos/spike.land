@@ -1,3 +1,4 @@
+import { ChatAnthropic } from "@langchain/anthropic";
 import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
 import { tool } from "@langchain/core/tools";
 import { StateGraph, StateGraphArgs } from "@langchain/langgraph";
@@ -38,7 +39,6 @@ export const createWorkflow = async (prompt: string) => {
   const tools = [weatherTool] as ToolNode<AgentState>["tools"];
   const toolNode = new ToolNode<AgentState>(tools);
 
-  const { ChatAnthropic } = await import(`@langchain/anthropic`);
   const model = new ChatAnthropic({
     model: "claude-3-5-sonnet-20240620",
     anthropicApiKey: "MY_API_KEY",
