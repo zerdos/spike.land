@@ -233,6 +233,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 handleSendMessage(input, isScreenshotAttached as string);
+                setScreenshotLoaded(false);
+                setIsScreenshotAttached(false);
               }
             }}
             placeholder="Type a message..."
