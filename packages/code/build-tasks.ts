@@ -86,7 +86,7 @@ export async function buildServiceWorker() {
     minifySyntax: true,
     minifyIdentifiers: true,
     minifyWhitespace: true,
-    target: "es2020",
+    target: "es2024",
   });
 }
 
@@ -154,7 +154,7 @@ export async function buildMainBundle(wasmFile) {
     mangleQuoted: isProduction,
     sourcemap: false,
     legalComments: "none",
-    target: "es2020",
+    target: "es2024",
     external: undefined,
     alias: undefined,
     outdir: "dist/@/",
@@ -197,7 +197,7 @@ export async function buildMainBundle(wasmFile) {
     treeShaking: isProduction,
     mangleQuoted: isProduction,
     sourcemap: false,
-    target: "es2020",
+    target: "es2024",
     legalComments: "none",
     platform: "browser",
     ignoreAnnotations: true,

@@ -38,7 +38,7 @@ export const cjs = async (code: string) => {
         jsxImportSource: "@emotion/react",
       },
     },
-    target: "es2020",
+    target: "es2024",
   });
   return cjs;
 };
@@ -76,7 +76,7 @@ export const transpile = async (
           jsxImportSource: "@emotion/react",
         },
       },
-      target: "es2020",
+      target: "es2024",
     });
 
     return importMapReplace(transformedCode.code, origin);
@@ -185,7 +185,7 @@ export const build = async ({
       ".css": "css",
     },
     write: false,
-    target: "es2020",
+    target: "es2024",
     outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
     treeShaking: true,
     legalComments: "none",

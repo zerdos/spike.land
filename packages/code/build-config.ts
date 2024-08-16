@@ -4,7 +4,7 @@ import { makeEnv } from "./helpers.ts";
 import { fetchPlugin } from "./src/fetchPlugin.ts";
 
 export const buildOptions: BuildOptions = {
-  target: "es2020",
+  target: "es2024",
   sourcemap: false,
   outdir: "dist",
   bundle: true,
