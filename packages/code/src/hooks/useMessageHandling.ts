@@ -1,11 +1,11 @@
 import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
+import { Message } from "@src/types/Message";
 import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
 import { useCallback } from "react";
 import { prettierToThrow } from "../shared";
-import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
 import { useAutoSave } from "./useAutoSave";
 

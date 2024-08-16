@@ -1,5 +1,5 @@
 import { Plugin } from "esbuild-wasm";
-import processCSS from "./hooks/processCSS.ts";
+import processCSS from "./hooks/processCSS";
 // import { enhancedFetch } from "./enhancedFetch.ts";
 // import { enhancedFetch } from "./enhancedFetch.ts";
 

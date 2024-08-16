@@ -2,22 +2,27 @@ import { act, fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { Editor } from "../components/Editor";
 
+let prettierToThrow = vi.fn();
+let useBC = vi.fn();
+
 vi.mock("lodash/debounce", () => vi.fn((fn) => fn));
 vi.mock("../isMobile", () => ({ isMobile: () => false }));
-vi.mock("../shared", () => ({ prettierToThrow: vi.fn() }));
+vi.mock("../shared", () => ({ prettierToThrow: () => prettierToThrow }));
 vi.mock("../startMonaco", () => ({
   startMonaco: vi.fn().mockResolvedValue({
     setValue: vi.fn(),
   }),
 }));
 vi.mock("../hooks/useBroadcastChannel", () => ({
-  useBroadcastChannel: vi.fn(),
+  useBroadcastChannel: useBC,
 }));
 
 describe("Editor Component", () => {
   const mockOnCodeUpdate = vi.fn();
 
   beforeEach(() => {
+    prettierToThrow = vi.fn();
+    useBC = vi.fn();
     vi.clearAllMocks();
     globalThis.cSess = {
       session: {
@@ -28,7 +33,7 @@ describe("Editor Component", () => {
   });
 
   test("renders without crashing", async () => {
-    render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
+    render(<Editor codeSpace="test" />);
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
     });
@@ -36,7 +41,7 @@ describe("Editor Component", () => {
 
   test("initializes with correct code", async () => {
     const { getByTestId } = render(
-      <Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />,
+      <Editor codeSpace="test" />,
     );
     await waitFor(() => {
       const editorContainer = getByTestId("editor-container");
@@ -46,7 +51,7 @@ describe("Editor Component", () => {
 
   test("calls onCodeUpdate when code changes", async () => {
     const { getByTestId } = render(
-      <Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />,
+      <Editor codeSpace="test" />,
     );
     await waitFor(() => {
       const editorContainer = getByTestId("editor-container");
@@ -65,12 +70,11 @@ describe("Editor Component", () => {
   });
 
   test("handles prettier errors correctly", async () => {
-    const mockPrettierToThrow = vi.fn().mockImplementation(() => {
+    prettierToThrow = vi.fn().mockImplementation(async () => {
       throw new Error("Prettier error");
     });
-    vi.mocked(import("../shared")).prettierToThrow.mockImplementation(mockPrettierToThrow);
 
-    render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
+    render(<Editor codeSpace="test" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();
@@ -90,13 +94,13 @@ describe("Editor Component", () => {
   test("updates editor content when receiving broadcast message", async () => {
     let broadcastCallback: (event: MessageEvent<any>) => void;
 
-    vi.mocked(import("../hooks/useBroadcastChannel")).useBroadcastChannel.mockImplementation(
+    useBC = vi.fn().mockImplementation(
       (_, callback: (event: MessageEvent<any>) => void) => {
         broadcastCallback = callback;
       },
     );
 
-    render(<Editor codeSpace="test" onCodeUpdate={mockOnCodeUpdate} />);
+    render(<Editor codeSpace="test" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("editor-container")).toBeInTheDocument();

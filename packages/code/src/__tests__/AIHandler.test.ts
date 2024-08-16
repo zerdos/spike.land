@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, test, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
@@ -50,9 +50,9 @@ describe("AIHandler", () => {
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
       currentCode,
-      onCodeUpdate,
       setMessages,
       setAICode,
+      false,
     );
 
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
@@ -129,7 +129,6 @@ describe("AIHandler", () => {
   test("continueWithOpenAI calls AIService.continueWithOpenAI", async () => {
     const fullResponse = "Full response";
     const currentCode = "Current code";
-    const onCodeUpdate = vi.fn();
     const setMessages = vi.fn();
     const setAICode = vi.fn();
 
@@ -138,7 +137,6 @@ describe("AIHandler", () => {
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
       currentCode,
-      onCodeUpdate,
       setMessages,
       setAICode,
     );
@@ -146,7 +144,6 @@ describe("AIHandler", () => {
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
       fullResponse,
       currentCode,
-      onCodeUpdate,
       setMessages,
       setAICode,
       false,

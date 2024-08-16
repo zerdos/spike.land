@@ -1,5 +1,6 @@
 import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
+import type { Message } from "@src/types/Message";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as sharedModule from "../shared";
@@ -138,7 +139,7 @@ describe("useMessageHandling", () => {
 
   it("should handle saving edit", () => {
     const messages = [
-      { id: "1", role: "user", content: "Original message" },
+      { id: "1", role: "user", content: "Original message" } as Message,
     ];
     const { result } = renderHook(() =>
       useMessageHandling({

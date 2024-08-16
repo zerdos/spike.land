@@ -2,7 +2,7 @@ import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
 
-globalThis.build = build;
+Object.assign(globalThis, { wait, build });
 
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {
@@ -100,7 +100,7 @@ export const useSpeedy = async (codeSpace: string) => {
 
   // const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
 
-  const indexMjs = await buildWithRetry();
+  const indexMjs = (await buildWithRetry()) as unknown as { contents: Uint8Array; path: string; text: string }[];
 
   console.log({ indexMjs });
 
@@ -131,7 +131,7 @@ export const useSpeedy = async (codeSpace: string) => {
   indexMjs.filter((f) => !f.path.endsWith(".css") && !f.path.endsWith(".mjs")).forEach(async (f) => {
     try {
       const body = f.contents;
-      const extension = f.path.split(".").pop();
+      const extension = f.path.split(".").pop() as string;
       const mimeType = getMimeType(extension);
 
       const response = await fetch(f.path.slice(1), {
@@ -149,7 +149,7 @@ export const useSpeedy = async (codeSpace: string) => {
   });
 
   // 4. Update CSS to use correct paths
-  const updateCssPaths = (css, codeSpace) => {
+  const updateCssPaths = (css: string, codeSpace: string) => {
     return css.replace(
       /url\((["']?)\/assets\//g,
       `url($1https:/testing.spike.land/live/${codeSpace}/api/my-cms/assets/`,

@@ -1,5 +1,5 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, Mock, MockedFunction, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, MockedFunction, vi } from "vitest";
 import * as sharedModule from "../shared";
 import { useTranspile, Wrapper } from "../Wrapper";
 
@@ -81,7 +81,7 @@ describe("Wrapper", () => {
 
 describe("useTranspile", () => {
   it("returns transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as vi.MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
     mockTranspile.mockResolvedValue("transpiled code");
 
     let result: string | undefined | null;

@@ -68,5 +68,6 @@ export const useDownload = (codeSpace: string, onlyReturn = false) => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    return;
   };
 };

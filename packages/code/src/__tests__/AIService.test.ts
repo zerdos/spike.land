@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, Mocked, vi } from "vitest";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
@@ -7,7 +7,7 @@ vi.mock("../services/LocalStorageService");
 
 describe("AIService", () => {
   let aiService: AIService;
-  let localStorageService: vi.Mocked<LocalStorageService>;
+  let localStorageService: Mocked<LocalStorageService>;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -15,7 +15,7 @@ describe("AIService", () => {
     localStorageService = {
       loadMessages: vi.fn().mockReturnValue([]),
       saveAIInteraction: vi.fn(),
-    } as unknown as vi.Mocked<LocalStorageService>;
+    } as unknown as Mocked<LocalStorageService>;
 
     aiService = new AIService(localStorageService);
   });
