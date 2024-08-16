@@ -25,7 +25,9 @@ export const addSomeFixesIfNeeded = (code: string): string => {
           .map((line: string) => (line.trim() ? indent + "  " + line : line))
           .join("\n");
 
-        return [indentedFirst, second].join(`\n${indent}\``).concat([, ...rest].join("`"));
+        return [indentedFirst, second].join(`\n${indent}\``).concat(
+          [, ...rest].join("`"),
+        );
       }),
     ].join("css={css`\n");
   } catch (error) {
@@ -63,7 +65,11 @@ export const prettierJs = async (
   try {
     return await format(addSomeFixesIfNeeded(code), prettierConfig);
   } catch (error) {
-    const msg = JSON.stringify({ message: (error as unknown as { message: string })?.message, error, code });
+    const msg = JSON.stringify({
+      message: (error as unknown as { message: string })?.message,
+      error,
+      code,
+    });
     console.error("Prettier error", msg);
     if (toThrow) throw Error(msg);
     if (code === "Types not found") return "export {}";

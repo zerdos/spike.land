@@ -56,7 +56,9 @@ export class AIService {
     assistantMessage.content = c.trim();
 
     const userMessage = messages[messages.length - 1].content;
-    const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
+    const msgToSave = typeof userMessage === "string"
+      ? userMessage
+      : JSON.stringify(userMessage);
     this.localStorageService.saveAIInteraction(
       msgToSave,
       assistantMessage.content,
@@ -108,7 +110,9 @@ export class AIService {
     assistantMessage.content = c.trim();
 
     const userMessage = messages[messages.length - 1].content;
-    const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
+    const msgToSave = typeof userMessage === "string"
+      ? userMessage
+      : JSON.stringify(userMessage);
     this.localStorageService.saveAIInteraction(
       msgToSave,
       assistantMessage.content,
@@ -199,7 +203,9 @@ export class AIService {
           toThrow: true,
         });
 
-        if (await runner(prettyCode) === false) throw new Error("Error in runner");
+        if (await runner(prettyCode) === false) {
+          throw new Error("Error in runner");
+        }
         setAICode(prettyCode);
 
         return prettyCode;
@@ -242,7 +248,9 @@ export class AIService {
           setMessages((prevMessages) => [...prevMessages, answer]);
 
           const answerContent = answer.content;
-          const msgToSend = typeof answerContent === "string" ? answerContent : JSON.stringify(answerContent);
+          const msgToSend = typeof answerContent === "string"
+            ? answerContent
+            : JSON.stringify(answerContent);
 
           await this.continueWithOpenAI(
             msgToSend,

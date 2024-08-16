@@ -150,8 +150,8 @@ const screenshotToBase64Maker = async () => {
   await fetch(
     `/live/${useCodeSpace()}/screenshot`,
   )
-    .then(response => response.blob())
-    .then(blob => {
+    .then((response) => response.blob())
+    .then((blob) => {
       var reader = new FileReader();
       reader.onload = function() {
         base64 = this.result as string;
@@ -171,7 +171,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   isStreaming,
   inputRef,
 }) => {
-  const [isScreenshotAttached, setIsScreenshotAttached] = React.useState<boolean | string>(false);
+  const [isScreenshotAttached, setIsScreenshotAttached] = React.useState<
+    boolean | string
+  >(false);
   const [screenshotLoaded, setScreenshotLoaded] = React.useState(false);
 
   useEffect(() => {
@@ -215,7 +217,13 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             </label>
           </div>
           <Button
-            onClick={() => handleSendMessage(input, isScreenshotAttached ? isScreenshotAttached as string : undefined)}
+            onClick={() =>
+              handleSendMessage(
+                input,
+                isScreenshotAttached
+                  ? isScreenshotAttached as string
+                  : undefined,
+              )}
             disabled={isStreaming || input.trim() === ""}
             size="icon"
           >

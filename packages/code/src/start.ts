@@ -8,7 +8,10 @@ if (location.pathname.endsWith("embed") === false) {
 
 const codeSpace = useCodeSpace();
 
-if (location.pathname !== `/live/${codeSpace}` && location.pathname.endsWith("dehydrated") === false) {
+if (
+  location.pathname !== `/live/${codeSpace}`
+  && location.pathname.endsWith("dehydrated") === false
+) {
   setTimeout(() => {
     (async () => {
       const rootElement = document.getElementById("root")! as HTMLDivElement;

@@ -100,7 +100,11 @@ export const useSpeedy = async (codeSpace: string) => {
 
   // const indexCss = await buildWithRetry(origin + `/live/${codeSpace}/index.css`);
 
-  const indexMjs = (await buildWithRetry()) as unknown as { contents: Uint8Array; path: string; text: string }[];
+  const indexMjs = (await buildWithRetry()) as unknown as {
+    contents: Uint8Array;
+    path: string;
+    text: string;
+  }[];
 
   console.log({ indexMjs });
 
@@ -128,25 +132,28 @@ export const useSpeedy = async (codeSpace: string) => {
   };
 
   // 2. Proper error handling and logging
-  indexMjs.filter((f) => !f.path.endsWith(".css") && !f.path.endsWith(".mjs")).forEach(async (f) => {
-    try {
-      const body = f.contents;
-      const extension = f.path.split(".").pop() as string;
-      const mimeType = getMimeType(extension);
+  indexMjs.filter((f) => !f.path.endsWith(".css") && !f.path.endsWith(".mjs"))
+    .forEach(async (f) => {
+      try {
+        const body = f.contents;
+        const extension = f.path.split(".").pop() as string;
+        const mimeType = getMimeType(extension);
 
-      const response = await fetch(f.path.slice(1), {
-        method: "PUT",
-        body,
-        headers: { "Content-Type": mimeType },
-      });
+        const response = await fetch(f.path.slice(1), {
+          method: "PUT",
+          body,
+          headers: { "Content-Type": mimeType },
+        });
 
-      if (!response.ok) {
-        console.error(`Failed to upload font: ${f.path}, Status: ${response.status}`);
+        if (!response.ok) {
+          console.error(
+            `Failed to upload font: ${f.path}, Status: ${response.status}`,
+          );
+        }
+      } catch (error) {
+        console.error(`Error processing font: ${f.path}`, error);
       }
-    } catch (error) {
-      console.error(`Error processing font: ${f.path}`, error);
-    }
-  });
+    });
 
   // 4. Update CSS to use correct paths
   const updateCssPaths = (css: string, codeSpace: string) => {
@@ -157,7 +164,8 @@ export const useSpeedy = async (codeSpace: string) => {
   };
   let updatedCss = "";
   // Usage in your main function:
-  const css = indexMjs.find((f) => f.path.endsWith("/api/my-cms/index.css"))?.text;
+  const css = indexMjs.find((f) => f.path.endsWith("/api/my-cms/index.css"))
+    ?.text;
   if (css) {
     updatedCss = updateCssPaths(css, codeSpace);
     // Use updatedCss in your HTML template

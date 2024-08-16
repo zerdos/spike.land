@@ -44,7 +44,11 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
-  const setEditorContent = (formattedCode: string, counter: number, signal: AbortSignal) => {
+  const setEditorContent = (
+    formattedCode: string,
+    counter: number,
+    signal: AbortSignal,
+  ) => {
     setTimeout(
       ((formattedCode: string, signal: AbortSignal) => async () => {
         if (signal.aborted) return;
@@ -138,7 +142,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     try {
       if (signal.aborted) return;
-      mod.current.code = await prettierToThrow({ code: newCode, toThrow: true });
+      mod.current.code = await prettierToThrow({
+        code: newCode,
+        toThrow: true,
+      });
       if (signal.aborted) return;
       if (errorType === "prettier") {
         setErrorType(null);

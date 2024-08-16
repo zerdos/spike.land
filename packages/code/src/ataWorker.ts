@@ -54,7 +54,10 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
     "prettierJs",
     ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
   );
-  rpcProvider.registerRpcHandler("prettierCss", (code: string) => prettierCss(code));
+  rpcProvider.registerRpcHandler(
+    "prettierCss",
+    (code: string) => prettierCss(code),
+  );
   rpcProvider.registerRpcHandler(
     "ata",
     ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs, tsx }),
@@ -65,10 +68,20 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   );
   rpcProvider.registerRpcHandler(
     "build",
-    (params: { codeSpace: string; splitting?: boolean; entryPoint?: string; origin: string; format: "esm" | "iife" }) =>
-      build(params),
+    (
+      params: {
+        codeSpace: string;
+        splitting?: boolean;
+        entryPoint?: string;
+        origin: string;
+        format: "esm" | "iife";
+      },
+    ) => build(params),
   );
-  rpcProvider.registerSignalHandler("connect", (signal: string) => setConnections(signal));
+  rpcProvider.registerSignalHandler(
+    "connect",
+    (signal: string) => setConnections(signal),
+  );
 }
 
 self.onconnect = (e) => start(e.ports[0]);
@@ -103,7 +116,9 @@ async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
 }
 
 function createWebSocket(codeSpace: string, connection: Connection): Socket {
-  const host = location.host === "localhost" ? "testing.spike.land" : location.host;
+  const host = location.host === "localhost"
+    ? "testing.spike.land"
+    : location.host;
   const url = `wss://${host}/live/${codeSpace}/websocket`;
   const delegate = createSocketDelegate(connection, codeSpace);
   const ws = new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
@@ -121,13 +136,21 @@ function createSocketDelegate(connection: Connection, codeSpace: string) {
   };
 }
 
-function createBroadcastChannel(codeSpace: string, connection: Connection): BroadcastChannel {
+function createBroadcastChannel(
+  codeSpace: string,
+  connection: Connection,
+): BroadcastChannel {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   BC.onmessage = ({ data }) => handleBroadcastMessage(data, connection);
   return BC;
 }
 
-async function handleSocketMessage(ws: Socket, message: string, connection: Connection, codeSpace: string) {
+async function handleSocketMessage(
+  ws: Socket,
+  message: string,
+  connection: Connection,
+  codeSpace: string,
+) {
   const data = JSON.parse(message);
   const { BC, oldSession, user } = connection;
 
@@ -146,17 +169,31 @@ async function handleSocketMessage(ws: Socket, message: string, connection: Conn
   }
 }
 
-async function handleHandshake(ws: Socket, data: any, connection: Connection, codeSpace: string) {
+async function handleHandshake(
+  ws: Socket,
+  data: any,
+  connection: Connection,
+  codeSpace: string,
+) {
   ws.send(JSON.stringify({ name: connection.user }));
 
   if (makeHash(connection.oldSession) !== String(data.hashCode)) {
     connection.oldSession = await fetchInitialSession(codeSpace);
-    const transpiled = data.transpiled || await transpile(connection.oldSession.code, location.origin);
-    connection.BC.postMessage({ ...connection.oldSession, transpiled, sender: "ATA WORKER2" });
+    const transpiled = data.transpiled
+      || await transpile(connection.oldSession.code, location.origin);
+    connection.BC.postMessage({
+      ...connection.oldSession,
+      transpiled,
+      sender: "ATA WORKER2",
+    });
   }
 }
 
-async function handleHashUpdate(data: any, connection: Connection, codeSpace: string) {
+async function handleHashUpdate(
+  data: any,
+  connection: Connection,
+  codeSpace: string,
+) {
   connection.controller.abort();
   connection.controller = new AbortController();
   const signal = connection.controller.signal;
@@ -174,16 +211,32 @@ async function handleHashUpdate(data: any, connection: Connection, codeSpace: st
   });
 }
 
-async function handleHashMismatch(connection: Connection, codeSpace: string, signal: AbortSignal) {
+async function handleHashMismatch(
+  connection: Connection,
+  codeSpace: string,
+  signal: AbortSignal,
+) {
   if (signal.aborted) return;
   connection.oldSession = await fetchInitialSession(codeSpace);
   if (signal.aborted) return;
-  const transpiled = await transpile(connection.oldSession.code, location.origin);
+  const transpiled = await transpile(
+    connection.oldSession.code,
+    location.origin,
+  );
   if (signal.aborted) return;
-  connection.BC.postMessage({ ...connection.oldSession, transpiled, sender: "ATA WORKER3" });
+  connection.BC.postMessage({
+    ...connection.oldSession,
+    transpiled,
+    sender: "ATA WORKER3",
+  });
 }
 
-async function handleHashMatch(data: any, connection: Connection, oldSession: ICodeSession, signal: AbortSignal) {
+async function handleHashMatch(
+  data: any,
+  connection: Connection,
+  oldSession: ICodeSession,
+  signal: AbortSignal,
+) {
   const newSession = applyCodePatch(oldSession, data);
   const newHash = makeHash(newSession);
   if (signal.aborted) return;
@@ -191,12 +244,19 @@ async function handleHashMatch(data: any, connection: Connection, oldSession: IC
   if (signal.aborted) return;
   if (data.newHash === newHash) {
     connection.oldSession = newSession;
-    connection.BC.postMessage({ ...newSession, transpiled, sender: "ATA WORKER4" });
+    connection.BC.postMessage({
+      ...newSession,
+      transpiled,
+      sender: "ATA WORKER4",
+    });
   } else {
     if (signal.aborted) return;
     connection.oldSession = await fetchInitialSession(connection.codeSpace);
     if (signal.aborted) return;
-    connection.BC.postMessage({ ...connection.oldSession, sender: "ATA WORKER5" });
+    connection.BC.postMessage({
+      ...connection.oldSession,
+      sender: "ATA WORKER5",
+    });
   }
 }
 
@@ -213,7 +273,13 @@ async function handleBroadcastMessage(data: any, connection: Connection) {
       const patchMessage = createPatch(oldSession, newSession);
       if (patchMessage.oldHash === oldHash) {
         connection.oldSession = newSession;
-        connection.ws.send(JSON.stringify({ ...patchMessage, i: newSession.i, name: connection.user }));
+        connection.ws.send(
+          JSON.stringify({
+            ...patchMessage,
+            i: newSession.i,
+            name: connection.user,
+          }),
+        );
       }
     }
   }

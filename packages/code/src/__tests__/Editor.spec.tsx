@@ -107,7 +107,9 @@ describe("Editor Component", () => {
     });
 
     act(() => {
-      const messageEvent: MessageEvent<any> = { data: { i: 1, code: "broadcasted code" } } as unknown as MessageEvent<
+      const messageEvent: MessageEvent<any> = {
+        data: { i: 1, code: "broadcasted code" },
+      } as unknown as MessageEvent<
         any
       >;
       broadcastCallback(messageEvent);

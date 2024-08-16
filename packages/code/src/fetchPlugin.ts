@@ -10,7 +10,7 @@ export const fetchPlugin = () => ({
     // esbuild doesn't attempt to map them to a file system location.
     // Tag them with the "http-url" namespace to associate them with
     // this plugin.
-    build.onResolve({ filter: /^https?:\/\// }, args => ({
+    build.onResolve({ filter: /^https?:\/\// }, (args) => ({
       path: args.path,
       namespace: "http-url",
     }));
@@ -20,7 +20,7 @@ export const fetchPlugin = () => ({
     // files will be in the "http-url" namespace. Make sure to keep
     // the newly resolved URL in the "http-url" namespace so imports
     // inside it will also be resolved as URLs recursively.
-    build.onResolve({ filter: /.*/, namespace: "http-url" }, args => ({
+    build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => ({
       path: new URL(args.path, args.importer).toString(),
       namespace: "http-url",
     }));
@@ -57,10 +57,13 @@ export const fetchPlugin = () => ({
         // Process @import statements in CSS
         return { contents: await processCSS(contents, args.path), loader };
       } else if (
-        contentType.includes("application/javascript") || args.path.endsWith(".js") || args.path.endsWith(".mjs")
+        contentType.includes("application/javascript")
+        || args.path.endsWith(".js") || args.path.endsWith(".mjs")
       ) {
         loader = "js";
-      } else if (contentType.includes("application/json") || args.path.endsWith(".json")) {
+      } else if (
+        contentType.includes("application/json") || args.path.endsWith(".json")
+      ) {
         loader = "json";
       } else if (contentType.includes("font/")) {
         loader = "binary";

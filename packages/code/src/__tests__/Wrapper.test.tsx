@@ -32,7 +32,9 @@ describe("Wrapper", () => {
   });
 
   it("calls transpile with correct arguments", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     await act(async () => {
@@ -46,7 +48,9 @@ describe("Wrapper", () => {
   });
 
   it("renders AppRenderer with transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     await act(async () => {
@@ -80,11 +84,15 @@ describe("Wrapper", () => {
   });
 
   it("prefers transpiled prop over code prop", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled from code");
 
     await act(async () => {
-      render(<Wrapper code="test code" transpiled="pre-transpiled code" />, { container });
+      render(<Wrapper code="test code" transpiled="pre-transpiled code" />, {
+        container,
+      });
     });
 
     expect(mockTranspile).not.toHaveBeenCalled();
@@ -96,7 +104,9 @@ describe("Wrapper", () => {
   });
 
   it("handles transpile error gracefully", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockRejectedValue(new Error("Transpile error"));
 
     await act(async () => {
@@ -112,7 +122,9 @@ describe("Wrapper", () => {
 
 describe("useTranspile", () => {
   it("returns transpiled code", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     let result: string | null = null;
@@ -131,7 +143,9 @@ describe("useTranspile", () => {
   });
 
   it("returns null when transpile fails", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockRejectedValue(new Error("Transpile error"));
 
     let result: string | null = "initial";
@@ -150,7 +164,9 @@ describe("useTranspile", () => {
   });
 
   it("doesn't re-transpile if code hasn't changed", async () => {
-    const mockTranspile = sharedModule.transpile as MockedFunction<typeof sharedModule.transpile>;
+    const mockTranspile = sharedModule.transpile as MockedFunction<
+      typeof sharedModule.transpile
+    >;
     mockTranspile.mockResolvedValue("transpiled code");
 
     function TestComponent({ code }: { code: string }) {

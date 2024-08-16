@@ -416,7 +416,10 @@ export class RouteHandler {
     });
   }
 
-  private async handleScreenShotRoute(request: Request, url: URL): Promise<Response> {
+  private async handleScreenShotRoute(
+    request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
     return fetch(
@@ -424,7 +427,10 @@ export class RouteHandler {
     );
   }
 
-  private async handleRenderToStr(request: Request, url: URL): Promise<Response> {
+  private async handleRenderToStr(
+    request: Request,
+    url: URL,
+  ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
 

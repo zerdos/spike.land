@@ -1,6 +1,9 @@
 export const serverFetchUrl = "/api/server-fetch";
 
-export const enhancedFetch = async (url: RequestInfo | URL, options: RequestInit = {}) => {
+export const enhancedFetch = async (
+  url: RequestInfo | URL,
+  options: RequestInit = {},
+) => {
   const controller = new AbortController();
   const { signal: originalSignal } = options;
 
@@ -45,7 +48,9 @@ function anySignal(signals: AbortSignal[]): AbortSignal {
       controller.abort(signal.reason);
       return controller.signal;
     }
-    signal.addEventListener("abort", () => controller.abort(signal.reason), { once: true });
+    signal.addEventListener("abort", () => controller.abort(signal.reason), {
+      once: true,
+    });
   }
   return controller.signal;
 }

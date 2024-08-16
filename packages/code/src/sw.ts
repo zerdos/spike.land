@@ -30,7 +30,9 @@ sw.addEventListener("activate", (event) => {
         // Copy matching files from old caches to the new cache
         for (const oldCache of otherCaches) {
           const oldCacheInstance = await caches.open(oldCache);
-          const oldFileJsonResponse = await oldCacheInstance.match("/files.json");
+          const oldFileJsonResponse = await oldCacheInstance.match(
+            "/files.json",
+          );
           if (!oldFileJsonResponse) continue;
 
           const oldFiles: typeof sw.files = await oldFileJsonResponse.json();
@@ -90,7 +92,7 @@ sw.addEventListener("install", async () => {
     const currentCache = "file-cache-" + sw.swVersion;
 
     const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
-    await Promise.all(otherCaches.map(cacheName => caches.delete(cacheName)));
+    await Promise.all(otherCaches.map((cacheName) => caches.delete(cacheName)));
   } catch (error) {
     console.error("Error in install event:", error);
   }
@@ -110,7 +112,8 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/api/") && !url.pathname.startsWith("/live/") && !url.pathname.startsWith("/api/")
+    !url.pathname.startsWith("/api/") && !url.pathname.startsWith("/live/")
+    && !url.pathname.startsWith("/api/")
     && !files.has(url.pathname.slice(1)),
   new CacheFirst({
     cacheName: "esm-cache-124",

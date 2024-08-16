@@ -63,7 +63,9 @@ describe("useMessageHandling", () => {
     const { result } = renderHook(() => useMessageHandling(mockProps));
 
     // Mock AIHandler methods
-    const mockPrepareClaudeContent = vi.fn().mockReturnValue("prepared content");
+    const mockPrepareClaudeContent = vi.fn().mockReturnValue(
+      "prepared content",
+    );
     const mockSendToAnthropic = vi.fn().mockResolvedValue({
       id: "1",
       role: "assistant",
@@ -98,7 +100,9 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith([]);
-    expect(localStorageMock.removeItem).toHaveBeenCalledWith("chatMessages-test-space");
+    expect(localStorageMock.removeItem).toHaveBeenCalledWith(
+      "chatMessages-test-space",
+    );
   });
 
   it("should handle resetting chat", () => {
@@ -109,7 +113,9 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith([]);
-    expect(localStorage.removeItem).toHaveBeenCalledWith("chatMessages-test-space");
+    expect(localStorage.removeItem).toHaveBeenCalledWith(
+      "chatMessages-test-space",
+    );
   });
 
   it("should handle editing a message", () => {

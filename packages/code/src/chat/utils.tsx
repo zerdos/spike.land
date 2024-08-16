@@ -55,12 +55,14 @@ export const renderMessage = (text: string, isUser: boolean) => {
     <>
       {parts.map((part, index) => (
         <Fragment key={index}>
-          {part.type === "text" ? <TextPart content={part.content} /> : (
-            <CodeBlock
-              value={part.content}
-              language={part.language || "typescript"}
-            />
-          )}
+          {part.type === "text"
+            ? <TextPart content={part.content} />
+            : (
+              <CodeBlock
+                value={part.content}
+                language={part.language || "typescript"}
+              />
+            )}
         </Fragment>
       ))}
     </>
@@ -109,7 +111,9 @@ const parseMessageParts = (text: string) => {
     lastIndex = match.index + match[0].length;
   }
 
-  const lastOpenBlockMatch = text.slice(lastIndex).match(/```(\w+)?\s*([\s\S]*)/);
+  const lastOpenBlockMatch = text.slice(lastIndex).match(
+    /```(\w+)?\s*([\s\S]*)/,
+  );
   if (lastOpenBlockMatch) {
     parts.push({
       type: "code",

@@ -200,12 +200,10 @@ export const build = async ({
     format,
     platform: "browser",
     outExtension: { ".js": ".mjs", ".css": ".css" },
-    entryPoints: entryPoint
-      ? [entryPoint]
-      : [
-        `${origin}/live/${codeSpace}/wrapper.js`,
-        `${origin}/live/${codeSpace}/index.css`, // Add this line to include CSS
-      ],
+    entryPoints: entryPoint ? [entryPoint] : [
+      `${origin}/live/${codeSpace}/wrapper.js`,
+      `${origin}/live/${codeSpace}/index.css`, // Add this line to include CSS
+    ],
     packages: "external",
     plugins: [fetchPlugin()],
     assetNames: "assets/[name]-[hash]",

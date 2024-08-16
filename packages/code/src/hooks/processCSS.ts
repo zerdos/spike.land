@@ -1,6 +1,10 @@
 const urlCache = new Map<string, string>();
 
-async function processCSS(css: string, baseURL: string, depth: number = 0): Promise<string> {
+async function processCSS(
+  css: string,
+  baseURL: string,
+  depth: number = 0,
+): Promise<string> {
   if (depth > 5) {
     console.warn("Maximum CSS processing depth reached");
     return css;
@@ -19,8 +23,12 @@ async function processCSS(css: string, baseURL: string, depth: number = 0): Prom
         return urlCache.get(absoluteUrl);
       }
 
-      const importedCSS = await fetch(absoluteUrl).then(res => res.text());
-      const processedImportedCSS = await processCSS(importedCSS, absoluteUrl, depth + 1);
+      const importedCSS = await fetch(absoluteUrl).then((res) => res.text());
+      const processedImportedCSS = await processCSS(
+        importedCSS,
+        absoluteUrl,
+        depth + 1,
+      );
       urlCache.set(absoluteUrl, processedImportedCSS);
       return processedImportedCSS;
     }));

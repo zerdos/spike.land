@@ -36,7 +36,8 @@ Object.assign(globalThis, { BC, bcLogging });
 
 const setupServiceWorker = async () => {
   if (
-    !navigator.serviceWorker || localStorage.getItem("sw") === "false" || location.origin.indexOf("localhost") !== -1
+    !navigator.serviceWorker || localStorage.getItem("sw") === "false"
+    || location.origin.indexOf("localhost") !== -1
   ) {
     return null;
   }
@@ -260,7 +261,9 @@ const handleDefaultPage = async () => {
       if (!res) return rendered?.cleanup();
 
       const { css, html } = res;
-      if (html === "<div style=\"width: 100%; height: 100%;\"></div>") return rendered?.cleanup();
+      if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
+        return rendered?.cleanup();
+      }
 
       window.parent.postMessage({ i, css, html }, "*");
 

@@ -23,7 +23,9 @@ const proxyHandler = async (request, response) => {
     }
   });
   const rep1 = conte.split("https://testing.spike.land/").join("/");
-  const content = needReplace ? importMapReplace(rep1, "http://localhost:3000") : rep1;
+  const content = needReplace
+    ? importMapReplace(rep1, "http://localhost:3000")
+    : rep1;
   const textEncoder = new TextEncoder();
   const arrayBu = textEncoder.encode(content);
 
@@ -65,7 +67,10 @@ const server = http.createServer(async (request, response) => {
     console.log("chaek if it is local");
     await fs.access(localPath);
     console.log("trying to serve locally");
-    if (localPath.endsWith(".mjs") && localPath.indexOf("chunk") === -1 && localPath.indexOf("worker") === -1) {
+    if (
+      localPath.endsWith(".mjs") && localPath.indexOf("chunk") === -1
+      && localPath.indexOf("worker") === -1
+    ) {
       const textfile = await fs.readFile(localPath);
       const str = await textfile.toString();
 
@@ -76,11 +81,16 @@ const server = http.createServer(async (request, response) => {
         }
       });
 
-      const imapped = needReplace ? importMapReplace(str, "http://localhost:3000") : str;
+      const imapped = needReplace
+        ? importMapReplace(str, "http://localhost:3000")
+        : str;
       const arrBuff = new TextEncoder().encode(imapped);
       const buffer = Buffer.from(arrBuff);
 
-      response.setHeader("content-type", "application/javascript; charset=utf-8");
+      response.setHeader(
+        "content-type",
+        "application/javascript; charset=utf-8",
+      );
       response.setHeader("cache-control", "no-cache");
 
       // Set the status code from the proxy response
@@ -97,7 +107,7 @@ const server = http.createServer(async (request, response) => {
   }
 
   if (
-    spaRoutes.some(route => request.url.startsWith(route))
+    spaRoutes.some((route) => request.url.startsWith(route))
     && !request.url.includes(".")
   ) {
     console.log("Handling SPA route:", request.url);

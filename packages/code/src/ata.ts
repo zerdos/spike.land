@@ -132,7 +132,10 @@ declare module 'react' {
       .sort((a, b) => (a?.filePath ?? "").localeCompare(b?.filePath ?? "")).map(
         (c) => ({
           content: c!.content,
-          filePath: c!.filePath.replace(originToUse, "").replace(originToUse, ""),
+          filePath: c!.filePath.replace(originToUse, "").replace(
+            originToUse,
+            "",
+          ),
         }),
       );
   } catch (error) {

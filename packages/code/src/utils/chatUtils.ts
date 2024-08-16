@@ -14,7 +14,11 @@ export const loadMessages = (codeSpace: string): Message[] => {
   return JSON.parse(localStorage.getItem(key) || "[]");
 };
 
-export const updateSearchReplace = (codeeee: string, codeNow: string, em = extractCodeModification): string => {
+export const updateSearchReplace = (
+  codeeee: string,
+  codeNow: string,
+  em = extractCodeModification,
+): string => {
   const extractCodeModification = em;
   if (!codeeee.includes("<<<<<<< SEARCH")) {
     return codeNow;
@@ -24,8 +28,8 @@ export const updateSearchReplace = (codeeee: string, codeNow: string, em = extra
     const codeToReplace = extractCodeModification(codeeee);
     const modifications = codeToReplace
       .split(MODIFICATION_SEPARATOR)
-      .filter(mod => SEARCH_REPLACE_MARKERS.some(marker => mod.includes(marker)))
-      .map(mod => mod.replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, ""));
+      .filter((mod) => SEARCH_REPLACE_MARKERS.some((marker) => mod.includes(marker)))
+      .map((mod) => mod.replace(/<<<<<<< SEARCH|>>>>>>> REPLACE/g, ""));
 
     return modifications.reduce((acc, modification) => {
       const [search, replace] = modification.split("=======");
@@ -33,7 +37,9 @@ export const updateSearchReplace = (codeeee: string, codeNow: string, em = extra
       const result = replacePreservingWhitespace(
         acc,
         search.trim(),
-        replace.split("\n").slice(1).map(x => x.trim()).filter(x => x).join("\n"),
+        replace.split("\n").slice(1).map((x) => x.trim()).filter((x) => x).join(
+          "\n",
+        ),
       );
 
       console.table({

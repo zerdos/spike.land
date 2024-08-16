@@ -68,8 +68,8 @@ export const useMessageHandling = ({
       await fetch(
         `/live/${codeSpace}/screenshot`,
       )
-        .then(response => response.blob())
-        .then(blob => {
+        .then((response) => response.blob())
+        .then((blob) => {
           var reader = new FileReader();
           reader.onload = function() {
             base64 = this.result as string;
@@ -160,7 +160,9 @@ export const useMessageHandling = ({
         return;
       }
 
-      if (assistantMessage.content.includes("An error occurred while processing")) {
+      if (
+        assistantMessage.content.includes("An error occurred while processing")
+      ) {
         await runner(codeNow);
         assistantMessage = await aiHandler.sendToGpt4o(
           updatedMessages,
@@ -234,13 +236,16 @@ export const useMessageHandling = ({
     const messageToEdit = messages.find((msg) => msg.id === messageId);
 
     if (!messageToEdit) {
-      throw new Error("Error: Could not find message to edit with id: " + messageId);
+      throw new Error(
+        "Error: Could not find message to edit with id: " + messageId,
+      );
       return;
     }
 
     if (typeof messageToEdit.content !== "string") {
       throw new Error(
-        "Error:  Message content is not a string - we don't know how to handle this: " + JSON.stringify(messageToEdit),
+        "Error:  Message content is not a string - we don't know how to handle this: "
+          + JSON.stringify(messageToEdit),
       );
       return;
     }

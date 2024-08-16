@@ -1,7 +1,7 @@
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { transpile } from "@src/shared";
 
-const getCssStr = (html: string) => html.split("\"css-").slice(1).map(x => x.slice(0, 7)).join("");
+const getCssStr = (html: string) => html.split("\"css-").slice(1).map((x) => x.slice(0, 7)).join("");
 
 const codeSpace = useCodeSpace();
 
@@ -62,9 +62,11 @@ export const runner = async (code: string, counter = 0) => {
       html: string;
       css: string;
     }) => void;
-    const promise = new Promise<{ i: number; html: string; css: string }>((_resolve) => {
-      resolve = _resolve;
-    });
+    const promise = new Promise<{ i: number; html: string; css: string }>(
+      (_resolve) => {
+        resolve = _resolve;
+      },
+    );
 
     window.onmessage = (ev) => {
       const data: { i: number; html: string; css: string } = ev.data;
