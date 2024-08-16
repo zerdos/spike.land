@@ -1,5 +1,4 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import { afterEach, beforeEach, describe, expect, it, MockedFunction, vi } from "vitest";
 import * as sharedModule from "../shared";
 import { useTranspile, Wrapper } from "../Wrapper";
