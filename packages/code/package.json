@@ -12,7 +12,7 @@
     "dts"
   ],
   "scripts": {
-    "test": "node --experimental-vm-modules $(yarn bin jest)",
+    "test": "vitest run",
     "codebase": "ai-digest -i $(pwd) --show-output-files",
     "fmt": "dprint fmt \"**/*.{ts,tsx,js,jsx,json,mjs}\"",
     "types": "mkdir -p dts && tsc --emitDeclarationOnly || echo ok",
@@ -97,7 +97,6 @@
     "@tabler/icons-react": "^3.12.0",
     "@tanstack/react-virtual": "^3.9.0",
     "@types/isomorphic-fetch": "0.0.39",
-    "@types/jest": "^29.5.12",
     "@typescript-eslint/typescript-estree": "8.1.0",
     "@typescript/ata": "^0.9.7",
     "@visx/responsive": "^3.10.2",
@@ -131,7 +130,6 @@
     "i18next": "^23.13.0",
     "immutable": "4.3.7",
     "input-otp": "^1.2.4",
-    "jest": "29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "lodash": "^4.17.21",
     "lodash.debounce": "4.0.8",

@@ -2,11 +2,12 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "monaco-editor";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import AutoSaveHistory from "./AutoSaveHistory";
 
 // Mock the useVirtualizer hook
-jest.mock("@tanstack/react-virtual", () => ({
-  useVirtualizer: jest.fn().mockReturnValue({
+vi.mock("@tanstack/react-virtual", () => ({
+  useVirtualizer: vi.fn().mockReturnValue({
     getVirtualItems: () => [
       { index: 0, key: "0", size: 150, start: 0 },
       { index: 1, key: "1", size: 150, start: 150 },
@@ -18,16 +19,16 @@ jest.mock("@tanstack/react-virtual", () => ({
 describe("AutoSaveHistory", () => {
   const monaco = (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
     editor: {
-      createDiffEditor: jest.fn().mockReturnValue({
-        setModel: jest.fn(),
-        dispose: jest.fn(),
+      createDiffEditor: vi.fn().mockReturnValue({
+        setModel: vi.fn(),
+        dispose: vi.fn(),
       }),
-      createModel: jest.fn(),
+      createModel: vi.fn(),
     },
   } as unknown as typeof Monaco;
 
   // Mock the fetch function
-  globalThis.fetch = jest.fn(() =>
+  globalThis.fetch = vi.fn(() =>
     Promise.resolve({
       ok: true,
       json: () =>
@@ -36,10 +37,10 @@ describe("AutoSaveHistory", () => {
           { timestamp: 1625184000000, code: "console.log(\"Version 2\");" },
         ]),
     })
-  ) as unknown as jest.MockedFunction<typeof fetch>;
+  ) as unknown as typeof fetch;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const renderWithProvider = (ui: React.ReactElement) => {
@@ -54,17 +55,15 @@ describe("AutoSaveHistory", () => {
     );
   };
 
-  const mockOnRestore = jest.fn();
-  const mockOnClose = (_code: string) => {};
+  const mockOnRestore = vi.fn();
+  const mockOnClose = vi.fn();
 
   it("renders loading state initially", async () => {
     renderWithProvider(
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={function(): void {
-          throw new Error("Function not implemented.");
-        }}
+        onClose={mockOnClose}
       />,
     );
     await screen.findByText("Loading versions...");
@@ -75,9 +74,7 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={function(): void {
-          throw new Error("Function not implemented.");
-        }}
+        onClose={mockOnClose}
       />,
     );
     await screen.findByText("Jul 1, 2021, 12:00 AM");
@@ -89,9 +86,7 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={function(): void {
-          throw new Error("Function not implemented.");
-        }}
+        onClose={mockOnClose}
       />,
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");
@@ -108,9 +103,7 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={function(): void {
-          throw new Error("Function not implemented.");
-        }}
+        onClose={mockOnClose}
       />,
     );
     const closeButton = await screen.findByText("Close");
@@ -125,9 +118,7 @@ describe("AutoSaveHistory", () => {
       <AutoSaveHistory
         codeSpace="test"
         onRestore={mockOnRestore}
-        onClose={function(): void {
-          throw new Error("Function not implemented.");
-        }}
+        onClose={mockOnClose}
       />,
     );
     const versionButton = await screen.findByText("Jul 1, 2021, 12:00 AM");

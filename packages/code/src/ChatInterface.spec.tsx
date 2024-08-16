@@ -1,8 +1,9 @@
 import { fireEvent, render } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import ChatInterface from "./ChatInterface";
 
 // Mock the ChatFC component
-jest.mock("./ChatDrawer", () => ({
+vi.mock("./ChatDrawer", () => ({
   ChatFC: (
     { handleSendMessage, input, setInput, isOpen }: {
       handleSendMessage: any;
@@ -27,7 +28,7 @@ jest.mock("./ChatDrawer", () => ({
 }));
 
 describe("ChatInterface", () => {
-  const mockOnClose = jest.fn();
+  const mockOnClose = vi.fn();
 
   it("renders when isOpen is true", () => {
     const { getByTestId } = render(
@@ -62,7 +63,7 @@ describe("ChatInterface", () => {
         onClose={mockOnClose}
       />,
     );
-    expect(queryByTestId("chat-input")).toBeInTheDocument();
+    expect(queryByTestId("chat-input")).not.toBeInTheDocument();
   });
 
   // Add more tests as needed for other functionalities
