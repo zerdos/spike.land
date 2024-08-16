@@ -160,16 +160,6 @@ async function createNewMessage(
   };
 }
 
-async function captureScreenshot(codeSpace: string): Promise<string> {
-  const response = await fetch(`/live/${codeSpace}/screenshot`);
-  const blob = await response.blob();
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.readAsDataURL(blob);
-  });
-}
-
 async function processMessage(
   aiHandler: AIHandler,
   updatedMessages: Message[],
