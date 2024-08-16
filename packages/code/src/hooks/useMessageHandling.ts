@@ -60,7 +60,7 @@ export const useMessageHandling = ({
       setAICode(codeNow);
     }
 
-    const newMessage = await createNewMessage(content, screenshot, claudeContent, codeSpace);
+    const newMessage = await createNewMessage(screenshot, claudeContent);
     const updatedMessages = [...messages, newMessage];
 
     saveMessages(updatedMessages);
@@ -133,10 +133,8 @@ export const useMessageHandling = ({
 // Helper functions
 
 async function createNewMessage(
-  content: string,
   screenshot: string,
   claudeContent: string,
-  codeSpace: string,
 ): Promise<Message> {
   if (screenshot) {
     return {

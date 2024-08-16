@@ -4,7 +4,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
-import { wait } from "@src/wait";
 import React, { useEffect } from "react";
 import { useCodeSpace } from "../hooks/useCodeSpace";
 import { styles } from "./styles";
@@ -169,7 +168,7 @@ const screenshotToBase64Maker = () =>
   )
     .then((response) => response.blob())
     .then((blob) =>
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         var reader = new FileReader();
         reader.onload = function() {
           const base64 = this.result as string;
