@@ -84,6 +84,7 @@ export const createWorkflow = async (prompt: string) => {
   // This compiles it into a LangChain Runnable.
   // Note that we're (optionally) passing the memory when compiling the graph
   const app = workflow.compile({ checkpointer });
+  console.log("Compiled the workflow!");
 
   // Use the Runnable
   const finalState = await app.invoke(
