@@ -28,7 +28,7 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg.startsWith("./")) return match;
       if (pkg.startsWith(",")) return match;
 
-      return `import "${origin}/*${match.split("\"")[1]}";`;
+      return `import "${origin}/*${match.split("\"")[1]}?bundle";`;
       match; // `import "${origin}/*${p1.slice(1).slice(0,-1)}?bundle"`
     }
     const packageName = p2.slice(1, -1); // Remove quotes from package name
@@ -74,7 +74,7 @@ export function importMapReplace(code: string, origin: string): string {
       }
     }
 
-    return p1 + `"${origin}/*${packageName}"` + p3;
+    return p1 + `"${origin}/*${packageName}?bundle"` + p3;
   };
 
   // Convert code to string if it's not already a string
@@ -90,7 +90,7 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(topLeveNoFromPattern, replacer);
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`${origin}/*${pkg}`).join(
+    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
       origin + oo[pkg as keyof typeof oo],
     );
   });

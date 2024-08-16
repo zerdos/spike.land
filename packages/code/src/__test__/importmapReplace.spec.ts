@@ -200,4 +200,13 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
+  it("should replace dynamic imports at the end", async () => {
+    const code = `
+    
+    import { useSpring, animated } from "react-spring"; // Importing react-spring
+    
+    `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
 });

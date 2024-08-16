@@ -95,6 +95,16 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
     "
 `;
 
+exports[`importMapReplace > should replace dynamic imports at the end 2`] = `
+"
+  /** importMapReplace */
+  
+    
+    import { useSpring, animated } from "http://localhost:3000/*react-spring?bundle"; // Importing react-spring
+    
+    "
+`;
+
 exports[`importMapReplace > should replace dynamic imports inside a function 1`] = `
 "
   /** importMapReplace */
