@@ -10,6 +10,7 @@ declare var self: SharedWorkerGlobalScope & {
   ata: typeof Ata;
   prettierCss: typeof PrettierCSS;
   prettierJs: typeof Prettier;
+  createWorkflow: (q: string) => Promise<string>;
   transpile: typeof Transpile;
   build: typeof Build;
   tsx: (code: string) => Promise<string[]>;
@@ -20,6 +21,7 @@ importScripts(
   "/workerScripts/ata.js",
   "/workerScripts/prettierEsm.js",
   "/workerScripts/transpile.js",
+  "/workerScripts/LangChain.js",
 );
 
 const { ata, prettierJs, transpile, build, tsx, prettierCss } = self;
@@ -53,6 +55,10 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   rpcProvider.registerRpcHandler(
     "prettierJs",
     ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
+  );
+  rpcProvider.registerRpcHandler(
+    "createWorkflow",
+    (q: string) => createWorkflow(q),
   );
   rpcProvider.registerRpcHandler(
     "prettierCss",

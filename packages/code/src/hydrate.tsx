@@ -52,7 +52,7 @@ const setupServiceWorker = async () => {
 };
 
 const createLangChainWorkflow = async (prompt: string) => {
-  const { createWorkflow } = await import("./LangChain");
+  const { createWorkflow } = await import("./shared");
   return createWorkflow(prompt);
 };
 

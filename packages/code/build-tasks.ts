@@ -42,6 +42,7 @@ export async function buildMainScripts() {
     "src/prettierEsm.ts",
     "src/memfs.ts",
     "src/ata.ts",
+    "src/LangChain.ts",
     "src/dts.ts",
     "src/ataWorker.ts",
   ];
