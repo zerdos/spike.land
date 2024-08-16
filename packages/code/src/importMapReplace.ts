@@ -101,6 +101,8 @@ export function importMapReplace(code: string, origin: string): string {
     );
   });
 
+  replaced = replaced.replace("isRunningInBrowser()", "false");
+
   return `
   /** importMapReplace */
   ` + replaced;
