@@ -199,6 +199,7 @@ export async function buildMainBundle(wasmFile) {
     sourcemap: false,
     target: "es2024",
     legalComments: "none",
+    drop: isProduction ? ["console", "debugger"] : [],
     platform: "browser",
     ignoreAnnotations: true,
     plugins: [

@@ -8,6 +8,7 @@ export const buildOptions: BuildOptions = {
   sourcemap: false,
   outdir: "dist",
   bundle: true,
+  pure: ["console.log", "console.error", "console.warn"],
   outExtension: { ".js": ".mjs" },
   alias: {
     path: "path-browserify",
