@@ -1,11 +1,10 @@
 import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
-import { Message } from "@src/types/Message";
-import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { prettierToThrow } from "../shared";
+import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
 import { useAutoSave } from "./useAutoSave";
 
@@ -89,12 +88,15 @@ export const useMessageHandling = ({
 
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
-    if (!messageToEdit || typeof messageToEdit.content !== "string") {
-      console.error("Invalid message or content for editing");
+    if (!messageToEdit) {
+      console.error("Invalid message for editing");
       return;
     }
+    const contentToEdit = Array.isArray(messageToEdit.content)
+      ? messageToEdit.content.find(item => item.type === "text")?.text || ""
+      : messageToEdit.content;
     setEditingMessageId(messageId);
-    setEditInput(messageToEdit.content);
+    setEditInput(contentToEdit);
   }, [messages, setEditingMessageId, setEditInput]);
 
   const handleCancelEdit = useCallback(() => {
@@ -103,7 +105,16 @@ export const useMessageHandling = ({
   }, [setEditingMessageId, setEditInput]);
 
   const handleSaveEdit = useCallback((messageId: string) => {
-    const updatedMessages = messages.map((msg) => msg.id === messageId ? { ...msg, content: editInput } : msg);
+    const updatedMessages = messages.map((msg) =>
+      msg.id === messageId
+        ? {
+          ...msg,
+          content: Array.isArray(msg.content)
+            ? msg.content.map(item => item.type === "text" ? { ...item, text: editInput } : item)
+            : editInput,
+        }
+        : msg
+    );
     setMessages(updatedMessages);
     saveMessages(updatedMessages);
     setEditingMessageId(null);
@@ -177,11 +188,14 @@ async function processMessage(
     debouncedOnUpdate,
   );
 
-  if (typeof assistantMessage.content !== "string") {
+  if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
     throw new Error("Invalid assistant message content");
   }
 
-  if (assistantMessage.content.includes("An error occurred while processing")) {
+  if (
+    typeof assistantMessage.content === "string"
+    && assistantMessage.content.includes("An error occurred while processing")
+  ) {
     await runner(codeNow);
     assistantMessage = await aiHandler.sendToGpt4o(
       updatedMessages,
@@ -192,7 +206,11 @@ async function processMessage(
   updatedMessages.push(assistantMessage);
   saveMessages(updatedMessages);
 
-  const starterCode = updateSearchReplace(assistantMessage.content, codeNow);
+  const contentToProcess = Array.isArray(assistantMessage.content)
+    ? assistantMessage.content.find(item => item.type === "text")?.text || ""
+    : assistantMessage.content;
+
+  const starterCode = updateSearchReplace(contentToProcess, codeNow);
   if (starterCode !== codeNow) {
     const formattedCode = await prettierToThrow({
       code: starterCode,
@@ -201,7 +219,7 @@ async function processMessage(
     runner(formattedCode);
   } else {
     await aiHandler.continueWithOpenAI(
-      assistantMessage.content,
+      contentToProcess,
       codeNow,
       setMessages,
       setAICode,

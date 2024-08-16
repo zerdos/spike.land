@@ -42,7 +42,7 @@ export default {
 
     if (request.url.includes("/langChain/")) {
       const searchParams = new URLSearchParams(request.url);
-      const q = searchParams.get("q");
+      const q = searchParams.get("q")!;
 
       const answer: string = await createWorkflow(q);
 
