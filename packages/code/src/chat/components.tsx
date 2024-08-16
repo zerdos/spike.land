@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
-import { Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
+import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
 import { wait } from "@src/wait";
@@ -32,6 +31,25 @@ export const ChatMessage: React.FC<{
   handleSaveEdit,
 }) => {
   const isUser = message.role === "user";
+
+  const renderContent = () => {
+    if (typeof message.content === "string") {
+      return renderMessage(message.content, isUser);
+    } else if (Array.isArray(message.content)) {
+      return message.content.map((item, index) => {
+        if (item.type === "text") {
+          return <div key={index}>{renderMessage(item.text, isUser)}</div>;
+        } else if (item.type === "image_url") {
+          return (
+            <img key={index} src={item.image_url.url} alt="Screenshot" className="max-w-full h-auto mt-2 rounded-lg" />
+          );
+        }
+        return null;
+      });
+    }
+    return null;
+  };
+
   return (
     <div
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
@@ -66,14 +84,7 @@ export const ChatMessage: React.FC<{
           )
           : (
             <div className="break-words">
-              {renderMessage(
-                typeof message.content === "string"
-                  ? message.content
-                  : message.content[1].type === "text"
-                  ? message.content[1].text
-                  : "" as string,
-                isUser,
-              )}
+              {renderContent()}
             </div>
           )}
       </div>
@@ -186,49 +197,68 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     return () => {};
   }, [isScreenshotAttached]);
 
+  const handleScreenshotToggle = () => {
+    if (isScreenshotAttached) {
+      setIsScreenshotAttached(false);
+      setScreenshotLoaded(false);
+    } else {
+      setIsScreenshotAttached(true);
+    }
+  };
+
   return (
     <div className="p-2 bg-background mt-auto">
-      <div className="flex items-end space-x-2">
-        <Textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              handleSendMessage(input, isScreenshotAttached as string);
-            }
-          }}
-          placeholder="Type a message..."
-          className="flex-1 min-h-[40px] max-h-[120px] resize-none"
-          ref={inputRef}
-        />
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="screenshot"
-              checked={!!isScreenshotAttached}
-              onCheckedChange={(checked) => setIsScreenshotAttached(checked as boolean)}
-            />
-            <label
-              htmlFor="screenshot"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      <div className="flex flex-col space-y-2">
+        {isScreenshotAttached && typeof isScreenshotAttached === "string" && (
+          <div className="relative">
+            <img src={isScreenshotAttached} alt="Screenshot Preview" className="max-w-full h-auto rounded-lg" />
+            <Button
+              variant="secondary"
+              size="sm"
+              className="absolute top-2 right-2"
+              onClick={() => setIsScreenshotAttached(false)}
             >
-              <div className="h-4 w-4" />
-            </label>
+              <X className="h-4 w-4" />
+            </Button>
           </div>
-          <Button
-            onClick={() =>
-              handleSendMessage(
-                input,
-                isScreenshotAttached
-                  ? isScreenshotAttached as string
-                  : undefined,
-              )}
-            disabled={isStreaming || input.trim() === ""}
-            size="icon"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
+        )}
+        <div className="flex items-end space-x-2">
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage(input, isScreenshotAttached as string);
+              }
+            }}
+            placeholder="Type a message..."
+            className="flex-1 min-h-[40px] max-h-[120px] resize-none"
+            ref={inputRef}
+          />
+          <div className="flex items-center space-x-2">
+            <Button
+              onClick={handleScreenshotToggle}
+              variant={isScreenshotAttached ? "secondary" : "outline"}
+              size="icon"
+              title={isScreenshotAttached ? "Remove screenshot" : "Attach screenshot"}
+            >
+              <Camera className="h-4 w-4" />
+            </Button>
+            <Button
+              onClick={() =>
+                handleSendMessage(
+                  input,
+                  isScreenshotAttached
+                    ? isScreenshotAttached as string
+                    : undefined,
+                )}
+              disabled={isStreaming || (input.trim() === "" && !isScreenshotAttached)}
+              size="icon"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </div>
