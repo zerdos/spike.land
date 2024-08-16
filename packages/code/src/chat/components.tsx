@@ -184,42 +184,22 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   handleSendMessage,
   isStreaming,
   inputRef,
+  isScreenshotLoading,
+  screenshotImage,
+  handleScreenshotClick,
+  handleCancelScreenshot,
 }) => {
-  const [isScreenshotAttached, setIsScreenshotAttached] = React.useState<
-    boolean | string
-  >(false);
-  const [screenshotLoaded, setScreenshotLoaded] = React.useState(false);
-
-  useEffect(() => {
-    if (isScreenshotAttached && !screenshotLoaded) {
-      setScreenshotLoaded(true);
-      screenshotToBase64Maker().then((base64: string) => {
-        setIsScreenshotAttached(base64);
-      });
-    }
-    return () => {};
-  }, [isScreenshotAttached]);
-
-  const handleScreenshotToggle = () => {
-    if (isScreenshotAttached) {
-      setIsScreenshotAttached(false);
-      setScreenshotLoaded(false);
-    } else {
-      setIsScreenshotAttached(true);
-    }
-  };
-
   return (
     <div className="p-2 bg-background mt-auto">
       <div className="flex flex-col space-y-2">
-        {isScreenshotAttached && typeof isScreenshotAttached === "string" && (
+        {screenshotImage && (
           <div className="relative">
-            <img src={isScreenshotAttached} alt="Screenshot Preview" className="max-w-full h-auto rounded-lg" />
+            <img src={screenshotImage} alt="Screenshot Preview" className="max-w-full h-auto rounded-lg" />
             <Button
               variant="secondary"
               size="sm"
               className="absolute top-2 right-2"
-              onClick={() => setIsScreenshotAttached(false)}
+              onClick={handleCancelScreenshot}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -232,9 +212,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             onKeyPress={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                handleSendMessage(input, isScreenshotAttached as string);
-                setScreenshotLoaded(false);
-                setIsScreenshotAttached(false);
+                handleSendMessage(input, screenshotImage || "");
               }
             }}
             placeholder="Type a message..."
@@ -243,25 +221,20 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           />
           <div className="flex items-center space-x-2">
             <Button
-              onClick={handleScreenshotToggle}
-              variant={isScreenshotAttached ? "secondary" : "outline"}
+              onClick={handleScreenshotClick}
+              variant={screenshotImage ? "secondary" : "outline"}
               size="icon"
-              title={isScreenshotAttached ? "Remove screenshot" : "Attach screenshot"}
+              title={screenshotImage ? "Remove screenshot" : "Attach screenshot"}
+              disabled={isScreenshotLoading}
+              className={`transition-all duration-300 ${isScreenshotLoading ? "animate-pulse" : ""}`}
             >
-              <Camera className="h-4 w-4" />
+              {isScreenshotLoading
+                ? <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary"></div>
+                : <Camera className="h-4 w-4" />}
             </Button>
             <Button
-              onClick={() => {
-                handleSendMessage(
-                  input,
-                  isScreenshotAttached
-                    ? isScreenshotAttached as string
-                    : "",
-                );
-                setScreenshotLoaded(false);
-                setIsScreenshotAttached(false);
-              }}
-              disabled={isStreaming || (input.trim() === "" && !isScreenshotAttached)}
+              onClick={() => handleSendMessage(input, screenshotImage || "")}
+              disabled={isStreaming || (input.trim() === "" && !screenshotImage)}
               size="icon"
             >
               <Send className="h-4 w-4" />

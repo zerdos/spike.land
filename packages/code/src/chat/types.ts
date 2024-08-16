@@ -28,6 +28,10 @@ export interface MessageInputProps {
   handleSendMessage: (value: string, screenshot: string) => void;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
+  isScreenshotLoading: boolean;
+  screenshotImage: string | null;
+  handleScreenshotClick: () => void;
+  handleCancelScreenshot: () => void;
 }
 
 export interface ChatWindowProps {

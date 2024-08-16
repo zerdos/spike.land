@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bot } from "@/external/lucideReact";
+import { Bot, Camera, X } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./chat/components";
 import { Message } from "./types/Message";
@@ -24,6 +24,10 @@ interface ChatFCProps {
   setInput: (input: string) => void;
   handleSendMessage: (content: string, screenshot: string) => void;
   inputRef: React.RefObject<HTMLTextAreaElement>;
+  isScreenshotLoading: boolean;
+  screenshotImage: string | null;
+  handleScreenshotClick: () => void;
+  handleCancelScreenshot: () => void;
 }
 
 export const ChatFC: React.FC<ChatFCProps> = memo(({
@@ -45,6 +49,10 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
   setInput,
   handleSendMessage,
   inputRef,
+  isScreenshotLoading,
+  screenshotImage,
+  handleScreenshotClick,
+  handleCancelScreenshot,
 }) => (
   <ChatWindow isOpen={isOpen}>
     <ChatHeader
@@ -70,6 +78,10 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
       handleSendMessage={handleSendMessage}
       isStreaming={isStreaming}
       inputRef={inputRef}
+      isScreenshotLoading={isScreenshotLoading}
+      screenshotImage={screenshotImage}
+      handleScreenshotClick={handleScreenshotClick}
+      handleCancelScreenshot={handleCancelScreenshot}
     />
   </ChatWindow>
 ));
@@ -82,6 +94,8 @@ const ChatInterface: React.FC = () => {
   const [editInput, setEditInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
+  const [screenshotImage, setScreenshotImage] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -100,13 +114,15 @@ const ChatInterface: React.FC = () => {
       id: Date.now().toString(),
       content: input,
       role: "user",
+      screenshot: screenshotImage,
     };
     setMessages((prev) => [...prev, newMessage]);
     setInput("");
     setIsStreaming(true);
+    setScreenshotImage(null);
 
     // Implement your message sending logic here
-  }, [input, isStreaming]);
+  }, [input, isStreaming, screenshotImage]);
 
   const handleEditMessage = useCallback(
     (id: string) => {
@@ -143,11 +159,26 @@ const ChatInterface: React.FC = () => {
     setEditingMessageId(null);
     setEditInput("");
     setIsStreaming(false);
+    setScreenshotImage(null);
   }, []);
 
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode((prev) => !prev);
     // Apply dark mode class to root element here if needed
+  }, []);
+
+  const handleScreenshotClick = useCallback(() => {
+    setIsScreenshotLoading(true);
+    // Simulating screenshot capture (replace with actual implementation)
+    setTimeout(() => {
+      const mockScreenshotUrl = "https://example.com/mock-screenshot.jpg";
+      setScreenshotImage(mockScreenshotUrl);
+      setIsScreenshotLoading(false);
+    }, 4000);
+  }, []);
+
+  const handleCancelScreenshot = useCallback(() => {
+    setScreenshotImage(null);
   }, []);
 
   return (
@@ -159,32 +190,30 @@ const ChatInterface: React.FC = () => {
         <Bot className="h-6 w-6" />
       </Button>
 
-      <ChatWindow isOpen={isOpen}>
-        <ChatHeader
-          isDarkMode={isDarkMode}
-          toggleDarkMode={toggleDarkMode}
-          handleResetChat={handleResetChat}
-          onClose={() => setIsOpen(false)}
-        />
-        <ChatContainer
-          messages={messages}
-          editingMessageId={editingMessageId}
-          editInput={editInput}
-          setEditInput={setEditInput}
-          handleCancelEdit={handleCancelEdit}
-          handleSaveEdit={handleSaveEdit}
-          handleEditMessage={handleEditMessage}
-          isStreaming={isStreaming}
-          messagesEndRef={messagesEndRef}
-        />
-        <MessageInput
-          input={input}
-          setInput={setInput}
-          handleSendMessage={handleSendMessage}
-          isStreaming={isStreaming}
-          inputRef={inputRef}
-        />
-      </ChatWindow>
+      <ChatFC
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        handleResetChat={handleResetChat}
+        messages={messages}
+        editingMessageId={editingMessageId}
+        editInput={editInput}
+        setEditInput={setEditInput}
+        handleCancelEdit={handleCancelEdit}
+        handleSaveEdit={handleSaveEdit}
+        handleEditMessage={handleEditMessage}
+        isStreaming={isStreaming}
+        messagesEndRef={messagesEndRef}
+        input={input}
+        setInput={setInput}
+        handleSendMessage={handleSendMessage}
+        inputRef={inputRef}
+        isScreenshotLoading={isScreenshotLoading}
+        screenshotImage={screenshotImage}
+        handleScreenshotClick={handleScreenshotClick}
+        handleCancelScreenshot={handleCancelScreenshot}
+      />
     </>
   );
 };

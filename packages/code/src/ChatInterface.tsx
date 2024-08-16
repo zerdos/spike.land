@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { ChatFC } from "./ChatDrawer";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
@@ -36,6 +36,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
 
     const { isDarkMode, toggleDarkMode } = useDarkMode();
 
+    // New state for managing screenshot loading and image
+    const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
+    const [screenshotImage, setScreenshotImage] = useState<string | null>(null);
+
     const {
       handleSendMessage,
       handleResetChat,
@@ -58,6 +62,22 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
       broadcastChannel,
     });
 
+    // New function to handle screenshot button click
+    const handleScreenshotClick = () => {
+      setIsScreenshotLoading(true);
+      // Simulating screenshot capture (replace with actual implementation)
+      setTimeout(() => {
+        const mockScreenshotUrl = "https://example.com/mock-screenshot.jpg";
+        setScreenshotImage(mockScreenshotUrl);
+        setIsScreenshotLoading(false);
+      }, 4000);
+    };
+
+    // New function to handle screenshot cancellation
+    const handleCancelScreenshot = () => {
+      setScreenshotImage(null);
+    };
+
     const memoizedChatFCProps = useMemo(() => ({
       isOpen,
       onClose,
@@ -77,6 +97,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
       setInput,
       inputRef,
       handleCancelEdit,
+      // New props
+      isScreenshotLoading,
+      screenshotImage,
+      handleScreenshotClick,
+      handleCancelScreenshot,
     }), [
       isOpen,
       onClose,
@@ -92,6 +117,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
       editInput,
       input,
       handleCancelEdit,
+      // New dependencies
+      isScreenshotLoading,
+      screenshotImage,
     ]);
 
     return <ChatFC {...memoizedChatFCProps} />;
