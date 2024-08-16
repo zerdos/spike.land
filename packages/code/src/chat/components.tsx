@@ -173,6 +173,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   handleScreenshotClick,
   handleCancelScreenshot,
 }) => {
+  const handleSend = () => {
+    handleSendMessage(input, screenshotImage || "");
+    setInput(""); // Clear input after sending
+    handleCancelScreenshot(); // Clear screenshot after sending
+  };
+
+  if (isStreaming) {
+    return null; // Hide input when AI is typing
+  }
+
   return (
     <div className="p-2 bg-background mt-auto">
       <div className="flex flex-col space-y-2">
@@ -196,7 +206,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
             onKeyPress={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                handleSendMessage(input, screenshotImage || "");
+                handleSend();
               }
             }}
             placeholder="Type a message..."
@@ -217,8 +227,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
                 : <Camera className="h-4 w-4" />}
             </Button>
             <Button
-              onClick={() => handleSendMessage(input, screenshotImage || "")}
-              disabled={isStreaming || (input.trim() === "" && !screenshotImage)}
+              onClick={handleSend}
+              disabled={input.trim() === "" && !screenshotImage}
               size="icon"
             >
               <Send className="h-4 w-4" />
