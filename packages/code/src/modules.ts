@@ -6,6 +6,9 @@ import { Delta } from "./textDiff";
 export { importMapReplace };
 export { serverFetchUrl } from "./enhancedFetch";
 export { routes } from "./routes";
+import { createWorkflow } from "./LangChain";
+
+export { createWorkflow };
 
 import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 

@@ -92,4 +92,5 @@ export const createWorkflow = async (prompt: string) => {
   );
 
   console.log(finalState.messages[finalState.messages.length - 1].content);
+  return finalState.messages[finalState.messages.length - 1].content;
 };
