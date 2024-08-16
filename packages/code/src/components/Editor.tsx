@@ -2,10 +2,17 @@ import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { Rnd } from "react-rnd";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
-import { prettierToThrow } from "../shared";
+import {
+  formatCode,
+  initializeAce,
+  initializeMonaco,
+  setEditorContent,
+  useEditorState,
+  useErrorHandling,
+} from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {
@@ -17,57 +24,6 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
-interface EditorState {
-  started: boolean;
-  code: string;
-  setValue: (code: string) => void;
-}
-
-const useEditorState = (codeSpace: string) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [editorState, setEditorState] = useState<EditorState>({
-    started: false,
-    code: "",
-    setValue: () => {},
-  });
-
-  const engine = "monaco"; // Or determine this dynamically
-
-  return { containerRef, engine, editorState, setEditorState };
-};
-
-const useErrorHandling = (engine: string) => {
-  const [errorType, setErrorType] = useState<string | null>(null);
-  return { errorType, setErrorType };
-};
-
-const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
-  if (signal.aborted) return code;
-  try {
-    const formattedCode = await prettierToThrow({ code, toThrow: true });
-    return signal.aborted ? code : formattedCode;
-  } catch (error) {
-    throw new Error("Prettier formatting failed");
-  }
-};
-
-const setEditorContent = (
-  formattedCode: string,
-  counter: number,
-  signal: AbortSignal,
-  setValue: (code: string) => void,
-) => {
-  setTimeout(() => {
-    if (signal.aborted) return;
-    console.log("Setting editor content: ", counter);
-
-    setTimeout(() => {
-      if (signal.aborted) return;
-      setValue(formattedCode);
-    }, 100);
-  }, 250);
-};
-
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace },
   ref,
@@ -77,11 +33,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     engine,
     editorState,
     setEditorState,
-  } = useEditorState(codeSpace);
+  } = useEditorState();
 
-  const { errorType, setErrorType } = useErrorHandling(engine);
-
-  const [lastTypingTimestamp, setLastTypingTimestamp] = useState(Date.now());
+  const { errorType, setErrorType } = useErrorHandling();
 
   const mod = useRef({
     i: 0,
@@ -96,8 +50,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     if (newCode.includes("/** invalid")) return;
     if (mod.current.code === newCode) return;
-
-    setLastTypingTimestamp(Date.now());
 
     console.log("before prettier");
     mod.current.controller.abort();
@@ -223,8 +175,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       style={{ height: "100vh" }}
     >
       <EditorNode
-        engine={engine}
-        errorType={errorType}
+        engine={engine as "monaco" | "ace"}
+        errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
         containerRef={containerRef}
       />
     </Rnd>
@@ -232,36 +184,3 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 };
 
 export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
-
-async function initializeMonaco(
-  container: HTMLDivElement,
-  codeSpace: string,
-  code: string,
-  onChange: (newCode: string) => void,
-) {
-  addCSSFile("/*monaco-editor?bundle&css");
-  const { startMonaco } = await import("../startMonaco");
-  return await startMonaco({
-    container,
-    codeSpace,
-    code,
-    onChange,
-  });
-}
-
-async function initializeAce(
-  container: HTMLDivElement,
-  code: string,
-  onChange: (newCode: string) => void,
-) {
-  const { startAce } = await import("../startAce");
-  return await startAce(code, onChange, container);
-}
-
-function addCSSFile(filename: string) {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.type = "text/css";
-  link.href = filename;
-  document.head.appendChild(link);
-}
