@@ -6750,6 +6750,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:7.0.2"],\
           ["path-browserify", "npm:1.0.1"],\
           ["preact", "npm:10.23.2"],\
+          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.9"],\
           ["prettier", "npm:3.3.3"],\
           ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1"],\
           ["qrious", "npm:4.0.2"],\
@@ -19525,6 +19526,28 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/preact-npm-10.23.2-7ff1643e1f-10.zip/node_modules/preact/",\
         "packageDependencies": [\
           ["preact", "npm:10.23.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["preact-render-to-string", [\
+      ["npm:6.5.9", {\
+        "packageLocation": "./.yarn/global/cache/preact-render-to-string-npm-6.5.9-d9b8f790cd-10.zip/node_modules/preact-render-to-string/",\
+        "packageDependencies": [\
+          ["preact-render-to-string", "npm:6.5.9"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.9", {\
+        "packageLocation": "./.yarn/__virtual__/preact-render-to-string-virtual-9aa70cad29/0/global/cache/preact-render-to-string-npm-6.5.9-d9b8f790cd-10.zip/node_modules/preact-render-to-string/",\
+        "packageDependencies": [\
+          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.9"],\
+          ["@types/preact", null],\
+          ["preact", "npm:10.23.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/preact",\
+          "preact"\
         ],\
         "linkType": "HARD"\
       }]\

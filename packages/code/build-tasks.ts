@@ -239,7 +239,7 @@ export async function buildMainBundle(wasmFile) {
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
-      "src/reactDomServer.ts",
+      // "src/reactDomServer.ts",
       "src/jsx.mjs",
       "src/shared.ts",
       "src/Wrapper.tsx",
@@ -255,6 +255,9 @@ export async function buildMainBundle(wasmFile) {
 
       "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
       ...extraAliases,
+      "react": "preact/compat",
+      "react/jsx-runtime": "preact/compat/jsx-runtime",
+      "react-dom": "preact/compat",
       // "react": "../dist/reactMod.mjs",
       //  "react/jsx-runtime": "/jsx.mjs",
       //  "react-dom/client": "/reactDomClient.mjs",
