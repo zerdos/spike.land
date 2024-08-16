@@ -110,6 +110,16 @@ const useTranspile = (code: string) => {
 export const Wrapper: React.FC<
   { codeSpace?: string; code?: string; transpiled?: string; scale?: number }
 > = React.memo(({ code, codeSpace, transpiled: t, scale = 1 }) => {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    if (!hydrated) {
+      setTimeout(() => {
+        setHydrated(true);
+      }, 2000);
+    }
+  }, [hydrated]);
+
   if (codeSpace) {
     return (
       <iframe
@@ -121,7 +131,7 @@ export const Wrapper: React.FC<
     -webkit-overflow-scrolling: touch;
     
   `}
-        src={`/live/${codeSpace}/embed`}
+        src={hydrated ? `/live/${codeSpace}/embed` : `/live/${codeSpace}/dehydrated`}
       />
     );
   }
