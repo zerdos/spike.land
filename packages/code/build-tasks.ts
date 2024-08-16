@@ -199,6 +199,7 @@ export async function buildMainBundle(wasmFile) {
     mangleQuoted: isProduction,
     sourcemap: false,
     target: "es2024",
+    allowOverwrite: true,
     legalComments: "none",
     drop: isProduction ? ["console", "debugger"] : [],
     platform: "browser",
