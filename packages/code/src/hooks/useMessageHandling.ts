@@ -4,7 +4,7 @@ import { Message } from "@src/types/Message";
 import { wait } from "@src/wait";
 import { Mutex } from "async-mutex";
 import debounce from "lodash/debounce";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { prettierToThrow } from "../shared";
 import { updateSearchReplace } from "../utils/chatUtils";
 import { useAutoSave } from "./useAutoSave";
@@ -42,9 +42,9 @@ export const useMessageHandling = ({
   broadcastChannel,
 }: UseMessageHandlingProps) => {
   const handleSendMessage = useCallback(async (content: string) => {
-    const aiHandler = new AIHandler(codeSpace);
     if (!content.trim()) return;
 
+    const aiHandler = new AIHandler(codeSpace);
     const { code } = (cSess || globalThis.cSess)?.session || { code: "" };
     const codeNow = await prettierToThrow({ code, toThrow: true });
 
@@ -61,167 +61,22 @@ export const useMessageHandling = ({
       setAICode(codeNow);
     }
 
-    let newMessage: Message;
-
-    if (content.includes("screenshot")) {
-      let base64 = "";
-      await fetch(
-        `/live/${codeSpace}/screenshot`,
-      )
-        .then((response) => response.blob())
-        .then((blob) => {
-          var reader = new FileReader();
-          reader.onload = function() {
-            base64 = this.result as string;
-          }; // <--- `this.result` contains a base64 data URI
-          reader.readAsDataURL(blob);
-        });
-
-      await wait(1000);
-
-      newMessage = {
-        "id": Date.now().toString(),
-        "role": "user",
-        "content": [
-          {
-            "type": "image",
-            "source": {
-              "type": "base64",
-              "media_type": "image/jpeg",
-              "data": base64.slice(23),
-            },
-          },
-          { "type": "text", "text": claudeContent.trim() },
-        ],
-      };
-    } else {
-      newMessage = {
-        id: Date.now().toString(),
-        role: "user",
-        content: claudeContent.trim(),
-      };
-    }
-
+    const newMessage = await createNewMessage(content, claudeContent, codeSpace);
     const updatedMessages = [...messages, newMessage];
 
     saveMessages(updatedMessages);
-
     setInput("");
     setIsStreaming(true);
 
     try {
-      const sentMessages = [...updatedMessages];
-      let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
-      const mutex = new Mutex();
-
-      const onUpdate = async (code: string) => {
-        await mutex.runExclusive(async () => {
-          const lastChunk = code.slice(preUpdates.last + 1);
-          if (lastChunk.includes(">>>>>>> REPLACE")) {
-            const nextStr = code.slice(preUpdates.last + 1);
-            preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE")
-              + preUpdates.last + 17;
-            const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
-
-            if (lastCode !== preUpdates.lastCode) {
-              preUpdates.lastCode = lastCode;
-              preUpdates.count += 1;
-              try {
-                const formattedCode = await prettierToThrow({
-                  code: lastCode,
-                  toThrow: true,
-                });
-                await runner(formattedCode);
-              } catch (error) {
-                console.error("Error in runner:", error);
-              }
-            }
-          }
-
-          setMessages([...sentMessages, {
-            id: Date.now().toString(),
-            role: "assistant",
-            content: code,
-          }]);
-        });
-      };
-
-      const debouncedOnUpdate = debounce(onUpdate, 100);
-
-      let assistantMessage = await aiHandler.sendToAnthropic(
-        updatedMessages,
-        debouncedOnUpdate,
-      );
-      if (typeof assistantMessage.content !== "string") {
-        throw new Error(
-          "Error: Assistant message content is not a string - we don't know how to handle this: "
-            + JSON.stringify(assistantMessage),
-        );
-        return;
-      }
-
-      if (
-        assistantMessage.content.includes("An error occurred while processing")
-      ) {
-        await runner(codeNow);
-        assistantMessage = await aiHandler.sendToGpt4o(
-          updatedMessages,
-          debouncedOnUpdate,
-        );
-      }
-
-      updatedMessages.push(assistantMessage);
-      saveMessages(updatedMessages);
-
-      if (typeof assistantMessage.content !== "string") {
-        throw new Error(
-          "Error: Assistant message content is not a string - we don't know how to handle this: "
-            + JSON.stringify(assistantMessage),
-        );
-        return;
-      }
-
-      const starterCode = updateSearchReplace(
-        assistantMessage.content,
-        codeNow,
-      );
-      if (starterCode !== codeNow) {
-        const formattedCode = await prettierToThrow({
-          code: starterCode,
-          toThrow: true,
-        });
-        runner(formattedCode);
-        setIsStreaming(false);
-        return;
-      } else {
-        await aiHandler.continueWithOpenAI(
-          assistantMessage.content,
-          codeNow,
-          setMessages,
-          setAICode,
-        );
-      }
+      await processMessage(aiHandler, updatedMessages, codeNow, setMessages, setAICode, saveMessages);
     } catch (error) {
       console.error("Error processing request:", error);
-      updatedMessages.push({
-        id: Date.now().toString(),
-        role: "assistant",
-        content: "Sorry, there was an error processing your request.",
-      });
-      saveMessages(updatedMessages);
+      handleError(updatedMessages, saveMessages);
     }
 
     setIsStreaming(false);
-  }, [
-    codeSpace,
-    messages,
-    setMessages,
-    setInput,
-    setIsStreaming,
-    codeWhatAiSeen,
-    setAICode,
-    saveMessages,
-  ]);
+  }, [codeSpace, messages, setMessages, setInput, setIsStreaming, codeWhatAiSeen, setAICode, saveMessages, cSess]);
 
   const handleResetChat = useCallback(() => {
     setMessages([]);
@@ -234,26 +89,12 @@ export const useMessageHandling = ({
 
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
-
-    if (!messageToEdit) {
-      throw new Error(
-        "Error: Could not find message to edit with id: " + messageId,
-      );
+    if (!messageToEdit || typeof messageToEdit.content !== "string") {
+      console.error("Invalid message or content for editing");
       return;
     }
-
-    if (typeof messageToEdit.content !== "string") {
-      throw new Error(
-        "Error:  Message content is not a string - we don't know how to handle this: "
-          + JSON.stringify(messageToEdit),
-      );
-      return;
-    }
-
-    if (messageToEdit) {
-      setEditingMessageId(messageId);
-      setEditInput(messageToEdit.content);
-    }
+    setEditingMessageId(messageId);
+    setEditInput(messageToEdit.content);
   }, [messages, setEditingMessageId, setEditInput]);
 
   const handleCancelEdit = useCallback(() => {
@@ -267,14 +108,7 @@ export const useMessageHandling = ({
     saveMessages(updatedMessages);
     setEditingMessageId(null);
     setEditInput("");
-  }, [
-    messages,
-    editInput,
-    saveMessages,
-    setMessages,
-    setEditingMessageId,
-    setEditInput,
-  ]);
+  }, [messages, editInput, saveMessages, setMessages, setEditingMessageId, setEditInput]);
 
   return {
     handleSendMessage,
@@ -284,3 +118,140 @@ export const useMessageHandling = ({
     handleSaveEdit,
   };
 };
+
+// Helper functions
+
+async function createNewMessage(content: string, claudeContent: string, codeSpace: string): Promise<Message> {
+  if (content.includes("screenshot")) {
+    const base64 = await captureScreenshot(codeSpace);
+    return {
+      id: Date.now().toString(),
+      role: "user",
+      content: [
+        {
+          type: "image",
+          source: {
+            type: "base64",
+            media_type: "image/jpeg",
+            data: base64.slice(23),
+          },
+        },
+        { type: "text", text: claudeContent.trim() },
+      ],
+    };
+  }
+  return {
+    id: Date.now().toString(),
+    role: "user",
+    content: claudeContent.trim(),
+  };
+}
+
+async function captureScreenshot(codeSpace: string): Promise<string> {
+  const response = await fetch(`/live/${codeSpace}/screenshot`);
+  const blob = await response.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function processMessage(
+  aiHandler: AIHandler,
+  updatedMessages: Message[],
+  codeNow: string,
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+  setAICode: React.Dispatch<React.SetStateAction<string>>,
+  saveMessages: (newMessages: Message[]) => void,
+) {
+  const sentMessages = [...updatedMessages];
+  let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
+  const mutex = new Mutex();
+
+  const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages);
+  const debouncedOnUpdate = debounce(onUpdate, 100);
+
+  let assistantMessage = await aiHandler.sendToAnthropic(
+    updatedMessages,
+    debouncedOnUpdate,
+  );
+
+  if (typeof assistantMessage.content !== "string") {
+    throw new Error("Invalid assistant message content");
+  }
+
+  if (assistantMessage.content.includes("An error occurred while processing")) {
+    await runner(codeNow);
+    assistantMessage = await aiHandler.sendToGpt4o(
+      updatedMessages,
+      debouncedOnUpdate,
+    );
+  }
+
+  updatedMessages.push(assistantMessage);
+  saveMessages(updatedMessages);
+
+  const starterCode = updateSearchReplace(assistantMessage.content, codeNow);
+  if (starterCode !== codeNow) {
+    const formattedCode = await prettierToThrow({
+      code: starterCode,
+      toThrow: true,
+    });
+    runner(formattedCode);
+  } else {
+    await aiHandler.continueWithOpenAI(
+      assistantMessage.content,
+      codeNow,
+      setMessages,
+      setAICode,
+    );
+  }
+}
+
+function createOnUpdateFunction(
+  sentMessages: Message[],
+  preUpdates: any,
+  mutex: Mutex,
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+) {
+  return async (code: string) => {
+    await mutex.runExclusive(async () => {
+      const lastChunk = code.slice(preUpdates.last + 1);
+      if (lastChunk.includes(">>>>>>> REPLACE")) {
+        const nextStr = code.slice(preUpdates.last + 1);
+        preUpdates.last = lastChunk.indexOf(">>>>>>> REPLACE") + preUpdates.last + 17;
+        const lastCode = updateSearchReplace(nextStr, preUpdates.lastCode);
+
+        if (lastCode !== preUpdates.lastCode) {
+          preUpdates.lastCode = lastCode;
+          preUpdates.count += 1;
+          try {
+            const formattedCode = await prettierToThrow({
+              code: lastCode,
+              toThrow: true,
+            });
+            await runner(formattedCode);
+          } catch (error) {
+            console.error("Error in runner:", error);
+          }
+        }
+      }
+
+      setMessages([...sentMessages, {
+        id: Date.now().toString(),
+        role: "assistant",
+        content: code,
+      }]);
+    });
+  };
+}
+
+function handleError(updatedMessages: Message[], saveMessages: (newMessages: Message[]) => void) {
+  updatedMessages.push({
+    id: Date.now().toString(),
+    role: "assistant",
+    content: "Sorry, there was an error processing your request.",
+  });
+  saveMessages(updatedMessages);
+}
