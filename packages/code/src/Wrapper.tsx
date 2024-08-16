@@ -118,7 +118,7 @@ export const Wrapper: React.FC<
         setHydrated(true);
       }, 2000);
     }
-  }, [hydrated]);
+  }, []);
 
   if (codeSpace) {
     return (
