@@ -23,7 +23,6 @@ interface EditorState {
   setValue: (code: string) => void;
 }
 
-// Extracted hooks for better testability
 const useEditorState = (codeSpace: string) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [editorState, setEditorState] = useState<EditorState>({
@@ -42,7 +41,6 @@ const useErrorHandling = (engine: string) => {
   return { errorType, setErrorType };
 };
 
-// Extracted utility functions for better testability
 const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
   if (signal.aborted) return code;
   try {
@@ -81,10 +79,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setEditorState,
   } = useEditorState(codeSpace);
 
-  const { errorType, setErrorType } = useErrorHandling(engine) as {
-    errorType: "transpile" | "typescript" | "prettier" | "render" | null;
-    setErrorType: (errorType: "transpile" | "typescript" | "prettier" | "render" | null) => void;
-  };
+  const { errorType, setErrorType } = useErrorHandling(engine);
 
   const [lastTypingTimestamp, setLastTypingTimestamp] = useState(Date.now());
 
@@ -95,57 +90,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     cssIds: "",
     controller: new AbortController(),
   });
-
-  useImperativeHandle(ref, () => ({
-    setValue: async (code: string) => {
-      console.log("Setting value from parent");
-      mod.current.controller.abort();
-      mod.current.controller = new AbortController();
-      const { signal } = mod.current.controller;
-      mod.current.i += 1;
-
-      try {
-        const formattedCode = await formatCode(code, signal);
-        if (signal.aborted) return;
-        if (errorType === "prettier") {
-          setErrorType(null);
-        }
-
-        if (mod.current.code === formattedCode) return;
-        mod.current.code = formattedCode;
-
-        await runner(formattedCode, mod.current.i);
-
-        setEditorContent(code, mod.current.i, signal, editorState.setValue);
-      } catch (error) {
-        setErrorType("prettier");
-      }
-    },
-  }), [setEditorContent, errorType, setErrorType, editorState.setValue]);
-
-  useEffect(() => {
-    if (editorState.started) return;
-
-    const initializeEditor = async () => {
-      mod.current.i = Number(globalThis.cSess.session.i);
-      mod.current.code = globalThis.cSess.session.code;
-
-      if (!containerRef || !containerRef.current) return;
-
-      const editorModule = await (engine === "monaco"
-        ? initializeMonaco(containerRef.current, codeSpace, mod.current.code)
-        : initializeAce(containerRef.current, mod.current.code));
-
-      setEditorState({
-        ...editorState,
-        started: true,
-        code: mod.current.code,
-        setValue: (code: string) => editorModule.setValue(code),
-      });
-    };
-
-    initializeEditor();
-  }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
   const handleContentChange = async (newCode: string) => {
     console.log("Content change", mod.current.i, md5(newCode));
@@ -179,6 +123,57 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     await runner(mod.current.code, mod.current.i);
     console.log("From Editor, Runner succeeded");
   };
+
+  useImperativeHandle(ref, () => ({
+    setValue: async (code: string) => {
+      console.log("Setting value from parent");
+      mod.current.controller.abort();
+      mod.current.controller = new AbortController();
+      const { signal } = mod.current.controller;
+      mod.current.i += 1;
+
+      try {
+        const formattedCode = await formatCode(code, signal);
+        if (signal.aborted) return;
+        if (errorType === "prettier") {
+          setErrorType(null);
+        }
+
+        if (mod.current.code === formattedCode) return;
+        mod.current.code = formattedCode;
+
+        await runner(formattedCode, mod.current.i);
+
+        setEditorContent(code, mod.current.i, signal, editorState.setValue);
+      } catch (error) {
+        setErrorType("prettier");
+      }
+    },
+  }), [errorType, setErrorType, editorState.setValue]);
+
+  useEffect(() => {
+    if (editorState.started) return;
+
+    const initializeEditor = async () => {
+      mod.current.i = Number(globalThis.cSess.session.i);
+      mod.current.code = globalThis.cSess.session.code;
+
+      if (!containerRef || !containerRef.current) return;
+
+      const editorModule = await (engine === "monaco"
+        ? initializeMonaco(containerRef.current, codeSpace, mod.current.code, handleContentChange)
+        : initializeAce(containerRef.current, mod.current.code, handleContentChange));
+
+      setEditorState({
+        ...editorState,
+        started: true,
+        code: mod.current.code,
+        setValue: (code: string) => editorModule.setValue(code),
+      });
+    };
+
+    initializeEditor();
+  }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
     if (data.i === mod.current.i) return;
@@ -228,7 +223,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       style={{ height: "100vh" }}
     >
       <EditorNode
-        engine={engine as "monaco" | "ace"}
+        engine={engine}
         errorType={errorType}
         containerRef={containerRef}
       />
@@ -242,6 +237,7 @@ async function initializeMonaco(
   container: HTMLDivElement,
   codeSpace: string,
   code: string,
+  onChange: (newCode: string) => void,
 ) {
   addCSSFile("/*monaco-editor?bundle&css");
   const { startMonaco } = await import("../startMonaco");
@@ -249,13 +245,17 @@ async function initializeMonaco(
     container,
     codeSpace,
     code,
-    onChange: () => {}, // This will be set later
+    onChange,
   });
 }
 
-async function initializeAce(container: HTMLDivElement, code: string) {
+async function initializeAce(
+  container: HTMLDivElement,
+  code: string,
+  onChange: (newCode: string) => void,
+) {
   const { startAce } = await import("../startAce");
-  return await startAce(code, () => {}, container);
+  return await startAce(code, onChange, container);
 }
 
 function addCSSFile(filename: string) {
