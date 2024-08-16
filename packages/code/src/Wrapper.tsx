@@ -1,7 +1,7 @@
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -110,30 +110,33 @@ const useTranspile = (code: string) => {
 export const Wrapper: React.FC<
   { codeSpace?: string; code?: string; transpiled?: string; scale?: number }
 > = React.memo(({ code, codeSpace, transpiled: t, scale = 1 }) => {
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    if (!hydrated) {
-      setTimeout(() => {
-        setHydrated(true);
-      }, 2000);
-    }
-  }, []);
-
   if (codeSpace) {
+    const App = React.lazy(() => import(`/live/${codeSpace}/index.js`));
+
     return (
-      <iframe
-        css={css`
-    height: ${100 / scale}%;
-    width: ${100 / scale}%;
-    border: 0;
-    overflow: 'scroll';
-    -webkit-overflow-scrolling: touch;
-    
-  `}
-        src={hydrated ? `/live/${codeSpace}/embed` : `/live/${codeSpace}/dehydrated`}
-      />
+      <ErrorBoundary>
+        <ParentSize>
+          {(props) => (
+            <Suspense fallback={<></>}>
+              <App {...props} />
+            </Suspense>
+          )}
+        </ParentSize>
+      </ErrorBoundary>
     );
+    //   return (
+    //     <iframe
+    //       css={css`
+    //   height: ${100 / scale}%;
+    //   width: ${100 / scale}%;
+    //   border: 0;
+    //   overflow: 'scroll';
+    //   -webkit-overflow-scrolling: touch;
+
+    // `}
+    //       src={`/live/${codeSpace}/embed`}
+    //     />
+    //   );
   }
 
   const transpiled = t || (code && useTranspile(code))
