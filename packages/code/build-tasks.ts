@@ -207,7 +207,9 @@ export async function buildMainBundle(wasmFile) {
     plugins: [
       ...buildOptions.plugins,
       replace({
-        "isRunningInBrowser()": `false`,
+        values: {
+          "isRunningInBrowser()": `false`,
+        },
       }),
       copy({
         resolveFrom: "cwd",
