@@ -6593,7 +6593,7 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.4.5"],\
           ["express", "npm:4.19.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.9"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.56.0"],\
           ["p-limit", "npm:6.1.0"],\
           ["simple-git", "npm:3.25.0"]\
         ],\
@@ -6825,7 +6825,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.23.0"],\
           ["esm-worker", "npm:0.135.16"],\
           ["immutable", "npm:4.3.7"],\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.9"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.56.0"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:7.0.2"],\
           ["p-queue", "npm:8.0.1"],\
@@ -18937,17 +18937,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.55.9", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.55.9-3f76b2ee2c-10.zip/node_modules/openai/",\
+      ["npm:4.56.0", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.56.0-c8feff103f-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.55.9"]\
+          ["openai", "npm:4.56.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.9", {\
-        "packageLocation": "./.yarn/__virtual__/openai-virtual-4f9fa07792/0/global/cache/openai-npm-4.55.9-3f76b2ee2c-10.zip/node_modules/openai/",\
+      ["virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.56.0", {\
+        "packageLocation": "./.yarn/__virtual__/openai-virtual-8f2383303a/0/global/cache/openai-npm-4.56.0-c8feff103f-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.55.9"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.56.0"],\
           ["@types/node", "npm:18.19.44"],\
           ["@types/node-fetch", "npm:2.6.11"],\
           ["@types/zod", null],\
