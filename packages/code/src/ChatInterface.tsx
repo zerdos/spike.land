@@ -62,15 +62,29 @@ const ChatInterface: React.FC<ChatInterfaceProps> = React.memo(
       broadcastChannel,
     });
 
+    const screenshotToBase64Maker = (codeSpace: string) =>
+      fetch(
+        `/live/${codeSpace}/screenshot`,
+      )
+        .then((response) => response.blob())
+        .then((blob) =>
+          new Promise((resolve) => {
+            var reader = new FileReader();
+            reader.onload = function() {
+              const base64 = this.result as string;
+              resolve(base64);
+            }; // <--- `this.result` contains a base64 data URI
+            reader.readAsDataURL(blob);
+          }).then((base64) => base64 as string)
+        );
     // New function to handle screenshot button click
     const handleScreenshotClick = () => {
       setIsScreenshotLoading(true);
       // Simulating screenshot capture (replace with actual implementation)
-      setTimeout(() => {
-        const mockScreenshotUrl = "https://example.com/mock-screenshot.jpg";
-        setScreenshotImage(mockScreenshotUrl);
+      setTimeout(async () => {
+        setScreenshotImage(await screenshotToBase64Maker(codeSpace));
         setIsScreenshotLoading(false);
-      }, 4000);
+      });
     };
 
     // New function to handle screenshot cancellation

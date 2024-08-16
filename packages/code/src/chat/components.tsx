@@ -162,22 +162,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   );
 };
 
-const screenshotToBase64Maker = () =>
-  fetch(
-    `/live/${useCodeSpace()}/screenshot`,
-  )
-    .then((response) => response.blob())
-    .then((blob) =>
-      new Promise((resolve) => {
-        var reader = new FileReader();
-        reader.onload = function() {
-          const base64 = this.result as string;
-          resolve(base64);
-        }; // <--- `this.result` contains a base64 data URI
-        reader.readAsDataURL(blob);
-      }).then((base64) => base64 as string)
-    );
-
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
   setInput,
