@@ -6081,6 +6081,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
           ["@anthropic-ai/sdk", "npm:0.26.1"],\
+          ["@clerk/backend", "npm:1.6.3"],\
           ["@clerk/clerk-sdk-node", "npm:5.0.27"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
           ["@cloudflare/workers-types", "npm:4.20240815.0"],\
