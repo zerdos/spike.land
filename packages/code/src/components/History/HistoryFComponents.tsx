@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Wrapper } from "@src/Wrapper";
 import { format } from "date-fns";
+import { on } from "events";
 import React from "react";
 
 // ScaledWrapper component
@@ -34,12 +35,13 @@ interface HistoryItemProps {
   item: Item;
   index: number;
   totalItems: number;
-  onRestore: () => void;
+  onRestore: (timestamp: number) => void;
+  onDelete: (timestamp: number) => void;
 }
 
 // HistoryItem component
 const HistoryItem: React.FC<HistoryItemProps> = (
-  { item, index, totalItems, onRestore },
+  { item, index, totalItems, onRestore, onDelete }: HistoryItemProps,
 ) => (
   <Card className="flex flex-col h-full">
     <CardHeader>
@@ -68,7 +70,8 @@ const HistoryItem: React.FC<HistoryItemProps> = (
             </pre>
           </DialogContent>
         </Dialog>
-        <Button onClick={onRestore}>Restore</Button>
+        <Button onClick={() => onRestore(item.timestamp)}>Restore</Button>
+        <Button variant="destructive" onClick={() => onDelete(item.timestamp)}>Delete</Button>
       </div>
     </CardContent>
   </Card>
@@ -91,9 +94,10 @@ const RestoreStatusAlert = ({ status }: { status: any }) => (
 // FullScreenHistoryView component
 const FullScreenHistoryView: React.FC<{
   history: Item[];
-  onRestore: (item: Item) => void;
+  onRestore: (timestamp: number) => void;
   onClose: () => void;
-}> = ({ history, onRestore, onClose }) => (
+  onDelete: (timestamp: number) => void;
+}> = ({ history, onRestore, onClose, onDelete }) => (
   <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
@@ -107,7 +111,8 @@ const FullScreenHistoryView: React.FC<{
             item={item}
             index={index}
             totalItems={history.length}
-            onRestore={() => onRestore(item)}
+            onDelete={onDelete}
+            onRestore={onRestore}
           />
         ))}
       </div>
