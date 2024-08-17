@@ -16,7 +16,7 @@ vi.mock("@tanstack/react-virtual", () => ({
 }));
 
 describe("AutoSaveHistory", () => {
-  const monaco = (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
+  (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
     editor: {
       createDiffEditor: vi.fn().mockReturnValue({
         setModel: vi.fn(),
