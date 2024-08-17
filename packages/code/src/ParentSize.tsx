@@ -71,7 +71,6 @@ export default function ParentSize({
         });
       },
       debounceTime,
-      { leading: enableDebounceLeadingCall },
     );
   }, [debounceTime, enableDebounceLeadingCall, ignoreDimensions]);
 

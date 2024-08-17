@@ -30,7 +30,6 @@ export const useErrorHandling = (engine: string) => {
         initialLoadRef.current = false;
       },
       1000,
-      { leading: true, trailing: true },
     ),
     [engine],
   );
