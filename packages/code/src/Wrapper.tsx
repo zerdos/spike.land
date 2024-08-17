@@ -4,6 +4,7 @@ import { ParentSize } from "@visx/responsive";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { md5 } from "./md5";
 import { transpile } from "./shared";
 
 const createJsBlob = (code: string | Uint8Array): string =>
@@ -250,4 +251,4 @@ const renderApp = async (
   }
 };
 
-export { renderApp, renderedAPPS, useTranspile, Wrapper };
+export { md5, renderApp, renderedAPPS, useTranspile, Wrapper };
