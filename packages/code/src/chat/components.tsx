@@ -219,7 +219,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               size="icon"
               title={screenshotImage ? "Remove screenshot" : "Attach screenshot"}
               disabled={isScreenshotLoading}
-              className={`transition-all duration-300 ${isScreenshotLoading ? "animate-pulse" : ""}`}
+              className={`transition-all duration-300 ${
+                isScreenshotLoading ? "animate-pulse" : ""
+              } bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600`}
             >
               {isScreenshotLoading
                 ? <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary"></div>
