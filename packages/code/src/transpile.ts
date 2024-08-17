@@ -105,109 +105,120 @@ export const build = async ({
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
 }) => {
-  if (wasmModule) {
-    if (!mod.init) await mod.initialize(wasmModule);
-  } else {
-    mod.init = mod.init || initialize({
-      wasmURL: `/${wasmFile}`,
-      worker: false,
-    }).then(() => true);
-  }
+  let defaultOpts: BuildOptions;
+  try {
+    if (wasmModule) {
+      if (!mod.init) await mod.initialize(wasmModule);
+    } else {
+      if (!mod.init) {
+        await initialize({
+          wasmURL: new URL(`${origin}/${wasmFile}`).toString(),
+          worker: false,
+        });
+      }
+      mod.init = true;
+    }
 
-  const makeEnv = (environment: string) => ({
-    "process.env.NODE_ENV": JSON.stringify(environment),
-    "process.env.NODE_DEBUG": JSON.stringify(false),
-    "process.browser": JSON.stringify(true),
-    "process.env.DEBUG": JSON.stringify(false),
-    "isBrowser": JSON.stringify(true),
-    "isJest": JSON.stringify(false),
-    "process.env.version": JSON.stringify("1.1.1"),
-    global: "globalThis",
-    "WORKER_DOM_DEBUG": JSON.stringify(false),
-    "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
-    process: JSON.stringify({
-      version: "v19.5.0",
-      versions: { node: "v19.5.0" },
-      cwd: () => "/",
-      env: {
-        NODE_ENV: environment,
+    const makeEnv = (environment: string) => ({
+      "process.env.NODE_ENV": JSON.stringify(environment),
+      "process.env.NODE_DEBUG": JSON.stringify(false),
+      "process.browser": JSON.stringify(true),
+      "process.env.DEBUG": JSON.stringify(false),
+      "isBrowser": JSON.stringify(true),
+      "isJest": JSON.stringify(false),
+      "process.env.version": JSON.stringify("1.1.1"),
+      global: "globalThis",
+      "WORKER_DOM_DEBUG": JSON.stringify(false),
+      "process.env.DUMP_SESSION_KEYS": JSON.stringify(false),
+      process: JSON.stringify({
         version: "v19.5.0",
-        browser: true,
-        isWebworker: true,
-        NODE_DEBUG: false,
-        DEBUG: false,
-        isBrowser: true,
         versions: { node: "v19.5.0" },
-      },
-      browser: true,
-    }),
-  });
+        cwd: () => "/",
+        env: {
+          NODE_ENV: environment,
+          version: "v19.5.0",
+          browser: true,
+          isWebworker: true,
+          NODE_DEBUG: false,
+          DEBUG: false,
+          isBrowser: true,
+          versions: { node: "v19.5.0" },
+        },
+        browser: true,
+      }),
+    });
 
-  const define = makeEnv("production");
-  const defaultOpts: BuildOptions = {
-    resolveExtensions: [
-      ".tsx",
-      ".ts",
-      ".jsx",
-      ".js",
-      ".d.ts",
-      ".css",
-      ".json",
-      ".mjs",
-      ".png",
-      ".jpg",
-      ".jpeg",
-      ".gif",
-      ".svg",
-      ".woff",
-      ".woff2",
-      ".eot",
-      ".otf",
-      ".webp",
-      ".wasm",
-      ".ttf",
-    ],
-    loader: {
-      ".js": "js",
-      ".mjs": "js",
-      ".json": "json",
-      ".tsx": "tsx",
-      ".png": "dataurl",
-      ".jpg": "dataurl",
-      ".jpeg": "dataurl",
-      ".gif": "dataurl",
-      ".svg": "dataurl",
-      ".woff": "dataurl",
-      ".woff2": "dataurl",
-      ".eot": "dataurl",
-      ".otf": "dataurl",
-      ".ttf": "dataurl",
-      ".css": "css",
-    },
-    write: false,
-    target: "es2024",
-    outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
-    treeShaking: true,
-    legalComments: "none",
-    bundle: true,
-    define,
-    keepNames: false,
-    ignoreAnnotations: true,
-    minifySyntax: true,
-    minifyIdentifiers: true,
-    minifyWhitespace: true,
-    splitting,
-    format,
-    platform: "browser",
-    outExtension: { ".js": ".mjs", ".css": ".css" },
-    entryPoints: entryPoint ? [entryPoint] : [
-      `${origin}/live/${codeSpace}/wrapper.js`,
-    ],
-    packages: "external",
-    plugins: [fetchPlugin()],
-    assetNames: "assets/[name]-[hash]",
-    publicPath: "/",
-  };
+    const define = makeEnv("production");
+    defaultOpts = {
+      resolveExtensions: [
+        ".tsx",
+        ".ts",
+        ".jsx",
+        ".js",
+        ".d.ts",
+        ".css",
+        ".json",
+        ".mjs",
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".gif",
+        ".svg",
+        ".woff",
+        ".woff2",
+        ".eot",
+        ".otf",
+        ".webp",
+        ".wasm",
+        ".ttf",
+      ],
+      loader: {
+        ".js": "js",
+        ".mjs": "js",
+        ".json": "json",
+        ".tsx": "tsx",
+        ".png": "dataurl",
+        ".jpg": "dataurl",
+        ".jpeg": "dataurl",
+        ".gif": "dataurl",
+        ".svg": "dataurl",
+        ".woff": "dataurl",
+        ".woff2": "dataurl",
+        ".eot": "dataurl",
+        ".otf": "dataurl",
+        ".ttf": "dataurl",
+        ".css": "css",
+      },
+      write: false,
+      target: "es2024",
+      outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
+      treeShaking: true,
+      legalComments: "none",
+      bundle: true,
+      define,
+      keepNames: false,
+      ignoreAnnotations: true,
+      minifySyntax: true,
+      minifyIdentifiers: true,
+      minifyWhitespace: true,
+      splitting,
+      format,
+      platform: "browser",
+      outExtension: { ".js": ".mjs", ".css": ".css" },
+      entryPoints: entryPoint ? [entryPoint] : [
+        `${origin}/live/${codeSpace}/wrapper.js`,
+      ],
+      packages: "external",
+      plugins: [fetchPlugin()],
+      assetNames: "assets/[name]-[hash]",
+      publicPath: "/",
+    };
+  } catch (error) {
+    console.error("Error during setting things up :", error);
+    return {
+      error,
+    };
+  }
 
   try {
     const result = await esmBuild(defaultOpts);
