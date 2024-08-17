@@ -6,11 +6,13 @@ import { useAuth } from "@clerk/clerk-react";
 
 const auth = () => {
   const { getToken } = useAuth();
-  const authenticatedFetch = async (...args) => {
-    return fetch(...args, {
+  const authenticatedFetch = async (url: string, options: RequestInit) => {
+    return fetch(url, {
+      ...options,
       headers: { Authorization: `Bearer ${await getToken()}` },
     }).then((res) => res.json());
   };
+  Object.assign(globalThis, { authenticatedFetch });
 };
 
 Object.assign(globalThis, { auth, wait, build });
