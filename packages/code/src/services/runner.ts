@@ -36,8 +36,11 @@ BC.onmessage = ({ data }) => {
 };
 
 export const runner = async (code: string, counter = 0) => {
+  console.log("Running code", counter);
+
   const formattedCode = code;
   if (code === cSess.session.code) return true;
+  console.log("Running code", counter);
 
   if (counter === 0) counter = mod.i + 3;
   if (counter <= mod.i) return false;
@@ -50,6 +53,7 @@ export const runner = async (code: string, counter = 0) => {
     const signal = mod.controller.signal;
     if (signal.aborted) return false;
 
+    console.log("Prettier succeeded");
     // console.log("Running code", i);
 
     const transpiled = await transpile({
