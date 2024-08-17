@@ -24,12 +24,14 @@ export default {
         );
         const page = await browser.newPage();
         await page.goto(url);
-        await wait(sleep ? parseInt(sleep) ?? 0 : 1000);
+        await page.waitForNetworkIdle();
+        await wait(100);
+        //        await wait(sleep ? parseInt(sleep) ?? 0 : 1000);
 
         if (top) {
-          await page.evaluate((_) => {
+          await page.evaluate(() => {
             window.scrollBy({
-              top,
+              top: +top,
               behavior: "smooth",
             });
           });
