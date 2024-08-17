@@ -149,7 +149,12 @@ export class RouteHandler {
   private async getUniqueHistory(): Promise<AutoSaveEntry[]> {
     const history = await this.code.getAutoSaveHistory();
 
-    const uniqueHistory = history.reduce((acc, snapshot) => {
+    const now = Date.now();
+
+    const uniqueHistory = history.map(x => ({
+      ...x,
+      timestamp: Math.floor(x.timestamp / 1000) * 1000,
+    })).reduce((acc, snapshot) => {
       const existingSnapshot = acc.find(
         (s) => s.timestamp === snapshot.timestamp,
       );
