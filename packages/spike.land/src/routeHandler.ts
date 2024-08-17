@@ -165,7 +165,7 @@ export class RouteHandler {
   }
   private async getAutoSaveHistory(): Promise<Response> {
     try {
-      const uniqueHistory = this.getUniqueHistory();
+      const uniqueHistory = await this.getUniqueHistory();
 
       return new Response(JSON.stringify(uniqueHistory), {
         status: 200,
