@@ -186,7 +186,7 @@ export const build = async ({
     },
     write: false,
     target: "es2024",
-    outdir: `/live/${codeSpace}/api/my-cms/`,
+    outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
     treeShaking: true,
     legalComments: "none",
     bundle: true,
@@ -201,7 +201,7 @@ export const build = async ({
     platform: "browser",
     outExtension: { ".js": ".mjs", ".css": ".css" },
     entryPoints: entryPoint ? [entryPoint] : [
-      `/live/${codeSpace}/wrapper.js`,
+      `${origin}/live/${codeSpace}/wrapper.js`,
     ],
     packages: "external",
     plugins: [fetchPlugin()],
