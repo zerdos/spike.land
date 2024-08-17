@@ -1,5 +1,4 @@
 import React from "react";
-import { useErrorHandling } from "../hooks/useErrorHandling";
 
 type ErrorBoundaryState = {
   hasError: boolean;
@@ -20,9 +19,6 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
   componentDidCatch(error: any, errorInfo: any) {
     // You can log the error to an error reporting service
     console.log("Error:", error);
-    const { setErrorType } = useErrorHandling("errorBoundary");
-    setErrorType("render");
-    console.log("Error Info:", errorInfo);
   }
 
   render() {
