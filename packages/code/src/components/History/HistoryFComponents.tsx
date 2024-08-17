@@ -111,8 +111,8 @@ const FullScreenHistoryView: React.FC<{
             item={item}
             index={index}
             totalItems={history.length}
-            onDelete={onDelete}
-            onRestore={onRestore}
+            onDelete={() => onDelete(item.timestamp)}
+            onRestore={() => onRestore(item.timestamp)}
           />
         ))}
       </div>
