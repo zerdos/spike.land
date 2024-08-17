@@ -1621,15 +1621,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heroicons/react@npm:^2.1.5":
-  version: 2.1.5
-  resolution: "@heroicons/react@npm:2.1.5"
-  peerDependencies:
-    react: ">= 16"
-  checksum: 10/dd972f06760e2eec36e32db2edd938e7cc4fd012f6b25e0a31adc3c7fd7122517aa8a55f7b262646c6ef988c42b16fc635b252a4b8aa1bcf8597c97567eaa3d4
-  languageName: node
-  linkType: hard
-
 "@hookform/resolvers@npm:^3.9.0":
   version: 3.9.0
   resolution: "@hookform/resolvers@npm:3.9.0"
@@ -13668,8 +13659,6 @@ __metadata:
   resolution: "monorepo@workspace:."
   dependencies:
     "@emotion/react": "npm:11.13.0"
-    "@heroicons/react": "npm:^2.1.5"
-    "@langchain/anthropic": "npm:^0.2.15"
     "@playwright/test": "npm:1.46.1"
     "@spike-land/ai-devtools": "workspace:^"
     "@types/eslint": "npm:9.6.0"
@@ -13681,11 +13670,9 @@ __metadata:
     dprint: "npm:0.47.2"
     eslint: "npm:9.9.0"
     eslint-plugin-react: "npm:7.35.0"
-    i18next: "npm:^23.13.0"
     playwright: "npm:1.46.1"
     react: "npm:18.3.1"
     typescript: "npm:5.5.4"
-    zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 
