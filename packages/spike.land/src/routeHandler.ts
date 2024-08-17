@@ -2,6 +2,11 @@ import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { HTML } from "@spike-land/code";
 import { Code } from "./chatRoom";
 
+export interface AutoSaveEntry {
+  timestamp: number;
+  code: string;
+}
+
 export class RouteHandler {
   constructor(private code: Code) {}
 
@@ -76,7 +81,21 @@ export class RouteHandler {
     try {
       switch (action) {
         case "history":
-          return this.getAutoSaveHistory();
+          const subAction = path[2];
+          if (subAction === "delete") {
+            const itemToDelete = path[3];
+            const uniqueHistory = await this.getUniqueHistory();
+            const snapshotToSave = uniqueHistory.find(
+              (s) => s.timestamp !== Number(itemToDelete),
+            );
+
+            this.code.getAutoSaveHistory();
+          }
+
+          if (request.method !== "GET") {
+            return this.getAutoSaveHistory();
+          }
+
         case "restore": {
           const body = await request.json<{ timestamp?: number }>();
           if (!body || typeof body.timestamp !== "number") {
@@ -126,21 +145,32 @@ export class RouteHandler {
     }
   }
 
+  private async getUniqueHistory(): Promise<AutoSaveEntry[]> {
+    const history = await this.code.getAutoSaveHistory();
+
+    const uniqueHistory = history.reduce((acc, snapshot) => {
+      const existingSnapshot = acc.find(
+        (s) => s.timestamp === snapshot.timestamp,
+      );
+      if (existingSnapshot) {
+        existingSnapshot.count++;
+      } else {
+        acc.push({ ...snapshot, count: 1 });
+      }
+      return acc;
+    }, [] as { timestamp: number; count: number }[]);
+
+    return uniqueHistory.map((s) => {
+      const snapshot = history.find((snap) => snap.timestamp === s.timestamp);
+      if (!snapshot) {
+        throw new Error("Snapshot not found");
+      }
+      return snapshot;
+    });
+  }
   private async getAutoSaveHistory(): Promise<Response> {
     try {
-      const history = await this.code.getAutoSaveHistory();
-
-      const uniqueHistory = history.reduce((acc, snapshot) => {
-        const existingSnapshot = acc.find(
-          (s) => s.timestamp === snapshot.timestamp,
-        );
-        if (existingSnapshot) {
-          existingSnapshot.count++;
-        } else {
-          acc.push({ ...snapshot, count: 1 });
-        }
-        return acc;
-      }, [] as { timestamp: number; count: number }[]);
+      const uniqueHistory = this.getUniqueHistory();
 
       return new Response(JSON.stringify(uniqueHistory), {
         status: 200,

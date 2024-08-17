@@ -12,15 +12,10 @@ import {
 } from "@spike-land/code";
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
-import { RouteHandler } from "./routeHandler";
+import { AutoSaveEntry, RouteHandler } from "./routeHandler";
 import { WebSocketHandler } from "./websocketHandler";
 
 export { md5 };
-
-interface AutoSaveEntry {
-  timestamp: number;
-  code: string;
-}
 
 export class Code implements DurableObject {
   private routeHandler: RouteHandler;
@@ -135,10 +130,10 @@ export class Code implements DurableObject {
         });
 
         // Save the updated history
-        await this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
+        this.state.storage.put("autoSaveHistory", this.autoSaveHistory);
 
         // Save the current version with timestamp
-        await this.state.storage.put(
+        this.state.storage.put(
           `savedVersion_${currentTime}`,
           currentCode,
         );
@@ -234,6 +229,11 @@ export class Code implements DurableObject {
   // New method to get auto-save history
   async getAutoSaveHistory(): Promise<AutoSaveEntry[]> {
     return this.autoSaveHistory;
+  }
+
+  // New method to get auto-save history
+  async setAutoSaveHistory(history: AutoSaveEntry[]): Promise<AutoSaveEntry[]> {
+    return this.autoSaveHistory = history;
   }
 
   // New method to restore code from a specific auto-save entry
