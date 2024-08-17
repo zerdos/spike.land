@@ -52,11 +52,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     setShowChat(true);
   };
 
-  const handleCodeUpdate = (newCode: string) => {
-    if (editorRef.current) {
-      editorRef.current.setValue(newCode, true);
-    }
-  };
+  // const handleCodeUpdate = (newCode: string) => {
+  //   if (editorRef.current) {
+  //     editorRef.current.setValue(newCode, true);
+  //   }
+  // };
 
   return (
     <>
