@@ -154,20 +154,14 @@ export class RouteHandler {
         (s) => s.timestamp === snapshot.timestamp,
       );
       if (existingSnapshot) {
-        existingSnapshot.count++;
+        // existingSnapshot.count++;
       } else {
-        acc.push({ ...snapshot, count: 1 });
+        acc.push({ ...snapshot });
       }
       return acc;
-    }, [] as { timestamp: number; count: number }[]);
+    }, [] as typeof history);
 
-    return uniqueHistory.map((s) => {
-      const snapshot = history.find((snap) => snap.timestamp === s.timestamp);
-      if (!snapshot) {
-        throw new Error("Snapshot not found");
-      }
-      return snapshot;
-    });
+    return uniqueHistory;
   }
   private async getAutoSaveHistory(): Promise<Response> {
     try {
