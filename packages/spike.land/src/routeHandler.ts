@@ -100,11 +100,12 @@ export class RouteHandler {
         case "restore": {
           const restoreTimestamp = Number(path[2]);
 
-          if (!restoreTimestamp || !Number.isNaN(restoreTimestamp)) {
-            return new Response("Failed to restore code: " + restoreTimestamp, {
-              status: 500,
+          if (Number.isNaN(restoreTimestamp) || !restoreTimestamp) {
+            return new Response("Failed to restore code: Invalid timestamp", {
+              status: 400,
             });
           }
+
           const success = await this.code.restoreFromAutoSave(restoreTimestamp);
 
           if (success) {
