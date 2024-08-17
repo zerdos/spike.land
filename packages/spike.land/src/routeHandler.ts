@@ -100,7 +100,7 @@ export class RouteHandler {
         case "restore": {
           const restoreTimestamp = Number(path[2]);
 
-          if (!restoreTimestamp || !isNaN(restoreTimestamp)) {
+          if (!restoreTimestamp || !Number.isNaN(restoreTimestamp)) {
             return new Response("Failed to restore code: " + restoreTimestamp, {
               status: 500,
             });
