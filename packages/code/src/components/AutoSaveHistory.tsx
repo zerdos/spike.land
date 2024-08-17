@@ -1,4 +1,6 @@
+import { set } from "immutable";
 import React, { useCallback, useEffect, useState } from "react";
+import { removeItem } from "window-async-local-storage";
 import { FullScreenHistoryView, HistoryItem } from "./History/HistoryFComponents";
 
 interface HistoryItem {
@@ -68,7 +70,7 @@ export const CodeHistoryCarousel: React.FC<
   return (
     <FullScreenHistoryView
       history={history}
-      onDelete={(timestamp: number) => onDelete && onDelete(timestamp)}
+      onDelete={(timestamp: number) => setHistory(h => h.filter((x) => x.timestamp !== timestamp))}
       onRestore={(timestamp: number) => onRestore(timestamp)}
       onClose={() => onClose()}
     />
