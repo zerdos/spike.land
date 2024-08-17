@@ -1,11 +1,9 @@
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
-import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { md5 } from "./md5";
 import { transpile } from "./shared";
 
 // Types
@@ -116,12 +114,17 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
 
     const renderApp = useCallback(() => {
       if (!rootRef.current || !transpiled) return;
+      const App = React.lazy(() => import(createJsBlob(transpiled)).then(m => m.default));
 
       rootRef.current.render(
         <ErrorBoundary>
           <CacheProvider value={cssCache}>
             <ParentSize>
-              {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+              {(props) => (
+                <Suspense fallback={<>Loading</>}>
+                  <App {...props} />
+                </Suspense>
+              )}
             </ParentSize>
           </CacheProvider>
         </ErrorBoundary>,
@@ -221,4 +224,7 @@ const renderApp = async (
   }
 };
 
-export { md5, renderApp, renderedAPPS, useTranspile, Wrapper };
+export const createJsBlob = (code: string | Uint8Array): string =>
+  URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
+
+export { renderApp, renderedAPPS, useTranspile, Wrapper };
