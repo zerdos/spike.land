@@ -4,14 +4,33 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { format } from "date-fns";
-import React from "react";
+import React, { useState } from "react";
 import { useCodeHistory } from "../hooks/useCodeHistory";
 import { useRestoreVersion } from "../hooks/useRestoreVersion";
 import { ScaledWrapper } from "./ScaledWrapper";
 
 const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
-  const { history, loading, error } = useCodeHistory(codeSpace);
+  const { history, loading, error, refetch } = useCodeHistory(codeSpace);
   const { restoreStatus, restoreVersion } = useRestoreVersion(codeSpace);
+  const [deleteStatus, setDeleteStatus] = useState<{ type: "loading" | "success" | "error"; message: string } | null>(
+    null,
+  );
+
+  const deleteHistoryItem = async (timestamp: string) => {
+    setDeleteStatus({ type: "loading", message: "Deleting history item..." });
+    try {
+      const response = await fetch(`/live/${codeSpace}/auto-save/history/delete/${timestamp}`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete history item");
+      }
+      setDeleteStatus({ type: "success", message: "History item deleted successfully" });
+      refetch(); // Refresh the history after deletion
+    } catch (error) {
+      setDeleteStatus({ type: "error", message: "Failed to delete history item" });
+    }
+  };
 
   if (loading) return <div>Loading history...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -19,19 +38,20 @@ const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => 
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold mb-4">Code History</h2>
-      {restoreStatus
-        && (
-          <Alert variant={restoreStatus.type === "error" ? "destructive" : "default"}>
-            <AlertTitle>
-              {restoreStatus.type === "loading"
-                ? "Restoring"
-                : restoreStatus.type === "success"
-                ? "Success"
-                : "Error"}
-            </AlertTitle>
-            <AlertDescription>{restoreStatus.message}</AlertDescription>
-          </Alert>
-        )}
+      {(restoreStatus || deleteStatus) && (
+        <Alert
+          variant={(restoreStatus?.type === "error" || deleteStatus?.type === "error") ? "destructive" : "default"}
+        >
+          <AlertTitle>
+            {restoreStatus?.type === "loading" || deleteStatus?.type === "loading"
+              ? "Processing"
+              : restoreStatus?.type === "success" || deleteStatus?.type === "success"
+              ? "Success"
+              : "Error"}
+          </AlertTitle>
+          <AlertDescription>{restoreStatus?.message || deleteStatus?.message}</AlertDescription>
+        </Alert>
+      )}
       <Carousel opts={{ loop: true }} className="w-full max-w-4xl">
         <CarouselContent>
           {history.map((item, index) => (
@@ -58,6 +78,7 @@ const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => 
                       </DialogContent>
                     </Dialog>
                     <Button onClick={() => restoreVersion(item.timestamp)}>Restore</Button>
+                    <Button variant="destructive" onClick={() => deleteHistoryItem(item.timestamp)}>Delete</Button>
                   </div>
                 </CardContent>
               </Card>
