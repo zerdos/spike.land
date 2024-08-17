@@ -245,9 +245,13 @@ const handleDefaultPage = async () => {
       const rendered = await renderApp({ rootElement: myEl, transpiled });
 
       if (signal.aborted) {
-        rendered?.cleanup();
-        document.body.removeChild(myEl);
-        myEl.remove();
+        try {
+          rendered !== null && rendered !== undefined && rendered!.cleanup !== undefined && rendered.cleanup();
+          document.body.removeChild(myEl);
+          myEl.remove();
+        } catch (e) {
+          console.error(e);
+        }
         return;
       }
 

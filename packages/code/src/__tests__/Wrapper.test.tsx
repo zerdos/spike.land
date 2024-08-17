@@ -8,10 +8,6 @@ vi.mock("../shared", () => ({
   transpile: vi.fn(),
 }));
 
-vi.mock("../components/AppRenderer", () => ({
-  AppRenderer: ({ transpiled }: { transpiled: string }) => <div data-testid="mock-app-renderer">{transpiled}</div>,
-}));
-
 vi.mock("@visx/responsive", () => ({
   ParentSize: ({ children }: { children: (props: any) => React.ReactNode }) => children({ width: 100, height: 100 }),
 }));
