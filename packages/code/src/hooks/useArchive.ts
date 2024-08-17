@@ -2,7 +2,18 @@ import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
 
-Object.assign(globalThis, { wait, build });
+import { useAuth } from "@clerk/clerk-react";
+
+const auth = () => {
+  const { getToken } = useAuth();
+  const authenticatedFetch = async (...args) => {
+    return fetch(...args, {
+      headers: { Authorization: `Bearer ${await getToken()}` },
+    }).then((res) => res.json());
+  };
+};
+
+Object.assign(globalThis, { auth, wait, build });
 
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {
