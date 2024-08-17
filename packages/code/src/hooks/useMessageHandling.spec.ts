@@ -82,7 +82,7 @@ describe("useMessageHandling", () => {
     vi.mocked(sharedModule.prettierToThrow).mockResolvedValue("formatted code");
 
     await act(async () => {
-      await result.current.handleSendMessage("Test message");
+      await result.current.handleSendMessage("Test message", "");
     });
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
