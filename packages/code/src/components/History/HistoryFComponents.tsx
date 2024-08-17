@@ -115,7 +115,7 @@ const FullScreenHistoryView: React.FC<{
             totalItems={history.length}
             onDelete={async (timestamp) => {
               try {
-                await fetch(`/live/${useCodeSpace()}/auto-save/delete/${timestamp}`);
+                await fetch(`/live/${useCodeSpace()}/auto-save/history/delete/${timestamp}`);
 
                 onDelete(timestamp);
               } catch (error) {
