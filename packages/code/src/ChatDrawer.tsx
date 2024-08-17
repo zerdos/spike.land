@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Bot, Camera, X } from "@/external/lucideReact";
+import { Bot } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./chat/components";
 import { Message } from "./types/Message";
@@ -114,7 +114,6 @@ const ChatInterface: React.FC = () => {
       id: Date.now().toString(),
       content: input,
       role: "user",
-      screenshot: screenshotImage,
     };
     setMessages((prev) => [...prev, newMessage]);
     setInput("");
