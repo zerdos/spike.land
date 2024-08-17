@@ -2,6 +2,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { runner } from "@src/services/runner";
 import { prettierToThrow } from "@src/shared";
 import { Wrapper } from "@src/Wrapper";
@@ -112,7 +113,15 @@ const FullScreenHistoryView: React.FC<{
             item={item}
             index={index}
             totalItems={history.length}
-            onDelete={() => onDelete(item.timestamp)}
+            onDelete={async (timestamp) => {
+              try {
+                await fetch(`/live/${useCodeSpace()}/auto-save/delete/${timestamp}`);
+
+                onDelete(timestamp);
+              } catch (error) {
+                console.error(error);
+              }
+            }}
             onRestore={async () => {
               try {
                 const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
