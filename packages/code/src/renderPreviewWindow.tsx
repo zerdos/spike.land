@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/clerk-react";
 import { createRoot } from "react-dom/client";
+import { AppToRender } from "./AppToRender";
 
 const singleton = { started: false };
 
@@ -18,8 +19,6 @@ export const renderPreviewWindow = async (
   document.getElementById("root")!.appendChild(rootEl);
 
   const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
-  const { AppToRender } = await import("./AppToRender");
-
   root.render(
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <AppToRender codeSpace={codeSpace} />
