@@ -17,7 +17,11 @@ describe("AIService", () => {
       saveAIInteraction: vi.fn(),
     } as unknown as Mocked<LocalStorageService>;
 
-    aiService = new AIService(localStorageService);
+    aiService = new AIService(localStorageService, {
+      anthropicEndpoint: "https://api.anthropic.com",
+      openAIEndpoint: "https://api.openai.com",
+      gpt4oEndpoint: "https://api.gpt4o.com",
+    });
   });
 
   describe("sendToAnthropic", () => {
@@ -60,10 +64,7 @@ describe("AIService", () => {
         status: 500,
       } as Response);
 
-      await expect(aiService.sendToAnthropic(mockMessages, vi.fn())).rejects
-        .toThrow(
-          "HTTP error! status: 500",
-        );
+      await expect(aiService.sendToAnthropic(mockMessages, vi.fn())).rejects.toThrow("HTTP error! status: 500");
     });
   });
 

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { CodeHistoryCarousel } from "./HistoryItems";
+import CodeHistoryCarousel from "./HistoryItems";
 
 // Mock fetch
 globalThis.fetch = vi.fn(() =>

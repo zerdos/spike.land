@@ -1,7 +1,7 @@
 import { debounce } from "es-toolkit";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { prettierToThrow } from "../shared";
-import { Message } from "../types/Message";
+import { Message, MessageContent } from "../types/Message";
 import { LocalStorageService } from "./LocalStorageService";
 import { runner } from "./runner";
 
@@ -67,9 +67,10 @@ export class AIService {
     };
   }
 
-  private saveInteraction(userMessage: string | object, assistantMessage: string): void {
+  private saveInteraction(userMessage: string | object, assistantMessage: string | MessageContent): void {
     const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
-    this.localStorageService.saveAIInteraction(msgToSave, assistantMessage);
+    const assistantMsg = typeof assistantMessage === "string" ? assistantMessage : JSON.stringify(assistantMessage);
+    this.localStorageService.saveAIInteraction(msgToSave, assistantMsg);
   }
 
   async sendToAI(
@@ -77,7 +78,13 @@ export class AIService {
     messages: Message[],
     onUpdate: (code: string) => void,
   ): Promise<Message> {
-    const response = await this.makeAPICall(endpoint, messages);
+    const mappedMessages: Message[] = messages.map((message, index) => ({
+      id: (Date.now() + index + 1).toString(),
+      role: message.role,
+      content: message.content,
+    }));
+
+    const response = await this.makeAPICall(endpoint, mappedMessages);
     const result = await this.handleStreamingResponse(response, onUpdate);
 
     const assistantMessage: Message = {
@@ -86,7 +93,7 @@ export class AIService {
       content: result.content,
     };
 
-    const userMessage = messages[messages.length - 1].content;
+    const userMessage = mappedMessages[mappedMessages.length - 1].content;
     this.saveInteraction(userMessage, assistantMessage.content);
 
     return assistantMessage;
@@ -112,7 +119,7 @@ export class AIService {
     const messages = [
       { role: "system" as const, content: gptSystem },
       { role: "user" as const, content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
-    ];
+    ] as Message[];
 
     const debouncedSetMessages = debounce((newCode: string) => {
       setMessages((prevMessages) => [
@@ -135,13 +142,17 @@ export class AIService {
     }
   }
 
-  private extractCodeFromResponse(response: string): string {
-    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
-    const matches = response.match(codeModificationRegex);
-    if (!matches) {
-      throw new Error("No code block found in the response");
+  private extractCodeFromResponse(response: string | MessageContent): string {
+    if (typeof response === "string") {
+      const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
+      const matches = response.match(codeModificationRegex);
+      if (!matches) {
+        throw new Error("No code block found in the response");
+      }
+      return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
+    } else {
+      throw new Error("Invalid response content");
     }
-    return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
   }
 
   private async formatAndRunCode(code: string): Promise<string> {
@@ -155,7 +166,7 @@ export class AIService {
   private async retryWithClaude(
     fullResponse: string,
     codeNow: string,
-    error: Error,
+    error: unknown, // Change the type of 'error' to 'unknown'
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
   ): Promise<string | void> {
@@ -163,8 +174,9 @@ export class AIService {
     const message: Message = {
       id: (Date.now() + 1).toString(),
       role: "user",
-      content:
-        `${codeNow}\n**** instructions ****\n${fullResponse}\n**** error ****\n${error.toString()}\nCould you help me with this error? I'm stuck.`,
+      content: `${codeNow}\n**** instructions ****\n${fullResponse}\n**** error ****\n${
+        (error as Error).toString()
+      }\nCould you help me with this error? I'm stuck.`,
     };
 
     setMessages((prevMessages) => [...prevMessages, message]);
@@ -174,7 +186,7 @@ export class AIService {
     });
     setMessages((prevMessages) => [...prevMessages, answer]);
 
-    return this.continueWithOpenAI(answer.content, codeNow, setMessages, setAICode, true);
+    return this.continueWithOpenAI(answer.content as unknown as string, codeNow, setMessages, setAICode, true);
   }
 
   prepareClaudeContent(

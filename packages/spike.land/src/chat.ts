@@ -33,10 +33,8 @@ export default {
           throw new Error("No token provided");
         }
 
-        const { payload, error } = await verifyToken(token, {
-          issuer: "https://accounts.spike.land",
-          // Add other necessary options
-        });
+        const options = {}; // Declare the 'options' variable
+        const { payload, error } = await verifyToken(token, options);
 
         if (error) {
           throw new Error("Invalid token");

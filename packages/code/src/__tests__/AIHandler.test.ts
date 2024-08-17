@@ -1,7 +1,6 @@
-import { beforeEach, describe, expect, Mocked, test, vi } from "vitest";
-import { ai } from "vitest/dist/chunks/reporters.C_zwCd4j";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";
-import { AIService, AIServiceConfig } from "../services/AIService";
+import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
 
@@ -18,7 +17,9 @@ describe("AIHandler", () => {
       anthropicEndpoint: "https://api.anthropic.com",
       openAIEndpoint: "https://api.openai.com",
       gpt4oEndpoint: "https://api.gpt4o.com",
-    } as AIServiceConfig);
+    });
+    vi.mocked(mockAIService);
+    aiHandler = new AIHandler(testCodeSpace, mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
@@ -29,11 +30,30 @@ describe("AIHandler", () => {
       content: "Hi there!",
     };
 
-    mockAIService.sendToAnthropic.mockResolvedValue(expectedResponse);
+    vi.mocked(mockAIService.sendToAnthropic).mockResolvedValue(expectedResponse);
     const updates = vi.fn();
     const result = await aiHandler.sendToAnthropic(messages, updates);
 
     expect(mockAIService.sendToAnthropic).toHaveBeenCalledWith(
+      messages,
+      updates,
+    );
+    expect(result).toEqual(expectedResponse);
+  });
+
+  test("sendToGpt4o calls AIService.sendToGpt4o", async () => {
+    const messages: Message[] = [{ id: "1", role: "user", content: "Hello" }];
+    const expectedResponse: Message = {
+      id: "2",
+      role: "assistant",
+      content: "Hi there!",
+    };
+
+    vi.mocked(mockAIService.sendToGpt4o).mockResolvedValue(expectedResponse);
+    const updates = vi.fn();
+    const result = await aiHandler.sendToGpt4o(messages, updates);
+
+    expect(mockAIService.sendToGpt4o).toHaveBeenCalledWith(
       messages,
       updates,
     );
@@ -46,7 +66,7 @@ describe("AIHandler", () => {
     const setMessages = vi.fn();
     const setAICode = vi.fn();
 
-    mockAIService.continueWithOpenAI.mockResolvedValue("Updated code");
+    vi.mocked(mockAIService.continueWithOpenAI).mockResolvedValue("Updated code");
 
     const result = await aiHandler.continueWithOpenAI(
       fullResponse,
@@ -72,7 +92,7 @@ describe("AIHandler", () => {
     const currentCode = "Current code";
 
     const preparedContent = "Prepared content";
-    mockAIService.prepareClaudeContent.mockReturnValue(preparedContent);
+    vi.mocked(mockAIService.prepareClaudeContent).mockReturnValue(preparedContent);
 
     const result = aiHandler.prepareClaudeContent(
       content,
