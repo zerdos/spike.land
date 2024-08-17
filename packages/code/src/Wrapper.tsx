@@ -8,16 +8,6 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { md5 } from "./md5";
 import { transpile } from "./shared";
 
-export { md5 };
-
-if (!Object.hasOwn(globalThis, "renderedAPPS")) {
-  Object.assign(globalThis, {
-    renderedAPPS: new Map<HTMLElement, RenderedApp>(),
-  });
-}
-export const renderedAPPS = (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> })
-  .renderedAPPS;
-
 // Types
 interface IRenderApp {
   rootElement?: HTMLDivElement;
@@ -37,33 +27,34 @@ interface RenderedApp {
   cleanup: () => void;
 }
 
+// Global State
+if (!Object.hasOwn(globalThis, "renderedAPPS")) {
+  Object.assign(globalThis, {
+    renderedAPPS: new Map<HTMLElement, RenderedApp>(),
+  });
+}
+
+const renderedAPPS = (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> }).renderedAPPS;
+
+// Hooks
 const useCodeSpace = (codeSpace: string) => {
   const [transpiled, setTranspiled] = useState<string | null>(null);
 
   useEffect(() => {
     let isCancelled = false;
 
-    const doTranspile = async () => {
+    const fetchAndSetCode = async () => {
       try {
-        const code = await fetch(
-          window.location.origin + `/live/${codeSpace}/index.js`,
-        ).then((res) => res.text());
-        // const result = await transpile({
-        //   code,
-        //   originToUse: window.location.origin,
-        // });
-        // if (!isCancelled) {
-        setTranspiled(code);
-        // }
+        const response = await fetch(`${window.location.origin}/live/${codeSpace}/index.js`);
+        const code = await response.text();
+        if (!isCancelled) setTranspiled(code);
       } catch (error) {
-        console.error("Transpilation error:", error);
-        if (!isCancelled) {
-          setTranspiled(null);
-        }
+        console.error("Error fetching code:", error);
+        if (!isCancelled) setTranspiled(null);
       }
     };
 
-    doTranspile();
+    fetchAndSetCode();
 
     return () => {
       isCancelled = true;
@@ -72,7 +63,7 @@ const useCodeSpace = (codeSpace: string) => {
 
   return transpiled;
 };
-// Hooks
+
 const useTranspile = (code: string) => {
   const [transpiled, setTranspiled] = useState<string | null>(null);
 
@@ -81,18 +72,11 @@ const useTranspile = (code: string) => {
 
     const doTranspile = async () => {
       try {
-        const result = await transpile({
-          code,
-          originToUse: window.location.origin,
-        });
-        if (!isCancelled) {
-          setTranspiled(result);
-        }
+        const result = await transpile({ code, originToUse: window.location.origin });
+        if (!isCancelled) setTranspiled(result);
       } catch (error) {
         console.error("Transpilation error:", error);
-        if (!isCancelled) {
-          setTranspiled(null);
-        }
+        if (!isCancelled) setTranspiled(null);
       }
     };
 
@@ -107,104 +91,76 @@ const useTranspile = (code: string) => {
 };
 
 // Components
-export const Wrapper: React.FC<
-  { codeSpace?: string; code?: string; transpiled?: string; scale?: number }
-> = React.memo(({ code, codeSpace, transpiled: t, scale = 1 }) => {
-  if (codeSpace) {
-    // const App = React.lazy(() => import(`/live/${codeSpace}/index.js`));
-
-    // return (
-    //   <ErrorBoundary>
-    //     <ParentSize>
-    //       {(props) => (
-    //         <Suspense fallback={<></>}>
-    //           <App {...props} />
-    //         </Suspense>
-    //       )}
-    //     </ParentSize>
-    //   </ErrorBoundary>
-    // );
-    return (
-      <iframe
-        css={css`
-      height: ${100 / scale}%;
-      width: ${100 / scale}%;
-      border: 0;
-      overflow: 'scroll';
-      -webkit-overflow-scrolling: touch;
-
-    `}
-        src={`/live/${codeSpace}/embed`}
-      />
-    );
-  }
-
-  const transpiled = t || (code && useTranspile(code))
-    || (codeSpace && useCodeSpace(codeSpace));
-  const containerRef = useRef<HTMLDivElement>(null);
-  const rootRef = useRef<Root | null>(null);
-
-  const cssCache = useMemo(
-    () => createCache({ key: "css", speedy: false }),
-    [],
-  );
-
-  const renderApp = useCallback(() => {
-    if (!rootRef.current || !transpiled) return;
-
-    rootRef.current.render(
-      <ErrorBoundary>
-        <CacheProvider value={cssCache}>
-          <ParentSize>
-            {(props) => <AppRenderer transpiled={transpiled} {...props} />}
-          </ParentSize>
-        </CacheProvider>
-      </ErrorBoundary>,
-    );
-  }, [transpiled, cssCache]);
-
-  useEffect(() => {
-    if (!containerRef.current || !transpiled) return;
-
-    if (!rootRef.current) {
-      rootRef.current = createRoot(containerRef.current);
+const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = React.memo(
+  ({ code, codeSpace, transpiled: t, scale = 1 }) => {
+    if (codeSpace) {
+      return (
+        <iframe
+          css={css`
+            height: ${100 / scale}%;
+            width: ${100 / scale}%;
+            border: 0;
+            overflow: 'scroll';
+            -webkit-overflow-scrolling: touch;
+          `}
+          src={`/live/${codeSpace}/embed`}
+        />
+      );
     }
 
-    renderApp();
+    const transpiled = t || (code && useTranspile(code)) || (codeSpace && useCodeSpace(codeSpace));
+    const containerRef = useRef<HTMLDivElement>(null);
+    const rootRef = useRef<Root | null>(null);
 
-    return () => {
-      // Schedule unmount for the next tick
-      setTimeout(() => {
-        rootRef.current?.unmount();
-        rootRef.current = null;
-      }, 0);
-    };
-  }, [transpiled, renderApp]);
+    const cssCache = useMemo(() => createCache({ key: "css", speedy: false }), []);
 
-  return (
-    <div
-      ref={containerRef}
-      css={css`
-  width: 100%; 
-  height: 100%;`}
-      data-testid="wrapper-container"
-    />
-  );
-});
+    const renderApp = useCallback(() => {
+      if (!rootRef.current || !transpiled) return;
 
-// Optimized renderApp function
-export const renderApp = async ({
-  rootElement,
-  rRoot,
-  codeSpace,
-  transpiled,
-  App,
-}: IRenderApp): Promise<RenderedApp | null> => {
+      rootRef.current.render(
+        <ErrorBoundary>
+          <CacheProvider value={cssCache}>
+            <ParentSize>
+              {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+            </ParentSize>
+          </CacheProvider>
+        </ErrorBoundary>,
+      );
+    }, [transpiled, cssCache]);
+
+    useEffect(() => {
+      if (!containerRef.current || !transpiled) return;
+
+      if (!rootRef.current) {
+        rootRef.current = createRoot(containerRef.current);
+      }
+
+      renderApp();
+
+      return () => {
+        setTimeout(() => {
+          rootRef.current?.unmount();
+          rootRef.current = null;
+        }, 0);
+      };
+    }, [transpiled, renderApp]);
+
+    return (
+      <div
+        ref={containerRef}
+        css={css`width: 100%; height: 100%;`}
+        data-testid="wrapper-container"
+      />
+    );
+  },
+);
+
+// Main render function
+const renderApp = async (
+  { rootElement, rRoot, codeSpace, transpiled, App }: IRenderApp,
+): Promise<RenderedApp | null> => {
   try {
-    const rootEl = rootElement
-      || document.getElementById("root") as HTMLDivElement
-      || document.createElement("div");
-
+    const rootEl = rootElement || document.getElementById("root") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {
       rootEl.id = "root";
       document.body.appendChild(rootEl);
@@ -225,7 +181,6 @@ export const renderApp = async ({
     } else if (codeSpace) {
       AppToRender = (await import(`/live/${codeSpace}/index.js`)).default;
     } else {
-      // Provide a mock component for testing
       AppToRender = () => <div>Mock App for Testing</div>;
     }
 
@@ -248,13 +203,7 @@ export const renderApp = async ({
       </ErrorBoundary>,
     );
 
-    const renderedApp: RenderedApp = {
-      rootElement: rootEl,
-      rRoot: root,
-      App,
-      cssCache,
-      cleanup,
-    };
+    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup };
     renderedAPPS.set(rootEl, renderedApp);
 
     const observer = new MutationObserver((mutations) => {
@@ -272,4 +221,4 @@ export const renderApp = async ({
   }
 };
 
-export { useTranspile };
+export { md5, renderApp, renderedAPPS, useTranspile, Wrapper };
