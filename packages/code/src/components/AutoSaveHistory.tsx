@@ -69,7 +69,7 @@ export const CodeHistoryCarousel: React.FC<
     <FullScreenHistoryView
       history={history}
       onDelete={(timestamp: number) => onDelete && onDelete(timestamp)}
-      onRestore={(timestamp: number) => restoreVersion(item.timestamp)}
+      onRestore={(timestamp: number) => restoreVersion(timestamp)}
       onClose={() => onClose()}
     />
   );
