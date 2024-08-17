@@ -21,7 +21,7 @@
     "push": "cd ../../.. && yarn push",
     "lint": "eslint --ext .ts,.tsx src",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist dts && yarn types && NODE_ENV=production yarn tsx esbuild-dev.ts && cp -r dts/src/@/ dist/@/. ",
+    "build": "rm -rf dist dts && yarn types && yarn tsx esbuild-dev.ts && cp -r dts/src/@/ dist/@/. ",
     "sw": "echo ok"
   },
   "keywords": [
