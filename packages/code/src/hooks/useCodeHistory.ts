@@ -34,5 +34,5 @@ export const useCodeHistory = (codeSpace: string) => {
     fetchHistory();
   }, [fetchHistory]);
 
-  return { history, loading, error };
+  return { history, loading, error, refetch: fetchHistory };
 };
