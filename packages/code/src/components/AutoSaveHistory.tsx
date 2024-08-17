@@ -9,11 +9,13 @@ interface HistoryItem {
 export const CodeHistoryCarousel: React.FC<
   {
     codeSpace: string;
-    onRestore: (item: HistoryItem) => void;
+    onRestore: (timestamp: number) => void;
     onClose: () => void;
+    onDelete?: (timestamp: number) => void;
   }
 > = ({
   codeSpace,
+  onDelete,
   onRestore,
   onClose,
 }) => {
@@ -45,12 +47,12 @@ export const CodeHistoryCarousel: React.FC<
   }, [fetchHistory]);
 
   const restoreVersion = useCallback(
-    async (timestamp: number, code: string) => {
+    async (timestamp: number) => {
       try {
         const response = await fetch(`/live/${codeSpace}/auto-save/restore/${timestamp}`);
         if (!response.ok) throw new Error("Failed to restore version");
 
-        onRestore({ timestamp, code });
+        onRestore(timestamp);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : "An unknown error occurred",
@@ -66,7 +68,8 @@ export const CodeHistoryCarousel: React.FC<
   return (
     <FullScreenHistoryView
       history={history}
-      onRestore={(item: HistoryItem) => restoreVersion(item.timestamp, item.code)}
+      onDelete={(timestamp: number) => onDelete && onDelete(timestamp)}
+      onRestore={(timestamp: number) => restoreVersion(item.timestamp)}
       onClose={() => onClose()}
     />
   );
