@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Wrapper } from "@src/Wrapper";
 import { format } from "date-fns";
-import { on } from "events";
 import React from "react";
 
 // ScaledWrapper component
