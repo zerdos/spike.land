@@ -137,8 +137,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
                 <div className="bg-background rounded-lg shadow-lg w-11/12 h-5/6 max-w-6xl">
                   <CodeHistoryCarousel
                     onClose={() => setShowAutoSaveHistory(false)}
-                    onRestore={(item: { code: string }) => {
-                      handleCodeUpdate(item.code);
+                    onRestore={() => {
                       setShowAutoSaveHistory(false);
                     }}
                     codeSpace={codeSpace}
