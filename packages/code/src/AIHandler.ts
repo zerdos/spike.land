@@ -7,7 +7,11 @@ export class AIHandler {
   constructor(private codeSpace: string, aiService?: AIService) {
     this.codeSpace = codeSpace;
     const localStorageService = new LocalStorageService(this.codeSpace);
-    this.aiService = aiService || new AIService(localStorageService);
+    this.aiService = aiService || new AIService(localStorageService, {
+      anthropicEndpoint: "/api/anthropic",
+      openAIEndpoint: "/api/openai",
+      gpt4oEndpoint: "/api/openai",
+    });
   }
 
   async sendToAnthropic(
