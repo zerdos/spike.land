@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, Mocked, test, vi } from "vitest";
+import { ai } from "vitest/dist/chunks/reporters.C_zwCd4j";
 import { AIHandler } from "../AIHandler";
-import { AIService } from "../services/AIService";
+import { AIService, AIServiceConfig } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
 
@@ -9,14 +10,15 @@ vi.mock("../services/LocalStorageService");
 
 describe("AIHandler", () => {
   let aiHandler: AIHandler;
-  let mockAIService: Mocked<AIService>;
+  let mockAIService: AIService;
   const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
-    mockAIService = new AIService(
-      new LocalStorageService(testCodeSpace),
-    ) as Mocked<AIService>;
-    aiHandler = new AIHandler(testCodeSpace, mockAIService);
+    mockAIService = new AIService(new LocalStorageService(testCodeSpace), {
+      anthropicEndpoint: "https://api.anthropic.com",
+      openAIEndpoint: "https://api.openai.com",
+      gpt4oEndpoint: "https://api.gpt4o.com",
+    } as AIServiceConfig);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {

@@ -5,23 +5,32 @@ import { Message } from "../types/Message";
 import { LocalStorageService } from "./LocalStorageService";
 import { runner } from "./runner";
 
+interface AIModelResponse {
+  content: string;
+  id: string;
+}
+
+export interface AIServiceConfig {
+  gpt4oEndpoint: string;
+  anthropicEndpoint: string;
+  openAIEndpoint: string;
+}
+
 export class AIService {
   private localStorageService: LocalStorageService;
+  private config: AIServiceConfig;
 
-  constructor(localStorageService: LocalStorageService) {
+  constructor(localStorageService: LocalStorageService, config: AIServiceConfig) {
     this.localStorageService = localStorageService;
+    this.config = config;
   }
 
-  async sendToGpt4o(
-    messages: Message[],
-    onUpdate: (code: string) => void,
-  ): Promise<Message> {
-    const response = await fetch("/api/openai", {
+  private async makeAPICall(endpoint: string, messages: Message[]): Promise<Response> {
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "gpt-4o",
-        messages: messages.map((x) => ({ role: x.role, content: x.content })),
+        messages: messages.map(({ role, content }) => ({ role, content })),
       }),
     });
 
@@ -29,96 +38,66 @@ export class AIService {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const assistantMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "assistant",
-      content: "",
-    };
+    return response;
+  }
 
+  private async handleStreamingResponse(
+    response: Response,
+    onUpdate: (code: string) => void,
+  ): Promise<AIModelResponse> {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
-    let c = "";
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
 
+    let content = "";
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = decoder.decode(value);
-      c += chunk;
-      onUpdate(c);
+      content += chunk;
+      onUpdate(content);
     }
 
-    onUpdate(c);
+    return {
+      id: (Date.now() + 1).toString(),
+      content: content.trim(),
+    };
+  }
 
-    assistantMessage.content = c.trim();
+  private saveInteraction(userMessage: string | object, assistantMessage: string): void {
+    const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
+    this.localStorageService.saveAIInteraction(msgToSave, assistantMessage);
+  }
+
+  async sendToAI(
+    endpoint: string,
+    messages: Message[],
+    onUpdate: (code: string) => void,
+  ): Promise<Message> {
+    const response = await this.makeAPICall(endpoint, messages);
+    const result = await this.handleStreamingResponse(response, onUpdate);
+
+    const assistantMessage: Message = {
+      id: result.id,
+      role: "assistant",
+      content: result.content,
+    };
 
     const userMessage = messages[messages.length - 1].content;
-    const msgToSave = typeof userMessage === "string"
-      ? userMessage
-      : JSON.stringify(userMessage);
-    this.localStorageService.saveAIInteraction(
-      msgToSave,
-      assistantMessage.content,
-    );
+    this.saveInteraction(userMessage, assistantMessage.content);
 
     return assistantMessage;
   }
 
-  async sendToAnthropic(
-    messages: Message[],
-    onUpdate: (code: string) => void,
-  ): Promise<Message> {
-    const response = await fetch("/api/anthropic", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        messages: messages.map((x) => ({ role: x.role, content: x.content })),
-      }),
-    });
+  async sendToGpt4o(messages: Message[], onUpdate: (code: string) => void): Promise<Message> {
+    return this.sendToAI(this.config.gpt4oEndpoint, messages, onUpdate);
+  }
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const assistantMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "assistant",
-      content: "",
-    };
-
-    const reader = response.body?.getReader();
-    const decoder = new TextDecoder();
-
-    let c = "";
-    if (!reader) {
-      throw new Error("Response body is not readable!");
-    }
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value);
-      c += chunk;
-      onUpdate(c);
-    }
-
-    onUpdate(c);
-
-    assistantMessage.content = c.trim();
-
-    const userMessage = messages[messages.length - 1].content;
-    const msgToSave = typeof userMessage === "string"
-      ? userMessage
-      : JSON.stringify(userMessage);
-    this.localStorageService.saveAIInteraction(
-      msgToSave,
-      assistantMessage.content,
-    );
-
-    return assistantMessage;
+  async sendToAnthropic(messages: Message[], onUpdate: (code: string) => void): Promise<Message> {
+    return this.sendToAI(this.config.anthropicEndpoint, messages, onUpdate);
   }
 
   async continueWithOpenAI(
@@ -130,140 +109,72 @@ export class AIService {
   ): Promise<string | void> {
     console.log(fullResponse);
 
-    let code = "";
-    const responseOpenAI = await fetch("/api/openai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [{
-          "role": "system",
-          "content": gptSystem,
-        }, {
-          "role": "user",
-          "content": codeNow + `
-            **** instructions ****
-          ` + fullResponse,
-        }],
-      }),
-    });
-
-    if (!responseOpenAI.ok) {
-      throw new Error(`HTTP error! status: ${responseOpenAI.status}`);
-    }
-
-    const reader = responseOpenAI.body?.getReader();
-    const decoder = new TextDecoder();
-
-    if (!reader) {
-      throw new Error("Response body is not readable!");
-    }
+    const messages = [
+      { role: "system" as const, content: gptSystem },
+      { role: "user" as const, content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
+    ];
 
     const debouncedSetMessages = debounce((newCode: string) => {
-      setMessages((prevMessages) => {
-        const lastMessage = prevMessages[prevMessages.length - 1];
-        const updatedLastMessage = {
-          ...lastMessage,
-          content: fullResponse + `\n` + newCode,
-        };
-        return [...prevMessages.slice(0, -1), updatedLastMessage];
-      });
+      setMessages((prevMessages) => [
+        ...prevMessages.slice(0, -1),
+        { ...prevMessages[prevMessages.length - 1], content: `${fullResponse}\n${newCode}` },
+      ]);
     }, 100);
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
+    try {
+      const response = await this.sendToAI(this.config.openAIEndpoint, messages, debouncedSetMessages);
+      const modifiedCode = this.extractCodeFromResponse(response.content);
+      const prettyCode = await this.formatAndRunCode(modifiedCode);
+      setAICode(prettyCode);
+      return prettyCode;
+    } catch (error) {
+      console.error("Error in AI code processing:", error);
+      if (!isRetry) {
+        return this.retryWithClaude(fullResponse, codeNow, error, setMessages, setAICode);
       }
-
-      const chunk = decoder.decode(value);
-      code += chunk;
-
-      debouncedSetMessages(code);
     }
+  }
 
-    this.localStorageService.saveAIInteraction(fullResponse, code);
-
+  private extractCodeFromResponse(response: string): string {
     const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
-    const matches = code.match(codeModificationRegex);
-
-    if (matches) {
-      const modifiedCode = matches[matches.length - 1].replace(
-        /```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g,
-        "",
-      );
-
-      try {
-        console.log("modifiedCode", modifiedCode);
-
-        const prettyCode = await prettierToThrow({
-          code: modifiedCode,
-          toThrow: true,
-        });
-
-        if (await runner(prettyCode) === false) {
-          throw new Error("Error in runner");
-        }
-        setAICode(prettyCode);
-
-        return prettyCode;
-      } catch (error) {
-        console.error("Error AI code with prettier:", error);
-
-        if (!isRetry) {
-          console.log("asking for help, from Claude");
-          const errorTextWithAllTheCode = { error }.toString();
-          const message: Message = {
-            "id": (Date.now() + 1).toString(),
-            "role": "user",
-            "content": `
-            ${codeNow} 
-            
-            **** instructions ****  
-            ${fullResponse}
-
-
-            ***** result *****
-
-            ${modifiedCode}
-
-            **** error ****
-
-            ${errorTextWithAllTheCode}
-
-            Could you help me with this error? I'm stuck.
-            `,
-          };
-
-          setMessages((prevMessages) => [...prevMessages, message]);
-
-          const prevMessages = this.localStorageService.loadMessages();
-
-          const answer = await this.sendToAnthropic(
-            [...prevMessages, message],
-            debouncedSetMessages,
-          );
-          setMessages((prevMessages) => [...prevMessages, answer]);
-
-          const answerContent = answer.content;
-          const msgToSend = typeof answerContent === "string"
-            ? answerContent
-            : JSON.stringify(answerContent);
-
-          await this.continueWithOpenAI(
-            msgToSend,
-            modifiedCode,
-            setMessages,
-            setAICode,
-            true,
-          );
-        } else {
-          console.error("Error in runner:", error);
-        }
-      }
+    const matches = response.match(codeModificationRegex);
+    if (!matches) {
+      throw new Error("No code block found in the response");
     }
+    return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
+  }
+
+  private async formatAndRunCode(code: string): Promise<string> {
+    const prettyCode = await prettierToThrow({ code, toThrow: true });
+    if (await runner(prettyCode) === false) {
+      throw new Error("Error in runner");
+    }
+    return prettyCode;
+  }
+
+  private async retryWithClaude(
+    fullResponse: string,
+    codeNow: string,
+    error: Error,
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setAICode: (code: string) => void,
+  ): Promise<string | void> {
+    console.log("asking for help from Claude");
+    const message: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "user",
+      content:
+        `${codeNow}\n**** instructions ****\n${fullResponse}\n**** error ****\n${error.toString()}\nCould you help me with this error? I'm stuck.`,
+    };
+
+    setMessages((prevMessages) => [...prevMessages, message]);
+    const prevMessages = this.localStorageService.loadMessages();
+    const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
+      setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
+    });
+    setMessages((prevMessages) => [...prevMessages, answer]);
+
+    return this.continueWithOpenAI(answer.content, codeNow, setMessages, setAICode, true);
   }
 
   prepareClaudeContent(
@@ -272,16 +183,12 @@ export class AIService {
     codeNow: string,
     codeSpace: string,
   ): string {
-    if (
-      messages.length == 0 || codeNow !== messages[messages.length - 1]?.content
-    ) {
-      return anthropic(
-        {
-          fileName: codeSpace,
-          fileContent: codeNow,
-          userPrompt: content,
-        },
-      );
+    if (messages.length === 0 || codeNow !== messages[messages.length - 1]?.content) {
+      return anthropic({
+        fileName: codeSpace,
+        fileContent: codeNow,
+        userPrompt: content,
+      });
     } else {
       return reminder({ userPrompt: content });
     }
