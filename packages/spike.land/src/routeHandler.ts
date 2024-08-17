@@ -150,10 +150,16 @@ export class RouteHandler {
     const history = await this.code.getAutoSaveHistory();
 
     const now = Date.now();
+    const lastHour = now - 1000 * 60 * 60;
+    const last2days = now - 1000 * 60 * 60 * 24 * 2;
 
     const uniqueHistory = history.map(x => ({
       ...x,
-      timestamp: Math.floor(x.timestamp / 1000) * 1000,
+      timestamp: x.timestamp > lastHour
+        ? x.timestamp
+        : x.timestamp > last2days
+        ? Math.floor(x.timestamp / 1000) * 1000
+        : Math.floor(x.timestamp / 10000) * 10000,
     })).reduce((acc, snapshot) => {
       const existingSnapshot = acc.find(
         (s) => s.timestamp === snapshot.timestamp,
