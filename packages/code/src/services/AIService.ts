@@ -1,4 +1,4 @@
-import debounce from "lodash.debounce";
+import { debounce } from "es-toolkit";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";

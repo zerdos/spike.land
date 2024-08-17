@@ -4869,6 +4869,7 @@ __metadata:
     detective-typescript: "npm:13.0.0"
     dprint: "npm:^0.47.2"
     embla-carousel-react: "npm:^8.1.8"
+    es-toolkit: "npm:^1.16.0"
     esbuild: "npm:^0.23.1"
     esbuild-plugin-copy: "npm:^2.1.1"
     esbuild-plugin-replace: "npm:^1.4.0"
@@ -4886,8 +4887,6 @@ __metadata:
     input-otp: "npm:^1.2.4"
     jest-environment-jsdom: "npm:^29.7.0"
     jsdom: "npm:^24.1.1"
-    lodash: "npm:^4.17.21"
-    lodash.debounce: "npm:4.0.8"
     lucide-react: "npm:^0.428.0"
     miniflare: "npm:^3.20240806.1"
     module: "npm:1.2.5"
@@ -9019,6 +9018,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-toolkit@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "es-toolkit@npm:1.16.0"
+  checksum: 10/5508ab06ad2a3026507f39224ae1213e2adfd1f61234ee081347f8f187c8dfb85d0ad529c9e4398c614325af7488cc9d69517203a1a487364402158a3716196a
+  languageName: node
+  linkType: hard
+
 "es6-object-assign@npm:^1.1.0":
   version: 1.1.0
   resolution: "es6-object-assign@npm:1.1.0"
@@ -12883,13 +12889,6 @@ __metadata:
   version: 4.2.0
   resolution: "lodash.assigninwith@npm:4.2.0"
   checksum: 10/f86cb6651d5f2529a06f2609801ba03977e97a0720954f754ba64a9f22629554aa77d46638e3d29808157242053f40bb70686092f187b896dc482b342724aed3
-  languageName: node
-  linkType: hard
-
-"lodash.debounce@npm:4.0.8":
-  version: 4.0.8
-  resolution: "lodash.debounce@npm:4.0.8"
-  checksum: 10/cd0b2819786e6e80cb9f5cda26b1a8fc073daaf04e48d4cb462fa4663ec9adb3a5387aa22d7129e48eed1afa05b482e2a6b79bfc99b86886364449500cbb00fd
   languageName: node
   linkType: hard
 

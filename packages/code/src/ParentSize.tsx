@@ -1,4 +1,4 @@
-import debounce from "lodash.debounce";
+import { debounce } from "es-toolkit";
 import React, { useEffect, useMemo, useRef, useState } from "./reactMod";
 
 export type ParentSizeProps = {

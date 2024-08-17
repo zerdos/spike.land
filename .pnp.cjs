@@ -6173,6 +6173,7 @@ const RAW_RUNTIME_STATE =
           ["detective-typescript", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:13.0.0"],\
           ["dprint", "npm:0.47.2"],\
           ["embla-carousel-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.1.8"],\
+          ["es-toolkit", "npm:1.16.0"],\
           ["esbuild", "npm:0.23.1"],\
           ["esbuild-plugin-copy", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.1.1"],\
           ["esbuild-plugin-replace", "npm:1.4.0"],\
@@ -6190,8 +6191,6 @@ const RAW_RUNTIME_STATE =
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
           ["jest-environment-jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
           ["jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:24.1.1"],\
-          ["lodash", "npm:4.17.21"],\
-          ["lodash.debounce", "npm:4.0.8"],\
           ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.428.0"],\
           ["miniflare", "npm:3.20240806.1"],\
           ["module", "npm:1.2.5"],\
@@ -11311,6 +11310,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["es-toolkit", [\
+      ["npm:1.16.0", {\
+        "packageLocation": "./.yarn/global/cache/es-toolkit-npm-1.16.0-a0437a93eb-10.zip/node_modules/es-toolkit/",\
+        "packageDependencies": [\
+          ["es-toolkit", "npm:1.16.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["es6-object-assign", [\
       ["npm:1.1.0", {\
         "packageLocation": "./.yarn/global/cache/es6-object-assign-npm-1.1.0-0565318480-10.zip/node_modules/es6-object-assign/",\
@@ -15521,15 +15529,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/lodash.assigninwith-npm-4.2.0-e106ce61a0-10.zip/node_modules/lodash.assigninwith/",\
         "packageDependencies": [\
           ["lodash.assigninwith", "npm:4.2.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["lodash.debounce", [\
-      ["npm:4.0.8", {\
-        "packageLocation": "./.yarn/global/cache/lodash.debounce-npm-4.0.8-f1d6e09799-10.zip/node_modules/lodash.debounce/",\
-        "packageDependencies": [\
-          ["lodash.debounce", "npm:4.0.8"]\
         ],\
         "linkType": "HARD"\
       }]\

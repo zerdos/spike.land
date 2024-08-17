@@ -1,4 +1,4 @@
-import debounce from "lodash/debounce";
+import { debounce } from "es-toolkit";
 import { useCallback, useState } from "react";
 
 export const useErrorHandling = (engine: string) => {

@@ -1,7 +1,7 @@
 import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
 import { Mutex } from "async-mutex";
-import debounce from "lodash/debounce";
+import { debounce } from "es-toolkit";
 import { useCallback } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
