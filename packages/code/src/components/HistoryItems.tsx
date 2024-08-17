@@ -16,7 +16,7 @@ const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => 
     null,
   );
 
-  const deleteHistoryItem = async (timestamp: string) => {
+  const deleteHistoryItem = async (timestamp: number) => {
     setDeleteStatus({ type: "loading", message: "Deleting history item..." });
     try {
       const response = await fetch(`/live/${codeSpace}/auto-save/history/delete/${timestamp}`, {
