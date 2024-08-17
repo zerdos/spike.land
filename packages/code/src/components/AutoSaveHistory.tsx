@@ -13,11 +13,9 @@ export const CodeHistoryCarousel: React.FC<
     codeSpace: string;
     onRestore: (timestamp: number) => void;
     onClose: () => void;
-    onDelete?: (timestamp: number) => void;
   }
 > = ({
   codeSpace,
-  onDelete,
   onRestore,
   onClose,
 }) => {
