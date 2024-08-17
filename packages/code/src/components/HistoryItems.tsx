@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { runner } from "@src/services/runner";
+import { prettierToThrow } from "@src/shared";
 import { format } from "date-fns";
 import React, { useState } from "react";
 import { useCodeHistory } from "../hooks/useCodeHistory";
@@ -77,7 +79,16 @@ const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => 
                         <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto"><code>{item.code}</code></pre>
                       </DialogContent>
                     </Dialog>
-                    <Button onClick={() => restoreVersion(item.timestamp)}>Restore</Button>
+                    <Button
+                      onClick={async () => {
+                        const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
+
+                        await runner(formattedCode);
+                        restoreVersion(item.timestamp);
+                      }}
+                    >
+                      Restore
+                    </Button>
                     <Button variant="destructive" onClick={() => deleteHistoryItem(item.timestamp)}>Delete</Button>
                   </div>
                 </CardContent>

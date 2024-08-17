@@ -46,7 +46,7 @@ export const CodeHistoryCarousel: React.FC<
     fetchHistory();
   }, [fetchHistory]);
 
-  const restoreVersion = useCallback(
+  useCallback(
     async (timestamp: number) => {
       try {
         const response = await fetch(`/live/${codeSpace}/auto-save/restore/${timestamp}`);
