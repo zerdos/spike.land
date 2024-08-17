@@ -171,7 +171,7 @@ export class RouteHandler {
       }
       return acc;
     }, [] as typeof history);
-
+    this.code.setAutoSaveHistory(uniqueHistory);
     return uniqueHistory;
   }
   private async getAutoSaveHistory(): Promise<Response> {
