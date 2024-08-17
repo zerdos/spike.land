@@ -2,6 +2,8 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { runner } from "@src/services/runner";
+import { prettierToThrow } from "@src/shared";
 import { Wrapper } from "@src/Wrapper";
 import { format } from "date-fns";
 import React from "react";
@@ -111,7 +113,16 @@ const FullScreenHistoryView: React.FC<{
             index={index}
             totalItems={history.length}
             onDelete={() => onDelete(item.timestamp)}
-            onRestore={() => onRestore(item.timestamp)}
+            onRestore={async () => {
+              try {
+                const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
+                await runner(formattedCode);
+              } catch (error) {
+                console.error(error);
+              } finally {
+                onRestore(item.timestamp);
+              }
+            }}
           />
         ))}
       </div>

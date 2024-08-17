@@ -1,7 +1,7 @@
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { transpile } from "@src/shared";
 
-const getCssStr = (html: string) => html.split("\"css-").slice(1).map((x) => x.slice(0, 7)).join("");
+// const getCssStr = (html: string) => html.split("\"css-").slice(1).map((x) => x.slice(0, 7)).join("");
 
 const codeSpace = useCodeSpace();
 
@@ -29,7 +29,7 @@ BC.onmessage = ({ data }) => {
   mod.controller = new AbortController();
   mod.css = data.css;
   mod.html = data.html;
-  mod.cssIds = getCssStr(data.html);
+  // mod.cssIds = getCssStr(data.html);
   // } else {
   // mod.i = data.i;
   // }
