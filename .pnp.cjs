@@ -13102,10 +13102,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["hono", [\
-      ["npm:4.5.5", {\
-        "packageLocation": "./.yarn/global/cache/hono-npm-4.5.5-b1d0f4f9c1-10.zip/node_modules/hono/",\
+      ["npm:4.5.6", {\
+        "packageLocation": "./.yarn/global/cache/hono-npm-4.5.6-01e2e6ed02-10.zip/node_modules/hono/",\
         "packageDependencies": [\
-          ["hono", "npm:4.5.5"]\
+          ["hono", "npm:4.5.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16580,7 +16580,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["my-api", "workspace:packages/my-api"],\
           ["@cloudflare/workers-types", "npm:4.20240815.0"],\
-          ["hono", "npm:4.5.5"],\
+          ["hono", "npm:4.5.6"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.72.0"]\
         ],\
         "linkType": "SOFT"\
