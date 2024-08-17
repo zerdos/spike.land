@@ -98,15 +98,15 @@ export class RouteHandler {
           return this.getAutoSaveHistory();
 
         case "restore": {
-          const body = await request.json<{ timestamp?: number }>();
-          if (!body || typeof body.timestamp !== "number") {
-            return new Response(
-              "Invalid request body. Expected { timestamp: number }",
-              { status: 400 },
-            );
-          }
+          const restoreTimestamp = Number(path[2]);
 
-          const success = await this.code.restoreFromAutoSave(body.timestamp);
+          if (!restoreTimestamp || !isNaN(restoreTimestamp)) {
+            return new Response("Failed to restore code.", {
+              status: 500,
+            });
+          }
+          const success = await this.code.restoreFromAutoSave(restoreTimestamp);
+
           if (success) {
             return new Response("Code restored successfully", { status: 200 });
           } else {

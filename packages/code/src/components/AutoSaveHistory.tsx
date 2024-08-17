@@ -47,11 +47,7 @@ export const CodeHistoryCarousel: React.FC<
   const restoreVersion = useCallback(
     async (timestamp: number, code: string) => {
       try {
-        const response = await fetch(`/live/${codeSpace}/auto-save/restore`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ timestamp }),
-        });
+        const response = await fetch(`/live/${codeSpace}/auto-save/restore/${timestamp}`);
         if (!response.ok) throw new Error("Failed to restore version");
 
         onRestore({ timestamp, code });
