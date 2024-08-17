@@ -129,7 +129,20 @@ export class RouteHandler {
   private async getAutoSaveHistory(): Promise<Response> {
     try {
       const history = await this.code.getAutoSaveHistory();
-      return new Response(JSON.stringify(history), {
+
+      const uniqueHistory = history.reduce((acc, snapshot) => {
+        const existingSnapshot = acc.find(
+          (s) => s.timestamp === snapshot.timestamp,
+        );
+        if (existingSnapshot) {
+          existingSnapshot.count++;
+        } else {
+          acc.push({ ...snapshot, count: 1 });
+        }
+        return acc;
+      }, [] as { timestamp: number; count: number }[]);
+
+      return new Response(JSON.stringify(uniqueHistory), {
         status: 200,
         headers: {
           "Content-Type": "application/json",
