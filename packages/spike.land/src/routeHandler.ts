@@ -85,16 +85,17 @@ export class RouteHandler {
           if (subAction === "delete") {
             const itemToDelete = path[3];
             const uniqueHistory = await this.getUniqueHistory();
-            const snapshotToSave = uniqueHistory.find(
+            const snapshotToSave = uniqueHistory.filter(
               (s) => s.timestamp !== Number(itemToDelete),
             );
 
-            this.code.getAutoSaveHistory();
+            this.code.setAutoSaveHistory(snapshotToSave);
+            return new Response("Auto-save history item deleted", {
+              status: 200,
+            });
           }
 
-          if (request.method !== "GET") {
-            return this.getAutoSaveHistory();
-          }
+          return this.getAutoSaveHistory();
 
         case "restore": {
           const body = await request.json<{ timestamp?: number }>();
