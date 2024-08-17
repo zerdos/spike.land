@@ -81,10 +81,14 @@ const CodeHistoryCarousel: React.FC<{ codeSpace: string }> = ({ codeSpace }) => 
                     </Dialog>
                     <Button
                       onClick={async () => {
-                        const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
-
-                        await runner(formattedCode);
-                        restoreVersion(item.timestamp);
+                        try {
+                          const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
+                          await runner(formattedCode);
+                        } catch (error) {
+                          console.error(error);
+                        } finally {
+                          restoreVersion(item.timestamp);
+                        }
                       }}
                     >
                       Restore
