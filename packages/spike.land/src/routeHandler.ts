@@ -436,7 +436,7 @@ export class RouteHandler {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
     return fetch(
-      `https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/&sleep=4000`,
+      `https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/embed`,
     );
   }
 
