@@ -3,7 +3,6 @@ import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot, type Root } from "react-dom/client";
-import { AppRenderer, createJsBlob } from "./components/AppRenderer";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { transpile } from "./shared";
 
