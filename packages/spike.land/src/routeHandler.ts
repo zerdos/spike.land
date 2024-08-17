@@ -154,24 +154,33 @@ export class RouteHandler {
     const lastHour = now - 1000 * 60 * 60;
     const last2days = now - 1000 * 60 * 60 * 24 * 2;
 
-    const uniqueHistory = history.map(x => ({
-      ...x,
-      timestamp: x.timestamp > lastHour
-        ? x.timestamp
-        : x.timestamp > last2days
-        ? Math.floor(x.timestamp / 1000) * 1000
-        : Math.floor(x.timestamp / 10000) * 10000,
-    })).reduce((acc, snapshot) => {
-      const existingSnapshot = acc.find(
-        (s) => s.timestamp === snapshot.timestamp,
-      );
-      if (existingSnapshot) {
-        // existingSnapshot.count++;
-      } else {
-        acc.push({ ...snapshot });
+    const uniqueMap = new Map<number, AutoSaveEntry>();
+
+    for (const entry of history) {
+      let timestamp = entry.timestamp;
+
+      if (timestamp <= lastHour) {
+        if (timestamp > last2days) {
+          timestamp = Math.floor(timestamp / 1000) * 1000;
+        } else {
+          timestamp = Math.floor(timestamp / 10000) * 10000;
+        }
       }
-      return acc;
-    }, [] as typeof history);
+
+      // If this timestamp doesn't exist in the map, or if this entry is more recent,
+      // update the map
+      if (
+        !uniqueMap.has(timestamp) || entry.timestamp > uniqueMap.get(timestamp)!.timestamp
+      ) {
+        uniqueMap.set(timestamp, { ...entry, timestamp });
+      }
+    }
+
+    const uniqueHistory = Array.from(uniqueMap.values());
+
+    // Sort the history in descending order (most recent first)
+    uniqueHistory.sort((a, b) => b.timestamp - a.timestamp);
+
     this.code.setAutoSaveHistory(uniqueHistory);
     return uniqueHistory;
   }
