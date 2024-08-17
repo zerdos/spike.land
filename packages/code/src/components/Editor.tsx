@@ -2,8 +2,9 @@ import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Rnd } from "react-rnd";
+import { getLatestSavedData, useAutoSave } from "../hooks/autoSave";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import {
   formatCode,
@@ -36,6 +37,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   } = useEditorState();
 
   const { errorType, setErrorType } = useErrorHandling();
+  const [currentCode, setCurrentCode] = useState("");
 
   const mod = useRef({
     i: 0,
@@ -45,11 +47,20 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     controller: new AbortController(),
   });
 
+  // Use the new auto-save hook
+  useAutoSave({
+    key: `editor_${codeSpace}`,
+    data: { code: currentCode, i: mod.current.i },
+    debounceMs: 60000, // Adjust as needed
+  });
+
   const handleContentChange = async (newCode: string) => {
     console.log("Content change", mod.current.i, md5(newCode));
 
     if (newCode.includes("/** invalid")) return;
     if (mod.current.code === newCode) return;
+
+    setCurrentCode(newCode); // Update the current code for auto-save
 
     console.log("before prettier");
     mod.current.controller.abort();
@@ -93,6 +104,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
         if (mod.current.code === formattedCode) return;
         mod.current.code = formattedCode;
+        setCurrentCode(formattedCode); // Update the current code for auto-save
 
         await runner(formattedCode, mod.current.i);
 
@@ -107,8 +119,17 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     if (editorState.started) return;
 
     const initializeEditor = async () => {
-      mod.current.i = Number(globalThis.cSess.session.i);
-      mod.current.code = globalThis.cSess.session.code;
+      // Load the latest saved data
+      const latestData = await getLatestSavedData(`editor_${codeSpace}`);
+      if (latestData) {
+        mod.current.i = latestData.i;
+        mod.current.code = latestData.code;
+        setCurrentCode(latestData.code);
+      } else {
+        mod.current.i = Number(globalThis.cSess.session.i);
+        mod.current.code = globalThis.cSess.session.code;
+        setCurrentCode(globalThis.cSess.session.code);
+      }
 
       if (!containerRef || !containerRef.current) return;
 
@@ -139,6 +160,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       const { signal } = mod.current.controller;
 
       mod.current.code = data.code;
+      setCurrentCode(data.code); // Update the current code for auto-save
 
       console.log("delaying setting Editor", data.i);
 

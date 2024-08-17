@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
 import { TextDecoder, TextEncoder } from "text-encoding";
-import { vi } from "vitest";
+import { Mock, vi } from "vitest";
 
 // Add type definitions for ResizeObserver
 declare global {
   interface Global {
-    ResizeObserver: jest.Mock;
+    ResizeObserver: Mock;
   }
 
   var TextEncoder: typeof TextEncoder;
