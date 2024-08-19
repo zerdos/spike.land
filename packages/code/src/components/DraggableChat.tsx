@@ -1,7 +1,7 @@
+import { IoClose } from "@/external/icons";
 import { motion } from "framer-motion";
 import { Resizable } from "re-resizable";
 import { FC, useState } from "react";
-import { IoClose } from "react-icons/io5";
 
 interface DraggableChatProps {
   onClose: () => void;

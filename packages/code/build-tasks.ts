@@ -177,6 +177,7 @@ export async function buildMainBundle(wasmFile) {
       "src/@/external/reactSyntaxHighlighter.ts",
       "src/@/external/reactSyntaxHighlighterPrism.ts",
       "src/@/external/CodeBlock.tsx",
+      "src/@/external/icons.ts",
     ],
   });
 
@@ -263,6 +264,7 @@ export async function buildMainBundle(wasmFile) {
       "@/external/monacoEditor": "/@/external/monacoEditor.mjs",
       "@/external/lucideReact": "/@/external/lucideReact.mjs",
       "@/external/CodeBlock": "/@/external/CodeBlock.mjs",
+      "@/external/icons": "/@/external/icons.mjs",
 
       "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
       ...extraAliases,
@@ -281,7 +283,7 @@ export async function buildMainBundle(wasmFile) {
       "/@/external/reactSyntaxHighlighter.mjs",
       "/@/external/lucideReact.mjs",
       "/@/external/CodeBlock.mjs",
-
+      "/@/external/icons.mjs",
       ...(components.map((component) => `/@/components/ui/${component}.mjs`)),
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
