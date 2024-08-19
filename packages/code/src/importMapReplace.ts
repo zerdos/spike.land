@@ -61,9 +61,9 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName.startsWith(".") || packageName.startsWith("http")) {
       if (packageName.startsWith("http") && !packageName.startsWith(origin)) {
         const oldUrl = new URL(packageName);
-        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?exports=");
+        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
         if (exports) {
-          return p1 + `"${origin}/*${pkgName}?exports=${exports}"` + p3;
+          return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
