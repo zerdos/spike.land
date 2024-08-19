@@ -204,7 +204,7 @@ export async function buildMainBundle(wasmFile) {
     target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
-    drop: isProduction ? ["console", "debugger"] : [],
+    //   drop: isProduction ? ["console", "debugger"] : [],
     platform: "browser",
     ignoreAnnotations: true,
     plugins: [
