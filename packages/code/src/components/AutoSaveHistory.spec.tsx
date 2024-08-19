@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import AutoSaveHistory from "./AutoSaveHistory";
+import { CodeHistoryCarousel } from "./AutoSaveHistory";
 
 // Mock the useVirtualizer hook
 vi.mock("@tanstack/react-virtual", () => ({
@@ -15,7 +15,7 @@ vi.mock("@tanstack/react-virtual", () => ({
   }),
 }));
 
-describe("AutoSaveHistory", () => {
+describe("CodeHistoryCarousel", () => {
   (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
     editor: {
       createDiffEditor: vi.fn().mockReturnValue({
@@ -47,7 +47,7 @@ describe("AutoSaveHistory", () => {
 
   it("calls onRestore when restore button is clicked", async () => {
     render(
-      <AutoSaveHistory
+      <CodeHistoryCarousel
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}
@@ -68,7 +68,7 @@ describe("AutoSaveHistory", () => {
 
   it("calls onClose when close button is clicked", async () => {
     render(
-      <AutoSaveHistory
+      <CodeHistoryCarousel
         codeSpace="test"
         onRestore={mockOnRestore}
         onClose={mockOnClose}

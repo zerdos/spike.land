@@ -28,16 +28,16 @@ const ScaledWrapper = ({ code, scale }: { code: string; scale: number }) => (
   </div>
 );
 
-interface Item {
+interface HistoryItem {
   timestamp: number;
   code: string;
 }
 
 interface HistoryItemProps {
-  item: Item;
+  item: HistoryItem;
   index: number;
   totalItems: number;
-  onRestore: (timestamp: number) => void;
+  onRestore: (item: HistoryItem) => void;
   onDelete: (timestamp: number) => void;
 }
 
@@ -72,7 +72,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
             </pre>
           </DialogContent>
         </Dialog>
-        <Button onClick={() => onRestore(item.timestamp)}>Restore</Button>
+        <Button onClick={() => onRestore(item)}>Restore</Button>
         <Button variant="destructive" onClick={() => onDelete(item.timestamp)}>Delete</Button>
       </div>
     </CardContent>
@@ -95,8 +95,8 @@ const RestoreStatusAlert = ({ status }: { status: any }) => (
 
 // FullScreenHistoryView component
 const FullScreenHistoryView: React.FC<{
-  history: Item[];
-  onRestore: (timestamp: number) => void;
+  history: HistoryItem[];
+  onRestore: (item: HistoryItem) => void;
   onClose: () => void;
   onDelete: (timestamp: number) => void;
 }> = ({ history, onRestore, onClose, onDelete }) => (
@@ -129,7 +129,7 @@ const FullScreenHistoryView: React.FC<{
               } catch (error) {
                 console.error(error);
               } finally {
-                onRestore(item.timestamp);
+                onRestore(item);
               }
             }}
           />
