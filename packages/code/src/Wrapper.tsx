@@ -190,11 +190,12 @@ const renderApp = async (
   { rootElement, rRoot, codeSpace, transpiled, App }: IRenderApp,
 ): Promise<RenderedApp | null> => {
   try {
-    const rootEl = rootElement || document.getElementById("root") as HTMLDivElement || document.createElement("div");
+    const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {
       rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
+    rootEl.id = "root";
 
     if (renderedAPPS.has(rootEl)) {
       console.warn("Cleaning up existing app before rendering new one.");

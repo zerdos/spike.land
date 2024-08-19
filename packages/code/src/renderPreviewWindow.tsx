@@ -9,6 +9,7 @@ export const renderPreviewWindow = async (
 ) => {
   if (singleton.started) return;
   singleton.started = true;
+  document.getElementById("embed")!.id = "root";
 
   const rootEl = document.createElement("div");
 

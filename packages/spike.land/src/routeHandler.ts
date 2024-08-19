@@ -354,7 +354,7 @@ export class RouteHandler {
       `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
     ).replace(
       "<div id=\"root\"></div>",
-      `<div id="root">${html}</div>`,
+      `<div id="embed">${html}</div>`,
     );
 
     const headers = new Headers({
