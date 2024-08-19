@@ -218,7 +218,7 @@ describe("importMapReplace", () => {
   it("should do clever top-level exports", async () => {
     const code = `import { prop, prop2 } from "foo";`;
     const result = importMapReplace(code, origin);
-    expect(result).toContain(`"${origin}/*foo?exports=prop,prop2"`);
+    expect(result).toContain(`"${origin}/*foo?bundle=true&exports=prop,prop2"`);
   });
 
   it("should handle specific exports", async () => {
