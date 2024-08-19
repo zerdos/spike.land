@@ -39,7 +39,10 @@ export const runner = async (code: string, counter = 0) => {
   console.log("Running code", counter);
 
   const formattedCode = code;
-  if (code === cSess.session.code) return true;
+  if (code === cSess.session.code) {
+    console.log("Code is same as last run");
+    return true;
+  }
   console.log("Running code", counter);
 
   if (counter === 0) counter = mod.i + 3;
