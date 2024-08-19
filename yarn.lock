@@ -4519,7 +4519,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.4.0"
+    "@types/node": "npm:22.4.1"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
@@ -4561,7 +4561,7 @@ __metadata:
     "@remix-run/cloudflare": "npm:^2.11.2"
     "@remix-run/react": "npm:^2.11.2"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:22.4.0"
+    "@types/node": "npm:22.4.1"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.23.1"
@@ -4638,7 +4638,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/lodash": "npm:^4.17.7"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/node": "npm:^22.4.0"
+    "@types/node": "npm:^22.4.1"
     "@types/react": "npm:18.3.3"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
@@ -4773,7 +4773,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.4.0"
+    "@types/node": "npm:22.4.1"
     esbuild-wasm: "npm:0.23.1"
   languageName: unknown
   linkType: soft
@@ -5384,12 +5384,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.4.0, @types/node@npm:^22.1.0, @types/node@npm:^22.4.0":
+"@types/node@npm:*, @types/node@npm:^22.1.0":
   version: 22.4.0
   resolution: "@types/node@npm:22.4.0"
   dependencies:
     undici-types: "npm:~6.19.2"
   checksum: 10/0b6ccc86856b8473f4d536491edc2ba21386d194219ee84024ef2b2ab054296f0b37a4f52719af797227132853cff065977992e353754a195cd86aea2e128cc7
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:22.4.1, @types/node@npm:^22.4.1":
+  version: 22.4.1
+  resolution: "@types/node@npm:22.4.1"
+  dependencies:
+    undici-types: "npm:~6.19.2"
+  checksum: 10/cce9221aea24688bccc3d7c25afd26d95c1bdab73a32ee5c43bb456e070116abf6ba537a9ff19c728bc06fe054e69a2c7ec8e5d818e34a3bf9567eae2cb20059
   languageName: node
   linkType: hard
 

@@ -5830,7 +5830,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/ai-devtools/",\
         "packageDependencies": [\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
-          ["@types/node", "npm:22.4.0"],\
+          ["@types/node", "npm:22.4.1"],\
           ["body-parser", "npm:1.20.2"],\
           ["commander", "npm:12.1.0"],\
           ["dotenv", "npm:16.4.5"],\
@@ -5925,7 +5925,7 @@ const RAW_RUNTIME_STATE =
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/lodash", "npm:4.17.7"],\
           ["@types/lodash.debounce", "npm:4.0.9"],\
-          ["@types/node", "npm:22.4.0"],\
+          ["@types/node", "npm:22.4.1"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["@types/react-syntax-highlighter", "npm:15.5.13"],\
@@ -6062,7 +6062,7 @@ const RAW_RUNTIME_STATE =
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
           ["@remix-run/react", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
           ["@spike-land/code", "workspace:packages/code"],\
-          ["@types/node", "npm:22.4.0"],\
+          ["@types/node", "npm:22.4.1"],\
           ["async-mutex", "npm:0.5.0"],\
           ["avl", "npm:1.5.3"],\
           ["esbuild-wasm", "npm:0.23.1"],\
@@ -6094,7 +6094,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/devcontainer-generator/",\
         "packageDependencies": [\
           ["@spike-land/devcontainer-generator", "workspace:packages/devcontainer-generator"],\
-          ["@types/node", "npm:22.4.0"],\
+          ["@types/node", "npm:22.4.1"],\
           ["esbuild-wasm", "npm:0.23.1"]\
         ],\
         "linkType": "SOFT"\
@@ -6859,6 +6859,14 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-node-npm-22.4.0-d2a8cbaf9a-10.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:22.4.0"],\
+          ["undici-types", "npm:6.19.6"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:22.4.1", {\
+        "packageLocation": "./.yarn/global/cache/@types-node-npm-22.4.1-553ffaf0e5-10.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:22.4.1"],\
           ["undici-types", "npm:6.19.6"]\
         ],\
         "linkType": "HARD"\
@@ -22469,7 +22477,7 @@ const RAW_RUNTIME_STATE =
           ["vite", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.4.1"],\
           ["@types/less", null],\
           ["@types/lightningcss", null],\
-          ["@types/node", "npm:22.4.0"],\
+          ["@types/node", "npm:22.4.1"],\
           ["@types/sass", null],\
           ["@types/sass-embedded", null],\
           ["@types/stylus", null],\
@@ -22606,7 +22614,7 @@ const RAW_RUNTIME_STATE =
           ["@types/edge-runtime__vm", null],\
           ["@types/happy-dom", null],\
           ["@types/jsdom", null],\
-          ["@types/node", "npm:22.4.0"],\
+          ["@types/node", "npm:22.4.1"],\
           ["@types/vitest__browser", null],\
           ["@types/vitest__ui", null],\
           ["@vitest/browser", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.0.5"],\
