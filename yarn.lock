@@ -601,6 +601,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@douglasneuroinformatics/esbuild-plugin-native-modules@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@douglasneuroinformatics/esbuild-plugin-native-modules@npm:1.0.0"
+  peerDependencies:
+    esbuild: 0.x
+  checksum: 10/5aeac640beaa127e0d142084d1fbc9ad56b12dc534b93ca67a202e913552b00139e72085ab8cb432236d04bdcebc3bafe10e24003971a871209945b6bcc80c72
+  languageName: node
+  linkType: hard
+
 "@dprint/darwin-arm64@npm:0.47.2":
   version: 0.47.2
   resolution: "@dprint/darwin-arm64@npm:0.47.2"
@@ -4583,6 +4592,7 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
     "@clerk/clerk-react": "npm:^5.4.1"
+    "@douglasneuroinformatics/esbuild-plugin-native-modules": "npm:^1.0.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
     "@emotion/react": "npm:11.13.0"

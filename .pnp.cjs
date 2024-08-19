@@ -882,6 +882,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@douglasneuroinformatics/esbuild-plugin-native-modules", [\
+      ["npm:1.0.0", {\
+        "packageLocation": "./.yarn/global/cache/@douglasneuroinformatics-esbuild-plugin-native-modules-npm-1.0.0-bc517b3796-10.zip/node_modules/@douglasneuroinformatics/esbuild-plugin-native-modules/",\
+        "packageDependencies": [\
+          ["@douglasneuroinformatics/esbuild-plugin-native-modules", "npm:1.0.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/@douglasneuroinformatics-esbuild-plugin-native-modules-virtual-a1dcb74f00/0/global/cache/@douglasneuroinformatics-esbuild-plugin-native-modules-npm-1.0.0-bc517b3796-10.zip/node_modules/@douglasneuroinformatics/esbuild-plugin-native-modules/",\
+        "packageDependencies": [\
+          ["@douglasneuroinformatics/esbuild-plugin-native-modules", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.0"],\
+          ["@types/esbuild", null],\
+          ["esbuild", "npm:0.23.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/esbuild",\
+          "esbuild"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@dprint/darwin-arm64", [\
       ["npm:0.47.2", {\
         "packageLocation": "./.yarn/unplugged/@dprint-darwin-arm64-npm-0.47.2-cee54b82ee/node_modules/@dprint/darwin-arm64/",\
@@ -5870,6 +5892,7 @@ const RAW_RUNTIME_STATE =
           ["@spike-land/code", "workspace:packages/code"],\
           ["@babel/runtime", "npm:7.25.0"],\
           ["@clerk/clerk-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.4.1"],\
+          ["@douglasneuroinformatics/esbuild-plugin-native-modules", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.0"],\
           ["@emotion/cache", "npm:11.13.1"],\
           ["@emotion/css-prettifier", "npm:1.1.4"],\
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.0"],\
