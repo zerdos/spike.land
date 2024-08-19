@@ -200,7 +200,7 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
-  
+
   it("should replace dynamic imports at the end", async () => {
     const code = `
     import { useSpring, animated } from "react-spring"; // Importing react-spring
@@ -220,7 +220,6 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toContain(`"${origin}/*tslib?exports=__await,__rest"`);
   });
-
 
   it("should handle specific named imports", async () => {
     const code = `import { __await as aw, __rest  as restNow} from "tslib";`;

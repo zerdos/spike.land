@@ -52,7 +52,7 @@ export function importMapReplace(code: string, origin: string): string {
     if (packageName.startsWith(".") || packageName.startsWith("http")) {
       if (packageName.startsWith("http") && !packageName.startsWith(origin)) {
         const oldUrl = new URL(packageName);
-        const [pkgName, exports] = oldUrl.pathname.slice(1).split('?exports=');
+        const [pkgName, exports] = oldUrl.pathname.slice(1).split("?exports=");
         if (exports) {
           return p1 + `"${origin}/*${pkgName}?exports=${exports}"` + p3;
         }
@@ -77,7 +77,7 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     // Handle specific exports
-    const [pkgName, exports] = packageName.split('?exports=');
+    const [pkgName, exports] = packageName.split("?exports=");
     if (exports) {
       return p1 + `"${origin}/*${pkgName}?exports=${exports}"` + p3;
     }
@@ -85,8 +85,11 @@ export function importMapReplace(code: string, origin: string): string {
     // Handle clever top-level exports
     const importMatch = match.match(/import\s*{\s*([^}]+)\s*}/);
     if (importMatch) {
-      const importedItems = importMatch[1].split(',').map(item => item.trim());
-      return p1 + `"${origin}/*${packageName}?exports=${importedItems.join(',')}"` + p3;
+      const importedItems = importMatch[1].split(",").map(item => {
+        const [originalName, alias] = item.trim().split(/\s+as\s+/);
+        return originalName.trim();
+      });
+      return p1 + `"${origin}/*${packageName}?exports=${importedItems.join(",")}"` + p3;
     }
 
     return p1 + `"${origin}/*${packageName}?bundle"` + p3;

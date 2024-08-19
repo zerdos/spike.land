@@ -48,7 +48,7 @@ exports[`importMapReplace > should replace coder44  1`] = `
     import { css } from "http://localhost:3000/*@emotion/react?exports=css";
     import $ from "http://localhost:3000/reactMod.mjs";
 
-    import { css  as $kdkd } from "http://localhost:3000/*@emotion/react?exports=css  as $kdkd";
+    import { css  as $kdkd } from "http://localhost:3000/*@emotion/react?exports=css";
 
     import { useEffect, useState, useRef } from "http://localhost:3000/*react?exports=useEffect,useState,useRef";
     import type { FC } from "http://localhost:3000/reactMod.mjs";
@@ -80,7 +80,7 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
   
     import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
-    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?exports=timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F";
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
       async function loadModule() {
         let{default:c}=await import("http://localhost:3000/*axios?bundle");
         let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
@@ -109,7 +109,7 @@ exports[`importMapReplace > should replace dynamic imports inside a function 1`]
   
     import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
-    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?exports=timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F";
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
       async function loadModule() {
         let{default:c}=await import("http://localhost:3000/*axios?bundle");
         let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
@@ -134,7 +134,7 @@ exports[`importMapReplace > should replace shadcdn  1`] = `
     import $ from "http://localhost:3000/reactMod.mjs";
     import { Button } from "http://localhost:3000/@/components/ui/button.mjs";
 
-    import { css  as $kdkd } from "http://localhost:3000/*@emotion/react?exports=css  as $kdkd";
+    import { css  as $kdkd } from "http://localhost:3000/*@emotion/react?exports=css";
 
     import { useEffect, useState, useRef } from "http://localhost:3000/*react?exports=useEffect,useState,useRef";
     import type { FC } from "http://localhost:3000/reactMod.mjs";
