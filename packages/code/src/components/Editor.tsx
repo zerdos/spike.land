@@ -69,6 +69,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     try {
       const formattedCode = await formatCode(newCode, signal);
+      if (mod.current.code === formattedCode) return;
       if (signal.aborted) return;
       mod.current.code = formattedCode;
       if (errorType === "prettier") {
