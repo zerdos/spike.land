@@ -9,58 +9,65 @@ export default {
   async fetch(request, env): Promise<Response> {
     const { searchParams } = new URL(request.url);
     let url = searchParams.get("url");
-    let sleep = searchParams.get("sleep");
     let top = searchParams.get("top");
+    let maxRetries = parseInt(searchParams.get("maxRetries") || "3");
+    let retryInterval = parseInt(searchParams.get("retryInterval") || "1000");
 
-    // let scrollTop	= searchParams.get("scrollTop");
-
-    let img: ArrayBuffer | null = null;
     if (url) {
       url = new URL(url).toString(); // normalize
-      img = await env.BROWSER_KV_SPIKE_LAND.get(url, { type: "arrayBuffer" });
+      let img: ArrayBuffer | null = await env.BROWSER_KV_SPIKE_LAND.get(url, {
+        type: "arrayBuffer",
+      });
+
       if (img === null) {
         const browser = await puppeteer.launch(
           env.MY_WORKER_BROWSER as unknown as BrowserWorker,
         );
         const page = await browser.newPage();
-        await page.goto(url);
-        await wait(300);
-        await page.waitForNetworkIdle();
-        await wait(200);
-        //        await wait(sleep ? parseInt(sleep) ?? 0 : 1000);
 
-        if (top) {
-          await page.evaluate(() => {
-            window.scrollBy({
-              top: +top,
-              behavior: "smooth",
-            });
-          });
+        try {
+          await page.goto(url, { waitUntil: "networkidle0" });
+
+          // Wait for a specific element that indicates your React app is fully loaded
+          // Replace '#react-app-loaded' with an appropriate selector for your app
+          await waitForElement(page, "#root", maxRetries, retryInterval);
+
+          if (top) {
+            await page.evaluate((topValue) => {
+              window.scrollBy({
+                top: +topValue,
+                behavior: "smooth",
+              });
+            }, top);
+            await page.waitForTimeout(500); // Wait for scroll to complete
+          }
+
+          img = await page.screenshot({ type: "jpeg" }) as Buffer;
+          await env.BROWSER_KV_SPIKE_LAND.put(url, img, { expirationTtl: 60 });
+        } catch (error) {
+          console.error("Error capturing screenshot:", error);
+          return new Response("Error capturing screenshot", { status: 500 });
+        } finally {
+          await browser.close();
         }
-
-        img = (await page.screenshot({ type: "jpeg" })) as Buffer;
-        await env.BROWSER_KV_SPIKE_LAND.put(url, img, {
-          expirationTtl: 60,
-        });
-        await browser.close();
       }
+
       return new Response(img, {
-        headers: {
-          "content-type": "image/jpeg",
-        },
+        headers: { "content-type": "image/jpeg" },
       });
     } else {
-      return new Response(
-        "Please add an ?url=https://example.com/ parameter",
-      );
+      return new Response("Please add an ?url=https://example.com/ parameter");
     }
   },
 } satisfies ExportedHandler<Env>;
 
-export async function wait(delay: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(delay);
-    }, delay);
-  });
+async function waitForElement(page, selector, maxRetries, retryInterval) {
+  for (let i = 0; i < maxRetries; i++) {
+    const element = await page.$(selector);
+    if (element) {
+      return element;
+    }
+    await page.waitForTimeout(retryInterval);
+  }
+  throw new Error(`Element ${selector} not found after ${maxRetries} retries`);
 }
