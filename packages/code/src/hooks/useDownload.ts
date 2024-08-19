@@ -47,7 +47,7 @@ export const useDownload = (codeSpace: string, onlyReturn = false) => {
   </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="embed"></div>
   <script>
     ${TW}
     ${indexMjs}

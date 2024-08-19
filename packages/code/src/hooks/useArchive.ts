@@ -58,7 +58,7 @@ export const useArchive = async (codeSpace: string) => {
   </style>
 </head>
 <body>
-  <div id="root">${htm}</div>
+  <div id="embed">${htm}</div>
   <script>
   ${indexMjs}
   ${twJS}
@@ -206,7 +206,7 @@ export const useSpeedy = async (codeSpace: string) => {
   </style>
 </head>
 <body>
-  <div id="root">${htm}</div>
+  <div id="embed">${htm}</div>
   <script type="module">
   ${indexMjs[0].text.split("@import url(").join("//@import url(")}
   </script>
