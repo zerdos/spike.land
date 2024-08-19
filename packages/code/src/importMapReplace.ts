@@ -19,6 +19,15 @@ export function importMapReplace(code: string, origin: string): string {
 
   // Define a replacer function to modify the import paths
   const replacer = (match: string, p1: string, p2: string, p3char: string) => {
+    let isModule = false;
+    Object.keys(oo).forEach((pkg) => {
+      if (match.includes(`"${pkg}"`)) {
+        isModule = true;
+      }
+    });
+    if (isModule) {
+      return match;
+    }
     const p3 = String(p3char).replace(/[0-9]/g, ""); // Remove numeric characters from p3
 
     if (typeof p2 !== "string") {

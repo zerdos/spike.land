@@ -83,6 +83,12 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
+  it("should replace top-level exports, except the ones in importmap", async () => {
+    const code = `import { useState } from "react";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
   it("should replace top-level exports", async () => {
     const code = `export { default } from "react";`;
     const result = importMapReplace(code, origin);
