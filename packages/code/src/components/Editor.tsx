@@ -83,8 +83,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     mod.current.i += 1;
 
     console.log("Running debounced runner");
-    await runner(mod.current.code, mod.current.i);
-    console.log("From Editor, Runner succeeded");
+    const res = await runner(mod.current.code, mod.current.i);
+    console.log("From Editor, Runner succeeded ", res);
   };
 
   useImperativeHandle(ref, () => ({
