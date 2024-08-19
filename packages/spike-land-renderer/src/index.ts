@@ -32,6 +32,9 @@ export default {
           // Replace '#react-app-loaded' with an appropriate selector for your app
           await waitForElement(page, "#root", maxRetries, retryInterval);
 
+          // wait for 1 second
+          await new Promise(r => setTimeout(r, 1000));
+
           if (top) {
             await page.evaluate((topValue) => {
               window.scrollBy({
