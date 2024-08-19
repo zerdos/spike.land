@@ -29,7 +29,6 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg.startsWith(",")) return match;
 
       return `import "${origin}/*${match.split("\"")[1]}?bundle";`;
-      match; // `import "${origin}/*${p1.slice(1).slice(0,-1)}?bundle"`
     }
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
