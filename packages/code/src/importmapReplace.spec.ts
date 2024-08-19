@@ -224,12 +224,12 @@ describe("importMapReplace", () => {
   it("should handle specific exports", async () => {
     const code = `import { __await, __rest } from "tslib";`;
     const result = importMapReplace(code, origin);
-    expect(result).toContain(`"${origin}/*tslib?exports=__await,__rest"`);
+    expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
   });
 
   it("should handle specific named imports", async () => {
     const code = `import { __await as aw, __rest  as restNow} from "tslib";`;
     const result = importMapReplace(code, origin);
-    expect(result).toContain(`"${origin}/*tslib?exports=__await,__rest"`);
+    expect(result).toContain(`"${origin}/*tslib?bundle=true&exports=__await,__rest"`);
   });
 });
