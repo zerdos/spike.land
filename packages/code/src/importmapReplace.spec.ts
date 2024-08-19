@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { importMapReplace } from "../importMapReplace"; // replace with your actual module
+import { importMapReplace } from "./importMapReplace"; // replace with your actual module
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";
@@ -206,6 +206,12 @@ describe("importMapReplace", () => {
     import { useSpring, animated } from "react-spring"; // Importing react-spring
     
     `;
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+  });
+
+  it("should do clever top-level exports", async () => {
+    const code = `import { prop } from "foo";`;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });

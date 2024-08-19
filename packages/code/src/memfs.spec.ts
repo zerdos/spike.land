@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "../memfs";
+import { getDirectoryEntriesRecursive, getDirectoryHandleAndFileName } from "./memfs";
 
 // Mock the navigator.storage API
 const mockNavigator = {

@@ -6,6 +6,12 @@ exports[`importMapReplace > should apply custom mappings 1`] = `
   import CustomPackage from "http://localhost:3000/*custom-package?bundle";"
 `;
 
+exports[`importMapReplace > should do clever top-level exports 1`] = `
+"
+  /** importMapReplace */
+  import { prop } from "http://localhost:3000/*foo?bundle";"
+`;
+
 exports[`importMapReplace > should ignore absolute URLs 1`] = `
 "
   /** importMapReplace */
