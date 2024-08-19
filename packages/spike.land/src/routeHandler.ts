@@ -124,7 +124,7 @@ export class RouteHandler {
             `<!-- <link rel="stylesheet" href="/app.css"> -->`,
             `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
           ).replace(
-            "<div id=\"root\"></div>",
+            "<div id=\"embed\"></div>",
             `<div id="embed">${html}</div>`,
           );
 
@@ -353,7 +353,7 @@ export class RouteHandler {
       `<!-- <link rel="stylesheet" href="/app.css"> -->`,
       `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
     ).replace(
-      "<div id=\"root\"></div>",
+      "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
     );
 
