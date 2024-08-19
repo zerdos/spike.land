@@ -28,12 +28,6 @@ export const EditorNode: React.FC<
           data-testid="editor-container"
           ref={containerRef}
           css={css`
-              ${
-            engine === "ace" ? "" : `
-                border-right: 4px dashed gray;
-                border-bottom: 4px dashed gray;
-              `
-          }
               width: 100%;
               height: 100%;
               position: absolute;

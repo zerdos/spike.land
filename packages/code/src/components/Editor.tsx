@@ -1,9 +1,9 @@
+import { css } from "@emotion/react";
 import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Rnd } from "react-rnd";
 import { getLatestSavedData, useAutoSave } from "../hooks/autoSave";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import {
@@ -174,34 +174,23 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   );
 
   return (
-    <Rnd
-      enableResizing
-      disableDragging
-      minWidth={engine === "ace" ? window.innerWidth : 800}
-      minHeight="100vh"
-      bounds="body"
-      allowAnyClick
-      lockAspectRatio={false}
-      enable={{
-        top: false,
-        bottom: true,
-        right: true,
-        left: false,
-      }}
-      default={{
-        x: 0,
-        y: 0,
-        width: engine === "ace" ? window.innerWidth : 800,
-        height: window.innerHeight,
-      }}
-      style={{ height: "100vh" }}
+    <div
+      css={css`
+         display: block;
+        position: fixed;
+        top:0;
+        left: 0;
+        width: min(100%, 800px);
+        height:100vh;
+        overflow: auto;
+    `}
     >
       <EditorNode
         engine={engine as "monaco" | "ace"}
         errorType={errorType as "typescript" | "prettier" | "transpile" | "render" | null}
         containerRef={containerRef}
       />
-    </Rnd>
+    </div>
   );
 };
 
