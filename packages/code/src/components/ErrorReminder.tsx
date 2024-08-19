@@ -10,7 +10,7 @@ export const EditorNode: React.FC<
     errorType: "typescript" | "prettier" | "transpile" | "render" | null;
     containerRef: React.Ref<HTMLDivElement>;
   }
-> = ({ engine, errorType, containerRef }) => {
+> = ({ errorType, containerRef }) => {
   const [errorHeight, setErrorHeight] = useState(0);
 
   return (

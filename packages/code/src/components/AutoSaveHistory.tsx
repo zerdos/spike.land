@@ -1,11 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FullScreenHistoryView, HistoryItem } from "./History/HistoryFComponents";
 
-interface HistoryItem {
-  code: string;
-  timestamp: number;
-}
-
 export const CodeHistoryCarousel: React.FC<
   {
     codeSpace: string;
