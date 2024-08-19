@@ -200,19 +200,31 @@ describe("importMapReplace", () => {
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
+  
   it("should replace dynamic imports at the end", async () => {
     const code = `
-    
     import { useSpring, animated } from "react-spring"; // Importing react-spring
-    
     `;
     const result = importMapReplace(code, origin);
     expect(result).toMatchSnapshot();
   });
 
   it("should do clever top-level exports", async () => {
-    const code = `import { prop } from "foo";`;
+    const code = `import { prop, prop2 } from "foo";`;
     const result = importMapReplace(code, origin);
-    expect(result).toMatchSnapshot();
+    expect(result).toContain(`"${origin}/*foo?exports=prop,prop2"`);
+  });
+
+  it("should handle specific exports", async () => {
+    const code = `import { __await, __rest } from "tslib";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toContain(`"${origin}/*tslib?exports=__await,__rest"`);
+  });
+
+
+  it("should handle specific named imports", async () => {
+    const code = `import { __await as aw, __rest  as restNow} from "tslib";`;
+    const result = importMapReplace(code, origin);
+    expect(result).toContain(`"${origin}/*tslib?exports=__await,__rest"`);
   });
 });
