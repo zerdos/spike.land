@@ -2,28 +2,31 @@ import React from "react";
 
 type ErrorBoundaryState = {
   hasError: boolean;
+  error: Error | null;
+  errorInfo: React.ErrorInfo | null;
 };
 
 export class ErrorBoundary extends React.Component<{ children: React.ReactNode }, ErrorBoundaryState> {
   constructor(props: { children: React.ReactNode }) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
-  static getDerivedStateFromError(_error: any) {
-    // Update state so the next render will show the fallback UI.
-
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
-    // You can log the error to an error reporting service
-    console.error("Error:", { error, errorInfo });
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({ errorInfo });
+    console.error("Detailed error information:", {
+      error: error.toString(),
+      componentStack: errorInfo.componentStack,
+      stack: error.stack,
+    });
   }
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
       return (
         <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
           <h1 className="text-lg font-bold mb-2">
@@ -33,6 +36,15 @@ export class ErrorBoundary extends React.Component<{ children: React.ReactNode }
             We're sorry for the inconvenience. Please try refreshing the page or contact support if the problem
             persists.
           </p>
+          {process.env.NODE_ENV !== "production" && (
+            <details className="mt-4">
+              <summary>Error Details</summary>
+              <pre className="mt-2 p-2 bg-red-50 rounded">
+                {this.state.error && this.state.error.toString()}
+                {this.state.errorInfo && this.state.errorInfo.componentStack}
+              </pre>
+            </details>
+          )}
         </div>
       );
     }
