@@ -86,9 +86,9 @@ export function importMapReplace(code: string, origin: string): string {
     }
 
     // Handle specific exports
-    const [pkgName, exports] = packageName.split("?exports=");
+    const [pkgName, exports] = packageName.split("?bundle=true&exports=");
     if (exports) {
-      return p1 + `"${origin}/*${pkgName}?exports=${exports}"` + p3;
+      return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
@@ -98,7 +98,7 @@ export function importMapReplace(code: string, origin: string): string {
         const [originalName, alias] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1 + `"${origin}/*${packageName}?exports=${importedItems.join(",")}"` + p3;
+      return p1 + `"${origin}/*${packageName}?bundle=true&exports=${importedItems.join(",")}"` + p3;
     }
 
     return p1 + `"${origin}/*${packageName}?bundle"` + p3;

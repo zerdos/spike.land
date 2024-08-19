@@ -80,7 +80,7 @@ exports[`importMapReplace > should replace dynamic imports at the end 1`] = `
   
     import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
-    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle=true&exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
       async function loadModule() {
         let{default:c}=await import("http://localhost:3000/*axios?bundle");
         let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
@@ -99,7 +99,7 @@ exports[`importMapReplace > should replace dynamic imports at the end 2`] = `
 "
   /** importMapReplace */
   
-    import { useSpring, animated } from "http://localhost:3000/*react-spring?exports=useSpring,animated"; // Importing react-spring
+    import { useSpring, animated } from "http://localhost:3000/*react-spring?bundle=true&exports=useSpring,animated"; // Importing react-spring
     "
 `;
 
@@ -109,7 +109,7 @@ exports[`importMapReplace > should replace dynamic imports inside a function 1`]
   
     import{Buffer as De}from"http://localhost:3000/v125/buffer@6.0.3/es2024/buffer.bundle.mjs"
     let { Mp3Encoder: t } = await import("http://localhost:3000/*lamejs?bundle");
-    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
+    import{timeDay as _,timeSunday as bt,timeMonday as b,timeThursday as w,timeYear as S,utcDay as $,utcSunday as Vt,utcMonday as V,utcThursday as p,utcYear as F}from"http://localhost:3000/*d3-time?bundle=true&exports=timeDay,timeSunday,timeMonday,timeThursday,timeYear,utcDay,utcSunday,utcMonday,utcThursday,utcYear";
       async function loadModule() {
         let{default:c}=await import("http://localhost:3000/*axios?bundle");
         let{default:d}=await import("https://unpkg.com/axios/dist/axios.min.js");
