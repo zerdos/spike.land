@@ -5974,7 +5974,7 @@ const RAW_RUNTIME_STATE =
           ["file-type", "npm:19.4.1"],\
           ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.28"],\
           ["helia", "npm:4.2.5"],\
-          ["i18next", "npm:23.13.0"],\
+          ["i18next", "npm:23.14.0"],\
           ["immutable", "npm:4.3.7"],\
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
           ["jest-environment-jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:29.7.0"],\
@@ -13267,10 +13267,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["i18next", [\
-      ["npm:23.13.0", {\
-        "packageLocation": "./.yarn/global/cache/i18next-npm-23.13.0-e22d671d57-10.zip/node_modules/i18next/",\
+      ["npm:23.14.0", {\
+        "packageLocation": "./.yarn/global/cache/i18next-npm-23.14.0-60f97764b5-10.zip/node_modules/i18next/",\
         "packageDependencies": [\
-          ["i18next", "npm:23.13.0"],\
+          ["i18next", "npm:23.14.0"],\
           ["@babel/runtime", "npm:7.25.0"]\
         ],\
         "linkType": "HARD"\
@@ -16706,7 +16706,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-i18next", null],\
           ["core-js", "npm:3.38.0"],\
           ["hoist-non-react-statics", "npm:3.3.2"],\
-          ["i18next", "npm:23.13.0"],\
+          ["i18next", "npm:23.14.0"],\
           ["i18next-fs-backend", "npm:2.3.2"],\
           ["next", null],\
           ["react", "npm:18.3.1"],\
@@ -18587,7 +18587,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.3.0"],\
           ["@types/react-native", null],\
           ["html-parse-stringify", "npm:3.0.1"],\
-          ["i18next", "npm:23.13.0"],\
+          ["i18next", "npm:23.14.0"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:18.3.1"],\
           ["react-native", null]\
