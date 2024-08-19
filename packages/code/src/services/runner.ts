@@ -67,8 +67,11 @@ export const runner = async (code: string, counter = 0) => {
       css: string;
     }) => void;
     const promise = new Promise<{ i: number; html: string; css: string }>(
-      (_resolve) => {
+      (_resolve, _reject) => {
         resolve = _resolve;
+        setTimeout(() => {
+          _reject("Timeout");
+        }, 3000);
       },
     );
 

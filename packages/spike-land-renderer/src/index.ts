@@ -1,4 +1,4 @@
-import puppeteer, { BrowserWorker } from "@cloudflare/puppeteer";
+import puppeteer, { BrowserWorker, Page } from "@cloudflare/puppeteer";
 
 interface Env {
   MY_WORKER_BROWSER: Fetcher;
@@ -64,7 +64,12 @@ export default {
   },
 } satisfies ExportedHandler<Env>;
 
-async function waitForElement(page, selector, maxRetries, retryInterval) {
+async function waitForElement(
+  page: Page,
+  selector: string,
+  maxRetries: number,
+  retryInterval: number,
+) {
   for (let i = 0; i < maxRetries; i++) {
     const element = await page.$(selector);
     if (element) {
