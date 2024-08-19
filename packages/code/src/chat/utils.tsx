@@ -1,6 +1,6 @@
+import { CodeBlock, programmingLanguages } from "@/external/CodeBlock";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
-import { CodeBlock, programmingLanguages } from "../CodeBlock";
 import { styles } from "./styles";
 
 export const TypingIndicator: React.FC = () => (
