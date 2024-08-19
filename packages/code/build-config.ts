@@ -60,7 +60,7 @@ export const buildOptions: BuildOptions = {
   ],
 
   loader: {
-    ".ttf": "dataurl",
+    ".ttf": "file",
     ".css": "css",
     ".png": "file",
     ".ico": "file",
