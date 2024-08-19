@@ -1,6 +1,4 @@
-import { set } from "immutable";
 import React, { useCallback, useEffect, useState } from "react";
-import { removeItem } from "window-async-local-storage";
 import { FullScreenHistoryView, HistoryItem } from "./History/HistoryFComponents";
 
 interface HistoryItem {
