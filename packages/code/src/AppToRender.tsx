@@ -17,7 +17,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
-  const [showChat, setShowChat] = useState(false);
+
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
   const editorRef = useRef<any>(null);
 
@@ -47,10 +47,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
       }
     }
   }, [codeSpace, onlyEdit]);
-
-  const handleAIModify = () => {
-    setShowChat(true);
-  };
 
   // const handleCodeUpdate = (newCode: string) => {
   //   if (editorRef.current) {
