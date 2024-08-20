@@ -87,9 +87,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             <DraggableWindow
               isChatOpen={isOpen}
               codeSpace={codeSpace}
-              handleAIModify={handleAIModify}
-              showChat={showChat}
-              setShowChat={setShowChat}
             >
               <iframe
                 css={css`

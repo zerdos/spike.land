@@ -8,10 +8,8 @@ import { useDownload } from "./hooks/useDownload";
 
 type DraggableWindowProps = {
   children: JSX.Element;
-  handleAIModify: () => void;
   codeSpace: string;
   isChatOpen: boolean;
-  setShowChat: (show: boolean) => void;
 };
 
 const breakPoints = [750, 1024, 1920];
