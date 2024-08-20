@@ -8,6 +8,7 @@ The format is as follows:
 >>>>>>> REPLACE
 
 This format helps to clearly identify the changes to be made.
+Apart from the change blocks, use markdown format.
 Also, the block will be executed one by one, so you can't use the the replaced block in the next search block.
 `;
 
