@@ -422,50 +422,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.6.3, @clerk/backend@npm:^1.6.3":
-  version: 1.6.3
-  resolution: "@clerk/backend@npm:1.6.3"
+"@clerk/backend@npm:1.7.0, @clerk/backend@npm:^1.6.3":
+  version: 1.7.0
+  resolution: "@clerk/backend@npm:1.7.0"
   dependencies:
-    "@clerk/shared": "npm:2.5.1"
-    "@clerk/types": "npm:4.13.1"
+    "@clerk/shared": "npm:2.5.2"
+    "@clerk/types": "npm:4.14.0"
     cookie: "npm:0.5.0"
     snakecase-keys: "npm:5.4.4"
     tslib: "npm:2.4.1"
-  checksum: 10/ae62ca53a574d4b743431d8d8c28f53227707033a718181ab3c3b5e2b1b6c052fe1967155634cf0c92abf72fde2c6caffc6fd67fd46438ddb4b4e31f66a92aa3
+  checksum: 10/76f68c736ead30c5b4b4f42ab326fd07d47b26237905d5756ae595af4d049ea17d3e62263176faf402e6e993511ca104c47d16ead288f2c79a5dbd2b88f23ec6
   languageName: node
   linkType: hard
 
 "@clerk/clerk-react@npm:^5.4.1":
-  version: 5.4.1
-  resolution: "@clerk/clerk-react@npm:5.4.1"
+  version: 5.4.2
+  resolution: "@clerk/clerk-react@npm:5.4.2"
   dependencies:
-    "@clerk/shared": "npm:2.5.1"
-    "@clerk/types": "npm:4.13.1"
+    "@clerk/shared": "npm:2.5.2"
+    "@clerk/types": "npm:4.14.0"
     tslib: "npm:2.4.1"
   peerDependencies:
     react: ">=18 || >=19.0.0-beta"
     react-dom: ">=18 || >=19.0.0-beta"
-  checksum: 10/f0ee0a3a1cdca358ae272d289025ea8d01e611e96910aca2cf5cfd7d7e4c0973c4b29abc234fa7b450ab2e0e00ad7ee6256e1e727058e40489cdb17e90cc1190
+  checksum: 10/57c3ef8ee533f2b976b09f6d8e486d2d21bfca1b44924041eda5019a803f8899fad3ddc9dc7915c675805e88244281ddf4904ebfe127579830b2420b92d90f56
   languageName: node
   linkType: hard
 
 "@clerk/clerk-sdk-node@npm:^5.0.27":
-  version: 5.0.27
-  resolution: "@clerk/clerk-sdk-node@npm:5.0.27"
+  version: 5.0.28
+  resolution: "@clerk/clerk-sdk-node@npm:5.0.28"
   dependencies:
-    "@clerk/backend": "npm:1.6.3"
-    "@clerk/shared": "npm:2.5.1"
-    "@clerk/types": "npm:4.13.1"
+    "@clerk/backend": "npm:1.7.0"
+    "@clerk/shared": "npm:2.5.2"
+    "@clerk/types": "npm:4.14.0"
     tslib: "npm:2.4.1"
-  checksum: 10/d7e90975524d983def4af1123c21d8649c8729ece96fe555fc4094672892cf9b1f7d5cbd8c5e57edb9a1feb7ecbacd59ead66dcd9927e4374dae7b717c10beaf
+  checksum: 10/f0577cf6a59064ab824dd99de91502a5197b66ed8885ff6b3e656dfccb510a0a6292de5178a6915c3905b5fbeb8c8c19cb2028653b49e949f662d4b5b4696feb
   languageName: node
   linkType: hard
 
-"@clerk/shared@npm:2.5.1":
-  version: 2.5.1
-  resolution: "@clerk/shared@npm:2.5.1"
+"@clerk/shared@npm:2.5.2":
+  version: 2.5.2
+  resolution: "@clerk/shared@npm:2.5.2"
   dependencies:
-    "@clerk/types": "npm:4.13.1"
+    "@clerk/types": "npm:4.14.0"
     glob-to-regexp: "npm:0.4.1"
     js-cookie: "npm:3.0.5"
     std-env: "npm:^3.7.0"
@@ -478,16 +478,16 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/d64ac6913c9ed29452328726b917b6a403a6bdd3f2b77a6ce4eefd8f5d2ff3f2846dc75ddc27d56b3f31d3e9103f2258bb1b90c155bb4fb9c98c3c8e97b1c127
+  checksum: 10/a2a106f598d71d7a51f66a6c261177542573292580df30bde632573d43db29a1fd6bc557aa11c4d69c0cb454e91b3c7b315da16687fd9f5cacad2b17b7f7347c
   languageName: node
   linkType: hard
 
-"@clerk/types@npm:4.13.1":
-  version: 4.13.1
-  resolution: "@clerk/types@npm:4.13.1"
+"@clerk/types@npm:4.14.0":
+  version: 4.14.0
+  resolution: "@clerk/types@npm:4.14.0"
   dependencies:
     csstype: "npm:3.1.1"
-  checksum: 10/4dc3d577d8ba87748466fd8a26a8287bbe7bdf0a9c750d1efd8d0adf2e8c372473e995c3b873a995d213111e1730e0247819c7fa470f44d736bcdff03940d460
+  checksum: 10/9c952e990c5f5cfa089f80a98a09dfbe55b53543708b60cd6cc532a4ddbe6f76d1a248288aa46a267216c38a71984896111b6e0910e39be04522f287f7c8206f
   languageName: node
   linkType: hard
 
@@ -4707,7 +4707,6 @@ __metadata:
     module: "npm:1.2.5"
     monaco-editor: "npm:^0.50.0"
     multiformats: "npm:^13.2.2"
-    net: "npm:^1.0.2"
     next-i18next: "npm:^15.3.1"
     next-themes: "npm:^0.3.0"
     node-source-walk: "npm:7.0.0"
@@ -8550,37 +8549,37 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.11
-  resolution: "electron-to-chromium@npm:1.5.11"
-  checksum: 10/4342e1a32eba710a6327fa19dd012e2a7c3133151c646d80dec9fba8e3e0dcc1d19438ae561c10d86243f1bae7dc71a01d9dfd36e07e30836e45b214cbd07a25
+  version: 1.5.12
+  resolution: "electron-to-chromium@npm:1.5.12"
+  checksum: 10/6e5ec71e211de06f15147f42eaf8e71bc4dd73da29ce6611046a57614b7d220ffd8671b4fb424161f278498bb47880fccf7648ccbfb8b019e34d38db43520cea
   languageName: node
   linkType: hard
 
 "embla-carousel-react@npm:^8.1.8":
-  version: 8.1.8
-  resolution: "embla-carousel-react@npm:8.1.8"
+  version: 8.2.0
+  resolution: "embla-carousel-react@npm:8.2.0"
   dependencies:
-    embla-carousel: "npm:8.1.8"
-    embla-carousel-reactive-utils: "npm:8.1.8"
+    embla-carousel: "npm:8.2.0"
+    embla-carousel-reactive-utils: "npm:8.2.0"
   peerDependencies:
     react: ^16.8.0 || ^17.0.1 || ^18.0.0
-  checksum: 10/1a4ab89be89be7cd2acfc2c737f551c1eb479cf14a9cf83ece3682469c23b40d190fe46e5e1afd897296bb65c71dbd0a9eb9a42de85ef17b4480af890cffa8cd
+  checksum: 10/388a11e2ee7a7a09ac3a4001d3dd9d2c77b15bf9028e9fc90b89e96bfc08fb7a4a3df54e7ddf3a1f8e3d844a2d095e49fd73eb89c38bc90c7e0b10671e3582e2
   languageName: node
   linkType: hard
 
-"embla-carousel-reactive-utils@npm:8.1.8":
-  version: 8.1.8
-  resolution: "embla-carousel-reactive-utils@npm:8.1.8"
+"embla-carousel-reactive-utils@npm:8.2.0":
+  version: 8.2.0
+  resolution: "embla-carousel-reactive-utils@npm:8.2.0"
   peerDependencies:
-    embla-carousel: 8.1.8
-  checksum: 10/6ad319e55246a5d57872cfebfb1951f880f8286922a6ea837c4fed9027f822a6361d407b7e0b51eb5af0a572b8c439a9a309e14e7d825c1dc8e70d205c166731
+    embla-carousel: 8.2.0
+  checksum: 10/34a189543e476582dd5af1cf3d3bdd8bfea3faf47a90f04a642c4d65eefd699377cf65380619b7b98365a02a0eba5e75a2b716ef09c6fea8a703521a8ca47eab
   languageName: node
   linkType: hard
 
-"embla-carousel@npm:8.1.8":
-  version: 8.1.8
-  resolution: "embla-carousel@npm:8.1.8"
-  checksum: 10/0e8c4f145397cebbdd46343a796615b53ff0c84cea14d79e502932300f5f15fc83577303ef32bc10c2216205c717e2b8cb1c98c3c9622d2ad686926a6d4765fb
+"embla-carousel@npm:8.2.0":
+  version: 8.2.0
+  resolution: "embla-carousel@npm:8.2.0"
+  checksum: 10/18cd9d06573c27f14523ec0d33cbbcc091492aff42f69b3f53265c5ff3d2fd3da89ad7ea9ae54d398d440723f6c764d0d5936c35a1975f2410143ca6f55064ce
   languageName: node
   linkType: hard
 
@@ -13871,13 +13870,6 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: 10/2723fb822a17ad55c93a588a4bc44d53b22855bf4be5499916ca0cab1e7165409d0b288ba2577d7b029f10ce18cf2ed8e703e5af31c984e1e2304277ef979837
-  languageName: node
-  linkType: hard
-
-"net@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "net@npm:1.0.2"
-  checksum: 10/d97e215d922e87e9aa86e87daae73ce7f4e291f2d71365a115f2f51831b1add86e73584e944285daafcad4058c09bb85e33250da84834a26a83020740d45b4a1
   languageName: node
   linkType: hard
 
