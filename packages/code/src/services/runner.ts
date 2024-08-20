@@ -40,6 +40,7 @@ BC.onmessage = ({ data }) => {
 };
 
 export const runner = async (code: string, counter = 0, ediSignal = (new AbortController()).signal) => {
+  if (counter === 0) counter = globalThis.cSess.i + 3;
   console.log("Running code", counter);
 
   const formattedCode = code;
@@ -49,7 +50,6 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
   }
   console.log("Running code", counter);
 
-  if (counter === 0) counter = globalThis.cSess.i + 3;
   if (counter <= mod.i) return false;
   mod.i = counter;
   console.log("Running code", counter);
