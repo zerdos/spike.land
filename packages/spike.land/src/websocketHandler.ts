@@ -98,7 +98,7 @@ export class WebSocketHandler {
     webSocket.addEventListener("error", closeOrErrorHandler);
   }
 
-  private broadcastUsers() {
+  public broadcastUsers() {
     const users = this.userSessions.filter((x) => x.name).map((x) => x.name);
     this.userSessions.forEach((sess) => {
       try {
@@ -337,7 +337,7 @@ export class WebSocketHandler {
       });
   }
 
-  private broadcast(msg: CodePatch | string) {
+  public broadcast(msg: CodePatch | string) {
     const message = typeof msg === "string"
       ? msg
       : JSON.stringify({ ...msg, i: this.code.session.i });

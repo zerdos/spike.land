@@ -10,11 +10,19 @@ import { createWorkflow } from "./LangChain";
 
 export { createWorkflow };
 
-import { applyCodePatch, CodePatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
+import {
+  applyCodePatch,
+  CodePatch,
+  createPatch,
+  ICodeSession,
+  makeHash,
+  makeSession,
+  stringifySession,
+} from "./makeSess";
 
 export { importMap };
 
-export { makeHash, stringifySession };
+export { createPatch, makeHash, stringifySession };
 export type { CodePatch, Delta, ICodeSession };
 export { applyCodePatch, makeSession };
 

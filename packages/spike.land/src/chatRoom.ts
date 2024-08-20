@@ -1,15 +1,16 @@
 import type {
   DurableObject,
   DurableObjectState,
-  WebSocket,
 } from "@cloudflare/workers-types";
 import {
   CodePatch,
+  createPatch,
   ICodeSession,
   makeHash,
   makeSession,
   md5,
 } from "@spike-land/code";
+
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
 import { AutoSaveEntry, RouteHandler } from "./routeHandler";
@@ -152,10 +153,26 @@ export class Code implements DurableObject {
       this.origin = url.origin;
     }
     this.codeSpace = url.searchParams.get("room")!;
-    if (request.method === "POST" && request.url.endsWith("/session")) {
-      this.session = await request.json();
-      await this.state.storage.put("session", this.session);
+    try {
+      if (request.method === "POST" && request.url.endsWith("/session")) {
+        this.session = await request.json();
+        this.transpiled = this.session.transpiled;
+        const oldSession = makeSession(this.session);
+
+        await this.state.storage.put("session", this.session);
+        const newSession = await this.state.storage.get<ICodeSession>("session");
+        if (newSession === undefined) {
+          throw new Error("newSession is undefined");
+        }
+
+        const patch = createPatch(oldSession, newSession);
+
+        this.wsHandler.broadcast(patch);
+      }
+    } catch (e) {
+      console.error(e);
     }
+
     return handleErrors(request, async () => {
       this.session.code = this.session.code.replace(
         /https:\/\/spike\.land\//g,

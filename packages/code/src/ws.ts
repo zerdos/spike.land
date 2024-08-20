@@ -29,7 +29,9 @@ class Code {
   }
 
   async init() {
-    this.session = makeSession();
+    this.session = makeSession(
+      await fetch(`/live/${codeSpace}/session.json`).then((resp) => resp.json()),
+    );
   }
 
   async run() {
