@@ -13,14 +13,11 @@ const mod: {
   code: string;
   html: string;
   css: string;
-  cssIds: string;
+  transpiled: string;
   controller: AbortController;
 } = {
-  ...(globalThis.cSess || { session: {} }).session,
-  i: (globalThis.cSess || { session: {} }).session.i,
-  code: (globalThis.cSess || { session: {} }).session.code,
-  html: (globalThis.cSess || { session: {} }).session.html,
-  css: (globalThis.cSess || { session: {} }).session.css,
+  ...cSess.session,
+
   controller: new AbortController(),
 };
 
@@ -28,6 +25,8 @@ BC.onmessage = ({ data }) => {
   // if (data.i > mod.i) {
   cSess.session.code = data.code;
   cSess.session.i = data.i;
+  c;
+  mod.transpiled = data.transpiled;
   mod.i = data.i;
   mod.code = data.code;
   mod.controller.abort();
@@ -69,6 +68,10 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
       code: formattedCode,
       originToUse: location.origin,
     });
+    if (transpiled === mod.transpiled) {
+      console.log("Code is same as last run");
+      return false;
+    }
 
     let resolve: (v: {
       i: number;
