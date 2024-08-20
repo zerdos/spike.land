@@ -37,6 +37,7 @@ const mutex = new Mutex();
 
 interface Connection {
   BC: BroadcastChannel;
+  lastCounter: number;
   codeSpace: string;
   ws: Socket;
   controller: AbortController;
@@ -160,6 +161,10 @@ async function handleSocketMessage(
   const data = JSON.parse(message);
   const { BC, oldSession, user } = connection;
 
+  if (data.i) {
+    connection.lastCounter = data.i;
+  }
+
   if (data.changes) {
     BC.postMessage({ ...data, sender: "ATA WORKER1" });
   } else if (data.strSess) {
@@ -266,10 +271,58 @@ async function handleHashMatch(
   }
 }
 
-async function handleBroadcastMessage(data: any, connection: Connection) {
+const broadcastMod: {
+  [key: string]: {
+    i: number;
+    code: string;
+    html: string;
+    css: string;
+    transpiled: string;
+    controller: AbortController;
+  };
+} = {};
+
+async function handleBroadcastMessage(data: {
+  i: number;
+  changes?: boolean;
+  html: string;
+  css: string;
+  code: string;
+  transpiled: string;
+}, connection: Connection) {
   if (data.changes) {
     connection.ws.send(JSON.stringify({ ...data, name: connection.user }));
   } else if (data.i > connection.oldSession.i && data.html && data.code) {
+    const codeSpace = connection.codeSpace;
+
+    if (!broadcastMod[codeSpace]) {
+      broadcastMod[codeSpace] = {
+        ...data,
+        controller: new AbortController(),
+      };
+    }
+
+    const bMod = broadcastMod[codeSpace]!;
+    bMod.controller.abort();
+
+    const { signal } = bMod.controller = new AbortController();
+
+    setTimeout(async () => {
+      if (signal.aborted) return;
+
+      if (connection.lastCounter < bMod.i) {
+        const { code, html, css, i, transpiled } = bMod;
+        const json = JSON.stringify({ code, html, css, i, transpiled });
+        await fetch(`/live/${codeSpace}/session`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: json,
+        });
+      }
+    }, 1000);
+
     const oldSession = makeSession(connection.oldSession);
     const newSession = makeSession(data);
     const newHash = makeHash(newSession);
