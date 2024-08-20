@@ -74,9 +74,7 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
       (_resolve, _reject) => {
         resolve = _resolve;
         setTimeout(() => {
-          if (signal.aborted) return;
-          if (ediSignal.aborted) return;
-          _reject("Timeout");
+          if (signal.aborted || ediSignal.aborted) return resolve({ i: counter, html: "", css: "" });
         }, 3000);
       },
     );
@@ -99,9 +97,10 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
       sender: "Runner / Editor",
     });
 
-    const { i, html, css } = await promise;
+    const res = await promise;
     if (signal.aborted) return false;
     if (ediSignal.aborted) return false;
+    const { i, html, css } = res;
 
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
