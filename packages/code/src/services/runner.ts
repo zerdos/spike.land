@@ -47,7 +47,7 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
     Object.assign(mod, cSess.session);
   }
 
-  if (counter === 0) counter = globalThis.cSess.i + 3;
+  if (counter === 0) counter = mod.i + 3;
   console.log("Running code", counter);
 
   const formattedCode = code;
