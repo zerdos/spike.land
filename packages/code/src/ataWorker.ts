@@ -230,7 +230,7 @@ async function handleHashMismatch(
   if (signal.aborted) return;
   connection.oldSession = await fetchInitialSession(codeSpace);
   if (signal.aborted) return;
-  const transpiled = await transpile(
+  const transpiled = connection.oldSession.transpiled || await transpile(
     connection.oldSession.code,
     location.origin,
   );
