@@ -64,12 +64,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     console.log("before prettier");
     mod.current.controller.abort();
-    mod.current.controller = new AbortController();
-    const { signal } = mod.current.controller;
+    const { signal } = mod.current.controller = new AbortController();
 
     try {
       const formattedCode = await formatCode(newCode, signal);
-      if (mod.current.code === formattedCode) return;
+      if (mod.current.code === formattedCode) {
+        console.log("Code is same as last run");
+        return;
+      }
       if (signal.aborted) return;
       mod.current.code = formattedCode;
       if (errorType === "prettier") {
@@ -84,8 +86,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     mod.current.i += 1;
 
     console.log("Running debounced runner");
-    const res = await runner(mod.current.code, mod.current.i);
-    console.log("From Editor, Runner succeeded ", res);
+    const res = await runner(mod.current.code, mod.current.i, signal);
+    console.log("From Editor, Runner succeeded ", res, " i:   ", mod.current.i);
   };
 
   useImperativeHandle(ref, () => ({

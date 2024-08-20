@@ -35,7 +35,7 @@ BC.onmessage = ({ data }) => {
   // }
 };
 
-export const runner = async (code: string, counter = 0) => {
+export const runner = async (code: string, counter = 0, ediSignal = (new AbortController()).signal) => {
   console.log("Running code", counter);
 
   const formattedCode = code;
@@ -59,6 +59,7 @@ export const runner = async (code: string, counter = 0) => {
     // console.log("Prettier succeeded");
     // console.log("Running code", i);
 
+    if (ediSignal.aborted) return false;
     const transpiled = await transpile({
       code: formattedCode,
       originToUse: location.origin,
@@ -88,6 +89,8 @@ export const runner = async (code: string, counter = 0) => {
     };
 
     console.log("Sending message iframe first to calculate css", counter);
+    if (signal.aborted) return false;
+    if (ediSignal.aborted) return false;
     document.querySelector("iframe")?.contentWindow?.postMessage({
       transpiled,
       i: counter,
@@ -96,6 +99,7 @@ export const runner = async (code: string, counter = 0) => {
 
     const { i, html, css } = await promise;
     if (signal.aborted) return false;
+    if (ediSignal.aborted) return false;
 
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
@@ -123,6 +127,7 @@ export const runner = async (code: string, counter = 0) => {
     console.log("Runner succeeded");
     return true;
   } catch (error) {
+    if (ediSignal.aborted) return false;
     if (signal.aborted) return false;
     console.error("Error in runner:", error);
 
