@@ -1,7 +1,6 @@
 import { MotionConfig } from "framer-motion";
 import { FC, useEffect, useState } from "react";
 import { useWindowSize } from "react-use";
-import { DraggableChat } from "./components/DraggableChat";
 import { DraggableWindowContent } from "./components/DraggableWindowContent";
 import { MotionContainer } from "./components/MotionContainer";
 import { useBgColor } from "./hooks/useBgColor";
@@ -11,7 +10,6 @@ type DraggableWindowProps = {
   children: JSX.Element;
   handleAIModify: () => void;
   codeSpace: string;
-  showChat: boolean;
   isChatOpen: boolean;
   setShowChat: (show: boolean) => void;
 };
@@ -22,9 +20,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
   {
     children,
     codeSpace,
-    handleAIModify,
-    setShowChat,
-    showChat,
     isChatOpen,
   },
 ) => {
@@ -78,9 +73,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           setWidth={setWidth}
           codeSpace={codeSpace}
           handleDownload={handleDownload}
-          showChat={showChat}
-          handleAIModify={handleAIModify}
-          setShowChat={setShowChat}
           scale={scale}
           sizes={sizes}
           maxScaleRange={maxScaleRange}
@@ -92,12 +84,6 @@ export const DraggableWindow: FC<DraggableWindowProps> = (
           {children}
         </DraggableWindowContent>
       </MotionContainer>
-
-      {showChat && (
-        <DraggableChat
-          onClose={() => setShowChat(false)}
-        />
-      )}
     </MotionConfig>
   );
 };

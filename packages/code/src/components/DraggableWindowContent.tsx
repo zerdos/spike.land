@@ -14,9 +14,6 @@ export const DraggableWindowContent = (
     setWidth,
     codeSpace,
     handleDownload,
-    showChat,
-    setShowChat,
-    handleAIModify,
     scale,
     sizes,
     maxScaleRange,
@@ -32,9 +29,6 @@ export const DraggableWindowContent = (
     setWidth: (width: number) => void;
     codeSpace: string;
     handleDownload: () => void;
-    showChat: boolean;
-    setShowChat: (show: boolean) => void;
-    handleAIModify: () => void;
     scale: number;
     sizes: number[];
     maxScaleRange: number;
@@ -86,9 +80,6 @@ export const DraggableWindowContent = (
     <ActionButtons
       codeSpace={codeSpace}
       handleDownload={handleDownload}
-      showChat={showChat}
-      setShowChat={setShowChat}
-      handleAIModify={handleAIModify}
     />
   </div>
 );

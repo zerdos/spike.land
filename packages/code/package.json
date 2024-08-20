@@ -137,7 +137,6 @@
     "module": "1.2.5",
     "monaco-editor": "^0.50.0",
     "multiformats": "^13.2.2",
-    "net": "^1.0.2",
     "next-i18next": "^15.3.1",
     "next-themes": "^0.3.0",
     "node-source-walk": "7.0.0",

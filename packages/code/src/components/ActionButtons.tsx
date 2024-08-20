@@ -9,9 +9,6 @@ import { QRButton } from "../Qr.lazy";
 type ActionButtonsProps = {
   codeSpace: string;
   handleDownload: () => void;
-  showChat: boolean;
-  setShowChat: (show: boolean) => void;
-  handleAIModify: () => void;
 };
 
 export const ActionButtons: FC<ActionButtonsProps> = ({
