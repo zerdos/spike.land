@@ -16,6 +16,9 @@ const mod: {
   controller: AbortController;
 } = {
   ...(globalThis.cSess || { session: {} }).session,
+  i: (globalThis.cSess || { session: {} }).session.i,
+  code: (globalThis.cSess || { session: {} }).session.code,
+  html: (globalThis.cSess || { session: {} }).session.html,
   css: (globalThis.cSess || { session: {} }).session.css,
   controller: new AbortController(),
 };
@@ -23,6 +26,7 @@ const mod: {
 BC.onmessage = ({ data }) => {
   // if (data.i > mod.i) {
   cSess.session.code = data.code;
+  cSess.session.i = data.i;
   mod.i = data.i;
   mod.code = data.code;
   mod.controller.abort();
@@ -45,7 +49,7 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
   }
   console.log("Running code", counter);
 
-  if (counter === 0) counter = mod.i + 3;
+  if (counter === 0) counter = globalThis.cSess.i + 3;
   if (counter <= mod.i) return false;
   mod.i = counter;
   console.log("Running code", counter);
