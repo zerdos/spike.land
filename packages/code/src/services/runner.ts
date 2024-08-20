@@ -25,7 +25,10 @@ BC.onmessage = ({ data }) => {
   // if (data.i > mod.i) {
   cSess.session.code = data.code;
   cSess.session.i = data.i;
-  c;
+  cSess.session.html = data.html;
+  cSess.session.css = data.css;
+  cSess.session.transpiled = data.transpiled;
+
   mod.transpiled = data.transpiled;
   mod.i = data.i;
   mod.code = data.code;
@@ -40,6 +43,10 @@ BC.onmessage = ({ data }) => {
 };
 
 export const runner = async (code: string, counter = 0, ediSignal = (new AbortController()).signal) => {
+  if (mod.i === 0) {
+    Object.assign(mod, cSess.session);
+  }
+
   if (counter === 0) counter = globalThis.cSess.i + 3;
   console.log("Running code", counter);
 
