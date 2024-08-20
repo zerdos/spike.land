@@ -1,6 +1,5 @@
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { transpile } from "@src/shared";
-import { sign } from "crypto";
 
 // const getCssStr = (html: string) => html.split("\"css-").slice(1).map((x) => x.slice(0, 7)).join("");
 
