@@ -25,11 +25,13 @@ export const makeSession = (p: Partial<ICodeSession> = {}): ICodeSession =>
     code: "",
     html: "",
     css: "",
+    transpiled: "",
   })({
     i: p.i || 0,
     code: p.code || "export default ()=> <>Nothing</>",
     html: p.html || "",
     css: (p.css || ""),
+    transpiled: p.transpiled || "",
   }).toJS() as ICodeSession;
 
 export type CodePatch = {
@@ -75,9 +77,10 @@ export type ICodeSession = {
   i: number;
   html: string;
   css: string;
+  transpiled: string;
 };
 
 export function stringifySession(s: ICodeSession): string {
-  const { i, code, html, css } = s;
-  return JSON.stringify({ i, code, html, css });
+  const { i, code, html, css, transpiled } = s;
+  return JSON.stringify({ i, code, html, css, transpiled });
 }

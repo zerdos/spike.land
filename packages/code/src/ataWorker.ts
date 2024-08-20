@@ -1,7 +1,7 @@
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 import type { ata as Ata } from "./ata";
-import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession } from "./makeSess";
+import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 import { rpcFactory } from "./workerRpc";
@@ -312,7 +312,7 @@ async function handleBroadcastMessage(data: {
 
       if (connection.lastCounter < bMod.i) {
         const { code, html, css, i, transpiled } = bMod;
-        const json = JSON.stringify({ code, html, css, i, transpiled });
+        const json = stringifySession({ code, html, css, i, transpiled });
         await fetch(`/live/${codeSpace}/session`, {
           method: "POST",
           headers: {

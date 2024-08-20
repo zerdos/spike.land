@@ -148,8 +148,14 @@ export class Code implements DurableObject {
 
   async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
-    this.origin = url.origin;
+    if (this.session) {
+      this.origin = url.origin;
+    }
     this.codeSpace = url.searchParams.get("room")!;
+    if (request.method === "POST" && request.url.endsWith("/session")) {
+      this.session = await request.json();
+      await this.state.storage.put("session", this.session);
+    }
     return handleErrors(request, async () => {
       this.session.code = this.session.code.replace(
         /https:\/\/spike\.land\//g,
