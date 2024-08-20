@@ -4,7 +4,7 @@ import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { getLatestSavedData, useAutoSave } from "../hooks/autoSave";
+import { useAutoSave } from "../hooks/autoSave";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import {
   formatCode,
@@ -121,16 +121,10 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     const initializeEditor = async () => {
       // Load the latest saved data
-      const latestData = await getLatestSavedData(`editor_${codeSpace}`);
-      if (latestData) {
-        mod.current.i = latestData.i;
-        mod.current.code = latestData.code;
-        setCurrentCode(latestData.code);
-      } else {
-        mod.current.i = Number(globalThis.cSess.session.i);
-        mod.current.code = globalThis.cSess.session.code;
-        setCurrentCode(globalThis.cSess.session.code);
-      }
+
+      mod.current.i = Number(globalThis.cSess.session.i);
+      mod.current.code = globalThis.cSess.session.code;
+      setCurrentCode(globalThis.cSess.session.code);
 
       if (!containerRef || !containerRef.current) return;
 

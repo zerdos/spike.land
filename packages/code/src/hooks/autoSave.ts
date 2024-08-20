@@ -54,18 +54,3 @@ export const useAutoSave = ({ key, data, debounceMs = 1000 }: AutoSaveOptions) =
 
   return { saveData };
 };
-
-export const getLatestSavedData = async (key: string) => {
-  try {
-    const inventory = JSON.parse(await localStorage.getItem(`${key}_inventory`) || "[]");
-    if (inventory.length === 0) return null;
-
-    const latestTimestamp = Math.max(...inventory);
-    const latestData = await localStorage.getItem(`${key}_${latestTimestamp}`);
-
-    return latestData ? JSON.parse(latestData) : null;
-  } catch (error) {
-    console.error("Error retrieving latest saved data:", error);
-    return null;
-  }
-};

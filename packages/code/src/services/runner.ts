@@ -1,5 +1,6 @@
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { transpile } from "@src/shared";
+import { sign } from "crypto";
 
 // const getCssStr = (html: string) => html.split("\"css-").slice(1).map((x) => x.slice(0, 7)).join("");
 
@@ -50,13 +51,13 @@ export const runner = async (code: string, counter = 0) => {
   mod.i = counter;
   console.log("Running code", counter);
 
-  try {
-    mod.controller.abort();
-    mod.controller = new AbortController();
-    const signal = mod.controller.signal;
-    if (signal.aborted) return false;
+  mod.controller.abort();
+  mod.controller = new AbortController();
+  const signal = mod.controller.signal;
+  if (signal.aborted) return false;
 
-    console.log("Prettier succeeded");
+  try {
+    // console.log("Prettier succeeded");
     // console.log("Running code", i);
 
     const transpiled = await transpile({
@@ -95,6 +96,7 @@ export const runner = async (code: string, counter = 0) => {
     });
 
     const { i, html, css } = await promise;
+    if (signal.aborted) return false;
 
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
@@ -122,7 +124,9 @@ export const runner = async (code: string, counter = 0) => {
     console.log("Runner succeeded");
     return true;
   } catch (error) {
+    if (signal.aborted) return false;
     console.error("Error in runner:", error);
+
     return false;
   }
 };
