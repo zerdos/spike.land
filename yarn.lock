@@ -422,7 +422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/backend@npm:1.7.0, @clerk/backend@npm:^1.6.3":
+"@clerk/backend@npm:1.7.0, @clerk/backend@npm:^1.7.0":
   version: 1.7.0
   resolution: "@clerk/backend@npm:1.7.0"
   dependencies:
@@ -435,7 +435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:^5.4.1":
+"@clerk/clerk-react@npm:^5.4.2":
   version: 5.4.2
   resolution: "@clerk/clerk-react@npm:5.4.2"
   dependencies:
@@ -449,7 +449,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/clerk-sdk-node@npm:^5.0.27":
+"@clerk/clerk-sdk-node@npm:^5.0.28":
   version: 5.0.28
   resolution: "@clerk/clerk-sdk-node@npm:5.0.28"
   dependencies:
@@ -4563,8 +4563,8 @@ __metadata:
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.26.1"
-    "@clerk/backend": "npm:^1.6.3"
-    "@clerk/clerk-sdk-node": "npm:^5.0.27"
+    "@clerk/backend": "npm:^1.7.0"
+    "@clerk/clerk-sdk-node": "npm:^5.0.28"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240815.0"
     "@remix-run/cloudflare": "npm:^2.11.2"
@@ -4591,7 +4591,7 @@ __metadata:
   resolution: "@spike-land/code@workspace:packages/code"
   dependencies:
     "@babel/runtime": "npm:^7.25.0"
-    "@clerk/clerk-react": "npm:^5.4.1"
+    "@clerk/clerk-react": "npm:^5.4.2"
     "@douglasneuroinformatics/esbuild-plugin-native-modules": "npm:^1.0.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
@@ -4683,7 +4683,7 @@ __metadata:
     date-fns: "npm:^3.6.0"
     detective-typescript: "npm:13.0.0"
     dprint: "npm:^0.47.2"
-    embla-carousel-react: "npm:^8.1.8"
+    embla-carousel-react: "npm:^8.2.0"
     es-toolkit: "npm:^1.16.0"
     esbuild: "npm:^0.23.1"
     esbuild-plugin-copy: "npm:^2.1.1"
@@ -8555,7 +8555,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"embla-carousel-react@npm:^8.1.8":
+"embla-carousel-react@npm:^8.2.0":
   version: 8.2.0
   resolution: "embla-carousel-react@npm:8.2.0"
   dependencies:
