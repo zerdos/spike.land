@@ -74,6 +74,8 @@ export const runner = async (code: string, counter = 0, ediSignal = (new AbortCo
       (_resolve, _reject) => {
         resolve = _resolve;
         setTimeout(() => {
+          if (signal.aborted) return;
+          if (ediSignal.aborted) return;
           _reject("Timeout");
         }, 3000);
       },
