@@ -11,8 +11,8 @@ import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
+import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 import { reveal } from "./reveal";
-import { useMediaQuery } from './hooks/useMediaQuery'; // Add this import
 
 export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
@@ -24,7 +24,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     console.log("AppToRender mounted");

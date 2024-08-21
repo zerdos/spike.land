@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 import { renderMessage, TypingIndicator } from "./utils";
@@ -18,7 +18,7 @@ export const ChatMessage: React.FC<{
   setEditInput: (value: string) => void;
   handleCancelEdit: () => void;
   handleSaveEdit: (id: string) => void;
-}> = ({
+}> = React.memo(({
   message,
   isSelected,
   onDoubleClick,
@@ -63,10 +63,10 @@ export const ChatMessage: React.FC<{
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
-            ? "bg-primary text-primary-foreground ml-auto"
+            ? "bg-blue-500 text-white"
             : isSelected
-            ? "bg-secondary text-secondary-foreground ring-2 ring-primary"
-            : "bg-secondary text-secondary-foreground"
+            ? "bg-gray-200 ring-2 ring-blue-500"
+            : "bg-gray-100"
         }`}
       >
         {isEditing
@@ -75,7 +75,7 @@ export const ChatMessage: React.FC<{
               <Textarea
                 value={editInput}
                 onChange={(e) => setEditInput(e.target.value)}
-                className="bg-background text-foreground"
+                className="bg-white text-gray-900"
               />
               <div className="flex justify-end space-x-2">
                 <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
@@ -95,7 +95,7 @@ export const ChatMessage: React.FC<{
       </div>
     </div>
   );
-};
+});
 
 export const ChatHeader: React.FC<ChatHeaderProps> = (
   { isDarkMode, toggleDarkMode, handleResetChat, onClose },
@@ -118,7 +118,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = (
   </div>
 );
 
-export const ChatContainer: React.FC<ChatContainerProps> = ({
+export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   messages,
   editingMessageId,
   editInput,
@@ -129,18 +129,21 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
   isStreaming,
   messagesEndRef,
 }) => {
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = useCallback(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  }, []);
+
   useEffect(() => {
-    const scrollToBottom = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
     scrollToBottom();
-    const timeoutId = setTimeout(scrollToBottom, 100);
-    return () => clearTimeout(timeoutId);
-  }, [messages, isStreaming, messagesEndRef]);
+  }, [messages, isStreaming, scrollToBottom]);
 
   return (
-    <ScrollArea className="flex-grow p-4">
-      <div className="space-y-4">
+    <ScrollArea className="flex-grow" ref={scrollAreaRef}>
+      <div className="p-4 space-y-4">
         {messages.map((message) => (
           <ChatMessage
             key={message.id}
@@ -159,7 +162,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = ({
       </div>
     </ScrollArea>
   );
-};
+});
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -256,14 +259,14 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         top: 0;
         right: 0;
         bottom: 0;
-        width: ${isMobile ? '100%' : 'min(100%, 600px)'};
-        min-width: ${isMobile ? '100%' : '600px'};
+        width: ${isMobile ? "100%" : "min(100%, 640px)"};
+        min-width: ${isMobile ? "100%" : "640px"};
         z-index: 1000;
         transition: transform 0.3s ease-in-out;
       `,
     ]}
     style={{
-      transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+      transform: isOpen ? "translateX(0)" : "translateX(100%)",
     }}
   >
     <div

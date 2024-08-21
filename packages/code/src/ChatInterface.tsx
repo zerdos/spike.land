@@ -3,10 +3,10 @@ import { ChatFC } from "./ChatDrawer";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 import { useDarkMode } from "./hooks/useDarkMode";
+import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
 import { loadMessages } from "./utils/chatUtils";
-import { useMediaQuery } from './hooks/useMediaQuery'; // Add this import
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
