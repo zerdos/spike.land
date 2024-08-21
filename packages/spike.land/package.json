@@ -18,7 +18,7 @@
     "@cloudflare/kv-asset-handler": "0.3.4",
     "@cloudflare/workers-types": "4.20240815.0",
     "typescript": "5.5.4",
-    "wrangler": "3.72.0"
+    "wrangler": "3.72.1"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.26.1",
@@ -27,7 +27,7 @@
     "@remix-run/cloudflare": "^2.11.2",
     "@remix-run/react": "^2.11.2",
     "@spike-land/code": "0.9.55",
-    "@types/node": "22.4.1",
+    "@types/node": "22.4.2",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.23.1",
