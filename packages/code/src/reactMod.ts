@@ -1,5 +1,4 @@
-import * as React from "react";
-
+export * from "react";
 export { default } from "react";
 
 // export const {
