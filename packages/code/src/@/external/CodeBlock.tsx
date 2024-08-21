@@ -29,8 +29,8 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
         renderSideBySide: true,
       });
 
-      const originalModel = editor.createModel(original, language);
-      const modifiedModel = editor.createModel(modified, language);
+      const originalModel = editor.createModel(original, "diff");
+      const modifiedModel = editor.createModel(modified, "diff");
 
       diffEditor.setModel({
         original: originalModel,
@@ -130,8 +130,8 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
       {isDiff && diffContent
         ? (
           <DiffEditor
-            original={diffContent.original}
-            modified={diffContent.modified}
+            original={diffContent.original || ""}
+            modified={diffContent.modified || ""}
             language="typescript"
           />
         )
