@@ -509,9 +509,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/puppeteer@npm:^0.0.12":
-  version: 0.0.12
-  resolution: "@cloudflare/puppeteer@npm:0.0.12"
+"@cloudflare/puppeteer@npm:^0.0.13":
+  version: 0.0.13
+  resolution: "@cloudflare/puppeteer@npm:0.0.13"
   dependencies:
     "@puppeteer/browsers": "npm:1.7.0"
     chromium-bidi: "npm:0.4.20"
@@ -519,7 +519,7 @@ __metadata:
     debug: "npm:4.3.4"
     devtools-protocol: "npm:0.0.1159816"
     ws: "npm:8.13.0"
-  checksum: 10/d1d1358902e5aa229733b94b6d9909bef3797b01817f315f3c29a57702f5a98d9eee4d49d7b3df949973d898d129fee78251e09e69c50201ed46645c50ca067d
+  checksum: 10/537fdc7a523f23291877009e38e6be72ada2e906da45886642b8b85d067e8261062719d3876ce42fadf5bcc4cf9b982f5523312c67df36107f783e00a7b9948e
   languageName: node
   linkType: hard
 
@@ -4528,7 +4528,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.4.2"
+    "@types/node": "npm:22.5.0"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
@@ -4570,7 +4570,7 @@ __metadata:
     "@remix-run/cloudflare": "npm:^2.11.2"
     "@remix-run/react": "npm:^2.11.2"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:22.4.2"
+    "@types/node": "npm:22.5.0"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.23.1"
@@ -4648,7 +4648,7 @@ __metadata:
     "@types/isomorphic-fetch": "npm:0.0.39"
     "@types/lodash": "npm:^4.17.7"
     "@types/lodash.debounce": "npm:4.0.9"
-    "@types/node": "npm:^22.4.2"
+    "@types/node": "npm:^22.5.0"
     "@types/react": "npm:18.3.4"
     "@types/react-dom": "npm:18.3.0"
     "@types/react-syntax-highlighter": "npm:^15.5.13"
@@ -4663,7 +4663,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.3.1"
     "@vitest/browser": "npm:^2.0.5"
     "@vitest/ui": "npm:^2.0.5"
-    ace-builds: "npm:1.35.5"
+    ace-builds: "npm:1.36.0"
     ai-digest: "npm:^1.0.5"
     assert: "npm:2.1.0"
     assert-browserify: "npm:2.0.0"
@@ -4730,7 +4730,7 @@ __metadata:
     react-markdown: "npm:^9.0.1"
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.2"
-    react-resizable-panels: "npm:^2.1.0"
+    react-resizable-panels: "npm:^2.1.1"
     react-syntax-highlighter: "npm:^15.5.0"
     react-use: "npm:^17.5.1"
     recharts: "npm:^2.12.7"
@@ -4780,7 +4780,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.4.2"
+    "@types/node": "npm:22.5.0"
     esbuild-wasm: "npm:0.23.1"
   languageName: unknown
   linkType: soft
@@ -5391,12 +5391,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.4.2, @types/node@npm:^22.1.0, @types/node@npm:^22.4.2":
+"@types/node@npm:*, @types/node@npm:^22.1.0":
   version: 22.4.2
   resolution: "@types/node@npm:22.4.2"
   dependencies:
     undici-types: "npm:~6.19.2"
   checksum: 10/b166dbf77da448c61e800d5adb3e6b1f6df0677edc5d0f686f7a17cf6a2500eb4966a23112cb37378be3344ce3156aec8cf4918fc49dc8cd401724aaeec74cc0
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:22.5.0, @types/node@npm:^22.5.0":
+  version: 22.5.0
+  resolution: "@types/node@npm:22.5.0"
+  dependencies:
+    undici-types: "npm:~6.19.2"
+  checksum: 10/89af3bd217b1559b645a9ed16d4ae3add75749814cbd8eefddd1b96003d1973afb1c8a2b23d69f3a8cc6c532e3aa185eaf5cc29a6e7c42c311a2aad4c99430ae
   languageName: node
   linkType: hard
 
@@ -6114,10 +6123,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:1.35.5":
-  version: 1.35.5
-  resolution: "ace-builds@npm:1.35.5"
-  checksum: 10/f2b44ce92b998f7f4e51d77cf3a3b1c39200584fc7e7cdc8737297642b81e2404781f32c1052ae79f104eebee401feba138207a0f01fe504deca8b64bf36a888
+"ace-builds@npm:1.36.0":
+  version: 1.36.0
+  resolution: "ace-builds@npm:1.36.0"
+  checksum: 10/cbbe61902ddfcf6bdb60de7c14e55beee742eecf66d10133cee1ec1ea4676bb3506d9a812c5610b52c0be7972d7fb691fa108c9d07f0d7cd6718ccbab92fc3b2
   languageName: node
   linkType: hard
 
@@ -15583,13 +15592,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-resizable-panels@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "react-resizable-panels@npm:2.1.0"
+"react-resizable-panels@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "react-resizable-panels@npm:2.1.1"
   peerDependencies:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/ed867dfabc7f63d2a4c7b33aca3e48006dbd9d1b2af3de5ce969a9036b4f21d02118be3073c9fb22f8e802e2879838f55851587ecced7fce21d4f4dbb53e363d
+  checksum: 10/33d7434951504adeb4dd1e733599a3510245af210905a94fb1e84106c8701f9bd5aedf6686c131382196affdb385e0826fe5f544d229ffba18b732ee4e4fca1f
   languageName: node
   linkType: hard
 
@@ -16830,7 +16839,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "spike-land-renderer@workspace:packages/spike-land-renderer"
   dependencies:
-    "@cloudflare/puppeteer": "npm:^0.0.12"
+    "@cloudflare/puppeteer": "npm:^0.0.13"
     "@cloudflare/vitest-pool-workers": "npm:^0.4.24"
     "@cloudflare/workers-types": "npm:^4.20240815.0"
     typescript: "npm:^5.5.4"
