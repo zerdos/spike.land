@@ -34,8 +34,9 @@ export const programmingLanguages: languageMap = {
   swift: ".swift",
   "objective-c": ".m",
   kotlin: ".kt",
-  diff: ".diff",
-  typescript: ".ts",
+  diff: "diff",
+  typescript: "typescript",
+  tsx: "tsx",
   go: ".go",
   perl: ".pl",
   rust: ".rs",
@@ -158,8 +159,6 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
     </div>
   );
 };
-
-export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />;
 
 export default () => {
   const [code, setCode] = useState(``);
