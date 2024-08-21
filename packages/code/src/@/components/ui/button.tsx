@@ -4,7 +4,14 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
+const buttonVariants: (
+  props?:
+    | ({
+      variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+      size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+    } & import("class-variance-authority/dist/types").ClassProp)
+    | undefined,
+) => string = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -36,7 +43,10 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>> = React.forwardRef<
+  HTMLButtonElement,
+  ButtonProps
+>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
