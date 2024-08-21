@@ -1,4 +1,3 @@
-import { editor } from "@/external/monacoEditor";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 
 interface DiffEditorProps {
