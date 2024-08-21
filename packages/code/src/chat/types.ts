@@ -19,11 +19,13 @@ export interface ChatContainerProps {
   handleSaveEdit: (messageId: string) => void;
   handleEditMessage: (id: string) => void;
   isStreaming: boolean;
+  isDarkMode: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement>;
 }
 
 export interface MessageInputProps {
   input: string;
+  isDarkMode: boolean;
   setInput: (value: string) => void;
   handleSendMessage: (value: string, screenshot: string) => void;
   isStreaming: boolean;
@@ -37,5 +39,6 @@ export interface MessageInputProps {
 export interface ChatWindowProps {
   isOpen: boolean;
   children: ReactNode;
+  isDarkMode: boolean;
   isMobile: boolean;
 }

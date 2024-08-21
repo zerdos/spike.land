@@ -28,12 +28,16 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
+    let diffEditor: editor.IStandaloneDiffEditor | undefined;
+    let originalModel: editor.ITextModel | undefined;
+    let modifiedModel: editor.ITextModel | undefined;
+
     if (containerRef.current) {
-      const diffEditor = editor.createDiffEditor(containerRef.current, {
+      diffEditor = editor.createDiffEditor(containerRef.current, {
         automaticLayout: true,
         diffAlgorithm: "legacy",
         readOnly: true,
-        diffWordWrap: "off",
+        diffWordWrap: "on",
         lineNumbers: "off",
         diffCodeLens: false,
         scrollBeyondLastLine: false,
@@ -41,20 +45,20 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
         renderSideBySide: true,
       });
 
-      const originalModel = editor.createModel(original, language);
-      const modifiedModel = editor.createModel(modified, language);
+      originalModel = editor.createModel(original, language);
+      modifiedModel = editor.createModel(modified, language);
 
       diffEditor.setModel({
         original: originalModel,
         modified: modifiedModel,
       });
-
-      return () => {
-        diffEditor.dispose();
-        originalModel.dispose();
-        modifiedModel.dispose();
-      };
     }
+
+    return () => {
+      diffEditor?.dispose();
+      originalModel?.dispose();
+      modifiedModel?.dispose();
+    };
   }, [original, modified, language, editorHeight]);
 
   return (

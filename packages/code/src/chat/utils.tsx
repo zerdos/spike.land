@@ -3,22 +3,22 @@ import { motion } from "framer-motion";
 import React, { Fragment } from "react";
 import { styles } from "./styles";
 
-export const TypingIndicator: React.FC = () => (
+export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-2 items-center p-2">
     <span className="text-sm text-gray-500">AI is typing</span>
-    <TypingDots />
+    <TypingDots isDarkMode={isDarkMode} />
   </div>
 );
 
-const TypingDots: React.FC = () => (
+const TypingDots: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-1">
-    {[0, 1, 2].map((dot) => <AnimatedDot key={dot} delay={dot * 0.2} />)}
+    {[0, 1, 2].map((dot) => <AnimatedDot key={dot} delay={dot * 0.2} isDarkMode={isDarkMode} />)}
   </div>
 );
 
-const AnimatedDot: React.FC<{ delay: number }> = ({ delay }) => (
+const AnimatedDot: React.FC<{ delay: number; isDarkMode: boolean }> = ({ delay, isDarkMode }) => (
   <motion.div
-    className="w-2 h-2 bg-gray-400 rounded-full"
+    className={`w-2 h-2 rounded-full ${isDarkMode ? "bg-gray-400" : "bg-gray-800"}`}
     animate={{
       scale: [1, 1.2, 1],
       opacity: [0.5, 1, 0.5],

@@ -18,6 +18,7 @@ export const ChatMessage: React.FC<{
   setEditInput: (value: string) => void;
   handleCancelEdit: () => void;
   handleSaveEdit: (id: string) => void;
+  isDarkMode: boolean;
 }> = React.memo(({
   message,
   isSelected,
@@ -27,6 +28,7 @@ export const ChatMessage: React.FC<{
   setEditInput,
   handleCancelEdit,
   handleSaveEdit,
+  isDarkMode,
 }) => {
   const isUser = message.role === "user";
 
@@ -63,7 +65,13 @@ export const ChatMessage: React.FC<{
       <div
         className={`max-w-[80%] p-3 rounded-lg ${
           isUser
-            ? "bg-blue-500 text-white"
+            ? isDarkMode
+              ? "bg-blue-600 text-white"
+              : "bg-blue-500 text-white"
+            : isDarkMode
+            ? isSelected
+              ? "bg-gray-700 ring-2 ring-blue-500"
+              : "bg-gray-800 text-white"
             : isSelected
             ? "bg-gray-200 ring-2 ring-blue-500"
             : "bg-gray-100"
@@ -75,7 +83,7 @@ export const ChatMessage: React.FC<{
               <Textarea
                 value={editInput}
                 onChange={(e) => setEditInput(e.target.value)}
-                className="bg-white text-gray-900"
+                className={isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"}
               />
               <div className="flex justify-end space-x-2">
                 <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
@@ -100,7 +108,11 @@ export const ChatMessage: React.FC<{
 export const ChatHeader: React.FC<ChatHeaderProps> = (
   { isDarkMode, toggleDarkMode, handleResetChat, onClose },
 ) => (
-  <div className="bg-secondary p-4 font-bold flex justify-between items-center">
+  <div
+    className={`p-4 font-bold flex justify-between items-center ${
+      isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
+    }`}
+  >
     <span>AI spike pilot</span>
     <div className="flex items-center space-x-2">
       <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
@@ -128,6 +140,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   handleEditMessage,
   isStreaming,
   messagesEndRef,
+  isDarkMode,
 }) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
@@ -142,7 +155,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   }, [messages, isStreaming, scrollToBottom]);
 
   return (
-    <ScrollArea className="flex-grow" ref={scrollAreaRef}>
+    <ScrollArea className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`} ref={scrollAreaRef}>
       <div className="p-4 space-y-4">
         {messages.map((message) => (
           <ChatMessage
@@ -155,9 +168,10 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
             setEditInput={setEditInput}
             handleCancelEdit={handleCancelEdit}
             handleSaveEdit={handleSaveEdit}
+            isDarkMode={isDarkMode}
           />
         ))}
-        {isStreaming && <TypingIndicator />}
+        {isStreaming && <TypingIndicator isDarkMode={isDarkMode} />}
         <div ref={messagesEndRef} />
       </div>
     </ScrollArea>
@@ -174,6 +188,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   screenshotImage,
   handleScreenshotClick,
   handleCancelScreenshot,
+  isDarkMode,
 }) => {
   const handleSend = () => {
     handleSendMessage(input, screenshotImage || "");
@@ -186,7 +201,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   }
 
   return (
-    <div className="p-2 bg-background mt-auto">
+    <div className={`p-2 mt-auto ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
       <div className="flex flex-col space-y-2">
         {screenshotImage && (
           <div className="relative">
@@ -212,7 +227,9 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               }
             }}
             placeholder="Type a message..."
-            className="flex-1 min-h-[40px] max-h-[120px] resize-none"
+            className={`flex-1 min-h-[40px] max-h-[120px] resize-none ${
+              isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"
+            }`}
             ref={inputRef}
           />
           <div className="flex items-center space-x-2">
@@ -248,6 +265,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   children,
   isOpen,
   isMobile,
+  isDarkMode,
 }) => (
   <div
     css={[
@@ -263,6 +281,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         min-width: ${isMobile ? "100%" : "640px"};
         z-index: 1000;
         transition: transform 0.3s ease-in-out;
+        background-color: ${isDarkMode ? "#1a202c" : "#ffffff"};
+        color: ${isDarkMode ? "#ffffff" : "#000000"};
       `,
     ]}
     style={{

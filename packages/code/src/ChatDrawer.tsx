@@ -56,7 +56,7 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
   handleCancelScreenshot,
   isMobile,
 }) => (
-  <ChatWindow isOpen={isOpen} isMobile={isMobile}>
+  <ChatWindow isOpen={isOpen} isMobile={isMobile} isDarkMode={isDarkMode}>
     <ChatHeader
       isDarkMode={isDarkMode}
       toggleDarkMode={toggleDarkMode}
@@ -73,6 +73,7 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
       handleEditMessage={handleEditMessage}
       isStreaming={isStreaming}
       messagesEndRef={messagesEndRef}
+      isDarkMode={isDarkMode}
     />
     <MessageInput
       input={input}
@@ -84,6 +85,7 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
       screenshotImage={screenshotImage}
       handleScreenshotClick={handleScreenshotClick}
       handleCancelScreenshot={handleCancelScreenshot}
+      isDarkMode={isDarkMode}
     />
   </ChatWindow>
 ));
