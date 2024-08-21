@@ -1,11 +1,11 @@
 // build-tasks.mjs
 import { copy } from "esbuild-plugin-copy";
 import { replace } from "esbuild-plugin-replace";
+import { environment } from "helpers.ts";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
 export type Environment = "development" | "production";
-const environment = process.env.NODE_ENV as Environment;
 
 const isProduction = environment as string === "production";
 

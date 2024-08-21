@@ -56,6 +56,7 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
         modifiedModel.dispose();
       };
     }
+    return () => {};
   }, [original, modified, language, editorHeight]);
 
   return (

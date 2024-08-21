@@ -17,6 +17,8 @@ describe("AIHandler", () => {
       anthropicEndpoint: "https://api.anthropic.com",
       openAIEndpoint: "https://api.openai.com",
       gpt4oEndpoint: "https://api.gpt4o.com",
+      retryWithClaudeEnabled: false,
+      updateThrottleMs: 1000,
     });
     vi.mocked(mockAIService);
     aiHandler = new AIHandler(testCodeSpace, mockAIService);

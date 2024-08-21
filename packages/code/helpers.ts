@@ -1,11 +1,33 @@
 import { promises } from "node:fs";
-import { env } from "node:process";
 import type { Environment } from "./build-tasks";
 
-const environment = process.env.NODE_ENV as Environment;
+export const environment = process.env.NODE_ENV as Environment;
 const { readdir } = promises;
 
-export const makeEnv = (environment: Environment) => ({
+export const makeEnv = (
+  environment: Environment,
+): {
+  "process.env.NODE_ENV": string;
+  "process.env.NODE_DEBUG": string;
+  "process.platform": string;
+  "process.browser": string;
+  "process.env.DEBUG": string;
+  "process.versions.node": string;
+  "process.versions.pnp": string;
+  "process.version.node": string;
+  "process.env.isBrowser": string;
+  "process.env.isWebworker": string;
+  isBrowser: string;
+  isJest: string;
+  "process.env.version": string;
+  global: string;
+  WORKER_DOM_DEBUG: string;
+  "process.env.DUMP_SESSION_KEYS": string;
+  version: string;
+  nodeVersion: string;
+  env: string;
+  browser: string;
+} => ({
   "process.env.NODE_ENV": JSON.stringify(environment || "development"),
   "process.env.NODE_DEBUG": JSON.stringify(false),
   "process.platform": JSON.stringify("browser"),
@@ -38,7 +60,7 @@ export const makeEnv = (environment: Environment) => ({
   browser: JSON.stringify(true),
 });
 
-export const getWasmFile = async () => {
+export const getWasmFile = async (): Promise<string> => {
   const dir = await readdir("./dist");
   for await (const file of dir) {
     if (file.includes("esbuild") && file.includes(".wasm")) {

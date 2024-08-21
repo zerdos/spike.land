@@ -59,6 +59,9 @@ function Calendar({
     />
   );
 }
+declare namespace Calendar {
+  export var displayName: string;
+}
 Calendar.displayName = "Calendar";
 
 export { Calendar };

@@ -31,7 +31,7 @@ class Code {
   async init() {
     try {
       const response = await fetch(`/live/${codeSpace}/session.json`);
-      const data = await response.json();
+      const data: ICodeSession = await response.json();
       this.session = makeSession(data);
     } catch (error) {
       console.error("Error fetching session data:", error);

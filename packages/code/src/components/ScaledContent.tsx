@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
 
 export const ScaledContent = (
@@ -10,7 +11,7 @@ export const ScaledContent = (
     bgColor: number[];
     rgba: (r: number, g: number, b: number, a: number) => string;
   },
-) => (
+): JSX.Element => (
   <motion.div
     transition={{ zoom: { type: "spring" }, delay: 0 }}
     css={css`

@@ -38,7 +38,7 @@
     "outDir": "dts",
     "allowImportingTsExtensions": true,
     "emitDeclarationOnly": true,
-    "isolatedDeclarations": true,
+    // "isolatedDeclarations": true,
 
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
     // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
@@ -68,9 +68,21 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "target": "ES2022",
 
+    "lib": [
+      "ESNext",
+      "DOM",
+      "ESNext.BigInt",
+      "ESNext.String",
+      "ESNext.Promise",
+      "DOM.AsyncIterable",
+      "ESNext.AsyncIterable",
+      "DOM.Iterable",
+      "WebWorker",
+      "WebWorker.ImportScripts",
+      "Webworker.Iterable"
+    ],
 
     
-    "lib": ["dom", "dom.iterable", "esnext", "WebWorker.AsyncIterable"],
     "allowUmdGlobalAccess": true,
     "types": [
       "@types/wicg-file-system-access",

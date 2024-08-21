@@ -18,6 +18,8 @@ describe("AIService", () => {
     } as unknown as Mocked<LocalStorageService>;
 
     aiService = new AIService(localStorageService, {
+      retryWithClaudeEnabled: false,
+      updateThrottleMs: 1000,
       anthropicEndpoint: "https://api.anthropic.com",
       openAIEndpoint: "https://api.openai.com",
       gpt4oEndpoint: "https://api.gpt4o.com",

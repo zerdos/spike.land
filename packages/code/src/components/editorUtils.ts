@@ -40,7 +40,7 @@ export const setEditorContent = (
   counter: number,
   signal: AbortSignal,
   setValue: (code: string) => void,
-) => {
+): void => {
   setTimeout(() => {
     if (signal.aborted) return;
     console.log("Setting editor content: ", counter);
@@ -57,7 +57,13 @@ export async function initializeMonaco(
   codeSpace: string,
   code: string,
   onChange: (newCode: string) => void,
-) {
+): Promise<{
+  getValue: () => string;
+  silent: boolean;
+  getErrors: () => Promise<string[]>;
+  isEdit: boolean;
+  setValue: (_newCode: string) => void;
+}> {
   addCSSFile("/*monaco-editor?bundle&css");
   const { startMonaco } = await import("../startMonaco");
   return await startMonaco({
@@ -72,12 +78,16 @@ export async function initializeAce(
   container: HTMLDivElement,
   code: string,
   onChange: (newCode: string) => void,
-) {
+): Promise<{
+  getValue: () => string;
+  getErrors: () => Promise<string[]>;
+  setValue: (code: string) => void;
+}> {
   const { startAce } = await import("../startAce");
   return await startAce(code, onChange, container);
 }
 
-export function addCSSFile(filename: string) {
+export function addCSSFile(filename: string): void {
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.type = "text/css";
