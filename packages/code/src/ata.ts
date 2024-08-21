@@ -1,5 +1,3 @@
-import { importMapReplace } from "./importMapReplace";
-
 import { myATA } from "./my-ata";
 import { QueuedFetch } from "./QueuedFetch";
 
@@ -8,24 +6,22 @@ const queuedFetch = new QueuedFetch(3, 1000);
 export async function ata({
   code,
   originToUse,
-  prettierJs,
   tsx,
 }: {
   code: string;
   originToUse: string;
-  prettierJs: (code: string) => Promise<string>;
   tsx: (code: string) => Promise<string[]>;
 }) {
   let thisATA: { content: string; filePath: string }[] = [];
 
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
 
-  let res = (await tsx(await prettierJs(code))).filter((x) => x.includes("@/components"));
+  let res = (await tsx(code)).filter((x) => x.includes("@/components"));
   try {
     await Promise.all(
       res.map(async (r) => {
         const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
-        const content = await prettierJs(await resp.text());
+        const content = await resp.text();
         impRes[r] = {
           url: resp.url,
           ref: "",
@@ -118,7 +114,7 @@ declare module 'react' {
           .map(async (x) => ({
             filePath: impRes[x].url!.replace("https://unpkg.com", originToUse)
               .replace(originToUse, ""),
-            content: (await prettierJs(impRes[x].content))
+            content: impRes[x].content
               .split(`import mod from "/`)
               .join(`import mod from "`)
               .split(`export * from "/`)
@@ -147,7 +143,7 @@ declare module 'react' {
   return [...ataBIG, ...thisATA];
 
   async function ataRecursive(code: string, baseUrl: string) {
-    let res = await tsx(await prettierJs(code));
+    let res = await tsx(code);
 
     const refParts = code.split(`/// <reference path="`);
     if (refParts.length > 1) {
@@ -240,10 +236,12 @@ declare module 'react' {
     response: Response,
     ref: string,
   ): Promise<string | null> {
-    const responseText = importMapReplace(
-      await prettierJs(await response.text()),
-      originToUse,
-    );
+    const responseText = await response.text();
+
+    // importMapReplace(
+    //   await prettierJs(await response.text()),
+    //   originToUse,
+    // );
     return responseText.split(`"`).find((x) => x.startsWith("https://") && x.includes(ref)) || null;
   }
 
@@ -289,7 +287,7 @@ declare module 'react' {
         if (!typingsResponse.ok) {
           throw new Error(`Failed to queuedFetch typings for ${npmPackage}`);
         }
-        const content = (await prettierJs(await typingsResponse.text())).split(
+        const content = (await typingsResponse.text()).split(
           "https://unpkg.com/",
         ).join();
         if (content.startsWith("Cannot find")) return;
@@ -342,7 +340,7 @@ declare module 'react' {
       })
         .then(async (dtsRes) => {
           impRes[newBase].url = dtsRes.url;
-          return prettierJs(await dtsRes.text());
+          return await dtsRes.text();
         });
 
       const fileName = new URL(

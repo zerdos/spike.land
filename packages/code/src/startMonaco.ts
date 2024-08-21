@@ -70,7 +70,7 @@ async function fetchAndCreateExtraModels(
 
 const monacoContribution = async (code: string) => {
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    baseUrl: originToUse + "/live",
+    baseUrl: originToUse + "/",
     target: monaco.languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
     moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
@@ -107,6 +107,7 @@ const monacoContribution = async (code: string) => {
     paths: {
       "tslib": ["/tslib"],
       "./*": ["/live/*"],
+      "@/": [`${originToUse}/@/`],
       "/*": [`${originToUse}/`],
     },
     jsxImportSource: "@emotion/react",
