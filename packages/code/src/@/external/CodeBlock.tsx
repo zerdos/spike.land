@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { FC, memo, useMemo, useState } from "react";
+import { FC, memo, useCallback, useMemo, useState } from "react";
 
 import { editor } from "@/external/monacoEditor";
 import React, { useEffect, useRef } from "react";
@@ -11,7 +11,7 @@ interface DiffEditorProps {
   language?: string;
 }
 
-const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = "typescript" }) => {
+const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,7 +23,6 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
         diffWordWrap: "off",
         lineNumbers: "off",
         diffCodeLens: false,
-
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
         renderSideBySide: true,
@@ -46,7 +45,9 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
   }, [original, modified, language]);
 
   return <div ref={containerRef} style={{ width: "100%", height: "200px", maxHeight: "400px" }} />;
-};
+});
+
+DiffEditor.displayName = "DiffEditor";
 
 export const generateRandomString = (length: number, lowercase = false) => {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXY3456789";
@@ -92,8 +93,6 @@ interface Props {
   value: string;
 }
 
-DiffEditor.displayName = "DiffEditor";
-
 const isDiffContent = (content: string): boolean => {
   return content.includes("<<<<<<< SEARCH");
 };
@@ -119,6 +118,45 @@ const CodeBlockHeader: FC<{ language: string }> = memo(({ language }) => {
 
 CodeBlockHeader.displayName = "CodeBlockHeader";
 
+const StreamingSyntaxHighlighter: FC<{ language: string; value: string }> = memo(({ language, value }) => {
+  const [renderedValue, setRenderedValue] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+    const renderChunks = async () => {
+      const chunkSize = 100;
+      for (let i = 0; i < value.length; i += chunkSize) {
+        if (!isMounted) break;
+        const chunk = value.slice(0, i + chunkSize);
+        setRenderedValue(chunk);
+        await new Promise(resolve => setTimeout(resolve, 10));
+      }
+      if (isMounted) setRenderedValue(value);
+    };
+    renderChunks();
+    return () => {
+      isMounted = false;
+    };
+  }, [value]);
+
+  return (
+    <SyntaxHighlighter
+      language={language}
+      style={tomorrow}
+      customStyle={{
+        margin: 0,
+        padding: "1rem",
+        fontSize: "0.875rem",
+        lineHeight: 1.5,
+      }}
+    >
+      {renderedValue}
+    </SyntaxHighlighter>
+  );
+});
+
+StreamingSyntaxHighlighter.displayName = "StreamingSyntaxHighlighter";
+
 export const CodeBlock: FC<Props> = memo(({ language, value }) => {
   const isDiff = useMemo(() => isDiffContent(value), [value]);
   const diffContent = useMemo(() => isDiff ? extractDiffContent(value) : null, [isDiff, value]);
@@ -137,18 +175,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
         )
         : (
           <div className="max-h-[400px] overflow-y-auto">
-            <SyntaxHighlighter
-              language={language}
-              style={tomorrow}
-              customStyle={{
-                margin: 0,
-                padding: "1rem",
-                fontSize: "0.875rem",
-                lineHeight: 1.5,
-              }}
-            >
-              {value}
-            </SyntaxHighlighter>
+            <StreamingSyntaxHighlighter language={language} value={value} />
           </div>
         )}
     </div>
@@ -157,16 +184,26 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
 
 CodeBlock.displayName = "CodeBlock";
 
-export const CodeTS = memo(({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />);
+export const CodeTS: FC<{ code: string }> = memo(({ code }) => <CodeBlock value={code} language="typescript" />);
 
 CodeTS.displayName = "CodeTS";
 
 export default memo(() => {
-  const [code, setCode] = useState(``);
-  useEffect(() => {
-    fetch(`https://testing.spike.land/live/CodeBlock/index.tsx`)
-      .then((x) => x.text())
-      .then(setCode);
+  const [code, setCode] = useState("");
+
+  const fetchCode = useCallback(async () => {
+    try {
+      const response = await fetch(`https://testing.spike.land/live/CodeBlock/index.tsx`);
+      const text = await response.text();
+      setCode(text);
+    } catch (error) {
+      console.error("Error fetching code:", error);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchCode();
+  }, [fetchCode]);
+
   return <CodeTS code={code} />;
 });
