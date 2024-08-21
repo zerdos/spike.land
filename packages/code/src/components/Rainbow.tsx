@@ -42,6 +42,9 @@ const Rainbow = () => {
     `;
 
   const gradientStyle = css`
+      position: absolute;
+      top: 0;
+      left: 0;
       height: 100vh;
       width: 100vw;
       background-blend-mode: overlay;
@@ -63,6 +66,8 @@ const Rainbow = () => {
 };
 
 const RainbowContainer = styled.div`
+    display: flex;
+    position: relative;
     height: 100%;
     width: 100%;
   `;
