@@ -33,6 +33,9 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
         diffAlgorithm: "legacy",
         readOnly: true,
         diffWordWrap: "on",
+        hideUnchangedRegions: {
+          enabled: true,
+        },
         lineNumbers: "off",
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
