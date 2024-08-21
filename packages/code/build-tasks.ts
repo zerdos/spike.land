@@ -8,9 +8,8 @@ export type Environment = "development" | "production";
 const environment = process.env.NODE_ENV as Environment;
 
 const isProduction = environment as string === "production";
-const watch = false;
 
-export async function buildWorkers() {
+export async function buildWorkers(): Promise<void> {
   const workerEntryPoints = [
     "vs/language/json/json.worker.js",
     "vs/language/css/css.worker.js",
@@ -37,7 +36,7 @@ export async function buildWorkers() {
   });
 }
 
-export async function buildMainScripts() {
+export async function buildMainScripts(): Promise<void> {
   const entryPoints = [
     "src/prettierEsm.ts",
     "src/memfs.ts",
@@ -57,7 +56,7 @@ export async function buildMainScripts() {
   });
 }
 
-export async function buildTranspileScript() {
+export async function buildTranspileScript(): Promise<void> {
   await build({
     ...getCommonBuildOptions(environment),
     entryPoints: ["src/transpile.ts"],
@@ -69,7 +68,7 @@ export async function buildTranspileScript() {
   });
 }
 
-export const buildWasm = async () => {
+export const buildWasm = async (): Promise<void> => {
   await build({
     ...getCommonBuildOptions(environment),
     entryPoints: ["src/esbuildWASM.ts"],
@@ -79,7 +78,7 @@ export const buildWasm = async () => {
   });
 };
 
-export async function buildServiceWorker() {
+export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions(environment),
     entryPoints: ["src/sw.ts"],
@@ -92,7 +91,7 @@ export async function buildServiceWorker() {
   });
 }
 
-export async function buildMainBundle(wasmFile) {
+export async function buildMainBundle(wasmFile: any): Promise<void> {
   const buildOptions = getCommonBuildOptions(environment);
 
   const components = [
@@ -253,7 +252,7 @@ export async function buildMainBundle(wasmFile) {
       "src/reactDom.ts",
       "src/reactDomClient.ts",
       // "src/reactDomServer.ts",
-      "src/jsx.mjs",
+      "src/jsx.ts",
       "src/shared.ts",
       "src/Wrapper.tsx",
     ],

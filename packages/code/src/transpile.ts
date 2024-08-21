@@ -21,7 +21,7 @@ const mod = self.mod = self.mod || {
   },
 };
 
-export const cjs = async (code: string) => {
+export const cjs = async (code: string): Promise<string> => {
   const { code: cjs } = await transform(code, {
     loader: "tsx",
     format: "cjs",
@@ -47,7 +47,11 @@ export const transpile = async (
   code: string,
   origin: string,
   wasmModule?: WebAssembly.Module,
-) => {
+): Promise<
+  string | {
+    error: unknown;
+  }
+> => {
   try {
     if (wasmModule) {
       if (!mod.init) await mod.initialize(wasmModule);
@@ -106,7 +110,11 @@ export const build = async ({
   external?: string[];
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
-}) => {
+}): Promise<
+  string | import("esbuild-wasm").OutputFile[] | {
+    error: unknown;
+  } | undefined
+> => {
   let defaultOpts: BuildOptions;
   try {
     if (wasmModule) {

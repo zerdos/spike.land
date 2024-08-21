@@ -150,7 +150,13 @@ export const startMonaco = async ({
   container: HTMLDivElement;
   codeSpace: string;
   onChange: (_code: string) => void;
-}) => {
+}): Promise<{
+  getValue: () => string;
+  silent: boolean;
+  getErrors: () => Promise<string[]>;
+  isEdit: boolean;
+  setValue: (_newCode: string) => void;
+}> => {
   if (!mod[codeSpace]) {
     mod[codeSpace] = await startMonacoPristine({
       code,

@@ -67,7 +67,7 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   );
   rpcProvider.registerRpcHandler(
     "ata",
-    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, prettierJs, tsx }),
+    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, tsx }),
   );
   rpcProvider.registerRpcHandler(
     "transpile",

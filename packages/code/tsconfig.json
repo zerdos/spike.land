@@ -4,7 +4,7 @@
 
     /* Basic Options */
 
-    "allowJs": true,
+    "allowJs": false,
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
 
@@ -36,6 +36,9 @@
     "moduleResolution": "node",
     // "noEmit": true,
     "outDir": "dts",
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "isolatedDeclarations": true,
 
     // "preserveSymlinks": true,              /* Do not resolve the real path of symlinks. */
     // "allowUmdGlobalAccess": true,          /* Allow accessing UMD globals from modules. */
@@ -80,6 +83,7 @@
     "allowUmdGlobalAccess": true,
     "types": [
       "@types/wicg-file-system-access",
+      "@types/node",
       "@types/react",
       "@types/react-dom",
       "vitest"
@@ -87,6 +91,8 @@
   },
 
   "include": [
+    "./*.ts",
+    "./*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.js",

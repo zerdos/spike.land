@@ -11,7 +11,10 @@ export async function ata({
   code: string;
   originToUse: string;
   tsx: (code: string) => Promise<string[]>;
-}) {
+}): Promise<{
+  filePath: string;
+  content: string;
+}[]> {
   let thisATA: { content: string; filePath: string }[] = [];
 
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
