@@ -52,6 +52,7 @@ interface Props {
 }
 
 const DiffEditor: FC<{ original: string; modified: string }> = ({ original, modified }) => {
+  console.log({ original, modified });
   return (
     <MonacoDiffEditor
       height="300px"
