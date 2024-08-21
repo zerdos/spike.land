@@ -41,8 +41,8 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
         renderSideBySide: true,
       });
 
-      const originalModel = editor.createModel(original, language);
-      const modifiedModel = editor.createModel(modified, language);
+      const originalModel = editor.createModel(original, "markdown");
+      const modifiedModel = editor.createModel(modified, "markdown");
 
       diffEditor.setModel({
         original: originalModel,
