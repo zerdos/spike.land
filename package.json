@@ -38,6 +38,7 @@
     "@playwright/test": "1.46.1",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "9.6.0",
+    "@types/esprima": "^4",
     "@types/react": "^18.3.4",
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "8.2.0",
@@ -50,5 +51,8 @@
     "react": "18.3.1",
     "typescript": "5.5.4"
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.4.0",
+  "dependencies": {
+    "esprima": "^4.0.1"
+  }
 }
