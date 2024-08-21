@@ -1,8 +1,9 @@
-import { editor } from "@/external/monacoEditor";
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { FC } from "react";
+import { FC, memo, useCallback, useMemo, useState } from "react";
+
+import { editor } from "@/external/monacoEditor";
+import React, { useEffect, useRef } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -10,7 +11,7 @@ interface DiffEditorProps {
   language?: string;
 }
 
-const DiffEditor: FC<DiffEditorProps> = ({ original, modified, language = "typescript" }) => {
+const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculateHeight = useCallback((content: string) => {
@@ -27,12 +28,8 @@ const DiffEditor: FC<DiffEditorProps> = ({ original, modified, language = "types
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
-    let diffEditor: editor.IStandaloneDiffEditor | undefined;
-    let originalModel: editor.ITextModel | undefined;
-    let modifiedModel: editor.ITextModel | undefined;
-
     if (containerRef.current) {
-      diffEditor = editor.createDiffEditor(containerRef.current, {
+      const diffEditor = editor.createDiffEditor(containerRef.current, {
         automaticLayout: true,
         diffAlgorithm: "legacy",
         readOnly: true,
@@ -44,24 +41,20 @@ const DiffEditor: FC<DiffEditorProps> = ({ original, modified, language = "types
         renderSideBySide: true,
       });
 
-      originalModel = editor.createModel(original, "typescript");
-      modifiedModel = editor.createModel(modified, "typescript");
+      const originalModel = editor.createModel(original, language);
+      const modifiedModel = editor.createModel(modified, language);
 
       diffEditor.setModel({
         original: originalModel,
         modified: modifiedModel,
       });
-    }
 
-    return () => {
-      try {
-        diffEditor?.dispose();
-        originalModel?.dispose();
-        modifiedModel?.dispose();
-      } catch (error) {
-        console.error("Error disposing editor:", error);
-      }
-    };
+      return () => {
+        diffEditor.dispose();
+        originalModel.dispose();
+        modifiedModel.dispose();
+      };
+    }
   }, [original, modified, language, editorHeight]);
 
   return (
@@ -75,7 +68,7 @@ const DiffEditor: FC<DiffEditorProps> = ({ original, modified, language = "types
       }}
     />
   );
-};
+});
 
 DiffEditor.displayName = "DiffEditor";
 
