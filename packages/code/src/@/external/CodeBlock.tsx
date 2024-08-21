@@ -50,10 +50,10 @@ interface Props {
 const DiffEditor: FC<{ original: string; modified: string }> = memo(({ original, modified }) => {
   return (
     <MonacoDiffEditor
-      height="auto"
       language="typescript"
       original={original}
       modified={modified}
+      height="200px"
       theme="vs-dark"
       options={{
         readOnly: true,
