@@ -30,6 +30,52 @@ export const useSpeedy2 = async () => {
     format: "esm",
   });
 
+  const mjs = res[0].text;
+  const cssExtra = res[1].text;
+
+  const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
+  const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
+  const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
+  const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <base href="/">
+  <title>CodeSpace archive for ${codeSpace} </title>
+  <style>
+       ${gJunk}
+  </style>
+  <style>  
+    ${cssExtra}
+  </style>
+  <style>  
+    ${css}
+  </style>
+</head>
+<body>
+  <div id="embed">${htm}</div>
+  <script type="module">
+  ${mjs}
+  </script>
+  <script>
+    ${twJS}
+</script>
+</body>
+</html>`;
+
+  await fetch(`/my-cms/${codeSpace}.html`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "text/html",
+    },
+    body: html,
+  });
+
   console.log({ res });
 };
 Object.assign(globalThis, { useSpeedy2 });
