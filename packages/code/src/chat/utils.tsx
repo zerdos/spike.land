@@ -1,4 +1,5 @@
 import { CodeBlock, programmingLanguages } from "@/external/CodeBlock";
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
 import { styles } from "./styles";
@@ -145,7 +146,19 @@ const TextPart: React.FC<{ content: string }> = ({ content }) => (
     {content.split("\n").map((line, j) => (
       <Fragment key={j}>
         {j > 0 && <br />}
-        <span css={styles.smallFontWithMaxWidth}>{line}</span>
+        <span
+          css={[
+            styles.smallFontWithMaxWidth,
+            css`
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+          `,
+          ]}
+        >
+          {line}
+        </span>
       </Fragment>
     ))}
   </>
