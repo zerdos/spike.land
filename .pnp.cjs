@@ -192,10 +192,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:0.26.1", {\
-        "packageLocation": "./.yarn/global/cache/@anthropic-ai-sdk-npm-0.26.1-737a792457-10.zip/node_modules/@anthropic-ai/sdk/",\
+      ["npm:0.27.0", {\
+        "packageLocation": "./.yarn/global/cache/@anthropic-ai-sdk-npm-0.27.0-1b36376e14-10.zip/node_modules/@anthropic-ai/sdk/",\
         "packageDependencies": [\
-          ["@anthropic-ai/sdk", "npm:0.26.1"],\
+          ["@anthropic-ai/sdk", "npm:0.27.0"],\
           ["@types/node", "npm:18.19.45"],\
           ["@types/node-fetch", "npm:2.6.11"],\
           ["abort-controller", "npm:3.0.0"],\
@@ -866,10 +866,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@cloudflare/workers-types", [\
-      ["npm:4.20240815.0", {\
-        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20240815.0-bb8aae3c98-10.zip/node_modules/@cloudflare/workers-types/",\
+      ["npm:4.20240821.1", {\
+        "packageLocation": "./.yarn/global/cache/@cloudflare-workers-types-npm-4.20240821.1-29b6d1e2b0-10.zip/node_modules/@cloudflare/workers-types/",\
         "packageDependencies": [\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"]\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2449,6 +2449,24 @@ const RAW_RUNTIME_STATE =
           ["decamelize", "npm:1.2.0"],\
           ["js-tiktoken", "npm:1.0.14"],\
           ["langsmith", "virtual:742ca97082cf3d25a6f191b2cc82791f4534df0c95dab3e53fc05f60f7874b8f299e1d37294037f8526df90f2d800c9ab69703ec2715aed0fa3c4952bb79192c#npm:0.1.42"],\
+          ["mustache", "npm:4.2.0"],\
+          ["p-queue", "npm:6.6.2"],\
+          ["p-retry", "npm:4.6.2"],\
+          ["uuid", "npm:10.0.0"],\
+          ["zod", "npm:3.23.8"],\
+          ["zod-to-json-schema", "virtual:742ca97082cf3d25a6f191b2cc82791f4534df0c95dab3e53fc05f60f7874b8f299e1d37294037f8526df90f2d800c9ab69703ec2715aed0fa3c4952bb79192c#npm:3.23.2"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:0.2.28", {\
+        "packageLocation": "./.yarn/global/cache/@langchain-core-npm-0.2.28-935b06de1b-10.zip/node_modules/@langchain/core/",\
+        "packageDependencies": [\
+          ["@langchain/core", "npm:0.2.28"],\
+          ["ansi-styles", "npm:5.2.0"],\
+          ["camelcase", "npm:6.3.0"],\
+          ["decamelize", "npm:1.2.0"],\
+          ["js-tiktoken", "npm:1.0.14"],\
+          ["langsmith", "virtual:935b06de1b22e94c4db39a8aaae973274fe3772e76764d13694034d3cb6b6439978ca6be9955c0370b924f12265d48e6fc85d5d93964be7306dd03a29c81f7e8#npm:0.1.43"],\
           ["mustache", "npm:4.2.0"],\
           ["p-queue", "npm:6.6.2"],\
           ["p-retry", "npm:4.6.2"],\
@@ -5524,7 +5542,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
           ["@cloudflare/kv-asset-handler", "npm:0.1.3"],\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["@remix-run/server-runtime", "virtual:e31ca76de9e360b4f038f036ab10c6cbdebde0a8a036a0879bb16ac8e30d450ceab8241bd62813d77156863da17e8177db993f352eff20c285d543f1e54ebe11#npm:2.11.2"],\
           ["@types/cloudflare__workers-types", null],\
           ["@types/typescript", null],\
@@ -5905,7 +5923,7 @@ const RAW_RUNTIME_STATE =
           ["@helia/unixfs", "npm:3.0.7"],\
           ["@hookform/resolvers", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.9.0"],\
           ["@langchain/anthropic", "npm:0.2.15"],\
-          ["@langchain/core", "npm:0.2.27"],\
+          ["@langchain/core", "npm:0.2.28"],\
           ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.0.34"],\
           ["@monaco-editor/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.6.0"],\
           ["@mui/material", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.16.7"],\
@@ -6079,11 +6097,11 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/spike.land/",\
         "packageDependencies": [\
           ["@spike-land/code-worker", "workspace:packages/spike.land"],\
-          ["@anthropic-ai/sdk", "npm:0.26.1"],\
+          ["@anthropic-ai/sdk", "npm:0.27.0"],\
           ["@clerk/backend", "npm:1.7.0"],\
           ["@clerk/clerk-sdk-node", "npm:5.0.28"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
           ["@remix-run/react", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
           ["@spike-land/code", "workspace:packages/code"],\
@@ -6226,7 +6244,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@spike-land/transpile", "workspace:packages/js.spike.land"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["esbuild-wasm", "npm:0.23.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.72.1"]\
@@ -15101,11 +15119,45 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["npm:0.1.43", {\
+        "packageLocation": "./.yarn/global/cache/langsmith-npm-0.1.43-4a2516dd84-10.zip/node_modules/langsmith/",\
+        "packageDependencies": [\
+          ["langsmith", "npm:0.1.43"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:742ca97082cf3d25a6f191b2cc82791f4534df0c95dab3e53fc05f60f7874b8f299e1d37294037f8526df90f2d800c9ab69703ec2715aed0fa3c4952bb79192c#npm:0.1.42", {\
         "packageLocation": "./.yarn/__virtual__/langsmith-virtual-017c272ef3/0/global/cache/langsmith-npm-0.1.42-6bd57f91a8-10.zip/node_modules/langsmith/",\
         "packageDependencies": [\
           ["langsmith", "virtual:742ca97082cf3d25a6f191b2cc82791f4534df0c95dab3e53fc05f60f7874b8f299e1d37294037f8526df90f2d800c9ab69703ec2715aed0fa3c4952bb79192c#npm:0.1.42"],\
           ["@langchain/core", "npm:0.2.27"],\
+          ["@types/langchain", null],\
+          ["@types/langchain__core", null],\
+          ["@types/openai", null],\
+          ["@types/uuid", "npm:9.0.8"],\
+          ["commander", "npm:10.0.1"],\
+          ["langchain", null],\
+          ["openai", null],\
+          ["p-queue", "npm:6.6.2"],\
+          ["p-retry", "npm:4.6.2"],\
+          ["semver", "npm:7.6.3"],\
+          ["uuid", "npm:9.0.1"]\
+        ],\
+        "packagePeers": [\
+          "@langchain/core",\
+          "@types/langchain",\
+          "@types/langchain__core",\
+          "@types/openai",\
+          "langchain",\
+          "openai"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:935b06de1b22e94c4db39a8aaae973274fe3772e76764d13694034d3cb6b6439978ca6be9955c0370b924f12265d48e6fc85d5d93964be7306dd03a29c81f7e8#npm:0.1.43", {\
+        "packageLocation": "./.yarn/__virtual__/langsmith-virtual-3c13422420/0/global/cache/langsmith-npm-0.1.43-4a2516dd84-10.zip/node_modules/langsmith/",\
+        "packageDependencies": [\
+          ["langsmith", "virtual:935b06de1b22e94c4db39a8aaae973274fe3772e76764d13694034d3cb6b6439978ca6be9955c0370b924f12265d48e6fc85d5d93964be7306dd03a29c81f7e8#npm:0.1.43"],\
+          ["@langchain/core", "npm:0.2.28"],\
           ["@types/langchain", null],\
           ["@types/langchain__core", null],\
           ["@types/openai", null],\
@@ -16617,7 +16669,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./packages/my-api/",\
         "packageDependencies": [\
           ["my-api", "workspace:packages/my-api"],\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["hono", "npm:4.5.7"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.72.1"]\
         ],\
@@ -20295,7 +20347,7 @@ const RAW_RUNTIME_STATE =
           ["spike-land-renderer", "workspace:packages/spike-land-renderer"],\
           ["@cloudflare/puppeteer", "npm:0.0.13"],\
           ["@cloudflare/vitest-pool-workers", "virtual:635579d153c6bf4131fdd9fc4b3baa0baffbcf5dff63783c0ac4d62ba9aa465b1c2fa9f8de13d815b932377e0be9a6904f1066727f17a4ac1e25153f055f2195#npm:0.4.24"],\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["@types/esprima", "npm:4.0.6"],\
           ["esprima", "npm:4.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
@@ -23074,7 +23126,7 @@ const RAW_RUNTIME_STATE =
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.72.1"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
           ["@cloudflare/workers-shared", "npm:0.2.0"],\
-          ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["@esbuild-plugins/node-globals-polyfill", "virtual:26d23ad055b4d66782f92d569f8bc9514eca19f7c838b77d2b2634f8a397415509fb9a901faefb666112660deb8b0451c0492b4556408832a9522dd7f0a37303#npm:0.2.3"],\
           ["@esbuild-plugins/node-modules-polyfill", "virtual:26d23ad055b4d66782f92d569f8bc9514eca19f7c838b77d2b2634f8a397415509fb9a901faefb666112660deb8b0451c0492b4556408832a9522dd7f0a37303#npm:0.2.2"],\
           ["@types/cloudflare__workers-types", null],\
