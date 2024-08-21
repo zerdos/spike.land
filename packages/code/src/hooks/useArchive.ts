@@ -38,7 +38,6 @@ export const useSpeedy2 = async () => {
   });
 
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
-  const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
 
   const html = `<!DOCTYPE html>
@@ -64,7 +63,7 @@ export const useSpeedy2 = async () => {
     )
   }
  
-  <script src="/assets/tw-chunk-be5bad.js" defer>/script>
+  <script src="/assets/tw-chunk-be5bad.js" defer></script>
 </body>
 </html>`;
 
