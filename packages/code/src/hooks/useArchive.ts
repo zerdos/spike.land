@@ -22,7 +22,7 @@ Object.assign(globalThis, { auth, wait, build });
 export const useSpeedy2 = async () => {
   const codeSpace = useCodeSpace();
   const external = [...(new Set(Object.values(oo)))].map(x => location.origin + x);
-  const res = await build({
+  let res = await build({
     codeSpace,
     splitting: true,
     external,
@@ -39,6 +39,7 @@ export const useSpeedy2 = async () => {
 
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
+  // <link rel="stylesheet" href="/assets/g-chunk-72a597.css">
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,6 @@ export const useSpeedy2 = async () => {
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
-  <link rel="stylesheet" href="/assets/g-chunk-72a597.css">
   ${res.filter(x => x.path.includes(".css")).map(f => `<link rel="stylesheet" href="${f.path.slice(1)}">`).join("\n")}
   <style>  
     ${css}
@@ -63,10 +63,10 @@ export const useSpeedy2 = async () => {
     )
   }
  
-  <script src="/assets/tw-chunk-be5bad.js" defer></script>
+  
 </body>
 </html>`;
-
+  // <script src="/assets/tw-chunk-be5bad.js" defer></script>
   await fetch(`/my-cms/${codeSpace}.html`, {
     method: "PUT",
     headers: {
