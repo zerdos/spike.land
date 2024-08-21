@@ -28,6 +28,7 @@ interface ChatFCProps {
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
+  isMobile: boolean;
 }
 
 export const ChatFC: React.FC<ChatFCProps> = memo(({
@@ -53,8 +54,9 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
   screenshotImage,
   handleScreenshotClick,
   handleCancelScreenshot,
+  isMobile,
 }) => (
-  <ChatWindow isOpen={isOpen}>
+  <ChatWindow isOpen={isOpen} isMobile={isMobile}>
     <ChatHeader
       isDarkMode={isDarkMode}
       toggleDarkMode={toggleDarkMode}
@@ -212,6 +214,7 @@ const ChatInterface: React.FC = () => {
         screenshotImage={screenshotImage}
         handleScreenshotClick={handleScreenshotClick}
         handleCancelScreenshot={handleCancelScreenshot}
+        isMobile={false}
       />
     </>
   );

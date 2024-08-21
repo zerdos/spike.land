@@ -244,27 +244,36 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 export const ChatWindow: React.FC<ChatWindowProps> = ({
   children,
   isOpen,
+  isMobile,
 }) => (
   <div
     css={[
       styles.chatWindow,
       css`
-    display: flex;
-    flex-direction: column;
-  `,
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: ${isMobile ? '100%' : 'min(100%, 600px)'};
+        min-width: ${isMobile ? '100%' : '600px'};
+        z-index: 1000;
+        transition: transform 0.3s ease-in-out;
+      `,
     ]}
     style={{
-      transform: isOpen ? "translateX(0)" : "translateX(100%)",
+      transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
     }}
   >
     <div
       css={[
         styles.chatContent,
         css`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  `,
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        `,
       ]}
     >
       {children}

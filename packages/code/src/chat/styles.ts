@@ -25,7 +25,7 @@ export const styles = {
 
     @media (min-width: 768px) {
       width: 50%;
-      max-width: 600px;
+      max-width: 640px;
     }
   `,
   chatContent: css`

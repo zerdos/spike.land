@@ -12,6 +12,7 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { reveal } from "./reveal";
+import { useMediaQuery } from './hooks/useMediaQuery'; // Add this import
 
 export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
@@ -22,6 +23,8 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const editorRef = useRef<any>(null);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     console.log("AppToRender mounted");
@@ -105,16 +108,19 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
                 ref={editorRef}
               />
             </Suspense>
-            <Button
-              onClick={() => setIsOpen(true)}
-              className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-50"
-            >
-              <Bot className="h-6 w-6" />
-            </Button>
+            {!isOpen && (
+              <Button
+                onClick={() => setIsOpen(true)}
+                className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
+              >
+                <Bot className="h-6 w-6" />
+              </Button>
+            )}
 
             <ChatInterface
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
+              isMobile={isMobile}
             />
 
             <Button

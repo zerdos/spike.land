@@ -24,7 +24,7 @@ export const MotionContainer = (
       }}
       style={{ backgroundColor: rgba(bgColor[0], bgColor[1], bgColor[2], 0.5) }}
       css={css`
-      z-index: 10;
+      z-index: 1002;
       backdrop-filter: blur(15px);
       position: fixed;
     `}

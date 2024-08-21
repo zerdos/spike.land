@@ -37,4 +37,5 @@ export interface MessageInputProps {
 export interface ChatWindowProps {
   isOpen: boolean;
   children: ReactNode;
+  isMobile: boolean;
 }

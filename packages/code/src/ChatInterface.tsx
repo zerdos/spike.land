@@ -6,11 +6,13 @@ import { useDarkMode } from "./hooks/useDarkMode";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
 import { loadMessages } from "./utils/chatUtils";
+import { useMediaQuery } from './hooks/useMediaQuery'; // Add this import
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-}> = React.memo(({ onClose, isOpen }) => {
+  isMobile: boolean;
+}> = React.memo(({ onClose, isOpen, isMobile }) => {
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
@@ -85,6 +87,7 @@ const ChatInterface: React.FC<{
     screenshotImage,
     handleScreenshotClick,
     handleCancelScreenshot,
+    isMobile,
   }), [
     isOpen,
     onClose,
@@ -102,6 +105,7 @@ const ChatInterface: React.FC<{
     handleCancelEdit,
     isScreenshotLoading,
     screenshotImage,
+    isMobile,
   ]);
 
   return <ChatFC {...memoizedChatFCProps} />;

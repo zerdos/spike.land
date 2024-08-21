@@ -137,7 +137,10 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
       await env.R2.delete(key);
       return new Response(`DEL ${key} successfully!`);
     case "GET":
-      const object = await env.R2.get(url.origin + path);
+      let object = await env.R2.get(url.origin + path);
+      if (!object) {
+        object = await env.R2.get(url.origin + path + ".html");
+      }
 
       if (!object) {
         // 404
