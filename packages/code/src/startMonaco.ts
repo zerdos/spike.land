@@ -1,4 +1,4 @@
-import * as monaco from "@/external/monacoEditor";
+import { editor, languages, Uri } from "@/external/monacoEditor";
 import { ata } from "./shared";
 import { cSess } from "./ws";
 
@@ -13,25 +13,25 @@ const refreshAta = async (code: string, originToUse: string) => {
       content,
     }));
     console.log({ extraLibs });
-    monaco.languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
+    languages.typescript.typescriptDefaults.setExtraLibs(extraLibs);
 
     const mjsFiles = extraLibs.filter((lib) => lib.filePath.endsWith(".mjs"));
     mjsFiles.forEach((lib) => {
-      const myUri = monaco.Uri.parse(lib.filePath!);
-      if (monaco.editor.getModel(myUri)) {
-        monaco.editor.getModel(myUri)?.setValue(lib.content);
+      const myUri = Uri.parse(lib.filePath!);
+      if (editor.getModel(myUri)) {
+        editor.getModel(myUri)?.setValue(lib.content);
         return;
       }
-      monaco.editor.createModel(lib.content, "typescript", myUri);
+      editor.createModel(lib.content, "typescript", myUri);
     });
 
-    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSuggestionDiagnostics: false,
       noSemanticValidation: false,
       noSyntaxValidation: false,
       diagnosticCodesToIgnore: [2691],
     });
-    monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+    languages.typescript.typescriptDefaults.setEagerModelSync(true);
   } catch (error) {
     console.error("Error refreshing ATA:", error);
   }
@@ -59,22 +59,22 @@ async function fetchAndCreateExtraModels(
     const codeSpace = match[0].split("/").pop();
     const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
       .toString();
-    const mUri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
+    const mUri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
 
     const res = await fetch(extraModel);
     const content = await res.text();
-    monaco.editor.getModel(mUri)
-      || monaco.editor.createModel(content, "typescript", mUri);
+    editor.getModel(mUri)
+      || editor.createModel(content, "typescript", mUri);
   }
 }
 
 const monacoContribution = async (code: string) => {
-  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+  languages.typescript.typescriptDefaults.setCompilerOptions({
     baseUrl: originToUse + "/",
-    target: monaco.languages.typescript.ScriptTarget.Latest,
+    target: languages.typescript.ScriptTarget.Latest,
     allowNonTsExtensions: true,
-    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-    module: monaco.languages.typescript.ModuleKind.ESNext,
+    moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
+    module: languages.typescript.ModuleKind.ESNext,
     importHelpers: true,
     lib,
     esModuleInterop: false,
@@ -111,12 +111,12 @@ const monacoContribution = async (code: string) => {
       "/*": [`${originToUse}/`],
     },
     jsxImportSource: "@emotion/react",
-    jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
+    jsx: languages.typescript.JsxEmit.ReactJSX,
     allowUmdGlobalAccess: false,
     include: [`${originToUse}/`],
   });
 
-  monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+  languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
     noSemanticValidation: true,
     noSyntaxValidation: true,
@@ -180,11 +180,11 @@ async function startMonacoPristine({
   onChange: (_code: string) => void;
 }) {
   const replacedCode = await monacoContribution(code);
-  const uri = monaco.Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
-  const model = monaco.editor.getModel(uri)
-    || monaco.editor.createModel(replacedCode, "typescript", uri);
+  const uri = Uri.parse(`${originToUse}/live/${codeSpace}.tsx`);
+  const model = editor.getModel(uri)
+    || editor.createModel(replacedCode, "typescript", uri);
 
-  const myEditor = monaco.editor.create(container, {
+  const myEditor = editor.create(container, {
     model,
     scrollbar: {
       scrollByPage: false,
@@ -207,21 +207,21 @@ async function startMonacoPristine({
   });
 
   // Add custom key bindings
-  myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyA, () => {
-    const model = myEditor.getModel();
-    if (model) {
-      const lastLineNumber = model.getLineCount();
-      const lastColumn = model.getLineMaxColumn(lastLineNumber);
-      myEditor.setSelection(new monaco.Range(1, 1, lastLineNumber, lastColumn));
-    }
-  });
+  // myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyA, () => {
+  //   const model = myEditor.getModel();
+  //   if (model) {
+  //     const lastLineNumber = model.getLineCount();
+  //     const lastColumn = model.getLineMaxColumn(lastLineNumber);
+  //     myEditor.setSelection(new monaco.Range(1, 1, lastLineNumber, lastColumn));
+  //   }
+  // });
 
-  // Enable paste for all platforms
-  myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => {
-    navigator.clipboard.readText().then((text) => {
-      myEditor.trigger("keyboard", "paste", { text: text });
-    });
-  });
+  // // Enable paste for all platforms
+  // myEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, () => {
+  //   navigator.clipboard.readText().then((text) => {
+  //     myEditor.trigger("keyboard", "paste", { text: text });
+  //   });
+  // });
 
   let abortController = new AbortController();
   const ttt = { checking: 0 };
@@ -230,7 +230,7 @@ async function startMonacoPristine({
     if (ttt.checking) return;
     ttt.checking = 1;
     console.log("tsCheck");
-    const typeScriptWorker = await (await monaco.languages.typescript.getTypeScriptWorker())(uri);
+    const typeScriptWorker = await (await languages.typescript.getTypeScriptWorker())(uri);
 
     const syntacticDiagnostics = await typeScriptWorker.getSyntacticDiagnostics(
       uri.toString(),
@@ -260,7 +260,7 @@ async function startMonacoPristine({
     getValue: () => model.getValue(),
     silent: false,
     getErrors: async () => {
-      const diagnostics = await (await (await monaco.languages.typescript.getTypeScriptWorker())(
+      const diagnostics = await (await (await languages.typescript.getTypeScriptWorker())(
         uri,
       ))
         .getSuggestionDiagnostics(uri.toString());
