@@ -14,15 +14,49 @@ export interface AIServiceConfig {
   gpt4oEndpoint: string;
   anthropicEndpoint: string;
   openAIEndpoint: string;
+  updateThrottleMs: number;
+  retryWithClaudeEnabled: boolean;
+}
+
+type AIEndpoint = "gpt4o" | "anthropic" | "openAI";
+
+class StreamHandler {
+  private decoder = new TextDecoder();
+
+  async handleStream(
+    reader: ReadableStreamDefaultReader<Uint8Array>,
+    onUpdate: (content: string) => void,
+  ): Promise<string> {
+    let content = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = this.decoder.decode(value);
+      content += chunk;
+      onUpdate(content);
+    }
+    return content.trim();
+  }
 }
 
 export class AIService {
   private localStorageService: LocalStorageService;
   private config: AIServiceConfig;
+  private streamHandler: StreamHandler;
 
   constructor(localStorageService: LocalStorageService, config: AIServiceConfig) {
     this.localStorageService = localStorageService;
     this.config = config;
+    this.streamHandler = new StreamHandler();
+  }
+
+  private getEndpoint(type: AIEndpoint): string {
+    const endpointMap: Record<AIEndpoint, string> = {
+      gpt4o: this.config.gpt4oEndpoint,
+      anthropic: this.config.anthropicEndpoint,
+      openAI: this.config.openAIEndpoint,
+    };
+    return endpointMap[type];
   }
 
   private async makeAPICall(endpoint: string, messages: Message[]): Promise<Response> {
@@ -44,57 +78,39 @@ export class AIService {
 
   private async handleStreamingResponse(
     endpoint: string,
-    mappedMessages: Message[],
-    onUpdate: (code: string) => void,
+    messages: Message[],
+    onUpdate: (content: string) => void,
   ): Promise<AIModelResponse> {
-    const response = await this.makeAPICall(endpoint, mappedMessages);
+    const response = await this.makeAPICall(endpoint, messages);
     const reader = response.body?.getReader();
-    const decoder = new TextDecoder();
-
-    const debouncedUpdate = throttle((code: string) => {
-      console.log("debouncedUpdate", { code });
-      onUpdate(code);
-    }, 200);
 
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
 
-    let content = "";
-    let ii = 0;
-    while (true) {
-      console.log("Reading chunk", ii++);
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value);
-      content += chunk;
-      debouncedUpdate(content);
-    }
+    const debouncedUpdate = throttle(onUpdate, this.config.updateThrottleMs);
+    const content = await this.streamHandler.handleStream(reader, debouncedUpdate);
 
     return {
-      id: (Date.now() + 1).toString(),
-      content: content.trim(),
+      id: Date.now().toString(),
+      content,
     };
   }
 
-  private saveInteraction(userMessage: string | object, assistantMessage: string | MessageContent): void {
-    const msgToSave = typeof userMessage === "string" ? userMessage : JSON.stringify(userMessage);
-    const assistantMsg = typeof assistantMessage === "string" ? assistantMessage : JSON.stringify(assistantMessage);
-    this.localStorageService.saveAIInteraction(msgToSave, assistantMsg);
+  private saveInteraction(userMessage: Message, assistantMessage: Message): void {
+    this.localStorageService.saveAIInteraction(
+      JSON.stringify(userMessage),
+      JSON.stringify(assistantMessage),
+    );
   }
 
   async sendToAI(
-    endpoint: string,
+    type: AIEndpoint,
     messages: Message[],
-    onUpdate: (code: string) => void,
+    onUpdate: (content: string) => void,
   ): Promise<Message> {
-    const mappedMessages: Message[] = messages.map((message, index) => ({
-      id: (Date.now() + index + 1).toString(),
-      role: message.role,
-      content: message.content,
-    }));
-
-    const result = await this.handleStreamingResponse(endpoint, mappedMessages, onUpdate);
+    const endpoint = this.getEndpoint(type);
+    const result = await this.handleStreamingResponse(endpoint, messages, onUpdate);
 
     const assistantMessage: Message = {
       id: result.id,
@@ -102,18 +118,18 @@ export class AIService {
       content: result.content,
     };
 
-    const userMessage = mappedMessages[mappedMessages.length - 1].content;
-    this.saveInteraction(userMessage, assistantMessage.content);
+    const userMessage = messages[messages.length - 1];
+    this.saveInteraction(userMessage, assistantMessage);
 
     return assistantMessage;
   }
 
-  async sendToGpt4o(messages: Message[], onUpdate: (code: string) => void): Promise<Message> {
-    return this.sendToAI(this.config.gpt4oEndpoint, messages, onUpdate);
+  async sendToGpt4o(messages: Message[], onUpdate: (content: string) => void): Promise<Message> {
+    return this.sendToAI("gpt4o", messages, onUpdate);
   }
 
-  async sendToAnthropic(messages: Message[], onUpdate: (code: string) => void): Promise<Message> {
-    return this.sendToAI(this.config.anthropicEndpoint, messages, onUpdate);
+  async sendToAnthropic(messages: Message[], onUpdate: (content: string) => void): Promise<Message> {
+    return this.sendToAI("anthropic", messages, onUpdate);
   }
 
   async continueWithOpenAI(
@@ -123,45 +139,42 @@ export class AIService {
     setAICode: (code: string) => void,
     isRetry = false,
   ): Promise<string | void> {
-    console.log(fullResponse);
-
-    const messages = [
-      { role: "system" as const, content: gptSystem },
-      { role: "user" as const, content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
-    ] as Message[];
+    const messages: Message[] = [
+      { id: Date.now().toString(), role: "system", content: gptSystem },
+      { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
+    ];
 
     const debouncedSetMessages = throttle((newCode: string) => {
       setMessages((prevMessages) => [
         ...prevMessages.slice(0, -1),
         { ...prevMessages[prevMessages.length - 1], content: `${fullResponse}\n${newCode}` },
       ]);
-    }, 100);
+    }, this.config.updateThrottleMs);
 
     try {
-      const response = await this.sendToAI(this.config.openAIEndpoint, messages, debouncedSetMessages);
+      const response = await this.sendToAI("openAI", messages, debouncedSetMessages);
       const modifiedCode = this.extractCodeFromResponse(response.content);
       const prettyCode = await this.formatAndRunCode(modifiedCode);
       setAICode(prettyCode);
       return prettyCode;
     } catch (error) {
       console.error("Error in AI code processing:", error);
-      if (!isRetry) {
+      if (!isRetry && this.config.retryWithClaudeEnabled) {
         return this.retryWithClaude(fullResponse, codeNow, error, setMessages, setAICode);
       }
     }
   }
 
   private extractCodeFromResponse(response: string | MessageContent): string {
-    if (typeof response === "string") {
-      const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
-      const matches = response.match(codeModificationRegex);
-      if (!matches) {
-        throw new Error("No code block found in the response");
-      }
-      return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
-    } else {
+    if (typeof response !== "string") {
       throw new Error("Invalid response content");
     }
+    const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
+    const matches = response.match(codeModificationRegex);
+    if (!matches) {
+      throw new Error("No code block found in the response");
+    }
+    return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
   }
 
   private async formatAndRunCode(code: string): Promise<string> {
@@ -175,16 +188,16 @@ export class AIService {
   private async retryWithClaude(
     fullResponse: string,
     codeNow: string,
-    error: unknown, // Change the type of 'error' to 'unknown'
+    error: unknown,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
   ): Promise<string | void> {
-    console.log("asking for help from Claude");
+    console.log("Retrying with Claude");
     const message: Message = {
-      id: (Date.now() + 1).toString(),
+      id: Date.now().toString(),
       role: "user",
       content: `${codeNow}\n**** instructions ****\n${fullResponse}\n**** error ****\n${
-        (error as Error).toString()
+        error instanceof Error ? error.toString() : String(error)
       }\nCould you help me with this error? I'm stuck.`,
     };
 
@@ -195,7 +208,7 @@ export class AIService {
     });
     setMessages((prevMessages) => [...prevMessages, answer]);
 
-    return this.continueWithOpenAI(answer.content as unknown as string, codeNow, setMessages, setAICode, true);
+    return this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode, true);
   }
 
   prepareClaudeContent(
