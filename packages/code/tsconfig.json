@@ -66,20 +66,11 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "target": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "ESNext.BigInt",
-      "ESNext.String",
-      "ESNext.Promise",
-      "DOM.AsyncIterable",
-      "ESNext.AsyncIterable",
-      "DOM.Iterable",
-      "WebWorker",
-      "WebWorker.ImportScripts",
-      "Webworker.Iterable"
-    ],
+    "target": "ES2020",
+
+
+    
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowUmdGlobalAccess": true,
     "types": [
       "@types/wicg-file-system-access",
