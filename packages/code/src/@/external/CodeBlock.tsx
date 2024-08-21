@@ -1,9 +1,6 @@
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { css } from "@emotion/react";
 import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
-import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
-import { useTranslation } from "next-i18next";
 import { FC, memo, useEffect, useMemo, useState } from "react";
 
 export const generateRandomString = (length: number, lowercase = false) => {
@@ -53,20 +50,21 @@ interface Props {
 const DiffEditor: FC<{ original: string; modified: string }> = memo(({ original, modified }) => {
   return (
     <MonacoDiffEditor
-      height="300px"
+      height="auto"
       language="typescript"
       original={original}
       modified={modified}
       theme="vs-dark"
       options={{
         readOnly: true,
-        diffWordWrap: "off",
+        diffWordWrap: "on",
         diffAlgorithm: "advanced",
         renderSideBySide: false,
         lightbulb: { enabled: undefined },
         lineNumbers: "off",
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
+        automaticLayout: true,
       }}
     />
   );
@@ -90,46 +88,10 @@ const extractDiffContent = (content: string): { original: string; modified: stri
   };
 };
 
-const CodeBlockHeader: FC<{
-  language: string;
-  isCopied: boolean;
-  onCopy: () => void;
-  onDownload: () => void;
-}> = memo(({ language, isCopied, onCopy, onDownload }) => {
-  const { t } = useTranslation("markdown");
-
+const CodeBlockHeader: FC<{ language: string }> = memo(({ language }) => {
   return (
-    <div
-      css={css`
-        background-color: darkred;
-        font-size: 2rem;
-        :hover {
-          cursor: pointer;
-        }
-      `}
-      className="flex items-center justify-between"
-    >
-      <span className="text-xs lowercase text-white">{language}</span>
-      <div
-        css={css`
-          background-color: navy;
-        `}
-        className="flex items-center"
-      >
-        <button
-          className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-white"
-          onClick={onCopy}
-        >
-          {isCopied ? <IconCheck size={18} /> : <IconClipboard size={18} />}
-          {isCopied ? t("Copied!") : t("Copy code")}
-        </button>
-        <button
-          className="flex items-center rounded bg-none p-1 text-xs text-white"
-          onClick={onDownload}
-        >
-          <IconDownload size={18} />
-        </button>
-      </div>
+    <div className="bg-gray-800 text-gray-200 py-2 px-4 text-sm rounded-t-md">
+      <span className="lowercase">{language}</span>
     </div>
   );
 });
@@ -137,64 +99,12 @@ const CodeBlockHeader: FC<{
 CodeBlockHeader.displayName = "CodeBlockHeader";
 
 export const CodeBlock: FC<Props> = memo(({ language, value }) => {
-  const { t } = useTranslation("markdown");
-  const [isCopied, setIsCopied] = useState<boolean>(false);
-
-  const copyToClipboard = () => {
-    if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      return;
-    }
-
-    navigator.clipboard.writeText(value).then(() => {
-      setIsCopied(true);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    });
-  };
-
-  const downloadAsFile = () => {
-    const fileExtension = programmingLanguages[language] || ".file";
-    const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
-    const fileName = window.prompt(
-      t("Enter file name") || "",
-      suggestedFileName,
-    );
-
-    if (!fileName) {
-      return;
-    }
-
-    const blob = new Blob([value], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.download = fileName;
-    link.href = url;
-    link.style.display = "none";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
-
   const isDiff = useMemo(() => isDiffContent(value), [value]);
   const diffContent = useMemo(() => isDiff ? extractDiffContent(value) : null, [isDiff, value]);
 
   return (
-    <div
-      css={css`
-        margin-top: 20px;
-        max-width: 568px;
-      `}
-      className="codeblock relative font-sans text-[16px]"
-    >
-      <CodeBlockHeader
-        language={language}
-        isCopied={isCopied}
-        onCopy={copyToClipboard}
-        onDownload={downloadAsFile}
-      />
+    <div className="mt-5 w-full font-mono text-sm rounded-md overflow-hidden shadow-md">
+      <CodeBlockHeader language={language} />
 
       {isDiff && diffContent
         ? (
@@ -204,13 +114,20 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
           />
         )
         : (
-          <SyntaxHighlighter
-            language={language}
-            style={tomorrow}
-            customStyle={{ margin: 0, fontSize: 12 }}
-          >
-            {value}
-          </SyntaxHighlighter>
+          <div className="max-h-[400px] overflow-y-auto">
+            <SyntaxHighlighter
+              language={language}
+              style={tomorrow}
+              customStyle={{
+                margin: 0,
+                padding: "1rem",
+                fontSize: "0.875rem",
+                lineHeight: 1.5,
+              }}
+            >
+              {value}
+            </SyntaxHighlighter>
+          </div>
         )}
     </div>
   );
