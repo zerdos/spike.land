@@ -173,10 +173,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   return (
     <div
       css={css`
-         display: block;
-        position: fixed;
-        top:0;
-        left: 0;
+        display: block;
         width: min(100%, 800px);
         height:100vh;
         overflow: auto;

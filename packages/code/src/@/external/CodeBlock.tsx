@@ -121,13 +121,12 @@ const isDiffContent = (content: string): boolean => {
 };
 
 const extractDiffContent = (content: string): { original: string; modified: string } => {
-  const [, searchContent, replaceContent] = content.match(
-    /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/,
-  ) || [];
+  const original = content.split("=======")[0].split("<<<<<<< SEARCH")[1]?.trim() || "";
+  const modified = content.split("=======")[1].split(">>>>>>> REPLACE")[0]?.trim() || "";
 
   return {
-    original: (searchContent || " ").trim(),
-    modified: (replaceContent || " ").trim(),
+    original,
+    modified,
   };
 };
 
