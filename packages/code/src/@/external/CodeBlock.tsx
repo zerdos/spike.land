@@ -24,7 +24,7 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
   const editorHeight = useMemo(() => {
     const originalHeight = calculateHeight(original);
     const modifiedHeight = calculateHeight(modified);
-    return Math.max(originalHeight, modifiedHeight);
+    return Math.max(originalHeight, modifiedHeight) + 2;
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
