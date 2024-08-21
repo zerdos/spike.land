@@ -64,15 +64,14 @@ export const renderMessage = (text: string, isUser: boolean) => {
           {part.type === "text"
             ? (
               <Markdown
-                css={[
-                  styles.smallFontWithMaxWidth,
-                  css`
-                          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-                          font-size: 16px;
-                          line-height: 1.5;
-                          letter-spacing: 0.01em;
-                        `,
-                ]}
+                css={css`
+                  margin-top: 12px;
+                  margin-bottom: 12px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                  font-size: 14px;
+                  line-height: 1.5;
+                  letter-spacing: 0.01em;
+                `}
               >
                 {part.content}
               </Markdown>
