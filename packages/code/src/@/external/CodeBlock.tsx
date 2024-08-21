@@ -63,6 +63,9 @@ const DiffEditor: FC<{ original: string; modified: string }> = memo(({ original,
         diffWordWrap: "off",
         diffAlgorithm: "advanced",
         renderSideBySide: false,
+        lightbulb: { enabled: undefined },
+        lineNumbers: "off",
+        scrollBeyondLastLine: false,
         minimap: { enabled: false },
       }}
     />
