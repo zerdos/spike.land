@@ -1,4 +1,4 @@
-export * as ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 import reactDom from "react-dom";
 export default reactDom;
 
