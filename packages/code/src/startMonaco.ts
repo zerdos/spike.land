@@ -9,7 +9,7 @@ const refreshAta = async (code: string, originToUse: string) => {
     const extraLibs = (await ata({ code, originToUse })).map((
       { filePath, content },
     ) => ({
-      filePath: originToUse + "/live" + filePath,
+      filePath: originToUse + filePath,
       content,
     }));
     console.log({ extraLibs });
