@@ -53,12 +53,15 @@ export class AIService {
       console.log("debouncedUpdate", { code });
       onUpdate(code);
     }, 200);
+
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
 
     let content = "";
+    let ii = 0;
     while (true) {
+      console.log("Reading chunk", ii++);
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = decoder.decode(value);
