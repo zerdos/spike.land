@@ -44,7 +44,7 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
     }
   }, [original, modified, language]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "200px", maxHeight: "400px" }} />;
+  return <div ref={containerRef} style={{ width: "100%", minWidth: "430px", height: "200px", maxHeight: "400px" }} />;
 });
 
 DiffEditor.displayName = "DiffEditor";
