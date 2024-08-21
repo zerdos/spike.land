@@ -48,6 +48,12 @@ export const ColorModeToggle: React.FC<{
 );
 
 export const renderMessage = (text: string, isUser: boolean) => {
+  text = text.split("<<<<<<< SEARCH").join(
+    "```diff" + `
+<<<<<<< SEARCH
+  `,
+  ).split(">>>>>>> REPLACE").join(">>>>>>> REPLACE+\n```");
+
   const cleanedText = cleanMessageText(text, isUser);
   const parts = parseMessageParts(cleanedText);
 
