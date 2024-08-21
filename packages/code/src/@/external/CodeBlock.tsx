@@ -53,13 +53,14 @@ interface Props {
 const DiffEditor: FC<{ original: string; modified: string }> = ({ original, modified }) => {
   return (
     <MonacoDiffEditor
-      height="300px"
       language="typescript"
       original={original}
       modified={modified}
       theme="vs-dark"
       options={{
         readOnly: true,
+        lineNumbers: "off",
+
         renderSideBySide: false,
         minimap: { enabled: false },
         diffWordWrap: "on",
