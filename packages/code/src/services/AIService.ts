@@ -48,6 +48,7 @@ export class AIService {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
+    const debouncedUpdate = debounce(onUpdate, 200);
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
@@ -58,7 +59,7 @@ export class AIService {
       if (done) break;
       const chunk = decoder.decode(value);
       content += chunk;
-      onUpdate(content);
+      debouncedUpdate(content);
     }
 
     return {
