@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import React, { Fragment } from "react";
 
 import DiffEditor from "@src/components/DiffEditor";
+import { md5 } from "@src/md5";
 import { extractDiffContent, isDiffContent } from "./diffUtils"; // Assume these functions are implemented elsewhere
 
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
@@ -185,10 +186,11 @@ export const mockResponses: string[] = [
 ];
 
 export function renderCode(value: string, language: string) {
+  const key = md5(value + language);
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return <DiffEditor original={original} modified={modified} language={language} />;
+    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
   } else {
-    return <CodeBlock value={value} language={language} />;
+    return <CodeBlock key={key} value={value} language={language} />;
   }
 }
