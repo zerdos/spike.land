@@ -27,7 +27,7 @@ setTimeout(() => {
   link.href = `${location.origin}/assets/g-chunk-72a597.css`;
 
   link.onload = () => {
-    import(`${location.origin}/assets/g-chunk-72a597.js`);
+    import(`${location.origin}/assets/tw-chunk-be5bad.js`);
   };
   document.head.appendChild(link);
 });
