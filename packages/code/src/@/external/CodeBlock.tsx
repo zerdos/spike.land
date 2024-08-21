@@ -2,7 +2,9 @@ import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
 import { FC, useEffect, useState } from "react";
 
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
+
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
+import virtualizedRenderer from "react-syntax-highlighter-virtualized-renderer";
 
 import { css } from "@emotion/react";
 import { useTranslation } from "next-i18next";
@@ -52,6 +54,16 @@ interface Props {
   value: string;
 }
 // const SyntaxHighlighter = Prism as unknown as FC<SyntaxHighlighterProps>;
+
+// const diffEditor = monaco.editor.createDiffEditor(document.getElementById("container")!, {
+//   automaticLayout: true
+// });
+// diffEditor.setModel({
+//   original: monaco.editor.createModel("function hello() {\n\talert('Hello world!');\n}", "javascript"),
+//   modified: monaco.editor.createModel("function hello() {\n\talert('Hello world!');\n}\n\nfunction hi() {\n\tconsole.log('hi');\n}", "javascript")
+// });
+
+// //diff editor component
 
 export const CodeBlock: FC<Props> = ({ language, value }) => {
   const { t } = useTranslation("markdown");
@@ -139,6 +151,7 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
       <SyntaxHighlighter
         language={language}
         style={tomorrow}
+        renderer={virtualizedRenderer}
         customStyle={{ margin: 0, fontSize: 12 }}
       >
         {value}
