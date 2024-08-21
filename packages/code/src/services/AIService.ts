@@ -30,6 +30,7 @@ export class AIService {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        stream: true,
         messages: messages.map(({ role, content }) => ({ role, content })),
       }),
     });
