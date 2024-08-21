@@ -30,12 +30,10 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
   useEffect(() => {
     if (containerRef.current) {
       const diffEditor = editor.createDiffEditor(containerRef.current, {
-        automaticLayout: true,
         diffAlgorithm: "legacy",
         readOnly: true,
         diffWordWrap: "on",
         lineNumbers: "off",
-        diffCodeLens: false,
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
         renderSideBySide: true,
@@ -62,9 +60,9 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
       ref={containerRef}
       style={{
         width: "100%",
-        minWidth: "430px",
+        minWidth: "530px",
         height: `${editorHeight}px`,
-        maxHeight: "600px",
+        maxHeight: "800px",
       }}
     />
   );
