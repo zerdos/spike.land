@@ -49,7 +49,10 @@ export class AIService {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
-    const debouncedUpdate = debounce(onUpdate, 200);
+    const debouncedUpdate = debounce((code: string) => {
+      console.log("debouncedUpdate", { code });
+      onUpdate(code);
+    }, 200);
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
