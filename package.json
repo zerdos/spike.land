@@ -34,7 +34,7 @@
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
-    "@emotion/react": "11.13.0",
+    "@emotion/react": "11.13.3",
     "@playwright/test": "1.46.1",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "9.6.0",
