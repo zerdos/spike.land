@@ -12,6 +12,7 @@ export async function handleAnthropicRequest(
   handleCORS(request);
 
   const body = JSON.parse(await readRequestBody(request)) as {
+    stream?: boolean;
     messages: MessageParam[];
   };
 
