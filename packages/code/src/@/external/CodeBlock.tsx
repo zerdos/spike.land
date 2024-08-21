@@ -10,7 +10,7 @@ interface DiffEditorProps {
   language?: string;
 }
 
-const DiffEditor: FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
+const DiffEditor: FC<DiffEditorProps> = ({ original, modified, language = "typescript" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculateHeight = useCallback((content: string) => {
@@ -75,7 +75,7 @@ const DiffEditor: FC<DiffEditorProps> = memo(({ original, modified, language = "
       }}
     />
   );
-});
+};
 
 DiffEditor.displayName = "DiffEditor";
 
