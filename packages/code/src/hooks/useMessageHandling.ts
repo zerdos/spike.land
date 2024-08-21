@@ -1,7 +1,7 @@
 import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
 import { Mutex } from "async-mutex";
-import { debounce } from "es-toolkit";
+import { throttle } from "es-toolkit";
 import { useCallback, useMemo } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
@@ -187,7 +187,7 @@ async function processMessage(
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
   const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages);
-  const debouncedOnUpdate = debounce(onUpdate, 100);
+  const debouncedOnUpdate = throttle(onUpdate, 100);
 
   let assistantMessage = await aiHandler.sendToAnthropic(
     updatedMessages,

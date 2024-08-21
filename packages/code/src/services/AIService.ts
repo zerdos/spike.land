@@ -1,4 +1,4 @@
-import { debounce } from "es-toolkit";
+import { throttle } from "es-toolkit";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { prettierToThrow } from "../shared";
 import { Message, MessageContent } from "../types/Message";
@@ -49,7 +49,7 @@ export class AIService {
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
-    const debouncedUpdate = debounce((code: string) => {
+    const debouncedUpdate = throttle((code: string) => {
       console.log("debouncedUpdate", { code });
       onUpdate(code);
     }, 200);
@@ -126,7 +126,7 @@ export class AIService {
       { role: "user" as const, content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
     ] as Message[];
 
-    const debouncedSetMessages = debounce((newCode: string) => {
+    const debouncedSetMessages = throttle((newCode: string) => {
       setMessages((prevMessages) => [
         ...prevMessages.slice(0, -1),
         { ...prevMessages[prevMessages.length - 1], content: `${fullResponse}\n${newCode}` },
