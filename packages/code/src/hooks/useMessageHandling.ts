@@ -2,7 +2,7 @@ import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
 import { Mutex } from "async-mutex";
 import { debounce } from "es-toolkit";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
@@ -40,10 +40,12 @@ export const useMessageHandling = ({
   setEditInput,
   broadcastChannel,
 }: UseMessageHandlingProps) => {
+  const aiHandler = useMemo(() => new AIHandler(codeSpace), [codeSpace]);
+  const mutex = useMemo(() => new Mutex(), []);
+
   const handleSendMessage = useCallback(async (content: string, screenshot: string) => {
     if (!content.trim()) return;
 
-    const aiHandler = new AIHandler(codeSpace);
     const { code } = (cSess || globalThis.cSess)?.session || { code: "" };
     const codeNow = await prettierToThrow({ code, toThrow: true });
 
@@ -68,14 +70,26 @@ export const useMessageHandling = ({
     setIsStreaming(true);
 
     try {
-      await processMessage(aiHandler, updatedMessages, codeNow, setMessages, setAICode, saveMessages);
+      await processMessage(aiHandler, updatedMessages, codeNow, setMessages, setAICode, saveMessages, mutex);
     } catch (error) {
       console.error("Error processing request:", error);
       handleError(updatedMessages, saveMessages);
     }
 
     setIsStreaming(false);
-  }, [codeSpace, messages, setMessages, setInput, setIsStreaming, codeWhatAiSeen, setAICode, saveMessages, cSess]);
+  }, [
+    codeSpace,
+    messages,
+    setMessages,
+    setInput,
+    setIsStreaming,
+    codeWhatAiSeen,
+    setAICode,
+    saveMessages,
+    cSess,
+    aiHandler,
+    mutex,
+  ]);
 
   const handleResetChat = useCallback(() => {
     setMessages([]);
@@ -167,10 +181,10 @@ async function processMessage(
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   setAICode: React.Dispatch<React.SetStateAction<string>>,
   saveMessages: (newMessages: Message[]) => void,
+  mutex: Mutex,
 ) {
   const sentMessages = [...updatedMessages];
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
-  const mutex = new Mutex();
 
   const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages);
   const debouncedOnUpdate = debounce(onUpdate, 100);
