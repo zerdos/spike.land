@@ -95,8 +95,7 @@ interface Props {
 DiffEditor.displayName = "DiffEditor";
 
 const isDiffContent = (content: string): boolean => {
-  const diffPattern = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/;
-  return diffPattern.test(content);
+  return content.includes("<<<<<<< SEARCH");
 };
 
 const extractDiffContent = (content: string): { original: string; modified: string } => {
