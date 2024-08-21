@@ -1,9 +1,8 @@
+import { editor } from "@/external/monacoEditor";
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { FC, memo, useCallback, useMemo, useState } from "react";
-
-import { editor } from "@/external/monacoEditor";
-import React, { useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { FC } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -11,7 +10,7 @@ interface DiffEditorProps {
   language?: string;
 }
 
-const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
+const DiffEditor: FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculateHeight = useCallback((content: string) => {
