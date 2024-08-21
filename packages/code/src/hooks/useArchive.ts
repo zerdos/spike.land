@@ -28,12 +28,15 @@ export const useSpeedy2 = async () => {
     external,
     origin: location.origin,
     format: "esm",
+  }) as unknown as { text: string; path: string; contents: ArrayBuffer }[];
+
+  res.map(async (f) => {
+    await fetch(f.path.slice(1), {
+      method: "PUT",
+      body: f.contents,
+    });
   });
 
-  const mjs = res[0].text;
-  const cssExtra = res[1].text;
-
-  const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
@@ -47,24 +50,21 @@ export const useSpeedy2 = async () => {
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
-  <style>
-       ${gJunk}
-  </style>
-  <style>  
-    ${cssExtra}
-  </style>
+  <link rel="stylesheet" href="/assets/g-chunk-72a597.css">
+  ${res.filter(x => x.path.includes(".css")).map(f => `<link rel="stylesheet" href="${f.path.slice(1)}">`).join("\n")}
   <style>  
     ${css}
   </style>
 </head>
 <body>
   <div id="embed">${htm}</div>
-  <script type="module">
-  ${mjs}
-  </script>
-  <script>
-    ${twJS}
-</script>
+ ${
+    res.filter(x => x.path.includes(".mjs")).map(f => `<script type="module" src="${f.path.slice(1)}"></script>`).join(
+      "\n",
+    )
+  }
+ 
+  <script src="/assets/tw-chunk-be5bad.js" defer>/script>
 </body>
 </html>`;
 
