@@ -55,7 +55,9 @@ export async function handleGPT4Request(
 
   return new Response(readable, {
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      "Connection": "keep-alive",
       "Access-Control-Allow-Origin": "*",
     },
   });
