@@ -30,7 +30,7 @@ export const styles = {
   `,
   chatContent: css`
     height: 100%;
-    min-width: 320px;
+    min-width: 640px;
     width: 100%;
     border-left: 1px solid var(--input);
     overflow-x: auto;
