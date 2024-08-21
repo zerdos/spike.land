@@ -94,6 +94,7 @@ export const build = async ({
   codeSpace,
   origin,
   entryPoint = "",
+  external = [],
   splitting = false,
   format = "esm",
   wasmModule,
@@ -102,6 +103,7 @@ export const build = async ({
   format: "esm" | "iife";
   origin: string;
   entryPoint?: string;
+  external?: string[];
   splitting?: boolean;
   wasmModule?: WebAssembly.Module;
 }) => {
@@ -202,6 +204,7 @@ export const build = async ({
       minifyIdentifiers: true,
       minifyWhitespace: true,
       splitting,
+      external,
       format,
       platform: "browser",
       outExtension: { ".js": ".mjs", ".css": ".css" },

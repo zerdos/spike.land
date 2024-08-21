@@ -91,9 +91,10 @@ export const transpile = async (
 };
 
 export const build = (
-  { codeSpace, origin, format = "esm", splitting = false, entryPoint = "" }: {
+  { codeSpace, origin, format = "esm", splitting = false, entryPoint = "", external = [] }: {
     codeSpace: string;
     splitting?: boolean;
+    external?: string[];
     origin: string;
     entryPoint?: string;
     format: "esm" | "iife";
@@ -103,6 +104,7 @@ export const build = (
     codeSpace,
     origin,
     splitting,
+    external,
     entryPoint,
     format,
   }) as Promise<string>;

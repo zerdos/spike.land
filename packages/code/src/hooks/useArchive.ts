@@ -4,6 +4,7 @@ import { build } from "../shared";
 import { wait } from "../wait";
 
 import { useAuth } from "@clerk/clerk-react";
+import { oo } from "@src/importMap";
 
 const auth = () => {
   const { getToken } = useAuth();
@@ -20,9 +21,11 @@ Object.assign(globalThis, { auth, wait, build });
 
 export const useSpeedy2 = async () => {
   const codeSpace = useCodeSpace();
+  const external = [...(new Set(Object.values(oo)))].map(x => location.origin + x);
   const res = await build({
     codeSpace,
     splitting: true,
+    external,
     origin: location.origin,
     format: "esm",
   });

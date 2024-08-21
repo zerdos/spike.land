@@ -82,6 +82,7 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
         entryPoint?: string;
         origin: string;
         format: "esm" | "iife";
+        external?: string[];
       },
     ) => build(params),
   );
