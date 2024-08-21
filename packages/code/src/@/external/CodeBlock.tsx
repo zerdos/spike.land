@@ -2,8 +2,8 @@ import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 import { FC, memo, useMemo, useState } from "react";
 
+import { editor } from "@/external/monacoEditor";
 import React, { useEffect, useRef } from "react";
-import { editor } from "./monacoEditor";
 
 interface DiffEditorProps {
   original: string;
