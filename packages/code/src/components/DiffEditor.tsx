@@ -7,6 +7,7 @@ interface DiffEditorProps {
 }
 
 const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = "typescript" }) => {
+  console.log("zooooo");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculateHeight = useCallback((content: string) => {
