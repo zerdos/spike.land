@@ -1,7 +1,9 @@
 import { CodeBlock, programmingLanguages } from "@/external/CodeBlock";
 import Markdown from "@/external/Markdown";
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
+import { styles } from "../chat/styles";
 
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-2 items-center p-2">
@@ -60,7 +62,21 @@ export const renderMessage = (text: string, isUser: boolean) => {
       {parts.map((part, index) => (
         <Fragment key={index}>
           {part.type === "text"
-            ? <Markdown>{part.content}</Markdown>
+            ? (
+              <Markdown
+                css={[
+                  styles.smallFontWithMaxWidth,
+                  css`
+                          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                          font-size: 16px;
+                          line-height: 1.5;
+                          letter-spacing: 0.01em;
+                        `,
+                ]}
+              >
+                {part.content}
+              </Markdown>
+            )
             : (
               <CodeBlock
                 value={part.content}
