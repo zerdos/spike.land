@@ -20,3 +20,14 @@ if (
     })();
   }, 0);
 }
+
+setTimeout(() => {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = `${location.origin}/assets/g-chunk-72a597.css`;
+
+  link.onload = () => {
+    import(`${location.origin}/assets/g-chunk-72a597.js`);
+  };
+  document.head.appendChild(link);
+});
