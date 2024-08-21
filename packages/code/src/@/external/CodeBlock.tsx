@@ -54,9 +54,13 @@ const DiffEditor: FC<DiffEditorProps> = memo(({ original, modified, language = "
     }
 
     return () => {
-      diffEditor?.dispose();
-      originalModel?.dispose();
-      modifiedModel?.dispose();
+      try {
+        diffEditor?.dispose();
+        originalModel?.dispose();
+        modifiedModel?.dispose();
+      } catch (error) {
+        console.error("Error disposing editor:", error);
+      }
     };
   }, [original, modified, language, editorHeight]);
 
