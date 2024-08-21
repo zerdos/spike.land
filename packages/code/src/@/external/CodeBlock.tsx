@@ -34,6 +34,7 @@ export const programmingLanguages: languageMap = {
   swift: ".swift",
   "objective-c": ".m",
   kotlin: ".kt",
+  diff: ".diff",
   typescript: ".ts",
   go: ".go",
   perl: ".pl",
