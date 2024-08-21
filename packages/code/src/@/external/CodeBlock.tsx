@@ -1,7 +1,48 @@
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
-import { FC, memo, useEffect, useMemo, useState } from "react";
+import { FC, memo, useMemo, useState } from "react";
+
+import React, { useEffect, useRef } from "react";
+import * as monaco from "./monacoEditor";
+
+interface DiffEditorProps {
+  original: string;
+  modified: string;
+  language?: string;
+}
+
+const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = "typescript" }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const diffEditor = monaco.editor.createDiffEditor(containerRef.current, {
+        automaticLayout: true,
+        diffAlgorithm: "advanced",
+
+        scrollBeyondLastLine: false,
+        minimap: { enabled: false },
+        renderSideBySide: true,
+      });
+
+      const originalModel = monaco.editor.createModel(original, language);
+      const modifiedModel = monaco.editor.createModel(modified, language);
+
+      diffEditor.setModel({
+        original: originalModel,
+        modified: modifiedModel,
+      });
+
+      return () => {
+        diffEditor.dispose();
+        originalModel.dispose();
+        modifiedModel.dispose();
+      };
+    }
+  }, [original, modified, language]);
+
+  return <div ref={containerRef} style={{ width: "100%", height: "200px", maxHeight: "400px" }} />;
+};
 
 export const generateRandomString = (length: number, lowercase = false) => {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXY3456789";
@@ -47,29 +88,6 @@ interface Props {
   value: string;
 }
 
-const DiffEditor: FC<{ original: string; modified: string }> = memo(({ original, modified }) => {
-  return (
-    <MonacoDiffEditor
-      language="typescript"
-      original={original}
-      modified={modified}
-      height="200px"
-      theme="vs-dark"
-      options={{
-        readOnly: true,
-        diffWordWrap: "on",
-        diffAlgorithm: "advanced",
-        renderSideBySide: false,
-        lightbulb: { enabled: undefined },
-        lineNumbers: "off",
-        scrollBeyondLastLine: false,
-        minimap: { enabled: false },
-        automaticLayout: true,
-      }}
-    />
-  );
-});
-
 DiffEditor.displayName = "DiffEditor";
 
 const isDiffContent = (content: string): boolean => {
@@ -111,6 +129,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
           <DiffEditor
             original={diffContent.original}
             modified={diffContent.modified}
+            language="typescript"
           />
         )
         : (
