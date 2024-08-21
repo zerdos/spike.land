@@ -1,8 +1,7 @@
 import { CodeBlock, programmingLanguages } from "@/external/CodeBlock";
-import { css } from "@emotion/react";
+import Markdown from "@/external/Markdown";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
-import { styles } from "./styles";
 
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-2 items-center p-2">
@@ -61,7 +60,7 @@ export const renderMessage = (text: string, isUser: boolean) => {
       {parts.map((part, index) => (
         <Fragment key={index}>
           {part.type === "text"
-            ? <TextPart content={part.content} />
+            ? <Markdown>{part.content}</Markdown>
             : (
               <CodeBlock
                 value={part.content}
@@ -141,28 +140,28 @@ const getLanguage = (lang?: string): string => {
   return programmingLanguages[lang.toLowerCase()] || lang.toLowerCase();
 };
 
-const TextPart: React.FC<{ content: string }> = ({ content }) => (
-  <>
-    {content.split("\n").map((line, j) => (
-      <Fragment key={j}>
-        {j > 0 && <br />}
-        <span
-          css={[
-            styles.smallFontWithMaxWidth,
-            css`
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            letter-spacing: 0.01em;
-          `,
-          ]}
-        >
-          {line}
-        </span>
-      </Fragment>
-    ))}
-  </>
-);
+// const TextPart: React.FC<{ content: string }> = ({ content }) => (
+//   <>
+//     {content.split("\n").map((line, j) => (
+//       <Fragment key={j}>
+//         {j > 0 && <br />}
+//         <span
+//           css={[
+//             styles.smallFontWithMaxWidth,
+//             css`
+//             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+//             font-size: 16px;
+//             line-height: 1.5;
+//             letter-spacing: 0.01em;
+//           `,
+//           ]}
+//         >
+//           {line}
+//         </span>
+//       </Fragment>
+//     ))}
+//   </>
+// );
 
 export const mockResponses = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",

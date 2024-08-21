@@ -174,6 +174,8 @@ export async function buildMainBundle(wasmFile) {
       "src/@/lib/utils.ts",
       "src/@/external/lucideReact.ts",
       "src/@/external/monacoEditor.ts",
+      "src/@/external/Markdown.tsx",
+
       "src/@/external/reactSyntaxHighlighter.ts",
       "src/@/external/reactSyntaxHighlighterPrism.ts",
       "src/@/external/CodeBlock.tsx",
@@ -263,6 +265,7 @@ export async function buildMainBundle(wasmFile) {
       "@/external/reactSyntaxHighlighterPrism": "/@/external/reactSyntaxHighlighterPrism.mjs",
       "@/external/monacoEditor": "/@/external/monacoEditor.mjs",
       "@/external/lucideReact": "/@/external/lucideReact.mjs",
+      "@/external/Markdown": "/@/external/Markdown.mjs",
       "@/external/CodeBlock": "/@/external/CodeBlock.mjs",
       "@/external/icons": "/@/external/icons.mjs",
 
@@ -280,6 +283,7 @@ export async function buildMainBundle(wasmFile) {
       "/swVersion.mjs",
       "/@/external/reactSyntaxHighlighterPrism.mjs",
       "/@/external/monacoEditor.mjs",
+      "/@/external/Markdown.mjs",
       "/@/external/reactSyntaxHighlighter.mjs",
       "/@/external/lucideReact.mjs",
       "/@/external/CodeBlock.mjs",
