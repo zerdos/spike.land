@@ -55,7 +55,7 @@ const DiffEditor: FC<{ original: string; modified: string }> = ({ original, modi
   console.log({ original, modified });
   return (
     <MonacoDiffEditor
-      height="auto"
+      height="200px"
       width="100%"
       language="typescript"
       original={original}
