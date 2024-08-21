@@ -1,8 +1,9 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { css } from "@emotion/react";
-import MonacoEditor, { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
-import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
+import { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
+import { Check, Clipboard, Download } from "lucide-react";
 import { useTranslation } from "next-i18next";
 import { FC, useEffect, useState } from "react";
 
@@ -61,7 +62,6 @@ const DiffEditor: FC<{ original: string; modified: string }> = ({ original, modi
       options={{
         readOnly: true,
         lineNumbers: "off",
-
         renderSideBySide: false,
         minimap: { enabled: false },
         diffWordWrap: "on",
@@ -88,7 +88,7 @@ const extractDiffContent = (content: string): { original: string; modified: stri
 
 export const CodeBlock: FC<Props> = ({ language, value }) => {
   const { t } = useTranslation("markdown");
-  const [isCopied, setIsCopied] = useState<Boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const copyToClipboard = () => {
     if (!navigator.clipboard || !navigator.clipboard.writeText) {
@@ -97,20 +97,14 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
 
     navigator.clipboard.writeText(value).then(() => {
       setIsCopied(true);
-
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
+      setTimeout(() => setIsCopied(false), 2000);
     });
   };
 
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
-    const fileName = window.prompt(
-      t("Enter file name") || "",
-      suggestedFileName,
-    );
+    const fileName = window.prompt(t("Enter file name") || "", suggestedFileName);
 
     if (!fileName) {
       return;
@@ -131,74 +125,59 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
   const isDiff = isDiffContent(value);
 
   return (
-    <div
-      css={css`
-        margin-top: 20px;
-        max-width: 568px;
-      `}
-      className="codeblock relative font-sans text-[16px]"
-    >
-      <div
-        css={css`
-          background-color: darkred;
-          font-size: 2rem;
-          :hover {
-            cursor: pointer;
-          }
-        `}
-        className="flex items-center justify-between"
-      >
+    <Card className="mt-5 max-w-[568px] font-sans text-base">
+      <CardHeader className="flex flex-row items-center justify-between bg-red-900 py-2">
         <span className="text-xs lowercase text-white">{language}</span>
-        <div
-          css={css`
-            background-color: navy;
-          `}
-          className="flex items-center"
-        >
-          <button
-            className="flex gap-1.5 items-center rounded bg-none p-1 text-xs text-white"
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-white hover:bg-red-800"
             onClick={copyToClipboard}
           >
-            {isCopied ? <IconCheck size={18} /> : <IconClipboard size={18} />}
+            {isCopied ? <Check className="h-4 w-4 mr-1" /> : <Clipboard className="h-4 w-4 mr-1" />}
             {isCopied ? t("Copied!") : t("Copy code")}
-          </button>
-          <button
-            className="flex items-center rounded bg-none p-1 text-xs text-white"
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-white hover:bg-red-800"
             onClick={downloadAsFile}
           >
-            <IconDownload size={18} />
-          </button>
+            <Download className="h-4 w-4" />
+          </Button>
         </div>
-      </div>
-
-      {isDiff
-        ? (
-          <DiffEditor
-            original={extractDiffContent(value).original}
-            modified={extractDiffContent(value).modified}
-          />
-        )
-        : (
-          <SyntaxHighlighter
-            language={language}
-            style={tomorrow}
-            customStyle={{ margin: 0, fontSize: 12 }}
-          >
-            {value}
-          </SyntaxHighlighter>
-        )}
-    </div>
+      </CardHeader>
+      <CardContent className="p-0">
+        {isDiff
+          ? (
+            <DiffEditor
+              original={extractDiffContent(value).original}
+              modified={extractDiffContent(value).modified}
+            />
+          )
+          : (
+            <SyntaxHighlighter
+              language={language}
+              style={tomorrow}
+              customStyle={{ margin: 0, fontSize: 12 }}
+            >
+              {value}
+            </SyntaxHighlighter>
+          )}
+      </CardContent>
+    </Card>
   );
 };
 
 export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />;
 
 export default () => {
-  const [code, setCode] = useState(``);
+  const [code, setCode] = useState("");
   useEffect(() => {
     fetch(`https://testing.spike.land/live/CodeBlock/index.tsx`)
       .then((x) => x.text())
       .then(setCode);
-  });
+  }, []);
   return <CodeTS code={code} />;
 };
