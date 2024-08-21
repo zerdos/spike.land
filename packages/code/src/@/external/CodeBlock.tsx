@@ -1,15 +1,13 @@
+import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
+import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
+import { css } from "@emotion/react";
+import MonacoEditor, { DiffEditor as MonacoDiffEditor } from "@monaco-editor/react";
 import { IconCheck, IconClipboard, IconDownload } from "@tabler/icons-react";
+import { useTranslation } from "next-i18next";
 import { FC, useEffect, useState } from "react";
 
-import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
-
-import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-
-import { css } from "@emotion/react";
-import { useTranslation } from "next-i18next";
-
 export const generateRandomString = (length: number, lowercase = false) => {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXY3456789"; // excluding similar looking characters like Z, 2, I, 1, O, 0
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXY3456789";
   let result = "";
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -34,9 +32,7 @@ export const programmingLanguages: languageMap = {
   swift: ".swift",
   "objective-c": ".m",
   kotlin: ".kt",
-  diff: "diff",
-  typescript: "typescript",
-  tsx: "tsx",
+  typescript: ".ts",
   go: ".go",
   perl: ".pl",
   rust: ".rs",
@@ -47,24 +43,46 @@ export const programmingLanguages: languageMap = {
   sql: ".sql",
   html: ".html",
   css: ".css",
-  // add more file extensions here, make sure the key is same as language prop in CodeBlock.tsx component
 };
 
 interface Props {
   language: string;
   value: string;
 }
-// const SyntaxHighlighter = Prism as unknown as FC<SyntaxHighlighterProps>;
 
-// const diffEditor = monaco.editor.createDiffEditor(document.getElementById("container")!, {
-//   automaticLayout: true
-// });
-// diffEditor.setModel({
-//   original: monaco.editor.createModel("function hello() {\n\talert('Hello world!');\n}", "javascript"),
-//   modified: monaco.editor.createModel("function hello() {\n\talert('Hello world!');\n}\n\nfunction hi() {\n\tconsole.log('hi');\n}", "javascript")
-// });
+const DiffEditor: FC<{ original: string; modified: string }> = ({ original, modified }) => {
+  return (
+    <MonacoDiffEditor
+      height="300px"
+      language="typescript"
+      original={original}
+      modified={modified}
+      theme="vs-dark"
+      options={{
+        readOnly: true,
+        renderSideBySide: false,
+        minimap: { enabled: false },
+        diffWordWrap: "on",
+      }}
+    />
+  );
+};
 
-// //diff editor component
+const isDiffContent = (content: string): boolean => {
+  const diffPattern = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/;
+  return diffPattern.test(content);
+};
+
+const extractDiffContent = (content: string): { original: string; modified: string } => {
+  const [, searchContent, replaceContent] = content.match(
+    /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/,
+  ) || [];
+
+  return {
+    original: searchContent.trim(),
+    modified: replaceContent.trim(),
+  };
+};
 
 export const CodeBlock: FC<Props> = ({ language, value }) => {
   const { t } = useTranslation("markdown");
@@ -83,6 +101,7 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
       }, 2000);
     });
   };
+
   const downloadAsFile = () => {
     const fileExtension = programmingLanguages[language] || ".file";
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
@@ -92,7 +111,6 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
     );
 
     if (!fileName) {
-      // user pressed cancel on prompt
       return;
     }
 
@@ -107,30 +125,32 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
+
+  const isDiff = isDiffContent(value);
+
   return (
     <div
       css={css`
-      margin-top: 20px;
-  max-width: 568px;
-    `}
+        margin-top: 20px;
+        max-width: 568px;
+      `}
       className="codeblock relative font-sans text-[16px]"
     >
       <div
         css={css`
-                background-color: darkred;
-                font-size: 2rem;
-                :hover{
-                  cursor:pointer;
-                }
-              `}
-        className="flex items-center justify-between "
+          background-color: darkred;
+          font-size: 2rem;
+          :hover {
+            cursor: pointer;
+          }
+        `}
+        className="flex items-center justify-between"
       >
         <span className="text-xs lowercase text-white">{language}</span>
         <div
           css={css`
-                background-color: navy;
-             
-              `}
+            background-color: navy;
+          `}
           className="flex items-center"
         >
           <button
@@ -149,16 +169,27 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
         </div>
       </div>
 
-      <SyntaxHighlighter
-        language={language}
-        style={tomorrow}
-        customStyle={{ margin: 0, fontSize: 12 }}
-      >
-        {value}
-      </SyntaxHighlighter>
+      {isDiff
+        ? (
+          <DiffEditor
+            original={extractDiffContent(value).original}
+            modified={extractDiffContent(value).modified}
+          />
+        )
+        : (
+          <SyntaxHighlighter
+            language={language}
+            style={tomorrow}
+            customStyle={{ margin: 0, fontSize: 12 }}
+          >
+            {value}
+          </SyntaxHighlighter>
+        )}
     </div>
   );
 };
+
+export const CodeTS = ({ code }: { code: string }) => <CodeBlock value={code} language="typescript" />;
 
 export default () => {
   const [code, setCode] = useState(``);
