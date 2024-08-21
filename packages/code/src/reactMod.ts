@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 export { default } from "react";
 
 export const Children: {
