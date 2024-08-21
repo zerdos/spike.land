@@ -19,7 +19,8 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
       const diffEditor = editor.createDiffEditor(containerRef.current, {
         automaticLayout: true,
         diffAlgorithm: "advanced",
-
+        readOnly: true,
+        diffWordWrap: "off",
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
         renderSideBySide: true,
