@@ -1,7 +1,6 @@
 import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
 import { Mutex } from "async-mutex";
-import { throttle } from "es-toolkit";
 import { useCallback, useMemo } from "react";
 import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
