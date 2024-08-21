@@ -187,11 +187,10 @@ async function processMessage(
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
   const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages);
-  const debouncedOnUpdate = throttle(onUpdate, 100);
 
   let assistantMessage = await aiHandler.sendToAnthropic(
     updatedMessages,
-    debouncedOnUpdate,
+    onUpdate,
   );
 
   if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
@@ -205,7 +204,7 @@ async function processMessage(
     await runner(codeNow);
     assistantMessage = await aiHandler.sendToGpt4o(
       updatedMessages,
-      debouncedOnUpdate,
+      onUpdate,
     );
   }
 
