@@ -3,7 +3,7 @@ import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 import { FC, memo, useMemo, useState } from "react";
 
 import React, { useEffect, useRef } from "react";
-import * as monaco from "./monacoEditor";
+import { editor } from "./monacoEditor";
 
 interface DiffEditorProps {
   original: string;
@@ -16,7 +16,7 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
 
   useEffect(() => {
     if (containerRef.current) {
-      const diffEditor = monaco.editor.createDiffEditor(containerRef.current, {
+      const diffEditor = editor.createDiffEditor(containerRef.current, {
         automaticLayout: true,
         diffAlgorithm: "advanced",
 
@@ -25,8 +25,8 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
         renderSideBySide: true,
       });
 
-      const originalModel = monaco.editor.createModel(original, language);
-      const modifiedModel = monaco.editor.createModel(modified, language);
+      const originalModel = editor.createModel(original, language);
+      const modifiedModel = editor.createModel(modified, language);
 
       diffEditor.setModel({
         original: originalModel,
