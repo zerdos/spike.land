@@ -112,7 +112,8 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
-    !url.pathname.startsWith("/api/") && !url.pathname.startsWith("/live/")
+    !url.pathname.startsWith("/api/")
+    && !url.pathname.startsWith("/live/")
     && !url.pathname.startsWith("/api/")
     && !files.has(url.pathname.slice(1)),
   new CacheFirst({
