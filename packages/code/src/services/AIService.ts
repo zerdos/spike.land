@@ -43,9 +43,11 @@ export class AIService {
   }
 
   private async handleStreamingResponse(
-    response: Response,
+    endpoint: string,
+    mappedMessages: Message[],
     onUpdate: (code: string) => void,
   ): Promise<AIModelResponse> {
+    const response = await this.makeAPICall(endpoint, mappedMessages);
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
 
@@ -92,8 +94,7 @@ export class AIService {
       content: message.content,
     }));
 
-    const response = await this.makeAPICall(endpoint, mappedMessages);
-    const result = await this.handleStreamingResponse(response, onUpdate);
+    const result = await this.handleStreamingResponse(endpoint, mappedMessages, onUpdate);
 
     const assistantMessage: Message = {
       id: result.id,
