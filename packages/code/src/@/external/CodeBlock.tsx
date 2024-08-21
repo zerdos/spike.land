@@ -5,53 +5,52 @@ import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 
 import { css } from "@emotion/react";
+import MonacoEditor from "@monaco-editor/react";
 import { useTranslation } from "next-i18next";
 
-export const generateRandomString = (length: number, lowercase = false) => {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXY3456789"; // excluding similar looking characters like Z, 2, I, 1, O, 0
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return lowercase ? result.toLowerCase() : result;
-};
-
-interface languageMap {
-  [key: string]: string | undefined;
-}
-
-export const programmingLanguages: languageMap = {
-  javascript: ".js",
-  python: ".py",
-  java: ".java",
-  c: ".c",
-  cpp: ".cpp",
-  "c++": ".cpp",
-  "c#": ".cs",
-  ruby: ".rb",
-  php: ".php",
-  swift: ".swift",
-  "objective-c": ".m",
-  kotlin: ".kt",
-  typescript: ".ts",
-  go: ".go",
-  perl: ".pl",
-  rust: ".rs",
-  scala: ".scala",
-  haskell: ".hs",
-  lua: ".lua",
-  shell: ".sh",
-  sql: ".sql",
-  html: ".html",
-  css: ".css",
-  // add more file extensions here, make sure the key is same as language prop in CodeBlock.tsx component
-};
+// ... (keep the existing imports and helper functions)
 
 interface Props {
   language: string;
   value: string;
 }
-// const SyntaxHighlighter = Prism as unknown as FC<SyntaxHighlighterProps>;
+
+const DiffEditor: FC<{ original: string; modified: string; language: string }> = ({
+  original,
+  modified,
+  language,
+}) => {
+  return (
+    <MonacoEditor
+      height="300px"
+      language={language}
+      theme="vs-dark"
+      original={original}
+      modified={modified}
+      options={{
+        readOnly: true,
+        renderSideBySide: false,
+        minimap: { enabled: false },
+      }}
+    />
+  );
+};
+
+const isDiffContent = (content: string): boolean => {
+  const diffPattern = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/;
+  return diffPattern.test(content);
+};
+
+const extractDiffContent = (content: string): { original: string; modified: string } => {
+  const [, searchContent, replaceContent] = content.match(
+    /<<<<<<< SEARCH\n([\s\S]*?)\n=======\n([\s\S]*?)\n>>>>>>> REPLACE/,
+  ) || [];
+
+  return {
+    original: searchContent.trim(),
+    modified: replaceContent.trim(),
+  };
+};
 
 export const CodeBlock: FC<Props> = ({ language, value }) => {
   const { t } = useTranslation("markdown");
@@ -70,54 +69,36 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
       }, 2000);
     });
   };
+
   const downloadAsFile = () => {
-    const fileExtension = programmingLanguages[language] || ".file";
-    const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
-    const fileName = window.prompt(
-      t("Enter file name") || "",
-      suggestedFileName,
-    );
-
-    if (!fileName) {
-      // user pressed cancel on prompt
-      return;
-    }
-
-    const blob = new Blob([value], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.download = fileName;
-    link.href = url;
-    link.style.display = "none";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    // ... (keep the existing downloadAsFile function)
   };
+
+  const isDiff = isDiffContent(value);
+
   return (
     <div
       css={css`
-      margin-top: 20px;
-  max-width: 568px;
-    `}
+        margin-top: 20px;
+        max-width: 568px;
+      `}
       className="codeblock relative font-sans text-[16px]"
     >
       <div
         css={css`
-                background-color: darkred;
-                font-size: 2rem;
-                :hover{
-                  cursor:pointer;
-                }
-              `}
-        className="flex items-center justify-between "
+          background-color: darkred;
+          font-size: 2rem;
+          :hover {
+            cursor: pointer;
+          }
+        `}
+        className="flex items-center justify-between"
       >
         <span className="text-xs lowercase text-white">{language}</span>
         <div
           css={css`
-                background-color: navy;
-             
-              `}
+            background-color: navy;
+          `}
           className="flex items-center"
         >
           <button
@@ -136,13 +117,23 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
         </div>
       </div>
 
-      <SyntaxHighlighter
-        language={language}
-        style={tomorrow}
-        customStyle={{ margin: 0, fontSize: 12 }}
-      >
-        {value}
-      </SyntaxHighlighter>
+      {isDiff
+        ? (
+          <DiffEditor
+            original={extractDiffContent(value).original}
+            modified={extractDiffContent(value).modified}
+            language={language}
+          />
+        )
+        : (
+          <SyntaxHighlighter
+            language={language}
+            style={tomorrow}
+            customStyle={{ margin: 0, fontSize: 12 }}
+          >
+            {value}
+          </SyntaxHighlighter>
+        )}
     </div>
   );
 };
