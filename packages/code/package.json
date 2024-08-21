@@ -221,6 +221,7 @@
     "eslint-plugin-react": "7.35.0",
     "esprima": "^4.0.1",
     "jsdom": "^24.1.1",
+    "supports-color": "^9.4.0",
     "text-encoding": "^0.7.0",
     "tslib": "2.6.3",
     "typescript": "^5.5.4",

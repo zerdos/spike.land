@@ -162,14 +162,14 @@ async function createNewMessage(
             data: screenshot.slice(23),
           },
         },
-        { type: "text", text: claudeContent.trim() },
+        { type: "text", text: claudeContent?.trim() || "" },
       ],
     };
   }
   return {
     id: Date.now().toString(),
     role: "user",
-    content: claudeContent.trim(),
+    content: claudeContent?.trim() || "",
   };
 }
 

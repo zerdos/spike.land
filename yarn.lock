@@ -4740,6 +4740,7 @@ __metadata:
     sonner: "npm:^1.5.0"
     stream: "npm:^0.0.3"
     stream-browserify: "npm:3.0.0"
+    supports-color: "npm:^9.4.0"
     tailwind-merge: "npm:^2.5.2"
     tailwindcss-animate: "npm:^1.0.7"
     text-encoding: "npm:^0.7.0"

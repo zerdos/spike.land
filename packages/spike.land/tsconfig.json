@@ -25,5 +25,5 @@
   "exclude": ["**/*.spec.ts", "**/node_modules/*", "**/ .yarn", "**/dist"],
   "include": [
     "src"
-  ]
+, "../code/src/utils/diffUtils"  ]
 }

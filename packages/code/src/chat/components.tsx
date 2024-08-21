@@ -4,10 +4,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
+import { renderMessage, TypingIndicator } from "@src/utils/utils";
 import React, { useCallback, useEffect, useRef } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
-import { renderMessage, TypingIndicator } from "./utils";
 
 export const ChatMessage: React.FC<{
   message: Message;

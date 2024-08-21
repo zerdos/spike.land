@@ -12,7 +12,7 @@
     "clean": "rm -rf packages/code/dist && yarn workspaces foreach -A run clean",
     "build": "yarn workspaces foreach -A run build",
     "types": "yarn workspace @spike-land/code types",
-    "test": "yarn workspace @spike-land/code vitest",
+    "test": "yarn workspace @spike-land/code vitest --run",
     "c:build": "yarn workspace @spike-land/code build",
     "c:deploy": "yarn workspace @spike-land/code-worker deploy",
     "deploy:prod": "NODE_ENV=production yarn c:build && cd packages/spike.land &&    yarn prepublishOnly && cd js.spike.land && yarn deploy",

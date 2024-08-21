@@ -5,6 +5,9 @@ import { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
 import React, { Fragment } from "react";
 
+import DiffEditor from "@src/components/DiffEditor";
+import { extractDiffContent, isDiffContent } from "./diffUtils"; // Assume these functions are implemented elsewhere
+
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-2 items-center p-2">
     <span className="text-sm text-gray-500">AI is typing</span>
@@ -77,10 +80,7 @@ export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
               </Markdown>
             )
             : (
-              <CodeBlock
-                value={part.content}
-                language={part.language || "typescript"}
-              />
+              renderCode(part.content, part.language || "typescript")
             )}
         </Fragment>
       ))}
@@ -183,3 +183,12 @@ export const mockResponses: string[] = [
   "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
   "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
 ];
+
+export function renderCode(value: string, language: string) {
+  if (isDiffContent(value)) {
+    const { original, modified } = extractDiffContent(value);
+    return <DiffEditor original={original} modified={modified} language={language} />;
+  } else {
+    return <CodeBlock value={value} language={language} />;
+  }
+}
