@@ -52,7 +52,7 @@ export const renderMessage = (text: string, isUser: boolean) => {
     "```diff" + `
 <<<<<<< SEARCH
   `,
-  ).split(">>>>>>> REPLACE").join(">>>>>>> REPLACE+\n```");
+  ).split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
 
   const cleanedText = cleanMessageText(text, isUser);
   const parts = parseMessageParts(cleanedText);
