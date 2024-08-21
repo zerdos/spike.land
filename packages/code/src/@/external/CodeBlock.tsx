@@ -104,8 +104,8 @@ const extractDiffContent = (content: string): { original: string; modified: stri
   ) || [];
 
   return {
-    original: searchContent.trim(),
-    modified: replaceContent.trim(),
+    original: (searchContent || " ").trim(),
+    modified: (replaceContent || " ").trim(),
   };
 };
 
