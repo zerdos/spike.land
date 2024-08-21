@@ -30,9 +30,9 @@ const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, langua
   useEffect(() => {
     if (containerRef.current) {
       const diffEditor = editor.createDiffEditor(containerRef.current, {
-        diffAlgorithm: "legacy",
+        diffAlgorithm: "advanced",
         readOnly: true,
-        diffWordWrap: "on",
+        diffWordWrap: "off",
         hideUnchangedRegions: {
           enabled: true,
         },
