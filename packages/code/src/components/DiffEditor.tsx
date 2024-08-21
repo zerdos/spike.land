@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import { editor } from "@/external/monacoEditor";
+import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -6,8 +7,7 @@ interface DiffEditorProps {
   language?: string;
 }
 
-const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = "typescript" }) => {
-  console.log("zooooo");
+const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculateHeight = useCallback((content: string) => {
@@ -24,7 +24,35 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
-    // ... (keep the existing useEffect code)
+    if (containerRef.current) {
+      const diffEditor = editor.createDiffEditor(containerRef.current, {
+        diffAlgorithm: "advanced",
+        readOnly: true,
+        diffWordWrap: "off",
+        hideUnchangedRegions: {
+          enabled: true,
+        },
+        lineNumbers: "off",
+        scrollBeyondLastLine: false,
+        minimap: { enabled: false },
+        renderSideBySide: true,
+      });
+
+      const originalModel = editor.createModel(original, language);
+      const modifiedModel = editor.createModel(modified, language);
+
+      diffEditor.setModel({
+        original: originalModel,
+        modified: modifiedModel,
+      });
+
+      return () => {
+        diffEditor.dispose();
+        originalModel.dispose();
+        modifiedModel.dispose();
+      };
+    }
+    return () => {};
   }, [original, modified, language, editorHeight]);
 
   return (
@@ -38,6 +66,8 @@ const DiffEditor: React.FC<DiffEditorProps> = ({ original, modified, language = 
       }}
     />
   );
-};
+});
+
+DiffEditor.displayName = "DiffEditor";
 
 export default React.memo(DiffEditor);

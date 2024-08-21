@@ -186,6 +186,7 @@ export const mockResponses: string[] = [
 ];
 
 export function renderCode(value: string, language: string) {
+  console.log("renderCode", value, language);
   const key = md5(value + language);
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
