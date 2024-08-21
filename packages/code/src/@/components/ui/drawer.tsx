@@ -3,7 +3,12 @@ import { Drawer as DrawerPrimitive } from "vaul";
 
 import { cn } from "@/lib/utils";
 
-const Drawer = ({
+const Drawer: {
+  (
+    { shouldScaleBackground, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>,
+  ): import("@emotion/react/jsx-runtime").JSX.Element;
+  displayName: string;
+} = ({
   shouldScaleBackground = true,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
@@ -14,13 +19,23 @@ const Drawer = ({
 );
 Drawer.displayName = "Drawer";
 
-const DrawerTrigger = DrawerPrimitive.Trigger;
+const DrawerTrigger: React.ForwardRefExoticComponent<
+  import("@radix-ui/react-dialog").DialogTriggerProps & React.RefAttributes<HTMLButtonElement>
+> = DrawerPrimitive.Trigger;
 
-const DrawerPortal = DrawerPrimitive.Portal;
+const DrawerPortal: React.FC<import("@radix-ui/react-dialog").DialogPortalProps> = DrawerPrimitive.Portal;
 
-const DrawerClose = DrawerPrimitive.Close;
+const DrawerClose: React.ForwardRefExoticComponent<
+  import("@radix-ui/react-dialog").DialogCloseProps & React.RefAttributes<HTMLButtonElement>
+> = DrawerPrimitive.Close;
 
-const DrawerOverlay = React.forwardRef<
+const DrawerOverlay: React.ForwardRefExoticComponent<
+  Omit<
+    & Omit<import("@radix-ui/react-dialog").DialogOverlayProps & React.RefAttributes<HTMLDivElement>, "ref">
+    & React.RefAttributes<HTMLDivElement>,
+    "ref"
+  > & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
@@ -32,7 +47,14 @@ const DrawerOverlay = React.forwardRef<
 ));
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
-const DrawerContent = React.forwardRef<
+const DrawerContent: React.ForwardRefExoticComponent<
+  Omit<
+    Omit<import("@radix-ui/react-dialog").DialogContentProps & React.RefAttributes<HTMLDivElement>, "ref"> & {
+      onAnimationEnd?: (open: boolean) => void;
+    } & React.RefAttributes<HTMLDivElement>,
+    "ref"
+  > & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
@@ -53,7 +75,10 @@ const DrawerContent = React.forwardRef<
 ));
 DrawerContent.displayName = "DrawerContent";
 
-const DrawerHeader = ({
+const DrawerHeader: {
+  ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>): import("@emotion/react/jsx-runtime").JSX.Element;
+  displayName: string;
+} = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -64,7 +89,10 @@ const DrawerHeader = ({
 );
 DrawerHeader.displayName = "DrawerHeader";
 
-const DrawerFooter = ({
+const DrawerFooter: {
+  ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>): import("@emotion/react/jsx-runtime").JSX.Element;
+  displayName: string;
+} = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -75,7 +103,10 @@ const DrawerFooter = ({
 );
 DrawerFooter.displayName = "DrawerFooter";
 
-const DrawerTitle = React.forwardRef<
+const DrawerTitle: React.ForwardRefExoticComponent<
+  & Omit<import("@radix-ui/react-dialog").DialogTitleProps & React.RefAttributes<HTMLHeadingElement>, "ref">
+  & React.RefAttributes<HTMLHeadingElement>
+> = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
 >(({ className, ...props }, ref) => (
@@ -90,7 +121,10 @@ const DrawerTitle = React.forwardRef<
 ));
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
-const DrawerDescription = React.forwardRef<
+const DrawerDescription: React.ForwardRefExoticComponent<
+  & Omit<import("@radix-ui/react-dialog").DialogDescriptionProps & React.RefAttributes<HTMLParagraphElement>, "ref">
+  & React.RefAttributes<HTMLParagraphElement>
+> = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
 >(({ className, ...props }, ref) => (

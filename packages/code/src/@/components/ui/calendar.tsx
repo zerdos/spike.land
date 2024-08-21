@@ -4,6 +4,7 @@ import { DayPicker } from "react-day-picker";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { JSX } from "@emotion/react/jsx-runtime";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -12,7 +13,7 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   ...props
-}: CalendarProps) {
+}: CalendarProps): JSX.Element {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}

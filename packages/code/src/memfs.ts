@@ -29,7 +29,9 @@ const handleDirectory = async (
 export const getDirectoryEntriesRecursive = async (
   directoryHandle: FileSystemDirectoryHandle,
   relativePath = ".",
-) => {
+): Promise<{
+  [key: string]: FileSystemEntry;
+}> => {
   const directoryIterator = directoryHandle.values();
   const directoryEntryPromises: Promise<FileSystemEntry>[] = [];
   for await (const handle of directoryIterator) {
@@ -118,7 +120,25 @@ export const mkdir = async (filePath: string): Promise<void> => {
 
 export const stat = async (
   filePath: string,
-) => {
+): Promise<
+  {
+    name: string;
+    kind: "file";
+    size: number;
+    type: string;
+    lastModified: number;
+    relativePath: string;
+    handle: FileSystemFileHandle;
+  } | {
+    name: string;
+    kind: "directory";
+    relativePath: string;
+    entries: {
+      [key: string]: FileSystemEntry;
+    };
+    handle: FileSystemDirectoryHandle;
+  } | null
+> => {
   try {
     const { dirHandle, fileName } = await getDirectoryHandleAndFileName(
       filePath,
@@ -136,9 +156,35 @@ export const stat = async (
   }
 };
 
-export const cwd = async () => "/";
+export const cwd = async (): Promise<string> => "/";
 
-const FS = { readFile, unlink, mkdir, writeFile, readdir, stat, cwd };
+const FS: {
+  readFile: (filePath: string) => Promise<string>;
+  unlink: (filePath: string) => Promise<void>;
+  mkdir: (filePath: string) => Promise<void>;
+  writeFile: (filePath: string, content: string) => Promise<void>;
+  readdir: (filePath: string) => Promise<string[]>;
+  stat: (filePath: string) => Promise<
+    {
+      name: string;
+      kind: "file";
+      size: number;
+      type: string;
+      lastModified: number;
+      relativePath: string;
+      handle: FileSystemFileHandle;
+    } | {
+      name: string;
+      kind: "directory";
+      relativePath: string;
+      entries: {
+        [key: string]: FileSystemEntry;
+      };
+      handle: FileSystemDirectoryHandle;
+    } | null
+  >;
+  cwd: () => Promise<string>;
+} = { readFile, unlink, mkdir, writeFile, readdir, stat, cwd };
 
 export default FS;
 

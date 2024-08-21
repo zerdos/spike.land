@@ -18,7 +18,19 @@ const alertVariants = cva(
   },
 );
 
-const Alert = React.forwardRef<
+const Alert: React.ForwardRefExoticComponent<
+  & React.HTMLAttributes<HTMLDivElement>
+  & VariantProps<
+    (
+      props?:
+        | ({
+          variant?: "default" | "destructive" | null | undefined;
+        } & import("class-variance-authority/dist/types").ClassProp)
+        | undefined,
+    ) => string
+  >
+  & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
 >(({ className, variant, ...props }, ref) => (
@@ -31,7 +43,9 @@ const Alert = React.forwardRef<
 ));
 Alert.displayName = "Alert";
 
-const AlertTitle = React.forwardRef<
+const AlertTitle: React.ForwardRefExoticComponent<
+  React.HTMLAttributes<HTMLHeadingElement> & React.RefAttributes<HTMLParagraphElement>
+> = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -43,7 +57,9 @@ const AlertTitle = React.forwardRef<
 ));
 AlertTitle.displayName = "AlertTitle";
 
-const AlertDescription = React.forwardRef<
+const AlertDescription: React.ForwardRefExoticComponent<
+  React.HTMLAttributes<HTMLParagraphElement> & React.RefAttributes<HTMLParagraphElement>
+> = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
