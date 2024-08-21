@@ -22,15 +22,19 @@ export async function ata({
   let res = (await tsx(code)).filter((x) => x.includes("@/"));
   try {
     await Promise.all(
-      res.map(async (r) => {
-        const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
-        const content = await resp.text();
-        impRes[r] = {
-          url: resp.url,
-          ref: "",
-          content,
-        };
-        await ataRecursive(content, new URL(resp.url + "/../").toString());
+      res.map(async function(r: string) {
+        try {
+          const resp = await queuedFetch.fetch(`${originToUse}/${r}.d.ts`);
+          const content = await resp.text();
+          impRes[r] = {
+            url: resp.url,
+            ref: "",
+            content,
+          };
+          await ataRecursive(content, new URL(resp.url + "/../").toString());
+        } catch (error) {
+          console.error("error", error);
+        }
       }),
     );
 
