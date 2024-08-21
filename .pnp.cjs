@@ -12263,6 +12263,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/react-hooks", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.0.1"],\
           ["@testing-library/user-event", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:14.5.2"],\
           ["@types/eslint__js", "npm:8.42.3"],\
+          ["@types/esprima", "npm:4.0.6"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
           ["@types/lodash", "npm:4.17.7"],\
           ["@types/lodash.debounce", "npm:4.0.9"],\
@@ -12309,6 +12310,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.23.1"],\
           ["eslint", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:9.9.0"],\
           ["eslint-plugin-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:7.35.0"],\
+          ["esprima", "npm:4.0.1"],\
           ["events", "npm:3.3.0"],\
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
