@@ -1,3 +1,4 @@
+import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
@@ -16,6 +17,19 @@ const auth = () => {
 };
 
 Object.assign(globalThis, { auth, wait, build });
+
+export const useSpeedy2 = async () => {
+  const codeSpace = useCodeSpace();
+  const res = await build({
+    codeSpace,
+    splitting: true,
+    origin: location.origin,
+    format: "esm",
+  });
+
+  console.log({ res });
+};
+Object.assign(globalThis, { useSpeedy2 });
 
 export const useArchive = async (codeSpace: string) => {
   const buildWithRetry = async () => {
