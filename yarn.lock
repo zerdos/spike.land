@@ -5197,6 +5197,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/esprima@npm:^4":
+  version: 4.0.6
+  resolution: "@types/esprima@npm:4.0.6"
+  dependencies:
+    "@types/estree": "npm:*"
+  checksum: 10/36c5ca24a6506eb5742e8c66c0372918a859535022a5605f1e898b66e4941b91384f43c6aeb5c8ca1ed984af469dfabd22e784e833175bb1ab25af40787466ba
+  languageName: node
+  linkType: hard
+
 "@types/estree-jsx@npm:^1.0.0":
   version: 1.0.5
   resolution: "@types/estree-jsx@npm:1.0.5"
@@ -16842,6 +16851,8 @@ __metadata:
     "@cloudflare/puppeteer": "npm:^0.0.13"
     "@cloudflare/vitest-pool-workers": "npm:^0.4.24"
     "@cloudflare/workers-types": "npm:^4.20240815.0"
+    "@types/esprima": "npm:^4"
+    esprima: "npm:^4.0.1"
     typescript: "npm:^5.5.4"
     vitest: "npm:2.0.5"
     wrangler: "npm:^3.72.1"

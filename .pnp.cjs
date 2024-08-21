@@ -1481,6 +1481,10 @@ const RAW_RUNTIME_STATE =
       "npm:8.42.3"\
     ],\
     [\
+      "@types/esprima",\
+      "npm:4.0.6"\
+    ],\
+    [\
       "@types/estree",\
       "npm:1.0.5"\
     ],\
@@ -12973,6 +12977,16 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@types/eslint__js", "npm:8.42.3"],\
           ["@types/eslint", "npm:9.6.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/esprima", [\
+      ["npm:4.0.6", {\
+        "packageLocation": "./.yarn/global/cache/@types-esprima-npm-4.0.6-7cbac247d5-10.zip/node_modules/@types/esprima/",\
+        "packageDependencies": [\
+          ["@types/esprima", "npm:4.0.6"],\
+          ["@types/estree", "npm:1.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -26698,6 +26712,8 @@ const RAW_RUNTIME_STATE =
           ["@cloudflare/puppeteer", "npm:0.0.13"],\
           ["@cloudflare/vitest-pool-workers", "virtual:635579d153c6bf4131fdd9fc4b3baa0baffbcf5dff63783c0ac4d62ba9aa465b1c2fa9f8de13d815b932377e0be9a6904f1066727f17a4ac1e25153f055f2195#npm:0.4.24"],\
           ["@cloudflare/workers-types", "npm:4.20240815.0"],\
+          ["@types/esprima", "npm:4.0.6"],\
+          ["esprima", "npm:4.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
           ["vitest", "virtual:635579d153c6bf4131fdd9fc4b3baa0baffbcf5dff63783c0ac4d62ba9aa465b1c2fa9f8de13d815b932377e0be9a6904f1066727f17a4ac1e25153f055f2195#npm:2.0.5"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.72.1"]\
