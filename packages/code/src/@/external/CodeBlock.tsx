@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import virtualizedRenderer from "react-syntax-highlighter-virtualized-renderer";
 
 import { css } from "@emotion/react";
 import { useTranslation } from "next-i18next";
@@ -151,7 +150,6 @@ export const CodeBlock: FC<Props> = ({ language, value }) => {
       <SyntaxHighlighter
         language={language}
         style={tomorrow}
-        renderer={virtualizedRenderer}
         customStyle={{ margin: 0, fontSize: 12 }}
       >
         {value}
