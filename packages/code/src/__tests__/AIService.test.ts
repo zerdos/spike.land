@@ -142,11 +142,6 @@ describe("AIService", () => {
     });
 
     it("should retry with Claude if enabled and initial attempt fails", async () => {
-      const fullResponse = "Here's the modified code:";
-      const codeNow = "// Original code";
-      const setMessages = vi.fn();
-      const setAICode = vi.fn();
-
       const sendToAISpy = vi.spyOn(aiService, "sendToAI" as any);
       sendToAISpy.mockRejectedValueOnce(new Error("OpenAI Error"))
         .mockResolvedValueOnce({ id: "2", role: "assistant", content: "```typescript\nconst x = 5;\n```" });

@@ -125,4 +125,19 @@ lines
     expect(extractDiffContent(diffContent).original).toBe("Original conte");
     expect(extractDiffContent(diffContent).modified).toBe("z");
   });
+
+  it("should do partial3", () => {
+    const diffContent = `
+  ${"```jsx"}
+    <<<<<<< SEARCH
+    Original conte
+    =======
+    z
+    `;
+
+    const result = isDiffContent(diffContent);
+    expect(result).toBe(true);
+    expect(extractDiffContent(diffContent).original).toBe("Original conte");
+    expect(extractDiffContent(diffContent).modified).toBe("z");
+  });
 });

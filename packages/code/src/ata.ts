@@ -1,8 +1,6 @@
 import { myATA } from "./my-ata";
 import { QueuedFetch } from "./QueuedFetch";
 
-const queuedFetch = new QueuedFetch(3, 1000);
-
 export async function ata({
   code,
   originToUse,
@@ -15,6 +13,7 @@ export async function ata({
   filePath: string;
   content: string;
 }[]> {
+  const queuedFetch = new QueuedFetch(3, 1000);
   let thisATA: { content: string; filePath: string }[] = [];
 
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
