@@ -7,7 +7,7 @@ interface DiffEditorProps {
   language?: string;
 }
 
-const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
+export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const calculateHeight = useCallback((content: string) => {

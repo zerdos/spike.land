@@ -3,11 +3,12 @@ import Markdown from "@/external/Markdown";
 import { css } from "@emotion/react";
 import { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
-import React, { Fragment } from "react";
+import React, { Fragment, lazy, Suspense } from "react";
 
-import DiffEditor from "@src/components/DiffEditor";
 import { md5 } from "@src/md5";
 import { extractDiffContent, isDiffContent } from "./diffUtils"; // Assume these functions are implemented elsewhere
+
+const DiffEditor = lazy(() => import("../components/DiffEditor").then((module) => ({ default: module.DiffEditor })));
 
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-2 items-center p-2">
@@ -53,13 +54,18 @@ export const ColorModeToggle: React.FC<{
   </button>
 );
 
-export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
-  text = text.split("<<<<<<< SEARCH").join(
+export const getParts = (text: string, isUser: boolean) => {
+  const extendedText = text.split("<<<<<<< SEARCH").join(
     "```diff" + `\n<<<<<<< SEARCH`,
   ).split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
 
-  const cleanedText = cleanMessageText(text, isUser);
+  const cleanedText = cleanMessageText(extendedText, isUser);
   const parts = parseMessageParts(cleanedText);
+  return parts;
+};
+
+export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
+  const parts = getParts(text, isUser);
 
   return (
     <>
@@ -190,7 +196,11 @@ export function renderCode(value: string, language: string) {
   const key = md5(value + language);
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
+    return (
+      <Suspense fallback={<pre>{original}</pre>}>
+        <DiffEditor key={key} original={original} modified={modified} language={language} />
+      </Suspense>
+    );
   } else {
     return <CodeBlock key={key} value={value} language={language} />;
   }
