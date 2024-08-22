@@ -10782,10 +10782,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.5.7":
-  version: 4.5.7
-  resolution: "hono@npm:4.5.7"
-  checksum: 10/e7cc63e1a35963eba3802108cfd8daf2fe097667d075ab924b9383b1f43251260772a84bf71ea95e22986fc3e2d09200f1f69d286e2038e47fda5d23ad07794a
+"hono@npm:4.5.8":
+  version: 4.5.8
+  resolution: "hono@npm:4.5.8"
+  checksum: 10/1d071a827fb9562a008955dd24bdde8cd6575890120b8cf7276cdda2a58735487666807927a99f57d0e43304202c2c493daefb5eaf4683fcb3eed9d4190a0ccc
   languageName: node
   linkType: hard
 
@@ -13875,7 +13875,7 @@ __metadata:
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240821.1"
-    hono: "npm:4.5.7"
+    hono: "npm:4.5.8"
     wrangler: "npm:3.72.1"
   languageName: unknown
   linkType: soft
