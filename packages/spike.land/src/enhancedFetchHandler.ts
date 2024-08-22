@@ -3,7 +3,12 @@ export const handleEnhancedFetch = async (request: Request) => {
     const optionsParam = await request.json() as RequestInit & { url: string };
 
     // Perform the fetch
-    return fetch(optionsParam.url, optionsParam);
+    const res = await fetch(optionsParam.url, optionsParam);
+
+    // Clone the response
+    const response = res.clone();
+    const body = await res.blob();
+    return new Response(body, response);
 
     // if (response.body instanceof ReadableStream) {
     //   // convert it to arrayBuffer
