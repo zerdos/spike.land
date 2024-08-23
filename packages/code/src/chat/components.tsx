@@ -76,9 +76,6 @@ export const ChatMessage: React.FC<{
             ? "bg-gray-200 ring-2 ring-blue-500"
             : "bg-gray-100"
         }`}
-        css={css`
-          min-height: 200px;
-        `}
       >
         {isEditing
           ? (
