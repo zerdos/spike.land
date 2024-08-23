@@ -458,7 +458,7 @@ export class RouteHandler {
     import "${origin}/live/${codeSpace}/index.css";
     import { renderApp } from "${origin}/Wrapper.mjs";
     
-    const render =  () => renderApp({ App, rootElement: document.getElementById("root") });
+    const render =  () => renderApp({ App, rootElement: document.getElementById("embed") });
     render();
     
     `;

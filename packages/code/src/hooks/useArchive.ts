@@ -41,6 +41,8 @@ export const useSpeedy2 = async () => {
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
   const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
   const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
+  const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
+
   // <link rel="stylesheet" href="/assets/g-chunk-72a597.css">
 
   const html = `<!DOCTYPE html>
@@ -53,6 +55,7 @@ export const useSpeedy2 = async () => {
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
   <style> 
+    ${appCss}
     ${wrapperCss} 
     ${css}
   </style>
