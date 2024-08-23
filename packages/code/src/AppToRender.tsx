@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
@@ -27,7 +27,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const reveal = async () => {
-    await wait(1000);
+    await wait(300);
     console.log("Revealing");
     const re = document.getElementById("root");
     const rootEl = document.querySelector("#root > iframe") as HTMLIFrameElement;

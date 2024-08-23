@@ -88,6 +88,7 @@ export class AIService {
       throw new Error("Response body is not readable!");
     }
 
+    console.log("handleStreamingResponse, updateThrottleMs:", this.config.updateThrottleMs);
     const debouncedUpdate = throttle(onUpdate, this.config.updateThrottleMs);
     const content = await this.streamHandler.handleStream(reader, debouncedUpdate);
 

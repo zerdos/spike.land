@@ -11,7 +11,7 @@ export class AIHandler {
       anthropicEndpoint: "/api/anthropic",
       openAIEndpoint: "/api/openai",
       gpt4oEndpoint: "/api/openai",
-      updateThrottleMs: 100,
+      updateThrottleMs: 300,
       retryWithClaudeEnabled: true,
     });
   }
