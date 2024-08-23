@@ -27,6 +27,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const reveal = async () => {
+    console.log("Revealing");
     const re = document.getElementById("root");
     const rootEl = re!.lastElementChild as HTMLDivElement;
     const firstEl = re!.lastElementChild as HTMLDivElement;
