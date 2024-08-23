@@ -67,14 +67,16 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   return (
     <>
-      <header>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </header>
+      {!hideRest && (
+        <header>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </header>
+      )}
       <div className="relative">
         {onlyEdit
           ? (
