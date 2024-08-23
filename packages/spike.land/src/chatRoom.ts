@@ -75,7 +75,7 @@ export class Code implements DurableObject {
 
           const backupCode = await fetch(
             source,
-          ).then((r) => r.json());
+          ).then((r) => r.json()) as ICodeSession;
           this.backupSession = backupCode;
           await this.state.storage.put("session", this.backupSession);
           this.session = this.backupSession;
