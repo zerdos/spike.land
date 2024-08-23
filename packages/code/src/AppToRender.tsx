@@ -55,6 +55,15 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   //   }
   // };
 
+  useEffect(() => {
+    // if (onlyEdit) {
+    setTimeout(() => {
+      reveal();
+    }, 1000);
+
+    // }
+  });
+
   return (
     <>
       <header>
