@@ -196,8 +196,9 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
         ))}
         {isStreaming && <TypingIndicator isDarkMode={isDarkMode} />}
         {
-          <div id="last-message" ref={lastMessageRef}>
+          <div id="last-message">
             <div
+              ref={lastMessageRef}
               id={now.toString()}
               css={css`
               display: none;
