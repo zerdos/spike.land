@@ -152,6 +152,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   useEffect(() => {
     scrollToBottom();
+    setTimeout(scrollToBottom, 100);
   }, [messages, isStreaming, scrollToBottom]);
 
   return (
