@@ -109,7 +109,8 @@ export const getParts = (text: string, isUser: boolean) => {
   return parts;
 };
 
-export const renderMessage = (text: string, isUser: boolean): JSX.Element => getParts(text, isUser).map((part) => renderCode(part.content, part.language || "typescript", part.type));
+export const renderMessage = (text: string, isUser: boolean): JSX.Element =>
+  getParts(text, isUser).map((part) => renderCode(part.content, part.language || "typescript", part.type));
 
 const cleanMessageText = (text: string, isUser: boolean): string => {
   if (isUser) {
@@ -213,14 +214,15 @@ export function renderCode(value: string, language: string, type: string): JSX.E
   console.log("renderCode", value, language);
   const key = md5(value + language);
   if (type === "text") {
-   return  <Suspense
-                fallback={
-                  <pre>
+    return (
+      <Suspense
+        fallback={
+          <pre>
              {value}</pre>
-                }
-              >
-                <Markdown
-                  css={css`
+        }
+      >
+        <Markdown
+          css={css`
                   margin-top: 12px;
                   margin-bottom: 12px;
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -228,10 +230,11 @@ export function renderCode(value: string, language: string, type: string): JSX.E
                   line-height: 1.5;
                   letter-spacing: 0.01em;
                 `}
-                >
-                  {value}
-                </Markdown>
-              </Suspense>
+        >
+          {value}
+        </Markdown>
+      </Suspense>
+    );
   }
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
@@ -248,4 +251,3 @@ export function renderCode(value: string, language: string, type: string): JSX.E
     );
   }
 }
-
