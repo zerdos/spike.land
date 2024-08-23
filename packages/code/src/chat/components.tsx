@@ -158,7 +158,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   useEffect(() => {
     const timeoutId = setTimeout(scrollToBottom, 100);
     return () => clearTimeout(timeoutId);
-  });
+  }, []);
 
   return (
     <ScrollArea
