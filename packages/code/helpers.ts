@@ -1,8 +1,6 @@
-import { promises } from "node:fs";
 import type { Environment } from "./build-tasks";
 
 export const environment = process.env.NODE_ENV as Environment;
-const { readdir } = promises;
 
 export const makeEnv = (
   environment: Environment,
@@ -59,13 +57,3 @@ export const makeEnv = (
   }),
   browser: JSON.stringify(true),
 });
-
-export const getWasmFile = async (): Promise<string> => {
-  const dir = await readdir("./dist");
-  for await (const file of dir) {
-    if (file.includes("esbuild") && file.includes(".wasm")) {
-      return file;
-    }
-  }
-  throw new Error("WASM file not found");
-};
