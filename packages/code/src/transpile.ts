@@ -207,7 +207,6 @@ export const build = async ({
       bundle: true,
       define,
       keepNames: false,
-      ignoreAnnotations: true,
       minifySyntax: true,
       minifyIdentifiers: true,
       minifyWhitespace: false,

@@ -160,7 +160,6 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     alias: undefined,
     outdir: "dist/@/",
     platform: "browser",
-    ignoreAnnotations: true,
     // plugins: [
     //   ReactCompilerEsbuildPlugin({
     //   filter: /\.(jsx|tsx|mjs|ts)$/,
@@ -207,7 +206,6 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     legalComments: "none",
     //   drop: isProduction ? ["console", "debugger"] : [],
     platform: "browser",
-    ignoreAnnotations: true,
     plugins: [
       ...buildOptions.plugins,
       replace({
