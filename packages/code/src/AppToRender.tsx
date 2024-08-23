@@ -108,20 +108,22 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
                 ref={editorRef}
               />
             </Suspense>
-            {!isOpen && (
-              <Button
-                onClick={() => setIsOpen(true)}
-                className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
-              >
-                <Bot className="h-6 w-6" />
-              </Button>
-            )}
-
-            <ChatInterface
-              isOpen={isOpen}
-              onClose={() => setIsOpen(false)}
-              isMobile={isMobile}
-            />
+            {!isOpen
+              ? (
+                <Button
+                  onClick={() => setIsOpen(true)}
+                  className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
+                >
+                  <Bot className="h-6 w-6" />
+                </Button>
+              )
+              : (
+                <ChatInterface
+                  isOpen={isOpen}
+                  onClose={() => setIsOpen(false)}
+                  isMobile={isMobile}
+                />
+              )}
 
             <Button
               onClick={() => setShowAutoSaveHistory((x) => !x)}
