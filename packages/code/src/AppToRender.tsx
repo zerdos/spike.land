@@ -35,6 +35,8 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     if (!rootEl) return;
 
     rootEl.style.height = "100%";
+    rootEl.style.opacity = "1";
+    rootEl;
 
     if (firstEl !== rootEl) {
       re?.removeChild(re.firstElementChild!);
@@ -44,7 +46,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
       ?.remove();
     setHideRest(false);
-    document.querySelector(`#root[iframe]`)?.remove();
+    // document.querySelector(`#root[iframe]`)?.remove();
   };
 
   // const handleCodeUpdate = (newCode: string) => {
