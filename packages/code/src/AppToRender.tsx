@@ -30,7 +30,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     console.log("AppToRender mounted");
     if (!onlyEdit && hideRest) {
       const iframe = document.querySelector(
-        `iframe[src="/live/${codeSpace}/iframe"]`,
+        `#iframeD`,
       );
       if (iframe) {
         iframe.addEventListener("load", () => {
@@ -72,6 +72,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         {onlyEdit
           ? (
             <iframe
+              id="iframeD"
               css={css`
             display: none;
             height: 0;
