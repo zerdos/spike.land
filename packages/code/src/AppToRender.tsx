@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { useEffect, useRef, useState } from "react";
-import type { FC } from "react";
-import { createHtmlPortalNode, HtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal";
+import React, { useEffect, useRef, useState } from "react";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
@@ -12,7 +10,7 @@ import { DraggableWindow } from "./DraggableWindow";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import { reveal } from "./reveal";
 
-export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
+export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
@@ -20,19 +18,22 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const editorRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const portalNodeRef = useRef<HtmlPortalNode | null>(null);
+  const [iframeTransitioned, setIframeTransitioned] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
-    console.log("AppToRender mounted");
-    const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
-
-    if (existingIframe && !portalNodeRef.current) {
-      portalNodeRef.current = createHtmlPortalNode();
-
+    const existingIframe = document.querySelector("#embed iframe") as HTMLIFrameElement;
+    if (existingIframe) {
+      iframeRef.current = existingIframe;
       setHideRest(false);
       reveal();
+
+      // Trigger the transition after a short delay
+      setTimeout(() => {
+        setIframeTransitioned(true);
+      }, 100);
     }
-  }, [codeSpace]);
+  }, []);
 
   return (
     <>
@@ -45,33 +46,39 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         </SignedIn>
       </header>
       <div className="relative">
-        {portalNodeRef.current && (
-          <InPortal node={portalNodeRef.current}>
-            <iframe
-              src={`/live/${codeSpace}/iframe`}
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-              }}
-            />
-          </InPortal>
-        )}
-
-        {onlyEdit
-          ? (
-            <div style={{ display: "none" }}>
-              {portalNodeRef.current && <OutPortal node={portalNodeRef.current} />}
-            </div>
-          )
-          : (
-            <DraggableWindow
-              isChatOpen={isOpen}
-              codeSpace={codeSpace}
-            >
-              {portalNodeRef.current && <OutPortal node={portalNodeRef.current} />}
-            </DraggableWindow>
-          )}
+        <style>
+          {`
+            .iframe-container {
+              position: fixed;
+              transition: all 0.5s ease-in-out;
+              z-index: 1000;
+            }
+            .iframe-initial {
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+            }
+            .iframe-transitioned {
+              top: 50px;
+              left: 50px;
+              width: calc(100vw - 100px);
+              height: calc(100vh - 100px);
+              border-radius: 10px;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+          `}
+        </style>
+        <DraggableWindow codeSpace={codeSpace} isChatOpen={isOpen}>
+          <div
+            className={`iframe-container ${iframeTransitioned ? "iframe-transitioned" : "iframe-initial"}`}
+            ref={el => {
+              if (el && iframeRef.current) {
+                el.appendChild(iframeRef.current);
+              }
+            }}
+          />
+        </DraggableWindow>
 
         {!hideRest && (
           <RainbowWrapper>
