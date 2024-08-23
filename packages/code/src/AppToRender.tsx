@@ -4,6 +4,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
+import { doc } from "prettier";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
@@ -12,7 +13,6 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
-import { reveal } from "./reveal";
 
 export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
@@ -29,23 +29,23 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const reveal = async () => {
     console.log("Revealing");
     const re = document.getElementById("root");
-    const rootEl = re!.lastElementChild as HTMLDivElement;
+    const rootEl = document.querySelector("#root > iframe") as HTMLIFrameElement;
     const firstEl = re!.lastElementChild as HTMLDivElement;
 
     if (!rootEl) return;
 
-    rootEl.style.height = "100%";
-    rootEl.style.opacity = "1";
-    rootEl;
+    firstEl.style.height = "100%";
+    firstEl.style.opacity = "1";
 
-    if (firstEl !== rootEl) {
-      re?.removeChild(re.firstElementChild!);
-    }
+    // if (firstEl !== rootEl) {
+    //   re?.removeChild(re.firstElementChild!);
+    // }
 
-    rootEl.style.opacity = "1";
+    // rootEl.style.opacity = "1";
     document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
       ?.remove();
     setHideRest(false);
+    if (rootEl) rootEl.remove();
     // document.querySelector(`#root[iframe]`)?.remove();
   };
 
