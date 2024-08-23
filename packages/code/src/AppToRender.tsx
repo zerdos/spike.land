@@ -102,12 +102,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
         {!hideRest && (
           <RainbowWrapper>
-            <Suspense fallback={<></>}>
-              <Editor
-                codeSpace={codeSpace}
-                ref={editorRef}
-              />
-            </Suspense>
+            <Editor
+              codeSpace={codeSpace}
+              ref={editorRef}
+            />
+
             {!isOpen
               ? (
                 <Button
