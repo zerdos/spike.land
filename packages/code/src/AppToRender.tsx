@@ -71,15 +71,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           ? (
             <iframe
               ref={iframeRef}
-              css={css`
-              display: none;
-              height: 0;
-              width: 0;
-              border: 0;
-              overflow: auto;
-              -webkit-overflow-scrolling: touch;
-            `}
-              src={`/live/${codeSpace}/iframe`}
             />
           )
           : (
@@ -87,18 +78,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               isChatOpen={isOpen}
               codeSpace={codeSpace}
             >
-              {iframeRef.current && (
-                <div
-                  css={css`
-                  height: 100%;
-                  width: 100%;
-                  border: 0;
-                  overflow: auto;
-                  -webkit-overflow-scrolling: touch;
-                `}
-                  dangerouslySetInnerHTML={{ __html: iframeRef.current.outerHTML }}
-                />
-              )}
+              <iframe
+                ref={iframeRef}
+              />
             </DraggableWindow>
           )}
 
