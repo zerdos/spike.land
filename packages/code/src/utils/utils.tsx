@@ -53,26 +53,26 @@ export const ColorModeToggle: React.FC<{
     {isDarkMode ? "🌙" : "☀️"}
   </button>
 );
- 
+
 export const getParts = (text: string, isUser: boolean) => {
-//  find how many times <<<<<<< SEARCH appears:
   const countSearch = (text.match(/<<<<<<< SEARCH/g) || []).length;
-  //find how many times ======= apearas
   const countEqual = (text.match(/=======/g) || []).length;
-  if (countSearch !== countEqual) {
-     text += "=======\n"; 
-  }
   const countReplace = (text.match(/>>>>>>> REPLACE/g) || []).length;
-  if (countEqual !== countReplace) {
-    text += ">>>>>>> REPLACE\n";
+
+  if (countSearch > 0 || countEqual > 0 || countReplace > 0) {
+    let extendedText = text;
+    if (countSearch !== countEqual) {
+      extendedText += "=======\n";
+    }
+    if (countEqual !== countReplace) {
+      extendedText += ">>>>>>> REPLACE\n";
+    }
+    extendedText = extendedText.split("<<<<<<< SEARCH").join("```diff\n<<<<<<< SEARCH");
+    extendedText = extendedText.split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
+    text = extendedText;
   }
 
-  let extendedText = text.split("<<<<<<< SEARCH").join(
-    "```diff" + `\n<<<<<<< SEARCH`,
-  ).split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
-  
-
-  const cleanedText = cleanMessageText(extendedText, isUser);
+  const cleanedText = cleanMessageText(text, isUser);
   const parts = parseMessageParts(cleanedText);
   return parts;
 };
@@ -136,9 +136,7 @@ const parseMessageParts = (text: string) => {
       });
     }
 
-    const language = match[1]
-      ? programmingLanguages[match[1].toLowerCase()] || match[1].toLowerCase()
-      : "plaintext";
+    const language = getLanguage(match[1]);
     const code = match[2].trim();
 
     parts.push({
@@ -150,53 +148,57 @@ const parseMessageParts = (text: string) => {
     lastIndex = match.index + match[0].length;
   }
 
-  const lastOpenBlockMatch = text.slice(lastIndex).match(
-    /```(\w+)?\s*([\s\S]*)/,
-  );
-  if (lastOpenBlockMatch) {
-    parts.push({
-      type: "code",
-      language: getLanguage(lastOpenBlockMatch[1]),
-      content: lastOpenBlockMatch[2].trim(),
-      isStreaming: true,
-    });
-  } else if (lastIndex < text.length) {
-    parts.push({
-      type: "text",
-      content: text.slice(lastIndex),
-    });
+  if (lastIndex < text.length) {
+    const lastPart = text.slice(lastIndex);
+    const lastOpenBlockMatch = lastPart.match(/```(\w+)?\s*([\s\S]*)/);
+    if (lastOpenBlockMatch) {
+      if (lastOpenBlockMatch.index > 0) {
+        parts.push({
+          type: "text",
+          content: lastPart.slice(0, lastOpenBlockMatch.index),
+        });
+      }
+      parts.push({
+        type: "code",
+        language: getLanguage(lastOpenBlockMatch[1]),
+        content: lastOpenBlockMatch[2].trim(),
+        isStreaming: true,
+      });
+    } else {
+      parts.push({
+        type: "text",
+        content: lastPart,
+      });
+    }
   }
 
-  return parts;
+  // Merge adjacent text parts
+  const mergedParts = [];
+  for (const part of parts) {
+    if (mergedParts.length > 0 && mergedParts[mergedParts.length - 1].type === "text" && part.type === "text") {
+      mergedParts[mergedParts.length - 1].content += part.content;
+    } else {
+      mergedParts.push(part);
+    }
+  }
+
+  return mergedParts;
 };
 
 const getLanguage = (lang?: string): string => {
   if (!lang) return "plaintext";
-  return programmingLanguages[lang.toLowerCase()] || lang.toLowerCase();
-};
+  const lowercaseLang = lang.toLowerCase();
 
-// const TextPart: React.FC<{ content: string }> = ({ content }) => (
-//   <>
-//     {content.split("\n").map((line, j) => (
-//       <Fragment key={j}>
-//         {j > 0 && <br />}
-//         <span
-//           css={[
-//             styles.smallFontWithMaxWidth,
-//             css`
-//             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-//             font-size: 16px;
-//             line-height: 1.5;
-//             letter-spacing: 0.01em;
-//           `,
-//           ]}
-//         >
-//           {line}
-//         </span>
-//       </Fragment>
-//     ))}
-//   </>
-// );
+  // Special handling for specific languages
+  if (lowercaseLang === "typescript" || lowercaseLang === "ts") return "typescript";
+  if (lowercaseLang === "javascript" || lowercaseLang === "js") return "javascript";
+  if (lowercaseLang === "python" || lowercaseLang === "py") return "python";
+
+  if (lowercaseLang in programmingLanguages) {
+    return programmingLanguages[lowercaseLang];
+  }
+  return lowercaseLang;
+};
 
 export const mockResponses: string[] = [
   "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",

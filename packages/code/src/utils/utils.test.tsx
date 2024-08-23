@@ -71,7 +71,7 @@ describe("getParts", () => {
   });
 
   test("should handle search and replace markers", () => {
-    const input = "Before\n<<<<<<< SEARCH\nold code\n>>>>>>> REPLACE\nnew code\nAfter";
+    const input = "Before\n<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE\nAfter";
     const result = getParts(input, true);
     expect(result).toEqual([
       {
@@ -81,7 +81,7 @@ describe("getParts", () => {
       {
         type: "code",
         language: "diff",
-        content: "<<<<<<< SEARCH\nold code\n>>>>>>> REPLACE\nnew code",
+        content: "<<<<<<< SEARCH\nold code\n=======\nnew code\n>>>>>>> REPLACE",
       },
       {
         type: "text",
@@ -106,11 +106,9 @@ describe("getParts", () => {
       >>>>>>> REPLACE
     `;
 
-     const result = getParts(input, true);
-    expect(result).toMatchSnapshot()
+    const result = getParts(input, true);
+    expect(result).toMatchSnapshot();
   });
-
-
 
   test("should handle multiple search and replace markers2", () => {
     const input = `
@@ -127,8 +125,8 @@ describe("getParts", () => {
       let b =
     `;
 
-     const result = getParts(input, true);
-    expect(result).toMatchSnapshot()
+    const result = getParts(input, true);
+    expect(result).toMatchSnapshot();
   });
 
   test("should handle an incomplete code block at the end", () => {
@@ -141,7 +139,7 @@ describe("getParts", () => {
       },
       {
         type: "code",
-        language: ".js",
+        language: "javascript",
         content: "let x = 10;",
         isStreaming: true,
       },
