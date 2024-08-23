@@ -60,10 +60,10 @@ export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
               height: 100vh;
             }
             .iframe-transitioned {
-              top: 50px;
-              left: 50px;
-              width: calc(100vw - 100px);
-              height: calc(100vh - 100px);
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
               border-radius: 10px;
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
