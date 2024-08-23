@@ -22,7 +22,7 @@ export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
-    const existingIframe = document.querySelector("#embed iframe") as HTMLIFrameElement;
+    const existingIframe = document.querySelector("#root iframe") as HTMLIFrameElement;
     if (existingIframe) {
       iframeRef.current = existingIframe;
       setHideRest(false);
