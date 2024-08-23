@@ -1,39 +1,62 @@
+// src/AppToRender.tsx
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import React, { useEffect, useRef, useState } from "react";
+import { css } from "@emotion/react";
+import { useEffect, useRef, useState } from "react";
+import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
-import { useMediaQuery } from "./hooks/useMediaQuery";
+import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 import { reveal } from "./reveal";
 
-export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
+export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
+
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
   const editorRef = useRef<any>(null);
+
   const [isOpen, setIsOpen] = useState(false);
+
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const [iframeTransitioned, setIframeTransitioned] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
-    const existingIframe = document.querySelector("#root iframe") as HTMLIFrameElement;
-    if (existingIframe) {
-      iframeRef.current = existingIframe;
-      setHideRest(false);
-      reveal();
-
-      // Trigger the transition after a short delay
-      setTimeout(() => {
-        setIframeTransitioned(true);
-      }, 100);
+    console.log("AppToRender mounted");
+    if (!onlyEdit && hideRest) {
+      const iframe = document.querySelector(
+        `iframe[src="/live/${codeSpace}/iframe"]`,
+      );
+      if (iframe) {
+        iframe.addEventListener("load", () => {
+          setHideRest(false);
+          reveal();
+          document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
+            ?.remove();
+          document.querySelector(`#root[iframe]`)?.remove();
+        });
+        setTimeout(() => {
+          if (!hideRest) {
+            setHideRest(false);
+            reveal();
+            document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
+              ?.remove();
+          }
+        }, 2000);
+      }
     }
-  }, []);
+  }, [codeSpace, onlyEdit]);
+
+  // const handleCodeUpdate = (newCode: string) => {
+  //   if (editorRef.current) {
+  //     editorRef.current.setValue(newCode, true);
+  //   }
+  // };
 
   return (
     <>
@@ -46,40 +69,37 @@ export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
         </SignedIn>
       </header>
       <div className="relative">
-        <style>
-          {`
-            .iframe-container {
-              position: fixed;
-              transition: all 0.5s ease-in-out;
-              z-index: 1000;
-            }
-            .iframe-initial {
-              top: 0;
-              left: 0;
-              width: 100vw;
-              height: 100vh;
-            }
-            .iframe-transitioned {
-              top: 0;
-              left: 0;
-              width: 100vw;
-              height: 100vh;
-              border-radius: 10px;
-              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
+        {onlyEdit
+          ? (
+            <iframe
+              css={css`
+            display: none;
+            height: 0;
+            width: 0;
+            border: 0;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
           `}
-        </style>
-        <DraggableWindow codeSpace={codeSpace} isChatOpen={isOpen}>
-          <div
-            ref={el => {
-              if (el) {
-                el.replaceWith(document.querySelector("iframe")!);
-
-                // el.appendChild(iframeRef.current);
-              }
-            }}
-          />
-        </DraggableWindow>
+              src={`/live/${codeSpace}/iframe`}
+            />
+          )
+          : (
+            <DraggableWindow
+              isChatOpen={isOpen}
+              codeSpace={codeSpace}
+            >
+              <iframe
+                css={css`
+              height: 100%;
+              width: 100%;
+              border: 0;
+              overflow: auto;
+              -webkit-overflow-scrolling: touch;
+            `}
+                src={`/live/${codeSpace}/iframe`}
+              />
+            </DraggableWindow>
+          )}
 
         {!hideRest && (
           <RainbowWrapper>
