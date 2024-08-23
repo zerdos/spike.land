@@ -34,9 +34,11 @@ export const fetchPlugin = () => ({
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       const response = await fetch(args.path, { redirect: "follow" });
       let contents = await response.text();
-      Object.keys(oo).map((pkg) => {
-        contents = contents.replace(new RegExp(`"${pkg}"`, "g"), `"${oo[pkg]}"`);
-      });
+      if (contents.slice(0, 100).includes("importMapReplace")) {
+        Object.keys(oo).map((pkg) => {
+          contents = contents.replace(new RegExp(`"${oo[pkg]}"`, "g"), `"${pkg}"`);
+        });
+      }
       const contentType = response.headers.get("content-type") || "";
 
       let loader:
