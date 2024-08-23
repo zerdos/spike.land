@@ -104,11 +104,6 @@ const ChatInterface: React.FC = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => {
-        document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
-      }, 100);
-    }
     const draggableWindow = document.getElementById("DraggableWindow");
     if (draggableWindow) {
       draggableWindow.style.transition = "left 0.3s ease-in-out";

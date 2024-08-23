@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ChatFC } from "./ChatDrawer";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
@@ -106,6 +106,15 @@ const ChatInterface: React.FC<{
     screenshotImage,
     isMobile,
   ]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      });
+    }
+  }, [isOpen, messages, messagesEndRef]);
+
   if (!isOpen) return <></>;
   return <ChatFC {...memoizedChatFCProps} />;
 });
