@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
@@ -26,21 +25,24 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     console.log("AppToRender mounted");
 
     // Find the existing iframe
+    if (!iframeRef.current) return;
     const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
 
     if (existingIframe) {
-      iframeRef.current = existingIframe;
+      iframeRef.current.style.display = "none";
+      existingIframe.replaceWith(iframeRef.current);
+      // iframeRef.current = existingIframe;
 
-      if (!onlyEdit && hideRest) {
-        existingIframe.addEventListener("load", handleIframeLoad);
+      // if (!onlyEdit && hideRest) {
+      //   existingIframe.addEventListener("load", handleIframeLoad);
 
-        // Fallback timeout
-        setTimeout(() => {
-          if (hideRest) {
-            handleIframeLoad();
-          }
-        }, 2000);
-      }
+      //   // Fallback timeout
+      //   setTimeout(() => {
+      //     if (hideRest) {
+      //       handleIframeLoad();
+      //     }
+      //   }, 2000);
+      // }
     }
 
     return () => {
