@@ -49,7 +49,8 @@ export const useSpeedy2 = async () => {
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
