@@ -33,7 +33,7 @@
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     "resolveJsonModule": true,
     "importHelpers": false,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "node",
     // "noEmit": true,
     "outDir": "dts",
     "allowImportingTsExtensions": true,
@@ -61,7 +61,7 @@
 
     "isolatedModules": true,
     "removeComments": false,
-    "module": "NodeNext",
+    "module": "ESNext",
     "incremental": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true, /* Skip type checking of declaration files. */
