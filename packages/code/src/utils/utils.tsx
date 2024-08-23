@@ -109,43 +109,7 @@ export const getParts = (text: string, isUser: boolean) => {
   return parts;
 };
 
-export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
-  const parts = getParts(text, isUser);
-
-  return (
-    <>
-      {parts.map((part, index) => (
-        <Fragment key={md5(index + `: ` + part.content)}>
-          {part.type === "text"
-            ? (
-              <Suspense
-                fallback={
-                  <pre>
-             { part.content}</pre>
-                }
-              >
-                <Markdown
-                  css={css`
-                  margin-top: 12px;
-                  margin-bottom: 12px;
-                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-                  font-size: 14px;
-                  line-height: 1.5;
-                  letter-spacing: 0.01em;
-                `}
-                >
-                  {part.content}
-                </Markdown>
-              </Suspense>
-            )
-            : (
-              renderCode(part.content, part.language || "typescript")
-            )}
-        </Fragment>
-      ))}
-    </>
-  );
-};
+export const renderMessage = (text: string, isUser: boolean): JSX.Element => getParts(text, isUser).map((part) => renderCode(part.content, part.language || "typescript", part.type));
 
 const cleanMessageText = (text: string, isUser: boolean): string => {
   if (isUser) {
@@ -245,13 +209,34 @@ export const mockResponses: string[] = [
   "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
 ];
 
-export function renderCode(value: string, language: string) {
+export function renderCode(value: string, language: string, type: string): JSX.Element {
   console.log("renderCode", value, language);
   const key = md5(value + language);
+  if (type === "text") {
+   return  <Suspense
+                fallback={
+                  <pre>
+             {value}</pre>
+                }
+              >
+                <Markdown
+                  css={css`
+                  margin-top: 12px;
+                  margin-bottom: 12px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+                  font-size: 14px;
+                  line-height: 1.5;
+                  letter-spacing: 0.01em;
+                `}
+                >
+                  {value}
+                </Markdown>
+              </Suspense>
+  }
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
     return (
-      <Suspense fallback={<pre>{original}</pre>}>
+      <Suspense fallback={<pre>{value}</pre>}>
         <DiffEditor key={key} original={original} modified={modified} language={language} />
       </Suspense>
     );
@@ -263,3 +248,4 @@ export function renderCode(value: string, language: string) {
     );
   }
 }
+
