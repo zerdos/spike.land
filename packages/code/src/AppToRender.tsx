@@ -26,31 +26,25 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  useEffect(() => {
-    console.log("AppToRender mounted");
-    if (!onlyEdit && hideRest) {
-      const iframe = document.querySelector(
-        `#iframeD`,
-      );
-      if (iframe) {
-        iframe.addEventListener("load", () => {
-          setHideRest(false);
-          reveal();
-          document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
-            ?.remove();
-          document.querySelector(`#root[iframe]`)?.remove();
-        });
-        setTimeout(() => {
-          if (!hideRest) {
-            setHideRest(false);
-            reveal();
-            document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
-              ?.remove();
-          }
-        }, 2000);
-      }
+  const reveal = async () => {
+    const re = document.getElementById("root");
+    const rootEl = re!.lastElementChild as HTMLDivElement;
+    const firstEl = re!.lastElementChild as HTMLDivElement;
+
+    if (!rootEl) return;
+
+    rootEl.style.height = "100%";
+
+    if (firstEl !== rootEl) {
+      re?.removeChild(re.firstElementChild!);
     }
-  }, [codeSpace, onlyEdit]);
+
+    rootEl.style.opacity = "1";
+    document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
+      ?.remove();
+    setHideRest(false);
+    document.querySelector(`#root[iframe]`)?.remove();
+  };
 
   // const handleCodeUpdate = (newCode: string) => {
   //   if (editorRef.current) {
@@ -73,9 +67,13 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           ? (
             <iframe
               id="iframeD"
+              onLoad={() => {
+                reveal();
+              }}
               css={css`
             display: none;
             height: 0;
+            
             width: 0;
             border: 0;
             overflow: auto;
