@@ -243,6 +243,10 @@ const handleDefaultPage = async () => {
       document.body.appendChild(myEl);
 
       const rendered = await renderApp({ rootElement: myEl, transpiled });
+      if (signal.aborted) return false;
+
+      await wait(200);
+      if (signal.aborted) return false;
 
       if (signal.aborted) {
         try {
