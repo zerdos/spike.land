@@ -1,8 +1,6 @@
-// src/AppToRender.tsx
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
@@ -11,51 +9,52 @@ import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
-import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
+import { useMediaQuery } from "./hooks/useMediaQuery";
 import { reveal } from "./reveal";
 
 export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
-
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
   const editorRef = useRef<any>(null);
-
   const [isOpen, setIsOpen] = useState(false);
-
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
     console.log("AppToRender mounted");
-    if (!onlyEdit && hideRest) {
-      const iframe = document.querySelector(
-        `iframe[src="/live/${codeSpace}/iframe"]`,
-      );
-      if (iframe) {
-        iframe.addEventListener("load", () => {
-          setHideRest(false);
-          reveal();
-          document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
-            ?.remove();
-        });
+
+    // Find the existing iframe
+    const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
+
+    if (existingIframe) {
+      iframeRef.current = existingIframe;
+
+      if (!onlyEdit && hideRest) {
+        existingIframe.addEventListener("load", handleIframeLoad);
+
+        // Fallback timeout
         setTimeout(() => {
-          if (!hideRest) {
-            setHideRest(false);
-            reveal();
-            document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)
-              ?.remove();
+          if (hideRest) {
+            handleIframeLoad();
           }
         }, 2000);
       }
     }
-  }, [codeSpace, onlyEdit]);
 
-  // const handleCodeUpdate = (newCode: string) => {
-  //   if (editorRef.current) {
-  //     editorRef.current.setValue(newCode, true);
-  //   }
-  // };
+    return () => {
+      if (iframeRef.current) {
+        iframeRef.current.removeEventListener("load", handleIframeLoad);
+      }
+    };
+  }, [codeSpace, onlyEdit, hideRest]);
+
+  const handleIframeLoad = () => {
+    setHideRest(false);
+    reveal();
+    document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
+  };
 
   return (
     <>
@@ -71,14 +70,15 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         {onlyEdit
           ? (
             <iframe
+              ref={iframeRef}
               css={css`
-            display: none;
-            height: 0;
-            width: 0;
-            border: 0;
-            overflow: auto;
-            -webkit-overflow-scrolling: touch;
-          `}
+              display: none;
+              height: 0;
+              width: 0;
+              border: 0;
+              overflow: auto;
+              -webkit-overflow-scrolling: touch;
+            `}
               src={`/live/${codeSpace}/iframe`}
             />
           )
@@ -87,16 +87,18 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               isChatOpen={isOpen}
               codeSpace={codeSpace}
             >
-              <iframe
-                css={css`
-              height: 100%;
-              width: 100%;
-              border: 0;
-              overflow: auto;
-              -webkit-overflow-scrolling: touch;
-            `}
-                src={`/live/${codeSpace}/iframe`}
-              />
+              {iframeRef.current && (
+                <div
+                  css={css`
+                  height: 100%;
+                  width: 100%;
+                  border: 0;
+                  overflow: auto;
+                  -webkit-overflow-scrolling: touch;
+                `}
+                  dangerouslySetInnerHTML={{ __html: iframeRef.current.outerHTML }}
+                />
+              )}
             </DraggableWindow>
           )}
 

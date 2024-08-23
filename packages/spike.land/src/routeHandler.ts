@@ -381,7 +381,7 @@ export class RouteHandler {
     const respText = HTML.replace(
       "<div id=\"embed\"></div>",
       "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
-        + codeSpace + "/embed\"></iframe></div>",
+        + codeSpace + "/iframe\"></iframe></div>",
     );
 
     const headers = new Headers({
