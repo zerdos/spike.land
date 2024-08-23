@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { getParts } from "./utils";
+import { getParts } from "./getParts";
 
 describe("getParts", () => {
   test("should handle text without code blocks", () => {
