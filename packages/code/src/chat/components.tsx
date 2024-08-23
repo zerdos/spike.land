@@ -144,11 +144,11 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 }) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = useCallback(() => {
+  const scrollToBottom = () => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
-  }, []);
+  };
 
   useEffect(() => {
     scrollToBottom();
