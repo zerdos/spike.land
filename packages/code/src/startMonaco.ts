@@ -53,12 +53,13 @@ async function fetchAndCreateExtraModels(
     ` from "\./[a-zA-Z0-9\\-_]+`,
     "gm",
   );
+  const models2 = code.matchAll(search2);
 
   const search3 = new RegExp(
     ` from "/live/[a-zA-Z0-9\\-_]+`,
     "gm",
   );
-  const models2 = code.matchAll(search3);
+  const models3 = code.matchAll(search3);
 
   for (const match of [...models, ...models2, ...models3]) {
     const codeSpace = match[0].split("/").pop();
