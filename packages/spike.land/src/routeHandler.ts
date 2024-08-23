@@ -378,7 +378,10 @@ export class RouteHandler {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
-    const respText = HTML;
+    const respText = HTML.replace(
+      "<div id=\"embed\"></div>",
+      "<div id=\"embed\"><iframe src=\"/live/${codeSpace}/embed\"/></div>",
+    );
 
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
