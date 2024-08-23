@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
@@ -106,23 +106,20 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               codeSpace={codeSpace}
               ref={editorRef}
             />
+            {!isOpen && (
+              <Button
+                onClick={() => setIsOpen(true)}
+                className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
+              >
+                <Bot className="h-6 w-6" />
+              </Button>
+            )}
 
-            {!isOpen
-              ? (
-                <Button
-                  onClick={() => setIsOpen(true)}
-                  className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 z-[1001]"
-                >
-                  <Bot className="h-6 w-6" />
-                </Button>
-              )
-              : (
-                <ChatInterface
-                  isOpen={isOpen}
-                  onClose={() => setIsOpen(false)}
-                  isMobile={isMobile}
-                />
-              )}
+            <ChatInterface
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              isMobile={isMobile}
+            />
 
             <Button
               onClick={() => setShowAutoSaveHistory((x) => !x)}
