@@ -146,8 +146,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   const scrollToBottom = () => {
     if (scrollAreaRef.current) {
-      console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+      // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
+      scrollAreaRef.current.scrollTop = 1000000;
     }
   };
 
