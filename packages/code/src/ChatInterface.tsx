@@ -106,7 +106,7 @@ const ChatInterface: React.FC<{
     screenshotImage,
     isMobile,
   ]);
-
+  if (!isOpen) return <></>;
   return <ChatFC {...memoizedChatFCProps} />;
 });
 
