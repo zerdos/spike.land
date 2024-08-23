@@ -73,8 +73,9 @@ export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
           <div
             className={`iframe-container ${iframeTransitioned ? "iframe-transitioned" : "iframe-initial"}`}
             ref={el => {
-              if (el && iframeRef.current) {
-                el.appendChild(iframeRef.current);
+              if (el) {
+                el.replaceWith(iframeRef.current!);
+                // el.appendChild(iframeRef.current);
               }
             }}
           />
