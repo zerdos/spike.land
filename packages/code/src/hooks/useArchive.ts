@@ -47,12 +47,14 @@ export const useSpeedy2 = async () => {
 
   const html = `<!DOCTYPE html>
 <html lang="en">
-<head profile="http://www.w3.org/2005/10/profile">
+<head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="script-src 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Spike.land, an online content Editor with AI support">
+
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
   <style> 
