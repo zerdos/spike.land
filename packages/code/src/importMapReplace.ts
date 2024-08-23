@@ -118,13 +118,13 @@ export function importMapReplace(code: string, origin: string): string {
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
-      origin + oo[pkg as keyof typeof oo],
+      oo[pkg as keyof typeof oo],
     );
   });
 
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`"${pkg}"`).join(
-      "\"" + origin + oo[pkg as keyof typeof oo] + "\"",
+      `"/` + oo[pkg as keyof typeof oo] + `"`,
     );
   });
 
