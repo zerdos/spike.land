@@ -59,8 +59,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified,
     <div
       ref={containerRef}
       style={{
-        width: "100%",
-        maxWidth: "460px",
+        width: "80%",
         height: `${editorHeight}px`,
         maxHeight: "800px",
       }}
