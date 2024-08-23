@@ -5,7 +5,7 @@ import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideR
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
 import { renderMessage, TypingIndicator } from "@src/utils/utils";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 
@@ -76,10 +76,10 @@ export const ChatMessage: React.FC<{
             ? "bg-gray-200 ring-2 ring-blue-500"
             : "bg-gray-100"
         }`}
-      >
         css={css`
-            min-height: 200px;
-          `}
+          min-height: 200px;
+        `}
+      >
         {isEditing
           ? (
             <div className="flex flex-col space-y-2">
@@ -147,6 +147,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
+  const [now, setNow] = useState(Date.now());
+
   const scrollToBottom = useCallback(() => {
     if (lastMessageRef.current) {
       setNow(Date.now());
@@ -165,8 +167,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
     scrollAreaRef.current?.scrollHeight,
     lastMessageRef.current,
   ]);
-
-  const [now, setNow] = useState(Date.now());
 
   // This effect ensures scrolling when the component mounts and after each render
   useEffect(() => {
