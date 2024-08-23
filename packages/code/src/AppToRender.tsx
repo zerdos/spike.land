@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-// import { h } from "@clerk/clerk-react/dist/controlComponents-B9SlJ0L1";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
@@ -24,38 +23,22 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   useEffect(() => {
     console.log("AppToRender mounted");
-    if (hideRest === false) {
-      return;
-    }
-    // Find the existing iframe
-    if (!iframeRef.current) return;
     const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
 
-    if (existingIframe) {
-      // iframeRef.current.style.display = "none";
+    if (existingIframe && !iframeRef.current) {
+      iframeRef.current = existingIframe;
+      iframeRef.current.style.display = "block";
+      iframeRef.current.style.width = "100%";
+      iframeRef.current.style.height = "100%";
+      iframeRef.current.style.border = "none";
+
       setHideRest(false);
       reveal();
-      existingIframe.replaceWith(iframeRef.current);
-      //      handleIframeLoad();
-      // iframeRef.current = existingIframe;
 
-      if (!onlyEdit && hideRest) {
-        //   existingIframe.addEventListener("load", handleIframeLoad);
-
-        //   // Fallback timeout
-        //   setTimeout(() => {
-        //     if (hideRest) {
-        //       handleIframeLoad();
-        //     }
-        //   }, 2000);
-        // }
-      }
+      // Remove the existing iframe from its original location
+      existingIframe.parentNode?.removeChild(existingIframe);
     }
-  }, [codeSpace, onlyEdit, hideRest, iframeRef, iframeRef.current]);
-
-  const handleIframeLoad = () => {
-    // document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
-  };
+  }, [codeSpace]);
 
   return (
     <>
@@ -70,18 +53,18 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
       <div className="relative">
         {onlyEdit
           ? (
-            <iframe
-              ref={iframeRef}
-            />
+            iframeRef.current && (
+              <div style={{ display: "none" }}>
+                {iframeRef.current}
+              </div>
+            )
           )
           : (
             <DraggableWindow
               isChatOpen={isOpen}
               codeSpace={codeSpace}
             >
-              <iframe
-                ref={iframeRef}
-              />
+              {iframeRef.current}
             </DraggableWindow>
           )}
 
