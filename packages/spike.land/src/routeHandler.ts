@@ -470,7 +470,7 @@ export class RouteHandler {
     import(` + "`${location.origin}` +" + `"/assets/tw-chunk-be5bad.js");
   };
   document.head.appendChild(link);
-}, 200);
+});
 
     
     `;
