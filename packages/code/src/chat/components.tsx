@@ -182,7 +182,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
       <div className="p-4 space-y-4">
         {messages.map((message, index) => (
           <ChatMessage
-            key={message.id}
+            key={index + "--" + message.id}
             message={message}
             isSelected={editingMessageId === message.id}
             onDoubleClick={() => handleEditMessage(message.id)}
