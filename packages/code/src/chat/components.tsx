@@ -139,40 +139,34 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   handleSaveEdit,
   handleEditMessage,
   isStreaming,
-  messagesEndRef,
   isDarkMode,
 }) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    if (scrollAreaRef.current) {
-      console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
-      scrollAreaRef.current.scrollTop = 1000000;
-    }
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-    if (scrollAreaRef.current) {
-      // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
-      scrollToBottom();
-    }
-  }, [messages, isStreaming, scrollToBottom]);
-
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
-
-      setTimeout(() => {
-        scrollToBottom();
-      }, 100);
+  const scrollToBottom = useCallback(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, []);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isStreaming, scrollToBottom]);
+
+  // This effect ensures scrolling when the component mounts and after each render
+  useEffect(() => {
+    const timeoutId = setTimeout(scrollToBottom, 100);
+    return () => clearTimeout(timeoutId);
+  });
+
   return (
-    <ScrollArea className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`} ref={scrollAreaRef}>
+    <ScrollArea
+      className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`}
+      ref={scrollAreaRef}
+    >
       <div className="p-4 space-y-4">
-        {messages.map((message) => (
+        {messages.map((message, index) => (
           <ChatMessage
             key={message.id}
             message={message}
@@ -187,7 +181,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
           />
         ))}
         {isStreaming && <TypingIndicator isDarkMode={isDarkMode} />}
-        <div ref={messagesEndRef} />
+        <div ref={lastMessageRef} /> {/* This empty div serves as our scroll target */}
       </div>
     </ScrollArea>
   );
