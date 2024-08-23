@@ -30,15 +30,17 @@ export const useSpeedy2 = async () => {
     format: "esm",
   }) as unknown as { text: string; path: string; contents: ArrayBuffer }[];
 
-  res.map(async (f) => {
-    await fetch(f.path.slice(1), {
-      method: "PUT",
-      body: f.contents,
-    });
-  });
+  // res.map(async (f) => {
+  //   await fetch(f.path.slice(1), {
+  //     method: "PUT",
+  //     body: f.contents,
+  //   });
+  // });
 
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
+  const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
+  const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
   // <link rel="stylesheet" href="/assets/g-chunk-72a597.css">
 
   const html = `<!DOCTYPE html>
@@ -50,20 +52,15 @@ export const useSpeedy2 = async () => {
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
   <title>CodeSpace archive for ${codeSpace} </title>
-  ${res.filter(x => x.path.includes(".css")).map(f => `<link rel="stylesheet" href="${f.path.slice(1)}">`).join("\n")}
-  <style>  
+  <style> 
+    ${wrapperCss} 
     ${css}
   </style>
 </head>
 <body>
   <div id="embed">${htm}</div>
- ${
-    res.filter(x => x.path.includes(".mjs")).map(f => `<script type="module" src="${f.path.slice(1)}"></script>`).join(
-      "\n",
-    )
-  }
+  <script type="module">${wrapperJs}</script>
  
-  
 </body>
 </html>`;
   // <script src="/assets/tw-chunk-be5bad.js" defer></script>
