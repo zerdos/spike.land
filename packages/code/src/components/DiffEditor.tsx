@@ -38,8 +38,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified,
         renderSideBySide: true,
       });
 
-      const originalModel = editor.createModel(original, language);
-      const modifiedModel = editor.createModel(modified, language);
+      const originalModel = editor.createModel(original, "text/plain");
+      const modifiedModel = editor.createModel(modified, "text/plain");
 
       diffEditor.setModel({
         original: originalModel,
