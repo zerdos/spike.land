@@ -70,4 +70,4 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified,
 
 DiffEditor.displayName = "DiffEditor";
 
-export default React.memo(DiffEditor);
+export default DiffEditor;
