@@ -181,7 +181,9 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
           />
         ))}
         {isStreaming && <TypingIndicator isDarkMode={isDarkMode} />}
-        <div id="last-message" ref={lastMessageRef} /> {/* This empty div serves as our scroll target */}
+        <div id="last-message" ref={lastMessageRef}>
+          <hr />
+        </div>
       </div>
     </ScrollArea>
   );
