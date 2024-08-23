@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { h } from "@clerk/clerk-react/dist/controlComponents-B9SlJ0L1";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
@@ -23,7 +24,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   useEffect(() => {
     console.log("AppToRender mounted");
-
+    if (hideRest === false) {
+      return;
+    }
     // Find the existing iframe
     if (!iframeRef.current) return;
     const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
@@ -31,26 +34,22 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     if (existingIframe) {
       iframeRef.current.style.display = "none";
       existingIframe.replaceWith(iframeRef.current);
+      handleIframeLoad();
       // iframeRef.current = existingIframe;
 
-      // if (!onlyEdit && hideRest) {
-      //   existingIframe.addEventListener("load", handleIframeLoad);
+      if (!onlyEdit && hideRest) {
+        //   existingIframe.addEventListener("load", handleIframeLoad);
 
-      //   // Fallback timeout
-      //   setTimeout(() => {
-      //     if (hideRest) {
-      //       handleIframeLoad();
-      //     }
-      //   }, 2000);
-      // }
-    }
-
-    return () => {
-      if (iframeRef.current) {
-        iframeRef.current.removeEventListener("load", handleIframeLoad);
+        //   // Fallback timeout
+        //   setTimeout(() => {
+        //     if (hideRest) {
+        //       handleIframeLoad();
+        //     }
+        //   }, 2000);
+        // }
       }
-    };
-  }, [codeSpace, onlyEdit, hideRest]);
+    }
+  }, [codeSpace, onlyEdit, hideRest, iframeRef, iframeRef.current]);
 
   const handleIframeLoad = () => {
     setHideRest(false);
