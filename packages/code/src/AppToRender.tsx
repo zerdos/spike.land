@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
@@ -64,6 +64,14 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
 
   //   // }
   // });
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => {
+        document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 100);
+    }
+  }, [isOpen]);
 
   return (
     <>
