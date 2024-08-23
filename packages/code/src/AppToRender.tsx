@@ -19,24 +19,38 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const editorRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const iframeContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log("AppToRender mounted");
     const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
 
-    if (existingIframe && !iframeRef.current) {
-      iframeRef.current = existingIframe;
-      iframeRef.current.style.display = "block";
-      iframeRef.current.style.width = "100%";
-      iframeRef.current.style.height = "100%";
-      iframeRef.current.style.border = "none";
+    if (existingIframe && iframeContainerRef.current) {
+      // Instead of moving the iframe, we'll create a placeholder and use CSS to display the original iframe
+      const placeholder = document.createElement("div");
+      placeholder.style.width = "100%";
+      placeholder.style.height = "100%";
+      placeholder.style.position = "relative";
+
+      const iframeStyle = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      `;
+      placeholder.innerHTML = `<style>
+        #iframe-${codeSpace} { ${iframeStyle} }
+      </style>`;
+
+      iframeContainerRef.current.appendChild(placeholder);
+
+      // Assign an ID to the existing iframe
+      existingIframe.id = `iframe-${codeSpace}`;
 
       setHideRest(false);
       reveal();
-
-      // Remove the existing iframe from its original location
-      existingIframe.parentNode?.removeChild(existingIframe);
     }
   }, [codeSpace]);
 
@@ -51,22 +65,14 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         </SignedIn>
       </header>
       <div className="relative">
-        {onlyEdit
-          ? (
-            iframeRef.current && (
-              <div style={{ display: "none" }}>
-                {iframeRef.current}
-              </div>
-            )
-          )
-          : (
-            <DraggableWindow
-              isChatOpen={isOpen}
-              codeSpace={codeSpace}
-            >
-              {iframeRef.current}
-            </DraggableWindow>
-          )}
+        {onlyEdit ? <div style={{ display: "none" }} ref={iframeContainerRef} /> : (
+          <DraggableWindow
+            isChatOpen={isOpen}
+            codeSpace={codeSpace}
+          >
+            <div ref={iframeContainerRef} style={{ width: "100%", height: "100%" }} />
+          </DraggableWindow>
+        )}
 
         {!hideRest && (
           <RainbowWrapper>
