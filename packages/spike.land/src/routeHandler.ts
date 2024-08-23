@@ -348,10 +348,10 @@ export class RouteHandler {
   ): Promise<Response> {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
-    const { html } = this.code.session;
+    const { html, css } = this.code.session;
     const respText = HTML.replace(
       `<!-- <link rel="stylesheet" href="/app.css"> -->`,
-      `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
+      `<style>${css}</style>`,
     ).replace(
       "<div id=\"embed\"></div>",
       `<div id="embed">${html}</div>`,
