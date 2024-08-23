@@ -252,6 +252,13 @@ interface MessageRendererProps {
   isUser: boolean;
 }
 
+// Mock Data
+export const mockResponses: string[] = [
+  "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
+  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
+  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
+];
+
 export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }) => (
   <>
     {getParts(text, isUser).map((part, index) => (
@@ -260,39 +267,30 @@ export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }
   </>
 );
 
-// Mock Data
-export const mockResponses: string[] = [
-  "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
-  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
-  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
-];
-
-export function renderCode(value: string, language: string, type: string): JSX.Element {
+// Updated renderCode function
+export const renderCode = (value: string, language: string, type: string): JSX.Element => {
   console.log("renderCode", value, language);
   const key = md5(value + language);
+
   if (type === "text") {
     return (
-      <Suspense
-        fallback={
-          <pre>
-             {value}</pre>
-        }
-      >
+      <Suspense fallback={<pre>{value}</pre>}>
         <Markdown
           css={css`
-                  margin-top: 12px;
-                  margin-bottom: 12px;
-                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-                  font-size: 14px;
-                  line-height: 1.5;
-                  letter-spacing: 0.01em;
-                `}
+            margin-top: 12px;
+            margin-bottom: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+          `}
         >
           {value}
         </Markdown>
       </Suspense>
     );
   }
+
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
     return (
@@ -300,14 +298,22 @@ export function renderCode(value: string, language: string, type: string): JSX.E
         <DiffEditor key={key} original={original} modified={modified} language={language} />
       </Suspense>
     );
-  } else {
-    return (
-      <Suspense fallback={<pre>{value}</pre>}>
-        <CodeBlock key={key} value={value} language={language} />
-      </Suspense>
-    );
   }
-}
 
-export const renderMessage = (text: string, isUser: boolean): JSX.Element =>
-  getParts(text, isUser).map((part) => renderCode(part.content, part.language || "typescript", part.type));
+  return (
+    <Suspense fallback={<pre>{value}</pre>}>
+      <CodeBlock key={key} value={value} language={language} />
+    </Suspense>
+  );
+};
+
+// Updated renderMessage function
+export const renderMessage = (text: string, isUser: boolean): JSX.Element => (
+  <React.Fragment>
+    {getParts(text, isUser).map((part, index) => (
+      <React.Fragment key={index}>
+        {renderCode(part.content, part.language || "typescript", part.type)}
+      </React.Fragment>
+    ))}
+  </React.Fragment>
+);
