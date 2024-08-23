@@ -151,7 +151,7 @@ const parseMessageParts = (text: string) => {
   if (lastIndex < text.length) {
     const lastPart = text.slice(lastIndex);
     const lastOpenBlockMatch = lastPart.match(/```(\w+)?\s*([\s\S]*)/);
-    if (lastOpenBlockMatch) {
+    if (lastOpenBlockMatch && lastOpenBlockMatch.index) {
       if (lastOpenBlockMatch.index > 0) {
         parts.push({
           type: "text",
@@ -194,7 +194,7 @@ const getLanguage = (lang?: string): string => {
   if (lowercaseLang === "javascript" || lowercaseLang === "js") return "javascript";
   if (lowercaseLang === "python" || lowercaseLang === "py") return "python";
 
-  if (lowercaseLang in programmingLanguages) {
+  if (lowercaseLang in programmingLanguages && programmingLanguages[lowercaseLang]) {
     return programmingLanguages[lowercaseLang];
   }
   return lowercaseLang;
