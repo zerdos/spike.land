@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import { h } from "@clerk/clerk-react/dist/controlComponents-B9SlJ0L1";
+// import { h } from "@clerk/clerk-react/dist/controlComponents-B9SlJ0L1";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
@@ -32,9 +32,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
     const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
 
     if (existingIframe) {
-      iframeRef.current.style.display = "none";
+      // iframeRef.current.style.display = "none";
+      setHideRest(false);
+      reveal();
       existingIframe.replaceWith(iframeRef.current);
-      handleIframeLoad();
+      //      handleIframeLoad();
       // iframeRef.current = existingIframe;
 
       if (!onlyEdit && hideRest) {
@@ -52,9 +54,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   }, [codeSpace, onlyEdit, hideRest, iframeRef, iframeRef.current]);
 
   const handleIframeLoad = () => {
-    setHideRest(false);
-    reveal();
-    document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
+    // document.querySelector(`link[href="/live/${codeSpace}/index.css"]`)?.remove();
   };
 
   return (
