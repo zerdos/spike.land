@@ -116,8 +116,14 @@ export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
         <Fragment key={index}>
           {part.type === "text"
             ? (
-              <Markdown
-                css={css`
+              <Suspense
+                fallback={
+                  <pre>
+             { part.content}</pre>
+                }
+              >
+                <Markdown
+                  css={css`
                   margin-top: 12px;
                   margin-bottom: 12px;
                   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -125,9 +131,10 @@ export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
                   line-height: 1.5;
                   letter-spacing: 0.01em;
                 `}
-              >
-                {part.content}
-              </Markdown>
+                >
+                  {part.content}
+                </Markdown>
+              </Suspense>
             )
             : (
               renderCode(part.content, part.language || "typescript")
