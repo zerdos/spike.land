@@ -224,7 +224,7 @@ const ChatInterface: React.FC = () => {
 
 // Memoize sub-components
 const MemoizedChatHeader = memo(ChatHeader);
-const MemoizedChatContainer = memo(ChatContainer);
+const MemoizedChatContainer = ChatContainer;
 const MemoizedMessageInput = memo(MessageInput);
 
 const ChatButton = memo(({ onClick }: { onClick: () => void }) => (
