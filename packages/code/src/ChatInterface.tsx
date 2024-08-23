@@ -115,6 +115,16 @@ const ChatInterface: React.FC<{
     }
   }, [isOpen, messages, messagesEndRef]);
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isScreenshotLoading) {
+      interval = setInterval(() => {
+        document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 300);
+    }
+    return () => clearInterval(interval);
+  }, [isStreaming]);
+
   if (!isOpen) return <></>;
   return <ChatFC {...memoizedChatFCProps} />;
 });
