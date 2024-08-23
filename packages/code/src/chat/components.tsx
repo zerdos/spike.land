@@ -192,17 +192,18 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
           />
         ))}
         {isStreaming && <TypingIndicator isDarkMode={isDarkMode} />}
-      </div>
-      <div id="last-message">
-        <div
-          key={now.toString()}
-          ref={lastMessageRef}
-          id={now.toString()}
-          css={css`
-              display: none;
-            `}
-        >
-          {messages.length}
+
+        <div id="last-message">
+          <div
+            key={now.toString()}
+            ref={lastMessageRef}
+            id={now.toString()}
+            css={css`
+        display: none;
+      `}
+          >
+            {messages.length}
+          </div>
         </div>
       </div>
     </ScrollArea>
