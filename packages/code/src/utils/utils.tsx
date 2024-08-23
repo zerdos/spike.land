@@ -269,7 +269,7 @@ export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }
 
 // Updated renderCode function
 export const renderCode = (value: string, language: string, type: string): JSX.Element => {
-  console.log("renderCode", value, language);
+  // console.log("renderCode", value, language);
   const key = md5(value + language);
 
   if (type === "text") {
