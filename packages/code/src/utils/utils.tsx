@@ -1,16 +1,19 @@
+import { CodeBlock } from "@/external/CodeBlock";
+import Markdown from "@/external/Markdown";
 import { css } from "@emotion/react";
-import { JSX } from "@emotion/react/jsx-runtime";
-import { motion } from "framer-motion";
-import React, { Fragment, lazy, memo, Suspense } from "react";
-
 import { md5 } from "@src/md5";
-import { extractDiffContent, isDiffContent } from "./diffUtils"; // Assume these functions are implemented elsewhere
+import { motion } from "framer-motion";
+import React, { Suspense } from "react";
+import { DiffEditor } from "../components/DiffEditor";
+import { extractDiffContent, isDiffContent } from "./diffUtils";
 
-interface languageMap {
+// Types
+export interface LanguageMap {
   [key: string]: string | undefined;
 }
 
-export const programmingLanguages: languageMap = {
+// Constants
+export const programmingLanguages: LanguageMap = {
   javascript: ".js",
   python: ".py",
   java: ".java",
@@ -36,83 +39,8 @@ export const programmingLanguages: languageMap = {
   css: ".css",
 };
 
-const Markdown = memo(lazy(() => import("@/external/Markdown").then((module) => ({ default: module.default }))));
-const CodeBlock = memo(lazy(() => import("@/external/CodeBlock").then((module) => ({ default: module.CodeBlock }))));
-const DiffEditor = memo(
-  lazy(() => import("../components/DiffEditor").then((module) => ({ default: module.DiffEditor }))),
-);
-
-export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
-  <div className="flex space-x-2 items-center p-2">
-    <span className="text-sm text-gray-500">AI is typing</span>
-    <TypingDots isDarkMode={isDarkMode} />
-  </div>
-);
-
-const TypingDots: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
-  <div className="flex space-x-1">
-    {[0, 1, 2].map((dot) => <AnimatedDot key={dot} delay={dot * 0.2} isDarkMode={isDarkMode} />)}
-  </div>
-);
-
-const AnimatedDot: React.FC<{ delay: number; isDarkMode: boolean }> = ({ delay, isDarkMode }) => (
-  <motion.div
-    className={`w-2 h-2 rounded-full ${isDarkMode ? "bg-gray-400" : "bg-gray-800"}`}
-    animate={{
-      scale: [1, 1.2, 1],
-      opacity: [0.5, 1, 0.5],
-    }}
-    transition={{
-      duration: 1,
-      repeat: Infinity,
-      delay,
-    }}
-  />
-);
-
-export const ColorModeToggle: React.FC<{
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}> = ({ isDarkMode, toggleDarkMode }) => (
-  <button
-    onClick={toggleDarkMode}
-    className={`p-2 rounded-full backdrop-blur-sm ${
-      isDarkMode
-        ? "bg-gray-800/30 text-yellow-400"
-        : "bg-yellow-100/30 text-gray-800"
-    } hover:bg-opacity-50 transition-all duration-300`}
-  >
-    {isDarkMode ? "🌙" : "☀️"}
-  </button>
-);
-
-export const getParts = (text: string, isUser: boolean) => {
-  const countSearch = (text.match(/<<<<<<< SEARCH/g) || []).length;
-  const countEqual = (text.match(/=======/g) || []).length;
-  const countReplace = (text.match(/>>>>>>> REPLACE/g) || []).length;
-
-  if (countSearch > 0 || countEqual > 0 || countReplace > 0) {
-    let extendedText = text;
-    if (countSearch !== countEqual) {
-      extendedText += "=======\n";
-    }
-    if (countEqual !== countReplace) {
-      extendedText += ">>>>>>> REPLACE\n";
-    }
-    extendedText = extendedText.split("<<<<<<< SEARCH").join("```diff\n<<<<<<< SEARCH");
-    extendedText = extendedText.split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
-    text = extendedText;
-  }
-
-  const cleanedText = cleanMessageText(text, isUser);
-  const parts = parseMessageParts(cleanedText);
-  return parts;
-};
-
-export const renderMessage = (text: string, isUser: boolean): JSX.Element =>
-  getParts(text, isUser).map((part) => renderCode(part.content, part.language || "typescript", part.type));
-
-const cleanMessageText = (text: string, isUser: boolean): string => {
+// Utility Functions
+export const cleanMessageText = (text: string, isUser: boolean): string => {
   if (isUser) {
     return text
       .split("The user's first message follows:")
@@ -126,7 +54,19 @@ const cleanMessageText = (text: string, isUser: boolean): string => {
     .replace(/<\/antArtifact>/g, "```**");
 };
 
-const parseMessageParts = (text: string) => {
+export const getLanguage = (lang?: string): string => {
+  if (!lang) return "plaintext";
+  const lowercaseLang = lang.toLowerCase();
+
+  // Special handling for specific languages
+  if (lowercaseLang === "typescript" || lowercaseLang === "ts") return "typescript";
+  if (lowercaseLang === "javascript" || lowercaseLang === "js") return "javascript";
+  if (lowercaseLang === "python" || lowercaseLang === "py") return "python";
+
+  return programmingLanguages[lowercaseLang] || lowercaseLang;
+};
+
+export const parseMessageParts = (text: string) => {
   const codeBlockRegex = /```(\w+)?\s*([\s\S]*?)```/g;
   const parts = [];
   let lastIndex = 0;
@@ -189,53 +129,108 @@ const parseMessageParts = (text: string) => {
   return mergedParts;
 };
 
-const getLanguage = (lang?: string): string => {
-  if (!lang) return "plaintext";
-  const lowercaseLang = lang.toLowerCase();
+export const getParts = (text: string, isUser: boolean) => {
+  const countSearch = (text.match(/<<<<<<< SEARCH/g) || []).length;
+  const countEqual = (text.match(/=======/g) || []).length;
+  const countReplace = (text.match(/>>>>>>> REPLACE/g) || []).length;
 
-  // Special handling for specific languages
-  if (lowercaseLang === "typescript" || lowercaseLang === "ts") return "typescript";
-  if (lowercaseLang === "javascript" || lowercaseLang === "js") return "javascript";
-  if (lowercaseLang === "python" || lowercaseLang === "py") return "python";
-
-  if (lowercaseLang in programmingLanguages && programmingLanguages[lowercaseLang]) {
-    return programmingLanguages[lowercaseLang];
+  if (countSearch > 0 || countEqual > 0 || countReplace > 0) {
+    let extendedText = text;
+    if (countSearch !== countEqual) {
+      extendedText += "=======\n";
+    }
+    if (countEqual !== countReplace) {
+      extendedText += ">>>>>>> REPLACE\n";
+    }
+    extendedText = extendedText.split("<<<<<<< SEARCH").join("```diff\n<<<<<<< SEARCH");
+    extendedText = extendedText.split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
+    text = extendedText;
   }
-  return lowercaseLang;
+
+  const cleanedText = cleanMessageText(text, isUser);
+  const parts = parseMessageParts(cleanedText);
+  return parts;
 };
 
-export const mockResponses: string[] = [
-  "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
-  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
-  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
-];
+// Components
+interface TypingIndicatorProps {
+  isDarkMode: boolean;
+}
 
-export function renderCode(value: string, language: string, type: string): JSX.Element {
-  console.log("renderCode", value, language);
+const AnimatedDot: React.FC<{ delay: number; isDarkMode: boolean }> = ({ delay, isDarkMode }) => (
+  <motion.div
+    className={`w-2 h-2 rounded-full ${isDarkMode ? "bg-gray-400" : "bg-gray-800"}`}
+    animate={{
+      scale: [1, 1.2, 1],
+      opacity: [0.5, 1, 0.5],
+    }}
+    transition={{
+      duration: 1,
+      repeat: Infinity,
+      delay,
+    }}
+  />
+);
+
+const TypingDots: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => (
+  <div className="flex space-x-1">
+    {[0, 1, 2].map((dot) => <AnimatedDot key={dot} delay={dot * 0.2} isDarkMode={isDarkMode} />)}
+  </div>
+);
+
+export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => (
+  <div className="flex space-x-2 items-center p-2">
+    <span className="text-sm text-gray-500">AI is typing</span>
+    <TypingDots isDarkMode={isDarkMode} />
+  </div>
+);
+
+interface ColorModeToggleProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+export const ColorModeToggle: React.FC<ColorModeToggleProps> = ({ isDarkMode, toggleDarkMode }) => (
+  <button
+    onClick={toggleDarkMode}
+    className={`p-2 rounded-full backdrop-blur-sm ${
+      isDarkMode
+        ? "bg-gray-800/30 text-yellow-400"
+        : "bg-yellow-100/30 text-gray-800"
+    } hover:bg-opacity-50 transition-all duration-300`}
+  >
+    {isDarkMode ? "🌙" : "☀️"}
+  </button>
+);
+
+interface CodeRendererProps {
+  value: string;
+  language: string;
+  type: string;
+}
+
+export const CodeRenderer: React.FC<CodeRendererProps> = ({ value, language, type }) => {
   const key = md5(value + language);
+
   if (type === "text") {
     return (
-      <Suspense
-        fallback={
-          <pre>
-             {value}</pre>
-        }
-      >
+      <Suspense fallback={<pre>{value}</pre>}>
         <Markdown
           css={css`
-                  margin-top: 12px;
-                  margin-bottom: 12px;
-                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-                  font-size: 14px;
-                  line-height: 1.5;
-                  letter-spacing: 0.01em;
-                `}
+            margin-top: 12px;
+            margin-bottom: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+          `}
         >
           {value}
         </Markdown>
       </Suspense>
     );
   }
+
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
     return (
@@ -243,11 +238,34 @@ export function renderCode(value: string, language: string, type: string): JSX.E
         <DiffEditor key={key} original={original} modified={modified} language={language} />
       </Suspense>
     );
-  } else {
-    return (
-      <Suspense fallback={<pre>{value}</pre>}>
-        <CodeBlock key={key} value={value} language={language} />
-      </Suspense>
-    );
   }
+
+  return (
+    <Suspense fallback={<pre>{value}</pre>}>
+      <CodeBlock key={key} value={value} language={language} />
+    </Suspense>
+  );
+};
+
+interface MessageRendererProps {
+  text: string;
+  isUser: boolean;
 }
+
+export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }) => (
+  <>
+    {getParts(text, isUser).map((part, index) => (
+      <CodeRenderer key={index} value={part.content} language={part.language || "typescript"} type={part.type} />
+    ))}
+  </>
+);
+
+// Mock Data
+export const mockResponses: string[] = [
+  "Here's an example code block:\n```tsx\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```",
+  "Let me explain this function:\n```tsx\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```",
+  "Here's how you can create a React component:\n```tsx\nconst MyComponent: React.FC = () => {\n  return <div>Hello, React!</div>;\n};\n```",
+];
+
+export const renderMessage = (text: string, isUser: boolean): JSX.Element =>
+  getParts(text, isUser).map((part) => renderCode(part.content, part.language || "typescript", part.type));
