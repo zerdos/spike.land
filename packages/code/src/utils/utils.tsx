@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
-import React, { Fragment, lazy, Suspense } from "react";
+import React, { Fragment, lazy, memo, Suspense } from "react";
 
 import { md5 } from "@src/md5";
 import { extractDiffContent, isDiffContent } from "./diffUtils"; // Assume these functions are implemented elsewhere
@@ -36,9 +36,11 @@ export const programmingLanguages: languageMap = {
   css: ".css",
 };
 
-const Markdown = lazy(() => import("@/external/Markdown").then((module) => ({ default: module.default })));
-const CodeBlock = lazy(() => import("@/external/CodeBlock").then((module) => ({ default: module.CodeBlock })));
-const DiffEditor = lazy(() => import("../components/DiffEditor").then((module) => ({ default: module.DiffEditor })));
+const Markdown = memo(lazy(() => import("@/external/Markdown").then((module) => ({ default: module.default }))));
+const CodeBlock = memo(lazy(() => import("@/external/CodeBlock").then((module) => ({ default: module.CodeBlock }))));
+const DiffEditor = memo(
+  lazy(() => import("../components/DiffEditor").then((module) => ({ default: module.DiffEditor }))),
+);
 
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <div className="flex space-x-2 items-center p-2">
@@ -113,7 +115,7 @@ export const renderMessage = (text: string, isUser: boolean): JSX.Element => {
   return (
     <>
       {parts.map((part, index) => (
-        <Fragment key={index}>
+        <Fragment key={md5(index + `: ` + part.content)}>
           {part.type === "text"
             ? (
               <Suspense
