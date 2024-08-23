@@ -27,6 +27,37 @@ export async function handleFetchApi(
     "node_modules": async () => handleUnpkg(path),
     "swVersion.js": async () => handleSwVersionResponse(path[0], ASSET_HASH, files),
     "importMap.json": async () => handleImportMapJson(),
+    "robots.txt": async () => {
+      const cont = `
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /cgi-bin/
+
+# Block access to specific file types
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+
+# Allow search engine crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap
+Sitemap: ${u.origin}/sitemap.xml
+      `;
+      return new Response(cont, {
+        headers: {
+          "Content-Type": "text/plain;charset=UTF-8",
+          "Cache-Control": "no-cache",
+          "Content-Encoding": "gzip",
+        },
+      });
+    },
     api: async () => handleApiRequest(path.slice(1), request, env),
     ata: async () => handleApiRequest(path.slice(1), request, env),
     ipns: async () => handleIpfsRequest(request),

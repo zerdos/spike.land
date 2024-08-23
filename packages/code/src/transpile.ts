@@ -66,6 +66,8 @@ export const transpile = async (
       mod.init = true;
     }
 
+    const jsxImportSource = code.includes("@emotion/") ? "@emotion/react" : "react";
+
     const transformedCode = await transform(code, {
       loader: "tsx",
       format: "esm",
@@ -78,7 +80,7 @@ export const transpile = async (
         compilerOptions: {
           jsx: "react-jsx",
           jsxFragmentFactory: "Fragment",
-          jsxImportSource: "@emotion/react",
+          jsxImportSource,
         },
       },
       target: "es2024",
