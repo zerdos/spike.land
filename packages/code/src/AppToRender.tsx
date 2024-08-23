@@ -68,7 +68,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
+        console.log("Scrolling to last message");
         document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+        console.log("Scrolled to last message");
       }, 100);
     }
   }, [isOpen]);
