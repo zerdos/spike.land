@@ -72,6 +72,11 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
         console.log("Scrolled to last message");
       }, 100);
+      setTimeout(() => {
+        console.log("PT2 Scrolling to last message");
+        document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+        console.log("PT2 Scrolled to last message");
+      }, 500);
     }
   }, [isOpen]);
 
