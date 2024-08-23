@@ -21,7 +21,7 @@ Object.assign(globalThis, { auth, wait, build });
 
 export const useSpeedy2 = async () => {
   const codeSpace = useCodeSpace();
-  const external = [...(new Set(Object.values(oo)))].map(x => location.origin + x);
+  const external = [...(new Set(Object.values(oo)))].map(x => x);
   let res = await build({
     codeSpace,
     splitting: true,
