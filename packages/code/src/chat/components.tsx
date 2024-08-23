@@ -151,7 +151,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   const scrollToBottom = useCallback(() => {
     if (lastMessageRef.current) {
-      setNow(Date.now());
       lastMessageRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, []);
@@ -170,6 +169,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   // This effect ensures scrolling when the component mounts and after each render
   useEffect(() => {
+    setNow(Date.now());
     const timeoutId = setTimeout(scrollToBottom, 100);
     return () => clearTimeout(timeoutId);
   }, []);
