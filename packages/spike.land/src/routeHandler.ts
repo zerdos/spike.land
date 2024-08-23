@@ -467,7 +467,7 @@ export class RouteHandler {
   link.href = "${origin}/assets/g-chunk-72a597.css";
 
   link.onload = () => {
-    import(` + "`${location.origin}`" + `"/assets/tw-chunk-be5bad.js");
+    import(` + "`${location.origin}` +" + `"/assets/tw-chunk-be5bad.js");
   };
   document.head.appendChild(link);
 }, 200);
