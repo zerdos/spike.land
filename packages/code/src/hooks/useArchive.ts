@@ -4,7 +4,6 @@ import { build } from "../shared";
 import { wait } from "../wait";
 
 import { useAuth } from "@clerk/clerk-react";
-import { oo } from "@src/importMap";
 
 const auth = () => {
   const { getToken } = useAuth();
