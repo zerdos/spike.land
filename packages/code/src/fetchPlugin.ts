@@ -1,5 +1,6 @@
 import { Plugin } from "esbuild-wasm";
 import processCSS from "./hooks/processCSS";
+import { oo } from "./importMap";
 // import { enhancedFetch } from "./enhancedFetch.ts";
 // import { enhancedFetch } from "./enhancedFetch.ts";
 
@@ -32,7 +33,10 @@ export const fetchPlugin = () => ({
 
     build.onLoad({ filter: /.*/, namespace: "http-url" }, async (args) => {
       const response = await fetch(args.path, { redirect: "follow" });
-      const contents = await response.text();
+      let contents = await response.text();
+      Object.keys(oo).map((pkg) => {
+        contents = contents.replace(new RegExp(`"${pkg}"`, "g"), `"${oo[pkg]}"`);
+      });
       const contentType = response.headers.get("content-type") || "";
 
       let loader:
