@@ -38,7 +38,7 @@ export const ChatMessage: React.FC<{
     } else if (Array.isArray(message.content)) {
       return message.content.map((item, index) => {
         if (item.type === "text") {
-          return <div key={index}>{renderMessage(item.text!, isUser)}</div>;
+          return renderMessage(item.text!, isUser);
         } else if (item.type === "image" && item.source?.type === "base64") {
           const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
 
