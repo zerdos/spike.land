@@ -210,7 +210,7 @@ export const build = async ({
       ignoreAnnotations: true,
       minifySyntax: true,
       minifyIdentifiers: true,
-      minifyWhitespace: true,
+      minifyWhitespace: false,
       splitting,
       external,
       format,
