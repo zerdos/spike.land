@@ -4790,6 +4790,7 @@ __metadata:
     react-qrious: "npm:2.5.6"
     react-refresh: "npm:0.14.2"
     react-resizable-panels: "npm:^2.1.1"
+    react-reverse-portal: "npm:^2.1.2"
     react-syntax-highlighter: "npm:^15.5.0"
     react-use: "npm:^17.5.1"
     recharts: "npm:^2.12.7"
@@ -15702,6 +15703,16 @@ __metadata:
     react: ^16.14.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0
   checksum: 10/33d7434951504adeb4dd1e733599a3510245af210905a94fb1e84106c8701f9bd5aedf6686c131382196affdb385e0826fe5f544d229ffba18b732ee4e4fca1f
+  languageName: node
+  linkType: hard
+
+"react-reverse-portal@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "react-reverse-portal@npm:2.1.2"
+  peerDependencies:
+    react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 10/4b24fdb1a6727b6585aa63a03ef0e366064f062418555d847ef53645ee3ea91346481897eb90ab5f6b7da2898096da54d6fbde949bc159a8f4296e3b4ba5d904
   languageName: node
   linkType: hard
 

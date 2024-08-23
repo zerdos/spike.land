@@ -3,6 +3,7 @@ import { Bot } from "@/external/lucideReact";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
+import { createHtmlPortalNode, HtmlPortalNode, InPortal, OutPortal } from "react-reverse-portal";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
@@ -19,35 +20,14 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const editorRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const iframeContainerRef = useRef<HTMLDivElement>(null);
+  const portalNodeRef = useRef<HtmlPortalNode | null>(null);
 
   useEffect(() => {
     console.log("AppToRender mounted");
     const existingIframe = document.querySelector(`iframe[src="/live/${codeSpace}/iframe"]`) as HTMLIFrameElement;
 
-    if (existingIframe && iframeContainerRef.current) {
-      // Instead of moving the iframe, we'll create a placeholder and use CSS to display the original iframe
-      const placeholder = document.createElement("div");
-      placeholder.style.width = "100%";
-      placeholder.style.height = "100%";
-      placeholder.style.position = "relative";
-
-      const iframeStyle = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-      `;
-      placeholder.innerHTML = `<style>
-        #iframe-${codeSpace} { ${iframeStyle} }
-      </style>`;
-
-      iframeContainerRef.current.appendChild(placeholder);
-
-      // Assign an ID to the existing iframe
-      existingIframe.id = `iframe-${codeSpace}`;
+    if (existingIframe && !portalNodeRef.current) {
+      portalNodeRef.current = createHtmlPortalNode();
 
       setHideRest(false);
       reveal();
@@ -65,14 +45,33 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
         </SignedIn>
       </header>
       <div className="relative">
-        {onlyEdit ? <div style={{ display: "none" }} ref={iframeContainerRef} /> : (
-          <DraggableWindow
-            isChatOpen={isOpen}
-            codeSpace={codeSpace}
-          >
-            <div ref={iframeContainerRef} style={{ width: "100%", height: "100%" }} />
-          </DraggableWindow>
+        {portalNodeRef.current && (
+          <InPortal node={portalNodeRef.current}>
+            <iframe
+              src={`/live/${codeSpace}/iframe`}
+              style={{
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+            />
+          </InPortal>
         )}
+
+        {onlyEdit
+          ? (
+            <div style={{ display: "none" }}>
+              {portalNodeRef.current && <OutPortal node={portalNodeRef.current} />}
+            </div>
+          )
+          : (
+            <DraggableWindow
+              isChatOpen={isOpen}
+              codeSpace={codeSpace}
+            >
+              {portalNodeRef.current && <OutPortal node={portalNodeRef.current} />}
+            </DraggableWindow>
+          )}
 
         {!hideRest && (
           <RainbowWrapper>
