@@ -151,7 +151,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    const timeoutId = setTimeout(scrollToBottom, 100);
+    return () => clearTimeout(timeoutId);
   }, [messages, isStreaming, scrollToBottom, scrollAreaRef, scrollAreaRef.current?.scrollHeight]);
 
   // This effect ensures scrolling when the component mounts and after each render
