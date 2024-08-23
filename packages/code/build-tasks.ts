@@ -269,8 +269,8 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
 
       "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
       ...extraAliases,
-      // "react": "preact/compat",
-      // "react-dom": "preact/compat",
+      "react": "preact/compat",
+      "react-dom": "preact/compat",
       // "react": "../dist/reactMod.mjs",
       //  "react/jsx-runtime": "/jsx.mjs",
       //  "react-dom/client": "/reactDomClient.mjs",
