@@ -106,7 +106,7 @@ const ChatInterface: React.FC = () => {
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
-        document.getElementById("last-message")?.scrollIntoView();
+        document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
       }, 100);
     }
     const draggableWindow = document.getElementById("DraggableWindow");

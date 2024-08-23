@@ -27,7 +27,7 @@ export const useChat = (
   }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages]);
 
   const handleBroadcastMessage = (event: MessageEvent) => {
