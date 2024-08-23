@@ -71,10 +71,10 @@ export const AppToRender: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
         </style>
         <DraggableWindow codeSpace={codeSpace} isChatOpen={isOpen}>
           <div
-            className={`iframe-container ${iframeTransitioned ? "iframe-transitioned" : "iframe-initial"}`}
             ref={el => {
               if (el) {
-                el.replaceWith(iframeRef.current!);
+                el.replaceWith(document.querySelector("iframe")!);
+
                 // el.appendChild(iframeRef.current);
               }
             }}
