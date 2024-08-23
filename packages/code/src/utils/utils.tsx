@@ -3,7 +3,7 @@ import Markdown from "@/external/Markdown";
 import { css } from "@emotion/react";
 import { md5 } from "@src/md5";
 import { motion } from "framer-motion";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { DiffEditor } from "../components/DiffEditor";
 import { extractDiffContent, isDiffContent } from "./diffUtils";
 import { getParts } from "./getParts";
@@ -34,12 +34,22 @@ const TypingDots: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => (
   </div>
 );
 
-export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => (
-  <div className="flex space-x-2 items-center p-2">
-    <span className="text-sm text-gray-500">AI is typing</span>
-    <TypingDots isDarkMode={isDarkMode} />
-  </div>
-);
+export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("typing");
+      document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 300);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex space-x-2 items-center p-2">
+      <span className="text-sm text-gray-500">AI is typing</span>
+      <TypingDots isDarkMode={isDarkMode} />
+    </div>
+  );
+};
 
 interface ColorModeToggleProps {
   isDarkMode: boolean;
