@@ -90,6 +90,47 @@ describe("getParts", () => {
     ]);
   });
 
+  test("should handle multiple search and replace markers", () => {
+    const input = `
+    first change:
+      <<<<<<< SEARCH
+      const a = 1;
+      =======
+      const a = 2;
+      >>>>>>> REPLACE
+    second change:
+      <<<<<<< SEARCH
+      let b = 3;
+      =======
+      let b = 4;
+      >>>>>>> REPLACE
+    `;
+
+     const result = getParts(input, true);
+    expect(result).toMatchSnapshot()
+  });
+
+
+
+  test("should handle multiple search and replace markers2", () => {
+    const input = `
+    first change:
+      <<<<<<< SEARCH
+      const a = 1;
+      =======
+      const a = 2;
+      >>>>>>> REPLACE
+    second change:
+      <<<<<<< SEARCH
+      let b = 3;
+      =======
+      let b =
+    `;
+
+     const result = getParts(input, true);
+    expect(result).toMatchSnapshot()
+  });
+
   test("should handle an incomplete code block at the end", () => {
     const input = "Some text\n```javascript\nlet x = 10;";
     const result = getParts(input, false);
@@ -100,7 +141,7 @@ describe("getParts", () => {
       },
       {
         type: "code",
-        language: "javascript",
+        language: ".js",
         content: "let x = 10;",
         isStreaming: true,
       },

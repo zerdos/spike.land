@@ -53,11 +53,24 @@ export const ColorModeToggle: React.FC<{
     {isDarkMode ? "🌙" : "☀️"}
   </button>
 );
-
+ 
 export const getParts = (text: string, isUser: boolean) => {
-  const extendedText = text.split("<<<<<<< SEARCH").join(
+//  find how many times <<<<<<< SEARCH appears:
+  const countSearch = (text.match(/<<<<<<< SEARCH/g) || []).length;
+  //find how many times ======= apearas
+  const countEqual = (text.match(/=======/g) || []).length;
+  if (countSearch !== countEqual) {
+     text += "=======\n"; 
+  }
+  const countReplace = (text.match(/>>>>>>> REPLACE/g) || []).length;
+  if (countEqual !== countReplace) {
+    text += ">>>>>>> REPLACE\n";
+  }
+
+  let extendedText = text.split("<<<<<<< SEARCH").join(
     "```diff" + `\n<<<<<<< SEARCH`,
   ).split(">>>>>>> REPLACE").join(">>>>>>> REPLACE\n```");
+  
 
   const cleanedText = cleanMessageText(extendedText, isUser);
   const parts = parseMessageParts(cleanedText);
