@@ -4,7 +4,6 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
-import { doc } from "prettier";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
@@ -13,6 +12,7 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { DraggableWindow } from "./DraggableWindow";
 import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
+import { wait } from "./wait";
 
 export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const sp = new URLSearchParams(location.search);
@@ -27,6 +27,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const reveal = async () => {
+    await wait(500);
     console.log("Revealing");
     const re = document.getElementById("root");
     const rootEl = document.querySelector("#root > iframe") as HTMLIFrameElement;
