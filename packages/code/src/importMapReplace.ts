@@ -124,7 +124,7 @@ export function importMapReplace(code: string, origin: string): string {
 
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`"${pkg}"`).join(
-      `"/` + oo[pkg as keyof typeof oo] + `"`,
+      `"` + oo[pkg as keyof typeof oo] + `"`,
     );
   });
 
