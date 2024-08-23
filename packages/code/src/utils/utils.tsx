@@ -1,5 +1,3 @@
-import { CodeBlock, programmingLanguages } from "@/external/CodeBlock";
-import Markdown from "@/external/Markdown";
 import { css } from "@emotion/react";
 import { JSX } from "@emotion/react/jsx-runtime";
 import { motion } from "framer-motion";
@@ -8,6 +6,38 @@ import React, { Fragment, lazy, Suspense } from "react";
 import { md5 } from "@src/md5";
 import { extractDiffContent, isDiffContent } from "./diffUtils"; // Assume these functions are implemented elsewhere
 
+interface languageMap {
+  [key: string]: string | undefined;
+}
+
+export const programmingLanguages: languageMap = {
+  javascript: ".js",
+  python: ".py",
+  java: ".java",
+  c: ".c",
+  cpp: ".cpp",
+  "c++": ".cpp",
+  "c#": ".cs",
+  ruby: ".rb",
+  php: ".php",
+  swift: ".swift",
+  "objective-c": ".m",
+  kotlin: ".kt",
+  typescript: ".ts",
+  go: ".go",
+  perl: ".pl",
+  rust: ".rs",
+  scala: ".scala",
+  haskell: ".hs",
+  lua: ".lua",
+  shell: ".sh",
+  sql: ".sql",
+  html: ".html",
+  css: ".css",
+};
+
+const Markdown = lazy(() => import("@/external/Markdown").then((module) => ({ default: module.default })));
+const CodeBlock = lazy(() => import("@/external/CodeBlock").then((module) => ({ default: module.CodeBlock })));
 const DiffEditor = lazy(() => import("../components/DiffEditor").then((module) => ({ default: module.DiffEditor })));
 
 export const TypingIndicator: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
@@ -217,6 +247,10 @@ export function renderCode(value: string, language: string) {
       </Suspense>
     );
   } else {
-    return <CodeBlock key={key} value={value} language={language} />;
+    return (
+      <Suspense fallback={<pre>{value}</pre>}>
+        <CodeBlock key={key} value={value} language={language} />
+      </Suspense>
+    );
   }
 }

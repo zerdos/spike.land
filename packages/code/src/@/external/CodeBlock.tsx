@@ -2,36 +2,6 @@ import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
 import { FC, memo, useCallback, useEffect, useState } from "react";
 
-interface languageMap {
-  [key: string]: string | undefined;
-}
-
-export const programmingLanguages: languageMap = {
-  javascript: ".js",
-  python: ".py",
-  java: ".java",
-  c: ".c",
-  cpp: ".cpp",
-  "c++": ".cpp",
-  "c#": ".cs",
-  ruby: ".rb",
-  php: ".php",
-  swift: ".swift",
-  "objective-c": ".m",
-  kotlin: ".kt",
-  typescript: ".ts",
-  go: ".go",
-  perl: ".pl",
-  rust: ".rs",
-  scala: ".scala",
-  haskell: ".hs",
-  lua: ".lua",
-  shell: ".sh",
-  sql: ".sql",
-  html: ".html",
-  css: ".css",
-};
-
 interface Props {
   language: string;
   value: string;
