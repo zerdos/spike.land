@@ -55,14 +55,14 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   //   }
   // };
 
-  useEffect(() => {
-    // if (onlyEdit) {
-    setTimeout(() => {
-      reveal();
-    }, 1000);
+  // useEffect(() => {
+  //   // if (onlyEdit) {
+  //   setTimeout(() => {
+  //     reveal();
+  //   }, 1000);
 
-    // }
-  });
+  //   // }
+  // });
 
   return (
     <>
@@ -100,6 +100,9 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
               codeSpace={codeSpace}
             >
               <iframe
+                onLoad={() => {
+                  reveal();
+                }}
                 css={css`
               height: 100%;
               width: 100%;
