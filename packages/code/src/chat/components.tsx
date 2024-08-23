@@ -146,7 +146,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   const scrollToBottom = () => {
     if (scrollAreaRef.current) {
-      // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
+      console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
       scrollAreaRef.current.scrollTop = 1000000;
     }
   };
@@ -155,7 +155,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
     scrollToBottom();
     if (scrollAreaRef.current) {
       // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
-      scrollAreaRef.current.scrollTop = 1000000;
+      scrollToBottom();
     }
   }, [messages, isStreaming, scrollToBottom]);
 
@@ -164,7 +164,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
       // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
 
       setTimeout(() => {
-        scrollAreaRef.current!.scrollTop = 1000000;
+        scrollToBottom();
       }, 100);
     }
   }, []);
