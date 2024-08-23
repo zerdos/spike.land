@@ -1,1 +1,1 @@
-export * from "@emotion/react/jsx-runtime";
+export * from "react/jsx-runtime";
