@@ -44,7 +44,7 @@ async function fetchAndCreateExtraModels(
   originToUse: string,
 ): Promise<void> {
   const search = new RegExp(
-    ` from "(${originToUse})?/live/[a-zA-Z0-9\\-_]+`,
+    ` from "(${originToUse})/live/[a-zA-Z0-9\\-_]+`,
     "gm",
   );
   const models = code.matchAll(search);
@@ -53,9 +53,14 @@ async function fetchAndCreateExtraModels(
     ` from "\./[a-zA-Z0-9\\-_]+`,
     "gm",
   );
-  const models2 = code.matchAll(search2);
 
-  for (const match of [...models, ...models2]) {
+  const search3 = new RegExp(
+    ` from "/live/[a-zA-Z0-9\\-_]+`,
+    "gm",
+  );
+  const models2 = code.matchAll(search3);
+
+  for (const match of [...models, ...models2, ...models3]) {
     const codeSpace = match[0].split("/").pop();
     const extraModel = new URL(`/live/${codeSpace}/index.tsx`, originToUse)
       .toString();
