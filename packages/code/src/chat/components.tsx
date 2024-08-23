@@ -77,6 +77,9 @@ export const ChatMessage: React.FC<{
             : "bg-gray-100"
         }`}
       >
+        css={css`
+            min-height: 200px;
+          `}
         {isEditing
           ? (
             <div className="flex flex-col space-y-2">
@@ -153,7 +156,14 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   useEffect(() => {
     const timeoutId = setTimeout(scrollToBottom, 100);
     return () => clearTimeout(timeoutId);
-  }, [messages, isStreaming, scrollToBottom, scrollAreaRef, scrollAreaRef.current?.scrollHeight]);
+  }, [
+    messages,
+    isStreaming,
+    scrollToBottom,
+    scrollAreaRef,
+    scrollAreaRef.current?.scrollHeight,
+    lastMessageRef.current,
+  ]);
 
   // This effect ensures scrolling when the component mounts and after each render
   useEffect(() => {
