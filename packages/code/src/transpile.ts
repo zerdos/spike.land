@@ -30,6 +30,7 @@ export const cjs = async (code: string): Promise<string> => {
     minify: false,
 
     charset: "utf8",
+    legalComments: "none",
     keepNames: true,
     tsconfigRaw: {
       compilerOptions: {
@@ -204,12 +205,13 @@ export const build = async ({
       outdir: `${origin}/live/${codeSpace}/api/my-cms/`,
       treeShaking: true,
       legalComments: "none",
+
       bundle: true,
       define,
       keepNames: false,
       minifySyntax: true,
       minifyIdentifiers: true,
-      minifyWhitespace: false,
+      minifyWhitespace: true,
       splitting,
       external,
       format,
