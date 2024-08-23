@@ -153,8 +153,18 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   useEffect(() => {
     scrollToBottom();
-    setTimeout(scrollToBottom, 100);
+    if (scrollAreaRef.current) {
+      // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
+      scrollAreaRef.current.scrollTop = 1000000;
+    }
   }, [messages, isStreaming, scrollToBottom]);
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      // console.log("scrollToBottom", scrollAreaRef.current.scrollHeight);
+      scrollAreaRef.current.scrollTop = 1000000;
+    }
+  }, []);
 
   return (
     <ScrollArea className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`} ref={scrollAreaRef}>
