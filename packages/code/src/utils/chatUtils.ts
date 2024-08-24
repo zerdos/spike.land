@@ -11,7 +11,21 @@ export const extractCodeModification = (response: string): string => {
 
 export const loadMessages = (codeSpace: string): Message[] => {
   const key = `chatMessages-${codeSpace}`;
-  return JSON.parse(localStorage.getItem(key) || "[]");
+  const messages = JSON.parse(localStorage.getItem(key) || "[]").slice(0, -5) as Message[];
+
+  let prevRole = null;
+  for (let i = 0; i < messages.length; i++) {
+    const message = messages[i];
+    if (!prevRole) {
+      prevRole = message.role;
+    } else if (message.role === prevRole) {
+      messages.splice(i, 1);
+    } else {
+      prevRole = message.role;
+    }
+  }
+
+  return messages.filter(m => !!m.role);
 };
 
 export const updateSearchReplace = (
