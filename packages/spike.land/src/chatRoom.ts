@@ -32,6 +32,7 @@ export class Code implements DurableObject {
   private autoSaveHistory: AutoSaveEntry[] = [];
 
   constructor(private state: DurableObjectState, private env: Env) {
+    this.env = env;
     this.backupSession = makeSession({
       code: `export default () => (
         <div>
