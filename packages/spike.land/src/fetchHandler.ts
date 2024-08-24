@@ -5,6 +5,20 @@ import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
 import { handleCORS, isChunk, isUrlFile } from "./utils";
 
+export const HTML = async (env: Env) =>
+  await (await getAssetFromKV(
+    {
+      request: new Request("/index.html"),
+      async waitUntil(promise) {
+        await promise;
+      },
+    },
+    {
+      ASSET_NAMESPACE: env.__STATIC_CONTENT,
+      ASSET_MANIFEST,
+    },
+  )).text();
+
 export async function handleFetchApi(
   path: string[],
   request: Request,

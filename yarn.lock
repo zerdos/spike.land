@@ -3393,6 +3393,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-html@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@rollup/plugin-html@npm:1.0.3"
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 10/1ac9fa9cdf5737ab35a39bb14445d3a1e534a58dc47999c3d48ca0431a8a143ab5831b5915c3cca0fba899bf323a9a0696b553fa9ee193395245558b7920536e
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^4.0.0":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
@@ -3664,6 +3676,7 @@ __metadata:
     "@radix-ui/react-toggle": "npm:^1.1.0"
     "@radix-ui/react-toggle-group": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.2"
+    "@rollup/plugin-html": "npm:^1.0.3"
     "@shadcn/ui": "npm:^0.0.4"
     "@tabler/icons-react": "npm:^3.12.0"
     "@tanstack/react-virtual": "npm:^3.10.4"

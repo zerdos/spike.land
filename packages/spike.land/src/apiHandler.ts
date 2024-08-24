@@ -1,5 +1,7 @@
-import { HTML, md5 } from "@spike-land/code";
+import { md5 } from "@spike-land/code";
 import Env from "./env";
+
+import { HTML } from "./fetchHandler";
 
 export async function handleApiRequest(
   path: string[],
@@ -63,7 +65,7 @@ export async function handleApiRequest(
       return new Response("Not found", { status: 404 });
   }
 
-  const respText = HTML;
+  const respText = await HTML(env);
 
   const headers = new Headers({
     "Access-Control-Allow-Origin": "*",

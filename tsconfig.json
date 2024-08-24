@@ -28,9 +28,10 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "target": "es2022",
     "lib": ["ESNext"],
-    "types": []
+    "types": ["vite/client"],
+    "typeRoots": ["./node_modules/@types", "./src"]
   },
   "exclude": [
   ],
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
 }

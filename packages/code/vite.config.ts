@@ -29,9 +29,15 @@ export default defineConfig({
         plugins: ["@emotion/babel-plugin"],
       },
     }),
-    tsConfigPaths(),
+    tsConfigPaths({}),
   ],
   base: "/",
+  assetsInclude: ["**/*.html"], // Add this line to include HTML files as assets
+  esbuild: {
+    loader: "tsx",
+    include: /src\/.*\.[tj]sx?$/,
+    exclude: [],
+  },
   server: {
     port: 3000,
     proxy: {
@@ -102,8 +108,14 @@ export default defineConfig({
       },
     },
   },
+
   build: {
     outDir: "dist",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: "src/index.html",
+      },
+    },
   },
 });

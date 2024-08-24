@@ -4615,6 +4615,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@rollup/plugin-html", [\
+      ["npm:1.0.3", {\
+        "packageLocation": "./.yarn/global/cache/@rollup-plugin-html-npm-1.0.3-06ca294861-10.zip/node_modules/@rollup/plugin-html/",\
+        "packageDependencies": [\
+          ["@rollup/plugin-html", "npm:1.0.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.3", {\
+        "packageLocation": "./.yarn/__virtual__/@rollup-plugin-html-virtual-d6a9bc5ba7/0/global/cache/@rollup-plugin-html-npm-1.0.3-06ca294861-10.zip/node_modules/@rollup/plugin-html/",\
+        "packageDependencies": [\
+          ["@rollup/plugin-html", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.3"],\
+          ["@types/rollup", null],\
+          ["rollup", null]\
+        ],\
+        "packagePeers": [\
+          "@types/rollup",\
+          "rollup"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@rollup/pluginutils", [\
       ["npm:4.2.1", {\
         "packageLocation": "./.yarn/global/cache/@rollup-pluginutils-npm-4.2.1-0f52a5eba2-10.zip/node_modules/@rollup/pluginutils/",\
@@ -4901,6 +4923,7 @@ const RAW_RUNTIME_STATE =
           ["@radix-ui/react-toggle", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.1.0"],\
           ["@radix-ui/react-toggle-group", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.1.0"],\
           ["@radix-ui/react-tooltip", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.1.2"],\
+          ["@rollup/plugin-html", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.3"],\
           ["@shadcn/ui", "npm:0.0.4"],\
           ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.12.0"],\
           ["@tanstack/react-virtual", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.10.4"],\
