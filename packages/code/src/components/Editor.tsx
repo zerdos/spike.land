@@ -121,7 +121,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       setCurrentCode(data.code); // Update the current code for auto-save
 
       console.log("delaying setting Editor", data.i);
-      await wait(1000);
+      await wait(4000);
       if (signal.aborted) return;
       setEditorContent(data.code, data.i, signal, editorState.setValue);
     }
