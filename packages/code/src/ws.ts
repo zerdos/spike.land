@@ -52,18 +52,18 @@ class Code {
     const { signal } = this.controller;
     let code = rawCode;
 
-    if (code === this.session.code) return;
+    if (code === this.session.code) return false;
     console.log("Formatting code");
     try {
       code = await formatCode(rawCode, signal);
     } catch (error) {
       console.error("Error formatting code:", error);
-      throw error;
+      return false;
     }
 
-    if (this.session.code === code) return;
+    if (this.session.code === code) return false;
 
-    if (signal.aborted) return;
+    if (signal.aborted) return false;
     let transpiled = "";
 
     console.log("Transpiling code");
@@ -72,7 +72,7 @@ class Code {
       transpiled = await transpileCode(code, signal);
     } catch (error) {
       console.error("Error transpiling code");
-      throw error;
+      return false;
     }
 
     let html = "";
@@ -80,7 +80,7 @@ class Code {
     const i = ++this.session.i;
 
     try {
-      console.log("Formatting code: " + i);
+      console.log("Running code: " + i);
 
       const res = await runCode({ i, code, transpiled }, signal);
       if (res) {
@@ -88,11 +88,11 @@ class Code {
         css = res.css;
       } else {
         console.error("Error running the code");
-        throw Error("error running");
+        return false;
       }
     } catch (e) {
       console.error("Error running the code", e);
-      throw e;
+      return false;
     }
 
     console.log("Sending message to BC: ", i);
