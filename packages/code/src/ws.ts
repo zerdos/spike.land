@@ -2,7 +2,7 @@ import { useCodeSpace } from "./hooks/useCodeSpace";
 import { ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 
-import { formatCode } from "./components/editorUtils";
+import { formatCode, transpileCode } from "./components/editorUtils";
 import { connect, transpile } from "./shared";
 
 // Initialize global state for first render
@@ -15,6 +15,7 @@ const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
 BC.onmessage = ({ data }) => {
   // if (data.i > mod.i) {
+
   cSess.session.code = data.code;
   cSess.session.i = data.i;
   cSess.session.html = data.html;
@@ -65,79 +66,81 @@ class Code {
     let transpiled = "";
 
     try {
-      transpiled = await transpile({
-        code,
-        originToUse: location.origin,
-      });
-
-      const counter = ++this.session.i;
-      this.session.code = code;
-      this.session.transpiled = transpiled;
-
-      let resolve: (v: {
-        i: number;
-        html: string;
-        css: string;
-      }) => void;
-      const promise = new Promise<{ i: number; html: string; css: string }>(
-        (_resolve, _reject) => {
-          resolve = _resolve;
-          setTimeout(() => {
-            if (signal.aborted) return resolve({ i: counter, html: "", css: "" });
-          }, 3000);
-        },
-      );
-
-      window.onmessage = (ev) => {
-        const data: { i: number; html: string; css: string } = ev.data;
-
-        const { i, html, css } = data;
-        if (i === counter) {
-          resolve({ i, html, css });
-        }
-      };
-
-      console.log("Sending message iframe first to calculate css", counter);
-      if (signal.aborted) return false;
-
-      document.querySelector("iframe")?.contentWindow?.postMessage({
-        ...this.session,
-        html: "",
-        css: "",
-        sender: "Runner / Editor",
-      });
-
-      const res = await promise;
-
-      if (signal.aborted) return false;
-
-      const { i, html, css } = res;
-
-      if (html.includes("Oops! Something went wrong")) {
-        console.error("Error in runner: no html");
-
-        return false;
-      }
-
-      console.log("Sending message to BC", i);
-
-      this.session.html = html;
-      this.session.css = css;
-      const toPost = {
-        ...this.session,
-        sender: "Editor",
-      };
-      console.log("Sending message to BC", toPost);
-
-      BC.postMessage(toPost);
-
-      this.controller.abort();
-      console.log("Runner succeeded");
-      return true;
+      transpiled = await transpileCode(code, signal);
     } catch (error) {
-      console.error("Error transpiling code:", error);
+      console.error("Error transpiling code");
       throw error;
     }
+
+    const counter = ++this.session.i;
+
+    let resolve: (v: {
+      i: number;
+      html: string;
+      css: string;
+    }) => void;
+    const promise = new Promise<{ i: number; html: string; css: string }>(
+      (_resolve, _reject) => {
+        resolve = _resolve;
+        setTimeout(() => {
+          if (signal.aborted) return resolve({ i: counter, html: "", css: "" });
+        }, 3000);
+      },
+    );
+
+    window.onmessage = (ev) => {
+      const data: { i: number; html: string; css: string } = ev.data;
+
+      const { i, html, css } = data;
+      if (i === counter) {
+        resolve({ i, html, css });
+      }
+    };
+
+    console.log("Sending message iframe first to calculate css", counter);
+    if (signal.aborted) return false;
+
+    document.querySelector("iframe")?.contentWindow?.postMessage({
+      ...this.session,
+      html: "",
+      css: "",
+      sender: "Runner / Editor",
+    });
+
+    const res = await promise;
+
+    if (signal.aborted) return false;
+
+    const { i, html, css } = res;
+
+    if (html.includes("Oops! Something went wrong")) {
+      console.error("Error in runner: no html");
+
+      return false;
+    }
+
+    console.log("Sending message to BC", i);
+
+    if (signal.aborted) return false;
+
+    this.session = makeSession({
+      code,
+      i: counter,
+      transpiled,
+      html,
+      css,
+    });
+
+    console.log("Sending message to BC", toPost);
+
+    BC.postMessage({
+      ...this.session,
+      sender: "Editor",
+    });
+
+    this.controller.abort();
+    console.log("Runner succeeded");
+    return true;
   }
 
   async init() {

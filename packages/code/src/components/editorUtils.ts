@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { prettierToThrow } from "../shared";
+import { prettierToThrow, transpile } from "../shared";
 
 export interface EditorState {
   started: boolean;
@@ -20,18 +20,50 @@ export const useEditorState = () => {
   return { containerRef, engine, editorState, setEditorState };
 };
 
-export const useErrorHandling = () => {
+export const useErrorHandling = (): {
+  errorType: string | null;
+  setErrorType: React.Dispatch<React.SetStateAction<string | null>>;
+  [Symbol.iterator]: () => Iterator<any>;
+} => {
   const [errorType, setErrorType] = useState<string | null>(null);
-  return { errorType, setErrorType };
+  return {
+    errorType,
+    setErrorType,
+    [Symbol.iterator]: function*() {
+      yield* Object.entries(this);
+    },
+  };
 };
 
 export const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
+  const [error, setError] = useErrorHandling();
+
   if (signal.aborted) return code;
   try {
     const formattedCode = await prettierToThrow({ code, toThrow: true });
-    return signal.aborted ? code : formattedCode;
+    if (error && error === "prettier") {
+      setError(null);
+    }
+    return formattedCode;
   } catch (error) {
+    setError("prettier");
     throw new Error("Prettier formatting failed");
+  }
+};
+
+export const transpileCode = async (code: string, signal: AbortSignal): Promise<string> => {
+  const [error, setError] = useErrorHandling();
+
+  if (signal.aborted) return code;
+  try {
+    const transpiled = await transpile({ code, originToUse: location.origin });
+    if (error && error === "transpile") {
+      setError(null);
+    }
+    return transpiled;
+  } catch (error) {
+    setError("transpile");
+    throw new Error("Transpile failed");
   }
 };
 
