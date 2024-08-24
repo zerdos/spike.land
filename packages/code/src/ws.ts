@@ -83,11 +83,12 @@ class Code {
       console.log("Running code: " + i);
 
       const res = await runCode({ i, code, transpiled }, signal);
+      if (signal.aborted) return false;
       if (res) {
         html = res.html;
         css = res.css;
       } else {
-        console.error("Error running the code");
+        console.error("Error running the code, no error");
         return false;
       }
     } catch (e) {
