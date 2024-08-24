@@ -39,7 +39,7 @@ export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) 
     const interval = setInterval(() => {
       console.log("typing");
       document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
-    }, 300);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
