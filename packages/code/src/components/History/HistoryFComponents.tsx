@@ -2,6 +2,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { runner } from "@src/services/runner";
 import { Wrapper } from "@src/Wrapper";
@@ -99,42 +100,42 @@ const FullScreenHistoryView: React.FC<{
   onClose: () => void;
   onDelete: (timestamp: number) => void;
 }> = ({ history, onRestore, onClose, onDelete }) => (
-  <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Code History</h2>
-        <Button onClick={onClose}>Close</Button>
+  <div className="fixed inset-0 bg-white z-50">
+    <ScrollArea className="h-full">
+      <div className="container mx-auto p-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Code History</h2>
+          <Button onClick={onClose}>Close</Button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {history.map((item, index) => (
+            <HistoryItem
+              key={item.timestamp}
+              item={item}
+              index={index}
+              totalItems={history.length}
+              onDelete={async (timestamp) => {
+                try {
+                  await fetch(`/live/${useCodeSpace()}/auto-save/history/delete/${timestamp}`);
+                  onDelete(timestamp);
+                } catch (error) {
+                  console.error(error);
+                }
+              }}
+              onRestore={async () => {
+                try {
+                  await runner(item.code);
+                } catch (error) {
+                  console.error(error);
+                } finally {
+                  onRestore(item);
+                }
+              }}
+            />
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {history.map((item, index) => (
-          <HistoryItem
-            key={item.timestamp}
-            item={item}
-            index={index}
-            totalItems={history.length}
-            onDelete={async (timestamp) => {
-              try {
-                await fetch(`/live/${useCodeSpace()}/auto-save/history/delete/${timestamp}`);
-
-                onDelete(timestamp);
-              } catch (error) {
-                console.error(error);
-              }
-            }}
-            onRestore={async () => {
-              try {
-                // const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
-                await runner(item.code);
-              } catch (error) {
-                console.error(error);
-              } finally {
-                onRestore(item);
-              }
-            }}
-          />
-        ))}
-      </div>
-    </div>
+    </ScrollArea>
   </div>
 );
 
