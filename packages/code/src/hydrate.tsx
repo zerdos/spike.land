@@ -4,25 +4,26 @@ import { Workbox } from "workbox-window";
 
 // import { mkdir } from "./memfs";
 import { useCodeSpace } from "./hooks/useCodeSpace";
+import { ICodeSession } from "./makeSess";
 import { prettierCss } from "./shared";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
+import { cSess } from "./ws";
+import { run as handleLivePage } from "./ws";
 
 // import { deleteAllServiceWorkers } from "./swUtils";
 
 // Constants
 const codeSpace = useCodeSpace();
 
-const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
+// const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
 
-const bcLogging = () => {
-  BC.onmessage = ({ data }) => {
-    const { i, code, sender, transpiled } = data;
-    console.table({ i, sender, code, transpiled });
-  };
-};
-
-Object.assign(globalThis, { BC, bcLogging });
+(() => {
+  cSess.sub((sess: ICodeSession) => {
+    const { i, code, transpiled } = sess;
+    console.table({ i, code, transpiled });
+  });
+})();
 
 // Utility functions
 // const createDirectories = async () => {
@@ -76,27 +77,16 @@ const initializeApp = async () => {
   await setupServiceWorker();
 };
 
-const handleLivePage = async () => {
-  // // Script to be placed in the parent window
-  // window.addEventListener("message", function(event) {
-  //   if (event.data && event.data.type === "console") {
-  //     (console as any)[event.data.method].apply(console, event.data.args);
-  //   }
-  // });
-
-  const { run } = await import("./ws");
-  run();
-};
-
 const handleDehydratedPage = () => {
-  BC.onmessage = ({ data }) => {
-    const { html, css } = data;
+  cSess.sub((sess: ICodeSession) => {
+    const { html, css } = sess;
+
     const root = document.getElementById("root");
 
     if (root && html && css) {
       root.innerHTML = `<style>${css}</style><div>${html}</div>`;
     }
-  };
+  });
 };
 
 const mineFromCaches = (cache: EmotionCache, html: string) => {
@@ -195,20 +185,20 @@ const handleDefaultPage = async () => {
   const mutex = new Mutex();
   const { cSess } = await import("./ws");
 
-  BC.onmessage = async ({ data }) => {
-    const { i, transpiled, code } = data;
+  cSess.sub((sess: ICodeSession) => {
+    const { html, css, transpiled } = sess;
 
-    if (transpiled) {
-      cSess.session.code = code;
-      if (mod.counter !== i) {
-        mod.counter = i;
-        renderApp({
-          transpiled,
-          rootElement: document.getElementById("root")! as HTMLDivElement,
-        });
-      }
+    renderApp({
+      transpiled,
+      rootElement: document.getElementById("root")! as HTMLDivElement,
+    });
+
+    const root = document.getElementById("root");
+
+    if (root && html && css) {
+      root.innerHTML = `<style>${css}</style><div>${html}</div>`;
     }
-  };
+  });
 
   window.onmessage = async ({ data }) => {
     const { i, transpiled } = data;

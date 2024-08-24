@@ -21,6 +21,7 @@ BC.onmessage = ({ data }) => {
   cSess.session.html = data.html;
   cSess.session.css = data.css;
   cSess.session.transpiled = data.transpiled;
+  cSess.broadCastSessChanged();
 
   // mod.cssIds = getCssStr(data.html);
   // } else {
@@ -32,11 +33,12 @@ class Code {
   session: ICodeSession;
   head: string;
   user: string;
+
   ignoreUsers: string[] = [];
   waiting: (() => boolean)[] = [];
   buffy: Promise<void>[] = [];
   private controller = new AbortController();
-
+  private subs: ((sess: ICodeSession) => void)[] = [];
   constructor() {
     this.session = makeSession({ i: 0, code: "", html: "", css: "" });
     this.head = makeHash(this.session);
@@ -44,6 +46,14 @@ class Code {
       || md5(self.crypto.randomUUID());
 
     this.init();
+  }
+
+  sub(fn: (sess: ICodeSession) => void) {
+    this.subs.push(fn);
+  }
+
+  broadCastSessChanged() {
+    this.subs.forEach(cb => cb(this.session));
   }
 
   async setCode(rawCode: string) {
@@ -117,6 +127,7 @@ class Code {
     });
 
     this.controller.abort();
+    this.broadCastSessChanged();
     console.log("Runner succeeded");
     return true;
   }

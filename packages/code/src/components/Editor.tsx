@@ -7,7 +7,6 @@ import { cSess } from "@src/ws";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
-import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { initializeAce, initializeMonaco, setEditorContent, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
@@ -82,6 +81,27 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   useEffect(() => {
     if (editorState.started) return;
 
+    const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
+      if (data.code === mod.current.code) return;
+
+      mod.current.controller.abort();
+      mod.current.controller = new AbortController();
+      const { signal } = mod.current.controller;
+      await wait(1000);
+      if (signal.aborted) return;
+
+      await wait(2000);
+      if (signal.aborted) return;
+
+      console.log("delaying setting Editor", data.i);
+      await wait(2000);
+
+      if (signal.aborted) return;
+      mod.current.code = data.code;
+      setCurrentCode(data.code);
+      setEditorContent(data.code, data.i, signal, editorState.setValue);
+    };
+
     const initializeEditor = async () => {
       // Load the latest saved data
 
@@ -101,36 +121,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         code: mod.current.code,
         setValue: (code: string) => editorModule.setValue(code),
       });
+
+      cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
     };
 
     initializeEditor();
   }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
-
-  const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
-    if (data.code === mod.current.code) return;
-
-    mod.current.controller.abort();
-    mod.current.controller = new AbortController();
-    const { signal } = mod.current.controller;
-    await wait(1000);
-    if (signal.aborted) return;
-
-    await wait(2000);
-    if (signal.aborted) return;
-
-    console.log("delaying setting Editor", data.i);
-    await wait(2000);
-
-    if (signal.aborted) return;
-    mod.current.code = data.code;
-    setCurrentCode(data.code);
-    setEditorContent(data.code, data.i, signal, editorState.setValue);
-  };
-
-  useBroadcastChannel(
-    codeSpace,
-    handleBroadcastMessage as unknown as (event: MessageEvent<any>) => void,
-  );
 
   return (
     <div
