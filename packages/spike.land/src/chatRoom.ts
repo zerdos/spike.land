@@ -10,6 +10,7 @@ import {
   makeSession,
   md5,
 } from "@spike-land/code";
+import { HTML } from "./fetchHandler";
 
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -19,6 +20,8 @@ import { WebSocketHandler } from "./websocketHandler";
 export { md5 };
 
 export class Code implements DurableObject {
+  public HTML: string = "";
+
   private routeHandler: RouteHandler;
   wsHandler: WebSocketHandler;
   private transpiled = "";
@@ -33,6 +36,7 @@ export class Code implements DurableObject {
 
   constructor(private state: DurableObjectState, private env: Env) {
     this.env = env;
+
     this.backupSession = makeSession({
       code: `export default () => (
         <div>
@@ -55,6 +59,10 @@ export class Code implements DurableObject {
   private async initializeSession(url: URL) {
     this.origin = url.origin;
     this.codeSpace = url.searchParams.get("room")!;
+
+    HTML(this.env).then(text => {
+      this.HTML = text;
+    });
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
