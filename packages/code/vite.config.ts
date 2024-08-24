@@ -1,10 +1,9 @@
 import react from "@vitejs/plugin-react";
 import fs from "fs";
-import http from "http";
 import handler from "serve-handler";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { importMap, importMapReplace } from "./dist/modules.mjs";
+import { importMap, importMapReplace } from "./src/modules";
 
 const PORT = 3000;
 const PROXY_BASE_URL = "https://testing.spike.land";
@@ -39,8 +38,8 @@ export default defineConfig({
       "/api": {
         target: PROXY_BASE_URL,
         changeOrigin: true,
-        configure: (proxy, options) => {
-          proxy.on("proxyRes", (proxyRes, req, res) => {
+        configure: (proxy, _options) => {
+          proxy.on("proxyRes", (proxyRes, _req, res) => {
             let body = "";
             proxyRes.on("data", (chunk) => {
               body += chunk;
@@ -59,13 +58,13 @@ export default defineConfig({
       "^(?!/live).*": {
         target: PROXY_BASE_URL,
         changeOrigin: true,
-        configure: (proxy, options) => {
+        configure: (proxy, _options) => {
           proxy.on("proxyRes", (proxyRes, req, res) => {
             const localPath = `${LOCAL_DIR}${req.url}`;
             fs.access(localPath, fs.constants.F_OK, (err) => {
               if (err) {
                 // File doesn't exist, continue with proxy
-                if (importMapFiles.includes(req.url)) {
+                if (importMapFiles.includes(req.url!)) {
                   let body = "";
                   proxyRes.on("data", (chunk) => {
                     body += chunk;

@@ -83,7 +83,7 @@ class Code {
         (_resolve, _reject) => {
           resolve = _resolve;
           setTimeout(() => {
-            if (signal.aborted) return resolve({ i, html: "", css: "" });
+            if (signal.aborted) return resolve({ i: counter, html: "", css: "" });
           }, 3000);
         },
       );
