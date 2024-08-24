@@ -5038,7 +5038,7 @@ const RAW_RUNTIME_STATE =
           ["transferables", "npm:1.0.3"],\
           ["ts-md5", "npm:1.3.1"],\
           ["tslib", "npm:2.7.0"],\
-          ["tsx", "npm:4.17.0"],\
+          ["tsx", "npm:4.18.0"],\
           ["tty", "npm:1.0.1"],\
           ["tty-browserify", "npm:0.0.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
@@ -20142,10 +20142,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["tsx", [\
-      ["npm:4.17.0", {\
-        "packageLocation": "./.yarn/global/cache/tsx-npm-4.17.0-b7dbed7981-10.zip/node_modules/tsx/",\
+      ["npm:4.18.0", {\
+        "packageLocation": "./.yarn/global/cache/tsx-npm-4.18.0-c5309b3c2c-10.zip/node_modules/tsx/",\
         "packageDependencies": [\
-          ["tsx", "npm:4.17.0"],\
+          ["tsx", "npm:4.18.0"],\
           ["esbuild", "npm:0.23.1"],\
           ["fsevents", "patch:fsevents@npm%3A2.3.3#optional!builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"],\
           ["get-tsconfig", "npm:4.7.6"]\
