@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
+import { cSess } from "@src/ws";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
@@ -84,9 +85,9 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     const initializeEditor = async () => {
       // Load the latest saved data
 
-      mod.current.i = Number(globalThis.cSess.session.i);
-      mod.current.code = globalThis.cSess.session.code;
-      setCurrentCode(globalThis.cSess.session.code);
+      mod.current.i = Number(cSess.session.i);
+      mod.current.code = cSess.session.code;
+      setCurrentCode(cSess.session.code);
 
       if (!containerRef || !containerRef.current) return;
 
