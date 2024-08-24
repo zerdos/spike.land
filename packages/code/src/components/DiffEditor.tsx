@@ -1,5 +1,6 @@
 import { editor } from "@/external/monacoEditor";
-import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
+
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -7,8 +8,9 @@ interface DiffEditorProps {
   language?: string;
 }
 
-export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified, language = "typescript" }) => {
+export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [diffEditor, setDiffEditor] = useState<editor.IStandaloneDiffEditor | null>(null);
 
   const calculateHeight = useCallback((content: string) => {
     const lineCount = content.split("\n").length;
@@ -24,8 +26,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified,
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
-    if (containerRef.current) {
-      const diffEditor = editor.createDiffEditor(containerRef.current, {
+    if (containerRef.current && !diffEditor) {
+      const diffy = editor.createDiffEditor(containerRef.current, {
         diffAlgorithm: "advanced",
         readOnly: true,
         diffWordWrap: "off",
@@ -38,22 +40,26 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified,
         renderSideBySide: true,
       });
 
-      const originalModel = editor.createModel(original, "text/plain");
-      const modifiedModel = editor.createModel(modified, "text/plain");
-
-      diffEditor.setModel({
-        original: originalModel,
-        modified: modifiedModel,
+      diffy.setModel({
+        original: editor.createModel(original, "text/plain"),
+        modified: editor.createModel(modified, "text/plain"),
       });
-
-      return () => {
-        diffEditor.dispose();
-        originalModel.dispose();
-        modifiedModel.dispose();
-      };
+      setDiffEditor(diffy);
     }
-    return () => {};
-  }, [original, modified, language, editorHeight]);
+
+    return () => {
+      if (diffEditor) {
+        const diffModels = diffEditor.getModel();
+        diffEditor.dispose();
+        if (!diffModels) {
+          return;
+        }
+        const { original, modified } = diffModels;
+        original.dispose();
+        modified.dispose();
+      }
+    };
+  }, [diffEditor, containerRef, containerRef.current, original, modified]);
 
   return (
     <div

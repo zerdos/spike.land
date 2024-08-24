@@ -86,7 +86,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     mod.current.i += 1;
 
     console.log("Running debounced runner");
-    const res = await runner(mod.current.code, 0, signal);
+    const res = await runner(mod.current.code);
     console.log("From Editor, Runner succeeded ", res, " i:   ", mod.current.i);
   };
 
@@ -98,23 +98,26 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       const { signal } = mod.current.controller;
       mod.current.i += 1;
 
+      let formattedCode = "";
       try {
-        const formattedCode = await formatCode(code, signal);
-        if (signal.aborted) return;
+        formattedCode = await formatCode(code, signal);
+
         if (errorType === "prettier") {
           setErrorType(null);
         }
-
-        if (mod.current.code === formattedCode) return;
-        mod.current.code = formattedCode;
-        setCurrentCode(formattedCode); // Update the current code for auto-save
-
-        await runner(formattedCode, 0, signal);
-
-        setEditorContent(code, mod.current.i, signal, editorState.setValue);
       } catch (error) {
         setErrorType("prettier");
       }
+
+      if (signal.aborted) return;
+
+      if (mod.current.code === formattedCode) return;
+      mod.current.code = formattedCode;
+      setCurrentCode(formattedCode); // Update the current code for auto-save
+
+      await runner(formattedCode);
+
+      setEditorContent(code, mod.current.i, signal, editorState.setValue);
     },
   }), [errorType, setErrorType, editorState.setValue]);
 
