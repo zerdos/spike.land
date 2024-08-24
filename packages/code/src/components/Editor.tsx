@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
-import { wait } from "@src/wait";
 import { cSess } from "@src/ws";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
