@@ -115,6 +115,11 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(topLevelExportPattern, replacer)
     .replace(dynamicImportPattern, replacer)
     .replace(topLeveNoFromPattern, replacer);
+
+  replaced = replaced.split("\n").map((line) => {
+    line.trim();
+    return line;
+  }).filter((line) => !line.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
     replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
