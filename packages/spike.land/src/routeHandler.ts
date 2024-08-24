@@ -161,9 +161,9 @@ export class RouteHandler {
 
       if (timestamp <= lastHour) {
         if (timestamp > last2days) {
-          timestamp = Math.floor(timestamp / 1000) * 1000;
+          timestamp = Math.floor(timestamp / 300) * 300;
         } else {
-          timestamp = Math.floor(timestamp / 10000) * 10000;
+          timestamp = Math.floor(timestamp / 3000) * 3000;
         }
       }
 
