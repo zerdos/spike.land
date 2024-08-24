@@ -21,23 +21,18 @@ export const useEditorState = () => {
   return { containerRef, engine, editorState, setEditorState };
 };
 
-export const useErrorHandling = (): {
-  errorType: string | null;
-  setErrorType: React.Dispatch<React.SetStateAction<string | null>>;
-  [Symbol.iterator]: () => Iterator<any>;
-} => {
-  const [errorType, setErrorType] = useState<string | null>(null);
-  return {
-    errorType,
-    setErrorType,
-    [Symbol.iterator]: function*() {
-      yield* Object.entries(this);
-    },
-  };
+const myError = {
+  type: null as string | null,
+  setError: (newType: string | null) => {
+    myError.type = newType;
+  },
 };
 
+export const useErrorHandling = () => {
+  return { error: myError.type, setError: myError.setError };
+};
 export const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
-  const [error, setError] = useErrorHandling();
+  const { error, setError } = useErrorHandling();
 
   if (signal.aborted) return code;
   try {
@@ -53,7 +48,7 @@ export const formatCode = async (code: string, signal: AbortSignal): Promise<str
 };
 
 export const transpileCode = async (code: string, signal: AbortSignal): Promise<string> => {
-  const [error, setError] = useErrorHandling();
+  const { error, setError } = useErrorHandling();
 
   if (signal.aborted) return code;
   try {
@@ -69,7 +64,7 @@ export const transpileCode = async (code: string, signal: AbortSignal): Promise<
 };
 
 export const runCode = async (sess: Partial<ICodeSession>, signal: AbortSignal) => {
-  const [error, setError] = useErrorHandling();
+  const { error, setError } = useErrorHandling();
 
   try {
     const { code, transpiled } = sess;
