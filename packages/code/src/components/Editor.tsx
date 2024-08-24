@@ -62,7 +62,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     setCurrentCode(newCode); // Update the current code for auto-save
 
-    const res = await runner(mod.current.code);
+    const res = await runner(newCode);
     console.log("From Editor, Runner succeeded ", res, " i:   ", mod.current.i);
   };
 
