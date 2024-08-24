@@ -21,7 +21,7 @@ interface AppRendererProps {
 const AppRenderer: React.FC<AppRendererProps> = React.memo(
   ({ transpiled, width, height, top, left }) => {
     const AppToRender = useMemo(() => (
-      React.lazy(() => import(createJsBlob(transpiled)))
+      React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)))
     ), [transpiled]);
 
     return (
