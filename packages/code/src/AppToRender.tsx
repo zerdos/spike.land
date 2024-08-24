@@ -97,7 +97,14 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           </SignedIn>
         </header>
       )}
-      <div className="relative">
+      <div
+        css={css`
+          height: calc(100vh - 44px);
+          width: 100vw;
+          overflow: hidden;
+        `}
+        className="relative"
+      >
         {onlyEdit
           ? (
             <iframe
