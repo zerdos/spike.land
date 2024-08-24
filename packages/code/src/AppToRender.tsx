@@ -4,7 +4,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-reac
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { FC } from "react";
 import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
@@ -20,7 +20,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const [hideRest, setHideRest] = useState(true);
 
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
-  const editorRef = useRef<any>(null);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -143,7 +142,6 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           <RainbowWrapper>
             <Editor
               codeSpace={codeSpace}
-              ref={editorRef}
             />
             {!isOpen && (
               <Button

@@ -52,7 +52,7 @@ class Code {
     const { signal } = this.controller;
     let code = rawCode;
 
-    if (code === this.session.code) return false;
+    if (code === this.session.code) return true;
     console.log("Formatting code");
     try {
       code = await formatCode(rawCode, signal);
@@ -61,7 +61,7 @@ class Code {
       return false;
     }
 
-    if (this.session.code === code) return false;
+    if (this.session.code === code) return true;
 
     if (signal.aborted) return false;
     let transpiled = "";

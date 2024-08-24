@@ -5,7 +5,7 @@ import { runner } from "@src/services/runner";
 import { wait } from "@src/wait";
 import { cSess } from "@src/ws";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
 import { initializeAce, initializeMonaco, setEditorContent, useEditorState, useErrorHandling } from "./editorUtils";
@@ -22,7 +22,6 @@ export interface EditorRef {
 
 const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace },
-  ref,
 ) => {
   const {
     containerRef,
@@ -67,18 +66,18 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     console.log("From Editor, Runner succeeded ", res, " i:   ", mod.current.i);
   };
 
-  useImperativeHandle(ref, () => ({
-    setValue: async (code: string) => {
-      console.log("Setting value from parent");
-      mod.current.controller.abort();
-      mod.current.controller = new AbortController();
-      const { signal } = mod.current.controller;
+  // useImperativeHandle(ref, () => ({
+  //   setValue: async (code: string) => {
+  //     console.log("Setting value from parent");
+  //     mod.current.controller.abort();
+  //     mod.current.controller = new AbortController();
+  //     const { signal } = mod.current.controller;
 
-      await runner(code);
+  //     await runner(code);
 
-      setEditorContent(code, mod.current.i, signal, editorState.setValue);
-    },
-  }), [editorState.setValue]);
+  //     setEditorContent(code, mod.current.i, signal, editorState.setValue);
+  //   },
+  // }), [editorState.setValue]);
 
   useEffect(() => {
     if (editorState.started) return;
