@@ -1,7 +1,7 @@
 import type { BuildOptions } from "esbuild";
 import { Environment } from "./build-tasks.ts";
 import { makeEnv } from "./helpers.ts";
-import { fetchPlugin } from "./src/fetchPlugin.ts";
+// import { fetchPlugin } from "./src/fetchPlugin.ts";
 
 export const buildOptions: BuildOptions = {
   target: "es2024",
@@ -73,5 +73,7 @@ export const buildOptions: BuildOptions = {
 export const getCommonBuildOptions = (environment: Environment) => ({
   ...buildOptions,
   define: makeEnv(environment),
-  plugins: [fetchPlugin()],
+  plugins: [
+    //  fetchPlugin()
+  ],
 });
