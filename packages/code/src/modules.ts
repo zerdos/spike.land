@@ -26,8 +26,4 @@ export { createPatch, makeHash, stringifySession };
 export type { CodePatch, Delta, ICodeSession };
 export { applyCodePatch, makeSession };
 
-const HTML: string = MyHTML as unknown as string;
-
-export { HTML };
-
 export { md5 };

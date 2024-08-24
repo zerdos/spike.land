@@ -1,6 +1,6 @@
 import { makeSession, md5, stringifySession } from "@spike-land/code";
-import { HTML } from "@spike-land/code";
 import { Code } from "./chatRoom";
+import { HTML } from "./fetchHandler";
 
 export interface AutoSaveEntry {
   timestamp: number;
@@ -120,7 +120,7 @@ export class RouteHandler {
           await this.code.autoSave();
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
-          const respText = HTML.replace(
+          const respText = (await HTML(this.code.getEnv())).replace(
             `<!-- <link rel="stylesheet" href="/app.css"> -->`,
             `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
           ).replace(
@@ -349,7 +349,7 @@ export class RouteHandler {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
     const { html, css } = this.code.session;
-    const respText = HTML.replace(
+    const respText = (await HTML(this.code.getEnv())).replace(
       `<!-- <link rel="stylesheet" href="/app.css"> -->`,
       `<style>${css}</style>`,
     ).replace(
@@ -378,7 +378,7 @@ export class RouteHandler {
     // const url = new URL(r);
     const codeSpace = url.searchParams.get("room");
     const { html } = this.code.session;
-    const respText = HTML.replace(
+    const respText = (await HTML(this.code.getEnv())).replace(
       "<div id=\"embed\"></div>",
       "<div id=\"embed\"><iframe height= \"100%\" width= \"100%\" border= \"0\" overflow= \"auto\" src=\"/live/"
         + codeSpace + "/iframe\"></iframe></div>",

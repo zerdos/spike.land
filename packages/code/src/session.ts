@@ -6,7 +6,7 @@ import { CodePatch, ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
 
 // Export necessary modules and types
-export { HTML, md5 };
+export { md5 };
 export const importMap = { imports: imap.imports };
 type IUsername = string;
 
