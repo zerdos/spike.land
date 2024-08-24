@@ -68,7 +68,8 @@ const initializeApp = async () => {
   ]);
 
   setTimeout(() => {
-    import("./utils/tw");
+    const TW = import("./utils/tw");
+    Object.assign(globalThis, { TW });
   }, 100);
 
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });

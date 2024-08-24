@@ -1,6 +1,5 @@
 // build-tasks.mjs
 import { copy } from "esbuild-plugin-copy";
-import { replace } from "esbuild-plugin-replace";
 import { environment } from "helpers.ts";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
@@ -210,11 +209,6 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     platform: "browser",
     plugins: [
       ...buildOptions.plugins,
-      replace({
-        values: {
-          "isRunningInBrowser()": `false`,
-        },
-      }),
       copy({
         resolveFrom: "cwd",
         assets: [{

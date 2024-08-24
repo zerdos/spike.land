@@ -17,8 +17,10 @@ export const buildOptions: BuildOptions = {
     "node:buffer": "buffer/",
     "node:async_hooks": "src/AsyncStorage.ts",
     util: "util/",
-
+    perf_hooks: "src/browserify/perf_hooks.ts",
+    tty: "tty-browserify",
     constants: "constants/",
+    vm: "vm-browserify",
     module: "module/",
     events: "events/",
 
