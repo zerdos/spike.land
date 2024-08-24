@@ -59,6 +59,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     if (newCode.includes("/** invalid")) return;
 
     const formattedCode = await runner(newCode);
+    mod.current.md5Ids.push(md5(formattedCode));
     if (typeof formattedCode === "string") {
       mod.current.code === formattedCode;
     }
