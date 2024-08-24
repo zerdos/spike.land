@@ -67,6 +67,10 @@ const initializeApp = async () => {
     import("./hooks/useArchive"),
   ]);
 
+  setTimeout(() => {
+    import("./utils/tw");
+  }, 100);
+
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
   Object.assign(globalThis, {
     uploadToHelia,
