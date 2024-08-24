@@ -21,7 +21,10 @@ BC.onmessage = ({ data }) => {
   cSess.session.html = data.html;
   cSess.session.css = data.css;
   cSess.session.transpiled = data.transpiled;
-  cSess.broadCastSessChanged();
+
+  if (cSess.session.i > cSess.broadcastedCounter) {
+    cSess.broadCastSessChanged();
+  }
 
   // mod.cssIds = getCssStr(data.html);
   // } else {
@@ -33,6 +36,7 @@ class Code {
   session: ICodeSession;
   head: string;
   user: string;
+  broadcastedCounter = 0;
 
   ignoreUsers: string[] = [];
   waiting: (() => boolean)[] = [];
@@ -53,6 +57,7 @@ class Code {
   }
 
   broadCastSessChanged() {
+    this.broadcastedCounter = this.session.i;
     this.subs.forEach(cb => cb(this.session));
   }
 
@@ -127,7 +132,7 @@ class Code {
     });
 
     this.controller.abort();
-    this.broadCastSessChanged();
+    // this.broadCastSessChanged();
     console.log("Runner succeeded");
     return true;
   }

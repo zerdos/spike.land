@@ -86,14 +86,14 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         mod.current.controller.abort();
         mod.current.controller = new AbortController();
         const { signal } = mod.current.controller;
-        await wait(1000);
-        if (signal.aborted) return;
+        // await wait(1000);
+        // if (signal.aborted) return;
 
-        await wait(2000);
-        if (signal.aborted) return;
+        // await wait(2000);
+        // if (signal.aborted) return;
 
-        console.log("delaying setting Editor", data.i);
-        await wait(2000);
+        // console.log("delaying setting Editor", data.i);
+        // await wait(300);
 
         if (signal.aborted) return;
         mod.current.code = data.code;
