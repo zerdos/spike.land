@@ -36,7 +36,13 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     setEditorState,
   } = useEditorState();
 
-  const { errorType, setErrorType } = useErrorHandling();
+  const { error, onError } = useErrorHandling();
+
+  const [errorType, setError] = useState(error);
+
+  onError((error: string | null) => {
+    setError(error);
+  });
   const [currentCode, setCurrentCode] = useState("");
 
   const mod = useRef({
@@ -62,30 +68,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     setCurrentCode(newCode); // Update the current code for auto-save
 
-    console.log("before prettier");
-    mod.current.controller.abort();
-    const { signal } = mod.current.controller = new AbortController();
-
-    try {
-      const formattedCode = await formatCode(newCode, signal);
-      if (mod.current.code === formattedCode) {
-        console.log("Code is same as last run");
-        return;
-      }
-      if (signal.aborted) return;
-      mod.current.code = formattedCode;
-      if (errorType === "prettier") {
-        setErrorType(null);
-      }
-    } catch (error) {
-      setErrorType("prettier");
-      return;
-    }
-    console.log("Prettier succeeded");
-
-    mod.current.i += 1;
-
-    console.log("Running debounced runner");
     const res = await runner(mod.current.code);
     console.log("From Editor, Runner succeeded ", res, " i:   ", mod.current.i);
   };
@@ -96,30 +78,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
       mod.current.controller.abort();
       mod.current.controller = new AbortController();
       const { signal } = mod.current.controller;
-      mod.current.i += 1;
 
-      let formattedCode = "";
-      try {
-        formattedCode = await formatCode(code, signal);
-
-        if (errorType === "prettier") {
-          setErrorType(null);
-        }
-      } catch (error) {
-        setErrorType("prettier");
-      }
-
-      if (signal.aborted) return;
-
-      if (mod.current.code === formattedCode) return;
-      mod.current.code = formattedCode;
-      setCurrentCode(formattedCode); // Update the current code for auto-save
-
-      await runner(formattedCode);
+      await runner(code);
 
       setEditorContent(code, mod.current.i, signal, editorState.setValue);
     },
-  }), [errorType, setErrorType, editorState.setValue]);
+  }), [editorState.setValue]);
 
   useEffect(() => {
     if (editorState.started) return;

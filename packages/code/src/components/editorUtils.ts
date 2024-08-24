@@ -25,11 +25,22 @@ const myError = {
   type: null as string | null,
   setError: (newType: string | null) => {
     myError.type = newType;
+    try {
+      myError.subscribers.forEach((subscriber) => {
+        subscriber(myError.type);
+      });
+    } catch (error) {
+      console.error("Error in error handling", error);
+    }
   },
+  onError: (onError: (err: string | null) => void) => {
+    myError.subscribers.push(onError);
+  },
+  subscribers: [] as ((err: string | null) => void)[],
 };
 
 export const useErrorHandling = () => {
-  return { error: myError.type, setError: myError.setError };
+  return { error: myError.type, setError: myError.setError, onError: myError.onError };
 };
 export const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
   const { error, setError } = useErrorHandling();
