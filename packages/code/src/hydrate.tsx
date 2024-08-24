@@ -186,18 +186,23 @@ const handleDefaultPage = async () => {
   const { cSess } = await import("./ws");
 
   cSess.sub((sess: ICodeSession) => {
-    const { html, css, transpiled } = sess;
+    const { transpiled } = sess;
+
+    const myEl = document.createElement("div")! as HTMLDivElement;
+    myEl.style.height = "100%";
+    myEl.style.width = "100%";
+    myEl.style.display = "none";
+    document.body.appendChild(myEl);
 
     renderApp({
       transpiled,
-      rootElement: document.getElementById("root")! as HTMLDivElement,
+      rootElement: myEl,
     });
 
     const root = document.getElementById("root");
-
-    if (root && html && css) {
-      root.innerHTML = `<style>${css}</style><div>${html}</div>`;
-    }
+    renderedAPPS.get(root!)!.cleanup();
+    myEl.style.display = "block";
+    myEl.id = "root";
   });
 
   window.onmessage = async ({ data }) => {

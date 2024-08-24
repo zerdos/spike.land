@@ -222,6 +222,7 @@ const renderApp = async (
       root.unmount();
       rootEl.innerHTML = "";
       renderedAPPS.delete(rootEl);
+      rootEl.remove();
     };
 
     root.render(
