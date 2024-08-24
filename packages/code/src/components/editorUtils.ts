@@ -1,3 +1,4 @@
+import { ICodeSession } from "@src/makeSess";
 import { useRef, useState } from "react";
 import { prettierToThrow, transpile } from "../shared";
 
@@ -64,6 +65,71 @@ export const transpileCode = async (code: string, signal: AbortSignal): Promise<
   } catch (error) {
     setError("transpile");
     throw new Error("Transpile failed");
+  }
+};
+
+export const runCode = async (sess: Partial<ICodeSession>, signal: AbortSignal) => {
+  const [error, setError] = useErrorHandling();
+
+  try {
+    const { code, transpiled } = sess;
+    const counter = sess.i as number;
+
+    let resolve: (v: {
+      i: number;
+      html: string;
+      css: string;
+    }) => void;
+    const promise = new Promise<{ i: number; html: string; css: string }>(
+      (_resolve, _reject) => {
+        resolve = _resolve;
+        setTimeout(() => {
+          if (signal.aborted) return resolve({ i: counter, html: "", css: "" });
+        }, 3000);
+      },
+    );
+
+    window.onmessage = (ev) => {
+      const data: { i: number; html: string; css: string } = ev.data;
+
+      const { i, html, css } = data;
+      if (i === counter) {
+        resolve({ i, html, css });
+      }
+    };
+
+    if (signal.aborted) return false;
+    console.log("Sending message iframe first to calculate css", counter);
+
+    document.querySelector("iframe")?.contentWindow?.postMessage({
+      transpiled,
+      code,
+      i: counter,
+      html: "",
+      css: "",
+      sender: "Runner / Editor",
+    });
+
+    const res = await promise;
+
+    if (signal.aborted) return false;
+
+    const { html, css } = res;
+
+    if (html.includes("Oops! Something went wrong")) {
+      console.error("Error in runner: no html");
+
+      return false;
+    }
+    if (error && error === "runner") {
+      setError(null);
+    }
+
+    return { ...sess, html, css };
+  } catch (error) {
+    console.error(error);
+    setError("runner");
+    throw error;
   }
 };
 

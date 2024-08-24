@@ -2,8 +2,8 @@ import { useCodeSpace } from "./hooks/useCodeSpace";
 import { ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 
-import { formatCode, transpileCode } from "./components/editorUtils";
-import { connect, transpile } from "./shared";
+import { formatCode, runCode, transpileCode } from "./components/editorUtils";
+import { connect } from "./shared";
 
 // Initialize global state for first render
 globalThis.firstRender = globalThis.firstRender
@@ -72,51 +72,22 @@ class Code {
       throw error;
     }
 
-    const counter = ++this.session.i;
+    let html = "";
+    let css = "";
+    const i = ++this.session.i;
 
-    let resolve: (v: {
-      i: number;
-      html: string;
-      css: string;
-    }) => void;
-    const promise = new Promise<{ i: number; html: string; css: string }>(
-      (_resolve, _reject) => {
-        resolve = _resolve;
-        setTimeout(() => {
-          if (signal.aborted) return resolve({ i: counter, html: "", css: "" });
-        }, 3000);
-      },
-    );
-
-    window.onmessage = (ev) => {
-      const data: { i: number; html: string; css: string } = ev.data;
-
-      const { i, html, css } = data;
-      if (i === counter) {
-        resolve({ i, html, css });
+    try {
+      const res = await runCode({ i, code, transpiled }, signal);
+      if (res) {
+        html = res.html;
+        css = res.css;
+      } else {
+        console.error("Error running the code");
+        throw Error("error running");
       }
-    };
-
-    console.log("Sending message iframe first to calculate css", counter);
-    if (signal.aborted) return false;
-
-    document.querySelector("iframe")?.contentWindow?.postMessage({
-      ...this.session,
-      html: "",
-      css: "",
-      sender: "Runner / Editor",
-    });
-
-    const res = await promise;
-
-    if (signal.aborted) return false;
-
-    const { i, html, css } = res;
-
-    if (html.includes("Oops! Something went wrong")) {
-      console.error("Error in runner: no html");
-
-      return false;
+    } catch (e) {
+      console.error("Error running the code", e);
+      throw e;
     }
 
     console.log("Sending message to BC", i);
@@ -125,12 +96,13 @@ class Code {
 
     this.session = makeSession({
       code,
-      i: counter,
+      i,
       transpiled,
       html,
       css,
     });
 
+    if (signal.aborted) return false;
     console.log("Sending message to BC", this.session);
 
     BC.postMessage({
