@@ -76,31 +76,35 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
   //     setEditorContent(code, mod.current.i, signal, editorState.setValue);
   //   },
-  // }), [editorState.setValue]);
+  // }), [editorStsetEditorContentate.setValue]);
 
   useEffect(() => {
-    if (editorState.started) return;
+    if (editorState.started && !editorState.sub) {
+      const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
+        if (data.code === mod.current.code) return;
 
-    const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
-      if (data.code === mod.current.code) return;
+        mod.current.controller.abort();
+        mod.current.controller = new AbortController();
+        const { signal } = mod.current.controller;
+        await wait(1000);
+        if (signal.aborted) return;
 
-      mod.current.controller.abort();
-      mod.current.controller = new AbortController();
-      const { signal } = mod.current.controller;
-      await wait(1000);
-      if (signal.aborted) return;
+        await wait(2000);
+        if (signal.aborted) return;
 
-      await wait(2000);
-      if (signal.aborted) return;
+        console.log("delaying setting Editor", data.i);
+        await wait(2000);
 
-      console.log("delaying setting Editor", data.i);
-      await wait(2000);
+        if (signal.aborted) return;
+        mod.current.code = data.code;
+        setCurrentCode(data.code);
+        setEditorContent(data.code, data.i, signal, editorState.setValue);
+      };
 
-      if (signal.aborted) return;
-      mod.current.code = data.code;
-      setCurrentCode(data.code);
-      setEditorContent(data.code, data.i, signal, editorState.setValue);
-    };
+      cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
+      setEditorState(e => ({ ...e, sub: true }));
+      return;
+    }
 
     const initializeEditor = async () => {
       // Load the latest saved data
@@ -121,8 +125,6 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         code: mod.current.code,
         setValue: (code: string) => editorModule.setValue(code),
       });
-
-      cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
     };
 
     initializeEditor();

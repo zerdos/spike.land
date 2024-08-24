@@ -4,6 +4,7 @@ import { prettierToThrow, transpile } from "../shared";
 
 export interface EditorState {
   started: boolean;
+  sub: boolean;
   code: string;
   setValue: (code: string) => void;
 }
@@ -12,6 +13,7 @@ export const useEditorState = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [editorState, setEditorState] = useState<EditorState>({
     started: false,
+    sub: false,
     code: "",
     setValue: () => {},
   });
