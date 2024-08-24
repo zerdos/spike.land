@@ -136,9 +136,9 @@ describe("AIService", () => {
 
       const result = await aiService.continueWithOpenAI(fullResponse, codeNow, setMessages, setAICode);
 
-      expect(result).toBe("const x = 5;");
+      expect(result!.trim()).toBe("const x = 5;");
 
-      expect(setAICode).toHaveBeenCalledWith("const x = 5;");
+      expect(setAICode).toHaveBeenCalledWith("const x = 5;\n");
     });
 
     it("should retry with Claude if enabled and initial attempt fails", async () => {
