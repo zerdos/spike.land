@@ -76,7 +76,7 @@ class Code {
       return false;
     }
 
-    if (this.session.code === code) return true;
+    if (this.session.code === code) return code;
 
     if (signal.aborted) return false;
     let transpiled = "";

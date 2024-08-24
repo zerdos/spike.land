@@ -57,10 +57,13 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     console.log("Content change", mod.current.i, md5(newCode));
 
     if (newCode.includes("/** invalid")) return;
-    if (mod.current.code === newCode) return;
 
     const formattedCode = await runner(newCode);
-    setCurrentCode(formattedCode); // Update the current code for auto-save
+    if (typeof formattedCode === "string") {
+      mod.current.code === formattedCode;
+    }
+
+    // setCurrentCode(formattedCode); // Update the current code for auto-save
   };
 
   // useImperativeHandle(ref, () => ({
@@ -92,7 +95,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         // if (signal.aborted) return;
 
         // console.log("delaying setting Editor", data.i);
-        // await wait(300);
+        await wait(300);
 
         if (signal.aborted) return;
         mod.current.code = data.code;
