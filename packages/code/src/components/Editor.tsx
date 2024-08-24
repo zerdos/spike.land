@@ -62,22 +62,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     if (typeof formattedCode === "string") {
       mod.current.code === formattedCode;
     }
-
-    // setCurrentCode(formattedCode); // Update the current code for auto-save
   };
-
-  // useImperativeHandle(ref, () => ({
-  //   setValue: async (code: string) => {
-  //     console.log("Setting value from parent");
-  //     mod.current.controller.abort();
-  //     mod.current.controller = new AbortController();
-  //     const { signal } = mod.current.controller;
-
-  //     await runner(code);
-
-  //     setEditorContent(code, mod.current.i, signal, editorState.setValue);
-  //   },
-  // }), [editorStsetEditorContentate.setValue]);
 
   useEffect(() => {
     if (editorState.started && !editorState.sub) {
@@ -106,10 +91,12 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         if (signal.aborted) return;
         mod.current.code = data.code;
         setCurrentCode(data.code);
+        console.log("Set new code to editor", md5Code);
         editorState.setValue(data.code);
       };
 
       cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
+
       setEditorState(e => ({ ...e, sub: true }));
       return;
     }
@@ -127,6 +114,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         ? initializeMonaco(containerRef.current, codeSpace, mod.current.code, handleContentChange)
         : initializeAce(containerRef.current, mod.current.code, handleContentChange));
 
+      console.log("Editor initialized", mod.current.i);
       setEditorState({
         ...editorState,
         started: true,

@@ -141,13 +141,6 @@ export const runCode = async (sess: Partial<ICodeSession>, signal: AbortSignal) 
   }
 };
 
-export const setEditorContent = (
-  formattedCode: string,
-  counter: number,
-  signal: AbortSignal,
-  setValue: (code: string) => void,
-): void => setValue(formattedCode);
-
 export async function initializeMonaco(
   container: HTMLDivElement,
   codeSpace: string,

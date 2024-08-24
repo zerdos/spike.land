@@ -198,10 +198,10 @@ async function startMonacoPristine({
     },
     scrollBeyondLastLine: true,
     scrollPredominantAxis: true,
-    automaticLayout: true,
+    automaticLayout: false,
     useShadowDOM: false,
     tabSize: 2,
-    insertSpaces: true,
+    insertSpaces: false,
     bracketPairColorization: {
       independentColorPoolPerBracketType: true,
       enabled: true,
