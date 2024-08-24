@@ -53,6 +53,7 @@ class Code {
     let code = rawCode;
 
     if (code === this.session.code) return;
+    console.log("Formatting code");
     try {
       code = await formatCode(rawCode, signal);
     } catch (error) {
@@ -64,6 +65,8 @@ class Code {
 
     if (signal.aborted) return;
     let transpiled = "";
+
+    console.log("Transpiling code");
 
     try {
       transpiled = await transpileCode(code, signal);
@@ -77,6 +80,8 @@ class Code {
     const i = ++this.session.i;
 
     try {
+      console.log("Formatting code: " + i);
+
       const res = await runCode({ i, code, transpiled }, signal);
       if (res) {
         html = res.html;
@@ -90,7 +95,7 @@ class Code {
       throw e;
     }
 
-    console.log("Sending message to BC", i);
+    console.log("Sending message to BC: ", i);
 
     if (signal.aborted) return false;
 
