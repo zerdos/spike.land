@@ -1,7 +1,7 @@
 import { Mutex } from "async-mutex";
 import type { Record } from "immutable";
 import imap from "./importMap";
-import HTML from "./index.html";
+
 import { CodePatch, ICodeSession } from "./makeSess";
 import { md5 } from "./md5";
 
