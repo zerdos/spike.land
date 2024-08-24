@@ -4,6 +4,7 @@ import { md5 } from "./md5";
 
 import { formatCode, runCode, transpileCode } from "./components/editorUtils";
 import { connect } from "./shared";
+import { wait } from "./wait";
 
 // Initialize global state for first render
 globalThis.firstRender = globalThis.firstRender
@@ -70,6 +71,7 @@ class Code {
     if (code === this.session.code) return true;
     console.log("Formatting code");
     try {
+      await wait(100);
       code = await formatCode(rawCode, signal);
     } catch (error) {
       console.error("Error formatting code:", error);
@@ -78,6 +80,7 @@ class Code {
 
     if (this.session.code === code) return code;
 
+    await wait(100);
     if (signal.aborted) return false;
     let transpiled = "";
 
@@ -92,6 +95,8 @@ class Code {
 
     let html = "";
     let css = "";
+    await wait(100);
+    if (signal.aborted) return false;
     const i = ++this.session.i;
 
     try {
@@ -99,6 +104,7 @@ class Code {
 
       const res = await runCode({ i, code, transpiled }, signal);
       if (signal.aborted) return false;
+
       if (res) {
         html = res.html;
         css = res.css;
@@ -112,7 +118,7 @@ class Code {
     }
 
     console.log("Sending message to BC: ", i);
-
+    await wait(100);
     if (signal.aborted) return false;
 
     this.session = makeSession({
