@@ -107,29 +107,24 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   }, [editorState.started, codeSpace, engine, containerRef, setEditorState]);
 
   const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
-    if (data.i === mod.current.i) return;
-    console.log("Broadcast message: ", data.i);
+    if (data.code === mod.current.code) return;
 
-    if (data.i <= mod.current.i) mod.current.i = data.i;
-    if (data.i > mod.current.i) {
-      mod.current.i = data.i;
-      mod.current.controller.abort();
-      mod.current.controller = new AbortController();
-      const { signal } = mod.current.controller;
-      await wait(1000);
-      if (signal.aborted) return;
+    mod.current.controller.abort();
+    mod.current.controller = new AbortController();
+    const { signal } = mod.current.controller;
+    await wait(1000);
+    if (signal.aborted) return;
 
-      await wait(2000);
-      if (signal.aborted) return;
+    await wait(2000);
+    if (signal.aborted) return;
 
-      console.log("delaying setting Editor", data.i);
-      await wait(2000);
+    console.log("delaying setting Editor", data.i);
+    await wait(2000);
 
-      if (signal.aborted) return;
-      mod.current.code = data.code;
-      setCurrentCode(data.code);
-      setEditorContent(data.code, data.i, signal, editorState.setValue);
-    }
+    if (signal.aborted) return;
+    mod.current.code = data.code;
+    setCurrentCode(data.code);
+    setEditorContent(data.code, data.i, signal, editorState.setValue);
   };
 
   useBroadcastChannel(
