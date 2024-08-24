@@ -59,10 +59,8 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     if (newCode.includes("/** invalid")) return;
     if (mod.current.code === newCode) return;
 
-    setCurrentCode(newCode); // Update the current code for auto-save
-
-    const res = await runner(newCode);
-    console.log("From Editor, Runner succeeded ", res, " i:   ", mod.current.i);
+    const formattedCode = await runner(newCode);
+    setCurrentCode(formattedCode); // Update the current code for auto-save
   };
 
   // useImperativeHandle(ref, () => ({
@@ -82,6 +80,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     if (editorState.started && !editorState.sub) {
       const handleBroadcastMessage = async ({ data }: { data: ICodeSession }) => {
         if (data.code === mod.current.code) return;
+        if (data.code === currentCode) return;
 
         mod.current.controller.abort();
         mod.current.controller = new AbortController();

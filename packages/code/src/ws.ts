@@ -134,7 +134,7 @@ class Code {
     this.controller.abort();
     // this.broadCastSessChanged();
     console.log("Runner succeeded");
-    return true;
+    return this.session.code;
   }
 
   async init() {
