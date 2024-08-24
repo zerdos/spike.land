@@ -146,17 +146,7 @@ export const setEditorContent = (
   counter: number,
   signal: AbortSignal,
   setValue: (code: string) => void,
-): void => {
-  setTimeout(() => {
-    if (signal.aborted) return;
-    console.log("Setting editor content: ", counter);
-
-    setTimeout(() => {
-      if (signal.aborted) return;
-      setValue(formattedCode);
-    }, 100);
-  }, 250);
-};
+): void => setValue(formattedCode);
 
 export async function initializeMonaco(
   container: HTMLDivElement,

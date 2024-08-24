@@ -7,7 +7,7 @@ import { cSess } from "@src/ws";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
-import { initializeAce, initializeMonaco, setEditorContent, useEditorState, useErrorHandling } from "./editorUtils";
+import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {
@@ -43,6 +43,7 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     code: "",
     html: "",
     cssIds: "",
+    md5Ids: [] as string[],
     controller: new AbortController(),
   });
 
@@ -85,9 +86,16 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         if (data.code === mod.current.code) return;
         if (data.code === currentCode) return;
 
+        const md5Code = md5(data.code);
+
+        if (mod.current.md5Ids.includes(md5Code)) return;
+        mod.current.md5Ids.push(md5Code);
+        mod.current.md5Ids = mod.current.md5Ids.slice(-10);
+
         mod.current.controller.abort();
         mod.current.controller = new AbortController();
         const { signal } = mod.current.controller;
+
         // await wait(1000);
         // if (signal.aborted) return;
 
@@ -95,12 +103,11 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
         // if (signal.aborted) return;
 
         // console.log("delaying setting Editor", data.i);
-        await wait(300);
 
         if (signal.aborted) return;
         mod.current.code = data.code;
         setCurrentCode(data.code);
-        setEditorContent(data.code, data.i, signal, editorState.setValue);
+        editorState.setValue(data.code);
       };
 
       cSess.sub((sess: ICodeSession) => handleBroadcastMessage({ data: sess }));
