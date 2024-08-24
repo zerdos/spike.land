@@ -63,7 +63,7 @@ export const ChatMessage: React.FC<{
       onDoubleClick={onDoubleClick}
     >
       <div
-        className={`max-w-[80%] p-3 rounded-lg ${
+        className={`max-w-[60%] p-3 rounded-lg ${
           isUser
             ? isDarkMode
               ? "bg-blue-600 text-white"
@@ -309,8 +309,8 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
         top: 0;
         right: 0;
         bottom: 0;
-        width: ${isMobile ? "100%" : "min(100%, 640px)"};
-        min-width: ${isMobile ? "100%" : "640px"};
+        width: ${isMobile ? "100%" : "min(100%, 480px)"};
+        min-width: ${isMobile ? "100%" : "480px"};
         z-index: 1000;
         transition: transform 0.3s ease-in-out;
         background-color: ${isDarkMode ? "#1a202c" : "#ffffff"};
