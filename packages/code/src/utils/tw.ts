@@ -77,7 +77,7 @@ new MutationObserver(async (mutations) => {
   subtree: true,
 });
 
-async function processStyles(forceUpdate = false) {
+export async function processStyles(forceUpdate = false) {
   if (forceUpdate) {
     currentHash++;
     processedClasses.clear();

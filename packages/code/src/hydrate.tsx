@@ -67,8 +67,12 @@ const initializeApp = async () => {
     import("./hooks/useArchive"),
   ]);
 
-  setTimeout(() => {
-    const TW = import("./utils/tw");
+  setTimeout(async () => {
+    const process = {
+      cwd: () => `/live/${codeSpace}/`,
+    };
+    Object.assign(globalThis, { process });
+    const TW = await import("./utils/tw");
     Object.assign(globalThis, { TW });
   }, 100);
 
