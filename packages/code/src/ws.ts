@@ -131,7 +131,7 @@ class Code {
       css,
     });
 
-    console.log("Sending message to BC", toPost);
+    console.log("Sending message to BC", this.session);
 
     BC.postMessage({
       ...this.session,
