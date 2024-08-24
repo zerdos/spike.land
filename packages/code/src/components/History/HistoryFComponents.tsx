@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { runner } from "@src/services/runner";
-import { prettierToThrow } from "@src/shared";
 import { Wrapper } from "@src/Wrapper";
 import { format } from "date-fns";
 import React from "react";
@@ -124,8 +123,8 @@ const FullScreenHistoryView: React.FC<{
             }}
             onRestore={async () => {
               try {
-                const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
-                await runner(formattedCode);
+                // const formattedCode = await prettierToThrow({ code: item.code, toThrow: true });
+                await runner(item.code);
               } catch (error) {
                 console.error(error);
               } finally {

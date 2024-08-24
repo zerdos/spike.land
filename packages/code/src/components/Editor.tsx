@@ -6,14 +6,7 @@ import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
 import { useBroadcastChannel } from "../hooks/useBroadcastChannel";
-import {
-  formatCode,
-  initializeAce,
-  initializeMonaco,
-  setEditorContent,
-  useEditorState,
-  useErrorHandling,
-} from "./editorUtils";
+import { initializeAce, initializeMonaco, setEditorContent, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {

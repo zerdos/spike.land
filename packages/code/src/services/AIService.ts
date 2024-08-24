@@ -1,6 +1,5 @@
 import { throttle } from "es-toolkit";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
-import { prettierToThrow } from "../shared";
 import { Message, MessageContent } from "../types/Message";
 import { LocalStorageService } from "./LocalStorageService";
 import { runner } from "./runner";
@@ -180,11 +179,10 @@ export class AIService {
   }
 
   private async formatAndRunCode(code: string): Promise<string> {
-    const prettyCode = await prettierToThrow({ code, toThrow: true });
-    if (await runner(prettyCode) === false) {
+    if (await runner(code) === false) {
       throw new Error("Error in runner");
     }
-    return prettyCode;
+    return code;
   }
 
   private async retryWithClaude(

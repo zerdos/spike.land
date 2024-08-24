@@ -2,7 +2,6 @@ import { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
 import { Mutex } from "async-mutex";
 import { useCallback, useMemo } from "react";
-import { prettierToThrow } from "../shared";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
 import { useAutoSave } from "./useAutoSave";
@@ -46,19 +45,18 @@ export const useMessageHandling = ({
     if (!content.trim()) return;
 
     const { code } = (cSess || globalThis.cSess)?.session || { code: "" };
-    const codeNow = await prettierToThrow({ code, toThrow: true });
 
     useAutoSave(codeSpace);
 
     const claudeContent = aiHandler.prepareClaudeContent(
       content,
       messages,
-      codeNow,
+      code,
       codeSpace,
     );
 
-    if (messages.length === 0 || codeNow !== codeWhatAiSeen) {
-      setAICode(codeNow);
+    if (messages.length === 0 || code !== codeWhatAiSeen) {
+      setAICode(code);
     }
 
     const newMessage = await createNewMessage(screenshot, claudeContent);
@@ -69,7 +67,7 @@ export const useMessageHandling = ({
     setIsStreaming(true);
 
     try {
-      await processMessage(aiHandler, updatedMessages, codeNow, setMessages, setAICode, saveMessages, mutex);
+      await processMessage(aiHandler, updatedMessages, code, setMessages, setAICode, saveMessages, mutex);
     } catch (error) {
       console.error("Error processing request:", error);
       handleError(updatedMessages, saveMessages);
@@ -216,11 +214,7 @@ async function processMessage(
 
   const starterCode = updateSearchReplace(contentToProcess, codeNow);
   if (starterCode !== codeNow) {
-    const formattedCode = await prettierToThrow({
-      code: starterCode,
-      toThrow: true,
-    });
-    runner(formattedCode);
+    runner(starterCode);
   } else {
     await aiHandler.continueWithOpenAI(
       contentToProcess,
@@ -249,11 +243,7 @@ function createOnUpdateFunction(
           preUpdates.lastCode = lastCode;
           preUpdates.count += 1;
           try {
-            const formattedCode = await prettierToThrow({
-              code: lastCode,
-              toThrow: true,
-            });
-            await runner(formattedCode);
+            await runner(lastCode);
           } catch (error) {
             console.error("Error in runner:", error);
           }
