@@ -1,4 +1,3 @@
-import { nativeModulesPlugin } from "@douglasneuroinformatics/esbuild-plugin-native-modules";
 import type { BuildOptions } from "esbuild";
 import { Environment } from "./build-tasks.ts";
 import { makeEnv } from "./helpers.ts";
@@ -74,5 +73,5 @@ export const buildOptions: BuildOptions = {
 export const getCommonBuildOptions = (environment: Environment) => ({
   ...buildOptions,
   define: makeEnv(environment),
-  plugins: [fetchPlugin(), nativeModulesPlugin({})],
+  plugins: [fetchPlugin()],
 });

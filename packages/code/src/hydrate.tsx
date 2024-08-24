@@ -59,63 +59,16 @@ const createLangChainWorkflow = async (prompt: string) => {
 const initializeApp = async () => {
   const [
     { enhancedFetch },
-    { addFile, bundleAndUpload, downloadFromHelia, uploadToHelia },
+
     { useArchive, useSpeedy },
   ] = await Promise.all([
     import("./enhancedFetch"),
-    import("./helia"),
     import("./hooks/useArchive"),
   ]);
 
-  setTimeout(async () => {
-    function resolveDebug(debug) {
-      // If debug is not a string, return false
-      if (typeof debug !== "string") {
-        return false;
-      }
-
-      if (debug === "true" || debug === "1") {
-        return true;
-      }
-      if (debug === "false" || debug === "0") {
-        return false;
-      }
-      if (debug === "*") {
-        return true;
-      }
-
-      let debuggers = debug.split(",").map((d) => d.split(":")[0]);
-      if (debuggers.includes("-tailwindcss")) {
-        return false;
-      }
-      if (debuggers.includes("tailwindcss")) {
-        return true;
-      }
-      return false;
-    }
-
-    // Set up the environment
-    var env = {
-      NODE_ENV: "development", // or "production" if you prefer
-      DEBUG: "tailwindcss", // or resolveDebug("true") if you want to enable debug mode
-    };
-
-    const process = {
-      cwd: () => `/live/${codeSpace}/`,
-    };
-
-    Object.assign(globalThis, { process });
-    const TW = await import("./utils/tw");
-    Object.assign(globalThis, { TW });
-  }, 100);
-
   Object.assign(globalThis, { createWorkflow: createLangChainWorkflow });
   Object.assign(globalThis, {
-    uploadToHelia,
     enhancedFetch,
-    downloadFromHelia,
-    addFile,
-    bundleAndUpload,
     useArchive,
     useSpeedy,
   });
