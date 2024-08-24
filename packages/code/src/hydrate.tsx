@@ -97,7 +97,7 @@ const initializeApp = async () => {
     // Set up the environment
     var env = {
       NODE_ENV: "development", // or "production" if you prefer
-      DEBUG: resolveDebug(false), // or resolveDebug("true") if you want to enable debug mode
+      DEBUG: "tailwindcss", // or resolveDebug("true") if you want to enable debug mode
     };
 
     const process = {
