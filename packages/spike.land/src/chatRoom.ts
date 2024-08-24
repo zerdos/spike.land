@@ -10,7 +10,6 @@ import {
   makeSession,
   md5,
 } from "@spike-land/code";
-import { HTML } from "./fetchHandler";
 
 import Env from "./env";
 import { handleErrors } from "./handleErrors";
@@ -60,9 +59,7 @@ export class Code implements DurableObject {
     this.origin = url.origin;
     this.codeSpace = url.searchParams.get("room")!;
 
-    HTML(this.env).then(text => {
-      this.HTML = text;
-    });
+    this.HTML = await fetch(this.origin + "/index.html").then((r) => r.text());
 
     await this.state.blockConcurrencyWhile(async () => {
       try {
