@@ -128,6 +128,8 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     "resizable",
     "scroll-area",
     "select",
+    "image-loader",
+    "timeline",
     "separator",
     "sheet",
     "skeleton",
