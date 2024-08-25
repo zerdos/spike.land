@@ -1,5 +1,5 @@
+import { build, transpile } from "@spike-land/code";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
-import { build, transpile } from "../../code/src/transpile";
 
 Object.assign(globalThis, {
   performance: {
@@ -17,31 +17,42 @@ export default {
     const params = new URL(request.url).searchParams;
     const codeSpace = params.get("codeSpace");
 
-    const origin = params.get("origin");
+    const codeEnv = params.get("origin");
+
+    const origin = (codeEnv && codeEnv === "testing")
+      ? "https://testing.spike.land"
+      : "https://spike.land";
 
     if (request.method === "GET") {
       try {
-        const text = await build({
+        const results = await build({
           codeSpace,
-          origin: origin
-            ? `https://${origin}.spike.land`
-            : "https://spike.land",
+          origin,
+          format: "esm",
+          splitting: true,
+          external: "/*",
           wasmModule,
         });
 
+        const resText = results.map((result) =>
+          "------+--path: "
+          + result.path + "\n"
+          + result.text
+        ).join("\n");
+
         return new Response(
-          text,
+          resText,
         ),
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Headers": "*",
-              "Content-Type": "application/javascript",
+              "Content-Type": "text/plain",
               "cache-control": "no-cache",
             },
           };
       } catch (e) {
-        return new Response(`500 ${e}`);
+        return new Response(e.message, { status: 500 });
       }
     }
 
