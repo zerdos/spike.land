@@ -3,6 +3,7 @@ import { ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 
 import { formatCode, runCode, transpileCode } from "./components/editorUtils";
+import { ICode } from "./cSess.interface";
 import { connect } from "./shared";
 import { wait } from "./wait";
 
@@ -33,7 +34,7 @@ BC.onmessage = ({ data }) => {
   // }
 };
 
-class Code {
+class Code implements ICode {
   session: ICodeSession;
   head: string;
   user: string;
@@ -158,9 +159,6 @@ class Code {
   async run() {
     if (location.pathname === `/live/${codeSpace}`) {
       connect(`${codeSpace} ${this.user}`);
-
-      const { renderPreviewWindow } = await import("./renderPreviewWindow");
-      renderPreviewWindow({ codeSpace });
     }
   }
 }
@@ -173,4 +171,9 @@ export const { cSess } = globalThis;
 
 export const sess = cSess.session;
 
-export const run = () => cSess.run();
+export const run = async () => {
+  await cSess.run();
+
+  const { renderPreviewWindow } = await import("./renderPreviewWindow");
+  renderPreviewWindow({ codeSpace, cSess });
+};

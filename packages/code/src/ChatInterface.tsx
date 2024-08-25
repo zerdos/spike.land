@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { ChatFC } from "./ChatDrawer";
+import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 import { useDarkMode } from "./hooks/useDarkMode";
@@ -9,9 +10,10 @@ import { loadMessages } from "./utils/chatUtils";
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
+  cSess: ICode;
   onClose: () => void;
   isMobile: boolean;
-}> = React.memo(({ onClose, isOpen, isMobile }) => {
+}> = React.memo(({ onClose, isOpen, isMobile, cSess }) => {
   const codeSpace = useCodeSpace();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 

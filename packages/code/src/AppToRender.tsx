@@ -10,11 +10,12 @@ import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
+import { ICode } from "./cSess.interface";
 import { DraggableWindow } from "./DraggableWindow";
 import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 import { wait } from "./wait";
 
-export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
+export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
@@ -149,6 +150,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
           <RainbowWrapper>
             <Editor
               codeSpace={codeSpace}
+              cSess={cSess}
             />
             {!isOpen && (
               <Button
@@ -160,6 +162,7 @@ export const AppToRender: FC<{ codeSpace: string }> = ({ codeSpace }) => {
             )}
 
             <ChatInterface
+              cSess={cSess}
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
               isMobile={isMobile}

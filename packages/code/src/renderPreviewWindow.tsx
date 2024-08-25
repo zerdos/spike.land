@@ -1,11 +1,12 @@
 import { ClerkProvider } from "@clerk/clerk-react";
 import { createRoot } from "react-dom/client";
 import { AppToRender } from "./AppToRender";
+import { ICode } from "./cSess.interface";
 
 const singleton = { started: false };
 
 export const renderPreviewWindow = async (
-  { codeSpace }: { codeSpace: string },
+  { codeSpace, cSess }: { codeSpace: string; cSess: ICode },
 ) => {
   if (singleton.started) return;
   singleton.started = true;
@@ -22,7 +23,7 @@ export const renderPreviewWindow = async (
   const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
   root.render(
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <AppToRender codeSpace={codeSpace} />
+      <AppToRender codeSpace={codeSpace} cSess={cSess} />
     </ClerkProvider>,
   );
 };

@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
+import { ICode } from "@src/cSess.interface";
 import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
-import { cSess } from "@src/ws";
 import type { ForwardRefRenderFunction } from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
@@ -11,6 +11,7 @@ import { EditorNode } from "./ErrorReminder";
 
 interface EditorProps {
   codeSpace: string;
+  cSess: ICode;
   readOnly?: boolean;
 }
 
