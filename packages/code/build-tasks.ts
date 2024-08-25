@@ -250,6 +250,7 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
       "src/emotionJsxRuntime.ts",
       "src/shared.ts",
       "src/Wrapper.tsx",
+      "src/app/globals.css",
     ],
     alias: {
       ...buildOptions.alias,

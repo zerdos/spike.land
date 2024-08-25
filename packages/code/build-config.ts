@@ -1,6 +1,10 @@
+import autoprefixer from "autoprefixer";
 import type { BuildOptions } from "esbuild";
+import postCssPlugin from "esbuild-style-plugin";
+import tailwindcss from "tailwindcss";
 import { Environment } from "./build-tasks.ts";
 import { makeEnv } from "./helpers.ts";
+
 // import { fetchPlugin } from "./src/fetchPlugin.ts";
 
 export const buildOptions: BuildOptions = {
@@ -74,6 +78,11 @@ export const getCommonBuildOptions = (environment: Environment) => ({
   ...buildOptions,
   define: makeEnv(environment),
   plugins: [
+    postCssPlugin({
+      postcss: {
+        plugins: [tailwindcss, autoprefixer],
+      },
+    }),
     //  fetchPlugin()
   ],
 });
