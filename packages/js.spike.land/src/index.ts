@@ -1,5 +1,5 @@
 import { build, transpile } from "@spike-land/code";
-import wasmModule from "esbuild-wasm";
+import wasmModule from "esbuild-wasm/bin/esbuild.wasm";
 
 Object.assign(globalThis, {
   performance: {
