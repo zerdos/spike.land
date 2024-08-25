@@ -22,12 +22,12 @@ if (
 }
 
 setTimeout(() => {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = `${location.origin}/assets/g-chunk-72a597.css`;
+  // const link = document.createElement("link");
+  // link.rel = "stylesheet";
+  // link.href = `${location.origin}/assets/g-chunk-72a597.css`;
 
-  link.onload = () => {
-    import("./assets/tw-chunk-be5bad");
-  };
-  document.head.appendChild(link);
+  // link.onload = () => {
+  import("./assets/tw-chunk-be5bad");
+  // };
+  // document.head.appendChild(link);
 });
