@@ -9,7 +9,7 @@
     "dev": "wrangler dev",
     "clean": "rm -rf dist",
     "deploy": "yarn x:build && yarn deploy:dev",
-    "deploy:dev": "wrangler deploy ../code/dist/cf-esbuild.mjs",
+    "deploy:dev": "wrangler deploy src/index.mjs",
     "prepublishOnly": "wrangler deploy ../code/dist/cf-esbuild.mjs",
     "predeploy": "yarn x:build",
     "x:build": "echo ok"
@@ -21,6 +21,7 @@
     "wrangler": "3.72.2"
   },
   "dependencies": {
+    "@spike-land/code": "0.9.55",
     "esbuild-wasm": "0.23.1"
   },
   "publishConfig": {

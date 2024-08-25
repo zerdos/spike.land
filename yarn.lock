@@ -3926,6 +3926,7 @@ __metadata:
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-types": "npm:4.20240821.1"
+    "@spike-land/code": "npm:0.9.55"
     esbuild-wasm: "npm:0.23.1"
     typescript: "npm:5.5.4"
     wrangler: "npm:3.72.2"
