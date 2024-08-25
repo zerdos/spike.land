@@ -1,4 +1,4 @@
-import { build, transpile } from "@spike-land/code";
+import { build, transpile } from "@spike-land/code/src/transpile";
 import wasmModule from "esbuild-wasm/esbuild.wasm";
 
 Object.assign(globalThis, {
@@ -87,7 +87,7 @@ export default {
     if (request.method === "POST") {
       const respText = await initAndTransform(
         await request.text() as string,
-        request.headers.get("TR_ORIGIN"),
+        request.headers.get("TR_ORIGIN") as string,
       );
 
       if (typeof respText === "string") {

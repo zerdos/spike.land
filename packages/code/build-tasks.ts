@@ -241,7 +241,7 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
       "src/motion.ts",
       "src/start.ts",
       "src/emotion.ts",
-      // "src/cf-esbuild.mjs",
+      "src/cf-esbuild.mjs",
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",

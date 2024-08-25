@@ -9,6 +9,7 @@
   "module": "dist/modules.mjs",
   "files": [
     "dist",
+    "src",
     "dts"
   ],
   "scripts": {
