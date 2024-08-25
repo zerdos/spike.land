@@ -1,6 +1,6 @@
-import { AIHandler } from "@src/AIHandler";
+import type { AIHandler } from "@src/AIHandler";
 import { runner } from "@src/services/runner";
-import { Mutex } from "async-mutex";
+import type { Mutex } from "async-mutex";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
 
