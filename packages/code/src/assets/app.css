@@ -1,7 +1,12 @@
 
+
 /* Apply a border-box model to all elements */
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+* {
+  min-width: 0;
 }
 
 /* Reset margin and padding on body */
