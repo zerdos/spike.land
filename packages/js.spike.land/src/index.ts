@@ -1,5 +1,5 @@
 import { build, transpile } from "@spike-land/code";
-import wasmModule from "esbuild-wasm/bin/esbuild.wasm";
+import * as esbuildWASM from "esbuild-wasm/esbuild.wasm";
 
 Object.assign(globalThis, {
   performance: {
@@ -10,7 +10,7 @@ Object.assign(globalThis, {
 const initAndTransform = (
   code,
   origin,
-) => transpile(code, origin, wasmModule);
+) => transpile(code, origin, esbuildWASM.default);
 
 export default {
   async fetch(request) {
