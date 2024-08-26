@@ -2,13 +2,45 @@ import { useEffect, useState } from "react";
 import { useCodeSpace } from "./useCodeSpace";
 
 export const useDarkMode = () => {
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true",
-  );
+  const codeSpace = useCodeSpace();
+
+  const getInitialDarkMode = () => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode !== null) {
+      return savedMode === "true";
+    }
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  };
+
+  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
 
   useEffect(() => {
-    setIsDarkMode(localStorage.getItem("darkMode") === "true");
+    const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = () => {
+      if (localStorage.getItem("darkMode") === null) {
+        setIsDarkMode(darkModeMediaQuery.matches);
+      }
+    };
+
+    darkModeMediaQuery.addListener(handleChange);
+    return () => darkModeMediaQuery.removeListener(handleChange);
   }, []);
+
+  useEffect(() => {
+    const broadcastChannel = new BroadcastChannel("chat_sync");
+    const handleMessage = (event) => {
+      if (event.data.type === `update_dark_mode-${codeSpace}`) {
+        setIsDarkMode(event.data.isDarkMode);
+        localStorage.setItem("darkMode", event.data.isDarkMode.toString());
+      }
+    };
+
+    broadcastChannel.addEventListener("message", handleMessage);
+    return () => {
+      broadcastChannel.removeEventListener("message", handleMessage);
+      broadcastChannel.close();
+    };
+  }, [codeSpace]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
@@ -19,7 +51,6 @@ export const useDarkMode = () => {
     setIsDarkMode(newMode);
     localStorage.setItem("darkMode", newMode.toString());
     const broadcastChannel = new BroadcastChannel("chat_sync");
-    const codeSpace = useCodeSpace();
     broadcastChannel.postMessage({
       type: `update_dark_mode-${codeSpace}`,
       isDarkMode: newMode,
