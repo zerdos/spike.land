@@ -11,21 +11,20 @@ export const extractCodeModification = (response: string): string => {
 
 export const loadMessages = (codeSpace: string): Message[] => {
   const key = `chatMessages-${codeSpace}`;
-  const messages = JSON.parse(localStorage.getItem(key) || "[]").slice(0, -5) as Message[];
+  const rawMessages = JSON.parse(localStorage.getItem(key) || "[]") as Message[];
 
-  let prevRole = null;
-  for (let i = 0; i < messages.length; i++) {
-    const message = messages[i];
-    if (!prevRole) {
-      prevRole = message.role;
-    } else if (message.role === prevRole) {
-      messages.splice(i, 1);
-    } else {
-      prevRole = message.role;
+  // Filter out messages without a role
+  const validMessages = rawMessages.filter(m => !!m.role);
+
+  // Remove consecutive messages with the same role
+  const uniqueRoleMessages = validMessages.reduce((acc, current, index) => {
+    if (index === 0 || current.role !== validMessages[index - 1].role) {
+      acc.push(current);
     }
-  }
+    return acc;
+  }, [] as Message[]);
 
-  return messages.filter(m => !!m.role);
+  return uniqueRoleMessages;
 };
 
 export const updateSearchReplace = (

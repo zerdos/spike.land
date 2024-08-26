@@ -11,7 +11,7 @@ export type MessageContent =
   }>;
 
 export interface Message {
-  id: string;
+  id?: string;
   role: "user" | "assistant" | "system";
   content: MessageContent;
 }
