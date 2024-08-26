@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
-import { Message } from "../../types/Message";
-import { loadMessages } from "../chatUtils";
+import { beforeEach, describe, expect, it } from "vitest";
+import { Message } from "../types/Message";
+import { loadMessages } from "./chatUtils";
 
 // Mock localStorage
 const localStorageMock = (() => {

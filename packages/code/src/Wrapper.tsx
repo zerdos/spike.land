@@ -104,7 +104,7 @@ const useTranspile = (code: string) => {
         const result = await transpile({ code, originToUse: window.location.origin });
         if (!isCancelled) setTranspiled(result);
       } catch (error) {
-        console.error("Transpilation error:", error);
+        // console.error("Transpilation error:", error);
         if (!isCancelled) setTranspiled(null);
       }
     };

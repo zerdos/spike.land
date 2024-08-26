@@ -10,7 +10,12 @@ const createSpaceString = (length: number): string => " ".repeat(length);
 
 export const addSomeFixesIfNeeded = (code: string): string => {
   try {
-    const [start, ...rest] = code.split("css={css`");
+    let [start, ...rest] = code.split("css={css`");
+    if (rest.length) {
+      if (!code.includes("import { css } from \"@emotion/react\"")) {
+        start = `import { css } from "@emotion/react";\n${start}`;
+      }
+    }
     let prevIndent = (start.split("\n").pop()?.length || 0) + 2;
 
     return [

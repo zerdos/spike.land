@@ -3,7 +3,8 @@
 exports[`addSomeFixesIfNeeded > adds default export if 'export default' is missing and 'const App' is present 1`] = `"const App = () => {};"`;
 
 exports[`addSomeFixesIfNeeded > adds import statement for '@emotion/react' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
-"css={css\`
+"import { css } from "@emotion/react";
+css={css\`
     color: red;
   \`}"
 `;
@@ -13,7 +14,8 @@ exports[`addSomeFixesIfNeeded > adds import statement for 'FC' if ' FC<{' is pre
 exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `"useState(0)"`;
 
 exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
-"css={css\`
+"import { css } from "@emotion/react";
+css={css\`
     color: red;
   \`} css={css\`
       font-size: 16px;
