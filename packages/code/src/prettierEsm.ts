@@ -10,7 +10,7 @@ const createSpaceString = (length: number): string => " ".repeat(length);
 
 export const addSomeFixesIfNeeded = (code: string): string => {
   try {
-    let [start, ...rest] = code.split("css={css`");
+    let [start, ...rest] = code.split("css`");
     if (rest.length) {
       if (!code.includes("import { css } from \"@emotion/react\"")) {
         const [first, ...rest] = start.split("\n");
