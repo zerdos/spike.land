@@ -6,7 +6,7 @@ import { Message } from "../types/Message";
 import { createNewMessage, handleError, processMessage } from "./messageProcessing";
 import { useAutoSave } from "./useAutoSave";
 
-interface UseMessageHandlingProps {
+export interface UseMessageHandlingProps {
   codeSpace: string;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;

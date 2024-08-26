@@ -50,8 +50,19 @@ describe("useMessageHandling", () => {
     setEditingMessageId: vi.fn(),
     editInput: "",
     setEditInput: vi.fn(),
-    cSess: { session: { code: "initial code" } },
+    cSess: {
+      session: {
+        code: "initial code",
+        i: 0, // Change this from "" to 0
+        html: "",
+        css: "",
+        transpiled: "",
+      },
+      broadCastSessChanged: vi.fn(),
+      setCode: vi.fn(),
+    },
     broadcastChannel: { current: null },
+    setCodeWhatAiSeen: vi.fn(), // Add this line
   };
 
   beforeEach(() => {
