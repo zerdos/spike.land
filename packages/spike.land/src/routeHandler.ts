@@ -276,9 +276,7 @@ export class RouteHandler {
         );
       }
     }
-    const body = request.url.endsWith(".json")
-      ? stringifySession(this.code.session)
-      : JSON.stringify({ ...this.code.session, html: "", css: "" });
+    const body = stringifySession(this.code.session);
     return new Response(body, {
       status: 200,
       headers: {
