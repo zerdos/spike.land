@@ -1,1 +1,1 @@
-export * from "react-syntax-highlighter";
+export { Prism } from "react-syntax-highlighter";
