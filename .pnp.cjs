@@ -5030,6 +5030,7 @@ const RAW_RUNTIME_STATE =
           ["immutable", "npm:4.3.7"],\
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
           ["jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:25.0.0"],\
+          ["localforage", "npm:1.10.0"],\
           ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.436.0"],\
           ["miniflare", "npm:3.20240821.0"],\
           ["module", "npm:1.2.5"],\
@@ -12647,6 +12648,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["immediate", [\
+      ["npm:3.0.6", {\
+        "packageLocation": "./.yarn/global/cache/immediate-npm-3.0.6-c27588a2d3-10.zip/node_modules/immediate/",\
+        "packageDependencies": [\
+          ["immediate", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["immutable", [\
       ["npm:4.3.7", {\
         "packageLocation": "./.yarn/global/cache/immutable-npm-4.3.7-a76ac3621b-10.zip/node_modules/immutable/",\
@@ -13963,6 +13973,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["lie", [\
+      ["npm:3.1.1", {\
+        "packageLocation": "./.yarn/global/cache/lie-npm-3.1.1-91350720d9-10.zip/node_modules/lie/",\
+        "packageDependencies": [\
+          ["lie", "npm:3.1.1"],\
+          ["immediate", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["lilconfig", [\
       ["npm:2.1.0", {\
         "packageLocation": "./.yarn/global/cache/lilconfig-npm-2.1.0-a179261924-10.zip/node_modules/lilconfig/",\
@@ -14014,6 +14034,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/loader-utils-npm-3.3.1-eed38ce75b-10.zip/node_modules/loader-utils/",\
         "packageDependencies": [\
           ["loader-utils", "npm:3.3.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["localforage", [\
+      ["npm:1.10.0", {\
+        "packageLocation": "./.yarn/global/cache/localforage-npm-1.10.0-cf9ea9a436-10.zip/node_modules/localforage/",\
+        "packageDependencies": [\
+          ["localforage", "npm:1.10.0"],\
+          ["lie", "npm:3.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\

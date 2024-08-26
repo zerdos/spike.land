@@ -132,6 +132,7 @@
     "i18next": "^23.14.0",
     "immutable": "4.3.7",
     "input-otp": "^1.2.4",
+    "localforage": "^1.10.0",
     "lucide-react": "^0.436.0",
     "miniflare": "^3.20240821.0",
     "module": "1.2.5",
