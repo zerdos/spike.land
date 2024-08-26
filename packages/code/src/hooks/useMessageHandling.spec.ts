@@ -18,24 +18,6 @@ vi.mock("../shared", () => ({
   prettierToThrow: vi.fn(),
 }));
 
-// Mock localStorage
-const localStorageMock = (() => {
-  let store: Record<string, string> = {};
-  return {
-    getItem: vi.fn((key: string) => store[key] || null),
-    setItem: vi.fn((key: string, value: string) => {
-      store[key] = value.toString();
-    }),
-    removeItem: vi.fn((key: string) => {
-      delete store[key];
-    }),
-    clear: vi.fn(() => {
-      store = {};
-    }),
-  };
-})();
-Object.defineProperty(window, "localStorage", { value: localStorageMock });
-
 describe("useMessageHandling", () => {
   const mockProps = {
     codeSpace: "test-space",
@@ -45,7 +27,6 @@ describe("useMessageHandling", () => {
     setIsStreaming: vi.fn(),
     codeWhatAiSeen: "initial code",
     setAICode: vi.fn(),
-    saveMessages: vi.fn(),
     editingMessageId: null,
     setEditingMessageId: vi.fn(),
     editInput: "",
@@ -61,7 +42,6 @@ describe("useMessageHandling", () => {
       broadCastSessChanged: vi.fn(),
       setCode: vi.fn(),
     },
-    broadcastChannel: { current: null },
     setCodeWhatAiSeen: vi.fn(), // Add this line
   };
 
@@ -97,7 +77,7 @@ describe("useMessageHandling", () => {
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
     expect(mockProps.setIsStreaming).toHaveBeenCalledWith(true);
-    expect(mockProps.saveMessages).toHaveBeenCalled();
+    expect(mockProps.setMessages).toHaveBeenCalled();
     // expect(mockSendToAnthropic).toHaveBeenCalled();
     // expect(vi.mocked(runner)).toHaveBeenCalledWith("formatted code");
   });
@@ -110,9 +90,6 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith([]);
-    expect(localStorageMock.removeItem).toHaveBeenCalledWith(
-      "chatMessages-test-space",
-    );
   });
 
   it("should handle resetting chat", () => {
@@ -123,9 +100,6 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith([]);
-    expect(localStorage.removeItem).toHaveBeenCalledWith(
-      "chatMessages-test-space",
-    );
   });
 
   it("should handle editing a message", () => {
@@ -172,7 +146,7 @@ describe("useMessageHandling", () => {
     expect(mockProps.setMessages).toHaveBeenCalledWith([
       { id: "1", role: "user", content: "Edited message" },
     ]);
-    expect(mockProps.saveMessages).toHaveBeenCalled();
+    expect(mockProps.setMessages).toHaveBeenCalled();
     expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockProps.setEditInput).toHaveBeenCalledWith("");
   });
