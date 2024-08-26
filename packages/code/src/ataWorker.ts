@@ -191,11 +191,9 @@ async function handleHandshake(
 
   if (makeHash(connection.oldSession) !== String(data.hashCode)) {
     connection.oldSession = await fetchInitialSession(codeSpace);
-    const transpiled = data.transpiled
-      || await transpile(connection.oldSession.code, location.origin);
+
     connection.BC.postMessage({
       ...connection.oldSession,
-      transpiled,
       sender: "ATA WORKER2",
     });
   }
