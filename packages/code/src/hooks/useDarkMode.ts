@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
-import { useCodeSpace } from "./useCodeSpace";
+import { useEffect } from "react";
+import { useSyncedLocalStorage } from "./useSyncedLocalStorage";
 
 export const useDarkMode = () => {
-  const codeSpace = useCodeSpace();
-
-  const getInitialDarkMode = () => {
-    const savedMode = localStorage.getItem("darkMode");
-    if (savedMode !== null) {
-      return savedMode === "true";
-    }
+  const getInitialDarkMode = (): boolean => {
+    if (typeof window === "undefined") return false;
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   };
 
-  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
+  const [isDarkMode, setIsDarkMode] = useSyncedLocalStorage<boolean>("darkMode", getInitialDarkMode());
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -24,37 +19,14 @@ export const useDarkMode = () => {
 
     darkModeMediaQuery.addListener(handleChange);
     return () => darkModeMediaQuery.removeListener(handleChange);
-  }, []);
-
-  useEffect(() => {
-    const broadcastChannel = new BroadcastChannel("chat_sync");
-    const handleMessage = (event) => {
-      if (event.data.type === `update_dark_mode-${codeSpace}`) {
-        setIsDarkMode(event.data.isDarkMode);
-        localStorage.setItem("darkMode", event.data.isDarkMode.toString());
-      }
-    };
-
-    broadcastChannel.addEventListener("message", handleMessage);
-    return () => {
-      broadcastChannel.removeEventListener("message", handleMessage);
-      broadcastChannel.close();
-    };
-  }, [codeSpace]);
+  }, [setIsDarkMode]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    localStorage.setItem("darkMode", newMode.toString());
-    const broadcastChannel = new BroadcastChannel("chat_sync");
-    broadcastChannel.postMessage({
-      type: `update_dark_mode-${codeSpace}`,
-      isDarkMode: newMode,
-    });
+    setIsDarkMode(prevMode => !prevMode);
   };
 
   return { isDarkMode, toggleDarkMode };

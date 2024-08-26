@@ -5,7 +5,7 @@ import { useSyncedLocalStorage } from "./useSyncedLocalStorage";
 export const useChat = (
   codeSpace: string,
 ) => {
-  const [messages, saveMessages] = useSyncedLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
+  const [messages, setMessages] = useSyncedLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
