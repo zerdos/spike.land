@@ -5,8 +5,8 @@ exports[`addSomeFixesIfNeeded > adds default export if 'export default' is missi
 exports[`addSomeFixesIfNeeded > adds import statement for '@emotion/react' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
 "import { css } from "@emotion/react";
 css={css\`
-    color: red;
-  \`}
+         color: red;
+       \`}
 
 export default () => <></>; // Empty default export"
 `;
@@ -28,10 +28,10 @@ exports[`addSomeFixesIfNeeded > handles adds default export if 'export default' 
 exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
 "import { css } from "@emotion/react";
 css={css\`
-    color: red;
-  \`} css={css\`
-      font-size: 16px;
-    \`}
+         color: red;
+       \`} css={css\`
+           font-size: 16px;
+         \`}
 
 export default () => <></>; // Empty default export"
 `;

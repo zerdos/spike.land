@@ -40,7 +40,7 @@ export const addSomeFixesIfNeeded = (code: string): string => {
           [, ...rest].join("`"),
         );
       }),
-    ].join("css={css`\n");
+    ].join("css`\n");
 
     // Add default export if it's missing and there's no named export
     if (!result.includes("export default") && !result.includes("export const") && !result.includes("const App")) {
