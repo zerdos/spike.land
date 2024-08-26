@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => void] {
   const [storedValue, setStoredValue] = useState<T>(initialValue);
+  const isUpdatingFromBroadcast = useRef(false);
 
   const getStoredValue = useCallback(async (): Promise<T> => {
     if (typeof window !== "undefined" && "localStorage" in window) {
@@ -40,6 +41,12 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
     const valueToStore = value instanceof Function ? value(storedValue) : value;
     setStoredValue(valueToStore);
 
+    if (isUpdatingFromBroadcast.current) {
+      // If the update is coming from the broadcast channel, don't broadcast again
+      isUpdatingFromBroadcast.current = false;
+      return;
+    }
+
     if (typeof window !== "undefined" && "localStorage" in window) {
       try {
         localStorage.setItem(key, JSON.stringify(valueToStore));
@@ -73,6 +80,7 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
       const broadcastChannel = new BroadcastChannel("storage_sync");
       const handleMessage = (event: MessageEvent) => {
         if (event.data && event.data.type === `update_${key}`) {
+          isUpdatingFromBroadcast.current = true;
           setStoredValue(event.data.value as T);
         }
       };
