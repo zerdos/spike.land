@@ -88,7 +88,7 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
   );
   rpcProvider.registerSignalHandler(
     "connect",
-    (signal: string) => setConnections(signal),
+    ({ signal, sess }: { signal: string; sess: ICodeSession }) => setConnections(signal, sess),
   );
 }
 
@@ -98,7 +98,7 @@ if (!("SharedWorkerGlobalScope" in self)) {
   start(self as typeof self & MessagePort);
 }
 
-async function setConnections(signal: string) {
+async function setConnections(signal: string, session?: ICodeSession) {
   const [codeSpace, user] = signal.split(" ");
 
   const connection = connections[codeSpace] || {

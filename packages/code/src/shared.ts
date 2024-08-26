@@ -2,6 +2,7 @@ import SharedWorker from "@okikio/sharedworker";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
+import { ICodeSession } from "./makeSess";
 
 const mutex = new Mutex();
 
@@ -109,4 +110,10 @@ export const build = (
     format,
   }) as Promise<string>;
 
-export const connect = (codeSpace: string) => init().signal("connect", codeSpace);
+export const connect = ({
+  signal,
+  sess,
+}: {
+  signal: string;
+  sess: ICodeSession;
+}) => init().signal("connect", { signal, sess });

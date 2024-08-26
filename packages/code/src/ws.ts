@@ -158,7 +158,7 @@ class Code implements ICode {
 
   async run() {
     if (location.pathname === `/live/${codeSpace}`) {
-      connect(`${codeSpace} ${this.user}`);
+      connect({ signal: `${codeSpace} ${this.user}`, sess: this.session });
     }
   }
 }
