@@ -2,6 +2,11 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useSyncedStorage } from "./useSyncedStorage";
 
+// Mock useCodeSpace hook
+vi.mock("./useCodeSpace", () => ({
+  useCodeSpace: vi.fn(() => "test-codespace"),
+}));
+
 // Mock localStorage
 const localStorageMock = (() => {
   let store: { [key: string]: string } = {};
@@ -105,9 +110,7 @@ describe("useSyncedStorage", () => {
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
-      result.current[1]("newValue");
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await result.current[1]("newValue");
     });
 
     expect(result.current[0]).toBe("newValue");
@@ -130,24 +133,30 @@ describe("useSyncedStorage", () => {
     Object.defineProperty(window, "localStorage", { value: undefined, writable: true });
 
     const mockGetRequest = {
-      result: "indexedDBValue",
+      result: { value: "indexedDBValue" },
       onsuccess: null as any,
     };
 
     const mockGet = vi.fn(() => mockGetRequest);
-    const mockPut = vi.fn();
+    const mockPut = vi.fn().mockReturnValue({ onsuccess: null });
 
-    indexedDBMock.open.mockImplementation(() => ({
-      result: {
-        transaction: vi.fn(() => ({
-          objectStore: vi.fn(() => ({
-            get: mockGet,
-            put: mockPut,
-          })),
-        })),
-      },
-      onsuccess: null as any,
-    }));
+    const mockObjectStore = {
+      get: mockGet,
+      put: mockPut,
+    };
+
+    const mockTransaction = {
+      objectStore: vi.fn().mockReturnValue(mockObjectStore),
+    };
+
+    const mockDB = {
+      transaction: vi.fn().mockReturnValue(mockTransaction),
+    };
+
+    indexedDBMock.open.mockReturnValue({
+      result: mockDB,
+      onsuccess: null,
+    });
 
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
@@ -162,8 +171,7 @@ describe("useSyncedStorage", () => {
     expect(result.current[0]).toBe("indexedDBValue");
 
     await act(async () => {
-      result.current[1]("newIndexedDBValue");
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await result.current[1]("newIndexedDBValue");
     });
 
     expect(mockPut).toHaveBeenCalledWith({ key: "testKey", value: "newIndexedDBValue" });
@@ -174,12 +182,68 @@ describe("useSyncedStorage", () => {
     const { result: result2 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
-      result1.current[1]("newValue");
-      await new Promise(resolve => setTimeout(resolve, 100)); // Increase timeout to ensure BroadcastChannel message is processed
+      await result1.current[1]("newValue");
+      // Manually trigger the BroadcastChannel message
+      const broadcastChannel = BroadcastChannelMock.channels["storage_sync"];
+      broadcastChannel.postMessage({ type: "update_testKey-test-codespace", value: "newValue" });
+      await new Promise(resolve => setTimeout(resolve, 100)); // Increased timeout
     });
 
     expect(result1.current[0]).toBe("newValue");
     expect(result2.current[0]).toBe("newValue");
+  });
+
+  it("should handle function-based state updates correctly", async () => {
+    const { result } = renderHook(() => useSyncedStorage("testKey", 0));
+
+    await act(async () => {
+      await result.current[1]((prevValue) => prevValue + 1);
+    });
+
+    expect(result.current[0]).toBe(1);
+
+    await act(async () => {
+      await result.current[1]((prevValue) => prevValue + 1);
+    });
+
+    expect(result.current[0]).toBe(2);
+  });
+
+  it("should handle errors when reading from storage", async () => {
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    localStorageMock.getItem.mockImplementation(() => {
+      throw new Error("Storage error");
+    });
+
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    expect(result.current[0]).toBe("initialValue");
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error reading from storage:", expect.any(Error));
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it("should integrate with useCodeSpace hook", async () => {
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+
+    await act(async () => {
+      await result.current[1]("newValue");
+    });
+
+    expect(result.current[0]).toBe("newValue");
+
+    // Check if BroadcastChannel message includes the codespace
+    const broadcastChannel = BroadcastChannelMock.channels["storage_sync"];
+    expect(broadcastChannel).toBeDefined();
+    expect(broadcastChannel.listeners.length).toBeGreaterThan(0);
+
+    const mockMessage = { type: "update_testKey-test-codespace", value: "updatedValue" };
+    broadcastChannel.listeners[0]({ data: mockMessage } as MessageEvent);
+
+    expect(result.current[0]).toBe("updatedValue");
   });
 });

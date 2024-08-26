@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useCodeSpace } from "./useCodeSpace";
 
 interface StorageBackend<T> {
@@ -68,12 +68,12 @@ function getStorageBackend<T>(): StorageBackend<T> {
 export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => Promise<void>] {
   const codeSpace = useCodeSpace();
   const [storedValue, setStoredValue] = useState<T>(initialValue);
-  const storageBackend = useCallback(getStorageBackend<T>, []);
+  const storageBackend = useMemo(() => getStorageBackend<T>(), []); // Memoized storage backend
 
   const setValue = useCallback(async (value: T | ((val: T) => T)) => {
     const valueToStore = value instanceof Function ? value(storedValue) : value;
     setStoredValue(valueToStore);
-    await storageBackend().set(key, valueToStore);
+    await storageBackend.set(key, valueToStore);
 
     if (typeof BroadcastChannel !== "undefined") {
       const broadcastChannel = new BroadcastChannel("storage_sync");
@@ -85,7 +85,7 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
     let isMounted = true;
     const fetchStoredValue = async () => {
       try {
-        const value = await storageBackend().get(key);
+        const value = await storageBackend.get(key);
         if (value !== null && isMounted) {
           setStoredValue(value);
         }
