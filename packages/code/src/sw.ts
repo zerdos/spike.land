@@ -113,6 +113,7 @@ registerRoute(
 registerRoute(
   ({ url }) =>
     !url.pathname.startsWith("/api/")
+    && url.origin === location.origin
     && !url.pathname.startsWith("/live/")
     && !url.pathname.startsWith("/api/")
     && !files.has(url.pathname.slice(1)),
