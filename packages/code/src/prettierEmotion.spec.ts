@@ -26,4 +26,9 @@ describe("addSomeFixesIfNeeded", () => {
     const code = "css={css`color: red;`} css={css`font-size: 16px;`}";
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
+
+  it("handles adds default export if 'export default' is missing", () => {
+    const code = "export const myUtilityFN = () => {};";
+    expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
+  });
 });

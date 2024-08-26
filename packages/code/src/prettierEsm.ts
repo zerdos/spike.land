@@ -24,7 +24,7 @@ export const addSomeFixesIfNeeded = (code: string): string => {
     }
     let prevIndent = (start.split("\n").pop()?.length || 0) + 2;
 
-    return [
+    let result = [
       start,
       ...rest.map((x) => {
         const [first, second, ...rest] = x.split("`");
@@ -41,6 +41,13 @@ export const addSomeFixesIfNeeded = (code: string): string => {
         );
       }),
     ].join("css={css`\n");
+
+    // Add default export if it's missing and there's no named export
+    if (!result.includes("export default") && !result.includes("export const") && !result.includes("const App")) {
+      result += "\n\nexport default () => <></>; // Empty default export";
+    }
+
+    return result;
   } catch (error) {
     console.error("addSomeFixesIfNeeded error", { error, code });
     return code;

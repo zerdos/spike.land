@@ -6,12 +6,24 @@ exports[`addSomeFixesIfNeeded > adds import statement for '@emotion/react' if 'c
 "import { css } from "@emotion/react";
 css={css\`
     color: red;
-  \`}"
+  \`}
+
+export default () => <></>; // Empty default export"
 `;
 
-exports[`addSomeFixesIfNeeded > adds import statement for 'FC' if ' FC<{' is present and 'import type { FC }' is missing 1`] = `"FC<{ prop: string }>"`;
+exports[`addSomeFixesIfNeeded > adds import statement for 'FC' if ' FC<{' is present and 'import type { FC }' is missing 1`] = `
+"FC<{ prop: string }>
 
-exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `"useState(0)"`;
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useState(' is present and 'import { useState }' is missing 1`] = `
+"useState(0)
+
+export default () => <></>; // Empty default export"
+`;
+
+exports[`addSomeFixesIfNeeded > handles adds default export if 'export default' is missing 1`] = `"export const myUtilityFN = () => {};"`;
 
 exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
 "import { css } from "@emotion/react";
@@ -19,5 +31,7 @@ css={css\`
     color: red;
   \`} css={css\`
       font-size: 16px;
-    \`}"
+    \`}
+
+export default () => <></>; // Empty default export"
 `;
