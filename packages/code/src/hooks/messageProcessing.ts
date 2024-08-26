@@ -74,12 +74,24 @@ export async function processMessage(
     : assistantMessage.content;
 
   const starterCode = updateSearchReplace(contentToProcess, codeNow);
-  if (starterCode !== codeNow) {
-    runner(starterCode);
-  } else {
+
+  let success = false;
+  try {
+    if (starterCode !== codeNow) {
+      success = await runner(starterCode);
+      if (!success) {
+        await aiHandler.continueWithOpenAI(
+          `Please provide try to fix it.`,
+          starterCode,
+          setMessages,
+          setAICode,
+        );
+      }
+    }
+  } catch (error) {
     await aiHandler.continueWithOpenAI(
-      contentToProcess,
-      codeNow,
+      `Please provide try to fix it.`,
+      starterCode,
       setMessages,
       setAICode,
     );
