@@ -4,7 +4,7 @@ import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
 import { runner } from "@src/services/runner";
 import type { ForwardRefRenderFunction } from "react";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
@@ -19,7 +19,7 @@ export interface EditorRef {
   setValue: (code: string) => void;
 }
 
-const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
+export const Editor: ForwardRefRenderFunction<EditorRef, EditorProps> = (
   { codeSpace },
 ) => {
   const {
@@ -145,5 +145,3 @@ const EditorComponent: ForwardRefRenderFunction<EditorRef, EditorProps> = (
     </div>
   );
 };
-
-export const Editor = forwardRef<EditorRef, EditorProps>(EditorComponent);
