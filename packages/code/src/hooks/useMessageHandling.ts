@@ -1,4 +1,5 @@
 import { AIHandler } from "@src/AIHandler";
+import { ICode } from "@src/cSess.interface";
 import { Mutex } from "async-mutex";
 import { useCallback, useMemo } from "react";
 import { Message } from "../types/Message";
@@ -17,7 +18,7 @@ interface UseMessageHandlingProps {
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
-  cSess?: { session: { code: string } };
+  cSess: ICode;
   setEditInput: React.Dispatch<React.SetStateAction<string>>;
   broadcastChannel: React.MutableRefObject<BroadcastChannel | null>;
 }
@@ -43,7 +44,7 @@ export const useMessageHandling = ({
   const handleSendMessage = useCallback(async (content: string, screenshot: string) => {
     if (!content.trim()) return;
 
-    const { code } = (cSess || globalThis.cSess)?.session || { code: "" };
+    const { code } = cSess.session;
 
     useAutoSave(codeSpace);
 

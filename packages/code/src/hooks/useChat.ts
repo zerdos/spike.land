@@ -4,7 +4,6 @@ import { Message } from "../types/Message";
 export const useChat = (
   codeSpace: string,
   loadMessages: (codeSpace: string) => Message[],
-  x,
 ) => {
   const [messages, setMessages] = useState<Message[]>(loadMessages(codeSpace));
   const [input, setInput] = useState("");

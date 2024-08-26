@@ -56,6 +56,7 @@ const ChatInterface: React.FC<{
     editInput,
     setEditInput,
     broadcastChannel,
+    cSess,
   });
 
   const {
