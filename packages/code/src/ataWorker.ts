@@ -98,7 +98,7 @@ if (!("SharedWorkerGlobalScope" in self)) {
   start(self as typeof self & MessagePort);
 }
 
-async function setConnections(signal: string, session?: ICodeSession) {
+async function setConnections(signal: string, sess: ICodeSession) {
   const [codeSpace, user] = signal.split(" ");
 
   const connection = connections[codeSpace] || {
@@ -109,7 +109,7 @@ async function setConnections(signal: string, session?: ICodeSession) {
   };
 
   if (!connection.ws) {
-    connection.oldSession = await fetchInitialSession(codeSpace);
+    connection.oldSession = makeSession(sess);
     connection.ws = createWebSocket(codeSpace, connection);
     connection.codeSpace = codeSpace;
     connection.BC = createBroadcastChannel(codeSpace, connection);
