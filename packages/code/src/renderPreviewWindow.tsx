@@ -20,7 +20,6 @@ export const renderPreviewWindow = async (
   const root = createRoot(rootEl);
   document.getElementById("root")!.appendChild(rootEl);
 
-  const PUBLISHABLE_KEY = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
   root.render(
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <AppToRender codeSpace={codeSpace} cSess={cSess} />

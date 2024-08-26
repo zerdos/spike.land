@@ -1,3 +1,4 @@
+import { createClerkClient } from "@clerk/backend";
 import { makeSession, md5, stringifySession } from "@spike-land/code";
 import { Code } from "./chatRoom";
 
@@ -56,6 +57,7 @@ export class RouteHandler {
       "null": this.handleEditorRoute.bind(this),
       hydrated: this.handleDefaultRoute.bind(this),
       worker: this.handleDefaultRoute.bind(this),
+      my: this.handleMyCoude.bind(this),
       dehydrated: this.handleDefaultRoute.bind(this),
       iframe: this.handleDefaultRoute.bind(this),
       embed: this.handleDefaultRoute.bind(this),
@@ -339,6 +341,28 @@ export class RouteHandler {
     });
   }
 
+  private async handleMyCoude(request: Request): Promise<Response> {
+    const secretKey = this.code.getEnv()["CLERK_SECRET_KEY"];
+    const publishableKey = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
+
+    const clerkClient = createClerkClient({
+      secretKey,
+      publishableKey,
+    });
+    const { isSignedIn } = await clerkClient.authenticateRequest(request, {
+      jwtKey: `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp3A1CStTaorSWlsiSscH
+gi2ERdl1KfVsBhvuCIYHlhCowyYgvQhCpQwMD2nkley8WS+Iw8XC8s9yU0S31ONr
+mK8zh7e7X/QoCrwQ7SapqTsrg3ryJXWrVeAmG+F4kNvmS6xvyoI+czgzR3gCmE+f
+2Ge2cJ6fUQ1hh1jvVUXBdEe8TwRM8zZrlxKJkks3zDjvaPJkJvBqO9Qc52k9i5Sy
+0+NnG2ZXuO1Iz7IVB9ow9PkUK/R9+lyB5jASkF2Z8SRksaqJDV+ycEYMd87sO73H
+gPWHBSgqBcFixJbT0vLhddwwoqx1pYlnEPlU07NNQHi2JNOQoxsUXJAj/3+w5z6V
+hQIDAQAB
+-----END PUBLIC KEY-----
+`,
+    });
+    return new Response(JSON.stringify({ isSignedIn }), { status: 200 });
+  }
   private async handleDefaultRoute(
     _request: Request,
     url: URL,
