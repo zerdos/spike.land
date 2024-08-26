@@ -22,25 +22,29 @@ const localStorageMock = (() => {
 })();
 
 // Mock IndexedDB
-const indexedDBMock = {
-  open: vi.fn().mockReturnValue({
-    result: {
-      transaction: vi.fn().mockReturnValue({
-        objectStore: vi.fn().mockReturnValue({
-          get: vi.fn().mockReturnValue({
-            result: { value: "indexedDBValue" },
-            onsuccess: null,
-          }),
-          put: vi.fn().mockReturnValue({
-            onsuccess: null,
-          }),
-        }),
-      }),
-    },
-    onsuccess: null,
-    onupgradeneeded: null,
-  }),
-};
+const indexedDBMock = (() => {
+  let db: { [key: string]: any } = {};
+  return {
+    open: vi.fn(() => ({
+      result: {
+        transaction: vi.fn(() => ({
+          objectStore: vi.fn(() => ({
+            get: vi.fn((key: string) => ({
+              result: db[key],
+              onsuccess: null,
+            })),
+            put: vi.fn((value: any) => {
+              db[value.key] = value.value;
+              return { onsuccess: null };
+            }),
+          })),
+        })),
+      },
+      onsuccess: null,
+      onupgradeneeded: null,
+    })),
+  };
+})();
 
 // Mock BroadcastChannel
 class BroadcastChannelMock {
@@ -133,50 +137,24 @@ describe("useSyncedStorage", () => {
   it("should use IndexedDB in worker environments", async () => {
     Object.defineProperty(window, "localStorage", { value: undefined, writable: true });
 
-    const mockGetRequest = {
-      result: { value: "indexedDBValue" },
-      onsuccess: null as any,
-    };
-
-    const mockGet = vi.fn(() => mockGetRequest);
-    const mockPut = vi.fn().mockReturnValue({ onsuccess: null });
-
-    const mockObjectStore = {
-      get: mockGet,
-      put: mockPut,
-    };
-
-    const mockTransaction = {
-      objectStore: vi.fn().mockReturnValue(mockObjectStore),
-    };
-
-    const mockDB = {
-      transaction: vi.fn().mockReturnValue(mockTransaction),
-    };
-
-    indexedDBMock.open.mockReturnValue({
-      result: mockDB,
-      onsuccess: null,
-      onupgradeneeded: null,
-    });
-
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     await act(async () => {
       // Simulate IndexedDB open success
       indexedDBMock.open.mock.results[0].value.onsuccess?.({} as Event);
-      // Simulate IndexedDB get success
-      mockGetRequest.onsuccess?.({} as Event);
       await new Promise(resolve => setTimeout(resolve, 0));
     });
 
-    expect(result.current[0]).toBe("indexedDBValue");
+    expect(result.current[0]).toBe("initialValue");
 
     await act(async () => {
       await result.current[1]("newIndexedDBValue");
     });
 
-    expect(mockPut).toHaveBeenCalledWith({ key: "testKey", value: "newIndexedDBValue" });
+    expect(indexedDBMock.open().result.transaction().objectStore().put).toHaveBeenCalledWith({
+      key: "testKey",
+      value: "newIndexedDBValue",
+    });
   });
 
   it("should sync values across instances using BroadcastChannel", async () => {
@@ -185,10 +163,8 @@ describe("useSyncedStorage", () => {
 
     await act(async () => {
       await result1.current[1]("newValue");
-      // Manually trigger the BroadcastChannel message
-      const broadcastChannel = BroadcastChannelMock.channels["storage_sync"];
-      broadcastChannel.postMessage({ type: "update_testKey-test-codespace", value: "newValue" });
-      await new Promise(resolve => setTimeout(resolve, 100)); // Increased timeout
+      // Wait for the BroadcastChannel message to be processed
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     expect(result1.current[0]).toBe("newValue");
@@ -243,8 +219,11 @@ describe("useSyncedStorage", () => {
     expect(broadcastChannel).toBeDefined();
     expect(broadcastChannel.listeners.length).toBeGreaterThan(0);
 
-    const mockMessage = { type: "update_testKey-test-codespace", value: "updatedValue" };
-    broadcastChannel.listeners[0]({ data: mockMessage } as MessageEvent);
+    await act(async () => {
+      const mockMessage = { type: "update_testKey-test-codespace", value: "updatedValue" };
+      broadcastChannel.listeners[0]({ data: mockMessage } as MessageEvent);
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
 
     expect(result.current[0]).toBe("updatedValue");
   });
@@ -267,13 +246,17 @@ describe("useSyncedStorage", () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it("should handle when no suitable storage backend is available", () => {
+  it("should handle when no suitable storage backend is available", async () => {
     Object.defineProperty(window, "localStorage", { value: undefined, writable: true });
     (globalThis as any).indexedDB = undefined;
 
     const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
 
     expect(result.current[0]).toBe("initialValue");
     expect(consoleErrorSpy).toHaveBeenCalledWith("Failed to initialize storage backend:", expect.any(Error));

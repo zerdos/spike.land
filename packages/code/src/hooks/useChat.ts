@@ -6,8 +6,9 @@ export const useChat = (
   codeSpace: string,
 ) => {
   const [messages, setMessages] = useSyncedStorage(`chatMessages-${codeSpace}`, [] as Message[]);
+  const [isStreaming, setIsStreaming] = useSyncedStorage(`streaming-${codeSpace}`, false);
+
   const [input, setInput] = useState("");
-  const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editInput, setEditInput] = useState("");

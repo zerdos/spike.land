@@ -66,7 +66,6 @@ function getStorageBackend<T>(): StorageBackend<T> {
 }
 
 export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => Promise<void>] {
-  const codeSpace = useCodeSpace();
   const [storedValue, setStoredValue] = useState<T>(initialValue);
   const storageBackend = useMemo(() => {
     try {
@@ -87,12 +86,12 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
 
       if (typeof BroadcastChannel !== "undefined") {
         const broadcastChannel = new BroadcastChannel("storage_sync");
-        broadcastChannel.postMessage({ type: `update_${key}-${codeSpace}`, value: valueToStore });
+        broadcastChannel.postMessage({ type: `update_${key}`, value: valueToStore });
       }
     } catch (error) {
       console.error("Error writing to storage:", error);
     }
-  }, [key, codeSpace, storedValue, storageBackend]);
+  }, [key, storedValue, storageBackend]);
 
   useEffect(() => {
     let isMounted = true;
@@ -113,7 +112,7 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
     if (typeof BroadcastChannel !== "undefined") {
       const broadcastChannel = new BroadcastChannel("storage_sync");
       const handleMessage = (event: MessageEvent) => {
-        if (event.data && event.data.type === `update_${key}-${codeSpace}` && isMounted) {
+        if (event.data && event.data.type === `update_${key}` && isMounted) {
           setStoredValue(event.data.value as T);
         }
       };
@@ -129,7 +128,7 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
     return () => {
       isMounted = false;
     };
-  }, [key, codeSpace, storageBackend]);
+  }, [key, storageBackend]);
 
   return [storedValue, setValue];
 }
