@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { Message } from "../types/Message";
-import { useSyncedLocalStorage } from "./useSyncedLocalStorage";
+import { useSyncedStorage } from "./useSyncedStorage";
 
 export const useChat = (
   codeSpace: string,
 ) => {
-  const [messages, setMessages] = useSyncedLocalStorage(`chatMessages-${codeSpace}`, [] as Message[]);
+  const [messages, setMessages] = useSyncedStorage(`chatMessages-${codeSpace}`, [] as Message[]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [codeWhatAiSeen, setAICode] = useState("");
