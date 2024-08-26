@@ -12,7 +12,7 @@ export const addSomeFixesIfNeeded = (code: string): string => {
   try {
     let [start, ...rest] = code.split("css`");
     if (rest.length) {
-      if (!code.includes("import { css } from \"@emotion/react\"")) {
+      if (!code.includes("@emotion/react")) {
         const [first, ...rest] = start.split("\n");
         // insert the import to the 2nd line
         if (first.startsWith("//")) {
