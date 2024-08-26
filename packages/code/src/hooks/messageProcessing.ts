@@ -120,11 +120,11 @@ function createOnUpdateFunction(
   };
 }
 
-export function handleError(updatedMessages: Message[], saveMessages: (newMessages: Message[]) => void) {
+export function handleError(updatedMessages: Message[], setMessages: (newMessages: Message[]) => void) {
   updatedMessages.push({
     id: Date.now().toString(),
     role: "assistant",
     content: "Sorry, there was an error processing your request.",
   });
-  saveMessages(updatedMessages);
+  setMessages(updatedMessages);
 }

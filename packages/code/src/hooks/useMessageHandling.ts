@@ -14,13 +14,11 @@ export interface UseMessageHandlingProps {
   setIsStreaming: React.Dispatch<React.SetStateAction<boolean>>;
   codeWhatAiSeen: string;
   setAICode: React.Dispatch<React.SetStateAction<string>>;
-  saveMessages: (newMessages: Message[]) => void;
   editingMessageId: string | null;
   setEditingMessageId: React.Dispatch<React.SetStateAction<string | null>>;
   editInput: string;
   cSess: ICode;
   setEditInput: React.Dispatch<React.SetStateAction<string>>;
-  broadcastChannel: React.MutableRefObject<BroadcastChannel | null>;
 }
 
 export const useMessageHandling = ({
@@ -31,12 +29,10 @@ export const useMessageHandling = ({
   setIsStreaming,
   codeWhatAiSeen,
   setAICode,
-  saveMessages,
   setEditingMessageId,
   editInput,
   cSess,
   setEditInput,
-  broadcastChannel,
 }: UseMessageHandlingProps) => {
   const aiHandler = useMemo(() => new AIHandler(codeSpace), [codeSpace]);
   const mutex = useMemo(() => new Mutex(), []);
@@ -62,15 +58,14 @@ export const useMessageHandling = ({
     const newMessage = await createNewMessage(screenshot, claudeContent);
     const updatedMessages = [...messages, newMessage];
 
-    saveMessages(updatedMessages);
     setInput("");
     setIsStreaming(true);
 
     try {
-      await processMessage(aiHandler, updatedMessages, code, setMessages, setAICode, saveMessages, mutex);
+      await processMessage(aiHandler, updatedMessages, code, setMessages, setAICode, setMessages, mutex);
     } catch (error) {
       console.error("Error processing request:", error);
-      handleError(updatedMessages, saveMessages);
+      handleError(updatedMessages, setMessages);
     }
 
     setIsStreaming(false);
@@ -82,20 +77,12 @@ export const useMessageHandling = ({
     setIsStreaming,
     codeWhatAiSeen,
     setAICode,
-    saveMessages,
     cSess,
     aiHandler,
     mutex,
   ]);
 
-  const handleResetChat = useCallback(() => {
-    setMessages([]);
-    localStorage.removeItem(`chatMessages-${codeSpace}`);
-    broadcastChannel.current?.postMessage({
-      type: `update_messages-${codeSpace}`,
-      messages: [],
-    });
-  }, [codeSpace, setMessages, broadcastChannel]);
+  const handleResetChat = () => setMessages([]);
 
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
@@ -127,10 +114,9 @@ export const useMessageHandling = ({
         : msg
     );
     setMessages(updatedMessages);
-    saveMessages(updatedMessages);
     setEditingMessageId(null);
     setEditInput("");
-  }, [messages, editInput, saveMessages, setMessages, setEditingMessageId, setEditInput]);
+  }, [messages, editInput, setMessages, setEditingMessageId, setEditInput]);
 
   return {
     handleSendMessage,

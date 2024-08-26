@@ -6,7 +6,6 @@ import { useCodeSpace } from "./hooks/useCodeSpace";
 import { useDarkMode } from "./hooks/useDarkMode";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
-import { loadMessages } from "./utils/chatUtils";
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
@@ -32,9 +31,7 @@ const ChatInterface: React.FC<{
     setEditInput,
     messagesEndRef,
     inputRef,
-    broadcastChannel,
-    saveMessages,
-  } = useChat(codeSpace, loadMessages);
+  } = useChat(codeSpace);
 
   const {
     handleSendMessage,
@@ -50,12 +47,10 @@ const ChatInterface: React.FC<{
     setIsStreaming,
     codeWhatAiSeen,
     setAICode,
-    saveMessages,
     editingMessageId,
     setEditingMessageId,
     editInput,
     setEditInput,
-    broadcastChannel,
     cSess,
   });
 
