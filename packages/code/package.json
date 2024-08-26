@@ -59,7 +59,7 @@
     "@github/stable-socket": "1.1.0",
     "@hookform/resolvers": "^3.9.0",
     "@langchain/anthropic": "^0.2.15",
-    "@langchain/core": "^0.2.28",
+    "@langchain/core": "^0.2.29",
     "@langchain/langgraph": "^0.1.2",
     "@monaco-editor/react": "^4.6.0",
     "@mui/material": "5.16.7",

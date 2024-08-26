@@ -113,7 +113,7 @@ registerRoute(
 registerRoute(
   ({ url }) =>
     !url.pathname.startsWith("/api/")
-    && url.origin === location.origin
+    && (url.origin === location.origin || url.origin === "https://cdn.jsdelivr.net")
     && !url.pathname.startsWith("/live/")
     && !url.pathname.startsWith("/api/")
     && !files.has(url.pathname.slice(1)),

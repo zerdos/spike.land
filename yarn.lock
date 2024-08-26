@@ -1520,7 +1520,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:>=0.2.20 <0.3.0, @langchain/core@npm:>=0.2.21 <0.3.0, @langchain/core@npm:^0.2.28":
+"@langchain/core@npm:>=0.2.20 <0.3.0, @langchain/core@npm:>=0.2.21 <0.3.0":
   version: 0.2.28
   resolution: "@langchain/core@npm:0.2.28"
   dependencies:
@@ -1536,6 +1536,25 @@ __metadata:
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
   checksum: 10/9d4a049e17066cf50cdd2e920e38e4cd8a7b0fa7ce50cec606edbbbfc2eb18196df1a7847dba2cef3fe3244c69d291ff958b222739bb1238f53e805b9eaefd3e
+  languageName: node
+  linkType: hard
+
+"@langchain/core@npm:^0.2.29":
+  version: 0.2.29
+  resolution: "@langchain/core@npm:0.2.29"
+  dependencies:
+    ansi-styles: "npm:^5.0.0"
+    camelcase: "npm:6"
+    decamelize: "npm:1.2.0"
+    js-tiktoken: "npm:^1.0.12"
+    langsmith: "npm:^0.1.43"
+    mustache: "npm:^4.2.0"
+    p-queue: "npm:^6.6.2"
+    p-retry: "npm:4"
+    uuid: "npm:^10.0.0"
+    zod: "npm:^3.22.4"
+    zod-to-json-schema: "npm:^3.22.3"
+  checksum: 10/29a660b39c2ca5f4895765347ae4a389872aa6fe9e89d033f4b9d8448cdde3bec93f3397df476e6f9f8488ba379bfc29e166772b32cde52c8c242383634fb996
   languageName: node
   linkType: hard
 
@@ -3668,7 +3687,7 @@ __metadata:
     "@github/stable-socket": "npm:1.1.0"
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.2.15"
-    "@langchain/core": "npm:^0.2.28"
+    "@langchain/core": "npm:^0.2.29"
     "@langchain/langgraph": "npm:^0.1.2"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:5.16.7"
