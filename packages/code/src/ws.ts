@@ -50,8 +50,6 @@ class Code implements ICode {
     this.head = makeHash(this.session);
     this.user = localStorage.getItem(`${codeSpace} user`)
       || md5(self.crypto.randomUUID());
-
-    this.init();
   }
 
   sub(fn: (sess: ICodeSession) => void) {
@@ -157,6 +155,7 @@ class Code implements ICode {
   }
 
   async run() {
+    await this.init();
     if (location.pathname === `/live/${codeSpace}`) {
       connect({ signal: `${codeSpace} ${this.user}`, sess: this.session });
     }
