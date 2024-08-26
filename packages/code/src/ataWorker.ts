@@ -105,7 +105,7 @@ async function setConnections(signal: string, sess: ICodeSession) {
     user,
     codeSpace,
     controller: new AbortController(),
-    oldSession: makeSession({ i: 0, html: "", css: "", code: "" }),
+    oldSession: makeSession(sess),
   };
 
   if (!connection.ws) {
