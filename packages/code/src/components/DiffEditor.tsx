@@ -1,14 +1,23 @@
 import { editor } from "@/external/monacoEditor";
-
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface DiffEditorProps {
   original: string;
   modified: string;
   language?: string;
+  readOnly?: boolean;
+  minHeight?: number;
+  maxHeight?: number;
 }
 
-export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified }) => {
+export const DiffEditor: React.FC<DiffEditorProps> = memo(({
+  original,
+  modified,
+  language = "text/plain",
+  readOnly = true,
+  minHeight = 200,
+  maxHeight = 600,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [diffEditor, setDiffEditor] = useState<editor.IStandaloneDiffEditor | null>(null);
 
@@ -16,33 +25,36 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified 
     const lineCount = content.split("\n").length;
     const lineHeight = 20; // Adjust this value based on your font size and line spacing
     const padding = 20; // Add some padding
-    return Math.min(Math.max(lineCount * lineHeight + padding, 200), 600); // Min 200px, max 600px
-  }, []);
+    return Math.min(Math.max(lineCount * lineHeight + padding, minHeight), maxHeight);
+  }, [minHeight, maxHeight]);
 
   const editorHeight = useMemo(() => {
     const originalHeight = calculateHeight(original);
     const modifiedHeight = calculateHeight(modified);
-    return Math.max(originalHeight, modifiedHeight) + 2;
+    return Math.max(originalHeight, modifiedHeight);
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
     if (containerRef.current && !diffEditor) {
       const diffy = editor.createDiffEditor(containerRef.current, {
         diffAlgorithm: "advanced",
-        readOnly: true,
-        diffWordWrap: "off",
+        readOnly,
+        diffWordWrap: "on",
         hideUnchangedRegions: {
           enabled: true,
+          minimumLineCount: 5,
         },
-        lineNumbers: "off",
+        lineNumbers: "on",
         scrollBeyondLastLine: false,
         minimap: { enabled: false },
         renderSideBySide: true,
+        renderOverviewRuler: false,
+        theme: "vs-dark", // Add a dark theme
       });
 
       diffy.setModel({
-        original: editor.createModel(original, "text/plain"),
-        modified: editor.createModel(modified, "text/plain"),
+        original: editor.createModel(original, language),
+        modified: editor.createModel(modified, language),
       });
       setDiffEditor(diffy);
     }
@@ -51,23 +63,34 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({ original, modified 
       if (diffEditor) {
         const diffModels = diffEditor.getModel();
         diffEditor.dispose();
-        if (!diffModels) {
-          return;
+        if (diffModels) {
+          diffModels.original.dispose();
+          diffModels.modified.dispose();
         }
-        const { original, modified } = diffModels;
-        original.dispose();
-        modified.dispose();
       }
     };
-  }, [diffEditor, containerRef, containerRef.current, original, modified]);
+  }, [diffEditor, language, original, modified, readOnly]);
+
+  useEffect(() => {
+    if (diffEditor) {
+      const diffModels = diffEditor.getModel();
+      if (diffModels) {
+        diffModels.original.setValue(original);
+        diffModels.modified.setValue(modified);
+      }
+    }
+  }, [diffEditor, original, modified]);
 
   return (
     <div
       ref={containerRef}
       style={{
-        width: "80%",
+        width: "100%",
         height: `${editorHeight}px`,
-        maxHeight: "800px",
+        maxHeight: `${maxHeight}px`,
+        border: "1px solid #ccc",
+        borderRadius: "4px",
+        overflow: "hidden",
       }}
     />
   );

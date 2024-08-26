@@ -68,22 +68,36 @@ function getStorageBackend<T>(): StorageBackend<T> {
 export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => Promise<void>] {
   const codeSpace = useCodeSpace();
   const [storedValue, setStoredValue] = useState<T>(initialValue);
-  const storageBackend = useMemo(() => getStorageBackend<T>(), []); // Memoized storage backend
+  const storageBackend = useMemo(() => {
+    try {
+      return getStorageBackend<T>();
+    } catch (error) {
+      console.error("Failed to initialize storage backend:", error);
+      return null;
+    }
+  }, []);
 
   const setValue = useCallback(async (value: T | ((val: T) => T)) => {
-    const valueToStore = value instanceof Function ? value(storedValue) : value;
-    setStoredValue(valueToStore);
-    await storageBackend.set(key, valueToStore);
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      if (storageBackend) {
+        await storageBackend.set(key, valueToStore);
+      }
 
-    if (typeof BroadcastChannel !== "undefined") {
-      const broadcastChannel = new BroadcastChannel("storage_sync");
-      broadcastChannel.postMessage({ type: `update_${key}-${codeSpace}`, value: valueToStore });
+      if (typeof BroadcastChannel !== "undefined") {
+        const broadcastChannel = new BroadcastChannel("storage_sync");
+        broadcastChannel.postMessage({ type: `update_${key}-${codeSpace}`, value: valueToStore });
+      }
+    } catch (error) {
+      console.error("Error writing to storage:", error);
     }
   }, [key, codeSpace, storedValue, storageBackend]);
 
   useEffect(() => {
     let isMounted = true;
     const fetchStoredValue = async () => {
+      if (!storageBackend) return;
       try {
         const value = await storageBackend.get(key);
         if (value !== null && isMounted) {

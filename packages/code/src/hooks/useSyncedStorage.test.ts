@@ -38,6 +38,7 @@ const indexedDBMock = {
       }),
     },
     onsuccess: null,
+    onupgradeneeded: null,
   }),
 };
 
@@ -156,6 +157,7 @@ describe("useSyncedStorage", () => {
     indexedDBMock.open.mockReturnValue({
       result: mockDB,
       onsuccess: null,
+      onupgradeneeded: null,
     });
 
     const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
@@ -245,5 +247,37 @@ describe("useSyncedStorage", () => {
     broadcastChannel.listeners[0]({ data: mockMessage } as MessageEvent);
 
     expect(result.current[0]).toBe("updatedValue");
+  });
+
+  it("should handle errors when setting a value in storage", async () => {
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    localStorageMock.setItem.mockImplementation(() => {
+      throw new Error("Storage error");
+    });
+
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+
+    await act(async () => {
+      await result.current[1]("newValue");
+    });
+
+    expect(result.current[0]).toBe("newValue"); // The local state should still update
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error writing to storage:", expect.any(Error));
+
+    consoleErrorSpy.mockRestore();
+  });
+
+  it("should handle when no suitable storage backend is available", () => {
+    Object.defineProperty(window, "localStorage", { value: undefined, writable: true });
+    (globalThis as any).indexedDB = undefined;
+
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+
+    expect(result.current[0]).toBe("initialValue");
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Failed to initialize storage backend:", expect.any(Error));
+
+    consoleErrorSpy.mockRestore();
   });
 });
