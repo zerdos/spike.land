@@ -37,7 +37,7 @@
     "@emotion/react": "11.13.3",
     "@playwright/test": "1.46.1",
     "@spike-land/ai-devtools": "workspace:^",
-    "@types/eslint": "9.6.0",
+    "@types/eslint": "9.6.1",
     "@types/esprima": "^4.0.6",
     "@types/react": "^18.3.4",
     "@types/react-dom": "18.3.0",
