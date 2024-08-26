@@ -13,7 +13,13 @@ export const addSomeFixesIfNeeded = (code: string): string => {
     let [start, ...rest] = code.split("css={css`");
     if (rest.length) {
       if (!code.includes("import { css } from \"@emotion/react\"")) {
-        start = `import { css } from "@emotion/react";\n${start}`;
+        const [first, ...rest] = start.split("\n");
+        // insert the import to the 2nd line
+        if (first.startsWith("//")) {
+          start = [first, "import { css } from \"@emotion/react\";", ...rest].join("\n");
+        } else {
+          start = ["import { css } from \"@emotion/react\";", first, ...rest].join("\n");
+        }
       }
     }
     let prevIndent = (start.split("\n").pop()?.length || 0) + 2;
