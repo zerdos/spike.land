@@ -234,9 +234,6 @@ const handleDefaultPage = async () => {
       const rendered = await renderApp({ rootElement: myEl, transpiled });
       if (signal.aborted) return false;
 
-      await wait(200);
-      if (signal.aborted) return false;
-
       if (signal.aborted) {
         try {
           rendered !== null && rendered !== undefined && rendered!.cleanup !== undefined && rendered.cleanup();
