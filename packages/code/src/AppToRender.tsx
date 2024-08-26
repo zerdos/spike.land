@@ -12,6 +12,7 @@ import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
 import { ICode } from "./cSess.interface";
 import { DraggableWindow } from "./DraggableWindow";
+import { useClerkSWR } from "./hooks/useClerkSWR";
 import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 import { wait } from "./wait";
 
@@ -19,6 +20,9 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
   const [hideRest, setHideRest] = useState(true);
+  const { data, error, isLoading } = useClerkSWR(`/live/${codeSpace}/my`);
+
+  console.log({ data, error, isLoading });
 
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 

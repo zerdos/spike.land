@@ -344,7 +344,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:^5.4.2":
+"@clerk/clerk-react@npm:5.4.2, @clerk/clerk-react@npm:^5.4.2":
   version: 5.4.2
   resolution: "@clerk/clerk-react@npm:5.4.2"
   dependencies:
@@ -367,6 +367,26 @@ __metadata:
     "@clerk/types": "npm:4.14.0"
     tslib: "npm:2.4.1"
   checksum: 10/5e82309e29355f7d57ac57273b8c942b3f09a6d88fdc79d58b8befff23087676a0efa131c52150e4eb00a83972902ba78280bdf239f3d298ae3d7b75429f2a85
+  languageName: node
+  linkType: hard
+
+"@clerk/nextjs@npm:^5.3.3":
+  version: 5.3.3
+  resolution: "@clerk/nextjs@npm:5.3.3"
+  dependencies:
+    "@clerk/backend": "npm:1.8.0"
+    "@clerk/clerk-react": "npm:5.4.2"
+    "@clerk/shared": "npm:2.5.2"
+    "@clerk/types": "npm:4.14.0"
+    crypto-js: "npm:4.2.0"
+    path-to-regexp: "npm:6.2.2"
+    server-only: "npm:0.0.1"
+    tslib: "npm:2.4.1"
+  peerDependencies:
+    next: ^13.5.4 || ^14.0.3 || >=15.0.0-rc
+    react: ">=18 || >=19.0.0-beta"
+    react-dom: ">=18 || >=19.0.0-beta"
+  checksum: 10/0df6844a97e1a78a00d36f571b721eaf26888f49d341873e67e84330a30932f499c4a46621d229c5eff2a86d7a2a25e950fc088047aec834b9fa837c05b5f427
   languageName: node
   linkType: hard
 
@@ -3678,6 +3698,7 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.25.4"
     "@clerk/clerk-react": "npm:^5.4.2"
+    "@clerk/nextjs": "npm:^5.3.3"
     "@emotion/babel-plugin": "npm:^11.12.0"
     "@emotion/cache": "npm:11.13.1"
     "@emotion/css-prettifier": "npm:^1.1.4"
@@ -3830,6 +3851,7 @@ __metadata:
     sonner: "npm:^1.5.0"
     stream: "npm:^0.0.3"
     stream-browserify: "npm:3.0.0"
+    swr: "npm:^2.2.5"
     tailwind-merge: "npm:^2.5.2"
     tailwindcss: "npm:^3.4.10"
     tailwindcss-animate: "npm:^1.0.7"
@@ -7148,6 +7170,13 @@ __metadata:
     randombytes: "npm:^2.0.0"
     randomfill: "npm:^1.0.3"
   checksum: 10/5ab534474e24c8c3925bd1ec0de57c9022329cb267ca8437f1e3a7200278667c0bea0a51235030a9da3165c1885c73f51cfbece1eca31fd4a53cfea23f628c9b
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: 10/c7bcc56a6e01c3c397e95aa4a74e4241321f04677f9a618a8f48a63b5781617248afb9adb0629824792e7ec20ca0d4241a49b6b2938ae6f973ec4efc5c53c924
   languageName: node
   linkType: hard
 
@@ -13678,7 +13707,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:^6.2.0":
+"path-to-regexp@npm:6.2.2, path-to-regexp@npm:^6.2.0":
   version: 6.2.2
   resolution: "path-to-regexp@npm:6.2.2"
   checksum: 10/f7d11c1a9e02576ce0294f4efdc523c11b73894947afdf7b23a0d0f7c6465d7a7772166e770ddf1495a8017cc0ee99e3e8a15ed7302b6b948b89a6dd4eea895e
@@ -15500,6 +15529,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"server-only@npm:0.0.1":
+  version: 0.0.1
+  resolution: "server-only@npm:0.0.1"
+  checksum: 10/c432348956641ea3f460af8dc3765f3a1bdbcf7a1e0205b0756d868e6e6fe8934cdee6bff68401a1dd49ba4a831c75916517a877446d54b334f7de36fa273e53
+  languageName: node
+  linkType: hard
+
 "set-blocking@npm:^2.0.0":
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
@@ -16408,7 +16444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:^2.2.0":
+"swr@npm:^2.2.0, swr@npm:^2.2.5":
   version: 2.2.5
   resolution: "swr@npm:2.2.5"
   dependencies:
