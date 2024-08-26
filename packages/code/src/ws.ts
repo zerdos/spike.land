@@ -169,8 +169,6 @@ if (!globalThis.cSess) {
 
 export const { cSess } = globalThis;
 
-export const sess = cSess.session;
-
 export const run = async () => {
   await cSess.run();
 

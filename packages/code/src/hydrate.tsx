@@ -8,8 +8,7 @@ import { ICodeSession } from "./makeSess";
 import { prettierCss } from "./shared";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
-import { cSess } from "./ws";
-import { run as handleLivePage } from "./ws";
+import { cSess, run as handleLivePage } from "./ws";
 
 // import { deleteAllServiceWorkers } from "./swUtils";
 
