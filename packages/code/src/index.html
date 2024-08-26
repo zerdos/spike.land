@@ -9,12 +9,12 @@
     <!-- Updated Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' https://clerk.spike.land blob: 'unsafe-eval';
+        script-src 'self' data: https://clerk.spike.land blob: 'unsafe-eval';
         worker-src 'self' blob:;
         style-src 'self' 'unsafe-inline';
-        connect-src 'self' https://clerk.spike.land wss://*.peerjs.com;
-        font-src 'self' data:;
-        img-src 'self' data: https://img.clerk.com https://*.clerk.dev;
+        connect-src 'self' blob: https://clerk.spike.land wss://*.peerjs.com;
+        font-src 'self' data: blob: https://fonts.gstatic.com;
+        img-src 'self' data: blob: https://img.clerk.com https://*.clerk.dev;
     ">
 
     <link rel="manifest" href="/manifest.json" type="application/manifest+json">
