@@ -4,6 +4,7 @@ name = "spike-land"
 account_id = "1f98921051196545ebe79a450d3c71ed"
 compatibility_date = "2021-10-16"
 main = "./src/cf-workers.ts"
+logpush = true
 
 kv_namespaces = [
     { binding = "KV", id = "e05276b573af4afd905bc6ac1ed371d5", preview_id = "9db106837d4d437a962612dd04197581" }
@@ -46,6 +47,7 @@ bucket = "../code/dist" # Add the directory with your static assets
  
 [env.testing]
 
+logpush = true
 name = "testing-spike-land"
 
 kv_namespaces = [
