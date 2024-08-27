@@ -13,7 +13,7 @@ Apart from the change blocks, use markdown format.
 To generate images (from a prompt): 
 
 \`\`\`tsx
-import { ImageLoader } from '@components/ui/image-loader';
+import { ImageLoader } from '@/components/ui/image-loader';
 
 function MyComponent() { return ( <ImageLoader prompt="A beautiful sunset over the ocean" aspect_ratio="16:9"/> ); }
 \`\`\`
