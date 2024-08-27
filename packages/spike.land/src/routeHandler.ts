@@ -361,6 +361,7 @@ hQIDAQAB
 -----END PUBLIC KEY-----
 `,
     });
+
     return new Response(JSON.stringify({ isSignedIn }), { status: 200 });
   }
   private async handleDefaultRoute(
