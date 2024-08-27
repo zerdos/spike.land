@@ -76,7 +76,7 @@ export const transpileCode = async (code: string, signal: AbortSignal): Promise<
   }
 };
 
-export const runCode = async (cSess: ICodeSession, signal: AbortSignal) => {
+export const runCode = async (cSess: Partial<ICodeSession>, signal: AbortSignal) => {
   const { error, setError } = useErrorHandling();
 
   try {
