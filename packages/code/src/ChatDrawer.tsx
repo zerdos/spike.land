@@ -162,7 +162,6 @@ const ChatInterface: React.FC = () => {
     setInput("");
     setEditingMessageId(null);
     setEditInput("");
-    setIsStreaming(false);
     setScreenshotImage(null);
   }, []);
 
