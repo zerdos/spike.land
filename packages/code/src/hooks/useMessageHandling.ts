@@ -82,7 +82,17 @@ export const useMessageHandling = ({
     mutex,
   ]);
 
-  const handleResetChat = () => setMessages([]);
+  const handleResetChat = useCallback(() => {
+    setMessages([]);
+    setIsStreaming(false);
+    setInput("");
+    setEditingMessageId(null);
+    setEditInput("");
+    setAICode("");
+    // Clear the synced storage
+    localStorage.removeItem(`chatMessages-${codeSpace}`);
+    localStorage.removeItem(`streaming-${codeSpace}`);
+  }, [codeSpace, setMessages, setIsStreaming, setInput, setEditingMessageId, setEditInput, setAICode]);
 
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);

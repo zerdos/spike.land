@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { ChatFC } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
@@ -35,7 +35,7 @@ const ChatInterface: React.FC<{
 
   const {
     handleSendMessage,
-    handleResetChat,
+    handleResetChat: originalHandleResetChat,
     handleEditMessage,
     handleCancelEdit,
     handleSaveEdit,
@@ -53,6 +53,13 @@ const ChatInterface: React.FC<{
     setEditInput,
     cSess,
   });
+
+  const handleResetChat = useCallback(() => {
+    originalHandleResetChat();
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  }, [originalHandleResetChat, inputRef]);
 
   const {
     isScreenshotLoading,
@@ -131,7 +138,7 @@ const ChatInterface: React.FC<{
     return () => clearInterval(interval);
   }, [isStreaming]);
 
-  if (!isOpen) return <></>;
+  if (!isOpen) return null;
   return <ChatFC {...memoizedChatFCProps} />;
 });
 

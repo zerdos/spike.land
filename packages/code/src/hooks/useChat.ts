@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Message } from "../types/Message";
 import { useSyncedStorage } from "./useSyncedStorage";
 
@@ -15,6 +15,18 @@ export const useChat = (
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const resetChat = useCallback(() => {
+    setMessages([]);
+    setIsStreaming(false);
+    setInput("");
+    setAICode("");
+    setEditingMessageId(null);
+    setEditInput("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  }, [setMessages, setIsStreaming, setInput, setAICode, setEditingMessageId, setEditInput]);
+
   return {
     messages,
     setMessages,
@@ -30,5 +42,6 @@ export const useChat = (
     setEditInput,
     messagesEndRef,
     inputRef,
+    resetChat,
   };
 };
