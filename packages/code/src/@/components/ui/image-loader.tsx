@@ -1,3 +1,5 @@
+import React from "react";
+
 const RESOLUTION = {
   "9:21": [640, 1536],
   "9:16": [768, 1344],
@@ -8,26 +10,25 @@ const RESOLUTION = {
   "2:3": [832, 1216],
   "3:2": [1216, 832],
   "1:1": [1024, 1024],
-};
+} as const;
 
 interface ImageLoaderProps {
   cfg?: number;
   steps?: number;
   prompt: string;
-  aspect_ratio?: string;
+  aspect_ratio?: keyof typeof RESOLUTION;
   output_format?: "webp" | "png" | "jpeg";
   output_quality?: number;
   negative_prompt?: string;
   prompt_strength?: number;
   className?: string;
-  [key: string]: any; // Add index signature
 }
 
-const DEFAULT_PROPS: ImageLoaderProps = {
+const DEFAULT_PROPS: Required<ImageLoaderProps> = {
   cfg: 3.5,
   steps: 28,
   prompt: "A web app for AI development. spike.land",
-  aspect_ratio: "16:9" as keyof typeof RESOLUTION,
+  aspect_ratio: "16:9",
   output_format: "webp",
   output_quality: 90,
   negative_prompt: "",
@@ -36,20 +37,21 @@ const DEFAULT_PROPS: ImageLoaderProps = {
 };
 
 export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
-  const params = new URLSearchParams();
-
-  Object.entries(props).forEach(([key, value]) => {
-    if (!DEFAULT_PROPS[key]) return;
-    if (value !== DEFAULT_PROPS[key as keyof ImageLoaderProps] && key !== "className") {
-      params.append(key, value as string);
-    }
-  });
+  const params = React.useMemo(() => {
+    const params = new URLSearchParams();
+    (Object.keys(DEFAULT_PROPS) as Array<keyof ImageLoaderProps>).forEach((key) => {
+      if (key !== "className" && props[key] !== DEFAULT_PROPS[key]) {
+        params.append(key, String(props[key]));
+      }
+    });
+    return params.toString();
+  }, [props]);
 
   const containerClassName = props.className || "w-full max-w-2xl mx-auto";
 
   return (
     <img
-      src={`/replicate.webp?${params.toString()}`}
+      src={`/replicate.webp?${params}`}
       alt={props.prompt || DEFAULT_PROPS.prompt}
       className={containerClassName}
     />
