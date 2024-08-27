@@ -19,6 +19,7 @@ import { wait } from "./wait";
 export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
+  const prompt = sp.get("prompt");
   const [hideRest, setHideRest] = useState(true);
   const { data, error, isLoading } = useClerkSWR(`/live/${codeSpace}/my`);
 
@@ -26,7 +27,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
 
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(prompt ? true : false);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 

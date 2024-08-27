@@ -106,6 +106,14 @@ const ChatInterface: React.FC<{
   ]);
 
   useEffect(() => {
+    const sp = new URLSearchParams(location.search);
+
+    const prompt = sp.get("prompt");
+    if (prompt) {
+      memoizedChatFCProps.handleSendMessage(prompt, "");
+      localStorage.search = null;
+    }
+
     if (isOpen) {
       setTimeout(() => {
         document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
