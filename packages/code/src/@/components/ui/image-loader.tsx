@@ -40,7 +40,7 @@ export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
   const params = React.useMemo(() => {
     const params = new URLSearchParams();
     (Object.keys(DEFAULT_PROPS) as Array<keyof ImageLoaderProps>).forEach((key) => {
-      if (key !== "className" && props[key] !== DEFAULT_PROPS[key]) {
+      if (key && props[key] && key !== "className" && props[key] !== DEFAULT_PROPS[key]) {
         params.append(key, String(props[key]));
       }
     });
