@@ -88,12 +88,13 @@ export const runCode = async (cSess: ICodeSession, signal: AbortSignal) => {
       html: string;
       css: string;
     }) => void;
+
+    let reject: (reason: string) => void;
+
     const promise = new Promise<{ i: number; html: string; css: string }>(
       (_resolve, _reject) => {
         resolve = _resolve;
-        setTimeout(() => {
-          if (signal.aborted) return resolve({ i: counter, html: "", css: "" });
-        }, 3000);
+        reject = _reject;
       },
     );
 
@@ -118,7 +119,13 @@ export const runCode = async (cSess: ICodeSession, signal: AbortSignal) => {
       sender: "Runner / Editor",
     });
 
+    const clear = setTimeout(() => {
+      reject("timed out");
+    }, 500);
+
     const res = await promise;
+
+    clearTimeout(clear);
 
     if (signal.aborted) return false;
 
