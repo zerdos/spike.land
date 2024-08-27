@@ -487,16 +487,16 @@ hQIDAQAB
     const render =  () => renderApp({ App, rootElement: document.getElementById("embed") });
     render();
 
-    setTimeout(() => {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "${origin}/assets/g-chunk-72a597.css";
+//     setTimeout(() => {
+//   const link = document.createElement("link");
+//   link.rel = "stylesheet";
+//   link.href = "${origin}/assets/g-chunk-72a597.css";
 
-  link.onload = () => {
-    import(` + "`${location.origin}` +" + `"/assets/tw-chunk-be5bad.js");
-  };
-  document.head.appendChild(link);
-});
+//   link.onload = () => {
+//     import(` + "`${location.origin}` +" + `"/assets/tw-chunk-be5bad.js");
+//   };
+//   document.head.appendChild(link);
+// });
 
     
     `;
