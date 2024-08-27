@@ -340,7 +340,7 @@ __metadata:
     cookie: "npm:0.5.0"
     snakecase-keys: "npm:5.4.4"
     tslib: "npm:2.4.1"
-  checksum: 10/ac8debd64f8ef7bc87ff35816aefa445802ed6ae8f42fb8f76c3188bdc2ab9b025c27d87876f5be859770f4ee1d3672bddf2b1ba8ff4067193f1c83c37999eaf
+  checksum: 10/6f0be75785a04998e204cf6c04b85ac50e14be6ceb131bf822fd410af6227b47d389adc762aa3610975c1b17cc3f72a0d88f8030d9d63375d6bfcae21673b6a3
   languageName: node
   linkType: hard
 
@@ -1540,9 +1540,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/core@npm:>=0.2.20 <0.3.0, @langchain/core@npm:>=0.2.21 <0.3.0, @langchain/core@npm:^0.2.29":
-  version: 0.2.29
-  resolution: "@langchain/core@npm:0.2.29"
+"@langchain/core@npm:>=0.2.20 <0.3.0, @langchain/core@npm:>=0.2.21 <0.3.0, @langchain/core@npm:^0.2.30":
+  version: 0.2.30
+  resolution: "@langchain/core@npm:0.2.30"
   dependencies:
     ansi-styles: "npm:^5.0.0"
     camelcase: "npm:6"
@@ -1555,7 +1555,7 @@ __metadata:
     uuid: "npm:^10.0.0"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.3"
-  checksum: 10/29a660b39c2ca5f4895765347ae4a389872aa6fe9e89d033f4b9d8448cdde3bec93f3397df476e6f9f8488ba379bfc29e166772b32cde52c8c242383634fb996
+  checksum: 10/dd3d964f9a29d92eaf7aee6239615069ffa7602acc5cc0ff6a65c8251f79313934ae2bbcc9b4e904390fc24c47602c31bb6002873d42558896fb023afbe1eb72
   languageName: node
   linkType: hard
 
@@ -3678,7 +3678,7 @@ __metadata:
     "@github/stable-socket": "npm:1.1.0"
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.2.15"
-    "@langchain/core": "npm:^0.2.29"
+    "@langchain/core": "npm:^0.2.30"
     "@langchain/langgraph": "npm:^0.1.2"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:5.16.7"
@@ -3830,7 +3830,7 @@ __metadata:
     transferables: "npm:1.0.3"
     ts-md5: "npm:1.3.1"
     tslib: "npm:2.7.0"
-    tsx: "npm:^4.18.0"
+    tsx: "npm:^4.19.0"
     tty: "npm:^1.0.1"
     tty-browserify: "npm:^0.0.1"
     typescript: "npm:^5.5.4"
@@ -16892,9 +16892,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.18.0":
-  version: 4.18.0
-  resolution: "tsx@npm:4.18.0"
+"tsx@npm:^4.19.0":
+  version: 4.19.0
+  resolution: "tsx@npm:4.19.0"
   dependencies:
     esbuild: "npm:~0.23.0"
     fsevents: "npm:~2.3.3"
@@ -16904,7 +16904,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 10/b292e48accbb42bc8e5f3c33fdd74b49177009e42a66999b091e0769b2ec5837f948187a5059c93057c11c4d7e8a238f824d91fc7bc4f2751cd5ecf9b07742ac
+  checksum: 10/cd9eef1fd7de4ab01cc0fa876b0bc50688cfd7c738c137928c2487021471ce14412c758c006375e3f3b444eee9e2f77f2d69661f1a5df4427bd9ec1250996f2d
   languageName: node
   linkType: hard
 
