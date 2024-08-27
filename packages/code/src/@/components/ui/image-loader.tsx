@@ -1,5 +1,3 @@
-import React, { useEffect, useMemo, useState } from "react";
-
 const RESOLUTION = {
   "9:21": [640, 1536],
   "9:16": [768, 1344],
@@ -16,76 +14,46 @@ interface ImageLoaderProps {
   cfg?: number;
   steps?: number;
   prompt: string;
-  aspect_ratio?: keyof typeof RESOLUTION;
+  aspect_ratio?: string;
   output_format?: "webp" | "png" | "jpeg";
   output_quality?: number;
   negative_prompt?: string;
   prompt_strength?: number;
   className?: string;
+  [key: string]: any; // Add index signature
 }
 
-const DEFAULT_PROPS: Partial<ImageLoaderProps> = {
+const DEFAULT_PROPS: ImageLoaderProps = {
   cfg: 3.5,
   steps: 28,
-  aspect_ratio: "16:9",
+  prompt: "A web app for AI development. spike.land",
+  aspect_ratio: "16:9" as keyof typeof RESOLUTION,
   output_format: "webp",
   output_quality: 90,
   negative_prompt: "",
   prompt_strength: 0.85,
+  className: "",
 };
 
-export const ImageLoader: React.FC<ImageLoaderProps> = ({
-  prompt,
-  className = "w-full max-w-2xl mx-auto",
-  ...props
-}) => {
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
+  const params = new URLSearchParams();
 
-  const params = useMemo(() => {
-    const searchParams = new URLSearchParams();
-    Object.entries({ ...props, prompt }).forEach(([key, value]) => {
-      if (value !== DEFAULT_PROPS[key as keyof ImageLoaderProps]) {
-        searchParams.append(key, String(value));
-      }
-    });
-    return searchParams.toString();
-  }, [props, prompt]);
+  Object.entries(props).forEach(([key, value]) => {
+    if (!DEFAULT_PROPS[key]) return;
+    if (value !== DEFAULT_PROPS[key as keyof ImageLoaderProps] && key !== "className") {
+      params.append(key, value as string);
+    }
+  });
 
-  useEffect(() => {
-    const loadImage = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`/replicate.webp?${params}`);
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        setImageUrl(url);
-      } catch (error) {
-        console.error("Error loading image:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    loadImage();
-  }, [params]);
+  const containerClassName = props.className || "w-full max-w-2xl mx-auto";
 
   return (
-    <div className={className}>
-      {isLoading
-        ? (
-          <div className="flex items-center justify-center h-64 bg-gray-200 rounded-lg">
-            <p className="text-gray-500">Loading image...</p>
-          </div>
-        )
-        : (
-          <img
-            src={imageUrl}
-            alt={prompt}
-            className="w-full h-auto rounded-lg shadow-lg"
-          />
-        )}
-    </div>
+    <img
+      src={`/replicate.webp?${params.toString()}`}
+      alt={props.prompt || DEFAULT_PROPS.prompt}
+      className={containerClassName}
+    />
   );
 };
 
-export default ImageLoader;
+export default () => <ImageLoader prompt='A nice day' />;

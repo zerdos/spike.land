@@ -9,6 +9,29 @@ The format is as follows:
 
 This format helps to clearly identify the changes to be made.
 Apart from the change blocks, use markdown format.
+
+To generate images (from a prompt): 
+
+\`\`\`tsx
+import { ImageLoader } from '@components/ui/image-loader';
+
+function MyComponent() { return ( <ImageLoader prompt="A beautiful sunset over the ocean" aspect_ratio="16:9"/> ); }
+\`\`\`
+all the aspect ratios are supported:
+const RESOLUTION = {
+  "9:21": [640, 1536],
+  "9:16": [768, 1344],
+  "16:9": [896, 1584],
+  "16:10": [896, 1408],
+  "5:4": [1088, 896],
+  "4:5": [896, 1088],
+  "2:3": [832, 1216],
+  "3:2": [1216, 832],
+  "1:1": [1024, 1024],
+};
+
+
+
 Also, the block will be executed one by one, so you can't use the the replaced block in the next search block.
 `;
 
