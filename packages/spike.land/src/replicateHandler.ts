@@ -44,6 +44,7 @@ async function fetchAndSaveImage(
   env: Env,
   md5Prompt: string,
   outputFormat: string,
+  ctx: ExecutionContext,
 ): Promise<Response> {
   console.log("Fetching image from:", imageUrl);
   const response = await fetch(imageUrl);
@@ -53,7 +54,7 @@ async function fetchAndSaveImage(
     throw new Error(`Failed to fetch image: ${response.status}`);
   }
 
-  await env.R2.put(md5Prompt, response.clone().body);
+  ctx.waitUntil(env.R2.put(md5Prompt, response.clone().body));
 
   return new Response(response.body, {
     headers: {
@@ -98,6 +99,7 @@ export async function handleReplicateRequest(
       env,
       md5Prompt,
       input.output_format,
+      ctx,
     );
   } catch (e: unknown) {
     console.error("Error in handleReplicateRequest:", e);
