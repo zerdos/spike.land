@@ -111,7 +111,7 @@ const ChatInterface: React.FC<{
     const prompt = sp.get("prompt");
     if (prompt) {
       memoizedChatFCProps.handleSendMessage(prompt, "");
-      location.replace(location.pathname);
+      history.replaceState(null, "", location.pathname);
     }
 
     if (isOpen) {
