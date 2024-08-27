@@ -57,7 +57,7 @@ export class RouteHandler {
       "null": this.handleEditorRoute.bind(this),
       hydrated: this.handleDefaultRoute.bind(this),
       worker: this.handleDefaultRoute.bind(this),
-      my: this.handleMyCoude.bind(this),
+      my: this.handleMyCode.bind(this),
       dehydrated: this.handleDefaultRoute.bind(this),
       iframe: this.handleDefaultRoute.bind(this),
       embed: this.handleDefaultRoute.bind(this),
@@ -341,7 +341,7 @@ export class RouteHandler {
     });
   }
 
-  private async handleMyCoude(request: Request): Promise<Response> {
+  private async handleMyCode(request: Request): Promise<Response> {
     const secretKey = this.code.getEnv()["CLERK_SECRET_KEY"];
     const publishableKey = "pk_live_Y2xlcmsuc3Bpa2UubGFuZCQ";
 
