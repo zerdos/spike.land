@@ -56,4 +56,4 @@ export const ImageLoader: React.FC<ImageLoaderProps> = (props) => {
   );
 };
 
-export default () => <ImageLoader prompt='A nice day' />;
+export default () => <ImageLoader prompt="A nice day" />;
