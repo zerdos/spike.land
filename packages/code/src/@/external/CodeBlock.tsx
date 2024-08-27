@@ -61,9 +61,7 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
     <div className="mt-5 w-full font-mono text-sm rounded-md overflow-hidden shadow-md">
       <CodeBlockHeader language={language} />
 
-      <div className="max-h-[400px] overflow-y-auto">
-        <StreamingSyntaxHighlighter language={language} value={value} />
-      </div>
+      <StreamingSyntaxHighlighter language={language} value={value} />
     </div>
   );
 });
