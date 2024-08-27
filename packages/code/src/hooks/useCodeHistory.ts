@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { loadVersionHistory, Version } from "../codeHistoryUtils";
 
 interface HistoryItem {
   code: string;
@@ -13,13 +14,12 @@ export const useCodeHistory = (codeSpace: string) => {
   const fetchHistory = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/live/${codeSpace}/auto-save/history`);
-      if (!response.ok) throw new Error("Failed to fetch history");
-      const data: HistoryItem[] = await response.json();
+      const data: Version[] = await loadVersionHistory(codeSpace);
       setHistory(
         data
           .filter((x) => !x.code.includes("History") && !x.code.includes("e/pp"))
-          .sort((a, b) => b.timestamp - a.timestamp),
+          .sort((a, b) => b.timestamp - a.timestamp)
+          .map((version) => ({ ...version, timestamp: version.timestamp })),
       );
     } catch (err) {
       setError(

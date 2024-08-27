@@ -76,12 +76,12 @@ export const transpileCode = async (code: string, signal: AbortSignal): Promise<
   }
 };
 
-export const runCode = async (sess: Partial<ICodeSession>, signal: AbortSignal) => {
+export const runCode = async (cSess: ICodeSession, signal: AbortSignal) => {
   const { error, setError } = useErrorHandling();
 
   try {
-    const { code, transpiled } = sess;
-    const counter = sess.i as number;
+    const { code, transpiled } = cSess;
+    const counter = cSess.i as number;
 
     let resolve: (v: {
       i: number;
@@ -133,7 +133,7 @@ export const runCode = async (sess: Partial<ICodeSession>, signal: AbortSignal) 
       setError(null);
     }
 
-    return { ...sess, html, css };
+    return { ...cSess, html, css };
   } catch (error) {
     console.error(error);
     setError("runner");
