@@ -1,5 +1,4 @@
-import { importMap } from "./importMap";
-import { importMapReplace } from "./importMapReplace";
+import { importMap, importMapReplace } from "./importMapUtils";
 
 import { md5 } from "./md5";
 import { Delta } from "./textDiff";

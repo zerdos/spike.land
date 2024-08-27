@@ -3,7 +3,7 @@ import fs from "fs";
 import handler from "serve-handler";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { importMap, importMapReplace } from "./src/modules";
+import { importMap, importMapReplace } from "./src/importMapUtils";
 
 const PORT = 3000;
 const PROXY_BASE_URL = "https://testing.spike.land";

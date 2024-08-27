@@ -40,14 +40,13 @@ async function processCSS(
     const matches = css.match(urlRegex);
 
     if (matches) {
-      for (const match of matches) {
+      const urlPromises = matches.map(async (match) => {
         const url = match.match(/url\(['"]?(.+?)['"]?\)/)?.[1];
         if (url && !url.startsWith("data:")) {
           const absoluteUrl = new URL(url, baseURL).toString();
 
           if (urlCache.has(absoluteUrl)) {
-            css = css.replace(match, urlCache.get(absoluteUrl)!);
-            continue;
+            return { match, newValue: urlCache.get(absoluteUrl)! };
           }
 
           const req = await fetch(absoluteUrl);
@@ -64,10 +63,16 @@ async function processCSS(
             newUrlValue = `url("${absoluteUrl}")`;
           }
 
-          css = css.replace(match, newUrlValue);
           urlCache.set(absoluteUrl, newUrlValue);
+          return { match, newValue: newUrlValue };
         }
-      }
+        return { match, newValue: match };
+      });
+
+      const results = await Promise.all(urlPromises);
+      results.forEach(({ match, newValue }) => {
+        css = css.replace(match, newValue);
+      });
     }
 
     return css;

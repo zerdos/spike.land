@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { importMapReplace } from "./importMapReplace"; // replace with your actual module
+import { importMapReplace } from "./importMapUtils"; // Updated import
 
 describe("importMapReplace", () => {
   const origin = "http://localhost:3000";

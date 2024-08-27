@@ -1,6 +1,18 @@
-// src/importMapReplace.ts
+// src/importMapUtils.ts
 
-import { oo } from "./importMap";
+export const oo = {
+  "@emotion/react/jsx-runtime": "/emotionJsxRuntime.mjs",
+  "react/jsx-runtime": "/jsx.mjs",
+  "react-dom/server": "/reactDomServer.mjs",
+  "react-dom/client": "/reactDomClient.mjs",
+  "@emotion/react": "/emotion.mjs",
+  "react": "/reactMod.mjs",
+  "framer-motion": "/motion.mjs",
+  "react-dom": "/reactDom.mjs",
+  "foo-bar": "/fooBar.mjs",
+};
+
+export const importMap = { imports: oo };
 
 export function importMapReplace(code: string, origin: string): string {
   // Return early if the code already contains "importMapReplace" to avoid double processing
@@ -137,3 +149,5 @@ export function importMapReplace(code: string, origin: string): string {
   /** importMapReplace */
   ` + replaced;
 }
+
+export default importMap;

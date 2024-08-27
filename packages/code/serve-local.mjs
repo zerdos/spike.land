@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import http from "http";
 import handler from "serve-handler";
-import { importMap, importMapReplace } from "./dist/modules.mjs";
+import { importMap, importMapReplace } from "./dist/importMapUtils.mjs";
 
 const PORT = 3000;
 const PROXY_BASE_URL = "https://testing.spike.land";

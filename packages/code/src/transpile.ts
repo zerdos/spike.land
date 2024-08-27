@@ -2,7 +2,8 @@ import { build as esmBuild, BuildOptions, initialize, transform } from "esbuild-
 import { makeEnv } from "../helpers";
 import { wasmFile } from "./esbuildWASM";
 import { fetchPlugin } from "./fetchPlugin";
-import { importMapReplace } from "./importMapReplace";
+import { importMapReplace } from "./importMapUtils";
+
 interface ModuleInitializer {
   init: boolean | Promise<boolean>;
   initialize: (wasmModule: WebAssembly.Module) => Promise<boolean> | boolean;
