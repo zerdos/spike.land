@@ -35,7 +35,7 @@ export const useMessageHandling = ({
   setEditInput,
 }: UseMessageHandlingProps) => {
   const aiHandler = useMemo(() => new AIHandler(codeSpace), [codeSpace]);
-  const mutex = useMemo(() => new Mutex(), []);
+  const mutex = new Mutex();
 
   const handleSendMessage = useCallback(async (content: string, screenshot: string) => {
     if (!content.trim()) return;
