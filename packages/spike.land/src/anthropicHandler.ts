@@ -28,8 +28,8 @@ export async function handleAnthropicRequest(
 
   const conf = {
     model: "claude-3-5-sonnet-20240620",
-    max_tokens: 4096,
-    temperature: 0.4,
+    max_tokens: 2 * 4096,
+    temperature: 0.1,
     stream: true,
     ...body,
   };
