@@ -2106,23 +2106,41 @@ const RAW_RUNTIME_STATE =
           ["zod-to-json-schema", "virtual:07b1ae35e93508626fed2e2a3046c64037ff17774f18e8413e59430a72fa6a4d0f6435339242590c9a0416566a368b4d216f3cf4213deabea7199209e0f2e719#npm:3.23.2"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:0.2.31", {\
+        "packageLocation": "./.yarn/global/cache/@langchain-core-npm-0.2.31-3a8146fba3-10.zip/node_modules/@langchain/core/",\
+        "packageDependencies": [\
+          ["@langchain/core", "npm:0.2.31"],\
+          ["ansi-styles", "npm:5.2.0"],\
+          ["camelcase", "npm:6.3.0"],\
+          ["decamelize", "npm:1.2.0"],\
+          ["js-tiktoken", "npm:1.0.14"],\
+          ["langsmith", "virtual:3a8146fba30168ad0df6205264fc7bc4cd1311dd390e6eae97bcdb8686353fa302760a928ebaa31d9d9cddfbd3b2c259c3edfacdf7a34af912d4cf3df78ce2da#npm:0.1.47"],\
+          ["mustache", "npm:4.2.0"],\
+          ["p-queue", "npm:6.6.2"],\
+          ["p-retry", "npm:4.6.2"],\
+          ["uuid", "npm:10.0.0"],\
+          ["zod", "npm:3.23.8"],\
+          ["zod-to-json-schema", "virtual:07b1ae35e93508626fed2e2a3046c64037ff17774f18e8413e59430a72fa6a4d0f6435339242590c9a0416566a368b4d216f3cf4213deabea7199209e0f2e719#npm:3.23.2"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@langchain/langgraph", [\
-      ["npm:0.1.4", {\
-        "packageLocation": "./.yarn/global/cache/@langchain-langgraph-npm-0.1.4-1e11f1abaa-10.zip/node_modules/@langchain/langgraph/",\
+      ["npm:0.1.9", {\
+        "packageLocation": "./.yarn/global/cache/@langchain-langgraph-npm-0.1.9-8388830b7a-10.zip/node_modules/@langchain/langgraph/",\
         "packageDependencies": [\
-          ["@langchain/langgraph", "npm:0.1.4"]\
+          ["@langchain/langgraph", "npm:0.1.9"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.4", {\
-        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-virtual-1e8ae7b1e3/0/global/cache/@langchain-langgraph-npm-0.1.4-1e11f1abaa-10.zip/node_modules/@langchain/langgraph/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.9", {\
+        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-virtual-6fa93cb83b/0/global/cache/@langchain-langgraph-npm-0.1.9-8388830b7a-10.zip/node_modules/@langchain/langgraph/",\
         "packageDependencies": [\
-          ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.4"],\
-          ["@langchain/core", "npm:0.2.30"],\
-          ["@langchain/langgraph-checkpoint", "virtual:1e8ae7b1e3985644b6c3ca8e885efb00fc4de4c7285750c78654d3308bab0c310e7292f04a42f38060a0fa07bdd96e0af3a6e883a97f30b6ef3e8577e4c6eb9f#npm:0.0.4"],\
-          ["@langchain/langgraph-checkpoint-sqlite", "virtual:1e8ae7b1e3985644b6c3ca8e885efb00fc4de4c7285750c78654d3308bab0c310e7292f04a42f38060a0fa07bdd96e0af3a6e883a97f30b6ef3e8577e4c6eb9f#npm:0.0.1"],\
+          ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.9"],\
+          ["@langchain/core", "npm:0.2.31"],\
+          ["@langchain/langgraph-checkpoint", "virtual:6fa93cb83b60a3db4edff2d894bbdc3896b6140ef80bc77ab4f089eae3a45c8db7079d962362bd992815017ce89e0566a0abc3972cda42f527c629248144ddf2#npm:0.0.4"],\
+          ["@langchain/langgraph-checkpoint-sqlite", "virtual:6fa93cb83b60a3db4edff2d894bbdc3896b6140ef80bc77ab4f089eae3a45c8db7079d962362bd992815017ce89e0566a0abc3972cda42f527c629248144ddf2#npm:0.0.1"],\
           ["@types/better-sqlite3", null],\
           ["better-sqlite3", null],\
           ["double-ended-queue", "npm:2.1.0-0"],\
@@ -2151,11 +2169,11 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:1e8ae7b1e3985644b6c3ca8e885efb00fc4de4c7285750c78654d3308bab0c310e7292f04a42f38060a0fa07bdd96e0af3a6e883a97f30b6ef3e8577e4c6eb9f#npm:0.0.4", {\
-        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-checkpoint-virtual-f6cb5d64e3/0/global/cache/@langchain-langgraph-checkpoint-npm-0.0.4-160e9669b9-10.zip/node_modules/@langchain/langgraph-checkpoint/",\
+      ["virtual:6fa93cb83b60a3db4edff2d894bbdc3896b6140ef80bc77ab4f089eae3a45c8db7079d962362bd992815017ce89e0566a0abc3972cda42f527c629248144ddf2#npm:0.0.4", {\
+        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-checkpoint-virtual-059ba81286/0/global/cache/@langchain-langgraph-checkpoint-npm-0.0.4-160e9669b9-10.zip/node_modules/@langchain/langgraph-checkpoint/",\
         "packageDependencies": [\
-          ["@langchain/langgraph-checkpoint", "virtual:1e8ae7b1e3985644b6c3ca8e885efb00fc4de4c7285750c78654d3308bab0c310e7292f04a42f38060a0fa07bdd96e0af3a6e883a97f30b6ef3e8577e4c6eb9f#npm:0.0.4"],\
-          ["@langchain/core", "npm:0.2.30"],\
+          ["@langchain/langgraph-checkpoint", "virtual:6fa93cb83b60a3db4edff2d894bbdc3896b6140ef80bc77ab4f089eae3a45c8db7079d962362bd992815017ce89e0566a0abc3972cda42f527c629248144ddf2#npm:0.0.4"],\
+          ["@langchain/core", "npm:0.2.31"],\
           ["@types/langchain__core", null],\
           ["uuid", "npm:10.0.0"]\
         ],\
@@ -2165,11 +2183,11 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:deb8047c144e78a6c1c1583ccefed33b663fde7042ed08f5e817c860e937ca089af6522bffc00a6fe5dbc2569c0e7cdb5a945f179503b15af82ff5bf2ac899ae#npm:0.0.2", {\
-        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-checkpoint-virtual-70b4655d49/0/global/cache/@langchain-langgraph-checkpoint-npm-0.0.2-a2e6506c25-10.zip/node_modules/@langchain/langgraph-checkpoint/",\
+      ["virtual:e2dd92fd4d05dda1654f320459b5333201b28766ce2e27f78d24298f058fd75966bdbbf56cd46b05ff636aa6d86fd7488dae2cc4db13e8058a1960f040be108a#npm:0.0.2", {\
+        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-checkpoint-virtual-322337b1bd/0/global/cache/@langchain-langgraph-checkpoint-npm-0.0.2-a2e6506c25-10.zip/node_modules/@langchain/langgraph-checkpoint/",\
         "packageDependencies": [\
-          ["@langchain/langgraph-checkpoint", "virtual:deb8047c144e78a6c1c1583ccefed33b663fde7042ed08f5e817c860e937ca089af6522bffc00a6fe5dbc2569c0e7cdb5a945f179503b15af82ff5bf2ac899ae#npm:0.0.2"],\
-          ["@langchain/core", "npm:0.2.30"],\
+          ["@langchain/langgraph-checkpoint", "virtual:e2dd92fd4d05dda1654f320459b5333201b28766ce2e27f78d24298f058fd75966bdbbf56cd46b05ff636aa6d86fd7488dae2cc4db13e8058a1960f040be108a#npm:0.0.2"],\
+          ["@langchain/core", "npm:0.2.31"],\
           ["@types/langchain__core", null],\
           ["uuid", "npm:10.0.0"]\
         ],\
@@ -2188,12 +2206,12 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:1e8ae7b1e3985644b6c3ca8e885efb00fc4de4c7285750c78654d3308bab0c310e7292f04a42f38060a0fa07bdd96e0af3a6e883a97f30b6ef3e8577e4c6eb9f#npm:0.0.1", {\
-        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-checkpoint-sqlite-virtual-deb8047c14/0/global/cache/@langchain-langgraph-checkpoint-sqlite-npm-0.0.1-32ebc3a392-10.zip/node_modules/@langchain/langgraph-checkpoint-sqlite/",\
+      ["virtual:6fa93cb83b60a3db4edff2d894bbdc3896b6140ef80bc77ab4f089eae3a45c8db7079d962362bd992815017ce89e0566a0abc3972cda42f527c629248144ddf2#npm:0.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/@langchain-langgraph-checkpoint-sqlite-virtual-e2dd92fd4d/0/global/cache/@langchain-langgraph-checkpoint-sqlite-npm-0.0.1-32ebc3a392-10.zip/node_modules/@langchain/langgraph-checkpoint-sqlite/",\
         "packageDependencies": [\
-          ["@langchain/langgraph-checkpoint-sqlite", "virtual:1e8ae7b1e3985644b6c3ca8e885efb00fc4de4c7285750c78654d3308bab0c310e7292f04a42f38060a0fa07bdd96e0af3a6e883a97f30b6ef3e8577e4c6eb9f#npm:0.0.1"],\
-          ["@langchain/core", "npm:0.2.30"],\
-          ["@langchain/langgraph-checkpoint", "virtual:deb8047c144e78a6c1c1583ccefed33b663fde7042ed08f5e817c860e937ca089af6522bffc00a6fe5dbc2569c0e7cdb5a945f179503b15af82ff5bf2ac899ae#npm:0.0.2"],\
+          ["@langchain/langgraph-checkpoint-sqlite", "virtual:6fa93cb83b60a3db4edff2d894bbdc3896b6140ef80bc77ab4f089eae3a45c8db7079d962362bd992815017ce89e0566a0abc3972cda42f527c629248144ddf2#npm:0.0.1"],\
+          ["@langchain/core", "npm:0.2.31"],\
+          ["@langchain/langgraph-checkpoint", "virtual:e2dd92fd4d05dda1654f320459b5333201b28766ce2e27f78d24298f058fd75966bdbbf56cd46b05ff636aa6d86fd7488dae2cc4db13e8058a1960f040be108a#npm:0.0.2"],\
           ["@types/better-sqlite3", null],\
           ["@types/langchain__core", null],\
           ["better-sqlite3", null]\
@@ -4972,8 +4990,8 @@ const RAW_RUNTIME_STATE =
           ["@github/stable-socket", "npm:1.1.0"],\
           ["@hookform/resolvers", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.9.0"],\
           ["@langchain/anthropic", "npm:0.2.15"],\
-          ["@langchain/core", "npm:0.2.30"],\
-          ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.4"],\
+          ["@langchain/core", "npm:0.2.31"],\
+          ["@langchain/langgraph", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.9"],\
           ["@monaco-editor/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:4.6.0"],\
           ["@mui/material", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.0.0"],\
           ["@okikio/sharedworker", "npm:1.0.7"],\
@@ -5068,7 +5086,7 @@ const RAW_RUNTIME_STATE =
           ["fast-diff", "npm:1.3.0"],\
           ["fetch-retry", "npm:6.0.0"],\
           ["file-type", "npm:19.4.1"],\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.30"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.31"],\
           ["i18next", "npm:23.14.0"],\
           ["immutable", "npm:4.3.7"],\
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
@@ -5089,7 +5107,7 @@ const RAW_RUNTIME_STATE =
           ["perf_hooks", "npm:0.0.1"],\
           ["postcss", "npm:8.4.41"],\
           ["preact", "npm:10.23.2"],\
-          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.9"],\
+          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.10"],\
           ["prettier", "npm:3.3.3"],\
           ["prism-react-renderer", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:2.3.1"],\
           ["process", "npm:0.11.10"],\
@@ -11607,17 +11625,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["framer-motion", [\
-      ["npm:11.3.30", {\
-        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.3.30-d78c773733-10.zip/node_modules/framer-motion/",\
+      ["npm:11.3.31", {\
+        "packageLocation": "./.yarn/global/cache/framer-motion-npm-11.3.31-3160fd624d-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "npm:11.3.30"]\
+          ["framer-motion", "npm:11.3.31"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.30", {\
-        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-e8ccf28843/0/global/cache/framer-motion-npm-11.3.30-d78c773733-10.zip/node_modules/framer-motion/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.31", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-0706b47ae2/0/global/cache/framer-motion-npm-11.3.31-3160fd624d-10.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
-          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.30"],\
+          ["framer-motion", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:11.3.31"],\
           ["@emotion/is-prop-valid", null],\
           ["@types/emotion__is-prop-valid", null],\
           ["@types/react", "npm:18.3.4"],\
@@ -13942,6 +13960,33 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["langsmith", "virtual:07b1ae35e93508626fed2e2a3046c64037ff17774f18e8413e59430a72fa6a4d0f6435339242590c9a0416566a368b4d216f3cf4213deabea7199209e0f2e719#npm:0.1.47"],\
           ["@langchain/core", "npm:0.2.30"],\
+          ["@types/langchain", null],\
+          ["@types/langchain__core", null],\
+          ["@types/openai", null],\
+          ["@types/uuid", "npm:10.0.0"],\
+          ["commander", "npm:10.0.1"],\
+          ["langchain", null],\
+          ["openai", null],\
+          ["p-queue", "npm:6.6.2"],\
+          ["p-retry", "npm:4.6.2"],\
+          ["semver", "npm:7.6.3"],\
+          ["uuid", "npm:10.0.0"]\
+        ],\
+        "packagePeers": [\
+          "@langchain/core",\
+          "@types/langchain",\
+          "@types/langchain__core",\
+          "@types/openai",\
+          "langchain",\
+          "openai"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:3a8146fba30168ad0df6205264fc7bc4cd1311dd390e6eae97bcdb8686353fa302760a928ebaa31d9d9cddfbd3b2c259c3edfacdf7a34af912d4cf3df78ce2da#npm:0.1.47", {\
+        "packageLocation": "./.yarn/__virtual__/langsmith-virtual-6faf2df19b/0/global/cache/langsmith-npm-0.1.47-61fdb8fcee-10.zip/node_modules/langsmith/",\
+        "packageDependencies": [\
+          ["langsmith", "virtual:3a8146fba30168ad0df6205264fc7bc4cd1311dd390e6eae97bcdb8686353fa302760a928ebaa31d9d9cddfbd3b2c259c3edfacdf7a34af912d4cf3df78ce2da#npm:0.1.47"],\
+          ["@langchain/core", "npm:0.2.31"],\
           ["@types/langchain", null],\
           ["@types/langchain__core", null],\
           ["@types/openai", null],\
@@ -17063,17 +17108,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["preact-render-to-string", [\
-      ["npm:6.5.9", {\
-        "packageLocation": "./.yarn/global/cache/preact-render-to-string-npm-6.5.9-d9b8f790cd-10.zip/node_modules/preact-render-to-string/",\
+      ["npm:6.5.10", {\
+        "packageLocation": "./.yarn/global/cache/preact-render-to-string-npm-6.5.10-dfac23d1e8-10.zip/node_modules/preact-render-to-string/",\
         "packageDependencies": [\
-          ["preact-render-to-string", "npm:6.5.9"]\
+          ["preact-render-to-string", "npm:6.5.10"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.9", {\
-        "packageLocation": "./.yarn/__virtual__/preact-render-to-string-virtual-9aa70cad29/0/global/cache/preact-render-to-string-npm-6.5.9-d9b8f790cd-10.zip/node_modules/preact-render-to-string/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.10", {\
+        "packageLocation": "./.yarn/__virtual__/preact-render-to-string-virtual-1b0c13ac8d/0/global/cache/preact-render-to-string-npm-6.5.10-dfac23d1e8-10.zip/node_modules/preact-render-to-string/",\
         "packageDependencies": [\
-          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.9"],\
+          ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.10"],\
           ["@types/preact", null],\
           ["preact", "npm:10.23.2"]\
         ],\
