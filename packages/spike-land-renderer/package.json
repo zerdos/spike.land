@@ -11,13 +11,13 @@
     "cf-typegen": "wrangler types"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.4.26",
+    "@cloudflare/vitest-pool-workers": "^0.4.27",
     "@cloudflare/workers-types": "^4.20240821.1",
     "@types/esprima": "^4.0.6",
     "esprima": "^4.0.1",
     "typescript": "^5.5.4",
     "vitest": "2.0.5",
-    "wrangler": "^3.72.3"
+    "wrangler": "^3.73.0"
   },
   "dependencies": {
     "@cloudflare/puppeteer": "^0.0.13"
