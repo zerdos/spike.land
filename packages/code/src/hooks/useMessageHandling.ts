@@ -66,9 +66,9 @@ export const useMessageHandling = ({
     } catch (error) {
       console.error("Error processing request:", error);
       handleError(updatedMessages, setMessages);
+    } finally {
+      setIsStreaming(false);
     }
-
-    setIsStreaming(false);
   }, [
     codeSpace,
     messages,
@@ -81,18 +81,6 @@ export const useMessageHandling = ({
     aiHandler,
     mutex,
   ]);
-
-  const handleResetChat = useCallback(() => {
-    setMessages([]);
-    setIsStreaming(false);
-    setInput("");
-    setEditingMessageId(null);
-    setEditInput("");
-    setAICode("");
-    // Clear the synced storage
-    localStorage.removeItem(`chatMessages-${codeSpace}`);
-    localStorage.removeItem(`streaming-${codeSpace}`);
-  }, [codeSpace, setMessages, setIsStreaming, setInput, setEditingMessageId, setEditInput, setAICode]);
 
   const handleEditMessage = useCallback((messageId: string) => {
     const messageToEdit = messages.find((msg) => msg.id === messageId);
@@ -130,7 +118,6 @@ export const useMessageHandling = ({
 
   return {
     handleSendMessage,
-    handleResetChat,
     handleEditMessage,
     handleCancelEdit,
     handleSaveEdit,

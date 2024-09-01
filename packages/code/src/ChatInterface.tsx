@@ -24,6 +24,7 @@ const ChatInterface: React.FC<{
     isStreaming,
     setIsStreaming,
     codeWhatAiSeen,
+    resetChat,
     setAICode,
     editingMessageId,
     setEditingMessageId,
@@ -35,7 +36,6 @@ const ChatInterface: React.FC<{
 
   const {
     handleSendMessage,
-    handleResetChat: originalHandleResetChat,
     handleEditMessage,
     handleCancelEdit,
     handleSaveEdit,
@@ -55,11 +55,11 @@ const ChatInterface: React.FC<{
   });
 
   const handleResetChat = useCallback(() => {
-    originalHandleResetChat();
+    resetChat();
     if (inputRef.current) {
       inputRef.current.value = "";
     }
-  }, [originalHandleResetChat, inputRef]);
+  }, [inputRef]);
 
   const {
     isScreenshotLoading,
