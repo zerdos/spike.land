@@ -80,7 +80,10 @@ class Code implements ICode {
       return false;
     }
 
-    if (this.session.code === code) return code;
+    if (this.session.code === code) {
+      console.log("After the formatting -  its unchanged!");
+      return code;
+    }
 
     if (signal.aborted) return false;
     let transpiled = "";
