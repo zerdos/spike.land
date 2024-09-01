@@ -14,7 +14,6 @@ import { ICode } from "./cSess.interface";
 import { DraggableWindow } from "./DraggableWindow";
 // import { useClerkSWR } from "./hooks/useClerkSWR";
 import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
-import { wait } from "./wait";
 
 export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const sp = new URLSearchParams(location.search);

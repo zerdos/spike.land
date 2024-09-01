@@ -2,9 +2,8 @@ import { css } from "@emotion/react";
 import { ICode } from "@src/cSess.interface";
 import { ICodeSession } from "@src/makeSess";
 import { md5 } from "@src/md5";
-import { runner } from "@src/services/runner";
-import type { ForwardRefRenderFunction } from "react";
 import { useEffect, useRef, useState } from "react";
+import type { FC } from "react";
 import { useAutoSave } from "../hooks/autoSave";
 import { initializeAce, initializeMonaco, useEditorState, useErrorHandling } from "./editorUtils";
 import { EditorNode } from "./ErrorReminder";
@@ -15,11 +14,7 @@ interface EditorProps {
   readOnly?: boolean;
 }
 
-export interface EditorRef {
-  setValue: (code: string) => void;
-}
-
-export const Editor: ForwardRefRenderFunction<EditorRef, EditorProps> = (
+export const Editor: FC<EditorProps> = (
   { codeSpace, cSess },
 ) => {
   const {
@@ -59,9 +54,11 @@ export const Editor: ForwardRefRenderFunction<EditorRef, EditorProps> = (
 
     if (newCode.includes("/** invalid")) return;
 
-    const formattedCode = await runner(newCode);
-    mod.current.md5Ids.push(md5(formattedCode));
+    const formattedCode = await cSess.setCode(newCode);
+
     if (typeof formattedCode === "string") {
+      mod.current.md5Ids.push(md5(formattedCode));
+
       mod.current.code === formattedCode;
     }
   };

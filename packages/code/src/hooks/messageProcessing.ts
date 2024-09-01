@@ -1,5 +1,5 @@
 import type { AIHandler } from "@src/AIHandler";
-import { runner } from "@src/services/runner";
+import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
@@ -34,6 +34,7 @@ export async function createNewMessage(
 
 export async function processMessage(
   aiHandler: AIHandler,
+  cSess: ICode,
   updatedMessages: Message[],
   codeNow: string,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
@@ -44,7 +45,7 @@ export async function processMessage(
   const sentMessages = [...updatedMessages];
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
-  const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages);
+  const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess);
 
   let assistantMessage = await aiHandler.sendToAnthropic(
     updatedMessages,
@@ -59,7 +60,7 @@ export async function processMessage(
     typeof assistantMessage.content === "string"
     && assistantMessage.content.includes("An error occurred while processing")
   ) {
-    await runner(codeNow);
+    await cSess.setCode(codeNow);
     assistantMessage = await aiHandler.sendToGpt4o(
       updatedMessages,
       onUpdate,
@@ -78,7 +79,7 @@ export async function processMessage(
   let success = false;
   try {
     if (starterCode !== codeNow) {
-      success = await runner(starterCode);
+      success = !!await cSess.setCode(starterCode);
       if (!success) {
         await aiHandler.continueWithOpenAI(
           `Please try to fix it.`,
@@ -103,6 +104,7 @@ function createOnUpdateFunction(
   preUpdates: any,
   mutex: Mutex,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+  cSess: any, // Add cSess as a parameter
 ) {
   return async (code: string) => {
     await mutex.runExclusive(async () => {
@@ -116,7 +118,7 @@ function createOnUpdateFunction(
           preUpdates.lastCode = lastCode;
           preUpdates.count += 1;
           try {
-            await runner(lastCode);
+            await cSess.setCode(lastCode);
           } catch (error) {
             console.error("Error in runner:", error);
           }

@@ -44,13 +44,13 @@ describe("loadMessages", () => {
     const loadedMessages = loadMessages("testSpace");
 
     expect(loadedMessages).toHaveLength(7);
-    expect(loadedMessages[0]).toEqual({ role: "user", content: "Hello" });
-    expect(loadedMessages[1]).toEqual({ role: "assistant", content: "Hi there" });
-    expect(loadedMessages[2]).toEqual({ role: "user", content: "How are you?" });
-    expect(loadedMessages[3]).toEqual({ role: "assistant", content: "I'm doing well, thanks!" });
-    expect(loadedMessages[4]).toEqual({ role: "user", content: "Great!" });
-    expect(loadedMessages[5]).toEqual({ role: "assistant", content: "Can I help you with anything?" });
-    expect(loadedMessages[6]).toEqual({ role: "system", content: "System message" });
+    expect(loadedMessages[0]).toEqual({ id: "1", role: "user", content: "Hello" });
+    expect(loadedMessages[1]).toEqual({ id: "1", role: "assistant", content: "Hi there" });
+    expect(loadedMessages[2]).toEqual({ id: "1", role: "user", content: "How are you?" });
+    expect(loadedMessages[3]).toEqual({ id: "1", role: "assistant", content: "I'm doing well, thanks!" });
+    expect(loadedMessages[4]).toEqual({ id: "1", role: "user", content: "Great!" });
+    expect(loadedMessages[5]).toEqual({ id: "1", role: "assistant", content: "Can I help you with anything?" });
+    expect(loadedMessages[6]).toEqual({ id: "1", role: "system", content: "System message" });
   });
 
   it("should handle empty messages", () => {
@@ -65,8 +65,8 @@ describe("loadMessages", () => {
     const loadedMessages = loadMessages("testSpace");
 
     expect(loadedMessages).toHaveLength(2);
-    expect(loadedMessages[0]).toEqual({ role: "user", content: "Hello" });
-    expect(loadedMessages[1]).toEqual({ role: "assistant", content: "Hi there" });
+    expect(loadedMessages[0]).toEqual({ id: "1", role: "user", content: "Hello" });
+    expect(loadedMessages[1]).toEqual({ id: "1", role: "assistant", content: "Hi there" });
   });
 
   it("should remove consecutive messages with the same role", () => {
@@ -83,8 +83,8 @@ describe("loadMessages", () => {
     const loadedMessages = loadMessages("testSpace");
 
     expect(loadedMessages).toHaveLength(3);
-    expect(loadedMessages[0]).toEqual({ role: "user", content: "Hello" });
-    expect(loadedMessages[1]).toEqual({ role: "assistant", content: "Hi there" });
-    expect(loadedMessages[2]).toEqual({ role: "user", content: "How are you?" });
+    expect(loadedMessages[0]).toEqual({ id: "1", role: "user", content: "Hello" });
+    expect(loadedMessages[1]).toEqual({ id: "1", role: "assistant", content: "Hi there" });
+    expect(loadedMessages[2]).toEqual({ id: "1", role: "user", content: "How are you?" });
   });
 });

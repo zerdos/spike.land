@@ -62,7 +62,7 @@ export const useMessageHandling = ({
     setIsStreaming(true);
 
     try {
-      await processMessage(aiHandler, updatedMessages, code, setMessages, setAICode, setMessages, mutex);
+      await processMessage(aiHandler, cSess, updatedMessages, code, setMessages, setAICode, setMessages, mutex);
     } catch (error) {
       console.error("Error processing request:", error);
       handleError(updatedMessages, setMessages);

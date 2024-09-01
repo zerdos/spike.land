@@ -5,4 +5,5 @@ export interface ICode {
 
   broadCastSessChanged(): void;
   setCode(rawCode: string): Promise<string | boolean>;
+  sub: (fn: (sess: ICodeSession) => void) => void;
 }

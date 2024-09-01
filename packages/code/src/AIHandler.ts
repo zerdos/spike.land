@@ -1,3 +1,4 @@
+import { cSessMock } from "./config/cSessMock";
 import { AIService } from "./services/AIService";
 import { LocalStorageService } from "./services/LocalStorageService";
 import { Message } from "./types/Message";
@@ -13,7 +14,7 @@ export class AIHandler {
       gpt4oEndpoint: "/api/openai",
       updateThrottleMs: 1100,
       retryWithClaudeEnabled: true,
-    });
+    }, cSessMock);
   }
 
   async sendToAnthropic(

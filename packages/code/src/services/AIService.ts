@@ -2,7 +2,6 @@ import { throttle } from "es-toolkit";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { Message, MessageContent } from "../types/Message";
 import { LocalStorageService } from "./LocalStorageService";
-import { runner } from "./runner";
 
 interface AIModelResponse {
   content: string;
@@ -42,11 +41,13 @@ export class AIService {
   private localStorageService: LocalStorageService;
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
+  private cSess: any; // Add cSess as a private property
 
-  constructor(localStorageService: LocalStorageService, config: AIServiceConfig) {
+  constructor(localStorageService: LocalStorageService, config: AIServiceConfig, cSess: any) { // Add cSess to constructor
     this.localStorageService = localStorageService;
     this.config = config;
     this.streamHandler = new StreamHandler();
+    this.cSess = cSess; // Initialize cSess
   }
 
   private getEndpoint(type: AIEndpoint): string {
@@ -179,7 +180,7 @@ export class AIService {
   }
 
   private async formatAndRunCode(code: string): Promise<string> {
-    if (await runner(code) === false) {
+    if ((await this.cSess.setCode(code)) === false) { // Use this.cSess instead of global cSess
       throw new Error("Error in runner");
     }
     return code;

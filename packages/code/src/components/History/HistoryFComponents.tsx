@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
-import { runner } from "@src/services/runner";
 import { Wrapper } from "@src/Wrapper";
 import { format } from "date-fns";
 import React from "react";
@@ -39,6 +38,7 @@ interface HistoryItemProps {
   totalItems: number;
   onRestore: (item: HistoryItem) => void;
   onDelete: (timestamp: number) => void;
+  cSess: any; // Add cSess to the props
 }
 
 // HistoryItem component
@@ -99,7 +99,8 @@ const FullScreenHistoryView: React.FC<{
   onRestore: (item: HistoryItem) => void;
   onClose: () => void;
   onDelete: (timestamp: number) => void;
-}> = ({ history, onRestore, onClose, onDelete }) => (
+  cSess: any; // Add cSess to the props
+}> = ({ history, onRestore, onClose, onDelete, cSess }) => (
   <div className="fixed inset-0 bg-white z-50">
     <ScrollArea className="h-full">
       <div className="container mx-auto p-4">
@@ -124,13 +125,14 @@ const FullScreenHistoryView: React.FC<{
               }}
               onRestore={async () => {
                 try {
-                  await runner(item.code);
+                  await cSess.setCode(item.code);
                 } catch (error) {
                   console.error(error);
                 } finally {
                   onRestore(item);
                 }
               }}
+              cSess={cSess} // Pass cSess to HistoryItem
             />
           ))}
         </div>

@@ -1,5 +1,7 @@
 import { AIHandler } from "@src/AIHandler";
+import { cSessMock } from "@src/config/cSessMock";
 import type { Message } from "@src/types/Message";
+import { cSess } from "@src/ws";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as sharedModule from "../shared";
@@ -31,18 +33,8 @@ describe("useMessageHandling", () => {
     setEditingMessageId: vi.fn(),
     editInput: "",
     setEditInput: vi.fn(),
-    cSess: {
-      session: {
-        code: "initial code",
-        i: 0, // Change this from "" to 0
-        html: "",
-        css: "",
-        transpiled: "",
-      },
-      broadCastSessChanged: vi.fn(),
-      setCode: vi.fn(),
-    },
-    setCodeWhatAiSeen: vi.fn(), // Add this line
+    cSess: cSessMock,
+    setCodeWhatAiSeen: vi.fn(),
   };
 
   beforeEach(() => {
@@ -50,26 +42,27 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle sending a message", async () => {
-    const { result } = renderHook(() => useMessageHandling(mockProps));
-
-    // Mock AIHandler methods
-    const mockPrepareClaudeContent = vi.fn().mockReturnValue(
-      "prepared content",
-    );
+    const mockPrepareClaudeContent = vi.fn().mockReturnValue("prepared content");
     const mockSendToAnthropic = vi.fn().mockResolvedValue({
       id: "1",
       role: "assistant",
       content: "Assistant response",
     });
 
-    AIHandler.prototype.prepareClaudeContent = mockPrepareClaudeContent;
-    AIHandler.prototype.sendToAnthropic = mockSendToAnthropic;
+    vi.mocked(AIHandler).mockImplementation(() => ({
+      prepareClaudeContent: mockPrepareClaudeContent,
+      sendToAnthropic: mockSendToAnthropic,
+    }));
+
+    const { result } = renderHook(() => useMessageHandling(mockProps));
 
     // Mock updateSearchReplace
     vi.mocked(chatUtils.updateSearchReplace).mockReturnValue("updated code");
 
     // Mock prettierToThrow
     vi.mocked(sharedModule.prettierToThrow).mockResolvedValue("formatted code");
+
+    // Mock runner
 
     await act(async () => {
       await result.current.handleSendMessage("Test message", "");
@@ -78,18 +71,7 @@ describe("useMessageHandling", () => {
     expect(mockProps.setInput).toHaveBeenCalledWith("");
     expect(mockProps.setIsStreaming).toHaveBeenCalledWith(true);
     expect(mockProps.setMessages).toHaveBeenCalled();
-    // expect(mockSendToAnthropic).toHaveBeenCalled();
-    // expect(vi.mocked(runner)).toHaveBeenCalledWith("formatted code");
-  });
-
-  it("should handle resetting chat", () => {
-    const { result } = renderHook(() => useMessageHandling(mockProps));
-
-    act(() => {
-      result.current.handleResetChat();
-    });
-
-    expect(mockProps.setMessages).toHaveBeenCalledWith([]);
+    expect(mockSendToAnthropic).toHaveBeenCalled();
   });
 
   it("should handle resetting chat", () => {

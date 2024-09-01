@@ -9,8 +9,7 @@ import type { createRoot as Cr, hydrateRoot as Hr } from "react-dom/client";
 import { Code } from "./ws";
 
 declare global {
-  var sharedWorker: SharedWorker;
-  var cSess: Code;
+  var sharedWorker: SharedWorker
   var rRoot: ReturnType<typeof Cr>;
   var cssCache: EmotionCache;
   var firstRender: {
