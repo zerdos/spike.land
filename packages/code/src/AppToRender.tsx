@@ -32,7 +32,6 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const reveal = async () => {
-    await wait(300);
     console.log("Revealing");
     const re = document.getElementById("root");
     const rootEl = document.querySelector("#root > iframe") as HTMLIFrameElement;

@@ -5,7 +5,6 @@ import { md5 } from "./md5";
 import { formatCode, runCode, transpileCode } from "./components/editorUtils";
 import { ICode } from "./cSess.interface";
 import { connect } from "./shared";
-import { wait } from "./wait";
 
 // Initialize global state for first render
 globalThis.firstRender = globalThis.firstRender
@@ -70,8 +69,7 @@ class Code implements ICode {
     if (code === this.session.code) return true;
     console.log("Formatting code");
     try {
-      await wait(100);
-      code = await formatCode(rawCode, signal);
+      code = await formatCode(code, signal);
     } catch (error) {
       console.error("Error formatting code:", error);
       return false;
@@ -79,7 +77,6 @@ class Code implements ICode {
 
     if (this.session.code === code) return code;
 
-    await wait(100);
     if (signal.aborted) return false;
     let transpiled = "";
 
@@ -94,7 +91,6 @@ class Code implements ICode {
 
     let html = "";
     let css = "";
-    await wait(100);
     if (signal.aborted) return false;
     const i = ++this.session.i;
 
@@ -117,7 +113,6 @@ class Code implements ICode {
     }
 
     console.log("Sending message to BC: ", i);
-    await wait(100);
     if (signal.aborted) return false;
 
     this.session = makeSession({
@@ -162,11 +157,8 @@ class Code implements ICode {
   }
 }
 
-if (!globalThis.cSess) {
-  globalThis.cSess = new Code();
-}
-
-export const { cSess } = globalThis;
+export const cSess = new Code();
+cSess.run();
 
 export const run = async () => {
   await cSess.run();

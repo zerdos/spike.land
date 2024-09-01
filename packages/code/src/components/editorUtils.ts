@@ -47,7 +47,7 @@ export const useErrorHandling = () => {
 export const formatCode = async (code: string, signal: AbortSignal): Promise<string> => {
   const { error, setError } = useErrorHandling();
 
-  if (signal.aborted) return code;
+  if (signal.aborted) throw new Error("Aborted");
   try {
     const formattedCode = await prettierToThrow({ code, toThrow: true });
     if (error && error === "prettier") {

@@ -209,7 +209,7 @@ const handleRender = async (
         if (mod.counter !== counter) return false;
         return { css, html };
       }
-      await wait(10);
+      await wait(1);
     }
     return false;
   } catch (error) {
