@@ -81,7 +81,7 @@ export async function processMessage(
       success = await runner(starterCode);
       if (!success) {
         await aiHandler.continueWithOpenAI(
-          `Please provide try to fix it.`,
+          `Please try to fix it.`,
           starterCode,
           setMessages,
           setAICode,
@@ -90,7 +90,7 @@ export async function processMessage(
     }
   } catch (error) {
     await aiHandler.continueWithOpenAI(
-      `Please provide try to fix it.`,
+      `Please try to fix it.`,
       starterCode,
       setMessages,
       setAICode,

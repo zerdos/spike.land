@@ -30,7 +30,7 @@ export const useChat = (
       acc.push(message);
     }
     return acc;
-  }, [] as Message[]).slice(-5);
+  }, [] as Message[]).slice(-4);
 
   const resetChat = useCallback(() => {
     setMessages([]);
