@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
-import { ICodeSession } from "../makeSess";
-import { prettierJs } from "../prettierEsm";
-import { transpile } from "../shared";
+import type { ICodeSession } from "../makeSess";
+import { prettierToThrow, transpile } from "../shared";
 
 export interface EditorState {
   started: boolean;
@@ -50,7 +49,8 @@ export const formatCode = async (code: string, signal: AbortSignal): Promise<str
 
   if (signal.aborted) throw new Error("Aborted");
   try {
-    const formattedCode = await prettierJs(code, true);
+    const formattedCode = await prettierToThrow({ code, toThrow: true });
+    console.log("Formatted successfully");
     if (error && error === "prettier") {
       setError(null);
     }
