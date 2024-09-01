@@ -21,64 +21,64 @@ const processContent = (content: string, baseUrl: string): string => {
   return needsReplacement(content) ? importMapReplace(withoutBaseUrl, baseUrl) : withoutBaseUrl;
 };
 
-const customMiddleware: Connect.NextHandleFunction = async (req, res, next) => {
-  const url = req.url!;
-  const localPath = `${LOCAL_DIR}${url}`;
-  const spaRoutes = ["/start", "/live"];
+// const customMiddleware: Connect.NextHandleFunction = async (req, res, next) => {
+//   const url = req.url!;
+//   const localPath = `${LOCAL_DIR}${url}`;
+//   const spaRoutes = ["/start", "/live"];
 
-  if (importMapFiles.includes(url)) {
-    try {
-      const proxyUrl = new URL(url, PROXY_BASE_URL);
-      const response = await fetch(proxyUrl);
-      const content = await response.text();
-      const processedContent = processContent(content, `http://localhost:${PORT}`);
+//   if (importMapFiles.includes(url)) {
+//     try {
+//       const proxyUrl = new URL(url, PROXY_BASE_URL);
+//       const response = await fetch(proxyUrl);
+//       const content = await response.text();
+//       const processedContent = processContent(content, `http://localhost:${PORT}`);
 
-      res.setHeader("Content-Type", response.headers.get("content-type") || "application/octet-stream");
-      res.setHeader("Cache-Control", "no-cache");
-      res.end(processedContent);
-    } catch (error) {
-      console.error("Error in proxy handler:", error);
-      res.statusCode = 500;
-      res.end("Internal Server Error");
-    }
-    return;
-  }
+//       res.setHeader("Content-Type", response.headers.get("content-type") || "application/octet-stream");
+//       res.setHeader("Cache-Control", "no-cache");
+//       res.end(processedContent);
+//     } catch (error) {
+//       console.error("Error in proxy handler:", error);
+//       res.statusCode = 500;
+//       res.end("Internal Server Error");
+//     }
+//     return;
+//   }
 
-  try {
-    await fs.promises.access(localPath);
-    if (localPath.endsWith(".mjs") && !localPath.includes("chunk") && !localPath.includes("worker")) {
-      const content = await fs.promises.readFile(localPath, "utf-8");
-      let processedContent = processContent(content, `http://localhost:${PORT}`);
-      res.setHeader("Content-Type", "application/javascript; charset=utf-8");
-      res.setHeader("Cache-Control", "no-cache");
-      if (url.startsWith("/@/")) {
-        processedContent = importMapReplace(processedContent, `http://localhost:${PORT}`);
-      }
-      res.end(processedContent);
-    } else {
-      await handler(req, res, {
-        public: LOCAL_DIR,
-        headers: [
-          {
-            source: "**/*",
-            headers: [
-              { key: "Cache-Control", value: "no-cache" },
-            ],
-          },
-        ],
-      });
-    }
-  } catch {
-    if (spaRoutes.some(route => url.startsWith(route)) && !url.includes(".")) {
-      await handler(req, res, {
-        public: LOCAL_DIR,
-        rewrites: [{ source: "**", destination: "/index.html" }],
-      });
-    } else {
-      next();
-    }
-  }
-};
+//   try {
+//     await fs.promises.access(localPath);
+//     if (localPath.endsWith(".mjs") && !localPath.includes("chunk") && !localPath.includes("worker")) {
+//       const content = await fs.promises.readFile(localPath, "utf-8");
+//       let processedContent = processContent(content, `http://localhost:${PORT}`);
+//       res.setHeader("Content-Type", "application/javascript; charset=utf-8");
+//       res.setHeader("Cache-Control", "no-cache");
+//       if (url.startsWith("/@/")) {
+//         processedContent = importMapReplace(processedContent, `http://localhost:${PORT}`);
+//       }
+//       res.end(processedContent);
+//     } else {
+//       await handler(req, res, {
+//         public: LOCAL_DIR,
+//         headers: [
+//           {
+//             source: "**/*",
+//             headers: [
+//               { key: "Cache-Control", value: "no-cache" },
+//             ],
+//           },
+//         ],
+//       });
+//     }
+//   } catch {
+//     if (spaRoutes.some(route => url.startsWith(route)) && !url.includes(".")) {
+//       await handler(req, res, {
+//         public: LOCAL_DIR,
+//         rewrites: [{ source: "**", destination: "/index.html" }],
+//       });
+//     } else {
+//       next();
+//     }
+//   }
+// };
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -100,7 +100,7 @@ export default defineConfig({
   },
   server: {
     port: PORT,
-    middleware: [customMiddleware],
+    // middleware: [customMiddleware],
     proxy: {
       "/api": {
         target: PROXY_BASE_URL,
