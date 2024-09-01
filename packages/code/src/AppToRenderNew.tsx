@@ -6,6 +6,7 @@ import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
+import { ICode } from "./cSess.interface";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 
 const ResizeHandle = () => (
@@ -16,7 +17,7 @@ const ResizeHandle = () => (
   </PanelResizeHandle>
 );
 
-export const AppToRenderNew: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
+export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const [hideRest, setHideRest] = useState(true);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -42,7 +43,7 @@ export const AppToRenderNew: React.FC<{ codeSpace: string }> = ({ codeSpace }) =
           <Panel defaultSize={50} minSize={30}>
             <PanelGroup direction="vertical">
               <Panel defaultSize={70} minSize={30}>
-                <Editor codeSpace={codeSpace} />
+                <Editor codeSpace={codeSpace} cSess={cSess} />
               </Panel>
               <ResizeHandle />
               <Panel defaultSize={30} minSize={20}>
@@ -75,6 +76,7 @@ export const AppToRenderNew: React.FC<{ codeSpace: string }> = ({ codeSpace }) =
                   isOpen={true}
                   onClose={() => {}}
                   isMobile={isMobile}
+                  cSess={cSess}
                 />
               </Panel>
             </PanelGroup>

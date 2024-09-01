@@ -3764,6 +3764,7 @@ __metadata:
     "@testing-library/react": "npm:^16.0.1"
     "@testing-library/react-hooks": "npm:^8.0.1"
     "@testing-library/user-event": "npm:^14.5.2"
+    "@types/autoprefixer": "npm:^10.2.0"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/esprima": "npm:^4.0.6"
     "@types/isomorphic-fetch": "npm:0.0.39"
@@ -4147,6 +4148,15 @@ __metadata:
   version: 5.0.4
   resolution: "@types/aria-query@npm:5.0.4"
   checksum: 10/c0084c389dc030daeaf0115a92ce43a3f4d42fc8fef2d0e22112d87a42798d4a15aac413019d4a63f868327d52ad6740ab99609462b442fe6b9286b172d2e82e
+  languageName: node
+  linkType: hard
+
+"@types/autoprefixer@npm:^10.2.0":
+  version: 10.2.0
+  resolution: "@types/autoprefixer@npm:10.2.0"
+  dependencies:
+    autoprefixer: "npm:*"
+  checksum: 10/74d301d170f9f5d6ab113d38defaebf3aeddfb5ac25b3cb71485e08fc504e271a9544aee9dd74a0057a7904ae072e33d4fffb08aa80c165eaee120555eb98e47
   languageName: node
   linkType: hard
 
@@ -5763,7 +5773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.20":
+"autoprefixer@npm:*, autoprefixer@npm:^10.4.20":
   version: 10.4.20
   resolution: "autoprefixer@npm:10.4.20"
   dependencies:

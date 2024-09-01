@@ -96,6 +96,7 @@
     "@shadcn/ui": "^0.0.4",
     "@tabler/icons-react": "^3.14.0",
     "@tanstack/react-virtual": "^3.10.6",
+    "@types/autoprefixer": "^10.2.0",
     "@types/isomorphic-fetch": "0.0.39",
     "@typescript-eslint/typescript-estree": "8.3.0",
     "@typescript/ata": "^0.9.7",

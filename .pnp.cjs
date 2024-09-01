@@ -5069,6 +5069,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:16.0.1"],\
           ["@testing-library/react-hooks", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:8.0.1"],\
           ["@testing-library/user-event", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:14.5.2"],\
+          ["@types/autoprefixer", "npm:10.2.0"],\
           ["@types/eslint__js", "npm:8.42.3"],\
           ["@types/esprima", "npm:4.0.6"],\
           ["@types/isomorphic-fetch", "npm:0.0.39"],\
@@ -5589,6 +5590,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/@types-aria-query-npm-5.0.4-51d2b61619-10.zip/node_modules/@types/aria-query/",\
         "packageDependencies": [\
           ["@types/aria-query", "npm:5.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/autoprefixer", [\
+      ["npm:10.2.0", {\
+        "packageLocation": "./.yarn/global/cache/@types-autoprefixer-npm-10.2.0-b70ae2bcb4-10.zip/node_modules/@types/autoprefixer/",\
+        "packageDependencies": [\
+          ["@types/autoprefixer", "npm:10.2.0"],\
+          ["autoprefixer", "virtual:b70ae2bcb4d339056fe22820d2ddf673b866537d57f72c816ede9658bb78334cf24c4a8db26a601e596812decd9d8b1118724e086a8699f1b92bb9f797705ba1#npm:10.4.20"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -7706,6 +7717,25 @@ const RAW_RUNTIME_STATE =
           ["normalize-range", "npm:0.1.2"],\
           ["picocolors", "npm:1.0.1"],\
           ["postcss", "npm:8.4.42"],\
+          ["postcss-value-parser", "npm:4.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/postcss",\
+          "postcss"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:b70ae2bcb4d339056fe22820d2ddf673b866537d57f72c816ede9658bb78334cf24c4a8db26a601e596812decd9d8b1118724e086a8699f1b92bb9f797705ba1#npm:10.4.20", {\
+        "packageLocation": "./.yarn/__virtual__/autoprefixer-virtual-560e6e503a/0/global/cache/autoprefixer-npm-10.4.20-dd5fd05d27-10.zip/node_modules/autoprefixer/",\
+        "packageDependencies": [\
+          ["autoprefixer", "virtual:b70ae2bcb4d339056fe22820d2ddf673b866537d57f72c816ede9658bb78334cf24c4a8db26a601e596812decd9d8b1118724e086a8699f1b92bb9f797705ba1#npm:10.4.20"],\
+          ["@types/postcss", null],\
+          ["browserslist", "npm:4.23.3"],\
+          ["caniuse-lite", "npm:1.0.30001653"],\
+          ["fraction.js", "npm:4.3.7"],\
+          ["normalize-range", "npm:0.1.2"],\
+          ["picocolors", "npm:1.0.1"],\
+          ["postcss", null],\
           ["postcss-value-parser", "npm:4.2.0"]\
         ],\
         "packagePeers": [\
