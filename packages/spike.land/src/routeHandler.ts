@@ -122,7 +122,7 @@ export class RouteHandler {
           const codeSpace = url.searchParams.get("room");
           const { html } = this.code.session;
           const respText = this.code.HTML.replace(
-            `<!-- <link rel="stylesheet" href="/app.css"> -->`,
+            `<!-- injectedCss -->`,
             `<link rel="stylesheet" href="/live/${codeSpace}/index.css">`,
           ).replace(
             "<div id=\"embed\"></div>",
@@ -372,7 +372,7 @@ hQIDAQAB
     const codeSpace = url.searchParams.get("room");
     const { html, css } = this.code.session;
     const respText = this.code.HTML.replace(
-      `<!-- <link rel="stylesheet" href="/app.css"> -->`,
+      `<!-- injectedCss -->`,
       `<style>${css}</style>`,
     ).replace(
       "<div id=\"embed\"></div>",

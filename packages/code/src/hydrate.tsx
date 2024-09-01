@@ -186,6 +186,7 @@ const handleRender = async (
       const html = rootEl.innerHTML;
       if (html) {
         let css = mineFromCaches(cache, html);
+        X;
 
         try {
           console.log("Prettifying CSS");
