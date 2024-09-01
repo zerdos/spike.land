@@ -9,7 +9,22 @@ describe("addSomeFixesIfNeeded", () => {
 
   it("adds import statement for '@emotion/react' if 'css={css`' is present and '@emotion/react' is missing", () => {
     const code = "css={css`color: red;`}";
+
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
+  });
+
+  it("doesn't add extra css' if 'css={css`' is present and '@emotion/react' is missing", () => {
+    const code = `
+    import { css } from "@emotion/css";
+
+
+    css={css\`color: red;\`}
+    
+    `;
+
+    const result = addSomeFixesIfNeeded(code);
+    expect(result.includes("@emotion/react")).toBe(false);
+    expect(result).toMatchSnapshot();
   });
 
   it("adds import statement for 'FC' if ' FC<{' is present and 'import type { FC }' is missing", () => {
@@ -29,6 +44,39 @@ describe("addSomeFixesIfNeeded", () => {
 
   it("handles adds default export if 'export default' is missing", () => {
     const code = "export const myUtilityFN = () => {};";
+    expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
+  });
+
+  it("handles adds default export if 'export default' is missing", () => {
+    const code = "export const myUtilityFN = () => {};";
+    expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
+  });
+
+  it("handles external state", () => {
+    const code = `
+    
+    import { css } from '@emotion/css'
+
+const color = 'white'
+
+render(
+  <div
+    className={css\`
+  padding: 32px;
+          background-color: hotpink;
+          font-size: 24px;
+      border-radius: 4px;
+     &:hover {
+        color: \${color
+        };
+      }
+    \`}
+  >
+    Hover to change color.
+  </div>
+)
+  
+`;
     expect(addSomeFixesIfNeeded(code)).toMatchSnapshot();
   });
 });

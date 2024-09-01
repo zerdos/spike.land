@@ -23,7 +23,48 @@ exports[`addSomeFixesIfNeeded > adds import statement for 'useState' if 'useStat
 export default () => <></>; // Empty default export"
 `;
 
+exports[`addSomeFixesIfNeeded > doesn't add extra css' if 'css={css\`' is present and '@emotion/react' is missing 1`] = `
+"
+    import { css } from "@emotion/css";
+
+
+    css={css\`
+             color: red;
+           \`}
+    
+    
+
+export default () => <></>; // Empty default export"
+`;
+
 exports[`addSomeFixesIfNeeded > handles adds default export if 'export default' is missing 1`] = `"export const myUtilityFN = () => {};"`;
+
+exports[`addSomeFixesIfNeeded > handles adds default export if 'export default' is missing 2`] = `"export const myUtilityFN = () => {};"`;
+
+exports[`addSomeFixesIfNeeded > handles external state 1`] = `
+"
+    
+    import { css } from '@emotion/css'
+
+const color = 'white'
+
+render(
+  <div
+    className={css\`
+                   padding: 32px;
+                   background-color: hotpink;
+                   font-size: 24px;
+                   border-radius: 4px;
+                 \`}
+  >
+    Hover to change color.
+  </div>
+)
+  
+
+
+export default () => <></>; // Empty default export"
+`;
 
 exports[`addSomeFixesIfNeeded > handles multiple occurrences of 'css={css\`' correctly 1`] = `
 "import { css } from "@emotion/react";

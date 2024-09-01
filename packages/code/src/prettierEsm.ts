@@ -5,14 +5,24 @@ import cssParser from "prettier/plugins/postcss";
 import pluginTypescript from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 
-// Helper function to create a string of spaces of a given length
+/**
+ * Creates a string of spaces of the specified length.
+ * @param length - The number of spaces to create.
+ * @returns A string of spaces.
+ */
 const createSpaceString = (length: number): string => " ".repeat(length);
 
+/**
+ * Processes and formats CSS-in-JS code, specifically dealing with the `css` template literal syntax.
+ * @param code - The input code string to process.
+ * @returns The processed and formatted code string.
+ */
 export const addSomeFixesIfNeeded = (code: string): string => {
   try {
     let [start, ...rest] = code.split("css`");
+
     if (rest.length) {
-      if (!code.includes("@emotion/react")) {
+      if (!code.includes("@emotion/react") && !code.includes(" css ")) {
         const [first, ...rest] = start.split("\n");
         // insert the import to the 2nd line
         if (first.startsWith("//")) {
@@ -22,36 +32,75 @@ export const addSomeFixesIfNeeded = (code: string): string => {
         }
       }
     }
-    let prevIndent = (start.split("\n").pop()?.length || 0) + 2;
 
-    let result = [
-      start,
-      ...rest.map((x) => {
-        const [first, second, ...rest] = x.split("`");
-        const indent = createSpaceString(prevIndent);
-        prevIndent = (second.split("\n").pop()?.length || 0) + 2;
+    let prevIndent = (start.split("\n").pop()?.length ?? 0) + 2;
 
-        const indentedFirst = emotion(first)
-          .split("\n")
-          .map((line: string) => (line.trim() ? indent + "  " + line : line))
-          .join("\n");
+    const processedParts = rest.map((part) => {
+      const [cssContent, afterCss, ...remainingParts] = part.split("`");
+      const indent = createSpaceString(prevIndent);
+      prevIndent = (afterCss.split("\n").pop()?.length ?? 0) + 2;
 
-        return [indentedFirst, second].join(`\n${indent}\``).concat(
-          [, ...rest].join("`"),
-        );
-      }),
-    ].join("css`\n");
+      const formattedCssContent = formatCssContent(cssContent, indent);
+      return `${formattedCssContent}\n${indent}\`${[afterCss, ...remainingParts].join("`")}`;
+    });
 
-    // Add default export if it's missing and there's no named export
-    if (!result.includes("export default") && !result.includes("export const") && !result.includes("const App")) {
-      result += "\n\nexport default () => <></>; // Empty default export";
-    }
+    let result = [start, ...processedParts].join("css`\n");
+    result = addDefaultExportIfNeeded(result);
 
     return result;
   } catch (error) {
     console.error("addSomeFixesIfNeeded error", { error, code });
     return code;
   }
+};
+
+/**
+ * Formats the CSS content within the template literal, preserving interpolations.
+ * @param cssContent - The CSS content to format.
+ * @param indent - The indentation string to use.
+ * @returns The formatted CSS content with preserved interpolations.
+ */
+const formatCssContent = (cssContent: string, indent: string): string => {
+  // Replace interpolations with placeholders
+  const placeholderPrefix = "__INTERPOLATION_PLACEHOLDER_";
+  let interpolations: string[] = [];
+  let placeholderIndex = 0;
+
+  const contentWithPlaceholders = cssContent.replace(/\${(.*?)}/g, (match) => {
+    const placeholder = `${placeholderPrefix}${placeholderIndex}`;
+    interpolations.push(match);
+    placeholderIndex++;
+    return placeholder;
+  });
+
+  // Format the CSS content
+  const formattedContent = emotion(contentWithPlaceholders)
+    .split("\n")
+    .map((line: string) => line.trim() ? `${indent}  ${line}` : line)
+    .join("\n");
+
+  // Restore interpolations
+  const finalContent = formattedContent.replace(
+    new RegExp(`${placeholderPrefix}\\d+`, "g"),
+    (match) => {
+      const index = parseInt(match.split("_").pop() || "0", 10);
+      return interpolations[index];
+    },
+  );
+
+  return finalContent;
+};
+
+/**
+ * Adds a default export if it's missing and there's no named export.
+ * @param code - The code to check and potentially modify.
+ * @returns The code with a default export added if necessary.
+ */
+const addDefaultExportIfNeeded = (code: string): string => {
+  if (!code.includes("export default") && !code.includes("export const") && !code.includes("const App")) {
+    return `${code}\n\nexport default () => <></>; // Empty default export`;
+  }
+  return code;
 };
 
 const prettierConfig: Options = {
