@@ -3646,7 +3646,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.5.1"
+    "@types/node": "npm:22.5.2"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
@@ -3654,7 +3654,7 @@ __metadata:
     node-fetch: "npm:3.3.2"
     openai: "npm:4.57.0"
     p-limit: "npm:6.1.0"
-    simple-git: "npm:3.25.0"
+    simple-git: "npm:3.26.0"
   bin:
     ai-commit: ./index.mjs
   languageName: unknown
@@ -3688,7 +3688,7 @@ __metadata:
     "@remix-run/cloudflare": "npm:^2.11.2"
     "@remix-run/react": "npm:^2.11.2"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:22.5.1"
+    "@types/node": "npm:22.5.2"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.23.1"
@@ -3765,7 +3765,7 @@ __metadata:
     "@types/eslint__js": "npm:^8.42.3"
     "@types/esprima": "npm:^4.0.6"
     "@types/isomorphic-fetch": "npm:0.0.39"
-    "@types/node": "npm:^22.5.1"
+    "@types/node": "npm:^22.5.2"
     "@types/object-inspect": "npm:^1.13.0"
     "@types/react": "npm:18.3.5"
     "@types/react-dom": "npm:18.3.0"
@@ -3805,7 +3805,7 @@ __metadata:
     detective-typescript: "npm:13.0.0"
     dprint: "npm:^0.47.2"
     embla-carousel-react: "npm:^8.2.0"
-    es-toolkit: "npm:^1.16.0"
+    es-toolkit: "npm:^1.17.0"
     esbuild: "npm:^0.23.1"
     esbuild-plugin-copy: "npm:^2.1.1"
     esbuild-style-plugin: "npm:^1.6.3"
@@ -3822,7 +3822,7 @@ __metadata:
     input-otp: "npm:^1.2.4"
     jsdom: "npm:^25.0.0"
     localforage: "npm:^1.10.0"
-    lucide-react: "npm:^0.436.0"
+    lucide-react: "npm:^0.437.0"
     miniflare: "npm:^3.20240821.0"
     module: "npm:1.2.5"
     monaco-editor: "npm:^0.51.0"
@@ -3835,7 +3835,7 @@ __metadata:
     p-map: "npm:7.0.2"
     path-browserify: "npm:1.0.1"
     perf_hooks: "npm:^0.0.1"
-    postcss: "npm:^8.4.41"
+    postcss: "npm:^8.4.42"
     preact: "npm:^10.23.2"
     preact-render-to-string: "npm:^6.5.10"
     prettier: "npm:3.3.3"
@@ -3911,7 +3911,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.5.1"
+    "@types/node": "npm:22.5.2"
     esbuild-wasm: "npm:0.23.1"
   languageName: unknown
   linkType: soft
@@ -4469,12 +4469,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.5.1, @types/node@npm:^22.5.1":
-  version: 22.5.1
-  resolution: "@types/node@npm:22.5.1"
+"@types/node@npm:22.5.2, @types/node@npm:^22.5.2":
+  version: 22.5.2
+  resolution: "@types/node@npm:22.5.2"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/adcec0e8a9ec9112a8cc9529b7d633356c2377fe69ca6e6de4ee39cacb8c86a18a9b7ba658e2456f8ad90d5b76767b268f517b0336c6db787cb056dcdfed107a
+  checksum: 10/c4634118abc36d1436d62e192f7088c211139165a395f1cdacca28df421d8dc8dd332b3104d72fc37764d73a205a4bbbe6e6abdc817c2c81883e147d1a96d497
   languageName: node
   linkType: hard
 
@@ -8198,10 +8198,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-toolkit@npm:^1.16.0":
-  version: 1.16.0
-  resolution: "es-toolkit@npm:1.16.0"
-  checksum: 10/5508ab06ad2a3026507f39224ae1213e2adfd1f61234ee081347f8f187c8dfb85d0ad529c9e4398c614325af7488cc9d69517203a1a487364402158a3716196a
+"es-toolkit@npm:^1.17.0":
+  version: 1.17.0
+  resolution: "es-toolkit@npm:1.17.0"
+  checksum: 10/e71d54aa015fc9c1bbec604278cfd9c80c898ef3b03a63866ee7047c8351a2d983fd8862f06be7d3c3d284fde6966ffaba8c6a072635a964502a15620ad89fb8
   languageName: node
   linkType: hard
 
@@ -10099,10 +10099,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hono@npm:4.5.9":
-  version: 4.5.9
-  resolution: "hono@npm:4.5.9"
-  checksum: 10/e2f433d6c31cb1c77d0e7cbc32682209716dd4c57aeeb676e719697223b45adade671b3792ab306fcbb81491483594403e9b09f320ed25120e8a933f75763f7c
+"hono@npm:4.5.10":
+  version: 4.5.10
+  resolution: "hono@npm:4.5.10"
+  checksum: 10/e7a1ef0d7e103fc5c1e588123d07d4380493f003dbb17dff960e8757afc6f650db6e47a0cf0ff34bce1b4fd0ee074460d4bb996bad9a4d5b9476772e1c885ba5
   languageName: node
   linkType: hard
 
@@ -11724,12 +11724,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.436.0":
-  version: 0.436.0
-  resolution: "lucide-react@npm:0.436.0"
+"lucide-react@npm:^0.437.0":
+  version: 0.437.0
+  resolution: "lucide-react@npm:0.437.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
-  checksum: 10/33ece64ea067a02d9d4eaf4b18f9334323db3e0b91746c5332c29b0aa2afd44858db9b48300a78a3406adcd99ffc15c14f94345b7a18a02070216741710c5751
+  checksum: 10/f4fc84e19bbc71466d785fd379b2d3d74c25213d4be3cbec1f489fd2e1af6c80906b03a3756d3e86050e357751feeda46f39313a8cec356db22ea75086fdf455
   languageName: node
   linkType: hard
 
@@ -12781,7 +12781,7 @@ __metadata:
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240821.1"
-    hono: "npm:4.5.9"
+    hono: "npm:4.5.10"
     wrangler: "npm:3.73.0"
   languageName: unknown
   linkType: soft
@@ -14045,6 +14045,17 @@ __metadata:
     picocolors: "npm:^1.0.1"
     source-map-js: "npm:^1.2.0"
   checksum: 10/6e6176c2407eff60493ca60a706c6b7def20a722c3adda94ea1ece38345eb99964191336fd62b62652279cec6938e79e0b1e1d477142c8d3516e7a725a74ee37
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.42":
+  version: 8.4.42
+  resolution: "postcss@npm:8.4.42"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.0.1"
+    source-map-js: "npm:^1.2.0"
+  checksum: 10/5c3a057b13c36ed89d79a16c0b1921a5ca41c7923f1cb1f70b7dbdae27587c4f03e2d910aa0e9e6397415326459926ae6816aa690337b2ec3103a74a74bafdba
   languageName: node
   linkType: hard
 
@@ -15701,14 +15712,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-git@npm:3.25.0":
-  version: 3.25.0
-  resolution: "simple-git@npm:3.25.0"
+"simple-git@npm:3.26.0":
+  version: 3.26.0
+  resolution: "simple-git@npm:3.26.0"
   dependencies:
     "@kwsites/file-exists": "npm:^1.1.1"
     "@kwsites/promise-deferred": "npm:^1.1.1"
     debug: "npm:^4.3.5"
-  checksum: 10/f284162c941e36970db171eacfe0df1f7ce50313fa7841b95abb704ec78ffe4f27b6a46a4b621ed88711104faa295eb47fb2b54b23cead4400cb2204ed491074
+  checksum: 10/b9019f834f2da4dae18e101656d95e322f80f2942ca41f8719e58e026846e01b24bca472dba224c9642b3deb4f1971e760b657b5346140fb31b9c4b55a14c019
   languageName: node
   linkType: hard
 
