@@ -20,7 +20,7 @@ export interface EditorRef {
 }
 
 export const Editor: ForwardRefRenderFunction<EditorRef, EditorProps> = (
-  { codeSpace },
+  { codeSpace, cSess },
 ) => {
   const {
     containerRef,
