@@ -235,7 +235,7 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
       }),
       postCssPlugin({
         postcss: {
-          plugins: [tailwindcss],
+          plugins: [tailwindcss, autoprefixer],
         },
       }),
     ],
