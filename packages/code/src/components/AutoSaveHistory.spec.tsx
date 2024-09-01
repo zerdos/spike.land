@@ -49,6 +49,7 @@ describe("CodeHistoryCarousel", () => {
     render(
       <CodeHistoryCarousel
         codeSpace="test"
+        cSess={{} as any}
         onRestore={mockOnRestore}
         onClose={mockOnClose}
       />,
@@ -70,6 +71,7 @@ describe("CodeHistoryCarousel", () => {
     render(
       <CodeHistoryCarousel
         codeSpace="test"
+        cSess={{} as any}
         onRestore={mockOnRestore}
         onClose={mockOnClose}
       />,

@@ -2,9 +2,14 @@ import { useCodeSpace } from "./hooks/useCodeSpace";
 import { ICodeSession, makeHash, makeSession } from "./makeSess";
 import { md5 } from "./md5";
 
+import { EmotionCache } from "@emotion/cache";
+import { Mutex } from "async-mutex";
 import { formatCode, runCode, transpileCode } from "./components/editorUtils";
 import { ICode } from "./cSess.interface";
-import { connect } from "./shared";
+import { connect, prettierCss } from "./shared";
+import { mineFromCaches } from "./utils/mineCss";
+import { wait } from "./wait";
+import { renderApp, renderedAPPS } from "./Wrapper";
 
 // Initialize global state for first render
 globalThis.firstRender = globalThis.firstRender
@@ -141,16 +146,16 @@ class Code implements ICode {
     try {
       const response = await fetch(`/live/${codeSpace}/session.json`);
       const data: ICodeSession = await response.json();
-      this.session = makeSession(data);
+      return makeSession(data);
     } catch (error) {
       console.error("Error fetching session data:", error);
       // Use default session data for testing environment
-      this.session = makeSession({ i: 0, code: "", html: "", css: "" });
+      return makeSession({ i: 0, code: "", html: "", css: "" });
     }
   }
 
   async run() {
-    await this.init();
+    this.session = await this.init();
     if (location.pathname === `/live/${codeSpace}`) {
       connect({ signal: `${codeSpace} ${this.user}`, sess: this.session });
     }
@@ -158,11 +163,195 @@ class Code implements ICode {
 }
 
 export const cSess = new Code();
-cSess.run();
+await cSess.run();
 
 export const run = async () => {
-  await cSess.run();
-
   const { renderPreviewWindow } = await import("./renderPreviewWindow");
   renderPreviewWindow({ codeSpace, cSess });
+};
+
+(() => {
+  try {
+    cSess.sub((sess: ICodeSession) => {
+      const { i, code, transpiled } = sess;
+      console.table({ i, code, transpiled });
+    });
+  } catch (error) {
+    console.error("Error in cSess subscription:", error);
+  }
+})();
+
+export const handleDehydratedPage = () => {
+  try {
+    cSess.sub((sess: ICodeSession) => {
+      const { html, css } = sess;
+
+      const root = document.getElementById("root");
+
+      if (root && html && css) {
+        root.innerHTML = `<style>${css}</style><div>${html}</div>`;
+      }
+    });
+  } catch (error) {
+    console.error("Error handling dehydrated page:", error);
+  }
+};
+
+const handleRender = async (
+  rootEl: HTMLDivElement,
+  cache: EmotionCache,
+  signal: AbortSignal,
+  mod: {
+    counter: number;
+    code: string;
+    transpiled: string;
+    controller: AbortController;
+  },
+) => {
+  try {
+    console.log("handleRender");
+    const counter = mod.counter;
+
+    if (!rootEl) return false;
+
+    for (let attempts = 100; attempts > 0; attempts--) {
+      if (signal.aborted) return false;
+      const html = rootEl.innerHTML;
+      if (html) {
+        let css = mineFromCaches(cache, html);
+
+        const criticalClasses = css.split("\n").map((line) => {
+          const rule = line.slice(1, 12);
+          if (html.includes(rule)) return rule;
+          return null;
+        }).filter((rule): rule is string => rule !== null);
+        console.log({ criticalClasses });
+        css = css.split("\n").filter((line: string | any[]) => {
+          const rule = line.slice(1, 12) as string;
+          if (html.includes(rule)) return false;
+          return true;
+        }).join("\n");
+
+        try {
+          console.log("Prettifying CSS");
+          if (css) css = await prettierCss(css);
+        } catch (error) {
+          console.error("Error prettifying CSS:", error);
+        }
+
+        if (mod.counter !== counter) return false;
+        return { css, html };
+      }
+      await wait(1);
+    }
+    return false;
+  } catch (error) {
+    console.error("Error in handleRender:", error);
+    return false;
+  }
+};
+
+export const handleDefaultPage = async () => {
+  try {
+    const mod = { ...cSess.session, counter: cSess.session.i, controller: new AbortController() };
+
+    const mutex = new Mutex();
+
+    cSess.sub((sess: ICodeSession) => {
+      try {
+        const { transpiled } = sess;
+
+        const myEl = document.createElement("div")! as HTMLDivElement;
+        myEl.style.height = "100%";
+        myEl.style.width = "100%";
+        myEl.style.display = "none";
+        document.body.appendChild(myEl);
+
+        renderApp({
+          transpiled,
+          rootElement: myEl,
+        });
+
+        const root = document.getElementById("root");
+        renderedAPPS.get(root!)!.cleanup();
+        myEl.style.display = "block";
+        myEl.id = "root";
+      } catch (error) {
+        console.error("Error in cSess subscription:", error);
+      }
+    });
+
+    window.onmessage = async ({ data }) => {
+      try {
+        const { i, transpiled } = data;
+
+        if (!i || !transpiled) return;
+        if (i === "undefined" || transpiled === "undefined") return;
+
+        if (mod.counter >= i) return;
+        mod.counter = i;
+        mod.controller.abort();
+        const { signal } = (mod.controller = new AbortController());
+
+        mod.counter = i;
+        mod.transpiled = transpiled;
+
+        if (signal.aborted) return false;
+
+        await mutex.runExclusive(async () => {
+          if (signal.aborted) return;
+
+          const myEl = document.createElement("div")! as HTMLDivElement;
+          myEl.style.height = "100%";
+          myEl.style.width = "100%";
+          myEl.style.display = "none";
+          document.body.appendChild(myEl);
+
+          const rendered = await renderApp({ rootElement: myEl, transpiled });
+          if (signal.aborted) return false;
+
+          if (signal.aborted) {
+            try {
+              rendered !== null && rendered !== undefined && rendered!.cleanup !== undefined && rendered.cleanup();
+              document.body.removeChild(myEl);
+              myEl.remove();
+            } catch (e) {
+              console.error(e);
+            }
+            return;
+          }
+
+          const res = await handleRender(
+            myEl,
+            rendered?.cssCache!,
+            signal,
+            mod,
+          );
+
+          if (!res) return rendered?.cleanup();
+
+          const { css, html } = res;
+          if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
+            return rendered?.cleanup();
+          }
+
+          window.parent.postMessage({ i, css, html }, "*");
+
+          const old = document.getElementById("root")!;
+          renderedAPPS!.get(old!)!.cleanup();
+          myEl.style.display = "block";
+          document.body.removeChild(old);
+
+          old.remove();
+
+          myEl.id = "root";
+        });
+      } catch (error) {
+        console.error("Error in window.onmessage handler:", error);
+      }
+      return false;
+    };
+  } catch (error) {
+    console.error("Error in handleDefaultPage:", error);
+  }
 };

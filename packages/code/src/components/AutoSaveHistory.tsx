@@ -1,17 +1,20 @@
+import type { ICode } from "@src/cSess.interface";
 import React, { useCallback, useEffect, useState } from "react";
 import { loadVersionHistory, Version } from "../codeHistoryUtils";
 import { FullScreenHistoryView, HistoryItem } from "./History/HistoryFComponents";
 
-export const CodeHistoryCarousel: React.FC<
-  {
-    codeSpace: string;
-    onRestore: (item: HistoryItem) => void;
-    onClose: () => void;
-  }
-> = ({
+interface CodeHistoryCarouselProps {
+  codeSpace: string;
+  onRestore: (item: HistoryItem) => void;
+  onClose: () => void;
+  cSess: ICode;
+}
+
+export const CodeHistoryCarousel: React.FC<CodeHistoryCarouselProps> = ({
   codeSpace,
   onRestore,
   onClose,
+  cSess,
 }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,6 +68,7 @@ export const CodeHistoryCarousel: React.FC<
       onDelete={(timestamp: number) => setHistory(h => h.filter((x) => x.timestamp !== timestamp))}
       onRestore={(item: HistoryItem) => handleRestore(item)}
       onClose={() => onClose()}
+      cSess={cSess}
     />
   );
 };

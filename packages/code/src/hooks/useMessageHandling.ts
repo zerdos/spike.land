@@ -34,7 +34,7 @@ export const useMessageHandling = ({
   cSess,
   setEditInput,
 }: UseMessageHandlingProps) => {
-  const aiHandler = useMemo(() => new AIHandler(codeSpace), [codeSpace]);
+  const aiHandler = useMemo(() => new AIHandler(cSess), [codeSpace]);
   const mutex = new Mutex();
 
   const handleSendMessage = useCallback(async (content: string, screenshot: string) => {

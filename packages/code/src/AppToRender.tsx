@@ -188,6 +188,7 @@ export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace
                       setShowAutoSaveHistory(false);
                     }}
                     codeSpace={codeSpace}
+                    cSess={cSess}
                   />
                 </div>
               </div>

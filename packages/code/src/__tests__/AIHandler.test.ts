@@ -1,11 +1,10 @@
+import { cSessMock } from "@src/config/cSessMock";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { AIHandler } from "../AIHandler";
 import { AIService } from "../services/AIService";
-import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
 
 vi.mock("../services/AIService");
-vi.mock("../services/LocalStorageService");
 
 describe("AIHandler", () => {
   let aiHandler: AIHandler;
@@ -13,15 +12,15 @@ describe("AIHandler", () => {
   const testCodeSpace = "test-code-space";
 
   beforeEach(() => {
-    mockAIService = new AIService(new LocalStorageService(testCodeSpace), {
+    mockAIService = new AIService({
       anthropicEndpoint: "https://api.anthropic.com",
       openAIEndpoint: "https://api.openai.com",
       gpt4oEndpoint: "https://api.gpt4o.com",
       retryWithClaudeEnabled: false,
       updateThrottleMs: 1000,
-    });
+    }, cSessMock);
     vi.mocked(mockAIService);
-    aiHandler = new AIHandler(testCodeSpace, mockAIService);
+    aiHandler = new AIHandler(cSessMock, mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
@@ -86,6 +85,32 @@ describe("AIHandler", () => {
       false,
     );
     expect(result).toBe("Updated code");
+  });
+
+  test("continueWithOpenAI calls AIService.continueWithOpenAI with forceClaude set to true", async () => {
+    const fullResponse = "Full response";
+    const currentCode = "Current code";
+    const setMessages = vi.fn();
+    const setAICode = vi.fn();
+
+    vi.mocked(mockAIService.continueWithOpenAI).mockResolvedValue("Updated code with Claude");
+
+    const result = await aiHandler.continueWithOpenAI(
+      fullResponse,
+      currentCode,
+      setMessages,
+      setAICode,
+      true,
+    );
+
+    expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
+      fullResponse,
+      currentCode,
+      setMessages,
+      setAICode,
+      true,
+    );
+    expect(result).toBe("Updated code with Claude");
   });
 
   test("prepareClaudeContent calls AIService.prepareClaudeContent", () => {

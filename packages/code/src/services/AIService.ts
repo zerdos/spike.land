@@ -1,7 +1,7 @@
+import { ICode } from "@src/cSess.interface";
 import { throttle } from "es-toolkit";
 import { anthropic, gptSystem, reminder } from "../config/aiConfig";
 import { Message, MessageContent } from "../types/Message";
-import { LocalStorageService } from "./LocalStorageService";
 
 interface AIModelResponse {
   content: string;
@@ -38,16 +38,14 @@ class StreamHandler {
 }
 
 export class AIService {
-  private localStorageService: LocalStorageService;
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
-  private cSess: any; // Add cSess as a private property
+  private cSess: any;
 
-  constructor(localStorageService: LocalStorageService, config: AIServiceConfig, cSess: any) { // Add cSess to constructor
-    this.localStorageService = localStorageService;
+  constructor(config: AIServiceConfig, cSess: ICode) {
     this.config = config;
     this.streamHandler = new StreamHandler();
-    this.cSess = cSess; // Initialize cSess
+    this.cSess = cSess;
   }
 
   private getEndpoint(type: AIEndpoint): string {
@@ -99,13 +97,6 @@ export class AIService {
     };
   }
 
-  private saveInteraction(userMessage: Message, assistantMessage: Message): void {
-    this.localStorageService.saveAIInteraction(
-      JSON.stringify(userMessage),
-      JSON.stringify(assistantMessage),
-    );
-  }
-
   async sendToAI(
     type: AIEndpoint,
     messages: Message[],
@@ -119,9 +110,6 @@ export class AIService {
       role: "assistant",
       content: result.content,
     };
-
-    const userMessage = messages[messages.length - 1];
-    this.saveInteraction(userMessage, assistantMessage);
 
     return assistantMessage;
   }
@@ -138,31 +126,45 @@ export class AIService {
     fullResponse: string,
     codeNow: string,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
+    setAICode: (code: string) => void,
     isRetry = false,
-  ): Promise<string | void> {
+  ): Promise<string> {
     const messages: Message[] = [
       { id: Date.now().toString(), role: "system", content: gptSystem },
       { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
     ];
 
-    const debouncedSetMessages = throttle((newCode: string) => {
+    const updateMessages = (newCode: string) => {
       setMessages((prevMessages) => [
-        ...prevMessages.slice(0, -1),
-        { ...prevMessages[prevMessages.length - 1], content: `${fullResponse}\n${newCode}` },
+        ...prevMessages,
+        { id: Date.now().toString(), role: "assistant", content: newCode },
       ]);
-    }, this.config.updateThrottleMs);
+    };
+
+    const debouncedSetMessages = process.env.NODE_ENV === "test"
+      ? updateMessages
+      : throttle(updateMessages, this.config.updateThrottleMs);
 
     try {
       const response = await this.sendToAI("openAI", messages, debouncedSetMessages);
       const modifiedCode = this.extractCodeFromResponse(response.content);
+      if (!modifiedCode) {
+        setAICode("");
+        updateMessages("");
+        return "";
+      }
       const prettyCode = await this.formatAndRunCode(modifiedCode);
-         await this.cSess.setCode(prettyCode);
+      await this.cSess.setCode(prettyCode);
+      setAICode(prettyCode);
+      updateMessages(prettyCode);
       return prettyCode;
     } catch (error) {
       console.error("Error in AI code processing:", error);
+      updateMessages(error instanceof Error ? error.message : String(error));
       if (!isRetry && this.config.retryWithClaudeEnabled) {
-        return this.retryWithClaude(fullResponse, codeNow, error, setMessages);
+        return this.retryWithClaude(fullResponse, codeNow, error, setMessages, setAICode, messages);
       }
+      throw error;
     }
   }
 
@@ -173,13 +175,13 @@ export class AIService {
     const codeModificationRegex = /```(?:typescript?|tsx?|jsx?|javascript?)\n([\s\S]*?)```/g;
     const matches = response.match(codeModificationRegex);
     if (!matches) {
-      throw new Error("No code block found in the response");
+      return "";
     }
     return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
   }
 
   private async formatAndRunCode(code: string): Promise<string> {
-    if ((await this.cSess.setCode(code)) === false) { // Use this.cSess instead of global cSess
+    if ((await this.cSess.setCode(code)) === false) {
       throw new Error("Error in runner");
     }
     return code;
@@ -190,7 +192,9 @@ export class AIService {
     codeNow: string,
     error: unknown,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  ): Promise<string | void> {
+    setAICode: (code: string) => void,
+    prevMessages: Message[],
+  ): Promise<string> {
     console.log("Retrying with Claude");
     const message: Message = {
       id: Date.now().toString(),
@@ -200,14 +204,12 @@ export class AIService {
       }\nCould you help me with this error? I'm stuck.`,
     };
 
-    setMessages((prevMessages) => [...prevMessages, message]);
-    const prevMessages = this.localStorageService.loadMessages();
     const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
       setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
     });
     setMessages((prevMessages) => [...prevMessages, answer]);
 
-    return this.continueWithOpenAI(answer.content as string, codeNow, setMessages, true);
+    return this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode, true);
   }
 
   prepareClaudeContent(

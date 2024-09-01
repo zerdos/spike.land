@@ -1,7 +1,5 @@
-import { AIHandler } from "@src/AIHandler";
 import { cSessMock } from "@src/config/cSessMock";
 import type { Message } from "@src/types/Message";
-import { cSess } from "@src/ws";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as sharedModule from "../shared";
@@ -42,17 +40,11 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle sending a message", async () => {
-    const mockPrepareClaudeContent = vi.fn().mockReturnValue("prepared content");
     const mockSendToAnthropic = vi.fn().mockResolvedValue({
       id: "1",
       role: "assistant",
       content: "Assistant response",
     });
-
-    vi.mocked(AIHandler).mockImplementation(() => ({
-      prepareClaudeContent: mockPrepareClaudeContent,
-      sendToAnthropic: mockSendToAnthropic,
-    }));
 
     const { result } = renderHook(() => useMessageHandling(mockProps));
 

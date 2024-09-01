@@ -52,6 +52,7 @@ export const AppToRenderNew: React.FC<{ codeSpace: string; cSess: ICode }> = ({ 
                     onClose={() => {}}
                     onRestore={() => {}}
                     codeSpace={codeSpace}
+                    cSess={cSess}
                   />
                 </ScrollArea>
               </Panel>
