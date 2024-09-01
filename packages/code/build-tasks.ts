@@ -4,7 +4,7 @@ import { environment } from "helpers.ts";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 
-import postCssPlugin from "esbuild-style-plugin";
+// import postCssPlugin from "esbuild-style-plugin";
 export type Environment = "development" | "production";
 
 const isProduction = environment as string === "production";
@@ -229,11 +229,11 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
           to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
         }],
       }),
-      postCssPlugin({
-        postcss: {
-          plugins: [(await import("tailwindcss")).default, (await import("autoprefixer")).default as unknown as any],
-        },
-      }),
+      // postCssPlugin({
+      //   postcss: {
+      //     plugins: [(await import("tailwindcss")).default, (await import("autoprefixer")).default as unknown as any],
+      //   },
+      // }),
     ],
     // plugins: [
     //   ReactCompilerEsbuildPlugin({
