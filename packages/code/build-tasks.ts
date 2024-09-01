@@ -1,8 +1,8 @@
 // build-tasks.mjs
 import { copy } from "esbuild-plugin-copy";
-import { environment } from "helpers.ts";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
+import { environment } from "./helpers.ts";
 
 // import postCssPlugin from "esbuild-style-plugin";
 export type Environment = "development" | "production";
@@ -154,7 +154,7 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     minifyWhitespace: false,
     bundle: false,
     treeShaking: isProduction,
-    mangleQuoted: isProduction,
+    mangleQuoted: false,
     sourcemap: false,
     legalComments: "none",
     target: "es2024",
@@ -201,7 +201,7 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     minifyWhitespace: false,
     bundle: true,
     treeShaking: isProduction,
-    mangleQuoted: isProduction,
+    mangleQuoted: false,
     sourcemap: false,
     target: "es2024",
     allowOverwrite: true,
