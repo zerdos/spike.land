@@ -1,24 +1,21 @@
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 import type { ata as Ata } from "./ata";
-import type { createWorkflow as CreateWorkflow } from "./LangChain";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 import { rpcFactory } from "./workerRpc";
 
-// Type declarations
 declare var self: SharedWorkerGlobalScope & {
   ata: typeof Ata;
   prettierCss: typeof PrettierCSS;
   prettierJs: typeof Prettier;
-  createWorkflow: typeof CreateWorkflow;
+  createWorkflow: (q: string) => Promise<string>;
   transpile: typeof Transpile;
   build: typeof Build;
   tsx: (code: string) => Promise<string[]>;
 };
 
-// Import scripts
 importScripts(
   "/workerScripts/dts.js",
   "/workerScripts/ata.js",
@@ -29,14 +26,15 @@ importScripts(
 
 const { ata, prettierJs, transpile, build, tsx, prettierCss, createWorkflow } = self;
 
-// Constants
 const SOCKET_POLICY = {
   timeout: 4000,
   attempts: Infinity,
   maxDelay: 60000,
 };
 
-// Interfaces
+const connections: Record<string, Connection> = {};
+const mutex = new Mutex();
+
 interface Connection {
   BC: BroadcastChannel;
   lastCounter: number;
@@ -47,59 +45,59 @@ interface Connection {
   oldSession: ICodeSession;
 }
 
-interface BroadcastMod {
-  i: number;
-  code: string;
-  html: string;
-  css: string;
-  transpiled: string;
-  controller: AbortController;
-}
-
-// State
-const connections: Record<string, Connection> = {};
-const broadcastMod: Record<string, BroadcastMod> = {};
-const mutex = new Mutex();
-
-// Main function
 function start(port: MessagePort) {
   const rpcProvider = rpcFactory(port);
   port.onmessage = ({ data }) => rpcProvider.dispatch(data);
+
   registerRpcHandlers(rpcProvider);
 }
 
-// RPC handlers
 function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
-  const handlers = {
-    prettierJs: ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
-    createWorkflow: (q: string) => createWorkflow(q),
-    prettierCss: (code: string) => prettierCss(code),
-    ata: ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, tsx }),
-    transpile: ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
-    build: (params: {
-      codeSpace: string;
-      splitting?: boolean;
-      entryPoint?: string;
-      origin: string;
-      format: "esm" | "iife";
-      external?: string[];
-    }) => build(params),
-  };
-
-  rpcProvider.registerRpcHandler("prettierJS", handlers.prettierJs);
-  rpcProvider.registerRpcHandler("createWorkflow", handlers.createWorkflow);
-  rpcProvider.registerRpcHandler("prettierCss", handlers.prettierCss);
-  rpcProvider.registerRpcHandler("ata", handlers.ata);
-  rpcProvider.registerRpcHandler("transpile", handlers.transpile);
-  rpcProvider.registerRpcHandler("build", handlers.build);
-
+  rpcProvider.registerRpcHandler(
+    "prettierJs",
+    ({ code, toThrow }: { code: string; toThrow: boolean }) => prettierJs(code, toThrow),
+  );
+  rpcProvider.registerRpcHandler(
+    "createWorkflow",
+    (q: string) => createWorkflow(q),
+  );
+  rpcProvider.registerRpcHandler(
+    "prettierCss",
+    (code: string) => prettierCss(code),
+  );
+  rpcProvider.registerRpcHandler(
+    "ata",
+    ({ code, originToUse }: { code: string; originToUse: string }) => ata({ code, originToUse, tsx }),
+  );
+  rpcProvider.registerRpcHandler(
+    "transpile",
+    ({ code, originToUse }: { code: string; originToUse: string }) => transpile(code, originToUse),
+  );
+  rpcProvider.registerRpcHandler(
+    "build",
+    (
+      params: {
+        codeSpace: string;
+        splitting?: boolean;
+        entryPoint?: string;
+        origin: string;
+        format: "esm" | "iife";
+        external?: string[];
+      },
+    ) => build(params),
+  );
   rpcProvider.registerSignalHandler(
     "connect",
     ({ signal, sess }: { signal: string; sess: ICodeSession }) => setConnections(signal, sess),
   );
 }
 
-// Connection setup
+self.onconnect = (e) => start(e.ports[0]);
+
+if (!("SharedWorkerGlobalScope" in self)) {
+  start(self as typeof self & MessagePort);
+}
+
 async function setConnections(signal: string, sess: ICodeSession) {
   const [codeSpace, user] = signal.split(" ");
 
@@ -120,14 +118,15 @@ async function setConnections(signal: string, sess: ICodeSession) {
   connections[codeSpace] = connection;
 }
 
-// Helper functions
 async function fetchInitialSession(codeSpace: string): Promise<ICodeSession> {
   const response = await fetch(`/live/${codeSpace}/session`);
   return makeSession(await response.json());
 }
 
 function createWebSocket(codeSpace: string, connection: Connection): Socket {
-  const host = location.host === "localhost" ? "testing.spike.land" : location.host;
+  const host = location.host === "localhost"
+    ? "testing.spike.land"
+    : location.host;
   const url = `wss://${host}/live/${codeSpace}/websocket`;
   const delegate = createSocketDelegate(connection, codeSpace);
   const ws = new BufferedSocket(new StableSocket(url, delegate, SOCKET_POLICY));
@@ -145,14 +144,21 @@ function createSocketDelegate(connection: Connection, codeSpace: string) {
   };
 }
 
-function createBroadcastChannel(codeSpace: string, connection: Connection): BroadcastChannel {
+function createBroadcastChannel(
+  codeSpace: string,
+  connection: Connection,
+): BroadcastChannel {
   const BC = new BroadcastChannel(`${location.origin}/live/${codeSpace}/`);
   BC.onmessage = ({ data }) => handleBroadcastMessage(data, connection);
   return BC;
 }
 
-// Message handlers
-async function handleSocketMessage(ws: Socket, message: string, connection: Connection, codeSpace: string) {
+async function handleSocketMessage(
+  ws: Socket,
+  message: string,
+  connection: Connection,
+  codeSpace: string,
+) {
   const data = JSON.parse(message);
   const { BC, oldSession, user } = connection;
 
@@ -175,11 +181,17 @@ async function handleSocketMessage(ws: Socket, message: string, connection: Conn
   }
 }
 
-async function handleHandshake(ws: Socket, data: any, connection: Connection, codeSpace: string) {
+async function handleHandshake(
+  ws: Socket,
+  data: any,
+  connection: Connection,
+  codeSpace: string,
+) {
   ws.send(JSON.stringify({ name: connection.user }));
 
   if (makeHash(connection.oldSession) !== String(data.hashCode)) {
     connection.oldSession = await fetchInitialSession(codeSpace);
+
     connection.BC.postMessage({
       ...connection.oldSession,
       sender: "ATA WORKER2",
@@ -187,13 +199,17 @@ async function handleHandshake(ws: Socket, data: any, connection: Connection, co
   }
 }
 
-async function handleHashUpdate(data: any, connection: Connection, codeSpace: string) {
+async function handleHashUpdate(
+  data: any,
+  connection: Connection,
+  codeSpace: string,
+) {
   connection.controller.abort();
   connection.controller = new AbortController();
   const signal = connection.controller.signal;
   if (signal.aborted) return;
 
-  await mutex.runExclusive(async () => {
+  return await mutex.runExclusive(async () => {
     const oldSession = makeSession(connection.oldSession);
     const oldHash = makeHash(oldSession);
 
@@ -205,11 +221,18 @@ async function handleHashUpdate(data: any, connection: Connection, codeSpace: st
   });
 }
 
-async function handleHashMismatch(connection: Connection, codeSpace: string, signal: AbortSignal) {
+async function handleHashMismatch(
+  connection: Connection,
+  codeSpace: string,
+  signal: AbortSignal,
+) {
   if (signal.aborted) return;
   connection.oldSession = await fetchInitialSession(codeSpace);
   if (signal.aborted) return;
-  const transpiled = connection.oldSession.transpiled || await transpile(connection.oldSession.code, location.origin);
+  const transpiled = connection.oldSession.transpiled || await transpile(
+    connection.oldSession.code,
+    location.origin,
+  );
   if (signal.aborted) return;
   connection.BC.postMessage({
     ...connection.oldSession,
@@ -218,7 +241,12 @@ async function handleHashMismatch(connection: Connection, codeSpace: string, sig
   });
 }
 
-async function handleHashMatch(data: any, connection: Connection, oldSession: ICodeSession, signal: AbortSignal) {
+async function handleHashMatch(
+  data: any,
+  connection: Connection,
+  oldSession: ICodeSession,
+  signal: AbortSignal,
+) {
   const newSession = applyCodePatch(oldSession, data);
   const newHash = makeHash(newSession);
   if (signal.aborted) return;
@@ -241,6 +269,17 @@ async function handleHashMatch(data: any, connection: Connection, oldSession: IC
     });
   }
 }
+
+const broadcastMod: {
+  [key: string]: {
+    i: number;
+    code: string;
+    html: string;
+    css: string;
+    transpiled: string;
+    controller: AbortController;
+  };
+} = {};
 
 async function handleBroadcastMessage(data: {
   i: number;
@@ -302,13 +341,6 @@ async function handleBroadcastMessage(data: {
       }
     }
   }
-}
-
-// Entry point
-self.onconnect = (e) => start(e.ports[0]);
-
-if (!("SharedWorkerGlobalScope" in self)) {
-  start(self as typeof self & MessagePort);
 }
 
 export {};
