@@ -13,7 +13,7 @@ export async function ata({
   filePath: string;
   content: string;
 }[]> {
-  const queuedFetch = new QueuedFetch(3, 1000);
+  const queuedFetch = new QueuedFetch(4, 2000);
   let thisATA: { content: string; filePath: string }[] = [];
 
   const impRes: Record<string, { url: string; content: string; ref: string }> = {};
