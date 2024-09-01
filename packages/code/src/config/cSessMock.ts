@@ -16,7 +16,7 @@ export const cSessMock: ICode = {
     // Add code her
     return rawCode;
   },
-  sub: (fn: (sess: ICodeSession) => void) => {
+  sub: (_fn: (sess: ICodeSession) => void) => {
     // Add code here
   },
   // Add properties or methods here

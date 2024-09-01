@@ -1,8 +1,8 @@
-import { cSessMock } from "@src/config/cSessMock";
 import { beforeEach, describe, expect, it, Mocked, vi } from "vitest";
 import { AIService } from "../services/AIService";
 import { LocalStorageService } from "../services/LocalStorageService";
 import { Message } from "../types/Message";
+import { cSessMock } from "@src/config/cSessMock";
 
 vi.mock("../services/LocalStorageService");
 vi.mock("../shared", () => ({
@@ -119,37 +119,37 @@ describe("AIService", () => {
       const setAICode = vi.fn();
 
       const sendToAISpy = vi.spyOn(aiService, "sendToAI" as any);
-      sendToAISpy.mockResolvedValue({ id: "2", role: "assistant", content: "```typescript\nconst x = 5;\n```" });
+      sendToAISpy.mockResolvedValue({ id: "2", role: "assistant", content: "```typescript\nconst x = 5;```" });
 
-      vi.spyOn(aiService as any, "makeAPICall").mockResolvedValue({
+      const makeAPICallSpy = vi.spyOn(aiService as any, "makeAPICall");
+      makeAPICallSpy.mockResolvedValue({
         ok: true,
         body: {
           getReader: () => ({
             read: vi.fn()
               .mockResolvedValueOnce({
                 done: false,
-                value: new TextEncoder().encode("const x = 5;"),
+                value: new TextEncoder().encode("const x = 5;\n"),
               })
               .mockResolvedValueOnce({ done: true }),
           }),
         },
       } as unknown as Response);
 
-      // Mock the continueWithOpenAI method to return a defined value
-      vi.spyOn(aiService, "continueWithOpenAI").mockResolvedValue("const x = 5;");
-
       const result = await aiService.continueWithOpenAI(fullResponse, codeNow, setMessages, setAICode);
 
       expect(result).toBeDefined();
       expect(result).toBe("const x = 5;");
-
       expect(setAICode).toHaveBeenCalledWith("const x = 5;");
+      expect(setMessages).toHaveBeenCalled();
+      expect(sendToAISpy).toHaveBeenCalledTimes(1);
+      expect(makeAPICallSpy).toHaveBeenCalledTimes(1);
     });
 
     it("should retry with Claude if enabled and initial attempt fails", async () => {
       const sendToAISpy = vi.spyOn(aiService, "sendToAI" as any);
       sendToAISpy.mockRejectedValueOnce(new Error("OpenAI Error"))
-        .mockResolvedValueOnce({ id: "2", role: "assistant", content: "```typescript\nconst x = 5;\n```" });
+        .mockResolvedValueOnce({role: "assistant", content: "```typescript\nconst x = 5;\n```" });
 
       const makeAPICallSpy = vi.spyOn(aiService as any, "makeAPICall");
       makeAPICallSpy.mockResolvedValue({
@@ -172,23 +172,22 @@ describe("AIService", () => {
         anthropicEndpoint: "https://api.anthropic.com",
         openAIEndpoint: "https://api.openai.com",
         gpt4oEndpoint: "https://api.gpt4o.com",
-      }, cSessMock);
+      }, 
+      cSessMock);
 
       const fullResponse = "Here's the modified code:";
       const codeNow = "// Original code";
       const setMessages = vi.fn();
       const setAICode = vi.fn();
 
-      // Mock the continueWithOpenAI method to return a defined value
-      vi.spyOn(aiService, "continueWithOpenAI").mockResolvedValue("const x = 5;");
-
       const result = await aiService.continueWithOpenAI(fullResponse, codeNow, setMessages, setAICode);
 
       expect(result).toBeDefined();
-      expect(result).toBe("const x = 5;");
-      expect(setAICode).toHaveBeenCalledWith("const x = 5;");
+      expect(result).toBe("const x = 5;\n");
+      expect(setAICode).toHaveBeenCalledWith("const x = 5;\n");
       expect(setMessages).toHaveBeenCalled();
       expect(sendToAISpy).toHaveBeenCalledTimes(2);
+      expect(makeAPICallSpy).toHaveBeenCalledTimes(1);
     });
   });
 

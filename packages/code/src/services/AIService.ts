@@ -138,7 +138,6 @@ export class AIService {
     fullResponse: string,
     codeNow: string,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-    setAICode: (code: string) => void,
     isRetry = false,
   ): Promise<string | void> {
     const messages: Message[] = [
@@ -157,12 +156,12 @@ export class AIService {
       const response = await this.sendToAI("openAI", messages, debouncedSetMessages);
       const modifiedCode = this.extractCodeFromResponse(response.content);
       const prettyCode = await this.formatAndRunCode(modifiedCode);
-      setAICode(prettyCode);
+         await this.cSess.setCode(prettyCode);
       return prettyCode;
     } catch (error) {
       console.error("Error in AI code processing:", error);
       if (!isRetry && this.config.retryWithClaudeEnabled) {
-        return this.retryWithClaude(fullResponse, codeNow, error, setMessages, setAICode);
+        return this.retryWithClaude(fullResponse, codeNow, error, setMessages);
       }
     }
   }
@@ -191,7 +190,6 @@ export class AIService {
     codeNow: string,
     error: unknown,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-    setAICode: (code: string) => void,
   ): Promise<string | void> {
     console.log("Retrying with Claude");
     const message: Message = {
@@ -209,7 +207,7 @@ export class AIService {
     });
     setMessages((prevMessages) => [...prevMessages, answer]);
 
-    return this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode, true);
+    return this.continueWithOpenAI(answer.content as string, codeNow, setMessages, true);
   }
 
   prepareClaudeContent(

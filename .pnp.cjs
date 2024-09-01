@@ -5130,7 +5130,7 @@ const RAW_RUNTIME_STATE =
           ["input-otp", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.2.4"],\
           ["jsdom", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:25.0.0"],\
           ["localforage", "npm:1.10.0"],\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.437.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.438.0"],\
           ["miniflare", "npm:3.20240821.0"],\
           ["module", "npm:1.2.5"],\
           ["monaco-editor", "npm:0.51.0"],\
@@ -5143,7 +5143,7 @@ const RAW_RUNTIME_STATE =
           ["p-map", "npm:7.0.2"],\
           ["path-browserify", "npm:1.0.1"],\
           ["perf_hooks", "npm:0.0.1"],\
-          ["postcss", "npm:8.4.42"],\
+          ["postcss", "npm:8.4.43"],\
           ["preact", "npm:10.23.2"],\
           ["preact-render-to-string", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:6.5.10"],\
           ["prettier", "npm:3.3.3"],\
@@ -7716,7 +7716,7 @@ const RAW_RUNTIME_STATE =
           ["fraction.js", "npm:4.3.7"],\
           ["normalize-range", "npm:0.1.2"],\
           ["picocolors", "npm:1.0.1"],\
-          ["postcss", "npm:8.4.42"],\
+          ["postcss", "npm:8.4.43"],\
           ["postcss-value-parser", "npm:4.2.0"]\
         ],\
         "packagePeers": [\
@@ -14452,17 +14452,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["lucide-react", [\
-      ["npm:0.437.0", {\
-        "packageLocation": "./.yarn/global/cache/lucide-react-npm-0.437.0-35f55b52ac-10.zip/node_modules/lucide-react/",\
+      ["npm:0.438.0", {\
+        "packageLocation": "./.yarn/global/cache/lucide-react-npm-0.438.0-acd246c9da-10.zip/node_modules/lucide-react/",\
         "packageDependencies": [\
-          ["lucide-react", "npm:0.437.0"]\
+          ["lucide-react", "npm:0.438.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.437.0", {\
-        "packageLocation": "./.yarn/__virtual__/lucide-react-virtual-bcb1e5816d/0/global/cache/lucide-react-npm-0.437.0-35f55b52ac-10.zip/node_modules/lucide-react/",\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.438.0", {\
+        "packageLocation": "./.yarn/__virtual__/lucide-react-virtual-4e2afd3da5/0/global/cache/lucide-react-npm-0.438.0-acd246c9da-10.zip/node_modules/lucide-react/",\
         "packageDependencies": [\
-          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.437.0"],\
+          ["lucide-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.438.0"],\
           ["@types/react", "npm:18.3.5"],\
           ["react", "npm:18.3.1"]\
         ],\
@@ -16935,10 +16935,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:8.4.42", {\
-        "packageLocation": "./.yarn/global/cache/postcss-npm-8.4.42-ae7ce97805-10.zip/node_modules/postcss/",\
+      ["npm:8.4.43", {\
+        "packageLocation": "./.yarn/global/cache/postcss-npm-8.4.43-3b7e013e4e-10.zip/node_modules/postcss/",\
         "packageDependencies": [\
-          ["postcss", "npm:8.4.42"],\
+          ["postcss", "npm:8.4.43"],\
           ["nanoid", "npm:3.3.7"],\
           ["picocolors", "npm:1.0.1"],\
           ["source-map-js", "npm:1.2.0"]\
