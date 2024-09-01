@@ -56,6 +56,7 @@ export const formatCode = async (code: string, signal: AbortSignal): Promise<str
     }
     return formattedCode;
   } catch (error) {
+    console.error("Error formatting code:", error);
     setError("prettier");
     throw new Error("Prettier formatting failed");
   }
