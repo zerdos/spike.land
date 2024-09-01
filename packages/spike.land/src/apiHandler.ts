@@ -7,7 +7,7 @@ export async function handleApiRequest(
   path: string[],
   request: Request,
   env: Env,
-) {
+): Promise<Response> { // Specify the return type as Promise<Response>
   switch (path[0]) {
     case "server-fetch":
       {
@@ -17,7 +17,7 @@ export async function handleApiRequest(
           >();
 
           try {
-            return await fetch(url, options);
+            return await fetch(url, options) as unknown as Response;
           } catch (error) {
             return new Response("Server-side fetch failed", { status: 500 });
           }

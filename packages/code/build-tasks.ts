@@ -3,6 +3,11 @@ import { copy } from "esbuild-plugin-copy";
 import { environment } from "helpers.ts";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
+
+import autoprefixer from "autoprefixer";
+import postCssPlugin from "esbuild-style-plugin";
+import tailwindcss from "tailwindcss";
+
 // import {ReactCompilerEsbuildPlugin} from "./src/ReactCompilerPlugin.mjs";
 export type Environment = "development" | "production";
 
@@ -227,6 +232,11 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
           from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
           to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
         }],
+      }),
+      postCssPlugin({
+        postcss: {
+          plugins: [tailwindcss],
+        },
       }),
     ],
     // plugins: [

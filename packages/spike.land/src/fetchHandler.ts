@@ -1,5 +1,6 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { importMap, importMapReplace } from "@spike-land/code";
+import { Q } from "vitest/dist/chunks/reporters.C_zwCd4j";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
@@ -119,11 +120,10 @@ function handleFilesJson(withFiles = true): Response {
   });
 }
 
-function handleUnpkg(path: string[]): Promise<Response> {
-  return fetch(
+const handleUnpkg = (path: string[]) =>
+  fetch(
     new URL(path.slice(1).join("/"), "https://unpkg.com").toString(),
-  );
-}
+  ) as unknown as Response;
 
 function handleImportMapJson(): Response {
   return new Response(JSON.stringify(importMap), {
@@ -154,17 +154,17 @@ function handleSwVersionResponse(
   });
 }
 
-async function handleIpfsRequest(request: Request) {
+async function handleIpfsRequest(request: Request): Promise<Response> {
   const u = new URL(request.url, "https://cloudflare-ipfs.com");
   const new1 = new URL(u.pathname, "https://cloudflare-ipfs.com");
   const resp = await fetch(new1.toString());
   if (!resp.ok) {
-    return resp;
+    return resp as unknown as Response;
   }
 
   const new2 = new URL(u.pathname, "https://ipfs.io");
   const resp2 = await fetch(new2.toString());
-  return resp2;
+  return resp2 as unknown as Response;
 }
 
 async function handleLiveRequest(path: string[], request: Request, env: Env) {
