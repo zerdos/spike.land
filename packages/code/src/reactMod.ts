@@ -44,7 +44,6 @@ export const useMemo: typeof React.useMemo = React.useMemo;
 export const useReducer: typeof React.useReducer = React.useReducer;
 export const useRef: typeof React.useRef = React.useRef;
 export const useSyncExternalStore: typeof React.useSyncExternalStore = React.useSyncExternalStore;
-ex;
 export const useTransition: typeof React.useTransition = React.useTransition;
 export const version: string = React.version;
 
