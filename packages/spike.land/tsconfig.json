@@ -20,7 +20,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types", "@types/node"],
   },
   "exclude": ["**/*.spec.ts", "**/node_modules/*", "**/ .yarn", "**/dist"],
   "include": [

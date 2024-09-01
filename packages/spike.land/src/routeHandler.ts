@@ -516,12 +516,13 @@ hQIDAQAB
   private async handleScreenShotRoute(
     request: Request,
     url: URL,
+    path: string[],
   ): Promise<Response> {
     const codeSpace = url.searchParams.get("room");
     const origin: string = this.code.getOrigin();
     return fetch(
       `https://spike-land-renderer.spikeland.workers.dev/?url=${origin}/live/${codeSpace}/embed`,
-    );
+    ) as unknown as Promise<Response>;
   }
 
   private async handleRenderToStr(

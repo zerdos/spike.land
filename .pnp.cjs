@@ -754,6 +754,35 @@ const RAW_RUNTIME_STATE =
           "vitest"\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:0.4.27", {\
+        "packageLocation": "./.yarn/__virtual__/@cloudflare-vitest-pool-workers-virtual-23474cb779/0/global/cache/@cloudflare-vitest-pool-workers-npm-0.4.27-a249985a11-10.zip/node_modules/@cloudflare/vitest-pool-workers/",\
+        "packageDependencies": [\
+          ["@cloudflare/vitest-pool-workers", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:0.4.27"],\
+          ["@types/vitest", null],\
+          ["@types/vitest__runner", null],\
+          ["@types/vitest__snapshot", null],\
+          ["@vitest/runner", null],\
+          ["@vitest/snapshot", null],\
+          ["birpc", "npm:0.2.14"],\
+          ["cjs-module-lexer", "npm:1.4.0"],\
+          ["devalue", "npm:4.3.3"],\
+          ["esbuild", "npm:0.17.19"],\
+          ["miniflare", "npm:3.20240821.0"],\
+          ["semver", "npm:7.6.3"],\
+          ["vitest", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.0.5"],\
+          ["wrangler", "virtual:23ab81630eb0b7fc2a483f17aa1251dbb79a11be4691e951806ce05e4afb494872d136523647951defa9e36ec0aa61c5139917edff4674c073c73ef7107862ba#npm:3.73.0"],\
+          ["zod", "npm:3.23.8"]\
+        ],\
+        "packagePeers": [\
+          "@types/vitest",\
+          "@types/vitest__runner",\
+          "@types/vitest__snapshot",\
+          "@vitest/runner",\
+          "@vitest/snapshot",\
+          "vitest"\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@cloudflare/workerd-darwin-64", [\
@@ -5187,6 +5216,7 @@ const RAW_RUNTIME_STATE =
           ["@clerk/backend", "npm:1.9.0"],\
           ["@clerk/clerk-sdk-node", "npm:5.0.33"],\
           ["@cloudflare/kv-asset-handler", "npm:0.3.4"],\
+          ["@cloudflare/vitest-pool-workers", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:0.4.27"],\
           ["@cloudflare/workers-types", "npm:4.20240821.1"],\
           ["@remix-run/cloudflare", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
           ["@remix-run/react", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.11.2"],\
@@ -5203,6 +5233,7 @@ const RAW_RUNTIME_STATE =
           ["p-queue", "npm:8.0.1"],\
           ["replicate", "npm:0.32.1"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
+          ["vitest", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.0.5"],\
           ["wrangler", "virtual:43f3fabb430a18e9a2046eef1a95837fc76c28dee2b73febdbd8b60cde49965c2272db394be45d4712d95f1e7f6ea22a769a5e85e1fca0248426a121219f05e9#npm:3.73.0"]\
         ],\
         "linkType": "SOFT"\
@@ -21762,6 +21793,56 @@ const RAW_RUNTIME_STATE =
           ["tinypool", "npm:1.0.1"],\
           ["tinyrainbow", "npm:1.2.0"],\
           ["vite", "virtual:ec0bec3024247e69d5bba029f4048d6a079e4c027a7bf9456d53326db601f5e87f3a0f0957dfde9beb9985b0c496d1d5bb94c5f61353cfa81ca41e43ea981e06#npm:5.4.2"],\
+          ["vite-node", "npm:2.0.5"],\
+          ["why-is-node-running", "npm:2.3.0"]\
+        ],\
+        "packagePeers": [\
+          "@edge-runtime/vm",\
+          "@types/edge-runtime__vm",\
+          "@types/happy-dom",\
+          "@types/jsdom",\
+          "@types/node",\
+          "@types/vitest__browser",\
+          "@types/vitest__ui",\
+          "@vitest/browser",\
+          "@vitest/ui",\
+          "happy-dom",\
+          "jsdom"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.0.5", {\
+        "packageLocation": "./.yarn/__virtual__/vitest-virtual-c2cf4f1d7a/0/global/cache/vitest-npm-2.0.5-3ee23fccc7-10.zip/node_modules/vitest/",\
+        "packageDependencies": [\
+          ["vitest", "virtual:73e667ec3212b003ba69bef37ba540198f3a89f2c2f8417773c79a954a9a21269d1b90d99d0f5d65eb76d6f61d8a712fbdd44ee18427b896860baacec0c17f5a#npm:2.0.5"],\
+          ["@ampproject/remapping", "npm:2.3.0"],\
+          ["@edge-runtime/vm", null],\
+          ["@types/edge-runtime__vm", null],\
+          ["@types/happy-dom", null],\
+          ["@types/jsdom", null],\
+          ["@types/node", "npm:22.5.2"],\
+          ["@types/vitest__browser", null],\
+          ["@types/vitest__ui", null],\
+          ["@vitest/browser", null],\
+          ["@vitest/expect", "npm:2.0.5"],\
+          ["@vitest/pretty-format", "npm:2.0.5"],\
+          ["@vitest/runner", "npm:2.0.5"],\
+          ["@vitest/snapshot", "npm:2.0.5"],\
+          ["@vitest/spy", "npm:2.0.5"],\
+          ["@vitest/ui", null],\
+          ["@vitest/utils", "npm:2.0.5"],\
+          ["chai", "npm:5.1.1"],\
+          ["debug", "virtual:c9e1a4b59e37cb479517edede3bf2093b28c0ca1a9d0e517f3c345075bd1e468980b94b4957e389116607ee7155441dfd7d09e19a4229d5d09bcf06244401590#npm:4.3.6"],\
+          ["execa", "npm:8.0.1"],\
+          ["happy-dom", null],\
+          ["jsdom", null],\
+          ["magic-string", "npm:0.30.11"],\
+          ["pathe", "npm:1.1.2"],\
+          ["std-env", "npm:3.7.0"],\
+          ["tinybench", "npm:2.9.0"],\
+          ["tinypool", "npm:1.0.1"],\
+          ["tinyrainbow", "npm:1.2.0"],\
+          ["vite", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:5.4.2"],\
           ["vite-node", "npm:2.0.5"],\
           ["why-is-node-running", "npm:2.3.0"]\
         ],\

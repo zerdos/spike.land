@@ -3,7 +3,7 @@
   "description": "An edge chat service that runs on Cloudflare Workers using Durable Objects",
   "version": "0.9.55",
   "type": "module",
-  "main": "dist/index.js",
+  "mpdule": "dist/index.js",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
@@ -24,10 +24,11 @@
     "@anthropic-ai/sdk": "^0.27.1",
     "@clerk/backend": "^1.9.0",
     "@clerk/clerk-sdk-node": "^5.0.33",
+    "@cloudflare/vitest-pool-workers": "^0.4.27",
     "@remix-run/cloudflare": "^2.11.2",
     "@remix-run/react": "^2.11.2",
     "@spike-land/code": "0.9.55",
-    "@types/node": "22.5.2",
+    "@types/node": "^22.5.2",
     "async-mutex": "0.5.0",
     "avl": "1.5.3",
     "esbuild-wasm": "0.23.1",
@@ -37,7 +38,8 @@
     "openai-edge": "1.2.2",
     "p-map": "7.0.2",
     "p-queue": "8.0.1",
-    "replicate": "^0.32.1"
+    "replicate": "^0.32.1",
+    "vitest": "^2.0.5"
   },
   "publishConfig": {
     "access": "public"

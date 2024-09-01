@@ -26,19 +26,31 @@ const INPUT_DEFAULTS: InputDefaults = {
 
 const REPLICATE_MODEL = "black-forest-labs/flux-schnell";
 
-function parseInputFromUrl(url: string): InputDefaults {
+export function parseInputFromUrl(url: string): InputDefaults {
   const urlParams = new URL(url).searchParams;
   return Object.entries(INPUT_DEFAULTS).reduce((acc, [key, defaultValue]) => {
     const value = urlParams.get(key);
     if (value !== null) {
-      acc[key as keyof InputDefaults] = typeof defaultValue === "number"
-        ? Number(value)
-        : value;
+      Object.assign(acc, {
+        [key]: typeof defaultValue === "number"
+          ? Number(value)
+          : value,
+      });
     }
     return acc;
   }, { ...INPUT_DEFAULTS });
 }
 
+/**
+ * Fetches an image from a URL, saves it to R2 storage, and returns it as a response.
+ * @param imageUrl - The URL of the image to fetch.
+ * @param env - The environment object containing R2 storage.
+ * @param md5Prompt - The MD5 hash of the prompt, used as the storage key.
+ * @param outputFormat - The desired output format of the image.
+ * @param ctx - The execution context for background tasks.
+ * @returns A Promise that resolves to a Response object containing the image.
+ * @throws Error if the image fetch fails.
+ */
 async function fetchAndSaveImage(
   imageUrl: string,
   env: Env,
@@ -46,23 +58,45 @@ async function fetchAndSaveImage(
   outputFormat: string,
   ctx: ExecutionContext,
 ): Promise<Response> {
-  console.log("Fetching image from:", imageUrl);
-  const response = await fetch(imageUrl);
+  try {
+    console.log(`Fetching image from: ${imageUrl}`);
+    const response = await fetch(imageUrl);
 
-  if (!response.ok) {
-    console.error("Image fetch failed:", response.status, response.statusText);
-    throw new Error(`Failed to fetch image: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${response.status} ${response.statusText}`);
+    }
+
+    // Clone the response for R2 storage
+    const responseClone = response.clone();
+
+    // Store the image in R2 as a background task
+    ctx.waitUntil(
+      (async () => {
+        try {
+          const arrayBuffer = await responseClone.arrayBuffer();
+          await env.R2.put(md5Prompt, arrayBuffer);
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error(`Failed to store image in R2: ${error.message}`);
+          }
+        }
+      })(),
+    );
+
+    // Prepare and return the response
+    return new Response(await response.arrayBuffer(), {
+      headers: {
+        "Content-Type": `image/${outputFormat}`,
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`Error in fetchAndSaveImage: ${error.message}`);
+    }
+    throw error;
   }
-
-  ctx.waitUntil(env.R2.put(md5Prompt, response.clone().body));
-
-  return new Response(response.body, {
-    headers: {
-      "Content-Type": `image/${outputFormat}`,
-      "cache-control": "public, max-age=31536000, immutable",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
 }
 
 export async function handleReplicateRequest(
