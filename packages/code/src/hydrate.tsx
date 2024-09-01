@@ -186,7 +186,18 @@ const handleRender = async (
       const html = rootEl.innerHTML;
       if (html) {
         let css = mineFromCaches(cache, html);
-        X;
+
+        const criticalClasses = css.split("\n").map((line) => {
+          const rule = line.slice(1, 12);
+          if (html.includes(rule)) return rule;
+          return null;
+        }).filter((rule): rule is string => rule !== null);
+        console.log({ criticalClasses });
+        css = css.split("\n").filter((line) => {
+          const rule = line.slice(1, 12);
+          if (html.includes(rule)) return false;
+          return true;
+        }).join("\n");
 
         try {
           console.log("Prettifying CSS");
