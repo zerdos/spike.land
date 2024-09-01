@@ -60,11 +60,11 @@ class BroadcastChannelMock {
     });
   }
 
-  addEventListener(type: string, listener: (event: MessageEvent) => void) {
+  addEventListener(_type: string, listener: (event: MessageEvent) => void) {
     this.listeners.push(listener);
   }
 
-  removeEventListener(type: string, listener: (event: MessageEvent) => void) {
+  removeEventListener(_type: string, listener: (event: MessageEvent) => void) {
     const index = this.listeners.indexOf(listener);
     if (index > -1) {
       this.listeners.splice(index, 1);

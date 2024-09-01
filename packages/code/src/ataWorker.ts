@@ -1,6 +1,7 @@
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 import type { ata as Ata } from "./ata";
+import type { createWorkflow as CreateWorkflow } from "./LangChain";
 import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
 import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
@@ -11,7 +12,7 @@ declare var self: SharedWorkerGlobalScope & {
   ata: typeof Ata;
   prettierCss: typeof PrettierCSS;
   prettierJs: typeof Prettier;
-  createWorkflow: (q: string) => Promise<string>;
+  createWorkflow: typeof CreateWorkflow;
   transpile: typeof Transpile;
   build: typeof Build;
   tsx: (code: string) => Promise<string[]>;
@@ -85,9 +86,12 @@ function registerRpcHandlers(rpcProvider: ReturnType<typeof rpcFactory>) {
     }) => build(params),
   };
 
-  Object.entries(handlers).forEach(([name, handler]) => {
-    rpcProvider.registerRpcHandler(name, handler);
-  });
+  rpcProvider.registerRpcHandler("prettierJS", handlers.prettierJs);
+  rpcProvider.registerRpcHandler("createWorkflow", handlers.createWorkflow);
+  rpcProvider.registerRpcHandler("prettierCss", handlers.prettierCss);
+  rpcProvider.registerRpcHandler("ata", handlers.ata);
+  rpcProvider.registerRpcHandler("transpile", handlers.transpile);
+  rpcProvider.registerRpcHandler("build", handlers.build);
 
   rpcProvider.registerSignalHandler(
     "connect",

@@ -30,13 +30,13 @@ describe("loadMessages", () => {
 
   it("should load and filter messages correctly", () => {
     const testMessages: Message[] = [
-      { role: "user", content: "Hello" },
-      { role: "assistant", content: "Hi there" },
-      { role: "user", content: "How are you?" },
-      { role: "assistant", content: "I'm doing well, thanks!" },
-      { role: "user", content: "Great!" },
-      { role: "assistant", content: "Can I help you with anything?" },
-      { role: "system", content: "System message" }, // This should not be filtered out
+      { id: "1", role: "user", content: "Hello" },
+      { id: "1", role: "assistant", content: "Hi there" },
+      { id: "1", role: "user", content: "How are you?" },
+      { id: "1", role: "assistant", content: "I'm doing well, thanks!" },
+      { id: "1", role: "user", content: "Great!" },
+      { id: "1", role: "assistant", content: "Can I help you with anything?" },
+      { id: "1", role: "system", content: "System message" }, // This should not be filtered out
     ];
 
     localStorage.setItem("chatMessages-testSpace", JSON.stringify(testMessages));
@@ -55,9 +55,9 @@ describe("loadMessages", () => {
 
   it("should handle empty messages", () => {
     const testMessages: Message[] = [
-      { role: "user", content: "Hello" },
-      { role: "user", content: "This should be filtered out" },
-      { role: "assistant", content: "Hi there" },
+      { id: "1", role: "user", content: "Hello" },
+      { id: "1", role: "user", content: "This should be filtered out" },
+      { id: "1", role: "assistant", content: "Hi there" },
     ];
 
     localStorage.setItem("chatMessages-testSpace", JSON.stringify(testMessages));
@@ -71,11 +71,11 @@ describe("loadMessages", () => {
 
   it("should remove consecutive messages with the same role", () => {
     const testMessages: Message[] = [
-      { role: "user", content: "Hello" },
-      { role: "user", content: "This should be removed" },
-      { role: "assistant", content: "Hi there" },
-      { role: "assistant", content: "This should also be removed" },
-      { role: "user", content: "How are you?" },
+      { id: "1", role: "user", content: "Hello" },
+      { id: "1", role: "user", content: "This should be removed" },
+      { id: "1", role: "assistant", content: "Hi there" },
+      { id: "1", role: "assistant", content: "This should also be removed" },
+      { id: "1", role: "user", content: "How are you?" },
     ];
 
     localStorage.setItem("chatMessages-testSpace", JSON.stringify(testMessages));

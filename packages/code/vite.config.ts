@@ -1,16 +1,16 @@
 import react from "@vitejs/plugin-react";
-import fs from "fs";
-import handler from "serve-handler";
+// import fs from "fs";
+// import handler from "serve-handler";
 import { defineConfig } from "vite";
-import { Connect } from "vite";
+// import { Connect } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { importMap, importMapReplace } from "./src/importMapUtils";
 
 const PORT = 3000;
 const PROXY_BASE_URL = "https://testing.spike.land";
-const LOCAL_DIR = "./dist";
+// const LOCAL_DIR = "./dist";
 
-const importMapFiles = Object.values(importMap.imports);
+// const importMapFiles = Object.values(importMap.imports);
 const importMapLibs = Object.keys(importMap.imports);
 
 const needsReplacement = (content: string): boolean => importMapLibs.some(lib => content.includes(lib));
