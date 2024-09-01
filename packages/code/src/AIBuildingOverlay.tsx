@@ -23,6 +23,7 @@ export const AIBuildingOverlay: React.FC<{ codeSpace: string }> = ({ codeSpace }
     }, 50);
     return () => clearInterval(interval);
   }, [isStreaming]);
+  if (!isStreaming) return null;
   return (
     <div className="fixed left-0 right-0 bottom-0 h-20 bg-gradient-to-r from-pink-500 via-blue-500 to-green-500 flex flex-col justify-center items-center z-50">
       <div className="flex items-center text-white text-2xl font-bold mb-2">
