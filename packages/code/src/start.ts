@@ -2,7 +2,7 @@ import { useCodeSpace } from "./hooks/useCodeSpace";
 
 if (location.pathname.endsWith("embed") === false) {
   setTimeout(() => {
-    import("./hydrate");
+    import("./ws");
   }, 0);
 }
 
