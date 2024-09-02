@@ -58,6 +58,7 @@
     "@emotion/react": "11.13.3",
     "@emotion/styled": "11.13.0",
     "@github/stable-socket": "1.1.0",
+    "@heroicons/react": "^2.1.5",
     "@hookform/resolvers": "^3.9.0",
     "@langchain/anthropic": "^0.2.15",
     "@langchain/core": "^0.2.31",

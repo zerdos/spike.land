@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from "@/external/reactSyntaxHighlighter";
 import { tomorrow } from "@/external/reactSyntaxHighlighterPrism";
-import { ClipboardDocumentIcon, ClipboardIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, ClipboardIcon, DocumentDuplicateIcon } from "@heroicons/react";
 import { FC, memo, useState } from "react";
 
 interface Props {
