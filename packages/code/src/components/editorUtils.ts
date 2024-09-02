@@ -123,7 +123,7 @@ export const runCode = async (cSess: Partial<ICodeSession>, signal: AbortSignal)
 
     const clear = setTimeout(() => {
       reject("timed out");
-    }, 500);
+    }, 1500);
 
     const res = await promise;
 
