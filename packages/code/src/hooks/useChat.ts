@@ -16,7 +16,7 @@ export const useChat = (
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   // if the role of the prev message is the same as the current message, then the current message will be displayed in the same bubble as the previous message, so we merge them in the array them in
-  const messages = messagesRaw.reduce((acc, message, index) => {
+  const messages = messagesRaw?.reduce((acc, message, index) => {
     if (index === 0) {
       return [message];
     }

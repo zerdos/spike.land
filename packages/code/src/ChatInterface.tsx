@@ -17,7 +17,7 @@ const ChatInterface: React.FC<{
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const {
-    messages,
+    messages = [],
     setMessages,
     input,
     setInput,
@@ -139,7 +139,7 @@ const ChatInterface: React.FC<{
   }, [isStreaming]);
 
   if (!isOpen) return null;
-  return <ChatFC {...memoizedChatFCProps} />;
+  return <ChatFC {...memoizedChatFCProps} isDarkMode={isDarkMode ?? false} isStreaming={isStreaming ?? false} />;
 });
 
 export default ChatInterface;

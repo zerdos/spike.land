@@ -22,7 +22,9 @@ export const useDarkMode = () => {
   }, [setIsDarkMode]);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
+    if (isDarkMode !== null) {
+      document.documentElement.classList.toggle("dark", isDarkMode);
+    }
   }, [isDarkMode]);
 
   const toggleDarkMode = () => {

@@ -70,7 +70,7 @@ describe("useMessageHandling", () => {
     const { result } = renderHook(() => useMessageHandling(mockProps));
 
     act(() => {
-      result.current.handleResetChat();
+      (result.current as any).handleResetChat();
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith([]);

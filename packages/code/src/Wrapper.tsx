@@ -3,6 +3,7 @@ import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { FC } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { AIBuildingOverlay } from "./AIBuildingOverlay";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -64,15 +65,17 @@ const ConsoleOutput: React.FC<{ logs: Array<{ type: string; message: string }> }
 };
 
 interface AppRendererProps {
-  transpiled: string;
-  width: number;
-  height: number;
-  top: number;
-  left: number;
+  asyncApp: FC<{
+    console: Partial<Console>;
+    width: number;
+    height: number;
+    top: number;
+    left: number;
+  }>;
 }
 
 const AppRenderer: React.FC<AppRendererProps> = React.memo(
-  ({ transpiled, width, height, top, left }) => {
+  ({ asyncApp }) => {
     const [consoleOutput, setConsoleOutput] = useState<Array<{ type: string; message: string }>>([]);
 
     const customConsole = useMemo(() => ({
@@ -111,8 +114,14 @@ const AppRenderer: React.FC<AppRendererProps> = React.memo(
     }), []);
 
     const AppToRender = useMemo(() => {
-      const AsyncApp = React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)));
-      return () => (
+      const AsyncApp = asyncApp;
+      const App: FC<{ customConsole: Partial<Console>; width: number; height: number; top: number; left: number }> = ({
+        customConsole,
+        width,
+        height,
+        top,
+        left,
+      }) => (
         <React.Suspense fallback={<div>Loading...</div>}>
           <AsyncApp
             width={width || window.innerWidth}
@@ -123,12 +132,19 @@ const AppRenderer: React.FC<AppRendererProps> = React.memo(
           />
         </React.Suspense>
       );
-    }, [transpiled, width, height, top, left, customConsole]);
+      return App;
+    }, [asyncApp, top, customConsole]);
 
     return (
       <ResizablePanelGroup direction="vertical">
         <ResizablePanel defaultSize={70}>
-          <AppToRender />
+          <AppToRender
+            customConsole={{ ...console }}
+            top={0}
+            height={window.innerHeight - 30}
+            left={0}
+            width={window.innerWidth}
+          />
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={30}>
@@ -253,7 +269,7 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
         <ErrorBoundary>
           <CacheProvider value={cssCache}>
             <ParentSize>
-              {(props) => <AppRenderer transpiled={transpiled} {...props} />}
+              {(props) => <AppRenderer asyncApp={App} {...props} />}
             </ParentSize>
           </CacheProvider>
         </ErrorBoundary>,
@@ -305,10 +321,16 @@ const renderApp = async (
       renderedAPPS.delete(rootEl);
     }
 
-    let AppToRender: React.ComponentType<any>;
+    let AppToRender: React.ComponentType<{
+      top: number;
+      left: number;
+      width: number;
+      height: number;
+      console: Partial<Console>;
+    }>;
 
     if (App) {
-      AppToRender = App;
+      AppToRender = App as unknown as typeof AppRenderer;
     } else if (transpiled) {
       AppToRender = (await import(createJsBlob(transpiled))).default;
     } else if (codeSpace) {
@@ -331,7 +353,7 @@ const renderApp = async (
       <ErrorBoundary>
         <CacheProvider value={cssCache}>
           <ParentSize>
-            {(props) => <AppToRender {...props} />}
+            {(props) => <AppRenderer asyncApp={AppToRender} {...props} />}
           </ParentSize>
         </CacheProvider>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
