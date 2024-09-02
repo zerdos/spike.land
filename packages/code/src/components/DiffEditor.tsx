@@ -46,10 +46,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
           wordWrapColumn: 80,
           onlyShowAccessibleDiffViewer: true,
           hideUnchangedRegions: {
-            enabled: true,
-            revealLineCount: 1,
-            minimumLineCount: 0,
-            contextLineCount: 2,
+            enabled: false, // Disable this feature to avoid potential issues
           },
           lineNumbers: "off",
           scrollBeyondLastLine: false,
@@ -62,20 +59,22 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         // Delay setting the model to ensure the editor is fully initialized
         setTimeout(() => {
           try {
-            const originalModel = editor.createModel(original, language);
-            const modifiedModel = editor.createModel(modified, language);
+            if (diffy.getModel() === null) {
+              const originalModel = editor.createModel(original, language);
+              const modifiedModel = editor.createModel(modified, language);
 
-            diffy.setModel({
-              original: originalModel,
-              modified: modifiedModel,
-            });
+              diffy.setModel({
+                original: originalModel,
+                modified: modifiedModel,
+              });
+            }
 
             setDiffEditor(diffy);
           } catch (err) {
             console.error("Error setting diff editor model:", err);
             setError("Failed to initialize diff view. Please try again.");
           }
-        }, 100); // Increased delay to 100ms for better reliability
+        }, 500); // Increased delay to 500ms for better reliability
       } catch (err) {
         console.error("Error creating diff editor:", err);
         setError("Failed to create diff view. Please try again.");
@@ -86,11 +85,11 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       if (diffEditor) {
         try {
           const diffModels = diffEditor.getModel();
-          diffEditor.dispose();
           if (diffModels) {
             diffModels.original.dispose();
             diffModels.modified.dispose();
           }
+          diffEditor.dispose();
         } catch (err) {
           console.error("Error disposing diff editor:", err);
         }
@@ -105,9 +104,11 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         // Use requestAnimationFrame to ensure DOM updates are complete
         requestAnimationFrame(() => {
           try {
-            diffModels.original.setValue(original);
-            diffModels.modified.setValue(modified);
-            diffEditor.layout(); // Force layout recalculation
+            if (diffModels.original && diffModels.modified) {
+              diffModels.original.setValue(original);
+              diffModels.modified.setValue(modified);
+              diffEditor.layout(); // Force layout recalculation
+            }
           } catch (err) {
             console.error("Error updating diff editor content:", err);
             setError("Failed to update diff view. Please try again.");
