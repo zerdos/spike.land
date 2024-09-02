@@ -22,7 +22,8 @@
     "push": "cd ../../.. && yarn push",
     "lint": "eslint --ext .ts,.tsx src",
     "prebuild": "yarn test || echo FAILED",
-    "build": "rm -rf dist dts && yarn types && yarn tsx esbuild-dev.ts && cp -r dts/src/@/ dist/@/. && cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/",
+    "tw": "yarn tailwindcss -i dist/app/globals.css --postcss  -m -o dist/app/tw-global.css",
+    "build": "rm -rf dist dts && yarn types && yarn tsx esbuild-dev.ts && cp -r dts/src/@/ dist/@/. && cp -r dts/src/motion.d.ts dts/src/reactMod.d.ts dts/src/reactDom.d.ts dts/src/jsx.d.ts dts/src/emotion.d.ts dts/src/reactDomClient.d.ts dist/ && yarn tw",
     "sw": "echo ok"
   },
   "keywords": [
@@ -149,7 +150,6 @@
     "p-map": "7.0.2",
     "path-browserify": "1.0.1",
     "perf_hooks": "^0.0.1",
-    "postcss": "^8.4.43",
     "preact": "^10.23.2",
     "preact-render-to-string": "^6.5.10",
     "prettier": "3.3.3",
@@ -235,6 +235,7 @@
     "eslint": "9.9.1",
     "eslint-plugin-react": "7.35.0",
     "jsdom": "^25.0.0",
+    "postcss": "^8.4.44",
     "text-encoding": "^0.7.0",
     "tslib": "2.7.0",
     "typescript": "^5.5.4",

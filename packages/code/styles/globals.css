@@ -1,3 +1,5 @@
+@import "assets/app.css";
+
 @tailwind components;
 @tailwind utilities;
  
