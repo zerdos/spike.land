@@ -1,10 +1,7 @@
 module.exports = {
-    module: {
-      rules: [
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'postcss-loader', 'autoprefixer'],
-        }
-      ]
-    }
+   plugins: [
+      require('postcss-import'),
+      require('tailwindcss'),
+      require('autoprefixer'),
+   ],
   }
