@@ -9,7 +9,7 @@ import { ICode } from "./cSess.interface";
 import { connect, prettierCss } from "./shared";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
-import { getRenderedApps, renderApp } from "./Wrapper";
+import { renderApp, renderedAPPS } from "./Wrapper";
 
 // Initialize global state for first render
 globalThis.firstRender = globalThis.firstRender
@@ -276,7 +276,6 @@ export const handleDefaultPage = async () => {
         });
 
         const root = document.getElementById("root");
-        const renderedAPPS = getRenderedApps();
         renderedAPPS.get(root!)!.cleanup();
         myEl.style.display = "block";
         myEl.id = "root";

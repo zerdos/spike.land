@@ -1,7 +1,7 @@
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useAsyncState } from "./hooks/useAsyncState";
@@ -13,16 +13,7 @@ import type { AppRendererProps, IRenderApp, RenderedApp } from "./types/IRender"
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
-// Global State
-const getRenderedApps = (): Map<HTMLElement, RenderedApp> => {
-  if (!Object.hasOwn(globalThis, "renderedAPPS")) {
-    Object.assign(globalThis, {
-      renderedAPPS: new Map<HTMLElement, RenderedApp>(),
-    });
-  }
-  return (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> }).renderedAPPS;
-};
-
+export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 // Hooks
 
 const useCodeSpace = (codeSpace: string) =>
@@ -131,8 +122,6 @@ const renderApp = async (
     }
     rootEl.id = "root";
 
-    const renderedAPPS = getRenderedApps();
-
     if (renderedAPPS.has(rootEl)) {
       console.warn("Cleaning up existing app before rendering new one.");
       renderedAPPS.get(rootEl)?.cleanup();
@@ -189,4 +178,4 @@ const renderApp = async (
   }
 };
 
-export { getRenderedApps, md5, renderApp, useTranspile, Wrapper };
+export { md5, renderApp, useTranspile, Wrapper };
