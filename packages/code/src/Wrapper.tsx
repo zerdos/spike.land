@@ -1,3 +1,4 @@
+import { md5 } from "@/lib/md5";
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
@@ -6,7 +7,6 @@ import { createRoot, type Root } from "react-dom/client";
 import { AIBuildingOverlay } from "./components/AIBuildingOverlay";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useAsyncState } from "./hooks/useAsyncState";
-import { md5 } from "./md5";
 import { transpile } from "./shared";
 import type { AppRendererProps, IRenderApp, RenderedApp } from "./types/IRender";
 

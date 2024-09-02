@@ -1,5 +1,5 @@
+import { md5 } from "@/lib/md5";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
-import { md5 } from "@src/md5";
 import { build } from "../shared";
 import { wait } from "../wait";
 

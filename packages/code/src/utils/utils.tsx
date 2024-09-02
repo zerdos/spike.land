@@ -1,7 +1,7 @@
 import { CodeBlock } from "@/external/CodeBlock";
 import Markdown from "@/external/Markdown";
+import { md5 } from "@/lib/md5";
 import { css } from "@emotion/react";
-import { md5 } from "@src/md5";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { DiffEditor } from "../components/DiffEditor";
