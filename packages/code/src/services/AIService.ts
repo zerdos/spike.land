@@ -41,13 +41,10 @@ class StreamHandler {
 export class AIService {
   private config: AIServiceConfig;
   private streamHandler: StreamHandler;
-  private cSess: any;
+  private cSess: ICode;
 
   constructor(config: AIServiceConfig, cSess: ICode) {
     this.config = config;
-    if (this.config.setIsStreaming) {
-      this.config.setIsStreaming(false);
-    }
     this.streamHandler = new StreamHandler();
     this.cSess = cSess;
   }
@@ -83,27 +80,26 @@ export class AIService {
     messages: Message[],
     onUpdate: (content: string) => void,
   ): Promise<AIModelResponse> {
-    const response = await this.makeAPICall(endpoint, messages);
-    const reader = response.body?.getReader();
-    if (this.config.setIsStreaming) {
-      this.config.setIsStreaming(true);
-    }
-    if (!reader) {
-      throw new Error("Response body is not readable!");
-    }
+    this.config.setIsStreaming(true);
+    try {
+      const response = await this.makeAPICall(endpoint, messages);
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error("Response body is not readable!");
+      }
 
-    console.log("handleStreamingResponse, updateThrottleMs:", this.config.updateThrottleMs);
-    const debouncedUpdate = throttle(onUpdate, this.config.updateThrottleMs);
-    const content = await this.streamHandler.handleStream(reader, debouncedUpdate);
-    onUpdate(content);
+      console.log("handleStreamingResponse, updateThrottleMs:", this.config.updateThrottleMs);
+      const debouncedUpdate = throttle(onUpdate, this.config.updateThrottleMs);
+      const content = await this.streamHandler.handleStream(reader, debouncedUpdate);
+      onUpdate(content);
 
-    if (this.config.setIsStreaming) {
+      return {
+        id: Date.now().toString(),
+        content,
+      };
+    } finally {
       this.config.setIsStreaming(false);
     }
-    return {
-      id: Date.now().toString(),
-      content,
-    };
   }
 
   async sendToAI(
@@ -114,13 +110,11 @@ export class AIService {
     const endpoint = this.getEndpoint(type);
     const result = await this.handleStreamingResponse(endpoint, messages, onUpdate);
 
-    const assistantMessage: Message = {
+    return {
       id: result.id,
       role: "assistant",
       content: result.content,
     };
-
-    return assistantMessage;
   }
 
   async sendToGpt4o(messages: Message[], onUpdate: (content: string) => void): Promise<Message> {
@@ -150,6 +144,7 @@ export class AIService {
     };
 
     try {
+      this.config.setIsStreaming(true);
       const endpoint = this.getEndpoint("openAI");
       const response = await this.handleStreamingResponse(endpoint, messages, updateMessages);
       const modifiedCode = this.extractCodeFromResponse(response.content);
@@ -159,18 +154,18 @@ export class AIService {
         updateMessages("");
         return "";
       }
-      // const prettyCode = await this.formatAndRunCode(modifiedCode);
 
       const success = await this.cSess.setCode(modifiedCode);
       if (!success) {
-        throw new Error("Error somewhere....");
+        throw new Error("Error setting code");
       }
       return modifiedCode;
     } catch (error) {
       console.error("Error in AI code processing:", error);
       updateMessages(error instanceof Error ? error.message : String(error));
-
       throw error;
+    } finally {
+      this.config.setIsStreaming(false);
     }
   }
 
@@ -186,7 +181,7 @@ export class AIService {
     return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
   }
 
-  private async retryWithClaude(
+  async retryWithClaude(
     fullResponse: string,
     codeNow: string,
     error: unknown,
@@ -203,12 +198,17 @@ export class AIService {
       }\nCould you help me with this error? I'm stuck.`,
     };
 
-    const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
-      setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
-    });
-    setMessages((prevMessages) => [...prevMessages, answer]);
+    try {
+      this.config.setIsStreaming(true);
+      const answer = await this.sendToAnthropic([...prevMessages, message], (code) => {
+        setMessages((prevMessages) => [...prevMessages, { ...message, content: code }]);
+      });
+      setMessages((prevMessages) => [...prevMessages, answer]);
 
-    return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
+      return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
+    } finally {
+      this.config.setIsStreaming(false);
+    }
   }
 
   prepareClaudeContent(
