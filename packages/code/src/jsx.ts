@@ -1,10 +1,4 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
+import { cn } from "@/lib/utils";
 import type { ElementType } from "react";
 import { Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import type { JSX } from "react/jsx-runtime";
