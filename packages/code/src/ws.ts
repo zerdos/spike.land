@@ -18,6 +18,118 @@ const run = async () => {
   renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
 };
 
+const handleDefaultPage = async () => {
+  try {
+    const mod = { ...cSess.session, counter: cSess.session.i, controller: new AbortController() };
+
+    const mutex = new Mutex();
+
+    cSess.sub((sess: ICodeSession) => {
+      try {
+        const { transpiled } = sess;
+
+        const myEl = document.createElement("div")! as HTMLDivElement;
+        myEl.style.height = "100%";
+        myEl.style.width = "100%";
+        myEl.style.display = "none";
+        document.body.appendChild(myEl);
+
+        renderApp({
+          transpiled,
+          rootElement: myEl,
+        });
+
+        const root = document.getElementById("root");
+        renderedAPPS.get(root!)!.cleanup();
+        myEl.style.display = "block";
+        myEl.id = "root";
+      } catch (error) {
+        console.error("Error in cSess subscription:", error);
+      }
+    });
+
+    window.onmessage = async ({ data }) => {
+      try {
+        const { i, transpiled } = data;
+
+        if (!i || !transpiled) return;
+
+        if (mod.counter >= i) return;
+
+        mod.counter = i;
+        mod.controller.abort();
+        const { signal } = (mod.controller = new AbortController());
+
+        if (signal.aborted) return false;
+
+        await mutex.runExclusive(async () => {
+          if (signal.aborted) return;
+
+          const myEl = document.createElement("div")! as HTMLDivElement;
+          myEl.style.height = "100%";
+          myEl.style.width = "100%";
+          myEl.style.display = "none";
+          document.body.appendChild(myEl);
+
+          const rendered = await renderApp({ rootElement: myEl, transpiled });
+          if (null === rendered) return false;
+
+          await wait(300);
+
+          const cleanupAndRemove = () => {
+            try {
+              rendered?.cleanup?.();
+              document.body.removeChild(myEl);
+              myEl.remove();
+            } catch (e) {
+              console.error(e);
+            }
+            return false;
+          };
+
+          if (signal.aborted) return cleanupAndRemove();
+
+          await wait(100);
+
+          if (signal.aborted) return cleanupAndRemove();
+
+          const res = await handleRender(
+            myEl,
+            rendered.cssCache,
+            signal,
+            mod,
+          );
+
+          if (res === false) {
+            if (signal.aborted) return cleanupAndRemove();
+          } else {
+            const { css, html } = res;
+            if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
+              return rendered?.cleanup();
+            }
+
+            window.parent.postMessage({ i, css, html }, "*");
+
+            const old = document.getElementById("root")!;
+            renderedAPPS!.get(old!)!.cleanup();
+            myEl.style.display = "block";
+            document.body.removeChild(old);
+
+            old.remove();
+
+            myEl.id = "root";
+          }
+        });
+      } catch (error) {
+        console.error("Error in window.onmessage handler:", error);
+      }
+      return false;
+    };
+  } catch (error) {
+    console.error("Error in handleDefaultPage:", error);
+  }
+};
+
 const main = async () => {
   const codeSpace = useCodeSpace();
   try {
@@ -137,117 +249,5 @@ const handleRender = async (
   } catch (error) {
     console.error("Error in handleRender:", error);
     return false;
-  }
-};
-
-export const handleDefaultPage = async () => {
-  try {
-    const mod = { ...cSess.session, counter: cSess.session.i, controller: new AbortController() };
-
-    const mutex = new Mutex();
-
-    cSess.sub((sess: ICodeSession) => {
-      try {
-        const { transpiled } = sess;
-
-        const myEl = document.createElement("div")! as HTMLDivElement;
-        myEl.style.height = "100%";
-        myEl.style.width = "100%";
-        myEl.style.display = "none";
-        document.body.appendChild(myEl);
-
-        renderApp({
-          transpiled,
-          rootElement: myEl,
-        });
-
-        const root = document.getElementById("root");
-        renderedAPPS.get(root!)!.cleanup();
-        myEl.style.display = "block";
-        myEl.id = "root";
-      } catch (error) {
-        console.error("Error in cSess subscription:", error);
-      }
-    });
-
-    window.onmessage = async ({ data }) => {
-      try {
-        const { i, transpiled } = data;
-
-        if (!i || !transpiled) return;
-
-        if (mod.counter >= i) return;
-
-        mod.counter = i;
-        mod.controller.abort();
-        const { signal } = (mod.controller = new AbortController());
-
-        if (signal.aborted) return false;
-
-        await mutex.runExclusive(async () => {
-          if (signal.aborted) return;
-
-          const myEl = document.createElement("div")! as HTMLDivElement;
-          myEl.style.height = "100%";
-          myEl.style.width = "100%";
-          myEl.style.display = "none";
-          document.body.appendChild(myEl);
-
-          const rendered = await renderApp({ rootElement: myEl, transpiled });
-          if (null === rendered) return false;
-
-          await wait(300);
-
-          const cleanupAndRemove = () => {
-            try {
-              rendered?.cleanup?.();
-              document.body.removeChild(myEl);
-              myEl.remove();
-            } catch (e) {
-              console.error(e);
-            }
-            return false;
-          };
-
-          if (signal.aborted) return cleanupAndRemove();
-
-          await wait(100);
-
-          if (signal.aborted) return cleanupAndRemove();
-
-          const res = await handleRender(
-            myEl,
-            rendered.cssCache,
-            signal,
-            mod,
-          );
-
-          if (res === false) {
-            if (signal.aborted) return cleanupAndRemove();
-          } else {
-            const { css, html } = res;
-            if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
-              return rendered?.cleanup();
-            }
-
-            window.parent.postMessage({ i, css, html }, "*");
-
-            const old = document.getElementById("root")!;
-            renderedAPPS!.get(old!)!.cleanup();
-            myEl.style.display = "block";
-            document.body.removeChild(old);
-
-            old.remove();
-
-            myEl.id = "root";
-          }
-        });
-      } catch (error) {
-        console.error("Error in window.onmessage handler:", error);
-      }
-      return false;
-    };
-  } catch (error) {
-    console.error("Error in handleDefaultPage:", error);
   }
 };
