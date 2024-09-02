@@ -1,5 +1,6 @@
 // build-tasks.mjs
 import { copy } from "esbuild-plugin-copy";
+import { readdir } from "fs/promises";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 import { environment } from "./helpers.ts";
@@ -94,57 +95,61 @@ export async function buildServiceWorker(): Promise<void> {
 export async function buildMainBundle(wasmFile: any): Promise<void> {
   const buildOptions = getCommonBuildOptions(environment);
 
-  const components = [
-    "accordion",
-    "alert",
-    "alert-dialog",
-    "aspect-ratio",
-    "avatar",
-    "badge",
-    "breadcrumb",
-    "button",
-    "calendar",
-    "card",
-    "carousel",
-    "chart",
-    "checkbox",
-    "collapsible",
-    "command",
-    "context-menu",
-    "dialog",
-    "drawer",
-    "dropdown-menu",
-    "form",
-    "hover-card",
-    "input",
-    "input-otp",
-    "label",
-    "menubar",
-    "navigation-menu",
-    "pagination",
-    "popover",
-    "progress",
-    "radio-group",
-    "resizable",
-    "scroll-area",
-    "select",
-    "image-loader",
-    "timeline",
-    "separator",
-    "start-with-prompt",
-    "sheet",
-    "skeleton",
-    "slider",
-    "sonner",
-    "switch",
-    "table",
-    "tabs",
-    "textarea",
-    "toast",
-    "toggle",
-    "toggle-group",
-    "tooltip",
-  ];
+  const uiComp = await readdir("src/@/components/ui");
+  const libComps = await readdir("src/@/lib");
+  const externalComps = await readdir("src/@/external");
+
+  // const components = [
+  //   "accordion",
+  //   "alert",
+  //   "alert-dialog",
+  //   "aspect-ratio",
+  //   "avatar",
+  //   "badge",
+  //   "breadcrumb",
+  //   "button",
+  //   "calendar",
+  //   "card",
+  //   "carousel",
+  //   "chart",
+  //   "checkbox",
+  //   "collapsible",
+  //   "command",
+  //   "context-menu",
+  //   "dialog",
+  //   "drawer",
+  //   "dropdown-menu",
+  //   "form",
+  //   "hover-card",
+  //   "input",
+  //   "input-otp",
+  //   "label",
+  //   "menubar",
+  //   "navigation-menu",
+  //   "pagination",
+  //   "popover",
+  //   "progress",
+  //   "radio-group",
+  //   "resizable",
+  //   "scroll-area",
+  //   "select",
+  //   "image-loader",
+  //   "timeline",
+  //   "separator",
+  //   "start-with-prompt",
+  //   "sheet",
+  //   "skeleton",
+  //   "slider",
+  //   "sonner",
+  //   "switch",
+  //   "table",
+  //   "tabs",
+  //   "textarea",
+  //   "toast",
+  //   "toggle",
+  //   "toggle-group",
+  //   "tooltip",
+  // ];
 
   await build({
     ...buildOptions,
@@ -171,21 +176,14 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     // })
     // ],
     entryPoints: [
-      ...components.filter((x) => x).map((component) => `src/@/components/ui/${component}.tsx`),
-      "src/@/lib/utils.ts",
-      "src/@/external/lucideReact.ts",
-      // "src/@/external/monacoEditor.ts",
-      "src/@/external/Markdown.tsx",
-
-      "src/@/external/reactSyntaxHighlighter.ts",
-      "src/@/external/reactSyntaxHighlighterPrism.ts",
-      "src/@/external/CodeBlock.tsx",
-      "src/@/external/icons.ts",
+      ...uiComp.filter((x) => x).map((component) => `src/@/components/ui/${component}`),
+      ...libComps.filter((x) => x).map((component) => `src/@/lib/${component}`),
+      ...externalComps.filter((x) => x).map((component) => `src/@/external/${component}`),
     ],
   });
 
   const extraAliases = {};
-  components.forEach((component) => {
+  uiComp.forEach((component) => {
     const key = `@/components/ui/${component}`;
     const value = `/@/components/ui/${component}.mjs`;
 
@@ -193,6 +191,25 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
       [key]: value,
     });
   });
+
+  libComps.forEach((component) => {
+    const key = `@/lib/${component}`;
+    const value = `/@/lib/${component}.mjs`;
+
+    Object.assign(extraAliases, {
+      [key]: value,
+    });
+  });
+
+  externalComps.forEach((component) => {
+    const key = `@/external/${component}`;
+    const value = `/@/external/${component}.mjs`;
+
+    Object.assign(extraAliases, {
+      [key]: value,
+    });
+  });
+
   await build({
     ...buildOptions,
     splitting: true,
@@ -264,14 +281,14 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
       // Must be below test-utils
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      "@/external/reactSyntaxHighlighterPrism": "/@/external/reactSyntaxHighlighterPrism.mjs",
+      // "@/external/reactSyntaxHighlighterPrism": "/@/external/reactSyntaxHighlighterPrism.mjs",
       // "@/external/monacoEditor": "/@/external/monacoEditor.mjs",
-      "@/external/lucideReact": "/@/external/lucideReact.mjs",
-      "@/external/Markdown": "/@/external/Markdown.mjs",
-      "@/external/CodeBlock": "/@/external/CodeBlock.mjs",
-      "@/external/icons": "/@/external/icons.mjs",
+      // "@/external/lucideReact": "/@/external/lucideReact.mjs",
+      // "@/external/Markdown": "/@/external/Markdown.mjs",
+      // "@/external/CodeBlock": "/@/external/CodeBlock.mjs",
+      // "@/external/icons": "/@/external/icons.mjs",
 
-      "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
+      // "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
       ...extraAliases,
       ...(!isProduction
         ? ({
@@ -287,14 +304,14 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     external: [
       ...(buildOptions.external?.length ? buildOptions.external : []),
       "/swVersion.mjs",
-      "/@/external/reactSyntaxHighlighterPrism.mjs",
+      // "/@/external/reactSyntaxHighlighterPrism.mjs",
       // "/@/external/monacoEditor.mjs",
-      "/@/external/Markdown.mjs",
-      "/@/external/reactSyntaxHighlighter.mjs",
-      "/@/external/lucideReact.mjs",
-      "/@/external/CodeBlock.mjs",
-      "/@/external/icons.mjs",
-      ...(components.map((component) => `/@/components/ui/${component}.mjs`)),
+      // "/@/external/Markdown.mjs",
+      // "/@/external/reactSyntaxHighlighter.mjs",
+      // "/@/external/lucideReact.mjs",
+      // "/@/external/CodeBlock.mjs",
+      // "/@/external/icons.mjs",
+      // ...(components.map((component) => `/@/components/ui/${component}.mjs`)),
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],
