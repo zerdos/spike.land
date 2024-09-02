@@ -78,12 +78,12 @@ export const transpileCode = async (code: string, signal: AbortSignal): Promise<
   }
 };
 
-export const runCode = async (cSess: Partial<ICodeSession>, signal: AbortSignal) => {
+export const runCode = async (session: Partial<ICodeSession>, signal: AbortSignal) => {
   const { error, setError } = useErrorHandling();
 
   try {
-    const { code, transpiled } = cSess;
-    const counter = cSess.i as number;
+    const { code, transpiled } = session;
+    const counter = session.i as number;
 
     let resolve: (v: {
       i: number;
@@ -93,6 +93,7 @@ export const runCode = async (cSess: Partial<ICodeSession>, signal: AbortSignal)
 
     let reject: (reason: string) => void;
 
+    if (signal.aborted) return false;
     const promise = new Promise<{ i: number; html: string; css: string }>(
       (_resolve, _reject) => {
         resolve = _resolve;
@@ -122,10 +123,14 @@ export const runCode = async (cSess: Partial<ICodeSession>, signal: AbortSignal)
     });
 
     const clear = setTimeout(() => {
+      if (signal.aborted) return false;
       reject("timed out");
+      return false;
     }, 1500);
 
+    if (signal.aborted) return false;
     const res = await promise;
+    if (signal.aborted) return false;
 
     clearTimeout(clear);
 
@@ -135,14 +140,14 @@ export const runCode = async (cSess: Partial<ICodeSession>, signal: AbortSignal)
 
     if (html.includes("Oops! Something went wrong")) {
       console.error("Error in runner: no html");
-
+      setError("runner");
       return false;
     }
     if (error && error === "runner") {
       setError(null);
     }
 
-    return { ...cSess, html, css };
+    return { ...session, html, css };
   } catch (error) {
     console.error(error);
     setError("runner");
