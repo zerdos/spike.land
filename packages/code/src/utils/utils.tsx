@@ -136,12 +136,13 @@ export const renderCode = (value: string, language: string, type: string): JSX.E
     return <></>;
   }
   if (value.trim().length < 20) {
-    return <pre>{value.trim()}</pre>;
+    return <pre key={md5(value.trim())}>{value.trim()}</pre>;
   }
 
   if (type === "text") {
     return (
       <Markdown
+        key={md5(value)}
         css={css`
             margin-top: 12px;
             margin-bottom: 12px;
@@ -158,17 +159,17 @@ export const renderCode = (value: string, language: string, type: string): JSX.E
 
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
+    return <DiffEditor key={md5(value)} original={original} modified={modified} language={language} />;
   }
 
-  return <CodeBlock key={key} value={value} language={language} />;
+  return <CodeBlock key={md5(value)} value={value} language={language} />;
 };
 
 // Updated renderMessage function
 export const renderMessage = (text: string, isUser: boolean): JSX.Element => (
   <>
     {getParts(text, isUser).map((part, index) => (
-      <React.Fragment key={index}>
+      <React.Fragment key={index + `-` + md5(text)}>
         {renderCode(part.content, part.language || "typescript", part.type)}
       </React.Fragment>
     ))}
