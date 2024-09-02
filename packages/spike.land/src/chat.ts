@@ -20,7 +20,7 @@ export default {
     }
 
     if (request.url.includes("anthropic")) {
-      await logger.log(`Request for ${request.url}`);
+      ctx.waitUntil(logger.log(`Request for ${request.url}`));
       return handleAnthropicRequest(request, env, ctx);
     }
 
@@ -51,15 +51,15 @@ export default {
       });
     }
     if (request.url.includes("openai")) {
-      await logger.log(`Request for ${request.url}`);
+      ctx.waitUntil(logger.log(`Request for ${request.url}`));
       return handleGPT4Request(request, env, ctx);
     }
     if (request.url.includes("remix")) {
-      await logger.log(`Request for ${request.url}`);
+      ctx.waitUntil(logger.log(`Request for ${request.url}`));
       // return handleRemixRequest(request, env, ctx);
     }
     if (request.url.includes("replicate")) {
-      await logger.log(`Request for ${request.url}`);
+      ctx.waitUntil(logger.log(`Request for ${request.url}`));
       return handleReplicateRequest(request, env, ctx);
     }
 
@@ -120,7 +120,7 @@ export default {
       return generateTURNCredentials();
     }
 
-    await logger.log(`Request for ${request.url}`);
+    ctx.waitUntil(logger.log(`Request for ${request.url}`));
     return handleMainFetch(request, env, ctx);
   },
 };
