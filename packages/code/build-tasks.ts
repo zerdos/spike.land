@@ -131,6 +131,7 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     "image-loader",
     "timeline",
     "separator",
+    "start-with-prompt",
     "sheet",
     "skeleton",
     "slider",
