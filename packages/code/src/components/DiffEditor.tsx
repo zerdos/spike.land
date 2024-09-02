@@ -64,11 +64,11 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
     }
     return () => {
       if (diffEditor) {
-        const diffModels = diffEditor.getModel();
-        if (diffModels) {
-          diffModels.original.dispose();
-          diffModels.modified.dispose();
-        }
+        // const diffModels = diffEditor.getModel();
+        // if (diffModels) {
+        //   diffModels.original.dispose();
+        //   diffModels.modified.dispose();
+        // }
         diffEditor.dispose();
       }
     };
