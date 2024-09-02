@@ -119,10 +119,10 @@ describe("AIHandler", () => {
     vi.mocked(mockAIService.prepareClaudeContent).mockReturnValue(preparedContent);
 
     const result = aiHandler.prepareClaudeContent(
-      content,
       messages,
       currentCode,
       testCodeSpace,
+      content,
     );
 
     expect(mockAIService.prepareClaudeContent).toHaveBeenCalledWith(
