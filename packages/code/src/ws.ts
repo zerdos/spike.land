@@ -11,7 +11,8 @@ import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
 
 const cSess = new Code();
-await cSess.run();
+
+const waitForCSess = cSess.run();
 
 const run = async () => {
   const { renderPreviewWindow } = await import("./renderPreviewWindow");
@@ -132,6 +133,8 @@ const handleDefaultPage = async () => {
 
 const main = async () => {
   const codeSpace = useCodeSpace();
+  await waitForCSess;
+
   try {
     if (location.pathname === `/live/${codeSpace}`) {
       await run();
