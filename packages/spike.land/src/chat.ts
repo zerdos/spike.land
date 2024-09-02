@@ -172,8 +172,40 @@ async function handleCMSIndexRequest(request: Request, env: Env) {
           ? "font/eot"
           : key.endsWith("otf")
           ? "font/otf"
+          : key.endsWith("png")
+          ? "image/png"
+          : key.endsWith("pdf")
+          ? "application/pdf"
+          : key.endsWith("gif")
+          ? "image/gif"
+          : key.endsWith("webp")
+          ? "image/webp"
+          : key.endsWith("jpg")
+          ? "image/jpeg"
+          : key.endsWith("jpeg")
+          ? "image/jpeg"
           : key.endsWith("svg")
           ? "image/svg+xml"
+          : key.endsWith("mp4")
+          ? "video/mp4"
+          : key.endsWith("webm")
+          ? "video/webm"
+          : key.endsWith("mov")
+          ? "video/quicktime"
+          : key.endsWith("avi")
+          ? "video/x-msvideo"
+          : key.endsWith("wmv")
+          ? "video/x-ms-wmv"
+          : key.endsWith("mp3")
+          ? "audio/mpeg"
+          : key.endsWith("wav")
+          ? "audio/wav"
+          : key.endsWith("ogg")
+          ? "audio/ogg"
+          : key.endsWith("flac")
+          ? "audio/flac"
+          : key.endsWith("aac")
+          ? "audio/aac"
           : "text/html; charset=UTF-8",
       );
       return new Response(object.body, { headers });
