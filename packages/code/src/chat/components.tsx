@@ -63,7 +63,7 @@ export const ChatMessage: React.FC<{
       onDoubleClick={onDoubleClick}
     >
       <div
-        className={`max-w-[60%] p-3 rounded-lg ${
+        className={`max-w-[80%] p-3 rounded-lg ${
           isUser
             ? isDarkMode
               ? "bg-blue-600 text-white"
