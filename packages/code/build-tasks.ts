@@ -20,7 +20,7 @@ const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
     mangleQuoted: true,
     platform: "browser",
     format: "iife",
-    outdir: "dist",
+    outdir: "dist/@/monaco-editor/esm",
     minify: true,
   });
 };
