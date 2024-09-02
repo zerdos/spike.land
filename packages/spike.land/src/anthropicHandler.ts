@@ -27,9 +27,18 @@ export async function handleAnthropicRequest(
   const writer = writable.getWriter();
   const textEncoder = new TextEncoder();
 
-  if (body.messages[0].role === "system") {
-    body.system = body.messages[0].content as string;
-    body.messages.shift();
+  if (!(body.messages[0].role === "user" || body.messages[0].role === "assistant")) {
+    const system = body.messages[0].content;
+    if (typeof system === "string") {
+      body.system = system;
+      body.messages.shift();
+    } else {
+      body.system = system.find(s => s.type === "text")?.text;
+      body.messages[0].role = "user";
+      body.messages[0].content = system.filter(s =>
+        s.type !== "text" || s.text !== body.system
+      );
+    }
   }
 
   const conf = {
