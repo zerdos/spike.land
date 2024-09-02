@@ -144,13 +144,10 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
-  const [now, setNow] = useState(Date.now());
+  const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
 
-  const scrollToBottom = useCallback(() => {
-    if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
-  }, []);
+  const scrollToBottom = () =>
+    lastMessageRef.current! && lastMessageRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
 
   useEffect(() => {
     const timeoutId = setTimeout(scrollToBottom, 100);
@@ -166,10 +163,17 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   // This effect ensures scrolling when the component mounts and after each render
   useEffect(() => {
-    setNow(Date.now());
-    const timeoutId = setTimeout(scrollToBottom, 100);
+    let timeoutId: ReturnType<typeof setTimeout>;
+    if (isStreaming) {
+      setTypingIndicatorIsOn(true);
+    } else {
+      timeoutId = setTimeout(() => {
+        setTypingIndicatorIsOn(false);
+      }, 1000);
+    }
+
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [isStreaming]);
 
   return (
     <ScrollArea
@@ -191,7 +195,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
             isDarkMode={isDarkMode}
           />
         ))}
-        {isStreaming && <TypingIndicator isDarkMode={isDarkMode} />}
+        {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
       </div>
     </ScrollArea>
   );
