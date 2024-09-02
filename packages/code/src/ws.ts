@@ -112,7 +112,7 @@ class Code implements ICode {
         html = res.html;
         css = res.css;
       } else {
-        console.error("Error running the code, no error", i);
+        console.error("Error running the code, no error");
         return false;
       }
     } catch (e) {
@@ -215,36 +215,56 @@ const handleRender = async (
 
     if (!rootEl) return false;
 
-    for (let attempts = 100; attempts > 0; attempts--) {
+    for (let attempts = 5; attempts > 0; attempts--) {
       if (signal.aborted) return false;
+
       const html = rootEl.innerHTML;
+      console.log("Initial HTML length:", html.length);
+
       if (html) {
         let css = mineFromCaches(cache, html);
+        console.log("Initial CSS length:", css.length);
 
         const criticalClasses = css.split("\n").map((line) => {
           const rule = line.slice(1, 12);
           if (html.includes(rule)) return rule;
           return null;
-        }).filter((rule): rule is string => rule !== null);
-        console.log({ criticalClasses });
+        }).filter((rule) => rule !== null);
+        console.log("Critical classes found:", criticalClasses.length);
 
         // filter all the css for the critical classes
-
         css = css.split("\n").filter((line) => {
           return criticalClasses.some((rule) => line.includes(rule));
         }).join("\n");
+        console.log("CSS length after filtering:", css.length);
 
         try {
           console.log("Prettifying CSS");
-          if (css) css = await prettierCss(css);
+          if (css) {
+            const prettifiedCss = await prettierCss(css);
+            console.log("Prettified CSS length:", prettifiedCss.length);
+            css = prettifiedCss;
+          } else {
+            console.log("CSS is empty before prettifying");
+          }
         } catch (error) {
           console.error("Error prettifying CSS:", error);
+          // Preserve original CSS if prettifying fails
+          console.log("Preserving original CSS due to prettify error");
         }
 
-        if (mod.counter !== counter) return false;
+        if (mod.counter !== counter) {
+          console.log("Counter mismatch, returning false");
+          return false;
+        }
+
+        console.log("Final CSS length:", css.length);
+        console.log("Final HTML length:", html.length);
         return { css, html };
+      } else {
+        console.log("HTML is empty, returning without processing");
+        await wait(100);
       }
-      await wait(100);
     }
     return false;
   } catch (error) {
