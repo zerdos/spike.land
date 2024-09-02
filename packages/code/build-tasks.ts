@@ -15,7 +15,6 @@ const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
     bundle: true,
     minifyIdentifiers: true,
     minifySyntax: true,
-    footer: { js: "// build time: 1" },
     minifyWhitespace: false,
     treeShaking: true,
     mangleQuoted: true,
