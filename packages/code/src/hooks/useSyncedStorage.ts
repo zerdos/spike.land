@@ -64,8 +64,11 @@ function getStorageBackend<T>(): StorageBackend<T> {
   throw new Error("No suitable storage backend available");
 }
 
-export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T | ((val: T) => T)) => Promise<void>] {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
+export function useSyncedStorage<T>(
+  key: string,
+  startValue: T,
+): [T | null, (value: T | ((val: T) => T)) => Promise<void>] {
+  const [storedValue, setStoredValue] = useState<T | null>(startValue);
   const storageBackend = useMemo(() => {
     try {
       return getStorageBackend<T>();
@@ -75,12 +78,24 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
     }
   }, []);
 
-  const setValue = useCallback(async (value: T | ((val: T) => T)) => {
+  useEffect(() => {
+    if (!startValue) {
+      (async () => {
+        const startValueNotFalsy = await getStorageBackend<T>().get(key);
+        setStoredValue(startValueNotFalsy);
+      })();
+    }
+  }, []);
+
+  const setValue = useCallback(async (value: T | null | ((val: T | null) => T | null)) => {
     try {
+      if (value === null || undefined) {
+      }
+
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       if (value !== null || undefined) setStoredValue(valueToStore);
       if (storageBackend) {
-        await storageBackend.set(key, valueToStore);
+        await storageBackend.set(key, valueToStore === null ? startValue : valueToStore);
       }
 
       if (typeof BroadcastChannel !== "undefined") {
@@ -129,5 +144,5 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
     };
   }, [key, storageBackend]);
 
-  return [storedValue, setValue];
+  return [storedValue, setValue as (value: T | ((val: T) => T)) => Promise<void>];
 }

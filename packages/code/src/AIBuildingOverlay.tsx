@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSyncedStorage } from "./hooks/useSyncedStorage";
 
 export const AIBuildingOverlay: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
-  const [isStreaming, _setIsStreaming] = useSyncedStorage(`streaming-${codeSpace}`, undefined);
+  const [isStreaming, _setIsStreaming] = useSyncedStorage(`streaming-${codeSpace}`);
 
   const [progress, setProgress] = useState(0);
 
