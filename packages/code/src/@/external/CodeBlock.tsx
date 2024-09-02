@@ -9,7 +9,7 @@ interface Props {
   title?: string;
 }
 
-export const SyntaxHighlighterBlock: FC<Props> = memo(({ language, value, title }) => {
+export const CodeBlock: FC<Props> = memo(({ language, value, title }) => {
   const [copied, setCopied] = useState(false);
   const [iconIndex, setIconIndex] = useState(0);
   const icons = [ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon];
@@ -69,7 +69,7 @@ export const SyntaxHighlighterBlock: FC<Props> = memo(({ language, value, title 
 
 export default () => (
   <div className="p-4 bg-gray-950 rounded-xl">
-    <SyntaxHighlighterBlock
+    <CodeBlock
       value={`
 
 `}
