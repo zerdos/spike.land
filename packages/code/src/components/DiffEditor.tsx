@@ -72,7 +72,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         diffEditor.dispose();
       }
     };
-  }, [containerRef, containerRef.current]);
+  }, [containerRef, containerRef.current, diffEditor]);
 
   useEffect(() => {
     if (diffEditor) {
