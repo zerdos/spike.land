@@ -1,3 +1,4 @@
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
@@ -11,6 +12,57 @@ import { transpile } from "./shared";
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
+// Console Output Component
+const ConsoleOutput: React.FC<{ logs: Array<{ type: string; message: string }> }> = ({ logs }) => {
+  const logContainerRef = useRef<HTMLPreElement>(null);
+
+  useEffect(() => {
+    if (logContainerRef.current) {
+      logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
+    }
+  }, [logs]);
+
+  return (
+    <pre ref={logContainerRef} className="bg-gray-800 text-white p-4 rounded overflow-auto h-full">
+      {logs.map((item, index) => (
+        <div
+          key={index}
+          className={`${
+            item.type === "error"
+              ? "text-red-400"
+              : item.type === "warn"
+                ? "text-yellow-400"
+                : item.type === "info"
+                  ? "text-blue-400"
+                  : item.type === "debug"
+                    ? "text-purple-400"
+                    : item.type === "time"
+                      ? "text-pink-400"
+                      : "text-green-400"
+          }`}>
+          {item.type === "table" ? (
+            <table className='border-collapse border border-gray-600'>
+              <tbody>
+                {JSON.parse(item.message).map((row: any, rowIndex: number) => (
+                  <tr key={rowIndex}>
+                    {Object.values(row).map((cell: any, cellIndex: number) => (
+                      <td key={cellIndex} className='border border-gray-600 p-1'>
+                        {JSON.stringify(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            item.message
+          )}
+        </div>
+      ))}
+    </pre>
+  );
+};
+
 interface AppRendererProps {
   transpiled: string;
   width: number;
@@ -21,19 +73,68 @@ interface AppRendererProps {
 
 const AppRenderer: React.FC<AppRendererProps> = React.memo(
   ({ transpiled, width, height, top, left }) => {
-    const AppToRender = useMemo(() => (
-      React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)))
-    ), [transpiled]);
+    const [consoleOutput, setConsoleOutput] = useState<Array<{ type: string; message: string }>>([]);
+
+    const customConsole = useMemo(() => ({
+      log: (...args: any[]) => {
+        setConsoleOutput((prev) => [...prev, { type: "log", message: args.join(" ") }]);
+      },
+      error: (...args: any[]) => {
+        setConsoleOutput((prev) => [...prev, { type: "error", message: args.join(" ") }]);
+      },
+      warn: (...args: any[]) => {
+        setConsoleOutput((prev) => [...prev, { type: "warn", message: args.join(" ") }]);
+      },
+      info: (...args: any[]) => {
+        setConsoleOutput((prev) => [...prev, { type: "info", message: args.join(" ") }]);
+      },
+      debug: (...args: any[]) => {
+        setConsoleOutput((prev) => [...prev, { type: "debug", message: args.join(" ") }]);
+      },
+      table: (data: any) => {
+        let tableData;
+        if (Array.isArray(data)) {
+          tableData = data;
+        } else if (typeof data === "object" && data !== null) {
+          tableData = [data];
+        } else {
+          tableData = [{ value: data }];
+        }
+        setConsoleOutput((prev) => [
+          ...prev,
+          { type: "table", message: JSON.stringify(tableData) },
+        ]);
+      },
+      clear: () => {
+        setConsoleOutput([]);
+      },
+    }), []);
+
+    const AppToRender = useMemo(() => {
+      const AsyncApp = React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)));
+      return () => (
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <AsyncApp
+            width={width || window.innerWidth}
+            height={height || window.innerHeight}
+            top={top || 0}
+            left={left || 0}
+            console={customConsole}
+          />
+        </React.Suspense>
+      );
+    }, [transpiled, width, height, top, left, customConsole]);
 
     return (
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <AppToRender
-          width={width || window.innerWidth}
-          height={height || window.innerHeight}
-          top={top || 0}
-          left={left || 0}
-        />
-      </React.Suspense>
+      <ResizablePanelGroup direction="vertical">
+        <ResizablePanel defaultSize={70}>
+          <AppToRender />
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel defaultSize={30}>
+          <ConsoleOutput logs={consoleOutput} />
+        </ResizablePanel>
+      </ResizablePanelGroup>
     );
   },
 );
