@@ -1,6 +1,5 @@
 import { editor, languages, Uri } from "@/external/monacoEditor";
 import { ata } from "./shared";
-import { cSess } from "./ws";
 
 const originToUse = location.origin;
 
@@ -274,23 +273,24 @@ async function startMonacoPristine({
     },
     isEdit: false,
     setValue: (_newCode: string) => {
-      const newCode = cSess.session.code;
+      // const newCode = cSess.session.code;
       //      if (cSess && cSess.session && cSess.session.code && newCode !== cSess.session.code) return;
-      myEditor.getDomNode()?.blur();
+      // myEditor.getDomNode()?.blur();
       //      if (editorModel.isEdit) return;
       editorModel.silent = true;
       let state = null;
       try {
         state = myEditor.saveViewState();
-        model.setValue(newCode);
+        model.setValue(_newCode);
+
         if (state) {
           myEditor.restoreViewState(state);
         }
       } catch (error) {
         console.error("Error while saving the state:", error);
       } finally {
+        model.setValue(_newCode);
         editorModel.silent = false;
-        tsCheck();
       }
     },
   };
