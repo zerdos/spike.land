@@ -1,5 +1,5 @@
-import * as monaco from "@/external/monacoEditor";
-import React, { memo, useEffect, useRef, useState } from "react";
+import { editor } from "@/external/monacoEditor";
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface DiffEditorProps {
   original: string;
@@ -19,32 +19,29 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   maxHeight = 600,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [diffEditor, setDiffEditor] = useState<monaco.editor.IStandaloneDiffEditor | null>(null);
+  const [diffEditor, setDiffEditor] = useState<editor.IStandaloneDiffEditor | null>(null);
 
-  const calculateHeight = (content: string) => {
+  const calculateHeight = useCallback((content: string) => {
     const lineCount = content.split("\n").length;
-    const lineHeight = 20; // Adjust this value based on your font size and line spacing
-    const padding = 20; // Add some padding
+    const lineHeight = 20;
+    const padding = 20;
     return Math.min(Math.max(lineCount * lineHeight + padding, minHeight), maxHeight);
-  };
+  }, [minHeight, maxHeight]);
 
-  const editorHeight = () => {
+  const editorHeight = useMemo(() => {
     const originalHeight = calculateHeight(original);
     const modifiedHeight = calculateHeight(modified);
     return Math.max(originalHeight, modifiedHeight);
-  };
+  }, [original, modified, calculateHeight]);
 
   useEffect(() => {
     if (containerRef.current && !diffEditor) {
-      const diffy = monaco.editor.createDiffEditor(containerRef.current, {
+      const diffy = editor.createDiffEditor(containerRef.current, {
         diffAlgorithm: "advanced",
         readOnly,
         diffWordWrap: "on",
         wordWrap: "on",
         wordWrapColumn: 80,
-        /**
-         * If the diff editor should only show the difference review mode.
-         */
         onlyShowAccessibleDiffViewer: true,
         hideUnchangedRegions: {
           enabled: true,
@@ -54,18 +51,20 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         },
         lineNumbers: "off",
         scrollBeyondLastLine: false,
-
         minimap: { enabled: false },
         renderSideBySide: false,
         renderOverviewRuler: false,
-        theme: "vs-dark", // Add a dark theme
+        theme: "vs-dark",
       });
 
-      diffy.setModel({
-        original: monaco.editor.createModel(original, language),
-        modified: monaco.editor.createModel(modified, language),
-      });
-      setDiffEditor(diffy);
+      // Delay setting the model to ensure the editor is fully initialized
+      setTimeout(() => {
+        diffy.setModel({
+          original: editor.createModel(original, language),
+          modified: editor.createModel(modified, language),
+        });
+        setDiffEditor(diffy);
+      }, 0);
     }
 
     return () => {
@@ -84,8 +83,12 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
     if (diffEditor) {
       const diffModels = diffEditor.getModel();
       if (diffModels) {
-        diffModels.original.setValue(original);
-        diffModels.modified.setValue(modified);
+        // Use requestAnimationFrame to ensure DOM updates are complete
+        requestAnimationFrame(() => {
+          diffModels.original.setValue(original);
+          diffModels.modified.setValue(modified);
+          diffEditor.layout(); // Force layout recalculation
+        });
       }
     }
   }, [diffEditor, original, modified]);
