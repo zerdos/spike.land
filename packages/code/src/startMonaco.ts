@@ -311,15 +311,16 @@ async function startMonacoPristine({
     editorModel.isEdit = false;
   });
 
-  model.onDidChangeContent(() => {
+  model.onDidChangeContent((e) => {
     const newCode = model.getValue();
     editorModel.isEdit = true;
     abortController.abort();
-    abortController = new AbortController();
+    const { signal } = abortController = new AbortController();
 
     setTimeout(() => {
-      if (abortController.signal.aborted) return;
+      if (signal.aborted) return;
       editorModel.isEdit = false;
+      tsCheck();
     }, 1000);
 
     if (!editorModel.silent) {
