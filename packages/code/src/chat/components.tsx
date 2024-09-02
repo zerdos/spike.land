@@ -1,3 +1,4 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,9 +32,44 @@ export const ChatMessage: React.FC<{
   isDarkMode,
 }) => {
   const isUser = message.role === "user";
+  const isSystem = message.role === "system";
 
   const renderContent = () => {
-    if (typeof message.content === "string") {
+    if (isSystem) {
+      return (
+        <Accordion
+          type="single"
+          collapsible
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>System prompt</AccordionTrigger>
+            <AccordionContent>
+              {typeof message.content === "string"
+                ? renderMessage(message.content, isUser)
+                : Array.isArray(message.content)
+                ? message.content.map((item, index) => {
+                  if (item.type === "text") {
+                    return renderMessage(item.text!, isUser);
+                  } else if (item.type === "image" && item.source?.type === "base64") {
+                    const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
+
+                    return (
+                      <img
+                        key={index}
+                        src={imageUrlFromBase64String}
+                        alt="Screenshot"
+                        className="max-w-full h-auto mt-2 rounded-lg"
+                      />
+                    );
+                  }
+                  return <></>;
+                })
+                : <></>}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      );
+    } else if (typeof message.content === "string") {
       return renderMessage(message.content, isUser);
     } else if (Array.isArray(message.content)) {
       return message.content.map((item, index) => {

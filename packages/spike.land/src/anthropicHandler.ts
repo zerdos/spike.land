@@ -45,7 +45,7 @@ export async function handleAnthropicRequest(
       } else {
         body.messages[0].content.push(...userMessageContent);
       }
-      // so removing the 2. message from the arrau
+
       body.messages.splice(1, 1);
     }
   }
