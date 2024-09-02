@@ -124,26 +124,26 @@ const AppRenderer: React.FC<AppRendererProps> = React.memo(
       }) => (
         <React.Suspense fallback={<div>Loading...</div>}>
           <AsyncApp
-            width={width || window.innerWidth}
-            height={height || window.innerHeight}
-            top={top || 0}
-            left={left || 0}
+            width={width}
+            height={height}
+            top={top}
+            left={left}
             console={customConsole}
           />
         </React.Suspense>
       );
       return App;
-    }, [asyncApp, top, customConsole]);
+    }, [asyncApp, customConsole]);
 
     return (
-      <ResizablePanelGroup direction="vertical">
+      <ResizablePanelGroup direction="horizontal">
         <ResizablePanel defaultSize={70}>
           <AppToRender
-            customConsole={{ ...console }}
+            customConsole={customConsole}
             top={0}
-            height={window.innerHeight - 30}
+            height={window.innerHeight}
             left={0}
-            width={window.innerWidth}
+            width={window.innerWidth * 0.7}
           />
         </ResizablePanel>
         <ResizableHandle />
