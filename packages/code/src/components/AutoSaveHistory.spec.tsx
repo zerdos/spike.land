@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { cSessMock } from "@src/config/cSessMock";
 import type * as Monaco from "monaco-editor";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CodeHistoryCarousel } from "./AutoSaveHistory";
@@ -49,7 +50,7 @@ describe("CodeHistoryCarousel", () => {
     render(
       <CodeHistoryCarousel
         codeSpace="test"
-        cSess={{} as any}
+        cSess={cSessMock}
         onRestore={mockOnRestore}
         onClose={mockOnClose}
       />,
@@ -71,7 +72,7 @@ describe("CodeHistoryCarousel", () => {
     render(
       <CodeHistoryCarousel
         codeSpace="test"
-        cSess={{} as any}
+        cSess={cSessMock}
         onRestore={mockOnRestore}
         onClose={mockOnClose}
       />,

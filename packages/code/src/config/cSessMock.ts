@@ -1,23 +1,37 @@
 import { ICode } from "@src/cSess.interface";
 import { ICodeSession } from "@src/makeSess";
 
-export const cSessMock: ICode = {
-  session: {
+class SessMock implements ICode {
+  buffy: Promise<void>[] = [];
+  private controller = new AbortController();
+  private subs: ((sess: ICodeSession) => void)[] = [];
+  private broadcastedCounter = 0;
+
+  session: ICodeSession = {
     code: "",
     html: "",
     i: 34,
     transpiled: "",
     css: "",
-  },
-  broadCastSessChanged: () => {
-    // Add code here
-  },
-  setCode: async (rawCode: string) => {
-    // Add code her
+  };
+
+  sub(fn: (sess: ICodeSession) => void) {
+    this.subs.push(fn);
+  }
+
+  broadCastSessChanged() {
+    this.broadcastedCounter = this.session.i;
+    this.subs.forEach(cb => cb(this.session));
+  }
+
+  async setCode(rawCode: string) {
+    this.session.code = rawCode;
+    this.session.i++;
+
+    this.broadCastSessChanged();
     return rawCode;
-  },
-  sub: (_fn: (sess: ICodeSession) => void) => {
-    // Add code here
-  },
+  }
   // Add properties or methods here
-};
+}
+
+export const cSessMock = new SessMock();
