@@ -38,6 +38,15 @@ export async function handleAnthropicRequest(
       body.messages[0].content = system.filter(s =>
         s.type !== "text" || s.text !== body.system
       );
+      const userMessage = body.messages[1];
+      const userMessageContent = userMessage.content;
+      if (typeof userMessageContent === "string") {
+        body.messages[0].content.push({ type: "text", text: userMessageContent });
+      } else {
+        body.messages[0].content.push(...userMessageContent);
+      }
+      // so removing the 2. message from the arrau
+      body.messages.splice(1, 1);
     }
   }
 
