@@ -20,7 +20,6 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [diffEditor, setDiffEditor] = useState<editor.IStandaloneDiffEditor | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const calculateHeight = useCallback((content: string) => {
     const lineCount = content.split("\n").length;
@@ -36,96 +35,59 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
   }, [original, modified, calculateHeight]);
 
   useEffect(() => {
-    let mounted = true;
-    let timeoutId: NodeJS.Timeout;
+    if (containerRef.current && !diffEditor) {
+      const diffy = editor.createDiffEditor(containerRef.current, {
+        diffAlgorithm: "advanced",
+        readOnly,
+        diffWordWrap: "on",
+        wordWrap: "on",
+        wordWrapColumn: 80,
+        automaticLayout: true,
+        onlyShowAccessibleDiffViewer: true,
+        hideUnchangedRegions: {
+          enabled: false,
+        },
+        lineNumbers: "off",
+        scrollBeyondLastLine: false,
+        minimap: { enabled: false },
+        renderSideBySide: false,
+        renderOverviewRuler: false,
+        theme: "vs-dark",
+      });
 
-    const initializeEditor = () => {
-      if (containerRef.current && !diffEditor) {
-        try {
-          const diffy = editor.createDiffEditor(containerRef.current, {
-            diffAlgorithm: "advanced",
-            readOnly,
-            diffWordWrap: "on",
-            wordWrap: "on",
-            wordWrapColumn: 80,
-            onlyShowAccessibleDiffViewer: true,
-            hideUnchangedRegions: {
-              enabled: false,
-            },
-            lineNumbers: "off",
-            scrollBeyondLastLine: false,
-            minimap: { enabled: false },
-            renderSideBySide: false,
-            renderOverviewRuler: false,
-            theme: "vs-dark",
-          });
+      diffy.setModel({
+        original: editor.createModel(original, language),
+        modified: editor.createModel(modified, language),
+      });
 
-          timeoutId = setTimeout(() => {
-            if (mounted) {
-              try {
-                const originalModel = editor.createModel(original, language);
-                const modifiedModel = editor.createModel(modified, language);
-
-                diffy.setModel({
-                  original: originalModel,
-                  modified: modifiedModel,
-                });
-
-                setDiffEditor(diffy);
-              } catch (err) {
-                console.error("Error setting diff editor model:", err);
-                setError("Failed to initialize diff view. Please try again.");
-              }
-            }
-          }, 500);
-        } catch (err) {
-          console.error("Error creating diff editor:", err);
-          setError("Failed to create diff view. Please try again.");
-        }
-      }
-    };
-
-    initializeEditor();
-
+      setDiffEditor(diffy);
+    }
     return () => {
-      mounted = false;
-      clearTimeout(timeoutId);
       if (diffEditor) {
-        try {
-          const diffModels = diffEditor.getModel();
-          if (diffModels) {
-            diffModels.original.dispose();
-            diffModels.modified.dispose();
-          }
-          diffEditor.dispose();
-        } catch (err) {
-          console.error("Error disposing diff editor:", err);
+        const diffModels = diffEditor.getModel();
+        if (diffModels) {
+          diffModels.original.dispose();
+          diffModels.modified.dispose();
         }
+        diffEditor.dispose();
       }
     };
-  }, [diffEditor, language, original, modified, readOnly]);
+  }, [containerRef, containerRef.current]);
 
   useEffect(() => {
     if (diffEditor) {
       const diffModels = diffEditor.getModel();
       if (diffModels) {
-        requestAnimationFrame(() => {
-          try {
-            diffModels.original.setValue(original);
-            diffModels.modified.setValue(modified);
-            diffEditor.layout();
-          } catch (err) {
-            console.error("Error updating diff editor content:", err);
-            setError("Failed to update diff view. Please try again.");
-          }
-        });
+        if (diffModels.original.getValue() !== original) {
+          diffModels.original.setValue(original);
+        }
+
+        if (diffModels.modified.getValue() !== modified) {
+          diffModels.modified.setValue(modified);
+        }
       }
     }
   }, [diffEditor, original, modified]);
-
-  if (error) {
-    return <div className="error-message">{error}</div>;
-  }
 
   return (
     <div
