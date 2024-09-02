@@ -5040,6 +5040,9 @@ const RAW_RUNTIME_STATE =
           ["@rollup/plugin-html", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:1.0.3"],\
           ["@shadcn/ui", "npm:0.0.4"],\
           ["@tabler/icons-react", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.14.0"],\
+          ["@tailwindcss/aspect-ratio", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.4.2"],\
+          ["@tailwindcss/container-queries", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.1"],\
+          ["@tailwindcss/forms", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.5.8"],\
           ["@tailwindcss/typography", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.5.15"],\
           ["@tanstack/react-virtual", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:3.10.6"],\
           ["@testing-library/dom", "npm:10.4.0"],\
@@ -5388,6 +5391,73 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/react",\
           "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tailwindcss/aspect-ratio", [\
+      ["npm:0.4.2", {\
+        "packageLocation": "./.yarn/global/cache/@tailwindcss-aspect-ratio-npm-0.4.2-f690711eea-10.zip/node_modules/@tailwindcss/aspect-ratio/",\
+        "packageDependencies": [\
+          ["@tailwindcss/aspect-ratio", "npm:0.4.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.4.2", {\
+        "packageLocation": "./.yarn/__virtual__/@tailwindcss-aspect-ratio-virtual-1601278dbd/0/global/cache/@tailwindcss-aspect-ratio-npm-0.4.2-f690711eea-10.zip/node_modules/@tailwindcss/aspect-ratio/",\
+        "packageDependencies": [\
+          ["@tailwindcss/aspect-ratio", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.4.2"],\
+          ["@types/tailwindcss", null],\
+          ["tailwindcss", "npm:3.4.10"]\
+        ],\
+        "packagePeers": [\
+          "@types/tailwindcss",\
+          "tailwindcss"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tailwindcss/container-queries", [\
+      ["npm:0.1.1", {\
+        "packageLocation": "./.yarn/global/cache/@tailwindcss-container-queries-npm-0.1.1-725382a7d7-10.zip/node_modules/@tailwindcss/container-queries/",\
+        "packageDependencies": [\
+          ["@tailwindcss/container-queries", "npm:0.1.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.1", {\
+        "packageLocation": "./.yarn/__virtual__/@tailwindcss-container-queries-virtual-1c68f43468/0/global/cache/@tailwindcss-container-queries-npm-0.1.1-725382a7d7-10.zip/node_modules/@tailwindcss/container-queries/",\
+        "packageDependencies": [\
+          ["@tailwindcss/container-queries", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.1.1"],\
+          ["@types/tailwindcss", null],\
+          ["tailwindcss", "npm:3.4.10"]\
+        ],\
+        "packagePeers": [\
+          "@types/tailwindcss",\
+          "tailwindcss"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tailwindcss/forms", [\
+      ["npm:0.5.8", {\
+        "packageLocation": "./.yarn/global/cache/@tailwindcss-forms-npm-0.5.8-cb1ba550ec-10.zip/node_modules/@tailwindcss/forms/",\
+        "packageDependencies": [\
+          ["@tailwindcss/forms", "npm:0.5.8"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.5.8", {\
+        "packageLocation": "./.yarn/__virtual__/@tailwindcss-forms-virtual-72868b0d23/0/global/cache/@tailwindcss-forms-npm-0.5.8-cb1ba550ec-10.zip/node_modules/@tailwindcss/forms/",\
+        "packageDependencies": [\
+          ["@tailwindcss/forms", "virtual:0cccbb210d7ec9866a375ee6aac5ae681292837121ca6cd216111fc5654785c02e2c1d848ea5f25a9bffd881268f2dc1275f829abd835491864f40a96950a34a#npm:0.5.8"],\
+          ["@types/tailwindcss", null],\
+          ["mini-svg-data-uri", "npm:1.4.4"],\
+          ["tailwindcss", "npm:3.4.10"]\
+        ],\
+        "packagePeers": [\
+          "@types/tailwindcss",\
+          "tailwindcss"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15324,6 +15394,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/min-indent-npm-1.0.1-77031f50e1-10.zip/node_modules/min-indent/",\
         "packageDependencies": [\
           ["min-indent", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["mini-svg-data-uri", [\
+      ["npm:1.4.4", {\
+        "packageLocation": "./.yarn/global/cache/mini-svg-data-uri-npm-1.4.4-929f6f1119-10.zip/node_modules/mini-svg-data-uri/",\
+        "packageDependencies": [\
+          ["mini-svg-data-uri", "npm:1.4.4"]\
         ],\
         "linkType": "HARD"\
       }]\
