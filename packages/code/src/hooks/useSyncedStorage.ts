@@ -78,7 +78,7 @@ export function useSyncedStorage<T>(key: string, initialValue: T): [T, (value: T
   const setValue = useCallback(async (value: T | ((val: T) => T)) => {
     try {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
+      if (value !== null || undefined) setStoredValue(valueToStore);
       if (storageBackend) {
         await storageBackend.set(key, valueToStore);
       }
