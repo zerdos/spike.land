@@ -245,7 +245,7 @@ const handleRender = async (
         if (mod.counter !== counter) return false;
         return { css, html };
       }
-      await wait(1);
+      await wait(100);
     }
     return false;
   } catch (error) {
@@ -289,15 +289,12 @@ export const handleDefaultPage = async () => {
         const { i, transpiled } = data;
 
         if (!i || !transpiled) return;
-        if (i === "undefined" || transpiled === "undefined") return;
 
         if (mod.counter >= i) return;
+
         mod.counter = i;
         mod.controller.abort();
         const { signal } = (mod.controller = new AbortController());
-
-        mod.counter = i;
-        mod.transpiled = transpiled;
 
         if (signal.aborted) return false;
 
@@ -311,18 +308,24 @@ export const handleDefaultPage = async () => {
           document.body.appendChild(myEl);
 
           const rendered = await renderApp({ rootElement: myEl, transpiled });
-          if (signal.aborted) return false;
+          await wait(300);
 
-          if (signal.aborted) {
+          const cleanupAndRemove = () => {
             try {
-              rendered !== null && rendered !== undefined && rendered!.cleanup !== undefined && rendered.cleanup();
+              rendered?.cleanup?.();
               document.body.removeChild(myEl);
               myEl.remove();
             } catch (e) {
               console.error(e);
             }
-            return;
-          }
+            return false;
+          };
+
+          if (signal.aborted) return cleanupAndRemove();
+
+          await wait(100);
+
+          if (signal.aborted) return cleanupAndRemove();
 
           const res = await handleRender(
             myEl,
@@ -331,23 +334,25 @@ export const handleDefaultPage = async () => {
             mod,
           );
 
-          if (!res) return rendered?.cleanup();
+          if (res === false) {
+            if (signal.aborted) return cleanupAndRemove();
+          } else {
+            const { css, html } = res;
+            if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
+              return rendered?.cleanup();
+            }
 
-          const { css, html } = res;
-          if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
-            return rendered?.cleanup();
+            window.parent.postMessage({ i, css, html }, "*");
+
+            const old = document.getElementById("root")!;
+            renderedAPPS!.get(old!)!.cleanup();
+            myEl.style.display = "block";
+            document.body.removeChild(old);
+
+            old.remove();
+
+            myEl.id = "root";
           }
-
-          window.parent.postMessage({ i, css, html }, "*");
-
-          const old = document.getElementById("root")!;
-          renderedAPPS!.get(old!)!.cleanup();
-          myEl.style.display = "block";
-          document.body.removeChild(old);
-
-          old.remove();
-
-          myEl.id = "root";
         });
       } catch (error) {
         console.error("Error in window.onmessage handler:", error);
