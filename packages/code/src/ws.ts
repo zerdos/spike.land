@@ -3,19 +3,40 @@ import { ICodeSession } from "./makeSess";
 
 import { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
+import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 import { prettierCss } from "./shared";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 import { renderApp, renderedAPPS } from "./Wrapper";
 
-export const cSess = new Code();
+const cSess = new Code();
 await cSess.run();
 
-export const run = async () => {
+const run = async () => {
   const { renderPreviewWindow } = await import("./renderPreviewWindow");
   renderPreviewWindow({ codeSpace: useCodeSpace(), cSess });
 };
+
+const main = async () => {
+  const codeSpace = useCodeSpace();
+  try {
+    if (location.pathname === `/live/${codeSpace}`) {
+      await run();
+      await initializeApp();
+    } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
+      handleDehydratedPage();
+    } else if (location.pathname === `/live/${codeSpace}/iframe`) {
+      await handleDefaultPage();
+    }
+  } catch (error) {
+    console.error("Error in main function:", error);
+  }
+};
+
+if (location.pathname.startsWith("/live")) {
+  main();
+}
 
 (() => {
   try {

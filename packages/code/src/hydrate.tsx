@@ -33,7 +33,7 @@ const createLangChainWorkflow = async (prompt: string) => {
   }
 };
 
-const initializeApp = async () => {
+export const initializeApp = async () => {
   try {
     const [
       { enhancedFetch },
@@ -55,22 +55,3 @@ const initializeApp = async () => {
     console.error("Error initializing app:", error);
   }
 };
-
-const main = async () => {
-  try {
-    if (location.pathname === `/live/${codeSpace}`) {
-      await handleLivePage();
-      await initializeApp();
-    } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
-      handleDehydratedPage();
-    } else if (location.pathname === `/live/${codeSpace}/iframe`) {
-      await handleDefaultPage();
-    }
-  } catch (error) {
-    console.error("Error in main function:", error);
-  }
-};
-
-if (location.pathname.startsWith("/live")) {
-  main();
-}
