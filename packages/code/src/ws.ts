@@ -112,17 +112,18 @@ class Code implements ICode {
         html = res.html;
         css = res.css;
       } else {
-        console.error("Error running the code, no error");
+        console.error("Error running the code, no error", i);
         return false;
       }
     } catch (e) {
+      if (signal.aborted) return false;
       console.error("Error running the code", e);
       return false;
     }
 
-    console.log("Sending message to BC: ", i);
     if (signal.aborted) return false;
 
+    console.log("Sending message to BC: ", i);
     this.session = makeSession({
       code,
       i,
@@ -131,7 +132,6 @@ class Code implements ICode {
       css,
     });
 
-    if (signal.aborted) return false;
     console.log("Sending message to BC", this.session);
 
     BC.postMessage({
@@ -139,8 +139,6 @@ class Code implements ICode {
       sender: "Editor",
     });
 
-    this.controller.abort();
-    // this.broadCastSessChanged();
     console.log("Runner succeeded");
     return this.session.code;
   }
