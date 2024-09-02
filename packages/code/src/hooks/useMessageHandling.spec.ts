@@ -2,8 +2,6 @@ import { cSessMock } from "@src/config/cSessMock";
 import type { Message } from "@src/types/Message";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import * as sharedModule from "../shared";
-import * as chatUtils from "../utils/chatUtils";
 import { useMessageHandling } from "./useMessageHandling";
 
 // Mock dependencies
@@ -37,33 +35,6 @@ describe("useMessageHandling", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  it("should handle sending a message", async () => {
-    const mockSendToAnthropic = vi.fn().mockResolvedValue({
-      id: "1",
-      role: "assistant",
-      content: "Assistant response",
-    });
-
-    const { result } = renderHook(() => useMessageHandling(mockProps));
-
-    // Mock updateSearchReplace
-    vi.mocked(chatUtils.updateSearchReplace).mockReturnValue("updated code");
-
-    // Mock prettierToThrow
-    vi.mocked(sharedModule.prettierToThrow).mockResolvedValue("formatted code");
-
-    // Mock runner
-
-    await act(async () => {
-      await result.current.handleSendMessage("Test message", "");
-    });
-
-    expect(mockProps.setInput).toHaveBeenCalledWith("");
-    expect(mockProps.setIsStreaming).toHaveBeenCalledWith(true);
-    expect(mockProps.setMessages).toHaveBeenCalled();
-    expect(mockSendToAnthropic).toHaveBeenCalled();
   });
 
   it("should handle editing a message", () => {

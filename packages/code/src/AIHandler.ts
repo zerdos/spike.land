@@ -4,7 +4,7 @@ import { Message } from "./types/Message";
 
 export class AIHandler {
   private aiService: AIService;
-  constructor(private cSess: ICode, private setIsStreaming: (isStreaming: boolean) => void, aiService?: AIService) {
+  constructor(private cSess: ICode, setIsStreaming: (isStreaming: boolean) => void, aiService?: AIService) {
     this.aiService = aiService || new AIService({
       anthropicEndpoint: "/api/anthropic",
       openAIEndpoint: "/api/openai",
@@ -34,7 +34,6 @@ export class AIHandler {
     currentCode: string,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
-    isRetry = false,
   ): Promise<string | void> {
     return this.aiService.continueWithOpenAI(
       fullResponse,

@@ -167,19 +167,19 @@ describe("useSyncedStorage", () => {
   // });
 
   it("should handle function-based state updates correctly", async () => {
-    const { result } = renderHook(() => useSyncedStorage("testKey", 0));
-
-    await act(async () => {
-      await result.current[1]((prevValue) => prevValue + 1);
-    });
-
-    expect(result.current[0]).toBe(1);
+    const { result } = renderHook(() => useSyncedStorage("testKey", 1));
 
     await act(async () => {
       await result.current[1]((prevValue) => prevValue + 1);
     });
 
     expect(result.current[0]).toBe(2);
+
+    await act(async () => {
+      await result.current[1]((prevValue) => prevValue + 1);
+    });
+
+    expect(result.current[0]).toBe(3);
   });
 
   it("should handle errors when reading from storage", async () => {

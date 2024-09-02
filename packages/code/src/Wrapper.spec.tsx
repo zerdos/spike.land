@@ -13,6 +13,7 @@ vi.mock("@visx/responsive", () => ({
 }));
 
 describe("Wrapper", () => {
+  globalThis.URL.createObjectURL = vi.fn();
   let container: HTMLElement;
 
   beforeEach(() => {

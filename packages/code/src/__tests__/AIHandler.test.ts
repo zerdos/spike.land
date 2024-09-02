@@ -21,7 +21,7 @@ describe("AIHandler", () => {
       setIsStreaming: vi.fn(),
     }, cSessMock);
     vi.mocked(mockAIService);
-    aiHandler = new AIHandler(cSessMock, mockAIService);
+    aiHandler = new AIHandler(cSessMock, vi.fn(), mockAIService);
   });
 
   test("sendToAnthropic calls AIService.sendToAnthropic", async () => {
@@ -75,7 +75,6 @@ describe("AIHandler", () => {
       currentCode,
       setMessages,
       setAICode,
-      false,
     );
 
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
@@ -83,7 +82,6 @@ describe("AIHandler", () => {
       currentCode,
       setMessages,
       setAICode,
-      false,
     );
     expect(result).toBe("Updated code");
   });
@@ -101,7 +99,6 @@ describe("AIHandler", () => {
       currentCode,
       setMessages,
       setAICode,
-      true,
     );
 
     expect(mockAIService.continueWithOpenAI).toHaveBeenCalledWith(
@@ -109,7 +106,6 @@ describe("AIHandler", () => {
       currentCode,
       setMessages,
       setAICode,
-      true,
     );
     expect(result).toBe("Updated code with Claude");
   });
