@@ -130,19 +130,20 @@ export const MessageRenderer: React.FC<MessageRendererProps> = ({ text, isUser }
 // Updated renderCode function
 export const renderCode = (value: string, language: string, type: string): JSX.Element => {
   // console.log("renderCode", value, language);
-  const key = md5(value + language);
 
   if (value.trim().length === 0) {
     return <></>;
   }
+  const key = md5(`${value}${language}`);
+
   if (value.trim().length < 20) {
-    return <pre key={md5(value.trim())}>{value.trim()}</pre>;
+    return <pre key={key}>{value.trim()}</pre>;
   }
 
   if (type === "text") {
     return (
       <Markdown
-        key={md5(value)}
+        key={key}
         css={css`
             margin-top: 12px;
             margin-bottom: 12px;
@@ -159,17 +160,17 @@ export const renderCode = (value: string, language: string, type: string): JSX.E
 
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return <DiffEditor key={md5(value)} original={original} modified={modified} language={language} />;
+    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
   }
 
-  return <CodeBlock key={md5(value)} value={value} language={language} />;
+  return <CodeBlock key={key} value={value} language={language} />;
 };
 
 // Updated renderMessage function
 export const renderMessage = (text: string, isUser: boolean): JSX.Element => (
   <>
     {getParts(text, isUser).map((part, index) => (
-      <React.Fragment key={index + `-` + md5(text)}>
+      <React.Fragment key={index + `-` + md5(part.content)}>
         {renderCode(part.content, part.language || "typescript", part.type)}
       </React.Fragment>
     ))}
