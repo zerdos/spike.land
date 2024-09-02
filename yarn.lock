@@ -12762,6 +12762,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:8.3.0"
     "@typescript-eslint/parser": "npm:8.3.0"
     "@yarnpkg/sdks": "npm:3.2.0"
+    clsx: "npm:^2.1.1"
     dprint: "npm:0.47.2"
     eslint: "npm:9.9.1"
     eslint-plugin-react: "npm:7.35.0"
