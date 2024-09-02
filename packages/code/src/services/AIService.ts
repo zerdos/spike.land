@@ -1,6 +1,6 @@
 import { ICode } from "@src/cSess.interface";
 import { throttle } from "es-toolkit";
-import { anthropic, gptSystem, reminder } from "../config/aiConfig";
+import { anthropicSystem, gptSystem, reminder } from "../config/aiConfig";
 import { Message, MessageContent } from "../types/Message";
 
 interface AIModelResponse {
@@ -212,16 +212,15 @@ export class AIService {
   }
 
   prepareClaudeContent(
-    content: string,
     messages: Message[],
     codeNow: string,
     codeSpace: string,
-  ): string {
+    content: string,
+  ) {
     if (messages.length === 0 || codeNow !== messages[messages.length - 1]?.content) {
-      return anthropic({
+      return anthropicSystem({
         fileName: codeSpace,
         fileContent: codeNow,
-        userPrompt: content,
       });
     } else {
       return reminder({ userPrompt: content });

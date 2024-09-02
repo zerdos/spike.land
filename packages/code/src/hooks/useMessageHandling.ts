@@ -45,18 +45,22 @@ export const useMessageHandling = ({
     useAutoSave(codeSpace);
 
     const claudeContent = aiHandler.prepareClaudeContent(
-      content,
       messages,
       code,
       codeSpace,
+      content,
     );
+
+    let screenshotUsed = false;
 
     if (messages.length === 0 || code !== codeWhatAiSeen) {
       setAICode(code);
+      screenshotUsed = true;
+      const systemPrompt = await createNewMessage(screenshot, claudeContent, true);
+      messages.push(systemPrompt);
     }
 
-    const newMessage = await createNewMessage(screenshot, claudeContent);
-    const updatedMessages = [...messages, newMessage];
+    const updatedMessages = [...messages, await createNewMessage(screenshotUsed ? "" : screenshot, content, false)];
 
     setInput("");
 

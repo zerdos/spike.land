@@ -7,11 +7,12 @@ import { updateSearchReplace } from "../utils/chatUtils";
 export async function createNewMessage(
   screenshot: string,
   claudeContent: string,
+  isSystem: boolean,
 ): Promise<Message> {
   if (screenshot) {
     return {
       id: Date.now().toString(),
-      role: "user",
+      role: isSystem ? "system" : "user",
       content: [
         {
           type: "image",
@@ -27,7 +28,7 @@ export async function createNewMessage(
   }
   return {
     id: Date.now().toString(),
-    role: "user",
+    role: isSystem ? "system" : "user",
     content: claudeContent?.trim() || "",
   };
 }

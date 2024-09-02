@@ -35,11 +35,10 @@ const RESOLUTION = {
 Also, the block will be executed one by one, so you can't use the the replaced block in the next search block.
 `;
 
-export const anthropic = (
-  { fileName, fileContent, userPrompt }: {
+export const anthropicSystem = (
+  { fileName, fileContent }: {
     fileName: string;
     fileContent: string;
-    userPrompt: any;
   },
 ) =>
   `hey,
@@ -70,10 +69,7 @@ Response format:
 4. Suggest any improvements or alternatives
 5. Don't include installation instructions or package.json modifications
 
-Always focus on concise, targeted updates rather than full file replacements.
-The user's first message follows: 
-
-${userPrompt}`;
+Always focus on concise, targeted updates rather than full file replacements.`;
 
 export const reminder = ({ userPrompt }: { userPrompt: string }) => `
 

@@ -137,18 +137,18 @@ self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_moduleId: string, label: string) => {
     if (label === "html") {
-      return `${originToUse}/@/monaco-editor/esm/html.worker.mjs`;
+      return `/@/monaco-editor/esm/html.worker.js`;
     }
     if (label === "json") {
-      return `${originToUse}/@/monaco-editor/esm/json.worker.mjs`;
+      return `/@/monaco-editor/esm/json.worker.js`;
     }
     if (label === "css") {
-      return `${originToUse}/@/monaco-editor/esm/css.worker.mjs`;
+      return `/@/monaco-editor/esm/css.worker.js`;
     }
     if (label === "typescript" || label === "javascript") {
-      return `${originToUse}/@/monaco-editor/esm/ts.worker.mjs`;
+      return `/@/monaco-editor/esm/ts.worker.js`;
     }
-    return `${originToUse}/@/monaco-editor/esm/editor.worker.mjs`;
+    return `/@/monaco-editor/esm/editor.worker.js`;
   },
 };
 

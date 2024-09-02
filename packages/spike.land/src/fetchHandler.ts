@@ -1,6 +1,5 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { importMap, importMapReplace } from "@spike-land/code";
-import { Q } from "vitest/dist/chunks/reporters.C_zwCd4j";
 import { handleApiRequest } from "./apiHandler";
 import Env from "./env";
 import { ASSET_HASH, ASSET_MANIFEST, files } from "./staticContent.mjs";
@@ -336,7 +335,10 @@ async function handleDefaultCase(
     headers.append("Cross-Origin-Embedder-Policy", "require-corp");
     headers.append("Access-Control-Allow-Origin", "*");
 
-    if (request.url.indexOf("/@/") !== -1 && !request.url.endsWith(".ts")) {
+    if (
+      request.url.indexOf("/@/") !== -1 && !request.url.endsWith(".ts")
+      && !request.url.includes(".worker.")
+    ) {
       const content = await kvResp.text();
       const transformed = importMapReplace(content, u.origin);
       return new Response(transformed, { ...kvResp, headers });

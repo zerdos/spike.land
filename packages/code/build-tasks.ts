@@ -13,6 +13,7 @@ const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
     ...getCommonBuildOptions(environment),
     entryPoints: [`monaco-editor/esm/${entry}`],
     bundle: true,
+    outExtension: { ".js": ".js" },
     minifyIdentifiers: true,
     minifySyntax: true,
     minifyWhitespace: false,
