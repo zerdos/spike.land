@@ -1,4 +1,4 @@
-import { md5 } from "@src/Wrapper";
+import { md5 } from "/Wrapper.mjs";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
