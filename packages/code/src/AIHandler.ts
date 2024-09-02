@@ -4,13 +4,14 @@ import { Message } from "./types/Message";
 
 export class AIHandler {
   private aiService: AIService;
-  constructor(private cSess: ICode, aiService?: AIService) {
+  constructor(private cSess: ICode, private setIsStreaming: (isStreaming: boolean) => void, aiService?: AIService) {
     this.aiService = aiService || new AIService({
       anthropicEndpoint: "/api/anthropic",
       openAIEndpoint: "/api/openai",
       gpt4oEndpoint: "/api/openai",
       updateThrottleMs: 1100,
       retryWithClaudeEnabled: true,
+      setStreaming: this.setIsStreaming,
     }, this.cSess);
   }
 
@@ -40,7 +41,6 @@ export class AIHandler {
       currentCode,
       setMessages,
       setAICode,
-      isRetry,
     );
   }
 

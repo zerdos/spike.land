@@ -14,6 +14,7 @@ export interface AIServiceConfig {
   openAIEndpoint: string;
   updateThrottleMs: number;
   retryWithClaudeEnabled: boolean;
+  setIsStreaming: (isStreaming: boolean) => void;
 }
 
 type AIEndpoint = "gpt4o" | "anthropic" | "openAI";
@@ -44,6 +45,9 @@ export class AIService {
 
   constructor(config: AIServiceConfig, cSess: ICode) {
     this.config = config;
+    if (this.config.setIsStreaming) {
+      this.config.setIsStreaming(false);
+    }
     this.streamHandler = new StreamHandler();
     this.cSess = cSess;
   }
@@ -81,7 +85,9 @@ export class AIService {
   ): Promise<AIModelResponse> {
     const response = await this.makeAPICall(endpoint, messages);
     const reader = response.body?.getReader();
-
+    if (this.config.setIsStreaming) {
+      this.config.setIsStreaming(true);
+    }
     if (!reader) {
       throw new Error("Response body is not readable!");
     }
@@ -91,6 +97,9 @@ export class AIService {
     const content = await this.streamHandler.handleStream(reader, debouncedUpdate);
     onUpdate(content);
 
+    if (this.config.setIsStreaming) {
+      this.config.setIsStreaming(false);
+    }
     return {
       id: Date.now().toString(),
       content,
@@ -127,7 +136,6 @@ export class AIService {
     codeNow: string,
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
     setAICode: (code: string) => void,
-    isRetry = false,
   ): Promise<string> {
     const messages: Message[] = [
       { id: Date.now().toString(), role: "system", content: gptSystem },
@@ -141,29 +149,27 @@ export class AIService {
       ]);
     };
 
-    const debouncedSetMessages = process.env.NODE_ENV === "test"
-      ? updateMessages
-      : throttle(updateMessages, this.config.updateThrottleMs);
-
     try {
-      const response = await this.sendToAI("openAI", messages, debouncedSetMessages);
+      const endpoint = this.getEndpoint("openAI");
+      const response = await this.handleStreamingResponse(endpoint, messages, updateMessages);
       const modifiedCode = this.extractCodeFromResponse(response.content);
+
       if (!modifiedCode) {
         setAICode("");
         updateMessages("");
         return "";
       }
-      const prettyCode = await this.formatAndRunCode(modifiedCode);
-      await this.cSess.setCode(prettyCode);
-      setAICode(prettyCode);
-      updateMessages(prettyCode);
-      return prettyCode;
+      // const prettyCode = await this.formatAndRunCode(modifiedCode);
+
+      const success = await this.cSess.setCode(modifiedCode);
+      if (!success) {
+        throw new Error("Error somewhere....");
+      }
+      return modifiedCode;
     } catch (error) {
       console.error("Error in AI code processing:", error);
       updateMessages(error instanceof Error ? error.message : String(error));
-      if (!isRetry && this.config.retryWithClaudeEnabled) {
-        return this.retryWithClaude(fullResponse, codeNow, error, setMessages, setAICode, messages);
-      }
+
       throw error;
     }
   }
@@ -178,13 +184,6 @@ export class AIService {
       return "";
     }
     return matches[matches.length - 1].replace(/```(?:typescript?|tsx?|jsx?|javascript?)\n|```/g, "");
-  }
-
-  private async formatAndRunCode(code: string): Promise<string> {
-    if ((await this.cSess.setCode(code)) === false) {
-      throw new Error("Error in runner");
-    }
-    return code;
   }
 
   private async retryWithClaude(
@@ -209,7 +208,7 @@ export class AIService {
     });
     setMessages((prevMessages) => [...prevMessages, answer]);
 
-    return this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode, true);
+    return await this.continueWithOpenAI(answer.content as string, codeNow, setMessages, setAICode);
   }
 
   prepareClaudeContent(

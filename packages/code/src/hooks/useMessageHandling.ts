@@ -34,7 +34,7 @@ export const useMessageHandling = ({
   cSess,
   setEditInput,
 }: UseMessageHandlingProps) => {
-  const aiHandler = useMemo(() => new AIHandler(cSess), [codeSpace]);
+  const aiHandler = useMemo(() => new AIHandler(cSess, setIsStreaming), [codeSpace]);
   const mutex = new Mutex();
 
   const handleSendMessage = useCallback(async (content: string, screenshot: string) => {
@@ -59,7 +59,6 @@ export const useMessageHandling = ({
     const updatedMessages = [...messages, newMessage];
 
     setInput("");
-    setIsStreaming(true);
 
     try {
       await processMessage(aiHandler, cSess, updatedMessages, code, setMessages, setAICode, setMessages, mutex);
@@ -67,7 +66,6 @@ export const useMessageHandling = ({
       console.error("Error processing request:", error);
       handleError(updatedMessages, setMessages);
     } finally {
-      setIsStreaming(false);
     }
   }, [
     codeSpace,

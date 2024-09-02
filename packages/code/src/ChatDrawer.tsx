@@ -158,7 +158,6 @@ const ChatInterface: React.FC = () => {
 
   const handleResetChat = useCallback(() => {
     setMessages([]);
-    setIsStreaming(false);
     setInput("");
     setEditingMessageId(null);
     setEditInput("");

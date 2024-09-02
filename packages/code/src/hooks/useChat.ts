@@ -34,7 +34,6 @@ export const useChat = (
 
   const resetChat = useCallback(() => {
     setMessages([]);
-    setIsStreaming(false);
     setInput("");
     setAICode("");
     setEditingMessageId(null);
