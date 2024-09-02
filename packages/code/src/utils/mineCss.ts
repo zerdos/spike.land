@@ -47,6 +47,7 @@ function getEmotionStyles(key: string): string {
   const styles = Array.from(
     document.querySelectorAll(`style[data-emotion="${key}"]`),
   ).map((style) => style.textContent || "");
+
   return Array.from(new Set(styles)).join("\n");
 }
 
