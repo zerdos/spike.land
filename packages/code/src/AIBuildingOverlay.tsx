@@ -15,6 +15,7 @@ export const AIBuildingOverlay: React.FC<{ codeSpace: string }> = ({ codeSpace }
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
+          x;
           clearInterval(interval);
           return 100;
         }

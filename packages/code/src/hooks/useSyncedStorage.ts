@@ -66,7 +66,7 @@ function getStorageBackend<T>(): StorageBackend<T> {
 
 export function useSyncedStorage<T>(
   key: string,
-  startValue: T,
+  startValue: T | null = null,
 ): [T | null, (value: T | ((val: T) => T)) => Promise<void>] {
   const [storedValue, setStoredValue] = useState<T | null>(startValue);
   const storageBackend = useMemo(() => {
@@ -95,7 +95,8 @@ export function useSyncedStorage<T>(
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       if (value !== null || undefined) setStoredValue(valueToStore);
       if (storageBackend) {
-        await storageBackend.set(key, valueToStore === null ? startValue : valueToStore);
+        const val = (valueToStore === null ? startValue : valueToStore) as unknown as T;
+        await storageBackend.set(key, val);
       }
 
       if (typeof BroadcastChannel !== "undefined") {
