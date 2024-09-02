@@ -340,8 +340,8 @@ async function handleDefaultCase(
       && !request.url.includes(".worker.")
     ) {
       const content = await kvResp.text();
-      const transformed = importMapReplace(content, u.origin);
-      return new Response(transformed, { ...kvResp, headers });
+      // const transformed = importMapReplace(content, u.origin);
+      return new Response(content, { ...kvResp, headers });
     }
 
     kvResp = new Response(kvResp.body, { ...kvResp, headers });
