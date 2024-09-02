@@ -11,7 +11,7 @@ export class AIHandler {
       gpt4oEndpoint: "/api/openai",
       updateThrottleMs: 1100,
       retryWithClaudeEnabled: true,
-      setStreaming: this.setIsStreaming,
+      setIsStreaming: (isStreaming: boolean) => setIsStreaming(isStreaming),
     }, this.cSess);
   }
 

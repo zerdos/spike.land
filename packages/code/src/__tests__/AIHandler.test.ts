@@ -18,6 +18,7 @@ describe("AIHandler", () => {
       gpt4oEndpoint: "https://api.gpt4o.com",
       retryWithClaudeEnabled: false,
       updateThrottleMs: 1000,
+      setIsStreaming: vi.fn(),
     }, cSessMock);
     vi.mocked(mockAIService);
     aiHandler = new AIHandler(cSessMock, mockAIService);
