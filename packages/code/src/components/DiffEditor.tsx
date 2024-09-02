@@ -40,6 +40,8 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         diffAlgorithm: "advanced",
         readOnly,
         diffWordWrap: "on",
+        wordWrap: "on",
+        wordWrapColumn: 80,
         /**
          * If the diff editor should only show the difference review mode.
          */
