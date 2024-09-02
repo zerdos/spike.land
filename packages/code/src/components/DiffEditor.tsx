@@ -40,14 +40,21 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         diffAlgorithm: "advanced",
         readOnly,
         diffWordWrap: "on",
+        /**
+         * If the diff editor should only show the difference review mode.
+         */
+        onlyShowAccessibleDiffViewer: true,
         hideUnchangedRegions: {
           enabled: true,
-          minimumLineCount: 5,
+          revealLineCount: 1,
+          minimumLineCount: 0,
+          contextLineCount: 2,
         },
-        lineNumbers: "on",
+        lineNumbers: "off",
         scrollBeyondLastLine: false,
+
         minimap: { enabled: false },
-        renderSideBySide: true,
+        renderSideBySide: false,
         renderOverviewRuler: false,
         theme: "vs-dark", // Add a dark theme
       });

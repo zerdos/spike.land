@@ -16,8 +16,10 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
       <SyntaxHighlighter
         language={language}
         style={tomorrow}
-        wrapLines
-        useInlineStyles
+        useInlineStyles={true}
+        showLineNumbers={false}
+        wrapLines={true}
+        wrapLongLines={true}
       >
         {value}
       </SyntaxHighlighter>
