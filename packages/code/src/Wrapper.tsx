@@ -1,243 +1,59 @@
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import createCache from "@emotion/cache";
 import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { FC } from "react";
 import { createRoot, type Root } from "react-dom/client";
-import { AIBuildingOverlay } from "./AIBuildingOverlay";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { useAsyncState } from "./hooks/useAsyncState";
 import { md5 } from "./md5";
 import { transpile } from "./shared";
+import type { AppRendererProps, IRenderApp, RenderedApp } from "./types/IRender";
 
+// Utility functions
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
-// Console Output Component
-const ConsoleOutput: React.FC<{ logs: Array<{ type: string; message: string }> }> = ({ logs }) => {
-  const logContainerRef = useRef<HTMLPreElement>(null);
-
-  useEffect(() => {
-    if (logContainerRef.current) {
-      logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight;
-    }
-  }, [logs]);
-
-  return (
-    <pre ref={logContainerRef} className="bg-gray-800 text-white p-4 rounded overflow-auto h-full">
-      {logs.map((item, index) => (
-        <div
-          key={index}
-          className={`${
-            item.type === "error"
-              ? "text-red-400"
-              : item.type === "warn"
-                ? "text-yellow-400"
-                : item.type === "info"
-                  ? "text-blue-400"
-                  : item.type === "debug"
-                    ? "text-purple-400"
-                    : item.type === "time"
-                      ? "text-pink-400"
-                      : "text-green-400"
-          }`}>
-          {item.type === "table" ? (
-            <table className='border-collapse border border-gray-600'>
-              <tbody>
-                {JSON.parse(item.message).map((row: any, rowIndex: number) => (
-                  <tr key={rowIndex}>
-                    {Object.values(row).map((cell: any, cellIndex: number) => (
-                      <td key={cellIndex} className='border border-gray-600 p-1'>
-                        {JSON.stringify(cell)}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            item.message
-          )}
-        </div>
-      ))}
-    </pre>
-  );
+// Global State
+const getRenderedApps = (): Map<HTMLElement, RenderedApp> => {
+  if (!Object.hasOwn(globalThis, "renderedAPPS")) {
+    Object.assign(globalThis, {
+      renderedAPPS: new Map<HTMLElement, RenderedApp>(),
+    });
+  }
+  return (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> }).renderedAPPS;
 };
 
-interface AppRendererProps {
-  asyncApp: FC<{
-    console: Partial<Console>;
-    width: number;
-    height: number;
-    top: number;
-    left: number;
-  }>;
-}
+// Hooks
 
+const useCodeSpace = (codeSpace: string) =>
+  useAsyncState(async () => {
+    const response = await fetch(`${window.location.origin}/live/${codeSpace}/index.js`);
+    return response.text();
+  }, [codeSpace]);
+
+const useTranspile = (code: string) =>
+  useAsyncState(() => transpile({ code, originToUse: window.location.origin }), [code]);
+
+// Components
 const AppRenderer: React.FC<AppRendererProps> = React.memo(
-  ({ asyncApp }) => {
-    const [consoleOutput, setConsoleOutput] = useState<Array<{ type: string; message: string }>>([]);
-
-    const customConsole = useMemo(() => ({
-      log: (...args: any[]) => {
-        setConsoleOutput((prev) => [...prev, { type: "log", message: args.join(" ") }]);
-      },
-      error: (...args: any[]) => {
-        setConsoleOutput((prev) => [...prev, { type: "error", message: args.join(" ") }]);
-      },
-      warn: (...args: any[]) => {
-        setConsoleOutput((prev) => [...prev, { type: "warn", message: args.join(" ") }]);
-      },
-      info: (...args: any[]) => {
-        setConsoleOutput((prev) => [...prev, { type: "info", message: args.join(" ") }]);
-      },
-      debug: (...args: any[]) => {
-        setConsoleOutput((prev) => [...prev, { type: "debug", message: args.join(" ") }]);
-      },
-      table: (data: any) => {
-        let tableData;
-        if (Array.isArray(data)) {
-          tableData = data;
-        } else if (typeof data === "object" && data !== null) {
-          tableData = [data];
-        } else {
-          tableData = [{ value: data }];
-        }
-        setConsoleOutput((prev) => [
-          ...prev,
-          { type: "table", message: JSON.stringify(tableData) },
-        ]);
-      },
-      clear: () => {
-        setConsoleOutput([]);
-      },
-    }), []);
-
-    const AppToRender = useMemo(() => {
-      const AsyncApp = asyncApp;
-      const App: FC<{ customConsole: Partial<Console>; width: number; height: number; top: number; left: number }> = ({
-        customConsole,
-        width,
-        height,
-        top,
-        left,
-      }) => (
-        <React.Suspense fallback={<div>Loading...</div>}>
-          <AsyncApp
-            width={width}
-            height={height}
-            top={top}
-            left={left}
-            console={customConsole}
-          />
-        </React.Suspense>
-      );
-      return App;
-    }, [asyncApp, customConsole]);
+  ({ transpiled, width, height, top, left }) => {
+    const AppToRender = useMemo(() => (
+      React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)))
+    ), [transpiled]);
 
     return (
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel defaultSize={70}>
-          <AppToRender
-            customConsole={customConsole}
-            top={0}
-            height={window.innerHeight}
-            left={0}
-            width={window.innerWidth * 0.7}
-          />
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel defaultSize={30}>
-          <ConsoleOutput logs={consoleOutput} />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <AppToRender
+          width={width || window.innerWidth}
+          height={height || window.innerHeight}
+          top={top || 0}
+          left={left || 0}
+        />
+      </React.Suspense>
     );
   },
 );
 
-// Types
-interface IRenderApp {
-  rootElement?: HTMLDivElement;
-  rRoot?: Root;
-  App?: React.ComponentType<any>;
-  codeSpace?: string;
-  transpiled?: string;
-  code?: string;
-}
-
-interface RenderedApp {
-  rootElement: HTMLDivElement;
-  code?: string;
-  rRoot: Root;
-  App?: React.ComponentType<any>;
-  cssCache: ReturnType<typeof createCache>;
-  cleanup: () => void;
-}
-
-// Global State
-if (!Object.hasOwn(globalThis, "renderedAPPS")) {
-  Object.assign(globalThis, {
-    renderedAPPS: new Map<HTMLElement, RenderedApp>(),
-  });
-}
-
-const renderedAPPS = (globalThis as unknown as { renderedAPPS: Map<HTMLElement, RenderedApp> }).renderedAPPS;
-
-// Hooks
-const useCodeSpace = (codeSpace: string) => {
-  const [transpiled, setTranspiled] = useState<string | null>(null);
-
-  useEffect(() => {
-    let isCancelled = false;
-
-    const fetchAndSetCode = async () => {
-      try {
-        const response = await fetch(`${window.location.origin}/live/${codeSpace}/index.js`);
-        const code = await response.text();
-        if (!isCancelled) setTranspiled(code);
-      } catch (error) {
-        console.error("Error fetching code:", error);
-        if (!isCancelled) setTranspiled(null);
-      }
-    };
-
-    fetchAndSetCode();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [codeSpace]);
-
-  return transpiled;
-};
-
-const useTranspile = (code: string) => {
-  const [transpiled, setTranspiled] = useState<string | null>(null);
-
-  useEffect(() => {
-    let isCancelled = false;
-
-    const doTranspile = async () => {
-      try {
-        const result = await transpile({ code, originToUse: window.location.origin });
-        if (!isCancelled) setTranspiled(result);
-      } catch (error) {
-        // console.error("Transpilation error:", error);
-        if (!isCancelled) setTranspiled(null);
-      }
-    };
-
-    doTranspile();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [code]);
-
-  return transpiled;
-};
-
-// Components
 const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = React.memo(
   ({ code, codeSpace, transpiled: t, scale = 1 }) => {
     if (codeSpace) {
@@ -269,7 +85,7 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
         <ErrorBoundary>
           <CacheProvider value={cssCache}>
             <ParentSize>
-              {(props) => <AppRenderer asyncApp={App} {...props} />}
+              {(props) => <AppRenderer transpiled={transpiled} {...props} />}
             </ParentSize>
           </CacheProvider>
         </ErrorBoundary>,
@@ -305,7 +121,7 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
 
 // Main render function
 const renderApp = async (
-  { rootElement, rRoot, codeSpace, transpiled, App }: IRenderApp,
+  { rootElement, rRoot, codeSpace, transpiled, App, code }: IRenderApp,
 ): Promise<RenderedApp | null> => {
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
@@ -315,22 +131,18 @@ const renderApp = async (
     }
     rootEl.id = "root";
 
+    const renderedAPPS = getRenderedApps();
+
     if (renderedAPPS.has(rootEl)) {
       console.warn("Cleaning up existing app before rendering new one.");
       renderedAPPS.get(rootEl)?.cleanup();
       renderedAPPS.delete(rootEl);
     }
 
-    let AppToRender: React.ComponentType<{
-      top: number;
-      left: number;
-      width: number;
-      height: number;
-      console: Partial<Console>;
-    }>;
+    let AppToRender: React.ComponentType<any>;
 
     if (App) {
-      AppToRender = App as unknown as typeof AppRenderer;
+      AppToRender = App;
     } else if (transpiled) {
       AppToRender = (await import(createJsBlob(transpiled))).default;
     } else if (codeSpace) {
@@ -353,14 +165,13 @@ const renderApp = async (
       <ErrorBoundary>
         <CacheProvider value={cssCache}>
           <ParentSize>
-            {(props) => <AppRenderer asyncApp={AppToRender} {...props} />}
+            {(props) => <AppToRender {...props} />}
           </ParentSize>
         </CacheProvider>
-        {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
       </ErrorBoundary>,
     );
 
-    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup };
+    const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
     renderedAPPS.set(rootEl, renderedApp);
 
     const observer = new MutationObserver((mutations) => {
@@ -378,4 +189,4 @@ const renderApp = async (
   }
 };
 
-export { md5, renderApp, renderedAPPS, useTranspile, Wrapper };
+export { getRenderedApps, md5, renderApp, useTranspile, Wrapper };
