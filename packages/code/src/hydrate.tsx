@@ -59,14 +59,13 @@ const initializeApp = async () => {
 const main = async () => {
   try {
     if (location.pathname === `/live/${codeSpace}`) {
-      handleLivePage();
+      await handleLivePage();
+      await initializeApp();
     } else if (location.pathname === `/live/${codeSpace}/dehydrated`) {
       handleDehydratedPage();
     } else if (location.pathname === `/live/${codeSpace}/iframe`) {
       await handleDefaultPage();
     }
-
-    await initializeApp();
   } catch (error) {
     console.error("Error in main function:", error);
   }
