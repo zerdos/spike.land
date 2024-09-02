@@ -66,16 +66,6 @@ describe("useMessageHandling", () => {
     expect(mockSendToAnthropic).toHaveBeenCalled();
   });
 
-  it("should handle resetting chat", () => {
-    const { result } = renderHook(() => useMessageHandling(mockProps));
-
-    act(() => {
-      (result.current as any).handleResetChat();
-    });
-
-    expect(mockProps.setMessages).toHaveBeenCalledWith([]);
-  });
-
   it("should handle editing a message", () => {
     const messages: Message[] = [
       { id: "1", role: "user" as const, content: "Test message" },

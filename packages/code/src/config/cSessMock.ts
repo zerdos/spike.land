@@ -3,9 +3,8 @@ import { ICodeSession } from "@src/makeSess";
 
 class SessMock implements ICode {
   buffy: Promise<void>[] = [];
-  private controller = new AbortController();
+
   private subs: ((sess: ICodeSession) => void)[] = [];
-  private broadcastedCounter = 0;
 
   session: ICodeSession = {
     code: "",
@@ -20,7 +19,6 @@ class SessMock implements ICode {
   }
 
   broadCastSessChanged() {
-    this.broadcastedCounter = this.session.i;
     this.subs.forEach(cb => cb(this.session));
   }
 
