@@ -1,11 +1,5 @@
 import { Workbox } from "workbox-window";
 
-import { useCodeSpace } from "./hooks/useCodeSpace";
-
-import { handleDefaultPage, handleDehydratedPage, run as handleLivePage } from "./ws";
-
-const codeSpace = useCodeSpace();
-
 const setupServiceWorker = async () => {
   if (
     !navigator.serviceWorker || localStorage.getItem("sw") === "false"

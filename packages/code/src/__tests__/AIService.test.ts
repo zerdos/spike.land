@@ -107,7 +107,7 @@ describe("AIService", () => {
       const codeNow = "New code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
 
       expect(result).toContain("file.ts");
       expect(result).toContain("New code");
@@ -120,7 +120,7 @@ describe("AIService", () => {
       const codeNow = "Same code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
 
       expect(result).toContain("User prompt");
       expect(result).not.toContain("file.ts");
@@ -133,7 +133,7 @@ describe("AIService", () => {
       const codeNow = "New code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
 
       expect(result).toContain("file.ts");
       expect(result).toContain("New code");
@@ -146,7 +146,7 @@ describe("AIService", () => {
       const codeNow = "";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
+      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
 
       expect(result).toContain("file.ts");
       expect(result).toContain("User prompt");
