@@ -68,7 +68,7 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
     const containerRef = useRef<HTMLDivElement>(null);
     const rootRef = useRef<Root | null>(null);
 
-    const cssCache = useMemo(() => createCache({ key: "css", speedy: true }), []);
+    const cssCache = useMemo(() => createCache({ key: "css", speedy: false }), [transpiled]);
 
     const renderApp = useCallback(() => {
       if (!rootRef.current || !transpiled) return;
