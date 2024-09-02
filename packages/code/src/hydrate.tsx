@@ -73,5 +73,5 @@ const main = async () => {
 };
 
 if (location.pathname.startsWith("/live")) {
-  main().catch((error) => console.error("Unhandled error in main:", error));
+  main();
 }
