@@ -1,14 +1,30 @@
-// build-tasks.mjs
 import { copy } from "esbuild-plugin-copy";
 import { readdir } from "fs/promises";
 import { getCommonBuildOptions } from "./build-config.ts";
 import { build } from "./buildOperations.ts";
 import { environment } from "./helpers.ts";
 
-// import postCssPlugin from "esbuild-style-plugin";
 export type Environment = "development" | "production";
 
-const isProduction = environment as string === "production";
+const isProduction = environment === "production";
+
+const buildWorkerEntryPoint = async (entry: string): Promise<void> => {
+  await build({
+    ...getCommonBuildOptions(environment),
+    entryPoints: [`monaco-editor/esm/${entry}`],
+    bundle: true,
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    footer: { js: "// build time: 1" },
+    minifyWhitespace: false,
+    treeShaking: true,
+    mangleQuoted: true,
+    platform: "browser",
+    format: "iife",
+    outdir: "dist",
+    minify: true,
+  });
+};
 
 export async function buildWorkers(): Promise<void> {
   const workerEntryPoints = [
@@ -19,22 +35,7 @@ export async function buildWorkers(): Promise<void> {
     "vs/editor/editor.worker.js",
   ];
 
-  await build({
-    ...getCommonBuildOptions(environment),
-    entryPoints: workerEntryPoints.map((entry) => `monaco-editor/esm/${entry}`),
-    bundle: true,
-    minifyIdentifiers: true,
-    minifySyntax: true,
-    footer: { "js": "// build time: 1" },
-    minifyWhitespace: false,
-    treeShaking: true,
-    mangleQuoted: true,
-    platform: "browser",
-
-    format: "iife",
-    outdir: "dist",
-    minify: true,
-  });
+  await Promise.all(workerEntryPoints.map(buildWorkerEntryPoint));
 }
 
 export async function buildMainScripts(): Promise<void> {
@@ -92,64 +93,27 @@ export async function buildServiceWorker(): Promise<void> {
   });
 }
 
-export async function buildMainBundle(wasmFile: any): Promise<void> {
+const createEntryPoints = async (dir: string): Promise<string[]> => {
+  const files = await readdir(`src/@/${dir}`);
+  return files.filter(Boolean).map((file) => `src/@/${dir}/${file}`);
+};
+
+const createAliases = async (dir: string): Promise<Record<string, string>> => {
+  const files = await readdir(`src/@/${dir}`);
+  return Object.fromEntries(
+    files.map((file) => [
+      `@/${dir}/${file}`,
+      `/@/${dir}/${file.replace(/\.(ts|tsx)$/, ".mjs")}`,
+    ]),
+  );
+};
+
+export async function buildMainBundle(wasmFile: string): Promise<void> {
   const buildOptions = getCommonBuildOptions(environment);
 
-  const uiComp = await readdir("src/@/components/ui");
-  const libComps = await readdir("src/@/lib");
-  const externalComps = await readdir("src/@/external");
-
-  // const components = [
-  //   "accordion",
-  //   "alert",
-  //   "alert-dialog",
-  //   "aspect-ratio",
-  //   "avatar",
-  //   "badge",
-  //   "breadcrumb",
-  //   "button",
-  //   "calendar",
-  //   "card",
-  //   "carousel",
-  //   "chart",
-  //   "checkbox",
-  //   "collapsible",
-  //   "command",
-  //   "context-menu",
-  //   "dialog",
-  //   "drawer",
-  //   "dropdown-menu",
-  //   "form",
-  //   "hover-card",
-  //   "input",
-  //   "input-otp",
-  //   "label",
-  //   "menubar",
-  //   "navigation-menu",
-  //   "pagination",
-  //   "popover",
-  //   "progress",
-  //   "radio-group",
-  //   "resizable",
-  //   "scroll-area",
-  //   "select",
-  //   "image-loader",
-  //   "timeline",
-  //   "separator",
-  //   "start-with-prompt",
-  //   "sheet",
-  //   "skeleton",
-  //   "slider",
-  //   "sonner",
-  //   "switch",
-  //   "table",
-  //   "tabs",
-  //   "textarea",
-  //   "toast",
-  //   "toggle",
-  //   "toggle-group",
-  //   "tooltip",
-  // ];
+  const uiEntryPoints = await createEntryPoints("components/ui");
+  const libEntryPoints = await createEntryPoints("lib");
+  const externalEntryPoints = await createEntryPoints("external");
 
   await build({
     ...buildOptions,
@@ -168,47 +132,14 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     alias: undefined,
     outdir: "dist/@/",
     platform: "browser",
-    // plugins: [
-    //   ReactCompilerEsbuildPlugin({
-    //   filter: /\.(jsx|tsx|mjs|ts)$/,
-    //   sourceMaps: true,
-    //   runtimeModulePath: "/Users/z/github.com/zerdos/spike.land/node_modules/react/compiler-runtime.js"
-    // })
-    // ],
-    entryPoints: [
-      ...uiComp.filter((x) => x).map((component) => `src/@/components/ui/${component}`),
-      ...libComps.filter((x) => x).map((component) => `src/@/lib/${component}`),
-      ...externalComps.filter((x) => x).map((component) => `src/@/external/${component}`),
-    ],
+    entryPoints: [...uiEntryPoints, ...libEntryPoints, ...externalEntryPoints],
   });
 
-  const extraAliases = {};
-  uiComp.forEach((component) => {
-    const key = `@/components/ui/${component}`;
-    const value = `/@/components/ui/${component}.mjs`;
+  const uiAliases = await createAliases("components/ui");
+  const libAliases = await createAliases("lib");
+  const externalAliases = await createAliases("external");
 
-    Object.assign(extraAliases, {
-      [key]: value,
-    });
-  });
-
-  libComps.forEach((component) => {
-    const key = `@/lib/${component}`;
-    const value = `/@/lib/${component}.mjs`;
-
-    Object.assign(extraAliases, {
-      [key]: value,
-    });
-  });
-
-  externalComps.forEach((component) => {
-    const key = `@/external/${component}`;
-    const value = `/@/external/${component}.mjs`;
-
-    Object.assign(extraAliases, {
-      [key]: value,
-    });
-  });
+  const extraAliases = { ...uiAliases, ...libAliases, ...externalAliases };
 
   await build({
     ...buildOptions,
@@ -224,42 +155,35 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     target: "es2024",
     allowOverwrite: true,
     legalComments: "none",
-    //   drop: isProduction ? ["console", "debugger"] : [],
     platform: "browser",
     plugins: [
       ...buildOptions.plugins,
       copy({
         resolveFrom: "cwd",
-        assets: [{
-          from: ["./src/assets/*"],
-          to: ["./dist/assets"],
-        }, {
-          from: "./src/assets/manifest.json",
-          to: "./dist",
-        }, {
-          from: "./src/index.html",
-          to: "./dist",
-        }, {
-          from: "./src/assets/favicons/favicon.ico",
-          to: "./dist",
-        }, {
-          from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-          to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
-        }],
+        assets: [
+          {
+            from: ["./src/assets/*"],
+            to: ["./dist/assets"],
+          },
+          {
+            from: "./src/assets/manifest.json",
+            to: "./dist",
+          },
+          {
+            from: "./src/index.html",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/favicon.ico",
+            to: "./dist",
+          },
+          {
+            from: "./src/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+            to: "./dist/assets/favicons/chunk-chunk-fe2f7da4f9ccc2.png",
+          },
+        ],
       }),
-      // postCssPlugin({
-      //   postcss: {
-      //     plugins: [(await import("tailwindcss")).default, (await import("autoprefixer")).default as unknown as any],
-      //   },
-      // }),
     ],
-    // plugins: [
-    //   ReactCompilerEsbuildPlugin({
-    //   filter: /\.(jsx|tsx|mjs|ts)$/,
-    //   sourceMaps: true,
-    //   runtimeModulePath: "/Users/z/github.com/zerdos/spike.land/node_modules/react/compiler-runtime.js"
-    // })
-    // ],
     entryPoints: [
       "src/modules.ts",
       "src/motion.ts",
@@ -269,7 +193,6 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
       "src/reactMod.ts",
       "src/reactDom.ts",
       "src/reactDomClient.ts",
-      // "src/reactDomServer.ts",
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
       "src/shared.ts",
@@ -278,40 +201,17 @@ export async function buildMainBundle(wasmFile: any): Promise<void> {
     ],
     alias: {
       ...buildOptions.alias,
-      // Must be below test-utils
       "@src/swVersion": "/swVersion.mjs",
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
-      // "@/external/reactSyntaxHighlighterPrism": "/@/external/reactSyntaxHighlighterPrism.mjs",
-      // "@/external/monacoEditor": "/@/external/monacoEditor.mjs",
-      // "@/external/lucideReact": "/@/external/lucideReact.mjs",
-      // "@/external/Markdown": "/@/external/Markdown.mjs",
-      // "@/external/CodeBlock": "/@/external/CodeBlock.mjs",
-      // "@/external/icons": "/@/external/icons.mjs",
-
-      // "@/external/reactSyntaxHighlighter": "/@/external/reactSyntaxHighlighter.mjs",
       ...extraAliases,
-      ...(!isProduction
-        ? ({
-          "react": "preact/compat",
-          "react-dom": "preact/compat",
-        })
-        : ({})),
-      // "react": "../dist/reactMod.mjs",
-      //  "react/jsx-runtime": "/jsx.mjs",
-      //  "react-dom/client": "/reactDomClient.mjs",
-      //  "react-dom": "/reactDom.mjs", // Must be below test-utils
+      ...(isProduction ? {} : {
+        "react": "preact/compat",
+        "react-dom": "preact/compat",
+      }),
     },
     external: [
-      ...(buildOptions.external?.length ? buildOptions.external : []),
+      ...(buildOptions.external ?? []),
       "/swVersion.mjs",
-      // "/@/external/reactSyntaxHighlighterPrism.mjs",
-      // "/@/external/monacoEditor.mjs",
-      // "/@/external/Markdown.mjs",
-      // "/@/external/reactSyntaxHighlighter.mjs",
-      // "/@/external/lucideReact.mjs",
-      // "/@/external/CodeBlock.mjs",
-      // "/@/external/icons.mjs",
-      // ...(components.map((component) => `/@/components/ui/${component}.mjs`)),
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
     ],
