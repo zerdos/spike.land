@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { extractCodeModification } from "./chatUtils";
 import { extractDiffContent, isDiffContent } from "./diffUtils";
 
 describe("diffUtils", () => {
@@ -180,5 +181,144 @@ With this change, the text color will change to white when a user hovers over th
     expect(extractDiffContent(diffContent).modified).toBe(
       "transition: color 0.3s ease;\n                       &:hover {\n                         color: ${color};\n                       }",
     );
+  });
+
+  it("should do partial5", () => {
+    const diffContent = `
+Certainly! I'll modify the component to make it darker, remove the Mac-style buttons, and provide alternative options for the copy icon. Here are the changes:
+
+### Change 1: Darker Theme and Remove Mac Buttons
+
+\`\`\`tsx
+<<<<<<< SEARCH
+    <div className='w-full font-mono text-sm rounded-lg overflow-hidden shadow-lg bg-white'>
+      <div className='bg-gray-200 px-4 py-2 flex items-center space-x-2'>
+        <div className='w-3 h-3 rounded-full bg-red-500'></div>
+        <div className='w-3 h-3 rounded-full bg-yellow-500'></div>
+        <div className='w-3 h-3 rounded-full bg-green-500'></div>
+      </div>
+      <div className='bg-gray-100 text-gray-800 py-2 px-4 text-sm border-b border-gray-300 flex justify-between items-center'>
+=======
+    <div className='w-full font-mono text-sm rounded-lg overflow-hidden shadow-lg bg-gray-900'>
+      <div className='bg-gray-800 text-gray-200 py-2 px-4 text-sm border-b border-gray-700 flex justify-between items-center'>
+>>>>>>> REPLACE
+\`\`\`
+
+**Purpose**: This change applies a dark theme to the component and removes the Mac-style buttons, creating a sleeker, more professional look.
+
+### Change 2: Update SyntaxHighlighter Style for Dark Theme
+
+\`\`\`tsx
+<<<<<<< SEARCH
+        style={{
+          ...tomorrow,
+          'pre[class*="language-"]': {
+            ...tomorrow['pre[class*="language-"]'],
+            background: "#f8f8f8",
+            padding: "1rem",
+          },
+          'code[class*="language-"]': {
+            ...tomorrow['code[class*="language-"]'],
+            color: "#333",
+          },
+        }}
+=======
+        style={{
+          ...tomorrow,
+          'pre[class*="language-"]': {
+            ...tomorrow['pre[class*="language-"]'],
+            background: "#1a202c",
+            padding: "1rem",
+          },
+          'code[class*="language-"]': {
+            ...tomorrow['code[class*="language-"]'],
+            color: "#e2e8f0",
+          },
+        }}
+>>>>>>> REPLACE
+\`\`\`
+
+**Purpose**: This change adjusts the code block style to fit the dark theme, using a dark background color and light text color.
+
+### Change 3: Provide Alternative Copy Icon Options
+
+First, let's import additional icons:
+
+\`\`\`tsx
+<<<<<<< SEARCH
+import { ClipboardIcon } from "@heroicons/react/24/outline";
+=======
+import { ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon } from "@heroicons/react/24/outline";
+>>>>>>> REPLACE
+\`\`\`
+
+Now, let's create a state to toggle between icons and update the button:
+
+\`\`\`tsx
+<<<<<<< SEARCH
+  const [copied, setCopied] = useState(false);
+=======
+  const [copied, setCopied] = useState(false);
+  const [iconIndex, setIconIndex] = useState(0);
+  const icons = [ClipboardIcon, DocumentDuplicateIcon, ClipboardDocumentIcon];
+  const Icon = icons[iconIndex];
+>>>>>>> REPLACE
+\`\`\`
+
+Replace the copy button with this updated version:
+
+\`\`\`tsx
+<<<<<<< SEARCH
+        <div className='relative'>
+          <button
+            className='text-gray-600 hover:text-gray-800 ml-2 transition-colors duration-200'
+            onClick={() => {
+              navigator.clipboard.writeText(value);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}>
+            <ClipboardIcon className='w-5 h-5' />
+          </button>
+          {copied && (
+            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-800 text-white text-xs rounded shadow-lg'>
+              Copied!
+            </div>
+          )}
+        </div>
+=======
+        <div className='relative'>
+          <button
+            className='text-gray-300 hover:text-white ml-2 transition-colors duration-200'
+            onClick={() => {
+              navigator.clipboard.writeText(value);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+              setIconIndex((iconIndex + 1) % icons.length);
+            }}>
+            <Icon className='w-5 h-5' />
+          </button>
+          {copied && (
+            <div className='absolute right-0 mt-2 py-1 px-2 bg-gray-700 text-white text-xs rounded shadow-lg'>
+              Copied!
+            </div>
+          )}
+        </div>
+>>>>>>> REPLACE
+\`\`\`
+
+**Purpose**: This change provides multiple icon options for the copy button, cycling through them on each click. It also adjusts the colors to fit the dark theme.
+
+### Suggested Improvements:
+1. Add a theme toggle button to switch between light and dark modes.
+2. Implement a custom tooltip component for better control over the "Copied!" message appearance and animation.
+3. Add a subtle hover effect to the entire component to enhance interactivity.
+4. Consider adding line numbers as an optional feature for longer code blocks.
+
+These changes create a darker, more professional look for the code block component, remove the Mac-style buttons for a cleaner appearance, and provide multiple icon options for the copy functionality. The component now has a more versatile and customizable feel, suitable for various user preferences in your online code editor.
+    `;
+
+    const result = extractCodeModification(diffContent);
+    expect(result.length).toBe(3311);
+    expect(result).toMatchSnapshot();
   });
 });
