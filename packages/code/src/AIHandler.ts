@@ -44,16 +44,16 @@ export class AIHandler {
   }
 
   prepareClaudeContent(
-    content: string,
     messages: Message[],
     currentCode: string,
     codeSpace: string,
+    content: string,
   ) {
     return this.aiService.prepareClaudeContent(
-      content,
       messages,
       currentCode,
       codeSpace,
+      content,
     );
   }
 }
