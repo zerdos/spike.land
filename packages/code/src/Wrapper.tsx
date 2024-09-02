@@ -3,6 +3,7 @@ import { CacheProvider, css } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { createRoot, type Root } from "react-dom/client";
+import { AIBuildingOverlay } from "./components/AIBuildingOverlay";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useAsyncState } from "./hooks/useAsyncState";
 import { md5 } from "./md5";
@@ -157,6 +158,7 @@ const renderApp = async (
             {(props) => <AppToRender {...props} />}
           </ParentSize>
         </CacheProvider>
+        {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
       </ErrorBoundary>,
     );
 
