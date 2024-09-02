@@ -38,13 +38,13 @@ export const TypingIndicator: React.FC<TypingIndicatorProps> = ({ isDarkMode }) 
   useEffect(() => {
     const interval = setInterval(() => {
       console.log("typing");
-      document.getElementById("last-message")?.scrollIntoView({ behavior: "smooth", block: "end" });
+      document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="flex space-x-2 items-center p-2">
+    <div id="typing-indicator" className="flex space-x-2 items-center p-2">
       <span className="text-sm text-gray-500">AI is typing</span>
       <TypingDots isDarkMode={isDarkMode} />
     </div>
@@ -132,11 +132,17 @@ export const renderCode = (value: string, language: string, type: string): JSX.E
   // console.log("renderCode", value, language);
   const key = md5(value + language);
 
+  if (value.trim().length === 0) {
+    return <></>;
+  }
+  if (value.trim().length < 20) {
+    return <pre>{value.trim()}</pre>;
+  }
+
   if (type === "text") {
     return (
-      <Suspense fallback={<pre>{value}</pre>}>
-        <Markdown
-          css={css`
+      <Markdown
+        css={css`
             margin-top: 12px;
             margin-bottom: 12px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -144,36 +150,27 @@ export const renderCode = (value: string, language: string, type: string): JSX.E
             line-height: 1.5;
             letter-spacing: 0.01em;
           `}
-        >
-          {value}
-        </Markdown>
-      </Suspense>
+      >
+        {value}
+      </Markdown>
     );
   }
 
   if (isDiffContent(value)) {
     const { original, modified } = extractDiffContent(value);
-    return (
-      <Suspense fallback={<pre>{value}</pre>}>
-        <DiffEditor key={key} original={original} modified={modified} language={language} />
-      </Suspense>
-    );
+    return <DiffEditor key={key} original={original} modified={modified} language={language} />;
   }
 
-  return (
-    <Suspense fallback={<pre>{value}</pre>}>
-      <CodeBlock key={key} value={value} language={language} />
-    </Suspense>
-  );
+  return <CodeBlock key={key} value={value} language={language} />;
 };
 
 // Updated renderMessage function
 export const renderMessage = (text: string, isUser: boolean): JSX.Element => (
-  <React.Fragment>
+  <>
     {getParts(text, isUser).map((part, index) => (
       <React.Fragment key={index}>
         {renderCode(part.content, part.language || "typescript", part.type)}
       </React.Fragment>
     ))}
-  </React.Fragment>
+  </>
 );
