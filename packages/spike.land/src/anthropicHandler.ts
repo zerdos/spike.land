@@ -13,6 +13,7 @@ export async function handleAnthropicRequest(
 
   const body = JSON.parse(await readRequestBody(request)) as {
     stream?: boolean;
+    system?: string;
     messages: MessageParam[];
   };
 
@@ -25,6 +26,11 @@ export async function handleAnthropicRequest(
   const { readable, writable } = new TransformStream();
   const writer = writable.getWriter();
   const textEncoder = new TextEncoder();
+
+  if (body.messages[0].role === "system") {
+    body.system = body.messages[0].content as string;
+    body.messages.shift();
+  }
 
   const conf = {
     model: "claude-3-5-sonnet-20240620",
