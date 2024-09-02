@@ -3,7 +3,7 @@ import Markdown from "@/external/Markdown";
 import { css } from "@emotion/react";
 import { md5 } from "@src/md5";
 import { motion } from "framer-motion";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { DiffEditor } from "../components/DiffEditor";
 import { extractDiffContent, isDiffContent } from "./diffUtils";
 import { getParts } from "./getParts";

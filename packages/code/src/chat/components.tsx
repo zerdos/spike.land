@@ -5,7 +5,7 @@ import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideR
 import { css } from "@emotion/react";
 import { Message } from "@src/types/Message";
 import { renderMessage, TypingIndicator } from "@src/utils/utils";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./styles";
 import { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "./types";
 

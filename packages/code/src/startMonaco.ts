@@ -311,7 +311,7 @@ async function startMonacoPristine({
     editorModel.isEdit = false;
   });
 
-  model.onDidChangeContent((e) => {
+  model.onDidChangeContent(() => {
     const newCode = model.getValue();
     editorModel.isEdit = true;
     abortController.abort();
