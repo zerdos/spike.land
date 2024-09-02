@@ -229,10 +229,11 @@ const handleRender = async (
           return null;
         }).filter((rule): rule is string => rule !== null);
         console.log({ criticalClasses });
-        css = css.split("\n").filter((line: string | any[]) => {
-          const rule = line.slice(1, 12) as string;
-          if (html.includes(rule)) return false;
-          return true;
+
+        // filter all the css for the critical classes
+
+        css = css.split("\n").filter((line) => {
+          return criticalClasses.some((rule) => line.includes(rule));
         }).join("\n");
 
         try {
