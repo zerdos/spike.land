@@ -136,10 +136,19 @@ const monacoContribution = async (code: string) => {
 self.MonacoEnvironment = {
   baseUrl: originToUse,
   getWorkerUrl: (_moduleId: string, label: string) => {
-    if (label === "typescript" || label === "javascript") {
-      return `${originToUse}/language/typescript/ts.worker.mjs`;
+    if (label === "html") {
+      return `${originToUse}/@/monaco-editor/esm/html.worker.mjs`;
     }
-    return `${originToUse}/editor/editor.worker.mjs`;
+    if (label === "json") {
+      return `${originToUse}/@/monaco-editor/esm/json.worker.mjs`;
+    }
+    if (label === "css") {
+      return `${originToUse}/@/monaco-editor/esm/css.worker.mjs`;
+    }
+    if (label === "typescript" || label === "javascript") {
+      return `${originToUse}/@/monaco-editor/esm/ts.worker.mjs`;
+    }
+    return `${originToUse}/@/monaco-editor/esm/editor.worker.mjs`;
   },
 };
 
