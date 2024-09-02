@@ -7,6 +7,7 @@ import { EmotionCache } from "@emotion/cache";
  * @returns A string containing the extracted CSS styles.
  */
 function mineFromCaches(cache: EmotionCache, html: string): string {
+  console.log();
   const key = cache.key || "css";
 
   try {

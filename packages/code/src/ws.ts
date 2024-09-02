@@ -327,6 +327,8 @@ export const handleDefaultPage = async () => {
           document.body.appendChild(myEl);
 
           const rendered = await renderApp({ rootElement: myEl, transpiled });
+          if (null === rendered) return false;
+
           await wait(300);
 
           const cleanupAndRemove = () => {
@@ -348,7 +350,7 @@ export const handleDefaultPage = async () => {
 
           const res = await handleRender(
             myEl,
-            rendered?.cssCache!,
+            rendered.cssCache,
             signal,
             mod,
           );

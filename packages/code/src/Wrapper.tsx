@@ -69,7 +69,7 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
     const rootRef = useRef<Root | null>(null);
 
     if (!transpiled) return null;
-    const cssCache = createCache({ key: "css", speedy: true });
+    const cssCache = createCache({ key: "css", speedy: false, container: containerRef.current!.parentNode! });
 
     const renderApp = useCallback(() => {
       if (!rootRef.current || !transpiled) return;
@@ -142,8 +142,9 @@ const renderApp = async (
       AppToRender = () => <div>Mock App for Testing</div>;
     }
 
-    const cssCache = createCache({ key: "css", speedy: true });
     const root = rRoot || createRoot(rootEl);
+
+    const cssCache = createCache({ key: "css", speedy: false, container: rootEl.parentNode! });
 
     const cleanup = () => {
       root.unmount();
