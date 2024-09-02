@@ -20,6 +20,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [diffEditor, setDiffEditor] = useState<editor.IStandaloneDiffEditor | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const calculateHeight = useCallback((content: string) => {
     const lineCount = content.split("\n").length;
@@ -36,44 +37,62 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 
   useEffect(() => {
     if (containerRef.current && !diffEditor) {
-      const diffy = editor.createDiffEditor(containerRef.current, {
-        diffAlgorithm: "advanced",
-        readOnly,
-        diffWordWrap: "on",
-        wordWrap: "on",
-        wordWrapColumn: 80,
-        onlyShowAccessibleDiffViewer: true,
-        hideUnchangedRegions: {
-          enabled: true,
-          revealLineCount: 1,
-          minimumLineCount: 0,
-          contextLineCount: 2,
-        },
-        lineNumbers: "off",
-        scrollBeyondLastLine: false,
-        minimap: { enabled: false },
-        renderSideBySide: false,
-        renderOverviewRuler: false,
-        theme: "vs-dark",
-      });
-
-      // Delay setting the model to ensure the editor is fully initialized
-      setTimeout(() => {
-        diffy.setModel({
-          original: editor.createModel(original, language),
-          modified: editor.createModel(modified, language),
+      try {
+        const diffy = editor.createDiffEditor(containerRef.current, {
+          diffAlgorithm: "advanced",
+          readOnly,
+          diffWordWrap: "on",
+          wordWrap: "on",
+          wordWrapColumn: 80,
+          onlyShowAccessibleDiffViewer: true,
+          hideUnchangedRegions: {
+            enabled: true,
+            revealLineCount: 1,
+            minimumLineCount: 0,
+            contextLineCount: 2,
+          },
+          lineNumbers: "off",
+          scrollBeyondLastLine: false,
+          minimap: { enabled: false },
+          renderSideBySide: false,
+          renderOverviewRuler: false,
+          theme: "vs-dark",
         });
-        setDiffEditor(diffy);
-      }, 0);
+
+        // Delay setting the model to ensure the editor is fully initialized
+        setTimeout(() => {
+          try {
+            const originalModel = editor.createModel(original, language);
+            const modifiedModel = editor.createModel(modified, language);
+
+            diffy.setModel({
+              original: originalModel,
+              modified: modifiedModel,
+            });
+
+            setDiffEditor(diffy);
+          } catch (err) {
+            console.error("Error setting diff editor model:", err);
+            setError("Failed to initialize diff view. Please try again.");
+          }
+        }, 100); // Increased delay to 100ms for better reliability
+      } catch (err) {
+        console.error("Error creating diff editor:", err);
+        setError("Failed to create diff view. Please try again.");
+      }
     }
 
     return () => {
       if (diffEditor) {
-        const diffModels = diffEditor.getModel();
-        diffEditor.dispose();
-        if (diffModels) {
-          diffModels.original.dispose();
-          diffModels.modified.dispose();
+        try {
+          const diffModels = diffEditor.getModel();
+          diffEditor.dispose();
+          if (diffModels) {
+            diffModels.original.dispose();
+            diffModels.modified.dispose();
+          }
+        } catch (err) {
+          console.error("Error disposing diff editor:", err);
         }
       }
     };
@@ -85,13 +104,22 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
       if (diffModels) {
         // Use requestAnimationFrame to ensure DOM updates are complete
         requestAnimationFrame(() => {
-          diffModels.original.setValue(original);
-          diffModels.modified.setValue(modified);
-          diffEditor.layout(); // Force layout recalculation
+          try {
+            diffModels.original.setValue(original);
+            diffModels.modified.setValue(modified);
+            diffEditor.layout(); // Force layout recalculation
+          } catch (err) {
+            console.error("Error updating diff editor content:", err);
+            setError("Failed to update diff view. Please try again.");
+          }
         });
       }
     }
   }, [diffEditor, original, modified]);
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
 
   return (
     <div
