@@ -87,7 +87,7 @@ export async function buildTailwind(): Promise<void> {
     format: "iife",
     outExtension: { ".js": ".js" },
     minifySyntax: true,
-    outdir: "dist/assets",
+    outdir: "dist/tw/chunk-be5bad.js",
     minifyIdentifiers: true,
     drop: ["console"],
     minifyWhitespace: true,
