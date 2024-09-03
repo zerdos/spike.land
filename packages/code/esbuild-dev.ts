@@ -3,6 +3,7 @@ import {
   buildMainBundle,
   buildMainScripts,
   buildServiceWorker,
+  buildTailwind,
   buildTranspileScript,
   buildWasm,
   buildWorkers,
@@ -28,6 +29,7 @@ async function main() {
     await buildWorkers();
     await buildMainScripts();
     await buildWasm();
+    await buildTailwind();
     await buildTranspileScript();
 
     await buildServiceWorker();

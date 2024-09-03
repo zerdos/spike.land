@@ -80,6 +80,21 @@ export const buildWasm = async (): Promise<void> => {
   });
 };
 
+export async function buildTailwind(): Promise<void> {
+  await build({
+    ...getCommonBuildOptions(environment),
+    entryPoints: ["src/assets/tw-chunk-be5bad.js"],
+    format: "iife",
+    outExtension: { ".js": ".js" },
+    minifySyntax: true,
+    outdir: "dist/assets",
+    minifyIdentifiers: true,
+    drop: ["console"],
+    minifyWhitespace: true,
+    target: "es2024",
+  });
+}
+
 export async function buildServiceWorker(): Promise<void> {
   await build({
     ...getCommonBuildOptions(environment),
