@@ -48,7 +48,7 @@ export const useMessageHandling = ({
       content,
       messages,
       code,
-      codeSpace
+      codeSpace,
     );
 
     let screenshotUsed = false;
