@@ -1,13 +1,14 @@
+import { useDarkMode } from "@/hooks/use-dark-mode";
 import { md5 } from "@/lib/md5";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
-const XCircle = () => (
+const XCircle: React.FC<{ className: string }> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
-    className="size-6"
+    className={className}
   >
     <path
       fillRule="evenodd"
@@ -28,7 +29,7 @@ export const StartWithPrompt: React.FC = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [enlargedImage, setEnlargedImage] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false); // Added state for dark mode
+  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
