@@ -28,6 +28,7 @@ export const StartWithPrompt: React.FC = () => {
   const [images, setImages] = useState<ImageData[]>([]);
   const [enlargedImage, setEnlargedImage] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false); // Added state for dark mode
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -48,7 +49,7 @@ export const StartWithPrompt: React.FC = () => {
         setImages((prevImages) => [...prevImages, imageData]);
       } catch (error) {
         console.error("Error processing image:", error);
-        // Optionally, show an error messto the user
+        // Optionally, show an error message to the user
       }
     }
   };
@@ -103,21 +104,27 @@ export const StartWithPrompt: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-gray-900 to-gray-800 text-white p-8 space-y-6">
+    <div
+      className={`h-screen flex flex-col justify-center items-center ${
+        isDarkMode ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white" : "bg-white text-black"
+      } p-8 space-y-6`}
+    >
       <h1 className="text-5xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
         Generate a new app or website
       </h1>
 
-      <div className="relative w-full max-w-3xl">
-        <PromptTextarea
-          prompt={prompt}
-          setPrompt={setPrompt}
-        />
-        <ActionButtons
-          handleImageUpload={() => fileInputRef.current?.click()}
-          handleGenerate={handleGenerate}
-          disableUpload={images.length >= 5}
-        />
+      <div className="relative w-full max-w-3xl space-y-4 mt-4 flex flex-col">
+        <div className="relative">
+          <PromptTextarea
+            prompt={prompt}
+            setPrompt={setPrompt}
+          />
+          <ActionButtons
+            handleImageUpload={() => fileInputRef.current?.click()}
+            handleGenerate={handleGenerate}
+            disableUpload={images.length >= 5}
+          />
+        </div>
         <ImageGallery
           images={images}
           removeImage={removeImage}
@@ -145,14 +152,12 @@ const PromptTextarea: React.FC<{
   prompt: string;
   setPrompt: (value: string) => void;
 }> = ({ prompt, setPrompt }) => (
-  <div className="relative w-full h-48 p-4 bg-gray-800 border border-gray-700 rounded-lg focus-within:ring-2 focus-within:ring-purple-500 overflow-y-auto">
-    <textarea
-      value={prompt}
-      onChange={(e) => setPrompt(e.target.value)}
-      className="w-full h-full bg-transparent focus:outline-none text-white placeholder-gray-400 resize-none"
-      placeholder="Enter your prompt here..."
-    />
-  </div>
+  <textarea
+    value={prompt}
+    onChange={(e) => setPrompt(e.target.value)}
+    className="w-full min-h-[8rem] p-4 pt-12 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 resize-none"
+    placeholder="Enter your prompt here..."
+  />
 );
 
 const ActionButtons: React.FC<{
@@ -160,17 +165,17 @@ const ActionButtons: React.FC<{
   handleGenerate: () => void;
   disableUpload: boolean;
 }> = ({ handleImageUpload, handleGenerate, disableUpload }) => (
-  <div className="absolute bottom-2 right-2 flex space-x-2">
+  <div className="absolute bottom-4 right-4 flex space-x-2 transform transition-transform hover:translate-y-1">
     <button
       onClick={handleImageUpload}
-      className="px-3 py-1 bg-gray-600 text-white rounded-full font-semibold hover:bg-gray-500 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-xs"
+      className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:opacity-80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 text-xs"
       disabled={disableUpload}
     >
       Upload Image
     </button>
     <button
       onClick={handleGenerate}
-      className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 text-xs"
+      className="px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full font-semibold shadow-lg hover:opacity-80 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 text-xs"
     >
       Generate
     </button>
@@ -204,7 +209,7 @@ const ImageGallery: React.FC<{
           onClick={() => removeImage(index)}
           className="absolute -top-3 -right-3 bg-red-500 rounded-full w-8 h-8 flex items-center justify-center text-white"
         >
-          <XCircle />
+          <XCircle className="w-5 h-5 text-white" />
         </button>
       </div>
     ))}
