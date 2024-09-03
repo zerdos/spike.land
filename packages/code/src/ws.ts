@@ -197,7 +197,7 @@ const handleRender = async (
         console.log("Initial CSS length:", css.length);
 
         const criticalClasses = css.split("\n").map((line) => {
-          const rule = line.slice(1, 12);
+          const rule = line.slice(1, line.indexOf("{"));
           if (html.includes(rule)) return rule;
           return null;
         }).filter((rule) => rule !== null);

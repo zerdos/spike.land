@@ -126,7 +126,11 @@ const renderApp = async (
 
     const root = rRoot || createRoot(rootEl);
 
-    const cssCache = createCache({ key: "css", speedy: false, container: rootEl.parentNode! });
+    const cssCache = createCache({
+      key: md5(transpiled! || code! || Math.random().toString()),
+      speedy: false,
+      container: rootEl.parentNode!,
+    });
 
     root.render(
       <ErrorBoundary>
@@ -140,9 +144,17 @@ const renderApp = async (
     );
 
     const cleanup = () => {
+      const renderedApp = renderedAPPS.get(rootEl)!;
       root.unmount();
+      const { cssCache } = renderedApp;
+      const { sheet } = cssCache;
+      sheet.flush();
+      sheet.inserted = {};
+      sheet.registered = {};
+      cssCache.sheet = null;
 
       rootEl.innerHTML = "";
+
       document.body.contains(rootEl) && document.body.removeChild(rootEl);
       renderedAPPS.delete(rootEl);
 
