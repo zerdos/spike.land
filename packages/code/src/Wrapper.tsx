@@ -23,8 +23,8 @@ const useCodeSpace = (codeSpace: string) =>
     return response.text();
   }, [codeSpace]);
 
-export const useTranspile = (code: string) =>
-  useAsyncState(() => transpile({ code, originToUse: window.location.origin }), [code]);
+export const useTranspile = (code: string | undefined) =>
+  useAsyncState(() => code ? transpile({ code, originToUse: window.location.origin }) : Promise.resolve(null), [code]);
 
 // Components
 const AppRenderer: React.FC<AppRendererProps> = React.memo(

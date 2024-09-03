@@ -17,7 +17,7 @@ vi.mock("./Wrapper", async () => {
   const actualModule = await vi.importActual("./Wrapper");
   return {
     ...actualModule,
-    useTranspile: vi.fn().mockReturnValue("mocked transpiled code"),
+    useTranspile: vi.fn().mockImplementation((code) => code ? "mocked transpiled code" : null),
   };
 });
 
@@ -101,12 +101,9 @@ describe("Wrapper", () => {
     });
   });
 
-  it("handles transpile error gracefully", async () => {
-    const mockUseTranspile = useTranspile as MockedFunction<typeof useTranspile>;
-    mockUseTranspile.mockReturnValue(null);
-
+  it("handles undefined code gracefully", async () => {
     await act(async () => {
-      render(<Wrapper code="test code" />, { container });
+      render(<Wrapper />, { container });
     });
 
     await waitFor(() => {
@@ -116,7 +113,7 @@ describe("Wrapper", () => {
 });
 
 describe("useTranspile", () => {
-  it("returns transpiled code", async () => {
+  it("returns transpiled code when code is provided", async () => {
     let result: string | null = null;
     function TestComponent() {
       result = useTranspile("test code");
@@ -132,13 +129,10 @@ describe("useTranspile", () => {
     });
   });
 
-  it("returns null when transpile fails", async () => {
-    const mockUseTranspile = useTranspile as MockedFunction<typeof useTranspile>;
-    mockUseTranspile.mockReturnValue(null);
-
+  it("returns null when code is undefined", async () => {
     let result: string | null = "initial";
     function TestComponent() {
-      result = useTranspile("test code");
+      result = useTranspile(undefined);
       return null;
     }
 
