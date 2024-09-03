@@ -1,3 +1,4 @@
+import { Textarea } from "@/components/ui/textarea";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { md5 } from "@/lib/md5";
 import { AnimatePresence, motion } from "framer-motion";
@@ -150,10 +151,10 @@ const PromptTextarea: React.FC<{
   setPrompt: (value: string) => void;
   isDarkMode: boolean;
 }> = ({ prompt, setPrompt, isDarkMode }) => (
-  <textarea
+  <Textarea
     value={prompt}
     onChange={(e) => setPrompt(e.target.value)}
-    className={`w-full min-h-[8rem] p-4 pt-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none ${
+    className={`w-full min-h-[8rem] p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
       isDarkMode
         ? "bg-gray-800 border border-gray-700 text-white placeholder-gray-400"
         : "bg-white border border-gray-300 text-gray-800 placeholder-gray-500 shadow-md"
