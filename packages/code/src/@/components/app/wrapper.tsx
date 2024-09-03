@@ -79,13 +79,16 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
 
     return () => {
       rootRef.unmount();
-      containerRef.current!.innerHTML = "";
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
+      }
     };
-  }, [containerRef]);
+  }, [containerRef, code, transpiled]);
 
   return (
     <div
       ref={containerRef}
+      data-testid="wrapper-container"
       style={{
         width: "100%",
         height: "100%",
@@ -163,14 +166,6 @@ const renderApp = async (
 
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
     renderedAPPS.set(rootEl, renderedApp);
-
-    // const observer = new MutationObserver((mutations) => {
-    //   if (mutations.some((m) => Array.from(m.removedNodes).includes(rootEl))) {
-    //     cleanup();
-    //     observer.disconnect();
-    //   }
-    // });
-    // observer.observe(document.body, { childList: true, subtree: true });
 
     return renderedApp;
   } catch (error) {

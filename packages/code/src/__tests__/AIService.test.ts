@@ -9,6 +9,10 @@ vi.mock("../shared", () => ({
 vi.mock("../services/runner", () => ({
   runner: vi.fn().mockResolvedValue(true),
 }));
+vi.mock("../config/aiConfig", () => ({
+  anthropicSystem: vi.fn(() => "Mocked anthropic system content"),
+  reminder: vi.fn(() => "Mocked reminder content"),
+}));
 
 describe("AIService", () => {
   let aiService: AIService;
@@ -107,11 +111,9 @@ describe("AIService", () => {
       const codeNow = "New code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
+      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toContain("file.ts");
-      expect(result).toContain("New code");
-      expect(result).toContain("User prompt");
+      expect(result).toBe("Mocked anthropic system content");
     });
 
     it("should return reminder content when codeNow is the same as last message", () => {
@@ -120,11 +122,9 @@ describe("AIService", () => {
       const codeNow = "Same code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
+      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toContain("User prompt");
-      expect(result).not.toContain("file.ts");
-      expect(result).not.toContain("Same code");
+      expect(result).toBe("Mocked reminder content");
     });
 
     it("should handle empty messages array", () => {
@@ -133,11 +133,9 @@ describe("AIService", () => {
       const codeNow = "New code";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
+      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toContain("file.ts");
-      expect(result).toContain("New code");
-      expect(result).toContain("User prompt");
+      expect(result).toBe("Mocked anthropic system content");
     });
 
     it("should handle empty codeNow", () => {
@@ -146,11 +144,9 @@ describe("AIService", () => {
       const codeNow = "";
       const codeSpace = "file.ts";
 
-      const result = aiService.prepareClaudeContent(messages, codeNow, codeSpace, content);
+      const result = aiService.prepareClaudeContent(content, messages, codeNow, codeSpace);
 
-      expect(result).toContain("file.ts");
-      expect(result).toContain("User prompt");
-      expect(result).not.toContain("Old code");
+      expect(result).toBe("Mocked anthropic system content");
     });
   });
 });

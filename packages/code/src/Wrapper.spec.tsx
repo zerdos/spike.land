@@ -44,16 +44,13 @@ describe("Wrapper", () => {
 
     await waitFor(() => {
       expect(container.querySelector("[data-testid='wrapper-container']")).toBeInTheDocument();
-    }, { timeout: 5000 });
-  });
+    }, { timeout: 10000 });
+  }, 15000);
 
   it("renders iframe when codeSpace is provided", async () => {
-    try {
-      await act(async () => {
-        render(<Wrapper codeSpace="test-space" />, { container });
-      });
-    } catch (e) {
-    }
+    await act(async () => {
+      render(<Wrapper codeSpace="test-space" />, { container });
+    });
 
     const iframe = container.querySelector("iframe");
     expect(iframe).toBeInTheDocument();

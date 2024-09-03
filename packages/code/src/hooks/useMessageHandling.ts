@@ -45,10 +45,10 @@ export const useMessageHandling = ({
     useAutoSave(codeSpace);
 
     const claudeContent = aiHandler.prepareClaudeContent(
+      content,
       messages,
       code,
-      codeSpace,
-      content,
+      codeSpace
     );
 
     let screenshotUsed = false;

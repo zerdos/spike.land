@@ -212,11 +212,11 @@ export class AIService {
   }
 
   prepareClaudeContent(
+    content: string,
     messages: Message[],
     codeNow: string,
     codeSpace: string,
-    content: string,
-  ) {
+  ): string {
     if (messages.length === 0 || codeNow !== messages[messages.length - 1]?.content) {
       return anthropicSystem({
         fileName: codeSpace,

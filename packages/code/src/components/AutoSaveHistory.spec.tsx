@@ -16,6 +16,11 @@ vi.mock("@tanstack/react-virtual", () => ({
   }),
 }));
 
+// Mock the useCodeSpace hook
+vi.mock("@src/hooks/useCodeSpace", () => ({
+  useCodeSpace: () => "test-code-space",
+}));
+
 describe("CodeHistoryCarousel", () => {
   (globalThis as unknown as { monaco: typeof Monaco }).monaco = {
     editor: {
@@ -46,7 +51,7 @@ describe("CodeHistoryCarousel", () => {
   const mockOnRestore = vi.fn();
   const mockOnClose = vi.fn();
 
-  it("calls onRestore when restore button is clicked", async () => {
+  it("renders history items and handles restore", async () => {
     render(
       <CodeHistoryCarousel
         codeSpace="test"
@@ -55,20 +60,27 @@ describe("CodeHistoryCarousel", () => {
         onClose={mockOnClose}
       />,
     );
+
+    // Wait for the history items to be rendered
     await waitFor(() => {
-      expect(screen.getByText("Jul 2, 2021, 1:00:00 AM")).toBeInTheDocument();
+      expect(screen.getByText("Version 2")).toBeInTheDocument();
+      expect(screen.getByText("Version 1")).toBeInTheDocument();
     });
+
+    // Find and click the first "Restore" button
     const restoreButtons = screen.getAllByText("Restore");
     fireEvent.click(restoreButtons[0]);
+
+    // Check if onRestore was called with the correct item
     await waitFor(() => {
-      expect(mockOnRestore).toHaveBeenCalledWith({
+      expect(mockOnRestore).toHaveBeenCalledWith(expect.objectContaining({
         code: "console.log(\"Version 2\");",
         timestamp: 1625184000000,
-      });
+      }));
     });
   });
 
-  it("calls onClose when close button is clicked", async () => {
+  it("handles close button click", async () => {
     render(
       <CodeHistoryCarousel
         codeSpace="test"
@@ -77,8 +89,17 @@ describe("CodeHistoryCarousel", () => {
         onClose={mockOnClose}
       />,
     );
-    const closeButton = await screen.findByText("Close");
+
+    // Wait for the component to render
+    await waitFor(() => {
+      expect(screen.getByText("Code History")).toBeInTheDocument();
+    });
+
+    // Find and click the "Close" button
+    const closeButton = screen.getByText("Close");
     fireEvent.click(closeButton);
+
+    // Check if onClose was called
     expect(mockOnClose).toHaveBeenCalled();
   });
 });
