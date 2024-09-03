@@ -7,7 +7,7 @@ sw.__WB_DISABLE_DEV_LOGS = true;
 
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst, CacheOnly } from "workbox-strategies";
+import { StaleWhileRevalidate } from "workbox-strategies";
 
 importScripts("/swVersion.js");
 
@@ -100,7 +100,7 @@ sw.addEventListener("install", async () => {
 
 registerRoute(
   ({ url }) => files.has(url.pathname.slice(1)),
-  new CacheFirst({
+  new StaleWhileRevalidate({
     cacheName: "file-cache-" + sw.swVersion,
     plugins: [
       new CacheableResponsePlugin({
@@ -117,7 +117,7 @@ registerRoute(
     && !url.pathname.startsWith("/live/")
     && !url.pathname.startsWith("/api/")
     && !files.has(url.pathname.slice(1)),
-  new CacheOnly({
+  new StaleWhileRevalidate({
     cacheName: "esm-cache-124",
     plugins: [
       new CacheableResponsePlugin({
