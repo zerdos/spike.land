@@ -14,10 +14,10 @@ vi.mock("@visx/responsive", () => ({
 
 // Mock the useTranspile hook
 vi.mock("./Wrapper", async () => {
-  const actualModule = await vi.importActual("./Wrapper");
+  const actualModule = await vi.importActual<typeof import("./Wrapper")>("./Wrapper");
   return {
     ...actualModule,
-    useTranspile: vi.fn().mockImplementation((code) => code ? "mocked transpiled code" : null),
+    useTranspile: vi.fn().mockImplementation((code: string | undefined) => (code ? "mocked transpiled code" : null)),
   };
 });
 
