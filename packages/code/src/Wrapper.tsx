@@ -2,6 +2,7 @@ import createCache from "@emotion/cache";
 import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
+import { doc } from "prettier";
 import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { AIBuildingOverlay } from "./components/AIBuildingOverlay";
@@ -71,6 +72,11 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
         </CacheProvider>
       </ErrorBoundary>,
     );
+
+    return () => {
+      rootRef.unmount();
+      containerRef.current!.innerHTML = "";
+    };
   }, [containerRef]);
 
   return (
@@ -116,13 +122,6 @@ const renderApp = async (
 
     const cssCache = createCache({ key: "css", speedy: false, container: rootEl.parentNode! });
 
-    const cleanup = () => {
-      root.unmount();
-      rootEl.innerHTML = "";
-      renderedAPPS.delete(rootEl);
-      rootEl.remove();
-    };
-
     root.render(
       <ErrorBoundary>
         <CacheProvider value={cssCache}>
@@ -133,6 +132,16 @@ const renderApp = async (
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
       </ErrorBoundary>,
     );
+
+    const cleanup = () => {
+      root.unmount();
+
+      rootEl.innerHTML = "";
+      document.body.contains(rootEl) && document.body.removeChild(rootEl);
+      renderedAPPS.delete(rootEl);
+
+      rootEl.remove();
+    };
 
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
     renderedAPPS.set(rootEl, renderedApp);

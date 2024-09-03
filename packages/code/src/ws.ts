@@ -77,22 +77,13 @@ const handleDefaultPage = async () => {
 
           await wait(300);
 
-          const cleanupAndRemove = () => {
-            try {
-              rendered?.cleanup?.();
-              document.body.removeChild(myEl);
-              myEl.remove();
-            } catch (e) {
-              console.error(e);
-            }
-            return false;
-          };
+          rendered.cleanup();
 
-          if (signal.aborted) return cleanupAndRemove();
+          if (signal.aborted) return rendered.cleanup();
 
           await wait(100);
 
-          if (signal.aborted) return cleanupAndRemove();
+          if (signal.aborted) return rendered.cleanup();
 
           const res = await handleRender(
             myEl,
@@ -102,21 +93,20 @@ const handleDefaultPage = async () => {
           );
 
           if (res === false) {
-            if (signal.aborted) return cleanupAndRemove();
+            if (signal.aborted) return rendered.cleanup();
           } else {
             const { css, html } = res;
             if (html === "<div style=\"width: 100%; height: 100%;\"></div>") {
-              return rendered?.cleanup();
+              return rendered.cleanup();
             }
 
             window.parent.postMessage({ i, css, html }, "*");
 
             const old = document.getElementById("root")!;
-            renderedAPPS!.get(old!)!.cleanup();
-            myEl.style.display = "block";
-            document.body.removeChild(old);
-
-            old.remove();
+            const oldApp = renderedAPPS.get(old);
+            if (oldApp) {
+              oldApp.cleanup();
+            }
 
             myEl.id = "root";
           }
