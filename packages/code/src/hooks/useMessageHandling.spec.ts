@@ -68,6 +68,7 @@ describe("useMessageHandling", () => {
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(async (_, __, ___, ____, setMessages) => {
       setMessages([mockNewMessage]);
+      return true; // Return a boolean as expected by the real function
     });
 
     const { result } = renderHook(() => useMessageHandling(mockProps));

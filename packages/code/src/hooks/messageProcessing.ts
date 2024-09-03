@@ -34,6 +34,22 @@ export async function createNewMessage(
   };
 }
 
+function extractTextContent(content: string | Array<{ type: string; text?: string }>): string {
+  if (typeof content === "string") {
+    return content;
+  }
+  const textItem = content.find(item => item.type === "text");
+  return textItem?.text || "";
+}
+
+async function retryWithGpt4(
+  aiHandler: AIHandler,
+  updatedMessages: Message[],
+  onUpdate: (code: string) => Promise<void>,
+): Promise<Message> {
+  return await aiHandler.sendToGpt4o(updatedMessages, onUpdate);
+}
+
 export async function processMessage(
   aiHandler: AIHandler,
   cSess: ICode,
@@ -43,93 +59,84 @@ export async function processMessage(
   setAICode: React.Dispatch<React.SetStateAction<string>>,
   saveMessages: (newMessages: Message[]) => void,
   mutex: Mutex,
-) {
+): Promise<boolean> {
   const sentMessages = [...updatedMessages];
   let preUpdates = { last: -1, lastCode: codeNow, count: 0 };
 
   const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess);
 
-  let assistantMessage = await aiHandler.sendToAnthropic(
-    updatedMessages,
-    onUpdate,
-  );
-
-  if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-    throw new Error("Invalid assistant message content");
-  }
-
-  if (
-    typeof assistantMessage.content === "string"
-    && assistantMessage.content.includes("An error occurred while processing")
-  ) {
-    await cSess.setCode(codeNow);
-    assistantMessage = await aiHandler.sendToGpt4o(
-      updatedMessages,
-      onUpdate,
-    );
-  }
-
-  updatedMessages.push(assistantMessage);
-  saveMessages(updatedMessages);
-
-  const contentToProcess = Array.isArray(assistantMessage.content)
-    ? assistantMessage.content.find(item => item.type === "text")?.text || ""
-    : assistantMessage.content;
-
-  const starterCode = updateSearchReplace(contentToProcess, codeNow);
-
-  let success = false;
   try {
-    if (starterCode !== codeNow) {
-      success = !!await cSess.setCode(starterCode);
-      if (success) return true;
-      if (!success) {
-        const userMessage = await createNewMessage(``, claudeRevery(starterCode), false);
-        const sentMessages = [...updatedMessages, userMessage];
-        const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess);
+    let assistantMessage = await aiHandler.sendToAnthropic(updatedMessages, onUpdate);
 
-        let assistantMessage = await aiHandler.sendToAnthropic(
-          updatedMessages,
-          onUpdate,
-        );
-
-        if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
-          throw new Error("Invalid assistant message content");
-        }
-
-        if (
-          typeof assistantMessage.content === "string"
-          && assistantMessage.content.includes("An error occurred while processing")
-        ) {
-          await cSess.setCode(codeNow);
-          assistantMessage = await aiHandler.sendToGpt4o(
-            updatedMessages,
-            onUpdate,
-          );
-        }
-
-        updatedMessages.push(assistantMessage);
-        saveMessages(updatedMessages);
-
-        const contentToProcess = Array.isArray(assistantMessage.content)
-          ? assistantMessage.content.find(item => item.type === "text")?.text || ""
-          : assistantMessage.content;
-
-        const secondGuess = updateSearchReplace(contentToProcess, codeNow);
-
-        success = !!await cSess.setCode(secondGuess);
-        if (success) return true;
-
-        throw new Error("Error setting code");
-      }
+    if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+      throw new Error("Invalid assistant message content type");
     }
+
+    const contentToProcess = extractTextContent(assistantMessage.content);
+
+    if (contentToProcess.includes("An error occurred while processing")) {
+      await cSess.setCode(codeNow);
+      assistantMessage = await retryWithGpt4(aiHandler, updatedMessages, onUpdate);
+    }
+
+    updatedMessages.push(assistantMessage);
+    saveMessages(updatedMessages);
+
+    const starterCode = updateSearchReplace(contentToProcess, codeNow);
+
+    if (starterCode !== codeNow) {
+      const success = await trySetCode(cSess, starterCode);
+      if (success) return true;
+
+      // If setting the code fails, try again with a new message
+      const userMessage = await createNewMessage("", claudeRevery(starterCode), false);
+      const newMessages = [...updatedMessages, userMessage];
+      const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess);
+
+      assistantMessage = await aiHandler.sendToAnthropic(newMessages, newOnUpdate);
+
+      if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+        throw new Error("Invalid assistant message content type in retry");
+      }
+
+      const newContentToProcess = extractTextContent(assistantMessage.content);
+
+      if (newContentToProcess.includes("An error occurred while processing")) {
+        await cSess.setCode(codeNow);
+        assistantMessage = await retryWithGpt4(aiHandler, newMessages, newOnUpdate);
+      }
+
+      updatedMessages.push(assistantMessage);
+      saveMessages(updatedMessages);
+
+      const secondGuess = updateSearchReplace(newContentToProcess, codeNow);
+
+      const secondSuccess = await trySetCode(cSess, secondGuess);
+      if (secondSuccess) return true;
+
+      throw new Error("Failed to set code after multiple attempts");
+    }
+
+    return true;
   } catch (error) {
+    console.error("Error in processMessage:", error);
     await aiHandler.continueWithOpenAI(
-      `Please try to fix it.`,
-      starterCode,
+      "An error occurred. Please try to fix it.",
+      codeNow,
       setMessages,
       setAICode,
     );
+    return false;
+  }
+}
+
+async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
+  try {
+    const result = await cSess.setCode(code);
+    return result === true || result === "OK";
+  } catch (error) {
+    console.error("Error setting code:", error);
+    return false;
   }
 }
 
@@ -172,7 +179,7 @@ export function handleError(updatedMessages: Message[], setMessages: (newMessage
   updatedMessages.push({
     id: Date.now().toString(),
     role: "assistant",
-    content: "Sorry, there was an error processing your request.",
+    content: "Sorry, there was an error processing your request. Please try again or rephrase your input.",
   });
   setMessages(updatedMessages);
 }
