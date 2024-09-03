@@ -50,7 +50,6 @@ export const StartWithPrompt: React.FC = () => {
         setImages((prevImages) => [...prevImages, imageData]);
       } catch (error) {
         console.error("Error processing image:", error);
-        // Optionally, show an error message to the user
       }
     }
   };
@@ -107,10 +106,18 @@ export const StartWithPrompt: React.FC = () => {
   return (
     <div
       className={`h-screen flex flex-col justify-center items-center ${
-        isDarkMode ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white" : "bg-white text-black"
+        isDarkMode
+          ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+          : "bg-gradient-to-br from-white to-gray-100 text-gray-800"
       } p-8 space-y-6`}
     >
-      <h1 className="text-5xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+      <h1
+        className={`text-5xl font-bold text-center mb-8 ${
+          isDarkMode
+            ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"
+            : "text-gray-800"
+        }`}
+      >
         Generate a new app or website
       </h1>
 
@@ -119,17 +126,20 @@ export const StartWithPrompt: React.FC = () => {
           <PromptTextarea
             prompt={prompt}
             setPrompt={setPrompt}
+            isDarkMode={isDarkMode}
           />
           <ActionButtons
             handleImageUpload={() => fileInputRef.current?.click()}
             handleGenerate={handleGenerate}
             disableUpload={images.length >= 5}
+            isDarkMode={isDarkMode}
           />
         </div>
         <ImageGallery
           images={images}
           removeImage={removeImage}
           handleImageClick={setEnlargedImage}
+          isDarkMode={isDarkMode}
         />
         <EnlargedImageModal
           enlargedImage={enlargedImage}
@@ -144,7 +154,7 @@ export const StartWithPrompt: React.FC = () => {
         className="hidden"
         ref={fileInputRef}
       />
-      <TemplateButton />
+      <TemplateButton isDarkMode={isDarkMode} />
     </div>
   );
 };
@@ -152,11 +162,16 @@ export const StartWithPrompt: React.FC = () => {
 const PromptTextarea: React.FC<{
   prompt: string;
   setPrompt: (value: string) => void;
-}> = ({ prompt, setPrompt }) => (
+  isDarkMode: boolean;
+}> = ({ prompt, setPrompt, isDarkMode }) => (
   <textarea
     value={prompt}
     onChange={(e) => setPrompt(e.target.value)}
-    className="w-full min-h-[8rem] p-4 pt-12 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white placeholder-gray-400 resize-none"
+    className={`w-full min-h-[8rem] p-4 pt-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none ${
+      isDarkMode
+        ? "bg-gray-800 border border-gray-700 text-white placeholder-gray-400"
+        : "bg-white border border-gray-300 text-gray-800 placeholder-gray-500 shadow-md"
+    }`}
     placeholder="Enter your prompt here..."
   />
 );
@@ -165,18 +180,27 @@ const ActionButtons: React.FC<{
   handleImageUpload: () => void;
   handleGenerate: () => void;
   disableUpload: boolean;
-}> = ({ handleImageUpload, handleGenerate, disableUpload }) => (
-  <div className="absolute bottom-4 right-4 flex space-x-2 transform transition-transform hover:translate-y-1">
+  isDarkMode: boolean;
+}> = ({ handleImageUpload, handleGenerate, disableUpload, isDarkMode }) => (
+  <div className="absolute bottom-4 right-4 flex space-x-2">
     <button
       onClick={handleImageUpload}
-      className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:opacity-80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 text-xs"
+      className={`px-4 py-2 rounded-md font-semibold shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 text-sm ${
+        isDarkMode
+          ? "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"
+          : "bg-blue-100 text-blue-800 hover:bg-blue-200 focus:ring-blue-300"
+      }`}
       disabled={disableUpload}
     >
       Upload Image
     </button>
     <button
       onClick={handleGenerate}
-      className="px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full font-semibold shadow-lg hover:opacity-80 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 text-xs"
+      className={`px-4 py-2 rounded-md font-semibold shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 text-sm ${
+        isDarkMode
+          ? "bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500"
+          : "bg-purple-100 text-purple-800 hover:bg-purple-200 focus:ring-purple-300"
+      }`}
     >
       Generate
     </button>
@@ -187,7 +211,8 @@ const ImageGallery: React.FC<{
   images: ImageData[];
   removeImage: (index: number) => void;
   handleImageClick: (index: number) => void;
-}> = ({ images, removeImage, handleImageClick }) => (
+  isDarkMode: boolean;
+}> = ({ images, removeImage, handleImageClick, isDarkMode }) => (
   <div className="flex flex-wrap gap-4 mt-4">
     {images.map((img, index) => (
       <div
@@ -197,20 +222,22 @@ const ImageGallery: React.FC<{
         <motion.img
           src={img.src}
           alt={`Uploaded ${index}`}
-          className="w-40 h-40 object-cover rounded cursor-pointer"
+          className="w-40 h-40 object-cover rounded-lg shadow-md cursor-pointer"
           onClick={() => handleImageClick(index)}
           layoutId={`image-${index}`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         />
-        <span className="mt-1 text-xs text-gray-300 truncate w-full text-center">
+        <span
+          className={`mt-2 text-xs truncate w-full text-center ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+        >
           {img.imageName}
         </span>
         <button
           onClick={() => removeImage(index)}
-          className="absolute -top-3 -right-3 bg-red-500 rounded-full w-8 h-8 flex items-center justify-center text-white"
+          className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-white shadow-md transition-colors duration-300"
         >
-          <XCircle className="w-5 h-5 text-white" />
+          <XCircle className="w-4 h-4 text-white" />
         </button>
       </div>
     ))}
@@ -248,10 +275,14 @@ const EnlargedImageModal: React.FC<{
   </AnimatePresence>
 );
 
-const TemplateButton: React.FC = () => (
+const TemplateButton: React.FC<{ isDarkMode: boolean }> = ({ isDarkMode }) => (
   <button
     onClick={() => (location.href = "/start")}
-    className="mt-4 px-6 py-2 bg-gray-700 text-white rounded-full font-semibold hover:bg-gray-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-sm flex items-center"
+    className={`mt-6 px-6 py-2 rounded-md font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-opacity-50 text-sm flex items-center ${
+      isDarkMode
+        ? "bg-gray-700 text-white hover:bg-gray-600 focus:ring-gray-500"
+        : "bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400"
+    }`}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
