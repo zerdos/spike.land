@@ -3,7 +3,8 @@ import type { Root } from "react-dom/client";
 
 // Types
 export interface AppRendererProps {
-  transpiled: string;
+  transpiled?: string;
+  code?: string;
   width: number;
   height: number;
   top: number;
