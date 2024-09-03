@@ -1,6 +1,6 @@
+import type { ICodeSession } from "@/lib/interfaces";
+import { prettierToThrow, transpile } from "@/lib/shared";
 import { useRef, useState } from "react";
-import type { ICodeSession } from "../makeSess";
-import { prettierToThrow, transpile } from "../shared";
 
 export interface EditorState {
   started: boolean;

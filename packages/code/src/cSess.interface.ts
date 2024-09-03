@@ -1,4 +1,4 @@
-import { ICodeSession } from "./makeSess";
+import { ICodeSession } from "@/lib/interfaces";
 
 export interface ICode {
   session: ICodeSession;

@@ -1,6 +1,6 @@
+import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { useSyncedStorage } from "./useSyncedStorage";
 
 // Mock localStorage
 const localStorageMock = (() => {

@@ -1,5 +1,5 @@
+import { Wrapper } from "@/components/app/wrapper";
 import React, { useEffect, useRef, useState } from "react";
-import { Wrapper } from "../Wrapper";
 
 export const ScaledWrapper: React.FC<{ code: string }> = ({ code }) => {
   const containerRef = useRef<HTMLDivElement>(null);

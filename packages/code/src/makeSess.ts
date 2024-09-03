@@ -1,3 +1,4 @@
+import { ICodeSession } from "@/lib/interfaces";
 import { hash, Record } from "immutable";
 import { applyPatch as aPatch, createDelta, Delta } from "./textDiff";
 
@@ -70,14 +71,6 @@ export const createPatch = (
   }
 
   return codePatch;
-};
-
-export type ICodeSession = {
-  code: string;
-  i: number;
-  html: string;
-  css: string;
-  transpiled: string;
 };
 
 export function stringifySession(s: ICodeSession): string {

@@ -1,5 +1,5 @@
+import { ICodeSession } from "@/lib/interfaces";
 import { ICode } from "@src/cSess.interface";
-import { ICodeSession } from "@src/makeSess";
 
 class SessMock implements ICode {
   buffy: Promise<void>[] = [];

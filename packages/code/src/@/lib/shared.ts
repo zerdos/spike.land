@@ -2,7 +2,7 @@ import SharedWorker from "@okikio/sharedworker";
 import { Mutex } from "async-mutex";
 import { getTransferables, hasTransferables } from "transferables";
 import { RpcProvider } from "worker-rpc";
-import { ICodeSession } from "./makeSess";
+import { ICodeSession } from "./interfaces";
 
 const mutex = new Mutex();
 

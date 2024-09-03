@@ -482,21 +482,11 @@ hQIDAQAB
 
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
     import "${origin}/live/${codeSpace}/index.css";
-    import { renderApp } from "${origin}/Wrapper.mjs";
+    import { renderApp } from "${origin}/@/components/app/wrapper.mjs";
     
     const render =  () => renderApp({ App, rootElement: document.getElementById("embed") });
     render();
 
-//     setTimeout(() => {
-//   const link = document.createElement("link");
-//   link.rel = "stylesheet";
-//   link.href = "${origin}/assets/g-chunk-72a597.css";
-
-//   link.onload = () => {
-//     import(` + "`${location.origin}` +" + `"/assets/tw-chunk-be5bad.js");
-//   };
-//   document.head.appendChild(link);
-// });
 
     
     `;

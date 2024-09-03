@@ -1,5 +1,5 @@
+import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import { useEffect } from "react";
-import { useSyncedStorage } from "./useSyncedStorage";
 
 export const useDarkMode = () => {
   const getInitialDarkMode = (): boolean => {

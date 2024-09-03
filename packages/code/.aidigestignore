@@ -25,7 +25,7 @@ components.json
 .vscode/settings.json
 src/favicon.ico
 src/assets/manifest.json
-src/assets/g-chunk-72a597.css
+
 src/assets/app.css
 src/assets/tw-chunk-be5bad.js
 src/__test__/__snapshots__/importmapReplace.spec.ts.snap

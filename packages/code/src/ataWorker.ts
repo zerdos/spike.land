@@ -1,7 +1,8 @@
+import { ICodeSession } from "@/lib/interfaces";
 import { BufferedSocket, Socket, StableSocket } from "@github/stable-socket";
 import { Mutex } from "async-mutex";
 import type { ata as Ata } from "./ata";
-import { applyCodePatch, createPatch, ICodeSession, makeHash, makeSession, stringifySession } from "./makeSess";
+import { applyCodePatch, createPatch, makeHash, makeSession, stringifySession } from "./makeSess";
 import type { prettierCss as PrettierCSS, prettierJs as Prettier } from "./prettierEsm";
 import type { build as Build, transpile as Transpile } from "./transpile";
 import { rpcFactory } from "./workerRpc";

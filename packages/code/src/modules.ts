@@ -8,15 +8,8 @@ export { routes } from "./routes";
 import { createWorkflow } from "./LangChain";
 export { createWorkflow };
 
-import {
-  applyCodePatch,
-  CodePatch,
-  createPatch,
-  ICodeSession,
-  makeHash,
-  makeSession,
-  stringifySession,
-} from "./makeSess";
+import { ICodeSession } from "@/lib/interfaces";
+import { applyCodePatch, CodePatch, createPatch, makeHash, makeSession, stringifySession } from "./makeSess";
 
 export { importMap };
 

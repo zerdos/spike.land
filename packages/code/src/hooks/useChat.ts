@@ -1,6 +1,6 @@
+import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import { useCallback, useRef, useState } from "react";
 import { Message } from "../types/Message";
-import { useSyncedStorage } from "./useSyncedStorage";
 
 export const useChat = (
   codeSpace: string,

@@ -1,11 +1,11 @@
-import { build } from "../shared";
+import { build } from "@/lib/shared";
 import { wait } from "../wait";
 
 export const useDownload = (codeSpace: string, onlyReturn = false) => {
   return async () => {
     const TW = await ((await fetch("/assets/tw-chunk-be5bad.js")).text());
 
-    const resetCSS = await ((await fetch("/assets/g-chunk-72a597.css")).text());
+    const resetCSS = await ((await fetch("/assets/tw-global.css")).text());
     let indexMjs: string;
 
     const buildWithRetry = async () => {

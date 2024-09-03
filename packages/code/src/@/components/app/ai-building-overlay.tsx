@@ -1,5 +1,5 @@
+import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import React, { useEffect, useState } from "react";
-import { useSyncedStorage } from "../hooks/useSyncedStorage";
 
 export const AIBuildingOverlay: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const [isStreaming, _setIsStreaming] = useSyncedStorage(`streaming-${codeSpace}`);

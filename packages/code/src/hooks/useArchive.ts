@@ -1,8 +1,9 @@
 import { md5 } from "@/lib/md5";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
-import { build } from "../shared";
+
 import { wait } from "../wait";
 
+import { build } from "@/lib/shared";
 import { useAuth } from "@clerk/clerk-react";
 
 const auth = () => {
@@ -42,8 +43,6 @@ export const useSpeedy2 = async () => {
   const wrapperCss = res.find(x => x.path.includes("wrapper.css"))?.text || "";
   const wrapperJs = res.find(x => x.path.includes("wrapper.mjs"))?.text || "";
   const appCss = await fetch(`/assets/app.css`).then((res) => res.text());
-
-  // <link rel="stylesheet" href="/assets/g-chunk-72a597.css">
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -102,7 +101,7 @@ export const useArchive = async (codeSpace: string) => {
 
   const indexMjs = await buildWithRetry();
 
-  const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
+  const gJunk = await fetch(`/app/tw-global.css`).then((res) => res.text());
   const css = await fetch(`/live/${codeSpace}/index.css`).then((res) => res.text());
   const twJS = await fetch(`/assets/tw-chunk-be5bad.js`).then((res) => res.text());
   const htm = await fetch(`/live/${codeSpace}/htm`).then((res) => res.text());
@@ -185,8 +184,6 @@ export const useSpeedy = async (codeSpace: string) => {
 
   console.log({ indexMjs });
 
-  const gJunk = await fetch(`/assets/g-chunk-72a597.css`).then((res) => res.text());
-
   //   if (indexCss.length > 0 ) {
   //   const assets = indexCss.filter((f) => f.path.includes("/assets/"));
   //  assets.forEach(async (f) => {
@@ -261,10 +258,8 @@ export const useSpeedy = async (codeSpace: string) => {
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <base href="/">
-  <title>CodeSpace archive for ${codeSpace} </title>
-  <style>
-    ${gJunk}
-  </style>
+ <link rel="preload" href="/app/tw-global.css" as="style">
+    <link rel="stylesheet" href="/app/tw-global.css">
   <style>  
     ${updatedCss}
   </style>

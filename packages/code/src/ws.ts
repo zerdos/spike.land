@@ -1,14 +1,15 @@
+import { ICodeSession } from "@/lib/interfaces";
 import { useCodeSpace } from "./hooks/useCodeSpace";
-import { ICodeSession } from "./makeSess";
 
 import { EmotionCache } from "@emotion/cache";
 import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
-import { prettierCss } from "./shared";
+
+import { renderApp, renderedAPPS } from "@/components/app/wrapper";
+import { prettierCss } from "@/lib/shared";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
-import { renderApp, renderedAPPS } from "./Wrapper";
 
 const cSess = new Code();
 

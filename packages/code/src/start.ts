@@ -15,19 +15,8 @@ if (
   setTimeout(() => {
     (async () => {
       const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
-      const { renderApp } = await import("./Wrapper");
+      const { renderApp } = await import("@/components/app/wrapper");
       renderApp({ codeSpace, rootElement });
     })();
   }, 0);
 }
-
-// setTimeout(() => {
-//   // const link = document.createElement("link");
-//   // link.rel = "stylesheet";
-//   // link.href = `${location.origin}/assets/g-chunk-72a597.css`;
-
-//   // link.onload = () => {
-//   import("./assets/tw-chunk-be5bad");
-//   // };
-//   // document.head.appendChild(link);
-// });

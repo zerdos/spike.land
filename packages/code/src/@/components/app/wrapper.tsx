@@ -1,14 +1,14 @@
+import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
+import ErrorBoundary from "@/components/app/error-boundary";
+import type { AppRendererProps, IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
+import { transpile } from "@/lib/shared";
 import createCache from "@emotion/cache";
 import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
 import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { AIBuildingOverlay } from "./components/AIBuildingOverlay";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { transpile } from "./shared";
-import type { AppRendererProps, IRenderApp, RenderedApp } from "./types/IRender";
 
 // Utility functions
 const createJsBlob = (code: string | Uint8Array): string =>

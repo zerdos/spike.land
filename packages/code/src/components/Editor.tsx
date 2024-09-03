@@ -1,7 +1,8 @@
 import { md5 } from "@/lib/md5";
 import { css } from "@emotion/react";
 import { ICode } from "@src/cSess.interface";
-import { ICodeSession } from "@src/makeSess";
+
+import { ICodeSession } from "@/lib/interfaces";
 import { useEffect, useRef, useState } from "react";
 import type { FC } from "react";
 import { useAutoSave } from "../hooks/autoSave";

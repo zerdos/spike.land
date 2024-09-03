@@ -1,10 +1,10 @@
+import { Wrapper } from "@/components/app/wrapper";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
-import { Wrapper } from "@src/Wrapper";
 import { format } from "date-fns";
 import React from "react";
 

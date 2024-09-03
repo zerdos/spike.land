@@ -114,6 +114,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
   const uiEntryPoints = await createEntryPoints("components/ui");
   const libEntryPoints = await createEntryPoints("lib");
   const externalEntryPoints = await createEntryPoints("external");
+  const appEntryPoints = await createEntryPoints("components/app");
+  const hooksEntryPoints = await createEntryPoints("hooks");
 
   await build({
     ...buildOptions,
@@ -132,14 +134,16 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     alias: undefined,
     outdir: "dist/@/",
     platform: "browser",
-    entryPoints: [...uiEntryPoints, ...libEntryPoints, ...externalEntryPoints],
+    entryPoints: [...uiEntryPoints, ...libEntryPoints, ...externalEntryPoints, ...appEntryPoints, ...hooksEntryPoints],
   });
 
   const uiAliases = await createAliases("components/ui");
   const libAliases = await createAliases("lib");
   const externalAliases = await createAliases("external");
+  const appAliases = await createAliases("components/app");
+  const hooksAliases = await createAliases("hooks");
 
-  const extraAliases = { ...uiAliases, ...libAliases, ...externalAliases };
+  const extraAliases = { ...uiAliases, ...libAliases, ...externalAliases, ...appAliases, ...hooksAliases };
 
   await build({
     ...buildOptions,
@@ -195,8 +199,6 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "src/reactDomClient.ts",
       "src/jsx.ts",
       "src/emotionJsxRuntime.ts",
-      "src/shared.ts",
-      "src/Wrapper.tsx",
       "src/app/globals.css",
     ],
     alias: {

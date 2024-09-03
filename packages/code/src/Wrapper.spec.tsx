@@ -1,7 +1,7 @@
+import { Wrapper } from "@/components/app/wrapper";
 import { act, render, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Wrapper } from "./Wrapper";
 
 vi.mock("./shared", () => ({
   transpile: vi.fn().mockResolvedValue("mocked transpiled code"),
@@ -13,7 +13,7 @@ vi.mock("@visx/responsive", () => ({
 
 // Mock the useTranspile hook
 vi.mock("./Wrapper", async () => {
-  const actualModule = await vi.importActual<typeof import("./Wrapper")>("./Wrapper");
+  const actualModule = await vi.importActual<typeof import("@/components/app/wrapper")>("@/components/app/wrapper");
   return {
     ...actualModule,
     useTranspile: vi.fn().mockImplementation((code: string | undefined) => {

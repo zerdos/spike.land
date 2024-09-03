@@ -1,10 +1,11 @@
 import { md5 } from "@/lib/md5";
 import { useCodeSpace } from "../hooks/useCodeSpace";
-import { ICodeSession, makeHash, makeSession } from "../makeSess";
+import { makeHash, makeSession } from "../makeSess";
 
+import { ICodeSession } from "@/lib/interfaces";
+import { connect } from "@/lib/shared";
 import { formatCode, runCode, transpileCode } from "../components/editorUtils";
 import { ICode } from "../cSess.interface";
-import { connect } from "../shared";
 
 export class Code implements ICode {
   session: ICodeSession;

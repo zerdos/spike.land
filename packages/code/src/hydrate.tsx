@@ -19,7 +19,7 @@ const setupServiceWorker = async () => {
 
 const createLangChainWorkflow = async (prompt: string) => {
   try {
-    const { createWorkflow } = await import("./shared");
+    const { createWorkflow } = await import("@/lib/shared");
     return createWorkflow(prompt);
   } catch (error) {
     console.error("Error creating LangChain workflow:", error);
