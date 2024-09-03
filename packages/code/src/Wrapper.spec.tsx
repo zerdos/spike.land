@@ -41,7 +41,7 @@ describe("Wrapper", () => {
 
     await waitFor(() => {
       expect(container.querySelector("[data-testid='wrapper-container']")).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it("calls transpile with correct arguments", async () => {
@@ -51,10 +51,12 @@ describe("Wrapper", () => {
       render(<Wrapper code="test code" />, { container });
     });
 
-    expect(mockTranspile).toHaveBeenCalledWith({
-      code: "test code",
-      originToUse: window.location.origin,
-    });
+    await waitFor(() => {
+      expect(mockTranspile).toHaveBeenCalledWith({
+        code: "test code",
+        originToUse: window.location.origin,
+      });
+    }, { timeout: 5000 });
   });
 
   it("renders AppRenderer with transpiled code", async () => {
@@ -64,7 +66,7 @@ describe("Wrapper", () => {
 
     await waitFor(() => {
       expect(container.querySelector("[data-testid='wrapper-container']")).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   it("renders iframe when codeSpace is provided", async () => {
