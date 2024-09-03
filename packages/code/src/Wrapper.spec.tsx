@@ -17,7 +17,10 @@ vi.mock("./Wrapper", async () => {
   const actualModule = await vi.importActual<typeof import("./Wrapper")>("./Wrapper");
   return {
     ...actualModule,
-    useTranspile: vi.fn().mockImplementation((code: string | undefined) => (code ? "mocked transpiled code" : null)),
+    useTranspile: vi.fn().mockImplementation((code: string | undefined) => {
+      if (code === undefined) return null;
+      return Promise.resolve("mocked transpiled code");
+    }),
   };
 });
 
@@ -65,7 +68,9 @@ describe("Wrapper", () => {
     });
 
     await waitFor(() => {
-      expect(container.querySelector("[data-testid='wrapper-container']")).toBeInTheDocument();
+      const wrapperContainer = container.querySelector("[data-testid='wrapper-container']");
+      expect(wrapperContainer).toBeInTheDocument();
+      expect(wrapperContainer?.textContent).toContain("mocked transpiled code");
     }, { timeout: 5000 });
   });
 
@@ -109,14 +114,14 @@ describe("Wrapper", () => {
     });
 
     await waitFor(() => {
-      expect(container.firstChild).toBeNull();
+      expect(container.querySelector("[data-testid='wrapper-container']")).not.toBeInTheDocument();
     });
   });
 });
 
 describe("useTranspile", () => {
   it("returns transpiled code when code is provided", async () => {
-    let result: string | null = null;
+    let result: string | null | Promise<string> = null;
     function TestComponent() {
       result = useTranspile("test code");
       return null;
@@ -126,13 +131,13 @@ describe("useTranspile", () => {
       render(<TestComponent />);
     });
 
-    await waitFor(() => {
-      expect(result).toBe("mocked transpiled code");
+    await waitFor(async () => {
+      expect(await result).toBe("mocked transpiled code");
     });
   });
 
   it("returns null when code is undefined", async () => {
-    let result: string | null = "initial";
+    let result: string | null | Promise<string> = "initial";
     function TestComponent() {
       result = useTranspile(undefined);
       return null;
