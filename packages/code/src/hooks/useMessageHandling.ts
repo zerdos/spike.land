@@ -51,16 +51,16 @@ export const useMessageHandling = ({
       codeSpace,
     );
 
-    let screenshotUsed = false;
+    // let screenshotUsed = false;
 
-    if (messages.length === 0 || code !== codeWhatAiSeen) {
-      setAICode(code);
-      screenshotUsed = true;
-      const systemPrompt = await createNewMessage(screenshot, claudeContent, true);
-      messages.push(systemPrompt);
-    }
+    // if (messages.length === 0 || code !== codeWhatAiSeen) {
+    //   setAICode(code);
+    //   screenshotUsed = true;
+    //   const systemPrompt = await createNewMessage(screenshot, claudeContent, true);
+    //   messages.push(systemPrompt);
+    // }
 
-    const updatedMessages = [...messages, await createNewMessage(screenshotUsed ? "" : screenshot, content, false)];
+    const updatedMessages = [...messages, await createNewMessage(screenshot, claudeContent + content, false)];
 
     setInput("");
 

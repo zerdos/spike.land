@@ -60,9 +60,10 @@ Usw only the code block format to provide the changes.
 `;
 
 export const anthropicSystem = (
-  { fileName, fileContent }: {
+  { fileName, fileContent, userPrompt }: {
     fileName: string;
     fileContent: string;
+    userPrompt: string;
   },
 ) =>
   `Hey,
@@ -93,7 +94,12 @@ Response format:
 4. Suggest any improvements or alternatives
 5. Don't include installation instructions or package.json modifications
 
-Always focus on concise, targeted updates rather than full file replacements.`;
+Always focus on concise, targeted updates rather than full file replacements.
+
+The user prompt is:
+${userPrompt}
+
+`;
 
 export const reminder = ({ userPrompt }: { userPrompt: string }) => `
 

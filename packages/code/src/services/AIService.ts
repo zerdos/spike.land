@@ -221,6 +221,7 @@ export class AIService {
       return anthropicSystem({
         fileName: codeSpace,
         fileContent: codeNow,
+        userPrompt: content,
       });
     } else {
       return reminder({ userPrompt: content });
