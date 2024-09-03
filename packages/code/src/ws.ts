@@ -26,23 +26,27 @@ const handleDefaultPage = async () => {
 
     const mutex = new Mutex();
 
-    cSess.sub((sess: ICodeSession) => {
+    cSess.sub(async (sess: ICodeSession) => {
       try {
         const { transpiled } = sess;
 
-        const myEl = document.createElement("div")! as HTMLDivElement;
+        const myEl = document.createElement("div");
         myEl.style.height = "100%";
         myEl.style.width = "100%";
         myEl.style.display = "none";
         document.body.appendChild(myEl);
 
-        renderApp({
+        await renderApp({
           transpiled,
           rootElement: myEl,
         });
 
-        const root = document.getElementById("root");
-        renderedAPPS.get(root!)!.cleanup();
+        const root = document.getElementById("root")!;
+        const oldApp = renderedAPPS.get(root);
+        if (oldApp) {
+          oldApp?.cleanup();
+        }
+
         myEl.style.display = "block";
         myEl.id = "root";
       } catch (error) {
@@ -67,23 +71,17 @@ const handleDefaultPage = async () => {
         await mutex.runExclusive(async () => {
           if (signal.aborted) return;
 
-          const myEl = document.createElement("div")! as HTMLDivElement;
+          const myEl = document.createElement("div");
           myEl.style.height = "100%";
           myEl.style.width = "100%";
           myEl.style.display = "none";
           document.body.appendChild(myEl);
 
           const rendered = await renderApp({ rootElement: myEl, transpiled });
-          if (null === rendered) return false;
 
-          await wait(300);
-
-          rendered.cleanup();
-
-          if (signal.aborted) return rendered.cleanup();
+          if (!rendered) return false;
 
           await wait(100);
-
           if (signal.aborted) return rendered.cleanup();
 
           const res = await handleRender(
