@@ -137,13 +137,13 @@ const renderApp = async (
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
     renderedAPPS.set(rootEl, renderedApp);
 
-    const observer = new MutationObserver((mutations) => {
-      if (mutations.some((m) => Array.from(m.removedNodes).includes(rootEl))) {
-        cleanup();
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    // const observer = new MutationObserver((mutations) => {
+    //   if (mutations.some((m) => Array.from(m.removedNodes).includes(rootEl))) {
+    //     cleanup();
+    //     observer.disconnect();
+    //   }
+    // });
+    // observer.observe(document.body, { childList: true, subtree: true });
 
     return renderedApp;
   } catch (error) {
