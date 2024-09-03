@@ -2,7 +2,6 @@ import createCache from "@emotion/cache";
 import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import { doc } from "prettier";
 import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { AIBuildingOverlay } from "./components/AIBuildingOverlay";
@@ -17,7 +16,7 @@ const createJsBlob = (code: string | Uint8Array): string =>
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
 // Components
-const AppRenderer: React.FC<AppRendererProps> = ({ transpiled, code, width, height, top, left }) => {
+export const AppRenderer: React.FC<AppRendererProps> = ({ transpiled, code, width, height, top, left }) => {
   const AppToRender = React.lazy(async () =>
     import(
       /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
