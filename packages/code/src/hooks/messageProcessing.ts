@@ -56,7 +56,6 @@ export async function processMessage(
   updatedMessages: Message[],
   codeNow: string,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  setAICode: React.Dispatch<React.SetStateAction<string>>,
   saveMessages: (newMessages: Message[]) => void,
   mutex: Mutex,
 ): Promise<boolean> {
@@ -120,12 +119,6 @@ export async function processMessage(
     return true;
   } catch (error) {
     console.error("Error in processMessage:", error);
-    await aiHandler.continueWithOpenAI(
-      "An error occurred. Please try to fix it.",
-      codeNow,
-      setMessages,
-      setAICode,
-    );
     return false;
   }
 }
@@ -159,7 +152,7 @@ function createOnUpdateFunction(
           preUpdates.lastCode = lastCode;
           preUpdates.count += 1;
           try {
-            await cSess.setCode(lastCode);
+            await trySetCode(cSess, lastCode);
           } catch (error) {
             console.error("Error in runner:", error);
           }

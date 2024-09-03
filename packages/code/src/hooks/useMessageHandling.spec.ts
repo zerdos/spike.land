@@ -38,7 +38,7 @@ describe("useMessageHandling", () => {
       code: "test code",
     },
     broadCastSessChanged: vi.fn(),
-    setCode: vi.fn(),
+    setCode: vi.fn().mockResolvedValue(true),
     sub: vi.fn(),
   };
 
@@ -66,10 +66,13 @@ describe("useMessageHandling", () => {
     const mockNewMessage: Message = { id: "new-message-id", role: "user", content: "Test message" };
     vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
-    vi.spyOn(messageProcessing, "processMessage").mockImplementation(async (_, __, ___, ____, setMessages) => {
-      setMessages([mockNewMessage]);
-      return true; // Return a boolean as expected by the real function
-    });
+    vi.spyOn(messageProcessing, "processMessage").mockImplementation(
+      async (_, __, ___, ____, setMessages, saveMessages) => {
+        setMessages([mockNewMessage]);
+        saveMessages([mockNewMessage]);
+        return true;
+      },
+    );
 
     const { result } = renderHook(() => useMessageHandling(mockProps));
 
@@ -78,9 +81,9 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
-    expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
     expect(messageProcessing.processMessage).toHaveBeenCalled();
     expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
+    expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
   });
 
   it("should handle editing a message", () => {

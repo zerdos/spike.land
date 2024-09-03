@@ -96,9 +96,8 @@ Response format:
 
 Always focus on concise, targeted updates rather than full file replacements.
 
-The user prompt is:
+The user's first message follows:
 ${userPrompt}
-
 `;
 
 export const reminder = ({ userPrompt }: { userPrompt: string }) => `

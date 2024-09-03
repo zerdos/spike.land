@@ -51,25 +51,26 @@ export const useMessageHandling = ({
       codeSpace,
     );
 
-    // let screenshotUsed = false;
-
-    // if (messages.length === 0 || code !== codeWhatAiSeen) {
-    //   setAICode(code);
-    //   screenshotUsed = true;
-    //   const systemPrompt = await createNewMessage(screenshot, claudeContent, true);
-    //   messages.push(systemPrompt);
-    // }
-
     const updatedMessages = [...messages, await createNewMessage(screenshot, claudeContent + content, false)];
 
     setInput("");
 
     try {
-      await processMessage(aiHandler, cSess, updatedMessages, code, setMessages, setAICode, setMessages, mutex);
+      const success = await processMessage(
+        aiHandler,
+        cSess,
+        updatedMessages,
+        code,
+        setMessages,
+        (newMessages: Message[]) => setMessages(newMessages),
+        mutex,
+      );
+      if (success) {
+        setAICode(code);
+      }
     } catch (error) {
       console.error("Error processing request:", error);
       handleError(updatedMessages, setMessages);
-    } finally {
     }
   }, [
     codeSpace,
