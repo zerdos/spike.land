@@ -1,3 +1,4 @@
+import { md5 } from "@/lib/md5";
 import createCache from "@emotion/cache";
 import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
@@ -60,7 +61,11 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
 
     const rootRef = createRoot(containerRef.current!);
 
-    const cssCache = createCache({ key: "css", speedy: false });
+    const cssCache = createCache({
+      key: md5(code || transpiled || Math.random().toString()),
+      speedy: false,
+      container: containerRef.current,
+    });
 
     rootRef.render(
       <ErrorBoundary>
@@ -81,8 +86,10 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
   return (
     <div
       ref={containerRef}
-      css={css`width: 100%; height: 100%;`}
-      data-testid="wrapper-container"
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
     />
   );
 };
