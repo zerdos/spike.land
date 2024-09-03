@@ -1,22 +1,8 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { md5 } from "@/lib/md5";
 import { AnimatePresence, motion } from "framer-motion";
+import { CircleMinus } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-
-const XCircle: React.FC<{ className: string }> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-  >
-    <path
-      fillRule="evenodd"
-      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm3 10.5a.75.75 0 0 0 0-1.5H9a.75.75 0 0 0 0 1.5h6Z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
 
 interface ImageData {
   imageName: string;
@@ -235,9 +221,9 @@ const ImageGallery: React.FC<{
         </span>
         <button
           onClick={() => removeImage(index)}
-          className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-white shadow-md transition-colors duration-300"
+          className="absolute -top-2 right-[10%] bg-red-500 hover:bg-red-600 rounded-full w-6 h-6 flex items-center justify-center text-white shadow-md transition-colors duration-300"
         >
-          <XCircle className="w-4 h-4 text-white" />
+          <CircleMinus className="w-6 h-6 text-white" />
         </button>
       </div>
     ))}
