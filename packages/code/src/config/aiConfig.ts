@@ -35,6 +35,30 @@ const RESOLUTION = {
 Also, the block will be executed one by one, so you can't use the the replaced block in the next search block.
 `;
 
+export const claudeRevery = (codeNow: string) =>
+  `Hey,
+something went wrong with processing your code. Its not even running.
+Did you send the change request in the correct format? 
+You must modify the code using string replace tools. The sting replace block is applied on the whole code. 
+The format is as follows:
+<<<<<<< SEARCH
+[Original code to be replaced]
+=======
+[New code to replace the original]
+>>>>>>> REPLACE
+
+This format helps to clearly identify the changes to be made.
+
+I followed the instructions you gave me, but it seems that I'm still stuck. The code I have is:
+
+\`\`\`tsx
+${codeNow}
+\`\`\`
+
+Could you help me with this error? I'm stuck.
+Usw only the code block format to provide the changes.
+`;
+
 export const anthropicSystem = (
   { fileName, fileContent }: {
     fileName: string;

@@ -1,4 +1,5 @@
 import type { AIHandler } from "@src/AIHandler";
+import { claudeRevery } from "@src/config/aiConfig";
 import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
 import { Message } from "../types/Message";
@@ -81,13 +82,45 @@ export async function processMessage(
   try {
     if (starterCode !== codeNow) {
       success = !!await cSess.setCode(starterCode);
+      if (success) return true;
       if (!success) {
-        await aiHandler.continueWithOpenAI(
-          `Please try to fix it.`,
-          starterCode,
-          setMessages,
-          setAICode,
+        const userMessage = await createNewMessage(``, claudeRevery(starterCode), false);
+        const sentMessages = [...updatedMessages, userMessage];
+        const onUpdate = createOnUpdateFunction(sentMessages, preUpdates, mutex, setMessages, cSess);
+
+        let assistantMessage = await aiHandler.sendToAnthropic(
+          updatedMessages,
+          onUpdate,
         );
+
+        if (typeof assistantMessage.content !== "string" && !Array.isArray(assistantMessage.content)) {
+          throw new Error("Invalid assistant message content");
+        }
+
+        if (
+          typeof assistantMessage.content === "string"
+          && assistantMessage.content.includes("An error occurred while processing")
+        ) {
+          await cSess.setCode(codeNow);
+          assistantMessage = await aiHandler.sendToGpt4o(
+            updatedMessages,
+            onUpdate,
+          );
+        }
+
+        updatedMessages.push(assistantMessage);
+        saveMessages(updatedMessages);
+
+        const contentToProcess = Array.isArray(assistantMessage.content)
+          ? assistantMessage.content.find(item => item.type === "text")?.text || ""
+          : assistantMessage.content;
+
+        const secondGuess = updateSearchReplace(contentToProcess, codeNow);
+
+        success = !!await cSess.setCode(secondGuess);
+        if (success) return true;
+
+        throw new Error("Error setting code");
       }
     }
   } catch (error) {
@@ -105,7 +138,7 @@ function createOnUpdateFunction(
   preUpdates: any,
   mutex: Mutex,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
-  cSess: any, // Add cSess as a parameter
+  cSess: ICode,
 ) {
   return async (code: string) => {
     await mutex.runExclusive(async () => {
