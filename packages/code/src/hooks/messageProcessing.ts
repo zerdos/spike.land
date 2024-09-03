@@ -126,7 +126,7 @@ export async function processMessage(
 async function trySetCode(cSess: ICode, code: string): Promise<boolean> {
   try {
     const result = await cSess.setCode(code);
-    return result === true || result === "OK";
+    return !!result;
   } catch (error) {
     console.error("Error setting code:", error);
     return false;
