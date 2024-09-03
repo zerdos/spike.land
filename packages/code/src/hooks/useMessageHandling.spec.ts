@@ -2,9 +2,9 @@ import { cSessMock } from "@src/config/cSessMock";
 import type { Message } from "@src/types/Message";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useMessageHandling } from "./useMessageHandling";
 import * as messageProcessing from "./messageProcessing";
 import * as useAutoSave from "./useAutoSave";
+import { useMessageHandling } from "./useMessageHandling";
 
 // Mock dependencies
 vi.mock("@src/AIHandler", () => ({

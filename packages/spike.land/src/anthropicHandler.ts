@@ -20,7 +20,8 @@ export async function handleAnthropicRequest(
   const body = JSON.parse(await readRequestBody(request)) as RequestBody;
 
   const anthropic = new Anthropic({
-    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
+    baseURL:
+      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
     apiKey: env.ANTHROPIC_API_KEY,
   });
 
@@ -50,7 +51,9 @@ export async function handleAnthropicRequest(
 
   ctx.waitUntil((async () => {
     try {
-      const stream = await anthropic.messages.create(conf) as Stream<Anthropic.Messages.RawMessageStreamEvent>;
+      const stream = await anthropic.messages.create(conf) as Stream<
+        Anthropic.Messages.RawMessageStreamEvent
+      >;
 
       for await (const part of stream) {
         if (part.type === "content_block_start" || part.type === "content_block_delta") {
@@ -60,7 +63,9 @@ export async function handleAnthropicRequest(
       }
     } catch (error) {
       console.error("Error:", error);
-      writer.write(textEncoder.encode("An error occurred while processing your request."));
+      writer.write(
+        textEncoder.encode("An error occurred while processing your request."),
+      );
     } finally {
       await writer.close();
     }
@@ -85,7 +90,9 @@ function preprocessMessages(body: RequestBody): RequestBody {
       processedBody.system = getSystemMessage(firstMessage);
       processedBody.messages.shift();
     } else if (Array.isArray(firstMessage.content)) {
-      const systemContent = firstMessage.content.find(c => c.type === "text" && c.text.startsWith("Human:")) as { text: string } | undefined;
+      const systemContent = firstMessage.content.find(c =>
+        c.type === "text" && c.text.startsWith("Human:")
+      ) as { text: string } | undefined;
       if (systemContent) {
         processedBody.system = systemContent.text.replace("Human:", "").trim();
         firstMessage.content = firstMessage.content.filter(c => c !== systemContent);

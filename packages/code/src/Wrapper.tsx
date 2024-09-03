@@ -1,9 +1,9 @@
-import { md5 } from "@/lib/md5";
 import createCache from "@emotion/cache";
-import { CacheProvider, css } from "@emotion/react";
+import { css } from "@emotion/react";
+import { CacheProvider } from "@emotion/react";
 import { ParentSize } from "@visx/responsive";
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import { createRoot, type Root } from "react-dom/client";
+import React, { useEffect, useMemo, useRef } from "react";
+import { createRoot } from "react-dom/client";
 import { AIBuildingOverlay } from "./components/AIBuildingOverlay";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useAsyncState } from "./hooks/useAsyncState";
@@ -23,16 +23,11 @@ const useCodeSpace = (codeSpace: string) =>
     return response.text();
   }, [codeSpace]);
 
-export const useTranspile = (code: string | undefined) =>
-  useAsyncState(() => (code ? transpile({ code, originToUse: window.location.origin }) : Promise.resolve(null)), [
-    code,
-  ]);
-
 // Components
 const AppRenderer: React.FC<AppRendererProps> = React.memo(
   ({ transpiled, width, height, top, left }) => {
     const AppToRender = useMemo(() => (
-      React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)))
+      React.lazy(() => import(/* @vite-ignore */ createJsBlob(transpiled)).then(x => x.default))
     ), [transpiled]);
 
     return (
@@ -48,77 +43,61 @@ const AppRenderer: React.FC<AppRendererProps> = React.memo(
   },
 );
 
-export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = React.memo(
-  ({ code, codeSpace, transpiled: t, scale = 1 }) => {
-    const transpiledCode = useMemo(() => {
-      if (t) return t;
-      if (code) return useTranspile(code);
-      if (codeSpace) return useCodeSpace(codeSpace);
-      return null;
-    }, [t, code, codeSpace]);
-
-    const containerRef = useRef<HTMLDivElement>(null);
-    const rootRef = useRef<Root | null>(null);
-
-    const cssCache = useMemo(() => createCache({ key: "css", speedy: false, container: containerRef.current || document.body }), []);
-
-    const renderApp = useCallback(() => {
-      if (!rootRef.current || !transpiledCode) return;
-
-      rootRef.current.render(
-        <ErrorBoundary>
-          <CacheProvider value={cssCache}>
-            <ParentSize>
-              {(props) => <AppRenderer transpiled={transpiledCode} {...props} />}
-            </ParentSize>
-          </CacheProvider>
-        </ErrorBoundary>,
-      );
-    }, [transpiledCode, cssCache]);
-
-    useEffect(() => {
-      if (!containerRef.current || !transpiledCode) return;
-
-      if (!rootRef.current) {
-        rootRef.current = createRoot(containerRef.current);
-      }
-
-      renderApp();
-
-      return () => {
-        setTimeout(() => {
-          rootRef.current?.unmount();
-          rootRef.current = null;
-        }, 0);
-      };
-    }, [transpiledCode, renderApp]);
-
-    if (codeSpace) {
-      return (
-        <iframe
-          css={css`
+export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = (
+  { code, codeSpace, transpiled: t, scale = 1 },
+) => {
+  if (codeSpace) {
+    return (
+      <iframe
+        css={css`
             height: ${100 / scale}%;
             width: ${100 / scale}%;
             border: 0;
             overflow: 'scroll';
             -webkit-overflow-scrolling: touch;
           `}
-          src={`/live/${codeSpace}/embed`}
-        />
-      );
-    }
-
-    if (!transpiledCode) return null;
-
-    return (
-      <div
-        ref={containerRef}
-        css={css`width: 100%; height: 100%;`}
-        data-testid="wrapper-container"
+        src={`/live/${codeSpace}/embed`}
       />
     );
-  },
-);
+  }
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current === null) return;
+
+    (async () => {
+      const transpiledCode = await (async () => {
+        if (t) return t;
+        if (code) return await transpile({ code, originToUse: "https://spike.land" });
+        if (codeSpace) return useCodeSpace(codeSpace);
+        return null;
+      })();
+
+      const rootRef = createRoot(containerRef.current!);
+
+      const cssCache = createCache({ key: "css", speedy: false });
+
+      rootRef.render(
+        <ErrorBoundary>
+          <CacheProvider value={cssCache}>
+            <ParentSize>
+              {(props) => <AppRenderer transpiled={transpiledCode!} {...props} />}
+            </ParentSize>
+          </CacheProvider>
+        </ErrorBoundary>,
+      );
+    })();
+  }, [containerRef]);
+
+  return (
+    <div
+      ref={containerRef}
+      css={css`width: 100%; height: 100%;`}
+      data-testid="wrapper-container"
+    />
+  );
+};
 
 // Main render function
 const renderApp = async (
@@ -190,4 +169,4 @@ const renderApp = async (
   }
 };
 
-export { md5, renderApp };
+export { renderApp };
