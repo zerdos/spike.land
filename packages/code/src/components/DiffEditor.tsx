@@ -62,6 +62,7 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
 
       setDiffEditor(diffy);
     }
+
     return () => {
       if (diffEditor) {
         // const diffModels = diffEditor.getModel();
@@ -69,7 +70,12 @@ export const DiffEditor: React.FC<DiffEditorProps> = memo(({
         //   diffModels.original.dispose();
         //   diffModels.modified.dispose();
         // }
+        const diffModels = diffEditor.getModel();
         diffEditor.dispose();
+        if (diffModels) {
+          diffModels.original.dispose();
+          diffModels.modified.dispose();
+        }
       }
     };
   }, [containerRef, containerRef.current, diffEditor]);

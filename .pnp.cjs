@@ -202,7 +202,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@babel/code-frame", "npm:7.24.7"],\
           ["@babel/highlight", "npm:7.24.7"],\
-          ["picocolors", "npm:1.0.1"]\
+          ["picocolors", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -370,7 +370,7 @@ const RAW_RUNTIME_STATE =
           ["@babel/helper-validator-identifier", "npm:7.24.7"],\
           ["chalk", "npm:2.4.2"],\
           ["js-tokens", "npm:4.0.0"],\
-          ["picocolors", "npm:1.0.1"]\
+          ["picocolors", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2133,7 +2133,7 @@ const RAW_RUNTIME_STATE =
           ["@langchain/anthropic", "npm:0.2.15"],\
           ["@anthropic-ai/sdk", "npm:0.25.2"],\
           ["@langchain/core", "npm:0.2.31"],\
-          ["fast-xml-parser", "npm:4.4.1"],\
+          ["fast-xml-parser", "npm:4.5.0"],\
           ["zod", "npm:3.23.8"],\
           ["zod-to-json-schema", "virtual:3a8146fba30168ad0df6205264fc7bc4cd1311dd390e6eae97bcdb8686353fa302760a928ebaa31d9d9cddfbd3b2c259c3edfacdf7a34af912d4cf3df78ce2da#npm:3.23.2"]\
         ],\
@@ -7902,7 +7902,7 @@ const RAW_RUNTIME_STATE =
           ["caniuse-lite", "npm:1.0.30001655"],\
           ["fraction.js", "npm:4.3.7"],\
           ["normalize-range", "npm:0.1.2"],\
-          ["picocolors", "npm:1.0.1"],\
+          ["picocolors", "npm:1.1.0"],\
           ["postcss", "npm:8.4.44"],\
           ["postcss-value-parser", "npm:4.2.0"]\
         ],\
@@ -7921,7 +7921,7 @@ const RAW_RUNTIME_STATE =
           ["caniuse-lite", "npm:1.0.30001655"],\
           ["fraction.js", "npm:4.3.7"],\
           ["normalize-range", "npm:0.1.2"],\
-          ["picocolors", "npm:1.0.1"],\
+          ["picocolors", "npm:1.1.0"],\
           ["postcss", null],\
           ["postcss-value-parser", "npm:4.2.0"]\
         ],\
@@ -11547,10 +11547,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["fast-xml-parser", [\
-      ["npm:4.4.1", {\
-        "packageLocation": "./.yarn/global/cache/fast-xml-parser-npm-4.4.1-b48f31eba7-10.zip/node_modules/fast-xml-parser/",\
+      ["npm:4.5.0", {\
+        "packageLocation": "./.yarn/global/cache/fast-xml-parser-npm-4.5.0-353a57f69a-10.zip/node_modules/fast-xml-parser/",\
         "packageDependencies": [\
-          ["fast-xml-parser", "npm:4.4.1"],\
+          ["fast-xml-parser", "npm:4.5.0"],\
           ["strnum", "npm:1.0.5"]\
         ],\
         "linkType": "HARD"\
@@ -16993,10 +16993,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["picocolors", [\
-      ["npm:1.0.1", {\
-        "packageLocation": "./.yarn/global/cache/picocolors-npm-1.0.1-39442f3da8-10.zip/node_modules/picocolors/",\
+      ["npm:1.1.0", {\
+        "packageLocation": "./.yarn/global/cache/picocolors-npm-1.1.0-ea12a640bd-10.zip/node_modules/picocolors/",\
         "packageDependencies": [\
-          ["picocolors", "npm:1.0.1"]\
+          ["picocolors", "npm:1.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -17112,7 +17112,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["postcss", "npm:8.4.44"],\
           ["nanoid", "npm:3.3.7"],\
-          ["picocolors", "npm:1.0.1"],\
+          ["picocolors", "npm:1.1.0"],\
           ["source-map-js", "npm:1.2.0"]\
         ],\
         "linkType": "HARD"\
@@ -20418,7 +20418,7 @@ const RAW_RUNTIME_STATE =
           ["micromatch", "npm:4.0.8"],\
           ["normalize-path", "npm:3.0.0"],\
           ["object-hash", "npm:3.0.0"],\
-          ["picocolors", "npm:1.0.1"],\
+          ["picocolors", "npm:1.1.0"],\
           ["postcss", "npm:8.4.44"],\
           ["postcss-import", "virtual:32443f8dff76478f7c5c6e3c656bc03946ca349f2bafe2416c9ec48d8b197cf19ccac9337ccec89bbe1cd1114480640967e433c84d60fb2619debfc61ba2dae8#npm:15.1.0"],\
           ["postcss-js", "virtual:32443f8dff76478f7c5c6e3c656bc03946ca349f2bafe2416c9ec48d8b197cf19ccac9337ccec89bbe1cd1114480640967e433c84d60fb2619debfc61ba2dae8#npm:4.0.1"],\
@@ -21426,7 +21426,7 @@ const RAW_RUNTIME_STATE =
           ["@types/browserslist", null],\
           ["browserslist", "npm:4.23.3"],\
           ["escalade", "npm:3.2.0"],\
-          ["picocolors", "npm:1.0.1"]\
+          ["picocolors", "npm:1.1.0"]\
         ],\
         "packagePeers": [\
           "@types/browserslist",\
