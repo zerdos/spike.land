@@ -167,4 +167,4 @@ const renderApp = async (
   }
 };
 
-export { renderApp };
+export { md5, renderApp };
