@@ -49,7 +49,7 @@ export function importMapReplace(code: string, origin: string): string {
       if (pkg.startsWith("./")) return match;
       if (pkg.startsWith(",")) return match;
 
-      return `import "https://esm.sh/*${match.split("\"")[1]}?bundle";`;
+      return `import "${origin}/*${match.split("\"")[1]}?bundle";`;
     }
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
@@ -75,7 +75,7 @@ export function importMapReplace(code: string, origin: string): string {
         const oldUrl = new URL(packageName);
         const [pkgName, exports] = oldUrl.pathname.slice(1).split("?bundle=true&exports=");
         if (exports) {
-          return p1 + `"https://esm.sh/*${pkgName}?bundle=true&exports=${exports}"` + p3;
+          return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
         }
         return match; // Keep external URLs as they are
       }
@@ -100,7 +100,7 @@ export function importMapReplace(code: string, origin: string): string {
     // Handle specific exports
     const [pkgName, exports] = packageName.split("?bundle=true&exports=");
     if (exports) {
-      return p1 + `"https://esm.sh/*${pkgName}?bundle=true&exports=${exports}"` + p3;
+      return p1 + `"${origin}/*${pkgName}?bundle=true&exports=${exports}"` + p3;
     }
 
     // Handle clever top-level exports
@@ -110,10 +110,10 @@ export function importMapReplace(code: string, origin: string): string {
         const [originalName, _alias] = item.trim().split(/\s+as\s+/);
         return originalName.trim();
       });
-      return p1 + `"https://esm.sh/*${packageName}?bundle=true&exports=${importedItems.join(",")}"` + p3;
+      return p1 + `"${origin}/*${packageName}?bundle=true&exports=${importedItems.join(",")}"` + p3;
     }
 
-    return p1 + `"https://esm.sh/*${packageName}?bundle"` + p3;
+    return p1 + `"${origin}/*${packageName}?bundle"` + p3;
   };
 
   // Convert code to string if it's not already a string
@@ -134,7 +134,7 @@ export function importMapReplace(code: string, origin: string): string {
   }).filter((line) => !line.startsWith("//")).join("\n");
   // Replace specific package paths based on the import map (oo)
   Object.keys(oo).forEach((pkg) => {
-    replaced = replaced.split(`https://esm.sh/*${pkg}?bundle`).join(
+    replaced = replaced.split(`${origin}/*${pkg}?bundle`).join(
       origin + oo[pkg as keyof typeof oo],
     );
   });
