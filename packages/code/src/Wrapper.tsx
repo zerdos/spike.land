@@ -15,15 +15,15 @@ const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
-// Hooks
 
+// Hooks
 const useCodeSpace = (codeSpace: string) =>
   useAsyncState(async () => {
     const response = await fetch(`${window.location.origin}/live/${codeSpace}/index.js`);
     return response.text();
   }, [codeSpace]);
 
-const useTranspile = (code: string) =>
+export const useTranspile = (code: string) =>
   useAsyncState(() => transpile({ code, originToUse: window.location.origin }), [code]);
 
 // Components
@@ -46,8 +46,51 @@ const AppRenderer: React.FC<AppRendererProps> = React.memo(
   },
 );
 
-const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = React.memo(
+export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = React.memo(
   ({ code, codeSpace, transpiled: t, scale = 1 }) => {
+    const transpiledCode = useMemo(() => {
+      if (t) return t;
+      if (code) return useTranspile(code);
+      if (codeSpace) return useCodeSpace(codeSpace);
+      return null;
+    }, [t, code, codeSpace]);
+
+    const containerRef = useRef<HTMLDivElement>(null);
+    const rootRef = useRef<Root | null>(null);
+
+    const cssCache = useMemo(() => createCache({ key: "css", speedy: false, container: containerRef.current! }), []);
+
+    const renderApp = useCallback(() => {
+      if (!rootRef.current || !transpiledCode) return;
+
+      rootRef.current.render(
+        <ErrorBoundary>
+          <CacheProvider value={cssCache}>
+            <ParentSize>
+              {(props) => <AppRenderer transpiled={transpiledCode} {...props} />}
+            </ParentSize>
+          </CacheProvider>
+        </ErrorBoundary>,
+      );
+    }, [transpiledCode, cssCache]);
+
+    useEffect(() => {
+      if (!containerRef.current || !transpiledCode) return;
+
+      if (!rootRef.current) {
+        rootRef.current = createRoot(containerRef.current);
+      }
+
+      renderApp();
+
+      return () => {
+        setTimeout(() => {
+          rootRef.current?.unmount();
+          rootRef.current = null;
+        }, 0);
+      };
+    }, [transpiledCode, renderApp]);
+
     if (codeSpace) {
       return (
         <iframe
@@ -63,44 +106,7 @@ const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string
       );
     }
 
-    const transpiled = t || (code && useTranspile(code)) || (codeSpace && useCodeSpace(codeSpace));
-
-    const containerRef = useRef<HTMLDivElement>(null);
-    const rootRef = useRef<Root | null>(null);
-
-    if (!transpiled) return null;
-    const cssCache = createCache({ key: "css", speedy: false, container: containerRef.current! });
-
-    const renderApp = useCallback(() => {
-      if (!rootRef.current || !transpiled) return;
-
-      rootRef.current.render(
-        <ErrorBoundary>
-          <CacheProvider value={cssCache}>
-            <ParentSize>
-              {(props) => <AppRenderer transpiled={transpiled} {...props} />}
-            </ParentSize>
-          </CacheProvider>
-        </ErrorBoundary>,
-      );
-    }, [transpiled, cssCache]);
-
-    useEffect(() => {
-      if (!containerRef.current || !transpiled) return;
-
-      if (!rootRef.current) {
-        rootRef.current = createRoot(containerRef.current);
-      }
-
-      renderApp();
-
-      return () => {
-        setTimeout(() => {
-          rootRef.current?.unmount();
-          rootRef.current = null;
-        }, 0);
-      };
-    }, [transpiled, renderApp]);
+    if (!transpiledCode) return null;
 
     return (
       <div
@@ -182,4 +188,4 @@ const renderApp = async (
   }
 };
 
-export { md5, renderApp, useTranspile, Wrapper };
+export { md5, renderApp };

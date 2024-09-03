@@ -11,7 +11,7 @@ export class Code implements ICode {
   head: string;
   user: string;
   broadcastedCounter = 0;
-  private codeSpace = useCodeSpace();
+  codeSpace = useCodeSpace();
   private BC = new BroadcastChannel(`${location.origin}/live/${this.codeSpace}/`);
 
   ignoreUsers: string[] = [];

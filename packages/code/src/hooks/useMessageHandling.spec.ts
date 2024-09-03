@@ -3,11 +3,25 @@ import type { Message } from "@src/types/Message";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useMessageHandling } from "./useMessageHandling";
+import * as messageProcessing from "./messageProcessing";
+import * as useAutoSave from "./useAutoSave";
 
 // Mock dependencies
-vi.mock("@src/AIHandler");
+vi.mock("@src/AIHandler", () => ({
+  AIHandler: vi.fn(() => ({
+    prepareClaudeContent: vi.fn().mockReturnValue("mocked claude content"),
+  })),
+}));
 vi.mock("@src/services/runner");
-vi.mock("../utils/chatUtils");
+vi.mock("./messageProcessing", () => ({
+  createNewMessage: vi.fn((content, isSystem) => ({
+    id: "mock-id",
+    role: isSystem ? "system" : "user",
+    content,
+  })),
+  handleError: vi.fn(),
+  processMessage: vi.fn(),
+}));
 vi.mock("./useAutoSave", () => ({
   useAutoSave: vi.fn(),
 }));
@@ -17,6 +31,17 @@ vi.mock("../shared", () => ({
 }));
 
 describe("useMessageHandling", () => {
+  const mockCsess = {
+    ...cSessMock,
+    session: {
+      ...cSessMock.session,
+      code: "test code",
+    },
+    broadCastSessChanged: vi.fn(),
+    setCode: vi.fn(),
+    sub: vi.fn(),
+  };
+
   const mockProps = {
     codeSpace: "test-space",
     messages: [],
@@ -29,7 +54,7 @@ describe("useMessageHandling", () => {
     setEditingMessageId: vi.fn(),
     editInput: "",
     setEditInput: vi.fn(),
-    cSess: cSessMock,
+    cSess: mockCsess,
     setCodeWhatAiSeen: vi.fn(),
   };
 
@@ -37,9 +62,29 @@ describe("useMessageHandling", () => {
     vi.clearAllMocks();
   });
 
+  it("should handle sending a message", async () => {
+    const mockNewMessage: Message = { id: "new-message-id", role: "user", content: "Test message" };
+    vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
+    vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
+    vi.spyOn(messageProcessing, "processMessage").mockImplementation(async (_, __, ___, ____, setMessages) => {
+      setMessages([mockNewMessage]);
+    });
+
+    const { result } = renderHook(() => useMessageHandling(mockProps));
+
+    await act(async () => {
+      await result.current.handleSendMessage("Test message", "mock-screenshot-data");
+    });
+
+    expect(mockProps.setInput).toHaveBeenCalledWith("");
+    expect(mockProps.setAICode).toHaveBeenCalledWith("test code");
+    expect(messageProcessing.processMessage).toHaveBeenCalled();
+    expect(mockProps.setMessages).toHaveBeenCalledWith([mockNewMessage]);
+  });
+
   it("should handle editing a message", () => {
     const messages: Message[] = [
-      { id: "1", role: "user" as const, content: "Test message" },
+      { id: "1", role: "user", content: "Test message" },
     ];
     const { result } = renderHook(() => useMessageHandling({ ...mockProps, messages }));
 
@@ -81,7 +126,29 @@ describe("useMessageHandling", () => {
     expect(mockProps.setMessages).toHaveBeenCalledWith([
       { id: "1", role: "user", content: "Edited message" },
     ]);
-    expect(mockProps.setMessages).toHaveBeenCalled();
+    expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
+    expect(mockProps.setEditInput).toHaveBeenCalledWith("");
+  });
+
+  it("should handle saving edit for message with array content", () => {
+    const messages = [
+      { id: "1", role: "user", content: [{ type: "text", text: "Original message" }] } as Message,
+    ];
+    const { result } = renderHook(() =>
+      useMessageHandling({
+        ...mockProps,
+        messages,
+        editInput: "Edited message",
+      })
+    );
+
+    act(() => {
+      result.current.handleSaveEdit("1");
+    });
+
+    expect(mockProps.setMessages).toHaveBeenCalledWith([
+      { id: "1", role: "user", content: [{ type: "text", text: "Edited message" }] },
+    ]);
     expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockProps.setEditInput).toHaveBeenCalledWith("");
   });

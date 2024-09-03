@@ -4,6 +4,12 @@ import type { Stream } from "@anthropic-ai/sdk/streaming";
 import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 
+interface RequestBody {
+  stream?: boolean;
+  system?: string;
+  messages: MessageParam[];
+}
+
 export async function handleAnthropicRequest(
   request: Request,
   env: Env,
@@ -11,51 +17,21 @@ export async function handleAnthropicRequest(
 ) {
   handleCORS(request);
 
-  const body = JSON.parse(await readRequestBody(request)) as {
-    stream?: boolean;
-    system?: string;
-    messages: MessageParam[];
-  };
+  const body = JSON.parse(await readRequestBody(request)) as RequestBody;
 
   const anthropic = new Anthropic({
-    baseURL:
-      "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
+    baseURL: "https://gateway.ai.cloudflare.com/v1/1f98921051196545ebe79a450d3c71ed/z1/anthropic",
     apiKey: env.ANTHROPIC_API_KEY,
   });
 
-  const { readable, writable } = new TransformStream();
-  const writer = writable.getWriter();
-  const textEncoder = new TextEncoder();
-
-  if (!(body.messages[0].role === "user" || body.messages[0].role === "assistant")) {
-    const system = body.messages[0].content;
-    if (typeof system === "string") {
-      body.system = system;
-      body.messages.shift();
-    } else {
-      body.system = system.find(s => s.type === "text")?.text;
-      body.messages[0].role = "user";
-      body.messages[0].content = system.filter(s =>
-        s.type !== "text" || s.text !== body.system
-      );
-      const userMessage = body.messages[1];
-      const userMessageContent = userMessage.content;
-      if (typeof userMessageContent === "string") {
-        body.messages[0].content.push({ type: "text", text: userMessageContent });
-      } else {
-        body.messages[0].content.push(...userMessageContent);
-      }
-
-      body.messages.splice(1, 1);
-    }
-  }
+  const processedBody = preprocessMessages(body);
 
   const conf = {
     model: "claude-3-5-sonnet-20240620",
     max_tokens: 2 * 4096,
     temperature: 0.1,
     stream: true,
-    ...body,
+    ...processedBody,
   };
 
   if (conf.stream === false) {
@@ -68,26 +44,23 @@ export async function handleAnthropicRequest(
     });
   }
 
+  const { readable, writable } = new TransformStream();
+  const writer = writable.getWriter();
+  const textEncoder = new TextEncoder();
+
   ctx.waitUntil((async () => {
     try {
-      const stream = await anthropic.messages.create(conf) as Stream<
-        Anthropic.Messages.RawMessageStreamEvent
-      >;
+      const stream = await anthropic.messages.create(conf) as Stream<Anthropic.Messages.RawMessageStreamEvent>;
 
       for await (const part of stream) {
-        if (
-          part.type === "content_block_start"
-          || part.type === "content_block_delta"
-        ) {
+        if (part.type === "content_block_start" || part.type === "content_block_delta") {
           const text = "delta" in part ? (part.delta as TextDelta).text : "";
           writer.write(textEncoder.encode(text || ""));
         }
       }
     } catch (error) {
       console.error("Error:", error);
-      writer.write(
-        textEncoder.encode("An error occurred while processing your request."),
-      );
+      writer.write(textEncoder.encode("An error occurred while processing your request."));
     } finally {
       await writer.close();
     }
@@ -101,4 +74,34 @@ export async function handleAnthropicRequest(
       "Access-Control-Allow-Origin": "*",
     },
   });
+}
+
+function preprocessMessages(body: RequestBody): RequestBody {
+  const processedBody: RequestBody = { ...body, messages: [...body.messages] };
+
+  if (processedBody.messages.length > 0) {
+    const firstMessage = processedBody.messages[0];
+    if (firstMessage.role !== "user") {
+      processedBody.system = getSystemMessage(firstMessage);
+      processedBody.messages.shift();
+    } else if (Array.isArray(firstMessage.content)) {
+      const systemContent = firstMessage.content.find(c => c.type === "text" && c.text.startsWith("Human:")) as { text: string } | undefined;
+      if (systemContent) {
+        processedBody.system = systemContent.text.replace("Human:", "").trim();
+        firstMessage.content = firstMessage.content.filter(c => c !== systemContent);
+      }
+    }
+  }
+
+  return processedBody;
+}
+
+function getSystemMessage(message: MessageParam): string {
+  if (typeof message.content === "string") {
+    return message.content;
+  } else if (Array.isArray(message.content)) {
+    const textContent = message.content.find(c => c.type === "text");
+    return textContent ? textContent.text : "";
+  }
+  return "";
 }

@@ -41,7 +41,7 @@ export const anthropicSystem = (
     fileContent: string;
   },
 ) =>
-  `hey,
+  `Hey,
 You are an AI assistant for an online code editor, 
 helping with React components. 
 

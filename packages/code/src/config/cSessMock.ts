@@ -3,6 +3,7 @@ import { ICodeSession } from "@src/makeSess";
 
 class SessMock implements ICode {
   buffy: Promise<void>[] = [];
+  codeSpace: string = "mock-code-space";
 
   private subs: ((sess: ICodeSession) => void)[] = [];
 
@@ -29,7 +30,6 @@ class SessMock implements ICode {
     this.broadCastSessChanged();
     return rawCode;
   }
-  // Add properties or methods here
 }
 
 export const cSessMock = new SessMock();
