@@ -38,7 +38,7 @@ describe("Wrapper", () => {
     await act(async () => {
       render(<Wrapper code="test code" />, { container });
     });
-    
+
     await waitFor(() => {
       expect(container.querySelector("[data-testid='wrapper-container']")).toBeInTheDocument();
     });
