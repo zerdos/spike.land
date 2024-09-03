@@ -1,14 +1,10 @@
+import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Slot } from "@radix-ui/react-slot";
-import { ChevronRight, MoreHorizontal } from "lucide-react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Breadcrumb: React.ForwardRefExoticComponent<
-  Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>, "ref"> & {
-    separator?: React.ReactNode;
-  } & React.RefAttributes<HTMLElement>
-> = React.forwardRef<
+const Breadcrumb = React.forwardRef<
   HTMLElement,
   React.ComponentPropsWithoutRef<"nav"> & {
     separator?: React.ReactNode;
@@ -16,17 +12,14 @@ const Breadcrumb: React.ForwardRefExoticComponent<
 >(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
 Breadcrumb.displayName = "Breadcrumb";
 
-const BreadcrumbList: React.ForwardRefExoticComponent<
-  & Omit<React.DetailedHTMLProps<React.OlHTMLAttributes<HTMLOListElement>, HTMLOListElement>, "ref">
-  & React.RefAttributes<HTMLOListElement>
-> = React.forwardRef<
+const BreadcrumbList = React.forwardRef<
   HTMLOListElement,
   React.ComponentPropsWithoutRef<"ol">
 >(({ className, ...props }, ref) => (
   <ol
     ref={ref}
     className={cn(
-      "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
+      "flex flex-wrap items-center gap-1.5 break-words text-sm text-zinc-500 sm:gap-2.5 dark:text-zinc-400",
       className,
     )}
     {...props}
@@ -34,10 +27,7 @@ const BreadcrumbList: React.ForwardRefExoticComponent<
 ));
 BreadcrumbList.displayName = "BreadcrumbList";
 
-const BreadcrumbItem: React.ForwardRefExoticComponent<
-  & Omit<React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>, "ref">
-  & React.RefAttributes<HTMLLIElement>
-> = React.forwardRef<
+const BreadcrumbItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentPropsWithoutRef<"li">
 >(({ className, ...props }, ref) => (
@@ -49,11 +39,7 @@ const BreadcrumbItem: React.ForwardRefExoticComponent<
 ));
 BreadcrumbItem.displayName = "BreadcrumbItem";
 
-const BreadcrumbLink: React.ForwardRefExoticComponent<
-  Omit<React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, "ref"> & {
-    asChild?: boolean;
-  } & React.RefAttributes<HTMLAnchorElement>
-> = React.forwardRef<
+const BreadcrumbLink = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentPropsWithoutRef<"a"> & {
     asChild?: boolean;
@@ -64,17 +50,14 @@ const BreadcrumbLink: React.ForwardRefExoticComponent<
   return (
     <Comp
       ref={ref}
-      className={cn("transition-colors hover:text-foreground", className)}
+      className={cn("transition-colors hover:text-zinc-950 dark:hover:text-zinc-50", className)}
       {...props}
     />
   );
 });
 BreadcrumbLink.displayName = "BreadcrumbLink";
 
-const BreadcrumbPage: React.ForwardRefExoticComponent<
-  & Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>, "ref">
-  & React.RefAttributes<HTMLSpanElement>
-> = React.forwardRef<
+const BreadcrumbPage = React.forwardRef<
   HTMLSpanElement,
   React.ComponentPropsWithoutRef<"span">
 >(({ className, ...props }, ref) => (
@@ -83,16 +66,13 @@ const BreadcrumbPage: React.ForwardRefExoticComponent<
     role="link"
     aria-disabled="true"
     aria-current="page"
-    className={cn("font-normal text-foreground", className)}
+    className={cn("font-normal text-zinc-950 dark:text-zinc-50", className)}
     {...props}
   />
 ));
 BreadcrumbPage.displayName = "BreadcrumbPage";
 
-const BreadcrumbSeparator: {
-  ({ children, className, ...props }: React.ComponentProps<"li">): import("@emotion/react/jsx-runtime").JSX.Element;
-  displayName: string;
-} = ({
+const BreadcrumbSeparator = ({
   children,
   className,
   ...props
@@ -103,15 +83,12 @@ const BreadcrumbSeparator: {
     className={cn("[&>svg]:size-3.5", className)}
     {...props}
   >
-    {children ?? <ChevronRight />}
+    {children ?? <ChevronRightIcon />}
   </li>
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
-const BreadcrumbEllipsis: {
-  ({ className, ...props }: React.ComponentProps<"span">): import("@emotion/react/jsx-runtime").JSX.Element;
-  displayName: string;
-} = ({
+const BreadcrumbEllipsis = ({
   className,
   ...props
 }: React.ComponentProps<"span">) => (
@@ -121,7 +98,7 @@ const BreadcrumbEllipsis: {
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
   >
-    <MoreHorizontal className="h-4 w-4" />
+    <DotsHorizontalIcon className="h-4 w-4" />
     <span className="sr-only">More</span>
   </span>
 );

@@ -4,12 +4,13 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  "relative w-full rounded-lg border border-zinc-200 px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-zinc-950 [&>svg~*]:pl-7 dark:border-zinc-800 dark:[&>svg]:text-zinc-50",
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
-        destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        default: "bg-white text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50",
+        destructive:
+          "border-red-500/50 text-red-500 dark:border-red-500 [&>svg]:text-red-500 dark:border-red-900/50 dark:text-red-900 dark:dark:border-red-900 dark:[&>svg]:text-red-900",
       },
     },
     defaultVariants: {
@@ -18,19 +19,7 @@ const alertVariants = cva(
   },
 );
 
-const Alert: React.ForwardRefExoticComponent<
-  & React.HTMLAttributes<HTMLDivElement>
-  & VariantProps<
-    (
-      props?:
-        | ({
-          variant?: "default" | "destructive" | null | undefined;
-        } & import("class-variance-authority/dist/types").ClassProp)
-        | undefined,
-    ) => string
-  >
-  & React.RefAttributes<HTMLDivElement>
-> = React.forwardRef<
+const Alert = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
 >(({ className, variant, ...props }, ref) => (
@@ -43,9 +32,7 @@ const Alert: React.ForwardRefExoticComponent<
 ));
 Alert.displayName = "Alert";
 
-const AlertTitle: React.ForwardRefExoticComponent<
-  React.HTMLAttributes<HTMLHeadingElement> & React.RefAttributes<HTMLParagraphElement>
-> = React.forwardRef<
+const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -57,9 +44,7 @@ const AlertTitle: React.ForwardRefExoticComponent<
 ));
 AlertTitle.displayName = "AlertTitle";
 
-const AlertDescription: React.ForwardRefExoticComponent<
-  React.HTMLAttributes<HTMLParagraphElement> & React.RefAttributes<HTMLParagraphElement>
-> = React.forwardRef<
+const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
