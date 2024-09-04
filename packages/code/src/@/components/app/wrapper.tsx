@@ -16,26 +16,6 @@ const createJsBlob = (code: string | Uint8Array): string =>
 
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
-// Components
-const AppRenderer: React.FC<AppRendererProps> = ({ transpiled, code, width, height, top, left }) => {
-  const AppToRender = React.lazy(async () =>
-    import(
-      /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
-    )
-  );
-
-  return (
-    <React.Suspense fallback={<></>}>
-      <AppToRender
-        width={width || window.innerWidth}
-        height={height || window.innerHeight}
-        top={top || 0}
-        left={left || 0}
-      />
-    </React.Suspense>
-  );
-};
-
 export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = (
   { code, codeSpace, transpiled, scale = 1 },
 ) => {
@@ -67,13 +47,21 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
       container: containerRef.current,
     });
 
+    const AppRenderer = React.lazy(async () =>
+      import(
+        /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
+      )
+    );
+
     rootRef.render(
       <CacheProvider value={cssCache}>
-        <ErrorBoundary>
-          <ParentSize>
-            {(parent) => <AppRenderer code={code} transpiled={transpiled} {...parent} />}
-          </ParentSize>
-        </ErrorBoundary>
+        <React.Suspense fallback={<></>}>
+          <ErrorBoundary>
+            <ParentSize>
+              {(parent) => <AppRenderer {...parent} />}
+            </ParentSize>
+          </ErrorBoundary>
+        </React.Suspense>
       </CacheProvider>,
     );
 
