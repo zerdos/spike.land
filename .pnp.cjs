@@ -109,6 +109,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.3"],\
           ["@playwright/test", "npm:1.46.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
+          ["@tailwindcss/typography", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:0.5.15"],\
           ["@types/eslint", "npm:9.6.1"],\
           ["@types/esprima", "npm:4.0.6"],\
           ["@types/react", "npm:18.3.5"],\
@@ -5451,6 +5452,23 @@ const RAW_RUNTIME_STATE =
           ["lodash.merge", "npm:4.6.2"],\
           ["postcss-selector-parser", "npm:6.0.10"],\
           ["tailwindcss", "npm:3.4.10"]\
+        ],\
+        "packagePeers": [\
+          "@types/tailwindcss",\
+          "tailwindcss"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:0.5.15", {\
+        "packageLocation": "./.yarn/__virtual__/@tailwindcss-typography-virtual-3885ee34c1/0/global/cache/@tailwindcss-typography-npm-0.5.15-9a4acf8b32-10.zip/node_modules/@tailwindcss/typography/",\
+        "packageDependencies": [\
+          ["@tailwindcss/typography", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:0.5.15"],\
+          ["@types/tailwindcss", null],\
+          ["lodash.castarray", "npm:4.4.0"],\
+          ["lodash.isplainobject", "npm:4.0.6"],\
+          ["lodash.merge", "npm:4.6.2"],\
+          ["postcss-selector-parser", "npm:6.0.10"],\
+          ["tailwindcss", null]\
         ],\
         "packagePeers": [\
           "@types/tailwindcss",\
@@ -15511,6 +15529,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/react", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:11.13.3"],\
           ["@playwright/test", "npm:1.46.1"],\
           ["@spike-land/ai-devtools", "workspace:packages/ai-devtools"],\
+          ["@tailwindcss/typography", "virtual:153feba997cc61a3cf2b119c73f0a46150f4475b2449b54a9c09ded230a7e59552f9ddaa3d6273b9d60d464227c04336d4b04595bea51827334f0e7840915565#npm:0.5.15"],\
           ["@types/eslint", "npm:9.6.1"],\
           ["@types/esprima", "npm:4.0.6"],\
           ["@types/react", "npm:18.3.5"],\

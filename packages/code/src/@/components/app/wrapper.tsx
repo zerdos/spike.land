@@ -17,7 +17,7 @@ const createJsBlob = (code: string | Uint8Array): string =>
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
 // Components
-export const AppRenderer: React.FC<AppRendererProps> = ({ transpiled, code, width, height, top, left }) => {
+const AppRenderer: React.FC<AppRendererProps> = ({ transpiled, code, width, height, top, left }) => {
   const AppToRender = React.lazy(async () =>
     import(
       /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
@@ -25,7 +25,7 @@ export const AppRenderer: React.FC<AppRendererProps> = ({ transpiled, code, widt
   );
 
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={<></>}>
       <AppToRender
         width={width || window.innerWidth}
         height={height || window.innerHeight}
@@ -68,13 +68,13 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
     });
 
     rootRef.render(
-      <ErrorBoundary>
-        <CacheProvider value={cssCache}>
+      <CacheProvider value={cssCache}>
+        <ErrorBoundary>
           <ParentSize>
-            {(props) => <AppRenderer code={code} transpiled={transpiled} {...props} />}
+            {(parent) => <AppRenderer code={code} transpiled={transpiled} {...parent} />}
           </ParentSize>
-        </CacheProvider>
-      </ErrorBoundary>,
+        </ErrorBoundary>
+      </CacheProvider>,
     );
 
     return () => {
@@ -136,14 +136,16 @@ const renderApp = async (
     });
 
     root.render(
-      <ErrorBoundary>
+      <>
         <CacheProvider value={cssCache}>
-          <ParentSize>
-            {(props) => <AppToRender {...props} />}
-          </ParentSize>
+          <ErrorBoundary>
+            <ParentSize>
+              {(parent) => <AppToRender {...parent} />}
+            </ParentSize>
+          </ErrorBoundary>
         </CacheProvider>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-      </ErrorBoundary>,
+      </>,
     );
 
     const cleanup = () => {

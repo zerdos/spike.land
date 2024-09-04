@@ -12687,6 +12687,7 @@ __metadata:
     "@emotion/react": "npm:11.13.3"
     "@playwright/test": "npm:1.46.1"
     "@spike-land/ai-devtools": "workspace:^"
+    "@tailwindcss/typography": "npm:^0.5.15"
     "@types/eslint": "npm:9.6.1"
     "@types/esprima": "npm:^4.0.6"
     "@types/react": "npm:^18.3.5"
