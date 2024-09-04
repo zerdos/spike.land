@@ -438,9 +438,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/puppeteer@npm:^0.0.13":
-  version: 0.0.13
-  resolution: "@cloudflare/puppeteer@npm:0.0.13"
+"@cloudflare/puppeteer@npm:^0.0.14":
+  version: 0.0.14
+  resolution: "@cloudflare/puppeteer@npm:0.0.14"
   dependencies:
     "@puppeteer/browsers": "npm:1.7.0"
     chromium-bidi: "npm:0.4.20"
@@ -448,7 +448,7 @@ __metadata:
     debug: "npm:4.3.4"
     devtools-protocol: "npm:0.0.1159816"
     ws: "npm:8.13.0"
-  checksum: 10/537fdc7a523f23291877009e38e6be72ada2e906da45886642b8b85d067e8261062719d3876ce42fadf5bcc4cf9b982f5523312c67df36107f783e00a7b9948e
+  checksum: 10/01e04fb38217bcfba4d848f05bcef0e1f0ad31d9236c52a2d65b843416e377ec71f08ba5cf64cbf3b3ffb6d6e3d0aaf97d63af985098ee29c7bd6f9eab088b76
   languageName: node
   linkType: hard
 
@@ -514,10 +514,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:4.20240821.1, @cloudflare/workers-types@npm:^4.20240821.1":
-  version: 4.20240821.1
-  resolution: "@cloudflare/workers-types@npm:4.20240821.1"
-  checksum: 10/981e86ba1b0899f5e1f58087f39ec3720202df9513263704efc9558038c590d67ae9b75b489250c6687ff2dde28b6652cf64d6a6442c6dfef54be3d4d7a70442
+"@cloudflare/workers-types@npm:4.20240903.0, @cloudflare/workers-types@npm:^4.20240903.0":
+  version: 4.20240903.0
+  resolution: "@cloudflare/workers-types@npm:4.20240903.0"
+  checksum: 10/d6f3ab8e3b36094c7392951793fc429a7853e0b3c8771800d61b7147df1db1ab43c9e6a73afe43546b4874f40620634313bcda19c1acadf7d73c4baef1942c53
   languageName: node
   linkType: hard
 
@@ -1568,28 +1568,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/langgraph-checkpoint@npm:~0.0.4":
-  version: 0.0.4
-  resolution: "@langchain/langgraph-checkpoint@npm:0.0.4"
+"@langchain/langgraph-checkpoint@npm:~0.0.5":
+  version: 0.0.5
+  resolution: "@langchain/langgraph-checkpoint@npm:0.0.5"
   dependencies:
     uuid: "npm:^10.0.0"
   peerDependencies:
-    "@langchain/core": ">=0.2.20 <0.3.0"
-  checksum: 10/0b8a98950a060dd6b2da4359917f8cad0165dd2eb4f23ff874be99d431906111ae3de375ca2928ced60917911d6b8addebdb3595b0c1b1dd6de6ef13f441fd4d
+    "@langchain/core": ">=0.2.31 <0.3.0"
+  checksum: 10/8d71b6c50dc74f7dd7c1086c743e09069659ac8fe4fda60e3ee057d741bdd114e6329decac5daddd40a6d77e4327e77131da2471d8143c9ff0c39773ec559fd5
   languageName: node
   linkType: hard
 
-"@langchain/langgraph@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@langchain/langgraph@npm:0.2.1"
+"@langchain/langgraph@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@langchain/langgraph@npm:0.2.2"
   dependencies:
-    "@langchain/langgraph-checkpoint": "npm:~0.0.4"
+    "@langchain/langgraph-checkpoint": "npm:~0.0.5"
     double-ended-queue: "npm:^2.1.0-0"
     uuid: "npm:^10.0.0"
     zod: "npm:^3.23.8"
   peerDependencies:
     "@langchain/core": ">=0.2.31 <0.3.0"
-  checksum: 10/a667fc67ffd2a4c6c2bc1b56fb8b016956e9cf436a7e81372a05753ffe4c2293f95840318f719808ce63eea7da2ac788105e8c79912c93186c3a0808a7a7ff1b
+  checksum: 10/559c52292840a5cabc0a35821f766b22f9d2c38e436a52220dfd1e58cf4f93a98265017d6874951a98dbebf5f0ce87a7ff7a1e0570672b9b2cda61b4b3baacbe
   languageName: node
   linkType: hard
 
@@ -3596,7 +3596,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.5.2"
+    "@types/node": "npm:22.5.3"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
@@ -3635,11 +3635,11 @@ __metadata:
     "@clerk/clerk-sdk-node": "npm:^5.0.35"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/vitest-pool-workers": "npm:^0.4.28"
-    "@cloudflare/workers-types": "npm:4.20240821.1"
+    "@cloudflare/workers-types": "npm:4.20240903.0"
     "@remix-run/cloudflare": "npm:^2.11.2"
     "@remix-run/react": "npm:^2.11.2"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:^22.5.2"
+    "@types/node": "npm:^22.5.3"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.23.1"
@@ -3674,7 +3674,7 @@ __metadata:
     "@hookform/resolvers": "npm:^3.9.0"
     "@langchain/anthropic": "npm:^0.2.15"
     "@langchain/core": "npm:^0.2.31"
-    "@langchain/langgraph": "npm:^0.2.1"
+    "@langchain/langgraph": "npm:^0.2.2"
     "@monaco-editor/react": "npm:^4.6.0"
     "@mui/material": "npm:6.0.2"
     "@okikio/sharedworker": "npm:1.0.7"
@@ -3723,7 +3723,7 @@ __metadata:
     "@types/eslint__js": "npm:^8.42.3"
     "@types/esprima": "npm:^4.0.6"
     "@types/isomorphic-fetch": "npm:0.0.39"
-    "@types/node": "npm:^22.5.2"
+    "@types/node": "npm:^22.5.3"
     "@types/object-inspect": "npm:^1.13.0"
     "@types/react": "npm:18.3.5"
     "@types/react-dom": "npm:18.3.0"
@@ -3762,19 +3762,19 @@ __metadata:
     date-fns: "npm:^3.6.0"
     detective-typescript: "npm:13.0.0"
     dprint: "npm:^0.47.2"
-    embla-carousel-react: "npm:^8.2.0"
+    embla-carousel-react: "npm:^8.2.1"
     es-toolkit: "npm:^1.17.0"
     esbuild: "npm:^0.23.1"
     esbuild-plugin-copy: "npm:^2.1.1"
     esbuild-style-plugin: "npm:^1.6.3"
     esbuild-wasm: "npm:0.23.1"
     eslint: "npm:9.9.1"
-    eslint-plugin-react: "npm:7.35.1"
+    eslint-plugin-react: "npm:7.35.2"
     events: "npm:3.3.0"
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.4.1"
-    framer-motion: "npm:11.4.0"
+    framer-motion: "npm:11.5.1"
     i18next: "npm:^23.14.0"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -3793,7 +3793,7 @@ __metadata:
     p-map: "npm:7.0.2"
     path-browserify: "npm:1.0.1"
     perf_hooks: "npm:^0.0.1"
-    postcss: "npm:^8.4.44"
+    postcss: "npm:^8.4.45"
     postcss-import: "npm:^16.1.0"
     preact: "npm:^10.23.2"
     preact-render-to-string: "npm:^6.5.10"
@@ -3870,7 +3870,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.5.2"
+    "@types/node": "npm:22.5.3"
     esbuild-wasm: "npm:0.23.1"
   languageName: unknown
   linkType: soft
@@ -3950,7 +3950,7 @@ __metadata:
   resolution: "@spike-land/transpile@workspace:packages/js.spike.land"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/workers-types": "npm:4.20240821.1"
+    "@cloudflare/workers-types": "npm:4.20240903.0"
     "@spike-land/code": "npm:0.9.55"
     esbuild-wasm: "npm:0.23.1"
     typescript: "npm:5.5.4"
@@ -4471,12 +4471,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:22.5.2, @types/node@npm:^22.5.2":
+"@types/node@npm:*, @types/node@npm:^22.5.2":
   version: 22.5.2
   resolution: "@types/node@npm:22.5.2"
   dependencies:
     undici-types: "npm:~6.19.2"
   checksum: 10/c4634118abc36d1436d62e192f7088c211139165a395f1cdacca28df421d8dc8dd332b3104d72fc37764d73a205a4bbbe6e6abdc817c2c81883e147d1a96d497
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:22.5.3, @types/node@npm:^22.5.3":
+  version: 22.5.3
+  resolution: "@types/node@npm:22.5.3"
+  dependencies:
+    undici-types: "npm:~6.19.2"
+  checksum: 10/a969c8df3becf326938ff17b0bd9114b0d1d3c5fe6292c8a9f3db1576a3567dc6db4e7b253830bbfcd92cb49e0d799592d56daf56d8a0c1446d0ea6658324450
   languageName: node
   linkType: hard
 
@@ -7938,31 +7947,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"embla-carousel-react@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "embla-carousel-react@npm:8.2.0"
+"embla-carousel-react@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "embla-carousel-react@npm:8.2.1"
   dependencies:
-    embla-carousel: "npm:8.2.0"
-    embla-carousel-reactive-utils: "npm:8.2.0"
+    embla-carousel: "npm:8.2.1"
+    embla-carousel-reactive-utils: "npm:8.2.1"
   peerDependencies:
     react: ^16.8.0 || ^17.0.1 || ^18.0.0
-  checksum: 10/388a11e2ee7a7a09ac3a4001d3dd9d2c77b15bf9028e9fc90b89e96bfc08fb7a4a3df54e7ddf3a1f8e3d844a2d095e49fd73eb89c38bc90c7e0b10671e3582e2
+  checksum: 10/bf4be85305773894389b848f7d6c48b46e7ee98be7ea9a46653c703f2982f942123da15b554d9d2b50ab16a0bc0595f19b0dafd3f8ccfbc102676792ba578a60
   languageName: node
   linkType: hard
 
-"embla-carousel-reactive-utils@npm:8.2.0":
-  version: 8.2.0
-  resolution: "embla-carousel-reactive-utils@npm:8.2.0"
+"embla-carousel-reactive-utils@npm:8.2.1":
+  version: 8.2.1
+  resolution: "embla-carousel-reactive-utils@npm:8.2.1"
   peerDependencies:
-    embla-carousel: 8.2.0
-  checksum: 10/34a189543e476582dd5af1cf3d3bdd8bfea3faf47a90f04a642c4d65eefd699377cf65380619b7b98365a02a0eba5e75a2b716ef09c6fea8a703521a8ca47eab
+    embla-carousel: 8.2.1
+  checksum: 10/17fd9f89f2b8af3ee9f15abcfe354ea9abac6fbc42a5e5342072bca93a5a3ea4df1d8e657dcdbc6b9efa205192377365bb7d8daa1f6c181e3d9a464e92bb61fc
   languageName: node
   linkType: hard
 
-"embla-carousel@npm:8.2.0":
-  version: 8.2.0
-  resolution: "embla-carousel@npm:8.2.0"
-  checksum: 10/18cd9d06573c27f14523ec0d33cbbcc091492aff42f69b3f53265c5ff3d2fd3da89ad7ea9ae54d398d440723f6c764d0d5936c35a1975f2410143ca6f55064ce
+"embla-carousel@npm:8.2.1":
+  version: 8.2.1
+  resolution: "embla-carousel@npm:8.2.1"
+  checksum: 10/504aa1dc112b5717491534459ab9707068613cd5f618cb24d20f53d137fbc3c18641fff15cf86b006d4886f96726b9ff513525ca2fd0ea0dca87e2b53afc9569
   languageName: node
   linkType: hard
 
@@ -8548,9 +8557,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.35.1":
-  version: 7.35.1
-  resolution: "eslint-plugin-react@npm:7.35.1"
+"eslint-plugin-react@npm:7.35.2":
+  version: 7.35.2
+  resolution: "eslint-plugin-react@npm:7.35.2"
   dependencies:
     array-includes: "npm:^3.1.8"
     array.prototype.findlast: "npm:^1.2.5"
@@ -8572,7 +8581,7 @@ __metadata:
     string.prototype.repeat: "npm:^1.0.0"
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
-  checksum: 10/5bbae54dcef5a84bd71277315238d63caaa23effecd1a376b83ccf1cf033770ee44b763300f9fb55c569d7688ebc93d12728018dcfe240423c6059cc7284ba3f
+  checksum: 10/f4631612444f9066c8007e9433c0972754b75d33be410cd18dcf003e4209600240dec3e50a9962aae35e9a08920a1eb60e51d3cc140e5f6c95582e727ebec74e
   languageName: node
   linkType: hard
 
@@ -9325,9 +9334,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.4.0":
-  version: 11.4.0
-  resolution: "framer-motion@npm:11.4.0"
+"framer-motion@npm:11.5.1":
+  version: 11.5.1
+  resolution: "framer-motion@npm:11.5.1"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -9341,7 +9350,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/9b5cc96da09ba5733f0cb3fe7ba270df5ae51049850af4500cc61655ff7c4036f9cf5dfd22c93cfadbdb531a7d68f40ffaf48bc9ec5bbf0d2e238297e69090ea
+  checksum: 10/beee5ea7ddaeb136189f617b92725c03363d261ea2951fe8caca4559a53ac6fda74772f016a0dca2c4ca286a860670106c88e1c9799da18a8f5476b2e8ab3b61
   languageName: node
   linkType: hard
 
@@ -12688,7 +12697,7 @@ __metadata:
     clsx: "npm:^2.1.1"
     dprint: "npm:0.47.2"
     eslint: "npm:9.9.1"
-    eslint-plugin-react: "npm:7.35.1"
+    eslint-plugin-react: "npm:7.35.2"
     playwright: "npm:1.46.1"
     react: "npm:18.3.1"
     typescript: "npm:5.5.4"
@@ -12791,7 +12800,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "my-api@workspace:packages/my-api"
   dependencies:
-    "@cloudflare/workers-types": "npm:4.20240821.1"
+    "@cloudflare/workers-types": "npm:4.20240903.0"
     hono: "npm:4.5.11"
     wrangler: "npm:3.74.0"
   languageName: unknown
@@ -14071,7 +14080,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.23, postcss@npm:^8.4.31, postcss@npm:^8.4.43, postcss@npm:^8.4.44":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.31, postcss@npm:^8.4.43":
   version: 8.4.44
   resolution: "postcss@npm:8.4.44"
   dependencies:
@@ -14079,6 +14088,17 @@ __metadata:
     picocolors: "npm:^1.0.1"
     source-map-js: "npm:^1.2.0"
   checksum: 10/aac7ed383fdcde9def6ed814ee03bc3de68b345e3f9bea414df2daca08185b6cfb4044fe9f67e1d9e886f29642373b34fd4fde5976204ca66a5481859afdcb7d
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.45":
+  version: 8.4.45
+  resolution: "postcss@npm:8.4.45"
+  dependencies:
+    nanoid: "npm:^3.3.7"
+    picocolors: "npm:^1.0.1"
+    source-map-js: "npm:^1.2.0"
+  checksum: 10/7eaf7346d04929ee979548ece5e34d253eae6f175346e298b2c4621ad6f4ee00adfe7abe72688640e910c0361ae50537c5dda3e35fd1066491282c342b3ee5c8
   languageName: node
   linkType: hard
 
@@ -15949,9 +15969,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "spike-land-renderer@workspace:packages/spike-land-renderer"
   dependencies:
-    "@cloudflare/puppeteer": "npm:^0.0.13"
+    "@cloudflare/puppeteer": "npm:^0.0.14"
     "@cloudflare/vitest-pool-workers": "npm:^0.4.28"
-    "@cloudflare/workers-types": "npm:^4.20240821.1"
+    "@cloudflare/workers-types": "npm:^4.20240903.0"
     "@types/esprima": "npm:^4.0.6"
     esprima: "npm:^4.0.1"
     typescript: "npm:^5.5.4"

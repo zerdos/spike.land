@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.4.28",
-    "@cloudflare/workers-types": "^4.20240821.1",
+    "@cloudflare/workers-types": "^4.20240903.0",
     "@types/esprima": "^4.0.6",
     "esprima": "^4.0.1",
     "typescript": "^5.5.4",
@@ -20,6 +20,6 @@
     "wrangler": "^3.74.0"
   },
   "dependencies": {
-    "@cloudflare/puppeteer": "^0.0.13"
+    "@cloudflare/puppeteer": "^0.0.14"
   }
 }
