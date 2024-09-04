@@ -1,5 +1,13 @@
-const React = require("react");
-module.exports = React;
+import React from "react";
+
+// Re-export all named exports
+export * from "react";
+
+// Re-export the default export
+export default React;
+
+// const React = require("react");
+// module.exports = React;
 // export const {
 //   Children,
 //   Component,
@@ -35,7 +43,7 @@ module.exports = React;
 //   version,
 // } = React;
 
-export default React;
+// export default React;
 // import * as React from "react";
 // export { default } from "react";
 
