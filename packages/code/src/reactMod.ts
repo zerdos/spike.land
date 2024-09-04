@@ -1,13 +1,6 @@
-import React from "react";
-
-// Re-export all named exports
-export * from "react";
-
-// Re-export the default export
+const React = require("react");
+module.exports = React;
 export default React;
-
-// const React = require("react");
-// module.exports = React;
 // export const {
 //   Children,
 //   Component,
