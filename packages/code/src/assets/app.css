@@ -1,125 +1,68 @@
 
 
 /* Apply a border-box model to all elements */
+
+
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
 *, *::before, *::after {
   box-sizing: border-box;
-}
-
-* {
   min-width: 0;
 }
-
-/* Reset margin and padding on body */
-body {
+/*
+  2. Remove default margin
+*/
+* {
   margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-
-/* Ensure the root div takes up full height */
-html, body, #root, #embed {
-  height: 100%;
-}
-
-/* Set a default font size and line height */
-html {
-  font-size: 16px;
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
-
-/* Improve text rendering */
-body {
-  text-rendering: optimizeLegibility;
-}
-
-/* Make images responsive */
-img {
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
   max-width: 100%;
-  height: auto;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
 }
 
-/* Optional: Add smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
 
-/* Theme variables */
-:root {
-  /* Light theme (default) */
-  --bg-color: #ffffff;
-  --text-color: #333333;
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --border-color: #dddddd;
-
-  /* Dark theme */
-  --dark-bg-color: #1a1a1a;
-  --dark-text-color: #f0f0f0;
-  --dark-primary-color: #4da3ff;
-  --dark-secondary-color: #a1a1a1;
-  --dark-border-color: #444444;
-}
-
-/* Dark theme class */
-.dark-theme {
-  --bg-color: var(--dark-bg-color);
-  --text-color: var(--dark-text-color);
-  --primary-color: var(--dark-primary-color);
-  --secondary-color: var(--dark-secondary-color);
-  --border-color: var(--dark-border-color);
-}
-
-/* Apply theme to body */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Apply some basic styles to the root div */
-#root, #embed {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Example usage of theme colors */
-a {
-  color: var(--primary-color);
-}
-
-button {
-  background-color: var(--primary-color);
-  color: var(--bg-color);
-  border: 1px solid var(--border-color);
-}
-
-/* Media query for preferred color scheme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: var(--dark-bg-color);
-    --text-color: var(--dark-text-color);
-    --primary-color: var(--dark-primary-color);
-    --secondary-color: var(--dark-secondary-color);
-    --border-color: var(--dark-border-color);
+  .apex-item-select:focus, .apex-item-text:focus, .apex-item-textarea:focus {
+  
+          font-size: 16px;
+  
+      }
+  
+      .apex-item-select, .apex-item-text, .apex-item-textarea {
+  
+          font-size: 16px;
+  
+      }
+  
   }
-}
-
-button, .clickable {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 10px;
-  touch-action: manipulation;
-}
-
-input, select, textarea {
-  font-size: 16px; /* Prevents iOS from zooming in on focus */
-}
-
-/* Add space between clickable elements */
-.clickable + .clickable {
-  margin-left: 10px;
-}
