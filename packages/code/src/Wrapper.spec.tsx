@@ -7,7 +7,7 @@ vi.mock("./shared", () => ({
   transpile: vi.fn().mockResolvedValue("mocked transpiled code"),
 }));
 
-vi.mock("@visx/responsive", () => ({
+vi.mock("@external/responsive", () => ({
   ParentSize: ({ children }: { children: (props: any) => React.ReactNode }) => children({ width: 100, height: 100 }),
 }));
 
