@@ -51,6 +51,14 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
+body > #root > div {
+  height: 100vh;
+}
+
+body > #embed > iframe {
+  height: 100vh;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
   .apex-item-select:focus, .apex-item-text:focus, .apex-item-textarea:focus {
