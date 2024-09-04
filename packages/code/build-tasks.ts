@@ -226,8 +226,8 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
       "esbuild-wasm/esbuild.wasm": `./${wasmFile}`,
       ...extraAliases,
       ...(isProduction ? {} : {
-        "react": "preact/compat",
-        "react-dom": "preact/compat",
+        // "react": "preact/compat",
+        // "react-dom": "preact/compat",
       }),
     },
     external: [
