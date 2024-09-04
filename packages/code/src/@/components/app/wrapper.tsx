@@ -1,6 +1,6 @@
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-import { ParentSize } from "@/external/ParentSize";
+// import { ParentSize } from "@/external/ParentSize";
 import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
@@ -9,6 +9,8 @@ import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
 import React, { useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
+// import { useScreenSize } from '@visx/responsive';
+// import { useParentSize } from '@visx/responsive';
 
 // Utility functions
 const createJsBlob = (code: string | Uint8Array): string =>
@@ -57,9 +59,9 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
       <CacheProvider value={cssCache}>
         <React.Suspense fallback={<></>}>
           <ErrorBoundary>
-            <ParentSize>
-              {(parent) => <AppRenderer {...parent} />}
-            </ParentSize>
+            {/* <ParentSize ref={containerRef}> */}
+            <AppRenderer />
+            {/* </ParentSize> */}
           </ErrorBoundary>
         </React.Suspense>
       </CacheProvider>,
@@ -81,7 +83,8 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
         width: "100%",
         height: "100%",
       }}
-    />
+    >
+    </div>
   );
 };
 
@@ -123,13 +126,18 @@ const renderApp = async (
       container: rootEl.parentNode!,
     });
 
+    // const AppWithScreenSize = () => {
+    //   const { width, height } = useScreenSize({ debounceTime: 100 });
+    //   return <div><AppToRender width={width} height={height} />
+
+    //   </div>;
+    // }
+
     root.render(
       <>
         <CacheProvider value={cssCache}>
           <ErrorBoundary>
-            <ParentSize>
-              {(parent) => <AppToRender {...parent} />}
-            </ParentSize>
+            <AppToRender />
           </ErrorBoundary>
         </CacheProvider>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
