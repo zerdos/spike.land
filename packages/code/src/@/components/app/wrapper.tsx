@@ -1,7 +1,7 @@
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
 import { ParentSize } from "@/external/ParentSize";
-import type { AppRendererProps, IRenderApp, RenderedApp } from "@/lib/interfaces";
+import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import createCache from "@emotion/cache";

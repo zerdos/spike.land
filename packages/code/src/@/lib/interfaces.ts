@@ -9,16 +9,6 @@ export type ICodeSession = {
   transpiled: string;
 };
 
-// Types
-export interface AppRendererProps {
-  transpiled?: string;
-  code?: string;
-  width: number;
-  height: number;
-  top: number;
-  left: number;
-}
-
 export interface IRenderApp {
   rootElement?: HTMLDivElement;
   rRoot?: Root;
