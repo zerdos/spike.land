@@ -212,7 +212,6 @@ const ImageGallery: React.FC<{
           className="w-40 h-40 object-cover rounded-lg shadow-md cursor-pointer"
           onClick={() => handleImageClick(index)}
           layoutId={`image-${index}`}
-          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         />
         <span
