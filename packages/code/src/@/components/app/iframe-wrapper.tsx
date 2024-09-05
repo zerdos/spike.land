@@ -10,7 +10,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        const { width, height } = entry.contentRect;
+        const { width } = entry.contentRect;
         const newScale = width / window.innerWidth;
         setScale(newScale);
         setRatio(window.innerWidth / window.innerHeight);
