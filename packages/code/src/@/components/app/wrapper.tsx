@@ -9,9 +9,10 @@ interface WrapperProps {
   codeSpace?: string;
   code?: string;
   transpiled?: string;
+  scale?: number;
 }
 
-export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code }) => {
+export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code, scale }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export const Wrapper: React.FC<WrapperProps> = ({ codeSpace, transpiled, code })
   return (
     <div
       ref={containerRef}
+      style={{ transform: `scale(${scale})`, transformOrigin: "0 0" }}
       data-testid="wrapper-container"
       className={cn("w-full h-full")}
     />
