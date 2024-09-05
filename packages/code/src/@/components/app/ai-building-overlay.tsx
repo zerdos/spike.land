@@ -36,7 +36,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
         "fixed inset-x-0 bottom-0 h-16",
         "bg-gradient-to-r from-pink-500 via-blue-500 to-green-500",
         "flex flex-col justify-center items-center",
-        "-z-10",
+        "z-10",
       )}
     >
       <div className="flex items-center text-white text-xl font-bold mb-2">
