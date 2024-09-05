@@ -11,7 +11,6 @@ export type ICodeSession = {
 
 export interface IRenderApp {
   rootElement?: HTMLDivElement;
-  rRoot?: Root;
   App?: React.ComponentType<any>;
   codeSpace?: string;
   transpiled?: string;

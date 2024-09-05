@@ -92,7 +92,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
 
 // Main render function
 const renderApp = async (
-  { rootElement, rRoot, codeSpace, transpiled, App, code }: IRenderApp,
+  { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
 ): Promise<RenderedApp | null> => {
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
@@ -100,6 +100,7 @@ const renderApp = async (
       rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
+    rootEl.style.height = "100vh";
     rootEl.id = "root";
 
     if (renderedAPPS.has(rootEl)) {
@@ -120,7 +121,7 @@ const renderApp = async (
       AppToRender = () => <div>Mock App for Testing</div>;
     }
 
-    const root = rRoot || createRoot(rootEl);
+    const root = createRoot(rootEl);
 
     const cssCache = createCache({
       key: md5(transpiled! || code! || Math.random().toString()),
@@ -165,7 +166,7 @@ const renderApp = async (
 
     const cleanup = () => {
       const renderedApp = renderedAPPS.get(rootEl)!;
-      root.unmount();
+      renderedApp.rRoot.unmount();
       const { cssCache } = renderedApp;
       const { sheet } = cssCache;
       sheet.flush();
@@ -173,7 +174,7 @@ const renderApp = async (
       sheet.registered = {};
       cssCache.sheet = null;
 
-      rootEl.innerHTML = "";
+      renderedApp.rootElement.innerHTML = "";
 
       document.body.contains(rootEl) && document.body.removeChild(rootEl);
       renderedAPPS.delete(rootEl);
