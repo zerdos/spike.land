@@ -1,34 +1,36 @@
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
-import React, { useRef, useState } from "react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import React, { useCallback, useRef } from "react";
 
 export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) => {
   const ref = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [scale, setScale] = useState(1);
-  const [ratio, setRatio] = useState(window.innerWidth / window.innerHeight);
+  const handleResize = useCallback(() => {
+    if (containerRef.current && ref.current) {
+      const scale = containerRef.current.offsetWidth / window.innerWidth;
+      ref.current.style.transform = `scale(${scale})`;
+    }
+  }, []);
 
   React.useEffect(() => {
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        const { width } = entry.contentRect;
-        const newScale = width / window.innerWidth;
-        setScale(newScale);
-        setRatio(window.innerWidth / window.innerHeight);
-      }
-    });
-    ref.current && resizeObserver.observe(ref.current);
+    const resizeObserver = new ResizeObserver(handleResize);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
     return () => resizeObserver.disconnect();
-  }, [ref]);
+  }, [handleResize]);
+
+  const ratio = window.innerWidth / window.innerHeight;
 
   return (
-    <AspectRatio ratio={ratio} ref={ref}>
-      <iframe
-        className={`h-[calc(100vh/${scale})] w-[calc(100vw/${scale})] origin-top-left border-0 overflow-y-overlay overflow-x-auto touch-pan-y`}
-        style={{
-          transform: `scale(${scale})`,
-        }}
-        src={`/live/${codeSpace}/embed`}
-      />
-    </AspectRatio>
+    <div ref={containerRef}>
+      <AspectRatio ratio={ratio}>
+        <iframe
+          ref={ref}
+          className="h-[100vh] w-[100vw] origin-top-left border-0 overflow-y-overlay overflow-x-auto touch-pan-y"
+          src={`/live/${codeSpace}/embed`}
+        />
+      </AspectRatio>
+    </div>
   );
 };
