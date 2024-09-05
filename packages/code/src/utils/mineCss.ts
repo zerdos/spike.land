@@ -22,7 +22,7 @@ function mineFromCaches(cache: EmotionCache): string[] {
  * @param key - The Emotion key to look for.
  * @returns A string of concatenated styles.
  */
-function extractStylesFromDOM(key: string): string {
+function extractStylesFromDOM(key: string): string[] {
   const styledJSXStyles = getStyledJSXStyles();
   const emotionStyles = getEmotionStyles(key);
   return styledJSXStyles.concat(emotionStyles);

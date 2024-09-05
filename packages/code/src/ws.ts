@@ -196,16 +196,16 @@ const handleRender = async (
         x => x.trim().split("_" + cache.key + "-").join(""),
       ).filter(Boolean);
 
-      const cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
+      let cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
       try {
-        css = cssStrings ? await prettierCss(cssStrings) : "";
+        cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
       } catch (error) {
         console.error("Error prettifying CSS:", error);
       }
 
       if (mod.counter !== counter) return false;
 
-      return { css, html: html.split("_" + cache.key + "-").join("") };
+      return { css: cssStrings, html: html.split("_" + cache.key + "-").join("") };
     }
     return false;
   } catch (error) {
