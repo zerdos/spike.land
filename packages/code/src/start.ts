@@ -1,4 +1,4 @@
-import { renderApp } from "@/components/app/wrapper";
+import { renderApp } from "@/lib/render-app";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 
 if (location.pathname.endsWith(".tsx")) {

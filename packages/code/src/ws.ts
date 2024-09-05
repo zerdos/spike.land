@@ -6,7 +6,7 @@ import { Mutex } from "async-mutex";
 import { initializeApp } from "./hydrate";
 import { Code } from "./services/CodeSession";
 
-import { renderApp, renderedAPPS } from "@/components/app/wrapper";
+import { renderApp, renderedAPPS } from "@/lib/render-app";
 import { prettierCss } from "@/lib/shared";
 import { debounce } from "es-toolkit";
 import { mineFromCaches } from "./utils/mineCss";

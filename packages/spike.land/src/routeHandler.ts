@@ -482,7 +482,7 @@ hQIDAQAB
 
     let code = `import App from "${origin}/live/${codeSpace}/index.js";
     import "${origin}/live/${codeSpace}/index.css";
-    import { renderApp } from "${origin}/@/components/app/wrapper.mjs";
+    import { renderApp } from "${origin}/@/lib/render-app.mjs";
     
     const render =  () => renderApp({ App, rootElement: document.getElementById("embed") });
     render();
