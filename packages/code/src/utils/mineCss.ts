@@ -11,10 +11,10 @@ function mineFromCaches(cache: EmotionCache, html: string): string {
   const key = cache.key || "css";
 
   try {
-    return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key, html)];
+    return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key)].join("\n");
   } catch (error) {
     console.warn("Failed to extract styles from DOM, falling back to stylesheet parsing:", error);
-    return extractStylesFromStylesheets(key, html);
+    return extractStylesFromStylesheets(key);
   }
 }
 
@@ -58,7 +58,7 @@ function getEmotionStyles(key: string): string {
  * @param html - The HTML string of the document.
  * @returns A string of concatenated styles.
  */
-function extractStylesFromStylesheets(key: string, html: string): string {
+function extractStylesFromStylesheets(key: string): string {
   return Array.from(document.styleSheets)
     .map((sheet) => {
       try {
