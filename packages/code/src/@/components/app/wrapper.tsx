@@ -192,4 +192,8 @@ async function renderApp(
   }
 }
 
+if (!globalThis.tw) {
+  globalThis.tw = import(location.origin + "/tw/tw-chunk-be5bad.js");
+}
+
 export { generateDeterministicKey, renderApp };
