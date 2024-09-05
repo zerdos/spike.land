@@ -1,6 +1,10 @@
 import { renderApp } from "@/components/app/wrapper";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 
+if (location.pathname.endsWith(".tsx")) {
+  location.href = location.href.replace(".tsx", "");
+}
+
 if (location.pathname.endsWith("embed") === false) {
   import("./ws");
 }
