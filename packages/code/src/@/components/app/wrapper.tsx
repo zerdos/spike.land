@@ -27,10 +27,11 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
     return (
       <iframe
         css={css`
-            height: ${100 / scale}%;
-            width: ${100 / scale}%;
+            height: calc(100vh / ${scale});
+            width: calc(100vw / ${scale});
             border: 0;
-            overflow: 'scroll';
+            overflow-y: overlay;
+            overflow-x: auto;
             -webkit-overflow-scrolling: touch;
           `}
         src={`/live/${codeSpace}/embed`}
