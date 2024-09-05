@@ -195,7 +195,7 @@ const handleRender = async (
 
       let eCss = css.split("\n")
         .filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(x =>
-          x.trim().split(cache.key + "-").join("")
+          x.trim().split("_" + cache.key + "-").join("")
         ).filter(Boolean);
 
       css = [...eCss, ...tailWindClasses].sort().join("\n");
@@ -207,7 +207,7 @@ const handleRender = async (
 
       if (mod.counter !== counter) return false;
 
-      return { css, html: html.split(cache.key + "-").join("") };
+      return { css, html: html.split("_" + cache.key + "-").join("") };
     }
     return false;
   } catch (error) {
