@@ -58,7 +58,7 @@ function getEmotionStyles(key: string): string {
  * @param html - The HTML string of the document.
  * @returns A string of concatenated styles.
  */
-function extractStylesFromStylesheets(key: string): string {
+function extractStylesFromStylesheets(key: string): string[] {
   return Array.from(document.styleSheets)
     .map((sheet) => {
       try {
@@ -66,12 +66,11 @@ function extractStylesFromStylesheets(key: string): string {
       } catch {
         return null;
       }
-    })
-    .filter((cssRules) =>
+    }).filter((cssRules) =>
       cssRules && cssRules.selectorText !== undefined
       && cssRules.selectorText.includes(key)
     )
-    .map((cssRules) => cssRules?.cssText).filter(Boolean);
+    .map((cssRules) => cssRules?.cssText).filter(x => x !== undefined) as string[];
 }
 
 export { mineFromCaches };
