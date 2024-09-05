@@ -178,7 +178,7 @@ const handleRender = async (
         continue;
       }
 
-      let css = mineFromCaches(cache, html);
+      let css = mineFromCaches(cache);
       const criticalClasses = new Set(
         css.split("\n")
           .map(line => {

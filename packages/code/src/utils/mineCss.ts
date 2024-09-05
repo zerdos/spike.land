@@ -6,7 +6,7 @@ import { EmotionCache } from "@emotion/cache";
  * @param html - The HTML string of the document.
  * @returns A string containing the extracted CSS styles.
  */
-function mineFromCaches(cache: EmotionCache, html: string): string {
+function mineFromCaches(cache: EmotionCache): string {
   console.log();
   const key = cache.key || "css";
 
@@ -71,8 +71,7 @@ function extractStylesFromStylesheets(key: string): string {
       cssRules && cssRules.selectorText !== undefined
       && cssRules.selectorText.includes(key)
     )
-    .map((cssRules) => cssRules?.cssText).filter(Boolean)
-    .join("\n");
+    .map((cssRules) => cssRules?.cssText).filter(Boolean);
 }
 
 export { mineFromCaches };
