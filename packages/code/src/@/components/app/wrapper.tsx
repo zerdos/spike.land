@@ -24,6 +24,19 @@ interface WrapperProps {
   scale?: number;
 }
 
+const generateDeterministicKey = (input: string): string => {
+  const hash = md5(input);
+  const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "_"; // Start with an underscore to ensure it starts with a valid character
+
+  for (let i = 0; i < hash.length; i++) {
+    const charCode = hash.charCodeAt(i);
+    result += validChars[charCode % validChars.length];
+  }
+
+  return result;
+};
+
 export const Wrapper: React.FC<WrapperProps> = React.memo(
   function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
     if (codeSpace) {
@@ -38,7 +51,7 @@ export const Wrapper: React.FC<WrapperProps> = React.memo(
       const rootRef: Root = createRoot(containerRef.current);
 
       const cssCache = createCache({
-        key: md5(code || transpiled || Math.random().toString()),
+        key: generateDeterministicKey(code || transpiled || Math.random().toString()),
         speedy: true,
         container: containerRef.current,
       });
@@ -111,7 +124,7 @@ async function renderApp(
     const root = createRoot(rootEl);
 
     const cssCache = createCache({
-      key: md5(transpiled! || code! || Math.random().toString()),
+      key: generateDeterministicKey(transpiled! || code! || Math.random().toString()),
       speedy: true,
       container: rootEl.parentNode!,
     });
@@ -179,4 +192,4 @@ async function renderApp(
   }
 }
 
-export { md5, renderApp };
+export { generateDeterministicKey, renderApp };
