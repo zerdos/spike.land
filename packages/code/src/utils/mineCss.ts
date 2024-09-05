@@ -6,15 +6,14 @@ import { EmotionCache } from "@emotion/cache";
  * @param html - The HTML string of the document.
  * @returns A string containing the extracted CSS styles.
  */
-function mineFromCaches(cache: EmotionCache): string {
-  console.log();
+function mineFromCaches(cache: EmotionCache): string[] {
   const key = cache.key || "css";
 
   try {
-    return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key)].join("\n");
+    return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key)];
   } catch (error) {
     console.warn("Failed to extract styles from DOM, falling back to stylesheet parsing:", error);
-    return extractStylesFromStylesheets(key).join("\n");
+    return extractStylesFromStylesheets(key);
   }
 }
 
@@ -26,7 +25,7 @@ function mineFromCaches(cache: EmotionCache): string {
 function extractStylesFromDOM(key: string): string {
   const styledJSXStyles = getStyledJSXStyles();
   const emotionStyles = getEmotionStyles(key);
-  return styledJSXStyles.concat(emotionStyles).join("\n");
+  return styledJSXStyles.concat(emotionStyles);
 }
 
 /**
@@ -44,12 +43,12 @@ function getStyledJSXStyles(): string[] {
  * @param key - The Emotion key to look for.
  * @returns A string of concatenated unique styles.
  */
-function getEmotionStyles(key: string): string {
+function getEmotionStyles(key: string): string[] {
   const styles = Array.from(
     document.querySelectorAll(`style[data-emotion="${key}"]`),
   ).map((style) => style.textContent || "");
 
-  return Array.from(new Set(styles)).join("\n");
+  return Array.from(new Set(styles));
 }
 
 /**

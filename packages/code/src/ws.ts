@@ -180,11 +180,10 @@ const handleRender = async (
 
       let css = mineFromCaches(cache);
       const criticalClasses = new Set(
-        css.split("\n")
-          .map(line => {
-            const rule = line.slice(1, line.indexOf("{")).trim();
-            return html.includes(rule) ? rule : null;
-          })
+        css.map(line => {
+          const rule = line.slice(1, line.indexOf("{")).trim();
+          return html.includes(rule) ? rule : null;
+        })
           .filter(Boolean),
       );
 
@@ -193,14 +192,13 @@ const handleRender = async (
         ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText)
         : [];
 
-      let eCss = css.split("\n")
-        .filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(x =>
-          x.trim().split("_" + cache.key + "-").join("")
-        ).filter(Boolean);
+      let eCss = css.filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(
+        x => x.trim().split("_" + cache.key + "-").join(""),
+      ).filter(Boolean);
 
-      css = [...eCss, ...tailWindClasses].sort().join("\n");
+      const cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
       try {
-        css = css ? await prettierCss(css) : "";
+        css = cssStrings ? await prettierCss(cssStrings) : "";
       } catch (error) {
         console.error("Error prettifying CSS:", error);
       }
