@@ -1,24 +1,30 @@
-import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
-import ErrorBoundary from "@/components/app/error-boundary";
-// import { ParentSize } from "@/external/ParentSize";
-import { IframeWrapper } from "@/components/app/iframe-wrapper";
-import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
-import { md5 } from "@/lib/md5";
-import { transpile } from "@/lib/shared";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { debounce } from "es-toolkit";
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
+import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
+import ErrorBoundary from "@/components/app/error-boundary";
+import { IframeWrapper } from "@/components/app/iframe-wrapper";
+import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
+import { md5 } from "@/lib/md5";
+import { transpile } from "@/lib/shared";
+import { cn } from "@/lib/utils";
+
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
-export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = (
-  { code, codeSpace, transpiled },
-) => {
+interface WrapperProps {
+  codeSpace?: string;
+  code?: string;
+  transpiled?: string;
+  scale?: number;
+}
+
+export function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
   if (codeSpace) {
     return <IframeWrapper codeSpace={codeSpace} />;
   }
@@ -28,7 +34,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
   useEffect(() => {
     if (containerRef.current === null) return;
 
-    const rootRef = createRoot(containerRef.current!);
+    const rootRef = createRoot(containerRef.current);
 
     const cssCache = createCache({
       key: md5(code || transpiled || Math.random().toString()),
@@ -46,10 +52,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
       <CacheProvider value={cssCache}>
         <React.Suspense fallback={<></>}>
           <ErrorBoundary>
-            {/* <ParentSize ref={containerRef}> */}
-            <h1>ParentSize -- x</h1>
             <AppRenderer />
-            {/* </ParentSize> */}
           </ErrorBoundary>
         </React.Suspense>
       </CacheProvider>,
@@ -67,19 +70,15 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
     <div
       ref={containerRef}
       data-testid="wrapper-container"
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-    >
-    </div>
+      className={cn("w-full h-full")}
+    />
   );
-};
+}
 
 // Main render function
-const renderApp = async (
+async function renderApp(
   { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
-): Promise<RenderedApp | null> => {
+): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {
@@ -115,17 +114,13 @@ const renderApp = async (
       container: rootEl.parentNode!,
     });
 
-    const AppWithScreenSize = () => {
+    function AppWithScreenSize() {
       const [{ width, height }, setDimensions] = useState({ width: rootEl.clientWidth, height: rootEl.clientHeight });
 
       useEffect(() => {
-        // use ResizeObserver to update the dimensions
         const abortController = new AbortController();
         const debouncedSetDimensions = debounce(
-          (dim: {
-            width: number;
-            height: number;
-          }) => setDimensions(dim),
+          (dim: { width: number; height: number }) => setDimensions(dim),
           100,
           { signal: abortController.signal },
         );
@@ -144,17 +139,15 @@ const renderApp = async (
       }, []);
 
       return <AppToRender width={width} height={height} />;
-    };
+    }
 
     root.render(
-      <>
-        <CacheProvider value={cssCache}>
-          <ErrorBoundary>
-            <AppWithScreenSize />
-          </ErrorBoundary>
-        </CacheProvider>
+      <CacheProvider value={cssCache}>
+        <ErrorBoundary>
+          <AppWithScreenSize />
+        </ErrorBoundary>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-      </>,
+      </CacheProvider>,
     );
 
     const cleanup = () => {
@@ -183,6 +176,6 @@ const renderApp = async (
     console.error("Error in renderApp:", error);
     return null;
   }
-};
+}
 
 export { md5, renderApp };
