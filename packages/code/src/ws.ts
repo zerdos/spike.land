@@ -188,9 +188,15 @@ const handleRender = async (
           .filter(Boolean),
       );
 
+      const styleElement = document.querySelector("head > style:last-child");
+      const tailWindClasses = styleElement
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText).sort()
+        : [];
+
       css = css.split("\n")
-        .filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false))
-        .join("\n");
+        .filter(line =>
+          Array.from([...criticalClasses, tailWindClasses]).some(rule => rule ? line.includes(rule) : false)
+        ).sort().join("\n");
 
       try {
         css = css ? await prettierCss(css) : "";

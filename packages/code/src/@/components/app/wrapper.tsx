@@ -2,7 +2,7 @@ import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { debounce } from "es-toolkit";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, Root } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
@@ -24,56 +24,58 @@ interface WrapperProps {
   scale?: number;
 }
 
-export const Wrapper = React.memo(function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
-  if (codeSpace) {
-    return <IframeWrapper codeSpace={codeSpace} />;
-  }
+export const Wrapper: React.FC<WrapperProps> = React.memo(
+  function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
+    if (codeSpace) {
+      return <IframeWrapper codeSpace={codeSpace} />;
+    }
 
-  const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (containerRef.current === null) return;
+    useEffect(() => {
+      if (containerRef.current === null) return;
 
-    const rootRef = createRoot(containerRef.current);
+      const rootRef: Root = createRoot(containerRef.current);
 
-    const cssCache = createCache({
-      key: md5(code || transpiled || Math.random().toString()),
-      speedy: true,
-      container: containerRef.current,
-    });
+      const cssCache = createCache({
+        key: md5(code || transpiled || Math.random().toString()),
+        speedy: true,
+        container: containerRef.current,
+      });
 
-    const AppRenderer = React.lazy(async () =>
-      import(
-        /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
-      )
+      const AppRenderer = React.lazy(async () =>
+        import(
+          /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
+        )
+      );
+
+      rootRef.render(
+        <CacheProvider value={cssCache}>
+          <React.Suspense fallback={<></>}>
+            <ErrorBoundary>
+              <AppRenderer />
+            </ErrorBoundary>
+          </React.Suspense>
+        </CacheProvider>,
+      );
+
+      return () => {
+        rootRef.unmount();
+        if (containerRef.current) {
+          containerRef.current.innerHTML = "";
+        }
+      };
+    }, [code, transpiled]);
+
+    return (
+      <div
+        ref={containerRef}
+        data-testid="wrapper-container"
+        className={cn("w-full h-full")}
+      />
     );
-
-    rootRef.render(
-      <CacheProvider value={cssCache}>
-        <React.Suspense fallback={<></>}>
-          <ErrorBoundary>
-            <AppRenderer />
-          </ErrorBoundary>
-        </React.Suspense>
-      </CacheProvider>,
-    );
-
-    return () => {
-      rootRef.unmount();
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-      }
-    };
-  }, [code, transpiled]);
-
-  return (
-    <div
-      ref={containerRef}
-      data-testid="wrapper-container"
-      className={cn("w-full h-full")}
-    />
-  );
-});
+  },
+);
 
 // Main render function
 async function renderApp(
@@ -114,7 +116,7 @@ async function renderApp(
       container: rootEl.parentNode!,
     });
 
-    const AppWithScreenSize = React.memo(function AppWithScreenSize() {
+    const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
       const [{ width, height }, setDimensions] = useState({ width: rootEl.clientWidth, height: rootEl.clientHeight });
 
       const debouncedSetDimensions = useCallback(
