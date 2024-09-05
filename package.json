@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@emotion/react": "11.13.3",
-    "@playwright/test": "1.46.1",
+    "@playwright/test": "1.47.0",
     "@spike-land/ai-devtools": "workspace:^",
     "@types/eslint": "9.6.1",
     "@types/esprima": "^4.0.6",
@@ -47,7 +47,7 @@
     "dprint": "0.47.2",
     "eslint": "9.9.1",
     "eslint-plugin-react": "7.35.2",
-    "playwright": "1.46.1",
+    "playwright": "1.47.0",
     "react": "18.3.1",
     "typescript": "5.5.4"
   },
