@@ -25,7 +25,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
       <iframe
         className={`h-[calc(100vh/${scale})] w-[calc(100vw/${scale})] origin-top-left border-0 overflow-y-overlay overflow-x-auto touch-pan-y`}
         style={{
-          transform: `scale(${scale * scale})`,
+          transform: `scale(${scale})`,
         }}
         src={`/live/${codeSpace}/embed`}
       />
