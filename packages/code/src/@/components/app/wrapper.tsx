@@ -1,101 +1,99 @@
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
+import { debounce } from "es-toolkit";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { createRoot, Root } from "react-dom/client";
+
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-// import { ParentSize } from "@/external/ParentSize";
+import { IframeWrapper } from "@/components/app/iframe-wrapper";
 import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
-import createCache from "@emotion/cache";
-import { css } from "@emotion/react";
-import { CacheProvider } from "@emotion/react";
-import { debounce } from "es-toolkit";
-import React, { useEffect, useRef, useState } from "react";
-import { createRoot } from "react-dom/client";
-// import { s } from "vite/dist/node/types.d-aGj9QkWt";
-// import { useScreenSize } from '@visx/responsive';
-// import { useParentSize } from '@visx/responsive';
+import { cn } from "@/lib/utils";
 
-// Utility functions
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
-export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = (
-  { code, codeSpace, transpiled, scale = 1 },
-) => {
-  if (codeSpace) {
-    return (
-      <iframe
-        css={css`
-            height: calc(100vh / ${scale});
-            width: calc(100vw / ${scale});
-            border: 0;
-            overflow-y: overlay;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-          `}
-        src={`/live/${codeSpace}/embed`}
-      />
-    );
+interface WrapperProps {
+  codeSpace?: string;
+  code?: string;
+  transpiled?: string;
+  scale?: number;
+}
+
+const generateDeterministicKey = (input: string): string => {
+  const hash = md5(input);
+  const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "_"; // Start with an underscore to ensure it starts with a valid character
+
+  for (let i = 0; i < hash.length; i++) {
+    const charCode = hash.charCodeAt(i);
+    result += validChars[charCode % validChars.length];
   }
 
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (containerRef.current === null) return;
-
-    const rootRef = createRoot(containerRef.current!);
-
-    const cssCache = createCache({
-      key: md5(code || transpiled || Math.random().toString()),
-      speedy: false,
-      container: containerRef.current,
-    });
-
-    const AppRenderer = React.lazy(async () =>
-      import(
-        /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
-      )
-    );
-
-    rootRef.render(
-      <CacheProvider value={cssCache}>
-        <React.Suspense fallback={<></>}>
-          <ErrorBoundary>
-            {/* <ParentSize ref={containerRef}> */}
-            <h1>ParentSize -- x</h1>
-            <AppRenderer />
-            {/* </ParentSize> */}
-          </ErrorBoundary>
-        </React.Suspense>
-      </CacheProvider>,
-    );
-
-    return () => {
-      rootRef.unmount();
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-      }
-    };
-  }, [containerRef, code, transpiled]);
-
-  return (
-    <div
-      ref={containerRef}
-      data-testid="wrapper-container"
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-    >
-    </div>
-  );
+  return result;
 };
 
+export const Wrapper: React.FC<WrapperProps> = React.memo(
+  function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
+    if (codeSpace) {
+      return <IframeWrapper codeSpace={codeSpace} />;
+    }
+
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (containerRef.current === null) return;
+
+      const rootRef: Root = createRoot(containerRef.current);
+
+      const cssCache = createCache({
+        key: generateDeterministicKey(code || transpiled || Math.random().toString()),
+        speedy: true,
+        container: containerRef.current,
+      });
+
+      const AppRenderer = React.lazy(async () =>
+        import(
+          /* @vite-ignore */ createJsBlob(transpiled || await transpile({ code: code!, originToUse: location.origin }))
+        )
+      );
+
+      rootRef.render(
+        <CacheProvider value={cssCache}>
+          <React.Suspense fallback={<></>}>
+            <ErrorBoundary>
+              <AppRenderer />
+            </ErrorBoundary>
+          </React.Suspense>
+        </CacheProvider>,
+      );
+
+      return () => {
+        rootRef.unmount();
+        if (containerRef.current) {
+          containerRef.current.innerHTML = "";
+        }
+      };
+    }, [code, transpiled]);
+
+    return (
+      <div
+        ref={containerRef}
+        data-testid="wrapper-container"
+        className={cn("w-full h-full")}
+      />
+    );
+  },
+);
+
 // Main render function
-const renderApp = async (
+async function renderApp(
   { rootElement, codeSpace, transpiled, App, code }: IRenderApp,
-): Promise<RenderedApp | null> => {
+): Promise<RenderedApp | null> {
   try {
     const rootEl = rootElement || document.getElementById("embed") as HTMLDivElement || document.createElement("div");
     if (!document.body.contains(rootEl)) {
@@ -126,26 +124,23 @@ const renderApp = async (
     const root = createRoot(rootEl);
 
     const cssCache = createCache({
-      key: md5(transpiled! || code! || Math.random().toString()),
-      speedy: false,
+      key: generateDeterministicKey(transpiled! || code! || Math.random().toString()),
+      speedy: true,
       container: rootEl.parentNode!,
     });
 
-    const AppWithScreenSize = () => {
+    const AppWithScreenSize: React.FC = React.memo(function AppWithScreenSize() {
       const [{ width, height }, setDimensions] = useState({ width: rootEl.clientWidth, height: rootEl.clientHeight });
 
-      useEffect(() => {
-        // use ResizeObserver to update the dimensions
-        const abortController = new AbortController();
-        const debouncedSetDimensions = debounce(
-          (dim: {
-            width: number;
-            height: number;
-          }) => setDimensions(dim),
+      const debouncedSetDimensions = useCallback(
+        debounce(
+          (dim: { width: number; height: number }) => setDimensions(dim),
           100,
-          { signal: abortController.signal },
-        );
+        ),
+        [],
+      );
 
+      useEffect(() => {
         const resizeObserver = new ResizeObserver((entries) => {
           for (let entry of entries) {
             const { width, height } = entry.contentRect;
@@ -155,40 +150,36 @@ const renderApp = async (
         resizeObserver.observe(rootEl);
         return () => {
           resizeObserver.disconnect();
-          abortController.abort();
+          debouncedSetDimensions.cancel();
         };
-      }, []);
+      }, [debouncedSetDimensions]);
 
       return <AppToRender width={width} height={height} />;
-    };
+    });
 
     root.render(
-      <>
-        <CacheProvider value={cssCache}>
-          <ErrorBoundary>
-            <AppWithScreenSize />
-          </ErrorBoundary>
-        </CacheProvider>
+      <CacheProvider value={cssCache}>
+        <ErrorBoundary>
+          <AppWithScreenSize />
+        </ErrorBoundary>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
-      </>,
+      </CacheProvider>,
     );
 
     const cleanup = () => {
-      const renderedApp = renderedAPPS.get(rootEl)!;
-      renderedApp.rRoot.unmount();
-      const { cssCache } = renderedApp;
-      const { sheet } = cssCache;
-      sheet.flush();
-      sheet.inserted = {};
-      sheet.registered = {};
-      cssCache.sheet = null;
-
-      renderedApp.rootElement.innerHTML = "";
-
-      document.body.contains(rootEl) && document.body.removeChild(rootEl);
-      renderedAPPS.delete(rootEl);
-
-      rootEl.remove();
+      const renderedApp = renderedAPPS.get(rootEl);
+      if (renderedApp) {
+        renderedApp.rRoot.unmount();
+        const { cssCache } = renderedApp;
+        if (cssCache.sheet) {
+          cssCache.sheet.flush();
+        }
+        renderedApp.rootElement.innerHTML = "";
+        if (document.body.contains(rootEl)) {
+          document.body.removeChild(rootEl);
+        }
+        renderedAPPS.delete(rootEl);
+      }
     };
 
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
@@ -199,6 +190,10 @@ const renderApp = async (
     console.error("Error in renderApp:", error);
     return null;
   }
-};
+}
 
-export { md5, renderApp };
+if (!globalThis.tw) {
+  globalThis.tw = import(location.origin + "/tw/tw-chunk-be5bad.js");
+}
+
+export { generateDeterministicKey, renderApp };

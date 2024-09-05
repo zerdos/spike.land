@@ -129,54 +129,17 @@ describe("useSyncedStorage", () => {
     expect(result.current[0]).toBe("storedValue");
   });
 
-  // it("should use IndexedDB in worker environments", async () => {
-  //   Object.defineProperty(window, "localStorage", { value: undefined, writable: true });
-
-  //   const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-  //   await act(async () => {
-  //     // Simulate IndexedDB open success
-  //     indexedDBMock.open.mock.results[0].value.onsuccess?.({} as Event);
-  //     await new Promise(resolve => setTimeout(resolve, 0));
-  //   });
-
-  //   expect(result.current[0]).toBe("initialValue");
-
-  //   await act(async () => {
-  //     await result.current[1]("newIndexedDBValue");
-  //   });
-
-  //   expect(indexedDBMock.open().result.transaction().objectStore().put).toHaveBeenCalledWith({
-  //     key: "testKey",
-  //     value: "newIndexedDBValue",
-  //   });
-  // });
-
-  // it("should sync values across instances using BroadcastChannel", async () => {
-  //   const { result: result1 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-  //   const { result: result2 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-  //   await act(async () => {
-  //     await result1.current[1]("newValue");
-  //     // Wait for the BroadcastChannel message to be processed
-  //     await new Promise(resolve => setTimeout(resolve, 100));
-  //   });
-
-  //   expect(result1.current[0]).toBe("newValue");
-  //   expect(result2.current[0]).toBe("newValue");
-  // });
-
   it("should handle function-based state updates correctly", async () => {
     const { result } = renderHook(() => useSyncedStorage("testKey", 1));
 
     await act(async () => {
-      await result.current[1]((prevValue) => prevValue + 1);
+      await result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
     });
 
     expect(result.current[0]).toBe(2);
 
     await act(async () => {
-      await result.current[1]((prevValue) => prevValue + 1);
+      await result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
     });
 
     expect(result.current[0]).toBe(3);
@@ -217,22 +180,4 @@ describe("useSyncedStorage", () => {
 
     consoleErrorSpy.mockRestore();
   });
-
-  // it("should handle when no suitable storage backend is available", async () => {
-  //   Object.defineProperty(window, "localStorage", { value: undefined, writable: true });
-  //   (globalThis as any).indexedDB = undefined;
-
-  //   const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-
-  //   const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-  //   await act(async () => {
-  //     await new Promise(resolve => setTimeout(resolve, 0));
-  //   });
-
-  //   expect(result.current[0]).toBe("initialValue");
-  //   expect(consoleErrorSpy).toHaveBeenCalledWith("Failed to initialize storage backend:", expect.any(Error));
-
-  //   consoleErrorSpy.mockRestore();
-  // });
 });

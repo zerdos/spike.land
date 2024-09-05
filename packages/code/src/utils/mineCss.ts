@@ -6,15 +6,14 @@ import { EmotionCache } from "@emotion/cache";
  * @param html - The HTML string of the document.
  * @returns A string containing the extracted CSS styles.
  */
-function mineFromCaches(cache: EmotionCache, html: string): string {
-  console.log();
+function mineFromCaches(cache: EmotionCache): string[] {
   const key = cache.key || "css";
 
   try {
-    return extractStylesFromDOM(key);
+    return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key)];
   } catch (error) {
     console.warn("Failed to extract styles from DOM, falling back to stylesheet parsing:", error);
-    return extractStylesFromStylesheets(key, html);
+    return extractStylesFromStylesheets(key);
   }
 }
 
@@ -23,10 +22,10 @@ function mineFromCaches(cache: EmotionCache, html: string): string {
  * @param key - The Emotion key to look for.
  * @returns A string of concatenated styles.
  */
-function extractStylesFromDOM(key: string): string {
+function extractStylesFromDOM(key: string): string[] {
   const styledJSXStyles = getStyledJSXStyles();
   const emotionStyles = getEmotionStyles(key);
-  return styledJSXStyles.concat(emotionStyles).join("\n");
+  return styledJSXStyles.concat(emotionStyles);
 }
 
 /**
@@ -44,12 +43,12 @@ function getStyledJSXStyles(): string[] {
  * @param key - The Emotion key to look for.
  * @returns A string of concatenated unique styles.
  */
-function getEmotionStyles(key: string): string {
+function getEmotionStyles(key: string): string[] {
   const styles = Array.from(
     document.querySelectorAll(`style[data-emotion="${key}"]`),
   ).map((style) => style.textContent || "");
 
-  return Array.from(new Set(styles)).join("\n");
+  return Array.from(new Set(styles));
 }
 
 /**
@@ -58,22 +57,13 @@ function getEmotionStyles(key: string): string {
  * @param html - The HTML string of the document.
  * @returns A string of concatenated styles.
  */
-function extractStylesFromStylesheets(key: string, html: string): string {
-  return Array.from(document.styleSheets)
-    .map((sheet) => {
-      try {
-        return sheet.cssRules[0] as CSSPageRule;
-      } catch {
-        return null;
-      }
-    })
-    .filter((rule): rule is CSSPageRule =>
-      rule?.selectorText !== undefined
-      && rule.selectorText.includes(key)
-      && html.includes(rule.selectorText.slice(4, 11))
-    )
-    .map((rule) => rule.cssText)
-    .join("\n");
+function extractStylesFromStylesheets(key: string): string[] {
+  return [
+    ...new Set([
+      ...Array.from(document.styleSheets)
+        .map((sheet) => Array.from(sheet.cssRules).map(x => x.cssText).filter(x => x.includes(key))).flat(),
+    ]),
+  ];
 }
 
 export { mineFromCaches };

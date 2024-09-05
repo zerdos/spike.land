@@ -8,6 +8,7 @@ import { Code } from "./services/CodeSession";
 
 import { renderApp, renderedAPPS } from "@/components/app/wrapper";
 import { prettierCss } from "@/lib/shared";
+import { debounce } from "es-toolkit";
 import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
@@ -26,41 +27,37 @@ const handleDefaultPage = async () => {
 
     const mutex = new Mutex();
 
-    cSess.sub(async (sess: ICodeSession) => {
+    const updateRenderedApp = async (sess: ICodeSession) => {
       try {
         const { transpiled } = sess;
 
         const myEl = document.createElement("div");
-        myEl.style.height = "100%";
-        myEl.style.width = "100%";
-        myEl.style.display = "none";
+        myEl.style.cssText = "height: 100%; width: 100%; display: none;";
         document.body.appendChild(myEl);
 
         await renderApp({
           transpiled,
+          codeSpace: cSess.codeSpace,
           rootElement: myEl,
         });
 
         const root = document.getElementById("root")!;
-        const oldApp = renderedAPPS.get(root);
-        if (oldApp) {
-          oldApp?.cleanup();
-        }
+        renderedAPPS.get(root)?.cleanup();
 
         myEl.style.display = "block";
         myEl.id = "root";
       } catch (error) {
-        console.error("Error in cSess subscription:", error);
+        console.error("Error updating rendered app:", error);
       }
-    });
+    };
+
+    cSess.sub(debounce(updateRenderedApp, 100));
 
     window.onmessage = async ({ data }) => {
       try {
         const { i, transpiled } = data;
 
-        if (!i || !transpiled) return;
-
-        if (mod.counter >= i) return;
+        if (!i || !transpiled || mod.counter >= i) return;
 
         mod.counter = i;
         mod.controller.abort();
@@ -72,9 +69,7 @@ const handleDefaultPage = async () => {
           if (signal.aborted) return;
 
           const myEl = document.createElement("div");
-          myEl.style.height = "100%";
-          myEl.style.width = "100%";
-          myEl.style.display = "none";
+          myEl.style.cssText = "height: 100%; width: 100%; display: none;";
           document.body.appendChild(myEl);
 
           const rendered = await renderApp({ rootElement: myEl, transpiled });
@@ -84,12 +79,7 @@ const handleDefaultPage = async () => {
           await wait(100);
           if (signal.aborted) return rendered.cleanup();
 
-          const res = await handleRender(
-            myEl,
-            rendered.cssCache,
-            signal,
-            mod,
-          );
+          const res = await handleRender(myEl, rendered.cssCache, signal, mod);
 
           if (res === false) {
             if (signal.aborted) return rendered.cleanup();
@@ -102,16 +92,13 @@ const handleDefaultPage = async () => {
             window.parent.postMessage({ i, css, html }, "*");
 
             const old = document.getElementById("root")!;
-            const oldApp = renderedAPPS.get(old);
-            if (oldApp) {
-              oldApp.cleanup();
-            }
+            renderedAPPS.get(old)?.cleanup();
 
             myEl.id = "root";
           }
         });
       } catch (error) {
-        console.error("Error in window.onmessage handler:", error);
+        console.error("Error processing message:", error);
       }
       return false;
     };
@@ -144,10 +131,10 @@ if (location.pathname.startsWith("/live")) {
 
 (() => {
   try {
-    cSess.sub((sess: ICodeSession) => {
+    cSess.sub(debounce((sess: ICodeSession) => {
       const { i, code, transpiled } = sess;
       console.table({ i, code, transpiled });
-    });
+    }, 100));
   } catch (error) {
     console.error("Error in cSess subscription:", error);
   }
@@ -155,15 +142,13 @@ if (location.pathname.startsWith("/live")) {
 
 export const handleDehydratedPage = () => {
   try {
-    cSess.sub((sess: ICodeSession) => {
+    cSess.sub(debounce((sess: ICodeSession) => {
       const { html, css } = sess;
-
       const root = document.getElementById("root");
-
       if (root && html && css) {
         root.innerHTML = `<style>${css}</style><div>${html}</div>`;
       }
-    });
+    }, 100));
   } catch (error) {
     console.error("Error handling dehydrated page:", error);
   }
@@ -181,61 +166,46 @@ const handleRender = async (
   },
 ) => {
   try {
-    console.log("handleRender");
     const counter = mod.counter;
-
     if (!rootEl) return false;
 
     for (let attempts = 5; attempts > 0; attempts--) {
       if (signal.aborted) return false;
 
       const html = rootEl.innerHTML;
-      console.log("Initial HTML length:", html.length);
-
-      if (html) {
-        let css = mineFromCaches(cache, html);
-        console.log("Initial CSS length:", css.length);
-
-        const criticalClasses = css.split("\n").map((line) => {
-          const rule = line.slice(1, line.indexOf("{"));
-          if (html.includes(rule)) return rule;
-          return null;
-        }).filter((rule) => rule !== null);
-        console.log("Critical classes found:", criticalClasses.length);
-
-        // filter all the css for the critical classes
-        css = css.split("\n").filter((line) => {
-          return criticalClasses.some((rule) => line.includes(rule));
-        }).join("\n");
-        console.log("CSS length after filtering:", css.length);
-
-        try {
-          console.log("Prettifying CSS");
-          if (css) {
-            const prettifiedCss = await prettierCss(css);
-            console.log("Prettified CSS length:", prettifiedCss.length);
-            css = prettifiedCss;
-          } else {
-            console.log("CSS is empty before prettifying");
-          }
-        } catch (error) {
-          console.error("Error prettifying CSS:", error);
-          // Preserve original CSS if prettifying fails
-          console.log("Preserving original CSS due to prettify error");
-        }
-
-        if (mod.counter !== counter) {
-          console.log("Counter mismatch, returning false");
-          return false;
-        }
-
-        console.log("Final CSS length:", css.length);
-        console.log("Final HTML length:", html.length);
-        return { css, html };
-      } else {
-        console.log("HTML is empty, returning without processing");
+      if (!html) {
         await wait(100);
+        continue;
       }
+
+      let css = mineFromCaches(cache);
+      const criticalClasses = new Set(
+        css.map(line => {
+          const rule = line.slice(1, line.indexOf("{")).trim();
+          return html.includes(rule) ? rule : null;
+        })
+          .filter(Boolean),
+      );
+
+      const styleElement = document.querySelector("head > style:last-child");
+      const tailWindClasses = styleElement
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText)
+        : [];
+
+      let eCss = css.filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(
+        x => x.trim(),
+      ).filter(Boolean);
+
+      let cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
+      try {
+        cssStrings = cssStrings ? await prettierCss(cssStrings) : "";
+      } catch (error) {
+        console.error("Error prettifying CSS:", error);
+      }
+
+      if (mod.counter !== counter) return false;
+
+      return { css: cssStrings.split(cache.key).join("x"), html: html.split(cache.key).join("x") };
     }
     return false;
   } catch (error) {
