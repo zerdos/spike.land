@@ -27,8 +27,10 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
     return (
       <iframe
         css={css`
-            height: calc(100vh / ${scale});
-            width: calc(100vw / ${scale});
+            height: 100vh;
+            width: 100vw;
+            scale: ${scale};
+            transform-origin: 0 0;
             border: 0;
             overflow-y: overlay;
             overflow-x: auto;
