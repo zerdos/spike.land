@@ -1,6 +1,6 @@
 import { routes } from "../routes";
 
-const paths = location.href.split("/").slice(3);
+const paths = location.pathname.split("/").slice(1);
 
 const redirect = Object.hasOwn(routes, location.pathname)
   ? routes[location.pathname as unknown as keyof typeof routes]
