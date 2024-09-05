@@ -14,7 +14,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
         const { width, height } = entry.contentRect;
         const newScale = width / innerWidth;
         setScale(newScale);
-        setRatio(width / height);
+        setRatio(innerWidth / innerHeight);
       }
     });
     ref.current && resizeObserver.observe(ref.current);
@@ -22,12 +22,13 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
   }, [ref]);
 
   return (
-    <AspectRatio ratio={ratio}>
+    <AspectRatio ratio={ratio} ref={ref}>
       <iframe
-        ref={ref}
         css={css`
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vh;
+        scale: ${scale};
+        transform-origin: top left;
         border: 0;
         overflow-y: overlay;
         overflow-x: auto;
