@@ -1,12 +1,9 @@
-import "./ws";
 import { renderApp } from "@/components/app/wrapper";
-// import { useCodeSpace } from "./hooks/useCodeSpace";
+import { useCodeSpace } from "./hooks/useCodeSpace";
 
-// if (location.pathname.endsWith("embed") === false) {
-// setTimeout(() => {
-// import("./ws");
-// }, 0);
-// }
+if (location.pathname.endsWith("embed") === false) {
+  import("./ws");
+}
 
 const codeSpace = useCodeSpace();
 
