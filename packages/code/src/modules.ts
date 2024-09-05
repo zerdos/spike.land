@@ -1,6 +1,6 @@
 import { importMap, importMapReplace } from "./importMapUtils";
 
-import { md5 } from "@/lib/md5";
+import { md5 } from "@/lib/md5.ts";
 import { Delta } from "./textDiff";
 export { importMapReplace };
 export { serverFetchUrl } from "./enhancedFetch";

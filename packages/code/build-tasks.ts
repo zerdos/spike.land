@@ -120,7 +120,7 @@ const createAliases = async (dir: string): Promise<Record<string, string>> => {
   const files = await readdir(`src/@/${dir}`);
   return Object.fromEntries(
     files.map((file) => [
-      `@/${dir}/${file}`,
+      `@/${dir}/${file}`.replace(/\.(ts|tsx)$/, ""),
       `/@/${dir}/${file.replace(/\.(ts|tsx)$/, ".mjs")}`,
     ]),
   );
