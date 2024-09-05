@@ -190,14 +190,15 @@ const handleRender = async (
 
       const styleElement = document.querySelector("head > style:last-child");
       const tailWindClasses = styleElement
-        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText).sort()
+        ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText)
         : [];
 
-      css = css.split("\n")
-        .filter(line =>
-          Array.from([...criticalClasses, tailWindClasses]).some(rule => rule ? line.includes(rule) : false)
-        ).sort().join("\n");
+      let eCss = css.split("\n")
+        .filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(x =>
+          x.trim().split(cache.key).join("")
+        ).filter(Boolean);
 
+      css = [...eCss, ...tailWindClasses].sort().join("\n");
       try {
         css = css ? await prettierCss(css) : "";
       } catch (error) {
@@ -206,7 +207,7 @@ const handleRender = async (
 
       if (mod.counter !== counter) return false;
 
-      return { css, html };
+      return { css, html: html.split(cache.key).join("") };
     }
     return false;
   } catch (error) {
