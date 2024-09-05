@@ -182,7 +182,7 @@ const handleRender = async (
       const criticalClasses = new Set(
         css.split("\n")
           .map(line => {
-            const rule = line.slice(1, line.indexOf("{"));
+            const rule = line.slice(1, line.indexOf("{")).trim();
             return html.includes(rule) ? rule : null;
           })
           .filter(Boolean),
