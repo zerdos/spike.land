@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import React, { useRef, useState } from "react";
 
@@ -6,15 +5,15 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
   const ref = useRef<HTMLIFrameElement>(null);
 
   const [scale, setScale] = useState(1);
-  const [ratio, setRatio] = useState(innerWidth / innerHeight);
+  const [ratio, setRatio] = useState(window.innerWidth / window.innerHeight);
 
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const { width, height } = entry.contentRect;
-        const newScale = width / innerWidth;
+        const newScale = width / window.innerWidth;
         setScale(newScale);
-        setRatio(innerWidth / innerHeight);
+        setRatio(window.innerWidth / window.innerHeight);
       }
     });
     ref.current && resizeObserver.observe(ref.current);
@@ -24,16 +23,10 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
   return (
     <AspectRatio ratio={ratio} ref={ref}>
       <iframe
-        css={css`
-        height: calc(100vh / ${scale});
-        width: calc(100vw / ${scale});
-        scale: ${scale};
-        transform-origin: top left;
-        border: 0;
-        overflow-y: overlay;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      `}
+        className={`h-[calc(100vh/${scale})] w-[calc(100vw/${scale})] origin-top-left border-0 overflow-y-overlay overflow-x-auto touch-pan-y`}
+        style={{
+          transform: `scale(${scale})`,
+        }}
         src={`/live/${codeSpace}/embed`}
       />
     </AspectRatio>
