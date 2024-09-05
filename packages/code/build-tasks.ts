@@ -162,6 +162,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
   const hooksAliases = await createAliases("hooks");
 
   const extraAliases = { ...uiAliases, ...libAliases, ...externalAliases, ...appAliases, ...hooksAliases };
+  console.log(JSON.stringify(extraAliases, null, 2));
 
   await build({
     ...buildOptions,
@@ -232,7 +233,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       ...(buildOptions.external ?? []),
-      ...Object.keys(extraAliases),
+      ...Object.values(extraAliases),
       "/",
       "/swVersion.mjs",
       `./${wasmFile}`,
