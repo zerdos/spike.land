@@ -100,7 +100,6 @@ const renderApp = async (
       rootEl.id = "root";
       document.body.appendChild(rootEl);
     }
-    rootEl.style.height = "100vh";
     rootEl.id = "root";
 
     if (renderedAPPS.has(rootEl)) {
@@ -143,7 +142,7 @@ const renderApp = async (
             debouncedSetDimensions({ width, height });
           }
         });
-        resizeObserver.observe(rootEl);
+        resizeObserver.observe(rootEl.parentElement!);
         return () => {
           resizeObserver.disconnect();
           abortController.abort();
