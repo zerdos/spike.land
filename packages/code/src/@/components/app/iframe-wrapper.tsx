@@ -28,7 +28,7 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
         css={css`
         height: 100%;
         width: 100%;
-        scale: ${1 / scale};
+        scale: ${scale};
         transform-origin: 0 0;
         border: 0;
         overflow-y: overlay;
