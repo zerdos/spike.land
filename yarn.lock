@@ -44,9 +44,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anthropic-ai/sdk@npm:^0.27.1":
-  version: 0.27.1
-  resolution: "@anthropic-ai/sdk@npm:0.27.1"
+"@anthropic-ai/sdk@npm:^0.27.2":
+  version: 0.27.2
+  resolution: "@anthropic-ai/sdk@npm:0.27.2"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -55,7 +55,7 @@ __metadata:
     form-data-encoder: "npm:1.7.2"
     formdata-node: "npm:^4.3.2"
     node-fetch: "npm:^2.6.7"
-  checksum: 10/6984f9e95249f320b2acf84b707ccd57e4eec08fef2cc532ab17d0a8bd3fedf4e22572c2354ce0513b73bd6415765ef519f83c776ffee6418f483be56bcbff2a
+  checksum: 10/b044727239164ca54b0f85d73d20201ae65fa91c57043c9f0c149820970aa147ee261b2cf5d4704770e4ecdc66ad51ad5e29a9a670d855bced297f5437240d1e
   languageName: node
   linkType: hard
 
@@ -1536,16 +1536,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@langchain/anthropic@npm:^0.2.15":
-  version: 0.2.15
-  resolution: "@langchain/anthropic@npm:0.2.15"
+"@langchain/anthropic@npm:^0.2.16":
+  version: 0.2.16
+  resolution: "@langchain/anthropic@npm:0.2.16"
   dependencies:
     "@anthropic-ai/sdk": "npm:^0.25.2"
     "@langchain/core": "npm:>=0.2.21 <0.3.0"
     fast-xml-parser: "npm:^4.4.1"
     zod: "npm:^3.22.4"
     zod-to-json-schema: "npm:^3.22.4"
-  checksum: 10/50509bd89190df0af18c0ccb0455897701746abb892a7f83a2e3c0a594d46c750744023404c63d0dd69355f897a37eed9300fa819c2942ab48813cbf470463fd
+  checksum: 10/b8bd99378cd627c851033454b955966559f10446802a362e4167d0c9f1dbb55f9e07829fad0465809e0b912772314a8f8f3e1483b99920fce857a583cd8b5c52
   languageName: node
   linkType: hard
 
@@ -3596,13 +3596,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/ai-devtools@workspace:packages/ai-devtools"
   dependencies:
-    "@types/node": "npm:22.5.3"
+    "@types/node": "npm:22.5.4"
     body-parser: "npm:1.20.2"
     commander: "npm:12.1.0"
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.57.1"
+    openai: "npm:4.57.3"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.26.0"
   bin:
@@ -3630,7 +3630,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/code-worker@workspace:packages/spike.land"
   dependencies:
-    "@anthropic-ai/sdk": "npm:^0.27.1"
+    "@anthropic-ai/sdk": "npm:^0.27.2"
     "@clerk/backend": "npm:^1.9.2"
     "@clerk/clerk-sdk-node": "npm:^5.0.35"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
@@ -3639,13 +3639,13 @@ __metadata:
     "@remix-run/cloudflare": "npm:^2.11.2"
     "@remix-run/react": "npm:^2.11.2"
     "@spike-land/code": "npm:0.9.55"
-    "@types/node": "npm:^22.5.3"
+    "@types/node": "npm:^22.5.4"
     async-mutex: "npm:0.5.0"
     avl: "npm:1.5.3"
     esbuild-wasm: "npm:0.23.1"
     esm-worker: "npm:0.135.17"
     immutable: "npm:4.3.7"
-    openai: "npm:^4.57.1"
+    openai: "npm:^4.57.3"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -3672,7 +3672,7 @@ __metadata:
     "@github/stable-socket": "npm:1.1.0"
     "@heroicons/react": "npm:^2.1.5"
     "@hookform/resolvers": "npm:^3.9.0"
-    "@langchain/anthropic": "npm:^0.2.15"
+    "@langchain/anthropic": "npm:^0.2.16"
     "@langchain/core": "npm:^0.2.31"
     "@langchain/langgraph": "npm:^0.2.2"
     "@monaco-editor/react": "npm:^4.6.0"
@@ -3713,7 +3713,7 @@ __metadata:
     "@tailwindcss/container-queries": "npm:^0.1.1"
     "@tailwindcss/forms": "npm:^0.5.8"
     "@tailwindcss/typography": "npm:^0.5.15"
-    "@tanstack/react-virtual": "npm:^3.10.6"
+    "@tanstack/react-virtual": "npm:^3.10.7"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.5.0"
     "@testing-library/react": "npm:^16.0.1"
@@ -3723,7 +3723,7 @@ __metadata:
     "@types/eslint__js": "npm:^8.42.3"
     "@types/esprima": "npm:^4.0.6"
     "@types/isomorphic-fetch": "npm:0.0.39"
-    "@types/node": "npm:^22.5.3"
+    "@types/node": "npm:^22.5.4"
     "@types/object-inspect": "npm:^1.13.0"
     "@types/react": "npm:18.3.5"
     "@types/react-dom": "npm:18.3.0"
@@ -3774,7 +3774,7 @@ __metadata:
     fast-diff: "npm:1.3.0"
     fetch-retry: "npm:6.0.0"
     file-type: "npm:19.4.1"
-    framer-motion: "npm:11.5.1"
+    framer-motion: "npm:11.5.2"
     i18next: "npm:^23.14.0"
     immutable: "npm:4.3.7"
     input-otp: "npm:^1.2.4"
@@ -3840,7 +3840,7 @@ __metadata:
     util: "npm:0.12.5"
     uuid: "npm:10.0.0"
     uvu: "npm:0.5.6"
-    vaul: "npm:^0.9.1"
+    vaul: "npm:^0.9.2"
     vite: "npm:^5.4.3"
     vite-tsconfig-paths: "npm:^5.0.1"
     vitest: "npm:^2.0.5"
@@ -3870,7 +3870,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spike-land/devcontainer-generator@workspace:packages/devcontainer-generator"
   dependencies:
-    "@types/node": "npm:22.5.3"
+    "@types/node": "npm:22.5.4"
     esbuild-wasm: "npm:0.23.1"
   languageName: unknown
   linkType: soft
@@ -4028,22 +4028,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:^3.10.6":
-  version: 3.10.6
-  resolution: "@tanstack/react-virtual@npm:3.10.6"
+"@tanstack/react-virtual@npm:^3.10.7":
+  version: 3.10.7
+  resolution: "@tanstack/react-virtual@npm:3.10.7"
   dependencies:
-    "@tanstack/virtual-core": "npm:3.10.6"
+    "@tanstack/virtual-core": "npm:3.10.7"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 10/50624357867ce8eca4084bfe132b73fe7a2e0f9bcb2a7241b16425d58c0f7602c6f889f28d29a9416f7c3ab12d89239da48d0d84ca470ace94f77cf982d6246e
+  checksum: 10/cf4324687a3849a981f6e7baad26199fc9419184d69585d9aca35876f9a83a0d9167b31d8d5e74ad739465961eaedc7b5c9177efc62c502adbb7f061be8dc554
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:3.10.6":
-  version: 3.10.6
-  resolution: "@tanstack/virtual-core@npm:3.10.6"
-  checksum: 10/e8960625cd24a31bc4bace8b9011780ea384811c4205cafc8c076442f85a3af6690c7700f3480524aaad763b1f3a34938386b3bf23d18c10fb5443dec92ec826
+"@tanstack/virtual-core@npm:3.10.7":
+  version: 3.10.7
+  resolution: "@tanstack/virtual-core@npm:3.10.7"
+  checksum: 10/28aa29e454f2674bd2e3609d2a9ace4ad9913f55b2edd71363b770cde150ffafd67d5fd846cc7d1538b5b0e4e62a1960f253c48c85ad9774692b3be14579eaad
   languageName: node
   linkType: hard
 
@@ -4480,12 +4480,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.5.3, @types/node@npm:^22.5.3":
-  version: 22.5.3
-  resolution: "@types/node@npm:22.5.3"
+"@types/node@npm:22.5.4, @types/node@npm:^22.5.4":
+  version: 22.5.4
+  resolution: "@types/node@npm:22.5.4"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/a969c8df3becf326938ff17b0bd9114b0d1d3c5fe6292c8a9f3db1576a3567dc6db4e7b253830bbfcd92cb49e0d799592d56daf56d8a0c1446d0ea6658324450
+  checksum: 10/d46e0abf437b36bdf89011287aa43873d68ea6f2521a11b5c9a033056fd0d07af36daf51439010e8d41c62c55d0b00e9b5e09ed00bb2617723f73f28a873903a
   languageName: node
   linkType: hard
 
@@ -4526,7 +4526,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:^6.9.7":
+"@types/qs@npm:^6.9.15":
   version: 6.9.15
   resolution: "@types/qs@npm:6.9.15"
   checksum: 10/97d8208c2b82013b618e7a9fc14df6bd40a73e1385ac479b6896bafc7949a46201c15f42afd06e86a05e914f146f495f606b6fb65610cc60cf2e0ff743ec38a2
@@ -9334,9 +9334,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:11.5.1":
-  version: 11.5.1
-  resolution: "framer-motion@npm:11.5.1"
+"framer-motion@npm:11.5.2":
+  version: 11.5.2
+  resolution: "framer-motion@npm:11.5.2"
   dependencies:
     tslib: "npm:^2.4.0"
   peerDependencies:
@@ -9350,7 +9350,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/beee5ea7ddaeb136189f617b92725c03363d261ea2951fe8caca4559a53ac6fda74772f016a0dca2c4ca286a860670106c88e1c9799da18a8f5476b2e8ab3b61
+  checksum: 10/9d57957ad3b7feac376016718ea4ccd70453339213b4527924a8cc35b815c2c81a6f55cc869650103cef999309fe7ad9f2d2ac25ed4bbabe098a2dbdae0650c9
   languageName: node
   linkType: hard
 
@@ -13255,13 +13255,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.57.1, openai@npm:^4.57.1":
-  version: 4.57.1
-  resolution: "openai@npm:4.57.1"
+"openai@npm:4.57.3, openai@npm:^4.57.3":
+  version: 4.57.3
+  resolution: "openai@npm:4.57.3"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
-    "@types/qs": "npm:^6.9.7"
+    "@types/qs": "npm:^6.9.15"
     abort-controller: "npm:^3.0.0"
     agentkeepalive: "npm:^4.2.1"
     form-data-encoder: "npm:1.7.2"
@@ -13275,7 +13275,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10/67bbd78480852ba563ad17d6b0bc18a52694f8b18ed9b8b88d593e5f05a690f11eaa442d70ed306943360d4ee29000b739e422e3e5a1dc8cffb775a350342027
+  checksum: 10/ac43545e97f734969e31519b2639b57625bd972e1481a40be9c6f5fc4e3f3098d1371e56fbddf24920a9e415fea8c9b5888b31a568cd154d82ddf9fa1301b23e
   languageName: node
   linkType: hard
 
@@ -17603,15 +17603,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vaul@npm:^0.9.1":
-  version: 0.9.1
-  resolution: "vaul@npm:0.9.1"
+"vaul@npm:^0.9.2":
+  version: 0.9.2
+  resolution: "vaul@npm:0.9.2"
   dependencies:
     "@radix-ui/react-dialog": "npm:^1.0.4"
   peerDependencies:
     react: ^16.8 || ^17.0 || ^18.0
     react-dom: ^16.8 || ^17.0 || ^18.0
-  checksum: 10/2121e13402e35abac40b568e4037fc2fc7cd7632b0cb776aae7fe24fef9e8f04f1503223d166dfad2bed95d19a0369ae0c2c50faeef7afa51ff1600576c41b8f
+  checksum: 10/260a806eacadc147db2b0de0131329febe5c17ab0380dd6ad9d145699f0971e4b50466d7d12313d9297e3a6eee93afaefa142fadc35b01ebef4d9b36cca8c658
   languageName: node
   linkType: hard
 
