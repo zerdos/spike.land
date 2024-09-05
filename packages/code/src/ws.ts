@@ -13,6 +13,7 @@ import { mineFromCaches } from "./utils/mineCss";
 import { wait } from "./wait";
 
 const cSess = new Code();
+let tw = 0;
 
 const waitForCSess = cSess.run();
 
@@ -54,6 +55,11 @@ const handleDefaultPage = async () => {
     cSess.sub(debounce(updateRenderedApp, 100));
 
     window.onmessage = async ({ data }) => {
+      if (!tw) {
+        tw = 1;
+        await import(location.origin + "/tw/tw-chunk-be5bad.js");
+      }
+
       try {
         const { i, transpiled } = data;
 
