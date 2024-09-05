@@ -232,6 +232,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       ...(buildOptions.external ?? []),
+      ...Object.keys(extraAliases),
       "/",
       "/swVersion.mjs",
       `./${wasmFile}`,
