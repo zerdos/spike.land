@@ -232,7 +232,7 @@ export async function buildMainBundle(wasmFile: string): Promise<void> {
     },
     external: [
       ...(buildOptions.external ?? []),
-      "@/",
+      "/",
       "/swVersion.mjs",
       `./${wasmFile}`,
       "esbuild-wasm/esbuild.wasm",
