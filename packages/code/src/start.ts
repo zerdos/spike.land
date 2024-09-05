@@ -1,3 +1,4 @@
+import { renderApp } from "@/components/app/wrapper";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 
 if (location.pathname.endsWith("embed") === false) {
@@ -12,11 +13,7 @@ if (
   location.pathname !== `/live/${codeSpace}`
   && location.pathname.endsWith("dehydrated") === false
 ) {
-  setTimeout(() => {
-    (async () => {
-      const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
-      const { renderApp } = await import("@/components/app/wrapper");
-      renderApp({ codeSpace, rootElement });
-    })();
-  }, 0);
+  const rootElement = (document.getElementById("root") || document.getElementById("embed")) as HTMLDivElement;
+
+  renderApp({ codeSpace, rootElement });
 }
