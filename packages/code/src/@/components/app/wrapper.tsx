@@ -136,7 +136,14 @@ const renderApp = async (
       useEffect(() => {
         // use ResizeObserver to update the dimensions
         const abortController = new AbortController();
-        const debouncedSetDimensions = debounce(setDimensions, 100, { signal: abortController.signal });
+        const debouncedSetDimensions = debounce(
+          (dim: {
+            width: number;
+            height: number;
+          }) => setDimensions(dim),
+          100,
+          { signal: abortController.signal },
+        );
 
         const resizeObserver = new ResizeObserver((entries) => {
           for (let entry of entries) {
@@ -144,7 +151,7 @@ const renderApp = async (
             debouncedSetDimensions({ width, height });
           }
         });
-        resizeObserver.observe(rootEl.parentElement!);
+        resizeObserver.observe(rootEl);
         return () => {
           resizeObserver.disconnect();
           abortController.abort();
