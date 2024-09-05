@@ -38,6 +38,7 @@ const handleDefaultPage = async () => {
 
         await renderApp({
           transpiled,
+          codeSpace: cSess.codeSpace,
           rootElement: myEl,
         });
 
