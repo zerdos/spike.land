@@ -192,8 +192,9 @@ async function renderApp(
   }
 }
 
-if (!globalThis.tw) {
-  globalThis.tw = import(location.origin + "/tw/tw-chunk-be5bad.js");
+if (Object.getOwnPropertyNames(globalThis).includes("tw") === false) {
+  const tw = import(location.origin + "/tw/tw-chunk-be5bad.js");
+  Object.assign(globalThis, { tw });
 }
 
 export { generateDeterministicKey, renderApp };
