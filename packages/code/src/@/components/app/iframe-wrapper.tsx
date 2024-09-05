@@ -1,4 +1,5 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { cn } from "@/lib/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
@@ -53,16 +54,15 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
   });
 
   return (
-    <animated.div ref={containerRef} style={springProps} className="overflow-hidden">
+    <animated.div ref={containerRef} style={springProps as any} className="overflow-hidden">
       <AspectRatio ratio={fullScreen ? undefined : ratio}>
         <iframe
           ref={ref}
-          className={`w-full h-full origin-top-left border-0 ${fullScreen ? "fixed top-0 left-0" : ""}`}
+          className={cn(
+            "w-full h-full origin-top-left border-0",
+            fullScreen ? "fixed top-0 left-0" : "",
+          )}
           src={`/live/${codeSpace}/embed`}
-          style={{
-            width: fullScreen ? `${window.innerWidth}px` : "100%",
-            height: fullScreen ? `${window.innerHeight}px` : "100%",
-          }}
         />
       </AspectRatio>
     </animated.div>

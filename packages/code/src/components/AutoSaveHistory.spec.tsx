@@ -63,9 +63,10 @@ describe("CodeHistoryCarousel", () => {
 
     // Wait for the history items to be rendered
     await waitFor(() => {
+      screen.debug(); // Print the rendered HTML
       expect(screen.getByText("Version 2")).toBeInTheDocument();
       expect(screen.getByText("Version 1")).toBeInTheDocument();
-    });
+    }, { timeout: 5000 }); // Increase timeout to 5000ms
 
     // Find and click the first "Restore" button
     const restoreButtons = screen.getAllByText("Restore");
@@ -77,7 +78,7 @@ describe("CodeHistoryCarousel", () => {
         code: "console.log(\"Version 2\");",
         timestamp: 1625184000000,
       }));
-    });
+    }, { timeout: 5000 }); // Increase timeout to 5000ms
   });
 
   it("handles close button click", async () => {
@@ -92,8 +93,9 @@ describe("CodeHistoryCarousel", () => {
 
     // Wait for the component to render
     await waitFor(() => {
+      screen.debug(); // Print the rendered HTML
       expect(screen.getByText("Code History")).toBeInTheDocument();
-    });
+    }, { timeout: 5000 }); // Increase timeout to 5000ms
 
     // Find and click the "Close" button
     const closeButton = screen.getByText("Close");

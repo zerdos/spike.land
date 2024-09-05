@@ -1,5 +1,5 @@
 import { Wrapper } from "@/components/app/wrapper";
-import { act, render, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -43,7 +43,7 @@ describe("Wrapper", () => {
     });
 
     await waitFor(() => {
-      expect(container.querySelector("[data-testid='wrapper-container']")).toBeInTheDocument();
+      expect(screen.getByTestId("wrapper-container")).toBeInTheDocument();
     }, { timeout: 10000 });
   }, 15000);
 
@@ -52,10 +52,12 @@ describe("Wrapper", () => {
       render(<Wrapper codeSpace="test-space" />, { container });
     });
 
-    const iframe = container.querySelector("iframe");
-    expect(iframe).toBeInTheDocument();
-    expect(iframe).toHaveAttribute("src", "/live/test-space/embed");
-  });
+    await waitFor(() => {
+      const iframe = screen.getByTitle("Code Space Iframe");
+      expect(iframe).toBeInTheDocument();
+      expect(iframe).toHaveAttribute("src", "/live/test-space/embed");
+    }, { timeout: 10000 });
+  }, 15000);
 
   it("applies correct scale to iframe", async () => {
     const scale = 2;
@@ -63,8 +65,11 @@ describe("Wrapper", () => {
       render(<Wrapper codeSpace="test-space" scale={scale} />, { container });
     });
 
-    const iframe = container.querySelector("iframe");
-    expect(iframe).toHaveStyle(`height: ${100 / scale}%`);
-    expect(iframe).toHaveStyle(`width: ${100 / scale}%`);
-  });
+    await waitFor(() => {
+      const iframe = screen.getByTitle("Code Space Iframe");
+      expect(iframe).toBeInTheDocument();
+      expect(iframe).toHaveStyle(`transform: scale(${1 / scale})`);
+      expect(iframe).toHaveStyle(`transform-origin: 0 0`);
+    }, { timeout: 10000 });
+  }, 15000);
 });

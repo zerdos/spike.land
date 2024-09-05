@@ -11,5 +11,5 @@ const generateDeterministicKey = (input: string): string => {
     result += validChars[charCode % validChars.length];
   }
 
-  return result;
+  return result.slice(0, 8);
 };

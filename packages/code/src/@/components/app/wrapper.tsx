@@ -6,7 +6,6 @@ import { createRoot, Root } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
 import ErrorBoundary from "@/components/app/error-boundary";
-import { IframeWrapper } from "@/components/app/iframe-wrapper";
 import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
@@ -24,25 +23,8 @@ interface WrapperProps {
   scale?: number;
 }
 
-const generateDeterministicKey = (input: string): string => {
-  const hash = md5(input);
-  const validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "_"; // Start with an underscore to ensure it starts with a valid character
-
-  for (let i = 0; i < hash.length; i++) {
-    const charCode = hash.charCodeAt(i);
-    result += validChars[charCode % validChars.length];
-  }
-
-  return result;
-};
-
 export const Wrapper: React.FC<WrapperProps> = React.memo(
-  function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
-    if (codeSpace) {
-      return <IframeWrapper codeSpace={codeSpace} />;
-    }
-
+  function Wrapper({ code, codeSpace, transpiled }) {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -51,7 +33,7 @@ export const Wrapper: React.FC<WrapperProps> = React.memo(
       const rootRef: Root = createRoot(containerRef.current);
 
       const cssCache = createCache({
-        key: generateDeterministicKey(code || transpiled || Math.random().toString()),
+        key: md5(code || transpiled || Math.random().toString()),
         speedy: true,
         container: containerRef.current,
       });
@@ -78,7 +60,7 @@ export const Wrapper: React.FC<WrapperProps> = React.memo(
           containerRef.current.innerHTML = "";
         }
       };
-    }, [code, transpiled]);
+    }, [code, transpiled, codeSpace]);
 
     return (
       <div
@@ -124,7 +106,7 @@ async function renderApp(
     const root = createRoot(rootEl);
 
     const cssCache = createCache({
-      key: generateDeterministicKey(transpiled! || code! || Math.random().toString()),
+      key: md5(transpiled! || code! || Math.random().toString()),
       speedy: true,
       container: rootEl.parentNode!,
     });

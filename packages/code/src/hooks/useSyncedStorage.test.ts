@@ -80,6 +80,7 @@ describe("useSyncedStorage", () => {
   const originalLocalStorage = window.localStorage;
   const originalIndexedDB = window.indexedDB;
   const originalBroadcastChannel = globalThis.BroadcastChannel;
+  const originalConsoleError = console.error;
 
   beforeEach(() => {
     vi.resetAllMocks();
@@ -88,12 +89,20 @@ describe("useSyncedStorage", () => {
     (globalThis as any).BroadcastChannel = BroadcastChannelMock;
     localStorageMock.clear();
     BroadcastChannelMock.channels = {};
+    // Suppress React 18 warning
+    console.error = vi.fn((...args) => {
+      if (typeof args[0] === "string" && args[0].includes("ReactDOM.render is no longer supported")) {
+        return;
+      }
+      originalConsoleError.call(console, ...args);
+    });
   });
 
   afterEach(() => {
     Object.defineProperty(window, "localStorage", { value: originalLocalStorage, writable: true });
     (globalThis as any).indexedDB = originalIndexedDB;
     (globalThis as any).BroadcastChannel = originalBroadcastChannel;
+    console.error = originalConsoleError;
   });
 
   it("should use the initial value when storage is empty", async () => {
@@ -120,11 +129,9 @@ describe("useSyncedStorage", () => {
   it("should retrieve the value from localStorage if it exists", async () => {
     localStorageMock.getItem.mockReturnValueOnce(JSON.stringify("storedValue"));
 
-    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
-    });
+    await waitForNextUpdate();
 
     expect(result.current[0]).toBe("storedValue");
   });
@@ -158,7 +165,7 @@ describe("useSyncedStorage", () => {
     });
 
     expect(result.current[0]).toBe("initialValue");
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error reading from storage:", expect.any(Error));
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error reading from storage for key 'testKey':", expect.any(Error));
 
     consoleErrorSpy.mockRestore();
   });
@@ -176,7 +183,7 @@ describe("useSyncedStorage", () => {
     });
 
     expect(result.current[0]).toBe("newValue"); // The local state should still update
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error writing to storage:", expect.any(Error));
+    expect(consoleErrorSpy).toHaveBeenCalledWith("Error writing to storage for key 'testKey':", expect.any(Error));
 
     consoleErrorSpy.mockRestore();
   });
