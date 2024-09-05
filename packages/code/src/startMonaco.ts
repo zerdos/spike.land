@@ -85,6 +85,7 @@ const monacoContribution = async (code: string) => {
     esModuleInterop: false,
     strictNullChecks: false,
     strict: false,
+
     strictFunctionTypes: false,
     strictPropertyInitialization: false,
     strictBindCallApply: false,
@@ -208,6 +209,7 @@ async function startMonacoPristine({
     scrollPredominantAxis: true,
     automaticLayout: false,
     useShadowDOM: false,
+    links: true,
     tabSize: 2,
     insertSpaces: false,
     bracketPairColorization: {
