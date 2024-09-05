@@ -7,8 +7,10 @@ import { transpile } from "@/lib/shared";
 import createCache from "@emotion/cache";
 import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
-import React, { useEffect, useRef } from "react";
+import { debounce } from "es-toolkit";
+import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { s } from "vite/dist/node/types.d-aGj9QkWt";
 // import { useScreenSize } from '@visx/responsive';
 // import { useParentSize } from '@visx/responsive';
 
@@ -126,18 +128,35 @@ const renderApp = async (
       container: rootEl.parentNode!,
     });
 
-    // const AppWithScreenSize = () => {
-    //   const { width, height } = useScreenSize({ debounceTime: 100 });
-    //   return <div><AppToRender width={width} height={height} />
+    const AppWithScreenSize = () => {
+      const [{ width, height }, setDimensions] = useState({ width: rootEl.clientWidth, height: rootEl.clientHeight });
 
-    //   </div>;
-    // }
+      useEffect(() => {
+        // use ResizeObserver to update the dimensions
+        const abortController = new AbortController();
+        const debouncedSetDimensions = debounce(setDimensions, 100, { signal: abortController.signal });
+
+        const resizeObserver = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+            const { width, height } = entry.contentRect;
+            debouncedSetDimensions({ width, height });
+          }
+        });
+        resizeObserver.observe(rootEl);
+        return () => {
+          resizeObserver.disconnect();
+          abortController.abort();
+        };
+      }, []);
+
+      return <AppToRender width={width} height={height} />;
+    };
 
     root.render(
       <>
         <CacheProvider value={cssCache}>
           <ErrorBoundary>
-            <AppToRender />
+            <AppWithScreenSize />
           </ErrorBoundary>
         </CacheProvider>
         {codeSpace && <AIBuildingOverlay codeSpace={codeSpace} />}
