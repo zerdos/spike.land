@@ -63,6 +63,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
         <React.Suspense fallback={<></>}>
           <ErrorBoundary>
             {/* <ParentSize ref={containerRef}> */}
+            <h1>ParentSize -- x</h1>
             <AppRenderer />
             {/* </ParentSize> */}
           </ErrorBoundary>
