@@ -1,14 +1,14 @@
 import { Progress } from "@/components/ui/progress";
 import { useSyncedStorage } from "@/hooks/use-synced-storage";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface AIBuildingOverlayProps {
   codeSpace: string;
 }
 
 export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
-  const [isStreaming, _setIsStreaming] = useSyncedStorage(`streaming-${codeSpace}`);
+  const [isStreaming] = useSyncedStorage(`streaming-${codeSpace}`);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -20,8 +20,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
-          clearInterval(interval);
-          return 100;
+          return (prevProgress + 1) % 100;
         }
         return prevProgress + 100 / (10000 / 50);
       });
@@ -29,7 +28,7 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
     return () => clearInterval(interval);
   }, [isStreaming]);
 
-  if (!isStreaming) return null;
+  if (!isStreaming) return <></>;
 
   return (
     <div
