@@ -25,8 +25,8 @@ export const IframeWrapper: React.FC<{ codeSpace: string }> = ({ codeSpace }) =>
     <AspectRatio ratio={ratio} ref={ref}>
       <iframe
         css={css`
-        height: calc(100vh * ${1 / scale});
-        width: calc(100vw * ${1 / scale});
+        height: calc(100vh / ${scale});
+        width: calc(100vw / ${scale});
         scale: ${scale};
         transform-origin: top left;
         border: 0;
