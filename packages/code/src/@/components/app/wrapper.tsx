@@ -29,7 +29,7 @@ export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?:
         css={css`
             height: 100vh;
             width: 100vw;
-            scale: ${scale};
+            scale: ${1 / scale};
             transform-origin: 0 0;
             border: 0;
             overflow-y: overlay;
