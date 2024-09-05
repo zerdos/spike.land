@@ -14,7 +14,10 @@ export const IframeWrapper: React.FC<{ codeSpace: string; fullScreen: boolean }>
     if (containerRef.current && ref.current) {
       const containerWidth = containerRef.current.offsetWidth;
       const containerHeight = containerRef.current.offsetHeight;
-      const scale = Math.min(containerWidth / window.innerWidth, containerHeight / window.innerHeight);
+      const scale = Math.min(
+        containerWidth / window.innerWidth,
+        containerHeight / window.innerHeight,
+      );
       ref.current.style.transform = `scale(${scale})`;
       ref.current.style.width = `${window.innerWidth}px`;
       ref.current.style.height = `${window.innerHeight}px`;
