@@ -192,10 +192,8 @@ const handleRender = async (
         ? Array.from((styleElement as HTMLStyleElement).sheet!.cssRules).map(x => x.cssText)
         : [];
 
-      const CACHE_KEY = `_${cache.key}-`;
-
       let eCss = css.filter(line => Array.from(criticalClasses).some(rule => rule ? line.includes(rule) : false)).map(
-        x => x.trim().split(CACHE_KEY).join("x"),
+        x => x.trim(),
       ).filter(Boolean);
 
       let cssStrings = [...eCss, ...tailWindClasses].sort().join("\n");
@@ -207,7 +205,7 @@ const handleRender = async (
 
       if (mod.counter !== counter) return false;
 
-      return { css: cssStrings, html: html.split(CACHE_KEY).join("x") };
+      return { css: cssStrings.split(cache.key).join("x"), html: html.split(cache.key).join("x") };
     }
     return false;
   } catch (error) {
