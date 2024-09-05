@@ -5,40 +5,22 @@ import type { IRenderApp, RenderedApp } from "@/lib/interfaces";
 import { md5 } from "@/lib/md5";
 import { transpile } from "@/lib/shared";
 import createCache from "@emotion/cache";
-import { css } from "@emotion/react";
 import { CacheProvider } from "@emotion/react";
 import { debounce } from "es-toolkit";
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-// import { s } from "vite/dist/node/types.d-aGj9QkWt";
-// import { useScreenSize } from '@visx/responsive';
-// import { useParentSize } from '@visx/responsive';
+import { IframeWrapper } from "./iframe-wrapper";
 
-// Utility functions
 const createJsBlob = (code: string | Uint8Array): string =>
   URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
 
 export const renderedAPPS = new Map<HTMLElement, RenderedApp>();
 
 export const Wrapper: React.FC<{ codeSpace?: string; code?: string; transpiled?: string; scale?: number }> = (
-  { code, codeSpace, transpiled, scale = 1 },
+  { code, codeSpace, transpiled },
 ) => {
   if (codeSpace) {
-    return (
-      <iframe
-        css={css`
-            height: 100vh;
-            width: 100vw;
-            scale: ${1 / scale};
-            transform-origin: 0 0;
-            border: 0;
-            overflow-y: overlay;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-          `}
-        src={`/live/${codeSpace}/embed`}
-      />
-    );
+    return <IframeWrapper codeSpace={codeSpace} />;
   }
 
   const containerRef = useRef<HTMLDivElement>(null);
