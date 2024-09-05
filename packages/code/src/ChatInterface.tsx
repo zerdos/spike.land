@@ -1,6 +1,6 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, { useCallback, useEffect, useMemo } from "react";
-import { ChatFC } from "./ChatDrawer";
+import { ChatFC, Message } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
@@ -42,9 +42,9 @@ const ChatInterface: React.FC<{
   } = useMessageHandling({
     codeSpace,
     messages,
-    setMessages,
+    setMessages: setMessages as React.Dispatch<React.SetStateAction<Message[]>>,
     setInput,
-    setIsStreaming,
+    setIsStreaming: setIsStreaming as React.Dispatch<React.SetStateAction<boolean>>,
     codeWhatAiSeen,
     setAICode,
     editingMessageId,

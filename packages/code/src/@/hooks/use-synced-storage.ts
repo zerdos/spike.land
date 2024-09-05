@@ -19,17 +19,21 @@ class LocalStorageBackend<T> implements StorageBackend<T> {
 class IndexedDBBackend<T> implements StorageBackend<T> {
   private dbName = "SyncedStorageDB";
   private storeName = "keyvaluepairs";
+  private dbPromise: Promise<IDBDatabase> | null = null;
 
-  private async openDB(): Promise<IDBDatabase> {
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
-      request.onerror = () => reject(request.error);
-      request.onsuccess = () => resolve(request.result);
-      request.onupgradeneeded = (event) => {
-        const db = (event.target as IDBOpenDBRequest).result;
-        db.createObjectStore(this.storeName, { keyPath: "key" });
-      };
-    });
+  private openDB(): Promise<IDBDatabase> {
+    if (!this.dbPromise) {
+      this.dbPromise = new Promise((resolve, reject) => {
+        const request = indexedDB.open(this.dbName, 1);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+        request.onupgradeneeded = (event) => {
+          const db = (event.target as IDBOpenDBRequest).result;
+          db.createObjectStore(this.storeName, { keyPath: "key" });
+        };
+      });
+    }
+    return this.dbPromise;
   }
 
   async get(key: string): Promise<T | null> {
@@ -55,19 +59,25 @@ class IndexedDBBackend<T> implements StorageBackend<T> {
   }
 }
 
+const storageBackendSingleton: { instance: StorageBackend<any> | null } = { instance: null };
+
 function getStorageBackend<T>(): StorageBackend<T> {
-  if (typeof window !== "undefined" && "localStorage" in window) {
-    return new LocalStorageBackend<T>();
-  } else if (typeof indexedDB !== "undefined") {
-    return new IndexedDBBackend<T>();
+  if (!storageBackendSingleton.instance) {
+    if (typeof window !== "undefined" && "localStorage" in window) {
+      storageBackendSingleton.instance = new LocalStorageBackend<T>();
+    } else if (typeof indexedDB !== "undefined") {
+      storageBackendSingleton.instance = new IndexedDBBackend<T>();
+    } else {
+      throw new Error("No suitable storage backend available");
+    }
   }
-  throw new Error("No suitable storage backend available");
+  return storageBackendSingleton.instance as StorageBackend<T>;
 }
 
 export function useSyncedStorage<T>(
   key: string,
   startValue: T | null = null,
-): [T | null, (value: T | ((val: T) => T)) => Promise<void>] {
+): [T | null, (value: T | ((val: T | null) => T | null)) => Promise<void>] {
   const [storedValue, setStoredValue] = useState<T | null>(startValue);
   const storageBackend = useMemo(() => {
     try {
@@ -79,71 +89,70 @@ export function useSyncedStorage<T>(
   }, []);
 
   useEffect(() => {
-    if (!startValue) {
+    if (startValue === null) {
       (async () => {
-        const startValueNotFalsy = await getStorageBackend<T>().get(key);
-        setStoredValue(startValueNotFalsy);
+        try {
+          const initialValue = await storageBackend?.get(key);
+          if (initialValue !== undefined) {
+            setStoredValue(initialValue);
+          }
+        } catch (error) {
+          console.error(`Error fetching initial value for key '${key}':`, error);
+        }
       })();
     }
-  }, []);
+  }, [key, startValue, storageBackend]);
 
   const setValue = useCallback(async (value: T | null | ((val: T | null) => T | null)) => {
     try {
-      if (value === null || undefined) {
-      }
-
       const valueToStore = value instanceof Function ? value(storedValue) : value;
-      if (value !== null || undefined) setStoredValue(valueToStore);
-      if (storageBackend) {
-        const val = (valueToStore === null ? startValue : valueToStore) as unknown as T;
-        await storageBackend.set(key, val);
-      }
 
-      if (typeof BroadcastChannel !== "undefined") {
-        const broadcastChannel = new BroadcastChannel("storage_sync");
-        broadcastChannel.postMessage({ type: `update_${key}`, value: valueToStore });
+      if (valueToStore !== null && valueToStore !== undefined) {
+        setStoredValue(valueToStore);
+        if (storageBackend) {
+          await storageBackend.set(key, valueToStore);
+        }
+
+        if (typeof BroadcastChannel !== "undefined") {
+          const broadcastChannel = new BroadcastChannel("storage_sync");
+          broadcastChannel.postMessage({ type: `update_${key}`, value: valueToStore });
+        }
       }
     } catch (error) {
-      console.error("Error writing to storage:", error);
+      console.error(`Error writing to storage for key '${key}':`, error);
     }
   }, [key, storedValue, storageBackend]);
 
   useEffect(() => {
+    if (!storageBackend) return;
+
     let isMounted = true;
-    const fetchStoredValue = async () => {
-      if (!storageBackend) return;
-      try {
-        const value = await storageBackend.get(key);
-        if (value !== null && isMounted) {
-          setStoredValue(value);
-        }
-      } catch (error) {
-        console.error("Error reading from storage:", error);
+    const broadcastChannel = typeof BroadcastChannel !== "undefined" ? new BroadcastChannel("storage_sync") : null;
+
+    const handleStorageChange = (newValue: T) => {
+      if (isMounted && newValue !== storedValue) {
+        setStoredValue(newValue);
       }
     };
 
-    fetchStoredValue();
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === `update_${key}`) {
+        handleStorageChange(event.data.value as T);
+      }
+    };
 
-    if (typeof BroadcastChannel !== "undefined") {
-      const broadcastChannel = new BroadcastChannel("storage_sync");
-      const handleMessage = (event: MessageEvent) => {
-        if (event.data && event.data.type === `update_${key}` && isMounted) {
-          setStoredValue(event.data.value as T);
-        }
-      };
-
+    if (broadcastChannel) {
       broadcastChannel.addEventListener("message", handleMessage);
-      return () => {
-        isMounted = false;
-        broadcastChannel.removeEventListener("message", handleMessage);
-        broadcastChannel.close();
-      };
     }
 
     return () => {
       isMounted = false;
+      if (broadcastChannel) {
+        broadcastChannel.removeEventListener("message", handleMessage);
+        broadcastChannel.close();
+      }
     };
-  }, [key, storageBackend]);
+  }, [key, storageBackend, storedValue]);
 
-  return [storedValue, setValue as (value: T | ((val: T) => T)) => Promise<void>];
+  return [storedValue, setValue];
 }

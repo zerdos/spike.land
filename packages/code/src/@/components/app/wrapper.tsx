@@ -1,7 +1,7 @@
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { debounce } from "es-toolkit";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 import { AIBuildingOverlay } from "@/components/app/ai-building-overlay";
@@ -24,7 +24,7 @@ interface WrapperProps {
   scale?: number;
 }
 
-export function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
+export const Wrapper = React.memo(function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
   if (codeSpace) {
     return <IframeWrapper codeSpace={codeSpace} />;
   }
@@ -38,7 +38,7 @@ export function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
 
     const cssCache = createCache({
       key: md5(code || transpiled || Math.random().toString()),
-      speedy: false,
+      speedy: true,
       container: containerRef.current,
     });
 
@@ -64,7 +64,7 @@ export function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
         containerRef.current.innerHTML = "";
       }
     };
-  }, [containerRef, code, transpiled]);
+  }, [code, transpiled]);
 
   return (
     <div
@@ -73,7 +73,7 @@ export function Wrapper({ code, codeSpace, transpiled }: WrapperProps) {
       className={cn("w-full h-full")}
     />
   );
-}
+});
 
 // Main render function
 async function renderApp(
@@ -110,21 +110,22 @@ async function renderApp(
 
     const cssCache = createCache({
       key: md5(transpiled! || code! || Math.random().toString()),
-      speedy: false,
+      speedy: true,
       container: rootEl.parentNode!,
     });
 
-    function AppWithScreenSize() {
+    const AppWithScreenSize = React.memo(function AppWithScreenSize() {
       const [{ width, height }, setDimensions] = useState({ width: rootEl.clientWidth, height: rootEl.clientHeight });
 
-      useEffect(() => {
-        const abortController = new AbortController();
-        const debouncedSetDimensions = debounce(
+      const debouncedSetDimensions = useCallback(
+        debounce(
           (dim: { width: number; height: number }) => setDimensions(dim),
           100,
-          { signal: abortController.signal },
-        );
+        ),
+        [],
+      );
 
+      useEffect(() => {
         const resizeObserver = new ResizeObserver((entries) => {
           for (let entry of entries) {
             const { width, height } = entry.contentRect;
@@ -134,12 +135,12 @@ async function renderApp(
         resizeObserver.observe(rootEl);
         return () => {
           resizeObserver.disconnect();
-          abortController.abort();
+          debouncedSetDimensions.cancel();
         };
-      }, []);
+      }, [debouncedSetDimensions]);
 
       return <AppToRender width={width} height={height} />;
-    }
+    });
 
     root.render(
       <CacheProvider value={cssCache}>
@@ -151,21 +152,19 @@ async function renderApp(
     );
 
     const cleanup = () => {
-      const renderedApp = renderedAPPS.get(rootEl)!;
-      renderedApp.rRoot.unmount();
-      const { cssCache } = renderedApp;
-      const { sheet } = cssCache;
-      sheet.flush();
-      sheet.inserted = {};
-      sheet.registered = {};
-      cssCache.sheet = null;
-
-      renderedApp.rootElement.innerHTML = "";
-
-      document.body.contains(rootEl) && document.body.removeChild(rootEl);
-      renderedAPPS.delete(rootEl);
-
-      rootEl.remove();
+      const renderedApp = renderedAPPS.get(rootEl);
+      if (renderedApp) {
+        renderedApp.rRoot.unmount();
+        const { cssCache } = renderedApp;
+        if (cssCache.sheet) {
+          cssCache.sheet.flush();
+        }
+        renderedApp.rootElement.innerHTML = "";
+        if (document.body.contains(rootEl)) {
+          document.body.removeChild(rootEl);
+        }
+        renderedAPPS.delete(rootEl);
+      }
     };
 
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };

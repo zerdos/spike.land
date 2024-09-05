@@ -12,103 +12,101 @@ import { StaleWhileRevalidate } from "workbox-strategies";
 importScripts("/swVersion.js");
 
 const files = new Set(sw.files ? Object.keys(sw.files) : []);
+const CURRENT_CACHE_NAME = `file-cache-${sw.swVersion}`;
 
-sw.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.open("file-cache-" + sw.swVersion).then(async (cache) => {
-      try {
-        const cacheNames = await caches.keys();
-        const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
-        const currentCache = "file-cache-" + sw.swVersion;
+async function cleanupOldCaches() {
+  const cacheNames = await caches.keys();
+  const fileCaches = cacheNames.filter(cacheName =>
+    cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME
+  );
+  return Promise.all(fileCaches.map(cacheName => caches.delete(cacheName)));
+}
 
-        const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
+async function copyMatchingFiles(oldCache: Cache, newCache: Cache, filesJson: typeof sw.files) {
+  const oldFileJsonResponse = await oldCache.match("/files.json");
+  if (!oldFileJsonResponse) return;
 
-        // Ensure sw.files exists before using it
-        const filesJson = sw.files || {};
-        const addedFiles = new Set(["files.json"]);
+  const oldFiles: typeof sw.files = await oldFileJsonResponse.json();
+  const addedFiles = new Set(["files.json"]);
 
-        // Copy matching files from old caches to the new cache
-        for (const oldCache of otherCaches) {
-          const oldCacheInstance = await caches.open(oldCache);
-          const oldFileJsonResponse = await oldCacheInstance.match(
-            "/files.json",
-          );
-          if (!oldFileJsonResponse) continue;
+  await Promise.all(
+    Object.entries(filesJson).map(async ([file, hash]) => {
+      if (addedFiles.has(file) || oldFiles[file] !== hash) return;
 
-          const oldFiles: typeof sw.files = await oldFileJsonResponse.json();
-
-          await Promise.all(
-            Object.keys(filesJson).map(async (file) => {
-              if (addedFiles.has(file)) return;
-
-              if (oldFiles[file] === filesJson[file]) {
-                const oldResponse = await oldCacheInstance.match("/" + file);
-                if (oldResponse) {
-                  await cache.put("/" + file, oldResponse.clone());
-                  addedFiles.add(file);
-                }
-              }
-            }),
-          );
-        }
-
-        // Determine which files are still missing
-        //  const stillMissing = Object.keys(filesJson).filter(file => !addedFiles.has(file));
-
-        // Add all new files to the cache
-        // const filesToCache = ['/files.json', ...stillMissing.map(file => '/' + file)];
-        const filesToCache = ["/files.json"];
-
-        await cache.addAll(filesToCache);
-        await sw.skipWaiting();
-        // Delete old caches
-        // await Promise.all(otherCaches.map(cacheName => caches.delete(cacheName)));
-
-        return cache;
-      } catch (e) {
-        console.error("Error in activate event:", e);
-        return null;
+      const oldResponse = await oldCache.match(`/${file}`);
+      if (oldResponse) {
+        await newCache.put(`/${file}`, oldResponse.clone());
+        addedFiles.add(file);
       }
     }),
   );
+
+  return addedFiles;
+}
+
+sw.addEventListener("activate", (event) => {
+  event.waitUntil((async () => {
+    try {
+      const cache = await caches.open(CURRENT_CACHE_NAME);
+      const filesJson = sw.files || {};
+      const cacheNames = await caches.keys();
+      const fileCaches = cacheNames.filter(cacheName =>
+        cacheName.startsWith("file-cache-") && cacheName !== CURRENT_CACHE_NAME
+      );
+
+      for (const oldCacheName of fileCaches) {
+        const oldCache = await caches.open(oldCacheName);
+        await copyMatchingFiles(oldCache, cache, filesJson);
+      }
+
+      await cache.add("/files.json");
+      await sw.skipWaiting();
+      await cleanupOldCaches();
+
+      return cache;
+    } catch (e) {
+      console.error("Error in activate event:", e);
+      return null;
+    }
+  })());
 });
 
-// Add error handling to onmessage event
-sw.onmessage = async (event) => {
+sw.addEventListener("message", async (event) => {
   try {
     if (event.data === "skipWaiting") {
       await sw.skipWaiting();
     }
   } catch (error) {
-    console.error("Error in onmessage event:", error);
+    console.error("Error in message event:", error);
   }
-};
+});
 
-// Add error handling to install event
-sw.addEventListener("install", async () => {
-  try {
-    const cacheNames = await caches.keys();
-    const fileCaches = cacheNames.filter((cacheName) => cacheName.startsWith("file-cache-"));
-    const currentCache = "file-cache-" + sw.swVersion;
+sw.addEventListener("install", (event) => {
+  event.waitUntil(cleanupOldCaches());
+});
 
-    const otherCaches = fileCaches.filter((cacheName) => cacheName !== currentCache);
-    await Promise.all(otherCaches.map((cacheName) => caches.delete(cacheName)));
-  } catch (error) {
-    console.error("Error in install event:", error);
-  }
+const filesCacheStrategy = new StaleWhileRevalidate({
+  cacheName: CURRENT_CACHE_NAME,
+  plugins: [
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+  ],
 });
 
 registerRoute(
   ({ url }) => files.has(url.pathname.slice(1)),
-  new StaleWhileRevalidate({
-    cacheName: "file-cache-" + sw.swVersion,
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  }),
+  filesCacheStrategy,
 );
+
+const esmCacheStrategy = new StaleWhileRevalidate({
+  cacheName: "esm-cache-124",
+  plugins: [
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+  ],
+});
 
 registerRoute(
   ({ url }) =>
@@ -117,12 +115,5 @@ registerRoute(
     && !url.pathname.startsWith("/live/")
     && !url.pathname.startsWith("/api/")
     && !files.has(url.pathname.slice(1)),
-  new StaleWhileRevalidate({
-    cacheName: "esm-cache-124",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  }),
+  esmCacheStrategy,
 );
