@@ -14,7 +14,7 @@ function mineFromCaches(cache: EmotionCache): string {
     return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key)].join("\n");
   } catch (error) {
     console.warn("Failed to extract styles from DOM, falling back to stylesheet parsing:", error);
-    return extractStylesFromStylesheets(key);
+    return extractStylesFromStylesheets(key).join("\n");
   }
 }
 
