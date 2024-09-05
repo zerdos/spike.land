@@ -117,7 +117,8 @@ const renderApp = async (
     } else if (transpiled) {
       AppToRender = (await import(createJsBlob(transpiled))).default;
     } else if (codeSpace) {
-      AppToRender = (await import(`/live/${codeSpace}/index.js`)).default;
+      const indexJs = `${location.origin}/live/${codeSpace}/index.js`;
+      AppToRender = (await import(indexJs)).default;
     } else {
       AppToRender = () => <div>Mock App for Testing</div>;
     }
