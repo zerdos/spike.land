@@ -4208,7 +4208,7 @@ __metadata:
       optional: true
     react-test-renderer:
       optional: true
-  checksum: 10/f7b69373feebe99bc7d60595822cc5c00a1a5a4801bc4f99b597256a5c1d23c45a51f359051dd8a7bdffcc23b26f324c582e9433c25804934fd351a886812790
+  checksum: 10/8c8968fc874b30ab46fab53613e8db359ec76462b57ba40c88b4ef3ff6d11eff06427b80c6c2d2b7db4285ccd7935dba74eecb9ec3ebfe515172b9dc87e43c61
   languageName: node
   linkType: hard
 
@@ -7993,9 +7993,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.14
-  resolution: "electron-to-chromium@npm:1.5.14"
-  checksum: 10/eb5e0304ae952bf258caeb5eec77cbd8e493f54312c228f68cae1e4f11a8b26aaa8fb11222aa9bcbd701970c4c3634275c44b714eafdea144defee135cd7956b
+  version: 1.5.15
+  resolution: "electron-to-chromium@npm:1.5.15"
+  checksum: 10/bcc3c2c94c5339f78517c84662937b5600f66e07bf3b38496894b39f235ab47026cbe01e41f170787bd2a782e675df2c64af9cfaeb21a1080744c783ea4e4b6b
   languageName: node
   linkType: hard
 
