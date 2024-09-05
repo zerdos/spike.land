@@ -11,7 +11,7 @@ function mineFromCaches(cache: EmotionCache, html: string): string {
   const key = cache.key || "css";
 
   try {
-    return extractStylesFromDOM(key);
+    return [...extractStylesFromDOM(key), ...extractStylesFromStylesheets(key, html)];
   } catch (error) {
     console.warn("Failed to extract styles from DOM, falling back to stylesheet parsing:", error);
     return extractStylesFromStylesheets(key, html);
@@ -67,12 +67,11 @@ function extractStylesFromStylesheets(key: string, html: string): string {
         return null;
       }
     })
-    .filter((rule): rule is CSSPageRule =>
-      rule?.selectorText !== undefined
-      && rule.selectorText.includes(key)
-      && html.includes(rule.selectorText.slice(4, 11))
+    .filter((cssRules) =>
+      cssRules && cssRules.selectorText !== undefined
+      && cssRules.selectorText.includes(key)
     )
-    .map((rule) => rule.cssText)
+    .map((cssRules) => cssRules?.cssText).filter(Boolean)
     .join("\n");
 }
 
