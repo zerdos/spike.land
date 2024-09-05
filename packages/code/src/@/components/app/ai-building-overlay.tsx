@@ -28,23 +28,23 @@ export function AIBuildingOverlay({ codeSpace }: AIBuildingOverlayProps) {
     return () => clearInterval(interval);
   }, [isStreaming]);
 
-  if (!isStreaming) return <></>;
+  if (!isStreaming) return null;
 
   return (
     <div
       className={cn(
-        "fixed left-0 right-0 bottom-0 h-20",
+        "fixed inset-x-0 bottom-0 h-16",
         "bg-gradient-to-r from-pink-500 via-blue-500 to-green-500",
-        "flex flex-col justify-center items-center z-50",
+        "flex flex-col justify-center items-center",
+        "-z-10",
       )}
     >
-      <div className="flex items-center text-white text-2xl font-bold mb-2">
+      <div className="flex items-center text-white text-xl font-bold mb-2">
         <div
           className={cn(
-            "w-8 h-8 border-3 border-white border-t-transparent rounded-full animate-spin mr-4",
+            "w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mr-3",
           )}
-        >
-        </div>
+        />
         AI is building...
       </div>
       <Progress value={progress} className="w-full" />
