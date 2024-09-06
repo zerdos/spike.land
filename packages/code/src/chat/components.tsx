@@ -1,7 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-
-import {ScrollArea} from '@radix-ui/react-scroll-area';
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { Message } from "@/lib/interfaces";
@@ -143,6 +141,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   isStreaming,
   isDarkMode,
 }) => {
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastMessageRef = useRef<HTMLDivElement>(null);
 
   const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
@@ -175,9 +174,8 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
   }, [isStreaming]);
 
   return (
-
-    <ScrollArea >
-    {messages.map((message, index) => (
+      <div className="p-4 space-y-4">
+        {messages.map((message, index) => (
           <ChatMessage
             key={index + "--" + message.id}
             message={message}
@@ -193,12 +191,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
         ))}
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
         <div ref={lastMessageRef} id="typing-indicator" />
-  </ScrollArea>
-
-    
-
-       
-    
+      </div>
   );
 });
 

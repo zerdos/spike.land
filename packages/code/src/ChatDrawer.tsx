@@ -5,6 +5,9 @@ import { Bot } from "@/external/lucideReact";
 import { ChatHeader, ChatContainer, MessageInput } from "./chat/components";
 import { Message, ImageData } from "@/lib/interfaces";
 
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+
 interface ChatDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -96,7 +99,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               onClose={onClose}
             />
           </div>
-          <div className="flex-grow overflow-y-auto">
+          <ScrollArea dir={"rtl"} className="flex-grow overflow-y-auto">
             <ChatContainer
               messages={messages}
               editingMessageId={editingMessageId}
@@ -109,7 +112,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               isDarkMode={isDarkMode}
               messagesEndRef={messagesEndRef}
             />
-          </div>
+          </ScrollArea>
           <div className="flex-shrink-0">
             <MessageInput
               input={input}
