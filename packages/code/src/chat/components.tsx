@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import  * as ScrollArea from "@/components/ui/scroll-area";
+
+import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { Textarea } from "@/components/ui/textarea";
 import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
 import { Message } from "@/lib/interfaces";
