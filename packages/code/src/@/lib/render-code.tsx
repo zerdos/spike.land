@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import {md5} from "@/lib/md5";
 import Markdown from "@/external/Markdown";  
-import { DiffEditor } from "@src/components/DiffEditor";
+import { DiffEditor } from "@/components/app/diff-editor";
 import {CodeBlock} from "@/external/CodeBlock";
 import {extractDiffContent, isDiffContent} from "@/lib/diff-utils";
 
