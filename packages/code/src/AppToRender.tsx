@@ -10,7 +10,7 @@ import ChatInterface from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";
-import { ICode } from "./cSess.interface";
+import { ICode } from '@/lib/interfaces';
 import { DraggableWindow } from "./DraggableWindow";
 // import { useClerkSWR } from "./hooks/useClerkSWR";
 import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
