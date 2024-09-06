@@ -1,20 +1,13 @@
-import { useSyncedStorage } from "@/hooks/use-synced-storage";
+import { useSyncedStorage } from "./useSyncedStorage";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock localStorage
-const localStorageMock = (() => {
-  let store: { [key: string]: string } = {};
-  return {
-    getItem: vi.fn((key: string) => store[key] || null),
-    setItem: vi.fn((key: string, value: string) => {
-      store[key] = value.toString();
-    }),
-    clear: vi.fn(() => {
-      store = {};
-    }),
-  };
-})();
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  clear: vi.fn(),
+};
 
 // Mock IndexedDB
 const indexedDBMock = (() => {
@@ -194,7 +187,7 @@ describe("useSyncedStorage", () => {
     vi.restoreAllMocks();
   });
 
-  it("should synchronize state across tabs using BroadcastChannel", () => {
+  it("should synchronize state across tabs using BroadcastChannel", async () => {
     const { result: result1 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
     const { result: result2 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
@@ -205,9 +198,8 @@ describe("useSyncedStorage", () => {
     expect(result1.current[0]).toBe("newValue");
     
     // Wait for the next tick to allow BroadcastChannel to propagate the change
-    return new Promise(resolve => setTimeout(() => {
-      expect(result2.current[0]).toBe("newValue");
-      resolve();
-    }, 0));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    expect(result2.current[0]).toBe("newValue");
   });
 });
