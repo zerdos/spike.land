@@ -180,4 +180,16 @@ describe("useSyncedStorage", () => {
 
     consoleErrorSpy.mockRestore();
   });
+
+  it("should synchronize state across tabs using BroadcastChannel", () => {
+    const { result: result1 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+    const { result: result2 } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+
+    act(() => {
+      result1.current[1]("newValue");
+    });
+
+    expect(result1.current[0]).toBe("newValue");
+    expect(result2.current[0]).toBe("newValue");
+  });
 });
