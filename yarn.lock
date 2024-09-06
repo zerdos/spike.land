@@ -452,9 +452,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/vitest-pool-workers@npm:^0.4.28":
-  version: 0.4.28
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.28"
+"@cloudflare/vitest-pool-workers@npm:^0.4.29":
+  version: 0.4.29
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.4.29"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
@@ -462,13 +462,13 @@ __metadata:
     esbuild: "npm:0.17.19"
     miniflare: "npm:3.20240821.1"
     semver: "npm:^7.5.1"
-    wrangler: "npm:3.74.0"
+    wrangler: "npm:3.75.0"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 1.3.x - 1.5.x
     "@vitest/snapshot": 1.3.x - 1.5.x
     vitest: 1.3.x - 1.5.x
-  checksum: 10/f0eb2438743d53930762444b436669f8072f8230bf4847bcb3fcbcfe2e13fb16317e674855b01523bf93085cabc6831ffd3e81ae51f430125570fa4d2abf2ee0
+  checksum: 10/f8b911b5f9743c4ff40762c103c3449f50bc1633defd45e1ccab74b05b67b6c29e119e5b90a954799fb0263fb27a6c958aea85138211f8e69f4b5743e9faf78b
   languageName: node
   linkType: hard
 
@@ -3746,7 +3746,7 @@ __metadata:
     "@clerk/backend": "npm:^1.9.2"
     "@clerk/clerk-sdk-node": "npm:^5.0.35"
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
-    "@cloudflare/vitest-pool-workers": "npm:^0.4.28"
+    "@cloudflare/vitest-pool-workers": "npm:^0.4.29"
     "@cloudflare/workers-types": "npm:4.20240903.0"
     "@remix-run/cloudflare": "npm:^2.11.2"
     "@remix-run/react": "npm:^2.11.2"
@@ -3764,7 +3764,7 @@ __metadata:
     replicate: "npm:^0.32.1"
     typescript: "npm:5.5.4"
     vitest: "npm:^2.0.5"
-    wrangler: "npm:3.74.0"
+    wrangler: "npm:3.75.0"
   languageName: unknown
   linkType: soft
 
@@ -3891,7 +3891,7 @@ __metadata:
     input-otp: "npm:^1.2.4"
     jsdom: "npm:^25.0.0"
     localforage: "npm:^1.10.0"
-    lucide-react: "npm:^0.438.0"
+    lucide-react: "npm:^0.439.0"
     miniflare: "npm:^3.20240821.1"
     module: "npm:1.2.5"
     monaco-editor: "npm:^0.51.0"
@@ -4066,7 +4066,7 @@ __metadata:
     "@spike-land/code": "npm:0.9.55"
     esbuild-wasm: "npm:0.23.1"
     typescript: "npm:5.5.4"
-    wrangler: "npm:3.74.0"
+    wrangler: "npm:3.75.0"
   languageName: unknown
   linkType: soft
 
@@ -11737,12 +11737,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.438.0":
-  version: 0.438.0
-  resolution: "lucide-react@npm:0.438.0"
+"lucide-react@npm:^0.439.0":
+  version: 0.439.0
+  resolution: "lucide-react@npm:0.439.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
-  checksum: 10/4c163b8f00c1a7af5993163d4da1b2ebb41c99ddd7408df8211b7751090c106992aca994e5bc92d9214432b6d1abb99425c0347e79127f47c74ea392ff92693c
+  checksum: 10/e80cef87ab2c49cd5706638b36c470134e747a533f9b4f1bea8364f6cceea37c021ec94af2394697f783b8b8a0199b6e2e8ddaf258b65a3c02d8fcc2d93fc5f5
   languageName: node
   linkType: hard
 
@@ -12801,7 +12801,7 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:4.20240903.0"
     hono: "npm:4.5.11"
-    wrangler: "npm:3.74.0"
+    wrangler: "npm:3.75.0"
   languageName: unknown
   linkType: soft
 
@@ -15922,14 +15922,14 @@ __metadata:
   resolution: "spike-land-renderer@workspace:packages/spike-land-renderer"
   dependencies:
     "@cloudflare/puppeteer": "npm:^0.0.14"
-    "@cloudflare/vitest-pool-workers": "npm:^0.4.28"
+    "@cloudflare/vitest-pool-workers": "npm:^0.4.29"
     "@cloudflare/workers-types": "npm:^4.20240903.0"
     "@types/esprima": "npm:^4.0.6"
     "@types/node": "npm:^22.5.4"
     esprima: "npm:^4.0.1"
     typescript: "npm:^5.5.4"
     vitest: "npm:2.0.5"
-    wrangler: "npm:^3.74.0"
+    wrangler: "npm:^3.75.0"
   languageName: unknown
   linkType: soft
 
@@ -18079,9 +18079,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.74.0, wrangler@npm:^3.74.0":
-  version: 3.74.0
-  resolution: "wrangler@npm:3.74.0"
+"wrangler@npm:3.75.0, wrangler@npm:^3.75.0":
+  version: 3.75.0
+  resolution: "wrangler@npm:3.75.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@cloudflare/workers-shared": "npm:0.4.1"
@@ -18113,7 +18113,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10/12e3b97eca2ac1ce6f28d7b584e5be3f17377d84c7794df95dc68f6eadccabcf1a6640db7f76ceebc8855159b603dbc1f453dc27ff536a831a9e913c6d681151
+  checksum: 10/b12aaca168354abedb49eecc3c399f8059da3d37436d3747cbfb64b51c2b5deb12309992168d6dbc98573fbadc682481707a7a14748a9ce75311839515044c8c
   languageName: node
   linkType: hard
 
