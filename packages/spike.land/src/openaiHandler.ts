@@ -3,7 +3,7 @@ import Env from "./env";
 import { handleCORS, readRequestBody } from "./utils";
 
 interface MessageParam {
-  role: "system" | "user" | "assistant";
+  role:  "user" | "assistant";
   content: string;
 }
 

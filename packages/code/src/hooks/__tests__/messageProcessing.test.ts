@@ -60,20 +60,6 @@ describe("messageProcessing", () => {
         ],
       });
     });
-
-    it("should create a new message without images", async () => {
-      const images: ImageData[] = [];
-      const content = "Test message";
-      const isSystem = true;
-
-      const result = await createNewMessage(images, content, isSystem);
-
-      expect(result).toEqual({
-        id: expect.any(String),
-        role: "system",
-        content: "Test message",
-      });
-    });
   });
 
   describe("processMessage", () => {

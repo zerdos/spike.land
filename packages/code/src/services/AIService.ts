@@ -159,7 +159,7 @@ export class AIService {
     setAICode: (code: string) => void,
   ): Promise<string> {
     const messages: Message[] = [
-      { id: Date.now().toString(), role: "system", content: gptSystem },
+      { id: Date.now().toString(), role: "system" as any, content: gptSystem },
       { id: (Date.now() + 1).toString(), role: "user", content: `${codeNow}\n**** instructions ****\n${fullResponse}` },
     ];
 

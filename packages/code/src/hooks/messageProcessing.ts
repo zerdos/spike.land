@@ -9,7 +9,6 @@ import { updateSearchReplace } from "../utils/chatUtils";
 export async function createNewMessage(
   images: ImageData[],
   claudeContent: string,
-  isSystem: boolean,
 ): Promise<Message> {
   const content: any[] = [];
 
@@ -30,7 +29,7 @@ export async function createNewMessage(
 
   return {
     id: Date.now().toString(),
-    role: isSystem ? "system" : "user",
+    role: "user",
     content: content.length > 1 ? content : claudeContent?.trim() || "",
   };
 }

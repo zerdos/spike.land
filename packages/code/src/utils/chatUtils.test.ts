@@ -36,7 +36,6 @@ describe("loadMessages", () => {
       { id: "1", role: "assistant", content: "I'm doing well, thanks!" },
       { id: "1", role: "user", content: "Great!" },
       { id: "1", role: "assistant", content: "Can I help you with anything?" },
-      { id: "1", role: "system", content: "System message" }, // This should not be filtered out
     ];
 
     localStorage.setItem("chatMessages-testSpace", JSON.stringify(testMessages));
@@ -50,7 +49,6 @@ describe("loadMessages", () => {
     expect(loadedMessages[3]).toEqual({ id: "1", role: "assistant", content: "I'm doing well, thanks!" });
     expect(loadedMessages[4]).toEqual({ id: "1", role: "user", content: "Great!" });
     expect(loadedMessages[5]).toEqual({ id: "1", role: "assistant", content: "Can I help you with anything?" });
-    expect(loadedMessages[6]).toEqual({ id: "1", role: "system", content: "System message" });
   });
 
   it("should handle empty messages", () => {

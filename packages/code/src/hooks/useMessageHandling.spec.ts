@@ -15,9 +15,9 @@ vi.mock("@src/AIHandler", () => ({
 }));
 vi.mock("@src/services/runner");
 vi.mock("./messageProcessing", () => ({
-  createNewMessage: vi.fn((content, isSystem) => ({
+  createNewMessage: vi.fn((content) => ({
     id: "mock-id",
-    role: isSystem ? "system" : "user",
+    role: "user",
     content,
   })),
   handleError: vi.fn(),
