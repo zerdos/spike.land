@@ -69,6 +69,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
         open={isOpen}
         onClose={onClose}
         onOpen={() => {}}
+        hideBackdrop={true}
         swipeAreaWidth={isMobile ? 30 : 0}
         disableBackdropTransition={!isMobile}
         disableDiscovery={isMobile}
