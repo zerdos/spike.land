@@ -23,7 +23,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
         {format(new Date(item.timestamp), "PPpp")}
       </p>
       <div className={cn("flex-grow mb-4")}>
-        <Wrapper code={item.code} scale={0.3} />
+        <Wrapper code={item.code} />
       </div>
       <div className={cn("space-x-2")}>
         <Dialog>
