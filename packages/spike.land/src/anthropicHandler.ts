@@ -24,14 +24,14 @@ export async function handleAnthropicRequest(
     apiKey: env.ANTHROPIC_API_KEY,
   });
 
-  const processedBody = preprocessMessages(body);
+//  const processedBody = preprocessMessages(body);``
 
   const conf = {
     model: "claude-3-5-sonnet-20240620",
     max_tokens: 2 * 4096,
     temperature: 0.1,
     stream: true,
-    ...processedBody,
+    ...body,
   };
 
   if (conf.stream === false) {

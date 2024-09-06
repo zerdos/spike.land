@@ -48,6 +48,7 @@ export async function handleGPT4Request(
     try {
       const stream = await openai.chat.completions.create({
         stream: true,
+        model: 'gpt-4o-mini',
         ...body,
       });
 
