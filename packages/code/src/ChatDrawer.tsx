@@ -4,7 +4,6 @@ import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { MessageInput } from "./chat/components";
 import { Message, MessageContent } from "@/lib/interfaces";
 import { ImageData } from "@/lib/interfaces";
-export type { Message };
 
 interface ChatFCProps {
   isOpen: boolean;

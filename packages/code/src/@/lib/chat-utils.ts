@@ -1,5 +1,5 @@
+import { Message } from "@/lib/interfaces";
 import { replacePreservingWhitespace } from "@src/replacePreservingWhitespace";
-import { Message } from "@lib/interfaces";
 
 const CODE_MODIFICATION_REGEX = /<<<<<<< SEARCH[\s\S]*?=======[\s\S]*?>>>>>>> REPLACE/g;
 const MODIFICATION_SEPARATOR = ">>>>>>> REPLACE\n\n<<<<<<< SEARCH";

@@ -1,12 +1,12 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, {  useCallback, useEffect, useMemo } from "react";
-import { ChatFC, Message } from "./ChatDrawer";
+import { ChatFC } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
-import { ImageData } from "@/lib/interfaces";
+import { ImageData, Message } from "@/lib/interfaces";
 
 
 const ChatInterface: React.FC<{
