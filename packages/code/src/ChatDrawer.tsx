@@ -142,7 +142,7 @@ const ChatInterface: React.FC = () => {
           },
         })),
         ...newMessage.content,
-      ];
+      ] as MessageContent;
     }
 
     setMessages((prev) => [...prev, newMessage]);
