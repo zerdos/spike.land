@@ -1,9 +1,240 @@
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
-import { Camera, Send, X } from "@/external/lucideReact";
-import React from "react";
-import { MessageInputProps } from "./types";
-import { ImageData } from "@/lib/interfaces";
+import { Camera, Check, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
+import { Message } from "@/lib/interfaces";
+import { TypingIndicator } from "@src/utils/utils";
+import React, { useEffect, useRef, useState } from "react";
+import { ChatContainerProps, ChatHeaderProps, MessageInputProps } from "./types";
+import { renderMessage } from "@/lib/render-messages";
+
+export const ChatMessage: React.FC<{
+  message: Message;
+  isSelected: boolean;
+  onDoubleClick: () => void;
+  isEditing: boolean;
+  editInput: string;
+  setEditInput: (value: string) => void;
+  handleCancelEdit: () => void;
+  handleSaveEdit: (id: string) => void;
+  isDarkMode: boolean;
+}> = React.memo(({
+  message,
+  isSelected,
+  onDoubleClick,
+  isEditing,
+  editInput,
+  setEditInput,
+  handleCancelEdit,
+  handleSaveEdit,
+  isDarkMode,
+}) => {
+  const isUser = message.role === "user";
+  const isSystem = message.role === "system";
+
+  const renderContent = () => {
+    if (isSystem) {
+      return (
+        <Accordion
+          type="single"
+          collapsible
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>System prompt</AccordionTrigger>
+            <AccordionContent>
+              {typeof message.content === "string"
+                ? renderMessage(message.content, isUser)
+                : Array.isArray(message.content)
+                ? message.content.map((item, index) => {
+                  if (item.type === "text") {
+                    return renderMessage(item.text!, isUser);
+                  } else if (item.type === "image" && item.source?.type === "base64") {
+                    const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
+
+                    return (
+                      <img
+                        key={index}
+                        src={imageUrlFromBase64String}
+                        alt="Screenshot"
+                        className="max-w-full h-auto mt-2 rounded-lg"
+                      />
+                    );
+                  }
+                  return <></>;
+                })
+                : <></>}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      );
+    } else if (typeof message.content === "string") {
+      return renderMessage(message.content, isUser);
+    } else if (Array.isArray(message.content)) {
+      return message.content.map((item, index) => {
+        if (item.type === "text") {
+          return renderMessage(item.text!, isUser);
+        } else if (item.type === "image" && item.source?.type === "base64") {
+          const imageUrlFromBase64String = `data:${item.source.media_type};base64,${item.source.data}`;
+
+          return (
+            <img
+              key={index}
+              src={imageUrlFromBase64String}
+              alt="Screenshot"
+              className="max-w-full h-auto mt-2 rounded-lg"
+            />
+          );
+        }
+        return null;
+      });
+    }
+    return null;
+  };
+
+  return (
+    <div
+      className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
+      onDoubleClick={onDoubleClick}
+    >
+      <div
+        className={`max-w-[80%] p-3 rounded-lg ${
+          isUser
+            ? isDarkMode
+              ? "bg-blue-600 text-white"
+              : "bg-blue-500 text-white"
+            : isDarkMode
+            ? isSelected
+              ? "bg-gray-700 ring-2 ring-blue-500"
+              : "bg-gray-800 text-white"
+            : isSelected
+            ? "bg-gray-200 ring-2 ring-blue-500"
+            : "bg-gray-100"
+        }`}
+      >
+        {isEditing
+          ? (
+            <div className="flex flex-col space-y-2">
+              <Textarea
+                value={editInput}
+                onChange={(e) => setEditInput(e.target.value)}
+                className={isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"}
+              />
+              <div className="flex justify-end space-x-2">
+                <Button size="sm" onClick={() => handleSaveEdit(message.id)}>
+                  <Check className="h-4 w-4" />
+                </Button>
+                <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )
+          : (
+            <div className="break-words">
+              {renderContent()}
+            </div>
+          )}
+      </div>
+    </div>
+  );
+});
+
+export const ChatHeader: React.FC<ChatHeaderProps> = (
+  { isDarkMode, toggleDarkMode, handleResetChat, onClose },
+) => (
+  <div
+    className={`p-4 font-bold flex justify-between items-center ${
+      isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
+    }`}
+  >
+    <span>AI spike pilot</span>
+    <div className="flex items-center space-x-2">
+      <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
+        {isDarkMode
+          ? <Sun className="h-4 w-4" />
+          : <Moon className="h-4 w-4" />}
+      </Button>
+      <Button variant="ghost" size="icon" onClick={handleResetChat}>
+        <RefreshCw className="h-4 w-4" />
+      </Button>
+      <Button variant="ghost" size="icon" onClick={onClose}>
+        <X className="h-4 w-4" />
+      </Button>
+    </div>
+  </div>
+);
+
+export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
+  messages,
+  editingMessageId,
+  editInput,
+  setEditInput,
+  handleCancelEdit,
+  handleSaveEdit,
+  handleEditMessage,
+  isStreaming,
+  isDarkMode,
+}) => {
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+
+  const [typingIndicatorMustShow, setTypingIndicatorIsOn] = useState(isStreaming);
+
+  const scrollToBottom = () =>
+    lastMessageRef.current! && lastMessageRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+
+  useEffect(() => {
+    const timeoutId = setTimeout(scrollToBottom, 100);
+    return () => clearTimeout(timeoutId);
+  }, [
+    messages,
+    isStreaming,
+    scrollToBottom,
+    scrollAreaRef,
+    scrollAreaRef.current?.scrollHeight,
+    lastMessageRef.current,
+  ]);
+
+  // This effect ensures scrolling when the component mounts and after each render
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    if (isStreaming) {
+      setTypingIndicatorIsOn(true);
+    } else {
+      timeoutId = setTimeout(() => {
+        setTypingIndicatorIsOn(false);
+      }, 1000);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [isStreaming]);
+
+  return (
+    <ScrollArea
+      className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`}
+      ref={scrollAreaRef}
+    >
+      <div className="p-4 space-y-4">
+        {messages.map((message, index) => (
+          <ChatMessage
+            key={index + "--" + message.id}
+            message={message}
+            isSelected={editingMessageId === message.id}
+            onDoubleClick={() => handleEditMessage(message.id)}
+            isEditing={editingMessageId === message.id}
+            editInput={editInput}
+            setEditInput={setEditInput}
+            handleCancelEdit={handleCancelEdit}
+            handleSaveEdit={handleSaveEdit}
+            isDarkMode={isDarkMode}
+          />
+        ))}
+        {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
+      </div>
+    </ScrollArea>
+  );
+});
 
 export const MessageInput: React.FC<MessageInputProps> = ({
   input,
@@ -18,19 +249,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
   isDarkMode,
 }) => {
   const handleSend = () => {
-    const images: ImageData[] = screenshotImage
-      ? [
-          {
-            imageName: "screenshot.png",
-            url: screenshotImage,
-            src: screenshotImage,
-            mediaType: "image/png",
-            data: screenshotImage,
-            type: "image/png",
-          },
-        ]
-      : [];
-    handleSendMessage(input, images);
+    handleSendMessage(input, screenshotImage ? [screenshotImage] : []);
     setInput(""); // Clear input after sending
     handleCancelScreenshot(); // Clear screenshot after sending
   };
@@ -99,5 +318,3 @@ export const MessageInput: React.FC<MessageInputProps> = ({
     </div>
   );
 };
-
-// Export other components (ChatHeader, ChatContainer, ChatWindow) here if they are used in other files

@@ -1,6 +1,6 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import React, {  useCallback, useEffect, useMemo } from "react";
-import { ChatFC } from "./ChatDrawer";
+import { ChatDrawer } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
@@ -9,7 +9,7 @@ import { useScreenshot } from "./hooks/useScreenshot";
 import { ImageData, Message } from "@/lib/interfaces";
 
 
-const ChatInterface: React.FC<{
+export const ChatInterface: React.FC<{
   isOpen: boolean;
   cSess: ICode;
   onClose: () => void;
@@ -148,7 +148,31 @@ const ChatInterface: React.FC<{
   }, [isStreaming]);
 
   if (!isOpen) return null;
-  return <ChatFC {...memoizedChatFCProps} isDarkMode={isDarkMode ?? false} isStreaming={isStreaming ?? false} />;
+  return (
+    <ChatDrawer
+      isOpen={isOpen}
+      onClose={onClose}
+      isDarkMode={isDarkMode}
+      toggleDarkMode={toggleDarkMode}
+      handleResetChat={handleResetChat}
+      messages={messages}
+      isStreaming={!!isStreaming}
+      messagesEndRef={messagesEndRef}
+      input={input}
+      setInput={setInput}
+      handleSendMessage={handleSendMessage}
+      inputRef={inputRef}
+      isScreenshotLoading={isScreenshotLoading}
+      screenshotImage={screenshotImage}
+      handleScreenshotClick={handleScreenshotClick}
+      handleCancelScreenshot={handleCancelScreenshot}
+      isMobile={isMobile}
+      editingMessageId={editingMessageId}
+      editInput={editInput}
+      setEditInput={setEditInput}
+      handleEditMessage={handleEditMessage}
+      handleCancelEdit={handleCancelEdit}
+      handleSaveEdit={handleSaveEdit}
+    />
+  );
 });
-
-export default ChatInterface;

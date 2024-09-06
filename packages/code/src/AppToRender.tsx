@@ -6,7 +6,7 @@ import { Bot } from "@/external/lucideReact";
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import type { FC } from "react";
-import ChatInterface from "./ChatInterface";
+import {ChatInterface} from "./ChatInterface";
 import { CodeHistoryCarousel } from "./components/AutoSaveHistory";
 import { Editor } from "./components/Editor";
 import { RainbowWrapper } from "./components/Rainbow";

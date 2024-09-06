@@ -38,8 +38,8 @@ export interface MessageInputProps {
 export interface ChatWindowProps {
   isOpen: boolean;
   children: ReactNode;
-  isDarkMode: boolean;
   isMobile: boolean;
+  isDarkMode: boolean;
 }
 
 export type ICodeSession = {
