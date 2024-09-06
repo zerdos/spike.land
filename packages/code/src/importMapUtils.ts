@@ -29,6 +29,7 @@ export function importMapReplace(code: string, origin: string): string {
   const topLevelExportPattern =
     /(export\s*(?:[\w{},*\s]+|[\w{} as,*\s|\$]+|\w+|\$|\$\w+)\s*from\s*)(['"`][^'`"]+['"`])/g;
   const dynamicImportPattern = /(import\()(['"`][^'`"]+['"`])(\))/g;
+  const dynamicImportTemplatePattern = /(import\()(`[^`]+`)(\))/g;
 
   // Define a replacer function to modify the import paths
   const replacer = (match: string, p1: string, p2: string, p3char: string) => {
@@ -52,6 +53,12 @@ export function importMapReplace(code: string, origin: string): string {
 
       return `import "${origin}/*${match.split("\"")[1]}?bundle";`;
     }
+
+    if (p2.startsWith("`") && p2.endsWith("`")) {
+      // This is a template literal, we should keep it as is
+      return match;
+    }
+
     const packageName = p2.slice(1, -1); // Remove quotes from package name
 
     if (packageName.startsWith("data:text")) {
@@ -127,6 +134,7 @@ export function importMapReplace(code: string, origin: string): string {
     .replace(topLevelImportPattern, replacer)
     .replace(topLevelExportPattern, replacer)
     .replace(dynamicImportPattern, replacer)
+    .replace(dynamicImportTemplatePattern, replacer)
     .replace(topLeveNoFromPattern, replacer);
 
   replaced = replaced.split("\n").map((line) => {

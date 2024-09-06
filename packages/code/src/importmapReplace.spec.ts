@@ -101,6 +101,13 @@ describe("importMapReplace", () => {
     expect(result).toMatchSnapshot();
   });
 
+  it("should replace dynamic imports2", async () => {
+    const code = "const dynamic = 'dd'; const React = import(`${dynamic}dom`);";
+    const result = importMapReplace(code, origin);
+    expect(result).toMatchSnapshot();
+    expect(result).includes("React = import(`${dynamic}dom`);");
+  });
+
   it("should replace DYNAMID shadcdn imports", async () => {
     const code = "import React from \"@/components/ui/alert\";";
     const result = importMapReplace(code, origin);

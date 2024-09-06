@@ -126,6 +126,12 @@ exports[`importMapReplace > should replace dynamic imports with await 1`] = `
   const module = await import("http://localhost:3000/*some-module?bundle");"
 `;
 
+exports[`importMapReplace > should replace dynamic imports2 1`] = `
+"
+  /** importMapReplace */
+  const dynamic = 'dd'; const React = import(\`\${dynamic}dom\`);"
+`;
+
 exports[`importMapReplace > should replace shadcdn  1`] = `
 "
   /** importMapReplace */

@@ -56,8 +56,8 @@ describe("Wrapper", () => {
       const iframe = screen.getByTitle("Code Space Iframe");
       expect(iframe).toBeInTheDocument();
       expect(iframe).toHaveAttribute("src", "/live/test-space/embed");
-    }, { timeout: 10000 });
-  }, 15000);
+    });
+  });
 
   it("applies correct scale to iframe", async () => {
     const scale = 2;
