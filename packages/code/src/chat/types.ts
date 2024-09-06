@@ -1,3 +1,4 @@
+import { ImageData } from "@/lib/interfaces";
 import { ReactNode } from "react";
 
 import { Message } from "../types/Message";
@@ -27,7 +28,7 @@ export interface MessageInputProps {
   input: string;
   isDarkMode: boolean;
   setInput: (value: string) => void;
-  handleSendMessage: (value: string, screenshot: string) => void;
+  handleSendMessage: (content: string, images: ImageData[]) => Promise<void>;
   isStreaming: boolean;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;

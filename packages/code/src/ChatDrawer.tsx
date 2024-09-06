@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { ChatContainer, ChatHeader, ChatWindow, MessageInput } from "./chat/components";
+import { MessageInput } from "./chat/components";
 import { Message } from "./types/Message";
+import { ImageData } from "@/lib/interfaces";
 export type { Message };
 
 interface ChatFCProps {
@@ -22,7 +23,7 @@ interface ChatFCProps {
   messagesEndRef: React.RefObject<HTMLDivElement>;
   input: string;
   setInput: (input: string) => void;
-  handleSendMessage: (content: string, screenshot: string) => void;
+  handleSendMessage: (content: string, images: ImageData[]) => Promise<void>;
   inputRef: React.RefObject<HTMLTextAreaElement>;
   isScreenshotLoading: boolean;
   screenshotImage: string | null;
@@ -56,25 +57,29 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
   handleCancelScreenshot,
   isMobile,
 }) => (
-  <ChatWindow isOpen={isOpen} isMobile={isMobile} isDarkMode={isDarkMode}>
-    <ChatHeader
-      isDarkMode={isDarkMode}
-      toggleDarkMode={toggleDarkMode}
-      handleResetChat={handleResetChat}
-      onClose={onClose}
-    />
-    <ChatContainer
-      messages={messages}
-      editingMessageId={editingMessageId}
-      editInput={editInput}
-      setEditInput={setEditInput}
-      handleCancelEdit={handleCancelEdit}
-      handleSaveEdit={handleSaveEdit}
-      handleEditMessage={handleEditMessage}
-      isStreaming={isStreaming}
-      messagesEndRef={messagesEndRef}
-      isDarkMode={isDarkMode}
-    />
+  <div className={`chat-window ${isOpen ? 'open' : ''} ${isDarkMode ? 'dark' : ''}`}>
+    <div className="chat-header">
+      <span>AI spike pilot</span>
+      <div>
+        <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
+          {isDarkMode ? "Light" : "Dark"}
+        </Button>
+        <Button variant="ghost" size="icon" onClick={handleResetChat}>
+          Reset
+        </Button>
+        <Button variant="ghost" size="icon" onClick={onClose}>
+          Close
+        </Button>
+      </div>
+    </div>
+    <div className="chat-messages">
+      {messages.map((message) => (
+        <div key={message.id} className={`message ${message.role}`}>
+          {message.content}
+        </div>
+      ))}
+      <div ref={messagesEndRef} />
+    </div>
     <MessageInput
       input={input}
       setInput={setInput}
@@ -87,7 +92,7 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
       handleCancelScreenshot={handleCancelScreenshot}
       isDarkMode={isDarkMode}
     />
-  </ChatWindow>
+  </div>
 ));
 
 const ChatInterface: React.FC = () => {
@@ -111,21 +116,37 @@ const ChatInterface: React.FC = () => {
     }
   }, [isOpen]);
 
-  const handleSendMessage = useCallback(() => {
-    if (input.trim() === "" || isStreaming) return;
+  const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
+    if (content.trim() === "" || isStreaming) return;
 
     const newMessage: Message = {
       id: Date.now().toString(),
-      content: input,
+      content: [{ type: "text", text: content }],
       role: "user",
     };
+
+    if (images.length > 0) {
+      newMessage.content = [
+        ...images.map(img => ({
+          type: "image" as const,
+          source: {
+            type: "base64" as const,
+            media_type: img.type as "image/jpeg" | "image/png",
+            data: img.data.split(",")[1],
+          },
+        })),
+        ...newMessage.content,
+      ];
+    }
+
     setMessages((prev) => [...prev, newMessage]);
     setInput("");
     setIsStreaming(true);
     setScreenshotImage(null);
 
     // Implement your message sending logic here
-  }, [input, isStreaming, screenshotImage]);
+    // You may need to update this part to handle the actual API call
+  }, [isStreaming]);
 
   const handleEditMessage = useCallback(
     (id: string) => {
@@ -146,9 +167,11 @@ const ChatInterface: React.FC = () => {
   const handleSaveEdit = useCallback(
     (id: string) => {
       setMessages((prev) =>
-        prev.map((
-          msg,
-        ) => (msg.id === id ? { ...msg, content: editInput } : msg))
+        prev.map((msg) =>
+          msg.id === id
+            ? { ...msg, content: [{ type: "text" as const, text: editInput }] }
+            : msg
+        )
       );
       setEditingMessageId(null);
       setEditInput("");
@@ -221,12 +244,9 @@ const ChatInterface: React.FC = () => {
   );
 };
 
-// Memoize sub-components
-const MemoizedChatHeader = memo(ChatHeader);
-const MemoizedChatContainer = memo(ChatContainer);
-const MemoizedMessageInput = memo(MessageInput);
+export default ChatInterface;
 
-const ChatButton = memo(({ onClick }: { onClick: () => void }) => (
+export const ChatButton = memo(({ onClick }: { onClick: () => void }) => (
   <Button
     onClick={onClick}
     className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0"
@@ -234,12 +254,3 @@ const ChatButton = memo(({ onClick }: { onClick: () => void }) => (
     <Bot className="h-6 w-6" />
   </Button>
 ));
-
-export default ChatInterface;
-
-export {
-  ChatButton,
-  MemoizedChatContainer as ChatContainer,
-  MemoizedChatHeader as ChatHeader,
-  MemoizedMessageInput as MessageInput,
-};

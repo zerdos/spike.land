@@ -1,3 +1,4 @@
+import { ImageData } from "@/lib/interfaces";
 import { cSessMock } from "@src/config/cSessMock";
 import type { Message } from "@src/types/Message";
 import { act, renderHook } from "@testing-library/react-hooks";
@@ -63,7 +64,11 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle sending a message", async () => {
-    const mockNewMessage: Message = { id: "new-message-id", role: "user", content: "Test message" };
+    const mockNewMessage: Message = {
+      id: "new-message-id",
+      role: "user",
+      content: [{ type: "text", text: "Test message" }],
+    };
     vi.spyOn(messageProcessing, "createNewMessage").mockResolvedValue(mockNewMessage);
     vi.spyOn(useAutoSave, "useAutoSave").mockImplementation(() => Promise.resolve(new Response()));
     vi.spyOn(messageProcessing, "processMessage").mockImplementation(
@@ -76,8 +81,19 @@ describe("useMessageHandling", () => {
 
     const { result } = renderHook(() => useMessageHandling(mockProps));
 
+    const testImages: ImageData[] = [
+      {
+        imageName: "test.jpg",
+        url: "http://example.com/test.jpg",
+        src: "data:image/jpeg;base64,testdata",
+        mediaType: "image/jpeg",
+        data: "data:image/jpeg;base64,testdata",
+        type: "image/jpeg",
+      },
+    ];
+
     await act(async () => {
-      await result.current.handleSendMessage("Test message", "mock-screenshot-data");
+      await result.current.handleSendMessage("Test message", testImages);
     });
 
     expect(mockProps.setInput).toHaveBeenCalledWith("");
@@ -88,7 +104,7 @@ describe("useMessageHandling", () => {
 
   it("should handle editing a message", () => {
     const messages: Message[] = [
-      { id: "1", role: "user", content: "Test message" },
+      { id: "1", role: "user", content: [{ type: "text", text: "Test message" }] },
     ];
     const { result } = renderHook(() => useMessageHandling({ ...mockProps, messages }));
 
@@ -113,7 +129,7 @@ describe("useMessageHandling", () => {
 
   it("should handle saving edit", () => {
     const messages = [
-      { id: "1", role: "user", content: "Original message" } as Message,
+      { id: "1", role: "user", content: [{ type: "text", text: "Original message" }] } as Message,
     ];
     const { result } = renderHook(() =>
       useMessageHandling({
@@ -128,7 +144,7 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockProps.setMessages).toHaveBeenCalledWith([
-      { id: "1", role: "user", content: "Edited message" },
+      { id: "1", role: "user", content: [{ type: "text", text: "Edited message" }] },
     ]);
     expect(mockProps.setEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockProps.setEditInput).toHaveBeenCalledWith("");
