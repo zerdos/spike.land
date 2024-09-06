@@ -59,16 +59,8 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleCancelEdit,
   handleSaveEdit,
 }) => {
-  const [visibleHeight, setVisibleHeight] = useState(window.innerHeight);
+  
 
-  useEffect(() => {
-    const handleResize = () => {
-      setVisibleHeight(window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <>
@@ -90,7 +82,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
           paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
         }}
       >
-        <div className="flex flex-col h-full" style={{ height: visibleHeight }}>
+        <div className="flex flex-col h-full" >
           <div className="flex-shrink-0">
             <ChatHeader
               isDarkMode={isDarkMode}
@@ -113,9 +105,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               messagesEndRef={messagesEndRef}
             />
           </ScrollArea>
-          <div className="flex-shrink-0">
+
             <MessageInput
               input={input}
+
               setInput={setInput}
               handleSendMessage={handleSendMessage}
               isStreaming={isStreaming}
@@ -126,7 +119,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               handleCancelScreenshot={handleCancelScreenshot}
               isDarkMode={isDarkMode}
             />
-          </div>
+
         </div>
       </SwipeableDrawer>
     </>
