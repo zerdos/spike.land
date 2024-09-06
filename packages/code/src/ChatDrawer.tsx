@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { Button } from "@/components/ui/button";
-import { Bot, } from "@/external/lucideReact";
+import { Bot } from "@/external/lucideReact";
 import { ChatHeader, ChatContainer, MessageInput } from "./chat/components";
 import { Message, ImageData } from "@/lib/interfaces";
 
@@ -56,6 +56,17 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleCancelEdit,
   handleSaveEdit,
 }) => {
+  const [visibleHeight, setVisibleHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setVisibleHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       <Button
@@ -76,25 +87,27 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
           paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
         }}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full" style={{ height: visibleHeight }}>
           <ChatHeader
             isDarkMode={isDarkMode}
             toggleDarkMode={toggleDarkMode}
             handleResetChat={handleResetChat}
             onClose={onClose}
           />
-          <ChatContainer
-            messages={messages}
-            editingMessageId={editingMessageId}
-            editInput={editInput}
-            setEditInput={setEditInput}
-            handleCancelEdit={handleCancelEdit}
-            handleSaveEdit={handleSaveEdit}
-            handleEditMessage={handleEditMessage}
-            isStreaming={isStreaming}
-            isDarkMode={isDarkMode}
-            messagesEndRef={messagesEndRef}
-          />
+          <div className="flex-grow overflow-hidden">
+            <ChatContainer
+              messages={messages}
+              editingMessageId={editingMessageId}
+              editInput={editInput}
+              setEditInput={setEditInput}
+              handleCancelEdit={handleCancelEdit}
+              handleSaveEdit={handleSaveEdit}
+              handleEditMessage={handleEditMessage}
+              isStreaming={isStreaming}
+              isDarkMode={isDarkMode}
+              messagesEndRef={messagesEndRef}
+            />
+          </div>
           <MessageInput
             input={input}
             setInput={setInput}
