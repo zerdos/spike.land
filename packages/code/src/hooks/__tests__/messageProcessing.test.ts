@@ -115,6 +115,12 @@ describe('messageProcessing', () => {
       expect(result).toBe(false);
       expect(mockAIHandler.sendToAnthropic).toHaveBeenCalled();
       expect(mockSaveMessages).not.toHaveBeenCalled();
+      expect(mockSetMessages).toHaveBeenCalledWith(expect.arrayContaining([
+        expect.objectContaining({
+          role: 'assistant',
+          content: expect.stringContaining('Sorry, there was an error processing your request')
+        })
+      ]));
     });
   });
 
