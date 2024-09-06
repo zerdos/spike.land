@@ -105,18 +105,15 @@ describe("useSyncedStorage", () => {
     console.error = originalConsoleError;
   });
 
-  it("should use the initial value when storage is empty", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-    await waitForNextUpdate();
+  it("should use the initial value when storage is empty", () => {
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     expect(result.current[0]).toBe("initialValue");
+    expect(localStorageMock.getItem).toHaveBeenCalledWith("testKey");
   });
 
-  it("should update the value and localStorage when setValue is called", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-    await waitForNextUpdate();
+  it("should update the value and localStorage when setValue is called", () => {
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     act(() => {
       result.current[1]("newValue");
@@ -126,20 +123,17 @@ describe("useSyncedStorage", () => {
     expect(localStorageMock.setItem).toHaveBeenCalledWith("testKey", JSON.stringify("newValue"));
   });
 
-  it("should retrieve the value from localStorage if it exists", async () => {
+  it("should retrieve the value from localStorage if it exists", () => {
     localStorageMock.getItem.mockReturnValueOnce(JSON.stringify("storedValue"));
 
-    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     expect(result.current[0]).toBe("storedValue");
+    expect(localStorageMock.getItem).toHaveBeenCalledWith("testKey");
   });
 
-  it("should handle function-based state updates correctly", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", 1));
-
-    await waitForNextUpdate();
+  it("should handle function-based state updates correctly", () => {
+    const { result } = renderHook(() => useSyncedStorage("testKey", 1));
 
     act(() => {
       result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
@@ -152,17 +146,16 @@ describe("useSyncedStorage", () => {
     });
 
     expect(result.current[0]).toBe(3);
+    expect(localStorageMock.setItem).toHaveBeenCalledWith("testKey", JSON.stringify(3));
   });
 
-  it("should handle errors when reading from storage", async () => {
+  it("should handle errors when reading from storage", () => {
     const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     localStorageMock.getItem.mockImplementation(() => {
       throw new Error("Storage error");
     });
 
-    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     expect(result.current[0]).toBe("initialValue");
     expect(consoleErrorSpy).toHaveBeenCalledWith("Error reading from storage for key 'testKey':", expect.any(Error));
@@ -170,15 +163,13 @@ describe("useSyncedStorage", () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it("should handle errors when setting a value in storage", async () => {
+  it("should handle errors when setting a value in storage", () => {
     const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     localStorageMock.setItem.mockImplementation(() => {
       throw new Error("Storage error");
     });
 
-    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
-
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
     act(() => {
       result.current[1]("newValue");
