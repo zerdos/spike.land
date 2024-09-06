@@ -168,7 +168,7 @@ const RAW_RUNTIME_STATE =
           ["agentkeepalive", "npm:4.5.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0"]\
+          ["node-fetch", "virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -182,7 +182,7 @@ const RAW_RUNTIME_STATE =
           ["agentkeepalive", "npm:4.5.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0"]\
+          ["node-fetch", "virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2218,7 +2218,7 @@ const RAW_RUNTIME_STATE =
           ["detect-libc", "npm:2.0.3"],\
           ["https-proxy-agent", "npm:5.0.1"],\
           ["make-dir", "npm:3.1.0"],\
-          ["node-fetch", "virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0"],\
+          ["node-fetch", "virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0"],\
           ["nopt", "npm:5.0.0"],\
           ["npmlog", "npm:5.0.1"],\
           ["rimraf", "npm:3.0.2"],\
@@ -5171,7 +5171,7 @@ const RAW_RUNTIME_STATE =
           ["dotenv", "npm:16.4.5"],\
           ["express", "npm:4.19.2"],\
           ["node-fetch", "npm:3.3.2"],\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.57.3"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.58.0"],\
           ["p-limit", "npm:6.1.0"],\
           ["simple-git", "npm:3.26.0"]\
         ],\
@@ -5422,7 +5422,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild-wasm", "npm:0.23.1"],\
           ["esm-worker", "npm:0.135.17"],\
           ["immutable", "npm:4.3.7"],\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.57.3"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.58.0"],\
           ["openai-edge", "npm:1.2.2"],\
           ["p-map", "npm:7.0.2"],\
           ["p-queue", "npm:8.0.1"],\
@@ -9574,7 +9574,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/global/cache/cross-fetch-npm-4.0.0-9c67668db4-10.zip/node_modules/cross-fetch/",\
         "packageDependencies": [\
           ["cross-fetch", "npm:4.0.0"],\
-          ["node-fetch", "virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0"]\
+          ["node-fetch", "virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15977,10 +15977,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0", {\
-        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-a415b4598e/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
+      ["virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0", {\
+        "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-bc94e8b728/0/global/cache/node-fetch-npm-2.7.0-587d57004e-10.zip/node_modules/node-fetch/",\
         "packageDependencies": [\
-          ["node-fetch", "virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0"],\
+          ["node-fetch", "virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0"],\
           ["@types/encoding", null],\
           ["encoding", null],\
           ["whatwg-url", "npm:5.0.0"]\
@@ -16328,17 +16328,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["openai", [\
-      ["npm:4.57.3", {\
-        "packageLocation": "./.yarn/global/cache/openai-npm-4.57.3-84a2a2ab66-10.zip/node_modules/openai/",\
+      ["npm:4.58.0", {\
+        "packageLocation": "./.yarn/global/cache/openai-npm-4.58.0-5605399652-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "npm:4.57.3"]\
+          ["openai", "npm:4.58.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.57.3", {\
-        "packageLocation": "./.yarn/__virtual__/openai-virtual-c8e223ce12/0/global/cache/openai-npm-4.57.3-84a2a2ab66-10.zip/node_modules/openai/",\
+      ["virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.58.0", {\
+        "packageLocation": "./.yarn/__virtual__/openai-virtual-867fff19cb/0/global/cache/openai-npm-4.58.0-5605399652-10.zip/node_modules/openai/",\
         "packageDependencies": [\
-          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.57.3"],\
+          ["openai", "virtual:8fef4ff21f47923d9b9cdd616ffdfce889ba163d876dd01a4cbd905ce7b5bd56baa6c290eacf9f681a06eb4bcff88c6afbd399a144c2133e4f37c29e41c27ae9#npm:4.58.0"],\
           ["@types/node", "npm:18.19.50"],\
           ["@types/node-fetch", "npm:2.6.11"],\
           ["@types/qs", "npm:6.9.15"],\
@@ -16347,7 +16347,7 @@ const RAW_RUNTIME_STATE =
           ["agentkeepalive", "npm:4.5.0"],\
           ["form-data-encoder", "npm:1.7.2"],\
           ["formdata-node", "npm:4.4.1"],\
-          ["node-fetch", "virtual:c8e223ce121ed1707d548394ff4d0e7e230e69d66541ac2ef225cf2d66f63007ecd6ddc78bc0a568abbe5ccf5c56643e1482e7a31eb3c8640729cdcc1d52f506#npm:2.7.0"],\
+          ["node-fetch", "virtual:867fff19cb35e60ec306f3fc19b0a5f52505a0ac59c353ac39b02274586a0cd93005044665e6da20368640eb0778d462ef70ecc15fb906fbc51857618610b6cf#npm:2.7.0"],\
           ["qs", "npm:6.13.0"],\
           ["zod", null]\
         ],\

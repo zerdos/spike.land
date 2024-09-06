@@ -3714,7 +3714,7 @@ __metadata:
     dotenv: "npm:16.4.5"
     express: "npm:4.19.2"
     node-fetch: "npm:3.3.2"
-    openai: "npm:4.57.3"
+    openai: "npm:4.58.0"
     p-limit: "npm:6.1.0"
     simple-git: "npm:3.26.0"
   bin:
@@ -3757,7 +3757,7 @@ __metadata:
     esbuild-wasm: "npm:0.23.1"
     esm-worker: "npm:0.135.17"
     immutable: "npm:4.3.7"
-    openai: "npm:^4.57.3"
+    openai: "npm:^4.58.0"
     openai-edge: "npm:1.2.2"
     p-map: "npm:7.0.2"
     p-queue: "npm:8.0.1"
@@ -13244,9 +13244,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openai@npm:4.57.3, openai@npm:^4.57.3":
-  version: 4.57.3
-  resolution: "openai@npm:4.57.3"
+"openai@npm:4.58.0, openai@npm:^4.58.0":
+  version: 4.58.0
+  resolution: "openai@npm:4.58.0"
   dependencies:
     "@types/node": "npm:^18.11.18"
     "@types/node-fetch": "npm:^2.6.4"
@@ -13264,7 +13264,7 @@ __metadata:
       optional: true
   bin:
     openai: bin/cli
-  checksum: 10/ac43545e97f734969e31519b2639b57625bd972e1481a40be9c6f5fc4e3f3098d1371e56fbddf24920a9e415fea8c9b5888b31a568cd154d82ddf9fa1301b23e
+  checksum: 10/07259b2fd235fe2da0665e662450cf5efca41281fda7f1ee6d894be64c0fbadd271709b555fcc2b8908083e4da4572f9996a6f12de56c008a016471d90c6e73c
   languageName: node
   linkType: hard
 
