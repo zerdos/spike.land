@@ -70,9 +70,8 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
         onClose={onClose}
         onOpen={() => {}}
         hideBackdrop={true}
-        swipeAreaWidth={isMobile ? 30 : 0}
+        swipeAreaWidth={30}
         disableBackdropTransition={!isMobile}
-        disableDiscovery={isMobile}
         classes={{
           paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
         }}
