@@ -58,13 +58,40 @@ export class AIService {
     return endpointMap[type];
   }
 
+  private formatMessageContent(content: MessageContent): any {
+    if (typeof content === "string") {
+      return { type: "text", text: content };
+    } else if (Array.isArray(content)) {
+      return content.map(item => {
+        if (item.type === "image" && item.source) {
+          return {
+            type: "image",
+            source: {
+              type: "base64",
+              media_type: item.source.media_type,
+              data: item.source.data,
+            },
+          };
+        } else {
+          return item;
+        }
+      });
+    }
+    return content;
+  }
+
   private async makeAPICall(endpoint: string, messages: Message[]): Promise<Response> {
+    const formattedMessages = messages.map(({ role, content }) => ({
+      role,
+      content: this.formatMessageContent(content),
+    }));
+
     const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         stream: true,
-        messages: messages.map(({ role, content }) => ({ role, content })),
+        messages: formattedMessages,
       }),
     });
 

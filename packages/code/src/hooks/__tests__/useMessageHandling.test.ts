@@ -61,8 +61,22 @@ describe("useMessageHandling", () => {
 
     const content = "Test message";
     const images: ImageData[] = [
-      { data: "data:image/jpeg;base64,image1data", type: "image/jpeg" },
-      { data: "data:image/png;base64,image2data", type: "image/png" },
+      {
+        imageName: "image1.jpg",
+        url: "url1",
+        src: "src1",
+        mediaType: "image/jpeg",
+        data: "data:image/jpeg;base64,image1data",
+        type: "image/jpeg",
+      },
+      {
+        imageName: "image2.png",
+        url: "url2",
+        src: "src2",
+        mediaType: "image/png",
+        data: "data:image/png;base64,image2data",
+        type: "image/png",
+      },
     ];
 
     await act(async () => {
@@ -77,7 +91,11 @@ describe("useMessageHandling", () => {
   });
 
   it("should handle editing a message", () => {
-    const messages = [{ id: "message-id", role: "user", content: "Original content" }];
+    const messages = [{
+      id: "message-id",
+      role: "user",
+      content: [{ type: "text", text: "Original content" }],
+    }];
     const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages }));
 
     act(() => {
@@ -101,7 +119,7 @@ describe("useMessageHandling", () => {
 
   it("should handle saving edit", () => {
     const messages = [
-      { id: "message-1", role: "user", content: "Original content" },
+      { id: "message-1", role: "user", content: [{ type: "text", text: "Original content" }] },
     ];
     const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages, editInput: "Edited content" }));
 
@@ -110,7 +128,7 @@ describe("useMessageHandling", () => {
     });
 
     expect(mockSetMessages).toHaveBeenCalledWith([
-      { id: "message-1", role: "user", content: "Edited content" },
+      { id: "message-1", role: "user", content: [{ type: "text", text: "Edited content" }] },
     ]);
     expect(mockSetEditingMessageId).toHaveBeenCalledWith(null);
     expect(mockSetEditInput).toHaveBeenCalledWith("");

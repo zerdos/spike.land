@@ -14,8 +14,22 @@ describe("messageProcessing", () => {
   describe("createNewMessage", () => {
     it("should create a new message with multiple images", async () => {
       const images: ImageData[] = [
-        { data: "data:image/jpeg;base64,image1data", type: "image/jpeg" },
-        { data: "data:image/png;base64,image2data", type: "image/png" },
+        {
+          imageName: "image1.jpg",
+          url: "url1",
+          src: "src1",
+          mediaType: "image/jpeg",
+          data: "data:image/jpeg;base64,image1data",
+          type: "image/jpeg",
+        },
+        {
+          imageName: "image2.png",
+          url: "url2",
+          src: "src2",
+          mediaType: "image/png",
+          data: "data:image/png;base64,image2data",
+          type: "image/png",
+        },
       ];
       const content = "Test message";
       const isSystem = false;
@@ -77,7 +91,7 @@ describe("messageProcessing", () => {
     const mockMutex = new Mutex();
 
     it("should process a message successfully", async () => {
-      mockAIHandler.sendToAnthropic.mockResolvedValue({
+      vi.mocked(mockAIHandler.sendToAnthropic).mockResolvedValue({
         id: "assistant-message-id",
         role: "assistant",
         content: "Assistant response",
@@ -100,7 +114,7 @@ describe("messageProcessing", () => {
     });
 
     it("should handle errors", async () => {
-      mockAIHandler.sendToAnthropic.mockRejectedValue(new Error("Test error"));
+      vi.mocked(mockAIHandler.sendToAnthropic).mockRejectedValue(new Error("Test error"));
 
       const result = await processMessage(
         mockAIHandler,

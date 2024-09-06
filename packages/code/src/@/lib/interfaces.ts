@@ -32,4 +32,5 @@ export interface ImageData {
   src: string;
   mediaType: string;
   data: string;
+  type: string;
 }
