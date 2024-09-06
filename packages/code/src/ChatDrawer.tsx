@@ -77,25 +77,26 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
       </Button>
       <SwipeableDrawer
         anchor="right"
-
         open={isOpen}
         onClose={onClose}
         onOpen={() => {}}
         hideBackdrop={true}
-        swipeAreaWidth={80}
-        disableBackdropTransition={!isMobile}
+        swipeAreaWidth={30}
+        disableBackdropTransition={false}
         classes={{
           paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
         }}
       >
-        <div className="flex flex-co h-full" style={{ height: visibleHeight }}>
-          <ChatHeader
-            isDarkMode={isDarkMode}
-            toggleDarkMode={toggleDarkMode}
-            handleResetChat={handleResetChat}
-            onClose={onClose}
-          />
-          <div className="flex-grow overflow-hidden">
+        <div className="flex flex-col h-full" style={{ height: visibleHeight }}>
+          <div className="flex-shrink-0">
+            <ChatHeader
+              isDarkMode={isDarkMode}
+              toggleDarkMode={toggleDarkMode}
+              handleResetChat={handleResetChat}
+              onClose={onClose}
+            />
+          </div>
+          <div className="flex-grow overflow-y-auto">
             <ChatContainer
               messages={messages}
               editingMessageId={editingMessageId}
@@ -109,7 +110,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               messagesEndRef={messagesEndRef}
             />
           </div>
-           <div className="fixed bottom-0 right-0 bg-inherit">
+          <div className="flex-shrink-0">
             <MessageInput
               input={input}
               setInput={setInput}
