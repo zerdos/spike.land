@@ -130,11 +130,14 @@ describe("useSyncedStorage", () => {
 
     expect(result.current[0]).toBe("storedValue");
     expect(localStorageMock.getItem).toHaveBeenCalledWith("testKey");
-  });
 
-  // Force a re-render to ensure the hook uses the mocked localStorage value
-  act(() => {
-    result.current[1]("dummy"); // This triggers a re-render
+    // Force a re-render to ensure the hook uses the mocked localStorage value
+    act(() => {
+      result.current[1]("dummy"); // This triggers a re-render
+    });
+
+    // The value should remain "storedValue" as it's coming from localStorage
+    expect(result.current[0]).toBe("storedValue");
   });
 
   it("should handle function-based state updates correctly", () => {
