@@ -109,7 +109,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               messagesEndRef={messagesEndRef}
             />
           </div>
-           <div className="absolute bottom-0 left-0 right-0 bg-inherit">
+           <div className="fixed bottom-0 right-0 bg-inherit">
             <MessageInput
               input={input}
               setInput={setInput}
