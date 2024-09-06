@@ -109,11 +109,6 @@ async function renderApp(
     const renderedApp: RenderedApp = { rootElement: rootEl, rRoot: root, App, cssCache, cleanup, code };
     renderedAPPS.set(rootEl, renderedApp);
 
-    if (Object.getOwnPropertyNames(globalThis).includes("tw") === false) {
-      const tw = await import(location.origin + "/tw/tw-chunk-be5bad.js");
-      Object.assign(globalThis, { tw });
-    }
-
     return renderedApp;
   } catch (error) {
     console.error("Error in renderApp:", error);
