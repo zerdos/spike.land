@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Bot } from "@/external/lucideReact";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { MessageInput } from "./chat/components";
-import { Message } from "./types/Message";
+import { Message, MessageContent } from "./types/Message";
 import { ImageData } from "@/lib/interfaces";
 export type { Message };
 
@@ -13,12 +13,6 @@ interface ChatFCProps {
   toggleDarkMode: () => void;
   handleResetChat: () => void;
   messages: Message[];
-  editingMessageId: string | null;
-  editInput: string;
-  setEditInput: (input: string) => void;
-  handleCancelEdit: () => void;
-  handleSaveEdit: (messageId: string) => void;
-  handleEditMessage: (messageId: string) => void;
   isStreaming: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement>;
   input: string;
@@ -29,8 +23,29 @@ interface ChatFCProps {
   screenshotImage: string | null;
   handleScreenshotClick: () => void;
   handleCancelScreenshot: () => void;
-  isMobile: boolean;
 }
+
+const renderMessageContent = (content: MessageContent) => {
+  if (Array.isArray(content)) {
+    return content.map((item, index) => {
+      if (item.type === "text") {
+        return <p key={index}>{item.text}</p>;
+      } else if (item.type === "image" && item.source?.type === "base64") {
+        return (
+          <img
+            key={index}
+            src={`data:${item.source.media_type};base64,${item.source.data}`}
+            alt="Image in message"
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        );
+      }
+      return null;
+    });
+  } else {
+    return <p>{content}</p>;
+  }
+};
 
 export const ChatFC: React.FC<ChatFCProps> = memo(({
   isOpen,
@@ -39,12 +54,6 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
   toggleDarkMode,
   handleResetChat,
   messages,
-  editingMessageId,
-  editInput,
-  setEditInput,
-  handleCancelEdit,
-  handleSaveEdit,
-  handleEditMessage,
   isStreaming,
   messagesEndRef,
   input,
@@ -55,7 +64,6 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
   screenshotImage,
   handleScreenshotClick,
   handleCancelScreenshot,
-  isMobile,
 }) => (
   <div className={`chat-window ${isOpen ? 'open' : ''} ${isDarkMode ? 'dark' : ''}`}>
     <div className="chat-header">
@@ -75,7 +83,7 @@ export const ChatFC: React.FC<ChatFCProps> = memo(({
     <div className="chat-messages">
       {messages.map((message) => (
         <div key={message.id} className={`message ${message.role}`}>
-          {message.content}
+          {renderMessageContent(message.content)}
         </div>
       ))}
       <div ref={messagesEndRef} />
@@ -99,8 +107,6 @@ const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
-  const [editInput, setEditInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isScreenshotLoading, setIsScreenshotLoading] = useState(false);
@@ -148,42 +154,9 @@ const ChatInterface: React.FC = () => {
     // You may need to update this part to handle the actual API call
   }, [isStreaming]);
 
-  const handleEditMessage = useCallback(
-    (id: string) => {
-      const messageToEdit = messages.find((msg) => msg.id === id);
-      if (messageToEdit && messageToEdit.role === "user") {
-        setEditingMessageId(id);
-        setEditInput(JSON.stringify(messageToEdit.content));
-      }
-    },
-    [messages],
-  );
-
-  const handleCancelEdit = useCallback(() => {
-    setEditingMessageId(null);
-    setEditInput("");
-  }, []);
-
-  const handleSaveEdit = useCallback(
-    (id: string) => {
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === id
-            ? { ...msg, content: [{ type: "text" as const, text: editInput }] }
-            : msg
-        )
-      );
-      setEditingMessageId(null);
-      setEditInput("");
-    },
-    [editInput],
-  );
-
   const handleResetChat = useCallback(() => {
     setMessages([]);
     setInput("");
-    setEditingMessageId(null);
-    setEditInput("");
     setScreenshotImage(null);
   }, []);
 
@@ -222,12 +195,6 @@ const ChatInterface: React.FC = () => {
         toggleDarkMode={toggleDarkMode}
         handleResetChat={handleResetChat}
         messages={messages}
-        editingMessageId={editingMessageId}
-        editInput={editInput}
-        setEditInput={setEditInput}
-        handleCancelEdit={handleCancelEdit}
-        handleSaveEdit={handleSaveEdit}
-        handleEditMessage={handleEditMessage}
         isStreaming={isStreaming}
         messagesEndRef={messagesEndRef}
         input={input}
@@ -238,7 +205,6 @@ const ChatInterface: React.FC = () => {
         screenshotImage={screenshotImage}
         handleScreenshotClick={handleScreenshotClick}
         handleCancelScreenshot={handleCancelScreenshot}
-        isMobile={false}
       />
     </>
   );

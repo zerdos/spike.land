@@ -48,7 +48,7 @@ describe("useMessageHandling", () => {
     const mockPrepareClaudeContent = vi.fn().mockReturnValue("prepared content");
     const mockSendToAnthropic = vi.fn().mockResolvedValue({
       id: "assistant-message-id",
-      role: "assistant",
+      role: "assistant" as const,
       content: "Assistant response",
     });
 
@@ -93,7 +93,7 @@ describe("useMessageHandling", () => {
   it("should handle editing a message", () => {
     const messages = [{
       id: "message-id",
-      role: "user",
+      role: "user" as const,
       content: [{ type: "text", text: "Original content" }],
     }];
     const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages }));
@@ -119,7 +119,7 @@ describe("useMessageHandling", () => {
 
   it("should handle saving edit", () => {
     const messages = [
-      { id: "message-1", role: "user", content: [{ type: "text", text: "Original content" }] },
+      { id: "message-1", role: "user" as const, content: [{ type: "text", text: "Original content" }] },
     ];
     const { result } = renderHook(() => useMessageHandling({ ...defaultProps, messages, editInput: "Edited content" }));
 
