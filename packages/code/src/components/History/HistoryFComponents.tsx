@@ -8,25 +8,6 @@ import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { format } from "date-fns";
 import React from "react";
 
-// ScaledWrapper component
-const ScaledWrapper = ({ code, scale }: { code: string; scale: number }) => (
-  <div className="w-full h-0 pb-[56.25%] relative overflow-hidden">
-    <div
-      style={{
-        transform: `scale(${scale})`,
-        transformOrigin: "top left",
-        width: `${100 / scale}%`,
-        height: `${100 / scale}%`,
-        position: "absolute",
-        top: 0,
-        left: 0,
-      }}
-    >
-      <Wrapper code={code} scale={.6} />
-    </div>
-  </div>
-);
-
 interface HistoryItem {
   timestamp: number;
   code: string;
@@ -54,7 +35,7 @@ const HistoryItem: React.FC<HistoryItemProps> = (
         {format(new Date(item.timestamp), "PPpp")}
       </p>
       <div className="flex-grow mb-4">
-        <ScaledWrapper code={item.code} scale={0.3} />
+        <Wrapper code={item.code} scale={0.3} />
       </div>
       <div className="space-x-2">
         <Dialog>
@@ -141,4 +122,4 @@ const FullScreenHistoryView: React.FC<{
   </div>
 );
 
-export { FullScreenHistoryView, HistoryItem, RestoreStatusAlert, ScaledWrapper };
+export { FullScreenHistoryView, HistoryItem, RestoreStatusAlert };
