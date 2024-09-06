@@ -1,11 +1,13 @@
 import { useDarkMode } from "@/hooks/use-dark-mode";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { ChatFC, Message } from "./ChatDrawer";
 import { ICode } from "./cSess.interface";
 import { useChat } from "./hooks/useChat";
 import { useCodeSpace } from "./hooks/useCodeSpace";
 import { useMessageHandling } from "./hooks/useMessageHandling";
 import { useScreenshot } from "./hooks/useScreenshot";
+import { ImageData } from "@/lib/interfaces";
+
 
 const ChatInterface: React.FC<{
   isOpen: boolean;
@@ -113,13 +115,20 @@ const ChatInterface: React.FC<{
   ]);
 
   useEffect(() => {
-    const sp = new URLSearchParams(location.search);
 
-    const prompt = sp.get("prompt");
-    if (prompt) {
-      memoizedChatFCProps.handleSendMessage(prompt, "");
-      history.replaceState(null, "", location.pathname);
+
+    if (codeSpace.includes("-")) {
+      const maybeKey = codeSpace.split("-")[1];
+      if (sessionStorage.getItem(maybeKey)) {
+
+        const {prompt, images} = JSON.parse(sessionStorage.getItem(maybeKey)!) as {prompt: string; images: ImageData[]};
+        sessionStorage.removeItem(maybeKey);
+
+        memoizedChatFCProps.handleSendMessage(prompt, images)
+      }
+
     }
+
 
     if (isOpen) {
       setTimeout(() => {

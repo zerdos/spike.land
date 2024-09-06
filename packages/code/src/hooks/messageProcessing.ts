@@ -4,33 +4,34 @@ import { ICode } from "@src/cSess.interface";
 import type { Mutex } from "async-mutex";
 import { Message } from "../types/Message";
 import { updateSearchReplace } from "../utils/chatUtils";
+import { ImageData } from "@/lib/interfaces";
 
 export async function createNewMessage(
-  screenshot: string,
+  images: ImageData[],
   claudeContent: string,
   isSystem: boolean,
 ): Promise<Message> {
-  if (screenshot) {
-    return {
-      id: Date.now().toString(),
-      role: isSystem ? "system" : "user",
-      content: [
-        {
-          type: "image",
-          source: {
-            type: "base64",
-            media_type: "image/jpeg",
-            data: screenshot.slice(23),
-          },
+  const content: any[] = [];
+
+  if (images && images.length > 0) {
+    images.forEach((image) => {
+      content.push({
+        type: "image",
+        source: {
+          type: "base64",
+          media_type: image.type,
+          data: image.data.split(',')[1], // Remove the "data:image/jpeg;base64," prefix
         },
-        { type: "text", text: claudeContent?.trim() || "" },
-      ],
-    };
+      });
+    });
   }
+
+  content.push({ type: "text", text: claudeContent?.trim() || "" });
+
   return {
     id: Date.now().toString(),
     role: isSystem ? "system" : "user",
-    content: claudeContent?.trim() || "",
+    content: content.length > 1 ? content : claudeContent?.trim() || "",
   };
 }
 
@@ -88,7 +89,7 @@ export async function processMessage(
       if (success) return true;
 
       // If setting the code fails, try again with a new message
-      const userMessage = await createNewMessage("", claudeRevery(starterCode), false);
+      const userMessage = await createNewMessage([], claudeRevery(starterCode), false);
       const newMessages = [...updatedMessages, userMessage];
       const newOnUpdate = createOnUpdateFunction(newMessages, preUpdates, mutex, setMessages, cSess);
 

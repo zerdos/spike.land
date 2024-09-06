@@ -5,6 +5,7 @@ import { useCallback, useMemo } from "react";
 import { Message } from "../types/Message";
 import { createNewMessage, handleError, processMessage } from "./messageProcessing";
 import { useAutoSave } from "./useAutoSave";
+import { ImageData } from "@/lib/interfaces";
 
 export interface UseMessageHandlingProps {
   codeSpace: string;
@@ -37,7 +38,7 @@ export const useMessageHandling = ({
   const aiHandler = useMemo(() => new AIHandler(cSess, setIsStreaming), [codeSpace]);
   const mutex = new Mutex();
 
-  const handleSendMessage = useCallback(async (content: string, screenshot: string) => {
+  const handleSendMessage = useCallback(async (content: string, images: ImageData[]) => {
     if (!content.trim()) return;
 
     const { code } = cSess.session;
@@ -51,7 +52,7 @@ export const useMessageHandling = ({
       codeSpace,
     );
 
-    const updatedMessages = [...messages, await createNewMessage(screenshot, claudeContent + content, false)];
+    const updatedMessages = [...messages, await createNewMessage(images, claudeContent + content, false)];
 
     setInput("");
 

@@ -25,3 +25,12 @@ export interface RenderedApp {
   cssCache: EmotionCache;
   cleanup: () => void;
 }
+
+
+export interface ImageData {
+  imageName: string;
+  url: string;
+  src: string;
+  mediaType: string;
+  data: string;
+}

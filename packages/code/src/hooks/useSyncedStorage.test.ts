@@ -106,20 +106,20 @@ describe("useSyncedStorage", () => {
   });
 
   it("should use the initial value when storage is empty", async () => {
-    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
-    });
+    await waitForNextUpdate();
 
     expect(result.current[0]).toBe("initialValue");
   });
 
   it("should update the value and localStorage when setValue is called", async () => {
-    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
-    await act(async () => {
-      await result.current[1]("newValue");
+    await waitForNextUpdate();
+
+    act(() => {
+      result.current[1]("newValue");
     });
 
     expect(result.current[0]).toBe("newValue");
@@ -137,16 +137,18 @@ describe("useSyncedStorage", () => {
   });
 
   it("should handle function-based state updates correctly", async () => {
-    const { result } = renderHook(() => useSyncedStorage("testKey", 1));
+    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", 1));
 
-    await act(async () => {
-      await result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
+    await waitForNextUpdate();
+
+    act(() => {
+      result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
     });
 
     expect(result.current[0]).toBe(2);
 
-    await act(async () => {
-      await result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
+    act(() => {
+      result.current[1]((prevValue) => (prevValue !== null ? prevValue + 1 : 1));
     });
 
     expect(result.current[0]).toBe(3);
@@ -158,11 +160,9 @@ describe("useSyncedStorage", () => {
       throw new Error("Storage error");
     });
 
-    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
-    await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
-    });
+    await waitForNextUpdate();
 
     expect(result.current[0]).toBe("initialValue");
     expect(consoleErrorSpy).toHaveBeenCalledWith("Error reading from storage for key 'testKey':", expect.any(Error));
@@ -176,10 +176,12 @@ describe("useSyncedStorage", () => {
       throw new Error("Storage error");
     });
 
-    const { result } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
+    const { result, waitForNextUpdate } = renderHook(() => useSyncedStorage("testKey", "initialValue"));
 
-    await act(async () => {
-      await result.current[1]("newValue");
+    await waitForNextUpdate();
+
+    act(() => {
+      result.current[1]("newValue");
     });
 
     expect(result.current[0]).toBe("newValue"); // The local state should still update

@@ -18,15 +18,30 @@ import { useMediaQuery } from "./hooks/useMediaQuery"; // Add this import
 export const AppToRender: FC<{ codeSpace: string; cSess: ICode }> = ({ codeSpace, cSess }) => {
   const sp = new URLSearchParams(location.search);
   const onlyEdit = sp.has("edit");
-  const prompt = sp.get("prompt");
   const [hideRest, setHideRest] = useState(true);
   // const { data, error, isLoading } = useClerkSWR(`/live/${codeSpace}/my`);
 
   // console.log({ data, error, isLoading });
 
+  useEffect(() => {
+    if (codeSpace.includes('-'))  {
+      const maybeKey = codeSpace.split('-')[1];
+      if (sessionStorage.getItem(maybeKey)) {
+        setIsOpen(true);
+      }
+    }}, []);
+
   const [showAutoSaveHistory, setShowAutoSaveHistory] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(prompt ? true : false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (codeSpace.includes('-'))  {
+      const maybeKey = codeSpace.split('-')[1];
+      if (sessionStorage.getItem(maybeKey)) {
+        setIsOpen(true);
+      }
+    }}, []);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 

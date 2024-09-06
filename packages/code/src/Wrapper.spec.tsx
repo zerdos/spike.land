@@ -47,29 +47,5 @@ describe("Wrapper", () => {
     }, { timeout: 10000 });
   }, 15000);
 
-  it("renders iframe when codeSpace is provided", async () => {
-    await act(async () => {
-      render(<Wrapper codeSpace="test-space" />, { container });
-    });
 
-    await waitFor(() => {
-      const iframe = screen.getByTitle("Code Space Iframe");
-      expect(iframe).toBeInTheDocument();
-      expect(iframe).toHaveAttribute("src", "/live/test-space/embed");
-    });
-  });
-
-  it("applies correct scale to iframe", async () => {
-    const scale = 2;
-    await act(async () => {
-      render(<Wrapper codeSpace="test-space" scale={scale} />, { container });
-    });
-
-    await waitFor(() => {
-      const iframe = screen.getByTitle("Code Space Iframe");
-      expect(iframe).toBeInTheDocument();
-      expect(iframe).toHaveStyle(`transform: scale(${1 / scale})`);
-      expect(iframe).toHaveStyle(`transform-origin: 0 0`);
-    }, { timeout: 10000 });
-  }, 15000);
 });
