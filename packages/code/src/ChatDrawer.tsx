@@ -16,7 +16,6 @@ interface ChatDrawerProps {
   handleResetChat: () => void;
   messages: Message[];
   isStreaming: boolean;
-  messagesEndRef: React.RefObject<HTMLDivElement>;
   input: string;
   setInput: (input: string) => void;
   handleSendMessage: (content: string, images: ImageData[]) => Promise<void>;
@@ -42,7 +41,6 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
   handleResetChat,
   messages,
   isStreaming,
-  messagesEndRef,
   input,
   setInput,
   handleSendMessage,
@@ -102,13 +100,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               handleEditMessage={handleEditMessage}
               isStreaming={isStreaming}
               isDarkMode={isDarkMode}
-              messagesEndRef={messagesEndRef}
+
             />
-          </ScrollArea>
-
-            <MessageInput
+              <MessageInput
               input={input}
-
               setInput={setInput}
               handleSendMessage={handleSendMessage}
               isStreaming={isStreaming}
@@ -119,6 +114,10 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               handleCancelScreenshot={handleCancelScreenshot}
               isDarkMode={isDarkMode}
             />
+            <div id="typing-indicator" />
+          </ScrollArea>
+
+        
 
         </div>
       </SwipeableDrawer>

@@ -190,7 +190,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
           />
         ))}
         {typingIndicatorMustShow && <TypingIndicator isDarkMode={isDarkMode} />}
-        <div ref={lastMessageRef} id="typing-indicator" />
+  
       </div>
   );
 });

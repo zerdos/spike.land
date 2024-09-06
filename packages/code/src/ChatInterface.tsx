@@ -32,7 +32,6 @@ export const ChatInterface: React.FC<{
     setEditingMessageId,
     editInput,
     setEditInput,
-    messagesEndRef,
     inputRef,
   } = useChat(codeSpace);
 
@@ -79,7 +78,6 @@ export const ChatInterface: React.FC<{
     handleSendMessage,
     isStreaming,
     messages,
-    messagesEndRef,
     isDarkMode,
     toggleDarkMode,
     editingMessageId,
@@ -130,12 +128,7 @@ export const ChatInterface: React.FC<{
     }
 
 
-    if (isOpen) {
-      setTimeout(() => {
-        document.getElementById("typing-indicator")?.scrollIntoView({ behavior: "smooth", block: "end" });
-      });
-    }
-  }, [isOpen, messages, messagesEndRef]);
+  }, [isOpen, messages]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -157,7 +150,6 @@ export const ChatInterface: React.FC<{
       handleResetChat={handleResetChat}
       messages={messages}
       isStreaming={!!isStreaming}
-      messagesEndRef={messagesEndRef}
       input={input}
       setInput={setInput}
       handleSendMessage={handleSendMessage}

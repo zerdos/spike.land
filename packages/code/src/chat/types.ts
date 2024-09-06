@@ -21,7 +21,6 @@ export interface ChatContainerProps {
   handleEditMessage: (id: string) => void;
   isStreaming: boolean;
   isDarkMode: boolean;
-  messagesEndRef: React.RefObject<HTMLDivElement>;
 }
 
 export interface MessageInputProps {
