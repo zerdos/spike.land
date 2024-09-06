@@ -63,7 +63,7 @@ body > #embed > iframe {
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
 
-  .apex-item-select:focus, .apex-item-text:focus, .apex-item-textarea:focus {
+  input:focus, .apex-item-text:focus, .apex-item-textarea:focus {
   
           font-size: 16px;
   
