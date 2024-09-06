@@ -31,7 +31,7 @@
     "push": "yarn fmt && yarn deploy && git pull && yarn && yarn fmt && git add . && git commit -m push && git push",
     "p:test": "playwright test tests/*.spec.ts",
     "fmt": "yarn dprint fmt",
-    "fmt:code": "yarn dprint fmt packages/code/src/**/*.ts",
+    "fmt:code": "yarn dprint fmt \"packages/code/src/**/*.ts\"",
     "ai-commit": "ai-commit"
   },
   "devDependencies": {
