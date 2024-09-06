@@ -47,7 +47,6 @@ export async function handleGPT4Request(
   ctx.waitUntil((async () => {
     try {
       const stream = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
         stream: true,
         ...body,
       });
