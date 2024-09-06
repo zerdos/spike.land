@@ -77,6 +77,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
       </Button>
       <SwipeableDrawer
         anchor="right"
+
         open={isOpen}
         onClose={onClose}
         onOpen={() => {}}
@@ -87,7 +88,7 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
           paper: `w-full sm:w-[420px] max-w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`,
         }}
       >
-        <div className="flex flex-col h-full" style={{ height: visibleHeight }}>
+        <div className="flex flex-co h-full" style={{ height: visibleHeight }}>
           <ChatHeader
             isDarkMode={isDarkMode}
             toggleDarkMode={toggleDarkMode}
@@ -108,18 +109,20 @@ export const ChatDrawer: React.FC<ChatDrawerProps> = ({
               messagesEndRef={messagesEndRef}
             />
           </div>
-          <MessageInput
-            input={input}
-            setInput={setInput}
-            handleSendMessage={handleSendMessage}
-            isStreaming={isStreaming}
-            inputRef={inputRef}
-            isScreenshotLoading={isScreenshotLoading}
-            screenshotImage={screenshotImage}
-            handleScreenshotClick={handleScreenshotClick}
-            handleCancelScreenshot={handleCancelScreenshot}
-            isDarkMode={isDarkMode}
-          />
+           <div className="absolute bottom-0 left-0 right-0 bg-inherit">
+            <MessageInput
+              input={input}
+              setInput={setInput}
+              handleSendMessage={handleSendMessage}
+              isStreaming={isStreaming}
+              inputRef={inputRef}
+              isScreenshotLoading={isScreenshotLoading}
+              screenshotImage={screenshotImage}
+              handleScreenshotClick={handleScreenshotClick}
+              handleCancelScreenshot={handleCancelScreenshot}
+              isDarkMode={isDarkMode}
+            />
+          </div>
         </div>
       </SwipeableDrawer>
     </>
