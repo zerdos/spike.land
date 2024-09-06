@@ -113,3 +113,17 @@ export type MessageContent =
       data: string;
     };
   }>;
+
+export interface IHistoryItem {
+  timestamp: number;
+  code: string;
+}
+
+export interface HistoryItemProps {
+  item: IHistoryItem;
+  index: number;
+  totalItems: number;
+  onRestore: (item: IHistoryItem) => void;
+  onDelete: (timestamp: number) => void;
+  cSess: ICode;
+}

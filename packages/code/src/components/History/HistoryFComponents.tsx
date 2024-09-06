@@ -1,54 +1,42 @@
+import { cn } from "@/lib/utils";
 import { Wrapper } from "@/components/app/wrapper";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import type { ICode, HistoryItemProps, IHistoryItem } from "@/lib/interfaces";
 import { useCodeSpace } from "@src/hooks/useCodeSpace";
 import { format } from "date-fns";
 import React from "react";
 
-interface HistoryItem {
-  timestamp: number;
-  code: string;
-}
-
-interface HistoryItemProps {
-  item: HistoryItem;
-  index: number;
-  totalItems: number;
-  onRestore: (item: HistoryItem) => void;
-  onDelete: (timestamp: number) => void;
-  cSess: any; // Add cSess to the props
-}
-
 // HistoryItem component
 const HistoryItem: React.FC<HistoryItemProps> = (
-  { item, index, totalItems, onRestore, onDelete }: HistoryItemProps,
+  { item, index, totalItems, onRestore, onDelete }
 ) => (
-  <Card className="flex flex-col h-full">
+  <Card className={cn("flex flex-col h-full")}>
     <CardHeader>
       <CardTitle>Version {totalItems - index}</CardTitle>
     </CardHeader>
-    <CardContent className="flex-grow flex flex-col">
-      <p className="text-sm text-gray-500 mb-2">
+    <CardContent className={cn("flex-grow flex flex-col")}>
+      <p className={cn("text-sm text-gray-500 mb-2")}>
         {format(new Date(item.timestamp), "PPpp")}
       </p>
-      <div className="flex-grow mb-4">
+      <div className={cn("flex-grow mb-4")}>
         <Wrapper code={item.code} scale={0.3} />
       </div>
-      <div className="space-x-2">
+      <div className={cn("space-x-2")}>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline">View Source</Button>
           </DialogTrigger>
-          <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+          <DialogContent className={cn("max-w-3xl max-h-[80vh] overflow-y-auto")}>
             <DialogHeader>
               <DialogTitle>
                 Source Code - Version {totalItems - index}
               </DialogTitle>
             </DialogHeader>
-            <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
+            <pre className={cn("bg-gray-100 p-4 rounded-md overflow-x-auto")}>
               <code>{item.code}</code>
             </pre>
           </DialogContent>
@@ -76,20 +64,20 @@ const RestoreStatusAlert = ({ status }: { status: any }) => (
 
 // FullScreenHistoryView component
 const FullScreenHistoryView: React.FC<{
-  history: HistoryItem[];
-  onRestore: (item: HistoryItem) => void;
+  history: IHistoryItem[];
+  onRestore: (item: IHistoryItem) => void;
   onClose: () => void;
   onDelete: (timestamp: number) => void;
-  cSess: any; // Add cSess to the props
+  cSess: ICode; 
 }> = ({ history, onRestore, onClose, onDelete, cSess }) => (
-  <div className="fixed inset-0 bg-white z-50">
-    <ScrollArea className="h-full">
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Code History</h2>
+  <div className={cn("fixed inset-0 bg-white z-50")}>
+    <ScrollArea className={cn("h-full")}>
+      <div className={cn("container mx-auto p-4")}>
+        <div className={cn("flex justify-between items-center mb-4")}>
+          <h2 className={cn("text-2xl font-bold")}>Code History</h2>
           <Button onClick={onClose}>Close</Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6")}>
           {history.map((item, index) => (
             <HistoryItem
               key={item.timestamp}
@@ -113,7 +101,7 @@ const FullScreenHistoryView: React.FC<{
                   onRestore(item);
                 }
               }}
-              cSess={cSess} // Pass cSess to HistoryItem
+              cSess={cSess}
             />
           ))}
         </div>

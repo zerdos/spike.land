@@ -1,26 +1,22 @@
-
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { ChatMessage } from "@/components/app/chat-message";
 import { Camera, Moon, RefreshCw, Send, Sun, X } from "@/external/lucideReact";
-import { css } from "@emotion/react";
-
-
-import {  TypingIndicator } from "@src/utils/utils";
 import React, { useEffect, useRef, useState } from "react";
-import { styles } from "./styles";
+import { TypingIndicator } from "@src/utils/utils";
 
 import type { ChatContainerProps, ChatHeaderProps, ChatWindowProps, MessageInputProps } from "@/lib/interfaces";
-
 
 export const ChatHeader: React.FC<ChatHeaderProps> = (
   { isDarkMode, toggleDarkMode, handleResetChat, onClose },
 ) => (
   <div
-    className={`p-4 font-bold flex justify-between items-center ${
+    className={cn(
+      "p-4 font-bold flex justify-between items-center",
       isDarkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-800"
-    }`}
+    )}
   >
     <span>AI spike pilot</span>
     <div className="flex items-center space-x-2">
@@ -70,7 +66,6 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
     lastMessageRef.current,
   ]);
 
-  // This effect ensures scrolling when the component mounts and after each render
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
     if (isStreaming) {
@@ -86,7 +81,7 @@ export const ChatContainer: React.FC<ChatContainerProps> = React.memo(({
 
   return (
     <ScrollArea
-      className={`flex-grow ${isDarkMode ? "bg-gray-900" : "bg-white"}`}
+      className={cn("flex-grow", isDarkMode ? "bg-gray-900" : "bg-white")}
       ref={scrollAreaRef}
     >
       <div className="p-4 space-y-4">
@@ -124,16 +119,16 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 }) => {
   const handleSend = () => {
     handleSendMessage(input, screenshotImage || "");
-    setInput(""); // Clear input after sending
-    handleCancelScreenshot(); // Clear screenshot after sending
+    setInput("");
+    handleCancelScreenshot();
   };
 
   if (isStreaming) {
-    return null; // Hide input when AI is typing
+    return null;
   }
 
   return (
-    <div className={`p-2 mt-auto ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+    <div className={cn("p-2 mt-auto", isDarkMode ? "bg-gray-800" : "bg-gray-100")}>
       <div className="flex flex-col space-y-2">
         {screenshotImage && (
           <div className="relative">
@@ -159,9 +154,10 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               }
             }}
             placeholder="Type a message..."
-            className={`flex-1 min-h-[40px] max-h-[120px] resize-none ${
+            className={cn(
+              "flex-1 min-h-[40px] max-h-[120px] resize-none",
               isDarkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900"
-            }`}
+            )}
             ref={inputRef}
           />
           <div className="flex items-center space-x-2">
@@ -171,9 +167,11 @@ export const MessageInput: React.FC<MessageInputProps> = ({
               size="icon"
               title={screenshotImage ? "Remove screenshot" : "Attach screenshot"}
               disabled={isScreenshotLoading}
-              className={`transition-all duration-300 ${
-                isScreenshotLoading ? "animate-pulse" : ""
-              } bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600`}
+              className={cn(
+                "transition-all duration-300",
+                isScreenshotLoading ? "animate-pulse" : "",
+                "bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600"
+              )}
             >
               {isScreenshotLoading
                 ? <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary"></div>
@@ -200,37 +198,14 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   isDarkMode,
 }) => (
   <div
-    css={[
-      styles.chatWindow,
-      css`
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: ${isMobile ? "100%" : "min(100%, 480px)"};
-        min-width: ${isMobile ? "100%" : "480px"};
-        z-index: 1000;
-        transition: transform 0.3s ease-in-out;
-        background-color: ${isDarkMode ? "#1a202c" : "#ffffff"};
-        color: ${isDarkMode ? "#ffffff" : "#000000"};
-      `,
-    ]}
-    style={{
-      transform: isOpen ? "translateX(0)" : "translateX(100%)",
-    }}
+    className={cn(
+      "fixed top-0 right-0 bottom-0 z-[1000] transition-transform duration-300 ease-in-out",
+      isMobile ? "w-full" : "w-[min(100%,480px)] min-w-[480px]",
+      isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black",
+      isOpen ? "translate-x-0" : "translate-x-full"
+    )}
   >
-    <div
-      css={[
-        styles.chatContent,
-        css`
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-        `,
-      ]}
-    >
+    <div className="flex flex-col h-full">
       {children}
     </div>
   </div>
