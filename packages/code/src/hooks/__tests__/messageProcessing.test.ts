@@ -121,6 +121,7 @@ describe('messageProcessing', () => {
           content: expect.stringContaining('Sorry, there was an error processing your request')
         })
       ]));
+      expect(mockCSess.setCode).not.toHaveBeenCalled();
     });
   });
 
